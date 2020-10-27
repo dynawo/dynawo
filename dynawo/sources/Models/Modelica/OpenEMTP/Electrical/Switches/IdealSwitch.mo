@@ -29,8 +29,6 @@ model IdealSwitch "Ideal Switch"
     Placement(visible = true, transformation(origin = {-68, 32}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold2(threshold = Topening) annotation(
     Placement(visible = true, transformation(origin = {-33, -69}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
-  Modelica.Blocks.Logical.Not not1 annotation(
-    Placement(visible = true, transformation(origin = {-10, -54}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
 equation
   connect(idealClosingSwitch1.n, currentSensor1.p) annotation(
     Line(points = {{-42, 0}, {-22, 0}}, color = {0, 0, 255}));
@@ -53,12 +51,10 @@ equation
     Line(points = {{-2, -32}, {-12, -32}, {-12, -10}, {-12, -10}}, color = {0, 0, 127}));
   connect(and1.y, idealClosingSwitch1.control) annotation(
     Line(points = {{90, -30}, {118, -30}, {118, 22}, {-52, 22}, {-52, 8}, {-52, 8}}, color = {255, 0, 255}));
-  connect(not1.u, greaterThreshold2.y) annotation(
-    Line(points = {{-20, -54}, {-24, -54}, {-24, -68}, {-26, -68}}, color = {255, 0, 255}));
-  connect(not1.y, and1.u2) annotation(
-    Line(points = {{-1, -54}, {36, -54}, {36, -38}, {66, -38}}, color = {255, 0, 255}));
   connect(zeroCrossing1.enable, greaterThreshold2.y) annotation(
     Line(points = {{10, -44}, {10, -44}, {10, -70}, {-26, -70}, {-26, -68}}, color = {255, 0, 255}));
+  connect(rSFlipFlop1.QI, and1.u2) annotation(
+    Line(points = {{56, -80}, {62, -80}, {62, -38}, {66, -38}, {66, -38}}, color = {255, 0, 255}));
   annotation(
     Documentation(info = "<html><head></head><body><p><br></p>
 </body></html>", revisions = "<html><head></head><body><div><i><br></i></div><ul>

@@ -8,14 +8,28 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(Case1_CPmodel C)
+#Adding subdirectories to the build
 
 set(MODEL_FILES
     package.mo
-    )
+    CpHistoryTerm.mo
+    CpTiMatrix.mo
+    IdealBreaker.mo
+    IdealUnit.mo
+    IEEE13Node.mo
+    MultiphaseBreaker.mo
+    multiPhaseCP.mo
+    Norton.mo
+    PlugToPlug.mo
+    PlugToPlug_a.mo
+    PlugToPlug_ac.mo
+    PlugToPlug_bc.mo
+    PlugToPlug_c.mo
+    ThreePhaseRL.mo
 
+    )
 #
-# Modelica models install
+# Installing models (MODEL_FILE iterator through the MODEL_FILES array)
 #
 foreach( MODEL_FILE ${MODEL_FILES} )
     INSTALL_MODEL_file(${MODEL_FILE})
