@@ -43,19 +43,22 @@ using xml::sax::formatter::FormatterPtr;
 namespace parameters {
 
 void
-XmlExporter::exportToFile(const boost::shared_ptr<ParametersSetCollection>& collection, const string& filePath) const {
+XmlExporter::exportToFile(const boost::shared_ptr<ParametersSetCollection>& collection, const string& filePath, const std::string& encoding) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
     throw DYNError(DYN::Error::API, FileGenerationFailed, filePath.c_str());
   }
-  exportToStream(collection, file);
+  exportToStream(collection, file, encoding);
   file.close();
 }
 
 void
-XmlExporter::exportToStream(const boost::shared_ptr<ParametersSetCollection>& collection, std::ostream& stream) const {
+XmlExporter::exportToStream(const boost::shared_ptr<ParametersSetCollection>& collection, std::ostream& stream, const std::string& encoding) const {
   FormatterPtr formatter = Formatter::createFormatter(stream, "http://www.rte-france.com/dynawo");
+  if (!encoding.empty()) {
+    formatter->setEncoding(encoding);
+  }
 
   formatter->startDocument();
   AttributeList attrs;

@@ -35,25 +35,22 @@ class ParametersSetCollection;
 class XmlExporter : public Exporter {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~XmlExporter() {}
-
-  /**
    * @brief Export method in XML format
    *
    * @param collection Collection to export
    * @param filePath File to export XML formatted parameters to
+   * @param encoding the encoding for xml (parameter is ignored if empty)
    */
-  virtual void exportToFile(const boost::shared_ptr<ParametersSetCollection>& collection, const std::string& filePath) const;
+  virtual void exportToFile(const boost::shared_ptr<ParametersSetCollection>& collection, const std::string& filePath, const std::string& encoding = "") const;
 
   /**
    * @brief Export method in XML format
    *
    * @param collection Collection to export
    * @param stream stream to export XML formatted parameters to
+   * @param encoding the encoding for xml (parameter is ignored if empty)
    */
-  virtual void exportToStream(const boost::shared_ptr<ParametersSetCollection>& collection, std::ostream& stream) const;
+  virtual void exportToStream(const boost::shared_ptr<ParametersSetCollection>& collection, std::ostream& stream, const std::string& encoding = "") const;
 };
 
 }  // namespace parameters
