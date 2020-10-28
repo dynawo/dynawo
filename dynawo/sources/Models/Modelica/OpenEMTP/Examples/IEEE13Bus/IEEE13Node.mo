@@ -179,7 +179,7 @@ model IEEE13Node
     Placement(visible = true, transformation(origin = {-71, 174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   MultiphaseBreaker multiphaseBreaker2(Tclosing = {-1, -1, -1}, Topening = {0.16, 0.16, 0.16}) annotation (
     Placement(visible = true, transformation(origin = {44, -96}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  IdealBreaker idealBreaker1(Topening = 1, Tclosing = 0.06) annotation (
+  IdealBreaker idealBreaker1( Tclosing = 0.06,Topening = 0.33) annotation (
     Placement(visible = true, transformation(origin = {72, -138}, extent = {{15, -15}, {-15, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Ground ground11 annotation (
     Placement(visible = true, transformation(origin = {47, -214}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -189,6 +189,8 @@ model IEEE13Node
     Placement(transformation(extent = {{101, 70}, {121, 90}})));
   IEEE13Bus.multiPhaseCP L632T633(Ti = [0.502659687516342, 0.778867301097029, -0.249833119452532; 0.644850930369252, -0.176951289724402, 0.792006771920747; 0.533578236163045, -0.600564731133732, -0.550352955472635], Zmod = {764.208172889510, 306.049535031007, 375.624232491133}, h = {0.999937767140510, 0.999908521997646, 0.999925925353872}, m = 3, tau = {6.41053351781503e-07, 5.63676955383253e-07, 5.53093403094522e-07})  annotation(
     Placement(visible = true, transformation(origin = {62, 80}, extent = {{-15, -11}, {15, 11}}, rotation = 0)));
+  IEEE13Bus.MultiphaseBreaker multiphaseBreaker(Tclosing = {0.35, 0.35, 0.35}, Topening = {1, 1, 1}) annotation(
+    Placement(visible = true, transformation(origin = {44, -79}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(plugToPin_p15.plug_p, multiphaseBreaker2.negativePlug1) annotation(
     Line(points = {{23, -111}, {53, -111}, {53, -95.8}, {53.2, -95.8}}, color = {0, 0, 255}));
@@ -404,14 +406,18 @@ equation
     Line(points = {{104, 80}, {71, 80}, {71, 80}, {71, 80}}, color = {0, 0, 255}));
   connect(L632T633.sP, plugToPlug_bc1.positivePlugIn) annotation(
     Line(points = {{53, 80}, {-1, 80}, {-1, 80}, {-2, 80}}, color = {0, 0, 255}));
+  connect(multiphaseBreaker.negativePlug1, multiphaseBreaker2.negativePlug1) annotation(
+    Line(points = {{53, -79}, {59, -79}, {59, -95}, {53, -95}, {53, -96}}, color = {0, 0, 255}));
+  connect(multiphaseBreaker.positivePlug1, multiphaseBreaker2.positivePlug1) annotation(
+    Line(points = {{34, -79}, {24, -79}, {24, -96}, {34, -96}, {34, -96}}, color = {0, 0, 255}));
   annotation (
     Diagram(coordinateSystem(initialScale = 0, grid = {1, 1}, extent = {{-240, -220}, {260, 200}})),
     Icon(coordinateSystem(initialScale = 0, grid = {1, 1}, extent = {{-240, -220}, {260, 200}})),
     version = "",
     uses(Modelica(version = "3.2.2")),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian",
-    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida", cpu = "()"),
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "ida", cpu = "()", initialStepSize = "2e-07", maxIntegrationOrder = "2", maxStepSize = "2e-07"),
     experiment(
-      StopTime=0.2, Interval = 2e-07,
+      StopTime= 0.4, Interval = 2e-07,
       Tolerance= 1e-04, StartTime = 0));
 end IEEE13Node;

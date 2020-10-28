@@ -26,7 +26,8 @@ set(MODEL_FILES
     PlugToPlug_bc.mo
     PlugToPlug_c.mo
     ThreePhaseRL.mo
-
+    UnsatSTC_XFMR.mo
+    YgYg.mo
     )
 #
 # Installing models (MODEL_FILE iterator through the MODEL_FILES array)
