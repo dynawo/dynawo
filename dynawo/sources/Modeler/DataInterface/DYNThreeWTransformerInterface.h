@@ -132,6 +132,24 @@ class ThreeWTransformerInterface : public ComponentInterface {
   virtual std::string getID() const = 0;
 
   /**
+   * @brief Getter for the initial connection state of the tfo's side 1
+   * @return @b true if the tfo's side 1 is connected, @b false else
+   */
+  virtual bool getInitialConnected1() = 0;
+
+  /**
+   * @brief Getter for the initial connection state of the tfo's side 2
+   * @return @b true if the tfo's side 2 is connected, @b false else
+   */
+  virtual bool getInitialConnected2() = 0;
+
+  /**
+   * @brief Getter for the initial connection state of the tfo's side 3
+   * @return @b true if the tfo's side 3 is connected, @b false else
+   */
+  virtual bool getInitialConnected3() = 0;
+
+  /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
   virtual void exportStateVariablesUnitComponent() = 0;
