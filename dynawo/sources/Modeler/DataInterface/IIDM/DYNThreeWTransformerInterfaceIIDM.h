@@ -127,6 +127,21 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   std::string getID() const;
 
   /**
+   * @copydoc TwoWTransformerInterface::getInitialConnected1()
+   */
+  bool getInitialConnected1();
+
+  /**
+   * @copydoc TwoWTransformerInterface::getInitialConnected2()
+   */
+  bool getInitialConnected2();
+
+  /**
+   * @copydoc TwoWTransformerInterface::getInitialConnected3()
+   */
+  bool getInitialConnected3();
+
+  /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();
@@ -152,6 +167,9 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces1_;  ///< current limit interfaces for side 1
   std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces2_;  ///< current limit interfaces for side 2
   std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces3_;  ///< current limit interfaces for side 3
+  boost::optional<bool> initialConnected1_;  ///< whether the tfo is initially connected at side 1
+  boost::optional<bool> initialConnected2_;  ///< whether the tfo is initially connected at side 2
+  boost::optional<bool> initialConnected3_;  ///< whether the tfo is initially connected at side 3
 };
 }  // namespace DYN
 

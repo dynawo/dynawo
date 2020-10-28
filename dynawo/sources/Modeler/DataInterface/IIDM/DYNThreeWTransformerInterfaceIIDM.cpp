@@ -22,6 +22,7 @@
 #include "DYNThreeWTransformerInterfaceIIDM.h"
 #include "DYNBusInterface.h"
 #include "DYNStateVariable.h"
+#include "DYNVoltageLevelInterface.h"
 
 using boost::shared_ptr;
 using std::string;
@@ -85,6 +86,51 @@ ThreeWTransformerInterfaceIIDM::getBusInterface3() const {
 string
 ThreeWTransformerInterfaceIIDM::getID() const {
   return tfoIIDM_.id();
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::getInitialConnected1() {
+  if (initialConnected1_ == boost::none) {
+    initialConnected1_ = false;
+    if (tfoIIDM_.has_connection(IIDM::side_1)) {
+      if (tfoIIDM_.connection(IIDM::side_1)->is_bus()) {
+        initialConnected1_ = tfoIIDM_.isConnected(IIDM::side_1);
+      } else {
+        initialConnected1_ = voltageLevelInterface1_->isNodeConnected(tfoIIDM_.connection(IIDM::side_1)->node());
+      }
+    }
+  }
+  return initialConnected1_.value();
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::getInitialConnected2() {
+  if (initialConnected2_ == boost::none) {
+    initialConnected2_ = false;
+    if (tfoIIDM_.has_connection(IIDM::side_2)) {
+      if (tfoIIDM_.connection(IIDM::side_2)->is_bus()) {
+        initialConnected2_ = tfoIIDM_.isConnected(IIDM::side_2);
+      } else {
+        initialConnected2_ = voltageLevelInterface2_->isNodeConnected(tfoIIDM_.connection(IIDM::side_2)->node());
+      }
+    }
+  }
+  return initialConnected2_.value();
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::getInitialConnected3() {
+  if (initialConnected3_ == boost::none) {
+    initialConnected3_ = false;
+    if (tfoIIDM_.has_connection(IIDM::side_3)) {
+      if (tfoIIDM_.connection(IIDM::side_3)->is_bus()) {
+        initialConnected3_ = tfoIIDM_.isConnected(IIDM::side_3);
+      } else {
+        initialConnected3_ = voltageLevelInterface3_->isNodeConnected(tfoIIDM_.connection(IIDM::side_3)->node());
+      }
+    }
+  }
+  return initialConnected3_.value();
 }
 
 void
