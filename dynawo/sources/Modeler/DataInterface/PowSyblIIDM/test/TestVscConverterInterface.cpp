@@ -144,8 +144,6 @@ TEST(DataInterfaceTest, VscConverter) {
 
   ASSERT_EQ(Ifce.getVscIIDM().getHvdcLine().get().getId(), "HVDC1");
   Ifce.importStaticParameters();
-  //  Ifce.getVscIIDM().getHvdcLine().get().setNominalVoltage(0.0);    //DG  --> No way to set nominal voltage to 0;
-  //  Ifce.importStaticParameters();    // DG : this case cannot be tested ==> comment the lines in DYNVsc
 
   ASSERT_EQ(std::addressof(Ifce.getVscIIDM()), std::addressof(vsc));
   ASSERT_EQ(typeid(Ifce.getVscIIDM()), typeid(vsc));
@@ -153,5 +151,5 @@ TEST(DataInterfaceTest, VscConverter) {
   //  // DG FAIRE le test sera réalisé en tout-dernier (faire celui de l'injecteur avant)
   //  ASSERT_EQ(Ifce.getVoltageLevelInterface().get(), nullptr);
   //  getVNom() ; setVoltageLevelInterface ;
-}  // TEST(DataInterfaceTest, CsvConverter)
+}   // TEST(DataInterfaceTest, CsvConverter)
 };  // namespace DYN
