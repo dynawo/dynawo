@@ -133,7 +133,9 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
   int
-  getComponentVarIndex(const std::string& varName) const { return -1; }
+  getComponentVarIndex(const std::string& varName) const {
+    return -1;
+  }
 
   /**
    * @brief Getter for the reference to the iidm vsc converter istance

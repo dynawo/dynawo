@@ -49,10 +49,7 @@ VscConverterInterfaceIIDM::importStaticParameters() {
   if (getBusInterface()) {
     double U0 = getBusInterface()->getV0();
     double vNom;
-    // DG-    if (vscConverterIIDM_.getHvdcLine().get().getNominalVoltage() > 0)    // DG-: Nominal Voltage cannot be <=0 in powsybl-2
     vNom = vscConverterIIDM_.getHvdcLine().get().getNominalVoltage();
-    // DG-    else
-    // DG-      throw DYNError(Error::MODELER, UndefinedNominalV, vscConverterIIDM_.getHvdcLine().get().getId());
     double teta = getBusInterface()->getAngle0();
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(U0 / vNom)));
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180)));
@@ -129,21 +126,11 @@ VscConverterInterfaceIIDM::getVoltageRegulatorOn() const {
 
 double
 VscConverterInterfaceIIDM::getReactivePowerSetpoint() const {
-  /*  if (std::isnan(vscConverterIIDM_.getReactivePowerSetpoint())) {
-    Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "vscConverter", vscConverterIIDM_.getId(), "ReactivePowerSetPoint") << Trace::endline;
-    return 0.0;
-  }         // No way to build such an invalid object in new powsyb: commented since it cannot be tested DG+
-*/
   return vscConverterIIDM_.getReactivePowerSetpoint();
 }
 
 double
 VscConverterInterfaceIIDM::getVoltageSetpoint() const {
-  /*  if (std::isnan(vscConverterIIDM_.getVoltageSetpoint())) {
-    Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "vscConverter", vscConverterIIDM_.getId(), "VoltageSetPoint") << Trace::endline;
-    return 0.0;
-  }         // No way to build such an invalid object in new powsyb: commented since it cannot be tested DG+
-*/
   return vscConverterIIDM_.getVoltageSetpoint();
 }
 
