@@ -20,6 +20,7 @@ set(DATA_INTERFACE_IIDM_SOURCES
   DYNCurrentLimitInterfaceIIDM.cpp
   DYNLineInterfaceIIDM.cpp
   DYNLoadInterfaceIIDM.cpp
+  DYNPhaseTapChangerInterfaceIIDM.cpp
   DYNRatioTapChangerInterfaceIIDM.cpp
   DYNStepInterfaceIIDM.cpp
   DYNSwitchInterfaceIIDM.cpp
@@ -31,7 +32,6 @@ set(DATA_INTERFACE_IIDM_SOURCES
 # DYNGeneratorInterfaceIIDM.cpp
 # DYNDanglingLineInterfaceIIDM.cpp
 # DYNNetworkInterfaceIIDM.cpp
-# DYNPhaseTapChangerInterfaceIIDM.cpp
 # DYNDataInterfaceIIDM.cpp
 # DYNVoltageLevelInterfaceIIDM.cpp
 # DYNLccConverterInterfaceIIDM.cpp
