@@ -22,23 +22,23 @@ set DYNAWO_SCRIPTS_DIR=%DYNAWO_INSTALL_DIR%sbin
 set DYNAWO_USE_XSD_VALIDATION=true
 set DYNAWO_XSD_DIR=%DYNAWO_RESOURCES_DIR%xsd\
 
-set thirdPartyInstallPath=@DYNAWO_THIRD_PARTY_DIR@
-set LIBIIDM_HOME=%thirdPartyInstallPath%\libiidm
+set thirdPartyInstallPath=%DYNAWO_INSTALL_DIR%
+set LIBIIDM_HOME=%thirdPartyInstallPath%
 set IIDM_XML_XSD_PATH=%LIBIIDM_HOME%\share\iidm\xsd\
 
 :: For DLL runtime
-set DLFCNWIN32_ROOT=%thirdPartyInstallPath%\dlfcnwin32
-set LIBXML_HOME=%thirdPartyInstallPath%\libxml
-set BOOST_PATH=%thirdPartyInstallPath%\boost
-set LIBARCHIVE_HOME=%thirdPartyInstallPath%\libarchive
-set ZLIB_ROOT=%thirdPartyInstallPath%\zlib
-set LIBZIP_HOME=%thirdPartyInstallPath%\libzip
-set ADEPT_HOME=%thirdPartyInstallPath%\adept
-set SUITESPARSE_HOME=%thirdPartyInstallPath%\suitesparse
-set SUNDIALS_HOME=%thirdPartyInstallPath%\sundials
-set XERCESC_HOME=%thirdPartyInstallPath%\xerces-c
+set DLFCNWIN32_ROOT=%thirdPartyInstallPath%
+set LIBXML_HOME=%thirdPartyInstallPath%
+set BOOST_PATH=%thirdPartyInstallPath%
+set LIBARCHIVE_HOME=%thirdPartyInstallPath%
+set ZLIB_ROOT=%thirdPartyInstallPath%
+set LIBZIP_HOME=%thirdPartyInstallPath%
+set ADEPT_HOME=%thirdPartyInstallPath%
+set SUITESPARSE_HOME=%thirdPartyInstallPath%
+set SUNDIALS_HOME=%thirdPartyInstallPath%
+set XERCESC_HOME=%thirdPartyInstallPath%
 
-set OPENMODELICA_HOME=@INSTALL_OPENMODELICA@
+set OPENMODELICA_HOME=%DYNAWO_INSTALL_DIR%OpenModelica
 
 if not defined DYNAWO_PYTHON_COMMAND (
   set DYNAWO_PYTHON_COMMAND=python
@@ -74,13 +74,13 @@ PATH=%DLFCNWIN32_ROOT%\bin;%LIBXML_HOME%\bin;%PATH%
 PATH=%BOOST_PATH%\lib;%LIBARCHIVE_HOME%\bin;%ZLIB_ROOT%\bin;%LIBIIDM_HOME%\bin;%LIBZIP_HOME%\bin;%ADEPT_HOME%\bin;%SUITESPARSE_HOME%\bin;%SUNDIALS_HOME%\lib;%XERCESC_HOME%\bin;%PATH%
 
 :: To compile Modelica models
-set DYNAWO_ADEPT_INSTALL_DIR=%thirdPartyInstallPath%\adept
+set DYNAWO_ADEPT_INSTALL_DIR=%thirdPartyInstallPath%
 set DYNAWO_INSTALL_OPENMODELICA=%OPENMODELICA_HOME%
-set DYNAWO_XERCESC_INSTALL_DIR=%thirdPartyInstallPath%\xerces-c
-set DYNAWO_SUITESPARSE_INSTALL_DIR=%thirdPartyInstallPath%\suitesparse
-set DYNAWO_SUNDIALS_INSTALL_DIR=%thirdPartyInstallPath%\sundials
-set DYNAWO_BOOST_HOME=%thirdPartyInstallPath%\boost
-set DYNAWO_LIBXML_HOME=%thirdPartyInstallPath%\libxml
+set DYNAWO_XERCESC_INSTALL_DIR=%thirdPartyInstallPath%
+set DYNAWO_SUITESPARSE_INSTALL_DIR=%thirdPartyInstallPath%
+set DYNAWO_SUNDIALS_INSTALL_DIR=%thirdPartyInstallPath%
+set DYNAWO_LIBXML_HOME=%thirdPartyInstallPath%
+set DYNAWO_BOOST_HOME=%thirdPartyInstallPath%
 
 for %%i in ("%2.") do set "pathCurves=%%~pi"
 set tmpVar=%pathCurves%\outputs\curves\curvesOutput\curves.html

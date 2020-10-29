@@ -138,69 +138,10 @@ xcopy %OPENMODELICA_HOME%\share %deploy_dir%\OpenModelica\share /E /i
 xcopy %OPENMODELICA_HOME%\tools %deploy_dir%\OpenModelica\tools /E /i
 forfiles /p %deploy_dir%\OpenModelica /m *.la /s /c "cmd /c del @path /s /f /q"
 
-:: Create dynawo.cmd
-echo @echo off> %deploy_dir%\dynawo.cmd
-echo.>> %deploy_dir%\dynawo.cmd
-echo :: Copyright (c) 2015-2019, RTE (http://www.rte-france.com)>> %deploy_dir%\dynawo.cmd
-echo :: See AUTHORS.txt>> %deploy_dir%\dynawo.cmd
-echo :: All rights reserved.>> %deploy_dir%\dynawo.cmd
-echo :: This Source Code Form is subject to the terms of the Mozilla Public>> %deploy_dir%\dynawo.cmd
-echo :: License, v. 2.0. If a copy of the MPL was not distributed with this>> %deploy_dir%\dynawo.cmd
-echo :: file, you can obtain one at http://mozilla.org/MPL/2.0/.>> %deploy_dir%\dynawo.cmd
-echo :: SPDX-License-Identifier: MPL-2.0>> %deploy_dir%\dynawo.cmd
-echo ::>> %deploy_dir%\dynawo.cmd
-echo :: This file is part of Dynawo, an hybrid C++/Modelica open source time domain>> %deploy_dir%\dynawo.cmd
-echo :: simulation tool for power systems.>> %deploy_dir%\dynawo.cmd
-echo.>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_INSTALL_DIR=%%~DP0>> %deploy_dir%\dynawo.cmd
-echo.>> %deploy_dir%\dynawo.cmd
-echo :: Dynawo environment variables for runtime>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_DDB_DIR=%%DYNAWO_INSTALL_DIR%%ddb>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_DICTIONARIES=dictionaries_mapping>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_LOCALE=en_GB>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_RESOURCES_DIR=%%DYNAWO_INSTALL_DIR%%share\>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_SCRIPTS_DIR=%%DYNAWO_INSTALL_DIR%%sbin>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_USE_XSD_VALIDATION=true>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_XSD_DIR=%%DYNAWO_RESOURCES_DIR%%xsd\>> %deploy_dir%\dynawo.cmd
-echo.>> %deploy_dir%\dynawo.cmd
-echo set thirdPartyInstallPath=%%DYNAWO_INSTALL_DIR%%>> %deploy_dir%\dynawo.cmd
-echo set LIBIIDM_HOME=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set IIDM_XML_XSD_PATH=%%LIBIIDM_HOME%%\share\iidm\xsd\>> %deploy_dir%\dynawo.cmd
-echo.>> %deploy_dir%\dynawo.cmd
-echo :: For DLL runtime>> %deploy_dir%\dynawo.cmd
-echo set DLFCNWIN32_ROOT=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set LIBXML_HOME=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set BOOST_PATH=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set LIBARCHIVE_HOME=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set ZLIB_ROOT=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set LIBZIP_HOME=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set ADEPT_HOME=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set SUITESPARSE_HOME=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set SUNDIALS_HOME=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set XERCESC_HOME=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo.>> %deploy_dir%\dynawo.cmd
-echo set OPENMODELICA_HOME=%%DYNAWO_INSTALL_DIR%%OpenModelica>> %deploy_dir%\dynawo.cmd
-echo.>> %deploy_dir%\dynawo.cmd
-echo set oldpath=%%path%%>> %deploy_dir%\dynawo.cmd
-echo.>> %deploy_dir%\dynawo.cmd
-echo PATH=%%OPENMODELICA_HOME%%\bin;%%DYNAWO_INSTALL_DIR%%ddb;%%DYNAWO_INSTALL_DIR%%lib;%%PATH%%>> %deploy_dir%\dynawo.cmd
-echo PATH=%%DLFCNWIN32_ROOT%%\bin;%%LIBXML_HOME%%\bin;%%PATH%%>> %deploy_dir%\dynawo.cmd
-echo PATH=%%BOOST_PATH%%\lib;%%LIBARCHIVE_HOME%%\bin;%%ZLIB_ROOT%%\bin;%%LIBIIDM_HOME%%\bin;%%LIBZIP_HOME%%\bin;%%ADEPT_HOME%%\bin;%%SUITESPARSE_HOME%%\bin;%%SUNDIALS_HOME%%\lib;%%XERCESC_HOME%%\bin;%%PATH%%>> %deploy_dir%\dynawo.cmd
-echo.>> %deploy_dir%\dynawo.cmd
-echo :: To compile Modelica models>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_ADEPT_INSTALL_DIR=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_INSTALL_OPENMODELICA=%%OPENMODELICA_HOME%%>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_XERCESC_INSTALL_DIR=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_SUITESPARSE_INSTALL_DIR=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_SUNDIALS_INSTALL_DIR=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_LIBXML_HOME=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo set DYNAWO_BOOST_HOME=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
-echo.>> %deploy_dir%\dynawo.cmd
-echo "%%DYNAWO_INSTALL_DIR%%"bin\dynawo %%*>> %deploy_dir%\dynawo.cmd
-echo.>> %deploy_dir%\dynawo.cmd
-echo PATH=%%oldpath%%>> %deploy_dir%\dynawo.cmd
+:: Copy dynawo.cmd
+xcopy %dynawo_source_dir_abs%\util\windows\dynawo.cmd %deploy_dir% /i
 
 :: Create zip
-for /f %%i in ('%deploy_dir_abs%\dynawo.cmd + "--version"') do set dynawo_version=%%i
+for /f %%i in ('%deploy_dir_abs%\dynawo.cmd + version') do set dynawo_version=%%i
 if exist %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip del %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip /s /f /q
 7z a %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip -r %deploy_dir_abs%\*

@@ -34,7 +34,7 @@ usage="Usage: `basename $0` [option] -- program to deal with Dynawo
 
 where [option] can be:
     jobs ([args])              call Dynawo's launcher with given arguments
-    jobs-with-curves ([args])  call Dynawo simulation and print curves
+    jobs-with-curves ([args])  launch Dynawo simulation and open resulting curves in a browser
     jobs-help                  show jobs help
     version                    show dynawo version
     help                       show this message"
