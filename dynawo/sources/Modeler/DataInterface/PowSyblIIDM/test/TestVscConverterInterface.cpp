@@ -69,7 +69,6 @@ createHvdcConverterStationNetwork() {
       .setConnectableBus(vl1Bus1.getId())
       .setLossFactor(3.0)
       .setVoltageRegulatorOn(false)
-      //        .setVoltageSetpoint(std::nan("nothing"))        // will generate a powsybl exception at run time, and thus cannot be DG+
       .setVoltageSetpoint(-4.0)
       .setReactivePowerSetpoint(-5.0)
       .add();
