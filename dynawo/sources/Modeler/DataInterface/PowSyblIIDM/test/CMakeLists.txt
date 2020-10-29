@@ -16,6 +16,7 @@ set(MODULE_SOURCES
 #  TestCalculatedBusInterface.cpp
   TestCurrentLimitInterface.cpp
   TestInjectorInterface.cpp
+  TestLccConverterInterface.cpp
   TestLineInterface.cpp
   TestLoadInterface.cpp
   TestPhaseTapChangerInterface.cpp
