@@ -29,15 +29,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 PhaseTapChangerInterfaceIIDM::PhaseTapChangerInterfaceIIDM(powsybl::iidm::PhaseTapChanger& tapChanger) : tapChangerIIDM_(tapChanger) {
-  auto oldTapPosition = tapChanger.getTapPosition();
-  for (long i = tapChanger.getLowTapPosition(); i <= tapChanger.getHighTapPosition(); i++) {
-    tapChanger.setTapPosition(i);
-    const auto& x = tapChanger.getStep(i);
-    powsybl::iidm::PhaseTapChangerStep S(x.getAlpha(), x.getRho(), x.getR(), x.getX(), x.getG(), x.getB());
-    addStep(boost::shared_ptr<StepInterface>(new StepInterfaceIIDM(S)));
-  }
-  tapChanger.setTapPosition(oldTapPosition);
-}  // ctor
+}
 
 PhaseTapChangerInterfaceIIDM::~PhaseTapChangerInterfaceIIDM() {
 }
