@@ -128,10 +128,6 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
    */
   double getCurrentRho() const;
 
-  /**
-   * @copydoc RatioTapChangerInterface::getCurrentRho() const
-   */
-
  private:
   bool isa2WindingTransformer_;                           ///< RTC belongs to a 2WT         --wip--
   bool isa3WindingTransformer_;                           ///< RTC belongs to a 3WT         --wip--

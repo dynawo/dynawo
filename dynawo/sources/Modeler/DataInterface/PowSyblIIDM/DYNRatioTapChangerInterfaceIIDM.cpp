@@ -20,21 +20,20 @@
 
 #include "DYNRatioTapChangerInterfaceIIDM.h"
 
-// #include "DYNErrorQueue.h"
-// #include "DYNMacrosMessage.h"
+// #include "DYNErrorQueue.h"     // --DG--
+// #include "DYNMacrosMessage.h"    // --DG--
 #include "DYNStepInterfaceIIDM.h"
 
 using boost::shared_ptr;
 
 namespace DYN {
 
-RatioTapChangerInterfaceIIDM::~RatioTapChangerInterfaceIIDM() {
-}
+RatioTapChangerInterfaceIIDM::~RatioTapChangerInterfaceIIDM() {}
 
-RatioTapChangerInterfaceIIDM::RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioTapChanger& tapChanger, const std::string& parentName) :
-  isa2WindingTransformer_(false),  // --DG--
-  isa3WindingTransformer_(false),  // --DG--
-  tapChangerIIDM_(tapChanger) {
+RatioTapChangerInterfaceIIDM::RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioTapChanger& tapChanger, const std::string& parentName)
+    : isa2WindingTransformer_(false),  // --DG--
+      isa3WindingTransformer_(false),  // --DG--
+      tapChangerIIDM_(tapChanger) {
   //  const powsybl::iidm::TapChangerHolder rtc = tapChanger;
   //  std::cerr << "      (debug) parentName >" << parentName << "<\n";
   //  std::cerr << "      (debug) 2WT >" <<
