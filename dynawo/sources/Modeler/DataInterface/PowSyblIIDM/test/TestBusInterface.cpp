@@ -72,6 +72,9 @@ TEST(DataInterfaceTest, testBusInterface) {
   ASSERT_EQ(bus.getComponentVarIndex("foo"), -1);
   ASSERT_EQ(bus.getBusIndex(), 0);
   ASSERT_TRUE(bus.getBusBarSectionNames().empty());
+  ASSERT_EQ(bus.getCountry(), "");
+  bus.setCountry("AF");
+  ASSERT_EQ(bus.getCountry(), "AF");
 }
 
 TEST(DataInterfaceTest, testBusInterfaceCornerCases) {
