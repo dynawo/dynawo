@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,34 +13,45 @@
 
 //======================================================================
 /**
- * @file  DYNVscConverterInterfaceIIDM.cpp
+ * @file  DYNLccConverterInterfaceIIDM.cpp
  *
- * @brief Vsc Converter data interface : implementation file for IIDM interface
+ * @brief Lcc Converter data interface : implementation file for IIDM interface
  *
  */
 //======================================================================
 
-#include "DYNVscConverterInterfaceIIDM.h"
-
-#include "DYNInjectorInterfaceIIDM.h"
+#include "DYNLccConverterInterfaceIIDM.h"
 
 #include <powsybl/iidm/HvdcLine.hpp>
-#include <powsybl/iidm/VscConverterStation.hpp>
+#include <powsybl/iidm/LccConverterStation.hpp>
 
 #include <boost/shared_ptr.hpp>
+
 #include <string>
 
 using boost::shared_ptr;
 
 namespace DYN {
 
-VscConverterInterfaceIIDM::VscConverterInterfaceIIDM(powsybl::iidm::VscConverterStation& vsc) : InjectorInterfaceIIDM(vsc, vsc.getId()),
-                                                                                                vscConverterIIDM_(vsc) {
-  setType(ComponentInterface::VSC_CONVERTER);
+LccConverterInterfaceIIDM::~LccConverterInterfaceIIDM() {
+}
+
+LccConverterInterfaceIIDM::LccConverterInterfaceIIDM(powsybl::iidm::LccConverterStation& lcc) : InjectorInterfaceIIDM(lcc, lcc.getId()),
+                                                                                                lccConverterIIDM_(lcc) {
+  setType(ComponentInterface::LCC_CONVERTER);
+}
+
+int
+LccConverterInterfaceIIDM::getComponentVarIndex(const std::string& /*varName*/) const {
+  return -1;
 }
 
 void
-VscConverterInterfaceIIDM::importStaticParameters() {
+LccConverterInterfaceIIDM::exportStateVariablesUnitComponent() {
+}
+
+void
+LccConverterInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
   staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(-1 * getP() / SNREF)));
   staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(-1 * getQ() / SNREF)));
@@ -48,14 +59,12 @@ VscConverterInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(-1 * getQ())));
   if (getBusInterface()) {
     double U0 = getBusInterface()->getV0();
-    double vNom;
-    vNom = vscConverterIIDM_.getHvdcLine().get().getNominalVoltage();
+    double vNom = lccConverterIIDM_.getHvdcLine().get().getNominalVoltage();
     double teta = getBusInterface()->getAngle0();
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(U0 / vNom)));
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180)));
     staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(U0)));
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta)));
-
   } else {
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.)));
@@ -65,78 +74,68 @@ VscConverterInterfaceIIDM::importStaticParameters() {
 }
 
 void
-VscConverterInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
+LccConverterInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
   InjectorInterfaceIIDM::setBusInterface(busInterface);
 }
 
 void
-VscConverterInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+LccConverterInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
   InjectorInterfaceIIDM::setVoltageLevelInterface(voltageLevelInterface);
 }
 
 shared_ptr<BusInterface>
-VscConverterInterfaceIIDM::getBusInterface() const {
+LccConverterInterfaceIIDM::getBusInterface() const {
   return InjectorInterfaceIIDM::getBusInterface();
 }
 
 bool
-VscConverterInterfaceIIDM::getInitialConnected() {
+LccConverterInterfaceIIDM::getInitialConnected() {
   return InjectorInterfaceIIDM::getInitialConnected();
 }
 
 double
-VscConverterInterfaceIIDM::getVNom() const {
+LccConverterInterfaceIIDM::getVNom() const {
   return InjectorInterfaceIIDM::getVNom();
 }
 
 bool
-VscConverterInterfaceIIDM::hasP() {
+LccConverterInterfaceIIDM::hasP() {
   return InjectorInterfaceIIDM::hasP();
 }
 
 bool
-VscConverterInterfaceIIDM::hasQ() {
+LccConverterInterfaceIIDM::hasQ() {
   return InjectorInterfaceIIDM::hasQ();
 }
 
 double
-VscConverterInterfaceIIDM::getP() {
+LccConverterInterfaceIIDM::getP() {
   return InjectorInterfaceIIDM::getP();
 }
 
 double
-VscConverterInterfaceIIDM::getQ() {
+LccConverterInterfaceIIDM::getQ() {
   return InjectorInterfaceIIDM::getQ();
 }
 
 std::string
-VscConverterInterfaceIIDM::getID() const {
-  return vscConverterIIDM_.getId();
+LccConverterInterfaceIIDM::getID() const {
+  return lccConverterIIDM_.getId();
 }
 
 double
-VscConverterInterfaceIIDM::getLossFactor() const {
-  return vscConverterIIDM_.getLossFactor();
-}
-
-bool
-VscConverterInterfaceIIDM::getVoltageRegulatorOn() const {
-  return vscConverterIIDM_.isVoltageRegulatorOn();
+LccConverterInterfaceIIDM::getLossFactor() const {
+  return lccConverterIIDM_.getLossFactor();
 }
 
 double
-VscConverterInterfaceIIDM::getReactivePowerSetpoint() const {
-  return vscConverterIIDM_.getReactivePowerSetpoint();
+LccConverterInterfaceIIDM::getPowerFactor() const {
+  return lccConverterIIDM_.getPowerFactor();
 }
 
-double
-VscConverterInterfaceIIDM::getVoltageSetpoint() const {
-  return vscConverterIIDM_.getVoltageSetpoint();
-}
-
-powsybl::iidm::VscConverterStation&
-VscConverterInterfaceIIDM::getVscIIDM() {
-  return vscConverterIIDM_;
+powsybl::iidm::LccConverterStation&
+LccConverterInterfaceIIDM::getLccIIDM() {
+  return lccConverterIIDM_;
 }
 
 }  // namespace DYN

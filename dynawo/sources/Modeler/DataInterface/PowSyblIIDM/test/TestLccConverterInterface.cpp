@@ -11,17 +11,17 @@
 // simulation tool for power systems.
 //
 
-#include "DYNVscConverterInterfaceIIDM.h"
+#include "DYNLccConverterInterfaceIIDM.h"
 
 #include "DYNBusInterfaceIIDM.h"
 
 #include <powsybl/iidm/HvdcLine.hpp>
 #include <powsybl/iidm/HvdcLineAdder.hpp>
+#include <powsybl/iidm/LccConverterStation.hpp>
+#include <powsybl/iidm/LccConverterStationAdder.hpp>
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/Terminal.hpp>
-#include <powsybl/iidm/VscConverterStation.hpp>
-#include <powsybl/iidm/VscConverterStationAdder.hpp>
 
 #include "gtest_dynawo.h"
 
@@ -31,7 +31,7 @@ namespace powsybl {
 namespace iidm {
 
 Network
-createHvdcConverterStationNetwork() {
+createHvdcLccConverterStationNetwork() {
   Network network("test", "test");
   Substation& substation = network.newSubstation()
                                .setId("S1")
@@ -51,26 +51,22 @@ createHvdcConverterStationNetwork() {
 
   Bus& vl1Bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
 
-  vl1.newVscConverterStation()
-      .setId("VSC1")
+  vl1.newLccConverterStation()
+      .setId("LCC1")
       .setName("VSC1_NAME")
       .setBus(vl1Bus1.getId())
       .setConnectableBus(vl1Bus1.getId())
-      .setLossFactor(3.0)
-      .setVoltageRegulatorOn(true)
-      .setVoltageSetpoint(4.0)
-      .setReactivePowerSetpoint(5.0)
+      .setLossFactor(2.0)
+      .setPowerFactor(-.2)
       .add();
 
-  vl1.newVscConverterStation()
-      .setId("VSC2")
+  vl1.newLccConverterStation()
+      .setId("LCC2")
       .setName("VSC2_NAME")
       .setBus(vl1Bus1.getId())
       .setConnectableBus(vl1Bus1.getId())
       .setLossFactor(3.0)
-      .setVoltageRegulatorOn(false)
-      .setVoltageSetpoint(-4.0)
-      .setReactivePowerSetpoint(-5.0)
+      .setPowerFactor(-.3)
       .add();
 
   network.newHvdcLine()
@@ -78,8 +74,8 @@ createHvdcConverterStationNetwork() {
       .setName("HVDC1_NAME")
       .setActivePowerSetpoint(111.1)
       .setConvertersMode(HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
-      .setConverterStationId1("VSC1")
-      .setConverterStationId2("VSC2")
+      .setConverterStationId1("LCC1")
+      .setConverterStationId2("LCC2")
       .setMaxP(12.0)
       .setNominalVoltage(13.0)
       .setR(14.0)
@@ -92,17 +88,19 @@ createHvdcConverterStationNetwork() {
 
 namespace DYN {
 
-using powsybl::iidm::createHvdcConverterStationNetwork;
+using powsybl::iidm::createHvdcLccConverterStationNetwork;
 
-TEST(DataInterfaceTest, VscConverter) {
-  powsybl::iidm::Network network = createHvdcConverterStationNetwork();
+TEST(DataInterfaceTest, LccConverter) {
+  powsybl::iidm::Network network = createHvdcLccConverterStationNetwork();
   powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
-  powsybl::iidm::VscConverterStation& vsc = network.getVscConverterStation("VSC1");
+  powsybl::iidm::LccConverterStation& lcc = network.getLccConverterStation("LCC1");
 
-  DYN::VscConverterInterfaceIIDM Ifce(vsc);
-  ASSERT_EQ(Ifce.getID(), "VSC1");
+  DYN::LccConverterInterfaceIIDM Ifce(lcc);
+  ASSERT_EQ(Ifce.getID(), "LCC1");
   ASSERT_EQ(Ifce.getComponentVarIndex("nothing"), -1);
-  ASSERT_DOUBLE_EQ(Ifce.getLossFactor(), 3.0);
+  ASSERT_DOUBLE_EQ(Ifce.getLossFactor(), 2.0);
+  ASSERT_DOUBLE_EQ(Ifce.getPowerFactor(), -0.2L);
+
   ASSERT_TRUE(Ifce.getInitialConnected());
   Ifce.exportStateVariablesUnitComponent();
   Ifce.importStaticParameters();
@@ -123,32 +121,23 @@ TEST(DataInterfaceTest, VscConverter) {
   ASSERT_FALSE(Ifce.hasQ());
 
   ASSERT_DOUBLE_EQ(Ifce.getP(), 0.0);
-  vsc.getTerminal().setP(1000.0);
+  lcc.getTerminal().setP(1000.0);
   ASSERT_TRUE(Ifce.hasP());
   ASSERT_DOUBLE_EQ(Ifce.getP(), 1000.0);
 
   ASSERT_DOUBLE_EQ(Ifce.getQ(), 0.0);
-  vsc.getTerminal().setQ(499.0);
+  lcc.getTerminal().setQ(499.0);
   ASSERT_TRUE(Ifce.hasQ());
   ASSERT_DOUBLE_EQ(Ifce.getQ(), 499.0);
 
-  ASSERT_TRUE(Ifce.getVoltageRegulatorOn());
-  ASSERT_DOUBLE_EQ(Ifce.getVoltageSetpoint(), 4.0);
-  ASSERT_DOUBLE_EQ(Ifce.getReactivePowerSetpoint(), 5.0);
-  powsybl::iidm::VscConverterStation& vsc2 = network.getVscConverterStation("VSC2");
-  DYN::VscConverterInterfaceIIDM Ifce2(vsc2);
-  ASSERT_FALSE(Ifce2.getVoltageRegulatorOn());
-  ASSERT_DOUBLE_EQ(Ifce2.getVoltageSetpoint(), -4.0);
-  ASSERT_DOUBLE_EQ(Ifce2.getReactivePowerSetpoint(), -5.0);
-
-  ASSERT_EQ(Ifce.getVscIIDM().getHvdcLine().get().getId(), "HVDC1");
+  ASSERT_EQ(Ifce.getLccIIDM().getHvdcLine().get().getId(), "HVDC1");
   Ifce.importStaticParameters();
 
-  ASSERT_EQ(std::addressof(Ifce.getVscIIDM()), std::addressof(vsc));
-  ASSERT_EQ(typeid(Ifce.getVscIIDM()), typeid(vsc));
+  ASSERT_EQ(std::addressof(Ifce.getLccIIDM()), std::addressof(lcc));
+  ASSERT_EQ(typeid(Ifce.getLccIIDM()), typeid(lcc));
 
-  //  // DG FAIRE le test sera réalisé en tout-dernier (faire celui de l'injecteur avant)
-  //  ASSERT_EQ(Ifce.getVoltageLevelInterface().get(), nullptr);
-  //  getVNom() ; setVoltageLevelInterface ;
-}   // TEST(DataInterfaceTest, CsvConverter)
+  //  // DG FAIRE les 2 tests seront réalisés en tout-dernier (faire celui de l'injecteur avant)
+  //  - ASSERT_EQ(Ifce.getVoltageLevelInterface().get(), nullptr);
+  //  -  getVNom() ; setVoltageLevelInterface ;
+}  // TEST(DataInterfaceTest, LccConverter)
 };  // namespace DYN
