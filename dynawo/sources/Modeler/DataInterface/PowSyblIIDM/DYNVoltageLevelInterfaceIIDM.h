@@ -17,30 +17,17 @@
  * @brief VoltageLevel data interface : header file for IIDM interface
  *
  */
-#ifndef MODELER_DATAINTERFACE_IIDM_DYNVOLTAGELEVELINTERFACEIIDM_H_
-#define MODELER_DATAINTERFACE_IIDM_DYNVOLTAGELEVELINTERFACEIIDM_H_
+#ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNVOLTAGELEVELINTERFACEIIDM_H_
+#define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNVOLTAGELEVELINTERFACEIIDM_H_
 
 #include "DYNVoltageLevelInterface.h"
 
-#include "DYNGraph.h"
+#include <powsybl/iidm/VoltageLevel.hpp>
 
-#include <vector>
+#include <boost/unordered_map.hpp>
 
-namespace IIDM {
-class VoltageLevel;
-}
 
 namespace DYN {
-class SwitchInterface;
-class CalculatedBusInterfaceIIDM;
-class LoadInterface;
-class BusInterface;
-class GeneratorInterface;
-class DanglingLineInterface;
-class StaticVarCompensatorInterface;
-class VscConverterInterface;
-class LccConverterInterface;
-class ShuntCompensatorInterface;
 
 /**
  * @class VoltageLevelInterfaceIIDM
@@ -52,7 +39,7 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
    * @brief Constructor
    * @param voltageLevel : voltageLevel's iidm instance
    */
-  explicit VoltageLevelInterfaceIIDM(IIDM::VoltageLevel& voltageLevel);
+  explicit VoltageLevelInterfaceIIDM(powsybl::iidm::VoltageLevel& voltageLevel);
 
   /**
    * @brief destructor
@@ -78,17 +65,17 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   /**
    * @copydoc VoltageLevelInterface::connectNode(const unsigned int& node)
    */
-  void connectNode(const unsigned int& node);
+  void connectNode(const unsigned int& node) {/*not needed*/}
 
   /**
    * @copydoc VoltageLevelInterface::disconnectNode(const unsigned int& node)
    */
-  void disconnectNode(const unsigned int& node);
+  void disconnectNode(const unsigned int& node) {/*not needed*/}
 
   /**
    * @copydoc VoltageLevelInterface::isNodeConnected(const unsigned int& node)
    */
-  bool isNodeConnected(const unsigned int& node);
+  bool isNodeConnected(const unsigned int& node) { return false;}
 
   /**
    * @copydoc VoltageLevelInterface::addSwitch()
@@ -188,35 +175,38 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   /**
    * @copydoc VoltageLevelInterface::exportSwitchesState()
    */
-  void exportSwitchesState();
+  void exportSwitchesState() {/*not needed*/}
 
   /**
-   *  @brief calculate bus topology from node topology if node topology is used in iidm network
+   * @brief get the detailed status of the node
+   * @return @b true if the node is detailed
    */
-  void calculateBusTopology();
-
-  /**
-   * @brief get the vector of calculated bus created from the node view
-   * @return vector of calculated bus created from the node view
-   */
-  inline const std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> >& getCalculatedBus() const {
-    return calculatedBus_;
-  }
-
   inline bool isNodeBreakerTopology() const {
     return isNodeBreakerTopology_;
   }
 
+  /**
+   * @brief Getter for the voltage level' country
+   * @return the voltage level country
+   */
+  inline const std::string& getCountry() const {
+    return country_;
+  }
+
+  /**
+   * @brief Setter for the voltage level' country
+   * @param country voltage level country
+   */
+  inline void setCountry(const std::string& country) {
+    country_ = country;
+  }
+
  private:
-  IIDM::VoltageLevel& voltageLevelIIDM_;  ///< reference to the iidm voltageLevel instance
+  powsybl::iidm::VoltageLevel& voltageLevelIIDM_;  ///< reference to the iidm voltageLevel instance
   bool isNodeBreakerTopology_;  ///< @b true if the topology of the voltageLevel is node breaker topology
-  std::map< std::string, boost::shared_ptr<SwitchInterface> > switchesById_;  ///< switch interface by Id
-  std::map< boost::shared_ptr<SwitchInterface>, double > switchState_;  ///< state to apply to switch (due to topology change)
-  Graph graph_;  ///< topology graph to find node connection
-  boost::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
+  boost::unordered_map<boost::shared_ptr<SwitchInterface>, double > switchState_;  ///< state to apply to switch (due to topology change)
   std::vector<boost::shared_ptr<BusInterface> > buses_;  ///< bus interface created
   std::vector<boost::shared_ptr<SwitchInterface> > switches_;  ///< switch interface created
-  std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > calculatedBus_;  ///< vector of calculated bus created from the node view
   std::vector<boost::shared_ptr<GeneratorInterface> > generators_;  ///< generator interface created
   std::vector<boost::shared_ptr<LoadInterface> > loads_;  ///< load interface created
   std::vector<boost::shared_ptr<ShuntCompensatorInterface> > shunts_;  ///< shunt compensator interface created
@@ -224,8 +214,9 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   std::vector<boost::shared_ptr<StaticVarCompensatorInterface> > staticVarCompensators_;  ///< staticVarCompensator interface created
   std::vector<boost::shared_ptr<VscConverterInterface> > vscConverters_;  ///< vscConverter interface created
   std::vector<boost::shared_ptr<LccConverterInterface> > lccConverters_;  ///< lccConverter interface created
+  std::string country_;  ///< country of the voltage level
 };  /// end of class declaration
 
 }  // namespace DYN
 
-#endif  // MODELER_DATAINTERFACE_IIDM_DYNVOLTAGELEVELINTERFACEIIDM_H_
+#endif  // MODELER_DATAINTERFACE_POWSYBLIIDM_DYNVOLTAGELEVELINTERFACEIIDM_H_
