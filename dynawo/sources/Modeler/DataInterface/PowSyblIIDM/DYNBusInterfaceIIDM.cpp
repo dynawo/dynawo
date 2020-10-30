@@ -34,7 +34,8 @@ namespace DYN {
 BusInterfaceIIDM::BusInterfaceIIDM(Bus& bus) :
 busIIDM_(bus),
 hasConnection_(false) {
-  setType(ComponentInterface::BUS);
+  setType((bus.getVoltageLevel().getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER)?
+      ComponentInterface::CALCULATED_BUS:ComponentInterface::BUS);
   if (!std::isnan(busIIDM_.getV()))
     U0_ = busIIDM_.getV();
   if (!std::isnan(busIIDM_.getAngle()))
