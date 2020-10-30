@@ -18,6 +18,7 @@ set(MODULE_SOURCES
   TestLineInterface.cpp
   TestLoadInterface.cpp
   TestPhaseTapChangerInterface.cpp
+  TestNetworkInterface.cpp
   TestRatioTapChangerInterface.cpp
   TestStepInterface.cpp
   TestSwitchInterface.cpp

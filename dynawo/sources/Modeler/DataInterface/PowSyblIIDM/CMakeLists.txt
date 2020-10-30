@@ -16,7 +16,6 @@ set(DATA_INTERFACE_IIDM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 set(DATA_INTERFACE_IIDM_SOURCES
   DYNBusInterfaceIIDM.cpp
-#  DYNCalculatedBusInterfaceIIDM.cpp
   DYNCurrentLimitInterfaceIIDM.cpp
   DYNLccConverterInterfaceIIDM.cpp
   DYNLineInterfaceIIDM.cpp
@@ -32,9 +31,9 @@ set(DATA_INTERFACE_IIDM_SOURCES
 # DYNStaticVarCompensatorInterfaceIIDM.cpp
 # DYNGeneratorInterfaceIIDM.cpp
 # DYNDanglingLineInterfaceIIDM.cpp
-# DYNNetworkInterfaceIIDM.cpp
-# DYNDataInterfaceIIDM.cpp
  DYNVoltageLevelInterfaceIIDM.cpp
+ DYNNetworkInterfaceIIDM.cpp
+# DYNDataInterfaceIIDM.cpp
 # DYNHvdcLineInterfaceIIDM.cpp
 )
 
