@@ -44,9 +44,9 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
   /**
    * @brief Constructor
    * @param tapChanger ratioTapChanger's iidm instance
-   * @param parentName parent Transformer2WindingsBuilder id
+   * @param terminalRefSide terminal reference side
    */
-  explicit RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioTapChanger& tapChanger, const std::string& parentName);
+  explicit RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioTapChanger& tapChanger, const std::string& terminalRefSide);
 
   /**
    * @copydoc RatioTapChangerInterface::getSteps() const
@@ -129,10 +129,9 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
   double getCurrentRho() const;
 
  private:
-  bool isa2WindingTransformer_;                           ///< RTC belongs to a 2WT         --wip--
-  bool isa3WindingTransformer_;                           ///< RTC belongs to a 3WT         --wip--
   std::vector<boost::shared_ptr<StepInterface> > steps_;  ///< steps of the ratio tap changer
   powsybl::iidm::RatioTapChanger& tapChangerIIDM_;        ///< reference to the iidm ratioTapChanger's instance
+  const std::string terminalRefSide_;                     ///< terminal reference side
 };
 }  // namespace DYN
 

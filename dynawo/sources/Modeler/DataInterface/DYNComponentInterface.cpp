@@ -88,6 +88,7 @@ ComponentInterface::exportStateVariables() {
 
 void
 ComponentInterface::getStateVariableReference() {
+  assert(modelDyn_);
   for (unsigned int i=0; i< stateVariables_.size(); ++i) {
     try {
       if (hasDynamicModel_)

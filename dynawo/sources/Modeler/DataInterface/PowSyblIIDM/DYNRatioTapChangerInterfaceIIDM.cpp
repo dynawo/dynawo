@@ -30,19 +30,17 @@ namespace DYN {
 
 RatioTapChangerInterfaceIIDM::~RatioTapChangerInterfaceIIDM() {}
 
-RatioTapChangerInterfaceIIDM::RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioTapChanger& tapChanger, const std::string& parentName)
-    : isa2WindingTransformer_(false),  // --DG--
-      isa3WindingTransformer_(false),  // --DG--
-      tapChangerIIDM_(tapChanger) {
-  //  const powsybl::iidm::TapChangerHolder rtc = tapChanger;
-  //  std::cerr << "      (debug) parentName >" << parentName << "<\n";
-  //  std::cerr << "      (debug) 2WT >" <<
-  //           (dynamic_cast<powsybl::iidm::TapChangerHolder&>(tapChanger)).getNetwork().getTwoWindingsTransformer(parentName) << "<\n";
-  //  std::cerr << "      (debug) 2WT >" << rtc.getNetwork().getTwoWindingsTransformer(parentName) << "<\n";
-  //  std::cerr << "      (debug) parentName >" << tapChanger.getParent() << "<\n"; //   --> protected
-  //
-  // Neither parentName, neither changing to have the network as a parameter is enough to solve that point 2WT or 3WT --DG--
-  // Because information from class is 'protected' within powsybl  --DG--
+RatioTapChangerInterfaceIIDM::RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioTapChanger& tapChanger, const std::string& terminalRefSide) :
+  tapChangerIIDM_(tapChanger),
+  terminalRefSide_(terminalRefSide) {
+  auto oldTapPosition = tapChanger.getTapPosition();
+  for (long i = tapChanger.getLowTapPosition(); i <= tapChanger.getHighTapPosition(); i++) {
+    tapChanger.setTapPosition(i);
+    const auto& x = tapChanger.getStep(i);
+    powsybl::iidm::RatioTapChangerStep R(x.getRho(), x.getR(), x.getX(), x.getG(), x.getB());
+    addStep(boost::shared_ptr<StepInterface>(new StepInterfaceIIDM(R)));
+  }
+  tapChanger.setTapPosition(oldTapPosition);
 }
 
 void
@@ -100,16 +98,7 @@ RatioTapChangerInterfaceIIDM::getTerminalRefId() const {
 
 std::string
 RatioTapChangerInterfaceIIDM::getTerminalRefSide() const {
-  if (getRegulating()) {
-    /* --DG-- waiting to know if 2WT or 3WT: 2 distinct code must be written
-    switch (tapChangerIIDM_.terminalReference().side) {
-      case powsybl::iidm::side_1  : return "ONE";
-      case powsybl::iidm::side_2  : return "TWO";
-      case powsybl::iidm::side_3  : return "THREE";
-      case powsybl::iidm::side_end: return "";
-    } */
-  }
-  return "";
+  return terminalRefSide_;
 }
 
 double

@@ -105,6 +105,9 @@ TEST(DataInterfaceTest, Load_1) {
   loadIfce.importStaticParameters();
   loadIfce.setBusInterface(nullptr);
   loadIfce.importStaticParameters();
+  ASSERT_EQ(loadIfce.getCountry(), "");
+  loadIfce.setCountry("AF");
+  ASSERT_EQ(loadIfce.getCountry(), "AF");
   //  loadIfce.exportStateVariablesUnitComponent();
 
   // Manque le test de setVoltageLevelInterface DG - FAIRE

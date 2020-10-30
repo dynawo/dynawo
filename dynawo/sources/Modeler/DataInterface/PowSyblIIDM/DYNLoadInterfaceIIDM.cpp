@@ -95,6 +95,7 @@ LoadInterfaceIIDM::importStaticParameters() {
 
   if (getBusInterface()) {
     v0_ = getBusInterface()->getV0();
+    vNom_ = loadIIDM_.getTerminal().getVoltageLevel().getNominalVoltage();
 
     double teta = getBusInterface()->getAngle0();
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(v0_ / vNom_)));
@@ -124,7 +125,7 @@ LoadInterfaceIIDM::getBusInterface() const {
 
 void
 LoadInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
-  setVoltageLevelInterface(voltageLevelInterface);
+  InjectorInterfaceIIDM::setVoltageLevelInterface(voltageLevelInterface);
 }
 
 bool
