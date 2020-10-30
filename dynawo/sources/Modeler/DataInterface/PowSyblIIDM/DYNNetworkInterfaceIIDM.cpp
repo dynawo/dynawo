@@ -17,7 +17,6 @@
  * @brief Network data interface : implementation file for IIDM implementation
  *
  */
-#include <IIDM/Network.h>
 
 #include "DYNNetworkInterfaceIIDM.h"
 #include "DYNLineInterface.h"
