@@ -15,6 +15,7 @@
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNLoadInterfaceIIDM.h"
+#include "DYNLccConverterInterfaceIIDM.h"
 #include "DYNVscConverterInterfaceIIDM.h"
 
 #include "gtest_dynawo.h"
@@ -25,6 +26,8 @@
 #include <powsybl/iidm/Switch.hpp>
 #include <powsybl/iidm/Load.hpp>
 #include <powsybl/iidm/LoadAdder.hpp>
+#include <powsybl/iidm/LccConverterStation.hpp>
+#include <powsybl/iidm/LccConverterStationAdder.hpp>
 #include <powsybl/iidm/VscConverterStation.hpp>
 #include <powsybl/iidm/VscConverterStationAdder.hpp>
 
@@ -36,6 +39,7 @@ using powsybl::iidm::Bus;
 using powsybl::iidm::Switch;
 using powsybl::iidm::Load;
 using powsybl::iidm::LoadType;
+using powsybl::iidm::LccConverterStation;
 using powsybl::iidm::VscConverterStation;
 using boost::shared_ptr;
 
@@ -81,6 +85,15 @@ TEST(DataInterfaceTest, VoltageLevel) {
       .setReactivePowerSetpoint(5.0)
       .add();
 
+  LccConverterStation& lccIIDM1 = vlIIDM1.newLccConverterStation()
+      .setId("LCC1")
+      .setName("LCC1_NAME")
+      .setBus(b4.getId())
+      .setConnectableBus(b4.getId())
+      .setLossFactor(3.0)
+      .setPowerFactor(.7)
+      .add();
+
   Load& loadIIDM1 = vlIIDM1.newLoad()
       .setId("LOAD1")
       .setBus("Bus1")
@@ -111,6 +124,8 @@ TEST(DataInterfaceTest, VoltageLevel) {
   load1->setBusInterface(bus1);
   shared_ptr<VscConverterInterface> vsc1(new VscConverterInterfaceIIDM(vscIIDM1));
   vsc1->setBusInterface(bus4);
+  shared_ptr<LccConverterInterface> lcc1(new LccConverterInterfaceIIDM(lccIIDM1));
+  lcc1->setBusInterface(bus4);
 
   ASSERT_EQ(vl.getID(), "VL1");
   ASSERT_EQ(vl.getVNom(), 400.);
@@ -135,6 +150,10 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_EQ(vl.getVscConverters().size(), 0);
   vl.addVscConverter(vsc1);
   ASSERT_EQ(vl.getVscConverters().size(), 1);
+
+  ASSERT_EQ(vl.getLccConverters().size(), 0);
+  vl.addLccConverter(lcc1);
+  ASSERT_EQ(vl.getLccConverters().size(), 1);
 
   ASSERT_FALSE(bus1->hasConnection());
   ASSERT_FALSE(bus2->hasConnection());

@@ -48,7 +48,7 @@ createHvdcLccConverterStationNetwork() {
 
   vl1.newLccConverterStation()
       .setId("LCC1")
-      .setName("VSC1_NAME")
+      .setName("LCC1_NAME")
       .setBus(vl1Bus1.getId())
       .setConnectableBus(vl1Bus1.getId())
       .setLossFactor(2.0)
@@ -57,7 +57,7 @@ createHvdcLccConverterStationNetwork() {
 
   vl1.newLccConverterStation()
       .setId("LCC2")
-      .setName("VSC2_NAME")
+      .setName("LCC2_NAME")
       .setBus(vl1Bus1.getId())
       .setConnectableBus(vl1Bus1.getId())
       .setLossFactor(3.0)
