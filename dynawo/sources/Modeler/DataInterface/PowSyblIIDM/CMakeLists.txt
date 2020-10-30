@@ -25,7 +25,7 @@ set(DATA_INTERFACE_IIDM_SOURCES
   DYNStepInterfaceIIDM.cpp
   DYNSwitchInterfaceIIDM.cpp
   DYNVscConverterInterfaceIIDM.cpp
-# DYNTwoWTransformerInterfaceIIDM.cpp
+  DYNTwoWTransformerInterfaceIIDM.cpp
 # DYNThreeWTransformerInterfaceIIDM.cpp
 # DYNShuntCompensatorInterfaceIIDM.cpp
 # DYNStaticVarCompensatorInterfaceIIDM.cpp
