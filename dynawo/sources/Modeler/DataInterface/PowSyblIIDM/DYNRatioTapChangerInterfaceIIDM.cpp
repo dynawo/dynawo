@@ -20,8 +20,8 @@
 
 #include "DYNRatioTapChangerInterfaceIIDM.h"
 
-#include "DYNErrorQueue.h"
-#include "DYNMacrosMessage.h"
+// #include "DYNErrorQueue.h"
+// #include "DYNMacrosMessage.h"
 #include "DYNStepInterfaceIIDM.h"
 
 using boost::shared_ptr;
@@ -32,8 +32,18 @@ RatioTapChangerInterfaceIIDM::~RatioTapChangerInterfaceIIDM() {
 }
 
 RatioTapChangerInterfaceIIDM::RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioTapChanger& tapChanger, const std::string& parentName) :
+  isa2WindingTransformer_(false),  // --DG--
+  isa3WindingTransformer_(false),  // --DG--
   tapChangerIIDM_(tapChanger) {
-    sanityCheck(parentName);
+  //  const powsybl::iidm::TapChangerHolder rtc = tapChanger;
+  //  std::cerr << "      (debug) parentName >" << parentName << "<\n";
+  //  std::cerr << "      (debug) 2WT >" <<
+  //           (dynamic_cast<powsybl::iidm::TapChangerHolder&>(tapChanger)).getNetwork().getTwoWindingsTransformer(parentName) << "<\n";
+  //  std::cerr << "      (debug) 2WT >" << rtc.getNetwork().getTwoWindingsTransformer(parentName) << "<\n";
+  //  std::cerr << "      (debug) parentName >" << tapChanger.getParent() << "<\n"; //   --> protected
+  //
+  // Neither parentName, neither changing to have the network as a parameter is enough to solve that point 2WT or 3WT --DG--
+  // Because information from class is 'protected' within powsybl  --DG--
 }
 
 void
@@ -79,7 +89,7 @@ RatioTapChangerInterfaceIIDM::getRegulating() const {
 double
 RatioTapChangerInterfaceIIDM::getTargetV() const {
   if (std::isnan(tapChangerIIDM_.getTargetV())) {
-    return 99999.9;
+    return 99999.0;
   }
   return tapChangerIIDM_.getTargetV();
 }
@@ -92,7 +102,7 @@ RatioTapChangerInterfaceIIDM::getTerminalRefId() const {
 std::string
 RatioTapChangerInterfaceIIDM::getTerminalRefSide() const {
   if (getRegulating()) {
-    /* DG- in powsybl-2 a terminal does not seem to have anymore 'side'. Only 3W-transformers have sides
+    /* --DG-- waiting to know if 2WT or 3WT: 2 distinct code must be written
     switch (tapChangerIIDM_.terminalReference().side) {
       case powsybl::iidm::side_1  : return "ONE";
       case powsybl::iidm::side_2  : return "TWO";
@@ -131,16 +141,6 @@ double
 RatioTapChangerInterfaceIIDM::getCurrentRho() const {
   auto currentStep = tapChangerIIDM_.getTapPosition() - tapChangerIIDM_.getLowTapPosition();
   return steps_.at(currentStep)->getRho();
-}
-
-void
-RatioTapChangerInterfaceIIDM::sanityCheck(const std::string& parentName) const {
-  if (getRegulating()) {
-    if (std::isnan(tapChangerIIDM_.getTargetV()))
-      DYNErrorQueue::get()->push(DYNError(DYN::Error::STATIC_DATA, MissingTargetVInRatioTapChanger, parentName));
-    if (getTerminalRefId() == "")
-      DYNErrorQueue::get()->push(DYNError(DYN::Error::STATIC_DATA, MissingTerminalRefInRatioTapChanger, parentName));
-  }
 }
 
 }  // namespace DYN
