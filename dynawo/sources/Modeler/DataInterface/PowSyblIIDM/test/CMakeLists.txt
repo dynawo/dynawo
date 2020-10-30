@@ -12,8 +12,6 @@ set(MODULE_NAME MODELER_DATAINTERFACEIIDM_unittest)
 
 set(MODULE_SOURCES
   TestBusInterface.cpp
-#  TestBusBarSectionInterface.cpp
-#  TestCalculatedBusInterface.cpp
   TestCurrentLimitInterface.cpp
   TestInjectorInterface.cpp
   TestLineInterface.cpp
@@ -22,6 +20,7 @@ set(MODULE_SOURCES
   TestStepInterface.cpp
   TestSwitchInterface.cpp
   TestVscConverterInterface.cpp
+  TestVoltageLevelInterface.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
