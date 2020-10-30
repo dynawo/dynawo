@@ -19,17 +19,13 @@
  *
  */
 //======================================================================
-#ifndef MODELER_DATAINTERFACE_IIDM_DYNDANGLINGLINEINTERFACEIIDM_H_
-#define MODELER_DATAINTERFACE_IIDM_DYNDANGLINGLINEINTERFACEIIDM_H_
+#ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNDANGLINGLINEINTERFACEIIDM_H_
+#define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNDANGLINGLINEINTERFACEIIDM_H_
 
 #include <boost/shared_ptr.hpp>
 
 #include "DYNDanglingLineInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
-
-namespace IIDM {
-class DanglingLine;
-}
 
 namespace DYN {
 
@@ -157,4 +153,4 @@ class DanglingLineInterfaceIIDM : public DanglingLineInterface, public InjectorI
 };  ///< class for dangling line interface
 }  // namespace DYN
 
-#endif  // MODELER_DATAINTERFACE_IIDM_DYNDANGLINGLINEINTERFACEIIDM_H_
+#endif  // MODELER_DATAINTERFACE_POWSYBLIIDM_DYNDANGLINGLINEINTERFACEIIDM_H_
