@@ -24,9 +24,7 @@
 
 #include "DYNThreeWTransformerInterface.h"
 
-namespace powsybl::iidm {
-class ThreeWindingsTransformer;
-}
+#include <powsybl/iidm/ThreeWindingsTransformer.hpp>
 
 namespace DYN {
 

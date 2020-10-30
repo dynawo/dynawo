@@ -24,9 +24,7 @@
 
 #include <boost/shared_ptr.hpp>
 
-namespace powsybl::iidm {
-class TwoWindingsTransformer;
-}
+#include <powsybl/iidm/TwoWindingsTransformer.hpp>
 
 namespace DYN {
 
