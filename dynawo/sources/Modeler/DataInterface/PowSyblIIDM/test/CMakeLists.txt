@@ -22,6 +22,7 @@ set(MODULE_SOURCES
   TestRatioTapChangerInterface.cpp
   TestStepInterface.cpp
   TestSwitchInterface.cpp
+  TestThreeWTransformerInterface.cpp
   TestTwoWTransformerInterface.cpp
   TestVscConverterInterface.cpp
   TestVoltageLevelInterface.cpp
