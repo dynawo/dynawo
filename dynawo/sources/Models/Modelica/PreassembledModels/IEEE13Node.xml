@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="IEEE13Node">
+    <dyn:unitDynamicModel id="IEEE13" name="OpenEMTP.Examples.IEEE13Bus.IEEE13Node"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>

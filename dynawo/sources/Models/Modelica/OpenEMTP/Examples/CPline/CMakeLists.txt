@@ -16,6 +16,7 @@ set(MODEL_FILES
     UntransposedLine.mo
     SinglePhaseLine.mo
     SinglePhaseLine2.mo
+    MultiPhaseLine.mo
     )
 
 #

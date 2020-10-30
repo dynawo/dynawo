@@ -11,11 +11,13 @@
 # Preassembled models
 set(MODELICA_PREASSEMBLED_MODELS
     newRLC.xml
-    triphase.xml
     SinglePhaseLine2.xml
-    CapacitorSwitching.xml
-    RLCwithSwitch.xml
     )
+    # MultiPhaseLine.xml
+    # IEEE13Node.xml
+    # triphase.xml
+    # CapacitorSwitching.xml
+    # RLCwithSwitch.xml
     # CapacitorBank.xml
     # MO_arrester.xml
     # AerialLine.xml

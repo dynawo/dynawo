@@ -1,195 +1,193 @@
 within OpenEMTP.Examples.IEEE13Bus;
+
 model IEEE13Node
-  multiPhaseCP L632T645(Ti = [0.709760014102212, 0.707283577128397; -0.703991675137205, 0.705943506643941], Zmod = {399.511525243263, 690.547840587223}, h = {0.999867342774239, 0.999895019677615}, m = 2, tau = {5.61073625900705e-07, 6.57914367465262e-07}) annotation (
+  multiPhaseCP L632T645(Ti = [0.709760014102212, 0.707283577128397; -0.703991675137205, 0.705943506643941], Zmod = {399.511525243263, 690.547840587223}, h = {0.999867342774239, 0.999895019677615}, m = 2, tau = {5.61073625900705e-07, 6.57914367465262e-07}) annotation(
     Placement(visible = true, transformation(origin = {-29, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  multiPhaseCP L645T646(Ti = [0.709760014102212, 0.707283577128397; -0.703991675137205, 0.705943506643941], Zmod = {399.500925625143, 690.533341800238}, h = {0.999920403552735, 0.999937010484037}, m = 2, tau = {3.36644175540423e-07, 3.94748620479157e-07}) annotation (
+  multiPhaseCP L645T646(Ti = [0.709760014102212, 0.707283577128397; -0.703991675137205, 0.705943506643941], Zmod = {399.500925625143, 690.533341800238}, h = {0.999920403552735, 0.999937010484037}, m = 2, tau = {3.36644175540423e-07, 3.94748620479157e-07}) annotation(
     Placement(visible = true, transformation(origin = {-97, 109}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  multiPhaseCP L632T671(Ti = [0.505189464539041, 0.783794931439085, -0.252229039493785; 0.564188272358512, -0.597545662954778, -0.555384509344831; 0.651256031484475, -0.169101218408001, 0.792115369033768], Zmod = {749.830100268342, 252.886635041062, 324.510622989785}, h = {0.999836741483589, 0.999860587191481, 0.999891520472283}, m = 3, tau = {2.51909782126786e-06, 2.08448710137279e-06, 2.07421383075992e-06}) annotation (
+  multiPhaseCP L632T671(Ti = [0.505189464539041, 0.783794931439085, -0.252229039493785; 0.564188272358512, -0.597545662954778, -0.555384509344831; 0.651256031484475, -0.169101218408001, 0.792115369033768], Zmod = {749.830100268342, 252.886635041062, 324.510622989785}, h = {0.999836741483589, 0.999860587191481, 0.999891520472283}, m = 3, tau = {2.51909782126786e-06, 2.08448710137279e-06, 2.07421383075992e-06}) annotation(
     Placement(visible = true, transformation(origin = {16, 52}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  multiPhaseCP L671T684(Ti = [0.705943506643940, -0.703991675137206; 0.707283577128397, 0.709760014102211], Zmod = {690.533341800238, 399.500925625143}, h = {0.999937010484037, 0.999920403552735}, m = 2, tau = {3.94748620479157e-07, 3.36644175540423e-07}) annotation (
+  multiPhaseCP L671T684(Ti = [0.705943506643940, -0.703991675137206; 0.707283577128397, 0.709760014102211], Zmod = {690.533341800238, 399.500925625143}, h = {0.999937010484037, 0.999920403552735}, m = 2, tau = {3.94748620479157e-07, 3.36644175540423e-07}) annotation(
     Placement(visible = true, transformation(origin = {-24, 12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  multiPhaseCP L684T652(Ti = [1], Zmod = {75.9315000540756}, h = {0.998660571723622}, m = 1, tau = {2.71396421650751e-06}) annotation (
+  multiPhaseCP L684T652(Ti = [1], Zmod = {75.9315000540756}, h = {0.998660571723622}, m = 1, tau = {2.71396421650751e-06}) annotation(
     Placement(visible = true, transformation(origin = {-51, -13}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  multiPhaseCP L684T611(Ti = [1], Zmod = {546.064341402152}, h = {0.999930847970415}, m = 1, tau = {3.71926621942778e-07}) annotation (
+  multiPhaseCP L684T611(Ti = [1], Zmod = {546.064341402152}, h = {0.999930847970415}, m = 1, tau = {3.71926621942778e-07}) annotation(
     Placement(visible = true, transformation(origin = {-73, 21}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  multiPhaseCP L692T675(Ti = [0.572560468518626, -0.707106781186547, -0.414487460508261; 0.586393524678774, -1.08480673665415e-15, 0.810026317191903; 0.572560468518626, 0.707106781186548, -0.414487460508261], Zmod = {70.7665693762521, 66.7854866983449, 62.5758037340374}, h = {0.999056492311746, 0.999636088035267, 0.999651002096145}, m = 3, tau = {1.72234634931087e-06, 1.62512482204948e-06, 1.52309247336468e-06}) annotation (
+  multiPhaseCP L692T675(Ti = [0.572560468518626, -0.707106781186547, -0.414487460508261; 0.586393524678774, -1.08480673665415e-15, 0.810026317191903; 0.572560468518626, 0.707106781186548, -0.414487460508261], Zmod = {70.7665693762521, 66.7854866983449, 62.5758037340374}, h = {0.999056492311746, 0.999636088035267, 0.999651002096145}, m = 3, tau = {1.72234634931087e-06, 1.62512482204948e-06, 1.52309247336468e-06}) annotation(
     Placement(visible = true, transformation(origin = {71, -96}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  multiPhaseCP L671T680(Ti = [0.505189464539041, 0.783794931439085, -0.252229039493785; 0.564188272358512, -0.597545662954778, -0.555384509344831; 0.651256031484475, -0.169101218408001, 0.792115369033768], Zmod = {749.799496230909, 252.877821132055, 324.501822300005}, h = {0.999918367409991, 0.999930291166164, 0.999945758765126}, m = 3, tau = {1.25954891063393e-06, 1.04224355068639e-06, 1.03710691537996e-06}) annotation (
+  multiPhaseCP L671T680(Ti = [0.505189464539041, 0.783794931439085, -0.252229039493785; 0.564188272358512, -0.597545662954778, -0.555384509344831; 0.651256031484475, -0.169101218408001, 0.792115369033768], Zmod = {749.799496230909, 252.877821132055, 324.501822300005}, h = {0.999918367409991, 0.999930291166164, 0.999945758765126}, m = 3, tau = {1.25954891063393e-06, 1.04224355068639e-06, 1.03710691537996e-06}) annotation(
     Placement(visible = true, transformation(origin = {-20, -125}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
-  Modelica.Electrical.Analog.Basic.Resistor R646(R = 56.5993) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor R646(R = 56.5993) annotation(
     Placement(visible = true, transformation(origin = {-139, 109}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Inductor L646(L = 0.0862, i(start = 0)) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor L646(L = 0.0862, i(start = 0)) annotation(
     Placement(visible = true, transformation(origin = {-164, 98}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Capacitor C611(C(displayUnit = "uF") = 4.5984e-5) annotation (
+  Modelica.Electrical.Analog.Basic.Capacitor C611(C(displayUnit = "uF") = 4.5984e-5) annotation(
     Placement(visible = true, transformation(origin = {-118, -7}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Resistor R611(R = 27.0597) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor R611(R = 27.0597) annotation(
     Placement(visible = true, transformation(origin = {-141, 21}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Electrical.Analog.Basic.Inductor L611(L = 0.0338) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor L611(L = 0.0338) annotation(
     Placement(visible = true, transformation(origin = {-165, -7}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Ground ground2 annotation (
+  Modelica.Electrical.Analog.Basic.Ground ground2 annotation(
     Placement(visible = true, transformation(origin = {-118, -37}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Resistor Ra652(R = 31.0501) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Ra652(R = 31.0501) annotation(
     Placement(visible = true, transformation(origin = {-51, -64}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor La652(L = 0.0553) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor La652(L = 0.0553) annotation(
     Placement(visible = true, transformation(origin = {-50, -97}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Ground ground3 annotation (
+  Modelica.Electrical.Analog.Basic.Ground ground3 annotation(
     Placement(visible = true, transformation(origin = {-51, -123}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Resistor Rc634(R = 0.4062) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Rc634(R = 0.4062) annotation(
     Placement(visible = true, transformation(origin = {179, 46}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor Lc634(L = 0.8081) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor Lc634(L = 0.8081) annotation(
     Placement(visible = true, transformation(origin = {177, 21}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Ground ground5 annotation (
+  Modelica.Electrical.Analog.Basic.Ground ground5 annotation(
     Placement(visible = true, transformation(origin = {178, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Inductor Lb634(L = 0.8508) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor Lb634(L = 0.8508) annotation(
     Placement(visible = true, transformation(origin = {201, 21}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.MultiPhase.Basic.Star star1(m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.Star star1(m = 3) annotation(
     Placement(visible = true, transformation(origin = {-154, 174}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Ground ground1 annotation (
+  Modelica.Electrical.Analog.Basic.Ground ground1 annotation(
     Placement(visible = true, transformation(origin = {-176, 157}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.MultiPhase.Sources.CosineVoltage cosineVoltage1(
-    V={1.021,1.042,1.0174}*2401.78*sqrt(2),                                                                  freqHz = {60, 60, 60},
-    phase={-0.043458698374659,-2.1244147655275,2.0565214576249})                                                                                                  annotation (
+  Modelica.Electrical.MultiPhase.Sources.CosineVoltage cosineVoltage1(V = {1.021, 1.042, 1.0174} * 2401.78 * sqrt(2), freqHz = {60, 60, 60}, phase = {-0.043458698374659, -2.1244147655275, 2.0565214576249}) annotation(
     Placement(visible = true, transformation(origin = {-121, 174}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  PlugToPlug_bc plugToPlug_bc1 annotation (
+  PlugToPlug_bc plugToPlug_bc1 annotation(
     Placement(visible = true, transformation(origin = {-5, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  PlugToPlug_ac plugToPlug_ac1 annotation (
+  PlugToPlug_ac plugToPlug_ac1 annotation(
     Placement(visible = true, transformation(origin = {-7, 12}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p1(k = 1, m = 2) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p1(k = 1, m = 2) annotation(
     Placement(visible = true, transformation(origin = {-118, 109}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p2(k = 2, m = 2) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p2(k = 2, m = 2) annotation(
     Placement(visible = true, transformation(origin = {-117, 89}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p3(k = 1, m = 1) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p3(k = 1, m = 1) annotation(
     Placement(visible = true, transformation(origin = {-105, 21}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p4(k = 1, m = 1) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p4(k = 1, m = 1) annotation(
     Placement(visible = true, transformation(origin = {-51, -38}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p5(k = 3, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p5(k = 3, m = 3) annotation(
     Placement(visible = true, transformation(origin = {161, 68}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p6(k = 2, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p6(k = 2, m = 3) annotation(
     Placement(visible = true, transformation(origin = {157, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Electrical.Analog.Basic.Resistor Ra634(R = 0.3219) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Ra634(R = 0.3219) annotation(
     Placement(visible = true, transformation(origin = {231, 46}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor La634(L = 0.5871) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor La634(L = 0.5871) annotation(
     Placement(visible = true, transformation(origin = {230, 21}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p7(k = 1, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p7(k = 1, m = 3) annotation(
     Placement(visible = true, transformation(origin = {161, 100}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Electrical.Analog.Basic.Resistor R645(R = 23.4974) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor R645(R = 23.4974) annotation(
     Placement(visible = true, transformation(origin = {-100, 59}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Inductor L645(L = 0.0458, i(start = 0)) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor L645(L = 0.0458, i(start = 0)) annotation(
     Placement(visible = true, transformation(origin = {-131, 59}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p8(k = 1, m = 2) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p8(k = 1, m = 2) annotation(
     Placement(visible = true, transformation(origin = {-81, 59}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Ground ground4 annotation (
+  Modelica.Electrical.Analog.Basic.Ground ground4 annotation(
     Placement(visible = true, transformation(origin = {-159, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Resistor Rb634(R = 0.4277) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Rb634(R = 0.4277) annotation(
     Placement(visible = true, transformation(origin = {201, 46}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor Lc671D(L = 0.0503) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor Lc671D(L = 0.0503) annotation(
     Placement(visible = true, transformation(origin = {43, -31}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Resistor Rc671D(R = 33.2151) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Rc671D(R = 33.2151) annotation(
     Placement(visible = true, transformation(origin = {44, -3}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Resistor Rc671Y(R = 70.5081) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Rc671Y(R = 70.5081) annotation(
     Placement(visible = true, transformation(origin = {61, -3}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor Lc671Y(L = 0.1087) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor Lc671Y(L = 0.1087) annotation(
     Placement(visible = true, transformation(origin = {61, -31}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Ground ground6 annotation (
+  Modelica.Electrical.Analog.Basic.Ground ground6 annotation(
     Placement(visible = true, transformation(origin = {100, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p B671c(k = 3, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p B671c(k = 3, m = 3) annotation(
     Placement(visible = true, transformation(origin = {46, 16}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Electrical.Analog.Basic.Resistor Rb671Y(R = 145.2651) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Rb671Y(R = 145.2651) annotation(
     Placement(visible = true, transformation(origin = {100, -3}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Resistor Rb671D(R = 35.4759) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Rb671D(R = 35.4759) annotation(
     Placement(visible = true, transformation(origin = {82, -2}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor Lb671D(L = 0.0538) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor Lb671D(L = 0.0538) annotation(
     Placement(visible = true, transformation(origin = {82, -31}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p B671b(k = 2, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p B671b(k = 2, m = 3) annotation(
     Placement(visible = true, transformation(origin = {46, 31}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Electrical.Analog.Basic.Resistor Ra671Y(R = 491.2436) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Ra671Y(R = 491.2436) annotation(
     Placement(visible = true, transformation(origin = {141, -3}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor La671Y(L = 0.7665) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor La671Y(L = 0.7665) annotation(
     Placement(visible = true, transformation(origin = {141, -31}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor La671D(L = 0.0517) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor La671D(L = 0.0517) annotation(
     Placement(visible = true, transformation(origin = {123, -31}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Resistor Ra671D(R = 34.1077) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Ra671D(R = 34.1077) annotation(
     Placement(visible = true, transformation(origin = {124, -3}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor Lb671Y(L = 0.2219) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor Lb671Y(L = 0.2219) annotation(
     Placement(visible = true, transformation(origin = {100, -31}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p B671a(k = 1, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p B671a(k = 1, m = 3) annotation(
     Placement(visible = true, transformation(origin = {46, 51}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Electrical.Analog.Basic.Capacitor Ca675(C(displayUnit = "uF") = 9.197e-5) annotation (
+  Modelica.Electrical.Analog.Basic.Capacitor Ca675(C(displayUnit = "uF") = 9.197e-5) annotation(
     Placement(visible = true, transformation(origin = {126, -118}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Resistor Ra675(R = 9.9158) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Ra675(R = 9.9158) annotation(
     Placement(visible = true, transformation(origin = {103, -118}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor La675(L = 0.0103) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor La675(L = 0.0103) annotation(
     Placement(visible = true, transformation(origin = {103, -146}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Capacitor Cb675(C(displayUnit = "uF") = 9.197e-5) annotation (
+  Modelica.Electrical.Analog.Basic.Capacitor Cb675(C(displayUnit = "uF") = 9.197e-5) annotation(
     Placement(visible = true, transformation(origin = {167, -118}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor Lb675(L = 0.1241) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor Lb675(L = 0.1241) annotation(
     Placement(visible = true, transformation(origin = {144, -146}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Resistor Rb675(R = 53.0187) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Rb675(R = 53.0187) annotation(
     Placement(visible = true, transformation(origin = {144, -118}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Capacitor Cc675(C(displayUnit = "uF") = 9.197e-5) annotation (
+  Modelica.Electrical.Analog.Basic.Capacitor Cc675(C(displayUnit = "uF") = 9.197e-5) annotation(
     Placement(visible = true, transformation(origin = {209, -118}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Resistor Rc675(R = 12.3484) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Rc675(R = 12.3484) annotation(
     Placement(visible = true, transformation(origin = {188, -118}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor Lc675(L = 0.0239) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor Lc675(L = 0.0239) annotation(
     Placement(visible = true, transformation(origin = {188, -146}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p12(k = 1, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p12(k = 1, m = 3) annotation(
     Placement(visible = true, transformation(origin = {106, -96}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p13(k = 2, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p13(k = 2, m = 3) annotation(
     Placement(visible = true, transformation(origin = {146, -93}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p14(k = 3, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p14(k = 3, m = 3) annotation(
     Placement(visible = true, transformation(origin = {164, -86}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Electrical.Analog.Basic.Ground ground7 annotation (
+  Modelica.Electrical.Analog.Basic.Ground ground7 annotation(
     Placement(visible = true, transformation(origin = {144, -174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Resistor R692(R = 56.3370) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor R692(R = 56.3370) annotation(
     Placement(visible = true, transformation(origin = {10, -137}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.Analog.Basic.Inductor L692(L = 0.1327) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor L692(L = 0.1327) annotation(
     Placement(visible = true, transformation(origin = {10, -165}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p15(k = 3, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p15(k = 3, m = 3) annotation(
     Placement(visible = true, transformation(origin = {21, -111}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Electrical.Analog.Basic.Ground ground8 annotation (
+  Modelica.Electrical.Analog.Basic.Ground ground8 annotation(
     Placement(visible = true, transformation(origin = {10, -192}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Inductor La632(L = 0.8201) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor La632(L = 0.8201) annotation(
     Placement(visible = true, transformation(origin = {140, 167}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Resistor Ra632(R = 525.5902) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Ra632(R = 525.5902) annotation(
     Placement(visible = true, transformation(origin = {109, 167}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Resistor Rb632(R = 142.5436) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Rb632(R = 142.5436) annotation(
     Placement(visible = true, transformation(origin = {107, 147}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Inductor Lb632(L = 0.2177) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor Lb632(L = 0.2177) annotation(
     Placement(visible = true, transformation(origin = {140, 146}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Ground ground9 annotation (
+  Modelica.Electrical.Analog.Basic.Ground ground9 annotation(
     Placement(visible = true, transformation(origin = {182, 136}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Inductor Lc632(L = 0.1176) annotation (
+  Modelica.Electrical.Analog.Basic.Inductor Lc632(L = 0.1176) annotation(
     Placement(visible = true, transformation(origin = {140, 126}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Resistor Rc632(R = 76.2968) annotation (
+  Modelica.Electrical.Analog.Basic.Resistor Rc632(R = 76.2968) annotation(
     Placement(visible = true, transformation(origin = {107, 126}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p17(k = 3, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p17(k = 3, m = 3) annotation(
     Placement(visible = true, transformation(origin = {70, 125}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p18(k = 2, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p18(k = 2, m = 3) annotation(
     Placement(visible = true, transformation(origin = {64, 147}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p19(k = 1, m = 3) annotation (
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p19(k = 1, m = 3) annotation(
     Placement(visible = true, transformation(origin = {68, 167}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Electrical.Analog.Basic.Ground ground10 annotation (
+  Modelica.Electrical.Analog.Basic.Ground ground10 annotation(
     Placement(visible = true, transformation(origin = {-164, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  PlugToPlug_c plugToPlug_c1 annotation (
+  PlugToPlug_c plugToPlug_c1 annotation(
     Placement(visible = true, transformation(origin = {-44, 21}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  PlugToPlug_a plugToPlug_a1 annotation (
+  PlugToPlug_a plugToPlug_a1 annotation(
     Placement(visible = true, transformation(origin = {-44, 12}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  MultiphaseBreaker multiphaseBreaker1(                         Topening = {1, 1, 1},
-      Tclosing={0,0,0})                                                               annotation (
+  MultiphaseBreaker multiphaseBreaker1(Topening = {1, 1, 1}, Tclosing = {0, 0, 0}) annotation(
     Placement(visible = true, transformation(origin = {-71, 174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  MultiphaseBreaker multiphaseBreaker2(Tclosing = {-1, -1, -1}, Topening = {0.16, 0.16, 0.16}) annotation (
+  MultiphaseBreaker multiphaseBreaker2(Tclosing = {-1, -1, -1}, Topening = {0.15, 0.15, 0.15}) annotation(
     Placement(visible = true, transformation(origin = {44, -96}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  IdealBreaker idealBreaker1( Tclosing = 0.06,Topening = 0.33) annotation (
+  IdealBreaker idealBreaker1(Tclosing = 0.05, Topening = 0.2) annotation(
     Placement(visible = true, transformation(origin = {72, -138}, extent = {{15, -15}, {-15, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Ground ground11 annotation (
+  Modelica.Electrical.Analog.Basic.Ground ground11 annotation(
     Placement(visible = true, transformation(origin = {47, -214}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Resistor R_fault(R=1)     annotation (
+  Modelica.Electrical.Analog.Basic.Resistor R_fault(R = 1) annotation(
     Placement(visible = true, transformation(origin = {47, -156}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  YgYg ygYg annotation (
+  YgYg ygYg annotation(
     Placement(transformation(extent = {{101, 70}, {121, 90}})));
-  IEEE13Bus.multiPhaseCP L632T633(Ti = [0.502659687516342, 0.778867301097029, -0.249833119452532; 0.644850930369252, -0.176951289724402, 0.792006771920747; 0.533578236163045, -0.600564731133732, -0.550352955472635], Zmod = {764.208172889510, 306.049535031007, 375.624232491133}, h = {0.999937767140510, 0.999908521997646, 0.999925925353872}, m = 3, tau = {6.41053351781503e-07, 5.63676955383253e-07, 5.53093403094522e-07})  annotation(
+  IEEE13Bus.multiPhaseCP L632T633(Ti = [0.502659687516342, 0.778867301097029, -0.249833119452532; 0.644850930369252, -0.176951289724402, 0.792006771920747; 0.533578236163045, -0.600564731133732, -0.550352955472635], Zmod = {764.208172889510, 306.049535031007, 375.624232491133}, h = {0.999937767140510, 0.999908521997646, 0.999925925353872}, m = 3, tau = {6.41053351781503e-07, 5.63676955383253e-07, 5.53093403094522e-07}) annotation(
     Placement(visible = true, transformation(origin = {62, 80}, extent = {{-15, -11}, {15, 11}}, rotation = 0)));
-  IEEE13Bus.MultiphaseBreaker multiphaseBreaker(Tclosing = {0.35, 0.35, 0.35}, Topening = {1, 1, 1}) annotation(
+  IEEE13Bus.MultiphaseBreaker multiphaseBreaker(Tclosing = {0.25, 0.25, 0.25}, Topening = {1, 1, 1}) annotation(
     Placement(visible = true, transformation(origin = {44, -79}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(plugToPin_p15.plug_p, multiphaseBreaker2.negativePlug1) annotation(
@@ -410,14 +408,12 @@ equation
     Line(points = {{53, -79}, {59, -79}, {59, -95}, {53, -95}, {53, -96}}, color = {0, 0, 255}));
   connect(multiphaseBreaker.positivePlug1, multiphaseBreaker2.positivePlug1) annotation(
     Line(points = {{34, -79}, {24, -79}, {24, -96}, {34, -96}, {34, -96}}, color = {0, 0, 255}));
-  annotation (
+  annotation(
     Diagram(coordinateSystem(initialScale = 0, grid = {1, 1}, extent = {{-240, -220}, {260, 200}})),
     Icon(coordinateSystem(initialScale = 0, grid = {1, 1}, extent = {{-240, -220}, {260, 200}})),
     version = "",
     uses(Modelica(version = "3.2.2")),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian",
-    __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "ida", cpu = "()", initialStepSize = "2e-07", maxIntegrationOrder = "2", maxStepSize = "2e-07"),
-    experiment(
-      StopTime= 0.4, Interval = 2e-07,
-      Tolerance= 1e-04, StartTime = 0));
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida", cpu = "()", initialStepSize = "2e-07", maxIntegrationOrder = "2", maxStepSize = "2e-07"),
+    experiment(StopTime = 0.3, Interval = 2e-07, Tolerance = 0.0001, StartTime = 0));
 end IEEE13Node;

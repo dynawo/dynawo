@@ -6,7 +6,7 @@ model IdealBreaker
   parameter Time Topening=0.1 "Opening Time";
   parameter ElectricCurrent Imarg=0.05  "Marginal Current";
 
-  Modelica.Electrical.Analog.Ideal.IdealClosingSwitch idealClosingSwitch1(Goff = 0, Ron = 0)  annotation(
+  Modelica.Electrical.Analog.Ideal.IdealClosingSwitch idealClosingSwitch1(Goff = 1e-10, Ron = 1e-10)  annotation(
     Placement(visible = true, transformation(origin = {-52, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Sensors.CurrentSensor currentSensor1 annotation(
     Placement(visible = true, transformation(origin = {-12, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
