@@ -33,12 +33,7 @@ namespace iidm {
 Network
 createHvdcConverterStationNetwork() {
   Network network("test", "test");
-  Substation& substation = network.newSubstation()
-                               .setId("S1")
-                               .setName("S1_NAME")
-                               .setCountry(Country::FR)
-                               .setTso("TSO")
-                               .add();
+  Substation& substation = network.newSubstation().setId("S1").setName("S1_NAME").setCountry(Country::FR).setTso("TSO").add();
 
   VoltageLevel& vl1 = substation.newVoltageLevel()
                           .setId("VL1")
@@ -144,11 +139,10 @@ TEST(DataInterfaceTest, VscConverter) {
   ASSERT_EQ(Ifce.getVscIIDM().getHvdcLine().get().getId(), "HVDC1");
   Ifce.importStaticParameters();
 
-  ASSERT_EQ(std::addressof(Ifce.getVscIIDM()), std::addressof(vsc));
-  ASSERT_EQ(typeid(Ifce.getVscIIDM()), typeid(vsc));
+  ASSERT_EQ(Ifce.getVscIIDM().getId(), vsc.getId());
 
   //  // DG FAIRE le test sera réalisé en tout-dernier (faire celui de l'injecteur avant)
   //  ASSERT_EQ(Ifce.getVoltageLevelInterface().get(), nullptr);
   //  getVNom() ; setVoltageLevelInterface ;
-}   // TEST(DataInterfaceTest, CsvConverter)
+}  // TEST(DataInterfaceTest, VscConverter)
 };  // namespace DYN
