@@ -17,6 +17,7 @@
 #include "DYNLoadInterfaceIIDM.h"
 #include "DYNLccConverterInterfaceIIDM.h"
 #include "DYNVscConverterInterfaceIIDM.h"
+#include "DYNLccConverterInterfaceIIDM.h"
 
 #include "gtest_dynawo.h"
 
@@ -30,6 +31,8 @@
 #include <powsybl/iidm/LccConverterStationAdder.hpp>
 #include <powsybl/iidm/VscConverterStation.hpp>
 #include <powsybl/iidm/VscConverterStationAdder.hpp>
+#include <powsybl/iidm/LccConverterStation.hpp>
+#include <powsybl/iidm/LccConverterStationAdder.hpp>
 
 using powsybl::iidm::Network;
 using powsybl::iidm::Substation;
@@ -41,6 +44,7 @@ using powsybl::iidm::Load;
 using powsybl::iidm::LoadType;
 using powsybl::iidm::LccConverterStation;
 using powsybl::iidm::VscConverterStation;
+using powsybl::iidm::LccConverterStation;
 using boost::shared_ptr;
 
 namespace DYN {
@@ -85,13 +89,14 @@ TEST(DataInterfaceTest, VoltageLevel) {
       .setReactivePowerSetpoint(5.0)
       .add();
 
+  powsybl::iidm::Bus& b5 = vlIIDM1.getBusBreakerView().newBus().setId("BUS5").add();
   LccConverterStation& lccIIDM1 = vlIIDM1.newLccConverterStation()
       .setId("LCC1")
-      .setName("LCC1_NAME")
-      .setBus(b4.getId())
-      .setConnectableBus(b4.getId())
-      .setLossFactor(3.0)
-      .setPowerFactor(.7)
+      .setName("VSC1_NAME")
+      .setBus(b5.getId())
+      .setConnectableBus(b5.getId())
+      .setLossFactor(2.0)
+      .setPowerFactor(-.2)
       .add();
 
   Load& loadIIDM1 = vlIIDM1.newLoad()
@@ -117,6 +122,7 @@ TEST(DataInterfaceTest, VoltageLevel) {
   shared_ptr<BusInterface> bus2(new BusInterfaceIIDM(b2));
   shared_ptr<BusInterface> bus3(new BusInterfaceIIDM(iidmBus));
   shared_ptr<BusInterface> bus4(new BusInterfaceIIDM(b4));
+  shared_ptr<BusInterface> bus5(new BusInterfaceIIDM(b5));
   shared_ptr<SwitchInterface> switch1(new SwitchInterfaceIIDM(aSwitch));
   shared_ptr<LoadInterface> load1(new LoadInterfaceIIDM(loadIIDM1));
   switch1->setBusInterface1(bus2);
@@ -124,8 +130,8 @@ TEST(DataInterfaceTest, VoltageLevel) {
   load1->setBusInterface(bus1);
   shared_ptr<VscConverterInterface> vsc1(new VscConverterInterfaceIIDM(vscIIDM1));
   vsc1->setBusInterface(bus4);
-  shared_ptr<LccConverterInterface> lcc1(new LccConverterInterfaceIIDM(lccIIDM1));
-  lcc1->setBusInterface(bus4);
+  shared_ptr<LccConverterInterfaceIIDM> lcc1(new LccConverterInterfaceIIDM(lccIIDM1));
+  lcc1->setBusInterface(bus5);
 
   ASSERT_EQ(vl.getID(), "VL1");
   ASSERT_EQ(vl.getVNom(), 400.);
@@ -159,28 +165,40 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_FALSE(bus2->hasConnection());
   ASSERT_FALSE(bus3->hasConnection());
   ASSERT_FALSE(bus4->hasConnection());
+  ASSERT_FALSE(bus5->hasConnection());
   vl.mapConnections();
   ASSERT_FALSE(bus1->hasConnection());
   ASSERT_FALSE(bus2->hasConnection());
   ASSERT_FALSE(bus3->hasConnection());
   ASSERT_FALSE(bus4->hasConnection());
+  ASSERT_FALSE(bus5->hasConnection());
   switch1->hasDynamicModel(true);
   vl.mapConnections();
   ASSERT_FALSE(bus1->hasConnection());
   ASSERT_TRUE(bus2->hasConnection());
   ASSERT_TRUE(bus3->hasConnection());
   ASSERT_FALSE(bus4->hasConnection());
+  ASSERT_FALSE(bus5->hasConnection());
   load1->hasDynamicModel(true);
   vl.mapConnections();
   ASSERT_TRUE(bus1->hasConnection());
   ASSERT_TRUE(bus2->hasConnection());
   ASSERT_TRUE(bus3->hasConnection());
   ASSERT_FALSE(bus4->hasConnection());
+  ASSERT_FALSE(bus5->hasConnection());
   vsc1->hasDynamicModel(true);
   vl.mapConnections();
   ASSERT_TRUE(bus1->hasConnection());
   ASSERT_TRUE(bus2->hasConnection());
   ASSERT_TRUE(bus3->hasConnection());
   ASSERT_TRUE(bus4->hasConnection());
+  ASSERT_FALSE(bus5->hasConnection());
+  lcc1->hasDynamicModel(true);
+  vl.mapConnections();
+  ASSERT_TRUE(bus1->hasConnection());
+  ASSERT_TRUE(bus2->hasConnection());
+  ASSERT_TRUE(bus3->hasConnection());
+  ASSERT_TRUE(bus4->hasConnection());
+  ASSERT_TRUE(bus5->hasConnection());
 }  // TEST(DataInterfaceTest, VoltageLevel)
 }  // namespace DYN

@@ -147,9 +147,9 @@ TEST(DataInterfaceTest, RatioTapChanger_2WT) {
   powsybl::iidm::RatioTapChanger rtcCopy(twoWT.getRatioTapChanger());
   const std::string Parent(twoWT.getId());
 
-  DYN::RatioTapChangerInterfaceIIDM Ifce(rtcCopy, Parent);
-  ASSERT_EQ(Ifce.getSteps().size(), 0);      // number of steps
-  ASSERT_EQ(Ifce.getNbTap(), 0);             // getNbTap() is the number of steps!
+  DYN::RatioTapChangerInterfaceIIDM Ifce(rtcCopy, "ONE");
+  ASSERT_EQ(Ifce.getNbTap(), 3);
+  ASSERT_EQ(Ifce.getSteps().size(), 3);
   ASSERT_EQ(Ifce.getLowPosition(), 1L);      // because tag_YYHY
   ASSERT_EQ(Ifce.getCurrentPosition(), 2L);  // because tag_UUHU
 
@@ -161,18 +161,7 @@ TEST(DataInterfaceTest, RatioTapChanger_2WT) {
   ASSERT_THROW(Ifce.setCurrentPosition(0L), std::exception);
 
   ASSERT_EQ(Ifce.getCurrentPosition(), 3L);
-  ASSERT_THROW(Ifce.getCurrentR(), std::out_of_range);  // 'steps_' must be initialized before accessing values
 
-  for (long i = Ifce.getLowPosition();; i++) {
-    try {
-      Ifce.setCurrentPosition(i);
-    } catch (...) {
-      break;
-    }
-    const auto& x = rtcCopy.getStep(i);
-    powsybl::iidm::RatioTapChangerStep S(x.getRho(), x.getR(), x.getX(), x.getG(), x.getB());
-    Ifce.addStep(boost::shared_ptr<StepInterface>(new StepInterfaceIIDM(S)));
-  }
   ASSERT_EQ(Ifce.getNbTap(), 3);
   ASSERT_EQ(Ifce.getSteps().size(), 3);
   ASSERT_EQ(Ifce.getNbTap(), rtcCopy.getStepCount());
@@ -205,7 +194,7 @@ TEST(DataInterfaceTest, RatioTapChanger_2WT) {
   ASSERT_FALSE(Ifce.getRegulating());
   ASSERT_DOUBLE_EQ(Ifce.getTargetV(), 99999.0L);
   ASSERT_EQ(Ifce.getTerminalRefId(), "");
-  ASSERT_EQ(Ifce.getTerminalRefSide(), "");
+  ASSERT_EQ(Ifce.getTerminalRefSide(), "ONE");
 
   rtcCopy.setTargetV(666.666);
   rtcCopy.setRegulating(true);
@@ -216,30 +205,9 @@ TEST(DataInterfaceTest, RatioTapChanger_2WT) {
   ASSERT_THROW(rtcCopy.setTargetV(stdcxx::nan()), std::exception);
 
   const powsybl::iidm::Terminal& RegulTerm = rtcCopy.getRegulationTerminal();
-  std::cerr << "      (debug) & Termina 1 >" << &twoWT.getTerminal1() << "< et  >" << twoWT.getTerminal1().getConnectable().get().getId() << "<\n";
-  std::cerr << "      (debug) & Termina 2 >" << &twoWT.getTerminal2() << "< et  >" << twoWT.getTerminal2().getConnectable().get().getId() << "<\n";
-  std::cerr << "      (debug) & RegulTerm >" << &RegulTerm << "< et  >" << RegulTerm.getConnectable().get().getId() << "<\n";
-  std::cerr << "      (debug) & Side    1 >" << twoWT.getSide(twoWT.getTerminal1()) << "<\n";
-  std::cerr << "      (debug) & Side    2 >" << twoWT.getSide(twoWT.getTerminal2()) << "<\n";
-  std::cerr << "      (debug) & twoW Id   >" << twoWT.getId() << "<\n";
-  std::cerr << "      (debug) & twoW Name >" << twoWT.getNameOrId() << "<\n";
   ASSERT_EQ(Ifce.getTerminalRefId(), "LOAD1");
-  ASSERT_EQ(Ifce.getTerminalRefSide(), "");
-  //  std::cerr << "      (debug) getParent >" << typeid(rtcCopy.getParent()).name() << "<\n";    --> protected   --DG--
-  rtcCopy.setRegulationTerminal(stdcxx::ref<powsybl::iidm::Terminal>(twoWT.getTerminal1()));
-  ASSERT_EQ(Ifce.getTerminalRefId(), Parent);
-  //  ASSERT_EQ( Ifce.getTerminalRefSide(), "ONE");                         --DG-- waiting for a solution
-  rtcCopy.setRegulationTerminal(stdcxx::ref<powsybl::iidm::Terminal>(twoWT.getTerminal2()));
-  ASSERT_EQ(Ifce.getTerminalRefId(), Parent);
-  //  ASSERT_EQ( Ifce.getTerminalRefSide(), "TWO");                         --DG-- waiting for a solution
-
-  //  ASSERT_EQ(Ifce.getTerminalRefId(), "LOAD1");                          --DG-- waiting, id. for following lines
-  //  ASSERT_EQ(Ifce.getTerminalRefSide(), "");
-  //  const powsybl::iidm::Terminal& terminal2 = network.getLoad("LOAD2").getTerminal();
-  //  rtcCopy.setRegulationTerminal(stdcxx::ref<powsybl::iidm::Terminal>(terminal));
-  //  ASSERT_EQ(Ifce.getTerminalRefId(), "LOAD2");
-  //  ASSERT_EQ(Ifce.getTerminalRefSide(), "");
-}  // TEST(DataInterfaceTest, RatioTapChanger_2WT)
+  ASSERT_EQ(Ifce.getTerminalRefSide(), "ONE");
+}
 
 TEST(DataInterfaceTest, RatioTapChanger_bad) {
   const powsybl::iidm::Network& network = createTwoWindingsTransformerNetwork();
@@ -472,22 +440,9 @@ TEST(DataInterfaceTest, RatioTapChanger_3WT) {
   const std::string Parent("test_RTC_Parent");
   DYN::RatioTapChangerInterfaceIIDM Ifce(rTapChanger, Parent);
 
-  ASSERT_EQ(Ifce.getNbTap(), 0);
+  ASSERT_EQ(Ifce.getNbTap(), 4);
   ASSERT_EQ(Ifce.getLowPosition(), -3L);
   ASSERT_EQ(Ifce.getCurrentPosition(), -2L);
-
-  ASSERT_THROW(Ifce.getCurrentR(), std::out_of_range);  // 'steps_' must be initialized before accessing values
-  for (long i = Ifce.getLowPosition();; i++) {
-    try {
-      Ifce.setCurrentPosition(i);
-    } catch (...) {
-      break;
-    }
-    const auto& x = rTapChanger.getStep(i);
-    powsybl::iidm::RatioTapChangerStep S(x.getRho(), x.getR(), x.getX(), x.getG(), x.getB());
-    Ifce.addStep(boost::shared_ptr<StepInterface>(new StepInterfaceIIDM(S)));
-  }
-  ASSERT_EQ(Ifce.getNbTap(), 4);
   ASSERT_EQ(Ifce.getNbTap(), rTapChanger.getStepCount());
 
   Ifce.setCurrentPosition(Ifce.getLowPosition());
