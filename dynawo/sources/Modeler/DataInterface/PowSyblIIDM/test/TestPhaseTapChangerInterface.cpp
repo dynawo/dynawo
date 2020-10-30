@@ -145,12 +145,21 @@ using powsybl::iidm::create_2WT_PhaseTapChanger_Network;
 TEST(DataInterfaceTest, PhaseTapChanger_2WT) {
   const powsybl::iidm::Network& network = create_2WT_PhaseTapChanger_Network();
   const powsybl::iidm::TwoWindingsTransformer& twoWT = network.getTwoWindingsTransformer("2WT_VL1_VL2");
-  powsybl::iidm::PhaseTapChanger ptcCopy(twoWT.getPhaseTapChanger());
+  powsybl::iidm::PhaseTapChanger pTapChanger(twoWT.getPhaseTapChanger());
 
-  DYN::PhaseTapChangerInterfaceIIDM Ifce(ptcCopy);
+  DYN::PhaseTapChangerInterfaceIIDM Ifce(pTapChanger);
+  auto oldTapPosition = pTapChanger.getTapPosition();
+  for (long i = pTapChanger.getLowTapPosition(); i <= pTapChanger.getHighTapPosition(); i++) {
+    pTapChanger.setTapPosition(i);
+    const auto& x = pTapChanger.getStep(i);
+    powsybl::iidm::PhaseTapChangerStep S(x.getAlpha(), x.getRho(), x.getR(), x.getX(), x.getG(), x.getB());
+    Ifce.addStep(boost::shared_ptr<StepInterface>(new StepInterfaceIIDM(S)));
+  }
+  pTapChanger.setTapPosition(oldTapPosition);
+
   ASSERT_EQ(Ifce.getSteps().size(), 3);  // number of steps
   ASSERT_EQ(Ifce.getNbTap(), 3);         // getNbTap() is the number of steps!
-  ASSERT_EQ(Ifce.getNbTap(), ptcCopy.getStepCount());
+  ASSERT_EQ(Ifce.getNbTap(), pTapChanger.getStepCount());
   ASSERT_EQ(Ifce.getLowPosition(), 1L);      // because tag_YYHY
   ASSERT_EQ(Ifce.getCurrentPosition(), 2L);  // because tag_UUHU
 
@@ -184,18 +193,18 @@ TEST(DataInterfaceTest, PhaseTapChanger_2WT) {
   ASSERT_DOUBLE_EQ(Ifce.getCurrentG(), 21.0L);
   ASSERT_DOUBLE_EQ(Ifce.getCurrentB(), 20.0L);
 
-  ptcCopy.setRegulationMode(powsybl::iidm::PhaseTapChanger::RegulationMode::FIXED_TAP);
+  pTapChanger.setRegulationMode(powsybl::iidm::PhaseTapChanger::RegulationMode::FIXED_TAP);
   ASSERT_FALSE(Ifce.isCurrentLimiter());
   ASSERT_DOUBLE_EQ(Ifce.getThresholdI(), 99999.0);
 
-  ptcCopy.setRegulationValue(100000.0);
-  ptcCopy.setRegulationMode(powsybl::iidm::PhaseTapChanger::RegulationMode::CURRENT_LIMITER);
+  pTapChanger.setRegulationValue(100000.0);
+  pTapChanger.setRegulationMode(powsybl::iidm::PhaseTapChanger::RegulationMode::CURRENT_LIMITER);
   ASSERT_TRUE(Ifce.isCurrentLimiter());
   ASSERT_DOUBLE_EQ(Ifce.getThresholdI(), 100000.0);
 
-  ptcCopy.setRegulating(true);
+  pTapChanger.setRegulating(true);
   ASSERT_TRUE(Ifce.getRegulating());
-  ptcCopy.setRegulating(false);
+  pTapChanger.setRegulating(false);
   ASSERT_FALSE(Ifce.getRegulating());
 }  // TEST(DataInterfaceTest, PhaseTapChanger_2WT)
 };  // namespace DYN
@@ -418,6 +427,15 @@ TEST(DataInterfaceTest, PhaseTapChanger_3WT) {
 
   powsybl::iidm::PhaseTapChanger& pTapChanger = transformer.getLeg3().getPhaseTapChanger();
   DYN::PhaseTapChangerInterfaceIIDM Ifce(pTapChanger);
+
+  auto oldTapPosition = pTapChanger.getTapPosition();
+  for (long i = pTapChanger.getLowTapPosition(); i <= pTapChanger.getHighTapPosition(); i++) {
+    pTapChanger.setTapPosition(i);
+    const auto& x = pTapChanger.getStep(i);
+    powsybl::iidm::PhaseTapChangerStep S(x.getAlpha(), x.getRho(), x.getR(), x.getX(), x.getG(), x.getB());
+    Ifce.addStep(boost::shared_ptr<StepInterface>(new StepInterfaceIIDM(S)));
+  }
+  pTapChanger.setTapPosition(oldTapPosition);
 
   ASSERT_EQ(Ifce.getNbTap(), 4);
   ASSERT_EQ(Ifce.getNbTap(), pTapChanger.getStepCount());
