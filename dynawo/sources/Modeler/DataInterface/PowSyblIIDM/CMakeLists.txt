@@ -34,9 +34,7 @@ set(DATA_INTERFACE_IIDM_SOURCES
 # DYNDanglingLineInterfaceIIDM.cpp
 # DYNNetworkInterfaceIIDM.cpp
 # DYNDataInterfaceIIDM.cpp
-# DYNVoltageLevelInterfaceIIDM.cpp
  DYNVoltageLevelInterfaceIIDM.cpp
-# DYNLccConverterInterfaceIIDM.cpp
 # DYNHvdcLineInterfaceIIDM.cpp
 )
 
