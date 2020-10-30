@@ -33,12 +33,7 @@ namespace iidm {
 Network
 createHvdcLccConverterStationNetwork() {
   Network network("test", "test");
-  Substation& substation = network.newSubstation()
-                               .setId("S1")
-                               .setName("S1_NAME")
-                               .setCountry(Country::FR)
-                               .setTso("TSO")
-                               .add();
+  Substation& substation = network.newSubstation().setId("S1").setName("S1_NAME").setCountry(Country::FR).setTso("TSO").add();
 
   VoltageLevel& vl1 = substation.newVoltageLevel()
                           .setId("VL1")
@@ -133,8 +128,7 @@ TEST(DataInterfaceTest, LccConverter) {
   ASSERT_EQ(Ifce.getLccIIDM().getHvdcLine().get().getId(), "HVDC1");
   Ifce.importStaticParameters();
 
-  ASSERT_EQ(std::addressof(Ifce.getLccIIDM()), std::addressof(lcc));
-  ASSERT_EQ(typeid(Ifce.getLccIIDM()), typeid(lcc));
+  ASSERT_EQ(Ifce.getLccIIDM().getId(), lcc.getId());
 
   //  // DG FAIRE les 2 tests seront réalisés en tout-dernier (faire celui de l'injecteur avant)
   //  - ASSERT_EQ(Ifce.getVoltageLevelInterface().get(), nullptr);
