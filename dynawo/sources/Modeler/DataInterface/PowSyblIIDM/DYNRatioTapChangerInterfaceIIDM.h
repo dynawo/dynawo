@@ -128,14 +128,13 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
    */
   double getCurrentRho() const;
 
- private:
   /**
-  * @brief sanity check to make sure the ratio tap changer is properly built
-  * @param parentName parent Transformer2WindingsBuilder id
-  */
-  void sanityCheck(const std::string& parentName) const;
+   * @copydoc RatioTapChangerInterface::getCurrentRho() const
+   */
 
  private:
+  bool isa2WindingTransformer_;                           ///< RTC belongs to a 2WT         --wip--
+  bool isa3WindingTransformer_;                           ///< RTC belongs to a 3WT         --wip--
   std::vector<boost::shared_ptr<StepInterface> > steps_;  ///< steps of the ratio tap changer
   powsybl::iidm::RatioTapChanger& tapChangerIIDM_;        ///< reference to the iidm ratioTapChanger's instance
 };
