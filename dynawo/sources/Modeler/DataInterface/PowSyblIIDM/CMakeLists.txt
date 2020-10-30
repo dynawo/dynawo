@@ -30,9 +30,9 @@ set(DATA_INTERFACE_IIDM_SOURCES
 # DYNShuntCompensatorInterfaceIIDM.cpp
 # DYNStaticVarCompensatorInterfaceIIDM.cpp
 # DYNGeneratorInterfaceIIDM.cpp
-# DYNDanglingLineInterfaceIIDM.cpp
- DYNVoltageLevelInterfaceIIDM.cpp
- DYNNetworkInterfaceIIDM.cpp
+  DYNDanglingLineInterfaceIIDM.cpp
+  DYNVoltageLevelInterfaceIIDM.cpp
+  DYNNetworkInterfaceIIDM.cpp
 # DYNDataInterfaceIIDM.cpp
 # DYNHvdcLineInterfaceIIDM.cpp
 )
