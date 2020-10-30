@@ -25,8 +25,6 @@
 
 #include "gtest_dynawo.h"
 
-#include <memory>
-
 namespace powsybl {
 namespace iidm {
 
