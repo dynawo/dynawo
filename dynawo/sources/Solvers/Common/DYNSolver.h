@@ -38,8 +38,6 @@ class Timeline;
 
 namespace DYN {
 static const int maxNumberUnstableRoots = 10;  ///< Maximum number of unstable roots for one time step
-static const double minimalAcceptableStep = 1e-12;  ///< Minimum time step to consider that the solver is not blocked
-static const int maximumNumberSlowStepIncrease = 10;  ///< Maximum number of consecutive time-steps with a time step lower than minimalAcceptableStep
 
 /**
  * @brief Flags of the current numerical resolution

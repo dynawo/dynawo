@@ -173,26 +173,35 @@ SolverSIM::setSolverSpecificParameters() {
   maxRootRestart_ = findParameter("maxRootRestart").getValue<int>();
   maxNewtonTry_ =  findParameter("maxNewtonTry").getValue<int>();
   recalculateStep_ = findParameter("recalculateStep").getValue<bool>();
-
   linearSolverName_ = findParameter("linearSolverName").getValue<std::string>();
-  if (findParameter("fnormtol").hasValue())
-    fnormtol_ = findParameter("fnormtol").getValue<double>();
-  if (findParameter("initialaddtol").hasValue())
-    initialaddtol_ = findParameter("initialaddtol").getValue<double>();
-  if (findParameter("scsteptol").hasValue())
-    scsteptol_ = findParameter("scsteptol").getValue<double>();
-  if (findParameter("mxnewtstep").hasValue())
-    mxnewtstep_ = findParameter("mxnewtstep").getValue<double>();
-  if (findParameter("msbset").hasValue())
-    msbset_ = findParameter("msbset").getValue<int>();
-  if (findParameter("mxiter").hasValue())
-    mxiter_ = findParameter("mxiter").getValue<int>();
-  if (findParameter("printfl").hasValue())
-    printfl_ = findParameter("printfl").getValue<int>();
-  if (findParameter("optimizeAlgebraicResidualsEvaluations").hasValue())
-    optimizeAlgebraicResidualsEvaluations_ = findParameter("optimizeAlgebraicResidualsEvaluations").getValue<bool>();
-  if (findParameter("skipNRIfInitialGuessOK").hasValue())
-    skipNRIfInitialGuessOK_ = findParameter("skipNRIfInitialGuessOK").getValue<bool>();
+
+  const ParameterSolver& fnormtol = findParameter("fnormtol");
+  if (fnormtol.hasValue())
+    fnormtol_ = fnormtol.getValue<double>();
+  const ParameterSolver& initialaddtol = findParameter("initialaddtol");
+  if (initialaddtol.hasValue())
+    initialaddtol_ = initialaddtol.getValue<double>();
+  const ParameterSolver& scsteptol = findParameter("scsteptol");
+  if (scsteptol.hasValue())
+    scsteptol_ = scsteptol.getValue<double>();
+  const ParameterSolver& mxnewtstep = findParameter("mxnewtstep");
+  if (mxnewtstep.hasValue())
+    mxnewtstep_ = mxnewtstep.getValue<double>();
+  const ParameterSolver& msbset = findParameter("msbset");
+  if (msbset.hasValue())
+    msbset_ = msbset.getValue<int>();
+  const ParameterSolver& mxiter = findParameter("mxiter");
+  if (mxiter.hasValue())
+    mxiter_ = mxiter.getValue<int>();
+  const ParameterSolver& printfl = findParameter("printfl");
+  if (printfl.hasValue())
+    printfl_ = printfl.getValue<int>();
+  const ParameterSolver& optimizeAlgebraicResidualsEvaluations = findParameter("optimizeAlgebraicResidualsEvaluations");
+  if (optimizeAlgebraicResidualsEvaluations.hasValue())
+    optimizeAlgebraicResidualsEvaluations_ = optimizeAlgebraicResidualsEvaluations.getValue<bool>();
+  const ParameterSolver& skipNRIfInitialGuessOK = findParameter("skipNRIfInitialGuessOK");
+  if (skipNRIfInitialGuessOK.hasValue())
+    skipNRIfInitialGuessOK_ = skipNRIfInitialGuessOK.getValue<bool>();
 }
 
 std::string

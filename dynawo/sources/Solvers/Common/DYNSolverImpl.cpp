@@ -84,11 +84,13 @@ mxnewtstepAlgJ_(100000),
 msbsetAlgJ_(1),
 mxiterAlgJ_(50),
 printflAlgJ_(0),
-tSolve_(0.),
-previousReinit_(None),
+minimalAcceptableStep_(1e-6),
+maximumNumberSlowStepIncrease_(10),
 enableSilentZ_(true),
 optimizeReinitAlgebraicResidualsEvaluations_(true),
-minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE) { }
+minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
+tSolve_(0.),
+previousReinit_(None) { }
 
 Solver::Impl::~Impl() {
   clean();
@@ -346,6 +348,10 @@ Solver::Impl::defineCommonParameters() {
   parameters_.insert(make_pair("mxiterAlgJ", ParameterSolver("mxiterAlgJ", VAR_TYPE_INT, optional)));
   parameters_.insert(make_pair("printflAlgJ", ParameterSolver("printflAlgJ", VAR_TYPE_INT, optional)));
 
+  // Parameters related to time-step evolution
+  parameters_.insert(make_pair("minimalAcceptableStep", ParameterSolver("minimalAcceptableStep", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("maximumNumberSlowStepIncrease", ParameterSolver("maximumNumberSlowStepIncrease", VAR_TYPE_INT, optional)));
+
   // Parameters for performance optimization
   parameters_.insert(make_pair("enableSilentZ", ParameterSolver("enableSilentZ", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("optimizeReinitAlgebraicResidualsEvaluations",
@@ -421,56 +427,66 @@ void Solver::Impl::setSolverParameters() {
 }
 
 void Solver::Impl::setSolverCommonParameters() {
-  fnormtolAlg_ = 1e-4;
-  initialaddtolAlg_ = 0.1;
-  scsteptolAlg_ = 1e-4;
-  mxnewtstepAlg_ = 100000;
-  msbsetAlg_ = 5;
-  mxiterAlg_ = 30;
-  printflAlg_ = 0;
-  fnormtolAlgJ_ = 1e-4;
-  initialaddtolAlgJ_ = 0.1;
-  scsteptolAlgJ_ = 1e-4;
-  mxnewtstepAlgJ_ = 100000;
-  msbsetAlgJ_ = 1;
-  mxiterAlgJ_ = 50;
-  printflAlgJ_ = 0;
+  const ParameterSolver& fnormtolAlg = findParameter("fnormtolAlg");
+  if (fnormtolAlg.hasValue())
+    fnormtolAlg_ = fnormtolAlg.getValue<double>();
+  const ParameterSolver& initialaddtolAlg = findParameter("initialaddtolAlg");
+  if (initialaddtolAlg.hasValue())
+    initialaddtolAlg_ = initialaddtolAlg.getValue<double>();
+  const ParameterSolver& scsteptolAlg = findParameter("scsteptolAlg");
+  if (scsteptolAlg.hasValue())
+    scsteptolAlg_ = scsteptolAlg.getValue<double>();
+  const ParameterSolver& mxnewtstepAlg = findParameter("mxnewtstepAlg");
+  if (mxnewtstepAlg.hasValue())
+    mxnewtstepAlg_ = mxnewtstepAlg.getValue<double>();
+  const ParameterSolver& msbsetAlg = findParameter("msbsetAlg");
+  if (msbsetAlg.hasValue())
+    msbsetAlg_ = msbsetAlg.getValue<int>();
+  const ParameterSolver& mxiterAlg = findParameter("mxiterAlg");
+  if (mxiterAlg.hasValue())
+    mxiterAlg_ = mxiterAlg.getValue<int>();
+  const ParameterSolver& printflAlg = findParameter("printflAlg");
+  if (printflAlg.hasValue())
+    printflAlg_ = printflAlg.getValue<int>();
 
-  if (findParameter("fnormtolAlg").hasValue())
-    fnormtolAlg_ = findParameter("fnormtolAlg").getValue<double>();
-  if (findParameter("initialaddtolAlg").hasValue())
-    initialaddtolAlg_ = findParameter("initialaddtolAlg").getValue<double>();
-  if (findParameter("scsteptolAlg").hasValue())
-    scsteptolAlg_ = findParameter("scsteptolAlg").getValue<double>();
-  if (findParameter("mxnewtstepAlg").hasValue())
-    mxnewtstepAlg_ = findParameter("mxnewtstepAlg").getValue<double>();
-  if (findParameter("msbsetAlg").hasValue())
-    msbsetAlg_ = findParameter("msbsetAlg").getValue<int>();
-  if (findParameter("mxiterAlg").hasValue())
-    mxiterAlg_ = findParameter("mxiterAlg").getValue<int>();
-  if (findParameter("printflAlg").hasValue())
-    printflAlg_ = findParameter("printflAlg").getValue<int>();
+  const ParameterSolver& fnormtolAlgJ = findParameter("fnormtolAlgJ");
+  if (fnormtolAlgJ.hasValue())
+    fnormtolAlgJ_ = fnormtolAlgJ.getValue<double>();
+  const ParameterSolver& initialaddtolAlgJ = findParameter("initialaddtolAlgJ");
+  if (initialaddtolAlgJ.hasValue())
+    initialaddtolAlgJ_ = initialaddtolAlgJ.getValue<double>();
+  const ParameterSolver& scsteptolAlgJ = findParameter("scsteptolAlgJ");
+  if (scsteptolAlgJ.hasValue())
+    scsteptolAlgJ_ = scsteptolAlgJ.getValue<double>();
+  const ParameterSolver& mxnewtstepAlgJ = findParameter("mxnewtstepAlgJ");
+  if (mxnewtstepAlgJ.hasValue())
+    mxnewtstepAlgJ_ = mxnewtstepAlgJ.getValue<double>();
+  const ParameterSolver& msbsetAlgJ = findParameter("msbsetAlgJ");
+  if (msbsetAlgJ.hasValue())
+    msbsetAlgJ_ = msbsetAlgJ.getValue<int>();
+  const ParameterSolver& mxiterAlgJ = findParameter("mxiterAlgJ");
+  if (mxiterAlgJ.hasValue())
+    mxiterAlgJ_ = mxiterAlgJ.getValue<int>();
+  const ParameterSolver& printflAlgJ = findParameter("printflAlgJ");
+  if (printflAlgJ.hasValue())
+    printflAlgJ_ = printflAlgJ.getValue<int>();
 
-  if (findParameter("fnormtolAlgJ").hasValue())
-    fnormtolAlgJ_ = findParameter("fnormtolAlgJ").getValue<double>();
-  if (findParameter("initialaddtolAlgJ").hasValue())
-    initialaddtolAlgJ_ = findParameter("initialaddtolAlgJ").getValue<double>();
-  if (findParameter("scsteptolAlgJ").hasValue())
-    scsteptolAlgJ_ = findParameter("scsteptolAlgJ").getValue<double>();
-  if (findParameter("mxnewtstepAlgJ").hasValue())
-    mxnewtstepAlgJ_ = findParameter("mxnewtstepAlgJ").getValue<double>();
-  if (findParameter("msbsetAlgJ").hasValue())
-    msbsetAlgJ_ = findParameter("msbsetAlgJ").getValue<int>();
-  if (findParameter("mxiterAlgJ").hasValue())
-    mxiterAlgJ_ = findParameter("mxiterAlgJ").getValue<int>();
-  if (findParameter("printflAlgJ").hasValue())
-    printflAlgJ_ = findParameter("printflAlgJ").getValue<int>();
-  if (findParameter("enableSilentZ").hasValue())
-    enableSilentZ_ = findParameter("enableSilentZ").getValue<bool>();
-  if (findParameter("optimizeReinitAlgebraicResidualsEvaluations").hasValue())
-    optimizeReinitAlgebraicResidualsEvaluations_ = findParameter("optimizeReinitAlgebraicResidualsEvaluations").getValue<bool>();
-  if (findParameter("minimumModeChangeTypeForAlgebraicRestoration").hasValue()) {
-    std::string value = findParameter("minimumModeChangeTypeForAlgebraicRestoration").getValue<string>();
+  const ParameterSolver& minimalAcceptableStep = findParameter("minimalAcceptableStep");
+  if (minimalAcceptableStep.hasValue())
+     minimalAcceptableStep_ = minimalAcceptableStep.getValue<double>();
+  const ParameterSolver& maximumNumberSlowStepIncrease = findParameter("maximumNumberSlowStepIncrease");
+  if (maximumNumberSlowStepIncrease.hasValue())
+    maximumNumberSlowStepIncrease_ = maximumNumberSlowStepIncrease.getValue<int>();
+
+  const ParameterSolver& enableSilentZ = findParameter("enableSilentZ");
+  if (enableSilentZ.hasValue())
+    enableSilentZ_ = enableSilentZ.getValue<bool>();
+  const ParameterSolver& optimizeReinitAlgebraicResidualsEvaluations = findParameter("optimizeReinitAlgebraicResidualsEvaluations");
+  if (optimizeReinitAlgebraicResidualsEvaluations.hasValue())
+    optimizeReinitAlgebraicResidualsEvaluations_ = optimizeReinitAlgebraicResidualsEvaluations.getValue<bool>();
+  const ParameterSolver& minimumModeChangeTypeForAlgebraicRestoration = findParameter("minimumModeChangeTypeForAlgebraicRestoration");
+  if (minimumModeChangeTypeForAlgebraicRestoration.hasValue()) {
+    std::string value = minimumModeChangeTypeForAlgebraicRestoration.getValue<string>();
     if (value == "DIFFERENTIAL")
       minimumModeChangeTypeForAlgebraicRestoration_ = DIFFERENTIAL_MODE;
     else if (value == "ALGEBRAIC")

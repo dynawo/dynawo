@@ -1010,8 +1010,10 @@ relAccuracy & 1e-4 \\
 \caption{Required parameters for \ac{IDA} solver}
 \end{table}
 
-In addition to these parameters, parameters defining the Newton-Raphsol solver behavior during algebraic equations restoration are also used. They have a similar default value than for the simplified solver but can be overwritten by the user [see Table \ref{OptionalParameters}].
+In addition to these parameters, parameters defining the Newton-Raphson solver behavior during algebraic equations restoration are also used. They have a similar default value than for the simplified solver but can be overwritten by the user [see Table \ref{OptionalParameters}].
 
+Finally, two parameters enable to stop the calculation if the time-step remains locked below a threshold - minimalAcceptableStep = 10e-6 by default - during more than
+maximumNumberSlowStepIncrease (= 10 by default).
 \bibliography{../resources/dynawoDocumentation}
 \bibliographystyle{abbrv}
 
