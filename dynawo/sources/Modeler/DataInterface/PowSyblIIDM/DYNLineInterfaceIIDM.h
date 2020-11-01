@@ -135,7 +135,7 @@ class LineInterfaceIIDM : public LineInterface {
   /**
    * @copydoc LineInterface::setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+//  void setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
    * @copydoc LineInterface::setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface)
@@ -145,7 +145,7 @@ class LineInterfaceIIDM : public LineInterface {
   /**
    * @copydoc LineInterface::setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
    */
-  void setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
+//  void setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
   /**
    * @copydoc LineInterface::getBusInterface1() const
@@ -195,8 +195,8 @@ class LineInterfaceIIDM : public LineInterface {
   powsybl::iidm::Line& lineIIDM_;                                    ///< reference to the iidm line instance
   boost::shared_ptr<BusInterface> busInterface1_;                    ///< busInterface of the bus where the side 1 of the line is connected
   boost::shared_ptr<BusInterface> busInterface2_;                    ///< busInterface of the bus where the side 2 of the line is connected
-  boost::shared_ptr<VoltageLevelInterface> voltageLevelInterface1_;  ///< voltageLevel interface where the side 1 of the line is connected
-  boost::shared_ptr<VoltageLevelInterface> voltageLevelInterface2_;  ///< voltageLevel interface where the side 2 of the line is connected
+//  boost::shared_ptr<VoltageLevelInterface> voltageLevelInterface1_;  ///< voltageLevel interface where the side 1 of the line is connected
+//  boost::shared_ptr<VoltageLevelInterface> voltageLevelInterface2_;  ///< voltageLevel interface where the side 2 of the line is connected
 
   std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces1_;  ///< current limit interfaces for side 1
   std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces2_;  ///< current limit interfaces for side 2
