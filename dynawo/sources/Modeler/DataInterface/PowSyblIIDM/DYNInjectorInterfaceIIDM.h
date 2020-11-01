@@ -137,7 +137,7 @@ class InjectorInterfaceIIDM {
    * @brief Getter for the active power injected/consumed by the injector
    * @return The active power injected/consumed by the injector in MW (following iidm convention)
    */
-  double getP() {  // DG ne peut être const car getInitialConnected !
+  double getP() {
     if (getInitialConnected()) {
       if (!hasP()) {
         Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "Injection", getID(), "P") << Trace::endline;

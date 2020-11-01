@@ -14,6 +14,7 @@
 #include "DYNLccConverterInterfaceIIDM.h"
 
 #include "DYNBusInterfaceIIDM.h"
+#include "DYNVoltageLevelInterfaceIIDM.h"
 
 #include <powsybl/iidm/HvdcLine.hpp>
 #include <powsybl/iidm/HvdcLineAdder.hpp>
@@ -128,8 +129,9 @@ TEST(DataInterfaceTest, LccConverter) {
 
   ASSERT_EQ(Ifce.getLccIIDM().getId(), lcc.getId());
 
-  //  // DG FAIRE les 2 tests seront réalisés en tout-dernier (faire celui de l'injecteur avant)
-  //  - ASSERT_EQ(Ifce.getVoltageLevelInterface().get(), nullptr);
-  //  -  getVNom() ; setVoltageLevelInterface ;
+  const boost::shared_ptr<DYN::VoltageLevelInterface> voltageLevelIfce(new DYN::VoltageLevelInterfaceIIDM(vl1));
+  Ifce.setVoltageLevelInterface(voltageLevelIfce);
+  ASSERT_DOUBLE_EQ(Ifce.getVNom(), 380);
+  ASSERT_EQ(Ifce.getVoltageLevelInterface(), voltageLevelIfce);
 }  // TEST(DataInterfaceTest, LccConverter)
 };  // namespace DYN
