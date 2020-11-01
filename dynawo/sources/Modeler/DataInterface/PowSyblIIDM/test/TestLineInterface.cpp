@@ -138,7 +138,7 @@ TEST(DataInterfaceTest, Line) {
   MyLine.getTerminal2().connect();
   ASSERT_DOUBLE_EQ(li.getVNom1(), 380.0);
   ASSERT_DOUBLE_EQ(li.getVNom2(), 360.0);
-
+/*
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce1(new VoltageLevelInterfaceIIDM(vl2));
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce2(new VoltageLevelInterfaceIIDM(vl4));
   li.setVoltageLevelInterface1(voltageLevelIfce1);
@@ -147,7 +147,7 @@ TEST(DataInterfaceTest, Line) {
   ASSERT_DOUBLE_EQ(voltageLevelIfce2.get()->getVNom(), 225.0);
   ASSERT_DOUBLE_EQ(li.getVNom1(), 380);  // DG yes! I suspect setVoltageLevelInterface1() to be totally useless
   ASSERT_DOUBLE_EQ(li.getVNom2(), 360);  // DG But it must exist since a pure virtual method mentions it
-
+*/
   ASSERT_EQ(li.getComponentVarIndex(std::string("p1")), LineInterfaceIIDM::VAR_P1);
   ASSERT_EQ(li.getComponentVarIndex(std::string("P1")), -1);
   ASSERT_EQ(li.getComponentVarIndex(std::string("p2")), LineInterfaceIIDM::VAR_P2);

@@ -58,7 +58,7 @@ void
 LineInterfaceIIDM::setBusInterface2(const shared_ptr<BusInterface>& busInterface) {
   busInterface2_ = busInterface;
 }
-
+/*
 void
 LineInterfaceIIDM::setVoltageLevelInterface1(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
   voltageLevelInterface1_ = voltageLevelInterface;
@@ -68,7 +68,7 @@ void
 LineInterfaceIIDM::setVoltageLevelInterface2(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
   voltageLevelInterface2_ = voltageLevelInterface;
 }
-
+*/
 shared_ptr<BusInterface>
 LineInterfaceIIDM::getBusInterface1() const {
   return busInterface1_;
