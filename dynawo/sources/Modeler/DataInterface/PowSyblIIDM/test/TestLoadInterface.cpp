@@ -15,6 +15,7 @@
 
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNInjectorInterfaceIIDM.h"
+#include "DYNVoltageLevelInterfaceIIDM.h"
 
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Load.hpp>
@@ -48,7 +49,7 @@ TEST(DataInterfaceTest, Load_1) {
                           .setId("VL1")
                           .setName("VL1_NAME")
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(380.0)
+                          .setNominalVoltage(382.0)
                           .setLowVoltageLimit(340.0)
                           .setHighVoltageLimit(420.0)
                           .add();
@@ -101,17 +102,17 @@ TEST(DataInterfaceTest, Load_1) {
   ASSERT_TRUE(loadIfce.hasQ());
   ASSERT_DOUBLE_EQ(loadIfce.getQ(), 499.0);
 
-  // Ci dessous, DG FAIRE
   loadIfce.importStaticParameters();
   loadIfce.setBusInterface(nullptr);
   loadIfce.importStaticParameters();
   ASSERT_EQ(loadIfce.getCountry(), "");
   loadIfce.setCountry("AF");
   ASSERT_EQ(loadIfce.getCountry(), "AF");
-  //  loadIfce.exportStateVariablesUnitComponent();
 
-  // Manque le test de setVoltageLevelInterface DG - FAIRE
-  // loadIfce.getVoltageLevelInterface() ;
+  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  loadIfce.setVoltageLevelInterface(voltageLevelIfce);
+  ASSERT_DOUBLE_EQ(loadIfce.getVNom(), 382.0);
+  ASSERT_EQ(loadIfce.getVoltageLevelInterface(), voltageLevelIfce);
 }  // TEST(DataInterfaceTest, Load_1)
 
 TEST(DataInterfaceTest, Load_2) {  // tests assuming getInitialConnected == false

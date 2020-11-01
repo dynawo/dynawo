@@ -14,6 +14,7 @@
 #include "DYNVscConverterInterfaceIIDM.h"
 
 #include "DYNBusInterfaceIIDM.h"
+#include "DYNVoltageLevelInterfaceIIDM.h"
 
 #include <powsybl/iidm/HvdcLine.hpp>
 #include <powsybl/iidm/HvdcLineAdder.hpp>
@@ -37,7 +38,7 @@ createHvdcConverterStationNetwork() {
                           .setId("VL1")
                           .setName("VL1_NAME")
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(380.0)
+                          .setNominalVoltage(388.0)
                           .setLowVoltageLimit(340.0)
                           .setHighVoltageLimit(420.0)
                           .add();
@@ -139,8 +140,9 @@ TEST(DataInterfaceTest, VscConverter) {
 
   ASSERT_EQ(Ifce.getVscIIDM().getId(), vsc.getId());
 
-  //  // DG FAIRE le test sera réalisé en tout-dernier (faire celui de l'injecteur avant)
-  //  ASSERT_EQ(Ifce.getVoltageLevelInterface().get(), nullptr);
-  //  getVNom() ; setVoltageLevelInterface ;
+  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  Ifce.setVoltageLevelInterface(voltageLevelIfce);
+  ASSERT_DOUBLE_EQ(Ifce.getVNom(), 388);
+  ASSERT_EQ(Ifce.getVoltageLevelInterface(), voltageLevelIfce);
 }  // TEST(DataInterfaceTest, VscConverter)
 };  // namespace DYN
