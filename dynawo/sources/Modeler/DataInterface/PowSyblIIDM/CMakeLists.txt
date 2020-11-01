@@ -17,28 +17,28 @@ set(DATA_INTERFACE_IIDM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 set(DATA_INTERFACE_IIDM_SOURCES
   DYNBusInterfaceIIDM.cpp
   DYNCurrentLimitInterfaceIIDM.cpp
+  DYNDanglingLineInterfaceIIDM.cpp
+# DYNDataInterfaceIIDM.cpp
+# DYNGeneratorInterfaceIIDM.cpp
+# DYNHvdcLineInterfaceIIDM.cpp
   DYNLccConverterInterfaceIIDM.cpp
   DYNLineInterfaceIIDM.cpp
   DYNLoadInterfaceIIDM.cpp
+  DYNNetworkInterfaceIIDM.cpp
   DYNPhaseTapChangerInterfaceIIDM.cpp
   DYNRatioTapChangerInterfaceIIDM.cpp
-  DYNStepInterfaceIIDM.cpp
-  DYNSwitchInterfaceIIDM.cpp
-  DYNVscConverterInterfaceIIDM.cpp
-  DYNTwoWTransformerInterfaceIIDM.cpp
-  DYNThreeWTransformerInterfaceIIDM.cpp
   DYNShuntCompensatorInterfaceIIDM.cpp
 # DYNStaticVarCompensatorInterfaceIIDM.cpp
-# DYNGeneratorInterfaceIIDM.cpp
-  DYNDanglingLineInterfaceIIDM.cpp
+  DYNStepInterfaceIIDM.cpp
+  DYNSwitchInterfaceIIDM.cpp
+  DYNThreeWTransformerInterfaceIIDM.cpp
+  DYNTwoWTransformerInterfaceIIDM.cpp
   DYNVoltageLevelInterfaceIIDM.cpp
-  DYNNetworkInterfaceIIDM.cpp
-# DYNDataInterfaceIIDM.cpp
-# DYNHvdcLineInterfaceIIDM.cpp
+  DYNVscConverterInterfaceIIDM.cpp
 )
 
 set(DATA_INTERFACE_IIDM_INCLUDE_HEADERS
-#    DYNDataInterfaceIIDM.h
+#    DYNDataInterfaceIIDM.h   # suspected to be useless DG
     )
 
 add_library(dynawo_DataInterfaceIIDM ${LIBRARY_TYPE} ${DATA_INTERFACE_IIDM_SOURCES})
@@ -67,4 +67,4 @@ set_target_properties(dynawo_DataInterfaceIIDM PROPERTIES VERSION ${DATA_INTERFA
                                                     SOVERSION ${DATA_INTERFACE_IIDM_VERSION_MAJOR})
 
 install(TARGETS dynawo_DataInterfaceIIDM EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-install(FILES ${DATA_INTERFACE_IIDM_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(FILES ${DATA_INTERFACE_IIDM_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME}) # suspected to be useless DG

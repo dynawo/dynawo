@@ -20,8 +20,6 @@
 
 #include "DYNRatioTapChangerInterfaceIIDM.h"
 
-// #include "DYNErrorQueue.h"     // --DG--
-// #include "DYNMacrosMessage.h"    // --DG--
 #include "DYNStepInterfaceIIDM.h"
 
 using boost::shared_ptr;
