@@ -14,20 +14,21 @@ set(MODULE_SOURCES
   TestBusInterface.cpp
   TestCurrentLimitInterface.cpp
   TestDanglingLineInterface.cpp
+# TestHvdcLineInterface.cpp
   TestInjectorInterface.cpp
   TestLccConverterInterface.cpp
   TestLineInterface.cpp
   TestLoadInterface.cpp
-  TestPhaseTapChangerInterface.cpp
   TestNetworkInterface.cpp
+  TestPhaseTapChangerInterface.cpp
   TestRatioTapChangerInterface.cpp
   TestShuntCompensatorInterface.cpp
   TestStepInterface.cpp
   TestSwitchInterface.cpp
   TestThreeWTransformerInterface.cpp
   TestTwoWTransformerInterface.cpp
-  TestVscConverterInterface.cpp
   TestVoltageLevelInterface.cpp
+  TestVscConverterInterface.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
