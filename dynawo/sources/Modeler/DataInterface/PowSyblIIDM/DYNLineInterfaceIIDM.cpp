@@ -55,13 +55,13 @@ LineInterfaceIIDM::setBusInterface1(const shared_ptr<BusInterface>& busInterface
 }
 
 void
-LineInterfaceIIDM::setVoltageLevelInterface1(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
-  voltageLevelInterface1_ = voltageLevelInterface;
+LineInterfaceIIDM::setBusInterface2(const shared_ptr<BusInterface>& busInterface) {
+  busInterface2_ = busInterface;
 }
 
 void
-LineInterfaceIIDM::setBusInterface2(const shared_ptr<BusInterface>& busInterface) {
-  busInterface2_ = busInterface;
+LineInterfaceIIDM::setVoltageLevelInterface1(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+  voltageLevelInterface1_ = voltageLevelInterface;
 }
 
 void
@@ -83,6 +83,10 @@ double
 LineInterfaceIIDM::getVNom1() const {
   if (lineIIDM_.getTerminal1().isConnected()) {
     return lineIIDM_.getTerminal1().getVoltageLevel().getNominalVoltage();
+// DG: Or maybe "return voltageLevelInterface1_.get()->getVNom();"
+// DG: But that does only work if a setVoltageLevelInterface1() has been called before. ctor does not set the voltageLevelInterface1_
+// DG; which is "buggous". We must consider voltageLevelInterface1_ useless at all: it is set but nothing calls it, no getSomething().
+// DG; I would have get rid of the voltageLevelInterface1_ stuff if there was not a pure virtual method based ont it... TODO
   }
   return 0.0;
 }
