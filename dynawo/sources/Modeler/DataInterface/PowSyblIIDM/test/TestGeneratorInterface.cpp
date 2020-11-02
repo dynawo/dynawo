@@ -1,0 +1,211 @@
+//
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+// See AUTHORS.txt
+// All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, you can obtain one at http://mozilla.org/MPL/2.0/.
+// SPDX-License-Identifier: MPL-2.0
+//
+// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+// simulation tool for power systems.
+//
+
+#include "DYNGeneratorInterfaceIIDM.h"
+
+#include "DYNBusInterfaceIIDM.h"
+#include "DYNVoltageLevelInterfaceIIDM.h"
+
+#include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/Generator.hpp>
+#include <powsybl/iidm/GeneratorAdder.hpp>
+#include <powsybl/iidm/Network.hpp>
+#include <powsybl/iidm/Substation.hpp>
+
+#include "gtest_dynawo.h"
+
+namespace DYN {
+
+using powsybl::iidm::Bus;
+using powsybl::iidm::Generator;
+using powsybl::iidm::Network;
+using powsybl::iidm::Substation;
+using powsybl::iidm::TopologyKind;
+using powsybl::iidm::VoltageLevel;
+
+TEST(DataInterfaceTest, Generator_1) {
+  Network network("test", "test");
+
+  Substation& substation = network.newSubstation()
+                               .setId("S1")
+                               .setName("S1_NAME")
+                               .setCountry(powsybl::iidm::Country::FR)
+                               .setTso("TSO")
+                               .add();
+
+  VoltageLevel& vl1 = substation.newVoltageLevel()
+                          .setId("VL1")
+                          .setName("VL1_NAME")
+                          .setTopologyKind(TopologyKind::BUS_BREAKER)
+                          .setNominalVoltage(382.0)
+                          .setLowVoltageLimit(340.0)
+                          .setHighVoltageLimit(420.0)
+                          .add();
+
+  Bus& bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
+
+  Generator& gen = vl1.newGenerator()
+      .setId("GEN1")
+      .setName("GEN1_NAME")
+      .setBus(bus1.getId())
+      .setConnectableBus(bus1.getId())
+      .setEnergySource(powsybl::iidm::EnergySource::WIND)
+      .setMaxP(50.0)
+      .setMinP(3.0)
+      .setRatedS(4.0)
+      .setTargetP(45.0)
+      .setTargetQ(5.0)
+      .setTargetV(24.0)
+      .setVoltageRegulatorOn(true)
+      .add();
+
+  GeneratorInterfaceIIDM genItf(gen);
+  ASSERT_EQ(genItf.getID(), "GEN1");
+
+  ASSERT_EQ(genItf.getComponentVarIndex(std::string("p")), GeneratorInterfaceIIDM::VAR_P);
+  ASSERT_EQ(genItf.getComponentVarIndex(std::string("q")), GeneratorInterfaceIIDM::VAR_Q);
+  ASSERT_EQ(genItf.getComponentVarIndex(std::string("state")), GeneratorInterfaceIIDM::VAR_STATE);
+  ASSERT_EQ(genItf.getComponentVarIndex(std::string("invalid")), -1);
+
+  genItf.importStaticParameters();
+
+  ASSERT_EQ(genItf.getBusInterface().get(), nullptr);
+  const boost::shared_ptr<BusInterface> busItf(new BusInterfaceIIDM(bus1));
+  genItf.setBusInterface(busItf);
+  ASSERT_EQ(genItf.getBusInterface().get()->getID(), "VL1_BUS1");
+
+  genItf.importStaticParameters();
+
+  const boost::shared_ptr<VoltageLevelInterface> voltageLevelItf(new VoltageLevelInterfaceIIDM(vl1));
+  genItf.setVoltageLevelInterface(voltageLevelItf);
+
+  ASSERT_TRUE(genItf.getInitialConnected());
+
+  ASSERT_EQ(genItf.getP(), 0.0);
+  gen.getTerminal().setP(10.0);
+  ASSERT_EQ(genItf.getP(), 10.0);
+
+  ASSERT_EQ(genItf.getQ(), 0.0);
+  gen.getTerminal().setQ(11.0);
+  ASSERT_EQ(genItf.getQ(), 11.0);
+
+  ASSERT_EQ(genItf.getPMin(), 3.0);
+  ASSERT_EQ(genItf.getPMax(), 50.0);
+
+  ASSERT_EQ(genItf.getTargetP(), -45.0);
+  ASSERT_EQ(genItf.getTargetQ(), -5.0);
+  ASSERT_EQ(genItf.getTargetV(), 24.0);
+
+  ASSERT_TRUE(genItf.isVoltageRegulationOn());
+
+  ASSERT_EQ(genItf.getReactiveCurvesPoints().size(), 0.0);
+
+  ASSERT_TRUE(genItf.getCountry().empty());
+  genItf.setCountry("FR");
+  ASSERT_EQ(genItf.getCountry(), "FR");
+  genItf.setCountry("");
+  ASSERT_TRUE(genItf.getCountry().empty());
+
+  ASSERT_EQ(genItf.getQMin(), -std::numeric_limits<double>::max());
+  ASSERT_EQ(genItf.getQMax(), std::numeric_limits<double>::max());
+  gen.newMinMaxReactiveLimits().setMinQ(1.0).setMaxQ(2.0).add();
+  ASSERT_EQ(genItf.getQMin(), 1.0);
+  ASSERT_EQ(genItf.getQMax(), 2.0);
+  gen.newReactiveCapabilityCurve()
+     .beginPoint()
+       .setP(1)
+       .setMinQ(15)
+       .setMaxQ(25)
+     .endPoint()
+     .beginPoint()
+       .setP(2)
+       .setMinQ(10)
+       .setMaxQ(20)
+     .endPoint()
+     .add();
+  ASSERT_EQ(genItf.getQMin(), 15.0);
+  ASSERT_EQ(genItf.getQMax(), 25.0);
+  gen.newReactiveCapabilityCurve()
+     .beginPoint()
+       .setP(-30)
+       .setMinQ(15)
+       .setMaxQ(25)
+     .endPoint()
+     .beginPoint()
+       .setP(-20)
+       .setMinQ(10)
+       .setMaxQ(20)
+     .endPoint()
+     .add();
+  ASSERT_EQ(genItf.getQMin(), 10.0);
+  ASSERT_EQ(genItf.getQMax(), 20.0);
+  gen.newReactiveCapabilityCurve()
+     .beginPoint()
+       .setP(-20)
+       .setMinQ(15)
+       .setMaxQ(25)
+     .endPoint()
+     .beginPoint()
+       .setP(0)
+       .setMinQ(10)
+       .setMaxQ(20)
+     .endPoint()
+     .add();
+  ASSERT_EQ(genItf.getQMin(), 12.5);
+  ASSERT_EQ(genItf.getQMax(), 22.5);
+
+  // TODO(TBA) genItf.exportStateVariablesUnitComponent();
+  gen.getTerminal().disconnect();
+  // TODO(TBA) genItf.exportStateVariablesUnitComponent();
+}  // TEST(DataInterfaceTest, Generator_1)
+
+TEST(DataInterfaceTest, Generator_2) {
+  Network network("test", "test");
+
+  Substation& substation = network.newSubstation()
+                               .setId("S1")
+                               .setName("S1_NAME")
+                               .setCountry(powsybl::iidm::Country::FR)
+                               .setTso("TSO")
+                               .add();
+
+  VoltageLevel& vl1 = substation.newVoltageLevel()
+                          .setId("VL1")
+                          .setTopologyKind(TopologyKind::BUS_BREAKER)
+                          .setNominalVoltage(380.0)
+                          .add();
+
+  Bus& bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
+
+  Generator& gen = vl1.newGenerator()
+      .setId("GEN1")
+      .setName("GEN1_NAME")
+      .setConnectableBus(bus1.getId())
+      .setMaxP(50.0)
+      .setMinP(3.0)
+      .setTargetP(45.0)
+      .setReactivePowerSetpoint(10.0)
+      .setVoltageRegulatorOn(false)
+      .add();
+
+  GeneratorInterfaceIIDM genItf(gen);
+  ASSERT_EQ(genItf.getID(), "GEN1");
+
+  ASSERT_FALSE(genItf.getInitialConnected());
+  ASSERT_FALSE(genItf.isVoltageRegulationOn());
+
+  ASSERT_EQ(genItf.getTargetV(), 0.0);
+  gen.setTargetV(24.0).setVoltageRegulatorOn(true).setReactivePowerSetpoint(stdcxx::nan());
+  ASSERT_EQ(genItf.getTargetQ(), 0.0);
+}  // TEST(DataInterfaceTest, Generator_2)
+}  // namespace DYN
