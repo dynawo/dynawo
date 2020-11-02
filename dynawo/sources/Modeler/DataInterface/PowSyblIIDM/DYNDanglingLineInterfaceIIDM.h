@@ -26,6 +26,7 @@
 
 #include "DYNDanglingLineInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
+#include <powsybl/iidm/DanglingLine.hpp>
 
 namespace DYN {
 
