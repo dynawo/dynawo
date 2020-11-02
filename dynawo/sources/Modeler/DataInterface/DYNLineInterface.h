@@ -68,22 +68,10 @@ class LineInterface : public ComponentInterface {
   virtual void setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface) = 0;
 
   /**
-   * @brief Setter for the line's voltageLevel interface side 1
-   * @param voltageLevelInterface of the bus where the side 1 of the line is connected
-   */
-//  virtual void setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
-
-  /**
    * @brief Setter for the line's bus interface side 2
    * @param busInterface of the bus where the side 2 of the line is connected
    */
   virtual void setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface) = 0;
-
-  /**
-   * @brief Setter for the line's voltageLevel interface side 2
-   * @param voltageLevelInterface of the bus where the side 2 of the line is connected
-   */
-//  virtual void setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) = 0;
 
   /**
    * @brief Getter for the line's bus interface side 1

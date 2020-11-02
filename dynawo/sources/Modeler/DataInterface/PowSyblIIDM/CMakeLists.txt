@@ -37,10 +37,6 @@ set(DATA_INTERFACE_IIDM_SOURCES
   DYNVscConverterInterfaceIIDM.cpp
 )
 
-set(DATA_INTERFACE_IIDM_INCLUDE_HEADERS
-#    DYNDataInterfaceIIDM.h   # suspected to be useless DG
-    )
-
 add_library(dynawo_DataInterfaceIIDM ${LIBRARY_TYPE} ${DATA_INTERFACE_IIDM_SOURCES})
 
 target_include_directories(dynawo_DataInterfaceIIDM
@@ -67,4 +63,3 @@ set_target_properties(dynawo_DataInterfaceIIDM PROPERTIES VERSION ${DATA_INTERFA
                                                     SOVERSION ${DATA_INTERFACE_IIDM_VERSION_MAJOR})
 
 install(TARGETS dynawo_DataInterfaceIIDM EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-install(FILES ${DATA_INTERFACE_IIDM_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME}) # suspected to be useless DG
