@@ -882,6 +882,24 @@ DataInterfaceIIDM::exportStateVariables() {
     (iterVL->second)->exportSwitchesState();
 }
 
+#ifdef _DEBUG_
+void
+DataInterfaceIIDM::exportStateVariablesNoReadFromModel() {
+  const bool filterForCriteriaCheck = false;
+  for (boost::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
+      iter != iterEnd; ++iter) {
+    (iter->second)->exportStateVariables();
+  }
+
+  // loop to update switch state due to topology analysis
+  // should be removed once a solution has been found to propagate switches (de)connection
+  // following component (de)connection (only Modelica models)
+  for (boost::unordered_map<string, shared_ptr<VoltageLevelInterface> >::iterator iterVL = voltageLevels_.begin(),
+      iterVLEnd = voltageLevels_.end(); iterVL != iterVLEnd; ++iterVL)
+    (iterVL->second)->exportSwitchesState();
+}
+#endif
+
 void
 DataInterfaceIIDM::configureCriteria(const shared_ptr<CriteriaCollection>& criteria) {
   configureBusCriteria(criteria);

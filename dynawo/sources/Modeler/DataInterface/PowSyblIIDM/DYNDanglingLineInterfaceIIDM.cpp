@@ -61,12 +61,10 @@ DanglingLineInterfaceIIDM::exportStateVariablesUnitComponent() {
   danglingLineIIDM_.getTerminal().setP(getValue<double>(VAR_P) * SNREF);
   danglingLineIIDM_.getTerminal().setQ(getValue<double>(VAR_Q) * SNREF);
 
-  if (danglingLineIIDM_.getTerminal().isConnected()) {
-    if (connected)
-      danglingLineIIDM_.getTerminal().connect();
-    else
-      danglingLineIIDM_.getTerminal().disconnect();
-  }
+  if (connected)
+    danglingLineIIDM_.getTerminal().connect();
+  else
+    danglingLineIIDM_.getTerminal().disconnect();
 }
 
 void

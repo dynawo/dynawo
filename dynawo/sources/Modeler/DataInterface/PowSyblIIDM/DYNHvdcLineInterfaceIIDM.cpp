@@ -68,18 +68,14 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
       (vsc2->getVscIIDM()).getTerminal().setQ(-1 * getValue<double>(VAR_Q2) * SNREF);
       bool connected1 = (getValue<int>(VAR_STATE1) == CLOSED);
       bool connected2 = (getValue<int>(VAR_STATE2) == CLOSED);
-      if ((vsc1->getVscIIDM()).getTerminal().isConnected()) {
-        if (connected1)
-          (vsc1->getVscIIDM()).getTerminal().connect();
-        else
-          (vsc1->getVscIIDM()).getTerminal().disconnect();
-      }
-      if ((vsc2->getVscIIDM()).getTerminal().isConnected()) {
-        if (connected2)
-          (vsc2->getVscIIDM()).getTerminal().connect();
-        else
-          (vsc2->getVscIIDM()).getTerminal().disconnect();
-      }
+      if (connected1)
+        (vsc1->getVscIIDM()).getTerminal().connect();
+      else
+        (vsc1->getVscIIDM()).getTerminal().disconnect();
+      if (connected2)
+        (vsc2->getVscIIDM()).getTerminal().connect();
+      else
+        (vsc2->getVscIIDM()).getTerminal().disconnect();
       break;
     }
     case ConverterInterface::LCC_CONVERTER: {
@@ -91,18 +87,14 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
       (lcc2->getLccIIDM()).getTerminal().setQ(-1 * getValue<double>(VAR_Q2) * SNREF);
       bool connected1 = (getValue<int>(VAR_STATE1) == CLOSED);
       bool connected2 = (getValue<int>(VAR_STATE2) == CLOSED);
-      if ((lcc1->getLccIIDM()).getTerminal().isConnected()) {
-        if (connected1)
-          (lcc1->getLccIIDM()).getTerminal().connect();
-        else
-          (lcc1->getLccIIDM()).getTerminal().disconnect();
-      }
-      if ((lcc2->getLccIIDM()).getTerminal().isConnected()) {
-        if (connected2)
-          (lcc2->getLccIIDM()).getTerminal().connect();
-        else
-          (lcc2->getLccIIDM()).getTerminal().disconnect();
-      }
+      if (connected1)
+        (lcc1->getLccIIDM()).getTerminal().connect();
+      else
+        (lcc1->getLccIIDM()).getTerminal().disconnect();
+      if (connected2)
+        (lcc2->getLccIIDM()).getTerminal().connect();
+      else
+        (lcc2->getLccIIDM()).getTerminal().disconnect();
       break;
     }
   }
@@ -176,7 +168,8 @@ HvdcLineInterfaceIIDM::getPmax() const {
 
 HvdcLineInterfaceIIDM::ConverterMode_t
 HvdcLineInterfaceIIDM::getConverterMode() const {
-  return hvdcLineIIDM_.getConvertersMode() == powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER ? HvdcLineInterface::RECTIFIER_INVERTER : HvdcLineInterface::INVERTER_RECTIFIER;
+  return hvdcLineIIDM_.getConvertersMode() ==
+      powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER ? HvdcLineInterface::RECTIFIER_INVERTER : HvdcLineInterface::INVERTER_RECTIFIER;
 }
 
 string
