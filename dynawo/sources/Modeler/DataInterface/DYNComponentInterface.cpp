@@ -121,6 +121,14 @@ ComponentInterface::enableCheckStateVariable() {
 void ComponentInterface::disableCheckStateVariable() {
   checkStateVariableAreUpdatedBeforeCriteriaCheck_ = false;
 }
+
+void ComponentInterface::setValue(const int index, const double value) {
+  if (!stateVariables_[index].valueAffected()) {
+    throw DYNError(Error::MODELER, UnaffectedStateVariable, stateVariables_[index].getName(), getID());
+  } else {
+    stateVariables_[index].setValue(value);
+  }
+}
 #endif
 
 }  // namespace DYN

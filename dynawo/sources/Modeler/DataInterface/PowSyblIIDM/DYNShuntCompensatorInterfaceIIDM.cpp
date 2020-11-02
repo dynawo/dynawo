@@ -60,12 +60,10 @@ ShuntCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
   shuntCompensatorIIDM_.getTerminal().setQ(getValue<double>(VAR_Q) * SNREF);
   shuntCompensatorIIDM_.setCurrentSectionCount(getValue<int>(VAR_CURRENTSECTION));
 
-  if (shuntCompensatorIIDM_.getTerminal().isConnected()) {
-    if (connected)
-      shuntCompensatorIIDM_.getTerminal().connect();
-    else
-      shuntCompensatorIIDM_.getTerminal().disconnect();
-  }
+  if (connected)
+    shuntCompensatorIIDM_.getTerminal().connect();
+  else
+    shuntCompensatorIIDM_.getTerminal().disconnect();
 }
 
 void

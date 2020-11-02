@@ -63,12 +63,10 @@ LoadInterfaceIIDM::exportStateVariablesUnitComponent() {
   loadIIDM_.getTerminal().setP(getValue<double>(VAR_P) * SNREF);
   loadIIDM_.getTerminal().setQ(getValue<double>(VAR_Q) * SNREF);
 
-  if (loadIIDM_.getTerminal().isConnected()) {
-    if (connected)
-      loadIIDM_.getTerminal().connect();
-    else
-      loadIIDM_.getTerminal().disconnect();
-  }
+  if (connected)
+    loadIIDM_.getTerminal().connect();
+  else
+    loadIIDM_.getTerminal().disconnect();
 }
 
 void

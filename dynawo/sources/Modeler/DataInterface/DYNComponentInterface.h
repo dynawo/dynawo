@@ -161,6 +161,14 @@ class ComponentInterface {
    * @brief disable check criteria sanity check
    */
   void disableCheckStateVariable();
+
+  /**
+   * @brief set a state variable value thanks to its name
+   *
+   * @param index index of the state variable
+   * @param value value to assign
+   */
+  void setValue(const int index, const double value);
 #endif
 
  public:
