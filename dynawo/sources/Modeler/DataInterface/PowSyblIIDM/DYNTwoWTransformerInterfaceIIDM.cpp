@@ -228,18 +228,15 @@ TwoWTransformerInterfaceIIDM::exportStateVariablesUnitComponent() {
   bool connected1 = (state == CLOSED) || (state == CLOSED_1);
   bool connected2 = (state == CLOSED) || (state == CLOSED_2);
 
-  if (tfoIIDM_.getTerminal1().isConnected()) {
-    if (connected1)
-      tfoIIDM_.getTerminal1().connect();
-    else
-      tfoIIDM_.getTerminal1().disconnect();
-  }
-  if (tfoIIDM_.getTerminal2().isConnected()) {
-    if (connected2)
-      tfoIIDM_.getTerminal2().connect();
-    else
-      tfoIIDM_.getTerminal2().disconnect();
-  }
+  if (connected1)
+    tfoIIDM_.getTerminal1().connect();
+  else
+    tfoIIDM_.getTerminal1().disconnect();
+
+  if (connected2)
+    tfoIIDM_.getTerminal2().connect();
+  else
+    tfoIIDM_.getTerminal2().disconnect();
 }
 
 double

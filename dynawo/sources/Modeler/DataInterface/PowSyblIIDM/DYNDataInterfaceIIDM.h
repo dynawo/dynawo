@@ -123,6 +123,13 @@ class DataInterfaceIIDM : public DataInterface {
    */
   void exportStateVariables();
 
+#ifdef _DEBUG_
+  /**
+   * @brief export values from static variables directly into the IIDM model without updating them
+   */
+  void exportStateVariablesNoReadFromModel();
+#endif
+
   /**
    * @copydoc DataInterface::configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria)
    */
@@ -159,6 +166,14 @@ class DataInterfaceIIDM : public DataInterface {
    */
   std::string getBusName(const std::string& staticID, const std::string& labelNode);
 
+  /**
+   * @brief find a component thanks to its id
+   * @param id : id of the component to find
+   *
+   * @return instance of component interface found
+   */
+  boost::shared_ptr<ComponentInterface>& findComponent(const std::string& id);
+
  private:
   /**
    * @brief find a bus interface thanks to its id
@@ -175,14 +190,6 @@ class DataInterfaceIIDM : public DataInterface {
    * @return instance of voltage level interface found
    */
   boost::shared_ptr<VoltageLevelInterface> findVoltageLevelInterface(const std::string& id) const;
-
-  /**
-   * @brief find a component thanks to its id
-   * @param id : id of the component to find
-   *
-   * @return instance of component interface found
-   */
-  boost::shared_ptr<ComponentInterface>& findComponent(const std::string& id);
 
   /**
    * @brief import and create a voltage level interface thanls to the IIDM instance
