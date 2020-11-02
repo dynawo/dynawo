@@ -178,6 +178,7 @@ SolverKINAlgRestoration::modifySettings(double fnormtol, double initialaddtol, d
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNumMaxIters");
 
   // Modify the maximum number of iteration without preconditionner call (passing 0 means keeping the KINSOL default value, currently 10)
+  // Passing 1 means an exact Newton resolution
   flag = KINSetMaxSetupCalls(KINMem_, msbset);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetMaxSetupCalls");
