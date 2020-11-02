@@ -16,6 +16,9 @@
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNTwoWTransformerInterfaceIIDM.h"
 #include "DYNThreeWTransformerInterfaceIIDM.h"
+#include "DYNHvdcLineInterfaceIIDM.h"
+#include "DYNLccConverterInterfaceIIDM.h"
+#include "DYNVscConverterInterfaceIIDM.h"
 
 #include "gtest_dynawo.h"
 
@@ -26,6 +29,12 @@
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/TwoWindingsTransformerAdder.hpp>
 #include <powsybl/iidm/ThreeWindingsTransformerAdder.hpp>
+#include <powsybl/iidm/VscConverterStation.hpp>
+#include <powsybl/iidm/VscConverterStationAdder.hpp>
+#include <powsybl/iidm/HvdcLine.hpp>
+#include <powsybl/iidm/HvdcLineAdder.hpp>
+#include <powsybl/iidm/LccConverterStation.hpp>
+#include <powsybl/iidm/LccConverterStationAdder.hpp>
 
 using boost::shared_ptr;
 
@@ -159,11 +168,49 @@ TEST(DataInterfaceTest, Network) {
       .setConnectableBus(vl3Bus1.getId())
       .add()
       .add();
+
+  vl1.newLccConverterStation()
+      .setId("LCC1")
+      .setName("LCC1_NAME")
+      .setBus(vl1Bus1.getId())
+      .setConnectableBus(vl1Bus1.getId())
+      .setLossFactor(2.0)
+      .setPowerFactor(-.2)
+      .add();
+
+  vl1.newVscConverterStation()
+      .setId("VSC2")
+      .setName("VSC2_NAME")
+      .setBus(vl1Bus1.getId())
+      .setConnectableBus(vl1Bus1.getId())
+      .setLossFactor(3.0)
+      .setVoltageRegulatorOn(true)
+      .setVoltageSetpoint(1.2)
+      .setReactivePowerSetpoint(-1.5)
+      .add();
+
+  powsybl::iidm::HvdcLine& hvdcIIDM = networkIIDM.newHvdcLine()
+      .setId("HVDC1")
+      .setName("HVDC1_NAME")
+      .setActivePowerSetpoint(111.1)
+      .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
+      .setConverterStationId1("LCC1")
+      .setConverterStationId2("VSC2")
+      .setMaxP(12.0)
+      .setNominalVoltage(13.0)
+      .setR(14.0)
+      .add();
   NetworkInterfaceIIDM network(networkIIDM);
   shared_ptr<LineInterface> li(new LineInterfaceIIDM(MyLine));
   shared_ptr<VoltageLevelInterface> vl(new VoltageLevelInterfaceIIDM(vl1));
   shared_ptr<TwoWTransformerInterface> twoWT(new TwoWTransformerInterfaceIIDM(transformer));
   shared_ptr<ThreeWTransformerInterface> threeWT(new ThreeWTransformerInterfaceIIDM(transformer3));
+  powsybl::iidm::LccConverterStation& lcc = networkIIDM.getLccConverterStation("LCC1");
+  powsybl::iidm::VscConverterStation& vsc = networkIIDM.getVscConverterStation("VSC2");
+
+  const boost::shared_ptr<LccConverterInterface> LccIfce(new LccConverterInterfaceIIDM(lcc));
+  const boost::shared_ptr<VscConverterInterface> VscIfce(new VscConverterInterfaceIIDM(vsc));
+  shared_ptr<HvdcLineInterface> hvdc(new HvdcLineInterfaceIIDM(hvdcIIDM, LccIfce, VscIfce));
 
   ASSERT_EQ(network.getLines().size(), 0);
   network.addLine(li);
@@ -180,5 +227,9 @@ TEST(DataInterfaceTest, Network) {
   ASSERT_EQ(network.getThreeWTransformers().size(), 0);
   network.addThreeWTransformer(threeWT);
   ASSERT_EQ(network.getThreeWTransformers().size(), 1);
-}  // TEST(DataInterfaceTest, VoltageLevel)
+
+  ASSERT_EQ(network.getHvdcLines().size(), 0);
+  network.addHvdcLine(hvdc);
+  ASSERT_EQ(network.getHvdcLines().size(), 1);
+}
 }  // namespace DYN
