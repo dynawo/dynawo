@@ -18,7 +18,7 @@ set(DATA_INTERFACE_IIDM_SOURCES
   DYNBusInterfaceIIDM.cpp
   DYNCurrentLimitInterfaceIIDM.cpp
   DYNDanglingLineInterfaceIIDM.cpp
-# DYNDataInterfaceIIDM.cpp
+  DYNDataInterfaceIIDM.cpp
 # DYNGeneratorInterfaceIIDM.cpp
   DYNHvdcLineInterfaceIIDM.cpp
   DYNLccConverterInterfaceIIDM.cpp

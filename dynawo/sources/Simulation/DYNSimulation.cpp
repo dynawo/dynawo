@@ -500,7 +500,7 @@ Simulation::loadDynamicData() {
 
   if (!data_) {
     if (iidmFile_ != "") {
-      data_ = DataInterfaceFactory::build(DataInterfaceFactory::DATAINTERFACE_IIDM1, iidmFile_);
+      data_ = DataInterfaceFactory::build(DataInterfaceFactory::DATAINTERFACE_IIDM, iidmFile_);
     } else {
       dyd_->initFromDydFiles(dydFiles_);
       if (activateCriteria_) {

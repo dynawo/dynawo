@@ -29,6 +29,7 @@ set(MODULE_SOURCES
   TestTwoWTransformerInterface.cpp
   TestVoltageLevelInterface.cpp
   TestVscConverterInterface.cpp
+  TestDataInterface.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

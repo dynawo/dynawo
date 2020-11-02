@@ -26,6 +26,7 @@
 
 #include "DYNShuntCompensatorInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
+#include <powsybl/iidm/ShuntCompensator.hpp>
 
 namespace DYN {
 
@@ -125,4 +126,4 @@ class ShuntCompensatorInterfaceIIDM : public ShuntCompensatorInterface, public I
 };
 }  // namespace DYN
 
-#endif  // MODELER_DATAINTERFACE_IIDM_DYNSHUNTCOMPENSATORINTERFACEIIDM_H_
+#endif  // MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSHUNTCOMPENSATORINTERFACEIIDM_H_
