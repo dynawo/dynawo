@@ -13,7 +13,6 @@
 set(MODEL_FILES
     package.mo
     CpHistoryTerm.mo
-    CpTiMatrix.mo
     IdealBreaker.mo
     IdealUnit.mo
     IEEE13Node.mo

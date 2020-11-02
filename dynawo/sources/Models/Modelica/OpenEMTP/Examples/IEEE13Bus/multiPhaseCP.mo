@@ -4,7 +4,8 @@ model multiPhaseCP
   parameter Real h[m]  "{h1,h2,h3}";
   parameter Real Zmod[m] "Modified Zcm={Zcm1,Zcm2,Zcm3}";
   parameter Real tau[m] " tau ={tau1,tau2,tau3}";
-  parameter Real Ti[m,m]= CpTiMatrix(m) "If the line is not fully transposed, insert the Ti";
+  parameter Real Ti[m,m] "If the line is not fully transposed, insert the Ti";
+  parameter Real Rn[m,m] "Rn";
   // Real RN[m,m]  = Ti * diagonal(Zmod) * Modelica.Math.Matrices.inv(Ti) "CP RN";
   Modelica.Electrical.MultiPhase.Interfaces.PositivePlug sP(m = m)  annotation(
     Placement(visible = true, transformation(origin = {-100, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-92, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -16,9 +17,9 @@ model multiPhaseCP
     Placement(visible = true, transformation(origin = {100, -40}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   CpHistoryTerm cpHistoryTerm1(Ti = Ti, Zmod = Zmod, h = h, m = m, tau = tau)  annotation(
     Placement(visible = true, transformation(origin = {1, 9}, extent = {{-21, -21}, {21, 21}}, rotation = 0)));
-  Norton sNorton(RN = Modelica.Math.Matrices.inv(transpose(Ti)) * diagonal(Zmod) * Modelica.Math.Matrices.inv(Ti), m = m)  annotation(
+  Norton sNorton(RN = Rn, m = m)  annotation(
     Placement(visible = true, transformation(origin = {-60, 20}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Norton rNorton(RN = Modelica.Math.Matrices.inv(transpose(Ti)) * diagonal(Zmod) * Modelica.Math.Matrices.inv(Ti), m = m)  annotation(
+  Norton rNorton(RN = Rn, m = m)  annotation(
     Placement(visible = true, transformation(origin = {60, 20}, extent = {{-20, 20}, {20, -20}}, rotation = -90)));
   Modelica.Electrical.MultiPhase.Basic.Star star1(m = m)  annotation(
     Placement(visible = true, transformation(origin = {8, -74}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -56,4 +57,5 @@ equation
     uses(Modelica(version = "3.2.2")),
   Diagram(coordinateSystem(extent = {{-150, -110}, {150, 110}})),
   version = "",
-  __OpenModelica_commandLineOptions = "");end multiPhaseCP;
+  __OpenModelica_commandLineOptions = "");
+end multiPhaseCP;
