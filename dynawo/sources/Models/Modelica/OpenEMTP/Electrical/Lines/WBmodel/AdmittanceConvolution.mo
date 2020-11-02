@@ -2,9 +2,9 @@ within OpenEMTP.Electrical.Lines.WBmodel;
 model AdmittanceConvolution
   // parameter YcFittingParamters lineParameter //
   extends Modelica.Electrical.MultiPhase.Interfaces.OnePort;
-  parameter Real G0[:, :] annotation(HideResult=true);
-  parameter Real G[:, :, :] annotation(HideResult=true);
-  parameter Real q[:] annotation(HideResult=true);
+  parameter Real G0[m, m] annotation(HideResult=true);
+  parameter Real G[Ny, m, m] annotation(HideResult=true);
+  parameter Real q[Ny] annotation(HideResult=true);
   Real w[m, Ny](start=zeros(m,Ny),each fixed=true) annotation(HideResult=true);
   Real sum_w[m] annotation(HideResult=true);
   Real i_sh[m] annotation(HideResult=true);

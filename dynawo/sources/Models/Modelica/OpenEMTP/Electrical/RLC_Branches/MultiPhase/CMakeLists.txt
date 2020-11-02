@@ -21,6 +21,7 @@ set(MODEL_FILES
     R_Coupled.mo
     L_Coupled.mo
     Star.mo
+    Star.extvar
     )
 
 #

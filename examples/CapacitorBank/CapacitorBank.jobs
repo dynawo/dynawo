@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.rte-france.com/dynawo">
+    <job name="CapacitorBank">
+        <solver lib="dynawo_SolverSIM" parFile="solvers.par" parId="4"/>
+        <modeler compileDir="outputs/compilation">
+            <dynModels dydFile="CapacitorBank.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+        <simulation startTime="0" stopTime="0.5"/>
+        <outputs directory="outputsSIM">
+          <curves inputFile="CapacitorBank.crv" exportMode="CSV"/>
+          <logs>
+                        <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+              <appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
+            </logs>
+        </outputs>
+    </job>
+</jobs>

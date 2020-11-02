@@ -10,10 +10,12 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
-
-  <set id="1">
+-->
+  <!-- IDA order 1 solver-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="4">
     <par type="DOUBLE" name="hMin" value="0.000001"/>
-    <par type="DOUBLE" name="hMax" value="0.001"/>
+    <par type="DOUBLE" name="hMax" value="0.00001"/>
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="INT" name="nEff" value="10"/>
     <par type="INT" name="nDeadband" value="2"/>
@@ -23,16 +25,13 @@
     <par type="BOOL" name="recalculateStep" value="false"/>
     <par type="INT" name="msbsetAlg" value="10"/>
   </set>
--->
-  <!-- IDA order 1 solver-->
-<parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="1">
     <par type="INT" name="order" value="2"/>
     <par type="DOUBLE" name="initStep" value="0"/>
-    <par type="DOUBLE" name="minStep" value="1e-6"/>
-    <par type="DOUBLE" name="maxStep" value="1e-6"/>
-    <par type="DOUBLE" name="absAccuracy" value="1e-2"/>
-    <par type="DOUBLE" name="relAccuracy" value="1e-2"/>
+    <par type="DOUBLE" name="minStep" value="1e-8"/>
+    <par type="DOUBLE" name="maxStep" value="1e-4"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-6"/>
   </set>
   <!-- IDA order 2 solver -->
   <set id="2">

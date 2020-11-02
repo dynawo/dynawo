@@ -13,9 +13,13 @@
 set(MODEL_FILES
     package.mo
     Plug_a.mo
+    Plug_a.extvar
     Plug_b.mo
+    Plug_b.extvar
     Plug_c.mo
+    Plug_c.extvar
     Bus.mo
+    Bus.extvar
     Plug_ac.mo
     Plug_bc.mo
     SP_Bus.mo

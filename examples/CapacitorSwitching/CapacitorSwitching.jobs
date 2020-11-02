@@ -11,19 +11,6 @@
         </modeler>
         <simulation startTime="0" stopTime="0.6" precision="1e-4"/>
         <outputs directory="outputs">
-            <!--
-            <dumpInitValues local="true" global="true"/>
-            <constraints exportMode="XML"/>
-            <timeline exportMode="TXT"/>
-
-            -->
-
-            <curves inputFile="CapacitorSwitching.crv" exportMode="CSV"/>
-
-            <logs>
-              <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
-              <appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
-            </logs>
         </outputs>
     </job>
 </jobs>

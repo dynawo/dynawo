@@ -10,17 +10,20 @@
 
 # Preassembled models
 set(MODELICA_PREASSEMBLED_MODELS
-    newRLC.xml
-    IEEE13Node.xml
+    Bus.xml
+    Capacitor.xml
+    CosineVoltage.xml
+    Ground.xml
+    #IEEE13Node.xml
+    Inductor.xml
+    mPhaseCosineVoltage.xml
+    Plug_a.xml
+    Plug_b.xml
+    Plug_c.xml
+    Resistor.xml
+    Star.xml
+    TLM.xml
     )
-    # YgYg.xml
-    # triphase.xml
-    # SinglePhaseLine2.xml
-    # CapacitorSwitching.xml
-    # RLCwithSwitch.xml
-    # CapacitorBank.xml
-    # MO_arrester.xml
-    # AerialLine.xml
 
 # PYTHON scripts preassembled models
 set(PYTHON_SCRIPTS_PREASSEMBLED_MODELS

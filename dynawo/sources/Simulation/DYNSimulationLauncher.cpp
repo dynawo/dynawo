@@ -43,7 +43,7 @@ using DYN::Simulation;
 using DYN::SimulationContext;
 
 void launchSimu(const std::string& jobsFileName) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_) || defined(PRINT_TIMERS_OPT)
   DYN::Timer timer("Main::LaunchSimu");
 #endif
 

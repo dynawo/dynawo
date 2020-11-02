@@ -16,6 +16,7 @@ set(MODEL_FILES
     IdealBreaker.mo
     IdealUnit.mo
     IEEE13Node.mo
+    IEEE13NodeImproved.mo
     MultiphaseBreaker.mo
     multiPhaseCP.mo
     Norton.mo

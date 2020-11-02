@@ -766,7 +766,7 @@ Simulation::calculateIC() {
 
 void
 Simulation::simulate() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+#if defined(_DEBUG_) || defined(PRINT_TIMERS_OPT)
   Timer timer("Simulation::simulate()");
 #endif
   printSolverHeader();

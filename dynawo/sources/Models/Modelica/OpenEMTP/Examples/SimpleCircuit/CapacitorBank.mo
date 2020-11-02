@@ -73,7 +73,7 @@ equation
   connect(BR2.k, BR1.m) annotation(
     Line(points = {{-2, 48}, {-34, 48}, {-34, 0}, {-38, 0}, {-38, 0}}, color = {0, 0, 255}));
   annotation(
-    experiment(StartTime = 0, StopTime = 0.5, Tolerance = 1e-6, Interval = 1e-06),
+    experiment(StartTime = 0, StopTime = 0.5, Tolerance = 1e-06, Interval = 0.001),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "ida"));
 end CapacitorBank;

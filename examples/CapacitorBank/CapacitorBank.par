@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+  </set>
+</parametersSet>
+
+
+<!--
+Example:
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="DOUBLE" name="converter_P0Pu" value="-1.55"/>
+    <par type="DOUBLE" name="converter_Q0Pu" value="0"/>
+    <par type="DOUBLE" name="converter_U0Pu" value="1"/>
+    <par type="DOUBLE" name="converter_UPhase0" value="0.06"/>
+    <par type="DOUBLE" name="converter_Cdc" value="0.01"/>
+    <par type="DOUBLE" name="converter_Rfilter" value="0.005"/>
+    <par type="DOUBLE" name="converter_Lfilter" value="0.15"/>
+    <par type="DOUBLE" name="converter_Cfilter" value="0.066"/>
+    <par type="DOUBLE" name="converter_Rtransformer" value="0.01"/>
+    <par type="DOUBLE" name="converter_Ltransformer" value="0.2"/>
+    <par type="DOUBLE" name="converter_SNom" value="250"/>
+    <par type="DOUBLE" name="control_KpVI" value="0.67"/>
+    <par type="DOUBLE" name="control_XRratio" value="5"/>
+    <par type="DOUBLE" name="control_Kpc" value="0.7388"/>
+    <par type="DOUBLE" name="control_Kic" value="1.19"/>
+    <par type="DOUBLE" name="control_Kpv" value="0.52"/>
+    <par type="DOUBLE" name="control_Kiv" value="1.161022"/>
+    <par type="DOUBLE" name="control_Mq" value="0.000"/>
+    <par type="DOUBLE" name="control_Wf" value="60"/>
+    <par type="DOUBLE" name="control_Mp" value="0.02"/>
+    <par type="DOUBLE" name="control_Wff" value="16.66"/>
+    <par type="DOUBLE" name="control_Kff" value="0.01"/>
+    <par type="DOUBLE" name="control_Rfilter" value="0.005"/>
+    <par type="DOUBLE" name="control_Lfilter" value="0.15"/>
+    <par type="DOUBLE" name="control_Cfilter" value="0.066"/>
+    <par type="DOUBLE" name="control_Kpdc" value="50"/>
+    <par type="DOUBLE" name="PRefPu_ValueIn" value="0.6"/>
+    <par type="DOUBLE" name="QRefPu_ValueIn" value="0"/>
+    <par type="DOUBLE" name="UFilterRefPu_ValueIn" value="1"/>
+    <par type="DOUBLE" name="IdcSourceRefPu_ValueIn" value="0.6"/>
+    <par type="DOUBLE" name="UdcSourceRefPu_ValueIn" value="1"/>
+  </set>
+</parametersSet>
+-->

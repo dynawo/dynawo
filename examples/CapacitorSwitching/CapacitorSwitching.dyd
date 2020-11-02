@@ -19,7 +19,7 @@
   lib is for the .so file
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="CapacitorSwitchingModel" lib="CapacitorSwitching" parFile="./CapacitorSwitching.par" parId="1"/>
+  <dyn:blackBoxModel id="CapacitorSwitchingModel" lib="CapacitorBank" parFile="./CapacitorSwitching.par" parId="1"/>
 </dyn:dynamicModelsArchitecture>
 
 <!--

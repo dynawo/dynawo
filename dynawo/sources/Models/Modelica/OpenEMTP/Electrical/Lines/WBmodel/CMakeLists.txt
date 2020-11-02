@@ -13,6 +13,7 @@
 set(MODEL_FILES
     package.mo
     WBline.mo
+    WBline.extvar
     AdmittanceConvolution.mo
     HistoryTerm.mo
     )

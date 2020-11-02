@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="cosineVoltage" lib="mPhaseCosineVoltage" parFile="UntransposedLine.par" parId="CosineVoltage"/>
+  <dyn:blackBoxModel id="TLM" lib="TLM" parFile="UntransposedLine.par" parId="TLM"/>
+  <dyn:blackBoxModel id="ground" lib="Ground"/>
+  <dyn:blackBoxModel id="star" lib="Star"/>
+  <dyn:blackBoxModel id="bus" lib="Bus"/>
+  <dyn:blackBoxModel id="resistor1" lib="Resistor" parFile="UntransposedLine.par" parId="Resistor1"/>
+  <dyn:blackBoxModel id="inductor1" lib="Inductor" parFile="UntransposedLine.par" parId="Inductor1"/>
+  <dyn:blackBoxModel id="resistor2" lib="Resistor" parFile="UntransposedLine.par" parId="Resistor2"/>
+  <dyn:blackBoxModel id="inductor2" lib="Inductor" parFile="UntransposedLine.par" parId="Inductor2"/>
+  <dyn:blackBoxModel id="resistor3" lib="Resistor" parFile="UntransposedLine.par" parId="Resistor3"/>
+  <dyn:blackBoxModel id="inductor3" lib="Inductor" parFile="UntransposedLine.par" parId="Inductor3"/>
+  <dyn:blackBoxModel id="plug_a" lib="Plug_a"/>
+  <dyn:blackBoxModel id="plug_b" lib="Plug_b"/>
+  <dyn:blackBoxModel id="plug_c" lib="Plug_c"/>
+  <dyn:blackBoxModel id="ground2" lib="Ground"/>
+  <dyn:connect id1="resistor1" var1="resistor_n" id2="inductor1" var2="inductor_p"/>
+  <dyn:connect id1="resistor2" var1="resistor_n" id2="inductor2" var2="inductor_p"/>
+  <dyn:connect id1="resistor3" var1="resistor_n" id2="inductor3" var2="inductor_p"/>
+  <dyn:connect id1="resistor1" var1="resistor_p" id2="plug_a" var2="plug_a_pin_p"/>
+  <dyn:connect id1="resistor2" var1="resistor_p" id2="plug_b" var2="plug_b_pin_p"/>
+  <dyn:connect id1="resistor3" var1="resistor_p" id2="plug_c" var2="plug_c_pin_p"/>
+  <dyn:connect id1="inductor1" var1="inductor_n" id2="ground2" var2="ground_p"/>
+  <dyn:connect id1="inductor2" var1="inductor_n" id2="ground2" var2="ground_p"/>
+  <dyn:connect id1="inductor3" var1="inductor_n" id2="ground2" var2="ground_p"/>
+  <dyn:connect id1="TLM" var1="Tlm_Plug_m" id2="plug_a" var2="plug_a_plug_p"/>
+  <dyn:connect id1="TLM" var1="Tlm_Plug_m" id2="plug_b" var2="plug_b_plug_p"/>
+  <dyn:connect id1="TLM" var1="Tlm_Plug_m" id2="plug_c" var2="plug_c_plug_p"/>
+  <dyn:connect id1="TLM" var1="Tlm_Plug_k" id2="bus" var2="bus_positivePlug1"/>
+  <dyn:connect id1="cosineVoltage" var1="mphcosineVoltage_plug_p" id2="bus" var2="bus_positivePlug2"/>
+  <dyn:connect id1="cosineVoltage" var1="mphcosineVoltage_plug_n" id2="star" var2="star_plug_p"/>
+  <dyn:connect id1="ground" var1="ground_p" id2="star" var2="star_pin_n"/>
+</dyn:dynamicModelsArchitecture>

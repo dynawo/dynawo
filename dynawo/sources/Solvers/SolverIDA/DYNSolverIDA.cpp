@@ -384,6 +384,7 @@ SolverIDA::calculateIC() {
   // loops until a stable state is found
   bool change(true);
   int counter = 0;
+  return;
   solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_, initialaddtolAlg_,
       scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
   do {
@@ -728,6 +729,7 @@ bool SolverIDA::initAlgRestoration(modeChangeType_t modeChangeType) {
  */
 void
 SolverIDA::reinit() {
+  return;
   int counter = 0;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (modeChangeType == NO_MODE) return;

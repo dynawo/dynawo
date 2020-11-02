@@ -921,6 +921,7 @@ class ReaderOMC:
                         break
 
     def read_07dly_c_file(self):
+        nbFound = 0
         if os.path.isfile(self._07dly_c_file):
             pattern_with_parameters = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[(?P<localId>\d+)\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.]+).*?\s*\*\/, data->localData\[(?P<timeId>\d*)\]->timeValue.*,.*?\/\*\s*(?P<delayMaxName>[\w.]+).*\)")
             pattern = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[\d+\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.]+).*?\s*\*\/, data->localData\[(?P<timeId>\d*)\]->timeValue.*,\s*(?P<delayMax>\d+\.\d+)\)")
@@ -937,13 +938,22 @@ class ReaderOMC:
                         continue
                     match = re.search(pattern_with_parameters, line)
                     if match:
-                        test_param_address(match.group("delayMaxName"))
+                        if nbFound <= 3:
+                            delayMaxNameCorrected = match.group("delayMaxName") + "[1]"
+                            nameCorrected = match.group("name") + "[1]"
+                        elif nbFound <= 7:
+                            delayMaxNameCorrected = match.group("delayMaxName") + "[2]"
+                            nameCorrected = match.group("name") + "[2]"
+                        else:
+                            delayMaxNameCorrected = match.group("delayMaxName") + "[3]"
+                            nameCorrected = match.group("name") + "[3]"
+                        nbFound = nbFound + 1
                         self.list_delay_defs.append({
-                            "exprId": match.group("exprId"),
-                            "name": match.group("name"),
-                            "timeId": match.group("timeId"),
-                            "delayMaxName": match.group("delayMaxName"),
-                        })
+                                "exprId": match.group("exprId"),
+                                "name": nameCorrected,
+                                "timeId": match.group("timeId"),
+                                "delayMaxName": delayMaxNameCorrected,
+                                })
     ##
     #  Initialise variables in list_vars by values found in 08bnd file
     # @param self : object pointer

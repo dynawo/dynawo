@@ -5,12 +5,12 @@ model TLM "Constant Parameter (CP) line/cable model (multiphase)"
   parameter Real r[m]( each unit = "ohm/km") "{r1,r2,...,rm} in mode" annotation(HideResult=true);
   parameter SI.Length d( displayUnit="km") "length of line" annotation(HideResult=true);
   parameter SI.Time tau[m] " tau ={tau1,tau2,...,taum} in mode" annotation(HideResult=true);
-  parameter Real Ti[m,m]=OpenEMTP.NonElectrical.Functions.Clark_Transformation(m) "Clark matrix" annotation(HideResult=true);
+  parameter Real Ti[m,m]=OpenEMTP.NonElectrical.Functions.Clark_Transformation(m);
   //Final Paramters
   final parameter Real R[m]=r*d/1000 annotation(HideResult=false);
   final parameter Real h[m]=(Zc.-R./4)./(Zc.+R./4) annotation(HideResult=false);
   final parameter Real Zmod[m]=(Zc.+R./4) annotation(HideResult=false);
-  final parameter Real RN[m,m]=Modelica.Math.Matrices.inv(transpose(Ti)) * diagonal(Zmod) * Modelica.Math.Matrices.inv(Ti) annotation(HideResult=false);
+  final parameter Real RN[m,m]=Modelica.Math.Matrices.inv(transpose(Ti)) * diagonal(Zmod) * Modelica.Math.Matrices.inv(Ti);
   Modelica.Electrical.MultiPhase.Interfaces.PositivePlug Plug_k(m = m)  annotation (
     Placement(visible = true, transformation(origin = {-136, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-150, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.MultiPhase.Interfaces.PositivePlug Plug_m(m = m)  annotation (

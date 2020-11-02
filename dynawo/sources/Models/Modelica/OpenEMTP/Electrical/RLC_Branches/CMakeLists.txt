@@ -13,11 +13,15 @@ add_subdirectory(MultiPhase M)
 set(MODEL_FILES
     package.mo
     Ground.mo
+    Ground.extvar
     R.mo
+    R.extvar
     RL.mo
     L.mo
+    L.extvar
     LC.mo
     C.mo
+    C.extvar
     ParallelRLC.mo
     SeriesRLC.mo
     )

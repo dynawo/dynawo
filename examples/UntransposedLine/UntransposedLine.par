@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="CosineVoltage">
+    <par name="mphcosineVoltage_Phase_1_" type="DOUBLE" value="0"/>
+    <par name="mphcosineVoltage_Phase_2_" type="DOUBLE"  value="-2.0943951023931948"/>
+    <par name="mphcosineVoltage_Phase_3_" type="DOUBLE"  value="2.0943951023931948"/>
+    <par name="mphcosineVoltage_Vm_1_" type="DOUBLE"  value="4160"/>
+    <par name="mphcosineVoltage_Vm_2_" type="DOUBLE"  value="4160"/>
+    <par name="mphcosineVoltage_Vm_3_" type="DOUBLE"  value="4160"/>
+  </set>
+  <set id="TLM">
+    <par name="Tlm_RN_1_1_" type="DOUBLE" value="500.883"/>
+    <par name="Tlm_RN_1_2_" type="DOUBLE" value="150.203"/>
+    <par name="Tlm_RN_1_3_" type="DOUBLE" value="195.521"/>
+    <par name="Tlm_RN_2_1_" type="DOUBLE" value="150.203"/>
+    <par name="Tlm_RN_2_2_" type="DOUBLE" value="487.404"/>
+    <par name="Tlm_RN_2_3_" type="DOUBLE" value="126.738"/>
+    <par name="Tlm_RN_3_1_" type="DOUBLE" value="195.521"/>
+    <par name="Tlm_RN_3_2_" type="DOUBLE" value="126.738"/>
+    <par name="Tlm_RN_3_3_" type="DOUBLE" value="510.987"/>
+    <par name="Tlm_Ti_1_1_" type="DOUBLE" value="0.502659687516342"/>
+    <par name="Tlm_Ti_1_2_" type="DOUBLE" value="0.778867301097029"/>
+    <par name="Tlm_Ti_1_3_" type="DOUBLE" value="-0.249833119452532"/>
+    <par name="Tlm_Ti_2_1_" type="DOUBLE" value="0.644850930369252"/>
+    <par name="Tlm_Ti_2_2_" type="DOUBLE" value="-0.176951289724402"/>
+    <par name="Tlm_Ti_2_3_" type="DOUBLE" value="0.792006771920747"/>
+    <par name="Tlm_Ti_3_1_" type="DOUBLE" value="0.533578236163045"/>
+    <par name="Tlm_Ti_3_2_" type="DOUBLE" value="-0.600564731133732"/>
+    <par name="Tlm_Ti_3_3_" type="DOUBLE" value="-0.550352955472635"/>
+    <par name="Tlm_Zc_1_" type="DOUBLE" value="764.184393459587"/>
+    <par name="Tlm_Zc_2_" type="DOUBLE" value="306.035536630964"/>
+    <par name="Tlm_Zc_3_" type="DOUBLE" value="375.610320375084"/>
+    <par name="Tlm_d" type="DOUBLE" value="10.0000003200000"/>
+    <par name="Tlm_historyTerm_tau_1_" type="DOUBLE" value="4.20638695731765e-05"/>
+    <par name="Tlm_historyTerm_tau_2_" type="DOUBLE" value="3.69866780459919e-05"/>
+    <par name="Tlm_historyTerm_tau_3_" type="DOUBLE" value="3.62922192121727e-05"/>
+    <par name="Tlm_r_1_" type="DOUBLE" value="0.624132018960508"/>
+    <par name="Tlm_r_2_" type="DOUBLE" value="0.367412074618122"/>
+    <par name="Tlm_r_3_" type="DOUBLE" value="0.365147402870877"/>
+    <par name="Tlm_tau_1_" type="DOUBLE" value="4.20638695731765e-05"/>
+    <par name="Tlm_tau_2_" type="DOUBLE" value="3.69866780459919e-05"/>
+    <par name="Tlm_tau_3_" type="DOUBLE" value="3.62922192121727e-05"/>
+  </set>
+  <set id="Resistor1">
+    <par name="resistor_R" type="DOUBLE" value="24.481839080459770"/>
+  </set>
+  <set id="Resistor2">
+    <par name="resistor_R" type="DOUBLE" value="30.765511111111110"/>
+  </set>
+  <set id="Resistor3">
+    <par name="resistor_R" type="DOUBLE" value="30.765511111111110"/>
+  </set>
+  <set id="Inductor1">
+    <par name="inductor_L" type="DOUBLE" value="0.044646315377074"/>
+  </set>
+  <set id="Inductor2">
+    <par name="inductor_L" type="DOUBLE" value="0.061206039626025"/>
+  </set>
+  <set id="Inductor3">
+    <par name="inductor_L" type="DOUBLE" value="0.061206039626025"/>
+  </set>
+</parametersSet>

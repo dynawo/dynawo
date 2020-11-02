@@ -12,9 +12,11 @@
 
 set(MODEL_FILES
     package.mo
+    CosineVoltage.extvar
     CosineVoltage.mo
     YCosineVoltage.mo
     mPhaseCosineVoltage.mo
+    mPhaseCosineVoltage.extvar
     SurgeVoltage.mo
     SurgeCurrent.mo
     )

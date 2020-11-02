@@ -13,7 +13,11 @@
 set(MODEL_FILES
     package.mo
     TLM.mo
+    TLM.extvar
+    TLM2.mo
+    TLM2.extvar
     SP_TLM.mo
+    SP_TLM.extvar
     )
 
 #

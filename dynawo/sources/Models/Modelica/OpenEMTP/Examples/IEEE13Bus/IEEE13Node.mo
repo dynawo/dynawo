@@ -130,7 +130,7 @@ model IEEE13Node
   Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p13(k = 2, m = 3) annotation(
     Placement(visible = true, transformation(origin = {146, -93}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p14(k = 3, m = 3) annotation(
-    Placement(visible = true, transformation(origin = {164, -86}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {146, -66}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Electrical.Analog.Basic.Ground ground7 annotation(
     Placement(visible = true, transformation(origin = {144, -174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Resistor R692(R = 56.3370) annotation(
@@ -167,8 +167,8 @@ model IEEE13Node
     Placement(visible = true, transformation(origin = {-44, 21}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   PlugToPlug_a plugToPlug_a1 annotation(
     Placement(visible = true, transformation(origin = {-44, 12}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  MultiphaseBreaker multiphaseBreaker1(Topening = {1, 1, 1}, Tclosing = {0, 0, 0}) annotation(
-    Placement(visible = true, transformation(origin = {-71, 174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  OpenEMTP.Examples.IEEE13Bus.MultiphaseBreaker multiphaseBreaker1(Topening = {1, 1, 1}, Tclosing = {0, 0, 0}) annotation(
+    Placement(visible = true, transformation(origin = {-70, 174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   MultiphaseBreaker multiphaseBreaker2(Tclosing = {-1, -1, -1}, Topening = {0.15, 0.15, 0.15}) annotation(
     Placement(visible = true, transformation(origin = {44, -96}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   IdealBreaker idealBreaker1(Tclosing = 0.05, Topening = 0.2) annotation(
@@ -201,9 +201,9 @@ equation
   connect(plugToPin_p12.plug_p, L692T675.rP) annotation(
     Line(points = {{104, -96}, {76.8667, -96}}, color = {0, 0, 255}));
   connect(multiphaseBreaker1.negativePlug1, L632T671.sP) annotation(
-    Line(points = {{-61.8, 174.2}, {16, 174.2}, {16, 58.1333}}, color = {0, 0, 255}));
+    Line(points = {{-61, 174}, {16, 174}, {16, 58.1333}}, color = {0, 0, 255}));
   connect(multiphaseBreaker1.negativePlug1, plugToPin_p18.plug_p) annotation(
-    Line(points = {{-61.8, 174.2}, {16.2, 174.2}, {16.2, 147}, {62, 147}}, color = {0, 0, 255}));
+    Line(points = {{-61, 174}, {16.2, 174}, {16.2, 147}, {62, 147}}, color = {0, 0, 255}));
   connect(plugToPin_p3.pin_p, C611.p) annotation(
     Line(points = {{-107, 21}, {-118, 21}, {-118, 3}}, color = {0, 0, 255}));
   connect(C611.n, ground2.p) annotation(
@@ -259,7 +259,7 @@ equation
   connect(Rc675.p, Cc675.p) annotation(
     Line(points = {{188, -108}, {209, -108}, {209, -108}, {209, -108}}, color = {0, 0, 255}));
   connect(plugToPin_p14.pin_p, Cc675.p) annotation(
-    Line(points = {{166, -86}, {209, -86}, {209, -108}}, color = {0, 0, 255}));
+    Line(points = {{148, -66}, {209, -66}, {209, -108}}, color = {0, 0, 255}));
   connect(Rc675.n, Lc675.p) annotation(
     Line(points = {{188, -128}, {188, -128}, {188, -136}, {188, -136}}, color = {0, 0, 255}));
   connect(Lc675.n, ground7.p) annotation(
@@ -347,7 +347,7 @@ equation
   connect(plugToPin_p13.plug_p, plugToPin_p12.plug_p) annotation(
     Line(points = {{144, -93}, {103, -93}, {103, -96}, {104, -96}, {104, -96}}, color = {0, 0, 255}));
   connect(plugToPin_p14.plug_p, plugToPin_p13.plug_p) annotation(
-    Line(points = {{162, -86}, {144, -86}, {144, -93}}, color = {0, 0, 255}));
+    Line(points = {{144, -66}, {144, -93}}, color = {0, 0, 255}));
   connect(R692.n, L692.p) annotation(
     Line(points = {{10, -147}, {10, -147}, {10, -156}, {10, -155}}, color = {0, 0, 255}));
   connect(plugToPin_p15.pin_p, R692.p) annotation(

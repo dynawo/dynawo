@@ -84,7 +84,7 @@ mxnewtstepAlgJ_(100000),
 msbsetAlgJ_(1),
 mxiterAlgJ_(50),
 printflAlgJ_(0),
-minimalAcceptableStep_(1e-6),
+minimalAcceptableStep_(1e-15),
 maximumNumberSlowStepIncrease_(10),
 enableSilentZ_(true),
 optimizeReinitAlgebraicResidualsEvaluations_(true),
@@ -236,6 +236,9 @@ Solver::Impl::resetStats() {
 
 void
 Solver::Impl::solve(double tAim, double &tNxt) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("SolverIMPL::solve");
+#endif
   // Solving
   state_.reset();
   model_->reinitMode();

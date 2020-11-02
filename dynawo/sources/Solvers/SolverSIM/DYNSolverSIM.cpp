@@ -254,6 +254,7 @@ SolverSIM::calculateIC() {
   solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
       initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
 
+  return;
   // Loop as long as there is a z or a mode change
   do {
     Trace::debug() << DYNLog(CalculateICIteration, counter) << Trace::endline;
@@ -658,6 +659,7 @@ bool SolverSIM::initAlgRestoration(modeChangeType_t modeChangeType) {
  */
 void
 SolverSIM::reinit() {
+  return;
   int counter = 0;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
 
