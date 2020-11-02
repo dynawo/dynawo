@@ -14,7 +14,7 @@ set(MODULE_SOURCES
   TestBusInterface.cpp
   TestCurrentLimitInterface.cpp
   TestDanglingLineInterface.cpp
-# TestHvdcLineInterface.cpp
+  TestHvdcLineInterface.cpp
   TestInjectorInterface.cpp
   TestLccConverterInterface.cpp
   TestLineInterface.cpp

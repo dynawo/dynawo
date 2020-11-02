@@ -20,7 +20,7 @@ set(DATA_INTERFACE_IIDM_SOURCES
   DYNDanglingLineInterfaceIIDM.cpp
 # DYNDataInterfaceIIDM.cpp
 # DYNGeneratorInterfaceIIDM.cpp
-# DYNHvdcLineInterfaceIIDM.cpp
+  DYNHvdcLineInterfaceIIDM.cpp
   DYNLccConverterInterfaceIIDM.cpp
   DYNLineInterfaceIIDM.cpp
   DYNLoadInterfaceIIDM.cpp
