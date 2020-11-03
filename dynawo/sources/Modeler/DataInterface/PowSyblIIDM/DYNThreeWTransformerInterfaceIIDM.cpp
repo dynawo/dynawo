@@ -87,6 +87,29 @@ string
 ThreeWTransformerInterfaceIIDM::getID() const {
   return tfoIIDM_.getId();
 }
+bool
+ThreeWTransformerInterfaceIIDM::getInitialConnected1() {
+  if (initialConnected1_ == boost::none) {
+    initialConnected1_ = tfoIIDM_.getLeg1().getTerminal().get().isConnected();
+  }
+  return initialConnected1_.value();
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::getInitialConnected2() {
+  if (initialConnected2_ == boost::none) {
+    initialConnected2_ = tfoIIDM_.getLeg2().getTerminal().get().isConnected();
+  }
+  return initialConnected2_.value();
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::getInitialConnected3() {
+  if (initialConnected3_ == boost::none) {
+    initialConnected3_ = tfoIIDM_.getLeg3().getTerminal().get().isConnected();
+  }
+  return initialConnected3_.value();
+}
 
 void
 ThreeWTransformerInterfaceIIDM::addCurrentLimitInterface1(const shared_ptr<CurrentLimitInterface>& currentLimitInterface) {
