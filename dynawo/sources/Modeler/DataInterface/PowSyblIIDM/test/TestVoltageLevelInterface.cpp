@@ -15,6 +15,7 @@
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNLoadInterfaceIIDM.h"
+#include "DYNGeneratorInterfaceIIDM.h"
 #include "DYNLccConverterInterfaceIIDM.h"
 #include "DYNVscConverterInterfaceIIDM.h"
 #include "DYNLccConverterInterfaceIIDM.h"
@@ -39,6 +40,7 @@
 #include <powsybl/iidm/LccConverterStationAdder.hpp>
 #include <powsybl/iidm/ShuntCompensator.hpp>
 #include <powsybl/iidm/ShuntCompensatorAdder.hpp>
+#include <powsybl/iidm/GeneratorAdder.hpp>
 
 using powsybl::iidm::Network;
 using powsybl::iidm::Substation;
@@ -143,6 +145,22 @@ TEST(DataInterfaceTest, VoltageLevel) {
       .setMaximumSectionCount(3UL)
       .add();
 
+  powsybl::iidm::Bus& b8 = vlIIDM1.getBusBreakerView().newBus().setId("BUS8").add();
+  powsybl::iidm::Generator& genIIDM = vlIIDM1.newGenerator()
+      .setId("GEN1")
+      .setName("GEN1_NAME")
+      .setBus(b8.getId())
+      .setConnectableBus(b8.getId())
+      .setEnergySource(powsybl::iidm::EnergySource::WIND)
+      .setMaxP(50.0)
+      .setMinP(3.0)
+      .setRatedS(4.0)
+      .setTargetP(45.0)
+      .setTargetQ(5.0)
+      .setTargetV(24.0)
+      .setVoltageRegulatorOn(true)
+      .add();
+
   VoltageLevel& vlIIDM2 = s.newVoltageLevel()
                           .setId("VL2")
                           .setNominalVoltage(63.)
@@ -159,6 +177,7 @@ TEST(DataInterfaceTest, VoltageLevel) {
   shared_ptr<BusInterface> bus5(new BusInterfaceIIDM(b5));
   shared_ptr<BusInterface> bus6(new BusInterfaceIIDM(b6));
   shared_ptr<BusInterface> bus7(new BusInterfaceIIDM(b7));
+  shared_ptr<BusInterface> bus8(new BusInterfaceIIDM(b8));
   shared_ptr<SwitchInterface> switch1(new SwitchInterfaceIIDM(aSwitch));
   shared_ptr<LoadInterface> load1(new LoadInterfaceIIDM(loadIIDM1));
   switch1->setBusInterface1(bus2);
@@ -172,6 +191,8 @@ TEST(DataInterfaceTest, VoltageLevel) {
   danglingLine->setBusInterface(bus6);
   shared_ptr<ShuntCompensatorInterface> shunt(new ShuntCompensatorInterfaceIIDM(shuntIIDM));
   shunt->setBusInterface(bus7);
+  shared_ptr<GeneratorInterface> gen(new GeneratorInterfaceIIDM(genIIDM));
+  gen->setBusInterface(bus8);
 
   ASSERT_EQ(vl.getID(), "VL1");
   ASSERT_EQ(vl.getVNom(), 400.);
@@ -209,6 +230,10 @@ TEST(DataInterfaceTest, VoltageLevel) {
   vl.addShuntCompensator(shunt);
   ASSERT_EQ(vl.getShuntCompensators().size(), 1);
 
+  ASSERT_EQ(vl.getGenerators().size(), 0);
+  vl.addGenerator(gen);
+  ASSERT_EQ(vl.getGenerators().size(), 1);
+
   ASSERT_FALSE(bus1->hasConnection());
   ASSERT_FALSE(bus2->hasConnection());
   ASSERT_FALSE(bus3->hasConnection());
@@ -216,6 +241,7 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_FALSE(bus5->hasConnection());
   ASSERT_FALSE(bus6->hasConnection());
   ASSERT_FALSE(bus7->hasConnection());
+  ASSERT_FALSE(bus8->hasConnection());
   vl.mapConnections();
   ASSERT_FALSE(bus1->hasConnection());
   ASSERT_FALSE(bus2->hasConnection());
@@ -224,6 +250,7 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_FALSE(bus5->hasConnection());
   ASSERT_FALSE(bus6->hasConnection());
   ASSERT_FALSE(bus7->hasConnection());
+  ASSERT_FALSE(bus8->hasConnection());
   switch1->hasDynamicModel(true);
   vl.mapConnections();
   ASSERT_FALSE(bus1->hasConnection());
@@ -233,6 +260,7 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_FALSE(bus5->hasConnection());
   ASSERT_FALSE(bus6->hasConnection());
   ASSERT_FALSE(bus7->hasConnection());
+  ASSERT_FALSE(bus8->hasConnection());
   load1->hasDynamicModel(true);
   vl.mapConnections();
   ASSERT_TRUE(bus1->hasConnection());
@@ -242,6 +270,7 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_FALSE(bus5->hasConnection());
   ASSERT_FALSE(bus6->hasConnection());
   ASSERT_FALSE(bus7->hasConnection());
+  ASSERT_FALSE(bus8->hasConnection());
   vsc1->hasDynamicModel(true);
   vl.mapConnections();
   ASSERT_TRUE(bus1->hasConnection());
@@ -251,6 +280,7 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_FALSE(bus5->hasConnection());
   ASSERT_FALSE(bus6->hasConnection());
   ASSERT_FALSE(bus7->hasConnection());
+  ASSERT_FALSE(bus8->hasConnection());
   lcc1->hasDynamicModel(true);
   vl.mapConnections();
   ASSERT_TRUE(bus1->hasConnection());
@@ -260,6 +290,7 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_TRUE(bus5->hasConnection());
   ASSERT_FALSE(bus6->hasConnection());
   ASSERT_FALSE(bus7->hasConnection());
+  ASSERT_FALSE(bus8->hasConnection());
   danglingLine->hasDynamicModel(true);
   vl.mapConnections();
   ASSERT_TRUE(bus1->hasConnection());
@@ -269,6 +300,7 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_TRUE(bus5->hasConnection());
   ASSERT_TRUE(bus6->hasConnection());
   ASSERT_FALSE(bus7->hasConnection());
+  ASSERT_FALSE(bus8->hasConnection());
   shunt->hasDynamicModel(true);
   vl.mapConnections();
   ASSERT_TRUE(bus1->hasConnection());
@@ -278,5 +310,16 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_TRUE(bus5->hasConnection());
   ASSERT_TRUE(bus6->hasConnection());
   ASSERT_TRUE(bus7->hasConnection());
+  ASSERT_FALSE(bus8->hasConnection());
+  gen->hasDynamicModel(true);
+  vl.mapConnections();
+  ASSERT_TRUE(bus1->hasConnection());
+  ASSERT_TRUE(bus2->hasConnection());
+  ASSERT_TRUE(bus3->hasConnection());
+  ASSERT_TRUE(bus4->hasConnection());
+  ASSERT_TRUE(bus5->hasConnection());
+  ASSERT_TRUE(bus6->hasConnection());
+  ASSERT_TRUE(bus7->hasConnection());
+  ASSERT_TRUE(bus8->hasConnection());
 }  // TEST(DataInterfaceTest, VoltageLevel)
 }  // namespace DYN

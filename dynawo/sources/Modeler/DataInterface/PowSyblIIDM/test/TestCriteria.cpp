@@ -1137,579 +1137,615 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
-//  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  ASSERT_FALSE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setUMinPu(0.2);
-//  ASSERT_FALSE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
-//  criteriap->setPMax(200);
-//  ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
-//  criteriap->setPMin(50);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
-//  criteriap->setId("MyCriteria");
-//
-//  shared_ptr<DataInterface> data = createBusBreakerNetworkWithGenerators(180, 190, 100, 100);
-//  exportStates(data);
-//  std::vector< boost::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  GeneratorCriteria criteria(criteriap);
-//  // VNom lower than min
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria.addGenerator(generators[i]);
-//  ASSERT_TRUE(criteria.empty());
-//
-//  data = createBusBreakerNetworkWithGenerators(180, 425, 100, 100);
-//  exportStates(data);
-//  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  // VNom higher than max
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria.addGenerator(generators[i]);
-//  ASSERT_TRUE(criteria.empty());
-//
-//  data = createBusBreakerNetworkWithGenerators(190, 225, 250, 100);
-//  exportStates(data);
-//  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  // V > uMaxPu*VNom
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria.addGenerator(generators[i]);
-//  ASSERT_FALSE(criteria.empty());
-//  ASSERT_TRUE(criteria.checkCriteria(0, true));
-//  ASSERT_TRUE(criteria.getFailingCriteria().empty());
-//
-//  data = createBusBreakerNetworkWithGenerators(43, 225, 250, 100);
-//  exportStates(data);
-//  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  // V < uMinPu*VNom
-//  GeneratorCriteria criteria2(criteriap);
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria2.addGenerator(generators[i]);
-//  ASSERT_FALSE(criteria2.empty());
-//  ASSERT_TRUE(criteria2.checkCriteria(0, true));
-//  ASSERT_TRUE(criteria2.getFailingCriteria().empty());
-//
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
-//  exportStates(data);
-//  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  // OK
-//  GeneratorCriteria criteria3(criteriap);
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria3.addGenerator(generators[i]);
-//  ASSERT_FALSE(criteria3.empty());
-//  ASSERT_TRUE(criteria3.checkCriteria(0, true));
-//  ASSERT_TRUE(criteria3.getFailingCriteria().empty());
-//
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 250, 100);
-//  exportStates(data);
-//  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  // P> PMax
-//  GeneratorCriteria criteria4(criteriap);
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria4.addGenerator(generators[i]);
-//  ASSERT_FALSE(criteria4.empty());
-//  ASSERT_FALSE(criteria4.checkCriteria(0, true));
-//  ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
-//  ASSERT_EQ(criteria4.getFailingCriteria()[0].second, "SourceAbovePower MyGen 250 200 MyCriteria");
-//
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 40, 100);
-//  exportStates(data);
-//  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  // P< PMin
-//  criteriap->setScope(CriteriaParams::FINAL);
-//  GeneratorCriteria criteria5(criteriap);
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria5.addGenerator(generators[i]);
-//  ASSERT_FALSE(criteria5.empty());
-//  ASSERT_TRUE(criteria5.checkCriteria(0, false));
-//  ASSERT_TRUE(criteria5.getFailingCriteria().empty());
-//  ASSERT_FALSE(criteria5.checkCriteria(0, true));
-//  ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
-//  ASSERT_EQ(criteria5.getFailingCriteria()[0].second, "SourceUnderPower MyGen 40 50 MyCriteria");
+  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  ASSERT_FALSE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setUMinPu(0.2);
+  ASSERT_FALSE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
+  criteriap->setPMax(200);
+  ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
+  criteriap->setPMin(50);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
+  criteriap->setId("MyCriteria");
+
+  powsybl::iidm::Network network = createBusBreakerNetworkWithGenerators(180, 190, 100, 100);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  exportStates(data);
+  std::vector< boost::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  GeneratorCriteria criteria(criteriap);
+  // VNom lower than min
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria.addGenerator(generators[i]);
+  ASSERT_TRUE(criteria.empty());
+
+  powsybl::iidm::Network network2 = createBusBreakerNetworkWithGenerators(180, 425, 100, 100);
+  data = createDataItfFromNetworkCriteria(network2);
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // VNom higher than max
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria.addGenerator(generators[i]);
+  ASSERT_TRUE(criteria.empty());
+
+  powsybl::iidm::Network network3 = createBusBreakerNetworkWithGenerators(190, 225, 250, 100);
+  data = createDataItfFromNetworkCriteria(network3);
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // V > uMaxPu*VNom
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria.addGenerator(generators[i]);
+  ASSERT_FALSE(criteria.empty());
+  ASSERT_TRUE(criteria.checkCriteria(0, true));
+  ASSERT_TRUE(criteria.getFailingCriteria().empty());
+
+  powsybl::iidm::Network network4 = createBusBreakerNetworkWithGenerators(43, 225, 250, 100);
+  data = createDataItfFromNetworkCriteria(network4);
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // V < uMinPu*VNom
+  GeneratorCriteria criteria2(criteriap);
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria2.addGenerator(generators[i]);
+  ASSERT_FALSE(criteria2.empty());
+  ASSERT_TRUE(criteria2.checkCriteria(0, true));
+  ASSERT_TRUE(criteria2.getFailingCriteria().empty());
+
+  powsybl::iidm::Network network5 = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
+  data = createDataItfFromNetworkCriteria(network5);
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // OK
+  GeneratorCriteria criteria3(criteriap);
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria3.addGenerator(generators[i]);
+  ASSERT_FALSE(criteria3.empty());
+  ASSERT_TRUE(criteria3.checkCriteria(0, true));
+  ASSERT_TRUE(criteria3.getFailingCriteria().empty());
+
+  powsybl::iidm::Network network6 = createBusBreakerNetworkWithGenerators(180, 225, 250, 100);
+  data = createDataItfFromNetworkCriteria(network6);
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // P> PMax
+  GeneratorCriteria criteria4(criteriap);
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria4.addGenerator(generators[i]);
+  ASSERT_FALSE(criteria4.empty());
+  ASSERT_FALSE(criteria4.checkCriteria(0, true));
+  ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria4.getFailingCriteria()[0].second, "SourceAbovePower MyGen 250 200 MyCriteria");
+
+  powsybl::iidm::Network network7 = createBusBreakerNetworkWithGenerators(180, 225, 40, 100);
+  data = createDataItfFromNetworkCriteria(network7);
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // P< PMin
+  criteriap->setScope(CriteriaParams::FINAL);
+  GeneratorCriteria criteria5(criteriap);
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria5.addGenerator(generators[i]);
+  ASSERT_FALSE(criteria5.empty());
+  ASSERT_TRUE(criteria5.checkCriteria(0, false));
+  ASSERT_TRUE(criteria5.getFailingCriteria().empty());
+  ASSERT_FALSE(criteria5.checkCriteria(0, true));
+  ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria5.getFailingCriteria()[0].second, "SourceUnderPower MyGen 40 50 MyCriteria");
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
-//  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setUMinPu(0.2);
-//  criteriap->setPMax(200);
-//  criteriap->setPMin(50);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setType(CriteriaParams::SUM);
-//  ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
-//  criteriap->setId("MyCriteria");
-//
-//  shared_ptr<DataInterface> data = createBusBreakerNetworkWithGenerators(180, 190, 100, 100);
-//  exportStates(data);
-//  std::vector< boost::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  GeneratorCriteria criteria(criteriap);
-//  // VNom lower than min
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria.addGenerator(generators[i]);
-//  ASSERT_TRUE(criteria.empty());
-//
-//  data = createBusBreakerNetworkWithGenerators(180, 425, 100, 100);
-//  exportStates(data);
-//  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  // VNom higher than max
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria.addGenerator(generators[i]);
-//  ASSERT_TRUE(criteria.empty());
-//
-//  data = createBusBreakerNetworkWithGenerators(190, 225, 250, 100);
-//  exportStates(data);
-//  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  // V > uMaxPu*VNom
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria.addGenerator(generators[i]);
-//  ASSERT_FALSE(criteria.empty());
-//  ASSERT_TRUE(criteria.checkCriteria(0, true));
-//  ASSERT_TRUE(criteria.getFailingCriteria().empty());
-//
-//  data = createBusBreakerNetworkWithGenerators(43, 225, 250, 100);
-//  exportStates(data);
-//  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  // V < uMinPu*VNom
-//  GeneratorCriteria criteria2(criteriap);
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria2.addGenerator(generators[i]);
-//  ASSERT_FALSE(criteria2.empty());
-//  ASSERT_TRUE(criteria2.checkCriteria(0, true));
-//  ASSERT_TRUE(criteria2.getFailingCriteria().empty());
-//
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 50, 50);
-//  exportStates(data);
-//  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  // OK
-//  GeneratorCriteria criteria3(criteriap);
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria3.addGenerator(generators[i]);
-//  ASSERT_FALSE(criteria3.empty());
-//  ASSERT_TRUE(criteria3.checkCriteria(0, true));
-//  ASSERT_TRUE(criteria3.getFailingCriteria().empty());
-//
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 250, 100);
-//  exportStates(data);
-//  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  // P> PMax
-//  GeneratorCriteria criteria4(criteriap);
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria4.addGenerator(generators[i]);
-//  ASSERT_FALSE(criteria4.empty());
-//  ASSERT_FALSE(criteria4.checkCriteria(0, true));
-//  ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
-//  ASSERT_EQ(criteria4.getFailingCriteria()[0].second, "SourcePowerAboveMax 350 200 MyCriteria");
-//
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 10, 10);
-//  exportStates(data);
-//  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
-//  // P< PMin
-//  criteriap->setScope(CriteriaParams::FINAL);
-//  GeneratorCriteria criteria5(criteriap);
-//  for (size_t i = 0; i < generators.size(); ++i)
-//    criteria5.addGenerator(generators[i]);
-//  ASSERT_FALSE(criteria5.empty());
-//  ASSERT_TRUE(criteria5.checkCriteria(0, false));
-//  ASSERT_TRUE(criteria5.getFailingCriteria().empty());
-//  ASSERT_FALSE(criteria5.checkCriteria(0, true));
-//  ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
-//  ASSERT_EQ(criteria5.getFailingCriteria()[0].second, "SourcePowerBelowMin 20 50 MyCriteria");
+  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setUMinPu(0.2);
+  criteriap->setPMax(200);
+  criteriap->setPMin(50);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setType(CriteriaParams::SUM);
+  ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
+  criteriap->setId("MyCriteria");
+
+  powsybl::iidm::Network network = createBusBreakerNetworkWithGenerators(180, 190, 100, 100);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  exportStates(data);
+  std::vector< boost::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  GeneratorCriteria criteria(criteriap);
+  // VNom lower than min
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria.addGenerator(generators[i]);
+  ASSERT_TRUE(criteria.empty());
+
+  powsybl::iidm::Network network2 = createBusBreakerNetworkWithGenerators(180, 425, 100, 100);
+  data = createDataItfFromNetworkCriteria(network2);
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // VNom higher than max
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria.addGenerator(generators[i]);
+  ASSERT_TRUE(criteria.empty());
+
+  powsybl::iidm::Network network3 = createBusBreakerNetworkWithGenerators(190, 225, 250, 100);
+  data = createDataItfFromNetworkCriteria(network3);
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // V > uMaxPu*VNom
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria.addGenerator(generators[i]);
+  ASSERT_FALSE(criteria.empty());
+  ASSERT_TRUE(criteria.checkCriteria(0, true));
+  ASSERT_TRUE(criteria.getFailingCriteria().empty());
+
+  powsybl::iidm::Network network4 = createBusBreakerNetworkWithGenerators(43, 225, 250, 100);
+  data = createDataItfFromNetworkCriteria(network4);
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // V < uMinPu*VNom
+  GeneratorCriteria criteria2(criteriap);
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria2.addGenerator(generators[i]);
+  ASSERT_FALSE(criteria2.empty());
+  ASSERT_TRUE(criteria2.checkCriteria(0, true));
+  ASSERT_TRUE(criteria2.getFailingCriteria().empty());
+
+  powsybl::iidm::Network network5 = createBusBreakerNetworkWithGenerators(180, 225, 50, 50);
+  data = createDataItfFromNetworkCriteria(network5);
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // OK
+  GeneratorCriteria criteria3(criteriap);
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria3.addGenerator(generators[i]);
+  ASSERT_FALSE(criteria3.empty());
+  ASSERT_TRUE(criteria3.checkCriteria(0, true));
+  ASSERT_TRUE(criteria3.getFailingCriteria().empty());
+
+  powsybl::iidm::Network network6 = createBusBreakerNetworkWithGenerators(180, 225, 250, 100);
+  data = createDataItfFromNetworkCriteria(network6);
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // P> PMax
+  GeneratorCriteria criteria4(criteriap);
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria4.addGenerator(generators[i]);
+  ASSERT_FALSE(criteria4.empty());
+  ASSERT_FALSE(criteria4.checkCriteria(0, true));
+  ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria4.getFailingCriteria()[0].second, "SourcePowerAboveMax 350 200 MyCriteria");
+
+  powsybl::iidm::Network network7 = createBusBreakerNetworkWithGenerators(180, 225, 10, 10);
+  data = createDataItfFromNetworkCriteria(network7);
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // P< PMin
+  criteriap->setScope(CriteriaParams::FINAL);
+  GeneratorCriteria criteria5(criteriap);
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria5.addGenerator(generators[i]);
+  ASSERT_FALSE(criteria5.empty());
+  ASSERT_TRUE(criteria5.checkCriteria(0, false));
+  ASSERT_TRUE(criteria5.getFailingCriteria().empty());
+  ASSERT_FALSE(criteria5.checkCriteria(0, true));
+  ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria5.getFailingCriteria()[0].second, "SourcePowerBelowMin 20 50 MyCriteria");
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
-//  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  shared_ptr<DataInterface> data = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // not eligible
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(200);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(190, 200, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // vNom < min
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(200);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(190, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // v > 0.8*vNom
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // P > PMax
-//  ASSERT_FALSE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  criteria->addCountry("BE");
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // P > PMax but country filter is KO
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  criteria->addCountry("FRANCE");
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // P > PMax and country filter is OK
-//  ASSERT_FALSE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  criteria->addCountry("FRANCE");
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // P > PMax and country filter is OK
-//  ASSERT_FALSE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(200);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  criteria->addComponentId("MyDummyName");
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 200, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // generator not found
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  criteria->addComponentId("MyGen");
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // P > PMax
-//  ASSERT_FALSE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  criteria->addComponentId("MyGend2");
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // P < PMax
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::FINAL);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  criteria->addComponentId("MyGen");
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // v > 0.8*vNom
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//  ASSERT_FALSE(data->checkCriteria(0, true));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  criteria->addComponentId("MyGen");
-//  criteria->addCountry("BE");
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // P > PMax but criteria filter is KO
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  criteria->addComponentId("MyGen");
-//  criteria->addCountry("FRANCE");
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // P > PMax and criteria filter is OK
-//  ASSERT_FALSE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::LOCAL_VALUE);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  criteria->addComponentId("MyGen");
-//  criteria->addCountry("FRANCE");
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // P > PMax and criteria filter is OK
-//  ASSERT_FALSE(data->checkCriteria(0, false));
+  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // not eligible
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(200);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network2 = createBusBreakerNetworkWithGenerators(190, 200, 200, 100);
+  data = createDataItfFromNetworkCriteria(network2);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // vNom < min
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(200);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network3 = createBusBreakerNetworkWithGenerators(190, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network3);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // v > 0.8*vNom
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network4 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network4);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addCountry("BE");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network5 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network5);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax but country filter is KO
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addCountry("FRANCE");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network6 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network6);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax and country filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addCountry("FRANCE");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network7 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false);
+  data = createDataItfFromNetworkCriteria(network7);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax and country filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(200);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyDummyName");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network8 = createBusBreakerNetworkWithGenerators(180, 200, 200, 100);
+  data = createDataItfFromNetworkCriteria(network8);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // generator not found
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyGen");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network9 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network9);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyGend2");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network10 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network10);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P < PMax
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::FINAL);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyGen");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network11 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network11);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // v > 0.8*vNom
+  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, true));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyGen");
+  criteria->addCountry("BE");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network12 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network12);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax but criteria filter is KO
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyGen");
+  criteria->addCountry("FRANCE");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network13 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network13);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax and criteria filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyGen");
+  criteria->addCountry("FRANCE");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network14 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false);
+  data = createDataItfFromNetworkCriteria(network14);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax and criteria filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
-//  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::SUM);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  shared_ptr<DataInterface> data = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // not eligible
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::SUM);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(200);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(190, 200, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // vNom < min
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::SUM);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(200);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(190, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // v > 0.8*vNom
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::SUM);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(200);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  criteria->addComponentId("MyDummyName");
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 200, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // generator not found
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::SUM);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 50, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // sum(P)<= PMax
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::SUM);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // P > PMax
-//  ASSERT_FALSE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::SUM);
-//  criteriap->setScope(CriteriaParams::DYNAMIC);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  criteria->addComponentId("MyGen2");
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // P < PMax
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//
-//  criteriap = CriteriaParamsFactory::newCriteriaParams();
-//  criteriap->setType(CriteriaParams::SUM);
-//  criteriap->setScope(CriteriaParams::FINAL);
-//  criteriap->setUNomMin(225);
-//  criteriap->setUNomMax(400);
-//  criteriap->setUMaxPu(0.8);
-//  criteriap->setPMax(150);
-//  criteria = CriteriaFactory::newCriteria();
-//  criteria->setParams(criteriap);
-//  collection = CriteriaCollectionFactory::newInstance();
-//  collection->add(CriteriaCollection::GENERATOR, criteria);
-//  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-//  exportStates(data);
-//  data->configureCriteria(collection);
-//  // v > 0.8*vNom
-//  ASSERT_TRUE(data->checkCriteria(0, false));
-//  ASSERT_FALSE(data->checkCriteria(0, true));
+  boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::SUM);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // not eligible
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::SUM);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(200);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network2 = createBusBreakerNetworkWithGenerators(190, 200, 200, 100);
+  data = createDataItfFromNetworkCriteria(network2);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // vNom < min
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::SUM);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(200);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network3 = createBusBreakerNetworkWithGenerators(190, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network3);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // v > 0.8*vNom
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::SUM);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(200);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyDummyName");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network4 = createBusBreakerNetworkWithGenerators(180, 200, 200, 100);
+  data = createDataItfFromNetworkCriteria(network4);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // generator not found
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::SUM);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network5 = createBusBreakerNetworkWithGenerators(180, 225, 50, 100);
+  data = createDataItfFromNetworkCriteria(network5);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // sum(P)<= PMax
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::SUM);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network6 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network6);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::SUM);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyGen2");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network7 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network7);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P < PMax
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::SUM);
+  criteriap->setScope(CriteriaParams::FINAL);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  powsybl::iidm::Network network8 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  data = createDataItfFromNetworkCriteria(network8);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // v > 0.8*vNom
+  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, true));
 }
 
 }  // namespace DYN

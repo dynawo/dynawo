@@ -27,7 +27,7 @@
 #include "DYNLoadInterfaceIIDM.h"
 #include "DYNShuntCompensatorInterfaceIIDM.h"
 // #include "DYNStaticVarCompensatorInterfaceIIDM.h"
-// #include "DYNGeneratorInterfaceIIDM.h"
+#include "DYNGeneratorInterfaceIIDM.h"
 #include "DYNDanglingLineInterfaceIIDM.h"
 #include "DYNNetworkInterfaceIIDM.h"
 #include "DYNPhaseTapChangerInterfaceIIDM.h"
@@ -391,21 +391,20 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     components_[lcc->getID()] = lcc;
     lcc->setVoltageLevelInterface(voltageLevel);
   }
-//  //===========================
-//  //  ADD GENERATOR INTERFACE
-//  //===========================
-//  IIDM::Contains<IIDM::Generator>::iterator itGen = voltageLevelIIDM.generators().begin();
-//  for (; itGen != voltageLevelIIDM.generators().end(); ++itGen) {
-//    if ( !(*itGen).has_connection() ) {
-//      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itGen).id()) << Trace::endline;
-//      continue;
-//    }
-//    shared_ptr<GeneratorInterface> generator = importGenerator(*itGen, country);
-//    voltageLevel->addGenerator(generator);
-//    components_[generator->getID()] = generator;
-//    generatorComponents_[generator->getID()] = generator;
-//    generator->setVoltageLevelInterface(voltageLevel);
-//  }
+  //===========================
+  //  ADD GENERATOR INTERFACE
+  //===========================
+  for (auto& genIIDM : voltageLevelIIDM.getGenerators()) {
+    if (!genIIDM.getTerminal().isConnected()) {
+      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, genIIDM.getId()) << Trace::endline;
+      continue;
+    }
+    shared_ptr<GeneratorInterface> generator = importGenerator(genIIDM, countryStr);
+    voltageLevel->addGenerator(generator);
+    components_[generator->getID()] = generator;
+    generatorComponents_[generator->getID()] = generator;
+    generator->setVoltageLevelInterface(voltageLevel);
+  }
   // =======================================
   //    ADD SHUNTCOMPENSATORS INTERFACE
   // =======================================
@@ -463,20 +462,10 @@ DataInterfaceIIDM::importSwitch(powsybl::iidm::Switch& switchIIDM, const shared_
 
 shared_ptr<GeneratorInterface>
 DataInterfaceIIDM::importGenerator(powsybl::iidm::Generator & generatorIIDM, const std::string& country) {
-//  shared_ptr<GeneratorInterfaceIIDM> generator(new GeneratorInterfaceIIDM(generatorIIDM));
-//  generator->setCountry(country);
-//
-//  // reference to bus interface
-//  if (generatorIIDM.is_bus()) {
-//    string id = generatorIIDM.bus_id();
-//    generator->setBusInterface(findBusInterface(id));
-//  } else if (generatorIIDM.is_node()) {
-//    string voltageLevelId = generatorIIDM.voltageLevel().id();
-//    int node = generatorIIDM.node();
-//    generator->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
-//  }
-//  return generator;
-  return nullptr;
+  shared_ptr<GeneratorInterfaceIIDM> generator(new GeneratorInterfaceIIDM(generatorIIDM));
+  generator->setCountry(country);
+  generator->setBusInterface(findBusInterface(generatorIIDM.getTerminal().getBusBreakerView().getBus().get().getId()));
+  return generator;
 }
 
 shared_ptr<LoadInterface>
@@ -689,30 +678,34 @@ DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
   line->setBusInterface2(findBusInterface(lineIIDM.getTerminal2().getBusBreakerView().getBus().get().getId()));
 
   // permanent limit on side 1
-  powsybl::iidm::CurrentLimits& currentLimits1 = lineIIDM.getCurrentLimits1().get();
-  if (!std::isnan(currentLimits1.getPermanentLimit())) {
-    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits1.getPermanentLimit(), boost::none));
-    line->addCurrentLimitInterface1(cLimit);
-  }
-  // temporary limit on side 1
-  for (auto& currentLimit : currentLimits1.getTemporaryLimits()) {
-    if (!currentLimit.get().isFictitious()) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+  if (lineIIDM.getCurrentLimits1()) {
+    powsybl::iidm::CurrentLimits& currentLimits1 = lineIIDM.getCurrentLimits1().get();
+    if (!std::isnan(currentLimits1.getPermanentLimit())) {
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits1.getPermanentLimit(), boost::none));
       line->addCurrentLimitInterface1(cLimit);
+    }
+    // temporary limit on side 1
+    for (auto& currentLimit : currentLimits1.getTemporaryLimits()) {
+      if (!currentLimit.get().isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+        line->addCurrentLimitInterface1(cLimit);
+      }
     }
   }
 
-  // permanent limit on side 2
-  powsybl::iidm::CurrentLimits& currentLimits2 = lineIIDM.getCurrentLimits2().get();
-  if (!std::isnan(currentLimits2.getPermanentLimit())) {
-    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits2.getPermanentLimit(), boost::none));
-    line->addCurrentLimitInterface1(cLimit);
-  }
-  // temporary limit on side 12
-  for (auto& currentLimit : currentLimits2.getTemporaryLimits()) {
-    if (!currentLimit.get().isFictitious()) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+  if (lineIIDM.getCurrentLimits2()) {
+    // permanent limit on side 2
+    powsybl::iidm::CurrentLimits& currentLimits2 = lineIIDM.getCurrentLimits2().get();
+    if (!std::isnan(currentLimits2.getPermanentLimit())) {
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits2.getPermanentLimit(), boost::none));
       line->addCurrentLimitInterface1(cLimit);
+    }
+    // temporary limit on side 12
+    for (auto& currentLimit : currentLimits2.getTemporaryLimits()) {
+      if (!currentLimit.get().isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+        line->addCurrentLimitInterface1(cLimit);
+      }
     }
   }
   return line;
@@ -1004,49 +997,49 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
 
 void
 DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
-//  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::GENERATOR),
-//      itEnd = criteria->end(CriteriaCollection::GENERATOR);
-//      it != itEnd; ++it) {
-//    shared_ptr<criteria::Criteria> crit = *it;
-//    if (!GeneratorCriteria::criteriaEligibleForGenerator(crit->getParams())) continue;
-//    shared_ptr<GeneratorCriteria> dynCriteria = shared_ptr<GeneratorCriteria>(new GeneratorCriteria(crit->getParams()));
-//    if (crit->begin() != crit->end()) {
-//      for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
-//          cmpItEnd = crit->end();
-//          cmpIt != cmpItEnd; ++cmpIt) {
-//        std::map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator generatorItfIter = components_.find(*cmpIt);
-//        if (generatorItfIter != components_.end()) {
-//          const boost::shared_ptr<ComponentInterface>& cmp = generatorItfIter->second;
-//          if (cmp->getType() != ComponentInterface::GENERATOR)
-//            Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "generator") << Trace::endline;
-//          if (crit->hasCountryFilter()) {
-//            boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmp);
-//            if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
-//              continue;
-//          }
-//          boost::shared_ptr<GeneratorInterface> gen = dynamic_pointer_cast<GeneratorInterface>(cmp);
-//          assert(gen);
-//          dynCriteria->addGenerator(gen);
-//        } else {
-//          Trace::warn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
-//        }
-//      }
-//    } else {
-//      for (std::map<std::string, boost::shared_ptr<GeneratorInterface> >::const_iterator cmpIt = generatorComponents_.begin(),
-//          cmpItEnd = generatorComponents_.end();
-//          cmpIt != cmpItEnd; ++cmpIt) {
-//        if (crit->hasCountryFilter()) {
-//          boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmpIt->second);
-//          if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
-//            continue;
-//        }
-//        dynCriteria->addGenerator(cmpIt->second);
-//      }
-//    }
-//    if (!dynCriteria->empty()) {
-//      criteria_.push_back(dynCriteria);
-//    }
-//  }
+  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::GENERATOR),
+      itEnd = criteria->end(CriteriaCollection::GENERATOR);
+      it != itEnd; ++it) {
+    shared_ptr<criteria::Criteria> crit = *it;
+    if (!GeneratorCriteria::criteriaEligibleForGenerator(crit->getParams())) continue;
+    shared_ptr<GeneratorCriteria> dynCriteria = shared_ptr<GeneratorCriteria>(new GeneratorCriteria(crit->getParams()));
+    if (crit->begin() != crit->end()) {
+      for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
+          cmpItEnd = crit->end();
+          cmpIt != cmpItEnd; ++cmpIt) {
+        boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator generatorItfIter = components_.find(*cmpIt);
+        if (generatorItfIter != components_.end()) {
+          const boost::shared_ptr<ComponentInterface>& cmp = generatorItfIter->second;
+          if (cmp->getType() != ComponentInterface::GENERATOR)
+            Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "generator") << Trace::endline;
+          if (crit->hasCountryFilter()) {
+            boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmp);
+            if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
+              continue;
+          }
+          boost::shared_ptr<GeneratorInterface> gen = dynamic_pointer_cast<GeneratorInterface>(cmp);
+          assert(gen);
+          dynCriteria->addGenerator(gen);
+        } else {
+          Trace::warn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+        }
+      }
+    } else {
+      for (boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> >::const_iterator cmpIt = generatorComponents_.begin(),
+          cmpItEnd = generatorComponents_.end();
+          cmpIt != cmpItEnd; ++cmpIt) {
+        if (crit->hasCountryFilter()) {
+          boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmpIt->second);
+          if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
+            continue;
+        }
+        dynCriteria->addGenerator(cmpIt->second);
+      }
+    }
+    if (!dynCriteria->empty()) {
+      criteria_.push_back(dynCriteria);
+    }
+  }
 }
 
 bool

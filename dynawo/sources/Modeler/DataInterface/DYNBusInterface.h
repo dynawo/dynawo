@@ -113,7 +113,7 @@ class BusInterface : public ComponentInterface {
    * @brief get the names of bus bar section associated to the bus
    * @return names of the bus bar section associated to the bus
    */
-  virtual std::vector<std::string> getBusBarSectionNames() const = 0;
+  virtual const std::vector<std::string>& getBusBarSectionNames() const = 0;
 };  ///< Interface class for Bus model
 }  // namespace DYN
 

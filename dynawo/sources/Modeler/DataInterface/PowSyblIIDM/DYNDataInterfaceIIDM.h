@@ -324,14 +324,14 @@ class DataInterfaceIIDM : public DataInterface {
   void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
 
  private:
-  powsybl::iidm::Network& networkIIDM_;                                                         ///< instance of the IIDM network
-  boost::shared_ptr<NetworkInterface> network_;                                                 ///< instance of the network interface
-  boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> > components_;        ///< map of components
-  boost::unordered_map<std::string, boost::shared_ptr<VoltageLevelInterface> > voltageLevels_;  ///< map of voltageLevel by name
-  boost::unordered_map<std::string, boost::shared_ptr<BusInterface> > busComponents_;           ///< map of bus by name
-  boost::unordered_map<std::string, boost::shared_ptr<LoadInterface> > loadComponents_;         ///< map of loads by name
-  std::vector<boost::shared_ptr<Criteria> > criteria_;                                          ///< table of criteria to check
-//  boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
+  powsybl::iidm::Network& networkIIDM_;                                                            ///< instance of the IIDM network
+  boost::shared_ptr<NetworkInterface> network_;                                                    ///< instance of the network interface
+  boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> > components_;           ///< map of components
+  boost::unordered_map<std::string, boost::shared_ptr<VoltageLevelInterface> > voltageLevels_;     ///< map of voltageLevel by name
+  boost::unordered_map<std::string, boost::shared_ptr<BusInterface> > busComponents_;              ///< map of bus by name
+  boost::unordered_map<std::string, boost::shared_ptr<LoadInterface> > loadComponents_;            ///< map of loads by name
+  std::vector<boost::shared_ptr<Criteria> > criteria_;                                             ///< table of criteria to check
+  boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
 };  ///< Generic data interface for IIDM format files
 }  // namespace DYN
 

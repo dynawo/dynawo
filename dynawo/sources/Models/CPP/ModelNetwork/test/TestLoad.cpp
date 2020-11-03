@@ -14,6 +14,14 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
+#ifdef LANG_CXX11
+#include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/TopologyKind.hpp>
+#include <powsybl/iidm/Load.hpp>
+#include <powsybl/iidm/LoadAdder.hpp>
+#else
 #include <IIDM/builders/LoadBuilder.h>
 #include <IIDM/builders/VoltageLevelBuilder.h>
 #include <IIDM/builders/BusBuilder.h>
@@ -21,6 +29,7 @@
 #include <IIDM/components/CurrentLimit.h>
 #include <IIDM/components/VoltageLevel.h>
 #include <IIDM/components/Bus.h>
+#endif
 
 #include "DYNLoadInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -40,6 +49,45 @@ using boost::shared_ptr;
 namespace DYN {
 std::pair<shared_ptr<ModelLoad>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelLoad(bool open, bool initModel) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus1")
+              .add();
+  iidmBus.setV(1);
+  iidmBus.setAngle(0.);
+  powsybl::iidm::Load& loadIIDM = vlIIDM.newLoad()
+      .setId("MyLoad")
+      .setBus("MyBus1")
+      .setConnectableBus("MyBus1")
+      .setName("MyLoad")
+      .setLoadType(powsybl::iidm::LoadType::UNDEFINED)
+      .setP0(50.0)
+      .setQ0(40.0)
+      .add();
+  loadIIDM.getTerminal().setP(42.);
+  loadIIDM.getTerminal().setQ(64.);
+  if (open)
+    loadIIDM.getTerminal().disconnect();
+  shared_ptr<LoadInterfaceIIDM> loadItfIIDM = shared_ptr<LoadInterfaceIIDM>(new LoadInterfaceIIDM(loadIIDM));
+  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  loadItfIIDM->setVoltageLevelInterface(vlItfIIDM);
+  loadItfIIDM->setBusInterface(bus1ItfIIDM);
+#else
   IIDM::connection_status_t cs = {!open};
   IIDM::Port p1("MyBus1", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1);
@@ -67,6 +115,7 @@ createModelLoad(bool open, bool initModel) {
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
   loadItfIIDM->setVoltageLevelInterface(vlItfIIDM);
   loadItfIIDM->setBusInterface(bus1ItfIIDM);
+#endif
 
   shared_ptr<ModelLoad> load = shared_ptr<ModelLoad>(new ModelLoad(loadItfIIDM));
   ModelNetwork* network = new ModelNetwork();
@@ -74,7 +123,7 @@ createModelLoad(bool open, bool initModel) {
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   load->setNetwork(network);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
   load->setModelBus(bus1);
