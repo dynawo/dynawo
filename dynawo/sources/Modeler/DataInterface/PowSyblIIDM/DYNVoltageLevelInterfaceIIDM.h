@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNVoltageLevelInterfaceIIDM.h
+ * @file  DataInterface/PowSyblIIDM/DYNVoltageLevelInterfaceIIDM.h
  *
  * @brief VoltageLevel data interface : header file for IIDM interface
  *
@@ -65,17 +65,17 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   /**
    * @copydoc VoltageLevelInterface::connectNode(const unsigned int& node)
    */
-  void connectNode(const unsigned int& node) {/*not needed*/}
+  void connectNode(const unsigned int& node);
 
   /**
    * @copydoc VoltageLevelInterface::disconnectNode(const unsigned int& node)
    */
-  void disconnectNode(const unsigned int& node) {/*not needed*/}
+  void disconnectNode(const unsigned int& node);
 
   /**
    * @copydoc VoltageLevelInterface::isNodeConnected(const unsigned int& node)
    */
-  bool isNodeConnected(const unsigned int& node) { return false;}
+  bool isNodeConnected(const unsigned int& node);
 
   /**
    * @copydoc VoltageLevelInterface::addSwitch()

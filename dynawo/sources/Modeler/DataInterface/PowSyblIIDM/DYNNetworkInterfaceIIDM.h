@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNNetworkInterfaceIIDM.h
+ * @file  DataInterface/PowSyblIIDM/DYNNetworkInterfaceIIDM.h
  *
  * @brief Network data interface : header file for IIDM implementation
  *

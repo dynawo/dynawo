@@ -213,4 +213,19 @@ VoltageLevelInterfaceIIDM::mapConnections() {
   }
 }
 
+void
+VoltageLevelInterfaceIIDM::connectNode(const unsigned int& /*node*/) {
+  /*not needed*/
+}
+
+void
+VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& /*node*/) {
+  /*not needed*/
+}
+
+bool
+VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& /*node*/) {
+  return false;
+}
+
 }  // namespace DYN

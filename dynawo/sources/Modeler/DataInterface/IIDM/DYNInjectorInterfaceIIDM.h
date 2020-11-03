@@ -13,7 +13,7 @@
 
 //======================================================================
 /**
- * @file  DYNInjectorInterfaceIIDM.h
+ * @file  DataInterface/IIDM/DYNInjectorInterfaceIIDM.h
  *
  * @brief Injector interface : header file for IIDM interface
  *

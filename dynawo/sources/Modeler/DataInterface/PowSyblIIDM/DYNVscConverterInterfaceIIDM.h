@@ -13,7 +13,7 @@
 
 //======================================================================
 /**
- * @file  DYNVscConverterInterfaceIIDM.h
+ * @file  DataInterface/PowSyblIIDM/DYNVscConverterInterfaceIIDM.h
  *
  * @brief Vsc converter interface : header file for IIDM implementation
  *
@@ -56,8 +56,7 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void
-  exportStateVariablesUnitComponent() {}
+  void exportStateVariablesUnitComponent() {/* not needed */}
 
   /**
    * @copydoc VscConverterInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
@@ -132,10 +131,7 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
-  int
-  getComponentVarIndex(const std::string& varName) const {
-    return -1;
-  }
+  int getComponentVarIndex(const std::string& varName) const;
 
   /**
    * @brief Getter for the reference to the iidm vsc converter istance

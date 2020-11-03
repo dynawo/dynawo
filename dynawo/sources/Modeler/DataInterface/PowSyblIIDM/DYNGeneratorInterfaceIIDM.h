@@ -13,7 +13,7 @@
 
 //======================================================================
 /**
- * @file  DYNGeneratorInterfaceIIDM.h
+ * @file  DataInterface/PowSyblIIDM/DYNGeneratorInterfaceIIDM.h
  *
  * @brief Generator data interface : header file for IIDM interface
  *

@@ -138,4 +138,9 @@ VscConverterInterfaceIIDM::getVscIIDM() {
   return vscConverterIIDM_;
 }
 
+int
+VscConverterInterfaceIIDM::getComponentVarIndex(const std::string& /*varName*/) const {
+  return -1;
+}
+
 }  // namespace DYN
