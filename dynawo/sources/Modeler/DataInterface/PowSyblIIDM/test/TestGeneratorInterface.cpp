@@ -37,37 +37,37 @@ TEST(DataInterfaceTest, Generator_1) {
   Network network("test", "test");
 
   Substation& substation = network.newSubstation()
-                               .setId("S1")
-                               .setName("S1_NAME")
-                               .setCountry(powsybl::iidm::Country::FR)
-                               .setTso("TSO")
-                               .add();
+                                  .setId("S1")
+                                  .setName("S1_NAME")
+                                  .setCountry(powsybl::iidm::Country::FR)
+                                  .setTso("TSO")
+                                  .add();
 
   VoltageLevel& vl1 = substation.newVoltageLevel()
-                          .setId("VL1")
-                          .setName("VL1_NAME")
-                          .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(382.0)
-                          .setLowVoltageLimit(340.0)
-                          .setHighVoltageLimit(420.0)
-                          .add();
+                                .setId("VL1")
+                                .setName("VL1_NAME")
+                                .setTopologyKind(TopologyKind::BUS_BREAKER)
+                                .setNominalVoltage(382.0)
+                                .setLowVoltageLimit(340.0)
+                                .setHighVoltageLimit(420.0)
+                                .add();
 
   Bus& bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
 
   Generator& gen = vl1.newGenerator()
-      .setId("GEN1")
-      .setName("GEN1_NAME")
-      .setBus(bus1.getId())
-      .setConnectableBus(bus1.getId())
-      .setEnergySource(powsybl::iidm::EnergySource::WIND)
-      .setMaxP(50.0)
-      .setMinP(3.0)
-      .setRatedS(4.0)
-      .setTargetP(45.0)
-      .setTargetQ(5.0)
-      .setTargetV(24.0)
-      .setVoltageRegulatorOn(true)
-      .add();
+                      .setId("GEN1")
+                      .setName("GEN1_NAME")
+                      .setBus(bus1.getId())
+                      .setConnectableBus(bus1.getId())
+                      .setEnergySource(powsybl::iidm::EnergySource::WIND)
+                      .setMaxP(50.0)
+                      .setMinP(3.0)
+                      .setRatedS(4.0)
+                      .setTargetP(45.0)
+                      .setTargetQ(5.0)
+                      .setTargetV(24.0)
+                      .setVoltageRegulatorOn(true)
+                      .add();
 
   GeneratorInterfaceIIDM genItf(gen);
   ASSERT_EQ(genItf.getID(), "GEN1");
@@ -108,7 +108,7 @@ TEST(DataInterfaceTest, Generator_1) {
 
   ASSERT_TRUE(genItf.isVoltageRegulationOn());
 
-  ASSERT_EQ(genItf.getReactiveCurvesPoints().size(), 0.0);
+  ASSERT_EQ(genItf.getReactiveCurvesPoints().size(), 0);
 
   ASSERT_TRUE(genItf.getCountry().empty());
   genItf.setCountry("FR");
@@ -163,6 +163,7 @@ TEST(DataInterfaceTest, Generator_1) {
      .add();
   ASSERT_EQ(genItf.getQMin(), 12.5);
   ASSERT_EQ(genItf.getQMax(), 22.5);
+  ASSERT_EQ(genItf.getReactiveCurvesPoints().size(), 2);
 
   // TODO(TBA) genItf.exportStateVariablesUnitComponent();
   gen.getTerminal().disconnect();
@@ -173,30 +174,30 @@ TEST(DataInterfaceTest, Generator_2) {
   Network network("test", "test");
 
   Substation& substation = network.newSubstation()
-                               .setId("S1")
-                               .setName("S1_NAME")
-                               .setCountry(powsybl::iidm::Country::FR)
-                               .setTso("TSO")
-                               .add();
+                                  .setId("S1")
+                                  .setName("S1_NAME")
+                                  .setCountry(powsybl::iidm::Country::FR)
+                                  .setTso("TSO")
+                                  .add();
 
   VoltageLevel& vl1 = substation.newVoltageLevel()
-                          .setId("VL1")
-                          .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(380.0)
-                          .add();
+                                .setId("VL1")
+                                .setTopologyKind(TopologyKind::BUS_BREAKER)
+                                .setNominalVoltage(380.0)
+                                .add();
 
   Bus& bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
 
   Generator& gen = vl1.newGenerator()
-      .setId("GEN1")
-      .setName("GEN1_NAME")
-      .setConnectableBus(bus1.getId())
-      .setMaxP(50.0)
-      .setMinP(3.0)
-      .setTargetP(45.0)
-      .setReactivePowerSetpoint(10.0)
-      .setVoltageRegulatorOn(false)
-      .add();
+                      .setId("GEN1")
+                      .setName("GEN1_NAME")
+                      .setConnectableBus(bus1.getId())
+                      .setMaxP(50.0)
+                      .setMinP(3.0)
+                      .setTargetP(45.0)
+                      .setReactivePowerSetpoint(10.0)
+                      .setVoltageRegulatorOn(false)
+                      .add();
 
   GeneratorInterfaceIIDM genItf(gen);
   ASSERT_EQ(genItf.getID(), "GEN1");
@@ -207,5 +208,6 @@ TEST(DataInterfaceTest, Generator_2) {
   ASSERT_EQ(genItf.getTargetV(), 0.0);
   gen.setTargetV(24.0).setVoltageRegulatorOn(true).setReactivePowerSetpoint(stdcxx::nan());
   ASSERT_EQ(genItf.getTargetQ(), 0.0);
+  genItf.importStaticParameters();
 }  // TEST(DataInterfaceTest, Generator_2)
 }  // namespace DYN
