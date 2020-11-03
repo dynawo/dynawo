@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNTwoWTransformerInterfaceIIDM.h
+ * @file  DataInterface/IIDM/DYNTwoWTransformerInterfaceIIDM.h
  *
  * @brief Two windings transformer data interface : header file for IIDM implementation
  *

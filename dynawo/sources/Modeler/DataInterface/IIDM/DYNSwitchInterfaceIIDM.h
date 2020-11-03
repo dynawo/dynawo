@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNSwitchInterfaceIIDM.h
+ * @file  DataInterface/IIDM/DYNSwitchInterfaceIIDM.h
  *
  * @brief Switch data interface : header file for IIDM implementation
  *

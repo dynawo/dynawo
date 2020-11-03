@@ -13,7 +13,7 @@
 
 //======================================================================
 /**
- * @file  DYNHvdcLineInterfaceIIDM.h
+ * @file  DataInterface/PowSyblIIDM/DYNHvdcLineInterfaceIIDM.h
  *
  * @brief Hvdc Line data interface : header file for IIDM interface
  *

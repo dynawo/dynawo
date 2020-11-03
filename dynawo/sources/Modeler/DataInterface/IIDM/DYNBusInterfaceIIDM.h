@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNBusInterfaceIIDM.h
+ * @file  DataInterface/IIDM/DYNBusInterfaceIIDM.h
  *
  * @brief Bus data interface : header file for IIDM interface
  *
@@ -32,7 +32,7 @@ namespace DYN {
 
 /**
  * @class BusInterfaceIIDM
- * @brief Specialisation of BusInterface class for IIDM
+ * @brief Specialization of BusInterface class for IIDM
  */
 class BusInterfaceIIDM : public BusInterface {
  public:
@@ -119,7 +119,8 @@ class BusInterfaceIIDM : public BusInterface {
    * @copydoc BusInterface::getBusBarSectionNames() const
    */
   const std::vector<std::string>& getBusBarSectionNames() const {
-    return std::vector<std::string>();
+    static std::vector<std::string> empty;
+    return empty;
   }
 
   /**

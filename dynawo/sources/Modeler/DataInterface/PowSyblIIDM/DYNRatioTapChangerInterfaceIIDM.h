@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNRatioTapChangerInterfaceIIDM.h
+ * @file  DataInterface/PowSyblIIDM/DYNRatioTapChangerInterfaceIIDM.h
  *
  * @brief Ratio tap changer data interface : header file for IIDM implementation
  *

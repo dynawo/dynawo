@@ -108,7 +108,7 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
 
 
 void
-DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
+DataInterfaceIIDM::dumpToFile(const std::string& /*iidmFilePath*/) const {
 //  IIDM::xml::xml_formatter formatter;
 //  formatter.register_extension(
 //      &IIDM::extensions::busbarsection_position::xml::exportBusbarSectionPosition,
@@ -509,7 +509,7 @@ DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineI
 }
 
 shared_ptr<StaticVarCompensatorInterface>
-DataInterfaceIIDM::importStaticVarCompensator(powsybl::iidm::StaticVarCompensator& svcIIDM) {
+DataInterfaceIIDM::importStaticVarCompensator(powsybl::iidm::StaticVarCompensator& /*svcIIDM*/) {
 //  shared_ptr<StaticVarCompensatorInterfaceIIDM> svc(new StaticVarCompensatorInterfaceIIDM(svcIIDM));
 //
 //  // reference to bus interface
@@ -531,7 +531,6 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
 
   // add phase tapChanger and steps if exists
   if (twoWTfoIIDM.hasPhaseTapChanger()) {
-    auto& phaseTapChanger = twoWTfoIIDM.getPhaseTapChanger();
     shared_ptr<PhaseTapChangerInterfaceIIDM> tapChanger(new PhaseTapChangerInterfaceIIDM(twoWTfoIIDM.getPhaseTapChanger()));
     twoWTfo->setPhaseTapChanger(tapChanger);
   }
@@ -878,7 +877,6 @@ DataInterfaceIIDM::exportStateVariables() {
 #ifdef _DEBUG_
 void
 DataInterfaceIIDM::exportStateVariablesNoReadFromModel() {
-  const bool filterForCriteriaCheck = false;
   for (boost::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
       iter != iterEnd; ++iter) {
     (iter->second)->exportStateVariables();
