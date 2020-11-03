@@ -154,7 +154,9 @@ TEST(DataInterfaceTest, testCalculatedBusInterface) {
   ASSERT_EQ(bus.getComponentVarIndex("angle"), BusInterfaceIIDM::VAR_ANGLE);
   ASSERT_EQ(bus.getComponentVarIndex("foo"), -1);
   ASSERT_EQ(bus.getBusIndex(), 0);
-  ASSERT_TRUE(bus.getBusBarSectionNames().empty());
+  ASSERT_EQ(bus.getBusBarSectionNames().size(), 2);
+  ASSERT_EQ(bus.getBusBarSectionNames()[0], "BBS");
+  ASSERT_EQ(bus.getBusBarSectionNames()[1], "BBS2");
 }
 
 }  // namespace DYN

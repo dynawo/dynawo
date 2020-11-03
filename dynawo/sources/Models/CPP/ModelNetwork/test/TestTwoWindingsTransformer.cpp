@@ -14,6 +14,15 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
+#ifdef LANG_CXX11
+#include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/TopologyKind.hpp>
+#include <powsybl/iidm/TwoWindingsTransformerAdder.hpp>
+#include <powsybl/iidm/PhaseTapChangerAdder.hpp>
+#include <powsybl/iidm/RatioTapChangerAdder.hpp>
+#else
 #include <IIDM/builders/NetworkBuilder.h>
 #include <IIDM/builders/Transformer2WindingsBuilder.h>
 #include <IIDM/builders/Transformer2WindingsBuilder.h>
@@ -27,6 +36,7 @@
 #include <IIDM/components/Bus.h>
 #include <IIDM/components/Substation.h>
 #include <IIDM/Network.h>
+#endif
 
 #include "DYNTwoWTransformerInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -51,6 +61,181 @@ namespace DYN {
 std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChanger, bool phaseTapChanger,
                                   bool loadTapChangingCapabilities = true, bool closed1 = true, bool closed2 = true) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("test", "test");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus1")
+              .add();
+  iidmBus.setV(1);
+  iidmBus.setAngle(0.);
+
+  powsybl::iidm::Bus& iidmBus2 = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus2")
+              .add();
+  iidmBus2.setV(1);
+  iidmBus2.setAngle(0.);
+
+  powsybl::iidm::TwoWindingsTransformer& transformer = s.newTwoWindingsTransformer()
+      .setId("MyTwoWindingsTransformer")
+      .setVoltageLevel1(vlIIDM.getId())
+      .setBus1(iidmBus.getId())
+      .setConnectableBus1(iidmBus.getId())
+      .setVoltageLevel2(vlIIDM.getId())
+      .setBus2(iidmBus2.getId())
+      .setConnectableBus2(iidmBus2.getId())
+      .setR(4.0)
+      .setX(8.0)
+      .setG(5.0)
+      .setB(7.2)
+      .setRatedU1(3.)
+      .setRatedU2(5.)
+      .setRatedS(3.0)
+      .add();
+  if (ratioTapChanger) {
+    transformer.newRatioTapChanger()
+        .setTapPosition(1)
+        .setLowTapPosition(0)
+        .setLoadTapChangingCapabilities(loadTapChangingCapabilities)
+        .setRegulationTerminal(stdcxx::ref<powsybl::iidm::Terminal>(transformer.getTerminal1()))
+        .setRegulating(true)
+        .setTargetV(2.)
+        .setTargetDeadband(1.)
+        .beginStep()
+        .setR(1.)
+        .setX(1.)
+        .setG(1.)
+        .setB(1.)
+        .setRho(1.)
+        .endStep()
+        .beginStep()
+        .setR(2.)
+        .setX(1.)
+        .setG(1.)
+        .setB(1.)
+        .setRho(1.)
+        .endStep()
+        .add();
+  }
+  if (phaseTapChanger) {
+    transformer.newPhaseTapChanger()
+        .setTapPosition(2)
+        .setLowTapPosition(0)
+        .setRegulationMode(powsybl::iidm::PhaseTapChanger::RegulationMode::ACTIVE_POWER_CONTROL)
+        .setRegulationTerminal(stdcxx::ref<powsybl::iidm::Terminal>(transformer.getTerminal1()))
+        .setRegulationValue(4.)
+        .beginStep()
+        .setAlpha(1.)
+        .setR(1.)
+        .setX(1.)
+        .setG(1.)
+        .setB(1.)
+        .setRho(1.)
+        .endStep()
+        .beginStep()
+        .setAlpha(1.)
+        .setR(2.)
+        .setX(1.)
+        .setG(1.)
+        .setB(1.)
+        .setRho(1.)
+        .endStep()
+        .beginStep()
+        .setAlpha(1.)
+        .setR(3.)
+        .setX(1.)
+        .setG(1.)
+        .setB(1.)
+        .setRho(1.)
+        .endStep()
+        .add();
+  }
+  transformer.newCurrentLimits1().beginTemporaryLimit().
+      setName("MyLimit").setValue(10.).setAcceptableDuration(5.).endTemporaryLimit().add();
+  transformer.newCurrentLimits2().beginTemporaryLimit().
+      setName("MyLimit2").setValue(20.).setAcceptableDuration(2.).endTemporaryLimit().add();
+  if (open || !closed1) {
+    transformer.getTerminal1().disconnect();
+  }
+  if (open || !closed2) {
+    transformer.getTerminal2().disconnect();
+  }
+  shared_ptr<TwoWTransformerInterfaceIIDM> tw2ItfIIDM = shared_ptr<TwoWTransformerInterfaceIIDM>(new TwoWTransformerInterfaceIIDM(transformer));
+  // add phase tapChanger and steps if exists
+  if (transformer.hasPhaseTapChanger()) {
+    auto& phaseTapChanger = transformer.getPhaseTapChanger();
+    shared_ptr<PhaseTapChangerInterfaceIIDM> tapChanger(new PhaseTapChangerInterfaceIIDM(transformer.getPhaseTapChanger()));
+    tw2ItfIIDM->setPhaseTapChanger(tapChanger);
+  }
+  // add ratio tapChanger and steps if exists
+  if (transformer.hasRatioTapChanger()) {
+    std::string side;
+    if (transformer.getRatioTapChanger().isRegulating()) {
+      if (stdcxx::areSame(transformer.getTerminal1(), transformer.getRatioTapChanger().getRegulationTerminal().get()))
+        side = "ONE";
+      else if (stdcxx::areSame(transformer.getTerminal2(), transformer.getRatioTapChanger().getRegulationTerminal().get()))
+        side = "TWO";
+    }
+    shared_ptr<RatioTapChangerInterfaceIIDM> tapChanger(new RatioTapChangerInterfaceIIDM(transformer.getRatioTapChanger(), side));
+    tw2ItfIIDM->setRatioTapChanger(tapChanger);
+  }
+
+  if (transformer.getCurrentLimits1()) {
+    powsybl::iidm::CurrentLimits& currentLimits = transformer.getCurrentLimits1();
+
+    // permanent limit
+    if (!std::isnan(currentLimits.getPermanentLimit())) {
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), boost::none));
+      tw2ItfIIDM->addCurrentLimitInterface1(cLimit);
+    }
+
+    // temporary limit
+    for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
+      if (!currentLimit.get().isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+        tw2ItfIIDM->addCurrentLimitInterface1(cLimit);
+      }
+    }
+  }
+
+  if (transformer.getCurrentLimits2()) {
+    powsybl::iidm::CurrentLimits& currentLimits = transformer.getCurrentLimits2();
+
+    // permanent limit
+    if (!std::isnan(currentLimits.getPermanentLimit())) {
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), boost::none));
+      tw2ItfIIDM->addCurrentLimitInterface2(cLimit);
+    }
+
+    // temporary limit
+    for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
+      if (!currentLimit.get().isFictitious()) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
+        tw2ItfIIDM->addCurrentLimitInterface2(cLimit);
+      }
+    }
+  }
+  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
+  tw2ItfIIDM->setVoltageLevelInterface1(vlItfIIDM);
+  if (closed1)
+    tw2ItfIIDM->setBusInterface1(bus1ItfIIDM);
+  if (closed2)
+    tw2ItfIIDM->setBusInterface2(bus2ItfIIDM);
+#else
   IIDM::builders::NetworkBuilder nb;
   IIDM::Network networkIIDM = nb.build("MyNetwork");
 
@@ -90,7 +275,7 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     rtp.add(step);
     rtp.add(step2);
     rtp.tapPosition(1);
-    IIDM::TerminalReference tr("MyTerminalReference", IIDM::side_1);
+    IIDM::TerminalReference tr("MyTwoWindingsTransformer", IIDM::side_1);
     rtp.terminalReference(tr);
     t2wIIDM.ratioTapChanger(rtp);
   }
@@ -160,6 +345,7 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     tw2ItfIIDM->setBusInterface1(bus1ItfIIDM);
   if (closed2)
     tw2ItfIIDM->setBusInterface2(bus2ItfIIDM);
+#endif
 
   shared_ptr<ModelTwoWindingsTransformer> t2w = shared_ptr<ModelTwoWindingsTransformer>(new ModelTwoWindingsTransformer(tw2ItfIIDM));
   ModelNetwork* network = new ModelNetwork();
@@ -169,7 +355,7 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
   int offset = 0;
   if (closed1) {
-    shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
+    shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
     bus1->setNetwork(network);
     bus1->setVoltageLevel(vl);
     bus1->initSize();
@@ -191,7 +377,7 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     t2w->setModelBus1(bus1);
   }
   if (closed2) {
-    shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM));
+    shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
     bus2->setNetwork(network);
     bus2->setVoltageLevel(vl);
     bus2->initSize();
@@ -224,7 +410,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerInitialization) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getDisableInternalTapChanger(), 0.);;
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getTapChangerLocked(), 0.);
   ASSERT_EQ(t2w->getTapChangerIndex(), 0);
-  ASSERT_EQ(t2w->getTerminalRefId(), "MyTerminalReference");
+  ASSERT_EQ(t2w->getTerminalRefId(), "MyTwoWindingsTransformer");
   ASSERT_EQ(t2w->getSide(), "ONE");
 
   shared_ptr<ModelTwoWindingsTransformer> t2wNoLTCCapabilities = createModelTwoWindingsTransformer(false, false, true, false, false).first;
@@ -266,55 +452,72 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   std::vector<double> calculatedVars(ModelTwoWindingsTransformer::nbCalculatedVariables_, 0.);
   t2w->setReferenceCalculatedVar(&calculatedVars[0], 0);
   t2w->evalCalculatedVars();
+
+#ifdef LANG_CXX11
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::i1Num_], 24.757516580070948);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::i2Num_], 0.071608989099576165);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::q1Num_], -81.705228892187009);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side1Num_], 285875.17723941174);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side1Num_], -285875.17723941174);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::iSide1Num_],  285875.17723941174);
+#else
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::i1Num_], 24.296739214791629);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::i2Num_], 0.071608989099576165);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::p1Num_], 57.310062501084907);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::p2Num_], -0.23852881060251008);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::q1Num_], -79.425715003298109);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::q2Num_], -0.19153908243503626);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side1Num_], 280554.57852180168);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side1Num_], -280554.57852180168);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::iSide1Num_],  280554.57852180168);
+#endif
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::q2Num_], -0.19153908243503626);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::p1Num_], 57.310062501084907);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::p2Num_], -0.23852881060251008);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side2Num_], 826.8693826607456);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side2Num_], -826.8693826607456);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::iSide1Num_],  280554.57852180168);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::iSide2Num_], 826.8693826607456);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::twtStateNum_], 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::i1Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::i1Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::i1Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::i2Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::i2Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::i2Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::p1Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::p1Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::p1Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::p2Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::p2Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::p2Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::q1Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::q1Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::q1Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::q2Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::q2Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::q2Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side1Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side1Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side1Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side1Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side2Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side2Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side2Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side2Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::iSide1Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::iSide1Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::iSide2Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::iSide2Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_),
-                              calculatedVars[ModelTwoWindingsTransformer::twtStateNum_]);
+      calculatedVars[ModelTwoWindingsTransformer::twtStateNum_]);
   ASSERT_THROW_DYNAWO(t2w->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
 
   std::vector<double> res(4, 0.);
   ASSERT_THROW_DYNAWO(t2w->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::i1Num_, res));
+#ifdef LANG_CXX11
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 5.287451914198817);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 3.0660650075063498);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.038997534699257062);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.024456848956426063);
+#else
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 5.1884653180093343);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 3.0099528188156892);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.038667189110393511);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.024975861542662795);
+#endif
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::i2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.03254954049980735);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.032549540499807343);
@@ -331,25 +534,46 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.055207845128365379);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.13966730458782481);
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::q1Num_, res));
+#ifdef LANG_CXX11
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -35.003849116457509);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -20.070693489732513);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.18531446909337082);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.0095606806228193536);
+#else
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -34.021904672013058);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -19.509582378621396);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.18531446909337082);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.0095606806228193536);
+#endif
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::q2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -0.19548540592615737);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.021358967348851739);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.094915182523564012);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.080838605946987468);
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_, res));
+#ifdef LANG_CXX11
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 61054.235719797791);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 35403.869148733662);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 450.30474312695685);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -282.40336657045214);
+#else
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 59911.236960674541);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 34755.941403826226);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 446.49024083383733);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -288.39640769798376);
+#endif
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_, res));
+#ifdef LANG_CXX11
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -61054.235719797791);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -35403.869148733662);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -450.30474312695685);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 282.40336657045214);
+#else
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -59911.236960674541);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -34755.941403826226);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -446.49024083383733);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 288.39640769798376);
+#endif
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 375.84971939124802);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 375.84971939124796);
@@ -361,10 +585,17 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 225.50983163474882);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 225.50983163474879);
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_, res));
+#ifdef LANG_CXX11
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 61054.235719797791);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 35403.869148733662);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 450.30474312695685);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -282.40336657045214);
+#else
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 59911.236960674541);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 34755.941403826226);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 446.49024083383733);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -288.39640769798376);
+#endif
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 375.84971939124802);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 375.84971939124796);
@@ -503,31 +734,31 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariablesOp
   yI[0] = 3.5;
   yI[1] = 2;
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::i1Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::i1Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::i1Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::i2Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::i2Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::i2Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::p1Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::p1Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::p1Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::p2Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::p2Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::p2Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::q1Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::q1Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::q1Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::q2Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::q2Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::q2Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side1Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side1Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side1Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side1Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side2Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side2Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side2Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side2Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::iSide1Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::iSide1Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_),
-                              calculatedVars[ModelTwoWindingsTransformer::iSide2Num_]);
+      calculatedVars[ModelTwoWindingsTransformer::iSide2Num_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_),
-                              calculatedVars[ModelTwoWindingsTransformer::twtStateNum_]);
+      calculatedVars[ModelTwoWindingsTransformer::twtStateNum_]);
   ASSERT_THROW_DYNAWO(t2w->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
 
@@ -750,7 +981,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerOpenedDiscreteVariables) {
   std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(true, false, true,
-                                                                                                                    false, true, true, false);
+      false, true, true, false);
   shared_ptr<ModelTwoWindingsTransformer> t2w = p.first;
   t2w->initSize();
   unsigned nbZ = 5;

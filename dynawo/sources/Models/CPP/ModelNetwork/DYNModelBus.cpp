@@ -143,7 +143,7 @@ ModelBusContainer::initDerivatives() {
     (*itModelBus)->initDerivatives();
 }
 
-ModelBus::ModelBus(const shared_ptr<BusInterface>& bus) :
+ModelBus::ModelBus(const shared_ptr<BusInterface>& bus, bool isCalculated) :
 Impl(bus->getID()),
 stateUmax_(false),
 stateUmin_(false),
@@ -164,7 +164,7 @@ irYNum_(0),
 busIndex_(bus->getBusIndex()),
 hasConnection_(bus->hasConnection()),
 hasDifferentialVoltages_(false),
-modelType_((boost::starts_with(bus->getID(), "calculatedBus_"))?"Bus":"Node") {
+modelType_((isCalculated)?"Bus":"Node") {
   neighbors_.clear();
   busBarSectionNames_.clear();
   busBarSectionNames_ = bus->getBusBarSectionNames();
@@ -185,7 +185,7 @@ modelType_((boost::starts_with(bus->getID(), "calculatedBus_"))?"Bus":"Node") {
 
   constraintId_ = bus->getID();
   const vector<string>& busBarSections = bus->getBusBarSectionNames();
-  if (boost::starts_with(bus->getID(), "calculatedBus_") && !busBarSections.empty()) {
+  if (isCalculated && !busBarSections.empty()) {
     constraintId_ = busBarSections[0];
   }
 }

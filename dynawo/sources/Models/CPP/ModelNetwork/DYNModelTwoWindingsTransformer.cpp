@@ -117,13 +117,13 @@ modelType_("TwoWindingsTransformer") {
   } else {
     connectionState_ = OPEN;  // should not happened, filtered by model network
     if (tfo->getBusInterface1()) {
-      vNom1_ = tfo->getVNom1();
+      vNom1_ = tfo->getBusInterface1()->getVNom();
     } else {
       vNom1_ = tfo->getRatedU1();  // bus1 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
     }
 
     if (tfo->getBusInterface2()) {
-      vNom2_ = tfo->getVNom2();
+      vNom2_ = tfo->getBusInterface2()->getVNom();
     } else {
       vNom2_ = tfo->getRatedU2();  // bus2 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
     }

@@ -21,6 +21,8 @@
 
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/BusbarSection.hpp>
+#include <powsybl/iidm/Connectable.hpp>
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNCommonConstants.h"
 #include "DYNStateVariable.h"
@@ -34,6 +36,7 @@ namespace DYN {
 BusInterfaceIIDM::BusInterfaceIIDM(Bus& bus) :
 busIIDM_(bus),
 hasConnection_(false) {
+  static int i = 0;
   setType(ComponentInterface::BUS);
   if (!std::isnan(busIIDM_.getV()))
     U0_ = busIIDM_.getV();
@@ -44,9 +47,25 @@ hasConnection_(false) {
   bool neededForCriteriaCheck = true;
   stateVariables_[VAR_V] = StateVariable("v", StateVariable::DOUBLE, neededForCriteriaCheck);  // V
   stateVariables_[VAR_ANGLE] = StateVariable("angle", StateVariable::DOUBLE);  // angle
+
+  busIndex_ = 0;
+  if (bus.getVoltageLevel().getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
+    busIndex_ = i++;
+    for (powsybl::iidm::Terminal& terminal : bus.getConnectedTerminals()) {
+      const powsybl::iidm::Connectable& connec = terminal.getConnectable();
+      if (connec.getType() == powsybl::iidm::ConnectableType::BUSBAR_SECTION)
+        bbsNames_.push_back(connec.getId());
+    }
+  }
 }
 
 BusInterfaceIIDM::~BusInterfaceIIDM() {
+}
+
+
+const std::vector<string>&
+BusInterfaceIIDM::getBusBarSectionNames() const {
+  return bbsNames_;
 }
 
 string

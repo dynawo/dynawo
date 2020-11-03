@@ -14,6 +14,18 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
+#ifdef LANG_CXX11
+#include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/TopologyKind.hpp>
+#include <powsybl/iidm/HvdcLine.hpp>
+#include <powsybl/iidm/HvdcLineAdder.hpp>
+#include <powsybl/iidm/LccConverterStation.hpp>
+#include <powsybl/iidm/LccConverterStationAdder.hpp>
+#include <powsybl/iidm/VscConverterStation.hpp>
+#include <powsybl/iidm/VscConverterStationAdder.hpp>
+#else
 #include <IIDM/builders/NetworkBuilder.h>
 #include <IIDM/builders/BusBuilder.h>
 #include <IIDM/builders/HvdcLineBuilder.h>
@@ -26,6 +38,7 @@
 #include <IIDM/components/VoltageLevel.h>
 #include <IIDM/components/Bus.h>
 #include <IIDM/components/HvdcLine.h>
+#endif
 
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNVscConverterInterfaceIIDM.h"
@@ -56,6 +69,121 @@ namespace DYN {
 
 std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = true) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus1")
+              .add();
+  iidmBus.setV(100);
+  iidmBus.setAngle(90.);
+
+  powsybl::iidm::Bus& iidmBus2 = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus2")
+              .add();
+  iidmBus2.setV(100);
+  iidmBus2.setAngle(90.);
+
+  if (vsc) {
+    powsybl::iidm::VscConverterStation& vsc = vlIIDM.newVscConverterStation()
+        .setId("MyVscConverterStation")
+        .setName("MyVscConverterStation_NAME")
+        .setBus(iidmBus.getId())
+        .setConnectableBus(iidmBus.getId())
+        .setLossFactor(3.0)
+        .setVoltageRegulatorOn(true)
+        .setVoltageSetpoint(1.2)
+        .setReactivePowerSetpoint(-1.5)
+        .add();
+    vsc.newMinMaxReactiveLimits().setMinQ(1.).setMaxQ(2.).add();
+    if (withP)
+      vsc.getTerminal().setP(2.);
+    if (withQ)
+      vsc.getTerminal().setQ(3.);
+
+    powsybl::iidm::VscConverterStation& vsc2 = vlIIDM.newVscConverterStation()
+        .setId("MyVscConverterStation2")
+        .setName("MyVscConverterStation2_NAME")
+        .setBus(iidmBus.getId())
+        .setConnectableBus(iidmBus.getId())
+        .setLossFactor(3.0)
+        .setVoltageRegulatorOn(true)
+        .setVoltageSetpoint(1.2)
+        .setReactivePowerSetpoint(-1.5)
+        .add();
+    vsc2.newMinMaxReactiveLimits().setMinQ(1.).setMaxQ(2.).add();
+    if (withP)
+      vsc2.getTerminal().setP(2.);
+    if (withQ)
+      vsc2.getTerminal().setQ(3.);
+
+    powsybl::iidm::HvdcLine& hvdcIIDM = networkIIDM.newHvdcLine()
+        .setId("MyHvdcLine")
+        .setName("MyHvdcLine_NAME")
+        .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
+        .setConverterStationId1("MyVscConverterStation")
+        .setConverterStationId2("MyVscConverterStation2")
+        .setMaxP(12.0)
+        .setNominalVoltage(13.0)
+        .setR(14.0)
+        .setActivePowerSetpoint(111.1)
+        .add();
+  } else {
+    powsybl::iidm::LccConverterStation& lcc = vlIIDM.newLccConverterStation()
+        .setId("MyLccConverter")
+        .setName("MyLccConverter_NAME")
+        .setBus(iidmBus.getId())
+        .setConnectableBus(iidmBus.getId())
+        .setLossFactor(2.0)
+        .setPowerFactor(-.2)
+        .add();
+    if (withP)
+      lcc.getTerminal().setP(2.);
+    if (withQ)
+      lcc.getTerminal().setQ(3.);
+    powsybl::iidm::LccConverterStation& lcc2 = vlIIDM.newLccConverterStation()
+        .setId("MyLccConverter2")
+        .setName("MyLccConverter2_NAME")
+        .setBus(iidmBus.getId())
+        .setConnectableBus(iidmBus.getId())
+        .setLossFactor(2.0)
+        .setPowerFactor(-.2)
+        .add();
+    if (withP)
+      lcc2.getTerminal().setP(2.);
+    if (withQ)
+      lcc2.getTerminal().setQ(3.);
+
+    powsybl::iidm::HvdcLine& hvdcIIDM = networkIIDM.newHvdcLine()
+        .setId("MyHvdcLine")
+        .setName("MyHvdcLine_NAME")
+        .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
+        .setConverterStationId1("MyLccConverter")
+        .setConverterStationId2("MyLccConverter2")
+        .setMaxP(12.0)
+        .setNominalVoltage(13.0)
+        .setR(14.0)
+        .setActivePowerSetpoint(111.1)
+        .add();
+  }
+  shared_ptr<NetworkInterfaceIIDM> networkItfIIDM = shared_ptr<NetworkInterfaceIIDM>(new NetworkInterfaceIIDM(networkIIDM));
+  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
+  shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
+#else
   IIDM::builders::NetworkBuilder nb;
   IIDM::Network networkIIDM = nb.build("MyNetwork");
 
@@ -124,6 +252,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
   shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus2")));
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
+#endif
 
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
@@ -133,6 +262,17 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   network->setConstraints(constraints);
   shared_ptr<ModelHvdcLink> hvdc;
   if (vsc) {
+#ifdef LANG_CXX11
+    for (auto& vscConverterIIDM : vlIIDM.getVscConverterStations()) {
+      shared_ptr<VscConverterInterfaceIIDM> vsc(new VscConverterInterfaceIIDM(vscConverterIIDM));
+      vsc->setVoltageLevelInterface(vlItfIIDM);
+      vsc->setBusInterface(bus1ItfIIDM);
+      vlItfIIDM->addVscConverter(vsc);
+    }
+    const std::vector<shared_ptr<VscConverterInterface> >& vscConverters = vlItfIIDM->getVscConverters();
+    shared_ptr<HvdcLineInterfaceIIDM> hvdcItfIIDM = shared_ptr<HvdcLineInterfaceIIDM>(new HvdcLineInterfaceIIDM(networkIIDM.getHvdcLine("MyHvdcLine"),
+                                                                                      vscConverters[0], vscConverters[1]));
+#else
     for (IIDM::Contains<IIDM::VscConverterStation>::iterator itVSC = vlIIDM.vscConverterStations().begin();
         itVSC != vlIIDM.vscConverterStations().end(); ++itVSC) {
       shared_ptr<VscConverterInterfaceIIDM> vsc(new VscConverterInterfaceIIDM(*itVSC));
@@ -143,8 +283,20 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
     const std::vector<shared_ptr<VscConverterInterface> >& vscConverters = vlItfIIDM->getVscConverters();
     shared_ptr<HvdcLineInterfaceIIDM> hvdcItfIIDM = shared_ptr<HvdcLineInterfaceIIDM>(new HvdcLineInterfaceIIDM(networkIIDM.get_hvdcline("MyHvdcLine"),
                                                                                       vscConverters[0], vscConverters[1]));
+#endif
     hvdc = shared_ptr<ModelHvdcLink>(new ModelHvdcLink(hvdcItfIIDM));
   } else {
+#ifdef LANG_CXX11
+    for (auto& lccConverterIIDM : vlIIDM.getLccConverterStations()) {
+      shared_ptr<LccConverterInterfaceIIDM> lcc(new LccConverterInterfaceIIDM(lccConverterIIDM));
+      lcc->setVoltageLevelInterface(vlItfIIDM);
+      lcc->setBusInterface(bus1ItfIIDM);
+      vlItfIIDM->addLccConverter(lcc);
+    }
+    const std::vector<shared_ptr<LccConverterInterface> >& lccConverters = vlItfIIDM->getLccConverters();
+    shared_ptr<HvdcLineInterfaceIIDM> hvdcItfIIDM = shared_ptr<HvdcLineInterfaceIIDM>(new HvdcLineInterfaceIIDM(networkIIDM.getHvdcLine("MyHvdcLine"),
+                                                                                      lccConverters[0], lccConverters[1]));
+#else
     for (IIDM::Contains<IIDM::LccConverterStation>::iterator itLCC = vlIIDM.lccConverterStations().begin();
         itLCC != vlIIDM.lccConverterStations().end(); ++itLCC) {
       shared_ptr<LccConverterInterface> lcc(new LccConverterInterfaceIIDM(*itLCC));
@@ -155,10 +307,11 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
     const std::vector<shared_ptr<LccConverterInterface> >& lccConverters = vlItfIIDM->getLccConverters();
     shared_ptr<HvdcLineInterfaceIIDM> hvdcItfIIDM = shared_ptr<HvdcLineInterfaceIIDM>(new HvdcLineInterfaceIIDM(networkIIDM.get_hvdcline("MyHvdcLine"),
                                                                                       lccConverters[0], lccConverters[1]));
+#endif
     hvdc = shared_ptr<ModelHvdcLink>(new ModelHvdcLink(hvdcItfIIDM));
   }
   hvdc->setNetwork(network);
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   bus1->setNetwork(network);
   bus1->initSize();
   // There is a memory leak here, but whatever ...
@@ -178,7 +331,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   int offset = 0;
   bus1->init(offset);
   bus1->setVoltageLevel(vl);
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM));
+  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
   bus2->setNetwork(network);
   bus2->initSize();
   // There is a memory leak here, but whatever ...

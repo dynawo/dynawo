@@ -61,12 +61,10 @@ GeneratorInterfaceIIDM::exportStateVariablesUnitComponent() {
   generatorIIDM_.getTerminal().setP(-1 * getValue<double>(VAR_P) * SNREF);
   generatorIIDM_.getTerminal().setQ(-1 * getValue<double>(VAR_Q) * SNREF);
 
-  if (generatorIIDM_.getTerminal().isConnected()) {
-    if (connected)
-      generatorIIDM_.getTerminal().connect();
-    else
-      generatorIIDM_.getTerminal().disconnect();
-  }
+  if (connected)
+    generatorIIDM_.getTerminal().connect();
+  else
+    generatorIIDM_.getTerminal().disconnect();
 }
 
 void

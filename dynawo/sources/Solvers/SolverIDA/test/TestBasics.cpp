@@ -24,6 +24,8 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 
+#ifdef LANG_CXX11
+#else
 #include <IIDM/xml/import.h>
 #include <IIDM/xml/export.h>
 #include <IIDM/Network.h>
@@ -42,6 +44,7 @@
 #include <IIDM/builders/LineBuilder.h>
 #include <IIDM/builders/LoadBuilder.h>
 #include <IIDM/builders/SwitchBuilder.h>
+#endif
 
 #include "gtest_dynawo.h"
 #include "DYNDataInterfaceIIDM.h"
@@ -148,8 +151,13 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
 
   // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
+#ifdef LANG_CXX11
+  std::ifstream inputStream(iidmFileName);
+  powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(inputStream);
+#else
   IIDM::xml::xml_parser parser;
   IIDM::Network networkIIDM = parser.from_xml(iidmFileName, false);
+#endif
   boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(networkIIDM));
   boost::dynamic_pointer_cast<DataInterfaceIIDM>(data)->initFromIIDM();
   dyd->setDataInterface(data);

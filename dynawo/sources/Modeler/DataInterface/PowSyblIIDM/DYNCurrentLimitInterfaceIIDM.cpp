@@ -25,7 +25,7 @@
 namespace DYN {
 
 CurrentLimitInterfaceIIDM::CurrentLimitInterfaceIIDM(const boost::optional<double>& limit, const boost::optional<int>& duration) : limit_(limit) {
-  if (duration == boost::none)
+  if (duration == boost::none || duration.get() == std::numeric_limits<int>::min())
     acceptableDuration_ = std::numeric_limits<int>::max();
   else
     acceptableDuration_ = duration.get();
