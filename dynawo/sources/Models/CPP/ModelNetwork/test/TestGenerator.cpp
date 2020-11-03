@@ -15,12 +15,20 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
+#ifdef LANG_CXX11
+#include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/TopologyKind.hpp>
+#include <powsybl/iidm/GeneratorAdder.hpp>
+#else
 #include <IIDM/builders/GeneratorBuilder.h>
 #include <IIDM/builders/VoltageLevelBuilder.h>
 #include <IIDM/builders/BusBuilder.h>
 #include <IIDM/components/VoltageLevel.h>
 #include <IIDM/components/Bus.h>
 #include <IIDM/components/Generator.h>
+#endif
 
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNBusInterfaceIIDM.h"
@@ -41,6 +49,51 @@ using boost::shared_ptr;
 namespace DYN {
 std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelGenerator(bool open, bool initModel) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("test", "test");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus1")
+              .add();
+  iidmBus.setV(1);
+  iidmBus.setAngle(0.);
+
+  powsybl::iidm::Generator& genIIDM = vlIIDM.newGenerator()
+      .setId("MyGenerator")
+      .setName("MyGenerator_NAME")
+      .setBus(iidmBus.getId())
+      .setConnectableBus(iidmBus.getId())
+      .setEnergySource(powsybl::iidm::EnergySource::WIND)
+      .setMaxP(50.0)
+      .setMinP(3.0)
+      .setRatedS(4.0)
+      .setTargetP(45.0)
+      .setTargetQ(5.0)
+      .setTargetV(24.0)
+      .setVoltageRegulatorOn(true)
+      .add();
+  if (open)
+    genIIDM.getTerminal().disconnect();
+  genIIDM.getTerminal().setP(800.);
+  genIIDM.getTerminal().setQ(400.);
+  genIIDM.newMinMaxReactiveLimits().setMinQ(1.).setMaxQ(10.).add();
+  shared_ptr<GeneratorInterfaceIIDM> genItfIIDM = shared_ptr<GeneratorInterfaceIIDM>(new GeneratorInterfaceIIDM(genIIDM));
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  genItfIIDM->setBusInterface(bus1ItfIIDM);
+#else
   IIDM::connection_status_t cs = {!open};
   IIDM::Port p1("MyBus1", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1);
@@ -67,13 +120,14 @@ createModelGenerator(bool open, bool initModel) {
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
   shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
   genItfIIDM->setBusInterface(bus1ItfIIDM);
+#endif
 
   shared_ptr<ModelGenerator> gen = shared_ptr<ModelGenerator>(new ModelGenerator(genItfIIDM));
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   gen->setNetwork(network);
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
   gen->setModelBus(bus1);
   bus1->setNetwork(network);

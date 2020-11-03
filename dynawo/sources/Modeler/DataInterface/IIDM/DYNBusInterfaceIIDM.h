@@ -118,7 +118,7 @@ class BusInterfaceIIDM : public BusInterface {
   /**
    * @copydoc BusInterface::getBusBarSectionNames() const
    */
-  std::vector<std::string> getBusBarSectionNames() const {
+  const std::vector<std::string>& getBusBarSectionNames() const {
     return std::vector<std::string>();
   }
 

@@ -14,6 +14,14 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
+#ifdef LANG_CXX11
+#include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/TopologyKind.hpp>
+#include <powsybl/iidm/ShuntCompensator.hpp>
+#include <powsybl/iidm/ShuntCompensatorAdder.hpp>
+#else
 #include <IIDM/builders/ShuntCompensatorBuilder.h>
 #include <IIDM/builders/VoltageLevelBuilder.h>
 #include <IIDM/builders/BusBuilder.h>
@@ -21,6 +29,7 @@
 #include <IIDM/components/CurrentLimit.h>
 #include <IIDM/components/VoltageLevel.h>
 #include <IIDM/components/Bus.h>
+#endif
 
 #include "DYNShuntCompensatorInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -41,6 +50,48 @@ using boost::shared_ptr;
 namespace DYN {
 std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelShuntCompensator(bool open, bool capacitor, bool initModel) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("test", "test");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus1")
+              .add();
+  iidmBus.setV(1);
+  iidmBus.setAngle(0.);
+
+  double bPerSection = 8.;
+  if (!capacitor)
+    bPerSection = -8.;
+  powsybl::iidm::ShuntCompensator& shuntIIDM = vlIIDM.newShuntCompensator()
+      .setId("MyShuntCompensator")
+      .setName("MyShuntCompensator_NAME")
+      .setBus(iidmBus.getId())
+      .setConnectableBus(iidmBus.getId())
+      .setbPerSection(bPerSection)
+      .setCurrentSectionCount(1UL)
+      .setMaximumSectionCount(5UL)
+      .add();
+  shuntIIDM.getTerminal().setQ(5.);
+  if (open)
+    shuntIIDM.getTerminal().disconnect();
+  shared_ptr<ShuntCompensatorInterfaceIIDM> scItfIIDM = shared_ptr<ShuntCompensatorInterfaceIIDM>(new ShuntCompensatorInterfaceIIDM(shuntIIDM));
+  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  scItfIIDM->setVoltageLevelInterface(vlItfIIDM);
+  scItfIIDM->setBusInterface(bus1ItfIIDM);
+#else
   IIDM::connection_status_t cs = {!open};
   IIDM::Port p1("MyBus1", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1);
@@ -55,8 +106,6 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel) {
   vlIIDM.add(bus1IIDM);
   vlIIDM.lowVoltageLimit(0.5);
   vlIIDM.highVoltageLimit(2.);
-
-
 
   IIDM::builders::ShuntCompensatorBuilder scb;
   if (capacitor)
@@ -75,6 +124,7 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel) {
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
   scItfIIDM->setVoltageLevelInterface(vlItfIIDM);
   scItfIIDM->setBusInterface(bus1ItfIIDM);
+#endif
 
   shared_ptr<ModelShuntCompensator> sc = shared_ptr<ModelShuntCompensator>(new ModelShuntCompensator(scItfIIDM));
   ModelNetwork* network = new ModelNetwork();
@@ -82,7 +132,7 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel) {
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   sc->setNetwork(network);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
   sc->setModelBus(bus1);

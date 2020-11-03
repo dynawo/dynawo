@@ -14,6 +14,13 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
+#ifdef LANG_CXX11
+#include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/TopologyKind.hpp>
+#include <powsybl/iidm/ThreeWindingsTransformerAdder.hpp>
+#else
 #include <IIDM/builders/NetworkBuilder.h>
 #include <IIDM/builders/Transformer3WindingsBuilder.h>
 #include <IIDM/builders/VoltageLevelBuilder.h>
@@ -25,6 +32,7 @@
 #include <IIDM/components/Bus.h>
 #include <IIDM/components/Substation.h>
 #include <IIDM/Network.h>
+#endif
 
 #include "DYNThreeWTransformerInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -45,6 +53,89 @@ using boost::shared_ptr;
 namespace DYN {
 std::pair<shared_ptr<ModelThreeWindingsTransformer>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelThreeWindingsTransformer(bool open, bool initModel) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("test", "test");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus1")
+              .add();
+  iidmBus.setV(1);
+  iidmBus.setAngle(0.);
+
+  powsybl::iidm::Bus& iidmBus2 = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus2")
+              .add();
+  iidmBus2.setV(1);
+  iidmBus2.setAngle(0.);
+
+  powsybl::iidm::Bus& iidmBus3 = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus3")
+              .add();
+  iidmBus3.setV(1);
+  iidmBus.setAngle(0.);
+
+  powsybl::iidm::ThreeWindingsTransformer& transformer = s.newThreeWindingsTransformer()
+      .setId("MyThreeWindingsTransformer")
+      .setName("MyThreeWindingsTransformer_NAME")
+      .newLeg1()
+      .setR(1.3)
+      .setX(1.4)
+      .setG(1.6)
+      .setB(1.7)
+      .setRatedU(1.1)
+      .setRatedS(2.2)
+      .setVoltageLevel(vlIIDM.getId())
+      .setBus(iidmBus.getId())
+      .setConnectableBus(iidmBus.getId())
+      .add()
+      .newLeg2()
+      .setR(2.3)
+      .setX(2.4)
+      .setG(0.0)
+      .setB(0.0)
+      .setRatedU(2.1)
+      .setVoltageLevel(vlIIDM.getId())
+      .setBus(iidmBus2.getId())
+      .setConnectableBus(iidmBus2.getId())
+      .add()
+      .newLeg3()
+      .setR(3.3)
+      .setX(3.4)
+      .setG(0.0)
+      .setB(0.0)
+      .setRatedU(3.1)
+      .setVoltageLevel(vlIIDM.getId())
+      .setBus(iidmBus3.getId())
+      .setConnectableBus(iidmBus3.getId())
+      .add()
+      .add();
+  if (open) {
+    transformer.getLeg1().getTerminal().get().disconnect();
+    transformer.getLeg2().getTerminal().get().disconnect();
+    transformer.getLeg3().getTerminal().get().disconnect();
+  }
+  shared_ptr<ThreeWTransformerInterfaceIIDM> tw3ItfIIDM = shared_ptr<ThreeWTransformerInterfaceIIDM>(new ThreeWTransformerInterfaceIIDM(transformer));
+  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
+  shared_ptr<BusInterfaceIIDM> bus3ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus3));
+  tw3ItfIIDM->setVoltageLevelInterface1(vlItfIIDM);
+  tw3ItfIIDM->setBusInterface1(bus1ItfIIDM);
+  tw3ItfIIDM->setBusInterface2(bus2ItfIIDM);
+  tw3ItfIIDM->setBusInterface2(bus3ItfIIDM);
+#else
   IIDM::builders::NetworkBuilder nb;
   IIDM::Network networkIIDM = nb.build("MyNetwork");
 
@@ -84,15 +175,16 @@ createModelThreeWindingsTransformer(bool open, bool initModel) {
   tw3ItfIIDM->setBusInterface1(bus1ItfIIDM);
   tw3ItfIIDM->setBusInterface2(bus2ItfIIDM);
   tw3ItfIIDM->setBusInterface2(bus3ItfIIDM);
+#endif
 
   shared_ptr<ModelThreeWindingsTransformer> t3w = shared_ptr<ModelThreeWindingsTransformer>(new ModelThreeWindingsTransformer(tw3ItfIIDM));
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
   t3w->setNetwork(network);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM));
-  shared_ptr<ModelBus> bus3 = shared_ptr<ModelBus>(new ModelBus(bus3ItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
+  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
+  shared_ptr<ModelBus> bus3 = shared_ptr<ModelBus>(new ModelBus(bus3ItfIIDM, false));
   t3w->setModelBus1(bus1);
   t3w->setModelBus2(bus2);
   t3w->setModelBus3(bus3);

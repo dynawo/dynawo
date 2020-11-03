@@ -116,9 +116,7 @@ class BusInterfaceIIDM : public BusInterface {
   /**
    * @copydoc BusInterface::getBusBarSectionNames() const
    */
-  std::vector<std::string> getBusBarSectionNames() const {
-    return std::vector<std::string>();
-  }
+  const std::vector<std::string>& getBusBarSectionNames() const;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
@@ -129,7 +127,7 @@ class BusInterfaceIIDM : public BusInterface {
    * @copydoc BusInterface::getBusIndex() const
    */
   inline int getBusIndex() const {
-    return 0;  // The bus index is non 0 only for a calculated bus
+    return busIndex_;  // The bus index is non 0 only for a calculated bus
   }
 
   /**
@@ -149,12 +147,14 @@ class BusInterfaceIIDM : public BusInterface {
   }
 
  private:
-  powsybl::iidm::Bus& busIIDM_;  ///< reference to the iidm bus instance
-  bool hasConnection_;  ///< @b true if the bus has an outside connection, @b false else
+  powsybl::iidm::Bus& busIIDM_;        ///< reference to the iidm bus instance
+  int busIndex_;                       ///< index of bus in its voltage level
+  bool hasConnection_;                 ///< @b true if the bus has an outside connection, @b false else
   // state variables
-  boost::optional<double> U0_;  ///< initial voltage
-  boost::optional<double> angle0_;  ///< initial angle
-  std::string country_;  ///< country of the bus
+  boost::optional<double> U0_;         ///< initial voltage
+  boost::optional<double> angle0_;     ///< initial angle
+  std::string country_;                ///< country of the bus
+  std::vector<std::string> bbsNames_;  ///< names of the bus bar sections
 };  ///< Interface class for Bus Model
 }  // namespace DYN
 

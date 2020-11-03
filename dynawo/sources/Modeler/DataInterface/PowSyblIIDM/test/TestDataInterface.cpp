@@ -27,6 +27,7 @@
 #include "DYNVscConverterInterfaceIIDM.h"
 #include "DYNLineInterfaceIIDM.h"
 #include "DYNLoadInterfaceIIDM.h"
+#include "DYNGeneratorInterfaceIIDM.h"
 #include "DYNShuntCompensatorInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNTwoWTransformerInterfaceIIDM.h"
@@ -64,6 +65,7 @@
 #include <powsybl/iidm/LccConverterStationAdder.hpp>
 #include <powsybl/iidm/ShuntCompensator.hpp>
 #include <powsybl/iidm/ShuntCompensatorAdder.hpp>
+#include <powsybl/iidm/GeneratorAdder.hpp>
 
 using boost::shared_ptr;
 
@@ -221,21 +223,23 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
   }
 
   if (properties.instantiateGenerator) {
-    // TODO(rosiereflo)
-//    IIDM::builders::GeneratorBuilder gb;
-//    IIDM::MinMaxReactiveLimits limits(1., 20.);
-//    gb.minMaxReactiveLimits(limits);
-//    gb.targetP(-105.);
-//    gb.pmin(-150.);
-//    gb.pmax(200.);
-//    gb.energySource(IIDM::Generator::source_nuclear);
-//    IIDM::Generator g = gb.build("MyGenerator");
-//    g.p(-105.);
-//    g.q(-90.);
-//    g.targetQ(-90.);
-//    g.targetV(150.);
-//    g.connectTo("MyVoltageLevel", p1);
-//    vl.add(g);
+    powsybl::iidm:: Generator& gen = vl1.newGenerator()
+        .setId("MyGenerator")
+        .setName("MyGenerator_NAME")
+        .setBus("MyBus")
+        .setConnectableBus("MyBus")
+        .setEnergySource(powsybl::iidm::EnergySource::NUCLEAR)
+        .setTargetP(-105.)
+        .setMaxP(200.0)
+        .setMinP(-150.0)
+        .setRatedS(4.0)
+        .setTargetQ(-90.0)
+        .setTargetV(150.0)
+        .setVoltageRegulatorOn(true)
+        .add();
+    gen.getTerminal().setP(-105.);
+    gen.getTerminal().setQ(-90.);
+    gen.newMinMaxReactiveLimits().setMinQ(1.).setMaxQ(20.).add();
   }
 
   if (properties.instantiateVscConverter) {
@@ -605,6 +609,7 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMAndStaticParameters) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q_pu"), 0.9);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p"), 105);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q"), 90);
+  ASSERT_EQ(data->getBusName("MyDanglingLine", ""), "MyBus");
   powsybl::iidm::DanglingLine& dlIIDM = network.getDanglingLine("MyDanglingLine");
   ASSERT_DOUBLE_EQUALS_DYNAWO(dlIIDM.getTerminal().getP(), 105.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(dlIIDM.getTerminal().getQ(), 90.);
@@ -622,53 +627,69 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMAndStaticParameters) {
   ASSERT_TRUE(dlIIDM.getTerminal().isConnected());
 }
 
-// TEST(DataInterfaceIIDMTest, testGeneratorIIDMAndStaticParameters) {
-//  const BusBreakerNetworkProperty properties = {
-//      false /*instantiateCapacitorShuntCompensator*/,
-//      false /*instantiateStaticVarCompensator*/,
-//      false /*instantiateTwoWindingTransformer*/,
-//      false /*instantiateRatioTapChanger*/,
-//      false /*instantiatePhaseTapChanger*/,
-//      false /*instantiateDanglingLine*/,
-//      true /*instantiateGenerator*/,
-//      false /*instantiateLccConverter*/,
-//      false /*instantiateLine*/,
-//      false /*instantiateLoad*/,
-//      false /*instantiateSwitch*/,
-//      false /*instantiateVscConverter*/,
-//      false /*instantiateThreeWindingTransformer*/
-//  };
-//  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-//  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
-//  exportStateVariables(data);
-//
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "p_pu"), -105. / SNREF);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "q_pu"), -90. / SNREF);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "p"), -105.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "q"), -90.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "v_pu"), 1.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "angle_pu"), 0.02617993877991494148);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "uc_pu"), 1.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "v"), 150.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "uc"), 150.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "angle"), 1.5);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMin"), -150.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMax"), 200.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMin_pu"), -150. / SNREF);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMax_pu"), 200. / SNREF);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "qMax"), 20);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "qMax_pu"), 20. / SNREF);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "qMin"), 1);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "qMin_pu"), 1. / SNREF);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "sNom"), sqrt(20 * 20 + 200 * 200));
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "vNom"), 150);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetV"), 150.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetV_pu"), 1.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetP_pu"), 105. / SNREF);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetP"), 105.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetQ_pu"), 90. / SNREF);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetQ"), 90.);
-//}
+TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
+  const BusBreakerNetworkProperty properties = {
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensator*/,
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTapChanger*/,
+      false /*instantiatePhaseTapChanger*/,
+      false /*instantiateDanglingLine*/,
+      true /*instantiateGenerator*/,
+      false /*instantiateLccConverter*/,
+      false /*instantiateLine*/,
+      false /*instantiateLoad*/,
+      false /*instantiateSwitch*/,
+      false /*instantiateVscConverter*/,
+      false /*instantiateThreeWindingTransformer*/
+  };
+  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  exportStateVariables(data);
+
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "p_pu"), -105. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "q_pu"), -90. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "p"), -105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "q"), -90.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "v_pu"), 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "angle_pu"), 0.02617993877991494148);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "uc_pu"), 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "v"), 150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "uc"), 150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "angle"), 1.5);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMin"), -150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMax"), 200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMin_pu"), -150. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMax_pu"), 200. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "qMax"), 20);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "qMax_pu"), 20. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "qMin"), 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "qMin_pu"), 1. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "sNom"), sqrt(20 * 20 + 200 * 200));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "vNom"), 150);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetV"), 150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetV_pu"), 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetP_pu"), 105. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetP"), 105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetQ_pu"), 90. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "targetQ"), 90.);
+  ASSERT_EQ(data->getBusName("MyGenerator", ""), "MyBus");
+  powsybl::iidm::Generator& genIIDM = network.getGenerator("MyGenerator");
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getP(), -105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getQ(), -90.);
+  ASSERT_TRUE(genIIDM.getTerminal().isConnected());
+  boost::shared_ptr<GeneratorInterfaceIIDM> gen = boost::dynamic_pointer_cast<GeneratorInterfaceIIDM>(data->findComponent("MyGenerator"));
+  gen->setValue(GeneratorInterfaceIIDM::VAR_P, 2.);
+  gen->setValue(GeneratorInterfaceIIDM::VAR_Q, 4.);
+  gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getP(), -200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getQ(), -400.);
+  ASSERT_FALSE(genIIDM.getTerminal().isConnected());
+  gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, CLOSED);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_TRUE(genIIDM.getTerminal().isConnected());
+}
 
 
 TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
@@ -725,6 +746,11 @@ TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyHvdcLine", "angle2_pu"), 0.02617993877991494148);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyHvdcLine", "v2"), 150.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyHvdcLine", "angle2"), 1.5);
+  ASSERT_EQ(data->getBusName("MyHvdcLine", ""), "");
+  ASSERT_EQ(data->getBusName("MyHvdcLine", "@NODE1@"), "MyBus");
+  ASSERT_EQ(data->getBusName("MyHvdcLine", "@NODE2@"), "MyBus");
+  ASSERT_EQ(data->getBusName("MyVscConverter", ""), "MyBus");
+  ASSERT_EQ(data->getBusName("MyVscConverter2", ""), "MyBus");
 
   powsybl::iidm::HvdcLine& hvdcIIDM = network.getHvdcLine("MyHvdcLine");
   boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
@@ -810,6 +836,11 @@ TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyHvdcLine", "angle2_pu"), 0.02617993877991494148);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyHvdcLine", "v2"), 150.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyHvdcLine", "angle2"), 1.5);
+  ASSERT_EQ(data->getBusName("MyHvdcLine", ""), "");
+  ASSERT_EQ(data->getBusName("MyHvdcLine", "@NODE1@"), "MyBus");
+  ASSERT_EQ(data->getBusName("MyHvdcLine", "@NODE2@"), "MyBus");
+  ASSERT_EQ(data->getBusName("MyLccConverter", ""), "MyBus");
+  ASSERT_EQ(data->getBusName("MyLccConverter2", ""), "MyBus");
 
   powsybl::iidm::HvdcLine& hvdcIIDM = network.getHvdcLine("MyHvdcLine");
   boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
