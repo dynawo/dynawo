@@ -13,7 +13,7 @@
 
 //======================================================================
 /**
- * @file  DYNShuntCompensatorInterfaceIIDM.h
+ * @file  DataInterface/PowSyblIIDM/DYNShuntCompensatorInterfaceIIDM.h
  *
  * @brief Shunt compensator interface : header file for IIDM implementation
  *

@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNLineInterfaceIIDM.h
+ * @file  DataInterface/PowSyblIIDM/DYNLineInterfaceIIDM.h
  *
  * @brief  Line data interface : header file for IIDM interface
  *

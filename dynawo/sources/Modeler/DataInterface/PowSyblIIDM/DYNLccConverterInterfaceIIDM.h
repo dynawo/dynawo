@@ -13,7 +13,7 @@
 
 //======================================================================
 /**
- * @file  DYNLccConverterInterfaceIIDM.h
+ * @file  DataInterface/PowSyblIIDM/DYNLccConverterInterfaceIIDM.h
  *
  * @brief Lcc converter interface : header file for IIDM implementation
  *

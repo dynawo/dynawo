@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNThreeWTransformerInterfaceIIDM.h
+ * @file DataInterface/PowSyblIIDM/DYNThreeWTransformerInterfaceIIDM.h
  *
  * @brief Three windings transformer data interface : header file for IIDM implementation
  *
