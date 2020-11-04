@@ -26,7 +26,7 @@
 #include "DYNThreeWTransformerInterfaceIIDM.h"
 #include "DYNLoadInterfaceIIDM.h"
 #include "DYNShuntCompensatorInterfaceIIDM.h"
-// #include "DYNStaticVarCompensatorInterfaceIIDM.h"
+#include "DYNStaticVarCompensatorInterfaceIIDM.h"
 #include "DYNGeneratorInterfaceIIDM.h"
 #include "DYNDanglingLineInterfaceIIDM.h"
 #include "DYNNetworkInterfaceIIDM.h"
@@ -389,20 +389,19 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     line->setVoltageLevelInterface(voltageLevel);
   }
 
-//  //==========================================
-//  //  ADD STATICVARCOMPENSATOR INTERFACE
-//  //==========================================
-//  IIDM::Contains<IIDM::StaticVarCompensator>::iterator itSVC = voltageLevelIIDM.staticVarCompensators().begin();
-//  for (; itSVC != voltageLevelIIDM.staticVarCompensators().end(); ++itSVC) {
-//    if ( !(*itSVC).has_connection() ) {
-//      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itSVC).id()) << Trace::endline;
-//      continue;
-//    }
-//    shared_ptr<StaticVarCompensatorInterface> svc = importStaticVarCompensator(*itSVC);
-//    voltageLevel->addStaticVarCompensator(svc);
-//    components_[svc->getID()] = svc;
-//    svc->setVoltageLevelInterface(voltageLevel);
-//  }
+  //==========================================
+  //  ADD STATICVARCOMPENSATOR INTERFACE
+  //==========================================
+  for (auto& staticVarCompensator : voltageLevelIIDM.getStaticVarCompensators()) {
+    if (!staticVarCompensator.getTerminal().isConnected()) {
+      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, staticVarCompensator.getId()) << Trace::endline;
+      continue;
+    }
+    shared_ptr<StaticVarCompensatorInterface> svc = importStaticVarCompensator(staticVarCompensator);
+    voltageLevel->addStaticVarCompensator(svc);
+    components_[svc->getID()] = svc;
+    svc->setVoltageLevelInterface(voltageLevel);
+  }
 
   return voltageLevel;
 }
@@ -465,20 +464,10 @@ DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineI
 }
 
 shared_ptr<StaticVarCompensatorInterface>
-DataInterfaceIIDM::importStaticVarCompensator(powsybl::iidm::StaticVarCompensator& /*svcIIDM*/) {
-//  shared_ptr<StaticVarCompensatorInterfaceIIDM> svc(new StaticVarCompensatorInterfaceIIDM(svcIIDM));
-//
-//  // reference to bus interface
-//  if (svcIIDM.is_bus()) {
-//    string id = svcIIDM.bus_id();
-//    svc->setBusInterface(findBusInterface(id));
-//  } else if (svcIIDM.is_node()) {
-//    string voltageLevelId = svcIIDM.voltageLevel().id();
-//    int node = svcIIDM.node();
-//    svc->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
-//  }
-//  return svc;
-  return nullptr;
+DataInterfaceIIDM::importStaticVarCompensator(powsybl::iidm::StaticVarCompensator& svcIIDM) {
+  shared_ptr<StaticVarCompensatorInterfaceIIDM> svc(new StaticVarCompensatorInterfaceIIDM(svcIIDM));
+  svc->setBusInterface(findBusInterface(svcIIDM.getTerminal().getBusBreakerView().getBus().get().getId()));
+  return svc;
 }
 
 shared_ptr<TwoWTransformerInterface>

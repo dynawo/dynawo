@@ -29,6 +29,7 @@
 #include "DYNLoadInterfaceIIDM.h"
 #include "DYNGeneratorInterfaceIIDM.h"
 #include "DYNShuntCompensatorInterfaceIIDM.h"
+#include "DYNStaticVarCompensatorInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNTwoWTransformerInterfaceIIDM.h"
 #include "DYNSubModelFactory.h"
@@ -66,6 +67,8 @@
 #include <powsybl/iidm/ShuntCompensator.hpp>
 #include <powsybl/iidm/ShuntCompensatorAdder.hpp>
 #include <powsybl/iidm/GeneratorAdder.hpp>
+#include <powsybl/iidm/StaticVarCompensator.hpp>
+#include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
 
 using boost::shared_ptr;
 
@@ -332,18 +335,19 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
   }
 
   if (properties.instantiateStaticVarCompensator) {
-    // TODO(rosiereflo)
-//    IIDM::builders::StaticVarCompensatorBuilder svcb;
-//    svcb.regulationMode(IIDM::StaticVarCompensator::regulation_reactive_power);
-//    svcb.bmin(1.0);
-//    svcb.bmax(10.0);
-//    svcb.p(105.);
-//    svcb.q(90.);
-//    IIDM::StaticVarCompensator svc = svcb.build("MyStaticVarCompensator");
-//    IIDM::extensions::standbyautomaton::StandbyAutomatonBuilder sbab;
-//    sbab.standBy(true);
-//    svc.setExtension(sbab.build());
-//    vl.add(svc, c1);
+    powsybl::iidm::StaticVarCompensator& svc = vl1.newStaticVarCompensator()
+      .setId("MyStaticVarCompensator")
+      .setName("MyStaticVarCompensator_NAME")
+      .setBus("MyBus")
+      .setConnectableBus("MyBus")
+      .setBmin(-0.01)
+      .setBmax(0.02)
+      .setVoltageSetpoint(380.0)
+      .setReactivePowerSetpoint(80.0)
+      .setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::OFF)
+      .add();
+    svc.getTerminal().setP(105.);
+    svc.getTerminal().setQ(85.);
   }
 
   if (properties.instantiateTwoWindingTransformer) {
@@ -1023,32 +1027,58 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
   ASSERT_TRUE(shuntIIDM.getTerminal().isConnected());
 }
 
-// TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
-//  const BusBreakerNetworkProperty properties = {
-//      false /*instantiateCapacitorShuntCompensator*/,
-//      true /*instantiateStaticVarCompensator*/,
-//      false /*instantiateTwoWindingTransformer*/,
-//      false /*instantiateRatioTapChanger*/,
-//      false /*instantiatePhaseTapChanger*/,
-//      false /*instantiateDanglingLine*/,
-//      false /*instantiateGenerator*/,
-//      false /*instantiateLccConverter*/,
-//      false /*instantiateLine*/,
-//      false /*instantiateLoad*/,
-//      false /*instantiateSwitch*/,
-//      false /*instantiateVscConverter*/,
-//      false /*instantiateThreeWindingTransformer*/
-//  };
-//  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-//  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
-//  exportStateVariables(data);
-//
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p"), 0.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "q"), 90.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterIntValue("MyStaticVarCompensator", "regulatingMode"), 2);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "v"), 150.);
-//  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "angle"), 1.5);
-//}
+TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
+  const BusBreakerNetworkProperty properties = {
+    false /*instantiateCapacitorShuntCompensator*/,
+    true /*instantiateStaticVarCompensator*/,
+    false /*instantiateTwoWindingTransformer*/,
+    false /*instantiateRatioTapChanger*/,
+    false /*instantiatePhaseTapChanger*/,
+    false /*instantiateDanglingLine*/,
+    false /*instantiateGenerator*/,
+    false /*instantiateLccConverter*/,
+    false /*instantiateLine*/,
+    false /*instantiateLoad*/,
+    false /*instantiateSwitch*/,
+    false /*instantiateVscConverter*/,
+    false /*instantiateThreeWindingTransformer*/
+  };
+  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  exportStateVariables(data);
+
+  // ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p"), 105.);
+  // ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p_pu"), 105. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "q"), 85.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "q_pu"), 85. / SNREF);
+  ASSERT_EQ(data->getStaticParameterIntValue("MyStaticVarCompensator", "regulatingMode"), StaticVarCompensatorInterface::OFF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "v"), 150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "angle"), 1.5);
+
+  powsybl::iidm::StaticVarCompensator& svcIIDM = network.getStaticVarCompensator("MyStaticVarCompensator");
+  boost::shared_ptr<StaticVarCompensatorInterfaceIIDM> svc =
+    boost::dynamic_pointer_cast<StaticVarCompensatorInterfaceIIDM>(data->findComponent("MyStaticVarCompensator"));
+  // ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getP(), 105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getQ(), 85.);
+  ASSERT_TRUE(svcIIDM.getTerminal().isConnected());
+  svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_P, 4.);
+  svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_Q, 1);
+  svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_STATE, OPEN);
+  svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_REGULATINGMODE, StaticVarCompensatorInterface::RUNNING_V);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getP(), -400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getQ(), -100.);
+  ASSERT_FALSE(svcIIDM.getTerminal().isConnected());
+  ASSERT_EQ(svcIIDM.getRegulationMode(), powsybl::iidm::StaticVarCompensator::RegulationMode::VOLTAGE);
+  svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_STATE, CLOSED);
+  svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_REGULATINGMODE, StaticVarCompensatorInterface::RUNNING_Q);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_TRUE(svcIIDM.getTerminal().isConnected());
+  ASSERT_EQ(svcIIDM.getRegulationMode(), powsybl::iidm::StaticVarCompensator::RegulationMode::REACTIVE_POWER);
+  svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_REGULATINGMODE, StaticVarCompensatorInterface::OFF);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_EQ(svcIIDM.getRegulationMode(), powsybl::iidm::StaticVarCompensator::RegulationMode::OFF);
+}
 
 TEST(DataInterfaceIIDMTest, testSwitchIIDM) {
   const BusBreakerNetworkProperty properties = {

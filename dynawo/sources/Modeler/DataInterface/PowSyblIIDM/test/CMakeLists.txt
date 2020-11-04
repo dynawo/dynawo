@@ -31,6 +31,7 @@ set(MODULE_SOURCES
   TestVoltageLevelInterface.cpp
   TestVscConverterInterface.cpp
   TestDataInterface.cpp
+  TestStaticVarCompensatorInterface.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
