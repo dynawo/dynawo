@@ -45,11 +45,11 @@ else()
 
     UPDATE_COMMAND    ""
 
-    DOWNLOAD_DIR      "${CMAKE_CURRENT_SOURCE_DIR}/${package_name}"
-    TMP_DIR           "${CMAKE_CURRENT_BINARY_DIR}/tmp_dir"
-    STAMP_DIR         "${CMAKE_CURRENT_BINARY_DIR}/stamp_dir"
-    BINARY_DIR        "${CMAKE_CURRENT_BINARY_DIR}/binary_dir"
-    SOURCE_DIR        "${CMAKE_CURRENT_BINARY_DIR}/source_dir"
+    DOWNLOAD_DIR      "${DOWNLOAD_DIR}/${package_name}"
+    TMP_DIR           "${TMP_DIR}"
+    STAMP_DIR         "${DOWNLOAD_DIR}/${package_name}-stamp"
+    BINARY_DIR        "${DOWNLOAD_DIR}/${package_name}"
+    SOURCE_DIR        "${DOWNLOAD_DIR}/${package_name}-build"
 
     CMAKE_CACHE_ARGS  "-DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}"
                       "-DCXX11_ENABLED:BOOL=${CXX11_ENABLED}"
