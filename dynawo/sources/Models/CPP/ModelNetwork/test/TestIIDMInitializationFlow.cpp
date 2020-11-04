@@ -99,9 +99,9 @@ struct NetworkProperty {
 
 #ifdef LANG_CXX11
 shared_ptr<DataInterface>
-createDataItfFromNetwork(powsybl::iidm::Network& network) {
+createDataItfFromNetwork(powsybl::iidm::Network&& network) {
   shared_ptr<DataInterfaceIIDM> data;
-  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
+  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(std::move(network));
   ptr->initFromIIDM();
   data.reset(ptr);
   return data;
@@ -366,8 +366,7 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
       true /*instantiateSwitch*/
   };
 #ifdef LANG_CXX11
-  powsybl::iidm::Network network = createNetwork(properties);
-  shared_ptr<DataInterface> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
 #endif
@@ -390,8 +389,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerParam) {
       false /*instantiateSwitch*/
   };
 #ifdef LANG_CXX11
-  powsybl::iidm::Network network = createNetwork(properties);
-  shared_ptr<DataInterface> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
 #endif
@@ -425,8 +423,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerWithRatioTapChangerPar
       false /*instantiateSwitch*/
   };
 #ifdef LANG_CXX11
-  powsybl::iidm::Network network = createNetwork(properties);
-  shared_ptr<DataInterface> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
 #endif
@@ -468,8 +465,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusParam) {
       false /*instantiateSwitch*/
   };
 #ifdef LANG_CXX11
-  powsybl::iidm::Network network = createNetwork(properties);
-  shared_ptr<DataInterface> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
 #endif
@@ -503,8 +499,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineParam) {
       false /*instantiateSwitch*/
   };
 #ifdef LANG_CXX11
-  powsybl::iidm::Network network = createNetwork(properties);
-  shared_ptr<DataInterface> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
 #endif
@@ -532,8 +527,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineParam) {
       false /*instantiateSwitch*/
   };
 #ifdef LANG_CXX11
-  powsybl::iidm::Network network = createNetwork(properties);
-  shared_ptr<DataInterface> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
 #endif
@@ -561,8 +555,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadParam) {
       false /*instantiateSwitch*/
   };
 #ifdef LANG_CXX11
-  powsybl::iidm::Network network = createNetwork(properties);
-  shared_ptr<DataInterface> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
 #endif
@@ -630,8 +623,7 @@ TEST(ModelsModelNetwork, ModelNetworkCapacitorShuntCompensatorParam) {
       false /*instantiateSwitch*/
   };
 #ifdef LANG_CXX11
-  powsybl::iidm::Network network = createNetwork(properties);
-  shared_ptr<DataInterface> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
 #endif
@@ -663,8 +655,7 @@ TEST(ModelsModelNetwork, ModelNetworkReactanceShuntCompensatorParam) {
       false /*instantiateSwitch*/
   };
 #ifdef LANG_CXX11
-  powsybl::iidm::Network network = createNetwork(properties);
-  shared_ptr<DataInterface> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
 #endif
@@ -696,8 +687,7 @@ TEST(ModeslModelNetwork, ModelNetworkSwitchVariablesCheck) {
       true /*instantiateSwitch*/
   };
 #ifdef LANG_CXX11
-  powsybl::iidm::Network network = createNetwork(properties);
-  shared_ptr<DataInterface> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
 #endif

@@ -154,11 +154,12 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
 #ifdef LANG_CXX11
   std::ifstream inputStream(iidmFileName);
   powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(inputStream);
+  boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(std::move(networkIIDM)));
 #else
   IIDM::xml::xml_parser parser;
   IIDM::Network networkIIDM = parser.from_xml(iidmFileName, false);
-#endif
   boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(networkIIDM));
+#endif
   boost::dynamic_pointer_cast<DataInterfaceIIDM>(data)->initFromIIDM();
   dyd->setDataInterface(data);
   dyd->setRootDirectory(getMandatoryEnvVar("PWD"));
