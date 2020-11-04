@@ -20,8 +20,8 @@
  *  with the boost::format convention
  */
 
-#ifndef COMMON_DYNMESSAGE_H_
-#define COMMON_DYNMESSAGE_H_
+#ifndef UTIL_DYNMESSAGE_H_
+#define UTIL_DYNMESSAGE_H_
 #include <sstream>
 #include <boost/format.hpp>
 
@@ -152,4 +152,4 @@ class Message {
 };
 }  // namespace DYN
 
-#endif  // COMMON_DYNMESSAGE_H_
+#endif  // UTIL_DYNMESSAGE_H_

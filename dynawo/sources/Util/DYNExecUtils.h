@@ -18,8 +18,8 @@
  *
  */
 
-#ifndef COMMON_DYNEXECUTILS_H_
-#define COMMON_DYNEXECUTILS_H_
+#ifndef UTIL_DYNEXECUTILS_H_
+#define UTIL_DYNEXECUTILS_H_
 
 #include <string>
 #include <sstream>
@@ -69,4 +69,4 @@ std::string getMandatoryEnvVar(std::string const& key);
  */
 bool hasEnvVar(std::string const& key);
 
-#endif  // COMMON_DYNEXECUTILS_H_
+#endif  // UTIL_DYNEXECUTILS_H_

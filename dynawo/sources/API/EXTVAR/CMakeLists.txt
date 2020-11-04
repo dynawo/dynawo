@@ -59,6 +59,7 @@ target_link_libraries(dynawo_API_EXTVAR
     XMLSAXParser${LibXML_LINK_SUFFIX}
   PRIVATE
     dynawo_Common
+    dynawo_Util
     Boost::system
     )
 

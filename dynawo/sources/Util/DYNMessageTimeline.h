@@ -20,8 +20,8 @@
  *  with the boost::format convention
  */
 
-#ifndef COMMON_DYNMESSAGETIMELINE_H_
-#define COMMON_DYNMESSAGETIMELINE_H_
+#ifndef UTIL_DYNMESSAGETIMELINE_H_
+#define UTIL_DYNMESSAGETIMELINE_H_
 
 #include <utility>
 #include <stdio.h>
@@ -130,4 +130,4 @@ class MessageTimeline : public Message {
 
 #include "DYNMessageTimeline.hpp"
 
-#endif  // COMMON_DYNMESSAGETIMELINE_H_
+#endif  // UTIL_DYNMESSAGETIMELINE_H_

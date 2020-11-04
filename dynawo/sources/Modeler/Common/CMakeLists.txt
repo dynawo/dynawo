@@ -95,6 +95,7 @@ target_include_directories(dynawo_ModelerCommon SYSTEM
 target_link_libraries(dynawo_ModelerCommon
   PRIVATE
     dynawo_Common
+    dynawo_Util
     dynawo_API_PAR
     dynawo_API_DYD
     dynawo_API_CRV

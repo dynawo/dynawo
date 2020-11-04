@@ -11,8 +11,8 @@
 // simulation tool for power systems.
 //
 
-#ifndef COMMON_DYNERRORQUEUE_H_
-#define COMMON_DYNERRORQUEUE_H_
+#ifndef UTIL_DYNERRORQUEUE_H_
+#define UTIL_DYNERRORQUEUE_H_
 
 #include <queue>
 #include <boost/core/noncopyable.hpp>
@@ -66,4 +66,4 @@ class DYNErrorQueue  : private boost::noncopyable{
 
 } /* namespace DYN */
 
-#endif  // COMMON_DYNERRORQUEUE_H_
+#endif  // UTIL_DYNERRORQUEUE_H_

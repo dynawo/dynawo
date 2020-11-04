@@ -17,8 +17,8 @@
  * this file is only useful for unit test and should not be added to dynawo distribution
  */
 
-#ifndef COMMON_GTEST_DYNAWO_H_
-#define COMMON_GTEST_DYNAWO_H_
+#ifndef UTIL_GTEST_DYNAWO_H_
+#define UTIL_GTEST_DYNAWO_H_
 
 #include <sstream>
 #ifndef _MSC_VER
@@ -172,4 +172,4 @@ inline std::string key2Str(const int key) {
       ASSERT_EQ(doubleEquals(A, B), true);                                                           \
     }                                                                                                \
 
-#endif  // COMMON_GTEST_DYNAWO_H_
+#endif  // UTIL_GTEST_DYNAWO_H_

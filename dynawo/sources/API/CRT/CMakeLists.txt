@@ -58,6 +58,7 @@ target_link_libraries(dynawo_API_CRT
     XMLSAXParser${LibXML_LINK_SUFFIX}
   PRIVATE
     dynawo_Common
+    dynawo_Util
   )
 
 set_target_properties(dynawo_API_CRT PROPERTIES VERSION ${API_CRT_VERSION_STRING}

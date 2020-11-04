@@ -11,8 +11,8 @@
 // simulation tool for power systems.
 //
 
-#ifndef COMMON_DYNMACROSMESSAGE_H_
-#define COMMON_DYNMACROSMESSAGE_H_
+#ifndef UTIL_DYNMACROSMESSAGE_H_
+#define UTIL_DYNMACROSMESSAGE_H_
 
 #include "DYNMessage.hpp"
 #include "DYNMessageTimeline.h"
@@ -88,4 +88,4 @@
  */
 #define DYNTerminate(key, ...) DYN::Terminate((DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__))
 
-#endif  // COMMON_DYNMACROSMESSAGE_H_
+#endif  // UTIL_DYNMACROSMESSAGE_H_

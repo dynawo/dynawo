@@ -18,8 +18,8 @@
  * IoDico read a dictionary file and return the message description
  * associated to a key
  */
-#ifndef COMMON_DYNIODICO_H_
-#define COMMON_DYNIODICO_H_
+#ifndef UTIL_DYNIODICO_H_
+#define UTIL_DYNIODICO_H_
 
 #include <map>
 #include <vector>
@@ -171,4 +171,4 @@ class IoDicos {
 };
 
 }  // namespace DYN
-#endif  // COMMON_DYNIODICO_H_
+#endif  // UTIL_DYNIODICO_H_

@@ -23,6 +23,7 @@ target_include_directories(compileModelicaModel SYSTEM
 target_link_libraries(compileModelicaModel
   PRIVATE
     dynawo_Common
+    dynawo_Util
     ${CMAKE_DL_LIBS}
     Boost::log
     Boost::program_options

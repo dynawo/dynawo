@@ -61,6 +61,7 @@ target_include_directories(Modelica_externalC SYSTEM
 target_link_libraries(Modelica_externalC
   PRIVATE
     dynawo_Common
+    dynawo_Util
     Boost::system
   )
 

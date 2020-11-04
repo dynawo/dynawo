@@ -21,8 +21,8 @@
  * @todo Add a way to create sinks/appender dynamically by loading a
  * configuration file.
  */
-#ifndef COMMON_DYNTRACE_H_
-#define COMMON_DYNTRACE_H_
+#ifndef UTIL_DYNTRACE_H_
+#define UTIL_DYNTRACE_H_
 
 #include <string>
 #include <vector>
@@ -522,4 +522,4 @@ class Trace {
 
 }  // namespace DYN
 
-#endif  // COMMON_DYNTRACE_H_
+#endif  // UTIL_DYNTRACE_H_

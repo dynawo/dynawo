@@ -39,6 +39,7 @@ target_include_directories(dynawo_SolverIDA SYSTEM
 target_link_libraries(dynawo_SolverIDA
   PRIVATE
     dynawo_Common
+    dynawo_Util
     dynawo_SolverCommon
     dynawo_SolverKINSOL
     Sundials::Sundials_NVECSERIAL

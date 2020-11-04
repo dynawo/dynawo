@@ -17,8 +17,8 @@
  * @brief define common function that could be used
  *
  */
-#ifndef COMMON_DYNCOMMON_H_
-#define COMMON_DYNCOMMON_H_
+#ifndef UTIL_DYNCOMMON_H_
+#define UTIL_DYNCOMMON_H_
 
 #include <string>
 #include <vector>
@@ -187,4 +187,4 @@ struct mapcompabs {
 };
 }  // namespace DYN
 
-#endif  // COMMON_DYNCOMMON_H_
+#endif  // UTIL_DYNCOMMON_H_

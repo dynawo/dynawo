@@ -19,8 +19,8 @@
  * stream-like logging
  */
 
-#ifndef COMMON_DYNTRACESTREAM_H_
-#define COMMON_DYNTRACESTREAM_H_
+#ifndef UTIL_DYNTRACESTREAM_H_
+#define UTIL_DYNTRACESTREAM_H_
 
 #include <boost/shared_ptr.hpp>
 #include <sstream>
@@ -180,4 +180,4 @@ TraceStream& eol(TraceStream& os);
 
 }  // namespace DYN
 
-#endif  // COMMON_DYNTRACESTREAM_H_
+#endif  // UTIL_DYNTRACESTREAM_H_

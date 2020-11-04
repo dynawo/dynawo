@@ -26,6 +26,7 @@ target_include_directories(dynawo
 target_link_libraries(dynawo
   PRIVATE
     dynawo_Common
+    dynawo_Util
     dynawo_Simulation
     XMLSAXParser${LibXML_LINK_SUFFIX}
     Boost::filesystem

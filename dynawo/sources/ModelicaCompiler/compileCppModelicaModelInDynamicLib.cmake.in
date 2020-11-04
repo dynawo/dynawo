@@ -166,6 +166,7 @@ target_include_directories(lib PUBLIC $ENV{DYNAWO_ADDITIONAL_INCLUDE_FOR_PREASSE
 target_link_libraries(lib
   PRIVATE
     Dynawo::dynawo_Common
+    Dynawo::dynawo_Util
     Dynawo::dynawo_API_PAR
     Dynawo::dynawo_ModelerCommon
     Dynawo::Modelica_externalC

@@ -46,6 +46,7 @@ target_include_directories(dynawo_ModelManager SYSTEM
 target_link_libraries(dynawo_ModelManager
   PRIVATE
     dynawo_Common
+    dynawo_Util
     dynawo_API_PAR
     dynawo_ModelerCommon
     dynawo_SolverKINSOL

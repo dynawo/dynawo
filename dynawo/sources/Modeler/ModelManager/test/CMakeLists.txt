@@ -26,6 +26,7 @@ target_include_directories(${MODULE_NAME}
 target_link_libraries(${MODULE_NAME}
   PUBLIC
     dynawo_Common
+    dynawo_Util
     dynawo_ModelManager
     dynawo_ModelerCommon
     Modelica_externalC

@@ -11,39 +11,27 @@
 //
 
 /**
- * @file  DYNMessage.hpp
+ * @file  DYNMessageTimeline.hpp
  *
- * @brief Message header to implement template operator ,
+ * @brief DYNMessageTimeline header to implement template operator ,
  *
  */
 
-#ifndef COMMON_DYNMESSAGE_HPP_
-#define COMMON_DYNMESSAGE_HPP_
-
-#include <stdio.h>
-#include <iostream>
-#include "DYNMessage.h"
+#ifndef UTIL_DYNMESSAGETIMELINE_HPP_
+#define UTIL_DYNMESSAGETIMELINE_HPP_
 
 namespace DYN {
 
 template <typename T>
-Message& Message::operator,(T& x) {
-  if (hasFmt_)
-    fmt_ % x;
-  else
-    fmtss_ << " " << x;
-  return *this;
+MessageTimeline& MessageTimeline::operator,(T& x) {
+  return static_cast<MessageTimeline&>(Message::operator,(x));
 }
 
 template <typename T>
-Message& Message::operator,(const T& x) {
-  if (hasFmt_)
-    fmt_ % x;
-  else
-    fmtss_ << " " << x;
-  return *this;
+MessageTimeline& MessageTimeline::operator,(const T& x) {
+  return static_cast<MessageTimeline&>(Message::operator,(x));
 }
 
 }  // namespace DYN
 
-#endif  // COMMON_DYNMESSAGE_HPP_
+#endif  // UTIL_DYNMESSAGETIMELINE_HPP_

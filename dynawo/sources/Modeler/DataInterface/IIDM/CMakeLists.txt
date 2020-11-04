@@ -59,6 +59,7 @@ target_include_directories(dynawo_DataInterfaceIIDM SYSTEM
 target_link_libraries(dynawo_DataInterfaceIIDM
   PRIVATE
     dynawo_Common
+    dynawo_Util
     dynawo_ModelerCommon
     dynawo_DataInterface
     dynawo_API_CRT

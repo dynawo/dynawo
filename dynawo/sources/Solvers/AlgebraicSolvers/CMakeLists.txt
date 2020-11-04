@@ -46,6 +46,7 @@ target_link_libraries(dynawo_SolverKINSOL
     Sundials::Sundials_KINSOL
     Sundials::Sundials_SUNLINSOLKLU
     dynawo_Common
+    dynawo_Util
     dynawo_SolverCommon
   )
 

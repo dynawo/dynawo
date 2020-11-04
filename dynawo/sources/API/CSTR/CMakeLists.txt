@@ -55,6 +55,7 @@ target_link_libraries(dynawo_API_CSTR
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
   PRIVATE
     dynawo_Common
+    dynawo_Util
     )
 
 set_target_properties(dynawo_API_CSTR PROPERTIES VERSION ${API_CSTR_VERSION_STRING}

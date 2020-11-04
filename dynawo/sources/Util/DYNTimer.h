@@ -17,8 +17,8 @@
  * @brief Class timer header : timers are used to monitored the code execution
  *
  */
-#ifndef COMMON_DYNTIMER_H_
-#define COMMON_DYNTIMER_H_
+#ifndef UTIL_DYNTIMER_H_
+#define UTIL_DYNTIMER_H_
 
 #include <map>
 #include <string>
@@ -128,4 +128,4 @@ extern "C" DYN::Timers& getTimersInstance() {
 }
 #endif
 
-#endif  // COMMON_DYNTIMER_H_
+#endif  // UTIL_DYNTIMER_H_

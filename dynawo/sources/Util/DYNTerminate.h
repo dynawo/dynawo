@@ -21,8 +21,8 @@
  *
  */
 
-#ifndef COMMON_DYNTERMINATE_H_
-#define COMMON_DYNTERMINATE_H_
+#ifndef UTIL_DYNTERMINATE_H_
+#define UTIL_DYNTERMINATE_H_
 
 #include <stdio.h>
 #include <string>
@@ -98,4 +98,4 @@ class Terminate : public std::exception {
 }  // namespace DYN
 
 
-#endif  // COMMON_DYNTERMINATE_H_
+#endif  // UTIL_DYNTERMINATE_H_

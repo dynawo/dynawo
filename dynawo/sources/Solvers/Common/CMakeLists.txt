@@ -52,6 +52,7 @@ target_link_libraries(dynawo_SolverCommon
   PRIVATE
     dynawo_Common
     dynawo_API_PAR
+    dynawo_Util
   )
 
 if(${NICSLU_FOUND})

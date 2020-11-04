@@ -39,6 +39,7 @@ target_include_directories(dynawo_SolverSIM SYSTEM
 target_link_libraries(dynawo_SolverSIM
   PRIVATE
     dynawo_Common
+    dynawo_Util
     dynawo_API_PAR
     dynawo_API_TL
     dynawo_SolverCommon

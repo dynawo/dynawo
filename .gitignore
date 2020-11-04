@@ -1,7 +1,7 @@
 build/
 build-code/
-dynawo/sources/Common/*_keys.cpp
-dynawo/sources/Common/*_keys.h
+dynawo/sources/Util/*_keys.cpp
+dynawo/sources/Util/*_keys.h
 dynawo/sources/Models/Modelica/Dynawo/NonElectrical/Logs/*Keys.mo
 dynawo/sources/config.h
 dynawo/sources/gitversion.h*

@@ -14,10 +14,7 @@ set(MODULE_SOURCES
     TestBitMask.cpp
     TestGraph.cpp
     TestParameter.cpp
-    TestErrorQueue.cpp
     Test.cpp
-    TestIoDico.cpp
-    TestValidateDic.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
@@ -29,16 +26,8 @@ target_link_libraries(${MODULE_NAME}
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>
   DEPENDS
-    ${MODULE_NAME}-pre-tests
     ${MODULE_NAME}
   COMMENT "Running ${MODULE_NAME}...")
-
-add_custom_target(${MODULE_NAME}-pre-tests
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res2 ${CMAKE_CURRENT_BINARY_DIR}/res2
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/dic ${CMAKE_CURRENT_BINARY_DIR}/dic
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../Dictionaries/validateDictionaries.py ${CMAKE_CURRENT_BINARY_DIR}/.
-  )
 
 if(BUILD_TESTS_COVERAGE)
   set(EXTRACT_PATTERNS "'*/sources/Common/DYN*'")

@@ -17,8 +17,8 @@
  * @brief File system utility : BOOST FileSystem wrapper
  *
  */
-#ifndef COMMON_DYNFILESYSTEMUTILS_H_
-#define COMMON_DYNFILESYSTEMUTILS_H_
+#ifndef UTIL_DYNFILESYSTEMUTILS_H_
+#define UTIL_DYNFILESYSTEMUTILS_H_
 
 #include <string>
 #include <list>
@@ -331,4 +331,4 @@ std::string lastParentDirectory(const std::string childPath);
  */
 bool isAbsolutePath(const std::string path);
 
-#endif  // COMMON_DYNFILESYSTEMUTILS_H_
+#endif  // UTIL_DYNFILESYSTEMUTILS_H_

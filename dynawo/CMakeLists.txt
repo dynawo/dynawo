@@ -272,6 +272,7 @@ if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   add_library(dynawo_Test INTERFACE)
   target_link_libraries(dynawo_Test INTERFACE
     dynawo_Common
+    dynawo_Util
     dynawo_Test_utils
     GTest::gmock_main
     GTest::gtest_main
@@ -398,6 +399,7 @@ include(../cpplint/cpplint.cmake)
 include(3rdParty/jquery/jquery.cmake)
 
 add_subdirectory(sources)
+add_subdirectory(sources/Util)
 add_subdirectory(sources/Common)
 add_subdirectory(sources/API)
 add_subdirectory(sources/Solvers)

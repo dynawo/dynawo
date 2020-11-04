@@ -295,6 +295,7 @@ macro(COMPILE_CPP_MODEL
     target_link_libraries(${CPP_MODEL}
       PRIVATE
         dynawo_Common
+        dynawo_Util
         dynawo_ModelerCommon
       PUBLIC
         dynawo_CPPModelsCommon

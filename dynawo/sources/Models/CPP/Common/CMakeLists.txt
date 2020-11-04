@@ -36,6 +36,7 @@ target_compile_definitions(dynawo_CPPModelsCommon
 target_link_libraries(dynawo_CPPModelsCommon
   PRIVATE
     dynawo_Common
+    dynawo_Util
     Boost::serialization
   PUBLIC
     dynawo_ModelerCommon

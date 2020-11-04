@@ -18,8 +18,8 @@
  *
  */
 
-#ifndef COMMON_DYNERROR_H_
-#define COMMON_DYNERROR_H_
+#ifndef UTIL_DYNERROR_H_
+#define UTIL_DYNERROR_H_
 
 #include <stdio.h>
 #include <string>
@@ -207,4 +207,4 @@ class MessageError : public std::exception {
 };
 }  // namespace DYN
 
-#endif  // COMMON_DYNERROR_H_
+#endif  // UTIL_DYNERROR_H_

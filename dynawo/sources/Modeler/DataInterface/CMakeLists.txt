@@ -83,6 +83,7 @@ target_link_libraries(dynawo_DataInterface
     Boost::system
   PRIVATE
     dynawo_Common
+    dynawo_Util
     dynawo_ModelerCommon
     dynawo_API_CRT
   )
@@ -94,6 +95,7 @@ add_library(dynawo_DataInterfaceFactory ${LIBRARY_TYPE} ${DATA_INTERFACE_FACTORY
 
 target_link_libraries(dynawo_DataInterfaceFactory
   dynawo_Common
+  dynawo_Util
   dynawo_DataInterface
   dynawo_DataInterfaceIIDM
 )

@@ -37,6 +37,7 @@ target_link_libraries(dynawo_Simulation
     libZIP::libZIP
   PRIVATE
     dynawo_Common
+    dynawo_Util
     dynawo_SimulationCommon
     dynawo_API_JOB
     dynawo_API_CRV
