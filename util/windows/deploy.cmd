@@ -142,6 +142,6 @@ forfiles /p %deploy_dir%\OpenModelica /m *.la /s /c "cmd /c del @path /s /f /q"
 xcopy %dynawo_source_dir_abs%\util\windows\dynawo.cmd %deploy_dir% /i
 
 :: Create zip
-for /f %%i in ('%deploy_dir_abs%\dynawo.cmd + version') do set dynawo_version=%%i
+for /f %%i in ('%deploy_dir_abs%\dynawo.cmd version') do set dynawo_version=%%i
 if exist %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip del %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip /s /f /q
 7z a %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip -r %deploy_dir_abs%\*
