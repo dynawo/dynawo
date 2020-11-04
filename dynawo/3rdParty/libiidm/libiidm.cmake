@@ -10,7 +10,7 @@
 
 cmake_minimum_required(VERSION 3.12)
 
-include($ENV{DYNAWO_HOME}/dynawo/cmake/CPUCount.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/CPUCount.cmake)
 if(NOT DEFINED CPU_COUNT)
   message(FATAL_ERROR "CPUCount.cmake: file not found.")
 endif()
