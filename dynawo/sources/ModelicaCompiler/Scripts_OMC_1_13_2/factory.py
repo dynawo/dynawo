@@ -3167,8 +3167,8 @@ class Factory:
         map_dep = self.reader.get_map_dep_vars_for_func()
         index = 0
         for var in self.reader.list_calculated_vars:
-            if var in self.reader.list_complex_calculated_vars:
-                var_name = var.get_name()
+            var_name = var.get_name()
+            if var_name in map_dep:
                 list_depend = map_dep[var_name]
                 list_of_indexes = []
                 for dependency in list_depend:

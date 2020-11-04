@@ -1465,6 +1465,7 @@ class ReaderOMC:
                     self.list_complex_const_vars.append(var)
 
         ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
+        map_dep = self.get_map_dep_vars_for_func()
         for var in self.list_vars:
             if var in self.list_complex_calculated_vars:
                 self.list_calculated_vars.append(var)
@@ -1490,11 +1491,13 @@ class ReaderOMC:
                     negated = "-" if var.get_alias_negated() else ""
                     self.list_calculated_vars.append(var)
                     self.dic_calculated_vars_values[var.get_name()] = negated + to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
+                    map_dep[var.get_name()] = [var.get_alias_name()]
                 if is_real_const_var(var):
                     test_param_address(var.get_alias_name())
                     negated = "-" if var.get_alias_negated() else ""
                     self.list_calculated_vars.append(var)
                     self.dic_calculated_vars_values[var.get_name()] = negated+to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
+                    map_dep[var.get_name()] = [var.get_alias_name()]
 
 
     ##
