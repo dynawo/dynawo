@@ -47,6 +47,9 @@
 #include "CRTCriteria.h"
 #include "CRTCriteriaParams.h"
 
+#include <libxml/parser.h>
+
+#include <powsybl/iidm/converter/ExportOptions.hpp>
 #include <powsybl/iidm/converter/ImportOptions.hpp>
 #include <powsybl/iidm/converter/FakeAnonymizer.hpp>
 #include <powsybl/iidm/Substation.hpp>
@@ -62,6 +65,20 @@ using boost::dynamic_pointer_cast;
 
 using criteria::CriteriaCollection;
 
+/**
+ * Helper class to load/unload properly LibXml2
+ */
+class LibXml2 {
+ public:
+  LibXml2() {
+      xmlInitParser();
+  }
+
+  ~LibXml2() {
+      xmlCleanupParser();
+  }
+};
+
 namespace DYN {
 DataInterfaceIIDM::DataInterfaceIIDM(powsybl::iidm::Network& networkIIDM) :
 networkIIDM_(networkIIDM) {
@@ -75,6 +92,7 @@ boost::shared_ptr<DataInterface>
 DataInterfaceIIDM::build(std::string iidmFilePath) {
   boost::shared_ptr<DataInterfaceIIDM>  data;
   try {
+    LibXml2 libxml2;
     std::ifstream inputStream(iidmFilePath);
     stdcxx::Properties properties;
     properties.set(powsybl::iidm::converter::ImportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
@@ -82,21 +100,6 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
 
     powsybl::iidm::converter::FakeAnonymizer anonymizer;
     powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(inputStream, options, anonymizer);
-//    parser.register_extension<IIDM::extensions::standbyautomaton::xml::StandbyAutomatonHandler>();
-//    parser.register_extension<IIDM::extensions::activeseason::xml::ActiveSeasonHandler>();
-//    parser.register_extension<IIDM::extensions::currentlimitsperseason::xml::CurrentLimitsPerSeasonHandler>();
-//    parser.register_extension<IIDM::extensions::generatoractivepowercontrol::xml::GeneratorActivePowerControlHandler>();
-//    parser.register_extension<IIDM::extensions::busbarsection_position::xml::BusbarSectionPositionHandler>();  // useless for simulation
-//    parser.register_extension<IIDM::extensions::connectable_position::xml::ConnectablePositionHandler>();
-//    parser.register_extension<IIDM::extensions::hvdcangledroopactivepowercontrol::xml::HvdcAngleDroopActivePowerControlHandler>();
-//    parser.register_extension<IIDM::extensions::hvdcoperatoractivepowerrange::xml::HvdcOperatorActivePowerRangeHandler>();
-//    parser.register_extension<IIDM::extensions::generator_entsoe_category::xml::GeneratorEntsoeCategoryHandler>();
-//    parser.register_extension<IIDM::extensions::generator_startup::xml::GeneratorStartupHandler>();
-//    parser.register_extension<IIDM::extensions::load_detail::xml::LoadDetailHandler>();
-
-//    bool xsdValidation = false;
-//    if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true")
-//      xsdValidation = true;
 
     data.reset(new DataInterfaceIIDM(networkIIDM));
     data->initFromIIDM();
@@ -108,65 +111,18 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
 
 
 void
-DataInterfaceIIDM::dumpToFile(const std::string& /*iidmFilePath*/) const {
-//  IIDM::xml::xml_formatter formatter;
-//  formatter.register_extension(
-//      &IIDM::extensions::busbarsection_position::xml::exportBusbarSectionPosition,
-//      IIDM::extensions::busbarsection_position::xml::BusbarSectionPositionHandler::uri(),
-//      "bbsp");
-//
-//  formatter.register_extension(
-//      &IIDM::extensions::connectable_position::xml::exportConnectablePosition,
-//      IIDM::extensions::connectable_position::xml::ConnectablePositionHandler::uri(),
-//      "cp");
-//
-//  formatter.register_extension(
-//      &IIDM::extensions::generatoractivepowercontrol::xml::exportGeneratorActivePowerControl,
-//      IIDM::extensions::generatoractivepowercontrol::xml::GeneratorActivePowerControlHandler::uri(),
-//      "gapc");
-//
-//  formatter.register_extension(
-//      &IIDM::extensions::standbyautomaton::xml::exportStandbyAutomaton,
-//      IIDM::extensions::standbyautomaton::xml::StandbyAutomatonHandler::uri(),
-//      "sa");
-//
-//  formatter.register_extension(
-//      &IIDM::extensions::hvdcoperatoractivepowerrange::xml::exportHvdcOperatorActivePowerRange,
-//      IIDM::extensions::hvdcoperatoractivepowerrange::xml::HvdcOperatorActivePowerRangeHandler::uri(),
-//      "hopr");
-//
-//  formatter.register_extension(
-//      &IIDM::extensions::hvdcangledroopactivepowercontrol::xml::exportHvdcAngleDroopActivePowerControl,
-//      IIDM::extensions::hvdcangledroopactivepowercontrol::xml::HvdcAngleDroopActivePowerControlHandler::uri(),
-//      "hapc");
-//
-//  formatter.register_extension(
-//      &IIDM::extensions::activeseason::xml::exportActiveSeason,
-//      IIDM::extensions::activeseason::xml::ActiveSeasonHandler::uri(),
-//      "as");
-//
-//  formatter.register_extension(
-//      &IIDM::extensions::currentlimitsperseason::xml::exportCurrentLimitsPerSeason,
-//      IIDM::extensions::currentlimitsperseason::xml::CurrentLimitsPerSeasonHandler::uri(),
-//      "clps");
-//
-//  formatter.register_extension(
-//      &IIDM::extensions::generator_entsoe_category::xml::exportGeneratorEntsoeCategory,
-//      IIDM::extensions::generator_entsoe_category::xml::GeneratorEntsoeCategoryHandler::uri(),
-//      "gec");
-//
-//  formatter.register_extension(
-//      &IIDM::extensions::generator_startup::xml::exportGeneratorStartup,
-//      IIDM::extensions::generator_startup::xml::GeneratorStartupHandler::uri(),
-//      "gs");
-//
-//  formatter.register_extension(
-//      &IIDM::extensions::load_detail::xml::exportLoadDetail,
-//      IIDM::extensions::load_detail::xml::LoadDetailHandler::uri(),
-//      "ld");
-//
-//  fstream file(iidmFilePath.c_str(), fstream::out);
-//  formatter.to_xml(networkIIDM_, file);
+DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
+  try {
+    LibXml2 libxml2;
+    std::ofstream outputStream(iidmFilePath);
+    stdcxx::Properties properties;
+    properties.set(powsybl::iidm::converter::ExportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
+    powsybl::iidm::converter::ExportOptions options(properties);
+
+    powsybl::iidm::Network::writeXml(outputStream, networkIIDM_, options);
+  } catch (const powsybl::PowsyblException& exp) {
+    throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFilePath, exp.what());
+  }
 }
 
 powsybl::iidm::Network&
