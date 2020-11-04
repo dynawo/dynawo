@@ -14,6 +14,7 @@
     <dyn:outputs directory="outputs">
       <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>
       <dyn:timeline exportMode="TXT"/>
+      <dyn:timetable step="10"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
       </dyn:logs>

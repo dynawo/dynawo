@@ -83,7 +83,7 @@
 #include "JOBInitValuesEntry.h"
 #include "JOBConstraintsEntry.h"
 #include "JOBTimelineEntry.h"
-#include "JOBTimestepsEntry.h"
+#include "JOBTimetableEntry.h"
 #include "JOBFinalStateEntry.h"
 #include "JOBCurvesEntry.h"
 #include "JOBSimulationEntry.h"
@@ -273,7 +273,7 @@ Simulation::configureSimulationOutputs() {
     }
     configureConstraintsOutputs();
     configureTimelineOutputs();
-    configureTimestepsOutputs();
+    configureTimetableOutputs();
     configureCurveOutputs();
     configureFinalStateOutputs();
   }
@@ -340,18 +340,17 @@ Simulation::configureTimelineOutputs() {
 }
 
 void
-Simulation::configureTimestepsOutputs() {
-  // Timeline settings
-  if (jobEntry_->getOutputsEntry()->getTimestepsEntry()) {
-    string outputsDirectory = createAbsolutePath("outputs", context_->getInputDirectory());
-    if (!is_directory(outputsDirectory))
-      create_directory(outputsDirectory);
+Simulation::configureTimetableOutputs() {
+  // Timetable settings
+  if (jobEntry_->getOutputsEntry()->getTimetableEntry()) {
+    if (!is_directory(outputsDirectory_))
+      create_directory(outputsDirectory_);
 
     stringstream fileName;
-    fileName << outputsDirectory << "/.dynawoexec-" << pid_;
-    timestepsOutputFile_ = fileName.str();
+    fileName << outputsDirectory_ << "/.dynawoexec-" << pid_;
+    timetableOutputFile_ = fileName.str();
 
-    timestepsSteps_ = jobEntry_->getOutputsEntry()->getTimestepsEntry()->getStep();
+    timetableSteps_ = jobEntry_->getOutputsEntry()->getTimetableEntry()->getStep();
   }
 }
 
@@ -834,8 +833,8 @@ Simulation::simulate() {
 
       model_->checkDataCoherence(tCurrent_);
       model_->printMessages();
-      if (timestepsOutputFile_ != "" && currentIterNb % timestepsSteps_ == 0)
-        printCurrentTime(timestepsOutputFile_);
+      if (timetableOutputFile_ != "" && currentIterNb % timetableSteps_ == 0)
+        printCurrentTime(timetableOutputFile_);
 
       if (isCheckCriteriaIter) {
         criteriaChecked = checkCriteria(tCurrent_, false);
@@ -862,21 +861,21 @@ Simulation::simulate() {
         throw DYNError(Error::SIMULATION, CriteriaNotChecked);
       }
     }
-    if (timestepsOutputFile_ != "")
-        remove(timestepsOutputFile_);
+    if (timetableOutputFile_ != "")
+        remove(timetableOutputFile_);
   } catch (const Terminate& t) {
     Trace::warn() << t.what() << Trace::endline;
     model_->printMessages();
-    if (timestepsOutputFile_ != "")
-        remove(timestepsOutputFile_);
+    if (timetableOutputFile_ != "")
+        remove(timetableOutputFile_);
   } catch (const Error& e) {
     Trace::error() << e.what() << Trace::endline;
-    if (timestepsOutputFile_ != "")
-        remove(timestepsOutputFile_);
+    if (timetableOutputFile_ != "")
+        remove(timetableOutputFile_);
     throw;
   } catch (...) {
-    if (timestepsOutputFile_ != "")
-        remove(timestepsOutputFile_);
+    if (timetableOutputFile_ != "")
+        remove(timetableOutputFile_);
     throw;
   }
 }

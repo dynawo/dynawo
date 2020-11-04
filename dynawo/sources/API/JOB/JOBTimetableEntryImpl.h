@@ -12,24 +12,24 @@
 //
 
 /**
- * @file JOBTimestepsEntryImpl.h
- * @brief Timesteps entries description : header file
+ * @file JOBTimetableEntryImpl.h
+ * @brief Timetable entries description : header file
  *
  */
 
-#ifndef API_JOB_JOBTIMESTEPSENTRYIMPL_H_
-#define API_JOB_JOBTIMESTEPSENTRYIMPL_H_
+#ifndef API_JOB_JOBTIMETABLEENTRYIMPL_H_
+#define API_JOB_JOBTIMETABLEENTRYIMPL_H_
 
 #include <string>
-#include "JOBTimestepsEntry.h"
+#include "JOBTimetableEntry.h"
 
 namespace job {
 
 /**
- * @class TimestepsEntry::Impl
- * @brief Timesteps entries container class
+ * @class TimetableEntry::Impl
+ * @brief Timetable entries container class
  */
-class TimestepsEntry::Impl : public TimestepsEntry {
+class TimetableEntry::Impl : public TimetableEntry {
  public:
   /**
    * @brief constructor
@@ -42,19 +42,19 @@ class TimestepsEntry::Impl : public TimestepsEntry {
   virtual ~Impl();
 
   /**
-   * @copydoc TimestepsEntry::setStep()
+   * @copydoc TimetableEntry::setStep()
    */
   void setStep(int step);
 
   /**
-   * @copydoc TimestepsEntry::getStep()
+   * @copydoc TimetableEntry::getStep()
    */
   int getStep() const;
 
  private:
-  int step_;  ///< step to use
+  int step_;  ///< time to use
 };
 
 }  // namespace job
 
-#endif  // API_JOB_JOBTIMESTEPSENTRYIMPL_H_
+#endif  // API_JOB_JOBTIMETABLEENTRYIMPL_H_

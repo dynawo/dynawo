@@ -109,7 +109,7 @@
       <xs:element name="dumpInitValues" type="dyn:InitValuesEntry" minOccurs="0"/>
       <xs:element name="constraints" type="dyn:ConstraintsEntry" minOccurs="0"/>
       <xs:element name="timeline" type="dyn:TimelineEntry" minOccurs="0"/>
-      <xs:element name="timesteps" type="dyn:TimeStepsEntry" minOccurs="0"/>
+      <xs:element name="timetable" type="dyn:TimetableEntry" minOccurs="0"/>
       <xs:element name="finalState" type="dyn:FinalStateEntry" minOccurs="0"/>
       <xs:element name="curves" type="dyn:CurvesEntry" minOccurs="0"/>
       <xs:element name="logs" type="dyn:LogsEntry" minOccurs="0"/>
@@ -137,7 +137,7 @@
     <xs:attribute name="exportMode" use="required" type="dyn:TimelineExportMode"/>
   </xs:complexType>
 
-  <xs:complexType name="TimeStepsEntry">
+  <xs:complexType name="TimetableEntry">
     <xs:attribute name="step" use="required" type="xs:int"/>
   </xs:complexType>
 

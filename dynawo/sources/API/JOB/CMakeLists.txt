@@ -43,7 +43,7 @@ set(API_JOB_SOURCES
     JOBSimulationEntryImpl.cpp
     JOBSolverEntryImpl.cpp
     JOBTimelineEntryImpl.cpp
-    JOBTimestepsEntryImpl.cpp
+    JOBTimetableEntryImpl.cpp
     JOBModelsDirEntryImpl.cpp
     JOBJobEntryFactory.cpp
     JOBLogsEntryFactory.cpp
@@ -89,7 +89,7 @@ set(API_JOB_INCLUDE_HEADERS
     JOBSolverEntryFactory.h
     JOBModelsDirEntryFactory.h
     JOBTimelineEntry.h
-    JOBTimestepsEntry.h
+    JOBTimetableEntry.h
     JOBModelsDirEntry.h
     )
 
