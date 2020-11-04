@@ -15,6 +15,7 @@
 
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
+#include "DYNCurrentLimitInterfaceIIDM.h"
 
 #include "gtest_dynawo.h"
 
@@ -159,6 +160,15 @@ TEST(DataInterfaceTest, Line) {
   ASSERT_DOUBLE_EQ(li.getQ1(), 666.0);
   ASSERT_DOUBLE_EQ(li.getP2(), 500.0);
   ASSERT_DOUBLE_EQ(li.getQ2(), 222.0);
+
+  ASSERT_EQ(li.getCurrentLimitInterfaces1().size(), 0);
+  ASSERT_EQ(li.getCurrentLimitInterfaces2().size(), 0);
+  const boost::shared_ptr<CurrentLimitInterface> curLimItf1(new CurrentLimitInterfaceIIDM(1, 1));
+  li.addCurrentLimitInterface1(curLimItf1);
+  const boost::shared_ptr<CurrentLimitInterface> curLimItf2(new CurrentLimitInterfaceIIDM(2, 2));
+  li.addCurrentLimitInterface2(curLimItf2);
+  ASSERT_EQ(li.getCurrentLimitInterfaces1().size(), 1);
+  ASSERT_EQ(li.getCurrentLimitInterfaces2().size(), 1);
 
   powsybl::iidm::Line& MySecondLine = network.newLine()
                                        .setId("VL1_VL3_Bad")
