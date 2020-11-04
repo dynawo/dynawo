@@ -533,8 +533,8 @@ class Simulation {
   exportTimelineMode_t exportTimelineMode_;  ///< timeline's output mode
   std::string timelineOutputFile_;  ///< timeline's export file
 
-  std::string timestepsOutputFile_;  ///< timesteps's export file
-  int timestepsSteps_;  ///< timesteps's steps
+  std::string timetableOutputFile_;  ///< timetable export file
+  int timetableSteps_;  ///< timetable' steps
 
   exportFinalStateMode_t exportFinalStateMode_;  ///< final state's export mode
   std::string finalStateInputFile_;  ///< final state's request input file
@@ -572,9 +572,9 @@ class Simulation {
   void configureTimelineOutputs();
 
   /**
-   * @brief configure the timesteps outputs
+   * @brief configure the timetable outputs
    */
-  void configureTimestepsOutputs();
+  void configureTimetableOutputs();
 
   /**
    * @brief configure the curve outputs

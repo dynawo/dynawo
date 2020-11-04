@@ -69,13 +69,13 @@ OutputsEntry::Impl::getTimelineEntry() const {
 }
 
 void
-OutputsEntry::Impl::setTimestepsEntry(const boost::shared_ptr<TimestepsEntry>& timestepsEntry) {
-  timestepsEntry_ = timestepsEntry;
+OutputsEntry::Impl::setTimetableEntry(const boost::shared_ptr<TimetableEntry>& timetableEntry) {
+  timetableEntry_ = timetableEntry;
 }
 
-boost::shared_ptr<TimestepsEntry>
-OutputsEntry::Impl::getTimestepsEntry() const {
-  return timestepsEntry_;
+boost::shared_ptr<TimetableEntry>
+OutputsEntry::Impl::getTimetableEntry() const {
+  return timetableEntry_;
 }
 
 void

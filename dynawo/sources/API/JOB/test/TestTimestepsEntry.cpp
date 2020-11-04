@@ -12,24 +12,24 @@
 //
 
 /**
- * @file API/JOB/test/TestTimestepsEntry.cpp
- * @brief Unit tests for API_JOB/JOBTimestepsEntry class
+ * @file API/JOB/test/TestTimetableEntry.cpp
+ * @brief Unit tests for API_JOB/JOBTimetableEntry class
  *
  */
 
 #include "gtest_dynawo.h"
-#include "JOBTimestepsEntryImpl.h"
+#include "JOBTimetableEntryImpl.h"
 
 namespace job {
 
-TEST(APIJOBTest, testTimestepsEntry) {
-  boost::shared_ptr<TimestepsEntry> timesteps = boost::shared_ptr<TimestepsEntry>(new TimestepsEntry::Impl());
+TEST(APIJOBTest, testTimetableEntry) {
+  boost::shared_ptr<TimetableEntry> timetable = boost::shared_ptr<TimetableEntry>(new TimetableEntry::Impl());
   // check default attributes
-  ASSERT_EQ(timesteps->getStep(), 1);
+  ASSERT_EQ(timetable->getStep(), 1);
 
-  timesteps->setStep(10);
+  timetable->setStep(10);
 
-  ASSERT_EQ(timesteps->getStep(), "10");
+  ASSERT_EQ(timetable->getStep(), "10");
 }
 
 }  // namespace job

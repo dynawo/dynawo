@@ -12,38 +12,38 @@
 //
 
 /**
- * @file JOBTimestepsEntry.h
- * @brief Timesteps entries description : interface file
+ * @file JOBTimetableEntry.h
+ * @brief Timetable entries description : interface file
  *
  */
 
-#ifndef API_JOB_JOBTIMESTEPSENTRY_H_
-#define API_JOB_JOBTIMESTEPSENTRY_H_
+#ifndef API_JOB_JOBTIMETABLEENTRY_H_
+#define API_JOB_JOBTIMETABLEENTRY_H_
 
 #include <string>
 
 namespace job {
 
 /**
- * @class TimestepsEntry
- * @brief Timesteps entries container class
+ * @class TimetableEntry
+ * @brief Timetable entries container class
  */
-class TimestepsEntry {
+class TimetableEntry {
  public:
   /**
    * @brief Destructor
    */
-  virtual ~TimestepsEntry() {}
+  virtual ~TimetableEntry() {}
 
   /**
    * @brief step getter
-   * @return step of timesteps
+   * @return step of timetable
    */
   virtual int getStep() const = 0;
 
   /**
    * @brief step setter
-   * @param step step for timesteps
+   * @param step number of iterations between each time dumped
    */
   virtual void setStep(int step) = 0;
 
@@ -52,4 +52,4 @@ class TimestepsEntry {
 
 }  // namespace job
 
-#endif  // API_JOB_JOBTIMESTEPSENTRY_H_
+#endif  // API_JOB_JOBTIMETABLEENTRY_H_
