@@ -85,6 +85,7 @@ TEST(DataInterfaceTest, SVarC_1) {
   ASSERT_TRUE(svcInterface.getInitialConnected());
 
   ASSERT_EQ(svcInterface.getBusInterface().get(), nullptr);
+  svcInterface.importStaticParameters();
   const boost::shared_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
   svcInterface.setBusInterface(busIfce);
   ASSERT_EQ(svcInterface.getBusInterface().get()->getID(), "VL1_BUS1");
