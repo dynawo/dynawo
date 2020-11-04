@@ -80,8 +80,8 @@ class LibXml2 {
 };
 
 namespace DYN {
-DataInterfaceIIDM::DataInterfaceIIDM(powsybl::iidm::Network& networkIIDM) :
-networkIIDM_(networkIIDM) {
+DataInterfaceIIDM::DataInterfaceIIDM(powsybl::iidm::Network&& networkIIDM) :
+networkIIDM_(std::move(networkIIDM)) {
 }
 
 DataInterfaceIIDM::~DataInterfaceIIDM() {
@@ -101,7 +101,7 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
     powsybl::iidm::converter::FakeAnonymizer anonymizer;
     powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(inputStream, options, anonymizer);
 
-    data.reset(new DataInterfaceIIDM(networkIIDM));
+    data.reset(new DataInterfaceIIDM(std::move(networkIIDM)));
     data->initFromIIDM();
   } catch (const powsybl::PowsyblException& exp) {
     throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFilePath, exp.what());
