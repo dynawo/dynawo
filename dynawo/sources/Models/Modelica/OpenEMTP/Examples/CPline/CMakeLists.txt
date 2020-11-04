@@ -17,6 +17,7 @@ set(MODEL_FILES
     SinglePhaseLine.mo
     SinglePhaseLine2.mo
     MultiPhaseLine.mo
+    ParallelLines.mo
     )
 
 #

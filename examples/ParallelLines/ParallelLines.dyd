@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="ParallelLinesmodel" lib="ParallelLines" parFile="./ParallelLines.par" parId="1"/>
+</dyn:dynamicModelsArchitecture>

@@ -23,6 +23,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     Resistor.xml
     Star.xml
     TLM.xml
+    ParallelLines.xml
     )
 
 # PYTHON scripts preassembled models

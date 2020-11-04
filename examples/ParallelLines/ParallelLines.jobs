@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.rte-france.com/dynawo">
+    <job name="test">
+        <solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="1"/>
+        <modeler compileDir="outputs/compilation">
+            <dynModels dydFile="ParallelLines.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+        <simulation startTime="0" stopTime="0.5" precision="1e-6"/>
+        <outputs directory="outputs">
+            <curves inputFile="ParallelLines.crv" exportMode="CSV"/>
+            <dumpInitValues local="true" global="true"/>
+            <constraints exportMode="XML"/>
+            <timeline exportMode="TXT"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+              <appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
+            </logs>
+            <!--
+            -->
+        </outputs>
+    </job>
+</jobs>
