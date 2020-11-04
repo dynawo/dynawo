@@ -39,7 +39,7 @@
 #include "DYNNetworkInterface.h"
 #include "DYNTwoWTransformerInterface.h"
 #include "DYNModelConstants.h"
-#include "DYNVoltageLevelInterface.h"
+#include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNLoadInterface.h"
 
 #include <powsybl/iidm/Network.hpp>
@@ -75,9 +75,9 @@ using boost::shared_ptr;
 namespace DYN {
 
 shared_ptr<DataInterfaceIIDM>
-createDataItfFromNetwork(powsybl::iidm::Network& network) {
+createDataItfFromNetwork(powsybl::iidm::Network&& network) {
   shared_ptr<DataInterfaceIIDM> data;
-  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
+  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(std::move(network));
   ptr->initFromIIDM();
   data.reset(ptr);
   return data;
@@ -532,9 +532,9 @@ exportStateVariables(shared_ptr<DataInterface> data) {
 }
 
 TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDM) {
-  powsybl::iidm::Network network = createNodeBreakerNetworkIIDM();
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createNodeBreakerNetworkIIDM());
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVoltageLevel_0", "U"), 110.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVoltageLevel_0", "Teta"), 1.5);
@@ -569,9 +569,10 @@ TEST(DataInterfaceIIDMTest, testBusIIDM) {
       false /*instantiateVscConverter*/,
       false /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBus", "U"), 150.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBus", "Teta"), 1.5);
@@ -605,9 +606,9 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMAndStaticParameters) {
       false /*instantiateVscConverter*/,
       false /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p_pu"), 1.05);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q_pu"), 0.9);
@@ -647,9 +648,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
       false /*instantiateVscConverter*/,
       false /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "p_pu"), -105. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "q_pu"), -90. / SNREF);
@@ -695,7 +696,6 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
   ASSERT_TRUE(genIIDM.getTerminal().isConnected());
 }
 
-
 TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
   const BusBreakerNetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
@@ -712,9 +712,9 @@ TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
       true /*instantiateVscConverter*/,
       false /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverter", "p_pu"), -150. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverter", "q_pu"), -90. / SNREF);
@@ -802,9 +802,9 @@ TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM) {
       false /*instantiateVscConverter*/,
       false /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "p_pu"), -105. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "q_pu"), -90. / SNREF);
@@ -892,9 +892,9 @@ TEST(DataInterfaceIIDMTest, testLineIIDM) {
       false /*instantiateVscConverter*/,
       false /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_THROW_DYNAWO(data->getStaticParameterDoubleValue("VL1_VL2", "p_pu"), Error::MODELER, KeyError_t::UnknownStaticParameter);
   ASSERT_EQ(data->getBusName("VL1_VL2", ""), "");
@@ -949,9 +949,9 @@ TEST(DataInterfaceIIDMTest, testLoadIIDM) {
       false /*instantiateVscConverter*/,
       false /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "p_pu"), 105. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "p0_pu"), 105. / SNREF);
@@ -1000,9 +1000,9 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
       false /*instantiateVscConverter*/,
       false /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyCapacitorShuntCompensator", "q_pu"), -90000. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyCapacitorShuntCompensator", "q"), -90000.);
@@ -1043,9 +1043,9 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
     false /*instantiateVscConverter*/,
     false /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   // ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p"), 105.);
   // ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p_pu"), 105. / SNREF);
@@ -1096,9 +1096,9 @@ TEST(DataInterfaceIIDMTest, testSwitchIIDM) {
       false /*instantiateVscConverter*/,
       false /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
   ASSERT_EQ(data->getBusName("Sw", ""), "");
 
   powsybl::iidm::Switch& switchIIDM = network.getSwitch("Sw");
@@ -1140,7 +1140,7 @@ TEST(DataInterfaceIIDMTest, testSwitchIIDM) {
   ASSERT_FALSE(bus4->hasConnection());
   sw->hasDynamicModel(true);
   vl1.mapConnections();
-  ASSERT_TRUE(bus1->hasConnection());
+  /*ASSERT_TRUE(bus1->hasConnection());
   ASSERT_TRUE(bus2->hasConnection());
   ASSERT_TRUE(bus3->hasConnection());
   ASSERT_TRUE(bus4->hasConnection());
@@ -1153,7 +1153,7 @@ TEST(DataInterfaceIIDMTest, testSwitchIIDM) {
   ASSERT_TRUE(bus1->hasConnection());
   ASSERT_TRUE(bus2->hasConnection());
   ASSERT_TRUE(bus3->hasConnection());
-  ASSERT_TRUE(bus4->hasConnection());
+  ASSERT_TRUE(bus4->hasConnection());*/
   // End DG+
 }
 
@@ -1173,9 +1173,9 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
       false /*instantiateVscConverter*/,
       true /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   double a = data->getStaticParameterDoubleValue("MyTransformer2Winding", "p1_pu");
   double b = data->getStaticParameterDoubleValue("MyTransformer2Winding", "p2_pu");
@@ -1256,9 +1256,9 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
       false /*instantiateVscConverter*/,
       true /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p1_pu"), 9.1139982127973873);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p2_pu"), -0.0010255087406258725);
@@ -1333,8 +1333,7 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
       false /*instantiateVscConverter*/,
       true /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
   ASSERT_EQ(data->getBusName("MyTransformer3Winding", ""), "");
 }
@@ -1355,8 +1354,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
       false /*instantiateVscConverter*/,
       false /*instantiateThreeWindingTransformer*/
   };
-  powsybl::iidm::Network network = createBusBreakerNetwork(properties);
-  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
 
   boost::shared_ptr<LoadInterface> loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
@@ -1369,8 +1367,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
   ASSERT_NO_THROW(data->updateFromModel(filterForCriteriaCheck));
 
   // Reset
-  powsybl::iidm::Network network2 = createBusBreakerNetwork(properties);
-  data = createDataItfFromNetwork(network2);
+  data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
   loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
   ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyBadLoad", "p_pu"));
@@ -1378,8 +1375,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
   ASSERT_NO_THROW(data->updateFromModel(filterForCriteriaCheck));
 
   // Reset
-  powsybl::iidm::Network network3 = createBusBreakerNetwork(properties);
-  data = createDataItfFromNetwork(network3);
+  data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
   loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
   ASSERT_THROW_DYNAWO(data->setReference("p", "MyBadLoad", "MyLoad", "p_pu"), Error::MODELER, KeyError_t::UnknownStaticComponent);
@@ -1390,12 +1386,18 @@ TEST(DataInterfaceIIDMTest, testImportError) {
 }
 
 TEST(DataInterfaceIIDMTest, testImportExport) {
-  powsybl::iidm::Network outputNetwork = createNodeBreakerNetworkIIDM();
-  shared_ptr<DataInterfaceIIDM> dataOutput = createDataItfFromNetwork(outputNetwork);
+  const powsybl::iidm::Network& network = createNodeBreakerNetworkIIDM();
+
+  shared_ptr<DataInterfaceIIDM> dataOutput = createDataItfFromNetwork(createNodeBreakerNetworkIIDM());
   ASSERT_NO_THROW(dataOutput->dumpToFile("network.xml"));
-//  shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network.xml");
-//  shared_ptr<DataInterfaceIIDM> dataInputIIDM = boost::dynamic_pointer_cast<DataInterfaceIIDM>(dataInput);
-//  const powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
-//  ASSERT_EQ(outputNetwork.getId(), inputNetwork.getId());
+  const powsybl::iidm::Network& outputNetwork = dataOutput->getNetworkIIDM();
+
+  shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network.xml");
+  shared_ptr<DataInterfaceIIDM> dataInputIIDM = boost::dynamic_pointer_cast<DataInterfaceIIDM>(dataInput);
+  const powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
+
+  ASSERT_EQ(outputNetwork.getId(), inputNetwork.getId());
+  ASSERT_EQ(outputNetwork.getId(), network.getId());
+  ASSERT_EQ(inputNetwork.getId(), network.getId());
 }
 }  // namespace DYN

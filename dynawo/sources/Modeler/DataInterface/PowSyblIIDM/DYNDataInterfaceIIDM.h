@@ -45,11 +45,12 @@ class DataInterfaceIIDM : public DataInterface {
    * @return The data interface built from the input file
    */
   static boost::shared_ptr<DataInterface> build(std::string iidmFilePath);
+
   /**
    * @brief Constructor
    * @param networkIIDM instance of iidm network
    */
-  explicit DataInterfaceIIDM(powsybl::iidm::Network& networkIIDM);
+  explicit DataInterfaceIIDM(powsybl::iidm::Network&& networkIIDM);
 
   /**
    * @brief Destructor
@@ -324,7 +325,7 @@ class DataInterfaceIIDM : public DataInterface {
   void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
 
  private:
-  powsybl::iidm::Network& networkIIDM_;                                                            ///< instance of the IIDM network
+  powsybl::iidm::Network networkIIDM_;                                                            ///< instance of the IIDM network
   boost::shared_ptr<NetworkInterface> network_;                                                    ///< instance of the network interface
   boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> > components_;           ///< map of components
   boost::unordered_map<std::string, boost::shared_ptr<VoltageLevelInterface> > voltageLevels_;     ///< map of voltageLevel by name
