@@ -25,7 +25,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <sundials/sundials_nvector.h>
-#include <sundials/sundials_sparse.h>
+#include <sunmatrix/sunmatrix_sparse.h>
 #include <sundials/sundials_matrix.h>
 #include <sundials/sundials_linearsolver.h>
 #include "DYNSolverKINCommon.h"

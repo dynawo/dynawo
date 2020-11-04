@@ -447,7 +447,7 @@ Below are the major development axis identified for Dyna&omega;o for the next fe
 
 ### Axis 3 - Dependencies, architecture and performances
 * ~~Switch to OpenModelica V1.13 version and DAE mode use~~
-* Switch to Sundials V5.0.0 and Suitesparse V5.3.0
+* ~~Switch to Sundials V5.3.0 and Suitesparse V5.4.0~~
 * Switch to a newer IIDM library version: under progres, expected November 2020
 * Performances improvements: under progress
 * Ancilarry services - contingency analysis and margin calculation: under progress
