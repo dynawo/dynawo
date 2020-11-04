@@ -1310,4 +1310,17 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
   ASSERT_THROW_DYNAWO(data->setReference("p", "MyBadLoad", "MyLoad", "p_pu"), Error::MODELER, KeyError_t::UnknownStaticComponent);
 }
 
+TEST(DataInterfaceIIDMTest, testImportError) {
+  ASSERT_THROW_DYNAWO(DataInterfaceIIDM::build("invalid"), Error::GENERAL, KeyError_t::XmlFileParsingError);
+}
+
+TEST(DataInterfaceIIDMTest, testImportExport) {
+  powsybl::iidm::Network outputNetwork = createNodeBreakerNetworkIIDM();
+  shared_ptr<DataInterfaceIIDM> dataOutput = createDataItfFromNetwork(outputNetwork);
+  ASSERT_NO_THROW(dataOutput->dumpToFile("network.xml"));
+//  shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network.xml");
+//  shared_ptr<DataInterfaceIIDM> dataInputIIDM = boost::dynamic_pointer_cast<DataInterfaceIIDM>(dataInput);
+//  const powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
+//  ASSERT_EQ(outputNetwork.getId(), inputNetwork.getId());
+}
 }  // namespace DYN
