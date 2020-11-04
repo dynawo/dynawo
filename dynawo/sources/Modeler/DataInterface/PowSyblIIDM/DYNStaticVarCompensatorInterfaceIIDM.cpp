@@ -66,13 +66,13 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
   staticVarCompensatorIIDM_.getTerminal().setQ(-1 * getValue<double>(VAR_Q) * SNREF);
   bool connected = (getValue<int>(VAR_STATE) == CLOSED);
   int regulatingMode = getValue<int>(VAR_REGULATINGMODE);
-  bool standbyMode(false);
+//  bool standbyMode(false);
   switch (regulatingMode) {
     case StaticVarCompensatorInterface::OFF:
       staticVarCompensatorIIDM_.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::OFF);
       break;
     case StaticVarCompensatorInterface::STANDBY:
-      standbyMode = true;
+//      standbyMode = true;
       break;
     case StaticVarCompensatorInterface::RUNNING_Q:
       staticVarCompensatorIIDM_.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::REACTIVE_POWER);

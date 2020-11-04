@@ -13,7 +13,7 @@
 
 //======================================================================
 /**
- * @file  DYNStaticVarCompensatorInterfaceIIDM.h
+ * @file  DataInterface/PowSyblIIDM/DYNStaticVarCompensatorInterfaceIIDM.h
  *
  * @brief Static var compensator interface : header file for IIDM implementation
  *
