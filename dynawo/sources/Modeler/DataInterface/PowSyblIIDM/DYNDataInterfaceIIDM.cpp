@@ -81,7 +81,7 @@ class LibXml2 {
 
 namespace DYN {
 DataInterfaceIIDM::DataInterfaceIIDM(powsybl::iidm::Network&& networkIIDM) :
-networkIIDM_(std::move(networkIIDM)) {
+networkIIDM_(std::forward<powsybl::iidm::Network>(networkIIDM)) {
 }
 
 DataInterfaceIIDM::~DataInterfaceIIDM() {

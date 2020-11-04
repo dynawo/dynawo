@@ -87,9 +87,9 @@ class InjectorInterfaceIIDM {
    * @brief Getter for the injector's voltage level interface
    * @return voltageLevelInterface voltageLevelInterface where the injector is connected
    */
-  const boost::shared_ptr<VoltageLevelInterface>&
+  boost::shared_ptr<VoltageLevelInterface>
   getVoltageLevelInterface() const {
-    const boost::shared_ptr<VoltageLevelInterface>& voltageLevel = voltageLevelInterface_.lock();
+    boost::shared_ptr<VoltageLevelInterface> voltageLevel = voltageLevelInterface_.lock();
     assert(voltageLevel && "shared_ptr for voltage level is empty");
     return voltageLevel;
   }
