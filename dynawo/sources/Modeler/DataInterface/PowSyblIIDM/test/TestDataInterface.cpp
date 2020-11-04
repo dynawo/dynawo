@@ -1110,6 +1110,51 @@ TEST(DataInterfaceIIDMTest, testSwitchIIDM) {
   sw->setValue(SwitchInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
   ASSERT_FALSE(switchIIDM.isOpen());
+
+  // Start proposal for testing mapConnection() DG+
+  boost::shared_ptr<BusInterfaceIIDM> bus1 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL1_BUS1"));
+  boost::shared_ptr<BusInterfaceIIDM> bus2 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
+  boost::shared_ptr<BusInterfaceIIDM> bus3 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL3_BUS1"));
+  boost::shared_ptr<BusInterfaceIIDM> bus4 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  ASSERT_FALSE(bus1->hasConnection());
+  ASSERT_FALSE(bus2->hasConnection());
+  ASSERT_FALSE(bus3->hasConnection());
+  ASSERT_FALSE(bus4->hasConnection());
+  VoltageLevelInterfaceIIDM vl1(network.getVoltageLevel("VL1"));
+  VoltageLevelInterfaceIIDM vl2(network.getVoltageLevel("VL2"));
+  VoltageLevelInterfaceIIDM vl3(network.getVoltageLevel("VL3"));
+  vl1.mapConnections();
+  ASSERT_FALSE(bus1->hasConnection());
+  ASSERT_FALSE(bus2->hasConnection());
+  ASSERT_FALSE(bus3->hasConnection());
+  ASSERT_FALSE(bus4->hasConnection());
+  vl2.mapConnections();
+  ASSERT_FALSE(bus1->hasConnection());
+  ASSERT_FALSE(bus2->hasConnection());
+  ASSERT_FALSE(bus3->hasConnection());
+  ASSERT_FALSE(bus4->hasConnection());
+  vl3.mapConnections();
+  ASSERT_FALSE(bus1->hasConnection());
+  ASSERT_FALSE(bus2->hasConnection());
+  ASSERT_FALSE(bus3->hasConnection());
+  ASSERT_FALSE(bus4->hasConnection());
+  sw->hasDynamicModel(true);
+  vl1.mapConnections();
+  ASSERT_TRUE(bus1->hasConnection());
+  ASSERT_TRUE(bus2->hasConnection());
+  ASSERT_TRUE(bus3->hasConnection());
+  ASSERT_TRUE(bus4->hasConnection());
+  vl2.mapConnections();
+  ASSERT_TRUE(bus1->hasConnection());
+  ASSERT_TRUE(bus2->hasConnection());
+  ASSERT_TRUE(bus3->hasConnection());
+  ASSERT_TRUE(bus4->hasConnection());
+  vl3.mapConnections();
+  ASSERT_TRUE(bus1->hasConnection());
+  ASSERT_TRUE(bus2->hasConnection());
+  ASSERT_TRUE(bus3->hasConnection());
+  ASSERT_TRUE(bus4->hasConnection());
+  // End DG+
 }
 
 TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
