@@ -23,7 +23,7 @@ set(MODULE_SOURCES
     TestLoad.cpp
     TestTapChanger.cpp
     TestShuntCompensator.cpp
-#    TestStaticVarCompensator.cpp
+    TestStaticVarCompensator.cpp
     TestThreeWindingsTransformer.cpp
     TestTwoWindingsTransformer.cpp
 )

@@ -14,6 +14,13 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
+#ifdef LANG_CXX11
+#include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/TopologyKind.hpp>
+#include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
+#else
 #include <IIDM/builders/StaticVarCompensatorBuilder.h>
 #include <IIDM/builders/VoltageLevelBuilder.h>
 #include <IIDM/builders/BusBuilder.h>
@@ -22,6 +29,7 @@
 #include <IIDM/components/VoltageLevel.h>
 #include <IIDM/components/Bus.h>
 #include <IIDM/extensions/StandbyAutomaton.h>
+#endif
 
 #include "DYNStaticVarCompensatorInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -42,6 +50,46 @@ using boost::shared_ptr;
 namespace DYN {
 std::pair<shared_ptr<ModelStaticVarCompensator>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelStaticVarCompensator(bool open, bool initModel) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus1")
+              .add();
+  iidmBus.setV(1);
+  iidmBus.setAngle(0.);
+
+  powsybl::iidm::StaticVarCompensator& svcIIDM = vlIIDM.newStaticVarCompensator()
+    .setId("MyStaticVarCompensator")
+    .setName("MyStaticVarCompensator_NAME")
+    .setBus(iidmBus.getId())
+    .setConnectableBus(iidmBus.getId())
+    .setBmin(0.)
+    .setBmax(5.)
+    .setVoltageSetpoint(0.5)
+    .setReactivePowerSetpoint(0.8)
+    .setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::REACTIVE_POWER)
+    .add();
+  svcIIDM.getTerminal().setP(3.);
+  svcIIDM.getTerminal().setQ(5.);
+  shared_ptr<StaticVarCompensatorInterfaceIIDM> scItfIIDM = shared_ptr<StaticVarCompensatorInterfaceIIDM>(new StaticVarCompensatorInterfaceIIDM(svcIIDM));
+  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  scItfIIDM->setVoltageLevelInterface(vlItfIIDM);
+  scItfIIDM->setBusInterface(bus1ItfIIDM);
+#else
   IIDM::connection_status_t cs = {!open};
   IIDM::Port p1("MyBus1", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1);
@@ -77,6 +125,7 @@ createModelStaticVarCompensator(bool open, bool initModel) {
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
   scItfIIDM->setVoltageLevelInterface(vlItfIIDM);
   scItfIIDM->setBusInterface(bus1ItfIIDM);
+#endif
 
   shared_ptr<ModelStaticVarCompensator> sc = shared_ptr<ModelStaticVarCompensator>(new ModelStaticVarCompensator(scItfIIDM));
   ModelNetwork* network = new ModelNetwork();
@@ -84,7 +133,7 @@ createModelStaticVarCompensator(bool open, bool initModel) {
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   sc->setNetwork(network);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
   sc->setModelBus(bus1);
@@ -172,7 +221,11 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   shared_ptr<ModelStaticVarCompensator> svc = p.first;
   svc->initSize();
   unsigned nbZ = 2;
+#ifdef LANG_CXX11
+  unsigned nbG = 6;
+#else
   unsigned nbG = 8;
+#endif
   ASSERT_EQ(svc->sizeZ(), nbZ);
   ASSERT_EQ(svc->sizeG(), nbG);
   std::vector<double> y(svc->sizeY(), 0.);
@@ -199,17 +252,21 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   ASSERT_EQ(z[ModelStaticVarCompensator::connectionStateNum_], OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::modeNum_], StaticVarCompensatorInterface::RUNNING_Q);
 
+#ifndef LANG_CXX11
   g[7] =  ROOT_UP;
   z[ModelStaticVarCompensator::connectionStateNum_] = CLOSED;
   ASSERT_EQ(svc->evalZ(10.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(svc->evalState(10.), NetworkComponent::STATE_CHANGE);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::modeNum_], StaticVarCompensatorInterface::RUNNING_Q);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::modeNum_], StaticVarCompensatorInterface::RUNNING_V);
 
   g[7] =  ROOT_DOWN;
   g[6] =  ROOT_UP;
   ASSERT_EQ(svc->evalZ(10.), NetworkComponent::NO_CHANGE);
   ASSERT_EQ(svc->evalState(10.), NetworkComponent::NO_CHANGE);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::modeNum_], StaticVarCompensatorInterface::RUNNING_Q);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::modeNum_], StaticVarCompensatorInterface::RUNNING_V);
+#endif
 
   std::map<int, std::string> gEquationIndex;
   svc->setGequations(gEquationIndex);
@@ -217,6 +274,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   for (size_t i = 0; i < nbG; ++i) {
     ASSERT_TRUE(gEquationIndex.find(i) != gEquationIndex.end());
   }
+#ifndef LANG_CXX11
   g[6] =  ROOT_DOWN;
   y[ModelStaticVarCompensator::piOutNum_] = 2;
   z[ModelStaticVarCompensator::modeNum_] = StaticVarCompensatorInterface::OFF;
@@ -230,6 +288,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   ASSERT_EQ(g[5], ROOT_DOWN);
   ASSERT_EQ(g[6], ROOT_DOWN);
   ASSERT_EQ(g[7], ROOT_DOWN);
+#endif
   z[ModelStaticVarCompensator::modeNum_] = StaticVarCompensatorInterface::RUNNING_V;
   y[ModelStaticVarCompensator::piOutNum_] = -1;
   ASSERT_NO_THROW(svc->evalZ(20.));
@@ -240,8 +299,10 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   ASSERT_EQ(g[3], ROOT_DOWN);
   ASSERT_EQ(g[4], ROOT_DOWN);
   ASSERT_EQ(g[5], ROOT_UP);
+#ifndef LANG_CXX11
   ASSERT_EQ(g[6], ROOT_DOWN);
   ASSERT_EQ(g[7], ROOT_DOWN);
+#endif
   y[ModelStaticVarCompensator::piOutNum_] = 6;
   ASSERT_NO_THROW(svc->evalZ(20.));
   ASSERT_NO_THROW(svc->evalG(20.));
@@ -251,8 +312,10 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   ASSERT_EQ(g[3], ROOT_UP);
   ASSERT_EQ(g[4], ROOT_UP);
   ASSERT_EQ(g[5], ROOT_DOWN);
+#ifndef LANG_CXX11
   ASSERT_EQ(g[6], ROOT_DOWN);
   ASSERT_EQ(g[7], ROOT_DOWN);
+#endif
   z[ModelStaticVarCompensator::modeNum_] = StaticVarCompensatorInterface::STANDBY;
   ASSERT_NO_THROW(svc->evalZ(20.));
   ASSERT_NO_THROW(svc->evalG(20.));
@@ -262,8 +325,10 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   ASSERT_EQ(g[3], ROOT_UP);
   ASSERT_EQ(g[4], ROOT_UP);
   ASSERT_EQ(g[5], ROOT_DOWN);
+#ifndef LANG_CXX11
   ASSERT_EQ(g[6], ROOT_UP);
   ASSERT_EQ(g[7], ROOT_UP);
+#endif
   delete[] zConnected;
 }
 
