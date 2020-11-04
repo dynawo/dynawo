@@ -46,8 +46,10 @@ target_include_directories(dynawo_Common SYSTEM
 target_link_libraries(dynawo_Common
   PUBLIC
     dynawo_Interface
+  INTERFACE
     dynawo_Util
   PRIVATE
+    dynawo_Util
     ${CMAKE_DL_LIBS}
     Boost::filesystem
     Boost::log

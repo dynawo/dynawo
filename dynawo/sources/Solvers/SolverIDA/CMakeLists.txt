@@ -19,7 +19,7 @@ set(SOLVER_IDA_INCLUDE_HEADERS
   DYNSolverIDA.h
   )
 
-add_library(dynawo_SolverIDA SHARED ${SOLVER_IDA_SOURCES})
+add_library(dynawo_SolverIDA MODULE ${SOLVER_IDA_SOURCES})
 
 target_include_directories(dynawo_SolverIDA
   INTERFACE
@@ -39,13 +39,16 @@ target_include_directories(dynawo_SolverIDA SYSTEM
 target_link_libraries(dynawo_SolverIDA
   PRIVATE
     dynawo_Common
-    dynawo_Util
-    dynawo_SolverCommon
     dynawo_SolverKINSOL
     Sundials::Sundials_NVECSERIAL
     Sundials::Sundials_SUNLINSOLKLU
     Sundials::Sundials_IDA
   )
+
+target_link_libraries(dynawo_SolverIDA PRIVATE $<TARGET_FILE:dynawo_SolverCommon>)
+target_include_directories(dynawo_SolverIDA PRIVATE $<TARGET_PROPERTY:dynawo_SolverCommon,INTERFACE_INCLUDE_DIRECTORIES>)
+
+link_library_singleton(dynawo_SolverIDA)
 
 set_target_properties(dynawo_SolverIDA PROPERTIES VERSION ${SOLVER_IDA_VERSION_STRING}
                                                 SOVERSION ${SOLVER_IDA_VERSION_MAJOR}

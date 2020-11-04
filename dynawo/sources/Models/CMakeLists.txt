@@ -281,7 +281,7 @@ macro(COMPILE_CPP_MODEL
         COMMENT "Creating checkSum for ${CPP_MODEL}"
         )
 
-    add_library(${CPP_MODEL} SHARED EXCLUDE_FROM_ALL ${CPP_SOURCES})
+    add_library(${CPP_MODEL} MODULE EXCLUDE_FROM_ALL ${CPP_SOURCES})
 
     set_target_properties(${CPP_MODEL} PROPERTIES PREFIX "")
     set_target_properties(${CPP_MODEL} PROPERTIES SKIP_BUILD_RPATH True)
@@ -295,11 +295,12 @@ macro(COMPILE_CPP_MODEL
     target_link_libraries(${CPP_MODEL}
       PRIVATE
         dynawo_Common
-        dynawo_Util
         dynawo_ModelerCommon
       PUBLIC
         dynawo_CPPModelsCommon
       )
+
+    link_library_singleton(${CPP_MODEL})
 
     add_custom_command(
         OUTPUT ${CPP_MODEL}${DESCRIPTION_XML_EXTENSION}

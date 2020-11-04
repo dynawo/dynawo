@@ -19,7 +19,7 @@ set(SOLVER_SIM_INCLUDE_HEADERS
   DYNSolverSIM.h
   )
 
-add_library(dynawo_SolverSIM SHARED ${SOLVER_SIM_SOURCES})
+add_library(dynawo_SolverSIM MODULE ${SOLVER_SIM_SOURCES})
 
 target_include_directories(dynawo_SolverSIM
   INTERFACE
@@ -39,12 +39,15 @@ target_include_directories(dynawo_SolverSIM SYSTEM
 target_link_libraries(dynawo_SolverSIM
   PRIVATE
     dynawo_Common
-    dynawo_Util
     dynawo_API_PAR
     dynawo_API_TL
-    dynawo_SolverCommon
     dynawo_SolverKINSOL
   )
+
+target_link_libraries(dynawo_SolverSIM PRIVATE $<TARGET_FILE:dynawo_SolverCommon>)
+target_include_directories(dynawo_SolverSIM PRIVATE $<TARGET_PROPERTY:dynawo_SolverCommon,INTERFACE_INCLUDE_DIRECTORIES>)
+
+link_library_singleton(dynawo_SolverSIM)
 
 set_target_properties(dynawo_SolverSIM PROPERTIES VERSION ${SOLVER_SIM_VERSION_STRING}
                                                 SOVERSION ${SOLVER_SIM_VERSION_MAJOR}

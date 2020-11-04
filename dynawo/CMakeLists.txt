@@ -397,6 +397,7 @@ endif()
 
 include(../cpplint/cpplint.cmake)
 include(3rdParty/jquery/jquery.cmake)
+include(LinkLibrarySingleton)
 
 add_subdirectory(sources)
 add_subdirectory(sources/Util)
