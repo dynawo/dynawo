@@ -164,11 +164,6 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
   int getComponentVarIndex(const std::string& varName) const;
 
   /**
-   * @copydoc StaticVarCompensatorInterface::getP()
-   */
-  double getP();
-
-  /**
    * @copydoc StaticVarCompensatorInterface::getQ()
    */
   double getQ();

@@ -346,7 +346,6 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
       .setReactivePowerSetpoint(80.0)
       .setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::OFF)
       .add();
-    svc.getTerminal().setP(105.);
     svc.getTerminal().setQ(85.);
   }
 
@@ -1047,8 +1046,9 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
   exportStateVariables(data);
   powsybl::iidm::Network& network = data->getNetworkIIDM();
 
-  // ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p"), 105.);
-  // ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p_pu"), 105. / SNREF);
+  // p will always be 0. because it is set to 0. in the CPP model for SVarC
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p"), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p_pu"), 0. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "q"), 85.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "q_pu"), 85. / SNREF);
   ASSERT_EQ(data->getStaticParameterIntValue("MyStaticVarCompensator", "regulatingMode"), StaticVarCompensatorInterface::OFF);
@@ -1058,7 +1058,7 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
   powsybl::iidm::StaticVarCompensator& svcIIDM = network.getStaticVarCompensator("MyStaticVarCompensator");
   boost::shared_ptr<StaticVarCompensatorInterfaceIIDM> svc =
     boost::dynamic_pointer_cast<StaticVarCompensatorInterfaceIIDM>(data->findComponent("MyStaticVarCompensator"));
-  // ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getP(), 105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getP(), 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getQ(), 85.);
   ASSERT_TRUE(svcIIDM.getTerminal().isConnected());
   svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_P, 4.);
