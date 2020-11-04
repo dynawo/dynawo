@@ -43,7 +43,6 @@
 #include "DYNTimer.h"
 #include "DYNConnectorCalculatedVariable.h"
 #include "DYNCommon.h"
-#include "DYNVariable.h"
 #include "DYNVariableAlias.h"
 
 using std::min;
@@ -772,11 +771,9 @@ ModelMulti::findVariablesConnectedBy(const boost::shared_ptr<SubModel> &subModel
 void
 ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & name1, shared_ptr<SubModel> &subModel2, const string &name2,
                              bool forceConnection) {
-  const shared_ptr <Variable> variable1 = subModel1->getVariable(name1);
-  const shared_ptr <Variable> variable2 = subModel2->getVariable(name2);
+  const shared_ptr<Variable>& variable1 = subModel1->getVariable(name1);
+  const shared_ptr<Variable>& variable2 = subModel2->getVariable(name2);
 
-  int num1 = variable1->getIndex();
-  int num2 = variable2->getIndex();
   typeVar_t typeVar1 = variable1->getType();
   // Use local type as the connection was made with the aliased variable that might have a different type from the reference variable
   if (variable1->isAlias())
@@ -804,12 +801,12 @@ ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & nam
     if (typeVar2 != CONTINUOUS && typeVar2 != FLOW) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
-    createCalculatedVariableConnection(subModel1, num1, subModel2, num2);
+    createCalculatedVariableConnection(subModel1, variable1, subModel2, variable2);
   } else if ((isState1) && (!isState2)) {
     if (typeVar1 != CONTINUOUS && typeVar1 != FLOW) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
-    createCalculatedVariableConnection(subModel2, num2, subModel1, num1);
+    createCalculatedVariableConnection(subModel2, variable2, subModel1, variable1);
   } else {  // both variables are state variables
     if (typeVar2 != typeVar1) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
@@ -842,24 +839,26 @@ ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & nam
 }
 
 void
-ModelMulti::createCalculatedVariableConnection(shared_ptr<SubModel> &subModel1, const int & numVar, shared_ptr<SubModel> &subModel2, const int &yNum) {
-  string calculatedVarName1 = subModel1->getCalculatedVarName(numVar);
+ModelMulti::createCalculatedVariableConnection(shared_ptr<SubModel> &subModel1, const shared_ptr<Variable>& variable1,
+    shared_ptr<SubModel> &subModel2, const shared_ptr<Variable>& variable2) {
+  string calculatedVarName1 = variable1->getName();
   shared_ptr<ConnectorCalculatedVariable> connector;
   string name = subModel1->name()+"_"+calculatedVarName1;
+  if (variable1->isAlias())
+    name = subModel1->name()+"_"+subModel1->getCalculatedVarName(variable1->getIndex());
   boost::shared_ptr<SubModel> subModelConnector = findSubModelByName(name);
   if (!subModelConnector) {
     // Multiple connection to the same connector can happen with flow connections
     connector = shared_ptr<ConnectorCalculatedVariable>(new ConnectorCalculatedVariable());
     connector->name(name);
     connector->setVariableName(calculatedVarName1);
-    connector->setParams(subModel1, numVar);
+    connector->setParams(subModel1, variable1->getIndex());
     subModelConnector = dynamic_pointer_cast<SubModel> (connector);
     addSubModel(subModelConnector, "");  // no library for connectors
     subModelIdxToConnectorCalcVarsIdx_[subModelByName_[subModel1->name()]].push_back(subModels_.size() - 1);
   }
 
-  const vector<string>& xNames = subModel2->xNames();
-  createConnection(subModel2, xNames[yNum], subModelConnector, string("connector_" + name));
+  createConnection(subModel2, variable2->getName(), subModelConnector, string("connector_" + name));
 }
 
 boost::shared_ptr<SubModel>
