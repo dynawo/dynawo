@@ -571,7 +571,7 @@ $DYNAWO_HOME/util/hooks/commit_hook.sh"' $1'
     fi
   fi
 
-  hook_file_master='#!'"/bin/sh
+  hook_file_master='#!'"/bin/bash
 # Avoid committing in master
 branch=\"\$(git rev-parse --abbrev-ref HEAD)\"
 if [ \"\$branch\" = \"master\" ]; then
