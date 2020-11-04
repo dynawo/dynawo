@@ -1598,7 +1598,12 @@ deploy_dynawo() {
   echo "deploying libxml include folder"
   cp -n -R -P $DYNAWO_LIBXML_HOME/include/xml include/
   echo "deploying libiidm include folder"
-  cp -n -R -P $DYNAWO_LIBIIDM_HOME/include/IIDM include/
+  if [ -d "$DYNAWO_LIBIIDM_HOME/include/IIDM" ]; then
+    cp -n -R -P $DYNAWO_LIBIIDM_HOME/include/IIDM include/
+  fi
+  if [ -d "$DYNAWO_LIBIIDM_HOME/include/powsybl" ]; then
+    cp -n -R -P $DYNAWO_LIBIIDM_HOME/include/powsybl include/
+  fi
   echo "deploying gtest include folder"
   if [ "$DYNAWO_BUILD_TYPE" = "Debug" ]; then
     if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
@@ -1609,8 +1614,13 @@ deploy_dynawo() {
 
   mkdir -p share
   cp -R -P $DYNAWO_LIBXML_HOME/share/cmake share/
-  cp -R -P $DYNAWO_LIBIIDM_HOME/share/cmake share/
-  cp -R -P $DYNAWO_LIBIIDM_HOME/share/iidm share/
+  if [ -d "$DYNAWO_LIBIIDM_HOME/share" ]; then
+    cp -R -P $DYNAWO_LIBIIDM_HOME/share/cmake share/
+    cp -R -P $DYNAWO_LIBIIDM_HOME/share/iidm share/
+  fi
+  if [ -d "$DYNAWO_LIBIIDM_HOME/LibIIDM" ]; then
+    cp -R -P $DYNAWO_LIBIIDM_HOME/LibIIDM/cmake share/
+  fi
 
   mkdir -p cmake
   cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/cmake/* cmake
@@ -1721,6 +1731,26 @@ deploy_dynawo() {
         fi
       done
     fi
+  fi
+
+  if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
+    # libXML2
+    echo "deploying libxml2"
+    if [ $DYNAWO_LIBXML2_HOME_DEFAULT != true ]; then
+      libxml2_system_folder=$DYNAWO_LIBXML2_HOME/lib
+      libxml2_system_folder_include=$DYNAWO_LIBXML2_HOME/include
+    else
+      libxml2_system_folder=$(find_lib_system_path xml2) || error_exit "Path for libxml2 could not be found for deploy."
+      libxml2_system_folder_include=$(find_include_system_path LIBXML2_INCLUDE_DIR) || error_exit "Path for libxml2 include could not be found for deploy."
+    fi
+    if [ -f "$DYNAWO_BUILD_DIR/CMakeCache.txt" ]; then
+      for libxml2 in $(grep -o "libxml2.*.$LIBRARY_SUFFIX" $DYNAWO_BUILD_DIR/CMakeCache.txt | tr ';' '\n' | grep -o "libxml2.*.$LIBRARY_SUFFIX" | sort | uniq); do
+        cp -P ${libxml2_system_folder}/${libxml2}* lib/
+      done
+    else
+      error_exit "$DYNAWO_BUILD_DIR should not be deleted before deploy to be able to determine libxml2 libraries used during compilation."
+    fi
+    cp -n -P -R $libxml2_system_folder_include/libxml include/
   fi
 
   # DYNAWO
