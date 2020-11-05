@@ -537,8 +537,8 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void cleanBuffers();
 
-  std::map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel
-  std::map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
+  boost::unordered_map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel
+  boost::unordered_map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
   std::vector<std::string> yNames_;  ///< names of all variables y
   std::vector<boost::shared_ptr<SubModel> > subModels_;  ///< list of each sub models
   boost::unordered_map<std::string, size_t > subModelByName_;  ///< map associating a sub model name to its index in subModels_

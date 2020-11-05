@@ -906,7 +906,7 @@ ModelMulti::getFInfos(const int globalFIndex, string& subModelName, int& localFI
   if (globalFIndex >= connectorContainer_->getOffsetModel()) {
     connectorContainer_->getConnectorInfos(globalFIndex, subModelName, localFIndex, fEquation);
   } else {
-    map<int, int>::const_iterator iter = mapAssociationF_.find(globalFIndex);
+    boost::unordered_map<int, int>::const_iterator iter = mapAssociationF_.find(globalFIndex);
     if (iter != mapAssociationF_.end()) {
       subModelName = subModels_[iter->second]->name();
       localFIndex = globalFIndex - subModels_[iter->second]->fDeb();
@@ -917,7 +917,7 @@ ModelMulti::getFInfos(const int globalFIndex, string& subModelName, int& localFI
 
 void
 ModelMulti::getGInfos(const int globalGIndex, string& subModelName, int& localGIndex, string& gEquation) {
-  map<int, int>::const_iterator iter = mapAssociationG_.find(globalGIndex);
+  boost::unordered_map<int, int>::const_iterator iter = mapAssociationG_.find(globalGIndex);
   if (iter != mapAssociationG_.end()) {
     subModelName = subModels_[iter->second]->name();
     localGIndex = globalGIndex - subModels_[iter->second]->gDeb();
