@@ -37,6 +37,7 @@
 #include "PARParametersSetFactory.h"
 #include "DYNModelMulti.h"
 #include "DYNNetworkInterface.h"
+#include "DYNThreeWTransformerInterfaceIIDM.h"
 #include "DYNTwoWTransformerInterface.h"
 #include "DYNModelConstants.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -160,7 +161,9 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
       .add();
   iidmBus.setV(150.);
   iidmBus.setAngle(1.5);
+
   vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();
+
   powsybl::iidm::VoltageLevel& vl2 = s.newVoltageLevel()
                                      .setId("VL2")
                                      .setName("VL2_NAME")
@@ -171,6 +174,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
                                      .add();
 
   vl2.getBusBreakerView().newBus().setId("VL2_BUS1").add();
+
   powsybl::iidm::VoltageLevel& vl3 = s.newVoltageLevel()
                                      .setId("VL3")
                                      .setName("VL3_NAME")
@@ -783,7 +787,16 @@ TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
   data->exportStateVariablesNoReadFromModel();
   ASSERT_TRUE(vsc1->getVscIIDM().getTerminal().isConnected());
   ASSERT_TRUE(vsc2->getVscIIDM().getTerminal().isConnected());
-}
+
+  boost::shared_ptr<BusInterfaceIIDM> bus = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  ASSERT_FALSE(bus->hasConnection());
+  hvdc->hasDynamicModel(true);
+  ASSERT_FALSE(bus->hasConnection());
+  data->mapConnections();
+  ASSERT_TRUE(bus->hasConnection());
+  hvdc->hasDynamicModel(false);
+  ASSERT_TRUE(bus->hasConnection());
+}  // TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM)
 
 TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM) {
   const BusBreakerNetworkProperty properties = {
@@ -873,7 +886,16 @@ TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM) {
   data->exportStateVariablesNoReadFromModel();
   ASSERT_TRUE(lcc1->getLccIIDM().getTerminal().isConnected());
   ASSERT_TRUE(lcc2->getLccIIDM().getTerminal().isConnected());
-}
+
+  boost::shared_ptr<BusInterfaceIIDM> bus = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  ASSERT_FALSE(bus->hasConnection());
+  hvdc->hasDynamicModel(true);
+  ASSERT_FALSE(bus->hasConnection());
+  data->mapConnections();
+  ASSERT_TRUE(bus->hasConnection());
+  hvdc->hasDynamicModel(false);
+  ASSERT_TRUE(bus->hasConnection());
+}  // TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM)
 
 TEST(DataInterfaceIIDMTest, testLineIIDM) {
   const BusBreakerNetworkProperty properties = {
@@ -930,7 +952,21 @@ TEST(DataInterfaceIIDMTest, testLineIIDM) {
   data->exportStateVariablesNoReadFromModel();
   ASSERT_FALSE(lineIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(lineIIDM.getTerminal2().isConnected());
-}
+
+  boost::shared_ptr<BusInterfaceIIDM> bus1 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  boost::shared_ptr<BusInterfaceIIDM> bus2 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
+  ASSERT_FALSE(bus1->hasConnection());
+  ASSERT_FALSE(bus2->hasConnection());
+  line->hasDynamicModel(true);
+  ASSERT_FALSE(bus1->hasConnection());
+  ASSERT_FALSE(bus2->hasConnection());
+  data->mapConnections();
+  ASSERT_TRUE(bus1->hasConnection());
+  ASSERT_TRUE(bus2->hasConnection());
+  line->hasDynamicModel(false);
+  ASSERT_TRUE(bus1->hasConnection());
+  ASSERT_TRUE(bus2->hasConnection());
+}  // TEST(DataInterfaceIIDMTest, testLineIIDM)
 
 TEST(DataInterfaceIIDMTest, testLoadIIDM) {
   const BusBreakerNetworkProperty properties = {
@@ -948,6 +984,7 @@ TEST(DataInterfaceIIDMTest, testLoadIIDM) {
       false /*instantiateVscConverter*/,
       false /*instantiateThreeWindingTransformer*/
   };
+
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
   powsybl::iidm::Network& network = data->getNetworkIIDM();
@@ -981,7 +1018,7 @@ TEST(DataInterfaceIIDMTest, testLoadIIDM) {
   load->setValue(LoadInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
   ASSERT_TRUE(loadIIDM.getTerminal().isConnected());
-}
+}  // TEST(DataInterfaceIIDMTest, testLoadIIDM)
 
 TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
   const BusBreakerNetworkProperty properties = {
@@ -1110,51 +1147,6 @@ TEST(DataInterfaceIIDMTest, testSwitchIIDM) {
   sw->setValue(SwitchInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
   ASSERT_FALSE(switchIIDM.isOpen());
-
-  // Start proposal for testing mapConnection() DG+
-  boost::shared_ptr<BusInterfaceIIDM> bus1 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL1_BUS1"));
-  boost::shared_ptr<BusInterfaceIIDM> bus2 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
-  boost::shared_ptr<BusInterfaceIIDM> bus3 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL3_BUS1"));
-  boost::shared_ptr<BusInterfaceIIDM> bus4 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
-  ASSERT_FALSE(bus1->hasConnection());
-  ASSERT_FALSE(bus2->hasConnection());
-  ASSERT_FALSE(bus3->hasConnection());
-  ASSERT_FALSE(bus4->hasConnection());
-  VoltageLevelInterfaceIIDM vl1(network.getVoltageLevel("VL1"));
-  VoltageLevelInterfaceIIDM vl2(network.getVoltageLevel("VL2"));
-  VoltageLevelInterfaceIIDM vl3(network.getVoltageLevel("VL3"));
-  vl1.mapConnections();
-  ASSERT_FALSE(bus1->hasConnection());
-  ASSERT_FALSE(bus2->hasConnection());
-  ASSERT_FALSE(bus3->hasConnection());
-  ASSERT_FALSE(bus4->hasConnection());
-  vl2.mapConnections();
-  ASSERT_FALSE(bus1->hasConnection());
-  ASSERT_FALSE(bus2->hasConnection());
-  ASSERT_FALSE(bus3->hasConnection());
-  ASSERT_FALSE(bus4->hasConnection());
-  vl3.mapConnections();
-  ASSERT_FALSE(bus1->hasConnection());
-  ASSERT_FALSE(bus2->hasConnection());
-  ASSERT_FALSE(bus3->hasConnection());
-  ASSERT_FALSE(bus4->hasConnection());
-  sw->hasDynamicModel(true);
-  vl1.mapConnections();
-  /*ASSERT_TRUE(bus1->hasConnection());
-  ASSERT_TRUE(bus2->hasConnection());
-  ASSERT_TRUE(bus3->hasConnection());
-  ASSERT_TRUE(bus4->hasConnection());
-  vl2.mapConnections();
-  ASSERT_TRUE(bus1->hasConnection());
-  ASSERT_TRUE(bus2->hasConnection());
-  ASSERT_TRUE(bus3->hasConnection());
-  ASSERT_TRUE(bus4->hasConnection());
-  vl3.mapConnections();
-  ASSERT_TRUE(bus1->hasConnection());
-  ASSERT_TRUE(bus2->hasConnection());
-  ASSERT_TRUE(bus3->hasConnection());
-  ASSERT_TRUE(bus4->hasConnection());*/
-  // End DG+
 }
 
 TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
@@ -1315,7 +1307,21 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
   data->exportStateVariablesNoReadFromModel();
   ASSERT_FALSE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
-}
+
+  boost::shared_ptr<BusInterfaceIIDM> bus1 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  boost::shared_ptr<BusInterfaceIIDM> bus2 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
+  ASSERT_FALSE(bus1->hasConnection());
+  ASSERT_FALSE(bus2->hasConnection());
+  twoWT->hasDynamicModel(true);
+  ASSERT_FALSE(bus1->hasConnection());
+  ASSERT_FALSE(bus2->hasConnection());
+  data->mapConnections();
+  ASSERT_TRUE(bus1->hasConnection());
+  ASSERT_TRUE(bus2->hasConnection());
+  twoWT->hasDynamicModel(false);
+  ASSERT_TRUE(bus1->hasConnection());
+  ASSERT_TRUE(bus2->hasConnection());
+}  // TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM)
 
 TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
   const BusBreakerNetworkProperty properties = {
@@ -1336,7 +1342,29 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
   ASSERT_EQ(data->getBusName("MyTransformer3Winding", ""), "");
-}
+
+  boost::shared_ptr<ThreeWTransformerInterfaceIIDM> threeWT =
+      boost::dynamic_pointer_cast<ThreeWTransformerInterfaceIIDM>(data->findComponent("MyTransformer3Winding"));
+
+  boost::shared_ptr<BusInterfaceIIDM> bus1 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  boost::shared_ptr<BusInterfaceIIDM> bus2 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
+  boost::shared_ptr<BusInterfaceIIDM> bus3 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL3_BUS1"));
+  ASSERT_FALSE(bus1->hasConnection());
+  ASSERT_FALSE(bus2->hasConnection());
+  ASSERT_FALSE(bus3->hasConnection());
+  threeWT->hasDynamicModel(true);
+  ASSERT_FALSE(bus1->hasConnection());
+  ASSERT_FALSE(bus2->hasConnection());
+  ASSERT_FALSE(bus3->hasConnection());
+  data->mapConnections();
+  ASSERT_TRUE(bus1->hasConnection());
+  ASSERT_TRUE(bus2->hasConnection());
+  ASSERT_TRUE(bus3->hasConnection());
+  threeWT->hasDynamicModel(false);
+  ASSERT_TRUE(bus1->hasConnection());
+  ASSERT_TRUE(bus2->hasConnection());
+  ASSERT_TRUE(bus3->hasConnection());
+}  // TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM)
 
 TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
   const BusBreakerNetworkProperty properties = {
