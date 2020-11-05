@@ -170,7 +170,6 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
 
  private:
   powsybl::iidm::StaticVarCompensator& staticVarCompensatorIIDM_;  ///< reference to the iidm static var compensator instance
-  // powsybl::iidm::extensions::cvg::StandbyAutomaton* sa_;  ///< pointer to StandbyAutomaton extension when it exists
 };
 }  // namespace DYN
 
