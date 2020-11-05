@@ -65,47 +65,47 @@ VscConverterInterfaceIIDM::importStaticParameters() {
 
 void
 VscConverterInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
-  InjectorInterfaceIIDM::setBusInterface(busInterface);
+  setBusInterfaceInjector(busInterface);
 }
 
 void
 VscConverterInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
-  InjectorInterfaceIIDM::setVoltageLevelInterface(voltageLevelInterface);
+  setVoltageLevelInterfaceInjector(voltageLevelInterface);
 }
 
 shared_ptr<BusInterface>
 VscConverterInterfaceIIDM::getBusInterface() const {
-  return InjectorInterfaceIIDM::getBusInterface();
+  return getBusInterfaceInjector();
 }
 
 bool
 VscConverterInterfaceIIDM::getInitialConnected() {
-  return InjectorInterfaceIIDM::getInitialConnected();
+  return getInitialConnectedInjector();
 }
 
 double
 VscConverterInterfaceIIDM::getVNom() const {
-  return InjectorInterfaceIIDM::getVNom();
+  return getVNomInjector();
 }
 
 bool
 VscConverterInterfaceIIDM::hasP() {
-  return InjectorInterfaceIIDM::hasP();
+  return hasPInjector();
 }
 
 bool
 VscConverterInterfaceIIDM::hasQ() {
-  return InjectorInterfaceIIDM::hasQ();
+  return hasQInjector();
 }
 
 double
 VscConverterInterfaceIIDM::getP() {
-  return InjectorInterfaceIIDM::getP();
+  return getPInjector();
 }
 
 double
 VscConverterInterfaceIIDM::getQ() {
-  return InjectorInterfaceIIDM::getQ();
+  return getQInjector();
 }
 
 std::string

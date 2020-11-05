@@ -87,19 +87,19 @@ TEST(DataInterfaceTest, Load_1) {
   ASSERT_EQ(loadIfce.getBusInterface().get()->getID(), "VL1_BUS1");
 
   ASSERT_FALSE(load.getTerminal().isConnected());
-  ASSERT_FALSE(loadIfce.hasP());
-  ASSERT_FALSE(loadIfce.hasQ());
+  ASSERT_FALSE(loadIfce.hasPInjector());
+  ASSERT_FALSE(loadIfce.hasQInjector());
 
   ASSERT_DOUBLE_EQ(loadIfce.getP0(), 50.0);
   ASSERT_DOUBLE_EQ(loadIfce.getP(), 0.0);
   load.getTerminal().setP(1000.0);
-  ASSERT_TRUE(loadIfce.hasP());
+  ASSERT_TRUE(loadIfce.hasPInjector());
   ASSERT_DOUBLE_EQ(loadIfce.getP(), 1000.0);
 
   ASSERT_DOUBLE_EQ(loadIfce.getQ0(), 40.0);
   ASSERT_DOUBLE_EQ(loadIfce.getQ(), 0.0);
   load.getTerminal().setQ(499.0);
-  ASSERT_TRUE(loadIfce.hasQ());
+  ASSERT_TRUE(loadIfce.hasQInjector());
   ASSERT_DOUBLE_EQ(loadIfce.getQ(), 499.0);
 
   loadIfce.importStaticParameters();
@@ -111,8 +111,8 @@ TEST(DataInterfaceTest, Load_1) {
 
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
   loadIfce.setVoltageLevelInterface(voltageLevelIfce);
-  ASSERT_DOUBLE_EQ(loadIfce.getVNom(), 382.0);
-  ASSERT_EQ(loadIfce.getVoltageLevelInterface(), voltageLevelIfce);
+  ASSERT_DOUBLE_EQ(loadIfce.getVNomInjector(), 382.0);
+  ASSERT_EQ(loadIfce.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
 }  // TEST(DataInterfaceTest, Load_1)
 
 TEST(DataInterfaceTest, Load_2) {  // tests assuming getInitialConnected == false
@@ -153,8 +153,8 @@ TEST(DataInterfaceTest, Load_2) {  // tests assuming getInitialConnected == fals
   load.getTerminal().disconnect();
   ASSERT_FALSE(loadIfce.getInitialConnected());
 
-  ASSERT_FALSE(loadIfce.hasP());
-  ASSERT_FALSE(loadIfce.hasQ());
+  ASSERT_FALSE(loadIfce.hasPInjector());
+  ASSERT_FALSE(loadIfce.hasQInjector());
   ASSERT_DOUBLE_EQ(loadIfce.getP(), 0.0);
   ASSERT_DOUBLE_EQ(loadIfce.getQ(), 0.0);
 }  // TEST(DataInterfaceTest, Load_2)

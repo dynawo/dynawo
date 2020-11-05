@@ -93,7 +93,7 @@ TEST(DataInterfaceTest, SVarC_1) {
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
   svcInterface.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_DOUBLE_EQ(svcInterface.getVNom(), 382.0);
-  ASSERT_EQ(svcInterface.getVoltageLevelInterface(), voltageLevelIfce);
+  ASSERT_EQ(svcInterface.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
 
   ASSERT_FALSE(svc.getTerminal().isConnected());
 
@@ -113,13 +113,13 @@ TEST(DataInterfaceTest, SVarC_1) {
 
   ASSERT_DOUBLE_EQ(svcInterface.getQ(), 0.0);
   svc.getTerminal().setQ(499.0);
-  ASSERT_TRUE(svcInterface.hasQ());
+  ASSERT_TRUE(svcInterface.hasQInjector());
   ASSERT_DOUBLE_EQ(svcInterface.getQ(), 499.0);
 
-  ASSERT_DOUBLE_EQ(svcInterface.getP(), 0.0);
+  ASSERT_DOUBLE_EQ(svcInterface.getPInjector(), 0.0);
   svc.getTerminal().setP(1.0);
-  ASSERT_TRUE(svcInterface.hasP());
-  ASSERT_DOUBLE_EQ(svcInterface.getP(), 1.0);
+  ASSERT_TRUE(svcInterface.hasPInjector());
+  ASSERT_DOUBLE_EQ(svcInterface.getPInjector(), 1.0);
 
   ASSERT_EQ(svcInterface.getRegulationMode(), StaticVarCompensatorInterface::OFF);
   svc.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::VOLTAGE);
@@ -168,9 +168,9 @@ TEST(DataInterfaceTest, SVarC_2) {  // tests assuming getInitialConnected == fal
   svc.getTerminal().disconnect();
   ASSERT_FALSE(svcInterface.getInitialConnected());
 
-  ASSERT_FALSE(svcInterface.hasP());
-  ASSERT_FALSE(svcInterface.hasQ());
-  ASSERT_DOUBLE_EQ(svcInterface.getP(), 0.0);
+  ASSERT_FALSE(svcInterface.hasPInjector());
+  ASSERT_FALSE(svcInterface.hasQInjector());
+  ASSERT_DOUBLE_EQ(svcInterface.getPInjector(), 0.0);
   ASSERT_DOUBLE_EQ(svcInterface.getQ(), 0.0);
 }  // TEST(DataInterfaceTest, SVarC_2)
 }  // namespace DYN

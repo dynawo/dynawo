@@ -1006,7 +1006,6 @@ DataInterfaceIIDM::checkCriteria(double t, bool finalStep) {
   }
 #endif
   return criteriaOk;
-  return false;
 }
 
 void

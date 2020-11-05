@@ -34,7 +34,7 @@ PhaseTapChangerInterfaceIIDM::PhaseTapChangerInterfaceIIDM(powsybl::iidm::PhaseT
     tapChanger.setTapPosition(i);
     const auto& x = tapChanger.getStep(i);
     powsybl::iidm::PhaseTapChangerStep S(x.getAlpha(), x.getRho(), x.getR(), x.getX(), x.getG(), x.getB());
-    addStep(boost::shared_ptr<StepInterface>(new StepInterfaceIIDM(S)));
+    steps_.push_back(boost::shared_ptr<StepInterface>(new StepInterfaceIIDM(S)));
   }
   tapChanger.setTapPosition(oldTapPosition);
 }

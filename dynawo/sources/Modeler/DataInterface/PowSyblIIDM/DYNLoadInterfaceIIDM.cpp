@@ -113,32 +113,32 @@ LoadInterfaceIIDM::importStaticParameters() {
 
 void
 LoadInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
-  InjectorInterfaceIIDM::setBusInterface(busInterface);
+  setBusInterfaceInjector(busInterface);
 }
 
 shared_ptr<BusInterface>
 LoadInterfaceIIDM::getBusInterface() const {
-  return InjectorInterfaceIIDM::getBusInterface();
+  return getBusInterfaceInjector();
 }
 
 void
 LoadInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
-  InjectorInterfaceIIDM::setVoltageLevelInterface(voltageLevelInterface);
+  setVoltageLevelInterfaceInjector(voltageLevelInterface);
 }
 
 bool
 LoadInterfaceIIDM::getInitialConnected() {
-  return InjectorInterfaceIIDM::getInitialConnected();
+  return getInitialConnectedInjector();
 }
 
 double
 LoadInterfaceIIDM::getP() {
-  return InjectorInterfaceIIDM::getP();
+  return getPInjector();
 }
 
 double
 LoadInterfaceIIDM::getQ() {
-  return InjectorInterfaceIIDM::getQ();
+  return getQInjector();
 }
 
 double

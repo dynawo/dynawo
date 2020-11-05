@@ -130,8 +130,8 @@ TEST(DataInterfaceTest, LccConverter) {
   ASSERT_EQ(Ifce.getLccIIDM().getId(), lcc.getId());
 
   const boost::shared_ptr<DYN::VoltageLevelInterface> voltageLevelIfce(new DYN::VoltageLevelInterfaceIIDM(vl1));
-  Ifce.setVoltageLevelInterface(voltageLevelIfce);
+  Ifce.setVoltageLevelInterfaceInjector(voltageLevelIfce);
   ASSERT_DOUBLE_EQ(Ifce.getVNom(), 380);
-  ASSERT_EQ(Ifce.getVoltageLevelInterface(), voltageLevelIfce);
+  ASSERT_EQ(Ifce.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
 }  // TEST(DataInterfaceTest, LccConverter)
 };  // namespace DYN

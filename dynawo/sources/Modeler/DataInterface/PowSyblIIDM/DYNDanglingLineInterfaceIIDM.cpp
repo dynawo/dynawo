@@ -79,37 +79,37 @@ DanglingLineInterfaceIIDM::importStaticParameters() {
 
 void
 DanglingLineInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
-  InjectorInterfaceIIDM::setBusInterface(busInterface);
+  setBusInterfaceInjector(busInterface);
 }
 
 void
 DanglingLineInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
-  InjectorInterfaceIIDM::setVoltageLevelInterface(voltageLevelInterface);
+  setVoltageLevelInterfaceInjector(voltageLevelInterface);
 }
 
 shared_ptr<BusInterface>
 DanglingLineInterfaceIIDM::getBusInterface() const {
-  return InjectorInterfaceIIDM::getBusInterface();
+  return getBusInterfaceInjector();
 }
 
 bool
 DanglingLineInterfaceIIDM::getInitialConnected() {
-  return InjectorInterfaceIIDM::getInitialConnected();
+  return getInitialConnectedInjector();
 }
 
 double
 DanglingLineInterfaceIIDM::getVNom() const {
-  return InjectorInterfaceIIDM::getVNom();
+  return getVNomInjector();
 }
 
 double
 DanglingLineInterfaceIIDM::getP() {
-  return InjectorInterfaceIIDM::getP();
+  return getPInjector();
 }
 
 double
 DanglingLineInterfaceIIDM::getQ() {
-  return InjectorInterfaceIIDM::getQ();
+  return getQInjector();
 }
 
 string
