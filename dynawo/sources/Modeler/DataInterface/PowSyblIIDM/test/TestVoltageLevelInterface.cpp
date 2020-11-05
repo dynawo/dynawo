@@ -18,7 +18,6 @@
 #include "DYNGeneratorInterfaceIIDM.h"
 #include "DYNLccConverterInterfaceIIDM.h"
 #include "DYNVscConverterInterfaceIIDM.h"
-#include "DYNLccConverterInterfaceIIDM.h"
 #include "DYNDanglingLineInterfaceIIDM.h"
 #include "DYNShuntCompensatorInterfaceIIDM.h"
 
@@ -36,8 +35,6 @@
 #include <powsybl/iidm/LccConverterStationAdder.hpp>
 #include <powsybl/iidm/VscConverterStation.hpp>
 #include <powsybl/iidm/VscConverterStationAdder.hpp>
-#include <powsybl/iidm/LccConverterStation.hpp>
-#include <powsybl/iidm/LccConverterStationAdder.hpp>
 #include <powsybl/iidm/ShuntCompensator.hpp>
 #include <powsybl/iidm/ShuntCompensatorAdder.hpp>
 #include <powsybl/iidm/GeneratorAdder.hpp>
@@ -52,7 +49,6 @@ using powsybl::iidm::Load;
 using powsybl::iidm::LoadType;
 using powsybl::iidm::LccConverterStation;
 using powsybl::iidm::VscConverterStation;
-using powsybl::iidm::LccConverterStation;
 using powsybl::iidm::DanglingLine;
 using powsybl::iidm::ShuntCompensator;
 using boost::shared_ptr;
