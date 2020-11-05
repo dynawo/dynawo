@@ -32,6 +32,7 @@ set(MODULE_SOURCES
   TestVscConverterInterface.cpp
   TestDataInterface.cpp
   TestStaticVarCompensatorInterface.cpp
+  TestCriteria.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

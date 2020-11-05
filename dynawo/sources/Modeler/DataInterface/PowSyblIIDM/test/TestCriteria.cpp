@@ -56,9 +56,9 @@ using criteria::CriteriaCollectionFactory;
 namespace DYN {
 
 shared_ptr<DataInterface>
-createDataItfFromNetworkCriteria(powsybl::iidm::Network& network) {
+createDataItfFromNetworkCriteria(powsybl::iidm::Network&& network) {
   shared_ptr<DataInterface> data;
-  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
+  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(std::forward<powsybl::iidm::Network>(network));
   ptr->initFromIIDM();
   data.reset(ptr);
   return data;
@@ -140,7 +140,7 @@ createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, doubl
   return network;
 }
 
-shared_ptr<DataInterface>
+powsybl::iidm::Network
 createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, double pow2, bool addCountry = true) {
   powsybl::iidm::Network network("MyNetwork", "MyNetwork");
 
@@ -169,8 +169,13 @@ createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, 
       .setBus("MyBus")
       .setConnectableBus("MyBus")
       .setName("MyGen_NAME")
+      .setTargetP(-105.)
       .setMinP(90.)
       .setMaxP(180.)
+      .setTargetQ(-90.0)
+      .setTargetV(150.0)
+      .setEnergySource(powsybl::iidm::EnergySource::NUCLEAR)
+      .setVoltageRegulatorOn(true)
       .add();
   gen.getTerminal().setP(pow1);
   gen.getTerminal().setQ(90.);
@@ -180,15 +185,17 @@ createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, 
       .setBus("MyBus")
       .setConnectableBus("MyBus")
       .setName("MyGen2_NAME")
+      .setTargetP(-105.)
+      .setMinP(90.)
+      .setMaxP(180.)
+      .setTargetQ(-90.0)
+      .setTargetV(150.0)
+      .setEnergySource(powsybl::iidm::EnergySource::NUCLEAR)
+      .setVoltageRegulatorOn(true)
       .add();
-  gen2.getTerminal().setP(pow1);
+  gen2.getTerminal().setP(pow2);
   gen2.getTerminal().setQ(90.);
-
-  shared_ptr<DataInterface> data;
-  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
-  ptr->initFromIIDM();
-  data.reset(ptr);
-  return data;
+  return network;
 }
 
 shared_ptr<SubModel>
@@ -238,8 +245,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   ASSERT_TRUE(BusCriteria::criteriaEligibleForBus(criteriap));
   criteriap->setId("MyCriteria");
 
-  powsybl::iidm::Network network = createBusBreakerNetwork(180, 190);
-  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(180, 190));
   exportStates(data);
   boost::shared_ptr<BusInterface> bus = data->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
   BusCriteria criteria(criteriap);
@@ -247,16 +253,14 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   criteria.addBus(bus);
   ASSERT_TRUE(criteria.empty());
 
-  powsybl::iidm::Network network2 = createBusBreakerNetwork(180, 401);
-  data = createDataItfFromNetworkCriteria(network2);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(180, 401));
   exportStates(data);
   bus = data->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
   // VNom higher than max
   criteria.addBus(bus);
   ASSERT_TRUE(criteria.empty());
 
-  powsybl::iidm::Network network3 = createBusBreakerNetwork(180, 225);
-  data = createDataItfFromNetworkCriteria(network3);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(180, 225));
   exportStates(data);
   bus = data->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
   // v<=0.8*vNom
@@ -265,8 +269,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   ASSERT_TRUE(criteria.checkCriteria(0, false));
   ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network4 = createBusBreakerNetwork(190, 225);
-  data = createDataItfFromNetworkCriteria(network4);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
   bus = data->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
   // v>0.8*vNom
@@ -281,8 +284,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   criteriap2->setUMinPu(0.2);
   criteriap2->setScope(CriteriaParams::FINAL);
   BusCriteria criteria3(criteriap2);
-  powsybl::iidm::Network network5 = createBusBreakerNetwork(190, 225);
-  data = createDataItfFromNetworkCriteria(network5);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
   bus = data->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
   // v>=0.2*vNom
@@ -290,8 +292,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   ASSERT_TRUE(criteria3.checkCriteria(0, true));
   ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network6 = createBusBreakerNetwork(43, 225);
-  data = createDataItfFromNetworkCriteria(network6);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(43, 225));
   exportStates(data);
   bus = data->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
   // v<0.2*vNom
@@ -313,8 +314,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::BUS, criteria);
-  powsybl::iidm::Network network = createBusBreakerNetwork(180, 225);
-  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(180, 225));
   exportStates(data);
   data->configureCriteria(collection);
   // not eligible
@@ -329,8 +329,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::BUS, criteria);
-  powsybl::iidm::Network network2 = createBusBreakerNetwork(190, 200);
-  data = createDataItfFromNetworkCriteria(network2);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 200));
   exportStates(data);
   data->configureCriteria(collection);
   // vNom < min
@@ -346,8 +345,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::BUS, criteria);
-  powsybl::iidm::Network network3 = createBusBreakerNetwork(190, 225);
-  data = createDataItfFromNetworkCriteria(network3);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
@@ -364,8 +362,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteria->addCountry("BE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::BUS, criteria);
-  powsybl::iidm::Network network4 = createBusBreakerNetwork(190, 225);
-  data = createDataItfFromNetworkCriteria(network4);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom but criteria filter is KO
@@ -382,8 +379,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteria->addCountry("FRANCE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::BUS, criteria);
-  powsybl::iidm::Network network5 = createBusBreakerNetwork(190, 225);
-  data = createDataItfFromNetworkCriteria(network5);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom and criteria filter is OK
@@ -400,8 +396,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteria->addCountry("FRANCE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::BUS, criteria);
-  powsybl::iidm::Network network6 = createBusBreakerNetwork(190, 225, false);
-  data = createDataItfFromNetworkCriteria(network6);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225, false));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom and criteria filter is OK
@@ -417,8 +412,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteria->addComponentId("MyDummyName");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::BUS, criteria);
-  powsybl::iidm::Network network7 = createBusBreakerNetwork(190, 200);
-  data = createDataItfFromNetworkCriteria(network7);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 200));
   exportStates(data);
   data->configureCriteria(collection);
   // bus not found
@@ -435,8 +429,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteria->addComponentId("MyBus");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::BUS, criteria);
-  powsybl::iidm::Network network8 = createBusBreakerNetwork(190, 225);
-  data = createDataItfFromNetworkCriteria(network8);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
@@ -453,8 +446,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteria->addComponentId("MyBus");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::BUS, criteria);
-  powsybl::iidm::Network network9 = createBusBreakerNetwork(190, 225);
-  data = createDataItfFromNetworkCriteria(network9);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
@@ -473,8 +465,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteria->addCountry("BE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::BUS, criteria);
-  powsybl::iidm::Network network10 = createBusBreakerNetwork(190, 225);
-  data = createDataItfFromNetworkCriteria(network10);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom but the bus is ignored due to country filter
@@ -492,8 +483,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteria->addCountry("FRANCE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::BUS, criteria);
-  powsybl::iidm::Network network11 = createBusBreakerNetwork(190, 225);
-  data = createDataItfFromNetworkCriteria(network11);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom and the country filter is OK
@@ -511,8 +501,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteria->addCountry("FRANCE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::BUS, criteria);
-  powsybl::iidm::Network network12 = createBusBreakerNetwork(190, 225, false);
-  data = createDataItfFromNetworkCriteria(network12);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225, false));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom and the country filter is OK
@@ -535,8 +524,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   ASSERT_TRUE(LoadCriteria::criteriaEligibleForLoad(criteriap));
   criteriap->setId("MyCriteria");
 
-  powsybl::iidm::Network network = createBusBreakerNetworkWithLoads(180, 190, 100, 100);
-  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 190, 100, 100));
   exportStates(data);
   std::vector< boost::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   LoadCriteria criteria(criteriap);
@@ -545,8 +533,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
     criteria.addLoad(loads[i]);
   ASSERT_TRUE(criteria.empty());
 
-  powsybl::iidm::Network network2 = createBusBreakerNetworkWithLoads(180, 425, 100, 100);
-  data = createDataItfFromNetworkCriteria(network2);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 425, 100, 100));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // VNom higher than max
@@ -554,8 +541,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
     criteria.addLoad(loads[i]);
   ASSERT_TRUE(criteria.empty());
 
-  powsybl::iidm::Network network3 = createBusBreakerNetworkWithLoads(190, 225, 250, 100);
-  data = createDataItfFromNetworkCriteria(network3);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(190, 225, 250, 100));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // V > uMaxPu*VNom
@@ -565,8 +551,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   ASSERT_TRUE(criteria.checkCriteria(0, true));
   ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network4 = createBusBreakerNetworkWithLoads(43, 225, 250, 100);
-  data = createDataItfFromNetworkCriteria(network4);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(43, 225, 250, 100));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // V < uMinPu*VNom
@@ -577,8 +562,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   ASSERT_TRUE(criteria2.checkCriteria(0, true));
   ASSERT_TRUE(criteria2.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network5 = createBusBreakerNetworkWithLoads(180, 225, 100, 100);
-  data = createDataItfFromNetworkCriteria(network5);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 100, 100));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // OK
@@ -589,8 +573,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   ASSERT_TRUE(criteria3.checkCriteria(0, true));
   ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network6 = createBusBreakerNetworkWithLoads(180, 225, 250, 100);
-  data = createDataItfFromNetworkCriteria(network6);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 250, 100));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // P> PMax
@@ -602,8 +585,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
   ASSERT_EQ(criteria4.getFailingCriteria()[0].second, "SourceAbovePower MyLoad 250 200 MyCriteria");
 
-  powsybl::iidm::Network network7 = createBusBreakerNetworkWithLoads(180, 225, 40, 100);
-  data = createDataItfFromNetworkCriteria(network7);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 40, 100));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // P< PMin
@@ -632,8 +614,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   ASSERT_TRUE(LoadCriteria::criteriaEligibleForLoad(criteriap));
   criteriap->setId("MyCriteria");
 
-  powsybl::iidm::Network network = createBusBreakerNetworkWithLoads(180, 190, 100, 100);
-  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 190, 100, 100));
   exportStates(data);
   std::vector< boost::shared_ptr<LoadInterface> > loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   LoadCriteria criteria(criteriap);
@@ -642,8 +623,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
     criteria.addLoad(loads[i]);
   ASSERT_TRUE(criteria.empty());
 
-  powsybl::iidm::Network network2 = createBusBreakerNetworkWithLoads(180, 425, 100, 100);
-  data = createDataItfFromNetworkCriteria(network2);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 425, 100, 100));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // VNom higher than max
@@ -651,8 +631,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
     criteria.addLoad(loads[i]);
   ASSERT_TRUE(criteria.empty());
 
-  powsybl::iidm::Network network3 = createBusBreakerNetworkWithLoads(190, 225, 250, 100);
-  data = createDataItfFromNetworkCriteria(network3);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(190, 225, 250, 100));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // V > uMaxPu*VNom
@@ -662,8 +641,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   ASSERT_TRUE(criteria.checkCriteria(0, true));
   ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network4 = createBusBreakerNetworkWithLoads(43, 225, 250, 100);
-  data = createDataItfFromNetworkCriteria(network4);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(43, 225, 250, 100));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // V < uMinPu*VNom
@@ -674,8 +652,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   ASSERT_TRUE(criteria2.checkCriteria(0, true));
   ASSERT_TRUE(criteria2.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network5 = createBusBreakerNetworkWithLoads(180, 225, 50, 50);
-  data = createDataItfFromNetworkCriteria(network5);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 50, 50));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // OK
@@ -686,8 +663,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   ASSERT_TRUE(criteria3.checkCriteria(0, true));
   ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network6 = createBusBreakerNetworkWithLoads(180, 225, 250, 100);
-  data = createDataItfFromNetworkCriteria(network6);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 250, 100));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // P> PMax
@@ -699,8 +675,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
   ASSERT_EQ(criteria4.getFailingCriteria()[0].second, "SourcePowerAboveMax 350 200 MyCriteria");
 
-  powsybl::iidm::Network network7 = createBusBreakerNetworkWithLoads(180, 225, 10, 10);
-  data = createDataItfFromNetworkCriteria(network7);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 10, 10));
   exportStates(data);
   loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
   // P< PMin
@@ -727,8 +702,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network = createBusBreakerNetworkWithLoads(180, 225, 100, 100);
-  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 100, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // not eligible
@@ -745,8 +719,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network2 = createBusBreakerNetworkWithLoads(190, 200, 200, 100);
-  data = createDataItfFromNetworkCriteria(network2);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(190, 200, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // vNom < min
@@ -763,8 +736,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network3 = createBusBreakerNetworkWithLoads(190, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network3);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(190, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
@@ -781,8 +753,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network4 = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network4);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax
@@ -800,8 +771,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->addCountry("BE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network5 = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network5);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax but country filter is KO
@@ -819,8 +789,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->addCountry("FRANCE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network6 = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network6);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax and country filter is OK
@@ -838,8 +807,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->addCountry("FRANCE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network7 = createBusBreakerNetworkWithLoads(180, 225, 200, 100, false);
-  data = createDataItfFromNetworkCriteria(network7);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100, false));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax and country filter is OK
@@ -857,8 +825,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->addComponentId("MyDummyName");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network8 = createBusBreakerNetworkWithLoads(180, 200, 200, 100);
-  data = createDataItfFromNetworkCriteria(network8);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 200, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // load not found
@@ -876,8 +843,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->addComponentId("MyLoad");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network9 = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network9);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax
@@ -895,8 +861,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->addComponentId("MyLoad2");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network10 = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network10);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P < PMax
@@ -914,8 +879,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->addComponentId("MyLoad");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network11 = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network11);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
@@ -935,8 +899,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->addCountry("BE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network12 = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network12);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax but country filter is KO
@@ -955,8 +918,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->addCountry("FRANCE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network13 = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network13);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax and country filter is OK
@@ -975,8 +937,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteria->addCountry("FRANCE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network14 = createBusBreakerNetworkWithLoads(180, 225, 200, 100, false);
-  data = createDataItfFromNetworkCriteria(network14);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100, false));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax and country filter is OK
@@ -994,8 +955,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network = createBusBreakerNetworkWithLoads(180, 225, 100, 100);
-  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 100, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // not eligible
@@ -1012,8 +972,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network2 = createBusBreakerNetworkWithLoads(190, 200, 200, 100);
-  data = createDataItfFromNetworkCriteria(network2);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(190, 200, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // vNom < min
@@ -1030,8 +989,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network3 = createBusBreakerNetworkWithLoads(190, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network3);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(190, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
@@ -1049,8 +1007,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteria->addComponentId("MyDummyName");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network4 = createBusBreakerNetworkWithLoads(180, 200, 200, 100);
-  data = createDataItfFromNetworkCriteria(network4);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 200, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // load not found
@@ -1067,8 +1024,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network5 = createBusBreakerNetworkWithLoads(180, 225, 50, 100);
-  data = createDataItfFromNetworkCriteria(network5);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 50, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // sum(P)<= PMax
@@ -1086,8 +1042,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network6 = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network6);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax
@@ -1109,8 +1064,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteria->addComponentId("MyLoad2");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network7 = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network7);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P < PMax
@@ -1127,8 +1081,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::LOAD, criteria);
-  powsybl::iidm::Network network8 = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network8);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
@@ -1152,8 +1105,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
   criteriap->setId("MyCriteria");
 
-  powsybl::iidm::Network network = createBusBreakerNetworkWithGenerators(180, 190, 100, 100);
-  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 190, 100, 100));
   exportStates(data);
   std::vector< boost::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   GeneratorCriteria criteria(criteriap);
@@ -1162,8 +1114,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
     criteria.addGenerator(generators[i]);
   ASSERT_TRUE(criteria.empty());
 
-  powsybl::iidm::Network network2 = createBusBreakerNetworkWithGenerators(180, 425, 100, 100);
-  data = createDataItfFromNetworkCriteria(network2);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 425, 100, 100));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // VNom higher than max
@@ -1171,8 +1122,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
     criteria.addGenerator(generators[i]);
   ASSERT_TRUE(criteria.empty());
 
-  powsybl::iidm::Network network3 = createBusBreakerNetworkWithGenerators(190, 225, 250, 100);
-  data = createDataItfFromNetworkCriteria(network3);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(190, 225, 250, 100));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // V > uMaxPu*VNom
@@ -1182,8 +1132,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   ASSERT_TRUE(criteria.checkCriteria(0, true));
   ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network4 = createBusBreakerNetworkWithGenerators(43, 225, 250, 100);
-  data = createDataItfFromNetworkCriteria(network4);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(43, 225, 250, 100));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // V < uMinPu*VNom
@@ -1194,8 +1143,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   ASSERT_TRUE(criteria2.checkCriteria(0, true));
   ASSERT_TRUE(criteria2.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network5 = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
-  data = createDataItfFromNetworkCriteria(network5);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 100, 100));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // OK
@@ -1206,8 +1154,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   ASSERT_TRUE(criteria3.checkCriteria(0, true));
   ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network6 = createBusBreakerNetworkWithGenerators(180, 225, 250, 100);
-  data = createDataItfFromNetworkCriteria(network6);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 250, 100));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // P> PMax
@@ -1219,8 +1166,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
   ASSERT_EQ(criteria4.getFailingCriteria()[0].second, "SourceAbovePower MyGen 250 200 MyCriteria");
 
-  powsybl::iidm::Network network7 = createBusBreakerNetworkWithGenerators(180, 225, 40, 100);
-  data = createDataItfFromNetworkCriteria(network7);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 40, 100));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // P< PMin
@@ -1249,8 +1195,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
   criteriap->setId("MyCriteria");
 
-  powsybl::iidm::Network network = createBusBreakerNetworkWithGenerators(180, 190, 100, 100);
-  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 190, 100, 100));
   exportStates(data);
   std::vector< boost::shared_ptr<GeneratorInterface> > generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   GeneratorCriteria criteria(criteriap);
@@ -1259,8 +1204,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
     criteria.addGenerator(generators[i]);
   ASSERT_TRUE(criteria.empty());
 
-  powsybl::iidm::Network network2 = createBusBreakerNetworkWithGenerators(180, 425, 100, 100);
-  data = createDataItfFromNetworkCriteria(network2);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 425, 100, 100));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // VNom higher than max
@@ -1268,8 +1212,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
     criteria.addGenerator(generators[i]);
   ASSERT_TRUE(criteria.empty());
 
-  powsybl::iidm::Network network3 = createBusBreakerNetworkWithGenerators(190, 225, 250, 100);
-  data = createDataItfFromNetworkCriteria(network3);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(190, 225, 250, 100));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // V > uMaxPu*VNom
@@ -1279,8 +1222,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   ASSERT_TRUE(criteria.checkCriteria(0, true));
   ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network4 = createBusBreakerNetworkWithGenerators(43, 225, 250, 100);
-  data = createDataItfFromNetworkCriteria(network4);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(43, 225, 250, 100));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // V < uMinPu*VNom
@@ -1291,8 +1233,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   ASSERT_TRUE(criteria2.checkCriteria(0, true));
   ASSERT_TRUE(criteria2.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network5 = createBusBreakerNetworkWithGenerators(180, 225, 50, 50);
-  data = createDataItfFromNetworkCriteria(network5);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 50, 50));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // OK
@@ -1303,8 +1244,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   ASSERT_TRUE(criteria3.checkCriteria(0, true));
   ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
-  powsybl::iidm::Network network6 = createBusBreakerNetworkWithGenerators(180, 225, 250, 100);
-  data = createDataItfFromNetworkCriteria(network6);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 250, 100));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // P> PMax
@@ -1316,8 +1256,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
   ASSERT_EQ(criteria4.getFailingCriteria()[0].second, "SourcePowerAboveMax 350 200 MyCriteria");
 
-  powsybl::iidm::Network network7 = createBusBreakerNetworkWithGenerators(180, 225, 10, 10);
-  data = createDataItfFromNetworkCriteria(network7);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 10, 10));
   exportStates(data);
   generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
   // P< PMin
@@ -1344,8 +1283,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
-  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 100, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // not eligible
@@ -1362,8 +1300,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network2 = createBusBreakerNetworkWithGenerators(190, 200, 200, 100);
-  data = createDataItfFromNetworkCriteria(network2);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(190, 200, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // vNom < min
@@ -1380,8 +1317,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network3 = createBusBreakerNetworkWithGenerators(190, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network3);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(190, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
@@ -1398,8 +1334,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network4 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network4);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax
@@ -1417,8 +1352,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->addCountry("BE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network5 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network5);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax but country filter is KO
@@ -1436,8 +1370,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->addCountry("FRANCE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network6 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network6);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax and country filter is OK
@@ -1455,8 +1388,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->addCountry("FRANCE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network7 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false);
-  data = createDataItfFromNetworkCriteria(network7);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax and country filter is OK
@@ -1474,8 +1406,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->addComponentId("MyDummyName");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network8 = createBusBreakerNetworkWithGenerators(180, 200, 200, 100);
-  data = createDataItfFromNetworkCriteria(network8);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 200, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // generator not found
@@ -1493,8 +1424,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->addComponentId("MyGen");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network9 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network9);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax
@@ -1512,8 +1442,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->addComponentId("MyGend2");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network10 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network10);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P < PMax
@@ -1531,8 +1460,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->addComponentId("MyGen");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network11 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network11);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
@@ -1552,8 +1480,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->addCountry("BE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network12 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network12);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax but criteria filter is KO
@@ -1572,8 +1499,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->addCountry("FRANCE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network13 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network13);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax and criteria filter is OK
@@ -1592,8 +1518,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteria->addCountry("FRANCE");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network14 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false);
-  data = createDataItfFromNetworkCriteria(network14);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax and criteria filter is OK
@@ -1611,8 +1536,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
-  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(network);
+  shared_ptr<DataInterface> data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 100, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // not eligible
@@ -1628,9 +1552,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network2 = createBusBreakerNetworkWithGenerators(190, 200, 200, 100);
-  data = createDataItfFromNetworkCriteria(network2);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(190, 200, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // vNom < min
@@ -1647,8 +1569,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network3 = createBusBreakerNetworkWithGenerators(190, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network3);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(190, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
@@ -1666,8 +1587,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteria->addComponentId("MyDummyName");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network4 = createBusBreakerNetworkWithGenerators(180, 200, 200, 100);
-  data = createDataItfFromNetworkCriteria(network4);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 200, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // generator not found
@@ -1684,8 +1604,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network5 = createBusBreakerNetworkWithGenerators(180, 225, 50, 100);
-  data = createDataItfFromNetworkCriteria(network5);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 50, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // sum(P)<= PMax
@@ -1702,8 +1621,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network6 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network6);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax
@@ -1721,8 +1639,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteria->addComponentId("MyGen2");
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network7 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network7);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // P < PMax
@@ -1739,8 +1656,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
   collection->add(CriteriaCollection::GENERATOR, criteria);
-  powsybl::iidm::Network network8 = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
-  data = createDataItfFromNetworkCriteria(network8);
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 200, 100));
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
