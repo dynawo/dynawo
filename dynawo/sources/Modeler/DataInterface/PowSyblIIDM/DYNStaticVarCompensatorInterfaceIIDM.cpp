@@ -20,12 +20,9 @@
  */
 //======================================================================
 
-// #include <IIDM/extensions/StandbyAutomaton.h>
-
 #include "DYNStaticVarCompensatorInterfaceIIDM.h"
 
 using powsybl::iidm::StaticVarCompensator;
-// using IIDM::extensions::standbyautomaton::StandbyAutomaton;
 using std::string;
 using boost::shared_ptr;
 
@@ -38,7 +35,6 @@ StaticVarCompensatorInterfaceIIDM::StaticVarCompensatorInterfaceIIDM(StaticVarCo
 InjectorInterfaceIIDM(svc, svc.getId()),
 staticVarCompensatorIIDM_(svc) {
   setType(ComponentInterface::SVC);
-  // sa_ = staticVarCompensatorIIDM_.findExtension<StandbyAutomaton>();
   stateVariables_.resize(4);
   stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
@@ -66,13 +62,9 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
   staticVarCompensatorIIDM_.getTerminal().setQ(-1 * getValue<double>(VAR_Q) * SNREF);
   bool connected = (getValue<int>(VAR_STATE) == CLOSED);
   int regulatingMode = getValue<int>(VAR_REGULATINGMODE);
-//  bool standbyMode(false);
   switch (regulatingMode) {
     case StaticVarCompensatorInterface::OFF:
       staticVarCompensatorIIDM_.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::OFF);
-      break;
-    case StaticVarCompensatorInterface::STANDBY:
-//      standbyMode = true;
       break;
     case StaticVarCompensatorInterface::RUNNING_Q:
       staticVarCompensatorIIDM_.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::REACTIVE_POWER);
@@ -83,12 +75,6 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
     default:
       throw DYNError(Error::STATIC_DATA, RegulationModeNotInIIDM, regulatingMode, staticVarCompensatorIIDM_.getId());
   }
-//  if (sa_) {
-//    sa_->standBy(standbyMode);
-//  } else {
-//    if (standbyMode)
-//      throw DYNError(Error::STATIC_DATA, NoExtension, "standbyMode", "StandbyAutomaton");
-//  }
   if (connected)
     staticVarCompensatorIIDM_.getTerminal().connect();
   else
@@ -182,65 +168,40 @@ StaticVarCompensatorInterfaceIIDM::getReactivePowerSetPoint() const {
 
 double
 StaticVarCompensatorInterfaceIIDM::getUMinActivation() const {
-//  if (!sa_)
-//    throw DYNError(Error::STATIC_DATA, NoExtension, "lowVoltageThreshold", "StandbyAutomaton");
-//  return sa_->lowVoltageThreshold();
   return 0.;
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getUMaxActivation() const {
-//  if (!sa_)
-//    throw DYNError(Error::STATIC_DATA, NoExtension, "highVoltageThreshold", "StandbyAutomaton");
-//  return sa_->highVoltageThreshold();
   return 0.;
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getUSetPointMin() const {
-//  if (!sa_)
-//    throw DYNError(Error::STATIC_DATA, NoExtension, "lowVoltageSetPoint", "StandbyAutomaton");
-//  return sa_->lowVoltageSetPoint();
   return 0.;
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getUSetPointMax() const {
-//  if (!sa_)
-//    throw DYNError(Error::STATIC_DATA, NoExtension, "highVoltageSetPoint", "StandbyAutomaton");
-//  return sa_->highVoltageSetPoint();
   return 0.;
 }
 
 bool
 StaticVarCompensatorInterfaceIIDM::hasStandbyAutomaton() const {
-//  if (!sa_)
-//    return false;
-//  return true;
   return false;
 }
 
 bool
 StaticVarCompensatorInterfaceIIDM::isStandBy() const {
-//  if (!sa_)
-//    throw DYNError(Error::STATIC_DATA, NoExtension, "standBy", "StandbyAutomaton");
-//  return sa_->standBy();
   return false;
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getB0() const {
-//  if (!sa_)
-//    throw DYNError(Error::STATIC_DATA, NoExtension, "b0", "StandbyAutomaton");
-//  return sa_->b0();
   return 0.;
 }
 
 StaticVarCompensatorInterface::RegulationMode_t StaticVarCompensatorInterfaceIIDM::getRegulationMode() const {
-//  if (sa_ && sa_->standBy()) {
-//    return StaticVarCompensatorInterface::STANDBY;
-//  }
-
   const powsybl::iidm::StaticVarCompensator::RegulationMode& regMode = staticVarCompensatorIIDM_.getRegulationMode();
   switch (regMode) {
     case powsybl::iidm::StaticVarCompensator::RegulationMode::VOLTAGE:
