@@ -48,6 +48,7 @@ LccConverterInterfaceIIDM::getComponentVarIndex(const std::string& /*varName*/) 
 
 void
 LccConverterInterfaceIIDM::exportStateVariablesUnitComponent() {
+  /* not needed */
 }
 
 void
@@ -75,47 +76,47 @@ LccConverterInterfaceIIDM::importStaticParameters() {
 
 void
 LccConverterInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
-  InjectorInterfaceIIDM::setBusInterface(busInterface);
+  setBusInterfaceInjector(busInterface);
 }
 
 void
 LccConverterInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
-  InjectorInterfaceIIDM::setVoltageLevelInterface(voltageLevelInterface);
+  setVoltageLevelInterfaceInjector(voltageLevelInterface);
 }
 
 shared_ptr<BusInterface>
 LccConverterInterfaceIIDM::getBusInterface() const {
-  return InjectorInterfaceIIDM::getBusInterface();
+  return getBusInterfaceInjector();
 }
 
 bool
 LccConverterInterfaceIIDM::getInitialConnected() {
-  return InjectorInterfaceIIDM::getInitialConnected();
+  return getInitialConnectedInjector();
 }
 
 double
 LccConverterInterfaceIIDM::getVNom() const {
-  return InjectorInterfaceIIDM::getVNom();
+  return getVNomInjector();
 }
 
 bool
 LccConverterInterfaceIIDM::hasP() {
-  return InjectorInterfaceIIDM::hasP();
+  return hasPInjector();
 }
 
 bool
 LccConverterInterfaceIIDM::hasQ() {
-  return InjectorInterfaceIIDM::hasQ();
+  return hasQInjector();
 }
 
 double
 LccConverterInterfaceIIDM::getP() {
-  return InjectorInterfaceIIDM::getP();
+  return getPInjector();
 }
 
 double
 LccConverterInterfaceIIDM::getQ() {
-  return InjectorInterfaceIIDM::getQ();
+  return getQInjector();
 }
 
 std::string

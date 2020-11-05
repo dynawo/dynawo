@@ -75,39 +75,39 @@ TEST(DataInterfaceTest, Injector_1) {
   const powsybl::iidm::Injection& Inj = load;
 
   DYN::InjectorInterfaceIIDM Ifce(Inj, "Name for TRACE");
-  ASSERT_EQ("Name for TRACE", Ifce.getID());
+  ASSERT_EQ("Name for TRACE", Ifce.getIDInjector());
 
-  ASSERT_EQ(Ifce.getBusInterface().get(), nullptr);
+  ASSERT_EQ(Ifce.getBusInterfaceInjector().get(), nullptr);
   const boost::shared_ptr<DYN::BusInterface> busIfce(new DYN::BusInterfaceIIDM(bus));
-  Ifce.setBusInterface(busIfce);
-  ASSERT_EQ(Ifce.getBusInterface().get()->getID(), "VL1_BUS1");
+  Ifce.setBusInterfaceInjector(busIfce);
+  ASSERT_EQ(Ifce.getBusInterfaceInjector().get()->getID(), "VL1_BUS1");
 
-  ASSERT_TRUE(Ifce.getInitialConnected());
+  ASSERT_TRUE(Ifce.getInitialConnectedInjector());
   load.getTerminal().disconnect();
-  ASSERT_TRUE(Ifce.getInitialConnected());
+  ASSERT_TRUE(Ifce.getInitialConnectedInjector());
 
-  ASSERT_FALSE(Ifce.hasP());
-  ASSERT_FALSE(Ifce.hasQ());
+  ASSERT_FALSE(Ifce.hasPInjector());
+  ASSERT_FALSE(Ifce.hasQInjector());
 
-  ASSERT_DOUBLE_EQ(Ifce.getP(), 0.0);
+  ASSERT_DOUBLE_EQ(Ifce.getPInjector(), 0.0);
   load.getTerminal().setP(1000.0);
-  ASSERT_TRUE(Ifce.hasP());
-  ASSERT_DOUBLE_EQ(Ifce.getP(), 1000.0);
+  ASSERT_TRUE(Ifce.hasPInjector());
+  ASSERT_DOUBLE_EQ(Ifce.getPInjector(), 1000.0);
 
-  ASSERT_DOUBLE_EQ(Ifce.getQ(), 0.0);
+  ASSERT_DOUBLE_EQ(Ifce.getQInjector(), 0.0);
   load.getTerminal().setQ(499.0);
-  ASSERT_TRUE(Ifce.hasQ());
-  ASSERT_DOUBLE_EQ(Ifce.getQ(), 499.0);
+  ASSERT_TRUE(Ifce.hasQInjector());
+  ASSERT_DOUBLE_EQ(Ifce.getQInjector(), 499.0);
 
   DYN::InjectorInterfaceIIDM IfceNC(Inj, "Injector initially not connected");
-  ASSERT_FALSE(IfceNC.getInitialConnected());
-  ASSERT_DOUBLE_EQ(IfceNC.getP(), 0.0);
-  ASSERT_DOUBLE_EQ(IfceNC.getQ(), 0.0);
+  ASSERT_FALSE(IfceNC.getInitialConnectedInjector());
+  ASSERT_DOUBLE_EQ(IfceNC.getPInjector(), 0.0);
+  ASSERT_DOUBLE_EQ(IfceNC.getQInjector(), 0.0);
 
   const boost::shared_ptr<DYN::VoltageLevelInterface> voltageLevelIfce(new DYN::VoltageLevelInterfaceIIDM(vl1));
-  Ifce.setVoltageLevelInterface(voltageLevelIfce);
-  ASSERT_DOUBLE_EQ(Ifce.getVNom(), 380);
-  ASSERT_EQ(Ifce.getVoltageLevelInterface(), voltageLevelIfce);
+  Ifce.setVoltageLevelInterfaceInjector(voltageLevelIfce);
+  ASSERT_DOUBLE_EQ(Ifce.getVNomInjector(), 380);
+  ASSERT_EQ(Ifce.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
 }  // TEST(DataInterfaceTest, Injector_1)
 
 
@@ -153,7 +153,7 @@ TEST(DataInterfaceTest, Injector_2) {
   const powsybl::iidm::Injection& Inj = load;
 
   DYN::InjectorInterfaceIIDM IfceNC(Inj, "Injector initially not connected");
-  ASSERT_FALSE(IfceNC.getInitialConnected());
-  ASSERT_DOUBLE_EQ(IfceNC.getP(), 0.0);
-  ASSERT_DOUBLE_EQ(IfceNC.getQ(), 0.0);
+  ASSERT_FALSE(IfceNC.getInitialConnectedInjector());
+  ASSERT_DOUBLE_EQ(IfceNC.getPInjector(), 0.0);
+  ASSERT_DOUBLE_EQ(IfceNC.getQInjector(), 0.0);
 }  // TEST(DataInterfaceTest, Injector_2)

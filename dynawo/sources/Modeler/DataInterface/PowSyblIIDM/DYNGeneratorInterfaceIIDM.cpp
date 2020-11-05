@@ -124,27 +124,27 @@ GeneratorInterfaceIIDM::importStaticParameters() {
 
 void
 GeneratorInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
-  InjectorInterfaceIIDM::setBusInterface(busInterface);
+  setBusInterfaceInjector(busInterface);
 }
 
 void
 GeneratorInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
-  InjectorInterfaceIIDM::setVoltageLevelInterface(voltageLevelInterface);
+  setVoltageLevelInterfaceInjector(voltageLevelInterface);
 }
 
 shared_ptr<BusInterface>
 GeneratorInterfaceIIDM::getBusInterface() const {
-  return InjectorInterfaceIIDM::getBusInterface();
+  return getBusInterfaceInjector();
 }
 
 bool
 GeneratorInterfaceIIDM::getInitialConnected() {
-  return InjectorInterfaceIIDM::getInitialConnected();
+  return getInitialConnectedInjector();
 }
 
 double
 GeneratorInterfaceIIDM::getP() {
-  return InjectorInterfaceIIDM::getP();
+  return getPInjector();
 }
 
 double
@@ -165,7 +165,7 @@ GeneratorInterfaceIIDM::getTargetP() {
 
 double
 GeneratorInterfaceIIDM::getQ() {
-  return InjectorInterfaceIIDM::getQ();
+  return getQInjector();
 }
 
 double

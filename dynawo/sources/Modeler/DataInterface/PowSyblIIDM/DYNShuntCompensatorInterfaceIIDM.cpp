@@ -77,32 +77,32 @@ ShuntCompensatorInterfaceIIDM::importStaticParameters() {
 
 void
 ShuntCompensatorInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
-  InjectorInterfaceIIDM::setBusInterface(busInterface);
+  setBusInterfaceInjector(busInterface);
 }
 
 void
 ShuntCompensatorInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
-  InjectorInterfaceIIDM::setVoltageLevelInterface(voltageLevelInterface);
+  setVoltageLevelInterfaceInjector(voltageLevelInterface);
 }
 
 shared_ptr<BusInterface>
 ShuntCompensatorInterfaceIIDM::getBusInterface() const {
-  return InjectorInterfaceIIDM::getBusInterface();
+  return getBusInterfaceInjector();
 }
 
 bool
 ShuntCompensatorInterfaceIIDM::getInitialConnected() {
-  return InjectorInterfaceIIDM::getInitialConnected();
+  return getInitialConnectedInjector();
 }
 
 double
 ShuntCompensatorInterfaceIIDM::getVNom() const {
-  return InjectorInterfaceIIDM::getVNom();
+  return getVNomInjector();
 }
 
 double
 ShuntCompensatorInterfaceIIDM::getQ() {
-  return InjectorInterfaceIIDM::getQ();
+  return getQInjector();
 }
 
 string
