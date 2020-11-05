@@ -61,7 +61,7 @@ class InjectorInterfaceIIDM {
    * @param busInterface busInterface of the bus where the injector is connected
    */
   void
-  setBusInterface(const boost::shared_ptr<BusInterface>& busInterface) {
+  setBusInterfaceInjector(const boost::shared_ptr<BusInterface>& busInterface) {
     busInterface_ = busInterface;
   }
 
@@ -70,7 +70,7 @@ class InjectorInterfaceIIDM {
    * @return busInterface busInterface of the bus where the injector is connected
    */
   const boost::shared_ptr<BusInterface>&
-  getBusInterface() const {
+  getBusInterfaceInjector() const {
     return busInterface_;
   }
 
@@ -79,7 +79,7 @@ class InjectorInterfaceIIDM {
    * @param voltageLevelInterface voltageLevelInterface of the voltage level where the injector is connected
    */
   void
-  setVoltageLevelInterface(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+  setVoltageLevelInterfaceInjector(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
     voltageLevelInterface_ = voltageLevelInterface;
   }
 
@@ -88,7 +88,7 @@ class InjectorInterfaceIIDM {
    * @return voltageLevelInterface voltageLevelInterface where the injector is connected
    */
   boost::shared_ptr<VoltageLevelInterface>
-  getVoltageLevelInterface() const {
+  getVoltageLevelInterfaceInjector() const {
     boost::shared_ptr<VoltageLevelInterface> voltageLevel = voltageLevelInterface_.lock();
     assert(voltageLevel && "shared_ptr for voltage level is empty");
     return voltageLevel;
@@ -99,8 +99,8 @@ class InjectorInterfaceIIDM {
    * @return The nominal voltage of the bus where the injector is connected in kV
    */
   double
-  getVNom() const {
-    return getVoltageLevelInterface()->getVNom();
+  getVNomInjector() const {
+    return getVoltageLevelInterfaceInjector()->getVNom();
   }
 
   /**
@@ -108,7 +108,7 @@ class InjectorInterfaceIIDM {
    * @return @b true if the injector is connected, @b false else
    */
   bool
-  getInitialConnected() {
+  getInitialConnectedInjector() {
     if (initialConnected_ == boost::none) {
       initialConnected_ = injectorIIDM_.getTerminal().isConnected();
     }
@@ -120,7 +120,7 @@ class InjectorInterfaceIIDM {
    * @return Whether the injector knows its injected/consumed active power
    */
   bool
-  hasP() const {
+  hasPInjector() const {
     return !std::isnan(injectorIIDM_.getTerminal().getP());
   }
 
@@ -129,7 +129,7 @@ class InjectorInterfaceIIDM {
    * @return Whether the injector knows its injected/consumed reactive power
    */
   bool
-  hasQ() const {
+  hasQInjector() const {
     return !std::isnan(injectorIIDM_.getTerminal().getQ());
   }
 
@@ -137,10 +137,10 @@ class InjectorInterfaceIIDM {
    * @brief Getter for the active power injected/consumed by the injector
    * @return The active power injected/consumed by the injector in MW (following iidm convention)
    */
-  double getP() {
-    if (getInitialConnected()) {
-      if (!hasP()) {
-        Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "Injection", getID(), "P") << Trace::endline;
+  double getPInjector() {
+    if (getInitialConnectedInjector()) {
+      if (!hasPInjector()) {
+        Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "Injection", getIDInjector(), "P") << Trace::endline;
         return 0.;
       }
       return injectorIIDM_.getTerminal().getP();
@@ -154,10 +154,10 @@ class InjectorInterfaceIIDM {
    * @return The reactive power injected/consumed by the injector in Mvar (following iidm convention)
    */
   double
-  getQ() {
-    if (getInitialConnected()) {
-      if (!hasQ()) {
-        Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "Injection", getID(), "Q") << Trace::endline;
+  getQInjector() {
+    if (getInitialConnectedInjector()) {
+      if (!hasQInjector()) {
+        Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "Injection", getIDInjector(), "Q") << Trace::endline;
         return 0.;
       }
       return injectorIIDM_.getTerminal().getQ();
@@ -171,7 +171,7 @@ class InjectorInterfaceIIDM {
    * @return The id of the injector
    */
   const std::string&
-  getID() const {
+  getIDInjector() const {
     return injectorId_;
   }
 

@@ -98,9 +98,9 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
 void
 StaticVarCompensatorInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
-  staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(getP())));
+  staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(getPInjector())));
   staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(getQ())));
-  staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(getP() / SNREF)));
+  staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(getPInjector() / SNREF)));
   staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(getQ() / SNREF)));
   int regulatingMode = getRegulationMode();
   staticParameters_.insert(std::make_pair("regulatingMode", StaticParameter("regulatingMode", StaticParameter::INT).setValue(regulatingMode)));
@@ -127,27 +127,27 @@ StaticVarCompensatorInterfaceIIDM::importStaticParameters() {
 
 void
 StaticVarCompensatorInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
-  InjectorInterfaceIIDM::setBusInterface(busInterface);
+  setBusInterfaceInjector(busInterface);
 }
 
 shared_ptr<BusInterface>
 StaticVarCompensatorInterfaceIIDM::getBusInterface() const {
-  return InjectorInterfaceIIDM::getBusInterface();
+  return getBusInterfaceInjector();
 }
 
 void
 StaticVarCompensatorInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
-  InjectorInterfaceIIDM::setVoltageLevelInterface(voltageLevelInterface);
+  setVoltageLevelInterfaceInjector(voltageLevelInterface);
 }
 
 bool
 StaticVarCompensatorInterfaceIIDM::getInitialConnected() {
-  return InjectorInterfaceIIDM::getInitialConnected();
+  return getInitialConnectedInjector();
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getVNom() const {
-  return InjectorInterfaceIIDM::getVNom();
+  return getVNomInjector();
 }
 
 string
@@ -167,7 +167,7 @@ StaticVarCompensatorInterfaceIIDM::getBMax() const {
 
 double
 StaticVarCompensatorInterfaceIIDM::getQ() {
-  return InjectorInterfaceIIDM::getQ();
+  return getQInjector();
 }
 
 double

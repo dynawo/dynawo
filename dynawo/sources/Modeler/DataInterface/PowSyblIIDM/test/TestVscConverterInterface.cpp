@@ -143,6 +143,6 @@ TEST(DataInterfaceTest, VscConverter) {
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
   Ifce.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_DOUBLE_EQ(Ifce.getVNom(), 388);
-  ASSERT_EQ(Ifce.getVoltageLevelInterface(), voltageLevelIfce);
+  ASSERT_EQ(Ifce.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
 }  // TEST(DataInterfaceTest, VscConverter)
 };  // namespace DYN
