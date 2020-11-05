@@ -1756,24 +1756,25 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_collectsilentz(self):
-        closing_bracket = "] /* "
+        opening_bracket = "  silentZTable["
+        end_of_line = " */;\n"
         for var in self.reader.silent_discrete_vars_not_used_in_discr_eq:
             test_param_address(var)
             address = to_param_address(var)
             index = address.split("[")[2].replace("]","")
             if "integerDoubleVars" in address:
-                self.list_for_collectsilentz.append("  silentZTable[" + str(int(self.nb_z) + int(index)) +"].setFlags(NotUsedInDiscreteEquations) /*" + var +" */;\n")
+                self.list_for_collectsilentz.append(opening_bracket + str(int(self.nb_z) + int(index)) +"].setFlags(NotUsedInDiscreteEquations) /*" + var +end_of_line)
             else:
-                self.list_for_collectsilentz.append("  silentZTable[" + index +"].setFlags(NotUsedInDiscreteEquations) /*" + var +" */;\n")
+                self.list_for_collectsilentz.append(opening_bracket + index +"].setFlags(NotUsedInDiscreteEquations) /*" + var +end_of_line)
 
         for var in self.reader.silent_discrete_vars_not_used_in_continuous_eq:
             test_param_address(var)
             address = to_param_address(var)
             index = address.split("[")[2].replace("]","")
             if "integerDoubleVars" in address:
-                self.list_for_collectsilentz.append("  silentZTable[" + str(int(self.nb_z) + int(index)) +"].setFlags(NotUsedInContinuousEquations) /*" + var +" */;\n")
+                self.list_for_collectsilentz.append(opening_bracket + str(int(self.nb_z) + int(index)) +"].setFlags(NotUsedInContinuousEquations) /*" + var +end_of_line)
             else:
-                self.list_for_collectsilentz.append("  silentZTable[" + index +"].setFlags(NotUsedInContinuousEquations) /*" + var +" */;\n")
+                self.list_for_collectsilentz.append(opening_bracket + index +"].setFlags(NotUsedInContinuousEquations) /*" + var +end_of_line)
 
     ##
     # prepare the lines that constitues the body of setZ
