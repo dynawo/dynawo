@@ -78,7 +78,7 @@ namespace DYN {
 shared_ptr<DataInterfaceIIDM>
 createDataItfFromNetwork(powsybl::iidm::Network&& network) {
   shared_ptr<DataInterfaceIIDM> data;
-  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(std::move(network));
+  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(std::forward<powsybl::iidm::Network>(network));
   ptr->initFromIIDM();
   data.reset(ptr);
   return data;
