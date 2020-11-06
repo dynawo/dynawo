@@ -24,6 +24,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     Star.xml
     TLM.xml
     ParallelLines.xml
+    UnbalancedParallelLine.xml
     )
 
 # PYTHON scripts preassembled models

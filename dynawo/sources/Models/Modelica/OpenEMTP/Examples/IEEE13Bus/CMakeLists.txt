@@ -28,6 +28,7 @@ set(MODEL_FILES
     ThreePhaseRL.mo
     UnsatSTC_XFMR.mo
     YgYg.mo
+    UnbalancedParallelLine.mo
     )
 #
 # Installing models (MODEL_FILE iterator through the MODEL_FILES array)

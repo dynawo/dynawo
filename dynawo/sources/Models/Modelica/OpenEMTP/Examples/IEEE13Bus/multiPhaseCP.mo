@@ -17,9 +17,9 @@ model multiPhaseCP
     Placement(visible = true, transformation(origin = {100, -40}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   CpHistoryTerm cpHistoryTerm1(Ti = Ti, Zmod = Zmod, h = h, m = m, tau = tau)  annotation(
     Placement(visible = true, transformation(origin = {1, 9}, extent = {{-21, -21}, {21, 21}}, rotation = 0)));
-  Norton sNorton(RN, m = m)  annotation(
+  Norton sNorton(RN = Rn, m = m)  annotation(
     Placement(visible = true, transformation(origin = {-60, 20}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Norton rNorton(RN, m = m)  annotation(
+  Norton rNorton(RN = Rn, m = m)  annotation(
     Placement(visible = true, transformation(origin = {60, 20}, extent = {{-20, 20}, {20, -20}}, rotation = -90)));
   Modelica.Electrical.MultiPhase.Basic.Star star1(m = m)  annotation(
     Placement(visible = true, transformation(origin = {8, -74}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
