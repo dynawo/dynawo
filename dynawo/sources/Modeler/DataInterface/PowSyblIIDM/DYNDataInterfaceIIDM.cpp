@@ -115,6 +115,9 @@ DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
   try {
     LibXml2 libxml2;
     std::ofstream outputStream(iidmFilePath);
+    if (!outputStream) {
+      throw DYNError(Error::GENERAL, FileGenerationFailed, iidmFilePath, "invalid file name or permissions");
+    }
     stdcxx::Properties properties;
     properties.set(powsybl::iidm::converter::ExportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
     powsybl::iidm::converter::ExportOptions options(properties);
@@ -199,8 +202,6 @@ DataInterfaceIIDM::getBusName(const std::string& componentName, const std::strin
         }
         break;
       }
-      case ComponentInterface::UNKNOWN:
-        break;
     }
   }
   return busName;
