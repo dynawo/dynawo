@@ -112,8 +112,8 @@ DynamicData::markModelTemplatesCalledByExpansions() {
   usefulModelTemplates_.clear();
   // get model template list to be compiled, by analyzing templateId in model template expansions
   // update usefulModelTemplates_
-  boost::unordered_map<string, shared_ptr<ModelDescription> >::const_iterator itMde = modelTemplateExpansions_.begin();
-  for (; itMde != modelTemplateExpansions_.end(); ++itMde) {
+  for (std::map<string, shared_ptr<ModelDescription> >::const_iterator itMde = modelTemplateExpansions_.begin();
+        itMde != modelTemplateExpansions_.end(); ++itMde) {
     shared_ptr<ModelTemplateExpansion> mte = dynamic_pointer_cast<ModelTemplateExpansion> (itMde->second->getModel());
     string templateId = mte->getTemplateId();
     if (modelTemplates_.find(templateId) != modelTemplates_.end()) {
@@ -123,7 +123,7 @@ DynamicData::markModelTemplatesCalledByExpansions() {
 
 #ifdef _DEBUG_
   Trace::info(Trace::compile()) << "Model Templates : " << Trace::endline;
-  for (boost::unordered_map< string, shared_ptr<ModelDescription> >::const_iterator itMd = modelTemplates_.begin(); itMd != modelTemplates_.end(); ++itMd) {
+  for (std::map< string, shared_ptr<ModelDescription> >::const_iterator itMd = modelTemplates_.begin(); itMd != modelTemplates_.end(); ++itMd) {
     string modelUsed = usefulModelTemplates_.find(itMd->first) != usefulModelTemplates_.end() ? "useful and compiled" : "useless";
     Trace::info(Trace::compile()) << " - " << itMd->first << " -> " << modelUsed << Trace::endline;
   }
@@ -137,8 +137,8 @@ DynamicData::mappingModelicaModels() {
   modelicaModelReferenceMap_.clear();
   unitDynamicModelsMap_.clear();
 
-  boost::unordered_map<string, shared_ptr<ModelDescription> >::const_iterator itModelica = modelicaModels_.begin();
-  for (; itModelica != modelicaModels_.end(); ++itModelica) {
+  for (std::map<string, shared_ptr<ModelDescription> >::const_iterator itModelica = modelicaModels_.begin();
+        itModelica != modelicaModels_.end(); ++itModelica) {
     // for each modelica model, either mark it as a reference model, or refer it to a reference model
 
     const string id = "Mapping Modelica Model " + itModelica->first;
@@ -204,9 +204,8 @@ DynamicData::mappingModelicaModels() {
 
 void
 DynamicData::associateParameters() {
-  boost::unordered_map<string, shared_ptr<ModelDescription> >::const_iterator iter = modelDescriptions_.begin();
-
-  for (; iter != modelDescriptions_.end(); ++iter) {
+  for (std::map<string, shared_ptr<ModelDescription> >::const_iterator iter = modelDescriptions_.begin();
+        iter != modelDescriptions_.end(); ++iter) {
     shared_ptr<dynamicdata::Model> model = iter->second->getModel();
 
     // add parameters to modelDescription
@@ -293,7 +292,7 @@ DynamicData::createModelDescriptions() {
     string staticId = "";
 
     // init value will be replaced after
-    boost::unordered_map<std::string, boost::shared_ptr<DYN::ModelDescription> >* mappedModel = NULL;
+    std::map<std::string, boost::shared_ptr<DYN::ModelDescription> >* mappedModel = NULL;
 
     switch ((*itModel)->getType()) {
       case Model::MODELICA_MODEL: {
