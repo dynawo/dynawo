@@ -38,10 +38,8 @@
 #include "DYNModelMulti.h"
 #include "DYNNetworkInterface.h"
 #include "DYNThreeWTransformerInterfaceIIDM.h"
-#include "DYNTwoWTransformerInterface.h"
 #include "DYNModelConstants.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
-#include "DYNLoadInterface.h"
 
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/Substation.hpp>
@@ -493,7 +491,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     line.newCurrentLimits2().beginTemporaryLimit().setName("TL2").setValue(20.).setAcceptableDuration(5.).endTemporaryLimit().add();
   }
   return network;
-}
+}  // createBusBreakerNetwork(const BusBreakerNetworkProperty& properties);
 
 shared_ptr<SubModel>
 initializeModel(shared_ptr<DataInterface> data) {
@@ -519,7 +517,7 @@ initializeModel(shared_ptr<DataInterface> data) {
   modelNetwork->setPARParameters(parametersSet);
 
   return modelNetwork;
-}
+}  // initializeModel(shared_ptr<DataInterface> data);
 
 void
 exportStateVariables(shared_ptr<DataInterface> data) {
@@ -1082,6 +1080,8 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
   powsybl::iidm::Network& network = data->getNetworkIIDM();
+  ASSERT_EQ(data->getBusName("MyStaticVarCompensator", ""), "MyBus");
+  ASSERT_EQ(data->getBusName("nothing", ""), "");
 
   // p will always be 0. because it is set to 0. in the CPP model for SVarC
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p"), 0.);
@@ -1352,7 +1352,7 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
   ASSERT_FALSE(bus1->hasConnection());
   ASSERT_FALSE(bus2->hasConnection());
   ASSERT_FALSE(bus3->hasConnection());
-  threeWT->hasDynamicModel(true);
+  data->hasDynamicModel("MyTransformer3Winding");  // same as "threeWT->hasDynamicModel(true);"
   ASSERT_FALSE(bus1->hasConnection());
   ASSERT_FALSE(bus2->hasConnection());
   ASSERT_FALSE(bus3->hasConnection());
@@ -1364,6 +1364,10 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
   ASSERT_TRUE(bus1->hasConnection());
   ASSERT_TRUE(bus2->hasConnection());
   ASSERT_TRUE(bus3->hasConnection());
+
+  shared_ptr<SubModel> modelNetwork = initializeModel(data);
+  data->setDynamicModel("MyTransformer3Winding", modelNetwork);
+  ASSERT_THROW_DYNAWO(data->setDynamicModel("nothing", modelNetwork), Error::MODELER, KeyError_t::UnknownStaticComponent);
 }  // TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM)
 
 TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
@@ -1419,6 +1423,7 @@ TEST(DataInterfaceIIDMTest, testImportExport) {
   shared_ptr<DataInterfaceIIDM> dataOutput = createDataItfFromNetwork(createNodeBreakerNetworkIIDM());
   ASSERT_NO_THROW(dataOutput->dumpToFile("network.xml"));
   const powsybl::iidm::Network& outputNetwork = dataOutput->getNetworkIIDM();
+  ASSERT_THROW_DYNAWO(dataOutput->dumpToFile(".."), Error::GENERAL, KeyError_t::FileGenerationFailed);
 
   shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network.xml");
   shared_ptr<DataInterfaceIIDM> dataInputIIDM = boost::dynamic_pointer_cast<DataInterfaceIIDM>(dataInput);
