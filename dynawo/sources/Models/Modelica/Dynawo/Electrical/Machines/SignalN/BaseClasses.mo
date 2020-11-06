@@ -24,6 +24,7 @@ package BaseClasses
   public
     parameter Types.ActivePowerPu PMinPu "Minimum active power in p.u (base SnRef)";
     parameter Types.ActivePowerPu PMaxPu "Maximum active power in p.u (base SnRef)";
+    parameter Types.VoltageModulePu PRef0Pu "Start value of the active power set point in p.u (base SnRef) (receptor convention)";
     parameter Types.PerUnit KGover "Mechanical power sensitivity to frequency";
     parameter Types.ActivePower PNom "Nominal power in MW";
     final parameter Real Alpha = PNom * KGover "Participation of the considered generator in the frequency regulation";
@@ -38,7 +39,7 @@ package BaseClasses
   equation
 
     if running.value then
-      PGenRawPu = PGen0Pu + (Alpha / alphaSum.value) * N.value;
+      PGenRawPu = - PRef0Pu + (Alpha / alphaSum.value) * N.value;
       PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
       alpha.value = if (N.value > 0 and PGenRawPu >= PMaxPu) then 0 else if (N.value < 0 and PGenRawPu <= PMinPu) then 0 else Alpha;
     else
