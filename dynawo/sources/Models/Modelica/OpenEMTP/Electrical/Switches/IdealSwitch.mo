@@ -7,8 +7,6 @@ model IdealSwitch "Ideal Switch"
   parameter Time Topening = 0.1 "Opening Time";
   Modelica.Electrical.Analog.Ideal.IdealClosingSwitch idealClosingSwitch1(Goff = 1e-15, Ron = 1e-15) annotation(
     Placement(visible = true, transformation(origin = {-52, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Sensors.CurrentSensor currentSensor1 annotation(
-    Placement(visible = true, transformation(origin = {-12, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Clock clock1(offset = 0, startTime = 0) annotation(
     Placement(visible = true, transformation(origin = {-98, 32}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
   Modelica.Blocks.Sources.Clock clock2(offset = 0, startTime = 0) annotation(
@@ -17,44 +15,32 @@ model IdealSwitch "Ideal Switch"
     Placement(visible = true, transformation(origin = {-96, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Electrical.Analog.Interfaces.NegativePin pin_n annotation(
     Placement(visible = true, transformation(origin = {94, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.ZeroCrossing zeroCrossing1 annotation(
-    Placement(visible = true, transformation(origin = {10, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.RSFlipFlop rSFlipFlop1 annotation(
-    Placement(visible = true, transformation(origin = {44, -74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = false) annotation(
-    Placement(visible = true, transformation(origin = {8, -96}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.And and1 annotation(
     Placement(visible = true, transformation(origin = {78, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold = Tclosing) annotation(
     Placement(visible = true, transformation(origin = {-68, 32}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold2(threshold = Topening) annotation(
     Placement(visible = true, transformation(origin = {-33, -69}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
+  Modelica.Blocks.Logical.Not not1 annotation(
+    Placement(visible = true, transformation(origin = {44, -46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  connect(idealClosingSwitch1.n, currentSensor1.p) annotation(
-    Line(points = {{-42, 0}, {-22, 0}}, color = {0, 0, 255}));
-  connect(currentSensor1.n, pin_n) annotation(
-    Line(points = {{-2, 0}, {94, 0}}, color = {0, 0, 255}));
   connect(clock2.y, greaterThreshold2.u) annotation(
     Line(points = {{-65.2, -68}, {-42, -68}, {-42, -70}, {-42, -69}, {-41.4, -69}}, color = {0, 0, 127}));
   connect(greaterThreshold1.y, and1.u1) annotation(
     Line(points = {{-59.2, 32}, {42, 32}, {42, -30}, {66, -30}}, color = {255, 0, 255}));
   connect(clock1.y, greaterThreshold1.u) annotation(
     Line(points = {{-89.2, 32}, {-78, 32}, {-78, 32}, {-77.6, 32}}, color = {0, 0, 127}));
-  connect(booleanConstant1.y, rSFlipFlop1.R) annotation(
-    Line(points = {{19, -96}, {28, -96}, {28, -80}, {32, -80}}, color = {255, 0, 255}));
-  connect(rSFlipFlop1.S, zeroCrossing1.y) annotation(
-    Line(points = {{32, -68}, {28, -68}, {28, -32}, {21, -32}}, color = {255, 0, 255}));
 //assert(Tclosing < Topening, "Closing time must be less tha opening time.", AssertionLevel.warning);
   connect(pin_p, idealClosingSwitch1.p) annotation(
     Line(points = {{-96, 0}, {-64, 0}, {-64, 0}, {-62, 0}}, color = {0, 0, 255}));
-  connect(zeroCrossing1.u, currentSensor1.i) annotation(
-    Line(points = {{-2, -32}, {-12, -32}, {-12, -10}, {-12, -10}}, color = {0, 0, 127}));
   connect(and1.y, idealClosingSwitch1.control) annotation(
     Line(points = {{90, -30}, {118, -30}, {118, 22}, {-52, 22}, {-52, 8}, {-52, 8}}, color = {255, 0, 255}));
-  connect(zeroCrossing1.enable, greaterThreshold2.y) annotation(
-    Line(points = {{10, -44}, {10, -44}, {10, -70}, {-26, -70}, {-26, -68}}, color = {255, 0, 255}));
-  connect(rSFlipFlop1.QI, and1.u2) annotation(
-    Line(points = {{56, -80}, {62, -80}, {62, -38}, {66, -38}, {66, -38}}, color = {255, 0, 255}));
+  connect(and1.u2, not1.y) annotation(
+    Line(points = {{66, -38}, {58, -38}, {58, -46}, {56, -46}, {56, -46}}, color = {255, 0, 255}));
+  connect(not1.u, greaterThreshold2.y) annotation(
+    Line(points = {{32, -46}, {-12, -46}, {-12, -66}, {-26, -66}, {-26, -68}, {-26, -68}}, color = {255, 0, 255}));
+  connect(idealClosingSwitch1.n, pin_n) annotation(
+    Line(points = {{-42, 0}, {90, 0}, {90, 0}, {94, 0}}, color = {0, 0, 255}));
   annotation(
     Documentation(info = "<html><head></head><body><p><br></p>
 </body></html>", revisions = "<html><head></head><body><div><i><br></i></div><ul>

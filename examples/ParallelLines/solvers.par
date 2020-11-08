@@ -29,7 +29,7 @@
   <set id="1">
     <par type="INT" name="order" value="2"/>
     <par type="DOUBLE" name="initStep" value="0"/>
-    <par type="DOUBLE" name="minStep" value="5e-8"/>
+    <par type="DOUBLE" name="minStep" value="5e-7"/>
     <par type="DOUBLE" name="maxStep" value="5e-6"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-2"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-2"/>
