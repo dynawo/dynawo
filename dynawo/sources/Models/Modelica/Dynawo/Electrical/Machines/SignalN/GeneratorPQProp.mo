@@ -18,9 +18,9 @@ model GeneratorPQProp "Model for generator PQ based on SignalN for the frequency
   extends AdditionalIcons.Machine;
 
 public
+  parameter Types.VoltageModulePu QRef0Pu "Start value of the reactive power set point in p.u (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in p.u (base SnRef)";
   parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
-  parameter Types.VoltageModulePu QRef0Pu "Start value of the reactive power set point in p.u (base SnRef) (receptor convention)";
   parameter Real QPercent "Percentage of the coordinated reactive control that comes from this machine";
 
   Connectors.ImPin NQ "Signal to change the reactive power generation of the group depending on the centralized distant voltage regulation";
