@@ -21,11 +21,11 @@ model GeneratorPVProp "Model for generator PV based on SignalN for the frequency
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
+  parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in p.u (base UNom)";
+  parameter Types.VoltageModulePu QRef0Pu "Start value of the reactive power set point in p.u (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in p.u (base SnRef)";
   parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
-  parameter Types.VoltageModulePu QRef0Pu "Start value of the reactive power set point in p.u (base SnRef) (receptor convention)";
   parameter Types.PerUnit KVoltage "Parameter of the proportional voltage regulation";
-  parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in p.u (base UNom)";
 
   Connectors.ZPin URefPu (value(start = URef0Pu)) "Voltage regulation set point in p.u (base UNom)";
 
