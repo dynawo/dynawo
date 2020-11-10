@@ -216,6 +216,7 @@ UnknownStaticParameter      =             static parameter '%1%' of component '%
 UnaffectedStaticParameter   =             static parameter '%1%' of component '%2%' has no value
 ConvertersModeError         =             hvdc id '%1%' converters control mode is missing or wrong
 WrongIIDMDataForHVDC        =             wrong iidm data for hvdc line %1% (converter missing or wrong id)
+WrongExtensionPath          =             the extension %1% given in DYNAWO_IIDM_EXTENSION does not exist
 NoExtension                 =             access to attribute %1% impossible because %2% extension is not loaded
 RegulationModeNotInIIDM     =             control mode calculated by the dynamic simulation (%1%) for component %2% does not exist in the static format (iidm)
 MissingTargetVInRatioTapChanger =         ratio tap changer of %1% has the attribute 'regulating' set to true but no targetV attribute in the static format (iidm)

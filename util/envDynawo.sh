@@ -276,7 +276,7 @@ set_environment() {
       ;;
   esac
 
-  # Find build type for thid party libraries
+  # Find build type for third party libraries
   export_var_env_force DYNAWO_BUILD_TYPE_THIRD_PARTY=$DYNAWO_BUILD_TYPE
   case $DYNAWO_BUILD_TYPE_THIRD_PARTY in
     Tests | TestCoverage)
@@ -393,6 +393,9 @@ set_environment() {
 
   export_var_env_force DYNAWO_LIBXML_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/libxml
   export_var_env_force DYNAWO_LIBXML_INSTALL_DIR=$DYNAWO_LIBXML_HOME
+
+  export_var_env DYNAWO_IIDM_EXTENSION=$DYNAWO_INSTALL_DIR/lib/libdynawo_DataInterfaceIIDMExtension.so
+  export_var_env DYNAWO_LIBIIDM_EXTENSIONS=$DYNAWO_LIBIIDM_INSTALL_DIR/lib
 
   # Miscellaneous
   export_var_env DYNAWO_USE_XSD_VALIDATION=true
@@ -1682,12 +1685,12 @@ deploy_dynawo() {
     boost_system_folder=$(find_lib_system_path boost) || error_exit "Path for boost could not be found for deploy."
     boost_system_folder_include=$(find_include_system_path Boost_INCLUDE_DIR) || error_exit "Path for boost include could not be found for deploy."
   fi
-  if [ -f "$DYNAWO_BUILD_DIR/CMakeCache.txt" ]; then
-    for lib_boost in $(grep -o "libboost.*.$LIBRARY_SUFFIX" $DYNAWO_BUILD_DIR/CMakeCache.txt | tr ';' '\n' | grep -o "libboost.*.$LIBRARY_SUFFIX" | sort | uniq); do
+  if [ -f "$DYNAWO_THIRD_PARTY_BUILD_DIR/build/CMakeCache.txt" ]; then
+    for lib_boost in $(grep -o "libboost.*.$LIBRARY_SUFFIX" $DYNAWO_THIRD_PARTY_BUILD_DIR/build/CMakeCache.txt | tr ';' '\n' | grep -o "libboost.*.$LIBRARY_SUFFIX" | sort | uniq); do
       cp -P ${boost_system_folder}/${lib_boost}* lib/
     done
   else
-    error_exit "$DYNAWO_BUILD_DIR should not be deleted before deploy to be able to determine boost libraries used during compilation."
+    error_exit "$DYNAWO_THIRD_PARTY_BUILD_DIR should not be deleted before deploy to be able to determine boost libraries used during compilation."
   fi
   if [ -f "$boost_system_folder/libboost_iostreams.$LIBRARY_SUFFIX" ]; then
     cp -P $boost_system_folder/libboost_iostreams*.$LIBRARY_SUFFIX* lib/
