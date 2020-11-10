@@ -50,7 +50,7 @@ else()
   endif()
   set(package_url  "${package_prefix_url}/v${package_VersionToInstall}.tar.gz")
 
-  include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
+  include(ExternalProject)
   ExternalProject_Add(
                         "${package_name}"
 

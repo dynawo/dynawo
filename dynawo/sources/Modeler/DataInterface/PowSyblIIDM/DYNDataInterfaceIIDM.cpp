@@ -54,6 +54,14 @@
 #include <powsybl/iidm/converter/FakeAnonymizer.hpp>
 #include <powsybl/iidm/Substation.hpp>
 
+#include <powsybl/iidm/ExtensionProviders.hpp>
+#include <powsybl/iidm/converter/xml/ExtensionXmlSerializer.hpp>
+
+#include <regex>
+
+#include <boost/dll/shared_library.hpp>
+#include <boost/algorithm/string.hpp>
+
 using std::map;
 using std::string;
 using std::vector;
@@ -97,6 +105,17 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
     stdcxx::Properties properties;
     properties.set(powsybl::iidm::converter::ImportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
     powsybl::iidm::converter::ImportOptions options(properties);
+
+    if (hasEnvVar("DYNAWO_LIBIIDM_EXTENSIONS")) {
+      std::string extensionsPaths = getEnvVar("DYNAWO_LIBIIDM_EXTENSIONS");
+      vector<string> paths;
+      boost::split(paths, extensionsPaths, boost::is_any_of(":"));
+
+      for (unsigned int i = 0; i < paths.size(); ++i) {
+        std::regex fileRegex(stdcxx::format(".*libiidm-ext-.*\\%1%.*", boost::dll::shared_library::suffix().string()));
+        powsybl::iidm::ExtensionProviders<powsybl::iidm::converter::xml::ExtensionXmlSerializer>::getInstance().loadExtensions(paths[i], fileRegex);
+      }
+    }
 
     powsybl::iidm::converter::FakeAnonymizer anonymizer;
     powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(inputStream, options, anonymizer);
@@ -680,7 +699,6 @@ DataInterfaceIIDM::importHvdcLine(powsybl::iidm::HvdcLine& hvdcLineIIDM) {
   shared_ptr<HvdcLineInterfaceIIDM> hvdcLine(new HvdcLineInterfaceIIDM(hvdcLineIIDM, conv1, conv2));
   return hvdcLine;
 }
-
 
 shared_ptr<NetworkInterface>
 DataInterfaceIIDM::getNetwork() const {

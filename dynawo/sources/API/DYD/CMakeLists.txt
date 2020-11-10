@@ -106,9 +106,10 @@ target_include_directories(dynawo_API_DYD SYSTEM
   )
 
 target_link_libraries(dynawo_API_DYD
-  PRIVATE
+  PUBLIC
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     XMLSAXParser${LibXML_LINK_SUFFIX}
+  PRIVATE
     dynawo_Common
     )
 
