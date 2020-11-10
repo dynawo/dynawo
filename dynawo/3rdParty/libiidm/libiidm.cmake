@@ -32,7 +32,7 @@ if(${package_name}_FOUND)
 else()
   set(package_git_repo   "https://github.com/powsybl/powsybl-iidm4cpp")
 
-  include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
+  include(ExternalProject)
   ExternalProject_Add(
                       "${package_name}"
 
@@ -52,13 +52,11 @@ else()
     SOURCE_DIR        "${DOWNLOAD_DIR}/${package_name}-build"
 
     CMAKE_CACHE_ARGS  "-DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}"
-                      "-DCXX11_ENABLED:BOOL=${CXX11_ENABLED}"
 
     CMAKE_ARGS        "-DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>"
                       "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"
                       "-DBOOST_ROOT:PATH=${BOOST_ROOT}"
                       "-DCMAKE_PREFIX_PATH=${LIBXML2_HOME}"
-                      "-DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}"
 
     BUILD_COMMAND     make -j ${CPU_COUNT} all
   )

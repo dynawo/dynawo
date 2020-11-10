@@ -484,7 +484,7 @@ find_package(Boost ${boost_version} QUIET)
 if(Boost_FOUND)
   if(CXX11_ENABLED)
     find_package(Boost ${boost_version} QUIET
-      COMPONENTS date_time filesystem program_options serialization system log iostreams
+      COMPONENTS date_time filesystem program_options serialization system log iostreams unit_test_framework
     )
   else()
     find_package(Boost ${boost_version} QUIET

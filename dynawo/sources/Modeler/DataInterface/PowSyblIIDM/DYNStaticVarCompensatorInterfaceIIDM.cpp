@@ -21,14 +21,25 @@
 //======================================================================
 
 #include "DYNStaticVarCompensatorInterfaceIIDM.h"
+#include "DYNExecUtils.h"
+#include "DYNFileSystemUtils.h"
+#include <dlfcn.h>
+#include <iostream>
 
 using powsybl::iidm::StaticVarCompensator;
 using std::string;
 using boost::shared_ptr;
+using std::stringstream;
 
 namespace DYN {
 
 StaticVarCompensatorInterfaceIIDM::~StaticVarCompensatorInterfaceIIDM() {
+  // destroy the class
+  destroy_extension_(extension_);
+
+  if (handle_) {
+    dlclose(handle_);
+  }
 }
 
 StaticVarCompensatorInterfaceIIDM::StaticVarCompensatorInterfaceIIDM(StaticVarCompensator& svc) :
@@ -40,6 +51,42 @@ staticVarCompensatorIIDM_(svc) {
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
   stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
+
+  // load the library
+  string lib = getEnvVar("DYNAWO_IIDM_EXTENSION");
+  if (!exists(lib))
+    throw DYNError(Error::STATIC_DATA, WrongExtensionPath, lib);
+  handle_ = dlopen(lib.c_str(), RTLD_NOW | RTLD_LOCAL);
+  if (!handle_) {
+    stringstream msg;
+    msg << "Load error :" << dlerror();
+    Trace::error() << msg.str() << Trace::endline;
+    throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib);
+  }
+
+  // reset errors
+  dlerror();
+
+  create_t* create_extension = reinterpret_cast<create_t*> (dlsym(handle_, "create"));
+  const char* dlsym_error = dlerror();
+  if (dlsym_error) {
+    stringstream msg;
+    msg << "Load error :" << dlsym_error;
+    Trace::error() << msg.str() << Trace::endline;
+    throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::create");
+  }
+
+  destroy_extension_ = reinterpret_cast<destroy_t*> (dlsym(handle_, "destroy"));
+  dlsym_error = dlerror();
+  if (dlsym_error) {
+    stringstream msg;
+    msg << "Load error :" << dlsym_error;
+    Trace::error() << msg.str() << Trace::endline;
+    throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::destroy");
+  }
+
+  // create an instance of the class
+  extension_ = create_extension(svc);
 }
 
 int
@@ -62,9 +109,13 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
   staticVarCompensatorIIDM_.getTerminal().setQ(-1 * getValue<double>(VAR_Q) * SNREF);
   bool connected = (getValue<int>(VAR_STATE) == CLOSED);
   int regulatingMode = getValue<int>(VAR_REGULATINGMODE);
+  bool standbyMode(false);
   switch (regulatingMode) {
     case StaticVarCompensatorInterface::OFF:
       staticVarCompensatorIIDM_.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::OFF);
+      break;
+    case StaticVarCompensatorInterface::STANDBY:
+      standbyMode = true;
       break;
     case StaticVarCompensatorInterface::RUNNING_Q:
       staticVarCompensatorIIDM_.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::REACTIVE_POWER);
@@ -75,6 +126,7 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
     default:
       throw DYNError(Error::STATIC_DATA, RegulationModeNotInIIDM, regulatingMode, staticVarCompensatorIIDM_.getId());
   }
+  extension_->exportStandByMode(standbyMode);
   if (connected)
     staticVarCompensatorIIDM_.getTerminal().connect();
   else
@@ -168,40 +220,44 @@ StaticVarCompensatorInterfaceIIDM::getReactivePowerSetPoint() const {
 
 double
 StaticVarCompensatorInterfaceIIDM::getUMinActivation() const {
-  return 0.;
+  return extension_->getUMinActivation();
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getUMaxActivation() const {
-  return 0.;
+  return extension_->getUMaxActivation();
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getUSetPointMin() const {
-  return 0.;
+  return extension_->getUSetPointMin();
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getUSetPointMax() const {
-  return 0.;
+  return extension_->getUSetPointMax();
 }
 
 bool
 StaticVarCompensatorInterfaceIIDM::hasStandbyAutomaton() const {
-  return false;
+  return extension_->hasStandbyAutomaton();
 }
 
 bool
 StaticVarCompensatorInterfaceIIDM::isStandBy() const {
-  return false;
+  return extension_->isStandBy();
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getB0() const {
-  return 0.;
+  return extension_->getB0();
 }
 
 StaticVarCompensatorInterface::RegulationMode_t StaticVarCompensatorInterfaceIIDM::getRegulationMode() const {
+  if (extension_->isStandBy()) {
+    return StaticVarCompensatorInterface::STANDBY;
+  }
+
   const powsybl::iidm::StaticVarCompensator::RegulationMode& regMode = staticVarCompensatorIIDM_.getRegulationMode();
   switch (regMode) {
     case powsybl::iidm::StaticVarCompensator::RegulationMode::VOLTAGE:

@@ -28,6 +28,7 @@
 
 #include "DYNStaticVarCompensatorInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
+#include "DYNStaticVarCompensatorInterfaceIIDMExtension.h"
 
 namespace DYN {
 
@@ -170,6 +171,9 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
 
  private:
   powsybl::iidm::StaticVarCompensator& staticVarCompensatorIIDM_;  ///< reference to the iidm static var compensator instance
+  StaticVarCompensatorInterfaceIIDMExtension* extension_;
+  void* handle_;
+  destroy_t* destroy_extension_;
 };
 }  // namespace DYN
 
