@@ -87,3 +87,14 @@ case_description = "Small System with a Shunt with Sections and a Section Regula
 job_file = os.path.join(os.path.dirname(__file__), "ShuntWithRegulation", "Shunt.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+
+########################################################
+#  Small System with dangling HVDC links (VSC and LCC) #
+########################################################
+
+case_name = "DynaFlow - Dangling HVDC links"
+case_description = "Small System with dangling HVDC links (VSC and LCC)"
+job_file = os.path.join(os.path.dirname(__file__), "HvdcDangling", "HvdcDangling.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:macroConnector id="GEN_NETWORK_CONNECTOR">
+    <dyn:connect var1="generator_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
+    <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_SIGNALN_CONNECTOR">
+    <dyn:connect var1="generator_alphaSum_value" var2="alphaSum_grp_@INDEX@_value"/>
+    <dyn:connect var1="generator_alpha_value" var2="alpha_grp_@INDEX@_value"/>
+    <dyn:connect var1="generator_N_value" var2="n_grp_@INDEX@_value"/>
+  </dyn:macroConnector>
+  <dyn:macroStaticReference id="GeneratorStaticRef">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:macroStaticReference>
+  <dyn:blackBoxModel id="Model_Signal_N" lib="DYNModelSignalN" parFile="HvdcDangling.par" parId="SignalN"/>
+  <dyn:blackBoxModel id="_Generator___1" staticId="_Generator___1" lib="GeneratorPVSignalN" parFile="HvdcDangling.par" parId="Generator">
+    <dyn:macroStaticRef id="GeneratorStaticRef"/>
+  </dyn:blackBoxModel>
+  <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR" id1="_Generator___1" id2="NETWORK"/>
+  <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_Generator___1" id2="Model_Signal_N" index2="0"/>
+  <dyn:connect id1="Model_Signal_N" var1="tetaRef_0_value" id2="NETWORK" var2="_BUS____5_TN_phi_value"/>
+  <dyn:blackBoxModel id="HVDCLCC" lib="HvdcPTanPhiDangling" parFile="HvdcDangling.par" parId="HVDC" staticId="HVDCLCCLine">
+      <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
+      <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
+      <dyn:staticRef var="hvdc_state" staticVar="state1"/>
+      <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
+      <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
+      <dyn:staticRef var="hvdc_state" staticVar="state2"/>
+  </dyn:blackBoxModel>
+  <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="HVDCLCC" var2="hvdc_terminal1"/>
+  <dyn:connect id1="NETWORK" var1="_BUS___11_TN_ACPIN" id2="HVDCLCC" var2="hvdc_terminal2"/>
+  <dyn:blackBoxModel id="HVDCVSC" lib="HvdcPVDangling" parFile="HvdcDangling.par" parId="HVDC" staticId="HVDCVSCLine">
+      <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
+      <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
+      <dyn:staticRef var="hvdc_state" staticVar="state1"/>
+      <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
+      <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
+      <dyn:staticRef var="hvdc_state" staticVar="state2"/>
+  </dyn:blackBoxModel>
+  <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="HVDCVSC" var2="hvdc_terminal1"/>
+  <dyn:connect id1="NETWORK" var1="_BUS___11_TN_ACPIN" id2="HVDCVSC" var2="hvdc_terminal2"/>
+</dyn:dynamicModelsArchitecture>

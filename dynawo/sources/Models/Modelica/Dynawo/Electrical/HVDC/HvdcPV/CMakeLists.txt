@@ -13,6 +13,8 @@ set(MODEL_FILES
     HvdcPV.mo
     HvdcPV_INIT.mo
     HvdcPV.extvar
+    HvdcPVDangling.mo
+    HvdcPVDangling.extvar
     )
 
 #

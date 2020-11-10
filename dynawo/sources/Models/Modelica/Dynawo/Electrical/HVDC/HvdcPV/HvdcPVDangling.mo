@@ -1,4 +1,4 @@
-within Dynawo.Electrical.HVDC.HvdcPTanPhi;
+within Dynawo.Electrical.HVDC.HvdcPV;
 
 /*
 * Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
@@ -12,7 +12,7 @@ within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model HvdcPTanPhiDangling "Model for P/tan(Phi) HVDC link with terminal2 connected to a switched-off bus"
+model HvdcPVDangling "Model for PV HVDC link with terminal2 connected to a switched-off bus"
   extends AdditionalIcons.Hvdc;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
   extends SwitchOff.SwitchOffDCLine;
@@ -31,7 +31,7 @@ model HvdcPTanPhiDangling "Model for P/tan(Phi) HVDC link with terminal2 connect
       Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Connectors.ACPower terminal2 annotation(
       Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    Connectors.ZPin tanPhi1Ref (value (start = s10Pu.im/s10Pu.re)) "tan(Phi) regulation set point at terminal 1";
+    Connectors.ZPin U1RefPu (value (start = ComplexMath.'abs'(u10Pu))) "Voltage regulation set point in p.u (base UNom) at terminal 1";
     input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in p.u (base SnRef) at terminal 1";
 
     parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1";
@@ -57,19 +57,15 @@ protected
     Types.ReactivePowerPu QInj1Pu (start = - s10Pu.im) "Reactive power at terminal 1 in p.u (base SnRef) (generator convention)";
     Types.ReactivePowerPu QInj2Pu (start = 0) "Reactive power at terminal 2 in p.u (base SnRef) (generator convention)";
 
-    Types.ReactivePowerPu Q1RawPu (start = s10Pu.im) "Raw reactive power at terminal 1 in p.u (base SnRef)";
-
 equation
 
-  Q1RawPu = tanPhi1Ref.value * P1Pu;
-
-  if Q1RawPu >= Q1MaxPu then
-   Q1Pu = Q1MaxPu;
-  elseif Q1RawPu <= Q1MinPu then
-   Q1Pu = Q1MinPu;
-  else
-   Q1Pu = Q1RawPu;
-  end if;
+   if Q1Pu >= Q1MaxPu then
+    Q1Pu = Q1MaxPu;
+   elseif Q1Pu <= Q1MinPu then
+    Q1Pu = Q1MinPu;
+   else
+    U1Pu = U1RefPu.value;
+   end if;
 
    U1Pu = ComplexMath.'abs'(terminal1.V);
    s1Pu = Complex(P1Pu, Q1Pu);
@@ -87,5 +83,5 @@ equation
    QInj2Pu = - Q2Pu;
 
 annotation(preferredView = "text",
-    Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself and the reactive power at terminal1. The power factor setpoint is given as an input and can be modified during the simulation, as well as the active power setpoint. The terminal2 is connected to a switched-off bus.</div></body></html>"));
-end HvdcPTanPhiDangling;
+    Documentation(info = "<html><head></head><body>hrough This HVDC link regulates the active power flowing through itself. It also regulates the voltage at terminal1. The active power setpoint is given as an input and can be modified during the simulation, as well as the voltage reference. The terminal2 is connected to a switched-off bus.</div></body></html>"));
+end HvdcPVDangling;
