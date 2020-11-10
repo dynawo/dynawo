@@ -13,6 +13,8 @@ SET(MODEL_FILES
     HvdcPTanPhi.mo
     HvdcPTanPhi_INIT.mo
     HvdcPTanPhi.extvar
+    HvdcPTanPhiDangling.mo
+    HvdcPTanPhiDangling.extvar
     )
 
 #
