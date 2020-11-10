@@ -40,6 +40,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     GridFormingConverterDispatchableVirtualOscillatorControl.xml
     HvdcPVEmulation.xml
     HvdcPTanPhi.xml
+    HvdcPTanPhiDangling.xml
     HvdcVSC.xml
     HvdcVSCEmulation.xml
     InfiniteBus.xml
