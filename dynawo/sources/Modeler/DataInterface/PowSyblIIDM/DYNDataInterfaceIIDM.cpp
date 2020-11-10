@@ -202,6 +202,8 @@ DataInterfaceIIDM::getBusName(const std::string& componentName, const std::strin
         }
         break;
       }
+      case ComponentInterface::UNKNOWN:
+        break;
     }
   }
   return busName;
