@@ -330,7 +330,7 @@ DynamicData::createModelDescriptions() {
   }
 
 
-  // @todo: instead of copying the full table one by one, directly copy the vector ? => cannot be done by design of the iterators
+  // One by one copy due to the iterators design (no other possibility)
   for (dynamicdata::connector_iterator itConnector = dynamicModelsCollection_->beginConnector();
           itConnector != dynamicModelsCollection_->endConnector();
           ++itConnector) {
