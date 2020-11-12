@@ -73,10 +73,6 @@ package BaseClasses
     s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
     s2Pu = Complex(P2Pu, Q2Pu);
     s2Pu = terminal2.V * ComplexMath.conj(terminal2.i);
-    PInj1Pu = - P1Pu;
-    PInj2Pu = - P2Pu;
-    QInj1Pu = - Q1Pu;
-    QInj2Pu = - Q2Pu;
 
     if (running.value) then
       P1Pu = P1RefPu;
@@ -86,9 +82,83 @@ package BaseClasses
       P2Pu = 0;
     end if;
 
+// Sign convention change
+    PInj1Pu = - P1Pu;
+    PInj2Pu = - P2Pu;
+    QInj1Pu = - Q1Pu;
+    QInj2Pu = - Q2Pu;
+
 annotation(preferredView = "text",
       Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. The active power reference is given as an input and can be changed during the simulation.</div></body></html>"));
   end BaseHvdcP;
+
+  partial model BaseHvdcPDangling "Base dynamic model for HVDC links with a regulation of the active power and with terminal2 connected to a switched-off bus"
+    import Modelica;
+    import Dynawo.Connectors;
+    import Dynawo.Electrical.Controls.Basics.SwitchOff;
+
+    extends SwitchOff.SwitchOffDCLine;
+
+  /*
+    Equivalent circuit and conventions:
+
+                 I1                  I2 = 0
+     (terminal1) -->-------HVDC-------<-- (switched-off terminal2)
+
+  */
+
+    Connectors.ACPower terminal1 (V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
+        Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Connectors.ACPower terminal2 annotation(
+        Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in p.u (base SnRef) at terminal 1";
+
+    parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1";
+    parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1";
+    parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 2";
+    parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 2";
+    parameter Real KLosses "Coefficient between 0 and 1 (no loss) modelling the losses in the HVDC";
+
+  protected
+
+    parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
+    parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
+    parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in p.u (base SnRef) (receptor convention)";
+
+    Types.ActivePowerPu P1Pu (start = s10Pu.re) "Active power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    Types.ActivePowerPu P2Pu (start = 0) "Active power at terminal 2 in p.u (base SnRef) (receptor convention)";
+    Types.ActivePowerPu PInj1Pu (start = - s10Pu.re) "Active power at terminal 1 in p.u (base SnRef) (generator convention)";
+    Types.ActivePowerPu PInj2Pu (start = 0) "Active power at terminal 2 in p.u (base SnRef) (generator convention)";
+    Types.VoltageModulePu U1Pu (start = ComplexMath.'abs'(u10Pu)) "Voltage amplitude at terminal 1 in p.u (base UNom)";
+    Types.ComplexApparentPowerPu s1Pu(re (start = s10Pu.re), im (start = s10Pu.im)) "Complex apparent power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q1Pu (start = s10Pu.im) "Reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q2Pu (start = 0) "Reactive power at terminal 2 in p.u (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu QInj1Pu (start = - s10Pu.im) "Reactive power at terminal 1 in p.u (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj2Pu (start = 0) "Reactive power at terminal 2 in p.u (base SnRef) (generator convention)";
+
+  equation
+
+  // Connected side
+    U1Pu = ComplexMath.'abs'(terminal1.V);
+    s1Pu = Complex(P1Pu, Q1Pu);
+    s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
+    P1Pu = P1RefPu;
+
+  // Disconnected side
+    P2Pu = 0;
+    Q2Pu = 0;
+    terminal2.i.re = 0;
+    terminal2.i.im = 0;
+
+  // Sign convention change
+    PInj1Pu = - P1Pu;
+    PInj2Pu = - P2Pu;
+    QInj1Pu = - Q1Pu;
+    QInj2Pu = - Q2Pu;
+
+  annotation(preferredView = "text",
+      Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. The active power reference is given as an input and can be changed during the simulation. The terminal2 is connected to a switched-off bus.</div></body></html>"));
+  end BaseHvdcPDangling;
 
   annotation(preferredView = "text");
 end BaseClasses;
