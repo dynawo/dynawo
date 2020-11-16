@@ -50,8 +50,9 @@ class BusInterfaceIIDM : public BusInterface {
   /**
    * @brief Constructor
    * @param bus : bus' iidm instance
+   * @param busIndex : bus' id in the voltage level
    */
-  explicit BusInterfaceIIDM(powsybl::iidm::Bus& bus);
+  explicit BusInterfaceIIDM(powsybl::iidm::Bus& bus, int busIndex);
 
   /**
    * @copydoc BusInterface::getV0() const
@@ -148,6 +149,7 @@ class BusInterfaceIIDM : public BusInterface {
 
  private:
   powsybl::iidm::Bus& busIIDM_;        ///< reference to the iidm bus instance
+  std::string busId_;                  ///< bus id
   int busIndex_;                       ///< index of bus in its voltage level
   bool hasConnection_;                 ///< @b true if the bus has an outside connection, @b false else
   // state variables

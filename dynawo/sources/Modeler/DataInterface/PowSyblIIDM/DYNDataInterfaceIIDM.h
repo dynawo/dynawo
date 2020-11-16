@@ -177,12 +177,12 @@ class DataInterfaceIIDM : public DataInterface {
 
  private:
   /**
-   * @brief find a bus interface thanks to its id
-   * @param id: id of the bus interface to find
+   * @brief find a bus interface thanks to its iidm
+   * @param busIIDM bus interface to find
    *
    * @return instance of bus interface found
    */
-  boost::shared_ptr<BusInterface> findBusInterface(const std::string& id) const;
+  boost::shared_ptr<BusInterface> findBusInterface(const powsybl::iidm::Bus& busIIDM) const;
 
   /**
    * @brief find a voltage level interface thanks to its id
