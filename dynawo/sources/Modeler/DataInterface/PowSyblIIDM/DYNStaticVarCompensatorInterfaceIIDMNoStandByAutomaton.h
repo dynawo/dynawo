@@ -38,6 +38,7 @@ class StaticVarCompensatorInterfaceIIDMExtensionNoStandByAutomaton : StaticVarCo
 
   /**
    * @brief Constructor
+   * @param svc: static var compensator's iidm instance
    */
   explicit StaticVarCompensatorInterfaceIIDMExtensionNoStandByAutomaton(powsybl::iidm::StaticVarCompensator& svc);
 
