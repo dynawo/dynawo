@@ -78,8 +78,13 @@ class StaticVarCompensatorInterfaceIIDMExtension {
   virtual double getB0() const = 0;
 };
 
-// the types of the class factories
+/**
+* @brief function pointer type to create an extension.
+*/
 typedef StaticVarCompensatorInterfaceIIDMExtension* create_t(powsybl::iidm::StaticVarCompensator&);
+/**
+* @brief function pointer type to destroy an extension.
+*/
 typedef void destroy_t(StaticVarCompensatorInterfaceIIDMExtension*);
 
 }  // namespace DYN
