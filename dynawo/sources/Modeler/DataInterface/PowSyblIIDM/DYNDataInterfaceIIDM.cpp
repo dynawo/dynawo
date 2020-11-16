@@ -291,26 +291,29 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
   //===========================
   //  ADD BUS INTERFACE
   //===========================
+  int index = 0;
   for (auto& busIIDM : voltageLevelIIDM.getBusBreakerView().getBuses()) {
-    shared_ptr<BusInterfaceIIDM> bus(new BusInterfaceIIDM(busIIDM));
+    shared_ptr<BusInterfaceIIDM> bus(new BusInterfaceIIDM(busIIDM, index));
     if (country)
       bus->setCountry(countryStr);
     voltageLevel->addBus(bus);
     components_[bus->getID()] = bus;
     busComponents_[bus->getID()] = bus;
+    ++index;
   }
 
   //===========================
   //  ADD SWITCH INTERFACE
   //===========================
-  if (voltageLevelIIDM.getTopologyKind() == powsybl::iidm::TopologyKind::BUS_BREAKER) {
-    for (auto& switchIIDM : voltageLevelIIDM.getSwitches()) {
-      shared_ptr<SwitchInterface> sw = importSwitch(switchIIDM,
-          findBusInterface(view.getBus1(switchIIDM.getId()).get().getId()),
-          findBusInterface(view.getBus2(switchIIDM.getId()).get().getId()));
-      components_[sw->getID()] = sw;
-      voltageLevel->addSwitch(sw);
+  for (auto& switchIIDM : voltageLevelIIDM.getSwitches()) {
+    shared_ptr<BusInterface> bus1 = findBusInterface(view.getBus1(switchIIDM.getId()).get());
+    shared_ptr<BusInterface> bus2 = findBusInterface(view.getBus2(switchIIDM.getId()).get());
+    if (voltageLevelIIDM.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
+      if (switchIIDM.isOpen() || switchIIDM.isRetained() || bus1 == bus2) continue;
     }
+    shared_ptr<SwitchInterface> sw = importSwitch(switchIIDM, bus1, bus2);
+    components_[sw->getID()] = sw;
+    voltageLevel->addSwitch(sw);
   }
 
   //===========================
@@ -399,7 +402,7 @@ shared_ptr<GeneratorInterface>
 DataInterfaceIIDM::importGenerator(powsybl::iidm::Generator & generatorIIDM, const std::string& country) {
   shared_ptr<GeneratorInterfaceIIDM> generator(new GeneratorInterfaceIIDM(generatorIIDM));
   generator->setCountry(country);
-  generator->setBusInterface(findBusInterface(generatorIIDM.getTerminal().getBusBreakerView().getConnectableBus().get().getId()));
+  generator->setBusInterface(findBusInterface(generatorIIDM.getTerminal().getBusBreakerView().getConnectableBus()));
   return generator;
 }
 
@@ -407,21 +410,21 @@ shared_ptr<LoadInterface>
 DataInterfaceIIDM::importLoad(powsybl::iidm::Load& loadIIDM, const std::string& country) {
   shared_ptr<LoadInterfaceIIDM> load(new LoadInterfaceIIDM(loadIIDM));
   load->setCountry(country);
-  load->setBusInterface(findBusInterface(loadIIDM.getTerminal().getBusBreakerView().getConnectableBus().get().getId()));
+  load->setBusInterface(findBusInterface(loadIIDM.getTerminal().getBusBreakerView().getConnectableBus()));
   return load;
 }
 
 shared_ptr<ShuntCompensatorInterface>
 DataInterfaceIIDM::importShuntCompensator(powsybl::iidm::ShuntCompensator& shuntIIDM) {
   shared_ptr<ShuntCompensatorInterfaceIIDM> shunt(new ShuntCompensatorInterfaceIIDM(shuntIIDM));
-  shunt->setBusInterface(findBusInterface(shuntIIDM.getTerminal().getBusBreakerView().getConnectableBus().get().getId()));
+  shunt->setBusInterface(findBusInterface(shuntIIDM.getTerminal().getBusBreakerView().getConnectableBus()));
   return shunt;
 }
 
 shared_ptr<DanglingLineInterface>
 DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineIIDM) {
   shared_ptr<DanglingLineInterfaceIIDM> danglingLine(new DanglingLineInterfaceIIDM(danglingLineIIDM));
-  danglingLine->setBusInterface(findBusInterface(danglingLineIIDM.getTerminal().getBusBreakerView().getConnectableBus().get().getId()));
+  danglingLine->setBusInterface(findBusInterface(danglingLineIIDM.getTerminal().getBusBreakerView().getConnectableBus()));
 
   if (danglingLineIIDM.getCurrentLimits()) {
     powsybl::iidm::CurrentLimits& currentLimits = danglingLineIIDM.getCurrentLimits();
@@ -446,7 +449,7 @@ DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineI
 shared_ptr<StaticVarCompensatorInterface>
 DataInterfaceIIDM::importStaticVarCompensator(powsybl::iidm::StaticVarCompensator& svcIIDM) {
   shared_ptr<StaticVarCompensatorInterfaceIIDM> svc(new StaticVarCompensatorInterfaceIIDM(svcIIDM));
-  svc->setBusInterface(findBusInterface(svcIIDM.getTerminal().getBusBreakerView().getConnectableBus().get().getId()));
+  svc->setBusInterface(findBusInterface(svcIIDM.getTerminal().getBusBreakerView().getConnectableBus()));
   return svc;
 }
 
@@ -472,10 +475,10 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
     twoWTfo->setRatioTapChanger(tapChanger);
   }
 
-  twoWTfo->setBusInterface1(findBusInterface(twoWTfoIIDM.getTerminal1().getBusBreakerView().getConnectableBus().get().getId()));
+  twoWTfo->setBusInterface1(findBusInterface(twoWTfoIIDM.getTerminal1().getBusBreakerView().getConnectableBus()));
   twoWTfo->setVoltageLevelInterface1(findVoltageLevelInterface(twoWTfoIIDM.getTerminal1().getVoltageLevel().getId()));
 
-  twoWTfo->setBusInterface2(findBusInterface(twoWTfoIIDM.getTerminal2().getBusBreakerView().getConnectableBus().get().getId()));
+  twoWTfo->setBusInterface2(findBusInterface(twoWTfoIIDM.getTerminal2().getBusBreakerView().getConnectableBus()));
   twoWTfo->setVoltageLevelInterface2(findVoltageLevelInterface(twoWTfoIIDM.getTerminal2().getVoltageLevel().getId()));
 
   if (twoWTfoIIDM.getCurrentLimits1()) {
@@ -520,13 +523,13 @@ shared_ptr<ThreeWTransformerInterface>
 DataInterfaceIIDM::importThreeWindingsTransformer(powsybl::iidm::ThreeWindingsTransformer & threeWTfoIIDM) {
   shared_ptr<ThreeWTransformerInterfaceIIDM> threeWTfo(new ThreeWTransformerInterfaceIIDM(threeWTfoIIDM));
 
-  threeWTfo->setBusInterface1(findBusInterface(threeWTfoIIDM.getLeg1().getTerminal().get().getBusBreakerView().getConnectableBus().get().getId()));
+  threeWTfo->setBusInterface1(findBusInterface(threeWTfoIIDM.getLeg1().getTerminal().get().getBusBreakerView().getConnectableBus()));
   threeWTfo->setVoltageLevelInterface1(findVoltageLevelInterface(threeWTfoIIDM.getLeg1().getTerminal().get().getVoltageLevel().getId()));
 
-  threeWTfo->setBusInterface2(findBusInterface(threeWTfoIIDM.getLeg2().getTerminal().get().getBusBreakerView().getConnectableBus().get().getId()));
+  threeWTfo->setBusInterface2(findBusInterface(threeWTfoIIDM.getLeg2().getTerminal().get().getBusBreakerView().getConnectableBus()));
   threeWTfo->setVoltageLevelInterface2(findVoltageLevelInterface(threeWTfoIIDM.getLeg2().getTerminal().get().getVoltageLevel().getId()));
 
-  threeWTfo->setBusInterface3(findBusInterface(threeWTfoIIDM.getLeg3().getTerminal().get().getBusBreakerView().getConnectableBus().get().getId()));
+  threeWTfo->setBusInterface3(findBusInterface(threeWTfoIIDM.getLeg3().getTerminal().get().getBusBreakerView().getConnectableBus()));
   threeWTfo->setVoltageLevelInterface3(findVoltageLevelInterface(threeWTfoIIDM.getLeg3().getTerminal().get().getVoltageLevel().getId()));
 
   if (threeWTfoIIDM.getLeg1().getCurrentLimits()) {
@@ -588,8 +591,8 @@ DataInterfaceIIDM::importThreeWindingsTransformer(powsybl::iidm::ThreeWindingsTr
 shared_ptr<LineInterface>
 DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
   shared_ptr<LineInterfaceIIDM> line(new LineInterfaceIIDM(lineIIDM));
-  line->setBusInterface1(findBusInterface(lineIIDM.getTerminal1().getBusBreakerView().getConnectableBus().get().getId()));
-  line->setBusInterface2(findBusInterface(lineIIDM.getTerminal2().getBusBreakerView().getConnectableBus().get().getId()));
+  line->setBusInterface1(findBusInterface(lineIIDM.getTerminal1().getBusBreakerView().getConnectableBus()));
+  line->setBusInterface2(findBusInterface(lineIIDM.getTerminal2().getBusBreakerView().getConnectableBus()));
 
   // permanent limit on side 1
   if (lineIIDM.getCurrentLimits1()) {
@@ -628,14 +631,14 @@ DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
 shared_ptr<VscConverterInterface>
 DataInterfaceIIDM::importVscConverter(powsybl::iidm::VscConverterStation& vscIIDM) {
   shared_ptr<VscConverterInterfaceIIDM> vsc(new VscConverterInterfaceIIDM(vscIIDM));
-  vsc->setBusInterface(findBusInterface(vscIIDM.getTerminal().getBusBreakerView().getConnectableBus().get().getId()));
+  vsc->setBusInterface(findBusInterface(vscIIDM.getTerminal().getBusBreakerView().getConnectableBus()));
   return vsc;
 }
 
 shared_ptr<LccConverterInterface>
 DataInterfaceIIDM::importLccConverter(powsybl::iidm::LccConverterStation& lccIIDM) {
   shared_ptr<LccConverterInterfaceIIDM> lcc(new LccConverterInterfaceIIDM(lccIIDM));
-  lcc->setBusInterface(findBusInterface(lccIIDM.getTerminal().getBusBreakerView().getConnectableBus().get().getId()));
+  lcc->setBusInterface(findBusInterface(lccIIDM.getTerminal().getBusBreakerView().getConnectableBus()));
   return lcc;
 }
 
@@ -654,7 +657,10 @@ DataInterfaceIIDM::getNetwork() const {
 }
 
 shared_ptr<BusInterface>
-DataInterfaceIIDM::findBusInterface(const string& id) const {
+DataInterfaceIIDM::findBusInterface(const powsybl::iidm::Bus& busIIDM) const {
+  string id = busIIDM.getId();
+  if (busIIDM.getVoltageLevel().getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER)
+    id = "calculatedBus_" + busIIDM.getId();
   boost::unordered_map<std::string, boost::shared_ptr<BusInterface> >::const_iterator iter = busComponents_.find(id);
   if (iter != busComponents_.end())
     return iter->second;
