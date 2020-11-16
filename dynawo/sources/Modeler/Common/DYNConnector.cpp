@@ -142,12 +142,31 @@ ConnectorContainer::mergeYConnector() {
   yConnectors_.assign(yConnectorsList.begin(), yConnectorsList.end());
 }
 
+
+int
+ConnectorContainer::getConnectorVarNum(const shared_ptr<SubModel>& subModel, const shared_ptr<Variable>& variable, bool flowConnector) {
+  int numVar;
+  if (flowConnector && variable->isAlias()) {
+    string id = subModel->name()+"_"+variable->getName();
+    boost::unordered_map<std::string, int>::const_iterator aliasIt = flowAliasNameToFictitiousVarNum_.find(id);
+    if (aliasIt != flowAliasNameToFictitiousVarNum_.end()) {
+      numVar = aliasIt->second;
+    } else {
+      numVar = sizeY_ + flowAliasNameToFictitiousVarNum_.size();
+      flowAliasNameToFictitiousVarNum_[id] = numVar;
+    }
+  } else {
+    numVar = subModel->getVariableIndexGlobal(variable);
+  }
+  return numVar;
+}
 void
 ConnectorContainer::mergeFlowConnector() {
   // order flow connectors
   flowConnectors_.clear();
   flowConnectorByVarNum_.clear();
-  FlowAliasNameToFictitiousVarNum_.clear();
+  flowAliasNameToFictitiousVarNum_.clear();
+  const bool flowConnector = true;
   list<shared_ptr<Connector> > flowConnectorsList;
   for (unsigned int i = 0; i < flowConnectorsDeclared_.size(); ++i) {
     shared_ptr<Connector> flowc(new Connector(*flowConnectorsDeclared_[i]));
@@ -156,21 +175,9 @@ ConnectorContainer::mergeFlowConnector() {
         it != flowc->connectedSubModels().end();
         ++it) {
       const boost::shared_ptr<Variable>& variable = it->variable();
-      int numVar;
-      if (variable->isAlias()) {
-        string id = it->subModel()->name()+"_"+variable->getName();
-        boost::unordered_map<std::string, int>::const_iterator aliasIt = FlowAliasNameToFictitiousVarNum_.find(id);
-        if (aliasIt != FlowAliasNameToFictitiousVarNum_.end()) {
-          numVar = aliasIt->second;
-        } else {
-          numVar = sizeY_ + FlowAliasNameToFictitiousVarNum_.size();
-          FlowAliasNameToFictitiousVarNum_[it->subModel()->name()+"_"+variable->getName()] = numVar;
-        }
-      } else {
-        numVar = it->subModel()->getVariableIndexGlobal(it->variable());
-      }
+      int numVar = getConnectorVarNum(it->subModel(), it->variable(), flowConnector);
       if (flowConnectorByVarNum_.find(numVar) != flowConnectorByVarNum_.end()) {
-        mergeConnectors(flowc, flowConnectorByVarNum_[numVar], flowConnectorsList, flowConnectorByVarNum_, true);
+        mergeConnectors(flowc, flowConnectorByVarNum_[numVar], flowConnectorsList, flowConnectorByVarNum_, flowConnector);
         merged = true;
         break;
       }
@@ -182,19 +189,7 @@ ConnectorContainer::mergeFlowConnector() {
           it != flowc->connectedSubModels().end();
           ++it) {
         const boost::shared_ptr<Variable>& variable = it->variable();
-        int numVar;
-        if (variable->isAlias()) {
-          string id = it->subModel()->name()+"_"+variable->getName();
-          boost::unordered_map<std::string, int>::const_iterator aliasIt = FlowAliasNameToFictitiousVarNum_.find(id);
-          if (aliasIt != FlowAliasNameToFictitiousVarNum_.end()) {
-            numVar = aliasIt->second;
-          } else {
-            numVar = sizeY_ + FlowAliasNameToFictitiousVarNum_.size();
-            FlowAliasNameToFictitiousVarNum_[it->subModel()->name()+"_"+variable->getName()] = numVar;
-          }
-        } else {
-          numVar = it->subModel()->getVariableIndexGlobal(variable);
-        }
+        int numVar = getConnectorVarNum(it->subModel(), it->variable(), flowConnector);
         flowConnectorByVarNum_[numVar] = flowc;
       }
     }
@@ -241,7 +236,7 @@ ConnectorContainer::mergeZConnector() {
 
 void
 ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<Connector> reference, list<shared_ptr<Connector> > &connectorsList,
-                                    unordered_map<int, shared_ptr<Connector> >& connectorsByVarNum, bool flowConnection) {
+                                    unordered_map<int, shared_ptr<Connector> >& connectorsByVarNum, bool flowConnector) {
   // Looking for common variable to test the negated attributes
   bool negatedMerge = false;
   for (vector<connectedSubModel>::const_iterator itCon = connector->connectedSubModels().begin();
@@ -267,25 +262,13 @@ ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<
           it != connector->connectedSubModels().end();
           ++it) {
     const boost::shared_ptr<Variable>& variable = it->variable();
-    int numVar;
-    if (flowConnection && variable->isAlias()) {
-      string id = it->subModel()->name()+"_"+variable->getName();
-      boost::unordered_map<std::string, int>::const_iterator aliasIt = FlowAliasNameToFictitiousVarNum_.find(id);
-      if (aliasIt != FlowAliasNameToFictitiousVarNum_.end()) {
-        numVar = aliasIt->second;
-      } else {
-        numVar = sizeY_ + FlowAliasNameToFictitiousVarNum_.size();
-        FlowAliasNameToFictitiousVarNum_[it->subModel()->name()+"_"+variable->getName()] = numVar;
-      }
-    } else {
-      numVar = it->subModel()->getVariableIndexGlobal(it->variable());
-    }
+    int numVar = getConnectorVarNum(it->subModel(), it->variable(), flowConnector);
     if (connectorsByVarNum.find(numVar) != connectorsByVarNum.end()) {
       // variable used in a final connector
       if (connectorsByVarNum[numVar] == reference) {
         continue;
       } else if (connectorsByVarNum[numVar] != connector) {
-        mergeConnectors(connectorsByVarNum[numVar], reference, connectorsList, connectorsByVarNum, flowConnection);
+        mergeConnectors(connectorsByVarNum[numVar], reference, connectorsList, connectorsByVarNum, flowConnector);
         continue;
       }
     }

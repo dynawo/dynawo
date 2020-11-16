@@ -291,11 +291,11 @@ class ConnectorContainer {
    * @param reference the reference connector (to which to add the connector)
    * @param connectorsList the list of connectors
    * @param connectorsByVarNum the association between (global) variable index and connector
-   * @param flowConnection true if the connector is a flow connector
+   * @param flowConnector true if the connector is a flow connector
    */
   void mergeConnectors(boost::shared_ptr<Connector> connector, boost::shared_ptr<Connector> reference,
                        std::list<boost::shared_ptr<Connector> > &connectorsList,
-                       boost::unordered_map<int, boost::shared_ptr<Connector> >& connectorsByVarNum, bool flowConnection = false);
+                       boost::unordered_map<int, boost::shared_ptr<Connector> >& connectorsByVarNum, bool flowConnector = false);
 
 
   /**
@@ -467,6 +467,15 @@ class ConnectorContainer {
    */
   void getY0ConnectorForZConnector();
 
+  /**
+   * @brief compute the variable id to use in the flow connector structures
+   * @param subModel submodel to connect
+   * @param variable variable of the submodel to connect
+   * @param flowConnector true if the connector is a flow connector
+   * @return variable numerical id
+   */
+  int getConnectorVarNum(const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable, bool flowConnector = false);
+
  private:
   std::vector<boost::shared_ptr<Connector> >yConnectorsDeclared_;  ///< continuous connectors before merge
   std::vector<boost::shared_ptr<Connector> >flowConnectorsDeclared_;  ///< flow connectors before merge
@@ -478,7 +487,7 @@ class ConnectorContainer {
 
   boost::unordered_map<int, boost::shared_ptr<Connector> > yConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
   boost::unordered_map<int, boost::shared_ptr<Connector> > flowConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
-  boost::unordered_map<std::string, int> FlowAliasNameToFictitiousVarNum_;  ///< Alias variable name to their fictitious index
+  boost::unordered_map<std::string, int> flowAliasNameToFictitiousVarNum_;  ///< Alias variable name to their fictitious index
   boost::unordered_map<int, boost::shared_ptr<Connector> > zConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
 
   int offsetModel_;  ///< offset to use when filling the residual's vector
