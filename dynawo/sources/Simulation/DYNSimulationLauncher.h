@@ -21,6 +21,8 @@
 #ifndef SIMULATION_DYNSIMULATIONLAUNCHER_H_
 #define SIMULATION_DYNSIMULATIONLAUNCHER_H_
 
+#include <string>
+
 /**
  * @brief launch a simulation thanks to a description contains in jobsFileName
  *
