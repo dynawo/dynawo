@@ -12,11 +12,11 @@ within Dynawo.Electrical.HVDC.HvdcPV;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model HvdcPV "Model of PV HVDC link. Each terminal can regulate the voltage or the reactive power, depending on the user's choice."
+model HvdcPVDiagramPQ "Model of PV HVDC link with a PQ diagram. Each terminal can regulate the voltage or the reactive power, depending on the user's choice."
   import Modelica;
   import Dynawo.Electrical.HVDC;
 
-  extends HVDC.BaseClasses.BaseHvdcP;
+  extends HVDC.BaseClasses.BaseHvdcPDiagramPQ;
   extends AdditionalIcons.Hvdc;
 
 /*
@@ -36,11 +36,6 @@ model HvdcPV "Model of PV HVDC link. Each terminal can regulate the voltage or t
 
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control at terminal 1: true if U mode, false if Q mode";
   parameter Boolean modeU20 "Start value of the boolean assessing the mode of the control at terminal 2: true if U mode, false if Q mode";
-
-  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1";
-  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1";
-  parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 2";
-  parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 2";
 
   type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
@@ -125,5 +120,5 @@ else
 end if;
 
 annotation(preferredView = "text",
-    Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. It also regulates the voltage or the reactive power at each of its terminals. The active power setpoint is given as an input and can be modified during the simulation, as well as the voltage references and the reactive power references.</div></body></html>"));
-end HvdcPV;
+    Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. It also regulates the voltage or the reactive power at each of its terminals. The active power setpoint is given as an input and can be modified during the simulation, as well as the voltage references and the reactive power references. The Q limitations follow a PQ diagram.</div></body></html>"));
+end HvdcPVDiagramPQ;

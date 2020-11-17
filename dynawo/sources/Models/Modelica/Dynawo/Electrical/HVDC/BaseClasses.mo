@@ -16,6 +16,11 @@ package BaseClasses
   extends Icons.BasesPackage;
 
   partial model BaseHvdcP "Base dynamic model for HVDC links with a regulation of the active power"
+    import Modelica;
+    import Dynawo.Connectors;
+    import Dynawo.Electrical.Controls.Basics.SwitchOff;
+
+    extends SwitchOff.SwitchOffDCLine;
 
   /*
     Equivalent circuit and conventions:
@@ -25,20 +30,11 @@ package BaseClasses
 
   */
 
-    import Modelica;
-    import Dynawo.Connectors;
-    import Dynawo.Electrical.Controls.Basics.SwitchOff;
-    extends SwitchOff.SwitchOffDCLine;
-
     Connectors.ACPower terminal1 (V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
       Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Connectors.ACPower terminal2 (V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) annotation(
       Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-    parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1";
-    parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1";
-    parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 2";
-    parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 2";
     parameter Real KLosses "Coefficient between 0 and 1 (no loss) modelling the losses in the HVDC";
 
     input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in p.u (base SnRef) at terminal 1";
@@ -76,7 +72,7 @@ package BaseClasses
 
     if (running.value) then
       P1Pu = P1RefPu;
-      P2Pu = - KLosses * P1Pu;
+      P2Pu = if P1Pu > 0 then - KLosses * P1Pu else - P1Pu / KLosses;
     else
       P1Pu = 0;
       P2Pu = 0;
@@ -159,6 +155,49 @@ annotation(preferredView = "text",
   annotation(preferredView = "text",
       Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. The active power reference is given as an input and can be changed during the simulation. The terminal2 is connected to a switched-off bus.</div></body></html>"));
   end BaseHvdcPDangling;
+
+  partial model BaseHvdcPDiagramPQ "Base dynamic model for HVDC links with a regulation of the active power and with a PQ Diagram at each terminal"
+  import Modelica;
+  extends BaseHvdcP;
+
+    parameter Types.ReactivePowerPu Q1Min0Pu  "Start value of the minimum reactive power in p.u (base SnRef) (receptor convention) at terminal 1";
+    parameter Types.ReactivePowerPu Q1Max0Pu  "Start value of the maximum reactive power in p.u (base SnRef) (receptor convention) at terminal 1";
+    parameter Types.ReactivePowerPu Q2Min0Pu  "Start value of the minimum reactive power in p.u (base SnRef) (receptor convention) at terminal 2";
+    parameter Types.ReactivePowerPu Q2Max0Pu  "Start value of the maximum reactive power in p.u (base SnRef) (receptor convention) at terminal 2";
+    parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
+    parameter String Q1MinTableName "Name of the table in the text file to get Q1MinPu from P1Pu";
+    parameter String Q1MaxTableName "Name of the table in the text file to get Q1MaxPu from P1Pu";
+    parameter String Q1MinTableFile "Text file that contains the table to get Q1MinPu from P1Pu";
+    parameter String Q1MaxTableFile "Text file that contains the table to get Q1MaxPu from P1Pu";
+    parameter String Q2MinTableName "Name of the table in the text file to get Q2MinPu from P2Pu";
+    parameter String Q2MaxTableName "Name of the table in the text file to get Q2MaxPu from P2Pu";
+    parameter String Q2MinTableFile "Text file that contains the table to get Q2MinPu from P2Pu";
+    parameter String Q2MaxTableFile "Text file that contains the table to get Q2MaxPu from P2Pu";
+
+    Modelica.Blocks.Tables.CombiTable1D tableQ1Min(tableOnFile = true, tableName = Q1MinTableName, fileName = Q1MinTableFile) "Table to get Q1MinPu from P1Pu";
+    Modelica.Blocks.Tables.CombiTable1D tableQ1Max(tableOnFile = true, tableName = Q1MaxTableName, fileName = Q1MaxTableFile) "Table to get Q1MaxPu from P1Pu";
+    Modelica.Blocks.Tables.CombiTable1D tableQ2Min(tableOnFile = true, tableName = Q2MinTableName, fileName = Q2MinTableFile) "Table to get Q2MinPu from P2Pu";
+    Modelica.Blocks.Tables.CombiTable1D tableQ2Max(tableOnFile = true, tableName = Q2MaxTableName, fileName = Q2MaxTableFile) "Table to get Q2MaxPu from P2Pu";
+
+    Types.ReactivePowerPu Q1MinPu(start = Q1Min0Pu) "Minimum reactive power in p.u at terminal 1 (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q1MaxPu(start = Q1Max0Pu) "Maximum reactive power in p.u at terminal 1 (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q2MinPu(start = Q2Min0Pu) "Minimum reactive power in p.u at terminal 2 (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q2MaxPu(start = Q2Max0Pu) "Maximum reactive power in p.u at terminal 2 (base SnRef) (receptor convention)";
+
+  equation
+    P1Pu = tableQ1Min.u[1];
+    tFilter * der(Q1MinPu) + Q1MinPu = tableQ1Min.y[1];
+    P1Pu = tableQ1Max.u[1];
+    tFilter * der(Q1MaxPu) + Q1MaxPu = tableQ1Max.y[1];
+
+    P2Pu = tableQ2Min.u[1];
+    tFilter * der(Q2MinPu) + Q2MinPu = tableQ2Min.y[1];
+    P2Pu = tableQ2Max.u[1];
+    tFilter * der(Q2MaxPu) + Q2MaxPu = tableQ2Max.y[1];
+
+  annotation(preferredView = "text",
+      Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. The active power reference is given as an input and can be changed during the simulation. This partial model also implements PQ diagrams at each terminal of the HVDC link.</div></body></html>"));
+  end BaseHvdcPDiagramPQ;
 
   annotation(preferredView = "text");
 end BaseClasses;

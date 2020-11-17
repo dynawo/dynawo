@@ -38,8 +38,11 @@ set(MODELICA_PREASSEMBLED_MODELS
     GridFormingConverterDroopControl.xml
     GridFormingConverterMatchingControl.xml
     GridFormingConverterDispatchableVirtualOscillatorControl.xml
-    HvdcPVDangling.xml
+    HvdcPV.xml
     HvdcPVEmulation.xml
+    HvdcPVDiagramPQ.xml
+    HvdcPVDiagramPQEmulation.xml
+    HvdcPVDangling.xml
     HvdcPTanPhi.xml
     HvdcPTanPhiDangling.xml
     HvdcVSC.xml
