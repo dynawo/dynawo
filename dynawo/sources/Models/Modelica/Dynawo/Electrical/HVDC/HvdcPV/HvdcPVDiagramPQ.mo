@@ -56,19 +56,19 @@ equation
   Theta1 = Modelica.Math.atan2(terminal1.V.im,terminal1.V.re);
   Theta2 = Modelica.Math.atan2(terminal2.V.im,terminal2.V.re);
 
-  when Q1Pu >= Q1MaxPu and U1Pu >= U1RefPu.value then
-    q1Status = QStatus.AbsorptionMax;
-  elsewhen Q1Pu <= Q1MinPu and U1Pu <= U1RefPu.value then
+  when QInj1Pu >= QInj1MaxPu and U1Pu <= U1RefPu.value then
     q1Status = QStatus.GenerationMax;
-  elsewhen (Q1Pu < Q1MaxPu or U1Pu < U1RefPu.value) and (Q1Pu > Q1MinPu or U1Pu > U1RefPu.value) then
+  elsewhen QInj1Pu <= QInj1MinPu and U1Pu >= U1RefPu.value then
+    q1Status = QStatus.AbsorptionMax;
+  elsewhen (QInj1Pu < QInj1MaxPu or U1Pu > U1RefPu.value) and (QInj1Pu > QInj1MinPu or U1Pu < U1RefPu.value) then
     q1Status = QStatus.Standard;
   end when;
 
-  when Q2Pu >= Q2MaxPu and U2Pu >= U2RefPu.value then
-    q2Status = QStatus.AbsorptionMax;
-  elsewhen Q2Pu <= Q2MinPu and U2Pu <= U2RefPu.value then
+  when QInj2Pu >= QInj2MaxPu and U2Pu <= U2RefPu.value then
     q2Status = QStatus.GenerationMax;
-  elsewhen (Q2Pu < Q2MaxPu or U2Pu < U2RefPu.value) and (Q2Pu > Q2MinPu or U2Pu > U2RefPu.value) then
+  elsewhen QInj2Pu <= QInj2MinPu and U2Pu >= U2RefPu.value then
+    q2Status = QStatus.AbsorptionMax;
+  elsewhen (QInj2Pu < QInj2MaxPu or U2Pu > U2RefPu.value) and (QInj2Pu > QInj2MinPu or U2Pu < U2RefPu.value) then
     q2Status = QStatus.Standard;
   end when;
 
@@ -77,17 +77,17 @@ if running.value then
 // Voltage/Reactive power regulation at terminal 1
   if modeU1.value then
     if q1Status == QStatus.GenerationMax then
-      Q1Pu = Q1MinPu;
+      QInj1Pu = QInj1MaxPu;
     elseif q1Status == QStatus.AbsorptionMax then
-      Q1Pu = Q1MaxPu;
+      QInj1Pu = QInj1MinPu;
     else
       U1Pu = U1RefPu.value;
     end if;
   else
-    if Q1RefPu.value <= Q1MinPu then
-      Q1Pu = Q1MinPu;
-    elseif Q1RefPu.value >= Q1MaxPu then
-      Q1Pu = Q1MaxPu;
+    if - Q1RefPu.value <= QInj1MinPu then
+      QInj1Pu = QInj1MinPu;
+    elseif - Q1RefPu.value >= QInj1MaxPu then
+      QInj1Pu = QInj1MaxPu;
     else
       Q1Pu = Q1RefPu.value;
     end if;
@@ -96,17 +96,17 @@ if running.value then
 // Voltage/Reactive power regulation at terminal 2
   if modeU2.value then
     if q2Status == QStatus.GenerationMax then
-      Q2Pu = Q2MinPu;
+      QInj2Pu = QInj2MaxPu;
     elseif q2Status == QStatus.AbsorptionMax then
-      Q2Pu = Q2MaxPu;
+      QInj2Pu = QInj2MinPu;
     else
       U2Pu = U2RefPu.value;
     end if;
   else
-    if Q2RefPu.value <= Q2MinPu then
-      Q2Pu = Q2MinPu;
-    elseif Q2RefPu.value >= Q2MaxPu then
-      Q2Pu = Q2MaxPu;
+    if - Q2RefPu.value <= QInj2MinPu then
+      QInj2Pu = QInj2MinPu;
+    elseif - Q2RefPu.value >= QInj2MaxPu then
+      QInj2Pu = QInj2MaxPu;
     else
       Q2Pu = Q2RefPu.value;
     end if;
