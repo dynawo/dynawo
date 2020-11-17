@@ -174,7 +174,6 @@ ConnectorContainer::mergeFlowConnector() {
     for (vector<connectedSubModel>::iterator it = flowc->connectedSubModels().begin();
         it != flowc->connectedSubModels().end();
         ++it) {
-      const boost::shared_ptr<Variable>& variable = it->variable();
       int numVar = getConnectorVarNum(it->subModel(), it->variable(), flowConnector);
       if (flowConnectorByVarNum_.find(numVar) != flowConnectorByVarNum_.end()) {
         mergeConnectors(flowc, flowConnectorByVarNum_[numVar], flowConnectorsList, flowConnectorByVarNum_, flowConnector);
@@ -188,7 +187,6 @@ ConnectorContainer::mergeFlowConnector() {
       for (vector<connectedSubModel>::iterator it = flowc->connectedSubModels().begin();
           it != flowc->connectedSubModels().end();
           ++it) {
-        const boost::shared_ptr<Variable>& variable = it->variable();
         int numVar = getConnectorVarNum(it->subModel(), it->variable(), flowConnector);
         flowConnectorByVarNum_[numVar] = flowc;
       }
@@ -261,7 +259,6 @@ ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<
   for (vector<connectedSubModel>::const_iterator it = connector->connectedSubModels().begin();
           it != connector->connectedSubModels().end();
           ++it) {
-    const boost::shared_ptr<Variable>& variable = it->variable();
     int numVar = getConnectorVarNum(it->subModel(), it->variable(), flowConnector);
     if (connectorsByVarNum.find(numVar) != connectorsByVarNum.end()) {
       // variable used in a final connector
