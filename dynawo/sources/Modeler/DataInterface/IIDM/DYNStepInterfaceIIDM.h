@@ -20,6 +20,7 @@
 #ifndef MODELER_DATAINTERFACE_IIDM_DYNSTEPINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_IIDM_DYNSTEPINTERFACEIIDM_H_
 
+#include <IIDM/components/TapChanger.h>
 #include <boost/optional.hpp>
 
 #include "DYNStepInterface.h"

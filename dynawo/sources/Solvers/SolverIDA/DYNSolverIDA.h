@@ -23,6 +23,8 @@
 #include <boost/shared_ptr.hpp>
 #include <vector>
 #include <map>
+#include <sundials/sundials_linearsolver.h>
+#include <sundials/sundials_matrix.h>
 #include <sundials/sundials_nvector.h>
 
 #include "DYNSolverFactory.h"

@@ -22,6 +22,9 @@
 
 #include "DYNModelManagerOwnTypes.h"
 
+#include <cstdarg>
+#include <cstdlib>
+
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
