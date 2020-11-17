@@ -75,6 +75,7 @@ stateModified_(false) {
   }
 
   // calculate initial conditions
+  gSvc0_ = 0.;
   bSvc0_ = 0.;
   piIn0_ = 0.;
   piOut0_ = 0.;
@@ -83,10 +84,12 @@ stateModified_(false) {
   ir0_ = 0.;
   ii0_ = 0.;
 
+  double gTotal0 = 0.;
   double bTotal0 = 0.;
   double ur0 = 0.;
   double ui0 = 0.;
   double U0 = 0.;
+  double P0 = svc->getP() / SNREF;
   double Q0 = svc->getQ() / SNREF;
   if (svc->getBusInterface()) {
     double uBus0 = svc->getBusInterface()->getV0();
@@ -96,11 +99,13 @@ stateModified_(false) {
     ui0 = uBus0 / unomBus * sin(tetaBus0 * DEG_TO_RAD);
     U0 = sqrt(ur0 * ur0 + ui0 * ui0);
     if (!doubleIsZero(U0)) {
+      gTotal0 = P0 / (U0 * U0);
       bTotal0 = -1. * Q0 / (U0 * U0);  // in order to have the same convention as a shunt : b < 0 when Q > 0 (network convention)
       ir0_ = Q0 * ui0 / (ur0 * ur0 + ui0 * ui0);
       ii0_ = - Q0 * ur0 / (ur0 * ur0 + ui0 * ui0);
     }
 
+    gSvc0_ = gTotal0;
     bSvc0_ = bTotal0;
     piIn0_ = 0.;
     piOut0_ = bSvc0_;
@@ -228,6 +233,11 @@ ModelStaticVarCompensator::init(int& yNum) {
 }
 
 double
+ModelStaticVarCompensator::P() const {
+  return gSvc() * modelBus_->getCurrentU(ModelBus::U2PuType_);
+}
+
+double
 ModelStaticVarCompensator::Q() const {
   return - bSvc() * modelBus_->getCurrentU(ModelBus::U2PuType_);
 }
@@ -246,6 +256,11 @@ ModelStaticVarCompensator::piOut() const {
     return piOut0_;
   else
     return y_[piOutNum_];
+}
+
+double
+ModelStaticVarCompensator::gSvc() const {
+  return gSvc0_;
 }
 
 double
@@ -508,8 +523,8 @@ ModelStaticVarCompensator::evalG(const double& /*t*/) {
 
 void
 ModelStaticVarCompensator::evalCalculatedVars() {
-  calculatedVars_[pNum_] = 0.;
-  calculatedVars_[qNum_] = (isConnected())?-Q():0.;
+  calculatedVars_[pNum_] = (isConnected())?P():0.;
+  calculatedVars_[qNum_] = (isConnected())?Q():0.;
 }
 
 void
@@ -537,16 +552,25 @@ void
 ModelStaticVarCompensator::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
   switch (numCalculatedVar) {
     case pNum_:
+      if (isConnected()) {
+        double ur = modelBus_->ur();
+        double ui = modelBus_->ui();
+        double g = gSvc();
+        // P =  g * (ur * ur + ui * ui)
+        res[0] = g * 2. * ur;  // @P/@Ur
+        res[1] = g * 2. * ui;  // @P/@Ui
+        res[2] = (ur * ur + ui * ui);  // @P/@GSvc
+      }
       break;
     case qNum_: {
       if (isConnected()) {
         double ur = modelBus_->ur();
         double ui = modelBus_->ui();
         double b = bSvc();
-        // QProduced =  b * (ur * ur + ui * ui * ui)
-        res[0] = b * 2. * ur;  // @Q/@Ur
-        res[1] = b * 2. * ui;  // @Q/@Ui
-        res[2] = (ur * ur + ui * ui);  // @Q/@BSvc
+        // Q =  - b * (ur * ur + ui * ui)
+        res[0] = - b * 2. * ur;  // @Q/@Ur
+        res[1] = - b * 2. * ui;  // @Q/@Ui
+        res[2] = - (ur * ur + ui * ui);  // @Q/@BSvc
       }
       break;
     }
@@ -559,10 +583,13 @@ double
 ModelStaticVarCompensator::evalCalculatedVarI(unsigned numCalculatedVar) const {
   switch (numCalculatedVar) {
     case pNum_:
-      return 0.;
+      if (isConnected()) {
+        return (isConnected())?P():0.;
+      }
+    break;
     case qNum_: {
       if (isConnected()) {
-        return (isConnected())?-Q():0.;
+        return (isConnected())?Q():0.;
       }
       break;
     }
