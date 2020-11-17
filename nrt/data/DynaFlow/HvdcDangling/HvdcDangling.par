@@ -26,6 +26,8 @@
     <par type="DOUBLE" name="hvdc_Q2MinPu" value="-1.7976931348623157e+308"/>
     <par type="DOUBLE" name="hvdc_Q2MaxPu" value="1.7976931348623157e+308"/>
     <par type="DOUBLE" name="hvdc_KLosses" value="1"/>
+    <par type="BOOL" name="hvdc_modeU10" value="true"/>
+    <par type="BOOL" name="hvdc_modeU20" value="true"/>
   </set>
   <set id="SignalN">
     <par name="nbGen" type="INT" value="1"/>
