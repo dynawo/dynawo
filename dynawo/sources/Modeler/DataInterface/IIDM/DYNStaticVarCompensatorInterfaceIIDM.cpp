@@ -64,8 +64,8 @@ StaticVarCompensatorInterfaceIIDM::getComponentVarIndex(const std::string& varNa
 
 void
 StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
-  staticVarCompensatorIIDM_.p(-1 * getValue<double>(VAR_P)* SNREF);
-  staticVarCompensatorIIDM_.q(-1 * getValue<double>(VAR_Q)* SNREF);
+  staticVarCompensatorIIDM_.p(getValue<double>(VAR_P)* SNREF);
+  staticVarCompensatorIIDM_.q(getValue<double>(VAR_Q)* SNREF);
   bool connected = (getValue<int>(VAR_STATE) == CLOSED);
   int regulatingMode = getValue<int>(VAR_REGULATINGMODE);
   bool standbyMode(false);
@@ -176,6 +176,11 @@ StaticVarCompensatorInterfaceIIDM::getBMin() const {
 double
 StaticVarCompensatorInterfaceIIDM::getBMax() const {
   return staticVarCompensatorIIDM_.bmax();
+}
+
+double
+StaticVarCompensatorInterfaceIIDM::getP() {
+  return InjectorInterfaceIIDM<IIDM::StaticVarCompensator>::getP();
 }
 
 double

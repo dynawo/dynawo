@@ -186,9 +186,12 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
   std::vector<double> calculatedVars(ModelStaticVarCompensator::nbCalculatedVariables_, 0.);
   svc->setReferenceCalculatedVar(&calculatedVars[0], 0);
   svc->evalCalculatedVars();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::qNum_], 32.50);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::pNum_], 12.1875);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::qNum_], -32.50);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svc->evalCalculatedVarI(ModelStaticVarCompensator::pNum_), calculatedVars[ModelStaticVarCompensator::pNum_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(svc->evalCalculatedVarI(ModelStaticVarCompensator::qNum_), calculatedVars[ModelStaticVarCompensator::qNum_]);
   svc->setConnected(OPEN);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svc->evalCalculatedVarI(ModelStaticVarCompensator::pNum_), 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(svc->evalCalculatedVarI(ModelStaticVarCompensator::qNum_), 0.);
   svc->setConnected(CLOSED);
   ASSERT_THROW_DYNAWO(svc->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
@@ -197,9 +200,9 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
   std::vector<double> res(3, 0.);
   ASSERT_THROW_DYNAWO(svc->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(svc->evalJCalculatedVarI(ModelStaticVarCompensator::qNum_, res));
-  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 14.00);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 8.00);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 16.25);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -14.00);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -8.00);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -16.25);
   res.clear();
   svc->setConnected(OPEN);
   ASSERT_NO_THROW(svc->evalJCalculatedVarI(ModelStaticVarCompensator::qNum_, res));

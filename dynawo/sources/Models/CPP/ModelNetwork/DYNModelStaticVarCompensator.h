@@ -302,6 +302,12 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
    * @brief compute value
    * @return value
    */
+  double P() const;
+
+  /**
+   * @brief compute value
+   * @return value
+   */
   double Q() const;
 
   /**
@@ -327,6 +333,12 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
    * @return value
    */
   double feedBackPrim() const;
+
+  /**
+   * @brief compute value
+   * @return value
+   */
+  double gSvc() const;
 
   /**
    * @brief compute value
@@ -390,6 +402,7 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
   double uSetPointMax_;  ///< new target when UMax has been reached
   double hasStandByAutomaton_;  ///< check if extension StandByAutomaton is loaded
   bool isStandBy_;  ///< svc is standby or not
+  double gSvc0_;  ///< initial conductance of the svc in pu (base SNREF)
   double bShunt_;  ///< constant susceptance
   double bSvc0_;  ///< initial susceptance of the svc in pu (base SNREF)
   double ir0_;  ///< initial current (real part)
