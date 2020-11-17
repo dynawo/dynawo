@@ -43,16 +43,12 @@
 #include "DYNMessage.hpp"
 #include "DYNMessageTimeline.h"
 #include "DYNTimeline_keys.h"
+#include "DYNModelManagerOwnTypes.h"  ///< redefinition of local own types : should be before simulation_data.h
+#include "simulation_data.h"
 #include "ModelicaStandardTables.h"
 #include "ModelicaStrings.h"
-#include "ModelicaUtilities.h"
-
-// clang-format off
-// this include order is required
-#include "DYNModelManagerOwnTypes.h"      ///< redefinition of local own types : should be before simulation_data.h
-#include "simulation_data.h"
 #include "DYNModelManagerOwnFunctions.h"  ///< redefinition of local own functions
-// clang-format on
+#include "ModelicaUtilities.h"
 
 #ifdef _MSC_VER
 #undef isnan    // undef macros defined in omc.msvc.h !
