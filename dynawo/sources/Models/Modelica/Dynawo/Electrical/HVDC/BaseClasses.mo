@@ -160,40 +160,40 @@ annotation(preferredView = "text",
   import Modelica;
   extends BaseHvdcP;
 
-    parameter Types.ReactivePowerPu Q1Min0Pu  "Start value of the minimum reactive power in p.u (base SnRef) (receptor convention) at terminal 1";
-    parameter Types.ReactivePowerPu Q1Max0Pu  "Start value of the maximum reactive power in p.u (base SnRef) (receptor convention) at terminal 1";
-    parameter Types.ReactivePowerPu Q2Min0Pu  "Start value of the minimum reactive power in p.u (base SnRef) (receptor convention) at terminal 2";
-    parameter Types.ReactivePowerPu Q2Max0Pu  "Start value of the maximum reactive power in p.u (base SnRef) (receptor convention) at terminal 2";
+    parameter Types.ReactivePowerPu QInj1Min0Pu  "Start value of the minimum reactive power in p.u (base SnRef) (generator convention) at terminal 1";
+    parameter Types.ReactivePowerPu QInj1Max0Pu  "Start value of the maximum reactive power in p.u (base SnRef) (generator convention) at terminal 1";
+    parameter Types.ReactivePowerPu QInj2Min0Pu  "Start value of the minimum reactive power in p.u (base SnRef) (generator convention) at terminal 2";
+    parameter Types.ReactivePowerPu QInj2Max0Pu  "Start value of the maximum reactive power in p.u (base SnRef) (generator convention) at terminal 2";
     parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
-    parameter String Q1MinTableName "Name of the table in the text file to get Q1MinPu from P1Pu";
-    parameter String Q1MaxTableName "Name of the table in the text file to get Q1MaxPu from P1Pu";
-    parameter String Q1MinTableFile "Text file that contains the table to get Q1MinPu from P1Pu";
-    parameter String Q1MaxTableFile "Text file that contains the table to get Q1MaxPu from P1Pu";
-    parameter String Q2MinTableName "Name of the table in the text file to get Q2MinPu from P2Pu";
-    parameter String Q2MaxTableName "Name of the table in the text file to get Q2MaxPu from P2Pu";
-    parameter String Q2MinTableFile "Text file that contains the table to get Q2MinPu from P2Pu";
-    parameter String Q2MaxTableFile "Text file that contains the table to get Q2MaxPu from P2Pu";
+    parameter String QInj1MinTableName "Name of the table in the text file to get QInj1MinPu from PInj1Pu";
+    parameter String QInj1MaxTableName "Name of the table in the text file to get QInj1MaxPu from PInj1Pu";
+    parameter String QInj1MinTableFile "Text file that contains the table to get QInj1MinPu from PInj1Pu";
+    parameter String QInj1MaxTableFile "Text file that contains the table to get QInj1MaxPu from PInj1Pu";
+    parameter String QInj2MinTableName "Name of the table in the text file to get QInj2MinPu from PInj2Pu";
+    parameter String QInj2MaxTableName "Name of the table in the text file to get QInj2MaxPu from PInj2Pu";
+    parameter String QInj2MinTableFile "Text file that contains the table to get QInj2MinPu from PInj2Pu";
+    parameter String QInj2MaxTableFile "Text file that contains the table to get QInj2MaxPu from PInj2Pu";
 
-    Modelica.Blocks.Tables.CombiTable1D tableQ1Min(tableOnFile = true, tableName = Q1MinTableName, fileName = Q1MinTableFile) "Table to get Q1MinPu from P1Pu";
-    Modelica.Blocks.Tables.CombiTable1D tableQ1Max(tableOnFile = true, tableName = Q1MaxTableName, fileName = Q1MaxTableFile) "Table to get Q1MaxPu from P1Pu";
-    Modelica.Blocks.Tables.CombiTable1D tableQ2Min(tableOnFile = true, tableName = Q2MinTableName, fileName = Q2MinTableFile) "Table to get Q2MinPu from P2Pu";
-    Modelica.Blocks.Tables.CombiTable1D tableQ2Max(tableOnFile = true, tableName = Q2MaxTableName, fileName = Q2MaxTableFile) "Table to get Q2MaxPu from P2Pu";
+    Modelica.Blocks.Tables.CombiTable1D tableQInj1Min(tableOnFile = true, tableName = QInj1MinTableName, fileName = QInj1MinTableFile) "Table to get QInj1MinPu from PInj1Pu";
+    Modelica.Blocks.Tables.CombiTable1D tableQInj1Max(tableOnFile = true, tableName = QInj1MaxTableName, fileName = QInj1MaxTableFile) "Table to get QInj1MaxPu from PInj1Pu";
+    Modelica.Blocks.Tables.CombiTable1D tableQInj2Min(tableOnFile = true, tableName = QInj2MinTableName, fileName = QInj2MinTableFile) "Table to get QInj2MinPu from PInj2Pu";
+    Modelica.Blocks.Tables.CombiTable1D tableQInj2Max(tableOnFile = true, tableName = QInj2MaxTableName, fileName = QInj2MaxTableFile) "Table to get QInj2MaxPu from PInj2Pu";
 
-    Types.ReactivePowerPu Q1MinPu(start = Q1Min0Pu) "Minimum reactive power in p.u at terminal 1 (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu Q1MaxPu(start = Q1Max0Pu) "Maximum reactive power in p.u at terminal 1 (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu Q2MinPu(start = Q2Min0Pu) "Minimum reactive power in p.u at terminal 2 (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu Q2MaxPu(start = Q2Max0Pu) "Maximum reactive power in p.u at terminal 2 (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu QInj1MinPu(start = QInj1Min0Pu) "Minimum reactive power in p.u at terminal 1 (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj1MaxPu(start = QInj1Max0Pu) "Maximum reactive power in p.u at terminal 1 (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj2MinPu(start = QInj2Min0Pu) "Minimum reactive power in p.u at terminal 2 (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj2MaxPu(start = QInj2Max0Pu) "Maximum reactive power in p.u at terminal 2 (base SnRef) (generator convention)";
 
   equation
-    P1Pu = tableQ1Min.u[1];
-    tFilter * der(Q1MinPu) + Q1MinPu = tableQ1Min.y[1];
-    P1Pu = tableQ1Max.u[1];
-    tFilter * der(Q1MaxPu) + Q1MaxPu = tableQ1Max.y[1];
+    PInj1Pu = tableQInj1Min.u[1];
+    tFilter * der(QInj1MinPu) + QInj1MinPu = tableQInj1Min.y[1];
+    PInj1Pu = tableQInj1Max.u[1];
+    tFilter * der(QInj1MaxPu) + QInj1MaxPu = tableQInj1Max.y[1];
 
-    P2Pu = tableQ2Min.u[1];
-    tFilter * der(Q2MinPu) + Q2MinPu = tableQ2Min.y[1];
-    P2Pu = tableQ2Max.u[1];
-    tFilter * der(Q2MaxPu) + Q2MaxPu = tableQ2Max.y[1];
+    PInj2Pu = tableQInj2Min.u[1];
+    tFilter * der(QInj2MinPu) + QInj2MinPu = tableQInj2Min.y[1];
+    PInj2Pu = tableQInj2Max.u[1];
+    tFilter * der(QInj2MaxPu) + QInj2MaxPu = tableQInj2Max.y[1];
 
   annotation(preferredView = "text",
       Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. The active power reference is given as an input and can be changed during the simulation. This partial model also implements PQ diagrams at each terminal of the HVDC link.</div></body></html>"));
