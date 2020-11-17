@@ -162,8 +162,8 @@ class StaticVarCompensatorInterface : public ComponentInterface {
   virtual double getB0() const = 0;
 
   /**
-   * @brief Getter for the active power of static var compensator in MW (Receptor convention)
-   * @return The active power of the static var compensator in MW (Receptor convention)
+   * @brief Getter for the active power of static var compensator in Mvar (Receptor convention)
+   * @return The active power of the static var compensator in Mvar (Receptor convention)
    */
   virtual double getP() = 0;
 
