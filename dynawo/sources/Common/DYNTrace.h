@@ -62,7 +62,8 @@ class Trace {
       separator_(),
       showTimeStamp_(false),
       timeStampFormat_(),
-      append_(false) { }
+      append_(false),
+      persistant_(false) { }
 
     /**
      * @brief TraceAppender destructor
@@ -134,6 +135,14 @@ class Trace {
     }
 
     /**
+     * @brief Determines if log should be kept when reseting
+     * @returns whether the log should be kept when reseting
+     */
+    bool isPersistant() const {
+      return persistant_;
+    }
+
+    /**
      * @brief Tag attribute setter
      * @param tag: Tag filtered by the appender
      */
@@ -198,6 +207,15 @@ class Trace {
       append_ = append;
     }
 
+    /**
+     * @brief Set the persistant attribute
+     *
+     * @param persistant determines if the log must be kept when reseting
+     */
+    void setPersistant(bool persistant) {
+      persistant_ = persistant;
+    }
+
    private:
     std::string tag_;  ///< Tag filtered by the appender
     std::string filePath_;  ///< Output file path of the appender
@@ -207,6 +225,7 @@ class Trace {
     bool showTimeStamp_;  ///< @b true if the timestamp of the log should be printed
     std::string timeStampFormat_;  ///< format of the timestamp information , "" if no time to print
     bool append_;  ///< Append to existing file instead of erasing
+    bool persistant_;  ///< Do not remove this appender when reseting
   };
 
   /**
@@ -231,9 +250,14 @@ class Trace {
   static void addAppenders(const std::vector<TraceAppender>& appenders);
 
   /**
-   * @brief Reset all custom appenders of trace system
+   * @brief Reset non-persistant custom appenders of trace system
    */
   static void resetCustomAppenders();
+
+  /**
+   * @brief Reset persistant custom appenders of trace system
+   */
+  static void resetPersistantCustomAppenders();
 
   /**
    * @brief Get SeverityLevel associated to a string
