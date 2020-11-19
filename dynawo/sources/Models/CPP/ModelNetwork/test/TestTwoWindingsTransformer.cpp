@@ -197,7 +197,7 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
 
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), boost::none));
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
       tw2ItfIIDM->addCurrentLimitInterface1(cLimit);
     }
 
@@ -215,7 +215,7 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
 
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), boost::none));
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
       tw2ItfIIDM->addCurrentLimitInterface2(cLimit);
     }
 

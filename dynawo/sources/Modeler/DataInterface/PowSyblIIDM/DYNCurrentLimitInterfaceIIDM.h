@@ -37,7 +37,7 @@ class CurrentLimitInterfaceIIDM : public CurrentLimitInterface {
    * @param limit limit of the current limit
    * @param duration authorized duration over the limit (Nan if unset)
    */
-  CurrentLimitInterfaceIIDM(const boost::optional<double>& limit, const boost::optional<int>& duration);
+  CurrentLimitInterfaceIIDM(double limit, unsigned long duration);
 
   /**
    * @copydoc CurrentLimitInterface::getLimit() const
@@ -50,8 +50,8 @@ class CurrentLimitInterfaceIIDM : public CurrentLimitInterface {
   int getAcceptableDuration() const;
 
  private:
-  boost::optional<double> limit_;  ///< limit of the current limit
-  int acceptableDuration_;         ///< authorized duration over the limit
+  double limit_;                             ///< limit of the current limit
+  unsigned long acceptableDuration_;         ///< authorized duration over the limit
 };                                 ///< class for Current limit interface
 }  // namespace DYN
 
