@@ -236,8 +236,6 @@ DataInterfaceIIDM::initFromIIDM() {
   for (auto& substation : networkIIDM_.getSubstations()) {
     for (auto& voltageLevel : substation.getVoltageLevels()) {
       shared_ptr<VoltageLevelInterface> vl = importVoltageLevel(voltageLevel, substation.getCountry());
-      Trace::debug(Trace::network()) << DYNLog(AddingIIDMVoltageLevel, vl->getID(), vl->getVNom(),
-          vl->isNodeBreakerTopology()?"NODE_BREAKER":"BUS_BREAKER") << Trace::endline;
       network_->addVoltageLevel(vl);
       voltageLevels_[vl->getID()] = vl;
     }
@@ -301,8 +299,6 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
       components_[buses[i]->getID()] = buses[i];
       busComponents_[buses[i]->getID()] = buses[i];
       calculatedBusComponents_[voltageLevel->getID()].push_back(buses[i]);
-      Trace::debug(Trace::network()) << DYNLog(AddingIIDMBus, buses[i]->getID(), buses[i]->getVMin(),
-          buses[i]->getVMax(), buses[i]->getVNom(), buses[i]->getV0(), buses[i]->getAngle0()) << Trace::endline;
       buses[i]->setCountry(countryStr);
       voltageLevel->addBus(buses[i]);
     }
@@ -317,7 +313,6 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
         shared_ptr<BusInterface> bus2 = findNodeBreakerBusInterface(voltageLevelIIDM, voltageLevelIIDM.getNodeBreakerView().getNode2(switchIIDM.getId()));
         shared_ptr<SwitchInterface> sw = importSwitch(switchIIDM, bus1, bus2);
         if (sw->getBusInterface1() != sw->getBusInterface2()) {  // if the switch is connecting one single bus, don't create a specific switch model
-          Trace::debug(Trace::network()) << DYNLog(AddingIIDMSwitch, sw->getID(), bus1->getID(), bus2->getID(), sw->isOpen()) << Trace::endline;
           components_[sw->getID()] = sw;
           voltageLevel->addSwitch(sw);
         }
@@ -332,8 +327,6 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
       if (country)
         bus->setCountry(countryStr);
       voltageLevel->addBus(bus);
-      Trace::debug(Trace::network()) << DYNLog(AddingIIDMBus, bus->getID(), bus->getVMin(),
-          bus->getVMax(), bus->getVNom(), bus->getV0(), bus->getAngle0()) << Trace::endline;
       components_[bus->getID()] = bus;
       busComponents_[bus->getID()] = bus;
     }
@@ -345,7 +338,6 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
       shared_ptr<BusInterface> bus1 = findBusBreakerBusInterface(voltageLevelIIDM.getBusBreakerView().getBus1(switchIIDM.getId()).get());
       shared_ptr<BusInterface> bus2 = findBusBreakerBusInterface(voltageLevelIIDM.getBusBreakerView().getBus2(switchIIDM.getId()).get());
       shared_ptr<SwitchInterface> sw = importSwitch(switchIIDM, bus1, bus2);
-      Trace::debug(Trace::network()) << DYNLog(AddingIIDMSwitch, sw->getID(), bus1->getID(), bus2->getID(), sw->isOpen()) << Trace::endline;
       components_[sw->getID()] = sw;
       voltageLevel->addSwitch(sw);
     }
@@ -379,10 +371,6 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     components_[generator->getID()] = generator;
     generatorComponents_[generator->getID()] = generator;
     generator->setVoltageLevelInterface(voltageLevel);
-    Trace::debug(Trace::network()) << DYNLog(AddingIIDMGenerator, generator->getID(),
-        generator->getBusInterface()->getID(), voltageLevel->getID(), generator->getP(),
-        generator->getPMin(), generator->getPMax(), generator->getTargetP(), generator->getQ(), generator->getQMin(), generator->getQMax(),
-        generator->getTargetQ(), generator->getTargetV(), generator->isVoltageRegulationOn()) << Trace::endline;
   }
 
   //===========================
@@ -394,8 +382,6 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     components_[load->getID()] = load;
     loadComponents_[load->getID()] = load;
     load->setVoltageLevelInterface(voltageLevel);
-    Trace::debug(Trace::network()) << DYNLog(AddingIIDMLoad, load->getID(), load->getBusInterface()->getID(), voltageLevel->getID(), load->getP0(),
-        load->getP(), load->getQ0(), load->getQ()) << Trace::endline;
   }
   // =======================================
   //    ADD SHUNTCOMPENSATORS INTERFACE
@@ -472,7 +458,7 @@ DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineI
 
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), boost::none));
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
       danglingLine->addCurrentLimitInterface(cLimit);
     }
 
@@ -527,7 +513,7 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
 
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), boost::none));
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
       twoWTfo->addCurrentLimitInterface1(cLimit);
     }
 
@@ -545,7 +531,7 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
 
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), boost::none));
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
       twoWTfo->addCurrentLimitInterface2(cLimit);
     }
 
@@ -578,7 +564,7 @@ DataInterfaceIIDM::importThreeWindingsTransformer(powsybl::iidm::ThreeWindingsTr
 
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), boost::none));
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
       threeWTfo->addCurrentLimitInterface1(cLimit);
     }
 
@@ -596,7 +582,7 @@ DataInterfaceIIDM::importThreeWindingsTransformer(powsybl::iidm::ThreeWindingsTr
 
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), boost::none));
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
       threeWTfo->addCurrentLimitInterface2(cLimit);
     }
 
@@ -614,7 +600,7 @@ DataInterfaceIIDM::importThreeWindingsTransformer(powsybl::iidm::ThreeWindingsTr
 
     // permanent limit
     if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), boost::none));
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
       threeWTfo->addCurrentLimitInterface3(cLimit);
     }
 
@@ -641,7 +627,8 @@ DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
   if (lineIIDM.getCurrentLimits1()) {
     powsybl::iidm::CurrentLimits& currentLimits1 = lineIIDM.getCurrentLimits1().get();
     if (!std::isnan(currentLimits1.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits1.getPermanentLimit(), boost::none));
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits1.getPermanentLimit(),
+          std::numeric_limits<unsigned long>::max()));
       line->addCurrentLimitInterface1(cLimit);
     }
     // temporary limit on side 1
@@ -657,7 +644,8 @@ DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
     // permanent limit on side 2
     powsybl::iidm::CurrentLimits& currentLimits2 = lineIIDM.getCurrentLimits2().get();
     if (!std::isnan(currentLimits2.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits2.getPermanentLimit(), boost::none));
+      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits2.getPermanentLimit(),
+          std::numeric_limits<unsigned long>::max()));
       line->addCurrentLimitInterface2(cLimit);
     }
     // temporary limit on side 12

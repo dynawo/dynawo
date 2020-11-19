@@ -23,12 +23,11 @@ TEST(DataInterfaceTest, CurrentLimit) {
   ASSERT_DOUBLE_EQ(C.getLimit(), 1);
   ASSERT_EQ(C.getAcceptableDuration(), 99);
 
-  boost::optional<double> MyLimit;
-  DYN::CurrentLimitInterfaceIIDM D(MyLimit, 9876);
+  DYN::CurrentLimitInterfaceIIDM D(std::numeric_limits<double>::max(), 9876UL);
   ASSERT_TRUE(isnan(D.getLimit()));
   ASSERT_EQ(D.getAcceptableDuration(), 9876);
 
-  DYN::CurrentLimitInterfaceIIDM E(-1000, boost::none);
+  DYN::CurrentLimitInterfaceIIDM E(-1000, std::numeric_limits<unsigned long>::max());
   ASSERT_DOUBLE_EQ(E.getLimit(), -1000);
   ASSERT_EQ(E.getAcceptableDuration(), std::numeric_limits<int>::max());
 }  // TEST(DataInterfaceTest, CurrentLimit)

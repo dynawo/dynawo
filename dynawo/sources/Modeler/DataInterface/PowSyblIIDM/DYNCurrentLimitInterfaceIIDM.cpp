@@ -24,11 +24,12 @@
 
 namespace DYN {
 
-CurrentLimitInterfaceIIDM::CurrentLimitInterfaceIIDM(const boost::optional<double>& limit, const boost::optional<int>& duration) : limit_(limit) {
-  if (duration == boost::none || duration.get() == std::numeric_limits<int>::min())
+CurrentLimitInterfaceIIDM::CurrentLimitInterfaceIIDM(double limit, unsigned long duration)
+: limit_(limit) {
+  if (duration == std::numeric_limits<unsigned long>::max())
     acceptableDuration_ = std::numeric_limits<int>::max();
   else
-    acceptableDuration_ = duration.get();
+    acceptableDuration_ = duration;
 }
 
 CurrentLimitInterfaceIIDM::~CurrentLimitInterfaceIIDM() {
@@ -36,9 +37,9 @@ CurrentLimitInterfaceIIDM::~CurrentLimitInterfaceIIDM() {
 
 double
 CurrentLimitInterfaceIIDM::getLimit() const {
-  if (limit_ == boost::none)
+  if (limit_ == std::numeric_limits<double>::max())
     return std::numeric_limits<double>::quiet_NaN();
-  return limit_.get();
+  return limit_;
 }
 
 int

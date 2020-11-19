@@ -134,8 +134,8 @@ TEST(DataInterfaceTest, Line) {
 
   MyLine.getTerminal1().disconnect();
   MyLine.getTerminal2().disconnect();
-  ASSERT_DOUBLE_EQ(li.getVNom1(), 0.0);
-  ASSERT_DOUBLE_EQ(li.getVNom2(), 0.0);
+  ASSERT_DOUBLE_EQ(li.getVNom1(), 380.0);
+  ASSERT_DOUBLE_EQ(li.getVNom2(), 360.0);
   ASSERT_TRUE(li.getInitialConnected1());
   ASSERT_TRUE(li.getInitialConnected2());
 

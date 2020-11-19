@@ -115,18 +115,12 @@ TwoWTransformerInterfaceIIDM::getInitialConnected2() {
 
 double
 TwoWTransformerInterfaceIIDM::getVNom1() const {
-  if (tfoIIDM_.getTerminal1().isConnected()) {
-    return tfoIIDM_.getTerminal1().getVoltageLevel().getNominalVoltage();
-  }
-  return 0;
+  return tfoIIDM_.getTerminal1().getVoltageLevel().getNominalVoltage();
 }
 
 double
 TwoWTransformerInterfaceIIDM::getVNom2() const {
-  if (tfoIIDM_.getTerminal2().isConnected()) {
-    return tfoIIDM_.getTerminal2().getVoltageLevel().getNominalVoltage();
-  }
-  return 0;
+  return tfoIIDM_.getTerminal2().getVoltageLevel().getNominalVoltage();
 }
 
 double

@@ -101,7 +101,7 @@ createModelDanglingLine(bool open, bool initModel) {
 
   // permanent limit
   if (!std::isnan(currentLimits.getPermanentLimit())) {
-    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), boost::none));
+    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
     dlItfIIDM->addCurrentLimitInterface(cLimit);
   }
 
