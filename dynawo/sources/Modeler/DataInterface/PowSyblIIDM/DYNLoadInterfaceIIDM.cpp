@@ -63,6 +63,15 @@ LoadInterfaceIIDM::exportStateVariablesUnitComponent() {
   loadIIDM_.getTerminal().setP(getValue<double>(VAR_P) * SNREF);
   loadIIDM_.getTerminal().setQ(getValue<double>(VAR_Q) * SNREF);
 
+  if (getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
+    // should be removed once a solution has been found to propagate switches (de)connection
+    // following component (de)connection (only Modelica models)
+    if (connected && !getInitialConnected())
+      getVoltageLevelInterfaceInjector()->connectNode(loadIIDM_.getTerminal().getNodeBreakerView().getNode());
+    else if (!connected && getInitialConnected())
+      getVoltageLevelInterfaceInjector()->disconnectNode(loadIIDM_.getTerminal().getNodeBreakerView().getNode());
+  }
+
   if (connected)
     loadIIDM_.getTerminal().connect();
   else

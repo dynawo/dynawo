@@ -68,6 +68,8 @@ TEST(DataInterfaceTest, Load_1) {
 
   Load& load = network.getLoad("LOAD1");
   LoadInterfaceIIDM loadIfce(load);
+  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  loadIfce.setVoltageLevelInterface(voltageLevelIfce);
 
   ASSERT_EQ(loadIfce.getComponentVarIndex(std::string("p")), LoadInterfaceIIDM::VAR_P);
   ASSERT_EQ(loadIfce.getComponentVarIndex(std::string("P1")), -1);
@@ -109,8 +111,6 @@ TEST(DataInterfaceTest, Load_1) {
   loadIfce.setCountry("AF");
   ASSERT_EQ(loadIfce.getCountry(), "AF");
 
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
-  loadIfce.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_DOUBLE_EQ(loadIfce.getVNomInjector(), 382.0);
   ASSERT_EQ(loadIfce.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
 }  // TEST(DataInterfaceTest, Load_1)
@@ -148,6 +148,8 @@ TEST(DataInterfaceTest, Load_2) {  // tests assuming getInitialConnected == fals
 
   Load& load = network.getLoad("LOAD");
   LoadInterfaceIIDM loadIfce(load);
+  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  loadIfce.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_EQ(loadIfce.getID(), "LOAD");
 
   load.getTerminal().disconnect();

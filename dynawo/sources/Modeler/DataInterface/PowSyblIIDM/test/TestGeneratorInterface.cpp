@@ -70,6 +70,8 @@ TEST(DataInterfaceTest, Generator_1) {
                       .add();
 
   GeneratorInterfaceIIDM genItf(gen);
+  const boost::shared_ptr<VoltageLevelInterface> vlItf(new VoltageLevelInterfaceIIDM(vl1));
+  genItf.setVoltageLevelInterface(vlItf);
   ASSERT_EQ(genItf.getID(), "GEN1");
 
   ASSERT_EQ(genItf.getComponentVarIndex(std::string("p")), GeneratorInterfaceIIDM::VAR_P);
@@ -200,6 +202,8 @@ TEST(DataInterfaceTest, Generator_2) {
                       .add();
 
   GeneratorInterfaceIIDM genItf(gen);
+  const boost::shared_ptr<VoltageLevelInterface> vlItf(new VoltageLevelInterfaceIIDM(vl1));
+  genItf.setVoltageLevelInterface(vlItf);
   ASSERT_EQ(genItf.getID(), "GEN1");
 
   ASSERT_FALSE(genItf.getInitialConnected());

@@ -30,7 +30,7 @@ namespace DYN {
 
 /**
  * @class BusInterfaceIIDM
- * @brief Specialisation of BusInterface class for IIDM
+ * @brief Specialization of BusInterface class for IIDM
  */
 class BusInterfaceIIDM : public BusInterface {
  public:
@@ -50,9 +50,8 @@ class BusInterfaceIIDM : public BusInterface {
   /**
    * @brief Constructor
    * @param bus : bus' iidm instance
-   * @param busIndex : bus' id in the voltage level
    */
-  explicit BusInterfaceIIDM(powsybl::iidm::Bus& bus, int busIndex);
+  explicit BusInterfaceIIDM(powsybl::iidm::Bus& bus);
 
   /**
    * @copydoc BusInterface::getV0() const
@@ -117,7 +116,10 @@ class BusInterfaceIIDM : public BusInterface {
   /**
    * @copydoc BusInterface::getBusBarSectionNames() const
    */
-  const std::vector<std::string>& getBusBarSectionNames() const;
+  const std::vector<std::string>& getBusBarSectionNames() const {
+    static std::vector<std::string> empty;
+    return empty;
+  }
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
@@ -128,7 +130,7 @@ class BusInterfaceIIDM : public BusInterface {
    * @copydoc BusInterface::getBusIndex() const
    */
   inline int getBusIndex() const {
-    return busIndex_;  // The bus index is non 0 only for a calculated bus
+    return 0;  // The bus index is non 0 only for a calculated bus
   }
 
   /**
@@ -149,14 +151,11 @@ class BusInterfaceIIDM : public BusInterface {
 
  private:
   powsybl::iidm::Bus& busIIDM_;        ///< reference to the iidm bus instance
-  std::string busId_;                  ///< bus id
-  int busIndex_;                       ///< index of bus in its voltage level
   bool hasConnection_;                 ///< @b true if the bus has an outside connection, @b false else
   // state variables
   boost::optional<double> U0_;         ///< initial voltage
   boost::optional<double> angle0_;     ///< initial angle
   std::string country_;                ///< country of the bus
-  std::vector<std::string> bbsNames_;  ///< names of the bus bar sections
 };  ///< Interface class for Bus Model
 }  // namespace DYN
 

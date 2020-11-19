@@ -67,6 +67,8 @@ TEST(DataInterfaceTest, ShuntCompensator) {
 
   ShuntCompensator& shuntCompensator = network.getShuntCompensator("SHUNT1");
   ShuntCompensatorInterfaceIIDM shuntCompensatorIfce(shuntCompensator);
+  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  shuntCompensatorIfce.setVoltageLevelInterface(voltageLevelIfce);
 
   ASSERT_EQ(shuntCompensatorIfce.getComponentVarIndex(std::string("currentSection")), ShuntCompensatorInterfaceIIDM::VAR_CURRENTSECTION);
   ASSERT_EQ(shuntCompensatorIfce.getComponentVarIndex(std::string("wrongIndex")), -1);
@@ -89,9 +91,6 @@ TEST(DataInterfaceTest, ShuntCompensator) {
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getMaximumSection(), 3UL);
   shuntCompensator.getTerminal().setQ(4.0);
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getQ(), 4.0);
-
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
-  shuntCompensatorIfce.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getVNom(), 380);
 }  // TEST(DataInterfaceTest, ShuntCompensator)
 

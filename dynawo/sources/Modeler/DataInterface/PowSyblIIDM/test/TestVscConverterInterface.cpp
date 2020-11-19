@@ -94,6 +94,8 @@ TEST(DataInterfaceTest, VscConverter) {
   powsybl::iidm::VscConverterStation& vsc = network.getVscConverterStation("VSC1");
 
   DYN::VscConverterInterfaceIIDM Ifce(vsc);
+  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  Ifce.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_EQ(Ifce.getID(), "VSC1");
   ASSERT_EQ(Ifce.getComponentVarIndex("nothing"), -1);
   ASSERT_DOUBLE_EQ(Ifce.getLossFactor(), 3.0);
@@ -139,9 +141,6 @@ TEST(DataInterfaceTest, VscConverter) {
   Ifce.importStaticParameters();
 
   ASSERT_EQ(Ifce.getVscIIDM().getId(), vsc.getId());
-
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
-  Ifce.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_DOUBLE_EQ(Ifce.getVNom(), 388);
   ASSERT_EQ(Ifce.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
 }  // TEST(DataInterfaceTest, VscConverter)

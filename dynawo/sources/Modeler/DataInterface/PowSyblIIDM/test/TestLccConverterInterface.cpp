@@ -90,6 +90,8 @@ TEST(DataInterfaceTest, LccConverter) {
   powsybl::iidm::LccConverterStation& lcc = network.getLccConverterStation("LCC1");
 
   DYN::LccConverterInterfaceIIDM Ifce(lcc);
+  const boost::shared_ptr<DYN::VoltageLevelInterface> voltageLevelIfce(new DYN::VoltageLevelInterfaceIIDM(vl1));
+  Ifce.setVoltageLevelInterfaceInjector(voltageLevelIfce);
   ASSERT_EQ(Ifce.getID(), "LCC1");
   ASSERT_EQ(Ifce.getComponentVarIndex("nothing"), -1);
   ASSERT_DOUBLE_EQ(Ifce.getLossFactor(), 2.0);
@@ -129,8 +131,6 @@ TEST(DataInterfaceTest, LccConverter) {
 
   ASSERT_EQ(Ifce.getLccIIDM().getId(), lcc.getId());
 
-  const boost::shared_ptr<DYN::VoltageLevelInterface> voltageLevelIfce(new DYN::VoltageLevelInterfaceIIDM(vl1));
-  Ifce.setVoltageLevelInterfaceInjector(voltageLevelIfce);
   ASSERT_DOUBLE_EQ(Ifce.getVNom(), 380);
   ASSERT_EQ(Ifce.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
 }  // TEST(DataInterfaceTest, LccConverter)
