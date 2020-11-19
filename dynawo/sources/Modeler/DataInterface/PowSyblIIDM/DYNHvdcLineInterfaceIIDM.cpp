@@ -68,10 +68,29 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
       (vsc2->getVscIIDM()).getTerminal().setQ(-1 * getValue<double>(VAR_Q2) * SNREF);
       bool connected1 = (getValue<int>(VAR_STATE1) == CLOSED);
       bool connected2 = (getValue<int>(VAR_STATE2) == CLOSED);
+
+      if (vsc1->getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
+        // should be removed once a solution has been found to propagate switches (de)connection
+        // following component (de)connection (only Modelica models)
+        if (connected1 && !vsc1->getInitialConnected())
+          vsc1->getVoltageLevelInterfaceInjector()->connectNode(vsc1->getVscIIDM().getTerminal().getNodeBreakerView().getNode());
+        else if (!connected1 && vsc1->getInitialConnected())
+          vsc1->getVoltageLevelInterfaceInjector()->disconnectNode(vsc1->getVscIIDM().getTerminal().getNodeBreakerView().getNode());
+      }
       if (connected1)
         (vsc1->getVscIIDM()).getTerminal().connect();
       else
         (vsc1->getVscIIDM()).getTerminal().disconnect();
+
+
+      if (vsc2->getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
+        // should be removed once a solution has been found to propagate switches (de)connection
+        // following component (de)connection (only Modelica models)
+        if (connected2 && !vsc2->getInitialConnected())
+          vsc2->getVoltageLevelInterfaceInjector()->connectNode(vsc2->getVscIIDM().getTerminal().getNodeBreakerView().getNode());
+        else if (!connected2 && vsc2->getInitialConnected())
+          vsc2->getVoltageLevelInterfaceInjector()->disconnectNode(vsc2->getVscIIDM().getTerminal().getNodeBreakerView().getNode());
+      }
       if (connected2)
         (vsc2->getVscIIDM()).getTerminal().connect();
       else
@@ -87,10 +106,28 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
       (lcc2->getLccIIDM()).getTerminal().setQ(-1 * getValue<double>(VAR_Q2) * SNREF);
       bool connected1 = (getValue<int>(VAR_STATE1) == CLOSED);
       bool connected2 = (getValue<int>(VAR_STATE2) == CLOSED);
+
+      if (lcc1->getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
+        // should be removed once a solution has been found to propagate switches (de)connection
+        // following component (de)connection (only Modelica models)
+        if (connected1 && !lcc1->getInitialConnected())
+          lcc1->getVoltageLevelInterfaceInjector()->connectNode(lcc1->getLccIIDM().getTerminal().getNodeBreakerView().getNode());
+        else if (!connected1 && lcc1->getInitialConnected())
+          lcc1->getVoltageLevelInterfaceInjector()->disconnectNode(lcc1->getLccIIDM().getTerminal().getNodeBreakerView().getNode());
+      }
       if (connected1)
         (lcc1->getLccIIDM()).getTerminal().connect();
       else
         (lcc1->getLccIIDM()).getTerminal().disconnect();
+
+      if (lcc2->getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
+        // should be removed once a solution has been found to propagate switches (de)connection
+        // following component (de)connection (only Modelica models)
+        if (connected2 && !lcc2->getInitialConnected())
+          lcc2->getVoltageLevelInterfaceInjector()->connectNode(lcc2->getLccIIDM().getTerminal().getNodeBreakerView().getNode());
+        else if (!connected2 && lcc2->getInitialConnected())
+          lcc2->getVoltageLevelInterfaceInjector()->disconnectNode(lcc2->getLccIIDM().getTerminal().getNodeBreakerView().getNode());
+      }
       if (connected2)
         (lcc2->getLccIIDM()).getTerminal().connect();
       else

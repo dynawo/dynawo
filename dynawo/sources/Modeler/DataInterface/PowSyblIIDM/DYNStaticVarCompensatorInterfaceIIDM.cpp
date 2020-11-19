@@ -127,6 +127,16 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
       throw DYNError(Error::STATIC_DATA, RegulationModeNotInIIDM, regulatingMode, staticVarCompensatorIIDM_.getId());
   }
   extension_->exportStandByMode(standbyMode);
+
+  if (getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
+    // should be removed once a solution has been found to propagate switches (de)connection
+    // following component (de)connection (only Modelica models)
+    if (connected && !getInitialConnected())
+      getVoltageLevelInterfaceInjector()->connectNode(staticVarCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode());
+    else if (!connected && getInitialConnected())
+      getVoltageLevelInterfaceInjector()->disconnectNode(staticVarCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode());
+  }
+
   if (connected)
     staticVarCompensatorIIDM_.getTerminal().connect();
   else

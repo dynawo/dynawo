@@ -33,9 +33,8 @@ using std::string;
 
 namespace DYN {
 
-BusInterfaceIIDM::BusInterfaceIIDM(Bus& bus, int busIndex) :
+BusInterfaceIIDM::BusInterfaceIIDM(Bus& bus) :
 busIIDM_(bus),
-busIndex_(busIndex),
 hasConnection_(false) {
   setType(ComponentInterface::BUS);
   if (!std::isnan(busIIDM_.getV()))
@@ -47,30 +46,14 @@ hasConnection_(false) {
   bool neededForCriteriaCheck = true;
   stateVariables_[VAR_V] = StateVariable("v", StateVariable::DOUBLE, neededForCriteriaCheck);  // V
   stateVariables_[VAR_ANGLE] = StateVariable("angle", StateVariable::DOUBLE);  // angle
-
-  busId_ = bus.getId();
-  if (bus.getVoltageLevel().getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
-    busId_ = "calculatedBus_" + bus.getId();
-    for (powsybl::iidm::Terminal& terminal : bus.getConnectedTerminals()) {
-      const powsybl::iidm::Connectable& connec = terminal.getConnectable();
-      if (connec.getType() == powsybl::iidm::ConnectableType::BUSBAR_SECTION)
-        bbsNames_.push_back(connec.getId());
-    }
-  }
 }
 
 BusInterfaceIIDM::~BusInterfaceIIDM() {
 }
 
-
-const std::vector<string>&
-BusInterfaceIIDM::getBusBarSectionNames() const {
-  return bbsNames_;
-}
-
 string
 BusInterfaceIIDM::getID() const {
-  return busId_;
+  return busIIDM_.getId();
 }
 
 double

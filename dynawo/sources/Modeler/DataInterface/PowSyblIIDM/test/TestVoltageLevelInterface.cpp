@@ -194,9 +194,6 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_EQ(vl.getVNom(), 400.);
   ASSERT_EQ(vl.getVoltageLevelTopologyKind(), VoltageLevelInterface::BUS_BREAKER);
   ASSERT_EQ(vl2.getVoltageLevelTopologyKind(), VoltageLevelInterface::NODE_BREAKER);
-  ASSERT_NO_THROW(vl.connectNode(0));
-  ASSERT_NO_THROW(vl.disconnectNode(0));
-  ASSERT_NO_THROW(vl.isNodeConnected(0));
 
   ASSERT_EQ(vl.getBuses().size(), 0);
   vl.addBus(bus1);

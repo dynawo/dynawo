@@ -524,28 +524,28 @@ void
 ModelBus::getY0() {
   if (network_->isInitModel()) {
     if (getSwitchOff()) {
-      y_[0] = 0.0;
-      y_[1] = 0.0;
+      y_[urNum_] = 0.0;
+      y_[uiNum_] = 0.0;
     } else {
-      y_[0] = ur0_;
-      y_[1] = ui0_;
+      y_[urNum_] = ur0_;
+      y_[uiNum_] = ui0_;
     }
   } else {
     if (getSwitchOff()) {
-      y_[0] = 0.0;
-      y_[1] = 0.0;
+      y_[urNum_] = 0.0;
+      y_[uiNum_] = 0.0;
     } else {
-      y_[0] = ur0_;
-      y_[1] = ui0_;
+      y_[urNum_] = ur0_;
+      y_[uiNum_] = ui0_;
     }
 
-    yp_[0] = 0.0;
-    yp_[1] = 0.0;
+    yp_[urNum_] = 0.0;
+    yp_[uiNum_] = 0.0;
     if (hasConnection_) {
-      y_[2] = ir0_;
-      y_[3] = ii0_;
-      yp_[2] = 0.0;
-      yp_[3] = 0.0;
+      y_[irNum_] = ir0_;
+      y_[iiNum_] = ii0_;
+      yp_[irNum_] = 0.0;
+      yp_[iiNum_] = 0.0;
     }
 
     // We assume here that z_[numSubNetworkNum_] was already initialized!!

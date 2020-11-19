@@ -60,6 +60,15 @@ ShuntCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
   shuntCompensatorIIDM_.getTerminal().setQ(getValue<double>(VAR_Q) * SNREF);
   shuntCompensatorIIDM_.setCurrentSectionCount(getValue<int>(VAR_CURRENTSECTION));
 
+  if (getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
+    // should be removed once a solution has been found to propagate switches (de)connection
+    // following component (de)connection (only Modelica models)
+    if (connected && !getInitialConnected())
+      getVoltageLevelInterfaceInjector()->connectNode(shuntCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode());
+    else if (!connected && getInitialConnected())
+      getVoltageLevelInterfaceInjector()->disconnectNode(shuntCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode());
+  }
+
   if (connected)
     shuntCompensatorIIDM_.getTerminal().connect();
   else

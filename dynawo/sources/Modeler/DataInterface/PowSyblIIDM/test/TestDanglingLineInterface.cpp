@@ -72,6 +72,8 @@ TEST(DataInterfaceTest, DanglingLine) {
 
   DanglingLine& danglingLine = network.getDanglingLine("DANGLING_LINE1");
   DanglingLineInterfaceIIDM danglingLineIfce(danglingLine);
+  const boost::shared_ptr<VoltageLevelInterface> vlItf(new VoltageLevelInterfaceIIDM(vl1));
+  danglingLineIfce.setVoltageLevelInterface(vlItf);
 
   ASSERT_EQ(danglingLineIfce.getComponentVarIndex(std::string("p")), DanglingLineInterfaceIIDM::VAR_P);
   ASSERT_EQ(danglingLineIfce.getComponentVarIndex(std::string("wrongIndex")), -1);

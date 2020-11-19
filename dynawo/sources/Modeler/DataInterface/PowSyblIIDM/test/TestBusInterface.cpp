@@ -13,6 +13,7 @@
 
 
 #include "DYNBusInterfaceIIDM.h"
+#include "DYNCalculatedBusInterfaceIIDM.h"
 
 #include "gtest_dynawo.h"
 #include "DYNCommon.h"
@@ -116,47 +117,107 @@ TEST(DataInterfaceTest, testCalculatedBusInterface) {
   vl.getNodeBreakerView().newBusbarSection()
       .setId("BBS")
       .setName("BBS_NAME")
-      .setNode(0)
+      .setNode(3)
       .add();
   vl.getNodeBreakerView().newBusbarSection()
       .setId("BBS2")
       .setName("BBS2_NAME")
-      .setNode(1)
+      .setNode(4)
       .add();
   vl.getNodeBreakerView().newBreaker()
       .setId("BK1")
       .setNode1(0)
-      .setNode2(1)
+      .setNode2(5)
+      .setRetained(true)
+      .setOpen(true)
+      .add();
+  vl.getNodeBreakerView().newDisconnector()
+      .setId("DC11")
+      .setNode1(5)
+      .setNode2(3)
+      .setRetained(false)
+      .setOpen(true)
+      .add();
+  vl.getNodeBreakerView().newDisconnector()
+      .setId("DC12")
+      .setNode1(5)
+      .setNode2(4)
+      .setRetained(false)
+      .setOpen(true)
+      .add();
+  vl.getNodeBreakerView().newBreaker()
+      .setId("BK2")
+      .setNode1(1)
+      .setNode2(6)
+      .setRetained(true)
+      .setOpen(false)
+      .add();
+  vl.getNodeBreakerView().newDisconnector()
+      .setId("DC21")
+      .setNode1(6)
+      .setNode2(3)
+      .setRetained(false)
+      .setOpen(true)
+      .add();
+  vl.getNodeBreakerView().newDisconnector()
+      .setId("DC22")
+      .setNode1(6)
+      .setNode2(4)
       .setRetained(false)
       .setOpen(false)
+      .add();
+  vl.getNodeBreakerView().newBreaker()
+      .setId("BK3")
+      .setNode1(2)
+      .setNode2(7)
+      .setRetained(true)
+      .setOpen(true)
+      .add();
+  vl.getNodeBreakerView().newDisconnector()
+      .setId("DC31")
+      .setNode1(7)
+      .setNode2(3)
+      .setRetained(false)
+      .setOpen(true)
       .add();
 
   Bus& calculatedIIDMBus = vl.getBusBreakerView().getBus("MyVoltageLevel_0").get();
   calculatedIIDMBus.setV(410.);
   calculatedIIDMBus.setAngle(3.14);
-  BusInterfaceIIDM bus(calculatedIIDMBus);
-  BusbarSection& bbs = vl.getNodeBreakerView().getBusbarSection("BBS").get();
-  BusbarSection& bbs2 = vl.getNodeBreakerView().getBusbarSection("BBS2").get();
-  ASSERT_EQ(bus.getID(), "MyVoltageLevel_0");
+  CalculatedBusInterfaceIIDM bus(vl, "MyTest", 1);
+  ASSERT_EQ(bus.getID(), "MyTest");
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getVMax(), 420.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getVMin(), 380.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getV0(), 1.);
+  bus.setU0(410.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getV0(), 410.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getVNom(), 400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getAngle0(), 0.);
+  bus.setAngle0(3.14);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getAngle0(), 3.14);
-  ASSERT_EQ(bbs.getAngle(), 3.14);
-  ASSERT_EQ(bbs.getV(), 410.);
-  ASSERT_EQ(bbs2.getAngle(), 3.14);
-  ASSERT_EQ(bbs2.getV(), 410.);
   ASSERT_FALSE(bus.hasConnection());
   bus.hasConnection(true);
   ASSERT_TRUE(bus.hasConnection());
   ASSERT_EQ(bus.getComponentVarIndex("v"), BusInterfaceIIDM::VAR_V);
   ASSERT_EQ(bus.getComponentVarIndex("angle"), BusInterfaceIIDM::VAR_ANGLE);
   ASSERT_EQ(bus.getComponentVarIndex("foo"), -1);
-  ASSERT_EQ(bus.getBusIndex(), 0);
-  ASSERT_EQ(bus.getBusBarSectionNames().size(), 2);
-  ASSERT_EQ(bus.getBusBarSectionNames()[0], "BBS");
-  ASSERT_EQ(bus.getBusBarSectionNames()[1], "BBS2");
+  ASSERT_EQ(bus.getBusIndex(), 1);
+  ASSERT_EQ(bus.getBusBarSectionNames().size(), 0);
+  bus.addBusBarSection("MyBBS");
+  ASSERT_EQ(bus.getBusBarSectionNames().size(), 1);
+  ASSERT_EQ(bus.getBusBarSectionNames()[0], "MyBBS");
+
+  ASSERT_EQ(bus.getNodes().size(), 0);
+  bus.addNode(8);
+  ASSERT_EQ(bus.getNodes().size(), 1);
+  ASSERT_TRUE(bus.hasNode(8));
+  ASSERT_FALSE(bus.hasNode(2));
+
+  ASSERT_FALSE(bus.hasBus());
+  stdcxx::Reference<Bus> busr = stdcxx::Reference<Bus>(calculatedIIDMBus);
+  bus.setBus(busr);
+  ASSERT_TRUE(bus.hasBus());
+  ASSERT_EQ(bus.getBus().get().getId(), calculatedIIDMBus.getId());
 }
 
 }  // namespace DYN
