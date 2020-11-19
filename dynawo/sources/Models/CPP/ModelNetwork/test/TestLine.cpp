@@ -117,6 +117,8 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
   }
   shared_ptr<LineInterfaceIIDM> dlItfIIDM = shared_ptr<LineInterfaceIIDM>(new LineInterfaceIIDM(lIIDM));
   shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  dlItfIIDM->setVoltageLevelInterface1(vlItfIIDM);
+  dlItfIIDM->setVoltageLevelInterface2(vlItfIIDM);
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM;
   if (closed1)
     bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));

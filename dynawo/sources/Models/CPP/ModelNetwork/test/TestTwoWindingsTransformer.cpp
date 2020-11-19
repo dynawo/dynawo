@@ -228,6 +228,8 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     }
   }
   shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  tw2ItfIIDM->setVoltageLevelInterface1(vlItfIIDM);
+  tw2ItfIIDM->setVoltageLevelInterface2(vlItfIIDM);
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
   shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
   tw2ItfIIDM->setVoltageLevelInterface1(vlItfIIDM);

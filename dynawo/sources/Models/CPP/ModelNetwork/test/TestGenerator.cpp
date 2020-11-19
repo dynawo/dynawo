@@ -93,6 +93,7 @@ createModelGenerator(bool open, bool initModel) {
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
   shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
   genItfIIDM->setBusInterface(bus1ItfIIDM);
+  genItfIIDM->setVoltageLevelInterface(vlItfIIDM);
 #else
   IIDM::connection_status_t cs = {!open};
   IIDM::Port p1("MyBus1", cs);
