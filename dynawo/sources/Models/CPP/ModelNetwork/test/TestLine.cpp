@@ -132,7 +132,7 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
 
   powsybl::iidm::CurrentLimits& currentLimits1 = lIIDM.getCurrentLimits1();
   if (!std::isnan(currentLimits1.getPermanentLimit())) {
-    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits1.getPermanentLimit(), boost::none));
+    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits1.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
     dlItfIIDM->addCurrentLimitInterface1(cLimit);
   }
   for (auto& currentLimit : currentLimits1.getTemporaryLimits()) {
@@ -144,7 +144,7 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
   }
   powsybl::iidm::CurrentLimits& currentLimits2 = lIIDM.getCurrentLimits2();
   if (!std::isnan(currentLimits2.getPermanentLimit())) {
-    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits2.getPermanentLimit(), boost::none));
+    shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits2.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
     dlItfIIDM->addCurrentLimitInterface1(cLimit);
   }
   for (auto& currentLimit : currentLimits2.getTemporaryLimits()) {

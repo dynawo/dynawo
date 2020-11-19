@@ -156,13 +156,13 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
   ASSERT_EQ(tfoInterface.getVNom1(), 380.0);
   transformer.getTerminal1().disconnect();
   ASSERT_TRUE(tfoInterface.getInitialConnected1());
-  ASSERT_EQ(tfoInterface.getVNom1(), 0.0);
+  ASSERT_EQ(tfoInterface.getVNom1(), 380.0);
 
   ASSERT_TRUE(tfoInterface.getInitialConnected2());
   ASSERT_EQ(tfoInterface.getVNom2(), 225.0);
   transformer.getTerminal2().disconnect();
   ASSERT_TRUE(tfoInterface.getInitialConnected2());
-  ASSERT_EQ(tfoInterface.getVNom2(), 0.0);
+  ASSERT_EQ(tfoInterface.getVNom2(), 225.0);
 
   ASSERT_EQ(tfoInterface.getRatedU1(), 2.0);
   ASSERT_EQ(tfoInterface.getRatedU2(), 0.4);
