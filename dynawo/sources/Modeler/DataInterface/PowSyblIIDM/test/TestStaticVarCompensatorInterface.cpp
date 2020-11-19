@@ -71,6 +71,8 @@ TEST(DataInterfaceTest, SVarC_1) {
 
   StaticVarCompensator& svc = network.getStaticVarCompensator("SVC1");
   StaticVarCompensatorInterfaceIIDM svcInterface(svc);
+  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  svcInterface.setVoltageLevelInterface(voltageLevelIfce);
 
   ASSERT_EQ(svcInterface.getComponentVarIndex(std::string("p")), StaticVarCompensatorInterfaceIIDM::VAR_P);
   ASSERT_EQ(svcInterface.getComponentVarIndex(std::string("P1")), -1);
@@ -89,9 +91,6 @@ TEST(DataInterfaceTest, SVarC_1) {
   const boost::shared_ptr<BusInterface> busIfce(new BusInterfaceIIDM(bus1));
   svcInterface.setBusInterface(busIfce);
   ASSERT_EQ(svcInterface.getBusInterface().get()->getID(), "VL1_BUS1");
-
-  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
-  svcInterface.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_DOUBLE_EQ(svcInterface.getVNom(), 382.0);
   ASSERT_EQ(svcInterface.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
 
@@ -163,6 +162,8 @@ TEST(DataInterfaceTest, SVarC_2) {  // tests assuming getInitialConnected == fal
 
   StaticVarCompensator& svc = network.getStaticVarCompensator("SVC1");
   StaticVarCompensatorInterfaceIIDM svcInterface(svc);
+  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
+  svcInterface.setVoltageLevelInterface(voltageLevelIfce);
   ASSERT_EQ(svcInterface.getID(), "SVC1");
 
   svc.getTerminal().disconnect();

@@ -31,6 +31,7 @@
 #include "DYNLccConverterInterface.h"
 #include "DYNHvdcLineInterface.h"
 #include "DYNLineInterface.h"
+#include "DYNCalculatedBusInterfaceIIDM.h"
 #include "DYNCriteria.h"
 #include <powsybl/iidm/Network.hpp>
 #include <boost/unordered_set.hpp>
@@ -177,12 +178,27 @@ class DataInterfaceIIDM : public DataInterface {
 
  private:
   /**
-   * @brief find a bus interface thanks to its iidm
-   * @param busIIDM bus interface to find
+   * @brief find a bus interface thanks to the terminal (works for node_breaker and bus_breaker)
+   * @param terminal terminal of the bus interface to find
    *
    * @return instance of bus interface found
    */
-  boost::shared_ptr<BusInterface> findBusInterface(const powsybl::iidm::Bus& busIIDM) const;
+  boost::shared_ptr<BusInterface> findBusInterface(const powsybl::iidm::Terminal& terminal) const;
+  /**
+   * @brief find a bus interface thanks to its iidm
+   * @param bus bus interface to find
+   *
+   * @return instance of bus interface found
+   */
+  boost::shared_ptr<BusInterface> findBusBreakerBusInterface(const powsybl::iidm::Bus& bus) const;
+  /**
+   * @brief find a bus interface thanks to its iidm voltage level and node
+   * @param vl bus voltage level
+   * @param node bus node number
+   *
+   * @return instance of bus interface found
+   */
+  boost::shared_ptr<BusInterface> findNodeBreakerBusInterface(const powsybl::iidm::VoltageLevel& vl, const int node) const;
 
   /**
    * @brief find a voltage level interface thanks to its id
@@ -333,6 +349,7 @@ class DataInterfaceIIDM : public DataInterface {
   boost::unordered_map<std::string, boost::shared_ptr<LoadInterface> > loadComponents_;            ///< map of loads by name
   std::vector<boost::shared_ptr<Criteria> > criteria_;                                             ///< table of criteria to check
   boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
+  boost::unordered_map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
 };  ///< Generic data interface for IIDM format files
 }  // namespace DYN
 

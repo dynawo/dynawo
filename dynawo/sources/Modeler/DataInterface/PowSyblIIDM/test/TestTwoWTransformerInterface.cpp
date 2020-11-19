@@ -327,6 +327,10 @@ TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections) {
       .add();
 
   TwoWTransformerInterfaceIIDM tfoInterface(transformer);
+  const boost::shared_ptr<VoltageLevelInterface> vl1Itf(new VoltageLevelInterfaceIIDM(vl1));
+  const boost::shared_ptr<VoltageLevelInterface> vl2Itf(new VoltageLevelInterfaceIIDM(vl2));
+  tfoInterface.setVoltageLevelInterface1(vl1Itf);
+  tfoInterface.setVoltageLevelInterface2(vl2Itf);
 
   ASSERT_FALSE(tfoInterface.getInitialConnected1());
   transformer.getTerminal1().connect();

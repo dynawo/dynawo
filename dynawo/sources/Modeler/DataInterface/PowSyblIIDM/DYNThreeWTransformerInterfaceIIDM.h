@@ -23,6 +23,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNThreeWTransformerInterface.h"
+#include "DYNVoltageLevelInterface.h"
 
 #include <powsybl/iidm/ThreeWindingsTransformer.hpp>
 

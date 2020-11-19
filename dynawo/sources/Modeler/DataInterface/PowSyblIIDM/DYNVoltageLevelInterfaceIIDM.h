@@ -21,6 +21,8 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNVOLTAGELEVELINTERFACEIIDM_H_
 
 #include "DYNVoltageLevelInterface.h"
+#include "DYNGraph.h"
+#include "DYNCalculatedBusInterfaceIIDM.h"
 
 #include <powsybl/iidm/VoltageLevel.hpp>
 
@@ -173,9 +175,22 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   void mapConnections();
 
   /**
+   *  @brief calculate bus topology from node topology if node topology is used in iidm network
+   */
+  void calculateBusTopology();
+
+  /**
+   * @brief get the vector of calculated bus created from the node view
+   * @return vector of calculated bus created from the node view
+   */
+  inline const std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> >& getCalculatedBus() const {
+    return calculatedBus_;
+  }
+
+  /**
    * @copydoc VoltageLevelInterface::exportSwitchesState()
    */
-  void exportSwitchesState() {/*not needed*/}
+  void exportSwitchesState();
 
   /**
    * @brief get the detailed status of the node
@@ -205,7 +220,11 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   powsybl::iidm::VoltageLevel& voltageLevelIIDM_;  ///< reference to the iidm voltageLevel instance
   bool isNodeBreakerTopology_;  ///< @b true if the topology of the voltageLevel is node breaker topology
   boost::unordered_map<boost::shared_ptr<SwitchInterface>, double > switchState_;  ///< state to apply to switch (due to topology change)
+  std::map< std::string, boost::shared_ptr<SwitchInterface> > switchesById_;  ///< switch interface by Id
+  Graph graph_;  ///< topology graph to find node connection
+  boost::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
   std::vector<boost::shared_ptr<BusInterface> > buses_;  ///< bus interface created
+  std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > calculatedBus_;  ///< vector of calculated bus created from the node view
   std::vector<boost::shared_ptr<SwitchInterface> > switches_;  ///< switch interface created
   std::vector<boost::shared_ptr<GeneratorInterface> > generators_;  ///< generator interface created
   std::vector<boost::shared_ptr<LoadInterface> > loads_;  ///< load interface created

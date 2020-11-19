@@ -50,8 +50,18 @@ LineInterfaceIIDM::~LineInterfaceIIDM() {
 }
 
 void
+LineInterfaceIIDM::setVoltageLevelInterface1(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+  voltageLevelInterface1_ = voltageLevelInterface;
+}
+
+void
 LineInterfaceIIDM::setBusInterface1(const shared_ptr<BusInterface>& busInterface) {
   busInterface1_ = busInterface;
+}
+
+void
+LineInterfaceIIDM::setVoltageLevelInterface2(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+  voltageLevelInterface2_ = voltageLevelInterface;
 }
 
 void
@@ -175,6 +185,9 @@ bool
 LineInterfaceIIDM::getInitialConnected1() {
   if (initialConnected1_ == boost::none) {
     initialConnected1_ = lineIIDM_.getTerminal1().isConnected();
+    if (voltageLevelInterface1_->isNodeBreakerTopology()) {
+      initialConnected1_ = initialConnected1_ && voltageLevelInterface1_->isNodeConnected(lineIIDM_.getTerminal1().getNodeBreakerView().getNode());
+    }
   }
   return initialConnected1_.value();
 }
@@ -183,6 +196,9 @@ bool
 LineInterfaceIIDM::getInitialConnected2() {
   if (initialConnected2_ == boost::none) {
     initialConnected2_ = lineIIDM_.getTerminal2().isConnected();
+    if (voltageLevelInterface2_->isNodeBreakerTopology()) {
+      initialConnected2_ = initialConnected2_ && voltageLevelInterface2_->isNodeConnected(lineIIDM_.getTerminal2().getNodeBreakerView().getNode());
+    }
   }
   return initialConnected2_.value();
 }
@@ -240,10 +256,27 @@ LineInterfaceIIDM::exportStateVariablesUnitComponent() {
   bool connected1 = (state == CLOSED) || (state == CLOSED_1);
   bool connected2 = (state == CLOSED) || (state == CLOSED_2);
 
+  if (voltageLevelInterface1_->isNodeBreakerTopology()) {
+    // should be removed once a solution has been found to propagate switches (de)connection
+    // following component (de)connection (only Modelica models)
+    if (connected1 && !getInitialConnected1())
+      voltageLevelInterface1_->connectNode(lineIIDM_.getTerminal1().getNodeBreakerView().getNode());
+    else if (!connected1 && getInitialConnected1())
+      voltageLevelInterface1_->disconnectNode(lineIIDM_.getTerminal1().getNodeBreakerView().getNode());
+  }
   if (connected1)
     lineIIDM_.getTerminal1().connect();
   else
     lineIIDM_.getTerminal1().disconnect();
+
+  if (voltageLevelInterface2_->isNodeBreakerTopology()) {
+    // should be removed once a solution has been found to propagate switches (de)connection
+    // following component (de)connection (only Modelica models)
+    if (connected2 && !getInitialConnected2())
+      voltageLevelInterface2_->connectNode(lineIIDM_.getTerminal2().getNodeBreakerView().getNode());
+    else if (!connected2 && getInitialConnected2())
+      voltageLevelInterface2_->disconnectNode(lineIIDM_.getTerminal2().getNodeBreakerView().getNode());
+  }
   if (connected2)
     lineIIDM_.getTerminal2().connect();
   else

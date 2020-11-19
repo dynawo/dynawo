@@ -1095,14 +1095,14 @@ ModelLine::setGequations(std::map<int, std::string>& gEquationIndex) {
   int offset = 0;
   if (currentLimits1_) {
     for (int i = 0; i < currentLimits1_->sizeG(); ++i) {
-      gEquationIndex[i] = "Model Line: current limit 1.";
+      gEquationIndex[i] = "Model Line "+ id()+" : current limit 1.";
     }
     offset += currentLimits1_->sizeG();
   }
 
   if (currentLimits2_) {
     for (int i = 0; i < currentLimits2_->sizeG(); ++i) {
-      gEquationIndex[i + offset] = "Model Line: current limit 2.";
+      gEquationIndex[i + offset] = "Model Line "+ id()+" : current limit 2.";
     }
   }
 

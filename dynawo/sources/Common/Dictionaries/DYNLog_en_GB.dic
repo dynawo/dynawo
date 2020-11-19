@@ -68,17 +68,22 @@ InvalidSharedObjects          =             FOLLOWING %1% SHARED OBJECTS ARE NOT
 NbSubNetwork                  =             nbSubNetwork = %1%
 SubNetwork                    =             subNetwork[%1%] nbBus = %2%
 AddingVoltageLevelToNetwork   =             adding voltage level %1% to the Network
+AddingIIDMVoltageLevel        =             adding IIDM voltage level '%1%' VNom: %2% Topology: %3%
 AddingBusToNetwork            =             adding bus %1% to the Network.
+AddingIIDMBus                 =             adding IIDM bus '%1%' vMin: %2% vMax: %3% vNom: %4% V0: %5% Angle0: %6%
 SwitchExtDynModel             =             switch %1% using an external dynamic modelisation : not added to the Network.
 AddingSwitchToNetwork         =             adding Switch %1% to the Network.
+AddingIIDMSwitch              =             adding IIDM switch '%1%' bus 1: '%2%'-> bus 2: '%3%' open: %4%
 LoadExtDynModel               =             load %1% using an external dynamic modelisation : not added to the Network.
 AddingLoadToNetwork           =             adding load %1% to the Network.
+AddingIIDMLoad                =             adding IIDM load '%1%' bus: '%2%', voltage level '%3%', P0: %4%, P: %5%, Q0: %6%, Q: %7%
 SVCExtDynModel                =             SVC %1% using an external dynamic modelisation : not added to the Network.
 AddingSVCToNetwork            =             adding SVC %1% to the Network.
 LineExtDynModel               =             line %1% using an external dynamic modelisation : not added to the Network.
 AddingLineToNetwork           =             adding Line %1% to the Network.
 GeneratorExtDynModel          =             generator %1% using an external dynamic modelisation : not added to the Network.
 AddingGeneratorToNetwork      =             adding Generator %1% to the Network.
+AddingIIDMGenerator           =             adding IIDM generator '%1%' bus: '%2%', voltage level '%3%', P: %4%, PMin: %5%, PMax: %6%, targetP: %7% Q: %8%, QMin: %9%, QMax: %10%, TargetQ: %11%, targetV: %12%, voltage regulation: %13%
 ShuntExtDynModel              =             shunt Compensator %1% using an external dynamic modelisation : not added to the Network.
 AddingShuntToNetwork          =             adding Shunt Compensator %1% to the Network.
 DanglingLineExtDynModel       =             dangling Line %1% using an external dynamic modelisation : not added to the Network.

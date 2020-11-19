@@ -120,8 +120,12 @@ TEST(DataInterfaceTest, Line) {
   ASSERT_EQ(li.getBusInterface2().get(), nullptr);
   const boost::shared_ptr<BusInterface> x_b1(new BusInterfaceIIDM(vl1Bus1));
   const boost::shared_ptr<BusInterface> x_b3(new BusInterfaceIIDM(vl3Bus1));
+  const boost::shared_ptr<VoltageLevelInterface> vl1Itf(new VoltageLevelInterfaceIIDM(vl1));
+  const boost::shared_ptr<VoltageLevelInterface> vl3Itf(new VoltageLevelInterfaceIIDM(vl3));
   li.setBusInterface1(x_b1);
   li.setBusInterface2(x_b3);
+  li.setVoltageLevelInterface1(vl1Itf);
+  li.setVoltageLevelInterface2(vl3Itf);
   ASSERT_EQ(li.getBusInterface1().get()->getID(), "VL1_BUS1");
   ASSERT_EQ(li.getBusInterface2().get()->getID(), "VL3_BUS1");
 
@@ -190,6 +194,8 @@ TEST(DataInterfaceTest, Line) {
   MySecondLine.getTerminal2().disconnect();
 
   LineInterfaceIIDM li2(MySecondLine);
+  li2.setVoltageLevelInterface1(vl1Itf);
+  li2.setVoltageLevelInterface2(vl3Itf);
   ASSERT_FALSE(li2.getInitialConnected1());
   ASSERT_FALSE(li2.getInitialConnected2());
   ASSERT_EQ(li2.getR(), 0.0);

@@ -15,6 +15,7 @@
 
 #include "DYNLccConverterInterfaceIIDM.h"
 #include "DYNVscConverterInterfaceIIDM.h"
+#include "DYNVoltageLevelInterfaceIIDM.h"
 
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/HvdcLine.hpp>
@@ -94,11 +95,15 @@ TEST(DataInterfaceTest, HvdcLine) {
   powsybl::iidm::HvdcLine& hvdcLine = network.getHvdcLine("HVDC1");
   powsybl::iidm::LccConverterStation& lcc = network.getLccConverterStation("LCC1");
   powsybl::iidm::VscConverterStation& vsc = network.getVscConverterStation("VSC2");
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
 
   const boost::shared_ptr<LccConverterInterface> LccIfce(new LccConverterInterfaceIIDM(lcc));
   const boost::shared_ptr<VscConverterInterface> VscIfce(new VscConverterInterfaceIIDM(vsc));
 
   DYN::HvdcLineInterfaceIIDM Ifce(hvdcLine, LccIfce, VscIfce);
+  const boost::shared_ptr<VoltageLevelInterface> vlItf(new VoltageLevelInterfaceIIDM(vl1));
+  LccIfce->setVoltageLevelInterface(vlItf);
+  VscIfce->setVoltageLevelInterface(vlItf);
   ASSERT_EQ(Ifce.getID(), "HVDC1");
 
   ASSERT_EQ(Ifce.getIdConverter1(), "LCC1");
@@ -124,8 +129,5 @@ TEST(DataInterfaceTest, HvdcLine) {
   ASSERT_EQ(Ifce.getConverterMode(), HvdcLineInterface::INVERTER_RECTIFIER);
   hvdcLine.setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER);
   ASSERT_EQ(Ifce.getConverterMode(), HvdcLineInterface::RECTIFIER_INVERTER);
-
-  Ifce.importStaticParameters();                                           // TODO
-  ASSERT_THROW(Ifce.exportStateVariablesUnitComponent(), std::exception);  // UnaffectedStateVariable p1 HVDC1 // TODO
 }  // TEST(DataInterfaceTest, HvdcLine)
 };  // namespace DYN

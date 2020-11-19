@@ -40,9 +40,9 @@ using std::vector;
 namespace DYN {
 
 TwoWTransformerInterfaceIIDM::TwoWTransformerInterfaceIIDM(powsybl::iidm::TwoWindingsTransformer& tfo) :
-tfoIIDM_(tfo),
-initialConnected1_(boost::none),
-initialConnected2_(boost::none) {
+    tfoIIDM_(tfo),
+    initialConnected1_(boost::none),
+    initialConnected2_(boost::none) {
   setType(ComponentInterface::TWO_WTFO);
   stateVariables_.resize(6);
   stateVariables_[VAR_P1] = StateVariable("p1", StateVariable::DOUBLE);  // P1
@@ -95,6 +95,9 @@ bool
 TwoWTransformerInterfaceIIDM::getInitialConnected1() {
   if (initialConnected1_ == boost::none) {
     initialConnected1_ = tfoIIDM_.getTerminal1().isConnected();
+    if (voltageLevelInterface1_->isNodeBreakerTopology()) {
+      initialConnected1_ = initialConnected1_ && voltageLevelInterface1_->isNodeConnected(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode());
+    }
   }
   return initialConnected1_.value();
 }
@@ -103,6 +106,9 @@ bool
 TwoWTransformerInterfaceIIDM::getInitialConnected2() {
   if (initialConnected2_ == boost::none) {
     initialConnected2_ = tfoIIDM_.getTerminal2().isConnected();
+    if (voltageLevelInterface2_->isNodeBreakerTopology()) {
+      initialConnected2_ = initialConnected2_ && voltageLevelInterface2_->isNodeConnected(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode());
+    }
   }
   return initialConnected2_.value();
 }
@@ -228,11 +234,27 @@ TwoWTransformerInterfaceIIDM::exportStateVariablesUnitComponent() {
   bool connected1 = (state == CLOSED) || (state == CLOSED_1);
   bool connected2 = (state == CLOSED) || (state == CLOSED_2);
 
+  if (voltageLevelInterface1_->isNodeBreakerTopology()) {
+    // should be removed once a solution has been found to propagate switches (de)connection
+    // following component (de)connection (only Modelica models)
+    if (connected1 && !getInitialConnected1())
+      voltageLevelInterface1_->connectNode(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode());
+    else if (!connected1 && getInitialConnected1())
+      voltageLevelInterface1_->disconnectNode(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode());
+  }
   if (connected1)
     tfoIIDM_.getTerminal1().connect();
   else
     tfoIIDM_.getTerminal1().disconnect();
 
+  if (voltageLevelInterface2_->isNodeBreakerTopology()) {
+    // should be removed once a solution has been found to propagate switches (de)connection
+    // following component (de)connection (only Modelica models)
+    if (connected2 && !getInitialConnected2())
+      voltageLevelInterface2_->connectNode(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode());
+    else if (!connected2 && getInitialConnected2())
+      voltageLevelInterface2_->disconnectNode(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode());
+  }
   if (connected2)
     tfoIIDM_.getTerminal2().connect();
   else
@@ -268,26 +290,26 @@ TwoWTransformerInterfaceIIDM::getQ1() {
 double
 TwoWTransformerInterfaceIIDM::getP2() {
   if (getInitialConnected2()) {
-  if (std::isnan(tfoIIDM_.getTerminal2().getP())) {
-    Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "transformer", tfoIIDM_.getId(), "P2") << Trace::endline;
-    return 0;
-  }
-  return tfoIIDM_.getTerminal2().getP();
+    if (std::isnan(tfoIIDM_.getTerminal2().getP())) {
+      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "transformer", tfoIIDM_.getId(), "P2") << Trace::endline;
+      return 0;
+    }
+    return tfoIIDM_.getTerminal2().getP();
   } else {
-  return 0.;
+    return 0.;
   }
 }
 
 double
 TwoWTransformerInterfaceIIDM::getQ2() {
   if (getInitialConnected2()) {
-  if (std::isnan(tfoIIDM_.getTerminal2().getQ())) {
-    Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "transformer", tfoIIDM_.getId(), "Q2") << Trace::endline;
-    return 0;
-  }
-  return tfoIIDM_.getTerminal2().getQ();
+    if (std::isnan(tfoIIDM_.getTerminal2().getQ())) {
+      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "transformer", tfoIIDM_.getId(), "Q2") << Trace::endline;
+      return 0;
+    }
+    return tfoIIDM_.getTerminal2().getQ();
   } else {
-  return 0.;
+    return 0.;
   }
 }
 
