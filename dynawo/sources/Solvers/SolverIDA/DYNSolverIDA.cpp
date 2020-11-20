@@ -579,7 +579,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
   smj.init(size, size);
   model->copyContinuousVariables(iyy, iyp);
   model->evalJt(tt, cj, smj);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, solv->lastRowVals_, solv->LS_, "KLU", true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solv->lastRowVals_, solv->LS_, "KLU", true);
 
   return (0);
 }
