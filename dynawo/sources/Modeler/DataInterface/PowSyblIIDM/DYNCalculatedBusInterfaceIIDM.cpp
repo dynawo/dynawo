@@ -24,6 +24,8 @@
 #include "DYNTrace.h"
 
 #include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/BusbarSection.hpp>
+
 #include <sstream>
 #include <cmath>
 
@@ -51,8 +53,9 @@ CalculatedBusInterfaceIIDM::~CalculatedBusInterfaceIIDM() {
 }
 
 void
-CalculatedBusInterfaceIIDM::addBusBarSection(const string& bbs) {
-  bbsNames_.push_back(bbs);
+CalculatedBusInterfaceIIDM::addBusBarSection(powsybl::iidm::BusbarSection& bbs) {
+  bbs_.push_back(stdcxx::Reference<powsybl::iidm::BusbarSection>(bbs));
+  bbsNames_.push_back(bbs.getId());
 }
 
 void
@@ -146,9 +149,10 @@ CalculatedBusInterfaceIIDM::getComponentVarIndex(const std::string& varName) con
 
 void
 CalculatedBusInterfaceIIDM::exportStateVariablesUnitComponent() {
-  if (bus_) {
-    bus_.get().setV(getStateVarV());
-    bus_.get().setAngle(getStateVarAngle());
+  for (auto& bbs : bbs_) {
+    stdcxx::Reference<powsybl::iidm::Bus> bus = bbs.get().getTerminal().getBusBreakerView().getBus();
+    bus.get().setV(getStateVarV());
+    bus.get().setAngle(getStateVarAngle());
   }
 }
 
@@ -188,9 +192,6 @@ std::ostream& operator<<(std::ostream& stream, const CalculatedBusInterfaceIIDM&
     stream << ' ' << bbsNames[i];
 
   stream << " ]";
-  if (calculatedBus.hasBus()) {
-    stream << " bus : " << calculatedBus.getBus().get().getId();
-  }
 
   return stream;
 }

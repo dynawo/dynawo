@@ -117,9 +117,9 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
 
   /**
    * @brief associate a bus bar section interface to the calculated bus
-   * @param bbs : bus bar section id to add
+   * @param bbs : bus bar section to add
    */
-  void addBusBarSection(const std::string& bbs);
+  void addBusBarSection(powsybl::iidm::BusbarSection& bbs);
 
   /**
    * @brief associate a node to the calculated bus
@@ -185,42 +185,17 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
     country_ = country;
   }
 
-  /**
-   * @brief Setter for the iidm bus
-   * @param bus iidm bus
-   */
-  inline void setBus(stdcxx::Reference<powsybl::iidm::Bus>& bus) {
-    bus_ = bus;
-  }
-
-  /**
-   * @brief Test if the iidm bus as set
-   * @return true if the iidm bus was set
-   */
-  inline bool hasBus() const {
-    if (bus_) return true;
-    return false;
-  }
-
-  /**
-   * @brief Getter for the iidm bus
-   * @return the iidm bus
-   */
-  inline const stdcxx::Reference<powsybl::iidm::Bus>& getBus() const {
-    return bus_;
-  }
-
  private:
   int busIndex_;  ///< bus index
   boost::optional<double> U0_;  ///< initial value of the voltage magnitude
   boost::optional<double> angle0_;  ///< initial value of the voltage angle
   std::string name_;  ///< name of the calculated bus
   std::set<int> nodes_;  ///< index of the nodes associated to the bus
-  powsybl::iidm::VoltageLevel&voltageLevel_;  ///< IIDM voltage level instance
-  stdcxx::Reference<powsybl::iidm::Bus> bus_;  ///< IIDM calculated bus
+  powsybl::iidm::VoltageLevel& voltageLevel_;  ///< IIDM voltage level instance
   bool hasConnection_;  ///< @b true if the bus has an outside connection, @b false else
   std::string country_;  ///< country of the bus
   std::vector<std::string> bbsNames_;  ///< names of the bus bar sections
+  std::vector<stdcxx::Reference<powsybl::iidm::BusbarSection>> bbs_;  ///< bus bar sections
 };  ///< Interface class for CalculatedBusInterface
 
 std::ostream& operator<<(std::ostream& stream, const CalculatedBusInterfaceIIDM& calculatedBus);
