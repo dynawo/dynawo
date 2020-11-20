@@ -278,9 +278,8 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
 
   for (powsybl::iidm::BusbarSection& bbsIIDM : voltageLevelIIDM_.getNodeBreakerView().getBusbarSections()) {
     int node = bbsIIDM.getTerminal().getNodeBreakerView().getNode();
-    calculatedBus_[component[node]]->addBusBarSection(bbsIIDM.getId());
+    calculatedBus_[component[node]]->addBusBarSection(bbsIIDM);
     stdcxx::Reference<powsybl::iidm::Bus> bus = bbsIIDM.getTerminal().getBusBreakerView().getConnectableBus();
-    calculatedBus_[component[node]]->setBus(bus);
 
     // retrieve the electricalNode
     unsigned int electricalComponent = component1[node];

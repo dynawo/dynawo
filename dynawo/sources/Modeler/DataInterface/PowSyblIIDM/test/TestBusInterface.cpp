@@ -114,7 +114,7 @@ TEST(DataInterfaceTest, testCalculatedBusInterface) {
       .setLowVoltageLimit(380.0)
       .setHighVoltageLimit(420.0)
       .add();
-  vl.getNodeBreakerView().newBusbarSection()
+  BusbarSection& bbs = vl.getNodeBreakerView().newBusbarSection()
       .setId("BBS")
       .setName("BBS_NAME")
       .setNode(3)
@@ -203,21 +203,15 @@ TEST(DataInterfaceTest, testCalculatedBusInterface) {
   ASSERT_EQ(bus.getComponentVarIndex("foo"), -1);
   ASSERT_EQ(bus.getBusIndex(), 1);
   ASSERT_EQ(bus.getBusBarSectionNames().size(), 0);
-  bus.addBusBarSection("MyBBS");
+  bus.addBusBarSection(bbs);
   ASSERT_EQ(bus.getBusBarSectionNames().size(), 1);
-  ASSERT_EQ(bus.getBusBarSectionNames()[0], "MyBBS");
+  ASSERT_EQ(bus.getBusBarSectionNames()[0], "BBS");
 
   ASSERT_EQ(bus.getNodes().size(), 0);
   bus.addNode(8);
   ASSERT_EQ(bus.getNodes().size(), 1);
   ASSERT_TRUE(bus.hasNode(8));
   ASSERT_FALSE(bus.hasNode(2));
-
-  ASSERT_FALSE(bus.hasBus());
-  stdcxx::Reference<Bus> busr = stdcxx::Reference<Bus>(calculatedIIDMBus);
-  bus.setBus(busr);
-  ASSERT_TRUE(bus.hasBus());
-  ASSERT_EQ(bus.getBus().get().getId(), calculatedIIDMBus.getId());
 }
 
 }  // namespace DYN
