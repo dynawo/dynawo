@@ -638,6 +638,32 @@ TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM3.getAngle(), 3.14);
   ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM4.getV(), 100.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM4.getAngle(), 90.);
+
+  boost::shared_ptr<VoltageLevelInterfaceIIDM> vl =
+      boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(data->getNetwork()->getVoltageLevels()[0]);
+  boost::shared_ptr<SwitchInterfaceIIDM> switchBK2 =
+      boost::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("BK2"));
+  boost::shared_ptr<SwitchInterfaceIIDM> switchBK1 =
+      boost::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("BK1"));
+  boost::shared_ptr<SwitchInterfaceIIDM> switchDC11 =
+      boost::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("DC11"));
+  ASSERT_FALSE(switchBK2->isOpen());
+  ASSERT_TRUE(switchBK1->isOpen());
+  ASSERT_TRUE(switchDC11->isOpen());
+  ASSERT_TRUE(vl->isNodeConnected(1));
+  ASSERT_FALSE(vl->isNodeConnected(0));
+  vl->disconnectNode(1);
+  ASSERT_TRUE(switchBK2->isOpen());
+  ASSERT_TRUE(switchBK1->isOpen());
+  ASSERT_TRUE(switchDC11->isOpen());
+  ASSERT_FALSE(vl->isNodeConnected(1));
+  ASSERT_FALSE(vl->isNodeConnected(0));
+  vl->connectNode(0);
+  ASSERT_TRUE(switchBK2->isOpen());
+  ASSERT_FALSE(switchBK1->isOpen());
+  ASSERT_FALSE(switchDC11->isOpen());
+  ASSERT_FALSE(vl->isNodeConnected(1));
+  ASSERT_TRUE(vl->isNodeConnected(0));
 }
 
 TEST(DataInterfaceIIDMTest, testBusIIDM) {
