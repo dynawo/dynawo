@@ -72,9 +72,9 @@ SolverCommon::copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const i
   return matrixStructChange;
 }
 
-void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size, sunindextype* lastRowVals,
+void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size, sunindextype** lastRowVals,
                                                           SUNLinearSolver& LS, const std::string& linearSolverName, bool log) {
-  bool matrixStructChange = copySparseToKINSOL(smj, JJ, size, lastRowVals);
+  bool matrixStructChange = copySparseToKINSOL(smj, JJ, size, *lastRowVals);
 
   if (matrixStructChange) {
     if (linearSolverName == "KLU") {
@@ -86,11 +86,11 @@ void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& sm
 #else
   }
 #endif
-    if (lastRowVals != NULL) {
-      free(lastRowVals);
+    if (*lastRowVals != NULL) {
+      free(*lastRowVals);
     }
-    lastRowVals = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
-    memcpy(lastRowVals, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
+    *lastRowVals = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
+    memcpy(*lastRowVals, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
     if (log)
       Trace::debug() << DYNLog(MatrixStructureChange) << Trace::endline;
   }
