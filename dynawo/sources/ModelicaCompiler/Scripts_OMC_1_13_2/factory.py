@@ -375,6 +375,9 @@ class Factory:
             nb += len(self.modes.created_relations)
         return nb
 
+    def get_nb_delays(self):
+        return len(self.reader.list_delay_defs)
+
     def keep_continous_modelica_reinit(self):
         return False
 
