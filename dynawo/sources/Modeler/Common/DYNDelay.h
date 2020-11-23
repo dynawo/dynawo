@@ -120,8 +120,8 @@ class Delay {
   /**
    * @brief Reset trigger
    *
-   * This has no effect is trigger is not activated.
-   * After this call, the trigger can not longer be activated
+   * This has no effect if trigger is not activated.
+   * After this call, the trigger can no longer be activated
    */
   void resetTrigger() {
     if (trigger_.is_initialized()) {

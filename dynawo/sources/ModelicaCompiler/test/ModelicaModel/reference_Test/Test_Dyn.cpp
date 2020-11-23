@@ -71,6 +71,7 @@ void ModelTest_Dyn::setupDataStruc()
   data->nbModes = 0;
   data->nbZ = 0;
   data->nbCalculatedVars = 2;
+  data->nbDelays = 0;
   data->constCalcVars.resize(0, 0.);
 }
 

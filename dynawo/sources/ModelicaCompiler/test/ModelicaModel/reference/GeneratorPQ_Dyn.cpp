@@ -71,6 +71,7 @@ void ModelGeneratorPQ_Dyn::setupDataStruc()
   data->nbModes = 3;
   data->nbZ = 4;
   data->nbCalculatedVars = 0;
+  data->nbDelays = 0;
   data->constCalcVars.resize(0, 0.);
 }
 
