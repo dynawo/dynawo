@@ -129,22 +129,12 @@ ModelStaticVarCompensator::init(int& /*yNum*/) {
 
 double
 ModelStaticVarCompensator::P() const {
-  return gSvc() * modelBus_->getCurrentU(ModelBus::U2PuType_);
+  return gSvc0_ * modelBus_->getCurrentU(ModelBus::U2PuType_);
 }
 
 double
 ModelStaticVarCompensator::Q() const {
-  return - bSvc() * modelBus_->getCurrentU(ModelBus::U2PuType_);
-}
-
-double
-ModelStaticVarCompensator::gSvc() const {
-  return gSvc0_;
-}
-
-double
-ModelStaticVarCompensator::bSvc() const {
-  return bSvc0_;
+  return - bSvc0_ * modelBus_->getCurrentU(ModelBus::U2PuType_);
 }
 
 double
@@ -154,7 +144,7 @@ ModelStaticVarCompensator::ir(const double& ui) const {
     ir = ir0_;
   } else {
     if (isConnected() && !modelBus_->getSwitchOff()) {
-      ir = - bSvc() * ui;
+      ir = - bSvc0_ * ui;
     }
   }
   return ir;
@@ -167,7 +157,7 @@ ModelStaticVarCompensator::ii(const double& ur) const {
     ii = ii0_;
   } else {
     if (isConnected() && !modelBus_->getSwitchOff()) {
-      ii = bSvc() * ur;
+      ii = bSvc0_ * ur;
     }
   }
   return ii;
@@ -182,25 +172,16 @@ double
 ModelStaticVarCompensator::ir_dUi() const {
   double ir_dUi = 0.;
   if (isConnected() && !modelBus_->getSwitchOff()) {
-    ir_dUi = - bSvc();
+    ir_dUi = - bSvc0_;
   }
   return ir_dUi;
-}
-
-double
-ModelStaticVarCompensator::ir_dBSvc(const double& ui) const {
-  double ir_dBSvc = 0.;
-  if (isConnected() && !modelBus_->getSwitchOff()) {
-    ir_dBSvc = - ui;
-  }
-  return ir_dBSvc;
 }
 
 double
 ModelStaticVarCompensator::ii_dUr() const {
   double ii_dUr = 0.;
   if (isConnected() && !modelBus_->getSwitchOff()) {
-    ii_dUr = bSvc();
+    ii_dUr = bSvc0_;
   }
   return ii_dUr;
 }
@@ -208,15 +189,6 @@ ModelStaticVarCompensator::ii_dUr() const {
 double
 ModelStaticVarCompensator::ii_dUi() const {
   return 0.;
-}
-
-double
-ModelStaticVarCompensator::ii_dBSvc(const double& ur) const {
-  double ii_dBSvc = 0.;
-  if (isConnected() && !modelBus_->getSwitchOff()) {
-    ii_dBSvc = ur;
-  }
-  return ii_dBSvc;
 }
 
 void
@@ -269,8 +241,8 @@ ModelStaticVarCompensator::evalG(const double& /*t*/) {
 
 void
 ModelStaticVarCompensator::evalCalculatedVars() {
-  calculatedVars_[pNum_] = (isConnected())?P():0.;
-  calculatedVars_[qNum_] = (isConnected())?Q():0.;
+  calculatedVars_[pNum_] = (isConnected())?-P():0.;
+  calculatedVars_[qNum_] = (isConnected())?-Q():0.;
 }
 
 void
@@ -300,22 +272,22 @@ ModelStaticVarCompensator::evalJCalculatedVarI(unsigned numCalculatedVar, vector
       if (isConnected()) {
         double ur = modelBus_->ur();
         double ui = modelBus_->ui();
-        double g = gSvc();
-        // P =  g * (ur * ur + ui * ui)
-        res[0] = g * 2. * ur;  // @P/@Ur
-        res[1] = g * 2. * ui;  // @P/@Ui
-        res[2] = (ur * ur + ui * ui);  // @P/@GSvc
+        double g = gSvc0_;
+        // PProduced =  - g * (ur * ur + ui * ui)
+        res[0] = - g * 2. * ur;  // @P/@Ur
+        res[1] = - g * 2. * ui;  // @P/@Ui
+        res[2] = - (ur * ur + ui * ui);  // @P/@GSvc
       }
       break;
     case qNum_: {
       if (isConnected()) {
         double ur = modelBus_->ur();
         double ui = modelBus_->ui();
-        double b = bSvc();
-        // Q =  - b * (ur * ur + ui * ui)
-        res[0] = - b * 2. * ur;  // @Q/@Ur
-        res[1] = - b * 2. * ui;  // @Q/@Ui
-        res[2] = - (ur * ur + ui * ui);  // @Q/@BSvc
+        double b = bSvc0_;
+        // QProduced =  b * (ur * ur + ui * ui)
+        res[0] = b * 2. * ur;  // @Q/@Ur
+        res[1] = b * 2. * ui;  // @Q/@Ui
+        res[2] = (ur * ur + ui * ui);  // @Q/@BSvc
       }
       break;
     }
@@ -329,12 +301,12 @@ ModelStaticVarCompensator::evalCalculatedVarI(unsigned numCalculatedVar) const {
   switch (numCalculatedVar) {
     case pNum_:
       if (isConnected()) {
-        return (isConnected())?P():0.;
+        return (isConnected())?-P():0.;
       }
     break;
     case qNum_: {
       if (isConnected()) {
-        return (isConnected())?Q():0.;
+        return (isConnected())?-Q():0.;
       }
       break;
     }
