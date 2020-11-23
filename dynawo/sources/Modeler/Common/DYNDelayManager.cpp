@@ -142,14 +142,13 @@ DelayManager::setGomc(state_g* const p_glocal, size_t offset) {
 
   boost::unordered_map<size_t, Delay>::iterator it;
   triggered_ = false;
-  for (it = delays_.begin(); it != delays_.end(); ++it) {
+  for (it = delays_.begin(); it != delays_.end(); ++it, ++index) {
     if (it->second.IsTriggered()) {
       p_glocal[index] = ROOT_UP;
       triggered_ = true;
     } else {
       p_glocal[index] = ROOT_DOWN;
     }
-    index++;
   }
 }
 

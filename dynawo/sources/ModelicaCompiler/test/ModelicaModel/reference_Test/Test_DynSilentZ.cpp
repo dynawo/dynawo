@@ -71,6 +71,7 @@ void ModelTestSilentZ_Dyn::setupDataStruc()
   data->nbModes = 0;
   data->nbZ = 1;
   data->nbCalculatedVars = 1;
+  data->nbDelays = 0;
   data->constCalcVars.resize(0, 0.);
 }
 

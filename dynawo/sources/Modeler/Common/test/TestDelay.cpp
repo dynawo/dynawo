@@ -95,6 +95,14 @@ TEST(CommonTest, testDelayClass) {
   ASSERT_EQ(vec[3].second, 4.4);
   ASSERT_EQ(vec[4].first, 5.);
   ASSERT_EQ(vec[4].second, 5.5);
+
+  ASSERT_FALSE(delay.IsTriggered());
+  delay.trigger();
+  ASSERT_TRUE(delay.IsTriggered());
+  delay.resetTrigger();
+  ASSERT_FALSE(delay.IsTriggered());
+  delay.trigger();  // trigger has not effect
+  ASSERT_FALSE(delay.IsTriggered());
 }
 
 TEST(CommonTest, testDelayClassParameters) {
@@ -126,6 +134,8 @@ TEST(CommonTest, testDelayManagerClass) {
 
   double time = 1;
   double value = 1.1;
+
+  size_t id_none = 2;
 
   size_t id = 10;
   manager.addDelay(id, &time, &value, 3.);
@@ -167,10 +177,10 @@ TEST(CommonTest, testDelayManagerClass) {
   // global ids
   ASSERT_TRUE(manager.isIdAcceptable(id));
   ASSERT_TRUE(manager.isIdAcceptable(id2));
-  ASSERT_FALSE(manager.isIdAcceptable(2));
+  ASSERT_FALSE(manager.isIdAcceptable(id_none));
 
   try {
-    double val = manager.getDelay(2, 2);
+    double val = manager.getDelay(id_none, 2);
 
     // exception should be raised
     ASSERT_TRUE(false);
@@ -218,6 +228,72 @@ TEST(CommonTest, testDelayManagerClass) {
   time2 = 5;
   val = manager.getDelay(id2, 1.5);
   ASSERT_EQ(val, 3.85);
+}
+
+TEST(CommonTest, testDelayManagerClassTrigger) {
+  DYN::DelayManager manager;
+
+  double time = 1;
+  double value = 1.1;
+
+  size_t id_none = 2;
+
+  size_t id = 10;
+  manager.addDelay(id, &time, &value, 3.);
+
+  size_t id2 = 20;
+  double time2 = 1;
+  double value2 = 1.1;
+  manager.addDelay(id2, &time2, &value2, 1.5);
+
+  manager.saveTimepoint();
+
+  time = 2;
+  value = 2.2;
+  time2 = 2;
+  value2 = 2.2;
+  manager.saveTimepoint();
+
+  time = 3;
+  value = 3.3;
+  time2 = 3;
+  value2 = 3.3;
+  manager.saveTimepoint();
+
+  time = 4;
+  value = 4.4;
+  time2 = 4;
+  value2 = 4.4;
+  manager.saveTimepoint();
+
+  time = 5;
+  value = 5.5;
+  time2 = 5;
+  value2 = 5.5;
+  manager.saveTimepoint();
+
+  std::vector<DYN::state_g> states(3, DYN::NO_ROOT);
+
+  ASSERT_FALSE(manager.isTriggered());
+  try {
+    manager.triggerDelay(id_none);
+
+    // exception should be caught
+    ASSERT_TRUE(false);
+  } catch (const std::exception&) {
+  }
+  manager.triggerDelay(id);
+  manager.setGomc(&states[0], 1);
+  ASSERT_EQ(DYN::NO_ROOT, states[0]);
+  ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_UP));
+  ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
+  ASSERT_TRUE(manager.isTriggered());
+
+  manager.notifyEndTrigger();
+  manager.setGomc(&states[0], 1);  // always called before checking trigger
+  ASSERT_FALSE(manager.isTriggered());
+  ASSERT_EQ(DYN::NO_ROOT, states[0]);
+  ASSERT_EQ(2, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
 }
 
 static bool
