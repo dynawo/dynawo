@@ -1444,7 +1444,7 @@ ModelManager::computeDelay(DYNDATA* data, int exprNumber, double exprValue, doub
     assert(initialValue.is_initialized());
 #endif
     return *initialValue;
-  } else if (delayTime != 0) {
+  } else if (!doubleIsZero(delayTime)) {
     // delayTime == 0 corresponds to initialization
     delayManager_.triggerDelay(exprNumber);
   }
