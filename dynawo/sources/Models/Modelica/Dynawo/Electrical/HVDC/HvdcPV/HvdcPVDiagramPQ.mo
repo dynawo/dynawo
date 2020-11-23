@@ -41,8 +41,8 @@ model HvdcPVDiagramPQ "Model of PV HVDC link with a PQ diagram. Each terminal ca
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  output Types.Angle Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
-  output Types.Angle Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
+  Types.Angle Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
+  Types.Angle Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
 
 protected
 
