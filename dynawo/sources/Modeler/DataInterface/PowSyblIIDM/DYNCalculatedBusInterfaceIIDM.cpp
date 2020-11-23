@@ -151,8 +151,10 @@ void
 CalculatedBusInterfaceIIDM::exportStateVariablesUnitComponent() {
   for (auto& bbs : bbs_) {
     stdcxx::Reference<powsybl::iidm::Bus> bus = bbs.get().getTerminal().getBusBreakerView().getBus();
-    bus.get().setV(getStateVarV());
-    bus.get().setAngle(getStateVarAngle());
+    if (bus) {
+      bus.get().setV(getStateVarV());
+      bus.get().setAngle(getStateVarAngle());
+    }
   }
 }
 
