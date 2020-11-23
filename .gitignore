@@ -244,7 +244,7 @@ util/curvesToHtml/resources/v0.6.0.tar.gz
 
 ### VisualStudioCode ###
 .vscode/*
-#!.vscode/settings.json
+!.vscode/settings.json
 #!.vscode/tasks.json
 #!.vscode/launch.json
 #!.vscode/extensions.json
