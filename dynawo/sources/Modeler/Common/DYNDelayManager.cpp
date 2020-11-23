@@ -19,15 +19,18 @@
  */
 
 #include "DYNDelayManager.h"
+
 #include "DYNCommon.h"
 
 #include <boost/optional.hpp>
-
 #include <cassert>
 #include <limits>
 #include <sstream>
 
 namespace DYN {
+
+DelayManager::DelayManager() : delays_(), triggered_(false) {}
+
 void
 DelayManager::addDelay(size_t id, const double* time, const double* value, double delayMax) {
   Delay new_delay(time, value, delayMax);
@@ -131,6 +134,33 @@ DelayManager::loadDelays(const std::vector<std::string>& values) {
   }
 
   return true;
+}
+
+void
+DelayManager::setGomc(state_g* const p_glocal, size_t offset) {
+  size_t index = offset;
+
+  boost::unordered_map<size_t, Delay>::iterator it;
+  triggered_ = false;
+  for (it = delays_.begin(); it != delays_.end(); ++it) {
+    if (it->second.IsTriggered()) {
+      p_glocal[index] = ROOT_UP;
+      triggered_ = true;
+    } else {
+      p_glocal[index] = ROOT_DOWN;
+    }
+    index++;
+  }
+}
+
+void
+DelayManager::notifyEndTrigger() {
+  boost::unordered_map<size_t, Delay>::iterator it;
+  for (it = delays_.begin(); it != delays_.end(); ++it) {
+    if (it->second.IsTriggered()) {
+      it->second.resetTrigger();
+    }
+  }
 }
 
 }  // namespace DYN

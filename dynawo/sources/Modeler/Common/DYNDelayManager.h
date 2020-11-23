@@ -21,6 +21,7 @@
 #define MODELER_COMMON_DYNDELAYMANAGER_H_
 
 #include "DYNDelay.h"
+#include "DYNEnumUtils.h"
 
 #include <boost/unordered_map.hpp>
 
@@ -33,6 +34,11 @@ namespace DYN {
  */
 class DelayManager {
  public:
+  /**
+   * @brief Constructor
+   */
+  DelayManager();
+
   /**
    * @brief Add a delay variable when delay is a variable
    *
@@ -109,6 +115,41 @@ class DelayManager {
    */
   bool loadDelays(const std::vector<std::string>& values);
 
+  /**
+   * @brief calculates the roots of the model for delays
+   *
+   * @param p_glocal local buffer to fill
+   * @param offset offset to start in p_glocal array for delays
+   */
+  void setGomc(state_g* const p_glocal, size_t offset);
+
+  /**
+   * @brief Determines if on delay has been triggered
+   *
+   * @returns whether a delay has been triggered
+   */
+  bool isTriggered() const {
+    return triggered_;
+  }
+
+  /**
+   * @brief Trigger delay
+   *
+   * pre-condition: the delay id is acceptable
+   *
+   * @param id the delay id
+   */
+  void triggerDelay(size_t id) {
+    delays_.at(id).trigger();
+  }
+
+  /**
+   * @brief End triggers
+   *
+   * This will reset currently activated triggers
+   */
+  void notifyEndTrigger();
+
  private:
   /**
    * @brief Retrieves the delay by id (const version)
@@ -124,6 +165,7 @@ class DelayManager {
 
  private:
   boost::unordered_map<size_t, Delay> delays_;  ///< list of registered delayed values
+  bool triggered_;                              ///< Determines if at least one delay has been triggered
 };
 }  // namespace DYN
 
