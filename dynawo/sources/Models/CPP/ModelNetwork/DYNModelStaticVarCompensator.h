@@ -304,18 +304,6 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
    * @brief compute value
    * @return value
    */
-  double gSvc() const;
-
-  /**
-   * @brief compute value
-   * @return value
-   */
-  double bSvc() const;
-
-  /**
-   * @brief compute value
-   * @return value
-   */
   double ir_dUr() const;
 
   /**
@@ -335,20 +323,6 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
    * @return value
    */
   double ii_dUi() const;
-
-  /**
-   * @brief compute value
-   * @param ui imaginary part of the voltage
-   * @return value
-   */
-  double ir_dBSvc(const double& ui) const;
-
-  /**
-   * @brief compute value
-   * @param ur real part of the voltage
-   * @return value
-   */
-  double ii_dBSvc(const double& ur) const;
 
   double gSvc0_;  ///< initial conductance of the svc in pu (base SNREF)
   double bSvc0_;  ///< initial susceptance of the svc in pu (base SNREF)
