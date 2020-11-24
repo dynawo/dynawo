@@ -78,8 +78,8 @@ DeltaQcYNum_(0),
 zPYNum_(0),
 zQYNum_(0) {
   // init data
-  P0_ = load->getP() / SNREF;
-  Q0_ = load->getQ() / SNREF;
+  P0_ = load->getP0() / SNREF;
+  Q0_ = load->getQ0() / SNREF;
   connectionState_ = load->getInitialConnected() ? CLOSED : OPEN;
   double uNode = load->getBusInterface()->getV0();
   double tetaNode = load->getBusInterface()->getAngle0();
