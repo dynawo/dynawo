@@ -24,8 +24,6 @@
 #include "DYNTrace.h"
 
 #include <powsybl/iidm/Bus.hpp>
-#include <powsybl/iidm/BusbarSection.hpp>
-
 #include <sstream>
 #include <cmath>
 
@@ -53,9 +51,8 @@ CalculatedBusInterfaceIIDM::~CalculatedBusInterfaceIIDM() {
 }
 
 void
-CalculatedBusInterfaceIIDM::addBusBarSection(powsybl::iidm::BusbarSection& bbs) {
-  bbs_.push_back(stdcxx::Reference<powsybl::iidm::BusbarSection>(bbs));
-  bbsNames_.push_back(bbs.getId());
+CalculatedBusInterfaceIIDM::addBusBarSection(const string& bbs) {
+  bbsNames_.push_back(bbs);
 }
 
 void
@@ -149,11 +146,14 @@ CalculatedBusInterfaceIIDM::getComponentVarIndex(const std::string& varName) con
 
 void
 CalculatedBusInterfaceIIDM::exportStateVariablesUnitComponent() {
-  for (auto& bbs : bbs_) {
-    stdcxx::Reference<powsybl::iidm::Bus> bus = bbs.get().getTerminal().getBusBreakerView().getBus();
-    if (bus) {
-      bus.get().setV(getStateVarV());
-      bus.get().setAngle(getStateVarAngle());
+  for (auto& node : nodes_) {
+    const auto& terminal = voltageLevel_.getNodeBreakerView().getTerminal(node);
+    if (terminal) {
+      const auto& bus = terminal.get().getBusView().getBus();
+      if (bus) {
+        bus.get().setV(getStateVarV());
+        bus.get().setAngle(getStateVarAngle());
+      }
     }
   }
 }
@@ -193,7 +193,7 @@ std::ostream& operator<<(std::ostream& stream, const CalculatedBusInterfaceIIDM&
   for (unsigned int i =0; i < bbsNames.size(); ++i)
     stream << ' ' << bbsNames[i];
 
-  stream << " ]";
+  stream << " ]; U0 : " << calculatedBus.getV0() << "; Angle0 : " << calculatedBus.getAngle0();
 
   return stream;
 }

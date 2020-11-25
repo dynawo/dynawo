@@ -117,9 +117,9 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
 
   /**
    * @brief associate a bus bar section interface to the calculated bus
-   * @param bbs : bus bar section to add
+   * @param bbs : bus bar section id to add
    */
-  void addBusBarSection(powsybl::iidm::BusbarSection& bbs);
+  void addBusBarSection(const std::string& bbs);
 
   /**
    * @brief associate a node to the calculated bus
