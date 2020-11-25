@@ -54,6 +54,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     Line.xml
     LoadAlphaBeta.xml
     LoadAlphaBetaRestorative.xml
+    LoadAlphaBetaRestorativeLimitsRecalc.xml
     LoadOneTransformer.xml
     LoadOneTransformerTapChanger.xml
     LoadPQ.xml
