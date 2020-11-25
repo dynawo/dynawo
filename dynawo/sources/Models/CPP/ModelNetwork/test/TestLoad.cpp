@@ -57,8 +57,8 @@ createModelLoad(bool open, bool initModel) {
 
 
   IIDM::builders::LoadBuilder lb;
-  lb.p(42.);
-  lb.q(64.);
+  lb.p0(42.);
+  lb.q0(64.);
   IIDM::Load loadIIDM = lb.build("MyLoad");
   vlIIDM.add(loadIIDM, c1);
   IIDM::Load loadIIDM2 = vlIIDM.get_load("MyLoad");  // was copied...
