@@ -24,7 +24,7 @@
 namespace DYN {
 
 TraceStream::TraceStream() :
-buffer_(),
+buffer_(boost::shared_ptr<std::stringstream>(new std::stringstream)),
 slv_(INFO),
 tag_("") {
 }
@@ -33,12 +33,24 @@ TraceStream::TraceStream(SeverityLevel slv, const std::string& tag) :
 buffer_(),
 slv_(slv),
 tag_(tag) {
+  if (Trace::standardLogExists(slv) || Trace::logExists(tag, slv)) {
+    buffer_ = boost::shared_ptr<std::stringstream>(new std::stringstream);
+  }
 }
 
 TraceStream::TraceStream(const TraceStream& ts) :
-buffer_(),
+buffer_(boost::shared_ptr<std::stringstream>(new std::stringstream)),
 slv_(ts.slv_),
 tag_(ts.tag_) {
+}
+
+TraceStream&
+TraceStream::operator=(const TraceStream& ts) {
+  slv_ = ts.slv_;
+  tag_ = ts.tag_;
+  buffer_.reset();
+  buffer_ = boost::shared_ptr<std::stringstream>(new std::stringstream);
+  return *this;
 }
 
 TraceStream::~TraceStream() {
@@ -46,14 +58,18 @@ TraceStream::~TraceStream() {
 
 TraceStream&
 TraceStream::operator<<(const char* t) {
-  buffer_ << t;
+  if (buffer_) {
+    (*buffer_) << t;
+  }
   return *this;
 }
 
 void
 TraceStream::flush() {
-  Trace::log(slv_, tag_, buffer_.str());
-  buffer_.str(std::string());
+  if (buffer_) {
+    Trace::log(slv_, tag_, buffer_->str());
+    buffer_->str(std::string());
+  }
 }
 
 TraceStream&

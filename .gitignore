@@ -1,4 +1,5 @@
 build/
+build-code/
 dynawo/sources/Common/*_keys.cpp
 dynawo/sources/Common/*_keys.h
 dynawo/sources/Models/Modelica/Dynawo/NonElectrical/Logs/*Keys.mo
@@ -237,3 +238,20 @@ util/autocompletion/_dynawo
 .DS_Store
 util/curvesToHtml/resources/1.3.2.tar.gz
 util/curvesToHtml/resources/v0.6.0.tar.gz
+
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode
+
+### VisualStudioCode ###
+.vscode/*
+#!.vscode/settings.json
+#!.vscode/tasks.json
+#!.vscode/launch.json
+#!.vscode/extensions.json
+*.code-workspace
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
