@@ -336,7 +336,7 @@ VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
   for (int i = 0, iEnd = voltageLevelIIDM_.getNodeBreakerView().getMaximumNodeIndex() + 1; i < iEnd; ++i) {
     const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(i);
     if (terminal) {
-      const auto& bus = terminal.get().getBusView().getBus();
+      const auto& bus = terminal.get().getBusBreakerView().getBus();
       if (bus) {
         vector<string> ret;
         graph_.shortestPath(nodeToConnect, i, weights1_, ret);
