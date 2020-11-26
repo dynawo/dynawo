@@ -166,6 +166,22 @@ createNodeBreakerNetworkIIDM() {
       .setRetained(false)
       .setOpen(true)
       .add();
+  vl.newLoad()
+      .setId("MyLoad")
+      .setNode(1)
+      .setName("LOAD1_NAME")
+      .setLoadType(powsybl::iidm::LoadType::UNDEFINED)
+      .setP0(105.0)
+      .setQ0(90.0)
+      .add();
+  vl.newLoad()
+      .setId("MyLoad2")
+      .setNode(0)
+      .setName("LOAD2_NAME")
+      .setLoadType(powsybl::iidm::LoadType::UNDEFINED)
+      .setP0(0.0)
+      .setQ0(0.0)
+      .add();
 
   powsybl::iidm::Bus& calculatedIIDMBus3 = vl.getBusBreakerView().getBus("MyVoltageLevel_3").get();
   calculatedIIDMBus3.setV(110.);
@@ -615,16 +631,9 @@ TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_4", "Teta_pu"), 3 * M_PI / 180);
 
   ASSERT_EQ(data->getBusName("calculatedBus_MyVoltageLevel_0", ""), "calculatedBus_MyVoltageLevel_0");
-  powsybl::iidm::Bus& busIIDM3 = network.getVoltageLevel("MyVoltageLevel").getBusBreakerView().getBus("MyVoltageLevel_3");
   powsybl::iidm::Bus& busIIDM4 = network.getVoltageLevel("MyVoltageLevel").getBusBreakerView().getBus("MyVoltageLevel_4");
-  ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM3.getV(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM3.getAngle(), 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM4.getV(), 220.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM4.getAngle(), 3.);
-  boost::shared_ptr<CalculatedBusInterfaceIIDM> bus3 =
-      boost::dynamic_pointer_cast<CalculatedBusInterfaceIIDM>(data->findComponent("calculatedBus_MyVoltageLevel_3"));
-  bus3->setValue(BusInterfaceIIDM::VAR_V, 200.);
-  bus3->setValue(BusInterfaceIIDM::VAR_ANGLE, 3.14);
   boost::shared_ptr<CalculatedBusInterfaceIIDM> bus4 =
       boost::dynamic_pointer_cast<CalculatedBusInterfaceIIDM>(data->findComponent("calculatedBus_MyVoltageLevel_4"));
   bus4->setValue(BusInterfaceIIDM::VAR_V, 100.);
@@ -633,14 +642,13 @@ TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDM) {
       boost::dynamic_pointer_cast<CalculatedBusInterfaceIIDM>(data->findComponent("calculatedBus_MyVoltageLevel_1"));
   bus1->setValue(BusInterfaceIIDM::VAR_V, 100.);
   bus1->setValue(BusInterfaceIIDM::VAR_ANGLE, 90.);
-  data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM3.getV(), 200.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM3.getAngle(), 3.14);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM4.getV(), 100.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM4.getAngle(), 90.);
 
   boost::shared_ptr<VoltageLevelInterfaceIIDM> vl =
       boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(data->getNetwork()->getVoltageLevels()[0]);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM4.getV(), 100.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(busIIDM4.getAngle(), 90.);
+
   boost::shared_ptr<SwitchInterfaceIIDM> switchBK2 =
       boost::dynamic_pointer_cast<SwitchInterfaceIIDM>(data->findComponent("BK2"));
   boost::shared_ptr<SwitchInterfaceIIDM> switchBK1 =

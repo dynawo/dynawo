@@ -203,7 +203,7 @@ TEST(DataInterfaceTest, testCalculatedBusInterface) {
   ASSERT_EQ(bus.getComponentVarIndex("foo"), -1);
   ASSERT_EQ(bus.getBusIndex(), 1);
   ASSERT_EQ(bus.getBusBarSectionNames().size(), 0);
-  bus.addBusBarSection(bbs);
+  bus.addBusBarSection(bbs.getId());
   ASSERT_EQ(bus.getBusBarSectionNames().size(), 1);
   ASSERT_EQ(bus.getBusBarSectionNames()[0], "BBS");
 
