@@ -67,6 +67,12 @@ typedef sinks::synchronous_sink< sinks::text_file_backend > file_sink;  ///< def
 static vector< boost::shared_ptr<file_sink> > sinks;  ///<  vector of file sink
 static vector< boost::shared_ptr<text_sink> > originalSinks;  ///< vector of text sink
 
+#if _DEBUG_
+const SeverityLevel Trace::defaultLevel_ = DEBUG;
+#else
+const SeverityLevel Trace::defaultLevel_ = INFO;
+#endif
+
 /**
  * @brief Operator<< overload for severity level on ostreams
  *
