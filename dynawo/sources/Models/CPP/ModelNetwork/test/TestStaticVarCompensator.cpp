@@ -130,23 +130,24 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
   svc->evalYMat();
   ASSERT_EQ(svc->sizeCalculatedVar(), ModelStaticVarCompensator::nbCalculatedVariables_);
 
-  y[ModelStaticVarCompensator::bSvcNum_] = 2;
   std::vector<double> calculatedVars(ModelStaticVarCompensator::nbCalculatedVariables_, 0.);
   svc->setReferenceCalculatedVar(&calculatedVars[0], 0);
   svc->evalCalculatedVars();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::qNum_], 32.50);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::pNum_], -12.1875);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::qNum_], -20.3125);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svc->evalCalculatedVarI(ModelStaticVarCompensator::pNum_), calculatedVars[ModelStaticVarCompensator::pNum_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(svc->evalCalculatedVarI(ModelStaticVarCompensator::qNum_), calculatedVars[ModelStaticVarCompensator::qNum_]);
   svc->setConnected(OPEN);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svc->evalCalculatedVarI(ModelStaticVarCompensator::pNum_), 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(svc->evalCalculatedVarI(ModelStaticVarCompensator::qNum_), 0.);
   svc->setConnected(CLOSED);
   ASSERT_THROW_DYNAWO(svc->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
-
   std::vector<double> res(3, 0.);
   ASSERT_THROW_DYNAWO(svc->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(svc->evalJCalculatedVarI(ModelStaticVarCompensator::qNum_, res));
-  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 14.00);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 8.00);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -8.75);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -5);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 16.25);
   res.clear();
   svc->setConnected(OPEN);
@@ -159,10 +160,9 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
   std::vector<int> numVars;
   ASSERT_THROW_DYNAWO(svc->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(svc->getIndexesOfVariablesUsedForCalculatedVarI(ModelStaticVarCompensator::qNum_, numVars));
-  ASSERT_EQ(numVars.size(), 3);
+  ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
-  ASSERT_EQ(numVars[2], 4);
   numVars.clear();
   delete[] zConnected;
 }
@@ -172,7 +172,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   shared_ptr<ModelStaticVarCompensator> svc = p.first;
   svc->initSize();
   unsigned nbZ = 2;
-  unsigned nbG = 8;
+  unsigned nbG = 0;
   ASSERT_EQ(svc->sizeZ(), nbZ);
   ASSERT_EQ(svc->sizeG(), nbG);
   std::vector<double> y(svc->sizeY(), 0.);
@@ -199,71 +199,12 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   ASSERT_EQ(z[ModelStaticVarCompensator::connectionStateNum_], OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::modeNum_], StaticVarCompensatorInterface::RUNNING_Q);
 
-  g[7] =  ROOT_UP;
-  z[ModelStaticVarCompensator::connectionStateNum_] = CLOSED;
-  ASSERT_EQ(svc->evalZ(10.), NetworkComponent::STATE_CHANGE);
-  ASSERT_EQ(svc->evalState(10.), NetworkComponent::STATE_CHANGE);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::modeNum_], StaticVarCompensatorInterface::RUNNING_V);
-
-  g[7] =  ROOT_DOWN;
-  g[6] =  ROOT_UP;
-  ASSERT_EQ(svc->evalZ(10.), NetworkComponent::NO_CHANGE);
-  ASSERT_EQ(svc->evalState(10.), NetworkComponent::NO_CHANGE);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::modeNum_], StaticVarCompensatorInterface::RUNNING_V);
-
   std::map<int, std::string> gEquationIndex;
   svc->setGequations(gEquationIndex);
   ASSERT_EQ(gEquationIndex.size(), nbG);
   for (size_t i = 0; i < nbG; ++i) {
     ASSERT_TRUE(gEquationIndex.find(i) != gEquationIndex.end());
   }
-  g[6] =  ROOT_DOWN;
-  y[ModelStaticVarCompensator::piOutNum_] = 2;
-  z[ModelStaticVarCompensator::modeNum_] = StaticVarCompensatorInterface::OFF;
-  ASSERT_NO_THROW(svc->evalZ(20.));
-  ASSERT_NO_THROW(svc->evalG(20.));
-  ASSERT_EQ(g[0], ROOT_DOWN);
-  ASSERT_EQ(g[1], ROOT_UP);
-  ASSERT_EQ(g[2], ROOT_DOWN);
-  ASSERT_EQ(g[3], ROOT_UP);
-  ASSERT_EQ(g[4], ROOT_UP);
-  ASSERT_EQ(g[5], ROOT_DOWN);
-  ASSERT_EQ(g[6], ROOT_DOWN);
-  ASSERT_EQ(g[7], ROOT_DOWN);
-  z[ModelStaticVarCompensator::modeNum_] = StaticVarCompensatorInterface::RUNNING_V;
-  y[ModelStaticVarCompensator::piOutNum_] = -1;
-  ASSERT_NO_THROW(svc->evalZ(20.));
-  ASSERT_NO_THROW(svc->evalG(20.));
-  ASSERT_EQ(g[0], ROOT_UP);
-  ASSERT_EQ(g[1], ROOT_DOWN);
-  ASSERT_EQ(g[2], ROOT_UP);
-  ASSERT_EQ(g[3], ROOT_DOWN);
-  ASSERT_EQ(g[4], ROOT_DOWN);
-  ASSERT_EQ(g[5], ROOT_UP);
-  ASSERT_EQ(g[6], ROOT_DOWN);
-  ASSERT_EQ(g[7], ROOT_DOWN);
-  y[ModelStaticVarCompensator::piOutNum_] = 6;
-  ASSERT_NO_THROW(svc->evalZ(20.));
-  ASSERT_NO_THROW(svc->evalG(20.));
-  ASSERT_EQ(g[0], ROOT_DOWN);
-  ASSERT_EQ(g[1], ROOT_DOWN);
-  ASSERT_EQ(g[2], ROOT_DOWN);
-  ASSERT_EQ(g[3], ROOT_UP);
-  ASSERT_EQ(g[4], ROOT_UP);
-  ASSERT_EQ(g[5], ROOT_DOWN);
-  ASSERT_EQ(g[6], ROOT_DOWN);
-  ASSERT_EQ(g[7], ROOT_DOWN);
-  z[ModelStaticVarCompensator::modeNum_] = StaticVarCompensatorInterface::STANDBY;
-  ASSERT_NO_THROW(svc->evalZ(20.));
-  ASSERT_NO_THROW(svc->evalG(20.));
-  ASSERT_EQ(g[0], ROOT_DOWN);
-  ASSERT_EQ(g[1], ROOT_DOWN);
-  ASSERT_EQ(g[2], ROOT_DOWN);
-  ASSERT_EQ(g[3], ROOT_UP);
-  ASSERT_EQ(g[4], ROOT_UP);
-  ASSERT_EQ(g[5], ROOT_DOWN);
-  ASSERT_EQ(g[6], ROOT_UP);
-  ASSERT_EQ(g[7], ROOT_UP);
   delete[] zConnected;
 }
 
@@ -271,13 +212,9 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorContinuousVariables) {
   std::pair<shared_ptr<ModelStaticVarCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelStaticVarCompensator(false, false);
   shared_ptr<ModelStaticVarCompensator> svc = p.first;
   svc->initSize();
-  unsigned nbY = 4;
-  unsigned nbF = 4;
+  unsigned nbY = 0;
+  unsigned nbF = 0;
   std::vector<double> y(nbY, 0.);
-  y[0] = 1.;
-  y[1] = 2.;
-  y[2] = 3.;
-  y[3] = 4.;
   std::vector<double> yp(nbY, 0.);
   std::vector<double> f(nbF, 0.);
   std::vector<double> z(svc->sizeZ(), 0.);
@@ -298,22 +235,10 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorContinuousVariables) {
 
   // test evalYType
   ASSERT_NO_THROW(svc->evalYType());
-  ASSERT_EQ(yTypes[ModelStaticVarCompensator::piInNum_], ALGEBRAIC);
-  ASSERT_EQ(yTypes[ModelStaticVarCompensator::piOutNum_], ALGEBRAIC);
-  ASSERT_EQ(yTypes[ModelStaticVarCompensator::bSvcNum_], ALGEBRAIC);
-  ASSERT_EQ(yTypes[ModelStaticVarCompensator::feedBackNum_], DIFFERENTIAL);
   ASSERT_NO_THROW(svc->evalFType());
-  ASSERT_EQ(fTypes[ModelStaticVarCompensator::piInNum_], ALGEBRAIC_EQ);
-  ASSERT_EQ(fTypes[ModelStaticVarCompensator::piOutNum_], ALGEBRAIC_EQ);
-  ASSERT_EQ(fTypes[ModelStaticVarCompensator::bSvcNum_], ALGEBRAIC_EQ);
-  ASSERT_EQ(fTypes[ModelStaticVarCompensator::feedBackNum_], DIFFERENTIAL_EQ);
 
   // test evalF
   ASSERT_NO_THROW(svc->evalF(UNDEFINED_EQ));
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[ModelStaticVarCompensator::piInNum_], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[ModelStaticVarCompensator::piOutNum_], -3.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[ModelStaticVarCompensator::bSvcNum_], 1.75);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[ModelStaticVarCompensator::feedBackNum_], 1.);
 
   // test setFequations
   std::map<int, std::string> fEquationIndex;
@@ -357,10 +282,6 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorJt) {
   shared_ptr<ModelStaticVarCompensator> svc = p.first;
   svc->initSize();
   std::vector<double> y(svc->sizeY(), 0.);
-  y[0] = 1.;
-  y[1] = 2.;
-  y[2] = 3.;
-  y[3] = 4.;
   std::vector<double> yp(svc->sizeY(), 0.);
   std::vector<double> f(svc->sizeF(), 0.);
   std::vector<double> z(svc->sizeZ(), 0.);
@@ -381,49 +302,12 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorJt) {
   int size = svc->sizeY();
   smj.init(size, size);
   svc->evalJt(smj, 1., 0);
-  ASSERT_EQ(smj.nbElem(), 7);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3], -1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[4], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[5], 1.005);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[6], -1.);
-  ASSERT_EQ(smj.Ap_[0], 0);
-  ASSERT_EQ(smj.Ap_[1], 1);
-  ASSERT_EQ(smj.Ap_[2], 4);
-  ASSERT_EQ(smj.Ap_[3], 5);
-  ASSERT_EQ(smj.Ap_[4], 7);
-  g[0] =  ROOT_UP;
-  z[ModelStaticVarCompensator::connectionStateNum_] = CLOSED;
-  svc->evalZ(10.);  // isRunning = true
-  SparseMatrix smj2;
-  smj2.init(size, size);
-  svc->evalJt(smj2, 1., 0);
-  ASSERT_EQ(smj2.nbElem(), 10);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[0], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[1], 4.3129725684978375);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[2], 2.4645557534273355);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[3], 0.65);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[4], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[5], -1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[6], -1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[7], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[8], 1.005);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[9], -1.);
-  ASSERT_EQ(smj2.Ap_[0], 0);
-  ASSERT_EQ(smj2.Ap_[1], 4);
-  ASSERT_EQ(smj2.Ap_[2], 7);
-  ASSERT_EQ(smj2.Ap_[3], 8);
-  ASSERT_EQ(smj2.Ap_[4], 10);
+  ASSERT_EQ(smj.nbElem(), 0);
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
   svc->evalJtPrim(smjPrime, 0);
-  ASSERT_EQ(smjPrime.nbElem(), 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.Ax_[0], 0.005);
-  ASSERT_EQ(smjPrime.Ap_[0], 0);
-  ASSERT_EQ(smjPrime.Ap_[1], 0);
+  ASSERT_EQ(smjPrime.nbElem(), 0);
   delete[] zConnected;
 }
 

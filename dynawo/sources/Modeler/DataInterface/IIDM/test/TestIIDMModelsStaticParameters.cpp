@@ -257,7 +257,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     svcb.regulationMode(IIDM::StaticVarCompensator::regulation_reactive_power);
     svcb.bmin(1.0);
     svcb.bmax(10.0);
-    svcb.p(105.);
+    svcb.p(5.);
     svcb.q(90.);
     IIDM::StaticVarCompensator svc = svcb.build("MyStaticVarCompensator");
     IIDM::extensions::standbyautomaton::StandbyAutomatonBuilder sbab;
@@ -628,7 +628,7 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDMAndStaticParameters) {
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
 
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p"), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p"), 5.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "q"), 90.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterIntValue("MyStaticVarCompensator", "regulatingMode"), 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "v"), 150.);

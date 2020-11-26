@@ -52,16 +52,6 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
   } CalculatedVariables_t;
 
   /**
-   * @brief  index variables type
-   */
-  typedef enum {
-    piInNum_ = 0,
-    piOutNum_ = 1,
-    bSvcNum_ = 2,
-    feedBackNum_ = 3
-  } IndexVariables_t;
-
-  /**
    * @brief index discrete variable
    */
   typedef enum {
@@ -302,37 +292,13 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
    * @brief compute value
    * @return value
    */
+  double P() const;
+
+  /**
+   * @brief compute value
+   * @return value
+   */
   double Q() const;
-
-  /**
-   * @brief compute value
-   * @return value
-   */
-  double piIn() const;
-
-  /**
-   * @brief compute value
-   * @return value
-   */
-  double piOut() const;
-
-  /**
-   * @brief compute value
-   * @return value
-   */
-  double feedBack() const;
-
-  /**
-   * @brief compute value
-   * @return value
-   */
-  double feedBackPrim() const;
-
-  /**
-   * @brief compute value
-   * @return value
-   */
-  double bSvc() const;
 
   /**
    * @brief compute value
@@ -358,53 +324,14 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
    */
   double ii_dUi() const;
 
-  /**
-   * @brief compute value
-   * @param ui imaginary part of the voltage
-   * @return value
-   */
-  double ir_dBSvc(const double& ui) const;
-
-  /**
-   * @brief compute value
-   * @param ur real part of the voltage
-   * @return value
-   */
-  double ii_dBSvc(const double& ur) const;
-
-  boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
-  double Statism_;  ///< statism
-  double kG_;  ///< global gain before the Proportional Integral
-  double kP_;  ///< gain in regulator PI
-  double Ti_;  ///< time constant Ti
-  double bMin_;  ///< minimum susceptance
-  double bMax_;  ///< maximum susceptance
-  double vSetPoint_;  ///< voltage set-point
-  double vNom_;  ///< nominal voltage
-  State connectionState_;  ///< "internal" compensator connection status, evaluated at the end of evalZ to detect if the state was modified by another component
-  bool stateModified_;  ///< true if the compensator connection state was modified
-  StaticVarCompensatorInterface::RegulationMode_t mode_;  ///< regulation mode
-  double uMinActivation_;  ///< lower voltage limit to activate running mode when in standby
-  double uMaxActivation_;  ///< higher voltage limit to activate running mode when in standby
-  double uSetPointMin_;  ///< new target when UMin has been reached
-  double uSetPointMax_;  ///< new target when UMax has been reached
-  double hasStandByAutomaton_;  ///< check if extension StandByAutomaton is loaded
-  bool isStandBy_;  ///< svc is standby or not
-  double bShunt_;  ///< constant susceptance
+  double gSvc0_;  ///< initial conductance of the svc in pu (base SNREF)
   double bSvc0_;  ///< initial susceptance of the svc in pu (base SNREF)
   double ir0_;  ///< initial current (real part)
   double ii0_;  ///< initial current (imaginary part)
-
-  // variables
-  double piIn0_;  ///< input regulator PI
-  double piOut0_;  ///< before B limiter in regulator PI
-  double feedBack0_;  ///< output of simple-lag block
-  double feedBackPrim0_;  ///< derivative of output of simple-lag block
-  int piInYNum_;  ///< piInYNum_
-  int piOutYNum_;  ///< piOutYNum_
-  int bSvcYNum_;  ///< bSvcYNum_
-  int feedBackYNum_;  ///< feedBackYNum_
-  bool isRunning_;  ///< svc is running or not
+  StaticVarCompensatorInterface::RegulationMode_t mode_;  ///< regulation mode
+  State connectionState_;  ///< "internal" compensator connection status, evaluated at the end of evalZ to detect if the state was modified by another component
+  bool stateModified_;  ///< true if the compensator connection state was modified
+  boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
 };  ///< class for Static Var Compensator model in network
 
 }  // namespace DYN

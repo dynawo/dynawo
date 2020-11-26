@@ -179,6 +179,11 @@ StaticVarCompensatorInterfaceIIDM::getBMax() const {
 }
 
 double
+StaticVarCompensatorInterfaceIIDM::getP() {
+  return InjectorInterfaceIIDM<IIDM::StaticVarCompensator>::getP();
+}
+
+double
 StaticVarCompensatorInterfaceIIDM::getQ() {
   return InjectorInterfaceIIDM<IIDM::StaticVarCompensator>::getQ();
 }
