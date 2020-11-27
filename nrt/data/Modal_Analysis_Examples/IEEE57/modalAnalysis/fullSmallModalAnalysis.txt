@@ -17,7 +17,6 @@ Nb.--imag. Part-- real Part--freq. Part--damp. Part--parti. Part-- arg. Part-- m
 22      4.7485     -0.8115      0.7558     16.8449    100.0000    139.9178         ROT GEN____6_SM
 
 24      3.7498     -0.5269      0.5968     13.9141    100.0000     91.0515         ROT GEN____2_SM
-
 ---------------------------------------------------------------------------------------------------------
 -----------------------------------------COMPLEX UNSTABLE MODES------------------------------------------
 ---------------------------------------------------------------------------------------------------------
@@ -153,13 +152,15 @@ ind. State    |sub. Part|    mach. Name|     arg. Part|       state Type|
 =======================================================================================
 Number of coupled modes is : 6
 Minimum Relative Participation (%):1.0000
-Number of Inter-Area Modes :
-4
+
+Number of Inter-Area Modes :4
 indices of Inter-Area Modes :16, 18, 20, 22, 
+
 Number of Electrical Coupling Modes :0
 indices of Electrical Coupling Modes :0
 
 Number of complex Local Modes :2
 indices of complex Local Modes:14, 24, 
+
 Number of Other Coupling Modes :0
 indices of Other Coupling Modes :0
