@@ -31,7 +31,10 @@ class TimetableEntry;
 class FinalStateEntry;
 class CurvesEntry;
 class LogsEntry;
-
+class LineariseEntry;
+class ModalAnalysisEntry;
+class AllModesEntry;
+class SubParticipationEntry;
 /**
  * @class OutputsEntry
  * @brief Outputs entries container class
@@ -138,6 +141,55 @@ class OutputsEntry {
    * @return the log entry container
    */
   virtual boost::shared_ptr<LogsEntry> getLogsEntry() const = 0;
+
+  /**
+   * @brief Linearise entry setter
+   * @param lineariseEntry : linearise entry container for the job
+   */
+  virtual void setLineariseEntry(const boost::shared_ptr<LineariseEntry>& lineariseEntry) = 0;
+
+  /**
+   * @brief Linearise entries container getter
+   * @return the linearise entry container
+   */
+  virtual boost::shared_ptr<LineariseEntry> getLineariseEntry() const = 0;
+
+  /**
+   * @brief ModalAnalysis entry setter
+   * @param ModalAnalysisEntry : ModalAnalysis entry container for the job
+   */
+  virtual void setModalAnalysisEntry(const boost::shared_ptr<ModalAnalysisEntry>& modalanalysisEntry) = 0;
+
+  /**
+   * @brief ModalAnalysis entries container getter
+   * @return the modalanalysis entry container
+   */
+  virtual boost::shared_ptr<ModalAnalysisEntry> getModalAnalysisEntry() const = 0;
+
+  /**
+   * @brief All Modes entry setter
+   * @param AllModesEntry : AllModes entry container for the job
+   */
+  virtual void setAllModesEntry(const boost::shared_ptr<AllModesEntry>& allmodesEntry) = 0;
+
+  /**
+   * @brief AllModes entries container getter
+   * @return the allmodes entry container
+   */
+  virtual boost::shared_ptr<AllModesEntry> getAllModesEntry() const = 0;
+
+  /**
+   * @brief Sub Participation entry setter
+   * @param SubParticipationEntry : SubParticipation entry container for the job
+   */
+  virtual void setSubParticipationEntry(const boost::shared_ptr<SubParticipationEntry>& subparticipationEntry) = 0;
+
+  /**
+   * @brief SubParticipation entries container getter
+   * @return the subparticipation entry container
+   */
+
+  virtual boost::shared_ptr<SubParticipationEntry> getSubParticipationEntry() const = 0;
 
   class Impl;  ///< implemented class
 };

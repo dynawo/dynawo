@@ -58,6 +58,16 @@ JobEntry::Impl::getSimulationEntry() const {
 }
 
 void
+JobEntry::Impl::setLineariseEntry(const boost::shared_ptr<LineariseEntry> & lineariseEntry) {
+  lineariseEntry_ = lineariseEntry;
+}
+
+boost::shared_ptr<LineariseEntry>
+JobEntry::Impl::getLineariseEntry() const {
+  return lineariseEntry_;
+}
+
+void
 JobEntry::Impl::setOutputsEntry(const boost::shared_ptr<OutputsEntry> & outputsEntry) {
   outputsEntry_ = outputsEntry;
 }

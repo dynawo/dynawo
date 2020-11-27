@@ -29,6 +29,7 @@ class ModelerEntry;
 class SolverEntry;
 class SimulationEntry;
 class OutputsEntry;
+class LineariseEntry;
 
 
 /**
@@ -90,6 +91,17 @@ class JobEntry {
    */
   virtual boost::shared_ptr<OutputsEntry> getOutputsEntry() const = 0;
 
+  /**
+   * @brief Linearisation entries container setter
+   * @param the LinearisationEntry : Simulation entries container for the job
+   */
+  virtual void setLineariseEntry(const boost::shared_ptr<LineariseEntry> & lineariseEntry) = 0;
+
+  /**
+   * @brief Linearisation entries container getter
+   * @return Linearisation entry container
+   */
+  virtual boost::shared_ptr<LineariseEntry> getLineariseEntry() const = 0;
   /**
    * @brief Name setter
    * @param name : Name of the job

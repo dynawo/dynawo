@@ -79,6 +79,46 @@ OutputsEntry::Impl::getTimetableEntry() const {
 }
 
 void
+OutputsEntry::Impl::setLineariseEntry(const boost::shared_ptr<LineariseEntry>& lineariseEntry) {
+  lineariseEntry_ = lineariseEntry;
+}
+
+boost::shared_ptr<LineariseEntry>
+OutputsEntry::Impl::getLineariseEntry() const {
+  return lineariseEntry_;
+}
+
+void
+OutputsEntry::Impl::setModalAnalysisEntry(const boost::shared_ptr<ModalAnalysisEntry>& modalanalysisEntry) {
+  modalanalysisEntry_ = modalanalysisEntry;
+}
+
+boost::shared_ptr<ModalAnalysisEntry>
+OutputsEntry::Impl::getModalAnalysisEntry() const {
+  return modalanalysisEntry_;
+}
+
+void
+OutputsEntry::Impl::setAllModesEntry(const boost::shared_ptr<AllModesEntry>& allmodesEntry) {
+  allmodesEntry_ = allmodesEntry;
+}
+
+boost::shared_ptr<AllModesEntry>
+OutputsEntry::Impl::getAllModesEntry() const {
+  return allmodesEntry_;
+}
+
+void
+OutputsEntry::Impl::setSubParticipationEntry(const boost::shared_ptr<SubParticipationEntry>& subparticipationEntry) {
+  subparticipationEntry_ = subparticipationEntry;
+}
+
+boost::shared_ptr<SubParticipationEntry>
+OutputsEntry::Impl::getSubParticipationEntry() const {
+  return subparticipationEntry_;
+}
+
+void
 OutputsEntry::Impl::setFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) {
   finalStateEntry_ = finalStateEntry;
 }

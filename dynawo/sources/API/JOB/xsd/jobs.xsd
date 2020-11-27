@@ -113,6 +113,10 @@
       <xs:element name="finalState" type="dyn:FinalStateEntry" minOccurs="0"/>
       <xs:element name="curves" type="dyn:CurvesEntry" minOccurs="0"/>
       <xs:element name="logs" type="dyn:LogsEntry" minOccurs="0"/>
+      <xs:element name="linearise" type="dyn:LineariseEntry" minOccurs="0"/>
+      <xs:element name="modalanalysis" type="dyn:ModalAnalysisEntry" minOccurs="0"/>
+      <xs:element name="allmodes" type="dyn:AllModesEntry" minOccurs="0"/>
+      <xs:element name="subparticipation" type="dyn:SubParticipationEntry" minOccurs="0"/>
     </xs:all>
     <xs:attribute name="directory" use="required" type="xs:string"/>
   </xs:complexType>
@@ -148,6 +152,24 @@
       <xs:enumeration value="XML"/>
     </xs:restriction>
   </xs:simpleType>
+
+  <xs:complexType name="LineariseEntry">
+    <xs:attribute name="lineariseTime" use="required" type="xs:float"/>
+  </xs:complexType>
+
+  <xs:complexType name="ModalAnalysisEntry">
+    <xs:attribute name="modalanalysisTime" use="required" type="xs:float"/>
+    <xs:attribute name="modalanalysisPart" use="required" type="xs:float"/>
+  </xs:complexType>
+
+  <xs:complexType name="AllModesEntry">
+    <xs:attribute name="allmodesTime" use="required" type="xs:float"/>
+  </xs:complexType>
+
+  <xs:complexType name="SubParticipationEntry">
+    <xs:attribute name="subparticipationTime" use="required" type="xs:float"/>
+    <xs:attribute name="subparticipationNbMode" use="required" type="xs:integer"/>
+  </xs:complexType>
 
   <xs:complexType name="FinalStateEntry">
     <xs:attribute name="exportIIDMFile" use="required" type="xs:boolean"/>

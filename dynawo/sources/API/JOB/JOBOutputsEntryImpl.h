@@ -122,6 +122,47 @@ class OutputsEntry::Impl : public OutputsEntry {
    */
   boost::shared_ptr<LogsEntry> getLogsEntry() const;
 
+ /**
+   * @copydoc OutputsEntry::setLineariseEntry()
+   */
+
+  void setLineariseEntry(const boost::shared_ptr<LineariseEntry>& lineariseEntry);
+
+  /**
+   * @copydoc OutputsEntry::getTimelineEntry()
+   */
+  boost::shared_ptr<LineariseEntry> getLineariseEntry() const;
+
+ /**
+   * @copydoc OutputsEntry::setModalAnalysisEntry()
+   */
+  void setModalAnalysisEntry(const boost::shared_ptr<ModalAnalysisEntry>& modalanalysisEntry);
+
+  /**
+   * @copydoc OutputsEntry::getModalAnalysisEntry()
+   */
+  boost::shared_ptr<ModalAnalysisEntry> getModalAnalysisEntry() const;
+
+ /**
+   * @copydoc OutputsEntry::setAllModesEntry()
+   */
+  void setAllModesEntry(const boost::shared_ptr<AllModesEntry>& allmodesEntry);
+
+  /**
+   * @copydoc OutputsEntry::getAllModesEntry()
+   */
+  boost::shared_ptr<AllModesEntry> getAllModesEntry() const;
+
+ /**
+   * @copydoc OutputsEntry::setSubParticipationEntry()
+   */
+  void setSubParticipationEntry(const boost::shared_ptr<SubParticipationEntry>& subparticipationEntry);
+
+  /**
+   * @copydoc OutputsEntry::getSubParticipationEntry()
+   */
+  boost::shared_ptr<SubParticipationEntry> getSubParticipationEntry() const;
+
  private:
   std::string outputsDirectory_;  ///< directory for simulation outputs
   boost::shared_ptr<InitValuesEntry> initValuesEntry_;  ///< Init Values entries container
@@ -131,6 +172,10 @@ class OutputsEntry::Impl : public OutputsEntry {
   boost::shared_ptr<FinalStateEntry> finalStateEntry_;  ///< Final State entries container
   boost::shared_ptr<CurvesEntry> curvesEntry_;  ///< Curves entries container
   boost::shared_ptr<LogsEntry> logsEntry_;  ///< Logs entries container
+  boost::shared_ptr<LineariseEntry> lineariseEntry_;  ///< Linearise entries container
+  boost::shared_ptr<ModalAnalysisEntry> modalanalysisEntry_;  ///< ModalAnalysis entries container
+  boost::shared_ptr<AllModesEntry> allmodesEntry_;  ///< AllModes entries container
+  boost::shared_ptr<SubParticipationEntry> subparticipationEntry_;  ///< SubParticipation entries container
 };
 
 }  // namespace job
