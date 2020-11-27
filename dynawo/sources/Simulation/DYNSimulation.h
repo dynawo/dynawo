@@ -36,6 +36,22 @@ namespace timeline {
 class Timeline;
 }
 
+namespace linearise {
+class Linearise;
+}
+
+namespace modalanalysis {
+class ModalAnalysis;
+}
+
+namespace allmodes {
+class AllModes;
+}
+
+namespace subparticipation {
+class SubParticipation;
+}
+
 namespace curves {
 class CurvesCollection;
 }
@@ -94,6 +110,28 @@ class Simulation {
     EXPORT_TIMELINE_CSV,  ///< Export timeline in csv mode in output file
     EXPORT_TIMELINE_XML  ///< Export timeline in xml mode in output file
   } exportTimelineMode_t;
+
+  /**
+   * @brief Export mode for linearise
+   * Timeline's export mode controlling the format of the linearise's output file
+   */
+  typedef enum {
+    EXPORT_LINEARISE_NONE,  ///< No export linearise (not working for this version)
+    EXPORT_LINEARISE_TXT,  ///< Export linearise in txt mode in output file
+    EXPORT_LINEARISE_CSV,  ///< Export linearise in csv mode in output file
+    EXPORT_LINEARISE_XML  ///< Export linearise in xml mode in output file
+  } exportLineariseMode_t;
+
+  /**
+   * @brief Export mode for modalanalysis (not working for this version)
+   * Timeline's export mode controlling the format of the modalanalysis's output file
+   */
+  typedef enum {
+    EXPORT_MODALANALYSIS_NONE,  ///< No export modalanalysis
+    EXPORT_MODALANALYSIS_TXT,  ///< Export modalanalysis in txt mode in output file
+    EXPORT_MODALANALYSIS_CSV,  ///< Export modalanalysis in csv mode in output file
+    EXPORT_MODALANALYSIS_XML  ///< Export modalanalysis in xml mode in output file
+  } exportModalAnalysisMode_t;
 
   /**
    * @brief Export mode for finalState
@@ -205,10 +243,51 @@ class Simulation {
    * @warning the file should be set before the call of this method
    */
   void importFinalStateRequest();
+
+  /**
+   * @brief setter for the output file of the linearise
+   * @param outputFile linearise's output file
+   */
+  inline void setLineariseOutputFile(const std::string& outputFile) {
+    lineariseOutputFile_ = outputFile;
+  }
+
+  /**
+   * @brief setter for the output file of the modal analysis
+   * @param outputFile modal analysis's output file
+   */
+  inline void setModalAnalysisOutputFile(const std::string& outputFile) {
+    modalanalysisOutputFile_ = outputFile;
+  }
+
+  /**
+   * @brief setter for the output file of the allmodes
+   * @param outputFile allmodes's output file
+   */
+  inline void setAllModesOutputFile(const std::string& outputFile) {
+    allmodesOutputFile_ = outputFile;
+  }
+
+  /**
+   * @brief setter for the output file of the subparticipation
+   * @param outputFile subparticipation's output file
+   */
+  inline void setSubParticipationOutputFile(const std::string& outputFile) {
+    subparticipationOutputFile_ = outputFile;
+  }
+  /**
+   * @brief setter for the export mode of the linearise
+   * @param mode linearise's mode export
+   */
+  inline void setLineariseExportMode(const exportLineariseMode_t& mode) {
+    exportLineariseMode_ = mode;
+  }
+
   /**
    * @brief setter for the output file of the timeline
    * @param outputFile timeline's output file
    */
+
   inline void setTimelineOutputFile(const std::string& outputFile) {
     timelineOutputFile_ = outputFile;
   }
@@ -341,6 +420,102 @@ class Simulation {
   }
 
   /**
+   * @brief setter of the time of the linearisation
+   * @param time start time of the linearisation
+   */
+  inline void setLineariseTime(const double& time) {
+    tLinearise_ = time;
+  }
+
+  /**
+   * @brief setter of the time of the modalanalysis
+   * @param time start time of the modalanalysis
+   */
+  inline void setModalAnalysisTime(const double& time) {
+    tModalAnalysis_ = time;
+  }
+
+  /**
+   * @brief setter of the time of the modalanalysis
+   * @param time start time of the modalanalysis
+   */
+  inline void setAllModesTime(const double& time) {
+    tAllModes_ = time;
+  }
+
+  /**
+   * @brief setter of the time of the SubParticipation
+   * @param time start time of the SubParticipation
+   */
+  inline void setSubParticipationTime(const double& time) {
+    tSubParticipation_ = time;
+  }
+
+  /**
+   * @brief setter of the number of required mode
+   * @param nbmode start the number of required mode
+   */
+  inline void setSubParticipationNbMode(const double& nbmode) {
+    NbMode_ = nbmode;
+  }
+
+  /**
+   * @brief getter for the start number of mode of subparticipation factor
+   * @return the start number of mode of subparticipation factor
+   */
+  inline double getSubParticipationNbMode() const {
+    return NbMode_;
+  }
+
+  /**
+   * @brief setter of the value of minimum relative participation
+   * @param participation start the value of minimum relative participation
+   */
+  inline void setModalAnalysisPart(const double& participation) {
+    Part_ = participation;
+  }
+
+  /**
+   * @brief getter for the start time of the linearisation
+   * @return the start time of the linearisation
+   */
+  inline double getLineariseTime() const {
+    return tLinearise_;
+  }
+
+  /**
+   * @brief getter for the start time of the modal analysis
+   * @return the start time of the modal analysis
+   */
+  inline double getModalAnalysisTime() const {
+    return tModalAnalysis_;
+  }
+
+  /**
+   * @brief getter for the start time of the modal analysis
+   * @return the start time of the modal analysis
+   */
+  inline double getAllModesTime() const {
+    return tAllModes_;
+  }
+
+  /**
+   * @brief getter for the start time of the Sub Participation
+   * @return the start time of the Sub Participation
+   */
+  inline double getSubParticipationTime() const {
+    return tSubParticipation_;
+  }
+
+  /**
+   * @brief getter for the start value of minimum relative participation factor
+   * @return the start value of minimum relative participation factor
+   */
+  inline double getModalAnalysisPart() const {
+    return Part_;
+  }
+
+  /**
    * @brief set if final state dump is activated
    * @param activate @b true if final state dump should be made, @b false otherwise
    */
@@ -404,6 +579,18 @@ class Simulation {
    * @param stream stream where the timeline output should be printed
    */
   void printTimeline(std::ostream& stream) const;
+
+  /**
+   * @brief print linearise output of the simulation in the given stream
+   * @param stream stream where the linearise output should be printed
+   */
+  void printLinearise() const;
+
+  /**
+   * @brief print modalanalysis output of the simulation in the given stream
+   * @param stream stream where the modalanalysis output should be printed
+   */
+  void printModalAnalysis(std::ostream& stream) const;
 
   /**
    * @brief print constraints output of the simulation in the given stream
@@ -515,6 +702,10 @@ class Simulation {
   boost::shared_ptr<finalState::FinalStateCollection> finalStateCollection_;  ///< instance of final state collection where final state are stored
   boost::shared_ptr<constraints::ConstraintsCollection> constraintsCollection_;  ///< instance of constraints collection where constraints are stored
   boost::shared_ptr<criteria::CriteriaCollection> criteriaCollection_;  ///< instance of criteria collection where criteria are stored
+  boost::shared_ptr<linearise::Linearise> linearise_;  ///< instance of the linearise where events are stored
+  boost::shared_ptr<modalanalysis::ModalAnalysis> modalanalysis_;  ///< instance of the modalanalysis where events are stored
+  boost::shared_ptr<allmodes::AllModes> allmodes_;  ///< instance of the allmodes where events are stored
+  boost::shared_ptr<subparticipation::SubParticipation> subparticipation_;  ///< instance of the sub participation where events are stored
 
   std::vector<std::string> dydFiles_;  ///< list of files to used dynamic data
   std::string iidmFile_;  ///< iidm input file
@@ -536,6 +727,12 @@ class Simulation {
   std::string timetableOutputFile_;  ///< timetable export file
   int timetableSteps_;  ///< timetable' steps
 
+  exportLineariseMode_t exportLineariseMode_;  ///< linearise's output mode
+  std::string lineariseOutputFile_;  ///< linearise's export file
+
+  exportModalAnalysisMode_t exportModalAnalysisMode_;  ///< modalanalysis's output mode
+  std::string modalanalysisOutputFile_;  ///< modalanalysis's export file
+
   exportFinalStateMode_t exportFinalStateMode_;  ///< final state's export mode
   std::string finalStateInputFile_;  ///< final state's request input file
   std::string finalStateOutputFile_;  ///< final state's output file
@@ -550,6 +747,13 @@ class Simulation {
 
   bool exportIIDM_;  ///< @b true if final IIDM file should be dump
   std::string exportIIDMFile_;  ///< final IIDM file dump
+
+  double tModalAnalysis_;  ///< start time of the Modal analysis
+  double tAllModes_;  ///< start time of the all modes
+  double tSubParticipation_;  ///< start time of the sub participation
+  double NbMode_;  ///< start number of mode of the sub participation
+  double tLinearise_;  ///< start time of the Linearisation
+  double Part_;  ///< minimum value of relative participation factor
 
   double tStart_;  ///< start time of the simulation
   double tCurrent_;  ///< current time of the simulation
