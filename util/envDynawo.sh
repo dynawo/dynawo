@@ -1748,7 +1748,7 @@ deploy_dynawo() {
     # libXML2
     echo "deploying libxml2"
     if [ $DYNAWO_LIBXML2_HOME_DEFAULT != true ]; then
-      libxml2_system_folder=$DYNAWO_LIBXML2_HOME/lib
+      libxml2_system_folder=$DYNAWO_THIRD_PARTY_INSTALL_DIR
       libxml2_system_folder_include=$DYNAWO_LIBXML2_HOME/include
     else
       libxml2_system_folder=$(find_lib_system_path xml2) || error_exit "Path for libxml2 could not be found for deploy."
