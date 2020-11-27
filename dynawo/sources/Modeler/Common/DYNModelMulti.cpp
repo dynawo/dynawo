@@ -1398,7 +1398,6 @@ ModelMulti::getMatrixA(const double t) {
   // writeToFile(Aold, "Linearisation/Aold.txt");
   // writeToFile(Aold1, "Linearisation/Aold1.txt");
 
-
   indexVarDiff = getIndexVariable(1);
   indexEquDiff = getIndexEquation(1);
   indexEquAlg = getIndexEquation(2);
@@ -1494,7 +1493,6 @@ ModelMulti::getMatrixB(const double t) {
   // dump the matrices R and B
   writeToFile(R, "Linearisation/R.txt");
   writeToFile(B, "Linearisation/B.txt");
-
   indexEquDiff.clear();
   indexEquAlg.clear();
   indexVarAlg.clear();
@@ -3349,6 +3347,7 @@ ModelMulti::getSubMatrix(MatrixXd A, vector<int> indexi, vector<int> indexj) {
     }
 return subA;
 }
+
   // @brief construct reduced matrix A (used for Selective Modal analysis) based on the coupled devices
 Eigen::MatrixXd
 ModelMulti::contructReducedMatrix(const double t, vector<int> coupledClass) {
@@ -3362,6 +3361,7 @@ ModelMulti::contructReducedMatrix(const double t, vector<int> coupledClass) {
     return A11;
 }
     // @brief get the transfer matrix H/M of less relevant part of A matrix using selective modal analysis
+
 Eigen::MatrixXcd
 ModelMulti::contructMMatrix(const double t, vector<int> coupledClass) {
     MatrixXd A = getMatrixA(t);
