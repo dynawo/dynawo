@@ -1325,6 +1325,12 @@ DataInterfaceIIDM::getStaticParameterBoolValue(const std::string& staticID, cons
   return findComponent(staticID)->getStaticParameterValue<bool>(refOrigName);
 }
 
+boost::optional<std::string>
+DataInterfaceIIDM::getSlackNodeBusId() const {
+  // TODO(lecourtoisflo) IIDM library doesn't support yet this operation but will in a future version.
+  // This API does nothing until this moment
+  return boost::none;
+}
 
 
 }  // namespace DYN

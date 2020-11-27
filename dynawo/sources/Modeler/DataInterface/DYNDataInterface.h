@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include <boost/shared_ptr.hpp>
+#include <boost/optional.hpp>
 
 #include "CRTCriteriaCollection.h"
 
@@ -155,6 +156,13 @@ class DataInterface {
    * @param filepath file to create
    */
   virtual void dumpToFile(const std::string& filepath) const = 0;
+
+  /**
+   * @brief Retrieve optional slack node id information
+   *
+   * @returns slack node bus id, if present in the underlying data
+   */
+  virtual boost::optional<std::string> getSlackNodeBusId() const = 0;
 };  ///< Class for data interface
 }  // namespace DYN
 
