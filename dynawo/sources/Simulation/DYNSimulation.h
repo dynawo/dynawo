@@ -105,20 +105,6 @@ class Simulation {
     EXPORT_TIMELINE_XML  ///< Export timeline in xml mode in output file
   } exportTimelineMode_t;
 
-  typedef enum {
-    EXPORT_LINEARISE_NONE,  ///< No export linearise
-    EXPORT_LINEARISE_TXT,  ///< Export linearise in txt mode in output file
-    EXPORT_LINEARISE_CSV,  ///< Export linearise in csv mode in output file
-    EXPORT_LINEARISE_XML  ///< Export linearise in xml mode in output file
-  } exportLineariseMode_t;
-
-  typedef enum {
-    EXPORT_MODALANALYSIS_NONE,  ///< No export linearise
-    EXPORT_MODALANALYSIS_TXT,  ///< Export linearise in txt mode in output file
-    EXPORT_MODALANALYSIS_CSV,  ///< Export linearise in csv mode in output file
-    EXPORT_MODALANALYSIS_XML  ///< Export linearise in xml mode in output file
-  } exportModalAnalysisMode_t;
-
   /**
    * @brief Export mode for linearise
    * Timeline's export mode controlling the format of the linearise's output file
@@ -392,14 +378,6 @@ class Simulation {
   }
 
   /**
-   * @brief setter of the time of the linearisation
-   * @param time start time of the linearisation
-   */
-  inline void setLineariseTime(const double& time) {
-    tLinearise_ = time;
-  }
-
-  /**
    * @brief setter of the time of the modal analysis
    * @param time start time of the modal analysis
    */
@@ -501,13 +479,6 @@ class Simulation {
     return tModalAnalysis_;
   }
 
-  /**
-   * @brief getter for the start time of the eigencalculation
-   * @return the start time of the eigencalculation
-   */
-  inline double getAllModesTime() const {
-    return tAllModes_;
-  }
   /* inline int getModalAnalysisSolver() const {
     return Solver_;
   }*/
@@ -520,135 +491,11 @@ class Simulation {
     return Solver_;
   }*/
   /**
-   * @brief getter for the start time of the Sub Participation
-   * @return the start time of the Sub Participation
-   */
-  inline double getSubParticipationTime() const {
-    return tSubParticipation_;
-  }
-
-  /**
-   * @brief getter for the start value of minimum relative participation factor
-   * @return the start value of minimum relative participation factor
-   */
-  inline double getModalAnalysisPart() const {
-    return Part_;
-  }
-  /**
-   * @brief getter for the current time of the simulation
-   * @return the current time of the simulation
-   */
-  inline double getCurrentTime() const {
-    return tCurrent_;
-  }
-  /**
    * @brief setter of the time of the linearisation
    * @param time start time of the linearisation
    */
   inline void setLineariseTime(const double& time) {
     tLinearise_ = time;
-  }
-
-  /**
-   * @brief setter of the time of the modal analysis
-   * @param time start time of the modal analysis
-   */
-  inline void setModalAnalysisTime(const double& time) {
-    tModalAnalysis_ = time;
-  }
-
-  /**
-   * @brief setter of the time of the eigencalculation
-   * @param time start time of the eigencalculation
-   */
-  inline void setAllModesTime(const double& time) {
-    tAllModes_ = time;
-  }
-
-  /**
-   * @brief setter of the time of the Sub Participation
-   * @param time start time of the Sub Participation
-   */
-  inline void setSubParticipationTime(const double& time) {
-    tSubParticipation_ = time;
-  }
-
-  /**
-   * @brief setter of the number of mode of minimum relative participation
-   * @param participation start the number of minimum relative participation
-   */
-  inline void setSubParticipationNbMode(const double& nbmode) {
-    NbMode_ = nbmode;
-  }
-
-  /**
-   * @brief getter for the start number of mode of subparticipation factor
-   * @return the start number of mode of subparticipation factor
-   */
-  inline double getSubParticipationNbMode() const {
-    return NbMode_;
-  }
-  /**
-   * @brief setter of the value of minimum relative participation
-   * @param participation start the value of minimum relative participation
-   */
-  inline void setModalAnalysisPart(const double& participation) {
-    Part_ = participation;
-  }
-
-  /**
-   * @brief setter of the start time of the simulation
-   * @param time start time of the simulation
-   */
-  inline void setStartTime(const double& time) {
-    tStart_ = time;
-  }
-
-  /**
-   * @brief setter of the stop time of the simulation
-   * @param time stop time of the simulation
-   */
-  inline void setStopTime(const double& time) {
-    tStop_ = time;
-  }
-
-  /**
-   * @brief setter for activating the checking of criteria (minimal voltage, etc..)
-   * @param activate @b true if checking of criteria should be activated during simulation
-   */
-  inline void setActivateCriteria(bool activate) {
-    activateCriteria_ = activate;
-  }
-
-  /**
-   * @brief setter for criteria step
-   * @param step number of iterations between 2 criteria check
-   */
-
-  void setCriteriaStep(const int& step);
-
-  /**
-   * @brief getter for the start time of the simulation
-   * @return the start time of the simulation
-   */
-  inline double getStartTime() const {
-    return tStart_;
-  }
-
-  /**
-   * @brief getter for the start time of the linearisation
-   * @return the start time of the linearisation
-   */
-  inline double getLineariseTime() const {
-    return tLinearise_;
-  }
-
-  /**
-   * @brief getter for the start time of the modal analysis
-   * @return the start time of the modal analysis
-   */
-  inline double getModalAnalysisTime() const {
-    return tModalAnalysis_;
   }
 
   /**
@@ -941,6 +788,7 @@ class Simulation {
   double tAllModes_;  ///< start time of the all modes
   double tSubParticipation_;  ///< start time of the sub participation
   double NbMode_;  ///< start number of mode of the sub participation
+
  private:
  /**
    * @brief configure the all modes outputs
