@@ -56,9 +56,9 @@ XmlExporter::exportToFile(const boost::shared_ptr<ParametersSetCollection>& coll
 void
 XmlExporter::exportToStream(const boost::shared_ptr<ParametersSetCollection>& collection, std::ostream& stream, const std::string& encoding) const {
   FormatterPtr formatter = Formatter::createFormatter(stream, "http://www.rte-france.com/dynawo");
-  if (!encoding.empty()) {
+  /* if (!encoding.empty()) {
     formatter->setEncoding(encoding);
-  }
+  }*/
 
   formatter->startDocument();
   AttributeList attrs;

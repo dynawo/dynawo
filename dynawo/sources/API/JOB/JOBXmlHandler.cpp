@@ -401,7 +401,6 @@ TimelineHandler::get() const {
   return timeline_;
 }
 
-<<<<<<< HEAD
 TimetableHandler::TimetableHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&TimetableHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
@@ -415,7 +414,8 @@ TimetableHandler::create(attributes_type const& attributes) {
 shared_ptr<TimetableEntry>
 TimetableHandler::get() const {
   return timetable_;
-=======
+}
+
 ModalAnalysisHandler::ModalAnalysisHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&ModalAnalysisHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
