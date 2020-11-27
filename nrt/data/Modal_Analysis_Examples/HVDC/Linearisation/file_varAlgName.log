@@ -4,13 +4,13 @@ HVDC_hvdc_terminal2_V_im
 HVDC_hvdc_terminal2_V_re
 HVDC_hvdc_Blocking_U1Pu
 HVDC_hvdc_Blocking_U2Pu
-HVDC_hvdc_Conv1_PInjPu
-HVDC_hvdc_Conv1_QInjPu
+HVDC_hvdc_Conv1_PInjPuSn
+HVDC_hvdc_Conv1_QInjPuSn
 HVDC_hvdc_Conv1_UPhase
 HVDC_hvdc_Conv1_idPu
 HVDC_hvdc_Conv1_iqPu
-HVDC_hvdc_Conv2_PInjPu
-HVDC_hvdc_Conv2_QInjPu
+HVDC_hvdc_Conv2_PInjPuSn
+HVDC_hvdc_Conv2_QInjPuSn
 HVDC_hvdc_Conv2_UPhase
 HVDC_hvdc_Conv2_idPu
 HVDC_hvdc_Conv2_iqPu
