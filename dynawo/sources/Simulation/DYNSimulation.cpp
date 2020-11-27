@@ -94,10 +94,6 @@
 #include "JOBLogsEntry.h"
 #include "JOBAppenderEntry.h"
 #include "JOBDynModelsEntry.h"
-#include "JOBLineariseEntry.h"
-#include "JOBModalAnalysisEntry.h"
-#include "JOBAllModesEntry.h"
-#include "JOBSubParticipationEntry.h"
 
 #include "gitversion.h"
 #include "config.h"
@@ -292,10 +288,6 @@ Simulation::configureSimulationOutputs() {
     configureTimetableOutputs();
     configureCurveOutputs();
     configureFinalStateOutputs();
-    configureAllModesOutputs();
-    configureModalAnalysisOutputs();
-    configureSubParticipationOutputs();
-    configureLineariseOutputs()
   }
 }
 
@@ -338,7 +330,6 @@ Simulation::configureLineariseOutputs() {
       setLineariseTime(tLinearise_);
 }
 }
-
 void
 Simulation::configureConstraintsOutputs() {
   // Constraints settings
@@ -865,7 +856,6 @@ Simulation::simulate() {
 
       solver_->solve(tStop_, tCurrent_);
       solver_->printSolve();
-
       if (currentIterNb == 0)
         printHighestDerivativesValues();
 
@@ -919,27 +909,34 @@ Simulation::simulate() {
       model_->printMessages();
       if (timetableOutputFile_ != "" && currentIterNb % timetableSteps_ == 0)
       printCurrentTime(timetableOutputFile_);
-
       // Compute the state matrix, input matrix B, and output matrix C
       if (tCurrent_ == tLinearise_) {
       model_->evalLinearise(tCurrent_);
       }
-
       // Compute all modes of small system
       if (tCurrent_ == tAllModes_) {
       model_->allModes(tCurrent_);
       }
-
       // Compute the sub participation factor of a given mode
       if (tCurrent_ == tSubParticipation_) {
       model_->subParticipation(tCurrent_, NbMode_);
       }
-
-      // Complete Eigenanalysis of small power system
+      // Call of Complete Eigenanalysis Function
       if (tCurrent_ == tModalAnalysis_) {
       model_->evalmodalAnalysis(tCurrent_, Part_);
       }
+      // end of call
 
+
+      if (isCheckCriteriaIter)
+//      model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
+//      updateCurves(!isCheckCriteriaIter && !solverState.getFlags(ZChange));
+      model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
+      updateCurves(!isCheckCriteriaIter && !modifZ);
+
+      model_->checkDataCoherence(tCurrent_);
+      model_->printMessages();
+      printCurrentTime(fileName.str());
 
       if (isCheckCriteriaIter) {
         criteriaChecked = checkCriteria(tCurrent_, false);
