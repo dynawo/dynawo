@@ -856,6 +856,7 @@ Simulation::simulate() {
 
       solver_->solve(tStop_, tCurrent_);
       solver_->printSolve();
+
       if (currentIterNb == 0)
         printHighestDerivativesValues();
 
@@ -882,6 +883,7 @@ Simulation::simulate() {
       model_->printMessages();
       if (timetableOutputFile_ != "" && currentIterNb % timetableSteps_ == 0)
         printCurrentTime(timetableOutputFile_);
+
       // Compute the state matrix, input matrix B, and output matrix C
       if (tCurrent_ == tLinearise_) {
       model_->evalLinearise(tCurrent_);
@@ -902,11 +904,12 @@ Simulation::simulate() {
 
 
       if (isCheckCriteriaIter)
-      model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
+       model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
       updateCurves(!isCheckCriteriaIter && !modifZ);
       model_->checkDataCoherence(tCurrent_);
       model_->printMessages();
-      printCurrentTime(fileName.str());
+      if (timetableOutputFile_ != "" && currentIterNb % timetableSteps_ == 0)
+      printCurrentTime(timetableOutputFile_);
 
       if (isCheckCriteriaIter) {
         criteriaChecked = checkCriteria(tCurrent_, false);
