@@ -459,6 +459,7 @@ std::vector<double> &imaginaryPartNotZero, int var);
   // function that returns the name of machines of a given power system with redundancy
   std::vector<std::string> nameDynamicDevicesDiff();
 
+  // === Large-Scale Modal Analysis Functions====//
   std::vector<int> getRelevantIndex(std::vector<int> coupledClass);
 
   Eigen::MatrixXd contructReducedMatrix(const double t, std::vector<int> coupledClass);
@@ -474,7 +475,27 @@ std::vector<double> &imaginaryPartNotZero, int var);
   double getCond(Eigen::MatrixXcd Acond);
 
   // fonction assures the conversion of eigen matrix to armadillo matrix
-  arma::mat example_cast_arma(Eigen::MatrixXd eigen_A);
+  arma::cx_dmat example_cast_arma(Eigen::MatrixXcd eigen_A);
+
+  std::vector<int> getIndexEigen(std::vector<double> v1, std::vector<double> v2);  //  to check if there is to similar value
+  //   std::vector<std::complex<double> >
+  void modifiedArnoldiMethod(Eigen::MatrixXd A, std::complex<double> shift, int orderH, int nbS);
+  void modifiedArnoldiMethod1(Eigen::MatrixXd A, std::complex<double> shift, int orderH, int nbS);
+  std::vector<std::complex<double>> modifiedArnoldiMethodtest(Eigen::MatrixXd &A, std::complex<double> &shift);
+  Eigen::MatrixXcd getVmatrix(Eigen::MatrixXcd Ap, Eigen::VectorXcd v, int orderH);
+  Eigen::MatrixXcd getHmatrix(Eigen::MatrixXcd &A, Eigen::VectorXcd &v, int orderH, Eigen::MatrixXcd H, Eigen::MatrixXcd Hf,
+  Eigen::MatrixXcd V, Eigen::MatrixXcd Vf, Eigen::VectorXcd u, Eigen::VectorXcd h);
+  Eigen::MatrixXcd getComplexEigenvalues(Eigen::MatrixXcd Hf);
+  Eigen::MatrixXcd getComplexEigenvectors(Eigen::MatrixXcd Hf);
+  Eigen::MatrixXcd getH1matrix(Eigen::MatrixXcd &A, int orderH, Eigen::MatrixXcd H, Eigen::VectorXcd u, Eigen::VectorXcd h, Eigen::VectorXcd v);
+  Eigen::MatrixXcd getV1matrix(Eigen::MatrixXcd &A, int orderH, Eigen::MatrixXcd H, Eigen::VectorXcd u, Eigen::VectorXcd h, Eigen::VectorXcd v);
+  Eigen::MatrixXcd getH2matrix(Eigen::MatrixXcd &A, int orderH, Eigen::MatrixXcd H, Eigen::VectorXcd u, Eigen::VectorXcd h, Eigen::VectorXcd v);
+  void testMAM(const double t);
+  Eigen::VectorXcd getSortEigenvalues(Eigen::MatrixXcd eigenvectorsComplex, int orderH);
+  Eigen::MatrixXcd getSortEigenvectors(Eigen::MatrixXcd eigenvectorsComplex, Eigen::MatrixXcd eigenvaluesComplex, int orderH);
+  void writeToFileComplexArray(Eigen::ArrayXcd x, std::string fileName);
+  std::vector<std::complex<double>> convertEigenVectorToStdVector(Eigen::VectorXcd &vec1);
+  Eigen::MatrixXcd getH0matrix(Eigen::MatrixXcd Ap, Eigen::VectorXcd v, int orderH);
   // ==================================================================================================================== //
   // ==============================
   // interface SIMULATION <-> MODEL

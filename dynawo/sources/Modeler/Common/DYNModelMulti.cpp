@@ -94,7 +94,11 @@ using Eigen::VectorXi;
 using Eigen::VectorXd;
 using Eigen::VectorXcd;
 using Eigen::EigenSolver;
+using Eigen::ArrayXcd;
 using arma::mat;
+using arma::cx_dmat;
+using arma::cx_mat;
+using arma::cx_dvec;
 
 namespace DYN {
 
@@ -1391,8 +1395,8 @@ ModelMulti::getMatrixA(const double t) {
   Aold1 = Jt1.fullMatrix();
   // computes the matrix J
   Aold = Aold2 - Aold1;
-  writeToFile(Aold, "Linearisation/Aold.txt");
-  writeToFile(Aold1, "Linearisation/Aold1.txt");
+  // writeToFile(Aold, "Linearisation/Aold.txt");
+  // writeToFile(Aold1, "Linearisation/Aold1.txt");
 
 
   indexVarDiff = getIndexVariable(1);
@@ -1410,15 +1414,15 @@ ModelMulti::getMatrixA(const double t) {
   writeToFileString(varDiffName, "Linearisation/file_varDiffName.log");
 
   MatrixXd A11 = contructSubMatrix(Aold, indexVarDiff.size(), indexVarDiff.size(), indexEquDiff, indexVarDiff);
-  writeToFile(A11, "Linearisation/A11.txt");
+  // writeToFile(A11, "Linearisation/A11.txt");
   MatrixXd A11prime = contructSubMatrix(Aold1, indexVarDiff.size(), indexVarDiff.size(), indexEquDiff, indexVarDiff);
-  writeToFile(A11prime, "Linearisation/A11prime.txt");
+  // writeToFile(A11prime, "Linearisation/A11prime.txt");
   MatrixXd A12 = contructSubMatrix(Aold, indexVarDiff.size(), indexVarAlg.size(), indexEquDiff, indexVarAlg);
-  writeToFile(A12, "Linearisation/A12.txt");
+  // writeToFile(A12, "Linearisation/A12.txt");
   MatrixXd A21 = contructSubMatrix(Aold, indexVarAlg.size(), indexVarDiff.size(), indexEquAlg, indexVarDiff);
-  writeToFile(A21, "Linearisation/A21.txt");
+  // writeToFile(A21, "Linearisation/A21.txt");
   MatrixXd A22  = contructSubMatrix(Aold, indexVarAlg.size(), indexVarAlg.size(), indexEquAlg, indexVarAlg);
-  writeToFile(A22, "Linearisation/A22.txt");
+  // writeToFile(A22, "Linearisation/A22.txt");
   MatrixXd A = -(A11prime.inverse())*A11 + (A11prime.inverse())*(A12*(A22.inverse())*A21);
   writeToFile(A, "Linearisation/A.txt");
   indexEquDiff.clear();
@@ -1489,7 +1493,7 @@ ModelMulti::getMatrixB(const double t) {
 
   // dump the matrices R and B
   writeToFile(R, "Linearisation/R.txt");
-  writeToFile(B, "Linearisation/B1.txt");
+  writeToFile(B, "Linearisation/B.txt");
 
   indexEquDiff.clear();
   indexEquAlg.clear();
@@ -1891,6 +1895,22 @@ ModelMulti::writeToFileString(vector<string> x, string fileName) {
     // * @param fileName file to be returned,
 void
 ModelMulti::writeToFileComplex(MatrixXcd x, string fileName) {
+  ofstream of;
+  if (exists(fileName.c_str())) {
+  std::remove(fileName.c_str());
+  of.open(fileName.c_str());
+  of << x;
+  of << "\n";
+  } else {
+  of.open(fileName.c_str());
+  of << x;
+  of << "\n";
+  }
+  of.close();
+}
+
+void
+ModelMulti::writeToFileComplexArray(ArrayXcd x, string fileName) {
   ofstream of;
   if (exists(fileName.c_str())) {
   std::remove(fileName.c_str());
@@ -2408,10 +2428,28 @@ ModelMulti::convertEigenArrayToStdVector(Eigen::ArrayXd &vec1) {
 vector<std::complex<double> >
 ModelMulti::convertEigenArrayCToStdVector(Eigen::ArrayXcd &vec1) {
   std::vector<std::complex<double> > vec3;
+  // vec3 = new vector<std::complex<double>>;
   for (unsigned int i = 0; i < vec1.size(); i++) {
+      // if (abs(vec1[i].imag()) > 1e-08) {
       const std::complex<double> temp(vec1[i].real(), vec1[i].imag());
+      // cout << "temp::" << temp << endl;
       vec3.push_back(temp);
-  }
+  // }
+}
+  return vec3;
+}
+
+vector<std::complex<double> >
+ModelMulti::convertEigenVectorToStdVector(Eigen::VectorXcd &vec1) {
+  std::vector<std::complex<double> > vec3;
+  // vec3 = new vector<std::complex<double>>;
+  for (unsigned int i = 0; i < vec1.size(); i++) {
+      // if (abs(vec1[i].imag()) > 1e-08) {
+      const std::complex<double> temp(vec1[i].real(), vec1[i].imag());
+      // cout << "temp::" << temp << endl;
+      vec3.push_back(temp);
+  // }
+}
   return vec3;
 }
     // @brief dump the coupled devices of stable and unstables complex modes//
@@ -2813,56 +2851,52 @@ ModelMulti::allModes(const double t) {  //, std::vector<double> y
     /***************************************COMPUTE and DUMP THE EIGENVALUES AND EIGENVECTORS*********************************************/
        // ==== compute the eigenvalues and the eigenvectors of matrix A using the EigenSolver of EigenLib
        Eigen::EigenSolver<Eigen::MatrixXd> s1(A);
-       VectorXcd eigenValComplex = s1.eigenvalues();
-       MatrixXcd eigenVectorComplex =  s1.eigenvectors();
+       VectorXcd eigenvalComplex = s1.eigenvalues();
+       MatrixXcd eigenvectorRight =  s1.eigenvectors();
        // === dump the eigenvalues===//
-       writeToFileComplex(eigenValComplex, "allModes/eigenvaluesA.txt");
+       writeToFileComplex(eigenvalComplex, "allModes/eigenvalues.txt");
        // === dump the eigenvectors===//
-       writeToFileComplex(eigenVectorComplex, "allModes/rightEigenvectorsA.txt");
+       writeToFileComplex(eigenvectorRight, "allModes/rightEigenvectors.txt");
     /*************************************************************************************************************************************/
 
     /*************************************************************************************************************************************/
     /*******************************ALL processing related to eigenvalues and eigenvectors************************************************/
        // === compute the phase position using the matrix of eigenvectors
-       MatrixXd phaseMatrix = createEigenArgMatrix(eigenVectorComplex);
+       MatrixXd phaseMatrix = createEigenArgMatrix(eigenvectorRight);
        // === dump the matrix of phase positions===//
-       writeToFile(phaseMatrix, "allModes/PhaserightEigenvectors.txt");
+       writeToFile(phaseMatrix, "allModes/phaseRightEigenvectors.txt");
        // === compute the matrix of participation factors using the right and left eigenvectors ===//
        MatrixXd matRealParticipation(indexVarDiff.size(), indexVarDiff.size());
+       MatrixXd matParticipation(indexVarDiff.size(), indexVarDiff.size());
        // === check if the matrices of real and imaginary parts of eigenvectors are singular or not ===//
-       MatrixXd eigenVectorReal =  s1.eigenvectors().real();
-       MatrixXd eigenVectorImag =  s1.eigenvectors().imag();
        // ===compute the determinant of real matrix of eigenvectors ===//
-       float detVr = eigenVectorComplex.determinant().real();
+       float detVr = eigenvectorRight.determinant().real();
        // ===compute the determinant of imaginary matrix of eigenvectors ===//
-       float detVi = eigenVectorComplex.determinant().imag();
+       float detVi = eigenvectorRight.determinant().imag();
     if (detVr == 0 && detVi == 0) {
        Trace::error() << "THE MATRIX OF RIGTH EIGENVECTOR IS SINGULAR" << Trace::endline;
        exit(1);
     } else {
        // ===determine the left eigenvetors of a given matrix ===//
-       MatrixXd eigenVecRealLeft(indexVarDiff.size(), indexVarDiff.size());
-       eigenVecRealLeft = eigenVectorComplex.inverse().real().transpose();
-       // ===dump the left eigenvectors of a given matrix===//
-       writeToFile(eigenVecRealLeft, "allModes/eigenVecRealLeft.txt");
-       // ===compute the matrix of participation factors ===//
-       matRealParticipation = eigenVectorReal.cwiseProduct(eigenVecRealLeft);
-       writeToFile(matRealParticipation, "allModes/realParticipationMatrix.txt");
+       MatrixXd eigenvectorRightAbs =  eigenvectorRight.cwiseAbs();
+       MatrixXd eigenvectorLeftAbs =  eigenvectorRight.inverse().transpose().cwiseAbs();
+       matParticipation = eigenvectorLeftAbs.cwiseProduct(eigenvectorRightAbs);
+       writeToFile(matParticipation, "allModes/participationMatrix.txt");
     }
       // ===compute the matrix of the relative participation factors===//
-       VectorXd vectorMaxParticipationCol = matRealParticipation.cwiseAbs().colwise().maxCoeff();
-       MatrixXd matRelativeRealParticipation(indexVarDiff.size(), indexVarDiff.size());
+       VectorXd vectorMaxParticipationCol = matParticipation.colwise().maxCoeff();
+       MatrixXd matRelativeParticipation(indexVarDiff.size(), indexVarDiff.size());
     for (unsigned int row = 0; row < indexVarDiff.size(); row++) {
-        matRelativeRealParticipation.col(row) =  (matRealParticipation.cwiseAbs()).col(row)/vectorMaxParticipationCol(row);
+        matRelativeParticipation.col(row) =  (matParticipation.col(row))/vectorMaxParticipationCol(row);
     }
       // ===dump the matrix of the relative participation factors===//
-       writeToFile(matRelativeRealParticipation, "allModes/matRelativeRealParticipation.txt");
+       writeToFile(matRelativeParticipation, "allModes/matRelativeParticipation.txt");
       // ===extract the index position of maximum participation factor of each column ==//
-       vector<double> iMaxPart = getIndexPositionMax(matRelativeRealParticipation);
+       vector<double> iMaxPart = getIndexPositionMax(matRelativeParticipation);
       // ===create a dynamic double vector that contains the imaginary parts of the eigenvalues of A===//
-       ArrayXd imagEigenA = eigenValComplex.imag();
+       ArrayXd imagEigenA = eigenvalComplex.imag();
       // ===create a dynamic double vector that contains the real parts of the eigenvalues of A===//
-       ArrayXd realEigenA = eigenValComplex.real();
+       ArrayXd realEigenA = eigenvalComplex.real();
       // ===get the imaginary parts of eigenvalues of A other than zero===//
        vector<double> imagPart = getImagRealIndexPart(imagEigenA, realEigenA, 1);
       // ===eliminate redundancies in the vector of imaginary parts===//
@@ -2889,11 +2923,11 @@ ModelMulti::allModes(const double t) {  //, std::vector<double> y
       // ===7: retrun the imaginary parts of unstable modes===//
        vector<double> unstableImagPartNew = getStableUnstableIndexofModes(iImag, realEigenA, imagPart, 7);
       // ===create a vector that contains the maximum participation factors associated to the stable modes===//
-       vector<float> partStableMode = getValueIndex(matRelativeRealParticipation, irealPartImag, iMaxPart, indexVarDiff.size());
+       vector<float> partStableMode = getValueIndex(matRelativeParticipation, irealPartImag, iMaxPart, indexVarDiff.size());
       // ===create a vector that contains the participation factors associated to the real modes===//
-       vector<float> partRealMode = getValueIndex(matRelativeRealParticipation, iReal, iMaxPart, indexVarDiff.size());
+       vector<float> partRealMode = getValueIndex(matRelativeParticipation, iReal, iMaxPart, indexVarDiff.size());
       // ===create a vector that contains the participation factors associated to the unstable modes===//
-       vector<float> partUnstableMode = getValueIndex(matRelativeRealParticipation, iUnstableRealPartImag, iMaxPart, indexVarDiff.size());
+       vector<float> partUnstableMode = getValueIndex(matRelativeParticipation, iUnstableRealPartImag, iMaxPart, indexVarDiff.size());
       // ===create a vector that contains the phase positions associated to the stable modes===//
        vector<float> phaseStableMode = getValueIndex(phaseMatrix, irealPartImag, iMaxPart, indexVarDiff.size());
       // ===create a vector that contains the phase positions associated to the unstable modes===//
@@ -2997,62 +3031,58 @@ ModelMulti::evalmodalAnalysis(const double t, const double partFactor) {  //, st
     /***************************************COMPUTE and DUMP THE EIGENVALUES AND EIGENVECTORS*********************************************/
       Eigen::EigenSolver<Eigen::MatrixXd> s1(A);
     //  ===========================Compte the eigenvalues==========================================//
-      VectorXcd eigenValComplex = s1.eigenvalues();
+      VectorXcd eigenvalComplex = s1.eigenvalues();
     //  =======================Compute the right eigenvectors======================================//
-      MatrixXcd eigenVectorComplex =  s1.eigenvectors();
-    //  =======================Generate the real parts of right eigenvectors=======================//
-      MatrixXd eigenVectorReal =  s1.eigenvectors().real();
-    // ========================Generate the imag parts of right eigenvectors=======================//
-      MatrixXd eigenVectorImag;
-      eigenVectorImag =  s1.eigenvectors().imag();
+      MatrixXcd eigenvectorRight =  s1.eigenvectors();
     // =============================Dump the eigenvalues of A==================================//
-      writeToFileComplex(eigenValComplex, "modalAnalysis/eigenvaluesA.txt");
+      writeToFileComplex(eigenvalComplex, "modalAnalysis/eigenvalues.txt");
 
     // =============================Dump the Eigenvectors of A=================================//
-      writeToFileComplex(eigenVectorComplex, "modalAnalysis/rightEigenvectorsA.txt");
+      writeToFileComplex(eigenvectorRight, "modalAnalysis/rightEigenvectors.txt");
     /*************************************************************************************************************************************/
 
     /*************************************************************************************************************************************/
     /*******************************ALL processing related to eigenvalues and eigenvectors************************************************/
     // ============Compute the matrix of phase postion associated at each state====================//
-      MatrixXd phaseMatrix = createEigenArgMatrix(eigenVectorComplex);
+      MatrixXd phaseMatrix = createEigenArgMatrix(eigenvectorRight);
     // ==========================Dump the matrix of phase position=================================//
-      writeToFile(phaseMatrix, "modalAnalysis/file_Pahse_Vr.txt");
+      writeToFile(phaseMatrix, "modalAnalysis/phaseRightEigenvectors.txt");
+      MatrixXd matParticipation(indexVarDiff.size(), indexVarDiff.size());
     // =============Compute and dump the real participation factors matrix=========================//
     // ==============associated to the eigenvalues using the eigenvectors==========================//
     // =========Firstly, check the singularty of right eigenvector matrix==========================//
     // ====if the matrix is singular, it is required to check the stabilty of system===============//
-      MatrixXd matRealParticipation(indexVarDiff.size(), indexVarDiff.size());
-      float detVr = eigenVectorComplex.determinant().real();
-      float detVi = eigenVectorComplex.determinant().imag();
+      float detVr = eigenvectorRight.determinant().real();
+      float detVi = eigenvectorRight.determinant().imag();
       if (detVr == 0 && detVi == 0) {
          Trace::error() << "THE MATRIX OF RIGTH EIGENVECTOR IS SINGULAR" << Trace::endline;
          exit(1);
       } else {
+       MatrixXd eigenvectorRightAbs =  eigenvectorRight.cwiseAbs();
     //  ------Compute the left eigenvectors matrix based on the right eigenvectors matrix----------//
-        MatrixXd eigenVecRealLeft = eigenVectorComplex.inverse().real().transpose();
-    //  ----------------------Dump the matrix of left eigenvectors---------------------------------//
-        writeToFile(eigenVecRealLeft, "modalAnalysis/eigenVecRealLeft.txt");
+       MatrixXd eigenvectorLeftAbs =  eigenvectorRight.inverse().transpose().cwiseAbs();
     //  ------------------------Compute the participation matrix-----------------------------------//
-        matRealParticipation = eigenVectorReal.cwiseProduct(eigenVecRealLeft);
+       matParticipation = eigenvectorLeftAbs.cwiseProduct(eigenvectorRightAbs);
+        // eigenVectorReal.cwiseProduct(eigenVecRealLeft);
     //  ------------------------Dump the participation matrix--------------------------------------//
-        writeToFile(matRealParticipation, "modalAnalysis/Participation_Real_Matrix.txt");
+       writeToFile(matParticipation, "modalAnalysis/participationMatrix.txt");
 }
     //  =====Compute the maximum values of each column of participation factors matrix=============//
-       VectorXd vectorMaxParticipationCol = matRealParticipation.cwiseAbs().colwise().maxCoeff();
+       VectorXd vectorMaxParticipationCol = matParticipation.colwise().maxCoeff();
     //  ==================Compute the real relative participation matrix===========================//
-       MatrixXd matRelativeRealParticipation(indexVarDiff.size(), indexVarDiff.size());
+       MatrixXd matRelativeParticipation(indexVarDiff.size(), indexVarDiff.size());
       for (unsigned int row = 0; row < indexVarDiff.size(); row++) {
-          matRelativeRealParticipation.col(row) =  (matRealParticipation.cwiseAbs()).col(row)/vectorMaxParticipationCol(row);
+          matRelativeParticipation.col(row) =  (matParticipation.col(row))/vectorMaxParticipationCol(row);
       }
+        writeToFile(matRelativeParticipation, "modalAnalysis/matRelativeParticipation.txt");
     //  ======Determine the index position associated to maximum relative participation=============//
     //  ============of each col of real relative particpation factors matrix========================//
-       vector<double> iMaxPart = getIndexPositionMax(matRelativeRealParticipation);
+       vector<double> iMaxPart = getIndexPositionMax(matRelativeParticipation);
     //  ===================Specific treatments of eigenvalues and eigenvectors======================//
     //  -----------------------get all imaginary parts of eigenvalues-------------------------------//
-       ArrayXd imagEigenA = eigenValComplex.imag();
+       ArrayXd imagEigenA = eigenvalComplex.imag();
     //  --------------------------get all real parts of eigenvalues---------------------------------//
-       ArrayXd realEigenA = eigenValComplex.real();
+       ArrayXd realEigenA = eigenvalComplex.real();
     //  ---------------------get the non-zero imginary parts ---------------------------------------//
        vector<double>imagPart = getImagRealIndexPart(imagEigenA, realEigenA, 1);
     //  ------Eliminate the redundancy in the vector of imagPart (eliminate the conjugate)----------//
@@ -3086,11 +3116,11 @@ ModelMulti::evalmodalAnalysis(const double t, const double partFactor) {  //, st
        vector<string> strVectorStatesDiff = {"delta", "ww", "theta", "omega", "OMEGA_REF_tetaRef", "lambdad", "lambdaD", "lambdaDPu",
 "lambdaq", "lambdaQ", "lambdaQ1", "lambdaQ2", "VR", "AVR", "VoltageRegulator", "lambdaf", "gover", "Gover", "GOVER", "inj", "INJ", "HVDC"};
     // -----------get the maximum participation factors associated to the stable mode---------------//
-       vector<float> partStableMode = getValueIndex(matRelativeRealParticipation, irealPartImag, iMaxPart, indexVarDiff.size());
+       vector<float> partStableMode = getValueIndex(matRelativeParticipation, irealPartImag, iMaxPart, indexVarDiff.size());
     // --------get the maximum participation factors assocaited to purly real modes-----------------//
-       vector<float> partRealMode = getValueIndex(matRelativeRealParticipation, iReal, iMaxPart, indexVarDiff.size());
+       vector<float> partRealMode = getValueIndex(matRelativeParticipation, iReal, iMaxPart, indexVarDiff.size());
     // -----------get the maximum participation factors assocaited to unstable modes----------------//
-       vector<float> partUnstableMode = getValueIndex(matRelativeRealParticipation, iUnstableRealPartImag, iMaxPart, indexVarDiff.size());
+       vector<float> partUnstableMode = getValueIndex(matRelativeParticipation, iUnstableRealPartImag, iMaxPart, indexVarDiff.size());
     // --------------------get the phase associated to stable modes---------------------------------//
        vector<float> phaseStableMode = getValueIndex(phaseMatrix, irealPartImag, iMaxPart, indexVarDiff.size());
     // --------------------get the phase associated to unstable modes-------------------------------//
@@ -3148,8 +3178,8 @@ dampUnstableMode, phaseUnstableMode, partUnstableMode, iUnstableRealPartImag, na
        printToFileRealModes("modalAnalysis/fullSmallModalAnalysis.txt", stateOfRealMode, strVectorStatesDiff, realPart, partRealMode, iReal,
 nameRealMach_);
     // ----------------Dump the coupled devices of stable and unstable complex modes----------------//
-       printToFileCoupledDevices("modalAnalysis/fullSmallModalAnalysis.txt", irealPartImag_, matRelativeRealParticipation, phaseMatrix,
-eigenValComplex, strVectorStatesDiff, participation);
+       printToFileCoupledDevices("modalAnalysis/fullSmallModalAnalysis.txt", irealPartImag_, matRelativeParticipation, phaseMatrix,
+eigenvalComplex, strVectorStatesDiff, participation);
     /*************************************************************************************************************************************/
 }
 }
@@ -3168,24 +3198,24 @@ ModelMulti::subParticipation(const double t, int nbrMode) {
       MatrixXd A = getMatrixA(t);
       // ====compute the eigenvalues, right eigenvectors, and real parts of eigenvalues ===//
       EigenSolver<MatrixXd> s1(A);
-      VectorXcd eigenValComplex = s1.eigenvalues();
-      MatrixXcd eigenVectorComplex =  s1.eigenvectors();
-      MatrixXd eigenVectorReal =  s1.eigenvectors().real();
+      VectorXcd eigenvalComplex = s1.eigenvalues();
+      MatrixXcd eigenvectorRight =  s1.eigenvectors();
+      MatrixXd eigenvectorRightAbs =  eigenvectorRight.cwiseAbs();
       // ====compute the matrix of the left eigenvectors====//
-      MatrixXd eigenVecRealLeft = eigenVectorComplex.inverse().real().transpose();
+      MatrixXd eigenvectorLeftAbs = eigenvectorRight.inverse().transpose().cwiseAbs();
       // ====construct vector of index positions of differential variables using the function "getIndexVariable()"====//
       std::vector<int> indexVarDiff = getIndexVariable(1);
       // ===compute the matrix of participation factors ===//
-      MatrixXd matRealParticipation(indexVarDiff.size(), indexVarDiff.size());
-      float detVr = eigenVectorComplex.determinant().real();
-      float detVi = eigenVectorComplex.determinant().imag();
+      MatrixXd matParticipation(indexVarDiff.size(), indexVarDiff.size());
+      float detVr = eigenvectorRight.determinant().real();
+      float detVi = eigenvectorRight.determinant().imag();
       if (detVr == 0 && detVi == 0) {
          Trace::error() << "THE MATRIX OF RIGTH EIGENVECTOR IS SINGULAR" << Trace::endline;
          exit(1);
       } else {
-        matRealParticipation = eigenVectorReal.cwiseProduct(eigenVecRealLeft);
+        matParticipation = eigenvectorLeftAbs.cwiseProduct(eigenvectorRightAbs);
       // =======dump the sub-participation factors of a given mode "nbrMode" =======//
-        printSubParticipation(nbrMode, matRealParticipation, eigenValComplex);
+        printSubParticipation(nbrMode, matParticipation, eigenvalComplex);
 }
 }
 }
@@ -3276,7 +3306,7 @@ ModelMulti::getMatrixRSM(const double t) {
      }
      // several dumps are used for the test in this version
      writeToFile(RSM, "Linearisation/RSM.txt");
-     writeToFile(Rij, "Linearisation/Rij.txt");
+     // writeToFile(Rij, "Linearisation/Rij.txt");
      return RSM;
 }
   // @brief return the indices of states of relevant coupled dynamic devices
@@ -3302,7 +3332,6 @@ ModelMulti::getLessRelevantIndex(vector<int> coupledClass) {
      vector<int> allbarIndexVars;
      for (unsigned int i = 0; i < coupledClass.size(); i++) {
          if (coupledClass[i] != 1) {
-         cout << "coupledClass[i]:" << coupledClass[i] << endl;
          vector<int> barIndexVars = getIndexPositionString(allDynamicDeviceNames, dynamicDeviceNames[i]);
          allbarIndexVars.insert(allbarIndexVars.end(), barIndexVars.begin(), barIndexVars.end());
          }
@@ -3320,26 +3349,19 @@ ModelMulti::getSubMatrix(MatrixXd A, vector<int> indexi, vector<int> indexj) {
     }
 return subA;
 }
-  // @brief construct reduced matrix A (used for Selective Modla analysis) based on the coupled devices
+  // @brief construct reduced matrix A (used for Selective Modal analysis) based on the coupled devices
 Eigen::MatrixXd
 ModelMulti::contructReducedMatrix(const double t, vector<int> coupledClass) {
     MatrixXd A = getMatrixA(t);
     vector<int> allindex = getRelevantIndex(coupledClass);
     vector<int> barindex = getLessRelevantIndex(coupledClass);
-    writeToFileStd(allindex, "Linearisation/allindex.log");
-    writeToFileStd(barindex, "Linearisation/barindex.log");
     MatrixXd A11 = getSubMatrix(A, allindex, allindex);
     MatrixXd A12 = getSubMatrix(A, allindex, barindex);
     MatrixXd A21 = getSubMatrix(A, barindex, allindex);
     MatrixXd A22 = getSubMatrix(A, barindex, barindex);
-
-     writeToFile(A11, "Linearisation/A110.txt");
-     writeToFile(A12, "Linearisation/A120.txt");
-     writeToFile(A21, "Linearisation/A210.txt");
-     writeToFile(A22, "Linearisation/A220.txt");
     return A11;
 }
-    // @brief get the transfer matrix H of selective modal analysis
+    // @brief get the transfer matrix H/M of less relevant part of A matrix using selective modal analysis
 Eigen::MatrixXcd
 ModelMulti::contructMMatrix(const double t, vector<int> coupledClass) {
     MatrixXd A = getMatrixA(t);
@@ -3351,50 +3373,40 @@ ModelMulti::contructMMatrix(const double t, vector<int> coupledClass) {
     MatrixXd A22 = getSubMatrix(A, barindex, barindex);
     EigenSolver<MatrixXd> s1(A11);
     MatrixXcd X1;
+    MatrixXcd X10;
+    MatrixXcd Xis;
     MatrixXcd X2;
+    MatrixXcd X2t;
     Eigen::ArrayXcd X3;
+    vector<std::complex<double>> Ddiagfinal1;
     VectorXcd eigenValComplex = s1.eigenvalues();
     MatrixXcd eigenVectorComplex =  s1.eigenvectors();
-    MatrixXcd H = MatrixXcd::Zero(A11.rows(), A11.rows());;
+    Eigen::ArrayXcd eigenValComplex11 = s1.eigenvalues();
+    Ddiagfinal1 = convertEigenArrayCToStdVector(eigenValComplex11);
+    MatrixXcd H = MatrixXcd::Zero(A11.rows(), A11.rows());
     MatrixXcd M;
+    MatrixXcd M1;
     MatrixXd E = MatrixXd::Identity(A22.rows(), A22.rows());
-    cout << "end0:" << endl;
     for (unsigned int i = 0; i < A11.rows(); i++) {
-    X1 = (eigenValComplex(i)*E - A22);
-    X2 = A12*X1.inverse()*A21;
-    // cout << "end4:" << endl;
+    Xis = eigenValComplex(i)*E;
+    X1 = (Xis - A22);
+    X10 = X1.inverse();
+    X2t = A12*X10*A21;
+    X2 = (A12*(X1.transpose().inverse()))*A21;
     X3 = X2*eigenVectorComplex.col(i);
-    // cout << "end3:" << endl;
-    // cout << "X3.size():" << X3.size() << endl;
-    for (unsigned int j = 0; j < X3.size(); j++) {
-    H(i, j) = X3(j);
+    H.col(i) = X3;
     }
-    // (A12*((eigenValComplex(i)1E-A22).inverse())*A21)*eigenVectorComplex.col(i);
-    }
-    writeToFileComplex(H, "Linearisation/H.txt");
-    M = H*eigenVectorComplex.inverse();
+    MatrixXcd W = eigenVectorComplex.inverse();
+    MatrixXcd V = eigenVectorComplex;
+    MatrixXcd I = W*V;
+    M = H*W;
+    M1 = H.transpose()*(eigenVectorComplex.transpose().inverse());
     writeToFileComplex(M, "Linearisation/M.txt");
-    // cout << "end:" << endl;
-    return H;
+    return M;
 }
 
-    // @brief get the condition number of matrix
-double
-ModelMulti::getCond(Eigen::MatrixXcd Acond) {
-     Eigen::JacobiSVD<MatrixXcd> svd(Acond);
-     double condA =  svd.singularValues().maxCoeff()/svd.singularValues().minCoeff();
-     return condA;
-}
 
-    // @brief convert of eigen matrix to armadillo matrix (
-mat
-ModelMulti::example_cast_arma(Eigen::MatrixXd eigen_A) {
-    arma::mat arma_B = arma::mat(eigen_A.data(), eigen_A.rows(), eigen_A.cols(),
-                               false, false);
-    return arma_B;
-    }
-
-    // @brief Compue the eigenvalues based on the classes of coupled dynamic devices
+  // @brief Compue the eigenvalues based on the classes of coupled dynamic devices
 void
 ModelMulti::largeScaleModalAnalysis(const double t) {
     if (t != 0) {
@@ -3402,47 +3414,29 @@ ModelMulti::largeScaleModalAnalysis(const double t) {
        create_directory("largeScaleModalAnalysis");
        }
     MatrixXd Ainit = getMatrixA(t);
-    // arma::mat arma_Adiff1 = arma::mat(Ainit.data(), Ainit.rows(), Ainit.cols(),
-    //                           false, false);
-    // arma::cx_vec eigval;
-    // arma::cx_mat eigvec;
-    // arma::eig_gen(eigval, eigvec, arma_Adiff1);
     MatrixXd I = MatrixXd::Identity(Ainit.rows(), Ainit.rows());
     vector<int> coupledClass;
     vector<std::complex<double> > alleigen;
     vector<std::complex<double> > alleigen1;
     MatrixXcd A;
     MatrixXcd ACond;
+    MatrixXd Ared;
     MatrixXd RSM = getMatrixRSM(t);
     for (unsigned int i = 0; i < RSM.rows(); i++) {
     for (unsigned int j = 0; j < RSM.rows(); j++) {
     coupledClass.push_back(RSM(i, j));
     }
-    MatrixXd Ared = contructReducedMatrix(t, coupledClass);
-    // cout << "end1:" << endl;
+    Ared = contructReducedMatrix(t, coupledClass);
     MatrixXcd M = contructMMatrix(t, coupledClass);
     A = M + Ared;
-    // A.imag() = M.imag();
     Eigen::ComplexEigenSolver<MatrixXcd> s(A);
     Eigen::ArrayXcd eigenValComplex = s.eigenvalues();
     for (unsigned int m = 0; m < eigenValComplex.size(); m++) {
     ACond = eigenValComplex(m)*I - Ainit;
-    double condA = getCond(ACond);
-    if (condA > 10) {
-    cout << "eigenValComplex.size():" << eigenValComplex.size() <<"--condA:" << condA << "--ArrayXcd:" << eigenValComplex(m) << endl;
     }
-    }
-    /* for (unsigned int k = 0; k < eigenValComplex.size(); k++) {
-    cout << "ArrayXcd:" << eigenValComplex(k) << endl;
-    }*/
     alleigen1 = convertEigenArrayCToStdVector(eigenValComplex);
-    alleigen.insert(alleigen.end(), alleigen1.begin(), alleigen1.end());
     coupledClass.clear();
     }
-    writeToFileComplexStd(alleigen, "Linearisation/alleigen.txt");
-    writeToFileComplex(A.real(), "Linearisation/Areal.txt");
-    writeToFileComplex(A.imag(), "Linearisation/Aimag.txt");
 }
 }
-
 }  // namespace DYN
