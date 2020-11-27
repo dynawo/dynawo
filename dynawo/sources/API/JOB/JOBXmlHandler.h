@@ -437,6 +437,41 @@ class LineariseHandler : public xml::sax::parser::ComposableElementHandler {
 };
 
 /**
+ * @class LineariseHandler
+ * @brief Handler used to parse linearise element
+ */
+class LineariseHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit LineariseHandler(elementName_type const &root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~LineariseHandler() { }
+
+  /**
+   * @brief return the linearise entry read in xml file
+   * @return linearise entry object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<LineariseEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<LineariseEntry> linearise_;  ///< current linearise entry object
+};
+
+/**
+>>>>>>> 04b2ff90... Added Job files for Modal Analysis
  * @class ModalAnalysisHandler
  * @brief Handler used to parse ModalAnalysis element
  */
@@ -540,7 +575,6 @@ class SubParticipationHandler : public xml::sax::parser::ComposableElementHandle
 
 
 /**
->>>>>>> d02c106a... Added Job files for Modal Analysis
  * @class FinalStateHandler
  * @brief Handler used to parse final state element
  */
