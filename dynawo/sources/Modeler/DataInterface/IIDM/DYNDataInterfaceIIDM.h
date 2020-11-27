@@ -189,11 +189,6 @@ class DataInterfaceIIDM : public DataInterface {
    */
   std::string getBusName(const std::string& staticID, const std::string& labelNode);
 
-  /**
-   * @copydoc DataInterface::getSlackNodeBusId
-   */
-  boost::optional<std::string> getSlackNodeBusId() const;
-
  private:
   /**
    * @brief find a bus interface thanks to its id
