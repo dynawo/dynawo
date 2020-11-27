@@ -1397,7 +1397,6 @@ ModelMulti::getMatrixA(const double t) {
   Aold = Aold2 - Aold1;
   // writeToFile(Aold, "Linearisation/Aold.txt");
   // writeToFile(Aold1, "Linearisation/Aold1.txt");
-
   indexVarDiff = getIndexVariable(1);
   indexEquDiff = getIndexEquation(1);
   indexEquAlg = getIndexEquation(2);
@@ -3354,6 +3353,7 @@ ModelMulti::contructReducedMatrix(const double t, vector<int> coupledClass) {
     MatrixXd A = getMatrixA(t);
     vector<int> allindex = getRelevantIndex(coupledClass);
     vector<int> barindex = getLessRelevantIndex(coupledClass);
+
     MatrixXd A11 = getSubMatrix(A, allindex, allindex);
     MatrixXd A12 = getSubMatrix(A, allindex, barindex);
     MatrixXd A21 = getSubMatrix(A, barindex, allindex);
@@ -3404,7 +3404,6 @@ ModelMulti::contructMMatrix(const double t, vector<int> coupledClass) {
     writeToFileComplex(M, "Linearisation/M.txt");
     return M;
 }
-
 
   // @brief Compue the eigenvalues based on the classes of coupled dynamic devices
 void
