@@ -17,7 +17,6 @@
  * @brief Simulation implementation
  *
  */
-
 #include <eigen3/Eigen/Eigenvalues>
 #include <iomanip>
 #include <vector>
@@ -84,7 +83,10 @@
 #include "JOBInitValuesEntry.h"
 #include "JOBConstraintsEntry.h"
 #include "JOBTimelineEntry.h"
+<<<<<<< HEAD
 #include "JOBTimetableEntry.h"
+=======
+>>>>>>> 192abc1f... Update Modal analyis functions in DynSimulation files
 #include "JOBLineariseEntry.h"
 #include "JOBModalAnalysisEntry.h"
 #include "JOBAllModesEntry.h"
@@ -95,10 +97,6 @@
 #include "JOBLogsEntry.h"
 #include "JOBAppenderEntry.h"
 #include "JOBDynModelsEntry.h"
-#include "JOBLineariseEntry.h"
-#include "JOBModalAnalysisEntry.h"
-#include "JOBAllModesEntry.h"
-#include "JOBSubParticipationEntry.h"
 
 #include "gitversion.h"
 #include "config.h"
@@ -293,10 +291,6 @@ Simulation::configureSimulationOutputs() {
     configureTimetableOutputs();
     configureCurveOutputs();
     configureFinalStateOutputs();
-    configureAllModesOutputs();
-    configureModalAnalysisOutputs();
-    configureSubParticipationOutputs();
-    configureLineariseOutputs()
   }
 }
 
@@ -339,7 +333,6 @@ Simulation::configureLineariseOutputs() {
       setLineariseTime(tLinearise_);
 }
 }
-
 void
 Simulation::configureConstraintsOutputs() {
   // Constraints settings
@@ -866,9 +859,12 @@ Simulation::simulate() {
 
       solver_->solve(tStop_, tCurrent_);
       solver_->printSolve();
+      // <<<<<<< HEAD
+      // =======
       if (currentIterNb == 0)
         printHighestDerivativesValues();
 
+      // >>>>>>> c55bfdb295da9deab5dfde6bb1b31979927a39a8
       BitMask solverState = solver_->getState();
       bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
@@ -883,6 +879,7 @@ Simulation::simulate() {
         model_->getCurrentZ(zCurrent_);
         modifZ = true;
       }
+<<<<<<< HEAD
 
       if (isCheckCriteriaIter)
         model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
@@ -893,6 +890,8 @@ Simulation::simulate() {
       if (timetableOutputFile_ != "" && currentIterNb % timetableSteps_ == 0)
         printCurrentTime(timetableOutputFile_);
 
+=======
+>>>>>>> 192abc1f... Update Modal analyis functions in DynSimulation files
       // Compute the state matrix, input matrix B, and output matrix C
       if (tCurrent_ == tLinearise_) {
       model_->evalLinearise(tCurrent_);
@@ -910,6 +909,23 @@ Simulation::simulate() {
       model_->evalmodalAnalysis(tCurrent_, Part_);
       }
       // end of call
+<<<<<<< HEAD
+=======
+
+>>>>>>> 192abc1f... Update Modal analyis functions in DynSimulation files
+
+      if (isCheckCriteriaIter)
+// <<<<<<< HEAD
+//      model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
+//      updateCurves(!isCheckCriteriaIter && !solverState.getFlags(ZChange));
+// =======
+       model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
+      updateCurves(!isCheckCriteriaIter && !modifZ);
+
+// >>>>>>> c55bfdb295da9deab5dfde6bb1b31979927a39a8
+      model_->checkDataCoherence(tCurrent_);
+      model_->printMessages();
+      printCurrentTime(fileName.str());
 
       if (isCheckCriteriaIter) {
         criteriaChecked = checkCriteria(tCurrent_, false);
