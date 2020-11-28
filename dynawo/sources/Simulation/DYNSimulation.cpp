@@ -17,6 +17,7 @@
  * @brief Simulation implementation
  *
  */
+
 #include <eigen3/Eigen/Eigenvalues>
 #include <iomanip>
 #include <vector>
@@ -94,6 +95,10 @@
 #include "JOBLogsEntry.h"
 #include "JOBAppenderEntry.h"
 #include "JOBDynModelsEntry.h"
+#include "JOBLineariseEntry.h"
+#include "JOBModalAnalysisEntry.h"
+#include "JOBAllModesEntry.h"
+#include "JOBSubParticipationEntry.h"
 
 #include "gitversion.h"
 #include "config.h"
@@ -288,6 +293,10 @@ Simulation::configureSimulationOutputs() {
     configureTimetableOutputs();
     configureCurveOutputs();
     configureFinalStateOutputs();
+    configureAllModesOutputs();
+    configureModalAnalysisOutputs();
+    configureSubParticipationOutputs();
+    configureLineariseOutputs()
   }
 }
 
@@ -330,6 +339,7 @@ Simulation::configureLineariseOutputs() {
       setLineariseTime(tLinearise_);
 }
 }
+
 void
 Simulation::configureConstraintsOutputs() {
   // Constraints settings
