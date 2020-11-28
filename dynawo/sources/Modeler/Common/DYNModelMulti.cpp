@@ -1397,7 +1397,6 @@ ModelMulti::getMatrixA(const double t) {
   Aold = Aold2 - Aold1;
   // writeToFile(Aold, "Linearisation/Aold.txt");
   // writeToFile(Aold1, "Linearisation/Aold1.txt");
-
   indexVarDiff = getIndexVariable(1);
   indexEquDiff = getIndexEquation(1);
   indexEquAlg = getIndexEquation(2);
@@ -3361,7 +3360,6 @@ ModelMulti::contructReducedMatrix(const double t, vector<int> coupledClass) {
     return A11;
 }
     // @brief get the transfer matrix H/M of less relevant part of A matrix using selective modal analysis
-
 Eigen::MatrixXcd
 ModelMulti::contructMMatrix(const double t, vector<int> coupledClass) {
     MatrixXd A = getMatrixA(t);
@@ -3407,6 +3405,7 @@ ModelMulti::contructMMatrix(const double t, vector<int> coupledClass) {
 
 
   // @brief Compue the eigenvalues based on the classes of coupled dynamic devices
+
 void
 ModelMulti::largeScaleModalAnalysis(const double t) {
     if (t != 0) {
