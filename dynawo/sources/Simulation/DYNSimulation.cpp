@@ -94,10 +94,6 @@
 #include "JOBLogsEntry.h"
 #include "JOBAppenderEntry.h"
 #include "JOBDynModelsEntry.h"
-#include "JOBLineariseEntry.h"
-#include "JOBModalAnalysisEntry.h"
-#include "JOBAllModesEntry.h"
-#include "JOBSubParticipationEntry.h"
 
 #include "gitversion.h"
 #include "config.h"
@@ -292,10 +288,6 @@ Simulation::configureSimulationOutputs() {
     configureTimetableOutputs();
     configureCurveOutputs();
     configureFinalStateOutputs();
-    configureAllModesOutputs();
-    configureModalAnalysisOutputs();
-    configureSubParticipationOutputs();
-    configureLineariseOutputs()
   }
 }
 
@@ -338,7 +330,6 @@ Simulation::configureLineariseOutputs() {
       setLineariseTime(tLinearise_);
 }
 }
-
 void
 Simulation::configureConstraintsOutputs() {
   // Constraints settings
@@ -867,6 +858,7 @@ Simulation::simulate() {
       solver_->printSolve();
       if (currentIterNb == 0)
         printHighestDerivativesValues();
+
       BitMask solverState = solver_->getState();
       bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
@@ -908,6 +900,11 @@ Simulation::simulate() {
       model_->evalmodalAnalysis(tCurrent_, Part_);
       }
       // end of call
+
+      if (isCheckCriteriaIter)
+      model_->checkDataCoherence(tCurrent_);
+      model_->printMessages();
+      printCurrentTime(fileName.str());
 
       if (isCheckCriteriaIter) {
         criteriaChecked = checkCriteria(tCurrent_, false);
