@@ -901,11 +901,6 @@ Simulation::simulate() {
       }
       // end of call
 
-      if (isCheckCriteriaIter)
-      model_->checkDataCoherence(tCurrent_);
-      model_->printMessages();
-      printCurrentTime(fileName.str());
-
       if (isCheckCriteriaIter) {
         criteriaChecked = checkCriteria(tCurrent_, false);
       }
