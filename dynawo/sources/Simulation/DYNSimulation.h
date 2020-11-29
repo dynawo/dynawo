@@ -385,14 +385,6 @@ class Simulation {
   }
 
   /**
-   * @brief setter of the time of the linearisation
-   * @param time start time of the linearisation
-   */
-  inline void setLineariseTime(const double& time) {
-    tLinearise_ = time;
-  }
-
-  /**
    * @brief setter of the time of the modal analysis
    * @param time start time of the modal analysis
    */
@@ -494,6 +486,25 @@ class Simulation {
     return tModalAnalysis_;
   }
 
+  /* inline int getModalAnalysisSolver() const {
+    return Solver_;
+  }*/
+
+  /**
+   * @brief getter for the start time of the eigencalculation
+   * @return the start time of the eigencalculation
+   */
+  /* inline int getAllModesSolver() const {
+    return Solver_;
+  }*/
+  /**
+   * @brief setter of the time of the linearisation
+   * @param time start time of the linearisation
+   */
+  inline void setLineariseTime(const double& time) {
+    tLinearise_ = time;
+  }
+
   /**
    * @brief getter for the start time of the eigencalculation
    * @return the start time of the eigencalculation
@@ -534,6 +545,18 @@ class Simulation {
   inline double getCurrentTime() const {
     return tCurrent_;
   }
+
+  /* inline int getModalAnalysisSolver() const {
+    return Solver_;
+  }*/
+
+  /**
+   * @brief getter for the start time of the eigencalculation
+   * @return the start time of the eigencalculation
+   */
+  /* inline int getAllModesSolver() const {
+    return Solver_;
+  }*/
 
 
   /**

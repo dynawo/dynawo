@@ -437,7 +437,6 @@ class LineariseHandler : public xml::sax::parser::ComposableElementHandler {
 };
 
 /**
-<<<<<<< HEAD
  * @class ModalAnalysisHandler
  * @brief Handler used to parse ModalAnalysis element
  */
