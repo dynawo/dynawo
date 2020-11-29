@@ -1479,6 +1479,7 @@ ModelMulti::getMatrixB(const double t) {
   indexVref.insert(indexVref.end(), indexVref0.begin(), indexVref0.end());
   R = Eigen::MatrixXd::Zero(varAlgName.size(), indexVref.size());
   for (unsigned int k = 0; k < indexVref.size(); k++) {
+  cout << indexVref[k] << endl;
   for (unsigned int j = 0; j < varAlgName.size(); j++) {
      if (A22(j, indexVref[k]) > 0) {
         R(j, k) = 1;
@@ -2850,10 +2851,14 @@ ModelMulti::allModes(const double t) {  //, std::vector<double> y
        Eigen::EigenSolver<Eigen::MatrixXd> s1(A);
        VectorXcd eigenvalComplex = s1.eigenvalues();
        MatrixXcd eigenvectorRight =  s1.eigenvectors();
+       MatrixXcd eigenvectorLeft =  eigenvectorRight.inverse();
+       MatrixXcd xx =  eigenvectorLeft*A*eigenvectorRight;
        // === dump the eigenvalues===//
        writeToFileComplex(eigenvalComplex, "allModes/eigenvalues.txt");
        // === dump the eigenvectors===//
        writeToFileComplex(eigenvectorRight, "allModes/rightEigenvectors.txt");
+       writeToFileComplex(eigenvectorLeft, "allModes/leftEigenvectors.txt");
+       writeToFileComplex(xx, "allModes/xx.txt");
     /*************************************************************************************************************************************/
 
     /*************************************************************************************************************************************/
