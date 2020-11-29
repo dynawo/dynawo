@@ -1479,6 +1479,10 @@ ModelMulti::getMatrixB(const double t) {
   indexVref.insert(indexVref.end(), indexVref0.begin(), indexVref0.end());
   R = Eigen::MatrixXd::Zero(varAlgName.size(), indexVref.size());
   for (unsigned int k = 0; k < indexVref.size(); k++) {
+<<<<<<< HEAD
+=======
+  // cout << indexVref[k] << endl;
+>>>>>>> 132a3c2e... conflits managed
   for (unsigned int j = 0; j < varAlgName.size(); j++) {
      if (A22(j, indexVref[k]) > 0) {
         R(j, k) = 1;

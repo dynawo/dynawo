@@ -1,9 +1,0 @@
- ====== INIT VARIABLES VALUES ======
- ====== INIT DISCRETE VARIABLES VALUES ======
-event_state1_value                                : z =       1.210000
-event_state2_value                                : z =       0.260000
- ====== PARAMETERS VALUES ======
-event_stateEvent1                                  =       2.420000
-event_stateEvent2                                  =       0.520000
-event_tEvent                                       =       1.000000
-event_nbEventVariables                             =              2
