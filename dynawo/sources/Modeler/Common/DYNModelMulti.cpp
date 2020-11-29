@@ -100,7 +100,6 @@ using arma::cx_dmat;
 using arma::cx_mat;
 using arma::cx_dvec;
 
-
 namespace DYN {
 
 ModelMulti::ModelMulti() :
