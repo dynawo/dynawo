@@ -3406,7 +3406,6 @@ ModelMulti::contructMMatrix(const double t, vector<int> coupledClass) {
 
 
   // @brief Compue the eigenvalues based on the classes of coupled dynamic devices
-
 void
 ModelMulti::largeScaleModalAnalysis(const double t) {
     if (t != 0) {
