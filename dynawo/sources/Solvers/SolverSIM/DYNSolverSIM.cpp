@@ -518,12 +518,11 @@ SolverSIM::solve() {
         skipNextNR_ = false;
         if (model_->getModeChangeType() != DIFFERENTIAL_MODE)
           return ROOT_ALG;
-        else if (getState().getFlags(ZChange)
-            || getState().getFlags(SilentZNotUsedInDiscreteEqChange)
-            || getState().getFlags(SilentZNotUsedInContinuousEqChange))
+        else if (getState().getFlags(NotSilentZChange)
+            || getState().getFlags(SilentZNotUsedInDiscreteEqChange))
           return ROOT;
         return CONV;
-      } else if (getState().getFlags(ZChange) || getState().getFlags(SilentZNotUsedInDiscreteEqChange)) {  // Z change
+      } else if (getState().getFlags(NotSilentZChange) || getState().getFlags(SilentZNotUsedInDiscreteEqChange)) {  // Z change
         skipNextNR_ = false;
         return ROOT;
       } else {  // Root change without any z or mode change

@@ -209,9 +209,9 @@ class Model {
   virtual bool zChange() const = 0;
 
   /**
-   * @brief retrieve if at least one discrete variable not used in G equations has changed
+   * @brief retrieve if at least one silent discrete variable of the given type has changed
    * @param type type of silent z to test
-   * @return @b true at least one discrete variable not used in G equations has changed
+   * @return @b true at least one silent discrete variable of the given type has changed
    */
   virtual bool getSilentZChange(SilentZFlags type) const = 0;
 

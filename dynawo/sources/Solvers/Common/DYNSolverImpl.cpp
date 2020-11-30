@@ -270,7 +270,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
       if (model_->getSilentZChange(NotUsedInContinuousEquations))
         state_.setFlags(SilentZNotUsedInContinuousEqChange);
       else
-        state_.setFlags(ZChange);
+        state_.setFlags(NotSilentZChange);
       nonSilentZChange = true;
       change = true;
 #ifdef _DEBUG_
