@@ -20,14 +20,14 @@ package Types "Standard types for electrical variables"
                            redeclare VoltageComponent im "Imaginary part of complex voltage") "Complex voltage";
   type VoltageComponent = Real (final unit="kV") "Real or imaginary part of complex voltage";
   type VoltageModule = Real (final unit="kV") "Voltage module";
-  type ThreePhaseVoltage = Real[3] (final unit="kV") "3 phases voltage vector";
+  type ThreePhaseVoltage = Real[3] (final unit = "kV") "Three-phase voltage vector";
 
   // Current
   record Current = Complex(redeclare CurrentComponent re "Real part of complex current",
                            redeclare CurrentComponent im "Imaginary part of complex current") "Complex current";
   type CurrentComponent = Real (final unit = "kA") "Real or imaginary part of complex current";
   type CurrentModule = Real (final unit = "kA") "Current module";
-  type ThreePhaseCurrent = Real[3] (final unit="kA") "3 phases current vector";
+  type ThreePhaseCurrent = Real[3] (final unit = "kA") "Three-phase current vector";
 
   // Power
   record ApparentPower = Complex(redeclare ActivePower re "Real part of complex apparent power",
