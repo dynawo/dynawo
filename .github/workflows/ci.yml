@@ -19,6 +19,7 @@ jobs:
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
       DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
+      DYNAWO_NB_PROCESSORS_USED: 2
     steps:
       - name: Checkout sources
         uses: actions/checkout@v1
@@ -47,6 +48,7 @@ jobs:
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
       DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
+      DYNAWO_NB_PROCESSORS_USED: 2
     steps:
       - name: Install Sonar wrapper
         working-directory: ${{ runner.workspace }}
