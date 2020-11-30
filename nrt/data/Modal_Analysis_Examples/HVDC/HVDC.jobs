@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<jobs xmlns="http://www.rte-france.com/dynawo">
+    <job name="testHVDC">
+        <solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+        <modeler compileDir="outputs/compilation">
+            <dynModels dydFile="HVDC.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+        <simulation startTime="0" stopTime="10" precision="1e-4"/>
+        <outputs directory="outputs">
+            <dumpInitValues local="true" global="true"/>
+            <constraints exportMode="XML"/>
+            <timeline exportMode="TXT"/>
+            <curves inputFile="HVDC.crv" exportMode="CSV"/>
+            <allmodes allmodesTime="10"/>
+            <linearise lineariseTime="10"/>
+            <modalanalysis modalanalysisTime="10" modalanalysisPart="1"/>
+        <logs>
+          <appender tag="NETWORK" file="network.log" lvlFilter="DEBUG"/>
+          <appender tag="MODELER" file="modeler.log" lvlFilter="DEBUG"/>
+          <appender tag="COMPILE" file="compile.log" lvlFilter="DEBUG"/>
+          <appender tag="PARAMETERS" file="param.log" lvlFilter="DEBUG"/>
+          <appender tag="EQUATIONS" file="equations.log" lvlFilter="DEBUG"/>
+          <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+          <appender tag="VARIABLES" file="dynawoVariables.log" lvlFilter="DEBUG"/>
+        </logs>
+        </outputs>
+    </job>
+</jobs>
