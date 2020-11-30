@@ -411,8 +411,11 @@ set_environment() {
 
   # Only used until now by nrt
   export_var_env DYNAWO_NB_PROCESSORS_USED=1
-  if [ $DYNAWO_NB_PROCESSORS_USED -gt $TOTAL_CPU ]; then
-    error_exit "PROCESSORS_USED ($DYNAWO_NB_PROCESSORS_USED) is higher than the number of cpu of the system ($TOTAL_CPU)"
+  export_var_env DYNAWO_CHECK_CPU=ON
+  if [ "$DYNAWO_CHECK_CPU" = "ON" ]; then
+    if [ $DYNAWO_NB_PROCESSORS_USED -gt $TOTAL_CPU ]; then
+      error_exit "PROCESSORS_USED ($DYNAWO_NB_PROCESSORS_USED) is higher than the number of cpu of the system ($TOTAL_CPU)"
+    fi
   fi
 
   # OpenModelica config
