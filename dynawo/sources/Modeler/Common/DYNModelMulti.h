@@ -160,9 +160,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   bool zChange() const;
 
   /**
-   * @brief retrieve if at least one discrete variable not used in G equations has changed
+   * @brief retrieve if at least one silent discrete variable of the given type has changed
    * @param type type of silent z to test
-   * @return @b true at least one discrete variable not used in G equations has changed
+   * @return @b true at least one silent discrete variable of the given type has changed
    */
   inline bool getSilentZChange(SilentZFlags type) const {
     return silentZChange_.getFlags(type);
@@ -571,7 +571,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use when accessing discretes variables
   bool* zConnectedLocal_;  ///< local buffer to use when accessing discretes variables connection status
-  BitMask* silentZ_;  ///< local buffer indicating if the corresponding discrete variable is used only in residual equations
+  BitMask* silentZ_;  ///< local buffer indicating if the corresponding discrete variable is silent
   bool enableSilentZ_;  ///< enable or disable the use of silentZ in the discrete variable propagation loop
   std::vector<size_t> notUsedInDiscreteEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in discrete equations
   std::vector<size_t> notUsedInContinuousEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in continuous equations
