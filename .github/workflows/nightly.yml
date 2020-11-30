@@ -25,6 +25,7 @@ jobs:
       DYNAWO_CXX11_ENABLED: ${{ matrix.cxx11-standard }}
       DYNAWO_COMPILER: ${{ matrix.compiler }}
       DYNAWO_LIBRARY_TYPE: ${{ matrix.library-type }}
+      DYNAWO_NB_PROCESSORS_USED: 2
 
     steps:
       - name: Checkout sources
@@ -60,6 +61,7 @@ jobs:
       DYNAWO_CXX11_ENABLED: YES
       DYNAWO_COMPILER: GCC
       DYNAWO_LIBRARY_TYPE: SHARED
+      DYNAWO_NB_PROCESSORS_USED: 2
 
     steps:
       - name: Checkout sources
@@ -89,14 +91,15 @@ jobs:
       DYNAWO_CXX11_ENABLED: YES
       DYNAWO_COMPILER: ${{ matrix.compiler }}
       DYNAWO_LIBRARY_TYPE: SHARED
-      DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
-      DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
 
     steps:
       - name: Checkout sources
         uses: actions/checkout@v1
 
       - name: Build
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-omcDynawo
@@ -117,8 +120,7 @@ jobs:
       DYNAWO_LIBRARY_TYPE: ${{ matrix.library-type }}
       MACOSX_DEPLOYMENT_TARGET: 10.14
       DYNAWO_BOOST_HOME_DEFAULT: "false"
-      DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
-      DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+      DYNAWO_NB_PROCESSORS_USED: 2
 
     steps:
       - name: Checkout sources
@@ -141,17 +143,26 @@ jobs:
       #     (cd Dynawo_MacOS_latest/dynawo;rm -rf ddb sbin bin share sources include lib)
 
       - name: Build
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
 
       - name: Tests
         if: ${{ matrix.build-type == 'Debug' && matrix.library-type == 'SHARED' }}
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-tests
 
       - name: NRT
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
           export DYNAWO_HOME=$(pwd)
           for job in $(find nrt/data -name "*.jobs"); do util/envDynawo.sh jobs $job || { echo "Error with job $job."; exit 1; }; done
