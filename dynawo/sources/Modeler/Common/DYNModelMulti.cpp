@@ -1479,7 +1479,6 @@ ModelMulti::getMatrixB(const double t) {
   indexVref.insert(indexVref.end(), indexVref0.begin(), indexVref0.end());
   R = Eigen::MatrixXd::Zero(varAlgName.size(), indexVref.size());
   for (unsigned int k = 0; k < indexVref.size(); k++) {
-  cout << indexVref[k] << endl;
   for (unsigned int j = 0; j < varAlgName.size(); j++) {
      if (A22(j, indexVref[k]) > 0) {
         R(j, k) = 1;
@@ -3351,7 +3350,6 @@ ModelMulti::getSubMatrix(MatrixXd A, vector<int> indexi, vector<int> indexj) {
     }
 return subA;
 }
-
   // @brief construct reduced matrix A (used for Selective Modal analysis) based on the coupled devices
 Eigen::MatrixXd
 ModelMulti::contructReducedMatrix(const double t, vector<int> coupledClass) {
@@ -3364,7 +3362,7 @@ ModelMulti::contructReducedMatrix(const double t, vector<int> coupledClass) {
     MatrixXd A22 = getSubMatrix(A, barindex, barindex);
     return A11;
 }
-    // @brief get the transfer matrix H/M of less relevant part of A matrix using selective modal analysis
+
 Eigen::MatrixXcd
 ModelMulti::contructMMatrix(const double t, vector<int> coupledClass) {
     MatrixXd A = getMatrixA(t);
