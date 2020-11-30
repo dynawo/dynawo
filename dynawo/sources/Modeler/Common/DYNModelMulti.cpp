@@ -209,6 +209,9 @@ ModelMulti::initBuffers() {
   zConnectedLocal_ = new bool[sizeZ_];
   silentZ_ = new BitMask[sizeZ_];
   std::fill_n(zConnectedLocal_, sizeZ_, false);
+  for (unsigned int i = 0; i < sizeZ_; ++i) {
+    silentZ_[i].setFlags(NotSilent);
+  }
 
   int offsetF = 0;
   int offsetG = 0;
@@ -501,6 +504,7 @@ ModelMulti::evalZ(double t) {
   if (zSave_.size() != static_cast<size_t>(sizeZ()))
     zSave_.assign(sizeZ(), 0.);
 
+  // zChange is true only if discrete variables that modify discrete equations has changed
   zChange_ = propagateZModif();
 }
 
@@ -515,6 +519,9 @@ ModelMulti::propagateZModif() {
       nonSilentZChange = true;
     }
   }
+  // test values of discrete variables that are not used to compute continuous equations
+  // and raise the flag NotUsedInContinuousEquations if at least one has changed
+  // If at least one non silent Z has changed then the flag is never raised
   for (int i = 0, iEnd = notUsedInContinuousEqSilentZIndexes_.size(); i < iEnd; ++i) {
     if (doubleNotEquals(zLocal_[notUsedInContinuousEqSilentZIndexes_[i]], zSave_[notUsedInContinuousEqSilentZIndexes_[i]])) {
       indicesDiff.push_back(notUsedInContinuousEqSilentZIndexes_[i]);
@@ -523,10 +530,13 @@ ModelMulti::propagateZModif() {
     }
   }
   if (!indicesDiff.empty()) {
+    // if at least one discrete variable that is used in discrete equations has changed then we propagate the modification
     connectorContainer_->propagateZDiff(indicesDiff, zLocal_);
     std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
     return true;
   } else {
+    // if only discrete variables that are used only in continuous equations then we just raise the NotUsedInDiscreteEquations flag
+    // no need to propagate
     for (int i = 0, iEnd = notUsedInDiscreteEqSilentZIndexes_.size(); i < iEnd; ++i) {
       if (doubleNotEquals(zLocal_[notUsedInDiscreteEqSilentZIndexes_[i]], zSave_[notUsedInDiscreteEqSilentZIndexes_[i]])) {
         silentZChange_.setFlags(NotUsedInDiscreteEquations);
@@ -995,15 +1005,16 @@ ModelMulti::collectSilentZ() {
   for (int i = 0; i < sizeZ_; ++i) {
     if (zConnectedLocal_[i]) {
       silentZ_[i].reset();
+      silentZ_[i].setFlags(NotSilent);
+      nonSilentZIndexes_.push_back(i);
+      continue;
     }
     if (silentZ_[i].getFlags(NotUsedInDiscreteEquations)) {
       notUsedInDiscreteEqSilentZIndexes_.push_back(i);
+    } else if (silentZ_[i].getFlags(NotUsedInContinuousEquations)) {
+      notUsedInContinuousEqSilentZIndexes_.push_back(i);
     } else {
-      if (silentZ_[i].getFlags(NotUsedInContinuousEquations)) {
-        notUsedInContinuousEqSilentZIndexes_.push_back(i);
-      } else {
-        nonSilentZIndexes_.push_back(i);
-      }
+      nonSilentZIndexes_.push_back(i);
     }
   }
 }

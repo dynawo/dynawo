@@ -385,7 +385,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().getFlags(ZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(NotSilentZChange), true);
   ASSERT_EQ(solver->getState().getFlags(ModeChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.94766640118361411549);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.09225375878818535547);
@@ -477,26 +477,26 @@ TEST(SimulationTest, testSolverIDASilentZ) {
 
   // Solve at t = 1
   solver->solve(tStop, tCurrent);
-  ASSERT_FALSE(solver->getState().getFlags(ZChange));
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
   ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
   // Solve at t = 2 => z1 is modified
   solver->solve(tStop, tCurrent);
-  ASSERT_FALSE(solver->getState().getFlags(ZChange));
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
   ASSERT_TRUE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
 
   // Solve at t = 3
   solver->solve(tStop, tCurrent);
-  ASSERT_FALSE(solver->getState().getFlags(ZChange));
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
   ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
   // Solve at t = 4 -> z2 is modified
   solver->solve(tStop, tCurrent);
-  ASSERT_FALSE(solver->getState().getFlags(ZChange));
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
   ASSERT_TRUE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
   ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
   // Solve at t = 5 -> z1 and z2 are modified
   solver->solve(tStop, tCurrent);
   solver->solve(tStop, tCurrent);
-  ASSERT_FALSE(solver->getState().getFlags(ZChange));
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
   ASSERT_TRUE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
   ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
 }
