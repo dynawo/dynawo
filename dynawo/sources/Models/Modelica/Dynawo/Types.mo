@@ -68,9 +68,11 @@ package Types "Standard types for electrical variables"
   // Percent
   type Percent = Real (unit = "100") "Percent quantity";
 
-  // Impedance and admittance
-  type Impedance = Real (unit="ohms") "Impedance";
-  type Admittance = Real (unit="siemens") "Admittance";
+  // Impedances and admittances
+  type Resistance = Real (unit = "ohms") "Resistance";
+  type Reactance = Real (unit = "ohms") "Reactance";
+  type Conductance = Real (unit = "siemens") "Conductance";
+  type Susceptance = Real (unit = "siemens") "Susceptance";
 
   annotation(preferredView = "text");
 end Types;
