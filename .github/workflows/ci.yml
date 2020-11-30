@@ -72,9 +72,20 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v1
 
-      - name: Build
+      # In a PR use pre-built 3rd parties to optimize the duration of the job
+      - name: Build branch PR
         env:
           CONTAINER_WORKSPACE: ${{ runner.workspace }}
+          DYNAWO_THIRD_PARTY_INSTALL_DIR: /opt/dynawo/3rParty
+        if: github.ref != 'refs/heads/master' && github.event_name == 'push'
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
+
+      - name: Build master
+        env:
+          CONTAINER_WORKSPACE: ${{ runner.workspace }}
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
           export DYNAWO_HOME=$(pwd)
           $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
@@ -85,4 +96,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           CONTAINER_WORKSPACE: ${{ runner.workspace }}
-        run: $CONTAINER_WORKSPACE/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io
+        run: $CONTAINER_WORKSPACE/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.cfamily.threads=2
