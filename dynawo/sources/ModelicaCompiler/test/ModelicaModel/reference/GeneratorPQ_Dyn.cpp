@@ -509,8 +509,7 @@ void ModelGeneratorPQ_Dyn::setZomc()
 
 void ModelGeneratorPQ_Dyn::collectSilentZ(BitMask* silentZTable)
 {
-  silentZTable[6].setFlags(NotUsedInDiscreteEquations) /*generator.state */;
-  silentZTable[6].setFlags(NotUsedInContinuousEquations) /*generator.state */;
+  silentZTable[6].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations) /*generator.state */;
   silentZTable[1].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal1.value */;
   silentZTable[2].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal2.value */;
   silentZTable[3].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal3.value */;

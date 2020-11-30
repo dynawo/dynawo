@@ -1740,24 +1740,27 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_collectsilentz(self):
-        closing_bracket = "] /* "
-        for var in self.reader.silent_discrete_vars_not_used_in_discr_eq:
+        opening_bracket = "  silentZTable["
+        end_of_line = " */;\n"
+        already_handled = []
+        for var in itertools.chain(self.reader.silent_discrete_vars_not_used_in_discr_eq, self.reader.silent_discrete_vars_not_used_in_continuous_eq):
+            if var in already_handled: continue
+            already_handled.append(var)
             test_param_address(var)
             address = to_param_address(var)
             index = address.split("[")[2].replace("]","")
-            if "integerDoubleVars" in address:
-                self.list_for_collectsilentz.append("  silentZTable[" + str(int(self.nb_z) + int(index)) +"].setFlags(NotUsedInDiscreteEquations) /*" + var +" */;\n")
+            NotUsedInDiscr=var in self.reader.silent_discrete_vars_not_used_in_discr_eq
+            NotUsedInCont = var in self.reader.silent_discrete_vars_not_used_in_continuous_eq
+            if NotUsedInDiscr and NotUsedInCont:
+                flag = "NotUsedInDiscreteEquations | NotUsedInContinuousEquations"
+            elif NotUsedInDiscr:
+                flag = "NotUsedInDiscreteEquations"
             else:
-                self.list_for_collectsilentz.append("  silentZTable[" + index +"].setFlags(NotUsedInDiscreteEquations) /*" + var +" */;\n")
-
-        for var in self.reader.silent_discrete_vars_not_used_in_continuous_eq:
-            test_param_address(var)
-            address = to_param_address(var)
-            index = address.split("[")[2].replace("]","")
+                flag = "NotUsedInContinuousEquations"
             if "integerDoubleVars" in address:
-                self.list_for_collectsilentz.append("  silentZTable[" + str(int(self.nb_z) + int(index)) +"].setFlags(NotUsedInContinuousEquations) /*" + var +" */;\n")
+                self.list_for_collectsilentz.append(opening_bracket + str(int(self.nb_z) + int(index)) +"].setFlags("+flag+") /*" + var +end_of_line)
             else:
-                self.list_for_collectsilentz.append("  silentZTable[" + index +"].setFlags(NotUsedInContinuousEquations) /*" + var +" */;\n")
+                self.list_for_collectsilentz.append(opening_bracket + index +"].setFlags("+flag+") /*" + var +end_of_line)
 
     ##
     # prepare the lines that constitues the body of setZ
