@@ -9,29 +9,20 @@
 // This file is part of Libzip, a library to handle zip archives.
 //
 
-#ifndef __ZIP_EXCEPTION_IMPL_H__
-#define __ZIP_EXCEPTION_IMPL_H__
-
 #include <libzip/ZipException.h>
 
 namespace zip {
 
-class ZipException::Impl : public ZipException {
-public:
-    Impl(Error::Code code, const std::string& message);
+ZipException::ZipException(Error::Code code, const std::string& message) throw() : m_code(code), m_message(message) {}
 
-    virtual ~Impl() throw();
-
-    virtual const Error::Code& getErrorCode() const;
-
-    virtual const char* what() const throw();
-
-private:
-    Error::Code m_code;
-
-    std::string m_message;
-};
-
+const Error::Code&
+ZipException::getErrorCode() const {
+  return m_code;
 }
 
-#endif /* __ZIP_EXCEPTION_IMPL_H__ */
+const char*
+ZipException::what() const throw() {
+  return m_message.c_str();
+}
+
+}  // namespace zip

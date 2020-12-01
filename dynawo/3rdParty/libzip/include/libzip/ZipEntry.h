@@ -12,21 +12,27 @@
 #ifndef __ZIP_ENTRY_H__
 #define __ZIP_ENTRY_H__
 
+#include <archive_entry.h>
 #include <string>
-
-struct archive_entry;
 
 namespace zip {
 
 class ZipEntry {
-public:
-    virtual struct archive_entry* getInfo() const = 0;
+ public:
+  ZipEntry(const std::string& filename);
+  ZipEntry(const std::string& name, const std::string& data);
+  ZipEntry(struct archive_entry* info, const std::string& data);
+  ~ZipEntry();
 
-    virtual const std::string& getData() const = 0;
+  struct archive_entry* getInfo() const;
+  const std::string& getData() const;
 
-    class Impl;
+ private:
+  struct archive_entry* m_info;
+
+  std::string m_data;
 };
 
-}
+}  // namespace zip
 
 #endif /* __ZIP_ENTRY_H__ */

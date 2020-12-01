@@ -12,27 +12,20 @@
 #ifndef __ZIP_INPUT_STREAM_H__
 #define __ZIP_INPUT_STREAM_H__
 
+#include <boost/shared_ptr.hpp>
+#include <libzip/ZipFile.h>
 #include <sstream>
 #include <string>
 
-#include <boost/shared_ptr.hpp>
-
 namespace zip {
 
-class ZipFile;
-
 class ZipInputStream {
-public:
-    static boost::shared_ptr<ZipFile> read(const std::string& filename);
+ public:
+  static boost::shared_ptr<ZipFile> read(const std::string& filename);
 
-    static boost::shared_ptr<ZipFile> read(std::istream& stream);
-
-protected:
-
-private:
-
+  static boost::shared_ptr<ZipFile> read(std::istream& stream);
 };
 
-}
+}  // namespace zip
 
 #endif /* __ZIP_INPUT_STREAM_H__ */

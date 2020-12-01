@@ -12,44 +12,45 @@
 #ifndef __ZIP_FILE_H__
 #define __ZIP_FILE_H__
 
-#include <map>
-#include <vector>
-#include <string>
-
 #include <boost/shared_ptr.hpp>
-
+#include <libzip/ZipEntry.h>
 #include <libzip/ZipFlattenPolicy.h>
+#include <map>
+#include <string>
+#include <vector>
 
 namespace zip {
 
-class ZipEntry;
-
-
 class ZipFile {
-public:
-    virtual unsigned long size() const = 0;
+ public:
+  ZipFile();
 
-    virtual bool existEntry(const std::string& name, bool caseSensitive = true) const = 0;
+  unsigned long size() const;
 
-    virtual const boost::shared_ptr<ZipEntry>& getEntry(const std::string& name, bool caseSensitive = true) const = 0;
+  bool existEntry(const std::string& name, bool caseSensitive = true) const;
 
-    virtual const std::map<std::string, boost::shared_ptr<ZipEntry> >& getEntries() const = 0;
+  const boost::shared_ptr<ZipEntry>& getEntry(const std::string& name, bool caseSensitive = true) const;
 
-    virtual void addEntry(const std::string& filename) = 0;
+  const std::map<std::string, boost::shared_ptr<ZipEntry> >& getEntries() const;
 
-    virtual void addEntry(const std::string& name, const std::string& data) = 0;
+  void addEntry(const std::string& filename);
 
-    virtual void addEntry(const std::string& name, const boost::shared_ptr<ZipEntry>& entry) = 0;
+  void addEntry(const std::string& name, const std::string& data);
 
-    virtual void addZippedFile(const boost::shared_ptr<ZipFile>& zipFile, const ZipFlattenPolicy& policy) = 0;
+  void addEntry(const std::string& name, const boost::shared_ptr<ZipEntry>& entry);
 
-    virtual void removeEntry(const std::string& name) = 0;
+  void removeEntry(const std::string& name);
 
-    virtual void flattenZip(const ZipFlattenPolicy& policy = ZipThrowPolicy()) = 0;
+  void addZippedFile(const boost::shared_ptr<ZipFile>& zipFile, const ZipFlattenPolicy& policy);
 
-    class Impl;
+  void flattenZip(const ZipFlattenPolicy& policy);
+
+ private:
+  std::map<std::string, boost::shared_ptr<ZipEntry> > m_entries;
+
+  std::vector<std::string> getIncludedZips();
 };
 
-}
+}  // namespace zip
 
 #endif /* __ZIP_FILE_H__ */

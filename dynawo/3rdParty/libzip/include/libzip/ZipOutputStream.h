@@ -12,27 +12,22 @@
 #ifndef __ZIP_OUTPUT_STREAM_H__
 #define __ZIP_OUTPUT_STREAM_H__
 
+#include <boost/shared_ptr.hpp>
+#include <libzip/ZipFile.h>
 #include <sstream>
 #include <string>
-
-#include <boost/shared_ptr.hpp>
 
 namespace zip {
 
 class ZipFile;
 
 class ZipOutputStream {
-public:
-    static void write(const std::string& filename, const boost::shared_ptr<ZipFile>& zip);
+ public:
+  static void write(const std::string& filename, const boost::shared_ptr<ZipFile>& zip);
 
-    static void write(std::ostream& stream, const boost::shared_ptr<ZipFile>& zip);
-
-protected:
-
-private:
-
+  static void write(std::ostream& stream, const boost::shared_ptr<ZipFile>& zip);
 };
 
-}
+}  // namespace zip
 
 #endif /* __ZIP_OUTPUT_STREAM_H__ */

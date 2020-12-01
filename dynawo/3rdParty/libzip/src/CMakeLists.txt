@@ -8,10 +8,10 @@
 # This file is part of Libzip, a library to handle zip archives.
 
 set(libzip_SOURCES
-    ZipEntryImpl.cpp
-    ZipExceptionImpl.cpp
+    ZipEntry.cpp
+    ZipException.cpp
     ZipFileFactory.cpp
-    ZipFileImpl.cpp
+    ZipFile.cpp
     ZipFlattenPolicy.cpp
     ZipInputStream.cpp
     ZipOutputStream.cpp)
