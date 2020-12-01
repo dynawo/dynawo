@@ -12,68 +12,61 @@
 //
 
 /**
- * @file JOBJobEntryImpl.cpp
+ * @file JOBJobEntry.cpp
  * @brief Job entry description : implementation file
  */
 
-#include "JOBJobEntryImpl.h"
+#include "JOBJobEntry.h"
 
 namespace job {
 
-JobEntry::Impl::Impl() :
-name_("") {
-}
-
-JobEntry::Impl::~Impl() {
-}
-
 void
-JobEntry::Impl::setModelerEntry(const boost::shared_ptr<ModelerEntry> & modelerEntry) {
+JobEntry::setModelerEntry(const boost::shared_ptr<ModelerEntry> & modelerEntry) {
   modelerEntry_ = modelerEntry;
 }
 
 boost::shared_ptr<ModelerEntry>
-JobEntry::Impl::getModelerEntry() const {
+JobEntry::getModelerEntry() const {
   return modelerEntry_;
 }
 
 void
-JobEntry::Impl::setSolverEntry(const boost::shared_ptr<SolverEntry> & solverEntry) {
+JobEntry::setSolverEntry(const boost::shared_ptr<SolverEntry> & solverEntry) {
   solverEntry_ = solverEntry;
 }
 
 boost::shared_ptr<SolverEntry>
-JobEntry::Impl::getSolverEntry() const {
+JobEntry::getSolverEntry() const {
   return solverEntry_;
 }
 
 void
-JobEntry::Impl::setSimulationEntry(const boost::shared_ptr<SimulationEntry> & simulationEntry) {
+JobEntry::setSimulationEntry(const boost::shared_ptr<SimulationEntry> & simulationEntry) {
   simulationEntry_ = simulationEntry;
 }
 
 boost::shared_ptr<SimulationEntry>
-JobEntry::Impl::getSimulationEntry() const {
+JobEntry::getSimulationEntry() const {
   return simulationEntry_;
 }
 
 void
-JobEntry::Impl::setOutputsEntry(const boost::shared_ptr<OutputsEntry> & outputsEntry) {
+JobEntry::setOutputsEntry(const boost::shared_ptr<OutputsEntry> & outputsEntry) {
   outputsEntry_ = outputsEntry;
 }
 
 boost::shared_ptr<OutputsEntry>
-JobEntry::Impl::getOutputsEntry() const {
+JobEntry::getOutputsEntry() const {
   return outputsEntry_;
 }
 
 void
-JobEntry::Impl::setName(const std::string & name) {
+JobEntry::setName(const std::string & name) {
   name_ = name;
 }
 
-std::string
-JobEntry::Impl::getName() const {
+const std::string&
+JobEntry::getName() const {
   return name_;
 }
 

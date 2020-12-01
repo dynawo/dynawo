@@ -31,47 +31,45 @@ namespace job {
 class NetworkEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~NetworkEntry() {}
-
-  /**
    * @brief IIDM file setter
    * @param iidmFile : IIDM file for the job
    */
-  virtual void setIidmFile(const std::string& iidmFile) = 0;
+  void setIidmFile(const std::string& iidmFile);
 
   /**
    * @brief IIDM file getter
    * @return IIDM file for the job
    */
-  virtual std::string getIidmFile() const = 0;
+  const std::string& getIidmFile() const;
 
   /**
    * @brief network's parameters file setter
    * @param networkParFile : network's parameters file for the job
    */
-  virtual void setNetworkParFile(const std::string& networkParFile) = 0;
+  void setNetworkParFile(const std::string& networkParFile);
 
   /**
    * @brief network's parameters file getter
    * @return network's parameters file for the job
    */
-  virtual std::string getNetworkParFile() const = 0;
+  const std::string& getNetworkParFile() const;
 
   /**
    * @brief network's parameters set number setter
    * @param parId : Network parameters set number for the job
    */
-  virtual void setNetworkParId(const std::string& parId) = 0;
+  void setNetworkParId(const std::string& parId);
 
   /**
    * @brief Network parameters set number getter
    * @return Network parameters set number for the job
    */
-  virtual std::string getNetworkParId() const = 0;
+  const std::string& getNetworkParId() const;
 
-  class Impl;  ///< implemented class
+ private:
+  std::string iidmFile_;        ///< IIDM file for the simulation
+  std::string networkParFile_;  ///< Parameters file for the network model
+  std::string networkParId_;    ///< Number of the parameters set in parameters file
 };
 
 }  // namespace job

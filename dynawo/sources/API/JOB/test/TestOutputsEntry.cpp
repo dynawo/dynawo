@@ -18,18 +18,18 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBOutputsEntryImpl.h"
-#include "JOBInitValuesEntryImpl.h"
-#include "JOBConstraintsEntryImpl.h"
-#include "JOBTimelineEntryImpl.h"
-#include "JOBFinalStateEntryImpl.h"
-#include "JOBCurvesEntryImpl.h"
-#include "JOBLogsEntryImpl.h"
+#include "JOBOutputsEntry.h"
+#include "JOBInitValuesEntry.h"
+#include "JOBConstraintsEntry.h"
+#include "JOBTimelineEntry.h"
+#include "JOBFinalStateEntry.h"
+#include "JOBCurvesEntry.h"
+#include "JOBLogsEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testOutputsEntry) {
-  boost::shared_ptr<OutputsEntry> outputs = boost::shared_ptr<OutputsEntry>(new OutputsEntry::Impl());
+  boost::shared_ptr<OutputsEntry> outputs = boost::shared_ptr<OutputsEntry>(new OutputsEntry());
   // check default attributes
   ASSERT_EQ(outputs->getOutputsDirectory(), "");
   ASSERT_EQ(outputs->getInitValuesEntry(), boost::shared_ptr<InitValuesEntry>());
@@ -41,22 +41,22 @@ TEST(APIJOBTest, testOutputsEntry) {
 
   outputs->setOutputsDirectory("/tmp/outputs");
 
-  boost::shared_ptr<InitValuesEntry> initValues = boost::shared_ptr<InitValuesEntry>(new InitValuesEntry::Impl());
+  boost::shared_ptr<InitValuesEntry> initValues = boost::shared_ptr<InitValuesEntry>(new InitValuesEntry());
   outputs->setInitValuesEntry(initValues);
 
-  boost::shared_ptr<ConstraintsEntry> constraints = boost::shared_ptr<ConstraintsEntry>(new ConstraintsEntry::Impl());
+  boost::shared_ptr<ConstraintsEntry> constraints = boost::shared_ptr<ConstraintsEntry>(new ConstraintsEntry());
   outputs->setConstraintsEntry(constraints);
 
-  boost::shared_ptr<TimelineEntry> timeline = boost::shared_ptr<TimelineEntry>(new TimelineEntry::Impl());
+  boost::shared_ptr<TimelineEntry> timeline = boost::shared_ptr<TimelineEntry>(new TimelineEntry());
   outputs->setTimelineEntry(timeline);
 
-  boost::shared_ptr<FinalStateEntry> finalState = boost::shared_ptr<FinalStateEntry>(new FinalStateEntry::Impl());
+  boost::shared_ptr<FinalStateEntry> finalState = boost::shared_ptr<FinalStateEntry>(new FinalStateEntry());
   outputs->setFinalStateEntry(finalState);
 
-  boost::shared_ptr<CurvesEntry> curves = boost::shared_ptr<CurvesEntry>(new CurvesEntry::Impl());
+  boost::shared_ptr<CurvesEntry> curves = boost::shared_ptr<CurvesEntry>(new CurvesEntry());
   outputs->setCurvesEntry(curves);
 
-  boost::shared_ptr<LogsEntry> logs = boost::shared_ptr<LogsEntry>(new LogsEntry::Impl());
+  boost::shared_ptr<LogsEntry> logs = boost::shared_ptr<LogsEntry>(new LogsEntry());
   outputs->setLogsEntry(logs);
 
 

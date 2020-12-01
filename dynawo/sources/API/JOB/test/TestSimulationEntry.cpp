@@ -18,12 +18,12 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBSimulationEntryImpl.h"
+#include "JOBSimulationEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testSimulationEntry) {
-  boost::shared_ptr<SimulationEntry> simulation = boost::shared_ptr<SimulationEntry>(new SimulationEntry::Impl());
+  boost::shared_ptr<SimulationEntry> simulation = boost::shared_ptr<SimulationEntry>(new SimulationEntry());
   // check default attributes
   ASSERT_EQ(simulation->getStartTime(), 0);
   ASSERT_EQ(simulation->getStopTime(), 0);

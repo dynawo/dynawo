@@ -18,12 +18,12 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBTimetableEntryImpl.h"
+#include "JOBTimetableEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testTimetableEntry) {
-  boost::shared_ptr<TimetableEntry> timetable = boost::shared_ptr<TimetableEntry>(new TimetableEntry::Impl());
+  boost::shared_ptr<TimetableEntry> timetable = boost::shared_ptr<TimetableEntry>(new TimetableEntry());
   // check default attributes
   ASSERT_EQ(timetable->getStep(), 1);
 

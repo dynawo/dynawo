@@ -18,12 +18,12 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBCurvesEntryImpl.h"
+#include "JOBCurvesEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testCurvesEntry) {
-  boost::shared_ptr<CurvesEntry> curves = boost::shared_ptr<CurvesEntry>(new CurvesEntry::Impl());
+  boost::shared_ptr<CurvesEntry> curves = boost::shared_ptr<CurvesEntry>(new CurvesEntry());
   // check default attributes
   ASSERT_EQ(curves->getOutputFile(), "");
   ASSERT_EQ(curves->getExportMode(), "");

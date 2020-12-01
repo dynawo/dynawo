@@ -18,12 +18,12 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBInitValuesEntryImpl.h"
+#include "JOBInitValuesEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testInitValuesEntry) {
-  boost::shared_ptr<InitValuesEntry> initValues = boost::shared_ptr<InitValuesEntry>(new InitValuesEntry::Impl());
+  boost::shared_ptr<InitValuesEntry> initValues = boost::shared_ptr<InitValuesEntry>(new InitValuesEntry());
   // check default attributes
   ASSERT_EQ(initValues->getDumpLocalInitValues(), false);
   ASSERT_EQ(initValues->getDumpGlobalInitValues(), false);

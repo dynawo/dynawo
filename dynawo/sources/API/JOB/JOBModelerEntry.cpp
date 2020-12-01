@@ -12,79 +12,72 @@
 //
 
 /**
- * @file JOBModelerEntryImpl.cpp
+ * @file JOBModelerEntry.cpp
  * @brief Modeler entry description : implementation file
  *
  */
 
-#include "JOBModelerEntryImpl.h"
+#include "JOBModelerEntry.h"
 
 namespace job {
 
-ModelerEntry::Impl::Impl() :
-compileDir_("") {
-}
-
-ModelerEntry::Impl::~Impl() {
-}
-
 void
-ModelerEntry::Impl::setPreCompiledModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& preCompiledModelsDirEntry) {
+ModelerEntry::setPreCompiledModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& preCompiledModelsDirEntry) {
   preCompiledModelsDirEntry_ = preCompiledModelsDirEntry;
 }
 
 void
-ModelerEntry::Impl::setModelicaModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& modelicaModelsDirEntry) {
+ModelerEntry::setModelicaModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& modelicaModelsDirEntry) {
   modelicaModelsDirEntry_ = modelicaModelsDirEntry;
 }
 
 boost::shared_ptr<ModelsDirEntry>
-ModelerEntry::Impl::getPreCompiledModelsDirEntry() const {
+ModelerEntry::getPreCompiledModelsDirEntry() const {
   return preCompiledModelsDirEntry_;
 }
 
 boost::shared_ptr<ModelsDirEntry>
-ModelerEntry::Impl::getModelicaModelsDirEntry() const {
+ModelerEntry::getModelicaModelsDirEntry() const {
   return modelicaModelsDirEntry_;
 }
 
 void
-ModelerEntry::Impl::setCompileDir(const std::string& compileDir) {
+ModelerEntry::setCompileDir(const std::string& compileDir) {
   compileDir_ = compileDir;
 }
 
-std::string
-ModelerEntry::Impl::getCompileDir() const {
+const std::string&
+ModelerEntry::getCompileDir() const {
   return compileDir_;
 }
 
 void
-ModelerEntry::Impl::setNetworkEntry(const boost::shared_ptr<NetworkEntry>& networkEntry) {
+ModelerEntry::setNetworkEntry(const boost::shared_ptr<NetworkEntry>& networkEntry) {
   networkEntry_ = networkEntry;
 }
 
 boost::shared_ptr<NetworkEntry>
-ModelerEntry::Impl::getNetworkEntry() const {
+ModelerEntry::getNetworkEntry() const {
   return networkEntry_;
 }
 
 void
-ModelerEntry::Impl::addDynModelsEntry(const boost::shared_ptr<DynModelsEntry>& dynModelsEntry) {
+ModelerEntry::addDynModelsEntry(const boost::shared_ptr<DynModelsEntry>& dynModelsEntry) {
   dynModelsEntries_.push_back(dynModelsEntry);
 }
 
 std::vector<boost::shared_ptr<DynModelsEntry> >
-ModelerEntry::Impl::getDynModelsEntries() const {
+ModelerEntry::getDynModelsEntries() const {
   return dynModelsEntries_;
 }
 
 void
-ModelerEntry::Impl::setInitialStateEntry(const boost::shared_ptr<InitialStateEntry>& initialStateEntry) {
+ModelerEntry::setInitialStateEntry(const boost::shared_ptr<InitialStateEntry>& initialStateEntry) {
   initialStateEntry_ = initialStateEntry;
 }
 
 boost::shared_ptr<InitialStateEntry>
-ModelerEntry::Impl::getInitialStateEntry() const {
+ModelerEntry::getInitialStateEntry() const {
   return initialStateEntry_;
 }
 

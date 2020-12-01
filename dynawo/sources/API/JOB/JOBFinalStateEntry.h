@@ -31,59 +31,63 @@ namespace job {
 class FinalStateEntry {
  public:
   /**
-   * @brief Destructor
+   * @brief constructor
    */
-  virtual ~FinalStateEntry() {}
+  FinalStateEntry();
 
   /**
    * @brief whether to export IIDM output file getter
    * @return whether to export IIDM output file
    */
-  virtual bool getExportIIDMFile() const = 0;
+  bool getExportIIDMFile() const;
 
   /**
    * @brief whether to export output state getter
    * @return whether to export output state
    */
-  virtual bool getExportDumpFile() const = 0;
+  bool getExportDumpFile() const;
 
   /**
    * @brief Output file attribute getter
    * @return Output file IIDM for final state
    */
-  virtual std::string getOutputIIDMFile() const = 0;
+  const std::string& getOutputIIDMFile() const;
 
   /**
    * @brief Dump file attribute getter
    * @return Dump file for final state
    */
-  virtual std::string getDumpFile() const = 0;
+  const std::string& getDumpFile() const;
 
   /**
    * @brief whether to export IIDM output file setter
    * @param exportIIDMFile: whether to export IIDM output file
    */
-  virtual void setExportIIDMFile(const bool exportIIDMFile) = 0;
+  void setExportIIDMFile(const bool exportIIDMFile);
 
   /**
    * @brief whether to export output state setter
    * @param exportDumpFile: whether to export output state
    */
-  virtual void setExportDumpFile(const bool exportDumpFile) = 0;
+  void setExportDumpFile(const bool exportDumpFile);
 
   /**
    * @brief Output file attribute setter
    * @param outputIIDMFile: Output file for final state
    */
-  virtual void setOutputIIDMFile(const std::string& outputIIDMFile) = 0;
+  void setOutputIIDMFile(const std::string& outputIIDMFile);
 
   /**
    * @brief Dump file attribute setter
    * @param dumpFile: Dump file for final state
    */
-  virtual void setDumpFile(const std::string& dumpFile) = 0;
+  void setDumpFile(const std::string& dumpFile);
 
-  class Impl;  ///< implemented class
+ private:
+  bool exportIIDMFile_;         ///< Boolean indicating whether to export IIDM output file
+  bool exportDumpFile_;         ///< Boolean indicating whether to export output state
+  std::string outputIIDMFile_;  ///< Output IIDM file for final state
+  std::string dumpFile_;        ///< Dump file for final state
 };
 
 }  // namespace job

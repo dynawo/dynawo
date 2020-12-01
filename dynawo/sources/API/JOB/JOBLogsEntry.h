@@ -20,11 +20,13 @@
 #ifndef API_JOB_JOBLOGSENTRY_H_
 #define API_JOB_JOBLOGSENTRY_H_
 
+#include "JOBAppenderEntry.h"
+
+#include <boost/shared_ptr.hpp>
 #include <string>
 #include <vector>
 
 namespace job {
-class AppenderEntry;
 
 /**
  * @class LogsEntry
@@ -33,23 +35,19 @@ class AppenderEntry;
 class LogsEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~LogsEntry() {}
-
-  /**
    * @brief Appender entry adder
    * @param appenderEntry : appender for the job
    */
-  virtual void addAppenderEntry(const boost::shared_ptr<AppenderEntry> & appenderEntry) = 0;
+  void addAppenderEntry(const boost::shared_ptr<AppenderEntry>& appenderEntry);
 
   /**
    * @brief Appender entries getter
    * @return Vector of the appenders for the job
    */
-  virtual std::vector<boost::shared_ptr<AppenderEntry> > getAppenderEntries() const = 0;
+  const std::vector<boost::shared_ptr<AppenderEntry> >& getAppenderEntries() const;
 
-  class Impl;  ///< implemented class
+ private:
+  std::vector<boost::shared_ptr<AppenderEntry> > appenders_;  ///< Appenders for the job
 };
 
 }  // namespace job

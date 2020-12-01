@@ -20,8 +20,8 @@
 #ifndef API_JOB_JOBSIMULATIONENTRY_H_
 #define API_JOB_JOBSIMULATIONENTRY_H_
 
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace job {
 
@@ -32,71 +32,76 @@ namespace job {
 class SimulationEntry {
  public:
   /**
-   * @brief Destructor
+   * @brief Default constructor
    */
-  virtual ~SimulationEntry() {}
+  SimulationEntry();
 
   /**
    * @brief Start time setter
    * @param startTime : Start time for the job
    */
-  virtual void setStartTime(double startTime) = 0;
+  void setStartTime(double startTime);
 
   /**
    * @brief Start time getter
    * @return Start time for the job
    */
-  virtual double getStartTime() const = 0;
+  double getStartTime() const;
 
   /**
    * @brief Stop time setter
    * @param stopTime : Stop time for the job
    */
-  virtual void setStopTime(double stopTime) = 0;
+  void setStopTime(double stopTime);
 
   /**
    * @brief Stop time getter
    * @return Stop time for the job
    */
-  virtual double getStopTime() const = 0;
+  double getStopTime() const;
 
   /**
    * @brief  add a criteria file path to the job
    * @param criteriaFile criteria file path to add
    */
-  virtual void addCriteriaFile(const std::string& criteriaFile) = 0;
+  void addCriteriaFile(const std::string& criteriaFile);
 
   /**
    * @brief list of criteria files
    * @return list of criteria files
    */
-  virtual const std::vector<std::string>& getCriteriaFiles() const = 0;
+  const std::vector<std::string>& getCriteriaFiles() const;
 
   /**
    * @brief  criteria step setter
    * @param criteriaStep : number of iterations between 2 criteria check
    */
-  virtual void setCriteriaStep(int criteriaStep) = 0;
+  void setCriteriaStep(int criteriaStep);
 
   /**
    * @brief criteria step getter
    * @return number of iterations between 2 criteria check
    */
-  virtual int getCriteriaStep() const = 0;
+  int getCriteriaStep() const;
 
   /**
    * @brief precision setter
    * @param precision : double precision for the job
    */
-  virtual void setPrecision(double precision) = 0;
+  void setPrecision(double precision);
 
   /**
    * @brief precision getter
    * @return precision for the job
    */
-  virtual double getPrecision() const = 0;
+  double getPrecision() const;
 
-  class Impl;  ///< Implemented class
+ private:
+  double startTime_;                        ///< Start time of the simulation
+  double stopTime_;                         ///< Stop time of the simulation
+  std::vector<std::string> criteriaFiles_;  ///< List of criteria files path
+  int criteriaStep_;                        ///< criteria verification time step
+  double precision_;                        ///< precision of the simulation
 };
 
 }  // namespace job

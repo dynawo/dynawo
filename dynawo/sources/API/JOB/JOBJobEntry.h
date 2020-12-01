@@ -21,15 +21,15 @@
 #ifndef API_JOB_JOBJOBENTRY_H_
 #define API_JOB_JOBJOBENTRY_H_
 
-#include <string>
+#include "JOBModelerEntry.h"
+#include "JOBOutputsEntry.h"
+#include "JOBSimulationEntry.h"
+#include "JOBSolverEntry.h"
+
 #include <boost/shared_ptr.hpp>
+#include <string>
 
 namespace job {
-class ModelerEntry;
-class SolverEntry;
-class SimulationEntry;
-class OutputsEntry;
-
 
 /**
  * @class JobEntry
@@ -38,71 +38,71 @@ class OutputsEntry;
 class JobEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~JobEntry() {}
-
-  /**
    * @brief Modeler entries container setter
    * @param modelerEntry : Modeler entries container for the job
    */
-  virtual void setModelerEntry(const boost::shared_ptr<ModelerEntry> & modelerEntry) = 0;
+  void setModelerEntry(const boost::shared_ptr<ModelerEntry>& modelerEntry);
 
   /**
    * @brief Modeler entries container getter
    * @return Modeler entries container for the job
    */
-  virtual boost::shared_ptr<ModelerEntry> getModelerEntry() const = 0;
+  boost::shared_ptr<ModelerEntry> getModelerEntry() const;
 
   /**
    * @brief Solver entries container setter
    * @param solverEntry : Solver entries container for the job
    */
-  virtual void setSolverEntry(const boost::shared_ptr<SolverEntry> & solverEntry) = 0;
+  void setSolverEntry(const boost::shared_ptr<SolverEntry>& solverEntry);
 
   /**
    * @brief Solver entries container getter
    * @return Solver entries container for the job
    */
-  virtual boost::shared_ptr<SolverEntry> getSolverEntry() const = 0;
+  boost::shared_ptr<SolverEntry> getSolverEntry() const;
 
   /**
    * @brief Simulation entries container setter
    * @param simulationEntry : Simulation entries container for the job
    */
-  virtual void setSimulationEntry(const boost::shared_ptr<SimulationEntry> & simulationEntry) = 0;
+  void setSimulationEntry(const boost::shared_ptr<SimulationEntry>& simulationEntry);
 
   /**
    * @brief Simulation entries container getter
    * @return the simulation entry container
    */
-  virtual boost::shared_ptr<SimulationEntry> getSimulationEntry() const = 0;
+  boost::shared_ptr<SimulationEntry> getSimulationEntry() const;
 
   /**
    * @brief Outputs entries container setter
    * @param outputsEntry : outputs entries container for the job
    */
-  virtual void setOutputsEntry(const boost::shared_ptr<OutputsEntry> & outputsEntry) = 0;
+  void setOutputsEntry(const boost::shared_ptr<OutputsEntry>& outputsEntry);
 
   /**
    * @brief Outputs entries container getter
    * @return the outputs entry container
    */
-  virtual boost::shared_ptr<OutputsEntry> getOutputsEntry() const = 0;
+  boost::shared_ptr<OutputsEntry> getOutputsEntry() const;
 
   /**
    * @brief Name setter
    * @param name : Name of the job
    */
-  virtual void setName(const std::string & name) = 0;
+  void setName(const std::string& name);
 
   /**
    * @brief Name getter
    * @return Name of the job
    */
-  virtual std::string getName() const = 0;
+  const std::string& getName() const;
 
-  class Impl;  ///< Implemented class
+ private:
+  boost::shared_ptr<ModelerEntry> modelerEntry_;        ///< Modeler entries container
+  boost::shared_ptr<SolverEntry> solverEntry_;          ///< Solver entries container
+  boost::shared_ptr<SimulationEntry> simulationEntry_;  ///< Simulation entries container
+  boost::shared_ptr<OutputsEntry> outputsEntry_;        ///< Outputs entries container
+  std::string name_;                                    ///< Name of the job used for description and logs purpose
 };
 
 }  // namespace job

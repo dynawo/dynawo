@@ -20,9 +20,10 @@
 #ifndef API_JOB_JOBMODELSDIRENTRY_H_
 #define API_JOB_JOBMODELSDIRENTRY_H_
 
+#include "DYNFileSystemUtils.h"
+
 #include <string>
 #include <vector>
-#include "DYNFileSystemUtils.h"
 
 namespace job {
 
@@ -33,52 +34,55 @@ namespace job {
 class ModelsDirEntry {
  public:
   /**
-   * @brief Destructor
+   * @brief constructor
    */
-  virtual ~ModelsDirEntry() {}
+  ModelsDirEntry();
 
   /**
    * @brief get the extension of model to parse
    * @return extension of model
    */
-  virtual std::string getModelExtension() const = 0;
+  const std::string& getModelExtension() const;
 
   /**
    * @brief get the value of the attribute useStandardModels
    * @return @b true if standard models should be used
    */
-  virtual bool getUseStandardModels() const = 0;
+  bool getUseStandardModels() const;
 
   /**
    * @brief get the list of user defined directories
    * @return the list of user defined directories
    */
-  virtual std::vector<UserDefinedDirectory> getDirectories() const = 0;
+  std::vector<UserDefinedDirectory> getDirectories() const;
 
   /**
    * @brief clear the list of user defined directories
    */
-  virtual void clearDirectories() = 0;
+  void clearDirectories();
 
   /**
    * @brief set the extension of model to parse
    * @param modelExtension : the extension of model to parse
    */
-  virtual void setModelExtension(const std::string& modelExtension) = 0;
+  void setModelExtension(const std::string& modelExtension);
 
   /**
    * @brief set the value of the attribute useStandardModels
    * @param useStandardModels : the value of the attribute useStandardModels
    */
-  virtual void setUseStandardModels(const bool useStandardModels) = 0;
+  void setUseStandardModels(const bool useStandardModels);
 
   /**
    * @brief add directory to the directories list
    * @param directory : the list of user defined directories
    */
-  virtual void addDirectory(const UserDefinedDirectory& directory) = 0;
+  void addDirectory(const UserDefinedDirectory& directory);
 
-  class Impl;  ///< implemented class
+ private:
+  std::string modelExtension_;              ///< extension of model to used
+  bool useStandardModels_;                  ///< @b true if standard models should be used
+  std::vector<UserDefinedDirectory> dirs_;  ///< list of user defined directory
 };
 
 }  // namespace job

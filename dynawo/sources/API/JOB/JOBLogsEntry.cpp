@@ -12,29 +12,22 @@
 //
 
 /**
- * @file JOBLogsEntryImpl.cpp
+ * @file JOBLogsEntry.cpp
  * @brief Logs entry description : implementation file
  *
  */
 
-#include "JOBLogsEntryImpl.h"
+#include "JOBLogsEntry.h"
 
 namespace job {
 
-LogsEntry::Impl::Impl() {
-}
-
-
-LogsEntry::Impl::~Impl() {
-}
-
 void
-LogsEntry::Impl::addAppenderEntry(const boost::shared_ptr<AppenderEntry> & appenderEntry) {
+LogsEntry::addAppenderEntry(const boost::shared_ptr<AppenderEntry>& appenderEntry) {
   appenders_.push_back(appenderEntry);
 }
 
-std::vector<boost::shared_ptr<AppenderEntry> >
-LogsEntry::Impl::getAppenderEntries() const {
+const std::vector<boost::shared_ptr<AppenderEntry> >&
+LogsEntry::getAppenderEntries() const {
   return appenders_;
 }
 

@@ -12,62 +12,54 @@
 //
 
 /**
- * @file JOBFinalStateEntryImpl.cpp
+ * @file JOBFinalStateEntry.cpp
  * @brief FinalState entry description : implementation file
  *
  */
 
-#include "JOBFinalStateEntryImpl.h"
+#include "JOBFinalStateEntry.h"
 
 namespace job {
 
-FinalStateEntry::Impl::Impl() :
-exportIIDMFile_(false),
-exportDumpFile_(false),
-outputIIDMFile_(""),
-dumpFile_("") {
-}
-
-FinalStateEntry::Impl::~Impl() {
-}
+FinalStateEntry::FinalStateEntry() : exportIIDMFile_(false), exportDumpFile_(false), outputIIDMFile_(""), dumpFile_("") {}
 
 bool
-FinalStateEntry::Impl::getExportIIDMFile() const {
+FinalStateEntry::getExportIIDMFile() const {
   return exportIIDMFile_;
 }
 
 bool
-FinalStateEntry::Impl::getExportDumpFile() const {
+FinalStateEntry::getExportDumpFile() const {
   return exportDumpFile_;
 }
 
-std::string
-FinalStateEntry::Impl::getOutputIIDMFile() const {
+const std::string&
+FinalStateEntry::getOutputIIDMFile() const {
   return outputIIDMFile_;
 }
 
-std::string
-FinalStateEntry::Impl::getDumpFile() const {
+const std::string&
+FinalStateEntry::getDumpFile() const {
   return dumpFile_;
 }
 
 void
-FinalStateEntry::Impl::setExportIIDMFile(const bool exportIIDMFile) {
+FinalStateEntry::setExportIIDMFile(const bool exportIIDMFile) {
   exportIIDMFile_ = exportIIDMFile;
 }
 
 void
-FinalStateEntry::Impl::setExportDumpFile(const bool exportDumpFile) {
+FinalStateEntry::setExportDumpFile(const bool exportDumpFile) {
   exportDumpFile_ = exportDumpFile;
 }
 
 void
-FinalStateEntry::Impl::setOutputIIDMFile(const std::string& outputIIDMFile) {
+FinalStateEntry::setOutputIIDMFile(const std::string& outputIIDMFile) {
   outputIIDMFile_ = outputIIDMFile;
 }
 
 void
-FinalStateEntry::Impl::setDumpFile(const std::string& dumpFile) {
+FinalStateEntry::setDumpFile(const std::string& dumpFile) {
   dumpFile_ = dumpFile;
 }
 

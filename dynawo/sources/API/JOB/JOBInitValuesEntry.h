@@ -29,35 +29,37 @@ namespace job {
 class InitValuesEntry {
  public:
   /**
-   * @brief Destructor
+   * @brief constructor
    */
-  virtual ~InitValuesEntry() {}
+  InitValuesEntry();
 
   /**
    * @brief whether to write local init values setter
    * @param dumpLocalInitValues : whether to dump the local init values for the job
    */
-  virtual void setDumpLocalInitValues(const bool dumpLocalInitValues) = 0;
+  void setDumpLocalInitValues(const bool dumpLocalInitValues);
 
   /**
    * @brief whether to write local init values getter
    * @return whether to dump the local init values for the job
    */
-  virtual bool getDumpLocalInitValues() const = 0;
+  bool getDumpLocalInitValues() const;
 
   /**
    * @brief whether to write global init values setter
    * @param dumpGlobalInitValues : whether to dump the global init values for the job
    */
-  virtual void setDumpGlobalInitValues(const bool dumpGlobalInitValues) = 0;
+  void setDumpGlobalInitValues(const bool dumpGlobalInitValues);
 
   /**
    * @brief whether to dump the global init values getter
    * @return whether to dump the global init values for the job
    */
-  virtual bool getDumpGlobalInitValues() const = 0;
+  bool getDumpGlobalInitValues() const;
 
-  class Impl;  ///< implemented class
+ private:
+  bool dumpLocalInitValues_;   ///< boolean indicating whether to write the local init values in the outputs directory
+  bool dumpGlobalInitValues_;  ///< boolean indicating whether to write the global init values in the outputs directory
 };
 
 }  // namespace job

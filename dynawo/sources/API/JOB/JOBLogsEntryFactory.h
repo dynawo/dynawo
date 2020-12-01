@@ -20,11 +20,11 @@
 #ifndef API_JOB_JOBLOGSENTRYFACTORY_H_
 #define API_JOB_JOBLOGSENTRYFACTORY_H_
 
+#include "JOBLogsEntry.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace job {
-
-class LogsEntry;
 
 /**
  * @class  LogsEntryFactory

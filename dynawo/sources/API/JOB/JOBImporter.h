@@ -21,11 +21,11 @@
 #ifndef API_JOB_JOBIMPORTER_H_
 #define API_JOB_JOBIMPORTER_H_
 
+#include "JOBJobsCollection.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace job {
-class JobsCollection;
-
 /**
  * @class Importer
  * @brief Importer interface class

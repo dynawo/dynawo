@@ -12,30 +12,33 @@
 //
 
 /**
- * @file JOBInitialStateEntryImpl.cpp
- * @brief Initial state entries description : implementation file
+ * @file JOBConstraintsEntry.cpp
+ * @brief Constraints entry description : implementation file
  *
  */
 
-#include "JOBInitialStateEntryImpl.h"
+#include "JOBConstraintsEntry.h"
 
 namespace job {
 
-InitialStateEntry::Impl::Impl() :
-initialStateFile_("") {
-}
-
-InitialStateEntry::Impl::~Impl() {
+void
+ConstraintsEntry::setOutputFile(const std::string& outputFile) {
+  outputFile_ = outputFile;
 }
 
 void
-InitialStateEntry::Impl::setInitialStateFile(const std::string & initialStateFile) {
-  initialStateFile_ = initialStateFile;
+ConstraintsEntry::setExportMode(const std::string& exportMode) {
+  exportMode_ = exportMode;
 }
 
-std::string
-InitialStateEntry::Impl::getInitialStateFile() const {
-  return initialStateFile_;
+const std::string&
+ConstraintsEntry::getOutputFile() const {
+  return outputFile_;
+}
+
+const std::string&
+ConstraintsEntry::getExportMode() const {
+  return exportMode_;
 }
 
 }  // namespace job

@@ -12,13 +12,13 @@
 //
 
 #include "JOBFinalStateEntryFactory.h"
-#include "JOBFinalStateEntryImpl.h"
+#include "JOBFinalStateEntry.h"
 
 namespace job {
 
 boost::shared_ptr<FinalStateEntry>
 FinalStateEntryFactory::newInstance() {
-  return boost::shared_ptr<FinalStateEntry>(new FinalStateEntry::Impl());
+  return boost::shared_ptr<FinalStateEntry>(new FinalStateEntry());
 }
 
 }  // namespace job

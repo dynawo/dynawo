@@ -18,12 +18,12 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBFinalStateEntryImpl.h"
+#include "JOBFinalStateEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testFinalStateEntry) {
-  boost::shared_ptr<FinalStateEntry> finalState = boost::shared_ptr<FinalStateEntry>(new FinalStateEntry::Impl());
+  boost::shared_ptr<FinalStateEntry> finalState = boost::shared_ptr<FinalStateEntry>(new FinalStateEntry());
   // check default attributes
   ASSERT_EQ(finalState->getExportIIDMFile(), false);
   ASSERT_EQ(finalState->getExportDumpFile(), false);

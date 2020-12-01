@@ -31,47 +31,45 @@ namespace job {
 class CurvesEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~CurvesEntry() {}
-
-  /**
    * @brief Input file attribute getter
    * @return Input file for curves
    */
-  virtual std::string getInputFile() const = 0;
+  const std::string& getInputFile() const;
 
   /**
    * @brief Output file attribute getter
    * @return Output file for curves
    */
-  virtual std::string getOutputFile() const = 0;
+  const std::string& getOutputFile() const;
 
   /**
    * @brief Export mode attribute getter
    * @return Export mode for curves
    */
-  virtual std::string getExportMode() const = 0;
+  const std::string& getExportMode() const;
 
   /**
    * @brief Input file attribute setter
    * @param inputFile: Input file for curves
    */
-  virtual void setInputFile(const std::string & inputFile) = 0;
+  void setInputFile(const std::string& inputFile);
 
   /**
    * @brief Output file attribute setter
    * @param outputFile: Output file for curves
    */
-  virtual void setOutputFile(const std::string & outputFile) = 0;
+  void setOutputFile(const std::string& outputFile);
 
   /**
    * @brief Export Mode attribute setter
    * @param exportMode: Export mode for curves
    */
-  virtual void setExportMode(const std::string & exportMode) = 0;
+  void setExportMode(const std::string& exportMode);
 
-  class Impl;  ///< Implemented class
+ private:
+  std::string inputFile_;   ///< Input file for curves
+  std::string outputFile_;  ///< Output file for curves
+  std::string exportMode_;  ///< Export mode TXT, CSV, XML for curves output file
 };
 
 }  // namespace job

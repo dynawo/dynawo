@@ -18,18 +18,18 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBLogsEntryImpl.h"
-#include "JOBAppenderEntryImpl.h"
+#include "JOBLogsEntry.h"
+#include "JOBAppenderEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testLogsEntry) {
-  boost::shared_ptr<LogsEntry> logs = boost::shared_ptr<LogsEntry>(new LogsEntry::Impl());
+  boost::shared_ptr<LogsEntry> logs = boost::shared_ptr<LogsEntry>(new LogsEntry());
   // check default attributes
   ASSERT_EQ(logs->getAppenderEntries().size(), 0);
 
-  boost::shared_ptr<AppenderEntry> appender = boost::shared_ptr<AppenderEntry>(new AppenderEntry::Impl());
-  boost::shared_ptr<AppenderEntry> appender1 = boost::shared_ptr<AppenderEntry>(new AppenderEntry::Impl());
+  boost::shared_ptr<AppenderEntry> appender = boost::shared_ptr<AppenderEntry>(new AppenderEntry());
+  boost::shared_ptr<AppenderEntry> appender1 = boost::shared_ptr<AppenderEntry>(new AppenderEntry());
   logs->addAppenderEntry(appender);
   logs->addAppenderEntry(appender1);
 

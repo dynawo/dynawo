@@ -20,12 +20,11 @@
 #ifndef API_JOB_JOBOUTPUTSENTRYFACTORY_H_
 #define API_JOB_JOBOUTPUTSENTRYFACTORY_H_
 
+#include "JOBOutputsEntry.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace job {
-
-class OutputsEntry;
-
 /**
  * @class  OutputsEntryFactory
  *

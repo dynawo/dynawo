@@ -12,51 +12,42 @@
 //
 
 /**
- * @file JOBNetworkEntryImpl.cpp
+ * @file JOBNetworkEntry.cpp
  * @brief Network entry description : implementation file
  *
  */
 
-#include "JOBNetworkEntryImpl.h"
+#include "JOBNetworkEntry.h"
 
 namespace job {
 
-NetworkEntry::Impl::Impl() :
-iidmFile_(""),
-networkParFile_(""),
-networkParId_("") {
-}
-
-NetworkEntry::Impl::~Impl() {
-}
-
 void
-NetworkEntry::Impl::setIidmFile(const std::string& iidmFile) {
+NetworkEntry::setIidmFile(const std::string& iidmFile) {
   iidmFile_ = iidmFile;
 }
 
-std::string
-NetworkEntry::Impl::getIidmFile() const {
+const std::string&
+NetworkEntry::getIidmFile() const {
   return iidmFile_;
 }
 
 void
-NetworkEntry::Impl::setNetworkParFile(const std::string& networkParFile) {
+NetworkEntry::setNetworkParFile(const std::string& networkParFile) {
   networkParFile_ = networkParFile;
 }
 
-std::string
-NetworkEntry::Impl::getNetworkParFile() const {
+const std::string&
+NetworkEntry::getNetworkParFile() const {
   return networkParFile_;
 }
 
 void
-NetworkEntry::Impl::setNetworkParId(const std::string& parId) {
+NetworkEntry::setNetworkParId(const std::string& parId) {
   networkParId_ = parId;
 }
 
-std::string
-NetworkEntry::Impl::getNetworkParId() const {
+const std::string&
+NetworkEntry::getNetworkParId() const {
   return networkParId_;
 }
 

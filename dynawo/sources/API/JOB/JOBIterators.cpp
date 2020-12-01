@@ -14,155 +14,110 @@
 /**
  * @file  JOBIterators.cpp
  *
- * @brief job iterators: implementation file
+ * @brief jobs iterators : implementation file
  *
- * Iterators can be const or not
  */
 #include "JOBIterators.h"
-#include "JOBIteratorsImpl.h"
+
+#include "JOBJobsCollection.h"
+#include "JOBJobsCollection.h"
 
 using boost::shared_ptr;
+using std::vector;
 
 namespace job {
 
-job_const_iterator::job_const_iterator(const JobsCollection::Impl* iterated, bool begin) :
-impl_(new JobConstIteratorImpl(iterated, begin)) { }
-
-job_const_iterator::job_const_iterator(const job_const_iterator& original) :
-impl_(new JobConstIteratorImpl(*(original.impl_))) { }
-
-job_const_iterator::job_const_iterator(const job_iterator& original) :
-impl_(new JobConstIteratorImpl(*(original.impl()))) { }
-
-job_const_iterator::~job_const_iterator() {
-  delete impl_;
-  impl_ = NULL;
-}
-
-job_const_iterator&
-job_const_iterator::operator=(const job_const_iterator& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new JobConstIteratorImpl(*(other.impl_));
-  return *this;
-}
+job_const_iterator::job_const_iterator(const JobsCollection* iterated, bool begin) :
+    current_((begin ? iterated->jobs_.begin() : iterated->jobs_.end())) {}
 
 job_const_iterator&
 job_const_iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 job_const_iterator
 job_const_iterator::operator++(int) {
   job_const_iterator previous = *this;
-  (*impl_)++;
+  current_++;
   return previous;
 }
 
 job_const_iterator&
 job_const_iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 job_const_iterator
 job_const_iterator::operator--(int) {
   job_const_iterator previous = *this;
-  (*impl_)--;
+  current_--;
   return previous;
 }
 
 bool
 job_const_iterator::operator==(const job_const_iterator& other) const {
-  return *impl_ == *(other.impl_);
+  return current_ == other.current_;
 }
 
 bool
 job_const_iterator::operator!=(const job_const_iterator& other) const {
-  return *impl_ != *(other.impl_);
+  return current_ != other.current_;
 }
 
-const shared_ptr<JobEntry>&
-job_const_iterator::operator*() const {
-  return *(*impl_);
+const shared_ptr<JobEntry>& job_const_iterator::operator*() const {
+  return *current_;
 }
 
-const shared_ptr<JobEntry>*
-job_const_iterator::operator->() const {
-  return impl_->operator->();
+const shared_ptr<JobEntry>* job_const_iterator::operator->() const {
+  return &(*current_);
 }
 
-job_iterator::job_iterator(JobsCollection::Impl* iterated, bool begin) :
-impl_(new JobIteratorImpl(iterated, begin)) { }
-
-job_iterator::job_iterator(const job_iterator& original) :
-impl_(new JobIteratorImpl(*(original.impl_))) { }
-
-job_iterator::~job_iterator() {
-  delete impl_;
-  impl_ = NULL;
-}
-
-job_iterator&
-job_iterator::operator=(const job_iterator& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new JobIteratorImpl(*(other.impl_));
-  return *this;
-}
+job_iterator::job_iterator(JobsCollection* iterated, bool begin) : current_((begin ? iterated->jobs_.begin() : iterated->jobs_.end())) {}
 
 job_iterator&
 job_iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 job_iterator
 job_iterator::operator++(int) {
   job_iterator previous = *this;
-  (*impl_)++;
+  current_++;
   return previous;
 }
 
 job_iterator&
 job_iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 job_iterator
 job_iterator::operator--(int) {
   job_iterator previous = *this;
-  (*impl_)--;
+  current_--;
   return previous;
 }
 
 bool
 job_iterator::operator==(const job_iterator& other) const {
-  return *impl_ == *(other.impl_);
+  return current_ == other.current_;
 }
 
 bool
 job_iterator::operator!=(const job_iterator& other) const {
-  return *impl_ != *(other.impl_);
+  return current_ != other.current_;
 }
 
-shared_ptr<JobEntry>&
-job_iterator::operator*() const {
-  return *(*impl_);
+shared_ptr<JobEntry>& job_iterator::operator*() const {
+  return *current_;
 }
 
-shared_ptr<JobEntry>*
-job_iterator::operator->() const {
-  return impl_->operator->();
-}
-
-JobIteratorImpl*
-job_iterator::impl() const {
-  return impl_;
+shared_ptr<JobEntry>* job_iterator::operator->() const {
+  return &(*current_);
 }
 
 }  // namespace job

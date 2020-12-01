@@ -21,30 +21,29 @@ install(FILES ${API_JOB_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 set(API_JOB_SOURCES
     JOBXmlHandler.cpp
     JOBXmlImporter.cpp
-    JOBAppenderEntryImpl.cpp
+    JOBAppenderEntry.cpp
     JOBAppenderEntryFactory.cpp
-    JOBConstraintsEntryImpl.cpp
-    JOBCurvesEntryImpl.cpp
-    JOBDynModelsEntryImpl.cpp
+    JOBConstraintsEntry.cpp
+    JOBCurvesEntry.cpp
+    JOBDynModelsEntry.cpp
     JOBDynModelsEntryFactory.cpp
-    JOBFinalStateEntryImpl.cpp
+    JOBFinalStateEntry.cpp
     JOBFinalStateEntryFactory.cpp
-    JOBInitValuesEntryImpl.cpp
-    JOBInitialStateEntryImpl.cpp
+    JOBInitValuesEntry.cpp
+    JOBInitialStateEntry.cpp
     JOBIterators.cpp
-    JOBIteratorsImpl.cpp
-    JOBJobEntryImpl.cpp
+    JOBJobEntry.cpp
     JOBJobsCollectionFactory.cpp
-    JOBJobsCollectionImpl.cpp
-    JOBLogsEntryImpl.cpp
-    JOBModelerEntryImpl.cpp
-    JOBNetworkEntryImpl.cpp
-    JOBOutputsEntryImpl.cpp
-    JOBSimulationEntryImpl.cpp
-    JOBSolverEntryImpl.cpp
-    JOBTimelineEntryImpl.cpp
-    JOBTimetableEntryImpl.cpp
-    JOBModelsDirEntryImpl.cpp
+    JOBJobsCollection.cpp
+    JOBLogsEntry.cpp
+    JOBModelerEntry.cpp
+    JOBNetworkEntry.cpp
+    JOBOutputsEntry.cpp
+    JOBSimulationEntry.cpp
+    JOBSolverEntry.cpp
+    JOBTimelineEntry.cpp
+    JOBTimetableEntry.cpp
+    JOBModelsDirEntry.cpp
     JOBJobEntryFactory.cpp
     JOBLogsEntryFactory.cpp
     JOBModelerEntryFactory.cpp
@@ -74,7 +73,7 @@ set(API_JOB_INCLUDE_HEADERS
     JOBJobEntryFactory.h
     JOBJobsCollectionFactory.h
     JOBJobsCollection.h
-    JOBJobsCollectionImpl.h
+    JOBJobsCollection.h
     JOBLogsEntry.h
     JOBModelerEntry.h
     JOBNetworkEntry.h

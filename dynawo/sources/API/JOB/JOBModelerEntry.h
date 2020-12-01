@@ -20,16 +20,17 @@
 #ifndef API_JOB_JOBMODELERENTRY_H_
 #define API_JOB_JOBMODELERENTRY_H_
 
-#include <string>
-#include <boost/shared_ptr.hpp>
-
 #include "DYNFileSystemUtils.h"
+#include "JOBDynModelsEntry.h"
+#include "JOBInitialStateEntry.h"
+#include "JOBModelsDirEntry.h"
+#include "JOBNetworkEntry.h"
+
+#include <boost/shared_ptr.hpp>
+#include <string>
+#include <vector>
 
 namespace job {
-class NetworkEntry;
-class DynModelsEntry;
-class InitialStateEntry;
-class ModelsDirEntry;
 
 /**
  * @class ModelerEntry
@@ -38,83 +39,84 @@ class ModelsDirEntry;
 class ModelerEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~ModelerEntry() {}
-
-  /**
    * @brief Precompiled models directories entry setter
    * @param preCompiledModelsDirEntry : PreCompiledModelsDirEntry for the job
    */
-  virtual void setPreCompiledModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& preCompiledModelsDirEntry) = 0;
+  void setPreCompiledModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& preCompiledModelsDirEntry);
 
   /**
    * @brief Modelica models directories entry setter
    * @param modelicaModelsDirEntry : ModelicaModelsDirEntry for the job
    */
-  virtual void setModelicaModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& modelicaModelsDirEntry) = 0;
+  void setModelicaModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& modelicaModelsDirEntry);
 
   /**
    * @brief Precompiled models directories entry getter
    * @return PreCompiledModelsDirEntry for the job
    */
-  virtual boost::shared_ptr<ModelsDirEntry> getPreCompiledModelsDirEntry() const = 0;
+  boost::shared_ptr<ModelsDirEntry> getPreCompiledModelsDirEntry() const;
 
   /**
    * @brief Modelica models directories entry getter
    * @return ModelicaModelsDirEntry for the job
    */
-  virtual boost::shared_ptr<ModelsDirEntry> getModelicaModelsDirEntry() const = 0;
+  boost::shared_ptr<ModelsDirEntry> getModelicaModelsDirEntry() const;
 
   /**
    * @brief Compiling directory setter
    * @param compileDir : Compiling directory for the job
    */
-  virtual void setCompileDir(const std::string& compileDir)  = 0;
+  void setCompileDir(const std::string& compileDir);
 
   /**
    * @brief Compiling directory getter
    * @return Compiling directory for the job
    */
-  virtual std::string getCompileDir() const = 0;
+  const std::string& getCompileDir() const;
 
   /**
    * @brief Network entries container setter
    * @param networkEntry : Network entries container for the job
    */
-  virtual void setNetworkEntry(const boost::shared_ptr<NetworkEntry>& networkEntry) = 0;
+  void setNetworkEntry(const boost::shared_ptr<NetworkEntry>& networkEntry);
 
   /**
    * @brief Network entries container getter
    * @return Network entries container for the job
    */
-  virtual boost::shared_ptr<NetworkEntry> getNetworkEntry() const = 0;
+  boost::shared_ptr<NetworkEntry> getNetworkEntry() const;
 
   /**
    * @brief Dynamic modelisation entries container adder
    * @param dynModelsEntry : Dynamic modelisation entries container for the job
    */
-  virtual void addDynModelsEntry(const boost::shared_ptr<DynModelsEntry>& dynModelsEntry) = 0;
+  void addDynModelsEntry(const boost::shared_ptr<DynModelsEntry>& dynModelsEntry);
 
   /**
    * @brief Dynamic modelisation entries container getter
    * @return Dynamic modelisation entries container for the job
    */
-  virtual std::vector<boost::shared_ptr<DynModelsEntry> > getDynModelsEntries() const = 0;
+  std::vector<boost::shared_ptr<DynModelsEntry> > getDynModelsEntries() const;
 
   /**
    * @brief Initial state entries container setter
    * @param initialStateEntry : initial state entries container for the job
    */
-  virtual void setInitialStateEntry(const boost::shared_ptr<InitialStateEntry>& initialStateEntry) = 0;
+  void setInitialStateEntry(const boost::shared_ptr<InitialStateEntry>& initialStateEntry);
 
   /**
    * @brief Initial state entries container getter
    * @return Initial state entries container for the job
    */
-  virtual boost::shared_ptr<InitialStateEntry> getInitialStateEntry() const = 0;
+  boost::shared_ptr<InitialStateEntry> getInitialStateEntry() const;
 
-  class Impl;  ///< implemented class
+ private:
+  std::string compileDir_;                                            ///< Compiling directory for the simulation
+  boost::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry_;       ///< preCompiled models directories
+  boost::shared_ptr<ModelsDirEntry> modelicaModelsDirEntry_;          ///< modelica models directories
+  boost::shared_ptr<NetworkEntry> networkEntry_;                      ///< static network description
+  std::vector<boost::shared_ptr<DynModelsEntry> > dynModelsEntries_;  ///< multiple .dyd dynamic modelling files
+  boost::shared_ptr<InitialStateEntry> initialStateEntry_;            ///< initial state data
 };
 
 }  // namespace job

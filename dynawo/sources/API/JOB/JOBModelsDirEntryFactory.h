@@ -20,11 +20,11 @@
 #ifndef API_JOB_JOBMODELSDIRENTRYFACTORY_H_
 #define API_JOB_JOBMODELSDIRENTRYFACTORY_H_
 
+#include "JOBModelsDirEntry.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace job {
-
-class ModelsDirEntry;
 
 /**
  * @class  ModelsDirEntryFactory

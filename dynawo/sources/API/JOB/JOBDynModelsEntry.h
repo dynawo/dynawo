@@ -31,23 +31,19 @@ namespace job {
 class DynModelsEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~DynModelsEntry() {}
-
-  /**
    * @brief .dyd file setter
    * @param dydFile : .dyd file for the job
    */
-  virtual void setDydFile(const std::string& dydFile) = 0;
+  void setDydFile(const std::string& dydFile);
 
   /**
    * @brief .dyd file getter
    * @return .dyd file for the dynamic models entry
    */
-  virtual std::string getDydFile() const = 0;
+  const std::string& getDydFile() const;
 
-  class Impl;  ///< implemented class
+ private:
+  std::string dydFile_;  ///< DYD file for the current dynamic models entry
 };
 
 }  // namespace job

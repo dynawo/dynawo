@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,14 +11,24 @@
 // simulation tool for power systems.
 //
 
-#include "JOBAppenderEntryFactory.h"
-#include "JOBAppenderEntry.h"
+/**
+ * @file JOBInitialStateEntry.cpp
+ * @brief Initial state entries description : implementation file
+ *
+ */
+
+#include "JOBInitialStateEntry.h"
 
 namespace job {
 
-boost::shared_ptr<AppenderEntry>
-AppenderEntryFactory::newInstance() {
-  return boost::shared_ptr<AppenderEntry>(new AppenderEntry());
+void
+InitialStateEntry::setInitialStateFile(const std::string& initialStateFile) {
+  initialStateFile_ = initialStateFile;
+}
+
+const std::string&
+InitialStateEntry::getInitialStateFile() const {
+  return initialStateFile_;
 }
 
 }  // namespace job

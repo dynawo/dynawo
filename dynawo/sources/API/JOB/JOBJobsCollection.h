@@ -21,12 +21,12 @@
 #ifndef API_JOB_JOBJOBSCOLLECTION_H_
 #define API_JOB_JOBJOBSCOLLECTION_H_
 
+#include "JOBIterators.h"
+#include "JOBJobEntry.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace job {
-class JobEntry;
-class job_const_iterator;
-class job_iterator;
 
 /**
  * @class JobsCollection
@@ -37,42 +37,41 @@ class job_iterator;
 class JobsCollection {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~JobsCollection() { }
-
-  /**
    * @brief add a job to the jobs collection
    *
    * @param jobEntry job to add to the structure
    */
-  virtual void addJob(const boost::shared_ptr<JobEntry>& jobEntry) = 0;
+  void addJob(const boost::shared_ptr<JobEntry>& jobEntry);
 
   /**
    * @brief Get a const_iterator to the beginning of the jobs' vector
    * @return a const_iterator to the beginning of the jobs' vector
    */
-  virtual job_const_iterator cbegin() const = 0;
+  job_const_iterator cbegin() const;
 
   /**
    * @brief Get a const_iterator to the end of the jobs' vector
    * @return a const_iterator to the end of the jobs' vector
    */
-  virtual job_const_iterator cend() const = 0;
+  job_const_iterator cend() const;
 
   /**
    * @brief Get an iterator to the beginning of the jobs' vector
    * @return an iterator to the beginning of the jobs' vector
    */
-  virtual job_iterator begin() = 0;
+  job_iterator begin();
 
   /**
    * @brief Get an iterator to the end of the jobs' vector
    * @return an iterator to the end of the jobs' vector
    */
-  virtual job_iterator end() = 0;
+  job_iterator end();
 
-  class Impl;  ///< Implementated class
+  friend class job_const_iterator;
+  friend class job_iterator;
+
+ private:
+  std::vector<boost::shared_ptr<JobEntry> > jobs_;  ///< Vector of the jobs object
 };
 
 }  // namespace job

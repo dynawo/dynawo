@@ -31,23 +31,19 @@ namespace job {
 class InitialStateEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~InitialStateEntry() {}
-
-  /**
    * @brief initial state file setter
    * @param initialStateFile : initial state file for the job
    */
-  virtual void setInitialStateFile(const std::string & initialStateFile) = 0;
+  void setInitialStateFile(const std::string& initialStateFile);
 
   /**
    * @brief initial state file getter
    * @return initial state file  for the job
    */
-  virtual std::string getInitialStateFile() const = 0;
+  const std::string& getInitialStateFile() const;
 
-  class Impl;  ///< implemented class
+ private:
+  std::string initialStateFile_;  ///< initial state file for the simulation
 };
 
 }  // namespace job

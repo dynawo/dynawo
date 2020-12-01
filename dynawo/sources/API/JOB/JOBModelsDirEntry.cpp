@@ -12,55 +12,49 @@
 //
 
 /**
- * @file JOBModelsDirEntryImpl.cpp
+ * @file JOBModelsDirEntry.cpp
  * @brief ModelsDir entry description : implementation file
  *
  */
 
-#include "JOBModelsDirEntryImpl.h"
+#include "JOBModelsDirEntry.h"
 
 namespace job {
 
-ModelsDirEntry::Impl::Impl() :
-modelExtension_(""),
-useStandardModels_(false) {
-}
-
-ModelsDirEntry::Impl::~Impl() {
-}
+ModelsDirEntry::ModelsDirEntry() : modelExtension_(""), useStandardModels_(false) {}
 
 void
-ModelsDirEntry::Impl::setModelExtension(const std::string& modelExtension) {
+ModelsDirEntry::setModelExtension(const std::string& modelExtension) {
   modelExtension_ = modelExtension;
 }
 
 void
-ModelsDirEntry::Impl::setUseStandardModels(const bool useStandardModels) {
+ModelsDirEntry::setUseStandardModels(const bool useStandardModels) {
   useStandardModels_ = useStandardModels;
 }
 
-std::string
-ModelsDirEntry::Impl::getModelExtension() const {
+const std::string&
+ModelsDirEntry::getModelExtension() const {
   return modelExtension_;
 }
 
 bool
-ModelsDirEntry::Impl::getUseStandardModels() const {
+ModelsDirEntry::getUseStandardModels() const {
   return useStandardModels_;
 }
 
 void
-ModelsDirEntry::Impl::clearDirectories() {
+ModelsDirEntry::clearDirectories() {
   dirs_.clear();
 }
 
 std::vector<UserDefinedDirectory>
-ModelsDirEntry::Impl::getDirectories() const {
+ModelsDirEntry::getDirectories() const {
   return dirs_;
 }
 
 void
-ModelsDirEntry::Impl::addDirectory(const UserDefinedDirectory& directory) {
+ModelsDirEntry::addDirectory(const UserDefinedDirectory& directory) {
   dirs_.push_back(directory);
 }
 

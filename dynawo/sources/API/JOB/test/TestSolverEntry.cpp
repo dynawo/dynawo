@@ -18,12 +18,12 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBSolverEntryImpl.h"
+#include "JOBSolverEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testSolverEntry) {
-  boost::shared_ptr<SolverEntry> solver = boost::shared_ptr<SolverEntry>(new SolverEntry::Impl());
+  boost::shared_ptr<SolverEntry> solver = boost::shared_ptr<SolverEntry>(new SolverEntry());
   // check default attributes
   ASSERT_EQ(solver->getLib(), "");
   ASSERT_EQ(solver->getParametersFile(), "");

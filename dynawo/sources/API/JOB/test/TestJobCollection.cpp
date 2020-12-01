@@ -20,18 +20,18 @@
 #include "gtest_dynawo.h"
 #include "JOBJobsCollectionFactory.h"
 #include "JOBJobsCollection.h"
-#include "JOBJobEntryImpl.h"
+#include "JOBJobEntry.h"
 #include "JOBIterators.h"
 
 namespace job {
 
 TEST(APIJOBTest, testJobCollection) {
   boost::shared_ptr<JobsCollection> jobsCollection = JobsCollectionFactory::newInstance();
-  boost::shared_ptr<JobEntry> job1 = boost::shared_ptr<JobEntry> ( new JobEntry::Impl());
+  boost::shared_ptr<JobEntry> job1 = boost::shared_ptr<JobEntry> ( new JobEntry());
   job1->setName("job1");
-  boost::shared_ptr<JobEntry> job2 = boost::shared_ptr<JobEntry> ( new JobEntry::Impl());
+  boost::shared_ptr<JobEntry> job2 = boost::shared_ptr<JobEntry> ( new JobEntry());
   job2->setName("job2");
-  boost::shared_ptr<JobEntry> job3 = boost::shared_ptr<JobEntry> ( new JobEntry::Impl());
+  boost::shared_ptr<JobEntry> job3 = boost::shared_ptr<JobEntry> ( new JobEntry());
   job3->setName("job3");
 
   jobsCollection->addJob(job1);
@@ -81,15 +81,6 @@ TEST(APIJOBTest, testJobCollection) {
   job_iterator itVariable2 = jobsCollection->end();
   itVariable2 = itVariable;
   ASSERT_TRUE(itVariable2 == itVariable);
-
-  job_const_iterator itVariablec(itVariable);
-  ASSERT_EQ((++itVariablec)->get()->getName(), "job2");
-  ASSERT_EQ((--itVariablec)->get()->getName(), "job1");
-  ASSERT_EQ((itVariablec++)->get()->getName(), "job1");
-  ASSERT_EQ((itVariablec--)->get()->getName(), "job2");
-  job_const_iterator itVariablec2 = jobsCollection->cend();
-  itVariablec2 = itVariablec;
-  ASSERT_TRUE(itVariablec2 == itVariablec);
 }
 
 }  // namespace job

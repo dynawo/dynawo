@@ -12,13 +12,13 @@
 //
 
 #include "JOBSolverEntryFactory.h"
-#include "JOBSolverEntryImpl.h"
+#include "JOBSolverEntry.h"
 
 namespace job {
 
 boost::shared_ptr<SolverEntry>
 SolverEntryFactory::newInstance() {
-  return boost::shared_ptr<SolverEntry>(new SolverEntry::Impl());
+  return boost::shared_ptr<SolverEntry>(new SolverEntry());
 }
 
 }  // namespace job

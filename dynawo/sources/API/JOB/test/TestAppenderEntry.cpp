@@ -19,12 +19,12 @@
 
 #include "gtest_dynawo.h"
 
-#include "JOBAppenderEntryImpl.h"
+#include "JOBAppenderEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testAppenderEntry) {
-  boost::shared_ptr<AppenderEntry> appender = boost::shared_ptr<AppenderEntry>(new AppenderEntry::Impl());
+  boost::shared_ptr<AppenderEntry> appender = boost::shared_ptr<AppenderEntry>(new AppenderEntry());
   // check default attributes
   ASSERT_EQ(appender->getShowLevelTag(), true);
   ASSERT_EQ(appender->getSeparator(), " | ");
