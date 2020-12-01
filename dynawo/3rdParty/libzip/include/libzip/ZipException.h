@@ -13,19 +13,25 @@
 #define __ZIP_EXCEPTION_H__
 
 #include <exception>
-#include <string>
-
 #include <libzip/ZipErrorCode.h>
+#include <string>
 
 namespace zip {
 
 class ZipException : public std::exception {
-public:
-    virtual const Error::Code& getErrorCode() const = 0;
+ public:
+  ZipException(Error::Code code, const std::string& message) throw();
+  virtual ~ZipException() throw() {}
 
-    class Impl;
+  const Error::Code& getErrorCode() const;
+
+  const char* what() const throw();
+
+ private:
+  Error::Code m_code;
+  std::string m_message;
 };
 
-}
+}  // namespace zip
 
 #endif /* __ZIP_EXCEPTION_H__ */

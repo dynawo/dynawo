@@ -11,12 +11,12 @@
 
 #include <libzip/ZipFileFactory.h>
 
-#include "ZipFileImpl.h"
+#include <libzip/ZipFile.h>
 
 namespace zip {
 
 boost::shared_ptr<ZipFile> ZipFileFactory::newInstance() {
-    return boost::shared_ptr<ZipFile>(new ZipFile::Impl());
+    return boost::shared_ptr<ZipFile>(new ZipFile());
 }
 
 }

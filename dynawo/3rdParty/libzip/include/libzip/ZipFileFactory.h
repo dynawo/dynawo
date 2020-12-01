@@ -13,23 +13,22 @@
 #define __ZIP_FILE_FACTORY_H__
 
 #include <boost/shared_ptr.hpp>
+#include <libzip/ZipFile.h>
 
 namespace zip {
 
-class ZipFile;
-
 class ZipFileFactory {
-public:
-    static boost::shared_ptr<ZipFile> newInstance();
+ public:
+  static boost::shared_ptr<ZipFile> newInstance();
 
-private:
-    ZipFileFactory();
+ private:
+  ZipFileFactory();
 
-    ZipFileFactory(const ZipFileFactory&);
+  ZipFileFactory(const ZipFileFactory&);
 
-    ZipFileFactory& operator=(const ZipFileFactory&);
+  ZipFileFactory& operator=(const ZipFileFactory&);
 };
 
-}
+}  // namespace zip
 
 #endif /* __ZIP_FILE_FACTORY_H__ */

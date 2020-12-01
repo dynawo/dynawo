@@ -17,15 +17,15 @@ namespace zip {
 namespace Error {
 
 enum Code {
-    LIBARCHIVE_INTERNAL_ERROR, // Erreur interne de libarchive
+  LIBARCHIVE_INTERNAL_ERROR,  // Erreur interne de libarchive
 
-    FILE_NOT_FOUND,
-    CANNOT_OPEN_FILE,
-    FILE_ALREADY_EXISTS
+  FILE_NOT_FOUND,
+  CANNOT_OPEN_FILE,
+  FILE_ALREADY_EXISTS
 };
 
-}
+}  // namespace Error
 
-}
+}  // namespace zip
 
 #endif /* __ZIP_ERROR_CODE_H__ */

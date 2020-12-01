@@ -9,43 +9,41 @@
 // This file is part of Libzip, a library to handle zip archives.
 //
 
+#include <libzip/ZipEntry.h>
+#include <libzip/ZipException.h>
+#include <libzip/ZipFile.h>
 #include <libzip/ZipFlattenPolicy.h>
-
 #include <map>
 #include <sstream>
 
-#include "ZipExceptionImpl.h"
-#include "ZipFileImpl.h"
-
 namespace zip {
 
-ZipFlattenPolicy::~ZipFlattenPolicy() {
+ZipFlattenPolicy::~ZipFlattenPolicy() {}
+
+ZipThrowPolicy::~ZipThrowPolicy() {}
+
+std::string
+ZipThrowPolicy::apply(const ZipFile& zipFile, const std::string& entryName) const {
+  if (zipFile.getEntries().find(entryName) != zipFile.getEntries().end()) {
+    throw ZipException(Error::FILE_ALREADY_EXISTS, entryName);
+  }
+  return entryName;
 }
 
-ZipThrowPolicy::~ZipThrowPolicy() {
+ZipPostFixPolicy::~ZipPostFixPolicy() {}
+
+std::string
+ZipPostFixPolicy::apply(const ZipFile& zipFile, const std::string& entryName) const {
+  std::string localName = entryName;
+  unsigned long cpt = 0;
+
+  while (zipFile.getEntries().find(localName) != zipFile.getEntries().end()) {
+    localName = entryName;
+    std::ostringstream o;
+    o << "(" << ++cpt << ")";
+    localName.insert(localName.rfind('.'), o.str());
+  }
+  return localName;
 }
 
-std::string ZipThrowPolicy::apply(const ZipFile& zipFile, const std::string& entryName) const {
-    if (zipFile.getEntries().find(entryName) != zipFile.getEntries().end()) {
-        throw ZipException::Impl(Error::FILE_ALREADY_EXISTS, entryName);
-    }
-    return entryName;
-}
-
-ZipPostFixPolicy::~ZipPostFixPolicy() {
-}
-
-std::string ZipPostFixPolicy::apply(const ZipFile& zipFile, const std::string& entryName) const {
-    std::string localName = entryName;
-    unsigned long cpt = 0;
-
-    while (zipFile.getEntries().find(localName) != zipFile.getEntries().end()) {
-        localName = entryName;
-        std::ostringstream o;
-        o << "(" << ++cpt << ")";
-        localName.insert(localName.rfind('.'), o.str());
-    }
-    return localName;
-}
-
-}
+}  // namespace zip

@@ -19,29 +19,26 @@ namespace zip {
 class ZipFile;
 
 class ZipFlattenPolicy {
-public:
-    virtual ~ZipFlattenPolicy();
+ public:
+  virtual ~ZipFlattenPolicy();
 
-    virtual std::string apply(const ZipFile& zipFile, const std::string& entryName) const = 0;
-
+  virtual std::string apply(const ZipFile& zipFile, const std::string& entryName) const = 0;
 };
 
 class ZipThrowPolicy : public ZipFlattenPolicy {
-public:
-    virtual ~ZipThrowPolicy();
+ public:
+  virtual ~ZipThrowPolicy();
 
-    virtual std::string apply(const ZipFile& zipFile, const std::string& entryName) const;
-
+  virtual std::string apply(const ZipFile& zipFile, const std::string& entryName) const;
 };
 
 class ZipPostFixPolicy : public ZipFlattenPolicy {
-public:
-    virtual ~ZipPostFixPolicy();
+ public:
+  virtual ~ZipPostFixPolicy();
 
-    virtual std::string apply(const ZipFile& zipFile, const std::string& entryName) const;
-
+  virtual std::string apply(const ZipFile& zipFile, const std::string& entryName) const;
 };
 
-}
+}  // namespace zip
 
 #endif /* __ZIP_POLICY_H__ */
