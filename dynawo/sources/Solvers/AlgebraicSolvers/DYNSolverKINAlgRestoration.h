@@ -166,6 +166,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   static int evalJPrim_KIN(N_Vector yy, N_Vector rr,
           SUNMatrix JJ, void * data, N_Vector tmp1, N_Vector tmp2);
 
+#if _DEBUG_
   /**
    * @brief Check jacobian
    *
@@ -175,6 +176,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @param model the model currelty used
    */
   static void checkJacobian(const SparseMatrix& smj, const boost::shared_ptr<Model>& model);
+#endif
 
  private:
   boost::shared_ptr<Model> model_;  ///< model currently simulated
