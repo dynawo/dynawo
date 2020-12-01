@@ -472,6 +472,64 @@ TEST(CommonTest, testSparseMatrix) {
   ASSERT_DOUBLE_EQ(mat.frobeniusNorm(), norm);  // 30.46309242345563461640
   ASSERT_EQ(mat.norm1(), 28.);
   ASSERT_EQ(mat.infinityNorm(), 39.);
+
+  // check
+  mat.init(3, 3);
+  mat.changeCol();
+  mat.addTerm(0, 1.);
+  mat.changeCol();
+  mat.addTerm(1, 1.);
+  mat.addTerm(2, 1.);
+  mat.changeCol();
+  // no term
+
+  SparseMatrix::CheckError check_status = mat.check();
+  ASSERT_EQ(SparseMatrix::CHECK_ZERO_COLUMN, check_status.code);
+  ASSERT_EQ(2, check_status.info);
+
+  mat.init(3, 3);
+  mat.changeCol();
+  mat.addTerm(0, 1.);
+  mat.changeCol();
+  mat.addTerm(0, 1.);
+  mat.changeCol();
+  mat.addTerm(2, 1.);
+
+  check_status = mat.check();
+  ASSERT_EQ(SparseMatrix::CHECK_ZERO_ROW, check_status.code);
+  ASSERT_EQ(1, check_status.info);
+
+  mat.init(3, 3);
+  mat.changeCol();
+  mat.addTerm(0, 1.);
+  mat.addTerm(1, 1.);
+  mat.changeCol();
+  mat.addTerm(0, 1.);
+  mat.addTerm(1, 1.);
+  mat.changeCol();
+  mat.addTerm(1, 1.);
+  mat.addTerm(2, 1.);
+
+  check_status = mat.check();
+  ASSERT_EQ(SparseMatrix::CHECK_TWO_EQUAL_COLUMNS, check_status.code);
+  ASSERT_EQ(0, check_status.info);
+  ASSERT_EQ(1, check_status.info_bis);
+
+  mat.init(3, 3);
+  mat.changeCol();
+  mat.addTerm(0, 1.);
+  mat.addTerm(1, 1.);
+  mat.changeCol();
+  mat.addTerm(0, 1.);
+  mat.addTerm(1, 1.);
+  mat.addTerm(2, 1.);
+  mat.changeCol();
+  mat.addTerm(2, 1.);
+
+  check_status = mat.check();
+  ASSERT_EQ(SparseMatrix::CHECK_TWO_EQUAL_LINES, check_status.code);
+  ASSERT_EQ(0, check_status.info);
+  ASSERT_EQ(1, check_status.info_bis);
 }
 
 

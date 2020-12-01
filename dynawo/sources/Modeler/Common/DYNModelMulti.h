@@ -450,6 +450,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::string getVariableName(int index);
 
   /**
+   * @copydoc Model::getEquation()
+   */
+  std::string getEquation(int index) const;
+
+  /**
    * @copydoc Model::getCurrentZ(std::vector<double> &z)
    */
   void getCurrentZ(std::vector<double> &z);

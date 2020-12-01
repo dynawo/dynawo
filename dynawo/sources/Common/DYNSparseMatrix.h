@@ -42,6 +42,29 @@ class SparseMatrix {
     Jt = -1  ///< transpose matrix is stored
   } SparseMatrixType;
 
+  /**
+   * @brief Error code for checking matrix
+   */
+  typedef enum {
+    CHECK_OK = 0,            ///< no error
+    CHECK_ZERO_ROW,          ///< at least one row is full of 0
+    CHECK_ZERO_COLUMN,       ///< at least one column is full of 0
+    CHECK_TWO_EQUAL_LINES,   ///< at least 2 lines are equal
+    CHECK_TWO_EQUAL_COLUMNS  ///< at least 2 columns are equal
+  } CheckErrorCode;
+
+  /**
+   * @brief Check error representation
+   */
+  struct CheckError {
+    explicit CheckError(CheckErrorCode err = CHECK_OK, unsigned int index = 0, unsigned int index2 = 0) : code(err), info(index), info_bis(index2) {}
+
+    CheckErrorCode code;    ///< error code
+    unsigned int info;      ///<  relevant if not CHECK_OK: line / column index
+    unsigned int info_bis;  ///< relevant only if CHECK_TWO_EQUAL_LINES or CHECK_TWO_EQUAL_COLUMNS: other line / column index
+  };
+
+
  public:
   /**
    * @brief default constructor
@@ -172,6 +195,20 @@ class SparseMatrix {
   inline int nbCol() const {
     return nbCol_;
   }
+
+  /**
+   * @brief Check matrix validity
+   *
+   * This checks that:
+   * - no null row is present
+   * - no null column is present
+   * - 2 lines are not equal
+   * - 2 columns are not equal
+   * The test to fail will trigger an error
+   *
+   * @returns check error status
+   */
+  CheckError check() const;
 
  private:
   /**

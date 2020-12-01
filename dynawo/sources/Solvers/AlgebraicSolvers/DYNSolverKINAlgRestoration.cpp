@@ -36,8 +36,8 @@
 #include "DYNSolverCommon.h"
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
-#include "DYNModel.h"
-#include "DYNSparseMatrix.h"
+#include "DYNSubModel.h"
+#include "DYNModelMulti.h"
 
 using std::vector;
 using std::map;
@@ -237,6 +237,26 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   return (0);
 }
 
+void
+SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, const boost::shared_ptr<Model>& model) {
+  SparseMatrix::CheckError error = smj.check();
+  switch (error.code) {
+  case SparseMatrix::CHECK_ZERO_ROW:
+    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulRow, error.info, model->getVariableName(error.info));
+  case SparseMatrix::CHECK_ZERO_COLUMN:
+    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulColumn, error.info, model->getEquation(error.info));
+  case SparseMatrix::CHECK_TWO_EQUAL_COLUMNS:
+    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianTwoEqualCol, error.info, error.info_bis, model->getEquation(error.info),
+                   model->getEquation(error.info_bis));
+  case SparseMatrix::CHECK_TWO_EQUAL_LINES:
+    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianTwoEqualLines, error.info, error.info_bis, model->getVariableName(error.info),
+                   model->getVariableName(error.info_bis));
+  case SparseMatrix::CHECK_OK:
+    // do nothing
+    break;
+  }
+}
+
 int
 SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
          SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
@@ -253,6 +273,9 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   int size = solv->indexY_.size();
   smjKin.reserve(size);
   smj.erase(solv->ignoreY_, solv->ignoreF_, smjKin);
+#if _DEBUG_
+  checkJacobian(smj, model);
+#endif
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
   return (0);

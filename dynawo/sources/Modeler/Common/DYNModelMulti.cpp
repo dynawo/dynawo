@@ -1281,6 +1281,20 @@ std::string ModelMulti::getVariableName(int index) {
   return yNames_[index];
 }
 
+std::string ModelMulti::getEquation(int index) const {
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    if ((*it)->fEquationIndex().count(index) > 0) {
+      return (*it)->fEquationIndex().at(index);
+    }
+  }
+
+#if _DEBUG_
+  // shouldn't reach this point if index is correct
+  assert(false);
+#endif
+  return "";
+}
+
 void ModelMulti::getCurrentZ(vector<double> &z) {
   z.assign(zLocal_, zLocal_ + sizeZ());
 }

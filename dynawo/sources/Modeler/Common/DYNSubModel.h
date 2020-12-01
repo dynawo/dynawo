@@ -1333,6 +1333,12 @@ class SubModel {
    */
   int getOffsetY() const {return offsetY_;}
 
+    /**
+   * @brief get the map of index of equation and equation in string format (init or dynamic ones)
+   * @return the map of index of equation and equation in string format
+   */
+  const std::map<int, std::string>& fEquationIndex() const;
+
  protected:
   /**
    * @brief get the name of the file where parameters should be dumped
@@ -1385,12 +1391,6 @@ class SubModel {
    * @return list of subElements contains in element
    */
   std::vector<Element> getSubElements(const Element& element);
-
-  /**
-   * @brief get the map of index of equation and equation in string format (init or dynamic ones)
-   * @return the map of index of equation and equation in string format
-   */
-  std::map<int, std::string>& fEquationIndex();
 
   /**
    * @brief get the map of index of root equation and root equation in string format (init or dynamic ones)

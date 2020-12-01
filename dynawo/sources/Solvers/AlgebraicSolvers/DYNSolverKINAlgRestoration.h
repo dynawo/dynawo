@@ -26,6 +26,8 @@
 #include <sundials/sundials_nvector.h>
 #include "DYNEnumUtils.h"
 #include "DYNSolverKINCommon.h"
+#include "DYNModel.h"
+#include "DYNSparseMatrix.h"
 
 namespace DYN {
 class Model;
@@ -163,6 +165,16 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    */
   static int evalJPrim_KIN(N_Vector yy, N_Vector rr,
           SUNMatrix JJ, void * data, N_Vector tmp1, N_Vector tmp2);
+
+  /**
+   * @brief Check jacobian
+   *
+   * @throw exceptions if jacobian is incorrect
+   *
+   * @param smj the jacobian to check
+   * @param model the model currelty used
+   */
+  static void checkJacobian(const SparseMatrix& smj, const boost::shared_ptr<Model>& model);
 
  private:
   boost::shared_ptr<Model> model_;  ///< model currently simulated
