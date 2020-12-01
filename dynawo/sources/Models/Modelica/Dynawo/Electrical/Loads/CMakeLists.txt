@@ -12,7 +12,6 @@ set(MODEL_FILES
     # Electrical Loads models
     package.mo
     BaseClasses.mo
-    BaseClasses_INIT.mo
     LoadAlphaBeta.mo
     LoadAlphaBeta.extvar
     LoadAlphaBetaRestorative.mo

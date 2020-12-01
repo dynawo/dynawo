@@ -27,7 +27,7 @@ model GeneratorPVProp "Model for generator PV based on SignalN for the frequency
   parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
   parameter Types.PerUnit KVoltage "Parameter of the proportional voltage regulation";
 
-  Connectors.ZPin URefPu (value(start = URef0Pu)) "Voltage regulation set point in p.u (base UNom)";
+  Connectors.ImPin URefPu (value(start = URef0Pu)) "Voltage regulation set point in p.u (base UNom)";
 
 protected
   QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";

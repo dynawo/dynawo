@@ -36,6 +36,7 @@ tapChanger_locked0                                 =      -1.000000
 tapChanger_regulating0                             =       1.000000
 tapChanger_running0                                =       1.000000
 tapChanger_NbSwitchOffSignals                      =              2
+tapChanger_Type                                    =              1
 tapChanger_state0                                  =              4
 tapChanger_tap0                                    =              5
 tapChanger_tapMax                                  =             10

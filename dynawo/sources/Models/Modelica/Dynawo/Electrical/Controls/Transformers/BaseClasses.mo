@@ -15,31 +15,52 @@ within Dynawo.Electrical.Controls.Transformers;
 package BaseClasses
   extends Icons.BasesPackage;
 
+record TapChangerPhaseShifterParams
+
+  type Automaton = enumeration (TapChanger "1: tap-changer",
+                                PhaseShifter "2: phase-shifter");
+
+  type State = enumeration (MoveDownN "1: tap-changer/phase-shifter has decreased the next tap",
+                            MoveDown1 "2: tap-changer/phase-shifter has decreased the first tap",
+                            WaitingToMoveDown "3: tap-changer/phase-shifter is waiting to decrease the first tap",
+                            Standard "4:tap-changer/phase-shifter is in standard state with UThresholdDown <= UMonitored <= UThresholdUp",
+                            WaitingToMoveUp "5: tap-changer/phase-shifter is waiting to increase the first tap",
+                            MoveUp1 "6: tap-changer/phase-shifter has increased the first tap",
+                            MoveUpN "7: tap-changer/phase-shifter has increased the next tap",
+                            Locked "8: tap-changer/phase-shifter locked");
+
+  parameter Types.Time t1st (min = 0) "Time lag before changing the first tap";
+  parameter Types.Time tNext (min = 0) "Time lag before changing subsequent taps";
+  parameter Integer tapMin "Minimum tap";
+  parameter Integer tapMax "Maximum tap";
+
+protected
+
+  parameter Boolean regulating0 "Whether the tap-changer/phase-shifter is initially regulating";
+  parameter Boolean locked0 = not regulating0 "Whether the tap-changer/phase-shifter is initially locked";
+  parameter Boolean running0 = true "Whether the tap-changer/phase-shifter is initially running";
+  parameter Real valueToMonitor0  "Initial monitored value";
+  parameter Integer tap0 "Initial tap";
+  parameter State state0 "Initial state";
+
+end TapChangerPhaseShifterParams;
+
 // used for phase-shifterI (applied on current), phase-shifterP (applied on power) and tap-changer (applied on voltage)
 partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-shifters"
   import Modelica.Constants;
 
   import Dynawo.Connectors;
+  import Dynawo.Electrical.Controls.Basics.SwitchOff;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
+  extends SwitchOff.SwitchOffTapChangerPhaseShifter;
+  extends TapChangerPhaseShifterParams;
+
   public
-    type State = enumeration (MoveDownN "1: tap-changer/phase-shifter has decreased the next tap",
-                              MoveDown1 "2: tap-changer/phase-shifter has decreased the first tap",
-                              WaitingToMoveDown "3: tap-changer/phase-shifter is waiting to decrease the first tap",
-                              Standard "4:tap-changer/phase-shifter is in standard state with UThresholdDown <= UMonitored <= UThresholdUp",
-                              WaitingToMoveUp "5: tap-changer/phase-shifter is waiting to increase the first tap",
-                              MoveUp1 "6: tap-changer/phase-shifter has increased the first tap",
-                              MoveUpN "7: tap-changer/phase-shifter has increased the next tap",
-                              Locked "8: tap-changer/phase-shifter locked");
-    State state(start = state0);
 
     parameter Real valueMax "Threshold above which the tap-changer/phase-shifter will take action";
 
-    parameter Types.Time t1st (min = 0) "Time lag before changing the first tap";
-    parameter Types.Time tNext (min = 0) "Time lag before changing subsequent taps";
-    parameter Integer tapMin "Minimum tap";
-    parameter Integer tapMax "Maximum tap";
     parameter Boolean increaseTapToIncreaseValue "Whether increasing the tap will increase the monitored value";
     parameter Boolean increaseTapToDecreaseValue = not decreaseTapToDecreaseValue "Whether increasing the tap will decrease the monitored value";
     parameter Boolean decreaseTapToIncreaseValue = not increaseTapToIncreaseValue "Whether decreasing the tap will increase the monitored value";
@@ -49,15 +70,10 @@ partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-
     Connectors.ZPin tap (value (start = tap0)) "Current tap";
     Connectors.BPin AutomatonExists (value = true) "Pin to indicate to deactivate internal automaton";
 
-  protected
-    parameter Boolean regulating0 "Whether the tap-changer/phase-shifter is initially regulating";
-    parameter Boolean locked0 = not regulating0 "Whether the tap-changer/phase-shifter is initially locked";
-    parameter Boolean running0 = true "Whether the tap-changer/phase-shifter is initially running";
-    parameter Real valueToMonitor0  "Initial monitored value";
-    parameter Integer tap0 "Initial tap";
-    parameter State state0 "Initial state";
-
     Boolean locked (start = locked0) "Whether the tap-changer/phase-shifter is locked";
+    State state(start = state0);
+
+  protected
 
     Boolean valueAboveMax(start = false) "True if the monitored signal is above the maximum limit";
     Boolean lookingToIncreaseTap "True if the tap-changer/phase-shifter wants to increase tap";

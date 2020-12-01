@@ -96,9 +96,9 @@ model TripleBooleanEvent = EventBoolean (nbEventVariables = 3);
 model EventQuadripoleStatus
 
   extends SingleRealEvent (stateEvent1 = if(openOrigin and openExtremity) then Constants.stateToReal(Constants.state.Open)
-                                                       elseif (openOrigin and not openExtremity) then Constants.stateToReal(Constants.state.Closed2)
-                                                       elseif (not openOrigin and openExtremity) then Constants.stateToReal(Constants.state.Closed1)
-                                                       else Constants.stateToReal(Constants.state.Closed));
+                                         elseif (openOrigin and not openExtremity) then Constants.stateToReal(Constants.state.Closed2)
+                                         elseif (not openOrigin and openExtremity) then Constants.stateToReal(Constants.state.Closed1)
+                                         else Constants.stateToReal(Constants.state.Closed));
 
   public
     parameter Boolean openOrigin  "Open the quadripole origin ?";
@@ -133,7 +133,8 @@ end EventQuadripoleDisconnection;
 
 // Event for changing connection status of a component (connected or disconnected)
 model EventConnectedStatus
-  extends SingleRealEvent (stateEvent1 = if(open) then Constants.stateToReal(Constants.state.Open) else Constants.stateToReal(Constants.state.Closed));
+  extends SingleRealEvent (stateEvent1 = if(open) then Constants.stateToReal(Constants.state.Open)
+                                         else Constants.stateToReal(Constants.state.Closed));
   public
   parameter Boolean open "Disconnect the component ?";
 

@@ -13,23 +13,18 @@ within Dynawo.Electrical.Transformers;
 */
 
 model TransformerVariableTapI_INIT "Initialization for transformer based on the network voltage and current"
-
   extends BaseClasses_INIT.BaseTransformerVariableTap_INIT;
+  extends BaseClasses_INIT.BaseTransformerVariables_INIT;
   extends AdditionalIcons.Init;
-
-  protected
-    Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
-    flow Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
-
-    Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in p.u (base U1Nom)";
-    Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
 
 equation
 
-  U10Pu = ComplexMath.'abs' (u10Pu);
-  P10Pu = ComplexMath.real(u10Pu * ComplexMath.conj(i10Pu));
-  Q10Pu = ComplexMath.imag(u10Pu * ComplexMath.conj(i10Pu));
+  // Initial tap estimation
+  Tap0 = BaseClasses_INIT.TapEstimation (ZPu, rTfoMinPu, rTfoMaxPu, NbTap, u10Pu, i10Pu, Uc20Pu);
+
+  // Transformer equations
+  i10Pu = rTfo0Pu * (YPu * u20Pu - i20Pu);
+  rTfo0Pu * rTfo0Pu * u10Pu = rTfo0Pu * u20Pu + ZPu * i10Pu;
 
 annotation(preferredView = "text");
 end TransformerVariableTapI_INIT;
