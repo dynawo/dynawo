@@ -235,6 +235,7 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   return (0);
 }
 
+#if _DEBUG_
 void
 SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, const boost::shared_ptr<Model>& model) {
   SparseMatrix::CheckError error = smj.check();
@@ -260,6 +261,7 @@ SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, const boost::sha
     break;
   }
 }
+#endif
 
 int
 SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
