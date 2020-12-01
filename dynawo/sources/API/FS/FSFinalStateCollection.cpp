@@ -12,84 +12,71 @@
 //
 
 /**
- * @file  FSModelImpl.cpp
+ * @file  FSFinalStateCollection.cpp
  *
- * @brief final state model : implementation file
+ * @brief Final state collection : implementation file
  *
  */
-#include "FSModelImpl.h"
+#include "FSFinalStateCollection.h"
 #include "FSIterators.h"
+#include "FSModel.h"
 
 using std::string;
 using boost::shared_ptr;
 
 namespace finalState {
 
-FinalStateModel::Impl::Impl(const string& id) :
+FinalStateCollection::FinalStateCollection(const string& id) :
 id_(id) {
 }
 
-FinalStateModel::Impl::~Impl() {
+void
+FinalStateCollection::addFinalStateModel(const shared_ptr<FinalStateModel>& model) {
+  models_.push_back(model);
 }
 
 void
-FinalStateModel::Impl::setId(const string& id) {
-  id_ = id;
-}
-
-string
-FinalStateModel::Impl::getId() const {
-  return id_;
-}
-
-void
-FinalStateModel::Impl::addSubModel(const shared_ptr<FinalStateModel>& model) {
-  subModels_.push_back(model);
-}
-
-void
-FinalStateModel::Impl::addVariable(const shared_ptr<Variable>& variable) {
+FinalStateCollection::addVariable(const shared_ptr<Variable>& variable) {
   variables_.push_back(variable);
 }
 
 finalStateModel_const_iterator
-FinalStateModel::Impl::cbeginFinalStateModel() const {
+FinalStateCollection::cbeginFinalStateModel() const {
   return finalStateModel_const_iterator(this, true);
 }
 
 finalStateModel_const_iterator
-FinalStateModel::Impl::cendFinalStateModel() const {
+FinalStateCollection::cendFinalStateModel() const {
   return finalStateModel_const_iterator(this, false);
 }
 
 finalStateVariable_const_iterator
-FinalStateModel::Impl::cbeginVariable() const {
+FinalStateCollection::cbeginVariable() const {
   return finalStateVariable_const_iterator(this, true);
 }
 
 finalStateVariable_const_iterator
-FinalStateModel::Impl::cendVariable() const {
+FinalStateCollection::cendVariable() const {
   return finalStateVariable_const_iterator(this, false);
 }
 
 finalStateModel_iterator
-FinalStateModel::Impl::beginFinalStateModel() {
+FinalStateCollection::beginFinalStateModel() {
   return finalStateModel_iterator(this, true);
 }
 
 finalStateModel_iterator
-FinalStateModel::Impl::endFinalStateModel() {
+FinalStateCollection::endFinalStateModel() {
   return finalStateModel_iterator(this, false);
 }
 
 finalStateVariable_iterator
-FinalStateModel::Impl::beginVariable() {
+FinalStateCollection::beginVariable() {
   return finalStateVariable_iterator(this, true);
 }
 
 finalStateVariable_iterator
-FinalStateModel::Impl::endVariable() {
+FinalStateCollection::endVariable() {
   return finalStateVariable_iterator(this, false);
 }
-
 }  // namespace finalState

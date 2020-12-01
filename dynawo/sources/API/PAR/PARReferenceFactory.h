@@ -25,7 +25,6 @@
 #include "PARReference.h"
 
 namespace parameters {
-class Reference;
 
 /**
  * @class ReferenceFactory

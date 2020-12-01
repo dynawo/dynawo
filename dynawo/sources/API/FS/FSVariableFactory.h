@@ -22,9 +22,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-namespace finalState {
-class Variable;
+#include "FSVariable.h"
 
+namespace finalState {
 /**
  * @class VariableFactory
  * @brief Variable factory class

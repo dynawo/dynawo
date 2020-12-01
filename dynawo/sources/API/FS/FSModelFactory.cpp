@@ -19,7 +19,7 @@
  */
 
 #include "FSModelFactory.h"
-#include "FSModelImpl.h"
+#include "FSModel.h"
 
 using std::string;
 
@@ -27,7 +27,7 @@ namespace finalState {
 
 boost::shared_ptr<FinalStateModel>
 ModelFactory::newModel(const string& id) {
-  return boost::shared_ptr<FinalStateModel>(new FinalStateModel::Impl(id));
+  return boost::shared_ptr<FinalStateModel>(new FinalStateModel(id));
 }
 
 }  // namespace finalState

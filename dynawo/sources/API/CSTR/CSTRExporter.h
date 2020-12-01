@@ -21,11 +21,12 @@
 #ifndef API_CSTR_CSTREXPORTER_H_
 #define API_CSTR_CSTREXPORTER_H_
 
-#include <string>
+#include "CSTRConstraintsCollection.h"
+
 #include <boost/shared_ptr.hpp>
+#include <string>
 
 namespace constraints {
-class ConstraintsCollection;
 
 /**
  * @class Exporter
@@ -47,7 +48,7 @@ class Exporter {
    */
   virtual void exportToFile(const boost::shared_ptr<ConstraintsCollection>& constraints, const std::string& filePath) const = 0;
 
-   /**
+  /**
    * @brief Export method for this exporter
    *
    * @param constraints ConstraintsCollection to export

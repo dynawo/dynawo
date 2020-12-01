@@ -19,7 +19,7 @@
  */
 
 #include "CSTRConstraintFactory.h"
-#include "CSTRConstraintImpl.h"
+#include "CSTRConstraint.h"
 
 using boost::shared_ptr;
 
@@ -27,7 +27,7 @@ namespace constraints {
 
 shared_ptr<Constraint>
 ConstraintFactory::newConstraint() {
-  return shared_ptr<Constraint>(new Constraint::Impl());
+  return shared_ptr<Constraint>(new Constraint());
 }
 
 }  // namespace constraints

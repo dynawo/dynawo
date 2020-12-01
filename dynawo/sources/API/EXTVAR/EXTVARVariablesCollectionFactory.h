@@ -23,8 +23,9 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
+#include "EXTVARVariablesCollection.h"
+
 namespace externalVariables {
-class VariablesCollection;
 
 /**
  * @class VariablesCollectionFactory

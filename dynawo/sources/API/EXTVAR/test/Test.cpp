@@ -386,12 +386,6 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
   ASSERT_EQ((--itVariable)->get()->getId(), variable5->getId());
   ASSERT_EQ((itVariable++)->get()->getId(), variable5->getId());
   ASSERT_EQ((itVariable--)->get()->getId(), variable3->getId());
-
-  variable_const_iterator itVariablec(itVariable);
-  ASSERT_EQ((++itVariablec)->get()->getId(), variable3->getId());
-  ASSERT_EQ((--itVariablec)->get()->getId(), variable5->getId());
-  ASSERT_EQ((itVariablec++)->get()->getId(), variable5->getId());
-  ASSERT_EQ((itVariablec--)->get()->getId(), variable3->getId());
 }
 
 }  // namespace externalVariables

@@ -12,75 +12,98 @@
 //
 
 #include "CRTCriteria.h"
-#include "CRTCriteriaImpl.h"
 
 namespace criteria {
 
-Criteria::component_id_const_iterator::component_id_const_iterator(const Criteria::Impl* iterated, bool begin) :
-impl_(new BaseCompIdConstIteratorImpl(iterated, begin)) { }
-
-Criteria::component_id_const_iterator::component_id_const_iterator(const Criteria::component_id_const_iterator& original) :
-impl_(new BaseCompIdConstIteratorImpl(*(original.impl_))) { }
-
-Criteria::component_id_const_iterator::~component_id_const_iterator() {
-  delete impl_;
-  impl_ = NULL;
+void
+Criteria::setParams(const boost::shared_ptr<CriteriaParams>& params) {
+  params_ = params;
 }
 
-Criteria::component_id_const_iterator&
-Criteria::component_id_const_iterator::operator=(const Criteria::component_id_const_iterator& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new BaseCompIdConstIteratorImpl(*(other.impl_));
-  return *this;
+const boost::shared_ptr<CriteriaParams>&
+Criteria::getParams() const {
+  return params_;
 }
+
+void
+Criteria::addComponentId(const std::string& id) {
+  compIds_.push_back(id);
+}
+
+void
+Criteria::addCountry(const std::string& id) {
+  countryIds_.insert(id);
+}
+
+Criteria::component_id_const_iterator
+Criteria::begin() const {
+  return Criteria::component_id_const_iterator(this, true);
+}
+
+Criteria::component_id_const_iterator
+Criteria::end() const {
+  return Criteria::component_id_const_iterator(this, false);
+}
+
+bool
+Criteria::containsCountry(const std::string& country) const {
+  return countryIds_.find(country) != countryIds_.end();
+}
+
+bool
+Criteria::hasCountryFilter() const {
+  return !countryIds_.empty();
+}
+
+/////////////////////////////////////////////////
+
+Criteria::component_id_const_iterator::component_id_const_iterator(const Criteria* iterated, bool begin) :
+current_((begin ? iterated->compIds_.begin() : iterated->compIds_.end())) { }
 
 Criteria::component_id_const_iterator&
 Criteria::component_id_const_iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 Criteria::component_id_const_iterator
 Criteria::component_id_const_iterator::operator++(int) {
   Criteria::component_id_const_iterator previous = *this;
-  (*impl_)++;
+  current_++;
   return previous;
 }
 
 Criteria::component_id_const_iterator&
 Criteria::component_id_const_iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 Criteria::component_id_const_iterator
 Criteria::component_id_const_iterator::operator--(int) {
   Criteria::component_id_const_iterator previous = *this;
-  (*impl_)--;
+  current_--;
   return previous;
 }
 
 bool
 Criteria::component_id_const_iterator::operator==(const Criteria::component_id_const_iterator& other) const {
-  return *impl_ == *(other.impl_);
+  return current_ == other.current_;
 }
 
 bool
 Criteria::component_id_const_iterator::operator!=(const Criteria::component_id_const_iterator& other) const {
-  return *impl_ != *(other.impl_);
+  return current_ != other.current_;
 }
 
 const std::string&
 Criteria::component_id_const_iterator::operator*() const {
-  return *(*impl_);
+  return *current_;
 }
 
 const std::string*
 Criteria::component_id_const_iterator::operator->() const {
-  return impl_->operator->();
+  return &(*current_);
 }
-
 
 }  // namespace criteria

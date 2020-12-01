@@ -22,10 +22,9 @@
 
 #include <boost/shared_ptr.hpp>
 
+#include "CRVCurvesCollection.h"
 
 namespace curves {
-class CurvesCollection;
-
 /**
  * @class CurvesCollectionFactory
  * @brief Curves collection factory class

@@ -19,13 +19,11 @@ set(API_CRT_SHARED
 install(FILES ${API_CRT_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
 set(API_CRT_SOURCES
-  CRTCriteriaParamsImpl.cpp
+  CRTCriteriaParams.cpp
   CRTCriteriaParamsFactory.cpp
   CRTCriteria.cpp
-  CRTCriteriaImpl.cpp
   CRTCriteriaFactory.cpp
   CRTCriteriaCollection.cpp
-  CRTCriteriaCollectionImpl.cpp
   CRTCriteriaCollectionFactory.cpp
   CRTXmlHandler.cpp
   CRTXmlImporter.cpp

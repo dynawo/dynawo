@@ -12,127 +12,100 @@
 //
 
 /**
- * @file PARParameterImpl.cpp
+ * @file PARParameter.cpp
  * @brief Dynawo parameters : implementation file
  *
  */
 
-#include "DYNMacrosMessage.h"
+#include "PARParameter.h"
 
-#include "PARParameterImpl.h"
+#include "DYNMacrosMessage.h"
 
 using std::string;
 
 namespace parameters {
 
-Parameter::Impl::Impl(const string& name, const bool boolValue) :
-type_(BOOL),
-name_(name),
-value_(boolValue),
-used_(false) {
-}
+Parameter::Parameter(const string& name, const bool boolValue) : type_(BOOL), name_(name), value_(boolValue), used_(false) {}
 
-Parameter::Impl::Impl(const string& name, const int intValue) :
-type_(INT),
-name_(name),
-value_(intValue),
-used_(false) {
-}
+Parameter::Parameter(const string& name, const int intValue) : type_(INT), name_(name), value_(intValue), used_(false) {}
 
-Parameter::Impl::Impl(const string& name, const double doubleValue) :
-type_(DOUBLE),
-name_(name),
-value_(doubleValue),
-used_(false) {
-}
+Parameter::Parameter(const string& name, const double doubleValue) : type_(DOUBLE), name_(name), value_(doubleValue), used_(false) {}
 
-Parameter::Impl::Impl(const string& name, const string& stringValue) :
-type_(STRING),
-name_(name),
-value_(stringValue),
-used_(false) {
-}
-
-Parameter::Impl::~Impl() {
-}
+Parameter::Parameter(const string& name, const string& stringValue) : type_(STRING), name_(name), value_(stringValue), used_(false) {}
 
 Parameter::ParameterType
-Parameter::Impl::getType() const {
+Parameter::getType() const {
   return type_;
 }
 
 string
-Parameter::Impl::getName() const {
+Parameter::getName() const {
   return name_;
 }
 
 bool
-Parameter::Impl::getBool() const {
+Parameter::getBool() const {
   if (type_ != BOOL)
     throw DYNError(DYN::Error::API, ParameterInvalidTypeRequested, getName(), ParameterTypeNames[type_], ParameterTypeNames[BOOL]);
 
   bool value;
   try {
     value = boost::any_cast<bool>(value_);
-  }
-  catch (boost::bad_any_cast&)  {
+  } catch (boost::bad_any_cast&) {
     throw DYNError(DYN::Error::API, ParameterBadCast, getName(), ParameterTypeNames[type_]);
   }
   return value;
 }
 
 int
-Parameter::Impl::getInt() const {
+Parameter::getInt() const {
   if (type_ != INT)
     throw DYNError(DYN::Error::API, ParameterInvalidTypeRequested, getName(), ParameterTypeNames[type_], ParameterTypeNames[INT]);
 
   int value;
   try {
     value = boost::any_cast<int>(value_);
-  }
-  catch (boost::bad_any_cast&)  {
+  } catch (boost::bad_any_cast&) {
     throw DYNError(DYN::Error::API, ParameterBadCast, getName(), ParameterTypeNames[type_]);
   }
   return value;
 }
 
 double
-Parameter::Impl::getDouble() const {
+Parameter::getDouble() const {
   if (type_ != DOUBLE)
     throw DYNError(DYN::Error::API, ParameterInvalidTypeRequested, getName(), ParameterTypeNames[type_], ParameterTypeNames[DOUBLE]);
 
   double value;
   try {
     value = boost::any_cast<double>(value_);
-  }
-  catch (boost::bad_any_cast&)  {
+  } catch (boost::bad_any_cast&) {
     throw DYNError(DYN::Error::API, ParameterBadCast, getName(), ParameterTypeNames[type_]);
   }
   return value;
 }
 
 string
-Parameter::Impl::getString() const {
+Parameter::getString() const {
   if (type_ != STRING)
     throw DYNError(DYN::Error::API, ParameterInvalidTypeRequested, getName(), ParameterTypeNames[type_], ParameterTypeNames[STRING]);
 
   string value;
   try {
     value = boost::any_cast<string>(value_);
-  }
-  catch (boost::bad_any_cast&)  {
+  } catch (boost::bad_any_cast&) {
     throw DYNError(DYN::Error::API, ParameterBadCast, getName(), ParameterTypeNames[type_]);
   }
   return value;
 }
 
 bool
-Parameter::Impl::getUsed() const {
+Parameter::getUsed() const {
   return used_;
 }
 
 void
-Parameter::Impl::setUsed(bool Bool) {
+Parameter::setUsed(bool Bool) {
   used_ = Bool;
 }
 

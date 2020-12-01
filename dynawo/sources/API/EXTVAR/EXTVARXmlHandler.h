@@ -24,9 +24,9 @@
 #include <xml/sax/parser/ComposableDocumentHandler.h>
 #include <xml/sax/parser/ComposableElementHandler.h>
 
+#include "EXTVARVariablesCollection.h"
+
 namespace externalVariables {
-class VariablesCollection;
-class Variable;
 
 /**
  * @class VariableHandler

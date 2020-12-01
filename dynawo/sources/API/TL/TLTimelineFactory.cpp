@@ -19,7 +19,7 @@
  */
 
 #include "TLTimelineFactory.h"
-#include "TLTimelineImpl.h"
+#include "TLTimeline.h"
 
 using std::string;
 
@@ -27,17 +27,17 @@ namespace timeline {
 
 boost::shared_ptr<Timeline>
 TimelineFactory::newInstance(const string& id) {
-  return boost::shared_ptr<Timeline>(new Timeline::Impl(id));
+  return boost::shared_ptr<Timeline>(new Timeline(id));
 }
 
 boost::shared_ptr<Timeline>
 TimelineFactory::copyInstance(boost::shared_ptr<Timeline> original) {
-  return boost::shared_ptr<Timeline>(new Timeline::Impl(dynamic_cast<Timeline::Impl&> (*original)));
+  return boost::shared_ptr<Timeline>(new Timeline(*original));
 }
 
 boost::shared_ptr<Timeline>
 TimelineFactory::copyInstance(const Timeline& original) {
-  return boost::shared_ptr<Timeline>(new Timeline::Impl(dynamic_cast<const Timeline::Impl&> (original)));
+  return boost::shared_ptr<Timeline>(new Timeline(original));
 }
 
 }  // namespace timeline

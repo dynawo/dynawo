@@ -23,9 +23,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-namespace curves {
-class CurvesCollection;
+#include "CRVCurvesCollection.h"
 
+namespace curves {
 /**
  * @class Importer
  * @brief Importer interface class

@@ -41,21 +41,23 @@ class Reference {
    * @brief Available reference origin data sets
    */
   enum OriginData {
-    IIDM,  ///< the parameter is written in the IIDM file
+    IIDM,         ///< the parameter is written in the IIDM file
     SIZE_OF_ENUM  ///< value to use ONLY to assess the enumeration size
   };
 
   /**
-   * @brief Destructor
+   * @brief Constructor of reference
+   *
+   * @param[in] name: reference name
    */
-  virtual ~Reference() {}
+  explicit Reference(const std::string& name);
 
   /**
    * @brief Setter for reference type
    *
    * @param type Reference's type
    */
-  virtual void setType(const std::string& type) = 0;
+  void setType(const std::string& type);
 
   /**
    * @brief Setter for reference origin data
@@ -63,66 +65,71 @@ class Reference {
    * @param origData Reference's origin data
    * @throws API exception if the origin data is unkown
    */
-  virtual void setOrigData(const std::string& origData) = 0;
+  void setOrigData(const std::string& origData);
 
   /**
    * @brief Setter for reference origin data
    *
    * @param origData Reference's origin data
    */
-  virtual void setOrigData(const OriginData& origData) = 0;
+  void setOrigData(const OriginData& origData);
 
   /**
    * @brief Setter for reference origin name
    *
    * @param origName Reference's origin name
    */
-  virtual void setOrigName(const std::string& origName) = 0;
+  void setOrigName(const std::string& origName);
 
   /**
    * @brief Setter for the component id where the reference should be found
    *
    * @param id Component's id
    */
-  virtual void setComponentId(const std::string& id) = 0;
+  void setComponentId(const std::string& id);
 
   /**
    * @brief Getter for reference type
    * @returns Reference's type
    */
-  virtual std::string getType() const = 0;
+  std::string getType() const;
 
   /**
    * @brief Getter for reference name
    * @returns Reference's name
    */
-  virtual std::string getName() const = 0;
+  std::string getName() const;
 
   /**
    * @brief Getter for reference origin data
    * @returns Reference's origin data
    */
-  virtual OriginData getOrigData() const = 0;
+  OriginData getOrigData() const;
 
   /**
    * @brief Getter for reference origin data as a string
    * @returns Reference's origin data
    */
-  virtual std::string getOrigDataStr() const = 0;
+  std::string getOrigDataStr() const;
 
   /**
    * @brief Getter for reference origin name
    * @returns Reference's origin name
    */
-  virtual std::string getOrigName() const = 0;
+  std::string getOrigName() const;
 
   /**
    * @brief Getter for the component id where the reference should be found
    * @return Component's id
    */
-  virtual std::string getComponentId() const = 0;
+  std::string getComponentId() const;
 
-  class Impl;  ///< implementation class
+ private:
+  std::string type_;         ///< Reference's type
+  std::string name_;         ///< Reference's name
+  OriginData origData_;      ///< Reference's origin data
+  std::string origName_;     ///< Reference's origin name
+  std::string componentId_;  ///< Reference's component id
 };
 static const char* ReferenceOriginNames[Reference::SIZE_OF_ENUM] = {"IIDM"};  ///< string conversion of enum values
 // statically check that the size of ParameterTypeNames fits the number of ParameterTypes
@@ -130,12 +137,12 @@ static const char* ReferenceOriginNames[Reference::SIZE_OF_ENUM] = {"IIDM"};  //
 /**
  * @brief Test is the size of ParameterTypeNames is relevant with the enumeration size
  */
-static_assert(sizeof (ReferenceOriginNames) / sizeof (char*) == Reference::SIZE_OF_ENUM, "Parameters string size does not match ParameterType enumeration");
+static_assert(sizeof(ReferenceOriginNames) / sizeof(char*) == Reference::SIZE_OF_ENUM, "Parameters string size does not match ParameterType enumeration");
 #else
 /**
  * @brief Test is the size of ParameterTypeNames is relevant with the enumeration size
  */
-BOOST_STATIC_ASSERT_MSG(sizeof (ReferenceOriginNames) / sizeof (char*) == Reference::SIZE_OF_ENUM,
+BOOST_STATIC_ASSERT_MSG(sizeof(ReferenceOriginNames) / sizeof(char*) == Reference::SIZE_OF_ENUM,
                         "Parameters string size does not match ParameterType enumeration");
 #endif
 }  // namespace parameters

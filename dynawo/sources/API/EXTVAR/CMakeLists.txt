@@ -20,11 +20,10 @@ install(FILES ${API_EXTVAR_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
 set(API_EXTVAR_SOURCES
     EXTVARIterators.cpp
-    EXTVARIteratorsImpl.cpp
     EXTVARVariablesCollectionFactory.cpp
-    EXTVARVariablesCollectionImpl.cpp
+    EXTVARVariablesCollection.cpp
     EXTVARVariableFactory.cpp
-    EXTVARVariableImpl.cpp
+    EXTVARVariable.cpp
     EXTVARXmlExporter.cpp
     EXTVARXmlHandler.cpp
     EXTVARXmlImporter.cpp

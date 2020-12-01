@@ -19,13 +19,13 @@
  */
 
 #include "CRTCriteriaCollectionFactory.h"
-#include "CRTCriteriaCollectionImpl.h"
+#include "CRTCriteriaCollection.h"
 
 namespace criteria {
 
 boost::shared_ptr<CriteriaCollection>
 CriteriaCollectionFactory::newInstance() {
-  return boost::shared_ptr<CriteriaCollection>(new CriteriaCollection::Impl());
+  return boost::shared_ptr<CriteriaCollection>(new CriteriaCollection());
 }
 
 }  // namespace criteria

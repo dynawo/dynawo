@@ -23,7 +23,6 @@
 
 // files in API parameter
 #include "PARParametersSet.h"
-#include "PARParametersSetImpl.h"
 #include "PARParameter.h"
 #include "PARParametersSetFactory.h"
 #include "PARParametersSetCollection.h"

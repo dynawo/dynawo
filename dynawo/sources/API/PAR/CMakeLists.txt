@@ -19,15 +19,13 @@ set(API_PAR_SHARED
 install(FILES ${API_PAR_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
 set(API_PAR_SOURCES
-    PARParameterImpl.cpp
+    PARParameter.cpp
     PARParameterFactory.cpp
-    PARReferenceImpl.cpp
+    PARReference.cpp
     PARReferenceFactory.cpp
     PARParametersSet.cpp
-    PARParametersSetImpl.cpp
     PARParametersSetFactory.cpp
     PARParametersSetCollection.cpp
-    PARParametersSetCollectionImpl.cpp
     PARParametersSetCollectionFactory.cpp
     PARXmlExporter.cpp
     PARXmlHandler.cpp

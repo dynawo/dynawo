@@ -25,8 +25,6 @@
 #include "PARParameter.h"
 
 namespace parameters {
-class Parameter;
-
 /**
  * @class ParameterFactory
  * @brief Parameter factory class

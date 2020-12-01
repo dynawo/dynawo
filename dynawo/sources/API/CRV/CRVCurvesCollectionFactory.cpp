@@ -19,7 +19,7 @@
  */
 
 #include "CRVCurvesCollectionFactory.h"
-#include "CRVCurvesCollectionImpl.h"
+#include "CRVCurvesCollection.h"
 
 using std::string;
 
@@ -27,17 +27,17 @@ namespace curves {
 
 boost::shared_ptr<CurvesCollection>
 CurvesCollectionFactory::newInstance(const string& id) {
-  return boost::shared_ptr<CurvesCollection>(new CurvesCollection::Impl(id));
+  return boost::shared_ptr<CurvesCollection>(new CurvesCollection(id));
 }
 
 boost::shared_ptr<CurvesCollection>
 CurvesCollectionFactory::copyInstance(boost::shared_ptr<CurvesCollection> original) {
-  return boost::shared_ptr<CurvesCollection>(new CurvesCollection::Impl(dynamic_cast<CurvesCollection::Impl&> (*original)));
+  return boost::shared_ptr<CurvesCollection>(new CurvesCollection(*original));
 }
 
 boost::shared_ptr<CurvesCollection>
 CurvesCollectionFactory::copyInstance(const CurvesCollection& original) {
-  return boost::shared_ptr<CurvesCollection>(new CurvesCollection::Impl(dynamic_cast<const CurvesCollection::Impl&> (original)));
+  return boost::shared_ptr<CurvesCollection>(new CurvesCollection(original));
 }
 
 }  // namespace curves

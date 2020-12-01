@@ -12,77 +12,104 @@
 //
 
 #include "CRTCriteriaCollection.h"
-#include "CRTCriteriaCollectionImpl.h"
 
 using boost::shared_ptr;
 
 namespace criteria {
 
-CriteriaCollection::CriteriaCollectionConstIterator::CriteriaCollectionConstIterator(
-    const CriteriaCollection::Impl* iterated, bool begin, CriteriaCollectionType_t type) :
-impl_(new BaseConstCriteriaCollectionIteratorImpl(iterated, begin, type)) { }
-
-CriteriaCollection::CriteriaCollectionConstIterator::CriteriaCollectionConstIterator(const CriteriaCollection::CriteriaCollectionConstIterator& original) :
-impl_(new BaseConstCriteriaCollectionIteratorImpl(*(original.impl_))) { }
-
-CriteriaCollection::CriteriaCollectionConstIterator::~CriteriaCollectionConstIterator() {
-  delete impl_;
-  impl_ = NULL;
+void
+CriteriaCollection::add(CriteriaCollectionType_t type, const boost::shared_ptr<Criteria> & criteria) {
+  switch (type) {
+  case CriteriaCollection::BUS:
+    busCriteria_.push_back(criteria);
+    break;
+  case CriteriaCollection::LOAD:
+    loadCriteria_.push_back(criteria);
+    break;
+  case CriteriaCollection::GENERATOR:
+    generatorCriteria_.push_back(criteria);
+    break;
+  }
 }
 
-CriteriaCollection::CriteriaCollectionConstIterator&
-CriteriaCollection::CriteriaCollectionConstIterator::operator=(const CriteriaCollection::CriteriaCollectionConstIterator& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new BaseConstCriteriaCollectionIteratorImpl(*(other.impl_));
-  return *this;
+void
+CriteriaCollection::merge(const boost::shared_ptr<CriteriaCollection> & other) {
+  boost::shared_ptr<CriteriaCollection> otherImpl = boost::dynamic_pointer_cast<CriteriaCollection>(other);
+  if (!otherImpl) return;
+  busCriteria_.insert(busCriteria_.end(), otherImpl->busCriteria_.begin(), otherImpl->busCriteria_.end());
+  loadCriteria_.insert(loadCriteria_.end(), otherImpl->loadCriteria_.begin(), otherImpl->loadCriteria_.end());
+  generatorCriteria_.insert(generatorCriteria_.end(), otherImpl->generatorCriteria_.begin(), otherImpl->generatorCriteria_.end());
+}
+
+CriteriaCollection::CriteriaCollectionConstIterator
+CriteriaCollection::begin(CriteriaCollectionType_t type) const {
+  return CriteriaCollection::CriteriaCollectionConstIterator(this, true, type);
+}
+
+CriteriaCollection::CriteriaCollectionConstIterator
+CriteriaCollection::end(CriteriaCollectionType_t type) const {
+  return CriteriaCollection::CriteriaCollectionConstIterator(this, false, type);
+}
+
+CriteriaCollection::CriteriaCollectionConstIterator::CriteriaCollectionConstIterator(
+    const CriteriaCollection* iterated, bool begin, CriteriaCollectionType_t type) {
+  switch (type) {
+  case CriteriaCollection::BUS:
+    current_ = (begin ? iterated->busCriteria_.begin() : iterated->busCriteria_.end());
+    break;
+  case CriteriaCollection::LOAD:
+    current_ = (begin ? iterated->loadCriteria_.begin() : iterated->loadCriteria_.end());
+    break;
+  case CriteriaCollection::GENERATOR:
+    current_ = (begin ? iterated->generatorCriteria_.begin() : iterated->generatorCriteria_.end());
+    break;
+  }
 }
 
 CriteriaCollection::CriteriaCollectionConstIterator&
 CriteriaCollection::CriteriaCollectionConstIterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 CriteriaCollection::CriteriaCollectionConstIterator
 CriteriaCollection::CriteriaCollectionConstIterator::operator++(int) {
   CriteriaCollection::CriteriaCollectionConstIterator previous = *this;
-  (*impl_)++;
+  current_++;
   return previous;
 }
 
 CriteriaCollection::CriteriaCollectionConstIterator&
 CriteriaCollection::CriteriaCollectionConstIterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 CriteriaCollection::CriteriaCollectionConstIterator
 CriteriaCollection::CriteriaCollectionConstIterator::operator--(int) {
   CriteriaCollection::CriteriaCollectionConstIterator previous = *this;
-  (*impl_)--;
+  current_--;
   return previous;
 }
 
 bool
 CriteriaCollection::CriteriaCollectionConstIterator::operator==(const CriteriaCollection::CriteriaCollectionConstIterator& other) const {
-  return *impl_ == *(other.impl_);
+  return current_ == other.current_;
 }
 
 bool
 CriteriaCollection::CriteriaCollectionConstIterator::operator!=(const CriteriaCollection::CriteriaCollectionConstIterator& other) const {
-  return *impl_ != *(other.impl_);
+  return current_ != other.current_;
 }
 
 const shared_ptr<Criteria>&
 CriteriaCollection::CriteriaCollectionConstIterator::operator*() const {
-  return *(*impl_);
+  return *current_;
 }
 
 const shared_ptr<Criteria>*
 CriteriaCollection::CriteriaCollectionConstIterator::operator->() const {
-  return impl_->operator->();
+  return &(*current_);
 }
 
 }  // namespace criteria

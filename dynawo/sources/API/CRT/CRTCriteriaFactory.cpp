@@ -12,7 +12,7 @@
 //
 
 #include "CRTCriteriaFactory.h"
-#include "CRTCriteriaImpl.h"
+#include "CRTCriteria.h"
 
 using boost::shared_ptr;
 
@@ -20,7 +20,7 @@ namespace criteria {
 
 shared_ptr<Criteria>
 CriteriaFactory::newCriteria() {
-  return shared_ptr<Criteria>(new Criteria::Impl());
+  return shared_ptr<Criteria>(new Criteria());
 }
 
 }  // namespace criteria

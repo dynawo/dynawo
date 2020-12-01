@@ -33,41 +33,52 @@ namespace finalState {
 class Variable {
  public:
   /**
-   * @brief Destructor
+   * @brief Constructor
+   *
+   * @param id variable's id
    */
-  virtual ~Variable() { }
+  explicit Variable(const std::string& id);
 
   /**
    * @brief Setter for variable's id
    * @param id variable's id
    */
-  virtual void setId(const std::string& id) = 0;
+  void setId(const std::string& id);
 
   /**
    * @brief Setter for variable's value
    * @param value variable's value
    */
-  virtual void setValue(const double& value) = 0;
+  void setValue(const double& value);
 
   /**
    * @brief Getter for variable's id
    * @return id of the variable
    */
-  virtual std::string getId() const = 0;
+  const std::string& getId() const {
+    return id_;
+  }
 
   /**
    * @brief Getter for variable's value
    * @return value of the variable
    */
-  virtual double getValue() const = 0;
+  double getValue() const {
+    return value_;
+  }
 
   /**
    * @brief Getter for variable's available attribute
    * @return @b true if the value is available, @b false else
    */
-  virtual bool getAvailable() const = 0;
+  bool getAvailable() const {
+    return available_;
+  }
 
-  class Impl;
+ private:
+  std::string id_;  ///< variable's id
+  double value_;    ///< variable's value
+  bool available_;  ///< @b true is the value is available, @b false else
 };
 }  // namespace finalState
 

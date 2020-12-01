@@ -20,13 +20,11 @@
 #ifndef API_PAR_PARPARAMETERSSETFACTORY_H_
 #define API_PAR_PARPARAMETERSSETFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
-
 #include "PARParametersSet.h"
 
-namespace parameters {
-class ParametersSet;
+#include <boost/shared_ptr.hpp>
 
+namespace parameters {
 /**
  * @class ParametersSetFactory
  * @brief ParametersSet factory class

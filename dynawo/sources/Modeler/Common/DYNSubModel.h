@@ -33,6 +33,7 @@
 #include "DYNEnumUtils.h"
 #include "DYNParameterModeler.h"
 #include "PARParametersSet.h"
+#include "CSTRConstraintsCollection.h"
 
 namespace parameters {
 class ParametersSet;
@@ -45,10 +46,6 @@ class Timeline;
 namespace curves {
 class Curve;
 }  // namespace curves
-
-namespace constraints {
-class ConstraintsCollection;
-}  // namespace constraints
 
 namespace DYN {
 class Message;

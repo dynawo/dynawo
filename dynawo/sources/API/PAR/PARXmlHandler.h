@@ -27,12 +27,10 @@
 #include <xml/sax/parser/ComposableDocumentHandler.h>
 #include <xml/sax/parser/ComposableElementHandler.h>
 
-namespace parameters {
+#include "PARParametersSetCollection.h"
+#include "PARParametersSet.h"
 
-class ParametersSet;
-class ParametersSetCollection;
-class Reference;
-class Parameter;
+namespace parameters {
 
 /**
  * @struct TableParameter

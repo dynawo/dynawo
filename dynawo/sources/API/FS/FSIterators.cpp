@@ -14,307 +14,217 @@
 /**
  * @file  FSIterators.cpp
  *
- * @brief final state iterators: implementation file
+ * @brief Final state iterators : implementation file
  *
- * Iterators can be on models or variables container. They can be const or not
  */
 #include "FSIterators.h"
-#include "FSIteratorsImpl.h"
+
+#include "FSFinalStateCollection.h"
+#include "FSModel.h"
 
 using boost::shared_ptr;
+using std::vector;
 
 namespace finalState {
 
-finalStateModel_const_iterator::finalStateModel_const_iterator(const FinalStateCollection::Impl* iterated, bool begin) :
-impl_(new FinalStateModelConstIteratorImpl(iterated, begin)) { }
+finalStateModel_const_iterator::finalStateModel_const_iterator(const FinalStateCollection* iterated, bool begin) :
+    current_((begin ? iterated->models_.begin() : iterated->models_.end())) {}
 
-finalStateModel_const_iterator::finalStateModel_const_iterator(const FinalStateModel::Impl* iterated, bool begin) :
-impl_(new FinalStateModelConstIteratorImpl(iterated, begin)) { }
-
-finalStateModel_const_iterator::finalStateModel_const_iterator(const THIS& original) :
-impl_(new FinalStateModelConstIteratorImpl(*(original.impl_))) { }
-
-finalStateModel_const_iterator::finalStateModel_const_iterator(const finalStateModel_iterator& original) :
-impl_(new FinalStateModelConstIteratorImpl(*(original.impl()))) { }
-
-finalStateModel_const_iterator::~finalStateModel_const_iterator() {
-  delete impl_;
-  impl_ = NULL;
-}
-
-finalStateModel_const_iterator&
-finalStateModel_const_iterator::operator=(const THIS& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new FinalStateModelConstIteratorImpl(*(other.impl_));
-  return *this;
-}
+finalStateModel_const_iterator::finalStateModel_const_iterator(const FinalStateModel* iterated, bool begin) :
+    current_((begin ? iterated->subModels_.begin() : iterated->subModels_.end())) {}
 
 finalStateModel_const_iterator&
 finalStateModel_const_iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 finalStateModel_const_iterator
 finalStateModel_const_iterator::operator++(int) {
-  THIS previous = *this;
-  (*impl_)++;
+  finalStateModel_const_iterator previous = *this;
+  current_++;
   return previous;
 }
 
 finalStateModel_const_iterator&
 finalStateModel_const_iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 finalStateModel_const_iterator
 finalStateModel_const_iterator::operator--(int) {
-  THIS previous = *this;
-  (*impl_)--;
+  finalStateModel_const_iterator previous = *this;
+  current_--;
   return previous;
 }
 
 bool
-finalStateModel_const_iterator::operator==(const THIS& other) const {
-  return *impl_ == *(other.impl_);
+finalStateModel_const_iterator::operator==(const finalStateModel_const_iterator& other) const {
+  return current_ == other.current_;
 }
 
 bool
-finalStateModel_const_iterator::operator!=(const THIS& other) const {
-  return *impl_ != *(other.impl_);
+finalStateModel_const_iterator::operator!=(const finalStateModel_const_iterator& other) const {
+  return current_ != other.current_;
 }
 
-const shared_ptr<FinalStateModel>&
-finalStateModel_const_iterator::operator*() const {
-  return *(*impl_);
+const shared_ptr<FinalStateModel>& finalStateModel_const_iterator::operator*() const {
+  return *current_;
 }
 
-const shared_ptr<FinalStateModel>*
-finalStateModel_const_iterator::operator->() const {
-  return impl_->operator->();
+const shared_ptr<FinalStateModel>* finalStateModel_const_iterator::operator->() const {
+  return &(*current_);
 }
 
-finalStateVariable_const_iterator::finalStateVariable_const_iterator(const FinalStateCollection::Impl* iterated, bool begin) :
-impl_(new VariableConstIteratorImpl(iterated, begin)) { }
+finalStateVariable_const_iterator::finalStateVariable_const_iterator(const FinalStateCollection* iterated, bool begin) :
+    current_((begin ? iterated->variables_.begin() : iterated->variables_.end())) {}
 
-finalStateVariable_const_iterator::finalStateVariable_const_iterator(const FinalStateModel::Impl* iterated, bool begin) :
-impl_(new VariableConstIteratorImpl(iterated, begin)) { }
-
-finalStateVariable_const_iterator::finalStateVariable_const_iterator(const finalStateVariable_const_iterator& original) :
-impl_(new VariableConstIteratorImpl(*(original.impl_))) { }
-
-finalStateVariable_const_iterator::finalStateVariable_const_iterator(const finalStateVariable_iterator& original) :
-impl_(new VariableConstIteratorImpl(*(original.impl()))) { }
-
-finalStateVariable_const_iterator::~finalStateVariable_const_iterator() {
-  delete impl_;
-  impl_ = NULL;
-}
-
-finalStateVariable_const_iterator&
-finalStateVariable_const_iterator::operator=(const THIS& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new VariableConstIteratorImpl(*(other.impl_));
-  return *this;
-}
+finalStateVariable_const_iterator::finalStateVariable_const_iterator(const FinalStateModel* iterated, bool begin) :
+    current_((begin ? iterated->variables_.begin() : iterated->variables_.end())) {}
 
 finalStateVariable_const_iterator&
 finalStateVariable_const_iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 finalStateVariable_const_iterator
 finalStateVariable_const_iterator::operator++(int) {
-  THIS previous = *this;
-  (*impl_)++;
+  finalStateVariable_const_iterator previous = *this;
+  current_++;
   return previous;
 }
 
 finalStateVariable_const_iterator&
 finalStateVariable_const_iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 finalStateVariable_const_iterator
 finalStateVariable_const_iterator::operator--(int) {
-  THIS previous = *this;
-  (*impl_)--;
+  finalStateVariable_const_iterator previous = *this;
+  current_--;
   return previous;
 }
 
 bool
-finalStateVariable_const_iterator::operator==(const THIS& other) const {
-  return *impl_ == *(other.impl_);
+finalStateVariable_const_iterator::operator==(const finalStateVariable_const_iterator& other) const {
+  return current_ == other.current_;
 }
 
 bool
-finalStateVariable_const_iterator::operator!=(const THIS& other) const {
-  return *impl_ != *(other.impl_);
+finalStateVariable_const_iterator::operator!=(const finalStateVariable_const_iterator& other) const {
+  return current_ != other.current_;
 }
 
-const shared_ptr<Variable>&
-finalStateVariable_const_iterator::operator*() const {
-  return *(*impl_);
+const shared_ptr<Variable>& finalStateVariable_const_iterator::operator*() const {
+  return *current_;
 }
 
-const shared_ptr<Variable>*
-finalStateVariable_const_iterator::operator->() const {
-  return impl_->operator->();
+const shared_ptr<Variable>* finalStateVariable_const_iterator::operator->() const {
+  return &(*current_);
 }
 
-finalStateModel_iterator::finalStateModel_iterator(FinalStateCollection::Impl* iterated, bool begin) :
-impl_(new FinalStateModelIteratorImpl(iterated, begin)) { }
+finalStateModel_iterator::finalStateModel_iterator(FinalStateCollection* iterated, bool begin) :
+    current_((begin ? iterated->models_.begin() : iterated->models_.end())) {}
 
-finalStateModel_iterator::finalStateModel_iterator(FinalStateModel::Impl* iterated, bool begin) :
-impl_(new FinalStateModelIteratorImpl(iterated, begin)) { }
-
-finalStateModel_iterator::finalStateModel_iterator(const THIS& original) :
-impl_(new FinalStateModelIteratorImpl(*(original.impl_))) { }
-
-finalStateModel_iterator::~finalStateModel_iterator() {
-  delete impl_;
-  impl_ = NULL;
-}
-
-finalStateModel_iterator&
-finalStateModel_iterator::operator=(const THIS& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new FinalStateModelIteratorImpl(*(other.impl_));
-  return *this;
-}
+finalStateModel_iterator::finalStateModel_iterator(FinalStateModel* iterated, bool begin) :
+    current_((begin ? iterated->subModels_.begin() : iterated->subModels_.end())) {}
 
 finalStateModel_iterator&
 finalStateModel_iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 finalStateModel_iterator
 finalStateModel_iterator::operator++(int) {
-  THIS previous = *this;
-  (*impl_)++;
+  finalStateModel_iterator previous = *this;
+  current_++;
   return previous;
 }
 
 finalStateModel_iterator&
 finalStateModel_iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 finalStateModel_iterator
 finalStateModel_iterator::operator--(int) {
-  THIS previous = *this;
-  (*impl_)--;
+  finalStateModel_iterator previous = *this;
+  current_--;
   return previous;
 }
 
 bool
-finalStateModel_iterator::operator==(const THIS& other) const {
-  return *impl_ == *(other.impl_);
+finalStateModel_iterator::operator==(const finalStateModel_iterator& other) const {
+  return current_ == other.current_;
 }
 
 bool
-finalStateModel_iterator::operator!=(const THIS& other) const {
-  return *impl_ != *(other.impl_);
+finalStateModel_iterator::operator!=(const finalStateModel_iterator& other) const {
+  return current_ != other.current_;
 }
 
-shared_ptr<FinalStateModel>&
-finalStateModel_iterator::operator*() const {
-  return *(*impl_);
+shared_ptr<FinalStateModel>& finalStateModel_iterator::operator*() const {
+  return *current_;
 }
 
-shared_ptr<FinalStateModel>*
-finalStateModel_iterator::operator->() const {
-  return impl_->operator->();
+shared_ptr<FinalStateModel>* finalStateModel_iterator::operator->() const {
+  return &(*current_);
 }
 
-FinalStateModelIteratorImpl*
-finalStateModel_iterator::impl() const {
-  return impl_;
-}
+finalStateVariable_iterator::finalStateVariable_iterator(FinalStateCollection* iterated, bool begin) :
+    current_((begin ? iterated->variables_.begin() : iterated->variables_.end())) {}
 
-finalStateVariable_iterator::finalStateVariable_iterator(FinalStateCollection::Impl* iterated, bool begin) :
-impl_(new VariableIteratorImpl(iterated, begin)) { }
-
-finalStateVariable_iterator::finalStateVariable_iterator(FinalStateModel::Impl* iterated, bool begin) :
-impl_(new VariableIteratorImpl(iterated, begin)) { }
-
-finalStateVariable_iterator::finalStateVariable_iterator(const THIS& original) :
-impl_(new VariableIteratorImpl(*(original.impl_))) { }
-
-finalStateVariable_iterator::~finalStateVariable_iterator() {
-  delete impl_;
-  impl_ = NULL;
-}
-
-finalStateVariable_iterator&
-finalStateVariable_iterator::operator=(const THIS& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new VariableIteratorImpl(*(other.impl_));
-  return *this;
-}
+finalStateVariable_iterator::finalStateVariable_iterator(FinalStateModel* iterated, bool begin) :
+    current_((begin ? iterated->variables_.begin() : iterated->variables_.end())) {}
 
 finalStateVariable_iterator&
 finalStateVariable_iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 finalStateVariable_iterator
 finalStateVariable_iterator::operator++(int) {
-  THIS previous = *this;
-  (*impl_)++;
+  finalStateVariable_iterator previous = *this;
+  current_++;
   return previous;
 }
 
 finalStateVariable_iterator&
 finalStateVariable_iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 finalStateVariable_iterator
 finalStateVariable_iterator::operator--(int) {
-  THIS previous = *this;
-  (*impl_)--;
+  finalStateVariable_iterator previous = *this;
+  current_--;
   return previous;
 }
 
 bool
-finalStateVariable_iterator::operator==(const THIS& other) const {
-  return *impl_ == *(other.impl_);
+finalStateVariable_iterator::operator==(const finalStateVariable_iterator& other) const {
+  return current_ == other.current_;
 }
 
 bool
-finalStateVariable_iterator::operator!=(const THIS& other) const {
-  return *impl_ != *(other.impl_);
+finalStateVariable_iterator::operator!=(const finalStateVariable_iterator& other) const {
+  return current_ != other.current_;
 }
 
-shared_ptr<Variable>&
-finalStateVariable_iterator::operator*() const {
-  return *(*impl_);
+shared_ptr<Variable>& finalStateVariable_iterator::operator*() const {
+  return *current_;
 }
 
-shared_ptr<Variable>*
-finalStateVariable_iterator::operator->() const {
-  return impl_->operator->();
-}
-
-VariableIteratorImpl*
-finalStateVariable_iterator::impl() const {
-  return impl_;
+shared_ptr<Variable>* finalStateVariable_iterator::operator->() const {
+  return &(*current_);
 }
 
 }  // namespace finalState

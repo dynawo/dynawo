@@ -20,11 +20,13 @@
 #ifndef API_TL_TLTIMELINE_H_
 #define API_TL_TLTIMELINE_H_
 
-#include <string>
+#include "TLEvent.h"
 
-#include <boost/optional.hpp>
 #include <boost/none.hpp>
+#include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
+#include <string>
+#include <vector>
 
 namespace timeline {
 
@@ -39,9 +41,11 @@ class Event;
 class Timeline {
  public:
   /**
-   * @brief Destructor
+   * @brief constructor
+   *
+   * @param id Timeline's id
    */
-  virtual ~Timeline() { }
+  explicit Timeline(const std::string& id);
 
   /**
    * @brief Add an event to the timeline
@@ -51,19 +55,14 @@ class Timeline {
    * @param message event message
    * @param priority event priority, optional
    */
-  virtual void addEvent(const double& time, const std::string& modelName, const std::string& message, const boost::optional<int>& priority) = 0;
+  void addEvent(const double& time, const std::string& modelName, const std::string& message, const boost::optional<int>& priority);
 
   /**
    * @brief number of event getter
    *
    * @return the number of events stored in timeline
    */
-  virtual int getSizeEvents() = 0;
-
-  class Impl;
-
- protected:
-  class BaseIteratorImpl;  // Abstract class, for the interface
+  int getSizeEvents();
 
  public:
   /**
@@ -86,26 +85,7 @@ class Timeline {
      * or the end of the events' container.
      * @returns Created event_const_iterator.
      */
-    event_const_iterator(const Timeline::Impl* iterated, bool begin);
-
-    /**
-     * @brief Copy constructor
-     * @param original : const iterator to copy
-     */
-    event_const_iterator(const event_const_iterator& original);
-
-    /**
-     * @brief Destructor
-     */
-    ~event_const_iterator();
-
-    /**
-     * @brief assignment
-     * @param other : event_const_iterator to assign
-     *
-     * @returns Reference to this event_const_iterator
-     */
-    event_const_iterator& operator=(const event_const_iterator& other);
+    event_const_iterator(const Timeline* iterated, bool begin);
 
     /**
      * @brief Prefix-increment operator
@@ -166,20 +146,20 @@ class Timeline {
     const boost::shared_ptr<Event>* operator->() const;
 
    private:
-    BaseIteratorImpl* impl_; /**< Pointer to the implementation of iterator */
+    std::vector<boost::shared_ptr<Event> >::const_iterator current_;  ///< current set iterator
   };
 
   /**
    * @brief Get an event_const_iterator to the beginning of the events' set
    * @return beginning of constant iterator
    */
-  virtual event_const_iterator cbeginEvent() const = 0;
+  event_const_iterator cbeginEvent() const;
 
   /**
    * @brief Get an event_const_iterator to the end of the parameters' set
    * @return end of constant iterator
    */
-  virtual event_const_iterator cendEvent() const = 0;
+  event_const_iterator cendEvent() const;
 
   /**
    * @brief Erase the nbEvents in the timeline being before lastEventPosition
@@ -187,7 +167,21 @@ class Timeline {
    * @param nbEvents number of events to delete from the timeline starting from last event
    */
 
-  virtual void eraseEvents(int nbEvents) = 0;
+  void eraseEvents(int nbEvents);
+
+ private:
+  /**
+   * @brief compare two events
+   *
+   * @param left first event to compare
+   * @param right second event to compare
+   * @return true if left is the same event as right
+   */
+  bool eventEquals(const Event& left, const Event& right) const;
+
+ private:
+  std::vector<boost::shared_ptr<Event> > events_;  ///< Array of events
+  std::string id_;                                 ///< Timeline's id
 };
 
 }  // namespace timeline

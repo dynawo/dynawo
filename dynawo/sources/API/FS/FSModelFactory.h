@@ -22,8 +22,9 @@
 
 #include <boost/shared_ptr.hpp>
 
+#include "FSModel.h"
+
 namespace finalState {
-class FinalStateModel;
 
 /**
  * @class ModelFactory

@@ -14,81 +14,114 @@
 /**
  * @file  TLTimeline.cpp
  *
- * @brief Dynawo timeline : implementation for iterator
+ * @brief Dynawo timeline : implementation file
  *
  */
-
 #include "TLTimeline.h"
-#include "TLTimelineImpl.h"
+
+#include "DYNCommon.h"
+#include "TLEvent.h"
+#include "TLEventFactory.h"
+
+#include <boost/none.hpp>
+#include <iostream>
+#include <sstream>
+#include <vector>
 
 using boost::shared_ptr;
+using std::string;
+using std::stringstream;
+using std::vector;
 
 namespace timeline {
 
-Timeline::event_const_iterator::event_const_iterator(const Timeline::Impl* iterated, bool begin) :
-impl_(new BaseIteratorImpl(iterated, begin)) { }
+Timeline::Timeline(const string& id) : id_(id) {}
 
-Timeline::event_const_iterator::event_const_iterator(const Timeline::event_const_iterator& original) :
-impl_(new BaseIteratorImpl(*(original.impl_))) { }
-
-Timeline::event_const_iterator::~event_const_iterator() {
-  delete impl_;
-  impl_ = NULL;
+void
+Timeline::addEvent(const double& time, const string& modelName, const std::string& message, const boost::optional<int>& priority) {
+  shared_ptr<Event> event = EventFactory::newEvent();
+  event->setTime(time);
+  event->setModelName(modelName);
+  event->setMessage(message);
+  event->setPriority(priority);
+  if (events_.empty() || !eventEquals(*event, *events_.back()))
+    events_.push_back(event);
 }
 
-Timeline::event_const_iterator&
-Timeline::event_const_iterator::operator=(const Timeline::event_const_iterator& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new BaseIteratorImpl(*(other.impl_));
-  return *this;
+bool
+Timeline::eventEquals(const Event& left, const Event& right) const {
+  return DYN::doubleEquals(left.getTime(), right.getTime()) && left.getModelName() == right.getModelName() && left.hasPriority() == right.hasPriority() &&
+         (!left.hasPriority() || !right.hasPriority() || left.getPriority() == right.getPriority()) && left.getMessage() == right.getMessage();
 }
+
+int
+Timeline::getSizeEvents() {
+  return events_.size();
+}
+
+Timeline::event_const_iterator
+Timeline::cbeginEvent() const {
+  return Timeline::event_const_iterator(this, true);
+}
+
+Timeline::event_const_iterator
+Timeline::cendEvent() const {
+  return Timeline::event_const_iterator(this, false);
+}
+
+void
+Timeline::eraseEvents(int nbEvents) {
+  std::vector<boost::shared_ptr<Event> >::iterator firstPosition = events_.end();
+  for (int i = 0; i < nbEvents; i++)
+    firstPosition--;
+  events_.erase(firstPosition, events_.end());
+}
+
+Timeline::event_const_iterator::event_const_iterator(const Timeline* iterated, bool begin) :
+    current_((begin ? iterated->events_.begin() : iterated->events_.end())) {}
 
 Timeline::event_const_iterator&
 Timeline::event_const_iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 Timeline::event_const_iterator
 Timeline::event_const_iterator::operator++(int) {
   Timeline::event_const_iterator previous = *this;
-  (*impl_)++;
+  current_++;
   return previous;
 }
 
 Timeline::event_const_iterator&
 Timeline::event_const_iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 Timeline::event_const_iterator
 Timeline::event_const_iterator::operator--(int) {
   Timeline::event_const_iterator previous = *this;
-  (*impl_)--;
+  current_--;
   return previous;
 }
 
 bool
 Timeline::event_const_iterator::operator==(const Timeline::event_const_iterator& other) const {
-  return *impl_ == *(other.impl_);
+  return current_ == other.current_;
 }
 
 bool
 Timeline::event_const_iterator::operator!=(const Timeline::event_const_iterator& other) const {
-  return *impl_ != *(other.impl_);
+  return current_ != other.current_;
 }
 
-const shared_ptr<Event>&
-Timeline::event_const_iterator::operator*() const {
-  return *(*impl_);
+const shared_ptr<Event>& Timeline::event_const_iterator::operator*() const {
+  return *current_;
 }
 
-const shared_ptr<Event>*
-Timeline::event_const_iterator::operator->() const {
-  return impl_->operator->();
+const shared_ptr<Event>* Timeline::event_const_iterator::operator->() const {
+  return &(*current_);
 }
 
 }  // namespace timeline

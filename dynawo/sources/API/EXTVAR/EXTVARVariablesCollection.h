@@ -20,13 +20,12 @@
 #ifndef API_EXTVAR_EXTVARVARIABLESCOLLECTION_H_
 #define API_EXTVAR_EXTVARVARIABLESCOLLECTION_H_
 
+#include "EXTVARIterators.h"
+#include "EXTVARVariable.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace externalVariables {
-
-class Variable;
-class variable_const_iterator;
-class variable_iterator;
 
 /**
  * @class VariablesCollection
@@ -39,45 +38,42 @@ class variable_iterator;
 class VariablesCollection {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~VariablesCollection() {}
-  /**
    * @brief Add an external variable in the collection
    *
    * @param variable Variable to add
    * @throws Error::API exception if variable id already exists
    */
-  virtual void addVariable(const boost::shared_ptr<Variable>& variable) = 0;
-
-  /**
-   * @brief Implementation class
-   */
-  class Impl;  // Implementation class
+  void addVariable(const boost::shared_ptr<Variable>& variable);
 
   /**
    * @brief model iterator: beginning of variable
    * @return beginning of variable
    */
-  virtual variable_const_iterator cbeginVariable() const = 0;
+  variable_const_iterator cbeginVariable() const;
 
   /**
    * @brief model iterator: end of variable
    * @return end of variable
    */
-  virtual variable_const_iterator cendVariable() const = 0;
+  variable_const_iterator cendVariable() const;
 
   /**
    * @brief model iterator: beginning of variable
    * @return beginning of variable
    */
-  virtual variable_iterator beginVariable() = 0;
+  variable_iterator beginVariable();
 
   /**
    * @brief model iterator: end of variable
    * @return end of variable
    */
-  virtual variable_iterator endVariable() = 0;
+  variable_iterator endVariable();
+
+  friend class variable_iterator;
+  friend class variable_const_iterator;
+
+ private:
+  std::map<std::string, boost::shared_ptr<Variable> > variables_;  ///< Map of the variables
 };
 
 }  // namespace externalVariables

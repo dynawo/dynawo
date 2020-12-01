@@ -20,16 +20,13 @@
 #ifndef API_FS_FSMODEL_H_
 #define API_FS_FSMODEL_H_
 
-#include <string>
+#include "FSIterators.h"
+#include "FSVariable.h"
+
 #include <boost/shared_ptr.hpp>
+#include <string>
 
 namespace finalState {
-class Variable;
-class finalStateVariable_const_iterator;
-class finalStateModel_const_iterator;
-class finalStateVariable_iterator;
-class finalStateModel_iterator;
-
 /**
  * @class FinalStateModel
  * @brief final state model interface class
@@ -38,84 +35,94 @@ class finalStateModel_iterator;
  */
 class FinalStateModel {
  public:
-  /**
-   * @brief Destructor
+   /**
+   * @brief Constructor
+   *
+   * @param id model's id
    */
-  virtual ~FinalStateModel() { }
+  explicit FinalStateModel(const std::string& id);
 
   /**
    * @brief Setter for model's id
    * @param id model's id
    */
-  virtual void setId(const std::string& id) = 0;
+  void setId(const std::string& id);
 
   /**
    * @brief Add a new submodel to the model
    * @param model model to add as a submodel to this model
    */
-  virtual void addSubModel(const boost::shared_ptr<FinalStateModel>& model) = 0;
+  void addSubModel(const boost::shared_ptr<FinalStateModel>& model);
 
   /**
    * @brief Add a new variable to the model
    * @param variable variable to add to this model
    */
-  virtual void addVariable(const boost::shared_ptr<Variable>& variable) = 0;
+  void addVariable(const boost::shared_ptr<Variable>& variable);
 
   /**
    * @brief Getter for model's id
    * @return id of this model
    */
-  virtual std::string getId() const = 0;
-
-  class Impl;
+  std::string getId() const;
 
   /**
    * @brief Get a variable_const_iterator to the beginning of variables' container
    * @return begin of variable
    */
-  virtual finalStateVariable_const_iterator cbeginVariable() const = 0;
+  finalStateVariable_const_iterator cbeginVariable() const;
 
   /**
    * @brief Get a variable_const_iterator to the end of variables' container
    * @return end of variable
    */
-  virtual finalStateVariable_const_iterator cendVariable() const = 0;
+  finalStateVariable_const_iterator cendVariable() const;
 
   /**
    * @brief Get a model_const_iterator to the beginning of models' container
    * @return begin of model
    */
-  virtual finalStateModel_const_iterator cbeginFinalStateModel() const = 0;
+  finalStateModel_const_iterator cbeginFinalStateModel() const;
 
   /**
    * @brief Get a model_const_iterator to the end of models' container
    * @return end of model
    */
-  virtual finalStateModel_const_iterator cendFinalStateModel() const = 0;
+  finalStateModel_const_iterator cendFinalStateModel() const;
 
   /**
    * @brief Get an iterator to the beginning of the variables' vector
    * @return begin of variable
    */
-  virtual finalStateVariable_iterator beginVariable() = 0;
+  finalStateVariable_iterator beginVariable();
 
   /**
    * @brief Get an iterator to the end of the variables' vector
    * @return end of variable
    */
-  virtual finalStateVariable_iterator endVariable() = 0;
+  finalStateVariable_iterator endVariable();
 
   /**
    * @brief Get an iterator to the beginning of the models' vector
    * @return begin of model
    */
-  virtual finalStateModel_iterator beginFinalStateModel() = 0;
+  finalStateModel_iterator beginFinalStateModel();
 
   /**
    * @brief Get an iterator to the end of the models' vector
    * @return end of model
    */
-  virtual finalStateModel_iterator endFinalStateModel() = 0;
+  finalStateModel_iterator endFinalStateModel();
+
+  friend class finalStateModel_const_iterator;
+  friend class finalStateVariable_const_iterator;
+  friend class finalStateModel_iterator;
+  friend class finalStateVariable_iterator;
+
+ private:
+  std::string id_;                                              ///< model's id
+  std::vector<boost::shared_ptr<FinalStateModel> > subModels_;  ///< vector of each subModels contained in this model
+  std::vector<boost::shared_ptr<Variable> > variables_;         ///< vector of each variables of this model
 };
 
 }  // namespace finalState

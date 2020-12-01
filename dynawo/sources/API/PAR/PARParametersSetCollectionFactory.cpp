@@ -18,7 +18,7 @@
  */
 
 #include "PARParametersSetCollectionFactory.h"
-#include "PARParametersSetCollectionImpl.h"
+#include "PARParametersSetCollection.h"
 
 using boost::shared_ptr;
 
@@ -26,12 +26,12 @@ namespace parameters {
 
 shared_ptr<ParametersSetCollection>
 ParametersSetCollectionFactory::newCollection() {
-  return shared_ptr<ParametersSetCollection>(new ParametersSetCollection::Impl());
+  return shared_ptr<ParametersSetCollection>(new ParametersSetCollection());
 }
 
 shared_ptr<ParametersSetCollection>
 ParametersSetCollectionFactory::copyCollection(shared_ptr<ParametersSetCollection> original) {
-  return shared_ptr<ParametersSetCollection>(new ParametersSetCollection::Impl(dynamic_cast<ParametersSetCollection::Impl&> (*original)));
+  return shared_ptr<ParametersSetCollection>(new ParametersSetCollection(*original));
 }
 
 }  // namespace parameters

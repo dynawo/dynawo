@@ -18,7 +18,7 @@
  */
 
 #include "PARParameterFactory.h"
-#include "PARParameterImpl.h"
+#include "PARParameter.h"
 
 using std::string;
 
@@ -26,22 +26,22 @@ namespace parameters {
 
 boost::shared_ptr<Parameter>
 ParameterFactory::newParameter(const string& name, const bool boolValue) {
-  return boost::shared_ptr<Parameter>(new Parameter::Impl(name, boolValue));
+  return boost::shared_ptr<Parameter>(new Parameter(name, boolValue));
 }
 
 boost::shared_ptr<Parameter>
 ParameterFactory::newParameter(const string& name, const int intValue) {
-  return boost::shared_ptr<Parameter>(new Parameter::Impl(name, intValue));
+  return boost::shared_ptr<Parameter>(new Parameter(name, intValue));
 }
 
 boost::shared_ptr<Parameter>
 ParameterFactory::newParameter(const string& name, const double doubleValue) {
-  return boost::shared_ptr<Parameter>(new Parameter::Impl(name, doubleValue));
+  return boost::shared_ptr<Parameter>(new Parameter(name, doubleValue));
 }
 
 boost::shared_ptr<Parameter>
 ParameterFactory::newParameter(const string& name, const string& stringValue) {
-  return boost::shared_ptr<Parameter>(new Parameter::Impl(name, stringValue));
+  return boost::shared_ptr<Parameter>(new Parameter(name, stringValue));
 }
 
 }  // namespace parameters

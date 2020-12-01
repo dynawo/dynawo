@@ -20,12 +20,11 @@
 #ifndef API_TL_TLEVENTFACTORY_H_
 #define API_TL_TLEVENTFACTORY_H_
 
+#include "TLEvent.h"
+
 #include <boost/shared_ptr.hpp>
 
-
 namespace timeline {
-class Event;
-
 /**
  * @class EventFactory
  * @brief Event factory class

@@ -24,7 +24,7 @@
 
 #include "DYNMacrosMessage.h"
 
-#include "EXTVARIterators.h"
+#include "EXTVARVariablesCollection.h"
 #include "EXTVARXmlExporter.h"
 #include "EXTVARVariable.h"
 

@@ -18,7 +18,7 @@
  */
 
 #include "EXTVARVariableFactory.h"
-#include "EXTVARVariableImpl.h"
+#include "EXTVARVariable.h"
 
 using std::string;
 
@@ -28,7 +28,7 @@ namespace externalVariables {
 
 shared_ptr<Variable>
 VariableFactory::newVariable(const string& id, Variable::Type type) {
-  return shared_ptr<Variable>(new Variable::Impl(id, type));
+  return shared_ptr<Variable>(new Variable(id, type));
 }
 
 }  // namespace externalVariables

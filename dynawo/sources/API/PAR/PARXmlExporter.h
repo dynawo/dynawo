@@ -24,8 +24,6 @@
 
 namespace parameters {
 
-class ParametersSetCollection;
-
 /**
  * @class XmlExporter
  * @brief XML exporter interface class

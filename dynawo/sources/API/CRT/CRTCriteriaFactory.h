@@ -16,9 +16,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-namespace criteria {
-class Criteria;
+#include "CRTCriteria.h"
 
+namespace criteria {
 /**
  * @class CriteriaFactory
  * @brief CriteriaFactory factory class

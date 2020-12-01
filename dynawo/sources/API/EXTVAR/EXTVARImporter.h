@@ -22,8 +22,8 @@
 
 #include <string>
 
+#include "EXTVARVariablesCollection.h"
 namespace externalVariables {
-class VariablesCollection;
 
 /**
  * @class Importer

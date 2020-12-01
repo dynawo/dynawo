@@ -12,158 +12,113 @@
 //
 
 /**
- * @file  DYDIterators.cpp
+ * @file  EXTVARIterators.cpp
  *
- * @brief Dynamic data iterators: implementation file
+ * @brief extern variable data iterators : implementation file
  *
- * Iterators can be on models, connectors or network connectors
- * container. They can be const or not
  */
 #include "EXTVARIterators.h"
-#include "EXTVARIteratorsImpl.h"
+
+#include "EXTVARVariablesCollection.h"
 
 using boost::shared_ptr;
+using std::map;
+using std::string;
 
 namespace externalVariables {
 
-variable_const_iterator::variable_const_iterator(const VariablesCollection::Impl* iterated, bool begin) :
-impl_(new VariablesConstIteratorImpl(iterated, begin)) { }
-
-variable_const_iterator::variable_const_iterator(const variable_const_iterator& original) :
-impl_(new VariablesConstIteratorImpl(*(original.impl_))) { }
-
-variable_const_iterator::variable_const_iterator(const variable_iterator& original) :
-impl_(new VariablesConstIteratorImpl(*(original.impl()))) { }
-
-variable_const_iterator::~variable_const_iterator() {
-  delete impl_;
-  impl_ = NULL;
-}
-
-variable_const_iterator&
-variable_const_iterator::operator=(const variable_const_iterator& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new VariablesConstIteratorImpl(*(other.impl_));
-  return *this;
-}
+variable_const_iterator::variable_const_iterator(const VariablesCollection* iterated, bool begin) :
+    current_((begin ? iterated->variables_.begin() : iterated->variables_.end())) {}
 
 variable_const_iterator&
 variable_const_iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 variable_const_iterator
 variable_const_iterator::operator++(int) {
   variable_const_iterator previous = *this;
-  (*impl_)++;
+  current_++;
   return previous;
 }
 
 variable_const_iterator&
 variable_const_iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 variable_const_iterator
 variable_const_iterator::operator--(int) {
   variable_const_iterator previous = *this;
-  (*impl_)--;
+  current_--;
   return previous;
 }
 
 bool
 variable_const_iterator::operator==(const variable_const_iterator& other) const {
-  return *impl_ == *(other.impl_);
+  return current_ == other.current_;
 }
 
 bool
 variable_const_iterator::operator!=(const variable_const_iterator& other) const {
-  return *impl_ != *(other.impl_);
+  return current_ != other.current_;
 }
 
-const shared_ptr<Variable>&
-variable_const_iterator::operator*() const {
-  return *(*impl_);
+const shared_ptr<Variable>& variable_const_iterator::operator*() const {
+  return current_->second;
 }
 
-const shared_ptr<Variable>*
-variable_const_iterator::operator->() const {
-  return impl_->operator->();
+const shared_ptr<Variable>* variable_const_iterator::operator->() const {
+  return &(current_->second);
 }
 
-variable_iterator::variable_iterator(VariablesCollection::Impl* iterated, bool begin) :
-impl_(new VariablesIteratorImpl(iterated, begin)) { }
-
-variable_iterator::variable_iterator(const variable_iterator& original) :
-impl_(new VariablesIteratorImpl(*(original.impl_))) { }
-
-variable_iterator::~variable_iterator() {
-  delete impl_;
-  impl_ = NULL;
-}
-
-variable_iterator&
-variable_iterator::operator=(const variable_iterator& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new VariablesIteratorImpl(*(other.impl_));
-  return *this;
-}
+variable_iterator::variable_iterator(VariablesCollection* iterated, bool begin) :
+    current_((begin ? iterated->variables_.begin() : iterated->variables_.end())) {}
 
 variable_iterator&
 variable_iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 variable_iterator
 variable_iterator::operator++(int) {
   variable_iterator previous = *this;
-  (*impl_)++;
+  current_++;
   return previous;
 }
 
 variable_iterator&
 variable_iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 variable_iterator
 variable_iterator::operator--(int) {
   variable_iterator previous = *this;
-  (*impl_)--;
+  current_--;
   return previous;
 }
 
 bool
 variable_iterator::operator==(const variable_iterator& other) const {
-  return *impl_ == *(other.impl_);
+  return current_ == other.current_;
 }
 
 bool
 variable_iterator::operator!=(const variable_iterator& other) const {
-  return *impl_ != *(other.impl_);
+  return current_ != other.current_;
 }
 
-shared_ptr<Variable>&
-variable_iterator::operator*() const {
-  return *(*impl_);
+shared_ptr<Variable>& variable_iterator::operator*() const {
+  return current_->second;
 }
 
-shared_ptr<Variable>*
-variable_iterator::operator->() const {
-  return impl_->operator->();
-}
-
-VariablesIteratorImpl*
-variable_iterator::impl() const {
-  return impl_;
+shared_ptr<Variable>* variable_iterator::operator->() const {
+  return &(current_->second);
 }
 
 }  // namespace externalVariables

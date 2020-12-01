@@ -20,17 +20,16 @@ set(API_FS_SHARED
 install(FILES ${API_FS_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
 set(API_FS_SOURCES
-    FSFinalStateCollectionImpl.cpp
+    FSFinalStateCollection.cpp
     FSFinalStateCollectionFactory.cpp
-    FSModelImpl.cpp
+    FSModel.cpp
     FSModelFactory.cpp
-    FSVariableImpl.cpp
+    FSVariable.cpp
     FSVariableFactory.cpp
     FSXmlExporter.cpp
     FSXmlHandler.cpp
     FSXmlImporter.cpp
     FSIterators.cpp
-    FSIteratorsImpl.cpp
     )
 
 set(API_FS_INCLUDE_HEADERS

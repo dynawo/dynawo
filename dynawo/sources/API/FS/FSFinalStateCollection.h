@@ -21,15 +21,14 @@
 #ifndef API_FS_FSFINALSTATECOLLECTION_H_
 #define API_FS_FSFINALSTATECOLLECTION_H_
 
+#include "FSIterators.h"
+#include "FSModel.h"
+#include "FSVariable.h"
+
 #include <boost/shared_ptr.hpp>
+#include <string>
 
 namespace finalState {
-class FinalStateModel;
-class Variable;
-class finalStateVariable_const_iterator;
-class finalStateModel_const_iterator;
-class finalStateVariable_iterator;
-class finalStateModel_iterator;
 
 /**
  * @class FinalStateCollection
@@ -40,73 +39,83 @@ class finalStateModel_iterator;
 class FinalStateCollection {
  public:
   /**
-   * @brief Destructor
+   * @brief Constructor
+   *
+   * @param id final state collection's id
    */
-  virtual ~FinalStateCollection() { }
+  explicit FinalStateCollection(const std::string& id);
 
   /**
    * @brief add a model to the final state structure
    *
    * @param model model to add to the structure
    */
-  virtual void addFinalStateModel(const boost::shared_ptr<FinalStateModel>& model) = 0;
+  void addFinalStateModel(const boost::shared_ptr<FinalStateModel>& model);
 
   /**
    * @brief add a variable to the final state structure
    *
    * @param variable model to add to the structure
    */
-  virtual void addVariable(const boost::shared_ptr<Variable>& variable) = 0;
+  void addVariable(const boost::shared_ptr<Variable>& variable);
 
   /**
    * @brief Get a const_iterator to the beginning of the variables' vector
    * @return a const_iterator to the beginning of the variables' vector
    */
-  virtual finalStateVariable_const_iterator cbeginVariable() const = 0;
+  finalStateVariable_const_iterator cbeginVariable() const;
 
   /**
    * @brief Get a const_iterator to the end of the variables' vector
    * @return a const_iterator to the end of the variables' vector
    */
-  virtual finalStateVariable_const_iterator cendVariable() const = 0;
+  finalStateVariable_const_iterator cendVariable() const;
 
   /**
    * @brief Get a const_iterator to the beginning of the models' vector
    * @return a const_iterator to the beginning of the models' vector
    */
-  virtual finalStateModel_const_iterator cbeginFinalStateModel() const = 0;
+  finalStateModel_const_iterator cbeginFinalStateModel() const;
 
   /**
    * @brief Get a const_iterator to the end of the models' vector
    * @return a const_iterator to the end of the models' vector
    */
-  virtual finalStateModel_const_iterator cendFinalStateModel() const = 0;
+  finalStateModel_const_iterator cendFinalStateModel() const;
 
   /**
    * @brief Get an iterator to the beginning of the variables' vector
    * @return an iterator to the beginning of the variables' vector
    */
-  virtual finalStateVariable_iterator beginVariable() = 0;
+  finalStateVariable_iterator beginVariable();
 
   /**
    * @brief Get an iterator to the end of the variables' vector
    * @return an iterator to the end of the variables' vector
    */
-  virtual finalStateVariable_iterator endVariable() = 0;
+  finalStateVariable_iterator endVariable();
 
   /**
    * @brief Get an iterator to the beginning of the models' vector
    * @return an iterator to the beginning of the models' vector
    */
-  virtual finalStateModel_iterator beginFinalStateModel() = 0;
+  finalStateModel_iterator beginFinalStateModel();
 
   /**
    * @brief Get an iterator to the end of the models' vector
    * @return an iterator to the end of the models' vector
    */
-  virtual finalStateModel_iterator endFinalStateModel() = 0;
+  finalStateModel_iterator endFinalStateModel();
 
-  class Impl;  // Implementation class
+  friend class finalStateModel_const_iterator;
+  friend class finalStateVariable_const_iterator;
+  friend class finalStateModel_iterator;
+  friend class finalStateVariable_iterator;
+
+ private:
+  std::string id_;                                           ///< Collection id
+  std::vector<boost::shared_ptr<FinalStateModel> > models_;  ///< model structure of researched final state
+  std::vector<boost::shared_ptr<Variable> > variables_;      ///< top variable requested for final state
 };
 
 }  // namespace finalState

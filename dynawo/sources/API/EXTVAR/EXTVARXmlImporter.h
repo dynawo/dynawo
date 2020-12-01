@@ -22,9 +22,9 @@
 #include <boost/shared_ptr.hpp>
 
 #include "EXTVARImporter.h"
+#include "EXTVARVariablesCollection.h"
 
 namespace externalVariables {
-class VariablesCollection;
 
 /**
  * @class XmlImporter
