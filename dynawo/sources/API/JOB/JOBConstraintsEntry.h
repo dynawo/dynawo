@@ -31,35 +31,32 @@ namespace job {
 class ConstraintsEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~ConstraintsEntry() {}
-
-  /**
    * @brief Output file attribute setter
    * @param outputFile: Output file for constraints
    */
-  virtual void setOutputFile(const std::string & outputFile) = 0;
+  void setOutputFile(const std::string& outputFile);
 
   /**
    * @brief Export Mode attribute setter
    * @param exportMode: Export mode for constraints
    */
-  virtual void setExportMode(const std::string & exportMode) = 0;
+  void setExportMode(const std::string& exportMode);
 
   /**
    * @brief Output file attribute getter
    * @return Output file for constraints
    */
-  virtual std::string getOutputFile() const = 0;
+  const std::string& getOutputFile() const;
 
   /**
    * @brief Export mode attribute getter
    * @return Export mode for constraints
    */
-  virtual std::string getExportMode() const  = 0;
+  const std::string& getExportMode() const;
 
-  class Impl;  ///< implemented class
+ private:
+  std::string outputFile_;  ///< Export file for constraints
+  std::string exportMode_;  ///< Export mode for constraints output file
 };
 
 }  // namespace job

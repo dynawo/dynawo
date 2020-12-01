@@ -21,35 +21,33 @@
 #ifndef API_JOB_JOBXMLHANDLER_H_
 #define API_JOB_JOBXMLHANDLER_H_
 
-#include <vector>
-#include <string>
+#include "DYNFileSystemUtils.h"
+#include "JOBAppenderEntry.h"
+#include "JOBConstraintsEntry.h"
+#include "JOBCurvesEntry.h"
+#include "JOBDynModelsEntry.h"
+#include "JOBFinalStateEntry.h"
+#include "JOBInitValuesEntry.h"
+#include "JOBInitialStateEntry.h"
+#include "JOBJobEntry.h"
+#include "JOBJobsCollection.h"
+#include "JOBLogsEntry.h"
+#include "JOBModelerEntry.h"
+#include "JOBModelsDirEntry.h"
+#include "JOBNetworkEntry.h"
+#include "JOBOutputsEntry.h"
+#include "JOBSimulationEntry.h"
+#include "JOBSolverEntry.h"
+#include "JOBTimelineEntry.h"
+#include "JOBTimetableEntry.h"
 
 #include <boost/shared_ptr.hpp>
+#include <string>
+#include <vector>
 #include <xml/sax/parser/ComposableDocumentHandler.h>
 #include <xml/sax/parser/ComposableElementHandler.h>
 
-#include "DYNFileSystemUtils.h"
-
-
 namespace job {
-class AppenderEntry;
-class InitialStateEntry;
-class NetworkEntry;
-class InitValuesEntry;
-class DynModelsEntry;
-class ConstraintsEntry;
-class TimelineEntry;
-class TimetableEntry;
-class ModelsDirEntry;
-class FinalStateEntry;
-class CurvesEntry;
-class LogsEntry;
-class OutputsEntry;
-class SimulationEntry;
-class ModelerEntry;
-class SolverEntry;
-class JobEntry;
-class JobsCollection;
 
 /**
  * @class AppenderHandler
@@ -61,12 +59,12 @@ class AppenderHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit AppenderHandler(elementName_type const &root_element);
+  explicit AppenderHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~AppenderHandler() { }
+  ~AppenderHandler() {}
 
   /**
    * @brief return the appender read in xml file
@@ -95,12 +93,12 @@ class DirectoryHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit DirectoryHandler(elementName_type const &root_element);
+  explicit DirectoryHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~DirectoryHandler() { }
+  ~DirectoryHandler() {}
 
   /**
    * @brief return the directory read in xml file
@@ -129,12 +127,12 @@ class ModelsDirHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit ModelsDirHandler(elementName_type const &root_element);
+  explicit ModelsDirHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~ModelsDirHandler() { }
+  ~ModelsDirHandler() {}
 
   /**
    * @brief add a directory to the list of directory
@@ -147,7 +145,6 @@ class ModelsDirHandler : public xml::sax::parser::ComposableElementHandler {
    */
   boost::shared_ptr<ModelsDirEntry> get() const;
 
-
  protected:
   /**
    * @brief Called when the XML element opening tag is read
@@ -157,7 +154,7 @@ class ModelsDirHandler : public xml::sax::parser::ComposableElementHandler {
 
  private:
   boost::shared_ptr<ModelsDirEntry> modelsDir_;  ///< current modelsDirEntry object
-  DirectoryHandler directoryHandler_;  ///< handler used to parse directory element
+  DirectoryHandler directoryHandler_;            ///< handler used to parse directory element
 };
 
 /**
@@ -170,12 +167,12 @@ class InitialStateHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit InitialStateHandler(elementName_type const &root_element);
+  explicit InitialStateHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~InitialStateHandler() { }
+  ~InitialStateHandler() {}
 
   /**
    * @brief get the initial state element read in xml file
@@ -204,12 +201,12 @@ class DynModelsHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit DynModelsHandler(elementName_type const &root_element);
+  explicit DynModelsHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~DynModelsHandler() { }
+  ~DynModelsHandler() {}
 
   /**
    * @brief get the dynModels objects read in xml file
@@ -238,12 +235,12 @@ class NetworkHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit NetworkHandler(elementName_type const &root_element);
+  explicit NetworkHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~NetworkHandler() { }
+  ~NetworkHandler() {}
 
   /**
    * @brief return the network entry element read in xml file
@@ -272,12 +269,12 @@ class InitValuesHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit InitValuesHandler(elementName_type const &root_element);
+  explicit InitValuesHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~InitValuesHandler() { }
+  ~InitValuesHandler() {}
 
   /**
    * @brief return the init values entry read in xml file
@@ -306,12 +303,12 @@ class ConstraintsHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit ConstraintsHandler(elementName_type const &root_element);
+  explicit ConstraintsHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~ConstraintsHandler() { }
+  ~ConstraintsHandler() {}
 
   /**
    * @brief return the constraints entry read in xml file
@@ -340,12 +337,12 @@ class TimelineHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit TimelineHandler(elementName_type const &root_element);
+  explicit TimelineHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~TimelineHandler() { }
+  ~TimelineHandler() {}
 
   /**
    * @brief return the timeline entry read in xml file
@@ -374,12 +371,12 @@ class TimetableHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit TimetableHandler(elementName_type const &root_element);
+  explicit TimetableHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~TimetableHandler() { }
+  ~TimetableHandler() {}
 
   /**
    * @brief return the timetable entry read in xml file
@@ -408,12 +405,12 @@ class FinalStateHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit FinalStateHandler(elementName_type const &root_element);
+  explicit FinalStateHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~FinalStateHandler() { }
+  ~FinalStateHandler() {}
 
   /**
    * @brief return the final state entry read in xml file
@@ -442,12 +439,12 @@ class CurvesHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit CurvesHandler(elementName_type const &root_element);
+  explicit CurvesHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~CurvesHandler() { }
+  ~CurvesHandler() {}
 
   /**
    * @brief return the curves entry read in xml file
@@ -476,12 +473,12 @@ class LogsHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit LogsHandler(elementName_type const &root_element);
+  explicit LogsHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~LogsHandler() { }
+  ~LogsHandler() {}
 
   /**
    * @brief return the logs entry read in xml file
@@ -503,7 +500,7 @@ class LogsHandler : public xml::sax::parser::ComposableElementHandler {
 
  private:
   boost::shared_ptr<LogsEntry> logs_;  ///< current logs entry object
-  AppenderHandler appenderHandler_;  ///< handler used to read appender element
+  AppenderHandler appenderHandler_;    ///< handler used to read appender element
 };
 
 /**
@@ -516,12 +513,12 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit OutputsHandler(elementName_type const &root_element);
+  explicit OutputsHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~OutputsHandler() { }
+  ~OutputsHandler() {}
 
   /**
    * @brief return the outputs entry read in xml file
@@ -573,13 +570,13 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
 
  private:
   boost::shared_ptr<OutputsEntry> outputs_;  ///< current outputs entry object
-  InitValuesHandler initValuesHandler_;  ///< handler used to read init values element
-  ConstraintsHandler constraintsHandler_;  ///< handler used to read constraints element
-  TimelineHandler timelineHandler_;  ///< handler used to read timeline element
-  TimetableHandler timetableHandler_;  ///< handler used to read timetable element
-  FinalStateHandler finalStateHandler_;  ///< handler used to read finalState element
-  CurvesHandler curvesHandler_;  ///< handler used to read curves element
-  LogsHandler logsHandler_;  ///< handler used to read logs element
+  InitValuesHandler initValuesHandler_;      ///< handler used to read init values element
+  ConstraintsHandler constraintsHandler_;    ///< handler used to read constraints element
+  TimelineHandler timelineHandler_;          ///< handler used to read timeline element
+  TimetableHandler timetableHandler_;        ///< handler used to read timetable element
+  FinalStateHandler finalStateHandler_;      ///< handler used to read finalState element
+  CurvesHandler curvesHandler_;              ///< handler used to read curves element
+  LogsHandler logsHandler_;                  ///< handler used to read logs element
 };
 
 /**
@@ -592,12 +589,12 @@ class CriteriaFileHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit CriteriaFileHandler(elementName_type const &root_element);
+  explicit CriteriaFileHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~CriteriaFileHandler() { }
+  ~CriteriaFileHandler() {}
 
   /**
    * @brief return the simulation entry read in xml file
@@ -626,12 +623,12 @@ class SimulationHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit SimulationHandler(elementName_type const &root_element);
+  explicit SimulationHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~SimulationHandler() { }
+  ~SimulationHandler() {}
 
   /**
    * @brief return the simulation entry read in xml file
@@ -653,7 +650,7 @@ class SimulationHandler : public xml::sax::parser::ComposableElementHandler {
 
  private:
   boost::shared_ptr<SimulationEntry> simulation_;  ///< current simulation entry object
-  CriteriaFileHandler criteriaFileHandler_;  ///< handler used to read criteriaFiles element
+  CriteriaFileHandler criteriaFileHandler_;        ///< handler used to read criteriaFiles element
 };
 
 /**
@@ -666,12 +663,12 @@ class ModelerHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit ModelerHandler(elementName_type const &root_element);
+  explicit ModelerHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~ModelerHandler() { }
+  ~ModelerHandler() {}
 
   /**
    * @brief return the modeler entry read in xml file
@@ -704,7 +701,6 @@ class ModelerHandler : public xml::sax::parser::ComposableElementHandler {
    */
   void addNetwork();
 
-
  protected:
   /**
    * @brief Called when the XML element opening tag is read
@@ -713,12 +709,12 @@ class ModelerHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<ModelerEntry> modeler_;  ///< current modeler object
-  NetworkHandler networkHandler_;  ///< handler used to read network element
-  DynModelsHandler dynModelsHandler_;  ///< handler used to read dynModels element
-  InitialStateHandler initialStateHandler_;  ///< handler used to read initial state element
+  boost::shared_ptr<ModelerEntry> modeler_;    ///< current modeler object
+  NetworkHandler networkHandler_;              ///< handler used to read network element
+  DynModelsHandler dynModelsHandler_;          ///< handler used to read dynModels element
+  InitialStateHandler initialStateHandler_;    ///< handler used to read initial state element
   ModelsDirHandler preCompiledModelsHandler_;  ///< handler used to read precompiled models element
-  ModelsDirHandler modelicaModelsHandler_;  ///< handler used to read modelica models element
+  ModelsDirHandler modelicaModelsHandler_;     ///< handler used to read modelica models element
 };
 
 /**
@@ -731,12 +727,12 @@ class SolverHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit SolverHandler(elementName_type const &root_element);
+  explicit SolverHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~SolverHandler() { }
+  ~SolverHandler() {}
 
   /**
    * @brief return the solver entry read in xml file
@@ -765,12 +761,12 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit JobHandler(elementName_type const &root_element);
+  explicit JobHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~JobHandler() { }
+  ~JobHandler() {}
 
   /**
    * @brief return the job read in xml file
@@ -806,11 +802,11 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<JobEntry> job_;  ///< job object created by the handler
-  SolverHandler solverHandler_;  ///< handler used to read solver element
-  ModelerHandler modelerHandler_;  ///< handler used to read modeler element
+  boost::shared_ptr<JobEntry> job_;      ///< job object created by the handler
+  SolverHandler solverHandler_;          ///< handler used to read solver element
+  ModelerHandler modelerHandler_;        ///< handler used to read modeler element
   SimulationHandler simulationHandler_;  ///< handler used to read simulation element
-  OutputsHandler outputsHandler_;  ///< handler used to read outputs element
+  OutputsHandler outputsHandler_;        ///< handler used to read outputs element
 };
 
 /**
@@ -826,7 +822,6 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    * @brief Constructor
    */
   XmlHandler();
-
 
   /**
    * @brief Destructor
@@ -846,7 +841,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
 
  private:
   boost::shared_ptr<JobsCollection> jobsCollection_;  ///< jobs collection parsed
-  JobHandler jobHandler_;  ///< handler used to read job element
+  JobHandler jobHandler_;                             ///< handler used to read job element
 };
 
 }  // namespace job

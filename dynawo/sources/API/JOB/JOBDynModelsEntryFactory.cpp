@@ -12,13 +12,14 @@
 //
 
 #include "JOBDynModelsEntryFactory.h"
-#include "JOBDynModelsEntryImpl.h"
+
+#include "JOBDynModelsEntry.h"
 
 namespace job {
 
 boost::shared_ptr<DynModelsEntry>
 DynModelsEntryFactory::newInstance() {
-  return boost::shared_ptr<DynModelsEntry>(new DynModelsEntry::Impl());
+  return boost::shared_ptr<DynModelsEntry>(new DynModelsEntry());
 }
 
 }  // namespace job

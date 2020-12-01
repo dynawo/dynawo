@@ -31,35 +31,32 @@ namespace job {
 class TimelineEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~TimelineEntry() {}
-
-  /**
    * @brief Output file attribute setter
    * @param outputFile: Output file for timeline
    */
-  virtual void setOutputFile(const std::string & outputFile) = 0;
+  void setOutputFile(const std::string& outputFile);
 
   /**
    * @brief Export Mode attribute setter
    * @param exportMode: Export mode for timeline
    */
-  virtual void setExportMode(const std::string & exportMode) = 0;
+  void setExportMode(const std::string& exportMode);
 
   /**
    * @brief Output file attribute getter
    * @return Output file for timeline
    */
-  virtual std::string getOutputFile() const = 0;
+  const std::string& getOutputFile() const;
 
   /**
    * @brief Export mode attribute getter
    * @return Export mode for timeline
    */
-  virtual std::string getExportMode() const = 0;
+  const std::string& getExportMode() const;
 
-  class Impl;  ///< implemented class
+ private:
+  std::string outputFile_;  ///< Export file for timeline
+  std::string exportMode_;  ///< Export mode TXT, CSV, XML for timeline output file
 };
 
 }  // namespace job

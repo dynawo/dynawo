@@ -19,13 +19,13 @@
  */
 
 #include "JOBJobsCollectionFactory.h"
-#include "JOBJobsCollectionImpl.h"
+#include "JOBJobsCollection.h"
 
 namespace job {
 
 boost::shared_ptr<JobsCollection>
 JobsCollectionFactory::newInstance() {
-  return boost::shared_ptr<JobsCollection>(new JobsCollection::Impl());
+  return boost::shared_ptr<JobsCollection>(new JobsCollection());
 }
 
 }  // namespace job

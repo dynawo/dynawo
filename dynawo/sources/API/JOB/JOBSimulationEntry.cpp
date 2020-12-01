@@ -17,67 +17,59 @@
  *
  */
 
-#include "JOBSimulationEntryImpl.h"
+#include "JOBSimulationEntry.h"
 
 namespace job {
 
-SimulationEntry::Impl::Impl():
-startTime_(0),
-stopTime_(0),
-criteriaStep_(10),
-precision_(1e-6) {
-}
-
-SimulationEntry::Impl::~Impl() {
-}
+SimulationEntry::SimulationEntry() : startTime_(0), stopTime_(0), criteriaStep_(10), precision_(1e-6) {}
 
 void
-SimulationEntry::Impl::setStartTime(double startTime) {
+SimulationEntry::setStartTime(double startTime) {
   startTime_ = startTime;
 }
 
 double
-SimulationEntry::Impl::getStartTime() const {
+SimulationEntry::getStartTime() const {
   return startTime_;
 }
 
 void
-SimulationEntry::Impl::setStopTime(double stopTime) {
+SimulationEntry::setStopTime(double stopTime) {
   stopTime_ = stopTime;
 }
 
 double
-SimulationEntry::Impl::getStopTime() const {
+SimulationEntry::getStopTime() const {
   return stopTime_;
 }
 
 void
-SimulationEntry::Impl::addCriteriaFile(const std::string& criteriaFile) {
+SimulationEntry::addCriteriaFile(const std::string& criteriaFile) {
   criteriaFiles_.push_back(criteriaFile);
 }
 
 const std::vector<std::string>&
-SimulationEntry::Impl::getCriteriaFiles() const {
+SimulationEntry::getCriteriaFiles() const {
   return criteriaFiles_;
 }
 
 void
-SimulationEntry::Impl::setCriteriaStep(int criteriaStep) {
+SimulationEntry::setCriteriaStep(int criteriaStep) {
   criteriaStep_ = criteriaStep;
 }
 
 int
-SimulationEntry::Impl::getCriteriaStep() const {
+SimulationEntry::getCriteriaStep() const {
   return criteriaStep_;
 }
 
 void
-SimulationEntry::Impl::setPrecision(double precision) {
+SimulationEntry::setPrecision(double precision) {
   precision_ = precision;
 }
 
 double
-SimulationEntry::Impl::getPrecision() const {
+SimulationEntry::getPrecision() const {
   return precision_;
 }
 

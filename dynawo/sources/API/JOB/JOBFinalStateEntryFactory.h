@@ -20,11 +20,10 @@
 #ifndef API_JOB_JOBFINALSTATEENTRYFACTORY_H_
 #define API_JOB_JOBFINALSTATEENTRYFACTORY_H_
 
+#include "JOBFinalStateEntry.h"
+
 #include <boost/shared_ptr.hpp>
-
 namespace job {
-
-class FinalStateEntry;
 
 /**
  * @class  FinalStateEntryFactory

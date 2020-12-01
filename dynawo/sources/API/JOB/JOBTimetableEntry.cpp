@@ -12,29 +12,26 @@
 //
 
 /**
- * @file JOBTimetableEntryImpl.cpp
+ * @file JOBTimetableEntry.cpp
  * @brief Timetable entry description : implementation file
  *
  */
 
-#include "JOBTimetableEntryImpl.h"
+#include "JOBTimetableEntry.h"
 
 namespace job {
 
-TimetableEntry::Impl::Impl() :
+TimetableEntry::TimetableEntry() :
 step_(1) {
 }
 
-TimetableEntry::Impl::~Impl() {
-}
-
 void
-TimetableEntry::Impl::setStep(int step) {
+TimetableEntry::setStep(int step) {
   step_ = step;
 }
 
 int
-TimetableEntry::Impl::getStep() const {
+TimetableEntry::getStep() const {
   return step_;
 }
 

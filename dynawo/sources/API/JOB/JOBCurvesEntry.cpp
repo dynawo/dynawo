@@ -12,51 +12,42 @@
 //
 
 /**
- * @file JOBCurvesEntryImpl.cpp
+ * @file JOBCurvesEntry.cpp
  * @brief curves entry description : implementation file
  *
  */
 
-#include "JOBCurvesEntryImpl.h"
+#include "JOBCurvesEntry.h"
 
 namespace job {
 
-CurvesEntry::Impl::Impl() :
-inputFile_(""),
-outputFile_(""),
-exportMode_("") {
-}
-
-CurvesEntry::Impl::~Impl() {
-}
-
-std::string
-CurvesEntry::Impl::getInputFile() const {
+const std::string&
+CurvesEntry::getInputFile() const {
   return inputFile_;
 }
 
-std::string
-CurvesEntry::Impl::getOutputFile() const {
+const std::string&
+CurvesEntry::getOutputFile() const {
   return outputFile_;
 }
 
-std::string
-CurvesEntry::Impl::getExportMode() const {
+const std::string&
+CurvesEntry::getExportMode() const {
   return exportMode_;
 }
 
 void
-CurvesEntry::Impl::setInputFile(const std::string & inputFile) {
+CurvesEntry::setInputFile(const std::string & inputFile) {
   inputFile_ = inputFile;
 }
 
 void
-CurvesEntry::Impl::setOutputFile(const std::string & outputFile) {
+CurvesEntry::setOutputFile(const std::string & outputFile) {
   outputFile_ = outputFile;
 }
 
 void
-CurvesEntry::Impl::setExportMode(const std::string & exportMode) {
+CurvesEntry::setExportMode(const std::string & exportMode) {
   exportMode_ = exportMode;
 }
 

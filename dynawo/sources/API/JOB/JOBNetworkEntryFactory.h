@@ -20,11 +20,11 @@
 #ifndef API_JOB_JOBNETWORKENTRYFACTORY_H_
 #define API_JOB_JOBNETWORKENTRYFACTORY_H_
 
+#include "JOBNetworkEntry.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace job {
-
-class NetworkEntry;
 
 /**
  * @class  NetworkEntryFactory

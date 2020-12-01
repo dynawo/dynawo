@@ -12,40 +12,32 @@
 //
 
 /**
- * @file JOBConstraintsEntryImpl.cpp
- * @brief Constraints entry description : implementation file
+ * @file JOBTimelineEntry.cpp
+ * @brief Timeline entry description : implementation file
  *
  */
 
-#include "JOBConstraintsEntryImpl.h"
+#include "JOBTimelineEntry.h"
 
 namespace job {
 
-ConstraintsEntry::Impl::Impl() :
-outputFile_(""),
-exportMode_("") {
-}
-
-ConstraintsEntry::Impl::~Impl() {
-}
-
 void
-ConstraintsEntry::Impl::setOutputFile(const std::string & outputFile) {
+TimelineEntry::setOutputFile(const std::string& outputFile) {
   outputFile_ = outputFile;
 }
 
 void
-ConstraintsEntry::Impl::setExportMode(const std::string & exportMode) {
+TimelineEntry::setExportMode(const std::string& exportMode) {
   exportMode_ = exportMode;
 }
 
-std::string
-ConstraintsEntry::Impl::getOutputFile() const {
+const std::string&
+TimelineEntry::getOutputFile() const {
   return outputFile_;
 }
 
-std::string
-ConstraintsEntry::Impl::getExportMode() const {
+const std::string&
+TimelineEntry::getExportMode() const {
   return exportMode_;
 }
 

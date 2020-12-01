@@ -17,12 +17,12 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBModelsDirEntryImpl.h"
+#include "JOBModelsDirEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testModelsDirEntry) {
-  boost::shared_ptr<ModelsDirEntry> modelsDir = boost::shared_ptr<ModelsDirEntry>(new ModelsDirEntry::Impl());
+  boost::shared_ptr<ModelsDirEntry> modelsDir = boost::shared_ptr<ModelsDirEntry>(new ModelsDirEntry());
   // check default attributes
   ASSERT_EQ(modelsDir->getModelExtension(), "");
   ASSERT_EQ(modelsDir->getUseStandardModels(), false);

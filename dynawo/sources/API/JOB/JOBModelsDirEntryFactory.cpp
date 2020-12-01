@@ -12,13 +12,13 @@
 //
 
 #include "JOBModelsDirEntryFactory.h"
-#include "JOBModelsDirEntryImpl.h"
+#include "JOBModelsDirEntry.h"
 
 namespace job {
 
 boost::shared_ptr<ModelsDirEntry>
 ModelsDirEntryFactory::newInstance() {
-  return boost::shared_ptr<ModelsDirEntry>(new ModelsDirEntry::Impl());
+  return boost::shared_ptr<ModelsDirEntry>(new ModelsDirEntry());
 }
 
 }  // namespace job

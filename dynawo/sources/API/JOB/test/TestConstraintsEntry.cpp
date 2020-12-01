@@ -18,12 +18,12 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBConstraintsEntryImpl.h"
+#include "JOBConstraintsEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testConstraintsEntry) {
-  boost::shared_ptr<ConstraintsEntry> constraints = boost::shared_ptr<ConstraintsEntry>(new ConstraintsEntry::Impl());
+  boost::shared_ptr<ConstraintsEntry> constraints = boost::shared_ptr<ConstraintsEntry>(new ConstraintsEntry());
   // check default attributes
   ASSERT_EQ(constraints->getOutputFile(), "");
   ASSERT_EQ(constraints->getExportMode(), "");

@@ -25,26 +25,26 @@
 #include <xml/sax/parser/Attributes.h>
 
 #include "JOBXmlHandler.h"
-#include "JOBAppenderEntryImpl.h"
-#include "JOBConstraintsEntryImpl.h"
-#include "JOBCurvesEntryImpl.h"
-#include "JOBDynModelsEntryImpl.h"
-#include "JOBFinalStateEntryImpl.h"
-#include "JOBInitValuesEntryImpl.h"
-#include "JOBInitialStateEntryImpl.h"
+#include "JOBAppenderEntry.h"
+#include "JOBConstraintsEntry.h"
+#include "JOBCurvesEntry.h"
+#include "JOBDynModelsEntry.h"
+#include "JOBFinalStateEntry.h"
+#include "JOBInitValuesEntry.h"
+#include "JOBInitialStateEntry.h"
 #include "JOBJobsCollectionFactory.h"
-#include "JOBJobEntryImpl.h"
+#include "JOBJobEntry.h"
 #include "JOBJobsCollection.h"
-#include "JOBLogsEntryImpl.h"
-#include "JOBModelerEntryImpl.h"
-#include "JOBNetworkEntryImpl.h"
-#include "JOBOutputsEntryImpl.h"
-#include "JOBSimulationEntryImpl.h"
-#include "JOBSolverEntryImpl.h"
-#include "JOBTimelineEntryImpl.h"
-#include "JOBTimetableEntryImpl.h"
+#include "JOBLogsEntry.h"
+#include "JOBModelerEntry.h"
+#include "JOBNetworkEntry.h"
+#include "JOBOutputsEntry.h"
+#include "JOBSimulationEntry.h"
+#include "JOBSolverEntry.h"
+#include "JOBTimelineEntry.h"
+#include "JOBTimetableEntry.h"
 #include "DYNMacrosMessage.h"
-#include "JOBModelsDirEntryImpl.h"
+#include "JOBModelsDirEntry.h"
 
 using std::map;
 using std::string;
@@ -121,7 +121,7 @@ JobHandler::addOutputs() {
 
 void
 JobHandler::create(attributes_type const& attributes) {
-  job_ = shared_ptr<JobEntry>(new JobEntry::Impl());
+  job_ = shared_ptr<JobEntry>(new JobEntry());
   job_->setName(attributes["name"]);
 }
 
@@ -136,7 +136,7 @@ SolverHandler::SolverHandler(elementName_type const& root_element) {
 
 void
 SolverHandler::create(attributes_type const & attributes) {
-  solver_ = shared_ptr<SolverEntry>(new SolverEntry::Impl());
+  solver_ = shared_ptr<SolverEntry>(new SolverEntry());
   solver_->setLib(attributes["lib"]);
   solver_->setParametersFile(attributes["parFile"]);
   solver_->setParametersId(attributes["parId"]);
@@ -195,7 +195,7 @@ ModelerHandler::addModelicaModel() {
 
 void
 ModelerHandler::create(attributes_type const& attributes) {
-  modeler_ = shared_ptr<ModelerEntry>(new ModelerEntry::Impl());
+  modeler_ = shared_ptr<ModelerEntry>(new ModelerEntry());
   modeler_->setCompileDir(attributes["compileDir"]);
 }
 
@@ -227,7 +227,7 @@ criteriaFileHandler_(parser::ElementName(jobs_ns, "criteria")) {
 
 void
 SimulationHandler::create(attributes_type const& attributes) {
-  simulation_ = shared_ptr<SimulationEntry>(new SimulationEntry::Impl());
+  simulation_ = shared_ptr<SimulationEntry>(new SimulationEntry());
   simulation_->setStartTime(attributes["startTime"]);
   simulation_->setStopTime(attributes["stopTime"]);
   if (attributes.has("criteriaStep"))
@@ -310,7 +310,7 @@ OutputsHandler::addLog() {
 
 void
 OutputsHandler::create(attributes_type const& attributes) {
-  outputs_ = shared_ptr<OutputsEntry>(new OutputsEntry::Impl());
+  outputs_ = shared_ptr<OutputsEntry>(new OutputsEntry());
   outputs_->setOutputsDirectory(attributes["directory"]);
 }
 
@@ -325,7 +325,7 @@ InitValuesHandler::InitValuesHandler(elementName_type const& root_element) {
 
 void
 InitValuesHandler::create(attributes_type const& attributes) {
-  initValuesEntry_ = shared_ptr<InitValuesEntry>(new InitValuesEntry::Impl());
+  initValuesEntry_ = shared_ptr<InitValuesEntry>(new InitValuesEntry());
   initValuesEntry_->setDumpLocalInitValues(attributes["local"]);
   initValuesEntry_->setDumpGlobalInitValues(attributes["global"]);
 }
@@ -341,7 +341,7 @@ ConstraintsHandler::ConstraintsHandler(elementName_type const& root_element) {
 
 void
 ConstraintsHandler::create(attributes_type const& attributes) {
-  constraints_ = shared_ptr<ConstraintsEntry>(new ConstraintsEntry::Impl());
+  constraints_ = shared_ptr<ConstraintsEntry>(new ConstraintsEntry());
   constraints_->setExportMode(attributes["exportMode"]);
 }
 
@@ -356,7 +356,7 @@ TimelineHandler::TimelineHandler(elementName_type const& root_element) {
 
 void
 TimelineHandler::create(attributes_type const& attributes) {
-  timeline_ = shared_ptr<TimelineEntry>(new TimelineEntry::Impl());
+  timeline_ = shared_ptr<TimelineEntry>(new TimelineEntry());
   timeline_->setExportMode(attributes["exportMode"]);
 }
 
@@ -371,7 +371,7 @@ TimetableHandler::TimetableHandler(elementName_type const& root_element) {
 
 void
 TimetableHandler::create(attributes_type const& attributes) {
-  timetable_ = shared_ptr<TimetableEntry>(new TimetableEntry::Impl());
+  timetable_ = shared_ptr<TimetableEntry>(new TimetableEntry());
   timetable_->setStep(attributes["step"]);
 }
 
@@ -386,7 +386,7 @@ FinalStateHandler::FinalStateHandler(elementName_type const& root_element) {
 
 void
 FinalStateHandler::create(attributes_type const& attributes) {
-  finalState_ = shared_ptr<FinalStateEntry>(new FinalStateEntry::Impl());
+  finalState_ = shared_ptr<FinalStateEntry>(new FinalStateEntry());
   finalState_->setExportIIDMFile(attributes["exportIIDMFile"]);
   finalState_->setExportDumpFile(attributes["exportDumpFile"]);
 }
@@ -402,7 +402,7 @@ CurvesHandler::CurvesHandler(elementName_type const& root_element) {
 
 void
 CurvesHandler::create(attributes_type const& attributes) {
-  curves_ = shared_ptr<CurvesEntry>(new CurvesEntry::Impl());
+  curves_ = shared_ptr<CurvesEntry>(new CurvesEntry());
   curves_->setInputFile(attributes["inputFile"]);
   curves_->setExportMode(attributes["exportMode"]);
 }
@@ -428,7 +428,7 @@ LogsHandler::addAppender() {
 
 void
 LogsHandler::create(attributes_type const& /*attributes*/) {
-  logs_ = shared_ptr<LogsEntry>(new LogsEntry::Impl());
+  logs_ = shared_ptr<LogsEntry>(new LogsEntry());
 }
 
 shared_ptr<LogsEntry>
@@ -442,7 +442,7 @@ AppenderHandler::AppenderHandler(elementName_type const& root_element) {
 
 void
 AppenderHandler::create(attributes_type const& attributes) {
-  appender_ = shared_ptr<AppenderEntry>(new AppenderEntry::Impl());
+  appender_ = shared_ptr<AppenderEntry>(new AppenderEntry());
   appender_->setFilePath(attributes["file"]);
 
   if (attributes.has("tag"))
@@ -472,7 +472,7 @@ NetworkHandler::NetworkHandler(elementName_type const& root_element) {
 
 void
 NetworkHandler::create(attributes_type const& attributes) {
-  network_ = shared_ptr<NetworkEntry>(new NetworkEntry::Impl());
+  network_ = shared_ptr<NetworkEntry>(new NetworkEntry());
   network_->setIidmFile(attributes["iidmFile"]);
   network_->setNetworkParFile(attributes["parFile"]);
   network_->setNetworkParId(attributes["parId"]);
@@ -489,7 +489,7 @@ DynModelsHandler::DynModelsHandler(elementName_type const& root_element) {
 
 void
 DynModelsHandler::create(attributes_type const& attributes) {
-  dynModels_ = shared_ptr<DynModelsEntry>(new DynModelsEntry::Impl());
+  dynModels_ = shared_ptr<DynModelsEntry>(new DynModelsEntry());
   dynModels_->setDydFile(attributes["dydFile"].as_string());
 }
 
@@ -504,7 +504,7 @@ InitialStateHandler::InitialStateHandler(elementName_type const& root_element) {
 
 void
 InitialStateHandler::create(attributes_type const& attributes) {
-  initialState_ = shared_ptr<InitialStateEntry>(new InitialStateEntry::Impl());
+  initialState_ = shared_ptr<InitialStateEntry>(new InitialStateEntry());
   initialState_->setInitialStateFile(attributes["file"]);
 }
 
@@ -524,7 +524,7 @@ directoryHandler_(parser::ElementName(jobs_ns, "directory")) {
 
 void
 ModelsDirHandler::create(attributes_type const& attributes) {
-  modelsDir_ = shared_ptr<ModelsDirEntry>(new ModelsDirEntry::Impl());
+  modelsDir_ = shared_ptr<ModelsDirEntry>(new ModelsDirEntry());
   if (attributes.has("modelExtension"))
     modelsDir_->setModelExtension(attributes["modelExtension"].as_string());
   modelsDir_->setUseStandardModels(attributes["useStandardModels"]);

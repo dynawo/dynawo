@@ -12,51 +12,42 @@
 //
 
 /**
- * @file JOBSolverEntryImpl.cpp
+ * @file JOBSolverEntry.cpp
  * @brief Solver entry description : implementation file
  *
  */
 
-#include "JOBSolverEntryImpl.h"
+#include "JOBSolverEntry.h"
 
 namespace job {
 
-SolverEntry::Impl::Impl() :
-lib_(""),
-parametersFile_(""),
-parametersId_("") {
-}
-
-SolverEntry::Impl::~Impl() {
-}
-
 void
-SolverEntry::Impl::setLib(const std::string & lib) {
+SolverEntry::setLib(const std::string& lib) {
   lib_ = lib;
 }
 
-std::string
-SolverEntry::Impl::getLib() const {
+const std::string&
+SolverEntry::getLib() const {
   return lib_;
 }
 
 void
-SolverEntry::Impl::setParametersFile(const std::string & parametersFile) {
+SolverEntry::setParametersFile(const std::string& parametersFile) {
   parametersFile_ = parametersFile;
 }
 
-std::string
-SolverEntry::Impl::getParametersFile() const {
+const std::string&
+SolverEntry::getParametersFile() const {
   return parametersFile_;
 }
 
 void
-SolverEntry::Impl::setParametersId(const std::string& parametersId) {
+SolverEntry::setParametersId(const std::string& parametersId) {
   parametersId_ = parametersId;
 }
 
-std::string
-SolverEntry::Impl::getParametersId() const {
+const std::string&
+SolverEntry::getParametersId() const {
   return parametersId_;
 }
 

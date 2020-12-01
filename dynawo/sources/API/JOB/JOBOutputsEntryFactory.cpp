@@ -12,13 +12,13 @@
 //
 
 #include "JOBOutputsEntryFactory.h"
-#include "JOBOutputsEntryImpl.h"
+#include "JOBOutputsEntry.h"
 
 namespace job {
 
 boost::shared_ptr<OutputsEntry>
 OutputsEntryFactory::newInstance() {
-  return boost::shared_ptr<OutputsEntry>(new OutputsEntry::Impl());
+  return boost::shared_ptr<OutputsEntry>(new OutputsEntry());
 }
 
 }  // namespace job

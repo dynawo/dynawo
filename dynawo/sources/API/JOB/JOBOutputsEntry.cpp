@@ -12,99 +12,92 @@
 //
 
 /**
- * @file JOBOuputsEntryImpl.cpp
+ * @file JOBOutputsEntry.cpp
  * @brief Ouputs entry description : implementation file
  *
  */
 
-#include "JOBOutputsEntryImpl.h"
+#include "JOBOutputsEntry.h"
 
 namespace job {
 
-OutputsEntry::Impl::Impl() :
-outputsDirectory_("") {
-}
-
-OutputsEntry::Impl::~Impl() {
-}
-
 void
-OutputsEntry::Impl::setOutputsDirectory(const std::string& outputsDirectory) {
+OutputsEntry::setOutputsDirectory(const std::string& outputsDirectory) {
   outputsDirectory_ = outputsDirectory;
 }
 
-std::string
-OutputsEntry::Impl::getOutputsDirectory() const {
+const std::string&
+OutputsEntry::getOutputsDirectory() const {
   return outputsDirectory_;
 }
 
 void
-OutputsEntry::Impl::setInitValuesEntry(const boost::shared_ptr<InitValuesEntry>& initValuesEntry) {
+OutputsEntry::setInitValuesEntry(const boost::shared_ptr<InitValuesEntry>& initValuesEntry) {
   initValuesEntry_ = initValuesEntry;
 }
 
 boost::shared_ptr<InitValuesEntry>
-OutputsEntry::Impl::getInitValuesEntry() const {
+OutputsEntry::getInitValuesEntry() const {
   return initValuesEntry_;
 }
 
 void
-OutputsEntry::Impl::setConstraintsEntry(const boost::shared_ptr<ConstraintsEntry>& constraintsEntry) {
+OutputsEntry::setConstraintsEntry(const boost::shared_ptr<ConstraintsEntry>& constraintsEntry) {
   constraintsEntry_ = constraintsEntry;
 }
 
 boost::shared_ptr<ConstraintsEntry>
-OutputsEntry::Impl::getConstraintsEntry() const {
+OutputsEntry::getConstraintsEntry() const {
   return constraintsEntry_;
 }
 
 void
-OutputsEntry::Impl::setTimelineEntry(const boost::shared_ptr<TimelineEntry>& timelineEntry) {
+OutputsEntry::setTimelineEntry(const boost::shared_ptr<TimelineEntry>& timelineEntry) {
   timelineEntry_ = timelineEntry;
 }
 
 boost::shared_ptr<TimelineEntry>
-OutputsEntry::Impl::getTimelineEntry() const {
+OutputsEntry::getTimelineEntry() const {
   return timelineEntry_;
 }
 
 void
-OutputsEntry::Impl::setTimetableEntry(const boost::shared_ptr<TimetableEntry>& timetableEntry) {
+OutputsEntry::setTimetableEntry(const boost::shared_ptr<TimetableEntry>& timetableEntry) {
   timetableEntry_ = timetableEntry;
 }
 
 boost::shared_ptr<TimetableEntry>
-OutputsEntry::Impl::getTimetableEntry() const {
+OutputsEntry::getTimetableEntry() const {
   return timetableEntry_;
 }
 
 void
-OutputsEntry::Impl::setFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) {
+OutputsEntry::setFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) {
   finalStateEntry_ = finalStateEntry;
 }
 
 boost::shared_ptr<FinalStateEntry>
-OutputsEntry::Impl::getFinalStateEntry() const {
+OutputsEntry::getFinalStateEntry() const {
   return finalStateEntry_;
 }
 
 void
-OutputsEntry::Impl::setCurvesEntry(const boost::shared_ptr<CurvesEntry>& curvesEntry) {
+OutputsEntry::setCurvesEntry(const boost::shared_ptr<CurvesEntry>& curvesEntry) {
   curvesEntry_ = curvesEntry;
 }
 
 boost::shared_ptr<CurvesEntry>
-OutputsEntry::Impl::getCurvesEntry() const {
+OutputsEntry::getCurvesEntry() const {
   return curvesEntry_;
 }
 
 void
-OutputsEntry::Impl::setLogsEntry(const boost::shared_ptr<LogsEntry>& logsEntry) {
+OutputsEntry::setLogsEntry(const boost::shared_ptr<LogsEntry>& logsEntry) {
   logsEntry_ = logsEntry;
 }
 
 boost::shared_ptr<LogsEntry>
-OutputsEntry::Impl::getLogsEntry() const {
+OutputsEntry::getLogsEntry() const {
   return logsEntry_;
 }
 

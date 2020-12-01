@@ -18,16 +18,16 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBModelerEntryImpl.h"
-#include "JOBNetworkEntryImpl.h"
-#include "JOBDynModelsEntryImpl.h"
-#include "JOBInitialStateEntryImpl.h"
-#include "JOBModelsDirEntryImpl.h"
+#include "JOBModelerEntry.h"
+#include "JOBNetworkEntry.h"
+#include "JOBDynModelsEntry.h"
+#include "JOBInitialStateEntry.h"
+#include "JOBModelsDirEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testModelerEntry) {
-  boost::shared_ptr<ModelerEntry> modeler = boost::shared_ptr<ModelerEntry>(new ModelerEntry::Impl());
+  boost::shared_ptr<ModelerEntry> modeler = boost::shared_ptr<ModelerEntry>(new ModelerEntry());
   // check default attributes
   ASSERT_EQ(modeler->getPreCompiledModelsDirEntry(), boost::shared_ptr<ModelsDirEntry>());
   ASSERT_EQ(modeler->getModelicaModelsDirEntry(), boost::shared_ptr<ModelsDirEntry>());
@@ -36,23 +36,23 @@ TEST(APIJOBTest, testModelerEntry) {
   ASSERT_EQ(modeler->getDynModelsEntries().size(), 0);
   ASSERT_EQ(modeler->getInitialStateEntry(), boost::shared_ptr<InitialStateEntry>());
 
-  boost::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry = boost::shared_ptr<ModelsDirEntry>(new ModelsDirEntry::Impl());
+  boost::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry = boost::shared_ptr<ModelsDirEntry>(new ModelsDirEntry());
   modeler->setPreCompiledModelsDirEntry(preCompiledModelsDirEntry);
 
-  boost::shared_ptr<ModelsDirEntry> modelicaModelsDirEntry = boost::shared_ptr<ModelsDirEntry>(new ModelsDirEntry::Impl());
+  boost::shared_ptr<ModelsDirEntry> modelicaModelsDirEntry = boost::shared_ptr<ModelsDirEntry>(new ModelsDirEntry());
   modeler->setModelicaModelsDirEntry(modelicaModelsDirEntry);
 
   modeler->setCompileDir("/tmp/compilation");
 
-  boost::shared_ptr<NetworkEntry> network = boost::shared_ptr<NetworkEntry>(new NetworkEntry::Impl());
+  boost::shared_ptr<NetworkEntry> network = boost::shared_ptr<NetworkEntry>(new NetworkEntry());
   modeler->setNetworkEntry(network);
 
-  boost::shared_ptr<DynModelsEntry> dynModels1 = boost::shared_ptr<DynModelsEntry>(new DynModelsEntry::Impl());
-  boost::shared_ptr<DynModelsEntry> dynModels2 = boost::shared_ptr<DynModelsEntry>(new DynModelsEntry::Impl());
+  boost::shared_ptr<DynModelsEntry> dynModels1 = boost::shared_ptr<DynModelsEntry>(new DynModelsEntry());
+  boost::shared_ptr<DynModelsEntry> dynModels2 = boost::shared_ptr<DynModelsEntry>(new DynModelsEntry());
   modeler->addDynModelsEntry(dynModels1);
   modeler->addDynModelsEntry(dynModels2);
 
-  boost::shared_ptr<InitialStateEntry> initialState = boost::shared_ptr<InitialStateEntry>(new InitialStateEntry::Impl());
+  boost::shared_ptr<InitialStateEntry> initialState = boost::shared_ptr<InitialStateEntry>(new InitialStateEntry());
   modeler->setInitialStateEntry(initialState);
 
   ASSERT_EQ(modeler->getPreCompiledModelsDirEntry(), preCompiledModelsDirEntry);

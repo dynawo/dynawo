@@ -31,47 +31,45 @@ namespace job {
 class SolverEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~SolverEntry() {}
-
-   /**
    * @brief Solver lib setter
    * @param lib : Solver lib for the job
    */
-  virtual void setLib(const std::string & lib) = 0;
+  void setLib(const std::string& lib);
 
   /**
    * @brief Solver lib getter
    * @return Solver lib for the job
    */
-  virtual std::string getLib() const = 0;
+  const std::string& getLib() const;
 
   /**
    * @brief Solver parameters file setter
    * @param parametersFile : Solver parameters file for the job
    */
-  virtual void setParametersFile(const std::string & parametersFile) = 0;
+  void setParametersFile(const std::string& parametersFile);
 
   /**
    * @brief Solver parameters file getter
    * @return Solver parameters file for the job
    */
-  virtual std::string getParametersFile() const = 0;
+  const std::string& getParametersFile() const;
 
   /**
    * @brief Solver parameters set number setter
    * @param parametersId : Solver parameters set id for the job
    */
-  virtual void setParametersId(const std::string& parametersId) = 0;
+  void setParametersId(const std::string& parametersId);
 
   /**
    * @brief Solver parameters set number getter
    * @return Solver parameters set number for the job
    */
-  virtual std::string getParametersId() const = 0;
+  const std::string& getParametersId() const;
 
-  class Impl;  ///< implemented class
+ private:
+  std::string lib_;             ///< Solver library used
+  std::string parametersFile_;  ///< Parameters file for the solver
+  std::string parametersId_;    ///< Number of the parameters set in parameters file
 };
 
 }  // namespace job

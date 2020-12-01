@@ -20,11 +20,11 @@
 #ifndef API_JOB_JOBDYNMODELSENTRYFACTORY_H_
 #define API_JOB_JOBDYNMODELSENTRYFACTORY_H_
 
+#include "JOBDynModelsEntry.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace job {
-class DynModelsEntry;
-
 /**
  * @class  DynModelsEntryFactory
  *

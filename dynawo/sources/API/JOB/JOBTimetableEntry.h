@@ -20,8 +20,6 @@
 #ifndef API_JOB_JOBTIMETABLEENTRY_H_
 #define API_JOB_JOBTIMETABLEENTRY_H_
 
-#include <string>
-
 namespace job {
 
 /**
@@ -31,23 +29,24 @@ namespace job {
 class TimetableEntry {
  public:
   /**
-   * @brief Destructor
+   * @brief constructor
    */
-  virtual ~TimetableEntry() {}
+  TimetableEntry();
 
   /**
    * @brief step getter
    * @return step of timetable
    */
-  virtual int getStep() const = 0;
+  int getStep() const;
 
   /**
    * @brief step setter
    * @param step number of iterations between each time dumped
    */
-  virtual void setStep(int step) = 0;
+  void setStep(int step);
 
-  class Impl;  ///< implemented class
+ private:
+  int step_;  ///< time to use
 };
 
 }  // namespace job

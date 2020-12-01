@@ -18,16 +18,16 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBJobEntryImpl.h"
-#include "JOBModelerEntryImpl.h"
-#include "JOBSolverEntryImpl.h"
-#include "JOBSimulationEntryImpl.h"
-#include "JOBOutputsEntryImpl.h"
+#include "JOBJobEntry.h"
+#include "JOBModelerEntry.h"
+#include "JOBSolverEntry.h"
+#include "JOBSimulationEntry.h"
+#include "JOBOutputsEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testJobEntry) {
-  boost::shared_ptr<JobEntry> job = boost::shared_ptr<JobEntry>(new JobEntry::Impl());
+  boost::shared_ptr<JobEntry> job = boost::shared_ptr<JobEntry>(new JobEntry());
   // check default attributes
   ASSERT_EQ(job->getName(), "");
   ASSERT_EQ(job->getModelerEntry(), boost::shared_ptr<ModelerEntry>());
@@ -36,10 +36,10 @@ TEST(APIJOBTest, testJobEntry) {
   ASSERT_EQ(job->getOutputsEntry(), boost::shared_ptr<OutputsEntry>());
 
 
-  boost::shared_ptr<ModelerEntry> modeler = boost::shared_ptr<ModelerEntry>(new ModelerEntry::Impl());
-  boost::shared_ptr<SolverEntry> solver = boost::shared_ptr<SolverEntry>(new SolverEntry::Impl());
-  boost::shared_ptr<SimulationEntry> simulation = boost::shared_ptr<SimulationEntry>(new SimulationEntry::Impl());
-  boost::shared_ptr<OutputsEntry> outputs = boost::shared_ptr<OutputsEntry>(new OutputsEntry::Impl());
+  boost::shared_ptr<ModelerEntry> modeler = boost::shared_ptr<ModelerEntry>(new ModelerEntry());
+  boost::shared_ptr<SolverEntry> solver = boost::shared_ptr<SolverEntry>(new SolverEntry());
+  boost::shared_ptr<SimulationEntry> simulation = boost::shared_ptr<SimulationEntry>(new SimulationEntry());
+  boost::shared_ptr<OutputsEntry> outputs = boost::shared_ptr<OutputsEntry>(new OutputsEntry());
 
 
   job->setName("job1");

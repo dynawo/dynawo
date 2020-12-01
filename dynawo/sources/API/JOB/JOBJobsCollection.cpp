@@ -12,50 +12,44 @@
 //
 
 /**
- * @file  JOBJobsCollectionImpl.cpp
+ * @file  JOBJobsCollection.cpp
  *
  * @brief jobs collection : implementation file
  *
  */
-#include "JOBJobsCollectionImpl.h"
-#include "JOBJobEntry.h"
-#include "JOBIterators.h"
+#include "JOBJobsCollection.h"
 
+#include "JOBIterators.h"
+#include "JOBJobEntry.h"
+
+using boost::shared_ptr;
 using std::string;
 using std::vector;
-using boost::shared_ptr;
 
 namespace job {
 
-JobsCollection::Impl::Impl() {
-}
-
-
-JobsCollection::Impl::~Impl() {
-}
-
 void
-JobsCollection::Impl::addJob(const shared_ptr<JobEntry>& job) {
+JobsCollection::addJob(const shared_ptr<JobEntry>& job) {
   jobs_.push_back(job);
 }
 
 job_const_iterator
-JobsCollection::Impl::cbegin() const {
+JobsCollection::cbegin() const {
   return job_const_iterator(this, true);
 }
 
 job_const_iterator
-JobsCollection::Impl::cend() const {
+JobsCollection::cend() const {
   return job_const_iterator(this, false);
 }
 
 job_iterator
-JobsCollection::Impl::begin() {
+JobsCollection::begin() {
   return job_iterator(this, true);
 }
 
 job_iterator
-JobsCollection::Impl::end() {
+JobsCollection::end() {
   return job_iterator(this, false);
 }
 

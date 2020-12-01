@@ -18,12 +18,12 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBNetworkEntryImpl.h"
+#include "JOBNetworkEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testNetworkEntry) {
-  boost::shared_ptr<NetworkEntry> network = boost::shared_ptr<NetworkEntry>(new NetworkEntry::Impl());
+  boost::shared_ptr<NetworkEntry> network = boost::shared_ptr<NetworkEntry>(new NetworkEntry());
   // check default attributes
   ASSERT_EQ(network->getNetworkParFile(), "");
   ASSERT_EQ(network->getNetworkParId(), "");

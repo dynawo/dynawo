@@ -20,17 +20,18 @@
 #ifndef API_JOB_JOBOUTPUTSENTRY_H_
 #define API_JOB_JOBOUTPUTSENTRY_H_
 
-#include <string>
+#include "JOBConstraintsEntry.h"
+#include "JOBCurvesEntry.h"
+#include "JOBFinalStateEntry.h"
+#include "JOBInitValuesEntry.h"
+#include "JOBLogsEntry.h"
+#include "JOBTimelineEntry.h"
+#include "JOBTimetableEntry.h"
+
 #include <boost/shared_ptr.hpp>
+#include <string>
 
 namespace job {
-class InitValuesEntry;
-class ConstraintsEntry;
-class TimelineEntry;
-class TimetableEntry;
-class FinalStateEntry;
-class CurvesEntry;
-class LogsEntry;
 
 /**
  * @class OutputsEntry
@@ -39,107 +40,110 @@ class LogsEntry;
 class OutputsEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~OutputsEntry() {}
-
-  /**
    * @brief Outputs directory setter
    * @param outputsDirectory : directory for simulation outputs
    */
-  virtual void setOutputsDirectory(const std::string& outputsDirectory) = 0;
+  void setOutputsDirectory(const std::string& outputsDirectory);
 
   /**
    * @brief Outputs directory getter
    * @return directory for simulation outputs
    */
-  virtual std::string getOutputsDirectory() const = 0;
+  const std::string& getOutputsDirectory() const;
 
   /**
    * @brief Init Values entry setter
    * @param initValuesEntry: initValues entry container for the job
    */
-  virtual void setInitValuesEntry(const boost::shared_ptr<InitValuesEntry>& initValuesEntry) = 0;
+  void setInitValuesEntry(const boost::shared_ptr<InitValuesEntry>& initValuesEntry);
 
   /**
    * @brief Init Values entries container getter
    * @return the init values entry container
    */
-  virtual boost::shared_ptr<InitValuesEntry> getInitValuesEntry() const = 0;
+  boost::shared_ptr<InitValuesEntry> getInitValuesEntry() const;
 
   /**
    * @brief Constraints entry setter
    * @param constraintsEntry : contraints entry container for the job
    */
-  virtual void setConstraintsEntry(const boost::shared_ptr<ConstraintsEntry>& constraintsEntry) = 0;
+  void setConstraintsEntry(const boost::shared_ptr<ConstraintsEntry>& constraintsEntry);
 
   /**
    * @brief Constraints entries container getter
    * @return the constraints entry container
    */
-  virtual boost::shared_ptr<ConstraintsEntry> getConstraintsEntry() const = 0;
+  boost::shared_ptr<ConstraintsEntry> getConstraintsEntry() const;
 
   /**
    * @brief Timeline entry setter
    * @param timelineEntry : timeline entry container for the job
    */
-  virtual void setTimelineEntry(const boost::shared_ptr<TimelineEntry>& timelineEntry) = 0;
+  void setTimelineEntry(const boost::shared_ptr<TimelineEntry>& timelineEntry);
 
   /**
    * @brief Timeline entries container getter
    * @return the timeline entry container
    */
-  virtual boost::shared_ptr<TimelineEntry> getTimelineEntry() const = 0;
+  boost::shared_ptr<TimelineEntry> getTimelineEntry() const;
 
   /**
    * @brief Timetable entry setter
    * @param timetableEntry : timetable entry container for the job
    */
-  virtual void setTimetableEntry(const boost::shared_ptr<TimetableEntry>& timetableEntry) = 0;
+  void setTimetableEntry(const boost::shared_ptr<TimetableEntry>& timetableEntry);
 
   /**
    * @brief Timetable entries container getter
    * @return the timetable entry container
    */
-  virtual boost::shared_ptr<TimetableEntry> getTimetableEntry() const = 0;
+  boost::shared_ptr<TimetableEntry> getTimetableEntry() const;
 
   /**
    * @brief Final State entry setter
    * @param finalStateEntry : final state entry container for the job
    */
-  virtual void setFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) = 0;
+  void setFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry);
 
   /**
    * @brief FinalSate entries container getter
    * @return the final state entry container
    */
-  virtual boost::shared_ptr<FinalStateEntry> getFinalStateEntry() const = 0;
+  boost::shared_ptr<FinalStateEntry> getFinalStateEntry() const;
 
   /**
    * @brief Curves entry setter
    * @param curvesEntry : curves for the job
    */
-  virtual void setCurvesEntry(const boost::shared_ptr<CurvesEntry>& curvesEntry) = 0;
+  void setCurvesEntry(const boost::shared_ptr<CurvesEntry>& curvesEntry);
 
   /**
    * @brief Curves entry getter
    * @return the curves entry container
    */
-  virtual boost::shared_ptr<CurvesEntry> getCurvesEntry() const = 0;
+  boost::shared_ptr<CurvesEntry> getCurvesEntry() const;
 
   /**
    * @brief Logs entry container setter
    * @param logsEntry : logs entries container for the job
    */
-  virtual void setLogsEntry(const boost::shared_ptr<LogsEntry>& logsEntry) = 0;
+  void setLogsEntry(const boost::shared_ptr<LogsEntry>& logsEntry);
 
   /**
    * @brief Logs entries container getter
    * @return the log entry container
    */
-  virtual boost::shared_ptr<LogsEntry> getLogsEntry() const = 0;
+  boost::shared_ptr<LogsEntry> getLogsEntry() const;
 
-  class Impl;  ///< implemented class
+ private:
+  std::string outputsDirectory_;                          ///< directory for simulation outputs
+  boost::shared_ptr<InitValuesEntry> initValuesEntry_;    ///< Init Values entries container
+  boost::shared_ptr<ConstraintsEntry> constraintsEntry_;  ///< Constraints entries container
+  boost::shared_ptr<TimelineEntry> timelineEntry_;        ///< Timeline entries container
+  boost::shared_ptr<TimetableEntry> timetableEntry_;      ///< Timetable entries container
+  boost::shared_ptr<FinalStateEntry> finalStateEntry_;    ///< Final State entries container
+  boost::shared_ptr<CurvesEntry> curvesEntry_;            ///< Curves entries container
+  boost::shared_ptr<LogsEntry> logsEntry_;                ///< Logs entries container
 };
 
 }  // namespace job

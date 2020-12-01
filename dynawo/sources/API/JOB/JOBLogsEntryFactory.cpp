@@ -12,13 +12,13 @@
 //
 
 #include "JOBLogsEntryFactory.h"
-#include "JOBLogsEntryImpl.h"
+#include "JOBLogsEntry.h"
 
 namespace job {
 
 boost::shared_ptr<LogsEntry>
 LogsEntryFactory::newInstance() {
-  return boost::shared_ptr<LogsEntry>(new LogsEntry::Impl());
+  return boost::shared_ptr<LogsEntry>(new LogsEntry());
 }
 
 }  // namespace job

@@ -18,12 +18,12 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBTimelineEntryImpl.h"
+#include "JOBTimelineEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testTimelineEntry) {
-  boost::shared_ptr<TimelineEntry> timeline = boost::shared_ptr<TimelineEntry>(new TimelineEntry::Impl());
+  boost::shared_ptr<TimelineEntry> timeline = boost::shared_ptr<TimelineEntry>(new TimelineEntry());
   // check default attributes
   ASSERT_EQ(timeline->getExportMode(), "");
   ASSERT_EQ(timeline->getOutputFile(), "");

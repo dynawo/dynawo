@@ -20,12 +20,14 @@
 #ifndef API_JOB_JOBITERATORS_H_
 #define API_JOB_JOBITERATORS_H_
 
-#include "JOBJobsCollectionImpl.h"
+#include "JOBJobEntry.h"
+
+#include <boost/shared_ptr.hpp>
+#include <vector>
 
 namespace job {
 
-class JobConstIteratorImpl;
-class JobIteratorImpl;
+class JobsCollection;
 
 /**
  * @class job_iterator
@@ -47,26 +49,7 @@ class job_iterator {
    * or the end of the jobs' container.
    * @returns Created job_iterator.
    */
-  job_iterator(JobsCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the job iterator to copy
-   */
-  job_iterator(const job_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~job_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : job_iterator to assign
-   *
-   * @returns Reference to this job_iterator
-   */
-  job_iterator& operator=(const job_iterator& other);
+  job_iterator(JobsCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -126,14 +109,8 @@ class job_iterator {
    */
   boost::shared_ptr<JobEntry>* operator->() const;
 
-  /**
-   * @brief Get the implementation ot the iterator
-   * @return the implementation ot the iterator
-   */
-  JobIteratorImpl* impl() const;
-
  private:
-  JobIteratorImpl* impl_;  ///< Pointer to the implementation of the job iterator;
+  std::vector<boost::shared_ptr<JobEntry> >::iterator current_;  ///< current iterator
 };
 
 /**
@@ -156,26 +133,7 @@ class job_const_iterator {
    * or the end of the jobs' container.
    * @returns Created job_const_iterator.
    */
-  job_const_iterator(const JobsCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the job const iterator to copy
-   */
-  job_const_iterator(const job_const_iterator& original);
-
-  /**
-   * @brief Constructor
-   *
-   * @param original current iterator
-   * @returns Created job_const_iterator
-   */
-  explicit job_const_iterator(const job_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~job_const_iterator();
+  job_const_iterator(const JobsCollection* iterated, bool begin);
 
   /**
    * @brief assignment
@@ -244,7 +202,7 @@ class job_const_iterator {
   const boost::shared_ptr<JobEntry>* operator->() const;
 
  private:
-  JobConstIteratorImpl* impl_;  ///< Pointer to the implementation of the job const iterator;
+  std::vector<boost::shared_ptr<JobEntry> >::const_iterator current_;  ///< current const iterator
 };
 
 }  // namespace job

@@ -12,29 +12,22 @@
 //
 
 /**
- * @file JOBDynModelsEntryImpl.cpp
+ * @file JOBDynModelsEntry.cpp
  * @brief Dynamic models entry description : implementation file
  *
  */
 
-#include "JOBDynModelsEntryImpl.h"
+#include "JOBDynModelsEntry.h"
 
 namespace job {
 
-DynModelsEntry::Impl::Impl() :
-dydFile_("") {
-}
-
-DynModelsEntry::Impl::~Impl() {
-}
-
 void
-DynModelsEntry::Impl::setDydFile(const std::string& dydFile) {
+DynModelsEntry::setDydFile(const std::string& dydFile) {
   dydFile_ = dydFile;
 }
 
-std::string
-DynModelsEntry::Impl::getDydFile() const {
+const std::string&
+DynModelsEntry::getDydFile() const {
   return dydFile_;
 }
 

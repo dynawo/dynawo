@@ -22,9 +22,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-namespace job {
+#include "JOBAppenderEntry.h"
 
-class AppenderEntry;
+namespace job {
 
 /**
  * @class  AppenderEntryFactory

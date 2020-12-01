@@ -12,39 +12,33 @@
 //
 
 /**
- * @file JOBInitValuesEntryImpl.cpp
+ * @file JOBInitValuesEntry.cpp
  * @brief InitValues entry description : implementation file
  */
 
-#include "JOBInitValuesEntryImpl.h"
+#include "JOBInitValuesEntry.h"
 
 namespace job {
 
-InitValuesEntry::Impl::Impl() :
-dumpLocalInitValues_(false),
-dumpGlobalInitValues_(false) {
-}
-
-InitValuesEntry::Impl::~Impl() {
-}
+InitValuesEntry::InitValuesEntry() : dumpLocalInitValues_(false), dumpGlobalInitValues_(false) {}
 
 void
-InitValuesEntry::Impl::setDumpLocalInitValues(const bool dumpLocalInitValues) {
+InitValuesEntry::setDumpLocalInitValues(const bool dumpLocalInitValues) {
   dumpLocalInitValues_ = dumpLocalInitValues;
 }
 
 bool
-InitValuesEntry::Impl::getDumpLocalInitValues() const {
+InitValuesEntry::getDumpLocalInitValues() const {
   return dumpLocalInitValues_;
 }
 
 void
-InitValuesEntry::Impl::setDumpGlobalInitValues(const bool dumpGlobalInitValues) {
+InitValuesEntry::setDumpGlobalInitValues(const bool dumpGlobalInitValues) {
   dumpGlobalInitValues_ = dumpGlobalInitValues;
 }
 
 bool
-InitValuesEntry::Impl::getDumpGlobalInitValues() const {
+InitValuesEntry::getDumpGlobalInitValues() const {
   return dumpGlobalInitValues_;
 }
 

@@ -31,83 +31,89 @@ namespace job {
 class AppenderEntry {
  public:
   /**
-   * @brief Destructor
+   * @brief AppenderEntry constructor
    */
-  virtual ~AppenderEntry() {}
+  AppenderEntry();
 
   /**
    * @brief Tag attribute getter
    * @return Tag filtered by the appender
    */
-  virtual std::string getTag() const = 0;
+  const std::string& getTag() const;
 
   /**
    * @brief File path attribute getter
    * @return Output file path of the appender
    */
-  virtual std::string getFilePath() const = 0;
+  const std::string& getFilePath() const;
 
   /**
    * @brief Level filter attribute getter
    * @return Minimum severity level exported by the appender
    */
-  virtual std::string getLvlFilter() const = 0;
+  const std::string& getLvlFilter() const;
 
   /**
    * @brief show level tag attribute getter
    * @return @b true if the level tag of the log should be printed
    */
-  virtual bool getShowLevelTag() const = 0;
+  bool getShowLevelTag() const;
 
   /**
    * @brief separator between log information getter
    * @return the separator used to separate information inside the log
    */
-  virtual std::string getSeparator() const = 0;
+  const std::string& getSeparator() const;
 
   /**
    * @brief get the time stamp format used inside the log
    * @return the time stamp format used
    */
-  virtual std::string getTimeStampFormat() const = 0;
+  const std::string& getTimeStampFormat() const;
 
   /**
    * @brief Tag attribute setter
    * @param tag: Tag filtered by the appender
    */
-  virtual void setTag(const std::string& tag) = 0;
+  void setTag(const std::string& tag);
 
   /**
    * @brief File path attribute setter
    * @param filePath: Output file path of the appender
    */
-  virtual void setFilePath(const std::string& filePath) = 0;
+  void setFilePath(const std::string& filePath);
 
   /**
    * @brief Level filter attribute setter
    * @param lvlFilter: Minimum severity level exported by the appender
    */
-  virtual void setLvlFilter(const std::string& lvlFilter) = 0;
+  void setLvlFilter(const std::string& lvlFilter);
 
   /**
    * @brief indicates if the level tag associated to the log should be printed
    * @param showTag @b true if the level tag should be printed
    */
-  virtual void setShowLevelTag(const bool showTag) = 0;
+  void setShowLevelTag(const bool showTag);
 
   /**
    * @brief set the separator used when printing log
    * @param separator separator to used
    */
-  virtual void setSeparator(const std::string& separator) = 0;
+  void setSeparator(const std::string& separator);
 
   /**
    * @brief set the format of the time to print before the log
    * @param format format of the time
    */
-  virtual void setTimeStampFormat(const std::string& format) = 0;
+  void setTimeStampFormat(const std::string& format);
 
-  class Impl;  ///< implemented class
+ private:
+  std::string tag_;              ///< Tag filtered by the appender
+  std::string filePath_;         ///< Output file path of the appender
+  std::string lvlFilter_;        ///< Minimum severity level exported by the appender
+  bool showLevelTag_;            ///< @b true if the tag of the log should be printed
+  std::string separator_;        ///< separator used between each log information
+  std::string timeStampFormat_;  ///< format of the timestamp information , "" if no time to print
 };
 
 }  // namespace job

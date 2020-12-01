@@ -18,12 +18,12 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBInitialStateEntryImpl.h"
+#include "JOBInitialStateEntry.h"
 
 namespace job {
 
 TEST(APIJOBTest, testInitialStateEntry) {
-  boost::shared_ptr<InitialStateEntry> initialState = boost::shared_ptr<InitialStateEntry>(new InitialStateEntry::Impl());
+  boost::shared_ptr<InitialStateEntry> initialState = boost::shared_ptr<InitialStateEntry>(new InitialStateEntry());
   // check default attributes
   ASSERT_EQ(initialState->getInitialStateFile(), "");
 
