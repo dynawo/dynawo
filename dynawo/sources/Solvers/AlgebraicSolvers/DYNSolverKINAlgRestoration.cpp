@@ -36,8 +36,6 @@
 #include "DYNSolverCommon.h"
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
-#include "DYNSubModel.h"
-#include "DYNModelMulti.h"
 
 using std::vector;
 using std::map;
@@ -240,14 +238,20 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
 void
 SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, const boost::shared_ptr<Model>& model) {
   SparseMatrix::CheckError error = smj.check();
+  std::string sub_model_name;
+  std::string equation;
+  std::string equation_bis;
+  int local_index;
   switch (error.code) {
   case SparseMatrix::CHECK_ZERO_ROW:
     throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulRow, error.info, model->getVariableName(error.info));
   case SparseMatrix::CHECK_ZERO_COLUMN:
-    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulColumn, error.info, model->getEquation(error.info));
+    model->getFInfos(error.info, sub_model_name, local_index, equation);
+    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulColumn, error.info, equation);
   case SparseMatrix::CHECK_TWO_EQUAL_COLUMNS:
-    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianTwoEqualCol, error.info, error.info_bis, model->getEquation(error.info),
-                   model->getEquation(error.info_bis));
+    model->getFInfos(error.info, sub_model_name, local_index, equation);
+    model->getFInfos(error.info_bis, sub_model_name, local_index, equation_bis);
+    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianTwoEqualCol, error.info, error.info_bis, equation, equation_bis);
   case SparseMatrix::CHECK_TWO_EQUAL_LINES:
     throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianTwoEqualLines, error.info, error.info_bis, model->getVariableName(error.info),
                    model->getVariableName(error.info_bis));
