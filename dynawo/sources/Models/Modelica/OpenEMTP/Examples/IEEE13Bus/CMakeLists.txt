@@ -16,7 +16,7 @@ set(MODEL_FILES
     IdealBreaker.mo
     IdealUnit.mo
     IEEE13Node.mo
-    #IEEE13NodeImproved.mo
+    IEEE13NodeImproved.mo
     MultiphaseBreaker.mo
     multiPhaseCP.mo
     Norton.mo
@@ -28,7 +28,6 @@ set(MODEL_FILES
     ThreePhaseRL.mo
     UnsatSTC_XFMR.mo
     YgYg.mo
-    UnbalancedParallelLine.mo
     )
 #
 # Installing models (MODEL_FILE iterator through the MODEL_FILES array)

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -11,8 +11,9 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
-<external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <variable type="continuous" id="p.v"/>
-  <variable type="continuous" id="n.i"/>
-  <!--   <variable type="continuous" id="n.i"/> -->
-</external_variables>
+
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+<!--
+    <curve model="cosineVoltage" variable="cosineVoltage_i"/>
+-->
+</curvesInput>

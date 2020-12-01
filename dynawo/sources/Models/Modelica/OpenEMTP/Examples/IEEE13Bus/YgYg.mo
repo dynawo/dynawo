@@ -76,8 +76,6 @@ equation
           -19.8},{26,-74}}, color={0,0,255}));
   connect(PhaseC.Pin_m, ground1.p) annotation (Line(points={{13.8,-59.8},{26,
           -60},{26,-74}}, color={0,0,255}));
-  connect(Pm, Pm)
-    annotation (Line(points={{80,0},{80,0},{80,0}}, color={0,0,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(extent={{-48,-32},{10,28}}, lineColor={28,108,200}),

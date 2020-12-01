@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="seriesRLC" lib="SeriesRLC" parFile="RLC.par" parId="SeriesRLC"/>
+  <dyn:blackBoxModel id="cosineVoltage" lib="CosineVoltage" parFile="RLC.par" parId="CosineVoltage"/>
+  <dyn:blackBoxModel id="ground" lib="Ground"/>
+
+  <dyn:connect id1="cosineVoltage" var1="cosineVoltage_p" id2="seriesRLC" var2="seriesRLC_p"/>
+  <dyn:connect id1="seriesRLC" var1="seriesRLC_n" id2="ground" var2="ground_p"/>
+  <dyn:connect id1="ground" var1="ground_p" id2="cosineVoltage" var2="cosineVoltage_n"/>
+</dyn:dynamicModelsArchitecture>

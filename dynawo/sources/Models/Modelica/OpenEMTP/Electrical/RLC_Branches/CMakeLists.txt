@@ -24,6 +24,7 @@ set(MODEL_FILES
     C.extvar
     ParallelRLC.mo
     SeriesRLC.mo
+    SeriesRLC.extvar
     )
 
 #

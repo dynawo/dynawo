@@ -11,9 +11,9 @@
 # DECLARATION : sets MODEL_FILES VARIABLE to package.mo
 set(MODEL_FILES
         package.mo
-        newRLC.mo
-        RLCwithSwitch.mo
-        triphase.mo
+        # newRLC.mo
+        # RLCwithSwitch.mo
+        # triphase.mo
         )
 
 #

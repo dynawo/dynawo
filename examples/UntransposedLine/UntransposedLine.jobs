@@ -21,7 +21,14 @@
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="0.1"/>
     <dyn:outputs directory="outputs">
-      <dyn:finalState exportIIDMFile="false" exportDumpFile="true"/>
+      <dyn:curves inputFile="UntransposedLine.crv" exportMode="CSV"/>
+      <dyn:dumpInitValues local="true" global="true"/>
+      <dyn:constraints exportMode="XML"/>
+      <dyn:timeline exportMode="TXT"/>
+      <dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+        <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
+      </dyn:logs>
     </dyn:outputs>
   </dyn:job>
 </dyn:jobs>

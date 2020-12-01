@@ -11,8 +11,8 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
-<external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <variable type="continuous" id="p.v"/>
-  <variable type="continuous" id="n.i"/>
-  <!--   <variable type="continuous" id="n.i"/> -->
-</external_variables>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="SeriesRLC">
+    <dyn:unitDynamicModel id="seriesRLC" name="OpenEMTP.Electrical.RLC_Branches.SeriesRLC"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>

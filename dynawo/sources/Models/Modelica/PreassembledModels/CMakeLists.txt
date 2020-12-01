@@ -10,21 +10,88 @@
 
 # Preassembled models
 set(MODELICA_PREASSEMBLED_MODELS
-    Bus.xml
-    Capacitor.xml
-    CosineVoltage.xml
+    # CurrentLimitAutomaton.xml
+    # EventConnectedStatus.xml
+    # EventQuadripoleConnection.xml
+    # EventQuadripoleDisconnection.xml
+    # EventSetPointBoolean.xml
+    # EventSetPointReal.xml
+    # EventSetPointDoubleReal.xml
+    # GeneratorFictitious.xml
+    # GeneratorPQ.xml
+    # GeneratorPQPropSignalN.xml
+    # GeneratorPQPropDiagramPQSignalN.xml
+    # GeneratorPV.xml
+    # GeneratorPVSignalN.xml
+    # GeneratorPVWithImpedanceSignalN.xml
+    # GeneratorPVDiagramPQSignalN.xml
+    # GeneratorPVDiagramPQWithImpedanceSignalN.xml
+    # GeneratorPVPropSignalN.xml
+    # GeneratorPVRemoteSignalN.xml
+    # GeneratorPVRemoteDiagramPQSignalN.xml
+    # GeneratorSynchronousFourWindings.xml
+    # GeneratorSynchronousThreeWindings.xml
+    # GeneratorSynchronousFourWindingsProportionalRegulations.xml
+    # GeneratorSynchronousThreeWindingsProportionalRegulations.xml
+    # GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
+    # GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
+    # GenericAutomaton.xml
+    # GridFormingConverterDroopControl.xml
+    # GridFormingConverterMatchingControl.xml
+    # GridFormingConverterDispatchableVirtualOscillatorControl.xml
+    # HvdcPV.xml
+    # HvdcPVEmulation.xml
+    # HvdcPVDiagramPQ.xml
+    # HvdcPVDiagramPQEmulation.xml
+    # HvdcPVDangling.xml
+    # HvdcPTanPhi.xml
+    # HvdcPTanPhiDangling.xml
+    # HvdcVSC.xml
+    # HvdcVSCEmulation.xml
+    # InfiniteBus.xml
+    # InjectorBG.xml
+    # Line.xml
+    # LoadAlphaBeta.xml
+    # LoadAlphaBetaRestorative.xml
+    # LoadAlphaBetaRestorativeLimitsRecalc.xml
+    # LoadOneTransformer.xml
+    # LoadOneTransformerTapChanger.xml
+    # LoadPQ.xml
+    # LoadTwoTransformers.xml
+    # LoadTwoTransformersTapChangers.xml
+    # LoadZIP.xml
+    # NodeFault.xml
+    # PhaseShifterI.xml
+    # PhaseShifterP.xml
+    # ShuntBWithSections.xml
+    # ShuntBWithSectionsWithRegulation.xml
+    # SetPoint.xml
+    # StaticVarCompensator.xml
+    # StaticVarCompensatorPV.xml
+    # Step.xml
+    # TapChangerAutomaton.xml
+    # TapChangerBlockingArea.xml
+    # TransformerFixedRatio.xml
+    # UnderVoltageAutomaton.xml
+    # VRRemote.xml
+    # Bus.xml
+    # Capacitor.xml
+    # CosineVoltage.xml
+    # Ground.xml
+    # IEEE13Node.xml
+    # Inductor.xml
+    # mPhaseCosineVoltage.xml
+    # Plug_a.xml
+    # Plug_b.xml
+    # Plug_c.xml
+    # Resistor.xml
+    # Star.xml
+    # TLM.xml
+    # ParallelLines.xml
+    # UnbalancedParallelLine.xml
     Ground.xml
-    #IEEE13Node.xml
-    Inductor.xml
-    mPhaseCosineVoltage.xml
-    Plug_a.xml
-    Plug_b.xml
-    Plug_c.xml
-    Resistor.xml
-    Star.xml
-    TLM.xml
-    ParallelLines.xml
-    UnbalancedParallelLine.xml
+    CosineVoltage.xml
+    SeriesRLC.xml
     )
 
 # PYTHON scripts preassembled models

@@ -43,12 +43,12 @@ equation
     Line(points = {{48, 60}, {96, 60}, {96, 0}, {96, 0}}, color = {0, 0, 255}));
   connect(plugToPin_p1.plug_p, positivePlug1) annotation(
     Line(points = {{-72, 60}, {-96, 60}, {-96, 0}, {-98, 0}}, color = {0, 0, 255}));
-  connect(plugToPin_n1.pin_n, idealBreaker1.pin_n) annotation(
-    Line(points = {{44, 60}, {-20, 60}, {-20, 62}, {-22, 62}}, color = {0, 0, 255}));
-  connect(plugToPin_n2.pin_n, idealBreaker2.pin_n) annotation(
-    Line(points = {{42, 0}, {-20, 0}, {-20, 2}, {-20, 2}}, color = {0, 0, 255}));
   connect(plugToPin_n3.pin_n, idealBreaker3.pin_n) annotation(
     Line(points = {{44, -80}, {-24, -80}, {-24, -78}, {-24, -78}}, color = {0, 0, 255}));
+  connect(plugToPin_n2.pin_n, idealBreaker2.pin_n) annotation(
+    Line(points = {{42, 0}, {-20, 0}, {-20, 2}, {-20, 2}}, color = {0, 0, 255}));
+  connect(idealBreaker1.pin_n, plugToPin_n1.pin_n) annotation(
+    Line(points = {{-22, 62}, {44, 62}, {44, 60}, {44, 60}}, color = {0, 0, 255}));
   annotation(
     uses(Modelica(version = "3.2.2")),
     Icon(graphics = {Line(origin = {-35.1196, 20.1934}, points = {{-54.8804, -20.1934}, {-4.88041, -20.1934}, {55.1196, 19.8066}, {55.1196, 19.8066}}), Line(origin = {20, 0}, points = {{0, 20}, {0, -20}, {0, -20}}), Line(origin = {54, 0}, points = {{-34, 0}, {32, 0}, {32, 0}})}));
