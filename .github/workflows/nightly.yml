@@ -8,9 +8,7 @@ jobs:
   fedora:
     name: Linux Fedora (${{ matrix.build-type }}, ${{ matrix.compiler }}, ${{ matrix.cxx11-standard }}, ${{ matrix.library-type }})
     runs-on: ubuntu-latest
-    container:
-      image: dynawo/dynawo-ci-nightly-fedora:latest
-      options: --user root
+    container: dynawo/dynawo-ci-nightly-fedora:latest
     strategy:
       matrix:
         build-type: [Release, Debug]
@@ -50,17 +48,14 @@ jobs:
   bionic:
     name: Linux Bionic
     runs-on: ubuntu-latest
-    container:
-      image: dynawo/dynawo-ci-nightly-bionic:latest
-      options: --user root
+    container: dynawo/dynawo-ci-nightly-bionic:latest
     env:
-      DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
-      DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_BUILD_TYPE: Release
       DYNAWO_CXX11_ENABLED: YES
       DYNAWO_COMPILER: GCC
       DYNAWO_LIBRARY_TYPE: SHARED
+      DYNAWO_PYTHON_COMMAND: python3
       DYNAWO_NB_PROCESSORS_USED: 2
 
     steps:
@@ -68,11 +63,17 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Build
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
 
       - name: NRT
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh nrt
@@ -80,9 +81,7 @@ jobs:
   omc:
     name: Linux OMC Build (${{ matrix.compiler }})
     runs-on: ubuntu-latest
-    container:
-      image: dynawo/dynawo-ci-nightly-fedora:latest
-      options: --user root
+    container: dynawo/dynawo-ci-nightly-fedora:latest
     strategy:
       matrix:
         compiler: [GCC, CLANG]
@@ -121,6 +120,7 @@ jobs:
       MACOSX_DEPLOYMENT_TARGET: 10.14
       DYNAWO_BOOST_HOME_DEFAULT: "false"
       DYNAWO_NB_PROCESSORS_USED: 2
+      DYNAWO_PYTHON_COMMAND: python3
 
     steps:
       - name: Checkout sources
@@ -128,19 +128,9 @@ jobs:
 
       - name: Pre-requisites
         run: |
-          pip install lxml psutil
+          pip3 install lxml psutil
           brew install automake gnu-sed
           ln -s /usr/local/bin/gfortran-9 /usr/local/bin/gfortran
-
-      # - name: Install OMC
-      #   working-directory: ${{ runner.workspace }}
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     zip_url=$(curl -s -L -H "Authorization: token $GITHUB_TOKEN" -X GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep "Dynawo_MacOS" | grep url | cut -d '"' -f 4)
-      #     curl -L $zip_url -o Dynawo_MacOS_latest.zip
-      #     unzip -q Dynawo_MacOS_latest.zip -d Dynawo_MacOS_latest
-      #     (cd Dynawo_MacOS_latest/dynawo;rm -rf ddb sbin bin share sources include lib)
 
       - name: Build
         env:

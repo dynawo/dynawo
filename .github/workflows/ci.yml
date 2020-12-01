@@ -9,9 +9,7 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: dynawo/dynawo-ci:latest
-      options: --user root
+    container: dynawo/dynawo-ci:latest
     env:
       DYNAWO_BUILD_TYPE: Debug
       DYNAWO_CXX11_ENABLED: YES
@@ -38,9 +36,7 @@ jobs:
 
   coverage:
     runs-on: ubuntu-latest
-    container:
-      image: dynawo/dynawo-ci:latest
-      options: --user root
+    container: dynawo/dynawo-ci:latest
     env:
       DYNAWO_BUILD_TYPE: TestCoverage
       DYNAWO_CXX11_ENABLED: YES
