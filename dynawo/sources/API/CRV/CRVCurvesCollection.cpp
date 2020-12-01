@@ -14,154 +14,152 @@
 /**
  * @file  CRVCurvesCollection.cpp
  *
- * @brief Curves collection : implementation for iterator
+ * @brief Curves collection : implementation file
  *
  */
 #include "CRVCurvesCollection.h"
-#include "CRVCurvesCollectionImpl.h"
+#include "CRVCurve.h"
 
+using std::string;
+using std::vector;
 using boost::shared_ptr;
 
 namespace curves {
 
-CurvesCollection::const_iterator::const_iterator(const CurvesCollection::Impl* iterated, bool begin) :
-impl_(new BaseConstIteratorImpl(iterated, begin)) { }
-
-CurvesCollection::const_iterator::const_iterator(const CurvesCollection::const_iterator& original) :
-impl_(new BaseConstIteratorImpl(*(original.impl_))) { }
-
-CurvesCollection::const_iterator::const_iterator(const CurvesCollection::iterator& original) :
-impl_(new BaseConstIteratorImpl(*(original.impl()))) { }
-
-CurvesCollection::const_iterator::~const_iterator() {
-  delete impl_;
-  impl_ = NULL;
+CurvesCollection::CurvesCollection(const string& id) :
+id_(id) {
 }
 
-CurvesCollection::const_iterator&
-CurvesCollection::const_iterator::operator=(const CurvesCollection::const_iterator& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new BaseConstIteratorImpl(*(other.impl_));
-  return *this;
+void
+CurvesCollection::add(const shared_ptr<Curve>& curve) {
+  curves_.push_back(curve);
 }
+
+void
+CurvesCollection::updateCurves(const double& time) {
+  for (CurvesCollection::iterator iter = begin();
+          iter != end();
+          ++iter) {
+    (*iter)->update(time);
+  }
+}
+
+CurvesCollection::const_iterator
+CurvesCollection::cbegin() const {
+  return CurvesCollection::const_iterator(this, true);
+}
+
+CurvesCollection::const_iterator
+CurvesCollection::cend() const {
+  return CurvesCollection::const_iterator(this, false);
+}
+
+CurvesCollection::const_iterator::const_iterator(const CurvesCollection* iterated, bool begin) :
+current_((begin ? iterated->curves_.begin() : iterated->curves_.end())) { }
 
 CurvesCollection::const_iterator&
 CurvesCollection::const_iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 CurvesCollection::const_iterator
 CurvesCollection::const_iterator::operator++(int) {
   CurvesCollection::const_iterator previous = *this;
-  (*impl_)++;
+  current_++;
   return previous;
 }
 
 CurvesCollection::const_iterator&
 CurvesCollection::const_iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 CurvesCollection::const_iterator
 CurvesCollection::const_iterator::operator--(int) {
   CurvesCollection::const_iterator previous = *this;
-  (*impl_)--;
+  current_--;
   return previous;
 }
 
 bool
 CurvesCollection::const_iterator::operator==(const CurvesCollection::const_iterator& other) const {
-  return *impl_ == *(other.impl_);
+  return current_ == other.current_;
 }
 
 bool
 CurvesCollection::const_iterator::operator!=(const CurvesCollection::const_iterator& other) const {
-  return *impl_ != *(other.impl_);
+  return current_ != other.current_;
 }
 
 const shared_ptr<Curve>&
 CurvesCollection::const_iterator::operator*() const {
-  return *(*impl_);
+  return *current_;
 }
 
 const shared_ptr<Curve>*
 CurvesCollection::const_iterator::operator->() const {
-  return impl_->operator->();
+  return &(*current_);
 }
 
-CurvesCollection::iterator::iterator(CurvesCollection::Impl* iterated, bool begin) :
-impl_(new BaseIteratorImpl(iterated, begin)) { }
-
-CurvesCollection::iterator::iterator(const CurvesCollection::iterator& original) :
-impl_(new BaseIteratorImpl(*(original.impl_))) { }
-
-CurvesCollection::iterator::~iterator() {
-  delete impl_;
-  impl_ = NULL;
+CurvesCollection::iterator
+CurvesCollection::begin() {
+  return CurvesCollection::iterator(this, true);
 }
 
-CurvesCollection::iterator&
-CurvesCollection::iterator::operator=(const CurvesCollection::iterator& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new BaseIteratorImpl(*(other.impl_));
-  return *this;
+CurvesCollection::iterator
+CurvesCollection::end() {
+  return CurvesCollection::iterator(this, false);
 }
+
+CurvesCollection::iterator::iterator(CurvesCollection* iterated, bool begin) :
+current_((begin ? iterated->curves_.begin() : iterated->curves_.end())) { }
 
 CurvesCollection::iterator&
 CurvesCollection::iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 CurvesCollection::iterator
 CurvesCollection::iterator::operator++(int) {
   CurvesCollection::iterator previous = *this;
-  (*impl_)++;
+  current_++;
   return previous;
 }
 
 CurvesCollection::iterator&
 CurvesCollection::iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 CurvesCollection::iterator
 CurvesCollection::iterator::operator--(int) {
   CurvesCollection::iterator previous = *this;
-  (*impl_)--;
+  current_--;
   return previous;
 }
 
 bool
 CurvesCollection::iterator::operator==(const CurvesCollection::iterator& other) const {
-  return *impl_ == *(other.impl_);
+  return current_ == other.current_;
 }
 
 bool
 CurvesCollection::iterator::operator!=(const CurvesCollection::iterator& other) const {
-  return *impl_ != *(other.impl_);
+  return current_ != other.current_;
 }
 
 shared_ptr<Curve>&
 CurvesCollection::iterator::operator*() const {
-  return *(*impl_);
+  return *current_;
 }
 
 shared_ptr<Curve>*
 CurvesCollection::iterator::operator->() const {
-  return impl_->operator->();
-}
-
-CurvesCollection::BaseIteratorImpl*
-CurvesCollection::iterator::impl() const {
-  return impl_;
+  return &(*current_);
 }
 
 }  // namespace curves

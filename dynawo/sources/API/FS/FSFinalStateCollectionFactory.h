@@ -22,9 +22,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-namespace finalState {
-class FinalStateCollection;
+#include "FSFinalStateCollection.h"
 
+namespace finalState {
 class FinalStateCollectionFactory {
  public:
   /**
@@ -48,7 +48,7 @@ class FinalStateCollectionFactory {
    * @return final state collection
    */
   static boost::shared_ptr<FinalStateCollection> copyInstance(const FinalStateCollection& original);
-};  ///< Class for creation of Final State Coolection
+};  ///< Class for creation of Final State Collection
 }  // namespace finalState
 
 #endif  // API_FS_FSFINALSTATECOLLECTIONFACTORY_H_

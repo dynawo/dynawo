@@ -19,7 +19,7 @@
 
 #include "DYNMacrosMessage.h"
 
-#include "EXTVARVariablesCollectionImpl.h"
+#include "EXTVARVariablesCollection.h"
 #include "EXTVARIterators.h"
 #include "EXTVARVariable.h"
 
@@ -30,7 +30,7 @@ using boost::shared_ptr;
 
 namespace externalVariables {
 
-void VariablesCollection::Impl::addVariable(const shared_ptr<Variable>& variable) {
+void VariablesCollection::addVariable(const shared_ptr<Variable>& variable) {
   const string& id = variable->getId();
   // Used instead of variables_[name] = VariableFactory::newvariable(id, type)
   // to avoid necessity to create VariableFactory::Impl default constructor
@@ -45,22 +45,22 @@ void VariablesCollection::Impl::addVariable(const shared_ptr<Variable>& variable
 }
 
 variable_const_iterator
-VariablesCollection::Impl::cbeginVariable() const {
+VariablesCollection::cbeginVariable() const {
   return variable_const_iterator(this, true);
 }
 
 variable_const_iterator
-VariablesCollection::Impl::cendVariable() const {
+VariablesCollection::cendVariable() const {
   return variable_const_iterator(this, false);
 }
 
 variable_iterator
-VariablesCollection::Impl::beginVariable() {
+VariablesCollection::beginVariable() {
   return variable_iterator(this, true);
 }
 
 variable_iterator
-VariablesCollection::Impl::endVariable() {
+VariablesCollection::endVariable() {
   return variable_iterator(this, false);
 }
 

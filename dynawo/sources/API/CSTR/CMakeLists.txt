@@ -19,10 +19,9 @@ set(API_CSTR_SHARED
 install(FILES ${API_CSTR_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
 set(API_CSTR_SOURCES
-    CSTRConstraintImpl.cpp
+    CSTRConstraint.cpp
     CSTRConstraintFactory.cpp
     CSTRConstraintsCollection.cpp
-    CSTRConstraintsCollectionImpl.cpp
     CSTRConstraintsCollectionFactory.cpp
     CSTRXmlExporter.cpp
     CSTRTxtExporter.cpp

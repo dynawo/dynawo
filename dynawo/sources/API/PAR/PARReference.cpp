@@ -17,9 +17,9 @@
  *
  */
 
-#include "DYNMacrosMessage.h"
+#include "PARReference.h"
 
-#include "PARReferenceImpl.h"
+#include "DYNMacrosMessage.h"
 
 using DYN::Error;
 
@@ -27,23 +27,15 @@ using std::string;
 
 namespace parameters {
 
-Reference::Impl::Impl(const string& name) :
-type_(""),
-name_(name),
-origName_(""),
-componentId_("") {
-}
-
-Reference::Impl::~Impl() {
-}
+Reference::Reference(const string& name) : type_(""), name_(name), origName_(""), componentId_("") {}
 
 void
-Reference::Impl::setType(const string& type) {
+Reference::setType(const string& type) {
   type_ = type;
 }
 
 void
-Reference::Impl::setOrigData(const string& origData) {
+Reference::setOrigData(const string& origData) {
   if (origData == ReferenceOriginNames[Reference::IIDM]) {
     setOrigData(Reference::IIDM);
     return;
@@ -52,50 +44,48 @@ Reference::Impl::setOrigData(const string& origData) {
 }
 
 void
-Reference::Impl::setOrigData(const OriginData& origData) {
+Reference::setOrigData(const OriginData& origData) {
   origData_ = origData;
 }
 
 void
-Reference::Impl::setOrigName(const string& origName) {
+Reference::setOrigName(const string& origName) {
   origName_ = origName;
 }
 
 void
-Reference::Impl::setComponentId(const string& id) {
+Reference::setComponentId(const string& id) {
   componentId_ = id;
 }
 
 string
-Reference::Impl::getType() const {
+Reference::getType() const {
   return type_;
 }
 
 string
-Reference::Impl::getName() const {
+Reference::getName() const {
   return name_;
 }
 
 Reference::OriginData
-Reference::Impl::getOrigData() const {
+Reference::getOrigData() const {
   return origData_;
 }
 
 string
-Reference::Impl::getOrigDataStr() const {
+Reference::getOrigDataStr() const {
   return ReferenceOriginNames[origData_];
 }
 
 string
-Reference::Impl::getOrigName() const {
+Reference::getOrigName() const {
   return origName_;
 }
 
 string
-Reference::Impl::getComponentId() const {
+Reference::getComponentId() const {
   return componentId_;
 }
-
-
 
 }  // namespace parameters

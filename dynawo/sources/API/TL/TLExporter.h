@@ -20,13 +20,13 @@
 #ifndef API_TL_TLEXPORTER_H_
 #define API_TL_TLEXPORTER_H_
 
-#include <string>
-#include <iostream>
+#include "TLTimeline.h"
+
 #include <boost/shared_ptr.hpp>
+#include <iostream>
+#include <string>
 
 namespace timeline {
-class Timeline;
-
 /**
  * @class Exporter
  * @brief Exporter interface class

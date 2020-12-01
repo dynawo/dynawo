@@ -20,10 +20,10 @@
 #ifndef API_PAR_PARPARAMETERSSETCOLLECTIONFACTORY_H_
 #define API_PAR_PARPARAMETERSSETCOLLECTIONFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
+#include "PARParametersSetCollection.h"
 
+#include <boost/shared_ptr.hpp>
 namespace parameters {
-class ParametersSetCollection;
 
 /**
  * @class ParametersSetCollectionFactory

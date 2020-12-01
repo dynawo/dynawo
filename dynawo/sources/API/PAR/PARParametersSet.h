@@ -20,18 +20,17 @@
 #ifndef API_PAR_PARPARAMETERSSET_H_
 #define API_PAR_PARPARAMETERSSET_H_
 
+#include "PARParameter.h"
+#include "PARReference.h"
+
+#include <boost/enable_shared_from_this.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/unordered_map.hpp>
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
-
-#include <boost/shared_ptr.hpp>
-#include <boost/enable_shared_from_this.hpp>
-#include <boost/unordered_map.hpp>
 
 namespace parameters {
-
-class Parameter;
-class Reference;
 
 /**
  * @class ParametersSet
@@ -43,30 +42,32 @@ class Reference;
 class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
  public:
   /**
-   * @brief Destructor
+   * @brief constructor
+   *
+   * @param id id of the set of parameters
    */
-  virtual ~ParametersSet() { }
+  explicit ParametersSet(const std::string& id);
 
   /**
    * @brief Getter for parameters' set id
    *
    * @returns Parameters' set id
    */
-  virtual const std::string& getId() const = 0;
+  const std::string& getId() const;
 
   /**
    * @brief Getter for parameters' set file path
    *
    * @returns Parameters' set file path
    */
-  virtual const std::string& getFilePath() const = 0;
+  const std::string& getFilePath() const;
 
   /**
    * @brief Setter for parameters' set file path
    *
    * @param filepath Parameters' set file path
    */
-  virtual void setFilePath(const std::string& filepath) = 0;
+  void setFilePath(const std::string& filepath);
 
   /**
    * @brief Add a parameter alias in the parameters set
@@ -78,7 +79,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @returns Shared pointer to current ParametersSet instance
    * @throws if the origin parameter does not exist, or the destination parameter already exists
    */
-  virtual boost::shared_ptr<ParametersSet> createAlias(const std::string& aliasName, const std::string& origName) = 0;
+  boost::shared_ptr<ParametersSet> createAlias(const std::string& aliasName, const std::string& origName);
 
   /**
    * @brief Adds a bool parameter in the parameters set
@@ -89,7 +90,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param value : Value of the parameter
    * @returns Shared pointer to current ParametersSet instance
    */
-  virtual boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const bool value) = 0;
+  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const bool value);
 
   /**
    * @brief Adds an int parameter in the parameters set
@@ -100,7 +101,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param value : Value of the parameter
    * @returns Shared pointer to current ParametersSet instance
    */
-  virtual boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const int value) = 0;
+  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const int value);
 
   /**
    * @brief Adds a double parameter in the parameters set
@@ -111,7 +112,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param value : Value of the parameter
    * @returns Shared pointer to current ParametersSet instance
    */
-  virtual boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const double value) = 0;
+  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const double value);
 
   /**
    * @brief Adds a string parameter in the parameters set
@@ -122,7 +123,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param value : Value of the parameter
    * @returns Shared pointer to current ParametersSet instance
    */
-  virtual boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const std::string& value) = 0;
+  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const std::string& value);
 
   /**
    * @brief Adds a bool parameter in the parameters set
@@ -136,8 +137,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param column : column of the parameter inside its array
    * @returns Shared pointer to current ParametersSet instance
    */
-  virtual boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const bool value,
-                                                           const std::string& row, const std::string& column) = 0;
+  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const bool value, const std::string& row, const std::string& column);
 
   /**
    * @brief Adds an int parameter in the parameters set
@@ -151,8 +151,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param column : column of the parameter inside its array
    * @returns Shared pointer to current ParametersSet instance
    */
-  virtual boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const int value,
-                                                           const std::string& row, const std::string& column) = 0;
+  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const int value, const std::string& row, const std::string& column);
 
   /**
    * @brief Adds a double parameter in the parameters set
@@ -166,8 +165,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param column : column of the parameter inside its array
    * @returns Shared pointer to current ParametersSet instance
    */
-  virtual boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const double value,
-                                                           const std::string& row, const std::string& column) = 0;
+  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const double value, const std::string& row, const std::string& column);
 
   /**
    * @brief Adds a string parameter in the parameters set
@@ -181,8 +179,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param column : column of the parameter inside its array
    * @returns Shared pointer to current ParametersSet instance
    */
-  virtual boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const std::string& value,
-                                                           const std::string& row, const std::string& column) = 0;
+  boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const std::string& value, const std::string& row, const std::string& column);
 
   /**
    * @brief Add a new parameter in the map
@@ -192,7 +189,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param[in] param Parameter to add to the set
    * @returns Reference to current ParametersSet instance
    */
-  virtual boost::shared_ptr<ParametersSet> addParameter(const boost::shared_ptr<Parameter>& param) = 0;
+  boost::shared_ptr<ParametersSet> addParameter(const boost::shared_ptr<Parameter>& param);
 
   /**
    * @brief Add a new reference in the map
@@ -202,7 +199,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param[in] ref Reference to add to the set
    * @returns Reference to current ParametersSet instance
    */
-  virtual boost::shared_ptr<ParametersSet> addReference(boost::shared_ptr<Reference> ref) = 0;
+  boost::shared_ptr<ParametersSet> addReference(boost::shared_ptr<Reference> ref);
 
   /**
    * @brief Get a parameter from the parameters set
@@ -213,7 +210,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @returns Shared pointer to the parameter
    * @throws API exception if the parameter is not found
    */
-  virtual const boost::shared_ptr<Parameter> getParameter(const std::string& name) const = 0;
+  const boost::shared_ptr<Parameter> getParameter(const std::string& name) const;
 
   /**
    * @brief Get a reference from the parameters set
@@ -224,7 +221,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @returns Shared pointer to the reference
    * @throws API exception if the reference is not found
    */
-  virtual const boost::shared_ptr<Reference> getReference(const std::string& name) const = 0;
+  const boost::shared_ptr<Reference> getReference(const std::string& name) const;
 
   /**
    * @brief Check if a parameter is in the parameters set
@@ -234,7 +231,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param name : Name of the parameter
    * @returns Existence of the parameter in the set
    */
-  virtual bool hasParameter(const std::string& name) const = 0;
+  bool hasParameter(const std::string& name) const;
 
   /**
    * @brief Check if a reference is in the parameters set
@@ -244,7 +241,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @param name : Name of the reference
    * @returns Existence of the reference in the set
    */
-  virtual bool hasReference(const std::string& name) const = 0;
+  bool hasReference(const std::string& name) const;
 
   /**
    * @brief Extends parameters set with the content of given parameters set
@@ -254,41 +251,35 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    *
    * @param parametersSet : ParametersSet to use for extension
    */
-  virtual void extend(boost::shared_ptr<ParametersSet> parametersSet) = 0;
+  void extend(boost::shared_ptr<ParametersSet> parametersSet);
 
   /**
    * @brief Get a vector of parameter names
    *
    * @returns Vector of parameters' name
    */
-  virtual std::vector<std::string> getParametersNames() const = 0;
+  std::vector<std::string> getParametersNames() const;
 
   /**
    * @brief Get a vector of unused parameters' names
    *
    * @returns Vector of unused parameters' names
    */
-  virtual std::vector<std::string> getParamsUnused() const = 0;
+  std::vector<std::string> getParamsUnused() const;
 
   /**
    * @brief Get a vector of references names
    *
    * @returns Vector of references' name
    */
-  virtual std::vector<std::string> getReferencesNames() const = 0;
+  std::vector<std::string> getReferencesNames() const;
 
   /**
    * @brief Get a reference to the map of parameters
    *
    * @returns Reference to the map of parameters
    */
-  virtual std::map<std::string, boost::shared_ptr<Parameter> >& getParameters() = 0;
-
-  class Impl;  ///< implementation class
-
- protected:
-  class BaseIteratorImpl;  ///< Abstract class, for the interface
-  class BaseIteratorRefImpl;  ///< Abstract class, for the interface
+  std::map<std::string, boost::shared_ptr<Parameter> >& getParameters();
 
  public:
   /**
@@ -311,26 +302,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
      * or the end of the parameters' container.
      * @returns Created parameter_const_iterator.
      */
-    parameter_const_iterator(const ParametersSet::Impl* iterated, bool begin);
-
-    /**
-     * @brief Copy constructor
-     * @param original : const iterator to copy
-     */
-    parameter_const_iterator(const parameter_const_iterator& original);
-
-    /**
-     * @brief Destructor
-     */
-    ~parameter_const_iterator();
-
-    /**
-     * @brief assignment
-     * @param other : parameter_const_iterator to assign
-     *
-     * @returns Reference to this parameter_const_iterator
-     */
-    parameter_const_iterator& operator=(const parameter_const_iterator& other);
+    parameter_const_iterator(const ParametersSet* iterated, bool begin);
 
     /**
      * @brief Prefix-increment operator
@@ -391,20 +363,20 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
     const boost::shared_ptr<Parameter>* operator->() const;
 
    private:
-    BaseIteratorImpl* impl_; /**< Pointer to the implementation of iterator */
+    std::map<std::string, boost::shared_ptr<Parameter> >::const_iterator current_; /**< Hidden map iterator */
   };
 
   /**
    * @brief Get a parameter_const_iterator to the beginning of the parameters' set
    * @return beginning of constant iterator
    */
-  virtual parameter_const_iterator cbeginParameter() const = 0;
+  parameter_const_iterator cbeginParameter() const;
 
   /**
    * @brief Get a parameter_const_iterator to the end of the parameters' set
    * @return end of constant iterator
    */
-  virtual parameter_const_iterator cendParameter() const = 0;
+  parameter_const_iterator cendParameter() const;
 
   /**
    * @class reference_const_iterator
@@ -426,26 +398,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
      * or the end of the references' container.
      * @returns Created reference_const_iterator.
      */
-    reference_const_iterator(const ParametersSet::Impl* iterated, bool begin);
-
-    /**
-     * @brief Copy constructor
-     * @param original : const iterator ref to copy
-     */
-    reference_const_iterator(const reference_const_iterator& original);
-
-    /**
-     * @brief Destructor
-     */
-    ~reference_const_iterator();
-
-    /**
-     * @brief assignment
-     * @param other : reference_const_iterator to assign
-     *
-     * @returns Reference to this reference_const_iterator
-     */
-    reference_const_iterator& operator=(const reference_const_iterator& other);
+    reference_const_iterator(const ParametersSet* iterated, bool begin);
 
     /**
      * @brief Prefix-increment operator
@@ -492,20 +445,56 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
     const boost::shared_ptr<Reference>* operator->() const;
 
    private:
-    BaseIteratorRefImpl* impl_; /**< Pointer to the implementation of iterator */
+    boost::unordered_map<std::string, boost::shared_ptr<Reference> >::const_iterator current_; /**< Hidden map iterator */
   };
 
   /**
    * @brief Get a reference_const_iterator to the beginning of the references' set
    * @return beginning of constant iterator_ref
    */
-  virtual reference_const_iterator cbeginReference() const = 0;
+  reference_const_iterator cbeginReference() const;
 
   /**
    * @brief Get a reference_const_iterator to the end of the references' set
    * @return end of constant iterator_ref
    */
-  virtual reference_const_iterator cendReference() const = 0;
+  reference_const_iterator cendReference() const;
+
+ private:
+  template<typename T>
+  boost::shared_ptr<ParametersSet> addParameter(const std::string& name, T value, const std::string& row, const std::string& column) {
+    const std::vector<std::string>& parNames = tableParameterNames(name, row, column);
+    std::string firstParName;
+    bool isFirstParName = true;
+    for (std::vector<std::string>::const_iterator itName = parNames.begin(); itName != parNames.end(); ++itName) {
+      const std::string itParName = *itName;
+      if (isFirstParName) {
+        createParameter(itParName, value);
+        firstParName = itParName;
+        isFirstParName = false;
+      } else {
+        createAlias(itParName, firstParName);
+      }
+    }
+
+    return shared_from_this();
+  }
+
+  /**
+   * @brief generate the table parameter names (used as identifier inside the list of all parameters) for parameters creation
+   *
+   * @param name the generic parameter table name
+   * @param row the row index
+   * @param column the column index
+   * @returns the full local value parameter name
+   */
+  std::vector<std::string> tableParameterNames(const std::string& name, const std::string& row, const std::string& column) const;
+
+ private:
+  std::string id_;                                                              /**< Parameters' set id */
+  std::string filepath_;                                                        /**< Parameters' set filepath */
+  std::map<std::string, boost::shared_ptr<Parameter> > parameters_;             /**< Map of the parameters */
+  boost::unordered_map<std::string, boost::shared_ptr<Reference> > references_; /**< Map of the references */
 };
 
 }  // namespace parameters

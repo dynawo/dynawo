@@ -1,5 +1,5 @@
-//
 // Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+//
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -21,13 +21,14 @@
 #ifndef API_CSTR_CSTRCONSTRAINTSCOLLECTION_H_
 #define API_CSTR_CSTRCONSTRAINTSCOLLECTION_H_
 
-#include <string>
-#include <boost/shared_ptr.hpp>
+#include "CSTRConstraint.h"
 
-#include "CSTRConstraintCommon.h"
+#include <boost/shared_ptr.hpp>
+#include <map>
+#include <string>
+#include <vector>
 
 namespace constraints {
-class Constraint;
 
 /**
  * @class ConstraintsCollection
@@ -38,9 +39,11 @@ class Constraint;
 class ConstraintsCollection {
  public:
   /**
-   * @brief Destructor
+   * @brief constructor
+   *
+   * @param id ConstraintsCollection's id
    */
-  virtual ~ConstraintsCollection() { }
+  explicit ConstraintsCollection(const std::string& id);
 
   /**
    * @brief Add a constraint to the collection
@@ -51,13 +54,7 @@ class ConstraintsCollection {
    * @param type begin/end
    * @param modelType type of the model
    */
-  virtual void addConstraint(const std::string& modelName, const std::string& description, const double& time, Type_t type,
-      const std::string& modelType = "") = 0;
-
-  class Impl;
-
- protected:
-  class BaseIteratorImpl;  // Abstract class, for the interface
+  void addConstraint(const std::string& modelName, const std::string& description, const double& time, Type_t type, const std::string& modelType = "");
 
  public:
   /**
@@ -80,26 +77,7 @@ class ConstraintsCollection {
      * or the end of the constraints' container.
      * @returns Created const_iterator.
      */
-    const_iterator(const ConstraintsCollection::Impl* iterated, bool begin);
-
-    /**
-     * @brief Copy constructor
-     * @param original : iterator to copy
-     */
-    const_iterator(const const_iterator& original);
-
-    /**
-     * @brief Destructor
-     */
-    ~const_iterator();
-
-    /**
-     * @brief assignment
-     * @param other : const_iterator to assign
-     *
-     * @returns Reference to this const_iterator
-     */
-    const_iterator& operator=(const const_iterator& other);
+    const_iterator(const ConstraintsCollection* iterated, bool begin);
 
     /**
      * @brief Prefix-increment operator
@@ -160,20 +138,25 @@ class ConstraintsCollection {
     const boost::shared_ptr<Constraint>* operator->() const;
 
    private:
-    BaseIteratorImpl* impl_; /**< Pointer to the implementation of iterator */
+    std::map<std::string, boost::shared_ptr<Constraint> >::const_iterator current_;  ///< current map iterator
   };
 
   /**
    * @brief Get a const_iterator to the beginning of the constraints' map
    * @return beginning
    */
-  virtual const_iterator cbegin() const = 0;
+  const_iterator cbegin() const;
 
   /**
    * @brief Get a const_iterator to the end of the constraints' map
    * @return end
    */
-  virtual const_iterator cend() const = 0;
+  const_iterator cend() const;
+
+ private:
+  std::string id_;                                                                          ///< ConstraintCollection's id
+  std::map<std::string, std::vector<boost::shared_ptr<Constraint> > > constraintsByModel_;  ///< constraint sorted by model
+  std::map<std::string, boost::shared_ptr<Constraint> > constraintsById_;                   ///< constraint sorted by id
 };
 
 }  // end of namespace constraints

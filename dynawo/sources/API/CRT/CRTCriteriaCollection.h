@@ -14,12 +14,12 @@
 #ifndef API_CRT_CRTCRITERIACOLLECTION_H_
 #define API_CRT_CRTCRITERIACOLLECTION_H_
 
-#include <string>
+#include "CRTCriteria.h"
+
 #include <boost/shared_ptr.hpp>
+#include <string>
 
 namespace criteria {
-class Criteria;
-
 /**
  * @class CriteriaCollection
  * @brief Criteria collection interface class
@@ -31,38 +31,8 @@ class CriteriaCollection {
   /**
   * define type of components
   */
-  typedef enum {
-    BUS,
-    LOAD,
-    GENERATOR
-  } CriteriaCollectionType_t;  ///< components type
+  typedef enum { BUS, LOAD, GENERATOR } CriteriaCollectionType_t;  ///< components type
 
-  /**
-   * @brief Destructor
-   */
-  virtual ~CriteriaCollection() { }
-
-  /**
-   * @brief add a criteria to the collection
-   *
-   * @param type type of component this criteria applies to
-   * @param criteria criteria to add to the collection
-   */
-  virtual void add(CriteriaCollectionType_t type, const boost::shared_ptr<Criteria> & criteria) = 0;
-
-  /**
-   * @brief merge this collection with the other one
-   *
-   * @param other another criteria collection
-   */
-  virtual void merge(const boost::shared_ptr<CriteriaCollection> & other) = 0;
-
-  class Impl;  // Implementation class
-
- protected:
-  class BaseConstCriteriaCollectionIteratorImpl;  // Abstract class for the interface
-
- public:
   /**
    * @class CriteriaCollectionConstIterator
    * @brief Const iterator over criteria
@@ -78,26 +48,7 @@ class CriteriaCollection {
      * or the end of the events' container.
      * @param type type of the component
      */
-    CriteriaCollectionConstIterator(const CriteriaCollection::Impl* iterated, bool begin, CriteriaCollectionType_t type);
-
-    /**
-     * @brief Copy constructor
-     * @param original : const iterator to copy
-     */
-    CriteriaCollectionConstIterator(const CriteriaCollectionConstIterator& original);
-
-    /**
-     * @brief Destructor
-     */
-    ~CriteriaCollectionConstIterator();
-
-    /**
-     * @brief assignment
-     * @param other : CriteriaCollectionConstIterator to assign
-     *
-     * @returns Reference to this CriteriaCollectionConstIterator
-     */
-    CriteriaCollectionConstIterator& operator=(const CriteriaCollectionConstIterator& other);
+    CriteriaCollectionConstIterator(const CriteriaCollection* iterated, bool begin, CriteriaCollectionType_t type);
 
     /**
      * @brief Prefix-increment operator
@@ -158,22 +109,43 @@ class CriteriaCollection {
     const boost::shared_ptr<Criteria>* operator->() const;
 
    private:
-    BaseConstCriteriaCollectionIteratorImpl* impl_;  ///< Pointer to the implementation of the const iterator
+    std::vector<boost::shared_ptr<Criteria> >::const_iterator current_;  ///< current vector const iterator
   };
+
+ public:
+  /**
+   * @brief add a criteria to the collection
+   *
+   * @param type type of component this criteria applies to
+   * @param criteria criteria to add to the collection
+   */
+  void add(CriteriaCollectionType_t type, const boost::shared_ptr<Criteria>& criteria);
+
+  /**
+   * @brief merge this collection with the other one
+   *
+   * @param other another criteria collection
+   */
+  void merge(const boost::shared_ptr<CriteriaCollection>& other);
 
   /**
    * @brief Get a CriteriaCollectionConstIterator to the beginning of the criteria' vector
    * @param type type of component
    * @return a CriteriaCollectionConstIterator to the beginning of the criteria' vector
    */
-  virtual CriteriaCollectionConstIterator begin(CriteriaCollectionType_t type) const = 0;
+  CriteriaCollectionConstIterator begin(CriteriaCollectionType_t type) const;
 
   /**
    * @brief Get a CriteriaCollectionConstIterator to the end of the criteria' vector
    * @param type type of component
    * @return a CriteriaCollectionConstIterator to the end of the criteria' vector
    */
-  virtual CriteriaCollectionConstIterator end(CriteriaCollectionType_t type) const = 0;
+  CriteriaCollectionConstIterator end(CriteriaCollectionType_t type) const;
+
+ private:
+  std::vector<boost::shared_ptr<Criteria> > busCriteria_;        ///< Vector of the bus criteria object
+  std::vector<boost::shared_ptr<Criteria> > loadCriteria_;       ///< Vector of the load criteria object
+  std::vector<boost::shared_ptr<Criteria> > generatorCriteria_;  ///< Vector of the generator criteria object
 };
 
 }  // namespace criteria

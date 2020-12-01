@@ -32,33 +32,42 @@ namespace curves {
  */
 class Point {
  public:
-  virtual ~Point() { }
+  /**
+   * @brief Constructor
+   *
+   * @param time time associated to the point
+   * @param value value associated to the point
+   *
+   */
+  Point(const double& time, const double& value);
 
   /**
    * @brief Setter for point's time
    * @param time point's time
    */
-  virtual void setTime(const double& time) = 0;
+  void setTime(const double& time);
 
   /**
    * @brief Setter for point's value
    * @param value point's value
    */
-  virtual void setValue(const double& value) = 0;
+  void setValue(const double& value);
 
   /**
    * @brief Getter for point's time
    * @return point's time
    */
-  virtual double getTime() const = 0;
+  double getTime() const;
 
   /**
    * @brief Getter for point's value
    * @return point's value
    */
-  virtual double getValue() const = 0;
+  double getValue() const;
 
-  class Impl;
+ private:
+  double time_;   ///< time associated to the point
+  double value_;  ///< value associated to the point
 };
 
 }  // end of namespace curves

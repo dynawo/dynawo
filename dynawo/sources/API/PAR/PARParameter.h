@@ -20,6 +20,7 @@
 #ifndef API_PAR_PARPARAMETER_H_
 #define API_PAR_PARPARAMETER_H_
 
+#include <boost/any.hpp>
 #include <string>
 
 #ifndef LANG_CXX11
@@ -42,31 +43,58 @@ class Parameter {
    *
    */
   enum ParameterType {
-    BOOL,  ///< Indicates bool parameter
-    INT,  ///< Indicates int parameter
-    DOUBLE,  ///< Indicates double parameter
-    STRING,  ///< Indicates string parameter
+    BOOL,         ///< Indicates bool parameter
+    INT,          ///< Indicates int parameter
+    DOUBLE,       ///< Indicates double parameter
+    STRING,       ///< Indicates string parameter
     SIZE_OF_ENUM  ///< value to use ONLY to assess the enumeration size
   };
-  /**
-   * @brief Destructor
-   */
-  virtual ~Parameter() {}
 
+  /**
+   * @brief Constructor of "bool" typed parameter
+   *
+   * @param name  Name of the parameter
+   * @param boolValue Value of the parameter
+   */
+  Parameter(const std::string& name, const bool boolValue);
+
+  /**
+   * @brief Constructor of "int" typed parameter
+   *
+   * @param name  Name of the parameter
+   * @param intValue Value of the parameter
+   */
+  Parameter(const std::string& name, const int intValue);
+
+  /**
+   * @brief Constructor of "double" typed parameter
+   *
+   * @param name  Name of the parameter
+   * @param doubleValue Value of the parameter
+   */
+  Parameter(const std::string& name, const double doubleValue);
+
+  /**
+   * @brief Constructor of "string" typed parameter
+   *
+   * @param name  Name of the parameter
+   * @param stringValue Value of the parameter
+   */
+  Parameter(const std::string& name, const std::string& stringValue);
 
   /**
    * @brief Getter for parameter type
    *
    * @returns Parameter's type
    */
-  virtual ParameterType getType() const = 0;
+  ParameterType getType() const;
 
   /**
    * @brief Getter for parameter name
    *
    * @returns Parameter's name
    */
-  virtual std::string getName() const = 0;
+  std::string getName() const;
 
   /**
    * @brief Getter for "bool" typed parameter
@@ -74,7 +102,7 @@ class Parameter {
    * @returns Boolean value of a @p Parameter::BOOL typed parameter
    * @throws API exception if the parameter is not a bool
    */
-  virtual bool getBool() const = 0;
+  bool getBool() const;
 
   /**
    * @brief Getter for "int" typed parameter
@@ -82,7 +110,7 @@ class Parameter {
    * @returns Integer value of a @p Parameter::INT typed parameter
    * @throws API exception if the parameter is not an int
    */
-  virtual int getInt() const = 0;
+  int getInt() const;
 
   /**
    * @brief Getter for "double" typed parameter
@@ -90,7 +118,7 @@ class Parameter {
    * @returns Double value of a @p Parameter::DOUBLE typed parameter
    * @throws API exception if the parameter is not a double
    */
-  virtual double getDouble() const = 0;
+  double getDouble() const;
 
   /**
    * @brief Getter for "string" typed parameter
@@ -98,23 +126,27 @@ class Parameter {
    * @returns String value of a @p Parameter::STRING typed paramater
    * @throws API exception if the parameter is not a string
    */
-  virtual std::string getString() const = 0;
+  std::string getString() const;
 
   /**
    * @brief Getter for "used" boolean
    *
    * @returns Boolean "used" indicating whether the parameter is used or not
    */
-  virtual bool getUsed() const = 0;
+  bool getUsed() const;
 
   /**
    * @brief Set "used" boolean
    *
    * @param used: boolean used to set "used" value
    */
-  virtual void setUsed(bool used) = 0;
+  void setUsed(bool used);
 
-  class Impl;
+ private:
+  ParameterType type_; /**< Parameter's type **/
+  std::string name_;   /**< Parameter's name **/
+  boost::any value_;   /**< Parameter's value **/
+  bool used_;          /**< True if the parameter is used in the model **/
 };
 static const char* ParameterTypeNames[Parameter::SIZE_OF_ENUM] = {"boolean", "integer", "double", "string"};  ///< string conversion of enum values
 // statically check that the size of ParameterTypeNames fits the number of ParameterTypes
@@ -122,12 +154,12 @@ static const char* ParameterTypeNames[Parameter::SIZE_OF_ENUM] = {"boolean", "in
 /**
  * @brief Test if the size of ParameterTypeNames is relevant with the enumeration size
  */
-static_assert(sizeof (ParameterTypeNames) / sizeof (char*) == Parameter::SIZE_OF_ENUM, "Parameters string size does not match ParameterType enumeration");
+static_assert(sizeof(ParameterTypeNames) / sizeof(char*) == Parameter::SIZE_OF_ENUM, "Parameters string size does not match ParameterType enumeration");
 #else
 /**
  * @brief Test if the size of ParameterTypeNames is relevant with the enumeration size
  */
-BOOST_STATIC_ASSERT_MSG(sizeof (ParameterTypeNames) / sizeof (char*) == Parameter::SIZE_OF_ENUM,
+BOOST_STATIC_ASSERT_MSG(sizeof(ParameterTypeNames) / sizeof(char*) == Parameter::SIZE_OF_ENUM,
                         "Parameters string size does not match ParameterType enumeration");
 #endif
 }  // namespace parameters

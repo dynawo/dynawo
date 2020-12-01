@@ -22,9 +22,8 @@
 
 #include <string>
 
+#include "EXTVARVariablesCollection.h"
 namespace externalVariables {
-class VariablesCollection;
-
 /**
  * @class Exporter
  * @brief Exporter interface class

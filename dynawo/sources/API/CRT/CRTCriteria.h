@@ -14,10 +14,12 @@
 #ifndef API_CRT_CRTCRITERIA_H_
 #define API_CRT_CRTCRITERIA_H_
 
-#include <string>
-#include <boost/shared_ptr.hpp>
-
 #include "CRTCriteriaParams.h"
+
+#include <boost/shared_ptr.hpp>
+#include <boost/unordered_set.hpp>
+#include <string>
+#include <vector>
 
 namespace criteria {
 
@@ -30,41 +32,31 @@ namespace criteria {
 class Criteria {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~Criteria() { }
-
-  /**
    * @brief Setter for criteria parameters
    * @param params criteria parameters
    */
-  virtual void setParams(const boost::shared_ptr<CriteriaParams>& params) = 0;
+  void setParams(const boost::shared_ptr<CriteriaParams>& params);
 
   /**
    * @brief Getter for criteria parameters
    * @return criteria parameters
    */
-  virtual const boost::shared_ptr<CriteriaParams>& getParams() const = 0;
+  const boost::shared_ptr<CriteriaParams>& getParams() const;
 
   /**
    * @brief Add an id to the component list
    * @param id id to add
    */
-  virtual void addComponentId(const std::string& id) = 0;
+  void addComponentId(const std::string& id);
 
   /**
    * @brief Add a country to the country list
    * @param id country id to add
    */
-  virtual void addCountry(const std::string& id) = 0;
-
-
-  class Impl;
- protected:
-  class BaseCompIdConstIteratorImpl;  // Abstract class for the interface
+  void addCountry(const std::string& id);
 
  public:
-   /**
+  /**
     * @class component_id_const_iterator
     * @brief Const iterator over components id
     *
@@ -82,26 +74,7 @@ class Criteria {
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the container.
      */
-    component_id_const_iterator(const Criteria::Impl* iterated, bool begin);
-
-    /**
-     * @brief Copy constructor
-     * @param original : component_id_const_iterator to copy
-     */
-    component_id_const_iterator(const component_id_const_iterator& original);
-
-    /**
-     * @brief Destructor
-     */
-    ~component_id_const_iterator();
-
-    /**
-     * @brief assignment
-     * @param other : component_id_const_iterator to assign
-     *
-     * @returns Reference to this component_id_const_iterator
-     */
-    component_id_const_iterator& operator=(const component_id_const_iterator& other);
+    component_id_const_iterator(const Criteria* iterated, bool begin);
 
     /**
      * @brief Prefix-increment operator
@@ -162,33 +135,38 @@ class Criteria {
     const std::string* operator->() const;
 
    private:
-    BaseCompIdConstIteratorImpl* impl_;  ///<  Pointer to the implementation of the const iterator
+    std::vector<std::string>::const_iterator current_;  ///< current vector const iterator
   };
 
   /**
    * @brief Get a component_id_const_iterator to the beginning of components ids container
    * @return a component_id_const_iterator to the beginning of components ids container
    */
-  virtual component_id_const_iterator begin() const = 0;
+  component_id_const_iterator begin() const;
 
   /**
    * @brief Get a component_id_const_iterator to the end of components ids container
    * @return a component_id_const_iterator to the end of components ids container
    */
-  virtual component_id_const_iterator end() const = 0;
+  component_id_const_iterator end() const;
 
   /**
    * @brief Test if this criterion has at least one country filter
    * @return @b true if this criterion has at least one country filter
    */
-  virtual bool hasCountryFilter() const = 0;
+  bool hasCountryFilter() const;
 
   /**
    * @brief Test if this criterion is limited to a specific country
    * @param country to test
    * @return @b true if this criterion should be limited to this country
    */
-  virtual bool containsCountry(const std::string& country) const = 0;
+  bool containsCountry(const std::string& country) const;
+
+ private:
+  boost::shared_ptr<CriteriaParams> params_;      ///< parameters of this criteria
+  std::vector<std::string> compIds_;              ///< ids of the components
+  boost::unordered_set<std::string> countryIds_;  ///< ids of the countries
 };
 
 }  // namespace criteria

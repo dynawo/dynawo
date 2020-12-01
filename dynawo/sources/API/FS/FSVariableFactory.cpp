@@ -19,7 +19,7 @@
  */
 
 #include "FSVariableFactory.h"
-#include "FSVariableImpl.h"
+#include "FSVariable.h"
 
 using std::string;
 
@@ -27,7 +27,7 @@ namespace finalState {
 
 boost::shared_ptr<Variable>
 VariableFactory::newVariable(const string& id) {
-  return boost::shared_ptr<Variable>(new Variable::Impl(id));
+  return boost::shared_ptr<Variable>(new Variable(id));
 }
 
 }  // namespace finalState

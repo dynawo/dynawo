@@ -19,7 +19,7 @@
  */
 
 #include "FSFinalStateCollectionFactory.h"
-#include "FSFinalStateCollectionImpl.h"
+#include "FSFinalStateCollection.h"
 
 using std::string;
 
@@ -27,17 +27,17 @@ namespace finalState {
 
 boost::shared_ptr<FinalStateCollection>
 FinalStateCollectionFactory::newInstance(const string& id) {
-  return boost::shared_ptr<FinalStateCollection>(new FinalStateCollection::Impl(id));
+  return boost::shared_ptr<FinalStateCollection>(new FinalStateCollection(id));
 }
 
 boost::shared_ptr<FinalStateCollection>
 FinalStateCollectionFactory::copyInstance(boost::shared_ptr<FinalStateCollection> original) {
-  return boost::shared_ptr<FinalStateCollection>(new FinalStateCollection::Impl(dynamic_cast<FinalStateCollection::Impl&> (*original)));
+  return boost::shared_ptr<FinalStateCollection>(new FinalStateCollection(*original));
 }
 
 boost::shared_ptr<FinalStateCollection>
 FinalStateCollectionFactory::copyInstance(const FinalStateCollection& original) {
-  return boost::shared_ptr<FinalStateCollection>(new FinalStateCollection::Impl(dynamic_cast<const FinalStateCollection::Impl&> (original)));
+  return boost::shared_ptr<FinalStateCollection>(new FinalStateCollection(original));
 }
 
 }  // namespace finalState

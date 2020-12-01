@@ -17,54 +17,46 @@
  * @brief Dynawo timeline event : implementation file
  *
  */
-#include "TLEventImpl.h"
+#include "TLEvent.h"
 
 using std::string;
 
 namespace timeline {
 
-Event::Impl::Impl() :
-time_(0.),
-modelName_(""),
-message_(""),
-priority_(boost::none) {
-}
-
-Event::Impl::~Impl() {
-}
+Event::Event() : time_(0.), modelName_(""), message_(""), priority_(boost::none) {}
 
 void
-Event::Impl::setTime(const double& time) {
+Event::setTime(const double& time) {
   time_ = time;
 }
 
 void
-Event::Impl::setModelName(const string& modelName) {
+Event::setModelName(const string& modelName) {
   modelName_ = modelName;
 }
 
 void
-Event::Impl::setMessage(const string& message) {
+Event::setMessage(const string& message) {
   message_ = message;
 }
 
 void
-Event::Impl::setPriority(const boost::optional<int>& priority) {
+Event::setPriority(const boost::optional<int>& priority) {
   priority_ = priority;
 }
 
 double
-Event::Impl::getTime() const {
+Event::getTime() const {
   return time_;
 }
 
 const string&
-Event::Impl::getModelName() const {
+Event::getModelName() const {
   return modelName_;
 }
 
 const string&
-Event::Impl::getMessage() const {
+Event::getMessage() const {
   return message_;
 }
 

@@ -18,7 +18,7 @@
  */
 
 #include "EXTVARVariablesCollectionFactory.h"
-#include "EXTVARVariablesCollectionImpl.h"
+#include "EXTVARVariablesCollection.h"
 
 using boost::shared_ptr;
 
@@ -26,12 +26,12 @@ namespace externalVariables {
 
 shared_ptr<VariablesCollection>
 VariablesCollectionFactory::newCollection() {
-  return shared_ptr<VariablesCollection>(new VariablesCollection::Impl());
+  return shared_ptr<VariablesCollection>(new VariablesCollection());
 }
 
 shared_ptr<VariablesCollection>
 VariablesCollectionFactory::copyCollection(shared_ptr<VariablesCollection> original) {
-  return shared_ptr<VariablesCollection>(new VariablesCollection::Impl(dynamic_cast<VariablesCollection::Impl&> (*original)));
+  return shared_ptr<VariablesCollection>(new VariablesCollection(*original));
 }
 
 }  // namespace externalVariables

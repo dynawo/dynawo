@@ -23,14 +23,15 @@
 #ifndef API_FS_FSXMLHANDLER_H_
 #define API_FS_FSXMLHANDLER_H_
 
+#include "FSFinalStateCollection.h"
+#include "FSModel.h"
+#include "FSVariable.h"
+
 #include <boost/shared_ptr.hpp>
 #include <xml/sax/parser/ComposableDocumentHandler.h>
 #include <xml/sax/parser/ComposableElementHandler.h>
 
 namespace finalState {
-class FinalStateCollection;
-class FinalStateModel;
-class Variable;
 
 /**
  * @class ModelHandler
@@ -47,7 +48,7 @@ class ModelHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief default destructor
    */
-  ~ModelHandler() { }
+  ~ModelHandler() {}
 
   /**
    * @brief return the model object read in xml file
@@ -81,7 +82,7 @@ class VariableHandler : public xml::sax::parser::ComposableElementHandler {
   /**
    * @brief default destructor
    */
-  ~VariableHandler() { }
+  ~VariableHandler() {}
 
   /**
    * @brief return the variable object read in xml file
@@ -148,11 +149,11 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   void addVariable();
 
   boost::shared_ptr<FinalStateCollection> finalStateCollection_;  ///< final state collection parsed
-  ModelHandler modelHandler_;  ///< handler used to read a model element
-  VariableHandler variableHandler_;  ///< handler used to read a variable element
+  ModelHandler modelHandler_;                                     ///< handler used to read a model element
+  VariableHandler variableHandler_;                               ///< handler used to read a variable element
 
-  boost::shared_ptr<FinalStateModel> parsedModel_;  ///< current model parsed
-  int level_;  ///< level in xml structure
+  boost::shared_ptr<FinalStateModel> parsedModel_;                   ///< current model parsed
+  int level_;                                                        ///< level in xml structure
   std::map<int, boost::shared_ptr<FinalStateModel> > modelByLevel_;  ///< model by level in structure
 };
 }  // namespace finalState

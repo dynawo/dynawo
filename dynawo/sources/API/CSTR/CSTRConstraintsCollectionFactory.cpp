@@ -19,26 +19,27 @@
  */
 
 #include "CSTRConstraintsCollectionFactory.h"
-#include "CSTRConstraintsCollectionImpl.h"
 
-using std::string;
+#include "CSTRConstraintsCollection.h"
+
 using boost::shared_ptr;
+using std::string;
 
 namespace constraints {
 
 shared_ptr<ConstraintsCollection>
 ConstraintsCollectionFactory::newInstance(const string& id) {
-  return shared_ptr<ConstraintsCollection>(new ConstraintsCollection::Impl(id));
+  return shared_ptr<ConstraintsCollection>(new ConstraintsCollection(id));
 }
 
 shared_ptr<ConstraintsCollection>
 ConstraintsCollectionFactory::copyInstance(boost::shared_ptr<ConstraintsCollection> original) {
-  return shared_ptr<ConstraintsCollection>(new ConstraintsCollection::Impl(dynamic_cast<ConstraintsCollection::Impl&> (*original)));
+  return shared_ptr<ConstraintsCollection>(new ConstraintsCollection(*original));
 }
 
 shared_ptr<ConstraintsCollection>
 ConstraintsCollectionFactory::copyInstance(const ConstraintsCollection& original) {
-  return shared_ptr<ConstraintsCollection>(new ConstraintsCollection::Impl(dynamic_cast<const ConstraintsCollection::Impl&> (original)));
+  return shared_ptr<ConstraintsCollection>(new ConstraintsCollection(original));
 }
 
 }  // namespace constraints

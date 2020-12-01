@@ -20,16 +20,15 @@
 #ifndef API_FS_FSITERATORS_H_
 #define API_FS_FSITERATORS_H_
 
-#include "FSFinalStateCollectionImpl.h"
-#include "FSModelImpl.h"
+#include "FSVariable.h"
+
+#include <boost/shared_ptr.hpp>
+#include <vector>
 
 namespace finalState {
+
 class FinalStateModel;
-class Variable;
-class FinalStateModelConstIteratorImpl;
-class FinalStateModelIteratorImpl;
-class VariableConstIteratorImpl;
-class VariableIteratorImpl;
+class FinalStateCollection;
 
 /**
  * @class finalStateModel_const_iterator
@@ -55,7 +54,7 @@ class finalStateModel_const_iterator {
    * or the end of the models' container.
    * @returns Created model_const_iterator.
    */
-  finalStateModel_const_iterator(const FinalStateCollection::Impl* iterated, bool begin);
+  finalStateModel_const_iterator(const FinalStateCollection* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -69,34 +68,7 @@ class finalStateModel_const_iterator {
    * or the end of the models' container.
    * @returns Created model_const_iterator.
    */
-  finalStateModel_const_iterator(const FinalStateModel::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : model const iterator to copy
-   */
-  finalStateModel_const_iterator(const finalStateModel_const_iterator& original);
-
-  /**
-   * @brief Constructor
-   *
-   * @param original current iterator
-   * @returns Created model_const_iterator
-   */
-  explicit finalStateModel_const_iterator(const finalStateModel_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~finalStateModel_const_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : model_const_iterator to assign
-   *
-   * @returns Reference to this model_const_iterator
-   */
-  THIS& operator=(const THIS& other);
+  finalStateModel_const_iterator(const FinalStateModel* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -157,7 +129,7 @@ class finalStateModel_const_iterator {
   const boost::shared_ptr<FinalStateModel>* operator->() const;
 
  private:
-  FinalStateModelConstIteratorImpl* impl_;  ///< Pointer to the implementation of the model const iterator;
+  std::vector<boost::shared_ptr<FinalStateModel> >::const_iterator current_;  ///< current vector const iterator
 };
 
 /**
@@ -184,7 +156,7 @@ class finalStateModel_iterator {
    * or the end of the models' container.
    * @returns Created model_iterator.
    */
-  finalStateModel_iterator(FinalStateCollection::Impl* iterated, bool begin);
+  finalStateModel_iterator(FinalStateCollection* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -198,26 +170,7 @@ class finalStateModel_iterator {
    * or the end of the models' container.
    * @returns Created model_iterator.
    */
-  finalStateModel_iterator(FinalStateModel::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original: model iterator to copy
-   */
-  finalStateModel_iterator(const finalStateModel_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~finalStateModel_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : model_iterator to assign
-   *
-   * @returns Reference to this model_iterator
-   */
-  THIS& operator=(const THIS& other);
+  finalStateModel_iterator(FinalStateModel* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -277,14 +230,8 @@ class finalStateModel_iterator {
    */
   boost::shared_ptr<FinalStateModel>* operator->() const;
 
-  /**
-   * @brief Get the implementation ot the iterator
-   * @return the implementation ot the iterator
-   */
-  FinalStateModelIteratorImpl* impl() const;
-
  private:
-  FinalStateModelIteratorImpl* impl_;  ///< Pointer to the implementation of the model iterator;
+  std::vector<boost::shared_ptr<FinalStateModel> >::iterator current_;  ///< current vector iterator
 };
 
 /**
@@ -311,7 +258,7 @@ class finalStateVariable_const_iterator {
    * or the end of the variables' container.
    * @returns Created variable_const_iterator.
    */
-  finalStateVariable_const_iterator(const FinalStateCollection::Impl* iterated, bool begin);
+  finalStateVariable_const_iterator(const FinalStateCollection* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -325,26 +272,7 @@ class finalStateVariable_const_iterator {
    * or the end of the variables' container.
    * @returns Created variable_const_iterator.
    */
-  finalStateVariable_const_iterator(const FinalStateModel::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : variable const iterator to copy
-   */
-  finalStateVariable_const_iterator(const finalStateVariable_const_iterator& original);
-
-  /**
-   * @brief Constructor
-   *
-   * @param original current iterator
-   * @returns Created model_const_iterator
-   */
-  explicit finalStateVariable_const_iterator(const finalStateVariable_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~finalStateVariable_const_iterator();
+  finalStateVariable_const_iterator(const FinalStateModel* iterated, bool begin);
 
   /**
    * @brief assignment
@@ -413,7 +341,7 @@ class finalStateVariable_const_iterator {
   const boost::shared_ptr<Variable>* operator->() const;
 
  private:
-  VariableConstIteratorImpl* impl_;  ///< Pointer to the implementation of the variable const iterator;
+  std::vector<boost::shared_ptr<Variable> >::const_iterator current_;  ///< current vector const iterator
 };
 
 /**
@@ -440,7 +368,7 @@ class finalStateVariable_iterator {
    * or the end of the variables' container.
    * @returns Created variable_iterator.
    */
-  finalStateVariable_iterator(FinalStateCollection::Impl* iterated, bool begin);
+  finalStateVariable_iterator(FinalStateCollection* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -454,26 +382,7 @@ class finalStateVariable_iterator {
    * or the end of the variables' container.
    * @returns Created variable_iterator.
    */
-  finalStateVariable_iterator(FinalStateModel::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : variable iterator to copy
-   */
-  finalStateVariable_iterator(const finalStateVariable_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~finalStateVariable_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : variable_iterator to assign
-   *
-   * @returns Reference to this variable_iterator
-   */
-  THIS& operator=(const THIS& other);
+  finalStateVariable_iterator(FinalStateModel* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -533,14 +442,8 @@ class finalStateVariable_iterator {
    */
   boost::shared_ptr<Variable>* operator->() const;
 
-  /**
-   * @brief Get the implementation ot the iterator
-   * @return the implementation of the iterator
-   */
-  VariableIteratorImpl* impl() const;
-
  private:
-  VariableIteratorImpl* impl_;  ///< Pointer to the implementation of the variable iterator;
+  std::vector<boost::shared_ptr<Variable> >::iterator current_;  ///< current vector iterator
 };
 
 }  // namespace finalState

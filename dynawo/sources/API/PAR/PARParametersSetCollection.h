@@ -20,13 +20,13 @@
 #ifndef API_PAR_PARPARAMETERSSETCOLLECTION_H_
 #define API_PAR_PARPARAMETERSSETCOLLECTION_H_
 
-#include <string>
+#include "PARParametersSet.h"
 
 #include <boost/shared_ptr.hpp>
+#include <map>
+#include <string>
 
 namespace parameters {
-
-class ParametersSet;
 
 /**
  * @class ParametersSetCollection
@@ -36,11 +36,6 @@ class ParametersSet;
  */
 class ParametersSetCollection {
  public:
-  /**
-   * @brief Destructor
-   */
-  virtual ~ParametersSetCollection() {}
-
   /**
    * @brief Add a parameters set in the collection
    *
@@ -52,7 +47,7 @@ class ParametersSetCollection {
    * @throws Error::API exception if force is false and a set with given
    * ID already exists.
    */
-  virtual void addParametersSet(boost::shared_ptr<ParametersSet> paramSet, bool force = false) = 0;
+  void addParametersSet(boost::shared_ptr<ParametersSet> paramSet, bool force = false);
 
   /**
    * @brief Get parameters set with current id if available in the collection
@@ -61,7 +56,7 @@ class ParametersSetCollection {
    * @returns Reference to wanted ParametersSet instance
    * @throws Error::API exception if set with given ID do not exists
    */
-  virtual boost::shared_ptr<ParametersSet> getParametersSet(const std::string& id) = 0;
+  boost::shared_ptr<ParametersSet> getParametersSet(const std::string& id);
 
   /**
    * @brief Check if a parameter set is in the collection
@@ -69,19 +64,14 @@ class ParametersSetCollection {
    * @param[in] id Name of the parameter set
    * @returns Existence of the parameter set in the collection
    */
-  virtual bool hasParametersSet(const std::string& id) = 0;
+  bool hasParametersSet(const std::string& id);
 
   /**
    * @brief propatgates the origin of parameters (file path, parent param set id)
    *
    * @param filepath origin file path
    */
-  virtual void propagateOriginData(const std::string& filepath) = 0;
-
-  class Impl;
-
- protected:
-  class BaseIteratorImpl;  // Abstract class, for the interface
+  void propagateOriginData(const std::string& filepath);
 
  public:
   /**
@@ -104,26 +94,7 @@ class ParametersSetCollection {
      * or the end of the parameters' sets container.
      * @returns Created parametersSet_const_iterator.
      */
-    parametersSet_const_iterator(const ParametersSetCollection::Impl* iterated, bool begin);
-
-    /**
-     * @brief Copy constructor
-     * @param original : const iterator to copy
-     */
-    parametersSet_const_iterator(const parametersSet_const_iterator& original);
-
-    /**
-     * @brief Destructor
-     */
-    ~parametersSet_const_iterator();
-
-    /**
-     * @brief assignment
-     * @param other : parametersSet_const_iterator to assign
-     *
-     * @returns Reference to this parametersSet_const_iterator
-     */
-    parametersSet_const_iterator& operator=(const parametersSet_const_iterator& other);
+    parametersSet_const_iterator(const ParametersSetCollection* iterated, bool begin);
 
     /**
      * @brief Prefix-increment operator
@@ -184,20 +155,23 @@ class ParametersSetCollection {
     const boost::shared_ptr<ParametersSet>* operator->() const;
 
    private:
-    BaseIteratorImpl* impl_; /**< Pointer to the implementation of iterator */
+    std::map<std::string, boost::shared_ptr<ParametersSet> >::const_iterator current_; /**< Hidden map iterator */
   };
 
   /**
    * @brief Get a parametersSet_const_iterator to the beginning of the parameters' set collection
    * @return beginning of constant iterator
    */
-  virtual parametersSet_const_iterator cbeginParametersSet() const = 0;
+  parametersSet_const_iterator cbeginParametersSet() const;
 
   /**
    * @brief Get a parametersSet_const_iterator to the end of the parameters' set collection
    * @return end of constant iterator
    */
-  virtual parametersSet_const_iterator cendParametersSet() const = 0;
+  parametersSet_const_iterator cendParametersSet() const;
+
+ private:
+  std::map<std::string, boost::shared_ptr<ParametersSet> > parametersSets_; /**< Map of the parameters set */
 };
 
 }  // namespace parameters

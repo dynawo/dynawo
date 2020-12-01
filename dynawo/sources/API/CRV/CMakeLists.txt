@@ -21,12 +21,10 @@ install(FILES ${API_CRV_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
 set(API_CRV_SOURCES
   CRVCurve.cpp
-  CRVCurveImpl.cpp
   CRVCurveFactory.cpp
-  CRVPointImpl.cpp
+  CRVPoint.cpp
   CRVPointFactory.cpp
   CRVCurvesCollection.cpp
-  CRVCurvesCollectionImpl.cpp
   CRVCurvesCollectionFactory.cpp
   CRVXmlHandler.cpp
   CRVXmlImporter.cpp

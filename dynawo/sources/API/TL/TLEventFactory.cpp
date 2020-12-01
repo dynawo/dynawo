@@ -19,13 +19,13 @@
  */
 
 #include "TLEventFactory.h"
-#include "TLEventImpl.h"
+#include "TLEvent.h"
 
 namespace timeline {
 
 boost::shared_ptr<Event>
 EventFactory::newEvent() {
-  return boost::shared_ptr<Event>(new Event::Impl());
+  return boost::shared_ptr<Event>(new Event());
 }
 
 }  // namespace timeline

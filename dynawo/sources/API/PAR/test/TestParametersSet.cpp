@@ -27,7 +27,6 @@
 #include "PARReference.h"
 #include "PARReferenceFactory.h"
 #include "PARParametersSet.h"
-#include "PARParametersSetImpl.h"
 #include "PARParametersSetFactory.h"
 
 using boost::shared_ptr;

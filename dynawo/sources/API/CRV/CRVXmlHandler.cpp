@@ -30,7 +30,7 @@
 #include "CRVCurvesCollectionFactory.h"
 #include "CRVCurvesCollection.h"
 #include "CRVXmlHandler.h"
-#include "CRVCurveImpl.h"
+#include "CRVCurve.h"
 
 
 using std::string;

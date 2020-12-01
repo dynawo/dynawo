@@ -12,77 +12,74 @@
 //
 
 /**
- * @file  CSTRConstraintImpl.cpp
+ * @file  CSTRConstraint.cpp
  *
  * @brief Dynawo constraint : implementation file
  *
  */
-#include "CSTRConstraintImpl.h"
+#include "CSTRConstraint.h"
 
 using std::string;
 
 namespace constraints {
 
-Constraint::Impl::Impl() :
+Constraint::Constraint() :
 time_(0.),
 type_(CONSTRAINT_UNDEFINED) {
 }
 
-Constraint::Impl::~Impl() {
-}
-
 void
-Constraint::Impl::setTime(const double& time) {
+Constraint::setTime(const double& time) {
   time_ = time;
 }
 
 void
-Constraint::Impl::setModelName(const string& modelName) {
+Constraint::setModelName(const string& modelName) {
   modelName_ = modelName;
 }
 
 void
-Constraint::Impl::setModelType(const string& modelType) {
+Constraint::setModelType(const string& modelType) {
   modelType_ = modelType;
 }
 
 void
-Constraint::Impl::setType(const Type_t& type) {
+Constraint::setType(const Type_t& type) {
   type_ = type;
 }
 
 void
-Constraint::Impl::setDescription(const string& description) {
+Constraint::setDescription(const string& description) {
   description_ = description;
 }
 
 double
-Constraint::Impl::getTime() const {
+Constraint::getTime() const {
   return time_;
 }
 
 string
-Constraint::Impl::getModelName() const {
+Constraint::getModelName() const {
   return modelName_;
 }
 
 string
-Constraint::Impl::getDescription() const {
+Constraint::getDescription() const {
   return description_;
 }
 
 string
-Constraint::Impl::getModelType() const {
+Constraint::getModelType() const {
   return modelType_;
 }
 
 bool
-Constraint::Impl::hasModelType() const {
+Constraint::hasModelType() const {
   return !modelType_.empty();
 }
 
 Type_t
-Constraint::Impl::getType() const {
+Constraint::getType() const {
   return type_;
 }
 

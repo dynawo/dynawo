@@ -23,9 +23,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-namespace curves {
-class Point;
+#include "CRVPoint.h"
 
+namespace curves {
 /**
  * @class PointFactory
  * @brief Point factory class

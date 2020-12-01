@@ -19,13 +19,13 @@
 
 #include "DYNMacrosMessage.h"
 
-#include "EXTVARVariableImpl.h"
+#include "EXTVARVariable.h"
 
 using std::string;
 
 namespace externalVariables {
 
-Variable::Impl::Impl(const string& id, const Type type) :
+Variable::Variable(const string& id, const Type type) :
 id_(id),
 type_(type),
 size_(boost::none),
@@ -33,38 +33,35 @@ optional_(boost::none) {
   defaultValue_.clear();
 }
 
-Variable::Impl::~Impl() {
-}
-
 string
-Variable::Impl::getId() const {
+Variable::getId() const {
   return id_;
 }
 
 Variable::Type
-Variable::Impl::getType() const {
+Variable::getType() const {
   return type_;
 }
 
 Variable&
-Variable::Impl::setId(const string & id) {
+Variable::setId(const string & id) {
   id_ = id;
   return *this;
 }
 
 Variable&
-Variable::Impl::setDefaultValue(const string& value) {
+Variable::setDefaultValue(const string& value) {
   defaultValue_ = value;
   return *this;
 }
 
 bool
-Variable::Impl::hasSize() const {
+Variable::hasSize() const {
   return (size_ != boost::none);
 }
 
 Variable&
-Variable::Impl::setSize(unsigned int size) {
+Variable::setSize(unsigned int size) {
   if (type_ != CONTINUOUS_ARRAY && type_ != DISCRETE_ARRAY)
     throw DYNError(DYN::Error::API, ExternalVariableAttributeOnlyForArray, id_, "size");
   size_ = size;
@@ -72,19 +69,19 @@ Variable::Impl::setSize(unsigned int size) {
 }
 
 unsigned int
-Variable::Impl::getSize() const {
+Variable::getSize() const {
   if (size_ == boost::none)
     throw DYNError(DYN::Error::API, ExternalVariableAttributeNotDefined, id_, "size");
   return *size_;
 }
 
 bool
-Variable::Impl::hasOptional() const {
+Variable::hasOptional() const {
   return (optional_ != boost::none);
 }
 
 Variable&
-Variable::Impl::setOptional(bool optional) {
+Variable::setOptional(bool optional) {
   if (type_ != CONTINUOUS_ARRAY && type_ != DISCRETE_ARRAY)
     throw DYNError(DYN::Error::API, ExternalVariableAttributeOnlyForArray, id_, "optional");
   optional_ = optional;
@@ -92,18 +89,18 @@ Variable::Impl::setOptional(bool optional) {
 }
 
 bool
-Variable::Impl::getOptional() const {
+Variable::getOptional() const {
   if (optional_ == boost::none)
     throw DYNError(DYN::Error::API, ExternalVariableAttributeNotDefined, id_, "optional");
   return *optional_;
 }
 
-bool Variable::Impl::hasDefaultValue() const {
+bool Variable::hasDefaultValue() const {
   return !defaultValue_.empty();
 }
 
 string
-Variable::Impl::getDefaultValue() const {
+Variable::getDefaultValue() const {
   if (!hasDefaultValue()) {
     throw DYNError(DYN::Error::API, ExternalVariableAttributeNotDefined, id_, "defaultValue");
   }

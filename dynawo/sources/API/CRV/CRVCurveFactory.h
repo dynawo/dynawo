@@ -23,8 +23,9 @@
 
 #include <boost/shared_ptr.hpp>
 
+#include "CRVCurve.h"
+
 namespace curves {
-class Curve;
 
 /**
  * @class CurveFactory

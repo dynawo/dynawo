@@ -20,8 +20,8 @@
 #ifndef API_TL_TLEVENT_H_
 #define API_TL_TLEVENT_H_
 
-#include <string>
 #include <boost/optional.hpp>
+#include <string>
 
 namespace timeline {
 
@@ -35,63 +35,75 @@ namespace timeline {
  */
 class Event {
  public:
-  virtual ~Event() { }
+  /**
+   * @brief Constructor
+   */
+  Event();
 
   /**
    * @brief Setter for event's time
    * @param time event's time
    */
-  virtual void setTime(const double& time) = 0;
+  void setTime(const double& time);
 
   /**
    * @brief Setter for modelName for which event occurs
    * @param modelName Model's name for which event occurs
    */
-  virtual void setModelName(const std::string& modelName) = 0;
+  void setModelName(const std::string& modelName);
 
   /**
    * @brief Setter for event's message
    * @param message message to describe event
    */
-  virtual void setMessage(const std::string& message) = 0;
+  void setMessage(const std::string& message);
 
   /**
    * @brief Setter for event's priority
    * @param priority priority to describe event
    */
-  virtual void setPriority(const boost::optional<int>& priority) = 0;
+  void setPriority(const boost::optional<int>& priority);
 
   /**
    * @brief Getter for event's time
    * @return event's time
    */
-  virtual double getTime() const = 0;
+  double getTime() const;
 
   /**
    * @brief Getter for modelName for which event occurs
    * @return Model's name for which event occurs
    */
-  virtual const std::string& getModelName() const = 0;
+  const std::string& getModelName() const;
 
   /**
    * @brief Getter for event's message
    * @return message to describe event
    */
-  virtual const std::string& getMessage() const = 0;
+  const std::string& getMessage() const;
 
   /**
    * @brief Indicates if the event has a priority
    * @return boolean to know if event has priority
    */
-  virtual bool hasPriority() const = 0;
+  inline bool hasPriority() const {
+    return (priority_ != boost::none);
+  }
 
   /**
    * @brief Getter for event's priority
    * @return priority to describe event
    */
-  virtual int getPriority() const = 0;
+  inline int getPriority() const {
+    assert(priority_ != boost::none && "Priority should not be none as this point to be able to export it.");
+    return *priority_;
+  }
 
-  class Impl;
+ private:
+  double time_;                    ///< event's time
+  std::string modelName_;          ///< Model's name for which event occurs
+  std::string message_;            ///<  message to describe event
+  boost::optional<int> priority_;  ///< priority of the event
 };
 
 }  // namespace timeline

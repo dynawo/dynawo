@@ -21,11 +21,12 @@
 #ifndef API_CRV_CRVCURVESCOLLECTION_H_
 #define API_CRV_CRVCURVESCOLLECTION_H_
 
-#include <string>
+#include "CRVCurve.h"
+
 #include <boost/shared_ptr.hpp>
+#include <string>
 
 namespace curves {
-class Curve;
 
 /**
  * @class CurvesCollection
@@ -35,30 +36,26 @@ class Curve;
  */
 class CurvesCollection {
  public:
-  /**
-   * @brief Destructor
+    /**
+   * @brief constructor
+   *
+   * @param id curvesCollection's id
    */
-  virtual ~CurvesCollection() { }
+  explicit CurvesCollection(const std::string& id);
 
   /**
    * @brief add a curve to the collection
    *
    * @param curve curve to add to the collection
    */
-  virtual void add(const boost::shared_ptr<Curve> & curve) = 0;
+  void add(const boost::shared_ptr<Curve>& curve);
 
   /**
    * @brief add a new point for each curve
    *
    * @param time time of the new point
    */
-  virtual void updateCurves(const double& time) = 0;
-
-  class Impl;  // Implementation class
-
- protected:
-  class BaseConstIteratorImpl;  // Abstract class for the interface
-  class BaseIteratorImpl;  // Abstract class for the interface
+  void updateCurves(const double& time);
 
  public:
   /**
@@ -81,26 +78,7 @@ class CurvesCollection {
      * or the end of the curves' container.
      * @returns Created iterator.
      */
-    iterator(CurvesCollection::Impl* iterated, bool begin);
-
-    /**
-     * @brief Copy constructor
-     * @param original : iterator to copy
-     */
-    iterator(const iterator& original);
-
-    /**
-     * @brief Destructor
-     */
-    ~iterator();
-
-    /**
-     * @brief assignment
-     * @param other : const_iterator to assign
-     *
-     * @returns Reference to this iterator
-     */
-    iterator& operator=(const iterator& other);
+    iterator(CurvesCollection* iterated, bool begin);
 
     /**
      * @brief Prefix-increment operator
@@ -160,14 +138,8 @@ class CurvesCollection {
      */
     boost::shared_ptr<Curve>* operator->() const;
 
-    /**
-     * @brief Get the implementation ot the iterator
-     * @return the implementation ot the iterator
-     */
-    BaseIteratorImpl* impl() const;
-
    private:
-    BaseIteratorImpl* impl_;  ///< Pointer to the implementation of iterator
+    std::vector<boost::shared_ptr<Curve> >::iterator current_;  ///< current vector iterator
   };
 
   /**
@@ -190,34 +162,7 @@ class CurvesCollection {
      * or the end of the curves' container.
      * @returns Created const_iterator.
      */
-    const_iterator(const CurvesCollection::Impl* iterated, bool begin);
-
-    /**
-     * @brief Copy constructor
-     * @param original : const iterator to copy
-     */
-    const_iterator(const const_iterator& original);
-
-    /**
-     * @brief Constructor
-     *
-     * @param original current iterator
-     * @returns Created constant iterator
-     */
-    explicit const_iterator(const iterator& original);
-
-    /**
-     * @brief Destructor
-     */
-    ~const_iterator();
-
-    /**
-     * @brief assignment
-     * @param other : const_iterator to assign
-     *
-     * @returns Reference to this const_iterator
-     */
-    const_iterator& operator=(const const_iterator& other);
+    const_iterator(const CurvesCollection* iterated, bool begin);
 
     /**
      * @brief Prefix-increment operator
@@ -278,33 +223,36 @@ class CurvesCollection {
     const boost::shared_ptr<Curve>* operator->() const;
 
    private:
-    BaseConstIteratorImpl* impl_;  ///< Pointer to the implementation of the const iterator
+    std::vector<boost::shared_ptr<Curve> >::const_iterator current_;  ///< current vector const iterator
   };
 
   /**
    * @brief Get a const_iterator to the beginning of the curves' vector
    * @return a const_iterator to the beginning of the curves' vector
    */
-  virtual const_iterator cbegin() const = 0;
+  const_iterator cbegin() const;
 
   /**
    * @brief Get a const_iterator to the end of the curves' vector
    * @return a const_iterator to the end of the curves' vector
    */
-  virtual const_iterator cend() const = 0;
-
+  const_iterator cend() const;
 
   /**
    * @brief Get an iterator to the beginning of the curves' vector
    * @return an iterator to the beginning of the curves' vector
    */
-  virtual iterator begin() = 0;
+  iterator begin();
 
   /**
    * @brief Get an iterator to the end of the curves' vector
    * @return an iterator to the end of the curves' vector
    */
-  virtual iterator end() = 0;
+  iterator end();
+
+ private:
+  std::vector<boost::shared_ptr<Curve> > curves_;  ///< Vector of the curves object
+  std::string id_;                                 ///< Curves collections id
 };
 
 }  // namespace curves

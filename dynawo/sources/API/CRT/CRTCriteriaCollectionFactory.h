@@ -16,10 +16,10 @@
 
 #include <boost/shared_ptr.hpp>
 
+#include "CRTCriteriaCollection.h"
+
 
 namespace criteria {
-class CriteriaCollection;
-
 /**
  * @class CriteriaCollectionFactory
  * @brief Criteria collection factory class

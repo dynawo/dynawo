@@ -19,12 +19,12 @@
 #ifndef API_PAR_PAREXPORTER_H_
 #define API_PAR_PAREXPORTER_H_
 
-#include <string>
+#include "PARParametersSetCollection.h"
 
 #include <boost/shared_ptr.hpp>
+#include <string>
 
 namespace parameters {
-class ParametersSetCollection;
 
 /**
  * @class Exporter
@@ -48,7 +48,7 @@ class Exporter {
    */
   virtual void exportToFile(const boost::shared_ptr<ParametersSetCollection>& collection, const std::string& filePath, const std::string& encoding) const = 0;
 
-   /**
+  /**
    * @brief Export method for this exporter
    *
    * @param collection Collection to export

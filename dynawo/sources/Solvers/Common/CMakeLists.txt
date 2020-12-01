@@ -50,6 +50,7 @@ target_link_libraries(dynawo_SolverCommon
     Sundials::Sundials_SUNLINSOLKLU
   PRIVATE
     dynawo_Common
+    dynawo_API_PAR
   )
 
 if(${NICSLU_FOUND})

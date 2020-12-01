@@ -22,9 +22,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-namespace constraints {
-class Constraint;
+#include "CSTRConstraint.h"
 
+namespace constraints {
 /**
  * @class ConstraintFactory
  * @brief Constraint factory class

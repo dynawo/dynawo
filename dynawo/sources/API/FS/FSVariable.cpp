@@ -12,50 +12,32 @@
 //
 
 /**
- * @file  FSVariableImpl.cpp
+ * @file  FSVariable.cpp
  *
  * @brief final state variable : implementation file
  *
  */
-#include "FSVariableImpl.h"
+#include "FSVariable.h"
 
 using std::string;
 
 namespace finalState {
 
-Variable::Impl::Impl(const string& id) :
+Variable::Variable(const string& id) :
 id_(id),
 value_(0),
 available_(false) {
 }
 
-Variable::Impl::~Impl() {
-}
-
 void
-Variable::Impl::setId(const string& id) {
+Variable::setId(const string& id) {
   id_ = id;
 }
 
 void
-Variable::Impl::setValue(const double& value) {
+Variable::setValue(const double& value) {
   value_ = value;
   available_ = true;
-}
-
-string
-Variable::Impl::getId() const {
-  return id_;
-}
-
-double
-Variable::Impl::getValue() const {
-  return value_;
-}
-
-bool
-Variable::Impl::getAvailable() const {
-  return available_;
 }
 
 }  // namespace finalState

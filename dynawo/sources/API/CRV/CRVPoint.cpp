@@ -12,40 +12,37 @@
 //
 
 /**
- * @file  CRVPointImpl.cpp
+ * @file  CRVPoint.cpp
  *
  * @brief Dynawo curve point : implementation file
  *
  */
-#include "CRVPointImpl.h"
+#include "CRVPoint.h"
 
 namespace curves {
 
-Point::Impl::Impl(const double& time, const double& value) :
+Point::Point(const double& time, const double& value) :
 time_(time),
 value_(value) {
 }
 
-Point::Impl::~Impl() {
-}
-
 void
-Point::Impl::setTime(const double& time) {
+Point::setTime(const double& time) {
   time_ = time;
 }
 
 void
-Point::Impl::setValue(const double& value) {
+Point::setValue(const double& value) {
   value_ = value;
 }
 
 double
-Point::Impl::getTime() const {
+Point::getTime() const {
   return time_;
 }
 
 double
-Point::Impl::getValue() const {
+Point::getValue() const {
   return value_;
 }
 

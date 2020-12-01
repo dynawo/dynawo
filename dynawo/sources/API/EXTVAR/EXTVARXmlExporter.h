@@ -21,17 +21,18 @@
 #define API_EXTVAR_EXTVARXMLEXPORTER_H_
 
 #include "EXTVARExporter.h"
+#include "EXTVARVariable.h"
 
+// forward declaration to avoid transitive link to XML library, as XMl formatter is used only in private
 namespace xml {
 namespace sax {
 namespace formatter {
 class Formatter;
-}
-}
-}
+}  // namespace formatter
+}  // namespace sax
+}  // namespace xml
 
 namespace externalVariables {
-class Variable;
 
 /**
  * @class XmlExporter

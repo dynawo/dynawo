@@ -18,7 +18,7 @@
  */
 
 #include "PARReferenceFactory.h"
-#include "PARReferenceImpl.h"
+#include "PARReference.h"
 
 using std::string;
 
@@ -26,7 +26,7 @@ namespace parameters {
 
 boost::shared_ptr<Reference>
 ReferenceFactory::newReference(const string& name) {
-  return boost::shared_ptr<Reference>(new Reference::Impl(name));
+  return boost::shared_ptr<Reference>(new Reference(name));
 }
 
 }  // namespace parameters

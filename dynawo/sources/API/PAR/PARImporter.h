@@ -20,10 +20,11 @@
 #ifndef API_PAR_PARIMPORTER_H_
 #define API_PAR_PARIMPORTER_H_
 
+#include "PARParametersSetCollection.h"
+
 #include <string>
 
 namespace parameters {
-class ParametersSetCollection;
 
 /**
  * @class Importer

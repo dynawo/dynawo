@@ -20,12 +20,14 @@
 #ifndef API_CRV_CRVCURVE_H_
 #define API_CRV_CRVCURVE_H_
 
-#include <string>
+#include "CRVPoint.h"
+
 #include <boost/shared_ptr.hpp>
+#include <limits>
+#include <string>
+#include <vector>
 
 namespace curves {
-class Point;
-
 /**
  * @class Curve
  * @brief Curve interface class
@@ -34,146 +36,142 @@ class Point;
  */
 class Curve {
  public:
-/**
-* defined type of variables
-*/
-typedef enum {
-  UNDEFINED,
-  CALCULATED_VARIABLE,
-  DISCRETE_VARIABLE,
-  CONTINUOUS_VARIABLE
-} CurveType_t;  ///< type on constraint
+  /**
+   * @brief Constructor
+   */
+  Curve();
 
   /**
-   * @brief Destructor
+   * defined type of variables
    */
-  virtual ~Curve() { }
+  typedef enum { UNDEFINED, CALCULATED_VARIABLE, DISCRETE_VARIABLE, CONTINUOUS_VARIABLE } CurveType_t;  ///< type on constraint
 
   /**
    * @brief Add a new point to the curve
    * @param time time associated to the new point created
    */
-  virtual void update(const double& time) = 0;
+  void update(const double& time);
 
   /**
    * @brief Setter for curve's model name
    * @param modelName curve's model name
    */
-  virtual void setModelName(const std::string& modelName) = 0;
+  void setModelName(const std::string& modelName);
 
   /**
    * @brief Setter for curve's variable
    * @param variable curve's variable
    */
-  virtual void setVariable(const std::string& variable) = 0;
+  void setVariable(const std::string& variable);
 
   /**
    * @brief Setter for curve's name found
    * @param name curve's name found
    */
-  virtual void setFoundVariableName(const std::string& name) = 0;
+  void setFoundVariableName(const std::string& name);
 
   /**
    * @brief Setter for curve's available attribute
    * @param isAvailable @b true if curve is available, @b false else
    */
-  virtual void setAvailable(bool isAvailable) = 0;
+  void setAvailable(bool isAvailable);
 
   /**
    * @brief Setter for curve's negated attribute
    * @param negated @b true if the variable must be negated at the export, @b false else
    */
-  virtual void setNegated(bool negated) = 0;
+  void setNegated(bool negated);
 
   /**
    * @brief Setter for curve's buffer
    * @param buffer buffer where the curve should find the value to store
    */
-  virtual void setBuffer(const double* buffer) = 0;
+  void setBuffer(const double* buffer);
 
   /**
    * @brief Setter for curve's index in global table
    * @param index curve's index in global table
    */
-  virtual void setGlobalIndex(size_t index) = 0;
+  void setGlobalIndex(size_t index);
 
   /**
    * @brief Getter for curve's index in global table
    * @return index curve's index in global table
    */
-  virtual size_t getGlobalIndex() = 0;
+  size_t getGlobalIndex();
 
   /**
    * @brief Getter for curve's model name
    * @return model name associated to this curve
    */
-  virtual std::string getModelName() const = 0;
+  std::string getModelName() const;
 
   /**
    * @brief Getter for curve's variable
    * @return variable name associated to this curve
    */
-  virtual std::string getVariable() const = 0;
+  std::string getVariable() const;
 
   /**
    * @brief Getter for curve's found variable name
    * @return variable name found in model associated to this curve
    */
-  virtual std::string getFoundVariableName() const = 0;
+  std::string getFoundVariableName() const;
 
   /**
    * @brief Getter for curve's available attribute
    * @return @b true if curve is available, @b false else
    */
-  virtual bool getAvailable() const = 0;
+  bool getAvailable() const;
 
   /**
    * @brief Getter for curve's negated attribute
    * @return @b true if the variable must be negated at the export, @b false else
    */
-  virtual bool getNegated() const = 0;
+  bool getNegated() const;
 
   /**
    * @brief Getter for curve's buffer
    * @return buffer where the curve should find the value to store
    */
-  virtual const double* getBuffer() const = 0;
+  const double* getBuffer() const;
 
   /**
    * @brief curve is for variable or for parameter
    * @return @b true if parameter, @b false if variable
    */
-  virtual bool isParameterCurve() const = 0;
-
+  bool isParameterCurve() const {
+    return isParameterCurve_;
+  }
   /**
    * @brief set curve for variable or curve for parameter
    * @param isParameterCurve @b true if curve for parameter, @b false else
    */
-  virtual void setAsParameterCurve(bool isParameterCurve) = 0;
-
+  void setAsParameterCurve(bool isParameterCurve) {
+    isParameterCurve_ = isParameterCurve;
+  }
   /**
    * @brief Get the curve type (calculated variable, continous, discrete)
    * @return the curve type (calculated variable, continous, discrete)
    */
-  virtual CurveType_t getCurveType() const = 0;
+  CurveType_t getCurveType() const {
+    return curveType_;
+  }
 
   /**
    * @brief Set the curve type (calculated variable, continous, discrete)
    * @param curveType : curve type (calculated variable, continous, discrete)
    */
-  virtual void setCurveType(CurveType_t curveType) = 0;
+  void setCurveType(CurveType_t curveType) {
+    curveType_ = curveType;
+  }
 
   /**
    * @brief update parameter curve value
    * @param parameterName
    * @param parameterValue
    */
-  virtual void updateParameterCurveValue(std::string parameterName, double parameterValue) = 0;
-
-  class Impl;
-
- protected:
-  class BaseConstIteratorImpl;  // Abstract class for the interface
+  void updateParameterCurveValue(std::string parameterName, double parameterValue);
 
  public:
   /**
@@ -196,7 +194,7 @@ typedef enum {
      * or the end of the points' container.
      * @returns Created const_iterator.
      */
-    const_iterator(const Curve::Impl* iterated, bool begin);
+    const_iterator(const Curve* iterated, bool begin);
     /**
      * @brief Constructor
      *
@@ -210,26 +208,7 @@ typedef enum {
      * @param i Relative position of the iterator comparing to the beginning (true) or the ending (false)
      * @returns Created const_iterator.
      */
-    const_iterator(const Curve::Impl* iterated, bool begin, int i);
-
-    /**
-     * @brief Copy constructor
-     * @param original : const_iterator to copy
-     */
-    const_iterator(const const_iterator& original);
-
-    /**
-     * @brief Destructor
-     */
-    ~const_iterator();
-
-    /**
-     * @brief assignment
-     * @param other : const_iterator to assign
-     *
-     * @returns Reference to this const_iterator
-     */
-    const_iterator& operator=(const const_iterator& other);
+    const_iterator(const Curve* iterated, bool begin, int i);
 
     /**
      * @brief Prefix-increment operator
@@ -290,20 +269,20 @@ typedef enum {
     const boost::shared_ptr<Point>* operator->() const;
 
    private:
-    BaseConstIteratorImpl* impl_;  ///<  Pointer to the implementation of the const iterator
+    std::vector<boost::shared_ptr<Point> >::const_iterator current_;  ///< current vector const iterator
   };
 
   /**
    * @brief Get a const_iterator to the beginning of points' container
    * @return a const_iterator to the beginning of points' container
    */
-  virtual const_iterator cbegin() const = 0;
+  const_iterator cbegin() const;
 
   /**
    * @brief Get a const_iterator to the end of points' container
    * @return a const_iterator to the end of points' container
    */
-  virtual const_iterator cend() const = 0;
+  const_iterator cend() const;
 
   /**
    * @brief Get a const_iterator at the i th position points' container
@@ -311,7 +290,22 @@ typedef enum {
    *
    * @return a const_iterator at the i th position points' container
    */
-  virtual const_iterator at(int i) const = 0;
+  const_iterator at(int i) const;
+
+ private:
+  // attributes read in input file
+  std::string modelName_;  ///< Model's name for which we want have a curve
+  std::string variable_;   ///< Variable name
+
+  // attributes deduced from models
+  std::string foundName_;                          ///< variable name found in models
+  bool available_;                                 ///< @b true if the variable is available, @b false else
+  bool negated_;                                   ///< @b true if the variable must be negated at the export, @b false else
+  const double* buffer_;                           ///< adress buffer where to find value
+  std::vector<boost::shared_ptr<Point> > points_;  ///< vector of each values
+  bool isParameterCurve_;                          ///< @b true if a parameter curve, @b false if variable
+  CurveType_t curveType_;                          ///< @b true if a calculated variable curve, @b false if variable
+  size_t indexInGlobalTable_;                      ///< curve's index in global table
 };
 
 }  // namespace curves

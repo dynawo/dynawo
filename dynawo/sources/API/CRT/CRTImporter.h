@@ -23,8 +23,9 @@
 
 #include <boost/shared_ptr.hpp>
 
+#include "CRTCriteriaCollection.h"
+
 namespace criteria {
-class CriteriaCollection;
 
 /**
  * @class Importer

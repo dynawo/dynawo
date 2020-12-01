@@ -21,10 +21,11 @@
 #ifndef API_FS_FSIMPORTER_H_
 #define API_FS_FSIMPORTER_H_
 
+#include "FSFinalStateCollection.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace finalState {
-class FinalStateCollection;
 
 /**
  * @class Importer

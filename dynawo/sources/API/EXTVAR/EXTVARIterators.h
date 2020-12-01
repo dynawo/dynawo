@@ -20,13 +20,15 @@
 #ifndef API_EXTVAR_EXTVARITERATORS_H_
 #define API_EXTVAR_EXTVARITERATORS_H_
 
-#include "EXTVARVariablesCollectionImpl.h"
+#include "EXTVARVariable.h"
+
+#include <boost/shared_ptr.hpp>
+#include <map>
+#include <string>
 
 namespace externalVariables {
 
-class Variable;
-class VariablesIteratorImpl;
-class VariablesConstIteratorImpl;
+class VariablesCollection;
 
 /**
  * @class variable_iterator
@@ -48,26 +50,7 @@ class variable_iterator {
    * or the end of the models' container.
    * @returns Created variable_iterator.
    */
-  variable_iterator(VariablesCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : variable iterator to copy
-   */
-  variable_iterator(const variable_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~variable_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : variable_iterator to assign
-   *
-   * @returns Reference to this variable_iterator
-   */
-  variable_iterator& operator=(const variable_iterator& other);
+  variable_iterator(VariablesCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -127,14 +110,8 @@ class variable_iterator {
    */
   boost::shared_ptr<Variable>* operator->() const;
 
-  /**
-   * @brief Get the implementation ot the iterator
-   * @return the implementation ot the iterator
-   */
-  VariablesIteratorImpl* impl() const;
-
  private:
-  VariablesIteratorImpl* impl_;  ///< Pointer to the implementation of the model iterator;
+  std::map<std::string, boost::shared_ptr<Variable> >::iterator current_;  ///< current map iterator
 };
 
 /**
@@ -157,34 +134,7 @@ class variable_const_iterator {
    * or the end of the models' container.
    * @returns Created variable_const_iterator.
    */
-  variable_const_iterator(const VariablesCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the variable const iterator to copy
-   */
-  variable_const_iterator(const variable_const_iterator& original);
-
-  /**
-   * @brief Constructor
-   *
-   * @param original current iterator
-   * @returns Created variable_const_iterator
-   */
-  explicit variable_const_iterator(const variable_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~variable_const_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : variable_const_iterator to assign
-   *
-   * @returns Reference to this variable_const_iterator
-   */
-  variable_const_iterator& operator=(const variable_const_iterator& other);
+  variable_const_iterator(const VariablesCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -245,7 +195,7 @@ class variable_const_iterator {
   const boost::shared_ptr<Variable>* operator->() const;
 
  private:
-  VariablesConstIteratorImpl* impl_;  ///< Pointer to the implementation of the model const iterator;
+  std::map<std::string, boost::shared_ptr<Variable> >::const_iterator current_;  ///< current vector const iterator
 };
 
 }  // namespace externalVariables

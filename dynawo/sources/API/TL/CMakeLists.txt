@@ -20,9 +20,8 @@ install(FILES ${API_TL_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
 set(API_TL_SOURCES
     TLTimeline.cpp
-    TLTimelineImpl.cpp
     TLTimelineFactory.cpp
-    TLEventImpl.cpp
+    TLEvent.cpp
     TLEventFactory.cpp
     TLTxtExporter.cpp
     TLCsvExporter.cpp

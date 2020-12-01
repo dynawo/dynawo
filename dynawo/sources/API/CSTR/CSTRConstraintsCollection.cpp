@@ -14,80 +14,123 @@
 /**
  * @file  CSTRConstraintsCollection.cpp
  *
- * @brief Dynawo constraints : implementation for iterator
+ * @brief Dynawo constraints : implementation file
  *
  */
 #include "CSTRConstraintsCollection.h"
-#include "CSTRConstraintsCollectionImpl.h"
+
+#include "CSTRConstraint.h"
+#include "CSTRConstraintFactory.h"
+
+#include <iostream>
+#include <sstream>
 
 using boost::shared_ptr;
+using std::map;
+using std::string;
+using std::stringstream;
+using std::vector;
 
 namespace constraints {
 
-ConstraintsCollection::const_iterator::const_iterator(const ConstraintsCollection::Impl* iterated, bool begin):
-impl_(new BaseIteratorImpl(iterated, begin)) { }
+ConstraintsCollection::ConstraintsCollection(const string& id) : id_(id) {}
 
-ConstraintsCollection::const_iterator::const_iterator(const ConstraintsCollection::const_iterator& original):
-impl_(new BaseIteratorImpl(*(original.impl_))) { }
+void
+ConstraintsCollection::addConstraint(const string& modelName, const string& description, const double& time, Type_t type, const string& modelType) {
+  stringstream id;
+  id << time << "_" << modelName << "_" << description;  // allow to sort constraint by time, then modelName
 
-ConstraintsCollection::const_iterator::~const_iterator() {
-  delete impl_;
-  impl_ = NULL;
+  // find if a constraint of same description already exists
+  // if this is the case, if type are different (and the first is begin), erase constraints of this description
+  bool addConstraint = true;
+  map<string, vector<shared_ptr<Constraint> > >::iterator iter = constraintsByModel_.find(modelName);
+  if (iter == constraintsByModel_.end()) {
+    constraintsByModel_[modelName] = vector<shared_ptr<Constraint> >();
+  } else {
+    vector<shared_ptr<Constraint> > constraints = iter->second;
+    for (unsigned int i = 0; i < constraints.size(); ++i) {
+      string oldDescription = constraints[i]->getDescription();
+      Type_t oldType = constraints[i]->getType();
+      double oldTime = constraints[i]->getTime();
+      stringstream oldId;
+      oldId << oldTime << "_" << modelName << "_" << oldDescription;
+      if (oldDescription == description && oldType == CONSTRAINT_BEGIN && type == CONSTRAINT_END) {
+        addConstraint = false;
+        // remove in map
+        iter->second.erase(iter->second.begin() + i);
+        constraintsById_.erase(oldId.str());
+        break;
+      }
+    }
+  }
+
+  if (addConstraint) {
+    shared_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
+    constraint->setModelName(modelName);
+    constraint->setDescription(description);
+    constraint->setTime(time);
+    constraint->setType(type);
+    constraint->setModelType(modelType);
+    constraintsByModel_[modelName].push_back(constraint);
+    constraintsById_[id.str()] = constraint;
+  }
 }
 
-ConstraintsCollection::const_iterator&
-ConstraintsCollection::const_iterator::operator=(const ConstraintsCollection::const_iterator& other) {
-  if (this == &other)
-    return *this;
-  delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new BaseIteratorImpl(*(other.impl_));
-  return *this;
+ConstraintsCollection::const_iterator
+ConstraintsCollection::cbegin() const {
+  return ConstraintsCollection::const_iterator(this, true);
 }
+
+ConstraintsCollection::const_iterator
+ConstraintsCollection::cend() const {
+  return ConstraintsCollection::const_iterator(this, false);
+}
+
+ConstraintsCollection::const_iterator::const_iterator(const ConstraintsCollection* iterated, bool begin) :
+    current_((begin ? iterated->constraintsById_.begin() : iterated->constraintsById_.end())) {}
 
 ConstraintsCollection::const_iterator&
 ConstraintsCollection::const_iterator::operator++() {
-  ++(*impl_);
+  ++current_;
   return *this;
 }
 
 ConstraintsCollection::const_iterator
 ConstraintsCollection::const_iterator::operator++(int) {
   ConstraintsCollection::const_iterator previous = *this;
-  (*impl_)++;
+  current_++;
   return previous;
 }
 
 ConstraintsCollection::const_iterator&
 ConstraintsCollection::const_iterator::operator--() {
-  --(*impl_);
+  --current_;
   return *this;
 }
 
 ConstraintsCollection::const_iterator
 ConstraintsCollection::const_iterator::operator--(int) {
   ConstraintsCollection::const_iterator previous = *this;
-  (*impl_)--;
+  current_--;
   return previous;
 }
 
 bool
 ConstraintsCollection::const_iterator::operator==(const ConstraintsCollection::const_iterator& other) const {
-  return *impl_ == *(other.impl_);
+  return current_ == other.current_;
 }
 
 bool
 ConstraintsCollection::const_iterator::operator!=(const ConstraintsCollection::const_iterator& other) const {
-  return *impl_ != *(other.impl_);
+  return current_ != other.current_;
 }
 
-const shared_ptr<Constraint>&
-ConstraintsCollection::const_iterator::operator*() const {
-  return *(*impl_);
+const shared_ptr<Constraint>& ConstraintsCollection::const_iterator::operator*() const {
+  return current_->second;
 }
 
-const shared_ptr<Constraint>*
-ConstraintsCollection::const_iterator::operator->() const {
-  return impl_->operator->();
+const shared_ptr<Constraint>* ConstraintsCollection::const_iterator::operator->() const {
+  return &(current_->second);
 }
 
 }  // namespace constraints

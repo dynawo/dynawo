@@ -20,12 +20,12 @@
 #ifndef API_FS_FSEXPORTER_H_
 #define API_FS_FSEXPORTER_H_
 
-#include <string>
+#include "FSFinalStateCollection.h"
 
 #include <boost/shared_ptr.hpp>
+#include <string>
 
 namespace finalState {
-class FinalStateCollection;
 
 /**
  * @class Exporter
@@ -48,7 +48,7 @@ class Exporter {
    */
   virtual void exportToFile(const boost::shared_ptr<FinalStateCollection>& finalState, const std::string& filePath) const = 0;
 
-   /**
+  /**
    * @brief Export method for this exporter
    *
    * @param finalState final state to export

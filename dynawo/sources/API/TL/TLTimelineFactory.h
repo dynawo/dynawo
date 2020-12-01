@@ -22,8 +22,8 @@
 
 #include <boost/shared_ptr.hpp>
 
+#include "TLTimeline.h"
 namespace timeline {
-class Timeline;
 
 /**
  * @class TimelineFactory

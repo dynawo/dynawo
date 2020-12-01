@@ -18,7 +18,7 @@
  */
 
 #include "PARParametersSetFactory.h"
-#include "PARParametersSetImpl.h"
+#include "PARParametersSet.h"
 
 using std::map;
 using std::string;
@@ -28,19 +28,19 @@ namespace parameters {
 
 boost::shared_ptr<ParametersSet>
 ParametersSetFactory::newInstance(string id) {
-  return boost::shared_ptr<ParametersSet>(new ParametersSet::Impl(id));
+  return boost::shared_ptr<ParametersSet>(new ParametersSet(id));
 }
 
 boost::shared_ptr<ParametersSet>
 ParametersSetFactory::copyInstance(boost::shared_ptr<ParametersSet> original) {
   if (original)
-    return boost::shared_ptr<ParametersSet>(new ParametersSet::Impl(dynamic_cast<ParametersSet::Impl&> (*original)));
+    return boost::shared_ptr<ParametersSet>(new ParametersSet(*original));
   return boost::shared_ptr<ParametersSet>();
 }
 
 boost::shared_ptr<ParametersSet>
 ParametersSetFactory::copyInstance(const ParametersSet& original) {
-  return boost::shared_ptr<ParametersSet>(new ParametersSet::Impl(dynamic_cast<const ParametersSet::Impl&> (original)));
+  return boost::shared_ptr<ParametersSet>(new ParametersSet(original));
 }
 
 }  // namespace parameters
