@@ -18,7 +18,7 @@
  */
 
 #include "DYDMacroConnectFactory.h"
-#include "DYDMacroConnectImpl.h"
+#include "DYDMacroConnect.h"
 
 using std::string;
 
@@ -28,7 +28,7 @@ namespace dynamicdata {
 
 shared_ptr<MacroConnect>
 MacroConnectFactory::newMacroConnect(const std::string& id, const std::string& model1, const std::string& model2) {
-  return shared_ptr<MacroConnect>(new MacroConnect::Impl(id, model1, model2));
+  return shared_ptr<MacroConnect>(new MacroConnect(id, model1, model2));
 }
 
 }  // namespace dynamicdata

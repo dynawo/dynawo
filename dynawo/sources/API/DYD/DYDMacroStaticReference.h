@@ -20,15 +20,15 @@
 #ifndef API_DYD_DYDMACROSTATICREFERENCE_H_
 #define API_DYD_DYDMACROSTATICREFERENCE_H_
 
-#include <string>
-#include <map>
-#include <vector>
+#include "DYDIterators.h"
+#include "DYDStaticRef.h"
+
 #include <boost/shared_ptr.hpp>
+#include <map>
+#include <string>
+#include <vector>
 
 namespace dynamicdata {
-class staticRef_const_iterator;
-class staticRef_iterator;
-class StaticRef;
 
 /**
  * @class MacroStaticReference
@@ -37,15 +37,20 @@ class StaticRef;
 class MacroStaticReference {
  public:
   /**
-   * @brief Destructor
+   * @brief MacroStaticReference constructor
+   *
+   * @param[in] id: id of the macroStaticReference
+   *
+   * @returns new MacroStaticReference::Impl instance with given attributes
    */
-  virtual ~MacroStaticReference() {}
+  explicit MacroStaticReference(const std::string& id);
+
   /**
    * @brief macroStaticReference id getter
    *
    * @returns the id of the macroStaticReference
    */
-  virtual std::string getId() const = 0;
+  const std::string& getId() const;
 
   /**
    * @brief staticRef adder
@@ -54,31 +59,31 @@ class MacroStaticReference {
    * @param[in] staticVar: static variable
    * @throws Error::API exception if the staticRef already exists
    */
-  virtual void addStaticRef(const std::string& var, const std::string& staticVar) = 0;
-
-    /**
-   * @brief staticRef iterator : beginning of staticRefs
-   * @return beginning of staticRefs
-   */
-  virtual staticRef_const_iterator cbeginStaticRef() const = 0;
-
-  /**
-   * @brief staticRef iterator : end of staticRefs
-   * @return end of staticRefs
-   */
-  virtual staticRef_const_iterator cendStaticRef() const = 0;
+  void addStaticRef(const std::string& var, const std::string& staticVar);
 
   /**
    * @brief staticRef iterator : beginning of staticRefs
    * @return beginning of staticRefs
    */
-  virtual staticRef_iterator beginStaticRef() = 0;
+  staticRef_const_iterator cbeginStaticRef() const;
 
   /**
    * @brief staticRef iterator : end of staticRefs
    * @return end of staticRefs
    */
-  virtual staticRef_iterator endStaticRef() = 0;
+  staticRef_const_iterator cendStaticRef() const;
+
+  /**
+   * @brief staticRef iterator : beginning of staticRefs
+   * @return beginning of staticRefs
+   */
+  staticRef_iterator beginStaticRef();
+
+  /**
+   * @brief staticRef iterator : end of staticRefs
+   * @return end of staticRefs
+   */
+  staticRef_iterator endStaticRef();
 
   /**
    * @brief find a staticRef thanks to its key (var_staticVar)
@@ -86,9 +91,14 @@ class MacroStaticReference {
    * @throws Error::API exception if staticRef doesn't exist
    * @return the staticRef associated to the key
    */
-  virtual const boost::shared_ptr<StaticRef>& findStaticRef(const std::string& key) = 0;
+  const boost::shared_ptr<StaticRef>& findStaticRef(const std::string& key);
 
-  class Impl;  ///< Implementation class
+  friend class staticRef_const_iterator;
+  friend class staticRef_iterator;
+
+ private:
+  std::string id_;                                                   ///< id of the macroStaticReference
+  std::map<std::string, boost::shared_ptr<StaticRef> > staticRefs_;  ///<  map of staticRefs
 };
 
 }  // namespace dynamicdata

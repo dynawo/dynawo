@@ -22,6 +22,7 @@
 
 #include <boost/shared_ptr.hpp>
 
+
 namespace dynamicdata {
 class ModelicaModel;
 

@@ -18,7 +18,7 @@
  */
 
 #include "DYDStaticRefFactory.h"
-#include "DYDStaticRefImpl.h"
+#include "DYDStaticRef.h"
 
 using std::string;
 using boost::shared_ptr;
@@ -27,12 +27,12 @@ namespace dynamicdata {
 
 shared_ptr<StaticRef>
 StaticRefFactory::newStaticRef() {
-  return shared_ptr<StaticRef>(new StaticRef::Impl());
+  return shared_ptr<StaticRef>(new StaticRef());
 }
 
 shared_ptr<StaticRef>
 StaticRefFactory::newStaticRef(const string& modelVar, const string& staticVar) {
-  return shared_ptr<StaticRef>(new StaticRef::Impl(modelVar, staticVar));
+  return shared_ptr<StaticRef>(new StaticRef(modelVar, staticVar));
 }
 
 }  // namespace dynamicdata

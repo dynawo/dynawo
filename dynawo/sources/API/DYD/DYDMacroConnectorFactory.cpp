@@ -18,7 +18,8 @@
  */
 
 #include "DYDMacroConnectorFactory.h"
-#include "DYDMacroConnectorImpl.h"
+
+#include "DYDMacroConnector.h"
 
 using std::string;
 
@@ -28,7 +29,7 @@ namespace dynamicdata {
 
 shared_ptr<MacroConnector>
 MacroConnectorFactory::newMacroConnector(const std::string& id) {
-  return shared_ptr<MacroConnector>(new MacroConnector::Impl(id));
+  return shared_ptr<MacroConnector>(new MacroConnector(id));
 }
 
 }  // namespace dynamicdata

@@ -43,7 +43,7 @@
 #include "DYDModelTemplateExpansion.h"
 #include "DYDBlackBoxModel.h"
 #include "DYDUnitDynamicModel.h"
-#include "DYDConnectorImpl.h"
+#include "DYDConnector.h"
 #include "DYDMacroConnection.h"
 #include "DYDMacroConnector.h"
 #include "DYDStaticRef.h"
@@ -540,7 +540,7 @@ Compiler::collectMacroConnections(const map<string, shared_ptr<dynamicdata::Macr
       replaceMacroInVariableId(itMC->second->getIndex1(), itMC->second->getName1(), model1, model2, connector, var1);
       replaceMacroInVariableId(itMC->second->getIndex2(), itMC->second->getName2(), model1, model2, connector, var2);
 
-      macroConnection.push_back(shared_ptr<dynamicdata::Connector>(new dynamicdata::Connector::Impl(model1, var1, model2, var2)));
+      macroConnection.push_back(shared_ptr<dynamicdata::Connector>(new dynamicdata::Connector(model1, var1, model2, var2)));
     }
   }
 }

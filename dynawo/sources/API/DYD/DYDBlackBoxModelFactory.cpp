@@ -18,7 +18,8 @@
  */
 
 #include "DYDBlackBoxModelFactory.h"
-#include "DYDBlackBoxModelImpl.h"
+
+#include "DYDBlackBoxModel.h"
 
 using std::string;
 
@@ -28,7 +29,7 @@ namespace dynamicdata {
 
 shared_ptr<BlackBoxModel>
 BlackBoxModelFactory::newModel(const std::string& modelId) {
-  return shared_ptr<BlackBoxModel>(new BlackBoxModel::Impl(modelId));
+  return shared_ptr<BlackBoxModel>(new BlackBoxModel(modelId));
 }
 
 }  // namespace dynamicdata

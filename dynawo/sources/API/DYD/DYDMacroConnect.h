@@ -32,79 +32,95 @@ namespace dynamicdata {
 class MacroConnect {
  public:
   /**
-   * @brief Destructor
+   * @brief MacroConnect::Impl constructor
+   *
+   * MacroConnect::Impl constructor.
+   *
+   * @param connector id of the connector
+   * @param model1  id of the first model
+   * @param model2  id of the second model
+   *
+   * @returns New MacroConnect::Impl instance with given attributes
    */
-  virtual ~MacroConnect() {}
+  MacroConnect(const std::string & connector, const std::string & model1, const std::string & model2);
+
   /**
    * @brief First model getter
    *
    * @return First model id
    */
-  virtual std::string getFirstModelId() const = 0;
+  const std::string& getFirstModelId() const;
 
   /**
    * @brief Second model getter
    *
    * @return Second model id
    */
-  virtual std::string getSecondModelId() const = 0;
+  const std::string& getSecondModelId() const;
 
   /**
    * @brief Connector id getter
    *
    * @return id of the connector
    */
-  virtual std::string getConnector() const = 0;
+  const std::string& getConnector() const;
 
   /**
    * @brief set the index of the first model
    * @param index1 index of the first model to replace \@INDEX\@
    */
-  virtual void setIndex1(const std::string& index1) = 0;
+  void setIndex1(const std::string& index1);
 
   /**
    * @brief set the index of the second model
    * @param index2 index of the second model to replace \@INDEX\@
    */
-  virtual void setIndex2(const std::string& index2) = 0;
+  void setIndex2(const std::string& index2);
 
   /**
    * @brief set the name of the first model
    * @param name1 name of the first model to replace \@NAME\@
    */
-  virtual void setName1(const std::string& name1) = 0;
+  void setName1(const std::string& name1);
 
   /**
    * @brief set the name of the second model
    * @param name2 name of the second model to replace \@NAME\@
    */
-  virtual void setName2(const std::string& name2) = 0;
+  void setName2(const std::string& name2);
 
   /**
    * @brief get the index of the first model
    * @return index of the first model to replace \@INDEX\@
    */
-  virtual std::string getIndex1() const = 0;
+  const std::string& getIndex1() const;
 
   /**
    * @brief get the index of the second model
    * @return index of the second model to replace \@INDEX\@
    */
-  virtual std::string getIndex2() const = 0;
+  const std::string& getIndex2() const;
 
   /**
    * @brief get the name of the first model
    * @return name of the first model to replace \@NAME\@
    */
-  virtual std::string getName1() const = 0;
+  const std::string& getName1() const;
 
   /**
    * @brief get the name of the second model
    * @return name of the second model to replace \@NAME\@
    */
-  virtual std::string getName2() const = 0;
+  const std::string& getName2() const;
 
-  class Impl;  // Implementation class
+ private:
+  std::string connectorId_;    ///< id of the connector
+  std::string firstModelId_;   ///< Model name for the first Model
+  std::string secondModelId_;  ///< Model name for the second Model
+  std::string index1_;         ///< index of the first model to replace \@INDEX\@
+  std::string index2_;         ///< index of the second model to replace \@INDEX\@
+  std::string name1_;          ///< name of the first model to replace \@NAME\@
+  std::string name2_;          ///< name of the second model to replace \@NAME\@
 };
 
 }  // namespace dynamicdata

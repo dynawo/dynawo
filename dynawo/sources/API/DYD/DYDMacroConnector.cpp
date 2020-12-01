@@ -12,47 +12,42 @@
 //
 
 /**
- * @file DYDMacroConnectorImpl.cpp
+ * @file DYDMacroConnector.cpp
  * @brief MacroConnector : implementation file
  *
  */
 
+#include "DYDMacroConnector.h"
+
+#include "DYDMacroConnection.h"
+#include "DYDMacroConnectionFactory.h"
 #include "DYNMacrosMessage.h"
 
-#include "DYDMacroConnectorImpl.h"
-#include "DYDMacroConnectionFactory.h"
-#include "DYDMacroConnection.h"
-
-using std::string;
-using std::map;
 using boost::shared_ptr;
+using std::map;
+using std::string;
 
 namespace dynamicdata {
 
-MacroConnector::Impl::Impl(const string& id) :
-id_(id) {
-}
+MacroConnector::MacroConnector(const string& id) : id_(id) {}
 
-MacroConnector::Impl::~Impl() {
-}
-
-string
-MacroConnector::Impl::getId() const {
+const string&
+MacroConnector::getId() const {
   return id_;
 }
 
 const map<string, shared_ptr<MacroConnection> >&
-MacroConnector::Impl::getInitConnectors() const {
+MacroConnector::getInitConnectors() const {
   return initConnectorsMap_;
 }
 
 const map<string, shared_ptr<MacroConnection> >&
-MacroConnector::Impl::getConnectors() const {
+MacroConnector::getConnectors() const {
   return connectorsMap_;
 }
 
 MacroConnector&
-MacroConnector::Impl::addConnect(const string& var1, const string& var2) {
+MacroConnector::addConnect(const string& var1, const string& var2) {
   // To build the connector Id, sort the string so as 1st_Model_ID is smaller than 2nd_Model_ID. EX: ID_1 < ID_2
   string connectionId;
   if (var1 < var2)
@@ -73,7 +68,7 @@ MacroConnector::Impl::addConnect(const string& var1, const string& var2) {
 }
 
 MacroConnector&
-MacroConnector::Impl::addInitConnect(const string& var1, const string& var2) {
+MacroConnector::addInitConnect(const string& var1, const string& var2) {
   // To build the connector Id, sort the string so as 1st_Model_ID is smaller than 2nd_Model_ID. EX: ID_1 < ID_2
   string connectionId;
   if (var1 < var2)

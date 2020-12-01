@@ -20,12 +20,13 @@
 #ifndef API_DYD_DYDIMPORTER_H_
 #define API_DYD_DYDIMPORTER_H_
 
+#include "DYDDynamicModelsCollection.h"
+#include "DYDXmlHandler.h"
+
 #include <string>
 #include <xml/sax/parser/ParserFactory.h>
 
 namespace dynamicdata {
-class DynamicModelsCollection;
-class XmlHandler;
 
 /**
  * @class Importer

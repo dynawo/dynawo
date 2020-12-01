@@ -20,10 +20,11 @@
 #ifndef API_DYD_DYDMACROCONNECTIONFACTORY_H_
 #define API_DYD_DYDMACROCONNECTIONFACTORY_H_
 
+#include "DYDMacroConnection.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
-class MacroConnection;
 
 /**
  * @class MacroConnectionFactory
@@ -41,7 +42,7 @@ class MacroConnectionFactory {
    * @param[in] var2 : second model connected port name
    * @returns Shared pointer to a new @p MacroConnection
    */
-  static boost::shared_ptr<MacroConnection> newMacroConnection(const std::string & var1, const std::string & var2);
+  static boost::shared_ptr<MacroConnection> newMacroConnection(const std::string& var1, const std::string& var2);
 };
 
 }  // namespace dynamicdata

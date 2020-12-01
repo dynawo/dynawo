@@ -20,13 +20,13 @@
 #ifndef API_DYD_DYDMACROCONNECTOR_H_
 #define API_DYD_DYDMACROCONNECTOR_H_
 
-#include <string>
-#include <map>
+#include "DYDMacroConnection.h"
+
 #include <boost/shared_ptr.hpp>
+#include <map>
+#include <string>
 
 namespace dynamicdata {
-
-class MacroConnection;
 
 /**
  * @class MacroConnector
@@ -35,29 +35,34 @@ class MacroConnection;
 class MacroConnector {
  public:
   /**
-   * @brief Destructor
+   * @brief MacroConnector constructor
+   *
+   * @param id MacroConnector ID
+   *
+   * @returns New MacroConnector::Impl instance with given attributes
    */
-  virtual ~MacroConnector() {}
+  explicit MacroConnector(const std::string& id);
+
   /**
    * @brief Macro connector id getter
    *
    * @returns the id of the macro connector
    */
-  virtual std::string getId() const = 0;
+  const std::string& getId() const;
 
   /**
    * @brief Dynamic connectors getter
    *
    * @returns Map of connectors
    */
-  virtual const std::map<std::string, boost::shared_ptr<MacroConnection> >& getConnectors() const = 0;
+  const std::map<std::string, boost::shared_ptr<MacroConnection> >& getConnectors() const;
 
   /**
    * @brief Initialization connectors getter
    *
    * @returns Map of initialization connectors
    */
-  virtual const std::map<std::string, boost::shared_ptr<MacroConnection> >& getInitConnectors() const = 0;
+  const std::map<std::string, boost::shared_ptr<MacroConnection> >& getInitConnectors() const;
 
   /**
    * @brief Macro connection adder
@@ -66,7 +71,7 @@ class MacroConnector {
    * @param[in] var2 Second var to connect
    * @returns Reference to the current MacroConnector instance
    */
-  virtual MacroConnector& addConnect(const std::string& var1, const std::string& var2) = 0;
+  MacroConnector& addConnect(const std::string& var1, const std::string& var2);
 
   /**
    * @brief Initialization Macro connection adder
@@ -75,9 +80,12 @@ class MacroConnector {
    * @param[in] var2 Second var to connect
    * @return Reference to current MacroConnector instance
    */
-  virtual MacroConnector& addInitConnect(const std::string& var1, const std::string& var2) = 0;
+  MacroConnector& addInitConnect(const std::string& var1, const std::string& var2);
 
-  class Impl;  ///< Implementation class
+ private:
+  std::string id_;                                                                ///< id of the macro connector
+  std::map<std::string, boost::shared_ptr<MacroConnection> > initConnectorsMap_;  ///< MacroConnector initialization connectors
+  std::map<std::string, boost::shared_ptr<MacroConnection> > connectorsMap_;      ///<  MacroConnector connectors
 };
 
 }  // namespace dynamicdata

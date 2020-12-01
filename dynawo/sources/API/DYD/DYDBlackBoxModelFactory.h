@@ -20,10 +20,11 @@
 #ifndef API_DYD_DYDBLACKBOXMODELFACTORY_H_
 #define API_DYD_DYDBLACKBOXMODELFACTORY_H_
 
+#include "DYDBlackBoxModel.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
-class BlackBoxModel;
 /**
  * @class BlackBoxModelFactory
  * @brief BlackBoxModelFactory factory class

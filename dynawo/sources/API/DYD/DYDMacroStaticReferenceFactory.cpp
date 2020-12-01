@@ -18,7 +18,8 @@
  */
 
 #include "DYDMacroStaticReferenceFactory.h"
-#include "DYDMacroStaticReferenceImpl.h"
+
+#include "DYDMacroStaticReference.h"
 
 using std::string;
 
@@ -28,7 +29,7 @@ namespace dynamicdata {
 
 shared_ptr<MacroStaticReference>
 MacroStaticReferenceFactory::newMacroStaticReference(const string& id) {
-  return shared_ptr<MacroStaticReference>(new MacroStaticReference::Impl(id));
+  return shared_ptr<MacroStaticReference>(new MacroStaticReference(id));
 }
 
 }  // namespace dynamicdata

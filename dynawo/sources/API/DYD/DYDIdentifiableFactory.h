@@ -20,10 +20,11 @@
 #ifndef API_DYD_DYDIDENTIFIABLEFACTORY_H_
 #define API_DYD_DYDIDENTIFIABLEFACTORY_H_
 
+#include "DYDIdentifiable.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
-class Identifiable;
 
 /**
  * @class IdentifiableFactory

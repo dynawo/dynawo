@@ -20,13 +20,11 @@
 #ifndef API_DYD_DYDXMLIMPORTER_H_
 #define API_DYD_DYDXMLIMPORTER_H_
 
-#include <boost/shared_ptr.hpp>
-
 #include "DYDImporter.h"
 
+#include <boost/shared_ptr.hpp>
+
 namespace dynamicdata {
-class DynamicModelsCollection;
-class XmlHandler;
 
 /**
  * @class XmlImporter

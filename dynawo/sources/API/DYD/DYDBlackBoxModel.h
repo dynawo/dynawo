@@ -20,11 +20,10 @@
 #ifndef API_DYD_DYDBLACKBOXMODEL_H_
 #define API_DYD_DYDBLACKBOXMODEL_H_
 
-#include <map>
-#include <vector>
-
 #include "DYDModel.h"
 
+#include <map>
+#include <vector>
 
 namespace dynamicdata {
 
@@ -38,15 +37,19 @@ namespace dynamicdata {
 class BlackBoxModel : public Model {
  public:
   /**
-   * @brief Destructor
+   * @brief Constructor
+   *
+   * @param id Blackbox model's ID
+   * @returns New BlackBoxModel instance
    */
-  virtual ~BlackBoxModel() {}
+  explicit BlackBoxModel(const std::string& id);
+
   /**
    * @brief Model library getter
    *
    * @returns Model library absolute path
    */
-  virtual std::string getLib() const = 0;
+  const std::string& getLib() const;
 
   /**
    * @brief Model library setter
@@ -54,14 +57,14 @@ class BlackBoxModel : public Model {
    * @param[in] lib Model library absolute path
    * @returns Reference to current BlackBoxModel instance
    */
-  virtual BlackBoxModel& setLib(const std::string& lib) = 0;
+  BlackBoxModel& setLib(const std::string& lib);
 
   /**
    * @brief Network Identifiable device modeled getter
 
    * @returns Id of Network Identifiable device modeled
    */
-  virtual std::string getStaticId() const = 0;
+  const std::string& getStaticId() const;
 
   /**
    * @brief Network Identifiable device modeled setter
@@ -69,7 +72,7 @@ class BlackBoxModel : public Model {
    * @param[in] staticId of modeledDevice Network Identifiable device modeled
    * @returns Reference to current Model instance
    */
-  virtual BlackBoxModel& setStaticId(const std::string& staticId) = 0;
+  BlackBoxModel& setStaticId(const std::string& staticId);
 
   /**
    * @brief parameters file setter
@@ -77,7 +80,7 @@ class BlackBoxModel : public Model {
    * @param[in] parFile parameters file for this model
    * @return Reference to current Model instance
    */
-  virtual BlackBoxModel& setParFile(const std::string& parFile) = 0;
+  BlackBoxModel& setParFile(const std::string& parFile);
 
   /**
    * @brief parameters id setter
@@ -85,25 +88,25 @@ class BlackBoxModel : public Model {
    * @param[in] parId id to use for set of parameters inside the parameters file
    * @return Reference to current Model instance
    */
-  virtual BlackBoxModel& setParId(const std::string& parId) = 0;
+  BlackBoxModel& setParId(const std::string& parId);
 
   /**
    * @brief parameters file getter
    * @return parameters file for this model
    */
-  virtual std::string getParFile() const = 0;
+  const std::string& getParFile() const;
 
   /**
    * @brief parameters id getter
    * @return parameters id for this model
    */
-  virtual std::string getParId() const = 0;
+  const std::string& getParId() const;
 
-  /**
-   * @brief  implementation class
-   *
-   */
-  class Impl;  // Implementation class
+ private:
+  std::string lib_;       ///< Model's library name
+  std::string staticId_;  ///< Identifiable device modeled by dynamic model
+  std::string parFile_;   ///< name of the parameter file
+  std::string parId_;     ///< id of the set of parameter for the model
 };
 
 }  // namespace dynamicdata

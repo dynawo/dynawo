@@ -20,10 +20,11 @@
 #ifndef API_DYD_DYDUNITDYNAMICMODELFACTORY_H_
 #define API_DYD_DYDUNITDYNAMICMODELFACTORY_H_
 
+#include "DYDUnitDynamicModel.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
-class UnitDynamicModel;
 
 /**
  * @class UnitDynamicModelFactory

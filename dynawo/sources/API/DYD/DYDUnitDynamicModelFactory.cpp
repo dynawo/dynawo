@@ -18,7 +18,7 @@
  */
 
 #include "DYDUnitDynamicModelFactory.h"
-#include "DYDUnitDynamicModelImpl.h"
+
 #include "DYDUnitDynamicModel.h"
 
 using std::string;
@@ -29,7 +29,7 @@ namespace dynamicdata {
 
 shared_ptr<UnitDynamicModel>
 UnitDynamicModelFactory::newModel(const string& modelId, const string& modelName) {
-  return shared_ptr<UnitDynamicModel>(new UnitDynamicModel::Impl(modelId, modelName));
+  return shared_ptr<UnitDynamicModel>(new UnitDynamicModel(modelId, modelName));
 }
 
 }  // namespace dynamicdata

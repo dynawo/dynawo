@@ -28,6 +28,7 @@
 #include "DYDStaticRef.h"
 #include "DYDMacroStaticRef.h"
 #include "DYDMacroStaticReference.h"
+#include "DYDDynamicModelsCollection.h"
 #include "DYDIterators.h"
 #include "DYDXmlExporter.h"
 #include "DYDMacroConnection.h"

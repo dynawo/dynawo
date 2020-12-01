@@ -33,24 +33,34 @@ namespace dynamicdata {
 class MacroConnection {
  public:
   /**
-   * @brief Destructor
+   * @brief MacroConnection constructor
+   *
+   * MacroConnection constructor.
+   *
+   * @param var1   First model connected port name
+   * @param var2  Second model connected port name
+   *
+   * @returns New MacroConnection instance with given attributes
    */
-  virtual ~MacroConnection() {}
+  MacroConnection(const std::string& var1, const std::string& var2);
+
   /**
    * @brief First model connected variable getter
    *
    * @return First model connected variable name
    */
-  virtual std::string getFirstVariableId() const = 0;
+  const std::string& getFirstVariableId() const;
 
   /**
    * @brief Second model connected variable getter
    *
    * @return Second model connected variable name
    */
-  virtual std::string getSecondVariableId() const = 0;
+  const std::string& getSecondVariableId() const;
 
-  class Impl;  // Implementation class
+ private:
+  std::string firstVariableId_;   ///< Variable name for the first variable
+  std::string secondVariableId_;  ///< Variable name for the second variable
 };
 
 }  // namespace dynamicdata

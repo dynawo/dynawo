@@ -12,42 +12,35 @@
 //
 
 /**
- * @file DYDStaticRefImpl.cpp
+ * @file DYDStaticRef.cpp
  * @brief StaticRef description : implementation file
  *
  */
 
-#include "DYDStaticRefImpl.h"
+#include "DYDStaticRef.h"
 
 namespace dynamicdata {
 
-StaticRef::Impl::Impl(const std::string& modelVar, const std::string& staticVar) :
-modelVar_(modelVar),
-staticVar_(staticVar) {
-}
-
-StaticRef::Impl::~Impl() {
-}
+StaticRef::StaticRef(const std::string& modelVar, const std::string& staticVar) : modelVar_(modelVar), staticVar_(staticVar) {}
 
 void
-StaticRef::Impl::setModelVar(const std::string& modelVar) {
+StaticRef::setModelVar(const std::string& modelVar) {
   modelVar_ = modelVar;
 }
 
 void
-StaticRef::Impl::setStaticVar(const std::string& staticVar) {
+StaticRef::setStaticVar(const std::string& staticVar) {
   staticVar_ = staticVar;
 }
 
-std::string
-StaticRef::Impl::getModelVar() const {
+const std::string&
+StaticRef::getModelVar() const {
   return modelVar_;
 }
 
-std::string
-StaticRef::Impl::getStaticVar() const {
+const std::string&
+StaticRef::getStaticVar() const {
   return staticVar_;
 }
-
 
 }  // namespace dynamicdata

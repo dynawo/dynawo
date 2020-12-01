@@ -20,10 +20,11 @@
 #ifndef API_DYD_DYDMACROCONNECTORFACTORY_H_
 #define API_DYD_DYDMACROCONNECTORFACTORY_H_
 
+#include "DYDMacroConnector.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
-class MacroConnector;
 
 /**
  * @class MacroConnectorFactory

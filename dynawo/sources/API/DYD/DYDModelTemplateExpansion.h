@@ -17,15 +17,13 @@
  *
  */
 
-
 #ifndef API_DYD_DYDMODELTEMPLATEEXPANSION_H_
 #define API_DYD_DYDMODELTEMPLATEEXPANSION_H_
 
-#include <map>
-#include <vector>
-
 #include "DYDModel.h"
 
+#include <map>
+#include <vector>
 
 namespace dynamicdata {
 
@@ -40,15 +38,18 @@ namespace dynamicdata {
 class ModelTemplateExpansion : public Model {
  public:
   /**
-   * @brief Destructor
+   * @brief Constructor
+   *
+   * @param id Model template expansion's ID
    */
-  virtual ~ModelTemplateExpansion() {}
+  explicit ModelTemplateExpansion(const std::string& id);
+
   /**
    * @brief Template Model getter
    *
    * @returns Template Model absolute path
    */
-  virtual std::string getTemplateId() const = 0;
+  const std::string& getTemplateId() const;
 
   /**
    * @brief Template Model setter
@@ -56,14 +57,14 @@ class ModelTemplateExpansion : public Model {
    * @param[in] templateId template model id
    * @returns Reference to current ModelTemplateExpansion instance
    */
-  virtual ModelTemplateExpansion& setTemplateId(const std::string& templateId) = 0;
+  ModelTemplateExpansion& setTemplateId(const std::string& templateId);
 
   /**
    * @brief Network Identifiable device modeled getter
 
    * @returns Id of Network Identifiable device modeled
    */
-  virtual std::string getStaticId() const = 0;
+  const std::string& getStaticId() const;
 
   /**
    * @brief Network Identifiable device modeled setter
@@ -71,7 +72,7 @@ class ModelTemplateExpansion : public Model {
    * @param[in] staticId of modeledDevice Network Identifiable device modeled
    * @returns Reference to current Model instance
    */
-  virtual ModelTemplateExpansion& setStaticId(const std::string& staticId) = 0;
+  ModelTemplateExpansion& setStaticId(const std::string& staticId);
 
   /**
    * @brief parameters file setter
@@ -79,7 +80,7 @@ class ModelTemplateExpansion : public Model {
    * @param[in] parFile parameters file for this model
    * @return Reference to current Model instance
    */
-  virtual ModelTemplateExpansion& setParFile(const std::string& parFile) = 0;
+  ModelTemplateExpansion& setParFile(const std::string& parFile);
 
   /**
    * @brief parameters id setter
@@ -87,25 +88,25 @@ class ModelTemplateExpansion : public Model {
    * @param[in] parId id to use for set of parameters inside the parameters file
    * @return Reference to current Model instance
    */
-  virtual ModelTemplateExpansion& setParId(const std::string& parId) = 0;
+  ModelTemplateExpansion& setParId(const std::string& parId);
 
   /**
    * @brief parameters file getter
    * @return parameters file for this model
    */
-  virtual std::string getParFile() const = 0;
+  const std::string& getParFile() const;
 
   /**
    * @brief parameters id getter
    * @return parameters id for this model
    */
-  virtual std::string getParId() const = 0;
+  const std::string& getParId() const;
 
-  /**
-   * @brief  implementation class
-   *
-   */
-  class Impl;  // Implementation class
+ private:
+  std::string templateId_; /**< template model id*/
+  std::string staticId_;   ///< Identifiable device modeled by dynamic model
+  std::string parFile_;    ///< name of the parameter file
+  std::string parId_;      ///< id of the set of parameter for the model
 };
 
 }  // namespace dynamicdata

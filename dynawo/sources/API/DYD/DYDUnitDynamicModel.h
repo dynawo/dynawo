@@ -34,15 +34,23 @@ namespace dynamicdata {
 class UnitDynamicModel {
  public:
   /**
-   * @brief Destructor
+   * @brief UnitDynamicModel constructor
+   *
+   * UnitDynamicModel constructor.
+   *
+   * @param id Dynamic model ID
+   * @param name name of the model
+   *
+   * @returns New UnitDynamicModel::Impl instance with given attributes
    */
-  virtual ~UnitDynamicModel() {}
+  UnitDynamicModel(const std::string& id, const std::string& name);
+
   /**
    * @brief Model id getter
    *
    * @returns Model id
    */
-  virtual std::string getId() const = 0;
+  const std::string& getId() const;
 
   /**
    * @brief parameters file setter
@@ -50,7 +58,7 @@ class UnitDynamicModel {
    * @param[in] parFile parameters file for this model
    * @return Reference to current Model instance
    */
-  virtual UnitDynamicModel& setParFile(const std::string& parFile) = 0;
+  UnitDynamicModel& setParFile(const std::string& parFile);
 
   /**
    * @brief parameters id setter
@@ -58,47 +66,47 @@ class UnitDynamicModel {
    * @param[in] parId id to use for set of parameters inside the parameters file
    * @return Reference to current Model instance
    */
-  virtual UnitDynamicModel& setParId(const std::string& parId) = 0;
+  UnitDynamicModel& setParId(const std::string& parId);
 
   /**
    * @brief parameters file getter
    * @return parameters file for this model
    */
-  virtual std::string getParFile() const = 0;
+  const std::string& getParFile() const;
 
   /**
    * @brief parameters id getter
    * @return parameters id for this model
    */
-  virtual std::string getParId() const = 0;
+  const std::string& getParId() const;
 
   /**
    * @brief Dynamic model name getter
    *
    * @return Dynamic model name
    */
-  virtual std::string getDynamicModelName() const = 0;
+  const std::string& getDynamicModelName() const;
 
   /**
    * @brief Model file path getter
    *
    * @return Modelica model file path
    */
-  virtual std::string getDynamicFileName() const = 0;
+  const std::string& getDynamicFileName() const;
 
   /**
    * @brief Initialisation model name getter
    *
    * @return Modelica initialisation model name
    */
-  virtual std::string getInitModelName() const = 0;
+  const std::string& getInitModelName() const;
 
   /**
    * @brief Initialisation model file path getter
    *
    * @return Modelica initialisation model file path
    */
-  virtual std::string getInitFileName() const = 0;
+  const std::string& getInitFileName() const;
 
   /**
    * @brief Model file path setter
@@ -106,7 +114,7 @@ class UnitDynamicModel {
    * @param[in] path Modelica model file path
    * @return Reference to current UnitDynamicModel instance
    */
-  virtual UnitDynamicModel& setDynamicFileName(const std::string& path) = 0;
+  UnitDynamicModel& setDynamicFileName(const std::string& path);
 
   /**
    * @brief Initialisation model name setter
@@ -114,7 +122,7 @@ class UnitDynamicModel {
    * @param[in] name Modelica initialisation model name
    * @return Reference to current UnitDynamicModel instance
    */
-  virtual UnitDynamicModel& setInitModelName(const std::string& name) = 0;
+  UnitDynamicModel& setInitModelName(const std::string& name);
 
   /**
    * @brief Initialisation model file path setter
@@ -122,7 +130,7 @@ class UnitDynamicModel {
    * @param[in] path Modelica initialisation model file path
    * @return Reference to current UnitDynamicModel instance
    */
-  virtual UnitDynamicModel& setInitFileName(const std::string& path) = 0;
+  UnitDynamicModel& setInitFileName(const std::string& path);
 
   /**
    * @brief equality operator : compare two unitDynamicModels
@@ -132,10 +140,8 @@ class UnitDynamicModel {
    * @return @b whether dynamic/init modelName and dynamic/init model file are equal
    */
   inline bool operator==(const UnitDynamicModel& other) const {
-    if (getDynamicModelName() == other.getDynamicModelName()
-            && getDynamicFileName() == other.getDynamicFileName()
-            && getInitModelName() == other.getInitModelName()
-            && getInitFileName() == other.getInitFileName())
+    if (getDynamicModelName() == other.getDynamicModelName() && getDynamicFileName() == other.getDynamicFileName() &&
+        getInitModelName() == other.getInitModelName() && getInitFileName() == other.getInitFileName())
       return true;
 
     return false;
@@ -149,16 +155,21 @@ class UnitDynamicModel {
    * @return @b whether models are different (at least one different attribute)
    */
   inline bool operator!=(const UnitDynamicModel& other) const {
-    if (getDynamicModelName() != other.getDynamicModelName()
-            || getDynamicFileName() != other.getDynamicFileName()
-            || getInitModelName() != other.getInitModelName()
-            || getInitFileName() != other.getInitFileName())
+    if (getDynamicModelName() != other.getDynamicModelName() || getDynamicFileName() != other.getDynamicFileName() ||
+        getInitModelName() != other.getInitModelName() || getInitFileName() != other.getInitFileName())
       return true;
 
     return false;
   }
 
-  class Impl;  ///< Implementation class
+ private:
+  std::string id_;                ///< Unit dynamic model id;
+  std::string parFile_;           ///< name of the parameter file
+  std::string parId_;             ///< id of the set of parameter for the unit dynamic model
+  std::string dynamicModelName_;  ///< Name of the model's Modelica dynamic class
+  std::string dynamicFileName_;   ///< Name of the model's Modelica dynamic file
+  std::string initModelName_;     ///< Name of the model's Modelica init class
+  std::string initFileName_;      ///< Name of the model's Modelica init file
 };
 
 }  // namespace dynamicdata

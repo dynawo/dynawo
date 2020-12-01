@@ -20,10 +20,11 @@
 #ifndef API_DYD_DYDCONNECTORFACTORY_H_
 #define API_DYD_DYDCONNECTORFACTORY_H_
 
+#include "DYDConnector.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
-class Connector;
 
 /**
  * @class ConnectorFactory
@@ -43,7 +44,7 @@ class ConnectorFactory {
    * @param[in] var2 : second model connected port name
    * @returns Shared pointer to a new @p Connector
    */
-  static boost::shared_ptr<Connector> newConnector(const std::string & model1, const std::string & var1, const std::string & model2, const std::string & var2);
+  static boost::shared_ptr<Connector> newConnector(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2);
 };
 
 }  // namespace dynamicdata

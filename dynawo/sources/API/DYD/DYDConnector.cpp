@@ -12,12 +12,13 @@
 //
 
 /**
- * @file DYDConnectorImpl.cpp
+ * @file DYDConnector.cpp
  * @brief Connector description : implementation file
  *
  */
 
-#include "DYDConnectorImpl.h"
+#include "DYDConnector.h"
+
 #include "DYDModel.h"
 
 using std::string;
@@ -26,36 +27,30 @@ using boost::shared_ptr;
 
 namespace dynamicdata {
 
-Connector::Impl::Impl(const string& model1, const string& var1,
-        const string& model2, const string& var2) :
-firstModelId_(model1),
-firstVariableId_(var1),
-secondModelId_(model2),
-secondVariableId_(var2) {
-}
+Connector::Connector(const string& model1, const string& var1, const string& model2, const string& var2) :
+    firstModelId_(model1),
+    firstVariableId_(var1),
+    secondModelId_(model2),
+    secondVariableId_(var2) {}
 
-Connector::Impl::~Impl() {
-}
-
-string
-Connector::Impl::getFirstVariableId() const {
+const string&
+Connector::getFirstVariableId() const {
   return firstVariableId_;
 }
 
-string
-Connector::Impl::getSecondVariableId() const {
+const string&
+Connector::getSecondVariableId() const {
   return secondVariableId_;
 }
 
-string
-Connector::Impl::getFirstModelId() const {
+const string&
+Connector::getFirstModelId() const {
   return firstModelId_;
 }
 
-string
-Connector::Impl::getSecondModelId() const {
+const string&
+Connector::getSecondModelId() const {
   return secondModelId_;
 }
-
 
 }  // namespace dynamicdata

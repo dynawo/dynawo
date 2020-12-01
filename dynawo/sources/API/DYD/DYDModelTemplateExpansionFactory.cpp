@@ -18,7 +18,8 @@
  */
 
 #include "DYDModelTemplateExpansionFactory.h"
-#include "DYDModelTemplateExpansionImpl.h"
+
+#include "DYDModelTemplateExpansion.h"
 
 using std::string;
 
@@ -28,7 +29,7 @@ namespace dynamicdata {
 
 shared_ptr<ModelTemplateExpansion>
 ModelTemplateExpansionFactory::newModel(const std::string& modelId) {
-  return shared_ptr<ModelTemplateExpansion>(new ModelTemplateExpansion::Impl(modelId));
+  return shared_ptr<ModelTemplateExpansion>(new ModelTemplateExpansion(modelId));
 }
 
 }  // namespace dynamicdata

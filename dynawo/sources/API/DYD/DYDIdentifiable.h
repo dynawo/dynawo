@@ -32,19 +32,22 @@ namespace dynamicdata {
 class Identifiable {
  public:
   /**
-   * @brief Destructor
+   * @brief constructor of an identifiable object
+   *
+   * @param id : id of the identifiable
    */
-  virtual ~Identifiable() {}
-  /**
-   * @brief Get the id of the identifiable object
-   * @return Id of the identifiable
-   */
-  virtual std::string get() const = 0;
+  explicit Identifiable(const std::string& id) : id_(id) {}
 
   /**
-   * @brief implementation class
+   * @brief get the id of the identifiable
+   * @return the id of the identifiable
    */
-  class Impl;  // Implementation class
+  const std::string& get() const {
+    return id_;
+  }
+
+ private:
+  std::string id_;  ///< id of the identifiable
 };
 }  // namespace dynamicdata
 
