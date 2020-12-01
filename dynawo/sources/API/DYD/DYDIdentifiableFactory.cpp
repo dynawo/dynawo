@@ -17,12 +17,12 @@
  *
  */
 
-#include <vector>
+#include "DYDIdentifiableFactory.h"
 
+#include "DYDIdentifiable.h"
 #include "DYNMacrosMessage.h"
 
-#include "DYDIdentifiableFactory.h"
-#include "DYDIdentifiableImpl.h"
+#include <vector>
 
 using std::string;
 using std::vector;
@@ -33,7 +33,7 @@ namespace dynamicdata {
 
 shared_ptr<Identifiable>
 IdentifiableFactory::newIdentifiable(const string& id) {
-  return shared_ptr<Identifiable>(new Identifiable::Impl(id));
+  return shared_ptr<Identifiable>(new Identifiable(id));
 }
 
 }  // namespace dynamicdata

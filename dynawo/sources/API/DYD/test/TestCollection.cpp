@@ -94,11 +94,6 @@ TEST(APIDYDTest, CollectionCopy) {
     ++nbModels;
 
   ASSERT_EQ(nbModels, 2);
-  dynamicModel_const_iterator itModel(collection1->beginModel());
-  ASSERT_EQ((++itModel)->get()->getId(), model1.get()->getId());
-  ASSERT_EQ((--itModel)->get()->getId(), model.get()->getId());
-  ASSERT_EQ((*itModel++)->getId(), model.get()->getId());
-  ASSERT_EQ((*itModel--)->getId(), model1.get()->getId());
 }
 
 TEST(APIDYDTest, CollectionSameModel) {
@@ -139,11 +134,6 @@ TEST(APIDYDTest, CollectionAddConnect) {
     ++nbConnect;
 
   ASSERT_EQ(nbConnect, 2);
-  connector_const_iterator itCc(itC);
-  ASSERT_EQ((++itCc)->get()->getSecondVariableId(), "var1");
-  ASSERT_EQ((--itCc)->get()->getSecondVariableId(), "var2");
-  ASSERT_EQ((*itCc++)->getSecondVariableId(), "var2");
-  ASSERT_EQ((*itCc--)->getSecondVariableId(), "var1");
 }
 
 TEST(APIDYDTest, CollectionAddMacroConnector) {
@@ -176,11 +166,6 @@ TEST(APIDYDTest, CollectionAddMacroConnector) {
     ++nbMacroConnectors;
 
   ASSERT_EQ(nbMacroConnectors, 2);
-  macroConnector_const_iterator itCc(itC);
-  ASSERT_EQ((++itCc)->get()->getId(), "mc2");
-  ASSERT_EQ((--itCc)->get()->getId(), "mc1");
-  ASSERT_EQ((*itCc++)->getId(), "mc1");
-  ASSERT_EQ((*itCc--)->getId(), "mc2");
 }
 
 TEST(APIDYDTest, CollectionAddMacroConnectorNotUnique) {
@@ -239,11 +224,6 @@ TEST(APIDYDTest, CollectionAddMacroConnect) {
     ++nbMacroConnects;
 
   ASSERT_EQ(nbMacroConnects, 2);
-  macroConnect_const_iterator itCc(itC);
-  ASSERT_EQ((++itCc)->get()->getConnector(), "mc2");
-  ASSERT_EQ((--itCc)->get()->getConnector(), "mc1");
-  ASSERT_EQ((*itCc++)->getConnector(), "mc1");
-  ASSERT_EQ((*itCc--)->getConnector(), "mc2");
 }
 
 TEST(APIDYDTest, CollectionMacroStaticReference) {
@@ -279,11 +259,6 @@ TEST(APIDYDTest, CollectionMacroStaticReference) {
           ++itMStRef)
     ++nbMacroStaticReferences;
   ASSERT_EQ(nbMacroStaticReferences, 3);
-  macroStaticReference_const_iterator itCc(itC);
-  ASSERT_EQ((++itCc)->get()->getId(), mStRef2->getId());
-  ASSERT_EQ((--itCc)->get()->getId(), mStRef1->getId());
-  ASSERT_EQ((*itCc++)->getId(), mStRef1->getId());
-  ASSERT_EQ((*itCc--)->getId(), mStRef2->getId());
 
   // findMacroStaticReference
   ASSERT_NO_THROW(collection->findMacroStaticReference("mStRef1"));
@@ -314,11 +289,6 @@ TEST(APIDYDTest, StaticRefIterators) {
   for (staticRef_const_iterator it = model->cbeginStaticRef(), itEnd = model->cendStaticRef(); it != itEnd; ++it)
     ++nbStaticReferences;
   ASSERT_EQ(nbStaticReferences, 2);
-  staticRef_const_iterator itCc(itC);
-  ASSERT_EQ((++itCc)->get()->getModelVar(), "MyVar");
-  ASSERT_EQ((--itCc)->get()->getModelVar(), "MyVar2");
-  ASSERT_EQ((*itCc++)->getModelVar(), "MyVar2");
-  ASSERT_EQ((*itCc--)->getModelVar(), "MyVar");
 }
 
 TEST(APIDYDTest, MacroStaticRefIterators) {
@@ -347,11 +317,6 @@ TEST(APIDYDTest, MacroStaticRefIterators) {
   for (macroStaticRef_const_iterator it = model->cbeginMacroStaticRef(), itEnd = model->cendMacroStaticRef(); it != itEnd; ++it)
     ++nbMacroStaticReferences;
   ASSERT_EQ(nbMacroStaticReferences, 2);
-  macroStaticRef_const_iterator itCc(itC);
-  ASSERT_EQ((++itCc)->get()->getId(), "MyMacroStaticRef2");
-  ASSERT_EQ((--itCc)->get()->getId(), "MyMacroStaticRef");
-  ASSERT_EQ((*itCc++)->getId(), "MyMacroStaticRef");
-  ASSERT_EQ((*itCc--)->getId(), "MyMacroStaticRef2");
 }
 
 }  // namespace dynamicdata

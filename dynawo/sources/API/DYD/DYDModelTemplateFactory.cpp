@@ -18,7 +18,7 @@
  */
 
 #include "DYDModelTemplateFactory.h"
-#include "DYDModelTemplateImpl.h"
+#include "DYDModelTemplate.h"
 
 using std::string;
 
@@ -28,7 +28,7 @@ namespace dynamicdata {
 
 shared_ptr<ModelTemplate>
 ModelTemplateFactory::newModel(const std::string& modelId) {
-  return shared_ptr<ModelTemplate>(new ModelTemplate::Impl(modelId));
+  return shared_ptr<ModelTemplate>(new ModelTemplate(modelId));
 }
 
 }  // namespace dynamicdata

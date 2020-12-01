@@ -20,19 +20,16 @@
 #ifndef API_DYD_DYDMODELICAMODEL_H_
 #define API_DYD_DYDMODELICAMODEL_H_
 
+#include "DYDConnector.h"
+#include "DYDMacroConnect.h"
+#include "DYDModel.h"
+#include "DYDUnitDynamicModel.h"
+
+#include <boost/shared_ptr.hpp>
 #include <map>
 #include <vector>
 
-#include <boost/shared_ptr.hpp>
-
-#include "DYDModel.h"
-
-
 namespace dynamicdata {
-class Connector;
-class Model;
-class UnitDynamicModel;
-class MacroConnect;
 
 /**
  * @class ModelicaModel
@@ -45,15 +42,21 @@ class MacroConnect;
 class ModelicaModel : public Model {
  public:
   /**
-   * @brief Destructor
+   * @brief ModelicaModel constructor
+   *
+   * ModelicaModel constructor.
+   *
+   * @param id Dynamic model ID
+   *
    */
-  virtual ~ModelicaModel() {}
+  explicit ModelicaModel(const std::string& id);
+
   /**
    * @brief Network Identifiable device modeled getter
 
    * @returns Id of Network Identifiable device modeled
    */
-  virtual std::string getStaticId() const = 0;
+  const std::string& getStaticId() const;
 
   /**
    * @brief Network Identifiable device modeled setter
@@ -61,53 +64,53 @@ class ModelicaModel : public Model {
    * @param[in] staticId of modeledDevice Network Identifiable device modeled
    * @returns Reference to current Model instance
    */
-  virtual ModelicaModel& setStaticId(const std::string& staticId) = 0;
+  ModelicaModel& setStaticId(const std::string& staticId);
 
   /**
    * @brief Set compilation options
    * @param useAliasing activate OpenModelica aliasing
    * @param generateCalculatedVariables activate automatic computation of calculated variables
    */
-  virtual void setCompilationOptions(bool useAliasing, bool generateCalculatedVariables)  = 0;
+  void setCompilationOptions(bool useAliasing, bool generateCalculatedVariables);
 
   /**
    * @brief whether the compilation should use aliasing or not
    * @return  whether the compilation should use aliasing or not
    */
-  virtual bool getUseAliasing() const = 0;
+  bool getUseAliasing() const;
 
   /**
    * @brief whether the compilation should use automatic computation of calculated variables
    * @return  whether the compilation should use automatic computation of calculated variables
    */
-  virtual bool getGenerateCalculatedVariables() const = 0;
+  bool getGenerateCalculatedVariables() const;
 
   /**
    * @brief Modelica models getter
    *
    * @returns Map of modelica models
    */
-  virtual const std::map<std::string, boost::shared_ptr<UnitDynamicModel> >& getUnitDynamicModels() const = 0;
+  const std::map<std::string, boost::shared_ptr<UnitDynamicModel> >& getUnitDynamicModels() const;
 
   /**
    * @brief Dynamic connectors getter
    *
    * @returns Map of connectors
    */
-  virtual const std::map<std::string, boost::shared_ptr<Connector> >& getConnectors() const = 0;
+  const std::map<std::string, boost::shared_ptr<Connector> >& getConnectors() const;
 
   /**
    * @brief Initialization connectors getter
    *
    * @returns Map of initialization connectors
    */
-  virtual const std::map<std::string, boost::shared_ptr<Connector> >& getInitConnectors() const = 0;
+  const std::map<std::string, boost::shared_ptr<Connector> >& getInitConnectors() const;
 
   /**
    * @brief macro connects getter
    * @returns Map of macro connects
    */
-  virtual const std::map<std::string, boost::shared_ptr<MacroConnect> >& getMacroConnects() const = 0;
+  const std::map<std::string, boost::shared_ptr<MacroConnect> >& getMacroConnects() const;
 
   /**
    * @brief Modelica model adder
@@ -115,7 +118,7 @@ class ModelicaModel : public Model {
    * @param[in] unitDynamicModel Modelica model to add
    * @returns Reference to current ModelTemplate instance
    */
-  virtual ModelicaModel& addUnitDynamicModel(const boost::shared_ptr<UnitDynamicModel>& unitDynamicModel) = 0;
+  ModelicaModel& addUnitDynamicModel(const boost::shared_ptr<UnitDynamicModel>& unitDynamicModel);
 
   /**
    * @brief Dynamic connector adder
@@ -126,9 +129,7 @@ class ModelicaModel : public Model {
    * @param[in] var2 Second model var to connect
    * @returns Reference to the current ModelicaModel instance
    */
-  virtual ModelicaModel& addConnect(const std::string& model1, const std::string& var1,
-          const std::string& model2, const std::string& var2) = 0;
-
+  ModelicaModel& addConnect(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2);
 
   /**
    * @brief Initialization connector adder
@@ -141,15 +142,14 @@ class ModelicaModel : public Model {
    * @throws API exception if the one of the two models is not
    * part of composite model
    */
-  virtual ModelicaModel& addInitConnect(const std::string& modelid1, const std::string& var1,
-          const std::string& modelid2, const std::string& var2) = 0;
+  ModelicaModel& addInitConnect(const std::string& modelid1, const std::string& var1, const std::string& modelid2, const std::string& var2);
 
   /**
    * @brief macro connect adder
    * @param[in] macroConnect Macro connect to add
    * @return reference to the current ModelicaModel instance
    */
-  virtual ModelicaModel& addMacroConnect(const boost::shared_ptr<MacroConnect>& macroConnect) = 0;
+  ModelicaModel& addMacroConnect(const boost::shared_ptr<MacroConnect>& macroConnect);
 
   /**
    * @brief hasSameStructureAs()
@@ -157,10 +157,114 @@ class ModelicaModel : public Model {
    * @param unitDynamicModelsMap_ unit dynamic models map
    * @return whether has the same structure
    */
-  virtual bool hasSameStructureAs(const boost::shared_ptr<ModelicaModel>& modelicaModel, std::map<boost::shared_ptr<UnitDynamicModel>,
-          boost::shared_ptr<UnitDynamicModel> >& unitDynamicModelsMap_) = 0;
+  bool hasSameStructureAs(const boost::shared_ptr<ModelicaModel>& modelicaModel,
+                          std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> >& unitDynamicModelsMap_);
 
-  class Impl;  ///< Implemented class
+ private:
+  /**
+   * @brief test equivalence of modelica models if there is no connection
+   *
+   * @param modelicaModel reference modelica model
+   * @param unitDynModelsMap unit dynamic models map
+   * @param modelsName1 local map: model[ID] = Name
+   * @param modelsInitName1 local map: model[ID] = InitName
+   * @param modelsName2 map: model[ID] = Name for modelicaModel
+   * @param modelsInitName2 map: model[ID] = InitName for modelicaModel
+   *
+   * @returns true if this has the same structure as modelicaModel, false otherwise
+   */
+  bool hasSameStructureAsUnconnected(const boost::shared_ptr<ModelicaModel>& modelicaModel,
+                                     std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> >& unitDynModelsMap,
+                                     const std::map<std::string, std::string>& modelsName1, const std::map<std::string, std::string>& modelsInitName1,
+                                     const std::map<std::string, std::string>& modelsName2, const std::map<std::string, std::string>& modelsInitName2) const;
+
+  /**
+   * @brief test equivalence of connection names
+   *
+   * @param modelicaModel reference modelica model
+   * @param modelsName1 local map: model[ID] = Name
+   * @param modelsName2 map: model[ID] = Name for modelicaModel
+   *
+   * @returns true if the connection names are equivalent, false otherwise
+   */
+  bool connectionStringIdentical(const boost::shared_ptr<ModelicaModel>& modelicaModel, const std::map<std::string, std::string>& modelsName1,
+                                 const std::map<std::string, std::string>& modelsName2) const;
+
+  /**
+   * @brief Check whether the different types of Init connected variables involve in the same amount of UDMs between two modelica models
+   *
+   * @param modelicaModel reference modelica model
+   * @param modelsName1 local map: model[ID] = Name
+   * @param modelsName2 map: model[ID] = Name for modelicaModel
+   *
+   * @returns true if the different types of Init connected variables involve in the same amount of UDMs, false otherwise
+   */
+  bool initConnectIdentical(const boost::shared_ptr<ModelicaModel>& modelicaModel, const std::map<std::string, std::string>& modelsName1,
+                            const std::map<std::string, std::string>& modelsName2) const;
+
+  /**
+   * @brief Check whether the different types of Pin connected variables involve in the same amount of UDMs between two modelica models
+   *
+   * @param modelicaModel reference modelica model
+   * @param modelsName1 local map: model[ID] = Name
+   * @param modelsName2 map: model[ID] = Name for modelicaModel
+   *
+   * @returns true if the different types of Pin connected variables involve in the same amount of UDMs, false otherwise
+   */
+  bool connectIdentical(const boost::shared_ptr<ModelicaModel>& modelicaModel, const std::map<std::string, std::string>& modelsName1,
+                        const std::map<std::string, std::string>& modelsName2) const;
+
+  /**
+   * @brief Check whether the Init connected UDMs are the same between two modelica models
+   *
+   * @param modelicaModel reference modelica model
+   * @param modelsInitName1 local map: model[ID] = InitName
+   * @param modelsInitName2 map: model[ID] = InitName for modelicaModel
+   * @param localUnitDynamicModelsMap map: output - map UDM model at side1 to  UDM model at side2
+   *
+   * @returns true if the Init connected UDMs are the same, false otherwise
+   */
+  bool initConnectDynamicMappingIdentical(const boost::shared_ptr<ModelicaModel>& modelicaModel, const std::map<std::string, std::string>& modelsInitName1,
+                                          const std::map<std::string, std::string>& modelsInitName2,
+                                          std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> >& localUnitDynamicModelsMap) const;
+
+  /**
+   * @brief Check whether the connected UDMs are the same between two modelica models
+   *
+   * @param modelicaModel reference modelica model
+   * @param modelsName1 local map: model[ID] = Name
+   * @param modelsName2 map: model[ID] = Name for modelicaModel
+   * @param localUnitDynamicModelsMap map: output - map UDM model at side1 to  UDM model at side2
+   *
+   * @returns true if the connected UDMs are the same, false otherwise
+   */
+  bool connectDynamicMappingIdentical(const boost::shared_ptr<ModelicaModel>& modelicaModel, const std::map<std::string, std::string>& modelsName1,
+                                      const std::map<std::string, std::string>& modelsName2,
+                                      std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> >& localUnitDynamicModelsMap) const;
+
+  /**
+   * @brief Check whether the macro connected UDMs are the same between two modelica models
+   *
+   * @param modelicaModel reference modelica model
+   * @param modelsName1 local map: model[ID] = Name
+   * @param modelsName2 map: model[ID] = Name for modelicaModel
+   * @param localUnitDynamicModelsMap map: output - map UDM model at side1 to  UDM model at side2
+   *
+   * @returns true if the macro connected UDMs are the same, false otherwise
+   */
+  bool
+  macroConnectDynamicMappingIdentical(const boost::shared_ptr<ModelicaModel>& modelicaModel, const std::map<std::string, std::string>& modelsName1,
+                                      const std::map<std::string, std::string>& modelsName2,
+                                      std::map<boost::shared_ptr<UnitDynamicModel>, boost::shared_ptr<UnitDynamicModel> >& localUnitDynamicModelsMap) const;
+
+ private:
+  std::string staticId_;              ///< Identifiable device modeled by dynamic model
+  bool useAliasing_;                  ///< true if OpenModelica aliasing is used
+  bool generateCalculatedVariables_;  ///< true if calculated variables are computed automatically for compiled models
+  std::map<std::string, boost::shared_ptr<UnitDynamicModel> > unitDynamicModelsMap_;  ///< Unit Dynamic model parts
+  std::map<std::string, boost::shared_ptr<Connector> > initConnectorsMap_;            ///< Unit Dynamic model initialization connectors
+  std::map<std::string, boost::shared_ptr<Connector> > connectorsMap_;                ///<  model connectors
+  std::map<std::string, boost::shared_ptr<MacroConnect> > macroConnectsMap_;          ///< model macro connects
 };
 
 }  // namespace dynamicdata

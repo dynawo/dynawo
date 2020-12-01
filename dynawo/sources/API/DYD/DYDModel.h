@@ -20,26 +20,24 @@
 #ifndef API_DYD_DYDMODEL_H_
 #define API_DYD_DYDMODEL_H_
 
-#include <string>
-#include <vector>
-#include <map>
+#include "DYDConnector.h"
+#include "DYDIdentifiable.h"
+#include "DYDIterators.h"
+#include "DYDMacroStaticRef.h"
+#include "DYDStaticRef.h"
 
 #include <boost/shared_ptr.hpp>
+#include <map>
+#include <string>
+#include <vector>
 
 namespace dynamicdata {
-class staticRef_const_iterator;
-class staticRef_iterator;
-class macroStaticRef_const_iterator;
-class macroStaticRef_iterator;
-class Connector;
-class StaticRef;
-class MacroStaticRef;
 
 /**
  * @class Model
  * @brief Model interface class
  *
- * Model is a virtual base class for all model types
+ * Model is a base class for all model types
  */
 class Model {
  public:
@@ -47,10 +45,10 @@ class Model {
    * @brief Available model types enum
    */
   enum ModelType {
-    BLACK_BOX_MODEL,  ///< For BlackBoxModel typed model
-    MODELICA_MODEL,  ///< For CompositeModel typed model
+    BLACK_BOX_MODEL,           ///< For BlackBoxModel typed model
+    MODELICA_MODEL,            ///< For CompositeModel typed model
     MODEL_TEMPLATE_EXPANSION,  ///< For modelTemplateExpansion typed model
-    MODEL_TEMPLATE  ///< For Model Template typed model
+    MODEL_TEMPLATE             ///< For Model Template typed model
   };
 
   /**
@@ -63,15 +61,14 @@ class Model {
    *
    * @returns Model id
    */
-  virtual std::string getId() const = 0;
-
+  const std::string& getId() const;
 
   /**
    * @brief Model type getter
    *
    * @returns Model type
    */
-  virtual ModelType getType() const = 0;
+  ModelType getType() const;
 
   /**
    * @brief Static Ref adder
@@ -81,62 +78,62 @@ class Model {
    * @throws Error::API exception if staticRef already exists
    * @return Reference to the current Model instance
    */
-  virtual Model& addStaticRef(const std::string& var, const std::string& staticVar) = 0;
+  Model& addStaticRef(const std::string& var, const std::string& staticVar);
 
   /**
    * @brief macroStaticRef adder
    * @param macroStaticRef: macroStaticRef to add to the model
    * @throws Error::API exception if macroStaticRef already exists
    */
-  virtual void addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef) = 0;
+  void addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef);
 
   /**
    * @brief staticRef iterator : beginning of staticRefs
    * @return beginning of staticRefs
    */
-  virtual staticRef_const_iterator cbeginStaticRef() const = 0;
+  staticRef_const_iterator cbeginStaticRef() const;
 
   /**
    * @brief staticRef iterator : end of staticRefs
    * @return end of staticRefs
    */
-  virtual staticRef_const_iterator cendStaticRef() const = 0;
+  staticRef_const_iterator cendStaticRef() const;
 
   /**
    * @brief macroStaticRef iterator : beginning of macroStaticRefs
    * @return beginning of macroStaticRefs
    */
-  virtual macroStaticRef_const_iterator cbeginMacroStaticRef() const = 0;
+  macroStaticRef_const_iterator cbeginMacroStaticRef() const;
 
   /**
    * @brief macroStaticRef iterator : end of macroStaticRefs
    * @return end of macroStaticRefs
    */
-  virtual macroStaticRef_const_iterator cendMacroStaticRef() const = 0;
+  macroStaticRef_const_iterator cendMacroStaticRef() const;
 
   /**
    * @brief staticRef iterator : beginning of staticRefs
    * @return beginning of staticRefs
    */
-  virtual staticRef_iterator beginStaticRef() = 0;
+  staticRef_iterator beginStaticRef();
 
   /**
    * @brief staticRef iterator : end of staticRefs
    * @return end of staticRefs
    */
-  virtual staticRef_iterator endStaticRef() = 0;
+  staticRef_iterator endStaticRef();
 
   /**
    * @brief macroStaticRef iterator : beginning of macroStaticRefs
    * @return beginning of macroStaticRefs
    */
-  virtual macroStaticRef_iterator beginMacroStaticRef() = 0;
+  macroStaticRef_iterator beginMacroStaticRef();
 
   /**
    * @brief macroStaticRef iterator : end of macroStaticRefs
    * @return end of macroStaticRefs
    */
-  virtual macroStaticRef_iterator endMacroStaticRef() = 0;
+  macroStaticRef_iterator endMacroStaticRef();
 
   /**
    * @brief find a staticRef thanks to its key (var_staticVar)
@@ -144,7 +141,7 @@ class Model {
    * @throws Error::API exception if staticRef doesn't exist
    * @return the staticRef associated to the key
    */
-  virtual const boost::shared_ptr<StaticRef>& findStaticRef(const std::string& key) = 0;
+  const boost::shared_ptr<StaticRef>& findStaticRef(const std::string& key);
 
   /**
    * @brief find a macroStaticRef thanks to its id
@@ -152,9 +149,27 @@ class Model {
    * @throws Error::API exception if macroStaticRef doesn't exist
    * @return the macroStaticRef associated to the id
    */
-  virtual const boost::shared_ptr<MacroStaticRef>& findMacroStaticRef(const std::string& id) = 0;
+  const boost::shared_ptr<MacroStaticRef>& findMacroStaticRef(const std::string& id);
 
-  class Impl;  ///< Implemented class
+  friend class staticRef_iterator;
+  friend class staticRef_const_iterator;
+  friend class macroStaticRef_iterator;
+  friend class macroStaticRef_const_iterator;
+
+ protected:
+  /**
+   * @brief Constructor
+   *
+   * @param[in] id Model's ID
+   * @param[in] type Model's type
+   */
+  Model(const std::string& id, ModelType type);
+
+ protected:
+  boost::shared_ptr<Identifiable> id_;                                         ///< Model's ID
+  ModelType type_;                                                             ///< Model's type
+  std::map<std::string, boost::shared_ptr<StaticRef> > staticRefs_;            ///< map of static ref
+  std::map<std::string, boost::shared_ptr<MacroStaticRef> > macroStaticRefs_;  ///< map of the macroStaticRef
 };
 
 }  // namespace dynamicdata

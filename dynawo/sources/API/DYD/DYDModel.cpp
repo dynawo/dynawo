@@ -12,49 +12,43 @@
 //
 
 /**
- * @file DYDModelImpl.cpp
+ * @file DYDModel.cpp
  * @brief Model description : implementation file
  *
  */
 
+#include "DYDModel.h"
+
+#include "DYDIdentifiable.h"
+#include "DYDIdentifiableFactory.h"
+#include "DYDIterators.h"
+#include "DYDMacroStaticRef.h"
+#include "DYDStaticRef.h"
+#include "DYDStaticRefFactory.h"
 #include "DYNMacrosMessage.h"
 
-#include "DYDModelImpl.h"
-#include "DYDStaticRefFactory.h"
-#include "DYDStaticRef.h"
-#include "DYDMacroStaticRef.h"
-#include "DYDIdentifiableFactory.h"
-#include "DYDIdentifiable.h"
-#include "DYDIterators.h"
-
-using std::string;
 using std::map;
+using std::string;
 using std::vector;
 
 using boost::shared_ptr;
 
 namespace dynamicdata {
 
-Model::Impl::Impl(const string& id, ModelType type) :
-id_(IdentifiableFactory::newIdentifiable(id)),
-type_(type) {
-}
+Model::Model(const string& id, ModelType type) : id_(IdentifiableFactory::newIdentifiable(id)), type_(type) {}
 
-Model::Impl::~Impl() {
-}
-
-string
-Model::Impl::getId() const {
+const string&
+Model::getId() const {
   return id_->get();
 }
 
 Model::ModelType
-Model::Impl::getType() const {
+Model::getType() const {
   return type_;
 }
 
 Model&
-Model::Impl::addStaticRef(const string& var, const string& staticVar) {
+Model::addStaticRef(const string& var, const string& staticVar) {
   // The staticRef key in the map is var_staticVar
   string key = var + '_' + staticVar;
   std::pair<std::map<std::string, boost::shared_ptr<StaticRef> >::iterator, bool> ret;
@@ -70,7 +64,7 @@ Model::Impl::addStaticRef(const string& var, const string& staticVar) {
 }
 
 void
-Model::Impl::addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef) {
+Model::addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef) {
   string id = macroStaticRef->getId();
   std::pair<std::map<std::string, boost::shared_ptr<MacroStaticRef> >::iterator, bool> ret;
 #ifdef LANG_CXX11
@@ -83,47 +77,47 @@ Model::Impl::addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroSta
 }
 
 staticRef_const_iterator
-Model::Impl::cbeginStaticRef() const {
+Model::cbeginStaticRef() const {
   return staticRef_const_iterator(this, true);
 }
 
 staticRef_const_iterator
-Model::Impl::cendStaticRef() const {
+Model::cendStaticRef() const {
   return staticRef_const_iterator(this, false);
 }
 
 macroStaticRef_const_iterator
-Model::Impl::cbeginMacroStaticRef() const {
+Model::cbeginMacroStaticRef() const {
   return macroStaticRef_const_iterator(this, true);
 }
 
 macroStaticRef_const_iterator
-Model::Impl::cendMacroStaticRef() const {
+Model::cendMacroStaticRef() const {
   return macroStaticRef_const_iterator(this, false);
 }
 
 staticRef_iterator
-Model::Impl::beginStaticRef() {
+Model::beginStaticRef() {
   return staticRef_iterator(this, true);
 }
 
 staticRef_iterator
-Model::Impl::endStaticRef() {
+Model::endStaticRef() {
   return staticRef_iterator(this, false);
 }
 
 macroStaticRef_iterator
-Model::Impl::beginMacroStaticRef() {
+Model::beginMacroStaticRef() {
   return macroStaticRef_iterator(this, true);
 }
 
 macroStaticRef_iterator
-Model::Impl::endMacroStaticRef() {
+Model::endMacroStaticRef() {
   return macroStaticRef_iterator(this, false);
 }
 
 const shared_ptr<StaticRef>&
-Model::Impl::findStaticRef(const string& key) {
+Model::findStaticRef(const string& key) {
   map<string, shared_ptr<StaticRef> >::const_iterator iter = staticRefs_.find(key);
   if (iter == staticRefs_.end())
     throw DYNError(DYN::Error::API, StaticRefUndefined, key);
@@ -132,7 +126,7 @@ Model::Impl::findStaticRef(const string& key) {
 }
 
 const shared_ptr<MacroStaticRef>&
-Model::Impl::findMacroStaticRef(const string& id) {
+Model::findMacroStaticRef(const string& id) {
   map<string, shared_ptr<MacroStaticRef> >::const_iterator iter = macroStaticRefs_.find(id);
   if (iter == macroStaticRefs_.end())
     throw DYNError(DYN::Error::API, MacroStaticRefUndefined, id);

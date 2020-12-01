@@ -20,10 +20,11 @@
 #ifndef API_DYD_DYDSTATICREFFACTORY_H_
 #define API_DYD_DYDSTATICREFFACTORY_H_
 
+#include "DYDStaticRef.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
-class StaticRef;
 
 /**
  * @class StaticRefFactory

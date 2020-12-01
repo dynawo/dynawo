@@ -20,26 +20,21 @@
 #ifndef API_DYD_DYDITERATORS_H_
 #define API_DYD_DYDITERATORS_H_
 
-#include "DYDDynamicModelsCollectionImpl.h"
-#include "DYDModelImpl.h"
-#include "DYDMacroStaticReferenceImpl.h"
+#include <boost/shared_ptr.hpp>
+#include <map>
+#include <string>
+#include <vector>
 
 namespace dynamicdata {
 
-class ConnectorConstIteratorImpl;
-class ConnectorIteratorImpl;
-class ModelConstIteratorImpl;
-class ModelIteratorImpl;
-class MacroConnectorConstIteratorImpl;
-class MacroConnectorIteratorImpl;
-class MacroConnectConstIteratorImpl;
-class MacroConnectIteratorImpl;
-class StaticRefConstIteratorImpl;
-class StaticRefIteratorImpl;
-class MacroStaticRefConstIteratorImpl;
-class MacroStaticRefIteratorImpl;
-class MacroStaticReferenceConstIteratorImpl;
-class MacroStaticReferenceIteratorImpl;
+class MacroStaticReference;
+class MacroStaticRef;
+class MacroConnector;
+class Connector;
+class Model;
+class MacroConnect;
+class StaticRef;
+class DynamicModelsCollection;
 
 /**
  * @class dynamicModel_iterator
@@ -65,26 +60,7 @@ class dynamicModel_iterator {
    * or the end of the models' container.
    * @returns Created model_iterator.
    */
-  dynamicModel_iterator(DynamicModelsCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the model iterator to copy
-   */
-  dynamicModel_iterator(const dynamicModel_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~dynamicModel_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : model_iterator to assign
-   *
-   * @returns Reference to this model_iterator
-   */
-  THIS& operator=(const THIS& other);
+  dynamicModel_iterator(DynamicModelsCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -144,14 +120,8 @@ class dynamicModel_iterator {
    */
   boost::shared_ptr<Model>* operator->() const;
 
-  /**
-   * @brief Get the implementation ot the iterator
-   * @return the implementation ot the iterator
-   */
-  ModelIteratorImpl* impl() const;
-
  private:
-  ModelIteratorImpl* impl_;  ///< Pointer to the implementation of the model iterator;
+  std::map<std::string, boost::shared_ptr<Model> >::iterator current_;  ///< current map iterator
 };
 
 /**
@@ -178,34 +148,7 @@ class dynamicModel_const_iterator {
    * or the end of the models' container.
    * @returns Created model_const_iterator.
    */
-  dynamicModel_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the model const iterator to copy
-   */
-  dynamicModel_const_iterator(const dynamicModel_const_iterator& original);
-
-  /**
-   * @brief Constructor
-   *
-   * @param original current iterator
-   * @returns Created model_const_iterator
-   */
-  explicit dynamicModel_const_iterator(const dynamicModel_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~dynamicModel_const_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : model_const_iterator to assign
-   *
-   * @returns Reference to this model_const_iterator
-   */
-  THIS& operator=(const THIS& other);
+  dynamicModel_const_iterator(const DynamicModelsCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -266,7 +209,7 @@ class dynamicModel_const_iterator {
   const boost::shared_ptr<Model>* operator->() const;
 
  private:
-  ModelConstIteratorImpl* impl_;  ///< Pointer to the implementation of the model const iterator;
+  std::map<std::string, boost::shared_ptr<Model> >::const_iterator current_;  ///< current vector const iterator
 };
 
 /**
@@ -289,26 +232,7 @@ class connector_iterator {
    * or the end of the connectors' container.
    * @returns Created connector_iterator.
    */
-  connector_iterator(DynamicModelsCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the connector iterator to copy
-   */
-  connector_iterator(const connector_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~connector_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : connector_iterator to assign
-   *
-   * @returns Reference to this connector_iterator
-   */
-  connector_iterator& operator=(const connector_iterator& other);
+  connector_iterator(DynamicModelsCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -368,14 +292,8 @@ class connector_iterator {
    */
   boost::shared_ptr<Connector>* operator->() const;
 
-  /**
-   * @brief Get the implementation ot the iterator
-   * @return the implementation ot the iterator
-   */
-  ConnectorIteratorImpl* impl() const;
-
  private:
-  ConnectorIteratorImpl* impl_;  ///< Pointer to the implementation of the connector iterator;
+  std::vector<boost::shared_ptr<Connector> >::iterator current_;  ///< current vector const iterator
 };
 
 /**
@@ -398,34 +316,7 @@ class connector_const_iterator {
    * or the end of the connectors' container.
    * @returns Created connector_const_iterator.
    */
-  connector_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the connector const iterator to copy
-   */
-  connector_const_iterator(const connector_const_iterator& original);
-
-  /**
-   * @brief Constructor
-   *
-   * @param original current iterator
-   * @returns Created connector_const_iterator
-   */
-  explicit connector_const_iterator(const connector_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~connector_const_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : connector_const_iterator to assign
-   *
-   * @returns Reference to this connector_const_iterator
-   */
-  connector_const_iterator& operator=(const connector_const_iterator& other);
+  connector_const_iterator(const DynamicModelsCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -486,7 +377,7 @@ class connector_const_iterator {
   const boost::shared_ptr<Connector>* operator->() const;
 
  private:
-  ConnectorConstIteratorImpl* impl_;  ///< Pointer to the implementation of the connector const iterator;
+  std::vector<boost::shared_ptr<Connector> >::const_iterator current_;  ///< current vector const iterator
 };
 
 /**
@@ -509,26 +400,7 @@ class macroConnector_iterator {
    * or the end of the macroConnectors' container.
    * @returns Created macroConnector_iterator.
    */
-  macroConnector_iterator(DynamicModelsCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the macroConnector iterator to copy
-   */
-  macroConnector_iterator(const macroConnector_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~macroConnector_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : macroConnector_iterator to assign
-   *
-   * @returns Reference to this macroConnector_iterator
-   */
-  macroConnector_iterator& operator=(const macroConnector_iterator& other);
+  macroConnector_iterator(DynamicModelsCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -588,14 +460,8 @@ class macroConnector_iterator {
    */
   boost::shared_ptr<MacroConnector>* operator->() const;
 
-  /**
-   * @brief Get the implementation ot the iterator
-   * @return the implementation ot the iterator
-   */
-  MacroConnectorIteratorImpl* impl() const;
-
  private:
-  MacroConnectorIteratorImpl* impl_;  ///< Pointer to the implementation of the macroConnector iterator;
+  std::map<std::string, boost::shared_ptr<MacroConnector> >::iterator current_;  ///< current map iterator
 };
 
 /**
@@ -618,34 +484,7 @@ class macroConnector_const_iterator {
    * or the end of the macroConnectors' container.
    * @returns Created macroConnector_const_iterator.
    */
-  macroConnector_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the macroConnector const iterator to copy
-   */
-  macroConnector_const_iterator(const macroConnector_const_iterator& original);
-
-  /**
-   * @brief Constructor
-   *
-   * @param original current iterator
-   * @returns Created macroConnector_const_iterator
-   */
-  explicit macroConnector_const_iterator(const macroConnector_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~macroConnector_const_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : macroConnector_const_iterator to assign
-   *
-   * @returns Reference to this macroConnector_const_iterator
-   */
-  macroConnector_const_iterator& operator=(const macroConnector_const_iterator& other);
+  macroConnector_const_iterator(const DynamicModelsCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -706,7 +545,7 @@ class macroConnector_const_iterator {
   const boost::shared_ptr<MacroConnector>* operator->() const;
 
  private:
-  MacroConnectorConstIteratorImpl* impl_;  ///< Pointer to the implementation of the macroconnector const iterator;
+  std::map<std::string, boost::shared_ptr<MacroConnector> >::const_iterator current_;  ///< current map const iterator
 };
 
 /**
@@ -729,26 +568,7 @@ class macroConnect_iterator {
    * or the end of the macroConnects' container.
    * @returns Created macroConnect_iterator.
    */
-  macroConnect_iterator(DynamicModelsCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the macroConnect iterator to copy
-   */
-  macroConnect_iterator(const macroConnect_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~macroConnect_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : macroConnect_iterator to assign
-   *
-   * @returns Reference to this macroConnect_iterator
-   */
-  macroConnect_iterator& operator=(const macroConnect_iterator& other);
+  macroConnect_iterator(DynamicModelsCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -808,14 +628,8 @@ class macroConnect_iterator {
    */
   boost::shared_ptr<MacroConnect>* operator->() const;
 
-  /**
-   * @brief Get the implementation ot the iterator
-   * @return the implementation ot the iterator
-   */
-  MacroConnectIteratorImpl* impl() const;
-
  private:
-  MacroConnectIteratorImpl* impl_;  ///< Pointer to the implementation of the macroConnect iterator;
+  std::vector<boost::shared_ptr<MacroConnect> >::iterator current_;  ///< current vector iterator
 };
 
 /**
@@ -838,34 +652,7 @@ class macroConnect_const_iterator {
    * or the end of the macroConnects' container.
    * @returns Created macroConnect_const_iterator.
    */
-  macroConnect_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the macroConnect const iterator to copy
-   */
-  macroConnect_const_iterator(const macroConnect_const_iterator& original);
-
-  /**
-   * @brief Constructor
-   *
-   * @param original current iterator
-   * @returns Created macroConnect_const_iterator
-   */
-  explicit macroConnect_const_iterator(const macroConnect_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~macroConnect_const_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : macroConnect_const_iterator to assign
-   *
-   * @returns Reference to this macroConnect_const_iterator
-   */
-  macroConnect_const_iterator& operator=(const macroConnect_const_iterator& other);
+  macroConnect_const_iterator(const DynamicModelsCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -926,7 +713,7 @@ class macroConnect_const_iterator {
   const boost::shared_ptr<MacroConnect>* operator->() const;
 
  private:
-  MacroConnectConstIteratorImpl* impl_;  ///< Pointer to the implementation of the macroconnect const iterator;
+  std::vector<boost::shared_ptr<MacroConnect> >::const_iterator current_;  ///< current vector const iterator
 };
 
 /**
@@ -949,7 +736,7 @@ class staticRef_iterator {
    * or the end of the staticRefs container.
    * @returns Created staticRef_iterator.
    */
-  staticRef_iterator(Model::Impl* iterated, bool begin);
+  staticRef_iterator(Model* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -963,26 +750,7 @@ class staticRef_iterator {
    * or the end of the staticRefs container.
    * @returns Created staticRef_iterator.
    */
-  staticRef_iterator(MacroStaticReference::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the staticRef const iterator to copy
-   */
-  staticRef_iterator(const staticRef_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~staticRef_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : staticRef_iterator to assign
-   *
-   * @returns Reference to this staticRef_iterator
-   */
-  staticRef_iterator& operator=(const staticRef_iterator& other);
+  staticRef_iterator(MacroStaticReference* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -1042,14 +810,8 @@ class staticRef_iterator {
    */
   boost::shared_ptr<StaticRef>* operator->() const;
 
-  /**
-   * @brief Get the implementation of the iterator
-   * @return the implementation of the iterator
-   */
-  StaticRefIteratorImpl* impl() const;
-
  private:
-  StaticRefIteratorImpl* impl_;  ///< Pointer to the implementation of the StaticRef iterator
+  std::map<std::string, boost::shared_ptr<StaticRef> >::iterator current_;  ///< current map iterator
 };
 
 /**
@@ -1072,7 +834,7 @@ class staticRef_const_iterator {
    * or the end of the staticRefs container.
    * @returns Created staticRef_const_iterator.
    */
-  staticRef_const_iterator(const Model::Impl* iterated, bool begin);
+  staticRef_const_iterator(const Model* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -1086,34 +848,7 @@ class staticRef_const_iterator {
    * or the end of the staticRefs container.
    * @returns Created staticRef_const_iterator.
    */
-  staticRef_const_iterator(const MacroStaticReference::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the staticRef const iterator to copy
-   */
-  staticRef_const_iterator(const staticRef_const_iterator& original);
-
-  /**
-   * @brief Constructor
-   *
-   * @param original current iterator
-   * @returns Created staticRef_const_iterator
-   */
-  explicit staticRef_const_iterator(const staticRef_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  virtual ~staticRef_const_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : staticRef_iterator to assign
-   *
-   * @returns Reference to this staticRef_iterator
-   */
-  staticRef_const_iterator& operator=(const staticRef_const_iterator& other);
+  staticRef_const_iterator(const MacroStaticReference* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -1174,7 +909,7 @@ class staticRef_const_iterator {
   const boost::shared_ptr<StaticRef>* operator->() const;
 
  private:
-  StaticRefConstIteratorImpl* impl_;  ///< Pointer to the implementation of the StaticRef const iterator;
+  std::map<std::string, boost::shared_ptr<StaticRef> >::const_iterator current_;  ///< current map const iterator
 };
 
 /**
@@ -1197,26 +932,7 @@ class macroStaticRef_iterator {
    * or the end of the macroStaticRefs container.
    * @returns Created macroStaticRef_iterator.
    */
-  macroStaticRef_iterator(Model::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the macroStaticRef const iterator to copy
-   */
-  macroStaticRef_iterator(const macroStaticRef_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~macroStaticRef_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : macroStaticRef_iterator to assign
-   *
-   * @returns Reference to this macroStaticRef_iterator
-   */
-  macroStaticRef_iterator& operator=(const macroStaticRef_iterator& other);
+  macroStaticRef_iterator(Model* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -1276,14 +992,8 @@ class macroStaticRef_iterator {
    */
   boost::shared_ptr<MacroStaticRef>* operator->() const;
 
-  /**
-   * @brief Get the implementation of the iterator
-   * @return the implementation of the iterator
-   */
-  MacroStaticRefIteratorImpl* impl() const;
-
  private:
-  MacroStaticRefIteratorImpl* impl_;  ///< Pointer to the implementation of the StaticRef iterator
+  std::map<std::string, boost::shared_ptr<MacroStaticRef> >::iterator current_;  ///< current map iterator
 };
 
 /**
@@ -1306,34 +1016,7 @@ class macroStaticRef_const_iterator {
    * or the end of the macroStaticRefs container.
    * @returns Created macroStaticRef_const_iterator.
    */
-  macroStaticRef_const_iterator(const Model::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the macroStaticRef const iterator to copy
-   */
-  macroStaticRef_const_iterator(const macroStaticRef_const_iterator& original);
-
-  /**
-   * @brief Constructor
-   *
-   * @param original current iterator
-   * @returns Created macroStaticRef_const_iterator
-   */
-  explicit macroStaticRef_const_iterator(const macroStaticRef_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~macroStaticRef_const_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : macroStaticRef_const_iterator to assign
-   *
-   * @returns Reference to this macroStaticRef_const_iterator
-   */
-  macroStaticRef_const_iterator& operator=(const macroStaticRef_const_iterator& other);
+  macroStaticRef_const_iterator(const Model* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -1394,7 +1077,7 @@ class macroStaticRef_const_iterator {
   const boost::shared_ptr<MacroStaticRef>* operator->() const;
 
  private:
-  MacroStaticRefConstIteratorImpl* impl_;  ///< Pointer to the implementation of the StaticRef const iterator;
+  std::map<std::string, boost::shared_ptr<MacroStaticRef> >::const_iterator current_;  ///< current map const iterator
 };
 
 /**
@@ -1417,26 +1100,7 @@ class macroStaticReference_iterator {
    * or the end of the macroStaticReferences container.
    * @returns Created macroStaticReference_iterator.
    */
-  macroStaticReference_iterator(DynamicModelsCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the macroStaticReference const iterator to copy
-   */
-  macroStaticReference_iterator(const macroStaticReference_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~macroStaticReference_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : macroStaticReference_iterator to assign
-   *
-   * @returns Reference to this macroStaticReference_iterator
-   */
-  macroStaticReference_iterator& operator=(const macroStaticReference_iterator& other);
+  macroStaticReference_iterator(DynamicModelsCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -1496,14 +1160,8 @@ class macroStaticReference_iterator {
    */
   boost::shared_ptr<MacroStaticReference>* operator->() const;
 
-  /**
-   * @brief Get the implementation of the iterator
-   * @return the implementation of the iterator
-   */
-  MacroStaticReferenceIteratorImpl* impl() const;
-
  private:
-  MacroStaticReferenceIteratorImpl* impl_;  ///< Pointer to the implementation of the macroStaticReference iterator
+  std::map<std::string, boost::shared_ptr<MacroStaticReference> >::iterator current_;  ///< current map iterator
 };
 
 /**
@@ -1526,34 +1184,7 @@ class macroStaticReference_const_iterator {
    * or the end of the macroStaticReferences container.
    * @returns Created macroStaticReference_const_iterator.
    */
-  macroStaticReference_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin);
-
-  /**
-   * @brief Copy constructor
-   * @param original : the macroStaticReference const iterator to copy
-   */
-  macroStaticReference_const_iterator(const macroStaticReference_const_iterator& original);
-
-  /**
-   * @brief Constructor
-   *
-   * @param original current iterator
-   * @returns Created macroStaticReference_const_iterator
-   */
-  explicit macroStaticReference_const_iterator(const macroStaticReference_iterator& original);
-
-  /**
-   * @brief Destructor
-   */
-  ~macroStaticReference_const_iterator();
-
-  /**
-   * @brief assignment
-   * @param other : macroStaticReference_const_iterator to assign
-   *
-   * @returns Reference to this macroStaticReference_const_iterator
-   */
-  macroStaticReference_const_iterator& operator=(const macroStaticReference_const_iterator& other);
+  macroStaticReference_const_iterator(const DynamicModelsCollection* iterated, bool begin);
 
   /**
    * @brief Prefix-increment operator
@@ -1614,7 +1245,7 @@ class macroStaticReference_const_iterator {
   const boost::shared_ptr<MacroStaticReference>* operator->() const;
 
  private:
-  MacroStaticReferenceConstIteratorImpl* impl_;  ///< Pointer to the implementation of the macroStaticReference const iterator;
+  std::map<std::string, boost::shared_ptr<MacroStaticReference> >::const_iterator current_;  ///< current map iterator
 };
 
 }  // namespace dynamicdata

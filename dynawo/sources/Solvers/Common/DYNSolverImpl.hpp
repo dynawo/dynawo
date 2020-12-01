@@ -11,7 +11,7 @@
 //
 
 /**
- * @file  DYNSolverImpl.hpp
+ * @file  DYNSolver.hpp
  *
  * @brief Implementation of template methods
  *

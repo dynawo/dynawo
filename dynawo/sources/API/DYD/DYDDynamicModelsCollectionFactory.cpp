@@ -18,7 +18,7 @@
  */
 
 #include "DYDDynamicModelsCollectionFactory.h"
-#include "DYDDynamicModelsCollectionImpl.h"
+#include "DYDDynamicModelsCollection.h"
 
 using boost::shared_ptr;
 
@@ -26,12 +26,12 @@ namespace dynamicdata {
 
 shared_ptr<DynamicModelsCollection>
 DynamicModelsCollectionFactory::newCollection() {
-  return shared_ptr<DynamicModelsCollection>(new DynamicModelsCollection::Impl());
+  return shared_ptr<DynamicModelsCollection>(new DynamicModelsCollection());
 }
 
 shared_ptr<DynamicModelsCollection>
 DynamicModelsCollectionFactory::copyCollection(shared_ptr<DynamicModelsCollection> original) {
-  return shared_ptr<DynamicModelsCollection>(new DynamicModelsCollection::Impl(dynamic_cast<DynamicModelsCollection::Impl&> (*original)));
+  return shared_ptr<DynamicModelsCollection>(new DynamicModelsCollection(*original));
 }
 
 }  // namespace dynamicdata

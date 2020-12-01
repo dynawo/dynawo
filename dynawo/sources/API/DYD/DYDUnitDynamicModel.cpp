@@ -12,86 +12,80 @@
 //
 
 /**
- * @file DYDUnitDynamicModelImpl.cpp
+ * @file DYDUnitDynamicModel.cpp
  * @brief Modelica dynamic models description : implementation file
  *
  */
 
-#include "DYDUnitDynamicModelImpl.h"
+#include "DYDUnitDynamicModel.h"
 
 using std::string;
 
 namespace dynamicdata {
 
-UnitDynamicModel::Impl::Impl(const string& id, const string& name) :
-id_(id),
-dynamicModelName_(name) {
-}
+UnitDynamicModel::UnitDynamicModel(const string& id, const string& name) : id_(id), dynamicModelName_(name) {}
 
-UnitDynamicModel::Impl::~Impl() {
-}
-
-string
-UnitDynamicModel::Impl::getId() const {
+const string&
+UnitDynamicModel::getId() const {
   return id_;
 }
 
-string
-UnitDynamicModel::Impl::getParFile() const {
+const string&
+UnitDynamicModel::getParFile() const {
   return parFile_;
 }
 
-string
-UnitDynamicModel::Impl::getParId() const {
+const string&
+UnitDynamicModel::getParId() const {
   return parId_;
 }
 
-string
-UnitDynamicModel::Impl::getDynamicModelName() const {
+const string&
+UnitDynamicModel::getDynamicModelName() const {
   return dynamicModelName_;
 }
 
-string
-UnitDynamicModel::Impl::getDynamicFileName() const {
+const string&
+UnitDynamicModel::getDynamicFileName() const {
   return dynamicFileName_;
 }
 
-string
-UnitDynamicModel::Impl::getInitModelName() const {
+const string&
+UnitDynamicModel::getInitModelName() const {
   return initModelName_;
 }
 
-string
-UnitDynamicModel::Impl::getInitFileName() const {
+const string&
+UnitDynamicModel::getInitFileName() const {
   return initFileName_;
 }
 
 UnitDynamicModel&
-UnitDynamicModel::Impl::setParFile(const string& parFile) {
+UnitDynamicModel::setParFile(const string& parFile) {
   parFile_ = parFile;
   return *this;
 }
 
 UnitDynamicModel&
-UnitDynamicModel::Impl::setParId(const string& parId) {
+UnitDynamicModel::setParId(const string& parId) {
   parId_ = parId;
   return *this;
 }
 
 UnitDynamicModel&
-UnitDynamicModel::Impl::setDynamicFileName(const string& name) {
+UnitDynamicModel::setDynamicFileName(const string& name) {
   dynamicFileName_ = name;
   return *this;
 }
 
 UnitDynamicModel&
-UnitDynamicModel::Impl::setInitModelName(const string& name) {
+UnitDynamicModel::setInitModelName(const string& name) {
   initModelName_ = name;
   return *this;
 }
 
 UnitDynamicModel&
-UnitDynamicModel::Impl::setInitFileName(const string& path) {
+UnitDynamicModel::setInitFileName(const string& path) {
   initFileName_ = path;
   return *this;
 }

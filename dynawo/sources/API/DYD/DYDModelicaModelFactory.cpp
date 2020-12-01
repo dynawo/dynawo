@@ -18,7 +18,7 @@
  */
 
 #include "DYDModelicaModelFactory.h"
-#include "DYDModelicaModelImpl.h"
+#include "DYDModelicaModel.h"
 
 using std::string;
 
@@ -28,7 +28,7 @@ namespace dynamicdata {
 
 shared_ptr<ModelicaModel>
 ModelicaModelFactory::newModel(const std::string& modelId) {
-  return shared_ptr<ModelicaModel>(new ModelicaModel::Impl(modelId));
+  return shared_ptr<ModelicaModel>(new ModelicaModel(modelId));
 }
 
 }  // namespace dynamicdata

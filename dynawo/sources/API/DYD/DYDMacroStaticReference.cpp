@@ -12,39 +12,34 @@
 //
 
 /**
- * @file DYDMacroStaticReferenceImpl.cpp
+ * @file DYDMacroStaticReference.cpp
  * @brief MacroStaticReference description : implementation file
  *
  */
 
+#include "DYDMacroStaticReference.h"
+
+#include "DYDIterators.h"
+#include "DYDStaticRef.h"
+#include "DYDStaticRefFactory.h"
 #include "DYNMacrosMessage.h"
 
-#include "DYDMacroStaticReferenceImpl.h"
-#include "DYDStaticRefFactory.h"
-#include "DYDStaticRef.h"
-#include "DYDIterators.h"
-
-using std::string;
-using std::map;
-using std::vector;
 using boost::shared_ptr;
+using std::map;
+using std::string;
+using std::vector;
 
 namespace dynamicdata {
 
-MacroStaticReference::Impl::Impl(const string& id) :
-id_(id) {
-}
+MacroStaticReference::MacroStaticReference(const string& id) : id_(id) {}
 
-MacroStaticReference::Impl::~Impl() {
-}
-
-string
-MacroStaticReference::Impl::getId() const {
+const string&
+MacroStaticReference::getId() const {
   return id_;
 }
 
 void
-MacroStaticReference::Impl::addStaticRef(const string& var, const string& staticVar) {
+MacroStaticReference::addStaticRef(const string& var, const string& staticVar) {
   // The staticRef key in the map is var_staticVar
   string key = var + '_' + staticVar;
   std::pair<std::map<std::string, boost::shared_ptr<StaticRef> >::iterator, bool> ret;
@@ -58,27 +53,27 @@ MacroStaticReference::Impl::addStaticRef(const string& var, const string& static
 }
 
 staticRef_const_iterator
-MacroStaticReference::Impl::cbeginStaticRef() const {
+MacroStaticReference::cbeginStaticRef() const {
   return staticRef_const_iterator(this, true);
 }
 
 staticRef_const_iterator
-MacroStaticReference::Impl::cendStaticRef() const {
+MacroStaticReference::cendStaticRef() const {
   return staticRef_const_iterator(this, false);
 }
 
 staticRef_iterator
-MacroStaticReference::Impl::beginStaticRef() {
+MacroStaticReference::beginStaticRef() {
   return staticRef_iterator(this, true);
 }
 
 staticRef_iterator
-MacroStaticReference::Impl::endStaticRef() {
+MacroStaticReference::endStaticRef() {
   return staticRef_iterator(this, false);
 }
 
 const shared_ptr<StaticRef>&
-MacroStaticReference::Impl::findStaticRef(const string& key) {
+MacroStaticReference::findStaticRef(const string& key) {
   map<string, shared_ptr<StaticRef> >::const_iterator iter = staticRefs_.find(key);
   if (iter == staticRefs_.end())
     throw DYNError(DYN::Error::API, StaticRefUndefined, key);

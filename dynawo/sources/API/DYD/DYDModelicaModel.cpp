@@ -12,103 +12,93 @@
 //
 
 /**
- * @file DYDModelicaModelImpl.cpp
+ * @file DYDModelicaModel.cpp
  * @brief Composite model description : implementation file
  *
  */
 
-#include <algorithm>  // for std::find
-#include <boost/lexical_cast.hpp>
-#include <sstream>
-#include <list>
-#include <set>
+#include "DYDModelicaModel.h"
 
-#include <iomanip>
-#include <fstream>
-#include <memory>
-
-#include "DYNMacrosMessage.h"
-
-#include "DYDModelicaModelImpl.h"
-#include "DYDConnectorFactory.h"
 #include "DYDConnector.h"
-#include "DYDMacroConnectImpl.h"
+#include "DYDConnectorFactory.h"
+#include "DYDMacroConnect.h"
 #include "DYDUnitDynamicModel.h"
 #include "DYDWhiteBoxModelCommon.h"
+#include "DYNMacrosMessage.h"
 
+#include <algorithm>
+#include <boost/lexical_cast.hpp>
+#include <fstream>
+#include <iomanip>
+#include <list>
+#include <memory>
+#include <set>
+#include <sstream>
 
-using std::map;
-using std::vector;
+using boost::dynamic_pointer_cast;
+using boost::shared_ptr;
 using std::list;
-using std::pair;
 using std::make_pair;
+using std::map;
+using std::pair;
 using std::set;
 using std::string;
 using std::stringstream;
-using boost::shared_ptr;
-using boost::dynamic_pointer_cast;
-
+using std::vector;
 
 namespace dynamicdata {
 
-ModelicaModel::Impl::Impl(const string& id) :
-Model::Impl(id, Model::MODELICA_MODEL),
-useAliasing_(true),
-generateCalculatedVariables_(true)  {
-}
+ModelicaModel::ModelicaModel(const string& id) : Model(id, Model::MODELICA_MODEL), useAliasing_(true), generateCalculatedVariables_(true) {}
 
-ModelicaModel::Impl::~Impl() {
-}
-
-string
-ModelicaModel::Impl::getStaticId() const {
+const string&
+ModelicaModel::getStaticId() const {
   return staticId_;
 }
 
 ModelicaModel&
-ModelicaModel::Impl::setStaticId(const string& staticId) {
+ModelicaModel::setStaticId(const string& staticId) {
   staticId_ = staticId;
   return *this;
 }
 
 void
-ModelicaModel::Impl::setCompilationOptions(bool useAliasing, bool generateCalculatedVariables) {
+ModelicaModel::setCompilationOptions(bool useAliasing, bool generateCalculatedVariables) {
   useAliasing_ = useAliasing;
   generateCalculatedVariables_ = generateCalculatedVariables;
 }
 
 bool
-ModelicaModel::Impl::getUseAliasing() const {
+ModelicaModel::getUseAliasing() const {
   return useAliasing_;
 }
 
 bool
-ModelicaModel::Impl::getGenerateCalculatedVariables() const {
+ModelicaModel::getGenerateCalculatedVariables() const {
   return generateCalculatedVariables_;
 }
 
 const map<string, shared_ptr<UnitDynamicModel> >&
-ModelicaModel::Impl::getUnitDynamicModels() const {
+ModelicaModel::getUnitDynamicModels() const {
   return unitDynamicModelsMap_;
 }
 
 const map<string, shared_ptr<Connector> >&
-ModelicaModel::Impl::getInitConnectors() const {
+ModelicaModel::getInitConnectors() const {
   return initConnectorsMap_;
 }
 
 const map<string, shared_ptr<Connector> >&
-ModelicaModel::Impl::getConnectors() const {
+ModelicaModel::getConnectors() const {
   return connectorsMap_;
 }
 
 const map<string, shared_ptr<MacroConnect> >&
-ModelicaModel::Impl::getMacroConnects() const {
+ModelicaModel::getMacroConnects() const {
   return macroConnectsMap_;
 }
 
 ModelicaModel&
-ModelicaModel::Impl::addUnitDynamicModel(const shared_ptr<UnitDynamicModel>& model) {
+ModelicaModel::addUnitDynamicModel(const shared_ptr<UnitDynamicModel>& model) {
   if (unitDynamicModelsMap_.find(model->getId()) != unitDynamicModelsMap_.end())
     throw DYNError(DYN::Error::API, ModelIDNotUnique, model->getId());
   if (model->getId() == getId())
@@ -120,8 +110,7 @@ ModelicaModel::Impl::addUnitDynamicModel(const shared_ptr<UnitDynamicModel>& mod
 }
 
 ModelicaModel&
-ModelicaModel::Impl::addConnect(const string& model1, const string& var1,
-        const string& model2, const string& var2) {
+ModelicaModel::addConnect(const string& model1, const string& var1, const string& model2, const string& var2) {
   string connectionId = getConnectionId(model1, var1, model2, var2, getId(), unitDynamicModelsMap_);
   // Used instead of map_[connectionId] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
@@ -137,8 +126,7 @@ ModelicaModel::Impl::addConnect(const string& model1, const string& var1,
 }
 
 ModelicaModel&
-ModelicaModel::Impl::addInitConnect(const string& model1, const string& var1,
-        const string& model2, const string& var2) {
+ModelicaModel::addInitConnect(const string& model1, const string& var1, const string& model2, const string& var2) {
   string ic_Id = getConnectionId(model1, var1, model2, var2, getId(), unitDynamicModelsMap_);
   // Used instead of initConnectorsMap_[ic_Id] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
@@ -154,7 +142,7 @@ ModelicaModel::Impl::addInitConnect(const string& model1, const string& var1,
 }
 
 ModelicaModel&
-ModelicaModel::Impl::addMacroConnect(const shared_ptr<MacroConnect>& macroConnect) {
+ModelicaModel::addMacroConnect(const shared_ptr<MacroConnect>& macroConnect) {
   string id = getMacroConnectionId(macroConnect->getFirstModelId(), macroConnect->getSecondModelId(), getId(), unitDynamicModelsMap_);
   pair<map<string, shared_ptr<MacroConnect> >::iterator, bool> ret;
 #ifdef LANG_CXX11
@@ -171,9 +159,9 @@ ModelicaModel::Impl::addMacroConnect(const shared_ptr<MacroConnect>& macroConnec
  * @brief function for hasSameStructureAs.
  * create a map: model[ID] = Name
  */
-map<string, string >
+map<string, string>
 modelsByInitName(const map<string, shared_ptr<UnitDynamicModel> >& uDM) {
-  map<string, string > modelsInitName;
+  map<string, string> modelsInitName;
   map<string, shared_ptr<UnitDynamicModel> >::const_iterator itUdm;
   for (itUdm = uDM.begin(); itUdm != uDM.end(); ++itUdm)
     modelsInitName[itUdm->first] = itUdm->second->getInitModelName();
@@ -184,9 +172,9 @@ modelsByInitName(const map<string, shared_ptr<UnitDynamicModel> >& uDM) {
  * @brief function for hasSameStructureAs.
  * create a map: model[ID] = Name
  */
-map<string, string >
+map<string, string>
 modelsByName(const map<string, shared_ptr<UnitDynamicModel> >& uDM) {
-  map<string, string > modelsName;
+  map<string, string> modelsName;
   map<string, shared_ptr<UnitDynamicModel> >::const_iterator itUdm;
   for (itUdm = uDM.begin(); itUdm != uDM.end(); ++itUdm)
     modelsName[itUdm->first] = itUdm->second->getDynamicModelName();
@@ -198,7 +186,7 @@ modelsByName(const map<string, shared_ptr<UnitDynamicModel> >& uDM) {
  * return "modelName_VariableId" of connect's first Element
  */
 string
-connect1stElement2String(const shared_ptr<Connector>& connect, const map<string, string >& modelsName) {
+connect1stElement2String(const shared_ptr<Connector>& connect, const map<string, string>& modelsName) {
   map<string, string>::const_iterator iter = modelsName.find(connect->getFirstModelId());
   if (iter == modelsName.end())
     throw DYNError(DYN::Error::API, ConnectedModelNotFound, connect->getFirstModelId());
@@ -213,7 +201,7 @@ connect1stElement2String(const shared_ptr<Connector>& connect, const map<string,
  * return "modelName_VariableId" of connect's second Element
  */
 string
-connect2ndElement2String(const shared_ptr<Connector>& connect, const map<string, string >& modelsName) {
+connect2ndElement2String(const shared_ptr<Connector>& connect, const map<string, string>& modelsName) {
   map<string, string>::const_iterator iter = modelsName.find(connect->getSecondModelId());
   if (iter == modelsName.end())
     throw DYNError(DYN::Error::API, ConnectedModelNotFound, connect->getSecondModelId());
@@ -229,7 +217,7 @@ connect2ndElement2String(const shared_ptr<Connector>& connect, const map<string,
  * convert a connection to string
  */
 string
-connection2String(const shared_ptr<Connector>& connect, const map<string, string >& modelsName) {
+connection2String(const shared_ptr<Connector>& connect, const map<string, string>& modelsName) {
   string ic_first = connect1stElement2String(connect, modelsName);
   string ic_second = connect2ndElement2String(connect, modelsName);
 
@@ -247,7 +235,7 @@ connection2String(const shared_ptr<Connector>& connect, const map<string, string
  * convert a macro connection to string
  */
 string
-macroConnect2String(const shared_ptr<MacroConnect>& connect, const map<string, string >& modelsName) {
+macroConnect2String(const shared_ptr<MacroConnect>& connect, const map<string, string>& modelsName) {
   map<string, string>::const_iterator iter = modelsName.find(connect->getFirstModelId());
 
   if (iter == modelsName.end())
@@ -273,7 +261,7 @@ macroConnect2String(const shared_ptr<MacroConnect>& connect, const map<string, s
  * convert all connections to a list
  */
 list<string>
-connections2StringList(const map<string, shared_ptr<Connector> >& connects, const map<string, string >& modelsName) {
+connections2StringList(const map<string, shared_ptr<Connector> >& connects, const map<string, string>& modelsName) {
   list<string> listIc_string;
   map<string, shared_ptr<Connector> >::const_iterator itIc;
   for (itIc = connects.begin(); itIc != connects.end(); ++itIc)
@@ -287,9 +275,9 @@ connections2StringList(const map<string, shared_ptr<Connector> >& connects, cons
  * convert all model names to a list
  */
 list<string>
-modelsName2List(const map<string, string >& modelsName) {
+modelsName2List(const map<string, string>& modelsName) {
   list<string> modelsNameList;
-  map<string, string >::const_iterator it;
+  map<string, string>::const_iterator it;
   for (it = modelsName.begin(); it != modelsName.end(); ++it)
     modelsNameList.push_back(it->second);
   modelsNameList.sort();  // sort the list.
@@ -301,7 +289,7 @@ modelsName2List(const map<string, string >& modelsName) {
  * convert all macro connections to a list
  */
 list<string>
-macroConnect2StringList(const map<string, shared_ptr<MacroConnect> >& connects, const map<string, string >& modelsName) {
+macroConnect2StringList(const map<string, shared_ptr<MacroConnect> >& connects, const map<string, string>& modelsName) {
   list<string> listIc_string;
   map<string, shared_ptr<MacroConnect> >::const_iterator itIc;
   for (itIc = connects.begin(); itIc != connects.end(); ++itIc)
@@ -314,28 +302,27 @@ macroConnect2StringList(const map<string, shared_ptr<MacroConnect> >& connects, 
  * @brief function for hasSameStructureAs. is same connection?
  */
 bool
-isSameConnection(const shared_ptr<Connector>& connect1, const shared_ptr<Connector>& connect2,
-        const map<string, string >& modelsName1, const map<string, string >& modelsName2) {
-  return ( connection2String(connect1, modelsName1) == connection2String(connect2, modelsName2));
+isSameConnection(const shared_ptr<Connector>& connect1, const shared_ptr<Connector>& connect2, const map<string, string>& modelsName1,
+                 const map<string, string>& modelsName2) {
+  return (connection2String(connect1, modelsName1) == connection2String(connect2, modelsName2));
 }
 
 /**
  * @brief function for hasSameStructureAs. is same macro connection?
  */
 bool
-isSameMacroConnect(const shared_ptr<MacroConnect>& connect1, const shared_ptr<MacroConnect>& connect2,
-        const map<string, string >& modelsName1, const map<string, string >& modelsName2) {
+isSameMacroConnect(const shared_ptr<MacroConnect>& connect1, const shared_ptr<MacroConnect>& connect2, const map<string, string>& modelsName1,
+                   const map<string, string>& modelsName2) {
   if (connect1->getConnector() != connect2->getConnector())
     return false;
-  return ( macroConnect2String(connect1, modelsName1) == macroConnect2String(connect2, modelsName2));
+  return (macroConnect2String(connect1, modelsName1) == macroConnect2String(connect2, modelsName2));
 }
 
 /**
  * @brief for connections2MapSetofModelsInvolvedInOneTypeofConnectedVariable. return map[modelID_varID]=<ModelID1,   , ModelIDn>
  */
 map<string, set<string> >
-connections2ModelsInvolvedInOneConnectedVariableType(const map<string, shared_ptr<Connector> >& connects,
-        const map<string, string>& modelsName) {
+connections2ModelsInvolvedInOneConnectedVariableType(const map<string, shared_ptr<Connector> >& connects, const map<string, string>& modelsName) {
   map<string, set<string> > modelsInvolvedInOneConnectedVariableType;
   map<string, shared_ptr<Connector> >::const_iterator itIc;
   for (itIc = connects.begin(); itIc != connects.end(); itIc++) {
@@ -346,22 +333,19 @@ connections2ModelsInvolvedInOneConnectedVariableType(const map<string, shared_pt
 }
 
 bool
-ModelicaModel::Impl::hasSameStructureAs(const shared_ptr<ModelicaModel>& modelicaModel,
-        map< shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> >& unitDynModelsMap) {
+ModelicaModel::hasSameStructureAs(const shared_ptr<ModelicaModel>& modelicaModel,
+                                  map<shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> >& unitDynModelsMap) {
   // Testing if the models have the same "size"
-  if (unitDynamicModelsMap_.size() != modelicaModel->getUnitDynamicModels().size()
-          || connectorsMap_.size() != modelicaModel->getConnectors().size()
-          || initConnectorsMap_.size() != modelicaModel->getInitConnectors().size()
-          || macroConnectsMap_.size() != modelicaModel->getMacroConnects().size()
-          ) {
+  if (unitDynamicModelsMap_.size() != modelicaModel->getUnitDynamicModels().size() || connectorsMap_.size() != modelicaModel->getConnectors().size() ||
+      initConnectorsMap_.size() != modelicaModel->getInitConnectors().size() || macroConnectsMap_.size() != modelicaModel->getMacroConnects().size()) {
     return false;
   }
 
-  map<string, string > modelsInitName1 = modelsByInitName(unitDynamicModelsMap_);
-  map<string, string > modelsInitName2 = modelsByInitName(modelicaModel->getUnitDynamicModels());
+  map<string, string> modelsInitName1 = modelsByInitName(unitDynamicModelsMap_);
+  map<string, string> modelsInitName2 = modelsByInitName(modelicaModel->getUnitDynamicModels());
 
-  map<string, string > modelsName1 = modelsByName(unitDynamicModelsMap_);
-  map<string, string > modelsName2 = modelsByName(modelicaModel->getUnitDynamicModels());
+  map<string, string> modelsName1 = modelsByName(unitDynamicModelsMap_);
+  map<string, string> modelsName2 = modelsByName(modelicaModel->getUnitDynamicModels());
 
   // Case with no connections
   if (connectorsMap_.size() == 0 && initConnectorsMap_.size() == 0 && macroConnectsMap_.size() == 0) {
@@ -400,12 +384,11 @@ ModelicaModel::Impl::hasSameStructureAs(const shared_ptr<ModelicaModel>& modelic
   return true;
 }
 
-
 bool
-ModelicaModel::Impl::hasSameStructureAsUnconnected(const shared_ptr<ModelicaModel>& modelicaModel,
-    map< shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> >& unitDynModelsMap,
-    const map<string, string >& modelsName1, const map<string, string >& modelsInitName1,
-    const map<string, string >& modelsName2, const map<string, string >& modelsInitName2) const {
+ModelicaModel::hasSameStructureAsUnconnected(const shared_ptr<ModelicaModel>& modelicaModel,
+                                             map<shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> >& unitDynModelsMap,
+                                             const map<string, string>& modelsName1, const map<string, string>& modelsInitName1,
+                                             const map<string, string>& modelsName2, const map<string, string>& modelsInitName2) const {
   assert((connectorsMap_.size() == 0 && initConnectorsMap_.size() == 0 && macroConnectsMap_.size() == 0));
   list<string> listInitModelsName1 = modelsName2List(modelsInitName1);
   list<string> listInitModelsName2 = modelsName2List(modelsInitName2);
@@ -420,8 +403,7 @@ ModelicaModel::Impl::hasSameStructureAsUnconnected(const shared_ptr<ModelicaMode
   vector<string> UDMAlreadyMapped;  //  UDMs in the reference modelica model that have already been linked to
   //  an UDM in the considered modelica model. An already mapped UDM should not be mapped again
   map<string, shared_ptr<UnitDynamicModel> > interMapUDM = modelicaModel->getUnitDynamicModels();
-  for (map<string, shared_ptr<UnitDynamicModel> >::const_iterator itUdm1 = unitDynamicModelsMap_.begin();
-      itUdm1 != unitDynamicModelsMap_.end(); ++itUdm1)
+  for (map<string, shared_ptr<UnitDynamicModel> >::const_iterator itUdm1 = unitDynamicModelsMap_.begin(); itUdm1 != unitDynamicModelsMap_.end(); ++itUdm1)
     for (map<string, shared_ptr<UnitDynamicModel> >::iterator itUdm2 = interMapUDM.begin(); itUdm2 != interMapUDM.end(); ++itUdm2)
       if ((*(itUdm1->second)) == (*(itUdm2->second)) && find(UDMAlreadyMapped.begin(), UDMAlreadyMapped.end(), itUdm2->first) == UDMAlreadyMapped.end()) {
         unitDynModelsMap[itUdm1->second] = itUdm2->second;
@@ -433,8 +415,8 @@ ModelicaModel::Impl::hasSameStructureAsUnconnected(const shared_ptr<ModelicaMode
 }
 
 bool
-ModelicaModel::Impl::connectionStringIdentical(const shared_ptr<ModelicaModel>& modelicaModel,
-    const map<string, string >& modelsName1, const map<string, string >& modelsName2) const {
+ModelicaModel::connectionStringIdentical(const shared_ptr<ModelicaModel>& modelicaModel, const map<string, string>& modelsName1,
+                                         const map<string, string>& modelsName2) const {
   const map<string, shared_ptr<Connector> >& interMapIC = modelicaModel->getInitConnectors();
   const map<string, shared_ptr<Connector> >& interMapPC = modelicaModel->getConnectors();
   const map<string, shared_ptr<MacroConnect> >& interMapMacroConnect = modelicaModel->getMacroConnects();
@@ -459,8 +441,8 @@ ModelicaModel::Impl::connectionStringIdentical(const shared_ptr<ModelicaModel>& 
 }
 
 bool
-ModelicaModel::Impl::initConnectIdentical(const shared_ptr<ModelicaModel>& modelicaModel,
-    const map<string, string >& modelsName1, const map<string, string >& modelsName2) const {
+ModelicaModel::initConnectIdentical(const shared_ptr<ModelicaModel>& modelicaModel, const map<string, string>& modelsName1,
+                                    const map<string, string>& modelsName2) const {
   // Check whether the different types of Init connected variables involve in the same amount of UDMs between two modelica models
   // For example to detect that these two pairs of dyd connects don't belong to the same structure :
   // <dyn:initConnect id1="ModelNameA_ID1" var1="sortie" id2="ModelNameB_ID1" var2="sortie"/>
@@ -470,25 +452,25 @@ ModelicaModel::Impl::initConnectIdentical(const shared_ptr<ModelicaModel>& model
   // <dyn:initConnect id1="ModelNameA_ID2" var1="sortie" id2="ModelNameB_ID2" var2="sortie"/>
   const map<string, shared_ptr<Connector> >& interMapIC = modelicaModel->getInitConnectors();
   const map<string, set<string> >& modelsInvolvedInOneConnectedVariableType1 =
-        connections2ModelsInvolvedInOneConnectedVariableType(initConnectorsMap_, modelsName1);
+      connections2ModelsInvolvedInOneConnectedVariableType(initConnectorsMap_, modelsName1);
   const map<string, set<string> >& modelsInvolvedInOneConnectedVariableType2 =
       connections2ModelsInvolvedInOneConnectedVariableType(interMapIC, modelsName2);  // map[modelName_varId]=<ModelID1,   , ModelIDn>
   // Testing if the maps have same "size"
   if (modelsInvolvedInOneConnectedVariableType1.size() != modelsInvolvedInOneConnectedVariableType2.size())
     return false;
   // Testing if each type of Init connected variable have same number of UDM involved in
-  for (map<string, set<string> >::const_iterator  itNb1 = modelsInvolvedInOneConnectedVariableType1.begin(),
-      itNb2 = modelsInvolvedInOneConnectedVariableType2.begin();
-      itNb1 != modelsInvolvedInOneConnectedVariableType1.end(); ++itNb1, ++itNb2) {
+  for (map<string, set<string> >::const_iterator itNb1 = modelsInvolvedInOneConnectedVariableType1.begin(),
+                                                 itNb2 = modelsInvolvedInOneConnectedVariableType2.begin();
+       itNb1 != modelsInvolvedInOneConnectedVariableType1.end(); ++itNb1, ++itNb2) {
     if ((itNb1->second).size() != (itNb2->second).size())
       return false;
-    }
+  }
   return true;
 }
 
 bool
-ModelicaModel::Impl::connectIdentical(const shared_ptr<ModelicaModel>& modelicaModel,
-    const map<string, string >& modelsName1, const map<string, string >& modelsName2) const {
+ModelicaModel::connectIdentical(const shared_ptr<ModelicaModel>& modelicaModel, const map<string, string>& modelsName1,
+                                const map<string, string>& modelsName2) const {
   // Check whether the different types of Pin connected variables involve in the same amount of UDMs between two modelica models
   // For example to detect that these two pairs of dyd connects don't belong to the same structure :
   // <dyn:connect id1="ModelNameA_ID1" var1="sortie" id2="ModelNameB_ID1" var2="sortie"/>
@@ -505,9 +487,9 @@ ModelicaModel::Impl::connectIdentical(const shared_ptr<ModelicaModel>& modelicaM
   if (modelsInvolvedInOneTypeofConnectedVariable1.size() != modelsInvolvedInOneTypeofConnectedVariable2.size())
     return false;
   // Testing if each type of connected variable have same number of UDM involved in
-  for (map<string, set<string> >::const_iterator  itNb1 = modelsInvolvedInOneTypeofConnectedVariable1.begin(),
-      itNb2 = modelsInvolvedInOneTypeofConnectedVariable2.begin();
-      itNb1 != modelsInvolvedInOneTypeofConnectedVariable1.end(); ++itNb1, ++itNb2) {
+  for (map<string, set<string> >::const_iterator itNb1 = modelsInvolvedInOneTypeofConnectedVariable1.begin(),
+                                                 itNb2 = modelsInvolvedInOneTypeofConnectedVariable2.begin();
+       itNb1 != modelsInvolvedInOneTypeofConnectedVariable1.end(); ++itNb1, ++itNb2) {
     if ((itNb1->second).size() != (itNb2->second).size())
       return false;
   }
@@ -515,17 +497,16 @@ ModelicaModel::Impl::connectIdentical(const shared_ptr<ModelicaModel>& modelicaM
 }
 
 bool
-ModelicaModel::Impl::initConnectDynamicMappingIdentical(const shared_ptr<ModelicaModel>& modelicaModel,
-    const map<string, string >& modelsInitName1,
-    const map<string, string >& modelsInitName2,
-    map<shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> >& localUnitDynamicModelsMap) const {
+ModelicaModel::initConnectDynamicMappingIdentical(const shared_ptr<ModelicaModel>& modelicaModel, const map<string, string>& modelsInitName1,
+                                                  const map<string, string>& modelsInitName2,
+                                                  map<shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> >& localUnitDynamicModelsMap) const {
   // Mapping init connection
   //  Init connects in the reference modelica model that have already been linked to
   //  an Init connect in the considered modelica model. An already mapped Init connect should not be mapped again
   vector<string> initConnectionAlreadyMapped;
   const map<string, shared_ptr<Connector> >& interMapIC = modelicaModel->getInitConnectors();
   map<shared_ptr<Connector>, shared_ptr<Connector> > initConnectionsMap;
-  for ( map<string, shared_ptr<Connector> >::const_iterator itIc1 = initConnectorsMap_.begin(); itIc1 != initConnectorsMap_.end(); ++itIc1)
+  for (map<string, shared_ptr<Connector> >::const_iterator itIc1 = initConnectorsMap_.begin(); itIc1 != initConnectorsMap_.end(); ++itIc1)
     for (map<string, shared_ptr<Connector> >::const_iterator itIc2 = interMapIC.begin(); itIc2 != interMapIC.end(); ++itIc2)
       if (isSameConnection(itIc1->second, itIc2->second, modelsInitName1, modelsInitName2) &&
           find(initConnectionAlreadyMapped.begin(), initConnectionAlreadyMapped.end(), itIc2->first) == initConnectionAlreadyMapped.end()) {
@@ -548,23 +529,23 @@ ModelicaModel::Impl::initConnectDynamicMappingIdentical(const shared_ptr<Modelic
       if (((*udm1_side1) != (*udm2_side1)) || ((*udm1_side2) != (*udm2_side2)))
         return false;
 
-      localUnitDynamicModelsMap[ udm1_side1 ] = udm2_side1;
-      localUnitDynamicModelsMap[ udm1_side2 ] = udm2_side2;
+      localUnitDynamicModelsMap[udm1_side1] = udm2_side1;
+      localUnitDynamicModelsMap[udm1_side2] = udm2_side2;
     } else {
       if (((*udm1_side1) != (*udm2_side2)) || ((*udm1_side2) != (*udm2_side1)))
         return false;
 
-      localUnitDynamicModelsMap[ udm1_side1 ] = udm2_side2;
-      localUnitDynamicModelsMap[ udm1_side2 ] = udm2_side1;
+      localUnitDynamicModelsMap[udm1_side1] = udm2_side2;
+      localUnitDynamicModelsMap[udm1_side2] = udm2_side1;
     }
   }
   return true;
 }
 
 bool
-ModelicaModel::Impl::connectDynamicMappingIdentical(const shared_ptr<ModelicaModel>& modelicaModel,
-    const map<string, string >& modelsName1, const map<string, string >& modelsName2,
-    map<shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> >& localUnitDynamicModelsMap) const {
+ModelicaModel::connectDynamicMappingIdentical(const shared_ptr<ModelicaModel>& modelicaModel, const map<string, string>& modelsName1,
+                                              const map<string, string>& modelsName2,
+                                              map<shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> >& localUnitDynamicModelsMap) const {
   // Mapping connection
   //  Pin connects in the reference modelica model that have already been linked to
   //  a Pin connect in the considered modelica model. An already mapped Pin connect should not be mapped again
@@ -596,23 +577,23 @@ ModelicaModel::Impl::connectDynamicMappingIdentical(const shared_ptr<ModelicaMod
       if (((*udm1_side1) != (*udm2_side1)) || ((*udm1_side2) != (*udm2_side2)))
         return false;
 
-      localUnitDynamicModelsMap[ udm1_side1 ] = udm2_side1;
-      localUnitDynamicModelsMap[ udm1_side2 ] = udm2_side2;
+      localUnitDynamicModelsMap[udm1_side1] = udm2_side1;
+      localUnitDynamicModelsMap[udm1_side2] = udm2_side2;
     } else {
       if (((*udm1_side1) != (*udm2_side2)) || ((*udm1_side2) != (*udm2_side1)))
         return false;
 
-      localUnitDynamicModelsMap[ udm1_side1 ] = udm2_side2;
-      localUnitDynamicModelsMap[ udm1_side2 ] = udm2_side1;
+      localUnitDynamicModelsMap[udm1_side1] = udm2_side2;
+      localUnitDynamicModelsMap[udm1_side2] = udm2_side1;
     }
   }
   return true;
 }
 
 bool
-ModelicaModel::Impl::macroConnectDynamicMappingIdentical(const shared_ptr<ModelicaModel>& modelicaModel,
-    const map<string, string >& modelsName1, const map<string, string >& modelsName2,
-    map<shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> >& localUnitDynamicModelsMap) const {
+ModelicaModel::macroConnectDynamicMappingIdentical(const shared_ptr<ModelicaModel>& modelicaModel, const map<string, string>& modelsName1,
+                                                   const map<string, string>& modelsName2,
+                                                   map<shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> >& localUnitDynamicModelsMap) const {
   // Mapping macro connection
   //  Macro connects in the reference modelica model that have already been linked to
   //  a Macro connect in the considered modelica model. An already mapped Macro connect should not be mapped again
@@ -641,82 +622,10 @@ ModelicaModel::Impl::macroConnectDynamicMappingIdentical(const shared_ptr<Modeli
     if (((*udm1_side1) != (*udm2_side1)) || ((*udm1_side2) != (*udm2_side2)))
       return false;
 
-    localUnitDynamicModelsMap[ udm1_side1 ] = udm2_side1;
-    localUnitDynamicModelsMap[ udm1_side2 ] = udm2_side2;
+    localUnitDynamicModelsMap[udm1_side1] = udm2_side1;
+    localUnitDynamicModelsMap[udm1_side2] = udm2_side2;
   }
   return true;
 }
-
-
-string
-ModelicaModel::Impl::getId() const {
-  return Model::Impl::getId();
-}
-
-Model::ModelType
-ModelicaModel::Impl::getType() const {
-  return Model::Impl::getType();
-}
-
-Model&
-ModelicaModel::Impl::addStaticRef(const string& var, const string& staticVar) {
-  return Model::Impl::addStaticRef(var, staticVar);
-}
-
-void
-ModelicaModel::Impl::addMacroStaticRef(const shared_ptr<MacroStaticRef>& macroStaticRef) {
-  Model::Impl::addMacroStaticRef(macroStaticRef);
-}
-
-staticRef_iterator
-ModelicaModel::Impl::beginStaticRef() {
-  return Model::Impl::beginStaticRef();
-}
-
-staticRef_iterator
-ModelicaModel::Impl::endStaticRef() {
-  return Model::Impl::endStaticRef();
-}
-
-macroStaticRef_iterator
-ModelicaModel::Impl::beginMacroStaticRef() {
-  return Model::Impl::beginMacroStaticRef();
-}
-
-macroStaticRef_iterator
-ModelicaModel::Impl::endMacroStaticRef() {
-  return Model::Impl::endMacroStaticRef();
-}
-
-staticRef_const_iterator
-ModelicaModel::Impl::cbeginStaticRef() const {
-  return Model::Impl::cbeginStaticRef();
-}
-
-staticRef_const_iterator
-ModelicaModel::Impl::cendStaticRef() const {
-  return Model::Impl::cendStaticRef();
-}
-
-macroStaticRef_const_iterator
-ModelicaModel::Impl::cbeginMacroStaticRef() const {
-  return Model::Impl::cbeginMacroStaticRef();
-}
-
-macroStaticRef_const_iterator
-ModelicaModel::Impl::cendMacroStaticRef() const {
-  return Model::Impl::cendMacroStaticRef();
-}
-
-const shared_ptr<StaticRef>&
-ModelicaModel::Impl::findStaticRef(const string& key) {
-  return Model::Impl::findStaticRef(key);
-}
-
-const shared_ptr<MacroStaticRef>&
-ModelicaModel::Impl::findMacroStaticRef(const string& id) {
-  return Model::Impl::findMacroStaticRef(id);
-}
-
 
 }  // namespace dynamicdata

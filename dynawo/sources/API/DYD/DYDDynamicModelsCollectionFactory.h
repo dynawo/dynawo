@@ -20,10 +20,10 @@
 #ifndef API_DYD_DYDDYNAMICMODELSCOLLECTIONFACTORY_H_
 #define API_DYD_DYDDYNAMICMODELSCOLLECTIONFACTORY_H_
 
-#include <boost/shared_ptr.hpp>
+#include "DYDDynamicModelsCollection.h"
 
+#include <boost/shared_ptr.hpp>
 namespace dynamicdata {
-class DynamicModelsCollection;
 
 /**
  * @class DynamicModelsCollectionFactory

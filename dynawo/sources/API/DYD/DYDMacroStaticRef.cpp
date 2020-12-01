@@ -12,33 +12,22 @@
 //
 
 /**
- * @file DYDMacroConnectionImpl.cpp
- * @brief MacroConnection description : implementation file
+ * @file DYDMacroStaticRef.cpp
+ * @brief MacroStaticRef description : implementation file
  *
  */
 
-#include "DYDMacroConnectionImpl.h"
+#include "DYDMacroStaticRef.h"
 
 using std::string;
 
 namespace dynamicdata {
 
-MacroConnection::Impl::Impl(const string& var1, const string& var2) :
-firstVariableId_(var1),
-secondVariableId_(var2) {
-}
+MacroStaticRef::MacroStaticRef(const string& id) : id_(id) {}
 
-MacroConnection::Impl::~Impl() {
-}
-
-string
-MacroConnection::Impl::getFirstVariableId() const {
-  return firstVariableId_;
-}
-
-string
-MacroConnection::Impl::getSecondVariableId() const {
-  return secondVariableId_;
+const string&
+MacroStaticRef::getId() const {
+  return id_;
 }
 
 }  // namespace dynamicdata

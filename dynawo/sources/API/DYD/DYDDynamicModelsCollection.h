@@ -20,24 +20,18 @@
 #ifndef API_DYD_DYDDYNAMICMODELSCOLLECTION_H_
 #define API_DYD_DYDDYNAMICMODELSCOLLECTION_H_
 
+#include "DYDIterators.h"
+#include "DYDMacroConnect.h"
+#include "DYDMacroConnector.h"
+#include "DYDMacroStaticReference.h"
+#include "DYDModel.h"
+
 #include <boost/shared_ptr.hpp>
+#include <map>
+#include <string>
+#include <vector>
 
 namespace dynamicdata {
-
-class connector_const_iterator;
-class connector_iterator;
-class dynamicModel_const_iterator;
-class dynamicModel_iterator;
-class macroConnector_const_iterator;
-class macroConnector_iterator;
-class macroConnect_const_iterator;
-class macroConnect_iterator;
-class macroStaticReference_const_iterator;
-class macroStaticReference_iterator;
-class MacroConnector;
-class MacroConnect;
-class MacroStaticReference;
-class Model;
 
 /**
  * @class DynamicModelsCollection
@@ -49,16 +43,12 @@ class Model;
 class DynamicModelsCollection {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~DynamicModelsCollection() {}
-  /**
    * @brief Add a model in the collection
    *
    * @param model model to add in the collection
    * @throws  Error::API exception if model already exists
    */
-  virtual void addModel(const boost::shared_ptr<Model>& model) = 0;
+  void addModel(const boost::shared_ptr<Model>& model);
 
   /**
    * @brief Add a new connector in the collection
@@ -70,8 +60,7 @@ class DynamicModelsCollection {
    * @throws API exception if the one of the two models is not
    * part of collection
    */
-  virtual void addConnect(const std::string& model1, const std::string& var1,
-          const std::string& model2, const std::string& var2) = 0;
+  void addConnect(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2);
 
   /**
    * @brief Add a new macro connector in the collection
@@ -79,14 +68,14 @@ class DynamicModelsCollection {
    * @param[in] macroConnector : macro connector to add in the collection
    * @throws  Error::API exception if the macro connector already exists
    */
-  virtual void addMacroConnector(const boost::shared_ptr<MacroConnector>& macroConnector) = 0;
+  void addMacroConnector(const boost::shared_ptr<MacroConnector>& macroConnector);
 
   /**
    * @brief Add a new macro connect in the collection
    *
    * @param[in] macroConnect : macro connect to add in the collection
    */
-  virtual void addMacroConnect(const boost::shared_ptr<MacroConnect>& macroConnect) = 0;
+  void addMacroConnect(const boost::shared_ptr<MacroConnect>& macroConnect);
 
   /**
    * @brief Add a new macroStaticReference in the collection
@@ -94,7 +83,7 @@ class DynamicModelsCollection {
    * @param[in] macroStaticReference : macroStaticReference to add in the collection
    * @throws  Error::API exception if the macroStaticReference already exists
    */
-  virtual void addMacroStaticReference(const boost::shared_ptr<MacroStaticReference>& macroStaticReference) = 0;
+  void addMacroStaticReference(const boost::shared_ptr<MacroStaticReference>& macroStaticReference);
 
   /**
    * @brief Implementation class
@@ -105,135 +94,157 @@ class DynamicModelsCollection {
    * @brief model iterator : begin of model
    * @return beginning of model
    */
-  virtual dynamicModel_const_iterator cbeginModel() const = 0;
+  dynamicModel_const_iterator cbeginModel() const;
 
   /**
    * @brief model iterator : end of model
    * @return end of model
    */
-  virtual dynamicModel_const_iterator cendModel() const = 0;
+  dynamicModel_const_iterator cendModel() const;
 
   /**
    * @brief connector iterator ;beginning of connector
    * @return beginning of connector
    */
-  virtual connector_const_iterator cbeginConnector() const = 0;
+  connector_const_iterator cbeginConnector() const;
 
   /**
    * @brief connector iterator end of connector
    * @return end of connector
    */
-  virtual connector_const_iterator cendConnector() const = 0;
+  connector_const_iterator cendConnector() const;
 
   /**
    * @brief macroConnector iterator : beginning of macroConnector
    * @return beginning of macroConnector
    */
-  virtual macroConnector_const_iterator cbeginMacroConnector() const = 0;
+  macroConnector_const_iterator cbeginMacroConnector() const;
 
   /**
    * @brief macroConnector iterator : end of macroConnector
    * @return end of macroConnector
    */
-  virtual macroConnector_const_iterator cendMacroConnector() const = 0;
+  macroConnector_const_iterator cendMacroConnector() const;
 
   /**
    * @brief macroConnect iterator : beginning of macroConnect
    * @return beginning of macroConnect
    */
-  virtual macroConnect_const_iterator cbeginMacroConnect() const = 0;
+  macroConnect_const_iterator cbeginMacroConnect() const;
 
   /**
    * @brief macroConnect iterator : end of macroConnect
    * @return end of macroConnect
    */
-  virtual macroConnect_const_iterator cendMacroConnect() const = 0;
+  macroConnect_const_iterator cendMacroConnect() const;
 
   /**
    * @brief macroStaticReference iterator : beginning of macroStaticReferences
    * @return beginning of macroStaticReferences
    */
-  virtual macroStaticReference_const_iterator cbeginMacroStaticReference() const = 0;
+  macroStaticReference_const_iterator cbeginMacroStaticReference() const;
 
   /**
    * @brief macroStaticReference iterator : end of macroStaticReferences
    * @return end of macroStaticReferences
    */
-  virtual macroStaticReference_const_iterator cendMacroStaticReference() const = 0;
+  macroStaticReference_const_iterator cendMacroStaticReference() const;
 
   /**
    * @brief model iterator: beginning of model
    * @return beginning of model
    */
-  virtual dynamicModel_iterator beginModel() = 0;
+  dynamicModel_iterator beginModel();
 
   /**
    * @brief model iterator: end of model
    * @return end of model
    */
-  virtual dynamicModel_iterator endModel() = 0;
+  dynamicModel_iterator endModel();
 
   /**
    * @brief connector iterator : beginning of connector
    * @return beginning of connector iterator
    */
-  virtual connector_iterator beginConnector() = 0;
+  connector_iterator beginConnector();
 
   /**
    * @brief connector iterator : end of connector
    * @return end of connector
    */
-  virtual connector_iterator endConnector() = 0;
+  connector_iterator endConnector();
 
   /**
    * @brief macroConnector iterator : beginning of macroConnector
    * @return beginning of macroConnector
    */
-  virtual macroConnector_iterator beginMacroConnector() = 0;
+  macroConnector_iterator beginMacroConnector();
 
   /**
    * @brief macroConnector iterator : end of macroConnector
    * @return end of macroConnector
    */
-  virtual macroConnector_iterator endMacroConnector() = 0;
+  macroConnector_iterator endMacroConnector();
 
   /**
    * @brief macroConnect iterator : beginning of macroConnect
    * @return beginning of macroConnect
    */
-  virtual macroConnect_iterator beginMacroConnect() = 0;
+  macroConnect_iterator beginMacroConnect();
 
   /**
    * @brief macroConnect iterator : end of macroConnect
    * @return end of macroConnect
    */
-  virtual macroConnect_iterator endMacroConnect() = 0;
+  macroConnect_iterator endMacroConnect();
 
   /**
    * @brief macroStaticReference iterator : beginning of macroStaticReferences
    * @return beginning of macroStaticReferences
    */
-  virtual macroStaticReference_iterator beginMacroStaticReference() = 0;
+  macroStaticReference_iterator beginMacroStaticReference();
 
   /**
    * @brief macroStaticReference iterator : end of macroStaticReferences
    * @return end of macroStaticReferences
    */
-  virtual macroStaticReference_iterator endMacroStaticReference() = 0;
+  macroStaticReference_iterator endMacroStaticReference();
 
   /**
    * @brief find a macroConnector thanks to its name
    * @param connector name of the macroConnector to be found
    * @return the macroConnector associated to the name
    */
-  virtual const boost::shared_ptr<MacroConnector>& findMacroConnector(const std::string& connector) = 0;
+  const boost::shared_ptr<MacroConnector>& findMacroConnector(const std::string& connector);
 
   /**
    * @brief find a macroStaticReference thanks to its id
    * @param id: id of the macroStaticReference to be found
    * @return the macroStaticReference associated to the id
    */
-  virtual const boost::shared_ptr<MacroStaticReference>& findMacroStaticReference(const std::string& id) = 0;
+  const boost::shared_ptr<MacroStaticReference>& findMacroStaticReference(const std::string& id);
+
+  friend class dynamicModel_iterator;
+  friend class dynamicModel_const_iterator;
+  friend class connector_iterator;
+  friend class connector_const_iterator;
+  friend class macroConnector_iterator;
+  friend class macroConnector_const_iterator;
+  friend class macroConnect_iterator;
+  friend class macroConnect_const_iterator;
+  friend class staticRef_iterator;
+  friend class staticRef_const_iterator;
+  friend class macroStaticRef_iterator;
+  friend class macroStaticRef_const_iterator;
+  friend class macroStaticReference_iterator;
+  friend class macroStaticReference_const_iterator;
+
+ private:
+  std::map<std::string, boost::shared_ptr<Model> > models_;                               /**< Map of the models **/
+  std::vector<boost::shared_ptr<Connector> > connectors_;                                 /**< Vector of the connectors between models **/
+  std::map<std::string, boost::shared_ptr<MacroConnector> > macroConnectors_;             /**< map of the macro connectors **/
+  std::vector<boost::shared_ptr<MacroConnect> > macroConnects_;                           /**< vector of the macro connectors between models **/
+  std::map<std::string, boost::shared_ptr<MacroStaticReference> > macroStaticReferences_; /**< map of the macro static references **/
 };
 
 }  // namespace dynamicdata

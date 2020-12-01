@@ -20,37 +20,36 @@ install(FILES ${API_DYD_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
 set(API_DYD_SOURCES
     DYDBlackBoxModelFactory.cpp
-    DYDBlackBoxModelImpl.cpp
+    DYDBlackBoxModel.cpp
     DYDConnectorFactory.cpp
-    DYDConnectorImpl.cpp
+    DYDConnector.cpp
     DYDDynamicModelsCollectionFactory.cpp
-    DYDDynamicModelsCollectionImpl.cpp
+    DYDDynamicModelsCollection.cpp
     DYDIdentifiableFactory.cpp
     DYDIterators.cpp
-    DYDIteratorsImpl.cpp
     DYDMacroConnectFactory.cpp
-    DYDMacroConnectImpl.cpp
+    DYDMacroConnect.cpp
     DYDMacroConnectionFactory.cpp
-    DYDMacroConnectionImpl.cpp
+    DYDMacroConnection.cpp
     DYDMacroConnectorFactory.cpp
-    DYDMacroConnectorImpl.cpp
+    DYDMacroConnector.cpp
     DYDModelicaModelFactory.cpp
-    DYDModelicaModelImpl.cpp
-    DYDModelImpl.cpp
+    DYDModelicaModel.cpp
+    DYDModel.cpp
     DYDModelTemplateFactory.cpp
-    DYDModelTemplateImpl.cpp
+    DYDModelTemplate.cpp
     DYDModelTemplateExpansionFactory.cpp
-    DYDModelTemplateExpansionImpl.cpp
+    DYDModelTemplateExpansion.cpp
     DYDXmlHandler.cpp
     DYDXmlImporter.cpp
     DYDStaticRefFactory.cpp
-    DYDStaticRefImpl.cpp
-    DYDMacroStaticRefImpl.cpp
+    DYDStaticRef.cpp
+    DYDMacroStaticRef.cpp
     DYDMacroStaticRefFactory.cpp
-    DYDMacroStaticReferenceImpl.cpp
+    DYDMacroStaticReference.cpp
     DYDMacroStaticReferenceFactory.cpp
     DYDUnitDynamicModelFactory.cpp
-    DYDUnitDynamicModelImpl.cpp
+    DYDUnitDynamicModel.cpp
     DYDWhiteBoxModelCommon.cpp
     DYDXmlExporter.cpp
     )

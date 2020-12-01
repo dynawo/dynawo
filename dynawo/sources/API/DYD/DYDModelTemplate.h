@@ -20,19 +20,16 @@
 #ifndef API_DYD_DYDMODELTEMPLATE_H_
 #define API_DYD_DYDMODELTEMPLATE_H_
 
+#include "DYDConnector.h"
+#include "DYDMacroConnect.h"
+#include "DYDModel.h"
+#include "DYDUnitDynamicModel.h"
+
+#include <boost/shared_ptr.hpp>
 #include <map>
 #include <vector>
 
-#include <boost/shared_ptr.hpp>
-
-#include "DYDModel.h"
-
-
 namespace dynamicdata {
-class Connector;
-class Model;
-class UnitDynamicModel;
-class MacroConnect;
 
 /**
  * @class ModelTemplate
@@ -42,55 +39,60 @@ class MacroConnect;
 class ModelTemplate : public Model {
  public:
   /**
-   * @brief Destructor
+   * @brief ModelTemplate constructor
+   *
+   * ModelTemplate constructor.
+   *
+   * @param id Dynamic model ID
+   *
    */
-  virtual ~ModelTemplate() {}
+  explicit ModelTemplate(const std::string& id);
 
   /**
    * @brief Set compilation options
    * @param useAliasing activate OpenModelica aliasing
    * @param generateCalculatedVariables activate automatic computation of calculated variables
    */
-  virtual void setCompilationOptions(bool useAliasing, bool generateCalculatedVariables)  = 0;
+  void setCompilationOptions(bool useAliasing, bool generateCalculatedVariables);
 
   /**
    * @brief whether the compilation should use aliasing or not
    * @return  whether the compilation should use aliasing or not
    */
-  virtual bool getUseAliasing() const = 0;
+  bool getUseAliasing() const;
 
   /**
    * @brief whether the compilation should use automatic computation of calculated variables
    * @return  whether the compilation should use automatic computation of calculated variables
    */
-  virtual bool getGenerateCalculatedVariables() const = 0;
+  bool getGenerateCalculatedVariables() const;
 
   /**
    * @brief Modelica models getter
    *
    * @returns Map of modelica models
    */
-  virtual const std::map<std::string, boost::shared_ptr<UnitDynamicModel> >& getUnitDynamicModels() const = 0;
+  const std::map<std::string, boost::shared_ptr<UnitDynamicModel> >& getUnitDynamicModels() const;
 
   /**
    * @brief Dynamic connectors getter
    *
    * @returns Map of connectors
    */
-  virtual const std::map<std::string, boost::shared_ptr<Connector> >& getConnectors() const = 0;
+  const std::map<std::string, boost::shared_ptr<Connector> >& getConnectors() const;
 
   /**
    * @brief Initialization connectors getter
    *
    * @returns Map of initialization connectors
    */
-  virtual const std::map<std::string, boost::shared_ptr<Connector> >& getInitConnectors() const = 0;
+  const std::map<std::string, boost::shared_ptr<Connector> >& getInitConnectors() const;
 
   /**
    * @brief Macro connects getter
    * @return Map of macroConnects
    */
-  virtual const std::map<std::string, boost::shared_ptr<MacroConnect> >& getMacroConnects() const = 0;
+  const std::map<std::string, boost::shared_ptr<MacroConnect> >& getMacroConnects() const;
 
   /**
    * @brief Modelica model adder
@@ -98,7 +100,7 @@ class ModelTemplate : public Model {
    * @param[in] unitDynamicModel Modelica model to add
    * @returns Reference to current ModelTemplate instance
    */
-  virtual ModelTemplate& addUnitDynamicModel(const boost::shared_ptr<UnitDynamicModel>& unitDynamicModel) = 0;
+  ModelTemplate& addUnitDynamicModel(const boost::shared_ptr<UnitDynamicModel>& unitDynamicModel);
 
   /**
    * @brief Dynamic connector adder
@@ -109,8 +111,7 @@ class ModelTemplate : public Model {
    * @param[in] var2 Second model var to connect
    * @returns Reference to the current ModelTemplate instance
    */
-  virtual ModelTemplate& addConnect(const std::string& model1, const std::string& var1,
-          const std::string& model2, const std::string& var2) = 0;
+  ModelTemplate& addConnect(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2);
 
   /**
    * @brief Initialization connector adder
@@ -123,16 +124,22 @@ class ModelTemplate : public Model {
    * @throws API exception if the one of the two models is not
    * part of composite model
    */
-  virtual ModelTemplate& addInitConnect(const std::string& modelid1, const std::string& var1,
-          const std::string& modelid2, const std::string& var2) = 0;
+  ModelTemplate& addInitConnect(const std::string& modelid1, const std::string& var1, const std::string& modelid2, const std::string& var2);
 
   /**
    * @brief macro connect adder
    * @param[in] macroConnect MacroConnect to add
    * @return reference to the current ModelTemplate instance
    */
-  virtual ModelTemplate& addMacroConnect(const boost::shared_ptr<MacroConnect>& macroConnect) = 0;
-  class Impl;  ///< Implemented class
+  ModelTemplate& addMacroConnect(const boost::shared_ptr<MacroConnect>& macroConnect);
+
+ private:
+  bool useAliasing_;                  ///< true if OpenModelica aliasing is used
+  bool generateCalculatedVariables_;  ///< true if calculated variables are computed automatically for compiled models
+  std::map<std::string, boost::shared_ptr<UnitDynamicModel> > unitDynamicModelsMap_;  ///< Unit Dynamic model parts
+  std::map<std::string, boost::shared_ptr<Connector> > initConnectorsMap_;            ///< Unit Dynamic model initialization connectors
+  std::map<std::string, boost::shared_ptr<Connector> > connectorsMap_;                ///<  model connectors
+  std::map<std::string, boost::shared_ptr<MacroConnect> > macroConnectsMap_;          ///< model macro connects
 };
 
 }  // namespace dynamicdata

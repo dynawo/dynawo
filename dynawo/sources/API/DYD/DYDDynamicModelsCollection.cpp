@@ -12,27 +12,27 @@
 //
 
 /**
- * @file DYDDynamicModelsCollectionImpl.cpp
+ * @file DYDDynamicModelsCollection.cpp
  * @brief Dynamic models collection description : implementation file
  *
  */
 
-#include "DYNMacrosMessage.h"
+#include "DYDDynamicModelsCollection.h"
 
 #include "DYDBlackBoxModelFactory.h"
-#include "DYDModelicaModelFactory.h"
-#include "DYDModelTemplateExpansionFactory.h"
-#include "DYDModelTemplateFactory.h"
-#include "DYDMacroConnect.h"
-#include "DYDConnectorFactory.h"
 #include "DYDConnector.h"
-#include "DYDDynamicModelsCollectionImpl.h"
-#include "DYDIterators.h"
-#include "DYDUnitDynamicModelFactory.h"
+#include "DYDConnectorFactory.h"
 #include "DYDIdentifiableFactory.h"
-#include "DYDModel.h"
+#include "DYDIterators.h"
+#include "DYDMacroConnect.h"
 #include "DYDMacroConnector.h"
 #include "DYDMacroStaticReference.h"
+#include "DYDModel.h"
+#include "DYDModelTemplateExpansionFactory.h"
+#include "DYDModelTemplateFactory.h"
+#include "DYDModelicaModelFactory.h"
+#include "DYDUnitDynamicModelFactory.h"
+#include "DYNMacrosMessage.h"
 
 using std::map;
 using std::string;
@@ -44,17 +44,11 @@ using DYN::Error;
 
 namespace dynamicdata {
 
-DynamicModelsCollection::Impl::Impl() {
-}
-
-DynamicModelsCollection::Impl::~Impl() {
-}
-
 void
-DynamicModelsCollection::Impl::addModel(const shared_ptr<Model>& model) {
+DynamicModelsCollection::addModel(const shared_ptr<Model>& model) {
   string id = model->getId();
   // Used instead of models_[name] = ModelFactory::newModel(id)
-  // to avoid necessity to create Model::Impl default constructor
+  // to avoid necessity to create Model default constructor
   std::pair<std::map<std::string, boost::shared_ptr<Model> >::iterator, bool> ret;
 #ifdef LANG_CXX11
   ret = models_.emplace(id, model);
@@ -66,8 +60,7 @@ DynamicModelsCollection::Impl::addModel(const shared_ptr<Model>& model) {
 }
 
 void
-DynamicModelsCollection::Impl::addConnect(const string& model1, const string& var1,
-        const string& model2, const string& var2) {
+DynamicModelsCollection::addConnect(const string& model1, const string& var1, const string& model2, const string& var2) {
   if (model1 == model2)
     throw DYNError(DYN::Error::API, InternalConnectDoneInSystem, model1, var1, model2, var2);
 
@@ -75,12 +68,12 @@ DynamicModelsCollection::Impl::addConnect(const string& model1, const string& va
 }
 
 void
-DynamicModelsCollection::Impl::addMacroConnect(const boost::shared_ptr<MacroConnect>& macroConnect) {
+DynamicModelsCollection::addMacroConnect(const boost::shared_ptr<MacroConnect>& macroConnect) {
   macroConnects_.push_back(macroConnect);
 }
 
 void
-DynamicModelsCollection::Impl::addMacroConnector(const boost::shared_ptr<MacroConnector>& macroConnector) {
+DynamicModelsCollection::addMacroConnector(const boost::shared_ptr<MacroConnector>& macroConnector) {
   string id = macroConnector->getId();
   std::pair<std::map<std::string, boost::shared_ptr<MacroConnector> >::iterator, bool> ret;
 #ifdef LANG_CXX11
@@ -93,7 +86,7 @@ DynamicModelsCollection::Impl::addMacroConnector(const boost::shared_ptr<MacroCo
 }
 
 void
-DynamicModelsCollection::Impl::addMacroStaticReference(const boost::shared_ptr<MacroStaticReference>& macroStaticReference) {
+DynamicModelsCollection::addMacroStaticReference(const boost::shared_ptr<MacroStaticReference>& macroStaticReference) {
   string id = macroStaticReference->getId();
   std::pair<std::map<std::string, boost::shared_ptr<MacroStaticReference> >::iterator, bool> ret;
 #ifdef LANG_CXX11
@@ -106,107 +99,107 @@ DynamicModelsCollection::Impl::addMacroStaticReference(const boost::shared_ptr<M
 }
 
 dynamicModel_const_iterator
-DynamicModelsCollection::Impl::cbeginModel() const {
+DynamicModelsCollection::cbeginModel() const {
   return dynamicModel_const_iterator(this, true);
 }
 
 dynamicModel_const_iterator
-DynamicModelsCollection::Impl::cendModel() const {
+DynamicModelsCollection::cendModel() const {
   return dynamicModel_const_iterator(this, false);
 }
 
 connector_const_iterator
-DynamicModelsCollection::Impl::cbeginConnector() const {
+DynamicModelsCollection::cbeginConnector() const {
   return connector_const_iterator(this, true);
 }
 
 connector_const_iterator
-DynamicModelsCollection::Impl::cendConnector() const {
+DynamicModelsCollection::cendConnector() const {
   return connector_const_iterator(this, false);
 }
 
 macroConnector_const_iterator
-DynamicModelsCollection::Impl::cbeginMacroConnector() const {
+DynamicModelsCollection::cbeginMacroConnector() const {
   return macroConnector_const_iterator(this, true);
 }
 
 macroConnector_const_iterator
-DynamicModelsCollection::Impl::cendMacroConnector() const {
+DynamicModelsCollection::cendMacroConnector() const {
   return macroConnector_const_iterator(this, false);
 }
 
 macroConnect_const_iterator
-DynamicModelsCollection::Impl::cbeginMacroConnect() const {
+DynamicModelsCollection::cbeginMacroConnect() const {
   return macroConnect_const_iterator(this, true);
 }
 
 macroConnect_const_iterator
-DynamicModelsCollection::Impl::cendMacroConnect() const {
+DynamicModelsCollection::cendMacroConnect() const {
   return macroConnect_const_iterator(this, false);
 }
 
 macroStaticReference_const_iterator
-DynamicModelsCollection::Impl::cbeginMacroStaticReference() const {
+DynamicModelsCollection::cbeginMacroStaticReference() const {
   return macroStaticReference_const_iterator(this, true);
 }
 
 macroStaticReference_const_iterator
-DynamicModelsCollection::Impl::cendMacroStaticReference() const {
+DynamicModelsCollection::cendMacroStaticReference() const {
   return macroStaticReference_const_iterator(this, false);
 }
 
 dynamicModel_iterator
-DynamicModelsCollection::Impl::beginModel() {
+DynamicModelsCollection::beginModel() {
   return dynamicModel_iterator(this, true);
 }
 
 dynamicModel_iterator
-DynamicModelsCollection::Impl::endModel() {
+DynamicModelsCollection::endModel() {
   return dynamicModel_iterator(this, false);
 }
 
 connector_iterator
-DynamicModelsCollection::Impl::beginConnector() {
+DynamicModelsCollection::beginConnector() {
   return connector_iterator(this, true);
 }
 
 connector_iterator
-DynamicModelsCollection::Impl::endConnector() {
+DynamicModelsCollection::endConnector() {
   return connector_iterator(this, false);
 }
 
 macroConnector_iterator
-DynamicModelsCollection::Impl::beginMacroConnector() {
+DynamicModelsCollection::beginMacroConnector() {
   return macroConnector_iterator(this, true);
 }
 
 macroConnector_iterator
-DynamicModelsCollection::Impl::endMacroConnector() {
+DynamicModelsCollection::endMacroConnector() {
   return macroConnector_iterator(this, false);
 }
 
 macroConnect_iterator
-DynamicModelsCollection::Impl::beginMacroConnect() {
+DynamicModelsCollection::beginMacroConnect() {
   return macroConnect_iterator(this, true);
 }
 
 macroConnect_iterator
-DynamicModelsCollection::Impl::endMacroConnect() {
+DynamicModelsCollection::endMacroConnect() {
   return macroConnect_iterator(this, false);
 }
 
 macroStaticReference_iterator
-DynamicModelsCollection::Impl::beginMacroStaticReference() {
+DynamicModelsCollection::beginMacroStaticReference() {
   return macroStaticReference_iterator(this, true);
 }
 
 macroStaticReference_iterator
-DynamicModelsCollection::Impl::endMacroStaticReference() {
+DynamicModelsCollection::endMacroStaticReference() {
   return macroStaticReference_iterator(this, false);
 }
 
 const shared_ptr<MacroConnector>&
-DynamicModelsCollection::Impl::findMacroConnector(const std::string& connector) {
+DynamicModelsCollection::findMacroConnector(const std::string& connector) {
   map<string, shared_ptr<MacroConnector> >::const_iterator iter = macroConnectors_.find(connector);
   if (iter == macroConnectors_.end())
     throw DYNError(DYN::Error::API, MacroConnectorUndefined, connector);
@@ -215,7 +208,7 @@ DynamicModelsCollection::Impl::findMacroConnector(const std::string& connector) 
 }
 
 const shared_ptr<MacroStaticReference>&
-DynamicModelsCollection::Impl::findMacroStaticReference(const std::string& id) {
+DynamicModelsCollection::findMacroStaticReference(const std::string& id) {
   map<string, shared_ptr<MacroStaticReference> >::const_iterator iter = macroStaticReferences_.find(id);
   if (iter == macroStaticReferences_.end())
     throw DYNError(DYN::Error::API, MacroStaticReferenceUndefined, id);

@@ -11,7 +11,7 @@
 //
 
 /**
- * @file  DYNNetworkComponentImpl.hpp
+ * @file  DYNNetworkComponent.hpp
  *
  * @brief Implementation of template methods
  *

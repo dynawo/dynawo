@@ -20,11 +20,11 @@
 #ifndef API_DYD_DYDMACROSTATICREFFACTORY_H_
 #define API_DYD_DYDMACROSTATICREFFACTORY_H_
 
+#include "DYDMacroStaticRef.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
-class MacroStaticRef;
-
 /**
  * @class MacroStaticRefFactory
  * @brief MacroStaticRef factory class

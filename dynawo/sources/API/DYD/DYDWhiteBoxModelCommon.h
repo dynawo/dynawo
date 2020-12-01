@@ -14,12 +14,13 @@
 #ifndef API_DYD_DYDWHITEBOXMODELCOMMON_H_
 #define API_DYD_DYDWHITEBOXMODELCOMMON_H_
 
-#include <string>
-#include <map>
+#include "DYDUnitDynamicModel.h"
+
 #include <boost/shared_ptr.hpp>
+#include <map>
+#include <string>
 
 namespace dynamicdata {
-class UnitDynamicModel;
 
 /**
  * @brief build the connection id from the model and variable names
@@ -33,9 +34,8 @@ class UnitDynamicModel;
  *
  * @returns connection id
  */
-std::string getConnectionId(const std::string& model1, const std::string& var1,
-    const std::string& model2, const std::string& var2, const std::string& id,
-    const std::map<std::string, boost::shared_ptr<UnitDynamicModel> >& unitDynamicModelsMap);
+std::string getConnectionId(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2, const std::string& id,
+                            const std::map<std::string, boost::shared_ptr<UnitDynamicModel> >& unitDynamicModelsMap);
 
 /**
  * @brief build the macro connection id from the model names
@@ -47,12 +47,9 @@ std::string getConnectionId(const std::string& model1, const std::string& var1,
  *
  * @returns connection id
  */
-std::string getMacroConnectionId(const std::string& model1,
-    const std::string& model2, const std::string& id,
-    const std::map<std::string, boost::shared_ptr<UnitDynamicModel> >& unitDynamicModelsMap);
+std::string getMacroConnectionId(const std::string& model1, const std::string& model2, const std::string& id,
+                                 const std::map<std::string, boost::shared_ptr<UnitDynamicModel> >& unitDynamicModelsMap);
 
 }  // namespace dynamicdata
-
-
 
 #endif  // API_DYD_DYDWHITEBOXMODELCOMMON_H_

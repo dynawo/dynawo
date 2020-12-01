@@ -20,10 +20,11 @@
 #ifndef API_DYD_DYDEXPORTER_H_
 #define API_DYD_DYDEXPORTER_H_
 
+#include "DYDDynamicModelsCollection.h"
+
 #include <string>
 
 namespace dynamicdata {
-class DynamicModelsCollection;
 
 /**
  * @class Exporter

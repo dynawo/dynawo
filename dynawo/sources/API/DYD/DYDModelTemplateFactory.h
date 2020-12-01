@@ -20,10 +20,11 @@
 #ifndef API_DYD_DYDMODELTEMPLATEFACTORY_H_
 #define API_DYD_DYDMODELTEMPLATEFACTORY_H_
 
+#include "DYDModelTemplate.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace dynamicdata {
-class ModelTemplate;
 
 /**
  * @class ModelTemplateFactory

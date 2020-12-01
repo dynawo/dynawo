@@ -32,17 +32,25 @@ namespace dynamicdata {
 class MacroStaticRef {
  public:
   /**
-   * @brief Destructor
+   * @brief MacroStaticRef::Impl constructor
+   *
+   * MacroStaticRef::Impl constructor.
+   *
+   * @param[in] id: id of the macroStaticRef
+   *
+   * @returns New MacroStaticRef::Impl instance with given attributes
    */
-  virtual ~MacroStaticRef() {}
+  explicit MacroStaticRef(const std::string& id);
+
   /**
    * @brief macroStaticRef id getter
    *
    * @return the id of the macroStaticRef
    */
-  virtual std::string getId() const = 0;
+  const std::string& getId() const;
 
-  class Impl;  // Implementation class
+ private:
+  std::string id_;  ///< id of the macroStaticRef
 };
 
 }  // namespace dynamicdata

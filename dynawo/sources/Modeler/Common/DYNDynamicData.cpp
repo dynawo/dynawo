@@ -53,7 +53,7 @@
 #include "DYDBlackBoxModel.h"
 #include "DYDModelTemplate.h"
 #include "DYDModelTemplateExpansion.h"
-#include "DYDConnectorImpl.h"
+#include "DYDConnector.h"
 #include "DYDMacroConnection.h"
 #include "DYDIterators.h"
 #include "DYDMacroConnect.h"
@@ -363,7 +363,7 @@ DynamicData::createModelDescriptions() {
       replaceMacroInVariableId((*itMacroConnect)->getIndex1(), (*itMacroConnect)->getName1(), model1, model2, connector, var1);
       replaceMacroInVariableId((*itMacroConnect)->getIndex2(), (*itMacroConnect)->getName2(), model1, model2, connector, var2);
 
-      systemConnects_.push_back(shared_ptr<dynamicdata::Connector>(new dynamicdata::Connector::Impl(model1, var1, model2, var2)));
+      systemConnects_.push_back(shared_ptr<dynamicdata::Connector>(new dynamicdata::Connector(model1, var1, model2, var2)));
     }
   }
 }

@@ -20,31 +20,23 @@
 #ifndef API_DYD_DYDXMLEXPORTER_H_
 #define API_DYD_DYDXMLEXPORTER_H_
 
+#include "DYDBlackBoxModel.h"
+#include "DYDDynamicModelsCollection.h"
 #include "DYDExporter.h"
+#include "DYDModelTemplate.h"
+#include "DYDModelTemplateExpansion.h"
+#include "DYDModelicaModel.h"
+#include "DYDUnitDynamicModel.h"
 
 namespace xml {
 namespace sax {
 namespace formatter {
 class Formatter;
 }
-}
-}
+}  // namespace sax
+}  // namespace xml
 
 namespace dynamicdata {
-class DynamicModelsCollection;
-class Model;
-class BlackBoxModel;
-class ModelTemplateExpansion;
-class UnitDynamicModel;
-class ModelTemplate;
-class ModelicaModel;
-class Connector;
-class StaticRef;
-class MacroConnect;
-class MacroConnector;
-class MacroConnection;
-class MacroStaticRef;
-class MacroStaticReference;
 
 /**
  * @class XmlExporter

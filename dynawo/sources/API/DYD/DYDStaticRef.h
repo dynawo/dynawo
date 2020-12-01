@@ -33,30 +33,38 @@ namespace dynamicdata {
 class StaticRef {
  public:
   /**
-   * @brief Destructor
+   * @brief StaticRef constructor
    */
-  virtual ~StaticRef() {}
+  StaticRef() {}
+  /**
+   * @brief StaticRef constructor
+   *
+   * @param modelVar Dynamic model variable
+   * @param staticVar static model variable
+   */
+  StaticRef(const std::string& modelVar, const std::string& staticVar);
+
   /**
    * @brief Model Variable setter
    * @param modelVar model variable
    */
-  virtual void setModelVar(const std::string& modelVar) = 0;
+  void setModelVar(const std::string& modelVar);
   /**
    * @brief Static Variable setter
    * @param staticVar static variable
    */
-  virtual void setStaticVar(const std::string& staticVar) = 0;
+  void setStaticVar(const std::string& staticVar);
 
   /**
    * @brief Model variable getter
    * @return model variable
    */
-  virtual std::string getModelVar() const = 0;
+  const std::string& getModelVar() const;
   /**
    * @brief Static Variable getter
    * @return static variable
    */
-  virtual std::string getStaticVar() const = 0;
+  const std::string& getStaticVar() const;
 
   /**
    * @brief compare two staticRef
@@ -67,14 +75,12 @@ class StaticRef {
    *         @b false else
    */
   inline bool operator==(const StaticRef& other) {
-    if (getModelVar() == other.getModelVar()
-            && getStaticVar() == other.getStaticVar())
-      return true;
-
-    return false;
+    return getModelVar() == other.getModelVar() && getStaticVar() == other.getStaticVar();
   }
 
-  class Impl;  ///< Implementation class
+ private:
+  std::string modelVar_;   ///< model variable
+  std::string staticVar_;  ///< static variable
 };
 
 }  // namespace dynamicdata
