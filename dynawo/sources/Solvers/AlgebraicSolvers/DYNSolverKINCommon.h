@@ -148,8 +148,8 @@ class SolverKINCommon {
   double t0_;  ///< initial time to use
   bool firstIteration_;  ///< @b true if first iteration, @b false otherwise
 
-  std::vector<double> fScale_;  ///< Scaling vector for residual functions
-  std::vector<double> yScale_;  ///< Scaling vector for variables
+  N_Vector fScaleNV_;  ///< Scaling vector for residual functions
+  N_Vector yScaleNV_;  ///< Scaling vector for variables
 };
 
 }  // end of namespace DYN

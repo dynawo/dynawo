@@ -145,12 +145,17 @@ SolverKINSubModel::solve() {
   subModel->evalF(t0_, UNDEFINED_EQ);
   firstIteration_ = true;
 
-  fScale_.assign(subModel->sizeF(), 1.0);
   for (unsigned int i = 0; i < nbF_; ++i) {
-    if (std::abs(fBuffer_[i])  > 1.)
-      fScale_[i] = 1 / std::abs(fBuffer_[i]);
+    if (std::abs(fBuffer_[i])  > 1.) {
+      NV_Ith_S(fScaleNV_, i) = 1 / std::abs(fBuffer_[i]);
+    } else {
+      NV_Ith_S(fScaleNV_, i) = 1.0;
+    }
   }
-  yScale_.assign(subModel->sizeY(), 1.0);
+
+  for (unsigned int i = 0; i < subModel->sizeY(); ++i) {
+    NV_Ith_S(yScaleNV_, i) = 1.0;
+  }
 
   // SubModel initialization can fail, especially on switch currents.
   // This failure shouldn't be stopping the simulation.

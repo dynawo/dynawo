@@ -142,7 +142,7 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
     }
   }
 
-  if (ignoreF_.size() != ignoreY_.size() || indexF_.size() != indexY_.size())
+  if (ignoreF_.size() != ignoreY_.size() || indexF_.size() != indexY_.size() || indexF_.size() != nbF_)
     throw DYNError(Error::SOLVER_ALGO, SolverUnbalanced);
 }
 
@@ -219,8 +219,9 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
 
 #ifdef _DEBUG_
   // Print the current residual norms, the first one is used as a stopping criterion
-  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solv->F_, solv->indexF_, solv->fScale_);
-  double wL2Norm = SolverCommon::weightedL2Norm(solv->F_, solv->indexF_, solv->fScale_);
+  std::vector<double> fScale(NV_DATA_S(solv->fScaleNV_), NV_DATA_S(solv->fScaleNV_) + NV_LENGTH_S(solv->fScaleNV_));
+  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solv->F_, solv->indexF_, fScale);
+  double wL2Norm = SolverCommon::weightedL2Norm(solv->F_, solv->indexF_, fScale);
   long int current_nni = 0;
   KINGetNumNonlinSolvIters(solv->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
@@ -326,17 +327,20 @@ SolverKINAlgRestoration::solve(bool noInitSetup, bool evaluateOnlyModeAtFirstIte
     model_->evalF(t0_, &y0_[0], &yp0_[0], &F_[0]);
 
   // fScale
-  fScale_.assign(indexF_.size(), 1.0);
   for (unsigned int i = 0; i < indexF_.size(); ++i) {
-    if ( std::abs(F_[indexF_[i]]) > RCONST(1.0))
-      fScale_[i] = 1. / std::abs(F_[indexF_[i]]);
+    if (std::abs(F_[indexF_[i]]) > RCONST(1.0)) {
+      NV_Ith_S(fScaleNV_, i) = 1. / std::abs(F_[indexF_[i]]);
+    } else {
+      NV_Ith_S(fScaleNV_, i) = 1.0;
+    }
   }
 
   // yScale
-  yScale_.assign(indexY_.size(), 1.0);
   for (unsigned int i = 0; i < indexY_.size(); ++i) {
     if (std::abs(vYy_[indexY_[i]]) > RCONST(1.0)) {
-      yScale_[i] = 1. / std::abs(vYy_[indexY_[i]]);
+      NV_Ith_S(yScaleNV_, i) = 1. / std::abs(vYy_[indexY_[i]]);
+    } else {
+      NV_Ith_S(yScaleNV_, i) = 1.0;
     }
   }
 

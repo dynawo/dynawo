@@ -126,8 +126,9 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
   if (!solv->getFirstIteration()) {
     memcpy(&solv->F_[0], irr, solv->F_.size() * sizeof(solv->F_[0]));
   }
-  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solv->F_, solv->fScale_);
-  double wL2Norm = SolverCommon::weightedL2Norm(solv->F_, solv->fScale_);
+  std::vector<double> fScale(NV_DATA_S(solv->fScaleNV_),  NV_DATA_S(solv->fScaleNV_) + NV_LENGTH_S(solv->fScaleNV_));
+  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solv->F_, fScale);
+  double wL2Norm = SolverCommon::weightedL2Norm(solv->F_, fScale);
   long int current_nni = 0;
   KINGetNumNonlinSolvIters(solv->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
@@ -183,16 +184,20 @@ SolverKINEuler::solve(bool noInitSetup, bool skipAlgebraicResidualsEvaluation) {
   else
     model_->evalF(t0_ + h0_ , &y0_[0], &YP_[0], &F_[0]);
 
-  fScale_.assign(nbF_, 1.0);
   for (unsigned int i = 0; i < nbF_; ++i) {
-    if (std::abs(F_[i]) > RCONST(1.0))
-      fScale_[i] = 1 / std::abs(F_[i]);
+    if (std::abs(F_[i]) > RCONST(1.0)) {
+      NV_Ith_S(fScaleNV_, i) = 1 / std::abs(F_[i]);
+    } else {
+      NV_Ith_S(fScaleNV_, i) = 1.0;
+    }
   }
 
-  yScale_.assign(model_->sizeY(), 1.0);
   for (int i = 0; i < model_->sizeY(); ++i) {
-    if (std::abs(y0_[i]) > RCONST(1.0))
-      yScale_[i] = 1 / std::abs(y0_[i]);
+    if (std::abs(y0_[i]) > RCONST(1.0)) {
+      NV_Ith_S(yScaleNV_, i) = 1 / std::abs(y0_[i]);
+    } else {
+      NV_Ith_S(yScaleNV_, i) = 1.0;
+    }
   }
 
   flag = solveCommon();

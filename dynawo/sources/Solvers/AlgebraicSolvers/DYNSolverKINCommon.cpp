@@ -56,7 +56,9 @@ yy_(NULL),
 lastRowVals_(NULL),
 nbF_(0),
 t0_(0.),
-firstIteration_(false) {
+firstIteration_(false),
+fScaleNV_(NULL),
+yScaleNV_(NULL) {
 }
 
 SolverKINCommon::~SolverKINCommon() {
@@ -64,6 +66,15 @@ SolverKINCommon::~SolverKINCommon() {
 }
 
 void SolverKINCommon::clean() {
+  if (fScaleNV_ != NULL) {
+    N_VDestroy_Serial(fScaleNV_);
+    fScaleNV_ = NULL;
+  }
+  if (yScaleNV_ != NULL) {
+    N_VDestroy_Serial(yScaleNV_);
+    yScaleNV_ = NULL;
+  }
+
   if (M_ != NULL) {
     SUNMatDestroy(M_);
     M_ = NULL;
@@ -92,6 +103,9 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
   // ----------------
   if (nbF_ == 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverEmptyYVector);
+
+  fScaleNV_ = N_VNew_Serial(nbF_);
+  yScaleNV_ = N_VNew_Serial(nbF_);
 
   // (2) Creation of Kinsol internal memory
   // --------------------------------------
@@ -189,16 +203,8 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
 
 int
 SolverKINCommon::solveCommon() {
-  N_Vector fScaleNV = N_VNew_Serial(fScale_.size());
-  N_Vector yScaleNV = N_VNew_Serial(yScale_.size());
-  memcpy(NV_DATA_S(fScaleNV), &fScale_[0], fScale_.size() * sizeof (fScale_[0]));
-  memcpy(NV_DATA_S(yScaleNV), &yScale_[0], yScale_.size() * sizeof (yScale_[0]));
-
-  int flag = KINSol(KINMem_, yy_, KIN_NONE, yScaleNV, fScaleNV);
+  int flag = KINSol(KINMem_, yy_, KIN_NONE, yScaleNV_, fScaleNV_);
   analyseFlag(flag);
-
-  if (fScaleNV != NULL) N_VDestroy_Serial(fScaleNV);
-  if (yScaleNV != NULL) N_VDestroy_Serial(yScaleNV);
 
   return flag;
 }
