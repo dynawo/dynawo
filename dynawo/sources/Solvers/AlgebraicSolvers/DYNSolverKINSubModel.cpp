@@ -21,7 +21,7 @@
 #include <sunlinsol/sunlinsol_klu.h>
 #include <sundials/sundials_types.h>
 #include <sundials/sundials_math.h>
-#include <sundials/sundials_sparse.h>
+#include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
 #include <cstring>
 #include <vector>
@@ -126,7 +126,7 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
   // Arbitrary value for cj
   double cj = 1;
   subModel->evalJt(solv->t0_, cj, smj, 0);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, false);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solv->lastRowVals_, solv->LS_, solv->linearSolverName_, false);
 
   return (0);
 }

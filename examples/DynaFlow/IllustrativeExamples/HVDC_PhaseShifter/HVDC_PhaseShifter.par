@@ -17,6 +17,8 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <reference name="generator_PRef0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_URef0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
     <par type="DOUBLE" name="generator_PMax" value="1000000"/>
     <par type="DOUBLE" name="generator_QMin" value="-1000000"/>
@@ -62,6 +64,8 @@
     <par type="DOUBLE" name="hvdc_Q2MinPu" value="-100"/>
     <par type="DOUBLE" name="hvdc_Q2MaxPu" value="100"/>
     <par type="DOUBLE" name="hvdc_KLosses" value="1"/>
+    <par type="BOOL" name="hvdc_modeU10" value="true"/>
+    <par type="BOOL" name="hvdc_modeU20" value="true"/>
     <par type="DOUBLE" name="acemulation_KACEmulation" value="500"/>
     <par type="DOUBLE" name="acemulation_tFilter" value="50"/>
   </set>

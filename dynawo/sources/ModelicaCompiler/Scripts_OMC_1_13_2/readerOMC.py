@@ -923,8 +923,8 @@ class ReaderOMC:
     def read_07dly_c_file(self):
         nbFound = 0
         if os.path.isfile(self._07dly_c_file):
-            pattern_with_parameters = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[(?P<localId>\d+)\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.]+).*?\s*\*\/, data->localData\[(?P<timeId>\d*)\]->timeValue.*,.*?\/\*\s*(?P<delayMaxName>[\w.]+).*\)")
-            pattern = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[\d+\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.]+).*?\s*\*\/, data->localData\[(?P<timeId>\d*)\]->timeValue.*,\s*(?P<delayMax>\d+\.\d+)\)")
+            pattern_with_parameters = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[(?P<localId>\d+)\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/, data->localData\[(?P<timeId>\d*)\]->timeValue.*,.*?\/\*\s*(?P<delayMaxName>[\w.\[\]]+).*\)")
+            pattern = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[\d+\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.\[\]]+).*?\s*\*\/, data->localData\[(?P<timeId>\d*)\]->timeValue.*,\s*(?P<delayMax>\d+\.\d+)\)")
             with open(self._07dly_c_file, 'r') as f:
                 for line in f:
                     match = re.search(pattern, line)
@@ -1475,6 +1475,7 @@ class ReaderOMC:
                     self.list_complex_const_vars.append(var)
 
         ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
+        map_dep = self.get_map_dep_vars_for_func()
         for var in self.list_vars:
             if var in self.list_complex_calculated_vars:
                 self.list_calculated_vars.append(var)
@@ -1500,11 +1501,13 @@ class ReaderOMC:
                     negated = "-" if var.get_alias_negated() else ""
                     self.list_calculated_vars.append(var)
                     self.dic_calculated_vars_values[var.get_name()] = negated + to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
+                    map_dep[var.get_name()] = [var.get_alias_name()]
                 if is_real_const_var(var):
                     test_param_address(var.get_alias_name())
                     negated = "-" if var.get_alias_negated() else ""
                     self.list_calculated_vars.append(var)
                     self.dic_calculated_vars_values[var.get_name()] = negated+to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
+                    map_dep[var.get_name()] = [var.get_alias_name()]
 
 
     ##

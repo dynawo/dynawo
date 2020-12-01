@@ -27,7 +27,7 @@ model ACEmulation "AC Emulation for HVDC"
     Placement(visible = true, transformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput Theta2(start = Theta20) "Angle of the voltage at terminal 2 in rad" annotation(
     Placement(visible = true, transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PSetPu(k = PRefSet0Pu) "Raw reference active power in p.u (base SNom)"  annotation(
+  Modelica.Blocks.Sources.Constant PRefSetPu(k = PRefSet0Pu) "Raw reference active power in p.u (base SNom)"  annotation(
     Placement(visible = true, transformation(origin = {-110, -71}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealOutput PRefPu(start = PRef0Pu) "Reference active power in p.u (base SNom)" annotation(
@@ -60,7 +60,7 @@ equation
     Line(points = {{54, 6}, {66, 6}, {66, 6}, {68, 6}}, color = {0, 0, 127}));
   connect(add.y, PRefPu) annotation(
     Line(points = {{91, 0}, {101, 0}, {101, 0}, {110, 0}}, color = {0, 0, 127}));
-  connect(PSetPu.y, add.u2) annotation(
+  connect(PRefSetPu.y, add.u2) annotation(
     Line(points = {{-99, -71}, {60, -71}, {60, -6}, {68, -6}, {68, -6}}, color = {0, 0, 127}));
   connect(Theta1, firstOrder.u) annotation(
     Line(points = {{-110, 50}, {-50, 50}, {-50, 50}, {-48, 50}}, color = {0, 0, 127}));

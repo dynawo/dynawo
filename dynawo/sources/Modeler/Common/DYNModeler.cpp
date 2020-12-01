@@ -98,9 +98,9 @@ Modeler::initNetwork() {
 
 void
 Modeler::initModelDescription() {
-  map<string, shared_ptr<ModelDescription> > modelDescriptions = dyd_->getModelDescriptions();
-  map<string, shared_ptr<ModelDescription> >::const_iterator itModelDescription;
-  for (itModelDescription = modelDescriptions.begin(); itModelDescription != modelDescriptions.end(); ++itModelDescription) {
+  const std::map<string, shared_ptr<ModelDescription> >& modelDescriptions = dyd_->getModelDescriptions();
+  for (std::map<string, shared_ptr<ModelDescription> >::const_iterator itModelDescription = modelDescriptions.begin();
+        itModelDescription != modelDescriptions.end(); ++itModelDescription) {
     if (itModelDescription->second->getModel()->getType() == dynamicdata::Model::MODEL_TEMPLATE) {
       continue;
     }
@@ -229,8 +229,8 @@ Modeler::initConnects() {
   Trace::debug(Trace::modeler()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::modeler()) << DYNLog(DynamicConnectStart) << Trace::endline;
   Trace::debug(Trace::modeler()) << "------------------------------" << Trace::endline;
-  map<string, shared_ptr<ConnectInterface> > connects = dyd_->getConnectInterfaces();
-  for (map<string, shared_ptr<ConnectInterface> >::const_iterator itConnector = connects.begin();
+  const std::map<string, shared_ptr<ConnectInterface> >& connects = dyd_->getConnectInterfaces();
+  for (std::map<string, shared_ptr<ConnectInterface> >::const_iterator itConnector = connects.begin();
           itConnector != connects.end(); ++itConnector) {
     string id1 = (itConnector->second)->getConnectedModel1();
     string id2 = (itConnector->second)->getConnectedModel2();
@@ -333,8 +333,8 @@ void
 Modeler::SanityCheckFlowConnection() const {
   boost::unordered_map<string, unsigned> flowVarId2ConnIndex;
   unsigned connIndex = 0;
-  map<string, shared_ptr<ModelDescription> > modelDescriptions = dyd_->getModelDescriptions();
-  for (map<string, shared_ptr<ModelDescription> >::const_iterator itModelDescription = modelDescriptions.begin(),
+  const std::map<string, shared_ptr<ModelDescription> >& modelDescriptions = dyd_->getModelDescriptions();
+  for (std::map<string, shared_ptr<ModelDescription> >::const_iterator itModelDescription = modelDescriptions.begin(),
       itModelDescriptionEnd = modelDescriptions.end();
       itModelDescription != itModelDescriptionEnd; ++itModelDescription) {
     if (itModelDescription->second->getModel()->getType() != dynamicdata::Model::MODELICA_MODEL) {
@@ -381,8 +381,8 @@ Modeler::SanityCheckFlowConnection() const {
   }
 
   // Now compare to external flow connections
-  map<string, shared_ptr<ConnectInterface> > connects = dyd_->getConnectInterfaces();
-  for (map<string, shared_ptr<ConnectInterface> >::const_iterator itConnector = connects.begin();
+  const std::map<string, shared_ptr<ConnectInterface> >& connects = dyd_->getConnectInterfaces();
+  for (std::map<string, shared_ptr<ConnectInterface> >::const_iterator itConnector = connects.begin();
       itConnector != connects.end(); ++itConnector) {
     string id1 = (itConnector->second)->getConnectedModel1();
     string id2 = (itConnector->second)->getConnectedModel2();

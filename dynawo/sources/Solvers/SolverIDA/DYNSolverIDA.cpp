@@ -34,7 +34,7 @@
 #include <nvector/nvector_serial.h>
 #include <sundials/sundials_types.h>
 #include <sundials/sundials_math.h>
-#include <sundials/sundials_sparse.h>
+#include <sunmatrix/sunmatrix_sparse.h>
 #include <sunlinsol/sunlinsol_klu.h>
 
 #include "PARParametersSet.h"
@@ -580,7 +580,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
   smj.init(size, size);
   model->copyContinuousVariables(iyy, iyp);
   model->evalJt(tt, cj, smj);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, solv->lastRowVals_, solv->LS_, "KLU", true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solv->lastRowVals_, solv->LS_, "KLU", true);
 
   return (0);
 }

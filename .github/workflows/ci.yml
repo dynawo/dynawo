@@ -1,0 +1,99 @@
+name: CI
+
+on: [push]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: dynawo/dynawo-ci:latest
+      options: --user root
+    env:
+      DYNAWO_BUILD_TYPE: Debug
+      DYNAWO_CXX11_ENABLED: YES
+      DYNAWO_COMPILER: GCC
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
+      DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
+      DYNAWO_NB_PROCESSORS_USED: 2
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v1
+
+      - name: Build
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-user
+
+      - name: Update Docker Hub
+        env:
+          DOCKER_HUB_TOKEN1: ${{ secrets.DOCKER_HUB_TOKEN1 }}
+          DOCKER_HUB_TOKEN2: ${{ secrets.DOCKER_HUB_TOKEN2 }}
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: curl -sw '%{http_code}\n' --header "Content-Type":" application/json" -X POST --data '{"dynawo":"Update"}' https://hub.docker.com/api/build/v1/source/$DOCKER_HUB_TOKEN1/trigger/$DOCKER_HUB_TOKEN2/call/
+
+  coverage:
+    runs-on: ubuntu-latest
+    container:
+      image: dynawo/dynawo-ci:latest
+      options: --user root
+    env:
+      DYNAWO_BUILD_TYPE: TestCoverage
+      DYNAWO_CXX11_ENABLED: YES
+      DYNAWO_COMPILER: GCC
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
+      DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
+      DYNAWO_NB_PROCESSORS_USED: 2
+    steps:
+      - name: Install Sonar wrapper
+        working-directory: ${{ runner.workspace }}
+        env:
+          CONTAINER_WORKSPACE: ${{ runner.workspace }}
+        run: |
+          wget https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+          unzip build-wrapper-linux-x86.zip
+
+      - name: Install Sonar scanner
+        working-directory: ${{ runner.workspace }}
+        env:
+          SONAR_SCANNER_VERSION: 3.3.0.1492
+        run: |
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
+          unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
+          ln -s sonar-scanner-${SONAR_SCANNER_VERSION} sonar
+          rm sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
+          dnf install -y java-11-openjdk
+
+      - name: Checkout sources
+        uses: actions/checkout@v1
+
+      # In a PR use pre-built 3rd parties to optimize the duration of the job
+      - name: Build branch PR
+        env:
+          CONTAINER_WORKSPACE: ${{ runner.workspace }}
+          DYNAWO_THIRD_PARTY_INSTALL_DIR: /opt/dynawo/3rParty
+        if: github.ref != 'refs/heads/master' && github.event_name == 'push'
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
+
+      - name: Build master
+        env:
+          CONTAINER_WORKSPACE: ${{ runner.workspace }}
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
+
+      - name: Sonarcloud
+        working-directory: ${{ runner.workspace }}/dynawo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          CONTAINER_WORKSPACE: ${{ runner.workspace }}
+        run: $CONTAINER_WORKSPACE/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.cfamily.threads=2

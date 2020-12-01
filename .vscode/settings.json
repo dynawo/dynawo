@@ -1,0 +1,40 @@
+{
+    "editor.formatOnSave": false,
+    "cmake.configureOnOpen": true,
+
+    "[diff]": {
+        "files.trimTrailingWhitespace": false
+    },
+
+    // uncomment this to compile 3rd parties
+    // "cmake.sourceDirectory": "${workspaceFolder}/dynawo/3rdParty",
+    // "cmake.buildDirectory": "${workspaceFolder}/build-code/3rdParty",
+
+    // uncomment this to compile dynamo after installing 3rd parties
+    "cmake.sourceDirectory": "${workspaceFolder}/dynawo",
+    "cmake.buildDirectory": "${workspaceFolder}/build-code/dynawo",
+
+    // dynawo compile
+    "cmake.configureSettings": {
+        "DYNAWO_HOME": "${workspaceFolder}",
+
+        // To compile dynamo after installing 3rd parties
+        "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/build-code/Install/dynawo",
+
+        // To compile 3rd parties
+        // "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/build-code/Install/3rdParty",
+
+        "DYNAWO_THIRD_PARTY_DIR": "${workspaceFolder}/build-code/Install/3rdParty",
+        "INSTALL_OPENMODELICA": "${workspaceFolder}/OpenModelica/Install",
+        "OPENMODELICA_INSTALL": "${workspaceFolder}/OpenModelica/Install",
+        "OPENMODELICA_SRC": "${workspaceFolder}/OpenModelica/Source",
+        "CXX11_ENABLED": "ON",
+        "BOOST_ROOT_DEFAULT": "true",
+        "DYNAWO_DEBUG_COMPILER_OPTION": "-O0",
+        "BUILD_SHARED_LIBS": "ON",
+        "TMP_DIR": "${workspaceFolder}/build-code/tmp",
+        "DOWNLOAD_DIR": "${workspaceFolder}/build-code/src",
+        "GTEST_ROOT": "${workspaceFolder}/build-code/Install/3rdParty/googletest",
+        "GMOCK_HOME": "${workspaceFolder}/build-code/Install/3rdParty/googletest"
+    }
+}

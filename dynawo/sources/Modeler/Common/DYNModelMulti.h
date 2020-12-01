@@ -26,6 +26,7 @@
 #include <boost/unordered_map.hpp>
 
 #include "DYNModel.h"
+#include "DYNVariable.h"
 
 namespace DYN {
 class SubModel;
@@ -482,11 +483,12 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @brief create a connection bewteen a variable and a calculated variable
    *
    * @param subModel1  first subModel where the calculated variable is located
-   * @param numVar index of the calculated variable inside the subModel 1
+   * @param variable1 calculated variable of the subModel 1
    * @param subModel2 second  subModel where the variable is located
-   * @param yNum index of the variable inside the subModel 2
+   * @param variable2 variable of the subModel 2
    */
-  void createCalculatedVariableConnection(boost::shared_ptr<SubModel> &subModel1, const int & numVar, boost::shared_ptr<SubModel> &subModel2, const int &yNum);
+  void createCalculatedVariableConnection(boost::shared_ptr<SubModel> &subModel1, const boost::shared_ptr<Variable>& variable1,
+      boost::shared_ptr<SubModel> &subModel2, const boost::shared_ptr<Variable>& variable2);
 
   /**
    * @brief struct used identify properties from a subModel found with a variable name
@@ -537,8 +539,8 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void cleanBuffers();
 
-  std::map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel
-  std::map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
+  boost::unordered_map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel
+  boost::unordered_map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
   std::vector<std::string> yNames_;  ///< names of all variables y
   std::vector<boost::shared_ptr<SubModel> > subModels_;  ///< list of each sub models
   boost::unordered_map<std::string, size_t > subModelByName_;  ///< map associating a sub model name to its index in subModels_

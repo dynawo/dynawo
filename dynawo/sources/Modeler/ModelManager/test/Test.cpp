@@ -54,6 +54,7 @@ class MyModelica: public ModelModelica {
   virtual void initData(DYNDATA* data) {
     data->nbF = 2;
     data->nbCalculatedVars = 1;
+    data->nbDelays = 0;
     data->nbModes = 1;
     data->nbVars = 2;
     data->nbZ = 1;
@@ -452,6 +453,7 @@ class MyModelicaInit: public MyModelica {
   virtual void initData(DYNDATA* data) {
     data->nbF = 1;
     data->nbCalculatedVars = 0;
+    data->nbDelays = 0;
     data->nbModes = 0;
     data->nbVars = 1;
     data->nbZ = 0;
@@ -500,6 +502,7 @@ class MyModelManager : public ModelManager {
     ASSERT_EQ(dataInit_->nbZ , 0);
     ASSERT_EQ(dataDyn_->nbF, 2);
     ASSERT_EQ(dataDyn_->nbCalculatedVars, 1);
+    ASSERT_EQ(dataDyn_->nbDelays, 0);
     ASSERT_EQ(dataDyn_->nbModes, 1);
     ASSERT_EQ(dataDyn_->nbVars, 2);
     ASSERT_EQ(dataDyn_->nbZ , 1);

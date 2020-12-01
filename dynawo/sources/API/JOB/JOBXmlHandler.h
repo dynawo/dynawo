@@ -39,6 +39,7 @@ class InitValuesEntry;
 class DynModelsEntry;
 class ConstraintsEntry;
 class TimelineEntry;
+class TimetableEntry;
 class ModelsDirEntry;
 class FinalStateEntry;
 class CurvesEntry;
@@ -364,6 +365,40 @@ class TimelineHandler : public xml::sax::parser::ComposableElementHandler {
 };
 
 /**
+ * @class TimetableHandler
+ * @brief Handler used to parse timetable element
+ */
+class TimetableHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit TimetableHandler(elementName_type const &root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~TimetableHandler() { }
+
+  /**
+   * @brief return the timetable entry read in xml file
+   * @return timetable entry object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<TimetableEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<TimetableEntry> timetable_;  ///< current timetable entry object
+};
+
+/**
  * @class FinalStateHandler
  * @brief Handler used to parse final state element
  */
@@ -510,6 +545,11 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   void addTimeline();
 
   /**
+   * @brief add a timetable object to the current job
+   */
+  void addTimetable();
+
+  /**
    * @brief add a finalState object to the current job
    */
   void addFinalState();
@@ -536,6 +576,7 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   InitValuesHandler initValuesHandler_;  ///< handler used to read init values element
   ConstraintsHandler constraintsHandler_;  ///< handler used to read constraints element
   TimelineHandler timelineHandler_;  ///< handler used to read timeline element
+  TimetableHandler timetableHandler_;  ///< handler used to read timetable element
   FinalStateHandler finalStateHandler_;  ///< handler used to read finalState element
   CurvesHandler curvesHandler_;  ///< handler used to read curves element
   LogsHandler logsHandler_;  ///< handler used to read logs element

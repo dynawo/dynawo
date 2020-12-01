@@ -17,6 +17,7 @@ set(MODEL_FILES
     LoadAlphaBeta.extvar
     LoadAlphaBetaRestorative.mo
     LoadAlphaBetaRestorative.extvar
+    LoadAlphaBetaRestorativeLimitsRecalc_INIT.mo
     LoadPQ.mo
     LoadPQ.extvar
     LoadZIP.mo

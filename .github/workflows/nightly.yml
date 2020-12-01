@@ -1,0 +1,168 @@
+name: Nightly
+
+on:
+  schedule:
+    - cron:  '0 0 * * 1-5'
+
+jobs:
+  fedora:
+    name: Linux Fedora (${{ matrix.build-type }}, ${{ matrix.compiler }}, ${{ matrix.cxx11-standard }}, ${{ matrix.library-type }})
+    runs-on: ubuntu-latest
+    container:
+      image: dynawo/dynawo-ci-nightly-fedora:latest
+      options: --user root
+    strategy:
+      matrix:
+        build-type: [Release, Debug]
+        cxx11-standard: [YES, NO]
+        compiler: [GCC, CLANG]
+        library-type: [SHARED, STATIC]
+    env:
+      DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
+      DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_BUILD_TYPE: ${{ matrix.build-type }}
+      DYNAWO_CXX11_ENABLED: ${{ matrix.cxx11-standard }}
+      DYNAWO_COMPILER: ${{ matrix.compiler }}
+      DYNAWO_LIBRARY_TYPE: ${{ matrix.library-type }}
+      DYNAWO_NB_PROCESSORS_USED: 2
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v1
+
+      - name: Build
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-user
+
+      - name: Tests
+        if: ${{ matrix.build-type == 'Debug' && matrix.library-type == 'SHARED' }}
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-tests
+
+      - name: NRT
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh nrt
+
+  bionic:
+    name: Linux Bionic
+    runs-on: ubuntu-latest
+    container:
+      image: dynawo/dynawo-ci-nightly-bionic:latest
+      options: --user root
+    env:
+      DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
+      DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_BUILD_TYPE: Release
+      DYNAWO_CXX11_ENABLED: YES
+      DYNAWO_COMPILER: GCC
+      DYNAWO_LIBRARY_TYPE: SHARED
+      DYNAWO_NB_PROCESSORS_USED: 2
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v1
+
+      - name: Build
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-user
+
+      - name: NRT
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh nrt
+
+  omc:
+    name: Linux OMC Build (${{ matrix.compiler }})
+    runs-on: ubuntu-latest
+    container:
+      image: dynawo/dynawo-ci-nightly-fedora:latest
+      options: --user root
+    strategy:
+      matrix:
+        compiler: [GCC, CLANG]
+    env:
+      DYNAWO_BUILD_TYPE: Release
+      DYNAWO_CXX11_ENABLED: YES
+      DYNAWO_COMPILER: ${{ matrix.compiler }}
+      DYNAWO_LIBRARY_TYPE: SHARED
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v1
+
+      - name: Build
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-omcDynawo
+
+  macos:
+    name: MacOS
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        build-type: [Release, Debug]
+        library-type: [SHARED, STATIC]
+    env:
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_BUILD_TYPE: ${{ matrix.build-type }}
+      DYNAWO_CXX11_ENABLED: YES
+      DYNAWO_COMPILER: CLANG
+      DYNAWO_LIBRARY_TYPE: ${{ matrix.library-type }}
+      MACOSX_DEPLOYMENT_TARGET: 10.14
+      DYNAWO_BOOST_HOME_DEFAULT: "false"
+      DYNAWO_NB_PROCESSORS_USED: 2
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v1
+
+      - name: Pre-requisites
+        run: |
+          pip install lxml psutil
+          brew install automake gnu-sed
+          ln -s /usr/local/bin/gfortran-9 /usr/local/bin/gfortran
+
+      # - name: Install OMC
+      #   working-directory: ${{ runner.workspace }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     zip_url=$(curl -s -L -H "Authorization: token $GITHUB_TOKEN" -X GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep "Dynawo_MacOS" | grep url | cut -d '"' -f 4)
+      #     curl -L $zip_url -o Dynawo_MacOS_latest.zip
+      #     unzip -q Dynawo_MacOS_latest.zip -d Dynawo_MacOS_latest
+      #     (cd Dynawo_MacOS_latest/dynawo;rm -rf ddb sbin bin share sources include lib)
+
+      - name: Build
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-user
+
+      - name: Tests
+        if: ${{ matrix.build-type == 'Debug' && matrix.library-type == 'SHARED' }}
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-tests
+
+      - name: NRT
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          for job in $(find nrt/data -name "*.jobs"); do util/envDynawo.sh jobs $job || { echo "Error with job $job."; exit 1; }; done

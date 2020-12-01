@@ -42,6 +42,7 @@
 #include "JOBSimulationEntryImpl.h"
 #include "JOBSolverEntryImpl.h"
 #include "JOBTimelineEntryImpl.h"
+#include "JOBTimetableEntryImpl.h"
 #include "DYNMacrosMessage.h"
 #include "JOBModelsDirEntryImpl.h"
 
@@ -249,6 +250,7 @@ OutputsHandler::OutputsHandler(elementName_type const& root_element) :
 initValuesHandler_(parser::ElementName(jobs_ns, "dumpInitValues")),
 constraintsHandler_(parser::ElementName(jobs_ns, "constraints")),
 timelineHandler_(parser::ElementName(jobs_ns, "timeline")),
+timetableHandler_(parser::ElementName(jobs_ns, "timetable")),
 finalStateHandler_(parser::ElementName(jobs_ns, "finalState")),
 curvesHandler_(parser::ElementName(jobs_ns, "curves")),
 logsHandler_(parser::ElementName(jobs_ns, "logs")) {
@@ -257,6 +259,7 @@ logsHandler_(parser::ElementName(jobs_ns, "logs")) {
   onElement(root_element + jobs_ns("dumpInitValues"), initValuesHandler_);
   onElement(root_element + jobs_ns("constraints"), constraintsHandler_);
   onElement(root_element + jobs_ns("timeline"), timelineHandler_);
+  onElement(root_element + jobs_ns("timetable"), timetableHandler_);
   onElement(root_element + jobs_ns("finalState"), finalStateHandler_);
   onElement(root_element + jobs_ns("curves"), curvesHandler_);
   onElement(root_element + jobs_ns("logs"), logsHandler_);
@@ -264,6 +267,7 @@ logsHandler_(parser::ElementName(jobs_ns, "logs")) {
   initValuesHandler_.onEnd(lambda::bind(&OutputsHandler::addInitValuesEntry, lambda::ref(*this)));
   constraintsHandler_.onEnd(lambda::bind(&OutputsHandler::addConstraints, lambda::ref(*this)));
   timelineHandler_.onEnd(lambda::bind(&OutputsHandler::addTimeline, lambda::ref(*this)));
+  timetableHandler_.onEnd(lambda::bind(&OutputsHandler::addTimetable, lambda::ref(*this)));
   finalStateHandler_.onEnd(lambda::bind(&OutputsHandler::addFinalState, lambda::ref(*this)));
   curvesHandler_.onEnd(lambda::bind(&OutputsHandler::addCurves, lambda::ref(*this)));
   logsHandler_.onEnd(lambda::bind(&OutputsHandler::addLog, lambda::ref(*this)));
@@ -282,6 +286,11 @@ OutputsHandler::addConstraints() {
 void
 OutputsHandler::addTimeline() {
   outputs_->setTimelineEntry(timelineHandler_.get());
+}
+
+void
+OutputsHandler::addTimetable() {
+  outputs_->setTimetableEntry(timetableHandler_.get());
 }
 
 void
@@ -354,6 +363,21 @@ TimelineHandler::create(attributes_type const& attributes) {
 shared_ptr<TimelineEntry>
 TimelineHandler::get() const {
   return timeline_;
+}
+
+TimetableHandler::TimetableHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&TimetableHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+void
+TimetableHandler::create(attributes_type const& attributes) {
+  timetable_ = shared_ptr<TimetableEntry>(new TimetableEntry::Impl());
+  timetable_->setStep(attributes["step"]);
+}
+
+shared_ptr<TimetableEntry>
+TimetableHandler::get() const {
+  return timetable_;
 }
 
 FinalStateHandler::FinalStateHandler(elementName_type const& root_element) {

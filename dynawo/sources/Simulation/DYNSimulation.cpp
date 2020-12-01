@@ -83,6 +83,7 @@
 #include "JOBInitValuesEntry.h"
 #include "JOBConstraintsEntry.h"
 #include "JOBTimelineEntry.h"
+#include "JOBTimetableEntry.h"
 #include "JOBFinalStateEntry.h"
 #include "JOBCurvesEntry.h"
 #include "JOBSimulationEntry.h"
@@ -272,6 +273,7 @@ Simulation::configureSimulationOutputs() {
     }
     configureConstraintsOutputs();
     configureTimelineOutputs();
+    configureTimetableOutputs();
     configureCurveOutputs();
     configureFinalStateOutputs();
   }
@@ -334,6 +336,21 @@ Simulation::configureTimelineOutputs() {
     setTimelineOutputFile(outputFile);
   } else {
     setTimelineExportMode(Simulation::EXPORT_TIMELINE_NONE);
+  }
+}
+
+void
+Simulation::configureTimetableOutputs() {
+  // Timetable settings
+  if (jobEntry_->getOutputsEntry()->getTimetableEntry()) {
+    if (!is_directory(outputsDirectory_))
+      create_directory(outputsDirectory_);
+
+    stringstream fileName;
+    fileName << outputsDirectory_ << "/.dynawoexec-" << pid_;
+    timetableOutputFile_ = fileName.str();
+
+    timetableSteps_ = jobEntry_->getOutputsEntry()->getTimetableEntry()->getStep();
   }
 }
 
@@ -770,12 +787,6 @@ Simulation::simulate() {
   Timer timer("Simulation::simulate()");
 #endif
   printSolverHeader();
-  string outputsDirectory = createAbsolutePath("outputs", context_->getInputDirectory());
-  if (!is_directory(outputsDirectory))
-    create_directory(outputsDirectory);
-
-  stringstream fileName;
-  fileName << outputsDirectory << "/.dynawoexec-" << pid_;
 
   // Printing out the initial solution
   solver_->printSolve();
@@ -822,6 +833,9 @@ Simulation::simulate() {
 
       model_->checkDataCoherence(tCurrent_);
       model_->printMessages();
+      if (timetableOutputFile_ != "" && currentIterNb % timetableSteps_ == 0)
+        printCurrentTime(timetableOutputFile_);
+
       if (isCheckCriteriaIter) {
         criteriaChecked = checkCriteria(tCurrent_, false);
       }
@@ -846,17 +860,21 @@ Simulation::simulate() {
         throw DYNError(Error::SIMULATION, CriteriaNotChecked);
       }
     }
-    remove(fileName.str());
+    if (timetableOutputFile_ != "")
+        remove(timetableOutputFile_);
   } catch (const Terminate& t) {
     Trace::warn() << t.what() << Trace::endline;
     model_->printMessages();
-    remove(fileName.str());
+    if (timetableOutputFile_ != "")
+        remove(timetableOutputFile_);
   } catch (const Error& e) {
     Trace::error() << e.what() << Trace::endline;
-    remove(fileName.str());
+    if (timetableOutputFile_ != "")
+        remove(timetableOutputFile_);
     throw;
   } catch (...) {
-    remove(fileName.str());
+    if (timetableOutputFile_ != "")
+        remove(timetableOutputFile_);
     throw;
   }
 }

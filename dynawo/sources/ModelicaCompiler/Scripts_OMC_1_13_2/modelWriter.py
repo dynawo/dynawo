@@ -513,6 +513,7 @@ class ModelWriter(ModelWriterBase):
         self.addLine("  data->nbModes = " +str(self.builder.get_nb_modes()) + ";\n")
         self.addLine("  data->nbZ = "+str(self.builder.nb_z)+";\n")
         self.addLine("  data->nbCalculatedVars = "+str(self.builder.get_nb_calculated_variables())+";\n")
+        self.addLine("  data->nbDelays = "+str(self.builder.get_nb_delays()) +";\n")
         self.addLine("  data->constCalcVars.resize("+str(self.builder.get_nb_const_variables())+", 0.);\n")
         self.addLine("}\n")
 

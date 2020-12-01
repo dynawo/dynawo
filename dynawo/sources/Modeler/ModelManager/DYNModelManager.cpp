@@ -220,7 +220,7 @@ void
 ModelManager::getSize() {
   sizeF_ = data()->nbF;
   sizeZ_ = data()->nbZ + modelData()->nVariablesInteger;  ///< Z in dynawo = Z in Modelica + I in Modelica
-  sizeG_ = modelData()->nZeroCrossings;
+  sizeG_ = modelData()->nZeroCrossings + data()->nbDelays;
   sizeMode_ = data()->nbModes;
   sizeY_ = data()->nbVars;
   sizeCalculatedVar_ = data()->nbCalculatedVars;
@@ -369,6 +369,7 @@ ModelManager::evalG(const double & t) {
   setManagerTime(t);
 
   modelModelica()->setGomc(gLocal_);
+  delayManager_.setGomc(gLocal_, modelData()->nZeroCrossings);
 }
 
 void
@@ -410,7 +411,13 @@ ModelManager::evalZ(const double &t) {
 
 modeChangeType_t
 ModelManager::evalMode(const double & t) {
-  return modelModelica()->evalMode(t);
+  modeChangeType_t delay_mode = delayManager_.isTriggered() ? ALGEBRAIC_MODE : NO_MODE;
+  if (delayManager_.isTriggered()) {
+    // reset trigger if delay mode is detected to prevent detection next time for the same reasons
+    delayManager_.notifyEndTrigger();
+  }
+
+  return std::max(delay_mode, modelModelica()->evalMode(t));
 }
 
 void
@@ -1437,6 +1444,9 @@ ModelManager::computeDelay(DYNDATA* data, int exprNumber, double exprValue, doub
     assert(initialValue.is_initialized());
 #endif
     return *initialValue;
+  } else if (!doubleIsZero(delayTime)) {
+    // delayTime == 0 corresponds to initialization
+    delayManager_.triggerDelay(exprNumber);
   }
 
   return delayManager_.getDelay(exprNumber, delayTime);

@@ -65,6 +65,7 @@ typedef sinks::synchronous_sink< sinks::text_ostream_backend > text_sink;  ///< 
 typedef sinks::synchronous_sink< sinks::text_file_backend > file_sink;  ///< define file sink
 
 static vector< boost::shared_ptr<file_sink> > sinks;  ///<  vector of file sink
+static vector< boost::shared_ptr<file_sink> > persistantSinks;  ///<  vector of persistant file sink
 static vector< boost::shared_ptr<text_sink> > originalSinks;  ///< vector of text sink
 
 #if _DEBUG_
@@ -162,10 +163,21 @@ void Trace::addAppenders(const std::vector<TraceAppender>& appenders) {
       sink->set_filter(severity >= appenders[i].getLvlFilter() && tag_attr == appenders[i].getTag());
     }
     logging::core::get()->add_sink(sink);
-    sinks.push_back(sink);
+    if (appenders[i].isPersistant())
+      persistantSinks.push_back(sink);
+    else
+      sinks.push_back(sink);
   }
 
   logging::add_common_attributes();
+}
+
+void Trace::resetPersistantCustomAppenders() {
+  vector< boost::shared_ptr<file_sink> >::iterator itSinks;
+  for (itSinks = persistantSinks.begin(); itSinks != persistantSinks.end(); ++itSinks) {
+    logging::core::get()->remove_sink(*itSinks);
+  }
+  persistantSinks.clear();
 }
 
 void Trace::resetCustomAppenders() {

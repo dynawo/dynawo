@@ -20,6 +20,7 @@
 #ifndef MODELER_DATAINTERFACE_IIDM_DYNBUSBARSECTIONINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_IIDM_DYNBUSBARSECTIONINTERFACEIIDM_H_
 
+#include <IIDM/components/BusBarSection.h>
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 

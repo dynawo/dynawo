@@ -30,7 +30,7 @@
 #include <sunlinsol/sunlinsol_klu.h>
 #include <sundials/sundials_types.h>
 #include <sundials/sundials_math.h>
-#include <sundials/sundials_sparse.h>
+#include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
 
 #ifdef WITH_NICSLU
@@ -162,7 +162,7 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   int size = model->sizeY();
   smj.init(size, size);
   model->evalJt(solv->t0_ + solv->h0_, cj, smj);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
   return (0);
 }

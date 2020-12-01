@@ -23,7 +23,7 @@
 #include <sunlinsol/sunlinsol_klu.h>
 #include <sundials/sundials_types.h>
 #include <sundials/sundials_math.h>
-#include <sundials/sundials_sparse.h>
+#include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
 #include <string.h>
 #include <vector>
@@ -178,6 +178,7 @@ SolverKINAlgRestoration::modifySettings(double fnormtol, double initialaddtol, d
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNumMaxIters");
 
   // Modify the maximum number of iteration without preconditionner call (passing 0 means keeping the KINSOL default value, currently 10)
+  // Passing 1 means an exact Newton resolution
   flag = KINSetMaxSetupCalls(KINMem_, msbset);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetMaxSetupCalls");
@@ -252,7 +253,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   int size = solv->indexY_.size();
   smjKin.reserve(size);
   smj.erase(solv->ignoreY_, solv->ignoreF_, smjKin);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
   return (0);
 }
@@ -274,7 +275,7 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   int size = solv->indexY_.size();
   smjKin.reserve(size);
   smj.erase(solv->ignoreY_, solv->ignoreF_, smjKin);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
   return (0);
 }

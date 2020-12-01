@@ -69,6 +69,16 @@ OutputsEntry::Impl::getTimelineEntry() const {
 }
 
 void
+OutputsEntry::Impl::setTimetableEntry(const boost::shared_ptr<TimetableEntry>& timetableEntry) {
+  timetableEntry_ = timetableEntry;
+}
+
+boost::shared_ptr<TimetableEntry>
+OutputsEntry::Impl::getTimetableEntry() const {
+  return timetableEntry_;
+}
+
+void
 OutputsEntry::Impl::setFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) {
   finalStateEntry_ = finalStateEntry;
 }

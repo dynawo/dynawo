@@ -26,7 +26,7 @@
 #endif
 #include <sundials/sundials_types.h>
 #include <sundials/sundials_math.h>
-#include <sundials/sundials_sparse.h>
+#include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
 #include <string.h>
 #include <vector>
@@ -166,6 +166,7 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
 
   // Specify the maximum number of iteration without pre-conditionner call
   // Passing 0 means default ie 10 iterations
+  // Passing 1 means exact Newton
   flag = KINSetMaxSetupCalls(KINMem_, msbset);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetMaxSetupCalls");

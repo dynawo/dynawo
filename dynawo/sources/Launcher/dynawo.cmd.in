@@ -40,6 +40,33 @@ set XERCESC_HOME=%thirdPartyInstallPath%\xerces-c
 
 set OPENMODELICA_HOME=@INSTALL_OPENMODELICA@
 
+if not defined DYNAWO_PYTHON_COMMAND (
+  set DYNAWO_PYTHON_COMMAND=python
+)
+
+if not defined DYNAWO_BROWSER (
+  setlocal
+
+  :: setup a default browser in case we fail
+  set default_browser=C:\Program Files\Internet Explorer\iexplore.exe
+
+  :: look in the HKEY_CLASSES_ROOT\htmlfile\shell\open\command registry for the default browser
+  for /f "tokens=*" %%a in ('REG QUERY HKEY_CLASSES_ROOT\htmlfile\shell\open\command /ve ^| FIND /i "default"') do (
+    set input=%%a
+  )
+  setlocal enableDelayedExpansion
+
+  :: parse the input field looking for the second token
+  for /f tokens^=^2^ eol^=^"^ delims^=^" %%a in ("!input!") do set DYNAWO_BROWSER=%%a
+
+  setlocal disableDelayedExpansion
+
+  :: this may not be needed, check if reg returned a real file, if not unset browser
+  if not "%DYNAWO_BROWSER%" == "" if not exist "%DYNAWO_BROWSER%" set DYNAWO_BROWSER=
+  if "%DYNAWO_BROWSER%"=="" set "DYNAWO_BROWSER=%default_browser%"
+  endlocal
+)
+
 set oldpath=%path%
 
 PATH=%OPENMODELICA_HOME%\bin;%DYNAWO_INSTALL_DIR%ddb;%DYNAWO_INSTALL_DIR%lib;%PATH%
@@ -89,13 +116,13 @@ exit /B %ERRORLEVEL%
 setlocal
 
 :dynawo_help
-echo Usage: %~n0 option
+echo Usage: %~n0 ^<option^>
 echo.
 echo   where option is:
-echo     jobs ^<jobs-file^>
-echo     jobs-with-curves ^<jobs-file^>
-echo     version
-echo     help
+echo     jobs ^<jobs-file^>                 launch Dynawo simulation
+echo     jobs-with-curves ^<jobs-file^>     launch Dynawo simulation and open resulting curves in a browser
+echo     version                            show dynawo version
+echo     help                               show this message
 exit /B 0
 
 endlocal

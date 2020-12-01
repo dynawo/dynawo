@@ -84,37 +84,34 @@ Compiler::compile() {
   getDDB();
 
   unitDynamicModelsMap_ = dyd_->getUnitDynamicModelsMap();
-  map<string, shared_ptr<ModelDescription> > blackboxes = dyd_->getBlackBoxModelDescriptions();
-  map<string, shared_ptr<ModelDescription> >::const_iterator itbbm;
-  for (itbbm = blackboxes.begin(); itbbm != blackboxes.end(); ++itbbm) {
+  const std::map<string, shared_ptr<ModelDescription> >& blackboxes = dyd_->getBlackBoxModelDescriptions();
+  for (std::map<string, shared_ptr<ModelDescription> >::const_iterator itbbm = blackboxes.begin(); itbbm != blackboxes.end(); ++itbbm) {
     compileBlackBoxModelDescription(itbbm->second);
   }
 
-  map<string, shared_ptr<ModelDescription> > modeltemplates = dyd_->getModelTemplateDescriptionsToBeCompiled();
-  map<string, shared_ptr<ModelDescription> >::const_iterator itmt;
-  for (itmt = modeltemplates.begin(); itmt != modeltemplates.end(); ++itmt) {
+  const std::map<string, shared_ptr<ModelDescription> >& modeltemplates = dyd_->getModelTemplateDescriptionsToBeCompiled();
+  for (std::map<string, shared_ptr<ModelDescription> >::const_iterator itmt = modeltemplates.begin(); itmt != modeltemplates.end(); ++itmt) {
     compileModelicaModelDescription(itmt->second);
   }
 
   // compile model template expansion. compile model template expansion after all the model templates are compiled
-  map<string, shared_ptr<ModelDescription> > modeltemplateExpansions = dyd_->getModelTemplateExpansionDescriptions();
-  map<string, shared_ptr<ModelDescription> >::const_iterator itmte;
-  for (itmte = modeltemplateExpansions.begin(); itmte != modeltemplateExpansions.end(); ++itmte) {
+  const std::map<string, shared_ptr<ModelDescription> >& modeltemplateExpansions = dyd_->getModelTemplateExpansionDescriptions();
+  for (std::map<string, shared_ptr<ModelDescription> >::const_iterator itmte = modeltemplateExpansions.begin();
+        itmte != modeltemplateExpansions.end(); ++itmte) {
     compileModelTemplateExpansionDescription(itmte->second);
   }
 
   vector< shared_ptr<ModelDescription> > refmodelicas = dyd_->getReferenceModelicaModels();
-  vector< shared_ptr<ModelDescription> >::const_iterator itref;
   // compile all the reference models from refLib
-  for (itref = refmodelicas.begin(); itref != refmodelicas.end(); ++itref) {
+  for (vector< shared_ptr<ModelDescription> >::const_iterator itref = refmodelicas.begin(); itref != refmodelicas.end(); ++itref) {
     compileModelicaModelDescription(*itref);
   }
 
-  map<shared_ptr<ModelDescription>, shared_ptr<ModelDescription> > modelRefMap = dyd_->getModelicaModelReferenceMap();
+  const std::map<shared_ptr<ModelDescription>, shared_ptr<ModelDescription> >& modelRefMap = dyd_->getModelicaModelReferenceMap();
   // in map refMap, the key is the modelicamodel, the value is the reference model
-  map<shared_ptr<ModelDescription>, shared_ptr<ModelDescription> >::const_iterator itrefMap;
   // for other modelica models, set their libs as their reference models lib; concat parameters; add to compiled lib
-  for (itrefMap = modelRefMap.begin(); itrefMap != modelRefMap.end(); ++itrefMap) {
+  for (std::map<shared_ptr<ModelDescription>, shared_ptr<ModelDescription> >::const_iterator itrefMap = modelRefMap.begin();
+        itrefMap != modelRefMap.end(); ++itrefMap) {
     if (compiledModelDescriptions_.find(itrefMap->first->getID()) == compiledModelDescriptions_.end()) {
       itrefMap->first->setLib(itrefMap->second->getLib());  // set the lib of modelica model as its reference model
       itrefMap->first->setCompiledModelId(itrefMap->second->getCompiledModelId());  // set the compiled model ID as its reference model

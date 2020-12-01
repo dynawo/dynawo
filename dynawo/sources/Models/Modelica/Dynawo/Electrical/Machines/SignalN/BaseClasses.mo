@@ -22,6 +22,7 @@ package BaseClasses
   extends Machines.BaseClasses.BaseGeneratorSimplified;
 
   public
+    parameter Types.VoltageModulePu PRef0Pu "Start value of the active power set point in p.u (base SnRef) (receptor convention)";
     parameter Types.ActivePowerPu PMinPu "Minimum active power in p.u (base SnRef)";
     parameter Types.ActivePowerPu PMaxPu "Maximum active power in p.u (base SnRef)";
     parameter Types.PerUnit KGover "Mechanical power sensitivity to frequency";
@@ -38,7 +39,7 @@ package BaseClasses
   equation
 
     if running.value then
-      PGenRawPu = PGen0Pu + (Alpha / alphaSum.value) * N.value;
+      PGenRawPu = - PRef0Pu + (Alpha / alphaSum.value) * N.value;
       PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
       alpha.value = if (N.value > 0 and PGenRawPu >= PMaxPu) then 0 else if (N.value < 0 and PGenRawPu <= PMinPu) then 0 else Alpha;
     else

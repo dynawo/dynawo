@@ -15,6 +15,8 @@ set(MODEL_FILES
     BaseClasses.mo
     GeneratorPQProp.mo
     GeneratorPQProp.extvar
+    GeneratorPQPropDiagramPQ.mo
+    GeneratorPQPropDiagramPQ.extvar
     GeneratorPV.mo
     GeneratorPV.extvar
     GeneratorPV_INIT.mo
@@ -25,6 +27,8 @@ set(MODEL_FILES
     GeneratorPVProp.extvar
     GeneratorPVRemote.mo
     GeneratorPVRemote.extvar
+    GeneratorPVRemoteDiagramPQ.mo
+    GeneratorPVRemoteDiagramPQ.extvar
     )
 
 #

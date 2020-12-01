@@ -103,7 +103,7 @@ class DynamicData {
    * @brief get all dynamic model descriptions
    * @return list of model descriptions
    */
-  inline std::map<std::string, boost::shared_ptr<ModelDescription> > getModelDescriptions() const {
+  inline const std::map<std::string, boost::shared_ptr<ModelDescription> >& getModelDescriptions() const {
     return modelDescriptions_;
   }
 
@@ -126,7 +126,7 @@ class DynamicData {
    * @brief return the list of all connectors
    * @return list of all connectors
    */
-  inline std::map <std::string, boost::shared_ptr<ConnectInterface> > getConnectInterfaces() const {
+  inline const std::map<std::string, boost::shared_ptr<ConnectInterface> >& getConnectInterfaces() const {
     return connects_;
   }
 
@@ -153,7 +153,7 @@ class DynamicData {
    * @brief get black box model descriptions
    * @return list of black box model descriptions
    */
-  inline std::map<std::string, boost::shared_ptr<ModelDescription> > getBlackBoxModelDescriptions() const {
+  inline const std::map<std::string, boost::shared_ptr<ModelDescription> >& getBlackBoxModelDescriptions() const {
     return blackBoxModels_;
   }
 
@@ -161,7 +161,7 @@ class DynamicData {
    * @brief get model template expansion descriptions
    * @return list of model template expansion descriptions
    */
-  inline std::map<std::string, boost::shared_ptr<ModelDescription> > getModelTemplateExpansionDescriptions() const {
+  inline const std::map<std::string, boost::shared_ptr<ModelDescription> >& getModelTemplateExpansionDescriptions() const {
     return modelTemplateExpansions_;
   }
 
@@ -169,7 +169,7 @@ class DynamicData {
    * @brief get model template descriptions to be compiled
    * @return list of model template descriptions to be compiled
    */
-  inline std::map<std::string, boost::shared_ptr<ModelDescription> > getModelTemplateDescriptionsToBeCompiled() const {
+  inline const std::map<std::string, boost::shared_ptr<ModelDescription> >& getModelTemplateDescriptionsToBeCompiled() const {
     return usefulModelTemplates_;
   }
 
@@ -177,7 +177,7 @@ class DynamicData {
    * @brief get unit dynamic models map
    * @return map of unit dynamic models
    */
-  inline std::map< boost::shared_ptr<dynamicdata::UnitDynamicModel>, boost::shared_ptr<dynamicdata::UnitDynamicModel> > getUnitDynamicModelsMap() const {
+  inline const std::map< boost::shared_ptr<dynamicdata::UnitDynamicModel>, boost::shared_ptr<dynamicdata::UnitDynamicModel> >& getUnitDynamicModelsMap() const {
     return unitDynamicModelsMap_;
   }
 
@@ -185,7 +185,7 @@ class DynamicData {
    * @brief get modelica model reference map
    * @return map of modelica model reference
    */
-  inline std::map< boost::shared_ptr<ModelDescription>, boost::shared_ptr<ModelDescription> > getModelicaModelReferenceMap() const {
+  inline const std::map< boost::shared_ptr<ModelDescription>, boost::shared_ptr<ModelDescription> >& getModelicaModelReferenceMap() const {
     return modelicaModelReferenceMap_;
   }
 
@@ -237,12 +237,6 @@ class DynamicData {
    * @brief analyse dynamic data
    */
   void analyzeDynamicData();
-
-  /**
-   * @brief classify model descriptions according to their type (template, template expansion, modelica model, black box model )
-   * construct maps
-   */
-  void classifyModelDescriptions();
 
   /**
    * @brief create a reference modelica models map. mark modelica models with the same structure.

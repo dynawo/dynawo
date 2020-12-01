@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="HVDC">
+    <reference type="DOUBLE" name="hvdc_P10Pu" origData="IIDM" origName="p1_pu"/>
+    <reference type="DOUBLE" name="hvdc_Q10Pu" origData="IIDM" origName="q1_pu"/>
+    <reference type="DOUBLE" name="hvdc_U10Pu" origData="IIDM" origName="v1_pu"/>
+    <reference type="DOUBLE" name="hvdc_UPhase10" origData="IIDM" origName="angle1_pu"/>
+    <reference type="DOUBLE" name="hvdc_P20Pu" origData="IIDM" origName="p2_pu"/>
+    <reference type="DOUBLE" name="hvdc_Q20Pu" origData="IIDM" origName="q2_pu"/>
+    <reference type="DOUBLE" name="hvdc_U20Pu" origData="IIDM" origName="v2_pu"/>
+    <reference type="DOUBLE" name="hvdc_UPhase20" origData="IIDM" origName="angle2_pu"/>
+    <par type="DOUBLE" name="hvdc_Q1MinPu" value="-1.7976931348623157e+308"/>
+    <par type="DOUBLE" name="hvdc_Q1MaxPu" value="1.7976931348623157e+308"/>
+    <par type="DOUBLE" name="hvdc_Q2MinPu" value="-1.7976931348623157e+308"/>
+    <par type="DOUBLE" name="hvdc_Q2MaxPu" value="1.7976931348623157e+308"/>
+    <par type="DOUBLE" name="hvdc_KLosses" value="1"/>
+    <par type="BOOL" name="hvdc_modeU10" value="true"/>
+    <par type="BOOL" name="hvdc_modeU20" value="true"/>
+  </set>
+  <set id="SignalN">
+    <par name="nbGen" type="INT" value="1"/>
+  </set>
+  <set id="Generator">
+    <par name="generator_KGover" type="DOUBLE" value="1"/>
+    <par name="generator_PMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_PMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <par name="generator_QMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_QMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PRef0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PNom" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+</parametersSet>
