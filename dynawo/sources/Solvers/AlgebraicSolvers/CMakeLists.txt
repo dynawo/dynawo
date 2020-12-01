@@ -32,7 +32,6 @@ target_include_directories(dynawo_SolverKINSOL
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     $<TARGET_PROPERTY:Sundials::Sundials_NVECSERIAL,INTERFACE_INCLUDE_DIRECTORIES>
-  PRIVATE
     $<TARGET_PROPERTY:dynawo_ModelerCommon,INTERFACE_INCLUDE_DIRECTORIES>
 )
 target_include_directories(dynawo_SolverKINSOL SYSTEM
@@ -46,6 +45,7 @@ target_link_libraries(dynawo_SolverKINSOL
     Sundials::Sundials_KINSOL
     Sundials::Sundials_SUNLINSOLKLU
     dynawo_Common
+    dynawo_ModelerCommon
     dynawo_SolverCommon
   )
 

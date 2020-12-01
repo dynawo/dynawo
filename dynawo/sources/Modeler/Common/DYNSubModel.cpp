@@ -1218,8 +1218,8 @@ SubModel::getGequationByLocalIndex(const int& index) {
   }
 }
 
-map<int, string>&
-SubModel::fEquationIndex() {
+const map<int, string>&
+SubModel::fEquationIndex() const {
   if (isInitProcess_)
     return fEquationInitIndex_;
   else

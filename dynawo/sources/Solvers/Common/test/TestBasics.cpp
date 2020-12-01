@@ -79,6 +79,8 @@ TEST(SimulationCommonTest, testSolverCommon) {
   smj.addTerm(2, 3.);
   smj.changeCol();
   smj.addTerm(1, 4.);
+  SparseMatrix::CheckError check_status = smj.check();
+  ASSERT_EQ(SparseMatrix::CHECK_OK, check_status.code);
   SUNMatrix JJ = SUNSparseMatrix(3, 3, 2, CSC_MAT);
   assert(JJ != NULL);
 

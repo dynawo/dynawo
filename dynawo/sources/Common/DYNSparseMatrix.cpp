@@ -41,6 +41,127 @@ using std::stringstream;
 
 namespace DYN {
 
+/// @brief Namespace for local helper elements
+namespace helper {
+
+/**
+ * @brief Sparse matrix helper implementation
+ *
+ * For debug purpose (check of matrix validity), it is relevant to use another implementation of the SparseMatrix, more user-friendly
+ */
+class SparseMatrix {
+ private:
+  /**
+   * @brief Representation of a non nul term
+   */
+  struct Term {
+    Term(unsigned int i, unsigned int j, double val) : iRow(i), jCol(j), value(val) {}
+
+    unsigned int iRow;  ///< row index of the term
+    unsigned int jCol;  ///< column index of the term
+    double value;       ///< Value of the terme
+  };
+
+  /**
+   * @brief Structure containing the equality operator used in set for terms
+   */
+  struct TermEqual {
+    /**
+     * @brief Equality comparator for Terms
+     *
+     * 2 terms are equal if their location in the matrix (i,j) is the same
+     *
+     * @param lhs left term
+     * @param rhs right term
+     * @returns equality in set comparaison
+     */
+    bool operator()(const SparseMatrix::Term& lhs, const SparseMatrix::Term& rhs) const {
+      return (lhs.iRow == rhs.iRow) && (lhs.jCol == rhs.jCol);
+    }
+  };
+
+  /**
+   * @brief Hash structure for term
+   *
+   * required to use set on terms
+   */
+  struct HashTerm {
+    /**
+     * @brief Hash function
+     *
+     * no need to use the value as 2 terms with same (i,j) are equal
+     *
+     * @param t the term to hash
+     * @returns the hash value of @p t
+     */
+    std::size_t operator()(const Term& t) const {
+      std::size_t seed = 0;
+      boost::hash_combine(seed, t.iRow);
+      boost::hash_combine(seed, t.jCol);
+      return seed;
+    }
+  };
+
+ public:
+  /**
+   * @brief Constructor
+   *
+   * @param nbRows number of rows of the sparse matrix
+   * @param nbCols number of cols of the sparse matrix
+   */
+  SparseMatrix(unsigned int nbRows, unsigned int nbCols) : nbRows_(nbRows), nbCols_(nbCols) {}
+
+  /**
+   * @brief Add a term
+   *
+   * @param iRow row index of the new term
+   * @param jCol column index of the new term
+   * @returns whether the element has been added
+   */
+  bool add(unsigned int iRow, unsigned int jCol, double value) {
+    return elems_.insert(Term(iRow, jCol, value)).second;
+  }
+
+  /**
+   * @brief Retrieves the number of rows
+   *
+   * @returns number of rows
+   */
+  unsigned int nbRows() const {
+    return nbRows_;
+  }
+
+  /**
+   * @brief Retrieves the number of columns
+   *
+   * @returns the number of columns
+   */
+  unsigned int nbCols() const {
+    return nbCols_;
+  }
+
+  /**
+   * @brief Retrieves a value at a location
+   *
+   * Will return 0 if the location is outside the matrix
+   *
+   * @param iRow the row index of the value
+   * @param jCol the column index of the value
+   * @returns the value at the location (iRow, jCol)
+   */
+  double value(unsigned int iRow, unsigned int jCol) const {
+    boost::unordered_set<Term, HashTerm, TermEqual>::const_iterator it = elems_.find(Term(iRow, jCol, 0.0));
+    return (it != elems_.end()) ? it->value : 0.0;
+  }
+
+ private:
+  const unsigned int nbRows_;                              ///< Number of rows
+  const unsigned int nbCols_;                              ///< number of columns
+  boost::unordered_set<Term, HashTerm, TermEqual> elems_;  ///< set of terms
+};
+
+}  // namespace helper
+
 const int MATRIX_BLOCK_LENGTH = 1024;  ///< Number of block reallocated when maximum number of variables allocated is reached
 
 SparseMatrix::SparseMatrix() :
@@ -308,5 +429,67 @@ void SparseMatrix::getRowColIndicesFromPosition(unsigned int position, int& iRow
   jCol = (lower-Ap_.begin()) - 1;
 }
 
+SparseMatrix::CheckError
+SparseMatrix::check() const {
+  // check all lines are not zeros
+  for (unsigned int i = 0; i < static_cast<unsigned int>(nbRow_); i++) {
+    if (std::find(Ai_.begin(), Ai_.end(), i) == Ai_.end()) {
+      return CheckError(CHECK_ZERO_ROW, i);
+    }
+  }
+
+  // check all columns are not zeros
+  for (int j = 0; j < nbCol_; j++) {
+    if (Ap_[j] == Ap_[j + 1]) {
+      return CheckError(CHECK_ZERO_COLUMN, static_cast<unsigned int>(j));
+    }
+  }
+
+  // build user-friendly sparse matrix
+  helper::SparseMatrix matrix(nbRow_, nbCol_);
+  for (unsigned int i = 0; i < static_cast<unsigned int>(nbTerm_); i++) {
+    int iRow;
+    int jCol;
+    getRowColIndicesFromPosition(i, iRow, jCol);
+    matrix.add(iRow, jCol, Ax_[i]);
+  }
+
+  // check that there are not 2 equal lines
+  for (unsigned int i = 0; i < static_cast<unsigned int>(nbRow_); i++) {
+    for (unsigned int ii = i + 1; ii < static_cast<unsigned int>(nbRow_); ii++) {
+      bool is_same = true;
+      for (unsigned int j = 0; j < static_cast<unsigned int>(nbCol_); j++) {
+        if (DYN::doubleNotEquals(matrix.value(i, j), matrix.value(ii, j))) {
+          is_same = false;
+          break;
+        }
+      }
+
+      if (is_same) {
+        return CheckError(CHECK_TWO_EQUAL_LINES, i, ii);
+      }
+    }
+  }
+
+  // check that there are not 2 equal columns
+  for (unsigned int j = 0; j < static_cast<unsigned int>(nbCol_); j++) {
+    for (unsigned int jj = j + 1; jj < static_cast<unsigned int>(nbCol_); jj++) {
+      bool is_same = true;
+      for (unsigned int i = 0; i < static_cast<unsigned int>(nbRow_); i++) {
+        if (DYN::doubleNotEquals(matrix.value(i, j), matrix.value(i, jj))) {
+          is_same = false;
+          break;
+        }
+      }
+
+      if (is_same) {
+        return CheckError(CHECK_TWO_EQUAL_COLUMNS, j, jj);
+      }
+    }
+  }
+
+
+  return CheckError();
+}
 
 }  // end of namespace DYN

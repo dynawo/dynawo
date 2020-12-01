@@ -498,6 +498,18 @@ class Model {
    */
   virtual std::string getVariableName(int index) = 0;
 
+    /**
+   * @brief Get a equation string representation name from its index.
+   *
+   * This function is intended to be used in debug mode as it allocates a lot of memory
+   * but can be called in release mode.
+   *
+   * @param index Index of the equation.
+   *
+   * @return name of the equation
+   */
+  virtual std::string getEquation(int index) const = 0;
+
   /**
    * @brief Copy the discrete variable values from the model data structure to the solver data structure
    *
