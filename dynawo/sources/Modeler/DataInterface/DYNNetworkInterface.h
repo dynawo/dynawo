@@ -22,6 +22,7 @@
 
 #include <vector>
 #include <boost/shared_ptr.hpp>
+#include <boost/optional.hpp>
 
 namespace DYN {
 class LineInterface;
@@ -96,6 +97,13 @@ class NetworkInterface {
    * @return vector of hvdc line of the newtork interface
    */
   virtual const std::vector< boost::shared_ptr<HvdcLineInterface> >& getHvdcLines() const = 0;
+
+  /**
+   * @brief Retrieve optional slack node id information
+   *
+   * @returns slack node bus id, if present in the underlying data
+   */
+  virtual boost::optional<std::string> getSlackNodeBusId() const = 0;
 };  ///< class for network data interface
 
 }  // namespace DYN

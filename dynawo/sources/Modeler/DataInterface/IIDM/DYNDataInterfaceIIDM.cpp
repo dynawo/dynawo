@@ -1326,5 +1326,4 @@ DataInterfaceIIDM::getStaticParameterBoolValue(const std::string& staticID, cons
 }
 
 
-
 }  // namespace DYN
