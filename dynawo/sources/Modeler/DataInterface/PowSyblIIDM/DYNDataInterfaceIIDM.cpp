@@ -269,19 +269,12 @@ DataInterfaceIIDM::initFromIIDM() {
     int legCount = 1;
     for (auto& leg : getLegs(ThreeWindingTransformer)) {
       string TwoWTransfId = ThreeWindingTransformer.getId() + "_" + std::to_string(legCount);
+      // We consider the fictitious transformer always connected on the fictitious bus
       bool initialConnected1 = true;
       double VNom1 = ThreeWindingTransformer.getRatedU0();
       double ratedU1 = ThreeWindingTransformer.getRatedU0();
-      bool initialConnected2 = leg.get().getTerminal().get().isConnected();
-      double VNom2 = leg.get().getTerminal().get().getVoltageLevel().getNominalVoltage();
-      double ratedU2 = leg.get().getRatedU();
-      double R = leg.get().getR();
-      double X = leg.get().getX();
-      double G = leg.get().getG();
-      double B = leg.get().getB();
-      shared_ptr<TwoWTransformerInterface> fictTwoWTransf(new FictTwoWTransformerInterfaceIIDM(TwoWTransfId, initialConnected1, VNom1,
-                                                          ratedU1, initialConnected2, VNom2, ratedU2,
-                                                          R, X, G, B, leg));
+      shared_ptr<TwoWTransformerInterface> fictTwoWTransf(new FictTwoWTransformerInterfaceIIDM(TwoWTransfId, leg, initialConnected1, VNom1,
+                                                          ratedU1));
       fictTwoWTransf.get()->setBusInterface1(fictBus);
       fictTwoWTransf.get()->setBusInterface2(findBusInterface(leg.get().getTerminal()));
       fictTwoWTransf.get()->setVoltageLevelInterface1(vl);
@@ -293,7 +286,8 @@ DataInterfaceIIDM::initFromIIDM() {
         shared_ptr<PhaseTapChangerInterfaceIIDM> tapChanger(new PhaseTapChangerInterfaceIIDM(leg.get().getPhaseTapChanger()));
         fictTwoWTransf->setPhaseTapChanger(tapChanger);
       }
-      // add ratio tapChanger and steps if exists
+      // add ratio tapChanger and steps if exists. It is always referring to side TWO as it is the side coming from
+      // the orginal ThreeWindingTransformer
       if (leg.get().hasRatioTapChanger()) {
         string side;
         if (leg.get().getRatioTapChanger().getRegulationTerminal() &&

@@ -20,7 +20,6 @@
 
 #include "DYNFictTwoWTransformerInterfaceIIDM.h"
 
-#include <powsybl/iidm/TwoWindingsTransformer.hpp>
 #include <powsybl/iidm/ThreeWindingsTransformer.hpp>
 
 #include "DYNCommon.h"
@@ -41,23 +40,20 @@ using std::vector;
 namespace DYN {
 
     FictTwoWTransformerInterfaceIIDM::FictTwoWTransformerInterfaceIIDM(const std::string& Id,
-                                            const bool& initialConnected1, const double& VNom1, const double& ratedU1,
-                                            const bool& initialConnected2, const double& VNom2, const double& ratedU2,
-                                            const double& R, const double& X,
-                                            const double& G, const double& B,
-                                            stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>& leg) {
+                                            stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>& leg,
+                                            const bool& initialConnected1, const double& VNom1, const double& ratedU1) {
         Id_ = Id;
+        leg_ = leg;
         initialConnected1_ = initialConnected1;
         VNom1_ = VNom1;
         RatedU1_ = ratedU1;
-        VNom2_ = VNom2;
-        RatedU2_ = ratedU2;
-        initialConnected2_ = initialConnected2;
-        R_ = R;
-        X_ = X;
-        G_ = G;
-        B_ = B;
-        leg_ = leg;
+        VNom2_ = leg_.get().getTerminal().get().getVoltageLevel().getNominalVoltage();
+        RatedU2_ = leg_.get().getRatedU();
+        initialConnected2_ = leg_.get().getTerminal().get().isConnected();
+        R_ = leg_.get().getR();
+        X_ = leg_.get().getX();
+        G_ = leg_.get().getG();
+        B_ = leg_.get().getB();
         setType(ComponentInterface::TWO_WTFO);
         stateVariables_.resize(6);
         stateVariables_[VAR_P1] = StateVariable("p1", StateVariable::DOUBLE);  // P1

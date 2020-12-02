@@ -24,7 +24,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include <powsybl/iidm/TwoWindingsTransformer.hpp>
 #include <powsybl/iidm/ThreeWindingsTransformer.hpp>
 
 namespace DYN {
@@ -55,22 +54,14 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   /**
    * @brief Constructor
    * @param Id Id two windings fictitous transformer's iidm instance
+   * @param leg reference to original three winding transformer leg
    * @param initialConnected1 @b true if the fictitous transformer's side 1 is connected, @b false else
    * @param VNom1 nominal voltage of the fictitious transformer's side 1 in kV
    * @param ratedU1 rated voltage of the fictitious transformer's side 1 in kV
-   * @param initialConnected2 @b true if the fictitous transformer's side 2 is connected, @b false else
-   * @param VNom2 nominal voltage of the fictitious transformer's side 2 in kV
-   * @param ratedU2 rated voltage of the fictitious transformer's side 2 in kV
-   * @param R resistance of fictitious transformer
-   * @param X reactance of fictitious transformer
-   * @param G conductance of fictitious transformer
-   * @param B susceptance of fictitious transformer
    */
-  explicit FictTwoWTransformerInterfaceIIDM(const std::string& Id, const bool& initialConnected1, const double& VNom1, const double& ratedU1,
-                                            const bool& initialConnected2, const double& VNom2, const double& ratedU2,
-                                            const double& R, const double& X,
-                                            const double& G, const double& B,
-                                            stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>& leg);
+  explicit FictTwoWTransformerInterfaceIIDM(const std::string& Id,
+                                            stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>& leg,
+                                            const bool& initialConnected1, const double& VNom1, const double& ratedU1);
 
 
   /**
@@ -240,7 +231,7 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   int getComponentVarIndex(const std::string& varName) const;
 
  private:
-  stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> leg_;  ///< reference to original three winding transformer
+  stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> leg_;  ///< reference to original three winding transformer leg
   std::string Id_;                                 ///< Id of fictitious transformer
   double R_;                                       ///< resistance of fictitious transformer
   double X_;                                       ///< reactance of fictitious transformer
