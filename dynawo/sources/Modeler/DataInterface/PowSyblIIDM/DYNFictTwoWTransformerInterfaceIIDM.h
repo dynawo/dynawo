@@ -25,6 +25,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include <powsybl/iidm/TwoWindingsTransformer.hpp>
+#include <powsybl/iidm/ThreeWindingsTransformer.hpp>
 
 namespace DYN {
 
@@ -68,18 +69,19 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   explicit FictTwoWTransformerInterfaceIIDM(const std::string& Id, const bool& initialConnected1, const double& VNom1, const double& ratedU1,
                                             const bool& initialConnected2, const double& VNom2, const double& ratedU2,
                                             const double& R, const double& X,
-                                            const double& G, const double& B);
+                                            const double& G, const double& B,
+                                            stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>& leg);
 
 
   /**
    * @copydoc TwoWTransformerInterface::addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface)
    */
-  void addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& /*currentLimitInterface*/) {};
+  void addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& /*currentLimitInterface*/) {}
 
   /**
    * @copydoc TwoWTransformerInterface::addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface)
    */
-  void addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& /*currentLimitInterface*/) {};
+  void addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& /*currentLimitInterface*/) {}
 
   /**
    * @copydoc TwoWTransformerInterface::getCurrentLimitInterfaces1() const
@@ -87,7 +89,7 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces1() const {
       static std::vector<boost::shared_ptr<CurrentLimitInterface> > empty;
       return empty;
-  };
+  }
 
   /**
    * @copydoc TwoWTransformerInterface::getCurrentLimitInterfaces2() const
@@ -95,7 +97,7 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces2() const {
       static std::vector<boost::shared_ptr<CurrentLimitInterface> > empty;
       return empty;
-  };
+  }
 
   /**
    * @copydoc TwoWTransformerInterface::setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface)
@@ -230,7 +232,7 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent() {};
+  void exportStateVariablesUnitComponent();
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
@@ -238,6 +240,7 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   int getComponentVarIndex(const std::string& varName) const;
 
  private:
+  stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> leg_;  ///< reference to original three winding transformer
   std::string Id_;                                 ///< Id of fictitious transformer
   double R_;                                       ///< resistance of fictitious transformer
   double X_;                                       ///< reactance of fictitious transformer

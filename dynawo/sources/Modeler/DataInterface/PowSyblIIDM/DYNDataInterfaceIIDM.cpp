@@ -281,7 +281,7 @@ DataInterfaceIIDM::initFromIIDM() {
       double B = leg.get().getB();
       shared_ptr<TwoWTransformerInterface> fictTwoWTransf(new FictTwoWTransformerInterfaceIIDM(TwoWTransfId, initialConnected1, VNom1,
                                                           ratedU1, initialConnected2, VNom2, ratedU2,
-                                                          R, X, G, B));
+                                                          R, X, G, B, leg));
       fictTwoWTransf.get()->setBusInterface1(fictBus);
       fictTwoWTransf.get()->setBusInterface2(findBusInterface(leg.get().getTerminal()));
       fictTwoWTransf.get()->setVoltageLevelInterface1(vl);

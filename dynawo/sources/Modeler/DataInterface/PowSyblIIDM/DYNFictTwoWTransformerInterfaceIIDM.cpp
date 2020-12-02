@@ -21,6 +21,7 @@
 #include "DYNFictTwoWTransformerInterfaceIIDM.h"
 
 #include <powsybl/iidm/TwoWindingsTransformer.hpp>
+#include <powsybl/iidm/ThreeWindingsTransformer.hpp>
 
 #include "DYNCommon.h"
 #include "DYNPhaseTapChangerInterfaceIIDM.h"
@@ -39,10 +40,12 @@ using std::vector;
 
 namespace DYN {
 
-    FictTwoWTransformerInterfaceIIDM::FictTwoWTransformerInterfaceIIDM(const std::string& Id, const bool& initialConnected1, const double& VNom1, const double& ratedU1,
+    FictTwoWTransformerInterfaceIIDM::FictTwoWTransformerInterfaceIIDM(const std::string& Id,
+                                            const bool& initialConnected1, const double& VNom1, const double& ratedU1,
                                             const bool& initialConnected2, const double& VNom2, const double& ratedU2,
                                             const double& R, const double& X,
-                                            const double& G, const double& B) {
+                                            const double& G, const double& B,
+                                            stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>& leg) {
         Id_ = Id;
         initialConnected1_ = initialConnected1;
         VNom1_ = VNom1;
@@ -54,6 +57,7 @@ namespace DYN {
         X_ = X;
         G_ = G;
         B_ = B;
+        leg_ = leg;
         setType(ComponentInterface::TWO_WTFO);
         stateVariables_.resize(6);
         stateVariables_[VAR_P1] = StateVariable("p1", StateVariable::DOUBLE);  // P1
@@ -264,6 +268,33 @@ namespace DYN {
         staticParameters_.insert(std::make_pair("highTapPosition", StaticParameter("highTapPosition", StaticParameter::INT).setValue(tapMax)));
     }
 
+    void
+    FictTwoWTransformerInterfaceIIDM::exportStateVariablesUnitComponent() {
+        int state = getValue<int>(VAR_STATE);
+        leg_.get().getTerminal().get().setP(getValue<double>(VAR_P2) * SNREF);
+        leg_.get().getTerminal().get().setQ(getValue<double>(VAR_Q2) * SNREF);
+
+        if (getPhaseTapChanger()) {
+            getPhaseTapChanger()->setCurrentPosition(getValue<int>(VAR_TAPINDEX));
+        }  else if (getRatioTapChanger()) {
+            getRatioTapChanger()->setCurrentPosition(getValue<int>(VAR_TAPINDEX));
+        }
+
+        bool connected2 = (state == CLOSED) || (state == CLOSED_2);
+
+        if (voltageLevelInterface2_->isNodeBreakerTopology()) {
+            if (connected2 && !getInitialConnected2())
+                voltageLevelInterface2_->connectNode(leg_.get().getTerminal().get().getNodeBreakerView().getNode());
+            else if (!connected2 && getInitialConnected2())
+                voltageLevelInterface2_->disconnectNode(leg_.get().getTerminal().get().getNodeBreakerView().getNode());
+        }
+
+        if (connected2)
+            leg_.get().getTerminal().get().connect();
+        else
+            leg_.get().getTerminal().get().disconnect();
+    }
+
     int
     FictTwoWTransformerInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
         int index = -1;
@@ -281,4 +312,4 @@ namespace DYN {
             index = VAR_TAPINDEX;
         return index;
     }
-}
+}  // namespace DYN
