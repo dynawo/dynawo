@@ -22,13 +22,13 @@ model GoverProportional "Keep the mechanical power as a constant modulated by th
                             LimitPMax "Active power is fixed to its maximum value");
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput omegaPu annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {-106, -52}, extent = {{-14, -14}, {14, 14}}, rotation = 90), iconTransformation(origin = {-160, -54}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PmRefPu annotation(
+  Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {-113, 51}, extent = {{-13, -13}, {13, 13}}, rotation = 0), iconTransformation(origin = {-150, 58}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput PmPu annotation(
+  Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {116, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {116, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit KGover "Mechanical power sensitivity to frequency";
