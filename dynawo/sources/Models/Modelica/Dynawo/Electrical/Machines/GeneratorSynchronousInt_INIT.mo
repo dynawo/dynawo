@@ -15,13 +15,8 @@ within Dynawo.Electrical.Machines;
 model GeneratorSynchronousInt_INIT "Synchronous machine - Initialization model from internal parameters"
 
   extends BaseClasses_INIT.BaseGeneratorSynchronousInt_INIT;
+  extends BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
-
-    // Start values given as inputs of the initialization process
-    parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
-    parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.Angle UPhase0 "Start value of voltage angle in rad";
 
 annotation(preferredView = "text");
 end GeneratorSynchronousInt_INIT;

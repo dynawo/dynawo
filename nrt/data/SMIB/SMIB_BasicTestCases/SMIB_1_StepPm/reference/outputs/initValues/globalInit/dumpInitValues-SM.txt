@@ -38,30 +38,29 @@ gen_uStatorPu_re                                  : y =       0.880236 yp =     
 gen_udPu                                          : y =       0.637107 yp =       0.000000
 gen_ufPu                                          : y =       0.001119 yp =       0.000000
 gen_uqPu                                          : y =       0.770793 yp =       0.000000
-gover_PmRawPu_u1                                  : y =       0.903000 yp =       0.000000
+gover_PmPu                                        : y =       0.903000 yp =       0.000000
 gover_PmRawPu_u2                                  : y =      -0.000000 yp =       0.000000
 gover_PmRawPu_y                                   : y =       0.903000 yp =       0.000000
+gover_PmRefPu                                     : y =       0.903000 yp =       0.000000
 gover_feedback_y                                  : y =      -0.000000 yp =       0.000000
 gover_limiter_y                                   : y =       0.903000 yp =       0.000000
-gover_switch_y                                    : y =       0.903000 yp =       0.000000
-Pm_step_value                                     : alias of gover_PmRawPu_u1
-avr_EfdPuPin_value                                : alias of avr_EfdPu
+Pm_step_value                                     : alias of gover_PmRefPu
 avr_feedback_u2                                   : alias of avr_UsPu
 avr_gain_u                                        : alias of avr_feedback_y
 avr_limiterWithLag_u                              : alias of avr_gain_y
 avr_limiterWithLag_y                              : alias of avr_EfdPu
-gen_PmPu_value                                    : alias of gover_switch_y
+gen_PmPu_value                                    : alias of gover_PmPu
 gen_UStatorPu_value                               : alias of avr_UsPu
 gen_efdPu_value                                   : alias of avr_EfdPu
-gover_PmPu_value                                  : alias of gover_switch_y
-gover_PmRefPu_value                               : alias of gover_PmRawPu_u1
+gover_PmRawPu_u1                                  : alias of gover_PmRefPu
 gover_feedback_u2                                 : alias of gen_omegaPu_value
 gover_gain_u                                      : alias of gover_feedback_y
 gover_gain_y                                      : alias of gover_PmRawPu_u2
 gover_limiter_simplifiedExpr                      : alias of gover_PmRawPu_y
 gover_limiter_u                                   : alias of gover_PmRawPu_y
-gover_omegaPu_value                               : alias of gen_omegaPu_value
+gover_omegaPu                                     : alias of gen_omegaPu_value
 gover_switch_u1                                   : alias of gover_limiter_y
+gover_switch_y                                    : alias of gover_PmPu
  ====== INIT CALCULATED VARIABLES VALUES ======
 avr_feedback_u1                                   : y =       1.127905
 gen_IRotorPu_value                                : y =       2.558042

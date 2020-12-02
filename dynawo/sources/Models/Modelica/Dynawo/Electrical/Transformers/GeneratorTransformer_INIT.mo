@@ -27,5 +27,15 @@ model GeneratorTransformer_INIT
     parameter Types.PerUnit XPu "Reactance of the generator transformer in p.u (base U2Nom, SnRef)";
     parameter Types.PerUnit GPu "Conductance of the generator transformer in p.u (base U2Nom, SnRef)";
 
+    // Transformer parameters
+    parameter Types.ComplexImpedancePu ZPu = Complex(RPu, XPu) "Impedance in p.u (base U2Nom, SnRef)";
+    parameter Types.ComplexAdmittancePu YPu = Complex(GPu, BPu) "Admittance in p.u (base U2Nom, SnRef)";
+
+equation
+
+  // Transformer equations
+  i10Pu = rTfoPu * (YPu * u20Pu - i20Pu);
+  rTfoPu * rTfoPu * u10Pu = rTfoPu * u20Pu + ZPu * i10Pu;
+
 annotation(preferredView = "text");
 end GeneratorTransformer_INIT;

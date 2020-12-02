@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Transformers;
 */
 
 model PhaseShifterI_INIT "Initialisation model for a phase-shifter monitoring the current"
-  extends BaseClasses_INIT.BaseTapChangerPhaseShifter_MAX_INIT (valueMax = iMax, valueStop = iStop);
+  extends BaseClasses_INIT.BaseTapChangerPhaseShifter_MAX_INIT (valueMax = iMax, valueStop = iStop, valueToMonitor0 = I0, increaseTapToIncreaseValue = (sign * increasePhase < 0));
   extends AdditionalIcons.Init;
 
   public
@@ -22,10 +22,6 @@ model PhaseShifterI_INIT "Initialisation model for a phase-shifter monitoring th
     parameter Types.CurrentModule I0 "Initial current module";
     parameter Real sign;
     parameter Integer increasePhase;
-
-  protected
-    parameter Real valueToMonitor0 = I0  "Initial monitored value";
-    parameter Boolean increaseTapToIncreaseValue = (sign * increasePhase < 0) "Whether a tap increase will lead to an increase in the monitored value";
 
 annotation(preferredView = "text");
 end PhaseShifterI_INIT;

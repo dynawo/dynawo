@@ -18,7 +18,10 @@ model TapChanger_INIT "Initialisation model for standalone tap-changer"
 
   protected
     parameter Types.VoltageModule U0 "Initial absolute voltage";
-    parameter Real valueToMonitor0 = U0  "Initial monitored value";
+
+equation
+
+  valueToMonitor0 = U0;
 
 annotation(preferredView = "text");
 end TapChanger_INIT;

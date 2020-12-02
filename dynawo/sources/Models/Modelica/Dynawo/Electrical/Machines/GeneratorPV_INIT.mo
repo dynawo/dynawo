@@ -14,7 +14,7 @@ within Dynawo.Electrical.Machines;
 
 model GeneratorPV_INIT "Initialisation model for generator PV"
 
-  extends BaseClasses_INIT.BaseGeneratorSimplified_INIT;
+  extends BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
 
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in p.u (base UNom, SNom)";

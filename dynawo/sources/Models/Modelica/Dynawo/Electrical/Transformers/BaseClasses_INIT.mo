@@ -149,6 +149,46 @@ annotation(preferredView = "text");
 end IdealTransformerTapEstimation;
 
 
+// Base model for initialization of transformers with parameters
+partial model BaseTransformerParameters_INIT "Base model for initialization of transformers"
+
+    parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    parameter Types.ReactivePowerPu Q10Pu  "Start value of reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in p.u (base UNom)";
+    parameter Types.Angle U1Phase0  "Start value of voltage angle at terminal 1 in rad";
+
+    Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
+    Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    flow Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
+
+equation
+
+  u10Pu = ComplexMath.fromPolar(U10Pu, U1Phase0);
+  s10Pu = Complex(P10Pu, Q10Pu);
+  s10Pu = u10Pu * ComplexMath.conj(i10Pu);
+
+annotation(preferredView = "text");
+end BaseTransformerParameters_INIT;
+
+// Base model for initialization of transformers with variables
+partial model BaseTransformerVariables_INIT "Base model for initialization of transformers"
+
+    Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
+    flow Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
+
+    Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in p.u (base U1Nom)";
+    Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
+
+equation
+
+  U10Pu = ComplexMath.'abs' (u10Pu);
+  P10Pu = ComplexMath.real(u10Pu * ComplexMath.conj(i10Pu));
+  Q10Pu = ComplexMath.imag(u10Pu * ComplexMath.conj(i10Pu));
+
+annotation(preferredView = "text");
+end BaseTransformerVariables_INIT;
+
 // Base model for initialization of transformers with variable tap
 partial model BaseTransformerVariableTapCommon_INIT "Base model for initialization of transformers with variable tap"
 
@@ -193,28 +233,6 @@ equation
 annotation(preferredView = "text");
 end BaseTransformerVariableTapCommon_INIT;
 
-partial model BaseIdealTransformerVariableTap_INIT "Base model for initialization of IdealTransformerVariableTap"
-  extends BaseTransformerVariableTapCommon_INIT;
-
-/* Equivalent circuit and conventions:
-
-               I1   r   I2
-    U1,P1,Q1 -->---oo---<-- U2,P2,Q2
-  (terminal1)              (terminal2)
-*/
-
-equation
-
-  // Initial tap estimation
-  Tap0 = IdealTransformerTapEstimation(rTfoMinPu, rTfoMaxPu, NbTap, u10Pu, Uc20Pu);
-
-  // Transformer equations
-  i10Pu = - rTfo0Pu * i20Pu;
-  rTfo0Pu * u10Pu = u20Pu;
-
-annotation(preferredView = "text");
-end BaseIdealTransformerVariableTap_INIT;
-
 partial model BaseTransformerVariableTap_INIT "Base model for initialization of TransformerVariableTap"
   extends BaseTransformerVariableTapCommon_INIT;
 
@@ -242,14 +260,6 @@ partial model BaseTransformerVariableTap_INIT "Base model for initialization of 
     parameter Types.ComplexImpedancePu ZPu(re = R / 100 * SystemBase.SnRef/ SNom , im  = X / 100 * SystemBase.SnRef/ SNom) "Transformer impedance in p.u (base U2Nom, SnRef)";
     parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im  = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in p.u (base U2Nom, SnRef)";
 
-  equation
-    // Initial tap estimation
-    Tap0 = TapEstimation (ZPu, rTfoMinPu, rTfoMaxPu, NbTap, u10Pu, i10Pu, Uc20Pu);
-
-    // Transformer equations
-    i10Pu = rTfo0Pu * (YPu * u20Pu - i20Pu);
-    rTfo0Pu * rTfo0Pu * u10Pu = rTfo0Pu * u20Pu + ZPu * i10Pu;
-
 annotation(preferredView = "text");
 end BaseTransformerVariableTap_INIT;
 
@@ -273,10 +283,6 @@ partial model BaseGeneratorTransformer_INIT "Base model for initialization of Ge
 
   public
 
-    // Transformer parameters
-    parameter Types.ComplexImpedancePu ZPu = Complex(RPu, XPu) "Impedance in p.u (base U2Nom, SnRef)";
-    parameter Types.ComplexAdmittancePu YPu = Complex(GPu, BPu) "Admittance in p.u (base U2Nom, SnRef)";
-
     // Start values at terminal (network terminal side)
     parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
     parameter Types.ReactivePowerPu Q10Pu  "Start value of reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
@@ -295,20 +301,16 @@ partial model BaseGeneratorTransformer_INIT "Base model for initialization of Ge
     Types.ReactivePowerPu Q20Pu "Start value of reactive power at terminal 2 in p.u (base SnRef) (generator convention)";
     Types.Angle U2Phase0 "Start value of voltage angle in rad";
 
-  equation
+equation
 
-    s10Pu = Complex(P10Pu, Q10Pu);
-    u10Pu = ComplexMath.fromPolar(U10Pu, U1Phase0);
-    s10Pu = u10Pu * ComplexMath.conj(i10Pu);
+  s10Pu = Complex(P10Pu, Q10Pu);
+  u10Pu = ComplexMath.fromPolar(U10Pu, U1Phase0);
+  s10Pu = u10Pu * ComplexMath.conj(i10Pu);
 
-    // Transformer equations
-    i10Pu = rTfoPu * (YPu * u20Pu - i20Pu);
-    rTfoPu * rTfoPu * u10Pu = rTfoPu * u20Pu + ZPu * i10Pu;
-
-    P20Pu = - ComplexMath.real(u20Pu * ComplexMath.conj(i20Pu));
-    Q20Pu = - ComplexMath.imag(u20Pu * ComplexMath.conj(i20Pu));
-    U20Pu = ComplexMath.'abs' (u20Pu);
-    U2Phase0 = ComplexMath.arg(u20Pu);
+  P20Pu = - ComplexMath.real(u20Pu * ComplexMath.conj(i20Pu));
+  Q20Pu = - ComplexMath.imag(u20Pu * ComplexMath.conj(i20Pu));
+  U20Pu = ComplexMath.'abs' (u20Pu);
+  U2Phase0 = ComplexMath.arg(u20Pu);
 
 annotation(preferredView = "text");
 end BaseGeneratorTransformer_INIT;

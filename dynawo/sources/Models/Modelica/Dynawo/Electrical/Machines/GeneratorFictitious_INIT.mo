@@ -14,7 +14,7 @@ within Dynawo.Electrical.Machines;
 
 model GeneratorFictitious_INIT "Initialisation model for fictitious generator"
 
-  extends BaseClasses_INIT.BaseGeneratorSimplified_INIT;
+  extends BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
 
 annotation(preferredView = "text");
