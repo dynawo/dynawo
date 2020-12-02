@@ -46,6 +46,9 @@
 #include "DYNCriteria.h"
 #include "CRTCriteria.h"
 #include "CRTCriteriaParams.h"
+#include "DYNFictBusInterfaceIIDM.h"
+#include "DYNFictTwoWTransformerInterfaceIIDM.h"
+#include "DYNFictVoltageLevelInterfaceIIDM.h"
 
 #include <libxml/parser.h>
 
@@ -273,15 +276,12 @@ DataInterfaceIIDM::initFromIIDM() {
     components_[tfo->getID()] = tfo;
   }
 
-  //===========================
-  //  ADD 3WTFO INTERFACE
-  //===========================
+  //==========================================
+  //  CONVERT THREE WINDINGS TRANSFORMERS
+  //==========================================
   for (auto& threeWindingTransfoIIDM : networkIIDM_.getThreeWindingsTransformers()) {
-    shared_ptr<ThreeWTransformerInterface> tfo = importThreeWindingsTransformer(threeWindingTransfoIIDM);
-    network_->addThreeWTransformer(tfo);
-    components_[tfo->getID()] = tfo;
+    convertThreeWindingsTransformers(threeWindingTransfoIIDM);
   }
-
 
   //===========================
   //  ADD LINE INTERFACE
@@ -569,73 +569,78 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
   return twoWTfo;
 }
 
-shared_ptr<ThreeWTransformerInterface>
-DataInterfaceIIDM::importThreeWindingsTransformer(powsybl::iidm::ThreeWindingsTransformer & threeWTfoIIDM) {
-  shared_ptr<ThreeWTransformerInterfaceIIDM> threeWTfo(new ThreeWTransformerInterfaceIIDM(threeWTfoIIDM));
+void
+DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindingsTransformer & ThreeWindingTransformer) {
+  const string fictVLId = ThreeWindingTransformer.getId() + "_FictVL";
+  const string fictBusId = ThreeWindingTransformer.getId() + "_FictBUS";
+  string countryStr;
+  if (ThreeWindingTransformer.getSubstation().getCountry())
+    countryStr = powsybl::iidm::getCountryName(ThreeWindingTransformer.getSubstation().getCountry().get());
 
-  threeWTfo->setBusInterface1(findBusInterface(threeWTfoIIDM.getLeg1().getTerminal().get()));
-  threeWTfo->setVoltageLevelInterface1(findVoltageLevelInterface(threeWTfoIIDM.getLeg1().getTerminal().get().getVoltageLevel().getId()));
+  std::vector<stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> > legs;
+  legs.push_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(ThreeWindingTransformer.getLeg1()));
+  legs.push_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(ThreeWindingTransformer.getLeg2()));
+  legs.push_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(ThreeWindingTransformer.getLeg3()));
 
-  threeWTfo->setBusInterface2(findBusInterface(threeWTfoIIDM.getLeg2().getTerminal().get()));
-  threeWTfo->setVoltageLevelInterface2(findVoltageLevelInterface(threeWTfoIIDM.getLeg2().getTerminal().get().getVoltageLevel().getId()));
+  shared_ptr<VoltageLevelInterface> vl(new FictVoltageLevelInterfaceIIDM(fictVLId, ThreeWindingTransformer.getRatedU0(), countryStr));
+  network_->addVoltageLevel(vl);
+  voltageLevels_[vl->getID()] = vl;
+  shared_ptr<BusInterface> fictBus(new FictBusInterfaceIIDM(fictBusId, ThreeWindingTransformer.getRatedU0(), countryStr));
+  vl->addBus(fictBus);
+  components_[fictBus->getID()] = fictBus;
+  busComponents_[fictBus->getID()] = fictBus;
 
-  threeWTfo->setBusInterface3(findBusInterface(threeWTfoIIDM.getLeg3().getTerminal().get()));
-  threeWTfo->setVoltageLevelInterface3(findVoltageLevelInterface(threeWTfoIIDM.getLeg3().getTerminal().get().getVoltageLevel().getId()));
-
-  if (threeWTfoIIDM.getLeg1().getCurrentLimits()) {
-    powsybl::iidm::CurrentLimits& currentLimits = threeWTfoIIDM.getLeg1().getCurrentLimits();
-
-    // permanent limit
-    if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
-      threeWTfo->addCurrentLimitInterface1(cLimit);
+  int legCount = 1;
+  const bool initialConnected1 = true;
+  const double VNom1 = ThreeWindingTransformer.getRatedU0();
+  const double ratedU1 = ThreeWindingTransformer.getRatedU0();
+  for (auto& leg : legs) {
+    string TwoWTransfId = ThreeWindingTransformer.getId() + "_" + std::to_string(legCount);
+    // We consider the fictitious transformer always connected on the fictitious bus
+    shared_ptr<TwoWTransformerInterface> fictTwoWTransf(new FictTwoWTransformerInterfaceIIDM(TwoWTransfId, leg, initialConnected1, VNom1,
+                                                        ratedU1));
+    fictTwoWTransf.get()->setBusInterface1(fictBus);
+    fictTwoWTransf.get()->setBusInterface2(findBusInterface(leg.get().getTerminal()));
+    fictTwoWTransf.get()->setVoltageLevelInterface1(vl);
+    fictTwoWTransf.get()->setVoltageLevelInterface2(findVoltageLevelInterface(leg.get().getTerminal().get().getVoltageLevel().getId()));
+    // add phase tapChanger and steps if exists
+    if (leg.get().hasPhaseTapChanger()) {
+      shared_ptr<PhaseTapChangerInterfaceIIDM> tapChanger(new PhaseTapChangerInterfaceIIDM(leg.get().getPhaseTapChanger()));
+      fictTwoWTransf->setPhaseTapChanger(tapChanger);
     }
-
-    // temporary limit
-    for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
-        threeWTfo->addCurrentLimitInterface1(cLimit);
+    // add ratio tapChanger and steps if exists. It is always referring to side TWO as it is the side coming from
+    // the orginal ThreeWindingTransformer
+    if (leg.get().hasRatioTapChanger()) {
+      string side;
+      if (leg.get().getRatioTapChanger().getRegulationTerminal() &&
+          stdcxx::areSame(leg.get().getTerminal().get(), leg.get().getRatioTapChanger().getRegulationTerminal().get())) {
+        side = "TWO";
+        shared_ptr<RatioTapChangerInterfaceIIDM> tapChanger(new RatioTapChangerInterfaceIIDM(leg.get().getRatioTapChanger(), side));
+        fictTwoWTransf->setRatioTapChanger(tapChanger);
       }
     }
-  }
-
-  if (threeWTfoIIDM.getLeg2().getCurrentLimits()) {
-    powsybl::iidm::CurrentLimits& currentLimits = threeWTfoIIDM.getLeg1().getCurrentLimits();
-
-    // permanent limit
-    if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
-      threeWTfo->addCurrentLimitInterface2(cLimit);
-    }
-
-    // temporary limit
-    for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
-        threeWTfo->addCurrentLimitInterface2(cLimit);
+    if (leg.get().getCurrentLimits()) {
+      powsybl::iidm::CurrentLimits& currentLimits = leg.get().getCurrentLimits().get();
+      // permanent limit
+      if (!std::isnan(currentLimits.getPermanentLimit())) {
+        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(),
+                                                    std::numeric_limits<unsigned long>::max()));
+        fictTwoWTransf->addCurrentLimitInterface2(cLimit);
+      }
+      // temporary limit
+      for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
+        if (!currentLimit.get().isFictitious()) {
+          shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(),
+                                                    currentLimit.get().getAcceptableDuration()));
+          fictTwoWTransf->addCurrentLimitInterface2(cLimit);
+        }
       }
     }
+    network_->addTwoWTransformer(fictTwoWTransf);
+    components_[fictTwoWTransf->getID()] = fictTwoWTransf;
+    legCount++;
   }
-
-  if (threeWTfoIIDM.getLeg3().getCurrentLimits()) {
-    powsybl::iidm::CurrentLimits& currentLimits = threeWTfoIIDM.getLeg3().getCurrentLimits();
-
-    // permanent limit
-    if (!std::isnan(currentLimits.getPermanentLimit())) {
-      shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.getPermanentLimit(), std::numeric_limits<unsigned long>::max()));
-      threeWTfo->addCurrentLimitInterface3(cLimit);
-    }
-
-    // temporary limit
-    for (auto& currentLimit : currentLimits.getTemporaryLimits()) {
-      if (!currentLimit.get().isFictitious()) {
-        shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimit.get().getValue(), currentLimit.get().getAcceptableDuration()));
-        threeWTfo->addCurrentLimitInterface3(cLimit);
-      }
-    }
-  }
-  return threeWTfo;
+  return;
 }
 
 shared_ptr<LineInterface>
@@ -809,15 +814,6 @@ DataInterfaceIIDM::mapConnections() {
     if ((*i2WTfo)->hasDynamicModel()) {
       (*i2WTfo)->getBusInterface1()->hasConnection(true);
       (*i2WTfo)->getBusInterface2()->hasConnection(true);
-    }
-  }
-
-  const vector<shared_ptr<ThreeWTransformerInterface> >& threeWtfos = network_->getThreeWTransformers();
-  for (vector<shared_ptr<ThreeWTransformerInterface> >::const_iterator i3WTfo = threeWtfos.begin(); i3WTfo != threeWtfos.end(); ++i3WTfo) {
-    if ((*i3WTfo)->hasDynamicModel()) {
-      (*i3WTfo)->getBusInterface1()->hasConnection(true);
-      (*i3WTfo)->getBusInterface2()->hasConnection(true);
-      (*i3WTfo)->getBusInterface3()->hasConnection(true);
     }
   }
 
