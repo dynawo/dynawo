@@ -57,6 +57,13 @@ class SparseMatrix {
    * @brief Check error representation
    */
   struct CheckError {
+    /**
+     * @brief Constructor
+     *
+     * @param err error code
+     * @param index index for error info
+     * @param index2 second index for error info
+     */
     explicit CheckError(CheckErrorCode err = CHECK_OK, unsigned int index = 0, unsigned int index2 = 0) : code(err), info(index), info_bis(index2) {}
 
     CheckErrorCode code;    ///< error code
