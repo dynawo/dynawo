@@ -148,35 +148,28 @@ partial model SwitchOffShunt "Switch-off model for a shunt"
 annotation(preferredView = "text");
 end SwitchOffShunt;
 
-partial model SwitchOffTapChanger "Switch-off model for a tap-changer"
+partial model SwitchOffTapChangerPhaseShifter "Switch-off model for a tap-changer or a phase-shifter"
   /* The only possible/expected switch-off signal for a tap-changer is:
      - a switch-off signal coming from the node in case of a node disconnection
      - a switch-off signal coming from the user (event)
   */
+  import Dynawo.Electrical.Controls.Transformers.BaseClasses.TapChangerPhaseShifterParams.Automaton;
   extends SwitchOffLogic(NbSwitchOffSignals = 2);
 
+  parameter Automaton Type;
+
   equation
+
     when not(running.value) then
-      Timeline.logEvent1 (TimelineKeys.TapChangerSwitchOff);
+      if (Type == Automaton.TapChanger) then
+        Timeline.logEvent1 (TimelineKeys.TapChangerSwitchOff);
+      elseif (Type == Automaton.PhaseShifter) then
+        Timeline.logEvent1 (TimelineKeys.PhaseShifterSwitchOff);
+      end if;
     end when;
 
 annotation(preferredView = "text");
-end SwitchOffTapChanger;
-
-partial model SwitchOffPhaseShifter "Switch-off model for a phase-shifter"
-  /* The only possible/expected switch-off signal for a phase-shifter is:
-     - a switch-off signal coming from the node in case of a node disconnection
-  */
-
-  extends SwitchOffLogic(NbSwitchOffSignals = 1);
-
-  equation
-    when not(running.value) then
-      Timeline.logEvent1 (TimelineKeys.PhaseShifterSwitchOff);
-    end when;
-
-annotation(preferredView = "text");
-end SwitchOffPhaseShifter;
+end SwitchOffTapChangerPhaseShifter;
 
 partial model SwitchOffLine "Switch-off signal for a line"
   /* The two possible/expected switch-off signals for a line are:

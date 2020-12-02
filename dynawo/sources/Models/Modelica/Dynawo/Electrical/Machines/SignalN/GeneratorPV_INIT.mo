@@ -17,7 +17,7 @@ model GeneratorPV_INIT "Initialisation model for generator PV based on SignalN f
   import Dynawo;
   import Dynawo.Electrical.Machines;
 
-  extends Machines.BaseClasses_INIT.BaseGeneratorSimplified_INIT;
+  extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
 
     parameter Types.ActivePowerPu PMin "Minimum active power in MW";

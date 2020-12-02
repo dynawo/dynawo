@@ -13,12 +13,10 @@ within Dynawo.Electrical.Controls.Transformers;
 */
 
 model PhaseShifterP "Phase-shifter monitoring the active power so that it remains within [PTarget - PDeadBand ; PTarget + PDeadBand]"
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  extends BaseClasses.BaseTapChangerPhaseShifter_TARGET (targetValue = PTarget, deadBand = PDeadBand, valueToMonitor0 = P0);
-  extends SwitchOff.SwitchOffPhaseShifter;
+  extends BaseClasses.BaseTapChangerPhaseShifter_TARGET (targetValue = PTarget, deadBand = PDeadBand, valueToMonitor0 = P0, Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.PhaseShifter);
 
   public
     parameter Types.ActivePower PTarget  "Target active power";

@@ -37,21 +37,23 @@ model VRProportionalReactiveFeedback
   parameter Real UcTDerMaxPu ( unit = "kV/s") "Maximum time derivative of the voltage request";
   constant Real Cq0 = 15.0;
 
-
-  Blocks.Math.Gain gainU(k = Gain) annotation(
-    Placement(visible = true, transformation(origin = {-42, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  // Inputs
   Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-176, -38}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-176, -38}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Blocks.Interfaces.RealInput UsPu(start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-136, -96}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-56, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Blocks.Interfaces.RealInput QsPu(start = Qs0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-176, 34}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-176, 34}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  // Outputs
   Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {66, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  //Blocks
+  Blocks.Math.Gain gainU(k = Gain) annotation(
+    Placement(visible = true, transformation(origin = {-42, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Add3 error(k3 = -1) annotation(
     Placement(visible = true, transformation(origin = {-98, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Nonlinear.Limiter limiterEfd(limitsAtInit = true, uMax = EfdMaxPu, uMin = EfdMinPu)  annotation(
     Placement(visible = true, transformation(origin = {10, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealInput QsPu(start = Qs0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-176, 34}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-176, 34}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Blocks.Nonlinear.Limiter limiterQ(limitsAtInit = true, uMax = QsMaxPu, uMin = QsMinPu)  annotation(
     Placement(visible = true, transformation(origin = {-106, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Feedback feedback annotation(
@@ -111,8 +113,6 @@ equation
   connect(gainU.u, error.y) annotation(
     Line(points = {{-54, -38}, {-88, -38}, {-88, -38}, {-86, -38}}, color = {0, 0, 127}));
 
-
-
 //TimeLine
   when UsPu >= UsMaxPu then
     Constraint.logConstraintBegin(ConstraintKeys.UsMax);
@@ -144,7 +144,6 @@ equation
     Timeline.logEvent1(TimelineKeys.VRBackToRegulation);
     limitationEfd = false;
   end when;
-
 
 annotation(preferredView = "diagram");
 

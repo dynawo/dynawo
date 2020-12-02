@@ -16,8 +16,6 @@ package BaseClasses_INIT
   extends Icons.BasesPackage;
 
 partial model BaseTapChangerPhaseShifter_INIT "Base initialization model for tap-changers and phase-shifters"
-
-  public
     type State = enumeration (MoveDownN "1: phase shifter has decreased the next tap",
                               MoveDown1 "2: phase shifter has decreased the first tap",
                               WaitingToMoveDown "3: phase shifter is waiting to decrease the first tap",
@@ -37,6 +35,7 @@ partial model BaseTapChangerPhaseShifter_INIT "Base initialization model for tap
     State state0 "Initial state";
 
 annotation(preferredView = "text");
+
 end BaseTapChangerPhaseShifter_INIT;
 
 
@@ -45,6 +44,8 @@ partial model BaseTapChangerPhaseShifter_MAX_INIT "Base initialization model for
 
   public
     parameter Real valueStop (max = valueMax) "Value below which the phase-shifter will stop";
+    parameter Real valueToMonitor0  "Initial monitored value";
+    parameter Boolean increaseTapToIncreaseValue "Whether a tap increase will lead to an increase in the monitored value";
 
   equation
 
@@ -70,6 +71,9 @@ partial model BaseTapChangerPhaseShifter_INTERVAL_INIT "Base initialisation mode
 
   public
     parameter Real valueMin (max = valueMax) "Minimum allowed value of the monitored value";
+    parameter Boolean increaseTapToIncreaseValue "Whether a tap increase will lead to an increase in the monitored value";
+
+    Real valueToMonitor0  "Initial monitored value";
 
   equation
 
@@ -102,14 +106,11 @@ end BaseTapChangerPhaseShifter_TARGET_INIT;
 
 
 partial model BaseTapChanger_INIT "Base initialization model for tap-changers"
-  extends BaseTapChangerPhaseShifter_TARGET_INIT (targetValue = UTarget, deadBand = UDeadBand);
+  extends BaseTapChangerPhaseShifter_TARGET_INIT (targetValue = UTarget, deadBand = UDeadBand, increaseTapToIncreaseValue = true);
 
   public
     parameter Types.VoltageModule UTarget "voltage set-point" ;
     parameter Types.VoltageModule UDeadBand "Voltage dead-band";
-
-  protected
-    parameter Boolean increaseTapToIncreaseValue = true "Whether a tap increase will lead to an increase in the monitored value";
 
 annotation(preferredView = "text");
 end BaseTapChanger_INIT;

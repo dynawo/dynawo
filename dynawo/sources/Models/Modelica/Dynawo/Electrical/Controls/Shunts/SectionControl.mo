@@ -27,7 +27,7 @@ model SectionControl "Section control for shunts with sections. The section of t
   parameter Boolean IsSelf "Boolean that states if the shunt is a self (true) or a condenser (false)";
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in p.u (base UNom)";
 
-  input Types.VoltageModulePu UMonitoredPu "Monitored voltage in p.u (base UNom)";
+  Types.VoltageModulePu UMonitoredPu "Monitored voltage in p.u (base UNom)";
 
 equation
 

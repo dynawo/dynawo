@@ -16,7 +16,7 @@ model PLL "Phase-Locked Loop"
 
   // Inputs:
   ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at PCC (pu base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-116, 29}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin = {-101, 51}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-156, 31}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin = {-101, 51}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency of the system. Either connected to the reference machine or the center of inertia frequency or set be constant 1." annotation(
     Placement(visible = true, transformation(origin = {-117, -70}, extent = {{-18, -18}, {18, 18}}, rotation = 0), iconTransformation(origin = {-101, -47}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
 
@@ -37,11 +37,11 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {-42, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Gain K(k = Kp) annotation(
     Placement(visible = true, transformation(origin = {0, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.LimIntegrator I(initType = Modelica.Blocks.Types.Init.SteadyState, k = Ki, outMax = OmegaMaxPu - SystemBase.omegaRef0Pu, outMin = SystemBase.omegaRef0Pu - OmegaMinPu) annotation(
+  Blocks.Continuous.LimIntegrator I(k = Ki, outMax = OmegaMaxPu - SystemBase.omegaRef0Pu, outMin = SystemBase.omegaRef0Pu - OmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {0, 8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Add dOmega(k1 = +1, k2 = +1) annotation(
     Placement(visible = true, transformation(origin = {40, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.Integrator Phi(initType = Modelica.Blocks.Types.Init.SteadyState, k = SystemBase.omegaNom) annotation(
+  Blocks.Continuous.Integrator Phi(k = SystemBase.omegaNom) annotation(
     Placement(visible = true, transformation(origin = {76, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Sin sinPhi annotation(
     Placement(visible = true, transformation(origin = {116, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -49,7 +49,8 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {116, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Add OmegaRad(k1 = +1, k2 = +1) annotation(
     Placement(visible = true, transformation(origin = {78, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
+  ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
+    Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 protected
 
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage in p.u (base UNom)";
@@ -61,10 +62,6 @@ equation
     Line(points = {{-116, -70}, {64, -70}, {64, -70}, {66, -70}}, color = {0, 0, 127}));
   connect(dOmega.y, OmegaRad.u1) annotation(
     Line(points = {{52, 28}, {54, 28}, {54, -58}, {66, -58}}, color = {0, 0, 127}));
-  connect(uPu.re, ur_x_sinPhi.u2) annotation(
-    Line(points = {{-116, 29}, {-94, 29}, {-94, 62}, {-84, 62}}, color = {85, 170, 255}));
-  connect(uPu.im, ui_x_cosPhi.u1) annotation(
-    Line(points = {{-116, 29}, {-94, 29}, {-94, -12}, {-84, -12}, {-84, -10}}, color = {85, 170, 255}));
   connect(uq.y, K.u) annotation(
     Line(points = {{-31, 28}, {-22, 28}, {-22, 52}, {-12, 52}}, color = {0, 0, 127}));
   connect(K.y, dOmega.u1) annotation(
@@ -95,6 +92,12 @@ equation
     Line(points = {{88, 28}, {92, 28}, {92, 52}, {104, 52}, {104, 52}}, color = {0, 0, 127}));
   connect(dOmega.y, Phi.u) annotation(
     Line(points = {{52, 28}, {64, 28}, {64, 28}, {64, 28}}, color = {0, 0, 127}));
+  connect(uPu, complexToReal.u) annotation(
+    Line(points = {{-156, 31}, {-122, 31}, {-122, 30}}, color = {85, 170, 255}));
+  connect(complexToReal.re, ur_x_sinPhi.u2) annotation(
+    Line(points = {{-98, 36}, {-92, 36}, {-92, 62}, {-84, 62}}, color = {0, 0, 127}));
+  connect(complexToReal.im, ui_x_cosPhi.u1) annotation(
+    Line(points = {{-98, 24}, {-92, 24}, {-92, -10}, {-84, -10}}, color = {0, 0, 127}));
 
 annotation(preferredView = "diagram",
     Documentation(info = "<html>
