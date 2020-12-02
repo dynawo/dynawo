@@ -20,6 +20,9 @@ set(DATA_INTERFACE_IIDM_SOURCES
   DYNCurrentLimitInterfaceIIDM.cpp
   DYNDanglingLineInterfaceIIDM.cpp
   DYNDataInterfaceIIDM.cpp
+  DYNFictBusInterfaceIIDM.cpp
+  DYNFictTwoWTransformerInterfaceIIDM.cpp
+  DYNFictVoltageLevelInterfaceIIDM.cpp
   DYNGeneratorInterfaceIIDM.cpp
   DYNHvdcLineInterfaceIIDM.cpp
   DYNLccConverterInterfaceIIDM.cpp

@@ -218,6 +218,14 @@ class DataInterfaceIIDM : public DataInterface {
   boost::shared_ptr<VoltageLevelInterface> importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelIIDM,
       const stdcxx::optional<powsybl::iidm::Country>& country);
 
+    /**
+   * @brief get ThreeWindigTransfomer legs
+   *
+   * @param ThreeWindingsTransformerIIDM IIDM instance to get all transformer legs
+   * @return vector of legs of ThreeWindingsTransformer instance
+   */
+  std::vector<stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> > getLegs(powsybl::iidm::ThreeWindingsTransformer& ThreeWindingsTransformerIIDM);
+
   /**
    * @brief import and create a switch interface thanks to the IIDM instance
    *

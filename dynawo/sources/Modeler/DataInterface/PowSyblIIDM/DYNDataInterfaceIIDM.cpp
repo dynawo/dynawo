@@ -46,6 +46,9 @@
 #include "DYNCriteria.h"
 #include "CRTCriteria.h"
 #include "CRTCriteriaParams.h"
+#include "DYNFictBusInterfaceIIDM.h"
+#include "DYNFictTwoWTransformerInterfaceIIDM.h"
+#include "DYNFictVoltageLevelInterfaceIIDM.h"
 
 #include <libxml/parser.h>
 
@@ -228,6 +231,15 @@ DataInterfaceIIDM::getBusName(const std::string& componentName, const std::strin
   return busName;
 }
 
+std::vector<stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> >
+DataInterfaceIIDM::getLegs(powsybl::iidm::ThreeWindingsTransformer& ThreeWindingsTransformerIIDM) {
+  std::vector<stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> > legs;
+  legs.push_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(ThreeWindingsTransformerIIDM.getLeg1()));
+  legs.push_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(ThreeWindingsTransformerIIDM.getLeg2()));
+  legs.push_back(stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>(ThreeWindingsTransformerIIDM.getLeg3()));
+  return legs;
+}
+
 void
 DataInterfaceIIDM::initFromIIDM() {
   // create network interface
@@ -238,6 +250,45 @@ DataInterfaceIIDM::initFromIIDM() {
       shared_ptr<VoltageLevelInterface> vl = importVoltageLevel(voltageLevel, substation.getCountry());
       network_->addVoltageLevel(vl);
       voltageLevels_[vl->getID()] = vl;
+    }
+  }
+
+  for (auto& ThreeWindingTransformer : networkIIDM_.getThreeWindingsTransformers()) {
+    const string VLId = ThreeWindingTransformer.getId() + "_VL";
+    const string busId = ThreeWindingTransformer.getId() + "_BUS";
+    string countryStr;
+    if (ThreeWindingTransformer.getSubstation().getCountry())
+      countryStr = powsybl::iidm::getCountryName(ThreeWindingTransformer.getSubstation().getCountry().get());
+    shared_ptr<VoltageLevelInterface> vl(new FictVoltageLevelInterfaceIIDM(VLId, ThreeWindingTransformer.getRatedU0(), countryStr));
+    network_->addVoltageLevel(vl);
+    voltageLevels_[vl->getID()] = vl;
+    shared_ptr<BusInterface> fictBus(new FictBusInterfaceIIDM(busId, ThreeWindingTransformer.getRatedU0(), countryStr));
+    vl->addBus(fictBus);
+    components_[fictBus->getID()] = fictBus;
+    busComponents_[fictBus->getID()] = fictBus;
+    int legCount = 1;
+    for (auto& leg : getLegs(ThreeWindingTransformer)) {
+      string TwoWTransfId = ThreeWindingTransformer.getId() + "_" + std::to_string(legCount);
+      bool initialConnected1 = true;
+      double VNom1 = ThreeWindingTransformer.getRatedU0();
+      double ratedU1 = ThreeWindingTransformer.getRatedU0();
+      bool initialConnected2 = leg.get().getTerminal().get().isConnected();
+      double VNom2 = leg.get().getTerminal().get().getVoltageLevel().getNominalVoltage();
+      double ratedU2 = leg.get().getRatedU();
+      double R = leg.get().getR();
+      double X = leg.get().getX();
+      double G = leg.get().getG();
+      double B = leg.get().getB();
+      shared_ptr<TwoWTransformerInterface> fictTwoWTransf(new FictTwoWTransformerInterfaceIIDM(TwoWTransfId, initialConnected1, VNom1,
+                                                          ratedU1, initialConnected2, VNom2, ratedU2,
+                                                          R, X, G, B));
+      fictTwoWTransf.get()->setBusInterface1(fictBus);
+      fictTwoWTransf.get()->setBusInterface2(findBusInterface(leg.get().getTerminal()));
+      fictTwoWTransf.get()->setVoltageLevelInterface1(vl);
+      fictTwoWTransf.get()->setVoltageLevelInterface2(findVoltageLevelInterface(leg.get().getTerminal().get().getVoltageLevel().getId()));
+      network_->addTwoWTransformer(fictTwoWTransf);
+      components_[fictTwoWTransf->getID()] = fictTwoWTransf;
+      legCount++;
     }
   }
 
@@ -253,11 +304,11 @@ DataInterfaceIIDM::initFromIIDM() {
   //===========================
   //  ADD 3WTFO INTERFACE
   //===========================
-  for (auto& threeWindingTransfoIIDM : networkIIDM_.getThreeWindingsTransformers()) {
-    shared_ptr<ThreeWTransformerInterface> tfo = importThreeWindingsTransformer(threeWindingTransfoIIDM);
-    network_->addThreeWTransformer(tfo);
-    components_[tfo->getID()] = tfo;
-  }
+  // for (auto& threeWindingTransfoIIDM : networkIIDM_.getThreeWindingsTransformers()) {
+  //  shared_ptr<ThreeWTransformerInterface> tfo = importThreeWindingsTransformer(threeWindingTransfoIIDM);
+  //  network_->addThreeWTransformer(tfo);
+  //  components_[tfo->getID()] = tfo;
+  // }
 
 
   //===========================
