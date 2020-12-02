@@ -1264,7 +1264,7 @@ class ReaderOMC:
                     set_param_address(name,  "derivativesVars")
                     set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")",  to_param_address(name))
                 elif "$DER" in name and "algVars" in var_type:
-                    print_info("Found dummy der variable " + var.get_name())
+                    print_info("Found dummy der variable " + name)
                     set_param_address(name,  "derivativesVars")
                     set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")",  to_param_address(name))
                     name = name.replace("$DER.","")+"_dummy_der"
