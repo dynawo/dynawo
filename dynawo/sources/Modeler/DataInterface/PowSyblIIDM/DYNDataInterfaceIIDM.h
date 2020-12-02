@@ -280,12 +280,11 @@ class DataInterfaceIIDM : public DataInterface {
   boost::shared_ptr<TwoWTransformerInterface> importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransformer & twoWTfo);
 
   /**
-   * @brief import and create a three windings transformer interface thanks to the IIDM instance
+   * @brief conversion of three windings transformer IIDM instance into three two windings transformers interfaces
    *
    * @param threeWTfo IIDM instance to use to create threeWindingsTransformer Interface
-   * @return the instance of ThreeWTransformerInterface created
    */
-  boost::shared_ptr<ThreeWTransformerInterface> importThreeWindingsTransformer(powsybl::iidm::ThreeWindingsTransformer & threeWTfo);
+  void convertThreeWindingsTransformers(powsybl::iidm::ThreeWindingsTransformer & threeWTfo);
 
    /**
    * @brief import and create a line interface thanks to the IIDM instance

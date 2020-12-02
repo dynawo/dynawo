@@ -16,6 +16,8 @@ set(MODULE_SOURCES
   TestCurrentLimitInterface.cpp
   TestDanglingLineInterface.cpp
   TestDataInterface.cpp
+  TestFictBusInterface.cpp
+  TestFictVoltageLevelInterface.cpp
   TestGeneratorInterface.cpp
   TestHvdcLineInterface.cpp
   TestInjectorInterface.cpp
