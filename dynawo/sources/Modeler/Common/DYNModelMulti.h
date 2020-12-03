@@ -164,7 +164,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param type type of silent z to test
    * @return @b true at least one silent discrete variable of the given type has changed
    */
-  inline bool getSilentZChange(SilentZFlags type) const {
+  inline bool isSilentZChangeType(SilentZFlags type) const {
     return silentZChange_.getFlags(type);
   }
 

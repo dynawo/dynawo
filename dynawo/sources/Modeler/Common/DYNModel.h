@@ -213,7 +213,7 @@ class Model {
    * @param type type of silent z to test
    * @return @b true at least one silent discrete variable of the given type has changed
    */
-  virtual bool getSilentZChange(SilentZFlags type) const = 0;
+  virtual bool isSilentZChangeType(SilentZFlags type) const = 0;
 
   /**
    * @brief enable or disable the possibility to break discrete variable propagation loop if only silent z are modified
