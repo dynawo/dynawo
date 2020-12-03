@@ -48,8 +48,8 @@ else()
     DOWNLOAD_DIR      "${DOWNLOAD_DIR}/${package_name}"
     TMP_DIR           "${TMP_DIR}"
     STAMP_DIR         "${DOWNLOAD_DIR}/${package_name}-stamp"
-    BINARY_DIR        "${DOWNLOAD_DIR}/${package_name}"
-    SOURCE_DIR        "${DOWNLOAD_DIR}/${package_name}-build"
+    BINARY_DIR        "${DOWNLOAD_DIR}/${package_name}-build"
+    SOURCE_DIR        "${DOWNLOAD_DIR}/${package_name}"
 
     CMAKE_CACHE_ARGS  "-DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}"
 

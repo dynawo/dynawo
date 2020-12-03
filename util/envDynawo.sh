@@ -1740,20 +1740,14 @@ deploy_dynawo() {
     # libXML2
     echo "deploying libxml2"
     if [ $DYNAWO_LIBXML2_HOME_DEFAULT != true ]; then
-      libxml2_system_folder=$DYNAWO_THIRD_PARTY_INSTALL_DIR
-      libxml2_system_folder_include=$DYNAWO_THIRD_PARTY_INSTALL_DIR
+      cp -P $DYNAWO_LIBXML2_HOME/lib/libxml2*.$LIBRARY_SUFFIX* lib/
+      cp -n -R $DYNAWO_LIBXML2_HOME/include/libxml2 include/
     else
       libxml2_system_folder=$(find_lib_system_path xml2) || error_exit "Path for libxml2 could not be found for deploy."
+      cp -P ${libxml2_system_folder}/libxml2*.$LIBRARY_SUFFIX* lib/
       libxml2_system_folder_include=$(find_include_system_path LIBXML2_INCLUDE_DIR) || error_exit "Path for libxml2 include could not be found for deploy."
+      cp -n -P -R ${libxml2_system_folder_include} include/
     fi
-    if [ -f "$DYNAWO_BUILD_DIR/CMakeCache.txt" ]; then
-      for libxml2 in $(grep -o "libxml2.*.$LIBRARY_SUFFIX" $DYNAWO_BUILD_DIR/CMakeCache.txt | tr ';' '\n' | grep -o "libxml2.*.$LIBRARY_SUFFIX" | sort | uniq); do
-        cp -P ${libxml2_system_folder}/${libxml2}* lib/
-      done
-    else
-      error_exit "$DYNAWO_BUILD_DIR should not be deleted before deploy to be able to determine libxml2 libraries used during compilation."
-    fi
-    cp -n -P -R $libxml2_system_folder_include/libxml include/
   fi
 
   # DYNAWO
