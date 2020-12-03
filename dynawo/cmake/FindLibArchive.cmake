@@ -68,6 +68,9 @@ IF(LibArchive_FOUND)
     if(LibArchive_INCLUDE_DIRS)
       set_target_properties(LibArchive::LibArchive PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${LibArchive_INCLUDE_DIRS}")
+      set_property(TARGET LibArchive::LibArchive APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+        $<TARGET_PROPERTY:ZLIB::ZLIB,INTERFACE_INCLUDE_DIRECTORIES>
+        )
     endif()
     if(EXISTS "${LibArchive_LIBRARY}")
       set_target_properties(LibArchive::LibArchive PROPERTIES
