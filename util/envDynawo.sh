@@ -646,15 +646,11 @@ config_3rd_party() {
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
   fi
-  case $DYNAWO_BUILD_TYPE in
-    Debug)
+  if [ $DYNAWO_BUILD_TESTS = "ON" -o $DYNAWO_BUILD_TESTS_COVERAGE = "ON" ]; then
       if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
         CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DGTEST_ROOT=$DYNAWO_GTEST_HOME"
       fi
-      ;;
-    *)
-      ;;
-  esac
+  fi
   if [ $DYNAWO_FORCE_CXX11_ABI = true ]; then
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DFORCE_CXX11_ABI=$DYNAWO_FORCE_CXX11_ABI"
   fi
