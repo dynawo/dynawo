@@ -34,12 +34,12 @@ add_custom_target(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/TestSilentZ.mo ${CMAKE_CURRENT_BINARY_DIR}
   )
 
-if(DYNAWO_BUILD_TESTS_COVERAGE)
+if(BUILD_TESTS_COVERAGE)
   set(EXTRACT_PATTERNS "'*/sources/ModelicaCompiler/Scripts_OMC_${OPENMODELICA_VERSION}/*'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
 
-if(DYNAWO_BUILD_TESTS)
+if(BUILD_TESTS)
   add_test(${MODULE_NAME}-tests)
 endif()
