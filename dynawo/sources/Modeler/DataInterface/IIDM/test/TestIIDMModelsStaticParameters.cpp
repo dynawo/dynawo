@@ -13,7 +13,7 @@
 
 /**
  * @file Modeler/DataInterface/IIDM/test/TestIIDMModelsStaticParameters.cpp
- * @brief Unit tests for DataInterfaceIIDM classes
+ * @brief Unit tests for Static parameter classes
  *
  */
 
