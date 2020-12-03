@@ -21,8 +21,8 @@ if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
   endif()
 endif()
 
-option(DYNAWO_BUILD_TESTS "Choose to build the unit tests")
-option(DYNAWO_BUILD_TESTS_COVERAGE "Choose to build tests coverage")
+option(BUILD_TESTS "Choose to build the unit tests")
+option(BUILD_TESTS_COVERAGE "Choose to build tests coverage")
 
 # Add custom cmake modules to the path
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -233,7 +233,7 @@ endif()
 # Tell BOOST to disable auto linking
 add_definitions(-DBOOST_ALL_NO_LIB)
 
-if(DYNAWO_BUILD_TESTS OR DYNAWO_BUILD_TESTS_COVERAGE)
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   find_package(Boost 1.64 REQUIRED
           COMPONENTS
           filesystem
@@ -256,15 +256,15 @@ else()
           )
 endif()
 
-if(DYNAWO_BUILD_TESTS_COVERAGE)
+if(BUILD_TESTS_COVERAGE)
   include(TestCoverage)
 endif()
 
-if(DYNAWO_BUILD_TESTS)
+if(BUILD_TESTS)
   include(UnitTest)
 endif()
 
-if(DYNAWO_BUILD_TESTS OR DYNAWO_BUILD_TESTS_COVERAGE)
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   find_package(GTest REQUIRED)
 
   if(NOT TARGET GTest::gtest AND TARGET GTest::GTest)
@@ -391,7 +391,7 @@ add_custom_target(CREATE_DDBDIR
 
 if(MSVC)
   set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
-  if(DYNAWO_BUILD_TESTS OR DYNAWO_BUILD_TESTS_COVERAGE)
+  if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
     set(runtime_tests_PATH "PATH=${GTEST_ROOT}/bin;${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
   endif()
 else() # Linux
@@ -440,7 +440,7 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindSundials.cmake DESTINATION $
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindlibZIP.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 
 if(MSVC)
-  if(DYNAWO_BUILD_TESTS OR DYNAWO_BUILD_TESTS_COVERAGE)
+  if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
     set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)" FORCE)
   endif()
 endif()

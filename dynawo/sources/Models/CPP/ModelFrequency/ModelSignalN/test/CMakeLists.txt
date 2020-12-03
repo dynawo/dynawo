@@ -28,12 +28,12 @@ add_custom_target(${MODULE_NAME}-tests
     ${MODULE_NAME}
   COMMENT "Running ${MODULE_NAME}...")
 
-if(DYNAWO_BUILD_TESTS_COVERAGE)
+if(BUILD_TESTS_COVERAGE)
   set(EXTRACT_PATTERNS "'*/sources/Models/CPP/ModelFrequency/ModelSignalN/DYN*'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
 
-if(DYNAWO_BUILD_TESTS)
+if(BUILD_TESTS)
   add_test(${MODULE_NAME}-tests)
 endif()
