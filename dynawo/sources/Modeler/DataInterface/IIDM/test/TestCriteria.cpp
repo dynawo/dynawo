@@ -13,7 +13,7 @@
 
 /**
  * @file Modeler/DataInterface/IIDM/test/TestCriteria.cpp
- * @brief Unit tests for DataInterfaceIIDM classes
+ * @brief Unit tests for Criteria classes
  *
  */
 
