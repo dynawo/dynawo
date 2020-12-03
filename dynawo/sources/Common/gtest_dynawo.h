@@ -113,7 +113,6 @@ inline std::string key2Str(const int key) {
     GTEST_FATAL_FAILURE_(oss.str().c_str());                                                     \
   }                                                                                              \
   catch (...) {                                                                                  \
-    int status;                                                                                  \
     std::ostringstream oss;                                                                      \
     oss << "Expected: " << #F << " throws an exception of type DYN::Error" << std::endl;         \
     oss << "  Actual: it throws an exception of unknown type";                                   \

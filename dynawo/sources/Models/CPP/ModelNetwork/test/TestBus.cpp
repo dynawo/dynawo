@@ -93,7 +93,7 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
   bus->initSize();
   std::vector<double> z(bus->sizeZ(), 0.);
   bool* zConnected = new bool[bus->sizeZ()];
-  for (size_t i = 0; i < bus->sizeZ(); ++i)
+  for (int i = 0; i < bus->sizeZ(); ++i)
     zConnected[i] = true;
   bus->setReferenceZ(&z[0], zConnected, 0);
   ASSERT_EQ(sub.nbBus(), 1);
@@ -113,7 +113,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
   bus->initSize();
   std::vector<double> z(bus->sizeZ(), 0.);
   bool* zConnected = new bool[bus->sizeZ()];
-  for (size_t i = 0; i < bus->sizeZ(); ++i)
+  for (int i = 0; i < bus->sizeZ(); ++i)
     zConnected[i] = true;
   bus->setReferenceZ(&z[0], zConnected, 0);
   ASSERT_EQ(bus->id(), "MyBus1");
@@ -136,7 +136,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   std::vector<double> f(bus->sizeF(), 0.);
   std::vector<double> z(bus->sizeZ(), 0.);
   bool* zConnected = new bool[bus->sizeZ()];
-  for (size_t i = 0; i < bus->sizeZ(); ++i)
+  for (int i = 0; i < bus->sizeZ(); ++i)
     zConnected[i] = true;
   bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
@@ -356,7 +356,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   std::vector<double> f(nbF, 0.);
   std::vector<double> z(bus->sizeZ(), 0.);
   bool* zConnected = new bool[bus->sizeZ()];
-  for (size_t i = 0; i < bus->sizeZ(); ++i)
+  for (int i = 0; i < bus->sizeZ(); ++i)
     zConnected[i] = true;
   std::vector<state_g> g(bus->sizeG(), NO_ROOT);
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
@@ -460,7 +460,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
   std::vector<double> f(nbF, 0.);
   std::vector<double> z(bus->sizeZ(), 0.);
   bool* zConnected = new bool[bus->sizeZ()];
-  for (size_t i = 0; i < bus->sizeZ(); ++i)
+  for (int i = 0; i < bus->sizeZ(); ++i)
     zConnected[i] = true;
   std::vector<state_g> g(bus->sizeG(), NO_ROOT);
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
@@ -553,7 +553,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   std::vector<double> f(bus->sizeF(), 0.);
   std::vector<double> z(bus->sizeZ(), 0.);
   bool* zConnected = new bool[bus->sizeZ()];
-  for (size_t i = 0; i < bus->sizeZ(); ++i)
+  for (int i = 0; i < bus->sizeZ(); ++i)
     zConnected[i] = true;
   bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
@@ -661,7 +661,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   std::vector<double> f1(bus1->sizeF(), 0.);
   std::vector<double> z1(bus1->sizeZ(), 0.);
   bool* zConnected1 = new bool[bus1->sizeZ()];
-  for (size_t i = 0; i < bus1->sizeZ(); ++i)
+  for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
@@ -676,7 +676,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   std::vector<double> f2(bus2->sizeF(), 0.);
   std::vector<double> z2(bus2->sizeZ(), 0.);
   bool* zConnected2 = new bool[bus2->sizeZ()];
-  for (size_t i = 0; i < bus2->sizeZ(); ++i)
+  for (int i = 0; i < bus2->sizeZ(); ++i)
     zConnected2[i] = true;
   bus2->setReferenceZ(&z2[0], zConnected2, 0);
   bus2->setReferenceY(&y2[0], &yp2[0], &f2[0], 0, 0);
@@ -691,7 +691,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   std::vector<double> f3(bus3->sizeF(), 0.);
   std::vector<double> z3(bus3->sizeZ(), 0.);
   bool* zConnected3 = new bool[bus3->sizeZ()];
-  for (size_t i = 0; i < bus3->sizeZ(); ++i)
+  for (int i = 0; i < bus3->sizeZ(); ++i)
     zConnected3[i] = true;
   bus3->setReferenceZ(&z3[0], zConnected3, 0);
   bus3->setReferenceY(&y3[0], &yp3[0], &f3[0], 0, 0);
@@ -789,7 +789,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusCurrentU) {
   y[ModelBus::uiNum_] = 2.;
   std::vector<double> z(bus->sizeZ(), 0.);
   bool* zConnected = new bool[bus->sizeZ()];
-  for (size_t i = 0; i < bus->sizeZ(); ++i)
+  for (int i = 0; i < bus->sizeZ(); ++i)
     zConnected[i] = true;
   bus->setReferenceZ(&z[0], zConnected, 0);
 

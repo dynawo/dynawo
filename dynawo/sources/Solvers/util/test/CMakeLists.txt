@@ -36,12 +36,12 @@ add_custom_target(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
   )
 
-if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
+if(DYNAWO_BUILD_TESTS_COVERAGE)
   set(EXTRACT_PATTERNS "'*/sources/Solvers/util/DYN*'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
 
-if(CMAKE_BUILD_TYPE STREQUAL "Tests")
+if(DYNAWO_BUILD_TESTS)
   add_test(${MODULE_NAME}-tests)
 endif()

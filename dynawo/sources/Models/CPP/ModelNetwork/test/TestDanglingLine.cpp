@@ -69,7 +69,7 @@ createModelDanglingLine(bool open, bool initModel) {
   IIDM::CurrentLimits limits(200.);
   limits.add("MyLimit", 10., 5.);
   limits.add("MyLimit2", 15., 10.);
-  limits.add("DeactivatedLimit", std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
+  limits.add("DeactivatedLimit", std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<int>::quiet_NaN());
   dlb.currentLimits(limits);
   IIDM::DanglingLine dlIIDM = dlb.build("MyDanglingLine");
   vlIIDM.add(dlIIDM, c1);
@@ -102,7 +102,7 @@ createModelDanglingLine(bool open, bool initModel) {
   double* f1 = new double[bus1->sizeF()];
   double* z1 = new double[bus1->sizeZ()];
   bool* zConnected1 = new bool[bus1->sizeZ()];
-  for (size_t i = 0; i < bus1->sizeZ(); ++i)
+  for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
@@ -142,7 +142,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineCalculatedVariables) {
   std::vector<double> f(dl->sizeF(), 0.);
   std::vector<double> z(dl->sizeZ(), 0.);
   bool* zConnected = new bool[dl->sizeZ()];
-  for (size_t i = 0; i < dl->sizeZ(); ++i)
+  for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
   dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
@@ -235,7 +235,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
   std::vector<double> f(dl->sizeF(), 0.);
   std::vector<double> z(nbZ, 0.);
   bool* zConnected = new bool[dl->sizeZ()];
-  for (size_t i = 0; i < dl->sizeZ(); ++i)
+  for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   std::vector<state_g> g(nbG, NO_ROOT);
   dl->setReferenceG(&g[0], 0);
@@ -315,7 +315,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
   std::vector<double> z(dl->sizeZ(), 0.);
   bool* zConnected = new bool[dl->sizeZ()];
-  for (size_t i = 0; i < dl->sizeZ(); ++i)
+  for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
   dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
@@ -421,7 +421,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineJt) {
   std::vector<double> f(dl->sizeF(), 0.);
   std::vector<double> z(dl->sizeZ(), 0.);
   bool* zConnected = new bool[dl->sizeZ()];
-  for (size_t i = 0; i < dl->sizeZ(); ++i)
+  for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
   dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);

@@ -62,7 +62,7 @@ class SubModelMockBase : public SubModel {
 
   virtual ~SubModelMockBase() {}
 
-  void init(const double& t0) {
+  void init(const double&) {
     // Dummy class used for testing
   }
 
@@ -71,35 +71,35 @@ class SubModelMockBase : public SubModel {
     return "";
   }
 
-  void dumpParameters(std::map< std::string, std::string > & mapParameters) {
+  void dumpParameters(std::map< std::string, std::string > &) {
     // Dummy class used for testing
   }
 
-  void getSubModelParameterValue(const std::string & nameParameter, double & value, bool & found) {
+  void getSubModelParameterValue(const std::string &, double &, bool &) {
     // Dummy class used for testing
   }
 
-  void dumpVariables(std::map< std::string, std::string > & mapVariables) {
+  void dumpVariables(std::map< std::string, std::string > &) {
     // Dummy class used for testing
   }
 
-  void loadParameters(const std::string &parameters) {
+  void loadParameters(const std::string &) {
     // Dummy class used for testing
   }
 
-  void loadVariables(const std::string &variables) {
+  void loadVariables(const std::string &) {
     // Dummy class used for testing
   }
 
-  void evalF(double t, propertyF_t type) {
+  void evalF(double , propertyF_t ) {
     // Dummy class used for testing
   }
 
-  void evalG(const double & t) {
+  void evalG(const double &) {
     // Dummy class used for testing
   }
 
-  void evalZ(const double & t) {
+  void evalZ(const double &) {
     // Dummy class used for testing
   }
 
@@ -107,17 +107,17 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void evalJt(const double & t, const double & cj, SparseMatrix& Jt, const int& rowOffset) {
+  void evalJt(const double & , const double & , SparseMatrix& , const int&) {
     // Dummy class used for testing
   }
 
-  void evalJtPrim(const double & t, const double & cj, SparseMatrix& Jt, const int& rowOffset) {
+  void evalJtPrim(const double & , const double & , SparseMatrix& , const int&) {
     // Dummy class used for testing
   }
 
-  virtual modeChangeType_t evalMode(const double & t) = 0;
+  virtual modeChangeType_t evalMode(const double &) = 0;
 
-  void checkDataCoherence(const double & t) {
+  void checkDataCoherence(const double &) {
     // Dummy class used for testing
   }
 
@@ -157,7 +157,7 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void collectSilentZ(bool* silentZTable) {
+  void collectSilentZ(bool* ) {
     // Dummy class used for testing
   }
 
@@ -173,7 +173,7 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void defineElements(std::vector<Element> &elements, std::map<std::string, int >& mapElement) {
+  void defineElements(std::vector<Element> &, std::map<std::string, int >&) {
     // Dummy class used for testing
   }
 
@@ -181,11 +181,11 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void initializeFromData(const boost::shared_ptr<DataInterface>& data) {
+  void initializeFromData(const boost::shared_ptr<DataInterface>&) {
     // Dummy class used for testing
   }
 
-  void printInitValues(const std::string & directory) {
+  void printInitValues(const std::string &) {
     // Dummy class used for testing
   }
 
@@ -195,15 +195,15 @@ class SubModelMockBase : public SubModel {
     variables.push_back(VariableNativeFactory::createState("MyDiscreteVar", DISCRETE));
   }
 
-  void defineParameters(std::vector<ParameterModeler>& parameters) {
+  void defineParameters(std::vector<ParameterModeler>&) {
     // Dummy class used for testing
   }
 
-  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) {
+  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >&) {
     // Dummy class used for testing
   }
 
-  void defineParametersInit(std::vector<ParameterModeler>& parameters) {
+  void defineParametersInit(std::vector<ParameterModeler>&) {
     // Dummy class used for testing
   }
 
@@ -219,15 +219,15 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const {
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const {
     // Dummy class used for testing
   }
 
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const {
+  void evalJCalculatedVarI(unsigned, std::vector<double>&) const {
     // Dummy class used for testing
   }
 
-  double evalCalculatedVarI(unsigned iCalculatedVar) const {
+  double evalCalculatedVarI(unsigned) const {
     // Dummy class used for testing
     return 0.;
   }
@@ -253,7 +253,7 @@ class SubModelMock : public SubModelMockBase {
 
   virtual ~SubModelMock() {}
 
-  modeChangeType_t evalMode(const double& t) {
+  modeChangeType_t evalMode(const double&) {
     // Dummy class used for testing
     return NO_MODE;
   }
@@ -670,7 +670,6 @@ TEST(ModelerCommonTest, VariableAlias) {
   const std::string varNameInt = "testVarInt";
   const bool varIsNegated = true;
   const int varIndex = 123785;
-  const int defaultIndex = -1;
   const bool isState = true;
   boost::shared_ptr<VariableNative> variableInt;
   ASSERT_NO_THROW(variableInt = VariableNativeFactory::createState(varNameInt, INTEGER, varIsNegated));
@@ -778,7 +777,6 @@ TEST(ModelerCommonTest, VariableMultiple) {
   const std::string varName = "testVarMultiple";
   const std::string cardinalityName = "varCardinality";
   const bool varIsNegated = false;
-  const bool isState = true;
   const unsigned int nbVars = 7;
   boost::shared_ptr<VariableMultiple> variableMulti;
   ASSERT_NO_THROW(variableMulti = VariableMultipleFactory::createState(varName, cardinalityName, INTEGER, varIsNegated));

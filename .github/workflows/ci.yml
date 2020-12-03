@@ -38,7 +38,6 @@ jobs:
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci:latest
     env:
-      DYNAWO_BUILD_TYPE: TestCoverage
       DYNAWO_CXX11_ENABLED: YES
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
