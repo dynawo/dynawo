@@ -52,6 +52,7 @@ set(DATA_INTERFACE_INCLUDE_HEADERS
     DYNStateVariable.hpp
     DYNStaticParameter.h
     DYNStaticParameter.hpp
+    DYNConverterInterface.h
     )
 
 set(DATA_INTERFACE_FACTORY_SOURCES
