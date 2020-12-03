@@ -56,10 +56,10 @@ else()
 
     INSTALL_DIR         ${package_install_dir}
 
-    DOWNLOAD_DIR        "${DOWNLOAD_DIR}/${package_name}"
+    DOWNLOAD_DIR        "${CMAKE_CURRENT_SOURCE_DIR}/${package_name}"
     TMP_DIR             "${TMP_DIR}"
     STAMP_DIR           "${DOWNLOAD_DIR}/${package_name}-stamp"
-    SOURCE_DIR          "${DOWNLOAD_DIR}/${package_name}-build"
+    SOURCE_DIR          "${DOWNLOAD_DIR}/${package_name}"
 
     URL                 ${package_url}
     URL_MD5             ${package_md5}
