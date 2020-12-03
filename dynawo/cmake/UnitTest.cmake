@@ -8,7 +8,7 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "Tests"))
+if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR BUILD_TESTS))
   message(WARNING "Unit tests should be launched with debug or tests configuration")
 endif()
 
