@@ -208,7 +208,7 @@ ModelMulti::initBuffers() {
   zConnectedLocal_ = new bool[sizeZ_];
   silentZ_ = new BitMask[sizeZ_];
   std::fill_n(zConnectedLocal_, sizeZ_, false);
-  for (unsigned int i = 0; i < sizeZ_; ++i) {
+  for (int i = 0; i < sizeZ_; ++i) {
     silentZ_[i].setFlags(NotSilent);
   }
 
