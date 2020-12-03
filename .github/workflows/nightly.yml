@@ -117,7 +117,6 @@ jobs:
       DYNAWO_CXX11_ENABLED: YES
       DYNAWO_COMPILER: CLANG
       DYNAWO_LIBRARY_TYPE: ${{ matrix.library-type }}
-      MACOSX_DEPLOYMENT_TARGET: 10.14
       DYNAWO_BOOST_HOME_DEFAULT: "false"
       DYNAWO_NB_PROCESSORS_USED: 2
       DYNAWO_PYTHON_COMMAND: python3
@@ -136,6 +135,7 @@ jobs:
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+          MACOSX_DEPLOYMENT_TARGET: 10.14
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
@@ -145,6 +145,7 @@ jobs:
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+          MACOSX_DEPLOYMENT_TARGET: 10.14
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-tests
@@ -153,6 +154,7 @@ jobs:
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+          MACOSX_DEPLOYMENT_TARGET: 10.14
         run: |
           export DYNAWO_HOME=$(pwd)
           for job in $(find nrt/data -name "*.jobs"); do util/envDynawo.sh jobs $job || { echo "Error with job $job."; exit 1; }; done
