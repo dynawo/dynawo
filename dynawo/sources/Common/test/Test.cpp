@@ -430,7 +430,7 @@ TEST(CommonTest, testSparseMatrix) {
     smj4.addTerm(i, i);
   }
   for (int icol = 0; icol < smj4.nbCol(); ++icol) {
-    for (int ind = smj4.Ap_[icol]; ind < smj4.Ap_[icol + 1]; ++ind) {
+    for (int ind = smj4.Ap_[icol]; ind < static_cast<int>(smj4.Ap_[icol + 1]); ++ind) {
       int ilig = smj4.Ai_[ind];
       double val = smj4.Ax_[ind];
       ASSERT_EQ(ilig, ind+1);

@@ -76,10 +76,11 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   current = 11.;
   mcl.evalG(t, current, &states[0], desactivate);
   for (size_t i = 0; i < states.size(); ++i) {
-    if (i == 0 || i == 2)
+    if (i == 0 || i == 2) {
       ASSERT_EQ(states[i], ROOT_UP);
-    else if (i == 3)
+    } else if (i == 3) {
       ASSERT_EQ(states[i], NO_ROOT);
+    }
   }
   mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
 

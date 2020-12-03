@@ -32,13 +32,13 @@ class MyModelica: public ModelModelica {
   explicit MyModelica(ModelManager* parent):
     parent_(parent),
     nbCallF_(0),
-    nbCallCheckDataCoherence_(0),
     nbCallG_(0),
     nbCallZ_(0),
     nbCallCalcVars_(0),
     nbCallY0_(0),
     nbCallFType_(0),
-    nbCallYType_(0) { }
+    nbCallYType_(0),
+    nbCallCheckDataCoherence_(0) {}
 
   /**
    * @brief default destructor

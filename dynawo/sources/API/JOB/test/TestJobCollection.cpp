@@ -43,12 +43,13 @@ TEST(APIJOBTest, testJobCollection) {
           itJob != jobsCollection->cend();
           ++itJob) {
     ++nbJobs;
-    if (nbJobs == 1)
+    if (nbJobs == 1) {
       ASSERT_EQ((*itJob)->getName(), "job1");
-    else if (nbJobs == 2)
+    } else if (nbJobs == 2) {
       ASSERT_EQ((*itJob)->getName(), "job2");
-    else if (nbJobs == 3)
+    } else if (nbJobs == 3) {
       ASSERT_EQ((*itJob)->getName(), "job3");
+    }
   }
 
   ASSERT_EQ(nbJobs, 3);
@@ -61,12 +62,13 @@ TEST(APIJOBTest, testJobCollection) {
           itJob != jobsCollection->end();
           ++itJob) {
     ++nbJobs;
-    if (nbJobs == 1)
+    if (nbJobs == 1) {
       ASSERT_EQ((*itJob)->getName(), "job1");
-    else if (nbJobs == 2)
+    } else if (nbJobs == 2) {
       ASSERT_EQ((*itJob)->getName(), "job2");
-    else if (nbJobs == 3)
+    } else if (nbJobs == 3) {
       ASSERT_EQ((*itJob)->getName(), "job3");
+    }
   }
 
   ASSERT_EQ(nbJobs, 3);

@@ -66,7 +66,7 @@
 
 namespace DYN {
 
-boost::shared_ptr<Solver> initSolver(const double& tStart, const double& tStop, const bool& recalculateStep,
+boost::shared_ptr<Solver> initSolver(const double&, const double&, const bool& recalculateStep,
     const int& maxRootRestart, bool optimizeAlgebraicResidualsEvaluations, bool skipNR) {
   // Solver
   boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverSIM" + std::string(sharedLibraryExtension()));

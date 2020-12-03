@@ -26,7 +26,7 @@ set(DYNAWO_INCLUDE_HEADERS
 
 install(FILES ${DYNAWO_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
-if(BUILD_TESTS)
+if(DYNAWO_BUILD_TESTS OR DYNAWO_BUILD_TESTS_COVERAGE)
   add_subdirectory(API/CRV/test)
   add_subdirectory(API/CRT/test)
   add_subdirectory(API/DYD/test)

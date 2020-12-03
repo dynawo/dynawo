@@ -21,6 +21,9 @@ if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
   endif()
 endif()
 
+option(DYNAWO_BUILD_TESTS "Choose to build the unit tests")
+option(DYNAWO_BUILD_TESTS_COVERAGE "Choose to build tests coverage")
+
 # Add custom cmake modules to the path
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -230,7 +233,7 @@ endif()
 # Tell BOOST to disable auto linking
 add_definitions(-DBOOST_ALL_NO_LIB)
 
-if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
+if(DYNAWO_BUILD_TESTS OR DYNAWO_BUILD_TESTS_COVERAGE)
   find_package(Boost 1.64 REQUIRED
           COMPONENTS
           filesystem
@@ -253,17 +256,15 @@ else()
           )
 endif()
 
-set(BUILD_TESTS ${BUILD_TESTS} CACHE BOOL "Build tests.")
-if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
+if(DYNAWO_BUILD_TESTS_COVERAGE)
   include(TestCoverage)
 endif()
 
-if(CMAKE_BUILD_TYPE STREQUAL "Tests")
+if(DYNAWO_BUILD_TESTS)
   include(UnitTest)
 endif()
 
-if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
-  set(BUILD_TESTS true)
+if(DYNAWO_BUILD_TESTS OR DYNAWO_BUILD_TESTS_COVERAGE)
   find_package(GTest REQUIRED)
 
   if(NOT TARGET GTest::gtest AND TARGET GTest::GTest)
@@ -390,7 +391,7 @@ add_custom_target(CREATE_DDBDIR
 
 if(MSVC)
   set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
-  if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
+  if(DYNAWO_BUILD_TESTS OR DYNAWO_BUILD_TESTS_COVERAGE)
     set(runtime_tests_PATH "PATH=${GTEST_ROOT}/bin;${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
   endif()
 else() # Linux
@@ -439,7 +440,7 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindSundials.cmake DESTINATION $
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindlibZIP.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 
 if(MSVC)
-  if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
+  if(DYNAWO_BUILD_TESTS OR DYNAWO_BUILD_TESTS_COVERAGE)
     set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)" FORCE)
   endif()
 endif()
