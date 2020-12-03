@@ -122,7 +122,7 @@ algorithm
 
 end RotorPositionEstimation;
 
-partial model BaseGeneratorSimplified_INIT "Base initialization model for simplified generator models"
+partial model BaseGeneratorParameters_INIT "Base initialization model for simplified generator models"
     parameter Types.ActivePowerPu P0Pu  "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
     parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
     parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in p.u (base UNom)";
@@ -147,7 +147,34 @@ equation
   QGen0Pu = -Q0Pu;
 
 annotation(preferredView = "text");
-end BaseGeneratorSimplified_INIT;
+end BaseGeneratorParameters_INIT;
+
+partial model BaseGeneratorVariables_INIT "Base initialization model for simplified generator models"
+    Types.ActivePowerPu P0Pu  "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q0Pu  "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
+    Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in p.u (base UNom)";
+    Types.Angle UPhase0  "Start value of voltage angle at terminal in rad";
+
+  protected
+    Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in p.u (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in p.u (base SnRef) (generator convention)";
+
+    Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at terminal in p.u (base UNom)";
+    Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef) (receptor convention)";
+    Types.ComplexCurrentPu i0Pu  "Start value of complex current at terminal in p.u (base UNom, SnRef) (receptor convention)";
+
+equation
+
+  u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
+  s0Pu = Complex(P0Pu, Q0Pu);
+  s0Pu = u0Pu * ComplexMath.conj(i0Pu);
+
+  // Convention change
+  PGen0Pu = -P0Pu;
+  QGen0Pu = -Q0Pu;
+
+annotation(preferredView = "text");
+end BaseGeneratorVariables_INIT;
 
 
 partial model BaseGeneratorSynchronous_INIT "Base initialization model for synchronous machine"
@@ -191,7 +218,6 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal side in p.u (base SnRef)";
     Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal side (base UNom)";
     Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal side (base UNom, SnRef)";
-
     Types.ApparentPowerModulePu S0Pu "Start value of apparent power at terminal side in p.u (base SNom)";
     Types.CurrentModulePu I0Pu "Start value of current module at terminal side in p.u (base UNom, SNom)";
 
@@ -240,46 +266,11 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.PerUnit Mi0Pu "Start value of intermediate axis saturated mutual inductance in p.u.";
 
 equation
-  MdPPuEfd = MdPuEfd  * rTfoPu * rTfoPu;
-  if ExcitationPu == ExcitationPuType.Kundur then
-    Kuf = 1;
-  elseif ExcitationPu == ExcitationPuType.UserBase then
-    assert(MdPuEfd <> 0, "Direct axis mutual inductance should be different from 0");
-    Kuf = RfPPu / MdPPuEfd;
-  else
-    Kuf = RfPPu / MdPPu;
-  end if;
-
-// Internal parameters after transformation due to the presence of a generator transformer in the model
-  RaPPu  = RaPu  * rTfoPu * rTfoPu;
-  LdPPu  = LdPu  * rTfoPu * rTfoPu;
-  MdPPu  = MdPu  * rTfoPu * rTfoPu;
-  LDPPu  = LDPu  * rTfoPu * rTfoPu;
-  RDPPu  = RDPu  * rTfoPu * rTfoPu;
-  MrcPPu = MrcPu * rTfoPu * rTfoPu;
-  LfPPu  = LfPu  * rTfoPu * rTfoPu;
-  RfPPu  = RfPu  * rTfoPu * rTfoPu;
-  LqPPu  = LqPu  * rTfoPu * rTfoPu;
-  MqPPu  = MqPu  * rTfoPu * rTfoPu;
-  LQ1PPu = LQ1Pu * rTfoPu * rTfoPu;
-  RQ1PPu = RQ1Pu * rTfoPu * rTfoPu;
-  LQ2PPu = LQ2Pu * rTfoPu * rTfoPu;
-  RQ2PPu = RQ2Pu * rTfoPu * rTfoPu;
-
-// Apparent power, voltage and current at terminal in p.u (base SnRef, UNom)
-  s0Pu = Complex(P0Pu, Q0Pu);
-  u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
-  s0Pu = u0Pu * ComplexMath.conj(i0Pu);
-
-  PGen0Pu = -P0Pu;
-  QGen0Pu = -Q0Pu;
 
 // Apparent power, voltage and current at stator side in p.u (base SnRef, UNom)
   uStator0Pu = 1 / rTfoPu * (u0Pu - i0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
   iStator0Pu = rTfoPu * i0Pu ;
   sStator0Pu = uStator0Pu * ComplexMath.conj(iStator0Pu);
-  S0Pu = sqrt(P0Pu^2+Q0Pu^2)*SystemBase.SnRef/SNom;
-  I0Pu = S0Pu/U0Pu;
 
 // Flux linkages
   Lambdad0Pu  = (MdSat0PPu + (LdPPu + XTfoPu)) * Id0Pu +          MdSat0PPu          * If0Pu;
@@ -306,9 +297,8 @@ equation
   QStator0PuQNom = QStator0Pu * SystemBase.SnRef / QNomAlt;
   IRotor0Pu = MdSat0PPu / rTfoPu * If0Pu;
   ThetaInternal0 = Theta0;
-
-// Variables related to the magnetic saturation and rotor position
-  (MsalPu, Theta0, Ud0Pu, Uq0Pu, Id0Pu, Iq0Pu, LambdaAD0Pu, LambdaAQ0Pu, LambdaAirGap0Pu, Mds0Pu, Mqs0Pu, Cos2Eta0, Sin2Eta0, Mi0Pu, MdSat0PPu, MqSat0PPu) = RotorPositionEstimation(u0Pu, i0Pu, MdPu, MqPu, LdPu, LqPu, RaPu, rTfoPu, RTfoPu, XTfoPu, SNom, md, mq, nd, nq);
+  S0Pu = ComplexMath.'abs'(s0Pu)*SystemBase.SnRef/SNom;
+  I0Pu = ComplexMath.'abs'(i0Pu)*SystemBase.SnRef/SNom;
 
 annotation(preferredView = "text");
 end BaseGeneratorSynchronous_INIT;
@@ -335,6 +325,38 @@ partial model BaseGeneratorSynchronousInt_INIT "Base initialization model for sy
     parameter Types.PerUnit LQ2Pu "Quadrature axis 2nd damper leakage in p.u.";
     parameter Types.PerUnit RQ2Pu "Quadrature axis 2nd damper resistance in p.u.";
     parameter Types.PerUnit MdPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
+
+equation
+
+// Variables related to the magnetic saturation and rotor position
+  (MsalPu, Theta0, Ud0Pu, Uq0Pu, Id0Pu, Iq0Pu, LambdaAD0Pu, LambdaAQ0Pu, LambdaAirGap0Pu, Mds0Pu, Mqs0Pu, Cos2Eta0, Sin2Eta0, Mi0Pu, MdSat0PPu, MqSat0PPu) = RotorPositionEstimation(u0Pu, i0Pu, MdPu, MqPu, LdPu, LqPu, RaPu, rTfoPu, RTfoPu, XTfoPu, SNom, md, mq, nd, nq);
+
+  MdPPuEfd = MdPuEfd  * rTfoPu * rTfoPu;
+
+  if ExcitationPu == ExcitationPuType.Kundur then
+    Kuf = 1;
+  elseif ExcitationPu == ExcitationPuType.UserBase then
+    assert(MdPuEfd <> 0, "Direct axis mutual inductance should be different from 0");
+    Kuf = RfPPu / MdPPuEfd;
+  else
+    Kuf = RfPPu / MdPPu;
+  end if;
+
+// Internal parameters after transformation due to the presence of a generator transformer in the model
+  RaPPu  = RaPu  * rTfoPu * rTfoPu;
+  LdPPu  = LdPu  * rTfoPu * rTfoPu;
+  MdPPu  = MdPu  * rTfoPu * rTfoPu;
+  LDPPu  = LDPu  * rTfoPu * rTfoPu;
+  RDPPu  = RDPu  * rTfoPu * rTfoPu;
+  MrcPPu = MrcPu * rTfoPu * rTfoPu;
+  LfPPu  = LfPu  * rTfoPu * rTfoPu;
+  RfPPu  = RfPu  * rTfoPu * rTfoPu;
+  LqPPu  = LqPu  * rTfoPu * rTfoPu;
+  MqPPu  = MqPu  * rTfoPu * rTfoPu;
+  LQ1PPu = LQ1Pu * rTfoPu * rTfoPu;
+  RQ1PPu = RQ1Pu * rTfoPu * rTfoPu;
+  LQ2PPu = LQ2Pu * rTfoPu * rTfoPu;
+  RQ2PPu = RQ2Pu * rTfoPu * rTfoPu;
 
 annotation(preferredView = "text");
 end BaseGeneratorSynchronousInt_INIT;
@@ -388,6 +410,36 @@ partial model BaseGeneratorSynchronousExt_INIT "Base initialization model for sy
     // see subclasses
 
 equation
+
+  // Variables related to the magnetic saturation and rotor position
+  (MsalPu, Theta0, Ud0Pu, Uq0Pu, Id0Pu, Iq0Pu, LambdaAD0Pu, LambdaAQ0Pu, LambdaAirGap0Pu, Mds0Pu, Mqs0Pu, Cos2Eta0, Sin2Eta0, Mi0Pu, MdSat0PPu, MqSat0PPu) = RotorPositionEstimation(u0Pu, i0Pu, MdPu, MqPu, LdPu, LqPu, RaPu, rTfoPu, RTfoPu, XTfoPu, SNom, md, mq, nd, nq);
+
+  MdPPuEfd = MdPuEfd  * rTfoPu * rTfoPu;
+
+  if ExcitationPu == ExcitationPuType.Kundur then
+    Kuf = 1;
+  elseif ExcitationPu == ExcitationPuType.UserBase then
+    assert(MdPuEfd <> 0, "Direct axis mutual inductance should be different from 0");
+    Kuf = RfPPu / MdPPuEfd;
+  else
+    Kuf = RfPPu / MdPPu;
+  end if;
+
+// Internal parameters after transformation due to the presence of a generator transformer in the model
+  RaPPu  = RaPu  * rTfoPu * rTfoPu;
+  LdPPu  = LdPu  * rTfoPu * rTfoPu;
+  MdPPu  = MdPu  * rTfoPu * rTfoPu;
+  LDPPu  = LDPu  * rTfoPu * rTfoPu;
+  RDPPu  = RDPu  * rTfoPu * rTfoPu;
+  MrcPPu = MrcPu * rTfoPu * rTfoPu;
+  LfPPu  = LfPu  * rTfoPu * rTfoPu;
+  RfPPu  = RfPu  * rTfoPu * rTfoPu;
+  LqPPu  = LqPu  * rTfoPu * rTfoPu;
+  MqPPu  = MqPu  * rTfoPu * rTfoPu;
+  LQ1PPu = LQ1Pu * rTfoPu * rTfoPu;
+  RQ1PPu = RQ1Pu * rTfoPu * rTfoPu;
+  LQ2PPu = LQ2Pu * rTfoPu * rTfoPu;
+  RQ2PPu = RQ2Pu * rTfoPu * rTfoPu;
 
   MrcPu = 0;
 

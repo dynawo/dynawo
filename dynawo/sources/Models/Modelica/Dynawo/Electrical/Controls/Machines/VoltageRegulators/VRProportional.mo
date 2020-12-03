@@ -28,23 +28,27 @@ model VRProportional "Simple Proportional Voltage Regulator"
   parameter Types.Time LagEfdMin "Time lag before taking action when going below EfdMin";
   parameter Types.Time LagEfdMax "Time lag before taking action when going above EfdMax";
 
+  // Inputs
+  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) "General control voltage" annotation(
+    Placement(visible = true, transformation(origin = {-108, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-108, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage" annotation(
+    Placement(visible = true, transformation(origin = {-22, -48}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-56, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  // Outputs
+  Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Exciter field voltage" annotation(
+    Placement(visible = true, transformation(origin = {108, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {108, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Connectors.BPin  limitationUp (value (start = false)) "Limitation up reached ?";
+  Connectors.BPin  limitationDown (value (start = false)) "Limitation down reached ?";
+
+  //Blocks
   LimiterWithLag limiterWithLag(UMin = EfdMinPu, UMax = EfdMaxPu, LagMin = LagEfdMin, LagMax = LagEfdMax, tUMinReached0 = Modelica.Constants.inf, tUMaxReached0 = Modelica.Constants.inf) "Limiter activated only after a certain period outside the bounds" annotation(
     Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Gain) annotation(
     Placement(visible = true, transformation(origin = {14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-22, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) "General control voltage" annotation(
-    Placement(visible = true, transformation(origin = {-108, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-108, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage" annotation(
-    Placement(visible = true, transformation(origin = {-22, -48}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-56, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Exciter field voltage" annotation(
-    Placement(visible = true, transformation(origin = {108, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {108, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ImPin EfdPuPin(value(start = Efd0Pu)) "Exciter field voltage Pin";
-  Connectors.BPin  limitationUp (value (start = false)) "Limitation up reached ?";
-  Connectors.BPin  limitationDown (value (start = false)) "Limitation down reached ?";
   Modelica.Blocks.Nonlinear.Limiter limUsRef(limitsAtInit = true, uMax = UsRefMaxPu, uMin = UsRefMinPu)  annotation(
     Placement(visible = true, transformation(origin = {-62, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 protected
 
   parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage";
@@ -62,8 +66,6 @@ equation
     Line(points = {{-50, 0}, {-30, 0}, {-30, 0}, {-30, 0}}, color = {0, 0, 127}));
   connect(UsRefPu, limUsRef.u) annotation(
     Line(points = {{-108, 0}, {-76, 0}, {-76, 0}, {-74, 0}}, color = {0, 0, 127}));
-  connect(EfdPuPin.value, EfdPu) annotation(
-    Line);
   connect(limiterWithLag.y, EfdPu) annotation(
     Line(points = {{75, 0}, {108, 0}}, color = {0, 0, 127}));
   connect(gain.y, limiterWithLag.u) annotation(

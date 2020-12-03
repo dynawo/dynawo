@@ -17,13 +17,8 @@ model GeneratorSynchronousExtTfo_4E_INIT "Synchronous machine with 4 windings - 
 /*This model is similar to GeneratorSynchronousExt_4E_INIT but U0Pu, P0Pu, Q0Pu and UPhase0 are variables because they are calculated from the generator transformer initialization model and should be passed to the generator through an initConnect in a preassembled model or in the dyd file*/
 
   extends BaseClasses_INIT.BaseGeneratorSynchronousExt4E_INIT;
+  extends BaseClasses_INIT.BaseGeneratorVariables_INIT;
   extends AdditionalIcons.Init;
-
-    // Start values from transformer
-    Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
-    Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
-    Types.Angle UPhase0 "Start value of voltage angle in rad";
 
 annotation(preferredView = "text");
 end GeneratorSynchronousExtTfo_4E_INIT;

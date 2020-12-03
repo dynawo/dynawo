@@ -30,25 +30,27 @@ model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps mac
   parameter Types.Time LagEfdMax "Time lag before taking action when going above EfdMax";
   parameter Types.Time tIntegral "Time integration constant";
 
+  // Inputs
+  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) "General control voltage" annotation(
+    Placement(visible = true, transformation(origin = {-142, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-142, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UsPu (start = Us0Pu) "Stator voltage" annotation(
+    Placement(visible = true, transformation(origin = {-60, -48}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-56, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  // Ouputs
+  Modelica.Blocks.Interfaces.RealOutput EfdPu (start = Efd0Pu) "Exciter field voltage" annotation(
+    Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Connectors.BPin  limitationUp (value (start = false)) "Limitation up reached ?";
+  Connectors.BPin  limitationDown (value (start = false)) "Limitation down reached ?";
+  //Blocks
   LimiterWithLag limiterWithLag (UMin = EfdMinPu, UMax = EfdMaxPu, LagMin = LagEfdMin, LagMax = LagEfdMax, tUMinReached0 = Modelica.Constants.inf, tUMaxReached0 = Modelica.Constants.inf) "Limiter activated only after a certain period outside the bounds" annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain (k = Gain) annotation(
     Placement(visible = true, transformation(origin = {-8, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) "General control voltage" annotation(
-    Placement(visible = true, transformation(origin = {-142, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-142, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UsPu (start = Us0Pu) "Stator voltage" annotation(
-    Placement(visible = true, transformation(origin = {-60, -48}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-56, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput EfdPu (start = Efd0Pu) "Exciter field voltage" annotation(
-    Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add rawEfd annotation(
     Placement(visible = true, transformation(origin = {46, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integrator(y_start = yIntegrator0, k = Gain/tIntegral)  annotation(
     Placement(visible = true, transformation(origin = {12, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ImPin EfdPuPin(value(start = Efd0Pu)) "Exciter field voltage Pin";
-  Connectors.BPin  limitationUp (value (start = false)) "Limitation up reached ?";
-  Connectors.BPin  limitationDown (value (start = false)) "Limitation down reached ?";
   Modelica.Blocks.Math.Add integratorEntry annotation(
     Placement(visible = true, transformation(origin = {-28, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackNonWindUp annotation(
@@ -72,8 +74,6 @@ equation
     Line(points = {{-86, 0}, {-68, 0}, {-68, 0}, {-68, 0}}, color = {0, 0, 127}));
   connect(UsRefPu, limUsRef.u) annotation(
     Line(points = {{-142, 0}, {-110, 0}, {-110, 0}, {-110, 0}}, color = {0, 0, 127}));
-  connect(EfdPuPin.value, EfdPu) annotation(
-    Line);
   connect(limiterWithLag.y, EfdPu) annotation(
     Line(points = {{91, 0}, {119, 0}}, color = {0, 0, 127}));
   connect(limiterWithLag.y, feedbackNonWindUp.u1) annotation(

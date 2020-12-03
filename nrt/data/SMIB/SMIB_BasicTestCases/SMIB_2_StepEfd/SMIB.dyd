@@ -36,12 +36,12 @@
     <dyn:initConnect id1="avr" var1="UsRef0Pu" id2="URef" var2="Value0"/>
     <dyn:initConnect id1="avr" var1="Efd0PuLF" id2="gen" var2="Efd0Pu"/>
     <dyn:initConnect id1="avr" var1="Us0Pu" id2="gen" var2="UStator0Pu"/>
-    <dyn:connect id1="gover" var1="PmRefPu" id2="Pm" var2="setPoint"/>
-    <dyn:connect id1="gen" var1="PmPu" id2="gover" var2="PmPu"/>
-    <dyn:connect id1="gen" var1="omegaPu" id2="gover" var2="omegaPu"/>
+    <dyn:connect id1="gover" var1="PmRefPu" id2="Pm" var2="setPoint.value"/>
+    <dyn:connect id1="gen" var1="PmPu.value" id2="gover" var2="PmPu"/>
+    <dyn:connect id1="gen" var1="omegaPu.value" id2="gover" var2="omegaPu"/>
     <dyn:connect id1="avr" var1="UsRefPu" id2="URef" var2="step.value"/>
     <dyn:connect id1="avr" var1="UsPu" id2="gen" var2="UStatorPu.value"/>
-    <dyn:connect id1="avr" var1="EfdPuPin" id2="gen" var2="efdPu"/>
+    <dyn:connect id1="avr" var1="EfdPu" id2="gen" var2="efdPu.value"/>
     <dyn:connect id1="gen" var1="omegaRefPu" id2="omegaRef" var2="setPoint"/>
   </dyn:modelicaModel>
   <!-- Connections -->

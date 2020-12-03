@@ -13,8 +13,11 @@ within Dynawo.Electrical.Loads;
 */
 
 model LoadConnect_INIT "Initialization for load where u0Pu and i0Pu need to be connected"
-  extends BaseClasses_INIT.BaseLoadInterfaceVariables_INIT;
   extends AdditionalIcons.Init;
+
+    Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in p.u (base UNom)";
+    Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
+    flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
 
   equation
     s0Pu = u0Pu * ComplexMath.conj(i0Pu);

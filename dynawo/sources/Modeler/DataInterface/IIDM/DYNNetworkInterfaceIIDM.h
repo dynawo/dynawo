@@ -97,7 +97,7 @@ class NetworkInterfaceIIDM : public NetworkInterface {
   const std::vector< boost::shared_ptr<HvdcLineInterface> >& getHvdcLines() const;
 
   /**
-   * @copydoc DataInterface::getSlackNodeBusId
+   * @copydoc NetworkInterface::getSlackNodeBusId
    */
   boost::optional<std::string> getSlackNodeBusId() const;
 

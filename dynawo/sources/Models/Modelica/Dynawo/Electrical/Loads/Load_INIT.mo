@@ -14,17 +14,21 @@ within Dynawo.Electrical.Loads;
 
 model Load_INIT "Initialization for load from load-flow outputs"
 
-  extends BaseClasses_INIT.BaseLoadInterfaceParameters_INIT;
-  extends BaseClasses_INIT.BaseLoadInterfaceVariables_INIT;
   extends AdditionalIcons.Init;
 
-  public
-    parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at load terminal in p.u (base UNom)";
-    parameter Types.Angle UPhase0  "Start value of voltage angle at load terminal (in rad)";
+  parameter Types.ActivePowerPu P0Pu  "Start value of active power in p.u (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at load terminal in p.u (base UNom)";
+  parameter Types.Angle UPhase0  "Start value of voltage angle at load terminal (in rad)";
+
+  Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in p.u (base UNom)";
+  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
+  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
 
 equation
-  u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
+  s0Pu = Complex(P0Pu, Q0Pu);
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
+  u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
 
 annotation(preferredView = "text");
 end Load_INIT;
