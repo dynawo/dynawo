@@ -461,6 +461,9 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
   reference_const_iterator cendReference() const;
 
  private:
+  /**
+   * @copydoc ParametersSet::createParameter(const std::string& name, const std::string& value, const std::string& row, const std::string& column)
+   */
   template<typename T>
   boost::shared_ptr<ParametersSet> addParameter(const std::string& name, T value, const std::string& row, const std::string& column) {
     const std::vector<std::string>& parNames = tableParameterNames(name, row, column);
