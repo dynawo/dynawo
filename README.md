@@ -12,7 +12,7 @@
 -->
 # Dyna&omega;o - An hybrid C++/Modelica suite of simulation tools for power systems
 
-[![Build Status](https://travis-ci.com/dynawo/dynawo.svg?branch=master)](https://travis-ci.com/dynawo/dynawo)
+[![Build Status](https://github.com/dynawo/dynawo/workflows/CI/badge.svg)](https://github.com/dynawo/dynawo/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dynawo_dynawo&metric=alert_status)](https://sonarcloud.io/dashboard?id=dynawo_dynawo)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dynawo_dynawo&metric=coverage)](https://sonarcloud.io/dashboard?id=dynawo_dynawo)
 [![MPL-2.0 License](https://img.shields.io/badge/license-MPL_2.0-blue.svg)](https://www.mozilla.org/en-US/MPL/2.0/)
