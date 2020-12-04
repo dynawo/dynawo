@@ -271,7 +271,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
       nonSilentZChange = true;
       change = true;
 #ifdef _DEBUG_
-      printUnstableRoot(G0, G1);
+      printUnstableRoot(time, G0, G1);
       std::copy(G1.begin(), G1.end(), G0.begin());
 #endif
     }
@@ -295,13 +295,13 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
 }
 
 void
-Solver::Impl::printUnstableRoot(const vector<state_g> &G0, const vector<state_g> &G1) const {
+Solver::Impl::printUnstableRoot(double t, const vector<state_g> &G0, const vector<state_g> &G1) const {
   int i = 0;
   vector<state_g>::const_iterator iG0(G0.begin());
   vector<state_g>::const_iterator iG1(G1.begin());
   for (; iG0 < G0.end(); iG0++, iG1++, i++) {
     if ((*iG0) != (*iG1)) {
-      Trace::debug() << DYNLog(SolverInstableRoot, i, (*iG0), (*iG1)) << Trace::endline;
+      Trace::debug() << DYNLog(SolverInstableRoot, i, (*iG0), (*iG1), t) << Trace::endline;
       std::string subModelName("");
       int localGIndex(0);
       std::string gEquation("");
