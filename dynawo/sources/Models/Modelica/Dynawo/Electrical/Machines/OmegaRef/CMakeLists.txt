@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,17 +10,24 @@
 
 # Machines models
 
-add_subdirectory(OmegaRef O)
-add_subdirectory(SignalN N)
-
 set(MODEL_FILES
     package.mo
     BaseClasses.mo
     BaseClasses_INIT.mo
-    GeneratorFictitious.mo
-    GeneratorFictitious.extvar
-    GeneratorFictitious_INIT.mo
-    SwitchOffGenerator.extvar
+    GeneratorPQ.mo
+    GeneratorPQ.extvar
+    GeneratorPQ_INIT.mo
+    GeneratorPV.mo
+    GeneratorPV.extvar
+    GeneratorPV_INIT.mo
+    GeneratorSynchronous.mo
+    GeneratorSynchronous.extvar
+    GeneratorSynchronousInt_INIT.mo
+    GeneratorSynchronousExt_4E_INIT.mo
+    GeneratorSynchronousExt_3E_INIT.mo
+    GeneratorSynchronousIntTfo_INIT.mo
+    GeneratorSynchronousExtTfo_4E_INIT.mo
+    GeneratorSynchronousExtTfo_3E_INIT.mo
     )
 
 #
