@@ -77,6 +77,9 @@ if(libZIP_FOUND)
     if(libZIP_INCLUDE_DIRS)
       set_target_properties(libZIP::libZIP PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${libZIP_INCLUDE_DIRS}")
+      set_property(TARGET libZIP::libZIP APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+        $<TARGET_PROPERTY:LibArchive::LibArchive,INTERFACE_INCLUDE_DIRECTORIES>
+        )
     endif()
     if(EXISTS "${libZIP_LIBRARY}")
       set_target_properties(libZIP::libZIP PROPERTIES

@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Machines;
+within Dynawo.Electrical.Machines.OmegaRef;
 
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -14,8 +14,10 @@ within Dynawo.Electrical.Machines;
 
 model GeneratorSynchronousExt_4E_INIT "Synchronous machine with 4 windings - Initialization model from external parameters"
 
+  import Dynawo.Electrical.Machines;
+
+  extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends BaseClasses_INIT.BaseGeneratorSynchronousExt4E_INIT;
-  extends BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
 
 annotation(preferredView = "text");
