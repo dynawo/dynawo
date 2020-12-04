@@ -27,7 +27,6 @@
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 
 #include "gtest_dynawo.h"
 
@@ -38,7 +37,7 @@ boost::shared_ptr<SubModel> initModelSignalN() {
 
   std::vector<ParameterModeler> parameters;
   modelSignalN->defineParameters(parameters);
-  boost::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbGen", 2);
   modelSignalN->setPARParameters(parametersSet);
   modelSignalN->addParameters(parameters, false);
@@ -57,7 +56,7 @@ TEST(ModelsModelSignalN, ModelSignalNDefineMethods) {
   modelSignalN->defineParameters(parameters);
   ASSERT_EQ(parameters.size(), 1);
 
-  boost::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbGen", 1);
   ASSERT_NO_THROW(modelSignalN->setPARParameters(parametersSet));
 

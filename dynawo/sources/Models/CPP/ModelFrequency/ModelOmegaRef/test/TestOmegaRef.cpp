@@ -27,7 +27,6 @@
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 
 #include "gtest_dynawo.h"
 
@@ -38,7 +37,7 @@ boost::shared_ptr<SubModel> initModelOmegaRef(double weightGen2) {
 
   std::vector<ParameterModeler> parameters;
   modelOmegaRef->defineParameters(parameters);
-  boost::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbGen", 2);
   parametersSet->createParameter("weight_gen_0", 2.);
   parametersSet->createParameter("weight_gen_1", weightGen2);
@@ -59,7 +58,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefDefineMethods) {
   modelOmegaRef->defineParameters(parameters);
   ASSERT_EQ(parameters.size(), 2);
 
-  boost::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbGen", 1);
   parametersSet->createParameter("weight_gen_0", 2.);
   ASSERT_NO_THROW(modelOmegaRef->setPARParameters(parametersSet));
