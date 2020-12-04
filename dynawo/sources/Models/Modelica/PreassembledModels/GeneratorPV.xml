@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="GeneratorPV">
-    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.GeneratorPV" initName ="Dynawo.Electrical.Machines.GeneratorPV_INIT"/>
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorPV" initName ="Dynawo.Electrical.Machines.OmegaRef.GeneratorPV_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
