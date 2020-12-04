@@ -45,9 +45,11 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-SolverKINAlgRestoration::SolverKINAlgRestoration() :
+SolverKINAlgRestoration::SolverKINAlgRestoration() : SolverKINCommon(),
 mode_(KIN_NORMAL) {
-  SolverKINCommon();
+#if _DEBUG_
+  checkJacobian_ = false;
+#endif
 }
 
 SolverKINAlgRestoration::~SolverKINAlgRestoration() {
@@ -280,7 +282,9 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   smjKin.reserve(size);
   smj.erase(solv->ignoreY_, solv->ignoreF_, smjKin);
 #if _DEBUG_
-  checkJacobian(smj, model);
+  if (solv->checkJacobian_) {
+    checkJacobian(smj, model);
+  }
 #endif
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
