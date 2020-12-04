@@ -14,7 +14,6 @@
 
 #include "gtest_dynawo.h"
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 #include "DYNModelModelica.h"
 #include "DYNModelManager.h"
 #include "DYNSparseMatrix.h"
@@ -336,7 +335,8 @@ class MyModelica: public ModelModelica {
    * @return a parameters set filled with default values
    */
   boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues() {
-    boost::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("SharedModelicaParameters");
+    boost::shared_ptr<parameters::ParametersSet> parametersSet =
+        boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("SharedModelicaParameters"));
     parametersSet->createParameter("MyParam", 2);
     parametersSet->createParameter("MyParam2", 1.);
     return parametersSet;

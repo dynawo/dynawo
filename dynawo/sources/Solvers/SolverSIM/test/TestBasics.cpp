@@ -60,7 +60,6 @@
 #include "DYNParameterSolver.h"
 #include "PARParametersSet.h"
 #include "PARParameterFactory.h"
-#include "PARParametersSetFactory.h"
 #include "TLTimelineFactory.h"
 #include "DYNTrace.h"
 
@@ -71,7 +70,7 @@ boost::shared_ptr<Solver> initSolver(const double& tStart, const double& tStop, 
   // Solver
   boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverSIM" + std::string(sharedLibraryExtension()));
 
-  boost::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newInstance("MySolverParam");
+  boost::shared_ptr<parameters::ParametersSet> params = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("MySolverParam"));
   params->addParameter(parameters::ParameterFactory::newParameter("hMin", 0.000001));
   params->addParameter(parameters::ParameterFactory::newParameter("hMax", 1.));
   params->addParameter(parameters::ParameterFactory::newParameter("kReduceStep", 0.5));
@@ -889,7 +888,7 @@ TEST(ParametersTest, testParameters) {
   boost::shared_ptr<parameters::ParametersSet> nullSet;
   ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(nullSet), Error::GENERAL, KeyError_t::ParameterNotReadFromOrigin);
   // Adding parameters from a PAR file
-  boost::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newInstance("MySolverParam");
+  boost::shared_ptr<parameters::ParametersSet> params = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("MySolverParam"));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_THROW_DYNAWO(solver->setSolverParameters(), Error::GENERAL, KeyError_t::ParameterHasNoValue);
   params->addParameter(parameters::ParameterFactory::newParameter("hMin", 0.000001));

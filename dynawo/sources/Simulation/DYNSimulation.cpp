@@ -82,7 +82,6 @@
 #include "CSTRXmlExporter.h"
 
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 #include "PARXmlImporter.h"
 
 #include "CRTXmlImporter.h"
@@ -153,7 +152,6 @@ using finalState::finalStateVariable_iterator;
 using constraints::ConstraintsCollectionFactory;
 
 using parameters::ParametersSet;
-using parameters::ParametersSetFactory;
 using parameters::ParametersSetCollection;
 
 static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump time at the end of the simulation
@@ -551,13 +549,14 @@ Simulation::setSolver() {
   boost::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);
   referenceParameters_[solverParFile] = parameters;
   string parId = jobEntry_->getSolverEntry()->getParametersId();
-  shared_ptr<ParametersSet> solverParams = ParametersSetFactory::copyInstance(parameters->getParametersSet(parId));
-
-  solver_->setParameters(solverParams);
+  if (parameters->getParametersSet(parId)) {
+    shared_ptr<ParametersSet> solverParams = boost::shared_ptr<ParametersSet>(new ParametersSet(*parameters->getParametersSet(parId)));
+    solver_->setParameters(solverParams);
 
 #ifdef _DEBUG_
-  solver_->checkUnusedParameters(solverParams);
+    solver_->checkUnusedParameters(solverParams);
 #endif
+  }
 }
 
 void

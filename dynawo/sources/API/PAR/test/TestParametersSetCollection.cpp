@@ -22,7 +22,7 @@
 
 #include "PARParametersSetCollectionFactory.h"
 #include "PARParametersSetCollection.h"
-#include "PARParametersSetFactory.h"
+#include "PARParametersSet.h"
 
 using boost::shared_ptr;
 
@@ -37,11 +37,11 @@ TEST(APIPARTest, CollectionAddParametersSet) {
   shared_ptr<ParametersSetCollection> collection = ParametersSetCollectionFactory::newCollection();
 
   // Add a set of parameters to this collection
-  shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newInstance("parameters");
+  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
   collection->addParametersSet(parametersSet);
 
   // Add a set of parameters with same id: it should raise an error
-  shared_ptr<ParametersSet> anotherParametersSet = ParametersSetFactory::newInstance("parameters");
+  shared_ptr<ParametersSet> anotherParametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
   ASSERT_THROW_DYNAWO(collection->addParametersSet(anotherParametersSet), DYN::Error::API, DYN::KeyError_t::ParametersSetAlreadyExists);
 
   // Check hasParametersSet
@@ -65,7 +65,7 @@ TEST(APIPARTest, CollectionFactory) {
   shared_ptr<ParametersSetCollection> collection1 = ParametersSetCollectionFactory::newCollection();
 
   // Add a set of parameters to this collection
-  shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newInstance("parameters");
+  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
   collection1->addParametersSet(parametersSet);
 
   // Copy this collection in a new collection
@@ -86,9 +86,9 @@ TEST(APIPARTest, CollectionIterator) {
   shared_ptr<ParametersSetCollection> collection = ParametersSetCollectionFactory::newCollection();
 
   // Add several sets of parameters to this collection
-  shared_ptr<ParametersSet> parametersSet1 = ParametersSetFactory::newInstance("parameters1");
-  shared_ptr<ParametersSet> parametersSet2 = ParametersSetFactory::newInstance("parameters2");
-  shared_ptr<ParametersSet> parametersSet3 = ParametersSetFactory::newInstance("parameters3");
+  shared_ptr<ParametersSet> parametersSet1 = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters1"));
+  shared_ptr<ParametersSet> parametersSet2 = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters2"));
+  shared_ptr<ParametersSet> parametersSet3 = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters3"));
   collection->addParametersSet(parametersSet1);
   collection->addParametersSet(parametersSet2);
   collection->addParametersSet(parametersSet3);

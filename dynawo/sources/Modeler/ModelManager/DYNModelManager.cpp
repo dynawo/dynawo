@@ -26,7 +26,6 @@
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
-#include "PARParametersSetFactory.h"
 #include "PARParameter.h"
 
 #include "DYNCommon.h"
@@ -54,7 +53,6 @@ using boost::dynamic_pointer_cast;
 using boost::shared_ptr;
 
 using parameters::ParametersSet;
-using parameters::ParametersSetFactory;
 
 namespace DYN {
 
@@ -159,7 +157,7 @@ ModelManager::initSubBuffers() {
 void
 ModelManager::init(const double& t0) {
   // initialization of the dynamic model
-  shared_ptr<ParametersSet> mergedParametersSet(ParametersSetFactory::newInstance("merged_" + name()));
+  shared_ptr<ParametersSet> mergedParametersSet(boost::shared_ptr<ParametersSet>(new ParametersSet("merged_" + name())));
 
   const boost::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
 
@@ -492,7 +490,7 @@ ModelManager::initParams() {
     modelInitUsed_ = true;
   }
 
-  shared_ptr<ParametersSet> mergedParametersSet(ParametersSetFactory::newInstance("merged_" + name()));
+  shared_ptr<ParametersSet> mergedParametersSet(boost::shared_ptr<ParametersSet>(new ParametersSet("merged_" + name())));
   const boost::unordered_map<string, ParameterModeler>& parametersInit = getParametersInit();
   createParametersValueSet(parametersInit, mergedParametersSet);
 
