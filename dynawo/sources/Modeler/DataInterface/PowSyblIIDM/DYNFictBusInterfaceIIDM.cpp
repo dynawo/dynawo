@@ -33,16 +33,16 @@ using std::string;
 
 namespace DYN {
 FictBusInterfaceIIDM::FictBusInterfaceIIDM(const string& Id, const double& VNom, const string& country) : hasConnection_(false) {
-    Id_ = Id;
-    U0_ = VNom;
-    Vnom_ = VNom;
-    angle0_ = defaultV0;
-    country_ = country;
-    setType(ComponentInterface::BUS);
-    stateVariables_.resize(2);
-    bool neededForCriteriaCheck = true;
-    stateVariables_[VAR_V] = StateVariable("v", StateVariable::DOUBLE, neededForCriteriaCheck);  // V
-    stateVariables_[VAR_ANGLE] = StateVariable("angle", StateVariable::DOUBLE);  // angle
+  Id_ = Id;
+  U0_ = VNom;
+  Vnom_ = VNom;
+  angle0_ = defaultV0;
+  country_ = country;
+  setType(ComponentInterface::BUS);
+  stateVariables_.resize(2);
+  bool neededForCriteriaCheck = true;
+  stateVariables_[VAR_V] = StateVariable("v", StateVariable::DOUBLE, neededForCriteriaCheck);  // V
+  stateVariables_[VAR_ANGLE] = StateVariable("angle", StateVariable::DOUBLE);  // angle
 }
 
 FictBusInterfaceIIDM::~FictBusInterfaceIIDM() {
@@ -50,61 +50,61 @@ FictBusInterfaceIIDM::~FictBusInterfaceIIDM() {
 
 double
 FictBusInterfaceIIDM::getV0() const {
-    return U0_;
+  return U0_;
 }
 
 double
 FictBusInterfaceIIDM::getVMin() const {
-    return Vnom_ * uMinPu;
+  return Vnom_ * uMinPu;
 }
 
 double
 FictBusInterfaceIIDM::getVMax() const {
-    return Vnom_ * uMaxPu;
+  return Vnom_ * uMaxPu;
 }
 
 double
 FictBusInterfaceIIDM::getAngle0() const {
-    return angle0_;
+  return angle0_;
 }
 
 double
 FictBusInterfaceIIDM::getVNom() const {
-    return Vnom_;
+  return Vnom_;
 }
 
 string
 FictBusInterfaceIIDM::getID() const {
-    return Id_;
+  return Id_;
 }
 
 void
 FictBusInterfaceIIDM::hasConnection(bool hasConnection) {
-    hasConnection_ = hasConnection;
+  hasConnection_ = hasConnection;
 }
 
 bool
 FictBusInterfaceIIDM::hasConnection() const {
-    return hasConnection_;
+  return hasConnection_;
 }
 
 void
 FictBusInterfaceIIDM::importStaticParameters() {
-    staticParameters_.clear();
-    staticParameters_.insert(std::make_pair("U", StaticParameter("U", StaticParameter::DOUBLE).setValue(getV0())));
-    staticParameters_.insert(std::make_pair("Teta", StaticParameter("Teta", StaticParameter::DOUBLE).setValue(getAngle0())));
-    staticParameters_.insert(std::make_pair("Upu", StaticParameter("Upu", StaticParameter::DOUBLE).setValue(getV0() / getVNom())));
-    staticParameters_.insert(std::make_pair("Teta_pu", StaticParameter("Teta_pu", StaticParameter::DOUBLE).setValue(getAngle0() * M_PI / 180)));
+  staticParameters_.clear();
+  staticParameters_.insert(std::make_pair("U", StaticParameter("U", StaticParameter::DOUBLE).setValue(getV0())));
+  staticParameters_.insert(std::make_pair("Teta", StaticParameter("Teta", StaticParameter::DOUBLE).setValue(getAngle0())));
+  staticParameters_.insert(std::make_pair("Upu", StaticParameter("Upu", StaticParameter::DOUBLE).setValue(getV0() / getVNom())));
+  staticParameters_.insert(std::make_pair("Teta_pu", StaticParameter("Teta_pu", StaticParameter::DOUBLE).setValue(getAngle0() * M_PI / 180)));
 }
 
 int
 FictBusInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
-    int index = -1;
-    if ( varName == "v" )
-        index = VAR_V;
-    else if ( varName == "angle" )
-        index = VAR_ANGLE;
-    return index;
+  int index = -1;
+  if ( varName == "v" )
+    index = VAR_V;
+  else if ( varName == "angle" )
+    index = VAR_ANGLE;
+  return index;
 }
 
-} // namespace DYN
+}  // namespace DYN

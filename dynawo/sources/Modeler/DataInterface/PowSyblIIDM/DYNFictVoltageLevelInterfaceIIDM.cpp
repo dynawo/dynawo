@@ -70,8 +70,54 @@ FictVoltageLevelInterfaceIIDM::getVNom() const {
 }
 
 void
+FictVoltageLevelInterfaceIIDM::connectNode(const unsigned int& /*node*/) {
+}
+
+void
+FictVoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& /*node*/) {
+}
+
+bool
+FictVoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& /*node*/) {
+    static bool b;
+    return b;
+}
+
+void
+FictVoltageLevelInterfaceIIDM::addSwitch(const boost::shared_ptr<SwitchInterface>& /*sw*/) {
+}
+
+void
 FictVoltageLevelInterfaceIIDM::addBus(const boost::shared_ptr<BusInterface>& bus) {
     buses_.push_back(bus);
+}
+
+void
+FictVoltageLevelInterfaceIIDM::addGenerator(const boost::shared_ptr<GeneratorInterface>& /*generator*/) {
+}
+
+void
+FictVoltageLevelInterfaceIIDM::addLoad(const boost::shared_ptr<LoadInterface>& /*load*/) {
+}
+
+void
+FictVoltageLevelInterfaceIIDM::addShuntCompensator(const boost::shared_ptr<ShuntCompensatorInterface>& /*shunt*/) {
+}
+
+void
+FictVoltageLevelInterfaceIIDM::addDanglingLine(const boost::shared_ptr<DanglingLineInterface>& /*danglingLine*/) {
+}
+
+void
+FictVoltageLevelInterfaceIIDM::addStaticVarCompensator(const boost::shared_ptr<StaticVarCompensatorInterface>& /*svc*/) {
+}
+
+void
+FictVoltageLevelInterfaceIIDM::addVscConverter(const boost::shared_ptr<VscConverterInterface>& /*vsc*/) {
+}
+
+void
+FictVoltageLevelInterfaceIIDM::addLccConverter(const boost::shared_ptr<LccConverterInterface>& /*lcc*/) {
 }
 
 const vector< shared_ptr<BusInterface> >&

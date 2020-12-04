@@ -67,12 +67,12 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   /**
    * @copydoc TwoWTransformerInterface::addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface)
    */
-  void addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& /*currentLimitInterface*/) {}
+  void addCurrentLimitInterface1(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface);
 
   /**
    * @copydoc TwoWTransformerInterface::addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface)
    */
-  void addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& /*currentLimitInterface*/) {}
+  void addCurrentLimitInterface2(const boost::shared_ptr<CurrentLimitInterface>& currentLimitInterface);
 
   /**
    * @copydoc TwoWTransformerInterface::getCurrentLimitInterfaces1() const

@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DataInterface/PowSyblIIDM/DYNVoltageLevelInterfaceIIDM.h
+ * @file  DataInterface/PowSyblIIDM/DYNFictVoltageLevelInterfaceIIDM.h
  *
  * @brief VoltageLevel data interface : header file for IIDM interface
  *
@@ -67,30 +67,27 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   VoltageLevelTopologyKind_t getVoltageLevelTopologyKind() const {
     static VoltageLevelTopologyKind_t v;
     return v;
-  };
+  }
 
   /**
    * @copydoc VoltageLevelInterface::connectNode(const unsigned int& node)
    */
-  void connectNode(const unsigned int& /*node*/) {};
+  void connectNode(const unsigned int& node);
 
   /**
    * @copydoc VoltageLevelInterface::disconnectNode(const unsigned int& node)
    */
-  void disconnectNode(const unsigned int& /*node*/) {};
+  void disconnectNode(const unsigned int& node);
 
   /**
    * @copydoc VoltageLevelInterface::isNodeConnected(const unsigned int& node)
    */
-  bool isNodeConnected(const unsigned int& /*node*/) {
-    static bool b;
-    return b;
-  };
+  bool isNodeConnected(const unsigned int& node);
 
   /**
    * @copydoc VoltageLevelInterface::addSwitch()
    */
-  void addSwitch(const boost::shared_ptr<SwitchInterface>& /*sw*/) {};
+  void addSwitch(const boost::shared_ptr<SwitchInterface>& sw);
 
   /**
    * @copydoc VoltageLevelInterface::addBus()
@@ -100,37 +97,37 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   /**
    * @copydoc VoltageLevelInterface::addGenerator()
    */
-  void addGenerator(const boost::shared_ptr<GeneratorInterface>& /*generator*/) {};
+  void addGenerator(const boost::shared_ptr<GeneratorInterface>& generator);
 
   /**
    * @copydoc VoltageLevelInterface::addLoad()
    */
-  void addLoad(const boost::shared_ptr<LoadInterface>& /*load*/) {};
+  void addLoad(const boost::shared_ptr<LoadInterface>& load);
 
   /**
    * @copydoc VoltageLevelInterface::addShuntCompensator()
    */
-  void addShuntCompensator(const boost::shared_ptr<ShuntCompensatorInterface>& /*shunt*/) {};
+  void addShuntCompensator(const boost::shared_ptr<ShuntCompensatorInterface>& shunt);
 
   /**
    * @copydoc VoltageLevelInterface::addDanglingLine()
    */
-  void addDanglingLine(const boost::shared_ptr<DanglingLineInterface>& /*danglingLine*/) {};
+  void addDanglingLine(const boost::shared_ptr<DanglingLineInterface>& danglingLine);
 
   /**
    * @copydoc VoltageLevelInterface::addStaticVarCompensator()
    */
-  void addStaticVarCompensator(const boost::shared_ptr<StaticVarCompensatorInterface>& /*svc*/) {};
+  void addStaticVarCompensator(const boost::shared_ptr<StaticVarCompensatorInterface>& svc);
 
   /**
    * @copydoc VoltageLevelInterface::addVscConverter()
    */
-  void addVscConverter(const boost::shared_ptr<VscConverterInterface>& /*vsc*/) {};
+  void addVscConverter(const boost::shared_ptr<VscConverterInterface>& vsc);
 
   /**
    * @copydoc VoltageLevelInterface::addLccConverter()
    */
-  void addLccConverter(const boost::shared_ptr<LccConverterInterface>& /*lcc*/) {};
+  void addLccConverter(const boost::shared_ptr<LccConverterInterface>& lcc);
 
   /**
    * @copydoc VoltageLevelInterface::getBuses()
@@ -143,7 +140,7 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   const std::vector< boost::shared_ptr<SwitchInterface> >& getSwitches() const {
     static std::vector< boost::shared_ptr<SwitchInterface> > v;
     return v;
-  };
+  }
 
   /**
    * @copydoc VoltageLevelInterface::getLoads()
@@ -151,7 +148,7 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   const std::vector< boost::shared_ptr<LoadInterface> >& getLoads() const {
     static std::vector< boost::shared_ptr<LoadInterface> > v;
     return v;
-  };
+  }
 
   /**
    * @copydoc VoltageLevelInterface::getShuntCompensators()
@@ -159,7 +156,7 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   const std::vector< boost::shared_ptr<ShuntCompensatorInterface> >& getShuntCompensators() const {
     static std::vector< boost::shared_ptr<ShuntCompensatorInterface> > v;
     return v;
-  };
+  }
 
   /**
    * @copydoc VoltageLevelInterface::getStaticVarCompensators()
@@ -167,7 +164,7 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   const std::vector< boost::shared_ptr<StaticVarCompensatorInterface> >& getStaticVarCompensators() const {
     static std::vector< boost::shared_ptr<StaticVarCompensatorInterface> > v;
     return v;
-  };
+  }
 
   /**
    * @copydoc VoltageLevelInterface::getGenerators()
@@ -175,7 +172,7 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   const std::vector< boost::shared_ptr<GeneratorInterface> >& getGenerators() const {
     static std::vector< boost::shared_ptr<GeneratorInterface> > v;
     return v;
-  };
+  }
 
   /**
    * @copydoc VoltageLevelInterface::getDanglingLines()
@@ -183,7 +180,7 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   const std::vector< boost::shared_ptr<DanglingLineInterface> >& getDanglingLines() const {
     static std::vector< boost::shared_ptr<DanglingLineInterface> > v;
     return v;
-  };
+  }
 
   /**
    * @copydoc VoltageLevelInterface::getVscConverters()
@@ -191,7 +188,7 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   const std::vector< boost::shared_ptr<VscConverterInterface> >& getVscConverters() const {
     static std::vector< boost::shared_ptr<VscConverterInterface> > v;
     return v;
-  };
+  }
 
   /**
    * @copydoc VoltageLevelInterface::getLccConverters()
@@ -199,17 +196,17 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   const std::vector< boost::shared_ptr<LccConverterInterface> >& getLccConverters() const {
     static std::vector< boost::shared_ptr<LccConverterInterface> > v;
     return v;
-  };
+  }
 
   /**
    * @copydoc VoltageLevelInterface::mapConnections()
    */
-  void mapConnections() {};
+  void mapConnections() {}
 
   /**
    * @copydoc VoltageLevelInterface::exportSwitchesState()
    */
-  void exportSwitchesState() {};
+  void exportSwitchesState() {}
 
   /**
    * @brief get the detailed status of the node
@@ -236,7 +233,7 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   }
 
  private:
-  std::string Id_; ///< Id of fictitious voltage level
+  std::string Id_;  ///< Id of fictitious voltage level
   double VNom_;    ///< nominal voltage of voltageLevel in kV
   bool isNodeBreakerTopology_;  ///< @b true if the topology of the voltageLevel is node breaker topology
   std::string country_;  ///< country of the voltage level

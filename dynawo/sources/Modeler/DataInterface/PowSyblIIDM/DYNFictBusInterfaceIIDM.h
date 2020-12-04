@@ -29,7 +29,7 @@
 namespace DYN {
 
 /**
- * @class BusInterfaceIIDM
+ * @class FictBusInterfaceIIDM
  * @brief Specialization of BusInterface class for IIDM
  */
 class FictBusInterfaceIIDM : public BusInterface {
@@ -87,7 +87,7 @@ class FictBusInterfaceIIDM : public BusInterface {
   double getStateVarV() const {
       static double empty;
       return empty;
-  };
+  }
 
   /**
    * @copydoc BusInterface::getStateVarAngle() const
@@ -95,7 +95,7 @@ class FictBusInterfaceIIDM : public BusInterface {
   double getStateVarAngle() const {
     static double empty;
     return empty;
-  };
+  }
 
   /**
    * @copydoc BusInterface::getID() const
@@ -120,7 +120,7 @@ class FictBusInterfaceIIDM : public BusInterface {
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
-  void exportStateVariablesUnitComponent() {};
+  void exportStateVariablesUnitComponent() {}
 
   /**
    * @copydoc BusInterface::getBusBarSectionNames() const
@@ -162,7 +162,6 @@ class FictBusInterfaceIIDM : public BusInterface {
   std::string Id_;                     ///< Id of fictitious bus
   double Vnom_;                        ///< nominal voltage of fictitious bar in kV
   bool hasConnection_;                 ///< @b true if the bus has an outside connection, @b false else
-  // state variables
   double U0_;         ///< initial voltage
   double angle0_;     ///< initial angle
   std::string country_;                ///< country of the bus
