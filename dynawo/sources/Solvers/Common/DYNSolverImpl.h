@@ -282,10 +282,11 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @brief print the unstable roots
    *
+   * @param t current time
    * @param G0 previous value of zero crossing functions
    * @param G1 new value of zero crossing functions
    */
-  void printUnstableRoot(const std::vector<state_g>& G0, const std::vector<state_g>& G1) const;
+  void printUnstableRoot(double t, const std::vector<state_g>& G0, const std::vector<state_g>& G1) const;
 
  protected:
   /**

@@ -503,7 +503,7 @@ SolverSIM::solve() {
     } else {
       // A root change has occurred - Dealing with propagation and algebraic mode detection
 #ifdef _DEBUG_
-      printUnstableRoot(g0_, g1_);
+      printUnstableRoot(tSolve_ + h_, g0_, g1_);
 #endif
       /* Save the new values of the root in g0 for comparison after the evalZMode
        * Calculate the propagation of discrete variable value changes and mode changes
