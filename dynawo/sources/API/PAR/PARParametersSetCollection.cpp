@@ -16,7 +16,7 @@
  * @brief Dynawo parameters set collection : implementation for iterator
  *
  */
-
+#include "PARParametersSet.h"
 #include "PARParametersSetCollection.h"
 #include "PARParametersSetCollectionImpl.h"
 

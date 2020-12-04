@@ -23,9 +23,7 @@
 
 // files in API parameter
 #include "PARParametersSet.h"
-#include "PARParametersSetImpl.h"
 #include "PARParameter.h"
-#include "PARParametersSetFactory.h"
 #include "PARParametersSetCollection.h"
 #include "PARReference.h"
 #include "PARReferenceFactory.h"
@@ -73,7 +71,6 @@ using boost::dynamic_pointer_cast;
 
 using parameters::ParametersSet;
 using parameters::Parameter;
-using parameters::ParametersSetFactory;
 using parameters::ParametersSetCollection;
 using parameters::Reference;
 using parameters::ReferenceFactory;
@@ -245,7 +242,7 @@ DynamicData::associateParameters() {
 
         // for Modelica models, add a unit dynamic model (the reference udm) prefix to parameter names
       case Model::MODELICA_MODEL: {
-        shared_ptr<ParametersSet> modelSet(ParametersSetFactory::newInstance(model->getId()));
+        shared_ptr<ParametersSet> modelSet(shared_ptr<ParametersSet>(new ParametersSet(model->getId())));
         shared_ptr<ModelicaModel> modelicaModel = dynamic_pointer_cast<ModelicaModel>(model);
         map<string, shared_ptr<UnitDynamicModel> > models = modelicaModel->getUnitDynamicModels();
 

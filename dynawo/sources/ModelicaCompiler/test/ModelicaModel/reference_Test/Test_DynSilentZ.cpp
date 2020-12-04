@@ -292,7 +292,7 @@ boost::shared_ptr<parameters::ParametersSet> ModelTestSilentZ_Dyn::setSharedPara
    // Propagating shared parameters default value 
 
    // This value may be updated later on through *.par/*.iidm data 
-  boost::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("SharedModelicaParameters");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("SharedModelicaParameters"));
 
   return parametersSet;
 }

@@ -25,7 +25,6 @@
 #include <boost/shared_ptr.hpp>
 
 #include "PARParametersSetCollection.h"
-#include "PARParametersSetImpl.h"
 
 namespace parameters {
 
