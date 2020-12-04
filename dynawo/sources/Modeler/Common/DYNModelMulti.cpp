@@ -178,6 +178,8 @@ ModelMulti::initBuffers() {
     subModels_[i]->initSize(sizeY_, sizeZ_, sizeMode_, sizeF_, sizeG_);
 
 
+  connectorContainer_->setOffsetModel(sizeF_);
+  connectorContainer_->setSizeY(sizeY_);
   connectorContainer_->mergeConnectors();
   evalYType();
 
@@ -191,8 +193,6 @@ ModelMulti::initBuffers() {
     }
   }
 
-  connectorContainer_->setOffsetModel(sizeF_);
-  connectorContainer_->setSizeY(sizeY_);
   sizeF_ += connectorContainer_->nbContinuousConnectors();
 
   offsetFOptional_ = sizeF_;
