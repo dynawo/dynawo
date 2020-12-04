@@ -12,8 +12,9 @@
 #ifndef __ZIP_ENTRY_H__
 #define __ZIP_ENTRY_H__
 
-#include <archive_entry.h>
 #include <string>
+
+struct archive_entry;
 
 namespace zip {
 
