@@ -41,19 +41,13 @@ namespace DYN {
 
   FictTwoWTransformerInterfaceIIDM::FictTwoWTransformerInterfaceIIDM(const std::string& Id,
                       stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg>& leg,
-                      const bool& initialConnected1, const double& VNom1, const double& ratedU1) {
+                      const bool& initialConnected1, const double& VNom1, const double& ratedU1) :
+                      initialConnected2_(boost::none) {
     Id_ = Id;
     leg_ = leg;
     initialConnected1_ = initialConnected1;
     VNom1_ = VNom1;
     RatedU1_ = ratedU1;
-    VNom2_ = leg_.get().getTerminal().get().getVoltageLevel().getNominalVoltage();
-    RatedU2_ = leg_.get().getRatedU();
-    initialConnected2_ = leg_.get().getTerminal().get().isConnected();
-    R_ = leg_.get().getR();
-    X_ = leg_.get().getX();
-    G_ = leg_.get().getG();
-    B_ = leg_.get().getB();
     setType(ComponentInterface::TWO_WTFO);
     stateVariables_.resize(6);
     stateVariables_[VAR_P1] = StateVariable("p1", StateVariable::DOUBLE);  // P1
@@ -117,7 +111,13 @@ namespace DYN {
 
   bool
   FictTwoWTransformerInterfaceIIDM::getInitialConnected2() {
-    return initialConnected2_;
+    if (initialConnected2_ == boost::none) {
+      initialConnected2_ = leg_.get().getTerminal().get().isConnected();
+      if (voltageLevelInterface2_->isNodeBreakerTopology()) {
+        initialConnected2_ = initialConnected2_ && voltageLevelInterface2_->isNodeConnected(leg_.get().getTerminal().get().getNodeBreakerView().getNode());
+      }
+    }
+    return initialConnected2_.value();
   }
 
   double
@@ -127,7 +127,7 @@ namespace DYN {
 
   double
   FictTwoWTransformerInterfaceIIDM::getVNom2() const {
-    return VNom2_;
+    return leg_.get().getTerminal().get().getVoltageLevel().getNominalVoltage();
   }
 
   double
@@ -137,7 +137,7 @@ namespace DYN {
 
   double
   FictTwoWTransformerInterfaceIIDM::getRatedU2() const {
-    return RatedU2_;
+    return leg_.get().getRatedU();;
   }
 
   boost::shared_ptr<PhaseTapChangerInterface>
@@ -162,22 +162,22 @@ namespace DYN {
 
   double
   FictTwoWTransformerInterfaceIIDM::getR() const {
-    return R_;
+    return leg_.get().getR();
   }
 
   double
   FictTwoWTransformerInterfaceIIDM::getX() const {
-    return X_;
+    return leg_.get().getX();
   }
 
   double
   FictTwoWTransformerInterfaceIIDM::getG() const {
-    return G_;
+    return leg_.get().getG();
   }
 
   double
   FictTwoWTransformerInterfaceIIDM::getB() const {
-    return B_;
+    return leg_.get().getB();
   }
 
   double

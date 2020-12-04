@@ -233,10 +233,6 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
  private:
   stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> leg_;  ///< reference to original three winding transformer leg
   std::string Id_;                                 ///< Id of fictitious transformer
-  double R_;                                       ///< resistance of fictitious transformer
-  double X_;                                       ///< reactance of fictitious transformer
-  double G_;                                       ///< conductance of fictitious transformer
-  double B_;                                       ///< susceptance of fictitious transformer
   boost::shared_ptr<BusInterface> busInterface1_;  ///< busInterface of the bus where the side 1 of the tfo is connected
   boost::shared_ptr<BusInterface> busInterface2_;  ///< busInterface of the bus where the side 2 of the tfo is connected
   boost::shared_ptr<VoltageLevelInterface> voltageLevelInterface1_;  ///< voltageLevel interface where the side 1 of the line is connected
@@ -246,11 +242,9 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
 
 
   bool initialConnected1_;  ///< whether the tfo is initially connected at side 1
-  bool initialConnected2_;  ///< whether the tfo is initially connected at side 2
+  boost::optional<bool> initialConnected2_;  ///< whether the tfo is initially connected at side 2
   double VNom1_;            ///< nominal voltage of the fictitious transformer's side 1 in kV
-  double VNom2_;            ///< nominal voltage of the fictitious transformer's side 2 in kV
   double RatedU1_;          ///< rated voltage of the fictitious transformer's side 1 in kV
-  double RatedU2_;          ///< rated voltage of the fictitious transformer's side 2 in kV
 };
 }  // namespace DYN
 
