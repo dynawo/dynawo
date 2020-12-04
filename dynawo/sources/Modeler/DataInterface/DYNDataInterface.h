@@ -145,7 +145,7 @@ class DataInterface {
   /**
    * @brief get the name of the bus where a component is connected
    * @param staticID id of the component
-   * @param labelNode \@NODE\@ or \@NODE1\@ or \@NODE2\@
+   * @param labelNode \@NODE\@ or \@NODE1\@ or \@NODE2\@ or \@NODE3\@
    * @return name of the bus where the component is connected
    */
   virtual std::string getBusName(const std::string& staticID, const std::string& labelNode) = 0;

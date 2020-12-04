@@ -20,7 +20,6 @@
 #include "DYNMacrosMessage.h"
 
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 #include "PARParametersSetCollection.h"
 
 using std::map;

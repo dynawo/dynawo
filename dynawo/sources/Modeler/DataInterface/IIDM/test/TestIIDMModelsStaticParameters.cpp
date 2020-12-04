@@ -62,7 +62,6 @@
 #include "DYNDataInterfaceIIDM.h"
 #include "DYNSubModelFactory.h"
 #include "DYNSubModel.h"
-#include "PARParametersSetFactory.h"
 #include "DYNModelMulti.h"
 #include "DYNNetworkInterface.h"
 #include "DYNTwoWTransformerInterface.h"
@@ -340,7 +339,7 @@ initializeModel(shared_ptr<DataInterface> data) {
   modelNetwork->initFromData(data);
   data->setModelNetwork(modelNetwork);
   modelNetwork->name("NETWORK");
-  shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("Parameterset");
+  shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("bus_uMax", 0.);
   parametersSet->createParameter("capacitor_no_reclosing_delay", 0.);
   parametersSet->createParameter("load_alpha", 0.);
