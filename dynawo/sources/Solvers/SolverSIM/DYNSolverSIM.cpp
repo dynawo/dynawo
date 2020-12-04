@@ -253,6 +253,9 @@ SolverSIM::calculateIC() {
   // KINSOL initialization
   solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
       initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+#if _DEBUG_
+  solverKINAlgRestoration_->enableCheckJacobian();
+#endif
 
   // Loop as long as there is a z or a mode change
   do {
