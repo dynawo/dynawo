@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Machines;
+within Dynawo.Electrical.Machines.OmegaRef;
 
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -12,11 +12,13 @@ within Dynawo.Electrical.Machines;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GeneratorSynchronousInt_INIT "Synchronous machine - Initialization model from internal parameters"
+model GeneratorSynchronousExt_3E_INIT "Synchronous machine with 3 windings - Initialization model from external parameters"
 
-  extends BaseClasses_INIT.BaseGeneratorSynchronousInt_INIT;
-  extends BaseClasses_INIT.BaseGeneratorParameters_INIT;
+  import Dynawo.Electrical.Machines;
+
+  extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
+  extends BaseClasses_INIT.BaseGeneratorSynchronousExt3E_INIT;
   extends AdditionalIcons.Init;
 
 annotation(preferredView = "text");
-end GeneratorSynchronousInt_INIT;
+end GeneratorSynchronousExt_3E_INIT;

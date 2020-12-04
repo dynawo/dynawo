@@ -74,7 +74,6 @@ jobs:
       DYNAWO_COMPILER: CLANG
       DYNAWO_LIBRARY_TYPE: SHARED
       DYNAWO_RESULTS_SHOW: "false"
-      MACOSX_DEPLOYMENT_TARGET: 10.14
       DYNAWO_BOOST_HOME_DEFAULT: "false"
       DYNAWO_NB_PROCESSORS_USED: 2
       DYNAWO_PYTHON_COMMAND: python3
@@ -93,6 +92,7 @@ jobs:
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+          MACOSX_DEPLOYMENT_TARGET: 10.14
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           export DYNAWO_HOME=$(pwd)

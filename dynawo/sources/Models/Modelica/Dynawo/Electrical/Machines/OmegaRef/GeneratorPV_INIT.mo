@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Machines;
+within Dynawo.Electrical.Machines.OmegaRef;
 
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -14,7 +14,9 @@ within Dynawo.Electrical.Machines;
 
 model GeneratorPV_INIT "Initialisation model for generator PV"
 
-  extends BaseClasses_INIT.BaseGeneratorParameters_INIT;
+  import Dynawo.Electrical.Machines;
+
+  extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
 
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in p.u (base UNom, SNom)";
