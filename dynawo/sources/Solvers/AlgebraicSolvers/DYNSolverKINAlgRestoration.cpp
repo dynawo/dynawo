@@ -45,7 +45,8 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-SolverKINAlgRestoration::SolverKINAlgRestoration() : SolverKINCommon(),
+SolverKINAlgRestoration::SolverKINAlgRestoration() :
+SolverKINCommon(),
 mode_(KIN_NORMAL) {
 #if _DEBUG_
   checkJacobian_ = false;
