@@ -34,7 +34,6 @@
 #include "DYNTwoWTransformerInterfaceIIDM.h"
 #include "DYNSubModelFactory.h"
 #include "DYNSubModel.h"
-#include "PARParametersSetFactory.h"
 #include "DYNModelMulti.h"
 #include "DYNNetworkInterface.h"
 #include "DYNThreeWTransformerInterfaceIIDM.h"
@@ -570,7 +569,7 @@ initializeModel(shared_ptr<DataInterface> data) {
   modelNetwork->initFromData(data);
   data->setModelNetwork(modelNetwork);
   modelNetwork->name("NETWORK");
-  shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("Parameterset");
+  shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("bus_uMax", 0.);
   parametersSet->createParameter("capacitor_no_reclosing_delay", 0.);
   parametersSet->createParameter("load_alpha", 0.);
@@ -1037,7 +1036,8 @@ TEST(DataInterfaceIIDMTest, testLineIIDM) {
   powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_THROW_DYNAWO(data->getStaticParameterDoubleValue("VL1_VL2", "p_pu"), Error::MODELER, KeyError_t::UnknownStaticParameter);
-  ASSERT_EQ(data->getBusName("VL1_VL2", ""), "");
+  ASSERT_EQ(data->getBusName("VL1_VL2", "@NODE1@"), "MyBus");
+  ASSERT_EQ(data->getBusName("VL1_VL2", "@NODE2@"), "VL2_BUS1");
 
   powsybl::iidm::Line& lineIIDM = network.getLine("VL1_VL2");
   ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getP(), 22560.083951694862);
@@ -1313,7 +1313,8 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyTransformer2Winding", "tapPosition"), 2);
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyTransformer2Winding", "lowTapPosition"), 0);
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyTransformer2Winding", "highTapPosition"), 2);
-  ASSERT_EQ(data->getBusName("MyTransformer2Winding", ""), "");
+  ASSERT_EQ(data->getBusName("MyTransformer2Winding", "@NODE1@"), "MyBus");
+  ASSERT_EQ(data->getBusName("MyTransformer2Winding", "@NODE2@"), "VL2_BUS1");
 
   powsybl::iidm::TwoWindingsTransformer& twoWTIIDM = network.getTwoWindingsTransformer("MyTransformer2Winding");
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 920.43642724743098);
@@ -1390,7 +1391,8 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyTransformer2Winding", "tapPosition"), 1);
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyTransformer2Winding", "lowTapPosition"), 0);
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyTransformer2Winding", "highTapPosition"), 1);
-  ASSERT_EQ(data->getBusName("MyTransformer2Winding", ""), "");
+  ASSERT_EQ(data->getBusName("MyTransformer2Winding", "@NODE1@"), "MyBus");
+  ASSERT_EQ(data->getBusName("MyTransformer2Winding", "@NODE2@"), "VL2_BUS1");
 
   powsybl::iidm::TwoWindingsTransformer& twoWTIIDM = network.getTwoWindingsTransformer("MyTransformer2Winding");
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 911.39982127973873);
@@ -1462,7 +1464,9 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
-  ASSERT_EQ(data->getBusName("MyTransformer3Winding", ""), "");
+  ASSERT_EQ(data->getBusName("MyTransformer3Winding", "@NODE1@"), "MyBus");
+  ASSERT_EQ(data->getBusName("MyTransformer3Winding", "@NODE2@"), "VL2_BUS1");
+  ASSERT_EQ(data->getBusName("MyTransformer3Winding", "@NODE3@"), "VL3_BUS1");
 
   boost::shared_ptr<ThreeWTransformerInterfaceIIDM> threeWT =
       boost::dynamic_pointer_cast<ThreeWTransformerInterfaceIIDM>(data->findComponent("MyTransformer3Winding"));
