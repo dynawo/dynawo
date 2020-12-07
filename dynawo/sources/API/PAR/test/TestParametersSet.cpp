@@ -27,7 +27,6 @@
 #include "PARReference.h"
 #include "PARReferenceFactory.h"
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 
 using boost::shared_ptr;
 using std::string;
@@ -38,30 +37,11 @@ using testing::ContainerEq;
 namespace parameters {
 
 //-----------------------------------------------------
-// TEST check parameters set factory
-//-----------------------------------------------------
-
-TEST(APIPARTest, ParametersSetFactory) {
-  // Create a new parameters set
-  shared_ptr<ParametersSet> parametersSet1 = ParametersSetFactory::newInstance("parameters");
-
-  // Copy this parameters set in another parameters set
-  shared_ptr<ParametersSet> parametersSet2;
-  ASSERT_NO_THROW(parametersSet2 = ParametersSetFactory::copyInstance(parametersSet1));
-  ASSERT_NO_THROW(parametersSet2 = ParametersSetFactory::copyInstance(shared_ptr<ParametersSet>()));
-
-  // Copy this parameters set in another parameters set (through reference)
-  shared_ptr<ParametersSet> parametersSet3;
-  ParametersSet& refparametersSet1(*parametersSet1);
-  ASSERT_NO_THROW(parametersSet3 = ParametersSetFactory::copyInstance(refparametersSet1));
-}
-
-//-----------------------------------------------------
 // TEST create parameters in a parameters set
 //-----------------------------------------------------
 
 TEST(APIPARTest, ParametersSetCreate) {
-  shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newInstance("parameters");
+  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
   parametersSet->createParameter("BooleanParameter", true);
   parametersSet->createParameter("IntegerParameter", 2);
   parametersSet->createParameter("DoubleParameter", 5.6);
@@ -90,7 +70,7 @@ TEST(APIPARTest, ParametersSetCreate) {
 //-----------------------------------------------------
 
 TEST(APIPARTest, ParametersSetAddParameter) {
-  shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newInstance("parameters");
+  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
 
   // Create and add a parameter
   shared_ptr<Parameter> param = ParameterFactory::newParameter("param", 1);
@@ -116,7 +96,7 @@ TEST(APIPARTest, ParametersSetAddParameter) {
 //-----------------------------------------------------
 
 TEST(APIPARTest, ParametersSetAddReference) {
-  shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newInstance("parameters");
+  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
 
   // Create and add a reference
   shared_ptr<Reference> ref = ReferenceFactory::newReference("ref");
@@ -142,7 +122,7 @@ TEST(APIPARTest, ParametersSetAddReference) {
 //-----------------------------------------------------
 
 TEST(APIPARTest, ParametersSetGetParameters) {
-  shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newInstance("parameters");
+  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
 
   // Create parameters
   shared_ptr<Parameter> param1 = ParameterFactory::newParameter("param1", 1);
@@ -192,7 +172,7 @@ TEST(APIPARTest, ParametersSetGetParameters) {
 //-----------------------------------------------------
 
 TEST(APIPARTest, ParametersSetGetReferences) {
-  shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newInstance("parameters");
+  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
 
   // Create references
   shared_ptr<Reference> ref1 = ReferenceFactory::newReference("ref1");
@@ -231,14 +211,14 @@ TEST(APIPARTest, ParametersSetGetReferences) {
 
 TEST(APIPARTest, ParametersSetExtend) {
   // Create a first set of parameters
-  shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newInstance("parameters");
+  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
   parametersSet->createParameter("BooleanParameter", true);
   parametersSet->createParameter("IntegerParameter", 2);
   parametersSet->createParameter("DoubleParameter", 5.6);
   parametersSet->createParameter("StringParameter", string("myName"));
 
   // Create a second set of parameters
-  shared_ptr<ParametersSet> parametersSet2 = ParametersSetFactory::newInstance("parameters2");
+  shared_ptr<ParametersSet> parametersSet2 = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters2"));
   parametersSet->createParameter("BooleanParameter2", true);
   parametersSet->createParameter("IntegerParameter2", 10);
   parametersSet->createParameter("DoubleParameter2", 7.89);
@@ -265,7 +245,7 @@ TEST(APIPARTest, ParametersSetExtend) {
 //-----------------------------------------------------
 
 TEST(APIPARTest, ParametersSetAliases) {
-  shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newInstance("aliases");
+  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("aliases"));
 
   // Create a parameter and create an alias of it
   ASSERT_NO_THROW(parametersSet->createParameter("paramInt", 3));
@@ -299,7 +279,7 @@ TEST(APIPARTest, ParametersSetAliases) {
 //-----------------------------------------------------
 
 TEST(APIPARTest, ParametersSetCreateTableOneLine) {
-  shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newInstance("parameters");
+  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
 
   // Create a parameters table (one line) with all possible types (bool, int, double, string)
   ASSERT_NO_THROW(parametersSet->createParameter("paramTable", string("red"), "1", "1"));  // give names paramTable_1_ and paramTable_1_1_
@@ -320,7 +300,7 @@ TEST(APIPARTest, ParametersSetCreateTableOneLine) {
 //-----------------------------------------------------
 
 TEST(APIPARTest, ParametersSetCreateTableMatrix) {
-  shared_ptr<ParametersSet> parametersSet = ParametersSetFactory::newInstance("parameters");
+  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
 
   // Create a parameters table (matrix 2x2) with all possible types (bool, int, double, string)
   ASSERT_NO_THROW(parametersSet->createParameter("paramTable", string("red"), "1", "1"));   // give names paramTable_1_1_ and paramTable_1_
