@@ -287,6 +287,9 @@ SolverSIM::calculateIC() {
 
   Trace::debug() << DYNLog(EndCalculateIC) << Trace::endline;
   solverKINAlgRestoration_->clean();
+#if _DEBUG_
+  solverKINAlgRestoration_->disableCheckJacobian();
+#endif
 }
 
 void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
