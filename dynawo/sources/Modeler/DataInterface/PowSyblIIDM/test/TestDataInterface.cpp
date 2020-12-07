@@ -479,6 +479,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     powsybl::iidm::ThreeWindingsTransformer& transformer = s.newThreeWindingsTransformer()
         .setId("MyTransformer3Winding")
         .setName("MyTransformer3Winding_NAME")
+        .setRatedU0(3.1)
         .newLeg1()
         .setR(1.3)
         .setX(1.4)
@@ -517,6 +518,55 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
         setName("TL1").setValue(10.).setAcceptableDuration(5.).endTemporaryLimit().add();
     transformer.getLeg3().newCurrentLimits().setPermanentLimit(200).beginTemporaryLimit().
         setName("TL1").setValue(20.).setAcceptableDuration(5.).endTemporaryLimit().add();
+    if (properties.instantiateRatioTapChanger) {
+      transformer.getLeg1().newRatioTapChanger()
+          .setTapPosition(1)
+          .beginStep()
+          .setR(1.)
+          .setX(1.)
+          .setG(1.)
+          .setB(1.)
+          .setRho(1.)
+          .endStep()
+          .beginStep()
+          .setR(2.)
+          .setX(1.)
+          .setG(1.)
+          .setB(1.)
+          .setRho(1.)
+          .endStep()
+          .add();
+    }
+    if (properties.instantiatePhaseTapChanger) {
+      transformer.getLeg2().newPhaseTapChanger()
+          .setTapPosition(1)
+          .setLowTapPosition(1)
+          .beginStep()
+          .setAlpha(1.)
+          .setR(1.)
+          .setX(1.)
+          .setG(1.)
+          .setB(1.)
+          .setRho(1.)
+          .endStep()
+          .beginStep()
+          .setAlpha(1.)
+          .setR(2.)
+          .setX(1.)
+          .setG(1.)
+          .setB(1.)
+          .setRho(1.)
+          .endStep()
+          .beginStep()
+          .setAlpha(1.)
+          .setR(3.)
+          .setX(1.)
+          .setG(1.)
+          .setB(1.)
+          .setRho(1.)
+          .endStep()
+          .add();
+    }
   }
 
   if (properties.instantiateLine) {
@@ -560,13 +610,11 @@ initializeModel(shared_ptr<DataInterface> data) {
   parametersSet->createParameter("load_beta", 0.);
   parametersSet->createParameter("load_isRestorative", false);
   parametersSet->createParameter("load_isControllable", false);
-  if (!data->getNetwork()->getTwoWTransformers().empty() && data->getNetwork()->getTwoWTransformers()[0]->getRatioTapChanger()) {
-    parametersSet->createParameter("transformer_t1st_THT", 9.);
-    parametersSet->createParameter("transformer_tNext_THT", 10.);
-    parametersSet->createParameter("transformer_t1st_HT", 11.);
-    parametersSet->createParameter("transformer_tNext_HT", 12.);
-    parametersSet->createParameter("transformer_tolV", 13.);
-  }
+  parametersSet->createParameter("transformer_t1st_THT", 9.);
+  parametersSet->createParameter("transformer_tNext_THT", 10.);
+  parametersSet->createParameter("transformer_t1st_HT", 11.);
+  parametersSet->createParameter("transformer_tNext_HT", 12.);
+  parametersSet->createParameter("transformer_tolV", 13.);
   modelNetwork->setPARParameters(parametersSet);
 
   return modelNetwork;
@@ -1414,8 +1462,8 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
-      false /*instantiateRatioTapChanger*/,
-      false /*instantiatePhaseTapChanger*/,
+      true /*instantiateRatioTapChanger*/,
+      true /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
       false /*instantiateLccConverter*/,
@@ -1428,32 +1476,68 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
   ASSERT_EQ(data->getBusName("MyTransformer3Winding", ""), "");
+  boost::shared_ptr<BusInterface> fictBus =
+      boost::dynamic_pointer_cast<BusInterface>(data->findComponent("MyTransformer3Winding_BUS"));
+  boost::shared_ptr<BusInterface> bus1 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
+  boost::shared_ptr<BusInterface> bus2 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
+  boost::shared_ptr<BusInterface> bus3 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL3_BUS1"));
+  std::vector<boost::shared_ptr<VoltageLevelInterface> > Vls = data->getNetwork()->getVoltageLevels();
+  std::string FictVLId = "MyTransformer3Winding_VL";
+  auto it_vl = std::find_if(Vls.begin(), Vls.end(), [&FictVLId](boost::shared_ptr<VoltageLevelInterface>& vl) {return vl->getID() == FictVLId;});
+  ASSERT_TRUE(it_vl != Vls.end());
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
+  powsybl::iidm::ThreeWindingsTransformer& threeWTIIDM = network.getThreeWindingsTransformer("MyTransformer3Winding");
+  std::string FictTwoWTransf1_Id = "MyTransformer3Winding_1";
+  std::string FictTwoWTransf2_Id = "MyTransformer3Winding_2";
+  std::string FictTwoWTransf3_Id = "MyTransformer3Winding_3";
+  boost::shared_ptr<TwoWTransformerInterface> FictTwoWTransf1 =
+      boost::dynamic_pointer_cast<TwoWTransformerInterface>(data->findComponent(FictTwoWTransf1_Id));
+  boost::shared_ptr<TwoWTransformerInterface> FictTwoWTransf2 =
+      boost::dynamic_pointer_cast<TwoWTransformerInterface>(data->findComponent(FictTwoWTransf2_Id));
+  boost::shared_ptr<TwoWTransformerInterface> FictTwoWTransf3 =
+      boost::dynamic_pointer_cast<TwoWTransformerInterface>(data->findComponent(FictTwoWTransf3_Id));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getR(), threeWTIIDM.getLeg1().getR());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getX(), threeWTIIDM.getLeg1().getX());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getG(), threeWTIIDM.getLeg1().getG());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getB(), threeWTIIDM.getLeg1().getB());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getRatedU1(), threeWTIIDM.getRatedU0());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getRatedU2(), threeWTIIDM.getLeg1().getRatedU());
 
-  boost::shared_ptr<ThreeWTransformerInterfaceIIDM> threeWT =
-      boost::dynamic_pointer_cast<ThreeWTransformerInterfaceIIDM>(data->findComponent("MyTransformer3Winding"));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getR(), threeWTIIDM.getLeg2().getR());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getX(), threeWTIIDM.getLeg2().getX());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getG(), threeWTIIDM.getLeg2().getG());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getB(), threeWTIIDM.getLeg2().getB());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getRatedU1(), threeWTIIDM.getRatedU0());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getRatedU2(), threeWTIIDM.getLeg2().getRatedU());
 
-  boost::shared_ptr<BusInterfaceIIDM> bus1 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
-  boost::shared_ptr<BusInterfaceIIDM> bus2 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL2_BUS1"));
-  boost::shared_ptr<BusInterfaceIIDM> bus3 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("VL3_BUS1"));
-  ASSERT_FALSE(bus1->hasConnection());
-  ASSERT_FALSE(bus2->hasConnection());
-  ASSERT_FALSE(bus3->hasConnection());
-  data->hasDynamicModel("MyTransformer3Winding");  // same as "threeWT->hasDynamicModel(true);"
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getR(), threeWTIIDM.getLeg3().getR());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getX(), threeWTIIDM.getLeg3().getX());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getG(), threeWTIIDM.getLeg3().getG());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getB(), threeWTIIDM.getLeg3().getB());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getRatedU1(), threeWTIIDM.getRatedU0());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getRatedU2(), threeWTIIDM.getLeg3().getRatedU());
+
+  ASSERT_DOUBLE_EQUALS_DYNAWO(it_vl->get()->getVNom(), threeWTIIDM.getRatedU0());
+
+  data->hasDynamicModel("MyTransformer3Winding_1");
+  data->hasDynamicModel("MyTransformer3Winding_2");
+  data->hasDynamicModel("MyTransformer3Winding_3");
+  ASSERT_FALSE(fictBus->hasConnection());
   ASSERT_FALSE(bus1->hasConnection());
   ASSERT_FALSE(bus2->hasConnection());
   ASSERT_FALSE(bus3->hasConnection());
   data->mapConnections();
+  ASSERT_TRUE(fictBus->hasConnection());
   ASSERT_TRUE(bus1->hasConnection());
   ASSERT_TRUE(bus2->hasConnection());
   ASSERT_TRUE(bus3->hasConnection());
-  threeWT->hasDynamicModel(false);
+  FictTwoWTransf1->hasDynamicModel(false);
+  FictTwoWTransf2->hasDynamicModel(false);
+  FictTwoWTransf3->hasDynamicModel(false);
+  ASSERT_TRUE(fictBus->hasConnection());
   ASSERT_TRUE(bus1->hasConnection());
   ASSERT_TRUE(bus2->hasConnection());
   ASSERT_TRUE(bus3->hasConnection());
-
-  shared_ptr<SubModel> modelNetwork = initializeModel(data);
-  data->setDynamicModel("MyTransformer3Winding", modelNetwork);
-  ASSERT_THROW_DYNAWO(data->setDynamicModel("nothing", modelNetwork), Error::MODELER, KeyError_t::UnknownStaticComponent);
 }  // TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM)
 
 TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
