@@ -49,8 +49,6 @@ class SparseMatrix {
     CHECK_OK = 0,            ///< no error
     CHECK_ZERO_ROW,          ///< at least one row is full of 0
     CHECK_ZERO_COLUMN,       ///< at least one column is full of 0
-    CHECK_TWO_EQUAL_LINES,   ///< at least 2 lines are equal
-    CHECK_TWO_EQUAL_COLUMNS  ///< at least 2 columns are equal
   } CheckErrorCode;
 
   /**
@@ -62,13 +60,11 @@ class SparseMatrix {
      *
      * @param err error code
      * @param index index for error info
-     * @param index2 second index for error info
      */
-    explicit CheckError(CheckErrorCode err = CHECK_OK, unsigned int index = 0, unsigned int index2 = 0) : code(err), info(index), info_bis(index2) {}
+    explicit CheckError(CheckErrorCode err = CHECK_OK, unsigned int index = 0) : code(err), info(index) {}
 
     CheckErrorCode code;    ///< error code
     unsigned int info;      ///<  relevant if not CHECK_OK: line / column index
-    unsigned int info_bis;  ///< relevant only if CHECK_TWO_EQUAL_LINES or CHECK_TWO_EQUAL_COLUMNS: other line / column index
   };
 
 

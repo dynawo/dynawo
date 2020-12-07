@@ -450,6 +450,9 @@ SolverIDA::calculateIC() {
   // reinit output
   flagInit_ = false;
   solverKINNormal_->clean();
+#if _DEBUG_
+  solverKINNormal_->disableCheckJacobian();
+#endif
 }
 
 void
