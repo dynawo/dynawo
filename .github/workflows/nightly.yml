@@ -15,6 +15,7 @@ jobs:
         cxx11-standard: [YES, NO]
         compiler: [GCC, CLANG]
         library-type: [SHARED, STATIC]
+      fail-fast: false
     env:
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
       DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
@@ -111,6 +112,7 @@ jobs:
       matrix:
         build-type: [Release, Debug]
         library-type: [SHARED, STATIC]
+      fail-fast: false
     env:
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_BUILD_TYPE: ${{ matrix.build-type }}
@@ -118,7 +120,7 @@ jobs:
       DYNAWO_COMPILER: CLANG
       DYNAWO_LIBRARY_TYPE: ${{ matrix.library-type }}
       DYNAWO_BOOST_HOME_DEFAULT: "false"
-      DYNAWO_NB_PROCESSORS_USED: 2
+      DYNAWO_NB_PROCESSORS_USED: 1
       DYNAWO_PYTHON_COMMAND: python3
 
     steps:
