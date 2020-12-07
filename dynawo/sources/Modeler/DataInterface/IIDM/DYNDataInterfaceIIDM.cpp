@@ -224,8 +224,15 @@ DataInterfaceIIDM::getBusName(const std::string& componentName, const std::strin
         busName = load->getBusInterface()->getID();
         break;
       }
-      case ComponentInterface::LINE:  // @todo with @NODE1@, @NODE2@
+      case ComponentInterface::LINE: {
+        shared_ptr<LineInterface> line = dynamic_pointer_cast<LineInterface>(component);
+        if (labelNode == "@NODE1@") {
+          busName = line->getBusInterface1()->getID();
+        } else if (labelNode == "@NODE2@") {
+          busName = line->getBusInterface2()->getID();
+        }
         break;
+      }
       case ComponentInterface::GENERATOR: {
         shared_ptr<GeneratorInterface> generator = dynamic_pointer_cast<GeneratorInterface>(component);
         busName = generator->getBusInterface()->getID();
@@ -241,10 +248,26 @@ DataInterfaceIIDM::getBusName(const std::string& componentName, const std::strin
         busName = line->getBusInterface()->getID();
         break;
       }
-      case ComponentInterface::TWO_WTFO:  // @todo with @NODE1@ , @NODE2@
+      case ComponentInterface::TWO_WTFO: {
+        shared_ptr<TwoWTransformerInterface> twoTransformer = dynamic_pointer_cast<TwoWTransformerInterface>(component);
+        if (labelNode == "@NODE1@") {
+          busName = twoTransformer->getBusInterface1()->getID();
+        } else if (labelNode == "@NODE2@") {
+          busName = twoTransformer->getBusInterface2()->getID();
+        }
         break;
-      case ComponentInterface::THREE_WTFO:  // @todo with @NODE1@, @NODE2@
+      }
+      case ComponentInterface::THREE_WTFO: {
+        shared_ptr<ThreeWTransformerInterface> threeTransformer = dynamic_pointer_cast<ThreeWTransformerInterface>(component);
+        if (labelNode == "@NODE1@") {
+          busName = threeTransformer->getBusInterface1()->getID();
+        } else if (labelNode == "@NODE2@") {
+          busName = threeTransformer->getBusInterface2()->getID();
+        } else if (labelNode == "@NODE3@") {
+          busName = threeTransformer->getBusInterface3()->getID();
+        }
         break;
+      }
       case ComponentInterface::SVC: {
         shared_ptr<StaticVarCompensatorInterface> svc = dynamic_pointer_cast<StaticVarCompensatorInterface>(component);
         busName = svc->getBusInterface()->getID();
