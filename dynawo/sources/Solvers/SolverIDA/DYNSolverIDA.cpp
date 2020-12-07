@@ -387,7 +387,7 @@ SolverIDA::calculateIC() {
   solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_, initialaddtolAlg_,
       scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
 #if _DEBUG_
-  solverKINNormal_->enableCheckJacobian();
+  solverKINNormal_->setCheckJacobian(true);
 #endif
   do {
     // call to solver KIN in order to find the new (adequate) algebraic variables's values
@@ -451,7 +451,7 @@ SolverIDA::calculateIC() {
   flagInit_ = false;
   solverKINNormal_->clean();
 #if _DEBUG_
-  solverKINNormal_->disableCheckJacobian();
+  solverKINNormal_->setCheckJacobian(false);
 #endif
 }
 

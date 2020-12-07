@@ -123,17 +123,11 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
 
 #if _DEBUG_
   /**
-   * @brief Enable check jacobian during evalF
+   * @brief set check jacobian during evalF
+   * @param checkJacobian enable or disable the jacobian sanity check
    */
-  void enableCheckJacobian() {
-    checkJacobian_ = true;
-  }
-
-  /**
-   * @brief Disable check jacobian during evalF
-   */
-  void disableCheckJacobian() {
-    checkJacobian_ = false;
+  void setCheckJacobian(bool checkJacobian) {
+    checkJacobian_ = checkJacobian;
   }
 #endif
 

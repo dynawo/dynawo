@@ -254,7 +254,7 @@ SolverSIM::calculateIC() {
   solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
       initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
 #if _DEBUG_
-  solverKINAlgRestoration_->enableCheckJacobian();
+  solverKINAlgRestoration_->setCheckJacobian(true);
 #endif
 
   // Loop as long as there is a z or a mode change
@@ -288,7 +288,7 @@ SolverSIM::calculateIC() {
   Trace::debug() << DYNLog(EndCalculateIC) << Trace::endline;
   solverKINAlgRestoration_->clean();
 #if _DEBUG_
-  solverKINAlgRestoration_->disableCheckJacobian();
+  solverKINAlgRestoration_->setCheckJacobian(false);
 #endif
 }
 
