@@ -796,15 +796,6 @@ DataInterfaceIIDM::mapConnections() {
     }
   }
 
-  const vector<shared_ptr<ThreeWTransformerInterface> >& threeWtfos = network_->getThreeWTransformers();
-  for (vector<shared_ptr<ThreeWTransformerInterface> >::const_iterator i3WTfo = threeWtfos.begin(); i3WTfo != threeWtfos.end(); ++i3WTfo) {
-    if ((*i3WTfo)->hasDynamicModel()) {
-      (*i3WTfo)->getBusInterface1()->hasConnection(true);
-      (*i3WTfo)->getBusInterface2()->hasConnection(true);
-      (*i3WTfo)->getBusInterface3()->hasConnection(true);
-    }
-  }
-
   const vector<shared_ptr<HvdcLineInterface> >& hvdcs = network_->getHvdcLines();
   for (vector<shared_ptr<HvdcLineInterface> >::const_iterator iHvdc = hvdcs.begin(); iHvdc != hvdcs.end(); ++iHvdc) {
     if ((*iHvdc)->hasDynamicModel()) {
