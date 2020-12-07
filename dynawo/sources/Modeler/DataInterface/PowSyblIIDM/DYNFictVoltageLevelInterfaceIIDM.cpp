@@ -69,6 +69,11 @@ FictVoltageLevelInterfaceIIDM::getVNom() const {
     return VNom_;
 }
 
+VoltageLevelInterface::VoltageLevelTopologyKind_t
+FictVoltageLevelInterfaceIIDM::getVoltageLevelTopologyKind() const {
+  return VoltageLevelInterface::BUS_BREAKER;
+}
+
 void
 FictVoltageLevelInterfaceIIDM::connectNode(const unsigned int& /*node*/) {
 }

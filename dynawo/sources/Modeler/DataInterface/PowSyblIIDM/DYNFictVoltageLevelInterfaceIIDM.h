@@ -64,10 +64,7 @@ class FictVoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   /**
    * @copydoc VoltageLevelInterface::getVoltageLevelTopologyKind() const
    */
-  VoltageLevelTopologyKind_t getVoltageLevelTopologyKind() const {
-    static VoltageLevelTopologyKind_t v;
-    return v;
-  }
+  VoltageLevelTopologyKind_t getVoltageLevelTopologyKind() const;
 
   /**
    * @copydoc VoltageLevelInterface::connectNode(const unsigned int& node)

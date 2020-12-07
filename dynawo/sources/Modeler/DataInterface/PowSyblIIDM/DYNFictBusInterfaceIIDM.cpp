@@ -36,7 +36,7 @@ FictBusInterfaceIIDM::FictBusInterfaceIIDM(const string& Id, const double& VNom,
   Id_ = Id;
   U0_ = VNom;
   Vnom_ = VNom;
-  angle0_ = defaultV0;
+  angle0_ = defaultAngle0;
   country_ = country;
   setType(ComponentInterface::BUS);
   stateVariables_.resize(2);
