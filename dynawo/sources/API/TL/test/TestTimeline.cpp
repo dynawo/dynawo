@@ -92,7 +92,6 @@ TEST(APITLTest, TimelineEraseEvents) {
   timeline->addEvent(10, "model2", "event3 at 10s", priority4);  // same time, different model
   timeline->addEvent(10, "model2", "event3 at 10s", priority4);  // same event
   timeline->addEvent(20, "model2", "event2 at 20s", priorityNone);  // different time
-  Timeline::event_const_iterator endingEvent = timeline->cendEvent();
 
   // remove events 2 and 3 from the timeline
   ASSERT_EQ(4, timeline->getSizeEvents());

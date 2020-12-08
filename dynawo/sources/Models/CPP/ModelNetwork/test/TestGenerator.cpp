@@ -85,7 +85,7 @@ createModelGenerator(bool open, bool initModel) {
   double* f1 = new double[bus1->sizeF()];
   double* z1 = new double[bus1->sizeZ()];
   bool* zConnected1 = new bool[bus1->sizeZ()];
-  for (size_t i = 0; i < bus1->sizeZ(); ++i)
+  for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
@@ -125,7 +125,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
   std::vector<double> f(gen->sizeF(), 0.);
   std::vector<double> z(gen->sizeZ(), 3.);
   bool* zConnected = new bool[gen->sizeZ()];
-  for (size_t i = 0; i < gen->sizeZ(); ++i)
+  for (int i = 0; i < gen->sizeZ(); ++i)
     zConnected[i] = true;
   gen->setReferenceZ(&z[0], zConnected, 0);
   gen->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);

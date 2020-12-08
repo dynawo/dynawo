@@ -85,7 +85,7 @@ createModelLoad(bool open, bool initModel) {
   double* f1 = new double[bus1->sizeF()];
   double* z1 = new double[bus1->sizeZ()];
   bool* zConnected1 = new bool[bus1->sizeZ()];
-  for (size_t i = 0; i < bus1->sizeZ(); ++i)
+  for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
@@ -181,7 +181,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
   std::vector<double> f(load->sizeF(), 0.);
   std::vector<double> z(load->sizeZ(), 0.);
   bool* zConnected = new bool[load->sizeZ()];
-  for (size_t i = 0; i < load->sizeZ(); ++i)
+  for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
   load->setReferenceZ(&z[0], zConnected, 0);
   load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
@@ -300,7 +300,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
   std::vector<state_g> g(nbG, NO_ROOT);
   load->setReferenceG(&g[0], 0);
   bool* zConnected = new bool[load->sizeZ()];
-  for (size_t i = 0; i < load->sizeZ(); ++i)
+  for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
   load->setReferenceZ(&z[0], zConnected, 0);
   load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
@@ -358,7 +358,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
   std::vector<double> z(load->sizeZ(), 0.);
   bool* zConnected = new bool[load->sizeZ()];
-  for (size_t i = 0; i < load->sizeZ(); ++i)
+  for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
   load->setReferenceZ(&z[0], zConnected, 0);
   load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
@@ -498,7 +498,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   std::vector<double> f(load->sizeF(), 0.);
   std::vector<double> z(load->sizeZ(), 0.);
   bool* zConnected = new bool[load->sizeZ()];
-  for (size_t i = 0; i < load->sizeZ(); ++i)
+  for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
   load->setReferenceZ(&z[0], zConnected, 0);
   load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);

@@ -180,7 +180,7 @@ TEST(CommonTest, testDelayManagerClass) {
   ASSERT_FALSE(manager.isIdAcceptable(id_none));
 
   try {
-    double val = manager.getDelay(id_none, 2);
+    manager.getDelay(id_none, 2);
 
     // exception should be raised
     ASSERT_TRUE(false);

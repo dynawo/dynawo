@@ -93,7 +93,7 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel) {
   double* f1 = new double[bus1->sizeF()];
   double* z1 = new double[bus1->sizeZ()];
   bool* zConnected1 = new bool[bus1->sizeZ()];
-  for (size_t i = 0; i < bus1->sizeZ(); ++i)
+  for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
@@ -134,7 +134,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariables) {
   std::vector<double> f(capa->sizeF(), 0.);
   std::vector<double> z(capa->sizeZ(), 0.);
   bool* zConnected = new bool[capa->sizeZ()];
-  for (size_t i = 0; i < capa->sizeZ(); ++i)
+  for (int i = 0; i < capa->sizeZ(); ++i)
     zConnected[i] = true;
   capa->setReferenceZ(&z[0], zConnected, 0);
   capa->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
@@ -274,8 +274,6 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorContinuousVariables) {
   capa->initSize();
   unsigned nbY = 0;
   unsigned nbF = 0;
-  unsigned urIndex = 0;
-  unsigned uiIndex = 1;
   ASSERT_EQ(capa->sizeY(), nbY);
   ASSERT_EQ(capa->sizeF(), nbF);
 

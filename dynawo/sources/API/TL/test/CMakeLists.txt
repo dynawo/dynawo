@@ -34,12 +34,12 @@ add_custom_target(${MODULE_NAME}-tests
     ${MODULE_NAME}
   COMMENT "Running ${MODULE_NAME}...")
 
-if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
+if(BUILD_TESTS_COVERAGE)
   set(EXTRACT_PATTERNS "'*API/TL/TL*'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
 
-if(CMAKE_BUILD_TYPE STREQUAL "Tests")
+if(BUILD_TESTS)
   add_test(${MODULE_NAME}-tests)
 endif()

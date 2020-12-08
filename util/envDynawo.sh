@@ -251,36 +251,36 @@ set_environment() {
   # Force build type when building tests (or tests coverage)
   case $1 in
     build-tests-coverage)
-      export_var_env_force DYNAWO_BUILD_TYPE=TestCoverage
+      export_var_env_force DYNAWO_BUILD_TYPE=Debug
+      export_var_env_force DYNAWO_BUILD_TESTS=OFF
+      export_var_env_force DYNAWO_BUILD_TESTS_COVERAGE=ON
       export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
       export_var_env DYNAWO_DICTIONARIES=dictionaries_mapping
       ;;
     build-tests)
-      export_var_env_force DYNAWO_BUILD_TYPE=Tests
+      export_var_env_force DYNAWO_BUILD_TYPE=Debug
+      export_var_env_force DYNAWO_BUILD_TESTS=ON
+      export_var_env_force DYNAWO_BUILD_TESTS_COVERAGE=OFF
       export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
       export_var_env DYNAWO_DICTIONARIES=dictionaries_mapping
       ;;
     list-tests)
-      export_var_env_force DYNAWO_BUILD_TYPE=Tests
+      export_var_env_force DYNAWO_BUILD_TYPE=Debug
+      export_var_env_force DYNAWO_BUILD_TESTS=ON
+      export_var_env_force DYNAWO_BUILD_TESTS_COVERAGE=OFF
       export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
       ;;
     clean-tests)
-      export_var_env_force DYNAWO_BUILD_TYPE=Tests
+      export_var_env_force DYNAWO_BUILD_TYPE=Debug
+      export_var_env_force DYNAWO_BUILD_TESTS=ON
+      export_var_env_force DYNAWO_BUILD_TESTS_COVERAGE=OFF
       export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
       ;;
     clean-tests-coverage)
-      export_var_env_force DYNAWO_BUILD_TYPE=TestCoverage
+      export_var_env_force DYNAWO_BUILD_TYPE=Debug
+      export_var_env_force DYNAWO_BUILD_TESTS=OFF
+      export_var_env_force DYNAWO_BUILD_TESTS_COVERAGE=ON
       export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
-      ;;
-    *)
-      ;;
-  esac
-
-  # Find build type for thid party libraries
-  export_var_env_force DYNAWO_BUILD_TYPE_THIRD_PARTY=$DYNAWO_BUILD_TYPE
-  case $DYNAWO_BUILD_TYPE_THIRD_PARTY in
-    Tests | TestCoverage)
-      export_var_env_force DYNAWO_BUILD_TYPE_THIRD_PARTY="Debug"
       ;;
     *)
       ;;
@@ -293,6 +293,8 @@ set_environment() {
   set_compiler
 
   # Build_config
+  export_var_env DYNAWO_BUILD_TESTS=OFF
+  export_var_env DYNAWO_BUILD_TESTS_COVERAGE=OFF
   export_var_env DYNAWO_BUILD_TYPE=UNDEFINED
   export_var_env DYNAWO_CXX11_ENABLED=UNDEFINED
   export_var_env_force DYNAWO_USE_ADEPT=YES
@@ -323,8 +325,8 @@ set_environment() {
 
   # Third parties
   export_var_env_force DYNAWO_THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
-  export_var_env_force DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION=$DYNAWO_HOME/build/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
-  export_var_env_force DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION=$DYNAWO_HOME/install/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
+  export_var_env_force DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION=$DYNAWO_HOME/build/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/$DYNAWO_BUILD_TYPE$SUFFIX_CX11
+  export_var_env_force DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION=$DYNAWO_HOME/install/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/$DYNAWO_BUILD_TYPE$SUFFIX_CX11
   export_var_env DYNAWO_THIRD_PARTY_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION
   export_var_env DYNAWO_THIRD_PARTY_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION
 
@@ -492,7 +494,7 @@ set_standard_environment_variables() {
     ld_library_path_prepend $DYNAWO_BOOST_HOME/lib
   fi
 
-  if [ "$DYNAWO_BUILD_TYPE" = "Debug" -o "$DYNAWO_BUILD_TYPE" = "Tests" -o "$DYNAWO_BUILD_TYPE" = "TestCoverage" ]; then
+  if [ "$DYNAWO_BUILD_TYPE" = "Debug" ]; then
     if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
       if [ -d "$DYNAWO_GTEST_HOME/lib64" ]; then
         ld_library_path_prepend $DYNAWO_GTEST_HOME/lib64
@@ -644,15 +646,11 @@ config_3rd_party() {
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
   fi
-  case $DYNAWO_BUILD_TYPE_THIRD_PARTY in
-    Debug)
+  if [ $DYNAWO_BUILD_TESTS = "ON" -o $DYNAWO_BUILD_TESTS_COVERAGE = "ON" ]; then
       if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
         CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DGTEST_ROOT=$DYNAWO_GTEST_HOME"
       fi
-      ;;
-    *)
-      ;;
-  esac
+  fi
   if [ $DYNAWO_FORCE_CXX11_ABI = true ]; then
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DFORCE_CXX11_ABI=$DYNAWO_FORCE_CXX11_ABI"
   fi
@@ -667,7 +665,7 @@ config_3rd_party() {
     -DCMAKE_CXX_COMPILER=$DYNAWO_CXX_COMPILER \
     -DCXX11_ENABLED=$DYNAWO_CXX11_ENABLED \
     -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
-    -DCMAKE_BUILD_TYPE=$DYNAWO_BUILD_TYPE_THIRD_PARTY \
+    -DCMAKE_BUILD_TYPE=$DYNAWO_BUILD_TYPE \
     -DOPENMODELICA_INSTALL=$DYNAWO_INSTALL_OPENMODELICA \
     -DOPENMODELICA_SRC=$DYNAWO_SRC_OPENMODELICA \
     -DBUILD_SHARED_LIBS=$(if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then echo -n "ON"; else echo -n "OFF"; fi) \
@@ -763,18 +761,14 @@ config_dynawo() {
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
   fi
-  case $DYNAWO_BUILD_TYPE in
-    Tests|TestCoverage)
+  if [ $DYNAWO_BUILD_TESTS = "ON" -o $DYNAWO_BUILD_TESTS_COVERAGE = "ON" ]; then
       if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
         CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DGTEST_ROOT=$DYNAWO_GTEST_HOME"
       fi
       if [ $DYNAWO_GMOCK_HOME_DEFAULT != true ]; then
         CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DGMOCK_HOME=$DYNAWO_GMOCK_HOME"
       fi
-      ;;
-    *)
-      ;;
-  esac
+  fi
   if [ $DYNAWO_FORCE_CXX11_ABI = true ]; then
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DFORCE_CXX11_ABI=$DYNAWO_FORCE_CXX11_ABI"
   fi
@@ -783,6 +777,8 @@ config_dynawo() {
     -DCMAKE_C_COMPILER:PATH=$DYNAWO_C_COMPILER \
     -DCMAKE_CXX_COMPILER:PATH=$DYNAWO_CXX_COMPILER \
     -DCMAKE_BUILD_TYPE:STRING=$DYNAWO_BUILD_TYPE \
+    -DBUILD_TESTS=$DYNAWO_BUILD_TESTS \
+    -DBUILD_TESTS_COVERAGE=$DYNAWO_BUILD_TESTS_COVERAGE \
     -DDYNAWO_HOME:PATH=$DYNAWO_HOME \
     -DCMAKE_INSTALL_PREFIX:PATH=$DYNAWO_INSTALL_DIR \
     -DUSE_ADEPT:BOOL=$DYNAWO_USE_ADEPT \
@@ -925,18 +921,16 @@ build_all() {
 
 build_tests() {
   build_3rd_party || error_exit "Error during build_3rd_party."
-  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
-    config_dynawo || error_exit "Error during config_dynawo."
-  fi
+  config_dynawo || error_exit "Error during config_dynawo."
   ## for unit test, no need to generate modelica models
   build_dynawo_core || error_exit "Error during build_dynawo_core."
   build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
 
   tests=$@
   if [ -z "$tests" ]; then
-    cmake --build $DYNAWO_BUILD_DIR --target tests --config Tests
+    cmake --build $DYNAWO_BUILD_DIR --target tests --config Debug
   else
-    cmake --build $DYNAWO_BUILD_DIR --target ${tests} --config Tests
+    cmake --build $DYNAWO_BUILD_DIR --target ${tests} --config Debug
   fi
 
   RETURN_CODE=$?
@@ -975,9 +969,7 @@ verify_browser() {
 
 build_tests_coverage() {
   build_3rd_party || error_exit "Error during build_3rd_party."
-  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
-    config_dynawo || error_exit "Error during config_dynawo."
-  fi
+  config_dynawo || error_exit "Error during config_dynawo."
   ## for unit test, no need to generate modelica models
   build_dynawo_core || error_exit "Error during build_dynawo_core."
   build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
@@ -987,15 +979,15 @@ build_tests_coverage() {
   fi
   tests=$@
 
-  cmake --build $DYNAWO_BUILD_DIR --target reset-coverage --config TestCoverage || error_exit "Error during make reset-coverage."
+  cmake --build $DYNAWO_BUILD_DIR --target reset-coverage --config Debug || error_exit "Error during make reset-coverage."
   if [ -z "$tests" ]; then
-    cmake --build $DYNAWO_BUILD_DIR --target tests-coverage --config TestCoverage || error_exit "Error during make tests-coverage."
+    cmake --build $DYNAWO_BUILD_DIR --target tests-coverage --config Debug || error_exit "Error during make tests-coverage."
   else
     for test in ${tests}; do
-      cmake --build $DYNAWO_BUILD_DIR --target ${test}-coverage --config TestCoverage || error_exit "Error during make ${test}-coverage."
+      cmake --build $DYNAWO_BUILD_DIR --target ${test}-coverage --config Debug || error_exit "Error during make ${test}-coverage."
     done
   fi
-  cmake --build $DYNAWO_BUILD_DIR --target export-coverage --config TestCoverage
+  cmake --build $DYNAWO_BUILD_DIR --target export-coverage --config Debug
   RETURN_CODE=$?
   if [ ${RETURN_CODE} -ne 0 ]; then
     exit ${RETURN_CODE}
@@ -1557,7 +1549,7 @@ deploy_dynawo() {
   cp -P $DYNAWO_LIBXML_HOME/lib/*.* lib/
   echo "deploying libiidm libraries"
   cp -P $DYNAWO_LIBIIDM_HOME/lib/*.* lib/
-  if [ "$DYNAWO_BUILD_TYPE" = "Debug" -o "$DYNAWO_BUILD_TYPE" = "Tests" -o "$DYNAWO_BUILD_TYPE" = "TestCoverage" ]; then
+  if [ "$DYNAWO_BUILD_TYPE" = "Debug" ]; then
     if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
       echo "deploying gtest libraries"
       cp -P $DYNAWO_GTEST_HOME/lib*/*.* lib/
@@ -1590,7 +1582,7 @@ deploy_dynawo() {
   echo "deploying libiidm include folder"
   cp -n -R -P $DYNAWO_LIBIIDM_HOME/include/IIDM include/
   echo "deploying gtest include folder"
-  if [ "$DYNAWO_BUILD_TYPE" = "Debug" -o "$DYNAWO_BUILD_TYPE" = "Tests" -o "$DYNAWO_BUILD_TYPE" = "TestCoverage" ]; then
+  if [ "$DYNAWO_BUILD_TYPE" = "Debug" ]; then
     if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
       echo "deploying gtest libraries"
       cp -n -R -P $DYNAWO_GTEST_HOME/include/* include/

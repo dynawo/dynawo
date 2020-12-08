@@ -840,7 +840,13 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
     #ignore log files in debug mode
     file_extension = os.path.splitext(os.path.basename(path_left))[1]
     file_name = os.path.splitext(os.path.basename(path_left))[0]
-    if os.environ['DYNAWO_BUILD_TYPE'] == "Debug" :
+    build_tests = False
+    if os.environ.get('DYNAWO_BUILD_TESTS') != None:
+        build_tests = build_tests or (os.environ['DYNAWO_BUILD_TESTS'] == "ON")
+    if os.environ.get('DYNAWO_BUILD_TESTS_COVERAGE') != None:
+        build_tests =  build_tests or (os.environ['DYNAWO_BUILD_TESTS_COVERAGE'] == "ON")
+
+    if os.environ['DYNAWO_BUILD_TYPE'] == "Debug" and not build_tests:
         return (IDENTICAL, "")
 
     identical = filecmp.cmp (path_left, path_right, shallow=False)
