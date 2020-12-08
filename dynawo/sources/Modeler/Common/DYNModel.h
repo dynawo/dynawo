@@ -201,19 +201,10 @@ class Model {
   virtual void reinitMode() = 0;
 
   /**
-   * @brief retrieve if one discrete variables has changed
-   *
-   *
-   * @return @b true if one discrete variables has changed
+   * @brief get the type of z that were modified
+   * @return type of z that were modified
    */
-  virtual bool zChange() const = 0;
-
-  /**
-   * @brief retrieve if at least one silent discrete variable of the given type has changed
-   * @param type type of silent z to test
-   * @return @b true at least one silent discrete variable of the given type has changed
-   */
-  virtual bool isSilentZChangeType(SilentZFlags type) const = 0;
+  virtual zChangeType_t getSilentZChangeType() const = 0;
 
   /**
    * @brief enable or disable the possibility to break discrete variable propagation loop if only silent z are modified
