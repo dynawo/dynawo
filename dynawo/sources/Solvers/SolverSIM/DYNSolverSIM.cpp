@@ -253,6 +253,9 @@ SolverSIM::calculateIC() {
   // KINSOL initialization
   solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
       initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+#if _DEBUG_
+  solverKINAlgRestoration_->setCheckJacobian(true);
+#endif
 
   // Loop as long as there is a z or a mode change
   do {
@@ -284,6 +287,9 @@ SolverSIM::calculateIC() {
 
   Trace::debug() << DYNLog(EndCalculateIC) << Trace::endline;
   solverKINAlgRestoration_->clean();
+#if _DEBUG_
+  solverKINAlgRestoration_->setCheckJacobian(false);
+#endif
 }
 
 void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
@@ -500,7 +506,7 @@ SolverSIM::solve() {
     } else {
       // A root change has occurred - Dealing with propagation and algebraic mode detection
 #ifdef _DEBUG_
-      printUnstableRoot(g0_, g1_);
+      printUnstableRoot(tSolve_ + h_, g0_, g1_);
 #endif
       /* Save the new values of the root in g0 for comparison after the evalZMode
        * Calculate the propagation of discrete variable value changes and mode changes

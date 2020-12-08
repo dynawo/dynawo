@@ -121,6 +121,16 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    */
   void setInitialValues(const double& t, const std::vector<double> & y, const std::vector<double> &yp);
 
+#if _DEBUG_
+  /**
+   * @brief set check jacobian during evalF
+   * @param checkJacobian enable or disable the jacobian sanity check
+   */
+  void setCheckJacobian(bool checkJacobian) {
+    checkJacobian_ = checkJacobian;
+  }
+#endif
+
  private:
   /**
    * @brief compute F(y) for a given value of y
@@ -193,6 +203,10 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   std::vector<int> indexY_;  ///< variables to keep form the initial set of variables
   std::vector<double> F_;  ///< current values of residual function
   modeKin_t mode_;  ///< mode of the solver (i.e algebraic equations or derivative)
+
+#if _DEBUG_
+  bool checkJacobian_;  ///< Check jacobian
+#endif
 };
 
 }  // end of namespace DYN

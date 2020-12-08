@@ -19,7 +19,7 @@
   <dyn:blackBoxModel id="Transformer" lib="TransformerFixedRatio" parFile="KundurExample13.par" parId="Transformer"/>
   <!-- Generator four windings with fixed excitation voltage and fixed mechanical power -->
   <dyn:modelicaModel id="SM">
-    <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT" parFile="KundurExample13.par" parId="SynchronousMachine"/>
+    <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_4E_INIT" parFile="KundurExample13.par" parId="SynchronousMachine"/>
     <dyn:unitDynamicModel id="Pm" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT" parFile="KundurExample13.par" parId="SetPointGovernor"/>
     <dyn:unitDynamicModel id="efd" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT" parFile="KundurExample13.par" parId="SetPointVoltageRegulator"/>
     <dyn:unitDynamicModel id="omega" name="Dynawo.Electrical.Controls.Basics.SetPoint" parFile="KundurExample13.par" parId="SetPointOmegaRef"/>

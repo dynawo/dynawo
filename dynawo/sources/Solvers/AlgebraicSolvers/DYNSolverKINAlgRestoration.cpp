@@ -46,8 +46,11 @@ using boost::shared_ptr;
 namespace DYN {
 
 SolverKINAlgRestoration::SolverKINAlgRestoration() :
+SolverKINCommon(),
 mode_(KIN_NORMAL) {
-  SolverKINCommon();
+#if _DEBUG_
+  checkJacobian_ = false;
+#endif
 }
 
 SolverKINAlgRestoration::~SolverKINAlgRestoration() {
@@ -249,13 +252,6 @@ SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, const boost::sha
   case SparseMatrix::CHECK_ZERO_COLUMN:
     model->getFInfos(error.info, sub_model_name, local_index, equation);
     throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulColumn, error.info, equation);
-  case SparseMatrix::CHECK_TWO_EQUAL_COLUMNS:
-    model->getFInfos(error.info, sub_model_name, local_index, equation);
-    model->getFInfos(error.info_bis, sub_model_name, local_index, equation_bis);
-    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianTwoEqualCol, error.info, error.info_bis, equation, equation_bis);
-  case SparseMatrix::CHECK_TWO_EQUAL_LINES:
-    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianTwoEqualLines, error.info, error.info_bis, model->getVariableName(error.info),
-                   model->getVariableName(error.info_bis));
   case SparseMatrix::CHECK_OK:
     // do nothing
     break;
@@ -280,7 +276,9 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   smjKin.reserve(size);
   smj.erase(solv->ignoreY_, solv->ignoreF_, smjKin);
 #if _DEBUG_
-  checkJacobian(smj, model);
+  if (solv->checkJacobian_) {
+    checkJacobian(smj, model);
+  }
 #endif
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 

@@ -6,7 +6,6 @@
 #include "DYNModelModelica.h"
 #include "DYNModelManagerCommon.h"
 #include "PARParametersSet.h"
-#include "PARParametersSetFactory.h"
 #include "PARParameter.h"
 #include "DYNSubModel.h"
 #include "DYNVariableForModel.h"
@@ -58,7 +57,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("d931802a38b8504e03a67bd6ca3a9dda"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("e8cfa12e9ea447ffc8ce1fe729774d78"); }
 
     private:
     DYNDATA * data;

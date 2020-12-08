@@ -171,7 +171,7 @@ SimulationStart               =             starting simulation with solver %1%
 SolverLargestDeriv            =             largest derivative values (truncated to the first %1%) at the current iteration
 SolverLargestDerivValue       =             YP[%1%]=%2% (variable=%3%)
 // --> DYNSolverIMPL
-SolverInstableRoot            =             instability for the root  :%1% switch from %2% to %3%
+SolverInstableRoot            =             instability for the root  :%1% switch from %2% to %3% at time %4%
 SolverInstableRootFound       =             at least one root is not stable
 SolverNbYVar                  =             number of continuous variables : %1%
 SolverNbZVar                  =             number of discrete variables : %1%

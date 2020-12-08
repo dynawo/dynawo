@@ -19,7 +19,7 @@
   <dyn:blackBoxModel id="Transformer" lib="TransformerFixedRatio" parFile="KundurExample13.par" parId="Transformer"/>
   <!-- Generator four windings with fixed mechanical power and a proportional average voltage regulator with a PSS -->
   <dyn:modelicaModel id="SM">
-    <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT" parFile="KundurExample13.par" parId="SynchronousMachine"/>
+    <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_4E_INIT" parFile="KundurExample13.par" parId="SynchronousMachine"/>
     <dyn:unitDynamicModel id="Pm" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT" parFile="KundurExample13.par" parId="SetPointGovernor"/>
     <dyn:unitDynamicModel id="VR" name="AVRPSS" moFile="AVRPSS.mo" initName="AVR_INIT" initFile="AVR_INIT.mo" parFile="KundurExample13.par" parId="AVR_PSS"/>
     <dyn:unitDynamicModel id="omega" name="Dynawo.Electrical.Controls.Basics.SetPoint" parFile="KundurExample13.par" parId="SetPointOmegaRef"/>
