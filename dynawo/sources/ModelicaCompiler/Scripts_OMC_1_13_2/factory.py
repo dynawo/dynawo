@@ -1765,11 +1765,11 @@ class Factory:
             test_param_address(var)
             address = to_param_address(var)
             index = address.split("[")[2].replace("]","")
-            NotUsedInDiscr=var in self.reader.silent_discrete_vars_not_used_in_discr_eq
-            NotUsedInCont = var in self.reader.silent_discrete_vars_not_used_in_continuous_eq
-            if NotUsedInDiscr and NotUsedInCont:
+            not_used_in_discr=var in self.reader.silent_discrete_vars_not_used_in_discr_eq
+            not_used_in_cont = var in self.reader.silent_discrete_vars_not_used_in_continuous_eq
+            if not_used_in_discr and not_used_in_cont:
                 flag = "NotUsedInDiscreteEquations | NotUsedInContinuousEquations"
-            elif NotUsedInDiscr:
+            elif not_used_in_discr:
                 flag = "NotUsedInDiscreteEquations"
             else:
                 flag = "NotUsedInContinuousEquations"
