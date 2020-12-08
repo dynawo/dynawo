@@ -29,6 +29,12 @@
 
 #include "DYNTraceStream.h"
 
+#include <boost/log/sinks.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/unordered_map.hpp>
+#include <boost/log/attributes.hpp>
+#include <boost/thread/mutex.hpp>
+
 namespace DYN {
 
 /**
@@ -41,6 +47,36 @@ namespace DYN {
  */
 class Trace {
  public:
+  typedef boost::log::sinks::synchronous_sink< boost::log::sinks::text_file_backend > FileSink;  ///< File sink for log
+  typedef boost::log::sinks::synchronous_sink< boost::log::sinks::text_ostream_backend > TextSink;  ///< Text sink for log
+
+  /**
+   * @brief Stucture defining traces for a specific thread
+   */
+  struct TraceSinks {
+    std::vector< boost::shared_ptr<FileSink> > sinks;  ///<  vector of file sink
+    std::vector< boost::shared_ptr<FileSink> > persistantSinks;  ///<  vector of persistant file sink
+  };
+
+  /**
+   * @brief Hash for current_thread_id::value_type
+   *
+   * This structure is required in order current_thread_id::value_type to be used as a key in an unordered_map
+   */
+  struct Hasher {
+    /**
+     * @brief Calling operator
+     *
+     * @param id the value to hash
+     * @returns the hash of the id
+     */
+    std::size_t operator()(const boost::log::attributes::current_thread_id::value_type& id) const {
+      // the thread id is unique in the same process
+      return static_cast<std::size_t>(id.native_id());
+    }
+  };
+
+
   /**
    * @brief Trace appender class
    *
@@ -406,6 +442,11 @@ class Trace {
   static void log(SeverityLevel slv, const std::string& tag, const std::string& message);
 
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
+
+ private:
+  static std::vector< boost::shared_ptr<TextSink> > originalSinks;  ///< vector of text sink
+  static boost::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
+  static boost::mutex mutex_;  ///< mutex to synchronize logs at init
 };
 
 }  // namespace DYN
