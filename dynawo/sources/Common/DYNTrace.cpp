@@ -61,11 +61,9 @@ namespace keywords = boost::log::keywords;
 
 namespace DYN {
 
-typedef sinks::synchronous_sink< sinks::text_ostream_backend > text_sink;  ///< define text sink
-typedef sinks::synchronous_sink< sinks::text_file_backend > file_sink;  ///< define file sink
-
-static vector< boost::shared_ptr<file_sink> > sinks;  ///<  vector of file sink
-static vector< boost::shared_ptr<text_sink> > originalSinks;  ///< vector of text sink
+vector< boost::shared_ptr<Trace::TextSink> > Trace::originalSinks;
+boost::unordered_map<boost::log::attributes::current_thread_id::value_type, Trace::TraceSinks, Trace::Hasher> Trace::sinks_;
+boost::mutex Trace::mutex_;
 
 #if _DEBUG_
 const SeverityLevel Trace::defaultLevel_ = DEBUG;
@@ -91,6 +89,7 @@ std::ostream& operator<<(std::ostream& strm, SeverityLevel level) {
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 BOOST_LOG_ATTRIBUTE_KEYWORD(severity, "Severity", SeverityLevel)
 BOOST_LOG_ATTRIBUTE_KEYWORD(tag_attr, "Tag", std::string)
+BOOST_LOG_ATTRIBUTE_KEYWORD(thread_attr, "Thread", logging::attributes::current_thread_id::value_type)
 #pragma GCC diagnostic error "-Wmissing-field-initializers"
 
 TraceStream& Trace::endline(TraceStream& os) {
@@ -102,7 +101,7 @@ void Trace::init() {
   logging::formatter onlyMsg = expr::stream << expr::smessage;
 
   // Construct the sink
-  boost::shared_ptr< text_sink > sink = boost::make_shared< text_sink >();
+  boost::shared_ptr< TextSink > sink = boost::make_shared< TextSink >();
   sink->set_formatter(onlyMsg);
 
   // Add a stream to write log to
@@ -128,10 +127,18 @@ void Trace::addAppenders(std::vector<TraceAppender> & appenders) {
   // remove old appenders (console_log)
   Trace::resetCustomAppenders();
 
+  logging::attributes::current_thread_id::value_type currentId =
+    logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
+
+  TraceSinks traceSink;
+
   std::stringstream s;
   // Add appender
   for (unsigned int i = 0; i < appenders.size(); ++i) {
-    boost::shared_ptr< file_sink > sink(new file_sink(keywords::file_name = appenders[i].getFilePath()));
+    const std::ios_base::openmode mode = std::ios_base::out;
+    boost::shared_ptr< FileSink > sink(new FileSink(
+      keywords::file_name = appenders[i].getFilePath(),
+      keywords::open_mode = mode));
 
     // build format for each appenders depending on its attributes
     string separator = appenders[i].getSeparator();
@@ -154,29 +161,41 @@ void Trace::addAppenders(std::vector<TraceAppender> & appenders) {
     sink->set_formatter(fmt);
 
     if (appenders[i].getTag() == "") {
-      sink->set_filter(severity >= appenders[i].getLvlFilter() && !expr::has_attr(tag_attr));
+      sink->set_filter(severity >= appenders[i].getLvlFilter() && !expr::has_attr(tag_attr) && thread_attr == currentId);
     } else {
-      sink->set_filter(severity >= appenders[i].getLvlFilter() && tag_attr == appenders[i].getTag());
+      sink->set_filter(severity >= appenders[i].getLvlFilter() && tag_attr == appenders[i].getTag() && thread_attr == currentId);
     }
     logging::core::get()->add_sink(sink);
-    sinks.push_back(sink);
+    traceSink.sinks.push_back(sink);
+  }
+
+  {
+    boost::lock_guard<boost::mutex> lock(mutex_);
+    sinks_.insert_or_assign(currentId, traceSink);
   }
 
   logging::add_common_attributes();
 }
 
 void Trace::resetCustomAppenders() {
-  vector< boost::shared_ptr<file_sink> >::iterator itSinks;
-  for (itSinks = sinks.begin(); itSinks != sinks.end(); ++itSinks) {
-    logging::core::get()->remove_sink(*itSinks);
-  }
-  sinks.clear();
+  boost::lock_guard<boost::mutex> lock(mutex_);
 
-  vector< boost::shared_ptr<text_sink> >::iterator itOSinks;
+  vector< boost::shared_ptr<TextSink> >::iterator itOSinks;
   for (itOSinks = originalSinks.begin(); itOSinks != originalSinks.end(); ++itOSinks) {
     logging::core::get()->remove_sink(*itOSinks);
   }
   originalSinks.clear();
+
+  logging::attributes::current_thread_id::value_type currentId =
+    logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
+  if (sinks_.find(currentId) == sinks_.end()) {
+    return;
+  }
+  TraceSinks& traceSink = sinks_.at(currentId);
+  for (vector< boost::shared_ptr<FileSink> >::const_iterator itSinks = traceSink.sinks.begin(); itSinks != traceSink.sinks.end(); ++itSinks) {
+    logging::core::get()->remove_sink(*itSinks);
+  }
+  traceSink.sinks.clear();
 }
 
 TraceStream
@@ -231,9 +250,12 @@ Trace::modeler() {
 
 void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& message) {
   src::severity_logger< SeverityLevel > slg;
+  logging::attributes::current_thread_id current;
 
   if (tag != "")
     slg.add_attribute("Tag", attrs::constant< std::string >(tag));
+
+  slg.add_attribute("Thread", current);
 
   BOOST_LOG_SEV(slg, slv) << message;
 }
@@ -241,10 +263,22 @@ void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& me
 bool
 Trace::logExists(const std::string& tag, SeverityLevel slv) {
   boost::log::attribute_value_set set;
+  logging::attributes::current_thread_id::value_type current_id =
+    logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
   set.insert("Severity",  attrs::make_attribute_value(slv));
   if (tag != "")
     set.insert("Tag",  attrs::make_attribute_value(tag));
-  for (vector< boost::shared_ptr<file_sink> >::iterator itSinks = sinks.begin(); itSinks != sinks.end(); ++itSinks) {
+  set.insert("Thread", attrs::make_attribute_value(current_id));
+  if (sinks_.find(current_id) == sinks_.end()) {
+    return false;
+  }
+  const TraceSinks& traceSinks = sinks_.at(current_id);
+  for (vector< boost::shared_ptr<FileSink> >::const_iterator itSinks = traceSinks.sinks.begin(); itSinks != traceSinks.sinks.end(); ++itSinks) {
+    if ((*itSinks)->will_consume(set))
+      return true;
+  }
+  for (vector< boost::shared_ptr<FileSink> >::const_iterator itSinks = traceSinks.persistantSinks.begin();
+    itSinks != traceSinks.persistantSinks.end(); ++itSinks) {
     if ((*itSinks)->will_consume(set))
       return true;
   }
