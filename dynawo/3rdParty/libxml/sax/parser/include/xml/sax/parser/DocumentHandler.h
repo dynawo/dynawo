@@ -39,7 +39,10 @@ public:
   typedef xml::sax::parser::Attributes attributes_type;
 
 public:
-  virtual ~DocumentHandler() = 0;
+  /**
+   * @brief Destructor
+   */
+  virtual ~DocumentHandler() {};
 
   /**
    * @brief Called when a document parsing starts. Calls begin()
