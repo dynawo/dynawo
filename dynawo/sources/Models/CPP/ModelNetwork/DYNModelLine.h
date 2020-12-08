@@ -355,7 +355,7 @@ class ModelLine : public NetworkComponent::Impl {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the magnitude of the current on side 1
    */
-  double i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2);
 
   /**
    * @brief compute the magnitude of the current on side 2
@@ -365,7 +365,7 @@ class ModelLine : public NetworkComponent::Impl {
    * @param ui2 imaginary part of the voltage on side 2
    * @return the magnitude of the current on side 2
    */
-  double i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
+  double i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2);
 
   /**
    * @brief get the partial derivative of ir1 with respect to Ur1
@@ -568,6 +568,27 @@ class ModelLine : public NetworkComponent::Impl {
   double omegaNom_;  ///< nominal angular frequency
   double omegaRef_;  ///< reference angular frequency in p.u.
   const std::string modelType_;  ///< model Type
+
+ private:
+  /**
+   * @brief sets an indicator to cause new evaluation of i1 (#963)
+   */
+  void
+  AskToCalculatei1() {
+    i1MustbeCalculated_ = true;
+  }
+  /**
+   * @brief sets an indicator to cause new evaluation of i2 (#963)
+   */
+  void
+  AskToCalculatei2() {
+    i2MustbeCalculated_ = true;
+  }
+
+  bool i1MustbeCalculated_;  ///< true when i1_ must be computed: i1() calculates and then unsets that flag
+  bool i2MustbeCalculated_;  ///< true when i2_ must be computed: i2() calculates and then unsets that flag
+  double i1_;                ///< last value of i1 computed and returned by i1()
+  double i2_;                ///< last value of i2 computed and returned by i2()
 };
 }  // namespace DYN
 #endif  // MODELS_CPP_MODELNETWORK_DYNMODELLINE_H_

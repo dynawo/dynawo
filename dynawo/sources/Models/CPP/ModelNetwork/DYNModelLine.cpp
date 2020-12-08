@@ -41,6 +41,10 @@
 #include "DYNModelVoltageLevel.h"
 #include "DYNSparseMatrix.h"
 
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  #include "DYNTimer.h"
+#endif
+
 using parameters::ParametersSet;
 
 using std::vector;
@@ -77,7 +81,9 @@ IbImNum_(0.),
 omegaRefNum_(0.),
 omegaNom_(OMEGA_NOM),
 omegaRef_(1.),
-modelType_("Line") {
+modelType_("Line"),
+i1MustbeCalculated_(true),
+i2MustbeCalculated_(true) {
   double r = line->getR();
   double x = line->getX();
   double b1 = line->getB1();
@@ -575,6 +581,8 @@ ModelLine::evalNodeInjection() {
 
 void
 ModelLine::evalF(propertyF_t type) {
+  AskToCalculatei1();
+  AskToCalculatei2();
   if (!isDynamic_ || network_->isInitModel())
     return;
   bool connStateClosed = getConnectionState() == CLOSED;
@@ -1213,17 +1221,45 @@ ModelLine::uip2() const {
 }
 
 double
-ModelLine::i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
-  double irBus1 = ir1(ur1, ui1, ur2, ui2);
-  double iiBus1 = ii1(ur1, ui1, ur2, ui2);
-  return sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);
+ModelLine::i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer(__PRETTY_FUNCTION__);
+#endif
+  if (i1MustbeCalculated_) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+    Timer timer(std::string(__PRETTY_FUNCTION__) + std::string(" calculates"));
+#endif
+    i1MustbeCalculated_ = false;
+    double irBus = ir1(ur1, ui1, ur2, ui2);
+    double iiBus = ii1(ur1, ui1, ur2, ui2);
+    i1_ = sqrt(irBus * irBus + iiBus * iiBus);
+  }
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  else
+    Timer timer(std::string(__PRETTY_FUNCTION__) + std::string(" no calculation"));
+#endif
+  return i1_;
 }
 
 double
-ModelLine::i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
-  double irBus2 = ir2(ur1, ui1, ur2, ui2);
-  double iiBus2 = ii2(ur1, ui1, ur2, ui2);
-  return sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);
+ModelLine::i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer(__PRETTY_FUNCTION__);
+#endif
+  if (i2MustbeCalculated_) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+    Timer timer(std::string(__PRETTY_FUNCTION__) + std::string(" calculates"));
+#endif
+    i2MustbeCalculated_ = false;
+    double irBus = ir2(ur1, ui1, ur2, ui2);
+    double iiBus = ii2(ur1, ui1, ur2, ui2);
+    i2_ = sqrt(irBus * irBus + iiBus * iiBus);
+  }
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  else
+    Timer timer(std::string(__PRETTY_FUNCTION__) + std::string(" no calculation"));
+#endif
+  return i2_;
 }
 
 void
