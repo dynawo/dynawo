@@ -23,8 +23,8 @@ model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
     Placement(visible = true, transformation(origin = {-32, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio transformer(BPu = 0, GPu = 0, RPu = 0, XPu = 0.00675, rTfoPu = 1)  annotation(
     Placement(visible = true, transformation(origin = {36, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Machines.GeneratorSynchronous generatorSynchronous(
-    ExcitationPu = Dynawo.Electrical.Machines.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NominalStatorVoltageNoLoad,
+  Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous generatorSynchronous(
+    ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NominalStatorVoltageNoLoad,
     H = 3.5, DPu = 0,
     PNomAlt = 2200, PNomTurb = 2220, SNom = 2220,
     SnTfo = 2220, UBaseHV = 24, UBaseLV = 24, UNom = 24, UNomHV = 24, UNomLV = 24, XTfPu = 0, RTfPu = 0,
@@ -108,7 +108,7 @@ equation
     <img width=\"450\" src=\"modelica://Dynawo/Examples/SMIB/Resources/Images/UStatorPu.png\">
     </figure>
     We observe that the active power is increased by 44.05 MW. The voltage drop between the infinite bus and the machine terminal is consequently increased, resulting in a decrease of the machine terminal voltage.
-    </div><div><br></div><div>Initial equation are provided on the generator's differential variables to ensure a steady state initialisation by the Modelica tool. It had to be written here and not directly in Dynawo.Electrical.Machines.GeneratorSynchronous because the Dynawo simulator applies a different initialisation strategy that does not involve the initial equation section.
+    </div><div><br></div><div>Initial equation are provided on the generator's differential variables to ensure a steady state initialisation by the Modelica tool. It had to be written here and not directly in Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous because the Dynawo simulator applies a different initialisation strategy that does not involve the initial equation section.
     </div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></body></html>
 "));
 end SMIBStepPm;
