@@ -19,11 +19,12 @@
  *
  */
 //======================================================================
+#include <boost/dll/import.hpp>
+#include <boost/function.hpp>
 
 #include "DYNStaticVarCompensatorInterfaceIIDM.h"
 #include "DYNExecUtils.h"
 #include "DYNFileSystemUtils.h"
-#include <dlfcn.h>
 #include <iostream>
 
 using powsybl::iidm::StaticVarCompensator;
@@ -36,10 +37,6 @@ namespace DYN {
 StaticVarCompensatorInterfaceIIDM::~StaticVarCompensatorInterfaceIIDM() {
   // destroy the class
   destroy_extension_(extension_);
-
-  if (handle_) {
-    dlclose(handle_);
-  }
 }
 
 StaticVarCompensatorInterfaceIIDM::StaticVarCompensatorInterfaceIIDM(StaticVarCompensator& svc) :
@@ -52,41 +49,26 @@ staticVarCompensatorIIDM_(svc) {
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
   stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
 
-  // load the library
-  string lib = getEnvVar("DYNAWO_IIDM_EXTENSION");
-  if (!exists(lib))
-    throw DYNError(Error::STATIC_DATA, WrongExtensionPath, lib);
-  handle_ = dlopen(lib.c_str(), RTLD_NOW | RTLD_LOCAL);
-  if (!handle_) {
-    stringstream msg;
-    msg << "Load error :" << dlerror();
-    Trace::error() << msg.str() << Trace::endline;
-    throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib);
+  if (hasEnvVar("DYNAWO_IIDM_EXTENSION")) {
+    string libPath = getEnvVar("DYNAWO_IIDM_EXTENSION");
+    if (!exists(libPath))
+      throw DYNError(Error::STATIC_DATA, WrongExtensionPath, libPath);
+
+    boost::function<create_t> create_extension;
+    boost::dll::shared_library extensionLibrary(libPath);
+
+    if (extensionLibrary.has("createExtension"))
+      create_extension = boost::dll::import<create_t>(extensionLibrary, "createExtension");
+    else
+      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath+"::createExtension");
+    if (extensionLibrary.has("destroyExtension"))
+      destroy_extension_ = boost::dll::import<destroy_t>(libPath, "destroyExtension");
+    else
+      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath+"::destroyExtension");
+
+    // create an instance of the class
+    extension_ = create_extension(svc);
   }
-
-  // reset errors
-  dlerror();
-
-  create_t* create_extension = reinterpret_cast<create_t*> (dlsym(handle_, "create"));
-  const char* dlsym_error = dlerror();
-  if (dlsym_error) {
-    stringstream msg;
-    msg << "Load error :" << dlsym_error;
-    Trace::error() << msg.str() << Trace::endline;
-    throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::create");
-  }
-
-  destroy_extension_ = reinterpret_cast<destroy_t*> (dlsym(handle_, "destroy"));
-  dlsym_error = dlerror();
-  if (dlsym_error) {
-    stringstream msg;
-    msg << "Load error :" << dlsym_error;
-    Trace::error() << msg.str() << Trace::endline;
-    throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::destroy");
-  }
-
-  // create an instance of the class
-  extension_ = create_extension(svc);
 }
 
 int
