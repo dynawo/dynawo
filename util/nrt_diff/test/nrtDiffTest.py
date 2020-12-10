@@ -65,6 +65,12 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         self.assertEqual(message, "Problem with result.xml")
 
+    def test_output_iidm(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "outputIIDM.xml"), '|', os.path.join(dir_path, "outputIIDM2.xml"), '|')
+        self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        self.assertEqual(message, "2 different output values\n[ERROR] attribute v of object FF11 (type bus) value: 402.95782896527163 has another value on right side (value: 403.95782896527163)\n[ERROR] attribute bus of object BVIL7T 1 (type generator) value: FSLACK11 is not in the equivalent object on right side\n")
+
 class TestnrtDiffDirectoryDiff(unittest.TestCase):
     def test_directory_diff(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
