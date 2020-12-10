@@ -51,33 +51,60 @@ else()
   set(package_url  "${package_prefix_url}/v${package_VersionToInstall}.tar.gz")
 
   include(ExternalProject)
-  ExternalProject_Add(
-                        "${package_name}"
+  if(MSVC)
+    ExternalProject_Add(
+      "${package_name}"
 
-    INSTALL_DIR         ${package_install_dir}
+      INSTALL_DIR         ${package_install_dir}
 
-    DOWNLOAD_DIR        "${CMAKE_CURRENT_SOURCE_DIR}/${package_name}"
-    TMP_DIR             "${TMP_DIR}"
-    STAMP_DIR           "${DOWNLOAD_DIR}/${package_name}-stamp"
-    SOURCE_DIR          "${DOWNLOAD_DIR}/${package_name}"
+      DOWNLOAD_DIR        "${CMAKE_CURRENT_SOURCE_DIR}/${package_name}"
+      TMP_DIR             "${TMP_DIR}"
+      STAMP_DIR           "${DOWNLOAD_DIR}/${package_name}-stamp"
+      SOURCE_DIR          "${DOWNLOAD_DIR}/${package_name}"
 
-    URL                 ${package_url}
-    URL_MD5             ${package_md5}
+      URL                 ${package_url}
+      URL_MD5             ${package_md5}
 
-    BUILD_IN_SOURCE     1
+      BUILD_IN_SOURCE     1
 
-    CONFIGURE_COMMAND   "<SOURCE_DIR>/autogen.sh"
-                        "CC=${CMAKE_C_COMPILER}"
-                        "CFLAGS=${CMAKE_C_FLAGS}"
-                        "CXX=${CMAKE_CXX_COMPILER}"
-                        "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0>"
-                        "--prefix=<INSTALL_DIR>"
-                        "$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static>"
-                        "$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared>"
-                        "--without-python"
+      CONFIGURE_COMMAND   cd win32
+                COMMAND   "cscript configure.js compiler=msvc iconv=no prefix=<INSTALL_DIR>"
+                          "debug=$<IF:$<CONFIG:Debug>,yes,no> static=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,no,yes>"
+                          "cruntime=$<IF:$<BOOL:${MSVC_STATIC_RUNTIME_LIBRARY}>,/MT$<$<CONFIG:Debug>:d>,/MD$<$<CONFIG:Debug>:d>>"
 
-    BUILD_COMMAND   make -j ${CPU_COUNT} all
-  )
+      BUILD_COMMAND       nmake /f Makefile.msvc
+
+      INSTALL_COMMAND     nmake /f Makefile.msvc install
+    )
+  else()
+    ExternalProject_Add(
+      "${package_name}"
+
+      INSTALL_DIR         ${package_install_dir}
+
+      DOWNLOAD_DIR        "${CMAKE_CURRENT_SOURCE_DIR}/${package_name}"
+      TMP_DIR             "${TMP_DIR}"
+      STAMP_DIR           "${DOWNLOAD_DIR}/${package_name}-stamp"
+      SOURCE_DIR          "${DOWNLOAD_DIR}/${package_name}"
+
+      URL                 ${package_url}
+      URL_MD5             ${package_md5}
+
+      BUILD_IN_SOURCE     1
+
+      CONFIGURE_COMMAND   "<SOURCE_DIR>/autogen.sh"
+                          "CC=${CMAKE_C_COMPILER}"
+                          "CFLAGS=${CMAKE_C_FLAGS}"
+                          "CXX=${CMAKE_CXX_COMPILER}"
+                          "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0>"
+                          "--prefix=<INSTALL_DIR>"
+                          "$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static>"
+                          "$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared>"
+                          "--without-python"
+
+      BUILD_COMMAND       make -j ${CPU_COUNT} all
+    )
+  endif()
 
   ExternalProject_Get_Property(libxml2 install_dir)
   set(LIBXML2_HOME ${install_dir})
