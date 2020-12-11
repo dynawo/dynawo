@@ -43,8 +43,6 @@ equation
   elsewhen IMonitored.value < IMax and pre(tThresholdReached) <> Constants.inf and pre(order.value) <> OrderToEmit then
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonDisarming);
-  elsewhen IMonitored.value < IMax then
-    tThresholdReached = Constants.inf;
   end when;
 
   when time - tThresholdReached >= tLagBeforeActing then
