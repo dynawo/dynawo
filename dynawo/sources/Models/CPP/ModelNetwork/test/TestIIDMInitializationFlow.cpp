@@ -141,7 +141,7 @@ createNetwork(const NetworkProperty& properties) {
   iidmBus2.setV(1);
   iidmBus2.setAngle(0.);
   if (properties.instantiateDanglingLine) {
-    powsybl::iidm::DanglingLine& dl = vlIIDM.newDanglingLine()
+    vlIIDM.newDanglingLine()
            .setId("MyDanglingLine")
            .setBus("MyBus")
            .setConnectableBus("MyBus")
@@ -157,7 +157,7 @@ createNetwork(const NetworkProperty& properties) {
   }
 
   if (properties.instantiateLoad) {
-    powsybl::iidm::Load& load = vlIIDM.newLoad()
+    vlIIDM.newLoad()
         .setId("MyLoad")
         .setBus("MyBus")
         .setConnectableBus("MyBus")
@@ -169,7 +169,7 @@ createNetwork(const NetworkProperty& properties) {
   }
 
   if (properties.instantiateCapacitorShuntCompensator) {
-    powsybl::iidm::ShuntCompensator& shuntIIDM = vlIIDM.newShuntCompensator()
+    vlIIDM.newShuntCompensator()
         .setId("MyCapacitorShuntCompensator")
         .setName("MyCapacitorShuntCompensator_NAME")
         .setBus("MyBus")
@@ -181,7 +181,7 @@ createNetwork(const NetworkProperty& properties) {
   }
 
   if (properties.instantiateReactanceShuntCompensator) {
-    powsybl::iidm::ShuntCompensator& shuntIIDM = vlIIDM.newShuntCompensator()
+    vlIIDM.newShuntCompensator()
         .setId("MyReactanceShuntCompensator")
         .setName("MyReactanceShuntCompensator_NAME")
         .setBus("MyBus")
@@ -247,7 +247,7 @@ createNetwork(const NetworkProperty& properties) {
   }
 
   if (properties.instantiateLine) {
-    powsybl::iidm::Line& line = network.newLine()
+    network.newLine()
                                       .setId("VL1_VL2")
                                       .setName("VL1_VL2_NAME")
                                       .setVoltageLevel1(vlIIDM.getId())

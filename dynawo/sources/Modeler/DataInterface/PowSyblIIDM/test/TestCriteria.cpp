@@ -12,8 +12,8 @@
 //
 
 /**
- * @file Modeler/DataInterface/test/TestIIDMModels.cpp
- * @brief Unit tests for DataInterface/*IIDM classes
+ * @file Modeler/DataInterface/PowSyblIIDM/test/TestCriteria.cpp
+ * @brief Unit tests for criteria classes
  *
  */
 

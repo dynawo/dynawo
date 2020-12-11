@@ -175,7 +175,6 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
   shared_ptr<TwoWTransformerInterfaceIIDM> tw2ItfIIDM = shared_ptr<TwoWTransformerInterfaceIIDM>(new TwoWTransformerInterfaceIIDM(transformer));
   // add phase tapChanger and steps if exists
   if (transformer.hasPhaseTapChanger()) {
-    auto& phaseTapChanger = transformer.getPhaseTapChanger();
     shared_ptr<PhaseTapChangerInterfaceIIDM> tapChanger(new PhaseTapChangerInterfaceIIDM(transformer.getPhaseTapChanger()));
     tw2ItfIIDM->setPhaseTapChanger(tapChanger);
   }

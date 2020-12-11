@@ -79,6 +79,7 @@ createModelSwitch(bool open, bool initModel) {
       .setBus1("MyBus1")
       .setBus2("MyBus2")
       .add();
+  swIIDM.setOpen(open);
 
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
   shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));

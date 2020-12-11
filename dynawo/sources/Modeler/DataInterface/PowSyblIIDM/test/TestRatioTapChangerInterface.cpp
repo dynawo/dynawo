@@ -204,7 +204,6 @@ TEST(DataInterfaceTest, RatioTapChanger_2WT) {
   rtcCopy.setRegulating(true);
   ASSERT_THROW(rtcCopy.setTargetV(stdcxx::nan()), std::exception);
 
-  const powsybl::iidm::Terminal& RegulTerm = rtcCopy.getRegulationTerminal();
   ASSERT_EQ(Ifce.getTerminalRefId(), "LOAD1");
   ASSERT_EQ(Ifce.getTerminalRefSide(), "ONE");
 }

@@ -84,6 +84,9 @@ createModelStaticVarCompensator(bool open, bool initModel) {
     .add();
   svcIIDM.getTerminal().setP(3.);
   svcIIDM.getTerminal().setQ(5.);
+  if (open)
+    svcIIDM.getTerminal().disconnect();
+
   shared_ptr<StaticVarCompensatorInterfaceIIDM> scItfIIDM = shared_ptr<StaticVarCompensatorInterfaceIIDM>(new StaticVarCompensatorInterfaceIIDM(svcIIDM));
   shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));

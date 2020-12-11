@@ -12,8 +12,8 @@
 //
 
 /**
- * @file Modeler/DataInterface/test/TestIIDMModels.cpp
- * @brief Unit tests for DataInterface/*IIDM classes
+ * @file Modeler/DataInterface/PowSyblIIDM/test/TestIIDMModels.cpp
+ * @brief Unit tests for DataInterfaceIIDM class
  *
  */
 
@@ -342,7 +342,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     vsc2.getTerminal().setP(150.);
     vsc2.getTerminal().setQ(90.);
 
-    powsybl::iidm::HvdcLine& hvdcIIDM = network.newHvdcLine()
+    network.newHvdcLine()
         .setId("MyHvdcLine")
         .setName("MyHvdcLine_NAME")
         .setActivePowerSetpoint(111.1)
@@ -378,7 +378,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     lcc2.getTerminal().setP(105.);
     lcc2.getTerminal().setQ(90.);
 
-    powsybl::iidm::HvdcLine& hvdcIIDM = network.newHvdcLine()
+    network.newHvdcLine()
         .setId("MyHvdcLine")
         .setName("MyHvdcLine_NAME")
         .setActivePowerSetpoint(111.1)
@@ -883,7 +883,6 @@ TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
-  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverter", "p_pu"), -150. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverter", "q_pu"), -90. / SNREF);
@@ -925,7 +924,6 @@ TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
   ASSERT_EQ(data->getBusName("MyVscConverter", ""), "MyBus");
   ASSERT_EQ(data->getBusName("MyVscConverter2", ""), "MyBus");
 
-  powsybl::iidm::HvdcLine& hvdcIIDM = network.getHvdcLine("MyHvdcLine");
   boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
   boost::shared_ptr<VscConverterInterfaceIIDM> vsc1 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter1());
   boost::shared_ptr<VscConverterInterfaceIIDM> vsc2 = boost::dynamic_pointer_cast<VscConverterInterfaceIIDM>(hvdc->getConverter2());
@@ -982,7 +980,6 @@ TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM) {
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
-  powsybl::iidm::Network& network = data->getNetworkIIDM();
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "p_pu"), -105. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "q_pu"), -90. / SNREF);
@@ -1024,7 +1021,6 @@ TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM) {
   ASSERT_EQ(data->getBusName("MyLccConverter", ""), "MyBus");
   ASSERT_EQ(data->getBusName("MyLccConverter2", ""), "MyBus");
 
-  powsybl::iidm::HvdcLine& hvdcIIDM = network.getHvdcLine("MyHvdcLine");
   boost::shared_ptr<HvdcLineInterfaceIIDM> hvdc = boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(data->findComponent("MyHvdcLine"));
   boost::shared_ptr<LccConverterInterfaceIIDM> lcc1 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter1());
   boost::shared_ptr<LccConverterInterfaceIIDM> lcc2 = boost::dynamic_pointer_cast<LccConverterInterfaceIIDM>(hvdc->getConverter2());
@@ -1338,12 +1334,6 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
   exportStateVariables(data);
   powsybl::iidm::Network& network = data->getNetworkIIDM();
 
-  double a = data->getStaticParameterDoubleValue("MyTransformer2Winding", "p1_pu");
-  double b = data->getStaticParameterDoubleValue("MyTransformer2Winding", "p2_pu");
-  double c = data->getStaticParameterDoubleValue("MyTransformer2Winding", "q1_pu");
-  double d = data->getStaticParameterDoubleValue("MyTransformer2Winding", "q2_pu");
-  double e = data->getStaticParameterDoubleValue("MyTransformer2Winding", "i1");
-  double f = data->getStaticParameterDoubleValue("MyTransformer2Winding", "i2");
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p1_pu"), 9.2043642724743098);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "p2_pu"), -0.0011838723553420131);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyTransformer2Winding", "q1_pu"), -1.5798045729283614);

@@ -129,7 +129,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
     if (withQ)
       vsc2.getTerminal().setQ(3.);
 
-    powsybl::iidm::HvdcLine& hvdcIIDM = networkIIDM.newHvdcLine()
+    networkIIDM.newHvdcLine()
         .setId("MyHvdcLine")
         .setName("MyHvdcLine_NAME")
         .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
@@ -166,7 +166,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
     if (withQ)
       lcc2.getTerminal().setQ(3.);
 
-    powsybl::iidm::HvdcLine& hvdcIIDM = networkIIDM.newHvdcLine()
+    networkIIDM.newHvdcLine()
         .setId("MyHvdcLine")
         .setName("MyHvdcLine_NAME")
         .setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER)
