@@ -57,8 +57,6 @@ else()
                       "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"
                       "-DBOOST_ROOT:PATH=${BOOST_ROOT}"
                       "-DCMAKE_PREFIX_PATH=${LIBXML2_HOME}"
-
-    BUILD_COMMAND     make -j ${CPU_COUNT} all
   )
 
   unset(package_git_repo)
