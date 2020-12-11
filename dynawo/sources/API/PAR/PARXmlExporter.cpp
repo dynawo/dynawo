@@ -123,6 +123,9 @@ XmlExporter::exportToStream(const boost::shared_ptr<ParametersSetCollection>& co
       attrs.add("name", ref->getName());
       attrs.add("origData", ref->getOrigDataStr());
       attrs.add("origName", ref->getOrigName());
+      if (!ref->getComponentId().empty()) {
+        attrs.add("componentId", ref->getComponentId());
+      }
       formatter->startElement("reference", attrs);
       formatter->endElement();   // ref
     }
