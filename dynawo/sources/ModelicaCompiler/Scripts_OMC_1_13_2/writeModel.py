@@ -195,7 +195,7 @@ if __name__ == '__main__':
         writer_init_pb.writeHeaderDefinitionsFile()
 
     # Reset DB
-    map_var_name_2_addresses = {}
+    reset_param_address()
 
     ###########################################
     # Readers

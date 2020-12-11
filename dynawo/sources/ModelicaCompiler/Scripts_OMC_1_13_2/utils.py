@@ -100,15 +100,13 @@ map_var_name_2_addresses = {}
 
 ##
 # Get the address for a variable
-# @param self: object pointer
 # @param var_name: variable name
 # @return variable address (form data->simulationInfo->..)
 def to_param_address(var_name):
     return find_value_in_map(map_var_name_2_addresses, var_name)
 
 ##
-# Test if the address of a variable was found
-# @param self: object pointer
+# Test if the address of a variable was found and throws if not
 # @param var_name: variable name
 # @return
 def test_param_address(var_name):
@@ -116,7 +114,27 @@ def test_param_address(var_name):
         traceback.print_stack()
         error_exit('Could not find the address of ' + var_name)
 
+##
+# reset the address DB
+def reset_param_address():
+    map_var_name_2_addresses.clear()
 
+##
+# Set the address for a variable
+# @param var_name: variable name
+# @param address: variable address (form data->simulationInfo->..)
+def set_param_address(var_name, address):
+    map_var_name_2_addresses[var_name] = address
+
+##
+# Test if the address of a variable was found
+# @param var_name: variable name
+# @return whether the variable name has an associated address
+def has_param_address(var_name):
+    return var_name in map_var_name_2_addresses
+
+def get_map_var_name_2_addresses() :
+    return map_var_name_2_addresses
 
 ##
 # Replace all variables by its correct address
