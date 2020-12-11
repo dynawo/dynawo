@@ -93,16 +93,9 @@ if(NOT MSVC)
 endif()
 
 # Try to get the number of processors (core/thread)
-include(ProcessorCount)
-ProcessorCount(NUMBER_OF_PROCESSORS)
-if(NOT NUMBER_OF_PROCESSORS EQUAL 0)
-  set(CMAKE_BUILD_FLAGS -j${NUMBER_OF_PROCESSORS})
-else()
-  set(NUMBER_OF_PROCESSORS 1)
-endif()
-
-if(DEFINED ENV{DYNAWO_NB_PROCESSORS_USED})
-  set(NUMBER_OF_PROCESSORS $ENV{DYNAWO_NB_PROCESSORS_USED})
+include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/CPUCount.cmake)
+if(NOT DEFINED CPU_COUNT)
+  message(FATAL_ERROR "CPUCount.cmake: file not found.")
 endif()
 
 include(ExternalProject)
@@ -519,7 +512,7 @@ else()
       CONFIGURE_COMMAND   <SOURCE_DIR>/bootstrap.bat msvc
 
       BUILD_COMMAND       <SOURCE_DIR>/b2
-                          -j${NUMBER_OF_PROCESSORS}
+                          -j${CPU_COUNT}
                           -sNO_BZIP2=1
                           install
                           --prefix=<INSTALL_DIR>
@@ -557,7 +550,7 @@ else()
                           ${TmpVar}
 
       BUILD_COMMAND       <SOURCE_DIR>/b2
-                          -j${NUMBER_OF_PROCESSORS}
+                          -j${CPU_COUNT}
                           -sNO_BZIP2=1
                           cxxflags=-fPIC
                           install
@@ -840,7 +833,7 @@ if(NOT OMCompiler)
 
       BUILD_COMMAND       ${CMAKE_COMMAND} -E env "OMDEV=${OMDEV_HOME}" "OPENMODELICAHOME=<SOURCE_DIR>" "MSYS2_PATH_TYPE=inherit" "MSYSTEM=MINGW64"
                                                   ${OMDEV_HOME}/tools/msys/usr/bin/bash.exe
-                                                  --login -c "cd $OPENMODELICAHOME && make -f Makefile.omdev.mingw -j$NUMBER_OF_PROCESSORS omc"
+                                                  --login -c "cd $OPENMODELICAHOME && make -f Makefile.omdev.mingw -j$CPU_COUNT omc"
 
       INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/build <INSTALL_DIR>
               COMMAND     ${CMAKE_COMMAND} -E copy_if_different <INSTALL_DIR>/bin/omc.exe <INSTALL_DIR>/bin/omcDynawo.exe
@@ -870,7 +863,7 @@ if(NOT OMCompiler)
                           --disable-omshell-terminal
                           --with-qwt=NO
                           --with-omc=no
-      BUILD_COMMAND       make -j ${NUMBER_OF_PROCESSORS} omc
+      BUILD_COMMAND       make -j ${CPU_COUNT} omc
       INSTALL_COMMAND     make install
               COMMAND     cd <INSTALL_DIR>/bin && ln -s -f omc omcDynawo
     )

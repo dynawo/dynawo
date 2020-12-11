@@ -30,7 +30,13 @@ if(${package_name}_FOUND)
   message(STATUS "Found ${package_name} ${PACKAGE_VERSION}")
 
 else()
-  set(package_git_repo   "https://github.com/powsybl/powsybl-iidm4cpp")
+  set(package_md5    fa9836f28248953a7a6f14645ffa99a5)
+  if(DEFINED $ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
+    set(package_prefix_url $ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
+  else()
+    set(package_prefix_url https://github.com/powsybl/powsybl-iidm4cpp/archive)
+  endif()
+  set(package_url  "${package_prefix_url}/v${package_RequiredVersion}.tar.gz")
 
   include(ExternalProject)
   ExternalProject_Add(
@@ -39,13 +45,10 @@ else()
     DEPENDS           libxml2 boost
     INSTALL_DIR       "${package_install_dir}"
 
-    GIT_REPOSITORY    "${package_git_repo}"
-    GIT_TAG           "v${package_RequiredVersion}"
-    GIT_PROGRESS      1
+    URL               ${package_url}
+    URL_MD5           ${package_md5}
 
-    UPDATE_COMMAND    ""
-
-    DOWNLOAD_DIR      "${DOWNLOAD_DIR}/${package_name}"
+    DOWNLOAD_DIR      "${CMAKE_CURRENT_SOURCE_DIR}/${package_name}"
     TMP_DIR           "${TMP_DIR}"
     STAMP_DIR         "${DOWNLOAD_DIR}/${package_name}-stamp"
     BINARY_DIR        "${DOWNLOAD_DIR}/${package_name}-build"
