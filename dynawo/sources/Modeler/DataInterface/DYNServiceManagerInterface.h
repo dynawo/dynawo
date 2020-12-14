@@ -26,7 +26,7 @@
 namespace DYN {
 
 /**
- * @brief Interface for dynwo service interface
+ * @brief Interface for dynawo service interface
  */
 struct ServiceManagerInterface {
   /**

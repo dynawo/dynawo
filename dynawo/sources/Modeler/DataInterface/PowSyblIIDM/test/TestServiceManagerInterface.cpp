@@ -110,15 +110,7 @@ TEST(DataInterfaceTest, ServiceManager) {
 
   auto serviceManager = interface.getServiceManager();
 
-  try {
-    serviceManager->getBusesConnectedBySwitch("BUS0", vl.getID());
-
-    // shouldn't reach here
-    ASSERT_TRUE(false);
-  } catch (const Error& e) {
-    ASSERT_EQ(Error::MODELER, e.type());
-    ASSERT_EQ(KeyError_t::UnknownBus, e.key());
-  }
+  ASSERT_THROW_DYNAWO(serviceManager->getBusesConnectedBySwitch("BUS0", vl.getID()), Error::MODELER, KeyError_t::UnknownBus);
 
   auto connected = serviceManager->getBusesConnectedBySwitch("BUS4", vl.getID());
   ASSERT_EQ(0, connected.size());

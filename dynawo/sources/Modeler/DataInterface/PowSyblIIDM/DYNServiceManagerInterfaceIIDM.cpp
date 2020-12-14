@@ -30,31 +30,23 @@ ServiceManagerInterfaceIIDM::ServiceManagerInterfaceIIDM(const DataInterfaceIIDM
 
 void
 ServiceManagerInterfaceIIDM::buildGraph(const boost::shared_ptr<VoltageLevelInterface>& vl) {
-  auto compare = [](const boost::shared_ptr<BusInterface>& bus, const std::string& id) { return bus->getID() == id; };
+  std::unordered_map<std::string, size_t> indexes;
 
   auto& graph = graphs_[vl->getID()];
   const auto& buses = vl->getBuses();
 
-  for (size_t i = 0; i < buses.size(); i++) {
+  for (auto it = buses.begin(); it != buses.end(); ++it) {
+    size_t i = it - buses.begin();
+    indexes[(*it)->getID()] = i;
     // we are using the position in the vector as the vertex, as these buses are fixed
     graph.addVertex(i);
   }
 
   for (const auto& sw : vl->getSwitches()) {
     auto busid1 = sw->getBusInterface1()->getID();
-    auto bus1It1 = std::find_if(buses.begin(), buses.end(), std::bind(compare, std::placeholders::_1, busid1));
-#if _DEBUG_
-    // shouldn't happen by construction of the IIDM element
-    assert(bus1It1 != buses.end());
-#endif
     auto busid2 = sw->getBusInterface2()->getID();
-    auto bus1It2 = std::find_if(buses.begin(), buses.end(), std::bind(compare, std::placeholders::_1, busid2));
-#if _DEBUG_
-    // shouldn't happen by construction of the IIDM element
-    assert(bus1It2 != buses.end());
-#endif
     // we are using the position of the bus in the bus array as index in the graph, because these indexes won't change during simulation
-    graph.addEdge(bus1It1 - buses.begin(), bus1It2 - buses.begin(), sw->getID());
+    graph.addEdge(indexes.at(busid1), indexes.at(busid2), sw->getID());
   }
 }
 
@@ -100,7 +92,6 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
     }
   }
 
-  // Bus ids are unique so we can stop the loop here
   return ret;
 }
 
