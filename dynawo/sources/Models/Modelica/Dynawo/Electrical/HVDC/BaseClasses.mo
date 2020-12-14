@@ -36,6 +36,7 @@ package BaseClasses
       Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
     parameter Real KLosses "Losses coefficient between 0 and 1 : 1 if no loss in the HVDC link, < 1 otherwise";
+    parameter Types.ActivePowerPu PMaxPu  "Maximum active power in p.u (base SnRef) flowing through the HVDC link";
 
     input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in p.u (base SnRef) at terminal 1";
 
@@ -71,7 +72,7 @@ package BaseClasses
     s2Pu = terminal2.V * ComplexMath.conj(terminal2.i);
 
     if (running.value) then
-      P1Pu = P1RefPu;
+      P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
       P2Pu = if P1Pu > 0 then - KLosses * P1Pu else - P1Pu / KLosses;
     else
       P1Pu = 0;
@@ -114,6 +115,7 @@ annotation(preferredView = "text",
     parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 2";
     parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 2";
     parameter Real KLosses "Coefficient between 0 and 1 (no loss) modelling the losses in the HVDC";
+    parameter Types.ActivePowerPu PMaxPu  "Maximum active power in p.u (base SnRef) flowing through the HVDC link";
 
   protected
 
@@ -138,7 +140,7 @@ annotation(preferredView = "text",
     U1Pu = ComplexMath.'abs'(terminal1.V);
     s1Pu = Complex(P1Pu, Q1Pu);
     s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
-    P1Pu = P1RefPu;
+    P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
 
   // Disconnected side
     P2Pu = 0;
