@@ -85,6 +85,8 @@
 #include "CRTCriteria.h"
 #include "CRTCriteriaParams.h"
 
+#include <boost/make_shared.hpp>
+
 using std::map;
 using std::string;
 using std::vector;
@@ -98,7 +100,8 @@ using criteria::CriteriaCollection;
 
 namespace DYN {
 DataInterfaceIIDM::DataInterfaceIIDM(IIDM::Network networkIIDM) :
-networkIIDM_(networkIIDM) {
+networkIIDM_(networkIIDM),
+serviceManager_(boost::make_shared<ServiceManagerInterfaceIIDM>()) {
 }
 
 DataInterfaceIIDM::~DataInterfaceIIDM() {

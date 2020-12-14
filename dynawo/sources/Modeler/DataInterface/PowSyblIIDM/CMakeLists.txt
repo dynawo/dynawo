@@ -39,6 +39,7 @@ set(DATA_INTERFACE_IIDM_SOURCES
   DYNTwoWTransformerInterfaceIIDM.cpp
   DYNVoltageLevelInterfaceIIDM.cpp
   DYNVscConverterInterfaceIIDM.cpp
+  DYNServiceManagerInterfaceIIDM.cpp
 )
 
 set(DATA_INTERFACE_IIDM_HEADERS

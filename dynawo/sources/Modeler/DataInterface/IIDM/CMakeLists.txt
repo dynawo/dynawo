@@ -36,6 +36,7 @@ set(DATA_INTERFACE_IIDM_SOURCES
     DYNVscConverterInterfaceIIDM.cpp
     DYNLccConverterInterfaceIIDM.cpp
     DYNHvdcLineInterfaceIIDM.cpp
+    DYNServiceManagerInterfaceIIDM.cpp
     )
 
 set(DATA_INTERFACE_IIDM_INCLUDE_HEADERS
