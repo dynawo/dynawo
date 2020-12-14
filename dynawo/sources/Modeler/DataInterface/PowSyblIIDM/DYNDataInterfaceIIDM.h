@@ -33,6 +33,7 @@
 #include "DYNLineInterface.h"
 #include "DYNCalculatedBusInterfaceIIDM.h"
 #include "DYNCriteria.h"
+#include "DYNServiceManagerInterfaceIIDM.h"
 #include <powsybl/iidm/Network.hpp>
 #include <boost/unordered_set.hpp>
 
@@ -175,6 +176,13 @@ class DataInterfaceIIDM : public DataInterface {
    * @return instance of component interface found
    */
   boost::shared_ptr<ComponentInterface>& findComponent(const std::string& id);
+
+  /**
+   * @copydoc DataInterface::getServiceManager
+   */
+  boost::shared_ptr<ServiceManagerInterface> getServiceManager() const {
+    return serviceManager_;
+  }
 
  private:
   /**
@@ -349,6 +357,7 @@ class DataInterfaceIIDM : public DataInterface {
   std::vector<boost::shared_ptr<Criteria> > criteria_;                                             ///< table of criteria to check
   boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   boost::unordered_map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
+  boost::shared_ptr<ServiceManagerInterfaceIIDM> serviceManager_;  ///< Service manager
 };  ///< Generic data interface for IIDM format files
 }  // namespace DYN
 

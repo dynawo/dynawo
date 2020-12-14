@@ -64,6 +64,7 @@
 
 #include <boost/dll/shared_library.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/make_shared.hpp>
 
 using std::map;
 using std::string;
@@ -92,7 +93,8 @@ class LibXml2 {
 
 namespace DYN {
 DataInterfaceIIDM::DataInterfaceIIDM(powsybl::iidm::Network&& networkIIDM) :
-networkIIDM_(std::forward<powsybl::iidm::Network>(networkIIDM)) {
+networkIIDM_(std::forward<powsybl::iidm::Network>(networkIIDM)),
+serviceManager_(boost::make_shared<ServiceManagerInterfaceIIDM>(this)) {
 }
 
 DataInterfaceIIDM::~DataInterfaceIIDM() {
