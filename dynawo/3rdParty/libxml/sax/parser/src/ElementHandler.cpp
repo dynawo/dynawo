@@ -21,8 +21,6 @@ namespace xml {
 namespace sax {
 namespace parser {
 
-ElementHandler::~ElementHandler() {}
-
 void ElementHandler::readCharacters(std::string const&) {}
 
 

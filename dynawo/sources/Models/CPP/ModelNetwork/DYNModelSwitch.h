@@ -260,7 +260,7 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(bool* silentZTable);
+  void collectSilentZ(BitMask* silentZTable);
 
   /**
    * @copydoc NetworkComponent::evalYMat()

@@ -50,7 +50,12 @@ public:
   ComposableElementHandler() {}
 
   /** @brief Destructor */
+#ifdef LANG_CXX11
+  // not using override keyword generates a warning, processed as an error, in dynawo
+  ~ComposableElementHandler() override {}
+#else
   virtual ~ComposableElementHandler() {}
+#endif
 
 public:
   using ComposableBase::path_type;

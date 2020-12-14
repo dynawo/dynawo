@@ -271,7 +271,7 @@ void ModelGeneratorPQ_Init::setZomc()
 {
 }
 
-void ModelGeneratorPQ_Init::collectSilentZ(bool* silentZTable)
+void ModelGeneratorPQ_Init::collectSilentZ(BitMask* silentZTable)
 {
 }
 

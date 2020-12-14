@@ -21,9 +21,6 @@ namespace xml {
 namespace sax {
 namespace parser {
 
-DocumentHandler::~DocumentHandler() {}
-
-
 void DocumentHandler::startElement(ElementName const&, attributes_type const&) {}
 
 void DocumentHandler::endElement(ElementName const&) {}

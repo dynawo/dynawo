@@ -705,9 +705,9 @@ ModelDanglingLine::evalZ(const double& t) {
 }
 
 void
-ModelDanglingLine::collectSilentZ(bool* silentZTable) {
-  silentZTable[0] = true;
-  silentZTable[1] = true;
+ModelDanglingLine::collectSilentZ(BitMask* silentZTable) {
+  silentZTable[0].setFlags(NotUsedInDiscreteEquations);
+  silentZTable[1].setFlags(NotUsedInDiscreteEquations);
 }
 
 void

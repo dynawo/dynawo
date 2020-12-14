@@ -130,7 +130,7 @@ class ModelVariationArea : public ModelCPP::Impl {
   /**
    * @copydoc SubModel::collectSilentZ()
    */
-  void collectSilentZ(bool* silentZTable);
+  void collectSilentZ(BitMask* silentZTable);
 
   /**
    * @copydoc ModelCPP::evalMode(const double& t)

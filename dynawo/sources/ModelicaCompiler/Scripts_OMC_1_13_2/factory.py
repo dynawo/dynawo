@@ -1756,15 +1756,27 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_collectsilentz(self):
-        closing_bracket = "] /* "
-        for var in self.reader.silent_discrete_vars:
+        opening_bracket = "  silentZTable["
+        end_of_line = " */;\n"
+        already_handled = []
+        for var in itertools.chain(self.reader.silent_discrete_vars_not_used_in_discr_eq, self.reader.silent_discrete_vars_not_used_in_continuous_eq):
+            if var in already_handled: continue
+            already_handled.append(var)
             test_param_address(var)
             address = to_param_address(var)
             index = address.split("[")[2].replace("]","")
-            if "integerDoubleVars" in address:
-                self.list_for_collectsilentz.append("  silentZTable[" + str(int(self.nb_z) + int(index)) +closing_bracket + var +" */ = true;\n")
+            not_used_in_discr=var in self.reader.silent_discrete_vars_not_used_in_discr_eq
+            not_used_in_cont = var in self.reader.silent_discrete_vars_not_used_in_continuous_eq
+            if not_used_in_discr and not_used_in_cont:
+                flag = "NotUsedInDiscreteEquations | NotUsedInContinuousEquations"
+            elif not_used_in_discr:
+                flag = "NotUsedInDiscreteEquations"
             else:
-                self.list_for_collectsilentz.append("  silentZTable[" + index +closing_bracket + var +" */ = true;\n")
+                flag = "NotUsedInContinuousEquations"
+            if "integerDoubleVars" in address:
+                self.list_for_collectsilentz.append(opening_bracket + str(int(self.nb_z) + int(index)) +"].setFlags("+flag+") /*" + var +end_of_line)
+            else:
+                self.list_for_collectsilentz.append(opening_bracket + index +"].setFlags("+flag+") /*" + var +end_of_line)
 
     ##
     # prepare the lines that constitues the body of setZ

@@ -317,7 +317,7 @@ TEST(SimulationTest, testSolverSIMTestBeta) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZNotUsedInDiscreteEqChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
@@ -364,7 +364,7 @@ TEST(SimulationTest, testSolverSIMTestBetaUnstableRoot) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZNotUsedInDiscreteEqChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
@@ -416,7 +416,7 @@ TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZNotUsedInDiscreteEqChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
@@ -472,7 +472,7 @@ TEST(SimulationTest, testSolverSIMDivergenceWithRecalculation) {
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
   model->getCurrentZ(z);
-  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZNotUsedInDiscreteEqChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 0.8);
   // Does not diverge as sundials forces a reevaluation of the jacobian
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2);
@@ -529,7 +529,7 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().getFlags(ZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(NotSilentZChange), true);
   ASSERT_EQ(solver->getState().getFlags(ModeChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.94766640118361411549);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.09225375878818535547);
@@ -860,25 +860,25 @@ TEST(SimulationTest, testSolverSIMSilentZ) {
   std::vector<double> z(z0);
   // Solve at t = 1
   solver->solve(tStop, tCurrent);
-  ASSERT_FALSE(solver->getState().getFlags(ZChange));
-  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
   // Solve at t = 2 => z1 is modified
   solver->solve(tStop, tCurrent);
-  ASSERT_FALSE(solver->getState().getFlags(ZChange));
-  ASSERT_TRUE(solver->getState().getFlags(SilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_TRUE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
 
   // Solve at t = 3
   solver->solve(tStop, tCurrent);
-  ASSERT_FALSE(solver->getState().getFlags(ZChange));
-  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
   // Solve at t = 4 -> z2 is modified
   solver->solve(tStop, tCurrent);
-  ASSERT_TRUE(solver->getState().getFlags(ZChange));
-  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  ASSERT_TRUE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
   // Solve at t = 5 -> z1 and z2 are modified
   solver->solve(tStop, tCurrent);
-  ASSERT_TRUE(solver->getState().getFlags(ZChange));
-  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  ASSERT_TRUE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
 }
 
 TEST(ParametersTest, testParameters) {

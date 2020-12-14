@@ -508,9 +508,12 @@ void ModelGeneratorPQ_Dyn::setZomc()
   data->simulationInfo->discreteCall = 0;
 }
 
-void ModelGeneratorPQ_Dyn::collectSilentZ(bool* silentZTable)
+void ModelGeneratorPQ_Dyn::collectSilentZ(BitMask* silentZTable)
 {
-  silentZTable[6] /* generator.state */ = true;
+  silentZTable[6].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations) /*generator.state */;
+  silentZTable[1].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal1.value */;
+  silentZTable[2].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal2.value */;
+  silentZTable[3].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal3.value */;
 }
 
 void ModelGeneratorPQ_Dyn::setGomc(state_g * gout)

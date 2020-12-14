@@ -106,7 +106,7 @@ class ConnectorCalculatedVariable : public SubModel {
   /**
    * @copydoc SubModel::collectSilentZ()
    */
-  void collectSilentZ(bool* silentZTable);
+  void collectSilentZ(BitMask* silentZTable);
 
   /**
    * @copydoc SubModel::updateFType()

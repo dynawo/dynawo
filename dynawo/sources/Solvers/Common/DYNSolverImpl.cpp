@@ -261,13 +261,12 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
     model_->evalZ(time);
     ++stats_.nze_;
 
-    if (model_->getSilentZChange())
-      state_.setFlags(SilentZChange);
-
-    if (model_->zChange()) {
+    zChangeType_t zChangeType = model_->getSilentZChangeType();
+    if (zChangeType == NOT_SILENT_Z_CHANGE
+        || zChangeType == NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE) {
+      // at least one discrete variable that is used in discrete equations has been modified: continue the propagation
       model_->evalG(time, G1);
       ++stats_.nge_;
-      state_.setFlags(ZChange);
       nonSilentZChange = true;
       change = true;
 #ifdef _DEBUG_
@@ -276,6 +275,13 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
 #endif
     }
 
+    if (zChangeType == NOT_SILENT_Z_CHANGE) {
+      state_.setFlags(NotSilentZChange);
+    } else if (zChangeType == NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE) {
+      state_.setFlags(SilentZNotUsedInContinuousEqChange);
+    } else if (zChangeType == NOT_USED_IN_DISCRETE_EQ_Z_CHANGE) {
+      state_.setFlags(SilentZNotUsedInDiscreteEqChange);
+    }
     ++i;
     if (i >= maxNumberUnstableRoots)
       throw DYNError(Error::SOLVER_ALGO, SolverUnstableZMode);

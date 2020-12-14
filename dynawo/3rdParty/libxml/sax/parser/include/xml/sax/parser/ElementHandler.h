@@ -40,9 +40,15 @@ public:
   typedef boost::function<void()> end_observer;
 
 public:
+  /**
+   * @brief Constructor
+   */
   ElementHandler(){};
 
-  virtual ~ElementHandler() = 0;
+  /**
+   * @brief Destructor
+   */
+  virtual ~ElementHandler(){};
 
   /**
    * @brief Called when an XML element opening tag is read.

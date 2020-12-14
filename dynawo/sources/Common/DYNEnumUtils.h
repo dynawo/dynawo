@@ -83,6 +83,25 @@ typedef enum {
 } modeChangeType_t;
 
 /**
+ * @brief Flags for the different types of silent Z
+ */
+typedef enum {
+  NotSilent = 0x01,
+  NotUsedInDiscreteEquations = 0x02,
+  NotUsedInContinuousEquations = 0x04
+} SilentZFlags;
+
+/**
+ * @brief discrete variable change type
+ */
+typedef enum {
+  NO_Z_CHANGE = 0,  ///< no discrete variable has changed
+  NOT_SILENT_Z_CHANGE,  ///< at least one z that modify both continuous and discrete equation has changed
+  NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE,  ///< at least on z that is used only in discrete equation has changed
+  NOT_USED_IN_DISCRETE_EQ_Z_CHANGE,  ///< only z that are used only in continuous equations were modified
+} zChangeType_t;
+
+/**
  * @brief return the string associated to the mode change type
  * @param modeChangeType mode change type as an enum
  * @return the string associated to the mode change type
