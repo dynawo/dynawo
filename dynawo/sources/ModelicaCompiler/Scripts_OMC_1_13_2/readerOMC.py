@@ -898,7 +898,7 @@ class ReaderOMC:
                     if ptrn_assign_extobjs.search(line) is not None:
                         match = re.search(ptrn_assign_extobjs, line)
                         var_add = "data->simulationInfo->extObjs["+match.group('var')+"]"
-                        for var_name, address in map_var_name_2_addresses.items():
+                        for var_name, address in get_map_var_name_2_addresses().items():
                             if address == var_add:
                                 self.var_init_val[ var_name ] = list_body
                                 break
@@ -1166,66 +1166,66 @@ class ReaderOMC:
                 name = match.group("name")
                 var = self.find_variable_from_name(name)
                 if "$cse" in name:
-                    map_var_name_2_addresses[name]= "auxiliaryVars"
+                    set_param_address(name,  "auxiliaryVars")
                 elif  is_ignored_var(name):
-                    map_var_name_2_addresses[name]= "SHOULD NOT BE USED - IGNORED VAR"
+                    set_param_address(name,  "SHOULD NOT BE USED - IGNORED VAR")
                 elif type == "derivativeVars" or "$DER" in name:
-                    map_var_name_2_addresses[name]= "derivativesVars"
-                    map_var_name_2_addresses[name.replace(alternative_way_to_declare_der,"der(")+")"]= map_var_name_2_addresses[name]
+                    set_param_address(name,  "derivativesVars")
+                    set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")",  to_param_address(name))
                 elif re.search(r'stateVars \([0-9]+\)',type) or re.search(r'algVars \([0-9]+\)',type):
                     if not var.is_fixed():
-                        map_var_name_2_addresses[name]= "realVars"
+                        set_param_address(name,  "realVars")
                     else:
-                        map_var_name_2_addresses[name]= "constVars"
+                        set_param_address(name,  "constVars")
                 elif type == "discreteAlgVars":
-                    map_var_name_2_addresses[name]= "discreteVars"
+                    set_param_address(name,  "discreteVars")
                 elif type == "constVars":
-                    map_var_name_2_addresses[name]= "SHOULD NOT BE USED - CONST VAR"
+                    set_param_address(name,  "SHOULD NOT BE USED - CONST VAR")
                 elif type == "intAlgVars":
-                    map_var_name_2_addresses[name]= "integerDoubleVars"
+                    set_param_address(name,  "integerDoubleVars")
                 elif type == "boolAlgVars":
                     if is_when_condition(name):
-                        map_var_name_2_addresses[name]= "booleanVars"
+                        set_param_address(name,  "booleanVars")
                     else:
-                        map_var_name_2_addresses[name]= "discreteVars"
+                        set_param_address(name,  "discreteVars")
                 elif type == "aliasVars":
                     # fixed discrete real vars are not aliased and are initialized in Y0
                     if is_discrete_real_var(var) and var.is_fixed():
-                        map_var_name_2_addresses[name]= "discreteVars"
+                        set_param_address(name,  "discreteVars")
                     # Aliased non-fixed vars should never be used in equations independently from their type
                     elif not var.is_fixed():
-                        map_var_name_2_addresses[name]= "SHOULD NOT BE USED - CONTINUOUS ALIAS VAR"
+                        set_param_address(name,  "SHOULD NOT BE USED - CONTINUOUS ALIAS VAR")
                     # fixed real vars goes into the const var mechanism (either replaced by their alias if they are in the form a = b, or initialized in Y0 if more complex)
                     else:
-                        map_var_name_2_addresses[name]= "constVars"
+                        set_param_address(name,  "constVars")
                 elif type == "intAliasVars":
                     if var.is_fixed():
-                        map_var_name_2_addresses[name]= "integerDoubleVars"
+                        set_param_address(name,  "integerDoubleVars")
                     else:
-                        map_var_name_2_addresses[name]= "SHOULD NOT BE USED - INT ALIAS VAR"
+                        set_param_address(name,  "SHOULD NOT BE USED - INT ALIAS VAR")
                 elif type == "boolAliasVars":
                     if var.is_fixed():
-                        map_var_name_2_addresses[name]= "discreteVars"
+                        set_param_address(name,  "discreteVars")
                     else:
-                        map_var_name_2_addresses[name]= "SHOULD NOT BE USED - BOOL ALIAS VAR"
+                        set_param_address(name,  "SHOULD NOT BE USED - BOOL ALIAS VAR")
                 elif type == "intConstVars":
-                    map_var_name_2_addresses[name]= "constVars"
+                    set_param_address(name,  "constVars")
                 elif type == "paramVars" or type == "boolParamVars":
-                    map_var_name_2_addresses[name]= "realParameter"
+                    set_param_address(name,  "realParameter")
                 elif type == "intParamVars":
-                    map_var_name_2_addresses[name]= "integerParameter"
+                    set_param_address(name,  "integerParameter")
                 elif type == "stringParamVars":
-                    map_var_name_2_addresses[name]= "stringParameter"
+                    set_param_address(name,  "stringParameter")
                 elif type == "extObjVars":
-                    map_var_name_2_addresses[name]= "data->simulationInfo->extObjs["+str(index_extobjs)+"]"
+                    set_param_address(name,  "data->simulationInfo->extObjs["+str(index_extobjs)+"]")
                     index_extobjs+=1
                     ext = Variable();
                     ext.set_name(name)
                     self.external_objects.append(ext)
                 test_param_address(name)
-        for var_name in map_var_name_2_addresses:
-            if map_var_name_2_addresses[var_name] == "constVars" and "der("+var_name+")" in map_var_name_2_addresses:
-                map_var_name_2_addresses[var_name] = "realVars"
+        for var_name in get_map_var_name_2_addresses():
+            if to_param_address(var_name) == "constVars" and has_param_address("der("+var_name+")"):
+                set_param_address(var_name, "realVars")
 
 
     ##
@@ -1254,39 +1254,39 @@ class ReaderOMC:
         for var in self.list_vars:
             name = var.get_name()
             test_param_address(name)
-            address = map_var_name_2_addresses[name]
+            address = to_param_address(name)
             if "auxiliaryVars" in address:
-                map_var_name_2_addresses[name]= "data->simulationInfo->daeModeData->auxiliaryVars["+str(index_aux_var)+"]"
+                set_param_address(name, "data->simulationInfo->daeModeData->auxiliaryVars["+str(index_aux_var)+"]")
                 index_aux_var+=1
-                self.auxiliary_vars_to_address_map[name.replace("$cse","cse")] = map_var_name_2_addresses[name]
+                self.auxiliary_vars_to_address_map[name.replace("$cse","cse")] = to_param_address(name)
                 self.auxiliary_vars_counted_as_variables.append(name)
             elif "realVars" in address:
-                map_var_name_2_addresses[name]= "data->localData[0]->realVars["+str(index_real_var)+"]"
+                set_param_address(name, "data->localData[0]->realVars["+str(index_real_var)+"]")
                 index_real_var+=1
                 if var.is_fixed():
                     var.set_fixed(False)
             elif "discreteVars" in address:
-                map_var_name_2_addresses[name]= "data->localData[0]->discreteVars["+str(index_discrete_var)+"]"
+                set_param_address(name, "data->localData[0]->discreteVars["+str(index_discrete_var)+"]")
                 index_discrete_var+=1
             elif "derivativesVars" in address:
-                map_var_name_2_addresses[name]= "data->localData[0]->derivativesVars["+str(index_derivative_var)+"]"
-                map_var_name_2_addresses[name.replace(alternative_way_to_declare_der,"der(")+")"]= map_var_name_2_addresses[name]
-                map_var_name_2_addresses[name.replace("der(",alternative_way_to_declare_der)[:-1]]= map_var_name_2_addresses[name]
+                set_param_address(name, "data->localData[0]->derivativesVars["+str(index_derivative_var)+"]")
+                set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")", to_param_address(name))
+                set_param_address(name.replace("der(",alternative_way_to_declare_der)[:-1], to_param_address(name))
                 index_derivative_var+=1
             elif "integerDoubleVars" in address:
-                map_var_name_2_addresses[name]= "data->localData[0]->integerDoubleVars["+str(index_integer_double)+"]"
+                set_param_address(name, "data->localData[0]->integerDoubleVars["+str(index_integer_double)+"]")
                 index_integer_double+=1
             elif "booleanVars" in address:
-                map_var_name_2_addresses[name]= "data->localData[0]->booleanVars["+str(index_boolean_vars)+"]"
+                set_param_address(name, "data->localData[0]->booleanVars["+str(index_boolean_vars)+"]")
                 index_boolean_vars+=1
             elif "realParameter" in address:
-                map_var_name_2_addresses[name]= "data->simulationInfo->realParameter["+str(index_real_param)+"]"
+                set_param_address(name, "data->simulationInfo->realParameter["+str(index_real_param)+"]")
                 index_real_param+=1
             elif "integerParameter" in address:
-                map_var_name_2_addresses[name]= "data->simulationInfo->integerParameter["+str(index_integer_param)+"]"
+                set_param_address(name, "data->simulationInfo->integerParameter["+str(index_integer_param)+"]")
                 index_integer_param+=1
             elif "stringParameter" in address:
-                map_var_name_2_addresses[name]= "data->simulationInfo->stringParameter["+str(index_string_param)+"]"
+                set_param_address(name, "data->simulationInfo->stringParameter["+str(index_string_param)+"]")
                 index_string_param+=1
 
         self.nb_real_vars = index_real_var
@@ -1306,8 +1306,8 @@ class ReaderOMC:
         discr_vars = []
         for var in self.list_vars:
             name = var.get_name()
-            if name not in map_var_name_2_addresses : continue
-            address = map_var_name_2_addresses[name]
+            if not has_param_address(name) : continue
+            address = to_param_address(name)
             if "discreteVars" in address or "integerDoubleVars" in address or "booleanVars" in address:
                 discr_vars.append(name)
         return discr_vars
@@ -1323,8 +1323,8 @@ class ReaderOMC:
         continous_vars = []
         for var in self.list_vars:
             name = var.get_name()
-            if name not in map_var_name_2_addresses : continue
-            address = map_var_name_2_addresses[name]
+            if not has_param_address(name) : continue
+            address = to_param_address(name)
             if "realVars" in address or "derivativeVars" in address:
                 continous_vars.append(name)
         return continous_vars
@@ -1458,7 +1458,7 @@ class ReaderOMC:
                 self.list_complex_calculated_vars[var] = f
                 function_to_remove.append(f)
                 print_info("Variable " + var_name + " is set as a calculated variable of level 1.")
-                map_var_name_2_addresses[var_name]= "SHOULD NOT BE USED - CALCULATED VAR"
+                set_param_address(var_name, "SHOULD NOT BE USED - CALCULATED VAR")
         for f in function_to_remove:
             self.list_func_16dae_c.remove(f)
         was_modif = True
@@ -1478,7 +1478,7 @@ class ReaderOMC:
                     self.list_complex_calculated_vars[var] = f
                     function_to_remove.append(f)
                     print_info("Variable " + var_name + " is set as a calculated variable of level " + str(idx) +".")
-                    map_var_name_2_addresses[var_name]= "SHOULD NOT BE USED - CALCULATED VAR"
+                    set_param_address(var_name, "SHOULD NOT BE USED - CALCULATED VAR")
                     was_modif = True
             idx+=1
 
@@ -1491,10 +1491,10 @@ class ReaderOMC:
         for var in self.list_vars:
             test_param_address(var.get_name())
             if "constVars" in to_param_address(var.get_name()):
-                map_var_name_2_addresses[var.get_name()] = self.find_constant_value_of(var)
+                set_param_address(var.get_name(), self.find_constant_value_of(var))
                 # We keep a specific structure for const real variables that have a complex initialization to avoid always recalculating it
                 if to_param_address(var.get_name()) == None:
-                    map_var_name_2_addresses[var.get_name()] = "data->constCalcVars["+str(len(self.list_complex_const_vars))+"]"
+                    set_param_address(var.get_name(), "data->constCalcVars["+str(len(self.list_complex_const_vars))+"]")
                     self.list_complex_const_vars.append(var)
 
         ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')

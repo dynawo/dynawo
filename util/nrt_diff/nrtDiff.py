@@ -969,7 +969,16 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             if (nb_differences > 0):
                 return_value = DIFFERENT
                 message = str(nb_differences) + " different initial values"
-
+            else:
+                return_value = IDENTICAL
+        elif file_name.startswith("outputIIDM") and file_extension == ".xml":
+            (nb_differences, msg) = OutputIIDMCloseEnough (path_left, path_right)
+            dir = os.path.abspath(os.path.join(path_left, os.pardir))
+            parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
+            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            if (nb_differences > 0):
+                return_value = DIFFERENT
+                message = str(nb_differences) + " different output values\n" + msg
             else:
                 return_value = IDENTICAL
         else:
@@ -1209,6 +1218,116 @@ def DTWDistance(left, right) :
             DTW[i][j] = cost + min(min(DTW[i-1][j],DTW[i][j-1]), DTW[i-1][j-1])
 
     return DTW[n][m]
+
+# Utility class to compare IIDM files
+class IIDMobject:
+    def __init__(self,ID):
+        self.id=ID
+        self.type=""
+        self.values = {}
+
+# Utility method to compare IIDM files
+def set_values(element,what,IIDMobject):
+    if element.hasAttribute(what):
+        IIDMobject.values[what] = element.getAttribute(what)
+
+# Read a IIDM file name and build a dictionary object id => values
+# Only values that can be changed by dynawo are taken into account
+def getOutputIIDMInfo(filename):
+    IIDM_objects_byID = {}
+    iidm_root = ImportXMLFile(filename)
+    for voltageLevel in iidm_root.getElementsByTagName("voltageLevel"):
+        for child in voltageLevel.getElementsByTagName("*"):
+            if child.hasAttribute('id'):
+                myId=child.getAttribute('id')
+                myObject = IIDMobject(myId)
+                myObject.type = child._get_tagName()
+                if myObject.type == 'bus':
+                    set_values(child,'v',myObject)
+                    set_values(child,'angle',myObject)
+                elif myObject.type == 'generator' or myObject.type == 'load':
+                    set_values(child,'p',myObject)
+                    set_values(child,'q',myObject)
+                    set_values(child,'bus',myObject)
+                elif myObject.type == 'switch':
+                    set_values(child,'open',myObject)
+                elif myObject.type == 'line':
+                    set_values(child,'p1',myObject)
+                    set_values(child,'q1',myObject)
+                    set_values(child,'p2',myObject)
+                    set_values(child,'q2',myObject)
+                    set_values(child,'bus1',myObject)
+                    set_values(child,'bus2',myObject)
+                elif myObject.type == 'danglineLine':
+                    set_values(child,'p',myObject)
+                    set_values(child,'q',myObject)
+                    set_values(child,'bus',myObject)
+                elif myObject.type == 'twoWindingsTransformer':
+                    set_values(child,'p1',myObject)
+                    set_values(child,'q1',myObject)
+                    set_values(child,'p2',myObject)
+                    set_values(child,'q2',myObject)
+                    set_values(child,'bus1',myObject)
+                    set_values(child,'bus2',myObject)
+                elif myObject.type == 'ratioTapChanger' or  myObject.type == 'phaseTapChanger':
+                    set_values(child,'tapPosition',myObject)
+                elif myObject.type == 'vscConverterStation'or  myObject.type == 'lccConverterStation':
+                    set_values(child,'p',myObject)
+                    set_values(child,'q',myObject)
+                    set_values(child,'bus',myObject)
+                elif myObject.type == 'shunt':
+                    set_values(child,'currentSectionCount',myObject)
+                    set_values(child,'bus',myObject)
+                    set_values(child,'q',myObject)
+                elif myObject.type == 'staticVarCompensator':
+                    set_values(child,'p',myObject)
+                    set_values(child,'bus',myObject)
+                    set_values(child,'q',myObject)
+                    set_values(child,'regulationMode',myObject)
+                IIDM_objects_byID[myId] = myObject
+    return IIDM_objects_byID
+
+# Check whether two output IIDM values files are close enough
+# @param path_left : the absolute path to the left-side file
+# @param path_right : the absolute path to the right-side file
+def OutputIIDMCloseEnough (path_left, path_right):
+    left_file_info = getOutputIIDMInfo(path_left)
+    right_file_info = getOutputIIDMInfo(path_right)
+    nb_differences = 0
+    msg = ""
+
+    for firstId in left_file_info:
+        if firstId not in right_file_info:
+            nb_differences+=1
+            msg += "[ERROR] object " + firstId + " is in left path but not in right one\n"
+    for firstId in right_file_info:
+        if firstId not in left_file_info:
+            nb_differences+=1
+            msg += "[ERROR] object " + firstId + " is in right path but not in left one\n"
+    for firstId in left_file_info:
+        firstObj = left_file_info[firstId]
+        if firstId in right_file_info:
+            secondObj = right_file_info[firstId]
+            for attr1 in firstObj.values:
+                if attr1 not in secondObj.values:
+                    nb_differences+=1
+                    msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " is not in the equivalent object on right side\n"
+                else:
+                    try:
+                        if (abs(float(firstObj.values[attr1])- float(secondObj.values[attr1])) > settings.max_iidm_cmp_tol):
+                            nb_differences+=1
+                            msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " has another value on right side (value: " + secondObj.values[attr1] + ")\n"
+                    except ValueError:
+                        if (firstObj.values[attr1] != secondObj.values[attr1]):
+                            nb_differences+=1
+                            msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " has another value on right side (value: " + secondObj.values[attr1] + ")\n"
+
+            for attr1 in secondObj.values:
+                if attr1 not in firstObj.values:
+                    nb_differences+=1
+                    msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + secondObj.values[attr1] + " is not in the equivalent object on left side\n"
+    return (nb_differences, msg)
+
 
 # Check whether two initial values files are close enough
 # @param path_left : the absolute path to the left-side file
