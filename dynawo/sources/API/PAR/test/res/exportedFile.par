@@ -20,7 +20,7 @@
     <par name="string" type="STRING" value="mode"/>
     <par name="tb" type="DOUBLE" value="30"/>
     <par name="tc" type="DOUBLE" value="40"/>
-    <reference type="DOUBLE" name="M" origData="IIDM" origName="m"/>
+    <reference type="DOUBLE" name="M" origData="IIDM" origName="m" componentId="compId"/>
     <reference type="DOUBLE" name="N" origData="IIDM" origName="n"/>
     <reference type="DOUBLE" name="O" origData="IIDM" origName="o"/>
   </set>
