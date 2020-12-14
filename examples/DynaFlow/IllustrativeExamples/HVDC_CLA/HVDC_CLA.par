@@ -51,6 +51,7 @@
     <par type="DOUBLE" name="hvdc_Q2MinPu" value="-100"/>
     <par type="DOUBLE" name="hvdc_Q2MaxPu" value="100"/>
     <par type="DOUBLE" name="hvdc_KLosses" value="1"/>
+    <par type="DOUBLE" name="hvdc_PMaxPu" value="10000"/>
     <par type="BOOL" name="hvdc_modeU10" value="true"/>
     <par type="BOOL" name="hvdc_modeU20" value="true"/>
     <par type="DOUBLE" name="acemulation_KACEmulation" value="500"/>
