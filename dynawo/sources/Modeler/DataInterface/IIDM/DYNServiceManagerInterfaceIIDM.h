@@ -35,7 +35,7 @@ class ServiceManagerInterfaceIIDM : public ServiceManagerInterface {
   /**
    * @copydoc ServiceManagerInterface::getBusesConnectedBySwitch
    */
-  virtual std::vector<std::string> getBusesConnectedBySwitch(const std::string& busId, const std::string& VLId);
+  virtual std::vector<std::string> getBusesConnectedBySwitch(const std::string& busId, const std::string& VLId) const;
 };
 }  // namespace DYN
 
