@@ -305,8 +305,8 @@ SolverKINAlgRestoration::solve(bool noInitSetup, bool evaluateOnlyModeAtFirstIte
   // yScale
   yScale_.assign(indexY_.size(), 1.0);
   for (unsigned int i = 0; i < indexY_.size(); ++i) {
-    if (std::abs(vYy_[indexY_[i]]) > RCONST(1.0)) {
-      yScale_[i] = 1. / std::abs(vYy_[indexY_[i]]);
+    if (std::abs(vYy_[i]) > RCONST(1.0)) {
+      yScale_[i] = 1. / std::abs(vYy_[i]);
     }
   }
 
