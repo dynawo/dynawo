@@ -155,7 +155,7 @@ TEST(ModelsModelSignalN, ModelSignalNTypeMethods) {
 
   std::vector<ParameterModeler> parameters;
   modelSignalN2->defineParameters(parameters);
-  boost::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbGen", 2);
   modelSignalN2->setPARParameters(parametersSet);
   modelSignalN2->addParameters(parameters, false);
@@ -209,8 +209,7 @@ TEST(ModelsModelSignalN, ModelSignalNContinuousAndDiscreteMethods) {
   for (size_t i = 0; i < modelSignalN->sizeZ(); ++i)
     zConnected[i] = true;
   modelSignalN->setBufferZ(&z[0], zConnected, 0);
-  bool* silentZ = new bool[modelSignalN->sizeZ()];
-  std::fill_n(silentZ, modelSignalN->sizeZ(), false);
+  BitMask* silentZ = new BitMask[modelSignalN->sizeZ()];
   z[2] = 1;
   z[3] = 1;
   std::vector<double> f(modelSignalN->sizeF(), 0);
@@ -221,7 +220,7 @@ TEST(ModelsModelSignalN, ModelSignalNContinuousAndDiscreteMethods) {
   ASSERT_NO_THROW(modelSignalN->evalG(0.));
   modelSignalN->collectSilentZ(silentZ);
   for (size_t i = 0; i < modelSignalN->sizeZ(); ++i)
-    ASSERT_TRUE(silentZ[i]);
+    ASSERT_TRUE(silentZ[i].getFlags(NotUsedInDiscreteEquations));
 
   modelSignalN->evalF(0, UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);

@@ -225,8 +225,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   for (size_t i = 0; i < modelVariationArea->sizeZ(); ++i)
     zConnected[i] = true;
   modelVariationArea->setBufferZ(&z[0], zConnected, 0);
-  bool* silentZ = new bool[modelVariationArea->sizeZ()];
-  std::fill_n(silentZ, modelVariationArea->sizeZ(), false);
+  BitMask* silentZ = new BitMask[modelVariationArea->sizeZ()];
   std::vector<state_g> g(modelVariationArea->sizeG(), ROOT_DOWN);
   modelVariationArea->setBufferG(&g[0], 0);
   std::vector<double> f(modelVariationArea->sizeF(), 0);
@@ -246,9 +245,9 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   modelVariationArea->collectSilentZ(silentZ);
   for (size_t i = 0; i < modelVariationArea->sizeZ(); ++i) {
     if (i == 0)
-      ASSERT_TRUE(silentZ[i]);
+      ASSERT_TRUE(silentZ[i].getFlags(NotUsedInDiscreteEquations));
     else
-      ASSERT_FALSE(silentZ[i]);
+      ASSERT_FALSE(silentZ[i].getFlags(NotUsedInDiscreteEquations));
   }
 
   modelVariationArea->evalF(0, UNDEFINED_EQ);
