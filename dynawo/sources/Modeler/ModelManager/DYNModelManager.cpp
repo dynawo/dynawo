@@ -1166,7 +1166,7 @@ ModelManager::setInitialCalculatedParameters() {
     if (hasParameterDynamic(parName)) {
       const ParameterModeler& parameter = findParameterDynamic(parName);
       if (!parameter.isFullyInternal()) {
-        setCalculatedParameter(parName, simulationInfo()->booleanParameter[i]);
+        setCalculatedParameter(parName, simulationInfo()->booleanParameter[i] > 0);
       }
     }
   }
@@ -1188,7 +1188,7 @@ ModelManager::setInitialCalculatedParameters() {
     if (hasParameterDynamic(parName)) {
       const ParameterModeler& parameter = findParameterDynamic(parName);
       if (!parameter.isFullyInternal()) {
-        setCalculatedParameter(parName, simulationInfo()->stringParameter[i]);
+        setCalculatedParameter(parName, std::string(simulationInfo()->stringParameter[i]));
       }
     }
   }
