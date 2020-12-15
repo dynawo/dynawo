@@ -200,7 +200,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
 
   std::vector<ParameterModeler> parameters;
   modelOmegaRef2->defineParameters(parameters);
-  boost::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("Parameterset");
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbGen", 11);
   parametersSet->createParameter("weight_gen_0", 2.);
   parametersSet->createParameter("weight_gen_1", 2.);
@@ -271,8 +271,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   modelOmegaRef->setBufferY(&y[0], &yp[0], 0.);
   std::vector<double> z(modelOmegaRef->sizeZ(), 0);
   bool* zConnected = new bool[modelOmegaRef->sizeZ()];
-  bool* silentZ = new bool[modelOmegaRef->sizeZ()];
-  std::fill_n(silentZ, modelOmegaRef->sizeZ(), false);
+  BitMask* silentZ = new BitMask[modelOmegaRef->sizeZ()];
   for (size_t i = 0; i < modelOmegaRef->sizeZ(); ++i)
     zConnected[i] = true;
   modelOmegaRef->setBufferZ(&z[0], zConnected, 0);
@@ -286,7 +285,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_NO_THROW(modelOmegaRef->evalG(0.));
   modelOmegaRef->collectSilentZ(silentZ);
   for (size_t i = 0; i < modelOmegaRef->sizeZ(); ++i)
-    ASSERT_TRUE(silentZ[i]);
+    ASSERT_TRUE(silentZ[i].getFlags(NotUsedInDiscreteEquations));
 
   modelOmegaRef->evalF(0, UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
