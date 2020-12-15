@@ -61,7 +61,7 @@ namespace keywords = boost::log::keywords;
 
 namespace DYN {
 
-vector< boost::shared_ptr<Trace::TextSink> > Trace::originalSinks;
+static vector< boost::shared_ptr<Trace::TextSink> > originalSinks;
 boost::unordered_map<boost::log::attributes::current_thread_id::value_type, Trace::TraceSinks, Trace::Hasher> Trace::sinks_;
 boost::mutex Trace::mutex_;
 
