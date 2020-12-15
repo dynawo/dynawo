@@ -46,7 +46,7 @@ struct ServiceManagerInterface {
    * @param VLId the id of the voltage level containing @p busId
    * @returns the list of the bus ids linked to @p busId
    */
-  virtual std::vector<std::string> getBusesConnectedBySwitch(const std::string& busId, const std::string& VLId) = 0;
+  virtual std::vector<std::string> getBusesConnectedBySwitch(const std::string& busId, const std::string& VLId) const = 0;
 };
 }  // namespace DYN
 

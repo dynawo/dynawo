@@ -22,7 +22,7 @@
 
 namespace DYN {
 std::vector<std::string>
-ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string&, const std::string&) {
+ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string&, const std::string&) const {
   // IIDM 1.0 doesn't support buses connected by switches so we always return an empty array
   return std::vector<std::string>();
 }

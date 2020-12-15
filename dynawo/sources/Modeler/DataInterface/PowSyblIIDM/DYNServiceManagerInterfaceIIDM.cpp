@@ -26,13 +26,12 @@
 
 namespace DYN {
 
-ServiceManagerInterfaceIIDM::ServiceManagerInterfaceIIDM(const DataInterfaceIIDM* const dataInterface) : dataInterface_(dataInterface), graphs_{} {}
+ServiceManagerInterfaceIIDM::ServiceManagerInterfaceIIDM(const DataInterfaceIIDM* const dataInterface) : dataInterface_(dataInterface) {}
 
 void
-ServiceManagerInterfaceIIDM::buildGraph(const boost::shared_ptr<VoltageLevelInterface>& vl) {
+ServiceManagerInterfaceIIDM::buildGraph(Graph& graph, const boost::shared_ptr<VoltageLevelInterface>& vl) {
   std::unordered_map<std::string, size_t> indexes;
 
-  auto& graph = graphs_[vl->getID()];
   const auto& buses = vl->getBuses();
 
   for (auto it = buses.begin(); it != buses.end(); ++it) {
@@ -51,7 +50,7 @@ ServiceManagerInterfaceIIDM::buildGraph(const boost::shared_ptr<VoltageLevelInte
 }
 
 std::vector<std::string>
-ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId, const std::string& VLId) {
+ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId, const std::string& VLId) const {
   const auto& levels = dataInterface_->getNetwork()->getVoltageLevels();
   auto vlIt = std::find_if(levels.begin(), levels.end(), [&VLId](const boost::shared_ptr<DYN::VoltageLevelInterface>& vl) { return vl->getID() == VLId; });
   if (vlIt == levels.end()) {
@@ -70,9 +69,8 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
     throw DYNError(Error::MODELER, UnknownBus, busId);
   }
 
-  if (graphs_.count((*vlIt)->getID()) == 0) {
-    buildGraph(*vlIt);
-  }
+  Graph graph;
+  buildGraph(graph, *vlIt);
 
   // Change weight of edges
   boost::unordered_map<std::string, float> weights;
@@ -87,7 +85,7 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
     if (busIndex == busIndexFound) {
       continue;
     }
-    if (graphs_.at((*vlIt)->getID()).pathExist(busIndexFound, busIndex, weights)) {
+    if (graph.pathExist(busIndexFound, busIndex, weights)) {
       ret.push_back(buses.at(busIndex)->getID());
     }
   }

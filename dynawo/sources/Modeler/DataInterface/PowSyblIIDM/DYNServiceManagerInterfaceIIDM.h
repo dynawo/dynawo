@@ -47,7 +47,7 @@ class ServiceManagerInterfaceIIDM : public ServiceManagerInterface {
   /**
    * @copydoc ServiceManagerInterface::getBusesConnectedBySwitch
    */
-  virtual std::vector<std::string> getBusesConnectedBySwitch(const std::string& busId, const std::string& VLId);
+  std::vector<std::string> getBusesConnectedBySwitch(const std::string& busId, const std::string& VLId) const final;
 
  private:
   /**
@@ -55,11 +55,10 @@ class ServiceManagerInterfaceIIDM : public ServiceManagerInterface {
    *
    * @param vl the voltage level to process
    */
-  void buildGraph(const boost::shared_ptr<VoltageLevelInterface>& vl);
+  static void buildGraph(Graph& graph, const boost::shared_ptr<VoltageLevelInterface>& vl);
 
  private:
-  const DataInterfaceIIDM* const dataInterface_;   ///< data interface
-  std::unordered_map<std::string, Graph> graphs_;  ///< map of local switches topology, by voltage level
+  const DataInterfaceIIDM* const dataInterface_;  ///< data interface
 };
 }  // namespace DYN
 
