@@ -100,6 +100,10 @@ Trace& Trace::instance() {
 }
 
 void Trace::init() {
+  instance().init_();
+}
+
+void Trace::init_() {
   // Setup the formatters for the sinks
   logging::formatter onlyMsg = expr::stream << expr::smessage;
 
@@ -117,7 +121,7 @@ void Trace::init() {
 
   // Register the sink in the logging core
   logging::core::get()->add_sink(sink);
-  instance().originalSinks_.push_back(sink);
+  originalSinks_.push_back(sink);
 
   logging::add_common_attributes();
 }
@@ -126,7 +130,11 @@ void Trace::disableLogging() {
   logging::core::get()->set_logging_enabled(false);
 }
 
-void Trace::addAppenders(std::vector<TraceAppender> & appenders) {
+void Trace::addAppenders(const std::vector<TraceAppender>& appenders) {
+  instance().addAppenders_(appenders);
+}
+
+void Trace::addAppenders_(const std::vector<TraceAppender>& appenders) {
   // remove old appenders (console_log)
   Trace::resetCustomAppenders();
 
@@ -173,28 +181,32 @@ void Trace::addAppenders(std::vector<TraceAppender> & appenders) {
   }
 
   {
-    boost::lock_guard<boost::mutex> lock(instance().mutex_);
-    instance().sinks_.insert_or_assign(currentId, traceSink);
+    boost::lock_guard<boost::mutex> lock(mutex_);
+    sinks_.insert_or_assign(currentId, traceSink);
   }
 
   logging::add_common_attributes();
 }
 
 void Trace::resetCustomAppenders() {
-  boost::lock_guard<boost::mutex> lock(instance().mutex_);
+  instance().resetCustomAppenders_();
+}
+
+void Trace::resetCustomAppenders_() {
+  boost::lock_guard<boost::mutex> lock(mutex_);
 
   vector< boost::shared_ptr<TextSink> >::iterator itOSinks;
-  for (itOSinks = instance().originalSinks_.begin(); itOSinks != instance().originalSinks_.end(); ++itOSinks) {
+  for (itOSinks = originalSinks_.begin(); itOSinks != originalSinks_.end(); ++itOSinks) {
     logging::core::get()->remove_sink(*itOSinks);
   }
-  instance().originalSinks_.clear();
+  originalSinks_.clear();
 
   logging::attributes::current_thread_id::value_type currentId =
     logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
-  if (instance().sinks_.find(currentId) == instance().sinks_.end()) {
+  if (sinks_.find(currentId) == sinks_.end()) {
     return;
   }
-  TraceSinks& traceSink = instance().sinks_.at(currentId);
+  TraceSinks& traceSink = sinks_.at(currentId);
   for (vector< boost::shared_ptr<FileSink> >::const_iterator itSinks = traceSink.sinks.begin(); itSinks != traceSink.sinks.end(); ++itSinks) {
     logging::core::get()->remove_sink(*itSinks);
   }
@@ -252,6 +264,10 @@ Trace::modeler() {
 }
 
 void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& message) {
+  instance().log_(slv, tag, message);
+}
+
+void Trace::log_(SeverityLevel slv, const std::string& tag, const std::string& message) {
   src::severity_logger< SeverityLevel > slg;
   logging::attributes::current_thread_id current;
 
@@ -265,6 +281,11 @@ void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& me
 
 bool
 Trace::logExists(const std::string& tag, SeverityLevel slv) {
+  return instance().logExists_(tag, slv);
+}
+
+bool
+Trace::logExists_(const std::string& tag, SeverityLevel slv) {
   boost::log::attribute_value_set set;
   logging::attributes::current_thread_id::value_type current_id =
     logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
@@ -272,10 +293,10 @@ Trace::logExists(const std::string& tag, SeverityLevel slv) {
   if (tag != "")
     set.insert("Tag",  attrs::make_attribute_value(tag));
   set.insert("Thread", attrs::make_attribute_value(current_id));
-  if (instance().sinks_.find(current_id) == instance().sinks_.end()) {
+  if (sinks_.find(current_id) == sinks_.end()) {
     return false;
   }
-  const TraceSinks& traceSinks = instance().sinks_.at(current_id);
+  const TraceSinks& traceSinks = sinks_.at(current_id);
   for (vector< boost::shared_ptr<FileSink> >::const_iterator itSinks = traceSinks.sinks.begin(); itSinks != traceSinks.sinks.end(); ++itSinks) {
     if ((*itSinks)->will_consume(set))
       return true;
