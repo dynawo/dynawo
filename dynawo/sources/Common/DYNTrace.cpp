@@ -62,8 +62,6 @@ namespace keywords = boost::log::keywords;
 namespace DYN {
 
 static vector< boost::shared_ptr<Trace::TextSink> > originalSinks;
-boost::unordered_map<boost::log::attributes::current_thread_id::value_type, Trace::TraceSinks, Trace::Hasher> Trace::sinks_;
-boost::mutex Trace::mutex_;
 
 #if _DEBUG_
 const SeverityLevel Trace::defaultLevel_ = DEBUG;
@@ -94,6 +92,13 @@ BOOST_LOG_ATTRIBUTE_KEYWORD(thread_attr, "Thread", logging::attributes::current_
 
 TraceStream& Trace::endline(TraceStream& os) {
   return eol(os);
+}
+
+Trace::Trace() {}
+
+Trace& Trace::instance() {
+  static Trace instance;
+  return instance;
 }
 
 void Trace::init() {
@@ -173,22 +178,22 @@ void Trace::addAppenders(const std::vector<TraceAppender>& appenders) {
   }
 
   {
-    boost::lock_guard<boost::mutex> lock(mutex_);
-    sinks_.insert_or_assign(currentId, traceSink);
+    boost::lock_guard<boost::mutex> lock(instance().mutex_);
+    instance().sinks_.insert_or_assign(currentId, traceSink);
   }
 
   logging::add_common_attributes();
 }
 
 void Trace::resetPersistantCustomAppenders() {
-  boost::lock_guard<boost::mutex> lock(mutex_);
+  boost::lock_guard<boost::mutex> lock(instance().mutex_);
 
   logging::attributes::current_thread_id::value_type currentId =
     logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
-  if (sinks_.find(currentId) == sinks_.end()) {
+  if (instance().sinks_.find(currentId) == instance().sinks_.end()) {
     return;
   }
-  TraceSinks& traceSink = sinks_.at(currentId);
+  TraceSinks& traceSink = instance().sinks_.at(currentId);
   for (vector< boost::shared_ptr<FileSink> >::const_iterator itSinks = traceSink.persistantSinks.begin();
     itSinks != traceSink.persistantSinks.end(); ++itSinks) {
     logging::core::get()->remove_sink(*itSinks);
@@ -197,7 +202,7 @@ void Trace::resetPersistantCustomAppenders() {
 }
 
 void Trace::resetCustomAppenders() {
-  boost::lock_guard<boost::mutex> lock(mutex_);
+  boost::lock_guard<boost::mutex> lock(instance().mutex_);
 
   vector< boost::shared_ptr<TextSink> >::iterator itOSinks;
   for (itOSinks = originalSinks.begin(); itOSinks != originalSinks.end(); ++itOSinks) {
@@ -207,10 +212,10 @@ void Trace::resetCustomAppenders() {
 
   logging::attributes::current_thread_id::value_type currentId =
     logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
-  if (sinks_.find(currentId) == sinks_.end()) {
+  if (instance().sinks_.find(currentId) == instance().sinks_.end()) {
     return;
   }
-  TraceSinks& traceSink = sinks_.at(currentId);
+  TraceSinks& traceSink = instance().sinks_.at(currentId);
   for (vector< boost::shared_ptr<FileSink> >::const_iterator itSinks = traceSink.sinks.begin(); itSinks != traceSink.sinks.end(); ++itSinks) {
     logging::core::get()->remove_sink(*itSinks);
   }
@@ -288,10 +293,10 @@ Trace::logExists(const std::string& tag, SeverityLevel slv) {
   if (tag != "")
     set.insert("Tag",  attrs::make_attribute_value(tag));
   set.insert("Thread", attrs::make_attribute_value(current_id));
-  if (sinks_.find(current_id) == sinks_.end()) {
+  if (instance().sinks_.find(current_id) == instance().sinks_.end()) {
     return false;
   }
-  const TraceSinks& traceSinks = sinks_.at(current_id);
+  const TraceSinks& traceSinks = instance().sinks_.at(current_id);
   for (vector< boost::shared_ptr<FileSink> >::const_iterator itSinks = traceSinks.sinks.begin(); itSinks != traceSinks.sinks.end(); ++itSinks) {
     if ((*itSinks)->will_consume(set))
       return true;
