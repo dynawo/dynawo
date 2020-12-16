@@ -378,6 +378,18 @@ class Trace {
   static const SeverityLevel defaultLevel_;  ///< Default log level for standard output
 
  private:
+ /**
+  * @brief Retrieves static instance
+  *
+  * @returns static instance
+  */
+  static Trace& instance();
+
+  /**
+   * @brief Constructor
+   */
+  Trace();
+
   /**
    * @brief Add a log to logging core.
    *
@@ -389,13 +401,13 @@ class Trace {
    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
    * @param message : Message to log.
    */
-  static void log(SeverityLevel slv, const std::string& tag, const std::string& message);
+  void log(SeverityLevel slv, const std::string& tag, const std::string& message);
 
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
 
  private:
-  static boost::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
-  static boost::mutex mutex_;  ///< mutex to synchronize logs at init
+  boost::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
+  boost::mutex mutex_;  ///< mutex to synchronize logs at init
 };
 
 }  // namespace DYN
