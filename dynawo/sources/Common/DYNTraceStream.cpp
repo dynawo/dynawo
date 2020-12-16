@@ -67,7 +67,7 @@ TraceStream::operator<<(const char* t) {
 void
 TraceStream::flush() {
   if (buffer_) {
-    Trace::instance().log(slv_, tag_, buffer_->str());
+    Trace::log(slv_, tag_, buffer_->str());
     buffer_->str(std::string());
   }
 }
