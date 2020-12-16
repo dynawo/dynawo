@@ -53,6 +53,7 @@ class ServiceManagerInterfaceIIDM : public ServiceManagerInterface {
   /**
    * @brief Build graph associated with a voltage level
    *
+   * @param graph Graph to update
    * @param vl the voltage level to process
    */
   static void buildGraph(Graph& graph, const boost::shared_ptr<VoltageLevelInterface>& vl);
