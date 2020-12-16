@@ -407,6 +407,7 @@ class Trace {
 
  private:
   boost::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
+  std::vector< boost::shared_ptr<Trace::TextSink> > originalSinks_;  ///< Original sinks
   boost::mutex mutex_;  ///< mutex to synchronize logs at init
 };
 
