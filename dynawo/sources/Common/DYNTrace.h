@@ -444,7 +444,6 @@ class Trace {
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
 
  private:
-  static std::vector< boost::shared_ptr<TextSink> > originalSinks;  ///< vector of text sink
   static boost::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
   static boost::mutex mutex_;  ///< mutex to synchronize logs at init
 };
