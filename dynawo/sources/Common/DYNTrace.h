@@ -436,11 +436,6 @@ class Trace {
   static Trace& instance();
 
   /**
-   * @brief Constructor
-   */
-  Trace();
-
-  /**
    * @brief Add a log to logging core.
    *
    * Add a message of given severity level with a given tag to the logging core.
@@ -451,7 +446,64 @@ class Trace {
    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
    * @param message : Message to log.
    */
-  void log(SeverityLevel slv, const std::string& tag, const std::string& message);
+  static void log(SeverityLevel slv, const std::string& tag, const std::string& message);
+
+  /**
+   * @brief Constructor
+   */
+  Trace();
+
+  /**
+   * @brief Init function.
+   *
+   * Implementation of static function
+   */
+  void init_();
+
+    /**
+   * @brief Add custom appenders to trace system
+   *
+   * Implementation of static function
+   *
+   * @param[in] appenders: Appenders to add
+   */
+  void addAppenders_(const std::vector<TraceAppender>& appenders);
+
+  /**
+   * @brief Reset non-persistant custom appenders of trace system
+   *
+   * Implementation of static function
+   */
+  void resetCustomAppenders_();
+
+  /**
+   * @brief Reset persistant custom appenders of trace system
+   *
+   * Implementation of static function
+   */
+  void resetPersistantCustomAppenders_();
+
+  /**
+   * @brief test if a log exists
+   *
+   * Implementation of static function
+   *
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @param slv : Severity level.
+   * @return true if this log with this level exists
+   */
+  bool logExists_(const std::string& tag, SeverityLevel slv);
+
+  /**
+   * @brief Add a log to logging core.
+   *
+   * Implementation of static function
+   *
+   * @param slv : Severity level of the log.
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @param message : Message to log.
+   */
+  void log_(SeverityLevel slv, const std::string& tag, const std::string& message);
 
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
 
