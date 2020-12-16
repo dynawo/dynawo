@@ -61,8 +61,6 @@ namespace keywords = boost::log::keywords;
 
 namespace DYN {
 
-static vector< boost::shared_ptr<Trace::TextSink> > originalSinks;
-
 #if _DEBUG_
 const SeverityLevel Trace::defaultLevel_ = DEBUG;
 #else
@@ -119,7 +117,7 @@ void Trace::init() {
 
   // Register the sink in the logging core
   logging::core::get()->add_sink(sink);
-  originalSinks.push_back(sink);
+  instance().originalSinks_.push_back(sink);
 
   logging::add_common_attributes();
 }
@@ -186,10 +184,10 @@ void Trace::resetCustomAppenders() {
   boost::lock_guard<boost::mutex> lock(instance().mutex_);
 
   vector< boost::shared_ptr<TextSink> >::iterator itOSinks;
-  for (itOSinks = originalSinks.begin(); itOSinks != originalSinks.end(); ++itOSinks) {
+  for (itOSinks = instance().originalSinks_.begin(); itOSinks != instance().originalSinks_.end(); ++itOSinks) {
     logging::core::get()->remove_sink(*itOSinks);
   }
-  originalSinks.clear();
+  instance().originalSinks_.clear();
 
   logging::attributes::current_thread_id::value_type currentId =
     logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
