@@ -14,6 +14,9 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 
 model ModeHandling "Static Var Compensator mode calculation and blocking"
   import Modelica;
+  import Dynawo.Types;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends Parameters.Params_ModeHandling;
 
@@ -61,6 +64,7 @@ equation
   // Transition from standby mode to running mode
   when (time - timerModeChangeUp  >= tThresholdUp or time - timerModeChangeDown  >= tThresholdDown) and pre(modeAuto.value) == Mode.STANDBY then
     modeAuto.value = Mode.RUNNING_V;
+    Timeline.logEvent1(TimelineKeys.SVarCRunning);
   end when;
   // Blocking and deblocking conditions
   when UPu <= UBlockPu then
