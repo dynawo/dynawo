@@ -48,6 +48,7 @@ target_link_libraries(dynawo_SolverCommon
     ${CMAKE_DL_LIBS}
     Sundials::Sundials_NVECSERIAL
     Sundials::Sundials_SUNLINSOLKLU
+    Boost::system
   PRIVATE
     dynawo_Common
     dynawo_API_PAR
