@@ -170,6 +170,7 @@ target_link_libraries(lib
     Dynawo::dynawo_ModelerCommon
     Dynawo::Modelica_externalC
     Dynawo::dynawo_ModelManager
+    Boost::system
     $ENV{DYNAWO_ADDITIONAL_LIBRARY_FOR_PREASSEMBLED}
 )
 

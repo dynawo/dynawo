@@ -55,6 +55,7 @@ target_link_libraries(dynawo_API_TL
   PRIVATE
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     dynawo_Common
+    Boost::system
     )
 
 set_target_properties(dynawo_API_TL PROPERTIES VERSION ${API_TL_VERSION_STRING}
