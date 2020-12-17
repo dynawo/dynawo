@@ -15,6 +15,8 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 model ModeHandling "Static Var Compensator mode calculation"
   import Modelica;
   import Dynawo.Types;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends Parameters.Params_ModeHandling;
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
@@ -63,6 +65,7 @@ equation
   // Transition from standby mode to running mode
   when (time - timerModeChangeUp  >= tThresholdUp or time - timerModeChangeDown  >= tThresholdDown) and pre(modeAuto.value) == Mode.STANDBY then
     modeAuto.value = Mode.RUNNING_V;
+    Timeline.logEvent1(TimelineKeys.SVarCRunning);
   end when;
   // URefAuto evaluation
   when modeAuto.value == Mode.RUNNING_V and pre(modeAuto.value) == Mode.STANDBY and UPu > UThresholdUpPu then
