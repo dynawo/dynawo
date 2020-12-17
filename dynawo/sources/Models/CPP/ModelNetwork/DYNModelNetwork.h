@@ -26,7 +26,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
 
-#include "DYNModelCPPImpl.h"
+#include "DYNModelCPP.h"
 #include "DYNSubModelFactory.h"
 
 namespace DYN {
@@ -72,7 +72,7 @@ class ModelNetworkFactory : public SubModelFactory {
  *
  * @brief Generic class for the standard AC network (described using C++ models)
  */
-class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
+class ModelNetwork : public ModelCPP, private boost::noncopyable {
  public:
   /**
    * @brief default constructor

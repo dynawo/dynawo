@@ -119,7 +119,7 @@ extern "C" void DYN::ModelNetworkFactory::destroy(DYN::SubModel* model) const {
 namespace DYN {
 
 ModelNetwork::ModelNetwork() :
-Impl("NETWORK"),
+ModelCPP("NETWORK"),
 calculatedVarBuffer_(NULL),
 isInit_(false) ,
 isInitModel_(false),

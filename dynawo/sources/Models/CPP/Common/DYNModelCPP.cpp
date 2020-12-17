@@ -23,7 +23,7 @@
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
-#include "DYNModelCPPImpl.h"
+#include "DYNModelCPP.h"
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
 
@@ -34,25 +34,22 @@ using std::vector;
 
 namespace DYN {
 
-ModelCPP::Impl::Impl() {
-}
-
-ModelCPP::Impl::Impl(std::string modelType) :
+ModelCPP::ModelCPP(const std::string& modelType) :
 modelType_(modelType) {
 }
 
 void
-ModelCPP::Impl::dumpParameters(map< string, string >& /*mapParameters*/) {
+ModelCPP::dumpParameters(map< string, string >& /*mapParameters*/) {
   // no parameters to dump for C++ models, they all come from the dyd file
 }
 
 void
-ModelCPP::Impl::loadParameters(const string& /*parameters*/) {
+ModelCPP::loadParameters(const string& /*parameters*/) {
   // no parameters to read from dump for C++ models, they all come from the dyd file
 }
 
 void
-ModelCPP::Impl::dumpVariables(map< string, string >& mapVariables) {
+ModelCPP::dumpVariables(map< string, string >& mapVariables) {
   stringstream values;
   boost::archive::binary_oarchive os(values);
   string cSum = getCheckSum();
@@ -70,7 +67,7 @@ ModelCPP::Impl::dumpVariables(map< string, string >& mapVariables) {
 }
 
 void
-ModelCPP::Impl::loadVariables(const string& variables) {
+ModelCPP::loadVariables(const string& variables) {
   stringstream values(variables);
   boost::archive::binary_iarchive is(values);
 
@@ -107,27 +104,27 @@ ModelCPP::Impl::loadVariables(const string& variables) {
 }
 
 void
-ModelCPP::Impl::checkDataCoherence(const double& /*t*/) {
+ModelCPP::checkDataCoherence(const double& /*t*/) {
   // not needed
 }
 
 void
-ModelCPP::Impl::checkParametersCoherence() const {
+ModelCPP::checkParametersCoherence() const {
   // not needed
 }
 
 void
-ModelCPP::Impl::printInitValues(const std::string& /*directory*/) {
+ModelCPP::printInitValues(const std::string& /*directory*/) {
   // not needed
 }
 
 void
-ModelCPP::Impl::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& /*variables*/) {
+ModelCPP::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& /*variables*/) {
   // no init variable
 }
 
 void
-ModelCPP::Impl::defineParametersInit(std::vector<ParameterModeler>& /*parameters*/) {
+ModelCPP::defineParametersInit(std::vector<ParameterModeler>& /*parameters*/) {
   // not init parameter
 }
 

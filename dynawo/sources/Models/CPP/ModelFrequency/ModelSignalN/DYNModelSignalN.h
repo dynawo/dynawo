@@ -21,7 +21,7 @@
 #ifndef MODELS_CPP_MODELFREQUENCY_MODELSIGNALN_DYNMODELSIGNALN_H_
 #define MODELS_CPP_MODELFREQUENCY_MODELSIGNALN_DYNMODELSIGNALN_H_
 
-#include "DYNModelCPPImpl.h"
+#include "DYNModelCPP.h"
 #include "DYNSubModelFactory.h"
 
 namespace DYN {
@@ -64,7 +64,7 @@ class ModelSignalNFactory : public SubModelFactory {
  *
  *
  */
-class ModelSignalN : public ModelCPP::Impl {
+class ModelSignalN : public ModelCPP {
  public:
   /**
    * @brief define type of calculated variables

@@ -82,7 +82,7 @@ int ModelSignalN::col1stAlpha_;
 int ModelSignalN::col1stAlphaSumGrp_;
 
 ModelSignalN::ModelSignalN() :
-Impl("alphaSum"),
+ModelCPP("alphaSum"),
 firstState_(true),
 nbGen_(0),
 nbCC_(0) {

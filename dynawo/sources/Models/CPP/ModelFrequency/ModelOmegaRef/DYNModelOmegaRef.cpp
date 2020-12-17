@@ -90,7 +90,7 @@ int ModelOmegaRef::col1stOmega_;
  *
  */
 ModelOmegaRef::ModelOmegaRef() :
-Impl("omegaRef"),
+ModelCPP("omegaRef"),
 firstState_(true),
 nbGen_(0),
 nbCC_(0),

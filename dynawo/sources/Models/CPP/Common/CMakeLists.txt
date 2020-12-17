@@ -9,12 +9,11 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 set(COMMON_CPP_MODELS_SOURCES
-    DYNModelCPPImpl.cpp
+    DYNModelCPP.cpp
     )
 
 set(COMMON_CPP_MODELS_HEADERS
     DYNModelCPP.h
-    DYNModelCPPImpl.h
     )
 
 add_library(dynawo_CPPModelsCommon ${LIBRARY_TYPE} ${COMMON_CPP_MODELS_SOURCES})
