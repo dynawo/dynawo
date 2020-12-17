@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNNetworkComponentImpl.cpp
+ * @file  DYNNetworkComponent.cpp
  *
  * @brief
  *
@@ -20,7 +20,7 @@
 #include <iostream>
 #include "PARParametersSet.h"
 
-#include "DYNNetworkComponentImpl.h"
+#include "DYNNetworkComponent.h"
 #include "DYNModelNetwork.h"
 #include "DYNMacrosMessage.h"
 #include "DYNParameter.h"
@@ -35,7 +35,7 @@ using parameters::ParametersSet;
 
 namespace DYN {
 
-NetworkComponent::Impl::Impl() :
+NetworkComponent::NetworkComponent() :
 y_(NULL),
 yp_(NULL),
 f_(NULL),
@@ -54,7 +54,7 @@ sizeCalculatedVar_(0),
 offsetCalculatedVar_(0),
 network_(NULL) { }
 
-NetworkComponent::Impl::Impl(const string& id) :
+NetworkComponent::NetworkComponent(const string& id) :
 y_(NULL),
 yp_(NULL),
 f_(NULL),
@@ -74,21 +74,18 @@ offsetCalculatedVar_(0),
 id_(id),
 network_(NULL) { }
 
-NetworkComponent::Impl::~Impl() {
-}
-
 void
-NetworkComponent::Impl::setBufferYType(propertyContinuousVar_t* yType, const unsigned int& offset) {
+NetworkComponent::setBufferYType(propertyContinuousVar_t* yType, const unsigned int& offset) {
   yType_ = &(yType[offset]);
 }
 
 void
-NetworkComponent::Impl::setBufferFType(propertyF_t* fType, const unsigned int& offset) {
+NetworkComponent::setBufferFType(propertyF_t* fType, const unsigned int& offset) {
   fType_ = &(fType[offset]);
 }
 
 void
-NetworkComponent::Impl::setReferenceY(double* y, double* yp, double* f, const int& offsetY, const int& offsetF) {
+NetworkComponent::setReferenceY(double* y, double* yp, double* f, const int& offsetY, const int& offsetF) {
   if (sizeY() != 0) {
     y_ = &(y[offsetY]);
     yp_ = &(yp[offsetY]);
@@ -99,7 +96,7 @@ NetworkComponent::Impl::setReferenceY(double* y, double* yp, double* f, const in
 }
 
 void
-NetworkComponent::Impl::setReferenceZ(double* z, bool* zConnected, const int& offsetZ) {
+NetworkComponent::setReferenceZ(double* z, bool* zConnected, const int& offsetZ) {
   if (sizeZ() != 0) {
     z_ = &(z[offsetZ]);
     zConnected_ = &(zConnected[offsetZ]);
@@ -107,24 +104,24 @@ NetworkComponent::Impl::setReferenceZ(double* z, bool* zConnected, const int& of
 }
 
 void
-NetworkComponent::Impl::setReferenceG(state_g* g, const int& offsetG) {
+NetworkComponent::setReferenceG(state_g* g, const int& offsetG) {
   if (sizeG() != 0)
     g_ = &(g[offsetG]);
 }
 
 void
-NetworkComponent::Impl::setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVar) {
+NetworkComponent::setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVar) {
   if (sizeCalculatedVar() != 0)
     calculatedVars_ = &(calculatedVars[offsetCalculatedVar]);
 }
 
 void
-NetworkComponent::Impl::setNetwork(ModelNetwork* model) {
+NetworkComponent::setNetwork(ModelNetwork* model) {
   network_ = model;
 }
 
 ParameterModeler
-NetworkComponent::Impl::findParameter(const string& name, const boost::unordered_map<string, ParameterModeler>& params) const {
+NetworkComponent::findParameter(const string& name, const boost::unordered_map<string, ParameterModeler>& params) const {
   boost::unordered_map<string, ParameterModeler>:: const_iterator it = params.find(name);
   if (it != params.end()) {
     return it->second;
@@ -133,12 +130,12 @@ NetworkComponent::Impl::findParameter(const string& name, const boost::unordered
 }
 
 bool
-NetworkComponent::Impl::hasParameter(const string& name, const boost::unordered_map<string, ParameterModeler>& params) const {
+NetworkComponent::hasParameter(const string& name, const boost::unordered_map<string, ParameterModeler>& params) const {
   return params.find(name) != params.end();
 }
 
 template <>
-double NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
+double NetworkComponent::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids) const {
   double value = 0.;
   findParameterDynamicNoThrow<double>(params, id, foundParam, ids, value);
@@ -146,7 +143,7 @@ double NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered
 }
 
 template <>
-int NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
+int NetworkComponent::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids) const {
   int value = 0;
   findParameterDynamicNoThrow<int>(params, id, foundParam, ids, value);
@@ -154,7 +151,7 @@ int NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_ma
 }
 
 template <>
-bool NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
+bool NetworkComponent::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids) const {
   bool value = false;
   findParameterDynamicNoThrow<bool>(params, id, foundParam, ids, value);
@@ -162,7 +159,7 @@ bool NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_m
 }
 
 template <>
-std::string NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
+std::string NetworkComponent::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids) const {
   std::string value = "";
   findParameterDynamicNoThrow<std::string>(params, id, foundParam, ids, value);
@@ -170,7 +167,7 @@ std::string NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unor
 }
 
 void
-NetworkComponent::Impl::addElementWithValue(string elementName, vector<Element>& elements, std::map<string, int>& mapElement) {
+NetworkComponent::addElementWithValue(string elementName, vector<Element>& elements, std::map<string, int>& mapElement) {
   addElement(elementName, Element::STRUCTURE, elements, mapElement);
   addSubElement("value", elementName, Element::TERMINAL, elements, mapElement);
 }

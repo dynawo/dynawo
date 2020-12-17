@@ -44,7 +44,7 @@ using parameters::ParametersSet;
 namespace DYN {
 
 ModelShuntCompensator::ModelShuntCompensator(const shared_ptr<ShuntCompensatorInterface>& shunt) :
-Impl(shunt->getID()),
+NetworkComponent(shunt->getID()),
 modelBus_(),
 noReclosingDelay_(0.),
 stateModified_(false) {

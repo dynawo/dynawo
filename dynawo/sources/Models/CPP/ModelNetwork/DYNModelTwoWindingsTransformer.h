@@ -32,7 +32,7 @@
 
 
 #include <boost/shared_ptr.hpp>
-#include "DYNNetworkComponentImpl.h"
+#include "DYNNetworkComponent.h"
 
 namespace DYN {
 class ModelBus;
@@ -45,7 +45,7 @@ class ModelCurrentLimits;
 /**
  * @brief ModelTwoWindingsTransformer class
  */
-class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
+class ModelTwoWindingsTransformer : public NetworkComponent {
  public:
   /**
    * @brief default constructor
@@ -233,17 +233,17 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   void evalDerivativesPrim() { /* not needed */ }
 
   /**
-   * @copydoc NetworkComponent::Impl::evalF()
+   * @copydoc NetworkComponent::evalF()
    */
   void evalF(propertyF_t type);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
   void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
   void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
 
@@ -360,12 +360,12 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   void init(int& yNum);
 
   /**
-   * @copydoc NetworkComponent::Impl::getY0()
+   * @copydoc NetworkComponent::getY0()
    */
   void getY0();
 
   /**
-   * @copydoc NetworkComponent::Impl::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
    */
   void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
 

@@ -17,7 +17,7 @@ set(MODEL_NAME
 
 set(MODEL_SOURCES
   DYNDerivative.cpp
-  DYNNetworkComponentImpl.cpp
+  DYNNetworkComponent.cpp
   DYNModelBus.cpp
   DYNModelGenerator.cpp
   DYNModelSwitch.cpp

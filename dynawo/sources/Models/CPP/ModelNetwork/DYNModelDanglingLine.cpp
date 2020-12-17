@@ -48,7 +48,7 @@ using std::string;
 namespace DYN {
 
 ModelDanglingLine::ModelDanglingLine(const shared_ptr<DanglingLineInterface>& line) :
-Impl(line->getID()),
+NetworkComponent(line->getID()),
 stateModified_(false),
 modelType_("DanglingLine")  {
   // init data

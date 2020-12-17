@@ -23,7 +23,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELHVDCLINK_H_
 
 #include <boost/shared_ptr.hpp>
-#include "DYNNetworkComponentImpl.h"
+#include "DYNNetworkComponent.h"
 #include "DYNHvdcLineInterface.h"
 
 namespace DYN {
@@ -31,7 +31,7 @@ class ModelBus;
 class VscConverterInterface;
 class LccConverterInterface;
 
-class ModelHvdcLink : public NetworkComponent::Impl {
+class ModelHvdcLink : public NetworkComponent {
  public:
   /**
    * @brief default constructor for hvdc-vsc link
@@ -115,22 +115,22 @@ class ModelHvdcLink : public NetworkComponent::Impl {
   void setFequations(std::map<int, std::string>& fEquationIndex);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalF(propertyF_t type)
+   * @copydoc NetworkComponent::evalF(propertyF_t type)
    */
   void evalF(propertyF_t type);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
   void evalJt(SparseMatrix &jt, const double& cj, const int& rowOffset);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
   void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalZ()
+   * @copydoc NetworkComponent::evalZ()
    */
   NetworkComponent::StateChange_t evalZ(const double& t);
 
@@ -234,7 +234,7 @@ class ModelHvdcLink : public NetworkComponent::Impl {
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
   /**
-   * @copydoc NetworkComponent::Impl::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
    */
   void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
 

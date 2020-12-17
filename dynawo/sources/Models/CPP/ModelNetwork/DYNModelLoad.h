@@ -23,12 +23,12 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNModelBus.h"
-#include "DYNNetworkComponentImpl.h"
+#include "DYNNetworkComponent.h"
 
 namespace DYN {
 class LoadInterface;
 
-class ModelLoad : public NetworkComponent::Impl {
+class ModelLoad : public NetworkComponent {
  public:
   /**
    * @brief default constructor
@@ -133,7 +133,7 @@ class ModelLoad : public NetworkComponent::Impl {
   void evalF(propertyF_t type);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalZ()
+   * @copydoc NetworkComponent::evalZ()
    */
   NetworkComponent::StateChange_t evalZ(const double& t);
 
@@ -208,12 +208,12 @@ class ModelLoad : public NetworkComponent::Impl {
   void init(int & yNum);
 
   /**
-   * @copydoc NetworkComponent::Impl::getY0()
+   * @copydoc NetworkComponent::getY0()
    */
   void getY0();
 
   /**
-   * @copydoc NetworkComponent::Impl::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
    */
   void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
 

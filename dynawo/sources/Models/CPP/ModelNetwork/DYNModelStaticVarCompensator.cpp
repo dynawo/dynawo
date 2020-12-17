@@ -44,7 +44,7 @@ using std::string;
 namespace DYN {
 
 ModelStaticVarCompensator::ModelStaticVarCompensator(const shared_ptr<StaticVarCompensatorInterface>& svc) :
-Impl(svc->getID()),
+NetworkComponent(svc->getID()),
 stateModified_(false) {
   // init data
   connectionState_ = svc->getInitialConnected() ? CLOSED : OPEN;

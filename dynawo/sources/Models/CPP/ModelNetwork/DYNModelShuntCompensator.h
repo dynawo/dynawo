@@ -21,13 +21,13 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELSHUNTCOMPENSATOR_H_
 
 #include <boost/shared_ptr.hpp>
-#include "DYNNetworkComponentImpl.h"
+#include "DYNNetworkComponent.h"
 
 namespace DYN {
 class ModelBus;
 class ShuntCompensatorInterface;
 
-class ModelShuntCompensator : public NetworkComponent::Impl {
+class ModelShuntCompensator : public NetworkComponent {
  public:
   /**
    * @brief default constructor
@@ -100,17 +100,17 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   void evalDerivativesPrim() { /* not needed */ }
 
   /**
-   * @copydoc NetworkComponent::Impl::evalF()
+   * @copydoc NetworkComponent::evalF()
    */
   void evalF(propertyF_t type);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
   void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
   void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
 
@@ -146,7 +146,7 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalZ()
+   * @copydoc NetworkComponent::evalZ()
    */
   NetworkComponent::StateChange_t evalZ(const double& t);
 
@@ -221,12 +221,12 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   void init(int& yNum);
 
   /**
-   * @copydoc NetworkComponent::Impl::getY0()
+   * @copydoc NetworkComponent::getY0()
    */
   void getY0();
 
   /**
-   * @copydoc NetworkComponent::Impl::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
    */
   void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
 

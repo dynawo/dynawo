@@ -49,7 +49,7 @@ using std::list;
 namespace DYN {
 
 ModelVoltageLevel::ModelVoltageLevel(const shared_ptr<VoltageLevelInterface>& voltageLevel) :
-Impl(voltageLevel->getID()),
+NetworkComponent(voltageLevel->getID()),
 graph_(boost::none),
 topologyKind_(voltageLevel->getVoltageLevelTopologyKind()) { }
 

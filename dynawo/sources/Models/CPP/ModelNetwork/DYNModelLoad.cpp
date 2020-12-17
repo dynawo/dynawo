@@ -49,7 +49,7 @@ using parameters::ParametersSet;
 namespace DYN {
 
 ModelLoad::ModelLoad(const shared_ptr<LoadInterface>& load) :
-Impl(load->getID()),
+NetworkComponent(load->getID()),
 stateModified_(false),
 kp_(0.),
 kq_(0.),
