@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNModelCPPImpl.cpp
+ * @file  DYNModelCPP.cpp
  *
  * @brief
  *

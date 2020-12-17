@@ -11,13 +11,13 @@
 //
 
 /**
- * @file  DYNSolverImpl.hpp
+ * @file  DYNSolver.hpp
  *
  * @brief Implementation of template methods
  *
  */
-#ifndef SOLVERS_COMMON_DYNSOLVERIMPL_HPP_
-#define SOLVERS_COMMON_DYNSOLVERIMPL_HPP_
+#ifndef SOLVERS_COMMON_DYNSOLVER_HPP_
+#define SOLVERS_COMMON_DYNSOLVER_HPP_
 
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"

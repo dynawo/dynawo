@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNSolverImpl.cpp
+ * @file  DYNSolver.cpp
  *
  * @brief Dynawo solvers : implementation file
  *
