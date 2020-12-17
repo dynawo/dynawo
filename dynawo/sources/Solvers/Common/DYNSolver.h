@@ -20,21 +20,20 @@
 #ifndef SOLVERS_COMMON_DYNSOLVER_H_
 #define SOLVERS_COMMON_DYNSOLVER_H_
 
-#include <vector>
-#include <map>
-#include <string>
-#include <boost/shared_ptr.hpp>
-
 #include "DYNBitMask.h"
 #include "DYNEnumUtils.h"
+#include "DYNModel.h"
+#include "DYNParameterSolver.h"
+#include "DYNSolver.h"
+#include "PARParametersSet.h"
+#include "TLTimeline.h"
 
-namespace parameters {
-class ParametersSet;
-}
-
-namespace timeline {
-class Timeline;
-}  // namespace timeline
+#include <boost/core/noncopyable.hpp>
+#include <boost/shared_ptr.hpp>
+#include <map>
+#include <string>
+#include <sundials/sundials_nvector.h>
+#include <vector>
 
 namespace DYN {
 static const int maxNumberUnstableRoots = 10;  ///< Maximum number of unstable roots for one time step
@@ -68,9 +67,6 @@ typedef enum {
   SolverSundials2 = 2
 } SolverType;
 
-class Model;
-class ParameterSolver;
-
 /**
  * @class Solver
  * @brief Solver interface class
@@ -80,45 +76,54 @@ class ParameterSolver;
 class Solver {
  public:
   /**
-   * @brief destructor
-   *
+   * @brief Constructor
    */
-  virtual ~Solver() { }
+  Solver();
+
+  /**
+   * @brief Destructor
+   */
+  virtual ~Solver();
 
   /**
    * @brief get the current solver's state
    * @return solver state
    */
-  virtual const BitMask& getState() const = 0;
+  inline const BitMask& getState()  const {
+    return state_;
+  }
 
   /**
    * @brief set the previous reinitialization status
    * @param previousReinit : new previous reinitialization status
    */
-  virtual void setPreviousReinit(const PreviousReinit& previousReinit) = 0;
-
+  inline void setPreviousReinit(const PreviousReinit& previousReinit) {
+    previousReinit_ = previousReinit;
+  }
   /**
    * @brief get the previous reinitialization status
    * @return previous reinitialization status
    */
-  virtual const PreviousReinit& getPreviousReinit() const = 0;
+  inline const PreviousReinit& getPreviousReinit() const {
+    return previousReinit_;
+  }
 
   /**
    * @brief set the solver's parameters
    *
    * @param params : parameter set used to set the solver's parameters
    */
-  virtual void setParameters(const boost::shared_ptr<parameters::ParametersSet> &params) = 0;
+  void setParameters(const boost::shared_ptr<parameters::ParametersSet> &params);
 
   /**
    * @brief define each parameters of the solver
    */
-  virtual void defineParameters() = 0;
+  void defineParameters();
 
   /**
    * @brief define common parameters for all solvers
    */
-  virtual void defineCommonParameters() = 0;
+  void defineCommonParameters();
 
   /**
    * @brief define parameters specific to each solver
@@ -137,14 +142,14 @@ class Solver {
    * @param nameParameter name of the parameter
    * @return @b true if the parameter exists inside the solver
    */
-  virtual bool hasParameter(const std::string &nameParameter) = 0;
+  bool hasParameter(const std::string &nameParameter);
 
   /**
    * @brief Getter for attribute parameters_
    *
    * @return solver attribute parameters_
    */
-  virtual const std::map<std::string, ParameterSolver>& getParametersMap() const = 0;
+  const std::map<std::string, ParameterSolver>& getParametersMap() const;
 
   /**
    * @brief check whether parameters are used
@@ -153,7 +158,7 @@ class Solver {
    *
    * @param params : parameter set to check
    */
-  virtual void checkUnusedParameters(boost::shared_ptr<parameters::ParametersSet> params) = 0;
+  void checkUnusedParameters(boost::shared_ptr<parameters::ParametersSet> params);
 
   /**
    * @brief search for a parameter with a given name
@@ -161,7 +166,7 @@ class Solver {
    * @param name: name of the desired parameter
    * @return desired parameter
    */
-  virtual ParameterSolver& findParameter(const std::string &name) = 0;
+  ParameterSolver& findParameter(const std::string &name);
 
   /**
    * @brief set a parameter value from a parameters set
@@ -169,24 +174,24 @@ class Solver {
    * @param parName: the name of the parameter to be set
    * @param parametersSet: the set to scan for a value
    */
-  virtual void setParameterFromSet(const std::string &parName, const boost::shared_ptr<parameters::ParametersSet> parametersSet) = 0;
+  void setParameterFromSet(const std::string &parName, const boost::shared_ptr<parameters::ParametersSet> parametersSet);
 
   /**
    * @brief set all parameters values from a parameters set (API PAR)
    *
    * @param params : parameter set to check
   */
-  virtual void setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet> &params) = 0;
+  void setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet> &params);
 
   /**
    * @brief set the solver parameters value
   */
-  virtual void setSolverParameters() = 0;
+  void setSolverParameters();
 
   /**
    * @brief set the solver common parameters value
    */
-  virtual void setSolverCommonParameters() = 0;
+  void setSolverCommonParameters();
 
   /**
    * @brief set the solver specific parameters value
@@ -214,7 +219,7 @@ class Solver {
    * @param tAim the next time at which a computed solution is desired
    * @param tNxt the time reached by the solver
    */
-  virtual void solve(double tAim, double &tNxt) = 0;
+  void solve(double tAim, double &tNxt);
 
   /**
    * @brief Restore the equations after an algebraic mode - reinitialize the DAE problem (new initial point)
@@ -224,7 +229,7 @@ class Solver {
   /**
    * @brief print the latest step made by the solver (i.e solution)
    */
-  virtual void printSolve() const = 0;
+  void printSolve() const;
 
   /**
    * @brief print specific info regarding the latest step made by the solver (i.e solution)
@@ -236,7 +241,7 @@ class Solver {
   /**
    * @brief print introduction information about the solver
    */
-  virtual void printHeader() const = 0;
+  void printHeader() const;
 
   /**
    * @brief print solver specific introduction information
@@ -248,37 +253,124 @@ class Solver {
   /**
    * @brief print a summary of the execution statistics of the solver
    */
-  virtual void printEnd() const = 0;
+  void printEnd() const;
 
   /**
    * @brief Print all parameters values
    */
-  virtual void printParameterValues() const = 0;
+  void printParameterValues() const;
 
   /**
    * @brief getter for the current value of variables' derivatives
    * @return the current value of variables' derivatives
    */
-  virtual const std::vector<double>& getCurrentYP() = 0;
+  inline const std::vector<double>& getCurrentYP() {
+    return vYp_;
+  }
 
   /**
    * @brief getter for the current value of continuous variables
    * @return the current value of continuous derivatives
    */
-  virtual const std::vector<double>& getCurrentY() = 0;
+  inline const std::vector<double>& getCurrentY() {
+    return vYy_;
+  }
 
   /**
    * @brief getter for the current internal time of the solver
    * @return current internal time of the solver
    */
-  virtual double getTSolve() const = 0;
+  inline double getTSolve() const {
+    return tSolve_;
+  }
 
   /**
    * @brief set the timeline to use during the simulation (where events should be added/removed)
    *
    * @param timeline timeline to use
    */
-  virtual void setTimeline(const boost::shared_ptr<timeline::Timeline> &timeline) = 0;
+  void setTimeline(const boost::shared_ptr<timeline::Timeline> &timeline);
+
+  /**
+   * @brief update the statistics
+   */
+  virtual void updateStatistics() = 0;
+
+ protected:
+  /**
+   * @brief set a given parameter value
+   *
+   * @param parameter: the desired parameter
+   * @param value : the value to set
+   */
+  template <typename T> void setParameterValue(ParameterSolver &parameter, const T &value);
+
+  /**
+   * @brief initialize all internal structure of the solver
+   * @param t0 : initial time of the simulation
+   * @param model : model to simulate, gives the size of all internal structure
+   */
+  void init(const double& t0, const boost::shared_ptr<Model> &model);
+
+  /**
+   * @brief delete all internal structure allocated by init method
+   */
+  void clean();
+
+  /**
+   * @brief getter for the model currently simulated
+   * @return the model currently simulated
+   */
+  inline boost::shared_ptr<Model> getModel() const {
+    return model_;
+  }
+
+  /**
+   * @brief reset the execution statistics of the solver
+   */
+  void resetStats();
+
+  /**
+   * @brief evaluate discretes variables values and values of zero crossing functions
+   * @param G0 previous value of zero crossing functions
+   * @param G1 new value of zero crossing functions
+   * @param time time to use to evaluate these values
+   *
+   * @return @b true zero crossing functions or discretes variables have changed
+   */
+  bool evalZMode(std::vector<state_g> &G0, std::vector<state_g> &G1, const double &time);
+  /**
+   * @brief print the unstable roots
+   *
+   * @param t current time
+   * @param G0 previous value of zero crossing functions
+   * @param G1 new value of zero crossing functions
+   */
+  void printUnstableRoot(double t, const std::vector<state_g>& G0, const std::vector<state_g>& G1) const;
+
+ protected:
+  /**
+   * @brief Structure for storing solver statistics
+   */
+  typedef struct {
+    long int nst_;  ///< number of steps
+    long int nre_;  ///< number of residual evaluations
+    long int nni_;  ///< number of nonlinear iterations
+    long int nje_;  ///< number of Jacobian evaluations
+    long int netf_;  ///< number of error test failures
+    long int ncfn_;  ///< number of nonlinear convergence failures
+    long int nge_;  ///< number of root function evaluations
+    long int nze_;  ///< number of discrete variable evaluations
+    long int nme_;  ///< number of mode evaluations
+  } stat_t;
+
+  /**
+   * @brief Integrate the DAE over an interval in t
+   *
+   * @param tAim the next time at which a computed solution is desired
+   * @param tNxt the time reached by the solver
+   */
+  virtual void solveStep(double tAim, double &tNxt) = 0;
 
   /**
    * @brief initialize the algebraic restoration solver with the good settings
@@ -288,14 +380,55 @@ class Solver {
    */
   virtual bool initAlgRestoration(modeChangeType_t modeChangeType) = 0;
 
-  /**
-   * @brief update the statistics
-   */
-  virtual void updateStatistics() = 0;
+  std::map<std::string, ParameterSolver> parameters_;  ///< map between parameters and parameters' names
+  boost::shared_ptr<Model> model_;  ///< model currently simulated
+  boost::shared_ptr<timeline::Timeline> timeline_;  ///< timeline where event messages should be added or removed
 
-  class Impl;
+  std::vector<state_g> g0_;  ///< previous values of root functions
+  std::vector<state_g> g1_;  ///< updated values of root functions
+
+  N_Vector yy_;  ///< continuous variables values stored in sundials structure
+  N_Vector yp_;  ///<  derivative of variables stored in sundials structure
+  N_Vector yId_;  ///< property of variables (algebraic/differential) stored in sundials structure
+  std::vector<double> vYy_;  ///< continuous variables values
+  std::vector<double> vYp_;  ///< derivative of variables
+  std::vector<DYN::propertyContinuousVar_t> vYId_;  ///< property of variables (algebraic/differential)
+
+  // Parameters for the algebraic restoration
+  double fnormtolAlg_;  ///< stopping tolerance on L2-norm of residual function
+  double initialaddtolAlg_;  ///< stopping tolerance at initialization
+  double scsteptolAlg_;  ///< scaled step length tolerance
+  double mxnewtstepAlg_;  ///< maximum allowable scaled step length
+  int msbsetAlg_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
+  int mxiterAlg_;  ///< maximum number of nonlinear iterations
+  int printflAlg_;  ///< level of verbosity of output
+
+  // Parameters for the algebraic restoration with J recalculation
+  double fnormtolAlgJ_;  ///< stopping tolerance on L2-norm of residual function
+  double initialaddtolAlgJ_;  ///< stopping tolerance at initialization
+  double scsteptolAlgJ_;  ///< scaled step length tolerance
+  double mxnewtstepAlgJ_;  ///< maximum allowable scaled step length
+  int msbsetAlgJ_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
+  int mxiterAlgJ_;  ///< maximum number of nonlinear iterations
+  int printflAlgJ_;  ///< level of verbosity of output
+
+  // Time step evolution parameters
+  double minimalAcceptableStep_;  ///< minimum time step to consider that the solver is not blocked
+  int maximumNumberSlowStepIncrease_;  ///< maximum number of consecutive time-steps with a time step lower than minimalAcceptableStep
+
+  // Performance optimization parameters
+  bool enableSilentZ_;  ///< enable the possibility to break discrete variable propagation loop if only silent z are modified
+  bool optimizeReinitAlgebraicResidualsEvaluations_;  ///< enable or disable the optimization of the number of algebraic residuals evals during reinit
+  modeChangeType_t minimumModeChangeTypeForAlgebraicRestoration_;  ///< parameter to set the minimum mode level at which algebraic restoration will occur
+
+  stat_t stats_;  ///< execution statistics of the solver
+  double tSolve_;  ///< current internal time of the solver
+  BitMask state_;  ///< current state value of the solver
+  PreviousReinit previousReinit_;  ///< previous reinitialization status of the solver
 };
 
 }  // end of namespace DYN
+
+#include "DYNSolver.hpp"
 
 #endif  // SOLVERS_COMMON_DYNSOLVER_H_

@@ -26,7 +26,7 @@
 #include <sundials/sundials_nvector.h>
 
 #include "DYNSolverFactory.h"
-#include "DYNSolverImpl.h"
+#include "DYNSolver.h"
 #include "DYNEnumUtils.h"
 
 namespace parameters {
@@ -69,7 +69,7 @@ class SolverSIMFactory : public SolverFactory {  ///< Simplified solver factory
 /**
  * @brief class Solver SIM : simplified solver
  */
-class SolverSIM : public Solver::Impl {
+class SolverSIM : public Solver {
  public:
   /**
    * @brief define returns value by the solver
@@ -93,17 +93,17 @@ class SolverSIM : public Solver::Impl {
   ~SolverSIM();
 
   /**
-   * @copydoc Solver::Impl::defineSpecificParameters()
+   * @copydoc Solver::defineSpecificParameters()
    */
   void defineSpecificParameters();
 
   /**
-   * @copydoc Solver::Impl::setSolverSpecificParameters()
+   * @copydoc Solver::setSolverSpecificParameters()
    */
   void setSolverSpecificParameters();
 
   /**
-   * @copydoc Solver::Impl::solverType()
+   * @copydoc Solver::solverType()
    */
   std::string solverType() const;
 
@@ -232,7 +232,7 @@ class SolverSIM : public Solver::Impl {
 
  protected:
   /**
-   * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
+   * @copydoc Solver::solveStep(double tAim, double &tNxt)
    */
   void solveStep(double tAim, double &tNxt);
 

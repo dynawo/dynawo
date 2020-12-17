@@ -105,6 +105,7 @@ SolverSIMFactory::~SolverSIMFactory() {
 }
 
 SolverSIM::SolverSIM() :
+Solver(),
 hMin_(0),
 hMax_(0),
 kReduceStep_(0),
@@ -226,8 +227,8 @@ SolverSIM::init(const shared_ptr<Model> &model, const double & t0, const double 
     solverKINEuler_->setIdVars();
   }
 
-  Solver::Impl::init(t0, model);
-  Solver::Impl::resetStats();
+  Solver::init(t0, model);
+  Solver::resetStats();
   g0_.assign(model_->sizeG(), NO_ROOT);
   g1_.assign(model_->sizeG(), NO_ROOT);
   Trace::debug() << DYNLog(SolverSIMInitOK) << Trace::endline;

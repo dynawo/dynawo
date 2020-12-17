@@ -24,7 +24,7 @@
 #include <nvector/nvector_serial.h>
 #include <boost/static_assert.hpp>
 
-#include "DYNSolverImpl.h"
+#include "DYNSolver.h"
 
 #include "DYNMacrosMessage.h"
 #include "DYNMessage.h"
@@ -66,7 +66,7 @@ BOOST_STATIC_ASSERT_MSG(sizeof (double) == sizeof (realtype), "wrong size of sun
 #endif
 }  // namespace conditions
 
-Solver::Impl::Impl() :
+Solver::Solver() :
 yy_(NULL),
 yp_(NULL),
 yId_(NULL),
@@ -92,19 +92,19 @@ minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
 tSolve_(0.),
 previousReinit_(None) { }
 
-Solver::Impl::~Impl() {
+Solver::~Solver() {
   clean();
 }
 
 void
-Solver::Impl::clean() {
+Solver::clean() {
   if (yy_ != NULL) N_VDestroy_Serial(yy_);
   if (yp_ != NULL) N_VDestroy_Serial(yp_);
   if (yId_ != NULL) N_VDestroy_Serial(yId_);
 }
 
 void
-Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
+Solver::init(const double& t0, const boost::shared_ptr<Model> & model) {
   model_ = model;
   model_->setEnableSilentZ(enableSilentZ_);
 
@@ -149,7 +149,7 @@ Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
 }
 
 void
-Solver::Impl::printHeader() const {
+Solver::printHeader() const {
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   stringstream ss;
   ss << DYNLog(SolverNbYVar, model_->sizeY());
@@ -167,7 +167,7 @@ Solver::Impl::printHeader() const {
 }
 
 void
-Solver::Impl::printSolve() const {
+Solver::printSolve() const {
   std::stringstream msg;
   msg << setfill(' ') << setw(12) << std::fixed << std::setprecision(3) << getTSolve() << " ";
 
@@ -177,7 +177,7 @@ Solver::Impl::printSolve() const {
 }
 
 void
-Solver::Impl::printParameterValues() const {
+Solver::printParameterValues() const {
   if (!parameters_.empty()) {
     Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
     Trace::debug(Trace::parameters()) << solverType() << " parameters" << " initial parameters"<< Trace::endline;
@@ -220,7 +220,7 @@ Solver::Impl::printParameterValues() const {
 }
 
 void
-Solver::Impl::resetStats() {
+Solver::resetStats() {
   // Statistics reinitialization
   // -------------------------------
   stats_.nst_ = 0;
@@ -235,7 +235,7 @@ Solver::Impl::resetStats() {
 }
 
 void
-Solver::Impl::solve(double tAim, double &tNxt) {
+Solver::solve(double tAim, double &tNxt) {
   // Solving
   state_.reset();
   model_->reinitMode();
@@ -247,7 +247,7 @@ Solver::Impl::solve(double tAim, double &tNxt) {
 }
 
 bool
-Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double & time) {
+Solver::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double & time) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIMPL::evalZMode");
 #endif
@@ -301,7 +301,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
 }
 
 void
-Solver::Impl::printUnstableRoot(double t, const vector<state_g> &G0, const vector<state_g> &G1) const {
+Solver::printUnstableRoot(double t, const vector<state_g> &G0, const vector<state_g> &G1) const {
   int i = 0;
   vector<state_g>::const_iterator iG0(G0.begin());
   vector<state_g>::const_iterator iG1(G1.begin());
@@ -319,7 +319,7 @@ Solver::Impl::printUnstableRoot(double t, const vector<state_g> &G0, const vecto
 }
 
 void
-Solver::Impl::checkUnusedParameters(boost::shared_ptr<parameters::ParametersSet> params) {
+Solver::checkUnusedParameters(boost::shared_ptr<parameters::ParametersSet> params) {
   vector<string> unusedParamNameList = params->getParamsUnused();
   for (vector<string>::iterator it = unusedParamNameList.begin();
           it != unusedParamNameList.end();
@@ -328,13 +328,13 @@ Solver::Impl::checkUnusedParameters(boost::shared_ptr<parameters::ParametersSet>
   }
 }
 
-void Solver::Impl::defineParameters() {
+void Solver::defineParameters() {
   defineCommonParameters();
   defineSpecificParameters();
 }
 
 void
-Solver::Impl::defineCommonParameters() {
+Solver::defineCommonParameters() {
   const bool optional = false;
   // Parameters for the algebraic restoration
   parameters_.insert(make_pair("fnormtolAlg", ParameterSolver("fnormtolAlg", VAR_TYPE_DOUBLE, optional)));
@@ -367,13 +367,13 @@ Solver::Impl::defineCommonParameters() {
 }
 
 bool
-Solver::Impl::hasParameter(const string & nameParameter) {
+Solver::hasParameter(const string & nameParameter) {
   map<string, ParameterSolver>::iterator it = parameters_.find(nameParameter);
   return it != parameters_.end();
 }
 
 ParameterSolver&
-Solver::Impl::findParameter(const string& name) {
+Solver::findParameter(const string& name) {
   map<string, ParameterSolver>::iterator it = parameters_.find(name);
   if (it == parameters_.end())
     throw DYNError(Error::GENERAL, ParameterNotDefined, name);
@@ -381,12 +381,12 @@ Solver::Impl::findParameter(const string& name) {
 }
 
 const std::map<std::string, ParameterSolver>&
-Solver::Impl::getParametersMap() const {
+Solver::getParametersMap() const {
   return parameters_;
 }
 
 void
-Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr<parameters::ParametersSet> parametersSet) {
+Solver::setParameterFromSet(const string& parName, const boost::shared_ptr<parameters::ParametersSet> parametersSet) {
   if (parametersSet) {
     ParameterSolver& parameter = findParameter(parName);
 
@@ -427,12 +427,12 @@ Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr
   }
 }
 
-void Solver::Impl::setSolverParameters() {
+void Solver::setSolverParameters() {
   setSolverCommonParameters();
   setSolverSpecificParameters();
 }
 
-void Solver::Impl::setSolverCommonParameters() {
+void Solver::setSolverCommonParameters() {
   const ParameterSolver& fnormtolAlg = findParameter("fnormtolAlg");
   if (fnormtolAlg.hasValue())
     fnormtolAlg_ = fnormtolAlg.getValue<double>();
@@ -505,7 +505,7 @@ void Solver::Impl::setSolverCommonParameters() {
 }
 
 void
-Solver::Impl::setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet>& params) {
+Solver::setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet>& params) {
   // Set values of parameters
   for (map<string, ParameterSolver>::iterator it=parameters_.begin(); it != parameters_.end(); ++it) {
     setParameterFromSet(it->second.getName(), params);
@@ -513,7 +513,7 @@ Solver::Impl::setParametersFromPARFile(const boost::shared_ptr<parameters::Param
 }
 
 void
-Solver::Impl::setParameters(const boost::shared_ptr<parameters::ParametersSet>& params) {
+Solver::setParameters(const boost::shared_ptr<parameters::ParametersSet>& params) {
   parameters_.clear();
   defineParameters();
   setParametersFromPARFile(params);
@@ -521,12 +521,12 @@ Solver::Impl::setParameters(const boost::shared_ptr<parameters::ParametersSet>& 
 }
 
 void
-Solver::Impl::setTimeline(const boost::shared_ptr<Timeline>& timeline) {
+Solver::setTimeline(const boost::shared_ptr<Timeline>& timeline) {
   timeline_ = timeline;
 }
 
 void
-Solver::Impl::printEnd() const {
+Solver::printEnd() const {
   // (1) Print on the standard output
   // -----------------------------------
   Trace::info() << Trace::endline;

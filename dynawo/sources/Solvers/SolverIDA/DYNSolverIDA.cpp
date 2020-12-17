@@ -122,6 +122,7 @@ SolverIDAFactory::~SolverIDAFactory() {
 }
 
 SolverIDA::SolverIDA() :
+Solver(),
 IDAMem_(NULL),
 LS_(NULL),
 M_(NULL),
@@ -203,7 +204,7 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
 
   // (2) Problem sizing
   // -------------------------------
-  Solver::Impl::init(t0, model);
+  Solver::init(t0, model);
 
   // (4) IDACreate
   // -------------
@@ -322,7 +323,7 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetNoInactiveRootWarn");
 
-  Solver::Impl::resetStats();
+  Solver::resetStats();
   g0_.assign(model_->sizeG(), NO_ROOT);
   g1_.assign(model_->sizeG(), NO_ROOT);
 

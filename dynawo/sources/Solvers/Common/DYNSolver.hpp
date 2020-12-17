@@ -21,13 +21,13 @@
 
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
-#include "DYNSolverImpl.h"
+#include "DYNSolver.h"
 
 namespace DYN {
 
 template<typename T>
 void
-inline Solver::Impl::setParameterValue(ParameterSolver& parameter, const T& value) {
+inline Solver::setParameterValue(ParameterSolver& parameter, const T& value) {
   if (hasParameter(parameter.getName())) {
     parameter.setValue(value);
   }

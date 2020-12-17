@@ -28,7 +28,7 @@
 #include <sundials/sundials_nvector.h>
 
 #include "DYNSolverFactory.h"
-#include "DYNSolverImpl.h"
+#include "DYNSolver.h"
 
 namespace parameters {
 class ParametersSet;
@@ -68,7 +68,7 @@ class SolverIDAFactory : public SolverFactory {
 /**
  * @brief class Solver IDA
  */
-class SolverIDA : public Solver::Impl {
+class SolverIDA : public Solver {
  public:
   /**
    * @brief default constructor
@@ -81,17 +81,17 @@ class SolverIDA : public Solver::Impl {
   ~SolverIDA();
 
   /**
-   * @copydoc Solver::Impl::defineSpecificParameters()
+   * @copydoc Solver::defineSpecificParameters()
    */
   void defineSpecificParameters();
 
   /**
-   * @copydoc Solver::Impl::setSolverSpecificParameters()
+   * @copydoc Solver::setSolverSpecificParameters()
    */
   void setSolverSpecificParameters();
 
   /**
-   * @copydoc Solver::Impl::solverType()
+   * @copydoc Solver::solverType()
    */
   std::string solverType() const;
 
@@ -229,7 +229,7 @@ class SolverIDA : public Solver::Impl {
 
  protected:
   /**
-   * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
+   * @copydoc Solver::solveStep(double tAim, double &tNxt)
    */
   void solveStep(double tAim, double &tNxt);
 
