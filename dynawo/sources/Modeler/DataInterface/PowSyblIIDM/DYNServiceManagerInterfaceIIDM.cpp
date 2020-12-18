@@ -21,8 +21,12 @@
 #include "DYNServiceManagerInterfaceIIDM.h"
 
 #include "DYNDataInterfaceIIDM.h"
+#include "DYNGeneratorInterfaceIIDM.h"
+#include "DYNLineInterfaceIIDM.h"
 #include "DYNNetworkInterfaceIIDM.h"
+#include "DYNShuntCompensatorInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
+#include "DYNStaticVarCompensatorInterfaceIIDM.h"
 
 namespace DYN {
 
@@ -91,6 +95,106 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
   }
 
   return ret;
+}
+
+boost::shared_ptr<BusInterface>
+ServiceManagerInterfaceIIDM::getRegulatedBus(const std::string& regulatingComponent) const {
+  const auto& regulatingComp = dataInterface_->findComponent(regulatingComponent);
+  switch (regulatingComp->getType()) {
+    case ComponentInterface::GENERATOR: {
+      const auto& generator = dataInterface_->getNetworkIIDM().getGenerator(regulatingComp.get()->getID());
+      return getRegulatedBusOnSide(generator.getRegulatingTerminal());
+    }
+    case ComponentInterface::SVC: {
+      const auto& svc = dataInterface_->getNetworkIIDM().getStaticVarCompensator(regulatingComp.get()->getID());
+      return getRegulatedBusOnSide(svc.getRegulatingTerminal());
+    }
+    case ComponentInterface::SHUNT: {
+      const auto& shunt = dataInterface_->getNetworkIIDM().getShuntCompensator(regulatingComp.get()->getID());
+      return getRegulatedBusOnSide(shunt.getRegulatingTerminal());
+    }
+    case ComponentInterface::UNKNOWN:
+    case ComponentInterface::BUS:
+    case ComponentInterface::TWO_WTFO:
+    case ComponentInterface::CALCULATED_BUS:
+    case ComponentInterface::SWITCH:
+    case ComponentInterface::LOAD:
+    case ComponentInterface::LINE:
+    case ComponentInterface::DANGLING_LINE:
+    case ComponentInterface::THREE_WTFO:
+    case ComponentInterface::VSC_CONVERTER:
+    case ComponentInterface::LCC_CONVERTER:
+    case ComponentInterface::HVDC_LINE:
+      break;
+  }
+  return boost::shared_ptr<BusInterface> ();
+}
+
+boost::shared_ptr<BusInterface>
+ServiceManagerInterfaceIIDM::getRegulatedBusOnSide(const powsybl::iidm::Terminal& terminal) const {
+  const auto& regulatedComponent = dataInterface_->findComponent(terminal.getConnectable().get().getId());
+  switch (regulatedComponent->getType()) {
+    case ComponentInterface::UNKNOWN:
+    case ComponentInterface::HVDC_LINE:
+      break;
+    case ComponentInterface::LINE: {
+      boost::shared_ptr<LineInterface> line = boost::dynamic_pointer_cast<LineInterface>(regulatedComponent);
+      const auto& lineIIDM = dataInterface_->getNetworkIIDM().getLine(regulatedComponent.get()->getID());
+      if (stdcxx::areSame(terminal, lineIIDM.getTerminal1()))
+        return line.get()->getBusInterface1();
+      return line.get()->getBusInterface2();
+    }
+    case ComponentInterface::BUS:
+    case ComponentInterface::CALCULATED_BUS: {
+      return boost::dynamic_pointer_cast<BusInterface>(regulatedComponent);
+    }
+    case ComponentInterface::SWITCH: {
+      boost::shared_ptr<SwitchInterface> switch_ = boost::dynamic_pointer_cast<SwitchInterface>(regulatedComponent);
+      const auto& SwitchTerminals = terminal.getConnectable().get().getTerminals();
+      assert(static_cast<int>(SwitchTerminals.size()) == 2);
+      if (stdcxx::areSame(terminal, SwitchTerminals.at(0).get()))
+        return switch_.get()->getBusInterface1();
+      return switch_.get()->getBusInterface2();
+    }
+    case ComponentInterface::LOAD: {
+      return boost::dynamic_pointer_cast<LoadInterface>(regulatedComponent).get()->getBusInterface();
+    }
+    case ComponentInterface::SHUNT: {
+      return boost::dynamic_pointer_cast<ShuntCompensatorInterface>(regulatedComponent).get()->getBusInterface();
+    }
+    case ComponentInterface::DANGLING_LINE: {
+      return boost::dynamic_pointer_cast<DanglingLineInterface>(regulatedComponent).get()->getBusInterface();
+    }
+    case ComponentInterface::TWO_WTFO: {
+      boost::shared_ptr<TwoWTransformerInterface> TwoWTransf = boost::dynamic_pointer_cast<TwoWTransformerInterface>(regulatedComponent);
+      const auto& TwoWTransfIIDM = dataInterface_->getNetworkIIDM().getTwoWindingsTransformer(regulatedComponent.get()->getID());
+      if (stdcxx::areSame(terminal, TwoWTransfIIDM.getTerminal1()))
+        return TwoWTransf.get()->getBusInterface1();
+      return TwoWTransf.get()->getBusInterface2();
+    }
+    case ComponentInterface::SVC: {
+      return boost::dynamic_pointer_cast<StaticVarCompensatorInterface>(regulatedComponent).get()->getBusInterface();
+    }
+    case ComponentInterface::VSC_CONVERTER: {
+      return boost::dynamic_pointer_cast<VscConverterInterface>(regulatedComponent).get()->getBusInterface();
+    }
+    case ComponentInterface::LCC_CONVERTER: {
+      return boost::dynamic_pointer_cast<LccConverterInterface>(regulatedComponent).get()->getBusInterface();
+    }
+    case ComponentInterface::GENERATOR: {
+      return boost::dynamic_pointer_cast<GeneratorInterface>(regulatedComponent).get()->getBusInterface();
+    }
+    case ComponentInterface::THREE_WTFO: {
+      boost::shared_ptr<ThreeWTransformerInterface> ThreeWTransf = boost::dynamic_pointer_cast<ThreeWTransformerInterface>(regulatedComponent);
+      const auto& ThreeWTransfIIDM = dataInterface_->getNetworkIIDM().getThreeWindingsTransformer(regulatedComponent.get()->getID());
+      if (stdcxx::areSame(terminal, ThreeWTransfIIDM.getLeg1().getTerminal().get()))
+        return ThreeWTransf.get()->getBusInterface1();
+      if (stdcxx::areSame(terminal, ThreeWTransfIIDM.getLeg2().getTerminal().get()))
+        return ThreeWTransf.get()->getBusInterface2();
+      return ThreeWTransf.get()->getBusInterface3();
+    }
+  }
+  return boost::shared_ptr<BusInterface> ();
 }
 
 }  // namespace DYN

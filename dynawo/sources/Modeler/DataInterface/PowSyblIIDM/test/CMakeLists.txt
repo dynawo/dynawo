@@ -27,6 +27,7 @@ set(MODULE_SOURCES
   TestNetworkInterface.cpp
   TestPhaseTapChangerInterface.cpp
   TestRatioTapChangerInterface.cpp
+  TestServiceManagerInterface.cpp
   TestShuntCompensatorInterface.cpp
   TestStaticVarCompensatorInterface.cpp
   TestStepInterface.cpp
@@ -35,7 +36,6 @@ set(MODULE_SOURCES
   TestTwoWTransformerInterface.cpp
   TestVoltageLevelInterface.cpp
   TestVscConverterInterface.cpp
-  TestServiceManagerInterface.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
@@ -54,11 +54,11 @@ add_custom_target(${MODULE_NAME}-tests
   DEPENDS ${MODULE_NAME}
   COMMENT "Running ${MODULE_NAME}...")
 
-if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
+if(BUILD_TESTS_COVERAGE)
   set(EXTRACT_PATTERNS "'*/sources/Modeler/DataInterface/PowSyblIIDM/DYN*'")
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
 
-if(CMAKE_BUILD_TYPE STREQUAL "Tests")
+if(BUILD_TESTS)
   add_test(${MODULE_NAME}-tests)
 endif()

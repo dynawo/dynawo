@@ -157,6 +157,11 @@ DataInterfaceIIDM::getNetworkIIDM() {
   return networkIIDM_;
 }
 
+const powsybl::iidm::Network&
+DataInterfaceIIDM::getNetworkIIDM() const {
+  return networkIIDM_;
+}
+
 std::string
 DataInterfaceIIDM::getBusName(const std::string& componentName, const std::string& labelNode) {
   boost::unordered_map<string, shared_ptr<ComponentInterface> >::const_iterator iter = components_.find(componentName);
@@ -764,6 +769,15 @@ DataInterfaceIIDM::findVoltageLevelInterface(const string& id) const {
     return iter->second;
   else
     throw DYNError(Error::MODELER, UnknownVoltageLevel, id);
+}
+
+const shared_ptr<ComponentInterface>&
+DataInterfaceIIDM::findComponent(const std::string& id) const {
+  boost::unordered_map<string, shared_ptr<ComponentInterface> >::const_iterator iter = components_.find(id);
+  if (iter != components_.end())
+    return iter->second;
+  else
+    throw DYNError(Error::MODELER, UnknownStaticComponent, id);
 }
 
 shared_ptr<ComponentInterface>&
