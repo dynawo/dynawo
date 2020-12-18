@@ -12,33 +12,49 @@
 //
 
 #include "DYNBusInterfaceIIDM.h"
+#include "DYNCalculatedBusInterfaceIIDM.h"
 #include "DYNDanglingLineInterfaceIIDM.h"
 #include "DYNDataInterfaceIIDM.h"
 #include "DYNGeneratorInterfaceIIDM.h"
 #include "DYNLccConverterInterfaceIIDM.h"
+#include "DYNLineInterfaceIIDM.h"
 #include "DYNLoadInterfaceIIDM.h"
+#include "DYNNetworkInterfaceIIDM.h"
 #include "DYNServiceManagerInterfaceIIDM.h"
 #include "DYNShuntCompensatorInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
+#include "DYNStaticVarCompensatorInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNVscConverterInterfaceIIDM.h"
+#include "DYNTwoWTransformerInterface.h"
 #include "gtest_dynawo.h"
 
 #include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/BusbarSection.hpp>
+#include <powsybl/iidm/BusbarSectionAdder.hpp>
+#include <powsybl/iidm/Connectable.hpp>
 #include <powsybl/iidm/DanglingLine.hpp>
 #include <powsybl/iidm/DanglingLineAdder.hpp>
 #include <powsybl/iidm/GeneratorAdder.hpp>
 #include <powsybl/iidm/LccConverterStation.hpp>
 #include <powsybl/iidm/LccConverterStationAdder.hpp>
+#include <powsybl/iidm/Line.hpp>
+#include <powsybl/iidm/LineAdder.hpp>
 #include <powsybl/iidm/Load.hpp>
 #include <powsybl/iidm/LoadAdder.hpp>
+#include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/ShuntCompensator.hpp>
 #include <powsybl/iidm/ShuntCompensatorAdder.hpp>
+#include <powsybl/iidm/StaticVarCompensator.hpp>
+#include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/Switch.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/VoltageLevelAdder.hpp>
 #include <powsybl/iidm/VscConverterStation.hpp>
 #include <powsybl/iidm/VscConverterStationAdder.hpp>
+#include <powsybl/iidm/TwoWindingsTransformer.hpp>
+#include <powsybl/iidm/TwoWindingsTransformerAdder.hpp>
 
 using boost::shared_ptr;
 using powsybl::iidm::Bus;
@@ -70,6 +86,14 @@ TEST(DataInterfaceTest, ServiceManager) {
                               .setLowVoltageLimit(380.)
                               .add();
 
+  VoltageLevel& vlIIDM2 = s.newVoltageLevel()
+                              .setId("VL2")
+                              .setNominalVoltage(400.)
+                              .setTopologyKind(TopologyKind::NODE_BREAKER)
+                              .setHighVoltageLimit(420.)
+                              .setLowVoltageLimit(380.)
+                              .add();
+
   auto swAdder = vlIIDM1.getBusBreakerView().newSwitch().setId("Sw").setName("SwName").setFictitious(false);
   swAdder.setBus1("BUS1");
   swAdder.setBus2("BUS2");
@@ -79,6 +103,8 @@ TEST(DataInterfaceTest, ServiceManager) {
   powsybl::iidm::Bus& b3 = vlIIDM1.getBusBreakerView().newBus().setId("BUS3").add();
   powsybl::iidm::Bus& b4 = vlIIDM1.getBusBreakerView().newBus().setId("BUS4").add();
 
+  powsybl::iidm::BusbarSection& b5 = vlIIDM2.getNodeBreakerView().newBusbarSection().setId("BUS5").setNode(1).add();
+
   auto swAdder2 = vlIIDM1.getBusBreakerView().newSwitch().setId("Sw2").setName("SwName2").setFictitious(false);
   swAdder2.setBus1("BUS1");
   swAdder2.setBus2("BUS3");
@@ -87,11 +113,13 @@ TEST(DataInterfaceTest, ServiceManager) {
   powsybl::iidm::Switch& aSwitch2 = swAdder2.add();
 
   VoltageLevelInterfaceIIDM vl(vlIIDM1);
+  VoltageLevelInterfaceIIDM vl2(vlIIDM2);
 
   shared_ptr<BusInterface> bus1(new BusInterfaceIIDM(b1));
   shared_ptr<BusInterface> bus2(new BusInterfaceIIDM(b2));
   shared_ptr<BusInterface> bus3(new BusInterfaceIIDM(b3));
   shared_ptr<BusInterface> bus4(new BusInterfaceIIDM(b4));
+  CalculatedBusInterfaceIIDM bus5(vlIIDM2, b5.getId(), 1);
   shared_ptr<SwitchInterface> switch1(new SwitchInterfaceIIDM(aSwitch));
   shared_ptr<SwitchInterface> switch2(new SwitchInterfaceIIDM(aSwitch2));
 
@@ -111,6 +139,10 @@ TEST(DataInterfaceTest, ServiceManager) {
   auto serviceManager = interface.getServiceManager();
 
   ASSERT_THROW_DYNAWO(serviceManager->getBusesConnectedBySwitch("BUS0", vl.getID()), Error::MODELER, KeyError_t::UnknownBus);
+
+  ASSERT_THROW_DYNAWO(serviceManager->getBusesConnectedBySwitch("BUS4", "notVL"), Error::MODELER, KeyError_t::UnknownVoltageLevel);
+
+  ASSERT_THROW_DYNAWO(serviceManager->getBusesConnectedBySwitch("BUS5", vl2.getID()), Error::MODELER, KeyError_t::VoltageLevelTopoError);
 
   auto connected = serviceManager->getBusesConnectedBySwitch("BUS4", vl.getID());
   ASSERT_EQ(0, connected.size());
@@ -137,6 +169,313 @@ TEST(DataInterfaceTest, ServiceManager) {
   connected = serviceManager->getBusesConnectedBySwitch("BUS3", vl.getID());
   ASSERT_EQ(1, connected.size());
   ASSERT_EQ(connected[0], "BUS1");
+}
+
+TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
+  DataInterfaceIIDM interface(Network("test", "test"));
+  auto& network = interface.getNetworkIIDM();
+
+  Substation& s = network.newSubstation().setId("S").add();
+
+  VoltageLevel& vlIIDM1 = s.newVoltageLevel()
+                              .setId("VL1")
+                              .setNominalVoltage(400.)
+                              .setTopologyKind(TopologyKind::BUS_BREAKER)
+                              .setHighVoltageLimit(420.)
+                              .setLowVoltageLimit(380.)
+                              .add();
+  VoltageLevel& vlIIDM2 = s.newVoltageLevel()
+                              .setId("VL2")
+                              .setNominalVoltage(400.)
+                              .setTopologyKind(TopologyKind::BUS_BREAKER)
+                              .setHighVoltageLimit(420.)
+                              .setLowVoltageLimit(380.)
+                              .add();
+
+  auto swAdder = vlIIDM1.getBusBreakerView().newSwitch().setId("Sw").setName("SwName").setFictitious(false);
+  swAdder.setBus1("BUS1");
+  swAdder.setBus2("BUS2");
+  powsybl::iidm::Bus& b1 = vlIIDM1.getBusBreakerView().newBus().setId("BUS1").add();
+  powsybl::iidm::Bus& b2 = vlIIDM1.getBusBreakerView().newBus().setId("BUS2").add();
+  powsybl::iidm::Bus& b3 = vlIIDM1.getBusBreakerView().newBus().setId("BUS3").add();
+  powsybl::iidm::Bus& b4 = vlIIDM1.getBusBreakerView().newBus().setId("BUS4").add();
+  powsybl::iidm::Bus& b5 = vlIIDM2.getBusBreakerView().newBus().setId("BUS5").add();
+
+  powsybl::iidm::Line& line_ = network.newLine()
+                                    .setId("LINE")
+                                    .setVoltageLevel1(vlIIDM1.getId())
+                                    .setBus1(b1.getId())
+                                    .setConnectableBus1(b1.getId())
+                                    .setVoltageLevel2(vlIIDM2.getId())
+                                    .setBus2(b5.getId())
+                                    .setConnectableBus2(b5.getId())
+                                    .setR(3.0)
+                                    .setX(33.33)
+                                    .setG1(1.0)
+                                    .setB1(0.2)
+                                    .setG2(2.0)
+                                    .setB2(0.4)
+                                    .add();
+
+  powsybl::iidm::TwoWindingsTransformer& TwoWTransf_ = s.newTwoWindingsTransformer()
+                                          .setId("MyTransformer2Winding")
+                                          .setVoltageLevel1(vlIIDM1.getId())
+                                          .setBus1(b1.getId())
+                                          .setConnectableBus1(b1.getId())
+                                          .setVoltageLevel2(vlIIDM2.getId())
+                                          .setBus2(b5.getId())
+                                          .setConnectableBus2(b5.getId())
+                                          .setR(3.0)
+                                          .setX(33.0)
+                                          .setG(1.0)
+                                          .setB(0.2)
+                                          .setRatedU1(400)
+                                          .setRatedU2(400)
+                                          .setRatedS(3.0)
+                                          .add();
+
+  powsybl::iidm::DanglingLine& dl = vlIIDM2.newDanglingLine()
+         .setId("MyDanglingLine")
+         .setBus(b5.getId())
+         .setConnectableBus(b5.getId())
+         .setName("MyDanglingLine_NAME")
+         .setB(3.0)
+         .setG(3.0)
+         .setP0(105.0)
+         .setQ0(90.0)
+         .setR(3.0)
+         .setX(3.0)
+         .setUcteXnodeCode("ucteXnodeCodeTest")
+         .add();
+
+  powsybl::iidm::LccConverterStation& lcc = vlIIDM1.newLccConverterStation()
+        .setId("MyLccConverter")
+        .setName("MyLccConverter_NAME")
+        .setBus(b1.getId())
+        .setConnectableBus(b1.getId())
+        .setLossFactor(3.0)
+        .setPowerFactor(1.)
+        .add();
+
+  powsybl::iidm::VscConverterStation& vsc = vlIIDM1.newVscConverterStation()
+        .setId("MyVscConverter")
+        .setName("MyVscConverter_NAME")
+        .setBus(b1.getId())
+        .setConnectableBus(b1.getId())
+        .setLossFactor(3.0)
+        .setVoltageRegulatorOn(true)
+        .setVoltageSetpoint(1.2)
+        .setReactivePowerSetpoint(-1.5)
+        .add();
+
+  powsybl::iidm::Switch& aSwitch = swAdder.add();
+  powsybl::iidm::Generator& gen = vlIIDM1.newGenerator()
+                      .setId("GEN1")
+                      .setName("GEN1_NAME")
+                      .setConnectableBus(b1.getId())
+                      .setMaxP(50.0)
+                      .setMinP(3.0)
+                      .setTargetP(45.0)
+                      .setReactivePowerSetpoint(10.0)
+                      .setTargetV(400.0)
+                      .setVoltageRegulatorOn(true)
+                      .add();
+
+  powsybl::iidm::Generator& gen2 = vlIIDM1.newGenerator()
+                      .setId("GEN2")
+                      .setName("GEN2_NAME")
+                      .setConnectableBus(b1.getId())
+                      .setMaxP(50.0)
+                      .setMinP(3.0)
+                      .setTargetP(45.0)
+                      .setReactivePowerSetpoint(10.0)
+                      .setTargetV(400.0)
+                      .setVoltageRegulatorOn(true)
+                      .setRegulatingTerminal(stdcxx::Reference<powsybl::iidm::Terminal>(line_.getTerminal1()))
+                      .add();
+
+  powsybl::iidm::Generator& gen3 = vlIIDM1.newGenerator()
+                      .setId("GEN3")
+                      .setName("GEN3_NAME")
+                      .setConnectableBus(b1.getId())
+                      .setMaxP(50.0)
+                      .setMinP(3.0)
+                      .setTargetP(45.0)
+                      .setReactivePowerSetpoint(10.0)
+                      .setTargetV(400.0)
+                      .setVoltageRegulatorOn(true)
+                      .setRegulatingTerminal(stdcxx::Reference<powsybl::iidm::Terminal>(TwoWTransf_.getTerminal1()))
+                      .add();
+
+  powsybl::iidm::Generator& gen4 = vlIIDM1.newGenerator()
+                      .setId("GEN4")
+                      .setName("GEN4_NAME")
+                      .setConnectableBus(b1.getId())
+                      .setMaxP(50.0)
+                      .setMinP(3.0)
+                      .setTargetP(45.0)
+                      .setReactivePowerSetpoint(10.0)
+                      .setTargetV(400.0)
+                      .setVoltageRegulatorOn(true)
+                      .setRegulatingTerminal(stdcxx::Reference<powsybl::iidm::Terminal>(TwoWTransf_.getTerminal2()))
+                      .add();
+
+  powsybl::iidm::Generator& gen5 = vlIIDM1.newGenerator()
+                      .setId("GEN5")
+                      .setName("GEN5_NAME")
+                      .setConnectableBus(b1.getId())
+                      .setMaxP(50.0)
+                      .setMinP(3.0)
+                      .setTargetP(45.0)
+                      .setReactivePowerSetpoint(10.0)
+                      .setTargetV(400.0)
+                      .setVoltageRegulatorOn(true)
+                      .setRegulatingTerminal(stdcxx::Reference<powsybl::iidm::Terminal>(dl.getTerminal()))
+                      .add();
+
+  powsybl::iidm::Generator& gen6 = vlIIDM1.newGenerator()
+                      .setId("GEN6")
+                      .setName("GEN6_NAME")
+                      .setConnectableBus(b1.getId())
+                      .setMaxP(50.0)
+                      .setMinP(3.0)
+                      .setTargetP(45.0)
+                      .setReactivePowerSetpoint(10.0)
+                      .setTargetV(400.0)
+                      .setVoltageRegulatorOn(true)
+                      .setRegulatingTerminal(stdcxx::Reference<powsybl::iidm::Terminal>(lcc.getTerminal()))
+                      .add();
+
+  powsybl::iidm::Generator& gen7 = vlIIDM1.newGenerator()
+                      .setId("GEN7")
+                      .setName("GEN7_NAME")
+                      .setConnectableBus(b1.getId())
+                      .setMaxP(50.0)
+                      .setMinP(3.0)
+                      .setTargetP(45.0)
+                      .setReactivePowerSetpoint(10.0)
+                      .setTargetV(400.0)
+                      .setVoltageRegulatorOn(true)
+                      .setRegulatingTerminal(stdcxx::Reference<powsybl::iidm::Terminal>(vsc.getTerminal()))
+                      .add();
+
+  powsybl::iidm::ShuntCompensator& shunt = vlIIDM1.newShuntCompensator()
+                                .setId("SHUNT")
+                                .setName("SHUNT_NAME")
+                                .setBus(b3.getId())
+                                .setConnectableBus(b3.getId())
+                                .setbPerSection(12.0)
+                                .setCurrentSectionCount(2UL)
+                                .setMaximumSectionCount(3UL)
+                                .add();
+
+  powsybl::iidm::ShuntCompensator& shunt2 = vlIIDM1.newShuntCompensator()
+                                .setId("SHUNT2")
+                                .setName("SHUNT2_NAME")
+                                .setBus(b1.getId())
+                                .setConnectableBus(b1.getId())
+                                .setbPerSection(12.0)
+                                .setCurrentSectionCount(2UL)
+                                .setMaximumSectionCount(3UL)
+                                .setRegulatingTerminal(stdcxx::Reference<powsybl::iidm::Terminal>(line_.getTerminal2()))
+                                .add();
+  powsybl::iidm::StaticVarCompensator& svc = vlIIDM1.newStaticVarCompensator()
+                              .setId("SVC1")
+                              .setName("SVC1_NAME")
+                              .setBus(b1.getId())
+                              .setConnectableBus(b1.getId())
+                              .setBmin(-0.01)
+                              .setBmax(0.02)
+                              .setVoltageSetpoint(380.0)
+                              .setReactivePowerSetpoint(90.0)
+                              .setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::VOLTAGE)
+                              .add();
+  powsybl::iidm::Load& load = vlIIDM1.newLoad()
+                              .setId("LOAD")
+                              .setBus(b1.getId())
+                              .setConnectableBus(b1.getId())
+                              .setName("LOAD1_NAME")
+                              .setLoadType(LoadType::UNDEFINED)
+                              .setP0(5000.0)
+                              .setQ0(4000.0)
+                              .add();
+  powsybl::iidm::StaticVarCompensator& svc2 = vlIIDM1.newStaticVarCompensator()
+                              .setId("SVC2")
+                              .setName("SVC2_NAME")
+                              .setBus(b1.getId())
+                              .setConnectableBus(b1.getId())
+                              .setBmin(-0.01)
+                              .setBmax(0.02)
+                              .setVoltageSetpoint(380.0)
+                              .setReactivePowerSetpoint(90.0)
+                              .setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::VOLTAGE)
+                              .setRegulatingTerminal(stdcxx::Reference<powsybl::iidm::Terminal>(load.getTerminal()))
+                              .add();
+
+  VoltageLevelInterfaceIIDM vl(vlIIDM1);
+  VoltageLevelInterfaceIIDM vl2(vlIIDM2);
+  GeneratorInterfaceIIDM genItf(gen);
+  GeneratorInterfaceIIDM genItf2(gen2);
+  GeneratorInterfaceIIDM genItf3(gen3);
+  GeneratorInterfaceIIDM genItf4(gen4);
+  GeneratorInterfaceIIDM genItf5(gen5);
+  GeneratorInterfaceIIDM genItf6(gen6);
+  GeneratorInterfaceIIDM genItf7(gen7);
+  LineInterfaceIIDM lineItf(line_);
+  ShuntCompensatorInterfaceIIDM shuntItf(shunt);
+  ShuntCompensatorInterfaceIIDM shuntItf2(shunt2);
+  StaticVarCompensatorInterfaceIIDM svcItf(svc);
+  StaticVarCompensatorInterfaceIIDM svcItf2(svc2);
+  LoadInterfaceIIDM loadItf(load);
+
+  shared_ptr<BusInterface> bus1(new BusInterfaceIIDM(b1));
+  shared_ptr<BusInterface> bus2(new BusInterfaceIIDM(b2));
+  shared_ptr<BusInterface> bus3(new BusInterfaceIIDM(b3));
+  shared_ptr<BusInterface> bus4(new BusInterfaceIIDM(b4));
+  shared_ptr<BusInterface> bus5(new BusInterfaceIIDM(b5));
+  shared_ptr<SwitchInterface> switch1(new SwitchInterfaceIIDM(aSwitch));
+
+  switch1->setBusInterface1(bus1);
+  switch1->setBusInterface2(bus2);
+
+
+  vl.addBus(bus1);
+  vl.addBus(bus2);
+  vl.addBus(bus3);
+  vl.addBus(bus4);
+
+  vl2.addBus(bus5);
+
+  genItf.setBusInterface(bus1);
+  genItf2.setBusInterface(bus1);
+  genItf3.setBusInterface(bus1);
+  genItf4.setBusInterface(bus1);
+  genItf5.setBusInterface(bus1);
+  genItf6.setBusInterface(bus1);
+  genItf7.setBusInterface(bus1);
+  lineItf.setBusInterface1(bus1);
+  lineItf.setBusInterface2(bus5);
+  shuntItf.setBusInterface(bus1);
+  svcItf.setBusInterface(bus1);
+  svcItf2.setBusInterface(bus2);
+  loadItf.setBusInterface(bus1);
+
+  interface.initFromIIDM();
+
+  auto serviceManager = interface.getServiceManager();
+
+  ASSERT_EQ(serviceManager->getRegulatedBus(genItf.getID())->getID(), bus1->getID());
+  ASSERT_EQ(serviceManager->getRegulatedBus(genItf2.getID())->getID(), bus1->getID());
+  ASSERT_EQ(serviceManager->getRegulatedBus(genItf3.getID())->getID(), bus1->getID());
+  ASSERT_EQ(serviceManager->getRegulatedBus(genItf4.getID())->getID(), bus5->getID());
+  ASSERT_EQ(serviceManager->getRegulatedBus(genItf5.getID())->getID(), bus5->getID());
+  ASSERT_EQ(serviceManager->getRegulatedBus(genItf6.getID())->getID(), bus1->getID());
+  ASSERT_EQ(serviceManager->getRegulatedBus(genItf7.getID())->getID(), bus1->getID());
+  ASSERT_EQ(serviceManager->getRegulatedBus(shuntItf2.getID())->getID(), bus5->getID());
+  ASSERT_EQ(serviceManager->getRegulatedBus(shuntItf.getID())->getID(), bus3->getID());
+  ASSERT_EQ(serviceManager->getRegulatedBus(svcItf.getID())->getID(), bus1->getID());
+  ASSERT_EQ(serviceManager->getRegulatedBus(svcItf2.getID())->getID(), bus1->getID());
+  ASSERT_FALSE(serviceManager->getRegulatedBus(lineItf.getID()));
 }
 
 }  // namespace DYN

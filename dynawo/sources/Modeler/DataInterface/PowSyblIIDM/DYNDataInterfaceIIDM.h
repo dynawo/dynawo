@@ -71,6 +71,12 @@ class DataInterfaceIIDM : public DataInterface {
   powsybl::iidm::Network& getNetworkIIDM();
 
   /**
+   * @brief getter for the instance of IIDM network
+   * @return the instance of IIDM network
+   */
+  const powsybl::iidm::Network& getNetworkIIDM() const;
+
+  /**
    * @brief dump the network to a file with the proper format
    * @param filepath file to create
    */
@@ -176,6 +182,14 @@ class DataInterfaceIIDM : public DataInterface {
    * @return instance of component interface found
    */
   boost::shared_ptr<ComponentInterface>& findComponent(const std::string& id);
+
+  /**
+   * @brief find a component thanks to its id
+   * @param id : id of the component to find
+   *
+   * @return instance of component interface found
+   */
+  const boost::shared_ptr<ComponentInterface>& findComponent(const std::string& id) const;
 
   /**
    * @copydoc DataInterface::getServiceManager

@@ -36,6 +36,11 @@ class ServiceManagerInterfaceIIDM : public ServiceManagerInterface {
    * @copydoc ServiceManagerInterface::getBusesConnectedBySwitch
    */
   virtual std::vector<std::string> getBusesConnectedBySwitch(const std::string& busId, const std::string& VLId) const;
+
+  /**
+   * @copydoc ServiceManagerInterface::getRegulatedBus
+   */
+  virtual boost::shared_ptr<BusInterface> getRegulatedBus(const std::string& regulatingComponent) const;
 };
 }  // namespace DYN
 

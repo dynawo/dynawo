@@ -22,9 +22,9 @@
 
 #include <string>
 #include <vector>
+#include "DYNBusInterface.h"
 
 namespace DYN {
-
 /**
  * @brief Interface for dynawo service interface
  */
@@ -47,6 +47,14 @@ struct ServiceManagerInterface {
    * @returns the list of the bus ids linked to @p busId
    */
   virtual std::vector<std::string> getBusesConnectedBySwitch(const std::string& busId, const std::string& VLId) const = 0;
+
+  /**
+   * @brief Retrieve the regulated bus interface
+   *
+   * @param regulatingComponent id of the regulating object
+   * @returns regulated bus interface
+   */
+  virtual boost::shared_ptr<BusInterface> getRegulatedBus(const std::string& regulatingComponent) const = 0;
 };
 }  // namespace DYN
 

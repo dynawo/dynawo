@@ -27,4 +27,9 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string&, const
   return std::vector<std::string>();
 }
 
+boost::shared_ptr<BusInterface>
+ServiceManagerInterfaceIIDM::getRegulatedBus(const std::string& regulatingComponent) const {
+  // IIDM 1.0 doesn't support regulating terminals
+  return boost::shared_ptr<BusInterface> ();
+}
 }  // namespace DYN
