@@ -32,6 +32,7 @@ ImpossibleConnection          =             element 1 (id %1%: name :%2%) not fo
 ElementNames                  =             possible elements for model %1% (type %2%):
 NetworkElementNames           =             possible elements for network model %1%:
 NetworkElementCompNotFound    =             unable to show the network component element list as no correspondence was found for the element %1%. Element names for model NETWORK should start with the static id of the component.
+CalcVarConnectionIgnored      =             connection between calculated variables %1% and %2% will be ignored
 WrongCheckSum                 =             unable to load dump state : Checksum is different from the registered state (%1%)
 WrongParameterNum             =             unable to load dump state : Number of parameters has change in comparison with the registered state (%1%)
 SubModelFeqFormulaNotExist    =             failed to retrieve equation %2% of submodel %1%
