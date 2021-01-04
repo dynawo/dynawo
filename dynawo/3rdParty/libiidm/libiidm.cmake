@@ -19,7 +19,7 @@ set(package_name       "libiidm")
 set(package_config_dir "LibIIDM")
 set(package_install_dir  "${CMAKE_INSTALL_PREFIX}/${package_name}")
 string(TOUPPER "${package_name}" package_uppername)
-set(package_RequiredVersion 1.2.0)
+set(package_RequiredVersion 1.2.1)
 
 set(CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}/${package_name}/${package_config_dir}")
 
@@ -30,7 +30,7 @@ if(${package_name}_FOUND)
   message(STATUS "Found ${package_name} ${PACKAGE_VERSION}")
 
 else()
-  set(package_md5    fa9836f28248953a7a6f14645ffa99a5)
+  set(package_md5    1b2f091c6dd5414abd3388b65be84912)
   if(DEFINED $ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
     set(package_prefix_url $ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
   else()
