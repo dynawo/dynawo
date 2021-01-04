@@ -734,7 +734,12 @@ ModelMulti::connectElements(shared_ptr<SubModel> &subModel1, const string &name1
   vector<std::pair<string, string> > variablesToConnect;
   findVariablesConnectedBy(subModel1, name1, subModel2, name2, variablesToConnect);
   for (size_t i = 0, iEnd = variablesToConnect.size(); i < iEnd; ++i) {
-    createConnection(subModel1, variablesToConnect[i].first, subModel2, variablesToConnect[i].second);
+    bool isState1 = subModel1->getVariable(variablesToConnect[i].first)->isState();
+    bool isState2 = subModel2->getVariable(variablesToConnect[i].second)->isState();
+    if (isState1 || isState2)
+      createConnection(subModel1, variablesToConnect[i].first, subModel2, variablesToConnect[i].second);
+    else
+      Trace::warn() << DYNLog(CalcVarConnectionIgnored, variablesToConnect[i].first, variablesToConnect[i].second) << Trace::endline;
   }
 }
 
