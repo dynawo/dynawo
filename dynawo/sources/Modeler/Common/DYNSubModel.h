@@ -20,26 +20,24 @@
 #ifndef MODELER_COMMON_DYNSUBMODEL_H_
 #define MODELER_COMMON_DYNSUBMODEL_H_
 
-#include <vector>
-#include <map>
-#include <string>
-#include <list>
-#include <iostream>
+#include "DYNBitMask.h"
+#include "DYNParameterModeler.h"
+#include "PARParametersSet.h"
+#include "TLTimeline.h"            // for the macro DYNAddEvent() called from derived classes
+
+#include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
 #include <boost/unordered_set.hpp>
 
-#include <boost/shared_ptr.hpp>
+#include <iostream>
+#include <list>
+#include <map>
+#include <string>
+#include <vector>
 
-#include "DYNEnumUtils.h"
-#include "DYNParameterModeler.h"
-#include "PARParametersSet.h"
-#include "CSTRConstraintsCollection.h"
-#include "DYNBitMask.h"
-#include "TLTimeline.h"
-
-namespace parameters {
-class ParametersSet;
-}  // namespace parameters
+namespace constraints {
+class ConstraintsCollection;
+}  // namespace constraints
 
 namespace curves {
 class Curve;
