@@ -27,14 +27,16 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
 
-#include "DYNMacrosMessage.h"
-#include "DYNSubModel.h"
-#include "DYNModelManager.h"
-#include "DYNModelManagerCommon.h"
-#include "DYNTerminate.h"
-#include "DYNTrace.h"
+#include "CSTRConstraint.h"
+#include "CSTRConstraintsCollection.h"
 #include "DYNExecUtils.h"
 #include "DYNFileSystemUtils.h"
+#include "DYNMacrosMessage.h"
+#include "DYNModelManager.h"
+#include "DYNModelManagerCommon.h"
+#include "DYNSubModel.h"
+#include "DYNTerminate.h"
+#include "DYNTrace.h"
 
 namespace DYN {
 
@@ -103,11 +105,17 @@ void addLogEventRaw5_(ModelManager* model, const char* message1, const char* mes
 }
 
 void addLogConstraintBegin_(ModelManager* model, const Message& message) {
-  model->addConstraint(model->name(), true, message);
+  if (model->hasConstraints()) {
+    constraints::Type_t type = constraints::CONSTRAINT_BEGIN;
+    model->getConstraints()->addConstraint(model->name(), message.str(), model->getCurrentTime(), type);
+  }
 }
 
 void addLogConstraintEnd_(ModelManager* model, const Message& message) {
-  model->addConstraint(model->name(), false, message);
+  if (model->hasConstraints()) {
+    constraints::Type_t type = constraints::CONSTRAINT_END;
+    model->getConstraints()->addConstraint(model->name(), message.str(), model->getCurrentTime(), type);
+  }
 }
 
 void assert_(ModelManager* model, const Message& message) {

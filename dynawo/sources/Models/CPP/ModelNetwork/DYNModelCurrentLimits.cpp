@@ -19,10 +19,12 @@
  */
 #include <limits>
 #include <iostream>
-#include "DYNModelCurrentLimits.h"
-#include "DYNModelNetwork.h"
+
+#include "CSTRConstraintsCollection.h"  // for macro DYNAddConstraint()
 #include "DYNMacrosMessage.h"
+#include "DYNModelCurrentLimits.h"
 #include "DYNModelConstants.h"
+#include "DYNModelNetwork.h"
 
 using std::string;
 
@@ -92,9 +94,9 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
     if (!(desactivate > 0)) {
       if (g[0 + 2 * i] == ROOT_UP && !activated_[i]) {
         if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
-          network->addConstraint(componentName, true, DYNConstraint(OverloadUp, acceptableDurations_[i], side_), modelType);
+          DYNAddConstraint(network, componentName, true, modelType, KeyConstraint_t::OverloadUp, acceptableDurations_[i], side_);
         } else {
-          network->addConstraint(componentName, true, DYNConstraint(IMAP, side_), modelType);
+          DYNAddConstraint(network, componentName, true, modelType, KeyConstraint_t::IMAP, side_);
         }
         tLimitReached_[i] = t;
         activated_[i] = true;
@@ -102,9 +104,9 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
 
       if (g[0 + 2 * i] == ROOT_DOWN && activated_[i]) {
         if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
-          network->addConstraint(componentName, false, DYNConstraint(OverloadUp, acceptableDurations_[i], side_), modelType);
+          DYNAddConstraint(network, componentName, false, modelType, KeyConstraint_t::OverloadUp, acceptableDurations_[i], side_);
         } else {
-          network->addConstraint(componentName, false, DYNConstraint(IMAP, side_), modelType);
+          DYNAddConstraint(network, componentName, false, modelType, KeyConstraint_t::IMAP, side_);
         }
         activated_[i] = false;
         tLimitReached_[i] = std::numeric_limits<double>::quiet_NaN();
@@ -112,7 +114,7 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
 
       if (openingAuthorized_[i] && g[1 + 2 * i] == ROOT_UP) {  // Warning: openingAuthorized_ = false => no associated g
         state = ModelCurrentLimits::COMPONENT_OPEN;
-        network->addConstraint(componentName, true, DYNConstraint(OverloadOpen, acceptableDurations_[i], side_), modelType);
+        DYNAddConstraint(network, componentName, true, modelType, KeyConstraint_t::OverloadOpen, acceptableDurations_[i], side_);
         DYNAddEvent(network, componentName, KeyTimeline_t::OverloadOpen, acceptableDurations_[i]);
       }
     }

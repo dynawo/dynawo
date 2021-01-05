@@ -59,6 +59,25 @@
 #define DYNConstraint(key, ...) (DYN::Message(DYN::Message::CONSTRAINT_KEY, DYN::KeyConstraint_t::names(DYN::KeyConstraint_t::key)), ##__VA_ARGS__ )
 
 /**
+ * @brief Macro to add a constraint message
+ * @param pNetwork Pointer to the network being monitored
+ * @param id Name or Id of the model using the service
+ * @param begin true when the constraint starts, false when it ends
+ * @param modelType Model type
+ * @param key Key to log the message (key must be provided with the right namespace DYN::KeyConstraint_t::)
+ *
+ * The macro registers a constraint event, after testing if recording constraint events has been requested from jobs file.
+ */
+#define DYNAddConstraint(pNetwork, id, begin, modelType, key, ...) do { \
+          if ((pNetwork)->hasConstraints()) { \
+            DYN::Message m((DYN::Message(DYN::Message::CONSTRAINT_KEY, DYN::KeyConstraint_t::names(key)), ##__VA_ARGS__)); \
+            constraints::ConstraintsCollection& cc(*(pNetwork)->getConstraints()); \
+            constraints::Type_t constraintType = begin ? constraints::CONSTRAINT_BEGIN : constraints::CONSTRAINT_END; \
+            cc.addConstraint(id, m.str(), (pNetwork)->getCurrentTime(), constraintType, modelType); \
+          } \
+        } while (false)
+
+/**
  * @brief Macro description to have a shortcut.
  *  Thanks to this macro, user can only call an error with the type and the key to access
  *  to the message (+ optionnal arguments if the message need)

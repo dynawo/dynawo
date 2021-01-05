@@ -12,6 +12,7 @@ set(MODULE_NAME COMMON_unittest)
 
 set(MODULE_SOURCES
     TestBitMask.cpp
+    TestDYNAddConstraint.cpp
     TestDYNAddEvent.cpp
     TestGraph.cpp
     TestParameter.cpp

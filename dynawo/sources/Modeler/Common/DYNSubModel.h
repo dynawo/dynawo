@@ -742,22 +742,27 @@ class SubModel {
   }
 
   /**
-   * @brief begin/end a constraint
-   *
-   * @param modelName name of the model where the constraint (dis)appears
-   * @param begin @b true if the constrain begin
-   * @param description description of the constraint
-   * @param modelType type of the model
-   */
-  void addConstraint(const std::string& modelName, bool begin, const Message& description,
-      const std::string& modelType = "");
-
-  /**
    * @brief set the timeline to use during the simulation (where events should be added)
    *
    * @param timeline timeline to use
    */
   void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
+
+  /**
+   * @brief getter to tell whether or not simulation generates a journal of constraints
+   * @return true when simulation generates a file resuming the constraints; false otherwise
+   */
+  inline bool hasConstraints() const {
+    return constraints_.use_count() != 0;
+  }
+
+  /**
+   * @brief public getter for constraint collection
+   * @return a const reference to the shared_ptr structure that wraps the constraints collection
+   */
+  inline const boost::shared_ptr<constraints::ConstraintsCollection>& getConstraints() const {
+    return constraints_;
+  }
 
   /**
    * @brief set the constraints collection to use during the simulation (where constraints should be added)

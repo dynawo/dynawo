@@ -23,6 +23,7 @@
 
 #include <boost/algorithm/string/predicate.hpp>
 
+#include "CSTRConstraintsCollection.h"  // for macro DYNAddConstraint()
 #include "PARParametersSet.h"
 #include "DYNModelBus.h"
 #include "DYNModelSwitch.h"
@@ -183,10 +184,11 @@ modelType_((boost::starts_with(bus->getID(), "calculatedBus_"))?"Bus":"Node") {
   uMax_ = bus->getVMax() / unom_;
   uMin_ = bus->getVMin() / unom_;
 
-  constraintId_ = bus->getID();
   const vector<string>& busBarSections = bus->getBusBarSectionNames();
   if (boost::starts_with(bus->getID(), "calculatedBus_") && !busBarSections.empty()) {
     constraintId_ = busBarSections[0];
+  } else {
+    constraintId_ = bus->getID();
   }
 }
 
@@ -673,18 +675,18 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
 NetworkComponent::StateChange_t
 ModelBus::evalZ(const double& /*t*/) {
   if (g_[0] == ROOT_UP && !stateUmax_) {
-    network_->addConstraint(constraintId_, true, DYNConstraint(USupUmax), modelType_);
+    DYNAddConstraint(network_, constraintId_, true, modelType_, KeyConstraint_t::USupUmax);
     stateUmax_ = true;
   } else if (g_[0] == ROOT_DOWN && stateUmax_) {
-    network_->addConstraint(constraintId_, false, DYNConstraint(USupUmax), modelType_);
+    DYNAddConstraint(network_, constraintId_, false, modelType_, KeyConstraint_t::USupUmax);
     stateUmax_ = false;
   }
 
   if (g_[1] == ROOT_UP && !stateUmin_) {
-    network_->addConstraint(constraintId_, true, DYNConstraint(UInfUmin), modelType_);
+    DYNAddConstraint(network_, constraintId_, true, modelType_, KeyConstraint_t::UInfUmin);
     stateUmin_ = true;
   } else if (g_[1] == ROOT_DOWN && stateUmin_) {
-    network_->addConstraint(constraintId_, false, DYNConstraint(UInfUmin), modelType_);
+    DYNAddConstraint(network_, constraintId_, false, modelType_, KeyConstraint_t::UInfUmin);
     stateUmin_ = false;
   }
 

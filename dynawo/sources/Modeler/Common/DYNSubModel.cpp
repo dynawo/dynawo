@@ -1184,13 +1184,6 @@ SubModel::addMessage(const string& message) {
     messages_.push_back(message);
 }
 
-void
-SubModel::addConstraint(const string& modelName, bool begin, const Message& description,
-    const string& modelType) {
-  constraints::Type_t type = (begin)?constraints::CONSTRAINT_BEGIN:constraints::CONSTRAINT_END;
-  constraints_->addConstraint(modelName, description.str(), getCurrentTime(), type, modelType);
-}
-
 string
 SubModel::getFequationByLocalIndex(const int& index) {
   map<int, string>::const_iterator it = fEquationIndex().find(index);
