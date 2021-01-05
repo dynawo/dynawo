@@ -223,45 +223,45 @@ T pow_dynawo(T a, T b) {
 #define DYNTimelineFromModelica(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::value(key))), ##__VA_ARGS__ )
 
 #define addLogEvent1(key) \
-        do { if (this->getModelManager()->hasTimeline()) \
-           { addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key)); } \
+        do { if ((this)->getModelManager()->hasTimeline()) \
+           { addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key)); } \
         } while (false)
 #define addLogEvent2(key, arg1) \
-        do { if (this->getModelManager()->hasTimeline()) \
-           { addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key, arg1)); } \
+        do { if ((this)->getModelManager()->hasTimeline()) \
+           { addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1)); } \
         } while (false)
 #define addLogEvent3(key, arg1, arg2) \
-        do { if (this->getModelManager()->hasTimeline()) \
-           { addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2)); } \
+        do { if ((this)->getModelManager()->hasTimeline()) \
+           { addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2)); } \
         } while (false)
 #define addLogEvent4(key, arg1, arg2, arg3) \
-        do { if (this->getModelManager()->hasTimeline()) \
-           { addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3)); } \
+        do { if ((this)->getModelManager()->hasTimeline()) \
+           { addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3)); } \
         } while (false)
 #define addLogEvent5(key, arg1, arg2, arg3, arg4) \
-        do { if (this->getModelManager()->hasTimeline()) \
-           { addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3, arg4)); } \
+        do { if ((this)->getModelManager()->hasTimeline()) \
+           { addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3, arg4)); } \
         } while (false)
 
 #define addLogEventRaw1(key) \
-        do { if (this->getModelManager()->hasTimeline()) \
-           { addLogEventRow1_(this->getModelManager(), MessageTimeline("", key)); } \
+        do { if ((this)->getModelManager()->hasTimeline()) \
+           { addLogEventRow1_((this)->getModelManager(), MessageTimeline("", key)); } \
         } while (false)
 #define addLogEventRaw2(key1, key2) \
-        do { if (this->getModelManager()->hasTimeline())\
-           { addLogEventRow2_(this->getModelManager(), key1, key2); } \
+        do { if ((this)->getModelManager()->hasTimeline())\
+           { addLogEventRow2_((this)->getModelManager(), key1, key2); } \
         } while (false)
 #define addLogEventRaw3(key1, key2, key3) \
-        do { if (this->getModelManager()->hasTimeline()) \
-           { addLogEventRow3_(this->getModelManager(), key1, key2, key3); } \
+        do { if ((this)->getModelManager()->hasTimeline()) \
+           { addLogEventRow3_((this)->getModelManager(), key1, key2, key3); } \
         } while (false)
 #define addLogEventRaw4(key1, key2, key3, key4) \
-        do { if (this->getModelManager()->hasTimeline()) \
-           { addLogEventRow4_(this->getModelManager(), key1, key2, key3, key4); } \
+        do { if ((this)->getModelManager()->hasTimeline()) \
+           { addLogEventRow4_((this)->getModelManager(), key1, key2, key3, key4); } \
         } while (false)
 #define addLogEventRaw5(key1, key2, key3, key4, key5) \
-        do { if (this->getModelManager()->hasTimeline()) \
-           { addLogEventRow5_(this->getModelManager(), key1, key2, key3, key4, key5); } \
+        do { if ((this)->getModelManager()->hasTimeline()) \
+           { addLogEventRow5_((this)->getModelManager(), key1, key2, key3, key4, key5); } \
         } while (false)
 
 #define printLogToStdOut(message) printLogToStdOut_((this)->getModelManager(), std::string(message))
@@ -296,7 +296,7 @@ T pow_dynawo(T a, T b) {
 
 #define callExternalAutomaton(command, time, inputs, inputs_name, nbInputs, nbMaxInputs, outputs, outputs_name, nbOutputs, nbMaxOutputs) \
     callExternalAutomatonModel((this)->getModelManager()->name(), command, time, inputs, inputs_name, nbInputs, nbMaxInputs, outputs, outputs_name, nbOutputs, \
-nbMaxOutputs, this->getModelManager()->getWorkingDirectory());
+nbMaxOutputs, (this)->getModelManager()->getWorkingDirectory());
 
 #define delayImpl(data, exprNumber, exprValue, time, delayTime, delayMax) \
   computeDelay((this)->getModelManager(), data, exprNumber, exprValue, time, delayTime, delayMax)
