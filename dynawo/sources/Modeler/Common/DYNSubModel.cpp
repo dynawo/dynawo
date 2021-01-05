@@ -1186,8 +1186,9 @@ SubModel::addMessage(const string& message) {
 
 void
 SubModel::addEvent(const string& modelName, const MessageTimeline& messageTimeline) {
-  assert(timeline_ && "SubModel::addEvent() MUST NOT be called since no timeline is wanted");
-  timeline_->addEvent(getCurrentTime(), modelName, messageTimeline.str(), messageTimeline.priority());
+  if (hasTimeline()) {
+    timeline_->addEvent(getCurrentTime(), modelName, messageTimeline.str(), messageTimeline.priority());
+  }
 }
 
 void

@@ -226,7 +226,7 @@ class Simulation {
    * @brief getter for the export mode of timeline
    * @return timeline's export mode
    */
-  inline exportTimelineMode_t getTimelineExportMode() const {
+  inline const exportTimelineMode_t& getTimelineExportMode() const {
     return exportTimelineMode_;
   }
 
@@ -605,7 +605,7 @@ class Simulation {
    */
  private:
   inline bool hasTimeline() const {
-    return timeline_ ? true : false;
+    return timeline_.use_count() != 0;
   }
 };  // class Simulation
 

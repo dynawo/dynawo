@@ -940,8 +940,9 @@ Simulation::printSolverHeader() {
 
 void
 Simulation::addEvent(const MessageTimeline& messageTimeline) {
-  assert(timeline_ && "Simulation::addEvent() MUST NOT be called since no timeline has been asked");
-  timeline_->addEvent(getCurrentTime(), std::string("Simulation"), messageTimeline.str(), messageTimeline.priority());
+  if (hasTimeline()) {
+    timeline_->addEvent(getCurrentTime(), std::string("Simulation"), messageTimeline.str(), messageTimeline.priority());
+  }
 }
 
 void

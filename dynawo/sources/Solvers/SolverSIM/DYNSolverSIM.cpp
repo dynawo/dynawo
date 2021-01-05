@@ -307,7 +307,7 @@ void SolverSIM::solveWithStepRecalculation(double& tNxt) {
   // Save the initial number of events in the timeline in case we need to come back in the past
   int initialEventsSize = 0;
   int finalEventsSize = 0;
-  if (timeline_) {
+  if (hasTimeline()) {
     initialEventsSize = timeline_->getSizeEvents();
   }
 
@@ -333,7 +333,7 @@ void SolverSIM::solveWithStepRecalculation(double& tNxt) {
         handleDivergence(redoStep);
         restoreInitialValues();
         countRestart_ = 0;
-        if (timeline_) {
+        if (hasTimeline()) {
           // Erase timeline messages that could have been added between the previous accepted time step and the non convergence
           finalEventsSize = timeline_->getSizeEvents();
           if (finalEventsSize != initialEventsSize)

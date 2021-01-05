@@ -288,6 +288,15 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    */
   void printUnstableRoot(double t, const std::vector<state_g>& G0, const std::vector<state_g>& G1) const;
 
+  /**
+   * @brief getter to tell whether or not simulation generates a timeline
+   * @return true when simulation generates a file resuming the timeline; false when timeline has not been asked from jobs file
+   */
+ protected:
+  inline bool hasTimeline() const {
+    return timeline_.use_count() != 0;
+  }
+
  protected:
   /**
    * @brief Integrate the DAE over an interval in t

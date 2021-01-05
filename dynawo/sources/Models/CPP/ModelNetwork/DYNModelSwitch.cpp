@@ -31,7 +31,6 @@
 #include "DYNSwitchInterface.h"
 #include "DYNBusInterface.h"
 #include "DYNModelNetwork.h"
-#include "DYNMessageTimeline.h"
 
 using std::vector;
 using std::map;
@@ -116,7 +115,7 @@ ModelSwitch::evalZ(const double& /*t*/) {
         network_->addEvent(id_, DYNTimeline(SwitchClosed));
       } else if (currState == OPEN) {
         network_->addEvent(id_, DYNTimeline(SwitchOpened));
-      } else ;
+      }
     }
     setConnectionState(currState);
   }

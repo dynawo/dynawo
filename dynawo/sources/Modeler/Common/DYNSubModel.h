@@ -735,7 +735,7 @@ class SubModel {
    * @return true when simulation generates a file resuming the timeline; false when timeline has not been asked from jobs file
    */
   inline bool hasTimeline() const {
-    return timeline_ ? true : false;
+    return timeline_.use_count() != 0;
   }
 
   /**

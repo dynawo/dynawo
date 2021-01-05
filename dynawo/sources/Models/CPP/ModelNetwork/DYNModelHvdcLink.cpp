@@ -32,7 +32,6 @@
 #include "DYNBusInterface.h"
 #include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
-#include "DYNMessageTimeline.h"
 #include "DYNHvdcLineInterface.h"
 #include "DYNVscConverterInterface.h"
 #include "DYNLccConverterInterface.h"
