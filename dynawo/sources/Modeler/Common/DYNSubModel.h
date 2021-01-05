@@ -747,14 +747,6 @@ class SubModel {
   void addEvent(const std::string& modelName, const MessageTimeline& messageTimeline);
 
   /**
-   * @brief add a new event log
-   *
-   * @param modelName name of the model where the event appears
-   * @param keyValue to registrate event in timeline
-   */
-  void addEvent(const std::string& modelName, KeyTimeline_t::value keyValue);
-
-  /**
    * @brief begin/end a constraint
    *
    * @param modelName name of the model where the constraint (dis)appears

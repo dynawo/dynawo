@@ -37,12 +37,6 @@
 #define DYNTimeline(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__ )
 
 /**
- * @brief Macro to define a timeline message
- * @param key key to find the message with namespace
- */
-#define DYNTimelineWithNS(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(key)), ##__VA_ARGS__ )
-
-/**
  * @brief Macro to define a constraint message
  * @param key key to find the message
  */
