@@ -693,14 +693,14 @@ ModelBus::evalZ(const double& /*t*/) {
     topologyModified_ = true;
     if (currState == OPEN) {
       switchOff();
-      network_->addEvent(id_, DYNTimeline(NodeOff));
+      if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(NodeOff));
       // open all switch connected to this node
       for (unsigned int i = 0; i < connectableSwitches_.size(); ++i) {
         connectableSwitches_[i].lock()->open();
       }
     } else if (currState == CLOSED) {
       switchOn();
-      network_->addEvent(id_, DYNTimeline(NodeOn));
+      if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(NodeOn));
     }
     connectionState_ = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   }

@@ -56,7 +56,7 @@ void printLogExecution_(ModelManager * model, const std::string & message) {
 }
 
 void addLogEvent_(ModelManager* model, const MessageTimeline& messageTimeline) {
-  model->addEvent(model->name(), messageTimeline);
+  if (model->hasTimeline()) model->addEvent(model->name(), messageTimeline);
 }
 
 void addLogEventRaw2_(ModelManager* model, const char* message1, const char* message2) {
@@ -112,7 +112,7 @@ void throw_(ModelManager* model, const Message& message) {
 }
 
 void terminate_(ModelManager* model, const MessageTimeline& messageTimeline) {
-  model->addEvent(model->name(), messageTimeline);
+  if ( model->hasTimeline()) model->addEvent(model->name(), messageTimeline);
   throw DYNTerminate(TerminateInModel, model->name(), messageTimeline.str());
 }
 

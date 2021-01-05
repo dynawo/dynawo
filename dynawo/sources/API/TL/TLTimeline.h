@@ -147,7 +147,7 @@ class Timeline {
 
    private:
     std::vector<boost::shared_ptr<Event> >::const_iterator current_;  ///< current set iterator
-  };
+  };  // class Timeline::event_const_iterator
 
   /**
    * @brief Get an event_const_iterator to the beginning of the events' set
@@ -182,7 +182,7 @@ class Timeline {
  private:
   std::vector<boost::shared_ptr<Event> > events_;  ///< Array of events
   std::string id_;                                 ///< Timeline's id
-};
+};  // class Timeline
 
 }  // namespace timeline
 

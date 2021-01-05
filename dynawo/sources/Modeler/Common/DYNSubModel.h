@@ -731,6 +731,14 @@ class SubModel {
   void addMessage(const std::string& message);
 
   /**
+   * @brief getter to tell whether or not simulation generates a timeline
+   * @return true when simulation generates a file resuming the timeline; false when timeline has not been asked from jobs file
+   */
+  inline bool hasTimeline() const {
+    return timeline_ ? true : false;
+  }
+
+  /**
    * @brief add a new event log
    *
    * @param modelName name of the model where the event appears

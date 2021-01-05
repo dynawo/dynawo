@@ -50,7 +50,7 @@ class SparseMatrix;
 class Model {
  public:
   /**
-   * @brief default destructor
+   * @brief destructor
    */
   virtual ~Model() { }
 

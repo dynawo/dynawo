@@ -214,12 +214,12 @@ ModelShuntCompensator::evalZ(const double& t) {
     stateModified_ = true;
     Trace::info() << DYNLog(ShuntStateChange, id_, getConnected(), currState) << Trace::endline;
     if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(ShuntDisconnected));
+      if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(ShuntDisconnected));
       tLastOpening_ = t;
       currentSection_ = 0;
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
     } else if (currState == CLOSED) {
-      network_->addEvent(id_, DYNTimeline(ShuntConnected));
+      if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(ShuntConnected));
       currentSection_ = maximumSection_;
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
     }

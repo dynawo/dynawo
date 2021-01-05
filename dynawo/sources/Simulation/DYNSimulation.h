@@ -132,6 +132,7 @@ class Simulation {
 
   /**
    * @brief initialize the simulation
+   * init() must be called right after creation of a new Simulation
    */
   void init();
 
@@ -212,13 +213,23 @@ class Simulation {
   inline void setTimelineOutputFile(const std::string& outputFile) {
     timelineOutputFile_ = outputFile;
   }
+
   /**
    * @brief setter for the export mode of the timeline
-   * @param mode timeline's mode export
+   * @param mode timeline's export mode
    */
   inline void setTimelineExportMode(const exportTimelineMode_t& mode) {
     exportTimelineMode_ = mode;
   }
+
+  /**
+   * @brief getter for the export mode of timeline
+   * @return timeline's export mode
+   */
+  inline exportTimelineMode_t getTimelineExportMode() const {
+    return exportTimelineMode_;
+  }
+
   /**
    * @brief setter for the export mode of curves
    * @param mode curves' export mode
@@ -461,8 +472,9 @@ class Simulation {
 
   /**
    * @brief configure the simulation outputs
+   * @param sPid string identifying the process
    */
-  void configureSimulationOutputs();
+  void configureSimulationOutputs(const std::string& sPid);
 
   /**
    * @brief configure the simulation inputs
@@ -568,8 +580,9 @@ class Simulation {
 
   /**
    * @brief configure the timeline outputs
+   * @param sPid std::string identifying the process
    */
-  void configureTimelineOutputs();
+  void configureTimelineOutputs(const std::string& sPid);
 
   /**
    * @brief configure the timetable outputs
@@ -585,7 +598,16 @@ class Simulation {
    * @brief configure the final state outputs
    */
   void configureFinalStateOutputs();
-};
+
+  /**
+   * @brief getter which tells whether or not simulation should generate a timeline
+   * @return true when simulation should generate a file resuming the timeline; false when timeline has not been asked
+   */
+ private:
+  inline bool hasTimeline() const {
+    return timeline_ ? true : false;
+  }
+};  // class Simulation
 
 }  // end of namespace DYN
 

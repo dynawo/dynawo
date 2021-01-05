@@ -113,7 +113,7 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
       if (openingAuthorized_[i] && g[1 + 2 * i] == ROOT_UP) {  // Warning: openingAuthorized_ = false => no associated g
         state = ModelCurrentLimits::COMPONENT_OPEN;
         network->addConstraint(componentName, true, DYNConstraint(OverloadOpen, acceptableDurations_[i], side_), modelType);
-        network->addEvent(componentName, DYNTimeline(OverloadOpen, acceptableDurations_[i]));
+        if (network->hasTimeline()) network->addEvent(componentName, DYNTimeline(OverloadOpen, acceptableDurations_[i]));
       }
     }
   }

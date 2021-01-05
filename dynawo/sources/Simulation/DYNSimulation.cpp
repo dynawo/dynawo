@@ -149,6 +149,7 @@ Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<Simulatio
 context_(context),
 jobEntry_(jobEntry),
 data_(data),
+timeline_(NULL),
 iidmFile_(""),
 networkParFile_(""),
 networkParSet_(""),
@@ -176,11 +177,10 @@ dumpGlobalInitValues_(false) {
 #else
   pid_ = getpid();
 #endif
-  stringstream pid_string;
-  pid_string << pid_;
-  timeline_ = TimelineFactory::newInstance("Simulation_" + pid_string.str());
-  curvesCollection_ = CurvesCollectionFactory::newInstance("Simulation_" + pid_string.str());
-  constraintsCollection_ = ConstraintsCollectionFactory::newInstance("Simulation_" + pid_string.str());
+  stringstream pid_stringstream;
+  pid_stringstream << pid_;
+  curvesCollection_ = CurvesCollectionFactory::newInstance("Simulation_" + pid_stringstream.str());
+  constraintsCollection_ = ConstraintsCollectionFactory::newInstance("Simulation_" + pid_stringstream.str());
 
   // Set simulation parameters
   setStartTime(jobEntry_->getSimulationEntry()->getStartTime());
@@ -197,7 +197,7 @@ dumpGlobalInitValues_(false) {
   }
 
   configureLogs();
-  configureSimulationOutputs();
+  configureSimulationOutputs(pid_stringstream.str());
   setSolver();
   configureSimulationInputs();
   configureCriteria();
@@ -262,7 +262,7 @@ Simulation::clean() {
 }
 
 void
-Simulation::configureSimulationOutputs() {
+Simulation::configureSimulationOutputs(const std::string& sPid) {
   if (jobEntry_->getOutputsEntry()) {
     // Init Values settings
     if (jobEntry_->getOutputsEntry()->getInitValuesEntry()) {
@@ -270,7 +270,7 @@ Simulation::configureSimulationOutputs() {
       setDumpGlobalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpGlobalInitValues());
     }
     configureConstraintsOutputs();
-    configureTimelineOutputs();
+    configureTimelineOutputs(sPid);
     configureTimetableOutputs();
     configureCurveOutputs();
     configureFinalStateOutputs();
@@ -307,33 +307,27 @@ Simulation::configureConstraintsOutputs() {
 }
 
 void
-Simulation::configureTimelineOutputs() {
+Simulation::configureTimelineOutputs(const string& sPid) {
   // Timeline settings
   if (jobEntry_->getOutputsEntry()->getTimelineEntry()) {
+    timeline_ = TimelineFactory::newInstance("Simulation_" + sPid);
     string timeLineDir = createAbsolutePath("timeLine", outputsDirectory_);
     if (!is_directory(timeLineDir))
       create_directory(timeLineDir);
 
-    //---- exportMode ----
-    string exportMode = jobEntry_->getOutputsEntry()->getTimelineEntry()->getExportMode();
-    Simulation::exportTimelineMode_t exportModeFlag = Simulation::EXPORT_TIMELINE_NONE;
-    string outputFile = "";
+    const string& exportMode = jobEntry_->getOutputsEntry()->getTimelineEntry()->getExportMode();
     if (exportMode == "TXT") {
-      exportModeFlag = Simulation::EXPORT_TIMELINE_TXT;
-      outputFile = createAbsolutePath("timeline.log", timeLineDir);
+      setTimelineExportMode(Simulation::EXPORT_TIMELINE_TXT);
+      setTimelineOutputFile(createAbsolutePath("timeline.log", timeLineDir));
     } else if (exportMode == "CSV") {
-      exportModeFlag = Simulation::EXPORT_TIMELINE_CSV;
-      outputFile = createAbsolutePath("timeline.csv", timeLineDir);
+      setTimelineExportMode(Simulation::EXPORT_TIMELINE_CSV);
+      setTimelineOutputFile(createAbsolutePath("timeline.csv", timeLineDir));
     } else if (exportMode == "XML") {
-      exportModeFlag = Simulation::EXPORT_TIMELINE_XML;
-      outputFile = createAbsolutePath("timeline.xml", timeLineDir);
+      setTimelineExportMode(Simulation::EXPORT_TIMELINE_XML);
+      setTimelineOutputFile(createAbsolutePath("timeline.xml", timeLineDir));
     } else {
       throw DYNError(Error::MODELER, UnknownTimelineExport, exportMode);
     }
-    setTimelineExportMode(exportModeFlag);
-    setTimelineOutputFile(outputFile);
-  } else {
-    setTimelineExportMode(Simulation::EXPORT_TIMELINE_NONE);
   }
 }
 
@@ -653,7 +647,7 @@ Simulation::init() {
     solver_->printParameterValues();
   }
 
-  double t0 = 0;
+  double t0 = 0.0;
 
 #ifdef _DEBUG_
   printDebugInfo();
@@ -702,7 +696,7 @@ Simulation::init() {
   Trace::info() << DYNLog(CurveInit) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   const std::vector<double>& y = solver_->getCurrentY();
-  unsigned nbCurves = 0;
+  unsigned int nbCurves = 0;
   for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
           itCurve != curvesCollection_->end();
           ++itCurve) {
@@ -850,15 +844,15 @@ Simulation::simulate() {
       model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
 
     if (SignalHandler::gotExitSignal() && !end()) {
-      addEvent(DYNTimeline(SignalReceived));
+      if (hasTimeline()) addEvent(DYNTimeline(SignalReceived));
       throw DYNError(Error::GENERAL, SignalReceived);
     } else if (!criteriaChecked) {
-      addEvent(DYNTimeline(CriteriaNotChecked));
+      if (hasTimeline()) addEvent(DYNTimeline(CriteriaNotChecked));
       throw DYNError(Error::SIMULATION, CriteriaNotChecked);
     } else if (end() && data_ && activateCriteria_) {
       criteriaChecked = checkCriteria(tCurrent_, true);
       if (!criteriaChecked) {
-        addEvent(DYNTimeline(CriteriaNotChecked));
+        if (hasTimeline()) addEvent(DYNTimeline(CriteriaNotChecked));
         throw DYNError(Error::SIMULATION, CriteriaNotChecked);
       }
     }
@@ -946,8 +940,8 @@ Simulation::printSolverHeader() {
 
 void
 Simulation::addEvent(const MessageTimeline& messageTimeline) {
-  const string name = "Simulation";
-  timeline_->addEvent(getCurrentTime(), name, messageTimeline.str(), messageTimeline.priority());
+  assert(timeline_ && "Simulation::addEvent() MUST NOT be called since no timeline has been asked");
+  timeline_->addEvent(getCurrentTime(), std::string("Simulation"), messageTimeline.str(), messageTimeline.priority());
 }
 
 void
@@ -994,7 +988,7 @@ Simulation::terminate() {
     fileCurves.close();
   }
 
-  if (timelineOutputFile_ != "") {
+  if (hasTimeline() && timelineOutputFile_ != "") {
     ofstream fileTimeline;
     openFileStream(fileTimeline, timelineOutputFile_);
     printTimeline(fileTimeline);
@@ -1052,7 +1046,7 @@ Simulation::printCurves(std::ostream& stream) const {
 
 void
 Simulation::printTimeline(std::ostream& stream) const {
-  switch (exportTimelineMode_) {
+  switch (getTimelineExportMode()) {
     case EXPORT_TIMELINE_NONE:
       break;
     case EXPORT_TIMELINE_CSV: {
