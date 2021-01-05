@@ -12,6 +12,7 @@ set(MODULE_NAME COMMON_unittest)
 
 set(MODULE_SOURCES
     TestBitMask.cpp
+    TestDYNAddEvent.cpp
     TestGraph.cpp
     TestParameter.cpp
     TestErrorQueue.cpp
@@ -21,6 +22,22 @@ set(MODULE_SOURCES
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
+
+target_include_directories(${MODULE_NAME}
+  PRIVATE
+        dynawo_API_TL
+  )
+
+target_link_libraries(${MODULE_NAME}
+  dynawo_DataInterfaceIIDM
+  dynawo_DataInterface
+  dynawo_ModelerCommon
+  DYNModelNetwork
+  dynawo_API_CSTR
+  dynawo_API_TL
+  iidm
+  dynawo_Test)
+
 
 target_link_libraries(${MODULE_NAME}
         dynawo_Common
