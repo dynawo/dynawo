@@ -30,14 +30,6 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 find_package(Boost 1.39 REQUIRED)
 if (LIBZIP_BUILD_TESTS)
-    # workaround to find GTest 1.8.1 even in Debug
-    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-      find_package(GTest QUIET)
-      if(NOT GTEST_FOUND)
-        set(GTEST_LIBRARY ${GTEST_LIBRARY_DEBUG})
-        set(GTEST_MAIN_LIBRARY ${GTEST_MAIN_LIBRARY_DEBUG})
-      endif()
-    endif()
     find_package(GTest)
 endif ()
 
