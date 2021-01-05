@@ -1192,6 +1192,14 @@ SubModel::addEvent(const string& modelName, const MessageTimeline& messageTimeli
 }
 
 void
+SubModel::addEvent(const string& modelName, KeyTimeline_t::value keyValue) {
+  if (hasTimeline()) {
+    MessageTimeline m(DYNTimelineWithNS(keyValue));
+    timeline_->addEvent(getCurrentTime(), modelName, m.str(), m.priority());
+  }
+}
+
+void
 SubModel::addConstraint(const string& modelName, bool begin, const Message& description,
     const string& modelType) {
   constraints::Type_t type = (begin)?constraints::CONSTRAINT_BEGIN:constraints::CONSTRAINT_END;

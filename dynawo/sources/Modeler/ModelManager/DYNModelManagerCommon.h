@@ -222,17 +222,47 @@ T pow_dynawo(T a, T b) {
  */
 #define DYNTimelineFromModelica(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::value(key))), ##__VA_ARGS__ )
 
-#define addLogEvent1(key) addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key))
-#define addLogEvent2(key, arg1) addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1))
-#define addLogEvent3(key, arg1, arg2) addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2))
-#define addLogEvent4(key, arg1, arg2, arg3) addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3))
-#define addLogEvent5(key, arg1, arg2, arg3, arg4) addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3, arg4))
+#define addLogEvent1(key) \
+        do { if (this->getModelManager()->hasTimeline()) \
+           { addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key)); } \
+        } while (false)
+#define addLogEvent2(key, arg1) \
+        do { if (this->getModelManager()->hasTimeline()) \
+           { addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key, arg1)); } \
+        } while (false)
+#define addLogEvent3(key, arg1, arg2) \
+        do { if (this->getModelManager()->hasTimeline()) \
+           { addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2)); } \
+        } while (false)
+#define addLogEvent4(key, arg1, arg2, arg3) \
+        do { if (this->getModelManager()->hasTimeline()) \
+           { addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3)); } \
+        } while (false)
+#define addLogEvent5(key, arg1, arg2, arg3, arg4) \
+        do { if (this->getModelManager()->hasTimeline()) \
+           { addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3, arg4)); } \
+        } while (false)
 
-#define addLogEventRaw1(key) addLogEvent_((this)->getModelManager(), (MessageTimeline("", key)))
-#define addLogEventRaw2(key1, key2) addLogEventRaw2_((this)->getModelManager(), key1, key2)
-#define addLogEventRaw3(key1, key2, key3) addLogEventRaw3_((this)->getModelManager(), key1, key2, key3)
-#define addLogEventRaw4(key1, key2, key3, key4) addLogEventRaw4_((this)->getModelManager(), key1, key2, key3, key4)
-#define addLogEventRaw5(key1, key2, key3, key4, key5) addLogEventRaw5_((this)->getModelManager(), key1, key2, key3, key4, key5)
+#define addLogEventRaw1(key) \
+        do { if (this->getModelManager()->hasTimeline()) \
+           { addLogEventRow1_(this->getModelManager(), MessageTimeline("", key)); } \
+        } while (false)
+#define addLogEventRaw2(key1, key2) \
+        do { if (this->getModelManager()->hasTimeline())\
+           { addLogEventRow2_(this->getModelManager(), key1, key2); } \
+        } while (false)
+#define addLogEventRaw3(key1, key2, key3) \
+        do { if (this->getModelManager()->hasTimeline()) \
+           { addLogEventRow3_(this->getModelManager(), key1, key2, key3); } \
+        } while (false)
+#define addLogEventRaw4(key1, key2, key3, key4) \
+        do { if (this->getModelManager()->hasTimeline()) \
+           { addLogEventRow4_(this->getModelManager(), key1, key2, key3, key4); } \
+        } while (false)
+#define addLogEventRaw5(key1, key2, key3, key4, key5) \
+        do { if (this->getModelManager()->hasTimeline()) \
+           { addLogEventRow5_(this->getModelManager(), key1, key2, key3, key4, key5); } \
+        } while (false)
 
 #define printLogToStdOut(message) printLogToStdOut_((this)->getModelManager(), std::string(message))
 #define printLogExecution(message) printLogExecution_((this)->getModelManager(), std::string(message))

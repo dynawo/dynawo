@@ -696,7 +696,7 @@ Simulation::init() {
   Trace::info() << DYNLog(CurveInit) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   const std::vector<double>& y = solver_->getCurrentY();
-  unsigned int nbCurves = 0;
+  unsigned nbCurves = 0;
   for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
           itCurve != curvesCollection_->end();
           ++itCurve) {
@@ -844,15 +844,18 @@ Simulation::simulate() {
       model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
 
     if (SignalHandler::gotExitSignal() && !end()) {
-      if (hasTimeline()) addEvent(DYNTimeline(SignalReceived));
+      if (hasTimeline())
+        addEvent(DYNTimeline(SignalReceived));
       throw DYNError(Error::GENERAL, SignalReceived);
     } else if (!criteriaChecked) {
-      if (hasTimeline()) addEvent(DYNTimeline(CriteriaNotChecked));
+      if (hasTimeline())
+        addEvent(DYNTimeline(CriteriaNotChecked));
       throw DYNError(Error::SIMULATION, CriteriaNotChecked);
     } else if (end() && data_ && activateCriteria_) {
       criteriaChecked = checkCriteria(tCurrent_, true);
       if (!criteriaChecked) {
-        if (hasTimeline()) addEvent(DYNTimeline(CriteriaNotChecked));
+        if (hasTimeline())
+          addEvent(DYNTimeline(CriteriaNotChecked));
         throw DYNError(Error::SIMULATION, CriteriaNotChecked);
       }
     }
@@ -989,7 +992,7 @@ Simulation::terminate() {
     fileCurves.close();
   }
 
-  if (hasTimeline() && timelineOutputFile_ != "") {
+  if (hasTimeline()) {
     ofstream fileTimeline;
     openFileStream(fileTimeline, timelineOutputFile_);
     printTimeline(fileTimeline);

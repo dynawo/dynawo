@@ -31,6 +31,7 @@
 #include "DYNSwitchInterface.h"
 #include "DYNBusInterface.h"
 #include "DYNModelNetwork.h"
+#include "DYNTimeline_keys.h"
 
 using std::vector;
 using std::map;
@@ -110,16 +111,14 @@ ModelSwitch::evalZ(const double& /*t*/) {
   if (currState != getConnectionState()) {
     topologyModified_ = true;
     Trace::info() << DYNLog(SwitchStateChange, id_, getConnectionState(), currState) << Trace::endline;
-    if ( network_->hasTimeline()) {
-      if (currState == CLOSED) {
-        network_->addEvent(id_, DYNTimeline(SwitchClosed));
-      } else if (currState == OPEN) {
-        network_->addEvent(id_, DYNTimeline(SwitchOpened));
-      }
+    if (currState == CLOSED) {
+      network_->addEvent(id_, KeyTimeline_t::SwitchClosed);
+    } else if (currState == OPEN) {
+      network_->addEvent(id_, KeyTimeline_t::SwitchOpened);
     }
     setConnectionState(currState);
   }
-  return (topologyModified_) ? NetworkComponent::TOPO_CHANGE: NetworkComponent::NO_CHANGE;
+  return topologyModified_ ? NetworkComponent::TOPO_CHANGE : NetworkComponent::NO_CHANGE;
 }
 
 void

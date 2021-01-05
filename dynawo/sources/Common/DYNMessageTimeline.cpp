@@ -44,7 +44,7 @@ MessageTimeline::initialize(const string& key) {
   static const string dicoName = "TIMELINE_PRIORITY";
   if (IoDicos::hasIoDico(dicoName)) {
     try {
-      string priority = IoDicos::getIoDico(dicoName)->msg(key);
+      const string& priority = IoDicos::getIoDico(dicoName)->msg(key);
 #ifdef LANG_CXX11
       priority_ = std::stoi(priority);
 #else

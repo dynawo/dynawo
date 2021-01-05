@@ -601,7 +601,7 @@ class Simulation {
 
   /**
    * @brief getter which tells whether or not simulation should generate a timeline
-   * @return true when simulation should generate a file resuming the timeline; false when timeline has not been asked
+   * @return true when simulation should generate a file resuming the timeline; false otherwise
    */
  private:
   inline bool hasTimeline() const {

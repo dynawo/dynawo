@@ -20,7 +20,6 @@
 #ifndef COMMON_DYNMESSAGE_HPP_
 #define COMMON_DYNMESSAGE_HPP_
 
-#include <stdio.h>
 #include <iostream>
 #include "DYNMessage.h"
 

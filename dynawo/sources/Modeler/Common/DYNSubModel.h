@@ -732,7 +732,7 @@ class SubModel {
 
   /**
    * @brief getter to tell whether or not simulation generates a timeline
-   * @return true when simulation generates a file resuming the timeline; false when timeline has not been asked from jobs file
+   * @return true when simulation generates a file resuming the timeline; false otherwise
    */
   inline bool hasTimeline() const {
     return timeline_.use_count() != 0;
@@ -745,6 +745,14 @@ class SubModel {
    * @param messageTimeline event description with a message and priority
    */
   void addEvent(const std::string& modelName, const MessageTimeline& messageTimeline);
+
+  /**
+   * @brief add a new event log
+   *
+   * @param modelName name of the model where the event appears
+   * @param keyValue to registrate event in timeline
+   */
+  void addEvent(const std::string& modelName, KeyTimeline_t::value keyValue);
 
   /**
    * @brief begin/end a constraint

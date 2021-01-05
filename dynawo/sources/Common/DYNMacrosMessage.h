@@ -19,8 +19,6 @@
 #include "DYNError.h"
 #include "DYNTerminate.h"
 
-namespace DYN {
-
 /**
  * @brief Macro description to have a shortcut.
  *  Thanks to this macro, user can only call a log message with the key to access
@@ -34,9 +32,15 @@ namespace DYN {
 
 /**
  * @brief Macro to define a timeline message
- * @param key key to find the message
+ * @param key key to find the message without namespace
  */
 #define DYNTimeline(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__ )
+
+/**
+ * @brief Macro to define a timeline message
+ * @param key key to find the message with namespace
+ */
+#define DYNTimelineWithNS(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(key)), ##__VA_ARGS__ )
 
 /**
  * @brief Macro to define a constraint message
@@ -68,7 +72,5 @@ namespace DYN {
  * @return a Terminate
  */
 #define DYNTerminate(key, ...) DYN::Terminate((DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__))
-
-}  // namespace DYN
 
 #endif  // COMMON_DYNMACROSMESSAGE_H_
