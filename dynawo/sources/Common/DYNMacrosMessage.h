@@ -37,17 +37,18 @@
 #define DYNTimeline(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__ )
 
 /**
- * @brief Macro to conditionally add a timeline event
- * @param pTimeline Pointer to the timeline that registers events or NULL
+ * @brief Macro to add a timeline event
+ * @param pNetwork Pointer to the network being monitored
  * @param model Model that uses this service
- * @param key Key to find the message (must be provided with the right namespace DYN::KeyTimeline_t::)
+ * @param key Key to find the message (key must be provided with the right namespace DYN::KeyTimeline_t::)
  *
- * That macro intends to replace SubModel::addEvent().
- * It adds simply a test to insure the jobs file requests registering events into a timeline file
+ * The macro registers a timeline event, after testing if timeline has been requested from jobs file.
  */
-#define DYNAddEvent(pTimeline, model, key, ...) do { \
-          if ((pTimeline)->hasTimeline()) { \
-            (pTimeline)->addEvent((model), (DYN::MessageTimeline(DYN::KeyTimeline_t::names(key)), ##__VA_ARGS__)); \
+#define DYNAddEvent(pNetwork, model, key, ...) do { \
+          if ((pNetwork)->hasTimeline()) { \
+            DYN::MessageTimeline m((DYN::MessageTimeline(DYN::KeyTimeline_t::names(key)), ##__VA_ARGS__)); \
+            timeline::Timeline& tl(*(pNetwork)->getTimeline()); \
+            tl.addEvent((pNetwork)->getCurrentTime(), model, m.str(), m.priority()); \
           } \
         } while (false)
 

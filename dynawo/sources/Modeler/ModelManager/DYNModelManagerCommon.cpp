@@ -57,7 +57,8 @@ void printLogExecution_(ModelManager * model, const std::string & message) {
 
 void addLogEvent_(ModelManager* model, const MessageTimeline& messageTimeline) {
   if (model->hasTimeline()) {
-    model->addEvent(model->name(), messageTimeline);
+    timeline::Timeline& tl(*(model->getTimeline()));
+    tl.addEvent(model->getCurrentTime(), model->name(), messageTimeline.str(), messageTimeline.priority());
   }
 }
 
@@ -118,9 +119,7 @@ void throw_(ModelManager* model, const Message& message) {
 }
 
 void terminate_(ModelManager* model, const MessageTimeline& messageTimeline) {
-  if (model->hasTimeline()) {
-    model->addEvent(model->name(), messageTimeline);
-  }
+  addLogEvent_(model, messageTimeline);
   throw DYNTerminate(TerminateInModel, model->name(), messageTimeline.str());
 }
 

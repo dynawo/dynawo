@@ -35,14 +35,11 @@
 #include "PARParametersSet.h"
 #include "CSTRConstraintsCollection.h"
 #include "DYNBitMask.h"
+#include "TLTimeline.h"
 
 namespace parameters {
 class ParametersSet;
 }  // namespace parameters
-
-namespace timeline {
-class Timeline;
-}  // namespace timeline
 
 namespace curves {
 class Curve;
@@ -739,13 +736,12 @@ class SubModel {
   }
 
   /**
-   * @brief add a new event log
-   *
-   * @param modelName name of the model where the event appears
-   * @param messageTimeline event description with a message and priority
+   * @brief public getter for timeline_
+   * @return a const reference to the shared_ptr structure that wraps the timeline
    */
-// DON'T USE: will be deleted in next commit. Use the macro DYNAddEvent() instead which does not log events if not asked from jobs file
-  void addEvent(const std::string& modelName, const MessageTimeline& messageTimeline);
+  inline const boost::shared_ptr<timeline::Timeline>& getTimeline() const {
+    return timeline_;
+  }
 
   /**
    * @brief begin/end a constraint
