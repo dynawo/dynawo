@@ -266,18 +266,9 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   # clear cache variables to force find
   unset(GTEST_INCLUDE_DIR CACHE)
   unset(GTEST_LIBRARY CACHE)
-  unset(GTEST_LIBRARY_DEBUG CACHE)
   unset(GTEST_MAIN_LIBRARY CACHE)
-  unset(GTEST_MAIN_LIBRARY_DEBUG CACHE)
 
   find_package(GTest ${googletest_version} QUIET)
-
-  # workaround to find GTest 1.8.1 even in Debug
-  if(NOT GTEST_FOUND AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(GTEST_LIBRARY ${GTEST_LIBRARY_DEBUG})
-    set(GTEST_MAIN_LIBRARY ${GTEST_MAIN_LIBRARY_DEBUG})
-    find_package(GTest ${googletest_version} QUIET)
-  endif()
 
   if(GTEST_FOUND)
     add_custom_target(googletest)
