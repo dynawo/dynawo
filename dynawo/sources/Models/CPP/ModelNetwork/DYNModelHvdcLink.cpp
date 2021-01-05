@@ -165,10 +165,10 @@ ModelHvdcLink::evalZ(const double& /*t*/) {
   if (currState1 != getConnected1()) {
     Trace::info() << DYNLog(Converter1StateChange, id_, getConnected1(), z_[state1Num_]) << Trace::endline;
     if (currState1 == OPEN) {
-      if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(Converter1SwitchOff));
+      DYNAddEvent(network_, id_, KeyTimeline_t::Converter1SwitchOff);
       modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
     } else {
-      if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(Converter1Connected));
+      DYNAddEvent(network_, id_, KeyTimeline_t::Converter1Connected);
       modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
     }
     setConnected1(currState1);
@@ -179,10 +179,10 @@ ModelHvdcLink::evalZ(const double& /*t*/) {
   if (currState2 != getConnected2()) {
     Trace::info() << DYNLog(Converter2StateChange, id_, getConnected2(), z_[state2Num_]) << Trace::endline;
     if (currState2 == OPEN) {
-      if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(Converter2SwitchOff));
+      DYNAddEvent(network_, id_, KeyTimeline_t::Converter2SwitchOff);
       modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
     } else {
-      if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(Converter2Connected));
+      DYNAddEvent(network_, id_, KeyTimeline_t::Converter2Connected);
       modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
     }
     setConnected2(currState2);

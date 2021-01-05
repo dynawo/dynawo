@@ -894,16 +894,16 @@ ModelLine::evalZ(const double& t) {
         case OPEN:
           break;
         case CLOSED:
-          if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(LineOpen));
+          DYNAddEvent(network_, id_, KeyTimeline_t::LineOpen);
           modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
           modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
           break;
         case CLOSED_1:
-          if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(LineOpenSide1));
+          DYNAddEvent(network_, id_, KeyTimeline_t::LineOpenSide1);
           modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
           break;
         case CLOSED_2:
-          if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(LineOpenSide2));
+          DYNAddEvent(network_, id_, KeyTimeline_t::LineOpenSide2);
           modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
           break;
         case CLOSED_3:
@@ -917,18 +917,18 @@ ModelLine::evalZ(const double& t) {
         case CLOSED:
           switch (getConnectionState()) {
           case OPEN:
-            if ( network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(LineClosed));
+            DYNAddEvent(network_, id_, KeyTimeline_t::LineClosed);
             modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
             modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
             break;
           case CLOSED:
             break;
           case CLOSED_1:
-            if ( network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(LineCloseSide2));
+            DYNAddEvent(network_, id_, KeyTimeline_t::LineCloseSide2);
             modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
             break;
           case CLOSED_2:
-            if ( network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(LineCloseSide1));
+            DYNAddEvent(network_, id_, KeyTimeline_t::LineCloseSide1);
             modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
             break;
           case CLOSED_3:
@@ -944,21 +944,19 @@ ModelLine::evalZ(const double& t) {
               throw DYNError(Error::MODELER, DynamicLineStatusNotSupported, id_);
             switch (getConnectionState()) {
             case OPEN:
-              if ( network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(LineCloseSide1));
+              DYNAddEvent(network_, id_, KeyTimeline_t::LineCloseSide1);
               modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
               break;
             case CLOSED:
-              if ( network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(LineOpenSide2));
+              DYNAddEvent(network_, id_, KeyTimeline_t::LineOpenSide2);
               modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
               break;
             case CLOSED_1:
               break;
             case CLOSED_2:
-              if (network_->hasTimeline()) {
-                network_->addEvent(id_, DYNTimeline(LineCloseSide1));
-                network_->addEvent(id_, DYNTimeline(LineOpenSide2));
-              }
+              DYNAddEvent(network_, id_, KeyTimeline_t::LineCloseSide1);
               modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+              DYNAddEvent(network_, id_, KeyTimeline_t::LineOpenSide2);
               modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
               break;
             case CLOSED_3:
@@ -974,19 +972,17 @@ ModelLine::evalZ(const double& t) {
                 throw DYNError(Error::MODELER, DynamicLineStatusNotSupported, id_);
               switch (getConnectionState()) {
               case OPEN:
-                if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(LineCloseSide2));
+                DYNAddEvent(network_, id_, KeyTimeline_t::LineCloseSide2);
                 modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
                 break;
               case CLOSED:
-                if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(LineOpenSide1));
+                DYNAddEvent(network_, id_, KeyTimeline_t::LineOpenSide1);
                 modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
                 break;
               case CLOSED_1:
-                if (network_->hasTimeline()) {
-                  network_->addEvent(id_, DYNTimeline(LineCloseSide2));
-                  network_->addEvent(id_, DYNTimeline(LineOpenSide1));
-                }
+                DYNAddEvent(network_, id_, KeyTimeline_t::LineCloseSide2);
                 modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                DYNAddEvent(network_, id_, KeyTimeline_t::LineOpenSide1);
                 modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
                 break;
               case CLOSED_2:

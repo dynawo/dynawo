@@ -1186,6 +1186,7 @@ SubModel::addMessage(const string& message) {
 
 void
 SubModel::addEvent(const string& modelName, const MessageTimeline& messageTimeline) {
+// DON'T USE: will be deleted in next commit. Use the macro DYNAddEvent() instead which does not log events when not asked from jobs file
   if (hasTimeline()) {
     timeline_->addEvent(getCurrentTime(), modelName, messageTimeline.str(), messageTimeline.priority());
   }

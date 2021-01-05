@@ -125,13 +125,13 @@ void ModelPhaseTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
     if (g[2] == ROOT_UP || g[3] == ROOT_UP) {  // increase tap
       setCurrentStepIndex(getCurrentStepIndex() + 1);
       whenLastTap_ = t;
-      if (network->hasTimeline()) network->addEvent(id(), DYNTimeline(TapUp));
+      DYNAddEvent(network, id(), KeyTimeline_t::TapUp);
     }
 
     if (g[4] == ROOT_UP || g[5] == ROOT_UP) {  // decrease tap
       setCurrentStepIndex(getCurrentStepIndex() - 1);
       whenLastTap_ = t;
-      if (network->hasTimeline()) network->addEvent(id(), DYNTimeline(TapDown));
+      DYNAddEvent(network, id(), KeyTimeline_t::TapDown);
     }
   }
 }

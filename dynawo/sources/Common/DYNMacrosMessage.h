@@ -32,24 +32,24 @@
 
 /**
  * @brief Macro to define a timeline message
- * @param key key to find the message without namespace
+ * @param key key to find the message (may be called without namespace)
  */
 #define DYNTimeline(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__ )
 
 /**
- * @brief Macro to conditionally add an Timeline event
- * @param pTimeline pointer to the Timeline that registers events or NULL
- * @param model Model that asks registering events
- * @param key key to find the message without namespace
+ * @brief Macro to conditionally add a timeline event
+ * @param pTimeline Pointer to the timeline that registers events or NULL
+ * @param model Model that uses this service
+ * @param key Key to find the message (must be provided with the right namespace DYN::KeyTimeline_t::)
  *
- * That macro intends to replace addEvents() adding simply a test to insure the jobs file describing run contains demand to register
- * events into a timeline
+ * That macro intends to replace SubModel::addEvent().
+ * It adds simply a test to insure the jobs file requests registering events into a timeline file
  */
-#define DYNaddEvent(pTimeline, model, key, ...) do { \
-        if ((pTimeline)->hasTimeline()) \
-             (pTimeline)->addEvent((model), DYN::MessageTimeline(DYN::KeyTimeline_t::names(key)), ##__VA_ARGS__); \
-        } while ( false)
-//           (pTimeline)->addEvent((model), DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::(key))), ##__VA_ARGS__)
+#define DYNAddEvent(pTimeline, model, key, ...) do { \
+          if ((pTimeline)->hasTimeline()) { \
+            (pTimeline)->addEvent((model), (DYN::MessageTimeline(DYN::KeyTimeline_t::names(key)), ##__VA_ARGS__)); \
+          } \
+        } while (false)
 
 /**
  * @brief Macro to define a constraint message

@@ -142,13 +142,13 @@ ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double 
     if (g[2] == ROOT_UP) {
       setCurrentStepIndex(getCurrentStepIndex() + 1);
       whenLastTap_ = t;
-      if (network->hasTimeline()) network->addEvent(id(), DYNTimeline(TapUp));
+      DYNAddEvent(network, id(), KeyTimeline_t::TapUp);
     }
 
     if (g[3] == ROOT_UP) {
       setCurrentStepIndex(getCurrentStepIndex() - 1);
       whenLastTap_ = t;
-      if (network->hasTimeline()) network->addEvent(id(), DYNTimeline(TapDown));
+      DYNAddEvent(network, id(), KeyTimeline_t::TapDown);
     }
   }
 }

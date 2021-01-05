@@ -688,10 +688,10 @@ ModelDanglingLine::evalZ(const double& t) {
     Trace::info() << DYNLog(DanglingLineStateChange, id_, connectionState_, currState) << Trace::endline;
     stateModified_ = true;
     if (connectionState_ == CLOSED) {
-      if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(DanglingLineConnected));
+      DYNAddEvent(network_, id_, KeyTimeline_t::DanglingLineConnected);
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
     } else if (connectionState_ == OPEN) {
-      if (network_->hasTimeline()) network_->addEvent(id_, DYNTimeline(DanglingLineDisconnected));
+      DYNAddEvent(network_, id_, KeyTimeline_t::DanglingLineDisconnected);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
     }
     connectionState_ = static_cast<State>(static_cast<int>(z_[0]));

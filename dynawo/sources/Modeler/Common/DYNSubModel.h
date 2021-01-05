@@ -744,6 +744,7 @@ class SubModel {
    * @param modelName name of the model where the event appears
    * @param messageTimeline event description with a message and priority
    */
+// DON'T USE: will be deleted in next commit. Use the macro DYNAddEvent() instead which does not log events if not asked from jobs file
   void addEvent(const std::string& modelName, const MessageTimeline& messageTimeline);
 
   /**
