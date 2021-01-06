@@ -388,6 +388,14 @@ class Simulation {
   }
 
   /**
+   * @brief specify to dump or not the timetable file
+   * @param dumpTimeTable whether to dump or not the timetable file
+   */
+  inline void setDumpTimeTable(bool dumpTimeTable) {
+    dumpTimetable_ = dumpTimeTable;
+  }
+
+  /**
    * @brief end the simulation : export data, curves,...
    */
   void terminate();
@@ -555,6 +563,7 @@ class Simulation {
   bool dumpLocalInitValues_;  ///< whether to export the results from the local initialisation
   bool dumpGlobalInitValues_;  ///< whether to export the results from the global initialisation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
+  bool dumpTimetable_;  ///< whether to dump the timetable file
 
  private:
   /**
