@@ -180,7 +180,8 @@ dumpFinalStateFile_(""),
 exportIIDM_(false),
 exportIIDMFile_(""),
 dumpLocalInitValues_(false),
-dumpGlobalInitValues_(false) {
+dumpGlobalInitValues_(false),
+dumpTimetable_(true) {
   SignalHandler::setSignalHandlers();
 
 #ifdef _MSC_VER
@@ -803,7 +804,8 @@ Simulation::simulate() {
     create_directory(outputsDirectory);
 
   stringstream fileName;
-  fileName << outputsDirectory << "/.dynawoexec-" << pid_;
+  if (dumpTimetable_)
+    fileName << outputsDirectory << "/.dynawoexec-" << pid_;
 
   // Printing out the initial solution
   solver_->printSolve();
@@ -850,7 +852,8 @@ Simulation::simulate() {
 
       model_->checkDataCoherence(tCurrent_);
       model_->printMessages();
-      printCurrentTime(fileName.str());
+      if (dumpTimetable_)
+        printCurrentTime(fileName.str());
 
       if (isCheckCriteriaIter) {
         criteriaChecked = checkCriteria(tCurrent_, false);
@@ -875,17 +878,21 @@ Simulation::simulate() {
         throw DYNError(Error::SIMULATION, CriteriaNotChecked);
       }
     }
-    remove(fileName.str());
+    if (dumpTimetable_)
+      remove(fileName.str());
   } catch (const Terminate& t) {
     Trace::warn() << t.what() << Trace::endline;
     model_->printMessages();
-    remove(fileName.str());
+    if (dumpTimetable_)
+      remove(fileName.str());
   } catch (const Error& e) {
     Trace::error() << e.what() << Trace::endline;
-    remove(fileName.str());
+    if (dumpTimetable_)
+      remove(fileName.str());
     throw;
   } catch (...) {
-    remove(fileName.str());
+    if (dumpTimetable_)
+      remove(fileName.str());
     throw;
   }
 }
