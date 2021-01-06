@@ -113,6 +113,24 @@ TEST(DataInterfaceTest, DanglingLine) {
   const boost::shared_ptr<CurrentLimitInterface> currentLimitIfce(new CurrentLimitInterfaceIIDM(1.0, 99));
   danglingLineIfce.addCurrentLimitInterface(currentLimitIfce);
   ASSERT_EQ(danglingLineIfce.getCurrentLimitInterfaces().size(), 1);
+
+  vl1.newDanglingLine()
+       .setId("DANGLING_LINE2")
+       .setBus("VL1_BUS1")
+       .setConnectableBus("VL1_BUS1")
+       .setName("DANGLING_LINE2_NAME")
+       .setB(0.0)
+       .setG(0.0)
+       .setP0(3.0)
+       .setQ0(4.0)
+       .setR(0.0)
+       .setX(0.0)
+       .setUcteXnodeCode("ucteXnodeCodeTest")
+       .add();
+  DanglingLine& danglingLine2 = network.getDanglingLine("DANGLING_LINE2");
+  DanglingLineInterfaceIIDM danglingLineIfce2(danglingLine2);
+  danglingLineIfce2.setVoltageLevelInterface(vlItf);
+  ASSERT_DOUBLE_EQ(danglingLineIfce2.getX(), 0.01);
 }  // TEST(DataInterfaceTest, DanglingLine)
 
 }  // namespace DYN
