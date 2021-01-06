@@ -22,6 +22,7 @@
 
 #include <IIDM/components/DanglingLine.h>
 
+#include "DYNCommon.h"
 #include "DYNDanglingLineInterfaceIIDM.h"
 
 using std::string;
@@ -140,7 +141,11 @@ DanglingLineInterfaceIIDM::getQ0() const {
 
 double
 DanglingLineInterfaceIIDM::getR() const {
-  return danglingLineIIDM_.r();
+  if (doubleIsZero(danglingLineIIDM_.x()) && doubleIsZero(danglingLineIIDM_.r())) {
+    Trace::warn() << DYNLog(PossibleDivisionByZero, danglingLineIIDM_.id()) << Trace::endline;
+    return 0.01;  // default parameter
+  }
+  return danglingLineIIDM_.x();
 }
 
 double

@@ -24,6 +24,8 @@
 
 #include <powsybl/iidm/DanglingLine.hpp>
 
+#include "DYNCommon.h"
+
 using std::string;
 using boost::shared_ptr;
 using std::vector;
@@ -142,6 +144,10 @@ DanglingLineInterfaceIIDM::getR() const {
 
 double
 DanglingLineInterfaceIIDM::getX() const {
+  if (doubleIsZero(danglingLineIIDM_.getX()) && doubleIsZero(danglingLineIIDM_.getR())) {
+    Trace::warn() << DYNLog(PossibleDivisionByZero, danglingLineIIDM_.getId()) << Trace::endline;
+    return 0.01;  // default parameter
+  }
   return danglingLineIIDM_.getX();
 }
 
