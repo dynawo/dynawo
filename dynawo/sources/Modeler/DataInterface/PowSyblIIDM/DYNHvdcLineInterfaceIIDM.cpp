@@ -139,6 +139,8 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
 
 void HvdcLineInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
+  staticParameters_.insert(std::make_pair("pMax", StaticParameter("pMax", StaticParameter::DOUBLE).setValue(getPmax())));
+  staticParameters_.insert(std::make_pair("pMax_pu", StaticParameter("pMax_pu", StaticParameter::DOUBLE).setValue(getPmax() / SNREF)));
   staticParameters_.insert(std::make_pair("p1_pu", StaticParameter("p1_pu", StaticParameter::DOUBLE).setValue(conv1_->getP() / SNREF)));
   staticParameters_.insert(std::make_pair("q1_pu", StaticParameter("q1_pu", StaticParameter::DOUBLE).setValue(conv1_->getQ() / SNREF)));
   staticParameters_.insert(std::make_pair("p1", StaticParameter("p1", StaticParameter::DOUBLE).setValue(conv1_->getP())));
