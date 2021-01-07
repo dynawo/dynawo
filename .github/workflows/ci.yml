@@ -45,24 +45,24 @@ jobs:
       DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
       DYNAWO_NB_PROCESSORS_USED: 2
     steps:
-      - name: Install Sonar wrapper
-        working-directory: ${{ runner.workspace }}
-        env:
-          CONTAINER_WORKSPACE: ${{ runner.workspace }}
-        run: |
-          wget https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
-          unzip build-wrapper-linux-x86.zip
+  #     - name: Install Sonar wrapper
+  #       working-directory: ${{ runner.workspace }}
+  #       env:
+  #         CONTAINER_WORKSPACE: ${{ runner.workspace }}
+  #       run: |
+  #         wget https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+  #         unzip build-wrapper-linux-x86.zip
 
-      - name: Install Sonar scanner
-        working-directory: ${{ runner.workspace }}
-        env:
-          SONAR_SCANNER_VERSION: 4.5.0.2216
-        run: |
-          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
-          unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
-          ln -s sonar-scanner-${SONAR_SCANNER_VERSION} sonar
-          rm sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
-          dnf install -y java-11-openjdk
+  #     - name: Install Sonar scanner
+  #       working-directory: ${{ runner.workspace }}
+  #       env:
+  #         SONAR_SCANNER_VERSION: 4.5.0.2216
+  #       run: |
+  #         wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
+  #         unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
+  #         ln -s sonar-scanner-${SONAR_SCANNER_VERSION} sonar
+  #         rm sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip
+  #         dnf install -y java-11-openjdk
 
       - name: Checkout sources
         uses: actions/checkout@v1
@@ -76,7 +76,8 @@ jobs:
         if: github.ref != 'refs/heads/master' && github.event_name == 'push'
         run: |
           export DYNAWO_HOME=$(pwd)
-          $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests
+          util/envDynawo.sh build-tests
+  #         $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
 
       # For now, run only tests, not coverage
       - name: Build master
@@ -86,7 +87,8 @@ jobs:
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-3rd-party
-          $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests
+          util/envDynawo.sh build-tests
+  #         $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
 
   #     - name: Sonarcloud
   #       working-directory: ${{ runner.workspace }}/dynawo
@@ -94,4 +96,4 @@ jobs:
   #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   #         CONTAINER_WORKSPACE: ${{ runner.workspace }}
-  #       run: $CONTAINER_WORKSPACE/s
+  #       run: $CONTAINER_WORKSPACE/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.cfamily.threads=2
