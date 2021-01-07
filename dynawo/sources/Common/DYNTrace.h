@@ -428,6 +428,13 @@ class Trace {
   static const SeverityLevel defaultLevel_;  ///< Default log level for standard output
 
  private:
+ /**
+  * @brief Retrieves static instance
+  *
+  * @returns static instance
+  */
+  static Trace& instance();
+
   /**
    * @brief Add a log to logging core.
    *
@@ -441,12 +448,69 @@ class Trace {
    */
   static void log(SeverityLevel slv, const std::string& tag, const std::string& message);
 
+  /**
+   * @brief Constructor
+   */
+  Trace();
+
+  /**
+   * @brief Init function.
+   *
+   * Implementation of static function
+   */
+  void init_();
+
+    /**
+   * @brief Add custom appenders to trace system
+   *
+   * Implementation of static function
+   *
+   * @param[in] appenders: Appenders to add
+   */
+  void addAppenders_(const std::vector<TraceAppender>& appenders);
+
+  /**
+   * @brief Reset non-persistant custom appenders of trace system
+   *
+   * Implementation of static function
+   */
+  void resetCustomAppenders_();
+
+  /**
+   * @brief Reset persistant custom appenders of trace system
+   *
+   * Implementation of static function
+   */
+  void resetPersistantCustomAppenders_();
+
+  /**
+   * @brief test if a log exists
+   *
+   * Implementation of static function
+   *
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @param slv : Severity level.
+   * @return true if this log with this level exists
+   */
+  bool logExists_(const std::string& tag, SeverityLevel slv);
+
+  /**
+   * @brief Add a log to logging core.
+   *
+   * Implementation of static function
+   *
+   * @param slv : Severity level of the log.
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @param message : Message to log.
+   */
+  void log_(SeverityLevel slv, const std::string& tag, const std::string& message);
+
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
 
  private:
-  static std::vector< boost::shared_ptr<TextSink> > originalSinks;  ///< vector of text sink
-  static boost::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
-  static boost::mutex mutex_;  ///< mutex to synchronize logs at init
+  boost::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
+  std::vector< boost::shared_ptr<Trace::TextSink> > originalSinks_;  ///< Original sinks
+  boost::mutex mutex_;  ///< mutex to synchronize logs at init
 };
 
 }  // namespace DYN

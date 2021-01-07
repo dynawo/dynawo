@@ -78,6 +78,8 @@ target_include_directories(dynawo_DataInterface SYSTEM
   )
 
 target_link_libraries(dynawo_DataInterface
+  PUBLIC
+    Boost::system
   PRIVATE
     dynawo_Common
     dynawo_ModelerCommon

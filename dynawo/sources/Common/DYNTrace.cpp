@@ -61,10 +61,6 @@ namespace keywords = boost::log::keywords;
 
 namespace DYN {
 
-vector< boost::shared_ptr<Trace::TextSink> > Trace::originalSinks;
-boost::unordered_map<boost::log::attributes::current_thread_id::value_type, Trace::TraceSinks, Trace::Hasher> Trace::sinks_;
-boost::mutex Trace::mutex_;
-
 #if _DEBUG_
 const SeverityLevel Trace::defaultLevel_ = DEBUG;
 #else
@@ -96,7 +92,18 @@ TraceStream& Trace::endline(TraceStream& os) {
   return eol(os);
 }
 
+Trace::Trace() {}
+
+Trace& Trace::instance() {
+  static Trace instance;
+  return instance;
+}
+
 void Trace::init() {
+  instance().init_();
+}
+
+void Trace::init_() {
   // Setup the formatters for the sinks
   logging::formatter onlyMsg = expr::stream << expr::smessage;
 
@@ -114,7 +121,7 @@ void Trace::init() {
 
   // Register the sink in the logging core
   logging::core::get()->add_sink(sink);
-  originalSinks.push_back(sink);
+  originalSinks_.push_back(sink);
 
   logging::add_common_attributes();
 }
@@ -124,6 +131,10 @@ void Trace::disableLogging() {
 }
 
 void Trace::addAppenders(const std::vector<TraceAppender>& appenders) {
+  instance().addAppenders_(appenders);
+}
+
+void Trace::addAppenders_(const std::vector<TraceAppender>& appenders) {
   // remove old appenders (console_log)
   Trace::resetCustomAppenders();
 
@@ -181,6 +192,10 @@ void Trace::addAppenders(const std::vector<TraceAppender>& appenders) {
 }
 
 void Trace::resetPersistantCustomAppenders() {
+  instance().resetPersistantCustomAppenders_();
+}
+
+void Trace::resetPersistantCustomAppenders_() {
   boost::lock_guard<boost::mutex> lock(mutex_);
 
   logging::attributes::current_thread_id::value_type currentId =
@@ -197,13 +212,17 @@ void Trace::resetPersistantCustomAppenders() {
 }
 
 void Trace::resetCustomAppenders() {
+  instance().resetCustomAppenders_();
+}
+
+void Trace::resetCustomAppenders_() {
   boost::lock_guard<boost::mutex> lock(mutex_);
 
   vector< boost::shared_ptr<TextSink> >::iterator itOSinks;
-  for (itOSinks = originalSinks.begin(); itOSinks != originalSinks.end(); ++itOSinks) {
+  for (itOSinks = originalSinks_.begin(); itOSinks != originalSinks_.end(); ++itOSinks) {
     logging::core::get()->remove_sink(*itOSinks);
   }
-  originalSinks.clear();
+  originalSinks_.clear();
 
   logging::attributes::current_thread_id::value_type currentId =
     logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
@@ -268,6 +287,10 @@ Trace::modeler() {
 }
 
 void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& message) {
+  instance().log_(slv, tag, message);
+}
+
+void Trace::log_(SeverityLevel slv, const std::string& tag, const std::string& message) {
   src::severity_logger< SeverityLevel > slg;
   logging::attributes::current_thread_id current;
 
@@ -281,6 +304,11 @@ void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& me
 
 bool
 Trace::logExists(const std::string& tag, SeverityLevel slv) {
+  return instance().logExists_(tag, slv);
+}
+
+bool
+Trace::logExists_(const std::string& tag, SeverityLevel slv) {
   boost::log::attribute_value_set set;
   logging::attributes::current_thread_id::value_type current_id =
     logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
