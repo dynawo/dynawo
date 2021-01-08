@@ -189,6 +189,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaTypeMethods) {
   for (size_t i = 0; i < nbF; ++i) {
     ASSERT_EQ(fTypes[i], ALGEBRAIC_EQ);
   }
+  ASSERT_NO_THROW(modelVariationArea->dumpUserReadableElementList("MyElement"));
 }
 
 TEST(ModelsModelVariationArea, ModelVariationAreaInit) {
@@ -224,6 +225,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   for (size_t i = 0; i < modelVariationArea->sizeZ(); ++i)
     zConnected[i] = true;
   modelVariationArea->setBufferZ(&z[0], zConnected, 0);
+  BitMask* silentZ = new BitMask[modelVariationArea->sizeZ()];
   std::vector<state_g> g(modelVariationArea->sizeG(), ROOT_DOWN);
   modelVariationArea->setBufferG(&g[0], 0);
   std::vector<double> f(modelVariationArea->sizeF(), 0);
@@ -238,8 +240,23 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   ASSERT_NO_THROW(modelVariationArea->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
   ASSERT_NO_THROW(modelVariationArea->evalCalculatedVarI(0));
   ASSERT_NO_THROW(modelVariationArea->evalCalculatedVars());
+  ASSERT_NO_THROW(modelVariationArea->updateFType());
+  ASSERT_NO_THROW(modelVariationArea->updateYType());
+  modelVariationArea->collectSilentZ(silentZ);
+  for (size_t i = 0; i < modelVariationArea->sizeZ(); ++i) {
+    if (i == 0)
+      ASSERT_TRUE(silentZ[i].getFlags(NotUsedInDiscreteEquations));
+    else
+      ASSERT_FALSE(silentZ[i].getFlags(NotUsedInDiscreteEquations));
+  }
 
   modelVariationArea->evalF(0, UNDEFINED_EQ);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[3], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 0);
+  modelVariationArea->evalF(0, DIFFERENTIAL_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], 0);
@@ -279,6 +296,10 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   ASSERT_EQ(smjPrim.nbElem(), 0);
   modeChangeType_t mode = modelVariationArea->evalMode(1);
   ASSERT_EQ(mode, DIFFERENTIAL_MODE);
+  mode = modelVariationArea->evalMode(6);
+  ASSERT_EQ(mode, DIFFERENTIAL_MODE);
+  mode = modelVariationArea->evalMode(7);
+  ASSERT_EQ(mode, NO_MODE);
   delete[] zConnected;
 }
 

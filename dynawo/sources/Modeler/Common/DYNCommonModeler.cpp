@@ -35,7 +35,8 @@ addElement(const string& name, const Element::typeElement& type, vector<Element>
 }
 
 void
-addSubElement(const string& name, const string& elementName, const Element::typeElement& type, vector<Element>& elements, map<string, int>& mapElement) {
+addSubElement(const string& name, const string& elementName, const Element::typeElement& type,
+    const std::string parentName, const std::string& parentType, vector<Element>& elements, map<string, int>& mapElement) {
   string subName = elementName + "_" + name;
   Element subElement(name, subName, type);
   elements.push_back(subElement);
@@ -44,7 +45,7 @@ addSubElement(const string& name, const string& elementName, const Element::type
   if (iter != mapElement.end()) {
     elements[iter->second].subElementsNum().push_back(elements.size() - 1);
   } else {
-    throw DYNError(Error::MODELER, SubModelUnknownElement, elementName);
+    throw DYNError(Error::MODELER, SubModelUnknownElement, elementName, parentName, parentType);
   }
 }
 
@@ -69,5 +70,4 @@ replaceMacroInVariableId(const string& index, const string& name,
     variableId.replace(pos, nameLabel.size(), name);
   }
 }
-
 }  // namespace DYN

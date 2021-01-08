@@ -374,12 +374,12 @@ ModelStaticVarCompensator::defineElements(vector<Element> &elements, map<string,
   string svcName = id_;
 
   // ========  CALCULATED VARIABLE ======
-  addElementWithValue(svcName + string("_P"), elements, mapElement);
-  addElementWithValue(svcName + string("_Q"), elements, mapElement);
+  addElementWithValue(svcName + string("_P"), "StaticVarCompensator", elements, mapElement);
+  addElementWithValue(svcName + string("_Q"), "StaticVarCompensator", elements, mapElement);
 
   // ========  DISCRETE VARIABLE ======
-  addElementWithValue(svcName + string("_mode"), elements, mapElement);
-  addElementWithValue(svcName + string("_state"), elements, mapElement);
+  addElementWithValue(svcName + string("_mode"), "StaticVarCompensator", elements, mapElement);
+  addElementWithValue(svcName + string("_state"), "StaticVarCompensator", elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

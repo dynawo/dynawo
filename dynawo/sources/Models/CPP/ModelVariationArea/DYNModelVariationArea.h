@@ -226,6 +226,11 @@ class ModelVariationArea : public ModelCPP::Impl {
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
   /**
+   * @copydoc SubModel::dumpUserReadableElementList()
+   */
+  void dumpUserReadableElementList(const std::string& nameElement) const;
+
+  /**
    * @copydoc ModelCPP::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)
    */
   void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);

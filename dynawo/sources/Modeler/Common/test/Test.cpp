@@ -1069,7 +1069,7 @@ TEST(ModelerCommonTest, CommonModeler) {
   ASSERT_TRUE(mapElement.find("MyElement") != mapElement.end());
   ASSERT_EQ(mapElement["MyElement"], 0);
 
-  addSubElement("MySubElement", "MyElement", Element::TERMINAL, elements, mapElement);
+  addSubElement("MySubElement", "MyElement", Element::TERMINAL, "MyParentName", "MyParentType", elements, mapElement);
   ASSERT_EQ(elements.size(), 2);
   ASSERT_EQ(elements[0].name(), "MyElement");
   ASSERT_EQ(elements[0].getTypeElement(), Element::STRUCTURE);

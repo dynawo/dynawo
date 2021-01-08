@@ -475,21 +475,21 @@ ModelHvdcLink::defineElements(std::vector<Element> &elements, std::map<std::stri
   string name;
   // ========  CONNECTION STATE ======
   // at point of common coupling 1
-  addElementWithValue(hvdcName + string("_state1"), elements, mapElement);
+  addElementWithValue(hvdcName + string("_state1"), "HvdcLink", elements, mapElement);
   // at point of common coupling 2
-  addElementWithValue(hvdcName + string("_state2"), elements, mapElement);
+  addElementWithValue(hvdcName + string("_state2"), "HvdcLink", elements, mapElement);
 
   // ========  P VALUE  ======
   // at point of common coupling 1
-  addElementWithValue(hvdcName + string("_P1"), elements, mapElement);
+  addElementWithValue(hvdcName + string("_P1"), "HvdcLink", elements, mapElement);
   // at point of common coupling 2
-  addElementWithValue(hvdcName + string("_P2"), elements, mapElement);
+  addElementWithValue(hvdcName + string("_P2"), "HvdcLink", elements, mapElement);
 
   // ========  Q VALUE  ======
   // at point of common coupling 1
-  addElementWithValue(hvdcName + string("_Q1"), elements, mapElement);
+  addElementWithValue(hvdcName + string("_Q1"), "HvdcLink", elements, mapElement);
   // at point of common coupling 2
-  addElementWithValue(hvdcName + string("_Q2"), elements, mapElement);
+  addElementWithValue(hvdcName + string("_Q2"), "HvdcLink", elements, mapElement);
 }
 
 void

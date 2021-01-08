@@ -630,7 +630,13 @@ class SubModel {
    *
    * @return elements associating to the variable/structure
    */
-  std::vector<Element> getElements(const std::string & name);
+  std::vector<Element> getElements(const std::string & name) const;
+
+  /**
+   * @brief dump into the log the list of elements of the submodel
+   * @param nameElement name of the variable/structure
+   */
+  virtual void dumpUserReadableElementList(const std::string& nameElement) const;
 
   /**
    * @brief check whether the variable is available within the sub-model
@@ -1365,6 +1371,21 @@ class SubModel {
   }
 
   /**
+   * @brief structure use for sorting pairs in a vector
+   */
+  struct compStringDist {
+  /**
+   * @brief compare two pairs
+   * @param p1 first pair to compare
+   * @param p2 second pair to compare
+   * @return @b true is the first pair double argument's absolute value is greater that the second one's
+   */
+  bool operator()(const std::pair<size_t, std::string>& p1, const std::pair<size_t, std::string>& p2) const {
+    return p1.first < p2.first;
+  }
+  };
+
+  /**
    * @brief initialize the parameters thanks to external values and internal equations
    */
   virtual void initParams() = 0;
@@ -1396,7 +1417,7 @@ class SubModel {
    *
    * @return list of subElements contains in element
    */
-  std::vector<Element> getSubElements(const Element& element);
+  std::vector<Element> getSubElements(const Element& element) const;
 
   /**
    * @brief get the map of index of equation and equation in string format (init or dynamic ones)

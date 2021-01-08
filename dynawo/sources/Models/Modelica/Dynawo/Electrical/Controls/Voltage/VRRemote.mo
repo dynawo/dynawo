@@ -17,21 +17,21 @@ model VRRemote "Model for centralized remote voltage regulation"
 import Dynawo.Connectors;
 import Dynawo.Types;
 
-  parameter Types.VoltageModulePu URef0Pu "Start value of the regulated voltage reference in p.u (base UNom)";
-  parameter Types.VoltageModulePu U0Pu "Start value of the regulated voltage in p.u (base UNom)";
+  parameter Types.VoltageModulePu URef0 "Start value of the regulated voltage reference in kV";
+  parameter Types.VoltageModulePu U0 "Start value of the regulated voltage in kV";
   parameter Real Gain "Control gain";
   parameter Types.Time tIntegral "Time integration constant";
 
-  Connectors.ImPin URefPu (value(start = URef0Pu)) "Voltage regulation set point in p.u (base UNom)";
-  Connectors.ImPin URegulatedPu (value(start = U0Pu)) "Regulated voltage in p.u (base UNom)";
+  Connectors.ImPin URef (value(start = URef0)) "Voltage regulation set point in kV";
+  Connectors.ImPin URegulated (value(start = U0)) "Regulated voltage in kV";
   Connectors.ImPin NQ "Signal to change the reactive power generation of the generators participating in the centralized distant voltage regulation";
 
 protected
-  Types.PerUnit UErrorIntegralPu (start = 0) "Time-integral of the control error in p.u (base UNom)";
+  Types.PerUnit UErrorIntegral (start = 0) "Time-integral of the control error in kV";
 
 equation
-  der(UErrorIntegralPu) = Gain/tIntegral * (URefPu.value - URegulatedPu.value);
-  NQ.value = (URefPu.value - URegulatedPu.value) * Gain + UErrorIntegralPu;
+  der(UErrorIntegral) = Gain/tIntegral * (URef.value - URegulated.value);
+  NQ.value = (URef.value - URegulated.value) * Gain + UErrorIntegral;
 
 annotation(preferredView = "text");
 end VRRemote;

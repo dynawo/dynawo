@@ -260,10 +260,11 @@ SubModel::releaseElements() {
 }
 
 vector<Element>
-SubModel::getElements(const string &nameElement) {
-  map<string, int>::iterator iter = mapElement_.find(nameElement);
+SubModel::getElements(const string &nameElement) const {
+  map<string, int>::const_iterator iter = mapElement_.find(nameElement);
   if (iter == mapElement_.end()) {
-    throw DYNError(Error::MODELER, SubModelUnknownElement, name(), modelType(), nameElement);
+    dumpUserReadableElementList(nameElement);
+    throw DYNError(Error::MODELER, SubModelUnknownElement, nameElement, name(), modelType());
   } else {
     vector<Element> elements;
     Element element = elements_[iter->second];
@@ -278,7 +279,7 @@ SubModel::getElements(const string &nameElement) {
 }
 
 vector<Element>
-SubModel::getSubElements(const Element& element) {
+SubModel::getSubElements(const Element& element) const {
   vector<Element> elements;
   for (unsigned int i = 0; i < element.subElementsNum().size(); ++i) {
     Element sub = elements_[element.subElementsNum()[i]];
@@ -290,6 +291,22 @@ SubModel::getSubElements(const Element& element) {
     }
   }
   return elements;
+}
+
+void
+SubModel::dumpUserReadableElementList(const std::string& nameElement) const {
+  Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  vector< std::pair<size_t, string> > vec;
+  for (unsigned int i = 0; i < elements_.size(); ++i) {
+    const Element& element = elements_[i];
+    if (element.getTypeElement() == Element::TERMINAL) {
+      vec.push_back(std::make_pair(LevensteinDistance(element.id(), nameElement, 10, 1, 10), element.id()));
+    }
+  }
+  std::sort(vec.begin(), vec.end() , compStringDist());
+  for (unsigned int i = 0; i < vec.size(); ++i) {
+    Trace::info() << "  ->" << vec[i].second << Trace::endline;
+  }
 }
 
 bool
@@ -306,7 +323,7 @@ shared_ptr <Variable>
 SubModel::getVariable(const string & variableName) const {
   map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variableName);
   if (iter == variablesByName_.end()) {
-    throw DYNError(Error::MODELER, SubModelUnknownElement, name(), modelType(), variableName);
+    throw DYNError(Error::MODELER, SubModelUnknownElement, variableName, name(), modelType());
   }
   return iter->second;
 }

@@ -267,6 +267,9 @@ Modeler::findNodeConnectorName(const string& id, const string& labelNode) const 
 
   if (strs.size() == 3) {
     string busName = data_->getBusName(strs[1], labelNode);
+    if (busName.empty()) {
+      throw DYNError(Error::MODELER, MacroNotResolved, id, "bus not found");
+    }
     string staticIdLabel = "@" + strs[1] + "@";
     // replace @staticId@ by the node name
     tmpId.replace(tmpId.find(staticIdLabel), staticIdLabel.size(), busName);
