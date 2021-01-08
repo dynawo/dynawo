@@ -127,9 +127,9 @@ SubModel::setTimeline(const shared_ptr<Timeline>& timeline) {
   timeline_ = timeline;
 }
 
-boost::shared_ptr<timeline::Timeline>
-SubModel::getTimeline() const {
-  return timeline_;
+bool
+SubModel::hasTimeline() const {
+  return timeline_.use_count() > 0;
 }
 
 void
@@ -1205,9 +1205,9 @@ SubModel::addConstraint(const string& modelName, bool begin, const Message& desc
   }
 }
 
-boost::shared_ptr<constraints::ConstraintsCollection>
-SubModel::getConstraints() const {
-  return constraints_;
+bool
+SubModel::hasConstraints() const {
+  return constraints_.use_count() > 0;
 }
 
 string

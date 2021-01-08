@@ -222,18 +222,18 @@ T pow_dynawo(T a, T b) {
  */
 #define DYNTimelineFromModelica(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::value(key))), ##__VA_ARGS__ )
 
-#define addLogEvent1(key) if ((this)->getModelManager()->getTimeline()) \
+#define addLogEvent1(key) if ((this)->getModelManager()->hasTimeline()) \
   addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key))
-#define addLogEvent2(key, arg1) if ((this)->getModelManager()->getTimeline()) \
+#define addLogEvent2(key, arg1) if ((this)->getModelManager()->hasTimeline()) \
   addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1))
-#define addLogEvent3(key, arg1, arg2) if ((this)->getModelManager()->getTimeline()) \
+#define addLogEvent3(key, arg1, arg2) if ((this)->getModelManager()->hasTimeline()) \
   addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2))
-#define addLogEvent4(key, arg1, arg2, arg3) if ((this)->getModelManager()->getTimeline()) \
+#define addLogEvent4(key, arg1, arg2, arg3) if ((this)->getModelManager()->hasTimeline()) \
   addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3))
-#define addLogEvent5(key, arg1, arg2, arg3, arg4) if ((this)->getModelManager()->getTimeline()) \
+#define addLogEvent5(key, arg1, arg2, arg3, arg4) if ((this)->getModelManager()->hasTimeline()) \
   addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3, arg4))
 
-#define addLogEventRaw1(key) if ((this)->getModelManager()->getTimeline()) \
+#define addLogEventRaw1(key) if ((this)->getModelManager()->hasTimeline()) \
   addLogEvent_((this)->getModelManager(), (MessageTimeline("", key)))
 #define addLogEventRaw2(key1, key2) addLogEventRaw2_((this)->getModelManager(), key1, key2)
 #define addLogEventRaw3(key1, key2, key3) addLogEventRaw3_((this)->getModelManager(), key1, key2, key3)
