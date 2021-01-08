@@ -639,10 +639,10 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
   if (hasConnection_) {
     string name = id + string("_PWPIN");
     addElement(name, Element::STRUCTURE, elements, mapElement);
-    addSubElement("vr", name, Element::TERMINAL, elements, mapElement);
-    addSubElement("vi", name, Element::TERMINAL, elements, mapElement);
-    addSubElement("ir", name, Element::TERMINAL, elements, mapElement);
-    addSubElement("ii", name, Element::TERMINAL, elements, mapElement);
+    addSubElement("vr", name, Element::TERMINAL, id_, modelType_, elements, mapElement);
+    addSubElement("vi", name, Element::TERMINAL, id_, modelType_, elements, mapElement);
+    addSubElement("ir", name, Element::TERMINAL, id_, modelType_, elements, mapElement);
+    addSubElement("ii", name, Element::TERMINAL, id_, modelType_, elements, mapElement);
 
     string ACName = id + string("_ACPIN");
     addElement(ACName, Element::STRUCTURE, elements, mapElement);
@@ -650,41 +650,41 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
     string ACNameV = id + string("_ACPIN_V");
     addElement(ACNameI, Element::STRUCTURE, elements, mapElement);
     addElement(ACNameV, Element::STRUCTURE, elements, mapElement);
-    addSubElement("i", ACName, Element::STRUCTURE, elements, mapElement);
-    addSubElement("V", ACName, Element::STRUCTURE, elements, mapElement);
-    addSubElement("re", ACNameI, Element::TERMINAL, elements, mapElement);
-    addSubElement("im", ACNameI, Element::TERMINAL, elements, mapElement);
-    addSubElement("re", ACNameV, Element::TERMINAL, elements, mapElement);
-    addSubElement("im", ACNameV, Element::TERMINAL, elements, mapElement);
+    addSubElement("i", ACName, Element::STRUCTURE, id_, modelType_, elements, mapElement);
+    addSubElement("V", ACName, Element::STRUCTURE, id_, modelType_, elements, mapElement);
+    addSubElement("re", ACNameI, Element::TERMINAL, id_, modelType_, elements, mapElement);
+    addSubElement("im", ACNameI, Element::TERMINAL, id_, modelType_, elements, mapElement);
+    addSubElement("re", ACNameV, Element::TERMINAL, id_, modelType_, elements, mapElement);
+    addSubElement("im", ACNameV, Element::TERMINAL, id_, modelType_, elements, mapElement);
   }
 
   // Calculated variables addition
-  addElementWithValue(id + string("_Upu"), elements, mapElement);
-  addElementWithValue(id + string("_phipu"), elements, mapElement);
-  addElementWithValue(id + string("_U"), elements, mapElement);
-  addElementWithValue(id + string("_phi"), elements, mapElement);
+  addElementWithValue(id + string("_Upu"), modelType_, elements, mapElement);
+  addElementWithValue(id + string("_phipu"), modelType_, elements, mapElement);
+  addElementWithValue(id + string("_U"), modelType_, elements, mapElement);
+  addElementWithValue(id + string("_phi"), modelType_, elements, mapElement);
 
   // Discrete variables addition
-  addElementWithValue(id + string("_numcc"), elements, mapElement);
-  addElementWithValue(id + string("_switchOff"), elements, mapElement);
-  addElementWithValue(id + string("_state"), elements, mapElement);
+  addElementWithValue(id + string("_numcc"), modelType_, elements, mapElement);
+  addElementWithValue(id + string("_switchOff"), modelType_, elements, mapElement);
+  addElementWithValue(id + string("_state"), modelType_, elements, mapElement);
 }
 
 NetworkComponent::StateChange_t
 ModelBus::evalZ(const double& /*t*/) {
   if (g_[0] == ROOT_UP && !stateUmax_) {
-    network_->addConstraint(constraintId_, true, DYNConstraint(USupUmax), modelType_);
+    DYNAddConstraint(network_, constraintId_,  true,  modelType_, USupUmax);
     stateUmax_ = true;
   } else if (g_[0] == ROOT_DOWN && stateUmax_) {
-    network_->addConstraint(constraintId_, false, DYNConstraint(USupUmax), modelType_);
+    DYNAddConstraint(network_, constraintId_,  false,  modelType_, USupUmax);
     stateUmax_ = false;
   }
 
   if (g_[1] == ROOT_UP && !stateUmin_) {
-    network_->addConstraint(constraintId_, true, DYNConstraint(UInfUmin), modelType_);
+    DYNAddConstraint(network_, constraintId_,  true,  modelType_, UInfUmin);
     stateUmin_ = true;
   } else if (g_[1] == ROOT_DOWN && stateUmin_) {
-    network_->addConstraint(constraintId_, false, DYNConstraint(UInfUmin), modelType_);
+    DYNAddConstraint(network_, constraintId_,  false,  modelType_, UInfUmin);
     stateUmin_ = false;
   }
 
@@ -693,14 +693,14 @@ ModelBus::evalZ(const double& /*t*/) {
     topologyModified_ = true;
     if (currState == OPEN) {
       switchOff();
-      network_->addEvent(id_, DYNTimeline(NodeOff));
+      DYNAddTimelineEvent(network_, id_, NodeOff);
       // open all switch connected to this node
       for (unsigned int i = 0; i < connectableSwitches_.size(); ++i) {
         connectableSwitches_[i].lock()->open();
       }
     } else if (currState == CLOSED) {
       switchOn();
-      network_->addEvent(id_, DYNTimeline(NodeOn));
+      DYNAddTimelineEvent(network_, id_, NodeOn);
     }
     connectionState_ = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   }

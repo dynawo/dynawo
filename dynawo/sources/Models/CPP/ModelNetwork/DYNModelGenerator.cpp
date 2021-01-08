@@ -164,22 +164,22 @@ void
 ModelGenerator::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   string genName = id_;
   // ========  CONNECTION STATE ======
-  addElementWithValue(genName + string("_state"), elements, mapElement);
+  addElementWithValue(genName + string("_state"), "Generator", elements, mapElement);
 
   // ========  Active power target ======
-  addElementWithValue(genName + string("_Pc"), elements, mapElement);
+  addElementWithValue(genName + string("_Pc"), "Generator", elements, mapElement);
 
   // ========  Reactive power target ======
-  addElementWithValue(genName + string("_Qc"), elements, mapElement);
+  addElementWithValue(genName + string("_Qc"), "Generator", elements, mapElement);
 
   // ========  P VALUE  ======
-  addElementWithValue(genName + string("_P"), elements, mapElement);
+  addElementWithValue(genName + string("_P"), "Generator", elements, mapElement);
 
   // ========  Q VALUE  ======
-  addElementWithValue(genName + string("_Q"), elements, mapElement);
+  addElementWithValue(genName + string("_Q"), "Generator", elements, mapElement);
 
   // ========  state VALUE as continuous variable ======
-  addElementWithValue(genName + string("_genState"), elements, mapElement);
+  addElementWithValue(genName + string("_genState"), "Generator", elements, mapElement);
 }
 
 NetworkComponent::StateChange_t
@@ -188,10 +188,10 @@ ModelGenerator::evalZ(const double& /*t*/) {
   if (currState != getConnected()) {
     Trace::info() << DYNLog(GeneratorStateChange, id_, getConnected(), z_[0]) << Trace::endline;
     if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(GeneratorDisconnected));
+      DYNAddTimelineEvent(network_, id_, GeneratorDisconnected);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
     } else {
-      network_->addEvent(id_, DYNTimeline(GeneratorConnected));
+      DYNAddTimelineEvent(network_, id_, GeneratorConnected);
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
     }
     stateModified_ = true;
@@ -199,12 +199,12 @@ ModelGenerator::evalZ(const double& /*t*/) {
   }
 
   if (doubleNotEquals(z_[1], Pc_)) {
-    network_->addEvent(id_, DYNTimeline(GeneratorTargetP, z_[1]));
+    DYNAddTimelineEvent(network_, id_, GeneratorTargetP, z_[1]);
     Pc_ = z_[1];
   }
 
   if (doubleNotEquals(z_[2], Qc_)) {
-    network_->addEvent(id_, DYNTimeline(GeneratorTargetQ, z_[2]));
+    DYNAddTimelineEvent(network_, id_, GeneratorTargetQ, z_[2]);
     Qc_ = z_[2];
   }
   return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;

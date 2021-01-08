@@ -849,6 +849,47 @@ ModelNetwork::getSize() {
 }
 
 void
+ModelNetwork::dumpUserReadableElementList(const std::string& nameElement) const {
+  map<string, int> mapElement;
+  vector<Element> elements;
+  std::string modelName;
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
+      itComponent != components_.end(); ++itComponent) {
+    if (nameElement.rfind((*itComponent)->id(), 0) == 0) {
+      (*itComponent)->defineElements(elements, mapElement);
+      modelName = (*itComponent)->id();
+    }
+  }
+  for (vector<shared_ptr<ModelVoltageLevel> >::const_iterator itComponentVL = vLevelComponents_.begin(), itComponentVLEnd = vLevelComponents_.end();
+      itComponentVL != itComponentVLEnd; ++itComponentVL) {
+    const shared_ptr<ModelVoltageLevel>& vl = *itComponentVL;
+    for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = vl->getComponents().begin();
+        itComponent != vl->getComponents().end(); ++itComponent) {
+      if (nameElement.rfind((*itComponent)->id(), 0) == 0) {
+        (*itComponent)->defineElements(elements, mapElement);
+        modelName = (*itComponent)->id();
+      }
+    }
+  }
+  if (!elements.empty()) {
+    Trace::info() << DYNLog(NetworkElementNames, modelName) << Trace::endline;
+    vector< std::pair<size_t, string> > vec;
+    for (unsigned int i = 0; i < elements.size(); ++i) {
+      const Element& element = elements[i];
+      if (element.getTypeElement() == Element::TERMINAL) {
+        vec.push_back(std::make_pair(LevensteinDistance(element.id(), nameElement, 10, 1, 10), element.id()));
+      }
+    }
+    std::sort(vec.begin(), vec.end() , compStringDist());
+    for (unsigned int i = 0; i < vec.size(); ++i) {
+      Trace::info() << "  ->" << vec[i].second << Trace::endline;
+    }
+  } else {
+    Trace::info() << DYNLog(NetworkElementCompNotFound, modelName) << Trace::endline;
+  }
+}
+
+void
 ModelNetwork::printModel() const {
   Trace::debug(Trace::modeler()) << DYNLog(ModelName) << std::setw(25) << std::left << modelType() << "=>" << name() << Trace::endline;
   Trace::debug(Trace::modeler()) << "         Y : [" << std::setw(6) << yDeb_ << " ; " << std::setw(6) << yDeb_ + sizeY() << "[" << Trace::endline;

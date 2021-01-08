@@ -552,19 +552,19 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
   string name;
   // ======= STATE VARIABLES ========
   if (isControllable_) {
-    addElementWithValue(loadName + string("_DeltaPc"), elements, mapElement);
-    addElementWithValue(loadName + string("_DeltaQc"), elements, mapElement);
+    addElementWithValue(loadName + string("_DeltaPc"), "Load", elements, mapElement);
+    addElementWithValue(loadName + string("_DeltaQc"), "Load", elements, mapElement);
   }
   if (isRestorative_) {
-    addElementWithValue(loadName + string("_zP"), elements, mapElement);
-    addElementWithValue(loadName + string("_zQ"), elements, mapElement);
+    addElementWithValue(loadName + string("_zP"), "Load", elements, mapElement);
+    addElementWithValue(loadName + string("_zQ"), "Load", elements, mapElement);
   }
-  addElementWithValue(loadName + string("_state"), elements, mapElement);
-  addElementWithValue(loadName + string("_P"), elements, mapElement);
-  addElementWithValue(loadName + string("_Q"), elements, mapElement);
-  addElementWithValue(loadName + string("_Pc"), elements, mapElement);
-  addElementWithValue(loadName + string("_Qc"), elements, mapElement);
-  addElementWithValue(loadName + string("_loadState"), elements, mapElement);
+  addElementWithValue(loadName + string("_state"), "Load", elements, mapElement);
+  addElementWithValue(loadName + string("_P"), "Load", elements, mapElement);
+  addElementWithValue(loadName + string("_Q"), "Load", elements, mapElement);
+  addElementWithValue(loadName + string("_Pc"), "Load", elements, mapElement);
+  addElementWithValue(loadName + string("_Qc"), "Load", elements, mapElement);
+  addElementWithValue(loadName + string("_loadState"), "Load", elements, mapElement);
 }
 
 NetworkComponent::StateChange_t
@@ -573,10 +573,10 @@ ModelLoad::evalZ(const double& /*t*/) {
   if (currState != getConnected()) {
     Trace::info() << DYNLog(LoadStateChange, id_, getConnected(), z_[0]) << Trace::endline;
     if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(LoadDisconnected));
+      DYNAddTimelineEvent(network_, id_, LoadDisconnected);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
     } else {
-      network_->addEvent(id_, DYNTimeline(LoadConnected));
+      DYNAddTimelineEvent(network_, id_, LoadConnected);
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
     }
     stateModified_ = true;

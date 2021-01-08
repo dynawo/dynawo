@@ -495,35 +495,45 @@ ModelOmegaRef::setSubModelParameters() {
 void
 ModelOmegaRef::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   for (int i = 0; i < nbMaxCC; ++i) {
-    std::stringstream name;
-    name << "omegaRef_" << i;
-    addElement(name.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name.str(), Element::TERMINAL, elements, mapElement);
+    std::stringstream namess;
+    namess << "omegaRef_" << i;
+    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
 
   for (int k = 0; k < nbGen_; ++k) {
     if (weights_[k] > 0) {
-      std::stringstream name;
-      name << "omega_grp_" << k;
-      addElement(name.str(), Element::STRUCTURE, elements, mapElement);
-      addSubElement("value", name.str(), Element::TERMINAL, elements, mapElement);
+      std::stringstream namess;
+      namess << "omega_grp_" << k;
+      addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
+      addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
     }
 
     std::stringstream name1;
     name1 << "numcc_node_" << k;
     addElement(name1.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name1.str(), Element::TERMINAL, elements, mapElement);
+    addSubElement("value", name1.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
 
     std::stringstream name2;
     name2 << "running_grp_" << k;
     addElement(name2.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name2.str(), Element::TERMINAL, elements, mapElement);
+    addSubElement("value", name2.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
 
     std::stringstream name3;
     name3 << "omegaRef_grp_" << k;
     addElement(name3.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name3.str(), Element::TERMINAL, elements, mapElement);
+    addSubElement("value", name3.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
+}
+
+void
+ModelOmegaRef::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
+  Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  Trace::info() << "  ->" << "omegaRef_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
+  Trace::info() << "  ->" << "omega_grp_" << "<0-" << nbGen_ << ">_value (and weight_gen_<num> > 0)" << Trace::endline;
+  Trace::info() << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  Trace::info() << "  ->" << "running_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  Trace::info() << "  ->" << "omegaRef_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
 }
 
 void

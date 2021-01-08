@@ -101,7 +101,10 @@ SolverCommon::printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, 
                    int nbErr) {
   std::sort(fErr.begin(), fErr.end(), mapcompabs());
 
-  for (int i = 0; i < nbErr; ++i) {
+  size_t size = nbErr;
+  if (fErr.size() < size)
+    size = fErr.size();
+  for (size_t i = 0; i < size; ++i) {
     std::string subModelName("");
     int subModelIndexF = 0;
     std::string fEquation("");

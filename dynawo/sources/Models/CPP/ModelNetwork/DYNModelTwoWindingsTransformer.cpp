@@ -1112,24 +1112,24 @@ ModelTwoWindingsTransformer::defineVariables(vector<shared_ptr<Variable> >& vari
 void
 ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   string twtName = id();
-  addElementWithValue(twtName + string("_i1"), elements, mapElement);
-  addElementWithValue(twtName + string("_i2"), elements, mapElement);
-  addElementWithValue(twtName + string("_P1"), elements, mapElement);
-  addElementWithValue(twtName + string("_P2"), elements, mapElement);
-  addElementWithValue(twtName + string("_Q1"), elements, mapElement);
-  addElementWithValue(twtName + string("_Q12"), elements, mapElement);
-  addElementWithValue(twtName + string("_iS1ToS2Side1"), elements, mapElement);
-  addElementWithValue(twtName + string("_iS2ToS1Side1"), elements, mapElement);
-  addElementWithValue(twtName + string("_iS1ToS2Side2"), elements, mapElement);
-  addElementWithValue(twtName + string("_iS2ToS1Side2"), elements, mapElement);
-  addElementWithValue(twtName + string("_iSide1"), elements, mapElement);
-  addElementWithValue(twtName + string("_iSide2"), elements, mapElement);
-  addElementWithValue(twtName + string("_twtState"), elements, mapElement);
-  addElementWithValue(twtName + string("_state"), elements, mapElement);
-  addElementWithValue(twtName + string("_step"), elements, mapElement);
-  addElementWithValue(twtName + string("_desactivate_currentLimits"), elements, mapElement);
-  addElementWithValue(twtName + string("_disable_internal_tapChanger"), elements, mapElement);
-  addElementWithValue(twtName + string("_TAP_CHANGER_locked"), elements, mapElement);
+  addElementWithValue(twtName + string("_i1"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_i2"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_P1"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_P2"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_Q1"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_Q12"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_iS1ToS2Side1"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_iS2ToS1Side1"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_iS1ToS2Side2"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_iS2ToS1Side2"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_iSide1"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_iSide2"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_twtState"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_state"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_step"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_desactivate_currentLimits"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_disable_internal_tapChanger"), modelType_, elements, mapElement);
+  addElementWithValue(twtName + string("_TAP_CHANGER_locked"), modelType_, elements, mapElement);
 }
 
 NetworkComponent::StateChange_t
@@ -1191,16 +1191,16 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
         case OPEN:
           break;
         case CLOSED:
-          network_->addEvent(id_, DYNTimeline(TwoWTFOOpen));
+          DYNAddTimelineEvent(network_, id_, TwoWTFOOpen);
           modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
           modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
           break;
         case CLOSED_1:
-          network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
+          DYNAddTimelineEvent(network_, id_, TwoWTFOOpenSide1);
           modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
           break;
         case CLOSED_2:
-          network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
+          DYNAddTimelineEvent(network_, id_, TwoWTFOOpenSide2);
           modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
           break;
         case CLOSED_3:
@@ -1212,18 +1212,18 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
         case CLOSED:
           switch (getConnectionState()) {
           case OPEN:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOClosed));
+            DYNAddTimelineEvent(network_, id_, TwoWTFOClosed);
             modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
             modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
             break;
           case CLOSED:
             break;
           case CLOSED_1:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
+            DYNAddTimelineEvent(network_, id_, TwoWTFOCloseSide2);
             modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
             break;
           case CLOSED_2:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
+            DYNAddTimelineEvent(network_, id_, TwoWTFOCloseSide1);
             modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
             break;
           case CLOSED_3:
@@ -1235,18 +1235,18 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
           case CLOSED_1:
             switch (getConnectionState()) {
             case OPEN:
-              network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
+              DYNAddTimelineEvent(network_, id_, TwoWTFOCloseSide1);
               modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
               break;
             case CLOSED:
-              network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
+              DYNAddTimelineEvent(network_, id_, TwoWTFOOpenSide2);
               modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
               break;
             case CLOSED_1:
               break;
             case CLOSED_2:
-              network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
-              network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
+              DYNAddTimelineEvent(network_, id_, TwoWTFOCloseSide1);
+              DYNAddTimelineEvent(network_, id_, TwoWTFOOpenSide2);
               modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
               modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
               break;
@@ -1259,16 +1259,16 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
             case CLOSED_2:
               switch (getConnectionState()) {
               case OPEN:
-                network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
+                DYNAddTimelineEvent(network_, id_, TwoWTFOCloseSide2);
                 modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
                 break;
               case CLOSED:
-                network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
+                DYNAddTimelineEvent(network_, id_, TwoWTFOOpenSide1);
                 modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
                 break;
               case CLOSED_1:
-                network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
-                network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
+                DYNAddTimelineEvent(network_, id_, TwoWTFOCloseSide2);
+                DYNAddTimelineEvent(network_, id_, TwoWTFOOpenSide1);
                 modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
                 modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
                 break;

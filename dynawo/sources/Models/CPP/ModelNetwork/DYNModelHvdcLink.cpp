@@ -166,10 +166,10 @@ ModelHvdcLink::evalZ(const double& /*t*/) {
   if (currState1 != getConnected1()) {
     Trace::info() << DYNLog(Converter1StateChange, id_, getConnected1(), z_[state1Num_]) << Trace::endline;
     if (currState1 == OPEN) {
-      network_->addEvent(id_, DYNTimeline(Converter1SwitchOff));
+      DYNAddTimelineEvent(network_, id_, Converter1SwitchOff);
       modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
     } else {
-      network_->addEvent(id_, DYNTimeline(Converter1Connected));
+      DYNAddTimelineEvent(network_, id_, Converter1Connected);
       modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
     }
     setConnected1(currState1);
@@ -180,10 +180,10 @@ ModelHvdcLink::evalZ(const double& /*t*/) {
   if (currState2 != getConnected2()) {
     Trace::info() << DYNLog(Converter2StateChange, id_, getConnected2(), z_[state2Num_]) << Trace::endline;
     if (currState2 == OPEN) {
-      network_->addEvent(id_, DYNTimeline(Converter2SwitchOff));
+      DYNAddTimelineEvent(network_, id_, Converter2SwitchOff);
       modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
     } else {
-      network_->addEvent(id_, DYNTimeline(Converter2Connected));
+      DYNAddTimelineEvent(network_, id_, Converter2Connected);
       modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
     }
     setConnected2(currState2);
@@ -475,21 +475,21 @@ ModelHvdcLink::defineElements(std::vector<Element> &elements, std::map<std::stri
   string name;
   // ========  CONNECTION STATE ======
   // at point of common coupling 1
-  addElementWithValue(hvdcName + string("_state1"), elements, mapElement);
+  addElementWithValue(hvdcName + string("_state1"), "HvdcLink", elements, mapElement);
   // at point of common coupling 2
-  addElementWithValue(hvdcName + string("_state2"), elements, mapElement);
+  addElementWithValue(hvdcName + string("_state2"), "HvdcLink", elements, mapElement);
 
   // ========  P VALUE  ======
   // at point of common coupling 1
-  addElementWithValue(hvdcName + string("_P1"), elements, mapElement);
+  addElementWithValue(hvdcName + string("_P1"), "HvdcLink", elements, mapElement);
   // at point of common coupling 2
-  addElementWithValue(hvdcName + string("_P2"), elements, mapElement);
+  addElementWithValue(hvdcName + string("_P2"), "HvdcLink", elements, mapElement);
 
   // ========  Q VALUE  ======
   // at point of common coupling 1
-  addElementWithValue(hvdcName + string("_Q1"), elements, mapElement);
+  addElementWithValue(hvdcName + string("_Q1"), "HvdcLink", elements, mapElement);
   // at point of common coupling 2
-  addElementWithValue(hvdcName + string("_Q2"), elements, mapElement);
+  addElementWithValue(hvdcName + string("_Q2"), "HvdcLink", elements, mapElement);
 }
 
 void

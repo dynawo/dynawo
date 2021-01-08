@@ -56,10 +56,18 @@ void printLogExecution_(ModelManager * model, const std::string & message) {
 }
 
 void addLogEvent_(ModelManager* model, const MessageTimeline& messageTimeline) {
+  if (!model->hasTimeline()) {
+    return;
+  }
+
   model->addEvent(model->name(), messageTimeline);
 }
 
 void addLogEventRaw2_(ModelManager* model, const char* message1, const char* message2) {
+  if (!model->hasTimeline()) {
+    return;
+  }
+
   std::stringstream ss("");
   ss << message1 << message2;
   const std::string fullMessage = ss.str();
@@ -70,6 +78,10 @@ void addLogEventRaw2_(ModelManager* model, const char* message1, const char* mes
 void
 addLogEventRaw3_(ModelManager* model, const char* message1, const char* message2,
         const char* message3) {
+  if (!model->hasTimeline()) {
+    return;
+  }
+
   std::stringstream ss("");
   ss << message1 << message2 << message3;
   const std::string fullMessage = ss.str();
@@ -79,6 +91,10 @@ addLogEventRaw3_(ModelManager* model, const char* message1, const char* message2
 
 void addLogEventRaw4_(ModelManager* model, const char* message1, const char* message2,
         const char* message3, const char* message4) {
+  if (!model->hasTimeline()) {
+    return;
+  }
+
   std::stringstream ss("");
   ss << message1 << message2 << message3 << message4;
   const std::string fullMessage = ss.str();
@@ -88,6 +104,10 @@ void addLogEventRaw4_(ModelManager* model, const char* message1, const char* mes
 
 void addLogEventRaw5_(ModelManager* model, const char* message1, const char* message2,
         const char* message3, const char* message4, const char* message5) {
+  if (!model->hasTimeline()) {
+    return;
+  }
+
   std::stringstream ss("");
   ss << message1 << message2 << message3 << message4 << message5;
   const std::string fullMessage = ss.str();

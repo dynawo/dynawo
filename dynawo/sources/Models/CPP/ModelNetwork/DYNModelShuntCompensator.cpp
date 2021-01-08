@@ -190,11 +190,11 @@ ModelShuntCompensator::defineVariables(vector<shared_ptr<Variable> >& variables)
 void
 ModelShuntCompensator::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   string shName = id_;
-  addElementWithValue(shName + string("_state"), elements, mapElement);
-  addElementWithValue(shName + string("_isCapacitor"), elements, mapElement);
-  addElementWithValue(shName + string("_isAvailable"), elements, mapElement);
-  addElementWithValue(shName + string("_currentSection"), elements, mapElement);
-  addElementWithValue(shName + string("_Q"), elements, mapElement);
+  addElementWithValue(shName + string("_state"), "ShuntCompensator", elements, mapElement);
+  addElementWithValue(shName + string("_isCapacitor"), "ShuntCompensator", elements, mapElement);
+  addElementWithValue(shName + string("_isAvailable"), "ShuntCompensator", elements, mapElement);
+  addElementWithValue(shName + string("_currentSection"), "ShuntCompensator", elements, mapElement);
+  addElementWithValue(shName + string("_Q"), "ShuntCompensator", elements, mapElement);
 }
 
 void
@@ -214,12 +214,12 @@ ModelShuntCompensator::evalZ(const double& t) {
     stateModified_ = true;
     Trace::info() << DYNLog(ShuntStateChange, id_, getConnected(), currState) << Trace::endline;
     if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(ShuntDisconnected));
+      DYNAddTimelineEvent(network_, id_, ShuntDisconnected);
       tLastOpening_ = t;
       currentSection_ = 0;
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
     } else if (currState == CLOSED) {
-      network_->addEvent(id_, DYNTimeline(ShuntConnected));
+      DYNAddTimelineEvent(network_, id_, ShuntConnected);
       currentSection_ = maximumSection_;
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
     }

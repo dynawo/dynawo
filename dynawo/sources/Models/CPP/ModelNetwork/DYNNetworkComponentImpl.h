@@ -335,10 +335,12 @@ class NetworkComponent::Impl : public NetworkComponent {
   /**
    * @brief add an element along a value subelement
    * @param elementName element to add
+   * @param parentType type of the parent model
    * @param elements vector of elements to fill with new elements defined
    * @param mapElement map of elements to fill with new elements
    */
-  void addElementWithValue(std::string elementName, std::vector<Element>& elements, std::map<std::string, int>& mapElement);
+  void addElementWithValue(const std::string& elementName, const std::string& parentType,
+      std::vector<Element>& elements, std::map<std::string, int>& mapElement);
 
  private:
   /**

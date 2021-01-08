@@ -217,10 +217,10 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
   if (currState != getConnected()) {
     Trace::info() << DYNLog(SVCStateChange, id_, getConnected(), z_[connectionStateNum_]) << Trace::endline;
     if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(SVarCDisconnected));
+      DYNAddTimelineEvent(network_, id_, SVarCDisconnected);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
     } else {
-      network_->addEvent(id_, DYNTimeline(SVarCConnected));
+      DYNAddTimelineEvent(network_, id_, SVarCConnected);
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
     }
     stateModified_ = true;
@@ -374,12 +374,12 @@ ModelStaticVarCompensator::defineElements(vector<Element> &elements, map<string,
   string svcName = id_;
 
   // ========  CALCULATED VARIABLE ======
-  addElementWithValue(svcName + string("_P"), elements, mapElement);
-  addElementWithValue(svcName + string("_Q"), elements, mapElement);
+  addElementWithValue(svcName + string("_P"), "StaticVarCompensator", elements, mapElement);
+  addElementWithValue(svcName + string("_Q"), "StaticVarCompensator", elements, mapElement);
 
   // ========  DISCRETE VARIABLE ======
-  addElementWithValue(svcName + string("_mode"), elements, mapElement);
-  addElementWithValue(svcName + string("_state"), elements, mapElement);
+  addElementWithValue(svcName + string("_mode"), "StaticVarCompensator", elements, mapElement);
+  addElementWithValue(svcName + string("_state"), "StaticVarCompensator", elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

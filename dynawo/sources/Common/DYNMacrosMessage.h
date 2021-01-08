@@ -19,8 +19,6 @@
 #include "DYNError.h"
 #include "DYNTerminate.h"
 
-namespace DYN {
-
 /**
  * @brief Macro description to have a shortcut.
  *  Thanks to this macro, user can only call a log message with the key to access
@@ -39,10 +37,31 @@ namespace DYN {
 #define DYNTimeline(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__ )
 
 /**
+ * @brief Macro to add a timeline event, only if timeline exists
+ * @param model the model to add the event to
+ * @param name the name of the model
+ * @param key key to find the message
+ */
+#define DYNAddTimelineEvent(model, name, key, ...) \
+  if (model->hasTimeline()) model->addEvent(name, DYNTimeline(key, ##__VA_ARGS__))
+
+/**
  * @brief Macro to define a constraint message
  * @param key key to find the message
  */
 #define DYNConstraint(key, ...) (DYN::Message(DYN::Message::CONSTRAINT_KEY, DYN::KeyConstraint_t::names(DYN::KeyConstraint_t::key)), ##__VA_ARGS__ )
+
+/**
+ * @brief Macro to add a constraint, only if constraints collection exists
+ *
+ * @param model the model to add the event to
+ * @param name the name of the model
+ * @param begin boolean determining if the constraint starts
+ * @param type model type
+ * @param key key to find the message
+ */
+#define DYNAddConstraint(model, name, begin, type, key, ...) \
+  if (model->hasConstraints()) model->addConstraint(name, begin, DYNConstraint(key, ##__VA_ARGS__), type)
 
 /**
  * @brief Macro description to have a shortcut.
@@ -68,7 +87,5 @@ namespace DYN {
  * @return a Terminate
  */
 #define DYNTerminate(key, ...) DYN::Terminate((DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__))
-
-}  // namespace DYN
 
 #endif  // COMMON_DYNMACROSMESSAGE_H_

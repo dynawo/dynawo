@@ -829,27 +829,27 @@ ModelLine::defineElements(std::vector<Element>& elements, std::map<std::string, 
   if (isDynamic_) {
     string name = lineName + string("_iBranch");
     addElement(name, Element::STRUCTURE, elements, mapElement);
-    addSubElement("re", name, Element::TERMINAL, elements, mapElement);
-    addSubElement("im", name, Element::TERMINAL, elements, mapElement);
-    addElementWithValue(lineName + string("_omegaRef"), elements, mapElement);
+    addSubElement("re", name, Element::TERMINAL, id(), modelType_, elements, mapElement);
+    addSubElement("im", name, Element::TERMINAL, id(), modelType_, elements, mapElement);
+    addElementWithValue(lineName + string("_omegaRef"), modelType_, elements, mapElement);
   }
-  addElementWithValue(lineName + string("_i1"), elements, mapElement);
-  addElementWithValue(lineName + string("_i2"), elements, mapElement);
-  addElementWithValue(lineName + string("_P1"), elements, mapElement);
-  addElementWithValue(lineName + string("_P2"), elements, mapElement);
-  addElementWithValue(lineName + string("_Q1"), elements, mapElement);
-  addElementWithValue(lineName + string("_Q2"), elements, mapElement);
-  addElementWithValue(lineName + string("_iS1ToS2Side1"), elements, mapElement);
-  addElementWithValue(lineName + string("_iS2ToS1Side1"), elements, mapElement);
-  addElementWithValue(lineName + string("_iS1ToS2Side2"), elements, mapElement);
-  addElementWithValue(lineName + string("_iS2ToS1Side2"), elements, mapElement);
-  addElementWithValue(lineName + string("_iSide1"), elements, mapElement);
-  addElementWithValue(lineName + string("_iSide2"), elements, mapElement);
-  addElementWithValue(lineName + string("_U1"), elements, mapElement);
-  addElementWithValue(lineName + string("_U2"), elements, mapElement);
-  addElementWithValue(lineName + string("_lineState"), elements, mapElement);
-  addElementWithValue(lineName + string("_state"), elements, mapElement);
-  addElementWithValue(lineName + string("_desactivate_currentLimits"), elements, mapElement);
+  addElementWithValue(lineName + string("_i1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_i2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_P1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_P2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_Q1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_Q2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_iS1ToS2Side1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_iS2ToS1Side1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_iS1ToS2Side2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_iS2ToS1Side2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_iSide1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_iSide2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_U1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_U2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_lineState"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_state"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_desactivate_currentLimits"), modelType_, elements, mapElement);
 }
 
 NetworkComponent::StateChange_t
@@ -894,16 +894,16 @@ ModelLine::evalZ(const double& t) {
         case OPEN:
           break;
         case CLOSED:
-          network_->addEvent(id_, DYNTimeline(LineOpen));
+          DYNAddTimelineEvent(network_, id_, LineOpen);
           modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
           modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
           break;
         case CLOSED_1:
-          network_->addEvent(id_, DYNTimeline(LineOpenSide1));
+          DYNAddTimelineEvent(network_, id_, LineOpenSide1);
           modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
           break;
         case CLOSED_2:
-          network_->addEvent(id_, DYNTimeline(LineOpenSide2));
+          DYNAddTimelineEvent(network_, id_, LineOpenSide2);
           modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
           break;
         case CLOSED_3:
@@ -917,18 +917,18 @@ ModelLine::evalZ(const double& t) {
         case CLOSED:
           switch (getConnectionState()) {
           case OPEN:
-            network_->addEvent(id_, DYNTimeline(LineClosed));
+            DYNAddTimelineEvent(network_, id_, LineClosed);
             modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
             modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
             break;
           case CLOSED:
             break;
           case CLOSED_1:
-            network_->addEvent(id_, DYNTimeline(LineCloseSide2));
+            DYNAddTimelineEvent(network_, id_, LineCloseSide2);
             modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
             break;
           case CLOSED_2:
-            network_->addEvent(id_, DYNTimeline(LineCloseSide1));
+            DYNAddTimelineEvent(network_, id_, LineCloseSide1);
             modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
             break;
           case CLOSED_3:
@@ -944,18 +944,18 @@ ModelLine::evalZ(const double& t) {
               throw DYNError(Error::MODELER, DynamicLineStatusNotSupported, id_);
             switch (getConnectionState()) {
             case OPEN:
-              network_->addEvent(id_, DYNTimeline(LineCloseSide1));
+              DYNAddTimelineEvent(network_, id_, LineCloseSide1);
               modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
               break;
             case CLOSED:
-              network_->addEvent(id_, DYNTimeline(LineOpenSide2));
+              DYNAddTimelineEvent(network_, id_, LineOpenSide2);
               modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
               break;
             case CLOSED_1:
               break;
             case CLOSED_2:
-              network_->addEvent(id_, DYNTimeline(LineCloseSide1));
-              network_->addEvent(id_, DYNTimeline(LineOpenSide2));
+              DYNAddTimelineEvent(network_, id_, LineCloseSide1);
+              DYNAddTimelineEvent(network_, id_, LineOpenSide2);
               modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
               modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
               break;
@@ -972,16 +972,16 @@ ModelLine::evalZ(const double& t) {
                 throw DYNError(Error::MODELER, DynamicLineStatusNotSupported, id_);
               switch (getConnectionState()) {
               case OPEN:
-                network_->addEvent(id_, DYNTimeline(LineCloseSide2));
+                DYNAddTimelineEvent(network_, id_, LineCloseSide2);
                 modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
                 break;
               case CLOSED:
-                network_->addEvent(id_, DYNTimeline(LineOpenSide1));
+                DYNAddTimelineEvent(network_, id_, LineOpenSide1);
                 modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
                 break;
               case CLOSED_1:
-                network_->addEvent(id_, DYNTimeline(LineCloseSide2));
-                network_->addEvent(id_, DYNTimeline(LineOpenSide1));
+                DYNAddTimelineEvent(network_, id_, LineCloseSide2);
+                DYNAddTimelineEvent(network_, id_, LineOpenSide1);
                 modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
                 modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
                 break;

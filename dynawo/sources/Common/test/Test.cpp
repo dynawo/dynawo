@@ -533,4 +533,15 @@ TEST(CommonTest, testEnumUtils) {
 TEST(CommonTest, testTimer) {
   Timer t("test");
 }
+
+TEST(CommonTest, testLevensteinDistance) {
+  ASSERT_EQ(LevensteinDistance("MyString", "MyStriag", 1 , 2 , 3), 3);
+  ASSERT_EQ(LevensteinDistance("MyString", "MyStrinng", 1 , 2 , 3), 1);
+  ASSERT_EQ(LevensteinDistance("MyString", "MyStrig", 1 , 2 , 3), 2);
+}
+
+TEST(CommonTest, testdouble2String) {
+  ASSERT_EQ(double2String(123456789.123456789), "1.2345679e+08");
+  ASSERT_EQ(double2String(1234.1234), "1234.1234000");
+}
 }  // namespace DYN
