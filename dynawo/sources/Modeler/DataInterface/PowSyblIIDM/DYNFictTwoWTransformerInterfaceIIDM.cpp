@@ -166,22 +166,22 @@ namespace DYN {
 
   double
   FictTwoWTransformerInterfaceIIDM::getR() const {
-    return leg_.get().getR();
+    return leg_.get().getR() * getVNom2() * getVNom2() / (getVNom1() * getVNom1());
   }
 
   double
   FictTwoWTransformerInterfaceIIDM::getX() const {
-    return leg_.get().getX();
+    return leg_.get().getX() * getVNom2() * getVNom2() / (getVNom1() * getVNom1());
   }
 
   double
   FictTwoWTransformerInterfaceIIDM::getG() const {
-    return leg_.get().getG();
+    return leg_.get().getG() * getVNom2() * getVNom2() / (getVNom1() * getVNom1());
   }
 
   double
   FictTwoWTransformerInterfaceIIDM::getB() const {
-    return leg_.get().getB();
+    return leg_.get().getB() * getVNom2() * getVNom2() / (getVNom1() * getVNom1());
   }
 
   double
