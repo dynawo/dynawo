@@ -127,6 +127,11 @@ SubModel::setTimeline(const shared_ptr<Timeline>& timeline) {
   timeline_ = timeline;
 }
 
+boost::shared_ptr<timeline::Timeline>
+SubModel::getTimeline() const {
+  return timeline_;
+}
+
 void
 SubModel::setConstraints(const shared_ptr<ConstraintsCollection>& constraints) {
   constraints_ = constraints;
@@ -1186,14 +1191,23 @@ SubModel::addMessage(const string& message) {
 
 void
 SubModel::addEvent(const string& modelName, const MessageTimeline& messageTimeline) {
-  timeline_->addEvent(getCurrentTime(), modelName, messageTimeline.str(), messageTimeline.priority());
+  if (timeline_) {
+    timeline_->addEvent(getCurrentTime(), modelName, messageTimeline.str(), messageTimeline.priority());
+  }
 }
 
 void
 SubModel::addConstraint(const string& modelName, bool begin, const Message& description,
     const string& modelType) {
-  constraints::Type_t type = (begin)?constraints::CONSTRAINT_BEGIN:constraints::CONSTRAINT_END;
-  constraints_->addConstraint(modelName, description.str(), getCurrentTime(), type, modelType);
+  if (constraints_) {
+    constraints::Type_t type = (begin)?constraints::CONSTRAINT_BEGIN:constraints::CONSTRAINT_END;
+    constraints_->addConstraint(modelName, description.str(), getCurrentTime(), type, modelType);
+  }
+}
+
+boost::shared_ptr<constraints::ConstraintsCollection>
+SubModel::getConstraints() const {
+  return constraints_;
 }
 
 string

@@ -750,11 +750,25 @@ class SubModel {
       const std::string& modelType = "");
 
   /**
+   * @brief Retrieves the constraint collection
+   *
+   * @returns the constraints collection
+   */
+  boost::shared_ptr<constraints::ConstraintsCollection> getConstraints() const;
+
+  /**
    * @brief set the timeline to use during the simulation (where events should be added)
    *
    * @param timeline timeline to use
    */
   void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
+
+  /**
+   * @brief retrieves current timeline
+   *
+   * @returns current timeline
+   */
+  boost::shared_ptr<timeline::Timeline> getTimeline() const;
 
   /**
    * @brief set the constraints collection to use during the simulation (where constraints should be added)

@@ -217,10 +217,10 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
   if (currState != getConnected()) {
     Trace::info() << DYNLog(SVCStateChange, id_, getConnected(), z_[connectionStateNum_]) << Trace::endline;
     if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(SVarCDisconnected));
+      DYNAddTimelineEvent(network_, id_, SVarCDisconnected);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
     } else {
-      network_->addEvent(id_, DYNTimeline(SVarCConnected));
+      DYNAddTimelineEvent(network_, id_, SVarCConnected);
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
     }
     stateModified_ = true;

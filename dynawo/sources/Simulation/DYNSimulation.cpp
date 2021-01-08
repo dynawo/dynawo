@@ -149,6 +149,8 @@ Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<Simulatio
 context_(context),
 jobEntry_(jobEntry),
 data_(data),
+timeline_(),
+constraintsCollection_(),
 iidmFile_(""),
 networkParFile_(""),
 networkParSet_(""),
@@ -178,9 +180,7 @@ dumpGlobalInitValues_(false) {
 #endif
   stringstream pid_string;
   pid_string << pid_;
-  timeline_ = TimelineFactory::newInstance("Simulation_" + pid_string.str());
   curvesCollection_ = CurvesCollectionFactory::newInstance("Simulation_" + pid_string.str());
-  constraintsCollection_ = ConstraintsCollectionFactory::newInstance("Simulation_" + pid_string.str());
 
   // Set simulation parameters
   setStartTime(jobEntry_->getSimulationEntry()->getStartTime());
@@ -281,6 +281,9 @@ void
 Simulation::configureConstraintsOutputs() {
   // Constraints settings
   if (jobEntry_->getOutputsEntry()->getConstraintsEntry()) {
+    stringstream pid_string;
+    pid_string << pid_;
+    constraintsCollection_ = ConstraintsCollectionFactory::newInstance("Simulation_" + pid_string.str());
     string constraintsDir = createAbsolutePath("constraints", outputsDirectory_);
     if (!is_directory(constraintsDir))
       create_directory(constraintsDir);
@@ -310,12 +313,15 @@ void
 Simulation::configureTimelineOutputs() {
   // Timeline settings
   if (jobEntry_->getOutputsEntry()->getTimelineEntry()) {
+    stringstream pid_string;
+    pid_string << pid_;
+    timeline_ = TimelineFactory::newInstance("Simulation_" + pid_string.str());
     string timeLineDir = createAbsolutePath("timeLine", outputsDirectory_);
     if (!is_directory(timeLineDir))
       create_directory(timeLineDir);
 
     //---- exportMode ----
-    string exportMode = jobEntry_->getOutputsEntry()->getTimelineEntry()->getExportMode();
+    const string& exportMode = jobEntry_->getOutputsEntry()->getTimelineEntry()->getExportMode();
     Simulation::exportTimelineMode_t exportModeFlag = Simulation::EXPORT_TIMELINE_NONE;
     string outputFile = "";
     if (exportMode == "TXT") {
@@ -850,15 +856,21 @@ Simulation::simulate() {
       model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
 
     if (SignalHandler::gotExitSignal() && !end()) {
-      addEvent(DYNTimeline(SignalReceived));
+      if (timeline_) {
+        addEvent(DYNTimeline(SignalReceived));
+      }
       throw DYNError(Error::GENERAL, SignalReceived);
     } else if (!criteriaChecked) {
-      addEvent(DYNTimeline(CriteriaNotChecked));
+      if (timeline_) {
+        addEvent(DYNTimeline(CriteriaNotChecked));
+      }
       throw DYNError(Error::SIMULATION, CriteriaNotChecked);
     } else if (end() && data_ && activateCriteria_) {
       criteriaChecked = checkCriteria(tCurrent_, true);
       if (!criteriaChecked) {
-        addEvent(DYNTimeline(CriteriaNotChecked));
+        if (timeline_) {
+          addEvent(DYNTimeline(CriteriaNotChecked));
+        }
         throw DYNError(Error::SIMULATION, CriteriaNotChecked);
       }
     }
@@ -946,8 +958,10 @@ Simulation::printSolverHeader() {
 
 void
 Simulation::addEvent(const MessageTimeline& messageTimeline) {
-  const string name = "Simulation";
-  timeline_->addEvent(getCurrentTime(), name, messageTimeline.str(), messageTimeline.priority());
+  if (timeline_) {
+    const string name = "Simulation";
+    timeline_->addEvent(getCurrentTime(), name, messageTimeline.str(), messageTimeline.priority());
+  }
 }
 
 void

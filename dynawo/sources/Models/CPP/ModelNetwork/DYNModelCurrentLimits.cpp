@@ -92,9 +92,9 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
     if (!(desactivate > 0)) {
       if (g[0 + 2 * i] == ROOT_UP && !activated_[i]) {
         if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
-          network->addConstraint(componentName, true, DYNConstraint(OverloadUp, acceptableDurations_[i], side_), modelType);
+          DYNAddConstraint(network, componentName,  true,  modelType, OverloadUp, acceptableDurations_[i], side_);
         } else {
-          network->addConstraint(componentName, true, DYNConstraint(IMAP, side_), modelType);
+          DYNAddConstraint(network, componentName,  true,  modelType, IMAP, side_);
         }
         tLimitReached_[i] = t;
         activated_[i] = true;
@@ -102,9 +102,9 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
 
       if (g[0 + 2 * i] == ROOT_DOWN && activated_[i]) {
         if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
-          network->addConstraint(componentName, false, DYNConstraint(OverloadUp, acceptableDurations_[i], side_), modelType);
+          DYNAddConstraint(network, componentName,  false,  modelType, OverloadUp, acceptableDurations_[i], side_);
         } else {
-          network->addConstraint(componentName, false, DYNConstraint(IMAP, side_), modelType);
+          DYNAddConstraint(network, componentName,  false,  modelType, IMAP, side_);
         }
         activated_[i] = false;
         tLimitReached_[i] = std::numeric_limits<double>::quiet_NaN();
@@ -112,8 +112,8 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
 
       if (openingAuthorized_[i] && g[1 + 2 * i] == ROOT_UP) {  // Warning: openingAuthorized_ = false => no associated g
         state = ModelCurrentLimits::COMPONENT_OPEN;
-        network->addConstraint(componentName, true, DYNConstraint(OverloadOpen, acceptableDurations_[i], side_), modelType);
-        network->addEvent(componentName, DYNTimeline(OverloadOpen, acceptableDurations_[i]));
+        DYNAddConstraint(network, componentName,  true,  modelType, OverloadOpen, acceptableDurations_[i], side_);
+        DYNAddTimelineEvent(network, componentName, OverloadOpen, acceptableDurations_[i]);
       }
     }
   }

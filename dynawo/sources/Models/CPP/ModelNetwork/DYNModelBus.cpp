@@ -673,18 +673,18 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
 NetworkComponent::StateChange_t
 ModelBus::evalZ(const double& /*t*/) {
   if (g_[0] == ROOT_UP && !stateUmax_) {
-    network_->addConstraint(constraintId_, true, DYNConstraint(USupUmax), modelType_);
+    DYNAddConstraint(network_, constraintId_,  true,  modelType_, USupUmax);
     stateUmax_ = true;
   } else if (g_[0] == ROOT_DOWN && stateUmax_) {
-    network_->addConstraint(constraintId_, false, DYNConstraint(USupUmax), modelType_);
+    DYNAddConstraint(network_, constraintId_,  false,  modelType_, USupUmax);
     stateUmax_ = false;
   }
 
   if (g_[1] == ROOT_UP && !stateUmin_) {
-    network_->addConstraint(constraintId_, true, DYNConstraint(UInfUmin), modelType_);
+    DYNAddConstraint(network_, constraintId_,  true,  modelType_, UInfUmin);
     stateUmin_ = true;
   } else if (g_[1] == ROOT_DOWN && stateUmin_) {
-    network_->addConstraint(constraintId_, false, DYNConstraint(UInfUmin), modelType_);
+    DYNAddConstraint(network_, constraintId_,  false,  modelType_, UInfUmin);
     stateUmin_ = false;
   }
 
@@ -693,14 +693,14 @@ ModelBus::evalZ(const double& /*t*/) {
     topologyModified_ = true;
     if (currState == OPEN) {
       switchOff();
-      network_->addEvent(id_, DYNTimeline(NodeOff));
+      DYNAddTimelineEvent(network_, id_, NodeOff);
       // open all switch connected to this node
       for (unsigned int i = 0; i < connectableSwitches_.size(); ++i) {
         connectableSwitches_[i].lock()->open();
       }
     } else if (currState == CLOSED) {
       switchOn();
-      network_->addEvent(id_, DYNTimeline(NodeOn));
+      DYNAddTimelineEvent(network_, id_, NodeOn);
     }
     connectionState_ = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   }

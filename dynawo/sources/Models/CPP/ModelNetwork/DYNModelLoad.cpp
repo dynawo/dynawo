@@ -573,10 +573,10 @@ ModelLoad::evalZ(const double& /*t*/) {
   if (currState != getConnected()) {
     Trace::info() << DYNLog(LoadStateChange, id_, getConnected(), z_[0]) << Trace::endline;
     if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(LoadDisconnected));
+      DYNAddTimelineEvent(network_, id_, LoadDisconnected);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
     } else {
-      network_->addEvent(id_, DYNTimeline(LoadConnected));
+      DYNAddTimelineEvent(network_, id_, LoadConnected);
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
     }
     stateModified_ = true;
