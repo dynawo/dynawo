@@ -188,10 +188,10 @@ ModelGenerator::evalZ(const double& /*t*/) {
   if (currState != getConnected()) {
     Trace::info() << DYNLog(GeneratorStateChange, id_, getConnected(), z_[0]) << Trace::endline;
     if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(GeneratorDisconnected));
+      DYNAddTimelineEvent(network_, id_, GeneratorDisconnected);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
     } else {
-      network_->addEvent(id_, DYNTimeline(GeneratorConnected));
+      DYNAddTimelineEvent(network_, id_, GeneratorConnected);
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
     }
     stateModified_ = true;
@@ -199,12 +199,12 @@ ModelGenerator::evalZ(const double& /*t*/) {
   }
 
   if (doubleNotEquals(z_[1], Pc_)) {
-    network_->addEvent(id_, DYNTimeline(GeneratorTargetP, z_[1]));
+    DYNAddTimelineEvent(network_, id_, GeneratorTargetP, z_[1]);
     Pc_ = z_[1];
   }
 
   if (doubleNotEquals(z_[2], Qc_)) {
-    network_->addEvent(id_, DYNTimeline(GeneratorTargetQ, z_[2]));
+    DYNAddTimelineEvent(network_, id_, GeneratorTargetQ, z_[2]);
     Qc_ = z_[2];
   }
   return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;

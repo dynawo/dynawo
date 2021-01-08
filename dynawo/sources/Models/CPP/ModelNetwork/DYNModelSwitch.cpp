@@ -112,9 +112,9 @@ ModelSwitch::evalZ(const double& /*t*/) {
     topologyModified_ = true;
     Trace::info() << DYNLog(SwitchStateChange, id_, getConnectionState(), currState) << Trace::endline;
     if (currState == CLOSED) {
-      network_->addEvent(id_, DYNTimeline(SwitchClosed));
+      DYNAddTimelineEvent(network_, id_, SwitchClosed);
     } else if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(SwitchOpened));
+      DYNAddTimelineEvent(network_, id_, SwitchOpened);
     }
     setConnectionState(currState);
   }
