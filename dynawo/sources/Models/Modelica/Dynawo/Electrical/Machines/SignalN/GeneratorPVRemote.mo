@@ -23,21 +23,21 @@ model GeneratorPVRemote "Model for generator PV based on SignalN for the frequen
 
   parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in p.u (base SnRef)";
   parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
-  parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in p.u (base UNom)";
+  parameter Types.VoltageModulePu URef0 "Start value of the voltage regulation set point in kV";
 
-  input Real URegulatedPu "Regulated voltage in p.u (base UNom)";
-  Connectors.ImPin URefPu (value(start = URef0Pu)) "Voltage regulation set point in p.u (base UNom)";
+  input Real URegulated "Regulated voltage in kV";
+  Connectors.ImPin URef (value(start = URef0)) "Voltage regulation set point in kV";
 
 protected
   QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
 
-  when QGenPu <= QMinPu and URegulatedPu >= URefPu.value then
+  when QGenPu <= QMinPu and URegulated >= URef.value then
     qStatus = QStatus.AbsorptionMax;
-  elsewhen QGenPu >= QMaxPu and URegulatedPu <= URefPu.value then
+  elsewhen QGenPu >= QMaxPu and URegulated <= URef.value then
     qStatus = QStatus.GenerationMax;
-  elsewhen (QGenPu > QMinPu or URegulatedPu < URefPu.value) and (QGenPu < QMaxPu or URegulatedPu > URefPu.value) then
+  elsewhen (QGenPu > QMinPu or URegulated < URef.value) and (QGenPu < QMaxPu or URegulated > URef.value) then
     qStatus = QStatus.Standard;
   end when;
 
@@ -47,7 +47,7 @@ if running.value then
   elseif qStatus == QStatus.AbsorptionMax then
     QGenPu = QMinPu;
   else
-    URegulatedPu = URefPu.value;
+    URegulated = URef.value;
   end if;
 else
   QGenPu = 0;
