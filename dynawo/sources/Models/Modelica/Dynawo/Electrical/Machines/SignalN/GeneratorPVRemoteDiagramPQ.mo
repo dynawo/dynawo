@@ -24,15 +24,15 @@ model GeneratorPVRemoteDiagramPQ "Model for generator PV with a PQ diagram, base
 
   parameter Types.ReactivePowerPu QMin0Pu "Start value of the minimum reactive power in p.u (base SnRef)";
   parameter Types.ReactivePowerPu QMax0Pu "Start value of the maximum reactive power in p.u (base SnRef)";
-  parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in p.u (base UNom)";
+  parameter Types.VoltageModulePu URef0 "Start value of the voltage regulation set point in kV";
   parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
   parameter String QMinTableName "Name of the table in the text file to get QMinPu from PGenPu";
   parameter String QMaxTableName "Name of the table in the text file to get QMaxPu from PGenPu";
   parameter String QMinTableFile "Text file that contains the table to get QMinPu from PGenPu";
   parameter String QMaxTableFile "Text file that contains the table to get QMaxPu from PGenPu";
 
-  input Real URegulatedPu "Regulated voltage in p.u (base UNom)";
-  Connectors.ImPin URefPu (value(start = URef0Pu)) "Voltage regulation set point in p.u (base UNom)";
+  input Real URegulated "Regulated voltage in kV";
+  Connectors.ImPin URef (value(start = URef0)) "Voltage regulation set point in kV";
   Modelica.Blocks.Tables.CombiTable1D tableQMin(tableOnFile = true, tableName = QMinTableName, fileName = QMinTableFile) "Table to get QMinPu from PGenPu";
   Modelica.Blocks.Tables.CombiTable1D tableQMax(tableOnFile = true, tableName = QMaxTableName, fileName = QMaxTableFile) "Table to get QMaxPu from PGenPu";
   Types.ReactivePowerPu QMinPu(start = QMin0Pu) "Minimum reactive power in p.u (base SnRef)";
@@ -48,11 +48,11 @@ equation
   PGenPu = tableQMax.u[1];
   tFilter * der(QMaxPu) + QMaxPu = tableQMax.y[1];
 
-  when QGenPu <= QMinPu and URegulatedPu >= URefPu.value then
+  when QGenPu <= QMinPu and URegulated >= URef.value then
     qStatus = QStatus.AbsorptionMax;
-  elsewhen QGenPu >= QMaxPu and URegulatedPu <= URefPu.value then
+  elsewhen QGenPu >= QMaxPu and URegulated <= URef.value then
     qStatus = QStatus.GenerationMax;
-  elsewhen (QGenPu > QMinPu or URegulatedPu < URefPu.value) and (QGenPu < QMaxPu or URegulatedPu > URefPu.value) then
+  elsewhen (QGenPu > QMinPu or URegulated < URef.value) and (QGenPu < QMaxPu or URegulated > URef.value) then
     qStatus = QStatus.Standard;
   end when;
 
@@ -62,7 +62,7 @@ if running.value then
   elseif qStatus == QStatus.AbsorptionMax then
     QGenPu = QMinPu;
   else
-    URegulatedPu = URefPu.value;
+    URegulated = URef.value;
   end if;
 else
   QGenPu = 0;
