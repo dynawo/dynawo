@@ -756,11 +756,11 @@ class SubModel {
       const std::string& modelType = "");
 
   /**
-   * @brief Retrieves the constraint collection
+   * @brief Determines if the model has a constraint collection
    *
-   * @returns the constraints collection
+   * @returns whether the model has a constraint collection
    */
-  boost::shared_ptr<constraints::ConstraintsCollection> getConstraints() const;
+  bool hasConstraints() const;
 
   /**
    * @brief set the timeline to use during the simulation (where events should be added)
@@ -770,11 +770,11 @@ class SubModel {
   void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
 
   /**
-   * @brief retrieves current timeline
+   * @brief determines if contains a timeline
    *
-   * @returns current timeline
+   * @returns whether the model has a timeline
    */
-  boost::shared_ptr<timeline::Timeline> getTimeline() const;
+  bool hasTimeline() const;
 
   /**
    * @brief set the constraints collection to use during the simulation (where constraints should be added)

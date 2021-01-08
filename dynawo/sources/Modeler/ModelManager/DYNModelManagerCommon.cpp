@@ -56,7 +56,7 @@ void printLogExecution_(ModelManager * model, const std::string & message) {
 }
 
 void addLogEvent_(ModelManager* model, const MessageTimeline& messageTimeline) {
-  if (!model->getTimeline()) {
+  if (!model->hasTimeline()) {
     return;
   }
 
@@ -64,7 +64,7 @@ void addLogEvent_(ModelManager* model, const MessageTimeline& messageTimeline) {
 }
 
 void addLogEventRaw2_(ModelManager* model, const char* message1, const char* message2) {
-  if (!model->getTimeline()) {
+  if (!model->hasTimeline()) {
     return;
   }
 
@@ -78,7 +78,7 @@ void addLogEventRaw2_(ModelManager* model, const char* message1, const char* mes
 void
 addLogEventRaw3_(ModelManager* model, const char* message1, const char* message2,
         const char* message3) {
-  if (!model->getTimeline()) {
+  if (!model->hasTimeline()) {
     return;
   }
 
@@ -91,7 +91,7 @@ addLogEventRaw3_(ModelManager* model, const char* message1, const char* message2
 
 void addLogEventRaw4_(ModelManager* model, const char* message1, const char* message2,
         const char* message3, const char* message4) {
-  if (!model->getTimeline()) {
+  if (!model->hasTimeline()) {
     return;
   }
 
@@ -104,7 +104,7 @@ void addLogEventRaw4_(ModelManager* model, const char* message1, const char* mes
 
 void addLogEventRaw5_(ModelManager* model, const char* message1, const char* message2,
         const char* message3, const char* message4, const char* message5) {
-  if (!model->getTimeline()) {
+  if (!model->hasTimeline()) {
     return;
   }
 

@@ -43,7 +43,7 @@
  * @param key key to find the message
  */
 #define DYNAddTimelineEvent(model, name, key, ...) \
-  if (model->getTimeline()) model->addEvent(name, DYNTimeline(key, ##__VA_ARGS__))
+  if (model->hasTimeline()) model->addEvent(name, DYNTimeline(key, ##__VA_ARGS__))
 
 /**
  * @brief Macro to define a constraint message
@@ -61,7 +61,7 @@
  * @param key key to find the message
  */
 #define DYNAddConstraint(model, name, begin, type, key, ...) \
-  if (model->getConstraints()) model->addConstraint(name, begin, DYNConstraint(key, ##__VA_ARGS__), type)
+  if (model->hasConstraints()) model->addConstraint(name, begin, DYNConstraint(key, ##__VA_ARGS__), type)
 
 /**
  * @brief Macro description to have a shortcut.

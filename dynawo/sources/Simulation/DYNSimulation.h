@@ -585,15 +585,6 @@ class Simulation {
    * @brief configure the final state outputs
    */
   void configureFinalStateOutputs();
-
-  /**
-   * @brief Retrieves simulation timeline
-   *
-   * @returns timeline
-   */
-  boost::shared_ptr<timeline::Timeline> getTimeline() const {
-    return timeline_;
-  }
 };
 
 }  // end of namespace DYN
