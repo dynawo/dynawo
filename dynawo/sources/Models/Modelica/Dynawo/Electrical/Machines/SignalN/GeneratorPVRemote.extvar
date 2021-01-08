@@ -16,8 +16,8 @@
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="N.value"/>
   <variable type="discrete" id="alphaSum.value"/>
-  <variable type="discrete" id="URefPu.value"/>
-  <variable type="continuous" id="URegulatedPu"/>
+  <variable type="discrete" id="URef.value"/>
+  <variable type="continuous" id="URegulated"/>
   <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal3.value" defaultValue="false"/>
