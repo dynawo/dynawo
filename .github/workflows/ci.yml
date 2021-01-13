@@ -86,7 +86,6 @@ jobs:
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
           export DYNAWO_HOME=$(pwd)
-          util/envDynawo.sh build-3rd-party
           util/envDynawo.sh build-tests
   #         $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
 

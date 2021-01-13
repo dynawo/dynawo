@@ -154,9 +154,9 @@ TEST(APICRVTest, CurveUpdateParameterCurveValue) {
   variables2.assign(1, 2);
   curve1->setBuffer(&variables2[0]);
   itPt2 = curve2->at(0);
-  ASSERT_EQ(itPt == itPt2, false);
-  itPt2 = itPt2;
-  ASSERT_EQ(itPt == itPt2, false);
+  ASSERT_FALSE(itPt == itPt2);
+  itPt = itPt2;
+  ASSERT_TRUE(itPt == itPt2);
 }
 
 }  // namespace curves
