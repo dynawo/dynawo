@@ -142,6 +142,10 @@ void Trace::addAppenders_(const std::vector<TraceAppender>& appenders) {
     logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
 
   TraceSinks traceSink;
+  if (sinks_.find(currentId) != sinks_.end()) {
+    TraceSinks& traceSinkOld = sinks_.at(currentId);
+    traceSink.persistantSinks = traceSinkOld.persistantSinks;
+  }
 
   std::stringstream s;
   // Add appender
