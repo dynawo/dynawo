@@ -591,7 +591,7 @@ else()
 
       CONFIGURE_COMMAND   <SOURCE_DIR>/configure
                           "CXX=${CMAKE_CXX_COMPILER}"
-                          "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3 -march=native,-O0>"
+                          "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0>"
                           --prefix=<INSTALL_DIR>
                           $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static>
                           $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared>
