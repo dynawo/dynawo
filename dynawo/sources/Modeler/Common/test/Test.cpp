@@ -927,13 +927,13 @@ TEST(ModelerCommonTest, testNoParFile) {
 TEST(ModelerCommonTest, testMissingParFile) {
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   dyd->getParametersSet("MyModel", "", "2");
-  ASSERT_THROW_DYNAWO(DYN::DYNErrorQueue::get()->flush(), Error::API, KeyError_t::MissingParameterFile);
+  ASSERT_THROW_DYNAWO(ErrorQueueFlush(), Error::API, KeyError_t::MissingParameterFile);
 }
 
 TEST(ModelerCommonTest, testMissingParId) {
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   dyd->getParametersSet("MyModel", "MyFile.par", "");
-  ASSERT_THROW_DYNAWO(DYN::DYNErrorQueue::get()->flush(), Error::API, KeyError_t::MissingParameterId);
+  ASSERT_THROW_DYNAWO(ErrorQueueFlush(), Error::API, KeyError_t::MissingParameterId);
 }
 
 //-----------------------------------------------------

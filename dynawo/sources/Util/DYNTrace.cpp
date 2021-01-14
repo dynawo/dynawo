@@ -20,22 +20,17 @@
  * <A HREF="http://boost-log.sourceforge.net/libs/log/doc/html/index.html"> documentation</A>
  *
  */
-#include <fstream>
 #include <ostream>
-#include <iomanip>
 
 #include <boost/version.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
 #include <boost/log/core.hpp>
 #include <boost/log/expressions.hpp>
-#include <boost/log/attributes.hpp>
 #include <boost/log/attributes/attribute_value_set.hpp>
-#include <boost/log/trivial.hpp>
 #include <boost/log/sources/severity_logger.hpp>
 #include <boost/log/sources/record_ostream.hpp>
 #include <boost/log/sinks/sync_frontend.hpp>
-#include <boost/log/sinks/text_ostream_backend.hpp>
 #include <boost/log/support/date_time.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/sinks.hpp>
@@ -61,12 +56,6 @@ namespace keywords = boost::log::keywords;
 
 namespace DYN {
 
-#if _DEBUG_
-const SeverityLevel Trace::defaultLevel_ = DEBUG;
-#else
-const SeverityLevel Trace::defaultLevel_ = INFO;
-#endif
-
 /**
  * @brief Operator<< overload for severity level on ostreams
  *
@@ -88,11 +77,11 @@ BOOST_LOG_ATTRIBUTE_KEYWORD(tag_attr, "Tag", std::string)
 BOOST_LOG_ATTRIBUTE_KEYWORD(thread_attr, "Thread", logging::attributes::current_thread_id::value_type)
 #pragma GCC diagnostic error "-Wmissing-field-initializers"
 
-TraceStream& Trace::endline(TraceStream& os) {
-  return eol(os);
+Trace::Trace() {
 }
 
-Trace::Trace() {}
+Trace::~Trace() {
+}
 
 Trace& Trace::instance() {
   static Trace instance;
@@ -245,56 +234,6 @@ void Trace::resetCustomAppenders_() {
   traceSink.sinks.clear();
 }
 
-TraceStream
-Trace::debug(const std::string& tag) {
-  return TraceStream(DEBUG, tag);
-}
-
-TraceStream
-Trace::info(const std::string& tag) {
-  return TraceStream(INFO, tag);
-}
-
-TraceStream
-Trace::warn(const std::string& tag) {
-  return TraceStream(WARN, tag);
-}
-
-TraceStream
-Trace::error(const std::string& tag) {
-  return TraceStream(ERROR, tag);
-}
-
-std::string
-Trace::network() {
-  return "NETWORK";
-}
-
-std::string
-Trace::variables() {
-  return "VARIABLES";
-}
-
-std::string
-Trace::equations() {
-  return "EQUATIONS";
-}
-
-std::string
-Trace::parameters() {
-  return "PARAMETERS";
-}
-
-std::string
-Trace::compile() {
-  return "COMPILE";
-}
-
-std::string
-Trace::modeler() {
-  return "MODELER";
-}
-
 void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& message) {
   instance().log_(slv, tag, message);
 }
@@ -339,36 +278,6 @@ Trace::logExists_(const std::string& tag, SeverityLevel slv) {
       return true;
   }
   return false;
-}
-
-SeverityLevel
-Trace::severityLevelFromString(std::string level) {
-  if (level == "DEBUG")
-    return DEBUG;
-  else if (level == "INFO")
-    return INFO;
-  else if (level == "WARN")
-    return WARN;
-  else if (level == "ERROR")
-    return ERROR;
-  else
-    throw DYNError(Error::GENERAL, InvalidSeverityLevel, level);
-}
-
-string
-Trace::stringFromSeverityLevel(SeverityLevel level) {
-  switch (level) {
-    case DEBUG:
-      return "DEBUG";
-    case INFO:
-      return "INFO";
-    case WARN:
-      return "WARN";
-    case ERROR:
-      return "ERROR";
-    default:
-      throw DYNError(Error::GENERAL, InvalidSeverityLevel, static_cast<int> (level));
-  }
 }
 
 }  // namespace DYN

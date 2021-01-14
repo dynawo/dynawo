@@ -168,7 +168,7 @@ class MessageError : public std::exception {
    *
    * @return error's description
    */
-  virtual const char * what() const throw();
+  virtual const char* what() const throw();
 
   /**
    * @brief destructor

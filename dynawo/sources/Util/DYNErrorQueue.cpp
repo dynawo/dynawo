@@ -20,27 +20,40 @@
 
 namespace DYN {
 
-boost::shared_ptr<DYNErrorQueue> DYNErrorQueue::errorQueue = boost::shared_ptr<DYNErrorQueue>();
-
-size_t DYNErrorQueue::getMaxDisplayedError() const {
+size_t ErrorQueue::getMaxDisplayedError() {
   static const size_t maxDisplayedError = 100;
   return maxDisplayedError;
 }
 
-boost::shared_ptr<DYNErrorQueue>&
-DYNErrorQueue::get() {
-  if (!errorQueue)
-    errorQueue.reset(new DYNErrorQueue());
-  return errorQueue;
+ErrorQueue::ErrorQueue() {
+}
+
+ErrorQueue::~ErrorQueue() {
+}
+
+ErrorQueue&
+ErrorQueue::instance() {
+  static ErrorQueue instance;
+  return instance;
 }
 
 void
-DYNErrorQueue::push(const DYN::Error& exception) {
+ErrorQueue::push(const DYN::Error& exception) {
+  instance().push_(exception);
+}
+
+void
+ErrorQueue::push_(const DYN::Error& exception) {
   exceptionQueue_.push(exception);
 }
 
 void
-DYNErrorQueue::flush() {
+ErrorQueue::flush() {
+  instance().flush_();
+}
+
+void
+ErrorQueue::flush_() {
   size_t maxDisplayedError = getMaxDisplayedError();
   size_t nbErrors = exceptionQueue_.size();
   if (nbErrors == 1) {
@@ -51,7 +64,7 @@ DYNErrorQueue::flush() {
   for (size_t nbErrorDisplayed = 0;
       !exceptionQueue_.empty() && nbErrorDisplayed < maxDisplayedError; ++nbErrorDisplayed, exceptionQueue_.pop()) {
     const DYN::Error e = exceptionQueue_.front();
-    Trace::error() << e.what() << Trace::endline;
+    ::TraceError() << e.what() << Trace::endline;
   }
   for (; !exceptionQueue_.empty(); exceptionQueue_.pop())
     continue;

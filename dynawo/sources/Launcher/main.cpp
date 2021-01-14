@@ -21,7 +21,6 @@
 #include <iostream>
 
 #include <boost/program_options.hpp>
-#include <boost/shared_ptr.hpp>
 
 #include <xml/sax/parser/ParserException.h>
 
@@ -36,8 +35,6 @@
 #include "DYNFileSystemUtils.h"
 #include "DYNExecUtils.h"
 #include "DYNInitXml.h"
-#define DYNTIMERS_INSTANCE  // this should be defined only once in main source before header inclusion
-#include "DYNTimer.h"
 
 using std::string;
 using std::exception;
@@ -51,8 +48,6 @@ using DYN::Trace;
 using DYN::IoDico;
 
 namespace po = boost::program_options;
-
-using boost::shared_ptr;
 
 void usage(const po::options_description& desc) {
   cout << "Usage: dynawo <jobs-file>" << std::endl << std::endl;
@@ -123,9 +118,8 @@ int main(int argc, char ** argv) {
 #ifdef LANG_CXX11
     DYN::InitLibXml2 libxml2;
 #endif
-    boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
-    dicos->addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
+    DYN::IoDicos::addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
+    DYN::IoDicos::addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
     if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") != "true")
       cout << "[INFO] xsd validation will not be used" << endl;
 
@@ -144,14 +138,14 @@ int main(int argc, char ** argv) {
     return -1;
   } catch (const xml::sax::parser::ParserException& exp) {
     std::cerr << DYNLog(XmlParsingError, jobsFileName, exp.what()) << std::endl;
-    Trace::error() << DYNLog(XmlParsingError, jobsFileName, exp.what()) << Trace::endline;
+    TraceError() << DYNLog(XmlParsingError, jobsFileName, exp.what()) << Trace::endline;
     return -1;
   } catch (std::exception& e) {
     std::cerr << "Exception: " << e.what() << std::endl;
     return -1;
   } catch (...) {
     std::cerr << DYNLog(UnexpectedError) << std::endl;
-    Trace::error() << __FILE__ << " " << __LINE__ << " " << DYNLog(UnexpectedError) << Trace::endline;
+    TraceError() << __FILE__ << " " << __LINE__ << " " << DYNLog(UnexpectedError) << Trace::endline;
     return -1;
   }
   return 0;

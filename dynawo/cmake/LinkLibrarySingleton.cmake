@@ -10,8 +10,7 @@
 
 macro(link_library_singleton _target)
   if(LIBRARY_TYPE STREQUAL "STATIC")
-    target_include_directories(${_target} PRIVATE $<TARGET_PROPERTY:dynawo_Util,INTERFACE_INCLUDE_DIRECTORIES>)
-    if(MSVC OR APPLE)
+    if(MSVC)
       # Link to executable
       target_link_libraries(${_target} PRIVATE dynawo)
     endif()

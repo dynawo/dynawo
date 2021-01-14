@@ -295,6 +295,7 @@ macro(COMPILE_CPP_MODEL
     target_link_libraries(${CPP_MODEL}
       PRIVATE
         dynawo_Common
+        dynawo_Util
         dynawo_ModelerCommon
       PUBLIC
         dynawo_CPPModelsCommon
@@ -336,4 +337,4 @@ install(PROGRAMS ${PYTHON_SCRIPTS_MODELS} DESTINATION ${SBINDIR_NAME})
 
 # List of model subdirectories
 add_subdirectory(CPP)
-add_subdirectory(Modelica)
+add_subdirectory(Modelica M)

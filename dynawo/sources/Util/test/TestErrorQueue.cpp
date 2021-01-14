@@ -19,37 +19,35 @@
 namespace DYN {
 
 TEST(CommonTest, testErrorQueue) {
-  assert(DYNErrorQueue::get());
-  boost::shared_ptr<DYNErrorQueue>& handler = DYNErrorQueue::get();
-  size_t maxDisplayedError = handler->getMaxDisplayedError();
-  ASSERT_NO_THROW(handler->flush());
+  size_t maxDisplayedError = 100;
+  ASSERT_NO_THROW(::ErrorQueueFlush());
 
-  handler->push(DYNError(DYN::Error::SIMULATION, KeyError_t::NoJobDefined));
-  ASSERT_THROW_DYNAWO(handler->flush(), Error::SIMULATION, KeyError_t::NoJobDefined);
-  ASSERT_NO_THROW(handler->flush());
+  ::ErrorQueuePush(DYNError(DYN::Error::SIMULATION, KeyError_t::NoJobDefined));
+  ASSERT_THROW_DYNAWO(::ErrorQueueFlush(), Error::SIMULATION, KeyError_t::NoJobDefined);
+  ASSERT_NO_THROW(::ErrorQueueFlush());
 
-  handler->push(DYNError(DYN::Error::SIMULATION, KeyError_t::NoJobDefined));
-  handler->push(DYNError(DYN::Error::GENERAL, KeyError_t::CriteriaNotChecked));
-  ASSERT_THROW_DYNAWO(handler->flush(), Error::GENERAL, KeyError_t::MultipleErrors);
-  ASSERT_NO_THROW(handler->flush());
+  ::ErrorQueuePush(DYNError(DYN::Error::SIMULATION, KeyError_t::NoJobDefined));
+  ::ErrorQueuePush(DYNError(DYN::Error::GENERAL, KeyError_t::CriteriaNotChecked));
+  ASSERT_THROW_DYNAWO(::ErrorQueueFlush(), Error::GENERAL, KeyError_t::MultipleErrors);
+  ASSERT_NO_THROW(::ErrorQueueFlush());
 
   for (unsigned int i = 0; i < maxDisplayedError; ++i) {
-    handler->push(DYNError(DYN::Error::SIMULATION, KeyError_t::NoJobDefined));
+    ::ErrorQueuePush(DYNError(DYN::Error::SIMULATION, KeyError_t::NoJobDefined));
   }
-  ASSERT_THROW_DYNAWO(handler->flush(), Error::GENERAL, KeyError_t::MultipleErrors);
-  ASSERT_NO_THROW(handler->flush());
+  ASSERT_THROW_DYNAWO(::ErrorQueueFlush(), Error::GENERAL, KeyError_t::MultipleErrors);
+  ASSERT_NO_THROW(::ErrorQueueFlush());
 
   for (unsigned int i = 0; i < maxDisplayedError + 1; ++i) {
-    handler->push(DYNError(DYN::Error::SIMULATION, KeyError_t::NoJobDefined));
+    ::ErrorQueuePush(DYNError(DYN::Error::SIMULATION, KeyError_t::NoJobDefined));
   }
-  ASSERT_THROW_DYNAWO(handler->flush(), Error::GENERAL, KeyError_t::MultipleAndHiddenErrors);
-  ASSERT_NO_THROW(handler->flush());
+  ASSERT_THROW_DYNAWO(::ErrorQueueFlush(), Error::GENERAL, KeyError_t::MultipleAndHiddenErrors);
+  ASSERT_NO_THROW(::ErrorQueueFlush());
 
   for (unsigned int i = 0; i < 2*maxDisplayedError; ++i) {
-    handler->push(DYNError(DYN::Error::SIMULATION, KeyError_t::NoJobDefined));
+    ::ErrorQueuePush(DYNError(DYN::Error::SIMULATION, KeyError_t::NoJobDefined));
   }
-  ASSERT_THROW_DYNAWO(handler->flush(), Error::GENERAL, KeyError_t::MultipleAndHiddenErrors);
-  ASSERT_NO_THROW(handler->flush());
+  ASSERT_THROW_DYNAWO(::ErrorQueueFlush(), Error::GENERAL, KeyError_t::MultipleAndHiddenErrors);
+  ASSERT_NO_THROW(::ErrorQueueFlush());
 }
 
 }  // namespace DYN

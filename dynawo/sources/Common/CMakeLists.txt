@@ -37,6 +37,7 @@ target_include_directories(dynawo_Common
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    $<TARGET_PROPERTY:dynawo_Util,INTERFACE_INCLUDE_DIRECTORIES>
   )
 target_include_directories(dynawo_Common SYSTEM
   PRIVATE
@@ -46,17 +47,13 @@ target_include_directories(dynawo_Common SYSTEM
 target_link_libraries(dynawo_Common
   PUBLIC
     dynawo_Interface
-  INTERFACE
-    dynawo_Util
   PRIVATE
     dynawo_Util
-    ${CMAKE_DL_LIBS}
     Boost::filesystem
-    Boost::log
   )
 
 set_target_properties(dynawo_Common PROPERTIES VERSION ${COMMON_VERSION_STRING}
                                              SOVERSION ${COMMON_VERSION_MAJOR})
 
 install(TARGETS dynawo_Common EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-install(FILES ${COMMON_INCLUDE_HEADERS} ${UTIL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(FILES ${COMMON_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

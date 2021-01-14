@@ -28,12 +28,52 @@
 #include <vector>
 
 #include "DYNTraceStream.h"
+#include "DYNTraceAppender.h"
 
 #include <boost/log/sinks.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
 #include <boost/log/attributes.hpp>
 #include <boost/thread/mutex.hpp>
+
+/**
+ * @brief API to DYN::Trace::debug
+ * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+ * @return A TraceStream that can be used for stream-like logging.
+*/
+extern "C" DYN::TraceStream TraceDebug(const std::string& tag = "");
+/**
+ * @brief API to DYN::Trace::info
+ * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+ * @return A TraceStream that can be used for stream-like logging.
+*/
+extern "C" DYN::TraceStream TraceInfo(const std::string& tag = "");
+/**
+ * @brief API to DYN::Trace::error
+ * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+ * @return A TraceStream that can be used for stream-like logging.
+*/
+extern "C" DYN::TraceStream TraceError(const std::string& tag = "");
+/**
+ * @brief API to DYN::Trace::warn
+ * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+ * @return A TraceStream that can be used for stream-like logging.
+*/
+extern "C" DYN::TraceStream TraceWarn(const std::string& tag = "");
+/**
+ * @brief API to DYN::Trace::log
+ * @param slv : Severity level of the log.
+ * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+ * @param message : Message to log.
+*/
+extern "C" void TraceLog(DYN::SeverityLevel slv, const std::string& tag, const std::string& message);
+/**
+ * @brief API to DYN::Trace::logExists
+ * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+ * @param slv : Severity level.
+ * @return true if this log with this level exists
+*/
+extern "C" bool TraceLogExists(const std::string& tag, DYN::SeverityLevel slv);
 
 namespace DYN {
 
@@ -74,194 +114,6 @@ class Trace {
       // the thread id is unique in the same process
       return static_cast<std::size_t>(id.native_id());
     }
-  };
-
-
-  /**
-   * @brief Trace appender class
-   *
-   * Trace appender class is used to configure an appender for trace
-   * system. Appenders are created after trace configuration file parsing.
-   * Default trace appender (before any configuration) puts all traces in
-   * std::clog excepted errors that are put into std::cerr.
-   */
-  class TraceAppender {
-   public:
-    /**
-     * @brief TraceAppender constructor
-     */
-    TraceAppender():
-      tag_(),
-      filePath_(),
-      lvlFilter_(INFO),
-      showLevelTag_(false),
-      separator_(),
-      showTimeStamp_(false),
-      timeStampFormat_(),
-      append_(false),
-      persistant_(false) { }
-
-    /**
-     * @brief TraceAppender destructor
-     */
-    ~TraceAppender() { }
-
-    /**
-     * @brief Tag attribute getter
-     * @return Tag filtered by the appender
-     */
-    const std::string& getTag() const {
-      return tag_;
-    }
-
-    /**
-     * @brief File path attribute getter
-     * @return Output file path of the appender
-     */
-    const std::string& getFilePath() const {
-      return filePath_;
-    }
-
-    /**
-     * @brief Level filter attribute getter
-     * @return Minimum severity level exported by the appender
-     */
-    SeverityLevel getLvlFilter() const {
-      return lvlFilter_;
-    }
-
-    /**
-     * @brief show level tag attribute getter
-     * @return @b true if the level tag of the log should be printed
-     */
-    bool getShowLevelTag() const {
-      return showLevelTag_;
-    }
-
-    /**
-     * @brief separator between log information getter
-     * @return the separator used to separate information inside the log
-     */
-    const std::string& getSeparator() const {
-      return separator_;
-    }
-
-    /**
-     * @brief get show time stamp
-     * @return the time stamp format used
-     */
-    bool getShowTimeStamp() const {
-      return showTimeStamp_;
-    }
-
-    /**
-     * @brief get the time stamp format used inside the log
-     * @return the time stamp format used
-     */
-    const std::string& getTimeStampFormat() const {
-      return timeStampFormat_;
-    }
-
-    /**
-     * @brief Determines if log is appended to existing file
-     * @returns whether the log must appended to existing log file
-     */
-    bool doesAppend() const {
-      return append_;
-    }
-
-    /**
-     * @brief Determines if log should be kept when reseting
-     * @returns whether the log should be kept when reseting
-     */
-    bool isPersistant() const {
-      return persistant_;
-    }
-
-    /**
-     * @brief Tag attribute setter
-     * @param tag: Tag filtered by the appender
-     */
-    void setTag(std::string tag) {
-      tag_ = tag;
-    }
-
-    /**
-     * @brief File path attribute setter
-     * @param filePath: Output file path of the appender
-     */
-    void setFilePath(std::string filePath) {
-      filePath_ = filePath;
-    }
-
-    /**
-     * @brief Level filter attribute setter
-     * @param lvlFilter: Minimum severity level exported by the appender
-     */
-    void setLvlFilter(SeverityLevel lvlFilter) {
-      lvlFilter_ = lvlFilter;
-    }
-
-    /**
-     * @brief indicates if the level tag associated to the log should be printed
-     * @param showTag @b true if the level tag should be printed
-     */
-    void setShowLevelTag(const bool showTag) {
-      showLevelTag_ = showTag;
-    }
-
-    /**
-     * @brief set the separator used when printing log
-     * @param separator separator to used
-     */
-    void setSeparator(const std::string& separator) {
-      separator_ = separator;
-    }
-
-    /**
-     * @brief indicates if the log time stamp should be displayed
-     * @param showTimeStamp @b true if the time stamp should be printed
-     */
-    void setShowTimeStamp(const bool showTimeStamp) {
-      showTimeStamp_ = showTimeStamp;
-    }
-
-    /**
-     * @brief set the format of the time to print before the log
-     * @param format format of the time
-     */
-    void setTimeStampFormat(const std::string& format) {
-      timeStampFormat_ = format;
-    }
-
-    /**
-     * @brief Set the append attribute
-     *
-     * @param append determines if the log must appended to existing file
-     */
-    void setAppend(bool append) {
-      append_ = append;
-    }
-
-    /**
-     * @brief Set the persistant attribute
-     *
-     * @param persistant determines if the log must be kept when reseting
-     */
-    void setPersistant(bool persistant) {
-      persistant_ = persistant;
-    }
-
-   private:
-    std::string tag_;  ///< Tag filtered by the appender
-    std::string filePath_;  ///< Output file path of the appender
-    SeverityLevel lvlFilter_;  ///< Minimum severity level exported by the appender
-    bool showLevelTag_;  ///< @b true if the tag of the log should be printed
-    std::string separator_;  ///< separator used between each log information date severity log
-    bool showTimeStamp_;  ///< @b true if the timestamp of the log should be printed
-    std::string timeStampFormat_;  ///< format of the timestamp information , "" if no time to print
-    bool append_;  ///< Append to existing file instead of erasing
-    bool persistant_;  ///< Do not remove this appender when reseting
   };
 
   /**
@@ -325,46 +177,6 @@ class Trace {
   static std::string stringFromSeverityLevel(SeverityLevel level);
 
   /**
-   * @brief Get debug severity level stream.
-   *
-   * Get a debug severity level stream for logging.
-   * @code Trace::debug("MyTag") << "Hello world!" << Trace::endline; @endcode
-   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
-   * @return A TraceStream that can be used for stream-like logging.
-   */
-  static TraceStream debug(const std::string& tag = "");
-
-  /**
-   * @brief Get info severity level stream.
-   *
-   * Get an info severity level stream for logging.
-   * @code Trace::info("MyTag") << "Hello world!" << Trace::endline; @endcode
-   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
-   * @return A TraceStream that can be used for stream-like logging.
-   */
-  static TraceStream info(const std::string& tag = "");
-
-  /**
-   * @brief Get warning severity level stream.
-   *
-   * Get a warning severity level stream for logging.
-   * @code Trace::warn("MyTag") << "Hello world!" << Trace::endline; @endcode
-   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
-   * @return A TraceStream that can be used for stream-like logging.
-   */
-  static TraceStream warn(const std::string& tag = "");
-
-  /**
-   * @brief Get error severity level stream.
-   *
-   * Get an error severity level stream for logging.
-   * @code Trace::error("MyTag") << "Hello world!" << Trace::endline; @endcode
-   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
-   * @return A TraceStream that can be used for stream-like logging.
-   */
-  static TraceStream error(const std::string& tag = "");
-
-  /**
    * @brief Get network identifier
    * @return network identifier
    */
@@ -409,17 +221,6 @@ class Trace {
   static TraceStream& endline(TraceStream& os);  ///< End of line function for stream-like logging
 
   /**
-   * @brief test if a log exists
-   *
-   * This tests only the file logs
-   *
-   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
-   * @param slv : Severity level.
-   * @return true if this log with this level exists
-   */
-  static bool logExists(const std::string& tag, SeverityLevel slv);
-
-  /**
    * @brief Test if a standard log exists
    *
    * This test the level of the standard output log
@@ -442,6 +243,57 @@ class Trace {
   */
   static Trace& instance();
 
+    /**
+   * @brief test if a log exists
+   *
+   * This tests only the file logs
+   *
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @param slv : Severity level.
+   * @return true if this log with this level exists
+   */
+  static bool logExists(const std::string& tag, SeverityLevel slv);
+
+  /**
+   * @brief Get debug severity level stream.
+   *
+   * Get a debug severity level stream for logging.
+   * @code Trace::debug("MyTag") << "Hello world!" << Trace::endline; @endcode
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @return A TraceStream that can be used for stream-like logging.
+   */
+  static TraceStream debug(const std::string& tag);
+
+  /**
+   * @brief Get info severity level stream.
+   *
+   * Get an info severity level stream for logging.
+   * @code Trace::info("MyTag") << "Hello world!" << Trace::endline; @endcode
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @return A TraceStream that can be used for stream-like logging.
+   */
+  static TraceStream info(const std::string& tag);
+
+  /**
+    * @brief Get error severity level stream.
+    *
+    * Get an error severity level stream for logging.
+    * @code Trace::eror("MyTag") << "Hello world!" << Trace::endline; @endcode
+    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+    * @return A TraceStream that can be used for stream-like logging.
+    */
+  static TraceStream error(const std::string& tag);
+
+  /**
+   * @brief Get warning severity level stream.
+   *
+   * Get a warning severity level stream for logging.
+   * @code Trace::warn("MyTag") << "Hello world!" << Trace::endline; @endcode
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @return A TraceStream that can be used for stream-like logging.
+   */
+  static TraceStream warn(const std::string& tag);
+
   /**
    * @brief Add a log to logging core.
    *
@@ -459,6 +311,11 @@ class Trace {
    * @brief Constructor
    */
   Trace();
+
+  /**
+   * @brief Destructor
+   */
+  ~Trace();
 
   /**
    * @brief Init function.
@@ -513,6 +370,13 @@ class Trace {
   void log_(SeverityLevel slv, const std::string& tag, const std::string& message);
 
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
+  friend TraceStream (::TraceDebug)(const std::string& tag);  ///< Method TraceDebug must get access to @p debug() private function
+  friend TraceStream (::TraceInfo)(const std::string& tag);  ///< Method TraceInfo must get access to @p info() private function
+  friend TraceStream (::TraceError)(const std::string& tag);  ///< Method TraceError must get access to @p error() private function
+  friend TraceStream (::TraceWarn)(const std::string& tag);  ///< Method TraceWarn must get access to @p warn() private function
+  friend void (::TraceLog)(DYN::SeverityLevel slv,
+    const std::string& tag, const std::string& message);  ///< Method TraceLog must get access to @p log() private function
+  friend bool (::TraceLogExists)(const std::string& tag, DYN::SeverityLevel slv);  ///< Method TraceLogExists must get access to @p logExists() private function
 
  private:
   boost::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks

@@ -1,4 +1,4 @@
-# Copyright (c) 2020, RTE (http://www.rte-france.com)
+# Copyright (c) 2021, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -52,6 +52,20 @@ set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/DYNConstraint_keys.cpp P
 set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/DYNError_keys.cpp PROPERTIES GENERATED 1)
 set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/DYNLog_keys.cpp PROPERTIES GENERATED 1)
 
+add_library(dynawo_Interface INTERFACE)
+
+target_compile_definitions(dynawo_Interface
+  INTERFACE
+  _OMC_${OPENMODELICA_VERSION}
+  $<$<BOOL:${USE_ADEPT}>:_ADEPT_>
+  $<$<CONFIG:Debug>:_DEBUG_>)
+
+target_link_libraries(dynawo_Interface
+  INTERFACE
+  $<$<CXX_COMPILER_ID:GNU>:rt>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>
+  )
+
 set(UTIL_SOURCES
   DYNError.cpp
   DYNTerminate.cpp
@@ -61,11 +75,11 @@ set(UTIL_SOURCES
   DYNFileSystemUtils.cpp
   DYNCommon.cpp
   ${CPP_KEYS}
-  DYNErrorQueue.cpp
-  DYNIoDico.cpp
   DYNTimer.cpp
-  DYNTrace.cpp
+  DYNTraceEndline.cpp
   DYNTraceStream.cpp
+  DYNTraceAppender.cpp
+  DYNIoDico.cpp
   )
 
 set(UTIL_INCLUDE_HEADERS
@@ -83,24 +97,54 @@ set(UTIL_INCLUDE_HEADERS
   DYNErrorQueue.h
   DYNIoDico.h
   DYNTimer.h
+  DYNVisibility.h
   DYNTrace.h
   DYNTraceStream.h
+  DYNTraceAppender.h
   gtest_dynawo.h
   )
 
-add_library(dynawo_Interface INTERFACE)
-
-target_compile_definitions(dynawo_Interface
-  INTERFACE
-    _OMC_${OPENMODELICA_VERSION}
-    $<$<BOOL:${USE_ADEPT}>:_ADEPT_>
-    $<$<CONFIG:Debug>:_DEBUG_>)
-
-target_link_libraries(dynawo_Interface
-  INTERFACE
-    $<$<CXX_COMPILER_ID:GNU>:rt>
-    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>
+set(SINGLETON_SOURCES
+  DYNTrace.cpp
+  DYNTraceExternal.cpp
+  DYNIoDicos.cpp
+  DYNIoDicosExternal.cpp
+  DYNErrorQueue.cpp
+  DYNErrorQueueExternal.cpp
+  DYNTimers.cpp
+  DYNTimersExternal.cpp
   )
+
+if(LIBRARY_TYPE STREQUAL "STATIC")
+  add_library(dynawo_Singletons ${LIBRARY_TYPE} ${SINGLETON_SOURCES})
+
+  add_dependencies(dynawo_Singletons create_keys_files)
+
+  target_include_directories(dynawo_Singletons
+    INTERFACE
+      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+      $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    )
+  target_include_directories(dynawo_Singletons SYSTEM
+    PRIVATE
+      $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+    )
+
+  target_link_libraries(dynawo_Singletons
+    PUBLIC
+      dynawo_Interface
+    PRIVATE
+      Boost::filesystem
+      Boost::log
+    )
+
+  set_target_properties(dynawo_Singletons PROPERTIES VERSION ${UTIL_VERSION_STRING}
+    SOVERSION ${UTIL_VERSION_MAJOR})
+else()
+  list(APPEND UTIL_SOURCES
+    ${SINGLETON_SOURCES}
+    )
+endif()
 
 add_library(dynawo_Util ${LIBRARY_TYPE} ${UTIL_SOURCES})
 
@@ -120,20 +164,26 @@ target_link_libraries(dynawo_Util
   PUBLIC
     dynawo_Interface
   PRIVATE
-    ${CMAKE_DL_LIBS}
     Boost::filesystem
     Boost::log
   )
 
+if(LIBRARY_TYPE STREQUAL "STATIC")
+  target_link_libraries(dynawo_Util PRIVATE dynawo_Singletons)
+endif()
+
 set_target_properties(dynawo_Util PROPERTIES VERSION ${UTIL_VERSION_STRING}
-                                             SOVERSION ${UTIL_VERSION_MAJOR})
+  SOVERSION ${UTIL_VERSION_MAJOR})
 
 # PYTHON scripts for models
 set(PYTHON_SCRIPTS_COMMON
   Dictionaries/validateDictionaries.py
-)
+  )
 
 install(TARGETS dynawo_Interface dynawo_Util EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-install(FILES ${UTIL_INCLUDE_HEADERS} ${UTIL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+if(LIBRARY_TYPE STREQUAL "STATIC")
+  install(TARGETS dynawo_Singletons EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+endif()
+install(FILES ${TRACE_HEADERS} ${UTIL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 install(FILES ${DYNAWO_DICTIONARIES} ${DYNAWO_DICTIONARIES_MAPPING} DESTINATION ${SHAREDIR_NAME})
 install(PROGRAMS ${PYTHON_SCRIPTS_COMMON} DESTINATION ${SBINDIR_NAME})

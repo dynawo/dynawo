@@ -39,13 +39,12 @@ target_include_directories(dynawo_SolverSIM SYSTEM
 target_link_libraries(dynawo_SolverSIM
   PRIVATE
     dynawo_Common
+    dynawo_Util
+    dynawo_SolverCommon
     dynawo_API_PAR
     dynawo_API_TL
     dynawo_SolverKINSOL
   )
-
-target_link_libraries(dynawo_SolverSIM PRIVATE $<TARGET_FILE:dynawo_SolverCommon>)
-target_include_directories(dynawo_SolverSIM PRIVATE $<TARGET_PROPERTY:dynawo_SolverCommon,INTERFACE_INCLUDE_DIRECTORIES>)
 
 link_library_singleton(dynawo_SolverSIM)
 

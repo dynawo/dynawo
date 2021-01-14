@@ -10,8 +10,9 @@
 
 # Dynawo
 set(DYNAWO_SOURCES
-    main.cpp
-    )
+  main.cpp
+  main_exports.def
+)
 
 install(FILES ${DYNAWO_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
@@ -26,12 +27,25 @@ target_include_directories(dynawo
 target_link_libraries(dynawo
   PRIVATE
     dynawo_Common
-    dynawo_Util
+  )
+
+if(LIBRARY_TYPE STREQUAL "STATIC")
+  if(MSVC)
+    target_link_libraries(dynawo PRIVATE "-WHOLEARCHIVE:$<TARGET_FILE:dynawo_Util>")
+  else()
+    target_link_libraries(dynawo PRIVATE "-Wl,--whole-archive" dynawo_Util "-Wl,--no-whole-archive")
+  endif()
+else()
+  target_link_libraries(dynawo PRIVATE dynawo_Util)
+endif()
+
+target_link_libraries(dynawo
+  PRIVATE
     dynawo_Simulation
     XMLSAXParser${LibXML_LINK_SUFFIX}
     Boost::filesystem
     Boost::program_options
-    )
+  )
 
 if(CXX11_ENABLED)
   target_link_libraries(dynawo
@@ -42,7 +56,7 @@ endif()
 
 set_target_properties(dynawo PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 
-install(TARGETS dynawo DESTINATION ${BINDIR_NAME})
+install(TARGETS dynawo EXPORT dynawo-targets DESTINATION ${BINDIR_NAME})
 
 if(NOT MSVC)
   # Launcher

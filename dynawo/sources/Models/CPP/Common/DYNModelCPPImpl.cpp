@@ -85,18 +85,18 @@ ModelCPP::Impl::loadVariables(const string& variables) {
   is >> zValues;
 
   if (cSumRead != cSum) {
-    Trace::warn() << DYNLog(WrongCheckSum, variablesFileName().c_str()) << Trace::endline;
+    ::TraceWarn() << DYNLog(WrongCheckSum, variablesFileName().c_str()) << Trace::endline;
     return;
   }
 
 
   if (yValues.size() != sizeY() || ypValues.size() != sizeY()) {
-    Trace::warn() << DYNLog(WrongParameterNum, variablesFileName().c_str()) << Trace::endline;
+    ::TraceWarn() << DYNLog(WrongParameterNum, variablesFileName().c_str()) << Trace::endline;
     return;
   }
 
   if (zValues.size() != sizeZ()) {
-    Trace::warn() << DYNLog(WrongParameterNum, variablesFileName().c_str()) << Trace::endline;
+    ::TraceWarn() << DYNLog(WrongParameterNum, variablesFileName().c_str()) << Trace::endline;
     return;
   }
 

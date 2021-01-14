@@ -92,7 +92,7 @@ void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& sm
     *lastRowVals = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
     memcpy(*lastRowVals, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
     if (log)
-      Trace::debug() << DYNLog(MatrixStructureChange) << Trace::endline;
+      ::TraceDebug() << DYNLog(MatrixStructureChange) << Trace::endline;
   }
 }
 
@@ -111,7 +111,7 @@ SolverCommon::printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, 
     std::pair<double, size_t> currentErr = fErr[i];
     model->getFInfos(currentErr.second, subModelName, subModelIndexF, fEquation);
 
-    Trace::debug() << DYNLog(KinErrorValue, currentErr.second, currentErr.first,
+    ::TraceDebug() << DYNLog(KinErrorValue, currentErr.second, currentErr.first,
                              subModelName, subModelIndexF, fEquation) << Trace::endline;
   }
 }

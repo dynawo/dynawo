@@ -26,6 +26,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
 
+#include "DYNVisibility.h"
 #include "DYNModelCPPImpl.h"
 #include "DYNSubModelFactory.h"
 
@@ -59,12 +60,12 @@ class ModelNetworkFactory : public SubModelFactory {
    * @brief ModelNetwork getter
    * @return A pointer to a new instance of Model Network
    */
-  SubModel* create() const;
+  DLL_PUBLIC SubModel* create() const;
 
   /**
    * @brief ModelNetwork destroy
    */
-  void destroy(SubModel*) const;
+  DLL_PUBLIC void destroy(SubModel*) const;
 };
 
 /**

@@ -3,6 +3,7 @@
 #define GeneratorPQ_h
 #include "DYNModelManager.h"
 #include "DYNSubModelFactory.h"
+#include "DYNVisibility.h"
 
 namespace DYN {
 
@@ -12,8 +13,8 @@ namespace DYN {
     ModelGeneratorPQFactory() {}
     ~ModelGeneratorPQFactory() {}
 
-    SubModel* create() const;
-    void destroy(SubModel*) const;
+    DLL_PUBLIC SubModel* create() const;
+    DLL_PUBLIC void destroy(SubModel*) const;
   };
 
   class ModelGeneratorPQ : public ModelManager

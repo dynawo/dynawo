@@ -20,7 +20,6 @@
 
 #include <string>
 #include <vector>
-#include <cmath>
 #include <map>
 
 #include <boost/algorithm/string.hpp>
@@ -35,7 +34,6 @@
 #include "DYDDynamicModelsCollection.h"
 #include "DYDModel.h"
 #include "DYDModelicaModel.h"
-#include "DYDModelTemplate.h"
 
 #include "DYNModeler.h"
 #include "DYNCommon.h"
@@ -50,7 +48,6 @@
 #include "DYNModelMulti.h"
 #include "DYNSubModelFactory.h"
 #include "DYNTrace.h"
-#include "DYNElement.h"
 #include "DYNDataInterface.h"
 #include "DYNExecUtils.h"
 
@@ -226,9 +223,9 @@ Modeler::replaceNodeWithBus(const shared_ptr<SubModel>& subModel1, string& var1,
 
 void
 Modeler::initConnects() {
-  Trace::debug(Trace::modeler()) << "------------------------------" << Trace::endline;
-  Trace::debug(Trace::modeler()) << DYNLog(DynamicConnectStart) << Trace::endline;
-  Trace::debug(Trace::modeler()) << "------------------------------" << Trace::endline;
+  ::TraceDebug(Trace::modeler()) << "------------------------------" << Trace::endline;
+  ::TraceDebug(Trace::modeler()) << DYNLog(DynamicConnectStart) << Trace::endline;
+  ::TraceDebug(Trace::modeler()) << "------------------------------" << Trace::endline;
   const std::map<string, shared_ptr<ConnectInterface> >& connects = dyd_->getConnectInterfaces();
   for (std::map<string, shared_ptr<ConnectInterface> >::const_iterator itConnector = connects.begin();
           itConnector != connects.end(); ++itConnector) {
@@ -242,18 +239,18 @@ Modeler::initConnects() {
     iter1 = subModels_.find(id1);
     iter2 = subModels_.find(id2);
     if (iter1 == subModels_.end() || iter2 == subModels_.end()) {
-      Trace::error() << DYNLog(CreateDynamicConnectFailed, id1, var1, id2, var2) << Trace::endline;
-      Trace::error() << DYNLog(NotInstancedModel) << Trace::endline;
+      ::TraceError() << DYNLog(CreateDynamicConnectFailed, id1, var1, id2, var2) << Trace::endline;
+      ::TraceError() << DYNLog(NotInstancedModel) << Trace::endline;
       continue;
     }
 
     replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2);
 
-    Trace::debug(Trace::modeler()) << DYNLog(DynamicConnect, id1, var1, id2, var2) << Trace::endline;
+    ::TraceDebug(Trace::modeler()) << DYNLog(DynamicConnect, id1, var1, id2, var2) << Trace::endline;
 
     model_->connectElements(iter1->second, var1, iter2->second, var2);
   }
-  Trace::debug(Trace::modeler()) << "------------------------------" << Trace::endline;
+  ::TraceDebug(Trace::modeler()) << "------------------------------" << Trace::endline;
 }
 
 string

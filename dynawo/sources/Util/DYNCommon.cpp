@@ -18,10 +18,6 @@
  *
  */
 #include <string>
-#include <stdio.h>
-#include <cstring>
-#include <cassert>
-#include <cstdarg>
 #include <sstream>
 #include <iomanip>
 #include "DYNCommon.h"

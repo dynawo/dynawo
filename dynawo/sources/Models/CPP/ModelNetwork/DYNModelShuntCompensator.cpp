@@ -212,7 +212,7 @@ ModelShuntCompensator::evalZ(const double& t) {
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != getConnected()) {
     stateModified_ = true;
-    Trace::info() << DYNLog(ShuntStateChange, id_, getConnected(), currState) << Trace::endline;
+    ::TraceInfo() << DYNLog(ShuntStateChange, id_, getConnected(), currState) << Trace::endline;
     if (currState == OPEN) {
       DYNAddTimelineEvent(network_, id_, ShuntDisconnected);
       tLastOpening_ = t;
@@ -282,7 +282,7 @@ ModelShuntCompensator::setSubModelParameters(const boost::unordered_map<std::str
       }
     }
   } catch (const DYN::Error& e) {
-    Trace::error() << e.what() << Trace::endline;
+    ::TraceError() << e.what() << Trace::endline;
     throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, id_);
   }
 }

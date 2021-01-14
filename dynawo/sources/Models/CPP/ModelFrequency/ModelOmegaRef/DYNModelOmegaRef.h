@@ -21,7 +21,7 @@
 #ifndef MODELS_CPP_MODELFREQUENCY_MODELOMEGAREF_DYNMODELOMEGAREF_H_
 #define MODELS_CPP_MODELFREQUENCY_MODELOMEGAREF_DYNMODELOMEGAREF_H_
 
-
+#include "DYNVisibility.h"
 #include "DYNModelCPPImpl.h"
 #include "DYNSubModelFactory.h"
 
@@ -51,12 +51,12 @@ class ModelOmegaRefFactory : public SubModelFactory {
    *
    * @return A pointer to a new instance of ModelOmegaRef
    */
-  SubModel* create() const;
+  DLL_PUBLIC SubModel* create() const;
 
   /**
    * @brief ModelOmegaRef destroy
    */
-  void destroy(SubModel*) const;
+  DLL_PUBLIC void destroy(SubModel*) const;
 };
 
 /**

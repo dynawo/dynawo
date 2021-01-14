@@ -17,7 +17,6 @@
  */
 
 #include <cmath>
-#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <vector>
@@ -521,13 +520,13 @@ ModelManager::initParams() {
     checkDataCoherence(getCurrentTime());
     checkParametersCoherence();
   } catch (const MessageError& Msg) {
-    Trace::error() << Msg.what() << Trace::endline;
+    ::TraceError() << Msg.what() << Trace::endline;
     throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
   } catch (const Terminate& Msg) {
-    Trace::error() << Msg.what() << Trace::endline;
+    ::TraceError() << Msg.what() << Trace::endline;
     throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
   } catch (const Error& Msg) {
-    Trace::error() << Msg.what() << Trace::endline;
+    ::TraceError() << Msg.what() << Trace::endline;
     throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
   }
 
@@ -853,8 +852,8 @@ ModelManager::solveParameters() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::solveParameters");
 #endif
-  Trace::debug() << "------------------------------" << Trace::endline;
-  Trace::debug() << DYNLog(SolveParameters, name()) << Trace::endline;
+  ::TraceDebug() << "------------------------------" << Trace::endline;
+  ::TraceDebug() << DYNLog(SolveParameters, name()) << Trace::endline;
 
   // values recovery and modes initialization
   double t0 = getCurrentTime();
@@ -916,13 +915,13 @@ ModelManager::solveParameters() {
     try {
       flag = solver.solve();
     } catch (const MessageError& Msg) {
-      Trace::error() << Msg.what() << Trace::endline;
+      ::TraceError() << Msg.what() << Trace::endline;
       throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
     } catch (const Terminate& Msg) {
-      Trace::error() << Msg.what() << Trace::endline;
+      ::TraceError() << Msg.what() << Trace::endline;
       throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
     } catch (const Error& Msg) {
-      Trace::error() << Msg.what() << Trace::endline;
+      ::TraceError() << Msg.what() << Trace::endline;
       throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
     }
 
@@ -943,7 +942,7 @@ ModelManager::solveParameters() {
       for (; iG0 < g0.end(); ++iG0, ++iG1) {
         ++i;
         if ((*iG0) != (*iG1)) {
-          Trace::debug() << DYNLog(UnstableRoot, i) << Trace::endline;
+          ::TraceDebug() << DYNLog(UnstableRoot, i) << Trace::endline;
         }
       }
     }
@@ -952,7 +951,7 @@ ModelManager::solveParameters() {
     // if a root crossing is detected, update z and modes
     // -------------------------------------------------
     if (!stableRoot) {
-      Trace::debug() << DYNLog(UnstableRootFound) << Trace::endline;
+      ::TraceDebug() << DYNLog(UnstableRootFound) << Trace::endline;
       evalZ(t0);
 
       if (sizeMode() > 0) {
@@ -970,7 +969,7 @@ ModelManager::solveParameters() {
       throw  DYNError(Error::MODELER, UnstableRoots);
   } while (!stableRoot || zChange);
   if (flag < 0)
-    Trace::warn() << DYNLog(SolveParametersError, name()) << Trace::endline;
+    ::TraceWarn() << DYNLog(SolveParametersError, name()) << Trace::endline;
 
 #ifdef _DEBUG_
   setFequationsInit();
@@ -987,7 +986,7 @@ ModelManager::solveParameters() {
   if (fErr.size() > 0) {
     unsigned i = 0;
     for (map<double, int>::const_iterator it = fErr.begin(); it != fErr.end() && i < nbErr; ++it, ++i) {
-      Trace::debug() << DYNLog(SolveParametersFError, tolerance, it->second, it->first,
+      ::TraceDebug() << DYNLog(SolveParametersFError, tolerance, it->second, it->first,
                                  getFequationByLocalIndex(it->second)) << Trace::endline;
     }
   }
@@ -999,7 +998,7 @@ ModelManager::solveParameters() {
   setCalculatedParameters(yLocalInit_, zLocalInit_, calculatedVars);
   solver.clean();
 
-  Trace::debug() << DYNLog(SolveParametersOK, name()) << Trace::endline;
+  ::TraceDebug() << DYNLog(SolveParametersOK, name()) << Trace::endline;
 }
 
 void

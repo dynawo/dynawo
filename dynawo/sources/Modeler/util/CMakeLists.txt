@@ -25,6 +25,7 @@ target_include_directories(dumpModel SYSTEM
 target_link_libraries(dumpModel
   PRIVATE
     dynawo_Common
+    dynawo_Util
     dynawo_ModelerCommon
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     XMLSAXParser${LibXML_LINK_SUFFIX}
@@ -60,6 +61,7 @@ target_include_directories(generate-preassembled SYSTEM
 target_link_libraries(generate-preassembled
   PRIVATE
     dynawo_Common
+    dynawo_Util
     dynawo_ModelerCommon
     ${CMAKE_DL_LIBS}
     XMLSAXParser${LibXML_LINK_SUFFIX}

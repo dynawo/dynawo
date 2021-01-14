@@ -144,7 +144,7 @@ class InjectorInterfaceIIDM {
   double getPInjector() {
     if (getInitialConnectedInjector()) {
       if (!hasPInjector()) {
-        Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "Injection", getIDInjector(), "P") << Trace::endline;
+        ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "Injection", getIDInjector(), "P") << Trace::endline;
         return 0.;
       }
       return injectorIIDM_.getTerminal().getP();
@@ -161,7 +161,7 @@ class InjectorInterfaceIIDM {
   getQInjector() {
     if (getInitialConnectedInjector()) {
       if (!hasQInjector()) {
-        Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "Injection", getIDInjector(), "Q") << Trace::endline;
+        ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "Injection", getIDInjector(), "Q") << Trace::endline;
         return 0.;
       }
       return injectorIIDM_.getTerminal().getQ();

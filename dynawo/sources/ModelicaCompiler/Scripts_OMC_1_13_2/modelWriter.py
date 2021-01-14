@@ -86,11 +86,11 @@ class ModelWriterManager(ModelWriterBase):
 #include "DYNSubModel.h"
 __fill_model_include_header__
 
-extern "C" DYN::SubModelFactory* getFactory() {
+extern "C" DLL_PUBLIC DYN::SubModelFactory* getFactory() {
   return (new DYN::Model__fill_model_name__Factory());
 }
 
-extern "C" void deleteFactory(DYN::SubModelFactory* factory) {
+extern "C" DLL_PUBLIC void deleteFactory(DYN::SubModelFactory* factory) {
   delete factory;
 }
 
@@ -123,6 +123,7 @@ __fill_model_destructor__
 #define __fill_model_name___h
 #include "DYNModelManager.h"
 #include "DYNSubModelFactory.h"
+#include "DYNVisibility.h"
 
 namespace DYN {
 
@@ -132,8 +133,8 @@ namespace DYN {
     Model__fill_model_name__Factory() {}
     ~Model__fill_model_name__Factory() {}
 
-    SubModel* create() const;
-    void destroy(SubModel*) const;
+    DLL_PUBLIC SubModel* create() const;
+    DLL_PUBLIC void destroy(SubModel*) const;
   };
 
   class Model__fill_model_name__ : public ModelManager

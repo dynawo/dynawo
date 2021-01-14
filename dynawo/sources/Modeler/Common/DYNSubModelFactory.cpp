@@ -80,7 +80,7 @@ boost::shared_ptr<SubModel> SubModelFactory::createSubModelFromLib(const std::st
     if (!handle) {
       stringstream msg;
       msg << "Load error :" << dlerror();
-      Trace::error() << msg.str() << Trace::endline;
+      ::TraceError() << msg.str() << Trace::endline;
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib);
     }
 
@@ -92,7 +92,7 @@ boost::shared_ptr<SubModel> SubModelFactory::createSubModelFromLib(const std::st
     if (dlsym_error) {
       stringstream msg;
       msg << "Load error :" << dlsym_error;
-      Trace::error() << msg.str() << Trace::endline;
+      ::TraceError() << msg.str() << Trace::endline;
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::getFactory");
     }
 
@@ -101,7 +101,7 @@ boost::shared_ptr<SubModel> SubModelFactory::createSubModelFromLib(const std::st
     if (dlsym_error) {
       stringstream msg;
       msg << "Load error :" << dlsym_error;
-      Trace::error() << msg.str() << Trace::endline;
+      ::TraceError() << msg.str() << Trace::endline;
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::deleteFactory");
     }
 

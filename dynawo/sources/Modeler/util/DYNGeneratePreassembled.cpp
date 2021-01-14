@@ -128,9 +128,8 @@ int main(int argc, char ** argv) {
 
     // Initializes logs, parsers & dictionnaries for Dynawo
     Trace::init();
-    shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
-    dicos->addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
+    DYN::IoDicos::addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
+    DYN::IoDicos::addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
 
     // Dynamic data import
     shared_ptr<DYN::DynamicData> dyd(new DYN::DynamicData());
@@ -188,28 +187,28 @@ int main(int argc, char ** argv) {
       if (!valid) {
         libValid = false;
         notValidsolist.push_back(*it);
-        Trace::info(Trace::compile()) << DYNLog(InvalidModel, *it) << Trace::endline;
+        TraceInfo(Trace::compile()) << DYNLog(InvalidModel, *it) << Trace::endline;
       } else {
-        Trace::info(Trace::compile()) << DYNLog(ValidatedModel, *it) << Trace::endline;
+        TraceInfo(Trace::compile()) << DYNLog(ValidatedModel, *it) << Trace::endline;
       }
     }
 
     if (libValid) {
-      Trace::info(Trace::compile()) << DYNLog(PreassembledModelGenerated, solist.size()) << Trace::endline;
+      ::TraceInfo(Trace::compile()) << DYNLog(PreassembledModelGenerated, solist.size()) << Trace::endline;
     } else {
-      Trace::info(Trace::compile()) << DYNLog(InvalidSharedObjects, notValidsolist.size()) << Trace::endline;
+      TraceInfo(Trace::compile()) << DYNLog(InvalidSharedObjects, notValidsolist.size()) << Trace::endline;
       string libList;
       for (vector<string >::iterator it = notValidsolist.begin(); it != notValidsolist.end(); ++it) {
-        Trace::info(Trace::compile()) << *it << Trace::endline;
+        TraceInfo(Trace::compile()) << *it << Trace::endline;
         libList += *it;
       }
       throw DYNError(DYN::Error::MODELER, FileGenerationFailed, libList.c_str());
     }
   } catch (const DYN::Error& e) {
-    Trace::error() << e.what() << Trace::endline;
+    TraceError() << e.what() << Trace::endline;
     return e.type();
   } catch (const std::exception& exp) {
-    Trace::error() << exp.what() << Trace::endline;
+    TraceError() << exp.what() << Trace::endline;
     return -1;
   }
   return 0;

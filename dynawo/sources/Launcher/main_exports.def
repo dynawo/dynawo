@@ -1,0 +1,12 @@
+EXPORTS
+  TraceDebug
+  TraceError
+  TraceWarn
+  TraceInfo
+  TraceLog
+  TraceLogExists
+  HasIoDico
+  GetIoDico
+  ErrorQueuePush
+  ErrorQueueFlush
+  TimersAdd

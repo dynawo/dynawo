@@ -20,47 +20,76 @@
 
 #include "DYNError.h"
 
+/**
+ * @brief API to DYN::ErrorQueue::push
+ * @param exception error to register
+*/
+extern "C" void ErrorQueuePush(const DYN::Error& exception);
+/**
+ * @brief API to DYN::ErrorQueue::flush
+*/
+extern "C" void ErrorQueueFlush();
+
 namespace DYN {
 
 /**
- * @class DYNErrorQueue
+ * @class ErrorQueue
  * @brief class to register multiple errors before failing
  */
-class DYNErrorQueue  : private boost::noncopyable{
- public:
-  ~DYNErrorQueue() {}
+class ErrorQueue : private boost::noncopyable{
+ private:
+  /**
+   * @brief Constructor
+   */
+  ErrorQueue();
 
   /**
-   * @brief get singleton
-   *
-   * @return singleton
+   * @brief Destructor
    */
-  static boost::shared_ptr<DYNErrorQueue>& get();
+  ~ErrorQueue();
 
   /**
    * @brief register a new error in the queue
    *
    * @param exception error to register
    */
-  void push(const DYN::Error& exception);
+  static void push(const DYN::Error& exception);
 
   /**
    * @brief throw errors if the queue is not empty, otherwise do nothing
    */
-  void flush();
+  static void flush();
+
+  /**
+   * @brief get singleton
+   *
+   * @return singleton
+   */
+  static ErrorQueue& instance();
+
+  /**
+  * @brief register a new error in the queue
+  *
+  * @param exception error to register
+  */
+  void push_(const DYN::Error& exception);
+
+  /**
+   * @brief throw errors if the queue is not empty, otherwise do nothing
+   */
+  void flush_();
 
   /**
    * @brief Get the maximum number of errors displayed
    *
    * @return maximum number of errors displayed
    */
-  size_t getMaxDisplayedError() const;
+  static size_t getMaxDisplayedError();
+
+  friend void (::ErrorQueuePush)(const DYN::Error& exception);  ///< Method ErrorQueuePush must get access to @p push() private function
+  friend void (::ErrorQueueFlush)();  ///< Method ErrorQueueFlush must get access to @p flush() private function
 
  private:
-  DYNErrorQueue() {}
-
- private:
-  static boost::shared_ptr<DYNErrorQueue> errorQueue;  ///< singleton
   std::queue< DYN::Error > exceptionQueue_;  ///< error queue
 };
 

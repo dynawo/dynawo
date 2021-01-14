@@ -29,6 +29,14 @@
 
 // #define PRINT_TIMERS
 
+/**
+ * @brief API to DYN::Timers::add
+ *
+ * @param name name of timer
+ * @param time time elapsed for the timer
+ */
+extern "C" void TimersAdd(const std::string& name, double time);
+
 namespace DYN {
 
 /**
@@ -37,22 +45,6 @@ namespace DYN {
  *
  */
 class Timers : private boost::noncopyable {
- public:
-  /**
-   * @brief add new statistics for a given timer
-   *
-   * @param name name of timer
-   * @param time time elapsed for the timer
-   */
-  static void add(const std::string& name, const double& time);
-
-  /**
-   * @brief get the unique instance of Timers in current memory space
-   *
-   * @return the unique instance
-   */
-  static Timers& getInstance();
-
  private:
   /**
    * @brief default constructor
@@ -65,19 +57,29 @@ class Timers : private boost::noncopyable {
   ~Timers();
 
   /**
+   * @brief add new statistics for a given timer
+   *
+   * @param name name of timer
+   * @param time time elapsed for the timer
+   */
+  static void add(const std::string& name, double time);
+
+  /**
+   * @brief get the unique instance of Timers in current memory space
+   *
+   * @return the unique instance
+   */
+  static Timers& instance();
+
+  /**
    * @brief internal add new statistics for a given timer
    *
    * @param name name of timer
    * @param time time elapsed for the timer
    */
-  void add_(const std::string& name, const double& time);
+  void add_(const std::string& name, double time);
 
-  /**
-   * @brief get the best candidate for unique instance of Timers
-   *
-   * @return the unique instance
-   */
-  static Timers& getInstance_();
+  friend void (::TimersAdd)(const std::string& name, double time);  ///< Method TimersAdd must get access to @p add() private function
 
  private:
   std::map<std::string, double> timers_;  ///< association between timers and time elapsed
@@ -116,16 +118,5 @@ class Timer : private boost::noncopyable {
 };
 
 }  // namespace DYN
-
-#ifdef DYNTIMERS_INSTANCE
-/**
- * @brief get the unique instance of Timers in the executable
- *
- * @return the unique instance
- */
-extern "C" DYN::Timers& getTimersInstance() {
-  return DYN::Timers::getInstance();
-}
-#endif
 
 #endif  // UTIL_DYNTIMER_H_

@@ -27,7 +27,6 @@
 #include "DYNIoDico.h"
 #include "DYNMacrosMessage.h"
 
-
 using std::stringstream;
 using std::string;
 
@@ -58,15 +57,18 @@ Message::Message(const std::string& dicoName, const std::string& key) {
   initialize(dicoName, key);
 }
 
+Message::~Message() {
+}
+
 void
 Message::initialize(const std::string& dicoName, const std::string& key) {
   key_ = key;
   fmt_.clear_binds();
   hasFmt_ = false;
   string fmt = "";
-  if (dicoName != "" && IoDicos::hasIoDico(dicoName)) {
+  if (dicoName != "" && ::HasIoDico(dicoName)) {
     try {
-      fmt = IoDicos::getIoDico(dicoName)->msg(key);
+      fmt = ::GetIoDico(dicoName)->msg(key);
       hasFmt_ = true;
       fmt_ = boost::format(fmt.c_str());
     } catch (const MessageError&) {

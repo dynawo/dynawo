@@ -151,17 +151,22 @@ if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${MODEL_NAME}_Init.cpp)
     )
 endif()
 
-add_library(lib SHARED ${MODEL_SOURCES})
+add_library(lib MODULE ${MODEL_SOURCES})
 set_target_properties(lib PROPERTIES OUTPUT_NAME ${MODEL_NAME} PREFIX "")
 
 get_filename_component(INSTALL_OPENMODELICA $ENV{DYNAWO_INSTALL_OPENMODELICA} ABSOLUTE)
 set(OMC_INCLUDE_DIR ${INSTALL_OPENMODELICA}/include/omc/c)
 
 if(NOT EXISTS ${OMC_INCLUDE_DIR})
-  message(FATAL_ERROR "OpenModelica include directories, ${OMC_INCLUDE_DIR}, does not exist. Use DYNAWO_INSTALL_OPENMODELICA environement variable to your installation.")
+  message(FATAL_ERROR "OpenModelica include directories, ${OMC_INCLUDE_DIR}, does not exist. Use DYNAWO_INSTALL_OPENMODELICA environement variable to point to your installation.")
 endif()
 
-target_include_directories(lib PUBLIC $ENV{DYNAWO_ADDITIONAL_INCLUDE_FOR_PREASSEMBLED} PRIVATE ${OMC_INCLUDE_DIR} ${ADEPT_INCLUDE_DIR})
+target_include_directories(lib
+  PRIVATE
+    $ENV{DYNAWO_ADDITIONAL_INCLUDE_FOR_PREASSEMBLED}
+    ${OMC_INCLUDE_DIR}
+    ${ADEPT_INCLUDE_DIR}
+)
 
 target_link_libraries(lib
   PRIVATE
@@ -169,8 +174,17 @@ target_link_libraries(lib
     Dynawo::dynawo_Util
     Dynawo::dynawo_API_PAR
     Dynawo::dynawo_ModelerCommon
-    Dynawo::Modelica_externalC
     Dynawo::dynawo_ModelManager
+    Dynawo::Modelica_externalC
     Boost::system
     $ENV{DYNAWO_ADDITIONAL_LIBRARY_FOR_PREASSEMBLED}
 )
+
+if(DYNAWO_LIBRARY_TYPE STREQUAL "STATIC")
+  if(MSVC)
+    # Link to executable
+    target_link_libraries(lib PRIVATE Dynawo::dynawo)
+  endif()
+else()
+  target_link_libraries(lib PRIVATE Dynawo::dynawo_Util)
+endif()

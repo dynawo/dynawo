@@ -22,9 +22,6 @@
  */
 #include <sstream>
 #include <vector>
-#include <algorithm>
-
-#include "PARParametersSet.h"
 
 #include "DYNModelOmegaRef.h"
 #include "DYNModelOmegaRef.hpp"
@@ -32,9 +29,7 @@
 #include "DYNMacrosMessage.h"
 #include "DYNElement.h"
 #include "DYNCommonModeler.h"
-#include "DYNTrace.h"
 #include "DYNVariableForModel.h"
-#include "DYNParameter.h"
 
 using std::vector;
 using std::string;
@@ -50,14 +45,14 @@ using parameters::ParametersSet;
  *
  * @return A pointer to a new instance of ModelOmegaRefFactory
  */
-extern "C" DYN::SubModelFactory* getFactory() {
+extern "C" DLL_PUBLIC DYN::SubModelFactory* getFactory() {
   return (new DYN::ModelOmegaRefFactory());
 }
 
 /**
  * @brief ModelOmegaRefFactory destroy method
  */
-extern "C" void deleteFactory(DYN::SubModelFactory* factory) {
+extern "C" DLL_PUBLIC void deleteFactory(DYN::SubModelFactory* factory) {
   delete factory;
 }
 
@@ -528,12 +523,12 @@ ModelOmegaRef::defineElements(std::vector<Element> &elements, std::map<std::stri
 
 void
 ModelOmegaRef::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
-  Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << "omegaRef_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "omega_grp_" << "<0-" << nbGen_ << ">_value (and weight_gen_<num> > 0)" << Trace::endline;
-  Trace::info() << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "running_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "omegaRef_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  ::TraceInfo() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  ::TraceInfo() << "  ->" << "omegaRef_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
+  ::TraceInfo() << "  ->" << "omega_grp_" << "<0-" << nbGen_ << ">_value (and weight_gen_<num> > 0)" << Trace::endline;
+  ::TraceInfo() << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  ::TraceInfo() << "  ->" << "running_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  ::TraceInfo() << "  ->" << "omegaRef_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
 }
 
 void

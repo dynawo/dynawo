@@ -137,7 +137,7 @@ VscConverterInterfaceIIDM::getVoltageRegulatorOn() const {
 double
 VscConverterInterfaceIIDM::getReactivePowerSetpoint() const {
   if (!vscConverterIIDM_.has_reactivePowerSetpoint()) {
-    Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "vscConverter", vscConverterIIDM_.id(), "ReactivePowerSetPoint") << Trace::endline;
+    ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "vscConverter", vscConverterIIDM_.id(), "ReactivePowerSetPoint") << Trace::endline;
     return 0;
   }
   return vscConverterIIDM_.reactivePowerSetpoint();
@@ -146,7 +146,7 @@ VscConverterInterfaceIIDM::getReactivePowerSetpoint() const {
 double
 VscConverterInterfaceIIDM::getVoltageSetpoint() const {
   if (!vscConverterIIDM_.has_voltageSetpoint()) {
-    Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "vscConverter", vscConverterIIDM_.id(), "VoltageSetPoint") << Trace::endline;
+    ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "vscConverter", vscConverterIIDM_.id(), "VoltageSetPoint") << Trace::endline;
     return 0;
   }
   return vscConverterIIDM_.voltageSetpoint();

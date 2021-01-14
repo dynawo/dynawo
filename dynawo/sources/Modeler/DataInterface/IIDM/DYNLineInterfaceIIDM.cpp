@@ -106,7 +106,7 @@ LineInterfaceIIDM::getR() const {
 double
 LineInterfaceIIDM::getX() const {
   if (doubleIsZero(lineIIDM_.x()) && doubleIsZero(lineIIDM_.r())) {
-    Trace::warn() << DYNLog(PossibleDivisionByZero, lineIIDM_.id()) << Trace::endline;
+    ::TraceWarn() << DYNLog(PossibleDivisionByZero, lineIIDM_.id()) << Trace::endline;
     return 0.01;  // default parameter
   }
   return lineIIDM_.x();
@@ -137,7 +137,7 @@ LineInterfaceIIDM::getP1() {
   double P = 0;
   if (getInitialConnected1()) {
     if (!lineIIDM_.has_p1()) {
-      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.id(), "P1") << Trace::endline;
+      ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.id(), "P1") << Trace::endline;
     } else {
       P = lineIIDM_.p1();
     }
@@ -150,7 +150,7 @@ LineInterfaceIIDM::getQ1() {
   double Q = 0;
   if (getInitialConnected1()) {
     if (!lineIIDM_.has_q1()) {
-      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.id(), "Q1") << Trace::endline;
+      ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.id(), "Q1") << Trace::endline;
     } else {
       Q = lineIIDM_.q1();
     }
@@ -163,7 +163,7 @@ LineInterfaceIIDM::getP2() {
   double P = 0;
   if (getInitialConnected2()) {
     if (!lineIIDM_.has_p2()) {
-      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.id(), "P2") << Trace::endline;
+      ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.id(), "P2") << Trace::endline;
     } else {
       P = lineIIDM_.p2();
     }
@@ -176,7 +176,7 @@ LineInterfaceIIDM::getQ2() {
   double Q = 0;
   if (getInitialConnected2()) {
     if (!lineIIDM_.has_q2()) {
-      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.id(), "Q2") << Trace::endline;
+      ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.id(), "Q2") << Trace::endline;
     } else {
       Q = lineIIDM_.q2();
     }

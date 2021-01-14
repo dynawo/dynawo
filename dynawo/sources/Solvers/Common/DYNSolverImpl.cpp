@@ -17,12 +17,9 @@
  * @brief Dynawo solvers : implementation file
  *
  */
-#include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <sstream>
 #include <nvector/nvector_serial.h>
-#include <boost/static_assert.hpp>
 
 #include "DYNSolverImpl.h"
 
@@ -33,7 +30,6 @@
 #include "DYNTrace.h"
 
 #include "PARParametersSet.h"
-#include "PARParameter.h"
 #include "TLTimeline.h"
 
 using std::endl;
@@ -150,20 +146,20 @@ Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
 
 void
 Solver::Impl::printHeader() const {
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
   stringstream ss;
   ss << DYNLog(SolverNbYVar, model_->sizeY());
-  Trace::info() << ss.str() << Trace::endline;
+  ::TraceInfo() << ss.str() << Trace::endline;
 
-  Trace::info() << DYNLog(SolverNbZVar, model_->sizeZ()) << Trace::endline;
+  ::TraceInfo() << DYNLog(SolverNbZVar, model_->sizeZ()) << Trace::endline;
 
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
   ss.str(std::string());
   ss << "        time ";
 
   printHeaderSpecific(ss);
-  Trace::info() << ss.str() << Trace::endline;
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << ss.str() << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
 }
 
 void
@@ -173,42 +169,42 @@ Solver::Impl::printSolve() const {
 
   printSolveSpecific(msg);
 
-  Trace::info() << msg.str() << Trace::endline;
+  ::TraceInfo() << msg.str() << Trace::endline;
 }
 
 void
 Solver::Impl::printParameterValues() const {
   if (!parameters_.empty()) {
-    Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
-    Trace::debug(Trace::parameters()) << solverType() << " parameters" << " initial parameters"<< Trace::endline;
-    Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
+    ::TraceDebug(Trace::parameters()) << "------------------------------" << Trace::endline;
+    ::TraceDebug(Trace::parameters()) << solverType() << " parameters" << " initial parameters"<< Trace::endline;
+    ::TraceDebug(Trace::parameters()) << "------------------------------" << Trace::endline;
   }
 
   for (std::map<std::string, ParameterSolver>::const_iterator it = parameters_.begin(), itEnd = parameters_.end(); it != itEnd; ++it) {
     const ParameterSolver& parameter = it->second;
     if (!parameter.hasValue()) {
-      Trace::debug(Trace::parameters()) << DYNLog(ParamNoValueFound, it->first) << Trace::endline;
+      ::TraceDebug(Trace::parameters()) << DYNLog(ParamNoValueFound, it->first) << Trace::endline;
       continue;
     }
     switch (parameter.getValueType()) {
       case VAR_TYPE_BOOL: {
         const bool value = parameter.getValue<bool>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
+        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_INT: {
         const int value = parameter.getValue<int>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
+        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_DOUBLE: {
         const double& value = parameter.getValue<double>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
+        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_STRING: {
         const string& value = parameter.getValue<string>();
-        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
+        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
         break;
       }
       default:
@@ -307,15 +303,15 @@ Solver::Impl::printUnstableRoot(double t, const vector<state_g> &G0, const vecto
   vector<state_g>::const_iterator iG1(G1.begin());
   for (; iG0 < G0.end(); iG0++, iG1++, i++) {
     if ((*iG0) != (*iG1)) {
-      Trace::debug() << DYNLog(SolverInstableRoot, i, (*iG0), (*iG1), t) << Trace::endline;
+      ::TraceDebug() << DYNLog(SolverInstableRoot, i, (*iG0), (*iG1), t) << Trace::endline;
       std::string subModelName("");
       int localGIndex(0);
       std::string gEquation("");
       model_->getGInfos(i, subModelName, localGIndex, gEquation);
-      Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
+      ::TraceDebug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
     }
   }
-  Trace::debug() << DYNLog(SolverInstableRootFound) << Trace::endline;
+  ::TraceDebug() << DYNLog(SolverInstableRootFound) << Trace::endline;
 }
 
 void
@@ -324,7 +320,7 @@ Solver::Impl::checkUnusedParameters(boost::shared_ptr<parameters::ParametersSet>
   for (vector<string>::iterator it = unusedParamNameList.begin();
           it != unusedParamNameList.end();
           ++it) {
-    Trace::warn() << DYNLog(ParamUnused, *it, "SOLVER") << Trace::endline;
+    ::TraceWarn() << DYNLog(ParamUnused, *it, "SOLVER") << Trace::endline;
   }
 }
 
@@ -498,7 +494,7 @@ void Solver::Impl::setSolverCommonParameters() {
     else if (value == "ALGEBRAIC_J_UPDATE")
       minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_UPDATE_MODE;
     else
-      Trace::warn() << DYNLog(IncoherentParamMinimumModeChangeType, value) << Trace::endline;
+      ::TraceWarn() << DYNLog(IncoherentParamMinimumModeChangeType, value) << Trace::endline;
   }
 }
 
@@ -527,19 +523,19 @@ void
 Solver::Impl::printEnd() const {
   // (1) Print on the standard output
   // -----------------------------------
-  Trace::info() << Trace::endline;
-  Trace::info() << DYNLog(SolverExecutionStats) << Trace::endline;
-  Trace::info() << Trace::endline;
+  ::TraceInfo() << Trace::endline;
+  ::TraceInfo() << DYNLog(SolverExecutionStats) << Trace::endline;
+  ::TraceInfo() << Trace::endline;
 
-  Trace::info() << DYNLog(SolverNbIter, stats_.nst_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbResEval, stats_.nre_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbJacEval, stats_.nje_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbNonLinIter, stats_.nni_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbErrorTestFail, stats_.netf_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbNonLinConvFail, stats_.ncfn_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbRootFuncEval, stats_.nge_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbDiscreteVarsEval, stats_.nze_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbModeEval, stats_.nme_) << Trace::endline;
+  ::TraceInfo() << DYNLog(SolverNbIter, stats_.nst_) << Trace::endline;
+  ::TraceInfo() << DYNLog(SolverNbResEval, stats_.nre_) << Trace::endline;
+  ::TraceInfo() << DYNLog(SolverNbJacEval, stats_.nje_) << Trace::endline;
+  ::TraceInfo() << DYNLog(SolverNbNonLinIter, stats_.nni_) << Trace::endline;
+  ::TraceInfo() << DYNLog(SolverNbErrorTestFail, stats_.netf_) << Trace::endline;
+  ::TraceInfo() << DYNLog(SolverNbNonLinConvFail, stats_.ncfn_) << Trace::endline;
+  ::TraceInfo() << DYNLog(SolverNbRootFuncEval, stats_.nge_) << Trace::endline;
+  ::TraceInfo() << DYNLog(SolverNbDiscreteVarsEval, stats_.nze_) << Trace::endline;
+  ::TraceInfo() << DYNLog(SolverNbModeEval, stats_.nme_) << Trace::endline;
 }
 
 

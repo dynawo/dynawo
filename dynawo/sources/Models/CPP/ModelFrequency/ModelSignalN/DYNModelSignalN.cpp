@@ -31,7 +31,6 @@
  */
 #include <sstream>
 #include <vector>
-#include <algorithm>
 
 #include "PARParametersSet.h"
 
@@ -41,9 +40,7 @@
 #include "DYNMacrosMessage.h"
 #include "DYNElement.h"
 #include "DYNCommonModeler.h"
-#include "DYNTrace.h"
 #include "DYNVariableForModel.h"
-#include "DYNParameter.h"
 
 using std::vector;
 using std::string;
@@ -54,11 +51,11 @@ using boost::shared_ptr;
 
 using parameters::ParametersSet;
 
-extern "C" DYN::SubModelFactory* getFactory() {
+extern "C" DLL_PUBLIC DYN::SubModelFactory* getFactory() {
   return (new DYN::ModelSignalNFactory());
 }
 
-extern "C" void deleteFactory(DYN::SubModelFactory* factory) {
+extern "C" DLL_PUBLIC void deleteFactory(DYN::SubModelFactory* factory) {
   delete factory;
 }
 
@@ -400,14 +397,14 @@ ModelSignalN::defineElements(std::vector<Element> &elements, std::map<std::strin
 
 void
 ModelSignalN::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
-  Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << "alphaSum_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "n_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "tetaRef_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "alpha_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "alphaSum_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "n_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  ::TraceInfo() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  ::TraceInfo() << "  ->" << "alphaSum_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
+  ::TraceInfo() << "  ->" << "n_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
+  ::TraceInfo() << "  ->" << "tetaRef_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
+  ::TraceInfo() << "  ->" << "alpha_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  ::TraceInfo() << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  ::TraceInfo() << "  ->" << "alphaSum_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  ::TraceInfo() << "  ->" << "n_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
 }
 
 void ModelSignalN::setFequations() {

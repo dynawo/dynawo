@@ -19,7 +19,6 @@
  */
 #include <map>
 #include <set>
-#include <sstream>
 #include <iomanip>
 #include <vector>
 #include <iostream>
@@ -32,7 +31,6 @@
 #include "DYNFileSystemUtils.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTrace.h"
-#include "DYNFileSystemUtils.h"
 
 using std::map;
 using std::set;
@@ -209,7 +207,7 @@ void SparseMatrix::print() const {
   for (int iCol = 0; iCol < nbCol_; ++iCol) {
     for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
       int iRow = Ai_[ind];
-      Trace::debug() << "A(" << iRow << ";" << iCol << ")" << std::setprecision(16) << Ax_[ind] << Trace::endline;
+      ::TraceDebug() << "A(" << iRow << ";" << iCol << ")" << std::setprecision(16) << Ax_[ind] << Trace::endline;
     }
   }
 }

@@ -20,6 +20,7 @@
 #ifndef MODELS_CPP_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
 #define MODELS_CPP_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
 
+#include "DYNVisibility.h"
 #include "DYNModelCPPImpl.h"
 #include "DYNSubModelFactory.h"
 
@@ -48,12 +49,12 @@ class ModelVariationAreaFactory : public SubModelFactory {
    *
    * @return A pointer to a new instance of Model VariationArea
    */
-  SubModel* create() const;
+  DLL_PUBLIC SubModel* create() const;
 
   /**
    * @brief Model VariationArea destroy
    */
-  void destroy(SubModel*) const;
+  DLL_PUBLIC void destroy(SubModel*) const;
 };
 
 /**

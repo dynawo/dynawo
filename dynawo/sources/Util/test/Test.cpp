@@ -203,7 +203,7 @@ TEST(CommonTest, testTrace) {
 
   ASSERT_THROW_DYNAWO(Trace::severityLevelFromString("ABCDEF"), Error::GENERAL, KeyError_t::InvalidSeverityLevel);
 
-  Trace::TraceAppender app;
+  TraceAppender app;
   app.setTag("MyTag");
   app.setFilePath("res/myLogFile.log");
   app.setLvlFilter(INFO);
@@ -211,16 +211,16 @@ TEST(CommonTest, testTrace) {
   app.setSeparator(" | ");
   app.setShowTimeStamp(true);
   app.setTimeStampFormat("");
-  std::vector<Trace::TraceAppender> appenders;
+  std::vector<TraceAppender> appenders;
   appenders.push_back(app);
   Trace::addAppenders(appenders);
 
-  Trace::error("MyTag") << " MyErrorMessage" << Trace::endline;
-  TraceStream str(Trace::error("MyTag"));
+  ::TraceError("MyTag") << " MyErrorMessage" << Trace::endline;
+  TraceStream str(::TraceError("MyTag"));
   str << " MyErrorMessage2" << Trace::endline;
-  Trace::warn("MyTag") << " MyWarnMessage" << Trace::endline;
-  Trace::info("MyTag") << " MyInfoMessage" << Trace::endline;
-  Trace::debug("MyTag") << " MyDebugMessage" << Trace::endline;  // Filtered
+  ::TraceWarn("MyTag") << " MyWarnMessage" << Trace::endline;
+  ::TraceInfo("MyTag") << " MyInfoMessage" << Trace::endline;
+  ::TraceDebug("MyTag") << " MyDebugMessage" << Trace::endline;  // Filtered
 
   // Force the dump
   Trace::resetCustomAppenders();

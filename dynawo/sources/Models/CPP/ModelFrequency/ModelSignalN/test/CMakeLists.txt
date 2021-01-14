@@ -11,7 +11,7 @@
 set(MODULE_NAME MODELS_MODELSIGNALN_unittest)
 
 set(MODULE_SOURCES
-    TestSignalN.cpp
+  TestSignalN.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

@@ -17,6 +17,7 @@
  * @brief Solver based on sundials/IDA solver : variable step, order one or two
  *
  */
+
 #ifndef SOLVERS_SOLVERIDA_DYNSOLVERIDA_H_
 #define SOLVERS_SOLVERIDA_DYNSOLVERIDA_H_
 
@@ -27,6 +28,7 @@
 #include <sundials/sundials_matrix.h>
 #include <sundials/sundials_nvector.h>
 
+#include "DYNVisibility.h"
 #include "DYNSolverFactory.h"
 #include "DYNSolverImpl.h"
 
@@ -57,12 +59,12 @@ class SolverIDAFactory : public SolverFactory {
    * @brief Create an instance of solver
    * @return the new instance of solver created by the factory
    */
-  Solver* create() const;
+  DLL_PUBLIC Solver* create() const;
 
   /**
    * @brief SolverIDA destroy
    */
-  void destroy(Solver*) const;
+  DLL_PUBLIC void destroy(Solver*) const;
 };
 
 /**

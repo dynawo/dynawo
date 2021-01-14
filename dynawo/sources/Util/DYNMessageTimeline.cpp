@@ -38,13 +38,16 @@ MessageTimeline::MessageTimeline(const string& dicoName, const string& key) : Me
   initialize(key);
 }
 
+MessageTimeline::~MessageTimeline() {
+}
+
 void
 MessageTimeline::initialize(const string& key) {
   priority_ = boost::none;
   static const string dicoName = "TIMELINE_PRIORITY";
-  if (IoDicos::hasIoDico(dicoName)) {
+  if (::HasIoDico(dicoName)) {
     try {
-      string priority = IoDicos::getIoDico(dicoName)->msg(key);
+      string priority = ::GetIoDico(dicoName)->msg(key);
 #ifdef LANG_CXX11
       priority_ = std::stoi(priority);
 #else

@@ -21,6 +21,7 @@
 #ifndef MODELS_CPP_MODELFREQUENCY_MODELSIGNALN_DYNMODELSIGNALN_H_
 #define MODELS_CPP_MODELFREQUENCY_MODELSIGNALN_DYNMODELSIGNALN_H_
 
+#include "DYNVisibility.h"
 #include "DYNModelCPPImpl.h"
 #include "DYNSubModelFactory.h"
 
@@ -50,12 +51,12 @@ class ModelSignalNFactory : public SubModelFactory {
    *
    * @return A pointer to a new instance of ModelSignalN
    */
-  SubModel* create() const;
+  DLL_PUBLIC SubModel* create() const;
 
   /**
    * @brief ModelSignalN destroy
    */
-  void destroy(SubModel*) const;
+  DLL_PUBLIC void destroy(SubModel*) const;
 };
 
 /**

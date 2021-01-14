@@ -52,14 +52,14 @@ using parameters::ParametersSet;
  *
  * @return A pointer to a new instance of ModelVariationaAreaFactory
  */
-extern "C" DYN::SubModelFactory* getFactory() {
+extern "C" DLL_PUBLIC DYN::SubModelFactory* getFactory() {
   return (new DYN::ModelVariationAreaFactory());
 }
 
 /**
  * @brief ModelVariationAreaFactory destroy method
  */
-extern "C" void deleteFactory(DYN::SubModelFactory* factory) {
+extern "C" DLL_PUBLIC void deleteFactory(DYN::SubModelFactory* factory) {
   delete factory;
 }
 
@@ -329,8 +329,8 @@ ModelVariationArea::defineElements(std::vector<Element> &elements, std::map<std:
 
 void
 ModelVariationArea::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
-  Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << "DeltaPc_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "DeltaQc_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
+  ::TraceInfo() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  ::TraceInfo() << "  ->" << "DeltaPc_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
+  ::TraceInfo() << "  ->" << "DeltaQc_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
 }
 }  // namespace DYN

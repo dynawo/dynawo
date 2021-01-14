@@ -75,7 +75,7 @@ BusInterfaceIIDM::getVMin() const {
 double
 BusInterfaceIIDM::getV0() const {
   if (!U0_) {
-    Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "Bus", busIIDM_.getId(), "v") << Trace::endline;
+    ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "Bus", busIIDM_.getId(), "v") << Trace::endline;
     return defaultV0;
   }
   return U0_.value();
@@ -84,7 +84,7 @@ BusInterfaceIIDM::getV0() const {
 double
 BusInterfaceIIDM::getAngle0() const {
   if (!angle0_) {
-    Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "Bus", busIIDM_.getId(), "angle") << Trace::endline;
+    ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "Bus", busIIDM_.getId(), "angle") << Trace::endline;
     return defaultAngle0;
   }
   return angle0_.value();

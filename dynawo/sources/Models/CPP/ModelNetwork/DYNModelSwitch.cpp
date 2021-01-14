@@ -110,7 +110,7 @@ ModelSwitch::evalZ(const double& /*t*/) {
   State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != getConnectionState()) {
     topologyModified_ = true;
-    Trace::info() << DYNLog(SwitchStateChange, id_, getConnectionState(), currState) << Trace::endline;
+    ::TraceInfo() << DYNLog(SwitchStateChange, id_, getConnectionState(), currState) << Trace::endline;
     if (currState == CLOSED) {
       DYNAddTimelineEvent(network_, id_, SwitchClosed);
     } else if (currState == OPEN) {
@@ -259,14 +259,14 @@ void
 ModelSwitch::open() {
   z_[0] = OPEN;
   if (static_cast<State>(static_cast<int>(z_[0])) != getConnectionState())
-    Trace::info() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
+    ::TraceInfo() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
 }
 
 void
 ModelSwitch::close() {
   z_[0] = CLOSED;
   if (static_cast<State>(static_cast<int>(z_[0])) != getConnectionState())
-    Trace::info() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
+    ::TraceInfo() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
 }
 
 void

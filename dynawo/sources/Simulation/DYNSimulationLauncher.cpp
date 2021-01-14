@@ -20,8 +20,6 @@
 
 #include <string>
 
-#include <xml/sax/parser/ParserFactory.h>
-
 #include "DYNSimulationLauncher.h"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
@@ -33,10 +31,7 @@
 #include "JOBXmlImporter.h"
 #include "JOBIterators.h"
 #include "JOBJobsCollection.h"
-#include "JOBJobEntry.h"
 #include "JOBOutputsEntry.h"
-
-namespace parser = xml::sax::parser;
 
 using DYN::Trace;
 using DYN::Simulation;

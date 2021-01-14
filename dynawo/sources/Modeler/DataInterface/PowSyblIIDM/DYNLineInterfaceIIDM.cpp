@@ -97,7 +97,7 @@ LineInterfaceIIDM::getR() const {
 double
 LineInterfaceIIDM::getX() const {
   if (doubleIsZero(lineIIDM_.getX()) && doubleIsZero(lineIIDM_.getR())) {
-    Trace::warn() << DYNLog(PossibleDivisionByZero, lineIIDM_.getId()) << Trace::endline;
+    ::TraceWarn() << DYNLog(PossibleDivisionByZero, lineIIDM_.getId()) << Trace::endline;
     return 0.01;  // default parameter
   }
   return lineIIDM_.getX();
@@ -128,7 +128,7 @@ LineInterfaceIIDM::getP1() {
   double P = 0.0;
   if (getInitialConnected1()) {
     if (std::isnan(lineIIDM_.getTerminal1().getP())) {
-      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.getId(), "P1") << Trace::endline;
+      ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.getId(), "P1") << Trace::endline;
     } else {
       P = lineIIDM_.getTerminal1().getP();
     }
@@ -141,7 +141,7 @@ LineInterfaceIIDM::getQ1() {
   double Q = 0.0;
   if (getInitialConnected1()) {
     if (std::isnan(lineIIDM_.getTerminal1().getQ())) {
-      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.getId(), "Q1") << Trace::endline;
+      ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.getId(), "Q1") << Trace::endline;
     } else {
       Q = lineIIDM_.getTerminal1().getQ();
     }
@@ -154,7 +154,7 @@ LineInterfaceIIDM::getP2() {
   double P = 0.0;
   if (getInitialConnected2()) {
     if (std::isnan(lineIIDM_.getTerminal2().getP())) {
-      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.getId(), "P2") << Trace::endline;
+      ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.getId(), "P2") << Trace::endline;
     } else {
       P = lineIIDM_.getTerminal2().getP();
     }
@@ -167,7 +167,7 @@ LineInterfaceIIDM::getQ2() {
   double Q = 0.0;
   if (getInitialConnected2()) {
     if (std::isnan(lineIIDM_.getTerminal2().getQ())) {
-      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.getId(), "Q2") << Trace::endline;
+      ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "line", lineIIDM_.getId(), "Q2") << Trace::endline;
     } else {
       Q = lineIIDM_.getTerminal2().getQ();
     }

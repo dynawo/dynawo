@@ -26,11 +26,12 @@ target_include_directories(dynawo_CPPModelsCommon
   )
 target_include_directories(dynawo_CPPModelsCommon SYSTEM
   PRIVATE
-  $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
 target_compile_definitions(dynawo_CPPModelsCommon
-  INTERFACE $<$<BOOL:${MSVC}>:_USE_MATH_DEFINES>
+  INTERFACE
+    $<$<BOOL:${MSVC}>:_USE_MATH_DEFINES>
   )
 
 target_link_libraries(dynawo_CPPModelsCommon

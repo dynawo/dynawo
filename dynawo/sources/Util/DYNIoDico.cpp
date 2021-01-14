@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2021, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -17,17 +17,12 @@
  * @brief IoDico class implementation
  *
  */
-#include <limits.h>
 #include <stdlib.h>
 #include <sstream>
 #include <fstream>
-#include <vector>
 #include <boost/algorithm/string/trim.hpp>
-#include <boost/algorithm/string/split.hpp>
-#include <boost/algorithm/string/predicate.hpp>
 
 #include "DYNIoDico.h"
-#include "DYNExecUtils.h"
 #include "DYNMacrosMessage.h"
 using std::string;
 using std::ifstream;
@@ -39,122 +34,6 @@ using std::vector;
 namespace DYN {
 
 static bool readLine(string& line, string& key, string& phrase);
-
-shared_ptr<IoDicos> IoDicos::getInstance() {
-  static shared_ptr<IoDicos> instance;
-  if (instance)
-    return instance;
-
-  instance.reset(new IoDicos());
-  return instance;
-}
-
-void IoDicos::addPath(const string& path) {
-  paths_.push_back(path);
-}
-
-bool IoDicos::hasIoDico(const string& dicoName) {
-  return ( getInstance()->dicos_.find(dicoName) != getInstance()->dicos_.end());
-}
-
-boost::shared_ptr<IoDico> IoDicos::getIoDico(const string& dicoName) {
-  if (hasIoDico(dicoName)) {
-    return getInstance()->dicos_[dicoName];
-  } else {
-    throw MessageError("Unknown dictionary '" + dicoName + "'");
-  }
-}
-
-vector<std::string> IoDicos::findFiles(const string& fileName) {
-  vector<std::string> res;
-  if (fileName.empty())
-    return res;
-
-
-  // Research file in paths
-  vector<string> allPaths;
-  for (unsigned int i = 0; i < getInstance()->paths_.size(); ++i) {
-    vector<string> paths;
-    boost::algorithm::split(paths, getInstance()->paths_[i], boost::is_any_of(":"));
-    allPaths.insert(allPaths.begin(), paths.begin(), paths.end());
-  }
-
-  for (vector<string>::const_iterator it = allPaths.begin();
-          it != allPaths.end();
-          ++it) {
-    string fic = *it;
-
-    if (fic.size() > 0 && fic[fic.size() - 1] != '/')
-      fic += '/';
-    fic += fileName;
-
-    ifstream in;
-    // Test if file exists
-    in.open(fic.c_str());
-    if (!in.fail()) {
-      res.push_back(fic);
-    }
-  }
-
-  return res;
-}
-
-void IoDicos::addDico(const string& name, const string& baseName, const string& locale) {
-  if (baseName.empty()) {
-    throw MessageError("impossible to add the dictionary : empty name");
-  }
-
-  // build name of the file to search
-  vector<string> files;
-  string fileName;
-  // To deal with a Priority dictionnary that does not have a locale.
-  if (locale != "") {
-    fileName = baseName + string("_") + locale + string(".dic");
-    files = findFiles(fileName);
-  } else {
-    fileName = baseName + string(".dic");
-    files = findFiles(fileName);
-  }
-
-  if (files.empty())
-    throw MessageError("Impossible to find the dictionary : " + fileName);
-  if (files.size() != 1) {
-    throw MessageError("Multiple occurences of the dictionary : " + fileName);
-  }
-  string file = files[0];
-
-  if (hasIoDico(name)) {
-    boost::shared_ptr<IoDico> dico = getIoDico(name);
-    dico->readFile(file);  // new key/sentence added to the existing dico
-  } else {
-    boost::shared_ptr<IoDico> dico(new IoDico(name));
-    dico->readFile(file);
-    getInstance()->dicos_[name] = dico;
-  }
-}
-
-void IoDicos::addDicos(const string& dictionariesMappingFile, const string& locale) {
-  if (dictionariesMappingFile.empty()) {
-    throw MessageError("impossible to add the dictionary mapping file : empty name");
-  }
-
-  // build name of the file to search
-  string fileName = dictionariesMappingFile + ".dic";
-  const vector<string>& files = findFiles(fileName);
-
-  if (files.empty())
-    throw MessageError("Impossible to find the dictionary mapping file : " + fileName);
-
-  boost::shared_ptr<IoDico> dico(new IoDico("MAPPING"));
-  for (vector<string>::const_iterator it = files.begin(), itEnd = files.end(); it != itEnd; ++it) {
-    dico->readFile(*it);
-  }
-
-  typedef std::map<string, string>::const_iterator DicoIter;
-  for (DicoIter it = dico->begin(), itEnd = dico->end(); it != itEnd; ++it) {
-    addDico(it->second, it->first, locale);
-  }
-}
 
 IoDico::IoDico(const string& name) :
 name_(name) {

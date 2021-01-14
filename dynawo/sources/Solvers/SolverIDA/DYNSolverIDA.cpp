@@ -18,11 +18,9 @@
  */
 
 #include <cmath>
-#include <fstream>
 #include <iostream>
 #include <iomanip>
 #include <set>
-#include <sstream>
 #include <vector>
 #include <algorithm>
 #include <map>
@@ -33,7 +31,6 @@
 #include <ida/ida.h>
 #include <nvector/nvector_serial.h>
 #include <sundials/sundials_types.h>
-#include <sundials/sundials_math.h>
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <sunlinsol/sunlinsol_klu.h>
 
@@ -71,14 +68,14 @@ using parameters::ParametersSet;
  * @brief SolverIDAFactory getter
  * @return A pointer to a new instance of SolverIDAFactory
  */
-extern "C" DYN::SolverFactory * getFactory() {
+extern "C" DLL_PUBLIC DYN::SolverFactory* getFactory() {
   return (new DYN::SolverIDAFactory());
 }
 
 /**
  * @brief SolverIDAFactory destroy method
  */
-extern "C" void deleteFactory(DYN::SolverFactory* factory) {
+extern "C" DLL_PUBLIC void deleteFactory(DYN::SolverFactory* factory) {
   delete factory;
 }
 
@@ -97,21 +94,6 @@ extern "C" DYN::Solver* DYN::SolverIDAFactory::create() const {
 extern "C" void DYN::SolverIDAFactory::destroy(DYN::Solver* solver) const {
   delete solver;
 }
-
-/**
- * @brief structure use for map compare and sort double in a map
- */
-struct mapcomp {
-    /**
-   * @brief compare two double
-   * @param d1 first double to compare
-   * @param d2 second double to compare
-   * @return @b true is the first double is greater that the second one
-   */
-  bool operator()(const double& d1, const double& d2) const {
-    return d1 > d2;
-  }
-};
 
 namespace DYN {
 
@@ -326,7 +308,7 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
   g0_.assign(model_->sizeG(), NO_ROOT);
   g1_.assign(model_->sizeG(), NO_ROOT);
 
-  Trace::debug() << DYNLog(SolverIDAInitOk) << Trace::endline;
+  ::TraceDebug() << DYNLog(SolverIDAInitOk) << Trace::endline;
 
   flag = IDASetStepToleranceIC(IDAMem_, 0.01);
   if (flag < 0)
@@ -359,7 +341,7 @@ SolverIDA::calculateIC() {
   y0.assign(vYy_.begin(), vYy_.end());
 #ifdef _DEBUG_
   for (int i = 0; i < model_->sizeY(); ++i) {
-    Trace::debug() << "Y[" << std::setw(3) << i << "] = "
+    ::TraceDebug() << "Y[" << std::setw(3) << i << "] = "
             << std::setw(15) << vYy_[i]
             << " Yp[" << std::setw(2) << i << "] = "
             << std::setw(15) << vYp_[i]
@@ -401,9 +383,9 @@ SolverIDA::calculateIC() {
     if (flag0 < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
 #ifdef _DEBUG_
-    Trace::debug() << DYNLog(SolverIDABeforeCalcIC) << Trace::endline;
+    ::TraceDebug() << DYNLog(SolverIDABeforeCalcIC) << Trace::endline;
     for (int i = 0; i < model_->sizeY(); ++i) {
-      Trace::debug() << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vYy_[i] << " Yp[" << std::setw(3) << i << "] = " << std::setw(15) << vYp_[i]
+      ::TraceDebug() << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vYy_[i] << " Yp[" << std::setw(3) << i << "] = " << std::setw(15) << vYp_[i]
               << " diffY[" << std::setw(3) << i << "] = " << vYy_[i] - ySave[i] << Trace::endline;
     }
 #endif
@@ -416,18 +398,18 @@ SolverIDA::calculateIC() {
     if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetConsistentIC");
 #ifdef _DEBUG_
-    Trace::debug() << DYNLog(SolverIDAAfterInit) << Trace::endline;
+    ::TraceDebug() << DYNLog(SolverIDAAfterInit) << Trace::endline;
     double maxDiff = 0;
     int indice = -1;
     for (int i = 0; i < model_->sizeY(); ++i) {
-      Trace::debug() << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vYy_[i] << " Yp[" << std::setw(3) << i << "] = " << std::setw(15) << vYp_[i]
+      ::TraceDebug() << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vYy_[i] << " Yp[" << std::setw(3) << i << "] = " << std::setw(15) << vYp_[i]
               << " diff =" << std::setw(15) << y0[i] - vYy_[i] << Trace::endline;
       if (std::abs(y0[i] - vYy_[i]) > maxDiff) {
         maxDiff = std::abs(y0[i] - vYy_[i]);
         indice = i;
       }
     }
-    Trace::debug() << DYNLog(SolverIDAMaxDiff, maxDiff, indice) << Trace::endline;
+    ::TraceDebug() << DYNLog(SolverIDAMaxDiff, maxDiff, indice) << Trace::endline;
 #endif
     // Root stabilization
     change = false;
@@ -503,14 +485,14 @@ SolverIDA::analyseFlag(const int & flag) {
       break;
     default:
 #ifdef _DEBUG_
-      Trace::error() << DYNLog(SolverIDAUnknownError) << Trace::endline;
+      ::TraceError() << DYNLog(SolverIDAUnknownError) << Trace::endline;
 #endif
       throw DYNError(Error::SUNDIALS_ERROR, SolverIDAError);
   }
 
   if (flag < 0) {
 #ifdef _DEBUG_
-    Trace::error() << msg.str() << Trace::endline;
+    ::TraceError() << msg.str() << Trace::endline;
 #endif
     throw DYNError(Error::SUNDIALS_ERROR, SolverIDAError);
   }
@@ -531,10 +513,10 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
   model->evalF(tres, iyy, iyp, irr);
 #ifdef _DEBUG_
   if (solv->flagInit()) {
-    Trace::debug() << "===== " << DYNLog(SolverIDADebugResidual) << " =====" << Trace::endline;
+    ::TraceDebug() << "===== " << DYNLog(SolverIDADebugResidual) << " =====" << Trace::endline;
     for (int i = 0; i < model->sizeF(); ++i) {
       if (std::abs(irr[i]) > 1e-04) {
-        Trace::debug() << "  f[" << i << "]=" << irr[i] << Trace::endline;
+        ::TraceDebug() << "  f[" << i << "]=" << irr[i] << Trace::endline;
       }
     }
   }
@@ -628,12 +610,12 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
     vector<state_g> rootsFound = getRootsFound();
     for (unsigned int i = 0; i < rootsFound.size(); i++) {
       if (rootsFound[i] != NO_ROOT) {
-        Trace::debug() << "SolverIDA: rootsfound ->  g[" << i << "]=" << rootsFound[i] << Trace::endline;
+        ::TraceDebug() << "SolverIDA: rootsfound ->  g[" << i << "]=" << rootsFound[i] << Trace::endline;
         std::string subModelName("");
         int localGIndex(0);
         std::string gEquation("");
         model_->getGInfos(i, subModelName, localGIndex, gEquation);
-        Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
+        ::TraceDebug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
       }
     }
   }
@@ -676,11 +658,11 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
   }
   std::sort(yErr.begin(), yErr.end(), mapcompabs());
 
-  Trace::debug() << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
+  ::TraceDebug() << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
   vector<std::pair<double, int> >::iterator it;
   int i = 0;
   for (it = yErr.begin(); it != yErr.end(); ++it) {
-      Trace::debug() << DYNLog(SolverIDAErrorValue, thresholdErr, it->second, it->first) << Trace::endline;
+      ::TraceDebug() << DYNLog(SolverIDAErrorValue, thresholdErr, it->second, it->first) << Trace::endline;
       if (i >= nbErr)
         break;
       ++i;
@@ -897,9 +879,9 @@ void
 SolverIDA::errHandlerFn(int error_code, const char* module, const char* function,
         char* msg, void* /*eh_data*/) {
   if (error_code == IDA_WARNING) {
-    Trace::warn() << module << " " << function << " :" << msg << Trace::endline;
+    ::TraceWarn() << module << " " << function << " :" << msg << Trace::endline;
   } else {
-    Trace::error() << module << " " << function << " :" << msg << Trace::endline;
+    ::TraceError() << module << " " << function << " :" << msg << Trace::endline;
   }
 }
 

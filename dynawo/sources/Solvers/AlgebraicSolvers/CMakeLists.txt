@@ -41,10 +41,11 @@ target_include_directories(dynawo_SolverKINSOL SYSTEM
   )
 
 target_link_libraries(dynawo_SolverKINSOL
-  PRIVATE
+  PUBLIC
     Sundials::Sundials_NVECSERIAL
     Sundials::Sundials_KINSOL
     Sundials::Sundials_SUNLINSOLKLU
+  PRIVATE
     dynawo_Common
     dynawo_Util
     dynawo_SolverCommon

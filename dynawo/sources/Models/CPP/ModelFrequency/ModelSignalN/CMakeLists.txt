@@ -28,5 +28,5 @@ target_include_directories(${MODEL_NAME}
   )
 target_include_directories(${MODEL_NAME} SYSTEM
   PRIVATE
-  $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
   )

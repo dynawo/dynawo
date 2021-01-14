@@ -118,14 +118,14 @@ ModelBusContainer::exploreNeighbors(double t) {
   // Erase the last subNetwork which is empty
   subNetworks_.erase(subNetworks_.end() - 1);
 
-  Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
-  Trace::debug(Trace::network()) << "SubNetworks at time " << t << Trace::endline;
-  Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
-  Trace::debug(Trace::network()) << DYNLog(NbSubNetwork, subNetworks_.size()) << Trace::endline;
+  ::TraceDebug(Trace::network()) << "------------------------------" << Trace::endline;
+  ::TraceDebug(Trace::network()) << "SubNetworks at time " << t << Trace::endline;
+  ::TraceDebug(Trace::network()) << "------------------------------" << Trace::endline;
+  ::TraceDebug(Trace::network()) << DYNLog(NbSubNetwork, subNetworks_.size()) << Trace::endline;
   for (unsigned int i = 0; i < subNetworks_.size(); ++i) {
-    Trace::debug(Trace::network()) << DYNLog(SubNetwork, i, subNetworks_[i]->nbBus()) << Trace::endline;
+    ::TraceDebug(Trace::network()) << DYNLog(SubNetwork, i, subNetworks_[i]->nbBus()) << Trace::endline;
     for (unsigned int j = 0; j < subNetworks_[i]->nbBus(); ++j) {
-      Trace::debug(Trace::network()) << "                " << subNetworks_[i]->bus(j)->id() << " (subNetwork " << i << ")" << Trace::endline;
+      ::TraceDebug(Trace::network()) << "                " << subNetworks_[i]->bus(j)->id() << " (subNetwork " << i << ")" << Trace::endline;
     }
   }
 }
@@ -910,7 +910,7 @@ SubNetwork::shutDownNodes() {
   for (unsigned int i = 0; i < bus_.size(); ++i) {
     if (!bus_[i]->getSwitchOff()) {
       bus_[i]->switchOff();
-      Trace::info() << DYNLog(SwitchOffBus, bus_[i]->id()) << Trace::endline;
+      ::TraceInfo() << DYNLog(SwitchOffBus, bus_[i]->id()) << Trace::endline;
     }
   }
 }
@@ -920,7 +920,7 @@ SubNetwork::turnOnNodes() {
   for (unsigned int i = 0; i < bus_.size(); ++i) {
     if (bus_[i]->getSwitchOff()) {
       bus_[i]->switchOn();
-      Trace::info() << DYNLog(SwitchOnBus, bus_[i]->id()) << Trace::endline;
+      ::TraceInfo() << DYNLog(SwitchOnBus, bus_[i]->id()) << Trace::endline;
     }
   }
 }

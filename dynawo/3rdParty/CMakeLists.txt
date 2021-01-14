@@ -882,8 +882,8 @@ else()
                           -DLIBZIP_BUILD_TESTS:BOOL=$<BOOL:${LIBZIP_BUILD_TESTS}>
                           -DLIBZIP_BUILD_SAMPLES:BOOL=$<BOOL:${LIBZIP_BUILD_SAMPLES}>
                           -DLIBARCHIVE_HOME:PATH=${LIBARCHIVE_HOME}
+                          -DZLIB_ROOT=${ZLIB_ROOT}
                           -DBOOST_ROOT:PATH=${BOOST_ROOT}
-                          -DCMAKE_PREFIX_PATH:PATH=${ZLIB_ROOT}
                           $<$<BOOL:${LIBZIP_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}>
                           -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
   )

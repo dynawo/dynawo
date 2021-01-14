@@ -31,7 +31,6 @@
 
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
-#include <boost/serialization/vector.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -43,7 +42,6 @@
 #include <libzip/ZipOutputStream.h>
 
 #include "TLTimelineFactory.h"
-#include "TLTimeline.h"
 #include "TLTxtExporter.h"
 #include "TLXmlExporter.h"
 #include "TLCsvExporter.h"
@@ -56,12 +54,10 @@
 #include "CRVCsvExporter.h"
 
 #include "FSFinalStateCollectionFactory.h"
-#include "FSFinalStateCollection.h"
 #include "FSXmlImporter.h"
 #include "FSXmlExporter.h"
 #include "FSIterators.h"
 
-#include "CSTRConstraintsCollection.h"
 #include "CSTRConstraintsCollectionFactory.h"
 #include "CSTRTxtExporter.h"
 #include "CSTRXmlExporter.h"
@@ -73,20 +69,7 @@
 #include "CRTCriteriaCollection.h"
 
 #include "JOBJobEntry.h"
-#include "JOBSolverEntry.h"
-#include "JOBModelerEntry.h"
-#include "JOBModelsDirEntry.h"
-#include "JOBOutputsEntry.h"
-#include "JOBNetworkEntry.h"
-#include "JOBInitialStateEntry.h"
-#include "JOBInitValuesEntry.h"
-#include "JOBConstraintsEntry.h"
 #include "JOBTimelineEntry.h"
-#include "JOBTimetableEntry.h"
-#include "JOBFinalStateEntry.h"
-#include "JOBCurvesEntry.h"
-#include "JOBSimulationEntry.h"
-#include "JOBLogsEntry.h"
 #include "JOBAppenderEntry.h"
 #include "JOBDynModelsEntry.h"
 
@@ -102,7 +85,6 @@
 #include "DYNMacrosMessage.h"
 #include "DYNSolver.h"
 #include "DYNSolverFactory.h"
-#include "DYNSubModelFactory.h"
 #include "DYNTimer.h"
 #include "DYNModelMulti.h"
 #include "DYNModeler.h"
@@ -510,7 +492,7 @@ Simulation::loadDynamicData() {
     } else {
       dyd_->initFromDydFiles(dydFiles_);
       if (activateCriteria_) {
-        Trace::warn() << DYNLog(CriteriaDefinedButNoIIDM) << Trace::endline;
+        ::TraceWarn() << DYNLog(CriteriaDefinedButNoIIDM) << Trace::endline;
       }
       return;
     }
@@ -564,7 +546,7 @@ Simulation::configureLogs() {
       Trace::disableLogging();
     } else {
       vector<shared_ptr<job::AppenderEntry> > appendersEntry = jobEntry_->getOutputsEntry()->getLogsEntry()->getAppenderEntries();
-      vector<Trace::TraceAppender> appenders;
+      vector<TraceAppender> appenders;
       vector<shared_ptr<job::AppenderEntry> >::iterator itApp = appendersEntry.begin();
       for (; itApp != appendersEntry.end(); ++itApp) {
         string file = createAbsolutePath((*itApp)->getFilePath(), logsDir);
@@ -573,7 +555,7 @@ Simulation::configureLogs() {
         if (!is_directory(fileDir))
           create_directory(fileDir);
 
-        Trace::TraceAppender app;
+        TraceAppender app;
         app.setTag((*itApp)->getTag());
         app.setFilePath(file);
         app.setLvlFilter(Trace::severityLevelFromString((*itApp)->getLvlFilter()));
@@ -589,10 +571,10 @@ Simulation::configureLogs() {
       itApp = appendersEntry.begin();
       for (; itApp != appendersEntry.end(); ++itApp) {
         string tag = (*itApp)->getTag();
-        Trace::info(tag) << " ============================================================ " << Trace::endline;
-        Trace::info(tag) << DYNLog(DynawoVersion) << "  " << setw(8) << DYNAWO_VERSION_STRING << Trace::endline;
-        Trace::info(tag) << DYNLog(DynawoRevision) << "  " << setw(8) << DYNAWO_GIT_BRANCH << "-" << DYNAWO_GIT_HASH << Trace::endline;
-        Trace::info(tag) << " ============================================================ " << Trace::endline;
+        ::TraceInfo(tag) << " ============================================================ " << Trace::endline;
+        ::TraceInfo(tag) << DYNLog(DynawoVersion) << "  " << setw(8) << DYNAWO_VERSION_STRING << Trace::endline;
+        ::TraceInfo(tag) << DYNLog(DynawoRevision) << "  " << setw(8) << DYNAWO_GIT_BRANCH << "-" << DYNAWO_GIT_HASH << Trace::endline;
+        ::TraceInfo(tag) << " ============================================================ " << Trace::endline;
       }
     }
   } else {
@@ -640,9 +622,9 @@ Simulation::init() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::init()");
 #endif
-  Trace::info() << Trace::endline << "-----------------------------------------------------------------------" << Trace::endline;
-  Trace::info() << DYNLog(ModelBuilding) << Trace::endline;
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << Trace::endline << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << DYNLog(ModelBuilding) << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
 
   loadDynamicData();
   compileModels();
@@ -653,7 +635,7 @@ Simulation::init() {
   // Simulation::initFromData==>Modeler::initSystem==>Modeler::initModelDescription(dyd,data)
   initFromData(data_, dyd_);
   initStructure();
-  if (Trace::logExists(Trace::parameters(), DEBUG)) {
+  if (::TraceLogExists(Trace::parameters(), DEBUG)) {
     model_->printParameterValues();
     solver_->printParameterValues();
   }
@@ -663,15 +645,15 @@ Simulation::init() {
 #ifdef _DEBUG_
   printDebugInfo();
 #endif
-  if (Trace::logExists(Trace::modeler(), DEBUG))
+  if (::TraceLogExists(Trace::modeler(), DEBUG))
     model_->printModel();
-  if (Trace::logExists(Trace::variables(), DEBUG))
+  if (::TraceLogExists(Trace::variables(), DEBUG))
     model_->printVariableNames();
 
   model_->setTimeline(timeline_);
   model_->setConstraints(constraintsCollection_);
 
-  if (Trace::logExists(Trace::equations(), DEBUG)) {
+  if (::TraceLogExists(Trace::equations(), DEBUG)) {
     model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
     model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
     model_->printEquations();
@@ -682,16 +664,16 @@ Simulation::init() {
 #endif
 
   tCurrent_ = tStart_;
-  Trace::info() << DYNLog(ModelBuildingEnd) << Trace::endline;
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
+  ::TraceInfo() << DYNLog(ModelBuildingEnd) << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 
   if (initialStateFile_ != "") {
-    Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
-    Trace::info() << DYNLog(ModelInitialStateLoad) << Trace::endline;
-    Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+    ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
+    ::TraceInfo() << DYNLog(ModelInitialStateLoad) << Trace::endline;
+    ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
     t0 = loadState(initialStateFile_);  // loadState and return initial time
-    Trace::info() << DYNLog(ModelInitialStateLoadEnd) << Trace::endline;
-    Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
+    ::TraceInfo() << DYNLog(ModelInitialStateLoadEnd) << Trace::endline;
+    ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
   }
 
   // When a simulation starts with a dumpfile (initial condition of variables for dynamic models),
@@ -703,9 +685,9 @@ Simulation::init() {
   calculateIC();
 
   // Initialize curves
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
-  Trace::info() << DYNLog(CurveInit) << Trace::endline;
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << DYNLog(CurveInit) << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
   const std::vector<double>& y = solver_->getCurrentY();
   unsigned nbCurves = 0;
   for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
@@ -723,8 +705,8 @@ Simulation::init() {
   }
   stringstream ss;
   ss << nbCurves;
-  Trace::info() << DYNLog(CurveInitEnd, ss.str()) << Trace::endline;
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
+  ::TraceInfo() << DYNLog(CurveInitEnd, ss.str()) << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 
   // if no dump to load t0 should be equal to zero
   // if dump loaded, t0 should be equal to the current time loaded
@@ -738,14 +720,14 @@ Simulation::init() {
 void
 Simulation::calculateIC() {
   // ensure locally satisfactory values for initial models
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
-  Trace::info() << DYNLog(ModelLocalInit) << Trace::endline;
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << DYNLog(ModelLocalInit) << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
   model_->setIsInitProcess(true);
   model_->init(tStart_);
   model_->rotateBuffers();
   model_->printMessages();
-  if (Trace::logExists(Trace::parameters(), DEBUG)) {
+  if (::TraceLogExists(Trace::parameters(), DEBUG)) {
     model_->printLocalInitParametersValues();
   }
 
@@ -759,12 +741,12 @@ Simulation::calculateIC() {
   model_->checkDataCoherence(tCurrent_);
   model_->checkParametersCoherence();
   model_->setIsInitProcess(false);
-  Trace::info() << DYNLog(ModelLocalInitEnd) << Trace::endline;
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
+  ::TraceInfo() << DYNLog(ModelLocalInitEnd) << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
-  Trace::info() << DYNLog(ModelGlobalInit) << Trace::endline;
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << DYNLog(ModelGlobalInit) << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
   // ensure globally satisfactory initial values for dynamic models
   solver_->init(model_, tStart_, tStop_);
   solver_->calculateIC();
@@ -781,8 +763,8 @@ Simulation::calculateIC() {
 
   // after the initialization process (use of dynamic model)
   model_->checkDataCoherence(tCurrent_);
-  Trace::info() << DYNLog(ModelGlobalInitEnd) << Trace::endline;
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
+  ::TraceInfo() << DYNLog(ModelGlobalInitEnd) << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 }
 
 void
@@ -820,7 +802,7 @@ Simulation::simulate() {
       bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
         updateCurves(true);
-        Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
+        ::TraceInfo() << DYNLog(NewStartPoint) << Trace::endline;
         solver_->reinit();
         model_->getCurrentZ(zCurrent_);
         solver_->printSolve();
@@ -876,12 +858,12 @@ Simulation::simulate() {
     if (timetableOutputFile_ != "")
         remove(timetableOutputFile_);
   } catch (const Terminate& t) {
-    Trace::warn() << t.what() << Trace::endline;
+    ::TraceWarn() << t.what() << Trace::endline;
     model_->printMessages();
     if (timetableOutputFile_ != "")
         remove(timetableOutputFile_);
   } catch (const Error& e) {
-    Trace::error() << e.what() << Trace::endline;
+    ::TraceError() << e.what() << Trace::endline;
     if (timetableOutputFile_ != "")
         remove(timetableOutputFile_);
     throw;
@@ -949,9 +931,9 @@ Simulation::updateCurves(bool updateCalculateVariable) {
 
 void
 Simulation::printSolverHeader() {
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
-  Trace::info() << DYNLog(SimulationStart, solver_->solverType()) << Trace::endline;
-  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
+  ::TraceInfo() << DYNLog(SimulationStart, solver_->solverType()) << Trace::endline;
+  ::TraceInfo() << "-----------------------------------------------------------------------" << Trace::endline;
   solver_->printHeader();
 }
 
@@ -965,7 +947,7 @@ Simulation::addEvent(const MessageTimeline& messageTimeline) {
 
 void
 Simulation::printHighestDerivativesValues() {
-  if (!Trace::logExists("", DEBUG)) return;
+  if (!::TraceLogExists("", DEBUG)) return;
   const vector<double>& deriv = solver_->getCurrentYP();
   vector<std::pair<double, size_t> > derivValues;
   for (size_t i = 0, iEnd = deriv.size(); i < iEnd; ++i)
@@ -974,9 +956,9 @@ Simulation::printHighestDerivativesValues() {
   std::sort(derivValues.begin(), derivValues.end(), mapcompabs());
 
   const unsigned nbDeriv = std::min(10, model_->sizeY());
-  Trace::debug() << DYNLog(SolverLargestDeriv, nbDeriv) << Trace::endline;
+  ::TraceDebug() << DYNLog(SolverLargestDeriv, nbDeriv) << Trace::endline;
   for (size_t i = 0; i < nbDeriv; ++i) {
-    Trace::debug() << DYNLog(SolverLargestDerivValue, derivValues[i].second, derivValues[i].first,
+    ::TraceDebug() << DYNLog(SolverLargestDerivValue, derivValues[i].second, derivValues[i].first,
                              model_->getVariableName(derivValues[i].second)) << Trace::endline;
   }
 }
@@ -1204,8 +1186,8 @@ Simulation::loadState(const string & fileName) {
 
 void
 Simulation::printDebugInfo() {
-  Trace::debug() << DYNLog(NbVar, model_->sizeY()) << Trace::endline;
-  Trace::debug() << DYNLog(NbRootFunctions, model_->sizeG()) << Trace::endline;
+  ::TraceDebug() << DYNLog(NbVar, model_->sizeY()) << Trace::endline;
+  ::TraceDebug() << DYNLog(NbRootFunctions, model_->sizeG()) << Trace::endline;
 }
 
 void

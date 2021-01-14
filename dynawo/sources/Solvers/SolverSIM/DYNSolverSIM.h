@@ -18,6 +18,7 @@
  * to solve each step
  *
  */
+
 #ifndef SOLVERS_SOLVERSIM_DYNSOLVERSIM_H_
 #define SOLVERS_SOLVERSIM_DYNSOLVERSIM_H_
 
@@ -28,6 +29,7 @@
 #include "DYNSolverFactory.h"
 #include "DYNSolverImpl.h"
 #include "DYNEnumUtils.h"
+#include "DYNVisibility.h"
 
 namespace parameters {
 class ParametersSet;
@@ -58,12 +60,12 @@ class SolverSIMFactory : public SolverFactory {  ///< Simplified solver factory
    * @brief Create an instance of solver
    * @return the new instance of solver created by the factory
    */
-  Solver* create() const;
+  DLL_PUBLIC Solver* create() const;
 
   /**
    * @brief SolverSIM destroy
    */
-  void destroy(Solver*) const;
+  DLL_PUBLIC void destroy(Solver*) const;
 };
 
 /**

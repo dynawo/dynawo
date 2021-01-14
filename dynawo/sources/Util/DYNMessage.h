@@ -77,7 +77,7 @@ class Message {
   /**
    * @brief destructor
    */
-  ~Message() { }
+  ~Message();
 
   /**
    * @brief Operator , overload for message
