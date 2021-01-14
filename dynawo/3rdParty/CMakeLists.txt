@@ -173,7 +173,7 @@ endif()
 set(dlfcnwin32_url       ${dlfcnwin32_prefix_url}/v${dlfcnwin32_version}.tar.gz)
 set(dlfcnwin32_md5       2298CBFB793CD8B58FC9D89EE410A792)
 
-set(adept_version        2.0.5)
+set(adept_version        2.0.8)
 set(adept_name           adept-${adept_version}.tar.gz)
 if(DEFINED ENV{DYNAWO_ADEPT_DOWNLOAD_URL})
   set(adept_prefix_url $ENV{DYNAWO_ADEPT_DOWNLOAD_URL})
@@ -181,7 +181,7 @@ else()
   set(adept_prefix_url http://www.met.reading.ac.uk/clouds/adept)
 endif()
 set(adept_url            ${adept_prefix_url}/${adept_name})
-set(adept_md5            13B209644A6CCA5EA522A7795D86647B)
+set(adept_md5            213245A0B93D57E17819F448E873C66B)
 
 set(suitesparse_version  5.4.0)
 set(suitesparse_name     SuiteSparse-${suitesparse_version}.tar.gz)
@@ -591,7 +591,7 @@ else()
 
       CONFIGURE_COMMAND   <SOURCE_DIR>/configure
                           "CXX=${CMAKE_CXX_COMPILER}"
-                          "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0>"
+                          "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3 -march=native,-O0>"
                           --prefix=<INSTALL_DIR>
                           $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static>
                           $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared>
