@@ -136,7 +136,7 @@ if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'GNU')
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Werror -fdiagnostics-show-option -Wno-unused-local-typedefs")
   # -Wswitch-enum : Warn whenever a switch statement has an index of enumerated type and lacks a case for one or more of the named codes of that enumeration
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wswitch-enum -Wunused")
-elseif('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang' OR '${CMAKE_CXX_COMPILER_ID}' STREQUAL 'AppleClang')
+elseif('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang' OR '${CMAKE_CXX_COMPILER_ID}')
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Weverything")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-conditional-uninitialized")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-conversion")
@@ -189,26 +189,9 @@ elseif('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang' OR '${CMAKE_CXX_COMPILER_ID}'
   endif()
 endif()
 
-if(APPLE)
-  set(CMAKE_MACOSX_RPATH True)
-
-  # use, i.e. don't skip the full RPATH for the build tree
-  set(CMAKE_SKIP_BUILD_RPATH False)
-
-  # when building, don't use the install RPATH already
-  # (but later on when installing)
-  set(CMAKE_BUILD_WITH_INSTALL_RPATH False)
-
-  set(CMAKE_INSTALL_RPATH "${INSTALL_PREFIX}/lib")
-
-  # add the automatically determined parts of the RPATH
-  # which point to directories outside the build tree to the install RPATH
-  set(CMAKE_INSTALL_RPATH_USE_LINK_PATH True)
-endif()
-
 # Python Interpreter
 find_package(PythonInterp REQUIRED)
-IF (DEFINED DYNAWO_PYTHON_COMMAND AND NOT DYNAWO_PYTHON_COMMAND STREQUAL "")
+if (DEFINED DYNAWO_PYTHON_COMMAND AND NOT DYNAWO_PYTHON_COMMAND STREQUAL "")
   set(PYTHON_EXECUTABLE ${DYNAWO_PYTHON_COMMAND})
   separate_arguments(PYTHON_EXECUTABLE)
 endif()

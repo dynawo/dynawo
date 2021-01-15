@@ -81,7 +81,7 @@ set(BOOST_USE_STATIC "@BOOST_USE_STATIC@")
 # Boost
 if(BOOST_ROOT_DEFAULT STREQUAL "true")
   set(Boost_NO_SYSTEM_PATHS FALSE)
-ELSE()
+else()
   set(Boost_NO_SYSTEM_PATHS TRUE)
 endif()
 
@@ -92,7 +92,7 @@ if(BOOST_USE_STATIC)
       set(Boost_USE_STATIC_RUNTIME TRUE)
     endif()
   endif()
-ELSE()
+else()
   set(BUILD_SHARED_LIBS ON)
   add_definitions(-DBOOST_ALL_DYN_LINK)
 endif()
@@ -173,9 +173,3 @@ target_link_libraries(lib
     Boost::system
     $ENV{DYNAWO_ADDITIONAL_LIBRARY_FOR_PREASSEMBLED}
 )
-
-if(APPLE)
-  if(DYNAWO_LIBRARY_TYPE STREQUAL "STATIC")
-    target_link_libraries(lib PRIVATE "-flat_namespace")
-  endif()
-endif()

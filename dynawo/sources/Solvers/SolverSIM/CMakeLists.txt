@@ -45,12 +45,6 @@ target_link_libraries(dynawo_SolverSIM
     dynawo_SolverKINSOL
   )
 
-if(APPLE)
-  if(LIBRARY_TYPE STREQUAL "STATIC")
-    target_link_libraries(dynawo_SolverSIM PRIVATE "-flat_namespace")
-  endif()
-endif()
-
 set_target_properties(dynawo_SolverSIM PROPERTIES VERSION ${SOLVER_SIM_VERSION_STRING}
                                                 SOVERSION ${SOLVER_SIM_VERSION_MAJOR}
                                                    PREFIX "")
