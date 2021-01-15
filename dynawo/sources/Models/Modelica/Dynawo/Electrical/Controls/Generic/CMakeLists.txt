@@ -11,17 +11,17 @@
 add_subdirectory(Functions F)
 
 set(MODEL_FILES
-    # Generic automaton
-    package.mo
-    package.order
-    GenericAutomaton.mo
-    GenericAutomatonConstants.mo
-    GenericAutomaton.extvar
-    )
+  # Generic automaton
+  package.mo
+  package.order
+  GenericAutomaton.mo
+  GenericAutomatonConstants.mo
+  GenericAutomaton.extvar
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

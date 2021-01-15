@@ -11,30 +11,30 @@
 # Machines models
 
 set(MODEL_FILES
-    package.mo
-    package.order
-    BaseClasses.mo
-    GeneratorPQProp.mo
-    GeneratorPQProp.extvar
-    GeneratorPQPropDiagramPQ.mo
-    GeneratorPQPropDiagramPQ.extvar
-    GeneratorPV.mo
-    GeneratorPV.extvar
-    GeneratorPV_INIT.mo
-    GeneratorPVDiagramPQ.mo
-    GeneratorPVDiagramPQ.extvar
-    GeneratorPVDiagram_INIT.mo
-    GeneratorPVProp.mo
-    GeneratorPVProp.extvar
-    GeneratorPVRemote.mo
-    GeneratorPVRemote.extvar
-    GeneratorPVRemoteDiagramPQ.mo
-    GeneratorPVRemoteDiagramPQ.extvar
-    )
+  package.mo
+  package.order
+  BaseClasses.mo
+  GeneratorPQProp.mo
+  GeneratorPQProp.extvar
+  GeneratorPQPropDiagramPQ.mo
+  GeneratorPQPropDiagramPQ.extvar
+  GeneratorPV.mo
+  GeneratorPV.extvar
+  GeneratorPV_INIT.mo
+  GeneratorPVDiagramPQ.mo
+  GeneratorPVDiagramPQ.extvar
+  GeneratorPVDiagram_INIT.mo
+  GeneratorPVProp.mo
+  GeneratorPVProp.extvar
+  GeneratorPVRemote.mo
+  GeneratorPVRemote.extvar
+  GeneratorPVRemoteDiagramPQ.mo
+  GeneratorPVRemoteDiagramPQ.extvar
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

@@ -9,20 +9,20 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 set(MODEL_FILES
-    package.mo
-    package.order
-    Perturbation.mo
-    Perturbation_INIT.mo
-    SetPoint.mo
-    SetPoint_INIT.mo
-    Step.mo
-    Step_INIT.mo
-    SwitchOff.mo
-    )
+  package.mo
+  package.order
+  Perturbation.mo
+  Perturbation_INIT.mo
+  SetPoint.mo
+  SetPoint_INIT.mo
+  Step.mo
+  Step_INIT.mo
+  SwitchOff.mo
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

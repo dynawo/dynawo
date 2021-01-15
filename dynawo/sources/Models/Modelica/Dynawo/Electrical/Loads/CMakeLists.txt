@@ -9,28 +9,28 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 set(MODEL_FILES
-    # Electrical Loads models
-    package.mo
-    package.order
-    BaseClasses.mo
-    LoadAlphaBeta.mo
-    LoadAlphaBeta.extvar
-    LoadAlphaBetaRestorative.mo
-    LoadAlphaBetaRestorative.extvar
-    LoadAlphaBetaRestorativeLimitsRecalc_INIT.mo
-    LoadPQ.mo
-    LoadPQ.extvar
-    LoadZIP.mo
-    LoadZIP.extvar
-    Load_INIT.mo
-    LoadConnect_INIT.mo
-    LoadAuxiliaries_INIT.mo
-    SwitchOffLoad.extvar
-    )
+  # Electrical Loads models
+  package.mo
+  package.order
+  BaseClasses.mo
+  LoadAlphaBeta.mo
+  LoadAlphaBeta.extvar
+  LoadAlphaBetaRestorative.mo
+  LoadAlphaBetaRestorative.extvar
+  LoadAlphaBetaRestorativeLimitsRecalc_INIT.mo
+  LoadPQ.mo
+  LoadPQ.extvar
+  LoadZIP.mo
+  LoadZIP.extvar
+  Load_INIT.mo
+  LoadConnect_INIT.mo
+  LoadAuxiliaries_INIT.mo
+  SwitchOffLoad.extvar
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

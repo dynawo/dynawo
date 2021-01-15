@@ -9,18 +9,18 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 set(MODEL_FILES
-    # Voltage control models
-    package.mo
-    package.order
-    TCL.mo
-    TCL.extvar
-    VRRemote.mo
-    VRRemote.extvar
-    )
+  # Voltage control models
+  package.mo
+  package.order
+  TCL.mo
+  TCL.extvar
+  VRRemote.mo
+  VRRemote.extvar
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

@@ -11,16 +11,16 @@
 add_subdirectory(BaseControls B)
 
 set(MODEL_FILES
-    package.mo
-    package.order
-    HvdcVSC.mo
-    HvdcVSC_INIT.mo
-    HvdcVSC.extvar
-    )
+  package.mo
+  package.order
+  HvdcVSC.mo
+  HvdcVSC_INIT.mo
+  HvdcVSC.extvar
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

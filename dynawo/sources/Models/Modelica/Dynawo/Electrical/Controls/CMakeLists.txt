@@ -19,13 +19,13 @@ add_subdirectory(Basics B)
 add_subdirectory(PLL P)
 
 set(MODEL_FILES
-    package.mo
-    package.order
-    )
+  package.mo
+  package.order
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)
