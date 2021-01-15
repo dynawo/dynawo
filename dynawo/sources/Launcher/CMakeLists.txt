@@ -32,11 +32,6 @@ target_link_libraries(dynawo
     Boost::program_options
     )
 
-if(APPLE)
-  # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
-  set_target_properties(dynawo PROPERTIES INSTALL_RPATH "@loader_path/../lib")
-endif()
-
 set_target_properties(dynawo PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 
 install(TARGETS dynawo DESTINATION ${BINDIR_NAME})

@@ -118,7 +118,7 @@ if (XercesC_INCLUDE_DIR AND XercesC_LIBRARY)
   "}\n")
 
   try_compile(TEST_XERCESC ${CMAKE_CURRENT_SOURCE_DIR}/xercesc/Test SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/xercesc/Test/testXerces.cpp
-    LINK_LIBRARIES ${XercesC_LIBRARY} $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread> $<$<BOOL:${APPLE}>:-framework\ CoreServices>
+    LINK_LIBRARIES ${XercesC_LIBRARY} $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>
     CMAKE_FLAGS "-DINCLUDE_DIRECTORIES=${XercesC_INCLUDE_DIR}"
       "-DCOMPILE_DEFINITIONS=${CXX_STDFLAG}")
 

@@ -118,7 +118,7 @@ if (XercesC_INCLUDE_DIR AND XercesC_LIBRARY)
     "  return 0;\n"
   "}\n")
   try_compile(TEST_XERCESC ${XercesTest_DIR} SOURCES ${XercesTest_DIR}/testXerces.cpp
-    LINK_LIBRARIES ${XercesC_LIBRARY} $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread> $<$<BOOL:${APPLE}>:-framework\ CoreServices>
+    LINK_LIBRARIES ${XercesC_LIBRARY} $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>
     CMAKE_FLAGS "-DINCLUDE_DIRECTORIES=${XercesC_INCLUDE_DIR}"
       "-DCOMPILE_DEFINITIONS=${CXX_STDFLAG}")
 
@@ -167,9 +167,6 @@ if(XercesC_FOUND)
       set_target_properties(XercesC::XercesC PROPERTIES
         IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
         IMPORTED_LOCATION_DEBUG "${XercesC_LIBRARY_DEBUG}")
-    endif()
-    if(APPLE)
-      target_link_libraries(XercesC::XercesC INTERFACE "-framework CoreServices")
     endif()
   endif()
 endif()

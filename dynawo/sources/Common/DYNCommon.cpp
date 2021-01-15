@@ -34,8 +34,6 @@ namespace DYN {
 const char* sharedLibraryExtension() {
 #ifdef _WIN32
 static const char extension[] = ".dll";
-#elif __APPLE__
-static const char extension[] = ".dylib";
 #elif __linux__
 static const char extension[] = ".so";
 #elif __unix__  // all unices not caught above

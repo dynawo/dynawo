@@ -46,12 +46,6 @@ target_link_libraries(dynawo_SolverIDA
     Sundials::Sundials_IDA
   )
 
-if(APPLE)
-  if(LIBRARY_TYPE STREQUAL "STATIC")
-    target_link_libraries(dynawo_SolverIDA PRIVATE "-flat_namespace")
-  endif()
-endif()
-
 set_target_properties(dynawo_SolverIDA PROPERTIES VERSION ${SOLVER_IDA_VERSION_STRING}
                                                 SOVERSION ${SOLVER_IDA_VERSION_MAJOR}
                                                    PREFIX "")
