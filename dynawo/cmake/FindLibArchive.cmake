@@ -16,47 +16,47 @@
 #  LibArchive_LIBRARIES    - libraries to link
 #  LibArchive_VERSION      - libarchive 3-component version number
 
-IF(NOT LIBARCHIVE_HOME AND NOT $ENV{LIBARCHIVE_HOME} STREQUAL "")
-  SET(LIBARCHIVE_HOME $ENV{LIBARCHIVE_HOME})
-ENDIF()
+if(NOT LIBARCHIVE_HOME AND NOT $ENV{LIBARCHIVE_HOME} STREQUAL "")
+  set(LIBARCHIVE_HOME $ENV{LIBARCHIVE_HOME})
+endif()
 
-IF(NOT LIBARCHIVE_HOME AND NOT $ENV{LIBARCHIVE_ROOT} STREQUAL "")
-  SET(LIBARCHIVE_HOME $ENV{LIBARCHIVE_ROOT})
-ENDIF()
+if(NOT LIBARCHIVE_HOME AND NOT $ENV{LIBARCHIVE_ROOT} STREQUAL "")
+  set(LIBARCHIVE_HOME $ENV{LIBARCHIVE_ROOT})
+endif()
 
-FIND_PATH(LibArchive_INCLUDE_DIR NAME archive.h archive_entry.h HINTS ${LIBARCHIVE_HOME}/include)
-FIND_LIBRARY(LibArchive_LIBRARY NAME archive libarchive HINTS ${LIBARCHIVE_HOME}/lib)
+find_path(LibArchive_INCLUDE_DIR NAME archive.h archive_entry.h HINTS ${LIBARCHIVE_HOME}/include)
+find_library(LibArchive_LIBRARY NAME archive libarchive HINTS ${LIBARCHIVE_HOME}/lib)
 
-MARK_AS_ADVANCED(LibArchive_INCLUDE_DIR LibArchive_LIBRARY)
+mark_as_advanced(LibArchive_INCLUDE_DIR LibArchive_LIBRARY)
 
 # Extract the version number from the header.
-IF(LibArchive_INCLUDE_DIR AND EXISTS "${LibArchive_INCLUDE_DIR}/archive.h")
+if(LibArchive_INCLUDE_DIR AND EXISTS "${LibArchive_INCLUDE_DIR}/archive.h")
     # The version string appears in one of two known formats in the header:
   #  #define ARCHIVE_LIBRARY_VERSION "libarchive 2.4.12"
   #  #define ARCHIVE_VERSION_STRING "libarchive 2.8.4"
   # Match either format.
-  SET(_LibArchive_VERSION_REGEX "^#define[ \t]+ARCHIVE[_A-Z]+VERSION[_A-Z]*[ \t]+\"libarchive +([0-9]+)\\.([0-9]+)\\.([0-9]+)[^\"]*\".*$")
-  FILE(STRINGS "${LibArchive_INCLUDE_DIR}/archive.h" _LibArchive_VERSION_STRING LIMIT_COUNT 1 REGEX "${_LibArchive_VERSION_REGEX}")
-  IF(_LibArchive_VERSION_STRING)
-      STRING(REGEX REPLACE "${_LibArchive_VERSION_REGEX}" "\\1.\\2.\\3" LibArchive_VERSION "${_LibArchive_VERSION_STRING}")
-  ENDIF()
-  UNSET(_LibArchive_VERSION_REGEX)
-  UNSET(_LibArchive_VERSION_STRING)
-ENDIF()
+  set(_LibArchive_VERSION_REGEX "^#define[ \t]+ARCHIVE[_A-Z]+VERSION[_A-Z]*[ \t]+\"libarchive +([0-9]+)\\.([0-9]+)\\.([0-9]+)[^\"]*\".*$")
+  file(STRINGS "${LibArchive_INCLUDE_DIR}/archive.h" _LibArchive_VERSION_STRING LIMIT_COUNT 1 REGEX "${_LibArchive_VERSION_REGEX}")
+  if(_LibArchive_VERSION_STRING)
+      string(REGEX REPLACE "${_LibArchive_VERSION_REGEX}" "\\1.\\2.\\3" LibArchive_VERSION "${_LibArchive_VERSION_STRING}")
+  endif()
+  unset(_LibArchive_VERSION_REGEX)
+  unset(_LibArchive_VERSION_STRING)
+endif()
 
 # Handle the QUIETLY and REQUIRED arguments and set LIBARCHIVE_FOUND
 # to TRUE if all listed variables are TRUE.
 # (Use ${CMAKE_ROOT}/Modules instead of ${CMAKE_CURRENT_LIST_DIR} because CMake
 #  itself includes this FindLibArchive when built with an older CMake that does
 #  not provide it.  The older CMake also does not have CMAKE_CURRENT_LIST_DIR.)
-INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(LibArchive DEFAULT_MSG LibArchive_LIBRARY LibArchive_INCLUDE_DIR)
-SET(LibArchive_FOUND ${LIBARCHIVE_FOUND})
-UNSET(LIBARCHIVE_FOUND)
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(LibArchive DEFAULT_MSG LibArchive_LIBRARY LibArchive_INCLUDE_DIR)
+set(LibArchive_FOUND ${LIBARCHIVE_FOUND})
+unset(LIBARCHIVE_FOUND)
 
-IF(LibArchive_FOUND)
-  SET(LibArchive_INCLUDE_DIRS ${LibArchive_INCLUDE_DIR})
-  SET(LibArchive_LIBRARIES ${LibArchive_LIBRARY})
+if(LibArchive_FOUND)
+  set(LibArchive_INCLUDE_DIRS ${LibArchive_INCLUDE_DIR})
+  set(LibArchive_LIBRARIES ${LibArchive_LIBRARY})
 
   if(NOT TARGET LibArchive::LibArchive)
     add_library(LibArchive::LibArchive UNKNOWN IMPORTED)
@@ -76,4 +76,4 @@ IF(LibArchive_FOUND)
       $<TARGET_PROPERTY:ZLIB::ZLIB,IMPORTED_LOCATION>
       )
   endif()
-ENDIF()
+endif()

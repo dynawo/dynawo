@@ -11,17 +11,17 @@
 # Shunts models
 
 set(MODEL_FILES
-    package.mo
-    package.order
-    ShuntB.mo
-    ShuntBWithSections.mo
-    ShuntBWithSections.extvar
-    ShuntBWithSections_INIT.mo
-    )
+  package.mo
+  package.order
+  ShuntB.mo
+  ShuntBWithSections.mo
+  ShuntBWithSections.extvar
+  ShuntBWithSections_INIT.mo
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

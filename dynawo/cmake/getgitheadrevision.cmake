@@ -8,32 +8,32 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-INCLUDE(FindGit)
-FIND_PACKAGE(Git)
+include(FindGit)
+find_package(Git)
 
-IF(GIT_FOUND)
-  IF(EXISTS "${GIT_SOURCE_DIR}")
+if(GIT_FOUND)
+  if(EXISTS "${GIT_SOURCE_DIR}")
     # extract working copy information for SOURCE_DIR into MY_XXX variables
-    EXECUTE_PROCESS(COMMAND git rev-parse --abbrev-ref HEAD
+    execute_process(COMMAND git rev-parse --abbrev-ref HEAD
       WORKING_DIRECTORY ${GIT_SOURCE_DIR}
       OUTPUT_VARIABLE GIT_BRANCH
       OUTPUT_STRIP_TRAILING_WHITESPACE
       )
-    EXECUTE_PROCESS(COMMAND git log -1 --format=%h
+    execute_process(COMMAND git log -1 --format=%h
       WORKING_DIRECTORY ${GIT_SOURCE_DIR}
       OUTPUT_VARIABLE GIT_COMMIT_HASH
       OUTPUT_STRIP_TRAILING_WHITESPACE
       )
-  ELSE()
-    SET(GIT_BRANCH "Unknown")
-    SET(GIT_COMMIT_HASH "0")
-  ENDIF()
-ELSE(GIT_FOUND)
-  SET(GIT_BRANCH "Unknwon")
-  SET(GIT_COMMIT_HASH "-1")
-ENDIF()
+  else()
+    set(GIT_BRANCH "Unknown")
+    set(GIT_COMMIT_HASH "0")
+  endif()
+else(GIT_FOUND)
+  set(GIT_BRANCH "Unknwon")
+  set(GIT_COMMIT_HASH "-1")
+endif()
 
-FILE(WRITE ${OUTPUT_DIR}/gitversion.h.txt
+file(WRITE ${OUTPUT_DIR}/gitversion.h.txt
   "//
 // Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
@@ -47,5 +47,5 @@ FILE(WRITE ${OUTPUT_DIR}/gitversion.h.txt
 #define DYNAWO_GIT_BRANCH \"${GIT_BRANCH}\"\n#define DYNAWO_GIT_HASH \"${GIT_COMMIT_HASH}\"\n")
 # copy the file to the final header only if the version changes
 # reduces needless rebuilds
-EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND} -E copy_if_different
+execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different
                         ${OUTPUT_DIR}/gitversion.h.txt ${OUTPUT_DIR}/gitversion.h)

@@ -9,17 +9,17 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
 set(MODEL_FILES
-    # Voltage control models
-    package.mo
-    package.order
-    SectionControl.mo
-    SectionControl.extvar
-    SectionControl_INIT.mo
-    )
+  # Voltage control models
+  package.mo
+  package.order
+  SectionControl.mo
+  SectionControl.extvar
+  SectionControl_INIT.mo
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

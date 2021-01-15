@@ -10,22 +10,22 @@
 
 add_subdirectory(BaseControls B)
 
-SET(MODEL_FILES
-    # Converter control models
-    package.mo
-    package.order
-    GridFormingControlDroopControl.mo
-    GridFormingControlDroopControl.extvar
-    GridFormingControlMatchingControl.mo
-    GridFormingControlMatchingControl.extvar
-    GridFormingControlDispatchableVirtualOscillatorControl.mo
-    GridFormingControlDispatchableVirtualOscillatorControl.extvar
-    GridFormingControl_INIT.mo
-    )
+set(MODEL_FILES
+  # Converter control models
+  package.mo
+  package.order
+  GridFormingControlDroopControl.mo
+  GridFormingControlDroopControl.extvar
+  GridFormingControlMatchingControl.mo
+  GridFormingControlMatchingControl.extvar
+  GridFormingControlDispatchableVirtualOscillatorControl.mo
+  GridFormingControlDispatchableVirtualOscillatorControl.extvar
+  GridFormingControl_INIT.mo
+  )
 
 #
 # Modelica models install
 #
-FOREACH( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_FILE(${MODEL_FILE})
-ENDFOREACH( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

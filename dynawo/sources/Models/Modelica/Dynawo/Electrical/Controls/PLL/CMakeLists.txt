@@ -8,17 +8,17 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(MODEL_FILES
-    package.mo
-    package.order
-    PLL.mo
-    PLL.extvar
-    PLL_INIT.mo
-    )
+set(MODEL_FILES
+  package.mo
+  package.order
+  PLL.mo
+  PLL.extvar
+  PLL_INIT.mo
+  )
 
 #
 # Modelica models install
 #
-FOREACH( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_FILE(${MODEL_FILE})
-ENDFOREACH( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)
