@@ -31,7 +31,7 @@ if(${package_name}_FOUND)
 
 else()
   set(package_md5    1b2f091c6dd5414abd3388b65be84912)
-  if(DEFINED $ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
+  if(DEFINED ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
     set(package_prefix_url $ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
   else()
     set(package_prefix_url https://github.com/powsybl/powsybl-iidm4cpp/archive)
