@@ -24,6 +24,8 @@
 #include <string>
 #include <boost/core/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/dll.hpp>
+#include <boost/function.hpp>
 
 namespace DYN {
 class SubModel;
@@ -39,8 +41,7 @@ class SubModelFactory : private boost::noncopyable {
   /**
    * @brief Constructor
    */
-  SubModelFactory() :
-  handle_(NULL) { }
+  SubModelFactory() { }
 
   /**
    * @brief Destructor
@@ -68,7 +69,7 @@ class SubModelFactory : private boost::noncopyable {
    */
   static boost::shared_ptr<SubModel> createSubModelFromLib(const std::string& lib);
 
-  void* handle_;  ///< handle return by dlopen when the library is loaded
+  boost::shared_ptr<boost::dll::shared_library> lib_;  ///< Library of the submodel
 
  private:
   static SubModelFactories factories_;  ///< Factories already available
@@ -77,7 +78,7 @@ class SubModelFactory : private boost::noncopyable {
 /**
 * @brief function pointer type to destroy a model.
 */
-typedef void destroy_model_t(SubModelFactory*);
+typedef void deleteSubModelFactory_t(SubModelFactory*);
 
 /**
  * @brief SubModelFactories class
@@ -137,11 +138,11 @@ class SubModelFactories : private boost::noncopyable {
    * @param deleteFactory : function pointer to a desctruction method
    * map
    */
-  void add(const std::string& lib, destroy_model_t* deleteFactory);
+  void add(const std::string& lib, const boost::function<deleteSubModelFactory_t>& deleteFactory);
 
  private:
-  std::map<std::string, SubModelFactory* > factoryMap_;  ///< associate a library factory with the name of the library
-  std::map<std::string, destroy_model_t*> factoryMapDestroy_;  ///< associate a library factory with its destruction method
+  std::map<std::string, SubModelFactory*> factoryMap_;  ///< associate a library factory with the name of the library
+  std::map<std::string, boost::function<deleteSubModelFactory_t> > factoryMapDelete_;  ///< associate a library factory with its destruction method
 };
 
 /**
