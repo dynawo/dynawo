@@ -16,10 +16,10 @@
 #include <iomanip>
 #include <iostream>
 #include <fstream>
-#include <dlfcn.h>
 
 #include <boost/program_options.hpp>
 #include <boost/algorithm/string/replace.hpp>
+#include <boost/dll.hpp>
 
 #include "DYNIoDico.h"
 #include "DYNTrace.h"
@@ -451,16 +451,17 @@ compileLib(const string& modelName, const string& compilationDir) {
 }
 
 bool verifySharedObject(const string& library) {
-  // dlopen include <dlfcn.h>: to see if a shared object file
-  const char* filename = library.c_str();
-  void *handle;
-  handle = dlopen(filename, RTLD_NOW);
-  if (!handle) {
-    fprintf(stderr, "%s\n", dlerror());
-    printf(" DYNCompileModelicaModel: could not open .so by dlopen.");
+  try {
+    boost::dll::shared_library lib(library);
+    static_cast<void>(lib);
+    // we don't use the lib as we check that the library is loadable, which is done in
+    // constructor
+  }
+  catch(const std::exception& e) {
+    std::cerr << e.what() << std::endl;
+    std::cout << " DYNCompileModelicaModel: could not open " << library << " by boost dll." << std::endl;
     return false;
   }
-  dlclose(handle);
 
   // verify links.
 #ifdef __linux__

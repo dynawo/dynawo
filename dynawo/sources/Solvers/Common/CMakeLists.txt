@@ -49,6 +49,7 @@ target_link_libraries(dynawo_SolverCommon
     Sundials::Sundials_NVECSERIAL
     Sundials::Sundials_SUNLINSOLKLU
     Boost::system
+    Boost::filesystem
   PRIVATE
     dynawo_Common
     dynawo_API_PAR
