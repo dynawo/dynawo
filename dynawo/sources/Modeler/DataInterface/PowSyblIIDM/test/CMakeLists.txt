@@ -50,7 +50,8 @@ target_link_libraries(${MODULE_NAME}
   dynawo_Test)
 
 add_custom_target(${MODULE_NAME}-tests
-  COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>
+  COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" "DYNAWO_IIDM_EXTENSION=$<TARGET_FILE:dynawo_DataInterfaceIIDMExtension>"
+  "DYNAWO_LIBIIDM_EXTENSIONS=${LIBIIDM_HOME}/lib" $<TARGET_FILE:${MODULE_NAME}>
   DEPENDS ${MODULE_NAME}
   COMMENT "Running ${MODULE_NAME}...")
 
