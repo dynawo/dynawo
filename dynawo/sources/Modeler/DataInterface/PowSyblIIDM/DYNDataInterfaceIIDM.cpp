@@ -111,15 +111,13 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
     properties.set(powsybl::iidm::converter::ImportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
     powsybl::iidm::converter::ImportOptions options(properties);
 
-    if (hasEnvVar("DYNAWO_LIBIIDM_EXTENSIONS")) {
-      std::string extensionsPaths = getEnvVar("DYNAWO_LIBIIDM_EXTENSIONS");
-      vector<string> paths;
-      boost::split(paths, extensionsPaths, boost::is_any_of(":"));
+    std::string extensionsPaths = getMandatoryEnvVar("DYNAWO_LIBIIDM_EXTENSIONS");
+    vector<string> paths;
+    boost::split(paths, extensionsPaths, boost::is_any_of(":"));
 
-      for (unsigned int i = 0; i < paths.size(); ++i) {
-        std::regex fileRegex(stdcxx::format(".*libiidm-ext-.*\\%1%.*", boost::dll::shared_library::suffix().string()));
-        powsybl::iidm::ExtensionProviders<powsybl::iidm::converter::xml::ExtensionXmlSerializer>::getInstance().loadExtensions(paths[i], fileRegex);
-      }
+    for (unsigned int i = 0; i < paths.size(); ++i) {
+      std::regex fileRegex(stdcxx::format(".*libiidm-ext-.*\\%1%.*", boost::dll::shared_library::suffix().string()));
+      powsybl::iidm::ExtensionProviders<powsybl::iidm::converter::xml::ExtensionXmlSerializer>::getInstance().loadExtensions(paths[i], fileRegex);
     }
 
     powsybl::iidm::converter::FakeAnonymizer anonymizer;
