@@ -49,26 +49,24 @@ staticVarCompensatorIIDM_(svc) {
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
   stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
 
-  if (hasEnvVar("DYNAWO_IIDM_EXTENSION")) {
-    string libPath = getEnvVar("DYNAWO_IIDM_EXTENSION");
-    if (!exists(libPath))
-      throw DYNError(Error::STATIC_DATA, WrongExtensionPath, libPath);
+  string libPath = getMandatoryEnvVar("DYNAWO_IIDM_EXTENSION");
+  if (!exists(libPath))
+    throw DYNError(Error::STATIC_DATA, WrongExtensionPath, libPath);
 
-    boost::function<create_t> create_extension;
-    boost::dll::shared_library extensionLibrary(libPath);
+  boost::function<create_t> create_extension;
+  boost::dll::shared_library extensionLibrary(libPath);
 
-    if (extensionLibrary.has("createExtension"))
-      create_extension = boost::dll::import<create_t>(extensionLibrary, "createExtension");
-    else
-      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath+"::createExtension");
-    if (extensionLibrary.has("destroyExtension"))
-      destroy_extension_ = boost::dll::import<destroy_t>(libPath, "destroyExtension");
-    else
-      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath+"::destroyExtension");
+  if (extensionLibrary.has("createExtension"))
+    create_extension = boost::dll::import<create_t>(extensionLibrary, "createExtension");
+  else
+    throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath+"::createExtension");
+  if (extensionLibrary.has("destroyExtension"))
+    destroy_extension_ = boost::dll::import<destroy_t>(libPath, "destroyExtension");
+  else
+    throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath+"::destroyExtension");
 
-    // create an instance of the class
-    extension_ = create_extension(svc);
-  }
+  // create an instance of the class
+  extension_ = create_extension(svc);
 }
 
 int
