@@ -50,6 +50,15 @@ using std::stringstream;
 
 namespace DYN {
 
+void
+buildInternalConnectionId(const powsybl::iidm::node_breaker_view::InternalConnection& internalConnection, stringstream& ss) {
+  ss.str(std::string());
+  ss.clear();
+  int node1 = internalConnection.getNode1();
+  int node2 = internalConnection.getNode2();
+  ss << "InternalConnection-" << node1 << "-" << node2;
+}
+
 VoltageLevelInterfaceIIDM::VoltageLevelInterfaceIIDM(powsybl::iidm::VoltageLevel& voltageLevel) :
 voltageLevelIIDM_(voltageLevel) {
   isNodeBreakerTopology_ = (voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
@@ -64,6 +73,15 @@ voltageLevelIIDM_(voltageLevel) {
       int node2 = voltageLevelIIDM_.getNodeBreakerView().getNode2(itSwitch.getId());
       graph_.addEdge(node1, node2, itSwitch.getId());
       weights1_[itSwitch.getId()] = 1;
+    }
+    // Additional edges for internal connections
+    stringstream ssInternalConnectionId;
+    for (const powsybl::iidm::node_breaker_view::InternalConnection& itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
+      buildInternalConnectionId(itInternalConnection, ssInternalConnectionId);
+      int node1 = itInternalConnection.getNode1();
+      int node2 = itInternalConnection.getNode2();
+      graph_.addEdge(node1, node2, ssInternalConnectionId.str());
+      weights1_[ssInternalConnectionId.str()] = 1;
     }
   }
 }
@@ -253,6 +271,13 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
     topologicalWeights[id] = (!open && !retained) ? 1 : 0;
     electricalWeights[id] = (!open) ? 1 : 0;
   }
+  // Add all internal connections with weight 1
+  stringstream ssInternalConnectionId;
+  for (const powsybl::iidm::node_breaker_view::InternalConnection& itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
+    buildInternalConnectionId(itInternalConnection, ssInternalConnectionId);
+    topologicalWeights[ssInternalConnectionId.str()] = 1;
+    electricalWeights[ssInternalConnectionId.str()] = 1;
+  }
 
   pair<unsigned int, vector<unsigned int> >topoComponents = graph_.calculateComponents(topologicalWeights);
   pair<unsigned int, vector<unsigned int> >electricalComponents = graph_.calculateComponents(electricalWeights);
@@ -355,13 +380,13 @@ VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
   }
 
   for (vector<string>::iterator iter = shortestPath.begin(); iter != shortestPath.end(); ++iter) {
-    powsybl::iidm::Switch& sw = voltageLevelIIDM_.getNodeBreakerView().getSwitch(*iter);
-    if (sw.isOpen()) {
+    const auto& sw = voltageLevelIIDM_.getNodeBreakerView().getSwitch(*iter);
+    if (sw && sw.get().isOpen()) {
       map<string, shared_ptr<SwitchInterface> >::iterator itSw = switchesById_.find(*iter);
       if (itSw != switchesById_.end()) {
         switchState_[itSw->second] = CLOSED;
       }
-      sw.setOpen(false);
+      sw.get().setOpen(false);
     }
   }
 }
@@ -376,6 +401,12 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
   for (powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getNodeBreakerView().getSwitches()) {
     weights[itSwitch.getId()] = !itSwitch.isOpen() ? 1 : 0;
   }
+  // Additional edges for internal connections, all closed
+  stringstream ssInternalConnectionId;
+  for (const powsybl::iidm::node_breaker_view::InternalConnection& itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
+    buildInternalConnectionId(itInternalConnection, ssInternalConnectionId);
+    weights[ssInternalConnectionId.str()] = 1;
+  }
   for (const auto& nodeIndex : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
     const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(nodeIndex);
     if (terminal) {
@@ -388,14 +419,14 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
           const vector<string>& path = *iter;
           for (vector<string>::const_iterator itSwitch = path.begin(); itSwitch != path.end(); ++itSwitch) {
             string switchID = *itSwitch;
-            powsybl::iidm::Switch&  sw = voltageLevelIIDM_.getNodeBreakerView().getSwitch(switchID);
-            if (sw.getKind() == powsybl::iidm::SwitchKind::BREAKER) {
-              if (!sw.isOpen()) {
+            const auto& sw = voltageLevelIIDM_.getNodeBreakerView().getSwitch(switchID);
+            if (sw && sw.get().getKind() == powsybl::iidm::SwitchKind::BREAKER) {
+              if (!sw.get().isOpen()) {
                 map<string, shared_ptr<SwitchInterface> >::iterator itSw = switchesById_.find(switchID);
                 if (itSw != switchesById_.end()) {
                   switchState_[itSw->second] = OPEN;
                 }
-                sw.setOpen(true);
+                sw.get().setOpen(true);
               }
               break;  // no more things to do, one breaker is open
             }
@@ -414,6 +445,12 @@ VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
   boost::unordered_map<string, float> weights;
   for (powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getNodeBreakerView().getSwitches()) {
     weights[itSwitch.getId()] = itSwitch.isOpen() ? 0 : 1;
+  }
+  // Additional edges for internal connections, all closed
+  stringstream ssInternalConnectionId;
+  for (const powsybl::iidm::node_breaker_view::InternalConnection& itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
+    buildInternalConnectionId(itInternalConnection, ssInternalConnectionId);
+    weights[ssInternalConnectionId.str()] = 1;
   }
 
   for (const auto& nodeIndex : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {

@@ -174,9 +174,11 @@ createNetwork(const NetworkProperty& properties) {
         .setName("MyCapacitorShuntCompensator_NAME")
         .setBus("MyBus")
         .setConnectableBus("MyBus")
-        .setbPerSection(8.0)
-        .setCurrentSectionCount(2UL)
+        .newLinearModel()
+        .setBPerSection(8.0)
         .setMaximumSectionCount(3UL)
+        .add()
+        .setSectionCount(2UL)
         .add();
   }
 
@@ -186,9 +188,11 @@ createNetwork(const NetworkProperty& properties) {
         .setName("MyReactanceShuntCompensator_NAME")
         .setBus("MyBus")
         .setConnectableBus("MyBus")
-        .setbPerSection(-8.0)
-        .setCurrentSectionCount(2UL)
+        .newLinearModel()
+        .setBPerSection(-8.0)
         .setMaximumSectionCount(3UL)
+        .add()
+        .setSectionCount(2UL)
         .add();
   }
 

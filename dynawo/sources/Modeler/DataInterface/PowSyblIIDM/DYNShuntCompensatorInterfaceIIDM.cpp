@@ -58,7 +58,7 @@ void
 ShuntCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
   bool connected = (getValue<int>(VAR_STATE) == CLOSED);
   shuntCompensatorIIDM_.getTerminal().setQ(getValue<double>(VAR_Q) * SNREF);
-  shuntCompensatorIIDM_.setCurrentSectionCount(getValue<int>(VAR_CURRENTSECTION));
+  shuntCompensatorIIDM_.setSectionCount(getValue<int>(VAR_CURRENTSECTION));
 
   if (getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
     // should be removed once a solution has been found to propagate switches (de)connection
@@ -80,7 +80,7 @@ ShuntCompensatorInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
   staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(getQ() / SNREF)));
   staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(getQ())));
-  double B = shuntCompensatorIIDM_.getbPerSection();
+  double B = shuntCompensatorIIDM_.getB();
   staticParameters_.insert(std::make_pair("isCapacitor", StaticParameter("isCapacitor", StaticParameter::BOOL).setValue(B > 0)));
 }
 
@@ -121,7 +121,7 @@ ShuntCompensatorInterfaceIIDM::getID() const {
 
 int
 ShuntCompensatorInterfaceIIDM::getCurrentSection() const {
-  return shuntCompensatorIIDM_.getCurrentSectionCount();
+  return shuntCompensatorIIDM_.getSectionCount();
 }
 
 int
@@ -131,7 +131,7 @@ ShuntCompensatorInterfaceIIDM::getMaximumSection() const {
 
 double
 ShuntCompensatorInterfaceIIDM::getBPerSection() const {
-  return shuntCompensatorIIDM_.getbPerSection();
+  return shuntCompensatorIIDM_.getB(getMaximumSection())/getMaximumSection();
 }
 
 }  // namespace DYN

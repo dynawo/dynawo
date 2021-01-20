@@ -136,9 +136,11 @@ TEST(DataInterfaceTest, VoltageLevel) {
       .setName("SHUNT1_NAME")
       .setBus(b7.getId())
       .setConnectableBus(b7.getId())
-      .setbPerSection(12.0)
-      .setCurrentSectionCount(2UL)
+      .newLinearModel()
+      .setBPerSection(12.0)
       .setMaximumSectionCount(3UL)
+      .add()
+      .setSectionCount(2UL)
       .add();
 
   powsybl::iidm::Bus& b8 = vlIIDM1.getBusBreakerView().newBus().setId("BUS8").add();
