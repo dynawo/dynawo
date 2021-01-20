@@ -15,6 +15,7 @@ add_subdirectory(Governors G)
 set(MODEL_FILES
     # Machines control models
     package.mo
+    package.order
     )
 
 #

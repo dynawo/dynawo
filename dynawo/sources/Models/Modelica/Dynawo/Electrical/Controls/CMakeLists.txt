@@ -20,6 +20,7 @@ add_subdirectory(PLL P)
 
 set(MODEL_FILES
     package.mo
+    package.order
     )
 
 #

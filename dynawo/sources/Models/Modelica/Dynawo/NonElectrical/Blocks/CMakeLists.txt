@@ -13,6 +13,7 @@ add_subdirectory(Continuous C)
 
 set(MODEL_FILES
     package.mo
+    package.order
     )
 
 #

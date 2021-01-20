@@ -10,6 +10,7 @@
 
 set(MODEL_FILES
     package.mo
+    package.order
     LimiterWithLag.mo
     LimiterWithLag_INIT.mo
     MaxThresholdSwitch.mo

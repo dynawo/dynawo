@@ -10,6 +10,7 @@
 
 set(MODEL_FILES
     package.mo
+    package.order
     Perturbation.mo
     Perturbation_INIT.mo
     SetPoint.mo

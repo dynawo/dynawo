@@ -10,6 +10,7 @@
 
 set(MODEL_FILES
     package.mo
+    package.order
     Types.mo
     )
 
@@ -28,3 +29,4 @@ add_subdirectory(Electrical E)
 add_subdirectory(NonElectrical N)
 add_subdirectory(AdditionalIcons I)
 add_subdirectory(Examples X)
+add_subdirectory(UsersGuide U)
