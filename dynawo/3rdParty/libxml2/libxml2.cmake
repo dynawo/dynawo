@@ -43,7 +43,7 @@ else()
   set(package_VersionToInstall 2.9.4)
   set(package_md5    85235a3961e6f02b6af8774e33eaa1f2)
 
-  if(DEFINED $ENV{DYNAWO_LIBXML2_DOWNLOAD_URL})
+  if(DEFINED ENV{DYNAWO_LIBXML2_DOWNLOAD_URL})
     set(package_prefix_url $ENV{DYNAWO_LIBXML2_DOWNLOAD_URL})
   else()
     set(package_prefix_url http://www.github.com/GNOME/libxml2/archive)
@@ -96,13 +96,12 @@ else()
 
       CONFIGURE_COMMAND   "<SOURCE_DIR>/autogen.sh"
                           "CC=${CMAKE_C_COMPILER}"
-                          "CFLAGS=${CMAKE_C_FLAGS}"
-                          "CXX=${CMAKE_CXX_COMPILER}"
-                          "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0>"
+                          "CFLAGS=${CMAKE_C_FLAGS} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0>"
                           "--prefix=<INSTALL_DIR>"
                           "$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static>"
                           "$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared>"
                           "--without-python"
+                          "--without-zlib"
 
       BUILD_COMMAND       make -j ${CPU_COUNT} all
     )
