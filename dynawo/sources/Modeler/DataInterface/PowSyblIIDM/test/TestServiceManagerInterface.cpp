@@ -94,41 +94,62 @@ TEST(DataInterfaceTest, ServiceManager) {
                               .setLowVoltageLimit(380.)
                               .add();
 
-  auto swAdder = vlIIDM1.getBusBreakerView().newSwitch().setId("Sw").setName("SwName").setFictitious(false);
-  swAdder.setBus1("BUS1");
-  swAdder.setBus2("BUS2");
-
   powsybl::iidm::Bus& b1 = vlIIDM1.getBusBreakerView().newBus().setId("BUS1").add();
   powsybl::iidm::Bus& b2 = vlIIDM1.getBusBreakerView().newBus().setId("BUS2").add();
   powsybl::iidm::Bus& b3 = vlIIDM1.getBusBreakerView().newBus().setId("BUS3").add();
   powsybl::iidm::Bus& b4 = vlIIDM1.getBusBreakerView().newBus().setId("BUS4").add();
+  powsybl::iidm::Switch& aSwitch = vlIIDM1.getBusBreakerView().newSwitch().setId("Sw").setName("SwName").setFictitious(false)
+      .setBus1("BUS1")
+      .setBus2("BUS2")
+      .add();
+  powsybl::iidm::Switch& aSwitch2 = vlIIDM1.getBusBreakerView().newSwitch().setId("Sw2").setName("SwName2").setFictitious(false)
+      .setBus1("BUS1")
+      .setBus2("BUS3")
+      .add();
 
-  powsybl::iidm::BusbarSection& b5 = vlIIDM2.getNodeBreakerView().newBusbarSection().setId("BUS5").setNode(1).add();
-
-  auto swAdder2 = vlIIDM1.getBusBreakerView().newSwitch().setId("Sw2").setName("SwName2").setFictitious(false);
-  swAdder2.setBus1("BUS1");
-  swAdder2.setBus2("BUS3");
-
-  powsybl::iidm::Switch& aSwitch = swAdder.add();
-  powsybl::iidm::Switch& aSwitch2 = swAdder2.add();
+  vlIIDM2.getNodeBreakerView().newBusbarSection().setId("BUS51").setNode(1).add();
+  vlIIDM2.getNodeBreakerView().newBusbarSection().setId("BUS52").setNode(2).add();
+  vlIIDM2.getNodeBreakerView().newBusbarSection().setId("BUS53").setNode(3).add();
+  vlIIDM2.getNodeBreakerView().newBusbarSection().setId("BUS54").setNode(4).add();
+  vlIIDM2.getNodeBreakerView().newInternalConnection()
+      .setNode1(1)
+      .setNode2(6)
+      .add();
+  vlIIDM2.getNodeBreakerView().newInternalConnection()
+      .setNode1(2)
+      .setNode2(7)
+      .add();
+  vlIIDM2.getNodeBreakerView().newInternalConnection()
+      .setNode1(3)
+      .setNode2(8)
+      .add();
+  vlIIDM2.getNodeBreakerView().newInternalConnection()
+      .setNode1(1)
+      .setNode2(9)
+      .add();
+  vlIIDM2.getNodeBreakerView().newBreaker().setId("Sw5152").setName("SwName5152").setFictitious(false)
+      .setRetained(true)
+      .setNode1(6)
+      .setNode2(7)
+      .add();
+  vlIIDM2.getNodeBreakerView().newBreaker().setId("Sw5153").setName("SwName5153").setFictitious(false)
+      .setRetained(true)
+      .setNode1(9)
+      .setNode2(8)
+      .add();
 
   VoltageLevelInterfaceIIDM vl(vlIIDM1);
   VoltageLevelInterfaceIIDM vl2(vlIIDM2);
-
   shared_ptr<BusInterface> bus1(new BusInterfaceIIDM(b1));
   shared_ptr<BusInterface> bus2(new BusInterfaceIIDM(b2));
   shared_ptr<BusInterface> bus3(new BusInterfaceIIDM(b3));
   shared_ptr<BusInterface> bus4(new BusInterfaceIIDM(b4));
-  CalculatedBusInterfaceIIDM bus5(vlIIDM2, b5.getId(), 1);
   shared_ptr<SwitchInterface> switch1(new SwitchInterfaceIIDM(aSwitch));
   shared_ptr<SwitchInterface> switch2(new SwitchInterfaceIIDM(aSwitch2));
-
   switch1->setBusInterface1(bus1);
   switch1->setBusInterface2(bus2);
-
   switch2->setBusInterface1(bus1);
   switch2->setBusInterface2(bus3);
-
   vl.addBus(bus1);
   vl.addBus(bus2);
   vl.addBus(bus3);
@@ -142,7 +163,7 @@ TEST(DataInterfaceTest, ServiceManager) {
 
   ASSERT_THROW_DYNAWO(serviceManager->getBusesConnectedBySwitch("BUS4", "notVL"), Error::MODELER, KeyError_t::UnknownVoltageLevel);
 
-  ASSERT_THROW_DYNAWO(serviceManager->getBusesConnectedBySwitch("BUS5", vl2.getID()), Error::MODELER, KeyError_t::VoltageLevelTopoError);
+  ASSERT_THROW_DYNAWO(serviceManager->getBusesConnectedBySwitch("BUS0", vl2.getID()), Error::MODELER, KeyError_t::UnknownBus);
 
   auto connected = serviceManager->getBusesConnectedBySwitch("BUS4", vl.getID());
   ASSERT_EQ(0, connected.size());
@@ -169,6 +190,43 @@ TEST(DataInterfaceTest, ServiceManager) {
   connected = serviceManager->getBusesConnectedBySwitch("BUS3", vl.getID());
   ASSERT_EQ(1, connected.size());
   ASSERT_EQ(connected[0], "BUS1");
+
+  // Node/breaker voltage level with internal connections
+
+  shared_ptr<BusInterface> bus54 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[3];
+  ASSERT_EQ("BUS54", bus54->getBusBarSectionNames()[0]);
+  connected = serviceManager->getBusesConnectedBySwitch(bus54->getID(), vl2.getID());
+  ASSERT_EQ(0, connected.size());
+
+  shared_ptr<BusInterface> bus51 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[0];
+  shared_ptr<BusInterface> bus52 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[1];
+  shared_ptr<BusInterface> bus53 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[2];
+  ASSERT_EQ("BUS51", bus51->getBusBarSectionNames()[0]);
+  ASSERT_EQ("BUS52", bus52->getBusBarSectionNames()[0]);
+  ASSERT_EQ("BUS53", bus53->getBusBarSectionNames()[0]);
+  connected = serviceManager->getBusesConnectedBySwitch(bus51->getID(), vl2.getID());
+  ASSERT_EQ(2, connected.size());
+  ASSERT_EQ(bus52->getID(), connected[0]);
+  ASSERT_EQ(bus53->getID(), connected[1]);
+
+  connected = serviceManager->getBusesConnectedBySwitch(bus52->getID(), vl2.getID());
+  ASSERT_EQ(2, connected.size());
+  ASSERT_EQ(bus51->getID(), connected[0]);
+  ASSERT_EQ(bus53->getID(), connected[1]);
+
+  boost::shared_ptr<SwitchInterface> switch5152 = interface.getNetwork()->getVoltageLevels()[1]->getSwitches()[0];
+  switch5152->open();
+
+  connected = serviceManager->getBusesConnectedBySwitch(bus51->getID(), vl2.getID());
+  ASSERT_EQ(1, connected.size());
+  ASSERT_EQ(bus53->getID(), connected[0]);
+
+  connected = serviceManager->getBusesConnectedBySwitch(bus52->getID(), vl2.getID());
+  ASSERT_EQ(0, connected.size());
+
+  connected = serviceManager->getBusesConnectedBySwitch(bus53->getID(), vl2.getID());
+  ASSERT_EQ(1, connected.size());
+  ASSERT_EQ(bus51->getID(), connected[0]);
 }
 
 TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
@@ -364,9 +422,11 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
                                 .setName("SHUNT_NAME")
                                 .setBus(b3.getId())
                                 .setConnectableBus(b3.getId())
-                                .setbPerSection(12.0)
-                                .setCurrentSectionCount(2UL)
+                                .newLinearModel()
+                                .setBPerSection(12.0)
                                 .setMaximumSectionCount(3UL)
+                                .add()
+                                .setSectionCount(2UL)
                                 .add();
 
   powsybl::iidm::ShuntCompensator& shunt2 = vlIIDM1.newShuntCompensator()
@@ -374,9 +434,11 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
                                 .setName("SHUNT2_NAME")
                                 .setBus(b1.getId())
                                 .setConnectableBus(b1.getId())
-                                .setbPerSection(12.0)
-                                .setCurrentSectionCount(2UL)
+                                .newLinearModel()
+                                .setBPerSection(12.0)
                                 .setMaximumSectionCount(3UL)
+                                .add()
+                                .setSectionCount(2UL)
                                 .setRegulatingTerminal(stdcxx::Reference<powsybl::iidm::Terminal>(line_.getTerminal2()))
                                 .add();
   powsybl::iidm::StaticVarCompensator& svc = vlIIDM1.newStaticVarCompensator()

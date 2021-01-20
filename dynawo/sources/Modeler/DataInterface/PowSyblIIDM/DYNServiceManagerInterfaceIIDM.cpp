@@ -61,10 +61,6 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
     throw DYNError(Error::MODELER, UnknownVoltageLevel, VLId);
   }
 
-  if ((*vlIt)->getVoltageLevelTopologyKind() == VoltageLevelInterface::NODE_BREAKER) {
-    throw DYNError(Error::MODELER, VoltageLevelTopoError, VLId);
-  }
-
   const auto& buses = (*vlIt)->getBuses();
   auto it = std::find_if(buses.begin(), buses.end(), [&busId](const boost::shared_ptr<BusInterface>& bus) { return bus->getID() == busId; });
 
@@ -187,9 +183,9 @@ ServiceManagerInterfaceIIDM::getRegulatedBusOnSide(const powsybl::iidm::Terminal
     case ComponentInterface::THREE_WTFO: {
       boost::shared_ptr<ThreeWTransformerInterface> ThreeWTransf = boost::dynamic_pointer_cast<ThreeWTransformerInterface>(regulatedComponent);
       const auto& ThreeWTransfIIDM = dataInterface_->getNetworkIIDM().getThreeWindingsTransformer(regulatedComponent.get()->getID());
-      if (stdcxx::areSame(terminal, ThreeWTransfIIDM.getLeg1().getTerminal().get()))
+      if (stdcxx::areSame(terminal, ThreeWTransfIIDM.getLeg1().getTerminal()))
         return ThreeWTransf.get()->getBusInterface1();
-      if (stdcxx::areSame(terminal, ThreeWTransfIIDM.getLeg2().getTerminal().get()))
+      if (stdcxx::areSame(terminal, ThreeWTransfIIDM.getLeg2().getTerminal()))
         return ThreeWTransf.get()->getBusInterface2();
       return ThreeWTransf.get()->getBusInterface3();
     }

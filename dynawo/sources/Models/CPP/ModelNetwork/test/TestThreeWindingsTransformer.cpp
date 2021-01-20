@@ -122,9 +122,9 @@ createModelThreeWindingsTransformer(bool open, bool initModel) {
       .add()
       .add();
   if (open) {
-    transformer.getLeg1().getTerminal().get().disconnect();
-    transformer.getLeg2().getTerminal().get().disconnect();
-    transformer.getLeg3().getTerminal().get().disconnect();
+    transformer.getLeg1().getTerminal().disconnect();
+    transformer.getLeg2().getTerminal().disconnect();
+    transformer.getLeg3().getTerminal().disconnect();
   }
   shared_ptr<ThreeWTransformerInterfaceIIDM> tw3ItfIIDM = shared_ptr<ThreeWTransformerInterfaceIIDM>(new ThreeWTransformerInterfaceIIDM(transformer));
   shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
