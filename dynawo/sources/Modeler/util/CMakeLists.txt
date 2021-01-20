@@ -32,11 +32,6 @@ target_link_libraries(dumpModel
     Boost::program_options
     )
 
-if(APPLE)
-  # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
-  set_target_properties(dumpModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
-endif()
-
 install(TARGETS dumpModel EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
 
 #################################
@@ -62,11 +57,6 @@ target_link_libraries(generate-preassembled
     Boost::filesystem
     Boost::program_options
     )
-
-if(APPLE)
-  # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
-  set_target_properties(generate-preassembled PROPERTIES INSTALL_RPATH "@loader_path/../lib")
-endif()
 
 set_target_properties(generate-preassembled PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 
