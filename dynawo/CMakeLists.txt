@@ -352,7 +352,7 @@ find_package(libXML 0.2.4 REQUIRED PATHS ${LIBXML_HOME})
 
 if(CXX11_ENABLED)
   find_package(LibXml2 "2.9" REQUIRED)
-  find_package(LibIIDM "1.2.1" REQUIRED PATHS ${LIBIIDM_HOME})
+  find_package(LibIIDM "1.3.2" REQUIRED PATHS ${LIBIIDM_HOME})
 else()
   find_package(libIIDM "0.2.8" REQUIRED PATHS ${LIBIIDM_HOME}
     COMPONENTS

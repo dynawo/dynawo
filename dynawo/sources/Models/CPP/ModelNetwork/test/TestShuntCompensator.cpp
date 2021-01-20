@@ -79,9 +79,11 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel) {
       .setName("MyShuntCompensator_NAME")
       .setBus(iidmBus.getId())
       .setConnectableBus(iidmBus.getId())
-      .setbPerSection(bPerSection)
-      .setCurrentSectionCount(1UL)
+      .newLinearModel()
+      .setBPerSection(bPerSection)
       .setMaximumSectionCount(5UL)
+      .add()
+      .setSectionCount(1UL)
       .add();
   shuntIIDM.getTerminal().setQ(5.);
   if (open)

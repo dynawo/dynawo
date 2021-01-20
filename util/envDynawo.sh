@@ -1546,6 +1546,7 @@ deploy_dynawo() {
   mkdir -p $DYNAWO_DEPLOY_DIR || error_exit "Impossible to create $DYNAWO_DEPLOY_DIR."
   cd $DYNAWO_DEPLOY_DIR
   mkdir -p lib
+  mkdir -p bin
 
   echo "deploying Sundials libraries"
   cp -P $DYNAWO_SUNDIALS_INSTALL_DIR/lib*/*.* lib/
@@ -1565,6 +1566,9 @@ deploy_dynawo() {
   cp -P $DYNAWO_LIBXML_HOME/lib/*.* lib/
   echo "deploying libiidm libraries"
   cp -P $DYNAWO_LIBIIDM_HOME/lib/*.* lib/
+  if [ -d "$DYNAWO_LIBIIDM_HOME/bin" ]; then
+    cp -n -R -P $DYNAWO_LIBIIDM_HOME/bin/* bin/
+  fi
   if [ "$DYNAWO_BUILD_TYPE" = "Debug" -o "$DYNAWO_BUILD_TYPE" = "Tests" -o "$DYNAWO_BUILD_TYPE" = "TestCoverage" ]; then
     if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
       echo "deploying gtest libraries"
