@@ -12,6 +12,8 @@
 
 set(MODEL_FILES
     package.mo
+    package.order
+    ShuntB.mo
     ShuntBWithSections.mo
     ShuntBWithSections.extvar
     ShuntBWithSections_INIT.mo

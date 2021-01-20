@@ -11,6 +11,7 @@
 set(MODEL_FILES
     # Voltage control models
     package.mo
+    package.order
     TCL.mo
     TCL.extvar
     VRRemote.mo

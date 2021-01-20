@@ -14,6 +14,8 @@ add_subdirectory(HVDC H)
 
 set(MODEL_FILES
     package.mo
+    package.order
+    Overview.mo
     )
 
 #
