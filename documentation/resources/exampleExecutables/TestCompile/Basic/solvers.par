@@ -4,11 +4,7 @@
     <par type="DOUBLE" name="hMin" value="0.000001"/>
     <par type="DOUBLE" name="hMax" value="1"/>
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
-    <par type="INT" name="nEff" value="10"/>
-    <par type="INT" name="nDeadband" value="2"/>
-    <par type="INT" name="maxRootRestart" value="3"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
     <par type="STRING" name="linearSolverName" value="KLU"/>
-    <par type="BOOL" name="recalculateStep" value="false"/>
   </set>
 </parametersSet>

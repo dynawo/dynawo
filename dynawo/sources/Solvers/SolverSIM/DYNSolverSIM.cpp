@@ -39,7 +39,6 @@
 
 #include "PARParametersSet.h"
 #include "PARParameter.h"
-#include "TLTimeline.h"
 
 #include "DYNMacrosMessage.h"
 #include "DYNSparseMatrix.h"
@@ -108,11 +107,7 @@ SolverSIM::SolverSIM() :
 hMin_(0),
 hMax_(0),
 kReduceStep_(0),
-nEff_(0),
-nDeadband_(0),
-maxRootRestart_(0),
 maxNewtonTry_(0),
-recalculateStep_(false),
 tEnd_(0.),
 h_(0.),
 hNew_(0.),
@@ -142,11 +137,7 @@ SolverSIM::defineSpecificParameters() {
   parameters_.insert(make_pair("hMin", ParameterSolver("hMin", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("hMax", ParameterSolver("hMax", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("kReduceStep", ParameterSolver("kReduceStep", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("nEff", ParameterSolver("nEff", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("nDeadband", ParameterSolver("nDeadband", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("maxRootRestart", ParameterSolver("maxRootRestart", VAR_TYPE_INT)));
   parameters_.insert(make_pair("maxNewtonTry", ParameterSolver("maxNewtonTry", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("recalculateStep", ParameterSolver("recalculateStep", VAR_TYPE_BOOL)));
 
   // Parameters for the algebraic resolution at each time step
   parameters_.insert(make_pair("linearSolverName", ParameterSolver("linearSolverName", VAR_TYPE_STRING)));
@@ -166,13 +157,9 @@ SolverSIM::setSolverSpecificParameters() {
   hMin_ = findParameter("hMin").getValue<double>();
   hMax_ = findParameter("hMax").getValue<double>();
   kReduceStep_ = findParameter("kReduceStep").getValue<double>();
-  nEff_ = findParameter("nEff").getValue<int>();
-  nDeadband_ = findParameter("nDeadband").getValue<int>();
-  maxRootRestart_ = findParameter("maxRootRestart").getValue<int>();
   maxNewtonTry_ =  findParameter("maxNewtonTry").getValue<int>();
-  recalculateStep_ = findParameter("recalculateStep").getValue<bool>();
-
   linearSolverName_ = findParameter("linearSolverName").getValue<std::string>();
+
   if (findParameter("fnormtol").hasValue())
     fnormtol_ = findParameter("fnormtol").getValue<double>();
   if (findParameter("initialaddtol").hasValue())
@@ -276,162 +263,61 @@ SolverSIM::calculateIC() {
 }
 
 void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
-  if (recalculateStep_)
-    solveWithStepRecalculation(tNxt);
-  else
-    solveWithoutStepRecalculation(tNxt);
-}
-
-void SolverSIM::solveWithStepRecalculation(double& tNxt) {
   int counter = 0;
   bool redoStep = false;
-  saveInitialValues();
+  skipAlgebraicResidualsEvaluation_ = false;
 
-  // Save the initial number of events in the timeline in case we need to come back in the past
-  int initialEventsSize = 0;
-  int finalEventsSize = 0;
-  if (timeline_)
-    initialEventsSize = timeline_->getSizeEvents();
+  if (!skipNextNR_)
+    saveContinuousVariables();
 
   do {
-    // If we have more than maxNewtonTry consecutive divergence or root changes, the simulation is stopped
+    // If we have more than maxNewtonTry consecutive divergence, the simulation is stopped
     handleMaximumTries(counter);
 
     // New time step value
     h_ = hNew_;
 
-    // Call the Newton-Raphson solver and analyze the root evolution
-    SolverStatus_t status = solve();
-    skipAlgebraicResidualsEvaluation_ = false;
-
-    switch (status) {
-      /* NON_CONV: the Newton-Raphson algorithm fails to converge
-       *   => The time step is decreased
-       *   => The LU decomposition is forced for the next time steps
-       *   => The initial point for the next time step (h = h/2) is the initial point from the previous accepted time step
-       *   => In case we use the recalculateStep strategy, timeline events must be deleted.
-      */
-      case NON_CONV: {
-        handleDivergence(redoStep);
-        restoreInitialValues();
-        countRestart_ = 0;
-        // Erase timeline messages that could have been added between the previous accepted time step and the non convergence
-        if (timeline_) {
-          finalEventsSize = timeline_->getSizeEvents();
-          if (finalEventsSize != initialEventsSize)
-            timeline_->eraseEvents(finalEventsSize - initialEventsSize);
-        }
-        break;
-      }
-      /*
-       * CONV: the Newton-Rapshon algorithm converges and there is no discrete value or mode change
-       * => The time step is increased (if possible)
-       * => The LU decomposition is avoided for the next time steps (we have come back to a stabilized situation)
-       */
-      case CONV: {
-        handleConvergence(redoStep);
-        skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
-        countRestart_ = 0;
-        break;
-      }
-      /*
-       * ROOT_ALG: algebraic change
-       * => a restoration of the algebraic variables will be called by the simulation
-       * => The current time step is accepted.
-       * => The next time step will be done with the current time step (neither increase nor decrease)
-       */
-      case ROOT_ALG: {
-        handleAlgebraicRoot(redoStep);
-        skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
-        countRestart_ = 0;
-        break;
-      }
-      /*
-       * ROOT: a root has been detected (discrete variable change at the moment)
-       * => The current time step is recalculated
-       * => The LU decomposition status is kept constant or not (depending on the overall strategy - recalculateStep parameter)
-       * => The next time step will be done with the current time step (neither increase nor decrease)
-       */
-      case ROOT: {
-          // Number of discrete variable values / mode change greater than maxRootRestart
-          if (countRestart_ >= maxRootRestart_) {
-            countRestart_ = 0;
-            factorizationForced_ = true;
-            redoStep = false;
-          } else {
-            countRestart_++;
-            redoStep = true;
-            restoreContinuousVariables();
-            state_.reset();
-            model_->reinitMode();
-          }
-        break;
-      }
+    // Call the algebraic solver, analyze the result and detect mode or z change if the algebraic solver has converged
+    SolverStatus_t status;
+    if (model_->sizeY() != 0) {
+      int flag = callAlgebraicSolver();
+      status = analyzeResult(flag);
+      if (status != NON_CONV)
+        updateZAndMode(status);
+    } else {
+      updateZAndMode(status);
     }
-  } while (redoStep);
-
-  // Limitation to end up the simulation at tEnd
-  updateTimeStep(tNxt);
-  ++stats_.nst_;
-}
-
-void SolverSIM::solveWithoutStepRecalculation(double& tNxt) {
-  int counter = 0;
-  bool redoStep = false;
-  saveContinuousVariables();
-
-  do {
-    // If we have more than maxNewtonTry consecutive divergence or root changes, the simulation is stopped
-    handleMaximumTries(counter);
-
-    // New time step value
-    h_ = hNew_;
-
-    // Call the Newton-Raphson solver and analyze the root evolution
-    SolverStatus_t status = solve();
-    skipAlgebraicResidualsEvaluation_ = false;
 
     switch (status) {
-      /* NON_CONV: the Newton-Raphson algorithm fails to converge
+      /* NON_CONV: the algebraic solver fails to converge
        *   => The time step is decreased
-       *   => The LU decomposition is forced for the next time steps
-       *   => The initial point for the next time step (h = h/2) is the initial point from the previous accepted time step
+       *   => The LU decomposition is forced for the next time step.
+       *   => The initial point for the next time step (h = h * kReduceStep) is the initial point from the previous accepted time step
       */
       case NON_CONV: {
         handleDivergence(redoStep);
-        restoreContinuousVariables();
         break;
       }
       /*
-       * CONV: the Newton-Rapshon algorithm converges and there is no discrete value or mode change
-       * => The time step is increased (if possible)
-       * => The LU decomposition is avoided for the next time steps (we have come back to a stabilized situation)
+       * CONV: the algebraic solver converges and there is no discrete value or mode change
+       * => The time step is increased (h = h / kReduceStep)
+       * => The LU decomposition is avoided for the next time step.
+       * => The initial point for the next time step is the final point of this time step
       */
       case CONV: {
         handleConvergence(redoStep);
-        skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
         break;
       }
+
       /*
-       * ROOT_ALG: algebraic change
-       * => a restoration of the algebraic variables will be called by the simulation
-       * => The current time step is accepted.
-       * => The next time step will be done with the current time step (neither increase nor decrease)
-      */
-      case ROOT_ALG: {
-        handleAlgebraicRoot(redoStep);
-        skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
-        break;
-      }
-      /*
-       * ROOT: a root has been detected (discrete variable change at the moment)
-       * => The current time step is not recalculated
-       * => The LU decomposition status is kept constant or not (depending on the overall strategy - recalculateStep parameter)
-       * => The next time step will be done with the current time step (neither increase nor decrease)
-      */
+       * ROOT: the algebraic solver converges and there is a root detected
+       * => If the root is an algebraic root with J update, the time step is not changed. Otherwise, the time step is increased (h = h / kReduceStep)
+       * => If the root is an algebraic root with J update, the LU decomposition is forced for the next time step. Otherwise, the status is not modified (forced if
+       *    it was forced, avoided if it was avoided)
+       * => The initial point for the next time step is the final point of this time step (possibly after algebraic restoration)
+       */
       case ROOT: {
-        redoStep = false;
-        factorizationForced_ = false;
+        handleRoot(redoStep);
         break;
       }
     }
@@ -439,13 +325,6 @@ void SolverSIM::solveWithoutStepRecalculation(double& tNxt) {
 
   updateTimeStep(tNxt);
   ++stats_.nst_;
-}
-
-void
-SolverSIM::saveInitialValues() {
-  saveContinuousVariables();
-  gSave_.assign(g0_.begin(), g0_.end());
-  model_->getCurrentZ(zSave_);
 }
 
 void
@@ -459,87 +338,65 @@ void SolverSIM::handleMaximumTries(int& counter) {
     throw DYNError(Error::SOLVER_ALGO, SolverSIMConvFail, maxNewtonTry_);
 }
 
-SolverSIM::SolverStatus_t
-SolverSIM::solve() {
-  /*
-   * Call the Newton-Raphson solver for the time step
-   * Returns y and yp updated values
-   */
+int
+SolverSIM::callAlgebraicSolver() {
   int flag = 0;
-  if (!skipNextNR_ && model_->sizeY() != 0)
-    flag = callSolverKINEuler();
+  if (skipNextNR_) {
+    return KIN_INITIAL_GUESS_OK;
+  } else {
+    // Step initialization
+    solverKINEuler_->setInitialValues(tSolve_, h_, vYy_);
 
+    // Forcing the Jacobian calculation for the next Newton-Raphson resolution
+    bool noInitSetup = true;
+    if (stats_.nst_ == 0 || factorizationForced_)
+      noInitSetup = false;
+
+    // Call the solving method in Backward Euler method (Newton-Raphson resolution)
+    flag = solverKINEuler_->solve(noInitSetup, skipAlgebraicResidualsEvaluation_);
+
+    // Update statistics
+    updateStatistics();
+  }
+
+  return flag;
+}
+
+SolverSIM::SolverStatus_t SolverSIM::analyzeResult(int& flag) {
   // Analyze the return value and do further treatments if necessary
   if (flag < 0) {
     stats_.ncfn_++;
     return NON_CONV;
-  } else {
-    // Evaluate root values after the time step (using updated y and yp)
-    model_->evalG(tSolve_ + h_, g1_);
-    ++stats_.nge_;
-
-    // No root change -> no discrete variable change neither mode change
-    if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
-      if (flag == KIN_INITIAL_GUESS_OK) {
-        skipNextNR_ = skipNRIfInitialGuessOK_;
-        if (skipNextNR_)
-          Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
-      }
-      return CONV;
-    } else {
-      // A root change has occurred - Dealing with propagation and algebraic mode detection
-#ifdef _DEBUG_
-      printUnstableRoot(g0_, g1_);
-#endif
-      /* Save the new values of the root in g0 for comparison after the evalZMode
-       * Calculate the propagation of discrete variable value changes and mode changes
-       */
-      g0_.assign(g1_.begin(), g1_.end());
-      evalZMode(g0_, g1_, tSolve_ + h_);
-
-      if (getState().getFlags(ModeChange)) {
-        skipNextNR_ = false;
-        if (model_->getModeChangeType() != DIFFERENTIAL_MODE)
-          return ROOT_ALG;
-        else if (getState().getFlags(ZChange) || getState().getFlags(SilentZChange))
-          return ROOT;
-        return CONV;
-      } else if (getState().getFlags(ZChange) || getState().getFlags(SilentZChange)) {  // Z change
-        skipNextNR_ = false;
-        return ROOT;
-      } else {  // Root change without any z or mode change
-        if (flag == KIN_INITIAL_GUESS_OK) {
-          skipNextNR_ = skipNRIfInitialGuessOK_;
-          if (skipNextNR_)
-            Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
-        }
-        return CONV;
-      }
-    }
+  } else if (skipNRIfInitialGuessOK_ && !skipNextNR_ && flag == KIN_INITIAL_GUESS_OK) {
+    skipNextNR_ = skipNRIfInitialGuessOK_;
+    Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
   }
+
+  solverKINEuler_->getValues(vYy_, vYp_);
+  return CONV;
 }
 
-int
-SolverSIM::callSolverKINEuler() {
-  // Step initialization
-  solverKINEuler_->setInitialValues(tSolve_, h_, vYy_);
+void SolverSIM::updateZAndMode(SolverStatus_t& status) {
+  // Evaluate root values after the time step (using updated y and yp)
+  model_->evalG(tSolve_ + h_, g1_);
+  ++stats_.nge_;
 
-  // Forcing the Jacobian calculation for the next Newton-Raphson resolution
-  bool noInitSetup = true;
-  if (stats_.nst_ == 0 || factorizationForced_)
-    noInitSetup = false;
+  if (!std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
+    // A root change has occurred - Dealing with propagation and algebraic mode detection
+#ifdef _DEBUG_
+    printUnstableRoot(g0_, g1_);
+#endif
+    /* Save the new values of the root in g0 for comparison after the evalZMode
+     * Calculate the propagation of discrete variable value changes and mode changes
+     */
+    g0_.assign(g1_.begin(), g1_.end());
+    evalZMode(g0_, g1_, tSolve_ + h_);
 
-  // Call the solving method in Backward Euler method (Newton-Raphson resolution)
-  int flag = solverKINEuler_->solve(noInitSetup, skipAlgebraicResidualsEvaluation_);
-
-  // Get updated y and yp values plus set the skipNextNR indicator
-  if (flag >= 0)
-    solverKINEuler_->getValues(vYy_, vYp_);
-
-  // Update statistics
-  updateStatistics();
-
-  return flag;
+    if (skipNRIfInitialGuessOK_ &&
+       ((getState().getFlags(ModeChange)|| getState().getFlags(ZChange))))
+      skipNextNR_ = false;
+    status = ROOT;
+  }
 }
 
 void
@@ -558,12 +415,13 @@ void SolverSIM::handleDivergence(bool& redoStep) {
   }
   factorizationForced_ = true;
   redoStep = true;
-  updateStepDivergence();
+  decreaseStep();
+  restoreContinuousVariables();
 }
 
 void
-SolverSIM::updateStepDivergence() {
-  hNew_ = max(h_*kReduceStep_, hMin_);
+SolverSIM::decreaseStep() {
+  hNew_ = max(h_ * kReduceStep_, hMin_);
 }
 
 void
@@ -571,38 +429,26 @@ SolverSIM::restoreContinuousVariables() {
   vYy_.assign(ySave_.begin(), ySave_.end());
 }
 
-void
-SolverSIM::restoreInitialValues() {
-  restoreContinuousVariables();
-  model_->setCurrentZ(zSave_);
-  g0_.assign(gSave_.begin(), gSave_.end());
-}
-
 void SolverSIM::handleConvergence(bool& redoStep) {
   factorizationForced_ = false;
   redoStep = false;
-  updateStepConvergence();
+  skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
+  increaseStep();
 }
 
 void
-SolverSIM::updateStepConvergence() {
-  if (doubleNotEquals(h_, hMax_)) {
-    if (nNewt_ <= nEff_ - nDeadband_ || nNewt_ >= nEff_ + nDeadband_) {
-      hNew_ = min(h_ * nEff_ / nNewt_, hMax_);
-    } else {
-      hNew_ = h_;
-    }
-  } else {
-    hNew_ = h_;
-  }
-
-  // Limitation to end up the simulation at tEnd
-  hNew_ = min(hNew_, tEnd_ - (tSolve_ + h_));
+SolverSIM::increaseStep() {
+  if (doubleNotEquals(h_, hMax_))
+    hNew_ = min(h_ / kReduceStep_, hMax_);
 }
 
-void SolverSIM::handleAlgebraicRoot(bool& redoStep) {
-  if (model_->getModeChangeType() == ALGEBRAIC_J_UPDATE_MODE)
+void SolverSIM::handleRoot(bool& redoStep) {
+  if (model_->getModeChangeType() == ALGEBRAIC_J_UPDATE_MODE) {
     factorizationForced_ = true;
+  } else {
+    factorizationForced_ = false;
+    increaseStep();
+  }
   redoStep = false;
 }
 
@@ -654,6 +500,8 @@ SolverSIM::reinit() {
     return;
 
   const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
+  skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
+
   do {
     model_->rotateBuffers();
     state_.reset();
@@ -693,7 +541,7 @@ SolverSIM::reinit() {
     counter++;
     if (counter >= maxNumberUnstableRoots)
       throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
-  } while (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE);
+  } while (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_);
 }
 
 void

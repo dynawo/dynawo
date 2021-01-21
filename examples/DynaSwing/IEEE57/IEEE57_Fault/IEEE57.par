@@ -42,7 +42,7 @@
     <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
     <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
   </set>
-   <set id="Generator6">
+  <set id="Generator6">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_md" value="0.084"/>
     <par type="DOUBLE" name="generator_mq" value="0.084"/>
