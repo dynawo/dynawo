@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iidm:network xmlns:iidm="http://www.powsybl.org/schema/iidm/1_2" xmlns:gapc="http://www.itesla_project.eu/schema/iidm/ext/generator_active_power_control/1_0" xmlns:sa="http://www.itesla_project.eu/schema/iidm/ext/standby_automaton/1_0" id="testCSPR" caseDate="2017-07-25T09:39:00+01:00" forecastDistance="0" sourceFormat="NF">
+    <iidm:substation id="FF1_site" name="undefined" country="FR" tso="RTE">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="LILLE"/>
+        <iidm:voltageLevel id="FF1" nominalV="380" topologyKind="BUS_BREAKER">
+            <iidm:property name="siteInit" value="undefined"/>
+            <iidm:busBreakerTopology>
+                <iidm:bus id="FF11" v="402.95782896527163" angle="-3.4088787975276551"/>
+            </iidm:busBreakerTopology>
+            <iidm:shunt id="MCS_TEST" bPerSection="0.00069252075627446175" maximumSectionCount="1" currentSectionCount="0" voltageRegulatorOn="false" connectableBus="FF11" q="-0">
+                <iidm:property name="qMax" value="100"/>
+            </iidm:shunt>
+            <iidm:staticVarCompensator id="CSPR_TEST" bMin="-0.0010387811344116926" bMax="0.0010387811344116926" voltageSetPoint="422" reactivePowerSetPoint="0" regulationMode="VOLTAGE" bus="FF11" connectableBus="FF11" p="0.010635147134216021" q="-59.730449910320417"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="FF2_site" name="undefined" country="FR" tso="RTE">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="LILLE"/>
+        <iidm:voltageLevel id="FF2" nominalV="380" lowVoltageLimit="0" topologyKind="BUS_BREAKER">
+            <iidm:property name="siteInit" value="undefined"/>
+            <iidm:busBreakerTopology>
+                <iidm:bus id="FF21" v="390.69424251097558" angle="-6.8885967043458267"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="FF2_L" loadType="UNDEFINED" p0="1000" q0="300" bus="FF21" connectableBus="FF21" p="1000.5482616573896" q="300.32904717168731"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="FSLACK1_site" name="undefined" country="FR" tso="RTE">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="LILLE"/>
+        <iidm:voltageLevel id="FSLACK1" nominalV="380" topologyKind="BUS_BREAKER">
+            <iidm:property name="siteInit" value="undefined"/>
+            <iidm:busBreakerTopology>
+                <iidm:bus id="FSLACK11" v="415.13405017368996" angle="-0.10317707699114524"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="BVIL7T 1" energySource="HYDRO" minP="300" maxP="2000" voltageRegulatorOn="true" targetP="1000" targetV="415.0001220703125" targetQ="0" bus="FSLACK11" connectableBus="FSLACK11" p="-1021.6120145505693" q="-379.72416716322755">
+                <iidm:property name="genreCvg" value="POMPAGE"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="300" minQ="-9998" maxQ="9999"/>
+                    <iidm:point p="2000" minQ="-9998" maxQ="9999"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:line id="FF1 FF2 1" r="1.5000001192092896" x="10" g1="0" b1="1.9999999949504854e-06" g2="0" b2="1.9999999949504854e-06" bus1="FF11" connectableBus1="FF11" voltageLevelId1="FF1" bus2="FF21" connectableBus2="FF21" voltageLevelId2="FF2" p1="1011.2705165651438" q1="371.18072523122453" p2="-1000.5482589871017" q2="-300.32904772965287">
+        <iidm:currentLimits1 permanentLimit="2000.0006103515625"/>
+        <iidm:currentLimits2 permanentLimit="2000.0006103515625"/>
+    </iidm:line>
+    <iidm:line id="FSLACK11 FF11 1" r="1.5000001192092896" x="10" g1="0" b1="1.9999999949504854e-06" g2="0" b2="1.9999999949504854e-06" bus1="FSLACK11" connectableBus1="FSLACK11" voltageLevelId1="FSLACK1" bus2="FF11" connectableBus2="FF11" voltageLevelId2="FF1" p1="1021.6120145505693" q1="379.72416716322874" p2="-1011.2705165651441" q2="-311.45027532090126">
+        <iidm:currentLimits1 permanentLimit="2000.0006103515625"/>
+        <iidm:currentLimits2 permanentLimit="2000.0006103515625"/>
+    </iidm:line>
+    <iidm:extension id="BVIL7T 1">
+        <gapc:generatorActivePowerControl participate="true" droop="4"/>
+    </iidm:extension>
+    <iidm:extension id="CSPR_TEST">
+        <sa:standbyAutomaton b0="0.0001" standby="true" lowVoltageSetPoint="401" highVoltageSetPoint="415" lowVoltageThreshold="380" highVoltageThreshold="400.25999999999999"/>
+    </iidm:extension>
+</iidm:network>
