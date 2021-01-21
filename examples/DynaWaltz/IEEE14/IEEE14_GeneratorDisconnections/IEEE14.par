@@ -35,44 +35,44 @@
     <par type="DOUBLE" name="transformer_tolV" value="0.015"/>
   </set>
   <set id="GenericLoadTwoTransfos">
-     <par type="DOUBLE" name="load_alpha" value="1"/>
-     <par type="DOUBLE" name="load_beta" value="2"/>
-     <par type="DOUBLE" name="tapChangerD_UDeadBand" value="0.01"/>
-     <par type="DOUBLE" name="tapChangerD_UTarget" value="1.015"/>
-     <par type="BOOL" name="tapChangerD_regulating0" value="true"/>
-     <par type="DOUBLE" name="tapChangerD_t1st" value="60"/>
-     <par type="DOUBLE" name="tapChangerD_tNext" value="10"/>
-     <par type="INT" name="tapChangerD_tapMax" value="84"/>
-     <par type="INT" name="tapChangerD_tapMin" value="0"/>
-     <par type="DOUBLE" name="tapChangerT_UDeadBand" value="0.015"/>
-     <par type="DOUBLE" name="tapChangerT_UTarget" value="1.025"/>
-     <par type="BOOL" name="tapChangerT_regulating0" value="true"/>
-     <par type="DOUBLE" name="tapChangerT_t1st" value="30"/>
-     <par type="DOUBLE" name="tapChangerT_tNext" value="10"/>
-     <par type="INT" name="tapChangerT_tapMax" value="24"/>
-     <par type="INT" name="tapChangerT_tapMin" value="0"/>
-     <par type="DOUBLE" name="transformerD_B" value="0"/>
-     <par type="DOUBLE" name="transformerD_G" value="0"/>
-     <par type="INT" name="transformerD_NbTap" value="85"/>
-     <par type="DOUBLE" name="transformerD_Uc20Pu" value="1.015"/>
-     <par type="DOUBLE" name="transformerD_rTfoMaxPu" value="1.5"/>
-     <par type="DOUBLE" name="transformerD_rTfoMinPu" value="0.415"/>
-     <par type="DOUBLE" name="transformerD_R" value="0.05"/>
-     <par type="DOUBLE" name="transformerD_X" value="7"/>
-     <par type="DOUBLE" name="transformerT_B" value="0"/>
-     <par type="DOUBLE" name="transformerT_G" value="0"/>
-     <par type="INT" name="transformerT_NbTap" value="25"/>
-     <par type="DOUBLE" name="transformerT_R" value="0.1"/>
-     <par type="DOUBLE" name="transformerT_Uc20Pu" value="1.025"/>
-     <par type="DOUBLE" name="transformerT_X" value="14"/>
-     <par type="DOUBLE" name="transformerT_rTfoMaxPu" value="1.133"/>
-     <par type="DOUBLE" name="transformerT_rTfoMinPu" value="0.85"/>
-     <reference name="transformerT_P10Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
-     <reference name="transformerT_Q10Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
-     <reference name="transformerT_SNom" origData="IIDM" origName="sn" type="DOUBLE"/>
-     <reference name="transformerD_SNom" origData="IIDM" origName="sn" type="DOUBLE"/>
-     <reference name="transformerT_U10Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
-     <reference name="transformerT_U1Phase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="tapChangerD_UDeadBand" value="0.01"/>
+    <par type="DOUBLE" name="tapChangerD_UTarget" value="1.015"/>
+    <par type="BOOL" name="tapChangerD_regulating0" value="true"/>
+    <par type="DOUBLE" name="tapChangerD_t1st" value="60"/>
+    <par type="DOUBLE" name="tapChangerD_tNext" value="10"/>
+    <par type="INT" name="tapChangerD_tapMax" value="84"/>
+    <par type="INT" name="tapChangerD_tapMin" value="0"/>
+    <par type="DOUBLE" name="tapChangerT_UDeadBand" value="0.015"/>
+    <par type="DOUBLE" name="tapChangerT_UTarget" value="1.025"/>
+    <par type="BOOL" name="tapChangerT_regulating0" value="true"/>
+    <par type="DOUBLE" name="tapChangerT_t1st" value="30"/>
+    <par type="DOUBLE" name="tapChangerT_tNext" value="10"/>
+    <par type="INT" name="tapChangerT_tapMax" value="24"/>
+    <par type="INT" name="tapChangerT_tapMin" value="0"/>
+    <par type="DOUBLE" name="transformerD_B" value="0"/>
+    <par type="DOUBLE" name="transformerD_G" value="0"/>
+    <par type="INT" name="transformerD_NbTap" value="85"/>
+    <par type="DOUBLE" name="transformerD_Uc20Pu" value="1.015"/>
+    <par type="DOUBLE" name="transformerD_rTfoMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="transformerD_rTfoMinPu" value="0.415"/>
+    <par type="DOUBLE" name="transformerD_R" value="0.05"/>
+    <par type="DOUBLE" name="transformerD_X" value="7"/>
+    <par type="DOUBLE" name="transformerT_B" value="0"/>
+    <par type="DOUBLE" name="transformerT_G" value="0"/>
+    <par type="INT" name="transformerT_NbTap" value="25"/>
+    <par type="DOUBLE" name="transformerT_R" value="0.1"/>
+    <par type="DOUBLE" name="transformerT_Uc20Pu" value="1.025"/>
+    <par type="DOUBLE" name="transformerT_X" value="14"/>
+    <par type="DOUBLE" name="transformerT_rTfoMaxPu" value="1.133"/>
+    <par type="DOUBLE" name="transformerT_rTfoMinPu" value="0.85"/>
+    <reference name="transformerT_P10Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="transformerT_Q10Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="transformerT_SNom" origData="IIDM" origName="sn" type="DOUBLE"/>
+    <reference name="transformerD_SNom" origData="IIDM" origName="sn" type="DOUBLE"/>
+    <reference name="transformerT_U10Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="transformerT_U1Phase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
   <set id="GenericLoadOneTransfo">
     <par type="DOUBLE" name="load_alpha" value="1"/>
@@ -373,7 +373,6 @@
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="STRING" name="linearSolverName" value="KLU"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
-    <par type="INT" name="maxRootRestart" value="3"/>
     <par type="INT" name="msbset" value="0"/>
     <par type="INT" name="msbsetAlg" value="5"/>
     <par type="INT" name="msbsetAlgJ" value="1"/>
@@ -383,13 +382,10 @@
     <par type="DOUBLE" name="mxnewtstep" value="100000"/>
     <par type="DOUBLE" name="mxnewtstepAlg" value="100000"/>
     <par type="DOUBLE" name="mxnewtstepAlgJ" value="100000"/>
-    <par type="INT" name="nDeadband" value="2"/>
-    <par type="INT" name="nEff" value="10"/>
     <par type="BOOL" name="optimizeAlgebraicResidualsEvaluations" value="true"/>
     <par type="INT" name="printfl" value="0"/>
     <par type="INT" name="printflAlg" value="0"/>
     <par type="INT" name="printflAlgJ" value="0"/>
-    <par type="BOOL" name="recalculateStep" value="false"/>
     <par type="DOUBLE" name="scsteptol" value="1e-4"/>
     <par type="DOUBLE" name="scsteptolAlg" value="1e-4"/>
     <par type="DOUBLE" name="scsteptolAlgJ" value="1e-4"/>
