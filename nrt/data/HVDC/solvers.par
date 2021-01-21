@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -35,25 +35,9 @@
     <par type="DOUBLE" name="hMin" value="0.000001"/>
     <par type="DOUBLE" name="hMax" value="1"/>
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
-    <par type="INT" name="nEff" value="10"/>
-    <par type="INT" name="nDeadband" value="2"/>
-    <par type="INT" name="maxRootRestart" value="3"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
     <par type="STRING" name="linearSolverName" value="KLU"/>
-    <par type="BOOL" name="recalculateStep" value="false"/>
     <par type="INT" name="msbsetAlg" value="10"/>
-  </set>
-  <!-- Simplified solver with step recalculation -->
-  <set id="4">
-    <par type="DOUBLE" name="hMin" value="0.000001"/>
-    <par type="DOUBLE" name="hMax" value="1"/>
-    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
-    <par type="INT" name="nEff" value="10"/>
-    <par type="INT" name="nDeadband" value="2"/>
-    <par type="INT" name="maxRootRestart" value="3"/>
-    <par type="INT" name="maxNewtonTry" value="10"/>
-    <par type="STRING" name="linearSolverName" value="KLU"/>
-    <par type="BOOL" name="recalculateStep" value="true"/>
   </set>
   <!-- IDA order 2 solver with higher accuracy requirements -->
   <set id="5">

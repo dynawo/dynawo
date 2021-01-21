@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -24,7 +24,6 @@
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="STRING" name="linearSolverName" value="KLU"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
-    <par type="INT" name="maxRootRestart" value="3"/>
     <par type="INT" name="msbset" value="0"/>
     <par type="INT" name="msbsetAlg" value="1"/>
     <par type="INT" name="msbsetAlgJ" value="1"/>
@@ -34,12 +33,9 @@
     <par type="DOUBLE" name="mxnewtstep" value="100000"/>
     <par type="DOUBLE" name="mxnewtstepAlg" value="100000"/>
     <par type="DOUBLE" name="mxnewtstepAlgJ" value="100000"/>
-    <par type="INT" name="nDeadband" value="2"/>
-    <par type="INT" name="nEff" value="10"/>
     <par type="INT" name="printfl" value="0"/>
     <par type="INT" name="printflAlg" value="0"/>
     <par type="INT" name="printflAlgJ" value="0"/>
-    <par type="BOOL" name="recalculateStep" value="false"/>
     <par type="DOUBLE" name="scsteptol" value="1e-4"/>
     <par type="DOUBLE" name="scsteptolAlg" value="1e-4"/>
     <par type="DOUBLE" name="scsteptolAlgJ" value="1e-4"/>
