@@ -1233,15 +1233,15 @@ def set_values(element,what,IIDMobject):
 
 # Read a IIDM file name and build a dictionary object id => values
 # Only values that can be changed by dynawo are taken into account
-def getOutputIIDMInfo(filename):
+def getOutputIIDMInfo(filename, prefix):
     IIDM_objects_byID = {}
     iidm_root = ImportXMLFile(filename)
-    for voltageLevel in iidm_root.getElementsByTagName("voltageLevel"):
+    for voltageLevel in iidm_root.getElementsByTagName(prefix+"voltageLevel"):
         for child in voltageLevel.getElementsByTagName("*"):
             if child.hasAttribute('id'):
                 myId=child.getAttribute('id')
                 myObject = IIDMobject(myId)
-                myObject.type = child._get_tagName()
+                myObject.type = child._get_tagName().replace(prefix, "")
                 if myObject.type == 'bus':
                     set_values(child,'v',myObject)
                     set_values(child,'angle',myObject)
@@ -1291,8 +1291,12 @@ def getOutputIIDMInfo(filename):
 # @param path_left : the absolute path to the left-side file
 # @param path_right : the absolute path to the right-side file
 def OutputIIDMCloseEnough (path_left, path_right):
-    left_file_info = getOutputIIDMInfo(path_left)
-    right_file_info = getOutputIIDMInfo(path_right)
+    left_file_info = getOutputIIDMInfo(path_left, "")
+    if len(left_file_info) == 0:
+        left_file_info = getOutputIIDMInfo(path_left, "iidm:")
+    right_file_info = getOutputIIDMInfo(path_right, "")
+    if len(right_file_info) == 0:
+        right_file_info = getOutputIIDMInfo(path_right, "iidm:")
     nb_differences = 0
     msg = ""
 
