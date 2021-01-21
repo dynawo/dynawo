@@ -25,12 +25,7 @@ IF(NOT LIBARCHIVE_HOME AND NOT $ENV{LIBARCHIVE_ROOT} STREQUAL "")
 ENDIF()
 
 FIND_PATH(LibArchive_INCLUDE_DIR NAME archive.h archive_entry.h HINTS ${LIBARCHIVE_HOME}/include)
-if(APPLE)
-  # Force to find the library we compiled and not the system one
-  FIND_LIBRARY(LibArchive_LIBRARY NAME archive libarchive HINTS ${LIBARCHIVE_HOME}/lib NO_CMAKE_SYSTEM_PATH)
-else()
-  FIND_LIBRARY(LibArchive_LIBRARY NAME archive libarchive HINTS ${LIBARCHIVE_HOME}/lib)
-endif()
+FIND_LIBRARY(LibArchive_LIBRARY NAME archive libarchive HINTS ${LIBARCHIVE_HOME}/lib)
 
 MARK_AS_ADVANCED(LibArchive_INCLUDE_DIR LibArchive_LIBRARY)
 

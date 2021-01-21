@@ -300,12 +300,6 @@ macro(COMPILE_CPP_MODEL
         dynawo_CPPModelsCommon
       )
 
-    if(APPLE)
-      if(LIBRARY_TYPE STREQUAL "STATIC")
-        target_link_libraries(${CPP_MODEL} PRIVATE "-flat_namespace")
-      endif()
-    endif()
-
     add_custom_command(
         OUTPUT ${CPP_MODEL}${DESCRIPTION_XML_EXTENSION}
         DEPENDS ${CPP_MODEL}

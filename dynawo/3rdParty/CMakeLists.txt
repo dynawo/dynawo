@@ -28,12 +28,6 @@ if(MSVC_STATIC_RUNTIME_LIBRARY)
   set(Boost_USE_STATIC_RUNTIME ON)
 endif()
 
-if(APPLE)
-  if(NOT DEFINED CMAKE_OSX_DEPLOYMENT_TARGET)
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Variable to specify -mmacosx-version-min flag.")
-  endif()
-endif()
-
 if(NOT DEFINED OPENMODELICA_INSTALL)
   message(FATAL_ERROR "You must define OPENMODELICA_INSTALL variable.")
 endif()
@@ -120,9 +114,6 @@ if(MSVC)
     set(boost_version        1.64.0)
     set(boost_md5            319C6FFBBECCC366F14BB68767A6DB79)
   endif()
-elseif(APPLE)
-  set(boost_version        1.70.0)
-  set(boost_md5            fea771fe8176828fabf9c09242ee8c26)
 else()
   set(boost_version        1.64.0)
   set(boost_md5            319C6FFBBECCC366F14BB68767A6DB79)
@@ -292,11 +283,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
                           -DCMAKE_BUILD_TYPE:STRING=Release
                           -DBUILD_SHARED_LIBS=ON
                           -Dgtest_force_shared_crt:BOOL=ON
-                          -DCMAKE_MACOSX_RPATH=True
-                          -DCMAKE_SKIP_BUILD_RPATH=False
-                          -DCMAKE_BUILD_WITH_INSTALL_RPATH=False
-                          -DCMAKE_INSTALL_RPATH=${CMAKE_INSTALL_PREFIX}/googletest/lib
-                          -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
     )
     ExternalProject_Add(googletest_debug
             INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/googletest
@@ -313,11 +299,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
                                 -DCMAKE_BUILD_TYPE:STRING=Debug
                                 -DBUILD_SHARED_LIBS=ON
                                 -Dgtest_force_shared_crt:BOOL=ON
-                                -DCMAKE_MACOSX_RPATH=True
-                                -DCMAKE_SKIP_BUILD_RPATH=False
-                                -DCMAKE_BUILD_WITH_INSTALL_RPATH=False
-                                -DCMAKE_INSTALL_RPATH=${CMAKE_INSTALL_PREFIX}/googletest/lib
-                                -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
     )
     ExternalProject_Get_Property(googletest install_dir)
     set(GTEST_ROOT ${install_dir} CACHE PATH "Path to GoogleTest installation" FORCE)
@@ -437,12 +418,6 @@ else()
                         -DCMAKE_INSTALL_RPATH=${CMAKE_INSTALL_PREFIX}/libarchive/lib
                         -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
   )
-  if(APPLE)
-    ExternalProject_Add_Step(libarchive install-macos
-      DEPENDEES install
-      COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/libarchive/rpath.sh ${CMAKE_INSTALL_PREFIX}/libarchive
-    )
-  endif()
   ExternalProject_Get_Property(libarchive install_dir)
   set(LIBARCHIVE_HOME ${install_dir} CACHE PATH "Path to LibArchive installation" FORCE)
   if(NOT BUILD_SHARED_LIBS AND UNIX)
@@ -546,21 +521,13 @@ else()
                           cxxflags=-fPIC
                           install
                           --prefix=<INSTALL_DIR>
-                          $<$<BOOL:${APPLE}>:toolset=clang>
                           --disable-icu variant=$<IF:$<CONFIG:Debug>,debug,release>
                           link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static>
-                          $<$<BOOL:${APPLE}>:cxxflags=-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET}>
                           stage
 
       INSTALL_COMMAND     ""
     )
     unset(TmpVar)
-  endif()
-  if(APPLE)
-    ExternalProject_Add_Step(boost install-macos
-      DEPENDEES install
-      COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/boost/rpath.sh ${CMAKE_INSTALL_PREFIX}/boost
-    )
   endif()
   ExternalProject_Get_Property(boost install_dir)
   set(BOOST_ROOT ${install_dir} CACHE PATH "Path to Boost installation" FORCE)
@@ -576,7 +543,7 @@ if(Adept_FOUND)
   add_custom_target(adept)
   set(ADEPT_HOME ${CMAKE_INSTALL_PREFIX}/adept)
 else()
-  if(MSVC OR APPLE)
+  if(MSVC)
     ExternalProject_Add(adept
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/adept
       DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/adept
@@ -976,36 +943,6 @@ else()
                           -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
                           -Dnetwork:BOOL=OFF
                           -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
-    )
-  elseif(APPLE)
-    ExternalProject_Add(xercesc
-      INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/xerces-c
-      DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/xercesc
-      TMP_DIR             ${TMP_DIR}
-      STAMP_DIR           ${DOWNLOAD_DIR}/xerces-c-stamp
-      SOURCE_DIR          ${DOWNLOAD_DIR}/xerces-c
-      BINARY_DIR          ${DOWNLOAD_DIR}/xerces-c-build
-      URL                 ${xercesc_url}
-      URL_MD5             ${xercesc_md5}
-      PATCH_COMMAND       ${xercesc_patch_common}
-      COMMAND             ${xercesc_patch_compiler}
-
-      CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER}
-                          -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}
-
-      CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
-                          -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-                          -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
-                          -DCMAKE_MACOSX_RPATH=True
-                          -DCMAKE_SKIP_BUILD_RPATH=False
-                          -DCMAKE_BUILD_WITH_INSTALL_RPATH=False
-                          -DCMAKE_INSTALL_RPATH=<INSTALL_DIR>/lib
-                          -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
-                          -Dnetwork:BOOL=OFF
-    )
-    ExternalProject_Add_Step(xercesc install-macos
-      DEPENDEES install
-      COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/xercesc/rpath.sh ${CMAKE_INSTALL_PREFIX}/xerces-c ${xercesc_version}
     )
   else()
     ExternalProject_Add(xercesc
