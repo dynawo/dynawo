@@ -10,6 +10,7 @@
 
 SET(MODEL_FILES
     package.mo
+    package.order
     HvdcPTanPhi.mo
     HvdcPTanPhi_INIT.mo
     HvdcPTanPhi.extvar

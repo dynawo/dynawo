@@ -23,6 +23,7 @@ add_subdirectory(Switches S)
 
 set(MODEL_FILES
     package.mo
+    package.order
     SystemBase.mo
     Constants.mo
     )
