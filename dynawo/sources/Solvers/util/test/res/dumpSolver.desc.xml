@@ -15,7 +15,6 @@
       <parameter name="kReduceStep" valueType="DOUBLE" cardinality="1"/>
       <parameter name="linearSolverName" valueType="STRING" cardinality="1"/>
       <parameter name="maxNewtonTry" valueType="INT" cardinality="1"/>
-      <parameter name="maxRootRestart" valueType="INT" cardinality="1"/>
       <parameter name="minimumModeChangeTypeForAlgebraicRestoration" valueType="STRING" cardinality="1"/>
       <parameter name="msbset" valueType="INT" cardinality="1"/>
       <parameter name="msbsetAlg" valueType="INT" cardinality="1"/>
@@ -26,14 +25,11 @@
       <parameter name="mxnewtstep" valueType="DOUBLE" cardinality="1"/>
       <parameter name="mxnewtstepAlg" valueType="DOUBLE" cardinality="1"/>
       <parameter name="mxnewtstepAlgJ" valueType="DOUBLE" cardinality="1"/>
-      <parameter name="nDeadband" valueType="INT" cardinality="1"/>
-      <parameter name="nEff" valueType="INT" cardinality="1"/>
       <parameter name="optimizeAlgebraicResidualsEvaluations" valueType="BOOL" cardinality="1"/>
       <parameter name="optimizeReinitAlgebraicResidualsEvaluations" valueType="BOOL" cardinality="1"/>
       <parameter name="printfl" valueType="INT" cardinality="1"/>
       <parameter name="printflAlg" valueType="INT" cardinality="1"/>
       <parameter name="printflAlgJ" valueType="INT" cardinality="1"/>
-      <parameter name="recalculateStep" valueType="BOOL" cardinality="1"/>
       <parameter name="scsteptol" valueType="DOUBLE" cardinality="1"/>
       <parameter name="scsteptolAlg" valueType="DOUBLE" cardinality="1"/>
       <parameter name="scsteptolAlgJ" valueType="DOUBLE" cardinality="1"/>

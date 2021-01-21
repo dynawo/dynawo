@@ -701,7 +701,6 @@ As already mentioned, the Jacobian matrix is not calculated at each \ac{NR} iter
 \item For the first time step
 \item After an algebraic mode change
 \item After a non convergence
-\item After a root unstability detection (number of consecutive discrete variable values or mode changes higher than a threshold)
 \end{itemize}
 
 Re-evaluations can happen during a time step, as explained in the previous section, when the solver hasn't converged after a certain number of iterations or when the convergence speed is not good enough.
@@ -744,15 +743,9 @@ In order to give \ac{KINSOL} a better criterion to stop the \ac{NR} algorithm, i
 
 \subsubsection{Discontinuities handling}
 
-At the end of a time step, the discrete variables value are compared with their values at the previous time step, and the root functions are evaluate in order to detect if a mode has changed during the iteration. When a change is detected, the Simplified solver offers two different strategies:
-\begin{itemize}
-\item A ``go-through" strategy in which the time step isn't repeated;
-\item A ``recalculate" strategy in which the time step is recalculated until we reach a system state with no more discrete variable value or mode change.
-\end{itemize}
+At the end of a time step, the discrete variables values are compared with their values at the previous time step, and the root functions are evaluated in order to detect if a mode has changed during the iteration. When a change is detected, the Simplified solver uses a ``go-through" strategy in which the time step isn't repeated.
 
-Regarding discontinuities detection, the Simplified solver algorithm doesn\textquotesingle t try to determine the exact event time as it could be the case with more detailed solver. All the discrete variable and mode changes are considered at the next (or previous) time-step depending on the strategy used. The delay (or advance) is then equal at maximum to the time step. \\
-
-At the moment, the different tests conducted with both strategies haven't permitted to exhibit a test case in which only one of the two strategies enables to find the correct final state (= similar to IDA). As the ``go-through'' strategy is more efficient because it requires less calculations, we advise to use it by default. Nevertheless the user can choose to use one or the other strategy by modifying the recalculatedStep parameter. \\
+Regarding discontinuities detection, the Simplified solver algorithm doesn\textquotesingle t try to determine the exact event time as it could be the case with more detailed solver. All the discrete variable and mode changes are considered at the next  time-step (the delay in the worst case is thus equal to the time step). \\
 
 The algorithm for one time step for the Simplified solver (particularly for discontinuity handling) is presented in Figure \ref{fig:AlgoSim}.
 
@@ -770,11 +763,11 @@ The algorithm for one time step for the Simplified solver (particularly for disc
     % Place nodes
     \node [cloud] (start) {Start for $t_{n+1}$};
     \node [block, below of=start] (evalY) {Calculate $y(t_{n+1})$};
-    \node [block, right of=evalY, xshift=10mm] (reduce) {Reduce time step};
+    \node [block, right of=evalY, xshift=20mm] (reduce) {Reduce time step};
     \node [decision, below of=evalY] (NR) {Succes?};
     \node [decision, below of=reduce] (Hmin)
-{$h\neq{h_{Min}}$?};
-    \node [cloud, right of=Hmin, xshift=10mm, fill=red!20] (endFail) {Divergence};
+{$h\neq{h_{Min}}$ and $nb_{NR} < nb_{NR_{Max}}$?};
+    \node [cloud, right of=Hmin, xshift=30mm, fill=red!20] (endFail) {Divergence};
     \node [block, below of=NR] (evalG) {Calculate $g(t_{n+1})$};
     \node [decision, below of=evalG] (gChange)
 {$g(t_{n+1})\neq{g(t_{n})}$?};
@@ -784,10 +777,7 @@ The algorithm for one time step for the Simplified solver (particularly for disc
     \node [decision, below of=gzChange] (algChange) {Algebraic mode change?};
     \node [block, right of= algChange, xshift=20mm] (restaure) {Restaure algebraic equations};
     \node [cloud, right of=restaure, xshift=10mm, fill=green!20] (endSuccesAlg) {Go to $t_{n+2}$};
-    \node [decision, below of=algChange] (recalculate) {Recalculate step?};
-    \node [cloud, below of=recalculate, fill=green!20] (endSuccesNoRecal) {Go to $t_{n+2}$};
-    \node [decision, left of=recalculate, xshift=-20mm] (nbNR) {$nb_{NR} < nb_{NR_{Max}}$?};
-    \node [cloud, below of=nbNR, fill=green!20] (endSuccesNbNr) {Go to $t_{n+2}$};
+    \node [cloud, below of=algChange, fill=green!20] (endSuccesNoRecal) {Go to $t_{n+2}$};
     % Draw edges
     \path [line] (start) -- (evalY);
     \path [line] (evalY) -- (NR);
@@ -804,11 +794,7 @@ The algorithm for one time step for the Simplified solver (particularly for disc
     \path [line] (gzChange) -- node {No} (algChange);
     \path [line] (algChange) -- node {Yes} (restaure);
     \path [line] (restaure) -- (endSuccesAlg);
-    \path [line] (algChange) -- node {No} (recalculate);
-    \path [line] (recalculate) -- node {No} (endSuccesNoRecal);
-    \path [line] (recalculate) -- node {Yes} (nbNR);
-    \path [line] (nbNR) -- node {Yes} ++(-2,0) |-(evalY);
-    \draw[->] (nbNR) -- node {No} (endSuccesNbNr);
+    \path [line] (algChange) -- node {No} (endSuccesNoRecal);
 \end{tikzpicture}
 \end{adjustbox}
 \caption{Simplified solver algorithm for one time step}
@@ -819,23 +805,18 @@ The algorithm for one time step for the Simplified solver (particularly for disc
 
 The Simplified solver is based on a fixed time-step approach in the sense that the different time steps are not calculated automatically to respect a certain error (as it is done with variable time-step solvers).
 
-However, when the system is facing important discontinuities or large disturbances, the \ac{NR} algorithm can fail. In this case, the strategy is to \textbf{decrease the time step temporarily}. The time step is then increased when the system comes back to steady-state to reach its ``normal" fixed value (the increase is done in a progressive way, based on the convergence speed of the \ac{NR}). By default, the time step is set to 1 s in \Dynawo. \\
+However, when the system is facing important discontinuities or large disturbances, the \ac{NR} algorithm can fail. In this case, the strategy is to \textbf{decrease the time step temporarily}. The time step is then increased when the system comes back to a more stable situation until it reaches its maximum value. By default, the time step is set to 1 s in \Dynawo. \\
 
 The time-step is updated in the following way in \Dynawo:
 \begin{itemize}
 \item When the time step is equal to its maximum value ($hMax$) and the \ac{NR} algorithm converges, it doesn't change.
-\item If the time step is not equal to its maximum values and the \ac{NR} algorithm converges, the time step is increased if the number of iterations in the \ac{NR} algorithm ($nbNR$) is lower than a target number $nEff$. The increase is proportional to the difference between this target number and the number of iterations really needed.
-\begin{equation}
-\begin{aligned}
-& h_{New} = h * \frac{n_{Eff}}{nb_{NR}}
-\end{aligned}
-\end{equation}
-A deadband $nDeadband$ has been added to avoid oscillations between time steps.
+\item If the time step is not equal to its maximum values and the \ac{NR} algorithm converges, the time step is increased if the \ac{DAE} system doesn't need a reinitialization (see ~\ref{sec:AERestoration}). In this case, the increase is done by multiplying the time step by a factor $kIncreaseStep = \frac{1}{kReduceStep}$.
 \item If there is a divergence, the time step is multiplied by a factor $kReduceStep$.
 \end{itemize}
 A minimum time step ($hMin$) is used in \Dynawo to stop the simulation. If the \ac{NR} is divergent with this value the simulation is stopped. \\
 
 \subsubsection{Algebraic equations restoration}
+\label{sec:AERestoration}
 
 As already mentioned in ~\ref{sec:Solver Introduction}, the \ac{DAE} system \eqref{DAE} can change during the simulation because the differential equations or the algebraic equations can change their form (mode). \\
 
@@ -848,11 +829,7 @@ During a simulation with the simplified solver, different parameters are used, f
 \begin{itemize}
 \item the minimum time-step \textit{hMin}
 \item the maximum time-step \textit{hMax}
-\item the maximum number of Newton resolutions leading to root changes for one time-step \textit{maxRootRestart}
-\item the strategy regarding event handling \textit{recalculateStep}
-\item the reduction factor for the time step in case of a non convergence \textit{kReduceStep}
-\item the desired number of Newton iterations \textit{nEff}
-\item the iterations number deadband to avoid too frequent step size variations \textit{nDeadband}
+\item the reduction/increase factor for the time step in case of a non convergence \textit{kReduceStep}
 \item the maximum number of Newton resolutions for one time-step \textit{maxNewtonTry}
 \item the linear solver library name that should be used - as of today, KLU or NICSLU - \textit{linearSolverName}.
 \end{itemize}
@@ -866,11 +843,7 @@ Recommended values for these parameters are:
 \midrule
 hMin & 1e-6 \\
 hMax & 1 \\
-maxRootRestart & 3 \\
-recalculateStep & false \\
 kReduceStep & 0.5 \\
-nEff & 10 \\
-nDeadband & 2 \\
 maxNewtonTry & 10 \\
 linearSolverName & KLU \\
 \bottomrule

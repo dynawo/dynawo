@@ -65,8 +65,7 @@
 
 namespace DYN {
 
-boost::shared_ptr<Solver> initSolver(const double& tStart, const double& tStop, const bool& recalculateStep,
-    const int& maxRootRestart, bool optimizeAlgebraicResidualsEvaluations, bool skipNR) {
+boost::shared_ptr<Solver> initSolver(bool optimizeAlgebraicResidualsEvaluations, bool skipNR) {
   // Solver
   boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverSIM" + std::string(sharedLibraryExtension()));
 
@@ -74,12 +73,8 @@ boost::shared_ptr<Solver> initSolver(const double& tStart, const double& tStop, 
   params->addParameter(parameters::ParameterFactory::newParameter("hMin", 0.000001));
   params->addParameter(parameters::ParameterFactory::newParameter("hMax", 1.));
   params->addParameter(parameters::ParameterFactory::newParameter("kReduceStep", 0.5));
-  params->addParameter(parameters::ParameterFactory::newParameter("nEff", 10));
-  params->addParameter(parameters::ParameterFactory::newParameter("nDeadband", 2));
-  params->addParameter(parameters::ParameterFactory::newParameter("maxRootRestart", maxRootRestart));
   params->addParameter(parameters::ParameterFactory::newParameter("maxNewtonTry", 10));
   params->addParameter(parameters::ParameterFactory::newParameter("linearSolverName", std::string("KLU")));
-  params->addParameter(parameters::ParameterFactory::newParameter("recalculateStep", recalculateStep));
   params->addParameter(parameters::ParameterFactory::newParameter("optimizeAlgebraicResidualsEvaluations", optimizeAlgebraicResidualsEvaluations));
   params->addParameter(parameters::ParameterFactory::newParameter("skipNRIfInitialGuessOK", skipNR));
   solver->setParameters(params);
@@ -139,9 +134,8 @@ boost::shared_ptr<Model> initModel(const double& tStart, Modeler modeler) {
 }
 
 std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModel(std::string dydFileName, std::string iidmFileName,
- std::string parFileName, const double& tStart, const double& tStop, const bool& recalculateStep,
- const int& maxRootRestart, bool optimizeAlgebraicResidualsEvaluations = true, bool skipNR = true) {
-  boost::shared_ptr<Solver> solver = initSolver(tStart, tStop, recalculateStep, maxRootRestart, optimizeAlgebraicResidualsEvaluations, skipNR);
+ std::string parFileName, const double& tStart, const double& tStop, bool optimizeAlgebraicResidualsEvaluations = true, bool skipNR = true) {
+  boost::shared_ptr<Solver> solver = initSolver(optimizeAlgebraicResidualsEvaluations, skipNR);
 
   // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
@@ -182,9 +176,8 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
 }
 
 std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
- const double& tStart, const double& tStop, const bool& recalculateStep, const int& maxRootRestart,
- bool optimizeAlgebraicResidualsEvaluations = true, bool skipNR = true) {
-  boost::shared_ptr<Solver> solver = initSolver(tStart, tStop, recalculateStep, maxRootRestart, optimizeAlgebraicResidualsEvaluations, skipNR);
+ const double& tStart, const double& tStop, bool optimizeAlgebraicResidualsEvaluations = true, bool skipNR = true) {
+  boost::shared_ptr<Solver> solver = initSolver(optimizeAlgebraicResidualsEvaluations, skipNR);
   // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   std::vector <std::string> fileNames;
@@ -209,7 +202,7 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
 TEST(SimulationTest, testSolverSIMTestAlpha) {
   const double tStart = 0.;
   const double tStop = 5.;
-  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestAlpha.dyd", tStart, tStop, false, 3);
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestAlpha.dyd", tStart, tStop);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -280,7 +273,7 @@ TEST(SimulationTest, testSolverSIMTestAlpha) {
 TEST(SimulationTest, testSolverSIMTestBeta) {
   const double tStart = 0.;
   const double tStop = 5.;
-  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop, false, 3);
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -340,7 +333,7 @@ TEST(SimulationTest, testSolverSIMTestBetaUnstableRoot) {
   const double tStart = 0.;
   const double tStop = 5.;
   // Here the maximum root restart is artificially set at zero to test the maximum root restart detection in the simplified solver strategy.
-  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop, false, 0);
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -375,115 +368,6 @@ TEST(SimulationTest, testSolverSIMTestBetaUnstableRoot) {
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2);
   solver->solve(tStop, tCurrent);
-}
-
-TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
-  const double tStart = 0.;
-  const double tStop = 5.;
-  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop, true, 3);
-  boost::shared_ptr<Solver> solver = p.first;
-  boost::shared_ptr<Model> model = p.second;
-
-  solver->calculateIC();
-
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeY(), 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeF(), 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeG(), 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeZ(), 1);
-  std::vector<double> y0(model->sizeY());
-  std::vector<double> yp0(model->sizeY());
-  std::vector<double> z0(model->sizeZ());
-  model->getY0(tStart, y0, yp0);
-  model->getCurrentZ(z0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y0[0], -2);
-  // At the initialization step, only the algebraic equations are considered - yp() = 0.
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp0[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z0[0], -1);
-
-  double tCurrent = tStart;
-  std::vector<double> y(y0);
-  std::vector<double> yp(yp0);
-  std::vector<double> z(z0);
-  solver->solve(tStop, tCurrent);
-  y = solver->getCurrentY();
-  yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().noFlagSet(), true);
-  model->getCurrentZ(z);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
-
-  solver->solve(tStop, tCurrent);
-  y = solver->getCurrentY();
-  yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZChange), true);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
-  model->getCurrentZ(z);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
-
-  // At this stage, contrary to the scheme without recalculation, algebraic and differential variables are recalculated.
-  // It explains why we get here z = 1 and y = 1.
-  solver->solve(tStop, tCurrent);
-  y = solver->getCurrentY();
-  yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().noFlagSet(), true);
-  model->getCurrentZ(z);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
-}
-
-TEST(SimulationTest, testSolverSIMDivergenceWithRecalculation) {
-  const double tStart = 0.;
-  const double tStop = 3.;
-  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestGamma.dyd", tStart, tStop, true, 3);
-  boost::shared_ptr<Solver> solver = p.first;
-  boost::shared_ptr<Model> model = p.second;
-
-  solver->calculateIC();
-
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeY(), 0);
-  std::vector<double> y0(model->sizeY());
-  std::vector<double> yp0(model->sizeY());
-  std::vector<double> z0(model->sizeZ());
-  model->getY0(tStart, y0, yp0);
-  model->getCurrentZ(z0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z0[0], 1);
-
-  double tCurrent = tStart;
-  std::vector<double> y(y0);
-  std::vector<double> yp(yp0);
-  std::vector<double> z(z0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 0);
-
-  solver->solve(tStop, tCurrent);
-  y = solver->getCurrentY();
-  yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().noFlagSet(), true);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1);
-
-  // Divergence at t=2, reduce the time step and resolve at t=1.5
-  solver->solve(tStop, tCurrent);
-  y = solver->getCurrentY();
-  yp = solver->getCurrentYP();
-  model->getCurrentZ(z);
-  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZChange), true);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 0.8);
-  // Does not diverge as sundials forces a reevaluation of the jacobian
-  ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2);
-
-  solver->solve(tStop, tCurrent);
-  y = solver->getCurrentY();
-  yp = solver->getCurrentYP();
-  model->getCurrentZ(z);
-  ASSERT_EQ(solver->getState().noFlagSet(), true);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 0.8);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 3);
 }
 
 TEST(SimulationTest, testSolverSIMAlgebraicMode) {
@@ -602,7 +486,7 @@ TEST(SimulationTest, testSolverSkipNR) {
   const double tStart = 0.;
   const double tStop = 10.;
   std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSkipNR.dyd",
-                                                                                                tStart, tStop, true, 3, false);
+                                                                                                tStart, tStop, false);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -675,7 +559,7 @@ TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluations) {
   const double tStart = 0.;
   const double tStop = 10.;
   std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSkipNR.dyd",
-                                                                                                tStart, tStop, true, 3, true, false);
+                                                                                                tStart, tStop, true, false);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -757,7 +641,7 @@ TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluationsAndSkipNR) {
   const double tStart = 0.;
   const double tStop = 10.;
   std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSkipNR.dyd",
-                                                                                                tStart, tStop, true, 3);
+                                                                                                tStart, tStop);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -842,7 +726,7 @@ TEST(SimulationTest, testSolverSIMSilentZ) {
   const double tStart = 0.;
   const double tStop = 10.;
   std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZ.dyd",
-                                                                                                tStart, tStop, true, 3);
+                                                                                                tStart, tStop);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -898,24 +782,11 @@ TEST(ParametersTest, testParameters) {
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_THROW_DYNAWO(solver->setSolverParameters(), Error::GENERAL, KeyError_t::ParameterHasNoValue);
   params->addParameter(parameters::ParameterFactory::newParameter("kReduceStep", 0.5));
-  ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
-  ASSERT_THROW_DYNAWO(solver->setSolverParameters(), Error::GENERAL, KeyError_t::ParameterHasNoValue);
-  params->addParameter(parameters::ParameterFactory::newParameter("nEff", 10));
-  ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
-  ASSERT_THROW_DYNAWO(solver->setSolverParameters(), Error::GENERAL, KeyError_t::ParameterHasNoValue);
-  params->addParameter(parameters::ParameterFactory::newParameter("nDeadband", 2));
-  ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
-  ASSERT_THROW_DYNAWO(solver->setSolverParameters(), Error::GENERAL, KeyError_t::ParameterHasNoValue);
-  params->addParameter(parameters::ParameterFactory::newParameter("maxRootRestart", 1));
-  ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_THROW_DYNAWO(solver->setSolverParameters(), Error::GENERAL, KeyError_t::ParameterHasNoValue);
   params->addParameter(parameters::ParameterFactory::newParameter("maxNewtonTry", 10));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_THROW_DYNAWO(solver->setSolverParameters(), Error::GENERAL, KeyError_t::ParameterHasNoValue);
   params->addParameter(parameters::ParameterFactory::newParameter("linearSolverName", std::string("KLU")));
-  ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
-  ASSERT_THROW_DYNAWO(solver->setSolverParameters(), Error::GENERAL, KeyError_t::ParameterHasNoValue);
-  params->addParameter(parameters::ParameterFactory::newParameter("recalculateStep", "false"));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
 
@@ -952,7 +823,7 @@ TEST(ParametersTest, testParameters) {
   params->addParameter(parameters::ParameterFactory::newParameter("minimumModeChangeTypeForAlgebraicRestoration", std::string("ALGEBRAIC_J_UPDATE")));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 35);
+  ASSERT_EQ(solver->getParametersMap().size(), 31);
 }
 
 }  // namespace DYN
