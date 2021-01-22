@@ -1292,20 +1292,28 @@ def getOutputIIDMInfo(filename, prefix):
 # @param path_right : the absolute path to the right-side file
 def OutputIIDMCloseEnough (path_left, path_right):
     left_file_info = getOutputIIDMInfo(path_left, "")
+    is_left_powsybl_iidm = False
     if len(left_file_info) == 0:
         left_file_info = getOutputIIDMInfo(path_left, "iidm:")
+        is_left_powsybl_iidm = True
     right_file_info = getOutputIIDMInfo(path_right, "")
+    is_right_powsybl_iidm = False
     if len(right_file_info) == 0:
         right_file_info = getOutputIIDMInfo(path_right, "iidm:")
+        is_right_powsybl_iidm = True
     nb_differences = 0
     msg = ""
 
     for firstId in left_file_info:
         if firstId not in right_file_info:
+            if (not is_left_powsybl_iidm and is_right_powsybl_iidm) and left_file_info[firstId].type == "busbarSection":
+                continue
             nb_differences+=1
             msg += "[ERROR] object " + firstId + " is in left path but not in right one\n"
     for firstId in right_file_info:
         if firstId not in left_file_info:
+            if (not is_right_powsybl_iidm and is_left_powsybl_iidm) and right_file_info[firstId].type == "busbarSection":
+                continue
             nb_differences+=1
             msg += "[ERROR] object " + firstId + " is in right path but not in left one\n"
     for firstId in left_file_info:
@@ -1323,6 +1331,10 @@ def OutputIIDMCloseEnough (path_left, path_right):
                             msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " has another value on right side (value: " + secondObj.values[attr1] + ")\n"
                     except ValueError:
                         if (firstObj.values[attr1] != secondObj.values[attr1]):
+                            if (not is_left_powsybl_iidm and is_right_powsybl_iidm) or (not is_right_powsybl_iidm and is_left_powsybl_iidm):
+                                if "switch" in firstObj.type and attr1=="open":
+                                    #we ignore the open differences between the 2 differents libiidm as NODE_BREAKER topology is handled differently
+                                    continue
                             nb_differences+=1
                             msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " has another value on right side (value: " + secondObj.values[attr1] + ")\n"
 
