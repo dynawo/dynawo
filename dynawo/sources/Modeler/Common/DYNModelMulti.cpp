@@ -734,12 +734,9 @@ ModelMulti::connectElements(shared_ptr<SubModel> &subModel1, const string &name1
   vector<std::pair<string, string> > variablesToConnect;
   findVariablesConnectedBy(subModel1, name1, subModel2, name2, variablesToConnect);
   for (size_t i = 0, iEnd = variablesToConnect.size(); i < iEnd; ++i) {
-    bool isState1 = subModel1->getVariable(variablesToConnect[i].first)->isState();
-    bool isState2 = subModel2->getVariable(variablesToConnect[i].second)->isState();
-    if (isState1 || isState2)
-      createConnection(subModel1, variablesToConnect[i].first, subModel2, variablesToConnect[i].second);
-    else
-      Trace::warn() << DYNLog(CalcVarConnectionIgnored, variablesToConnect[i].first, variablesToConnect[i].second) << Trace::endline;
+    const bool forceConnection = false;
+    const bool throwIfCalculatedVarConn = false;
+    createConnection(subModel1, variablesToConnect[i].first, subModel2, variablesToConnect[i].second, forceConnection, throwIfCalculatedVarConn);
   }
 }
 
@@ -782,7 +779,7 @@ ModelMulti::findVariablesConnectedBy(const boost::shared_ptr<SubModel> &subModel
 
 void
 ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & name1, shared_ptr<SubModel> &subModel2, const string &name2,
-                             bool forceConnection) {
+                             bool forceConnection, bool throwIfCalculatedVarConn) {
   const shared_ptr<Variable>& variable1 = subModel1->getVariable(name1);
   const shared_ptr<Variable>& variable2 = subModel2->getVariable(name2);
 
@@ -808,7 +805,10 @@ ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & nam
   // at least one of the connected variables should be a state variable
   // (a calculated variable is a non-state variable)
   if ((!isState1) && (!isState2)) {
-    throw DYNError(Error::MODELER, ConnectorCalculatedVariables, subModel1->name(), name1, subModel2->name(), name2);
+    if (throwIfCalculatedVarConn)
+      throw DYNError(Error::MODELER, ConnectorCalculatedVariables, subModel1->name(), name1, subModel2->name(), name2);
+    else
+      Trace::warn() << DYNLog(CalcVarConnectionIgnored, name1, name2) << Trace::endline;
   } else if ((!isState1) && (isState2)) {  // when one variable is a state variable and the other one isn't, use a specific connection
     if (typeVar2 != CONTINUOUS && typeVar2 != FLOW) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
