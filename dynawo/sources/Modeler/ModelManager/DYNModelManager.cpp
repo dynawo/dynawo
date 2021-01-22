@@ -1006,7 +1006,7 @@ void
 ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z, const vector<double>& calculatedVars) {
   // Creates reversed alias map
   map<string, vector< shared_ptr <VariableAlias> > > reversedAlias;
-  for (map<string, shared_ptr<Variable> >::const_iterator it = variablesByNameInit_.begin();
+  for (boost::unordered_map<string, shared_ptr<Variable> >::const_iterator it = variablesByNameInit_.begin();
           it != variablesByNameInit_.end();
           ++it) {
     // map of nativeVarName -> aliasNames
@@ -1058,7 +1058,7 @@ ModelManager::setZCalculatedParameters(vector<double>& z,
     const map<string, vector< shared_ptr <VariableAlias> > >& reversedAlias) {
   const vector<string>& zNamesInitial = zNamesInit();
 
-  const map<string, shared_ptr<Variable> >& initVariables = variablesByNameInit();
+  const boost::unordered_map<string, shared_ptr<Variable> >& initVariables = variablesByNameInit();
 
   assert(zNamesInitial.size() == z.size());
   for (unsigned int i = 0; i < zNamesInitial.size(); ++i) {

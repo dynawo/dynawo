@@ -150,7 +150,7 @@ int main(int argc, char ** argv) {
   const boost::unordered_map<std::string, DYN::ParameterModeler>& parametersInit = model->getParametersInit();
   const boost::unordered_map<std::string, DYN::ParameterModeler>& parametersDynamic = model->getParametersDynamic();
   std::map<std::string, AttributeList> parametersAttributes;  // map between parameter name and attributes (alphabetically sort parameters)
-  std::map<std::string, boost::shared_ptr<DYN::Variable> > mapVariable = model->getVariableByName();
+  boost::unordered_map<std::string, boost::shared_ptr<DYN::Variable> > mapVariable = model->getVariableByName();
 
   std::fstream file;
   file.open(outputFileName.c_str(), std::fstream::out);
@@ -212,9 +212,12 @@ int main(int argc, char ** argv) {
 
   attrs.clear();
   formatter->startElement("variables", attrs);
-
-  for (std::map<std::string, boost::shared_ptr<DYN::Variable> >::const_iterator itVar = mapVariable.begin(); itVar != mapVariable.end(); ++itVar) {
-    const boost::shared_ptr<DYN::Variable> itVariable = itVar->second;
+  std::set<std::string> sortedVar;
+  for (boost::unordered_map<std::string, boost::shared_ptr<DYN::Variable> >::const_iterator itVar = mapVariable.begin(); itVar != mapVariable.end(); ++itVar) {
+    sortedVar.insert(itVar->first);
+  }
+  for (std::set<std::string>::const_iterator itVar = sortedVar.begin(); itVar != sortedVar.end(); ++itVar) {
+    const boost::shared_ptr<DYN::Variable> itVariable = mapVariable[*itVar];
     attrs.clear();
     attrs.add("name", itVariable->getName());
     attrs.add("valueType", typeVarC2Str(toCTypeVar(itVariable->getType())));

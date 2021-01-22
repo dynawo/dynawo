@@ -321,7 +321,7 @@ SubModel::hasVariableInit(const string& nameVariable) const {
 
 shared_ptr <Variable>
 SubModel::getVariable(const string & variableName) const {
-  map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variableName);
+  boost::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variableName);
   if (iter == variablesByName_.end()) {
     throw DYNError(Error::MODELER, SubModelUnknownElement, variableName, name(), modelType());
   }
@@ -430,7 +430,7 @@ SubModel::defineVariables() {
     if (variables_[i]->isAlias()) {
       shared_ptr <VariableAlias> variable = dynamic_pointer_cast<VariableAlias> (variables_[i]);
       if (!variable->referenceVariableSet()) {
-        map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variable->getReferenceVariableName());
+        boost::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variable->getReferenceVariableName());
         if (iter == variablesByName_.end()) {
           throw DYNError(Error::MODELER, AliasNotFound, name(), variable->getReferenceVariableName());
         } else {
@@ -644,7 +644,7 @@ SubModel::defineVariablesInit() {
     if (variablesInit_[i]->isAlias()) {
       shared_ptr <VariableAlias> variableInit = dynamic_pointer_cast<VariableAlias> (variablesInit_[i]);
       if (!variableInit->referenceVariableSet()) {
-        map<string, shared_ptr<Variable> >::const_iterator iter = variablesByNameInit_.find(variableInit->getReferenceVariableName());
+        boost::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByNameInit_.find(variableInit->getReferenceVariableName());
         if (iter == variablesByNameInit_.end())
           throw DYNError(Error::MODELER, AliasNotFound, name(), variableInit->getReferenceVariableName());
         else
