@@ -39,5 +39,7 @@
         "DOWNLOAD_DIR": "${workspaceFolder}/build-code/src",
         "GTEST_ROOT": "${workspaceFolder}/build-code/Install/3rdParty/googletest",
         "GMOCK_HOME": "${workspaceFolder}/build-code/Install/3rdParty/googletest"
-    }
+    },
+
+    "python.analysis.extraPaths": ["${workspaceFolder}/util/nrt_diff"]
 }
