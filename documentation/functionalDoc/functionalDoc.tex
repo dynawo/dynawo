@@ -743,9 +743,9 @@ In order to give \ac{KINSOL} a better criterion to stop the \ac{NR} algorithm, i
 
 \subsubsection{Discontinuities handling}
 
-At the end of a time step, the discrete variables value are compared with their values at the previous time step, and the root functions are evaluate in order to detect if a mode has changed during the iteration. When a change is detected, the Simplified solver uses a ``go-through" strategy in which the time step isn't repeated.
+At the end of a time step, the discrete variables values are compared with their values at the previous time step, and the root functions are evaluated in order to detect if a mode has changed during the iteration. When a change is detected, the Simplified solver uses a ``go-through" strategy in which the time step isn't repeated.
 
-Regarding discontinuities detection, the Simplified solver algorithm doesn\textquotesingle t try to determine the exact event time as it could be the case with more detailed solver. All the discrete variable and mode changes are considered at the next  time-step. The delay is then equal at maximum to the time step. \\
+Regarding discontinuities detection, the Simplified solver algorithm doesn\textquotesingle t try to determine the exact event time as it could be the case with more detailed solver. All the discrete variable and mode changes are considered at the next  time-step (the delay in the worst case is thus equal to the time step). \\
 
 The algorithm for one time step for the Simplified solver (particularly for discontinuity handling) is presented in Figure \ref{fig:AlgoSim}.
 
@@ -805,12 +805,12 @@ The algorithm for one time step for the Simplified solver (particularly for disc
 
 The Simplified solver is based on a fixed time-step approach in the sense that the different time steps are not calculated automatically to respect a certain error (as it is done with variable time-step solvers).
 
-However, when the system is facing important discontinuities or large disturbances, the \ac{NR} algorithm can fail. In this case, the strategy is to \textbf{decrease the time step temporarily}. The time step is then increased when the system comes back to a more stable situation to reach its normal fixed value. By default, the time step is set to 1 s in \Dynawo. \\
+However, when the system is facing important discontinuities or large disturbances, the \ac{NR} algorithm can fail. In this case, the strategy is to \textbf{decrease the time step temporarily}. The time step is then increased when the system comes back to a more stable situation until it reaches its maximum value. By default, the time step is set to 1 s in \Dynawo. \\
 
 The time-step is updated in the following way in \Dynawo:
 \begin{itemize}
 \item When the time step is equal to its maximum value ($hMax$) and the \ac{NR} algorithm converges, it doesn't change.
-\item If the time step is not equal to its maximum values and the \ac{NR} algorithm converges, the time step is increased if the \ac{DAE} system doesn't need a reinitialization (see ~\ref{sec:AERestoration}). In this case, the increase is done by dividing the time step by a factor $kReduceStep$.
+\item If the time step is not equal to its maximum values and the \ac{NR} algorithm converges, the time step is increased if the \ac{DAE} system doesn't need a reinitialization (see ~\ref{sec:AERestoration}). In this case, the increase is done by multiplying the time step by a factor $kIncreaseStep = \frac{1}{kReduceStep}$.
 \item If there is a divergence, the time step is multiplied by a factor $kReduceStep$.
 \end{itemize}
 A minimum time step ($hMin$) is used in \Dynawo to stop the simulation. If the \ac{NR} is divergent with this value the simulation is stopped. \\
