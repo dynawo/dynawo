@@ -383,9 +383,8 @@ SolverSIM::SolverStatus_t SolverSIM::analyzeResult(int& flag) {
   // Analyze the return value and do further treatments if necessary
   if (flag < 0) {
     stats_.ncfn_++;
-    skipNextNR_ = false;
     return NON_CONV;
-  } else if (flag == KIN_INITIAL_GUESS_OK && !skipNextNR_) {
+  } else if (skipNRIfInitialGuessOK_ && !skipNextNR_ && flag == KIN_INITIAL_GUESS_OK) {
     skipNextNR_ = skipNRIfInitialGuessOK_;
     Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
   }
@@ -410,7 +409,8 @@ void SolverSIM::updateZAndMode(SolverStatus_t& status) {
     g0_.assign(g1_.begin(), g1_.end());
     evalZMode(g0_, g1_, tSolve_ + h_);
 
-    if (getState().getFlags(ModeChange)|| getState().getFlags(NotSilentZChange) || getState().getFlags(SilentZNotUsedInDiscreteEqChange))
+    if (skipNRIfInitialGuessOK_ &&
+       ((getState().getFlags(ModeChange)|| getState().getFlags(NotSilentZChange) || getState().getFlags(SilentZNotUsedInDiscreteEqChange))))
       skipNextNR_ = false;
     status = ROOT;
   }
