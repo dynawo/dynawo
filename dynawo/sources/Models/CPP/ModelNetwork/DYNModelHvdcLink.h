@@ -241,7 +241,7 @@ class ModelHvdcLink : public NetworkComponent::Impl {
   /**
    * @brief addBusNeighbors
    */
-  void addBusNeighbors();
+  void addBusNeighbors() { /* not needed */ }
 
   /**
    * @brief get connection status

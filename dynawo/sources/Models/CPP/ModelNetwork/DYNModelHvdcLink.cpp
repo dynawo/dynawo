@@ -493,14 +493,6 @@ ModelHvdcLink::defineElements(std::vector<Element> &elements, std::map<std::stri
 }
 
 void
-ModelHvdcLink::addBusNeighbors() {
-  if (isConnected1() && isConnected2()) {
-    modelBus1_->addNeighbor(modelBus2_);
-    modelBus2_->addNeighbor(modelBus1_);
-  }
-}
-
-void
 ModelHvdcLink::setAttributes(const shared_ptr<HvdcLineInterface>& dcLine) {
   // retrieve data from ConverterInterface  (IIDM)
   lossFactor1_ = dcLine->getConverter1()->getLossFactor() / 100.;
