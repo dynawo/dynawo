@@ -13,25 +13,25 @@
 add_subdirectory(Images I)
 
 set(MODEL_FILES
-    package.mo
-    package.order
-    BaseClasses.mo
-    BaseClasses_INIT.mo
-    PhaseShifterI.mo
-    PhaseShifterI.extvar
-    PhaseShifterI_INIT.mo
-    PhaseShifterP.mo
-    PhaseShifterP.extvar
-    PhaseShifterP_INIT.mo
-    TapChanger.mo
-    TapChanger.extvar
-    TapChanger_INIT.mo
-    TapChangerWithTransformer_INIT.mo
-    )
+  package.mo
+  package.order
+  BaseClasses.mo
+  BaseClasses_INIT.mo
+  PhaseShifterI.mo
+  PhaseShifterI.extvar
+  PhaseShifterI_INIT.mo
+  PhaseShifterP.mo
+  PhaseShifterP.extvar
+  PhaseShifterP_INIT.mo
+  TapChanger.mo
+  TapChanger.extvar
+  TapChanger_INIT.mo
+  TapChangerWithTransformer_INIT.mo
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

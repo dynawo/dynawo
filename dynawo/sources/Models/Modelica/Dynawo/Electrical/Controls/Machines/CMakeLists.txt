@@ -13,14 +13,14 @@ add_subdirectory(VoltageRegulators V)
 add_subdirectory(Governors G)
 
 set(MODEL_FILES
-    # Machines control models
-    package.mo
-    package.order
-    )
+  # Machines control models
+  package.mo
+  package.order
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

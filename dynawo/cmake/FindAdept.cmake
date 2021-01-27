@@ -15,30 +15,30 @@
 #  ADEPT_LIBRARY     - where is libadept.a.
 #  ADEPT_FOUND         - True if adept found.
 
-IF(NOT ADEPT_HOME AND NOT $ENV{ADEPT_HOME} STREQUAL "")
-  SET(ADEPT_HOME $ENV{ADEPT_HOME})
-ENDIF()
+if(NOT ADEPT_HOME AND NOT $ENV{ADEPT_HOME} STREQUAL "")
+  set(ADEPT_HOME $ENV{ADEPT_HOME})
+endif()
 
-IF(NOT ADEPT_HOME AND NOT $ENV{ADEPT_ROOT} STREQUAL "")
-  SET(ADEPT_HOME $ENV{ADEPT_ROOT})
-ENDIF()
+if(NOT ADEPT_HOME AND NOT $ENV{ADEPT_ROOT} STREQUAL "")
+  set(ADEPT_HOME $ENV{ADEPT_ROOT})
+endif()
 
-IF(NOT ADEPT_HOME AND NOT $ENV{ADEPT_INSTALL_DIR} STREQUAL "")
-  SET(ADEPT_HOME $ENV{ADEPT_INSTALL_DIR})
-ENDIF()
+if(NOT ADEPT_HOME AND NOT $ENV{ADEPT_INSTALL_DIR} STREQUAL "")
+  set(ADEPT_HOME $ENV{ADEPT_INSTALL_DIR})
+endif()
 
-FIND_PATH(ADEPT_INCLUDE_DIR NAME adept.h HINTS ${ADEPT_HOME}/include)
-FIND_LIBRARY(ADEPT_LIBRARY NAME adept libadept HINTS ${ADEPT_HOME}/lib)
+find_path(ADEPT_INCLUDE_DIR NAME adept.h HINTS ${ADEPT_HOME}/include)
+find_library(ADEPT_LIBRARY NAME adept libadept HINTS ${ADEPT_HOME}/lib)
 
-MARK_AS_ADVANCED(ADEPT_INCLUDE_DIR ADEPT_LIBRARY)
+mark_as_advanced(ADEPT_INCLUDE_DIR ADEPT_LIBRARY)
 
 # Handle the QUIETLY and REQUIRED arguments and set ADEPT_FOUND
 # to TRUE if all listed variables are TRUE.
 # (Use ${CMAKE_ROOT}/Modules instead of ${CMAKE_CURRENT_LIST_DIR} because CMake
 #  itself includes this FindAdept when built with an older CMake that does
 #  not provide it.  The older CMake also does not have CMAKE_CURRENT_LIST_DIR.)
-INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(Adept DEFAULT_MSG ADEPT_LIBRARY ADEPT_INCLUDE_DIR)
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(Adept DEFAULT_MSG ADEPT_LIBRARY ADEPT_INCLUDE_DIR)
 
 if(Adept_FOUND)
   set(Adept_INCLUDE_DIRS "${ADEPT_INCLUDE_DIR}")

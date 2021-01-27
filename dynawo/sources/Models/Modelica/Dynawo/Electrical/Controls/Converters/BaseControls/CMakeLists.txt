@@ -8,29 +8,29 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(MODEL_FILES
-    # Converter control elements models
-    package.mo
-    package.order
-    CurrentLoop.mo
-    CurrentLoop.extvar
-    VoltageLoop.mo
-    VoltageLoop.extvar
-    DCVoltageControl.mo
-    DCVoltageControl.extvar
-    VirtualImpedance.mo
-    VirtualImpedance.extvar
-    DroopControl.mo
-    DroopControl.extvar
-    MatchingControl.mo
-    MatchingControl.extvar
-    DispatchableVirtualOscillatorControl.mo
-    DispatchableVirtualOscillatorControl.extvar
-    )
+set(MODEL_FILES
+  # Converter control elements models
+  package.mo
+  package.order
+  CurrentLoop.mo
+  CurrentLoop.extvar
+  VoltageLoop.mo
+  VoltageLoop.extvar
+  DCVoltageControl.mo
+  DCVoltageControl.extvar
+  VirtualImpedance.mo
+  VirtualImpedance.extvar
+  DroopControl.mo
+  DroopControl.extvar
+  MatchingControl.mo
+  MatchingControl.extvar
+  DispatchableVirtualOscillatorControl.mo
+  DispatchableVirtualOscillatorControl.extvar
+  )
 
 #
 # Modelica models install
 #
-FOREACH( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_FILE(${MODEL_FILE})
-ENDFOREACH( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

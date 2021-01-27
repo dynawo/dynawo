@@ -12,13 +12,13 @@ add_subdirectory(NonLinear N)
 add_subdirectory(Continuous C)
 
 set(MODEL_FILES
-    package.mo
-    package.order
-    )
+  package.mo
+  package.order
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

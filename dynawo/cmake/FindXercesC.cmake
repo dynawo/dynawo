@@ -43,34 +43,34 @@
 # see https://github.com/Kitware/CMake/blob/master/Modules/FindXercesC.cmake
 
 function(_XercesC_GET_VERSION  version_hdr)
-    file(STRINGS ${version_hdr} _contents REGEX "^[ \t]*#define XERCES_VERSION_.*")
-    if(_contents)
-        string(REGEX REPLACE ".*#define XERCES_VERSION_MAJOR[ \t]+([0-9]+).*" "\\1" XercesC_MAJOR "${_contents}")
-        string(REGEX REPLACE ".*#define XERCES_VERSION_MINOR[ \t]+([0-9]+).*" "\\1" XercesC_MINOR "${_contents}")
-        string(REGEX REPLACE ".*#define XERCES_VERSION_REVISION[ \t]+([0-9]+).*" "\\1" XercesC_PATCH "${_contents}")
+  file(STRINGS ${version_hdr} _contents REGEX "^[ \t]*#define XERCES_VERSION_.*")
+  if(_contents)
+    string(REGEX REPLACE ".*#define XERCES_VERSION_MAJOR[ \t]+([0-9]+).*" "\\1" XercesC_MAJOR "${_contents}")
+    string(REGEX REPLACE ".*#define XERCES_VERSION_MINOR[ \t]+([0-9]+).*" "\\1" XercesC_MINOR "${_contents}")
+    string(REGEX REPLACE ".*#define XERCES_VERSION_REVISION[ \t]+([0-9]+).*" "\\1" XercesC_PATCH "${_contents}")
 
-        if(NOT XercesC_MAJOR MATCHES "^[0-9]+$")
-            message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_MAJOR!")
-        endif()
-        if(NOT XercesC_MINOR MATCHES "^[0-9]+$")
-            message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_MINOR!")
-        endif()
-        if(NOT XercesC_PATCH MATCHES "^[0-9]+$")
-            message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_REVISION!")
-        endif()
-
-        set(XercesC_VERSION "${XercesC_MAJOR}.${XercesC_MINOR}.${XercesC_PATCH}" PARENT_SCOPE)
-    else()
-        message(FATAL_ERROR "Include file ${version_hdr} does not exist or does not contain expected version information")
+    if(NOT XercesC_MAJOR MATCHES "^[0-9]+$")
+      message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_MAJOR!")
     endif()
+    if(NOT XercesC_MINOR MATCHES "^[0-9]+$")
+      message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_MINOR!")
+    endif()
+    if(NOT XercesC_PATCH MATCHES "^[0-9]+$")
+      message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_REVISION!")
+    endif()
+
+    set(XercesC_VERSION "${XercesC_MAJOR}.${XercesC_MINOR}.${XercesC_PATCH}" PARENT_SCOPE)
+  else()
+    message(FATAL_ERROR "Include file ${version_hdr} does not exist or does not contain expected version information")
+  endif()
 endfunction()
 
 if(NOT XERCESC_HOME AND NOT $ENV{XERCESC_HOME} STREQUAL "")
-    SET(XERCESC_HOME $ENV{XERCESC_HOME})
+  set(XERCESC_HOME $ENV{XERCESC_HOME})
 endif()
 
 if(NOT XERCESC_HOME AND NOT $ENV{XERCESC_ROOT} STREQUAL "")
-    SET(XERCESC_HOME $ENV{XERCESC_ROOT})
+  set(XERCESC_HOME $ENV{XERCESC_ROOT})
 endif()
 
 # Find include directory
@@ -130,7 +130,7 @@ if (XercesC_INCLUDE_DIR AND XercesC_LIBRARY)
 endif()
 
 include(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(XercesC
+find_package_handle_standard_args(XercesC
                                   FOUND_VAR XercesC_FOUND
                                   REQUIRED_VARS XercesC_LIBRARY
                                                 XercesC_INCLUDE_DIR

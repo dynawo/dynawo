@@ -12,7 +12,7 @@ if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR BUILD_TESTS))
   message(WARNING "Unit tests should be launched with debug or tests configuration")
 endif()
 
-IF(MSVC)
+if(MSVC)
   add_definitions(-D_DEBUG_)
   add_definitions(-DGTEST_LINKED_AS_SHARED_LIBRARY)
 else()

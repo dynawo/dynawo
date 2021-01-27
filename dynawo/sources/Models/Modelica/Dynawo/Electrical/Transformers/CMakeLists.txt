@@ -11,28 +11,28 @@
 # Transformers models
 
 set(MODEL_FILES
-    package.mo
-    package.order
-    BaseClasses.mo
-    BaseClasses_INIT.mo
-    TransformerFixedRatio.mo
-    TransformerFixedRatio.extvar
-    TransformerVariableTap.mo
-    TransformerVariableTap.extvar
-    TransformerVariableTapPQ_INIT.mo
-    TransformerVariableTapI_INIT.mo
-    GeneratorTransformer.mo
-    GeneratorTransformer.extvar
-    GeneratorTransformer_INIT.mo
-    IdealTransformerVariableTap.mo
-    IdealTransformerVariableTap.extvar
-    IdealTransformerVariableTapPQ_INIT.mo
-    IdealTransformerVariableTapI_INIT.mo
-    )
+  package.mo
+  package.order
+  BaseClasses.mo
+  BaseClasses_INIT.mo
+  TransformerFixedRatio.mo
+  TransformerFixedRatio.extvar
+  TransformerVariableTap.mo
+  TransformerVariableTap.extvar
+  TransformerVariableTapPQ_INIT.mo
+  TransformerVariableTapI_INIT.mo
+  GeneratorTransformer.mo
+  GeneratorTransformer.extvar
+  GeneratorTransformer_INIT.mo
+  IdealTransformerVariableTap.mo
+  IdealTransformerVariableTap.extvar
+  IdealTransformerVariableTapPQ_INIT.mo
+  IdealTransformerVariableTapI_INIT.mo
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

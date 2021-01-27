@@ -15,46 +15,46 @@
 #  SUNDIALS_LIBRARIES   - List of libraries when using Sundials.
 #  SUNDIALS_FOUND       - True if Sundials found.
 
-IF(NOT SUNDIALS_HOME AND NOT $ENV{SUNDIALS_HOME} STREQUAL "")
-  SET(SUNDIALS_HOME $ENV{SUNDIALS_HOME})
-ENDIF()
+if(NOT SUNDIALS_HOME AND NOT $ENV{SUNDIALS_HOME} STREQUAL "")
+  set(SUNDIALS_HOME $ENV{SUNDIALS_HOME})
+endif()
 
-IF(NOT SUNDIALS_HOME AND NOT $ENV{SUNDIALS_ROOT} STREQUAL "")
-  SET(SUNDIALS_HOME $ENV{SUNDIALS_ROOT})
-ENDIF()
+if(NOT SUNDIALS_HOME AND NOT $ENV{SUNDIALS_ROOT} STREQUAL "")
+  set(SUNDIALS_HOME $ENV{SUNDIALS_ROOT})
+endif()
 
-IF(NOT SUNDIALS_HOME AND NOT $ENV{SUNDIALS_INSTALL_DIR} STREQUAL "")
-  SET(SUNDIALS_HOME $ENV{SUNDIALS_INSTALL_DIR})
-ENDIF()
+if(NOT SUNDIALS_HOME AND NOT $ENV{SUNDIALS_INSTALL_DIR} STREQUAL "")
+  set(SUNDIALS_HOME $ENV{SUNDIALS_INSTALL_DIR})
+endif()
 
-FIND_PATH(SUNDIALS_INCLUDE_DIR NAME sundials/sundials_config.h HINTS ${SUNDIALS_HOME}/include)
-MARK_AS_ADVANCED(SUNDIALS_INCLUDE_DIR)
+find_path(SUNDIALS_INCLUDE_DIR NAME sundials/sundials_config.h HINTS ${SUNDIALS_HOME}/include)
+mark_as_advanced(SUNDIALS_INCLUDE_DIR)
 
 # Searching for sundials ida
-FIND_LIBRARY(SUNDIALS_IDA_LIBRARY NAME sundials_ida libsundials_ida HINTS ${SUNDIALS_HOME}/lib)
-MARK_AS_ADVANCED(SUNDIALS_IDA_LIBRARY)
+find_library(SUNDIALS_IDA_LIBRARY NAME sundials_ida libsundials_ida HINTS ${SUNDIALS_HOME}/lib)
+mark_as_advanced(SUNDIALS_IDA_LIBRARY)
 
 # Searching for sundials kinsol
-FIND_LIBRARY(SUNDIALS_KINSOL_LIBRARY NAME sundials_kinsol libsundials_kinsol HINTS ${SUNDIALS_HOME}/lib)
-MARK_AS_ADVANCED(SUNDIALS_KINSOL_LIBRARY)
+find_library(SUNDIALS_KINSOL_LIBRARY NAME sundials_kinsol libsundials_kinsol HINTS ${SUNDIALS_HOME}/lib)
+mark_as_advanced(SUNDIALS_KINSOL_LIBRARY)
 
 # Searching for sundials nvecserial
-FIND_LIBRARY(SUNDIALS_NVECSERIAL_LIBRARY NAME sundials_nvecserial libsundials_nvecserial HINTS ${SUNDIALS_HOME}/lib)
-MARK_AS_ADVANCED(SUNDIALS_NVECSERIAL_LIBRARY)
+find_library(SUNDIALS_NVECSERIAL_LIBRARY NAME sundials_nvecserial libsundials_nvecserial HINTS ${SUNDIALS_HOME}/lib)
+mark_as_advanced(SUNDIALS_NVECSERIAL_LIBRARY)
 
 # Searching for sundials sunlinsolklu
-FIND_LIBRARY(SUNDIALS_SUNLINSOLKLU_LIBRARY NAME sundials_sunlinsolklu libsundials_sunlinsolklu HINTS ${SUNDIALS_HOME}/lib)
-MARK_AS_ADVANCED(SUNDIALS_SUNLINSOLKLU_LIBRARY)
+find_library(SUNDIALS_SUNLINSOLKLU_LIBRARY NAME sundials_sunlinsolklu libsundials_sunlinsolklu HINTS ${SUNDIALS_HOME}/lib)
+mark_as_advanced(SUNDIALS_SUNLINSOLKLU_LIBRARY)
 
-IF(NICSLU_FOUND)
+if(NICSLU_FOUND)
   # Searching for sundials sunmatrixsparse
-  FIND_LIBRARY(SUNDIALS_SUNMATRIXSPARSE_LIBRARY NAME sundials_sunmatrixsparse libsundials_sunmatrixsparse HINTS ${SUNDIALS_HOME}/lib)
-  MARK_AS_ADVANCED(SUNDIALS_SUNMATRIXSPARSE_LIBRARY)
+  find_library(SUNDIALS_SUNMATRIXSPARSE_LIBRARY NAME sundials_sunmatrixsparse libsundials_sunmatrixsparse HINTS ${SUNDIALS_HOME}/lib)
+  mark_as_advanced(SUNDIALS_SUNMATRIXSPARSE_LIBRARY)
 
   # Searching for sundials sunlinsolnicslu
-  FIND_LIBRARY(SUNDIALS_SUNLINSOLNICSLU_LIBRARY NAME sundials_sunlinsolnicslu libsundials_sunlinsolnicslu HINTS ${SUNDIALS_HOME}/lib)
-  MARK_AS_ADVANCED(SUNDIALS_SUNLINSOLNICSLU_LIBRARY)
-ENDIF()
+  find_library(SUNDIALS_SUNLINSOLNICSLU_LIBRARY NAME sundials_sunlinsolnicslu libsundials_sunlinsolnicslu HINTS ${SUNDIALS_HOME}/lib)
+  mark_as_advanced(SUNDIALS_SUNLINSOLNICSLU_LIBRARY)
+endif()
 
 if (SUNDIALS_INCLUDE_DIR AND SUNDIALS_IDA_LIBRARY)
   set(SundialsTest_DIR ${PROJECT_BINARY_DIR}/SundialsTest_DIR)
@@ -91,8 +91,8 @@ endif()
 # (Use ${CMAKE_ROOT}/Modules instead of ${CMAKE_CURRENT_LIST_DIR} because CMake
 #  itself includes this FindSundials when built with an older CMake that does
 #  not provide it.  The older CMake also does not have CMAKE_CURRENT_LIST_DIR.)
-INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(Sundials "Found Sundials suite" SUNDIALS_IDA_LIBRARY SUNDIALS_KINSOL_LIBRARY SUNDIALS_NVECSERIAL_LIBRARY SUNDIALS_SUNLINSOLKLU_LIBRARY SUNDIALS_INCLUDE_DIR)
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(Sundials "Found Sundials suite" SUNDIALS_IDA_LIBRARY SUNDIALS_KINSOL_LIBRARY SUNDIALS_NVECSERIAL_LIBRARY SUNDIALS_SUNLINSOLKLU_LIBRARY SUNDIALS_INCLUDE_DIR)
 
 if(Sundials_FOUND)
   set(Sundials_INCLUDE_DIRS "${SUNDIALS_INCLUDE_DIR}")
@@ -177,7 +177,7 @@ if(Sundials_FOUND)
       )
   endif()
 
-  IF(NICSLU_FOUND)
+  if(NICSLU_FOUND)
     if(NOT TARGET Sundials::Sundials_SUNLINSOLNICSLU)
       add_library(Sundials::Sundials_SUNLINSOLNICSLU UNKNOWN IMPORTED)
       if(Sundials_INCLUDE_DIRS)
