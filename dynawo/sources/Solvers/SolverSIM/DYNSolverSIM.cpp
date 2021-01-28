@@ -295,7 +295,7 @@ void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
     h_ = hNew_;
 
     // Call the algebraic solver, analyze the result and detect mode or z change if the algebraic solver has converged
-    SolverStatus_t status;
+    SolverStatus_t status = CONV;
     if (model_->sizeY() != 0) {
       int flag = callAlgebraicSolver();
       status = analyzeResult(flag);
@@ -457,6 +457,8 @@ void
 SolverSIM::increaseStep() {
   if (doubleNotEquals(h_, hMax_))
     hNew_ = min(h_ / kReduceStep_, hMax_);
+  // Limitation to end up the simulation at tEnd
+  hNew_ = min(hNew_, tEnd_ - (tSolve_ + h_));
 }
 
 void SolverSIM::handleRoot(bool& redoStep) {

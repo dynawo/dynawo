@@ -103,6 +103,7 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
     const vector<int>& diffVar = solv->differentialVars_;
 
     // YP[i] = (y[i]-yprec[i])/h for each differential variable
+    assert(solv->h0_ > 0);
     for (unsigned int i = 0; i < diffVar.size(); ++i) {
       solv->YP_[diffVar[i]] = (iyy[diffVar[i]] - solv->y0_[diffVar[i]]) / solv->h0_;
     }
