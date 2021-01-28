@@ -8,19 +8,19 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(MODEL_FILES
-    package.mo
-    package.order
-    HvdcPTanPhi.mo
-    HvdcPTanPhi_INIT.mo
-    HvdcPTanPhi.extvar
-    HvdcPTanPhiDangling.mo
-    HvdcPTanPhiDangling.extvar
-    )
+set(MODEL_FILES
+  package.mo
+  package.order
+  HvdcPTanPhi.mo
+  HvdcPTanPhi_INIT.mo
+  HvdcPTanPhi.extvar
+  HvdcPTanPhiDangling.mo
+  HvdcPTanPhiDangling.extvar
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

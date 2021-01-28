@@ -11,14 +11,14 @@
 add_subdirectory(Resources R)
 
 set(MODEL_FILES
-    package.mo
-    package.order
-    GridForming.mo
-    )
+  package.mo
+  package.order
+  GridForming.mo
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

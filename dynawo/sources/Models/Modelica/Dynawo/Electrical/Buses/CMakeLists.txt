@@ -9,18 +9,18 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 set(MODEL_FILES
-    # Electrical Buses models
-    package.mo
-    package.order
-    Bus.mo
-    Bus.extvar
-    InfiniteBus.mo
-    InfiniteBus.extvar
-    )
+  # Electrical Buses models
+  package.mo
+  package.order
+  Bus.mo
+  Bus.extvar
+  InfiniteBus.mo
+  InfiniteBus.extvar
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

@@ -75,10 +75,9 @@ class SolverSIM : public Solver::Impl {
    * @brief define returns value by the solver
    */
   typedef enum {
-    CONV = 0,  ///< the Newton-Raphson solver finds a solution
-    NON_CONV = 1,  ///< the Newton-Raphson solver doesn't find a solution
-    ROOT_ALG = 2,  ///< an algebraic mode has been detected
-    ROOT = 3  ///< a root was found (discrete value change)
+    CONV = 0,  ///< the algebraic solver finds a solution
+    NON_CONV = 1,  ///< the algebraic solver doesn't find a solution
+    ROOT = 2  ///< a root was found
   } SolverStatus_t;
 
  public:
@@ -138,23 +137,6 @@ class SolverSIM : public Solver::Impl {
 
  private:
   /**
-   * @brief integrate the DAE over an interval and recalculate it in case of a z change
-   * @param tNxt next time step
-   */
-  void solveWithStepRecalculation(double &tNxt);
-
-  /**
-   * @brief integrate the DAE over an interval without recalculting the step in case of a z change
-   * @param tNxt next time step
-   */
-  void solveWithoutStepRecalculation(double &tNxt);
-
-  /**
-   * @brief save the initial values of roots, y, and z before the time step
-   */
-  void saveInitialValues();
-
-  /**
    * @brief save the initial values of y before the time step
    */
   void saveContinuousVariables();
@@ -166,25 +148,24 @@ class SolverSIM : public Solver::Impl {
   void handleMaximumTries(int& counter);
 
   /**
-   * @brief find the solution of the problem for t+h (h is the step)
+   * @brief call the algebraic solver to find the solution of f(x) = 0
    *
+   * @return the flag associated to the call to the algebraic solver
+   */
+  int callAlgebraicSolver();
+
+  /**
+   * @brief analyze and potentially retrieve the results obtained by the algebraic solver call
+   * @param flag the flag obtained after the call to the algebraic solver
    * @return the current status of the solver
    */
-  SolverStatus_t solve();
+  SolverStatus_t analyzeResult(int& flag);
 
   /**
-   * @brief find the solution of f(u(t+h))
-   *
-   * @return @b 0 if the solver found a solution
+   * @brief update the discrete variables values and the mode of the equations
+   * @param status the current status of the solver before this process
    */
-  int SIMCorrection();
-
-  /**
-   * @brief call the euler kin solver to find the solution
-   *
-   * @return @b 0 if the solver found a solution
-   */
-  int callSolverKINEuler();
+  void updateZAndMode(SolverStatus_t& status);
 
   /**
    * @brief update the solver attributes and strategy following a divergence
@@ -195,12 +176,7 @@ class SolverSIM : public Solver::Impl {
   /**
    * @brief calculate the new step to use after divergence
    */
-  void updateStepDivergence();
-
-  /**
-   * @brief restore y, z and roots to their initial values
-   */
-  void restoreInitialValues();
+  void decreaseStep();
 
   /**
    * @brief restore y to their initial values
@@ -214,15 +190,15 @@ class SolverSIM : public Solver::Impl {
   void handleConvergence(bool& redoStep);
 
   /**
-   * @brief calculate the new step to use after convergence
+   * @brief calculate the new step to use after convergence or root detection (except for algebraic root with J update)
    */
-  void updateStepConvergence();
+  void increaseStep();
 
   /**
-   * @brief update the solver attributes and strategu following an algebraic root detection
+   * @brief update the solver attributes and strategy following a root detection
    * @param redoStep indicates if the step has to be recalculated or not
    */
-  void handleAlgebraicRoot(bool& redoStep);
+  void handleRoot(bool& redoStep);
 
   /**
    * @brief update the time step at the end of the current step
@@ -253,17 +229,13 @@ class SolverSIM : public Solver::Impl {
   // Generic and alterable parameters
   double hMin_;  ///< minimum time-step
   double hMax_;  ///< maximum time-step
-  double kReduceStep_;  ///< factor to reduce the time-step
-  int nEff_;  ///< desired number of Newton iterations
-  int nDeadband_;  ///< deadband (iterations number) to avoid too frequent step size variations
-  int maxRootRestart_;  ///< maximum number of Newton resolutions leading to root changes for one time-step
+  double kReduceStep_;  ///< factor to reduce (and increase) the time-step
   int maxNewtonTry_;  ///< maximum number of Newton resolutions for one time-step
-  bool recalculateStep_;  ///< step recalculation in case of root detection
 
   double tEnd_;  ///< simulation end time
   double h_;  ///< current time step
   double hNew_;  ///< next time-step
-  long int nNewt_;  ///< number of newton iterations since the beginning of the simulation
+  long int nNewt_;  ///< number of Newton iterations since the beginning of the simulation
   int countRestart_;  ///< current number of consecutive Newton resolutions leading to root changes
   bool factorizationForced_;  ///< force the Jacobian calculation due to an algebraic mode or a non convergence of the previous NR
 
@@ -277,7 +249,7 @@ class SolverSIM : public Solver::Impl {
   int mxiter_;  ///< maximum number of nonlinear iterations
   int printfl_;  ///< level of verbosity of output
 
-  bool skipNextNR_;  ///< indicates if the next Newton-Raphson resolution could be skipped
+  bool skipNextNR_;  ///< indicates if the next algebraic resolution could be skipped
 
   std::vector<double> ySave_;  ///< values of state variables before step
   std::vector<double> zSave_;  ///< values of discrete variables before step

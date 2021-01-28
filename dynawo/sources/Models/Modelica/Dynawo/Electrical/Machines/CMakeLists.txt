@@ -14,19 +14,19 @@ add_subdirectory(OmegaRef O)
 add_subdirectory(SignalN N)
 
 set(MODEL_FILES
-    package.mo
-    package.order
-    BaseClasses.mo
-    BaseClasses_INIT.mo
-    GeneratorFictitious.mo
-    GeneratorFictitious.extvar
-    GeneratorFictitious_INIT.mo
-    SwitchOffGenerator.extvar
-    )
+  package.mo
+  package.order
+  BaseClasses.mo
+  BaseClasses_INIT.mo
+  GeneratorFictitious.mo
+  GeneratorFictitious.extvar
+  GeneratorFictitious_INIT.mo
+  SwitchOffGenerator.extvar
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)
