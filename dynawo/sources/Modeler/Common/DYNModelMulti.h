@@ -473,10 +473,11 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param name1  name of the variable to connect inside the subModel 1
    * @param subModel2 second subModel where the variable is located
    * @param name2  name of the variable to connect inside the subModel 2
-   * @param forceConnection @b true if whe should ignore the flow type for continuous variable
+   * @param forceConnection @b true if we should ignore the flow type for continuous variable
+   * @param throwIfCalculatedVarConn @b true if we should throw if two calculated variables are connected together
    */
   void createConnection(boost::shared_ptr<SubModel> &subModel1, const std::string & name1, boost::shared_ptr<SubModel> &subModel2,
-                        const std::string &name2, bool forceConnection = false);
+                        const std::string &name2, bool forceConnection = false, bool throwIfCalculatedVarConn = true);
 
   /**
    * @brief create a connection bewteen a variable and a calculated variable
