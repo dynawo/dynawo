@@ -795,7 +795,7 @@ SolverIDA::reinit() {
       counter++;
       if (counter >= maxNumberUnstableRoots)
         throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
-    } while (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE);
+    } while (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_);
 
     updateStatistics();
   }

@@ -493,9 +493,7 @@ void Solver::Impl::setSolverCommonParameters() {
   const ParameterSolver& minimumModeChangeTypeForAlgebraicRestoration = findParameter("minimumModeChangeTypeForAlgebraicRestoration");
   if (minimumModeChangeTypeForAlgebraicRestoration.hasValue()) {
     std::string value = minimumModeChangeTypeForAlgebraicRestoration.getValue<string>();
-    if (value == "DIFFERENTIAL")
-      minimumModeChangeTypeForAlgebraicRestoration_ = DIFFERENTIAL_MODE;
-    else if (value == "ALGEBRAIC")
+    if (value == "ALGEBRAIC")
       minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_MODE;
     else if (value == "ALGEBRAIC_J_UPDATE")
       minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_UPDATE_MODE;

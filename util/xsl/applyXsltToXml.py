@@ -189,7 +189,7 @@ def main():
                         if keep_job :
                             case = "case_" + str(numCase)
                             numCase += 1
-                            current_test = TestCase(case, case_name, case_description, job_file, estimated_computation_time, return_code_type, expected_return_codes)
+                            current_test = nrtUtils.TestCase(case, case_name, case_description, job_file, estimated_computation_time, return_code_type, expected_return_codes)
                             updateTestCase(current_test, xsl_to_apply)
 
                     del sys.modules['cases'] # Delete load module in order to load another module with the same name
