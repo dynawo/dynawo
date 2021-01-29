@@ -88,7 +88,6 @@ job_file = os.path.join(os.path.dirname(__file__), "ShuntWithRegulation", "Shunt
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
-
 ########################################################
 #  Small System with dangling HVDC links (VSC and LCC) #
 ########################################################
@@ -96,5 +95,15 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 case_name = "DynaFlow - Dangling HVDC links"
 case_description = "Small System with dangling HVDC links (VSC and LCC)"
 job_file = os.path.join(os.path.dirname(__file__), "HvdcDangling", "HvdcDangling.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+############################################################################
+#  Small System with two HVDC links with AC Emulation and an outer control #
+############################################################################
+
+case_name = "DynaFlow - HVDC links with AC Emulation and an outer control"
+case_description = "Small System with two HVDC links with AC Emulation and an outer control"
+job_file = os.path.join(os.path.dirname(__file__), "HvdcACEmulationOuterControl", "HvdcACEmulationOuterControl.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
