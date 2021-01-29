@@ -11,6 +11,7 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
+    ACEmulationOuterControl.xml
     CurrentLimitAutomaton.xml
     EventConnectedStatus.xml
     EventQuadripoleConnection.xml
@@ -42,6 +43,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     GridFormingConverterDispatchableVirtualOscillatorControl.xml
     HvdcPV.xml
     HvdcPVEmulation.xml
+    HvdcPVEmulationVariableK.xml
     HvdcPVDiagramPQ.xml
     HvdcPVDiagramPQEmulation.xml
     HvdcPVDangling.xml

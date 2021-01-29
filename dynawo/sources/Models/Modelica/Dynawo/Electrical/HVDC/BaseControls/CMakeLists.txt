@@ -14,6 +14,11 @@ set(MODEL_FILES
   ACEmulation.mo
   ACEmulation_INIT.mo
   ACEmulation.extvar
+  ACEmulationVariableK.mo
+  ACEmulationVariableK_INIT.mo
+  ACEmulationVariableK.extvar
+  ACEmulationOuterControl.mo
+  ACEmulationOuterControl.extvar
   )
 
 #
