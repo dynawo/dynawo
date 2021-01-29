@@ -412,6 +412,7 @@ The controls package gathers all the controls and regulations models for the dif
 \item The Converters package which features three types of grid forming controls.
 \item The Current package includes a current limit automaton model.
 \item The Generic package contains an example implementation to call a C function from a Modelica model. This model can serve for example to include an OPF-based automaton into a \Dynawo simulation.
+\item The HVDC package contains an outer control for AC emulation that enables one link to compensate the loss of another link in parallel.
 \item The Machines package with the different regulations for the machines such as voltage  regulations, governors or under-voltage protection.
 \item The \ac{PLL} package contains a \ac{PLL} model.
 \item The Transformers package that includes the phase-shifter and tap changer automata models.
@@ -432,7 +433,7 @@ The HVDC package contains three different HVDC models: one complete standard VSC
 \item The HvdcPV model is a simplified VSC model, that regulates the network voltage at both sides and respects a certain active power flowing into the link (represented as a constant loss factor).
 \item The HvdcPTanPhi is a simplified LCC model, for which the reactive power output is calculated thanks to a power factor and the active power is set (with constant losses in the DC line as for the HvdcPV model).
 \end{itemize}
-
+It also contains a BaseControls subpackage that gathers some control elements that can be used for several models (AC emulation for example).
 
 \paragraph{Lines}
 ~~\\

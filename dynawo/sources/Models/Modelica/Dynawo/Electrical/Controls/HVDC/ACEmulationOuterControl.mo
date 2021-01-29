@@ -1,4 +1,4 @@
-within Dynawo.Electrical.HVDC.BaseControls;
+within Dynawo.Electrical.Controls.HVDC;
 
 /*
 * Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
