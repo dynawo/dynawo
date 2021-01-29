@@ -281,6 +281,8 @@ ModelVoltageLevel::initSize() {
   sizeG_ = 0;
   sizeMode_ = 0;
   sizeCalculatedVar_ = 0;
+  unsigned int index = 0;
+  componentIndexByCalculatedVar_.clear();
 
   // the size of the voltage level is the sum of the unit components sizes
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
@@ -291,7 +293,10 @@ ModelVoltageLevel::initSize() {
     sizeZ_ += (*itComponent)->sizeZ();
     sizeG_ += (*itComponent)->sizeG();
     sizeMode_ += (*itComponent)->sizeMode();
+    (*itComponent)->setOffsetCalculatedVar(sizeCalculatedVar_);
     sizeCalculatedVar_ += (*itComponent)->sizeCalculatedVar();
+    componentIndexByCalculatedVar_.resize(sizeCalculatedVar_, index);
+    ++index;
   }
 }
 
@@ -553,17 +558,9 @@ ModelVoltageLevel::defineVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 ModelVoltageLevel::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
-  unsigned int sizeCalculatedVars = 0;
-  unsigned int index = 0;
-  componentIndexByCalculatedVar_.clear();
-
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     (*itComponent)->instantiateVariables(variables);
-    (*itComponent)->setOffsetCalculatedVar(sizeCalculatedVars);
-    sizeCalculatedVars += (*itComponent)->sizeCalculatedVar();
-    componentIndexByCalculatedVar_.resize(sizeCalculatedVars, index);
-    ++index;
   }
 }
 

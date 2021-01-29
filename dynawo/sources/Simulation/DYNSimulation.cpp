@@ -624,6 +624,8 @@ Simulation::initFromData(const shared_ptr<DataInterface> & data, const shared_pt
 
   model_ = modeler.getModel();
   model_->setWorkingDirectory(context_->getWorkingDirectory());
+  model_->setTimeline(timeline_);
+  model_->setConstraints(constraintsCollection_);
 }
 
 void
@@ -667,9 +669,6 @@ Simulation::init() {
     model_->printModel();
   if (Trace::logExists(Trace::variables(), DEBUG))
     model_->printVariableNames();
-
-  model_->setTimeline(timeline_);
-  model_->setConstraints(constraintsCollection_);
 
   if (Trace::logExists(Trace::equations(), DEBUG)) {
     model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations

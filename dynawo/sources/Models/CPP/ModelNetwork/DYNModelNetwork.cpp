@@ -789,7 +789,6 @@ ModelNetwork::initializeStaticData() {
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
     (*itComponent)->init(yNum);
-    (*itComponent)->initSize();
   }
 }
 
@@ -837,14 +836,20 @@ ModelNetwork::getSize() {
   sizeF_ = 0;
   sizeG_ = 0;
   sizeCalculatedVar_ = 0;
+  componentIndexByCalculatedVar_.clear();
+  unsigned int index = 0;
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
       itComponent != getComponents().end(); ++itComponent) {
+    (*itComponent)->initSize();
     sizeY_ += (*itComponent)->sizeY();
     sizeZ_ += (*itComponent)->sizeZ();
     sizeMode_ += (*itComponent)->sizeMode();
     sizeF_ += (*itComponent)->sizeF();
     sizeG_ += (*itComponent)->sizeG();
+    (*itComponent)->setOffsetCalculatedVar(sizeCalculatedVar_);
     sizeCalculatedVar_ += (*itComponent)->sizeCalculatedVar();
+    componentIndexByCalculatedVar_.resize(sizeCalculatedVar_, index);
+    ++index;
   }
 }
 
@@ -1229,16 +1234,9 @@ ModelNetwork::defineVariables(vector<boost::shared_ptr<Variable> >& variables) {
     ModelTwoWindingsTransformer::defineVariables(variables);
     ModelHvdcLink::defineVariables(variables);
   } else {
-    componentIndexByCalculatedVar_.clear();
-    unsigned int index = 0;
-    unsigned int sizeCalculatedVars = 0;
     vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
     for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
       (*itComponent)->instantiateVariables(variables);
-      (*itComponent)->setOffsetCalculatedVar(sizeCalculatedVars);
-      sizeCalculatedVars += (*itComponent)->sizeCalculatedVar();
-      componentIndexByCalculatedVar_.resize(sizeCalculatedVars, index);
-      ++index;
     }
   }
 }

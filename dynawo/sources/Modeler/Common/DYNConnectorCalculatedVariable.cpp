@@ -52,6 +52,7 @@ void ConnectorCalculatedVariable::getSize() {
   sizeZ_ = 0;
   sizeG_ = 0;
   sizeMode_ = 0;
+  model_->getIndexesOfVariablesUsedForCalculatedVarI(indexCalculatedVariable_, varExtIndexes_);
 }
 
 void
@@ -139,7 +140,6 @@ ConnectorCalculatedVariable::setParams(const shared_ptr<SubModel>& model, const 
   indexCalculatedVariable_ = indexCalculatedVariable;
   if (indexCalculatedVariable_ == -1)
     throw DYNError(Error::MODELER, UndefCalculatedVar);
-  model_->getIndexesOfVariablesUsedForCalculatedVarI(indexCalculatedVariable_, varExtIndexes_);
 }
 
 void
