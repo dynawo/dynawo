@@ -272,7 +272,10 @@ ModelBus::initSize() {
     if (hasConnection_)
       sizeY_ = 4;
     sizeZ_ = 3;  // numCC, switchOff, state
-    sizeG_ = 2;  // U> Umax or U< Umin
+    sizeG_ = 0;
+    if (network_->hasConstraints()) {
+      sizeG_ = 2;  // U> Umax or U< Umin
+    }
     sizeMode_ = 0;
     sizeCalculatedVar_ = nbCalculatedVariables_;
   }
@@ -672,20 +675,22 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
 
 NetworkComponent::StateChange_t
 ModelBus::evalZ(const double& /*t*/) {
-  if (g_[0] == ROOT_UP && !stateUmax_) {
-    DYNAddConstraint(network_, constraintId_,  true,  modelType_, USupUmax);
-    stateUmax_ = true;
-  } else if (g_[0] == ROOT_DOWN && stateUmax_) {
-    DYNAddConstraint(network_, constraintId_,  false,  modelType_, USupUmax);
-    stateUmax_ = false;
-  }
+  if (network_->hasConstraints()) {
+    if (g_[0] == ROOT_UP && !stateUmax_) {
+      DYNAddConstraint(network_, constraintId_,  true,  modelType_, USupUmax);
+      stateUmax_ = true;
+    } else if (g_[0] == ROOT_DOWN && stateUmax_) {
+      DYNAddConstraint(network_, constraintId_,  false,  modelType_, USupUmax);
+      stateUmax_ = false;
+    }
 
-  if (g_[1] == ROOT_UP && !stateUmin_) {
-    DYNAddConstraint(network_, constraintId_,  true,  modelType_, UInfUmin);
-    stateUmin_ = true;
-  } else if (g_[1] == ROOT_DOWN && stateUmin_) {
-    DYNAddConstraint(network_, constraintId_,  false,  modelType_, UInfUmin);
-    stateUmin_ = false;
+    if (g_[1] == ROOT_UP && !stateUmin_) {
+      DYNAddConstraint(network_, constraintId_,  true,  modelType_, UInfUmin);
+      stateUmin_ = true;
+    } else if (g_[1] == ROOT_DOWN && stateUmin_) {
+      DYNAddConstraint(network_, constraintId_,  false,  modelType_, UInfUmin);
+      stateUmin_ = false;
+    }
   }
 
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
@@ -709,6 +714,7 @@ ModelBus::evalZ(const double& /*t*/) {
 
 void
 ModelBus::evalG(const double& /*t*/) {
+  if (!network_->hasConstraints()) return;
   double upu = getCurrentU(ModelBus::UPuType_);
   g_[0] = (upu - uMax_ > 0) ? ROOT_UP : ROOT_DOWN;  // U > Umax
   g_[1] = (uMin_ - upu > 0 && !getSwitchOff()) ? ROOT_UP : ROOT_DOWN;  // U < Umin
@@ -716,8 +722,9 @@ ModelBus::evalG(const double& /*t*/) {
 
 void
 ModelBus::setGequations(std::map<int, std::string>& gEquationIndex) {
-  gEquationIndex[0] = "U > UMax";
-  gEquationIndex[1] = "U < UMin";
+  if (!network_->hasConstraints()) return;
+  gEquationIndex[0] = "U > UMax localModel:"+id();
+  gEquationIndex[1] = "U < UMin localModel:"+id();
 
   assert(gEquationIndex.size() == (unsigned int) sizeG() && "Model Bus: gEquationIndex.size() != g_.size()");
 }
