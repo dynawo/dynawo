@@ -17,7 +17,6 @@
     <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="GEN_SIGNALN_CONNECTOR">
-    <dyn:connect var1="generator_alphaSum_value" var2="alphaSum_grp_@INDEX@_value"/>
     <dyn:connect var1="generator_alpha_value" var2="alpha_grp_@INDEX@_value"/>
     <dyn:connect var1="generator_N_value" var2="n_grp_@INDEX@_value"/>
   </dyn:macroConnector>

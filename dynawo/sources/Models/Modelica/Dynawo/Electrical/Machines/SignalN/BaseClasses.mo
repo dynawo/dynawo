@@ -31,7 +31,6 @@ package BaseClasses
 
     Connectors.ImPin N "Signal to change the active power reference setpoint of all the generators in the system in p.u (base SnRef)";
     Connectors.ZPin alpha "Participation of the considered generator in the frequency regulation. It is equal to Alpha if the generator is not blocked, 0 otherwise.";
-    Connectors.ZPin alphaSum "Sum of all the participations of all generators in the frequency regulation";
 
   protected
     Types.ActivePowerPu PGenRawPu (start = PGen0Pu) "Active power generation without taking limits into account in p.u (base SnRef) (generator convention)";
@@ -39,7 +38,7 @@ package BaseClasses
   equation
 
     if running.value then
-      PGenRawPu = - PRef0Pu + (Alpha / alphaSum.value) * N.value;
+      PGenRawPu = - PRef0Pu + Alpha * N.value;
       PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
       alpha.value = if (N.value > 0 and PGenRawPu >= PMaxPu) then 0 else if (N.value < 0 and PGenRawPu <= PMinPu) then 0 else Alpha;
     else
