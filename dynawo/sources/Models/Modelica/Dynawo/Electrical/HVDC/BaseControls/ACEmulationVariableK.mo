@@ -15,10 +15,7 @@ within Dynawo.Electrical.HVDC.BaseControls;
 model ACEmulationVariableK "AC Emulation for HVDC with a variable KACEmulation"
 
   import Modelica;
-  import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.Time tFilter "Time constant of the angle measurement filter";
 
@@ -74,5 +71,5 @@ equation
     Icon(coordinateSystem(grid = {1, 1})));
 
 annotation(preferredView = "text",
-    Documentation(info = "<html><head></head><body> In this model, KACEmulation is a variable and not a parameter. It can be given by an outer control. </div></body></html>"));
+    Documentation(info = "<html><head></head><body> In this model, KACEmulation is a variable and not a parameter. It can be given by an outer control like a power transfer control between two HVDC links for example. </div></body></html>"));
 end ACEmulationVariableK;

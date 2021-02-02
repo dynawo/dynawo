@@ -15,10 +15,7 @@ within Dynawo.Electrical.HVDC.BaseControls;
 model ACEmulation "AC Emulation for HVDC"
 
   import Modelica;
-  import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.Time tFilter "Time constant of the angle measurement filter";
   parameter Types.PerUnit KACEmulation "Inverse of the emulated AC reactance";

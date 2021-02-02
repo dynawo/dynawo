@@ -15,11 +15,7 @@ within Dynawo.Electrical.HVDC.BaseControls;
 model ACEmulation_INIT "Initialisation for AC Emulation for HVDC"
   extends AdditionalIcons.Init;
 
-  import Modelica;
-  import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
 
   parameter Types.PerUnit KACEmulation "Inverse of the emulated AC reactance";
 

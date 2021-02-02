@@ -12,11 +12,11 @@
     simulation tools for power systems.
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:job name="HvdcACEmulationOuterControl">
+  <dyn:job name="HvdcPowerTransfer">
     <dyn:solver lib="dynawo_SolverSIM" parFile="solvers.par" parId="3"/>
     <dyn:modeler compileDir="outputs/compilation">
-      <dyn:network iidmFile="HvdcACEmulationOuterControl.iidm" parFile="HvdcACEmulationOuterControl.par" parId="8"/>
-      <dyn:dynModels dydFile="HvdcACEmulationOuterControl.dyd"/>
+      <dyn:network iidmFile="HvdcPowerTransfer.iidm" parFile="HvdcPowerTransfer.par" parId="8"/>
+      <dyn:dynModels dydFile="HvdcPowerTransfer.dyd"/>
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
@@ -24,7 +24,7 @@
     <dyn:outputs directory="outputs">
       <dyn:finalState exportIIDMFile="true" exportDumpFile="true"/>
       <dyn:dumpInitValues local="true" global="true"/>
-      <dyn:curves inputFile="HvdcACEmulationOuterControl.crv" exportMode="CSV"/>
+      <dyn:curves inputFile="HvdcPowerTransfer.crv" exportMode="CSV"/>
       <dyn:timeline exportMode="TXT"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>

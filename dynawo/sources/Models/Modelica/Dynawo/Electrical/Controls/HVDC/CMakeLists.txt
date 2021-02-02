@@ -12,8 +12,10 @@ set(MODEL_FILES
   # HVDC control models
   package.mo
   package.order
-  ACEmulationOuterControl.mo
-  ACEmulationOuterControl.extvar
+  PowerTransferHVDC.mo
+  PowerTransferHVDC.extvar
+  PowerTransferHVDCEmulation.mo
+  PowerTransferHVDCEmulation.extvar
   )
 
 #

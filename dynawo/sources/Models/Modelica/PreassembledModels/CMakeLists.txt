@@ -11,7 +11,6 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
-    ACEmulationOuterControl.xml
     CurrentLimitAutomaton.xml
     EventConnectedStatus.xml
     EventQuadripoleConnection.xml
@@ -66,6 +65,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     NodeFault.xml
     PhaseShifterI.xml
     PhaseShifterP.xml
+    PowerTransferHVDCEmulation.xml
     ShuntBWithSections.xml
     ShuntBWithSectionsWithRegulation.xml
     SetPoint.xml
