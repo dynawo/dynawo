@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="ACEmulationOuterControl">
-    <dyn:unitDynamicModel id="acemulationoutercontrol" name="Dynawo.Electrical.Controls.HVDC.ACEmulationOuterControl"/>
+  <dyn:modelicaModel id="PowerTransferHVDCEmulation">
+    <dyn:unitDynamicModel id="powertransferhvdcemulation" name="Dynawo.Electrical.Controls.HVDC.PowerTransferHVDCEmulation"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

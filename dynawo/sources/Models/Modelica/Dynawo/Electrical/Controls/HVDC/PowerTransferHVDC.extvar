@@ -12,8 +12,6 @@
     simulation tools for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <variable type="discrete" id="KACEmulation1Raw.value"/>
-  <variable type="discrete" id="KACEmulation2Raw.value"/>
   <variable type="discrete" id="PRefSet1RawPu.value"/>
   <variable type="discrete" id="PRefSet2RawPu.value"/>
   <variable type="discrete" id="running1.value" defaultValue="true"/>

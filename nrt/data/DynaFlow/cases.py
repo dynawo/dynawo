@@ -98,12 +98,12 @@ job_file = os.path.join(os.path.dirname(__file__), "HvdcDangling", "HvdcDangling
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
-############################################################################
-#  Small System with two HVDC links with AC Emulation and an outer control #
-############################################################################
+####################################################################################
+#  Small System with two HVDC links with AC Emulation and a power transfer control #
+####################################################################################
 
-case_name = "DynaFlow - HVDC links with AC Emulation and an outer control"
-case_description = "Small System with two HVDC links with AC Emulation and an outer control"
-job_file = os.path.join(os.path.dirname(__file__), "HvdcACEmulationOuterControl", "HvdcACEmulationOuterControl.jobs")
+case_name = "DynaFlow - HVDC links with AC Emulation and a power transfer control"
+case_description = "Small System with two HVDC links with AC Emulation and a power transfer control"
+job_file = os.path.join(os.path.dirname(__file__), "HvdcPowerTransfer", "HvdcPowerTransfer.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
