@@ -42,6 +42,15 @@ using DYN::Trace;
 using DYN::Simulation;
 using DYN::SimulationContext;
 
+// If logging is disabled, Trace::info has no effect so we also print on standard output to have basic information
+template<class T>
+static inline void print(const T& output) {
+  Trace::info() << output << Trace::endline;
+  if (!Trace::isLoggingEnabled()) {
+    std::clog << output << std::endl;
+  }
+}
+
 void launchSimu(const std::string& jobsFileName) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   DYN::Timer timer("Main::LaunchSimu");
@@ -57,7 +66,7 @@ void launchSimu(const std::string& jobsFileName) {
   for (job::job_iterator itJobEntry = jobsCollection->begin();
       itJobEntry != jobsCollection->end();
       ++itJobEntry) {
-    Trace::info() << DYNLog(LaunchingJob, (*itJobEntry)->getName()) << Trace::endline;
+    print(DYNLog(LaunchingJob, (*itJobEntry)->getName()));
 
     boost::shared_ptr<SimulationContext> context = boost::shared_ptr<SimulationContext>(new SimulationContext());
     context->setResourcesDirectory(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
@@ -70,19 +79,19 @@ void launchSimu(const std::string& jobsFileName) {
       simulation = boost::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
       simulation->init();
     } catch (const DYN::Error& err) {
-      Trace::error() << err.what() << Trace::endline;
+      print(err.what());
       throw;
     } catch (const DYN::MessageError& e) {
-      Trace::error() << e.what() << Trace::endline;
+      print(e.what());
       throw;
     } catch (const char *s) {
-      Trace::error() << s << Trace::endline;
+      print(s);
       throw;
-    } catch (const std::string & Msg) {
-      Trace::error() << Msg << Trace::endline;
+    } catch (const std::string& Msg) {
+      print(Msg);
       throw;
-    } catch (std::exception & exc) {
-      Trace::error() << exc.what() << Trace::endline;
+    } catch (const std::exception& exc) {
+      print(exc.what());
       throw;
     }
 
@@ -93,38 +102,38 @@ void launchSimu(const std::string& jobsFileName) {
       // Needed as otherwise terminate might crash due to missing staticRef variables
       if (err.key() == DYN::KeyError_t::StateVariableNoReference)
         simulation->activateExportIIDM(false);
-      Trace::error() << err.what() << Trace::endline;
+      print(err.what());
       simulation->terminate();
       throw;
     } catch (const DYN::Terminate& e) {
-      Trace::error() << e.what() << Trace::endline;
+      print(e.what());
       simulation->terminate();
       throw;
     } catch (const DYN::MessageError& e) {
-      Trace::error() << e.what() << Trace::endline;
+      print(e.what());
       simulation->terminate();
       throw;
     } catch (const char *s) {
-      Trace::error() << s << Trace::endline;
+      print(s);
       simulation->terminate();
       throw;
-    } catch (const std::string & Msg) {
-      Trace::error() << Msg << Trace::endline;
+    } catch (const std::string& Msg) {
+      print(Msg);
       simulation->terminate();
       throw;
-    } catch (std::exception & exc) {
-      Trace::error() << exc.what() << Trace::endline;
+    } catch (const std::exception& exc) {
+      print(exc.what());
       simulation->terminate();
       throw;
     }
     simulation->clean();
-    Trace::info() << DYNLog(EndOfJob, (*itJobEntry)->getName()) << Trace::endline;
+    print(DYNLog(EndOfJob, (*itJobEntry)->getName()));
     Trace::resetCustomAppenders();
     Trace::init();
-    Trace::info() << DYNLog(JobSuccess, (*itJobEntry)->getName()) << Trace::endline;
+    print(DYNLog(JobSuccess, (*itJobEntry)->getName()));
     if ((*itJobEntry)->getOutputsEntry()) {
       std::string outputsDirectory = createAbsolutePath((*itJobEntry)->getOutputsEntry()->getOutputsDirectory(), context->getWorkingDirectory());
-      Trace::info() << DYNLog(ResultFolder, outputsDirectory) << Trace::endline;
+      print(DYNLog(ResultFolder, outputsDirectory));
     }
   }
 }

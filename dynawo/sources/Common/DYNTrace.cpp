@@ -121,6 +121,7 @@ void Trace::init_() {
 
   // Register the sink in the logging core
   logging::core::get()->add_sink(sink);
+  logging::core::get()->set_logging_enabled(true);
   originalSinks_.push_back(sink);
 
   logging::add_common_attributes();
@@ -128,6 +129,10 @@ void Trace::init_() {
 
 void Trace::disableLogging() {
   logging::core::get()->set_logging_enabled(false);
+}
+
+bool Trace::isLoggingEnabled() {
+  return logging::core::get()->get_logging_enabled();
 }
 
 void Trace::addAppenders(const std::vector<TraceAppender>& appenders) {
