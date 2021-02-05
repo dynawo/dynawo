@@ -280,6 +280,13 @@ class Trace {
   static void disableLogging();
 
   /**
+   * @brief Determines if logging is enabled
+   *
+   * @returns whether the logging is currently enabled
+   */
+  static bool isLoggingEnabled();
+
+  /**
    * @brief Add custom appenders to trace system
    * @param[in] appenders: Appenders to add
    */
