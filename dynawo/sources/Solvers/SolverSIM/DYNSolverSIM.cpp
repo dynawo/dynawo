@@ -265,7 +265,6 @@ SolverSIM::calculateIC() {
 void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
   int counter = 0;
   bool redoStep = false;
-  skipAlgebraicResidualsEvaluation_ = false;
 
   if (!skipNextNR_)
     saveContinuousVariables();
@@ -287,6 +286,7 @@ void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
     } else {
       updateZAndMode(status);
     }
+    skipAlgebraicResidualsEvaluation_ = false;
 
     switch (status) {
       /* NON_CONV: the algebraic solver fails to converge
