@@ -402,11 +402,9 @@ void SolverSIM::updateZAndMode(SolverStatus_t& status) {
     // A root change has occurred - Dealing with propagation and algebraic mode detection
 #ifdef _DEBUG_
     printUnstableRoot(tSolve_ + h_, g0_, g1_);
+    std::copy(G1.begin(), G1.end(), G0.begin());
 #endif
-    /* Save the new values of the root in g0 for comparison after the evalZMode
-     * Calculate the propagation of discrete variable value changes and mode changes
-     */
-    g0_.assign(g1_.begin(), g1_.end());
+    // Calculate the propagation of discrete variable value changes and mode changes
     evalZMode(g0_, g1_, tSolve_ + h_);
 
     if (skipNRIfInitialGuessOK_ &&
