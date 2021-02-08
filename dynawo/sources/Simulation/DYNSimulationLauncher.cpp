@@ -44,8 +44,26 @@ using DYN::SimulationContext;
 
 // If logging is disabled, Trace::info has no effect so we also print on standard output to have basic information
 template<class T>
-static inline void print(const T& output) {
-  Trace::info() << output << Trace::endline;
+static void print(const T& output, DYN::SeverityLevel level = DYN::INFO) {
+  DYN::TraceStream ss;
+  switch (level) {
+    case DYN::DEBUG:
+      ss = Trace::debug();
+      break;
+    case DYN::INFO:
+      ss = Trace::info();
+      break;
+    case DYN::WARN:
+      ss = Trace::warn();
+      break;
+    case DYN::ERROR:
+      ss = Trace::error();
+      break;
+    default:
+      // impossible case by definition of the enum
+      return;
+  }
+  ss << output << Trace::endline;
   if (!Trace::isLoggingEnabled()) {
     std::clog << output << std::endl;
   }
@@ -79,19 +97,19 @@ void launchSimu(const std::string& jobsFileName) {
       simulation = boost::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
       simulation->init();
     } catch (const DYN::Error& err) {
-      print(err.what());
+      print(err.what(), DYN::ERROR);
       throw;
     } catch (const DYN::MessageError& e) {
-      print(e.what());
+      print(e.what(), DYN::ERROR);
       throw;
     } catch (const char *s) {
-      print(s);
+      print(s, DYN::ERROR);
       throw;
     } catch (const std::string& Msg) {
-      print(Msg);
+      print(Msg, DYN::ERROR);
       throw;
     } catch (const std::exception& exc) {
-      print(exc.what());
+      print(exc.what(), DYN::ERROR);
       throw;
     }
 
@@ -100,29 +118,30 @@ void launchSimu(const std::string& jobsFileName) {
       simulation->terminate();
     } catch (const DYN::Error& err) {
       // Needed as otherwise terminate might crash due to missing staticRef variables
-      if (err.key() == DYN::KeyError_t::StateVariableNoReference)
+      if (err.key() == DYN::KeyError_t::StateVariableNoReference) {
         simulation->activateExportIIDM(false);
+      }
       print(err.what());
       simulation->terminate();
       throw;
     } catch (const DYN::Terminate& e) {
-      print(e.what());
+      print(e.what(), DYN::ERROR);
       simulation->terminate();
       throw;
     } catch (const DYN::MessageError& e) {
-      print(e.what());
+      print(e.what(), DYN::ERROR);
       simulation->terminate();
       throw;
     } catch (const char *s) {
-      print(s);
+      print(s, DYN::ERROR);
       simulation->terminate();
       throw;
     } catch (const std::string& Msg) {
-      print(Msg);
+      print(Msg, DYN::ERROR);
       simulation->terminate();
       throw;
     } catch (const std::exception& exc) {
-      print(exc.what());
+      print(exc.what(), DYN::ERROR);
       simulation->terminate();
       throw;
     }
