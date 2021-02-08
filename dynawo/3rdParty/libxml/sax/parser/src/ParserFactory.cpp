@@ -27,12 +27,15 @@ namespace xml {
 namespace sax {
 namespace parser {
 
-ParserFactory::ParserFactory() {
-  xercesc::XMLPlatformUtils::Initialize();
+ParserFactory::ParserFactory(bool multiThreadingMode):
+multiThreadingMode_(multiThreadingMode)  {
+  if (!multiThreadingMode_)
+    xercesc::XMLPlatformUtils::Initialize();
 }
 
 ParserFactory::~ParserFactory() {
-  xercesc::XMLPlatformUtils::Terminate();
+  if (!multiThreadingMode_)
+    xercesc::XMLPlatformUtils::Terminate();
 }
 
 Parser* ParserFactory::newParser() const {

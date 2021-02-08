@@ -102,7 +102,7 @@ DataInterfaceIIDM::~DataInterfaceIIDM() {
 
 
 boost::shared_ptr<DataInterface>
-DataInterfaceIIDM::build(std::string iidmFilePath) {
+DataInterfaceIIDM::build(std::string iidmFilePath, bool /*multiThreadingMode*/) {
   boost::shared_ptr<DataInterfaceIIDM>  data;
   try {
     LibXml2 libxml2;

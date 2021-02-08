@@ -41,7 +41,7 @@ namespace dynamicdata {
 shared_ptr<DynamicModelsCollection>
 XmlImporter::importFromDydFiles(const vector<string>& fileNames) const {
   XmlHandler dydHandler;
-  xml::sax::parser::ParserFactory parser_factory;
+  xml::sax::parser::ParserFactory parser_factory(multiThreadingMode_);
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();
   bool xsdValidation = false;
   if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true") {

@@ -30,7 +30,7 @@ namespace externalVariables {
 TEST(APIEXTVARTest, ExternalVariableImportBadType) {
   // import
   const std::string fileName = "res/ExternalVariablesBadType.extvar";
-  XmlImporter importer;
+  XmlImporter importer(false);
   ASSERT_THROW_DYNAWO(importer.importFromFile(fileName), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
 
@@ -41,7 +41,7 @@ TEST(APIEXTVARTest, ExternalVariableImportBadType) {
 TEST(APIEXTVARTest, ExternalVariableImportDuplicateId) {
   // import
   const std::string fileName = "res/ExternalVariablesDuplicateId.extvar";
-  XmlImporter importer;
+  XmlImporter importer(false);
   ASSERT_THROW_DYNAWO(importer.importFromFile(fileName), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
 
@@ -50,24 +50,24 @@ TEST(APIEXTVARTest, ExternalVariableImportDuplicateId) {
 //-----------------------------------------------------
 
 TEST(APIEXTVARTest, nonExistingFile) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   ASSERT_THROW_DYNAWO(importer.importFromFile("res/dummyFile.extvar"), DYN::Error::API, DYN::KeyError_t::FileSystemItemDoesNotExist);
 }
 
 TEST(APICRVTest, testXmlWrongStream) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   std::istringstream badInputStream("hello");
   std::istream badStream(badInputStream.rdbuf());
   ASSERT_THROW_DYNAWO(importer.importFromStream(badStream), DYN::Error::API, DYN::KeyError_t::XmlParsingError);
 }
 
 TEST(APICRVTest, testXmlFileImporter) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   ASSERT_NO_THROW(importer.importFromFile("res/ExternalVariablesTest.extvar"));
 }
 
 TEST(APICRVTest, testXmlStreamImporter) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   std::istringstream goodInputStream(
     "<?xml version='1.0' encoding='UTF-8'?>"
     "<external_variables xmlns=\"http://www.rte-france.com/dynawo\" xmlns:xi=\"http://www.w3.org/2001/XInclude\">"

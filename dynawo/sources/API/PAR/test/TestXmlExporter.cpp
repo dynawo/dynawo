@@ -34,7 +34,7 @@ namespace parameters {
 //-----------------------------------------------------
 
 TEST(APIPARTest, XmlExporter) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   shared_ptr<ParametersSetCollection> collection;
   ASSERT_NO_THROW(collection = importer.importFromFile("res/fileToImport.par"));
 

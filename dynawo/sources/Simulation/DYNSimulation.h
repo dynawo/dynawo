@@ -121,9 +121,11 @@ class Simulation {
    * @param jobEntry data read in jobs file
    * @param context context of the simulation (configuration, directories, locale, etc...)
    * @param data data interface to use for the simulation (NULL if we build it inside simulation)
+   * @param multiThreadingMode true if this simulation is running in parallel with others simulation
    */
   Simulation(boost::shared_ptr<job::JobEntry>& jobEntry, boost::shared_ptr<SimulationContext>& context,
-              boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
+      bool multiThreadingMode = false,
+      boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
 
   /**
    * @brief destructor
@@ -559,6 +561,7 @@ class Simulation {
   bool dumpLocalInitValues_;  ///< whether to export the results from the local initialisation
   bool dumpGlobalInitValues_;  ///< whether to export the results from the global initialisation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
+  bool multiThreadingMode_;  ///< true if this simulation is running in parallel with others simulation
 
  private:
   /**

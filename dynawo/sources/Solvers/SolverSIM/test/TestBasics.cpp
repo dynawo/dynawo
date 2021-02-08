@@ -117,6 +117,7 @@ void compile(boost::shared_ptr<DynamicData> dyd) {
             pathsToIgnore,
             additionalHeaderFiles,
             rmModels,
+            false,
             getEnvVar("PWD") +"/jobs");
   cf.compile();  // modelOnly = false, compilation and parameter linking
   cf.concatConnects();
@@ -147,7 +148,7 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
   powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(inputStream);
   boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(std::move(networkIIDM)));
 #else
-  IIDM::xml::xml_parser parser;
+  IIDM::xml::xml_parser parser(false);
   IIDM::Network networkIIDM = parser.from_xml(iidmFileName, false);
   boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(networkIIDM));
 #endif
@@ -160,7 +161,7 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
 
   std::vector <std::string> fileNames;
   fileNames.push_back(dydFileName);
-  dyd->initFromDydFiles(fileNames);
+  dyd->initFromDydFiles(fileNames, false);
 
   compile(dyd);
 
@@ -191,7 +192,7 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   std::vector <std::string> fileNames;
   fileNames.push_back(dydFileName);
-  dyd->initFromDydFiles(fileNames);
+  dyd->initFromDydFiles(fileNames, false);
 
   compile(dyd);
 

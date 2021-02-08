@@ -73,9 +73,10 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief Build an instance of this class by reading a file
    * @param iidmFilePath iidm file path
+   * @param multiThreadingMode true if this simulation is running in parallel with others simulation
    * @return The data interface built from the input file
    */
-  static boost::shared_ptr<DataInterface> build(std::string iidmFilePath);
+  static boost::shared_ptr<DataInterface> build(std::string iidmFilePath, bool multiThreadingMode);
   /**
    * @brief Constructor
    * @param networkIIDM instance of iidm network

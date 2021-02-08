@@ -109,13 +109,13 @@ DataInterfaceIIDM::~DataInterfaceIIDM() {
 
 
 boost::shared_ptr<DataInterface>
-DataInterfaceIIDM::build(std::string iidmFilePath) {
+DataInterfaceIIDM::build(std::string iidmFilePath, bool multiThreadingMode) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("DataInterfaceIIDM::build()");
 #endif
   boost::shared_ptr<DataInterfaceIIDM>  data;
   try {
-    IIDM::xml::xml_parser parser;
+    IIDM::xml::xml_parser parser(multiThreadingMode);
     parser.register_extension<IIDM::extensions::standbyautomaton::xml::StandbyAutomatonHandler>();
     parser.register_extension<IIDM::extensions::activeseason::xml::ActiveSeasonHandler>();
     parser.register_extension<IIDM::extensions::currentlimitsperseason::xml::CurrentLimitsPerSeasonHandler>();

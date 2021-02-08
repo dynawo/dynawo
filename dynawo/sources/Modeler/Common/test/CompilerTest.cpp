@@ -26,7 +26,7 @@ TEST(CompilerTest, testMissingModelicaFile) {
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   std::vector <std::string> fileNames;
   fileNames.push_back("jobs/solverTestDelta.dyd");
-  dyd->initFromDydFiles(fileNames);
+  dyd->initFromDydFiles(fileNames, false);
   bool preCompiledUseStandardModels = false;
   std::vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
   std::string preCompiledModelsExtension = sharedLibraryExtension();
@@ -47,6 +47,7 @@ TEST(CompilerTest, testMissingModelicaFile) {
             pathsToIgnore,
             additionalHeaderFiles,
             rmModels,
+            false,
             getMandatoryEnvVar("PWD"));
   ASSERT_THROW_DYNAWO(cf.compile(), Error::MODELER, KeyError_t::UnknownModelFile);
 }
@@ -55,7 +56,7 @@ TEST(CompilerTest, testFlowConnectionWithinAndOutsideModelicaModel) {
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   std::vector <std::string> fileNames;
   fileNames.push_back("jobs/testFlowConnections.dyd");
-  dyd->initFromDydFiles(fileNames);
+  dyd->initFromDydFiles(fileNames, false);
   bool preCompiledUseStandardModels = true;
   std::vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
   std::string preCompiledModelsExtension = sharedLibraryExtension();
@@ -81,6 +82,7 @@ TEST(CompilerTest, testFlowConnectionWithinAndOutsideModelicaModel) {
             pathsToIgnore,
             additionalHeaderFiles,
             rmModels,
+            false,
             getMandatoryEnvVar("PWD"));
   ASSERT_NO_THROW(cf.compile());
   cf.concatConnects();

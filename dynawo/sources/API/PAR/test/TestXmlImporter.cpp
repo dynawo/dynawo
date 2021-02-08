@@ -32,7 +32,7 @@ namespace parameters {
 //-----------------------------------------------------
 
 TEST(APIPARTest, XmlImporterMissingFile) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   shared_ptr<ParametersSetCollection> collection;
   ASSERT_THROW_DYNAWO(collection = importer.importFromFile("res/dummyFile.par"), DYN::Error::API, DYN::KeyError_t::FileSystemItemDoesNotExist);
 }
@@ -42,7 +42,7 @@ TEST(APIPARTest, XmlImporterMissingFile) {
 //-----------------------------------------------------
 
 TEST(APIPARTest, XmlImporterWrongFile) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<ParametersSetCollection> collection;
   ASSERT_THROW_DYNAWO(collection = importer.importFromFile("res/wrongFile.par"), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
@@ -52,20 +52,20 @@ TEST(APIPARTest, XmlImporterWrongFile) {
 //-----------------------------------------------------
 
 TEST(APIPARTest, XmlImporter) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   shared_ptr<ParametersSetCollection> collection;
   ASSERT_NO_THROW(collection = importer.importFromFile("res/fileToImport.par"));
 }
 
 TEST(APIPARTest, testXmlWrongStream) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   std::istringstream badInputStream("hello");
   std::istream badStream(badInputStream.rdbuf());
   ASSERT_THROW_DYNAWO(importer.importFromStream(badStream), DYN::Error::API, DYN::KeyError_t::XmlParsingError);
 }
 
 TEST(APIPARTest, testXmlStreamImporter) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   std::istringstream goodInputStream(
     "<?xml version='1.0' encoding='UTF-8'?>"
     "<parametersSet xmlns=\"http://www.rte-france.com/dynawo\">"

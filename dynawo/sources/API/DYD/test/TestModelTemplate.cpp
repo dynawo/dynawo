@@ -86,7 +86,7 @@ TEST(APIDYDTest, ModelTemplateCreate) {
 }
 
 TEST(APIDYDTest, ModelTemplateImport_export) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/modelTemplate.xml");

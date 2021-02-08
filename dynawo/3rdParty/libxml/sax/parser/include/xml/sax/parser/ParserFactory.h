@@ -36,7 +36,7 @@ typedef XML_OWNER_PTR<Parser> ParserPtr; /**< smart pointer to Parser object. un
  */
 class ParserFactory {
 public:
-  ParserFactory();
+  ParserFactory(bool multiThreadingMode);
 
   ~ParserFactory();
 
@@ -53,6 +53,8 @@ private:
    * @brief allocates a new parser.
    */
   Parser* newParser() const;
+private:
+  bool multiThreadingMode_;
 };
 
 } // end of namespace xml::sax::parser::

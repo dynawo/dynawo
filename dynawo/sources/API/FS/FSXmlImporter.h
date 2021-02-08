@@ -34,6 +34,11 @@ namespace finalState {
 class XmlImporter : public Importer {
  public:
   /**
+   * @brief Constructor
+   * @param multiThreadingMode true if this simulation is running in parallel with others simulation
+   */
+  explicit XmlImporter(bool multiThreadingMode): multiThreadingMode_(multiThreadingMode) {}
+  /**
    * @brief Destructor
    */
   virtual ~XmlImporter() {}
@@ -47,6 +52,9 @@ class XmlImporter : public Importer {
    * @copydoc Importer::importFromStream()
    */
   boost::shared_ptr<FinalStateCollection> importFromStream(std::istream& stream) const;
+
+ private:
+  bool multiThreadingMode_;  ///< true if this simulation is running in parallel with others simulation
 };
 
 }  // namespace finalState

@@ -71,6 +71,7 @@ class Compiler {
    * @param pathsToIgnore : paths that shouldn't be explored
    * @param additionalHeaderFiles: list of headers that should be included in the dynamic model files
    * @param rmModels: remove .mo model
+   * @param multiThreadingMode: true if this simulation is running in parallel with others simulation
    * @param outputDir: output directory
    */
   Compiler(const boost::shared_ptr<DynamicData>& dyd,
@@ -83,6 +84,7 @@ class Compiler {
           const boost::unordered_set<boost::filesystem::path>& pathsToIgnore,
           const std::vector <std::string>& additionalHeaderFiles,
           const bool rmModels,
+          const bool multiThreadingMode,
           std::string outputDir) :
   dyd_(dyd),
   useStandardPrecompiledModels_(useStandardPrecompiledModels),
@@ -94,7 +96,8 @@ class Compiler {
   modelicaModelsExtension_(modelicaModelsExtension),
   modelDirPath_(outputDir),
   additionalHeaderFiles_(additionalHeaderFiles),
-  rmModels_(rmModels) { }
+  rmModels_(rmModels),
+  multiThreadingMode_(multiThreadingMode) { }
 
   /**
    * @brief default destructor.
@@ -275,6 +278,7 @@ class Compiler {
 
   // if set to true the .mo input files will be deleted (default: false)
   bool rmModels_;  ///< enables to remove model file
+  bool multiThreadingMode_;  ///< true if this simulation is running in parallel with others simulation
 };
 
 }  // namespace DYN

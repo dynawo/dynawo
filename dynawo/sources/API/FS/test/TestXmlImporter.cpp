@@ -30,7 +30,7 @@ namespace finalState {
 //-----------------------------------------------------
 
 TEST(APIFSTest, XmlImporterMissingFile) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<FinalStateCollection> collection;
   ASSERT_THROW_DYNAWO(collection = importer.importFromFile("res/dummyFile.xml"), DYN::Error::API, DYN::KeyError_t::FileSystemItemDoesNotExist);
 }
@@ -40,7 +40,7 @@ TEST(APIFSTest, XmlImporterMissingFile) {
 //-----------------------------------------------------
 
 TEST(APIFSTest, XmlImporterWrongFile) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<FinalStateCollection> collection;
   ASSERT_THROW_DYNAWO(collection = importer.importFromFile("res/wrongFile.xml"), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
@@ -50,21 +50,21 @@ TEST(APIFSTest, XmlImporterWrongFile) {
 //-----------------------------------------------------
 
 TEST(APIFSTest, XmlFileImporter) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<FinalStateCollection> collection;
   collection = importer.importFromFile("res/okFile.xml");
   ASSERT_NO_THROW(collection = importer.importFromFile("res/okFile.xml"));
 }
 
 TEST(APIFSTest, testXmlWrongStream) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   std::istringstream badInputStream("hello");
   std::istream badStream(badInputStream.rdbuf());
   ASSERT_THROW_DYNAWO(importer.importFromStream(badStream), DYN::Error::API, DYN::KeyError_t::XmlParsingError);
 }
 
 TEST(APIFSTest, testXmlStreamImporter) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   std::istringstream goodInputStream(
     "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>"
     "<dyn:finalStateInput xmlns:dyn=\"http://www.rte-france.com/dynawo\">"

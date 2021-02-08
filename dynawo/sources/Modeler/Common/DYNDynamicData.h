@@ -63,9 +63,10 @@ class DynamicData {
   /**
    * @brief initiation dynamic data from dyd files
    * @param fileNames the path to the file from which to build the dynamic data model
+   * @param multiThreadingMode true if this simulation is running in parallel with others simulation
    * fills the dynamic data object or may throw exceptions
    */
-  void initFromDydFiles(const std::vector <std::string> & fileNames);
+  void initFromDydFiles(const std::vector <std::string> & fileNames, bool multiThreadingMode);
 
   /**
    * @brief get network parameters from a directory
@@ -290,6 +291,7 @@ class DynamicData {
   std::map< boost::shared_ptr<ModelDescription>,
             boost::shared_ptr<ModelDescription> > modelicaModelReferenceMap_;  ///< map between a modelica model and its reference modelica model descriptions
   std::vector< boost::shared_ptr<ModelDescription> > referenceModelicaModels_;  ///< reference modelica models descriptions list
+  bool multiThreadingMode_;  ///< true if this simulation is running in parallel with others simulation
 };  ///< Dynamic data class
 
 }  // namespace DYN

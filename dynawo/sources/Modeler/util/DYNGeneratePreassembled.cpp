@@ -137,7 +137,8 @@ int main(int argc, char ** argv) {
     vector<std::string> dydFile;
     dydFile.push_back(dydFileName);
     dyd->setRootDirectory(remove_file_name(dydFileName));
-    dyd->initFromDydFiles(dydFile);
+    const bool multiThreadingMode = false;
+    dyd->initFromDydFiles(dydFile, multiThreadingMode);
 
     // Compilation
     std::vector <UserDefinedDirectory> precompiledModelsDirs;
@@ -174,7 +175,8 @@ int main(int argc, char ** argv) {
     const boost::unordered_set<fs::path> pathsToIgnore;
 
     Compiler cf = Compiler(dyd, useStandardPrecompiledModels, precompiledModelsDirs, precompiledModelsExtension,
-            useStandardModelicaModels, modelicaModelsDirs, modelicaModelsExtension, pathsToIgnore, additionalHeaderFiles, rmModels, outputDir);
+            useStandardModelicaModels, modelicaModelsDirs, modelicaModelsExtension, pathsToIgnore, additionalHeaderFiles,
+            rmModels, multiThreadingMode, outputDir);
     cf.compile();
 
     fs::remove(dydFileName);

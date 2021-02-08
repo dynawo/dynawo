@@ -27,10 +27,10 @@ using boost::shared_ptr;
 
 namespace DYN {
 shared_ptr<DataInterface>
-DataInterfaceFactory::build(dataInterfaceType_t type, const string& filepath) {
+DataInterfaceFactory::build(dataInterfaceType_t type, const string& filepath, bool multiThreadingMode) {
   switch (type) {
   case DATAINTERFACE_IIDM:
-    return DataInterfaceIIDM::build(filepath);
+    return DataInterfaceIIDM::build(filepath, multiThreadingMode);
   }
   return boost::shared_ptr<DataInterface>();
 }

@@ -51,7 +51,7 @@ boost::shared_ptr<CriteriaCollection>
 XmlImporter::importFromStream(std::istream& stream) const {
   XmlHandler criteriaHandler;
 
-  xml::sax::parser::ParserFactory parser_factory;
+  xml::sax::parser::ParserFactory parser_factory(multiThreadingMode_);
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();
 
   try {

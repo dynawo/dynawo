@@ -57,7 +57,7 @@ TEST(APIDYDTest, ModelTemplateExpansionCreate) {
 
 TEST(APIDYDTest, ModelTemplateExpansionImport_export) {
   // import
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/templateExpansion.xml");

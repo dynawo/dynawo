@@ -36,9 +36,10 @@ class DataInterfaceFactory {
    * @brief Build an instance of a static network by reading a file
    * @param type format of the file
    * @param filepath input file path
+   * @param multiThreadingMode true if this simulation is running in parallel with others simulation
    * @return The data interface built from the input file
    */
-  static boost::shared_ptr<DataInterface> build(dataInterfaceType_t type, const std::string& filepath);
+  static boost::shared_ptr<DataInterface> build(dataInterfaceType_t type, const std::string& filepath, bool multiThreadingMode);
 };
 }  // namespace DYN
 

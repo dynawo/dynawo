@@ -49,7 +49,7 @@ XmlImporter::importFromFile(const string& fileName) const {
 
 boost::shared_ptr<FinalStateCollection> XmlImporter::importFromStream(std::istream& stream) const {
   XmlHandler finalStateHandler;
-  xml::sax::parser::ParserFactory parser_factory;
+  xml::sax::parser::ParserFactory parser_factory(multiThreadingMode_);
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();
   try {
     bool xsdValidation = false;

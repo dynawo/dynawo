@@ -478,7 +478,7 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
     string modelName = unitDynamicModel->getDynamicModelName();
     if (extVarFiles_.find(modelName) != extVarFiles_.end()) {
       Trace::info(Trace::compile()) << DYNLog(ParsingExtVarFile, extVarFiles_[modelName]) << Trace::endline;
-      externalVariables::XmlImporter extVarImporter;
+      externalVariables::XmlImporter extVarImporter(multiThreadingMode_);
       shared_ptr<externalVariables::VariablesCollection> unitModelExternalVariables = extVarImporter.importFromFile(extVarFiles_[modelName]);
 
       allExternalVariables[unitDynamicModel->getId()] = unitModelExternalVariables;

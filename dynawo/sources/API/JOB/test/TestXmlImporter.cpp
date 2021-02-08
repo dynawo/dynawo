@@ -42,26 +42,26 @@
 namespace job {
 
 TEST(APIJOBTest, testXmlImporterMissingFile) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<JobsCollection> jobs;
   ASSERT_THROW_DYNAWO(jobs = importer.importFromFile("res/dummmyFile.jobs"), DYN::Error::API, DYN::KeyError_t::FileSystemItemDoesNotExist);
 }
 
 TEST(APIJOBTest, testXmlWrongFile) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<JobsCollection> jobs;
   ASSERT_THROW_DYNAWO(jobs = importer.importFromFile("res/wrongFile.jobs"), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
 
 TEST(APIJOBTest, testXmlWrongStream) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   std::istringstream badInputStream("hello");
   std::istream badStream(badInputStream.rdbuf());
   ASSERT_THROW_DYNAWO(importer.importFromStream(badStream), DYN::Error::API, DYN::KeyError_t::XmlParsingError);
 }
 
 TEST(APIJOBTest, testXmlStreamImporter) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   std::istringstream goodInputStream(
     "<?xml version='1.0' encoding='UTF-8'?>"
     "<dyn:jobs xmlns:dyn=\"http://www.rte-france.com/dynawo\">"
@@ -103,7 +103,7 @@ TEST(APIJOBTest, testXmlStreamImporter) {
 }
 
 TEST(APIJOBTest, testXmlImporter) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<JobsCollection> jobsCollection;
   jobsCollection = importer.importFromFile("res/jobsExample.jobs");
 

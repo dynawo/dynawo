@@ -51,7 +51,7 @@ boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   std::vector <std::string> fileNames;
   fileNames.push_back(dydFileName);
-  dyd->initFromDydFiles(fileNames);
+  dyd->initFromDydFiles(fileNames, false);
 
   bool preCompiledUseStandardModels = false;
   std::vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
@@ -82,6 +82,7 @@ boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
             pathsToIgnore,
             additionalHeaderFiles,
             rmModels,
+            false,
             getEnvVar("PWD") +"/dyd");
   cf.compile();  // modelOnly = false, compilation and parameter linking
   cf.concatConnects();

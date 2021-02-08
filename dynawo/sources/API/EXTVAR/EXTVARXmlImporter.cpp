@@ -51,7 +51,7 @@ XmlImporter::importFromFile(const string& fileName) const {
 
 boost::shared_ptr<VariablesCollection> XmlImporter::importFromStream(std::istream& stream) const {
   XmlHandler extVarHandler;
-  xml::sax::parser::ParserFactory parser_factory;
+  xml::sax::parser::ParserFactory parser_factory(multiThreadingMode_);
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();
   try {
     bool xsdValidation = false;

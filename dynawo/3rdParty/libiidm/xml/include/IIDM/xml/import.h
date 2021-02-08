@@ -54,7 +54,7 @@ private:
   typedef std::map<extension_uri, extension_handler_factory> extension_factories_type;
 
 public:
-  explicit xml_parser() {}
+  explicit xml_parser(bool multiThreadingMode):parser_factory(multiThreadingMode) {}
 
   /**
    * @brief sets the handler factory related to a given xml target namespace.

@@ -86,8 +86,9 @@ using dynamicdata::Connector;
 namespace DYN {
 
 void
-DynamicData::initFromDydFiles(const std::vector <string> & fileNames) {
-  dynamicdata::XmlImporter importer;
+DynamicData::initFromDydFiles(const std::vector <string> & fileNames, bool multiThreadingMode) {
+  multiThreadingMode_ = multiThreadingMode;
+  dynamicdata::XmlImporter importer(multiThreadingMode_);
 
   dynamicModelsCollection_ = importer.importFromDydFiles(fileNames);
 
@@ -267,7 +268,7 @@ DynamicData::getParametersSet(const string& modelId, const string& parFile, cons
     return referenceParameters_[parFile]->getParametersSet(parId);
 
   // Parameters file not already loaded
-  parameters::XmlImporter parametersImporter;
+  parameters::XmlImporter parametersImporter(multiThreadingMode_);
 
   shared_ptr<ParametersSetCollection> parametersSetCollection = parametersImporter.importFromFile(canonical(parFile, rootDirectory_));
   parametersSetCollection->propagateOriginData(parFile);

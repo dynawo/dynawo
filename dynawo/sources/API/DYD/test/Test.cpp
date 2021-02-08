@@ -37,7 +37,7 @@ namespace dynamicdata {
 //------------------------------------------------------
 
 TEST(APIDYDTest, ImporterTwoFilesAndExportWrongFile) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/templateExpansion.xml");
@@ -46,7 +46,7 @@ TEST(APIDYDTest, ImporterTwoFilesAndExportWrongFile) {
 }
 
 TEST(APIDYDTest, ImporterWrongFiles) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/BadTemplateExpansion.xml");
@@ -59,11 +59,11 @@ TEST(APIDYDTest, ImporterWrongFiles) {
 }
 
 TEST(APIDYDTest, ImporterWrongStream) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
 
   XmlHandler dydHandler;
-  xml::sax::parser::ParserFactory parser_factory;
+  xml::sax::parser::ParserFactory parser_factory(false);
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();
   std::istringstream badInputStream("hello");
   std::istream badStream(badInputStream.rdbuf());
@@ -71,11 +71,11 @@ TEST(APIDYDTest, ImporterWrongStream) {
 }
 
 TEST(APIDYDTest, ImporterStream) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
 
   XmlHandler dydHandler;
-  xml::sax::parser::ParserFactory parser_factory;
+  xml::sax::parser::ParserFactory parser_factory(false);
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();
   bool xsdValidation = false;
   if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true") {
@@ -96,7 +96,7 @@ TEST(APIDYDTest, ImporterStream) {
 }
 
 TEST(APIDYDTest, ImportMacroConnect) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/macroConnectExample.xml");
@@ -110,7 +110,7 @@ TEST(APIDYDTest, ImportMacroConnect) {
 }
 
 TEST(APIDYDTest, ImportMacroStaticRef) {
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/macroStaticRef.xml");

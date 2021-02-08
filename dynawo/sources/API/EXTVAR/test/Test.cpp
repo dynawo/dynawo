@@ -328,7 +328,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
   ASSERT_NO_THROW(exporter.exportToFile(*collection, fileName));
 
   // import
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<VariablesCollection> collection1;
   ASSERT_NO_THROW(collection1 = importer.importFromFile(fileName));
 

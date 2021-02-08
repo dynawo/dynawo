@@ -56,7 +56,8 @@ void launchSimu(const std::string& jobsFileName) {
   DYN::Timer timer("Main::LaunchSimu");
 #endif
 
-  job::XmlImporter importer;
+  const bool multiThreadingMode = false;
+  job::XmlImporter importer(multiThreadingMode);
   boost::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);
   std::string prefixJobFile = absolute(remove_file_name(jobsFileName));
   if (jobsCollection->begin() == jobsCollection->end())

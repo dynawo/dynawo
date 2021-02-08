@@ -144,7 +144,10 @@ static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump t
 
 namespace DYN {
 
-Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
+Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry,
+    shared_ptr<SimulationContext>& context,
+    bool multiThreadingMode,
+    shared_ptr<DataInterface> data) :
 context_(context),
 jobEntry_(jobEntry),
 data_(data),
@@ -169,7 +172,8 @@ dumpFinalStateFile_(""),
 exportIIDM_(false),
 exportIIDMFile_(""),
 dumpLocalInitValues_(false),
-dumpGlobalInitValues_(false) {
+dumpGlobalInitValues_(false),
+multiThreadingMode_(multiThreadingMode) {
   SignalHandler::setSignalHandlers();
 
 #ifdef _MSC_VER
@@ -242,7 +246,7 @@ Simulation::configureCriteria() {
   for (std::vector<std::string>::const_iterator it = jobEntry_->getSimulationEntry()->getCriteriaFiles().begin(),
       itEnd = jobEntry_->getSimulationEntry()->getCriteriaFiles().end();
       it != itEnd; ++it) {
-    criteria::XmlImporter parser;
+    criteria::XmlImporter parser(multiThreadingMode_);
     std::string path = createAbsolutePath(*it, context_->getInputDirectory());
     boost::shared_ptr<criteria::CriteriaCollection> ccollec = parser.importFromFile(path);
     if (!criteriaCollection_)
@@ -489,6 +493,7 @@ Simulation::compileModels() {
           pathsToIgnore,
           additionalHeaderFiles,
           rmModels,
+          multiThreadingMode_,
           compileDir);
 
   cf.compile();  // modelOnly = false, compilation and parameter linking
@@ -506,9 +511,9 @@ Simulation::loadDynamicData() {
 
   if (!data_) {
     if (iidmFile_ != "") {
-      data_ = DataInterfaceFactory::build(DataInterfaceFactory::DATAINTERFACE_IIDM, iidmFile_);
+      data_ = DataInterfaceFactory::build(DataInterfaceFactory::DATAINTERFACE_IIDM, iidmFile_, multiThreadingMode_);
     } else {
-      dyd_->initFromDydFiles(dydFiles_);
+      dyd_->initFromDydFiles(dydFiles_, multiThreadingMode_);
       if (activateCriteria_) {
         Trace::warn() << DYNLog(CriteriaDefinedButNoIIDM) << Trace::endline;
       }
@@ -522,7 +527,7 @@ Simulation::loadDynamicData() {
 
   dyd_->setDataInterface(data_);
 
-  dyd_->initFromDydFiles(dydFiles_);
+  dyd_->initFromDydFiles(dydFiles_, multiThreadingMode_);
   data_->mapConnections();
 
   // the Network parameter file path is considered to be relative to the jobs file directory
@@ -535,7 +540,7 @@ Simulation::setSolver() {
   string solverParFile = createAbsolutePath(jobEntry_->getSolverEntry()->getParametersFile(), context_->getInputDirectory());
   solver_ = SolverFactory::createSolverFromLib(jobEntry_->getSolverEntry()->getLib() + sharedLibraryExtension());
 
-  parameters::XmlImporter importer;
+  parameters::XmlImporter importer(multiThreadingMode_);
   boost::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);
   parameters->propagateOriginData(solverParFile);
   referenceParameters_[solverParFile] = parameters;
@@ -602,13 +607,13 @@ Simulation::configureLogs() {
 
 void
 Simulation::importCurvesRequest() {
-  curves::XmlImporter importer;
+  curves::XmlImporter importer(multiThreadingMode_);
   curvesCollection_ = CurvesCollectionFactory::copyInstance(importer.importFromFile(curvesInputFile_));
 }
 
 void
 Simulation::importFinalStateRequest() {
-  finalState::XmlImporter importer;
+  finalState::XmlImporter importer(multiThreadingMode_);
   finalStateCollection_ = FinalStateCollectionFactory::copyInstance(importer.importFromFile(finalStateInputFile_));
 }
 

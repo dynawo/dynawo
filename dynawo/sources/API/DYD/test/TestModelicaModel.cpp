@@ -87,7 +87,7 @@ TEST(APIDYDTest, ModelicaModel) {
 
 TEST(APIDYDTest, ModelicaModelImport_export) {
   // import
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/modelicaModel.xml");
@@ -102,7 +102,7 @@ TEST(APIDYDTest, ModelicaModelImport_export) {
 
 TEST(APIDYDTest, ModelicaModelMissingInitName) {
   // import
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/modelicaModelMissingInitName.xml");
@@ -136,7 +136,7 @@ TEST(APIDYDTest, ModelicaModelBadConnectors) {
 
 TEST(APIDYDTest, ModelicaModel_1UDM_EqualsFromXml) {
   // import
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/sameModelicaModel.xml");
@@ -162,7 +162,7 @@ TEST(APIDYDTest, ModelicaModel_1UDM_EqualsFromXml) {
 
 TEST(APIDYDTest, ModelicaModel_1UDM_DifferentFromXml) {
   // import
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/differentModelicaModel.xml");
@@ -188,7 +188,7 @@ TEST(APIDYDTest, ModelicaModel_1UDM_DifferentFromXml) {
 
 TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_EqualsFromXml) {
   // import
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/3UDMsameModelicaModel.xml");
@@ -214,7 +214,7 @@ TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_EqualsFromXml) {
 
 TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_DifferentFromXml) {
   // import
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/3UDMdifferentModelicaModel.xml");
@@ -240,7 +240,7 @@ TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_DifferentFromXml) {
 
 TEST(APIDYDTest, ModelicaModelSameModelFromXml) {
   // import
-  XmlImporter importer;
+  XmlImporter importer(false);
   boost::shared_ptr<DynamicModelsCollection> collection;
   std::vector<std::string> files;
   files.push_back("res/modelicaModel.xml");
