@@ -348,8 +348,8 @@ Solver::Impl::defineCommonParameters() {
   parameters_.insert(make_pair("printflAlgJ", ParameterSolver("printflAlgJ", VAR_TYPE_INT)));
 
   // Parameters related to time-step evolution
-  parameters_.insert(make_pair("minimalAcceptableStep", ParameterSolver("minimalAcceptableStep", VAR_TYPE_DOUBLE, optional)));
-  parameters_.insert(make_pair("maximumNumberSlowStepIncrease", ParameterSolver("maximumNumberSlowStepIncrease", VAR_TYPE_INT, optional)));
+  parameters_.insert(make_pair("minimalAcceptableStep", ParameterSolver("minimalAcceptableStep", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("maximumNumberSlowStepIncrease", ParameterSolver("maximumNumberSlowStepIncrease", VAR_TYPE_INT)));
 
   // Parameters for performance optimization
   parameters_.insert(make_pair("enableSilentZ", ParameterSolver("enableSilentZ", VAR_TYPE_BOOL)));
