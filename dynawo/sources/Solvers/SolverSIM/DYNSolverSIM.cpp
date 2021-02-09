@@ -124,8 +124,10 @@ printfl_(0),
 skipNextNR_(false),
 skipAlgebraicResidualsEvaluation_(false),
 optimizeAlgebraicResidualsEvaluations_(true),
-skipNRIfInitialGuessOK_(true) {
+skipNRIfInitialGuessOK_(true),
+nbLastTimeSimulated_(0) {
   solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
+  minimalAcceptableStep_ = 0.1;
 }
 
 SolverSIM::~SolverSIM() {
@@ -324,6 +326,14 @@ void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
   } while (redoStep);
 
   updateTimeStep(tNxt);
+
+  if (std::abs(tSolve_ - tNxt) < minimalAcceptableStep_) {
+    ++nbLastTimeSimulated_;
+    if (nbLastTimeSimulated_ > maximumNumberSlowStepIncrease_)
+      throw DYNError(Error::SOLVER_ALGO, SlowStepIncrease, maximumNumberSlowStepIncrease_, minimalAcceptableStep_);
+  } else {
+    nbLastTimeSimulated_ = 0;
+  }
   ++stats_.nst_;
 }
 
