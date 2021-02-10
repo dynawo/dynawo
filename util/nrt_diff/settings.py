@@ -24,6 +24,7 @@ logs_default_separator = "|"
 logs_pattern_to_avoid = ['| DYNAWO VERSION  :     ', '| DYNAWO REVISION :', '=====================================', 'REVISION DYNAWO :'] # logs file patterns to avoid
 max_DTW = 0.1 # None to avoid checking
 max_iidm_cmp_tol=1e-6
+max_nb_iidm_outputs=10
 
 # strict maximum number of threads
 maximum_threads_nb = 4
