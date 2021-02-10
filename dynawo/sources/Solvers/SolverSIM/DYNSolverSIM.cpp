@@ -343,14 +343,6 @@ void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
   } while (redoStep);
 
   updateTimeStep(tNxt);
-
-  if (std::abs(tSolve_ - tNxt) < minimalAcceptableStep_) {
-    ++nbLastTimeSimulated_;
-    if (nbLastTimeSimulated_ > maximumNumberSlowStepIncrease_)
-      throw DYNError(Error::SOLVER_ALGO, SlowStepIncrease, maximumNumberSlowStepIncrease_, minimalAcceptableStep_);
-  } else {
-    nbLastTimeSimulated_ = 0;
-  }
   ++stats_.nst_;
 }
 
@@ -483,6 +475,14 @@ void SolverSIM::updateTimeStep(double& tNxt) {
   hNew_ = min(hNew_, tEnd_ - (tSolve_ + hNew_));
   // tNxt is the initial time step value (corresponding to the current time step done)
   tNxt = tSolve_ + h_;
+
+  if (std::abs(tSolve_ - tNxt) < minimalAcceptableStep_) {
+    ++nbLastTimeSimulated_;
+    if (nbLastTimeSimulated_ > maximumNumberSlowStepIncrease_)
+      throw DYNError(Error::SOLVER_ALGO, SlowStepIncrease, maximumNumberSlowStepIncrease_, minimalAcceptableStep_);
+  } else {
+    nbLastTimeSimulated_ = 0;
+  }
 }
 
 bool SolverSIM::initAlgRestoration(modeChangeType_t modeChangeType) {
