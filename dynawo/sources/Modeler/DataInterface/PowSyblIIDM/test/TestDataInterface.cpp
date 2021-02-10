@@ -1623,7 +1623,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
 }
 
 TEST(DataInterfaceIIDMTest, testImportError) {
-  ASSERT_THROW_DYNAWO(DataInterfaceIIDM::build("invalid"), Error::GENERAL, KeyError_t::XmlFileParsingError);
+  ASSERT_THROW_DYNAWO(DataInterfaceIIDM::build("invalid", false), Error::GENERAL, KeyError_t::XmlFileParsingError);
 }
 
 TEST(DataInterfaceIIDMTest, testImportExport) {
@@ -1634,7 +1634,7 @@ TEST(DataInterfaceIIDMTest, testImportExport) {
   const powsybl::iidm::Network& outputNetwork = dataOutput->getNetworkIIDM();
   ASSERT_THROW_DYNAWO(dataOutput->dumpToFile(".."), Error::GENERAL, KeyError_t::FileGenerationFailed);
 
-  shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network.xml");
+  shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network.xml", false);
   shared_ptr<DataInterfaceIIDM> dataInputIIDM = boost::dynamic_pointer_cast<DataInterfaceIIDM>(dataInput);
   const powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
 

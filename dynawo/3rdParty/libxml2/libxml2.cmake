@@ -102,6 +102,7 @@ else()
                           "$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared>"
                           "--without-python"
                           "--without-zlib"
+                          "--with-threads"
 
       BUILD_COMMAND       make -j ${CPU_COUNT} all
     )

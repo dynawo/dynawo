@@ -82,12 +82,12 @@ using criteria::CriteriaCollection;
  */
 class LibXml2 {
  public:
-  LibXml2() {
+  explicit LibXml2(bool multiThreadingMode) {
+    if (!multiThreadingMode)
       xmlInitParser();
   }
 
   ~LibXml2() {
-      xmlCleanupParser();
   }
 };
 
@@ -102,10 +102,10 @@ DataInterfaceIIDM::~DataInterfaceIIDM() {
 
 
 boost::shared_ptr<DataInterface>
-DataInterfaceIIDM::build(std::string iidmFilePath, bool /*multiThreadingMode*/) {
+DataInterfaceIIDM::build(std::string iidmFilePath, bool multiThreadingMode) {
   boost::shared_ptr<DataInterfaceIIDM>  data;
   try {
-    LibXml2 libxml2;
+    LibXml2 libxml2(multiThreadingMode);
     std::ifstream inputStream(iidmFilePath);
     stdcxx::Properties properties;
     properties.set(powsybl::iidm::converter::ImportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
@@ -135,7 +135,6 @@ DataInterfaceIIDM::build(std::string iidmFilePath, bool /*multiThreadingMode*/) 
 void
 DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
   try {
-    LibXml2 libxml2;
     std::ofstream outputStream(iidmFilePath);
     if (!outputStream) {
       throw DYNError(Error::GENERAL, FileGenerationFailed, iidmFilePath, "invalid file name or permissions");
