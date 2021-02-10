@@ -12,6 +12,7 @@
 # simulation tool for power systems.
 
 from xml.dom import minidom
+import operator
 import os
 import sys
 
@@ -113,6 +114,7 @@ def OutputIIDMCloseEnough (path_left, path_right):
         is_right_powsybl_iidm = True
     nb_differences = 0
     msg = ""
+    differences = []
 
     for firstId in left_file_info:
         if firstId not in right_file_info:
@@ -136,9 +138,10 @@ def OutputIIDMCloseEnough (path_left, path_right):
                     msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " is not in the equivalent object on right side\n"
                 else:
                     try:
-                        if (abs(float(firstObj.values[attr1])- float(secondObj.values[attr1])) > settings.max_iidm_cmp_tol):
+                        difference = abs(float(firstObj.values[attr1])- float(secondObj.values[attr1]))
+                        if (difference > settings.max_iidm_cmp_tol):
                             nb_differences+=1
-                            msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " has another value on right side (value: " + secondObj.values[attr1] + ")\n"
+                            differences.append([difference, firstObj, attr1])
                     except ValueError:
                         if (firstObj.values[attr1] != secondObj.values[attr1]):
                             if (not is_left_powsybl_iidm and is_right_powsybl_iidm) or (not is_right_powsybl_iidm and is_left_powsybl_iidm):
@@ -147,9 +150,10 @@ def OutputIIDMCloseEnough (path_left, path_right):
                                     continue
                             nb_differences+=1
                             msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " has another value on right side (value: " + secondObj.values[attr1] + ")\n"
-
             for attr1 in secondObj.values:
                 if attr1 not in firstObj.values:
                     nb_differences+=1
                     msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + secondObj.values[attr1] + " is not in the equivalent object on left side\n"
+    for error in sorted(differences, key=operator.itemgetter(0), reverse=True)[:settings.max_nb_iidm_outputs]:
+        msg += "[ERROR] attribute " + error[2] + " of object " + error[1].id + " (type " + error[1].type + ") has different values (delta = " + str(error[0]) + ") \n"
     return (nb_differences, msg)
