@@ -29,6 +29,7 @@
 
 #include <xml/sax/formatter/AttributeList.h>
 #include <xml/sax/formatter/Formatter.h>
+#include <xercesc/util/PlatformUtils.hpp>
 
 #include "DYNParameterSolver.h"
 #include "DYNSolverCommon.h"
@@ -191,4 +192,5 @@ int main(int argc, char ** argv) {
   formatter->endElement();   // model
   formatter->endDocument();
   file.close();
+  xercesc::XMLPlatformUtils::Terminate();
 }

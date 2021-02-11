@@ -11,7 +11,8 @@
 set(MODULE_NAME SOLVERKINSOL_unittest)
 
 set(MODULE_SOURCES
-  TestBasics.cpp
+    initXml.cpp
+    TestBasics.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
@@ -29,6 +30,16 @@ target_link_libraries(${MODULE_NAME}
   dynawo_API_DYD
   dynawo_API_TL
   dynawo_DataInterface)
+
+if(CXX11_ENABLED)
+target_link_libraries(${MODULE_NAME}
+     xml2
+  )
+  target_include_directories(${MODULE_NAME} SYSTEM
+    PRIVATE
+      $<TARGET_PROPERTY:LibXml2::LibXml2,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+endif()
 
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" "DYNAWO_XSD_DIR=./" $<TARGET_FILE:${MODULE_NAME}>
