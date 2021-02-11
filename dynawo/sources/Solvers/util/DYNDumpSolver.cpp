@@ -36,6 +36,7 @@
 #include "DYNSolverImpl.h"
 #include "DYNSolverFactory.h"
 #include "DYNFileSystemUtils.h"
+#include "DYNInitXml.h"
 
 
 using std::string;
@@ -145,6 +146,7 @@ int main(int argc, char ** argv) {
     cout << inputFileName << " does not exist " << endl;
     return 1;
   }
+  DYN::InitXerces xerces;
 
   boost::shared_ptr<DYN::Solver> solver = DYN::SolverFactory::createSolverFromLib(inputFileName);
   solver->defineParameters();

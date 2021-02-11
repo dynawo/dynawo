@@ -15,7 +15,6 @@
 #include <vector>
 #include <iomanip>
 #include <iostream>
-#include <sstream>
 #include <fstream>
 #include <dlfcn.h>
 
@@ -27,6 +26,7 @@
 #include "DYNMacrosMessage.h"
 #include "DYNExecUtils.h"
 #include "DYNFileSystemUtils.h"
+#include "DYNInitXml.h"
 
 using std::string;
 using std::vector;
@@ -69,6 +69,7 @@ static bool copyFile(const string& fileName,
     const string& modelDir,
     const string& compilationDir);  ///< copy file from input folder into output folder, return true if input file is equal to output file
 int main(int argc, char ** argv) {
+  DYN::InitXerces xerces;
   Trace::init();
 
   string libName = "";

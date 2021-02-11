@@ -17,13 +17,10 @@
  * @brief Utility for the dump of pins, parameters, variables, output of a model
  *
  */
-#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <dlfcn.h>
 
-#include <boost/algorithm/string.hpp>
 #include <boost/program_options.hpp>
 #include <boost/shared_ptr.hpp>
 
@@ -36,7 +33,7 @@
 #include "DYNSubModelFactory.h"
 #include "DYNVariableAlias.h"
 #include "DYNFileSystemUtils.h"
-
+#include "DYNInitXml.h"
 
 using std::string;
 using std::endl;
@@ -137,6 +134,7 @@ int main(int argc, char ** argv) {
     cout << inputFileName << " does not exist " << endl;
     return 1;
   }
+  DYN::InitXerces xerces;
 
   boost::shared_ptr<DYN::SubModel> model = DYN::SubModelFactory::createSubModelFromLib(inputFileName);
   model->defineVariablesInit();

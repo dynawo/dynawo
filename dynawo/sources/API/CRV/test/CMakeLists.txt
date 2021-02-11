@@ -11,12 +11,12 @@
 set(MODULE_NAME CRV_unittest)
 
 set(MODULE_SOURCES
-    Test.cpp
-    TestPoint.cpp
-    TestCurve.cpp
-    TestCurvesCollection.cpp
-    TestXmlImporter.cpp
-    TestExporters.cpp
+  Test.cpp
+  TestPoint.cpp
+  TestCurve.cpp
+  TestCurvesCollection.cpp
+  TestXmlImporter.cpp
+  TestExporters.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

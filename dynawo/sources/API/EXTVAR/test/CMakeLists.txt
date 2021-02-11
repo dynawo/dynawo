@@ -11,8 +11,8 @@
 set(MODULE_NAME EXTVAR_unittest)
 
 set(MODULE_SOURCES
-    Test.cpp
-    TestXmlImporter.cpp
+  Test.cpp
+  TestXmlImporter.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

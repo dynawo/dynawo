@@ -11,10 +11,10 @@
 set(MODULE_NAME FS_unittest)
 
 set(MODULE_SOURCES
-    TestFinalStateCollection.cpp
-    TestModel.cpp
-    TestVariable.cpp
-    TestXmlImporter.cpp
+  TestFinalStateCollection.cpp
+  TestModel.cpp
+  TestVariable.cpp
+  TestXmlImporter.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

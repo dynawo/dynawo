@@ -27,6 +27,7 @@ target_link_libraries(dumpModel
     dynawo_Common
     dynawo_ModelerCommon
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
+    XMLSAXParser${LibXML_LINK_SUFFIX}
     ${CMAKE_DL_LIBS}
     Boost::system
     Boost::program_options
@@ -59,6 +60,7 @@ target_link_libraries(generate-preassembled
     dynawo_Common
     dynawo_ModelerCommon
     ${CMAKE_DL_LIBS}
+    XMLSAXParser${LibXML_LINK_SUFFIX}
     Boost::filesystem
     Boost::program_options
     )
