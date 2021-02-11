@@ -11,8 +11,8 @@
 set(MODULE_NAME CRT_unittest)
 
 set(MODULE_SOURCES
-    TestCriteria.cpp
-    TestXmlImporter.cpp
+  TestCriteria.cpp
+  TestXmlImporter.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

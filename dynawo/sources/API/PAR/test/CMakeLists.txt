@@ -11,12 +11,12 @@
 set(MODULE_NAME PAR_unittest)
 
 set(MODULE_SOURCES
-    TestReference.cpp
-    TestParameter.cpp
-    TestParametersSet.cpp
-    TestParametersSetCollection.cpp
-    TestXmlImporter.cpp
-    TestXmlExporter.cpp
+  TestReference.cpp
+  TestParameter.cpp
+  TestParametersSet.cpp
+  TestParametersSetCollection.cpp
+  TestXmlImporter.cpp
+  TestXmlExporter.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

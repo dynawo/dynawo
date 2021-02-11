@@ -280,6 +280,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage"
   add_library(dynawo_Test INTERFACE)
   target_link_libraries(dynawo_Test INTERFACE
     dynawo_Common
+    dynawo_Test_utils
     GTest::gmock_main
     GTest::gtest_main
     Boost::iostreams
@@ -406,6 +407,9 @@ add_subdirectory(sources/Launcher)
 add_subdirectory(sources/ModelicaCompiler)
 add_subdirectory(sources/Models)
 add_subdirectory(doxygen)
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(sources/Test)
+endif()
 
 install(EXPORT dynawo-targets
   NAMESPACE Dynawo::

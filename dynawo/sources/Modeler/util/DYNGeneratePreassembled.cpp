@@ -18,10 +18,8 @@
 
 #include <string>
 #include <vector>
-#include <iomanip>
 #include <iostream>
 #include <boost/program_options.hpp>
-#include <boost/algorithm/string.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/filesystem.hpp>
 #include <dlfcn.h>
@@ -35,6 +33,7 @@
 #include "DYNFileSystemUtils.h"
 #include "DYNCompiler.h"
 #include "DYNExecUtils.h"
+#include "DYNInitXml.h"
 
 using std::string;
 using std::exception;
@@ -114,6 +113,7 @@ int main(int argc, char ** argv) {
   if (modelicaModelsExtension == "") {
     modelicaModelsExtension = ".mo";
   }
+  DYN::InitXerces xerces;
 
   string currentPath = prettyPath(current_path());
 

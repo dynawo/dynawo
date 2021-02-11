@@ -25,6 +25,7 @@ target_include_directories(dumpSolver SYSTEM
 target_link_libraries(dumpSolver
   PRIVATE
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
+    XMLSAXParser${LibXML_LINK_SUFFIX}
     dynawo_Common
     dynawo_SolverCommon
     Boost::system

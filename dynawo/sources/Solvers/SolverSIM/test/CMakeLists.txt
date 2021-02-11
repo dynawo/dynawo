@@ -11,7 +11,7 @@
 set(MODULE_NAME SOLVERSIM_unittest)
 
 set(MODULE_SOURCES
-    TestBasics.cpp
+  TestBasics.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
