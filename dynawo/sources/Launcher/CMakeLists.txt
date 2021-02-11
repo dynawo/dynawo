@@ -32,6 +32,17 @@ target_link_libraries(dynawo
     Boost::program_options
     )
 
+if(CXX11_ENABLED)
+target_link_libraries(dynawo
+  PRIVATE
+     xml2
+  )
+  target_include_directories(dynawo SYSTEM
+    PRIVATE
+      $<TARGET_PROPERTY:LibXml2::LibXml2,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+endif()
+
 set_target_properties(dynawo PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 
 install(TARGETS dynawo DESTINATION ${BINDIR_NAME})

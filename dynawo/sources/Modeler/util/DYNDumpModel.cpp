@@ -29,6 +29,7 @@
 
 #include <xml/sax/formatter/AttributeList.h>
 #include <xml/sax/formatter/Formatter.h>
+#include <xercesc/util/PlatformUtils.hpp>
 
 #include "DYNParameterModeler.h"
 #include "DYNEnumUtils.h"
@@ -137,6 +138,7 @@ int main(int argc, char ** argv) {
     cout << inputFileName << " does not exist " << endl;
     return 1;
   }
+  xercesc::XMLPlatformUtils::Initialize();
 
   boost::shared_ptr<DYN::SubModel> model = DYN::SubModelFactory::createSubModelFromLib(inputFileName);
   model->defineVariablesInit();
@@ -229,4 +231,5 @@ int main(int argc, char ** argv) {
   formatter->endElement();   // model
   formatter->endDocument();
   file.close();
+  xercesc::XMLPlatformUtils::Terminate();
 }
