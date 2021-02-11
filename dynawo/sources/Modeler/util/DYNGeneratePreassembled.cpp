@@ -23,6 +23,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/filesystem.hpp>
 #include <dlfcn.h>
+#include <xercesc/util/PlatformUtils.hpp>
 
 #include "DYNDynamicData.h"
 
@@ -207,11 +208,14 @@ int main(int argc, char ** argv) {
     }
   } catch (const DYN::Error& e) {
     Trace::error() << e.what() << Trace::endline;
+    xercesc::XMLPlatformUtils::Terminate();
     return e.type();
   } catch (const std::exception& exp) {
     Trace::error() << exp.what() << Trace::endline;
+    xercesc::XMLPlatformUtils::Terminate();
     return -1;
   }
+  xercesc::XMLPlatformUtils::Terminate();
   return 0;
 }
 

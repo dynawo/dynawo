@@ -24,6 +24,9 @@
 #include <boost/shared_ptr.hpp>
 
 #include <xml/sax/parser/ParserException.h>
+#ifdef LANG_CXX11
+#include <libxml/parser.h>
+#endif
 
 #include "config.h"
 #include "gitversion.h"

@@ -11,10 +11,11 @@
 set(MODULE_NAME FS_unittest)
 
 set(MODULE_SOURCES
-  TestFinalStateCollection.cpp
-  TestModel.cpp
-  TestVariable.cpp
-  TestXmlImporter.cpp
+    initXml.cpp
+    TestFinalStateCollection.cpp
+    TestModel.cpp
+    TestVariable.cpp
+    TestXmlImporter.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
@@ -22,6 +23,16 @@ add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 target_link_libraries(${MODULE_NAME}
         dynawo_API_FS
         dynawo_Test)
+
+if(CXX11_ENABLED)
+target_link_libraries(${MODULE_NAME}
+     xml2
+  )
+  target_include_directories(${MODULE_NAME} SYSTEM
+    PRIVATE
+      $<TARGET_PROPERTY:LibXml2::LibXml2,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+endif()
 
 add_custom_target(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
