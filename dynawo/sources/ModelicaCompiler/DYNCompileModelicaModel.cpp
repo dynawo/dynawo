@@ -21,6 +21,7 @@
 
 #include <boost/program_options.hpp>
 #include <boost/algorithm/string/replace.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
 
 #include "DYNIoDico.h"
 #include "DYNTrace.h"
@@ -69,6 +70,7 @@ static bool copyFile(const string& fileName,
     const string& modelDir,
     const string& compilationDir);  ///< copy file from input folder into output folder, return true if input file is equal to output file
 int main(int argc, char ** argv) {
+  xercesc::XMLPlatformUtils::Initialize();
   Trace::init();
 
   string libName = "";
@@ -181,17 +183,22 @@ int main(int argc, char ** argv) {
     std::cout << " Compilation of " << modelName << " succeeded " << std::endl;
   } catch (const string& s) {
     std::cerr << " Compilation of " << modelName << " failed :" << s << std::endl;
+    xercesc::XMLPlatformUtils::Terminate();
     return -1;
   } catch (const char *s) {
     std::cerr << " Compilation of " << modelName << " failed :" << s << std::endl;
+    xercesc::XMLPlatformUtils::Terminate();
     return -1;
   } catch (const DYN::Error& e) {
     std::cerr << " Compilation of " << modelName << " failed :" << e << std::endl;
+    xercesc::XMLPlatformUtils::Terminate();
     return -1;
   } catch (...) {
     std::cerr << " Compilation of " << modelName << " failed : Unexpected exception " << std::endl;
+    xercesc::XMLPlatformUtils::Terminate();
     return -1;
   }
+  xercesc::XMLPlatformUtils::Terminate();
   return 0;
 }
 

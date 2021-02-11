@@ -19,8 +19,6 @@
 
 #include "internals/XercescParser.h"
 
-#include <xercesc/util/PlatformUtils.hpp>
-
 #include <iostream>
 
 namespace xml {
@@ -28,11 +26,9 @@ namespace sax {
 namespace parser {
 
 ParserFactory::ParserFactory() {
-  xercesc::XMLPlatformUtils::Initialize();
 }
 
 ParserFactory::~ParserFactory() {
-  xercesc::XMLPlatformUtils::Terminate();
 }
 
 Parser* ParserFactory::newParser() const {
