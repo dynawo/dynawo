@@ -95,19 +95,14 @@
   <dyn:blackBoxModel id="Model_Signal_N" lib="DYNModelSignalN" parFile="IEEE14.par" parId="SignalN"/>
   <dyn:blackBoxModel id="DISCONNECT_LINE" lib="EventQuadripoleDisconnection" parFile="IEEE14.par" parId="DisconnectLine"/>
   <dyn:connect id1="GEN____1_SM" var1="generator_N_value" id2="Model_Signal_N" var2="n_grp_0_value"/>
-  <dyn:connect id1="GEN____1_SM" var1="generator_alphaSum_value" id2="Model_Signal_N" var2="alphaSum_grp_0_value"/>
   <dyn:connect id1="GEN____1_SM" var1="generator_alpha_value" id2="Model_Signal_N" var2="alpha_grp_0_value"/>
   <dyn:connect id1="GEN____2_SM" var1="generator_N_value" id2="Model_Signal_N" var2="n_grp_1_value"/>
-  <dyn:connect id1="GEN____2_SM" var1="generator_alphaSum_value" id2="Model_Signal_N" var2="alphaSum_grp_1_value"/>
   <dyn:connect id1="GEN____2_SM" var1="generator_alpha_value" id2="Model_Signal_N" var2="alpha_grp_1_value"/>
   <dyn:connect id1="GEN____3_SM" var1="generator_N" id2="Model_Signal_N" var2="n_grp_2"/>
-  <dyn:connect id1="GEN____3_SM" var1="generator_alphaSum" id2="Model_Signal_N" var2="alphaSum_grp_2"/>
   <dyn:connect id1="GEN____3_SM" var1="generator_alpha" id2="Model_Signal_N" var2="alpha_grp_2"/>
   <dyn:connect id1="GEN____6_SM" var1="generator_N" id2="Model_Signal_N" var2="n_grp_3"/>
-  <dyn:connect id1="GEN____6_SM" var1="generator_alphaSum" id2="Model_Signal_N" var2="alphaSum_grp_3"/>
   <dyn:connect id1="GEN____6_SM" var1="generator_alpha" id2="Model_Signal_N" var2="alpha_grp_3"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_N" id2="Model_Signal_N" var2="n_grp_4"/>
-  <dyn:connect id1="GEN____8_SM" var1="generator_alphaSum" id2="Model_Signal_N" var2="alphaSum_grp_4"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_alpha" id2="Model_Signal_N" var2="alpha_grp_4"/>
   <dyn:connect id1="_LOAD__10_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___10_TN_ACPIN"/>
   <dyn:connect id1="_LOAD__11_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___11_TN_ACPIN"/>

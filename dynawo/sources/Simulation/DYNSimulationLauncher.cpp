@@ -121,7 +121,7 @@ void launchSimu(const std::string& jobsFileName) {
       if (err.key() == DYN::KeyError_t::StateVariableNoReference) {
         simulation->activateExportIIDM(false);
       }
-      print(err.what());
+      print(err.what(), DYN::ERROR);
       simulation->terminate();
       throw;
     } catch (const DYN::Terminate& e) {
