@@ -257,6 +257,7 @@ class SolverSIM : public Solver::Impl {
   bool skipAlgebraicResidualsEvaluation_;  ///< flag used to skip algebraic residuals evaluation after a convergence or a mode
   bool optimizeAlgebraicResidualsEvaluations_;  ///< enable or disable the optimization of the number of algebraic residuals evals
   bool skipNRIfInitialGuessOK_;  ///< enable the possibility to skip next iterations if the simulation is stable
+  int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time
 };
 
 }  // end of namespace DYN
