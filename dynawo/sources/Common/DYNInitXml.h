@@ -11,32 +11,52 @@
 // simulation tool for power systems.
 //
 
-#include "gtest_dynawo.h"
+/**
+ * @file DYNIniXml.h
+ *
+ * @brief Init xml parsers
+ *
+ */
+#ifndef COMMON_DYNINITXML_H_
+#define COMMON_DYNINITXML_H_
+
 #include <xercesc/util/PlatformUtils.hpp>
 #ifdef LANG_CXX11
 #include <libxml/parser.h>
 #endif
 
-class Environment : public testing::Environment {
- public:
-  ~Environment() {}
+namespace DYN {
 
-  // Override this to define how to set up the environment.
-  void SetUp() {
+/**
+ * Helper class to load/unload properly Xerces
+ */
+class InitXerces {
+ public:
+  InitXerces() {
     xercesc::XMLPlatformUtils::Initialize();
-#ifdef LANG_CXX11
-      xmlInitParser();
-#endif
   }
 
-  // Override this to define how to tear down the environment.
-  void TearDown() {
+  ~InitXerces() {
     xercesc::XMLPlatformUtils::Terminate();
-#ifdef LANG_CXX11
-    xmlCleanupParser();
-#endif
   }
 };
 
-testing::Environment* const foo_env =
-    testing::AddGlobalTestEnvironment(new Environment);
+#ifdef LANG_CXX11
+/**
+ * Helper class to load/unload properly LibXml2
+ */
+class InitLibXml2 {
+ public:
+  InitLibXml2() {
+    xmlInitParser();
+  }
+
+  ~InitLibXml2() {
+    xmlCleanupParser();
+  }
+};
+#endif
+
+}  // namespace DYN
+
+#endif  // COMMON_DYNINITXML_H_
