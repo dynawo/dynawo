@@ -38,14 +38,10 @@ if(APPLE)
 endif()
 
 if(CXX11_ENABLED)
-target_link_libraries(dynawo
-  PRIVATE
-     xml2
-  )
-  target_include_directories(dynawo SYSTEM
+  target_link_libraries(dynawo
     PRIVATE
-      $<TARGET_PROPERTY:LibXml2::LibXml2,INTERFACE_INCLUDE_DIRECTORIES>
-  )
+      LibXml2::LibXml2
+    )
 endif()
 
 set_target_properties(dynawo PROPERTIES VERSION ${DYNAWO_VERSION_STRING})

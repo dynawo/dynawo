@@ -11,26 +11,26 @@
 set(MODULE_NAME JOB_unittest)
 
 set(MODULE_SOURCES
-    initXml.cpp
-    TestAppenderEntry.cpp
-    TestConstraintsEntry.cpp
-    TestCurvesEntry.cpp
-    TestDynModelsEntry.cpp
-    TestFinalStateEntry.cpp
-    TestInitialStateEntry.cpp
-    TestInitValuesEntry.cpp
-    TestJobCollection.cpp
-    TestJobEntry.cpp
-    TestLogsEntry.cpp
-    TestModelerEntry.cpp
-    TestModelsDirEntry.cpp
-    TestNetworkEntry.cpp
-    TestOutputsEntry.cpp
-    TestSimulationEntry.cpp
-    TestSolverEntry.cpp
-    TestTimelineEntry.cpp
-    TestXmlImporter.cpp
-    )
+  ../../../Test/initXml.cpp
+  TestAppenderEntry.cpp
+  TestConstraintsEntry.cpp
+  TestCurvesEntry.cpp
+  TestDynModelsEntry.cpp
+  TestFinalStateEntry.cpp
+  TestInitialStateEntry.cpp
+  TestInitValuesEntry.cpp
+  TestJobCollection.cpp
+  TestJobEntry.cpp
+  TestLogsEntry.cpp
+  TestModelerEntry.cpp
+  TestModelsDirEntry.cpp
+  TestNetworkEntry.cpp
+  TestOutputsEntry.cpp
+  TestSimulationEntry.cpp
+  TestSolverEntry.cpp
+  TestTimelineEntry.cpp
+  TestXmlImporter.cpp
+  )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
@@ -39,12 +39,8 @@ target_link_libraries(${MODULE_NAME}
         dynawo_Test)
 
 if(CXX11_ENABLED)
-target_link_libraries(${MODULE_NAME}
-     xml2
-  )
-  target_include_directories(${MODULE_NAME} SYSTEM
-    PRIVATE
-      $<TARGET_PROPERTY:LibXml2::LibXml2,INTERFACE_INCLUDE_DIRECTORIES>
+  target_link_libraries(${MODULE_NAME}
+    LibXml2::LibXml2
   )
 endif()
 

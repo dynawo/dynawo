@@ -24,9 +24,6 @@
 #include <boost/shared_ptr.hpp>
 
 #include <xml/sax/parser/ParserException.h>
-#ifdef LANG_CXX11
-#include <libxml/parser.h>
-#endif
 
 #include "config.h"
 #include "gitversion.h"
@@ -134,7 +131,7 @@ int main(int argc, char ** argv) {
     return -1;
   } catch (const xml::sax::parser::ParserException& exp) {
     Trace::error() << DYNLog(XmlParsingError, jobsFileName, exp.what()) << Trace::endline;
-    return -1;
+    return -1;s
   } catch (std::exception & exc) {
     Trace::error() << exc.what() << Trace::endline;
     return -1;
