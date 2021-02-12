@@ -699,7 +699,7 @@ ModelDanglingLine::evalZ(const double& t) {
 
   if (doubleNotEquals(z_[1], getCurrentLimitsDesactivate())) {
     setCurrentLimitsDesactivate(z_[1]);
-    Trace::info() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
+    Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
   return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }

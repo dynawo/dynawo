@@ -881,7 +881,7 @@ SubModel::evalModeSub(const double & t) {
   if (modeChangeType > modeChangeType_) {
     modeChange_ = true;
     modeChangeType_ = modeChangeType;
-    Trace::info() << DYNLog(ModeChange, modeChangeType2Str(modeChangeType), name_) << Trace::endline;
+    Trace::debug() << DYNLog(ModeChange, modeChangeType2Str(modeChangeType), name_, t) << Trace::endline;
   }
   return modeChangeType;
 }
