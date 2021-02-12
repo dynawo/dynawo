@@ -248,10 +248,12 @@ export_git_branch() {
 
 # Export variables needed for Dynawo
 set_environment() {
+  DYNAWO_FOLDER_BUILD_TYPE=$DYNAWO_BUILD_TYPE
   # Force build type when building tests (or tests coverage)
   case $1 in
     build-tests-coverage)
       export_var_env_force DYNAWO_BUILD_TYPE=Debug
+      DYNAWO_FOLDER_BUILD_TYPE=TestsCoverage
       export_var_env_force DYNAWO_BUILD_TESTS=OFF
       export_var_env_force DYNAWO_BUILD_TESTS_COVERAGE=ON
       export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
@@ -259,6 +261,7 @@ set_environment() {
       ;;
     build-tests)
       export_var_env_force DYNAWO_BUILD_TYPE=Debug
+      DYNAWO_FOLDER_BUILD_TYPE=Tests
       export_var_env_force DYNAWO_BUILD_TESTS=ON
       export_var_env_force DYNAWO_BUILD_TESTS_COVERAGE=OFF
       export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
@@ -266,18 +269,21 @@ set_environment() {
       ;;
     list-tests)
       export_var_env_force DYNAWO_BUILD_TYPE=Debug
+      DYNAWO_FOLDER_BUILD_TYPE=Tests
       export_var_env_force DYNAWO_BUILD_TESTS=ON
       export_var_env_force DYNAWO_BUILD_TESTS_COVERAGE=OFF
       export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
       ;;
     clean-tests)
       export_var_env_force DYNAWO_BUILD_TYPE=Debug
+      DYNAWO_FOLDER_BUILD_TYPE=Tests
       export_var_env_force DYNAWO_BUILD_TESTS=ON
       export_var_env_force DYNAWO_BUILD_TESTS_COVERAGE=OFF
       export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
       ;;
     clean-tests-coverage)
       export_var_env_force DYNAWO_BUILD_TYPE=Debug
+      DYNAWO_FOLDER_BUILD_TYPE=TestsCoverage
       export_var_env_force DYNAWO_BUILD_TESTS=OFF
       export_var_env_force DYNAWO_BUILD_TESTS_COVERAGE=ON
       export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
@@ -317,8 +323,8 @@ set_environment() {
     export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")$SUFFIX_CX11/dynawo
     export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")$SUFFIX_CX11/dynawo
   else
-    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
-    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
+    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_FOLDER_BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
+    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_FOLDER_BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
   fi
   export_var_env DYNAWO_DEBUG_COMPILER_OPTION="-O0"
   export_var_env DYNAWO_FORCE_CXX11_ABI=false
