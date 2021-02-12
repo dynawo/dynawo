@@ -29,6 +29,13 @@ target_link_libraries(compileModelicaModel
     XMLSAXParser${LibXML_LINK_SUFFIX}
   )
 
+if(CXX11_ENABLED)
+  target_link_libraries(compileModelicaModel
+    PRIVATE
+      LibXml2::LibXml2
+    )
+endif()
+
 install(TARGETS compileModelicaModel EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
 
 configure_file(compileCppModelicaModelInDynamicLib.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib.cmake @ONLY)

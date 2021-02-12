@@ -18,14 +18,11 @@
 
 #include <string>
 #include <vector>
-#include <iomanip>
 #include <iostream>
 #include <boost/program_options.hpp>
-#include <boost/algorithm/string.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/filesystem.hpp>
 #include <dlfcn.h>
-#include <xercesc/util/PlatformUtils.hpp>
 
 #include "DYNDynamicData.h"
 
@@ -36,6 +33,7 @@
 #include "DYNFileSystemUtils.h"
 #include "DYNCompiler.h"
 #include "DYNExecUtils.h"
+#include "DYNInitXml.h"
 
 using std::string;
 using std::exception;
@@ -115,7 +113,7 @@ int main(int argc, char ** argv) {
   if (modelicaModelsExtension == "") {
     modelicaModelsExtension = ".mo";
   }
-  xercesc::XMLPlatformUtils::Initialize();
+  DYN::InitXerces xerces;
 
   string currentPath = prettyPath(current_path());
 
@@ -209,14 +207,11 @@ int main(int argc, char ** argv) {
     }
   } catch (const DYN::Error& e) {
     Trace::error() << e.what() << Trace::endline;
-    xercesc::XMLPlatformUtils::Terminate();
     return e.type();
   } catch (const std::exception& exp) {
     Trace::error() << exp.what() << Trace::endline;
-    xercesc::XMLPlatformUtils::Terminate();
     return -1;
   }
-  xercesc::XMLPlatformUtils::Terminate();
   return 0;
 }
 

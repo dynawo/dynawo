@@ -39,4 +39,4 @@ class Environment : public testing::Environment {
 };
 
 testing::Environment* const foo_env =
-    testing::AddGlobalTestEnvironment(new Environment);
+  testing::AddGlobalTestEnvironment(new Environment);

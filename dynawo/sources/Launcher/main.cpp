@@ -18,17 +18,12 @@
  *
  */
 #include <string>
-#include <fstream>
 #include <iostream>
 
 #include <boost/program_options.hpp>
 #include <boost/shared_ptr.hpp>
 
 #include <xml/sax/parser/ParserException.h>
-#include <xercesc/util/PlatformUtils.hpp>
-#ifdef LANG_CXX11
-#include <libxml/parser.h>
-#endif
 
 #include "config.h"
 #include "gitversion.h"
@@ -40,6 +35,7 @@
 #include "DYNTrace.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNExecUtils.h"
+#include "DYNInitXml.h"
 #define DYNTIMERS_INSTANCE  // this should be defined only once in main source before header inclusion
 #include "DYNTimer.h"
 
@@ -123,9 +119,9 @@ int main(int argc, char ** argv) {
       return 1;
     }
 
-    xercesc::XMLPlatformUtils::Initialize();
+    DYN::InitXerces xerces;
 #ifdef LANG_CXX11
-      xmlInitParser();
+    DYN::InitLibXml2 libxml2;
 #endif
     boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
     dicos->addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
@@ -136,59 +132,27 @@ int main(int argc, char ** argv) {
     launchSimu(jobsFileName);
   } catch (const DYN::Error& e) {
     std::cerr << "DYN Error: " << e.what() << std::endl;
-    xercesc::XMLPlatformUtils::Terminate();
-#ifdef LANG_CXX11
-    xmlCleanupParser();
-#endif
     return e.type();
   } catch (const po::error&) {
     usage(desc);
-    xercesc::XMLPlatformUtils::Terminate();
-#ifdef LANG_CXX11
-    xmlCleanupParser();
-#endif
     return -1;
   } catch (const char* s) {
     std::cerr << "Throws string: '" << s << "'" << std::endl;
-    xercesc::XMLPlatformUtils::Terminate();
-#ifdef LANG_CXX11
-    xmlCleanupParser();
-#endif
     return -1;
   } catch (const string& s) {
     std::cerr << "Throws string: '" << s << "'" << std::endl;
-    xercesc::XMLPlatformUtils::Terminate();
-#ifdef LANG_CXX11
-    xmlCleanupParser();
-#endif
     return -1;
   } catch (const xml::sax::parser::ParserException& exp) {
     std::cerr << DYNLog(XmlParsingError, jobsFileName, exp.what()) << std::endl;
     Trace::error() << DYNLog(XmlParsingError, jobsFileName, exp.what()) << Trace::endline;
-    xercesc::XMLPlatformUtils::Terminate();
-#ifdef LANG_CXX11
-    xmlCleanupParser();
-#endif
     return -1;
   } catch (std::exception& e) {
     std::cerr << "Exception: " << e.what() << std::endl;
-    xercesc::XMLPlatformUtils::Terminate();
-#ifdef LANG_CXX11
-    xmlCleanupParser();
-#endif
     return -1;
   } catch (...) {
     std::cerr << DYNLog(UnexpectedError) << std::endl;
     Trace::error() << __FILE__ << " " << __LINE__ << " " << DYNLog(UnexpectedError) << Trace::endline;
-    xercesc::XMLPlatformUtils::Terminate();
-#ifdef LANG_CXX11
-    xmlCleanupParser();
-#endif
     return -1;
   }
-  xercesc::XMLPlatformUtils::Terminate();
-#ifdef LANG_CXX11
-  xmlCleanupParser();
-#endif
   return 0;
 }

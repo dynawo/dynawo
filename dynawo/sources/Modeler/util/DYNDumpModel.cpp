@@ -17,19 +17,15 @@
  * @brief Utility for the dump of pins, parameters, variables, output of a model
  *
  */
-#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <dlfcn.h>
 
-#include <boost/algorithm/string.hpp>
 #include <boost/program_options.hpp>
 #include <boost/shared_ptr.hpp>
 
 #include <xml/sax/formatter/AttributeList.h>
 #include <xml/sax/formatter/Formatter.h>
-#include <xercesc/util/PlatformUtils.hpp>
 
 #include "DYNParameterModeler.h"
 #include "DYNEnumUtils.h"
@@ -37,7 +33,7 @@
 #include "DYNSubModelFactory.h"
 #include "DYNVariableAlias.h"
 #include "DYNFileSystemUtils.h"
-
+#include "DYNInitXml.h"
 
 using std::string;
 using std::endl;
@@ -138,7 +134,7 @@ int main(int argc, char ** argv) {
     cout << inputFileName << " does not exist " << endl;
     return 1;
   }
-  xercesc::XMLPlatformUtils::Initialize();
+  DYN::InitXerces xerces;
 
   boost::shared_ptr<DYN::SubModel> model = DYN::SubModelFactory::createSubModelFromLib(inputFileName);
   model->defineVariablesInit();
@@ -231,5 +227,4 @@ int main(int argc, char ** argv) {
   formatter->endElement();   // model
   formatter->endDocument();
   file.close();
-  xercesc::XMLPlatformUtils::Terminate();
 }
