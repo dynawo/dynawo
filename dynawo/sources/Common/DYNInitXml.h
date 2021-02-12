@@ -12,7 +12,7 @@
 //
 
 /**
- * @file DYNInitXml.h
+ * @file DYNIniXml.h
  *
  * @brief Init xml parsers
  *
