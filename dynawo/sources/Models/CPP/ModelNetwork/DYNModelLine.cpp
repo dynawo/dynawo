@@ -1005,7 +1005,7 @@ ModelLine::evalZ(const double& t) {
 
   if (doubleNotEquals(z_[1], getCurrentLimitsDesactivate())) {
     setCurrentLimitsDesactivate(z_[1]);
-    Trace::info() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
+    Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
 
   if (topologyModified_) {

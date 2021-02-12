@@ -1291,10 +1291,10 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
   if (currStateIndex != getCurrentStepIndex()) {
     if (disableInternalTapChanger_ > 0.) {
       // external automaton
-      Trace::info() << DYNLog(TfoTapChange, id_, getCurrentStepIndex(), z_[currentStepIndexNum_]) << Trace::endline;
+      Trace::debug() << DYNLog(TfoTapChange, id_, getCurrentStepIndex(), z_[currentStepIndexNum_]) << Trace::endline;
     } else {
       // internal automaton
-      Trace::info() << DYNLog(TfoTapChange, id_, z_[currentStepIndexNum_], getCurrentStepIndex()) << Trace::endline;
+      Trace::debug() << DYNLog(TfoTapChange, id_, z_[currentStepIndexNum_], getCurrentStepIndex()) << Trace::endline;
       z_[currentStepIndexNum_] = getCurrentStepIndex();
     }
     stateIndexModified_ = true;
@@ -1303,18 +1303,18 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
 
   if (doubleNotEquals(z_[currentLimitsDesactivateNum_], getCurrentLimitsDesactivate())) {
     setCurrentLimitsDesactivate(z_[currentLimitsDesactivateNum_]);
-    Trace::info() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
+    Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
 
   if (doubleNotEquals(z_[disableInternalTapChangerNum_], getDisableInternalTapChanger())) {
     setDisableInternalTapChanger(z_[disableInternalTapChangerNum_]);
-    Trace::info() << DYNLog(DisableInternalTapChanger, id_) << Trace::endline;
+    Trace::debug() << DYNLog(DisableInternalTapChanger, id_) << Trace::endline;
   }
 
   if (doubleNotEquals(z_[tapChangerLockedNum_], getTapChangerLocked())) {
     setTapChangerLocked(z_[tapChangerLockedNum_]);
     if (z_[tapChangerLockedNum_] > 0)
-      Trace::info() << DYNLog(TapChangerLocked, id_) << Trace::endline;
+      Trace::debug() << DYNLog(TapChangerLocked, id_) << Trace::endline;
   }
   if (topologyModified_) {
     if (modelRatioChanger_ || modelPhaseChanger_)
