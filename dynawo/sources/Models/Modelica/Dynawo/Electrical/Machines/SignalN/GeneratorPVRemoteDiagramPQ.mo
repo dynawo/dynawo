@@ -65,7 +65,7 @@ if running.value then
     URegulated = URef.value;
   end if;
 else
-  QGenPu = 0;
+  terminal.i.im = 0;
 end if;
 
 annotation(preferredView = "text",

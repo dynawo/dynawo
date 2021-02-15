@@ -51,7 +51,7 @@ if running.value then
     QGenPu = - QRef0Pu + KVoltage * (URefPu.value - UPu);
   end if;
 else
-  QGenPu = 0;
+  terminal.i.im = 0;
 end if;
 
 annotation(preferredView = "text",

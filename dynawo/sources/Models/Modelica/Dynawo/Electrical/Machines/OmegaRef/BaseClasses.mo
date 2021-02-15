@@ -51,7 +51,7 @@ package BaseClasses
       PGenPu = if pStatus == PStatus.LimitPMax then PMaxPu else if pStatus == PStatus.LimitPMin then PMinPu else PGenRawPu;
     else
       PGenRawPu = 0;
-      PGenPu = 0;
+      terminal.i.re = 0;
     end if;
     annotation(preferredView = "text");
   end BaseGeneratorSimplifiedPFBehavior;
