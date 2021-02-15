@@ -29,7 +29,6 @@
 
 #include <xml/sax/formatter/AttributeList.h>
 #include <xml/sax/formatter/Formatter.h>
-#include <xercesc/util/PlatformUtils.hpp>
 
 #include "DYNParameterSolver.h"
 #include "DYNSolverCommon.h"
@@ -37,6 +36,7 @@
 #include "DYNSolverImpl.h"
 #include "DYNSolverFactory.h"
 #include "DYNFileSystemUtils.h"
+#include "DYNInitXml.h"
 
 
 using std::string;
@@ -146,7 +146,7 @@ int main(int argc, char ** argv) {
     cout << inputFileName << " does not exist " << endl;
     return 1;
   }
-  xercesc::XMLPlatformUtils::Initialize();
+  DYN::InitXerces xerces;
 
   boost::shared_ptr<DYN::Solver> solver = DYN::SolverFactory::createSolverFromLib(inputFileName);
   solver->defineParameters();
@@ -191,5 +191,4 @@ int main(int argc, char ** argv) {
   formatter->endElement();   // model
   formatter->endDocument();
   file.close();
-  xercesc::XMLPlatformUtils::Terminate();
 }
