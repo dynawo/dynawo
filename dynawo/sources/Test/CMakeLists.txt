@@ -20,6 +20,8 @@ add_library(dynawo_Test_utils SHARED ${TEST_UTILS_SOURCES})
 target_link_libraries(dynawo_Test_utils
   PRIVATE
     dynawo_Common
+    GTest::gmock_main
+    GTest::gtest_main
     XMLSAXParser${LibXML_LINK_SUFFIX}
 )
 
