@@ -11,7 +11,6 @@
 set(MODULE_NAME DYD_unittest)
 
 set(MODULE_SOURCES
-  ../../../Test/initXml.cpp
   Test.cpp
   TestCollection.cpp
   TestBlackBoxModel.cpp

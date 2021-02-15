@@ -11,7 +11,6 @@
 set(MODULE_NAME JOB_unittest)
 
 set(MODULE_SOURCES
-  ../../../Test/initXml.cpp
   TestAppenderEntry.cpp
   TestConstraintsEntry.cpp
   TestCurvesEntry.cpp
