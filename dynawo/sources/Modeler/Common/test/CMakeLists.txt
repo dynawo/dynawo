@@ -11,7 +11,6 @@
 set(MODULE_NAME MODELER_COMMON_unittest)
 
 set(MODULE_SOURCES
-  ../../../Test/initXml.cpp
   Test.cpp
   CompilerTest.cpp
   TestDelay.cpp

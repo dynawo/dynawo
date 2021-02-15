@@ -11,7 +11,6 @@
 set(MODULE_NAME CRT_unittest)
 
 set(MODULE_SOURCES
-  ../../../Test/initXml.cpp
   TestCriteria.cpp
   TestXmlImporter.cpp
 )

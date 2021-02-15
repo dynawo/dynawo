@@ -11,7 +11,6 @@
 set(MODULE_NAME FS_unittest)
 
 set(MODULE_SOURCES
-  ../../../Test/initXml.cpp
   TestFinalStateCollection.cpp
   TestModel.cpp
   TestVariable.cpp

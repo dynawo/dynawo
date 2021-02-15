@@ -96,6 +96,7 @@ set(COMMON_INCLUDE_HEADERS
   gtest_dynawo.h
   ${INCLUDE_KEYS}
   DYNErrorQueue.h
+  DYNInitXml.h
   DYNIoDico.h
   DYNTimer.h
   DYNTrace.h
