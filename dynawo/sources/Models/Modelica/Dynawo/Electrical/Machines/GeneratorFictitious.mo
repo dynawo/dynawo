@@ -28,8 +28,7 @@ equation
     PGenPu = PGen0Pu * (UPu / U0Pu) ^ Alpha;
     QGenPu = QGen0Pu * (UPu / U0Pu) ^ Beta;
   else
-    PGenPu = 0;
-    QGenPu = 0;
+    terminal.i = Complex(0);
   end if;
 
 annotation(preferredView = "text");

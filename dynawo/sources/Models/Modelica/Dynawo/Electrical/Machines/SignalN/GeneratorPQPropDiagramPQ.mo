@@ -50,7 +50,7 @@ equation
 if running.value then
   QGenPu = if QGenRawPu >= QMaxPu then QMaxPu elseif QGenRawPu <= QMinPu then QMinPu else QGenRawPu;
 else
-  QGenPu = 0;
+  terminal.i.im = 0;
 end if;
 
 annotation(preferredView = "text",

@@ -26,7 +26,11 @@ model GeneratorPQ "Generator with power / frequency modulation and fixed reactiv
 
 equation
 
-  QGenPu = QGen0Pu;
+  if running.value then
+    QGenPu = QGen0Pu;
+  else
+    terminal.i.im = 0;
+  end if;
 
 annotation(
     preferredView = "text",

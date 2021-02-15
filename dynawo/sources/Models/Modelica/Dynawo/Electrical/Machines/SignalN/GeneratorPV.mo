@@ -49,7 +49,7 @@ if running.value then
     UPu = URefPu.value;
   end if;
 else
-  QGenPu = 0;
+  terminal.i.im = 0;
 end if;
 
 annotation(preferredView = "text",
