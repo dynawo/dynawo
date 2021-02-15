@@ -560,8 +560,10 @@ ModelMulti::evalMode(double t) {
       modeChange_ = true;
     }
   }
-  if (modeChangeType > modeChangeType_)
+  if (modeChange_) {
     modeChangeType_ = modeChangeType;
+    Trace::info() << DYNLog(ModeChangeGeneric, modeChangeType2Str(modeChangeType), t) << Trace::endline;
+  }
 #ifdef _DEBUG_
   // Make sure evalMode does not modify discrete variables as side effect
   for (unsigned i = 0, iEnd = sizeZ(); i < iEnd; ++i) {

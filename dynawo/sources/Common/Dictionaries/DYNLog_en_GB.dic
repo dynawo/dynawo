@@ -150,7 +150,8 @@ CreateStaticConnectFailed     =             impossible to create a connect betwe
 CreateDynamicConnectFailed    =             impossible to create a connect between %1%_%2% and %3%_%4%.
 NotInstancedModel             =             one of the two models has not been instanced.
 // --> DYNModelMulti
-ModeChange                    =             %1% for model %2%
+ModeChange                    =             %1% for model %2% at t = %3%
+ModeChangeGeneric             =             %1% at t = %2%
 SubModelExtVar                =             subModel : %1%  Var -%2%- is external and not connected
 KeepSubNetwork                =             keep SubNetworks num : %1%
 CurveInit                     =             starting curve initialization
