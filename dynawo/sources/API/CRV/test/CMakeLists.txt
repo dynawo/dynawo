@@ -11,7 +11,6 @@
 set(MODULE_NAME CRV_unittest)
 
 set(MODULE_SOURCES
-  ../../../Test/initXml.cpp
   Test.cpp
   TestPoint.cpp
   TestCurve.cpp

@@ -11,7 +11,6 @@
 set(MODULE_NAME SOLVERKINSOL_unittest)
 
 set(MODULE_SOURCES
-  ../../../Test/initXml.cpp
   TestBasics.cpp
 )
 

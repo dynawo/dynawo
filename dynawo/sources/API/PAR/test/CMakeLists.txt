@@ -11,7 +11,6 @@
 set(MODULE_NAME PAR_unittest)
 
 set(MODULE_SOURCES
-  ../../../Test/initXml.cpp
   TestReference.cpp
   TestParameter.cpp
   TestParametersSet.cpp

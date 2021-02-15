@@ -11,7 +11,6 @@
 set(MODULE_NAME EXTVAR_unittest)
 
 set(MODULE_SOURCES
-  ../../../Test/initXml.cpp
   Test.cpp
   TestXmlImporter.cpp
 )
