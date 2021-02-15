@@ -11,7 +11,6 @@
 set(MODULE_NAME SOLVERIDA_unittest)
 
 set(MODULE_SOURCES
-  ../../../Test/initXml.cpp
   TestBasics.cpp
 )
 
