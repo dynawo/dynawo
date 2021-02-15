@@ -1317,8 +1317,7 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
       Trace::debug() << DYNLog(TapChangerLocked, id_) << Trace::endline;
   }
   if (topologyModified_) {
-    if (modelRatioChanger_ || modelPhaseChanger_)
-      updateYMat_ = true;
+    updateYMat_ = true;
     return NetworkComponent::TOPO_CHANGE;
   } else if (stateIndexModified_) {
     if (modelRatioChanger_ || modelPhaseChanger_)
