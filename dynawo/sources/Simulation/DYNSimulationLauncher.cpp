@@ -43,16 +43,16 @@ static void print(const T& output, DYN::SeverityLevel level = DYN::INFO) {
   DYN::TraceStream ss;
   switch (level) {
     case DYN::DEBUG:
-      ss = Trace::debug();
+      ss = TraceDebug();
       break;
     case DYN::INFO:
-      ss = Trace::info();
+      ss = TraceInfo();
       break;
     case DYN::WARN:
-      ss = Trace::warn();
+      ss = TraceWarn();
       break;
     case DYN::ERROR:
-      ss = Trace::error();
+      ss = TraceError();
       break;
     default:
       // impossible case by definition of the enum

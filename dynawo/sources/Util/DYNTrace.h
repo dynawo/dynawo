@@ -278,7 +278,7 @@ class Trace {
     * @brief Get error severity level stream.
     *
     * Get an error severity level stream for logging.
-    * @code Trace::eror("MyTag") << "Hello world!" << Trace::endline; @endcode
+    * @code Trace::error("MyTag") << "Hello world!" << Trace::endline; @endcode
     * @param tag : Tag added to the log, can be used as a filter in logging sinks.
     * @return A TraceStream that can be used for stream-like logging.
     */

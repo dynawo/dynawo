@@ -562,7 +562,7 @@ ModelMulti::evalMode(double t) {
   }
   if (modeChange_) {
     modeChangeType_ = modeChangeType;
-    Trace::info() << DYNLog(ModeChangeGeneric, modeChangeType2Str(modeChangeType), t) << Trace::endline;
+    ::TraceInfo() << DYNLog(ModeChangeGeneric, modeChangeType2Str(modeChangeType), t) << Trace::endline;
   }
 #ifdef _DEBUG_
   // Make sure evalMode does not modify discrete variables as side effect
@@ -810,7 +810,7 @@ ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & nam
     if (throwIfCalculatedVarConn)
       throw DYNError(Error::MODELER, ConnectorCalculatedVariables, subModel1->name(), name1, subModel2->name(), name2);
     else
-      Trace::warn() << DYNLog(CalcVarConnectionIgnored, name1, name2) << Trace::endline;
+      ::TraceWarn() << DYNLog(CalcVarConnectionIgnored, name1, name2) << Trace::endline;
   } else if ((!isState1) && (isState2)) {  // when one variable is a state variable and the other one isn't, use a specific connection
     if (typeVar2 != CONTINUOUS && typeVar2 != FLOW) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
