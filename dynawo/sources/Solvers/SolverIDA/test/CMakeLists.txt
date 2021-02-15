@@ -11,38 +11,37 @@
 set(MODULE_NAME SOLVERIDA_unittest)
 
 set(MODULE_SOURCES
-    TestBasics.cpp
+  TestBasics.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
+target_link_libraries(${MODULE_NAME}
+  dynawo_ModelerCommon
+  dynawo_API_PAR
+  dynawo_API_TL
+  dynawo_SolverIDA
+  dynawo_SolverCommon
+  dynawo_API_DYD
+  dynawo_CPPModelsCommon
+  dynawo_Test
+)
+
 if(CXX11_ENABLED)
-target_link_libraries(${MODULE_NAME}
-  dynawo_ModelerCommon
-  dynawo_API_PAR
-  dynawo_API_TL
-  dynawo_SolverIDA
-  dynawo_SolverCommon
-  dynawo_API_DYD
-  IIDM::iidm
-  dynawo_DataInterfaceIIDM
-  dynawo_DataInterface
-  dynawo_CPPModelsCommon
-  dynawo_Test)
+  target_link_libraries(${MODULE_NAME}
+    IIDM::iidm
+    LibXml2::LibXml2
+  )
 else()
+  target_link_libraries(${MODULE_NAME}
+    iidm-xml
+)
+endif()
+
 target_link_libraries(${MODULE_NAME}
-  dynawo_ModelerCommon
-  dynawo_API_PAR
-  dynawo_API_TL
-  dynawo_SolverIDA
-  dynawo_SolverCommon
-  dynawo_API_DYD
-  iidm-xml
   dynawo_DataInterfaceIIDM
   dynawo_DataInterface
-  dynawo_CPPModelsCommon
-  dynawo_Test)
-endif()
+)
 
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" "DYNAWO_XSD_DIR=./" $<TARGET_FILE:${MODULE_NAME}>

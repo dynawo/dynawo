@@ -11,31 +11,37 @@
 set(MODULE_NAME JOB_unittest)
 
 set(MODULE_SOURCES
-    TestAppenderEntry.cpp
-    TestConstraintsEntry.cpp
-    TestCurvesEntry.cpp
-    TestDynModelsEntry.cpp
-    TestFinalStateEntry.cpp
-    TestInitialStateEntry.cpp
-    TestInitValuesEntry.cpp
-    TestJobCollection.cpp
-    TestJobEntry.cpp
-    TestLogsEntry.cpp
-    TestModelerEntry.cpp
-    TestModelsDirEntry.cpp
-    TestNetworkEntry.cpp
-    TestOutputsEntry.cpp
-    TestSimulationEntry.cpp
-    TestSolverEntry.cpp
-    TestTimelineEntry.cpp
-    TestXmlImporter.cpp
-    )
+  TestAppenderEntry.cpp
+  TestConstraintsEntry.cpp
+  TestCurvesEntry.cpp
+  TestDynModelsEntry.cpp
+  TestFinalStateEntry.cpp
+  TestInitialStateEntry.cpp
+  TestInitValuesEntry.cpp
+  TestJobCollection.cpp
+  TestJobEntry.cpp
+  TestLogsEntry.cpp
+  TestModelerEntry.cpp
+  TestModelsDirEntry.cpp
+  TestNetworkEntry.cpp
+  TestOutputsEntry.cpp
+  TestSimulationEntry.cpp
+  TestSolverEntry.cpp
+  TestTimelineEntry.cpp
+  TestXmlImporter.cpp
+  )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
 target_link_libraries(${MODULE_NAME}
         dynawo_API_JOB
         dynawo_Test)
+
+if(CXX11_ENABLED)
+  target_link_libraries(${MODULE_NAME}
+    LibXml2::LibXml2
+  )
+endif()
 
 add_custom_target(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res

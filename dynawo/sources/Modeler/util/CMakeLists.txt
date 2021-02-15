@@ -27,10 +27,18 @@ target_link_libraries(dumpModel
     dynawo_Common
     dynawo_ModelerCommon
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
+    XMLSAXParser${LibXML_LINK_SUFFIX}
     ${CMAKE_DL_LIBS}
     Boost::system
     Boost::program_options
     )
+
+if(CXX11_ENABLED)
+  target_link_libraries(dumpModel
+    PRIVATE
+      LibXml2::LibXml2
+    )
+endif()
 
 install(TARGETS dumpModel EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
 
@@ -54,9 +62,17 @@ target_link_libraries(generate-preassembled
     dynawo_Common
     dynawo_ModelerCommon
     ${CMAKE_DL_LIBS}
+    XMLSAXParser${LibXML_LINK_SUFFIX}
     Boost::filesystem
     Boost::program_options
     )
+
+if(CXX11_ENABLED)
+  target_link_libraries(generate-preassembled
+    PRIVATE
+      LibXml2::LibXml2
+    )
+endif()
 
 set_target_properties(generate-preassembled PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 

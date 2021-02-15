@@ -11,11 +11,11 @@
 set(MODULE_NAME MODELER_COMMON_unittest)
 
 set(MODULE_SOURCES
-    Test.cpp
-    CompilerTest.cpp
-    TestDelay.cpp
-    TestRingBuffer.cpp
-    TestGetNames.cpp
+  Test.cpp
+  CompilerTest.cpp
+  TestDelay.cpp
+  TestRingBuffer.cpp
+  TestGetNames.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
@@ -24,6 +24,12 @@ target_link_libraries(${MODULE_NAME}
   dynawo_API_PAR
   dynawo_ModelerCommon
   dynawo_Test)
+
+if(CXX11_ENABLED)
+  target_link_libraries(${MODULE_NAME}
+    LibXml2::LibXml2
+  )
+endif()
 
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" "DYNAWO_XSD_DIR=./" $<TARGET_FILE:${MODULE_NAME}>

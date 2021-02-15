@@ -18,7 +18,6 @@
  *
  */
 #include <string>
-#include <fstream>
 #include <iostream>
 
 #include <boost/program_options.hpp>
@@ -36,6 +35,7 @@
 #include "DYNTrace.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNExecUtils.h"
+#include "DYNInitXml.h"
 #define DYNTIMERS_INSTANCE  // this should be defined only once in main source before header inclusion
 #include "DYNTimer.h"
 
@@ -119,6 +119,10 @@ int main(int argc, char ** argv) {
       return 1;
     }
 
+    DYN::InitXerces xerces;
+#ifdef LANG_CXX11
+    DYN::InitLibXml2 libxml2;
+#endif
     boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
     dicos->addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
     dicos->addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));

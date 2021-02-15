@@ -26,7 +26,15 @@ target_link_libraries(compileModelicaModel
     ${CMAKE_DL_LIBS}
     Boost::log
     Boost::program_options
+    XMLSAXParser${LibXML_LINK_SUFFIX}
   )
+
+if(CXX11_ENABLED)
+  target_link_libraries(compileModelicaModel
+    PRIVATE
+      LibXml2::LibXml2
+    )
+endif()
 
 install(TARGETS compileModelicaModel EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
 

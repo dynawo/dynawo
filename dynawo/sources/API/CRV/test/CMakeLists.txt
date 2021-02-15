@@ -11,12 +11,12 @@
 set(MODULE_NAME CRV_unittest)
 
 set(MODULE_SOURCES
-    Test.cpp
-    TestPoint.cpp
-    TestCurve.cpp
-    TestCurvesCollection.cpp
-    TestXmlImporter.cpp
-    TestExporters.cpp
+  Test.cpp
+  TestPoint.cpp
+  TestCurve.cpp
+  TestCurvesCollection.cpp
+  TestXmlImporter.cpp
+  TestExporters.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
@@ -24,6 +24,12 @@ add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 target_link_libraries(${MODULE_NAME}
                       dynawo_API_CRV
                       dynawo_Test)
+
+if(CXX11_ENABLED)
+  target_link_libraries(${MODULE_NAME}
+    LibXml2::LibXml2
+  )
+endif()
 
 add_custom_target(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
