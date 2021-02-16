@@ -61,7 +61,7 @@ package BaseClasses
       alpha.value = if (N.value > 0 and PGenRawPu >= PMaxPu) then 0 else if (N.value < 0 and PGenRawPu <= PMinPu) then 0 else Alpha;
     else
       PGenRawPu = 0;
-      PGenPu = 0;
+      terminal.i.re = 0;
       alpha.value = 0;
     end if;
 
