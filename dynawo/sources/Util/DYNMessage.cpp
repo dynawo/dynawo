@@ -66,9 +66,9 @@ Message::initialize(const std::string& dicoName, const std::string& key) {
   fmt_.clear_binds();
   hasFmt_ = false;
   string fmt = "";
-  if (dicoName != "" && ::HasIoDico(dicoName)) {
+  if (dicoName != "" && HASIODICO(dicoName)) {
     try {
-      fmt = ::GetIoDico(dicoName)->msg(key);
+      fmt = GETIODICO(dicoName).msg(key);
       hasFmt_ = true;
       fmt_ = boost::format(fmt.c_str());
     } catch (const MessageError&) {

@@ -47,7 +47,7 @@ class IoDico {
    *
    * @return message description of the message
    */
-  std::string msg(const std::string & msgId);
+  std::string msg(const std::string& msgId) const;
 
   /**
    * @brief iteration over the key/msg map
@@ -91,7 +91,7 @@ extern "C" bool HasIoDico(const std::string& dicoName);
  *
  * @return return the dictionary with the desired name
 */
-extern "C" DYN::IoDico* GetIoDico(const std::string& dicoName);
+extern "C" const DYN::IoDico& GetIoDico(const std::string& dicoName);
 
 namespace DYN {
 
@@ -140,6 +140,23 @@ class IoDicos {
    */
   static void addPath(const std::string & path);
 
+
+  /**
+ * @brief try to find a dictionary with the name @b dicoName
+ *
+ * @param dicoName name of the dictionary to return
+ *
+ * @return return the dictionary with the desired name
+ */
+  static const IoDico& getIoDico(const std::string& dicoName);
+
+  /**
+   * @brief check if a dictionary exist thanks to its name
+   * @param dicoName name of the dictionary to find
+   * @return @b true if the dictionary exists, @b false else
+   */
+  static bool hasIoDico(const std::string& dicoName);
+
  private:
   /**
    * @brief default constructor
@@ -156,22 +173,6 @@ class IoDicos {
    * @return the assigned instance of IoDicos
    */
   IoDicos& operator=(const IoDicos&);
-
-    /**
-   * @brief try to find a dictionary with the name @b dicoName
-   *
-   * @param dicoName name of the dictionary to return
-   *
-   * @return return the dictionary with the desired name
-   */
-  static boost::shared_ptr<IoDico> getIoDico(const std::string& dicoName);
-
-  /**
-   * @brief check if a dictionary exist thanks to its name
-   * @param dicoName name of the dictionary to find
-   * @return @b true if the dictionary exists, @b false else
-   */
-  static bool hasIoDico(const std::string& dicoName);
 
   /**
    * @brief find the @b fileName in all the paths
@@ -208,7 +209,16 @@ class IoDicos {
    *
    * @return return the dictionary with the desired name
    */
-  boost::shared_ptr<IoDico> getIoDico_(const std::string& dicoName);
+  const IoDico& getIoDico_(const std::string& dicoName);
+
+  /**
+ * @brief try to find a dictionary with the name @b dicoName
+ *
+ * @param dicoName name of the dictionary to return
+ *
+ * @return return the dictionary with the desired name
+ */
+  IoDico& getNonCstIoDico_(const std::string& dicoName);
 
   /**
    * @brief check if a dictionary exist thanks to its name
@@ -225,7 +235,7 @@ class IoDicos {
   void addPath_(const std::string& path);
 
   friend bool (::HasIoDico)(const std::string& dicoName);  ///< Method HasIoDico must get access to @p hasIoDico() private function
-  friend IoDico* (::GetIoDico)(const std::string& dicoName);  ///< Method GetIoDico must get access to @p getIoDico() private function
+  friend const IoDico& (::GetIoDico)(const std::string& dicoName);  ///< Method GetIoDico must get access to @p getIoDico() private function
 
  private:
   std::vector<std::string> paths_;  ///< path where dictionnaries are researched
@@ -233,4 +243,15 @@ class IoDicos {
 };
 
 }  // namespace DYN
+
+#ifdef _WIN32
+#define HASIODICO(...) HasIoDico(__VA_ARGS__)
+#define GETIODICO(...) GetIoDico(__VA_ARGS__)
+#elif __unix__
+#define HASIODICO(...) DYN::IoDicos::hasIoDico(__VA_ARGS__)
+#define GETIODICO(...) DYN::IoDicos::getIoDico(__VA_ARGS__)
+#else
+#error "Unknown compiler"
+#endif
+
 #endif  // UTIL_DYNIODICO_H_

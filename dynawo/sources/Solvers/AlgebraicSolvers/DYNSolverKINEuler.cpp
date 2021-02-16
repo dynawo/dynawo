@@ -113,7 +113,7 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
     } catch (const DYN::Error& e) {
       if (e.type() == DYN::Error::NUMERICAL_ERROR) {
 #ifdef _DEBUG_
-       ::TraceDebug() << e.what() << Trace::endline;
+       TRACE(debug) << e.what() << Trace::endline;
 #endif
         return (-1);
       } else {
@@ -131,10 +131,10 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
   double wL2Norm = SolverCommon::weightedL2Norm(solv->F_, solv->fScale_);
   long int current_nni = 0;
   KINGetNumNonlinSolvIters(solv->KINMem_, &current_nni);
-  ::TraceDebug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+  TRACE(debug) << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 
   const int nbErr = 10;
-  ::TraceDebug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+  TRACE(debug) << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
   vector<std::pair<double, size_t> > fErr;
   for (size_t i = 0; i < solv->nbF_; ++i)
     fErr.push_back(std::pair<double, size_t>(solv->F_[i], i));

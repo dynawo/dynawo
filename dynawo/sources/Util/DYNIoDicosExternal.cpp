@@ -22,6 +22,6 @@ extern "C" bool HasIoDico(const std::string& dicoName) {
   return DYN::IoDicos::hasIoDico(dicoName);
 }
 
-extern "C" DYN::IoDico* GetIoDico(const std::string& dicoName) {
-  return DYN::IoDicos::getIoDico(dicoName).get();
+extern "C" const DYN::IoDico& GetIoDico(const std::string& dicoName) {
+  return DYN::IoDicos::getIoDico(dicoName);
 }

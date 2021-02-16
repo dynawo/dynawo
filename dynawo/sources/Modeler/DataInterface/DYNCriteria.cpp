@@ -42,13 +42,13 @@ BusCriteria::checkCriteria(double t, bool finalStep) {
     double vNom = (*it)->getVNom();
     if (params_->hasUMaxPu() && v > params_->getUMaxPu()*vNom) {
       Message mess = DYNLog(BusAboveVoltage, (*it)->getID(), v, v/vNom, params_->getUMaxPu()*vNom, params_->getUMaxPu(), params_->getId());
-      ::TraceInfo() << mess << Trace::endline;
+      TRACE(info) << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
       return false;
     }
     if (params_->hasUMinPu() && v < params_->getUMinPu()*vNom) {
       Message mess = DYNLog(BusUnderVoltage, (*it)->getID(), v, v/vNom, params_->getUMinPu()*vNom, params_->getUMinPu(), params_->getId());
-      ::TraceInfo() << mess << Trace::endline;
+      TRACE(info) << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
       return false;
     }
@@ -59,15 +59,15 @@ BusCriteria::checkCriteria(double t, bool finalStep) {
 bool
 BusCriteria::criteriaEligibleForBus(const boost::shared_ptr<criteria::CriteriaParams>& params) {
   if (params->getType() == criteria::CriteriaParams::SUM) {
-    ::TraceWarn() << DYNLog(SumBusCriteriaIgnored) << Trace::endline;
+    TRACE(warn) << DYNLog(SumBusCriteriaIgnored) << Trace::endline;
     return false;
   }
   if (!params->hasUMinPu() && !params->hasUMaxPu())
     return false;
   if (params->hasPMax())
-    ::TraceWarn() << DYNLog(PowerBusCriteriaIgnored) << Trace::endline;
+    TRACE(warn) << DYNLog(PowerBusCriteriaIgnored) << Trace::endline;
   if (params->hasPMin())
-    ::TraceWarn() << DYNLog(PowerBusCriteriaIgnored) << Trace::endline;
+    TRACE(warn) << DYNLog(PowerBusCriteriaIgnored) << Trace::endline;
   return true;
 }
 
@@ -108,13 +108,13 @@ LoadCriteria::checkCriteria(double t, bool finalStep) {
     if (params_->getType() == criteria::CriteriaParams::LOCAL_VALUE) {
       if (params_->hasPMax() && p > params_->getPMax()) {
         Message mess = DYNLog(SourceAbovePower, (*it)->getID(), p, params_->getPMax(), params_->getId());
-        ::TraceInfo() << mess << Trace::endline;
+        TRACE(info) << mess << Trace::endline;
         failingCriteria_.push_back(std::make_pair(t, mess.str()));
         return false;
       }
       if (params_->hasPMin() && p < params_->getPMin()) {
         Message mess = DYNLog(SourceUnderPower, (*it)->getID(), p, params_->getPMin(), params_->getId());
-        ::TraceInfo() << mess << Trace::endline;
+        TRACE(info) << mess << Trace::endline;
         failingCriteria_.push_back(std::make_pair(t, mess.str()));
         return false;
       }
@@ -131,24 +131,24 @@ LoadCriteria::checkCriteria(double t, bool finalStep) {
     if (params_->hasPMax() && sum > params_->getPMax()) {
 #ifdef _DEBUG_
   for (size_t i = 0; i < sourcesAddedIntoSum.size(); ++i) {
-    ::TraceInfo() << DYNLog(SourcePowerTakenIntoAccount, "load", sourcesAddedIntoSum[i]->getID(), params_->getId(),
+    TRACE(info) << DYNLog(SourcePowerTakenIntoAccount, "load", sourcesAddedIntoSum[i]->getID(), params_->getId(),
         sourcesAddedIntoSum[i]->getP(), sourcesAddedIntoSum[i]->getBusInterface()->getStateVarV()) << Trace::endline;
   }
 #endif
       Message mess = DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId());
-      ::TraceInfo() << mess << Trace::endline;
+      TRACE(info) << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
       return false;
     }
     if (params_->hasPMin() && sum < params_->getPMin()) {
 #ifdef _DEBUG_
   for (size_t i = 0; i < sourcesAddedIntoSum.size(); ++i) {
-    ::TraceInfo() << DYNLog(SourcePowerTakenIntoAccount, "load", sourcesAddedIntoSum[i]->getID(), params_->getId(),
+    TRACE(info) << DYNLog(SourcePowerTakenIntoAccount, "load", sourcesAddedIntoSum[i]->getID(), params_->getId(),
         sourcesAddedIntoSum[i]->getP(), sourcesAddedIntoSum[i]->getBusInterface()->getStateVarV()) << Trace::endline;
   }
 #endif
       Message mess = DYNLog(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId());
-      ::TraceInfo() << mess << Trace::endline;
+      TRACE(info) << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
       return false;
     }
@@ -203,13 +203,13 @@ GeneratorCriteria::checkCriteria(double t, bool finalStep) {
     if (params_->getType() == criteria::CriteriaParams::LOCAL_VALUE) {
       if (params_->hasPMax() && p > params_->getPMax()) {
         Message mess = DYNLog(SourceAbovePower, (*it)->getID(), p, params_->getPMax(), params_->getId());
-        ::TraceInfo() << mess << Trace::endline;
+        TRACE(info) << mess << Trace::endline;
         failingCriteria_.push_back(std::make_pair(t, mess.str()));
         return false;
       }
       if (params_->hasPMin() && p < params_->getPMin()) {
         Message mess = DYNLog(SourceUnderPower, (*it)->getID(), p, params_->getPMin(), params_->getId());
-        ::TraceInfo() << mess << Trace::endline;
+        TRACE(info) << mess << Trace::endline;
         failingCriteria_.push_back(std::make_pair(t, mess.str()));
         return false;
       }
@@ -226,24 +226,24 @@ GeneratorCriteria::checkCriteria(double t, bool finalStep) {
     if (params_->hasPMax() && sum > params_->getPMax()) {
 #ifdef _DEBUG_
   for (size_t i = 0; i < sourcesAddedIntoSum.size(); ++i) {
-    ::TraceInfo() << DYNLog(SourcePowerTakenIntoAccount, "generator", sourcesAddedIntoSum[i]->getID(), params_->getId(),
+    TRACE(info) << DYNLog(SourcePowerTakenIntoAccount, "generator", sourcesAddedIntoSum[i]->getID(), params_->getId(),
         sourcesAddedIntoSum[i]->getP(), sourcesAddedIntoSum[i]->getBusInterface()->getStateVarV()) << Trace::endline;
   }
 #endif
       Message mess = DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId());
-      ::TraceInfo() << mess << Trace::endline;
+      TRACE(info) << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
       return false;
     }
     if (params_->hasPMin() && sum < params_->getPMin()) {
 #ifdef _DEBUG_
   for (size_t i = 0; i < sourcesAddedIntoSum.size(); ++i) {
-    ::TraceInfo() << DYNLog(SourcePowerTakenIntoAccount, "generator", sourcesAddedIntoSum[i]->getID(), params_->getId(),
+    TRACE(info) << DYNLog(SourcePowerTakenIntoAccount, "generator", sourcesAddedIntoSum[i]->getID(), params_->getId(),
         sourcesAddedIntoSum[i]->getP(), sourcesAddedIntoSum[i]->getBusInterface()->getStateVarV()) << Trace::endline;
   }
 #endif
       Message mess = DYNLog(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId());
-      ::TraceInfo() << mess << Trace::endline;
+      TRACE(info) << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
       return false;
     }

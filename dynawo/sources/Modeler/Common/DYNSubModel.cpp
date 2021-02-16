@@ -192,7 +192,7 @@ SubModel::initSub(const double& t0) {
     for (vector<string>::iterator it = unusedParamNameList.begin();
             it != unusedParamNameList.end();
             ++it) {
-      ::TraceWarn() << DYNLog(ParamUnused, *it, name()) << Trace::endline;
+      TRACE(warn) << DYNLog(ParamUnused, *it, name()) << Trace::endline;
     }
   }
 #endif
@@ -295,7 +295,7 @@ SubModel::getSubElements(const Element& element) const {
 
 void
 SubModel::dumpUserReadableElementList(const std::string& nameElement) const {
-  ::TraceInfo() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  TRACE(info) << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
   vector< std::pair<size_t, string> > vec;
   for (unsigned int i = 0; i < elements_.size(); ++i) {
     const Element& element = elements_[i];
@@ -305,7 +305,7 @@ SubModel::dumpUserReadableElementList(const std::string& nameElement) const {
   }
   std::sort(vec.begin(), vec.end() , compStringDist());
   for (unsigned int i = 0; i < vec.size(); ++i) {
-    ::TraceInfo() << "  ->" << vec[i].second << Trace::endline;
+    TRACE(info) << "  ->" << vec[i].second << Trace::endline;
   }
 }
 
@@ -881,7 +881,7 @@ SubModel::evalModeSub(const double & t) {
   if (modeChangeType > modeChangeType_) {
     modeChange_ = true;
     modeChangeType_ = modeChangeType;
-    ::TraceDebug() << DYNLog(ModeChange, modeChangeType2Str(modeChangeType), name_, t) << Trace::endline;
+    TRACE(debug) << DYNLog(ModeChange, modeChangeType2Str(modeChangeType), name_, t) << Trace::endline;
   }
   return modeChangeType;
 }
@@ -1001,9 +1001,9 @@ SubModel::printLocalInitParametersValues() const {
     sortedParams.insert(it->first);
   }
   if (!params.empty()) {
-    ::TraceDebug(Trace::parameters()) << "------------------------------" << Trace::endline;
-    ::TraceDebug(Trace::parameters()) << "SubModel " << name()  << " parameters after local initialization"<< Trace::endline;
-    ::TraceDebug(Trace::parameters()) << "------------------------------" << Trace::endline;
+    TRACE(debug, Trace::parameters()) << "------------------------------" << Trace::endline;
+    TRACE(debug, Trace::parameters()) << "SubModel " << name()  << " parameters after local initialization"<< Trace::endline;
+    TRACE(debug, Trace::parameters()) << "------------------------------" << Trace::endline;
   }
 
   for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
@@ -1016,22 +1016,22 @@ SubModel::printLocalInitParametersValues() const {
     switch (parameter.getValueType()) {
       case VAR_TYPE_BOOL: {
         const bool value = parameter.getValue<bool>();
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_INT: {
         const int value = parameter.getValue<int>();
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_DOUBLE: {
         const double& value = parameter.getValue<double>();
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_STRING: {
         const string& value = parameter.getValue<string>();
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       default:
@@ -1047,7 +1047,7 @@ SubModel::printLocalInitParametersValues() const {
       if (parameter.isFullyInternal()) {
         continue;
       } else {
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamNoValueFound, *it) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamNoValueFound, *it) << Trace::endline;
       }
     }
   }
@@ -1063,9 +1063,9 @@ SubModel::printParameterValues() const {
     sortedInitParams.insert(it->first);
   }
   if (!sortedInitParams.empty()) {
-    ::TraceDebug(Trace::parameters()) << "------------------------------" << Trace::endline;
-    ::TraceDebug(Trace::parameters()) << "SubModel " << name()  << " initial parameters before local initialization"<< Trace::endline;
-    ::TraceDebug(Trace::parameters()) << "------------------------------" << Trace::endline;
+    TRACE(debug, Trace::parameters()) << "------------------------------" << Trace::endline;
+    TRACE(debug, Trace::parameters()) << "SubModel " << name()  << " initial parameters before local initialization"<< Trace::endline;
+    TRACE(debug, Trace::parameters()) << "------------------------------" << Trace::endline;
   }
 
   for (set<string>::const_iterator it = sortedInitParams.begin(), itEnd = sortedInitParams.end(); it != itEnd; ++it) {
@@ -1076,22 +1076,22 @@ SubModel::printParameterValues() const {
     switch (parameter.getValueType()) {
       case VAR_TYPE_BOOL: {
         const bool value = parameter.getValue<bool>();
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_INT: {
         const int value = parameter.getValue<int>();
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_DOUBLE: {
         const double& value = parameter.getValue<double>();
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_STRING: {
         const string& value = parameter.getValue<string>();
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       default:
@@ -1104,7 +1104,7 @@ SubModel::printParameterValues() const {
   for (set<string>::const_iterator it = sortedInitParams.begin(), itEnd = sortedInitParams.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = initParams.find(*it)->second;
     if (!parameter.hasValue() && parameter.isFullyInternal()) {
-      ::TraceDebug(Trace::parameters()) << DYNLog(InternalParam, *it) << Trace::endline;
+      TRACE(debug, Trace::parameters()) << DYNLog(InternalParam, *it) << Trace::endline;
     }
   }
 
@@ -1115,9 +1115,9 @@ SubModel::printParameterValues() const {
     sortedParams.insert(it->first);
   }
   if (!params.empty()) {
-    ::TraceDebug(Trace::parameters()) << "------------------------------" << Trace::endline;
-    ::TraceDebug(Trace::parameters()) << "SubModel " << name()  << " parameters before local initialization"<< Trace::endline;
-    ::TraceDebug(Trace::parameters()) << "------------------------------" << Trace::endline;
+    TRACE(debug, Trace::parameters()) << "------------------------------" << Trace::endline;
+    TRACE(debug, Trace::parameters()) << "SubModel " << name()  << " parameters before local initialization"<< Trace::endline;
+    TRACE(debug, Trace::parameters()) << "------------------------------" << Trace::endline;
   }
 
   for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
@@ -1128,22 +1128,22 @@ SubModel::printParameterValues() const {
     switch (parameter.getValueType()) {
       case VAR_TYPE_BOOL: {
         const bool value = parameter.getValue<bool>();
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_INT: {
         const int value = parameter.getValue<int>();
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_DOUBLE: {
         const double& value = parameter.getValue<double>();
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       case VAR_TYPE_STRING: {
         const string& value = parameter.getValue<string>();
-        ::TraceDebug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
+        TRACE(debug, Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
         break;
       }
       default:
@@ -1156,30 +1156,30 @@ SubModel::printParameterValues() const {
   for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = params.find(*it)->second;
     if (!parameter.hasValue() && parameter.isFullyInternal()) {
-      ::TraceDebug(Trace::parameters()) << DYNLog(InternalParam, *it) << Trace::endline;
+      TRACE(debug, Trace::parameters()) << DYNLog(InternalParam, *it) << Trace::endline;
     }
   }
 }
 
 void
 SubModel::printModel() const {
-  ::TraceDebug(Trace::modeler()) << DYNLog(ModelName) << std::setw(25) << std::left << modelType() << "=>" << name() << Trace::endline;
-  ::TraceDebug(Trace::modeler()) << "         Y : [" << std::setw(6) << yDeb_ << " ; " << std::setw(6) << yDeb_ + sizeY() << "[" << Trace::endline;
-  ::TraceDebug(Trace::modeler()) << "         F : [" << std::setw(6) << fDeb_ << " ; " << std::setw(6) << fDeb_ + sizeF() << "[" << Trace::endline;
+  TRACE(debug, Trace::modeler()) << DYNLog(ModelName) << std::setw(25) << std::left << modelType() << "=>" << name() << Trace::endline;
+  TRACE(debug, Trace::modeler()) << "         Y : [" << std::setw(6) << yDeb_ << " ; " << std::setw(6) << yDeb_ + sizeY() << "[" << Trace::endline;
+  TRACE(debug, Trace::modeler()) << "         F : [" << std::setw(6) << fDeb_ << " ; " << std::setw(6) << fDeb_ + sizeF() << "[" << Trace::endline;
 
   if (sizeZ() != 0) {
-    ::TraceDebug(Trace::modeler()) << "         Z : [" << std::setw(6) << zDeb_ << " ; " << std::setw(6) << zDeb_ + sizeZ() << "[" << Trace::endline;
+    TRACE(debug, Trace::modeler()) << "         Z : [" << std::setw(6) << zDeb_ << " ; " << std::setw(6) << zDeb_ + sizeZ() << "[" << Trace::endline;
   }
   if (sizeMode() != 0) {
-    ::TraceDebug(Trace::modeler()) << "      mode : [" << std::setw(6) << modeDeb_ << " ; " << std::setw(6) << modeDeb_ + sizeMode() << "[" << Trace::endline;
+    TRACE(debug, Trace::modeler()) << "      mode : [" << std::setw(6) << modeDeb_ << " ; " << std::setw(6) << modeDeb_ + sizeMode() << "[" << Trace::endline;
   }
 
 
   if (sizeG() != 0) {
-    ::TraceDebug(Trace::modeler()) << "         G : [" << std::setw(6) << gDeb_ << " ; " << std::setw(6) << gDeb_ + sizeG() << "[" << Trace::endline;
+    TRACE(debug, Trace::modeler()) << "         G : [" << std::setw(6) << gDeb_ << " ; " << std::setw(6) << gDeb_ + sizeG() << "[" << Trace::endline;
   }
 
-  ::TraceDebug(Trace::modeler()) << Trace::endline;
+  TRACE(debug, Trace::modeler()) << Trace::endline;
 }
 
 void
@@ -1191,7 +1191,7 @@ void
 SubModel::printMessages() {
   std::list<string>::const_iterator iter;
   for (iter = messages_.begin(); iter != messages_.end(); ++iter)
-    ::TraceInfo() << getCurrentTime() << " | " << name() << " : " << *iter << Trace::endline;
+    TRACE(info) << getCurrentTime() << " | " << name() << " : " << *iter << Trace::endline;
 
   messages_.clear();
 }
@@ -1233,7 +1233,7 @@ SubModel::getFequationByLocalIndex(const int& index) {
   if (it != fEquationIndex().end()) {
     return it->second;
   } else {
-    ::TraceWarn() << DYNLog(SubModelFeqFormulaNotExist, name(), index) << Trace::endline;
+    TRACE(warn) << DYNLog(SubModelFeqFormulaNotExist, name(), index) << Trace::endline;
     return "";
   }
 }
@@ -1244,7 +1244,7 @@ SubModel::getGequationByLocalIndex(const int& index) {
   if (it != gEquationIndex().end()) {
     return it->second;
   } else {
-    ::TraceWarn() << DYNLog(SubModelGeqFormulaNotExist, name(), index) << Trace::endline;
+    TRACE(warn) << DYNLog(SubModelGeqFormulaNotExist, name(), index) << Trace::endline;
     return "";
   }
 }

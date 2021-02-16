@@ -65,16 +65,20 @@ bool IoDicos::hasIoDico_(const string& dicoName) {
   return (dicos_.find(dicoName) != dicos_.end());
 }
 
-boost::shared_ptr<IoDico> IoDicos::getIoDico(const string& dicoName) {
+const IoDico& IoDicos::getIoDico(const string& dicoName) {
   return instance().getIoDico_(dicoName);
 }
 
-boost::shared_ptr<IoDico> IoDicos::getIoDico_(const string& dicoName) {
+const IoDico& IoDicos::getIoDico_(const string& dicoName) {
   if (hasIoDico_(dicoName)) {
-    return dicos_[dicoName];
+    return *dicos_[dicoName];
   } else {
     throw MessageError("Unknown dictionary '" + dicoName + "'");
   }
+}
+
+IoDico& IoDicos::getNonCstIoDico_(const string& dicoName) {
+  return const_cast<IoDico&>(getIoDico_(dicoName));
 }
 
 vector<std::string> IoDicos::findFiles(const string& fileName) {
@@ -139,8 +143,8 @@ void IoDicos::addDico_(const string& name, const string& baseName, const string&
   string file = files[0];
 
   if (hasIoDico_(name)) {
-    boost::shared_ptr<IoDico> dico = getIoDico_(name);
-    dico->readFile(file);  // new key/sentence added to the existing dico
+    IoDico& dico = getNonCstIoDico_(name);
+    dico.readFile(file);  // new key/sentence added to the existing dico
   } else {
     boost::shared_ptr<IoDico> dico(new IoDico(name));
     dico->readFile(file);

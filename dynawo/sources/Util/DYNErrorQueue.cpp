@@ -64,7 +64,7 @@ ErrorQueue::flush_() {
   for (size_t nbErrorDisplayed = 0;
       !exceptionQueue_.empty() && nbErrorDisplayed < maxDisplayedError; ++nbErrorDisplayed, exceptionQueue_.pop()) {
     const DYN::Error e = exceptionQueue_.front();
-    ::TraceError() << e.what() << Trace::endline;
+    TRACE(error) << e.what() << Trace::endline;
   }
   for (; !exceptionQueue_.empty(); exceptionQueue_.pop())
     continue;

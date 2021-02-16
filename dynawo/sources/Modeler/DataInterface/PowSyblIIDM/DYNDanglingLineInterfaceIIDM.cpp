@@ -145,7 +145,7 @@ DanglingLineInterfaceIIDM::getR() const {
 double
 DanglingLineInterfaceIIDM::getX() const {
   if (doubleIsZero(danglingLineIIDM_.getX()) && doubleIsZero(danglingLineIIDM_.getR())) {
-    ::TraceWarn() << DYNLog(PossibleDivisionByZero, danglingLineIIDM_.getId()) << Trace::endline;
+    TRACE(warn) << DYNLog(PossibleDivisionByZero, danglingLineIIDM_.getId()) << Trace::endline;
     return 0.01;  // default parameter
   }
   return danglingLineIIDM_.getX();

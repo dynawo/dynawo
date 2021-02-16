@@ -119,10 +119,10 @@ DynamicData::markModelTemplatesCalledByExpansions() {
   }
 
 #ifdef _DEBUG_
-  ::TraceInfo(Trace::compile()) << "Model Templates : " << Trace::endline;
+  TRACE(info, Trace::compile()) << "Model Templates : " << Trace::endline;
   for (std::map< string, shared_ptr<ModelDescription> >::const_iterator itMd = modelTemplates_.begin(); itMd != modelTemplates_.end(); ++itMd) {
     string modelUsed = usefulModelTemplates_.find(itMd->first) != usefulModelTemplates_.end() ? "useful and compiled" : "useless";
-    ::TraceInfo(Trace::compile()) << " - " << itMd->first << " -> " << modelUsed << Trace::endline;
+    TRACE(info, Trace::compile()) << " - " << itMd->first << " -> " << modelUsed << Trace::endline;
   }
 #endif
 }
@@ -140,17 +140,17 @@ DynamicData::mappingModelicaModels() {
 
     const string id = "Mapping Modelica Model " + itModelica->first;
     int l = id.size() / 2;
-    ::TraceInfo(Trace::compile()) << "====================================================================================================" << Trace::endline;
-    ::TraceInfo(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
-    ::TraceInfo(Trace::compile()) << "|" << setw(50 + l) << id << setw(50 - l - 1) << "|" << Trace::endline;
-    ::TraceInfo(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
-    ::TraceInfo(Trace::compile()) << "====================================================================================================" << Trace::endline;
+    TRACE(info, Trace::compile()) << "====================================================================================================" << Trace::endline;
+    TRACE(info, Trace::compile()) << "|                                                                                                  |" << Trace::endline;
+    TRACE(info, Trace::compile()) << "|" << setw(50 + l) << id << setw(50 - l - 1) << "|" << Trace::endline;
+    TRACE(info, Trace::compile()) << "|                                                                                                  |" << Trace::endline;
+    TRACE(info, Trace::compile()) << "====================================================================================================" << Trace::endline;
 
     // search in mapped model library, if already mapped, return.
     vector<shared_ptr<ModelDescription> >::const_iterator it;
     it = find(mappedModelDescriptions_.begin(), mappedModelDescriptions_.end(), itModelica->second);
     if (it != mappedModelDescriptions_.end()) {
-      ::TraceInfo(Trace::compile()) << DYNLog(AlreadyMappedModel, itModelica->first) << Trace::endline;
+      TRACE(info, Trace::compile()) << DYNLog(AlreadyMappedModel, itModelica->first) << Trace::endline;
       continue;
     }
 
@@ -169,11 +169,11 @@ DynamicData::mappingModelicaModels() {
       std::map<shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> > tmpUnitDynamicModelsMap;
 
       if (modelicaModel->hasSameStructureAs(tmpModelicaModel, unitDynamicModelsMap_)) {  // modelica model finds a reference model, map them.
-        ::TraceInfo(Trace::compile()) << DYNLog(AddingModelToMap, modelicaModel->getId(), tmpModelicaModel->getId()) << Trace::endline;
+        TRACE(info, Trace::compile()) << DYNLog(AddingModelToMap, modelicaModel->getId(), tmpModelicaModel->getId()) << Trace::endline;
 
         modelicaModelReferenceMap_[itModelica->second] = tmpModelicaModelDescription;
 
-        ::TraceInfo(Trace::compile()) << DYNLog(CompiledModelID, tmpModelicaModelDescription->getCompiledModelId()) << Trace::endline;
+        TRACE(info, Trace::compile()) << DYNLog(CompiledModelID, tmpModelicaModelDescription->getCompiledModelId()) << Trace::endline;
         alreadyMapped = true;
         break;
       }
@@ -190,8 +190,8 @@ DynamicData::mappingModelicaModels() {
       for (itUdm = unitDynamicModels.begin(); itUdm != unitDynamicModels.end(); ++itUdm) {
         unitDynamicModelsMap_[itUdm->second] = itUdm->second;
       }
-      ::TraceInfo(Trace::compile()) << DYNLog(ReferenceModelDesc, itModelica->first) << Trace::endline;
-      ::TraceInfo(Trace::compile()) << DYNLog(CompiledModelID, itModelica->first) << Trace::endline;
+      TRACE(info, Trace::compile()) << DYNLog(ReferenceModelDesc, itModelica->first) << Trace::endline;
+      TRACE(info, Trace::compile()) << DYNLog(CompiledModelID, itModelica->first) << Trace::endline;
       (itModelica->second)->setCompiledModelId(itModelica->first);
     }
 
@@ -246,7 +246,7 @@ DynamicData::associateParameters() {
       }
     }
   }
-  ::ErrorQueueFlush();
+  ERRORQUEUEFLUSH();
 }
 
 shared_ptr<ParametersSet>
@@ -255,11 +255,11 @@ DynamicData::getParametersSet(const string& modelId, const string& parFile, cons
     return shared_ptr<ParametersSet>();
   }
   if (parFile != "" && parId == "") {
-    ::ErrorQueuePush(DYNError(Error::API, MissingParameterId, modelId));
+    ERRORQUEUEPUSH(DYNError(Error::API, MissingParameterId, modelId));
     return shared_ptr<ParametersSet>();
   }
   if (parFile == "" && parId != "") {
-    ::ErrorQueuePush(DYNError(Error::API, MissingParameterFile, modelId));
+    ERRORQUEUEPUSH(DYNError(Error::API, MissingParameterFile, modelId));
     return shared_ptr<ParametersSet>();
   }
 
@@ -412,7 +412,7 @@ DynamicData::mergeParameters(shared_ptr<ParametersSet>& concatParams, const stri
 void
 DynamicData::getNetworkParameters(const string & parFile, const string& parSet) {
   shared_ptr<ParametersSet> parameters = getParametersSet("network", parFile, parSet);
-  ErrorQueueFlush();
+  ERRORQUEUEFLUSH();
   setNetworkParameters(parameters);
 }
 

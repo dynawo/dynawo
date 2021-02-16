@@ -1,8 +1,8 @@
 EXPORTS
-  TraceDebug
-  TraceError
-  TraceWarn
-  TraceInfo
+  Tracedebug
+  Traceerror
+  Tracewarn
+  Traceinfo
   TraceLog
   TraceLogExists
   HasIoDico

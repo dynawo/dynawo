@@ -22,7 +22,7 @@ void ModelicaVFormatMessage(const char *string, va_list args) {
   char buff[512];
   vsnprintf(buff, sizeof(buff), string, args);
   std::string buffAsStdStr = buff;
-  ::TraceInfo() << buffAsStdStr << DYN::Trace::endline;
+  TRACE(info) << buffAsStdStr << DYN::Trace::endline;
 }
 
 void ModelicaFormatMessage(const char *string, ...) {

@@ -45,6 +45,15 @@ namespace DYN {
  *
  */
 class Timers : private boost::noncopyable {
+ public:
+  /**
+  * @brief add new statistics for a given timer
+  *
+  * @param name name of timer
+  * @param time time elapsed for the timer
+  */
+  static void add(const std::string& name, double time);
+
  private:
   /**
    * @brief default constructor
@@ -55,14 +64,6 @@ class Timers : private boost::noncopyable {
    * @brief destructor
    */
   ~Timers();
-
-  /**
-   * @brief add new statistics for a given timer
-   *
-   * @param name name of timer
-   * @param time time elapsed for the timer
-   */
-  static void add(const std::string& name, double time);
 
   /**
    * @brief get the unique instance of Timers in current memory space
@@ -118,5 +119,13 @@ class Timer : private boost::noncopyable {
 };
 
 }  // namespace DYN
+
+#ifdef _WIN32
+#define TIMERSADD(...) TimersAdd(__VA_ARGS__)
+#elif __unix__
+#define TIMERSADD(...) DYN::Timers::add(__VA_ARGS__)
+#else
+#error "Unknown compiler"
+#endif
 
 #endif  // UTIL_DYNTIMER_H_

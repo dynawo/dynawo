@@ -45,7 +45,7 @@ void printLogToStdOut_(ModelManager *model, const std::string & message) {
   if (sub == NULL)
     throw DYNError(Error::GENERAL, WrongDynamicCast);
   std::cout << sub->name() << ":" << message << std::endl;
-  ::TraceDebug() << sub->name() << ":" << message << Trace::endline;
+  TRACE(debug) << sub->name() << ":" << message << Trace::endline;
 }
 
 void printLogExecution_(ModelManager * model, const std::string & message) {
@@ -293,7 +293,7 @@ callExternalAutomatonModel(const std::string& modelName, const char* command, co
   boost::replace_all(commandStr, "${AUTOMATON_WORKING_DIR}", workingDir);
   executeCommand(commandStr, ss);
 
-  ::TraceDebug() << ss.str() << Trace::endline;
+  TRACE(debug) << ss.str() << Trace::endline;
 
   std::string inputFile = workingDir + "file_out.csv";
   // read output file

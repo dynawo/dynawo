@@ -41,25 +41,25 @@
  * @param tag : Tag added to the log, can be used as a filter in logging sinks.
  * @return A TraceStream that can be used for stream-like logging.
 */
-extern "C" DYN::TraceStream TraceDebug(const std::string& tag = "");
+extern "C" DYN::TraceStream Tracedebug(const std::string& tag = "");
 /**
  * @brief API to DYN::Trace::info
  * @param tag : Tag added to the log, can be used as a filter in logging sinks.
  * @return A TraceStream that can be used for stream-like logging.
 */
-extern "C" DYN::TraceStream TraceInfo(const std::string& tag = "");
+extern "C" DYN::TraceStream Traceinfo(const std::string& tag = "");
 /**
  * @brief API to DYN::Trace::error
  * @param tag : Tag added to the log, can be used as a filter in logging sinks.
  * @return A TraceStream that can be used for stream-like logging.
 */
-extern "C" DYN::TraceStream TraceError(const std::string& tag = "");
+extern "C" DYN::TraceStream Traceerror(const std::string& tag = "");
 /**
  * @brief API to DYN::Trace::warn
  * @param tag : Tag added to the log, can be used as a filter in logging sinks.
  * @return A TraceStream that can be used for stream-like logging.
 */
-extern "C" DYN::TraceStream TraceWarn(const std::string& tag = "");
+extern "C" DYN::TraceStream Tracewarn(const std::string& tag = "");
 /**
  * @brief API to DYN::Trace::log
  * @param slv : Severity level of the log.
@@ -232,6 +232,57 @@ class Trace {
     return slv >= defaultLevel_;
   }
 
+  /**
+   * @brief Get debug severity level stream.
+   *
+   * Get a debug severity level stream for logging.
+   * @code Trace::debug("MyTag") << "Hello world!" << Trace::endline; @endcode
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @return A TraceStream that can be used for stream-like logging.
+   */
+  static TraceStream debug(const std::string& tag = "");
+
+  /**
+   * @brief Get info severity level stream.
+   *
+   * Get an info severity level stream for logging.
+   * @code Trace::info("MyTag") << "Hello world!" << Trace::endline; @endcode
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @return A TraceStream that can be used for stream-like logging.
+   */
+  static TraceStream info(const std::string& tag = "");
+
+  /**
+    * @brief Get error severity level stream.
+    *
+    * Get an error severity level stream for logging.
+    * @code Trace::error("MyTag") << "Hello world!" << Trace::endline; @endcode
+    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+    * @return A TraceStream that can be used for stream-like logging.
+    */
+  static TraceStream error(const std::string& tag = "");
+
+  /**
+   * @brief Get warning severity level stream.
+   *
+   * Get a warning severity level stream for logging.
+   * @code Trace::warn("MyTag") << "Hello world!" << Trace::endline; @endcode
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @return A TraceStream that can be used for stream-like logging.
+   */
+  static TraceStream warn(const std::string& tag = "");
+
+  /**
+* @brief test if a log exists
+*
+* This tests only the file logs
+*
+* @param tag : Tag added to the log, can be used as a filter in logging sinks.
+* @param slv : Severity level.
+* @return true if this log with this level exists
+*/
+  static bool logExists(const std::string& tag, SeverityLevel slv);
+
  private:
   static const SeverityLevel defaultLevel_;  ///< Default log level for standard output
 
@@ -242,57 +293,6 @@ class Trace {
   * @returns static instance
   */
   static Trace& instance();
-
-    /**
-   * @brief test if a log exists
-   *
-   * This tests only the file logs
-   *
-   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
-   * @param slv : Severity level.
-   * @return true if this log with this level exists
-   */
-  static bool logExists(const std::string& tag, SeverityLevel slv);
-
-  /**
-   * @brief Get debug severity level stream.
-   *
-   * Get a debug severity level stream for logging.
-   * @code Trace::debug("MyTag") << "Hello world!" << Trace::endline; @endcode
-   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
-   * @return A TraceStream that can be used for stream-like logging.
-   */
-  static TraceStream debug(const std::string& tag);
-
-  /**
-   * @brief Get info severity level stream.
-   *
-   * Get an info severity level stream for logging.
-   * @code Trace::info("MyTag") << "Hello world!" << Trace::endline; @endcode
-   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
-   * @return A TraceStream that can be used for stream-like logging.
-   */
-  static TraceStream info(const std::string& tag);
-
-  /**
-    * @brief Get error severity level stream.
-    *
-    * Get an error severity level stream for logging.
-    * @code Trace::error("MyTag") << "Hello world!" << Trace::endline; @endcode
-    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
-    * @return A TraceStream that can be used for stream-like logging.
-    */
-  static TraceStream error(const std::string& tag);
-
-  /**
-   * @brief Get warning severity level stream.
-   *
-   * Get a warning severity level stream for logging.
-   * @code Trace::warn("MyTag") << "Hello world!" << Trace::endline; @endcode
-   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
-   * @return A TraceStream that can be used for stream-like logging.
-   */
-  static TraceStream warn(const std::string& tag);
 
   /**
    * @brief Add a log to logging core.
@@ -370,10 +370,10 @@ class Trace {
   void log_(SeverityLevel slv, const std::string& tag, const std::string& message);
 
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
-  friend TraceStream (::TraceDebug)(const std::string& tag);  ///< Method TraceDebug must get access to @p debug() private function
-  friend TraceStream (::TraceInfo)(const std::string& tag);  ///< Method TraceInfo must get access to @p info() private function
-  friend TraceStream (::TraceError)(const std::string& tag);  ///< Method TraceError must get access to @p error() private function
-  friend TraceStream (::TraceWarn)(const std::string& tag);  ///< Method TraceWarn must get access to @p warn() private function
+  friend TraceStream (::Tracedebug)(const std::string& tag);  ///< Method Tracedebug must get access to @p debug() private function
+  friend TraceStream (::Traceinfo)(const std::string& tag);  ///< Method Traceinfo must get access to @p info() private function
+  friend TraceStream (::Traceerror)(const std::string& tag);  ///< Method Traceerror must get access to @p error() private function
+  friend TraceStream (::Tracewarn)(const std::string& tag);  ///< Method Tracewarn must get access to @p warn() private function
   friend void (::TraceLog)(DYN::SeverityLevel slv,
     const std::string& tag, const std::string& message);  ///< Method TraceLog must get access to @p log() private function
   friend bool (::TraceLogExists)(const std::string& tag, DYN::SeverityLevel slv);  ///< Method TraceLogExists must get access to @p logExists() private function
@@ -383,6 +383,18 @@ class Trace {
   std::vector< boost::shared_ptr<Trace::TextSink> > originalSinks_;  ///< Original sinks
   boost::mutex mutex_;  ///< mutex to synchronize logs at init
 };
+
+#ifdef _WIN32
+#define TRACE(level, ...) Trace##level(__VA_ARGS__)
+#define TRACELOG(...) TraceLog(__VA_ARGS__)
+#define TRACELOGEXISTS(...) TraceLogExists(__VA_ARGS__)
+#elif __unix__
+#define TRACE(level, ...) DYN::Trace::level(__VA_ARGS__)
+#define TRACELOG(...) DYN::Trace::log(__VA_ARGS__)
+#define TRACELOGEXISTS(...) DYN::Trace::logExists(__VA_ARGS__)
+#else
+#error "Unknown compiler"
+#endif
 
 }  // namespace DYN
 

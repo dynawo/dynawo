@@ -149,11 +149,11 @@ void
 RatioTapChangerInterfaceIIDM::sanityCheck(const std::string& parentName) const {
   if (tapChangerIIDM_.has_regulating() && tapChangerIIDM_.regulating()) {
     if (!tapChangerIIDM_.has_targetV())
-      ::ErrorQueuePush(DYNError(DYN::Error::STATIC_DATA, MissingTargetVInRatioTapChanger, parentName));
+      ERRORQUEUEPUSH(DYNError(DYN::Error::STATIC_DATA, MissingTargetVInRatioTapChanger, parentName));
     if (!tapChangerIIDM_.has_terminalReference())
-      ::ErrorQueuePush(DYNError(DYN::Error::STATIC_DATA, MissingTerminalRefInRatioTapChanger, parentName));
+      ERRORQUEUEPUSH(DYNError(DYN::Error::STATIC_DATA, MissingTerminalRefInRatioTapChanger, parentName));
     if (tapChangerIIDM_.has_terminalReference() && tapChangerIIDM_.terminalReference().side == IIDM::side_end) {
-      ::ErrorQueuePush(DYNError(DYN::Error::STATIC_DATA, MissingTerminalRefSideInRatioTapChanger, parentName));
+      ERRORQUEUEPUSH(DYNError(DYN::Error::STATIC_DATA, MissingTerminalRefSideInRatioTapChanger, parentName));
     }
   }
 }

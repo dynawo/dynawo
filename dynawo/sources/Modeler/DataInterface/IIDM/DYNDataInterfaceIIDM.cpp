@@ -331,7 +331,7 @@ DataInterfaceIIDM::initFromIIDM() {
     IIDM::Contains<IIDM::Transformer2Windings>::iterator it2WTfo = itSubstation->twoWindingsTransformers().begin();
     for (; it2WTfo != itSubstation->twoWindingsTransformers().end(); ++it2WTfo) {
       if ( !(*it2WTfo).has_connection(IIDM::side_1) && !(*it2WTfo).has_connection(IIDM::side_2) ) {
-        ::TraceDebug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*it2WTfo).id()) << Trace::endline;
+        TRACE(debug, Trace::modeler()) << DYNLog(NoNetworkConnection, (*it2WTfo).id()) << Trace::endline;
         continue;
       }
       shared_ptr<TwoWTransformerInterface> tfo = importTwoWindingsTransformer(*it2WTfo);
@@ -345,7 +345,7 @@ DataInterfaceIIDM::initFromIIDM() {
     IIDM::Contains<IIDM::Transformer3Windings>::iterator it3WTfo = itSubstation->threeWindingsTransformers().begin();
     for (; it3WTfo != itSubstation->threeWindingsTransformers().end(); ++it3WTfo) {
       if (!(*it3WTfo).has_connection(IIDM::side_1) && !(*it3WTfo).has_connection(IIDM::side_2) && !(*it3WTfo).has_connection(IIDM::side_3)) {
-        ::TraceDebug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*it3WTfo).id()) << Trace::endline;
+        TRACE(debug, Trace::modeler()) << DYNLog(NoNetworkConnection, (*it3WTfo).id()) << Trace::endline;
         continue;
       }
       shared_ptr<ThreeWTransformerInterface> tfo = importThreeWindingsTransformer(*it3WTfo);
@@ -361,7 +361,7 @@ DataInterfaceIIDM::initFromIIDM() {
   IIDM::Contains<IIDM::Line>::iterator itLine = networkIIDM_.lines().begin();
   for (; itLine != networkIIDM_.lines().end(); ++itLine) {
     if ( !(*itLine).has_connection(IIDM::side_1) && !(*itLine).has_connection(IIDM::side_2) ) {
-      ::TraceDebug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itLine).id()) << Trace::endline;
+      TRACE(debug, Trace::modeler()) << DYNLog(NoNetworkConnection, (*itLine).id()) << Trace::endline;
       continue;
     }
     shared_ptr<LineInterface> line = importLine(*itLine);
@@ -375,7 +375,7 @@ DataInterfaceIIDM::initFromIIDM() {
   IIDM::Contains<IIDM::TieLine>::iterator itTieLine = networkIIDM_.tielines().begin();
   for (; itTieLine != networkIIDM_.tielines().end(); ++itTieLine) {
     if ( !(*itTieLine).has_connection(IIDM::side_1) && !(*itTieLine).has_connection(IIDM::side_2) ) {
-      ::TraceDebug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itTieLine).id()) << Trace::endline;
+      TRACE(debug, Trace::modeler()) << DYNLog(NoNetworkConnection, (*itTieLine).id()) << Trace::endline;
       continue;
     }
     importTieLine(*itTieLine);
@@ -390,7 +390,7 @@ DataInterfaceIIDM::initFromIIDM() {
     network_->addHvdcLine(hvdc);
     components_[hvdc->getID()] = hvdc;
   }
-  ::ErrorQueueFlush();
+  ERRORQUEUEFLUSH();
 }
 
 shared_ptr<VoltageLevelInterface>
@@ -451,7 +451,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM, cons
   IIDM::Contains<IIDM::Generator>::iterator itGen = voltageLevelIIDM.generators().begin();
   for (; itGen != voltageLevelIIDM.generators().end(); ++itGen) {
     if ( !(*itGen).has_connection() ) {
-      ::TraceDebug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itGen).id()) << Trace::endline;
+      TRACE(debug, Trace::modeler()) << DYNLog(NoNetworkConnection, (*itGen).id()) << Trace::endline;
       continue;
     }
     shared_ptr<GeneratorInterface> generator = importGenerator(*itGen, country);
@@ -467,7 +467,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM, cons
   IIDM::Contains<IIDM::Load>::iterator itLoad = voltageLevelIIDM.loads().begin();
   for (; itLoad != voltageLevelIIDM.loads().end(); ++itLoad) {
     if ( !(*itLoad).has_connection() ) {
-      ::TraceDebug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itLoad).id()) << Trace::endline;
+      TRACE(debug, Trace::modeler()) << DYNLog(NoNetworkConnection, (*itLoad).id()) << Trace::endline;
       continue;
     }
     shared_ptr<LoadInterface> load = importLoad(*itLoad, country);
@@ -483,7 +483,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM, cons
   IIDM::Contains<IIDM::ShuntCompensator>::iterator itShunt = voltageLevelIIDM.shuntCompensators().begin();
   for (; itShunt != voltageLevelIIDM.shuntCompensators().end(); ++itShunt) {
     if ( !(*itShunt).has_connection() ) {
-      ::TraceDebug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itShunt).id()) << Trace::endline;
+      TRACE(debug, Trace::modeler()) << DYNLog(NoNetworkConnection, (*itShunt).id()) << Trace::endline;
       continue;
     }
     shared_ptr<ShuntCompensatorInterface> shunt = importShuntCompensator(*itShunt);
@@ -498,7 +498,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM, cons
   IIDM::Contains<IIDM::DanglingLine>::iterator itDanglingLine = voltageLevelIIDM.danglingLines().begin();
   for (; itDanglingLine != voltageLevelIIDM.danglingLines().end(); ++itDanglingLine) {
     if ( !(*itDanglingLine).has_connection() ) {
-      ::TraceDebug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itDanglingLine).id()) << Trace::endline;
+      TRACE(debug, Trace::modeler()) << DYNLog(NoNetworkConnection, (*itDanglingLine).id()) << Trace::endline;
       continue;
     }
     shared_ptr<DanglingLineInterface> line = importDanglingLine(*itDanglingLine);
@@ -513,7 +513,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM, cons
   IIDM::Contains<IIDM::StaticVarCompensator>::iterator itSVC = voltageLevelIIDM.staticVarCompensators().begin();
   for (; itSVC != voltageLevelIIDM.staticVarCompensators().end(); ++itSVC) {
     if ( !(*itSVC).has_connection() ) {
-      ::TraceDebug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itSVC).id()) << Trace::endline;
+      TRACE(debug, Trace::modeler()) << DYNLog(NoNetworkConnection, (*itSVC).id()) << Trace::endline;
       continue;
     }
     shared_ptr<StaticVarCompensatorInterface> svc = importStaticVarCompensator(*itSVC);
@@ -528,7 +528,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM, cons
   IIDM::Contains<IIDM::VscConverterStation>::iterator itVSC = voltageLevelIIDM.vscConverterStations().begin();
   for (; itVSC != voltageLevelIIDM.vscConverterStations().end(); ++itVSC) {
     if ( !(*itVSC).has_connection() ) {
-      ::TraceDebug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itVSC).id()) << Trace::endline;
+      TRACE(debug, Trace::modeler()) << DYNLog(NoNetworkConnection, (*itVSC).id()) << Trace::endline;
       continue;
     }
     shared_ptr<VscConverterInterface> vsc = importVscConverter(*itVSC);
@@ -543,7 +543,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM, cons
   IIDM::Contains<IIDM::LccConverterStation>::iterator itLCC = voltageLevelIIDM.lccConverterStations().begin();
   for (; itLCC != voltageLevelIIDM.lccConverterStations().end(); ++itLCC) {
     if ( !(*itLCC).has_connection() ) {
-      ::TraceDebug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itLCC).id()) << Trace::endline;
+      TRACE(debug, Trace::modeler()) << DYNLog(NoNetworkConnection, (*itLCC).id()) << Trace::endline;
       continue;
     }
     shared_ptr<LccConverterInterface> lcc = importLccConverter(*itLCC);
@@ -1172,7 +1172,7 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
         if (busItfIter != components_.end()) {
           const boost::shared_ptr<ComponentInterface>& cmp = busItfIter->second;
           if (cmp->getType() != ComponentInterface::BUS)
-            ::TraceWarn() << DYNLog(WrongComponentType, *cmpIt, "bus") << Trace::endline;
+            TRACE(warn) << DYNLog(WrongComponentType, *cmpIt, "bus") << Trace::endline;
           if (crit->hasCountryFilter()) {
             boost::shared_ptr<BusInterfaceIIDM> bus = dynamic_pointer_cast<BusInterfaceIIDM>(cmp);
             if (bus && !bus->getCountry().empty() && !crit->containsCountry(bus->getCountry()))
@@ -1185,7 +1185,7 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
           assert(bus);
           dynCriteria->addBus(bus);
         } else {
-          ::TraceWarn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+          TRACE(warn) << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
         }
       }
     } else {
@@ -1232,7 +1232,7 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
         if (loadItfIter != components_.end()) {
           const boost::shared_ptr<ComponentInterface>& cmp = loadItfIter->second;
           if (cmp->getType() != ComponentInterface::LOAD)
-            ::TraceWarn() << DYNLog(WrongComponentType, *cmpIt, "load") << Trace::endline;
+            TRACE(warn) << DYNLog(WrongComponentType, *cmpIt, "load") << Trace::endline;
           if (crit->hasCountryFilter()) {
             boost::shared_ptr<LoadInterfaceIIDM> load = dynamic_pointer_cast<LoadInterfaceIIDM>(cmp);
             if (!load->getCountry().empty() && !crit->containsCountry(load->getCountry()))
@@ -1242,7 +1242,7 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
           assert(load);
           dynCriteria->addLoad(load);
         } else {
-          ::TraceWarn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+          TRACE(warn) << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
         }
       }
     } else {
@@ -1279,7 +1279,7 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
         if (generatorItfIter != components_.end()) {
           const boost::shared_ptr<ComponentInterface>& cmp = generatorItfIter->second;
           if (cmp->getType() != ComponentInterface::GENERATOR)
-            ::TraceWarn() << DYNLog(WrongComponentType, *cmpIt, "generator") << Trace::endline;
+            TRACE(warn) << DYNLog(WrongComponentType, *cmpIt, "generator") << Trace::endline;
           if (crit->hasCountryFilter()) {
             boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmp);
             if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
@@ -1289,7 +1289,7 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
           assert(gen);
           dynCriteria->addGenerator(gen);
         } else {
-          ::TraceWarn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+          TRACE(warn) << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
         }
       }
     } else {

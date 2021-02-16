@@ -26,18 +26,18 @@ extern "C" bool TraceLogExists(const std::string& tag, DYN::SeverityLevel slv) {
   return DYN::Trace::logExists(tag, slv);
 }
 
-extern "C" DYN::TraceStream TraceWarn(const std::string& tag) {
+extern "C" DYN::TraceStream Tracewarn(const std::string& tag) {
   return DYN::Trace::warn(tag);
 }
 
-extern "C" DYN::TraceStream TraceDebug(const std::string& tag) {
+extern "C" DYN::TraceStream Tracedebug(const std::string& tag) {
   return DYN::Trace::debug(tag);
 }
 
-extern "C" DYN::TraceStream TraceError(const std::string& tag) {
+extern "C" DYN::TraceStream Traceerror(const std::string& tag) {
   return DYN::Trace::error(tag);
 }
 
-extern "C" DYN::TraceStream TraceInfo(const std::string& tag) {
+extern "C" DYN::TraceStream Traceinfo(const std::string& tag) {
   return DYN::Trace::info(tag);
 }

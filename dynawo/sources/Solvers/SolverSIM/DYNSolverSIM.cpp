@@ -209,12 +209,12 @@ SolverSIM::init(const shared_ptr<Model> &model, const double & t0, const double 
   Solver::Impl::resetStats();
   g0_.assign(model_->sizeG(), NO_ROOT);
   g1_.assign(model_->sizeG(), NO_ROOT);
-  ::TraceDebug() << DYNLog(SolverSIMInitOK) << Trace::endline;
+  TRACE(debug) << DYNLog(SolverSIMInitOK) << Trace::endline;
 }
 
 void
 SolverSIM::calculateIC() {
-  ::TraceDebug() << DYNLog(CalculateIC) << Trace::endline;
+  TRACE(debug) << DYNLog(CalculateIC) << Trace::endline;
   // Root evaluation before the initialization
   // --------------------------------
   ySave_.assign(vYy_.begin(), vYy_.end());
@@ -238,7 +238,7 @@ SolverSIM::calculateIC() {
 
   // Loop as long as there is a z or a mode change
   do {
-    ::TraceDebug() << DYNLog(CalculateICIteration, counter) << Trace::endline;
+    TRACE(debug) << DYNLog(CalculateICIteration, counter) << Trace::endline;
 
     // Global initialization - continuous part
     solverKINAlgRestoration_->setInitialValues(tSolve_, vYy_, vYp_);
@@ -264,7 +264,7 @@ SolverSIM::calculateIC() {
       throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
   } while (change);
 
-  ::TraceDebug() << DYNLog(EndCalculateIC) << Trace::endline;
+  TRACE(debug) << DYNLog(EndCalculateIC) << Trace::endline;
   solverKINAlgRestoration_->clean();
 #if _DEBUG_
   solverKINAlgRestoration_->setCheckJacobian(false);
@@ -378,7 +378,7 @@ SolverSIM::SolverStatus_t SolverSIM::analyzeResult(int& flag) {
     return NON_CONV;
   } else if (skipNRIfInitialGuessOK_ && !skipNextNR_ && flag == KIN_INITIAL_GUESS_OK) {
     skipNextNR_ = skipNRIfInitialGuessOK_;
-    ::TraceInfo() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
+    TRACE(info) << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
   }
 
   solverKINEuler_->getValues(vYy_, vYp_);

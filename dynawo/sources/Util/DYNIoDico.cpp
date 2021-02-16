@@ -70,11 +70,11 @@ void IoDico::readFile(const string& file) {
   }
 }
 
-string IoDico::msg(const string& msgId) {
+string IoDico::msg(const string& msgId) const {
   string phrase = "";
 
   if (map_.find(msgId) != map_.end()) {
-    phrase = map_[msgId];
+    phrase = map_.find(msgId)->second;
   } else {
     throw MessageError("there is no key '" + msgId + "' in the dictionary");
   }

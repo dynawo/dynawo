@@ -266,13 +266,13 @@ SolverKINCommon::analyseFlag(const int & flag) {
       break;
     default:
 #ifdef _DEBUG_
-      ::TraceError() << DYNLog(SolverKINUnknownError) << Trace::endline;
+      TRACE(error) << DYNLog(SolverKINUnknownError) << Trace::endline;
 #endif
       throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
   }
 
   if (flag < 0)
-    ::TraceError() << msg.str() << Trace::endline;
+    TRACE(error) << msg.str() << Trace::endline;
 }
 
 void
@@ -284,7 +284,7 @@ SolverKINCommon::errHandlerFn(int /*error_code*/, const char* /*module*/, const 
 void
 SolverKINCommon::infoHandlerFn(const char* module, const char* function,
         char* msg, void* /*eh_data*/) {
-  ::TraceInfo() << module << " " << function << " :" << msg << Trace::endline;
+  TRACE(info) << module << " " << function << " :" << msg << Trace::endline;
 }
 
 void

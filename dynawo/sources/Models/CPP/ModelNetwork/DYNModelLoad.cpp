@@ -571,7 +571,7 @@ NetworkComponent::StateChange_t
 ModelLoad::evalZ(const double& /*t*/) {
   State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != getConnected()) {
-    ::TraceInfo() << DYNLog(LoadStateChange, id_, getConnected(), z_[0]) << Trace::endline;
+    TRACE(info) << DYNLog(LoadStateChange, id_, getConnected(), z_[0]) << Trace::endline;
     if (currState == OPEN) {
       DYNAddTimelineEvent(network_, id_, LoadDisconnected);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
@@ -642,7 +642,7 @@ ModelLoad::setSubModelParameters(const boost::unordered_map<std::string, Paramet
       betaLong_ = getParameterDynamic<double>(params, "betaLong", ids);
     }
   } catch (const DYN::Error& e) {
-    ::TraceError() << e.what() << Trace::endline;
+    TRACE(error) << e.what() << Trace::endline;
     throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, id_);
   }
 

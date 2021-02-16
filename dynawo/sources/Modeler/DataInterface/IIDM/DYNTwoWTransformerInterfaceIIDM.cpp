@@ -280,7 +280,7 @@ double
 TwoWTransformerInterfaceIIDM::getP1() {
   if (getInitialConnected1()) {
     if (!tfoIIDM_.has_p1()) {
-      ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "transformer", tfoIIDM_.id(), "P1") << Trace::endline;
+      TRACE(warn, "DATAINTERFACE") << DYNLog(VariableNotSet, "transformer", tfoIIDM_.id(), "P1") << Trace::endline;
       return 0;
     }
     return tfoIIDM_.p1();
@@ -293,7 +293,7 @@ double
 TwoWTransformerInterfaceIIDM::getQ1() {
   if (getInitialConnected1()) {
     if (!tfoIIDM_.has_q1()) {
-      ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "transformer", tfoIIDM_.id(), "Q1") << Trace::endline;
+      TRACE(warn, "DATAINTERFACE") << DYNLog(VariableNotSet, "transformer", tfoIIDM_.id(), "Q1") << Trace::endline;
       return 0;
     }
     return tfoIIDM_.q1();
@@ -306,7 +306,7 @@ double
 TwoWTransformerInterfaceIIDM::getP2() {
   if (getInitialConnected2()) {
     if (!tfoIIDM_.has_p2()) {
-      ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "transformer", tfoIIDM_.id(), "P2") << Trace::endline;
+      TRACE(warn, "DATAINTERFACE") << DYNLog(VariableNotSet, "transformer", tfoIIDM_.id(), "P2") << Trace::endline;
       return 0;
     }
     return tfoIIDM_.p2();
@@ -319,7 +319,7 @@ double
 TwoWTransformerInterfaceIIDM::getQ2() {
   if (getInitialConnected2()) {
     if (!tfoIIDM_.has_q2()) {
-      ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "transformer", tfoIIDM_.id(), "Q2") << Trace::endline;
+      TRACE(warn, "DATAINTERFACE") << DYNLog(VariableNotSet, "transformer", tfoIIDM_.id(), "Q2") << Trace::endline;
       return 0;
     }
     return tfoIIDM_.q2();

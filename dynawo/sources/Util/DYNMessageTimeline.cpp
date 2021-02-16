@@ -45,9 +45,9 @@ void
 MessageTimeline::initialize(const string& key) {
   priority_ = boost::none;
   static const string dicoName = "TIMELINE_PRIORITY";
-  if (::HasIoDico(dicoName)) {
+  if (HASIODICO(dicoName)) {
     try {
-      string priority = ::GetIoDico(dicoName)->msg(key);
+      string priority = GETIODICO(dicoName).msg(key);
 #ifdef LANG_CXX11
       priority_ = std::stoi(priority);
 #else

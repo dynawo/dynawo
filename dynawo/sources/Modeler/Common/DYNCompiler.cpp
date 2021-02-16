@@ -118,11 +118,11 @@ Compiler::compile() {
 
       compiledModelDescriptions_[itrefMap->first->getID()] = itrefMap->first;  // add the modelica model to already compiled lib
 
-      ::TraceInfo(Trace::compile()) << itrefMap->first->getID() << " " << DYNLog(CompiledModelID, itrefMap->first->getCompiledModelId()) << Trace::endline;
+      TRACE(info, Trace::compile()) << itrefMap->first->getID() << " " << DYNLog(CompiledModelID, itrefMap->first->getCompiledModelId()) << Trace::endline;
     }
   }
 
-  ::TraceInfo(Trace::compile()) << DYNLog(CompilationDone) << Trace::endline;
+  TRACE(info, Trace::compile()) << DYNLog(CompilationDone) << Trace::endline;
 }
 
 void
@@ -148,12 +148,12 @@ Compiler::getDDB() {
 
   // look for standard precompiled models
   if (useStandardPrecompiledModels_) {
-    ::TraceInfo(Trace::compile()) << DYNLog(DDBDir, DDBDir) << Trace::endline;
+    TRACE(info, Trace::compile()) << DYNLog(DDBDir, DDBDir) << Trace::endline;
     searchFilesAccordingToExtension(DDBDir, sharedLibraryExtension(), noFileExtensionsForbidden, searchInSubDirsStandardModels, libraryFiles);
   }
 
   for (vector<UserDefinedDirectory>::const_iterator itDir = precompiledModelsDirsPaths_.begin(); itDir != precompiledModelsDirsPaths_.end(); ++itDir) {
-    ::TraceInfo(Trace::compile()) << DYNLog(CustomDir, itDir->path, precompiledModelsExtension_) << Trace::endline;
+    TRACE(info, Trace::compile()) << DYNLog(CustomDir, itDir->path, precompiledModelsExtension_) << Trace::endline;
     searchFilesAccordingToExtension(itDir->path, precompiledModelsExtension_, noFileExtensionsForbidden, searchInSubDirsCustomModels, libraryFiles);
   }
 
@@ -163,9 +163,9 @@ Compiler::getDDB() {
       throw DYNError(Error::MODELER, DuplicateLibFile, file_name(*itFile));
     }
     libFiles_[file_name(*itFile)] = *itFile;
-    ::TraceDebug(Trace::compile()) << *itFile << Trace::endline;
+    TRACE(debug, Trace::compile()) << *itFile << Trace::endline;
   }
-  ::TraceDebug(Trace::compile()) << "" << Trace::endline;
+  TRACE(debug, Trace::compile()) << "" << Trace::endline;
 
   // look for Modelica models and external variable files
   if (useStandardModelicaModels_) {
@@ -193,17 +193,17 @@ Compiler::getDDB() {
     searchModelsFiles(itDir->path, ".extvar", fileExtensionsForbiddenXML, pathsToIgnore_,
         itDir->isRecursive, packageNeedsRecursive, !stopWhenSeePackage, extVarFiles_);
   }
-  ::TraceDebug(Trace::compile()) << DYNLog(CompileFiles) << Trace::endline;
+  TRACE(debug, Trace::compile()) << DYNLog(CompileFiles) << Trace::endline;
   for (std::map<string, string>::const_iterator itFile = moFilesCompilation_.begin(); itFile != moFilesCompilation_.end(); ++itFile) {
-    ::TraceDebug(Trace::compile()) << (itFile->second) << Trace::endline;
+    TRACE(debug, Trace::compile()) << (itFile->second) << Trace::endline;
   }
-  ::TraceDebug(Trace::compile()) << "" << Trace::endline;
+  TRACE(debug, Trace::compile()) << "" << Trace::endline;
 
-  ::TraceDebug(Trace::compile()) << "External variable files" << Trace::endline;
+  TRACE(debug, Trace::compile()) << "External variable files" << Trace::endline;
   for (std::map<string, string>::const_iterator itFile = extVarFiles_.begin(); itFile != extVarFiles_.end(); ++itFile) {
-    ::TraceDebug(Trace::compile()) << itFile->second << Trace::endline;
+    TRACE(debug, Trace::compile()) << itFile->second << Trace::endline;
   }
-  ::TraceDebug(Trace::compile()) << "" << Trace::endline;
+  TRACE(debug, Trace::compile()) << "" << Trace::endline;
 }
 
 void
@@ -214,14 +214,14 @@ Compiler::compileModelTemplateExpansionDescription(const shared_ptr<ModelDescrip
 
   string id = DYNLog(CompilingModel, modelTemplateExpansionDescription->getID()).str();
   int l = id.size() / 2;
-  ::TraceInfo(Trace::compile()) << "====================================================================================================" << Trace::endline;
-  ::TraceInfo(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
-  ::TraceInfo(Trace::compile()) << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
-  ::TraceInfo(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
-  ::TraceInfo(Trace::compile()) << "====================================================================================================" << Trace::endline;
+  TRACE(info, Trace::compile()) << "====================================================================================================" << Trace::endline;
+  TRACE(info, Trace::compile()) << "|                                                                                                  |" << Trace::endline;
+  TRACE(info, Trace::compile()) << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
+  TRACE(info, Trace::compile()) << "|                                                                                                  |" << Trace::endline;
+  TRACE(info, Trace::compile()) << "====================================================================================================" << Trace::endline;
   string modelID(modelTemplateExpansionDescription->getID());
   if (compiledModelDescriptions_.find(modelID) != compiledModelDescriptions_.end()) {
-    ::TraceInfo(Trace::compile()) << DYNLog(AlreadyCompiledModel, modelID) << Trace::endline;
+    TRACE(info, Trace::compile()) << DYNLog(AlreadyCompiledModel, modelID) << Trace::endline;
     return;
   }
 
@@ -233,7 +233,7 @@ Compiler::compileModelTemplateExpansionDescription(const shared_ptr<ModelDescrip
 
   if (modelTemplateDescriptions_.find(modelTemplateExpansion->getTemplateId()) != modelTemplateDescriptions_.end()) {
     string libtmp = modelTemplateDescriptions_[ modelTemplateExpansion->getTemplateId() ]->getLib();
-    ::TraceInfo(Trace::compile()) <<  DYNLog(SetLib, modelTemplateExpansion->getTemplateId(), libtmp) << Trace::endline;
+    TRACE(info, Trace::compile()) <<  DYNLog(SetLib, modelTemplateExpansion->getTemplateId(), libtmp) << Trace::endline;
     modelTemplateExpansionDescription->setLib(libtmp);
   } else {
     throw DYNError(Error::MODELER, UnableToFindLib, modelTemplateExpansion->getTemplateId());
@@ -242,8 +242,8 @@ Compiler::compileModelTemplateExpansionDescription(const shared_ptr<ModelDescrip
   // Everything is ok -> model added in already compiled models
   compiledModelDescriptions_[modelID] = modelTemplateExpansionDescription;
   modelTemplateExpansionDescription->hasCompiledModel(true);
-  ::TraceInfo(Trace::compile()) << DYNLog(ModelTemplateExpansionCompiled, modelID) << Trace::endline;
-  ::TraceInfo(Trace::compile()) << DYNLog(CompiledModelID, modelID) << Trace::endline;
+  TRACE(info, Trace::compile()) << DYNLog(ModelTemplateExpansionCompiled, modelID) << Trace::endline;
+  TRACE(info, Trace::compile()) << DYNLog(CompiledModelID, modelID) << Trace::endline;
 }
 
 void
@@ -254,14 +254,14 @@ Compiler::compileBlackBoxModelDescription(const shared_ptr<ModelDescription>& bl
 
   string id = DYNLog(CompilingModel, blackBoxModelDescription->getID()).str();
   int l = id.size() / 2;
-  ::TraceInfo(Trace::compile()) << "====================================================================================================" << Trace::endline;
-  ::TraceInfo(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
-  ::TraceInfo(Trace::compile()) << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
-  ::TraceInfo(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
-  ::TraceInfo(Trace::compile()) << "====================================================================================================" << Trace::endline;
+  TRACE(info, Trace::compile()) << "====================================================================================================" << Trace::endline;
+  TRACE(info, Trace::compile()) << "|                                                                                                  |" << Trace::endline;
+  TRACE(info, Trace::compile()) << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
+  TRACE(info, Trace::compile()) << "|                                                                                                  |" << Trace::endline;
+  TRACE(info, Trace::compile()) << "====================================================================================================" << Trace::endline;
   string modelID(blackBoxModelDescription->getID());
   if (compiledModelDescriptions_.find(modelID) != compiledModelDescriptions_.end()) {
-    ::TraceInfo(Trace::compile()) << DYNLog(AlreadyCompiledModel, modelID) << Trace::endline;
+    TRACE(info, Trace::compile()) << DYNLog(AlreadyCompiledModel, modelID) << Trace::endline;
     return;
   }
 
@@ -271,7 +271,7 @@ Compiler::compileBlackBoxModelDescription(const shared_ptr<ModelDescription>& bl
 
   if (libFiles_.find(blackBoxModel->getLib() + precompiledModelsExtension_) != libFiles_.end()) {
     blackBoxModelDescription->setLib(libFiles_[blackBoxModel->getLib() + precompiledModelsExtension_]);
-    ::TraceInfo(Trace::compile()) << DYNLog(SetLib, blackBoxModel->getLib(), libFiles_[blackBoxModel->getLib()]) << Trace::endline;
+    TRACE(info, Trace::compile()) << DYNLog(SetLib, blackBoxModel->getLib(), libFiles_[blackBoxModel->getLib()]) << Trace::endline;
   } else {
     throw DYNError(Error::MODELER, UnableToFindLib, blackBoxModel->getLib());
   }
@@ -279,8 +279,8 @@ Compiler::compileBlackBoxModelDescription(const shared_ptr<ModelDescription>& bl
   // Everything is ok -> model added in already compiled models
   compiledModelDescriptions_[modelID] = blackBoxModelDescription;
   blackBoxModelDescription->hasCompiledModel(true);
-  ::TraceInfo(Trace::compile()) << DYNLog(BlackBoxModelCompiled, modelID) << Trace::endline;
-  ::TraceInfo(Trace::compile()) << DYNLog(CompiledModelID, modelID) << Trace::endline;
+  TRACE(info, Trace::compile()) << DYNLog(BlackBoxModelCompiled, modelID) << Trace::endline;
+  TRACE(info, Trace::compile()) << DYNLog(CompiledModelID, modelID) << Trace::endline;
 }
 
 void
@@ -320,11 +320,11 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
 
   string id = DYNLog(CompilingModel, modelDescription->getID()).str();
   int l = id.size() / 2;
-  ::TraceInfo(Trace::compile()) << "====================================================================================================" << Trace::endline;
-  ::TraceInfo(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
-  ::TraceInfo(Trace::compile()) << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
-  ::TraceInfo(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
-  ::TraceInfo(Trace::compile()) << "====================================================================================================" << Trace::endline;
+  TRACE(info, Trace::compile()) << "====================================================================================================" << Trace::endline;
+  TRACE(info, Trace::compile()) << "|                                                                                                  |" << Trace::endline;
+  TRACE(info, Trace::compile()) << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
+  TRACE(info, Trace::compile()) << "|                                                                                                  |" << Trace::endline;
+  TRACE(info, Trace::compile()) << "====================================================================================================" << Trace::endline;
 
   // concat models
   concatModel(modelDescription);  // for .mo, .extvar, -init.mo
@@ -356,11 +356,11 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
     compileCommand += " --additionalHeaderList" + additionalHeaderList;
   }
 
-  ::TraceInfo(Trace::compile()) << DYNLog(CompileCommmand, compileCommand) << Trace::endline;
+  TRACE(info, Trace::compile()) << DYNLog(CompileCommmand, compileCommand) << Trace::endline;
 
   stringstream ss;
   executeCommand(compileCommand, ss);
-  ::TraceDebug(Trace::compile()) << ss.str() << Trace::endline;
+  TRACE(debug, Trace::compile()) << ss.str() << Trace::endline;
 
 #ifdef __linux__
     bool hasUndefinedSymbol = (ss.str().find("undefined symbol") != string::npos);
@@ -381,7 +381,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   }
 #endif
 
-  ::TraceInfo(Trace::compile()) << DYNLog(SetLib, modelID, lib) << Trace::endline;
+  TRACE(info, Trace::compile()) << DYNLog(SetLib, modelID, lib) << Trace::endline;
   modelDescription->setLib(lib);
 
   if (isModelTemplate)
@@ -390,7 +390,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   // Everything is ok -> model added in already compiled models
   compiledModelDescriptions_[modelDescription->getID()] = modelDescription;
   compiledLib_.push_back(lib);
-  ::TraceInfo(Trace::compile()) << DYNLog(CompiledModelID, modelDescription->getCompiledModelId()) << Trace::endline;
+  TRACE(info, Trace::compile()) << DYNLog(CompiledModelID, modelDescription->getCompiledModelId()) << Trace::endline;
 }
 
 void
@@ -477,13 +477,13 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
     shared_ptr<dynamicdata::UnitDynamicModel> unitDynamicModel = itUnitDynamicModel->second;
     string modelName = unitDynamicModel->getDynamicModelName();
     if (extVarFiles_.find(modelName) != extVarFiles_.end()) {
-      ::TraceInfo(Trace::compile()) << DYNLog(ParsingExtVarFile, extVarFiles_[modelName]) << Trace::endline;
+      TRACE(info, Trace::compile()) << DYNLog(ParsingExtVarFile, extVarFiles_[modelName]) << Trace::endline;
       externalVariables::XmlImporter extVarImporter;
       shared_ptr<externalVariables::VariablesCollection> unitModelExternalVariables = extVarImporter.importFromFile(extVarFiles_[modelName]);
 
       allExternalVariables[unitDynamicModel->getId()] = unitModelExternalVariables;
     } else {
-      ::TraceInfo(Trace::compile()) << DYNLog(ExtVarFileNotFound, modelName) << Trace::endline;
+      TRACE(info, Trace::compile()) << DYNLog(ExtVarFileNotFound, modelName) << Trace::endline;
     }
 
     // Test if there is an initialization model for current unit dynamic model
@@ -553,7 +553,7 @@ Compiler::writeConcatModelicaFile(const std::string& modelID, const shared_ptr<M
   string modelConcatName = modelicaModelDescription->getCompiledModelId();
 
   string modelConcatFile = absolute(modelConcatName + ".mo", modelDirPath_);
-  ::TraceInfo(Trace::compile()) << DYNLog(GenerateModelicaConcatFile, modelConcatFile, modelID, modelicaModelDescription->getID()) << Trace::endline;
+  TRACE(info, Trace::compile()) << DYNLog(GenerateModelicaConcatFile, modelConcatFile, modelID, modelicaModelDescription->getID()) << Trace::endline;
   std::ofstream fOut;
 
   fOut.open(modelConcatFile.c_str(), std::fstream::out);
@@ -562,7 +562,7 @@ Compiler::writeConcatModelicaFile(const std::string& modelID, const shared_ptr<M
   for (map<string, shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator itUnitDynamicModel =
       unitDynamicModels.begin(); itUnitDynamicModel != unitDynamicModels.end(); ++itUnitDynamicModel) {
     fOut << "  " << itUnitDynamicModel->second->getDynamicModelName() << " " << itUnitDynamicModel->first << "() ;" << std::endl;
-    ::TraceInfo(Trace::compile()) << itUnitDynamicModel->second->getDynamicModelName() << " " << itUnitDynamicModel->first << "() ;" << Trace::endline;
+    TRACE(info, Trace::compile()) << itUnitDynamicModel->second->getDynamicModelName() << " " << itUnitDynamicModel->first << "() ;" << Trace::endline;
   }
   fOut << "equation" << std::endl;
 
@@ -671,7 +671,7 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
           variable->setId(itUnitDynamicModelName + "." + variableName);
           if (extvarIds.find(variable->getId()) == extvarIds.end()) {
             modelExternalvariables->addVariable(variable);
-            ::TraceInfo(Trace::compile()) << DYNLog(AddingExtVar, itUnitDynamicModelName + "." + variableName) << Trace::endline;
+            TRACE(info, Trace::compile()) << DYNLog(AddingExtVar, itUnitDynamicModelName + "." + variableName) << Trace::endline;
             atLeastOneExternalVariable = true;
             extvarIds.insert(variable->getId());
           }
@@ -760,7 +760,7 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
         shared_ptr<externalVariables::Variable> variable = varNameToConnIndex[firstVar].correspondingVar;
         variable->setId(varNameToConnIndex[firstVar].fullVarId);
         modelExternalvariables->addVariable(variable);
-        ::TraceInfo(Trace::compile()) << DYNLog(AddingDiscreteExtVar, variable->getId()) << Trace::endline;
+        TRACE(info, Trace::compile()) << DYNLog(AddingDiscreteExtVar, variable->getId()) << Trace::endline;
         atLeastOneExternalVariable = true;
         extvarIds.insert(variable->getId());
       }

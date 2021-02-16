@@ -397,14 +397,14 @@ ModelSignalN::defineElements(std::vector<Element> &elements, std::map<std::strin
 
 void
 ModelSignalN::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
-  ::TraceInfo() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  ::TraceInfo() << "  ->" << "alphaSum_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
-  ::TraceInfo() << "  ->" << "n_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
-  ::TraceInfo() << "  ->" << "tetaRef_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
-  ::TraceInfo() << "  ->" << "alpha_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  ::TraceInfo() << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  ::TraceInfo() << "  ->" << "alphaSum_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  ::TraceInfo() << "  ->" << "n_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  TRACE(info) << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  TRACE(info) << "  ->" << "alphaSum_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
+  TRACE(info) << "  ->" << "n_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
+  TRACE(info) << "  ->" << "tetaRef_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
+  TRACE(info) << "  ->" << "alpha_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  TRACE(info) << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  TRACE(info) << "  ->" << "alphaSum_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  TRACE(info) << "  ->" << "n_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
 }
 
 void ModelSignalN::setFequations() {

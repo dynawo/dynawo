@@ -30,7 +30,7 @@ isStopped_(false) {
 void
 Timer::stop() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  ::TimersAdd(name_, timer_.elapsed());
+  TIMERSADD(name_, timer_.elapsed());
 #endif
   isStopped_ = true;
 }

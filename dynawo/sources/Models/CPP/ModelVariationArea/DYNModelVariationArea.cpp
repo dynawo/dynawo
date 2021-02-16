@@ -329,8 +329,8 @@ ModelVariationArea::defineElements(std::vector<Element> &elements, std::map<std:
 
 void
 ModelVariationArea::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
-  ::TraceInfo() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  ::TraceInfo() << "  ->" << "DeltaPc_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
-  ::TraceInfo() << "  ->" << "DeltaQc_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
+  TRACE(info) << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  TRACE(info) << "  ->" << "DeltaPc_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
+  TRACE(info) << "  ->" << "DeltaQc_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
 }
 }  // namespace DYN

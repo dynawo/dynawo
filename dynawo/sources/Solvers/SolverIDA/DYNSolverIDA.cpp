@@ -308,7 +308,7 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
   g0_.assign(model_->sizeG(), NO_ROOT);
   g1_.assign(model_->sizeG(), NO_ROOT);
 
-  ::TraceDebug() << DYNLog(SolverIDAInitOk) << Trace::endline;
+  TRACE(debug) << DYNLog(SolverIDAInitOk) << Trace::endline;
 
   flag = IDASetStepToleranceIC(IDAMem_, 0.01);
   if (flag < 0)
@@ -341,7 +341,7 @@ SolverIDA::calculateIC() {
   y0.assign(vYy_.begin(), vYy_.end());
 #ifdef _DEBUG_
   for (int i = 0; i < model_->sizeY(); ++i) {
-    ::TraceDebug() << "Y[" << std::setw(3) << i << "] = "
+    TRACE(debug) << "Y[" << std::setw(3) << i << "] = "
             << std::setw(15) << vYy_[i]
             << " Yp[" << std::setw(2) << i << "] = "
             << std::setw(15) << vYp_[i]
@@ -383,9 +383,9 @@ SolverIDA::calculateIC() {
     if (flag0 < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
 #ifdef _DEBUG_
-    ::TraceDebug() << DYNLog(SolverIDABeforeCalcIC) << Trace::endline;
+    TRACE(debug) << DYNLog(SolverIDABeforeCalcIC) << Trace::endline;
     for (int i = 0; i < model_->sizeY(); ++i) {
-      ::TraceDebug() << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vYy_[i] << " Yp[" << std::setw(3) << i << "] = " << std::setw(15) << vYp_[i]
+      TRACE(debug) << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vYy_[i] << " Yp[" << std::setw(3) << i << "] = " << std::setw(15) << vYp_[i]
               << " diffY[" << std::setw(3) << i << "] = " << vYy_[i] - ySave[i] << Trace::endline;
     }
 #endif
@@ -398,18 +398,18 @@ SolverIDA::calculateIC() {
     if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetConsistentIC");
 #ifdef _DEBUG_
-    ::TraceDebug() << DYNLog(SolverIDAAfterInit) << Trace::endline;
+    TRACE(debug) << DYNLog(SolverIDAAfterInit) << Trace::endline;
     double maxDiff = 0;
     int indice = -1;
     for (int i = 0; i < model_->sizeY(); ++i) {
-      ::TraceDebug() << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vYy_[i] << " Yp[" << std::setw(3) << i << "] = " << std::setw(15) << vYp_[i]
+      TRACE(debug) << "Y[" << std::setw(3) << i << "] = " << std::setw(15) << vYy_[i] << " Yp[" << std::setw(3) << i << "] = " << std::setw(15) << vYp_[i]
               << " diff =" << std::setw(15) << y0[i] - vYy_[i] << Trace::endline;
       if (std::abs(y0[i] - vYy_[i]) > maxDiff) {
         maxDiff = std::abs(y0[i] - vYy_[i]);
         indice = i;
       }
     }
-    ::TraceDebug() << DYNLog(SolverIDAMaxDiff, maxDiff, indice) << Trace::endline;
+    TRACE(debug) << DYNLog(SolverIDAMaxDiff, maxDiff, indice) << Trace::endline;
 #endif
     // Root stabilization
     change = false;
@@ -485,14 +485,14 @@ SolverIDA::analyseFlag(const int & flag) {
       break;
     default:
 #ifdef _DEBUG_
-      ::TraceError() << DYNLog(SolverIDAUnknownError) << Trace::endline;
+      TRACE(error) << DYNLog(SolverIDAUnknownError) << Trace::endline;
 #endif
       throw DYNError(Error::SUNDIALS_ERROR, SolverIDAError);
   }
 
   if (flag < 0) {
 #ifdef _DEBUG_
-    ::TraceError() << msg.str() << Trace::endline;
+    TRACE(error) << msg.str() << Trace::endline;
 #endif
     throw DYNError(Error::SUNDIALS_ERROR, SolverIDAError);
   }
@@ -513,10 +513,10 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
   model->evalF(tres, iyy, iyp, irr);
 #ifdef _DEBUG_
   if (solv->flagInit()) {
-    ::TraceDebug() << "===== " << DYNLog(SolverIDADebugResidual) << " =====" << Trace::endline;
+    TRACE(debug) << "===== " << DYNLog(SolverIDADebugResidual) << " =====" << Trace::endline;
     for (int i = 0; i < model->sizeF(); ++i) {
       if (std::abs(irr[i]) > 1e-04) {
-        ::TraceDebug() << "  f[" << i << "]=" << irr[i] << Trace::endline;
+        TRACE(debug) << "  f[" << i << "]=" << irr[i] << Trace::endline;
       }
     }
   }
@@ -610,12 +610,12 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
     vector<state_g> rootsFound = getRootsFound();
     for (unsigned int i = 0; i < rootsFound.size(); i++) {
       if (rootsFound[i] != NO_ROOT) {
-        ::TraceDebug() << "SolverIDA: rootsfound ->  g[" << i << "]=" << rootsFound[i] << Trace::endline;
+        TRACE(debug) << "SolverIDA: rootsfound ->  g[" << i << "]=" << rootsFound[i] << Trace::endline;
         std::string subModelName("");
         int localGIndex(0);
         std::string gEquation("");
         model_->getGInfos(i, subModelName, localGIndex, gEquation);
-        ::TraceDebug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
+        TRACE(debug) << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
       }
     }
   }
@@ -658,11 +658,11 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
   }
   std::sort(yErr.begin(), yErr.end(), mapcompabs());
 
-  ::TraceDebug() << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
+  TRACE(debug) << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
   vector<std::pair<double, int> >::iterator it;
   int i = 0;
   for (it = yErr.begin(); it != yErr.end(); ++it) {
-      ::TraceDebug() << DYNLog(SolverIDAErrorValue, thresholdErr, it->second, it->first) << Trace::endline;
+      TRACE(debug) << DYNLog(SolverIDAErrorValue, thresholdErr, it->second, it->first) << Trace::endline;
       if (i >= nbErr)
         break;
       ++i;
@@ -879,9 +879,9 @@ void
 SolverIDA::errHandlerFn(int error_code, const char* module, const char* function,
         char* msg, void* /*eh_data*/) {
   if (error_code == IDA_WARNING) {
-    ::TraceWarn() << module << " " << function << " :" << msg << Trace::endline;
+    TRACE(warn) << module << " " << function << " :" << msg << Trace::endline;
   } else {
-    ::TraceError() << module << " " << function << " :" << msg << Trace::endline;
+    TRACE(error) << module << " " << function << " :" << msg << Trace::endline;
   }
 }
 

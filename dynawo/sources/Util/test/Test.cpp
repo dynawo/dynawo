@@ -215,12 +215,12 @@ TEST(CommonTest, testTrace) {
   appenders.push_back(app);
   Trace::addAppenders(appenders);
 
-  ::TraceError("MyTag") << " MyErrorMessage" << Trace::endline;
-  TraceStream str(::TraceError("MyTag"));
+  TRACE(error, "MyTag") << " MyErrorMessage" << Trace::endline;
+  TraceStream str(TRACE(error, "MyTag"));
   str << " MyErrorMessage2" << Trace::endline;
-  ::TraceWarn("MyTag") << " MyWarnMessage" << Trace::endline;
-  ::TraceInfo("MyTag") << " MyInfoMessage" << Trace::endline;
-  ::TraceDebug("MyTag") << " MyDebugMessage" << Trace::endline;  // Filtered
+  TRACE(warn, "MyTag") << " MyWarnMessage" << Trace::endline;
+  TRACE(info, "MyTag") << " MyInfoMessage" << Trace::endline;
+  TRACE(debug, "MyTag") << " MyDebugMessage" << Trace::endline;  // Filtered
 
   // Force the dump
   Trace::resetCustomAppenders();

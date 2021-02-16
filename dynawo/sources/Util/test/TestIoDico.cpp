@@ -29,8 +29,8 @@
 namespace DYN {
 
 TEST(CommonIoDicoTest, testCommonIoDicosTest) {
-  ASSERT_EQ(::HasIoDico("MyIoDico"), false);
-  ASSERT_THROW(::GetIoDico("MyIoDico"), MessageError);
+  ASSERT_EQ(HASIODICO("MyIoDico"), false);
+  ASSERT_THROW(GETIODICO("MyIoDico"), MessageError);
 
   IoDicos::addPath("res");
   ASSERT_NO_THROW(IoDicos::addDico("MyIoDico", "dico", ""));
@@ -40,23 +40,21 @@ TEST(CommonIoDicoTest, testCommonIoDicosTest) {
   ASSERT_THROW(IoDicos::addDicos(""), MessageError);
   ASSERT_THROW(IoDicos::addDicos("MyDummyDicoMappingFile"), MessageError);
 
-  ASSERT_EQ(::HasIoDico("MyIoDico"), true);
-  assert(::GetIoDico("MyIoDico"));
+  ASSERT_EQ(HASIODICO("MyIoDico"), true);
 
-  IoDico* dico = ::GetIoDico("MyIoDico");
-  assert(dico);
-  ASSERT_EQ(dico->msg("MyEntry"), "My First Entry");
-  ASSERT_EQ(dico->msg("MySecondEntry"), "My Second Entry %u");
-  ASSERT_THROW(dico->msg("MyThirdEntry"), MessageError);
+  const IoDico& dico = GETIODICO("MyIoDico");
+  ASSERT_EQ(dico.msg("MyEntry"), "My First Entry");
+  ASSERT_EQ(dico.msg("MySecondEntry"), "My Second Entry %u");
+  ASSERT_THROW(dico.msg("MyThirdEntry"), MessageError);
 
   ASSERT_NO_THROW(IoDicos::addDico("MyIoDico", "dico", "2"));
-  ASSERT_EQ(dico->msg("MyEntry"), "My First Entry");
-  ASSERT_EQ(dico->msg("MySecondEntry"), "My Second Entry %u");
-  ASSERT_EQ(dico->msg("MyThirdEntry"), "My Third Entry");
-  ASSERT_EQ(dico->msg("MyFourthEntry"), "My Fourth Entry");
+  ASSERT_EQ(dico.msg("MyEntry"), "My First Entry");
+  ASSERT_EQ(dico.msg("MySecondEntry"), "My Second Entry %u");
+  ASSERT_EQ(dico.msg("MyThirdEntry"), "My Third Entry");
+  ASSERT_EQ(dico.msg("MyFourthEntry"), "My Fourth Entry");
 
   ASSERT_THROW(IoDicos::addDico("MyIoDico", "dico", ""), MessageError);
-  boost::shared_ptr<IoDico> dico2 = boost::shared_ptr<IoDico>(new IoDico(*dico));
+  boost::shared_ptr<IoDico> dico2 = boost::shared_ptr<IoDico>(new IoDico(dico));
   ASSERT_EQ(dico2->msg("MyEntry"), "My First Entry");
   ASSERT_EQ(dico2->msg("MySecondEntry"), "My Second Entry %u");
   ASSERT_EQ(dico2->msg("MyThirdEntry"), "My Third Entry");

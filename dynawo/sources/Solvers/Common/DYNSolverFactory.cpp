@@ -83,7 +83,7 @@ boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& 
     if (!handle) {
       stringstream msg;
       msg << "Load error :" << dlerror();
-      ::TraceError() << msg.str() << Trace::endline;
+      TRACE(error) << msg.str() << Trace::endline;
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib);
     }
 
@@ -95,7 +95,7 @@ boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& 
     if (dlsym_error) {
       stringstream msg;
       msg << "Load error :" << dlsym_error;
-      ::TraceError() << msg.str() << Trace::endline;
+      TRACE(error) << msg.str() << Trace::endline;
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::getFactory");
     }
 
@@ -104,7 +104,7 @@ boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& 
     if (dlsym_error) {
       stringstream msg;
       msg << "Load error :" << dlsym_error;
-      ::TraceError() << msg.str() << Trace::endline;
+      TRACE(error) << msg.str() << Trace::endline;
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::deleteFactory");
     }
 

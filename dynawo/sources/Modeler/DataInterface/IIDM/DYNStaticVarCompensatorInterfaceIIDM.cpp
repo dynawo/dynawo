@@ -191,7 +191,7 @@ StaticVarCompensatorInterfaceIIDM::getQ() {
 double
 StaticVarCompensatorInterfaceIIDM::getVSetPoint() const {
   if (!staticVarCompensatorIIDM_.has_voltageSetPoint()) {
-    ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "staticVarCompensator", staticVarCompensatorIIDM_.id(), "VSetPoint") << Trace::endline;
+    TRACE(warn, "DATAINTERFACE") << DYNLog(VariableNotSet, "staticVarCompensator", staticVarCompensatorIIDM_.id(), "VSetPoint") << Trace::endline;
     return 0;
   }
   return staticVarCompensatorIIDM_.voltageSetPoint();
@@ -200,7 +200,7 @@ StaticVarCompensatorInterfaceIIDM::getVSetPoint() const {
 double
 StaticVarCompensatorInterfaceIIDM::getReactivePowerSetPoint() const {
   if (!staticVarCompensatorIIDM_.has_reactivePowerSetPoint()) {
-    ::TraceWarn("DATAINTERFACE") << DYNLog(VariableNotSet, "staticVarCompensator", staticVarCompensatorIIDM_.id(), "ReactivePowerSetPoint") << Trace::endline;
+    TRACE(warn, "DATAINTERFACE") << DYNLog(VariableNotSet, "staticVarCompensator", staticVarCompensatorIIDM_.id(), "ReactivePowerSetPoint") << Trace::endline;
     return 0;
   }
   return staticVarCompensatorIIDM_.reactivePowerSetPoint();

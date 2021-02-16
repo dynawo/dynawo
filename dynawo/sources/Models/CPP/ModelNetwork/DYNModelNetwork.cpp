@@ -137,9 +137,9 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelNetwork::initFromData");
 #endif
-  ::TraceDebug(Trace::network()) << "------------------------------" << Trace::endline;
-  ::TraceDebug(Trace::network()) << "Network initialization" << Trace::endline;
-  ::TraceDebug(Trace::network()) << "------------------------------" << Trace::endline;
+  TRACE(debug, Trace::network()) << "------------------------------" << Trace::endline;
+  TRACE(debug, Trace::network()) << "Network initialization" << Trace::endline;
+  TRACE(debug, Trace::network()) << "------------------------------" << Trace::endline;
   shared_ptr<NetworkInterface> network = data->getNetwork();
   map<string, shared_ptr<ComponentInterface> > componentsById;
   map<string, shared_ptr<ModelBus> > modelBusById;
@@ -151,7 +151,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
   vector<shared_ptr<VoltageLevelInterface> >::const_iterator iVL;
   for (iVL = voltageLevels.begin(); iVL != voltageLevels.end(); ++iVL) {
     string voltageLevelsId = (*iVL)->getID();
-    ::TraceDebug(Trace::network()) << DYNLog(AddingVoltageLevelToNetwork, voltageLevelsId) << Trace::endline;
+    TRACE(debug, Trace::network()) << DYNLog(AddingVoltageLevelToNetwork, voltageLevelsId) << Trace::endline;
     shared_ptr<ModelVoltageLevel> modelVoltageLevel(new ModelVoltageLevel(*iVL));
     shared_ptr<ModelVoltageLevel> modelVoltageLevelInit(new ModelVoltageLevel(*iVL));
     // Add to containers
@@ -170,7 +170,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     vector<shared_ptr<BusInterface> >::const_iterator iBus;
     for (iBus = buses.begin(); iBus != buses.end(); ++iBus) {
       string id = (*iBus)->getID();
-      ::TraceDebug(Trace::network()) << DYNLog(AddingBusToNetwork, id) << Trace::endline;
+      TRACE(debug, Trace::network()) << DYNLog(AddingBusToNetwork, id) << Trace::endline;
       shared_ptr<ModelBus> modelBus(new ModelBus(*iBus, (*iVL)->isNodeBreakerTopology()));
       componentsById[id] = (*iBus);
       modelBusById[id] = modelBus;
@@ -208,10 +208,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelVoltageLevelInit->addSwitch(modelSwitch);
 
       if ((*iSwitch)->hasDynamicModel()) {
-        ::TraceDebug(Trace::network()) << DYNLog(SwitchExtDynModel, id) << Trace::endline;
+        TRACE(debug, Trace::network()) << DYNLog(SwitchExtDynModel, id) << Trace::endline;
         continue;
       }
-      ::TraceDebug(Trace::network()) << DYNLog(AddingSwitchToNetwork, id) << Trace::endline;
+      TRACE(debug, Trace::network()) << DYNLog(AddingSwitchToNetwork, id) << Trace::endline;
       // Add to containers
       modelVoltageLevel->addSwitch(modelSwitch);
       // declare reference between subModel and static data
@@ -234,10 +234,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelVoltageLevelInit->addComponent(modelLoad);
 
       if ((*iLoad)->hasDynamicModel()) {
-        ::TraceDebug(Trace::network()) << DYNLog(LoadExtDynModel, id) << Trace::endline;
+        TRACE(debug, Trace::network()) << DYNLog(LoadExtDynModel, id) << Trace::endline;
         continue;
       }
-      ::TraceDebug(Trace::network()) << DYNLog(AddingLoadToNetwork, id) << Trace::endline;
+      TRACE(debug, Trace::network()) << DYNLog(AddingLoadToNetwork, id) << Trace::endline;
       // Add to containers
       modelVoltageLevel->addComponent(modelLoad);
       // declare reference between subModel and static data
@@ -262,10 +262,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelVoltageLevelInit->addComponent(modelGenerator);
 
       if ((*iGen)->hasDynamicModel()) {
-        ::TraceDebug(Trace::network()) << DYNLog(GeneratorExtDynModel, id) << Trace::endline;
+        TRACE(debug, Trace::network()) << DYNLog(GeneratorExtDynModel, id) << Trace::endline;
         continue;
       }
-      ::TraceDebug(Trace::network()) << DYNLog(AddingGeneratorToNetwork, id) << Trace::endline;
+      TRACE(debug, Trace::network()) << DYNLog(AddingGeneratorToNetwork, id) << Trace::endline;
       // add to containers
       modelVoltageLevel->addComponent(modelGenerator);
       // declare reference between subModel and static data
@@ -290,10 +290,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelVoltageLevelInit->addComponent(modelShuntCompensator);
 
       if ((*iShunt)->hasDynamicModel()) {
-        ::TraceDebug(Trace::network()) << DYNLog(ShuntExtDynModel, id) << Trace::endline;
+        TRACE(debug, Trace::network()) << DYNLog(ShuntExtDynModel, id) << Trace::endline;
         continue;
       }
-      ::TraceDebug(Trace::network()) << DYNLog(AddingShuntToNetwork, id) << Trace::endline;
+      TRACE(debug, Trace::network()) << DYNLog(AddingShuntToNetwork, id) << Trace::endline;
       // add to containers
       modelVoltageLevel->addComponent(modelShuntCompensator);
       // declare reference between subModel and static data
@@ -318,10 +318,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelVoltageLevelInit->addComponent(modelStaticVarCompensator);
 
       if ((*iSvc)->hasDynamicModel()) {
-        ::TraceDebug(Trace::network()) << DYNLog(SVCExtDynModel, id) << Trace::endline;
+        TRACE(debug, Trace::network()) << DYNLog(SVCExtDynModel, id) << Trace::endline;
         continue;
       }
-      ::TraceDebug(Trace::network()) << DYNLog(AddingSVCToNetwork, id) << Trace::endline;
+      TRACE(debug, Trace::network()) << DYNLog(AddingSVCToNetwork, id) << Trace::endline;
       // Add to containers
       modelVoltageLevel->addComponent(modelStaticVarCompensator);
       // declare reference between subModel and static data
@@ -348,10 +348,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
 
       if ((*iDangling)->hasDynamicModel()) {
-        ::TraceDebug(Trace::network()) << DYNLog(DanglingLineExtDynModel, id) << Trace::endline;
+        TRACE(debug, Trace::network()) << DYNLog(DanglingLineExtDynModel, id) << Trace::endline;
         continue;
       }
-      ::TraceDebug(Trace::network()) << DYNLog(AddingDanglingLineToNetwork, id) << Trace::endline;
+      TRACE(debug, Trace::network()) << DYNLog(AddingDanglingLineToNetwork, id) << Trace::endline;
       // add to containers
       modelVoltageLevel->addComponent(modelDanglingLine);
       // declare reference between subModel and static data
@@ -383,11 +383,11 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     initComponents_.push_back(modelLine);
 
     if ((*iLine)->hasDynamicModel()) {
-      ::TraceDebug(Trace::network()) << DYNLog(LineExtDynModel, id) << Trace::endline;
+      TRACE(debug, Trace::network()) << DYNLog(LineExtDynModel, id) << Trace::endline;
       continue;
     }
 
-    ::TraceDebug(Trace::network()) << DYNLog(AddingLineToNetwork, id) << Trace::endline;
+    TRACE(debug, Trace::network()) << DYNLog(AddingLineToNetwork, id) << Trace::endline;
     // add to containers
     components_.push_back(modelLine);
     // declare reference between subModel and static data
@@ -423,10 +423,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
 
     if ((*i2WTfo)->hasDynamicModel()) {
-      ::TraceDebug(Trace::network()) << DYNLog(TwoWTfoExtDynModel, id) << Trace::endline;
+      TRACE(debug, Trace::network()) << DYNLog(TwoWTfoExtDynModel, id) << Trace::endline;
       continue;
     }
-    ::TraceDebug(Trace::network()) << DYNLog(AddingTwoWTfoToNetwork, id) << Trace::endline;
+    TRACE(debug, Trace::network()) << DYNLog(AddingTwoWTfoToNetwork, id) << Trace::endline;
 
     // add to containers
     components_.push_back(modelTwoWindingsTransformer);
@@ -467,11 +467,11 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
 
     if ((*i3WTfo)->hasDynamicModel()) {
-      ::TraceDebug(Trace::network()) << DYNLog(ThreeWTfoExtDynModel, id) << Trace::endline;
+      TRACE(debug, Trace::network()) << DYNLog(ThreeWTfoExtDynModel, id) << Trace::endline;
       continue;
     }
 
-    ::TraceDebug(Trace::network()) << DYNLog(AddingThreeWTfoToNetwork, id) << Trace::endline;
+    TRACE(debug, Trace::network()) << DYNLog(AddingThreeWTfoToNetwork, id) << Trace::endline;
 
     // add to containers
     components_.push_back(modelThreeWindingsTransformer);
@@ -615,10 +615,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
     // is there a dynamic model?
     if ((*iHvdc)->hasDynamicModel()) {
-      ::TraceDebug(Trace::network()) << DYNLog(HvdcExtDynModel, id) << Trace::endline;
+      TRACE(debug, Trace::network()) << DYNLog(HvdcExtDynModel, id) << Trace::endline;
       continue;
     }
-    ::TraceDebug(Trace::network()) << DYNLog(AddingHvdcToNetwork, id) << Trace::endline;
+    TRACE(debug, Trace::network()) << DYNLog(AddingHvdcToNetwork, id) << Trace::endline;
 
     // add to containers
     components_.push_back(modelHvdcLink);
@@ -632,15 +632,15 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     data->setReference("state2", id, id, "state2_value");
   }
 
-  if (::TraceLogExists(Trace::network(), DEBUG))
+  if (TRACELOGEXISTS(Trace::network(), DEBUG))
     printStats(data);
 }
 
 void
 ModelNetwork::printStats(const shared_ptr<DataInterface>& data) const {
-  ::TraceDebug(Trace::network()) << "------------------------------" << Trace::endline;
-  ::TraceDebug(Trace::network()) << DYNLog(NetworkStats) << Trace::endline;
-  ::TraceDebug(Trace::network()) << "------------------------------" << Trace::endline;
+  TRACE(debug, Trace::network()) << "------------------------------" << Trace::endline;
+  TRACE(debug, Trace::network()) << DYNLog(NetworkStats) << Trace::endline;
+  TRACE(debug, Trace::network()) << "------------------------------" << Trace::endline;
   shared_ptr<NetworkInterface> network = data->getNetwork();
   unsigned nbVoltageLevels = 0;
   unsigned nbBuses = 0;
@@ -756,10 +756,10 @@ ModelNetwork::printStats(const shared_ptr<DataInterface>& data) const {
   }
   stringstream ss;
   ss << nbVoltageLevels;
-  ::TraceDebug(Trace::network()) << DYNLog(NetworkNbVoltagelevel, ss.str()) << Trace::endline;
+  TRACE(debug, Trace::network()) << DYNLog(NetworkNbVoltagelevel, ss.str()) << Trace::endline;
   ss.str("");
   ss << nbBuses;
-  ::TraceDebug(Trace::network()) << DYNLog(NetworkNbBus, ss.str()) << Trace::endline;
+  TRACE(debug, Trace::network()) << DYNLog(NetworkNbBus, ss.str()) << Trace::endline;
   printComponentStats(KeyLog_t::NetworkNbSwitches, nbStaticSwitches, nbDynamicSwitches);
   printComponentStats(KeyLog_t::NetworkNbLoads, nbStaticLoads, nbDynamicLoads);
   printComponentStats(KeyLog_t::NetworkNbGenerators, nbStaticGens, nbDynamicGens);
@@ -780,7 +780,7 @@ ModelNetwork::printComponentStats(KeyLog_t::value message, unsigned nbStatic, un
   ss << nbStatic;
   ss2 << nbDynamic;
   ss3 << nbStatic + nbDynamic;
-  ::TraceDebug(Trace::network()) << (DYN::Message(Message::LOG_KEY, KeyLog_t::names(message)), ss3.str(), ss.str(), ss2.str()) << Trace::endline;
+  TRACE(debug, Trace::network()) << (DYN::Message(Message::LOG_KEY, KeyLog_t::names(message)), ss3.str(), ss.str(), ss2.str()) << Trace::endline;
 }
 
 void
@@ -805,7 +805,7 @@ ModelNetwork::analyseComponents() {
       maxIndex = i;
     }
   }
-  ::TraceDebug() << DYNLog(KeepSubNetwork, maxIndex) << Trace::endline;
+  TRACE(debug) << DYNLog(KeepSubNetwork, maxIndex) << Trace::endline;
   for (unsigned int i = 0; i < subNetworks.size(); ++i) {
     if (i == maxIndex)
       subNetworks[i]->turnOnNodes();
@@ -872,7 +872,7 @@ ModelNetwork::dumpUserReadableElementList(const std::string& nameElement) const 
     }
   }
   if (!elements.empty()) {
-    ::TraceInfo() << DYNLog(NetworkElementNames, modelName) << Trace::endline;
+    TRACE(info) << DYNLog(NetworkElementNames, modelName) << Trace::endline;
     vector< std::pair<size_t, string> > vec;
     for (unsigned int i = 0; i < elements.size(); ++i) {
       const Element& element = elements[i];
@@ -882,50 +882,50 @@ ModelNetwork::dumpUserReadableElementList(const std::string& nameElement) const 
     }
     std::sort(vec.begin(), vec.end() , compStringDist());
     for (unsigned int i = 0; i < vec.size(); ++i) {
-      ::TraceInfo() << "  ->" << vec[i].second << Trace::endline;
+      TRACE(info) << "  ->" << vec[i].second << Trace::endline;
     }
   } else {
-    ::TraceInfo() << DYNLog(NetworkElementCompNotFound, modelName) << Trace::endline;
+    TRACE(info) << DYNLog(NetworkElementCompNotFound, modelName) << Trace::endline;
   }
 }
 
 void
 ModelNetwork::printModel() const {
-  ::TraceDebug(Trace::modeler()) << DYNLog(ModelName) << std::setw(25) << std::left << modelType() << "=>" << name() << Trace::endline;
-  ::TraceDebug(Trace::modeler()) << "         Y : [" << std::setw(6) << yDeb_ << " ; " << std::setw(6) << yDeb_ + sizeY() << "[" << Trace::endline;
+  TRACE(debug, Trace::modeler()) << DYNLog(ModelName) << std::setw(25) << std::left << modelType() << "=>" << name() << Trace::endline;
+  TRACE(debug, Trace::modeler()) << "         Y : [" << std::setw(6) << yDeb_ << " ; " << std::setw(6) << yDeb_ + sizeY() << "[" << Trace::endline;
   unsigned offset = yDeb_;
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
       itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeY() != 0) {
-      ::TraceDebug(Trace::modeler()) << "           " << (*itComponent)->id() << "    Y[" << std::setw(6) << offset << " ; " << std::setw(6)
+      TRACE(debug, Trace::modeler()) << "           " << (*itComponent)->id() << "    Y[" << std::setw(6) << offset << " ; " << std::setw(6)
                               << offset + (*itComponent)->sizeY() << "[" << Trace::endline;
       offset+=(*itComponent)->sizeY();
     }
   }
-  ::TraceDebug(Trace::modeler()) << "         F : [" << std::setw(6) << fDeb_ << " ; " << std::setw(6) << fDeb_ + sizeF() << "[" << Trace::endline;
+  TRACE(debug, Trace::modeler()) << "         F : [" << std::setw(6) << fDeb_ << " ; " << std::setw(6) << fDeb_ + sizeF() << "[" << Trace::endline;
   offset = fDeb_;
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
       itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeF() != 0) {
-      ::TraceDebug(Trace::modeler()) << "           " << (*itComponent)->id() << "    F[" << std::setw(6) << offset << " ; " << std::setw(6)
+      TRACE(debug, Trace::modeler()) << "           " << (*itComponent)->id() << "    F[" << std::setw(6) << offset << " ; " << std::setw(6)
                               << offset + (*itComponent)->sizeF() << "[" << Trace::endline;
       offset+=(*itComponent)->sizeF();
     }
   }
 
   if (sizeZ() != 0) {
-    ::TraceDebug(Trace::modeler()) << "         Z : [" << std::setw(6) << zDeb_ << " ; " << std::setw(6) << zDeb_ + sizeZ() << "[" << Trace::endline;
+    TRACE(debug, Trace::modeler()) << "         Z : [" << std::setw(6) << zDeb_ << " ; " << std::setw(6) << zDeb_ + sizeZ() << "[" << Trace::endline;
   }
   if (sizeMode() != 0) {
-    ::TraceDebug(Trace::modeler()) << "      mode : [" << std::setw(6) << modeDeb_ << " ; " << std::setw(6) << modeDeb_ + sizeMode() << "[" << Trace::endline;
+    TRACE(debug, Trace::modeler()) << "      mode : [" << std::setw(6) << modeDeb_ << " ; " << std::setw(6) << modeDeb_ + sizeMode() << "[" << Trace::endline;
   }
 
 
   if (sizeG() != 0) {
-    ::TraceDebug(Trace::modeler()) << "         G : [" << std::setw(6) << gDeb_ << " ; " << std::setw(6) << gDeb_ + sizeG() << "[" << Trace::endline;
+    TRACE(debug, Trace::modeler()) << "         G : [" << std::setw(6) << gDeb_ << " ; " << std::setw(6) << gDeb_ + sizeG() << "[" << Trace::endline;
   }
 
-  ::TraceDebug(Trace::modeler()) << Trace::endline;
+  TRACE(debug, Trace::modeler()) << Trace::endline;
 }
 
 void
@@ -1211,7 +1211,7 @@ ModelNetwork::initParams() {
   for (itComponentVL = vLevelInitComponents_.begin(); itComponentVL != vLevelInitComponents_.end(); ++itComponentVL)
     (*itComponentVL)->setInitialSwitchCurrents();
   } catch (const DYN::Error &) {
-    ::TraceWarn() << DYNLog(NetworkInitSwitchCurrentsFailed) << Trace::endline;
+    TRACE(warn) << DYNLog(NetworkInitSwitchCurrentsFailed) << Trace::endline;
   }
 
   vLevelInitComponents_.clear();

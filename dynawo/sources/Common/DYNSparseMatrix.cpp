@@ -207,7 +207,7 @@ void SparseMatrix::print() const {
   for (int iCol = 0; iCol < nbCol_; ++iCol) {
     for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
       int iRow = Ai_[ind];
-      ::TraceDebug() << "A(" << iRow << ";" << iCol << ")" << std::setprecision(16) << Ax_[ind] << Trace::endline;
+      TRACE(debug) << "A(" << iRow << ";" << iCol << ")" << std::setprecision(16) << Ax_[ind] << Trace::endline;
     }
   }
 }

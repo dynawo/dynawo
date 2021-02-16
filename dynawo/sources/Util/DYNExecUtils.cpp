@@ -53,7 +53,7 @@ prettyPath(const std::string & path) {
     // only works if the file or the path exists !!!
     prettyPath = canonical(path);
   } catch (const fs::filesystem_error& ex) {
-    TraceWarn() << ex.what() << DYN::Trace::endline;
+    TRACE(warn) << ex.what() << DYN::Trace::endline;
   }
   return prettyPath;
 }

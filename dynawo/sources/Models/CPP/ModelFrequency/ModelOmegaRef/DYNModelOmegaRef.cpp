@@ -523,12 +523,12 @@ ModelOmegaRef::defineElements(std::vector<Element> &elements, std::map<std::stri
 
 void
 ModelOmegaRef::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
-  ::TraceInfo() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  ::TraceInfo() << "  ->" << "omegaRef_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
-  ::TraceInfo() << "  ->" << "omega_grp_" << "<0-" << nbGen_ << ">_value (and weight_gen_<num> > 0)" << Trace::endline;
-  ::TraceInfo() << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  ::TraceInfo() << "  ->" << "running_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  ::TraceInfo() << "  ->" << "omegaRef_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  TRACE(info) << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  TRACE(info) << "  ->" << "omegaRef_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
+  TRACE(info) << "  ->" << "omega_grp_" << "<0-" << nbGen_ << ">_value (and weight_gen_<num> > 0)" << Trace::endline;
+  TRACE(info) << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  TRACE(info) << "  ->" << "running_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  TRACE(info) << "  ->" << "omegaRef_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
 }
 
 void

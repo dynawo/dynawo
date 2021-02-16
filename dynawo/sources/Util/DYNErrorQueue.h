@@ -36,7 +36,20 @@ namespace DYN {
  * @class ErrorQueue
  * @brief class to register multiple errors before failing
  */
-class ErrorQueue : private boost::noncopyable{
+class ErrorQueue : private boost::noncopyable {
+ public:
+  /**
+ * @brief register a new error in the queue
+ *
+ * @param exception error to register
+ */
+  static void push(const DYN::Error& exception);
+
+  /**
+   * @brief throw errors if the queue is not empty, otherwise do nothing
+   */
+  static void flush();
+
  private:
   /**
    * @brief Constructor
@@ -47,18 +60,6 @@ class ErrorQueue : private boost::noncopyable{
    * @brief Destructor
    */
   ~ErrorQueue();
-
-  /**
-   * @brief register a new error in the queue
-   *
-   * @param exception error to register
-   */
-  static void push(const DYN::Error& exception);
-
-  /**
-   * @brief throw errors if the queue is not empty, otherwise do nothing
-   */
-  static void flush();
 
   /**
    * @brief get singleton
@@ -94,5 +95,15 @@ class ErrorQueue : private boost::noncopyable{
 };
 
 } /* namespace DYN */
+
+#ifdef _WIN32
+#define ERRORQUEUEPUSH(...) ErrorQueuePush(__VA_ARGS__)
+#define ERRORQUEUEFLUSH(...) ErrorQueueFlush(__VA_ARGS__)
+#elif __unix__
+#define ERRORQUEUEPUSH(...) DYN::ErrorQueue::push(__VA_ARGS__)
+#define ERRORQUEUEFLUSH(...) DYN::ErrorQueue::flush(__VA_ARGS__)
+#else
+#error "Unknown compiler"
+#endif
 
 #endif  // UTIL_DYNERRORQUEUE_H_

@@ -187,28 +187,28 @@ int main(int argc, char ** argv) {
       if (!valid) {
         libValid = false;
         notValidsolist.push_back(*it);
-        TraceInfo(Trace::compile()) << DYNLog(InvalidModel, *it) << Trace::endline;
+        TRACE(info, Trace::compile()) << DYNLog(InvalidModel, *it) << Trace::endline;
       } else {
-        TraceInfo(Trace::compile()) << DYNLog(ValidatedModel, *it) << Trace::endline;
+        TRACE(info, Trace::compile()) << DYNLog(ValidatedModel, *it) << Trace::endline;
       }
     }
 
     if (libValid) {
-      ::TraceInfo(Trace::compile()) << DYNLog(PreassembledModelGenerated, solist.size()) << Trace::endline;
+      TRACE(info, Trace::compile()) << DYNLog(PreassembledModelGenerated, solist.size()) << Trace::endline;
     } else {
-      TraceInfo(Trace::compile()) << DYNLog(InvalidSharedObjects, notValidsolist.size()) << Trace::endline;
+      TRACE(info, Trace::compile()) << DYNLog(InvalidSharedObjects, notValidsolist.size()) << Trace::endline;
       string libList;
       for (vector<string >::iterator it = notValidsolist.begin(); it != notValidsolist.end(); ++it) {
-        TraceInfo(Trace::compile()) << *it << Trace::endline;
+        TRACE(info, Trace::compile()) << *it << Trace::endline;
         libList += *it;
       }
       throw DYNError(DYN::Error::MODELER, FileGenerationFailed, libList.c_str());
     }
   } catch (const DYN::Error& e) {
-    TraceError() << e.what() << Trace::endline;
+    TRACE(error) << e.what() << Trace::endline;
     return e.type();
   } catch (const std::exception& exp) {
-    TraceError() << exp.what() << Trace::endline;
+    TRACE(error) << exp.what() << Trace::endline;
     return -1;
   }
   return 0;

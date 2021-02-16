@@ -186,7 +186,7 @@ NetworkComponent::StateChange_t
 ModelGenerator::evalZ(const double& /*t*/) {
   State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != getConnected()) {
-    ::TraceInfo() << DYNLog(GeneratorStateChange, id_, getConnected(), z_[0]) << Trace::endline;
+    TRACE(info) << DYNLog(GeneratorStateChange, id_, getConnected(), z_[0]) << Trace::endline;
     if (currState == OPEN) {
       DYNAddTimelineEvent(network_, id_, GeneratorDisconnected);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
