@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="GenericRestorativeLoad">
+    <par name="load_Alpha" type="DOUBLE" value="1.5"/>
+    <par name="load_Beta" type="DOUBLE" value="2.5"/>
+    <par name="load_UDeadBandPu" type="DOUBLE" value="0.0"/>
+    <par name="load_UMax0Pu" type="DOUBLE" value="1.05"/>
+    <par name="load_UMin0Pu" type="DOUBLE" value="0.95"/>
+    <par name="load_tFilter" type="DOUBLE" value="10"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="SignalN">
+    <par name="nbGen" type="INT" value="1"/>
+  </set>
+  <set id="impSignalNGenerator">
+    <par name="generator_KGover" type="DOUBLE" value="1"/>
+    <par name="generator_PMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_PMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <par name="generator_QMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_QMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <par name="line_BPu" type="DOUBLE" value="0"/>
+    <par name="line_GPu" type="DOUBLE" value="0"/>
+    <par name="line_RPu" type="DOUBLE" value="0"/>
+    <par name="line_XPu" type="DOUBLE" value="0.0001"/>
+    <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PNom" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PRef0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
+    <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="targetV_pu"/>
+  </set>
+  <set id="impSignalNGeneratorFixedP">
+    <par name="generator_KGover" type="DOUBLE" value="0"/>
+    <par name="generator_PMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_PMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <par name="generator_QMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_QMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <par name="line_BPu" type="DOUBLE" value="0"/>
+    <par name="line_GPu" type="DOUBLE" value="0"/>
+    <par name="line_RPu" type="DOUBLE" value="0"/>
+    <par name="line_XPu" type="DOUBLE" value="0.0001"/>
+    <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PNom" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PRef0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
+    <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="targetV_pu"/>
+  </set>
+  <set id="propSignalNGenerator">
+    <par name="generator_KGover" type="DOUBLE" value="1"/>
+    <par name="generator_PMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_PMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <par name="generator_QMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_QMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PNom" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PRef0Pu" origData="IIDM" origName="targetP_pu"/>
+    <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="generator_QPercent" origData="IIDM" origName="qMax_pu"/>
+    <reference type="DOUBLE" name="generator_QRef0Pu" origData="IIDM" origName="targetQ_pu"/>
+    <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="remoteSignalNGenerator">
+    <par name="generator_KGover" type="DOUBLE" value="1"/>
+    <par name="generator_PMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_PMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <par name="generator_QMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_QMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PNom" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PRef0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
+    <reference type="DOUBLE" name="generator_URef0" origData="IIDM" origName="targetV"/>
+  </set>
+  <set id="signalNGenerator">
+    <par name="generator_KGover" type="DOUBLE" value="1"/>
+    <par name="generator_PMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_PMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <par name="generator_QMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_QMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PNom" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PRef0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
+    <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="v_pu"/>
+  </set>
+  <set id="signalNGeneratorFixedP">
+    <par name="generator_KGover" type="DOUBLE" value="0"/>
+    <par name="generator_PMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_PMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <par name="generator_QMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_QMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PNom" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PRef0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
+    <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="targetV_pu"/>
+  </set>
+  <set id="disconnection">
+    <par type="DOUBLE" name="event_tEvent" value="30"/>
+    <par type="BOOL" name="event_disconnectOrigin" value="false"/>
+    <par type="BOOL" name="event_disconnectExtremity" value="true"/>
+  </set>
+</parametersSet>

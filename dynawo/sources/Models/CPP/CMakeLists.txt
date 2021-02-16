@@ -10,5 +10,6 @@
 
 add_subdirectory(Common)
 add_subdirectory(ModelFrequency)
+add_subdirectory(Components/ModelLoadRestorativeWithLimits)
 add_subdirectory(ModelVariationArea)
 add_subdirectory(ModelNetwork)
