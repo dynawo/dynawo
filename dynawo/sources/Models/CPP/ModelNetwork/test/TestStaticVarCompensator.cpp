@@ -69,7 +69,7 @@ createModelStaticVarCompensator(bool open, bool initModel) {
   svcb.bmax(5.);
   IIDM::StaticVarCompensator scIIDM = svcb.build("MyStaticVarCompensator");
   IIDM::extensions::standbyautomaton::StandbyAutomatonBuilder sbb;
-  scIIDM.setExtension(sbb.build().standBy(false).highVoltageSetPoint(5.0).lowVoltageSetPoint(0.0).highVoltageThreshold(10).lowVoltageThreshold(30));
+  scIIDM.setExtension(sbb.build().standBy(false).highVoltageSetPoint(5.0).lowVoltageSetPoint(0.0).highVoltageThreshold(10).lowVoltageThreshold(30).b0(0.));
   vlIIDM.add(scIIDM, c1);
   IIDM::StaticVarCompensator scIIDM2 = vlIIDM.get_staticVarCompensator("MyStaticVarCompensator");  // was copied...
   shared_ptr<StaticVarCompensatorInterfaceIIDM> scItfIIDM = shared_ptr<StaticVarCompensatorInterfaceIIDM>(new StaticVarCompensatorInterfaceIIDM(scIIDM2));

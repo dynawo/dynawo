@@ -33,7 +33,6 @@
 #include "DYNEnumUtils.h"
 #include "DYNParameterModeler.h"
 #include "PARParametersSet.h"
-#include "CSTRConstraintsCollection.h"
 #include "DYNBitMask.h"
 
 namespace parameters {
