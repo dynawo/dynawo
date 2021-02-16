@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:macroConnector id="GEN_IMP_NETWORK_CONNECTOR">
+    <dyn:connect var1="coupling_terminal1" var2="@STATIC_ID@@NODE@_ACPIN"/>
+    <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_NETWORK_CONNECTOR">
+    <dyn:connect var1="generator_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
+    <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_SIGNALN_CONNECTOR">
+    <dyn:connect var1="generator_alpha_value" var2="alpha_grp_@INDEX@_value"/>
+    <dyn:connect var1="generator_N_value" var2="n_grp_@INDEX@_value"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="LOAD_NETWORK_CONNECTOR">
+    <dyn:connect var1="Ui_value" var2="@STATIC_ID@@NODE@_ACPIN_V_im"/>
+    <dyn:connect var1="Ur_value" var2="@STATIC_ID@@NODE@_ACPIN_V_re"/>
+    <dyn:connect var1="Ii_value" var2="@STATIC_ID@@NODE@_ACPIN_i_im"/>
+    <dyn:connect var1="Ir_value" var2="@STATIC_ID@@NODE@_ACPIN_i_re"/>
+    <dyn:connect var1="switchOff1_value" var2="@STATIC_ID@@NODE@_switchOff_value"/>
+  </dyn:macroConnector>
+  <dyn:macroStaticReference id="GeneratorImpStaticRef">
+    <dyn:staticRef var="coupling_P1GenPu" staticVar="p"/>
+    <dyn:staticRef var="coupling_Q1GenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:macroStaticReference>
+  <dyn:macroStaticReference id="GeneratorStaticRef">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:macroStaticReference>
+  <dyn:macroStaticReference id="LoadRef">
+    <dyn:staticRef var="PPu_value" staticVar="p"/>
+    <dyn:staticRef var="QPu_value" staticVar="q"/>
+    <dyn:staticRef var="state_value" staticVar="state"/>
+  </dyn:macroStaticReference>
+  <dyn:blackBoxModel id="Model_Signal_N" lib="DYNModelSignalN" parFile="LoadRestorativeWithLimits.par" parId="SignalN"/>
+  <dyn:blackBoxModel id="_Generator___1" staticId="_Generator___1" lib="GeneratorPVSignalN" parFile="LoadRestorativeWithLimits.par" parId="signalNGenerator">
+    <dyn:macroStaticRef id="GeneratorStaticRef"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_Load__10" staticId="_Load__10" lib="DYNModelLoadRestorativeWithLimits" parFile="LoadRestorativeWithLimits.par" parId="GenericRestorativeLoad">
+    <dyn:macroStaticRef id="LoadRef"/>
+  </dyn:blackBoxModel>
+  <dyn:macroConnect connector="LOAD_NETWORK_CONNECTOR" id1="_Load__10" id2="NETWORK"/>
+  <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR" id1="_Generator___1" id2="NETWORK"/>
+  <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_Generator___1" id2="Model_Signal_N" index2="0"/>
+  <dyn:connect id1="Model_Signal_N" var1="tetaRef_0_value" id2="NETWORK" var2="_BUS___10_TN_phi_value"/>
+
+  <dyn:blackBoxModel id="Disconnect_Line" lib="EventQuadripoleDisconnection" parFile="LoadRestorativeWithLimits.par" parId="disconnection"/>
+  <dyn:connect id1="Disconnect_Line" var1="event_state1_value" id2="NETWORK" var2="_BUS____8-BUS___10-2_AC_state_value"/>
+
+</dyn:dynamicModelsArchitecture>

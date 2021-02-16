@@ -107,3 +107,13 @@ case_description = "Small System with two HVDC links with AC Emulation and a pow
 job_file = os.path.join(os.path.dirname(__file__), "HvdcPowerTransfer", "HvdcPowerTransfer.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+################################################################################################
+#  Small System with with a Load Restoration following a line disconnection, using a cpp model #
+################################################################################################
+
+case_name = "DynaFlow - LoadRestoration with line disconnection"
+case_description = "Small System with with a Load Restoration following a line disconnection, using a cpp model"
+job_file = os.path.join(os.path.dirname(__file__), "LoadRestorativeWithLimits", "LoadRestorativeWithLimits.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
