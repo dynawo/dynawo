@@ -68,7 +68,7 @@ equation
   if running.value then
     QGenPu = if qStatus == QStatus.AbsorptionMax then QMaxPu else if qStatus == QStatus.GenerationMax then QMinPu else QGenRefPu;
   else
-    QGenPu = 0;
+    terminal.i.im = 0;
   end if;
 
 annotation(
