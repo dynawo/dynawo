@@ -43,14 +43,15 @@ if os.getenv("DYNAWO_NRT_DIR") is None:
 
 data_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "data")
 
-def collectXsl(directory, types):
+def collectXsl(directory, types, xsl_ids):
     xsl_to_apply = {}
     for type in types:
         xsl_to_apply[type] = []
     for file in os.listdir(directory):
         for type in types:
             if file.endswith("."+type+".xsl"):
-                xsl_to_apply[type].append(os.path.join(directory, file))
+                if len(xsl_ids) == 0 or file.replace("."+type+".xsl", "") in xsl_ids:
+                    xsl_to_apply[type].append(os.path.join(directory, file))
 
     for type in types:
         xsl_to_apply[type].sort()
@@ -101,6 +102,9 @@ def main():
     options[('-t', '--types')] = {'dest': 'types', 'action' : 'append',
                                     'help': 'type of files to update (jobs, dyd, par, crv)'}
 
+    options[('-i', '--ids')] = {'dest': 'xsl_ids', 'action' : 'append',
+                                    'help': 'List of xsl ids to apply'}
+
 
     options[('-j', '--jobs')] = {'dest': 'jobs_file', 'default' : '',
                                     'help': 'jobs file of the test to apply the update'}
@@ -141,7 +145,7 @@ def main():
     if (options.jobs_file is not None) and  (len(options.jobs_file) > 0):
         jobs_file = options.jobs_file
 
-    types = ""
+    types = []
     possible_types=["jobs","dyd","crv","par"]
     if (options.types is not None) and  (len(options.types) > 0):
         types = options.types
@@ -154,7 +158,7 @@ def main():
 
     print (log_message)
 
-    xsl_to_apply = collectXsl(os.path.dirname(os.path.realpath(__file__)),types)
+    xsl_to_apply = collectXsl(os.path.dirname(os.path.realpath(__file__)),types, options.xsl_ids)
     # Loop on testcases
     if jobs_file == "":
         numCase = 0
