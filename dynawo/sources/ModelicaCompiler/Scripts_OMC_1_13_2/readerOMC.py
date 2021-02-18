@@ -1323,7 +1323,7 @@ class ReaderOMC:
                             discr_variable_to_discs_equation_dependencies[discr_var] = []
                         discr_variable_to_discs_equation_dependencies[discr_var].append(f_num_omc)
 
-            if name_var_eval is not None and name_var_eval in continuous_vars:
+            if name_var_eval is not None and (name_var_eval in continuous_vars or name_var_eval in self.residual_vars_to_address_map):
                 for discr_var in discr_vars:
                     if discr_var == name_var_eval: continue
                     if "/* " + discr_var + " " in str(f.get_body()):
