@@ -29,15 +29,15 @@ model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
   Connectors.ZPin tanPhi1Ref (value (start = s10Pu.im/s10Pu.re)) "tan(Phi) regulation set point at terminal 1";
   Connectors.ZPin tanPhi2Ref (value (start = s20Pu.im/s20Pu.re)) "tan(Phi) regulation set point at terminal 2";
 
-  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1";
-  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1";
-  parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 2";
-  parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 2";
+  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 2 (receptor convention)";
+  parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 2 (receptor convention)";
 
 protected
 
-  Types.ReactivePowerPu Q1RawPu (start = s10Pu.im) "Raw reactive power at terminal 1 in p.u (base SnRef)";
-  Types.ReactivePowerPu Q2RawPu (start = s20Pu.im) "Raw reactive power at terminal 2 in p.u (base SnRef)";
+  Types.ReactivePowerPu Q1RawPu (start = s10Pu.im) "Raw reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q2RawPu (start = s20Pu.im) "Raw reactive power at terminal 2 in p.u (base SnRef) (receptor convention)";
 
 equation
 

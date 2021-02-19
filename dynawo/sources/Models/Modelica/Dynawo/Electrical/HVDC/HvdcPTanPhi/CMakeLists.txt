@@ -14,8 +14,12 @@ set(MODEL_FILES
   HvdcPTanPhi.mo
   HvdcPTanPhi_INIT.mo
   HvdcPTanPhi.extvar
+  HvdcPTanPhiDiagramPQ.mo
+  HvdcPTanPhiDiagramPQ.extvar
   HvdcPTanPhiDangling.mo
   HvdcPTanPhiDangling.extvar
+  HvdcPTanPhiDanglingDiagramPQ.mo
+  HvdcPTanPhiDanglingDiagramPQ.extvar
   )
 
 #

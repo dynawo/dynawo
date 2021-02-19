@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 
 /*
-* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,10 +12,10 @@ within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model HvdcPTanPhiDangling "Model for P/tan(Phi) HVDC link with terminal2 connected to a switched-off bus"
+model HvdcPTanPhiDanglingDiagramPQ "Model for P/tan(Phi) HVDC link with a PQ diagram and with terminal2 connected to a switched-off bus"
   import Dynawo.Electrical.HVDC;
 
-  extends HVDC.BaseClasses.BaseHvdcPDangling;
+  extends HVDC.BaseClasses.BaseHvdcPDanglingDiagramPQ;
   extends AdditionalIcons.Hvdc;
 
 /*
@@ -28,24 +28,21 @@ model HvdcPTanPhiDangling "Model for P/tan(Phi) HVDC link with terminal2 connect
 
   Connectors.ZPin tanPhi1Ref (value (start = s10Pu.im/s10Pu.re)) "tan(Phi) regulation set point at terminal 1";
 
-  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
-
 protected
 
-  Types.ReactivePowerPu Q1RawPu (start = s10Pu.im) "Raw reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu QInj1RawPu (start = - s10Pu.im) "Raw reactive power at terminal 1 in p.u (base SnRef) (generator convention)";
 
 equation
 
 // Reactive power control of the connected side
-  Q1RawPu = tanPhi1Ref.value * P1Pu;
+  QInj1RawPu = tanPhi1Ref.value * PInj1Pu;
   if running.value then
-    if Q1RawPu >= Q1MaxPu then
-     Q1Pu = Q1MaxPu;
-    elseif Q1RawPu <= Q1MinPu then
-     Q1Pu = Q1MinPu;
+    if QInj1RawPu >= QInj1MaxPu then
+     QInj1Pu = QInj1MaxPu;
+    elseif QInj1RawPu <= QInj1MinPu then
+     QInj1Pu = QInj1MinPu;
     else
-     Q1Pu = Q1RawPu;
+     QInj1Pu = QInj1RawPu;
     end if;
   else
     Q1Pu = 0;
@@ -53,4 +50,4 @@ equation
 
 annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself and the reactive power at terminal1. The power factor setpoint is given as an input and can be modified during the simulation, as well as the active power setpoint. The terminal2 is connected to a switched-off bus.</div></body></html>"));
-end HvdcPTanPhiDangling;
+end HvdcPTanPhiDanglingDiagramPQ;
