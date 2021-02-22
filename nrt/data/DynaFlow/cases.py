@@ -117,3 +117,13 @@ case_description = "Small System with with a Load Restoration following a line d
 job_file = os.path.join(os.path.dirname(__file__), "LoadRestorativeWithLimits", "LoadRestorativeWithLimits.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+######################################################################################################
+#  Small System with two HVDC links with AC Emulation, a centralized voltage control and PQ diagrams #
+######################################################################################################
+
+case_name = "DynaFlow - HVDC links with AC Emulation, a centralized voltage control and PQ diagrams"
+case_description = "Small System with two HVDC links with AC Emulation, a centralized voltage control and PQ diagrams"
+job_file = os.path.join(os.path.dirname(__file__), "HvdcPQPropDiagramPQ", "HvdcPQPropDiagramPQ.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <reference name="generator_PRef0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_URef0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_QMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_QMax" value="100000"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+  </set>
+  <set id="2">
+    <par type="INT" name="nbGen" value="1"/>
+  </set>
+  <set id="3">
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="4">
+    <reference type="DOUBLE" name="hvdc_P20Pu" origData="IIDM" origName="p2_pu"/>
+    <reference type="DOUBLE" name="hvdc_Q20Pu" origData="IIDM" origName="q2_pu"/>
+    <reference type="DOUBLE" name="hvdc_U20Pu" origData="IIDM" origName="v2_pu"/>
+    <reference type="DOUBLE" name="hvdc_UPhase20" origData="IIDM" origName="angle2_pu"/>
+    <reference type="DOUBLE" name="hvdc_P10Pu" origData="IIDM" origName="p1_pu"/>
+    <reference type="DOUBLE" name="hvdc_Q10Pu" origData="IIDM" origName="q1_pu"/>
+    <reference type="DOUBLE" name="hvdc_U10Pu" origData="IIDM" origName="v1_pu"/>
+    <reference type="DOUBLE" name="hvdc_UPhase10" origData="IIDM" origName="angle1_pu"/>
+    <reference type="DOUBLE" name="hvdc_PMaxPu" origData="IIDM" origName="pMax_pu"/>
+    <reference type="DOUBLE" name="hvdc_QPercent1" origData="IIDM" componentId="HVDC1_CONV1" origName="q_pu"/>
+    <reference type="DOUBLE" name="hvdc_QPercent2" origData="IIDM" componentId="HVDC1_CONV2" origName="q_pu"/>
+    <par name="hvdc_QInj1MinTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc1.txt"/>
+    <par name="hvdc_QInj1MinTableName" type="STRING" value="tableqminconv1"/>
+    <par name="hvdc_QInj2MinTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc1.txt"/>
+    <par name="hvdc_QInj2MinTableName" type="STRING" value="tableqminconv2"/>
+    <par name="hvdc_QInj1MaxTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc1.txt"/>
+    <par name="hvdc_QInj1MaxTableName" type="STRING" value="tableqmaxconv1"/>
+    <par name="hvdc_QInj2MaxTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc1.txt"/>
+    <par name="hvdc_QInj2MaxTableName" type="STRING" value="tableqmaxconv2"/>
+    <par type="DOUBLE" name="hvdc_QInj1Min0Pu" value="-6"/>
+    <par type="DOUBLE" name="hvdc_QInj1Max0Pu" value="0.4"/>
+    <par type="DOUBLE" name="hvdc_QInj2Min0Pu" value="-6"/>
+    <par type="DOUBLE" name="hvdc_QInj2Max0Pu" value="1.7"/>
+    <par type="DOUBLE" name="hvdc_KLosses" value="1"/>
+    <par type="DOUBLE" name="hvdc_tFilter" value="0.01"/>
+    <par type="BOOL" name="hvdc_modeU10" value="true"/>
+    <par type="BOOL" name="hvdc_modeU20" value="true"/>
+    <par type="DOUBLE" name="acemulation_tFilter" value="50"/>
+    <par type="DOUBLE" name="acemulation_KACEmulation" value="250"/>
+  </set>
+  <set id="5">
+    <reference type="DOUBLE" name="hvdc_P20Pu" origData="IIDM" origName="p2_pu"/>
+    <reference type="DOUBLE" name="hvdc_Q20Pu" origData="IIDM" origName="q2_pu"/>
+    <reference type="DOUBLE" name="hvdc_U20Pu" origData="IIDM" origName="v2_pu"/>
+    <reference type="DOUBLE" name="hvdc_UPhase20" origData="IIDM" origName="angle2_pu"/>
+    <reference type="DOUBLE" name="hvdc_P10Pu" origData="IIDM" origName="p1_pu"/>
+    <reference type="DOUBLE" name="hvdc_Q10Pu" origData="IIDM" origName="q1_pu"/>
+    <reference type="DOUBLE" name="hvdc_U10Pu" origData="IIDM" origName="v1_pu"/>
+    <reference type="DOUBLE" name="hvdc_UPhase10" origData="IIDM" origName="angle1_pu"/>
+    <reference type="DOUBLE" name="hvdc_PMaxPu" origData="IIDM" origName="pMax_pu"/>
+    <reference type="DOUBLE" name="hvdc_QPercent1" origData="IIDM" componentId="HVDC2_CONV1" origName="q_pu"/>
+    <reference type="DOUBLE" name="hvdc_QPercent2" origData="IIDM" componentId="HVDC2_CONV2" origName="q_pu"/>
+    <par name="hvdc_QInj1MinTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc2.txt"/>
+    <par name="hvdc_QInj1MinTableName" type="STRING" value="tableqminconv1"/>
+    <par name="hvdc_QInj2MinTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc2.txt"/>
+    <par name="hvdc_QInj2MinTableName" type="STRING" value="tableqminconv2"/>
+    <par name="hvdc_QInj1MaxTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc2.txt"/>
+    <par name="hvdc_QInj1MaxTableName" type="STRING" value="tableqmaxconv1"/>
+    <par name="hvdc_QInj2MaxTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc2.txt"/>
+    <par name="hvdc_QInj2MaxTableName" type="STRING" value="tableqmaxconv2"/>
+    <par type="DOUBLE" name="hvdc_QInj1Min0Pu" value="-6"/>
+    <par type="DOUBLE" name="hvdc_QInj1Max0Pu" value="0.4"/>
+    <par type="DOUBLE" name="hvdc_QInj2Min0Pu" value="-6"/>
+    <par type="DOUBLE" name="hvdc_QInj2Max0Pu" value="1.7"/>
+    <par type="DOUBLE" name="hvdc_KLosses" value="1"/>
+    <par type="DOUBLE" name="hvdc_tFilter" value="0.01"/>
+    <par type="BOOL" name="hvdc_modeU10" value="true"/>
+    <par type="BOOL" name="hvdc_modeU20" value="true"/>
+    <par type="DOUBLE" name="acemulation_tFilter" value="50"/>
+    <par type="DOUBLE" name="acemulation_KACEmulation" value="250"/>
+  </set>
+  <set id="6">
+    <reference type="DOUBLE" name="vrremote_U0" origData="IIDM" origName="v" componentId="HVDC1_CONV1"/>
+    <reference type="DOUBLE" name="vrremote_URef0" origData="IIDM" origName="v" componentId="HVDC1_CONV1"/>
+    <par type="DOUBLE" name="vrremote_Gain" value="1"/>
+    <par type="DOUBLE" name="vrremote_tIntegral" value="1"/>
+  </set>
+  <set id="7">
+    <reference type="DOUBLE" name="vrremote_U0" origData="IIDM" origName="v" componentId="HVDC1_CONV2"/>
+    <reference type="DOUBLE" name="vrremote_URef0" origData="IIDM" origName="v" componentId="HVDC1_CONV2"/>
+    <par type="DOUBLE" name="vrremote_Gain" value="1"/>
+    <par type="DOUBLE" name="vrremote_tIntegral" value="1"/>
+  </set>
+  <set id="8">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="load_Tp" value="90"/>
+    <par type="DOUBLE" name="load_Tq" value="90"/>
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="DOUBLE" name="load_alphaLong" value="0"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="load_betaLong" value="0"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+    <par type="BOOL" name="load_isRestorative" value="false"/>
+    <par type="DOUBLE" name="load_zPMax" value="100"/>
+    <par type="DOUBLE" name="load_zQMax" value="100"/>
+    <par type="DOUBLE" name="reactance_no_reclosing_delay" value="0"/>
+    <par type="DOUBLE" name="transformer_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="transformer_t1st_HT" value="60"/>
+    <par type="DOUBLE" name="transformer_t1st_THT" value="30"/>
+    <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
+    <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
+    <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
+  </set>
+  <set id="9">
+    <par type="DOUBLE" name="event_tEvent" value="30"/>
+    <par type="BOOL" name="event_stateEvent1" value="true"/>
+  </set>
+</parametersSet>
