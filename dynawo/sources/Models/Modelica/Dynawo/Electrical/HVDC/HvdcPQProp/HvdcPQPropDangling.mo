@@ -38,36 +38,28 @@ model HvdcPQPropDangling "Model for HVDC link with a reactive power proportional
 
 protected
 
+  Types.ReactivePowerPu Q1RawModeUPu (start = s10Pu.im) "Reactive power of converter 1 without taking limits into account in p.u and for mode U activated (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q1RawPu (start = s10Pu.im) "Reactive power of converter 1 without taking limits into account in p.u (base SnRef) (receptor convention)";
 
 equation
 
-  Q1RawPu = Q1RefPu.value + QPercent1 * NQ1.value;
+  Q1RawModeUPu = Q1RefPu.value + QPercent1 * NQ1.value;
+  Q1RawPu = if modeU1.value then Q1RawModeUPu else Q1RefPu.value;
 
 if running.value then
 
 // Reactive power regulation at terminal 1
-  if modeU1.value then
-    if Q1RawPu <= Q1MinPu then
-      Q1Pu = Q1MinPu;
-    elseif Q1RawPu >= Q1MaxPu then
-      Q1Pu = Q1MaxPu;
-    else
-      Q1Pu = Q1RawPu;
-    end if;
+  if Q1RawPu <= Q1MinPu then
+    Q1Pu = Q1MinPu;
+  elseif Q1RawPu >= Q1MaxPu then
+    Q1Pu = Q1MaxPu;
   else
-    if Q1RefPu.value <= Q1MinPu then
-      Q1Pu = Q1MinPu;
-    elseif Q1RefPu.value >= Q1MaxPu then
-      Q1Pu = Q1MaxPu;
-    else
-      Q1Pu = Q1RefPu.value;
-    end if;
+    Q1Pu = Q1RawPu;
   end if;
 
 else
 
-  Q1Pu = 0;
+  terminal1.i.im = 0;
 
 end if;
 

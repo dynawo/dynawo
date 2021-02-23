@@ -74,8 +74,8 @@ package BaseClasses
       P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
       P2Pu = if P1Pu > 0 then - KLosses * P1Pu else - P1Pu / KLosses;
     else
-      P1Pu = 0;
-      P2Pu = 0;
+      terminal1.i.re = 0;
+      terminal2.i.re = 0;
     end if;
 
 // Sign convention change
@@ -139,7 +139,7 @@ annotation(preferredView = "text",
     if (running.value) then
       P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
     else
-      P1Pu = 0;
+      terminal1.i.re = 0;
     end if;
 
   // Disconnected side

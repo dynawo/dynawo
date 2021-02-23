@@ -35,36 +35,28 @@ model HvdcPQPropDanglingDiagramPQ "Model for HVDC link with a reactive power pro
 
 protected
 
+  Types.ReactivePowerPu QInj1RawModeUPu (start = - s10Pu.im) "Reactive power generation of converter 1 without taking limits into account in p.u and for mode U activated (base SnRef) (generator convention)";
   Types.ReactivePowerPu QInj1RawPu (start = - s10Pu.im) "Reactive power generation of converter 1 without taking limits into account in p.u (base SnRef) (generator convention)";
 
 equation
 
-  QInj1RawPu = - Q1RefPu.value + QPercent1 * NQ1.value;
+  QInj1RawModeUPu = - Q1RefPu.value + QPercent1 * NQ1.value;
+  QInj1RawPu = if modeU1.value then QInj1RawModeUPu else - Q1RefPu.value;
 
 if running.value then
 
 // Reactive power regulation at terminal 1
-  if modeU1.value then
-    if QInj1RawPu <= QInj1MinPu then
-      QInj1Pu = QInj1MinPu;
-    elseif QInj1RawPu >= QInj1MaxPu then
-      QInj1Pu = QInj1MaxPu;
-    else
-      QInj1Pu = QInj1RawPu;
-    end if;
+  if QInj1RawPu <= QInj1MinPu then
+    QInj1Pu = QInj1MinPu;
+  elseif QInj1RawPu >= QInj1MaxPu then
+    QInj1Pu = QInj1MaxPu;
   else
-    if - Q1RefPu.value <= QInj1MinPu then
-      QInj1Pu = QInj1MinPu;
-    elseif - Q1RefPu.value >= QInj1MaxPu then
-      QInj1Pu = QInj1MaxPu;
-    else
-      Q1Pu = Q1RefPu.value;
-    end if;
+    QInj1Pu = QInj1RawPu;
   end if;
 
 else
 
-  Q1Pu = 0;
+  terminal1.i.im = 0;
 
 end if;
 
