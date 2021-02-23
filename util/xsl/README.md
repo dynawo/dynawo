@@ -29,7 +29,12 @@ To apply the XSL on a specific simulation project the option --jobs can be used:
 $> dynawo nrt-xsl --jobs <JOBS_FILE>
 ```
 
-The --types option is provided to specify which types should be updated. It could be added to any of the possibilities described above:
+The --types option is provided to specify which types should be updated. It could be added to any of the possibilities described below:
 ``` bash
 $> --types <jobs/dyd/par/crv>
+```
+
+The --ids option is provided to specify which xsl should be updated. The xsl id is the number used beofre its extensions:
+``` bash
+$> dynawo nrt-xsl --jobs <JOBS_FILE> --ids 958
 ```
