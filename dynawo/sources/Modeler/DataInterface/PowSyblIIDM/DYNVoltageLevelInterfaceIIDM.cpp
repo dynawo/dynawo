@@ -65,6 +65,14 @@ voltageLevelIIDM_(voltageLevel) {
       graph_.addEdge(node1, node2, itSwitch.getId());
       weights1_[itSwitch.getId()] = 1;
     }
+    // Additional edges for internal connections
+    for (const powsybl::iidm::node_breaker_view::InternalConnection& itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
+      int node1 = itInternalConnection.getNode1();
+      int node2 = itInternalConnection.getNode2();
+      stringstream internalConnectionId;
+      internalConnectionId << "InternalConnection-" << node1 << "-" << node2;
+      graph_.addEdge(node1, node2, internalConnectionId.str());
+    }
   }
 }
 
@@ -252,6 +260,17 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
     bool retained = itSwitch.isRetained();
     topologicalWeights[id] = (!open && !retained) ? 1 : 0;
     electricalWeights[id] = (!open) ? 1 : 0;
+  }
+  // TODO(Luma): Internal connections should not be required to define entries in the weights map
+  // they should always be considered, never filtered
+  // (the "default" weight should be 1)
+  for (const powsybl::iidm::node_breaker_view::InternalConnection& itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
+    int node1 = itInternalConnection.getNode1();
+    int node2 = itInternalConnection.getNode2();
+    stringstream id;
+    id << "InternalConnection-" << node1 << "-" << node2;
+    topologicalWeights[id.str()] = 1;
+    electricalWeights[id.str()] = 1;
   }
 
   pair<unsigned int, vector<unsigned int> >topoComponents = graph_.calculateComponents(topologicalWeights);

@@ -857,6 +857,10 @@ DataInterfaceIIDM::exportStateVariables() {
   for (boost::unordered_map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
       iter != iterEnd; ++iter) {
     (iter->second)->updateFromModel(filterForCriteriaCheck);
+    // TODO(Luma): current lib IIDM assumes all edges in its node/breaker graph correspond to switches.
+    // When working with Networks that have Internal Connections,
+    // null pointer access happens when a component whants to update the terminal connected state of the IIDM equipment.
+    // The simulation is completed, but the update of the IIDM Network fails.
     (iter->second)->exportStateVariables();
   }
 

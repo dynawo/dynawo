@@ -62,7 +62,8 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
   }
 
   if ((*vlIt)->getVoltageLevelTopologyKind() == VoltageLevelInterface::NODE_BREAKER) {
-    throw DYNError(Error::MODELER, VoltageLevelTopoError, VLId);
+    // Do not throw error
+    Trace::warn() << "Node/breaker support in progress (#1458)" << Trace::endline;
   }
 
   const auto& buses = (*vlIt)->getBuses();
