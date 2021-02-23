@@ -119,8 +119,8 @@ if running.value then
 
 else
 
-  Q1Pu = 0;
-  Q2Pu = 0;
+  terminal1.i.im = 0;
+  terminal2.i.im = 0;
 
 end if;
 
