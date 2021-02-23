@@ -32,11 +32,4 @@ target_link_libraries(dumpSolver
     Boost::program_options
   )
 
-if(CXX11_ENABLED)
-  target_link_libraries(dumpSolver
-    PRIVATE
-      LibXml2::LibXml2
-  )
-endif()
-
 install(TARGETS dumpSolver EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
