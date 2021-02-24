@@ -604,6 +604,7 @@ class ModelWriter(ModelWriterBase):
         self.addLine("#ifdef _ADEPT_\n")
         self.addLine(self.void_function_prefix+ self.className + "::evalFAdept(const std::vector<adept::adouble> & x,\n")
         self.addLine("                              const std::vector<adept::adouble> & xd,\n")
+        self.addLine("                              const std::vector<adept::adouble> & x_ext,\n")
         self.addLine("                              const std::vector<adept::adouble> & xd_ext,\n")
         self.addLine("                              std::vector<adept::adouble> & res)\n")
         self.addLine("{\n")
@@ -766,7 +767,7 @@ class ModelWriter(ModelWriterBase):
     def fill_evalCalculatedVarIAdept(self):
         self.addEmptyLine()
         self.addLine("#ifdef _ADEPT_\n")
-        self.addLine("adept::adouble Model" + self.className + "::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const\n")
+        self.addLine("adept::adouble Model" + self.className + "::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd, const std::vector<adept::adouble> &x_ext, const std::vector<adept::adouble> &xd_ext) const\n")
         self.addLine("{\n")
         self.addBody(self.builder.get_list_for_evalcalculatedvariadept())
         self.addLine("}\n")

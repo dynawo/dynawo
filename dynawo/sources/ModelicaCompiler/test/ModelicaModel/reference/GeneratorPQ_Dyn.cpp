@@ -776,24 +776,19 @@ void ModelGeneratorPQ_Dyn::defineElements(std::vector<Element>& elements, std::m
 #ifdef _ADEPT_
 void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
                               const std::vector<adept::adouble> & xd,
+                              const std::vector<adept::adouble> & x_ext,
                               const std::vector<adept::adouble> & xd_ext,
                               std::vector<adept::adouble> & res)
 {
   /*
-    generator_omegaRefPu_value : x[0]
-    generator_terminal_V_im : x[1]
-    generator_terminal_V_re : x[2]
-    generator_PGenPu : x[3]
-    generator_PGenRawPu : x[4]
-    generator_QGenPu : x[5]
-    generator_SGenPu_im : x[6]
-    generator_SGenPu_re : x[7]
-    generator_UPu : x[8]
-    generator_terminal_i_im : x[9]
-    generator_terminal_i_re : x[10]
-    der(generator_omegaRefPu_value) : xd[0]
-    der(generator_terminal_V_im) : xd[1]
-    der(generator_terminal_V_re) : xd[2]
+    generator_PGenPu : x[0]
+    generator_PGenRawPu : x[1]
+    generator_QGenPu : x[2]
+    generator_SGenPu_im : x[3]
+    generator_SGenPu_re : x[4]
+    generator_UPu : x[5]
+    generator_terminal_i_im : x[6]
+    generator_terminal_i_re : x[7]
 
   */
   adept::adouble $DAEres3;
@@ -803,8 +798,8 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   adept::adouble tmp0;
   adept::adouble tmp1;
   adept::adouble tmp2;
-  tmp0 = *(data->externalVars[2]) /* generator.terminal.V.re STATE(1) */;
-  tmp1 = *(data->externalVars[1]) /* generator.terminal.V.im STATE(1) */;
+  tmp0 = x_ext[2] /* generator.terminal.V.re STATE(1) */;
+  tmp1 = x_ext[1] /* generator.terminal.V.im STATE(1) */;
   res[0] = x[5] - ( sqrt((tmp0 * tmp0) + (tmp1 * tmp1)) );
 
   }
@@ -817,7 +812,7 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   tmp12 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */));
   if(tmp12)
   {
-    tmp13 = data->simulationInfo->realParameter[1] /* generator.PGen0Pu PARAM */ + (data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */) * (1.0 - *(data->externalVars[0]) /* generator.omegaRefPu.value STATE(1) */);
+    tmp13 = data->simulationInfo->realParameter[1] /* generator.PGen0Pu PARAM */ + (data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */) * (1.0 - x_ext[0] /* generator.omegaRefPu.value STATE(1) */);
   }
   else
   {
@@ -877,7 +872,7 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
 
   // ----- GeneratorPQ_eqFunction_92 -----
   {
-  $DAEres3 = ((-*(data->externalVars[2]) /* generator.terminal.V.re STATE(1) */)) * (x[7]) - x[4] - ((*(data->externalVars[1]) /* generator.terminal.V.im STATE(1) */) * (x[6]));
+  $DAEres3 = ((-x_ext[2] /* generator.terminal.V.re STATE(1) */)) * (x[7]) - x[4] - ((x_ext[1] /* generator.terminal.V.im STATE(1) */) * (x[6]));
   res[4] = $DAEres3;
 
   }
@@ -932,7 +927,7 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
 
   // ----- GeneratorPQ_eqFunction_95 -----
   {
-  $DAEres4 = (*(data->externalVars[2]) /* generator.terminal.V.re STATE(1) */) * (x[6]) + ((-*(data->externalVars[1]) /* generator.terminal.V.im STATE(1) */)) * (x[7]) - x[3];
+  $DAEres4 = (x_ext[2] /* generator.terminal.V.re STATE(1) */) * (x[6]) + ((-x_ext[1] /* generator.terminal.V.im STATE(1) */)) * (x[7]) - x[3];
   res[7] = $DAEres4;
 
   }
@@ -1052,7 +1047,7 @@ double ModelGeneratorPQ_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelGeneratorPQ_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
+adept::adouble ModelGeneratorPQ_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd, const std::vector<adept::adouble> &x_ext, const std::vector<adept::adouble> &xd_ext) const
 {
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }

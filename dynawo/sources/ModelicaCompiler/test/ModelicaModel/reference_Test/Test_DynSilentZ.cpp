@@ -339,6 +339,7 @@ void ModelTestSilentZ_Dyn::defineElements(std::vector<Element>& elements, std::m
 #ifdef _ADEPT_
 void ModelTestSilentZ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
                               const std::vector<adept::adouble> & xd,
+                              const std::vector<adept::adouble> & x_ext,
                               const std::vector<adept::adouble> & xd_ext,
                               std::vector<adept::adouble> & res)
 {
@@ -420,7 +421,7 @@ double ModelTestSilentZ_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelTestSilentZ_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
+adept::adouble ModelTestSilentZ_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd, const std::vector<adept::adouble> &x_ext, const std::vector<adept::adouble> &xd_ext) const
 {
   if (iCalculatedVar == 0)  /* x */
   {

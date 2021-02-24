@@ -73,8 +73,8 @@ class HeaderPatternDefine:
     double evalCalculatedVarI(unsigned iCalculatedVar) const;
     void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
 #ifdef _ADEPT_
-    void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &yext, std::vector<adept::adouble> &F);
-    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp) const;
+    void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &F);
+    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext) const;
 #endif
 
     void checkDataCoherence ();
@@ -156,8 +156,8 @@ namespace DYN {
     double evalCalculatedVarI(unsigned iCalculatedVar) const;
     void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
 #ifdef _ADEPT_
-    void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &yext, std::vector<adept::adouble> &F);
-    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp) const;
+    void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &F);
+    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext) const;
 #endif
 
     void checkDataCoherence ();

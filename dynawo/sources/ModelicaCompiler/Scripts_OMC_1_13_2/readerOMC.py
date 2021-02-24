@@ -1243,6 +1243,7 @@ class ReaderOMC:
         # Attribution of indexes done independently to make sure the order is the same as in defineVariables and defineParameters methods
         index_real_var = 0
         index_external = 0
+        index_external_derivative_var = 0
         index_derivative_var = 0
         index_discrete_var = 0
         index_boolean_vars = 0
@@ -1274,10 +1275,14 @@ class ReaderOMC:
                 set_param_address(name, "data->localData[0]->discreteVars["+str(index_discrete_var)+"]")
                 index_discrete_var+=1
             elif "derivativesVars" in address:
-                set_param_address(name, "data->localData[0]->derivativesVars["+str(index_derivative_var)+"]")
+                if name in self.fictive_continuous_vars_der:
+                    set_param_address(name, "*(data->externalPVars["+str(index_external_derivative_var)+"])")
+                    index_external_derivative_var+=1
+                else:
+                    set_param_address(name, "data->localData[0]->derivativesVars["+str(index_derivative_var)+"]")
+                    index_derivative_var+=1
                 set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")", to_param_address(name))
                 set_param_address(name.replace("der(",alternative_way_to_declare_der)[:-1], to_param_address(name))
-                index_derivative_var+=1
             elif "integerDoubleVars" in address:
                 set_param_address(name, "data->localData[0]->integerDoubleVars["+str(index_integer_double)+"]")
                 index_integer_double+=1

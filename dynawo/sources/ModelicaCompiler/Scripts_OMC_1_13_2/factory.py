@@ -511,6 +511,7 @@ class Factory:
 
         i = 0
         for v in self.list_vars_der:
+            if v.get_name() in self.reader.fictive_continuous_vars_der: continue
             v.set_dynawo_name( "xd[%s]" % str(i) )
             i += 1
 
@@ -529,6 +530,7 @@ class Factory:
         i = 0
         for v in self.list_vars_syst:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
+            if v.get_name() in self.reader.fictive_continuous_vars: continue
             v.set_dynawo_name( "x[%s]" % str(i) )
             i += 1
 
@@ -2359,6 +2361,8 @@ class Factory:
         self.list_for_evalfadept.append("  /*\n")
         for v in self.list_vars_syst + self.list_vars_der:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
+            if v.get_name() in self.reader.fictive_continuous_vars: continue
+            if v.get_name() in self.reader.fictive_continuous_vars_der: continue
             self.list_for_evalfadept.append( "    %s : %s\n" % (to_compile_name(v.get_name()), v.get_dynawo_name()) )
         self.list_for_evalfadept.append("\n")
 
@@ -3162,7 +3166,7 @@ class Factory:
                         if name in calc_var_to_offset:
                             offset = calc_var_to_offset[name]
                         line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                            "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd) /* " + name)
+                            "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd, x_ext, xd_ext) /* " + name)
                 body.append(line)
 
 
