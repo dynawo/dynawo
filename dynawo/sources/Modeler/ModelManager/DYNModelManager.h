@@ -360,7 +360,8 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param yp current values of the derivative of the continuous variables
    * @param f values of the residual functions
    */
-  void evalF(const double & t, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &f);
+  void evalF(const double & t, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp,
+    const std::vector<adept::adouble> &yext, std::vector<adept::adouble> &f);
 
   /**
    * @brief evaluate the jacobian with adept values

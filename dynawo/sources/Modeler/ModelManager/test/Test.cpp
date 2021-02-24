@@ -232,9 +232,11 @@ class MyModelica: public ModelModelica {
    * @param yp values of the derivatives of the continuous variable
    * @param F computes values of the residual functions
    */
-  virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &res) {
+  virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp,
+    const std::vector<adept::adouble> &yext, std::vector<adept::adouble> &res) {
     ASSERT_EQ(y.size(), 2);
     ASSERT_EQ(yp.size(), 2);
+    ASSERT_EQ(yext.size(), 0);
     ASSERT_EQ(res.size(), 2);
     res[0] = 2*y[0]+yp[1];
     res[1] = 0.5*y[1]-yp[0];
@@ -438,9 +440,11 @@ class MyModelicaInit: public MyModelica {
    * @param yp values of the derivatives of the continuous variable
    * @param F computes values of the residual functions
    */
-  void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &res) {
+  void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp,
+    const std::vector<adept::adouble> &yext, std::vector<adept::adouble> &res) {
     ASSERT_EQ(y.size(), 1);
     ASSERT_EQ(yp.size(), 1);
+    ASSERT_EQ(yext.size(), 0);
     ASSERT_EQ(res.size(), 1);
     res[0] = y[0] - 8;
   }

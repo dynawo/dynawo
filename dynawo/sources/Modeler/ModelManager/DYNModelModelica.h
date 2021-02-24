@@ -152,7 +152,8 @@ class ModelModelica {
    * @param yp values of the derivatives of the continuous variable
    * @param F computes values of the residual functions
    */
-  virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F) = 0;
+  virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp,
+    const std::vector<adept::adouble> &yext, std::vector<adept::adouble> &F) = 0;
 #endif
 
   /**

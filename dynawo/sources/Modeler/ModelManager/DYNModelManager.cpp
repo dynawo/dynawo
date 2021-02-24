@@ -283,13 +283,13 @@ ModelManager::setGequationsInit() {
 
 void
 ModelManager::evalF(const double & t, const vector<adept::adouble> &y,
-        const vector<adept::adouble> &yp, vector<adept::adouble> &f) {
+        const vector<adept::adouble> &yp, const vector<adept::adouble> &yext, vector<adept::adouble> &f) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalF adept");
 #endif
   setManagerTime(t);
 
-  modelModelica()->evalFAdept(y, yp, f);
+  modelModelica()->evalFAdept(y, yp, yext, f);
 #ifdef _DEBUG_
   for (unsigned int i = 0; i < sizeF(); i++) {
     double term = f[i].value();
@@ -319,9 +319,14 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
     vector<adept::adouble> xp(sizeY());
     adept::set_values(&xp[0], sizeY(), yp);
 
+    vector<adept::adouble> xp_ext(sizeYExternal());
+    for (size_t i = 0; i < sizeYExternal(); i++) {
+      xp_ext[i].set_value(getVariableValue(variablesByName_.at(xExternalNames_.at(i))));
+    }
+
     stack.new_recording();
     vector<adept::adouble> output(nbOutput);
-    evalF(t, x, xp, output);
+    evalF(t, x, xp, xp_ext, output);
     stack.independent(&x[0], x.size());
     stack.independent(&xp[0], xp.size());
     stack.dependent(&output[0], nbOutput);

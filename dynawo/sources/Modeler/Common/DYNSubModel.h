@@ -1528,6 +1528,8 @@ class SubModel {
   std::map<int, std::string> fEquationInitIndex_;  ///< for DEBUG log, map of index of equation and equation in string for init model
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
 
+  std::vector<std::string> xExternalNames_;
+
  private:
   int sizeFSave_;  ///< save of the size of F
   int sizeZSave_;  ///< save of the size of Z
@@ -1553,7 +1555,6 @@ class SubModel {
 
   std::vector<std::string> zNames_;  ///< vector of the discretes variables name
   std::vector<std::string> xNames_;  ///< vector of the continuous variables names
-  std::vector<std::string> xExternalNames_;
   std::vector<std::string> calculatedVarNames_;  ///< vector of sub-model calculated variables names
   std::vector<std::pair<std::string, std::pair<std::string, bool> > > xAliasesNames_;  ///< vector of the continuous aliases variables names
   std::vector<std::pair<std::string, std::pair<std::string, bool> > > zAliasesNames_;  ///< vector of the discrete aliases variables names
