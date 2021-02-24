@@ -346,8 +346,8 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
     delete timer1;
 #endif
 
-    int offsetJPrim = sizeY() * sizeF();
-    int offsetJPrimExternal = sizeF() * sizeYExternal();
+    int offsetJPrim = sizeY() * sizeY();
+    int offsetJPrimExternal = sizeY() * sizeYExternal();
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer * timer3 = new Timer("zzz filling");
 #endif
@@ -371,7 +371,7 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
       // assuming that external connections array has been set during initialization if external variables are handled
       const boost::unordered_map<int, int>& externalConnections = connectorContainer_.lock()->externalConnectionsByVarNum();
       for (unsigned int j = 0; j < sizeYExternal(); j++) {
-        int index = 2 * sizeY() + i + j * sizeF();
+        int index = 2 * sizeY() * sizeY() + i + j * sizeF();
         double term = coeff * jac[index] + cj * jac[index + offsetJPrimExternal];
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
