@@ -346,6 +346,7 @@ void ModelGeneratorPQ_Init::defineParameters(std::vector<ParameterModeler>& para
 #ifdef _ADEPT_
 void ModelGeneratorPQ_Init::evalFAdept(const std::vector<adept::adouble> & x,
                               const std::vector<adept::adouble> & xd,
+                              const std::vector<adept::adouble> & xd_ext,
                               std::vector<adept::adouble> & res)
 {
   /*

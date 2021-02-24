@@ -776,6 +776,7 @@ void ModelGeneratorPQ_Dyn::defineElements(std::vector<Element>& elements, std::m
 #ifdef _ADEPT_
 void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
                               const std::vector<adept::adouble> & xd,
+                              const std::vector<adept::adouble> & xd_ext,
                               std::vector<adept::adouble> & res)
 {
   /*

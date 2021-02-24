@@ -604,6 +604,7 @@ class ModelWriter(ModelWriterBase):
         self.addLine("#ifdef _ADEPT_\n")
         self.addLine(self.void_function_prefix+ self.className + "::evalFAdept(const std::vector<adept::adouble> & x,\n")
         self.addLine("                              const std::vector<adept::adouble> & xd,\n")
+        self.addLine("                              const std::vector<adept::adouble> & xd_ext,\n")
         self.addLine("                              std::vector<adept::adouble> & res)\n")
         self.addLine("{\n")
 
