@@ -346,7 +346,8 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
     delete timer1;
 #endif
 
-    int offsetJPrim = sizeY() * sizeY();
+    int offsetJPrim = sizeY() * sizeF();
+    int offsetJPrimExternal = sizeF() * sizeYExternal();
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer * timer3 = new Timer("zzz filling");
 #endif
@@ -371,7 +372,7 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
       const boost::unordered_map<int, int>& externalConnections = connectorContainer_.lock()->externalConnectionsByVarNum();
       for (unsigned int j = 0; j < sizeYExternal(); j++) {
         int index = 2 * sizeY() + i + j * sizeF();
-        double term = coeff * jac[index];
+        double term = coeff * jac[index] + cj * jac[index + offsetJPrimExternal];
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
           // TODO(lecourtoisflo) Correct arguments exception
