@@ -2794,9 +2794,12 @@ class Factory:
             spin = "DIFFERENTIAL"
             var_ext = ""
             if is_alg_var(v) : spin = "ALGEBRAIC"
-            if v.get_name() in self.reader.fictive_continuous_vars:
+            if v.get_name() in self.reader.fictive_continuous_vars and v.get_dyn_type() == "CONTINUOUS":
                 # skip external variables
                 continue
+            elif v.get_name() in self.reader.fictive_continuous_vars:
+                spin = "EXTERNAL"
+                var_ext = "- external variables"
             elif v.get_name() in self.reader.fictive_optional_continuous_vars:
               spin = "OPTIONAL_EXTERNAL"
               var_ext = "- optional external variables"
@@ -2868,7 +2871,7 @@ class Factory:
             elif v.is_alias():
                 alias_name = to_compile_name(v.get_alias_name())
                 line = line_ptrn_alias % ( name, alias_name, v.get_dyn_type(), negated)
-            elif v.get_name() in self.reader.fictive_continuous_vars:
+            elif v.get_name() in self.reader.fictive_continuous_vars and v.get_dyn_type() == "CONTINUOUS":
                 line = line_ptrn_native_external_state % ( name, v.get_dyn_type(), "false")
             else:
                 line = line_ptrn_native_state % ( name, v.get_dyn_type(), negated)

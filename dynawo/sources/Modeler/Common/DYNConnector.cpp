@@ -123,7 +123,7 @@ ConnectorContainer::mergeYConnector() {
     for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
         it != yc->connectedSubModels().end();
         ++it) {
-      if (it->variable()->isExternal()) {
+      if (it->variable()->isExternal() && it->variable()->getType() == CONTINUOUS) {
         external_vars.push_back(*it);
         continue;
       }
@@ -145,7 +145,7 @@ ConnectorContainer::mergeYConnector() {
       for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
           it != yc->connectedSubModels().end();
           ++it) {
-        if (it->variable()->isExternal()) {
+        if (it->variable()->isExternal() && it->variable()->getType() == CONTINUOUS) {
           continue;
         }
         const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());

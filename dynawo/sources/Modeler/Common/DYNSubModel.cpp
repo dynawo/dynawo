@@ -344,7 +344,7 @@ SubModel::getVariableValue(const shared_ptr <Variable> variable) const {
   double value;
   if (!isState) {
     value = calculatedVars_[varNum];
-  } else if (isExternal) {
+  } else if (isExternal && typeVar == CONTINUOUS) {
     value = *(yExternalLocal_[varNum]);
   } else {
     switch (typeVar) {
@@ -703,7 +703,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
       index = calculatedVarNames.size();
       calculatedVarNames.push_back(name);
       nativeVariable->setIndex(index);
-    } else if (isExternal) {
+    } else if (isExternal && type == CONTINUOUS) {
       index = xExternalNames.size();
       xExternalNames.push_back(name);
       nativeVariable->setIndex(index);

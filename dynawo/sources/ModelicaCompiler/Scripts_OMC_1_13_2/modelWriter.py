@@ -508,10 +508,12 @@ class ModelWriter(ModelWriterBase):
 
         self.addBody(self.builder.get_setupdatastruc())
 
-        nbvars = len(self.builder.list_vars_syst) - len(self.builder.reader.auxiliary_vars_counted_as_variables) - len(self.builder.reader.fictive_continuous_vars)
+        nbvars_continuous = len([x for x in self.builder.reader.fictive_continuous_vars if x not in self.builder.reader.list_flow_vars])
+
+        nbvars = len(self.builder.list_vars_syst) - len(self.builder.reader.auxiliary_vars_counted_as_variables) - nbvars_continuous
 
         self.addLine("  data->nbVars = "+str(nbvars)+";\n")
-        self.addLine("  data->nbExternalVars = "+str(len(self.builder.reader.fictive_continuous_vars))+";\n")
+        self.addLine("  data->nbExternalVars = "+str(nbvars_continuous)+";\n")
         self.addLine("  data->nbF = "+str(self.builder.get_nb_eq_dyn()) +";\n")
         self.addLine("  data->nbModes = " +str(self.builder.get_nb_modes()) + ";\n")
         self.addLine("  data->nbZ = "+str(self.builder.nb_z)+";\n")
