@@ -1208,7 +1208,7 @@ class SubModel {
   }
 
   inline const std::vector<std::string>& getExternalNames() {
-    return calculatedVarNames_;
+    return xExternalNames_;
   }
 
   /**
