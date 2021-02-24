@@ -106,7 +106,6 @@ if __name__ == '__main__':
         reader_init.read_05evt_c_file()       # Read *_05evt.c
         reader_init.read_16dae_c_file()       # Read *_16dae.c
         reader_init.read_07dly_c_file()
-        reader_init.read_eq_fictive_xml() # Read the fictitious equation file
         reader_init.read_functions_header()      # Read *_functions.h
         reader_init.read_functions_c_file()       # Read *_functions.c
         reader_init.read_literals_h_file()        # Read *_literals.h

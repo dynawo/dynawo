@@ -66,7 +66,8 @@ void ModelGeneratorPQ_Init::setupDataStruc()
   data->simulationInfo->daeModeData->nResidualVars = 2;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 2;
 
-  data->nbVars =6;
+  data->nbVars = 6;
+  data->nbExternalVars = 0;
   data->nbF = 6;
   data->nbModes = 0;
   data->nbZ = 0;

@@ -66,7 +66,8 @@ void ModelTest_Dyn::setupDataStruc()
   data->simulationInfo->daeModeData->nResidualVars = 1;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 0;
 
-  data->nbVars =3;
+  data->nbVars = 3;
+  data->nbExternalVars = 0;
   data->nbF = 3;
   data->nbModes = 0;
   data->nbZ = 0;

@@ -45,7 +45,7 @@ class VariableNative : public Variable {
    * @param isState @b whether the variable is a state variable
    * @param negated @b if the variable is negated
    */
-  VariableNative(const std::string& name, const typeVar_t& type, bool isState, bool negated, bool external);
+  VariableNative(const std::string& name, const typeVar_t& type, bool isState, bool negated, bool external = false);
 
   /**
    * @brief Destructor
