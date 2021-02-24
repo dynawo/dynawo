@@ -1509,7 +1509,6 @@ class SubModel {
   bool* zLocalConnected_;  ///< table to know whether a discrete var is connected or not
 
   std::vector<double> yLocalInit_;  ///< local buffer used for the init model
-  std::vector<double*> yExternalLocalInit_;
   std::vector<double> ypLocalInit_;  ///< local buffer used for the init model
   std::vector<double> zLocalInit_;  ///< local buffer used for the init model
   std::vector<double> fLocalInit_;  ///< local buffer used for the init model

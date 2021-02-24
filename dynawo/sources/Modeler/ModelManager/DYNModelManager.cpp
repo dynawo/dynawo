@@ -182,7 +182,6 @@ void
 ModelManager::associateBuffers() {
   if (modelInitUsed_) {
     yLocalInit_.resize(dataInit_->nbVars);
-    yExternalLocalInit_.resize(dataInit_->nbExternalVars);
     ypLocalInit_.resize(dataInit_->nbVars);
     zLocalInit_.resize(dataInit_->nbZ + dataInit_->modelData->nVariablesInteger);
     fLocalInit_.resize(dataInit_->nbF);
@@ -197,8 +196,6 @@ ModelManager::associateBuffers() {
       dataInit_->localData[0]->derivativesVars = &(ypLocalInit_[0]);
     if (!zLocalInit_.empty())
       dataInit_->localData[0]->discreteVars = &(zLocalInit_[0]);
-    if (!yExternalLocalInit_.empty())
-      dataInit_->externalVars = &(yExternalLocalInit_[0]);
 
     if (dataInit_->modelData->nVariablesInteger > 0) {
       int offset = dataInit_->nbZ;
@@ -324,14 +321,11 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
     adept::set_values(&xp[0], sizeY(), yp);
 
     vector<adept::adouble> x_ext(sizeYExternal());
+    vector<adept::adouble> xp_ext(sizeYExternal());
     for (size_t i = 0; i < sizeYExternal(); i++) {
       double value = getVariableValue(variablesByName_.at(xExternalNames_.at(i)));
       x_ext[i].set_value(value);
-    }
-
-    vector<adept::adouble> xp_ext(sizeYExternal());
-    for (size_t i = 0; i < sizeYExternal(); i++) {
-      double value = getDerivativeVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      value = getDerivativeVariableValue(variablesByName_.at(xExternalNames_.at(i)));
       xp_ext[i].set_value(value);
     }
 
