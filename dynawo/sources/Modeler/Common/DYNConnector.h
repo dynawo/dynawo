@@ -382,6 +382,8 @@ class ConnectorContainer {
    */
   bool isConnected(const int numVariable);
 
+  void performExternalConnections();
+
  private:
   /**
    * @brief get Y connector's information according to its index
@@ -504,6 +506,8 @@ class ConnectorContainer {
   std::vector< std::vector<int> > factor_;  ///< factor to use for evalF by variables by connector (should be 1 or -1)
 
   bool connectorsMerged_;  ///< indicates if the connectors are already merged or not
+
+  boost::unordered_map<double* const, std::vector<DYN::connectedSubModel> > externalConnections_;
 };
 
 }  // namespace DYN

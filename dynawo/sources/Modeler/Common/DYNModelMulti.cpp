@@ -78,6 +78,7 @@ offsetFOptional_(0),
 fLocal_(NULL),
 gLocal_(NULL),
 yLocal_(NULL),
+yExternalLocal_(NULL),
 ypLocal_(NULL),
 zLocal_(NULL),
 zConnectedLocal_(NULL),
@@ -99,6 +100,10 @@ ModelMulti::cleanBuffers() {
 
   if (yLocal_ != NULL)
     delete[] yLocal_;
+
+  if (yExternalLocal_ != NULL) {
+    delete[] yExternalLocal_;
+  }
 
   if (ypLocal_ != NULL)
     delete[] ypLocal_;
@@ -173,8 +178,9 @@ void
 ModelMulti::initBuffers() {
   // (1) Get size of each sub models
   // -------------------------------
+  int sizeExternal;
   for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->initSize(sizeY_, sizeZ_, sizeMode_, sizeF_, sizeG_);
+    subModels_[i]->initSize(sizeY_, sizeExternal, sizeZ_, sizeMode_, sizeF_, sizeG_);
 
 
   connectorContainer_->setOffsetModel(sizeF_);
@@ -203,6 +209,7 @@ ModelMulti::initBuffers() {
   fLocal_ = new double[sizeF_]();
   gLocal_ = new state_g[sizeG_]();
   yLocal_ = new double[sizeY_]();
+  yExternalLocal_ = new double*[sizeExternal];
   ypLocal_ = new double[sizeY_]();
   zLocal_ = new double[sizeZ_]();
   zConnectedLocal_ = new bool[sizeZ_];
@@ -215,12 +222,19 @@ ModelMulti::initBuffers() {
   int offsetF = 0;
   int offsetG = 0;
   int offsetY = 0;
+  int offsetYExternal = 0;
   int offsetZ = 0;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     int sizeY = subModels_[i]->sizeY();
     if (sizeY > 0)
       subModels_[i]->setBufferY(yLocal_, ypLocal_, offsetY);
     offsetY += sizeY;
+
+    size_t sizeYExternal = subModels_[i]->sizeYExternal();
+    if (sizeYExternal > 0) {
+      subModels_[i]->setBufferYExternal(yExternalLocal_, offsetYExternal);
+    }
+    offsetYExternal += sizeYExternal;
 
     int sizeF = subModels_[i]->sizeF();
     if (sizeF > 0) {
@@ -249,6 +263,7 @@ ModelMulti::initBuffers() {
   connectorContainer_->setBufferY(yLocal_, ypLocal_);  // connectors access to the whole y Buffer
   connectorContainer_->setBufferZ(zLocal_, zConnectedLocal_);  // connectors access to the whole z buffer
   std::fill(fLocal_ + offsetFOptional_, fLocal_ + sizeF_, 0);
+  connectorContainer_->performExternalConnections();
 
   // (3) init buffers of each sub-model (useful for the network model)
   // (4) release elements that were used and declared only for connections

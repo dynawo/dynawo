@@ -224,7 +224,7 @@ SubModel::loadVariables(const map<string, string>& mapVariables) {
 }
 
 void
-SubModel::initSize(int &sizeYGlob, int &sizeZGlob, int& sizeModeGlob, int & sizeFGlob, int & sizeGGlob) {
+SubModel::initSize(int &sizeYGlob, int& sizeYExternalGlob, int &sizeZGlob, int& sizeModeGlob, int & sizeFGlob, int & sizeGGlob) {
   getSize();
 
   if (sizeY_ != xNames_.size())
@@ -234,12 +234,14 @@ SubModel::initSize(int &sizeYGlob, int &sizeZGlob, int& sizeModeGlob, int & size
 
 
   yDeb_ = sizeYGlob;
+  yExternalDeb_ = sizeYExternalGlob;
   zDeb_ = sizeZGlob;
   modeDeb_ = sizeModeGlob;
   fDeb_ = sizeFGlob;
   gDeb_ = sizeGGlob;
 
   sizeYGlob += sizeY_;
+  sizeYExternalGlob += static_cast<int>(xExternalNames_.size());
   sizeZGlob += sizeZ_;
   sizeModeGlob += sizeMode_;
   sizeFGlob += sizeF_;
@@ -337,10 +339,13 @@ SubModel::getVariableValue(const shared_ptr <Variable> variable) const {
   const typeVar_t typeVar = variable->getType();
   const bool negated = variable->getNegated();
   const bool isState = variable->isState();
+  const bool isExternal = variable->isExternal();
 
   double value;
   if (!isState) {
     value = calculatedVars_[varNum];
+  } else if (isExternal) {
+    value = *(yExternalLocal_[varNum]);
   } else {
     switch (typeVar) {
       case CONTINUOUS:
@@ -421,12 +426,12 @@ SubModel::defineVariables() {
   variablesByName_.clear();
   defineVariables(variables_);
   // sort variable by name
-  for (std::vector<boost::shared_ptr<DYN::Variable>>::const_iterator it = variables_.begin(); it != variables_.end(); ++it) {
+  for (std::vector<boost::shared_ptr<DYN::Variable> >::const_iterator it = variables_.begin(); it != variables_.end(); ++it) {
     variablesByName_[(*it)->getName()] = *it;
   }
 
   // define alias
-  for (std::vector<boost::shared_ptr<DYN::Variable>>::const_iterator it = variables_.begin(); it != variables_.end(); ++it) {
+  for (std::vector<boost::shared_ptr<DYN::Variable> >::const_iterator it = variables_.begin(); it != variables_.end(); ++it) {
     if ((*it)->isAlias()) {
       shared_ptr <VariableAlias> variable = dynamic_pointer_cast<VariableAlias> (*it);
       if (!variable->referenceVariableSet()) {
@@ -802,6 +807,14 @@ SubModel::setBufferY(double* y, double* yp, const int & offsetY) {
   if (yp)
     ypLocal_ = &(yp[offsetY]);
   offsetY_ = offsetY;
+}
+
+void
+SubModel::setBufferYExternal(double** yExternal, int offset) {
+  yExternalLocal_ = static_cast<double**>(NULL);
+  if (yExternal) {
+    yExternalLocal_ = &(yExternal[offset]);
+  }
 }
 
 void

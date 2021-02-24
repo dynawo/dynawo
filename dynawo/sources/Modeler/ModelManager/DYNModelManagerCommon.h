@@ -280,7 +280,9 @@ struct DYNDATA : public DATA {
   int nbCalculatedVars;  ///< number of calculated variables
   int nbDelays;  ///< Number of delays handled
   std::vector<double> constCalcVars;  ///< values of constant calculated variables with complex initialization
-  std::vector<double*> externalVars;
+
+  int nbExternalVars;
+  modelica_real** externalVars;
 };
 
 namespace DYN {

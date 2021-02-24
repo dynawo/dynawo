@@ -399,7 +399,7 @@ class SubModel {
    * @param sizeFGlob offset to use for the subModel in the F global vector
    * @param sizeGGlob offset to use for the subModel in the G global vector
    */
-  void initSize(int &sizeYGlob, int &sizeZGlob, int& sizeModeGlob, int & sizeFGlob, int & sizeGGlob);
+  void initSize(int &sizeYGlob, int& sizeYExternalGlob, int &sizeZGlob, int& sizeModeGlob, int & sizeFGlob, int & sizeGGlob);
 
   /**
    * @brief Model F(t,y,y') function evaluation
@@ -1014,6 +1014,8 @@ class SubModel {
    */
   void setBufferY(double* y, double* yp, const int & offsetY);
 
+  void setBufferYExternal(double** yExternal, int offset);
+
   /**
    * @brief   defines the local buffer to define the discrete variables
    *
@@ -1263,6 +1265,10 @@ class SubModel {
     return sizeY_;
   }
 
+  inline unsigned int sizeYExternal() const {
+    return xExternalNames_.size();
+  }
+
   /**
    * @brief get the number of calculated variables
    *
@@ -1363,6 +1369,14 @@ class SubModel {
    * @return index of this submodel in the global continuous variable table
    */
   int getOffsetY() const {return offsetY_;}
+
+  inline double* yLocal() const {
+    return yLocal_;
+  }
+
+  inline void connectExternalVariable(double* const value_ref, int indexExternalVariable) {
+    yExternalLocal_[indexExternalVariable] = value_ref;
+  }
 
  protected:
   /**
@@ -1474,12 +1488,14 @@ class SubModel {
   double* fLocal_;  ///< local buffer to fill when calculating residual functions
   state_g* gLocal_;  ///< local buffer to fill when calculating root functions
   double* yLocal_;  ///< local buffer to use when accessing continuous variables
+  double** yExternalLocal_;
   int offsetY_;  ///< index in the global variable table
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use when accessing discretes variables
   bool* zLocalConnected_;  ///< table to know whether a discrete var is connected or not
 
   std::vector<double> yLocalInit_;  ///< local buffer used for the init model
+  std::vector<double*> yExternalLocalInit_;
   std::vector<double> ypLocalInit_;  ///< local buffer used for the init model
   std::vector<double> zLocalInit_;  ///< local buffer used for the init model
   std::vector<double> fLocalInit_;  ///< local buffer used for the init model
@@ -1497,6 +1513,7 @@ class SubModel {
   // Index to access data inside global buffers
   // -------------------------------------------
   int yDeb_;  ///< offset to use to find y values inside the global buffer
+  int yExternalDeb_;
   int zDeb_;  ///< offset to use to find z values inside the global buffer
   int modeDeb_;  ///< offset to use to find mode values inside the global buffer
   int fDeb_;  ///< offset to use to find residual functions values inside the global buffer

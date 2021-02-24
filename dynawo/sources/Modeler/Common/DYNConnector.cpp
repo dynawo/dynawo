@@ -113,12 +113,23 @@ ConnectorContainer::mergeYConnector() {
   yConnectors_.clear();
   yConnectorByVarNum_.clear();
   list<shared_ptr<Connector> > yConnectorsList;
+  std::vector<connectedSubModel> external_vars;
+  boost::optional<connectedSubModel> external_var_ref;
   for (unsigned int i = 0; i < yConnectorsDeclared_.size(); ++i) {
+    external_vars.clear();
+    external_var_ref.reset();
     shared_ptr<Connector> yc(new Connector(*yConnectorsDeclared_[i]));
     bool merged = false;
     for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
         it != yc->connectedSubModels().end();
         ++it) {
+      if (it->variable()->isExternal()) {
+        external_vars.push_back(*it);
+        continue;
+      } else if (!external_var_ref) {
+        external_var_ref = *it;
+      }
+
       const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
       if (yConnectorByVarNum_.find(numVar) != yConnectorByVarNum_.end()) {
         mergeConnectors(yc, yConnectorByVarNum_[numVar], yConnectorsList, yConnectorByVarNum_);
@@ -127,7 +138,7 @@ ConnectorContainer::mergeYConnector() {
       }
     }
 
-    if (!merged) {
+    if (!merged && yc->nbConnectedSubModels() > 0) {
       yConnectorsList.push_back(yc);
       for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
           it != yc->connectedSubModels().end();
@@ -136,12 +147,36 @@ ConnectorContainer::mergeYConnector() {
         yConnectorByVarNum_[numVar] = yc;
       }
     }
+
+    if (external_vars.size() > 0) {
+      if (!external_var_ref) {
+        // only external variables: error
+        // TODO(lecourtoisflo) real exception
+        throw std::runtime_error("Only external variables in connector: error");
+      } else {
+        double* const var_ref_local = &(external_var_ref->subModel()->yLocal()[external_var_ref->variable()->getIndex()]);
+        externalConnections_[var_ref_local] = external_vars;
+      }
+    }
   }
 
   // Copy kept yConnectors in the vector
   yConnectors_.assign(yConnectorsList.begin(), yConnectorsList.end());
 }
 
+void
+ConnectorContainer::performExternalConnections() {
+  for (boost::unordered_map<double* const, std::vector<DYN::connectedSubModel> >::const_iterator it =
+    externalConnections_.begin(); it != externalConnections_.end(); ++it) {
+    double* const var_ref_local = it->first;
+    for (std::vector<connectedSubModel>::const_iterator it_m = it->second.begin(); it_m != it->second.end(); ++it_m) {
+      it_m->subModel()->connectExternalVariable(var_ref_local, it_m->variable()->getIndex());
+    }
+  }
+
+  // we don't need it any more
+  externalConnections_.clear();
+}
 
 int
 ConnectorContainer::getConnectorVarNum(const shared_ptr<SubModel>& subModel, const shared_ptr<Variable>& variable, bool flowConnector) {

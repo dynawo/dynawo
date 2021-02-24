@@ -1036,25 +1036,26 @@ TEST(ModelerCommonTest, SanityCheckOnSizeYZ) {
   boost::dynamic_pointer_cast< SubModel >(submodel)->defineVariables();
   submodel->defineNames();
   int sizeYGlob = 0;
+  int sizeYExternal = 0;
   int sizeZGlob = 0;
   int sizeModeGlob = 0;
   int sizeFGlob = 0;
   int sizeGGlob = 0;
-  ASSERT_THROW_DYNAWO(submodel->initSize(sizeYGlob, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob),
+  ASSERT_THROW_DYNAWO(submodel->initSize(sizeYGlob, sizeYExternal, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob),
       Error::MODELER, KeyError_t::MismatchingVariableSizes);
 
 
   submodel = boost::shared_ptr<SubModelMock>(new SubModelMock(1, 2));
   boost::dynamic_pointer_cast< SubModel >(submodel)->defineVariables();
   submodel->defineNames();
-  ASSERT_THROW_DYNAWO(submodel->initSize(sizeYGlob, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob),
+  ASSERT_THROW_DYNAWO(submodel->initSize(sizeYGlob, sizeYExternal, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob),
       Error::MODELER, KeyError_t::MismatchingVariableSizes);
 
 
   submodel = boost::shared_ptr<SubModelMock>(new SubModelMock(1, 1));
   boost::dynamic_pointer_cast< SubModel >(submodel)->defineVariables();
   submodel->defineNames();
-  ASSERT_NO_THROW(submodel->initSize(sizeYGlob, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob));
+  ASSERT_NO_THROW(submodel->initSize(sizeYGlob, sizeYExternal, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob));
 }
 
 

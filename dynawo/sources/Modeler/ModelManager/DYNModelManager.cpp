@@ -182,6 +182,7 @@ void
 ModelManager::associateBuffers() {
   if (modelInitUsed_) {
     yLocalInit_.resize(dataInit_->nbVars);
+    yExternalLocalInit_.resize(dataInit_->nbExternalVars);
     ypLocalInit_.resize(dataInit_->nbVars);
     zLocalInit_.resize(dataInit_->nbZ + dataInit_->modelData->nVariablesInteger);
     fLocalInit_.resize(dataInit_->nbF);
@@ -196,6 +197,8 @@ ModelManager::associateBuffers() {
       dataInit_->localData[0]->derivativesVars = &(ypLocalInit_[0]);
     if (!zLocalInit_.empty())
       dataInit_->localData[0]->discreteVars = &(zLocalInit_[0]);
+    if (!yExternalLocalInit_.empty())
+      dataInit_->externalVars = &(yExternalLocalInit_[0]);
 
     if (dataInit_->modelData->nVariablesInteger > 0) {
       int offset = dataInit_->nbZ;
@@ -203,6 +206,7 @@ ModelManager::associateBuffers() {
     }
   } else {
     dataDyn_->localData[0]->realVars = &(yLocal_[0]);
+    dataDyn_->externalVars = &(yExternalLocal_[0]);
 
     dataDyn_->localData[0]->derivativesVars = &(ypLocal_[0]);
     dataDyn_->localData[0]->discreteVars = &(zLocal_[0]);

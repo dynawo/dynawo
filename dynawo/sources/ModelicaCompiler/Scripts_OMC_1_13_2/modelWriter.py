@@ -511,6 +511,7 @@ class ModelWriter(ModelWriterBase):
         nbvars = len(self.builder.list_vars_syst) - len(self.builder.reader.auxiliary_vars_counted_as_variables) - len(self.builder.reader.fictive_continuous_vars)
 
         self.addLine("  data->nbVars = "+str(nbvars)+";\n")
+        self.addLine("  data->nbExternalVars = "+str(len(self.builder.reader.fictive_continuous_vars))+";\n")
         self.addLine("  data->nbF = "+str(self.builder.get_nb_eq_dyn()) +";\n")
         self.addLine("  data->nbModes = " +str(self.builder.get_nb_modes()) + ";\n")
         self.addLine("  data->nbZ = "+str(self.builder.nb_z)+";\n")
