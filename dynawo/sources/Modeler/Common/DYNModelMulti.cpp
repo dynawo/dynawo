@@ -209,7 +209,9 @@ ModelMulti::initBuffers() {
   fLocal_ = new double[sizeF_]();
   gLocal_ = new state_g[sizeG_]();
   yLocal_ = new double[sizeY_]();
-  yExternalLocal_ = new double*[sizeExternal];
+  if (sizeExternal > 0) {
+    yExternalLocal_ = new double*[sizeExternal];
+  }
   ypLocal_ = new double[sizeY_]();
   zLocal_ = new double[sizeZ_]();
   zConnectedLocal_ = new bool[sizeZ_];
