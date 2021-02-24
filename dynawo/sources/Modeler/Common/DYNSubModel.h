@@ -555,7 +555,7 @@ class SubModel {
    *
    */
   inline void defineNames() {
-    defineNamesImpl(variables_, zNames_, xNames_, calculatedVarNames_);
+    defineNamesImpl(variables_, zNames_, xNames_, xExternalNames_, calculatedVarNames_);
   }
 
   /**
@@ -563,7 +563,7 @@ class SubModel {
    *
    */
   inline void defineNamesInit() {
-    defineNamesImpl(variablesInit_, zNamesInit_, xNamesInit_, calculatedVarNamesInit_);
+    defineNamesImpl(variablesInit_, zNamesInit_, xNamesInit_, xExternalNamesInit_, calculatedVarNamesInit_);
   }
 
   /**
@@ -574,8 +574,9 @@ class SubModel {
    * @param xNames vector linking continuous (possibly flow) variables with names
    * @param calculatedVarNames vector linking calculated variables with names
    */
-  void defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, std::vector<std::string>& zNames,
-                       std::vector<std::string>& xNames, std::vector<std::string>& calculatedVarNames);
+  static void defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, std::vector<std::string>& zNames,
+                       std::vector<std::string>& xNames, std::vector<std::string>& xExternalNames,
+                       std::vector<std::string>& calculatedVarNames);
 
   /**
    * @brief print some data for the subModel (size,index, etc...)
@@ -1129,6 +1130,10 @@ class SubModel {
     return xNames_;
   }
 
+  inline const std::vector<std::string>& xExternalNames() {
+    return xExternalNames_;
+  }
+
   /**
    * @brief get the names of all continuous aliases variables of the dynamic model
    *
@@ -1174,6 +1179,10 @@ class SubModel {
     return xNamesInit_;
   }
 
+  inline const std::vector<std::string>& xExternalNamesInit() {
+    return xExternalNamesInit_;
+  }
+
   /**
    * @brief get the names of all calculated variables (values calculated thanks to other variables
    * for the init model
@@ -1191,6 +1200,10 @@ class SubModel {
    * @return names of all calculated variables
    */
   inline const std::vector<std::string>& getCalculatedVarNames() {
+    return calculatedVarNames_;
+  }
+
+  inline const std::vector<std::string>& getExternalNames() {
     return calculatedVarNames_;
   }
 
@@ -1523,12 +1536,14 @@ class SubModel {
 
   std::vector<std::string> zNames_;  ///< vector of the discretes variables name
   std::vector<std::string> xNames_;  ///< vector of the continuous variables names
+  std::vector<std::string> xExternalNames_;
   std::vector<std::string> calculatedVarNames_;  ///< vector of sub-model calculated variables names
   std::vector<std::pair<std::string, std::pair<std::string, bool> > > xAliasesNames_;  ///< vector of the continuous aliases variables names
   std::vector<std::pair<std::string, std::pair<std::string, bool> > > zAliasesNames_;  ///< vector of the discrete aliases variables names
 
   std::vector<std::string> zNamesInit_;  ///< name of the discrete variables of the init model
   std::vector<std::string> xNamesInit_;  ///< name of the continuous variables of the init model
+  std::vector<std::string> xExternalNamesInit_;
   std::vector<std::string> calculatedVarNamesInit_;  ///< name of the calculated variables of the init model
   std::vector<boost::shared_ptr<Variable> > variablesInit_;  ///< vector of sub-model variables
 

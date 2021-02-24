@@ -85,6 +85,8 @@ class Variable {
     return isAlias_;
   }
 
+  virtual bool isExternal() const = 0;
+
  protected:
   /**
    * @brief Constructor

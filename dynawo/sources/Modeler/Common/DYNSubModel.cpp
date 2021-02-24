@@ -421,14 +421,14 @@ SubModel::defineVariables() {
   variablesByName_.clear();
   defineVariables(variables_);
   // sort variable by name
-  for (unsigned int i = 0; i < variables_.size(); ++i) {
-    variablesByName_[variables_[i]->getName()] = variables_[i];
+  for (std::vector<boost::shared_ptr<DYN::Variable>>::const_iterator it = variables_.begin(); it != variables_.end(); ++it) {
+    variablesByName_[(*it)->getName()] = *it;
   }
 
   // define alias
-  for (unsigned int i = 0; i < variables_.size(); ++i) {
-    if (variables_[i]->isAlias()) {
-      shared_ptr <VariableAlias> variable = dynamic_pointer_cast<VariableAlias> (variables_[i]);
+  for (std::vector<boost::shared_ptr<DYN::Variable>>::const_iterator it = variables_.begin(); it != variables_.end(); ++it) {
+    if ((*it)->isAlias()) {
+      shared_ptr <VariableAlias> variable = dynamic_pointer_cast<VariableAlias> (*it);
       if (!variable->referenceVariableSet()) {
         boost::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variable->getReferenceVariableName());
         if (iter == variablesByName_.end()) {
@@ -669,7 +669,8 @@ SubModel::defineParameters(const bool isInitParam) {
 }
 
 void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<string>& zNames,
-                               vector<string>& xNames, vector<string>& calculatedVarNames) {
+                               vector<string>& xNames, std::vector<string>& xExternalNames,
+                               vector<string>& calculatedVarNames) {
   zNames.clear();
   xNames.clear();
   calculatedVarNames.clear();
@@ -686,6 +687,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
     const typeVar_t type = currentVariable->getType();
     const string name = currentVariable->getName();
     const bool isState = currentVariable->isState();
+    const bool isExternal = currentVariable->isExternal();
     int index = -1;
 
     if (currentVariable->isAlias())  // no alias in names vector
@@ -695,6 +697,10 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
     if (!isState) {
       index = calculatedVarNames.size();
       calculatedVarNames.push_back(name);
+      nativeVariable->setIndex(index);
+    } else if (isExternal) {
+      index = xExternalNames.size();
+      xExternalNames.push_back(name);
       nativeVariable->setIndex(index);
     } else {
       switch (type) {

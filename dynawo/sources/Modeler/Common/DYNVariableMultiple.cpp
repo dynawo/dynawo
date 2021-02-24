@@ -26,7 +26,7 @@ using std::string;
 namespace DYN {
 
 VariableMultiple::VariableMultiple(const string& name, const string& cardinalityName, const typeVar_t& type, bool isState, bool negated) :
-VariableNative(name, type, isState, negated),
+VariableNative(name, type, isState, negated, false),
 cardinalityName_(cardinalityName) {
 }
 
