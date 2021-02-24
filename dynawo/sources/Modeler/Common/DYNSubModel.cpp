@@ -69,6 +69,7 @@ sizeZ_(0),
 sizeG_(0),
 sizeMode_(0),
 sizeY_(0),
+sizeYExternal_(0),
 sizeCalculatedVar_(0),
 fLocal_(NULL),
 gLocal_(NULL),
@@ -93,6 +94,7 @@ sizeZSave_(0),
 sizeGSave_(0),
 sizeModeSave_(0),
 sizeYSave_(0),
+sizeYExternalSave_(0),
 sizeCalculatedVarSave_(0),
 fLocalSave_(NULL),
 gLocalSave_(NULL),
@@ -151,6 +153,7 @@ SubModel::saveData() {
   sizeGSave_ = sizeG_;
   sizeModeSave_ = sizeMode_;
   sizeYSave_ = sizeY_;
+  sizeYExternalSave_ = sizeYExternal_;
   sizeCalculatedVarSave_ = sizeCalculatedVar_;
   fLocalSave_ = fLocal_;
   gLocalSave_ = gLocal_;
@@ -167,6 +170,7 @@ SubModel::restoreData() {
   sizeG_ = sizeGSave_;
   sizeMode_ = sizeModeSave_;
   sizeY_ = sizeYSave_;
+  sizeYExternal_ = sizeYExternalSave_;
   sizeCalculatedVar_ = sizeCalculatedVarSave_;
   fLocal_ = fLocalSave_;
   gLocal_ = gLocalSave_;
@@ -182,6 +186,9 @@ SubModel::initSub(const double& t0) {
 
   if (!withLoadedParameters_) {
     saveData();
+    // no external variable at init
+    sizeYExternal_ = 0;
+
     initParams();
     restoreData();
   }
@@ -243,7 +250,7 @@ SubModel::initSize(int &sizeYGlob, int& sizeYExternalGlob, int &sizeZGlob, int& 
   gDeb_ = sizeGGlob;
 
   sizeYGlob += sizeY_;
-  sizeYExternalGlob += static_cast<int>(xExternalNames_.size());
+  sizeYExternalGlob += sizeYExternal_;
   sizeZGlob += sizeZ_;
   sizeModeGlob += sizeMode_;
   sizeFGlob += sizeF_;
@@ -717,6 +724,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
                                vector<string>& calculatedVarNames) {
   zNames.clear();
   xNames.clear();
+  xExternalNames.clear();
   calculatedVarNames.clear();
   vector <std::pair <string, int> > integer_variables;  // integer variables have to be dealt with last
 

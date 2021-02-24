@@ -165,7 +165,8 @@ ConnectorContainer::mergeYConnector() {
         // TODO(lecourtoisflo) real exception
         throw std::runtime_error("Only external variables in connector: error");
       } else {
-        externalConnections_[*external_var_ref] = external_vars;
+        std::vector<DYN::connectedSubModel>& connections = externalConnections_[*external_var_ref];
+        connections.insert(connections.end(), external_vars.begin(), external_vars.end());
 
         int num_var_ref = external_var_ref->subModel()->getVariableIndexGlobal(external_var_ref->variable());
         for (std::vector<connectedSubModel>::const_iterator it = external_vars.begin(); it != external_vars.end(); ++it) {

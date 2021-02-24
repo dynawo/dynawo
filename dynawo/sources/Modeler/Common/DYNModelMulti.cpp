@@ -1178,17 +1178,6 @@ void ModelMulti::printVariableNames() {
   }
   nVar = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  Trace::debug(Trace::variables()) << "X external variables init" << Trace::endline;
-  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    const std::vector<std::string>& xNames = subModels_[i]->xExternalNamesInit();
-    for (unsigned int j = 0; j < xNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << subModels_[i]->name() << "_" << xNames[j] << Trace::endline;
-       ++nVar;
-    }
-  }
-  nVar = 0;
-  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X calculated variables init" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {

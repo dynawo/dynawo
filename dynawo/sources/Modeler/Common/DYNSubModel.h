@@ -558,6 +558,7 @@ class SubModel {
    */
   inline void defineNames() {
     defineNamesImpl(variables_, zNames_, xNames_, xExternalNames_, calculatedVarNames_);
+    sizeYExternal_ = xExternalNames_.size();
   }
 
   /**
@@ -565,7 +566,8 @@ class SubModel {
    *
    */
   inline void defineNamesInit() {
-    defineNamesImpl(variablesInit_, zNamesInit_, xNamesInit_, xExternalNamesInit_, calculatedVarNamesInit_);
+    std::vector<std::string> xExternalNamesInit;
+    defineNamesImpl(variablesInit_, zNamesInit_, xNamesInit_, xExternalNamesInit, calculatedVarNamesInit_);
   }
 
   /**
@@ -1185,10 +1187,6 @@ class SubModel {
     return xNamesInit_;
   }
 
-  inline const std::vector<std::string>& xExternalNamesInit() {
-    return xExternalNamesInit_;
-  }
-
   /**
    * @brief get the names of all calculated variables (values calculated thanks to other variables
    * for the init model
@@ -1270,7 +1268,7 @@ class SubModel {
   }
 
   inline unsigned int sizeYExternal() const {
-    return xExternalNames_.size();
+    return sizeYExternal_;
   }
 
   /**
@@ -1494,6 +1492,7 @@ class SubModel {
   unsigned int sizeG_;  ///< size of the local G function
   unsigned int sizeMode_;  ///< size of the local mode function
   unsigned int sizeY_;  ///< size of the local Y function
+  unsigned int sizeYExternal_;
   unsigned int sizeCalculatedVar_;  ///< number of calculated variables
 
   // Data associated to a subModel
@@ -1550,6 +1549,7 @@ class SubModel {
   int sizeGSave_;  ///< save of the size of G
   int sizeModeSave_;  ///< save of the size of the Mode
   int sizeYSave_;  ///< save of the size of Y
+  unsigned sizeYExternalSave_;
   int sizeCalculatedVarSave_;  ///< size of the size of calculated variables
   double* fLocalSave_;  ///< save of the local buffer of residual functions
   state_g* gLocalSave_;  ///< save of the local buffer of root functions
@@ -1575,7 +1575,6 @@ class SubModel {
 
   std::vector<std::string> zNamesInit_;  ///< name of the discrete variables of the init model
   std::vector<std::string> xNamesInit_;  ///< name of the continuous variables of the init model
-  std::vector<std::string> xExternalNamesInit_;
   std::vector<std::string> calculatedVarNamesInit_;  ///< name of the calculated variables of the init model
   std::vector<boost::shared_ptr<Variable> > variablesInit_;  ///< vector of sub-model variables
 
