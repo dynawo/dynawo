@@ -1242,6 +1242,7 @@ class ReaderOMC:
         self.detect_z_only_used_internally()
         # Attribution of indexes done independently to make sure the order is the same as in defineVariables and defineParameters methods
         index_real_var = 0
+        index_external = 0
         index_derivative_var = 0
         index_discrete_var = 0
         index_boolean_vars = 0
@@ -1261,8 +1262,12 @@ class ReaderOMC:
                 self.auxiliary_vars_to_address_map[name.replace("$cse","cse")] = to_param_address(name)
                 self.auxiliary_vars_counted_as_variables.append(name)
             elif "realVars" in address:
-                set_param_address(name, "data->localData[0]->realVars["+str(index_real_var)+"]")
-                index_real_var+=1
+                if name in self.fictive_continuous_vars:
+                    set_param_address(name, "*(data->externalVars["+str(index_external)+"])")
+                    index_external+=1
+                else:
+                    set_param_address(name, "data->localData[0]->realVars["+str(index_real_var)+"]")
+                    index_real_var+=1
                 if var.is_fixed():
                     var.set_fixed(False)
             elif "discreteVars" in address:
@@ -1293,6 +1298,7 @@ class ReaderOMC:
         self.nb_discrete_vars = index_discrete_var
         self.nb_bool_vars = index_boolean_vars
         self.nb_integer_vars = index_integer_double
+        self.nb_external_vars = index_external
         self.find_calculated_variables()
 
 

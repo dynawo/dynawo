@@ -1330,6 +1330,7 @@ class Factory:
         for var in list_vars :
             if var.is_alias() and  (to_param_address(var.get_name()).startswith("SHOULD NOT BE USED")): continue
             if var in self.reader.list_complex_calculated_vars: continue
+            if var.get_name() in self.reader.fictive_continuous_vars: continue
             if var.get_use_start() and not (is_const_var(var) and var.get_init_by_param_in_06inz()):
                 init_val = var.get_start_text()[0]
                 if init_val == "":
@@ -2794,8 +2795,8 @@ class Factory:
             var_ext = ""
             if is_alg_var(v) : spin = "ALGEBRAIC"
             if v.get_name() in self.reader.fictive_continuous_vars:
-              spin = "EXTERNAL"
-              var_ext = "- external variables"
+                # skip external variables
+                continue
             elif v.get_name() in self.reader.fictive_optional_continuous_vars:
               spin = "OPTIONAL_EXTERNAL"
               var_ext = "- optional external variables"
@@ -2847,6 +2848,7 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_setvariables(self):
+        line_ptrn_native_external_state = '  variables.push_back (VariableNativeFactory::createExternalState ("%s", %s, %s));\n'
         line_ptrn_native_state = '  variables.push_back (VariableNativeFactory::createState ("%s", %s, %s));\n'
         line_ptrn_native_calculated = '  variables.push_back (VariableNativeFactory::createCalculated ("%s", %s, %s));\n'
         line_ptrn_alias =  '  variables.push_back (VariableAliasFactory::create ("%s", "%s", %s, %s));\n'
@@ -2866,6 +2868,8 @@ class Factory:
             elif v.is_alias():
                 alias_name = to_compile_name(v.get_alias_name())
                 line = line_ptrn_alias % ( name, alias_name, v.get_dyn_type(), negated)
+            elif v.get_name() in self.reader.fictive_continuous_vars:
+                line = line_ptrn_native_external_state % ( name, v.get_dyn_type(), "false")
             else:
                 line = line_ptrn_native_state % ( name, v.get_dyn_type(), negated)
             self.list_for_setvariables.append(line)

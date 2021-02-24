@@ -41,5 +41,8 @@
         "GMOCK_HOME": "${workspaceFolder}/build-code/Install/3rdParty/googletest"
     },
 
-    "python.analysis.extraPaths": ["${workspaceFolder}/util/nrt_diff"]
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/util/nrt_diff",
+        "${workspaceFolder}/dynawo/sources/ModelicaCompiler/Scripts_OMC_1_13_2"
+    ],
 }
