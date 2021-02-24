@@ -307,7 +307,7 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
     return;
 
   try {
-    const int nbInput = sizeY() + sizeY() + sizeYExternal();  // Y and Y '
+    const int nbInput = sizeY() + sizeY() + sizeYExternal() + sizeYExternal();  // Y and Y ' for variables and external variables
     const int nbOutput = sizeF();
     if (nbOutput == 0) {
       return;
@@ -357,8 +357,6 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
     Timer * timer3 = new Timer("zzz filling");
 #endif
 
-    const boost::unordered_map<int, int>& externalConnections = connectorContainer_->externalConnectionsByVarNum();
-
     for (unsigned int i = 0; i < sizeF(); ++i) {
       Jt.changeCol();
       for (unsigned int j = 0; j < sizeF(); ++j) {
@@ -372,6 +370,11 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
         Jt.addTerm(j + rowOffset, term);
       }
 
+      if (sizeYExternal() == 0) {
+        continue;
+      }
+      // assuming that external connections array has been set during initialization if external variables are handled
+      const boost::unordered_map<int, int>& externalConnections = connectorContainer_.lock()->externalConnectionsByVarNum();
       for (unsigned int j = 0; j < sizeYExternal(); j++) {
         int index = 2 * sizeY() + i + j * sizeF();
         double term = coeff * jac[index];

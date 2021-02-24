@@ -29,6 +29,7 @@
 #include <boost/unordered_set.hpp>
 
 #include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 
 #include "DYNEnumUtils.h"
 #include "DYNParameterModeler.h"
@@ -1542,7 +1543,7 @@ class SubModel {
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
 
   std::vector<std::string> xExternalNames_;
-  boost::shared_ptr<ConnectorContainer> connectorContainer_;
+  boost::weak_ptr<ConnectorContainer> connectorContainer_;
 
  private:
   int sizeFSave_;  ///< save of the size of F
