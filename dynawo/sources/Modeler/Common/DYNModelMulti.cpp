@@ -178,7 +178,7 @@ void
 ModelMulti::initBuffers() {
   // (1) Get size of each sub models
   // -------------------------------
-  int sizeExternal;
+  int sizeExternal = 0;
   for (unsigned int i = 0; i < subModels_.size(); ++i)
     subModels_[i]->initSize(sizeY_, sizeExternal, sizeZ_, sizeMode_, sizeF_, sizeG_);
 
@@ -211,6 +211,7 @@ ModelMulti::initBuffers() {
   yLocal_ = new double[sizeY_]();
   if (sizeExternal > 0) {
     yExternalLocal_ = new double*[sizeExternal];
+    std::fill_n(yExternalLocal_, sizeExternal, static_cast<double*>(NULL));
   }
   ypLocal_ = new double[sizeY_]();
   zLocal_ = new double[sizeZ_]();

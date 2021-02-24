@@ -507,7 +507,7 @@ class ConnectorContainer {
 
   bool connectorsMerged_;  ///< indicates if the connectors are already merged or not
 
-  boost::unordered_map<double* const, std::vector<DYN::connectedSubModel> > externalConnections_;
+  boost::unordered_map<connectedSubModel*, std::vector<DYN::connectedSubModel> > externalConnections_;
 };
 
 }  // namespace DYN
