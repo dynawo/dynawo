@@ -384,6 +384,10 @@ class ConnectorContainer {
 
   void performExternalConnections();
 
+  const boost::unordered_map<int, int>& externalConnectionsByVarNum() const {
+    return externalConnectionsByVarNum_;
+  }
+
  private:
   /**
    * @brief get Y connector's information according to its index
@@ -508,6 +512,7 @@ class ConnectorContainer {
   bool connectorsMerged_;  ///< indicates if the connectors are already merged or not
 
   boost::unordered_map<connectedSubModel*, std::vector<DYN::connectedSubModel> > externalConnections_;
+  boost::unordered_map<int, int> externalConnectionsByVarNum_;
 };
 
 }  // namespace DYN

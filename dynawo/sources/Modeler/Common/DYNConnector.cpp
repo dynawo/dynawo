@@ -160,6 +160,12 @@ ConnectorContainer::mergeYConnector() {
         throw std::runtime_error("Only external variables in connector: error");
       } else {
         externalConnections_[*external_var_ref] = external_vars;
+
+        int num_var_ref = (*external_var_ref)->subModel()->getVariableIndexGlobal((*external_var_ref)->variable());
+        for (std::vector<connectedSubModel>::const_iterator it = external_vars.begin(); it != external_vars.end(); ++it) {
+          const int num_var = it->subModel()->getVariableIndexGlobal(it->variable());
+          externalConnectionsByVarNum_[num_var] = num_var_ref;
+        }
       }
     }
   }
@@ -173,8 +179,9 @@ ConnectorContainer::performExternalConnections() {
   for (boost::unordered_map<connectedSubModel*, std::vector<DYN::connectedSubModel> >::const_iterator it =
     externalConnections_.begin(); it != externalConnections_.end(); ++it) {
     double* const var_ref_local = &(it->first->subModel()->yLocal()[it->first->variable()->getIndex()]);
+    double* const var_p_ref_local = &(it->first->subModel()->ypLocal()[it->first->variable()->getIndex()]);
     for (std::vector<connectedSubModel>::const_iterator it_m = it->second.begin(); it_m != it->second.end(); ++it_m) {
-      it_m->subModel()->connectExternalVariable(var_ref_local, it_m->variable()->getIndex());
+      it_m->subModel()->connectExternalVariable(var_ref_local, var_p_ref_local, it_m->variable()->getIndex());
     }
   }
 

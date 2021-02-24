@@ -153,7 +153,7 @@ class ModelModelica {
    * @param F computes values of the residual functions
    */
   virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp,
-    const std::vector<adept::adouble> &yext, std::vector<adept::adouble> &F) = 0;
+    const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &F) = 0;
 #endif
 
   /**
@@ -255,7 +255,7 @@ class ModelModelica {
    * @return value of the calculated variable
    */
   virtual adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y,
-      const std::vector<adept::adouble> &yp) const = 0;
+      const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext) const = 0;
 #endif
 
 /**

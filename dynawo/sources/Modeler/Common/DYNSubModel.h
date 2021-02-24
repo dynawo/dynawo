@@ -32,6 +32,7 @@
 
 #include "DYNEnumUtils.h"
 #include "DYNParameterModeler.h"
+#include "DYNConnector.h"
 #include "PARParametersSet.h"
 #include "CSTRConstraintsCollection.h"
 #include "DYNBitMask.h"
@@ -685,6 +686,8 @@ class SubModel {
    */
   double getVariableValue(const boost::shared_ptr <Variable> variable) const;
 
+  double getDerivativeVariableValue(const boost::shared_ptr <Variable> variable) const;
+
   /**
    * @brief retrieve the global index of a given variable
    *
@@ -1014,7 +1017,7 @@ class SubModel {
    */
   void setBufferY(double* y, double* yp, const int & offsetY);
 
-  void setBufferYExternal(double** yExternal, int offset);
+  void setBufferYExternal(double** yExternal, double** ypExternal, int offset);
 
   /**
    * @brief   defines the local buffer to define the discrete variables
@@ -1374,8 +1377,17 @@ class SubModel {
     return yLocal_;
   }
 
-  inline void connectExternalVariable(double* const value_ref, int indexExternalVariable) {
+  inline double* ypLocal() const {
+    return ypLocal_;
+  }
+
+  void connectExternalVariable(double* const value_ref, double* const value_p_ref, int indexExternalVariable) {
     yExternalLocal_[indexExternalVariable] = value_ref;
+    ypExternalLocal_[indexExternalVariable] = value_p_ref;
+  }
+
+  inline void setConnectorContainer(const boost::shared_ptr<ConnectorContainer>& container) {
+    connectorContainer_ = container;
   }
 
  protected:
@@ -1488,9 +1500,10 @@ class SubModel {
   double* fLocal_;  ///< local buffer to fill when calculating residual functions
   state_g* gLocal_;  ///< local buffer to fill when calculating root functions
   double* yLocal_;  ///< local buffer to use when accessing continuous variables
-  double** yExternalLocal_;
   int offsetY_;  ///< index in the global variable table
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
+  double** yExternalLocal_;
+  double** ypExternalLocal_;
   double* zLocal_;  ///< local buffer to use when accessing discretes variables
   bool* zLocalConnected_;  ///< table to know whether a discrete var is connected or not
 
@@ -1529,6 +1542,7 @@ class SubModel {
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
 
   std::vector<std::string> xExternalNames_;
+  boost::shared_ptr<ConnectorContainer> connectorContainer_;
 
  private:
   int sizeFSave_;  ///< save of the size of F

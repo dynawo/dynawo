@@ -207,6 +207,7 @@ ModelManager::associateBuffers() {
   } else {
     dataDyn_->localData[0]->realVars = &(yLocal_[0]);
     dataDyn_->externalVars = &(yExternalLocal_[0]);
+    dataDyn_->externalPVars = &(ypExternalLocal_[0]);
 
     dataDyn_->localData[0]->derivativesVars = &(ypLocal_[0]);
     dataDyn_->localData[0]->discreteVars = &(zLocal_[0]);
@@ -283,13 +284,13 @@ ModelManager::setGequationsInit() {
 
 void
 ModelManager::evalF(const double & t, const vector<adept::adouble> &y,
-        const vector<adept::adouble> &yp, const vector<adept::adouble> &yext, vector<adept::adouble> &f) {
+        const vector<adept::adouble> &yp, const vector<adept::adouble> &y_ext, const vector<adept::adouble> &yp_ext, vector<adept::adouble> &f) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalF adept");
 #endif
   setManagerTime(t);
 
-  modelModelica()->evalFAdept(y, yp, yext, f);
+  modelModelica()->evalFAdept(y, yp, y_ext, yp_ext, f);
 #ifdef _DEBUG_
   for (unsigned int i = 0; i < sizeF(); i++) {
     double term = f[i].value();
@@ -322,17 +323,24 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
     vector<adept::adouble> xp(sizeY());
     adept::set_values(&xp[0], sizeY(), yp);
 
+    vector<adept::adouble> x_ext(sizeYExternal());
+    for (size_t i = 0; i < sizeYExternal(); i++) {
+      double value = getVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      x_ext[i].set_value(value);
+    }
+
     vector<adept::adouble> xp_ext(sizeYExternal());
     for (size_t i = 0; i < sizeYExternal(); i++) {
-      auto value = getVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      double value = getDerivativeVariableValue(variablesByName_.at(xExternalNames_.at(i)));
       xp_ext[i].set_value(value);
     }
 
     stack.new_recording();
     vector<adept::adouble> output(nbOutput);
-    evalF(t, x, xp, xp_ext, output);
+    evalF(t, x, xp, x_ext, xp_ext, output);
     stack.independent(&x[0], x.size());
     stack.independent(&xp[0], xp.size());
+    stack.independent(&x_ext[0], x_ext.size());
     stack.independent(&xp_ext[0], xp_ext.size());
     stack.dependent(&output[0], nbOutput);
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
@@ -348,6 +356,8 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer * timer3 = new Timer("zzz filling");
 #endif
+
+    const boost::unordered_map<int, int>& externalConnections = connectorContainer_->externalConnectionsByVarNum();
 
     for (unsigned int i = 0; i < sizeF(); ++i) {
       Jt.changeCol();
@@ -367,10 +377,12 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
         double term = coeff * jac[index];
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
+          // TODO(lecourtoisflo) Correct arguments exception
           throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);
         }
 #endif
-        int index_reference = getVariableIndexGlobal(variablesByName_.at(xExternalNames_.at(j)));
+        int index_external = getVariableIndexGlobal(getVariable(xExternalNames_.at(j)));
+        int index_reference = externalConnections.at(index_external);
         Jt.addTerm(index_reference, term);
       }
     }
@@ -1402,13 +1414,22 @@ ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& 
     stack.activate();
     vector<adept::adouble> x(nbInput);
     vector<adept::adouble> xp(nbInput);
+    vector<adept::adouble> x_ext(sizeYExternal());
+    vector<adept::adouble> xp_ext(sizeYExternal());
     for (size_t i = 0; i < size; ++i) {
       x[i] = yLocal_[indexes[i]];
       xp[i] = ypLocal_[indexes[i]];
     }
 
+    for (size_t i = 0; i < sizeYExternal(); i++) {
+      double value = getVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      x_ext[i].set_value(value);
+      value = getDerivativeVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      xp_ext[i].set_value(value);
+    }
+
     stack.new_recording();
-    adept::adouble output = modelModelica()->evalCalculatedVarIAdept(iCalculatedVar, 0, x, xp);
+    adept::adouble output = modelModelica()->evalCalculatedVarIAdept(iCalculatedVar, 0, x, xp, x_ext, xp_ext);
     output.set_gradient(1.0);
     stack.compute_adjoint();
     for (size_t i = 0; i < size; ++i) {

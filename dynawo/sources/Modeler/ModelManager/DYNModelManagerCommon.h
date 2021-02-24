@@ -283,6 +283,7 @@ struct DYNDATA : public DATA {
 
   int nbExternalVars;
   modelica_real** externalVars;
+  modelica_real** externalPVars;
 };
 
 namespace DYN {

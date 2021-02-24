@@ -75,6 +75,8 @@ gLocal_(NULL),
 yLocal_(NULL),
 offsetY_(-1),
 ypLocal_(NULL),
+yExternalLocal_(NULL),
+ypExternalLocal_(NULL),
 zLocal_(NULL),
 zLocalConnected_(NULL),
 yType_(NULL),
@@ -331,6 +333,38 @@ SubModel::getVariable(const string & variableName) const {
 }
 
 double
+SubModel::getDerivativeVariableValue(const shared_ptr <Variable> variable) const {
+#ifdef _DEBUG_
+  assert(variable && "SubModel::getDerivativeVariableValue variable not found");
+#endif
+  const int varNum = variable->getIndex();
+  const typeVar_t typeVar = variable->getType();
+  const bool negated = variable->getNegated();
+  const bool isState = variable->isState();
+  const bool isExternal = variable->isExternal();
+
+  // TODO(lecourtoisflo) Use real dynawo exceptions
+  if (!isState) {
+    throw std::runtime_error("Derivative variables only for state variables");
+  }
+  if (typeVar != CONTINUOUS && typeVar != FLOW) {
+    throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
+  }
+
+  double value;
+  if (isExternal && typeVar == CONTINUOUS) {
+    value = *(ypExternalLocal_[varNum]);
+  } else {
+    value = ypLocal_[varNum];
+  }
+
+  if (negated)
+    value = -1 * value;
+
+  return value;
+}
+
+double
 SubModel::getVariableValue(const shared_ptr <Variable> variable) const {
 #ifdef _DEBUG_
   assert(variable && "SubModel::getVariableValue variable not found");
@@ -385,10 +419,15 @@ SubModel::getVariableIndexGlobal(const shared_ptr <Variable> variable) const {
   const int varNum = variable->getIndex();
   const typeVar_t typeVar = variable->getType();
   const bool isState = variable->isState();
+  const bool isExternal = variable->isExternal();
 
   // global variable indexes are only defined for state variables
   if (!isState) {
     throw DYNError(Error::MODELER, SubModelBadVariableTypeForVariableIndex, name(), modelType(), variable->getName());
+  }
+
+  if (isExternal && typeVar == CONTINUOUS) {
+    return yExternalDeb_ + varNum;
   }
 
   switch (typeVar) {
@@ -810,10 +849,15 @@ SubModel::setBufferY(double* y, double* yp, const int & offsetY) {
 }
 
 void
-SubModel::setBufferYExternal(double** yExternal, int offset) {
+SubModel::setBufferYExternal(double** yExternal, double** ypExternal, int offset) {
   yExternalLocal_ = static_cast<double**>(NULL);
   if (yExternal) {
     yExternalLocal_ = &(yExternal[offset]);
+  }
+
+  ypExternalLocal_ = static_cast<double**>(NULL);
+  if (ypExternal) {
+    ypExternalLocal_ = &(ypExternal[offset]);
   }
 }
 

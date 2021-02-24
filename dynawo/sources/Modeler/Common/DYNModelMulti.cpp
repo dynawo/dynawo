@@ -108,6 +108,10 @@ ModelMulti::cleanBuffers() {
   if (ypLocal_ != NULL)
     delete[] ypLocal_;
 
+  if (ypExternalLocal_ != NULL) {
+    delete[] ypExternalLocal_;
+  }
+
   if (gLocal_ != NULL)
     delete[] gLocal_;
 
@@ -212,6 +216,8 @@ ModelMulti::initBuffers() {
   if (sizeExternal > 0) {
     yExternalLocal_ = new double*[sizeExternal];
     std::fill_n(yExternalLocal_, sizeExternal, static_cast<double*>(NULL));
+    ypExternalLocal_ = new double*[sizeExternal];
+    std::fill_n(ypExternalLocal_, sizeExternal, static_cast<double*>(NULL));
   }
   ypLocal_ = new double[sizeY_]();
   zLocal_ = new double[sizeZ_]();
@@ -235,7 +241,8 @@ ModelMulti::initBuffers() {
 
     size_t sizeYExternal = subModels_[i]->sizeYExternal();
     if (sizeYExternal > 0) {
-      subModels_[i]->setBufferYExternal(yExternalLocal_, offsetYExternal);
+      subModels_[i]->setBufferYExternal(yExternalLocal_, ypExternalLocal_, offsetYExternal);
+      subModels_[i]->setConnectorContainer(connectorContainer_);
     }
     offsetYExternal += sizeYExternal;
 
