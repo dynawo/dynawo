@@ -74,7 +74,6 @@ ii2_dUi2_(0.),
 yOffset_(0.),
 IbReNum_(0.),
 IbImNum_(0.),
-omegaRefNum_(0.),
 omegaNom_(OMEGA_NOM),
 omegaRef_(1.),
 modelType_("Line") {
@@ -219,7 +218,7 @@ ModelLine::initSize() {
     sizeY_ = 0;
     if (isDynamic_) {
       sizeF_ = 2;
-      sizeY_ = 3;  // IBranch_re, IBranch_im, omegaRef
+      sizeY_ = 2;  // IBranch_re, IBranch_im
     }
     sizeZ_ = 2;
     sizeG_ = 0;
@@ -249,8 +248,6 @@ ModelLine::init(int& yNum) {
       IbReNum_ = localIndex;
       ++localIndex;
       IbImNum_ = localIndex;
-      ++localIndex;
-      omegaRefNum_ = localIndex;
       ++localIndex;
     }
 
@@ -1063,7 +1060,6 @@ ModelLine::evalYType() {
       yType_[0] = ALGEBRAIC;
       yType_[1] = ALGEBRAIC;
     }
-    yType_[2] = EXTERNAL;
   }
 }
 
@@ -1640,10 +1636,8 @@ ModelLine::getY0() {
     if (isDynamic_) {
       y_[0] = ir01_;
       y_[1] = ii01_;
-      y_[2] = 1;
       yp_[0] = 0;
       yp_[1] = 0;
-      yp_[2] = 0;
     }
     z_[0] = getConnectionState();
     z_[1] = getCurrentLimitsDesactivate();
