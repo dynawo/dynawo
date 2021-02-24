@@ -306,8 +306,11 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
     return;
 
   try {
-    const int nbInput = sizeY() + sizeY();  // Y and Y '
-    const int nbOutput = sizeY();
+    const int nbInput = sizeY() + sizeY() + sizeYExternal();  // Y and Y '
+    const int nbOutput = sizeF();
+    if (nbOutput == 0) {
+      return;
+    }
     const int coeff = (complete) ? 1: 0;  // complete => jacobian @F/@y + cj.@F/@Y' else @F/@Y'
     vector<double> jac(nbInput * nbOutput);
 
@@ -321,7 +324,8 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
 
     vector<adept::adouble> xp_ext(sizeYExternal());
     for (size_t i = 0; i < sizeYExternal(); i++) {
-      xp_ext[i].set_value(getVariableValue(variablesByName_.at(xExternalNames_.at(i))));
+      auto value = getVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      xp_ext[i].set_value(value);
     }
 
     stack.new_recording();
@@ -329,6 +333,7 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
     evalF(t, x, xp, xp_ext, output);
     stack.independent(&x[0], x.size());
     stack.independent(&xp[0], xp.size());
+    stack.independent(&xp_ext[0], xp_ext.size());
     stack.dependent(&output[0], nbOutput);
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer * timer1 = new Timer("zzz reading");
@@ -346,8 +351,8 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
 
     for (unsigned int i = 0; i < sizeF(); ++i) {
       Jt.changeCol();
-      for (unsigned int j = 0; j < sizeY(); ++j) {
-        int indice = i + j * sizeY();
+      for (unsigned int j = 0; j < sizeF(); ++j) {
+        int indice = i + j * sizeF();
         double term = coeff * jac[indice] + cj * jac[indice + offsetJPrim];
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
@@ -355,6 +360,18 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
         }
 #endif
         Jt.addTerm(j + rowOffset, term);
+      }
+
+      for (unsigned int j = 0; j < sizeYExternal(); j++) {
+        int index = 2 * sizeY() + i + j * sizeF();
+        double term = coeff * jac[index];
+#ifdef _DEBUG_
+        if (isnan(term) || isinf(term)) {
+          throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);
+        }
+#endif
+        int index_reference = getVariableIndexGlobal(variablesByName_.at(xExternalNames_.at(j)));
+        Jt.addTerm(index_reference, term);
       }
     }
 
