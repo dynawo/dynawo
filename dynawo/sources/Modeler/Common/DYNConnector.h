@@ -21,6 +21,7 @@
 #define MODELER_COMMON_DYNCONNECTOR_H_
 
 #include <boost/unordered_map.hpp>
+#include <boost/unordered_set.hpp>
 #include <vector>
 #include <list>
 #include <boost/shared_ptr.hpp>
@@ -93,6 +94,10 @@ class connectedSubModel {
 
   bool operator==(const connectedSubModel& other) const {
     return (subModel_ == other.subModel_) && (variable_ == other.variable_);
+  }
+
+  bool operator!=(const connectedSubModel& other) const {
+    return !((*this) == other);
   }
 
   friend class ::boost::hash<connectedSubModel>;
@@ -376,6 +381,13 @@ class ConnectorContainer {
   }
 
  private:
+  struct IsExternalPredicate {
+    bool operator()(const connectedSubModel& cmodel) const {
+      return cmodel.variable()->isExternal() && cmodel.variable()->getType() == CONTINUOUS;
+    }
+  };
+
+ private:
   /**
    * @brief get Y connector's information according to its index
    * @param index connector's index
@@ -468,7 +480,11 @@ class ConnectorContainer {
    * @param flowConnector true if the connector is a flow connector
    * @return variable numerical id
    */
-  int getConnectorVarNum(const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable, bool flowConnector = false);
+  int getConnectorVarNum(const connectedSubModel& cmodel, bool flowConnector = false);
+
+  void processExternalConnectors(std::list<boost::shared_ptr<Connector> >& yConnectorsList);
+
+  static int getYConnectorNumVar(const connectedSubModel& cmodel);
 
  private:
   std::vector<boost::shared_ptr<Connector> >yConnectorsDeclared_;  ///< continuous connectors before merge
@@ -498,7 +514,7 @@ class ConnectorContainer {
 
   bool connectorsMerged_;  ///< indicates if the connectors are already merged or not
 
-  boost::unordered_map<connectedSubModel, std::vector<DYN::connectedSubModel> > externalConnections_;
+  boost::unordered_map<connectedSubModel, boost::unordered_set<DYN::connectedSubModel> > externalConnections_;
   boost::unordered_map<int, int> externalConnectionsByVarNum_;
 };
 
