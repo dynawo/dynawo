@@ -45,7 +45,7 @@ class VariableNative : public Variable {
    * @param isState @b whether the variable is a state variable
    * @param negated @b if the variable is negated
    */
-  VariableNative(const std::string& name, const typeVar_t& type, bool isState, bool negated);
+  VariableNative(const std::string& name, const typeVar_t& type, bool isState, bool negated, bool external);
 
   /**
    * @brief Destructor
@@ -77,6 +77,10 @@ class VariableNative : public Variable {
     return negated_;
   }
 
+  inline bool isExternal() const {
+    return isExternal_;
+  }
+
   /**
    * @brief check whether the variable index is already set
    *
@@ -104,6 +108,7 @@ class VariableNative : public Variable {
   const typeVar_t type_;  ///< Type of the variable
   const bool isState_;  ///< @b whether the variable is a state variable
   const bool negated_;  ///< @b whether the variable is negated
+  const bool isExternal_;
   boost::optional<int> index_;  ///< Index of the variable in the vector of variable of same type
 };
 }  // namespace DYN

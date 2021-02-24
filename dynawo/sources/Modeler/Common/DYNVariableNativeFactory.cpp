@@ -25,8 +25,8 @@ using boost::shared_ptr;
 namespace DYN {
 
 shared_ptr<VariableNative>
-VariableNativeFactory::create(const string& name, const typeVar_t& type, bool isState, bool negated) {
-  return shared_ptr<VariableNative>(new VariableNative(name, type, isState, negated));
+VariableNativeFactory::create(const string& name, const typeVar_t& type, bool isState, bool negated, bool external) {
+  return shared_ptr<VariableNative>(new VariableNative(name, type, isState, negated, external));
 }
 
 }  // namespace DYN
