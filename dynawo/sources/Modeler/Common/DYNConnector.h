@@ -24,8 +24,21 @@
 #include <vector>
 #include <list>
 #include <boost/shared_ptr.hpp>
+#include <boost/functional/hash.hpp>
 #include "DYNEnumUtils.h"
 #include "DYNVariable.h"
+
+namespace DYN {
+class connectedSubModel;
+}
+
+namespace boost {
+// Specialization of hash for connectedSubModel in order to use boost::unordered_map
+template<>
+struct hash<DYN::connectedSubModel> {
+  std::size_t operator()(const ::DYN::connectedSubModel& model) const;
+};
+}  // namespace boost
 
 namespace DYN {
 class SparseMatrix;
@@ -43,18 +56,6 @@ class connectedSubModel {
   negated_(false) { }
 
   /**
-   * @brief copy constructor
-   *
-   * @param model connected sub model to used to initialize the created one
-   */
-  //---------------------------------------------------------------------
-
-  connectedSubModel(const connectedSubModel & model) :
-  subModel_(model.subModel_),
-  variable_(model.variable_),
-  negated_(model.negated_) { }
-
-  /**
    * @brief constructor
    *
    * @param subModel submodel connected
@@ -65,26 +66,6 @@ class connectedSubModel {
   subModel_(subModel),
   variable_(variable),
   negated_(negated) { }
-
-  /**
-   * @brief destructor
-   */
-  ~connectedSubModel() { }
-
-  /**
-   * @brief assignment
-   * @param other : const_iterator to assign
-   *
-   * @returns Reference to this const_iterator
-   */
-  connectedSubModel& operator=(const connectedSubModel& other) {
-    if (this == &other)
-      return *this;
-    subModel_ = other.subModel_;
-    variable_ = other.variable_;
-    negated_ = other.negated_;
-    return *this;
-  }
 
   /**
    * @brief getter of the submodel connected by the connector
@@ -109,6 +90,12 @@ class connectedSubModel {
   inline bool negated() const {
     return negated_;
   }
+
+  bool operator==(const connectedSubModel& other) const {
+    return (subModel_ == other.subModel_) && (variable_ == other.variable_);
+  }
+
+  friend class ::boost::hash<connectedSubModel>;
 
  public:
   boost::shared_ptr<SubModel> subModel_;  ///< submodel connected by the connector
@@ -511,7 +498,7 @@ class ConnectorContainer {
 
   bool connectorsMerged_;  ///< indicates if the connectors are already merged or not
 
-  boost::unordered_map<connectedSubModel*, std::vector<DYN::connectedSubModel> > externalConnections_;
+  boost::unordered_map<connectedSubModel, std::vector<DYN::connectedSubModel> > externalConnections_;
   boost::unordered_map<int, int> externalConnectionsByVarNum_;
 };
 

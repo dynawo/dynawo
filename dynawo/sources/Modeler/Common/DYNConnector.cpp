@@ -38,6 +38,12 @@ using std::string;
 using boost::shared_ptr;
 using boost::unordered_map;
 
+
+namespace boost {
+std::size_t hash<DYN::connectedSubModel>::operator()(const ::DYN::connectedSubModel& model) const {
+  return hash<boost::shared_ptr<DYN::SubModel> >()(model.subModel_) ^ hash<boost::shared_ptr<DYN::Variable> >()(model.variable_);
+}
+}  // namespace boost
 namespace DYN {
 
 void
@@ -114,7 +120,7 @@ ConnectorContainer::mergeYConnector() {
   yConnectorByVarNum_.clear();
   list<shared_ptr<Connector> > yConnectorsList;
   std::vector<connectedSubModel> external_vars;
-  boost::optional<connectedSubModel*> external_var_ref;
+  boost::optional<connectedSubModel> external_var_ref;
   for (unsigned int i = 0; i < yConnectorsDeclared_.size(); ++i) {
     external_vars.clear();
     external_var_ref.reset();
@@ -129,7 +135,7 @@ ConnectorContainer::mergeYConnector() {
       }
 
       if (!external_var_ref) {
-        external_var_ref = it.base();
+        external_var_ref = *it;
       }
 
       const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
@@ -161,7 +167,7 @@ ConnectorContainer::mergeYConnector() {
       } else {
         externalConnections_[*external_var_ref] = external_vars;
 
-        int num_var_ref = (*external_var_ref)->subModel()->getVariableIndexGlobal((*external_var_ref)->variable());
+        int num_var_ref = external_var_ref->subModel()->getVariableIndexGlobal(external_var_ref->variable());
         for (std::vector<connectedSubModel>::const_iterator it = external_vars.begin(); it != external_vars.end(); ++it) {
           const int num_var = it->subModel()->getVariableIndexGlobal(it->variable());
           externalConnectionsByVarNum_[num_var] = num_var_ref;
@@ -176,10 +182,10 @@ ConnectorContainer::mergeYConnector() {
 
 void
 ConnectorContainer::performExternalConnections() {
-  for (boost::unordered_map<connectedSubModel*, std::vector<DYN::connectedSubModel> >::const_iterator it =
+  for (boost::unordered_map<connectedSubModel, std::vector<DYN::connectedSubModel> >::const_iterator it =
     externalConnections_.begin(); it != externalConnections_.end(); ++it) {
-    double* const var_ref_local = &(it->first->subModel()->yLocal()[it->first->variable()->getIndex()]);
-    double* const var_p_ref_local = &(it->first->subModel()->ypLocal()[it->first->variable()->getIndex()]);
+    double* const var_ref_local = &(it->first.subModel()->yLocal()[it->first.variable()->getIndex()]);
+    double* const var_p_ref_local = &(it->first.subModel()->ypLocal()[it->first.variable()->getIndex()]);
     for (std::vector<connectedSubModel>::const_iterator it_m = it->second.begin(); it_m != it->second.end(); ++it_m) {
       it_m->subModel()->connectExternalVariable(var_ref_local, var_p_ref_local, it_m->variable()->getIndex());
     }
