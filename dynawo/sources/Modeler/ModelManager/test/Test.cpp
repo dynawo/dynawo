@@ -442,11 +442,12 @@ class MyModelicaInit: public MyModelica {
    * @param yp values of the derivatives of the continuous variable
    * @param F computes values of the residual functions
    */
-  void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp,
-    const std::vector<adept::adouble> &yext, std::vector<adept::adouble> &res) {
+  virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp,
+    const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &res) {
     ASSERT_EQ(y.size(), 1);
     ASSERT_EQ(yp.size(), 1);
-    ASSERT_EQ(yext.size(), 0);
+    ASSERT_EQ(y_ext.size(), 0);
+    ASSERT_EQ(yp_ext.size(), 0);
     ASSERT_EQ(res.size(), 1);
     res[0] = y[0] - 8;
   }
