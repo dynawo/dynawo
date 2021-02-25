@@ -27,6 +27,8 @@
 #include "PARReference.h"
 #include "PARReferenceFactory.h"
 #include "PARParametersSet.h"
+#include "PARMacroParSetFactory.h"
+#include "PARMacroParSet.h"
 
 using boost::shared_ptr;
 using std::string;
@@ -63,6 +65,8 @@ TEST(APIPARTest, ParametersSetCreate) {
   ASSERT_EQ((--itVariablec)->get()->getName(), "BooleanParameter");
   ASSERT_EQ((itVariablec++)->get()->getName(), "BooleanParameter");
   ASSERT_EQ((itVariablec--)->get()->getName(), "DoubleParameter");
+  ASSERT_NO_THROW(parametersSet->setFilePath("test.par"));
+  ASSERT_EQ(parametersSet->getFilePath(), "test.par");
 }
 
 //-----------------------------------------------------
@@ -152,6 +156,9 @@ TEST(APIPARTest, ParametersSetGetParameters) {
     ++nbParameters;
   ASSERT_EQ(nbParameters, 4);
 
+  ParametersSet::parameter_const_iterator itParam = parametersSet->cbeginParameter();
+  ASSERT_TRUE(itParam == itParam);
+
   // Get the vector of names
   string namesTab[] = {"param1", "param2", "param3", "param4"};
   vector<string> parametersNames;
@@ -191,6 +198,9 @@ TEST(APIPARTest, ParametersSetGetReferences) {
         ++itRef)
     ++nbReferences;
   ASSERT_EQ(nbReferences, 3);
+
+  ParametersSet::reference_const_iterator itRef = parametersSet->cbeginReference();
+  ASSERT_EQ(itRef->get()->getName(), "ref3");
 
   ParametersSet::reference_const_iterator itVariablec(parametersSet->cbeginReference());
   ++itVariablec;
@@ -320,6 +330,22 @@ TEST(APIPARTest, ParametersSetCreateTableMatrix) {
   ASSERT_THROW_DYNAWO(parametersSet->createParameter("paramTable", 5.98, "1", "2"), DYN::Error::API, DYN::KeyError_t::ParameterAlreadyInSet);
   ASSERT_THROW_DYNAWO(parametersSet->createParameter("paramTable", false, "2", "1"), DYN::Error::API, DYN::KeyError_t::ParameterAlreadyInSet);
   ASSERT_THROW_DYNAWO(parametersSet->createParameter("paramTable", 8, "2", "2"), DYN::Error::API, DYN::KeyError_t::ParameterAlreadyInSet);
+}
+
+//-----------------------------------------------------
+// TEST macroparset iterator
+//-----------------------------------------------------
+
+TEST(APIPARTest, MacroParSetIterator) {
+  shared_ptr<MacroParSet> macroParSet = MacroParSetFactory::newMacroParSet("macroParSet");
+  shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
+  ASSERT_NO_THROW(parametersSet->addMacroParSet(macroParSet));
+  ASSERT_THROW_DYNAWO(parametersSet->addMacroParSet(macroParSet), DYN::Error::API, DYN::KeyError_t::MacroParSetAlreadyExists);
+  ParametersSet::macroparset_const_iterator macroParSetIt = parametersSet->cbeginMacroParSet();
+  ASSERT_TRUE(macroParSetIt == macroParSetIt);
+  ASSERT_EQ(macroParSetIt->get()->getId(), "macroParSet");
+  ASSERT_NO_THROW(macroParSetIt++);
+  ASSERT_NO_THROW(++macroParSetIt);
 }
 
 }  // namespace parameters

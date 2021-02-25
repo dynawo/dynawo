@@ -11,6 +11,8 @@
 set(MODULE_NAME PAR_unittest)
 
 set(MODULE_SOURCES
+  TestMacroParSet.cpp
+  TestMacroParameterSet.cpp
   TestReference.cpp
   TestParameter.cpp
   TestParametersSet.cpp

@@ -22,6 +22,14 @@
 
 #include "PARParametersSetCollectionFactory.h"
 #include "PARParametersSetCollection.h"
+#include "PARMacroParSetFactory.h"
+#include "PARMacroParSet.h"
+#include "PARMacroParameterSetFactory.h"
+#include "PARMacroParameterSet.h"
+#include "PARParameterFactory.h"
+#include "PARParameter.h"
+#include "PARReferenceFactory.h"
+#include "PARReference.h"
 
 using boost::shared_ptr;
 
@@ -96,8 +104,10 @@ TEST(APIPARTest, CollectionIterator) {
   int nbParametersSets = 0;
   for (ParametersSetCollection::parametersSet_const_iterator itParamSet = collection->cbeginParametersSet();
         itParamSet != collection->cendParametersSet();
-        ++itParamSet)
+        ++itParamSet) {
     ++nbParametersSets;
+    ASSERT_NO_THROW(itParamSet == itParamSet);
+        }
   ASSERT_EQ(nbParametersSets, 3);
 
   ParametersSetCollection::parametersSet_const_iterator itVariablec(collection->cbeginParametersSet());
@@ -105,6 +115,34 @@ TEST(APIPARTest, CollectionIterator) {
   ASSERT_EQ((--itVariablec)->get()->getId(), "parameters1");
   ASSERT_EQ((itVariablec++)->get()->getId(), "parameters1");
   ASSERT_EQ((itVariablec--)->get()->getId(), "parameters2");
+}
+
+TEST(APIPARTest, MacroParameterSetTest) {
+  shared_ptr<ParametersSetCollection> collection = ParametersSetCollectionFactory::newCollection();
+  shared_ptr<MacroParameterSet> macroParameterSet = MacroParameterSetFactory::newMacroParameterSet("macroParameterSet");
+  shared_ptr<Reference> reference = ReferenceFactory::newReference("reference");
+  shared_ptr<Parameter> parameter1 = ParameterFactory::newParameter("parameter1", true);
+  shared_ptr<Parameter> parameter2 = ParameterFactory::newParameter("parameter2", true);
+  macroParameterSet->addParameter(parameter2);
+  macroParameterSet->addReference(reference);
+  shared_ptr<ParametersSet> parametersSet1 = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters1"));
+  parametersSet1->addParameter(parameter1);
+  ASSERT_NO_THROW(collection->addMacroParameterSet(macroParameterSet));
+  ASSERT_THROW_DYNAWO(collection->addMacroParameterSet(macroParameterSet), DYN::Error::API, DYN::KeyError_t::MacroParameterSetAlreadyExists);
+  shared_ptr<MacroParSet> macroParSet = MacroParSetFactory::newMacroParSet("macroParameterSet");
+  ASSERT_NO_THROW(parametersSet1->addMacroParSet(macroParSet));
+  collection->addParametersSet(parametersSet1);
+  ASSERT_NO_THROW(shared_ptr<ParametersSet> parametersSetGetter = collection->getParametersSet("parameters1"));
+  ASSERT_NO_THROW(collection->getParametersFromMacroParameter("parameters1"));
+  ASSERT_THROW_DYNAWO(collection->getParametersFromMacroParameter("unknown"), DYN::Error::API, DYN::KeyError_t::ParametersSetNotFound);
+  ParametersSetCollection::macroparameterset_const_iterator itMacroParameterSet = collection->cbeginMacroParameterSet();
+  ASSERT_NO_THROW(itMacroParameterSet++);
+  ASSERT_NO_THROW(itMacroParameterSet--);
+  ASSERT_NO_THROW(++itMacroParameterSet);
+  ASSERT_NO_THROW(--itMacroParameterSet);
+  ASSERT_NO_THROW(itMacroParameterSet == itMacroParameterSet);
+  ASSERT_NO_THROW(itMacroParameterSet->get()->getId());
+  ASSERT_NO_THROW((*itMacroParameterSet)->getId());
 }
 
 }  // namespace parameters

@@ -21,6 +21,7 @@
 #define API_PAR_PARPARAMETERSSETCOLLECTION_H_
 
 #include "PARParametersSet.h"
+#include "PARMacroParameterSet.h"
 
 #include <boost/shared_ptr.hpp>
 #include <map>
@@ -59,6 +60,14 @@ class ParametersSetCollection {
   boost::shared_ptr<ParametersSet> getParametersSet(const std::string& id);
 
   /**
+   * @brief add parameters and references coming from macroParameterSets
+   *
+   * @param[in] id ID of parameter set to be enriched
+   * @throws Error::API exception if set with given ID do not exists
+   */
+  void getParametersFromMacroParameter(const std::string& id);
+
+  /**
    * @brief Check if a parameter set is in the collection
    *
    * @param[in] id Name of the parameter set
@@ -67,11 +76,29 @@ class ParametersSetCollection {
   bool hasParametersSet(const std::string& id);
 
   /**
+   * @brief Check if a macroParameterSet set is in the collection
+   *
+   * @param[in] id Name of the macroParameterSet
+   * @returns Existence of macroParameterSet in the collection
+   */
+  bool hasMacroParametersSet(const std::string& id) const;
+
+  /**
    * @brief propatgates the origin of parameters (file path, parent param set id)
    *
    * @param filepath origin file path
    */
   void propagateOriginData(const std::string& filepath);
+
+  /**
+   * @brief Add a macroParamSet in the collection
+   *
+   * @param[in] macroParamSet set to add
+   * in case an id already exists by creating a unique id for it
+   * @throws Error::API exception if a macroParameterSet with given
+   * ID already exists.
+   */
+  void addMacroParameterSet(boost::shared_ptr<MacroParameterSet> macroParamSet);
 
  public:
   /**
@@ -170,8 +197,105 @@ class ParametersSetCollection {
    */
   parametersSet_const_iterator cendParametersSet() const;
 
+  /**
+   * @class macroparameterset_const_iterator
+   * @brief Const iterator over macroparameters' set
+   *
+   * Const iterator over macroparameters' set listed in a collection.
+   */
+  class macroparameterset_const_iterator {
+   public:
+    /**
+     * @brief Constructor
+     *
+     * Constructor based on parameter's set collection. Can create an iterator to the
+     * beginning of the macroparameters' set container or to the end. MacroParameter objects
+     * cannot be modified.
+     *
+     * @param iterated Pointer to the parameters' set collection iterated
+     * @param begin Flag indicating if the iterator point to the beginning (true)
+     * or the end of the macroparameters' sets container.
+     * @returns Created macroparameterset_const_iterator.
+     */
+    macroparameterset_const_iterator(const ParametersSetCollection* iterated, bool begin);
+
+    /**
+     * @brief Prefix-increment operator
+     *
+     * @returns Reference to this macroparameterset_const_iterator
+     */
+    macroparameterset_const_iterator& operator++();
+
+    /**
+     * @brief Postfix-increment operator
+     *
+     * @returns Copy of this macroparameterset_const_iterator
+     */
+    macroparameterset_const_iterator operator++(int);
+
+    /**
+     * @brief Prefix-decrement operator
+     *
+     * @returns Reference to this macroparameterset_const_iterator
+     */
+    macroparameterset_const_iterator& operator--();
+
+    /**
+     * @brief Postfix-decrement operator
+     *
+     * @returns Copy of this macroparameterset_const_iterator
+     */
+    macroparameterset_const_iterator operator--(int);
+
+    /**
+     * @brief Equal to operator
+     *
+     * @param other Iterator to be compared with this
+     * @returns true if iterators are equals, else false
+     */
+    bool operator==(const macroparameterset_const_iterator& other) const;
+
+    /**
+     * @brief Not equal to operator
+     *
+     * @param other Iterator to be compared with this
+     * @returns true if iterators are different, else false
+     */
+    bool operator!=(const macroparameterset_const_iterator& other) const;
+
+    /**
+     * @brief Indirection operator
+     *
+     * @returns MacroParameters' set pointed to by this
+     */
+    const boost::shared_ptr<MacroParameterSet>& operator*() const;
+
+    /**
+     * @brief Structure dereference operator
+     *
+     * @returns Pointer to the MacroParameters pointed to by this
+     */
+    const boost::shared_ptr<MacroParameterSet>* operator->() const;
+
+   private:
+    std::map<std::string, boost::shared_ptr<MacroParameterSet> >::const_iterator current_; /**< Hidden map iterator */
+  };
+
+  /**
+   * @brief Get a macroparameterset_const_iterator to the beginning of the macroParameterSet' set collection
+   * @return beginning of constant iterator
+   */
+  macroparameterset_const_iterator cbeginMacroParameterSet() const;
+
+  /**
+   * @brief Get a macroparameterset_const_iterator to the end of the macroParameterSet' set collection
+   * @return end of constant iterator
+   */
+  macroparameterset_const_iterator cendMacroParameterSet() const;
+
  private:
   std::map<std::string, boost::shared_ptr<ParametersSet> > parametersSets_; /**< Map of the parameters set */
+  std::map<std::string, boost::shared_ptr<MacroParameterSet> > macroParametersSets_;  ///< Map of macroParametersSet (key->id, value->MacroParameterSet)
 };
 
 }  // namespace parameters

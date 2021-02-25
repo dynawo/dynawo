@@ -260,12 +260,16 @@ ExternalVariableIDNotUnique =             external variable id (%1%) is not uniq
 //---JOB---------------------
 CriteriaStepError           =             criteria step should be a positive integer (value found: %1%)
 //---PAR---------------------
+MacroParameterSetAlreadyExists =          the macroParameterSet %1% already exists in collection
+MacroParSetAlreadyExists =                the macroParSet %1% already exists in set %2%
 ParameterAlreadyInSet       =             the parameter %1% already exists in set %2%
+ParameterAlreadySetInMacroParameterSet =   parameter %1% is already set in macroParameterSet %2%
 ParameterNotFoundInSet      =             parameter %1% not found in set %2%
 ParameterAliasFailed        =             failed to create alias %1% (linked with %2%) in set %3%
 ParametersSetAlreadyExists  =             parameters set with id %1% already available in collection
 ParametersSetNotFound       =             parameters set %1% not found
 ReferenceAlreadySet         =             reference %1% is already set
+ReferenceAlreadySetInMacroParameterSet =   reference %1% is already set in macroParameterSet %2%
 ReferenceNotFoundInSet      =             reference %1% is not found in set %2%
 ReferenceUnknownOriginData  =             origin data %1% is not allowed for references
 //---TL----------------------

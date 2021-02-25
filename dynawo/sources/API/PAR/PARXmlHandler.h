@@ -29,6 +29,8 @@
 
 #include "PARParametersSetCollection.h"
 #include "PARParametersSet.h"
+#include "PARMacroParameterSet.h"
+#include "PARMacroParSet.h"
 
 namespace parameters {
 
@@ -219,6 +221,40 @@ class RefHandler : public xml::sax::parser::ComposableElementHandler {
 };
 
 /**
+ * @class MacroParSetHandler
+ * @brief Handler used to parse macroParSet element
+ */
+class MacroParSetHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit MacroParSetHandler(elementName_type const& root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~MacroParSetHandler() {}
+
+  /**
+   * @brief return the macroParSet read in xml file
+   * @return reference object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<MacroParSet> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<MacroParSet> macroParSet_;  ///< current macroParSet object
+};
+
+/**
  * @class SetHandler
  * @brief Handler used to parse a set of parameter element
  */
@@ -256,6 +292,11 @@ class SetHandler : public xml::sax::parser::ComposableElementHandler {
    */
   void addTable();
 
+  /**
+   * @brief  add a macroParSet object to the set of parameters
+   */
+  void addMacroParSet();
+
  protected:
   /**
    * @brief Called when the XML element opening tag is read
@@ -268,7 +309,55 @@ class SetHandler : public xml::sax::parser::ComposableElementHandler {
   ParHandler parHandler_;  ///< handler used to read par element
   ParTableHandler parTableHandler_;  ///< handler used to read parTable element
   RefHandler refHandler_;  ///< handler used to read reference element
+  MacroParSetHandler macroParSetHandler_;  ///< handler used to read macroParSet element
 };
+
+/**
+ * @class MacroParameterSetHandler
+ * @brief Handler used to parse a set of macroParameterSet element
+ */
+class MacroParameterSetHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit MacroParameterSetHandler(elementName_type const& root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~MacroParameterSetHandler() {}
+
+  /**
+   * @brief return the macroParameterSet read in xml file
+   * @return reference object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<MacroParameterSet> get() const;
+
+  /**
+   * @brief  add a reference object to the set of macroParameter
+   */
+  void addReference();
+
+  /**
+   * @brief  add a parameter object to the set of macroParameter
+   */
+  void addParameter();
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<MacroParameterSet> macroParameterSet_;  ///< current set of macroParameterSet object
+  RefHandler refHandler_;  ///< handler used to read reference element
+  ParHandler parHandler_;  ///< handler used to read par element
+};
+
 
 /**
  * @class XmlHandler
@@ -301,9 +390,15 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    */
   void addSet();
 
+  /**
+   * @brief add a macroParameterSet object to the parameters set collection
+   */
+  void addMacroParameterSet();
+
  private:
   SetHandler setHandler_;  ///< handler used to read a set of parameter element
   boost::shared_ptr<ParametersSetCollection> parametersSetCollection_;  ///< Parameters sets collection parsed
+  MacroParameterSetHandler macroParameterSetHandler_;  ///< handler used to read a macroärameterSet element
 };
 
 }  // namespace parameters
