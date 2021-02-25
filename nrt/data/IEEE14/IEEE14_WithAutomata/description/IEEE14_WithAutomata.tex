@@ -615,13 +615,16 @@ At $t=100s$,the tap-changer lock automaton monitored voltage crosses $U_{Min}$ p
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 1.5in, legend pos=north west]
-        \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerLock_locked}]
+        \addplot[color=red!50]
+        table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerLock_state}]
         {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
-        \addplot[color=green!50]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerLock_lockedD}]
+        {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
+        \addplot[dashed, color=green!50]
         table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerLock_lockedT}]
         {../IEEE14_TapChangerLock/reference/outputs/curves/curves.csv};
-        \legend{$Locked$, $LockedT$}
+        \legend{$state$, $LockedD$, $LockedT$}
     \end{axis}
   \end{tikzpicture}
 }
