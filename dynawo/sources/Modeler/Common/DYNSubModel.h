@@ -36,6 +36,7 @@
 #include "DYNConnector.h"
 #include "PARParametersSet.h"
 #include "CSTRConstraintsCollection.h"
+#include "DYNVariable.h"
 #include "DYNBitMask.h"
 
 namespace parameters {
@@ -64,6 +65,11 @@ class Element;
  * Class interface to each sub model that is used to generate the whole model
  */
 class SubModel {
+ public:
+  static inline bool isVariableExternal(const boost::shared_ptr<Variable>& var) {
+    return var->isExternal() && var->getType() == CONTINUOUS;
+  }
+
  public:
   /**
    * @brief default constructor

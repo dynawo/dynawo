@@ -1015,7 +1015,20 @@ SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
     curve->setCurveType(Curve::CALCULATED_VARIABLE);
   } else {
     switch (typeVar) {
-      case CONTINUOUS:
+      case CONTINUOUS: {
+        curve->setCurveType(Curve::CONTINUOUS_VARIABLE);
+        if (isVariableExternal(variable)) {
+          buffer = yExternalLocal_[varNum];
+          const boost::unordered_map<int, int>& references = connectorContainer_.lock()->externalConnectionsByVarNum();
+          int index_global = getVariableIndexGlobal(variable);
+          curve->setGlobalIndex(references.at(index_global));
+        } else {
+          buffer = &(yLocal_[varNum]);
+          curve->setCurveType(Curve::CONTINUOUS_VARIABLE);
+          curve->setGlobalIndex(yDeb() + varNum);
+        }
+        break;
+      }
       case FLOW: {
         buffer = &(yLocal_[varNum]);
         curve->setCurveType(Curve::CONTINUOUS_VARIABLE);

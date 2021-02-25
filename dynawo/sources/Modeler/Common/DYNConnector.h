@@ -382,9 +382,7 @@ class ConnectorContainer {
 
  private:
   struct IsExternalPredicate {
-    bool operator()(const connectedSubModel& cmodel) const {
-      return cmodel.variable()->isExternal() && cmodel.variable()->getType() == CONTINUOUS;
-    }
+    bool operator()(const connectedSubModel& cmodel) const;
   };
 
  private:

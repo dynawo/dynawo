@@ -76,6 +76,10 @@ connectorsMerged_(false) {
 ConnectorContainer::~ConnectorContainer() {
 }
 
+bool ConnectorContainer::IsExternalPredicate::operator()(const connectedSubModel& cmodel) const {
+  return SubModel::isVariableExternal(cmodel.variable());
+}
+
 unsigned int ConnectorContainer::nbYConnectors() const {
   unsigned int nbConnect = 0;
   for (unsigned int i = 0; i < yConnectors_.size(); ++i) {  // if there are n variables connected together
