@@ -392,7 +392,7 @@ class MyModelica: public ModelModelica {
    *
    * @return index of variables used to define the jacobian
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& indexes) const {
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& indexes, std::vector<int>&) const {
     indexes.push_back(0);
     indexes.push_back(1);
   }
@@ -613,7 +613,8 @@ TEST(TestModelManager, TestModelManagerBasics) {
   mm->testNbCallCalcVars(1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(mm->evalCalculatedVarI(0), 10.);
   std::vector<int> res;
-  mm->getIndexesOfVariablesUsedForCalculatedVarI(0, res);
+  std::vector<int> resExternal;
+  mm->getIndexesOfVariablesUsedForCalculatedVarI(0, res, resExternal);
   ASSERT_EQ(res.size(), 2);
   ASSERT_EQ(res[0], 0);
   ASSERT_EQ(res[1], 1);

@@ -518,26 +518,27 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariables) {
   int offset = 2;
   hvdc->init(offset);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::p1Num_, numVars));
+  std::vector<int> numVarsExternal;
+  ASSERT_THROW_DYNAWO(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::p1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::q1Num_, numVars));
+  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::q1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::p2Num_, numVars));
+  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::p2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::q2Num_, numVars));
+  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::q2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);

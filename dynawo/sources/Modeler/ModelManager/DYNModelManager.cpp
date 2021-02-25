@@ -1403,7 +1403,8 @@ ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& 
 #if _ADEPT_
   try {
     std::vector<int> indexes;
-    getIndexesOfVariablesUsedForCalculatedVarI(iCalculatedVar, indexes);
+    std::vector<int> indexesExternal;
+    getIndexesOfVariablesUsedForCalculatedVarI(iCalculatedVar, indexes, indexesExternal);
     size_t size = indexes.size();
     assert(res.size() == size);
     size_t nbInput = size;
@@ -1448,8 +1449,8 @@ ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& 
 }
 
 void
-ModelManager::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const {
-  return  modelModelica()->getIndexesOfVariablesUsedForCalculatedVarI(iCalculatedVar, indexes);
+ModelManager::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const {
+  return  modelModelica()->getIndexesOfVariablesUsedForCalculatedVarI(iCalculatedVar, indexes, indexesExternal);
 }
 
 void

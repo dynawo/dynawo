@@ -259,7 +259,7 @@ ModelGenerator::evalCalculatedVars() {
 }
 
 void
-ModelGenerator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const {
+ModelGenerator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case pNum_:
     case qNum_: {

@@ -444,7 +444,7 @@ adept::adouble ModelTestSilentZ_Dyn::evalCalculatedVarIAdept(unsigned iCalculate
 }
 #endif
 
-void ModelTestSilentZ_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
+void ModelTestSilentZ_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
 {
   if (iCalculatedVar == 0)  /* x */ {
     indexes.push_back(0);

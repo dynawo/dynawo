@@ -96,7 +96,7 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
 
   /**
    * @brief evaluate the Jacobian associated to a calculated variable

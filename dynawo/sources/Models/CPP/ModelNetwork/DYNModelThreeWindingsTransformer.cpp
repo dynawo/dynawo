@@ -78,7 +78,7 @@ ModelThreeWindingsTransformer::evalCalculatedVars() {
 }
 
 void
-ModelThreeWindingsTransformer::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& /*numVars*/) const {
+ModelThreeWindingsTransformer::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& /*numVars*/, std::vector<int>&) const {
   throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
 }
 

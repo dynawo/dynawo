@@ -317,7 +317,7 @@ ModelShuntCompensator::evalCalculatedVars() {
 }
 
 void
-ModelShuntCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const {
+ModelShuntCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case qNum_: {
       if (isConnected()) {

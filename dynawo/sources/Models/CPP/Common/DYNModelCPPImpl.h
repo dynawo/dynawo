@@ -60,7 +60,7 @@ class ModelCPP::Impl : public ModelCPP {
    * @param indexes vector to fill with the indexes
    *
    */
-  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
+  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const = 0;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables

@@ -141,8 +141,9 @@ TEST(ModelsModelSignalN, ModelSignalNTypeMethods) {
   ASSERT_NO_THROW(modelSignalN->initializeFromData(boost::shared_ptr<DataInterface>()));
   std:: vector<double> res;
   std::vector<int> indexes;
+  std::vector<int> indexesExternal;
   ASSERT_NO_THROW(modelSignalN->evalJCalculatedVarI(0, res));
-  ASSERT_NO_THROW(modelSignalN->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
+  ASSERT_NO_THROW(modelSignalN->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes, indexesExternal));
   ASSERT_NO_THROW(modelSignalN->evalCalculatedVars());
   ASSERT_NO_THROW(modelSignalN->updateFType());
   ASSERT_NO_THROW(modelSignalN->updateYType());

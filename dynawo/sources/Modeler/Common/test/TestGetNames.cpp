@@ -190,7 +190,7 @@ class SubModelMock : public SubModel {
     // Dummy class used for testing
   }
 
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const {
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&, std::vector<int>&) const {
     // Dummy class used for testing
   }
 

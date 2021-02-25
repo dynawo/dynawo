@@ -426,7 +426,7 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*numCalculatedVar*/, vector<int>& /*numVars*/) const {
+  ModelLoadRestorativeWithLimits::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*numCalculatedVar*/, vector<int>& /*numVars*/, std::vector<int>&) const {
     /* not need */
   }
 

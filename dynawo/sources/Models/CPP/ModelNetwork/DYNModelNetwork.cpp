@@ -1148,11 +1148,11 @@ ModelNetwork::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix
 }
 
 void
-ModelNetwork::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const {
+ModelNetwork::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const {
   int index = componentIndexByCalculatedVar_[iCalculatedVar];
   const boost::shared_ptr<NetworkComponent>& comp = (isInitModel_) ?  initComponents_[index] : components_[index];
   unsigned varIndex = iCalculatedVar - comp->getOffsetCalculatedVar();
-  comp->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, indexes);
+  comp->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, indexes, indexesExternal);
 }
 
 void

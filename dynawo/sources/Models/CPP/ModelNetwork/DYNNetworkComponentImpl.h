@@ -112,7 +112,7 @@ class NetworkComponent::Impl : public NetworkComponent {
    * @param numVars vector to fill with the indexes
    *
    */
-  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const = 0;
+  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>& numVarsExternal) const = 0;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables

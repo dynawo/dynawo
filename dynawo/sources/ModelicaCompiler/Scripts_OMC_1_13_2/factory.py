@@ -510,10 +510,14 @@ class Factory:
             v.set_dyn_type()
 
         i = 0
+        iexternal = 0
         for v in self.list_vars_der:
-            if v.get_name() in self.reader.fictive_continuous_vars_der: continue
-            v.set_dynawo_name( "xd[%s]" % str(i) )
-            i += 1
+            if v.get_name() in self.reader.fictive_continuous_vars_der:
+                v.set_dynawo_name("xd_ext[%s]" % str(iexternal))
+                iexternal += 1
+            else:
+                v.set_dynawo_name( "xd[%s]" % str(i) )
+                i += 1
 
         i = 0
         for v in self.list_all_vars_discr:
@@ -528,11 +532,15 @@ class Factory:
             i += 1
 
         i = 0
+        iexternal = 0
         for v in self.list_vars_syst:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
-            if v.get_name() in self.reader.fictive_continuous_vars: continue
-            v.set_dynawo_name( "x[%s]" % str(i) )
-            i += 1
+            if v.get_name() in self.reader.fictive_continuous_vars:
+                v.set_dynawo_name( "x_ext[%s]" % str(iexternal) )
+                iexternal += 1
+            else:
+                v.set_dynawo_name( "x[%s]" % str(i) )
+                i += 1
 
         i = 0
         # only for real parameters!
@@ -3091,7 +3099,7 @@ class Factory:
                     for syst_var in self.list_vars_syst:
                         if syst_var.get_dynawo_name() is None or  syst_var.get_dynawo_name() == "": continue
                         if syst_var.get_name() == dependency:
-                            dependency_index = int(syst_var.get_dynawo_name().replace("]","").replace("x[",""))
+                            dependency_index = self.extract_index_var(syst_var)
                             if dependency_index not in list_of_indexes:
                                 list_of_indexes.append(dependency_index)
                 recursive_calc_vars_num_deps[var_name] = len(list_of_indexes)
@@ -3185,6 +3193,16 @@ class Factory:
     def get_list_for_evalcalculatedvariadept(self):
         return self.list_for_evalcalculatedvariadept
 
+    def extract_index_var(self, var):
+        name = var.get_dynawo_name()
+        is_external = False
+        if var.get_name() in self.reader.fictive_continuous_vars:
+            base = "x_ext"
+            is_external = True
+        else:
+            base = "x"
+        return int(name.replace("]", "").replace(base+"[", "")), is_external
+
     ##
     # prepare the lines that constitues the body for getIndexesOfVariablesUsedForCalculatedVarI
     # @param self : object pointer
@@ -3197,21 +3215,27 @@ class Factory:
             if var_name in map_dep:
                 list_depend = map_dep[var_name]
                 list_of_indexes = []
+                list_of_indexes_external = []
                 for dependency in list_depend:
                     for syst_var in self.list_vars_syst:
                         if syst_var.get_dynawo_name() is None or  syst_var.get_dynawo_name() == "": continue
                         if syst_var.get_name() == dependency:
-                            dependency_index = int(syst_var.get_dynawo_name().replace("]","").replace("x[",""))
+                            dependency_index, external = self.extract_index_var(syst_var)
                             if dependency_index not in list_of_indexes:
-                                list_of_indexes.append(dependency_index)
-                if len(list_of_indexes) > 0 or var_name in self.dic_calc_var_recursive_deps:
+                                if external:
+                                    list_of_indexes_external.append(dependency_index)
+                                else:
+                                    list_of_indexes.append(dependency_index)
+                if len(list_of_indexes) > 0 or len(list_of_indexes_external) > 0 or var_name in self.dic_calc_var_recursive_deps:
                     self.list_for_getindexofvarusedforcalcvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */ {\n")
                     list_of_indexes.sort()
                     for dependency_index in list_of_indexes:
                         self.list_for_getindexofvarusedforcalcvari.append("    indexes.push_back(" + str(dependency_index) + ");\n")
+                    for dependency_index in list_of_indexes_external:
+                        self.list_for_getindexofvarusedforcalcvari.append("    indexesExternal.push_back(" + str(dependency_index) + ");\n")
                     if var_name in self.dic_calc_var_recursive_deps:
                         for name in self.dic_calc_var_recursive_deps[var_name]:
-                            self.list_for_getindexofvarusedforcalcvari.append("    getIndexesOfVariablesUsedForCalculatedVarI(" + str(self.dic_calc_var_index[name])+ ", indexes);\n")
+                            self.list_for_getindexofvarusedforcalcvari.append("    getIndexesOfVariablesUsedForCalculatedVarI(" + str(self.dic_calc_var_index[name])+ ", indexes, indexesExternal);\n")
                     self.list_for_getindexofvarusedforcalcvari.append("  }\n")
             index+=1
 

@@ -197,7 +197,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    *
    * @param numVars index of variables used to define the Jacobian
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>& indexesExternal) const;
 
   /**
    * @brief evaluate the Jacobian associated to a calculated variable

@@ -43,7 +43,7 @@ namespace DYN {
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
     double evalCalculatedVarI(unsigned iCalculatedVar) const;
-    void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+    void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
 #ifdef _ADEPT_
     void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &F);
     adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext) const;
@@ -57,7 +57,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("5ca710ea9d5d64dab6a81b1b054181f6"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("60fa4b25f03fc9b59a1b860298599820"); }
 
     private:
     DYNDATA * data;

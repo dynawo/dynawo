@@ -725,7 +725,7 @@ ModelDanglingLine::evalCalculatedVars() {
 }
 
 void
-ModelDanglingLine::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int> & numVars) const {
+ModelDanglingLine::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int> & numVars, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case iNum_:
     case pNum_:

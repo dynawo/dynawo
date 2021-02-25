@@ -380,14 +380,14 @@ adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, u
 }
 #endif
 
-void ModelTest_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
+void ModelTest_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
 {
   if (iCalculatedVar == 0)  /* y */ {
     indexes.push_back(0);
   }
   if (iCalculatedVar == 1)  /* z */ {
     indexes.push_back(0);
-    getIndexesOfVariablesUsedForCalculatedVarI(0, indexes);
+    getIndexesOfVariablesUsedForCalculatedVarI(0, indexes, indexesExternal);
   }
 }
 

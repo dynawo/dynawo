@@ -228,7 +228,7 @@ ModelHvdcLink::evalCalculatedVars() {
 }
 
 void
-ModelHvdcLink::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const {
+ModelHvdcLink::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars, std::vector<int>&) const {
   // get the index of variables used to define the jacobian associated to a calculated variable
   switch (numCalculatedVar) {
     case p1Num_:

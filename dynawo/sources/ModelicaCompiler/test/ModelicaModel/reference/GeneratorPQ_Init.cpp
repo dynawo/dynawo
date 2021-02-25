@@ -511,7 +511,7 @@ adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(unsigned iCalculat
 }
 #endif
 
-void ModelGeneratorPQ_Init::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
+void ModelGeneratorPQ_Init::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
 {
 }
 

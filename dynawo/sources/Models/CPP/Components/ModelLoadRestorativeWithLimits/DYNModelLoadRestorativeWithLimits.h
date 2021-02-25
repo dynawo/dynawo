@@ -253,7 +253,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   * @param indexes vector to fill with the indexes
   *
   */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
   /**
   * @brief ModelLoadRestorativeWithLimits elements initializer
   *

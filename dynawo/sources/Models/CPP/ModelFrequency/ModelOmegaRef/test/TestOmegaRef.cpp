@@ -191,8 +191,9 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   ASSERT_NO_THROW(modelOmegaRef->initializeFromData(boost::shared_ptr<DataInterface>()));
   std:: vector<double> res;
   std::vector<int> indexes;
+  std::vector<int> indexesExternal;
   ASSERT_NO_THROW(modelOmegaRef->evalJCalculatedVarI(0, res));
-  ASSERT_NO_THROW(modelOmegaRef->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
+  ASSERT_NO_THROW(modelOmegaRef->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes, indexesExternal));
   ASSERT_NO_THROW(modelOmegaRef->evalCalculatedVars());
   ASSERT_NO_THROW(modelOmegaRef->updateFType());
   ASSERT_NO_THROW(modelOmegaRef->updateYType());

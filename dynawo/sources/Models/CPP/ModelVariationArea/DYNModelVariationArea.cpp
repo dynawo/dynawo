@@ -239,7 +239,7 @@ ModelVariationArea::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<doub
 }
 
 void
-ModelVariationArea::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/) const {
+ModelVariationArea::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/, std::vector<int>&) const {
   // output depends only on discrete variables
 }
 

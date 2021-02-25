@@ -253,7 +253,7 @@ ModelSignalN::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /
 }
 
 void
-ModelSignalN::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/) const {
+ModelSignalN::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/, std::vector<int>&) const {
   // output depends only on discrete variables
 }
 

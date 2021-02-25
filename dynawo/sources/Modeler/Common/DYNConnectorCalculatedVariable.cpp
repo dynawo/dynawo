@@ -148,7 +148,7 @@ ConnectorCalculatedVariable::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, ve
 }
 
 void
-ConnectorCalculatedVariable::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/) const {
+ConnectorCalculatedVariable::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/, std::vector<int>&) const {
   throw DYNError(Error::MODELER, FuncNotYetCoded);
 }
 

@@ -330,7 +330,7 @@ ModelSwitch::evalCalculatedVars() {
 }
 
 void
-ModelSwitch::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& /*numVars*/) const {
+ModelSwitch::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& /*numVars*/, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case swStateNum_:
       break;

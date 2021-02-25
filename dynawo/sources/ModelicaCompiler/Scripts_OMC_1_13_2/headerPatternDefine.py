@@ -71,7 +71,7 @@ class HeaderPatternDefine:
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
     double evalCalculatedVarI(unsigned iCalculatedVar) const;
-    void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+    void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
 #ifdef _ADEPT_
     void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &F);
     adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext) const;
@@ -154,7 +154,7 @@ namespace DYN {
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
     double evalCalculatedVarI(unsigned iCalculatedVar) const;
-    void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+    void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
 #ifdef _ADEPT_
     void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &F);
     adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext) const;

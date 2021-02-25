@@ -1503,7 +1503,7 @@ ModelTwoWindingsTransformer::evalCalculatedVars() {
 }
 
 void
-ModelTwoWindingsTransformer::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
+ModelTwoWindingsTransformer::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case i1Num_:
     case i2Num_:

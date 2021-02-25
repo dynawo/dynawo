@@ -155,7 +155,7 @@ class ModelHvdcLink : public NetworkComponent::Impl {
    * @param numCalculatedVar index of the calculated variable
    * @param numVars index of variables used to define the jacobian associated to a calculated variable
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars, std::vector<int>& indexesExternal) const;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable

@@ -132,8 +132,9 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsTypeMethods)
   ASSERT_NO_THROW(modelLoad->initializeFromData(boost::shared_ptr<DataInterface>()));
   std:: vector<double> res;
   std::vector<int> indexes;
+  std::vector<int> indexesExternal;
   ASSERT_NO_THROW(modelLoad->evalJCalculatedVarI(0, res));
-  ASSERT_NO_THROW(modelLoad->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
+  ASSERT_NO_THROW(modelLoad->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes, indexesExternal));
   ASSERT_NO_THROW(modelLoad->evalCalculatedVars());
   ASSERT_NO_THROW(modelLoad->updateFType());
   ASSERT_NO_THROW(modelLoad->updateYType());

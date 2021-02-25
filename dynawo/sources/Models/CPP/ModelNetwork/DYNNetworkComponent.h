@@ -147,7 +147,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param numCalculatedVar index of the calculated variable
    * @param numVars index of variables used to define the jacobian
    */
-  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const = 0;
+  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>& numVarsExternal) const = 0;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable

@@ -780,7 +780,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_getIndexesOfVariablesUsedForCalculatedVarI(self):
         self.addEmptyLine()
-        self.addLine("void Model" + self.className + "::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const\n")
+        self.addLine("void Model" + self.className + "::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_getindexofvarusedforcalcvari())

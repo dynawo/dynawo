@@ -301,8 +301,9 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchCalculatedVariables) {
   ASSERT_THROW_DYNAWO(sw->evalJCalculatedVarI(1, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(sw->evalJCalculatedVarI(ModelSwitch::swStateNum_, res));
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(sw->getIndexesOfVariablesUsedForCalculatedVarI(1, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(sw->getIndexesOfVariablesUsedForCalculatedVarI(ModelSwitch::swStateNum_, numVars));
+  std::vector<int> numVarsExternal;
+  ASSERT_THROW_DYNAWO(sw->getIndexesOfVariablesUsedForCalculatedVarI(1, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(sw->getIndexesOfVariablesUsedForCalculatedVarI(ModelSwitch::swStateNum_, numVars, numVarsExternal));
 
   shared_ptr<ModelSwitch> swInit = createModelSwitch(false, true);
   swInit->initSize();

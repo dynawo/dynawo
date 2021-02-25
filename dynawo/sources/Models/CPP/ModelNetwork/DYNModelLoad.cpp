@@ -722,7 +722,7 @@ ModelLoad::evalCalculatedVars() {
 }
 
 void
-ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
+ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case pNum_: {
       if (isRunning()) {

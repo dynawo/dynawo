@@ -1227,7 +1227,7 @@ ModelLine::i2(const double& ur1, const double& ui1, const double& ur2, const dou
 }
 
 void
-ModelLine::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int> & numVars) const {
+ModelLine::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int> & numVars, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case i1Num_:
     case i2Num_:

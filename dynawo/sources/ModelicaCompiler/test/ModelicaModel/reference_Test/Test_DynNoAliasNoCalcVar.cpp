@@ -419,7 +419,7 @@ adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, u
 }
 #endif
 
-void ModelTest_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
+void ModelTest_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
 {
 }
 

@@ -259,7 +259,7 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
    * @param numVars vector to fill with the indexes
    *
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>& indexesExternal) const;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables

@@ -269,20 +269,21 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineCalculatedVariables) {
   int offset = 2;
   dl->init(offset);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelDanglingLine::iNum_, numVars));
+  std::vector<int> numVarsExternal;
+  ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelDanglingLine::iNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelDanglingLine::pNum_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelDanglingLine::pNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelDanglingLine::qNum_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelDanglingLine::qNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);

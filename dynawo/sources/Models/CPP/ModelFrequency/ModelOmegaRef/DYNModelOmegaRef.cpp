@@ -358,7 +358,7 @@ ModelOmegaRef::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& 
 }
 
 void
-ModelOmegaRef::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/) const {
+ModelOmegaRef::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/, std::vector<int>&) const {
   // output depends only on discrete variables
 }
 

@@ -525,10 +525,10 @@ ModelVoltageLevel::evalCalculatedVars() {
 }
 
 void
-ModelVoltageLevel::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
+ModelVoltageLevel::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars, std::vector<int>& indexesExternal) const {
   int index = componentIndexByCalculatedVar_[numCalculatedVar];
   int varIndex = numCalculatedVar - components_[index]->getOffsetCalculatedVar();
-  components_[index]->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, numVars);
+  components_[index]->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, numVars, indexesExternal);
 }
 
 void
