@@ -774,7 +774,7 @@ ModelLine::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   if (isDynamic_) {
     variables.push_back(VariableNativeFactory::createState(id_ + "_iBranch_re", CONTINUOUS));
     variables.push_back(VariableNativeFactory::createState(id_ + "_iBranch_im", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState(id_ + "_omegaRef_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createExternalState(id_ + "_omegaRef_value", CONTINUOUS));
   }
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i2_value", CONTINUOUS));

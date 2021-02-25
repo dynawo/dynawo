@@ -229,19 +229,21 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
   load->init(yNum, yNumExternal);
   std::vector<double> y(load->sizeY(), 0.);
   std::vector<double> yp(load->sizeY(), 0.);
+  std::vector<double*> yExternal(load->sizeYExternal(), NULL);
+  std::vector<double*> ypExternal(load->sizeYExternal(), NULL);
   std::vector<double> f(load->sizeF(), 0.);
   std::vector<double> z(load->sizeZ(), 0.);
   bool* zConnected = new bool[load->sizeZ()];
   for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
   load->setReferenceZ(&z[0], zConnected, 0);
-  load->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
-  const size_t DeltaPcIdx = 0;
-  const size_t DeltaQcIdx = 1;
-  const size_t zPIdx = 2;
-  const size_t zQIdx = 3;
-  y[DeltaPcIdx] = 5;
-  y[DeltaQcIdx] = 7;
+  load->setReferenceY(&y[0], &yp[0], &yExternal[0], &ypExternal[0],  &f[0], 0, 0, 0);
+  const size_t zPIdx = 0;
+  const size_t zQIdx = 1;
+  double DeltaPc = 5;
+  yExternal[0] = &DeltaPc;
+  double DeltaQc = 7;
+  yExternal[1] = &DeltaQc;
   y[zPIdx] = 9;
   y[zQIdx] = 11;
   load->evalYMat();
@@ -271,8 +273,6 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
 
   std::vector<double> res(4, 0.);
   ASSERT_THROW_DYNAWO(load->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  y[DeltaPcIdx] = 5;
-  y[DeltaQcIdx] = 7;
   y[zPIdx] = 9;
   y[zQIdx] = 11;
   ASSERT_NO_THROW(load->evalJCalculatedVarI(ModelLoad::pNum_, res));
@@ -300,33 +300,39 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
 
   load->setConnected(CLOSED);
   int offset = 2;
-  int offsetExternal = 0;
+  int offsetExternal = 2;
   load->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(load->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(load->getIndexesOfVariablesUsedForCalculatedVarI(ModelLoad::pNum_, numVars, numVarsExternal));
-  ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVars.size(), 3);
+  ASSERT_EQ(numVarsExternal.size(), 1);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
-  ASSERT_EQ(numVars[3], 4);
+  ASSERT_EQ(numVarsExternal[0], 2);
   numVars.clear();
+  numVarsExternal.clear();
   ASSERT_NO_THROW(load->getIndexesOfVariablesUsedForCalculatedVarI(ModelLoad::qNum_, numVars, numVarsExternal));
-  ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVars.size(), 3);
+  ASSERT_EQ(numVarsExternal.size(), 1);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 3);
-  ASSERT_EQ(numVars[3], 5);
+  ASSERT_EQ(numVarsExternal[0], 3);
   numVars.clear();
+  numVarsExternal.clear();
   ASSERT_NO_THROW(load->getIndexesOfVariablesUsedForCalculatedVarI(ModelLoad::pcNum_, numVars, numVarsExternal));
-  ASSERT_EQ(numVars.size(), 1);
-  ASSERT_EQ(numVars[0], 2);
-  numVars.clear();
+  ASSERT_EQ(numVars.size(), 0);
+  ASSERT_EQ(numVarsExternal.size(), 1);
+  ASSERT_EQ(numVarsExternal[0], 2);
+  numVarsExternal.clear();
   ASSERT_NO_THROW(load->getIndexesOfVariablesUsedForCalculatedVarI(ModelLoad::qcNum_, numVars, numVarsExternal));
-  ASSERT_EQ(numVars.size(), 1);
-  ASSERT_EQ(numVars[0], 3);
-  numVars.clear();
+  ASSERT_EQ(numVars.size(), 0);
+  ASSERT_EQ(numVarsExternal.size(), 1);
+  ASSERT_EQ(numVarsExternal[0], 3);
+  numVarsExternal.clear();
   ASSERT_NO_THROW(load->getIndexesOfVariablesUsedForCalculatedVarI(ModelLoad::loadStateNum_, numVars, numVarsExternal));
   ASSERT_TRUE(numVars.empty());
 
@@ -402,12 +408,16 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   load->init(yNum, yNumExternal);
   fillParameters(load);
   load->initSize();
-  unsigned nbY = 4;
+  unsigned nbY = 2;
   unsigned nbF = 2;
+  unsigned int nbYExternal = 2;
   ASSERT_EQ(load->sizeY(), nbY);
+  ASSERT_EQ(load->sizeYExternal(), nbYExternal);
   ASSERT_EQ(load->sizeF(), nbF);
   std::vector<double> y(nbY, 0.);
   std::vector<double> yp(nbY, 0.);
+  std::vector<double*> yExternal(nbYExternal, NULL);
+  std::vector<double*> ypExternal(nbYExternal, NULL);
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<double> f(nbF, 0.);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
@@ -416,14 +426,14 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
   load->setReferenceZ(&z[0], zConnected, 0);
-  load->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
+  load->setReferenceY(&y[0], &yp[0], &yExternal[0], &ypExternal[0],  &f[0], 0, 0, 0);
   load->evalYMat();
-  const size_t DeltaPcIdx = 0;
-  const size_t DeltaQcIdx = 1;
-  const size_t zPIdx = 2;
-  const size_t zQIdx = 3;
-  y[DeltaPcIdx] = 5;
-  y[DeltaQcIdx] = 7;
+  const size_t zPIdx = 0;
+  const size_t zQIdx = 1;
+  double DeltaPc = 5;
+  yExternal[0] = &DeltaPc;
+  double DeltaQc = 7;
+  yExternal[1] = &DeltaQc;
   y[zPIdx] = 9;
   y[zQIdx] = 11;
   load->setBufferYType(&yTypes[0], 0);
@@ -431,37 +441,33 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
 
   // test evalYType
   load->evalYType();
-  ASSERT_EQ(yTypes[DeltaPcIdx], EXTERNAL);
-  ASSERT_EQ(yTypes[DeltaQcIdx], EXTERNAL);
   ASSERT_EQ(yTypes[zPIdx], DIFFERENTIAL);
   ASSERT_EQ(yTypes[zQIdx], DIFFERENTIAL);
   load->evalFType();
-  ASSERT_EQ(fTypes[DeltaPcIdx], DIFFERENTIAL_EQ);
-  ASSERT_EQ(fTypes[DeltaQcIdx], DIFFERENTIAL_EQ);
+  ASSERT_EQ(fTypes[0], DIFFERENTIAL_EQ);
+  ASSERT_EQ(fTypes[1], DIFFERENTIAL_EQ);
 
   // test getY0
-  y[DeltaPcIdx] = 2.;
-  y[DeltaQcIdx] = 5.;
+  DeltaPc = 2.;
+  DeltaQc = 5.;
   y[zPIdx] = 2.;
   y[zQIdx] = 5.;
-  yp[DeltaPcIdx] = 2.;
-  yp[DeltaQcIdx] = 5.;
+  double DeltaPcP = 2.;
+  ypExternal[0] = &DeltaPcP;
+  double DeltaQcP = 5.;
+  ypExternal[1] = &DeltaQcP;
   yp[zPIdx] = 2.;
   yp[zQIdx] = 5.;
   load->getY0();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[DeltaPcIdx], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[DeltaQcIdx], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[zPIdx], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[zQIdx], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[DeltaPcIdx], 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[DeltaQcIdx], 5);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[zPIdx], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[zQIdx], 0);
 
   // test evalF
   load->evalF(UNDEFINED_EQ);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[DeltaPcIdx], -402.24999999999994);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[DeltaQcIdx], 6.1766109710079018);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], -386.09435562925358);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 2.6661147710671438);
 
   // test setFequations
   std::map<int, std::string> fEquationIndex;
@@ -474,19 +480,15 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   // test getY0 (bus switchoff)
   load->getModelBus()->switchOff();
   load->getY0();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[DeltaPcIdx], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[DeltaQcIdx], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[zPIdx], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[zQIdx], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[DeltaPcIdx], 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[DeltaQcIdx], 5);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[zPIdx], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[zQIdx], 0);
 
   // test evalF (bus switchoff)
   load->evalF(UNDEFINED_EQ);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[DeltaPcIdx], 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[DeltaPcIdx], 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
 
   // test setFequations
   fEquationIndex.clear();
@@ -548,26 +550,31 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   shared_ptr<ModelLoad> load = p.first;
   fillParameters(load);
   load->initSize();
+  int yNum = 0;
+  int yNumExternal = 0;
+  load->init(yNum, yNumExternal);
   std::vector<double> y(load->sizeY(), 0.);
   std::vector<double> yp(load->sizeY(), 0.);
+  std::vector<double*> yExternal(load->sizeYExternal(), NULL);
+  std::vector<double*> ypExternal(load->sizeYExternal(), NULL);
   std::vector<double> f(load->sizeF(), 0.);
   std::vector<double> z(load->sizeZ(), 0.);
   bool* zConnected = new bool[load->sizeZ()];
   for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
   load->setReferenceZ(&z[0], zConnected, 0);
-  load->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
+  load->setReferenceY(&y[0], &yp[0], &yExternal[0], &ypExternal[0],  &f[0], 0, 0, 0);
   load->evalYMat();
-  const size_t DeltaPcIdx = 0;
-  const size_t DeltaQcIdx = 1;
-  const size_t zPIdx = 2;
-  const size_t zQIdx = 3;
-  y[DeltaPcIdx] = 5;
-  y[DeltaQcIdx] = 7;
-  y[zPIdx] = 9;
+  const size_t zPIdx = 0;
+  const size_t zQIdx = 1;
+  double DeltaPc = 5;
+  yExternal[0] = &DeltaPc;
+  double DeltaQc = 7;
+  yExternal[1] = &DeltaQc;
+  y[zPIdx] = 5;
   y[zQIdx] = 11;
   SparseMatrix smj;
-  int size = load->sizeY();
+  int size = load->sizeY() + 2;
   smj.init(size, size);
   load->evalJt(smj, 1., 0);
   smj.changeCol();
@@ -576,9 +583,9 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 22.155644370746373);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], -153.29392144688848);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -87.596526541079143);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3],  8.4895038000592429);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[4],  2.3388791341676249);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[5],  1.3365023623815);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3], 8.4895038000592429);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[4], 5.2397892818982124);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[5], 2.9941653039418354);
   ASSERT_EQ(smj.Ap_[0], 0);
   ASSERT_EQ(smj.Ap_[1], 3);
   ASSERT_EQ(smj.Ap_[2], 6);

@@ -515,15 +515,14 @@ class ModelLoad : public NetworkComponent::Impl {
   double u0_;  ///< initial voltage
 
   // Variables
-  double DeltaPc0_;  ///< delta pc0
-  double DeltaQc0_;  ///< delta qc0
   double zP0_;  ///< zP0
   double zQ0_;  ///< zQ0
   double zPprim0_;  ///< zPprim0
   double zQprim0_;  ///< zQprim0
   unsigned int yOffset_;  ///< global Y offset at the beginning of the load model
-  unsigned int DeltaPcYNum_;  ///< local Y index for DeltaPc
-  unsigned int DeltaQcYNum_;  ///< local Y index for DeltaQc
+  unsigned int yExternalOffset_;
+  static const unsigned int DeltaPcYNum_;  ///< local Y external index for DeltaPc
+  static const unsigned int DeltaQcYNum_;  ///< local Y external index for DeltaQc
   unsigned int zPYNum_;  ///< local Y index for zP
   unsigned int zQYNum_;  ///< local Y index for zQ
 };  ///< class for Load model
