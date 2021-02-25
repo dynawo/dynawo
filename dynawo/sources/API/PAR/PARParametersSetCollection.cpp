@@ -21,6 +21,7 @@
 
 #include "PARParametersSet.h"
 #include "PARParametersSetCollection.h"
+#include "PARMacroParameterSet.h"
 
 using std::map;
 using std::string;
@@ -47,6 +48,16 @@ ParametersSetCollection::addParametersSet(shared_ptr<ParametersSet> paramSet, bo
   parametersSets_[id] = paramSet;
 }
 
+void
+ParametersSetCollection::addMacroParameterSet(shared_ptr<MacroParameterSet> macroParamSet) {
+  assert(macroParamSet && "impossible to add null macro parameter set pointer to collection");
+  string id = macroParamSet->getId();
+  if (hasMacroParametersSet(id)) {
+    throw DYNError(Error::API, MacroParameterSetAlreadyExists, id);
+  }
+  macroParametersSets_[id] = macroParamSet;
+}
+
 shared_ptr<ParametersSet>
 ParametersSetCollection::getParametersSet(const string& id) {
   map< string, shared_ptr<ParametersSet> >::iterator itParamSet = parametersSets_.find(id);
@@ -55,9 +66,40 @@ ParametersSetCollection::getParametersSet(const string& id) {
   return itParamSet->second;
 }
 
+void
+ParametersSetCollection::getParametersFromMacroParameter(const string& id) {
+  map< string, shared_ptr<ParametersSet> >::iterator itParamSet = parametersSets_.find(id);
+  if (itParamSet == parametersSets_.end())
+    throw DYNError(DYN::Error::API, ParametersSetNotFound, id);
+  // if a macroParSet is defined in the set, we add the references and parameters associated
+  if (itParamSet->second->hasMacroParSet()) {
+    for (ParametersSet::macroparset_const_iterator itMacroParSet = itParamSet->second->cbeginMacroParSet();
+    itMacroParSet != itParamSet->second->cendMacroParSet();
+    ++itMacroParSet) {
+      if (hasMacroParametersSet((*itMacroParSet)->getId())) {
+        for (MacroParameterSet::reference_const_iterator itReference = macroParametersSets_[(*itMacroParSet)->getId()]->cbeginReference();
+        itReference != macroParametersSets_[(*itMacroParSet)->getId()]->cendReference();
+        ++itReference) {
+          itParamSet->second->addReference(*itReference);
+        }
+        for (MacroParameterSet::parameter_const_iterator itParameter = macroParametersSets_[(*itMacroParSet)->getId()]->cbeginParameter();
+        itParameter != macroParametersSets_[(*itMacroParSet)->getId()]->cendParameter();
+        ++itParameter) {
+          itParamSet->second->addParameter(*itParameter);
+        }
+      }
+    }
+  }
+}
+
 bool
 ParametersSetCollection::hasParametersSet(const string& id) {
   return (parametersSets_.find(id) != parametersSets_.end());
+}
+
+bool
+ParametersSetCollection::hasMacroParametersSet(const string& id) const {
+  return (macroParametersSets_.find(id) != macroParametersSets_.end());
 }
 
 void
@@ -125,6 +167,65 @@ ParametersSetCollection::parametersSet_const_iterator::operator*() const {
 
 const shared_ptr<ParametersSet>*
 ParametersSetCollection::parametersSet_const_iterator::operator->() const {
+  return &(current_->second);
+}
+
+ParametersSetCollection::macroparameterset_const_iterator
+ParametersSetCollection::cbeginMacroParameterSet() const {
+  return ParametersSetCollection::macroparameterset_const_iterator(this, true);
+}
+
+ParametersSetCollection::macroparameterset_const_iterator
+ParametersSetCollection::cendMacroParameterSet() const {
+  return ParametersSetCollection::macroparameterset_const_iterator(this, false);
+}
+
+ParametersSetCollection::macroparameterset_const_iterator::macroparameterset_const_iterator(const ParametersSetCollection* iterated, bool begin) :
+current_((begin ? iterated->macroParametersSets_.begin() : iterated->macroParametersSets_.end())) { }
+
+ParametersSetCollection::macroparameterset_const_iterator&
+ParametersSetCollection::macroparameterset_const_iterator::operator++() {
+  ++current_;
+  return *this;
+}
+
+ParametersSetCollection::macroparameterset_const_iterator
+ParametersSetCollection::macroparameterset_const_iterator::operator++(int) {
+  ParametersSetCollection::macroparameterset_const_iterator previous = *this;
+  current_++;
+  return previous;
+}
+
+ParametersSetCollection::macroparameterset_const_iterator&
+ParametersSetCollection::macroparameterset_const_iterator::operator--() {
+  --current_;
+  return *this;
+}
+
+ParametersSetCollection::macroparameterset_const_iterator
+ParametersSetCollection::macroparameterset_const_iterator::operator--(int) {
+  ParametersSetCollection::macroparameterset_const_iterator previous = *this;
+  current_--;
+  return previous;
+}
+
+bool
+ParametersSetCollection::macroparameterset_const_iterator::operator==(const ParametersSetCollection::macroparameterset_const_iterator& other) const {
+  return current_ == other.current_;
+}
+
+bool
+ParametersSetCollection::macroparameterset_const_iterator::operator!=(const ParametersSetCollection::macroparameterset_const_iterator& other) const {
+  return current_ != other.current_;
+}
+
+const shared_ptr<MacroParameterSet>&
+ParametersSetCollection::macroparameterset_const_iterator::operator*() const {
+  return current_->second;
+}
+
+const shared_ptr<MacroParameterSet>*
+ParametersSetCollection::macroparameterset_const_iterator::operator->() const {
   return &(current_->second);
 }
 

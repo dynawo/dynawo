@@ -23,6 +23,7 @@
 #include "PARParametersSet.h"
 #include "PARParameter.h"
 #include "PARParameterFactory.h"
+#include "PARMacroParSet.h"
 
 using std::map;
 using std::set;
@@ -139,6 +140,15 @@ ParametersSet::addParameter(const shared_ptr<Parameter>& param) {
   return shared_from_this();
 }
 
+boost::shared_ptr<ParametersSet>
+ParametersSet::addMacroParSet(const shared_ptr<MacroParSet>& macroParSet) {
+  const string id = macroParSet->getId();
+  if (hasMacroParSet(id))
+    throw DYNError(DYN::Error::API, MacroParSetAlreadyExists, id, id_);
+  macroParSets_[id] = macroParSet;
+  return shared_from_this();
+}
+
 const shared_ptr<Parameter>
 ParametersSet::getParameter(const string& name) const {
   map<string, shared_ptr<Parameter> >::const_iterator itParam = parameters_.find(name);
@@ -161,6 +171,16 @@ ParametersSet::getReference(const string& name) const {
 bool
 ParametersSet::hasParameter(const string& name) const {
   return (parameters_.find(name) != parameters_.end());
+}
+
+bool
+ParametersSet::hasMacroParSet(const string& id) const {
+  return (macroParSets_.find(id) != macroParSets_.end());
+}
+
+bool
+ParametersSet::hasMacroParSet() const {
+  return (!macroParSets_.empty());
 }
 
 bool
@@ -335,6 +355,54 @@ ParametersSet::reference_const_iterator::operator*() const {
 const shared_ptr<Reference>*
 ParametersSet::reference_const_iterator::operator->() const {
   return &(current_->second);
+}
+
+// for macroParSet
+
+ParametersSet::macroparset_const_iterator::macroparset_const_iterator(const ParametersSet* iterated, bool begin) :
+current_((begin ? iterated->macroParSets_.begin() : iterated->macroParSets_.end())) { }
+
+ParametersSet::macroparset_const_iterator&
+ParametersSet::macroparset_const_iterator::operator++() {
+  ++current_;
+  return *this;
+}
+
+ParametersSet::macroparset_const_iterator
+ParametersSet::macroparset_const_iterator::operator++(int) {
+  ParametersSet::macroparset_const_iterator previous = *this;
+  current_++;
+  return previous;
+}
+
+bool
+ParametersSet::macroparset_const_iterator::operator==(const ParametersSet::macroparset_const_iterator& other) const {
+  return current_ == other.current_;
+}
+
+bool
+ParametersSet::macroparset_const_iterator::operator!=(const ParametersSet::macroparset_const_iterator& other) const {
+  return current_ != other.current_;
+}
+
+const shared_ptr<MacroParSet>&
+ParametersSet::macroparset_const_iterator::operator*() const {
+  return current_->second;
+}
+
+const shared_ptr<MacroParSet>*
+ParametersSet::macroparset_const_iterator::operator->() const {
+  return &(current_->second);
+}
+
+ParametersSet::macroparset_const_iterator
+ParametersSet::cbeginMacroParSet() const {
+  return ParametersSet::macroparset_const_iterator(this, true);
+}
+
+ParametersSet::macroparset_const_iterator
+ParametersSet::cendMacroParSet() const {
+  return ParametersSet::macroparset_const_iterator(this, false);
 }
 
 }  // namespace parameters

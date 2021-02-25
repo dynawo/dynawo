@@ -22,6 +22,7 @@
 
 #include "PARParameter.h"
 #include "PARReference.h"
+#include "PARMacroParSet.h"
 
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/shared_ptr.hpp>
@@ -192,6 +193,15 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
   boost::shared_ptr<ParametersSet> addParameter(const boost::shared_ptr<Parameter>& param);
 
   /**
+   * @brief Add a new macroParSet
+   *
+   * @param[in] macroParSet macroParSet to add
+   * @returns Reference to current ParametersSet instance
+   * @throws API exception if the macroParSet is already in the map
+   */
+  boost::shared_ptr<ParametersSet> addMacroParSet(const boost::shared_ptr<MacroParSet>& macroParSet);
+
+  /**
    * @brief Add a new reference in the map
    *
    * Add a new reference in the underlying map if it does not already exists
@@ -232,6 +242,22 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    * @returns Existence of the parameter in the set
    */
   bool hasParameter(const std::string& name) const;
+
+  /**
+   * @brief Check if a macroParSet is in the parameters set
+   *
+   * Check if a macroParSet with given id exists in the parameter set
+   *
+   * @param id : id of the macroParSet
+   * @returns Existence of the parameter in the set
+   */
+  bool hasMacroParSet(const std::string& id) const;
+
+  /**
+   * @brief Check if there is a macroParSet the parameters set
+   * @returns Existence of a macroParSet in the set
+   */
+  bool hasMacroParSet() const;
 
   /**
    * @brief Check if a reference is in the parameters set
@@ -460,6 +486,88 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    */
   reference_const_iterator cendReference() const;
 
+  /**
+   * @class macroparset_const_iterator
+   * @brief Const iterator over macroparsets
+   *
+   * Const iterator over macroparsets described in a set of parameters.
+   */
+  class macroparset_const_iterator {
+   public:
+    /**
+     * @brief Constructor
+     *
+     * Constructor based on parameter's set. Can create an iterator to the
+     * beginning of the macroparsets' container or to the end. macroparsets
+     * cannot be modified.
+     *
+     * @param iterated Pointer to the macroparsets' set iterated
+     * @param begin Flag indicating if the iterator point to the beginning (true)
+     * or the end of the macroparsets' container.
+     * @returns Created macroparset_const_iterator.
+     */
+    macroparset_const_iterator(const ParametersSet* iterated, bool begin);
+
+    /**
+     * @brief Prefix-increment operator
+     *
+     * @returns reference to this macroparset_const_iterator
+     */
+    macroparset_const_iterator& operator++();
+
+    /**
+     * @brief Postfix-increment operator
+     *
+     * @returns Copy of this macroparset_const_iterator
+     */
+    macroparset_const_iterator operator++(int);
+
+    /**
+     * @brief Equal to operator
+     *
+     * @param other Iterator to be compared with this
+     * @returns true if iterators are equals, else false
+     */
+    bool operator==(const macroparset_const_iterator& other) const;
+
+    /**
+     * @brief Not equal to operator
+     *
+     * @param other Iterator to be compared with this
+     * @returns true if iterators are different, else false
+     */
+    bool operator!=(const macroparset_const_iterator& other) const;
+
+    /**
+     * @brief Indirection operator
+     *
+     * @returns MacroParSet pointed to by this
+     */
+    const boost::shared_ptr<MacroParSet>& operator*() const;
+
+    /**
+     * @brief Structure dereference operator
+     *
+     * @returns Pointer to the MacroParSet pointed to by this
+     */
+    const boost::shared_ptr<MacroParSet>* operator->() const;
+
+   private:
+    std::map<std::string, boost::shared_ptr<MacroParSet> >::const_iterator current_; /**< Hidden map iterator */
+  };
+
+  /**
+   * @brief Get a macroparset_const_iterator to the beginning of the macroparsets' set
+   * @return beginning of constant iterator_ref
+   */
+  macroparset_const_iterator cbeginMacroParSet() const;
+
+  /**
+   * @brief Get a macroparset_const_iterator to the end of the macroparsets' set
+   * @return end of constant iterator_ref
+   */
+  macroparset_const_iterator cendMacroParSet() const;
+
  private:
   /**
    * @copydoc ParametersSet::createParameter(const std::string& name, const std::string& value, const std::string& row, const std::string& column)
@@ -498,6 +606,7 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
   std::string filepath_;                                                        /**< Parameters' set filepath */
   std::map<std::string, boost::shared_ptr<Parameter> > parameters_;             /**< Map of the parameters */
   boost::unordered_map<std::string, boost::shared_ptr<Reference> > references_; /**< Map of the references */
+  std::map<std::string, boost::shared_ptr<MacroParSet> > macroParSets_;         ///< Map of the macroParSet
 };
 
 }  // namespace parameters
