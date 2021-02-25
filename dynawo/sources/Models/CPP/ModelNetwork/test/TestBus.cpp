@@ -239,7 +239,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   bus->switchOn();
 //
   int offset = 2;
-  bus->init(offset);
+  int offsetExternal = 0;
+  bus->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(bus->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
@@ -603,10 +604,12 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   ASSERT_EQ(smj.Ap_[1], 0);
 
   int yNum = 2;
-  bus->init(yNum);
+  int offsetExternal = 0;
+  bus->init(yNum, offsetExternal);
   ASSERT_EQ(yNum, 6);
   yNum = 0;
-  bus->init(yNum);
+  int yNumExternal;
+  bus->init(yNum, yNumExternal);
   bus->evalDerivatives(1);
   SparseMatrix smj2;
   size = bus->sizeY();

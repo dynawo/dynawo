@@ -177,7 +177,7 @@ ModelSwitch::evalFType() {
 }
 
 void
-ModelSwitch::init(int& yNum) {
+ModelSwitch::init(int& yNum, int&) {
   irYNum_ = yNum;
   ++yNum;
   iiYNum_ = yNum;

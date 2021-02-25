@@ -95,7 +95,7 @@ stateModified_(false) {
 }
 
 void
-ModelHvdcLink::init(int& /*yNum*/) {
+ModelHvdcLink::init(int& /*yNum*/, int&) {
   // no state variable for simple hvdc model: no indexes to set
 }
 

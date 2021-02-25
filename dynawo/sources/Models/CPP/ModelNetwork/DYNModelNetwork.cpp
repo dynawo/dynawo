@@ -786,9 +786,10 @@ ModelNetwork::printComponentStats(KeyLog_t::value message, unsigned nbStatic, un
 void
 ModelNetwork::initializeStaticData() {
   int yNum = 0;
+  int yNumExternal;
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
-    (*itComponent)->init(yNum);
+    (*itComponent)->init(yNum, yNumExternal);
   }
 }
 

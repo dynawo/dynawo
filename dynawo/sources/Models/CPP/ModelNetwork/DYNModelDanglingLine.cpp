@@ -150,7 +150,7 @@ modelType_("DanglingLine")  {
 }
 
 void
-ModelDanglingLine::init(int& yNum) {
+ModelDanglingLine::init(int& yNum, int&) {
   if (!network_->isInitModel()) {
     urFictYNum_ = yNum;
     ++yNum;

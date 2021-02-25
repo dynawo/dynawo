@@ -301,10 +301,10 @@ ModelVoltageLevel::initSize() {
 }
 
 void
-ModelVoltageLevel::init(int& yNum) {
+ModelVoltageLevel::init(int& yNum, int& yNumExternal) {
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-    (*itComponent)->init(yNum);
+    (*itComponent)->init(yNum, yNumExternal);
   }
 }
 

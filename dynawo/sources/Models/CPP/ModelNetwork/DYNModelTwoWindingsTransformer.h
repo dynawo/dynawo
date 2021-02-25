@@ -357,7 +357,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
    * @brief init
    * @param yNum
    */
-  void init(int& yNum);
+  void init(int& yNum, int& yNumExternal);
 
   /**
    * @copydoc NetworkComponent::Impl::getY0()

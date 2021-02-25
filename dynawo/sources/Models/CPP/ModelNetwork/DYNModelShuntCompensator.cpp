@@ -371,7 +371,7 @@ ModelShuntCompensator::evalCalculatedVarI(unsigned numCalculatedVar) const {
 }
 
 void
-ModelShuntCompensator::init(int& /*yNum*/) {
+ModelShuntCompensator::init(int& /*yNum*/, int&) {
   /* not needed */
 }
 

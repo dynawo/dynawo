@@ -237,7 +237,7 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::init(int& yNum)
    */
-  void init(int & yNum);
+  void init(int & yNum, int& yNumExternal);
 
   /**
    * @copydoc NetworkComponent::Impl::getY0()

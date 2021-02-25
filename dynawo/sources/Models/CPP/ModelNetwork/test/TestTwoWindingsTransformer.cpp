@@ -374,7 +374,8 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     y1[ModelBus::uiNum_] = 2;
     if (!initModel)
       z1[ModelBus::switchOffNum_] = -1;
-    bus1->init(offset);
+    int offsetExternal = 0;
+    bus1->init(offset, offsetExternal);
     t2w->setModelBus1(bus1);
   }
   if (closed2) {
@@ -396,7 +397,8 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     y2[ModelBus::uiNum_] = 1.5;
     if (!initModel)
       z2[ModelBus::switchOffNum_] = -1;
-    bus2->init(offset);
+    int offsetExternal = 0;
+    bus2->init(offset, offsetExternal);
     t2w->setModelBus2(bus2);
   }
   return std::make_pair(t2w, vl);
@@ -607,7 +609,8 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   ASSERT_EQ(res.size(), 0);
 
   int offset = 4;
-  t2w->init(offset);
+  int offsetExternal = 0;
+  t2w->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(t2w->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
@@ -831,7 +834,8 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariablesOp
   ASSERT_EQ(res.size(), 0);
 
   int offset = 4;
-  t2w->init(offset);
+  int offsetExternal = 0;
+  t2w->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(t2w->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);

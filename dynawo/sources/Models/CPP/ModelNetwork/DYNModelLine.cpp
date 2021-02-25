@@ -238,7 +238,7 @@ ModelLine::initSize() {
 }
 
 void
-ModelLine::init(int& yNum) {
+ModelLine::init(int& yNum, int&) {
   if (!network_->isInitModel()) {
     assert(yNum >= 0);
     yOffset_ = static_cast<unsigned int>(yNum);

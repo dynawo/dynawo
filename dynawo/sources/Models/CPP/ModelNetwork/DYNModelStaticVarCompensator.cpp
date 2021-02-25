@@ -123,7 +123,7 @@ ModelStaticVarCompensator::setFequations(map<int, string>& /*fEquationIndex*/) {
 }
 
 void
-ModelStaticVarCompensator::init(int& /*yNum*/) {
+ModelStaticVarCompensator::init(int& /*yNum*/, int&) {
   // not needed
 }
 

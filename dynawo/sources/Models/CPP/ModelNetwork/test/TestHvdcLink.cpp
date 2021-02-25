@@ -329,7 +329,8 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   if (!initModel)
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
-  bus1->init(offset);
+  int offsetExternal = 0;
+  bus1->init(offset, offsetExternal);
   bus1->setVoltageLevel(vl);
   shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
   bus2->setNetwork(network);
@@ -348,7 +349,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   y2[ModelBus::uiNum_] = 2.5;
   if (!initModel)
     z2[ModelBus::switchOffNum_] = -1;
-  bus2->init(offset);
+  bus2->init(offset, offsetExternal);
   bus2->setVoltageLevel(vl);
   hvdc->setModelBus1(bus1);
   hvdc->setModelBus2(bus2);
@@ -516,7 +517,8 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariables) {
   hvdc->setConnected2(CLOSED);
 
   int offset = 2;
-  hvdc->init(offset);
+  int offsetExternal = 0;
+  hvdc->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);

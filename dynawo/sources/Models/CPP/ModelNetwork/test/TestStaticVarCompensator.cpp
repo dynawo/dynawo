@@ -155,7 +155,8 @@ createModelStaticVarCompensator(bool open, bool initModel) {
   y1[ModelBus::uiNum_] = 2;
   z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
-  bus1->init(offset);
+  int offsetExternal = 0;
+  bus1->init(offset, offsetExternal);
   return std::make_pair(sc, vl);
 }
 
@@ -208,7 +209,8 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
 
   svc->setConnected(CLOSED);
   int offset = 2;
-  svc->init(offset);
+  int offsetExternal = 0;
+  svc->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(svc->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);

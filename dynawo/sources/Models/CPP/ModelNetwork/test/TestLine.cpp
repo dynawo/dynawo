@@ -258,7 +258,8 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     y1[ModelBus::uiNum_] = 2;
     if (!initModel)
       z1[ModelBus::switchOffNum_] = -1;
-    bus1->init(offset);
+    int offsetExternal = 0;
+    bus1->init(offset, offsetExternal);
   }
   if (closed2) {
     shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
@@ -280,7 +281,8 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     y2[ModelBus::uiNum_] = 1.5;
     if (!initModel)
       z2[ModelBus::switchOffNum_] = -1;
-    bus2->init(offset);
+    int offsetExternal = 0;
+    bus2->init(offset, offsetExternal);
   }
   return std::make_pair(dl, vl);
 }
@@ -455,7 +457,8 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariables) {
   ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::lineStateNum_, res));
 
   int offset = 4;
-  dl->init(offset);
+  int offsetExternal = 0;
+  dl->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
@@ -708,7 +711,8 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed2) {
   ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::lineStateNum_, res));
 
   int offset = 2;
-  dl->init(offset);
+  int offsetExternal = 0;
+  dl->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
@@ -954,7 +958,8 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed1) {
   ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::lineStateNum_, res));
 
   int offset = 2;
-  dl->init(offset);
+  int offsetExternal = 0;
+  dl->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
@@ -1329,8 +1334,10 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
 
   // test init
   int yNum = 0;
-  dl->init(yNum);
+  int yNumExternal = 0;
+  dl->init(yNum, yNumExternal);
   ASSERT_EQ(yNum, 2);
+  ASSERT_EQ(yNumExternal, 0);
 
   // test getY0
   ASSERT_NO_THROW(dl->getY0());
@@ -1394,7 +1401,8 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
     zConnected3[i] = true;
   dl3->setReferenceZ(&z3[0], zConnected3, 0);
   yNum = 0;
-  dl3->init(yNum);
+  yNumExternal = 0;
+  dl3->init(yNum, yNumExternal);
   dl3->getY0();
 
   // test evalYType

@@ -149,7 +149,8 @@ createModelGenerator(bool open, bool initModel) {
   if (!initModel)
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
-  bus1->init(offset);
+  int offsetExternal = 0;
+  bus1->init(offset, offsetExternal);
   return std::make_pair(gen, vl);
 }
 
@@ -230,7 +231,8 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
   gen->setConnected(CLOSED);
 
   int offset = 2;
-  gen->init(offset);
+  int offsetExternal = 0;
+  gen->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(gen->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);

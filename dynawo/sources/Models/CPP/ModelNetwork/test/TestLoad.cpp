@@ -143,7 +143,8 @@ createModelLoad(bool open, bool initModel) {
   if (!initModel)
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
-  bus1->init(offset);
+  int offsetExternal = 0;
+  bus1->init(offset, offsetExternal);
   return std::make_pair(load, vl);
 }
 
@@ -224,7 +225,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
   fillParameters(load);
   load->initSize();
   int yNum = 0;
-  load->init(yNum);
+  int yNumExternal = 0;
+  load->init(yNum, yNumExternal);
   std::vector<double> y(load->sizeY(), 0.);
   std::vector<double> yp(load->sizeY(), 0.);
   std::vector<double> f(load->sizeF(), 0.);
@@ -298,7 +300,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
 
   load->setConnected(CLOSED);
   int offset = 2;
-  load->init(offset);
+  int offsetExternal = 0;
+  load->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(load->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
@@ -338,7 +341,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
   shared_ptr<ModelLoad> load = p.first;
   load->initSize();
   int yNum = 0;
-  load->init(yNum);
+  int yNumExternal = 0;
+  load->init(yNum, yNumExternal);
   unsigned nbZ = 1;
   unsigned nbG = 0;
   ASSERT_EQ(load->sizeZ(), nbZ);
@@ -394,7 +398,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   std::pair<shared_ptr<ModelLoad>, shared_ptr<ModelVoltageLevel> > p = createModelLoad(false, false);
   shared_ptr<ModelLoad> load = p.first;
   int yNum = 0;
-  load->init(yNum);
+  int yNumExternal = 0;
+  load->init(yNum, yNumExternal);
   fillParameters(load);
   load->initSize();
   unsigned nbY = 4;

@@ -217,7 +217,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @brief init
    * @param yNum
    */
-  virtual void init(int& yNum) = 0;
+  virtual void init(int& yNum, int& yNumExternal) = 0;
 
   /**
    * @brief set the local buffer for continuous variables and their derivatives

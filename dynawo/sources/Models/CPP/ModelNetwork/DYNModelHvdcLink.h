@@ -67,7 +67,7 @@ class ModelHvdcLink : public NetworkComponent::Impl {
    * @brief set indexes of state variable
    * @param yNum : global offset in the whole vector of state variable
    */
-  void init(int & yNum);
+  void init(int & yNum, int& yNumExternal);
 
   /**
    * @brief init size

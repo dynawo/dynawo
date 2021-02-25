@@ -368,7 +368,7 @@ ModelGenerator::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 }
 
 void
-ModelGenerator::init(int & /*yNum*/) {
+ModelGenerator::init(int & /*yNum*/, int&) {
   // not needed
 }
 

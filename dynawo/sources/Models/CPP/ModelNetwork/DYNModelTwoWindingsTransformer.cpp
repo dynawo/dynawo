@@ -365,7 +365,7 @@ ModelTwoWindingsTransformer::evalYMat() {
 }
 
 void
-ModelTwoWindingsTransformer::init(int& /*yNum*/) {
+ModelTwoWindingsTransformer::init(int& /*yNum*/, int&) {
   // not needed
 }
 

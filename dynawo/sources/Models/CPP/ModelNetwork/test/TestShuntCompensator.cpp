@@ -152,7 +152,8 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel) {
   if (!initModel)
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
-  bus1->init(offset);
+  int offsetExternal = 0;
+  bus1->init(offset, offsetExternal);
   return std::make_pair(sc, vl);
 }
 
@@ -210,7 +211,8 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariables) {
 
   capa->setConnected(CLOSED);
   int offset = 2;
-  capa->init(offset);
+  int offsetExternal = 0;
+  capa->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(capa->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);

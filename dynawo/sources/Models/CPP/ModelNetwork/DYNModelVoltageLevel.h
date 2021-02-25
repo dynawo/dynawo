@@ -170,7 +170,7 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::init(int& yNum )
    */
-  void init(int& yNum);
+  void init(int& yNum, int& yNumExternal);
 
   /**
    * @copydoc NetworkComponent::getY0()

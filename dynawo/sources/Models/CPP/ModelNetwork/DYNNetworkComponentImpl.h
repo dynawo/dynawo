@@ -163,7 +163,7 @@ class NetworkComponent::Impl : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::init( int & yNum )
    */
-  virtual void init(int & yNum) = 0;
+  virtual void init(int & yNum, int& yNumExternal) = 0;
 
   /**
    * @copydoc NetworkComponent::getY0()

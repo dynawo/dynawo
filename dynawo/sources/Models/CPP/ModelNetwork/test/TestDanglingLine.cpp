@@ -184,7 +184,8 @@ createModelDanglingLine(bool open, bool initModel) {
   if (!initModel)
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
-  bus1->init(offset);
+  int offsetExternal = 0;
+  bus1->init(offset, offsetExternal);
   return std::make_pair(dl, vl);
 }
 
@@ -267,7 +268,8 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineCalculatedVariables) {
   }
 
   int offset = 2;
-  dl->init(offset);
+  int offsetExternal = 0;
+  dl->init(offset, offsetExternal);
   std::vector<int> numVars;
   std::vector<int> numVarsExternal;
   ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);

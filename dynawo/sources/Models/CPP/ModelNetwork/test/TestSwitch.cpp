@@ -654,7 +654,8 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
   sw->setConnectionState(CLOSED);
 
   int offset = 3;
-  sw->init(offset);
+  int offsetExternal = 0;
+  sw->init(offset, offsetExternal);
   SparseMatrix smj4;
   smj4.init(size, size);
   sw->evalJt(smj4, 1., 0);
