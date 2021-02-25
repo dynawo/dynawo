@@ -143,7 +143,7 @@ createModelGenerator(bool open, bool initModel) {
   for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(y1, yp1, f1, 0, 0);
+  bus1->setReferenceY(y1, yp1, NULL, NULL,  f1, 0, 0, 0);
   y1[ModelBus::urNum_] = 0.35;
   y1[ModelBus::uiNum_] = 0.02;
   if (!initModel)
@@ -183,7 +183,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
   for (int i = 0; i < gen->sizeZ(); ++i)
     zConnected[i] = true;
   gen->setReferenceZ(&z[0], zConnected, 0);
-  gen->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  gen->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   ASSERT_EQ(gen->sizeCalculatedVar(), ModelGenerator::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelGenerator::nbCalculatedVariables_, 0.);
@@ -273,7 +273,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
   std::vector<state_g> g(nbG, NO_ROOT);
   gen->setReferenceG(&g[0], 0);
   gen->setReferenceZ(&z[0], zConnected, 0);
-  gen->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  gen->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
 
   gen->getY0();
   ASSERT_EQ(gen->getConnected(), CLOSED);

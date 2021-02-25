@@ -253,7 +253,7 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     for (int i = 0; i < bus1->sizeZ(); ++i)
       zConnected1[i] = true;
     bus1->setReferenceZ(&z1[0], zConnected1, 0);
-    bus1->setReferenceY(y1, yp1, f1, 0, 0);
+    bus1->setReferenceY(y1, yp1, NULL, NULL, f1, 0, 0, 0);
     y1[ModelBus::urNum_] = 3.5;
     y1[ModelBus::uiNum_] = 2;
     if (!initModel)
@@ -275,7 +275,7 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     for (int i = 0; i < bus2->sizeZ(); ++i)
       zConnected2[i] = true;
     bus2->setReferenceZ(&z2[0], zConnected2, 0);
-    bus2->setReferenceY(y2, yp2, f2, 0, 0);
+    bus2->setReferenceY(y2, yp2, NULL, NULL, f2, 0, 0, 0);
     y2[ModelBus::urNum_] = 4.;
     y2[ModelBus::uiNum_] = 1.5;
     if (!initModel)
@@ -329,7 +329,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariables) {
   for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
-  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   dl->evalYMat();
   ASSERT_EQ(dl->sizeCalculatedVar(), ModelLine::nbCalculatedVariables_);
 
@@ -579,7 +579,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed2) {
   for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
-  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   dl->evalYMat();
   ASSERT_EQ(dl->sizeCalculatedVar(), ModelLine::nbCalculatedVariables_);
 
@@ -825,7 +825,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed1) {
   for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
-  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   dl->evalYMat();
   ASSERT_EQ(dl->sizeCalculatedVar(), ModelLine::nbCalculatedVariables_);
 
@@ -1078,7 +1078,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
   std::vector<state_g> g(nbG, NO_ROOT);
   dl->setReferenceG(&g[0], 0);
   dl->setReferenceZ(&z[0], zConnected, 0);
-  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   dl->setCurrentLimitsDesactivate(10.);
 
   dl->getY0();
@@ -1240,7 +1240,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineContinuousVariables) {
   for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
-  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   dl->evalYMat();
   dl->setBufferYType(&yTypes[0], 0);
   dl->setBufferFType(&fTypes[0], 0);
@@ -1308,7 +1308,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
-  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   dl->evalYMat();
   dl->setBufferYType(&yTypes[0], 0);
   dl->setBufferFType(&fTypes[0], 0);
@@ -1387,7 +1387,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   std::vector<double> y3(nbY, 0.);
   std::vector<double> yp3(nbY, 0.);
   std::vector<double> f3(nbF, 0.);
-  dl3->setReferenceY(&y3[0], &yp3[0], &f3[0], 0, 0);
+  dl3->setReferenceY(&y3[0], &yp3[0], NULL, NULL, &f3[0], 0, 0, 0);
   std::vector<double> z3(dl3->sizeZ(), 0.);
   bool* zConnected3 = new bool[dl3->sizeZ()];
   for (int i = 0; i < dl3->sizeZ(); ++i)

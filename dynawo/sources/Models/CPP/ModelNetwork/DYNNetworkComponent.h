@@ -228,7 +228,8 @@ class NetworkComponent {  ///< Base class for network component models
    * @param offsetY offset to use to find the beginning of the local buffer
    * @param offsetF offset to use to find the beginning of the local buffer for residual functions
    */
-  virtual void setReferenceY(double* y, double* yp, double* f, const int & offsetY, const int& offsetF) = 0;
+  virtual void setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext,
+    double* f, const int & offsetY, const int& offsetF, int offsetYExternal) = 0;
 
   /**
    * @brief set the local buffer for discretes variables
@@ -318,6 +319,8 @@ class NetworkComponent {  ///< Base class for network component models
    * @return size y
    */
   virtual int sizeY() const = 0;
+
+  virtual int sizeYExternal() const = 0;
 
   /**
    * @brief get size z

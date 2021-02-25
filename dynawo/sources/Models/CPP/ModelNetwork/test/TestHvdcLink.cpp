@@ -323,7 +323,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(y1, yp1, f1, 0, 0);
+  bus1->setReferenceY(y1, yp1, NULL, NULL, f1, 0, 0, 0);
   y1[ModelBus::urNum_] = 3.5;
   y1[ModelBus::uiNum_] = 2;
   if (!initModel)
@@ -343,7 +343,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   for (int i = 0; i < bus2->sizeZ(); ++i)
     zConnected2[i] = true;
   bus2->setReferenceZ(&z2[0], zConnected2, 0);
-  bus2->setReferenceY(y2, yp2, f2, 0, 0);
+  bus2->setReferenceY(y2, yp2, NULL, NULL, f2, 0, 0, 0);
   y2[ModelBus::urNum_] = 5.;
   y2[ModelBus::uiNum_] = 2.5;
   if (!initModel)
@@ -408,7 +408,7 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariables) {
   for (int i = 0; i < hvdc->sizeZ(); ++i)
     zConnected[i] = true;
   hvdc->setReferenceZ(&z[0], zConnected, 0);
-  hvdc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  hvdc->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   ASSERT_EQ(hvdc->sizeCalculatedVar(), ModelHvdcLink::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelHvdcLink::nbCalculatedVariables_, 0.);
@@ -569,7 +569,7 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDiscreteVariables) {
   for (int i = 0; i < hvdc->sizeZ(); ++i)
     zConnected[i] = true;
   hvdc->setReferenceZ(&z[0], zConnected, 0);
-  hvdc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  hvdc->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
 
   hvdc->getY0();
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], CLOSED);

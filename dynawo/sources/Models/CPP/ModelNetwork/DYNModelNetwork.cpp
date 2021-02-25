@@ -944,7 +944,8 @@ ModelNetwork::initSubBuffers() {
     vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
     for (itComponent = initComponents_.begin(); itComponent != initComponents_.end(); ++itComponent) {
       if ((*itComponent)->sizeY() != 0) {
-        (*itComponent)->setReferenceY(&yLocalInit_[0], &ypLocalInit_[0], &fLocalInit_[0], offsetY, offsetF);
+        // no external variable at init
+        (*itComponent)->setReferenceY(&yLocalInit_[0], &ypLocalInit_[0], NULL, NULL, &fLocalInit_[0], offsetY, offsetF, 0);
         offsetY += (*itComponent)->sizeY();
         offsetF += (*itComponent)->sizeF();
       }
@@ -957,6 +958,7 @@ ModelNetwork::initSubBuffers() {
     calculatedVars_.assign(sizeCalculatedVar_, 0);
 
     int offsetY = 0;
+    int offsetExternal = 0;
     int offsetF = 0;
     int offsetZ = 0;
     int offsetCalculatedVars = 0;
@@ -965,9 +967,10 @@ ModelNetwork::initSubBuffers() {
     vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
     for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
       if ((*itComponent)->sizeY() != 0) {
-        (*itComponent)->setReferenceY(yLocal_, ypLocal_, fLocal_, offsetY, offsetF);
+        (*itComponent)->setReferenceY(yLocal_, ypLocal_, yExternalLocal_, ypExternalLocal_, fLocal_, offsetY, offsetF, offsetExternal);
         offsetY += (*itComponent)->sizeY();
         offsetF += (*itComponent)->sizeF();
+        offsetExternal += (*itComponent)->sizeYExternal();
       }
       if ((*itComponent)->sizeZ() != 0) {
         (*itComponent)->setReferenceZ(zLocal_, zLocalConnected_, offsetZ);

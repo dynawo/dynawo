@@ -146,7 +146,7 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel) {
   for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(y1, yp1, f1, 0, 0);
+  bus1->setReferenceY(y1, yp1, NULL, NULL,  f1, 0, 0, 0);
   y1[ModelBus::urNum_] = 3.5;
   y1[ModelBus::uiNum_] = 2;
   if (!initModel)
@@ -187,7 +187,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariables) {
   for (int i = 0; i < capa->sizeZ(); ++i)
     zConnected[i] = true;
   capa->setReferenceZ(&z[0], zConnected, 0);
-  capa->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  capa->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   capa->evalYMat();
   ASSERT_EQ(capa->sizeCalculatedVar(), ModelShuntCompensator::nbCalculatedVariables_);
 
@@ -245,7 +245,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   for (size_t i = 0; i < nbZ; ++i)
     zConnected[i] = true;
   capa->setReferenceZ(&z[0], zConnected, 0);
-  capa->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  capa->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
 
   capa->getY0();
   ASSERT_EQ(capa->getConnected(), CLOSED);

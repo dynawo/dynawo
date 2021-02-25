@@ -369,7 +369,7 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     for (int i = 0; i < bus1->sizeZ(); ++i)
       zConnected1[i] = true;
     bus1->setReferenceZ(&z1[0], zConnected1, 0);
-    bus1->setReferenceY(y1, yp1, f1, 0, 0);
+    bus1->setReferenceY(y1, yp1, NULL, NULL,  f1, 0, 0, 0);
     y1[ModelBus::urNum_] = 3.5;
     y1[ModelBus::uiNum_] = 2;
     if (!initModel)
@@ -391,7 +391,7 @@ createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChange
     for (int i = 0; i < bus2->sizeZ(); ++i)
       zConnected2[i] = true;
     bus2->setReferenceZ(&z2[0], zConnected2, 0);
-    bus2->setReferenceY(y2, yp2, f2, 0, 0);
+    bus2->setReferenceY(y2, yp2, NULL, NULL,  f2, 0, 0, 0);
     y2[ModelBus::urNum_] = 4.;
     y2[ModelBus::uiNum_] = 1.5;
     if (!initModel)
@@ -446,7 +446,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   for (int i = 0; i < t2w->sizeZ(); ++i)
     zConnected[i] = true;
   t2w->setReferenceZ(&z[0], zConnected, 0);
-  t2w->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  t2w->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   t2w->evalYMat();
   ASSERT_EQ(t2w->sizeCalculatedVar(), ModelTwoWindingsTransformer::nbCalculatedVariables_);
 
@@ -711,7 +711,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariablesOp
   for (int i = 0; i < t2w->sizeZ(); ++i)
     zConnected[i] = true;
   t2w->setReferenceZ(&z[0], zConnected, 0);
-  t2w->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  t2w->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   t2w->evalYMat();
   ASSERT_EQ(t2w->sizeCalculatedVar(), ModelTwoWindingsTransformer::nbCalculatedVariables_);
 
@@ -919,7 +919,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
   for (size_t i = 0; i < nbZ; ++i)
     zConnected[i] = true;
   t2w->setReferenceZ(&z[0], zConnected, 0);
-  t2w->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  t2w->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   t2w->evalYMat();
 
   t2w->getY0();
@@ -1001,7 +1001,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerOpenedDiscreteVariabl
   std::vector<state_g> g(nbG, ROOT_DOWN);
   t2w->setReferenceG(&g[0], 0);
   t2w->setReferenceZ(&z[0], zConnected, 0);
-  t2w->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  t2w->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   t2w->evalYMat();
 
   t2w->getY0();

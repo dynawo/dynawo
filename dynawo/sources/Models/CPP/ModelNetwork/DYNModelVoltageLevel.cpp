@@ -604,15 +604,18 @@ ModelVoltageLevel::addBusNeighbors() {
 }
 
 void
-ModelVoltageLevel::setReferenceY(double* y, double* yp, double* f, const int & offsetY, const int & offsetF) {
+ModelVoltageLevel::setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext,
+  double* f, const int & offsetY, const int & offsetF, int offsetYExternal) {
   int offsetYComponent = offsetY;
   int offsetFComponent = offsetF;
+  int offsetYExternalComponent = offsetYExternal;
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeY() != 0) {
-      (*itComponent)->setReferenceY(y, yp, f, offsetYComponent, offsetFComponent);
+      (*itComponent)->setReferenceY(y, yp, y_ext, yp_ext, f, offsetYComponent, offsetFComponent, offsetYExternalComponent);
       offsetYComponent += (*itComponent)->sizeY();
       offsetFComponent += (*itComponent)->sizeF();
+      offsetYExternalComponent += (*itComponent)->sizeYExternal();
     }
   }
 }

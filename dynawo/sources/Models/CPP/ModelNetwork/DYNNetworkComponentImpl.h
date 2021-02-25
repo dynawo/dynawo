@@ -209,7 +209,7 @@ class NetworkComponent::Impl : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::setReferenceY( double* y, double* yp, double* f, const int & offsetY, const int & offsetF)
    */
-  void setReferenceY(double* y, double* yp, double* f, const int& offsetY, const int& offsetF);
+  void setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext, double* f, const int& offsetY, const int& offsetF, int offsetYExternal);
 
   /**
    * @copydoc NetworkComponent::setReferenceZ( double* z, bool* zConnected, const int & offsetZ )
@@ -250,6 +250,10 @@ class NetworkComponent::Impl : public NetworkComponent {
    */
   inline int sizeY() const {
     return sizeY_;
+  }
+
+  inline int sizeYExternal() const {
+    return sizeYExternal_;
   }
 
   /**
@@ -357,6 +361,8 @@ class NetworkComponent::Impl : public NetworkComponent {
  protected:
   double* y_;  ///< continuous variable
   double* yp_;  ///< derivative of y
+  double** yExternal_;
+  double** ypExternal_;
   double* f_;  ///< residual functions
   double* z_;  ///< discrete variable
   bool* zConnected_;  ///< discrete variable connection status
@@ -368,6 +374,7 @@ class NetworkComponent::Impl : public NetworkComponent {
 
   int sizeF_;  ///< size of F
   int sizeY_;  ///< size of Y
+  size_t sizeYExternal_;
   int sizeZ_;  ///< size of Z
   int sizeG_;  ///< size of G
   int sizeMode_;  ///< size of Mode

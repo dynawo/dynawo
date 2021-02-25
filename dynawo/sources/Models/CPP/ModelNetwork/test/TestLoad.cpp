@@ -137,7 +137,7 @@ createModelLoad(bool open, bool initModel) {
   for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(y1, yp1, f1, 0, 0);
+  bus1->setReferenceY(y1, yp1, NULL, NULL,  f1, 0, 0, 0);
   y1[ModelBus::urNum_] = 3.5;
   y1[ModelBus::uiNum_] = 2;
   if (!initModel)
@@ -233,7 +233,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
   for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
   load->setReferenceZ(&z[0], zConnected, 0);
-  load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  load->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   const size_t DeltaPcIdx = 0;
   const size_t DeltaQcIdx = 1;
   const size_t zPIdx = 2;
@@ -353,7 +353,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
   for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
   load->setReferenceZ(&z[0], zConnected, 0);
-  load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  load->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
 
   load->getY0();
   ASSERT_EQ(load->getConnected(), CLOSED);
@@ -411,7 +411,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
   load->setReferenceZ(&z[0], zConnected, 0);
-  load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  load->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   load->evalYMat();
   const size_t DeltaPcIdx = 0;
   const size_t DeltaQcIdx = 1;
@@ -551,7 +551,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
   load->setReferenceZ(&z[0], zConnected, 0);
-  load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  load->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   load->evalYMat();
   const size_t DeltaPcIdx = 0;
   const size_t DeltaQcIdx = 1;
