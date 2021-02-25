@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.HvdcPV;
 
 /*
-* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,10 +12,10 @@ within Dynawo.Electrical.HVDC.HvdcPV;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model HvdcPVDangling "Model for PV HVDC link with terminal2 connected to a switched-off bus"
+model HvdcPVDanglingDiagramPQ "Model for PV HVDC link with a PQ diagram and terminal2 connected to a switched-off bus"
   import Dynawo.Electrical.HVDC;
 
-  extends HVDC.BaseClasses.BaseHvdcPDangling;
+  extends HVDC.BaseClasses.BaseHvdcPDanglingDiagramPQ;
   extends AdditionalIcons.Hvdc;
 
 /*
@@ -32,9 +32,6 @@ model HvdcPVDangling "Model for PV HVDC link with terminal2 connected to a switc
 
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control at terminal 1: true if U mode, false if Q mode";
 
-  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
-
   type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
@@ -46,28 +43,28 @@ protected
 equation
 
 // Voltage/Reactive power regulation at terminal 1
-  when Q1Pu >= Q1MaxPu and U1Pu >= U1RefPu.value then
-    q1Status = QStatus.AbsorptionMax;
-  elsewhen Q1Pu <= Q1MinPu and U1Pu <= U1RefPu.value then
+  when QInj1Pu >= QInj1MaxPu and U1Pu <= U1RefPu.value then
     q1Status = QStatus.GenerationMax;
-  elsewhen (Q1Pu < Q1MaxPu or U1Pu < U1RefPu.value) and (Q1Pu > Q1MinPu or U1Pu > U1RefPu.value) then
+  elsewhen QInj1Pu <= QInj1MinPu and U1Pu >= U1RefPu.value then
+    q1Status = QStatus.AbsorptionMax;
+  elsewhen (QInj1Pu < QInj1MaxPu or U1Pu > U1RefPu.value) and (QInj1Pu > QInj1MinPu or U1Pu < U1RefPu.value) then
     q1Status = QStatus.Standard;
   end when;
 
   if running.value then
     if modeU1.value then
       if q1Status == QStatus.GenerationMax then
-        Q1Pu = Q1MinPu;
+        QInj1Pu = QInj1MaxPu;
       elseif q1Status == QStatus.AbsorptionMax then
-        Q1Pu = Q1MaxPu;
+        QInj1Pu = QInj1MinPu;
       else
         U1Pu = U1RefPu.value;
       end if;
     else
-      if Q1RefPu.value <= Q1MinPu then
-        Q1Pu = Q1MinPu;
-      elseif Q1RefPu.value >= Q1MaxPu then
-        Q1Pu = Q1MaxPu;
+      if - Q1RefPu.value <= QInj1MinPu then
+        QInj1Pu = QInj1MinPu;
+      elseif - Q1RefPu.value >= QInj1MaxPu then
+        QInj1Pu = QInj1MaxPu;
       else
         Q1Pu = Q1RefPu.value;
       end if;
@@ -78,4 +75,4 @@ equation
 
 annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>This HVDC link regulates the active power flowing through itself. It also regulates the voltage or the reactive power at terminal1. The active power setpoint is given as an input and can be modified during the simulation, as well as the voltage reference and the reactive power reference. The terminal2 is connected to a switched-off bus.</div></body></html>"));
-end HvdcPVDangling;
+end HvdcPVDanglingDiagramPQ;

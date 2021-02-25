@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,20 +6,20 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+# This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
 set(MODEL_FILES
   package.mo
   package.order
-  HvdcPV.mo
-  HvdcPV_INIT.mo
-  HvdcPV.extvar
-  HvdcPVDiagramPQ.mo
-  HvdcPVDiagramPQ.extvar
-  HvdcPVDangling.mo
-  HvdcPVDangling.extvar
-  HvdcPVDanglingDiagramPQ.mo
-  HvdcPVDanglingDiagramPQ.extvar
+  HvdcPQProp.mo
+  HvdcPQProp_INIT.mo
+  HvdcPQProp.extvar
+  HvdcPQPropDiagramPQ.mo
+  HvdcPQPropDiagramPQ.extvar
+  HvdcPQPropDangling.mo
+  HvdcPQPropDangling.extvar
+  HvdcPQPropDanglingDiagramPQ.mo
+  HvdcPQPropDanglingDiagramPQ.extvar
   )
 
 #
