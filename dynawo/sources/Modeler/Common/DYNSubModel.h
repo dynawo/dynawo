@@ -1434,6 +1434,8 @@ class SubModel {
    */
   virtual void initParams() = 0;
 
+  int getReferenceIndex(int externalIndexLocal) const;
+
  private:
   /**
    * @brief search for a parameter with a given name

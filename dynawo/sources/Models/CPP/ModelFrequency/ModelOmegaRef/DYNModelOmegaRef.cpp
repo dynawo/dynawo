@@ -83,7 +83,6 @@ namespace DYN {
 static const int nbMaxCC = 10;  ///< max number of subNetwork where omegaRef is calculated
 
 int ModelOmegaRef::col1stOmegaRef_;
-int ModelOmegaRef::col1stOmega_;
 
 /**
  * @brief Reference frequency model default constructor
@@ -111,8 +110,7 @@ ModelOmegaRef::init(const double& /*t0*/) {
   nbCC_ = 0;
 
   ModelOmegaRef::col1stOmegaRef_ = 0;
-  ModelOmegaRef::col1stOmega_ = ModelOmegaRef::col1stOmegaRef_ + nbMaxCC;
-  col1stOmegaRefGrp_ = ModelOmegaRef::col1stOmega_ + nbOmega_;
+  col1stOmegaRefGrp_ = ModelOmegaRef::col1stOmegaRef_ + nbMaxCC;
 }
 
 void
@@ -130,7 +128,8 @@ ModelOmegaRef::initializeFromData(const boost::shared_ptr<DataInterface>& /*data
 void
 ModelOmegaRef::getSize() {
   sizeF_ = nbMaxCC + nbGen_;  // nbMaxCC eq (omegaref) + one equation by generator
-  sizeY_ = nbMaxCC + nbGen_ + nbOmega_;  // (omegaref)*nbMaxCC + omegaRef by grp + omega_ for grp with weight > 0
+  sizeY_ = nbMaxCC + nbGen_;  // (omegaref)*nbMaxCC + omegaRef by grp
+  sizeYExternal_ = nbOmega_;  // omega_ for grp with weight > 0
   sizeZ_ = nbGen_ * 2;   // num cc for each connection node of generators + stateOff of each generators
   sizeG_ = 0;
   sizeMode_ = 1;  // change of CC organisation
@@ -164,7 +163,13 @@ ModelOmegaRef::evalF(double /*t*/, propertyF_t type) {
       std::vector<int> numGen = iterGen->second;
       for (unsigned int j = 0; j < numGen.size(); ++j) {
         if (toNativeBool(runningGrp_[numGen[j]]) && weights_[numGen[j]] > 0) {
-          fLocal_[i] += yLocal_[nbMaxCC + indexOmega_[numGen[j]]] * weights_[numGen[j]] / iterWeight->second;
+          double value;
+          if (indexOmega_[numGen[j]] > 0) {
+            value = *(yExternalLocal_[indexOmega_[numGen[j]]]);
+          } else {
+            value = yLocal_[nbMaxCC + indexOmega_[numGen[j]]];
+          }
+          fLocal_[i] += value * weights_[numGen[j]] / iterWeight->second;
         }
       }
     }
@@ -176,9 +181,9 @@ ModelOmegaRef::evalF(double /*t*/, propertyF_t type) {
   // the index i is given by numCCNode_[k]
   for (int k = 0; k < nbGen_; ++k) {
     if (toNativeBool(runningGrp_[k])) {
-      fLocal_[nbMaxCC + k] = yLocal_[numCCNode_[k]] - yLocal_[nbMaxCC + nbOmega_ + k];
+      fLocal_[nbMaxCC + k] = yLocal_[numCCNode_[k]] - yLocal_[nbMaxCC + k];
     } else {
-      fLocal_[nbMaxCC + k] = 1 - yLocal_[nbMaxCC + nbOmega_ + k];
+      fLocal_[nbMaxCC + k] = 1 - yLocal_[nbMaxCC + k];
     }
   }
 }
@@ -232,7 +237,8 @@ ModelOmegaRef::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatrix& j
       std::vector<int> numGen = iterGen->second;
       for (unsigned int j = 0; j < numGen.size(); ++j) {
         if (toNativeBool(runningGrp_[numGen[j]]) && weights_[numGen[j]] > 0) {
-          jt.addTerm(indexOmega_[numGen[j]] + col1stOmega_ + rowOffset, weights_[numGen[j]] / iterWeight->second);  // d(f0)/d(omega[i]) = weight[i]
+          int index_reference = getReferenceIndex(numGen[j]);
+          jt.addTerm(index_reference, weights_[numGen[j]] / iterWeight->second);  // d(f0)/d(omega[i]) = weight[i]
         }
       }
     }
@@ -382,18 +388,10 @@ ModelOmegaRef::getY0() {
     ypLocal_[i] = 0.;
   }
 
-  // External variables (omega by generator)
-  for (int i = 0; i < nbGen_; ++i) {
-    if (weights_[i] > 0) {
-      yLocal_[i + nbMaxCC] = 1.;
-      ypLocal_[i + nbMaxCC] = 0.;
-    }
-  }
-
   // OmegaRef for each generator (II)
   for (int i = 0; i < nbGen_; ++i) {
-    yLocal_[i + nbMaxCC + nbOmega_] = omegaRef0_[numCCNode_[i]];
-    ypLocal_[i + nbMaxCC + nbOmega_] = 0.;
+    yLocal_[i + nbMaxCC] = omegaRef0_[numCCNode_[i]];
+    ypLocal_[i + nbMaxCC] = 0.;
   }
 
   // External variables
@@ -403,9 +401,7 @@ ModelOmegaRef::getY0() {
 
 void
 ModelOmegaRef::evalYType() {
-  std::fill(yType_, yType_ + nbMaxCC, ALGEBRAIC);  // omegaRef[i] is an algebraic variable
-  std::fill(yType_+ nbMaxCC, yType_ + nbMaxCC + nbOmega_, EXTERNAL);  // omega[i] is an external variable
-  std::fill(yType_ + nbMaxCC + nbOmega_, yType_ + sizeY_, ALGEBRAIC);  // omegaRefGrp[i] is an algebraic variable
+  std::fill(yType_, yType_ + sizeY_, ALGEBRAIC);  // omegaRef[i] is an algebraic variable
 }
 
 void
@@ -437,7 +433,7 @@ ModelOmegaRef::defineVariables(vector<shared_ptr<Variable> >& variables) {
     if (weights_[k] > 0) {
       std::stringstream name;
       name << "omega_grp_" << k << "_value";
-      variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
+      variables.push_back(VariableNativeFactory::createExternalState(name.str(), CONTINUOUS));
     }
   }
   for (int k = 0; k < nbGen_; ++k) {

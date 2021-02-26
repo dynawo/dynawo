@@ -296,7 +296,6 @@ class ModelOmegaRef : public ModelCPP::Impl {
 
  private:
   static int col1stOmegaRef_;  ///< offset to find the first row the residual functions about omegaRef
-  static int col1stOmega_;  ///< offset to find the first row the residual functions about omega
   int col1stOmegaRefGrp_;  ///< offset to find the first row the residual functions about omegaRef for each generators
 
   bool firstState_;  ///< @b true if the initial state must be calculated

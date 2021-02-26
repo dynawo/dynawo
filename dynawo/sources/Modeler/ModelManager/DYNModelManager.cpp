@@ -369,7 +369,6 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
         continue;
       }
       // assuming that external connections array has been set during initialization if external variables are handled
-      const boost::unordered_map<int, int>& externalConnections = connectorContainer_.lock()->externalConnectionsByVarNum();
       for (unsigned int j = 0; j < sizeYExternal(); j++) {
         int index = 2 * sizeY() * sizeY() + i + j * sizeF();
         double term = coeff * jac[index] + cj * jac[index + offsetJPrimExternal];
@@ -379,8 +378,7 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
           throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);
         }
 #endif
-        int index_external = getVariableIndexGlobal(getVariable(xExternalNames_.at(j)));
-        int index_reference = externalConnections.at(index_external);
+        int index_reference = getReferenceIndex(j);
         Jt.addTerm(index_reference, term);
       }
     }

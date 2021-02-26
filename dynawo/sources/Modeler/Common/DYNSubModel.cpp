@@ -339,6 +339,13 @@ SubModel::getVariable(const string & variableName) const {
   return iter->second;
 }
 
+int
+SubModel::getReferenceIndex(int externalIndexLocal) const {
+  const boost::unordered_map<int, int>& externalConnections = connectorContainer_.lock()->externalConnectionsByVarNum();
+  int index_external = getVariableIndexGlobal(getVariable(xExternalNames_.at(externalIndexLocal)));
+  return externalConnections.at(index_external);
+}
+
 double
 SubModel::getDerivativeVariableValue(const shared_ptr <Variable> variable) const {
 #ifdef _DEBUG_
