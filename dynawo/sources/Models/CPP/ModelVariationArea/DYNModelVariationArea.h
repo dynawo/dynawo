@@ -271,6 +271,11 @@ class ModelVariationArea : public ModelCPP::Impl {
    */
   void initParams() { /* not needed */ }
 
+  /**
+   * @copydoc ModelCPP::checkDataCoherence()
+   */
+  void checkDataCoherence(const double& /*t*/) { /* not needed */ }
+
  private:
   // parameters
   std::vector<double> deltaP_;  ///< load variations for active power

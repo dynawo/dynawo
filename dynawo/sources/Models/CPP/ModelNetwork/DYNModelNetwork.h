@@ -291,6 +291,11 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
    */
   void printModel() const;
 
+  /**
+   * @copydoc ModelCPP::checkDataCoherence()
+   */
+  void checkDataCoherence(const double& /*t*/) { /* not needed */ }
+
  protected:
   /**
   * @copydoc SubModel::dumpUserReadableElementList()

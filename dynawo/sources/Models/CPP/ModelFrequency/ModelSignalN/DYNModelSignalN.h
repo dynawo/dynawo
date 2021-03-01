@@ -282,6 +282,11 @@ class ModelSignalN : public ModelCPP::Impl {
    */
   void initParams() { /* not needed */ }
 
+  /**
+   * @copydoc ModelCPP::checkDataCoherence()
+   */
+  void checkDataCoherence(const double& /*t*/) { /* not needed */ }
+
  private:
   /**
    * @brief Sort every generator by num of subNetwork
