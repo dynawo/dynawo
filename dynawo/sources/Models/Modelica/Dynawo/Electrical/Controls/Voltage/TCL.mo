@@ -34,7 +34,7 @@ model TCL "Tap Changer Lock (TCL)"
 
     Connectors.ImPin UMonitored (value (unit = "kV")) "Monitored voltage";
     Connectors.BPin lockOrder (value (start = locked0)) "TCL manual lock order";
-    Connectors.BPin unlockOrder (value (start = locked0)) "TCL manual lock order";
+    Connectors.BPin unlockOrder (value (start = locked0)) "TCL manual unlock order";
     Boolean lockedT (start = locked0) "High voltage transformers locked ?";
     Boolean lockedD (start = locked0) "Low voltage transformers locked ?";
 
@@ -60,8 +60,8 @@ model TCL "Tap Changer Lock (TCL)"
     end when;
 
     // Automata state transitions
-    // Note that the deactivation from the Locked state is only manual
-    when UUnderMin and pre(state) == State. Standard then
+    // Note that the deactivation from the Locked state is only manual and can happen only if the arming condition is false
+    when UUnderMin and pre(state) == State.Standard then
       state = State.Armed;
       tLocked = Constants.inf;
       Timeline.logEvent1(TimelineKeys.TapChangersArming);
@@ -73,7 +73,7 @@ model TCL "Tap Changer Lock (TCL)"
       state = State.Locked;
       tLocked = time;
       Timeline.logEvent1(TimelineKeys.TapChangersLocked);
-    elsewhen unlockOrder.value and not(pre(unlockOrder.value)) and pre(state) == State.Locked then
+    elsewhen unlockOrder.value and not(pre(unlockOrder.value)) and not(UUnderMin) and pre(state) == State.Locked then
       state = State.Standard;
       tLocked = Constants.inf;
       Timeline.logEvent1(TimelineKeys.TapChangersUnlocked);
@@ -83,17 +83,22 @@ model TCL "Tap Changer Lock (TCL)"
     when time - tLocked >= tLagTransLockedT and pre(state) == State.Locked then
       lockedT = true;
       Timeline.logEvent1(TimelineKeys.TapChangersLockedT);
-    elsewhen unlockOrder.value and not(pre(unlockOrder.value)) then
+    elsewhen state == State.Standard and pre(state) == State.Locked then
       lockedT = false;
     end when;
 
     when time - tLocked >= tLagTransLockedD and pre(state) == State.Locked then
       lockedD = true;
       Timeline.logEvent1(TimelineKeys.TapChangersLockedD);
-    elsewhen unlockOrder.value and not(pre(unlockOrder.value)) then
+    elsewhen state == State.Standard and pre(state) == State.Locked then
       lockedD = false;
     end when;
 
 annotation(preferredView = "text",
-    Documentation(info = "<html><head></head><body>This model will send a lock order to transformers with tap-changers in order that the tap is locked to its current step if the voltage becomes lower than a threshold on some nodes. Such a mechanism enables to avoid voltage collapse on situations where the tap actions become negative for the system stability.</body></html>"));
+    Documentation(info = "<html><head></head><body>This model will send a lock order to transformers with tap-changers in order that the tap is locked to its current step if the voltage becomes lower than a threshold on some nodes. Such a mechanism enables to avoid voltage collapse on situations where the tap actions become negative for the system stability.<div><br></div>The detailed tap-changer behavior is explained in the following state diagram:
+
+<figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Electrical/Controls/Voltage/Images/TapChangerLock.png\">
+</figure>
+</body></html>"));
 end TCL;
