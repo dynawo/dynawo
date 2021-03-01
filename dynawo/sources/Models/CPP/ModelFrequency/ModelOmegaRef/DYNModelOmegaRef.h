@@ -276,6 +276,11 @@ class ModelOmegaRef : public ModelCPP::Impl {
    */
   void initParams() { /* not needed */ }
 
+  /**
+   * @copydoc ModelCPP::checkDataCoherence()
+   */
+  void checkDataCoherence(const double& t);
+
  private:
   /**
    * @brief Sort every generator by num of subNetwork
@@ -309,6 +314,8 @@ class ModelOmegaRef : public ModelCPP::Impl {
   int nbCC_;  ///< number of connected components
   int nbOmega_;  ///< number of generators with positive weight
   std::vector<int> indexOmega_;  ///< index for each omega inside the local buffer
+  double omegaRefMin_;
+  double omegaRefMax_;
 };
 
 }  // namespace DYN

@@ -363,7 +363,7 @@ The ``OmegaRef'' model calculates the reference speed for each synchronous area.
 \label{Speed reference calculation}
 \end{equation}
 
-This model is connected to all the generators of one synchronous area and takes their speed as inputs to calculate the reference speed that is used into the machine models.
+This model is connected to all the generators of one synchronous area and takes their speed as inputs to calculate the reference speed that is used into the machine models. Notice that a protection exists to stop the simulation if the frequency becomes lower (or higher) than a settable value.
 
 \paragraph{Implicit frequency model - SignalN}
 ~~\\
