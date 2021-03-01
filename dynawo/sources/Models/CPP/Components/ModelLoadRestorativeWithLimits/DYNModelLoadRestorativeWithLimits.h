@@ -273,6 +273,11 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   */
   void evalZ(const double & t);
 
+  /**
+   * @copydoc ModelCPP::checkDataCoherence()
+   */
+  void checkDataCoherence(const double& /*t*/) { /* not needed */ }
+
  private:
   State connectionState_;  ///< "internal" load connection status
   State preConnectionState_;  ///< "internal" load connection status at previous timestamp
