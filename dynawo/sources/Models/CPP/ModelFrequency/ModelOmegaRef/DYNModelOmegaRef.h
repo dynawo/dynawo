@@ -289,7 +289,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
    */
   void sortGenByCC();
   /**
-   * @brief calculate the initial state of the smacc automaton
+   * @brief calculate the initial state of the omegaref model
    *
    */
   void calculateInitialState();
@@ -314,8 +314,8 @@ class ModelOmegaRef : public ModelCPP::Impl {
   int nbCC_;  ///< number of connected components
   int nbOmega_;  ///< number of generators with positive weight
   std::vector<int> indexOmega_;  ///< index for each omega inside the local buffer
-  double omegaRefMin_;
-  double omegaRefMax_;
+  double omegaRefMin_;  ///< minimum acceptable value for omegaref
+  double omegaRefMax_;  ///< maximum acceptable value for omegaref
 };
 
 }  // namespace DYN

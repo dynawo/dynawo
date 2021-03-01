@@ -568,9 +568,9 @@ ModelOmegaRef::checkDataCoherence(const double& /*t*/) {
   for (int i = 0; i < nbMaxCC; ++i) {
     if (doubleEquals(yLocal_[i], omegaRef0_[i]))
       continue;
-    if (yLocal_[i] < omegaRefMin_)
+    if (yLocal_[i] < omegaRefMin_ && doubleNotEquals(yLocal_[i], omegaRefMin_))
       throw DYNError(Error::MODELER, FrequencyCollapse, yLocal_[i] * FNOM, omegaRefMin_ * FNOM);
-    else if (yLocal_[i] > omegaRefMax_)
+    else if (yLocal_[i] > omegaRefMax_ && doubleNotEquals(yLocal_[i], omegaRefMax_))
       throw DYNError(Error::MODELER, FrequencyIncrease, yLocal_[i] * FNOM, omegaRefMax_ * FNOM);
   }
 }
