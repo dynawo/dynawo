@@ -26,6 +26,7 @@
 
 #include "PARParametersSet.h"
 
+#include "DYNNumericalUtils.h"
 #include "DYNModelLoadRestorativeWithLimits.h"
 #include "DYNModelLoadRestorativeWithLimits.hpp"
 #include "DYNSparseMatrix.h"
@@ -203,12 +204,8 @@ namespace DYN {
       double UfRawPrim = ypLocal_[UfRawYNum_];
       double Ir = yLocal_[IrYNum_];
       double Ii = yLocal_[IiYNum_];
-      double alpha_pow = pow(U/Uf, alpha_);
-      double beta_pow = pow(U/Uf, beta_);
-      if (std::isnan(alpha_pow) || std::isnan(beta_pow)) {
-        throw(DYN::Error(DYN::Error::NUMERICAL_ERROR, DYN::KeyError_t::NumericalErrorFunction, std::string(__FILE__), __LINE__, \
-              (DYN::Message("ERROR", DYN::KeyError_t::names(DYN::KeyError_t::NumericalErrorFunction)), "pow")));
-      }
+      double alpha_pow = pow_dynawo(U/Uf, alpha_);
+      double beta_pow = pow_dynawo(U/Uf, beta_);
       if (UMaxPuReached_) {
         UfRawValue = UMaxPu_;
       }
@@ -297,8 +294,8 @@ namespace DYN {
       double Uf = yLocal_[UfYNum_];
       double P = yLocal_[PYNum_];
       double Q = yLocal_[QYNum_];
-      double alpha_pow = pow(U/Uf, alpha_);
-      double beta_pow = pow(U/Uf, beta_);
+      double alpha_pow = pow_dynawo(U/Uf, alpha_);
+      double beta_pow = pow_dynawo(U/Uf, beta_);
       double P_dUr = P0Pu_ * alpha_ * Ur * alpha_pow / U2;
       double P_dUi = P0Pu_ * alpha_ * Ui * alpha_pow / U2;
       double P_dUf = -1.0 * alpha_ * P0Pu_ * alpha_pow / Uf;
