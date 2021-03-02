@@ -4,6 +4,8 @@
   <elements>
     <parameters>
       <parameter name="nbGen" valueType="INT" cardinality="1" readOnly="false"/>
+      <parameter name="omegaRefMax" valueType="DOUBLE" cardinality="1" readOnly="false"/>
+      <parameter name="omegaRefMin" valueType="DOUBLE" cardinality="1" readOnly="false"/>
       <parameter name="weight_gen" valueType="DOUBLE" cardinality="*" readOnly="false"/>
     </parameters>
     <variables>

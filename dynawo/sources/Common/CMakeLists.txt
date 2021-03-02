@@ -89,6 +89,7 @@ set(COMMON_INCLUDE_HEADERS
   DYNMessage.hpp
   DYNMessageTimeline.h
   DYNMessageTimeline.hpp
+  DYNNumericalUtils.h
   DYNMacrosMessage.h
   DYNParameter.h
   DYNSparseMatrix.h

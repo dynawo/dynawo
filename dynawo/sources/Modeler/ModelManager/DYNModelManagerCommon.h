@@ -40,6 +40,7 @@
 
 #include "DYNError.h"
 #include "DYNCommon.h"
+#include "DYNNumericalUtils.h"
 #include "DYNMessage.hpp"
 #include "DYNMessageTimeline.h"
 #include "DYNTimeline_keys.h"
@@ -187,22 +188,6 @@ inline modelica_boolean LessEq<double>(double a, double b) {
 template<>
 inline modelica_boolean GreaterEq<double>(double a, double b) {
   return DYN::doubleEquals(a, b) || a > b;
-}
-
-/**
- * specific definition of power function to raise an error when the return value cannot be calculated
- * @param a base number
- * @param b exponent number
- * @return a^b
- */
-template<typename T>
-T pow_dynawo(T a, T b) {
-  T value = pow(a, b);
-  if (std::isnan(value)) {
-    throw(DYN::Error(DYN::Error::NUMERICAL_ERROR, DYN::KeyError_t::NumericalErrorFunction, std::string(__FILE__), __LINE__, \
-          (DYN::Message("ERROR", DYN::KeyError_t::names(DYN::KeyError_t::NumericalErrorFunction)), "pow")));
-  }
-  return value;
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
