@@ -272,7 +272,7 @@ class ModelVariationArea : public ModelCPP::Impl {
   void initParams() { /* not needed */ }
 
   /**
-   * @copydoc ModelCPP::checkDataCoherence()
+   * @brief Coherence check on data (asserts, min/max values, sanity checks)
    */
   void checkDataCoherence(const double& /*t*/) { /* not needed */ }
 

@@ -277,7 +277,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
   void initParams() { /* not needed */ }
 
   /**
-   * @copydoc ModelCPP::checkDataCoherence()
+   * @copydoc ModelCPP::checkDataCoherence(const double& t)
    */
   void checkDataCoherence(const double& t);
 

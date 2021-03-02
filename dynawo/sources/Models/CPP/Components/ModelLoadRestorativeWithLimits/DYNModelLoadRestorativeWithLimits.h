@@ -274,7 +274,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   void evalZ(const double & t);
 
   /**
-   * @copydoc ModelCPP::checkDataCoherence()
+   * @brief Coherence check on data (asserts, min/max values, sanity checks)
    */
   void checkDataCoherence(const double& /*t*/) { /* not needed */ }
 
