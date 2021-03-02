@@ -24,6 +24,7 @@
 
 #include "DYNModelLoad.h"
 #include "DYNCommon.h"
+#include "DYNNumericalUtils.h"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
 #include "DYNSparseMatrix.h"
@@ -161,14 +162,14 @@ ModelLoad::evalF(propertyF_t type) {
 
       double zPprimValue = 0.;
       double zp = zP();
-      double zPdiff = pow(U / u0_, alphaLong_) - zp * pow(U, alpha_) * kp_;
+      double zPdiff = pow_dynawo(U / u0_, alphaLong_) - zp * pow_dynawo(U, alpha_) * kp_;
       if ((zp > 0. && zp < zPMax_) || (zp <= 0. && zPdiff > 0.) || (zp >= zPMax_ && zPdiff < 0.))
         zPprimValue = zPdiff;
       f_[0] = Tp_ * zPPrim() - zPprimValue;
 
       double zQprimValue = 0.;
       double zq = zQ();
-      double zQdiff = (pow(U / u0_, betaLong_) - zq * pow(U, beta_) * kq_);
+      double zQdiff = (pow_dynawo(U / u0_, betaLong_) - zq * pow_dynawo(U, beta_) * kq_);
       if ((zq > 0. && zQ() < zQMax_) || (zq <= 0. && zQdiff > 0.) || (zq >= zQMax_ && zQdiff < 0.))
           zQprimValue = zQdiff;
       f_[1] = Tq_ * zQPrim() - zQprimValue;
@@ -256,15 +257,15 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
       jt.changeCol();
       // @f[0]/@zp, @f[0]/@ur, @f[0]/@ui
       double zp = zP();
-      double powUAlpha = pow(U, alpha_);
-      double zPdiff = pow(U / u0_, alphaLong_) - zp * powUAlpha * kp_;
+      double powUAlpha = pow_dynawo(U, alpha_);
+      double zPdiff = pow_dynawo(U / u0_, alphaLong_) - zp * powUAlpha * kp_;
       if (TpIsZero_) {
         jt.addTerm(globalYIndex(zPYNum_) + rowOffset, cj);
       } else if ((zp > 0. && zp < zPMax_) || (zp <= 0. && zPdiff > 0.) || (zp >= zPMax_ && zPdiff < 0.)) {
         double termZp = -powUAlpha * kp_;
-        double powUAlphaLongMinus2 = pow(U, alphaLong_ - 2.);
-        double powU0AlphaLong = pow(u0_, alphaLong_);
-        double powUAlphaMinus2 = pow(U, alpha_ - 2.);
+        double powUAlphaLongMinus2 = pow_dynawo(U, alphaLong_ - 2.);
+        double powU0AlphaLong = pow_dynawo(u0_, alphaLong_);
+        double powUAlphaMinus2 = pow_dynawo(U, alpha_ - 2.);
         double termUr = alphaLong_ * ur *  powUAlphaLongMinus2 / powU0AlphaLong - zp * alpha_ * ur * powUAlphaMinus2 * kp_;
         double termUi = alphaLong_ * ui *  powUAlphaLongMinus2 / powU0AlphaLong - zp * alpha_ * ui * powUAlphaMinus2 * kp_;
         jt.addTerm(globalYIndex(zPYNum_) + rowOffset, -termZp + cj * Tp_);
@@ -278,15 +279,15 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
       jt.changeCol();
       // @f[1]/@zq, @f[1]/@ur, @f[1]/@ui
       double zq = zQ();
-      double powUBeta = pow(U, beta_);
-      double zQdiff = pow(U / u0_, betaLong_) - zq * powUBeta * kq_;
+      double powUBeta = pow_dynawo(U, beta_);
+      double zQdiff = pow_dynawo(U / u0_, betaLong_) - zq * powUBeta * kq_;
       if (TqIsZero_) {
         jt.addTerm(globalYIndex(zQYNum_) + rowOffset, cj);
       } else if ((zq > 0. && zq < zQMax_) || (zq <= 0. && zQdiff > 0.) || (zq >= zQMax_ && zQdiff < 0.)) {
         double termZq = -powUBeta * kq_;
-        double powUBetaLongMinus2 = pow(U, betaLong_ - 2.);
-        double powU0BetaLong = pow(u0_, betaLong_);
-        double powUBetaMinus2 = pow(U, beta_ - 2.);
+        double powUBetaLongMinus2 = pow_dynawo(U, betaLong_ - 2.);
+        double powU0BetaLong = pow_dynawo(u0_, betaLong_);
+        double powUBetaMinus2 = pow_dynawo(U, beta_ - 2.);
         double termUr = betaLong_ * ur * powUBetaLongMinus2 / powU0BetaLong - zq * beta_ * ur * powUBetaMinus2 * kq_;
         double termUi = betaLong_ * ui * powUBetaLongMinus2 / powU0BetaLong - zq * beta_ * ui * powUBetaMinus2 * kq_;
         jt.addTerm(globalYIndex(zQYNum_) + rowOffset, - termZq + cj * Tq_);
@@ -331,12 +332,12 @@ ModelLoad::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
 
 double
 ModelLoad::P(const double& /*ur*/, const double& /*ui*/, const double& U) const {
-  return zP() * P0_ * (1. + deltaPc()) * pow(U, alpha_) * kp_;
+  return zP() * P0_ * (1. + deltaPc()) * pow_dynawo(U, alpha_) * kp_;
 }
 
 double
 ModelLoad::Q(const double& /*ur*/, const double& /*ui*/, const double& U) const {
-  return zQ() * Q0_ * (1. + deltaQc()) * pow(U, beta_) * kq_;
+  return zQ() * Q0_ * (1. + deltaQc()) * pow_dynawo(U, beta_) * kq_;
 }
 
 double
@@ -417,46 +418,46 @@ ModelLoad::getI(double ur, double ui, double U, double U2, double& ir, double& i
 
 double
 ModelLoad::ir_dZp(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
-  return 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow(U, alpha_) * ur;
+  return 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow_dynawo(U, alpha_) * ur;
 }
 
 double
 ModelLoad::ir_dZq(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
-  return 1. / U2 * (Q0_ * (1. + deltaQc()) * kq_) * pow(U, beta_) * ui;
+  return 1. / U2 * (Q0_ * (1. + deltaQc()) * kq_) * pow_dynawo(U, beta_) * ui;
 }
 
 double
 ModelLoad::ii_dZp(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
-  return 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow(U, alpha_) * ui;
+  return 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow_dynawo(U, alpha_) * ui;
 }
 
 double
 ModelLoad::ii_dZq(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
-  return 1. / U2 * (-1. * Q0_ * (1. + deltaQc()) * kq_) * pow(U, beta_) * ur;
+  return 1. / U2 * (-1. * Q0_ * (1. + deltaQc()) * kq_) * pow_dynawo(U, beta_) * ur;
 }
 
 double
 ModelLoad::P_dUr(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
-  return 1. / U2 * zP() * P0_ * (1. + deltaPc()) * kp_ * alpha_ * ur * pow(U, alpha_);
+  return 1. / U2 * zP() * P0_ * (1. + deltaPc()) * kp_ * alpha_ * ur * pow_dynawo(U, alpha_);
 }
 
 double
 ModelLoad::P_dUi(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
-  return 1. / U2 * zP() * P0_ * (1. + deltaPc()) * kp_ * alpha_ * ui * pow(U, alpha_);
+  return 1. / U2 * zP() * P0_ * (1. + deltaPc()) * kp_ * alpha_ * ui * pow_dynawo(U, alpha_);
 }
 
 double
 ModelLoad::Q_dUr(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
   double Q_dUr = 0.;
   if (!modelBus_->getSwitchOff()) {
-    Q_dUr = 1. / U2 * zQ() * Q0_ * (1. + deltaQc()) * kq_ * beta_ * ur * pow(U, beta_);
+    Q_dUr = 1. / U2 * zQ() * Q0_ * (1. + deltaQc()) * kq_ * beta_ * ur * pow_dynawo(U, beta_);
   }
   return Q_dUr;
 }
 
 double
 ModelLoad::Q_dUi(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
-  return 1. / U2 * zQ() * Q0_ * (1. + deltaQc()) * kq_ * beta_ * ui * pow(U, beta_);
+  return 1. / U2 * zQ() * Q0_ * (1. + deltaQc()) * kq_ * beta_ * ui * pow_dynawo(U, beta_);
 }
 
 void
@@ -649,8 +650,8 @@ ModelLoad::setSubModelParameters(const boost::unordered_map<std::string, Paramet
   // Connection ModelBus is supposed to be initialized before parameters set
   u0_ = modelBus_->getU0();
   if (isConnected() && !doubleIsZero(u0_)) {
-    kp_ = 1. / pow(u0_, alpha_);
-    kq_ = 1. / pow(u0_, beta_);
+    kp_ = 1. / pow_dynawo(u0_, alpha_);
+    kq_ = 1. / pow_dynawo(u0_, beta_);
   } else {
     kp_ = 0.;
     kq_ = 0.;
@@ -782,16 +783,16 @@ ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
         double U = sqrt(ur * ur + ui * ui);
 
         unsigned int indexRes = 0;
-        res[indexRes] =  zPVal * P0_ * (1. + deltaPcVal) * kp_ * alpha_ * ur * pow(U, alpha_ - 2.);  // dP/dUr
+        res[indexRes] =  zPVal * P0_ * (1. + deltaPcVal) * kp_ * alpha_ * ur * pow_dynawo(U, alpha_ - 2.);  // dP/dUr
         ++indexRes;
-        res[indexRes] =  zPVal * P0_ * (1. + deltaPcVal) * kp_ * alpha_ * ui * pow(U, alpha_ - 2.);  // dP/dUi
+        res[indexRes] =  zPVal * P0_ * (1. + deltaPcVal) * kp_ * alpha_ * ui * pow_dynawo(U, alpha_ - 2.);  // dP/dUi
         ++indexRes;
         if (isControllable_) {
-          res[indexRes] = zPVal * P0_ * pow(U, alpha_) * kp_;  // dP/d(deltaPc)
+          res[indexRes] = zPVal * P0_ * pow_dynawo(U, alpha_) * kp_;  // dP/d(deltaPc)
           ++indexRes;
         }
         if (isRestorative_) {
-          res[indexRes] = P0_ * (1. + deltaPcVal) * pow(U, alpha_) * kp_;  // dP/d(zP)
+          res[indexRes] = P0_ * (1. + deltaPcVal) * pow_dynawo(U, alpha_) * kp_;  // dP/d(zP)
         }
       }
     }
@@ -811,16 +812,16 @@ ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
         double U = sqrt(ur * ur + ui * ui);
 
         unsigned int indexRes = 0;
-        res[indexRes] = zQVal * Q0_ * (1. + deltaQcVal) * kq_ * beta_ * ur * pow(U, beta_ - 2.);  // dQ/dUr
+        res[indexRes] = zQVal * Q0_ * (1. + deltaQcVal) * kq_ * beta_ * ur * pow_dynawo(U, beta_ - 2.);  // dQ/dUr
         ++indexRes;
-        res[indexRes] = zQVal * Q0_ * (1. + deltaQcVal) * kq_ * beta_ * ui * pow(U, beta_ - 2.);  // dQ/dUi
+        res[indexRes] = zQVal * Q0_ * (1. + deltaQcVal) * kq_ * beta_ * ui * pow_dynawo(U, beta_ - 2.);  // dQ/dUi
         ++indexRes;
         if (isControllable_) {
-          res[indexRes] = zQVal * Q0_ * pow(U, beta_) * kq_;  // dQ/d(deltaQc)
+          res[indexRes] = zQVal * Q0_ * pow_dynawo(U, beta_) * kq_;  // dQ/d(deltaQc)
           ++indexRes;
         }
         if (isRestorative_) {
-          res[indexRes] = Q0_ * (1. + deltaQcVal) * pow(U, beta_) * kq_;  // dQ/d(zQ)
+          res[indexRes] = Q0_ * (1. + deltaQcVal) * pow_dynawo(U, beta_) * kq_;  // dQ/d(zQ)
         }
       }
     }
@@ -859,7 +860,7 @@ ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
         if (isRestorative_) {
           zPVal = zP();
         }
-        output = zPVal * P0_ * (1. + deltaPcVal) * pow(U, alpha_) * kp_;
+        output = zPVal * P0_ * (1. + deltaPcVal) * pow_dynawo(U, alpha_) * kp_;
       }
     }
     break;
@@ -874,7 +875,7 @@ ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
         if (isRestorative_) {
           zQVal = zQ();
         }
-        output = zQVal * Q0_ * (1. + deltaQcVal) * pow(U, beta_) * kq_;
+        output = zQVal * Q0_ * (1. + deltaQcVal) * pow_dynawo(U, beta_) * kq_;
       }
     }
     break;
