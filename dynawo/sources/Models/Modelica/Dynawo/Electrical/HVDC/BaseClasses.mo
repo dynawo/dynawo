@@ -16,7 +16,6 @@ package BaseClasses
   extends Icons.BasesPackage;
 
   partial model BaseHvdcP "Base dynamic model for HVDC links with a regulation of the active power"
-    import Modelica;
     import Dynawo.Connectors;
     import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
@@ -38,7 +37,7 @@ package BaseClasses
     parameter Real KLosses "Losses coefficient between 0 and 1 : 1 if no loss in the HVDC link, < 1 otherwise";
     parameter Types.ActivePowerPu PMaxPu  "Maximum active power in p.u (base SnRef) flowing through the HVDC link";
 
-    input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in p.u (base SnRef) at terminal 1";
+    input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in p.u (base SnRef) at terminal 1 (receptor convention)";
 
   protected
 
@@ -75,8 +74,8 @@ package BaseClasses
       P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
       P2Pu = if P1Pu > 0 then - KLosses * P1Pu else - P1Pu / KLosses;
     else
-      P1Pu = 0;
-      P2Pu = 0;
+      terminal1.i.re = 0;
+      terminal2.i.re = 0;
     end if;
 
 // Sign convention change
@@ -90,7 +89,6 @@ annotation(preferredView = "text",
   end BaseHvdcP;
 
   partial model BaseHvdcPDangling "Base dynamic model for HVDC links with a regulation of the active power and with terminal2 connected to a switched-off bus"
-    import Modelica;
     import Dynawo.Connectors;
     import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
@@ -108,14 +106,11 @@ annotation(preferredView = "text",
         Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Connectors.ACPower terminal2 annotation(
         Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in p.u (base SnRef) at terminal 1";
 
-    parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1";
-    parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1";
-    parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 2";
-    parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 2";
     parameter Real KLosses "Coefficient between 0 and 1 (no loss) modelling the losses in the HVDC";
     parameter Types.ActivePowerPu PMaxPu  "Maximum active power in p.u (base SnRef) flowing through the HVDC link";
+
+    input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in p.u (base SnRef) at terminal 1 (receptor convention)";
 
   protected
 
@@ -140,7 +135,12 @@ annotation(preferredView = "text",
     U1Pu = ComplexMath.'abs'(terminal1.V);
     s1Pu = Complex(P1Pu, Q1Pu);
     s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
-    P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
+
+    if (running.value) then
+      P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
+    else
+      terminal1.i.re = 0;
+    end if;
 
   // Disconnected side
     P2Pu = 0;
@@ -158,6 +158,34 @@ annotation(preferredView = "text",
       Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. The active power reference is given as an input and can be changed during the simulation. The terminal2 is connected to a switched-off bus.</div></body></html>"));
   end BaseHvdcPDangling;
 
+  partial model BaseHvdcPDanglingDiagramPQ "Base dynamic model for HVDC links with a regulation of the active power and with terminal2 connected to a switched-off bus. The reactive power limits are given by a PQ diagram."
+    import Modelica;
+    extends BaseHvdcPDangling;
+
+    parameter Types.ReactivePowerPu QInj1Min0Pu  "Start value of the minimum reactive power in p.u (base SnRef) (generator convention) at terminal 1";
+    parameter Types.ReactivePowerPu QInj1Max0Pu  "Start value of the maximum reactive power in p.u (base SnRef) (generator convention) at terminal 1";
+    parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
+    parameter String QInj1MinTableName "Name of the table in the text file to get QInj1MinPu from PInj1Pu (generator convention)";
+    parameter String QInj1MaxTableName "Name of the table in the text file to get QInj1MaxPu from PInj1Pu (generator convention)";
+    parameter String QInj1MinTableFile "Text file that contains the table to get QInj1MinPu from PInj1Pu (generator convention)";
+    parameter String QInj1MaxTableFile "Text file that contains the table to get QInj1MaxPu from PInj1Pu (generator convention)";
+
+    Modelica.Blocks.Tables.CombiTable1D tableQInj1Min(tableOnFile = true, tableName = QInj1MinTableName, fileName = QInj1MinTableFile) "Table to get QInj1MinPu from PInj1Pu (generator convention)";
+    Modelica.Blocks.Tables.CombiTable1D tableQInj1Max(tableOnFile = true, tableName = QInj1MaxTableName, fileName = QInj1MaxTableFile) "Table to get QInj1MaxPu from PInj1Pu (generator convention)";
+
+    Types.ReactivePowerPu QInj1MinPu(start = QInj1Min0Pu) "Minimum reactive power in p.u at terminal 1 (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj1MaxPu(start = QInj1Max0Pu) "Maximum reactive power in p.u at terminal 1 (base SnRef) (generator convention)";
+
+  equation
+    PInj1Pu = tableQInj1Min.u[1];
+    tFilter * der(QInj1MinPu) + QInj1MinPu = tableQInj1Min.y[1];
+    PInj1Pu = tableQInj1Max.u[1];
+    tFilter * der(QInj1MaxPu) + QInj1MaxPu = tableQInj1Max.y[1];
+
+  annotation(preferredView = "text",
+      Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. The active power reference is given as an input and can be changed during the simulation. The terminal2 is connected to a switched-off bus. This partial model also implements the PQ diagram at terminal1.</div></body></html>"));
+  end BaseHvdcPDanglingDiagramPQ;
+
   partial model BaseHvdcPDiagramPQ "Base dynamic model for HVDC links with a regulation of the active power and with a PQ Diagram at each terminal"
   import Modelica;
   extends BaseHvdcP;
@@ -167,19 +195,19 @@ annotation(preferredView = "text",
     parameter Types.ReactivePowerPu QInj2Min0Pu  "Start value of the minimum reactive power in p.u (base SnRef) (generator convention) at terminal 2";
     parameter Types.ReactivePowerPu QInj2Max0Pu  "Start value of the maximum reactive power in p.u (base SnRef) (generator convention) at terminal 2";
     parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
-    parameter String QInj1MinTableName "Name of the table in the text file to get QInj1MinPu from PInj1Pu";
-    parameter String QInj1MaxTableName "Name of the table in the text file to get QInj1MaxPu from PInj1Pu";
-    parameter String QInj1MinTableFile "Text file that contains the table to get QInj1MinPu from PInj1Pu";
-    parameter String QInj1MaxTableFile "Text file that contains the table to get QInj1MaxPu from PInj1Pu";
-    parameter String QInj2MinTableName "Name of the table in the text file to get QInj2MinPu from PInj2Pu";
-    parameter String QInj2MaxTableName "Name of the table in the text file to get QInj2MaxPu from PInj2Pu";
-    parameter String QInj2MinTableFile "Text file that contains the table to get QInj2MinPu from PInj2Pu";
-    parameter String QInj2MaxTableFile "Text file that contains the table to get QInj2MaxPu from PInj2Pu";
+    parameter String QInj1MinTableName "Name of the table in the text file to get QInj1MinPu from PInj1Pu (generator convention)";
+    parameter String QInj1MaxTableName "Name of the table in the text file to get QInj1MaxPu from PInj1Pu (generator convention)";
+    parameter String QInj1MinTableFile "Text file that contains the table to get QInj1MinPu from PInj1Pu (generator convention)";
+    parameter String QInj1MaxTableFile "Text file that contains the table to get QInj1MaxPu from PInj1Pu (generator convention)";
+    parameter String QInj2MinTableName "Name of the table in the text file to get QInj2MinPu from PInj2Pu (generator convention)";
+    parameter String QInj2MaxTableName "Name of the table in the text file to get QInj2MaxPu from PInj2Pu (generator convention)";
+    parameter String QInj2MinTableFile "Text file that contains the table to get QInj2MinPu from PInj2Pu (generator convention)";
+    parameter String QInj2MaxTableFile "Text file that contains the table to get QInj2MaxPu from PInj2Pu (generator convention)";
 
-    Modelica.Blocks.Tables.CombiTable1D tableQInj1Min(tableOnFile = true, tableName = QInj1MinTableName, fileName = QInj1MinTableFile) "Table to get QInj1MinPu from PInj1Pu";
-    Modelica.Blocks.Tables.CombiTable1D tableQInj1Max(tableOnFile = true, tableName = QInj1MaxTableName, fileName = QInj1MaxTableFile) "Table to get QInj1MaxPu from PInj1Pu";
-    Modelica.Blocks.Tables.CombiTable1D tableQInj2Min(tableOnFile = true, tableName = QInj2MinTableName, fileName = QInj2MinTableFile) "Table to get QInj2MinPu from PInj2Pu";
-    Modelica.Blocks.Tables.CombiTable1D tableQInj2Max(tableOnFile = true, tableName = QInj2MaxTableName, fileName = QInj2MaxTableFile) "Table to get QInj2MaxPu from PInj2Pu";
+    Modelica.Blocks.Tables.CombiTable1D tableQInj1Min(tableOnFile = true, tableName = QInj1MinTableName, fileName = QInj1MinTableFile) "Table to get QInj1MinPu from PInj1Pu (generator convention)";
+    Modelica.Blocks.Tables.CombiTable1D tableQInj1Max(tableOnFile = true, tableName = QInj1MaxTableName, fileName = QInj1MaxTableFile) "Table to get QInj1MaxPu from PInj1Pu (generator convention)";
+    Modelica.Blocks.Tables.CombiTable1D tableQInj2Min(tableOnFile = true, tableName = QInj2MinTableName, fileName = QInj2MinTableFile) "Table to get QInj2MinPu from PInj2Pu (generator convention)";
+    Modelica.Blocks.Tables.CombiTable1D tableQInj2Max(tableOnFile = true, tableName = QInj2MaxTableName, fileName = QInj2MaxTableFile) "Table to get QInj2MaxPu from PInj2Pu (generator convention)";
 
     Types.ReactivePowerPu QInj1MinPu(start = QInj1Min0Pu) "Minimum reactive power in p.u at terminal 1 (base SnRef) (generator convention)";
     Types.ReactivePowerPu QInj1MaxPu(start = QInj1Max0Pu) "Maximum reactive power in p.u at terminal 1 (base SnRef) (generator convention)";

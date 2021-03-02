@@ -135,7 +135,7 @@ namespace DYN {
     variables.push_back(VariableNativeFactory::createState("Ii_value", FLOW));
     variables.push_back(VariableNativeFactory::createState("PPu_value", CONTINUOUS));
     variables.push_back(VariableNativeFactory::createState("QPu_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createCalculated("state_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createCalculated("state_value", INTEGER));
     variables.push_back(VariableNativeFactory::createState("switchOff1_value", BOOLEAN));
     variables.push_back(VariableNativeFactory::createState("switchOff2_value", BOOLEAN));
   }
@@ -407,7 +407,7 @@ namespace DYN {
 
   double
   ModelLoadRestorativeWithLimits::evalCalculatedVarI(unsigned iCalculatedVar) const {
-    double output = 0.;
+    int output = 0;
     switch (iCalculatedVar) {
       case loadStateNum_:
         output = connectionState_;

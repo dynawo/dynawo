@@ -18,6 +18,8 @@ set(MODEL_FILES
   HvdcPVDiagramPQ.extvar
   HvdcPVDangling.mo
   HvdcPVDangling.extvar
+  HvdcPVDanglingDiagramPQ.mo
+  HvdcPVDanglingDiagramPQ.extvar
   )
 
 #

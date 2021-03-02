@@ -351,6 +351,7 @@
     <par type="DOUBLE" name="weight_gen_2" value="9281.25"/>
     <par type="DOUBLE" name="weight_gen_3" value="398"/>
     <par type="DOUBLE" name="weight_gen_4" value="687"/>
+    <par type="DOUBLE" name="omegaRefMin" value="0.95"/>
   </set>
   <set id="DisconnectLine">
     <par type="DOUBLE" name="event_tEvent" value="50"/>

@@ -32,6 +32,9 @@ model HvdcPVDangling "Model for PV HVDC link with terminal2 connected to a switc
 
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control at terminal 1: true if U mode, false if Q mode";
 
+  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
+
   type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
@@ -70,7 +73,7 @@ equation
       end if;
     end if;
   else
-    Q1Pu = 0;
+    terminal1.i.im = 0;
   end if;
 
 annotation(preferredView = "text",

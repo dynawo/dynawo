@@ -16,8 +16,8 @@
  *
  * @brief Reference frequency model implementation
  *
- * All generators of the newtork are connected to this model
- * but only the generators with a weight gen > 0 participate to the calcul of the frequency reference
+ * All generators of the network are connected to this model
+ * but only the generators with a weight gen > 0 participate to the calculation of the frequency reference
  *
  */
 #include <sstream>
@@ -28,6 +28,7 @@
 
 #include "DYNModelOmegaRef.h"
 #include "DYNModelOmegaRef.hpp"
+#include "DYNModelConstants.h"
 #include "DYNSparseMatrix.h"
 #include "DYNMacrosMessage.h"
 #include "DYNElement.h"
@@ -94,7 +95,9 @@ Impl("omegaRef"),
 firstState_(true),
 nbGen_(0),
 nbCC_(0),
-nbOmega_(0) {
+nbOmega_(0),
+omegaRefMin_(0.98),
+omegaRefMax_(1.02) {
 }
 
 /**
@@ -459,6 +462,8 @@ void
 ModelOmegaRef::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("nbGen", VAR_TYPE_INT, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("weight_gen", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGen"));
+  parameters.push_back(ParameterModeler("omegaRefMin", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("omegaRefMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void
@@ -482,6 +487,11 @@ ModelOmegaRef::setSubModelParameters() {
   }
 
   omegaRef0_.assign(nbMaxCC, 1.);
+
+  // Get omegaRefMin and omegaRefMax parameters from the par file if they exist
+  bool success;
+  getSubModelParameterValue("omegaRefMin", omegaRefMin_, success);
+  getSubModelParameterValue("omegaRefMax", omegaRefMax_, success);
 }
 
 /**
@@ -551,6 +561,18 @@ ModelOmegaRef::setFequations() {
   }
 
   assert(fEquationIndex_.size() == (unsigned int) sizeF() && "ModelOmegaRef:fEquationIndex_.size() != f_.size()");
+}
+
+void
+ModelOmegaRef::checkDataCoherence(const double& /*t*/) {
+  for (int i = 0; i < nbMaxCC; ++i) {
+    if (doubleEquals(yLocal_[i], omegaRef0_[i]))
+      continue;
+    if (yLocal_[i] < omegaRefMin_ && doubleNotEquals(yLocal_[i], omegaRefMin_))
+      throw DYNError(Error::MODELER, FrequencyCollapse, yLocal_[i] * FNOM, omegaRefMin_ * FNOM);
+    else if (yLocal_[i] > omegaRefMax_ && doubleNotEquals(yLocal_[i], omegaRefMax_))
+      throw DYNError(Error::MODELER, FrequencyIncrease, yLocal_[i] * FNOM, omegaRefMax_ * FNOM);
+  }
 }
 
 }  // namespace DYN

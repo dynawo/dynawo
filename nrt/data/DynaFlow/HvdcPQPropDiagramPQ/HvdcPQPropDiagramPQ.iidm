@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<iidm:network xmlns:iidm="http://www.powsybl.org/schema/iidm/1_2" id="ieee14bus" caseDate="2017-06-09T10:14:24.146000+02:00" forecastDistance="0" sourceFormat="CIM1">
+    <iidm:substation id="_BUS___10_SS" name="BUS   10_SS" country="AF">
+        <iidm:voltageLevel id="_BUS___10_VL" name="BUS   10_VL" nominalV="400" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___10_TN" v="400.00000070381691" angle="-8.3706866649115259"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_Load__10" name="LOAD  10" loadType="UNDEFINED" p0="3000" q0="0" bus="_BUS___10_TN" connectableBus="_BUS___10_TN" p="2945.0357804410501" q="0"/>
+            <iidm:vscConverterStation id="HVDC1_CONV2" name="HVDC1_CONV2" voltageRegulatorOn="true" lossFactor="1" voltageSetpoint="400" reactivePowerSetpoint="-14.4" bus="_BUS___10_TN" connectableBus="_BUS___10_TN" p="-465.34124470634566" q="-72.173189120659345">
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="-1011" minQ="-300" maxQ="170"/>
+                    <iidm:point p="0" minQ="-600" maxQ="170"/>
+                    <iidm:point p="1011" minQ="-300" maxQ="170"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:vscConverterStation>
+            <iidm:vscConverterStation id="HVDC2_CONV2" name="HVDC2_CONV2" voltageRegulatorOn="true" lossFactor="1" voltageSetpoint="400" reactivePowerSetpoint="-14.4" bus="_BUS___10_TN" connectableBus="_BUS___10_TN" p="-465.34124470634566" q="-72.173189120659345">
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="-1011" minQ="-300" maxQ="170"/>
+                    <iidm:point p="0" minQ="-600" maxQ="170"/>
+                    <iidm:point p="1011" minQ="-300" maxQ="170"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:vscConverterStation>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS____1_SS" name="BUS    1_SS" country="AF">
+        <iidm:voltageLevel id="_BUS____1_VL" name="BUS    1_VL" nominalV="69" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS____1_TN" v="68" angle="0"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="_Generator___1" name="GEN    1" energySource="OTHER" minP="-9999" maxP="9999" voltageRegulatorOn="true" targetP="100" targetV="73.140000000000001" targetQ="0" bus="_BUS____1_TN" connectableBus="_BUS____1_TN" p="-2968.4407577960678" q="-183.92355003489681">
+                <iidm:minMaxReactiveLimits minQ="-999" maxQ="999"/>
+            </iidm:generator>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS____5_SS" name="BUS    5_SS" country="AF">
+        <iidm:voltageLevel id="_BUS____6_VL" name="BUS    6_VL" nominalV="400" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS____6_TN" v="400.12168527494072" angle="-6.1651582956404898"/>
+                <iidm:bus id="_BUS____7_TN" v="399.85624534418059" angle="-5.0990034521421501"/>
+                <iidm:bus id="_BUS____8_TN" v="400.00000070381725" angle="-7.3040847529535027"/>
+            </iidm:busBreakerTopology>
+            <iidm:vscConverterStation id="HVDC1_CONV1" name="HVDC1_CONV1" voltageRegulatorOn="true" lossFactor="1" voltageSetpoint="400" reactivePowerSetpoint="-132" bus="_BUS____8_TN" connectableBus="_BUS____8_TN" p="465.34124470634566" q="-29.836680752377344">
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="-1011" minQ="-300" maxQ="40"/>
+                    <iidm:point p="0" minQ="-600" maxQ="40"/>
+                    <iidm:point p="1011" minQ="-300" maxQ="40"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:vscConverterStation>
+            <iidm:vscConverterStation id="HVDC2_CONV1" name="HVDC2_CONV1" voltageRegulatorOn="true" lossFactor="1" voltageSetpoint="400" reactivePowerSetpoint="-132" bus="_BUS____8_TN" connectableBus="_BUS____8_TN" p="465.34124470634566" q="-29.836680752377344">
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="-1011" minQ="-300" maxQ="40"/>
+                    <iidm:point p="0" minQ="-600" maxQ="40"/>
+                    <iidm:point p="1011" minQ="-300" maxQ="40"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:vscConverterStation>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_BUS____5_VL" name="BUS    5_VL" nominalV="69" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS____5_TN" v="67.46090770345333" angle="-1.8308285460545075"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_BUS____5-BUS____6-1_PS" name="BUS    5-BUS    6-1" r="0" x="10" g="0" b="0" ratedU1="69" ratedU2="400" bus1="_BUS____5_TN" connectableBus1="_BUS____5_TN" voltageLevelId1="_BUS____5_VL" bus2="_BUS____6_TN" connectableBus2="_BUS____6_TN" voltageLevelId2="_BUS____6_VL" p1="512.14963028353623" q1="-1.6677239697344275" p2="-512.14963028353588" q2="18.071731275348029">
+            <iidm:phaseTapChanger lowTapPosition="1" tapPosition="23" targetDeadband="0" regulationMode="CURRENT_LIMITER" regulationValue="770" regulating="true">
+                <iidm:terminalRef id="_BUS____5-BUS____6-1_PS" side="ONE"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="3"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="2.75"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="2.5"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="2.25"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="2"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="1.75"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="1.5"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="1.25"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="1"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.75"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.5"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0.25"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="0"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.25"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.5"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-0.75000000000000011"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-1"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-1.25"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-1.5"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-1.75"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-2"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-2.25"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-2.5"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-2.75"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948" alpha="-3"/>
+            </iidm:phaseTapChanger>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="_BUS____5-BUS____7-2_PT" name="BUS    5-BUS    7-2" r="0" x="10" g="0" b="0" ratedU1="69" ratedU2="400" bus1="_BUS____5_TN" connectableBus1="_BUS____5_TN" voltageLevelId1="_BUS____5_VL" bus2="_BUS____7_TN" connectableBus2="_BUS____7_TN" voltageLevelId2="_BUS____6_VL" p1="911.53888908189913" q1="26.751922407293254" p2="-911.53888908189913" q2="25.256769001055869">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="5" loadTapChangingCapabilities="false">
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.1111112000000001"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0875475999999999"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0649626999999999"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0432965999999999"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="0.98039215999999996"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="0.96153849999999996"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="0.94339629999999997"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="0.92592589999999997"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="0.90909090000000004"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="836.74000000000001"/>
+            <iidm:currentLimits2 permanentLimit="4183.6999999999998"/>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="_BUS____5-BUS____8-1_PT" name="BUS    5-BUS    8-1" r="0" x="10" g="0" b="0" ratedU1="69" ratedU2="400" bus1="_BUS____5_TN" connectableBus1="_BUS____5_TN" voltageLevelId1="_BUS____5_VL" bus2="_BUS____8_TN" connectableBus2="_BUS____8_TN" voltageLevelId2="_BUS____6_VL" p1="1525.6208522257862" q1="67.923129674138806" p2="-1525.6208522257866" q2="77.92633849872233">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="5" loadTapChangingCapabilities="false">
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.1111112000000001"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0875475999999999"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0649626999999999"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0432965999999999"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1.0224948"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="1"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="0.98039215999999996"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="0.96153849999999996"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="0.94339629999999997"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="0.92592589999999997"/>
+                <iidm:step r="0" x="0" g="0" b="0" rho="0.90909090000000004"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="836.74000000000001"/>
+            <iidm:currentLimits2 permanentLimit="4183.6999999999998"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:line id="_BUS____1-BUS____5-1_AC" name="BUS    1-BUS    5-1" r="0.01" x="0.050000000000000003" g1="0" b1="0.00051670000000000004" g2="0" b2="0.00051670000000000004" bus1="_BUS____1_TN" connectableBus1="_BUS____1_TN" voltageLevelId1="_BUS____1_VL" bus2="_BUS____5_TN" connectableBus2="_BUS____5_TN" voltageLevelId2="_BUS____5_VL" p1="2968.4407577960678" q1="183.92355003490107" p2="-2949.3093715912214" q2="-93.007328111685894">
+        <iidm:currentLimits1 permanentLimit="836.74000000000001"/>
+    </iidm:line>
+    <iidm:line id="_BUS____6-BUS___10-1_AC" name="BUS    6-BUS   10-1" r="0.75" x="12" g1="0" b1="0" g2="0" b2="0" bus1="_BUS____6_TN" connectableBus1="_BUS____6_TN" voltageLevelId1="_BUS____6_VL" bus2="_BUS___10_TN" connectableBus2="_BUS___10_TN" voltageLevelId2="_BUS___10_VL" p1="512.14963028353623" q1="-18.071731275348284" p2="-510.91932973561524" q2="37.75654004208377">
+        <iidm:currentLimits1 permanentLimit="4183.6999999999998"/>
+    </iidm:line>
+    <iidm:line id="_BUS____8-BUS___10-2_AC" name="BUS    8-BUS   10-2" r="0.20000000000000001" x="5" g1="0" b1="0" g2="0" b2="0" bus1="_BUS____8_TN" connectableBus1="_BUS____8_TN" voltageLevelId1="_BUS____6_VL" bus2="_BUS___10_TN" connectableBus2="_BUS___10_TN" voltageLevelId2="_BUS___10_VL" p1="594.9383628134558" q1="-18.252976993916182" p2="-594.49550678161881" q2="29.324377789839208">
+        <iidm:currentLimits1 permanentLimit="4183.6999999999998"/>
+    </iidm:line>
+    <iidm:line id="_BUS____7-BUS___10-2_AC" name="BUS    7-BUS   10-2" r="0.5" x="10" g1="0" b1="0" g2="0" b2="0" bus1="_BUS____7_TN" connectableBus1="_BUS____7_TN" voltageLevelId1="_BUS____6_VL" bus2="_BUS___10_TN" connectableBus2="_BUS___10_TN" voltageLevelId2="_BUS___10_VL" p1="911.53888908189879" q1="-25.256769001059808" p2="-908.93845451148104" q2="77.265460409411716">
+        <iidm:currentLimits1 permanentLimit="4183.6999999999998"/>
+    </iidm:line>
+    <iidm:hvdcLine id="HVDC1" r="0.125" nominalV="320" convertersMode="SIDE_1_INVERTER_SIDE_2_RECTIFIER" activePowerSetpoint="322" maxP="1011" converterStation1="HVDC1_CONV1" converterStation2="HVDC1_CONV2"/>
+    <iidm:hvdcLine id="HVDC2" r="0.125" nominalV="320" convertersMode="SIDE_1_INVERTER_SIDE_2_RECTIFIER" activePowerSetpoint="322" maxP="1011" converterStation1="HVDC2_CONV1" converterStation2="HVDC2_CONV2"/>
+</iidm:network>

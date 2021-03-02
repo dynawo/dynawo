@@ -28,20 +28,27 @@ model HvdcPTanPhiDangling "Model for P/tan(Phi) HVDC link with terminal2 connect
 
   Connectors.ZPin tanPhi1Ref (value (start = s10Pu.im/s10Pu.re)) "tan(Phi) regulation set point at terminal 1";
 
+  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
+
 protected
 
-  Types.ReactivePowerPu Q1RawPu (start = s10Pu.im) "Raw reactive power at terminal 1 in p.u (base SnRef)";
+  Types.ReactivePowerPu Q1RawPu (start = s10Pu.im) "Raw reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
 
 equation
 
 // Reactive power control of the connected side
   Q1RawPu = tanPhi1Ref.value * P1Pu;
-  if Q1RawPu >= Q1MaxPu then
-   Q1Pu = Q1MaxPu;
-  elseif Q1RawPu <= Q1MinPu then
-   Q1Pu = Q1MinPu;
+  if running.value then
+    if Q1RawPu >= Q1MaxPu then
+     Q1Pu = Q1MaxPu;
+    elseif Q1RawPu <= Q1MinPu then
+     Q1Pu = Q1MinPu;
+    else
+     Q1Pu = Q1RawPu;
+    end if;
   else
-   Q1Pu = Q1RawPu;
+    terminal1.i.im = 0;
   end if;
 
 annotation(preferredView = "text",

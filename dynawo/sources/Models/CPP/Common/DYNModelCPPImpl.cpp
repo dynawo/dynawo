@@ -107,11 +107,6 @@ ModelCPP::Impl::loadVariables(const string& variables) {
 }
 
 void
-ModelCPP::Impl::checkDataCoherence(const double& /*t*/) {
-  // not needed
-}
-
-void
 ModelCPP::Impl::checkParametersCoherence() const {
   // not needed
 }
