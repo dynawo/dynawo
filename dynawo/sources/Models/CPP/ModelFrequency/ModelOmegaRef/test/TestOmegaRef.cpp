@@ -41,6 +41,8 @@ boost::shared_ptr<SubModel> initModelOmegaRef(double weightGen2) {
   parametersSet->createParameter("nbGen", 2);
   parametersSet->createParameter("weight_gen_0", 2.);
   parametersSet->createParameter("weight_gen_1", weightGen2);
+  parametersSet->createParameter("omegaRefMin", 0.5);
+  parametersSet->createParameter("omegaRefMax", 1.5);
   modelOmegaRef->setPARParameters(parametersSet);
   modelOmegaRef->addParameters(parameters, false);
   modelOmegaRef->setParametersFromPARFile();
@@ -56,11 +58,13 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefDefineMethods) {
 
   std::vector<ParameterModeler> parameters;
   modelOmegaRef->defineParameters(parameters);
-  ASSERT_EQ(parameters.size(), 2);
+  ASSERT_EQ(parameters.size(), 4);
 
   boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbGen", 1);
   parametersSet->createParameter("weight_gen_0", 2.);
+  parametersSet->createParameter("omegaRefMin", 0.95);
+  parametersSet->createParameter("omegaRefMax", 1.05);
   ASSERT_NO_THROW(modelOmegaRef->setPARParameters(parametersSet));
 
   modelOmegaRef->addParameters(parameters, false);
@@ -276,6 +280,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_EQ(smjPrim.nbElem(), 0);
   modeChangeType_t mode = modelOmegaRef->evalMode(1);
   ASSERT_EQ(mode, NO_MODE);
+  ASSERT_THROW_DYNAWO(modelOmegaRef->checkDataCoherence(0), Error::MODELER, KeyError_t::FrequencyIncrease);
 
   z[2] = 0;  // Switching off gen1
   y[12] = 2;
@@ -311,6 +316,12 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, ALGEBRAIC_J_UPDATE_MODE);
   delete[] zConnected;
+
+  y[0] = 1.2;  // Modifying omegaRef_grp_0
+  ASSERT_NO_THROW(modelOmegaRef->checkDataCoherence(0));
+
+  y[0] = 0.4;  // Modifying omegaRef_grp_0
+  ASSERT_THROW_DYNAWO(modelOmegaRef->checkDataCoherence(0), Error::MODELER, KeyError_t::FrequencyCollapse);
 }
 
 }  // namespace DYN

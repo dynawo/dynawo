@@ -247,7 +247,7 @@ class ModelCPP::Impl : public ModelCPP {
   /**
    * @copydoc ModelCPP::checkDataCoherence()
    */
-  void checkDataCoherence(const double& t);
+  virtual void checkDataCoherence(const double& t) = 0;
 
   /**
    * @copydoc ModelCPP::checkParametersCoherence() const

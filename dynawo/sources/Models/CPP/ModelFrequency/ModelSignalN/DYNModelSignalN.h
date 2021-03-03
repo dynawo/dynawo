@@ -278,6 +278,11 @@ class ModelSignalN : public ModelCPP::Impl {
    */
   void initParams() { /* not needed */ }
 
+  /**
+   * @brief Coherence check on data (asserts, min/max values, sanity checks)
+   */
+  void checkDataCoherence(const double& /*t*/) { /* not needed */ }
+
  private:
   /**
    * @brief Sort every generator by num of subNetwork
