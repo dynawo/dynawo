@@ -226,6 +226,7 @@
     <par type="DOUBLE" name="weight_gen_2" value="1650"/>
     <par type="DOUBLE" name="weight_gen_3" value="80"/>
     <par type="DOUBLE" name="weight_gen_4" value="250"/>
+    <par type="DOUBLE" name="omegaRefMin" value="0.9"/>
   </set>
   <set id="8">
     <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
