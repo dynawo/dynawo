@@ -51,8 +51,6 @@ model GeneratorPV "Generator with power / frequency modulation and voltage / rea
 
 equation
 
-  URefPu.value = UPu + LambdaPu * (QGenRefPu + T * der(QGenRefPu));
-
   when QGenRefPu >= QMaxPu and pre(qStatus) <> QStatus.AbsorptionMax then
     qStatus = QStatus.AbsorptionMax;
     Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
@@ -65,8 +63,10 @@ equation
   end when;
 
   if running.value then
+    URefPu.value = UPu + LambdaPu * (QGenRefPu + T * der(QGenRefPu));
     QGenPu = if qStatus == QStatus.AbsorptionMax then QMaxPu else if qStatus == QStatus.GenerationMax then QMinPu else QGenRefPu;
   else
+    QGenRefPu = 0;
     terminal.i.im = 0;
   end if;
 

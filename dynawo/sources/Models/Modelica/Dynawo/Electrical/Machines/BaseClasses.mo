@@ -43,7 +43,11 @@ package BaseClasses
 
     SGenPu = Complex(PGenPu, QGenPu);
     SGenPu = -terminal.V * ComplexMath.conj(terminal.i);
-    UPu = ComplexMath.'abs'(terminal.V);
+    if running.value then
+      UPu = ComplexMath.'abs'(terminal.V);
+    else
+      UPu = 0;
+    end if;
 
     annotation(preferredView = "text");
   end BaseGeneratorSimplified;
