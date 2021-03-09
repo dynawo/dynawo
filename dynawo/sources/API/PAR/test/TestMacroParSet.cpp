@@ -18,13 +18,12 @@
  */
 
 #include "gtest_dynawo.h"
-#include "PARMacroParSetFactory.h"
 #include "PARMacroParSet.h"
 #include <boost/shared_ptr.hpp>
 
 namespace parameters {
   TEST(APIPARTest, MacroParSet) {
-    boost::shared_ptr<MacroParSet> macroParSet = MacroParSetFactory::newMacroParSet("macroParSet");
+    boost::shared_ptr<MacroParSet> macroParSet = boost::shared_ptr<MacroParSet>(new MacroParSet("macroParSet"));
     ASSERT_EQ(macroParSet->getId(), "macroParSet");
   }
 }

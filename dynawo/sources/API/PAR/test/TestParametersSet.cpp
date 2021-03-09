@@ -27,7 +27,6 @@
 #include "PARReference.h"
 #include "PARReferenceFactory.h"
 #include "PARParametersSet.h"
-#include "PARMacroParSetFactory.h"
 #include "PARMacroParSet.h"
 
 using boost::shared_ptr;
@@ -337,7 +336,7 @@ TEST(APIPARTest, ParametersSetCreateTableMatrix) {
 //-----------------------------------------------------
 
 TEST(APIPARTest, MacroParSetIterator) {
-  shared_ptr<MacroParSet> macroParSet = MacroParSetFactory::newMacroParSet("macroParSet");
+  shared_ptr<MacroParSet> macroParSet = shared_ptr<MacroParSet>(new MacroParSet("macroParSet"));
   shared_ptr<ParametersSet> parametersSet = boost::shared_ptr<ParametersSet>(new ParametersSet("parameters"));
   ASSERT_NO_THROW(parametersSet->addMacroParSet(macroParSet));
   ASSERT_THROW_DYNAWO(parametersSet->addMacroParSet(macroParSet), DYN::Error::API, DYN::KeyError_t::MacroParSetAlreadyExists);

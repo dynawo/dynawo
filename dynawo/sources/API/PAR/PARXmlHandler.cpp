@@ -35,9 +35,7 @@
 #include "PARParametersSet.h"
 #include "PARParametersSetCollection.h"
 #include "PARParametersSetCollectionFactory.h"
-#include "PARMacroParameterSetFactory.h"
 #include "PARMacroParameterSet.h"
-#include "PARMacroParSetFactory.h"
 #include "PARMacroParameterSet.h"
 
 
@@ -248,7 +246,7 @@ parHandler_(parser::ElementName(par_ns, "par")) {
 
 void
 MacroParameterSetHandler::create(attributes_type const & attributes) {
-  macroParameterSet_ = MacroParameterSetFactory::newMacroParameterSet(attributes["id"]);
+  macroParameterSet_ = shared_ptr<MacroParameterSet>(new MacroParameterSet(attributes["id"].as_string()));
 }
 
 void
@@ -272,7 +270,7 @@ MacroParSetHandler::MacroParSetHandler(elementName_type const& root_element) {
 
 void
 MacroParSetHandler::create(attributes_type const & attributes) {
-  macroParSet_ = MacroParSetFactory::newMacroParSet(attributes["id"]);
+  macroParSet_ = shared_ptr<MacroParSet>(new MacroParSet(attributes["id"].as_string()));
 }
 
 boost::shared_ptr<MacroParSet>
