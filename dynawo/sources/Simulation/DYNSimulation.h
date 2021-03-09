@@ -190,11 +190,6 @@ class Simulation {
   void dumpIIDMFile();
 
   /**
-   * @brief print debug information
-   */
-  void printDebugInfo();
-
-  /**
    * @brief import curves request from a file (i.e curves that the user wants to plot)
    * @warning the file should be set before the call of this method
    */
