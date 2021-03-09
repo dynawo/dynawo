@@ -30,7 +30,7 @@ partial model BaseLoad "Base model for loads"
 
     Connectors.ImPin UPu(value (start = ComplexMath.'abs'(u0Pu))) "Voltage amplitude at load terminal in p.u (base UNom)";
 
-    Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at load terminal in p.u (base SnRef) (receptior convention)";
+    Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at load terminal in p.u (base SnRef) (receptor convention)";
     Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at load terminal in p.u (base SnRef) (receptor convention)";
     Types.ComplexApparentPowerPu SPu(re (start = s0Pu.re), im (start = s0Pu.im)) "Apparent power at load terminal in p.u (base SnRef) (receptor convention)";
 
@@ -45,14 +45,12 @@ partial model BaseLoad "Base model for loads"
     SPu = terminal.V * ComplexMath.conj(terminal.i);
 
     if (running.value) then
-        UPu.value = ComplexMath.'abs'(terminal.V);
+      UPu.value = ComplexMath.'abs'(terminal.V);
     else
-        UPu.value = 0;
+      UPu.value = 0;
     end if;
 
 annotation(preferredView = "text");
 end BaseLoad;
-
-
 
 end BaseClasses;

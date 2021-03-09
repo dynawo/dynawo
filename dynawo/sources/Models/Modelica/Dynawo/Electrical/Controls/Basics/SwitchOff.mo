@@ -35,14 +35,20 @@ partial model SwitchOffLogic "Manage switch-off logic"
     if (NbSwitchOffSignals >= 3) then
       when switchOffSignal1.value or switchOffSignal2.value or switchOffSignal3.value and pre(running.value) then
         running.value = false;
+      elsewhen not switchOffSignal1.value and not switchOffSignal2.value and not switchOffSignal3.value and not pre(running.value) then
+        running.value = true;
       end when;
     elseif (NbSwitchOffSignals >= 2) then
       when switchOffSignal1.value or switchOffSignal2.value and pre(running.value) then
         running.value = false;
+      elsewhen not switchOffSignal1.value and not switchOffSignal2.value and not pre(running.value) then
+        running.value = true;
       end when;
     else
       when switchOffSignal1.value and pre(running.value) then
         running.value = false;
+      elsewhen not switchOffSignal1.value and not pre(running.value) then
+        running.value = true;
       end when;
     end if;
 
