@@ -1545,6 +1545,10 @@ find_include_system_path() {
   echo -n $path
 }
 
+export_var_env_to_file() {
+  export | grep DYNAWO_ | sed -e 's/declare -x //g' > "$1"
+}
+
 deploy_dynawo() {
   DYNAWO_VERSION=$(version) || error_exit "Error with version."
   version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
@@ -1556,6 +1560,7 @@ deploy_dynawo() {
   current_dir=$PWD
   mkdir -p $DYNAWO_DEPLOY_DIR || error_exit "Impossible to create $DYNAWO_DEPLOY_DIR."
   cd $DYNAWO_DEPLOY_DIR
+  export_var_env_to_file "dynawoEnv.txt"
   mkdir -p lib
 
   echo "deploying Sundials libraries"
