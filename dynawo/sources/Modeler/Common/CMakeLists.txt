@@ -93,6 +93,9 @@ target_include_directories(dynawo_ModelerCommon SYSTEM
   )
 
 target_link_libraries(dynawo_ModelerCommon
+  PUBLIC
+    Boost::system
+    Boost::filesystem
   PRIVATE
     dynawo_Common
     dynawo_API_PAR
@@ -103,7 +106,6 @@ target_link_libraries(dynawo_ModelerCommon
     dynawo_API_FS
     dynawo_API_EXTVAR
     ${CMAKE_DL_LIBS}
-    Boost::system
   )
 
 set_target_properties(dynawo_ModelerCommon PROPERTIES VERSION ${MODELER_VERSION_STRING}

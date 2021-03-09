@@ -23,6 +23,8 @@
 #include <map>
 #include <boost/core/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/dll.hpp>
+#include <boost/function.hpp>
 
 namespace DYN {
 class Solver;
@@ -66,7 +68,7 @@ class SolverFactory {
    */
   static boost::shared_ptr<Solver> createSolverFromLib(const std::string& lib);
 
-  void* handle_;  ///< handle return by dlopen when the library is loaded
+  boost::shared_ptr<boost::dll::shared_library> lib_;  ///< Library of the solver
 
  private:
   static SolverFactories factories_;  ///< Factories already available
@@ -75,7 +77,7 @@ class SolverFactory {
 /**
 * @brief function pointer type to destroy a solver.
 */
-typedef void destroy_solver_t(SolverFactory*);
+typedef void deleteSolverFactory_t(SolverFactory*);
 
 /**
  * @brief SolverFactories class
@@ -135,11 +137,11 @@ class SolverFactories : private boost::noncopyable {
    * @param deleteFactory : function pointer to a desctruction method
    * map
    */
-  void add(const std::string& lib, destroy_solver_t* deleteFactory);
+  void add(const std::string& lib, const boost::function<deleteSolverFactory_t>& deleteFactory);
 
  private:
   std::map<std::string, SolverFactory* > factoryMap_;  ///< associate a library factory with the name of the library
-  std::map<std::string, destroy_solver_t*> factoryMapDestroy_;  ///< associate a library factory with its destruction method
+  std::map<std::string, boost::function<deleteSolverFactory_t> > factoryMapDelete_;  ///< associate a library factory with its destruction method
 };
 
 /**
