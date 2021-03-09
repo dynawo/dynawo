@@ -201,26 +201,26 @@ partial model BaseTapChangerPhaseShifter_INTERVAL "Base model for tap-changers a
 
 equation
 
-  when (valueToMonitor.value < valueMin) and not(locked) then
+  when (valueToMonitor.value < valueMin) and not(locked) and running.value then
     valueUnderMin = true;
     tValueUnderMinWhileRunning = time;
     valueAboveMax = false;
     tValueAboveMaxWhileRunning = pre(tValueAboveMaxWhileRunning);
-  elsewhen (valueToMonitor.value > valueMax) and not(locked) then
+  elsewhen (valueToMonitor.value > valueMax) and not(locked) and running.value then
     valueUnderMin = false;
     tValueUnderMinWhileRunning = pre(tValueUnderMinWhileRunning);
     valueAboveMax = true;
     tValueAboveMaxWhileRunning = time;
-  elsewhen (valueToMonitor.value >= valueMin and valueToMonitor.value <= valueMax) and not(locked) then
+  elsewhen (valueToMonitor.value >= valueMin and valueToMonitor.value <= valueMax) and not(locked) and running.value then
     valueUnderMin = false;
     tValueUnderMinWhileRunning = pre(tValueUnderMinWhileRunning);
     valueAboveMax = false;
     tValueAboveMaxWhileRunning = pre(tValueAboveMaxWhileRunning);
-  elsewhen running.value and locked then
+  elsewhen (running.value and locked) or not(running.value) then
     valueUnderMin = pre(valueUnderMin);
     tValueUnderMinWhileRunning = Constants.inf;
     valueAboveMax = pre(valueAboveMax);
-    tValueAboveMaxWhileRunning = pre(tValueAboveMaxWhileRunning);
+    tValueAboveMaxWhileRunning = Constants.inf;
   end when;
 
   lookingToDecreaseTap = (valueAboveMax and decreaseTapToDecreaseValue) or (valueUnderMin and decreaseTapToIncreaseValue);

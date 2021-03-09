@@ -102,7 +102,6 @@
 #include "DYNMacrosMessage.h"
 #include "DYNSolver.h"
 #include "DYNSolverFactory.h"
-#include "DYNSubModelFactory.h"
 #include "DYNTimer.h"
 #include "DYNModelMulti.h"
 #include "DYNModeler.h"
