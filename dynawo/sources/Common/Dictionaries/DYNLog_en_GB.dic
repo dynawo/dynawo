@@ -162,7 +162,6 @@ AddingCurveOutput             =             adding curve : Id: %1%; output: %2% 
 CurveNotAdded                 =             curve not added: Id: %1% , name: %2%
 // --> DYNSimulation
 NewStartPoint                 =             calculation of the new starting point of the simulation.
-NbVar                         =             number of variables : %1%
 NbRootFunctions               =             number of root functions : %1%
 ModelBuilding                 =             building model from input files
 ModelBuildingEnd              =             model was built successfully
