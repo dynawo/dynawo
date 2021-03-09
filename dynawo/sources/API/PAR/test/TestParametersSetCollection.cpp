@@ -22,9 +22,7 @@
 
 #include "PARParametersSetCollectionFactory.h"
 #include "PARParametersSetCollection.h"
-#include "PARMacroParSetFactory.h"
 #include "PARMacroParSet.h"
-#include "PARMacroParameterSetFactory.h"
 #include "PARMacroParameterSet.h"
 #include "PARParameterFactory.h"
 #include "PARParameter.h"
@@ -119,7 +117,7 @@ TEST(APIPARTest, CollectionIterator) {
 
 TEST(APIPARTest, MacroParameterSetTest) {
   shared_ptr<ParametersSetCollection> collection = ParametersSetCollectionFactory::newCollection();
-  shared_ptr<MacroParameterSet> macroParameterSet = MacroParameterSetFactory::newMacroParameterSet("macroParameterSet");
+  shared_ptr<MacroParameterSet> macroParameterSet = shared_ptr<MacroParameterSet>(new MacroParameterSet("macroParameterSet"));
   shared_ptr<Reference> reference = ReferenceFactory::newReference("reference");
   shared_ptr<Parameter> parameter1 = ParameterFactory::newParameter("parameter1", true);
   shared_ptr<Parameter> parameter2 = ParameterFactory::newParameter("parameter2", true);
@@ -129,7 +127,7 @@ TEST(APIPARTest, MacroParameterSetTest) {
   parametersSet1->addParameter(parameter1);
   ASSERT_NO_THROW(collection->addMacroParameterSet(macroParameterSet));
   ASSERT_THROW_DYNAWO(collection->addMacroParameterSet(macroParameterSet), DYN::Error::API, DYN::KeyError_t::MacroParameterSetAlreadyExists);
-  shared_ptr<MacroParSet> macroParSet = MacroParSetFactory::newMacroParSet("macroParameterSet");
+  shared_ptr<MacroParSet> macroParSet = shared_ptr<MacroParSet>(new MacroParSet("macroParameterSet"));
   ASSERT_NO_THROW(parametersSet1->addMacroParSet(macroParSet));
   collection->addParametersSet(parametersSet1);
   ASSERT_NO_THROW(shared_ptr<ParametersSet> parametersSetGetter = collection->getParametersSet("parameters1"));

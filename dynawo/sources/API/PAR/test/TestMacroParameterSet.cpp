@@ -19,7 +19,6 @@
 
 #include "gtest_dynawo.h"
 #include "PARMacroParameterSet.h"
-#include "PARMacroParameterSetFactory.h"
 #include "PARReference.h"
 #include "PARReferenceFactory.h"
 #include "PARParameter.h"
@@ -28,17 +27,17 @@
 
 namespace parameters {
   TEST(APIPARTest, MacroParameterSet) {
-    boost::shared_ptr<MacroParameterSet> macroParameterSet = MacroParameterSetFactory::newMacroParameterSet("macroParameterSet");
-    ASSERT_EQ(macroParameterSet->getId(),"macroParameterSet");
+    boost::shared_ptr<MacroParameterSet> macroParameterSet = boost::shared_ptr<MacroParameterSet>(new MacroParameterSet("macroParameterSet"));
+    ASSERT_EQ(macroParameterSet->getId(), "macroParameterSet");
     boost::shared_ptr<Reference> reference = ReferenceFactory::newReference("reference");
     ASSERT_NO_THROW(macroParameterSet->addReference(reference));
     ASSERT_THROW_DYNAWO(macroParameterSet->addReference(reference), DYN::Error::API, DYN::KeyError_t::ReferenceAlreadySetInMacroParameterSet);
     boost::shared_ptr<Reference> reference_2 = ReferenceFactory::newReference("reference_2");
     ASSERT_NO_THROW(macroParameterSet->addReference(reference_2));
-    boost::shared_ptr<Parameter> parameter = ParameterFactory::newParameter("parameter",true);
+    boost::shared_ptr<Parameter> parameter = ParameterFactory::newParameter("parameter", true);
     ASSERT_NO_THROW(macroParameterSet->addParameter(parameter));
     ASSERT_THROW_DYNAWO(macroParameterSet->addParameter(parameter), DYN::Error::API, DYN::KeyError_t::ParameterAlreadySetInMacroParameterSet);
-    boost::shared_ptr<Parameter> parameter_2 = ParameterFactory::newParameter("parameter_2",true);
+    boost::shared_ptr<Parameter> parameter_2 = ParameterFactory::newParameter("parameter_2", true);
     ASSERT_NO_THROW(macroParameterSet->addParameter(parameter_2));
     int nbParameters = 0;
     for (MacroParameterSet::parameter_const_iterator itPar = macroParameterSet->cbeginParameter();
@@ -46,7 +45,7 @@ namespace parameters {
     ++itPar) {
       nbParameters++;
     }
-    ASSERT_EQ(nbParameters,2);
+    ASSERT_EQ(nbParameters, 2);
     MacroParameterSet::parameter_const_iterator itPar = macroParameterSet->cbeginParameter();
     ASSERT_NO_THROW(itPar++);
     ASSERT_NO_THROW(itPar--);
@@ -62,7 +61,7 @@ namespace parameters {
     ++itRef) {
       nbReferences++;
     }
-    ASSERT_EQ(nbReferences,2);
+    ASSERT_EQ(nbReferences, 2);
     MacroParameterSet::reference_const_iterator itRef = macroParameterSet->cbeginReference();
     ASSERT_NO_THROW(itRef++);
     ASSERT_NO_THROW(++itRef);
@@ -70,4 +69,4 @@ namespace parameters {
     ASSERT_NO_THROW((*itRef)->getName());
     ASSERT_NO_THROW(itRef == itRef);
   }
-}
+}  // namespace parameters
