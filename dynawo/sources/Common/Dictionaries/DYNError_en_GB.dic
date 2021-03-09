@@ -152,6 +152,7 @@ FlowConnectionMixedSystemAndInternal =    the system flow connection %1%_%2%->%3
 DynamicLineStatusNotSupported =           connection status (CLOSED_1 or CLOSED_2) not supported for dynamic line %1%
 MismatchingVariableSizes    =             the number of %1% variables and corresponding size are different in model %2% (%3% != %4%)
 ConverterWrongType          =             wrong converter type for converter %1%
+InvalidTransformerInit      =             the power flow through the transformer is incoherent: rTfo0Pu is supposed to be positive
 //---Parameter---------------
 ParameterDeclaredTwice      =             model (%1%): parameter %2% is declared twice: once in par file and once in init model
 ParameterWrongTypeReference =             wrong type for reference parameter: %1%

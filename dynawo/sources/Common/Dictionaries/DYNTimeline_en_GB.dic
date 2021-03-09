@@ -81,6 +81,8 @@ LineOpenSide2             =             LINE : opening on side 2
 // --> LOAD
 LoadConnected             =             LOAD : connecting
 LoadDisconnected          =             LOAD : disconnecting
+LoadTargetP               =             LOAD : change of active power target (%1%)
+LoadTargetQ               =             LOAD : change of reactive power target (%1%)
 // --> DANGLING LINE
 DanglingLineConnected     =             LINE : connecting
 DanglingLineDisconnected  =             LINE : disconnecting
