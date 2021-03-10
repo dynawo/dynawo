@@ -90,7 +90,7 @@ class ModelSignalN : public ModelCPP::Impl {
    * @brief SignalN model initialization
    * @param t0 : initial time of the simulation
    */
-  void init(const double& t0);
+  void init(const double t0);
 
   /**
    * @brief SignalN model's sizes getter
@@ -117,7 +117,7 @@ class ModelSignalN : public ModelCPP::Impl {
    *
    * @param t Simulation instant
    */
-  void evalG(const double & t);
+  void evalG(const double t);
   /**
    * @brief SignalN discrete variables evaluation
    *
@@ -126,7 +126,7 @@ class ModelSignalN : public ModelCPP::Impl {
    *
    * @param t Simulation instant
    */
-  void evalZ(const double & t);
+  void evalZ(const double t);
   /**
    * @brief set the silent flag for discrete variables
    * @param silentZTable flag table
@@ -140,7 +140,7 @@ class ModelSignalN : public ModelCPP::Impl {
    * @param[in] t Simulation instant
    * @return mode change type value
    */
-  modeChangeType_t evalMode(const double &t);
+  modeChangeType_t evalMode(const double t);
   /**
    * @brief SignalN transposed jacobian evaluation
    *
@@ -151,7 +151,7 @@ class ModelSignalN : public ModelCPP::Impl {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  void evalJt(const double &t, const double & cj, SparseMatrix& jt, const int& rowOffset);
+  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
   /**
    * @brief  SignalN transposed jacobian evaluation
    *
@@ -162,7 +162,7 @@ class ModelSignalN : public ModelCPP::Impl {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  void evalJtPrim(const double &t, const double & cj, SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
   /**
    * @brief calculate calculated variables
    */
@@ -232,7 +232,7 @@ class ModelSignalN : public ModelCPP::Impl {
    * @param elements  Reference to elements' vector
    * @param mapElement Map associating each element index in the elements vector to its name
    */
-  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
   /**
    * @copydoc SubModel::dumpUserReadableElementList()
    */
@@ -285,7 +285,7 @@ class ModelSignalN : public ModelCPP::Impl {
   /**
    * @brief Coherence check on data (asserts, min/max values, sanity checks)
    */
-  void checkDataCoherence(const double& /*t*/) { /* not needed */ }
+  void checkDataCoherence(const double /*t*/) { /* not needed */ }
 
  private:
   /**

@@ -95,7 +95,7 @@ stateVariationArea_(NOT_STARTED) {
 }
 
 void
-ModelVariationArea::init(const double& /*t0*/) {
+ModelVariationArea::init(const double /*t0*/) {
   // not needed
 }
 
@@ -148,7 +148,7 @@ ModelVariationArea::evalF(double t, propertyF_t type) {
 // evaluation of root functions
 
 void
-ModelVariationArea::evalG(const double & t) {
+ModelVariationArea::evalG(const double t) {
   gLocal_[0] = ((t - startTime_) >= 0 && (t - stopTime_) < 0) ? ROOT_UP : ROOT_DOWN;
   gLocal_[1] = (t - stopTime_) >= 0 ? ROOT_UP : ROOT_DOWN;
 }
@@ -175,7 +175,7 @@ ModelVariationArea::setGequations() {
 // evaluation of the transpose Jacobian Jt - sparse matrix
 
 void
-ModelVariationArea::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& rowOffset) {
+ModelVariationArea::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
   static double dPOne = 1;
   // whatever the state of the automaton, same Jacobian
   for (int i = 0; i < nbLoads_; ++i) {  // 2 equations by loads
@@ -189,7 +189,7 @@ ModelVariationArea::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatr
 // evaluation of the transpose Jacobian Jt - sparse matrix
 
 void
-ModelVariationArea::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& /*rowOffset*/) {
+ModelVariationArea::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int /*rowOffset*/) {
   // no differential equations
   for (int i = 0; i < nbLoads_; ++i) {  // 2 equations by loads
     jt.changeCol();
@@ -200,7 +200,7 @@ ModelVariationArea::evalJtPrim(const double& /*t*/, const double& /*cj*/, Sparse
 // evaluation of discrete variables
 
 void
-ModelVariationArea::evalZ(const double& /*t*/) {
+ModelVariationArea::evalZ(const double /*t*/) {
   if (gLocal_[0] == ROOT_UP) {  // load increase in progress
     zLocal_[0] = ON_GOING;
     stateVariationArea_ = ON_GOING;
@@ -221,7 +221,7 @@ ModelVariationArea::collectSilentZ(BitMask* silentZTable) {
 // evaluation of modes (alternatives) of F(t,y,y') functions
 
 modeChangeType_t
-ModelVariationArea::evalMode(const double& t) {
+ModelVariationArea::evalMode(const double t) {
   if ((timeModeOnGoingRaised_ < 0 || doubleEquals(t, timeModeOnGoingRaised_)) && t >= startTime_) {
     timeModeOnGoingRaised_ = t;
     return DIFFERENTIAL_MODE;

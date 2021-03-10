@@ -381,7 +381,7 @@ class ModelWriter(ModelWriterBase):
     def fill_evalMode(self):
         self.addEmptyLine()
 
-        self.addLine("modeChangeType_t Model" + self.className + "::evalMode(const double & t) const\n")
+        self.addLine("modeChangeType_t Model" + self.className + "::evalMode(const double t) const\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_evalmode())

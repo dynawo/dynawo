@@ -105,7 +105,7 @@ omegaRefMax_(1.02) {
  *
  */
 void
-ModelOmegaRef::init(const double& /*t0*/) {
+ModelOmegaRef::init(const double /*t0*/) {
   numCCNode_.assign(nbGen_, 0);
   runningGrp_.assign(nbGen_, 0);
   nbCC_ = 0;
@@ -191,7 +191,7 @@ ModelOmegaRef::evalF(double /*t*/, propertyF_t type) {
  * @param t Simulation instant
  */
 void
-ModelOmegaRef::evalG(const double& /*t*/) {
+ModelOmegaRef::evalG(const double /*t*/) {
   // No root fucntion for this model
 }
 
@@ -206,7 +206,7 @@ ModelOmegaRef::evalG(const double& /*t*/) {
  * @param rowOffset
  */
 void
-ModelOmegaRef::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& rowOffset) {
+ModelOmegaRef::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
   // Equations:
   // I: for each connected component i, for generator k in this cc i:
   // 0 = sum_k (omega[k] * weight[k]) - omegaRef[i] * sum_k (weight[k])
@@ -260,7 +260,7 @@ ModelOmegaRef::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatrix& j
  * @param rowOffset
  */
 void
-ModelOmegaRef::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& /*rowOffset*/) {
+ModelOmegaRef::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int /*rowOffset*/) {
   // Equations:
   // I: for each connected component i, for generator k in this cc i:
   // 0 = sum_k (omega[k] * weight[k]) - omegaRef[i] * sum_k (weight[k])
@@ -288,7 +288,7 @@ ModelOmegaRef::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatri
  * @param t Simulation instant
  */
 void
-ModelOmegaRef::evalZ(const double& /*t*/) {
+ModelOmegaRef::evalZ(const double /*t*/) {
   std::copy(zLocal_, zLocal_ + nbGen_, numCCNode_.begin());
   std::copy(zLocal_ + nbGen_, zLocal_ + sizeZ(), runningGrp_.begin());
 }
@@ -310,7 +310,7 @@ ModelOmegaRef::collectSilentZ(BitMask* silentZTable) {
  * @param t Simulation instant
  */
 modeChangeType_t
-ModelOmegaRef::evalMode(const double& /*t*/) {
+ModelOmegaRef::evalMode(const double /*t*/) {
   // mode change = number of subNetwork change or grp status change
   if (numCCNodeOld_.size() == 0) {
     numCCNodeOld_.assign(numCCNode_.begin(), numCCNode_.end());
@@ -564,7 +564,7 @@ ModelOmegaRef::setFequations() {
 }
 
 void
-ModelOmegaRef::checkDataCoherence(const double& /*t*/) {
+ModelOmegaRef::checkDataCoherence(const double /*t*/) {
   for (int i = 0; i < nbMaxCC; ++i) {
     if (doubleEquals(yLocal_[i], omegaRef0_[i]))
       continue;

@@ -56,7 +56,7 @@ class HeaderPatternDefine:
     void initRpar();
     void setFomc(double * f, propertyF_t type);
     void setGomc(state_g * g);
-    modeChangeType_t evalMode(const double & t) const;
+    modeChangeType_t evalMode(const double t) const;
     void setZomc();
     void collectSilentZ(BitMask* silentZTable);
     void setOomc();
@@ -140,7 +140,7 @@ namespace DYN {
     void initRpar();
     void setFomc(double * f, propertyF_t type);
     void setGomc(state_g * g);
-    modeChangeType_t evalMode(const double & t) const;
+    modeChangeType_t evalMode(const double t) const;
     void setZomc();
     void collectSilentZ(BitMask* silentZTable);
     void setY0omc();
