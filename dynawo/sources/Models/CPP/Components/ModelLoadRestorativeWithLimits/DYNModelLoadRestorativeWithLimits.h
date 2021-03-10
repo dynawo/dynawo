@@ -94,7 +94,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   * @brief ModelLoadRestorativeWithLimits model initialization
   * @param t0 : initial time of the simulation
   */
-  void init(const double& t0);
+  void init(const double t0);
   /**
   * @brief get the connection status of the load
   * @return connection status
@@ -176,7 +176,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   * @param jt jacobian matrix to fullfill
   * @param rowOffset offset to use to identify the row where data should be added
   */
-  void evalJt(const double &t, const double & cj, SparseMatrix& jt, const int& rowOffset);
+  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
   /**
   * @brief ModelLoadRestorativeWithLimits G(t,y,y') function evaluation
   *
@@ -184,7 +184,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   *
   * @param t Simulation instant
   */
-  void evalG(const double & t);
+  void evalG(const double t);
   /**
   * @copydoc ModelCPP::setGequations()
   */
@@ -199,7 +199,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   * @param jt jacobian matrix to fullfill
   * @param rowOffset offset to use to identify the row where data should be added
   */
-  void evalJtPrim(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
   /**
   * @brief Model mode change type evaluation
   *
@@ -208,7 +208,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   * @param[in] t Simulation instant
   * @return mode change type value
   */
-  modeChangeType_t evalMode(const double &t);
+  modeChangeType_t evalMode(const double t);
   /**
   * @copydoc ModelCPP::getY0()
   */
@@ -262,7 +262,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   * @param elements  Reference to elements' vector
   * @param mapElement Map associating each element index in the elements vector to its name
   */
-  void defineElements(std::vector<Element> &elements, std::map<std::string, int >& mapElement);
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement);
   /**
   * @brief ModelLoadRestorativeWithLimits discrete variables evaluation
   *
@@ -271,12 +271,12 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   *
   * @param t Simulation instant
   */
-  void evalZ(const double & t);
+  void evalZ(const double t);
 
   /**
    * @brief Coherence check on data (asserts, min/max values, sanity checks)
    */
-  void checkDataCoherence(const double& /*t*/) { /* not needed */ }
+  void checkDataCoherence(const double /*t*/) { /* not needed */ }
 
  private:
   State connectionState_;  ///< "internal" load connection status

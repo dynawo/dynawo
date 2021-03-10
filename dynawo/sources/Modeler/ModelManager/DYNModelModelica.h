@@ -89,7 +89,7 @@ class ModelModelica {
    * @param t the time for which to check
    * @return @b true if a mode has been trigered, @b false otherwise (for use by ModelManager)
    */
-  virtual modeChangeType_t evalMode(const double & t) const = 0;
+  virtual modeChangeType_t evalMode(const double t) const = 0;
 
   /**
    * @brief calculates the discretes values of the model
@@ -142,7 +142,7 @@ class ModelModelica {
    *
    * @param checkSum value of the checkSum
    */
-  virtual void checkSum(std::string & checkSum) = 0;
+  virtual void checkSum(std::string& checkSum) = 0;
 
 #ifdef _ADEPT_
   /**
@@ -152,7 +152,7 @@ class ModelModelica {
    * @param yp values of the derivatives of the continuous variable
    * @param F computes values of the residual functions
    */
-  virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F) = 0;
+  virtual void evalFAdept(const std::vector<adept::adouble>& y, const std::vector<adept::adouble>& yp, std::vector<adept::adouble>& F) = 0;
 #endif
 
   /**
@@ -267,8 +267,8 @@ class ModelModelica {
    * @param yp values of the derivatives of the continuous variable
    * @return value of the calculated variable
    */
-  virtual adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y,
-      const std::vector<adept::adouble> &yp) const = 0;
+  virtual adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble>& y,
+      const std::vector<adept::adouble>& yp) const = 0;
 #endif
 
 /**

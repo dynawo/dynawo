@@ -126,7 +126,7 @@ class Connector {
    * @brief getter of the submodels connected by the connector
    * @return submodels connected by the connector
    */
-  inline std::vector<connectedSubModel> & connectedSubModels() {
+  inline std::vector<connectedSubModel>& connectedSubModels() {
     return connectedSubModels_;
   }
 
@@ -142,7 +142,7 @@ class Connector {
    * @param variable the variable inside the subModel to use in the connector's equations
    * @param negated @b true if the opposite of the variable should be used
    */
-  void addConnectedSubModel(const boost::shared_ptr<SubModel> &subModel, const boost::shared_ptr<Variable> & variable, bool negated);
+  void addConnectedSubModel(const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable, bool negated);
 
   /**
    * @brief getter of the number of subModel connected by the connector
@@ -209,7 +209,7 @@ class ConnectorContainer {
    * @param indicesDiff index of each z variables which has changed
    * @param z vector of discrete values
    */
-  void propagateZDiff(std::vector<int> & indicesDiff, double* z);
+  void propagateZDiff(const std::vector<int>& indicesDiff, double* z);
 
   /**
    * @brief add a flow connector to the container
@@ -223,14 +223,14 @@ class ConnectorContainer {
    *
    * @param connector continuous connector to add
    */
-  void addContinuousConnector(boost::shared_ptr<Connector> & connector);
+  void addContinuousConnector(boost::shared_ptr<Connector>& connector);
 
   /**
    * @brief add a discrete connector to the container
    *
    * @param connector discrete connector to add
    */
-  void addDiscreteConnector(boost::shared_ptr<Connector> & connector);
+  void addDiscreteConnector(boost::shared_ptr<Connector>& connector);
 
   /**
    * @brief print informations about the connector stored in the container
@@ -251,14 +251,14 @@ class ConnectorContainer {
    * @param localFIndex local index of connector
    * @param fEquation connector's submodels
    */
-  void getConnectorInfos(const int & globalFIndex, std::string & subModelName, int & localFIndex, std::string & fEquation) const;
+  void getConnectorInfos(const int& globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const;
 
   /**
    * @brief evaluate the residual values of each connectors
    *
    * @param t time to used during the evaluation
    */
-  void evalFConnector(const double &t);
+  void evalFConnector(const double t);
 
   /**
    * @brief evaluate the jacobian of each connectors
@@ -389,7 +389,7 @@ class ConnectorContainer {
    *
    * @return information describing the Y connector (which models are connected)
    */
-  std::string getYConnectorInfos(const int & index) const;
+  std::string getYConnectorInfos(const int index) const;
 
   /**
    * @brief get Flow connector's information according to its index
@@ -397,7 +397,7 @@ class ConnectorContainer {
    *
    * @return information describing the Flow connector (which models are connected)
    */
-  inline std::string getFlowConnectorInfos(const int & index) const {
+  inline std::string getFlowConnectorInfos(const int index) const {
     return getConnectorInfos("Flow connector : ", flowConnectors_.at(index));
   }
 
@@ -407,7 +407,7 @@ class ConnectorContainer {
    *
    * @return information describing the Z connector (which models are connected)
    */
-  inline std::string getZConnectorInfos(const int & index) const {
+  inline std::string getZConnectorInfos(const int index) const {
     return getConnectorInfos("Z connector : ", zConnectors_.at(index));
   }
 
@@ -426,7 +426,7 @@ class ConnectorContainer {
    *
    * @return information describing the connector (which models are connected)
    */
-  std::string getConnectorInfos(const std::string& prefix, const boost::shared_ptr<Connector> connector) const;
+  std::string getConnectorInfos(const std::string& prefix, const boost::shared_ptr<Connector>& connector) const;
 
   /**
    * @brief merge the Y connectors after each one have been created

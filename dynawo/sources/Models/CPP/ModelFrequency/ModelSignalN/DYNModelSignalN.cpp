@@ -89,7 +89,7 @@ nbCC_(0) {
 }
 
 void
-ModelSignalN::init(const double& /*t0*/) {
+ModelSignalN::init(const double /*t0*/) {
   numCCNode_.assign(nbGen_, 0);
 
   ModelSignalN::col1stN_ = 0;
@@ -144,12 +144,12 @@ ModelSignalN::evalF(double /*t*/, propertyF_t type) {
 }
 
 void
-ModelSignalN::evalG(const double& /*t*/) {
+ModelSignalN::evalG(const double /*t*/) {
   // No root function for this model
 }
 
 void
-ModelSignalN::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& rowOffset) {
+ModelSignalN::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
   static double dMOne = -1.;
   static double dPOne = +1.;
 
@@ -170,7 +170,7 @@ ModelSignalN::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt
 }
 
 void
-ModelSignalN::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& /*rowOffset*/) {
+ModelSignalN::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int /*rowOffset*/) {
   // for each generator k, and the "synchronous area" i which contains this generator k:
   // 0 = n[i] - nGrp[k]
   // the index i is given by numCCNode_[k]
@@ -185,7 +185,7 @@ ModelSignalN::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix
 }
 
 void
-ModelSignalN::evalZ(const double& /*t*/) {
+ModelSignalN::evalZ(const double /*t*/) {
   if (firstState_) {
     calculateInitialState();
     firstState_ = false;
@@ -223,7 +223,7 @@ ModelSignalN::collectSilentZ(BitMask* silentZTable) {
 }
 
 modeChangeType_t
-ModelSignalN::evalMode(const double& /*t*/) {
+ModelSignalN::evalMode(const double /*t*/) {
   // mode change = number of subNetwork change
   if (numCCNodeOld_.empty()) {
     numCCNodeOld_.assign(numCCNode_.begin(), numCCNode_.end());
@@ -357,7 +357,7 @@ ModelSignalN::setSubModelParameters() {
 }
 
 void
-ModelSignalN::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
+ModelSignalN::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   for (int i = 0; i < nbMaxCC; ++i) {
     std::stringstream namess;
     namess << "alphaSum_" << i;

@@ -88,7 +88,7 @@ class ModelVariationArea : public ModelCPP::Impl {
    * @brief  VariationArea model initialization routine
    * @param t0 : initial time of the simulation
    */
-  void init(const double& t0);
+  void init(const double t0);
 
   /**
    * @brief  VariationArea model's sizes getter
@@ -115,7 +115,7 @@ class ModelVariationArea : public ModelCPP::Impl {
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  void evalG(const double & t);
+  void evalG(const double t);
   /**
    * @brief  VariationArea discrete variables evaluation
    *
@@ -125,7 +125,7 @@ class ModelVariationArea : public ModelCPP::Impl {
    * @throws Error::MODELER typed @p Error. Shouldn't, but if it happens
    * it shows that there is a bug in the selection of activated shunt.
    */
-  void evalZ(const double & t);
+  void evalZ(const double t);
 
   /**
    * @copydoc SubModel::collectSilentZ()
@@ -135,7 +135,7 @@ class ModelVariationArea : public ModelCPP::Impl {
   /**
    * @copydoc ModelCPP::evalMode(const double& t)
    */
-  modeChangeType_t evalMode(const double & t);
+  modeChangeType_t evalMode(const double t);
   /**
    * @brief calculate calculated variables
    */
@@ -150,7 +150,7 @@ class ModelVariationArea : public ModelCPP::Impl {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  void evalJt(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset);
+  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
   /**
    * @brief calculate jacobien prime matrix
    *
@@ -159,7 +159,7 @@ class ModelVariationArea : public ModelCPP::Impl {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  void evalJtPrim(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
 
   /**
    * @copydoc ModelCPP::evalStaticFType()
@@ -223,7 +223,7 @@ class ModelVariationArea : public ModelCPP::Impl {
    * @param[out] mapElement Map associating each element index in the elements vector to its name
    */
   //---------------------------------------------------------------------
-  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
 
   /**
    * @copydoc SubModel::dumpUserReadableElementList()
@@ -274,7 +274,7 @@ class ModelVariationArea : public ModelCPP::Impl {
   /**
    * @brief Coherence check on data (asserts, min/max values, sanity checks)
    */
-  void checkDataCoherence(const double& /*t*/) { /* not needed */ }
+  void checkDataCoherence(const double /*t*/) { /* not needed */ }
 
  private:
   // parameters

@@ -91,7 +91,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
    * @brief Reference frequency model initialization
    * @param t0 : initial time of the simulation
    */
-  void init(const double& t0);
+  void init(const double t0);
 
   /**
    * @brief Reference Frequency model's sizes getter
@@ -118,7 +118,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
    *
    * @param t Simulation instant
    */
-  void evalG(const double & t);
+  void evalG(const double t);
   /**
    * @brief Reference frequency discrete variables evaluation
    *
@@ -127,7 +127,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
    *
    * @param t Simulation instant
    */
-  void evalZ(const double & t);
+  void evalZ(const double t);
 
   /**
    * @brief set the silent flag for discrete variables
@@ -138,7 +138,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
   /**
    * @copydoc ModelCPP::evalMode(const double& t)
    */
-  modeChangeType_t evalMode(const double &t);
+  modeChangeType_t evalMode(const double t);
   /**
    * @brief Reference frequency transposed jacobian evaluation
    *
@@ -149,7 +149,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  void evalJt(const double &t, const double & cj, SparseMatrix& jt, const int& rowOffset);
+  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
   /**
    * @brief  Reference frequency transposed jacobian evaluation
    *
@@ -160,7 +160,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  void evalJtPrim(const double &t, const double & cj, SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
   /**
    * @brief calculate calculated variables
    */
@@ -279,7 +279,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
   /**
    * @copydoc ModelCPP::checkDataCoherence(const double& t)
    */
-  void checkDataCoherence(const double& t);
+  void checkDataCoherence(const double t);
 
  private:
   /**

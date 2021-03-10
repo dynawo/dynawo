@@ -1014,7 +1014,7 @@ ModelNetwork::evalF(double /*t*/, propertyF_t type) {
 }
 
 void
-ModelNetwork::evalG(const double& t) {
+ModelNetwork::evalG(const double t) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer3("ModelNetwork::evalG");
 #endif
@@ -1024,7 +1024,7 @@ ModelNetwork::evalG(const double& t) {
 }
 
 void
-ModelNetwork::evalZ(const double& t) {
+ModelNetwork::evalZ(const double t) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer3("ModelNetwork::evalZ");
 #endif
@@ -1054,7 +1054,7 @@ ModelNetwork::evalZ(const double& t) {
 }
 
 modeChangeType_t
-ModelNetwork::evalMode(const double& t) {
+ModelNetwork::evalMode(const double t) {
   /* Two kinds of events are controlled:
    *     1. State or topological change on the network (given by the evalState method)
    *     2. Short-circuit on a bus (given by the evalNodeFault method)
@@ -1100,7 +1100,7 @@ ModelNetwork::evalCalculatedVars() {
 }
 
 void
-ModelNetwork::evalJt(const double& /*t*/, const double& cj, SparseMatrix& jt, const int& rowOffset) {
+ModelNetwork::evalJt(const double /*t*/, const double cj, SparseMatrix& jt, const int rowOffset) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelNetwork::evalJ");
 #endif
@@ -1138,7 +1138,7 @@ ModelNetwork::evalJt(const double& /*t*/, const double& cj, SparseMatrix& jt, co
 }
 
 void
-ModelNetwork::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& rowOffset) {
+ModelNetwork::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
        itComponent != getComponents().end(); ++itComponent)
     (*itComponent)->evalDerivativesPrim();
@@ -1156,7 +1156,7 @@ ModelNetwork::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar
 }
 
 void
-ModelNetwork::evalJCalculatedVarI(unsigned iCalculatedVar, vector<double> &res) const {
+ModelNetwork::evalJCalculatedVarI(unsigned iCalculatedVar, vector<double>& res) const {
   int index = componentIndexByCalculatedVar_[iCalculatedVar];
   const boost::shared_ptr<NetworkComponent>& comp = (isInitModel_) ?  initComponents_[index] : components_[index];
   unsigned varIndex = iCalculatedVar - comp->getOffsetCalculatedVar();
@@ -1334,7 +1334,7 @@ ModelNetwork::evalYMat() {
 }
 
 void
-ModelNetwork::init(const double& t0) {
+ModelNetwork::init(const double t0) {
   initializeStaticData();
 
   getSize();

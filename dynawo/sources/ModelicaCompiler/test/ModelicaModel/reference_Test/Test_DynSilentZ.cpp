@@ -195,7 +195,7 @@ void ModelTestSilentZ_Dyn::setFomc(double * f, propertyF_t type)
   }
 }
 
-modeChangeType_t ModelTestSilentZ_Dyn::evalMode(const double & t) const
+modeChangeType_t ModelTestSilentZ_Dyn::evalMode(const double t) const
 {
   modeChangeType_t modeChangeType = NO_MODE;
  

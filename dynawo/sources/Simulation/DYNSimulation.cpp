@@ -613,7 +613,7 @@ Simulation::importFinalStateRequest() {
 }
 
 void
-Simulation::initFromData(const shared_ptr<DataInterface> & data, const shared_ptr<DynamicData> &dyd) {
+Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr<DynamicData>& dyd) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::initFromData()");
 #endif
@@ -998,7 +998,7 @@ Simulation::printEnd() {
 }
 
 void
-Simulation::setCriteriaStep(const int& step) {
+Simulation::setCriteriaStep(const int step) {
   if (step <= 0)
     throw DYNError(Error::API, CriteriaStepError, step);
   criteriaStep_ = step;
@@ -1180,7 +1180,7 @@ Simulation::dumpState() {
 }
 
 double
-Simulation::loadState(const string & fileName) {
+Simulation::loadState(const string& fileName) {
   boost::shared_ptr<zip::ZipFile> archive = zip::ZipInputStream::read(fileName);
   map<string, string> mapValues;  // map associating file name with parameters/variables to dumpe
   for (map<string, shared_ptr<zip::ZipEntry> >::const_iterator itE = archive->getEntries().begin();
