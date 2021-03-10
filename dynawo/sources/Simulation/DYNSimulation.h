@@ -163,6 +163,12 @@ class Simulation {
   void clean();
 
   /**
+   * @brief routine to run when the simulation ends with an error
+   * @param criteria true if we want to check one last time the criteria
+   */
+  void endSimulationWithError(bool criteria);
+
+  /**
    * @brief print the header information of the solver used
    */
   void printSolverHeader();
