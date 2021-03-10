@@ -25,20 +25,15 @@
 #include <sunlinsol/sunlinsol_nicslu.h>
 #endif
 #include <sundials/sundials_types.h>
-#include <sundials/sundials_math.h>
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
 #include <string.h>
-#include <vector>
 #include <cmath>
 #include <map>
-#include <algorithm>
-#include <iomanip>
 
 #include "DYNSolverKINCommon.h"
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
-#include "DYNSolverCommon.h"
 
 using std::vector;
 using std::map;
@@ -53,7 +48,6 @@ KINMem_(NULL),
 LS_(NULL),
 M_(NULL),
 yy_(NULL),
-lastRowVals_(NULL),
 nbF_(0),
 t0_(0.),
 firstIteration_(false) {
@@ -65,6 +59,15 @@ SolverKINCommon::~SolverKINCommon() {
 
 void SolverKINCommon::clean() {
   if (M_ != NULL) {
+    if (SM_INDEXPTRS_S(M_) != NULL) {
+      SM_INDEXPTRS_S(M_) = NULL;
+    }
+    if (SM_INDEXVALS_S(M_) != NULL) {
+      SM_INDEXVALS_S(M_) = NULL;
+    }
+    if (SM_DATA_S(M_) != NULL) {
+      SM_DATA_S(M_) = NULL;
+    }
     SUNMatDestroy(M_);
     M_ = NULL;
   }
@@ -76,10 +79,6 @@ void SolverKINCommon::clean() {
     KINFree(&KINMem_);
     KINMem_ = NULL;
     if (yy_ != NULL) N_VDestroy_Serial(yy_);
-  }
-  if (lastRowVals_ != NULL) {
-    free(lastRowVals_);
-    lastRowVals_ = NULL;
   }
 }
 
@@ -130,10 +129,23 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
   // -------------------
   // Passing CSR_MAT indicates that we solve A'x = B - linear system using the matrix transpose -
   // and not Ax = B (see sunlinsol_klu.c:149)
-  const int nnz = 0.0001 * nbF_ * nbF_;  // This value will be adjusted later on in the process
+  const int nnz = 0;  // This value will be adjusted later on in the process
   M_ = SUNSparseMatrix(nbF_, nbF_, nnz, CSR_MAT);
   if (M_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
+  // We release any memory allocated by Sundials as underlying arrays will never be used
+  if (SM_INDEXPTRS_S(M_) != NULL) {
+    free(SM_INDEXPTRS_S(M_));
+    SM_INDEXPTRS_S(M_) = NULL;
+  }
+  if (SM_INDEXVALS_S(M_) != NULL) {
+    free(SM_INDEXVALS_S(M_));
+    SM_INDEXVALS_S(M_) = NULL;
+  }
+  if (SM_DATA_S(M_) != NULL) {
+    free(SM_DATA_S(M_));
+    SM_DATA_S(M_) = NULL;
+  }
   if (linearSolverName_ == "KLU") {
     LS_ = SUNLinSol_KLU(yy_, M_);
     if (LS_ == NULL)
@@ -189,10 +201,8 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
 
 int
 SolverKINCommon::solveCommon() {
-  N_Vector fScaleNV = N_VNew_Serial(fScale_.size());
-  N_Vector yScaleNV = N_VNew_Serial(yScale_.size());
-  memcpy(NV_DATA_S(fScaleNV), &fScale_[0], fScale_.size() * sizeof (fScale_[0]));
-  memcpy(NV_DATA_S(yScaleNV), &yScale_[0], yScale_.size() * sizeof (yScale_[0]));
+  N_Vector fScaleNV = N_VMake_Serial(fScale_.size(), &fScale_[0]);
+  N_Vector yScaleNV = N_VMake_Serial(yScale_.size(), &yScale_[0]);
 
   int flag = KINSol(KINMem_, yy_, KIN_NONE, yScaleNV, fScaleNV);
   analyseFlag(flag);

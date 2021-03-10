@@ -147,6 +147,13 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
 
   if (ignoreF_.size() != ignoreY_.size() || indexF_.size() != indexY_.size())
     throw DYNError(Error::SOLVER_ALGO, SolverUnbalanced);
+
+
+  smjKin_.reserve(indexY_.size());
+  smj_.init(nbF_, nbF_);
+  SM_INDEXPTRS_S(M_) = &smjKin_.Ap_[0];
+  SM_INDEXVALS_S(M_) = &smjKin_.Ai_[0];
+  SM_DATA_S(M_) = &smjKin_.Ax_[0];
 }
 
 void
@@ -264,14 +271,14 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
          SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   SolverKINAlgRestoration* solv = reinterpret_cast<SolverKINAlgRestoration*> (data);
   shared_ptr<Model> model = solv->getModel();
+  SparseMatrix& smj = solv->getMatrix();
+  SparseMatrix& smjKin = solv->getMatrixAlgebraic();
 
   double cj = 1;
-  SparseMatrix smj;
   smj.init(model->sizeY(), model->sizeY());
   model->evalJt(solv->t0_, cj, smj);
 
   // Erase useless values in the jacobian
-  SparseMatrix smjKin;
   int size = solv->indexY_.size();
   smjKin.reserve(size);
   smj.erase(solv->ignoreY_, solv->ignoreF_, smjKin);
@@ -280,7 +287,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
     checkJacobian(smj, model);
   }
 #endif
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
   return (0);
 }
@@ -290,19 +297,19 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
         SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   SolverKINAlgRestoration* solv = reinterpret_cast<SolverKINAlgRestoration*> (data);
   shared_ptr<Model> model = solv->getModel();
+  SparseMatrix& smj = solv->getMatrix();
+  SparseMatrix& smjKin = solv->getMatrixAlgebraic();
 
   double cj = 1;
 
-  SparseMatrix smj;
   smj.init(model->sizeY(), model->sizeY());
   model->evalJtPrim(solv->t0_, cj, smj);
 
   // Erase useless values in the jacobian
-  SparseMatrix smjKin;
   int size = solv->indexY_.size();
   smjKin.reserve(size);
   smj.erase(solv->ignoreY_, solv->ignoreF_, smjKin);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
   return (0);
 }

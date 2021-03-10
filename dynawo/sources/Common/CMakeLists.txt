@@ -130,6 +130,8 @@ target_include_directories(dynawo_Common
 target_include_directories(dynawo_Common SYSTEM
   PRIVATE
     $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  PUBLIC
+    $<TARGET_PROPERTY:Sundials::Sundials_NVECSERIAL,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
 target_link_libraries(dynawo_Common

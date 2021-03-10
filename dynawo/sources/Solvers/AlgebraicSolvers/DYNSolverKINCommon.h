@@ -24,6 +24,7 @@
 #include <sundials/sundials_nvector.h>
 #include <boost/shared_ptr.hpp>
 #include <vector>
+#include "DYNSparseMatrix.h"
 
 namespace DYN {
 
@@ -140,7 +141,7 @@ class SolverKINCommon {
   SUNLinearSolver LS_;  ///< Linear Solver pointer
   SUNMatrix M_;  ///< sparse SUNMatrix
   N_Vector yy_;  ///< variables values stored in Sundials structure
-  sunindextype* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
+  std::vector<sunindextype> lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
 
   std::string linearSolverName_;  ///< linear solver name used
   std::vector<double> vYy_;  ///< Current values of variables during the call of the solver

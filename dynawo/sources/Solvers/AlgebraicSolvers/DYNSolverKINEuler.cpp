@@ -23,13 +23,9 @@
 #include <string.h>
 #include <map>
 #include <algorithm>
-#include <iomanip>
-#include <sstream>
 
 #include <kinsol/kinsol.h>
-#include <sunlinsol/sunlinsol_klu.h>
 #include <sundials/sundials_types.h>
-#include <sundials/sundials_math.h>
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
 
@@ -85,6 +81,11 @@ SolverKINEuler::init(const shared_ptr<Model>& model, const std::string& linearSo
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYY);
 
   initCommon(linearSolverName, fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN);
+
+  smj_.init(nbF_, nbF_);
+  SM_INDEXPTRS_S(M_) = &smj_.Ap_[0];
+  SM_INDEXVALS_S(M_) = &smj_.Ai_[0];
+  SM_DATA_S(M_) = &smj_.Ax_[0];
 }
 
 int
@@ -153,17 +154,17 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 
   SolverKINEuler* solv = reinterpret_cast<SolverKINEuler*> (data);
   shared_ptr<Model> model = solv->getModel();
+  SparseMatrix& smj = solv->getMatrix();
 
   // cj = 1/h
   double cj = 1 / solv->h0_;
 
   // Sparse matrix version
   // ----------------------
-  SparseMatrix smj;
   int size = model->sizeY();
   smj.init(size, size);
   model->evalJt(solv->t0_ + solv->h0_, cj, smj);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
   return (0);
 }

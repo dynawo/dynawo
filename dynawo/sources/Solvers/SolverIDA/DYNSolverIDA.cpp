@@ -18,11 +18,9 @@
  */
 
 #include <cmath>
-#include <fstream>
 #include <iostream>
 #include <iomanip>
 #include <set>
-#include <sstream>
 #include <vector>
 #include <algorithm>
 #include <map>
@@ -33,7 +31,6 @@
 #include <ida/ida.h>
 #include <nvector/nvector_serial.h>
 #include <sundials/sundials_types.h>
-#include <sundials/sundials_math.h>
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <sunlinsol/sunlinsol_klu.h>
 
@@ -132,8 +129,7 @@ maxStep_(0.),
 absAccuracy_(0.),
 relAccuracy_(0.),
 flagInit_(false),
-nbLastTimeSimulated_(0),
-lastRowVals_(NULL) {
+nbLastTimeSimulated_(0) {
   // KINSOL solver Init
   //-----------------------
   solverKINNormal_.reset(new SolverKINAlgRestoration());
@@ -143,6 +139,15 @@ lastRowVals_(NULL) {
 void
 SolverIDA::clean() {
   if (M_ != NULL) {
+    if (SM_INDEXPTRS_S(M_) != NULL) {
+      SM_INDEXPTRS_S(M_) = NULL;
+    }
+    if (SM_INDEXVALS_S(M_) != NULL) {
+      SM_INDEXVALS_S(M_) = NULL;
+    }
+    if (SM_DATA_S(M_) != NULL) {
+      SM_DATA_S(M_) = NULL;
+    }
     SUNMatDestroy(M_);
     M_ = NULL;
   }
@@ -153,10 +158,6 @@ SolverIDA::clean() {
   if (IDAMem_ != NULL) {
     IDAFree(&IDAMem_);
     IDAMem_ = NULL;
-  }
-  if (lastRowVals_ != NULL) {
-    free(lastRowVals_);
-    lastRowVals_ = NULL;
   }
 }
 
@@ -283,10 +284,25 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
 
   // (8) Solver choice
   // -------------------
-  M_ = SUNSparseMatrix(model->sizeY(), model->sizeY(), 10., CSR_MAT);
+  M_ = SUNSparseMatrix(model->sizeY(), model->sizeY(), 0, CSR_MAT);
   if (M_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "SUNSparseMatrix");
-
+  if (SM_INDEXPTRS_S(M_) != NULL) {
+    free(SM_INDEXPTRS_S(M_));
+    SM_INDEXPTRS_S(M_) = NULL;
+  }
+  if (SM_INDEXVALS_S(M_) != NULL) {
+    free(SM_INDEXVALS_S(M_));
+    SM_INDEXVALS_S(M_) = NULL;
+  }
+  if (SM_DATA_S(M_) != NULL) {
+    free(SM_DATA_S(M_));
+    SM_DATA_S(M_) = NULL;
+  }
+  smj_.init(model->sizeY(), model->sizeY());
+  SM_INDEXPTRS_S(M_) = &smj_.Ap_[0];
+  SM_INDEXVALS_S(M_) = &smj_.Ai_[0];
+  SM_DATA_S(M_) = &smj_.Ax_[0];
   /* Create KLU SUNLinearSolver object */
   LS_ = SUNLinSol_KLU(yy_, M_);
   if (LS_ == NULL)
@@ -325,6 +341,8 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
   Solver::Impl::resetStats();
   g0_.assign(model_->sizeG(), NO_ROOT);
   g1_.assign(model_->sizeG(), NO_ROOT);
+  G_.assign(model_->sizeG(), NO_ROOT);
+  gIDA_.assign(model_->sizeG(), 0.);
 
   Trace::debug() << DYNLog(SolverIDAInitOk) << Trace::endline;
 
@@ -554,12 +572,13 @@ SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype *gout,
   realtype *iyp = NV_DATA_S(yp);
   // the current z is needed to evaluate g
   // however, the method is static -> we use mod
-  vector<state_g> G(model->sizeG());
+  vector<state_g>& G = solv->getG();
 
   model->copyContinuousVariables(iyy, iyp);
   model->evalG(tres, G);
 
-  vector<double> gIDA(G.begin(), G.end());
+  vector<double>& gIDA = solv->getGIDA();
+  gIDA.assign(G.begin(), G.end());
   // copy to be accessible by sundials
   memcpy(gout, &gIDA[0], gIDA.size() * sizeof (gIDA[0]));
 
@@ -576,16 +595,16 @@ SolverIDA::evalJ(realtype tt, realtype cj,
 #endif
   SolverIDA* solv = reinterpret_cast<SolverIDA*> (data);
   shared_ptr<Model> model = solv->getModel();
+  SparseMatrix& smj = solv->getMatrix();
 
   realtype* iyy = NV_DATA_S(yy);
   realtype* iyp = NV_DATA_S(yp);
 
-  SparseMatrix smj;
   int size = model->sizeY();
   smj.init(size, size);
   model->copyContinuousVariables(iyy, iyp);
   model->evalJt(tt, cj, smj);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solv->lastRowVals_, solv->LS_, "KLU", true);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, solv->lastRowVals_, solv->LS_, "KLU", true);
 
   return (0);
 }

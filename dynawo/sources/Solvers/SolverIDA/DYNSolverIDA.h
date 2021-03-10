@@ -238,6 +238,18 @@ class SolverIDA : public Solver::Impl {
    */
   bool initAlgRestoration(modeChangeType_t modeChangeType);
 
+  inline SparseMatrix& getMatrix() {
+    return smj_;
+  }
+
+  inline std::vector<state_g>& getG() {
+    return G_;
+  }
+
+  inline std::vector<double>& getGIDA() {
+    return gIDA_;
+  }
+
  private:
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver LS_;  ///< Linear Solver pointer
@@ -256,7 +268,11 @@ class SolverIDA : public Solver::Impl {
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
 
-  sunindextype* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
+  std::vector<sunindextype> lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
+
+  SparseMatrix smj_;  ///< Jacobian matrix
+  std::vector<state_g> G_;  ///< Internal vector to store values of root functions
+  std::vector<double> gIDA_;  ///< Internal vector to store values of root functions in IDA format
 };
 
 }  // end of namespace DYN

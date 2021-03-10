@@ -140,6 +140,10 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
     return model_;
   }
 
+  inline SparseMatrix& getMatrix() {
+    return smj_;
+  }
+
  private:
   boost::shared_ptr<Model> model_;  ///< instance of model to interact with
 
@@ -148,6 +152,8 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
   std::vector<double> F_;  ///< current values of residual function
   std::vector<double> YP_;  ///< calculated values of derivatives
   double h0_;  ///< Step of the solver to reach
+
+  SparseMatrix smj_;  ///< Jacobian matrix
 };
 
 }  // namespace DYN

@@ -188,6 +188,14 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   static void checkJacobian(const SparseMatrix& smj, const boost::shared_ptr<Model>& model);
 #endif
 
+  inline SparseMatrix& getMatrix() {
+    return smj_;
+  }
+
+  inline SparseMatrix& getMatrixAlgebraic() {
+    return smjKin_;
+  }
+
  private:
   boost::shared_ptr<Model> model_;  ///< model currently simulated
 
@@ -203,6 +211,9 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   std::vector<int> indexY_;  ///< variables to keep form the initial set of variables
   std::vector<double> F_;  ///< current values of residual function
   modeKin_t mode_;  ///< mode of the solver (i.e algebraic equations or derivative)
+
+  SparseMatrix smj_;  ///< Complete Jacobian matrix
+  SparseMatrix smjKin_;  ///< Jacobian matrix only on algebraic variables
 
 #if _DEBUG_
   bool checkJacobian_;  ///< Check jacobian
