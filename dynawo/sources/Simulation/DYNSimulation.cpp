@@ -885,17 +885,29 @@ Simulation::simulate() {
   } catch (const Terminate& t) {
     Trace::warn() << t.what() << Trace::endline;
     model_->printMessages();
-    if (dumpTimetable_)
-      remove(fileName.str());
+    endSimulationWithError(fileName.str(), criteriaChecked);
   } catch (const Error& e) {
     Trace::error() << e.what() << Trace::endline;
-    if (dumpTimetable_)
-      remove(fileName.str());
+    endSimulationWithError(fileName.str(), criteriaChecked);
     throw;
   } catch (...) {
-    if (dumpTimetable_)
-      remove(fileName.str());
+    endSimulationWithError(fileName.str(), criteriaChecked);
     throw;
+  }
+}
+
+void
+Simulation::endSimulationWithError(const std::string& execFileName, bool criteria) {
+  if (dumpTimetable_)
+    remove(execFileName);
+  if (criteria && data_ && activateCriteria_) {
+    bool criteriaChecked = checkCriteria(tCurrent_, true);
+    if (!criteriaChecked) {
+      if (timeline_) {
+        addEvent(DYNTimeline(CriteriaNotChecked));
+      }
+      throw DYNError(Error::SIMULATION, CriteriaNotChecked);
+    }
   }
 }
 
