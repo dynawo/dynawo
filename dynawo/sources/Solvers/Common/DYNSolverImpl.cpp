@@ -104,7 +104,7 @@ Solver::Impl::clean() {
 }
 
 void
-Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
+Solver::Impl::init(const double t0, const boost::shared_ptr<Model>& model) {
   model_ = model;
   model_->setEnableSilentZ(enableSilentZ_);
 
@@ -136,7 +136,7 @@ Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
   vYId_.resize(nbEq);
   std::copy(model->getYType(), model->getYType() + model->sizeY(), vYId_.begin());
 
-  double *idx = NV_DATA_S(yId_);
+  double* idx = NV_DATA_S(yId_);
   for (int ieq = 0; ieq < model->sizeY(); ++ieq) {
     idx[ieq] = RCONST(1.0);
     if (vYId_[ieq] != DYN::DIFFERENTIAL)  // Algebraic or external variable
@@ -235,7 +235,7 @@ Solver::Impl::resetStats() {
 }
 
 void
-Solver::Impl::solve(double tAim, double &tNxt) {
+Solver::Impl::solve(double tAim, double& tNxt) {
   // Solving
   state_.reset();
   model_->reinitMode();
@@ -247,7 +247,7 @@ Solver::Impl::solve(double tAim, double &tNxt) {
 }
 
 bool
-Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double & time) {
+Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, double time) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIMPL::evalZMode");
 #endif
@@ -301,7 +301,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
 }
 
 void
-Solver::Impl::printUnstableRoot(double t, const vector<state_g> &G0, const vector<state_g> &G1) const {
+Solver::Impl::printUnstableRoot(double t, const vector<state_g>& G0, const vector<state_g>& G1) const {
   int i = 0;
   vector<state_g>::const_iterator iG0(G0.begin());
   vector<state_g>::const_iterator iG1(G1.begin());
@@ -319,7 +319,7 @@ Solver::Impl::printUnstableRoot(double t, const vector<state_g> &G0, const vecto
 }
 
 void
-Solver::Impl::checkUnusedParameters(boost::shared_ptr<parameters::ParametersSet> params) {
+Solver::Impl::checkUnusedParameters(const boost::shared_ptr<parameters::ParametersSet>& params) const {
   vector<string> unusedParamNameList = params->getParamsUnused();
   for (vector<string>::iterator it = unusedParamNameList.begin();
           it != unusedParamNameList.end();
@@ -367,7 +367,7 @@ Solver::Impl::defineCommonParameters() {
 }
 
 bool
-Solver::Impl::hasParameter(const string & nameParameter) {
+Solver::Impl::hasParameter(const string& nameParameter) {
   map<string, ParameterSolver>::iterator it = parameters_.find(nameParameter);
   return it != parameters_.end();
 }
@@ -386,7 +386,7 @@ Solver::Impl::getParametersMap() const {
 }
 
 void
-Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr<parameters::ParametersSet> parametersSet) {
+Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr<parameters::ParametersSet>& parametersSet) {
   if (parametersSet) {
     ParameterSolver& parameter = findParameter(parName);
 
@@ -405,7 +405,7 @@ Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr
           break;
         }
         case VAR_TYPE_DOUBLE: {
-          const double& value = parametersSet->getParameter(parName)->getDouble();
+          const double value = parametersSet->getParameter(parName)->getDouble();
           setParameterValue(parameter, value);
           break;
         }

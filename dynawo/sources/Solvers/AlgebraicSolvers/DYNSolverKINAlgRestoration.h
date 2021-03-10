@@ -36,7 +36,7 @@ class Model;
  * @brief class Solver KINSOL for algebraic equations restoration and initialization
  * Generic class for KINSOL solver
  */
-class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyable{
+class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyable {
  public:
   /**
    * @brief default constructor
@@ -110,7 +110,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @param y value of variables
    * @param yp value of derivatives of variables
    */
-  void getValues(std::vector<double> & y, std::vector<double> &yp);
+  void getValues(std::vector<double>& y, std::vector<double>& yp);
 
   /**
    * @brief set the initial conditions of the equations to solve
@@ -119,7 +119,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @param y value of variables
    * @param yp value of derivatives of variables
    */
-  void setInitialValues(const double& t, const std::vector<double> & y, const std::vector<double> &yp);
+  void setInitialValues(const double t, const std::vector<double>& y, const std::vector<double>& yp);
 
 #if _DEBUG_
   /**
@@ -141,7 +141,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    *
    * @return 0 is successful, positive value otherwise
    */
-  static int evalF_KIN(N_Vector yy, N_Vector rr, void *data);
+  static int evalF_KIN(N_Vector yy, N_Vector rr, void* data);
 
   /**
    * @brief calculate the Jacobian associate to F(u): \f$( J=@F/@u)\f$
@@ -157,7 +157,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @return 0 is successful, positive value otherwise
    */
   static int evalJ_KIN(N_Vector yy, N_Vector rr,
-          SUNMatrix JJ, void * data, N_Vector tmp1, N_Vector tmp2);
+          SUNMatrix JJ, void* data, N_Vector tmp1, N_Vector tmp2);
 
   /**
    * @brief calculate the Jacobian associate to F(u): \f$( J=@F/@u)\f$
@@ -174,7 +174,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @return 0 is successful, positive value otherwise
    */
   static int evalJPrim_KIN(N_Vector yy, N_Vector rr,
-          SUNMatrix JJ, void * data, N_Vector tmp1, N_Vector tmp2);
+          SUNMatrix JJ, void* data, N_Vector tmp1, N_Vector tmp2);
 
 #if _DEBUG_
   /**

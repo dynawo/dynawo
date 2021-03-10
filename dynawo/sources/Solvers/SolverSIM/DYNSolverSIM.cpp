@@ -199,7 +199,7 @@ SolverSIM::solverType() const {
 }
 
 void
-SolverSIM::init(const shared_ptr<Model> &model, const double & t0, const double & tEnd) {
+SolverSIM::init(const shared_ptr<Model>& model, const double t0, const double tEnd) {
   tSolve_ = t0;
   tEnd_ = tEnd;
   h_ = hMax_;
@@ -381,7 +381,7 @@ SolverSIM::callAlgebraicSolver() {
   return flag;
 }
 
-SolverSIM::SolverStatus_t SolverSIM::analyzeResult(int& flag) {
+SolverSIM::SolverStatus_t SolverSIM::analyzeResult(int flag) {
   // Analyze the return value and do further treatments if necessary
   if (flag < 0) {
     stats_.ncfn_++;

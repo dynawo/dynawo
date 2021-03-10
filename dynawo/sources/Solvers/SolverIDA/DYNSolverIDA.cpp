@@ -193,7 +193,7 @@ SolverIDA::solverType() const {
 }
 
 void
-SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double & tEnd) {
+SolverIDA::init(const shared_ptr<Model>& model, const double t0, const double tEnd) {
   // test if there is continuous variable in the simulated problem.
   if (model->sizeY() == 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverIDANoContinuousVars);
@@ -536,16 +536,16 @@ SolverIDA::analyseFlag(const int & flag) {
 
 int
 SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
-        N_Vector rr, void *data) {
+        N_Vector rr, void* data) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalF");
 #endif
   SolverIDA* solv = reinterpret_cast<SolverIDA*> (data);
   shared_ptr<Model> model = solv->getModel();
 
-  realtype *iyy = NV_DATA_S(yy);
-  realtype *iyp = NV_DATA_S(yp);
-  realtype *irr = NV_DATA_S(rr);
+  realtype* iyy = NV_DATA_S(yy);
+  realtype* iyp = NV_DATA_S(yp);
+  realtype* irr = NV_DATA_S(rr);
   model->evalF(tres, iyy, iyp, irr);
 #ifdef _DEBUG_
   if (solv->flagInit()) {
@@ -561,15 +561,15 @@ return (0);
 }
 
 int
-SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype *gout,
-        void *data) {
+SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype* gout,
+        void* data) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalG");
 #endif
   SolverIDA* solv = reinterpret_cast<SolverIDA*> (data);
   shared_ptr<Model> model = solv->getModel();
-  realtype *iyy = NV_DATA_S(yy);
-  realtype *iyp = NV_DATA_S(yp);
+  realtype* iyy = NV_DATA_S(yy);
+  realtype* iyp = NV_DATA_S(yp);
   // the current z is needed to evaluate g
   // however, the method is static -> we use mod
   vector<state_g>& G = solv->getG();
@@ -610,7 +610,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
 }
 
 void
-SolverIDA::solveStep(double tAim, double &tNxt) {
+SolverIDA::solveStep(double tAim, double& tNxt) {
   int flag = IDASolve(IDAMem_, tAim, &tNxt, yy_, yp_, IDA_ONE_STEP);
 
   string msg;

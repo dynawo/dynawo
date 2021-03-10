@@ -202,8 +202,8 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   SolverKINAlgRestoration * solv = reinterpret_cast<SolverKINAlgRestoration*> (data);
   shared_ptr<Model> model = solv->getModel();
 
-  double *irr = NV_DATA_S(rr);
-  double *iyy = NV_DATA_S(yy);
+  double* irr = NV_DATA_S(rr);
+  double* iyy = NV_DATA_S(yy);
 
   // evalF has already been called in the scaling part so it doesn't have to be called again for the first iteration
   if (solv->getFirstIteration()) {
@@ -274,7 +274,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   SparseMatrix& smj = solv->getMatrix();
   SparseMatrix& smjKin = solv->getMatrixAlgebraic();
 
-  double cj = 1;
+  double cj = 1.;
   smj.init(model->sizeY(), model->sizeY());
   model->evalJt(solv->t0_, cj, smj);
 
@@ -300,7 +300,7 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   SparseMatrix& smj = solv->getMatrix();
   SparseMatrix& smjKin = solv->getMatrixAlgebraic();
 
-  double cj = 1;
+  double cj = 1.;
 
   smj.init(model->sizeY(), model->sizeY());
   model->evalJtPrim(solv->t0_, cj, smj);
@@ -353,7 +353,7 @@ SolverKINAlgRestoration::solve(bool noInitSetup, bool evaluateOnlyModeAtFirstIte
 }
 
 void
-SolverKINAlgRestoration::setInitialValues(const double& t, const vector<double>& y, const vector<double>& yp) {
+SolverKINAlgRestoration::setInitialValues(const double t, const vector<double>& y, const vector<double>& yp) {
   t0_ = t;
   yp0_.assign(yp.begin(), yp.end());
   y0_.assign(y.begin(), y.end());

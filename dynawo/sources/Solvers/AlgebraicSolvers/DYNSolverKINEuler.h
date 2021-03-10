@@ -40,7 +40,7 @@ class Model;
  * SolverKINEuler is the implementation of a solver with euler method based on
  * KINSOL solver.
  */
-class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
+class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
  public:
   /**
    * @brief Default constructor
@@ -103,7 +103,7 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
    * @param h step to reach
    * @param y initial variables values
    */
-  void setInitialValues(const double& t, const double& h, const std::vector<double>& y);
+  void setInitialValues(const double t, const double h, const std::vector<double>& y);
 
   /**
    * @brief calculated F(u) for a given value of u

@@ -94,17 +94,17 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
   shared_ptr<Model> mod = solv->getModel();
 
   // evalF has already been called in the scaling part so it doesn't have to be called again for the first iteration
-  realtype *irr = NV_DATA_S(rr);
+  realtype* irr = NV_DATA_S(rr);
   if (solv->getFirstIteration()) {
     solv->setFirstIteration(false);
     // copy of values in output vector
     memcpy(irr, &solv->F_[0], solv->F_.size() * sizeof(solv->F_[0]));
   } else {  // update of F
-    realtype *iyy = NV_DATA_S(yy);
+    realtype* iyy = NV_DATA_S(yy);
     const vector<int>& diffVar = solv->differentialVars_;
 
     // YP[i] = (y[i]-yprec[i])/h for each differential variable
-    assert(solv->h0_ > 0);
+    assert(solv->h0_ > 0.);
     for (unsigned int i = 0; i < diffVar.size(); ++i) {
       solv->YP_[diffVar[i]] = (iyy[diffVar[i]] - solv->y0_[diffVar[i]]) / solv->h0_;
     }
@@ -157,7 +157,7 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   SparseMatrix& smj = solv->getMatrix();
 
   // cj = 1/h
-  double cj = 1 / solv->h0_;
+  double cj = 1. / solv->h0_;
 
   // Sparse matrix version
   // ----------------------
@@ -185,16 +185,16 @@ SolverKINEuler::solve(bool noInitSetup, bool skipAlgebraicResidualsEvaluation) {
   else
     model_->evalF(t0_ + h0_ , &y0_[0], &YP_[0], &F_[0]);
 
-  fScale_.assign(nbF_, 1.0);
+  fScale_.assign(nbF_, 1.);
   for (unsigned int i = 0; i < nbF_; ++i) {
-    if (std::abs(F_[i]) > RCONST(1.0))
-      fScale_[i] = 1 / std::abs(F_[i]);
+    if (std::abs(F_[i]) > RCONST(1.))
+      fScale_[i] = 1. / std::abs(F_[i]);
   }
 
-  yScale_.assign(model_->sizeY(), 1.0);
+  yScale_.assign(model_->sizeY(), 1.);
   for (int i = 0; i < model_->sizeY(); ++i) {
-    if (std::abs(y0_[i]) > RCONST(1.0))
-      yScale_[i] = 1 / std::abs(y0_[i]);
+    if (std::abs(y0_[i]) > RCONST(1.))
+      yScale_[i] = 1. / std::abs(y0_[i]);
   }
 
   flag = solveCommon();
@@ -203,13 +203,13 @@ SolverKINEuler::solve(bool noInitSetup, bool skipAlgebraicResidualsEvaluation) {
 }
 
 void
-SolverKINEuler::setInitialValues(const double& t, const double& h, const vector<double>& y) {
+SolverKINEuler::setInitialValues(const double t, const double h, const vector<double>& y) {
   t0_ = t;
   h0_ = h;
   std::copy(y.begin(), y.end(), y0_.begin());
   std::copy(y.begin(), y.end(), vYy_.begin());
   // order-0 prediction - YP = 0
-  std::fill(YP_.begin(), YP_.end(), 0);
+  std::fill(YP_.begin(), YP_.end(), 0.);
 }
 
 void
