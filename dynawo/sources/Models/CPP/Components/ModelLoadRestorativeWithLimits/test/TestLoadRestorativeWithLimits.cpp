@@ -27,10 +27,205 @@
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
 #include "PARParametersSet.h"
+#include "DYNVariableNativeFactory.h"
+#include "DYNVariableNative.h"
 
 #include "gtest_dynawo.h"
 
 namespace DYN {
+
+class SubModelMock : public SubModel {
+ public:
+  SubModelMock(): SubModel() {
+    sizeY_ = 2;
+  }
+
+  virtual ~SubModelMock() {}
+
+  void init(const double&) {
+    // Dummy class used for testing
+  }
+
+  std::string modelType() const {
+    // Dummy class used for testing
+    return "";
+  }
+
+  void dumpParameters(std::map< std::string, std::string > &) {
+    // Dummy class used for testing
+  }
+
+  void getSubModelParameterValue(const std::string &, double &, bool &) {
+    // Dummy class used for testing
+  }
+
+  void dumpVariables(std::map< std::string, std::string > &) {
+    // Dummy class used for testing
+  }
+
+  void loadParameters(const std::string &) {
+    // Dummy class used for testing
+  }
+
+  void loadVariables(const std::string &) {
+    // Dummy class used for testing
+  }
+
+  void evalF(double , propertyF_t ) {
+    // Dummy class used for testing
+  }
+
+  void evalG(const double &) {
+    // Dummy class used for testing
+  }
+
+  void evalZ(const double &) {
+    // Dummy class used for testing
+  }
+
+  void evalCalculatedVars() {
+    // Dummy class used for testing
+  }
+
+  void evalJt(const double & , const double & , SparseMatrix& , const int&) {
+    // Dummy class used for testing
+  }
+
+  void evalJtPrim(const double & , const double & , SparseMatrix& , const int&) {
+    // Dummy class used for testing
+  }
+
+  modeChangeType_t evalMode(const double &) {
+    // Dummy class used for testing
+    return NO_MODE;
+  }
+
+  void checkDataCoherence(const double &) {
+    // Dummy class used for testing
+  }
+
+  void checkParametersCoherence() const {
+    // Dummy class used for testing
+  }
+
+  void setFequations() {
+    // Dummy class used for testing
+  }
+
+  void setGequations() {
+    // Dummy class used for testing
+  }
+
+  void setFequationsInit() {
+    // Dummy class used for testing
+  }
+
+  void setGequationsInit() {
+    // Dummy class used for testing
+  }
+
+  void getY0() {
+    // Dummy class used for testing
+  }
+
+  void initSubBuffers() {
+    // Dummy class used for testing
+  }
+
+  void evalYType() {
+    // Dummy class used for testing
+  }
+
+  void evalFType() {
+    // Dummy class used for testing
+  }
+
+  void collectSilentZ(BitMask* ) {
+    // Dummy class used for testing
+  }
+
+  void updateYType() {
+    // Dummy class used for testing
+  }
+
+  void updateFType() {
+    // Dummy class used for testing
+  }
+
+  void getSize() {
+    // Dummy class used for testing
+  }
+
+  void defineElements(std::vector<Element> &, std::map<std::string, int >&) {
+    // Dummy class used for testing
+  }
+
+  void initializeStaticData() {
+    // Dummy class used for testing
+  }
+
+  void initializeFromData(const boost::shared_ptr<DataInterface>&) {
+    // Dummy class used for testing
+  }
+
+  void printInitValues(const std::string &) {
+    // Dummy class used for testing
+  }
+
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
+    variables.push_back(VariableNativeFactory::createState("var0", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState("var1", CONTINUOUS));
+  }
+
+  void defineParameters(std::vector<ParameterModeler>&) {
+    // Dummy class used for testing
+  }
+
+  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >&) {
+    // Dummy class used for testing
+  }
+
+  void defineParametersInit(std::vector<ParameterModeler>&) {
+    // Dummy class used for testing
+  }
+
+  void setSharedParametersDefaultValues() {
+    // Dummy class used for testing
+  }
+
+  void setSharedParametersDefaultValuesInit() {
+    // Dummy class used for testing
+  }
+
+  void rotateBuffers() {
+    // Dummy class used for testing
+  }
+
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&, std::vector<int>&) const {
+    // Dummy class used for testing
+  }
+
+  void evalJCalculatedVarI(unsigned, std::vector<double>&) const {
+    // Dummy class used for testing
+  }
+
+  double evalCalculatedVarI(unsigned) const {
+    // Dummy class used for testing
+    return 0.;
+  }
+
+  void setSubModelParameters() {
+    // Dummy class used for testing
+  }
+
+  void initParams() {
+    // Dummy class used for testing
+  }
+
+  void notifyTimeStep() {
+    // Dummy class used for testing
+  }
+};
 
 boost::shared_ptr<SubModel> initModelLoad(double u0Pu) {
   boost::shared_ptr<SubModel> modelLoad =
@@ -112,7 +307,8 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsNDefineMetho
 
 TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsTypeMethods) {
   boost::shared_ptr<SubModel> modelLoad = initModelLoad(1.0);
-  unsigned nbY = 8;
+  unsigned nbY = 6;
+  unsigned int nbYExternal = 2;
   unsigned nbF = 6;
   unsigned nbZ = 2;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
@@ -121,6 +317,7 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsTypeMethods)
   modelLoad->setBufferFType(&fTypes[0], 0);
 
   ASSERT_EQ(modelLoad->sizeY(), nbY);
+  ASSERT_EQ(modelLoad->sizeYExternal(), nbYExternal);
   ASSERT_EQ(modelLoad->sizeF(), nbF);
   ASSERT_EQ(modelLoad->sizeZ(), nbZ);
   ASSERT_EQ(modelLoad->sizeG(), 2);
@@ -146,6 +343,17 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsInit) {
   std::vector<double> y(modelLoad->sizeY(), 0);
   std::vector<double> yp(modelLoad->sizeY(), 0);
   modelLoad->setBufferY(&y[0], &yp[0], 0.);
+  std::vector<double*> yExternal(modelLoad->sizeYExternal(), NULL);
+  std::vector<double*> ypExternal(modelLoad->sizeYExternal(), NULL);
+  double ur = 0.;
+  double urp = 0.;
+  double ui = 0.;
+  double uip = 0.;
+  yExternal[0] = &ur;
+  yExternal[1] = &ui;
+  ypExternal[0] = &urp;
+  ypExternal[1] = &uip;
+  modelLoad->setBufferYExternal(yExternal.data(), ypExternal.data(), 0);
   std::vector<double> z(modelLoad->sizeZ(), 0);
   bool* zConnected = new bool[modelLoad->sizeZ()];
   for (size_t i = 0; i < modelLoad->sizeZ(); ++i)
@@ -158,18 +366,18 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsInit) {
   ASSERT_EQ(yp[0], 0);
   ASSERT_EQ(y[1], 1);
   ASSERT_EQ(yp[1], 0);
-  ASSERT_EQ(y[2], 0);
+  ASSERT_EQ(*yExternal[0], 0);
+  ASSERT_EQ(*ypExternal[0], 0);
+  ASSERT_EQ(*yExternal[1], 0);
+  ASSERT_EQ(*ypExternal[1], 0);
+  ASSERT_EQ(y[2], 1);
   ASSERT_EQ(yp[2], 0);
-  ASSERT_EQ(y[3], 0);
+  ASSERT_EQ(y[3], -1);
   ASSERT_EQ(yp[3], 0);
   ASSERT_EQ(y[4], 1);
   ASSERT_EQ(yp[4], 0);
-  ASSERT_EQ(y[5], -1);
+  ASSERT_EQ(y[5], 1);
   ASSERT_EQ(yp[5], 0);
-  ASSERT_EQ(y[6], 1);
-  ASSERT_EQ(yp[6], 0);
-  ASSERT_EQ(y[7], 1);
-  ASSERT_EQ(yp[7], 0);
   ASSERT_EQ(z[0], 0);
   ASSERT_EQ(z[1], 0);
   delete[] zConnected;
@@ -184,6 +392,40 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   std::vector<double> y(modelLoad->sizeY(), 0);
   std::vector<double> yp(modelLoad->sizeY(), 0);
   modelLoad->setBufferY(&y[0], &yp[0], 0.);
+  int sizeY = 0;
+  int sizeExternal = 0;
+  int sizeZ = 0;
+  int sizeMode = 0;
+  int sizeF = 0;
+  int sizeG = 0;
+  boost::shared_ptr<SubModel> submodel = boost::make_shared<SubModelMock>();
+
+  submodel->defineVariables();
+  submodel->defineNames();
+  modelLoad->defineVariables();
+  modelLoad->defineNames();
+  submodel->initSize(sizeY, sizeExternal, sizeZ, sizeMode, sizeF, sizeG);
+  modelLoad->initSize(sizeY, sizeExternal, sizeZ, sizeMode, sizeF, sizeG);
+
+  std::vector<double*> yExternal(modelLoad->sizeYExternal(), NULL);
+  std::vector<double*> ypExternal(modelLoad->sizeYExternal(), NULL);
+  std::vector<double> yother(2, 0.);
+  std::vector<double> ypother(2, 0.);
+  submodel->setBufferY(&yother[0], &ypother[0], 0);
+  modelLoad->setBufferYExternal(yExternal.data(), ypExternal.data(), 0);
+  boost::shared_ptr<ConnectorContainer> connectorContainer = boost::make_shared<ConnectorContainer>();
+  modelLoad->setConnectorContainer(connectorContainer);
+  boost::shared_ptr<Connector> connector0 = boost::make_shared<Connector>();
+  connector0->addConnectedSubModel(submodel, submodel->getVariable("var0"), false);
+  connector0->addConnectedSubModel(modelLoad, modelLoad->getVariable("Ur_value"), false);
+  connectorContainer->addContinuousConnector(connector0);
+  boost::shared_ptr<Connector> connector1 = boost::make_shared<Connector>();
+  connector1->addConnectedSubModel(submodel, submodel->getVariable("var1"), false);
+  connector1->addConnectedSubModel(modelLoad, modelLoad->getVariable("Ui_value"), false);
+  connectorContainer->addContinuousConnector(connector1);
+  connectorContainer->mergeConnectors();
+  connectorContainer->performExternalConnections();
+
   std::vector<double> z(modelLoad->sizeZ(), 0);
   bool* zConnected = new bool[modelLoad->sizeZ()];
   for (size_t i = 0; i < modelLoad->sizeZ(); ++i)

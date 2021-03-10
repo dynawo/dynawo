@@ -130,8 +130,8 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
     variables.push_back(VariableNativeFactory::createState("UfRawPu_value", CONTINUOUS));
     variables.push_back(VariableNativeFactory::createState("UfPu_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState("Ur_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState("Ui_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createExternalState("Ur_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createExternalState("Ui_value", CONTINUOUS));
     variables.push_back(VariableNativeFactory::createState("Ir_value", FLOW));
     variables.push_back(VariableNativeFactory::createState("Ii_value", FLOW));
     variables.push_back(VariableNativeFactory::createState("PPu_value", CONTINUOUS));
@@ -145,12 +145,12 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::init(const double& /*t0*/) {
     UfRawYNum_ = 0;
     UfYNum_ = 1;
-    UrYNum_ = 2;
-    UiYNum_ = 3;
-    IrYNum_ = 4;
-    IiYNum_ = 5;
-    PYNum_ = 6;
-    QYNum_ = 7;
+    UrYNum_ = 0;  // external array
+    UiYNum_ = 1;  // external array
+    IrYNum_ = 2;
+    IiYNum_ = 3;
+    PYNum_ = 4;
+    QYNum_ = 5;
   }
 
   void
@@ -161,7 +161,8 @@ namespace DYN {
   void
   ModelLoadRestorativeWithLimits::getSize() {
     sizeF_ = 6;
-    sizeY_ = 8;
+    sizeY_ = 6;
+    sizeYExternal_ = 2;
     sizeZ_ = 2;
     sizeG_ = 2;
     sizeMode_ = 2;
@@ -172,12 +173,10 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::evalYType() {
     yType_[0] = DIFFERENTIAL;  // differential equation on ufRaw
     yType_[1] = ALGEBRAIC;  // uf
-    yType_[2] = EXTERNAL;  // ur
-    yType_[3] = EXTERNAL;  // ui
-    yType_[4] = ALGEBRAIC;  // ir
-    yType_[5] = ALGEBRAIC;  // ii
-    yType_[6] = ALGEBRAIC;  // p
-    yType_[7] = ALGEBRAIC;  // q
+    yType_[2] = ALGEBRAIC;  // ir
+    yType_[3] = ALGEBRAIC;  // ii
+    yType_[4] = ALGEBRAIC;  // p
+    yType_[5] = ALGEBRAIC;  // q
   }
 
   void
@@ -194,8 +193,8 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::evalF(double /*t*/, propertyF_t type) {
     if (isConnected()) {
       double UfRawValue = yLocal_[UfRawYNum_];
-      double Ur = yLocal_[UrYNum_];
-      double Ui = yLocal_[UiYNum_];
+      double Ur = *yExternalLocal_[UrYNum_];
+      double Ui = *yExternalLocal_[UiYNum_];
       double U2 = Ur * Ur + Ui * Ui;
       double U = sqrt(U2);
       double Uf = yLocal_[UfYNum_];
@@ -287,8 +286,8 @@ namespace DYN {
       jt.changeCol();
       jt.addTerm(QYNum_ + rowOffset, 1);
     } else {
-      double Ur = yLocal_[UrYNum_];
-      double Ui = yLocal_[UiYNum_];
+      double Ur = *yExternalLocal_[UrYNum_];
+      double Ui = *yExternalLocal_[UiYNum_];
       double U2 = Ur * Ur + Ui * Ui;
       double U = sqrt(U2);
       double Uf = yLocal_[UfYNum_];
@@ -302,10 +301,14 @@ namespace DYN {
       double Q_dUr = Q0Pu_ * beta_ * Ur * beta_pow / U2;
       double Q_dUi = Q0Pu_ * beta_ * Ui * beta_pow / U2;
       double Q_dUf = -1.0 * beta_ * Q0Pu_ * beta_pow / Uf;
+
+      int index_reference_ur = getReferenceIndex(UrYNum_);
+      int index_reference_ui = getReferenceIndex(UiYNum_);
+
       jt.changeCol();
       jt.addTerm(UfRawYNum_ + rowOffset, 1.0 + cj * Tf_);
-      jt.addTerm(UrYNum_ + rowOffset, -Ur/U);
-      jt.addTerm(UiYNum_ + rowOffset, -Ui/U);
+      jt.addTerm(index_reference_ur, -Ur/U);
+      jt.addTerm(index_reference_ui, -Ui/U);
       jt.changeCol();
       jt.addTerm(UfYNum_ + rowOffset, 1);
       if (UMaxPuReached_ == false && UMinPuReached_ == false) {
@@ -315,23 +318,23 @@ namespace DYN {
       jt.addTerm(IrYNum_ + rowOffset, 1);
       jt.addTerm(PYNum_ + rowOffset, -Ur / U2);
       jt.addTerm(QYNum_ + rowOffset, -Ui / U2);
-      jt.addTerm(UrYNum_ + rowOffset, - (P * U2 - 2 * Ur * (P * Ur + Q * Ui)) / (U2 * U2));
-      jt.addTerm(UiYNum_ + rowOffset, - (Q * U2 - 2 * Ui * (P * Ur + Q * Ui)) / (U2 * U2));
+      jt.addTerm(index_reference_ur, - (P * U2 - 2 * Ur * (P * Ur + Q * Ui)) / (U2 * U2));
+      jt.addTerm(index_reference_ui, - (Q * U2 - 2 * Ui * (P * Ur + Q * Ui)) / (U2 * U2));
       jt.changeCol();
       jt.addTerm(IiYNum_ + rowOffset, 1);
       jt.addTerm(PYNum_ + rowOffset, -Ui / U2);
       jt.addTerm(QYNum_ + rowOffset, Ur / U2);
-      jt.addTerm(UiYNum_ + rowOffset, - (P * U2 - 2 * Ui * (P * Ui - Q * Ur)) / (U2 * U2));
-      jt.addTerm(UrYNum_ + rowOffset, (Q *  U2 + 2 * Ur * (P * Ui - Q * Ur)) / (U2 * U2));
+      jt.addTerm(index_reference_ui, - (P * U2 - 2 * Ui * (P * Ui - Q * Ur)) / (U2 * U2));
+      jt.addTerm(index_reference_ur, (Q *  U2 + 2 * Ur * (P * Ui - Q * Ur)) / (U2 * U2));
       jt.changeCol();
       jt.addTerm(PYNum_ + rowOffset, 1);
-      jt.addTerm(UrYNum_ + rowOffset, - P_dUr);
-      jt.addTerm(UiYNum_ + rowOffset, - P_dUi);
+      jt.addTerm(index_reference_ur, - P_dUr);
+      jt.addTerm(index_reference_ui, - P_dUi);
       jt.addTerm(UfYNum_ + rowOffset, - P_dUf);
       jt.changeCol();
       jt.addTerm(QYNum_ + rowOffset, 1);
-      jt.addTerm(UrYNum_ + rowOffset, - Q_dUr);
-      jt.addTerm(UiYNum_ + rowOffset, - Q_dUi);
+      jt.addTerm(index_reference_ur, - Q_dUr);
+      jt.addTerm(index_reference_ui, - Q_dUi);
       jt.addTerm(UfYNum_ + rowOffset, - Q_dUf);
     }
   }
@@ -382,17 +385,17 @@ namespace DYN {
     yLocal_[1] = u0Pu_;
     ypLocal_[1] = 0.;
     // Ir
-    yLocal_[4] = (P0Pu_ * u0Pu_ * cos(angleO_) + Q0Pu_ * u0Pu_ * sin(angleO_)) / (u0Pu_ * u0Pu_);
-    ypLocal_[4] = 0;
+    yLocal_[IrYNum_] = (P0Pu_ * u0Pu_ * cos(angleO_) + Q0Pu_ * u0Pu_ * sin(angleO_)) / (u0Pu_ * u0Pu_);
+    ypLocal_[IrYNum_] = 0;
     // Ii
-    yLocal_[5] = (P0Pu_ * u0Pu_ * sin(angleO_) - Q0Pu_ * u0Pu_ * cos(angleO_)) / (u0Pu_ * u0Pu_);
-    ypLocal_[5] = 0;
+    yLocal_[IiYNum_] = (P0Pu_ * u0Pu_ * sin(angleO_) - Q0Pu_ * u0Pu_ * cos(angleO_)) / (u0Pu_ * u0Pu_);
+    ypLocal_[IiYNum_] = 0;
     // P;
-    yLocal_[6] = P0Pu_;
-    ypLocal_[6] = 0.;
+    yLocal_[PYNum_] = P0Pu_;
+    ypLocal_[PYNum_] = 0.;
     // Q;
-    yLocal_[7] = Q0Pu_;
-    ypLocal_[7] = 0.;
+    yLocal_[QYNum_] = Q0Pu_;
+    ypLocal_[QYNum_] = 0.;
     zLocal_[0] = false;
     zLocal_[1] = false;
   }
