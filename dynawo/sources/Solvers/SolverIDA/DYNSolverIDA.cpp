@@ -676,15 +676,12 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
   }
   std::sort(yErr.begin(), yErr.end(), mapcompabs());
 
-  Trace::debug() << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
-  vector<std::pair<double, int> >::iterator it;
-  int i = 0;
-  for (it = yErr.begin(); it != yErr.end(); ++it) {
+  if (!yErr.empty()) {
+    Trace::debug() << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
+    int i = 0;
+    for (vector<std::pair<double, int> >::iterator it = yErr.begin(); it != yErr.end() && i < nbErr; ++it, ++i)
       Trace::debug() << DYNLog(SolverIDAErrorValue, thresholdErr, it->second, it->first) << Trace::endline;
-      if (i >= nbErr)
-        break;
-      ++i;
-    }
+  }
 
   // Destroying the specific data structures
   N_VDestroy_Serial(nvWeights);

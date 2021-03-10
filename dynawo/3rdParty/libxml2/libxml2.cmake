@@ -39,6 +39,7 @@ if(${package_finder}_FOUND)
                  " - lib: ${${package_uppername}_LIBRARY} - include_dir: ${${package_uppername}_INCLUDE_DIR}"
   )
   add_custom_target("${package_name}")
+  set(LIBXML2_HOME "${package_install_dir}")
 else()
   set(package_VersionToInstall 2.9.4)
   set(package_md5    85235a3961e6f02b6af8774e33eaa1f2)
