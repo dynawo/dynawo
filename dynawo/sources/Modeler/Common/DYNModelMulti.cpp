@@ -259,7 +259,7 @@ ModelMulti::initBuffers() {
 }
 
 void
-ModelMulti::init(const double& t0) {
+ModelMulti::init(const double t0) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer1("ModelMulti::init");
 #endif
@@ -432,7 +432,7 @@ ModelMulti::evalFMode(const double t, double* y, double* yp, double* f) {
 }
 
 void
-ModelMulti::evalG(double t, vector<state_g> &g) {
+ModelMulti::evalG(double t, vector<state_g>& g) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalG");
 #endif
@@ -589,7 +589,7 @@ ModelMulti::notifyTimeStep() {
 }
 
 void
-ModelMulti::evalCalculatedVariables(const double & t, const vector<double> &y, const vector<double> &yp, const vector<double> &z) {
+ModelMulti::evalCalculatedVariables(const double t, const vector<double>& y, const vector<double>& yp, const vector<double>& z) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalCalculatedVariables");
 #endif
@@ -608,7 +608,7 @@ ModelMulti::checkParametersCoherence() const {
 }
 
 void
-ModelMulti::checkDataCoherence(const double & t) {
+ModelMulti::checkDataCoherence(const double t) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::checkDataCoherence");
 #endif
@@ -630,7 +630,7 @@ ModelMulti::setGequationsModel() {
 }
 
 void
-ModelMulti::getY0(const double& t0, vector<double>& y0, vector<double>& yp0) {
+ModelMulti::getY0(const double t0, vector<double>& y0, vector<double>& yp0) {
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     subModels_[i]->getY0Sub();
     subModels_[i]->evalCalculatedVariablesSub(t0);
@@ -732,7 +732,7 @@ ModelMulti::loadVariables(const std::map< string, string >& mapVariables) {
 }
 
 void
-ModelMulti::connectElements(shared_ptr<SubModel> &subModel1, const string &name1, shared_ptr<SubModel> &subModel2, const string &name2) {
+ModelMulti::connectElements(const shared_ptr<SubModel>& subModel1, const string& name1, const shared_ptr<SubModel>& subModel2, const string& name2) {
   vector<std::pair<string, string> > variablesToConnect;
   findVariablesConnectedBy(subModel1, name1, subModel2, name2, variablesToConnect);
   for (size_t i = 0, iEnd = variablesToConnect.size(); i < iEnd; ++i) {
@@ -744,8 +744,8 @@ ModelMulti::connectElements(shared_ptr<SubModel> &subModel1, const string &name1
 
 
 void
-ModelMulti::findVariablesConnectedBy(const boost::shared_ptr<SubModel> &subModel1, const std::string &name1,
-    const boost::shared_ptr<SubModel> &subModel2, const std::string &name2, vector<std::pair<string, string> >& variables) const {
+ModelMulti::findVariablesConnectedBy(const boost::shared_ptr<SubModel>& subModel1, const std::string& name1,
+    const boost::shared_ptr<SubModel>& subModel2, const std::string& name2, vector<std::pair<string, string> >& variables) const {
   vector<Element> elements1 = subModel1->getElements(name1);
   vector<Element> elements2 = subModel2->getElements(name2);
 
@@ -780,7 +780,7 @@ ModelMulti::findVariablesConnectedBy(const boost::shared_ptr<SubModel> &subModel
 }
 
 void
-ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & name1, shared_ptr<SubModel> &subModel2, const string &name2,
+ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string& name1, const shared_ptr<SubModel>& subModel2, const string& name2,
                              bool forceConnection, bool throwIfCalculatedVarConn) {
   const shared_ptr<Variable>& variable1 = subModel1->getVariable(name1);
   const shared_ptr<Variable>& variable2 = subModel2->getVariable(name2);
@@ -853,8 +853,8 @@ ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & nam
 }
 
 void
-ModelMulti::createCalculatedVariableConnection(shared_ptr<SubModel> &subModel1, const shared_ptr<Variable>& variable1,
-    shared_ptr<SubModel> &subModel2, const shared_ptr<Variable>& variable2) {
+ModelMulti::createCalculatedVariableConnection(const shared_ptr<SubModel>& subModel1, const shared_ptr<Variable>& variable1,
+    const shared_ptr<SubModel>& subModel2, const shared_ptr<Variable>& variable2) {
   string calculatedVarName1 = variable1->getName();
   shared_ptr<ConnectorCalculatedVariable> connector;
   string name = subModel1->name()+"_"+calculatedVarName1;
@@ -876,7 +876,7 @@ ModelMulti::createCalculatedVariableConnection(shared_ptr<SubModel> &subModel1, 
 }
 
 boost::shared_ptr<SubModel>
-ModelMulti::findSubModelByName(const string& name) {
+ModelMulti::findSubModelByName(const string& name) const {
   boost::unordered_map<string, size_t >::const_iterator iter = subModelByName_.find(name);
   if (iter == subModelByName_.end())
     return (shared_ptr<SubModel>());
@@ -949,13 +949,13 @@ ModelMulti::setIsInitProcess(bool isInitProcess) {
 }
 
 void
-ModelMulti::setInitialTime(const double& t0) {
+ModelMulti::setInitialTime(const double t0) {
   for (unsigned int i = 0; i < subModels_.size(); ++i)
     subModels_[i]->setCurrentTime(t0);
 }
 
 ModelMulti::findSubModelFromVarName_t
-ModelMulti::findSubModel(const string& modelName, const string& variable) {
+ModelMulti::findSubModel(const string& modelName, const string& variable) const {
   const string variableNameBis = variable + "_value";
 
   // Search in for the device in Composed Model...
@@ -1083,7 +1083,7 @@ ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
 }
 
 void
-ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection) {
+ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::updateCurves");
 #endif
@@ -1300,11 +1300,11 @@ std::string ModelMulti::getVariableName(int index) {
   return yNames_[index];
 }
 
-void ModelMulti::getCurrentZ(vector<double> &z) {
+void ModelMulti::getCurrentZ(vector<double>& z) const {
   z.assign(zLocal_, zLocal_ + sizeZ());
 }
 
-void ModelMulti::setCurrentZ(const vector<double> &z) {
+void ModelMulti::setCurrentZ(const vector<double>& z) {
   assert(z.size() == (size_t)sizeZ());
   std::copy(z.begin(), z.end(), zLocal_);
 }

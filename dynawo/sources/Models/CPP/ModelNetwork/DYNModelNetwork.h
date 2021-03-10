@@ -88,7 +88,7 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
    * @brief initialize the network model
    * @param t0: initial time of the simulation
    */
-  void init(const double& t0);
+  void init(const double t0);
 
   /**
    * @brief get the index of variables used to define the Jacobian associated to a calculated variable
@@ -126,28 +126,28 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
    * @brief evaluation G
    * @param t : time to use
    */
-  void evalG(const double& t);
+  void evalG(const double t);
 
   /**
    * @brief evaluation Z
    * @param t : time to use
    */
-  void evalZ(const double& t);
+  void evalZ(const double t);
 
   /**
    * @copydoc ModelCPP::evalJt (const double & t,const double & cj, SparseMatrix& jt, const int & rowOffset)
    */
-  void evalJt(const double& t, const double& cj, SparseMatrix& jt, const int & rowOffset);
+  void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
 
   /**
    * @copydoc ModelCPP::evalJtPrim(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset)
    */
-  void evalJtPrim(const double& t, const double & cj, SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
 
   /**
    * @copydoc ModelCPP::evalMode(const double& t)
    */
-  modeChangeType_t evalMode(const double& t);
+  modeChangeType_t evalMode(const double t);
 
   /**
    * @copydoc ModelCPP::getY0()
@@ -294,7 +294,7 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
   /**
    * @brief Coherence check on data (asserts, min/max values, sanity checks)
    */
-  void checkDataCoherence(const double& /*t*/) { /* not needed */ }
+  void checkDataCoherence(const double /*t*/) { /* not needed */ }
 
  protected:
   /**

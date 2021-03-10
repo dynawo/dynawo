@@ -65,14 +65,14 @@ class DynamicData {
    * @param fileNames the path to the file from which to build the dynamic data model
    * fills the dynamic data object or may throw exceptions
    */
-  void initFromDydFiles(const std::vector <std::string> & fileNames);
+  void initFromDydFiles(const std::vector <std::string>& fileNames);
 
   /**
    * @brief get network parameters from a directory
    * @param parFile parameter file
    * @param parSet parameter set
    */
-  void getNetworkParameters(const std::string & parFile, const std::string& parSet);
+  void getNetworkParameters(const std::string& parFile, const std::string& parSet);
 
   /**
    * @brief set network parameters

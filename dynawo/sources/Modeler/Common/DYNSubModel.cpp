@@ -175,7 +175,7 @@ SubModel::restoreData() {
 }
 
 void
-SubModel::initSub(const double& t0) {
+SubModel::initSub(const double t0) {
   setCurrentTime(t0);
 
   if (!withLoadedParameters_) {
@@ -204,7 +204,7 @@ SubModel::setPARParameters(const shared_ptr<parameters::ParametersSet>& params) 
 }
 
 void
-SubModel::loadParameters(const map< string, string > & mapParameters) {
+SubModel::loadParameters(const map< string, string >& mapParameters) {
   map<string, string >::const_iterator iter = mapParameters.find(parametersFileName());
 
   if (iter != mapParameters.end()) {
@@ -224,7 +224,7 @@ SubModel::loadVariables(const map<string, string>& mapVariables) {
 }
 
 void
-SubModel::initSize(int &sizeYGlob, int &sizeZGlob, int& sizeModeGlob, int & sizeFGlob, int & sizeGGlob) {
+SubModel::initSize(int& sizeYGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob) {
   getSize();
 
   if (sizeY_ != xNames_.size())
@@ -260,7 +260,7 @@ SubModel::releaseElements() {
 }
 
 vector<Element>
-SubModel::getElements(const string &nameElement) const {
+SubModel::getElements(const string& nameElement) const {
   map<string, int>::const_iterator iter = mapElement_.find(nameElement);
   if (iter == mapElement_.end()) {
     dumpUserReadableElementList(nameElement);
@@ -320,7 +320,7 @@ SubModel::hasVariableInit(const string& nameVariable) const {
 }
 
 shared_ptr <Variable>
-SubModel::getVariable(const string & variableName) const {
+SubModel::getVariable(const string& variableName) const {
   boost::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variableName);
   if (iter == variablesByName_.end()) {
     throw DYNError(Error::MODELER, SubModelUnknownElement, variableName, name(), modelType());
@@ -329,7 +329,7 @@ SubModel::getVariable(const string & variableName) const {
 }
 
 double
-SubModel::getVariableValue(const shared_ptr <Variable> variable) const {
+SubModel::getVariableValue(const shared_ptr<Variable>& variable) const {
 #ifdef _DEBUG_
   assert(variable && "SubModel::getVariableValue variable not found");
 #endif
@@ -376,7 +376,7 @@ SubModel::getVariableValue(const shared_ptr <Variable> variable) const {
 }
 
 int
-SubModel::getVariableIndexGlobal(const shared_ptr <Variable> variable) const {
+SubModel::getVariableIndexGlobal(const shared_ptr<Variable>& variable) const {
   const int varNum = variable->getIndex();
   const typeVar_t typeVar = variable->getType();
   const bool isState = variable->isState();
@@ -480,7 +480,7 @@ SubModel::instantiateNonUnitaryParameters(const bool isInitParam,
 }
 
 void
-SubModel::setParameterFromSet(ParameterModeler& parameter, const shared_ptr<parameters::ParametersSet> parametersSet,
+SubModel::setParameterFromSet(ParameterModeler& parameter, const shared_ptr<parameters::ParametersSet>& parametersSet,
                               const parameterOrigin_t& origin) {
   if (parametersSet) {
     const string& parName = parameter.getName();
@@ -751,7 +751,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
 }
 
 void
-SubModel::evalZSub(const double & t) {
+SubModel::evalZSub(const double t) {
   setCurrentTime(t);
   if (sizeZ() > 0) {
     // compute each sub-model Z
@@ -760,35 +760,35 @@ SubModel::evalZSub(const double & t) {
 }
 
 void
-SubModel::setBufferFType(propertyF_t* fType, const int & offsetFType) {
+SubModel::setBufferFType(propertyF_t* fType, const int offsetFType) {
   fType_ = static_cast<propertyF_t*>(0);
   if (fType)
     fType_ = &(fType[offsetFType]);
 }
 
 void
-SubModel::setBufferYType(propertyContinuousVar_t* yType, const int & offsetYType) {
+SubModel::setBufferYType(propertyContinuousVar_t* yType, const int offsetYType) {
   yType_ = static_cast<propertyContinuousVar_t*>(0);
   if (yType)
     yType_ = &(yType[offsetYType]);
 }
 
 void
-SubModel::setBufferF(double* f, const int & offsetF) {
+SubModel::setBufferF(double* f, const int offsetF) {
   fLocal_ = static_cast<double*>(0);
   if (f)
     fLocal_ = &(f[offsetF]);
 }
 
 void
-SubModel::setBufferG(state_g* g, const int & offsetG) {
+SubModel::setBufferG(state_g* g, const int offsetG) {
   gLocal_ = static_cast<state_g*>(0);
   if (g)
     gLocal_ = &(g[offsetG]);
 }
 
 void
-SubModel::setBufferY(double* y, double* yp, const int & offsetY) {
+SubModel::setBufferY(double* y, double* yp, const int offsetY) {
   yLocal_ = static_cast<double*>(0);
   if (y)
     yLocal_ = &(y[offsetY]);
@@ -809,7 +809,7 @@ SubModel::setBufferZ(double* z, bool* zConnected, int offsetZ) {
 }
 
 void
-SubModel::evalFSub(const double & t) {
+SubModel::evalFSub(const double t) {
   setCurrentTime(t);
   // computing f for the sub-model
   evalF(t, UNDEFINED_EQ);
@@ -825,7 +825,7 @@ SubModel::evalFSub(const double & t) {
 }
 
 void
-SubModel::evalFDiffSub(const double & t) {
+SubModel::evalFDiffSub(const double t) {
   setCurrentTime(t);
   evalF(t, DIFFERENTIAL_EQ);
 
@@ -840,14 +840,14 @@ SubModel::evalFDiffSub(const double & t) {
 }
 
 void
-SubModel::evalGSub(const double & t) {
+SubModel::evalGSub(const double t) {
   setCurrentTime(t);
   // evaluation of the submodel g functions
   evalG(t);
 }
 
 void
-SubModel::evalCalculatedVariablesSub(const double & t) {
+SubModel::evalCalculatedVariablesSub(const double t) {
   setCurrentTime(t);
   // evaluation of the submodel calculated variables
   evalCalculatedVars();
@@ -859,21 +859,21 @@ SubModel::getCalculatedVar(int indexCalculatedVar) {
 }
 
 void
-SubModel::evalJtSub(const double & t, const double & cj, SparseMatrix& Jt, int& rowOffset) {
+SubModel::evalJtSub(const double t, const double cj, SparseMatrix& Jt, int& rowOffset) {
   setCurrentTime(t);
   evalJt(t, cj, Jt, rowOffset);
   rowOffset += sizeY();
 }
 
 void
-SubModel::evalJtPrimSub(const double & t, const double & cj, SparseMatrix& Jt, int& rowOffset) {
+SubModel::evalJtPrimSub(const double t, const double cj, SparseMatrix& Jt, int& rowOffset) {
   setCurrentTime(t);
   evalJtPrim(t, cj, Jt, rowOffset);
   rowOffset += sizeY();
 }
 
 modeChangeType_t
-SubModel::evalModeSub(const double & t) {
+SubModel::evalModeSub(const double t) {
   setCurrentTime(t);
   // evaluation of the submodel modes
   modeChange_ = false;
@@ -889,7 +889,7 @@ SubModel::evalModeSub(const double & t) {
 // check data coherence for a sub-model
 
 void
-SubModel::checkDataCoherenceSub(const double & t) {
+SubModel::checkDataCoherenceSub(const double t) {
   // when loaded variables and parameters are used, do not check the init model coherence because it is not used
   if (isInitProcess_ && withLoadedParameters_ && withLoadedVariables_) {
     return;
@@ -1227,7 +1227,7 @@ SubModel::hasConstraints() const {
 }
 
 string
-SubModel::getFequationByLocalIndex(const int& index) {
+SubModel::getFequationByLocalIndex(const int index) {
   map<int, string>::const_iterator it = fEquationIndex().find(index);
   if (it != fEquationIndex().end()) {
     return it->second;
@@ -1238,7 +1238,7 @@ SubModel::getFequationByLocalIndex(const int& index) {
 }
 
 string
-SubModel::getGequationByLocalIndex(const int& index) {
+SubModel::getGequationByLocalIndex(const int index) {
   map<int, string>::const_iterator it = gEquationIndex().find(index);
   if (it != gEquationIndex().end()) {
     return it->second;

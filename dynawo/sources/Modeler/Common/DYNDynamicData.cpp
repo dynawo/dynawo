@@ -86,7 +86,7 @@ using dynamicdata::Connector;
 namespace DYN {
 
 void
-DynamicData::initFromDydFiles(const std::vector <string> & fileNames) {
+DynamicData::initFromDydFiles(const std::vector <string>& fileNames) {
   dynamicdata::XmlImporter importer;
 
   dynamicModelsCollection_ = importer.importFromDydFiles(fileNames);
@@ -410,7 +410,7 @@ DynamicData::mergeParameters(shared_ptr<ParametersSet>& concatParams, const stri
 }
 
 void
-DynamicData::getNetworkParameters(const string & parFile, const string& parSet) {
+DynamicData::getNetworkParameters(const string& parFile, const string& parSet) {
   shared_ptr<ParametersSet> parameters = getParametersSet("network", parFile, parSet);
   DYNErrorQueue::get()->flush();
   setNetworkParameters(parameters);

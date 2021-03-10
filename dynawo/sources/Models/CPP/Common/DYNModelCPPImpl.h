@@ -49,9 +49,9 @@ class ModelCPP::Impl : public ModelCPP {
   // methods to implement in each derived classes
  public:
   /**
-   * @copydoc ModelCPP::init(const double& t0)
+   * @copydoc ModelCPP::init(const double t0)
    */
-  virtual void init(const double &t0) = 0;
+  virtual void init(const double t0) = 0;
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable
@@ -86,27 +86,27 @@ class ModelCPP::Impl : public ModelCPP {
   /**
    * @copydoc ModelCPP::evalG()
    */
-  virtual void evalG(const double & t) = 0;
+  virtual void evalG(const double t) = 0;
 
   /**
    * @copydoc ModelCPP::evalZ()
    */
-  virtual void evalZ(const double & t) = 0;
+  virtual void evalZ(const double t) = 0;
 
   /**
    * @copydoc ModelCPP::evalJt()
    */
-  virtual void evalJt(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset) = 0;
+  virtual void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) = 0;
 
   /**
    * @copydoc ModelCPP::evalJtPrim()
    */
-  virtual void evalJtPrim(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset) = 0;
+  virtual void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) = 0;
 
   /**
    * @copydoc ModelCPP::evalMode()
    */
-  virtual modeChangeType_t evalMode(const double & t) = 0;
+  virtual modeChangeType_t evalMode(const double t) = 0;
 
   /**
    * @copydoc ModelCPP::getY0()
@@ -155,7 +155,7 @@ class ModelCPP::Impl : public ModelCPP {
   /**
    * @copydoc ModelCPP::defineElements(std::vector<Element> &elements, std::map<std::string, int >& mapElement)
    */
-  virtual void defineElements(std::vector<Element> &elements, std::map<std::string, int >& mapElement) = 0;
+  virtual void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) = 0;
 
   /**
    * @copydoc ModelCPP::evalCalculatedVars()
@@ -188,7 +188,7 @@ class ModelCPP::Impl : public ModelCPP {
    *
    * @param data data interface to use to initialize the model
    */
-  virtual void initializeFromData(const boost::shared_ptr<DataInterface> &data) = 0;
+  virtual void initializeFromData(const boost::shared_ptr<DataInterface>& data) = 0;
 
   /**
    * @copydoc ModelCPP::setFequations()
@@ -238,12 +238,12 @@ class ModelCPP::Impl : public ModelCPP {
   /**
    * @copydoc ModelCPP::dumpParameters()
    */
-  void dumpParameters(std::map< std::string, std::string > & mapParameters);
+  void dumpParameters(std::map< std::string, std::string >& mapParameters);
 
   /**
    * @copydoc ModelCPP::dumpVariables()
    */
-  void dumpVariables(std::map< std::string, std::string > & mapVariables);
+  void dumpVariables(std::map< std::string, std::string >& mapVariables);
 
   /**
    * @copydoc ModelCPP::loadVariables()
@@ -258,7 +258,7 @@ class ModelCPP::Impl : public ModelCPP {
   /**
    * @copydoc ModelCPP::checkDataCoherence()
    */
-  virtual void checkDataCoherence(const double& t) = 0;
+  virtual void checkDataCoherence(const double t) = 0;
 
   /**
    * @copydoc ModelCPP::checkParametersCoherence() const

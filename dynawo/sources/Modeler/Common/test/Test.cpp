@@ -62,7 +62,7 @@ class SubModelMockBase : public SubModel {
 
   virtual ~SubModelMockBase() {}
 
-  void init(const double&) {
+  void init(const double) {
     // Dummy class used for testing
   }
 
@@ -71,35 +71,35 @@ class SubModelMockBase : public SubModel {
     return "";
   }
 
-  void dumpParameters(std::map< std::string, std::string > &) {
+  void dumpParameters(std::map< std::string, std::string >&) {
     // Dummy class used for testing
   }
 
-  void getSubModelParameterValue(const std::string &, double &, bool &) {
+  void getSubModelParameterValue(const std::string&, double&, bool&) {
     // Dummy class used for testing
   }
 
-  void dumpVariables(std::map< std::string, std::string > &) {
+  void dumpVariables(std::map< std::string, std::string >&) {
     // Dummy class used for testing
   }
 
-  void loadParameters(const std::string &) {
+  void loadParameters(const std::string&) {
     // Dummy class used for testing
   }
 
-  void loadVariables(const std::string &) {
+  void loadVariables(const std::string&) {
     // Dummy class used for testing
   }
 
-  void evalF(double , propertyF_t ) {
+  void evalF(double, propertyF_t) {
     // Dummy class used for testing
   }
 
-  void evalG(const double &) {
+  void evalG(const double) {
     // Dummy class used for testing
   }
 
-  void evalZ(const double &) {
+  void evalZ(const double) {
     // Dummy class used for testing
   }
 
@@ -107,17 +107,17 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void evalJt(const double & , const double & , SparseMatrix& , const int&) {
+  void evalJt(const double, const double, SparseMatrix& , const int) {
     // Dummy class used for testing
   }
 
-  void evalJtPrim(const double & , const double & , SparseMatrix& , const int&) {
+  void evalJtPrim(const double, const double, SparseMatrix&, const int) {
     // Dummy class used for testing
   }
 
-  virtual modeChangeType_t evalMode(const double &) = 0;
+  virtual modeChangeType_t evalMode(const double) = 0;
 
-  void checkDataCoherence(const double &) {
+  void checkDataCoherence(const double) {
     // Dummy class used for testing
   }
 
@@ -181,7 +181,7 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void defineElements(std::vector<Element> &, std::map<std::string, int >&) {
+  void defineElements(std::vector<Element>&, std::map<std::string, int >&) {
     // Dummy class used for testing
   }
 
@@ -193,7 +193,7 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void printInitValues(const std::string &) {
+  void printInitValues(const std::string&) {
     // Dummy class used for testing
   }
 
@@ -261,7 +261,7 @@ class SubModelMock : public SubModelMockBase {
 
   virtual ~SubModelMock() {}
 
-  modeChangeType_t evalMode(const double&) {
+  modeChangeType_t evalMode(const double) {
     // Dummy class used for testing
     return NO_MODE;
   }
@@ -275,7 +275,7 @@ class SubModelMode : public SubModelMockBase {
 
   virtual ~SubModelMode() {}
 
-  modeChangeType_t evalMode(const double& t) {
+  modeChangeType_t evalMode(const double t) {
     if (doubleEquals(t, 1))
       return DIFFERENTIAL_MODE;
     else if (doubleEquals(t, 2))
