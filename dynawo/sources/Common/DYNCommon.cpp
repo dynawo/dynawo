@@ -18,6 +18,7 @@
  *
  */
 #include <string>
+#include <cstdlib>
 #include <stdio.h>
 #include <cstring>
 #include <cassert>
@@ -26,6 +27,7 @@
 #include <iomanip>
 #include "DYNCommon.h"
 #include "DYNMacrosMessage.h"
+#include "DYNExecUtils.h"
 
 using std::string;
 
@@ -103,6 +105,25 @@ void setCurrentPrecision(double precision) {
 }
 unsigned getPrecisionAsNbDecimal() {
   return MAXIMUM_PRECISION_AS_NB_DECIMAL;
+}
+
+boost::optional<boost::filesystem::path>
+getLibraryPathFromName(const std::string& libName) {
+  // local path
+  boost::filesystem::path testPath(libName);
+  if (boost::filesystem::exists(testPath)) {
+    return boost::make_optional(testPath);
+  }
+
+  // system directories
+  testPath = getMandatoryEnvVar("DYNAWO_INSTALL_DIR");
+  testPath.append("lib");
+  testPath.append(libName);
+  if (boost::filesystem::exists(testPath)) {
+    return boost::make_optional(testPath);
+  }
+
+  return boost::none;
 }
 
 size_t

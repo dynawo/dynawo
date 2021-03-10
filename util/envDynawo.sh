@@ -1545,6 +1545,10 @@ find_include_system_path() {
   echo -n $path
 }
 
+export_var_env_to_file() {
+  export | grep DYNAWO_ | sed -e 's/declare -x //g' > "$1"
+}
+
 deploy_dynawo() {
   DYNAWO_VERSION=$(version) || error_exit "Error with version."
   version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
@@ -1556,6 +1560,7 @@ deploy_dynawo() {
   current_dir=$PWD
   mkdir -p $DYNAWO_DEPLOY_DIR || error_exit "Impossible to create $DYNAWO_DEPLOY_DIR."
   cd $DYNAWO_DEPLOY_DIR
+  export_var_env_to_file "dynawoEnv.txt"
   mkdir -p lib
 
   echo "deploying Sundials libraries"
@@ -1689,14 +1694,14 @@ deploy_dynawo() {
       boost_libraries="${boost_libraries[@]} $lib_boost"
     done
   else
-    error_exit "$DYNAWO_THIRD_PARTY_BUILD_DIR should not be deleted before deploy to be able to determine boost libraries used during compilation."
+    error_exit "$DYNAWO_THIRD_PARTY_BUILD_DIR/build should not be deleted before deploy to be able to determine boost libraries used during compilation."
   fi
   if [ -f "$DYNAWO_THIRD_PARTY_BUILD_DIR/src/libiidm-build/CMakeCache.txt" ]; then
     for lib_boost in $(grep -o "libboost.*.$LIBRARY_SUFFIX" $DYNAWO_THIRD_PARTY_BUILD_DIR/src/libiidm-build/CMakeCache.txt | tr ';' '\n' | grep -o "libboost.*.$LIBRARY_SUFFIX" | sort | uniq); do
       boost_libraries="${boost_libraries[@]} $lib_boost"
     done
   else
-    error_exit "$DYNAWO_THIRD_PARTY_BUILD_DIR should not be deleted before deploy to be able to determine boost libraries used during compilation."
+    error_exit "$DYNAWO_THIRD_PARTY_BUILD_DIR/src/libiidm-build should not be deleted before deploy to be able to determine boost libraries used during compilation."
   fi
   if [ -f "$DYNAWO_BUILD_DIR/CMakeCache.txt" ]; then
     for lib_boost in $(grep -o "libboost.*.$LIBRARY_SUFFIX" $DYNAWO_BUILD_DIR/CMakeCache.txt | tr ';' '\n' | grep -o "libboost.*.$LIBRARY_SUFFIX" | sort | uniq); do

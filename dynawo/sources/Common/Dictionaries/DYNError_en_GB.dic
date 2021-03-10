@@ -182,6 +182,8 @@ SwitchMissingBus2           =             SWITCH %1% : bus 2 is missing
 UndefinedNominalV           =             VOLTAGE LEVEL %1% : nominal value is undefined or badly defined (< 0)
 VoltageLevelGraphUndefined  =             VOLTAGE LEVEL %1% : graph is undefined
 VoltageLevelBBSError        =             VOLTAGE LEVEL %1% : error while looking for the closest bus bar section
+FrequencyCollapse           =             frequency collapse (%1% Hz < %2% Hz)
+FrequencyIncrease           =             high frequency (%1% Hz > %2% Hz)
 //--------------- GENERAL -----------------------------------------
 GZReadErrorOnFile           =             unexpected error while reading compressed file %1%
 InvalidSeverityLevel        =             severity level %1% invalid

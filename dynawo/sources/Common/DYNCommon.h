@@ -26,6 +26,9 @@
 #include <limits>
 #include <algorithm>
 
+#include <boost/filesystem.hpp>
+#include <boost/optional.hpp>
+
 namespace DYN {
   /**
    * @brief determine the shared library extension based on the platform
@@ -185,6 +188,16 @@ struct mapcompabs {
     return fabs(p1.first) > fabs(p2.first);
   }
 };
+
+/**
+ * @brief Retrieve library path from all allowed paths
+ *
+ * @param libName the complete name of the library file
+ *
+ * @returns the path of the library file, if found
+ */
+boost::optional<boost::filesystem::path> getLibraryPathFromName(const std::string& libName);
+
 }  // namespace DYN
 
 #endif  // COMMON_DYNCOMMON_H_

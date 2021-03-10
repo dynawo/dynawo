@@ -17,11 +17,11 @@
  *
  */
 
-#include <dlfcn.h>
 #include <sstream>
 #include <iostream>
 
 #include "DYNTrace.h"
+#include "DYNCommon.h"
 #include "DYNSolverFactory.h"
 #include "DYNMacrosMessage.h"
 
@@ -42,15 +42,9 @@ SolverFactories::SolverFactories() { }
 SolverFactories::~SolverFactories() {
   SolverFactoryIterator iter = factoryMap_.begin();
   for (; iter != factoryMap_.end(); ++iter) {
-    void* handle = iter->second->handle_;
-
-    destroy_solver_t* deleteFactory = factoryMapDestroy_.find(iter->first)->second;
+    boost::function<deleteSolverFactory_t>& deleteFactory = factoryMapDelete_.find(iter->first)->second;
 
     deleteFactory(iter->second);
-
-    if (handle) {
-      dlclose(handle);
-    }
   }
 }
 
@@ -67,49 +61,43 @@ SolverFactories::add(const std::string& lib, SolverFactory* factory) {
   factoryMap_.insert(std::make_pair(lib, factory));
 }
 
-void SolverFactories::add(const std::string& lib, destroy_solver_t* deleteFactory) {
-  factoryMapDestroy_.insert(std::make_pair(lib, deleteFactory));
+void SolverFactories::add(const std::string& lib, const boost::function<deleteSolverFactory_t>& deleteFactory) {
+  factoryMapDelete_.insert(std::make_pair(lib, deleteFactory));
 }
 
 boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& lib) {
   SolverFactories::SolverFactoryIterator iter = factories_.find(lib);
   Solver* solver;
   boost::shared_ptr<Solver> solverShared;
+  boost::shared_ptr<boost::dll::shared_library> sharedib;
 
   if (factories_.end(iter)) {
-    // load the library
-    void* handle;
-    handle = dlopen(lib.c_str(), RTLD_NOW);
-    if (!handle) {
-      stringstream msg;
-      msg << "Load error :" << dlerror();
-      Trace::error() << msg.str() << Trace::endline;
+    std::string func;
+    boost::function<getFactory_t> getFactory;
+    boost::function<deleteSolverFactory_t> deleteFactory;
+
+    boost::optional<boost::filesystem::path> libPath = getLibraryPathFromName(lib);
+    if (!libPath.is_initialized()) {
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib);
     }
 
-    // reset errors
-    dlerror();
-
-    getFactory_t* getFactory = reinterpret_cast<getFactory_t*> (dlsym(handle, "getFactory"));
-    const char* dlsym_error = dlerror();
-    if (dlsym_error) {
-      stringstream msg;
-      msg << "Load error :" << dlsym_error;
-      Trace::error() << msg.str() << Trace::endline;
-      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::getFactory");
-    }
-
-    destroy_solver_t* deleteFactory = reinterpret_cast<destroy_solver_t*>(dlsym(handle, "deleteFactory"));
-    dlsym_error = dlerror();
-    if (dlsym_error) {
-      stringstream msg;
-      msg << "Load error :" << dlsym_error;
-      Trace::error() << msg.str() << Trace::endline;
-      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::deleteFactory");
+    try {
+      sharedib = boost::make_shared<boost::dll::shared_library>(libPath->generic_string());
+      func = "getFactory";
+      getFactory = boost::dll::import<getFactory_t>(*sharedib, func.c_str());
+      func = "deleteFactory";
+      deleteFactory = boost::dll::import<deleteSolverFactory_t>(*sharedib, func.c_str());
+    } catch (const boost::system::system_error& e) {
+      Trace::error() << "Load error :" << e.what() << Trace::endline;
+      if (func.empty()) {
+        throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib);
+      } else {
+        throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib + "::" + func);
+      }
     }
 
     SolverFactory* factory = getFactory();
-    factory->handle_ = handle;
+    factory->lib_ = sharedib;
     factories_.add(lib, factory);
     factories_.add(lib, deleteFactory);
     solver = factory->create();

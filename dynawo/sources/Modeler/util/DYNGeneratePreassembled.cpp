@@ -21,8 +21,8 @@
 #include <iostream>
 #include <boost/program_options.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/dll.hpp>
 #include <boost/filesystem.hpp>
-#include <dlfcn.h>
 
 #include "DYNDynamicData.h"
 
@@ -222,16 +222,18 @@ int main(int argc, char ** argv) {
  */
 
 bool verifySharedObject(string modelname) {
-  // dlopen include <dlfcn.h>: to see if a shared object file
-  const char* filename = modelname.c_str();
-  void *handle;
-  handle = dlopen(filename, RTLD_NOW);
-  if (!handle) {
-    fprintf(stderr, "%s\n", dlerror());
-    printf(" GeneratePreassembled: could not open .so by dlopen.");
+  try {
+    boost::dll::shared_library lib(modelname);
+    static_cast<void>(lib);
+    // we don't use the lib as we check that the library is loadable, which is done in
+    // constructor
+  }
+  catch(const std::exception& e) {
+    std::cerr << e.what() << '\n';
+    printf(" GeneratePreassembled: could not open .so by boost dll.");
     return false;
   }
-  dlclose(handle);
+
 
   // verify links.
 #ifdef __linux__
