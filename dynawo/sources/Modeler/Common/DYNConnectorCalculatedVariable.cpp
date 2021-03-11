@@ -52,7 +52,7 @@ void ConnectorCalculatedVariable::getSize() {
   sizeZ_ = 0;
   sizeG_ = 0;
   sizeMode_ = 0;
-  model_->getIndexesOfVariablesUsedForCalculatedVarI(indexCalculatedVariable_, varExtIndexes_);
+  model_->getIndexesOfVariablesUsedForCalculatedVarI(indexCalculatedVariable_, varExtIndexes_, varExtExternalIndexes_);
 }
 
 void
