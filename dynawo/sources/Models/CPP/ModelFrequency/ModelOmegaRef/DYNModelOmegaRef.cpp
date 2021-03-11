@@ -479,8 +479,8 @@ ModelOmegaRef::setSubModelParameters() {
   indexOmega_.clear();
   for (int k = 0; k < nbGen_; ++k) {
     if (weights_[k] > 0) {
+      indexOmega_.push_back(nbOmega_);
       ++nbOmega_;
-      indexOmega_.push_back(k);
     } else {
       indexOmega_.push_back(-1);
     }
