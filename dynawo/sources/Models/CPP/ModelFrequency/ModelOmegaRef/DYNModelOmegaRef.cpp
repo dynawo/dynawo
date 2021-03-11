@@ -234,10 +234,10 @@ ModelOmegaRef::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatrix& j
     } else {
       // f = sum(omega[]*weight[]) - omegaRef[i]
       jt.addTerm(col1stOmegaRef_ + i + rowOffset, dMOne);   // d(f)/d(omegaRef[i]) = -1;
-      std::vector<int> numGen = iterGen->second;
+      const std::vector<int>& numGen = iterGen->second;
       for (unsigned int j = 0; j < numGen.size(); ++j) {
         if (toNativeBool(runningGrp_[numGen[j]]) && weights_[numGen[j]] > 0) {
-          int index_reference = getReferenceIndex(numGen[j]);
+          int index_reference = getReferenceIndex(indexOmega_[numGen[j]]);
           jt.addTerm(index_reference, weights_[numGen[j]] / iterWeight->second);  // d(f0)/d(omega[i]) = weight[i]
         }
       }
