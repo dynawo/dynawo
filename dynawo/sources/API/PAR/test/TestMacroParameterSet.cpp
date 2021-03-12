@@ -64,9 +64,9 @@ namespace parameters {
     ASSERT_EQ(nbReferences, 2);
     MacroParameterSet::reference_const_iterator itRef = macroParameterSet->cbeginReference();
     ASSERT_NO_THROW(itRef++);
-    ASSERT_NO_THROW(++itRef);
     ASSERT_NO_THROW(itRef->get()->getName());
     ASSERT_NO_THROW((*itRef)->getName());
     ASSERT_NO_THROW(itRef == itRef);
+    ASSERT_NO_THROW(++itRef);
   }
 }  // namespace parameters

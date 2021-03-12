@@ -135,12 +135,12 @@ TEST(APIPARTest, MacroParameterSetTest) {
   ASSERT_THROW_DYNAWO(collection->getParametersFromMacroParameter("unknown"), DYN::Error::API, DYN::KeyError_t::ParametersSetNotFound);
   ParametersSetCollection::macroparameterset_const_iterator itMacroParameterSet = collection->cbeginMacroParameterSet();
   ASSERT_NO_THROW(itMacroParameterSet++);
-  ASSERT_NO_THROW(itMacroParameterSet--);
-  ASSERT_NO_THROW(++itMacroParameterSet);
-  ASSERT_NO_THROW(--itMacroParameterSet);
   ASSERT_NO_THROW(itMacroParameterSet == itMacroParameterSet);
   ASSERT_NO_THROW(itMacroParameterSet->get()->getId());
   ASSERT_NO_THROW((*itMacroParameterSet)->getId());
+  ASSERT_NO_THROW(itMacroParameterSet--);
+  ASSERT_NO_THROW(++itMacroParameterSet);
+  ASSERT_NO_THROW(--itMacroParameterSet);
 }
 
 }  // namespace parameters
