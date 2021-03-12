@@ -41,6 +41,7 @@ TEST(APIPARTest, XmlExporter) {
   // Export the collection in xml format
   XmlExporter exporter;
   ASSERT_NO_THROW(exporter.exportToFile(collection, "exportedFile.par"));
+  ASSERT_NO_THROW(exporter.exportToFile(collection, "exportedFile.par", "ISO-8859-1"));
   ASSERT_EQ(compareFiles("exportedFile.par", "res/exportedFile.par"), true);
 }
 

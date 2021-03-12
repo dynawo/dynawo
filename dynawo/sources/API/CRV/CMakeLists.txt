@@ -64,6 +64,7 @@ target_link_libraries(dynawo_API_CRV
     XMLSAXParser${LibXML_LINK_SUFFIX}
   PRIVATE
     dynawo_Common
+    Boost::system
   )
 
 set_target_properties(dynawo_API_CRV PROPERTIES VERSION ${API_CRV_VERSION_STRING}

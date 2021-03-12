@@ -540,6 +540,7 @@ Simulation::setSolver() {
   parameters->propagateOriginData(solverParFile);
   referenceParameters_[solverParFile] = parameters;
   string parId = jobEntry_->getSolverEntry()->getParametersId();
+  parameters->getParametersFromMacroParameter(parId);
   if (parameters->getParametersSet(parId)) {
     shared_ptr<ParametersSet> solverParams = boost::shared_ptr<ParametersSet>(new ParametersSet(*parameters->getParametersSet(parId)));
     solver_->setParameters(solverParams);
@@ -662,9 +663,6 @@ Simulation::init() {
 
   double t0 = 0;
 
-#ifdef _DEBUG_
-  printDebugInfo();
-#endif
   if (Trace::logExists(Trace::modeler(), DEBUG))
     model_->printModel();
   if (Trace::logExists(Trace::variables(), DEBUG))
@@ -877,17 +875,29 @@ Simulation::simulate() {
   } catch (const Terminate& t) {
     Trace::warn() << t.what() << Trace::endline;
     model_->printMessages();
-    if (timetableOutputFile_ != "")
-        remove(timetableOutputFile_);
+    endSimulationWithError(criteriaChecked);
   } catch (const Error& e) {
     Trace::error() << e.what() << Trace::endline;
-    if (timetableOutputFile_ != "")
-        remove(timetableOutputFile_);
+    endSimulationWithError(criteriaChecked);
     throw;
   } catch (...) {
-    if (timetableOutputFile_ != "")
-        remove(timetableOutputFile_);
+    endSimulationWithError(criteriaChecked);
     throw;
+  }
+}
+
+void
+Simulation::endSimulationWithError(bool criteria) {
+  if (timetableOutputFile_ != "")
+    remove(timetableOutputFile_);
+  if (criteria && data_ && activateCriteria_) {
+    bool criteriaChecked = checkCriteria(tCurrent_, true);
+    if (!criteriaChecked) {
+      if (timeline_) {
+        addEvent(DYNTimeline(CriteriaNotChecked));
+      }
+      throw DYNError(Error::SIMULATION, CriteriaNotChecked);
+    }
   }
 }
 
@@ -1199,12 +1209,6 @@ Simulation::loadState(const string & fileName) {
   model_->loadParameters(mapValues);
   model_->loadVariables(mapValues);
   return tCurrent_;
-}
-
-void
-Simulation::printDebugInfo() {
-  Trace::debug() << DYNLog(NbVar, model_->sizeY()) << Trace::endline;
-  Trace::debug() << DYNLog(NbRootFunctions, model_->sizeG()) << Trace::endline;
 }
 
 void

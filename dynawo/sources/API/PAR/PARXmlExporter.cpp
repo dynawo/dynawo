@@ -63,6 +63,54 @@ XmlExporter::exportToStream(const boost::shared_ptr<ParametersSetCollection>& co
   formatter->startDocument();
   AttributeList attrs;
   formatter->startElement("parametersSet", attrs);
+
+  for (ParametersSetCollection::macroparameterset_const_iterator itMacroParameterSet = collection->cbeginMacroParameterSet();
+  itMacroParameterSet != collection->cendMacroParameterSet();
+  ++itMacroParameterSet) {
+    attrs.clear();
+    attrs.add("id", (*itMacroParameterSet)->getId());
+    formatter->startElement("macroParameterSet", attrs);
+    for (MacroParameterSet::reference_const_iterator itReference = (*itMacroParameterSet)->cbeginReference();
+    itReference != (*itMacroParameterSet)->cendReference();
+    ++itReference) {
+      attrs.clear();
+      attrs.add("type", (*itReference)->getType());
+      attrs.add("name", (*itReference)->getName());
+      attrs.add("origData", (*itReference)->getOrigDataStr());
+      attrs.add("origName", (*itReference)->getOrigName());
+      formatter->startElement("reference", attrs);
+      formatter->endElement();
+    }
+    for (MacroParameterSet::parameter_const_iterator itParameter = (*itMacroParameterSet)->cbeginParameter();
+    itParameter != (*itMacroParameterSet)->cendParameter();
+    ++itParameter) {
+      attrs.clear();
+      attrs.add("name", (*itParameter)->getName());
+      switch ((*itParameter)->getType()) {
+        case Parameter::BOOL:
+          attrs.add("type", "BOOL");
+          attrs.add("value", ((*itParameter)->getBool() ? "true" : "false"));
+          break;
+        case Parameter::INT:
+          attrs.add("type", "INT");
+          attrs.add("value", (*itParameter)->getInt());
+          break;
+        case Parameter::DOUBLE:
+          attrs.add("type", "DOUBLE");
+          attrs.add("value", (*itParameter)->getDouble());
+          break;
+        case Parameter::STRING:
+          attrs.add("type", "STRING");
+          attrs.add("value", (*itParameter)->getString());
+          break;
+        case Parameter::SIZE_OF_ENUM:
+          throw DYNError(DYN::Error::API, PARXmlSizeOfEnumParamType);
+      }
+      formatter->startElement("par", attrs);
+      formatter->endElement();
+    }
+    formatter->endElement();
+  }
   for (ParametersSetCollection::parametersSet_const_iterator itParamSet = collection->cbeginParametersSet();
           itParamSet != collection->cendParametersSet();
           ++itParamSet) {
@@ -128,6 +176,14 @@ XmlExporter::exportToStream(const boost::shared_ptr<ParametersSetCollection>& co
       }
       formatter->startElement("reference", attrs);
       formatter->endElement();   // ref
+    }
+    for (ParametersSet::macroparset_const_iterator itMacroParSet = (*itParamSet)->cbeginMacroParSet();
+    itMacroParSet != (*itParamSet)->cendMacroParSet();
+    ++itMacroParSet) {
+      attrs.clear();
+      attrs.add("id", (*itMacroParSet)->getId());
+      formatter->startElement("macroParSet", attrs);
+      formatter->endElement();
     }
     formatter->endElement();   // set
   }

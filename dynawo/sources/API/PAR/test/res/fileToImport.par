@@ -44,4 +44,28 @@
     <reference type="DOUBLE" name="N" origData="IIDM" origName="n"/>
     <reference type="DOUBLE" name="O" origData="IIDM" origName="o"/>
   </set>
+  <macroParameterSet id="test">
+    <par type="DOUBLE" name="tb" value="30."/>
+    <par type="DOUBLE" name="Ca" value="0.5"/>
+    <par type="DOUBLE" name="Cb" value="1."/>
+    <par type="INT" name="int" value="1"/>
+    <par type="BOOL" name="boolean" value="true"/>
+    <par type="STRING" name="string" value="mode"/>
+    <reference type="DOUBLE" name="M" origData="IIDM" origName="m" componentId="compId"/>
+    <reference type="DOUBLE" name="N" origData="IIDM" origName="n"/>
+  </macroParameterSet>
+  <set id="2">
+    <par type="DOUBLE" name="Dx" value="2."/>
+    <par type="DOUBLE" name="Dy" value="0"/>
+    <par type="DOUBLE" name="tc" value="40."/>
+    <reference type="DOUBLE" name="O" origData="IIDM" origName="o"/>
+    <macroParSet id="test"/>
+  </set>
+  <set id="3">
+    <par type="DOUBLE" name="Dx" value="2."/>
+    <par type="DOUBLE" name="Dy" value="0"/>
+    <par type="DOUBLE" name="tc" value="40."/>
+    <reference type="DOUBLE" name="O" origData="IIDM" origName="o"/>
+    <macroParSet id="test"/>
+  </set>
 </parametersSet>

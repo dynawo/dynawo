@@ -29,6 +29,8 @@ set(API_PAR_SOURCES
     PARXmlExporter.cpp
     PARXmlHandler.cpp
     PARXmlImporter.cpp
+    PARMacroParameterSet.cpp
+    PARMacroParSet.cpp
     )
 
 set(API_PAR_INCLUDE_HEADERS
@@ -43,6 +45,8 @@ set(API_PAR_INCLUDE_HEADERS
     PARXmlImporter.h
     PARExporter.h
     PARImporter.h
+    PARMacroParameterSet.h
+    PARMacroParSet.h
     )
 
 add_library(dynawo_API_PAR ${LIBRARY_TYPE} ${API_PAR_SOURCES})

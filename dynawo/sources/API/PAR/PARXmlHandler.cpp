@@ -35,6 +35,8 @@
 #include "PARParametersSet.h"
 #include "PARParametersSetCollection.h"
 #include "PARParametersSetCollectionFactory.h"
+#include "PARMacroParameterSet.h"
+#include "PARMacroParameterSet.h"
 
 
 using std::map;
@@ -53,9 +55,12 @@ namespace parameters {
 
 XmlHandler::XmlHandler() :
 setHandler_(parser::ElementName(par_ns, "set")),
-parametersSetCollection_(ParametersSetCollectionFactory::newCollection()) {
+parametersSetCollection_(ParametersSetCollectionFactory::newCollection()),
+macroParameterSetHandler_(parser::ElementName(par_ns, "macroParameterSet")) {
   onElement(par_ns("parametersSet/set"), setHandler_);
+  onElement(par_ns("parametersSet/macroParameterSet"), macroParameterSetHandler_);
   setHandler_.onEnd(lambda::bind(&XmlHandler::addSet, lambda::ref(*this)));
+  macroParameterSetHandler_.onEnd(lambda::bind(&XmlHandler::addMacroParameterSet, lambda::ref(*this)));
 }
 
 XmlHandler::~XmlHandler() {
@@ -71,19 +76,27 @@ XmlHandler::addSet() {
   parametersSetCollection_->addParametersSet(setHandler_.get());
 }
 
+void
+XmlHandler::addMacroParameterSet() {
+  parametersSetCollection_->addMacroParameterSet(macroParameterSetHandler_.get());
+}
+
 SetHandler::SetHandler(elementName_type const & root_element) :
 parHandler_(parser::ElementName(par_ns, "par")),
 parTableHandler_(parser::ElementName(par_ns, "parTable")),
-refHandler_(parser::ElementName(par_ns, "reference")) {
+refHandler_(parser::ElementName(par_ns, "reference")),
+macroParSetHandler_(parser::ElementName(par_ns, "macroParSet")) {
   onElement(root_element + par_ns("par"), parHandler_);
   onElement(root_element + par_ns("parTable"), parTableHandler_);
   onElement(root_element + par_ns("reference"), refHandler_);
+  onElement(root_element + par_ns("macroParSet"), macroParSetHandler_);
 
   onStartElement(root_element, lambda::bind(&SetHandler::create, lambda::ref(*this), lambda_args::arg2));
 
   parHandler_.onEnd(lambda::bind(&SetHandler::addPar, lambda::ref(*this)));
   refHandler_.onEnd(lambda::bind(&SetHandler::addReference, lambda::ref(*this)));
   parTableHandler_.onEnd(lambda::bind(&SetHandler::addTable, lambda::ref(*this)));
+  macroParSetHandler_.onEnd(lambda::bind(&SetHandler::addMacroParSet, lambda::ref(*this)));
 }
 
 void
@@ -104,6 +117,11 @@ SetHandler::addReference() {
 void
 SetHandler::addPar() {
   setRead_->addParameter(parHandler_.get());
+}
+
+void
+SetHandler::addMacroParSet() {
+  setRead_->addMacroParSet(macroParSetHandler_.get());
 }
 
 void
@@ -214,6 +232,50 @@ void RefHandler::create(attributes_type const & attributes) {
 shared_ptr<Reference>
 RefHandler::get() const {
   return referenceRead_;
+}
+
+MacroParameterSetHandler::MacroParameterSetHandler(elementName_type const& root_element) :
+refHandler_(parser::ElementName(par_ns, "reference")),
+parHandler_(parser::ElementName(par_ns, "par")) {
+  onStartElement(root_element, lambda::bind(&MacroParameterSetHandler::create, lambda::ref(*this), lambda_args::arg2));
+  onElement(root_element + par_ns("reference"), refHandler_);
+  onElement(root_element + par_ns("par"), parHandler_);
+  refHandler_.onEnd(lambda::bind(&MacroParameterSetHandler::addReference, lambda::ref(*this)));
+  parHandler_.onEnd(lambda::bind(&MacroParameterSetHandler::addParameter, lambda::ref(*this)));
+}
+
+void
+MacroParameterSetHandler::create(attributes_type const & attributes) {
+  macroParameterSet_ = shared_ptr<MacroParameterSet>(new MacroParameterSet(attributes["id"].as_string()));
+}
+
+void
+MacroParameterSetHandler::addReference() {
+  macroParameterSet_->addReference(refHandler_.get());
+}
+
+void
+MacroParameterSetHandler::addParameter() {
+  macroParameterSet_->addParameter(parHandler_.get());
+}
+
+boost::shared_ptr<MacroParameterSet>
+MacroParameterSetHandler::get() const {
+  return macroParameterSet_;
+}
+
+MacroParSetHandler::MacroParSetHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&MacroParSetHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+void
+MacroParSetHandler::create(attributes_type const & attributes) {
+  macroParSet_ = shared_ptr<MacroParSet>(new MacroParSet(attributes["id"].as_string()));
+}
+
+boost::shared_ptr<MacroParSet>
+MacroParSetHandler::get() const {
+  return macroParSet_;
 }
 
 }  // namespace parameters

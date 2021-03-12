@@ -151,14 +151,12 @@ Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
 void
 Solver::Impl::printHeader() const {
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
-  stringstream ss;
-  ss << DYNLog(SolverNbYVar, model_->sizeY());
-  Trace::info() << ss.str() << Trace::endline;
-
+  Trace::info() << DYNLog(SolverNbYVar, model_->sizeY()) << Trace::endline;
   Trace::info() << DYNLog(SolverNbZVar, model_->sizeZ()) << Trace::endline;
+  Trace::info() << DYNLog(NbRootFunctions, model_->sizeG()) << Trace::endline;
 
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
-  ss.str(std::string());
+  stringstream ss;
   ss << "        time ";
 
   printHeaderSpecific(ss);
