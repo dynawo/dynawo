@@ -89,6 +89,8 @@ where [option] can be:"
         jobs-valgrind-dhat ([args])           launch Dynawo simulation in valgrind with dhat tool (dynamic heap analysis tool)
         jobs-valgrind-massif ([args])         launch Dynawo simulation in valgrind with massif tool (a heap profiler)
         unittest-gdb [arg]                    call unittest in gdb
+        curves [arg]                          plot curves of job
+        curves-reference [arg]                plot curves of job's reference
 
         =========== Distribution
         distrib                               create distribution of Dynawo
@@ -1277,6 +1279,15 @@ curves_visu() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
 }
 
+curves_visu_reference() {
+  jobs=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))")
+  sed -i 's/<dyn:outputs directory="/<dyn:outputs directory="reference\//' $jobs
+  sed -i 's/<outputs directory="/<outputs directory="reference\//' $jobs
+  curves_visu $jobs
+  sed -i 's/<dyn:outputs directory="reference\//<dyn:outputs directory="/' $jobs
+  sed -i 's/<outputs directory="reference\//<outputs directory="/' $jobs
+}
+
 dump_model() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
@@ -2354,6 +2365,14 @@ case $MODE in
 
   config-dynawo)
     config_dynawo || error_exit "Error while configuring Dynawo"
+    ;;
+
+  curves)
+    curves_visu ${ARGS} || error_exit "Error with curves plot"
+    ;;
+
+  curves-reference)
+    curves_visu_reference ${ARGS} || error_exit "Error with reference curves plot"
     ;;
 
   deploy)
