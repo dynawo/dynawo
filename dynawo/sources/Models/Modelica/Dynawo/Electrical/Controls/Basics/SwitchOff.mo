@@ -76,6 +76,9 @@ partial model SwitchOffGenerator "Switch-off model for a generator"
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.GeneratorDisconnected);
       state = Constants.state.Open;
+    elsewhen running.value and not(pre(running.value)) then
+      Timeline.logEvent1 (TimelineKeys.GeneratorConnected);
+      state = Constants.state.Closed;
     end when;
 
 annotation(preferredView = "text");
@@ -101,6 +104,9 @@ partial model SwitchOffInjector "Switch-off model for an injector"
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.ComponentDisconnected);
       state = Constants.state.Open;
+    elsewhen running.value and not(pre(running.value)) then
+      Timeline.logEvent1 (TimelineKeys.ComponentConnected);
+      state = Constants.state.Closed;
     end when;
 
 annotation(preferredView = "text");
@@ -125,6 +131,9 @@ partial model SwitchOffLoad "Switch-off model for a load"
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.LoadDisconnected);
       state = Constants.state.Open;
+    elsewhen running.value and not(pre(running.value)) then
+      Timeline.logEvent1 (TimelineKeys.LoadConnected);
+      state = Constants.state.Closed;
     end when;
 
 annotation(preferredView = "text");
@@ -149,6 +158,9 @@ partial model SwitchOffShunt "Switch-off model for a shunt"
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.ShuntDisconnected);
       state = Constants.state.Open;
+    elsewhen running.value and not(pre(running.value)) then
+      Timeline.logEvent1 (TimelineKeys.ShuntConnected);
+      state = Constants.state.Closed;
     end when;
 
 annotation(preferredView = "text");
@@ -171,6 +183,12 @@ partial model SwitchOffTapChangerPhaseShifter "Switch-off model for a tap-change
         Timeline.logEvent1 (TimelineKeys.TapChangerSwitchOff);
       elseif (Type == Automaton.PhaseShifter) then
         Timeline.logEvent1 (TimelineKeys.PhaseShifterSwitchOff);
+      end if;
+    elsewhen running.value and not(pre(running.value)) then
+      if (Type == Automaton.TapChanger) then
+        Timeline.logEvent1 (TimelineKeys.TapChangerSwitchOn);
+      elseif (Type == Automaton.PhaseShifter) then
+        Timeline.logEvent1 (TimelineKeys.PhaseShifterSwitchOn);
       end if;
     end when;
 
@@ -196,6 +214,9 @@ partial model SwitchOffLine "Switch-off signal for a line"
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.LineOpen);
       state = Constants.state.Open;
+    elsewhen running.value and not(pre(running.value)) then
+      Timeline.logEvent1 (TimelineKeys.LineClosed);
+      state = Constants.state.Closed;
     end when;
 
 annotation(preferredView = "text");
@@ -220,6 +241,9 @@ partial model SwitchOffDCLine "Switch-off signal for a DC line"
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.DCLineOpen);
       state = Constants.state.Open;
+    elsewhen running.value and not(pre(running.value)) then
+      Timeline.logEvent1 (TimelineKeys.DCLineClosed);
+      state = Constants.state.Closed;
     end when;
 
 annotation(preferredView = "text");
@@ -245,6 +269,9 @@ partial model SwitchOffTransformer "Switch-off signal for a transformer"
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.TransformerSwitchOff);
       state = Constants.state.Open;
+    elsewhen running.value and not(pre(running.value)) then
+      Timeline.logEvent1 (TimelineKeys.TransformerSwitchOn);
+      state = Constants.state.Closed;
     end when;
 
 annotation(preferredView = "text");
@@ -268,6 +295,9 @@ partial model SwitchOffIdealSwitch "Switch-off signal for an ideal switch"
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.IdealSwitchSwitchOff);
       state = Constants.state.Open;
+    elsewhen running.value and not(pre(running.value)) then
+      Timeline.logEvent1 (TimelineKeys.IdealSwitchSwitchOn);
+      state = Constants.state.Closed;
     end when;
 
 annotation(preferredView = "text");
