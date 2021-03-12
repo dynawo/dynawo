@@ -131,8 +131,7 @@ TEST(APIPARTest, MacroParameterSetTest) {
   ASSERT_NO_THROW(parametersSet1->addMacroParSet(macroParSet));
   collection->addParametersSet(parametersSet1);
   ASSERT_NO_THROW(shared_ptr<ParametersSet> parametersSetGetter = collection->getParametersSet("parameters1"));
-  ASSERT_NO_THROW(collection->getParametersFromMacroParameter("parameters1"));
-  ASSERT_THROW_DYNAWO(collection->getParametersFromMacroParameter("unknown"), DYN::Error::API, DYN::KeyError_t::ParametersSetNotFound);
+  ASSERT_NO_THROW(collection->getParametersFromMacroParameter());
   ParametersSetCollection::macroparameterset_const_iterator itMacroParameterSet = collection->cbeginMacroParameterSet();
   ASSERT_NO_THROW(itMacroParameterSet++);
   ASSERT_NO_THROW(itMacroParameterSet--);

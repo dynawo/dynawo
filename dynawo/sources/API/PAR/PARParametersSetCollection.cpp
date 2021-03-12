@@ -67,25 +67,25 @@ ParametersSetCollection::getParametersSet(const string& id) {
 }
 
 void
-ParametersSetCollection::getParametersFromMacroParameter(const string& id) {
-  map< string, shared_ptr<ParametersSet> >::iterator itParamSet = parametersSets_.find(id);
-  if (itParamSet == parametersSets_.end())
-    throw DYNError(DYN::Error::API, ParametersSetNotFound, id);
-  // if a macroParSet is defined in the set, we add the references and parameters associated
-  if (itParamSet->second->hasMacroParSet()) {
-    for (ParametersSet::macroparset_const_iterator itMacroParSet = itParamSet->second->cbeginMacroParSet();
-    itMacroParSet != itParamSet->second->cendMacroParSet();
-    ++itMacroParSet) {
-      if (hasMacroParametersSet((*itMacroParSet)->getId())) {
-        for (MacroParameterSet::reference_const_iterator itReference = macroParametersSets_[(*itMacroParSet)->getId()]->cbeginReference();
-        itReference != macroParametersSets_[(*itMacroParSet)->getId()]->cendReference();
-        ++itReference) {
-          itParamSet->second->addReference(*itReference);
-        }
-        for (MacroParameterSet::parameter_const_iterator itParameter = macroParametersSets_[(*itMacroParSet)->getId()]->cbeginParameter();
-        itParameter != macroParametersSets_[(*itMacroParSet)->getId()]->cendParameter();
-        ++itParameter) {
-          itParamSet->second->addParameter(*itParameter);
+ParametersSetCollection::getParametersFromMacroParameter() {
+  for (map< string, shared_ptr<ParametersSet> >::iterator itParamSet = parametersSets_.begin(), itParamSetEnd = parametersSets_.end();
+      itParamSet != itParamSetEnd; ++itParamSet) {
+    // if a macroParSet is defined in the set, we add the references and parameters associated
+    if (itParamSet->second->hasMacroParSet()) {
+      for (ParametersSet::macroparset_const_iterator itMacroParSet = itParamSet->second->cbeginMacroParSet();
+          itMacroParSet != itParamSet->second->cendMacroParSet();
+          ++itMacroParSet) {
+        if (hasMacroParametersSet((*itMacroParSet)->getId())) {
+          for (MacroParameterSet::reference_const_iterator itReference = macroParametersSets_[(*itMacroParSet)->getId()]->cbeginReference();
+              itReference != macroParametersSets_[(*itMacroParSet)->getId()]->cendReference();
+              ++itReference) {
+            itParamSet->second->addReference(*itReference);
+          }
+          for (MacroParameterSet::parameter_const_iterator itParameter = macroParametersSets_[(*itMacroParSet)->getId()]->cbeginParameter();
+              itParameter != macroParametersSets_[(*itMacroParSet)->getId()]->cendParameter();
+              ++itParameter) {
+            itParamSet->second->addParameter(*itParameter);
+          }
         }
       }
     }

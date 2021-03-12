@@ -540,7 +540,7 @@ Simulation::setSolver() {
   parameters->propagateOriginData(solverParFile);
   referenceParameters_[solverParFile] = parameters;
   string parId = jobEntry_->getSolverEntry()->getParametersId();
-  parameters->getParametersFromMacroParameter(parId);
+  parameters->getParametersFromMacroParameter();
   if (parameters->getParametersSet(parId)) {
     shared_ptr<ParametersSet> solverParams = boost::shared_ptr<ParametersSet>(new ParametersSet(*parameters->getParametersSet(parId)));
     solver_->setParameters(solverParams);
