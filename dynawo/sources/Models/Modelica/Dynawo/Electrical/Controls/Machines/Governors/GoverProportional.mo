@@ -58,7 +58,7 @@ protected
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in p.u (base PNom)";
   final parameter Types.ActivePowerPu PMinPu = PMin / PNom "Minimum mechanical power in p.u (base PNom)";
   final parameter Types.ActivePowerPu PMaxPu = PMax / PNom "Maximum mechanical power in p.u (base PNom)";
-  final parameter Boolean ActiveFrequencyRegulation = if Pm0Pu < PMin / PNom then false else true "Boolean indicating whether the group participates to primary frequency control or not";
+  final parameter Boolean ActiveFrequencyRegulation = if Pm0Pu < PMin / PNom or Pm0Pu > PMax / PNom then false else true "Boolean indicating whether the group participates to primary frequency control or not";
   status state(start = status.Standard);
 equation
 
