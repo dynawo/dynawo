@@ -106,6 +106,7 @@ ModelLoad::initSize() {
       sizeF_ += 2;  // zP and zQ equations
 
     sizeY_ = 0;
+    sizeYExternal_ = 0;
     if (isControllable_)
       sizeYExternal_ += 2;  // DeltaPc and DeltaQc
     if (isRestorative_)

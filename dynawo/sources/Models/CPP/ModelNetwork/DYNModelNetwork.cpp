@@ -967,7 +967,7 @@ ModelNetwork::initSubBuffers() {
 
     vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
     for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-      if ((*itComponent)->sizeY() != 0) {
+      if ((*itComponent)->sizeY() != 0 || (*itComponent)->sizeYExternal() != 0) {
         (*itComponent)->setReferenceY(yLocal_, ypLocal_, yExternalLocal_, ypExternalLocal_, fLocal_, offsetY, offsetF, offsetExternal);
         offsetY += (*itComponent)->sizeY();
         offsetF += (*itComponent)->sizeF();

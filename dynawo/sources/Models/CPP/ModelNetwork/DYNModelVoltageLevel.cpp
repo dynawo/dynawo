@@ -611,7 +611,7 @@ ModelVoltageLevel::setReferenceY(double* y, double* yp, double** y_ext, double**
   int offsetYExternalComponent = offsetYExternal;
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-    if ((*itComponent)->sizeY() != 0) {
+    if ((*itComponent)->sizeY() != 0 || (*itComponent)->sizeYExternal() != 0) {
       (*itComponent)->setReferenceY(y, yp, y_ext, yp_ext, f, offsetYComponent, offsetFComponent, offsetYExternalComponent);
       offsetYComponent += (*itComponent)->sizeY();
       offsetFComponent += (*itComponent)->sizeF();
