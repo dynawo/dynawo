@@ -61,11 +61,8 @@ class ParametersSetCollection {
 
   /**
    * @brief add parameters and references coming from macroParameterSets
-   *
-   * @param[in] id ID of parameter set to be enriched
-   * @throws Error::API exception if set with given ID do not exists
    */
-  void getParametersFromMacroParameter(const std::string& id);
+  void getParametersFromMacroParameter();
 
   /**
    * @brief Check if a parameter set is in the collection
