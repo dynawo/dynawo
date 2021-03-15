@@ -391,7 +391,7 @@ else()
     COMMAND             ${libarchive_patch_compiler}
 
     CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER}
-                        "-DCMAKE_C_FLAGS_INIT:STRING=$<$<BOOL:${UNIX}>:-w -fPIC>"
+                        "-DCMAKE_C_FLAGS_INIT:STRING=$<$<BOOL:${UNIX}>:-w -fPIC -O3>"
 
     CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                         -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
@@ -958,8 +958,8 @@ else()
       CONFIGURE_COMMAND   <SOURCE_DIR>/configure
                           "CC=${CMAKE_C_COMPILER}"
                           "CXX=${CMAKE_CXX_COMPILER}"
-                          "CXXFLAGS=${CXX_STDFLAG} $<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:-fPIC> $<$<CONFIG:Debug>:-O0>"
-                          "CFLAGS=$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:-fPIC>"
+                          "CXXFLAGS=${CXX_STDFLAG} $<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:-fPIC> $<IF:$<CONFIG:Release>,-O3,-O0>"
+                          "CFLAGS=$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:-fPIC> $<IF:$<CONFIG:Release>,-O3,-O0>"
                           --prefix=<INSTALL_DIR>
                           $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static>
                           $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared>
