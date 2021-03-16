@@ -662,6 +662,21 @@ def DirectoryDiffReferenceDataJob (nrt_directory):
             return (status, messages)
 
 ##
+# conduct a directory diff looking for reference data, and return only the most critical diff status in a multithreading environment
+# @param case : the case class to analyse
+# @param semaphore : the semaphore used for multi-thread
+# @param pool : the pool used for multi-thread
+def DirectoryDiffReferenceDataJobMultiThread (case, semaphore, pool):
+    with semaphore:
+        name = threading.currentThread().getName()
+        pool.makeActive(name)
+        case_dir = os.path.dirname (case.jobs_file_)
+        (status, messages) = DirectoryDiffReferenceDataJob (case_dir)
+        case.diff_ = status
+        case.diff_messages_ = messages
+        pool.makeInactive(name)
+
+##
 # Check whether a given directory should be included in the diff
 # @param directory : the directory to check ; only the last two (low-level) directory names should be given
 def DirectoryIsIncluded (directory):
@@ -1179,6 +1194,7 @@ def XMLCloseEnough (path_left, path_right):
                 nb_differences += 1
                 nb_differences_absolute += 1
                 curves_different.add (curve)
+                if nb_differences > 5: break
 
     return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different)
 
@@ -1404,6 +1420,7 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
                 nb_differences += 1
                 nb_differences_absolute += 1
                 curves_different.add (curve)
+                if nb_differences > 5: break
 
     file_left.close()
     file_right.close()
