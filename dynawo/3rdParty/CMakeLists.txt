@@ -397,7 +397,7 @@ else()
     URL_MD5             ${libarchive_md5}
     PATCH_COMMAND       ${libarchive_patch_common}
     COMMAND             ${libarchive_patch_compiler}
-    CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER} "-DCMAKE_C_FLAGS_INIT:STRING=$<$<BOOL:${UNIX}>:-w -fPIC>"
+    CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER} "-DCMAKE_C_FLAGS_INIT:STRING=$<$<BOOL:${UNIX}>:-w -fPIC -O3>"
     CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DZLIB_ROOT:PATH=${ZLIB_ROOT} -DENABLE_WERROR=OFF -DENABLE_TEST:BOOL=OFF -Wno-dev -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY} -DENABLE_NETTLE=OFF -DENABLE_OPENSSL=OFF -DENABLE_ZSTD=OFF -DENABLE_LZ4=OFF -DENABLE_LZO=OFF -DENABLE_LZMA=OFF -DENABLE_BZip2=OFF -DENABLE_LIBXML2=OFF -DENABLE_EXPAT=OFF -DENABLE_PCREPOSIX=OFF -DENABLE_CNG=OFF -DCMAKE_MACOSX_RPATH=True -DCMAKE_SKIP_BUILD_RPATH=False -DCMAKE_BUILD_WITH_INSTALL_RPATH=False -DCMAKE_INSTALL_RPATH=${CMAKE_INSTALL_PREFIX}/libarchive/lib -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
     )
   if(APPLE)
@@ -681,7 +681,7 @@ else()
       URL                 ${xercesc_url}
       URL_MD5             ${xercesc_md5}
       BUILD_IN_SOURCE     1
-      CONFIGURE_COMMAND   <SOURCE_DIR>/configure "CC=${CMAKE_C_COMPILER}" "CXX=${CMAKE_CXX_COMPILER}" "CXXFLAGS=${CXX_STDFLAG} $<$<CONFIG:Debug>:-O0>" --prefix=<INSTALL_DIR> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared> --disable-network --without-icu $<IF:$<BOOL:CXX11_ENABLED>,,--disable-xmlch-char16_t> --disable-transcoder-macosunicodeconverter
+      CONFIGURE_COMMAND   <SOURCE_DIR>/configure "CC=${CMAKE_C_COMPILER}" "CXX=${CMAKE_CXX_COMPILER}" "CXXFLAGS=${CXX_STDFLAG} $<IF:$<CONFIG:Release>,-O3,-O0>" "CFLAGS=$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:-fPIC> $<IF:$<CONFIG:Release>,-O3,-O0>" --prefix=<INSTALL_DIR> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared> --disable-network --without-icu $<IF:$<BOOL:CXX11_ENABLED>,,--disable-xmlch-char16_t> --disable-transcoder-macosunicodeconverter
       )
   endif()
   ExternalProject_Get_Property(xercesc install_dir)
