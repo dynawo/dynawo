@@ -102,16 +102,20 @@ def getOutputIIDMInfo(filename, prefix):
 # @param path_left : the absolute path to the left-side file
 # @param path_right : the absolute path to the right-side file
 def OutputIIDMCloseEnough (path_left, path_right):
-    left_file_info = getOutputIIDMInfo(path_left, "")
+    prefix_left = ""
     is_left_powsybl_iidm = False
-    if len(left_file_info) == 0:
-        left_file_info = getOutputIIDMInfo(path_left, "iidm:")
-        is_left_powsybl_iidm = True
-    right_file_info = getOutputIIDMInfo(path_right, "")
+    with open(path_left) as f:
+        if 'iidm:network' in f.read():
+            prefix_left = "iidm:"
+            is_left_powsybl_iidm = True
+    left_file_info = getOutputIIDMInfo(path_left, prefix_left)
+    prefix_right = ""
     is_right_powsybl_iidm = False
-    if len(right_file_info) == 0:
-        right_file_info = getOutputIIDMInfo(path_right, "iidm:")
-        is_right_powsybl_iidm = True
+    with open(path_right) as f:
+        if 'iidm:network' in f.read():
+            prefix_right = "iidm:"
+            is_right_powsybl_iidm = True
+    right_file_info = getOutputIIDMInfo(path_right, prefix_right)
     nb_differences = 0
     msg = ""
     differences = []

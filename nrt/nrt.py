@@ -22,6 +22,7 @@ import os
 import re
 import shutil
 import time
+import threading
 
 nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
 sys.path.append(nrtDiff_dir)
@@ -612,14 +613,41 @@ def main():
         end_time = time.time()
         NRT.setRealTime(end_time - start_time)
 
+        maximumNumberOfThreads = int(os.getenv ('DYNAWO_NB_PROCESSORS_USED'))
+        threads_list = []
+        dir_list = []
+        semaphore = threading.Semaphore (maximumNumberOfThreads)
+        pool = nrtDiff.ActivePool()
         for case in NRT.test_cases_:
             if (not case.ok_):
                 case.diff_ = nrtDiff.UNABLE_TO_CHECK
             else:
                 case_dir = os.path.dirname (case.jobs_file_)
-                (status, messages) = nrtDiff.DirectoryDiffReferenceDataJob (case_dir)
-                case.diff_ = status
-                case.diff_messages_ = messages
+                if case_dir in dir_list: continue
+                dir_list.append(case_dir)
+                thread = threading.Thread (target = nrtDiff.DirectoryDiffReferenceDataJobMultiThread, name = case_dir, args = (case, semaphore, pool))
+                thread.setDaemon(True)
+                threads_list.append(thread)
+                thread.start()
+        #Keep the main thread alive while threads are running and catch interruptions
+        try:
+            while True in [t.is_alive() for t in threads_list]:
+                time.sleep(2)
+        except KeyboardInterrupt:
+            os._exit()
+
+        for thread in threads_list:
+            thread.join()
+        results_per_dir = {}
+        for case in NRT.test_cases_:
+            case_dir = os.path.dirname (case.jobs_file_)
+            if case_dir in dir_list and case.diff_messages_ != None :
+                results_per_dir[case_dir]=[case.diff_, case.diff_messages_]
+        for case in NRT.test_cases_:
+            case_dir = os.path.dirname (case.jobs_file_)
+            if case.diff_messages_ == None and case_dir in results_per_dir:
+                case.diff_ = results_per_dir[case_dir][0]
+                case.diff_messages_ = results_per_dir[case_dir][1]
 
         # Export results as html
         NRT.exportHTML(html_output)
