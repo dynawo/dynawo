@@ -14,12 +14,15 @@ set(MODEL_FILES
   # Converter control models
   package.mo
   package.order
+  GridFollowingControl.mo
+  GridFollowingControl.extvar
   GridFormingControlDroopControl.mo
   GridFormingControlDroopControl.extvar
   GridFormingControlMatchingControl.mo
   GridFormingControlMatchingControl.extvar
   GridFormingControlDispatchableVirtualOscillatorControl.mo
   GridFormingControlDispatchableVirtualOscillatorControl.extvar
+  GridFollowingControl_INIT.mo
   GridFormingControl_INIT.mo
   )
 

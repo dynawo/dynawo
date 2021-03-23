@@ -1,5 +1,7 @@
 BaseControls
+GridFollowingControl
 GridFormingControlDroopControl
 GridFormingControlMatchingControl
 GridFormingControlDispatchableVirtualOscillatorControl
 GridFormingControl_INIT
+GridFollowingControl_INIT
