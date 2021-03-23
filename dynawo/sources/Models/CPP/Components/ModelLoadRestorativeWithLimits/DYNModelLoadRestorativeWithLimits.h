@@ -130,13 +130,21 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   */
   void getSize();
   /**
-  * @copydoc ModelCPP::evalYType()
+  * @copydoc ModelCPP::evalStaticYType()
   */
-  void evalYType();
+  void evalStaticYType();
   /**
-  * @copydoc ModelCPP::evalFType()
+   * @copydoc ModelCPP::evalDynamicYType()
+   */
+  void evalDynamicYType() { /* not needed */}
+  /**
+  * @copydoc ModelCPP::evalStaticFType()
   */
-  void evalFType();
+  void evalStaticFType();
+  /**
+   * @copydoc ModelCPP::evalDynamicFType()
+   */
+  void evalDynamicFType() { /* not needed */}
   /**
   * @brief initialize variables of the model
   *
@@ -205,14 +213,6 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   * @copydoc ModelCPP::getY0()
   */
   void getY0();
-  /**
-  * @copydoc ModelCPP::updateFType()
-  */
-  void updateFType() { /* not needed */ }
-  /**
-  * @copydoc ModelCPP::updateYType()
-  */
-  void updateYType() { /* not needed */ }
   /**
   * @copydoc ModelCPP::initParams()
   */

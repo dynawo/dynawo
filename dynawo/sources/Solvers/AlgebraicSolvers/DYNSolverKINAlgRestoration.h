@@ -176,6 +176,11 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   static int evalJPrim_KIN(N_Vector yy, N_Vector rr,
           SUNMatrix JJ, void * data, N_Vector tmp1, N_Vector tmp2);
 
+  /**
+   * @brief computes and collects the equations and variables' types
+   */
+  void initVarAndEqTypes();
+
 #if _DEBUG_
   /**
    * @brief Check jacobian
