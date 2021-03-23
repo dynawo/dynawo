@@ -1080,7 +1080,7 @@ def format_for_modelica_reinit_evalmode(body):
     return text_to_return
 
 ##
-# replace the equations in the of statement by others lines
+# replace the equations in the if statement by others lines
 # @param eq_body : a body of lines
 # @param lines_to_insert : lines to insert
 # @return the formatted body

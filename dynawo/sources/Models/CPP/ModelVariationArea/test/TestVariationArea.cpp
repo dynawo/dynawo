@@ -242,8 +242,8 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   ASSERT_NO_THROW(modelVariationArea->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
   ASSERT_NO_THROW(modelVariationArea->evalCalculatedVarI(0));
   ASSERT_NO_THROW(modelVariationArea->evalCalculatedVars());
-  ASSERT_NO_THROW(modelVariationArea->updateFType());
-  ASSERT_NO_THROW(modelVariationArea->updateYType());
+  ASSERT_NO_THROW(modelVariationArea->evalDynamicFType());
+  ASSERT_NO_THROW(modelVariationArea->evalDynamicYType());
   modelVariationArea->collectSilentZ(silentZ);
   for (size_t i = 0; i < modelVariationArea->sizeZ(); ++i) {
     if (i == 0)

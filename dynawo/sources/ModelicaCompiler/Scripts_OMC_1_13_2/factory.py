@@ -1174,34 +1174,6 @@ class Factory:
         self.build_relations()
         self.build_modes_discretes()
 
-
-    ##
-    # Analyse the body of a mixed equation to find out which is the type of equation that this test controls
-    # @param self : object pointer
-    # @param eq_body_for_setf : body of the equation
-    # @param temporary_var : temporary var to test
-    # @param evaluated_var : variable evaluated by the equation
-    def find_equation_type_of_test(self, eq_body_for_setf, temporary_var, evaluated_var):
-        temporary_var_assign_ptrn = re.compile(r'\s*tmp(?P<val>[0-9]+)\s*=.*')
-        temporary_var_test_ptrn = re.compile(r'\s*if\s*\(\s*tmp[0-9]+\s*\)\s*')
-        current_tmp_var_idx = temporary_var.replace("tmp","")
-        found_if = False
-        idx = 0
-        for line in eq_body_for_setf:
-            match = re.search(temporary_var_assign_ptrn, line)
-            if match is not None:
-                val = match.group('val')
-                if not found_if and "tmp"+current_tmp_var_idx in line and val != current_tmp_var_idx:
-                    current_tmp_var_idx = val
-                elif not found_if and "tmp"+current_tmp_var_idx in line and "data->localData" in line:
-                    idx+=1
-                elif found_if:
-                    return self.reader.mixed_residual_vars_types[evaluated_var][idx]
-            if re.search(temporary_var_test_ptrn, line) and "tmp"+current_tmp_var_idx in line :
-                found_if = True
-
-        return ALGEBRAIC
-
     ##
     # Build the relations objects by parsing the existing equations
     # @param self : object pointer
@@ -1216,7 +1188,7 @@ class Factory:
                 if eq.get_type() == DIFFERENTIAL:
                     eq_type = DIFFERENTIAL
                 elif eq.get_type() == MIXED:
-                    eq_type = self.find_equation_type_of_test(eq.get_body_for_setf(), relation.split(", ")[0].replace("RELATIONHYSTERESIS(",""), eq.get_evaluated_var())
+                    eq_type = ALGEBRAIC
                 assert(eq_type == ALGEBRAIC or eq_type == DIFFERENTIAL)
                 map_relations[index_relation] = [eq_type, eq.get_src_fct_name()]
         # bulding relations objects

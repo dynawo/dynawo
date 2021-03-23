@@ -146,8 +146,8 @@ TEST(ModelsModelSignalN, ModelSignalNTypeMethods) {
   ASSERT_NO_THROW(modelSignalN->evalJCalculatedVarI(0, res));
   ASSERT_NO_THROW(modelSignalN->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
   ASSERT_NO_THROW(modelSignalN->evalCalculatedVars());
-  ASSERT_NO_THROW(modelSignalN->updateFType());
-  ASSERT_NO_THROW(modelSignalN->updateYType());
+  ASSERT_NO_THROW(modelSignalN->evalDynamicFType());
+  ASSERT_NO_THROW(modelSignalN->evalDynamicYType());
   ASSERT_NO_THROW(modelSignalN->initializeStaticData());
   ASSERT_NO_THROW(modelSignalN->setGequations());
   ASSERT_EQ(modelSignalN->evalCalculatedVarI(0), 0.);

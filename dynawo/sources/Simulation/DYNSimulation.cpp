@@ -759,6 +759,9 @@ Simulation::calculateIC() {
   Trace::info() << DYNLog(ModelLocalInitEnd) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 
+  model_->evalDynamicYType();
+  model_->evalDynamicFType();
+
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(ModelGlobalInit) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;

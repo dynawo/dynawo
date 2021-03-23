@@ -169,7 +169,7 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::evalYType() {
+  ModelLoadRestorativeWithLimits::evalStaticYType() {
     yType_[0] = DIFFERENTIAL;  // differential equation on ufRaw
     yType_[1] = ALGEBRAIC;  // uf
     yType_[2] = EXTERNAL;  // ur
@@ -181,7 +181,7 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::evalFType() {
+  ModelLoadRestorativeWithLimits::evalStaticFType() {
     fType_[0] = DIFFERENTIAL_EQ;
     fType_[1] = ALGEBRAIC_EQ;
     fType_[2] = ALGEBRAIC_EQ;

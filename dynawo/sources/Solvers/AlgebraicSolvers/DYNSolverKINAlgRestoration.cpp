@@ -66,19 +66,36 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
 
   model_ = model;
   mode_ = mode;
+  initVarAndEqTypes();
 
+  if (nbF_ == 0)
+    return;
+
+  switch (mode) {
+    case KIN_NORMAL:
+      initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN);
+      break;
+    case KIN_YPRIM:
+      initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJPrim_KIN);
+      break;
+  }
+}
+
+
+void
+SolverKINAlgRestoration::initVarAndEqTypes() {
   // For some specific models, the equation type could vary during the simulation.
   model_->evalDynamicFType();
   model_->evalDynamicYType();
 
   // (2) Size of the problem
   // -------------------------------
-  fType_.resize(model->sizeF());
-  std::copy(model_->getFType(), model_->getFType() + model->sizeF(), fType_.begin());
+  fType_.resize(model_->sizeF());
+  std::copy(model_->getFType(), model_->getFType() + model_->sizeF(), fType_.begin());
 
-  vId_.resize(model->sizeY());
-  std::copy(model_->getYType(), model_->getYType() + model->sizeY(), vId_.begin());
-  switch (mode) {
+  vId_.resize(model_->sizeY());
+  std::copy(model_->getYType(), model_->getYType() + model_->sizeY(), vId_.begin());
+  switch (mode_) {
     case KIN_NORMAL:
       nbF_ = count(fType_.begin(), fType_.end(), DYN::ALGEBRAIC_EQ);  // Only algebraic equation
       break;
@@ -96,16 +113,6 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
   yy_ = N_VMake_Serial(nbF_, &(vYy_[0]));
   if (yy_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYY);
-
-  switch (mode) {
-    case KIN_NORMAL:
-      initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN);
-      break;
-    case KIN_YPRIM:
-      initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJPrim_KIN);
-      break;
-  }
-
   // Analyze variables to find differential variables and differential equation
   // depending of the kind of the problem to solve, keep differential variables/equation or algebraic variables/equation
   ignoreY_.clear();  // variables to ignore
@@ -148,21 +155,26 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
   if (ignoreF_.size() != ignoreY_.size() || indexF_.size() != indexY_.size()) {
 #ifdef _DEBUG_
     for (int i = 0; i < model_->sizeF(); ++i) {
-      Trace::debug() << "Equation " << i << " has type " << ((fType_[i] > 0)? "differential":"algebraic") << Trace::endline;
+      std::string fEquation("");
+      std::string subModelName;
+      int localFIndex = -1;
+      model_->getFInfos(i, subModelName, localFIndex, fEquation);
+      Trace::debug() << DYNLog(SolverEquationsType, i, ((fType_[i] > 0)? "differential":"algebraic"), fEquation) << Trace::endline;
     }
     for (int i = 0; i < model_->sizeY(); ++i) {
-      Trace::debug() << "Variable " << i << " has type " << ((vId_[i] > 0)? "differential":"algebraic") << Trace::endline;
+      Trace::debug() << DYNLog(SolverVariablesType, model_->getVariableName(i), i, ((vId_[i] > 0)? "differential":"algebraic")) << Trace::endline;
     }
 #endif
     throw DYNError(Error::SOLVER_ALGO, SolverUnbalanced);
   }
 }
-
 void
 SolverKINAlgRestoration::modifySettings(double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep,
                   int msbset, int mxiter, int printfl) {
   if (nbF_ == 0)
     return;
+
+  initVarAndEqTypes();
 
   // Modify tolerances
   int flag = KINSetFuncNormTol(KINMem_, fnormtol);
