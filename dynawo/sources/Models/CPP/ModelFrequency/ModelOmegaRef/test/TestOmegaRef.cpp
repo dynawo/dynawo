@@ -175,7 +175,8 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   ASSERT_EQ(modelOmegaRef->sizeG(), 0);
   ASSERT_EQ(modelOmegaRef->sizeMode(), 1);
 
-  modelOmegaRef->evalYType();
+  modelOmegaRef->evalStaticYType();
+  modelOmegaRef->evalDynamicYType();
   propertyContinuousVar_t* yTypeGet = modelOmegaRef->getYType();
   ASSERT_EQ(yTypeGet[0], ALGEBRAIC);
   ASSERT_EQ(yTypeGet[10], EXTERNAL);
@@ -183,7 +184,8 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   ASSERT_EQ(yTypeGet[12], ALGEBRAIC);
   ASSERT_NE(yTypeGet[9], EXTERNAL);
 
-  modelOmegaRef->evalFType();
+  modelOmegaRef->evalStaticFType();
+  modelOmegaRef->evalDynamicFType();
   ASSERT_EQ(fTypes[0], ALGEBRAIC_EQ);
   ASSERT_EQ(fTypes[10], ALGEBRAIC_EQ);
 
@@ -194,8 +196,8 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   ASSERT_NO_THROW(modelOmegaRef->evalJCalculatedVarI(0, res));
   ASSERT_NO_THROW(modelOmegaRef->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
   ASSERT_NO_THROW(modelOmegaRef->evalCalculatedVars());
-  ASSERT_NO_THROW(modelOmegaRef->updateFType());
-  ASSERT_NO_THROW(modelOmegaRef->updateYType());
+  ASSERT_NO_THROW(modelOmegaRef->evalDynamicFType());
+  ASSERT_NO_THROW(modelOmegaRef->evalDynamicYType());
   ASSERT_NO_THROW(modelOmegaRef->initializeStaticData());
   ASSERT_NO_THROW(modelOmegaRef->setGequations());
   ASSERT_EQ(modelOmegaRef->evalCalculatedVarI(0), 0.);

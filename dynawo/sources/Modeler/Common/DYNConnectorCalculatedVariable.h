@@ -99,9 +99,9 @@ class ConnectorCalculatedVariable : public SubModel {
   void initParams() { /*no parameter*/ }
 
   /**
-   * @copydoc SubModel::evalFType()
+   * @copydoc SubModel::evalStaticFType()
    */
-  void evalFType();
+  void evalStaticFType();
 
   /**
    * @copydoc SubModel::collectSilentZ()
@@ -109,9 +109,9 @@ class ConnectorCalculatedVariable : public SubModel {
   void collectSilentZ(BitMask* silentZTable);
 
   /**
-   * @copydoc SubModel::updateFType()
+   * @copydoc SubModel::evalDynamicFType()
    */
-  void updateFType() { /* not needed */ }
+  void evalDynamicFType() { /* not needed */ }
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable
@@ -144,14 +144,14 @@ class ConnectorCalculatedVariable : public SubModel {
   void getY0();
 
   /**
-   * @copydoc SubModel::evalYType()
+   * @copydoc SubModel::evalStaticYType()
    */
-  void evalYType();
+  void evalStaticYType();
 
   /**
-   * @copydoc SubModel::updateYType()
+   * @copydoc SubModel::evalDynamicYType()
    */
-  void updateYType() { /* not needed */ }
+  void evalDynamicYType() { /* not needed */ }
 
   /**
    * @copydoc SubModel::dumpParameters(std::map<std::string, std::string > & mapParameters)

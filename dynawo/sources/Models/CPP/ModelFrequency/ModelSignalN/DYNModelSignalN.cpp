@@ -295,14 +295,14 @@ ModelSignalN::getY0() {
 }
 
 void
-ModelSignalN::evalYType() {
+ModelSignalN::evalStaticYType() {
   std::fill(yType_, yType_ + nbMaxCC, ALGEBRAIC);  // n[i] is an algebraic variable
   std::fill(yType_ + nbMaxCC, yType_ + nbMaxCC + nbGen_, ALGEBRAIC);   // nGrp[i] is an algebraic variable
   std::fill(yType_+ nbMaxCC + nbGen_, yType_+ 2 * nbMaxCC + nbGen_, ALGEBRAIC);  // tetaRef[i] is an algebraic variable
 }
 
 void
-ModelSignalN::evalFType() {
+ModelSignalN::evalStaticFType() {
   std::fill(fType_, fType_ + nbMaxCC + nbGen_, ALGEBRAIC_EQ);  // no differential variable
 }
 

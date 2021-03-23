@@ -227,28 +227,29 @@ class SubModel {
   virtual void getY0() = 0;
 
   /**
-   * @brief evaluate the properties of the variables (algebraic or differential variables)
+   * @brief evaluate the properties of the variables that won't change during simulation
+   * (algebraic, differential, external or external optional variables)
    *
    */
-  virtual void evalYType() = 0;
+  virtual void evalStaticYType() = 0;
 
   /**
-   * @brief update during the simulation the properties of the variables (algebraic or differential variables)
+   * @brief update during the simulation the properties of the variables that depends on others variables values
    *
    */
-  virtual void updateYType() = 0;
+  virtual void evalDynamicYType() = 0;
 
   /**
-   * @brief evaluate the properties of each residual function (algebraic or differential equation)
+   * @brief evaluate the properties of the residual function  that won't change during simulation (algebraic or differential equation)
    *
    */
-  virtual void evalFType() = 0;
+  virtual void evalStaticFType() = 0;
 
   /**
-   * @brief update during the simulation the properties of each residual function (algebraic or differential equation)
+   * @brief update during the simulation the properties of the residual functions that depends on others variables values
    *
    */
-  virtual void updateFType() = 0;
+  virtual void evalDynamicFType() = 0;
 
   /**
    * @brief Model model's sizes getter

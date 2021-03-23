@@ -222,16 +222,6 @@ class Model {
   virtual propertyF_t* getFType() const = 0;
 
   /**
-   * @brief evaluate the properties of the residual functions (algebraic or differential)
-   */
-  virtual void evalFType() = 0;
-
-  /**
-   * @brief update the properties of the residual functions during the simulation (algebraic or differential)
-   */
-  virtual void updateFType() = 0;
-
-  /**
    * @brief get the properties of the variables (algebraic, external or differential variable)
    *
    * @return properties of each variable
@@ -239,14 +229,29 @@ class Model {
   virtual propertyContinuousVar_t* getYType() const = 0;
 
   /**
-   * @brief evaluate the properties of the variables (algebraic, external or differential variable)
+   * @brief evaluate the properties of the variables that won't change during simulation
+   * (algebraic, differential, external or external optional variables)
+   *
    */
-  virtual void evalYType() = 0;
+  virtual void evalStaticYType() = 0;
 
   /**
-   * @brief update the properties of the variables during the simulation (algebraic, external or differential variable)
+   * @brief update during the simulation the properties of the variables that depends on others variables values
+   *
    */
-  virtual void updateYType() = 0;
+  virtual void evalDynamicYType() = 0;
+
+  /**
+   * @brief evaluate the properties of the residual function  that won't change during simulation (algebraic or differential equation)
+   *
+   */
+  virtual void evalStaticFType() = 0;
+
+  /**
+   * @brief update during the simulation the properties of the residual functions that depends on others variables values
+   *
+   */
+  virtual void evalDynamicFType() = 0;
 
   /**
    * @brief Set the initialisation status of the simulation

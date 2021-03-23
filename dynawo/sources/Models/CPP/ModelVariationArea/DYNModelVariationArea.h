@@ -162,14 +162,14 @@ class ModelVariationArea : public ModelCPP::Impl {
   void evalJtPrim(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset);
 
   /**
-   * @copydoc ModelCPP::evalFType()
+   * @copydoc ModelCPP::evalStaticFType()
    */
-  void evalFType();
+  void evalStaticFType();
 
   /**
-   * @copydoc ModelCPP::updateFType()
+   * @copydoc ModelCPP::evalDynamicFType()
    */
-  void updateFType() { /* not needed */}
+  void evalDynamicFType() { /* not needed */}
 
   /**
    * @copydoc ModelCPP::getY0()
@@ -177,14 +177,14 @@ class ModelVariationArea : public ModelCPP::Impl {
   void getY0();
 
   /**
-   * @copydoc ModelCPP::evalYType()
+   * @copydoc ModelCPP::evalStaticYType()
    */
-  void evalYType();
+  void evalStaticYType();
 
   /**
-   * @copydoc ModelCPP::updateYType()
+   * @copydoc ModelCPP::evalDynamicYType()
    */
-  void updateYType() { /* not needed */}
+  void evalDynamicYType() { /* not needed */}
 
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable

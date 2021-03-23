@@ -583,7 +583,7 @@ void ModelGeneratorPQ_Dyn::callCustomParametersConstructors()
 {
 }
 
-void ModelGeneratorPQ_Dyn::setYType_omc(propertyContinuousVar_t* yType)
+void ModelGeneratorPQ_Dyn::evalStaticYType_omc(propertyContinuousVar_t* yType)
 {
    yType[ 0 ] = EXTERNAL;   /* generator_omegaRefPu_value (rSta) - external variables */
    yType[ 1 ] = EXTERNAL;   /* generator_terminal_V_im (rSta) - external variables */
@@ -598,7 +598,11 @@ void ModelGeneratorPQ_Dyn::setYType_omc(propertyContinuousVar_t* yType)
    yType[ 10 ] = ALGEBRAIC;   /* generator_terminal_i_re (rAlg)  */
 }
 
-void ModelGeneratorPQ_Dyn::setFType_omc(propertyF_t* fType)
+void ModelGeneratorPQ_Dyn::evalDynamicYType_omc(propertyContinuousVar_t* yType)
+{
+}
+
+void ModelGeneratorPQ_Dyn::evalStaticFType_omc(propertyF_t* fType)
 {
    fType[ 0 ] = ALGEBRAIC_EQ;
    fType[ 1 ] = ALGEBRAIC_EQ;
@@ -608,6 +612,10 @@ void ModelGeneratorPQ_Dyn::setFType_omc(propertyF_t* fType)
    fType[ 5 ] = ALGEBRAIC_EQ;
    fType[ 6 ] = ALGEBRAIC_EQ;
    fType[ 7 ] = ALGEBRAIC_EQ;
+}
+
+void ModelGeneratorPQ_Dyn::evalDynamicFType_omc(propertyF_t* fType)
+{
 }
 
 boost::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Dyn::setSharedParametersDefaultValues()

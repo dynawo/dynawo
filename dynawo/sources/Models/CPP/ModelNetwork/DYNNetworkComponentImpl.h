@@ -131,14 +131,14 @@ class NetworkComponent::Impl : public NetworkComponent {
   virtual double evalCalculatedVarI(unsigned numCalculatedVar) const = 0;
 
   /**
-   * @copydoc NetworkComponent::evalFType()
+   * @copydoc NetworkComponent::evalStaticFType()
    */
-  virtual void evalFType() = 0;
+  virtual void evalStaticFType() = 0;
 
   /**
-   * @copydoc NetworkComponent::updateFType()
+   * @copydoc NetworkComponent::evalDynamicFType()
    */
-  virtual void updateFType() = 0;
+  virtual void evalDynamicFType() = 0;
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
@@ -146,14 +146,14 @@ class NetworkComponent::Impl : public NetworkComponent {
   virtual void collectSilentZ(BitMask* silentZTable) = 0;
 
   /**
-   * @copydoc NetworkComponent::evalYType()
+   * @copydoc NetworkComponent::evalStaticYType()
    */
-  virtual void evalYType() = 0;
+  virtual void evalStaticYType() = 0;
 
   /**
-   * @copydoc NetworkComponent::updateYType()
+   * @copydoc NetworkComponent::evalDynamicYType()
    */
-  virtual void updateYType() = 0;
+  virtual void evalDynamicYType() = 0;
 
   /**
    * @copydoc NetworkComponent::evalYMat()

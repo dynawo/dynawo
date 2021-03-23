@@ -238,24 +238,24 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   double evalCalculatedVarI(unsigned numCalculatedVar) const;
 
   /**
-   * @copydoc NetworkComponent::evalYType()
+   * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalYType();
+  void evalStaticYType();
 
   /**
-   * @copydoc NetworkComponent::updateYType()
+   * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void updateYType() { /* not needed */ }
+  void evalDynamicYType() { /* not needed */ }
 
   /**
-   * @copydoc NetworkComponent::evalFType()
+   * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalFType();
+  void evalStaticFType();
 
   /**
-   * @copydoc NetworkComponent::updateFType()
+   * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void updateFType() { /* not needed */ }
+  void evalDynamicFType() { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()

@@ -166,12 +166,12 @@ ConnectorCalculatedVariable::getY0() {
 }
 
 void
-ConnectorCalculatedVariable::evalYType() {
+ConnectorCalculatedVariable::evalStaticYType() {
   yType_[0] = ALGEBRAIC;  // the calculated variable is an algebraic variable
 }
 
 void
-ConnectorCalculatedVariable::evalFType() {
+ConnectorCalculatedVariable::evalStaticFType() {
   fType_[0] = ALGEBRAIC_EQ;  // no differential variable in connector calculated variable
 }
 

@@ -167,14 +167,14 @@ class ModelOmegaRef : public ModelCPP::Impl {
   void evalCalculatedVars();
 
   /**
-   * @copydoc ModelCPP::evalFType()
+   * @copydoc ModelCPP::evalStaticFType()
    */
-  void evalFType();
+  void evalStaticFType();
 
   /**
-   * @copydoc ModelCPP::updateFType()
+   * @copydoc ModelCPP::evalDynamicFType()
    */
-  void updateFType() { /* not needed */}
+  void evalDynamicFType() { /* not needed */}
 
   /**
    * @copydoc ModelCPP::getY0()
@@ -182,14 +182,14 @@ class ModelOmegaRef : public ModelCPP::Impl {
   void getY0();
 
   /**
-   * @copydoc ModelCPP::evalYType()
+   * @copydoc ModelCPP::evalStaticYType()
    */
-  void evalYType();
+  void evalStaticYType();
 
   /**
-   * @copydoc ModelCPP::updateYType()
+   * @copydoc ModelCPP::evalDynamicYType()
    */
-  void updateYType() { /* not needed */}
+  void evalDynamicYType() { /* not needed */}
 
   // output management
   /**

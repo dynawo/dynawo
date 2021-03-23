@@ -183,9 +183,9 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void setFequations(std::map<int, std::string>& fEquationIndex);
 
   /**
-   * @copydoc NetworkComponent::evalFType()
+   * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalFType();
+  void evalStaticFType();
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
@@ -193,9 +193,9 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void collectSilentZ(BitMask* silentZTable);
 
   /**
-   * @copydoc NetworkComponent::updateFType()
+   * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void updateFType();
+  void evalDynamicFType();
 
   /**
    * @copydoc NetworkComponent::evalYMat()
@@ -203,14 +203,14 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void evalYMat();
 
   /**
-   *  @copydoc NetworkComponent::evalYType()
+   *  @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalYType();
+  void evalStaticYType();
 
   /**
-   * @copydoc NetworkComponent::updateYType()
+   * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void updateYType();
+  void evalDynamicYType();
 
   /**
    * @copydoc NetworkComponent::evalG(const double& t)

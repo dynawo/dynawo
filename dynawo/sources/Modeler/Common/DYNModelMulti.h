@@ -185,14 +185,14 @@ class ModelMulti : public Model, private boost::noncopyable {
   }
 
   /**
-   * @copydoc Model::evalFType()
+   * @copydoc Model::evalStaticFType()
    */
-  void evalFType();
+  void evalStaticFType();
 
   /**
-   * @copydoc Model::updateFType()
+   * @copydoc Model::evalDynamicFType()
    */
-  void updateFType();
+  void evalDynamicFType();
 
   /**
    * @copydoc Model::getYType()
@@ -202,14 +202,14 @@ class ModelMulti : public Model, private boost::noncopyable {
   }
 
   /**
-   * @copydoc Model::evalYType()
+   * @copydoc Model::evalStaticYType()
    */
-  void evalYType();
+  void evalStaticYType();
 
   /**
-   * @copydoc Model::updateYType()
+   * @copydoc Model::evalStaticYType()
    */
-  void updateYType();
+  void evalDynamicYType();
 
   /**
    * @copydoc Model::setIsInitProcess(bool isInitProcess)

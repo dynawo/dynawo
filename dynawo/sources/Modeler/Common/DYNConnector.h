@@ -303,7 +303,7 @@ class ConnectorContainer {
    * @brief evaluate the property of each residual functions for each connectors
    *
    */
-  void evalFType() const;
+  void evalStaticFType() const;
 
   /**
    * @brief defines the local buffer to fill when evaluating the type of each residual function

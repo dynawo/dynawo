@@ -1064,8 +1064,10 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerContinuousVariables) 
   ASSERT_EQ(t2w->sizeF(), nbF);
 
   // test evalYType
-  ASSERT_NO_THROW(t2w->evalYType());
-  ASSERT_NO_THROW(t2w->evalFType());
+  ASSERT_NO_THROW(t2w->evalStaticYType());
+  ASSERT_NO_THROW(t2w->evalStaticFType());
+  ASSERT_NO_THROW(t2w->evalDynamicYType());
+  ASSERT_NO_THROW(t2w->evalDynamicFType());
 
   // test evalF
   ASSERT_NO_THROW(t2w->evalF(UNDEFINED_EQ));
@@ -1075,8 +1077,6 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerContinuousVariables) 
   t2w->setFequations(fEquationIndex);
   ASSERT_EQ(fEquationIndex.size(), nbF);
   ASSERT_NO_THROW(t2w->evalDerivativesPrim());
-  ASSERT_NO_THROW(t2w->updateYType());
-  ASSERT_NO_THROW(t2w->updateFType());
 }
 
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDefineInstantiate) {
