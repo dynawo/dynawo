@@ -155,16 +155,12 @@ class ReaderOMC:
         ## List of silent discrete variables (not used in continuous equations)
         self.silent_discrete_vars_not_used_in_continuous_eq = []
 
-        ## List of residual variables which computes a derivative values
-        self.derivative_residual_vars = []
-        ## List of residual variables which computes a derivative values
-        self.assign_residual_vars = []
         ## dictionary of residual variables with their types (differential, algebraic, or mixed - depending on some conditions)
-        self.residual_vars = {}
+        self.var_name_to_eq_type = {}
         ## dictionary of residual variables equation with type MIXED associated to the detailed list of types
-        self.mixed_residual_vars_types = {}
+        self.var_name_to_mixed_residual_vars_types = {}
         ## dictionary of residual variables equation with type MIXED associated to the list of differential variables for each branch
-        self.mixed_residual_vars_differential_dependency_variables = {}
+        self.var_name_to_differential_dependency_variables = {}
         ## List of auxiliary variables which are used in a variable equation
         self.auxiliary_var_to_keep = []
         self.auxiliary_vars_counted_as_variables = []
@@ -304,6 +300,7 @@ class ReaderOMC:
         self.nb_bool_vars = 0
         self.nb_integer_vars = 0
         self.external_objects = []
+        self.dummy_der_variables = []
 
     ##
     # Read a function in a file and try to identify a function thanks to a pattern
@@ -414,12 +411,11 @@ class ReaderOMC:
                         self.map_vars_depend_vars[name] = list_depend_vars
 
                 for name in list_defined_vars :
-                    if name in self.residual_vars_to_address_map:
-                        if "equation" in keys:
-                            eq = equation["equation"]
-                            self.analyse_equations_and_get_types(str(eq), name)
-                        else:
-                            self.residual_vars[name] = ALGEBRAIC
+                    if "equation" in keys:
+                        eq = equation["equation"]
+                        self.analyse_equations_and_get_types(str(eq), name)
+                    else:
+                        self.var_name_to_eq_type[name] = ALGEBRAIC
             elif type_eq == "initial":
                 list_defined_vars=[]
                 if "defines" in keys:
@@ -435,7 +431,7 @@ class ReaderOMC:
     # @param defined_var_eq : name of the variable defined by this equation
     def analyse_equations_and_get_types(self, eq, defined_var_eq):
         if_ptrn = re.compile(r'if\s*(?P<cond>[\(\S\) ]+)\s*then\s*(?P<eq>[\(\S\) ]+)\s*')
-        der_var_ptrn = re.compile(r'der\s*\((?P<var>[\(\S\) ]+)\)')
+        der_var_ptrn = re.compile(r'der\s*\((?P<var>[\(\S\) ]+?)\)')
         diff_var = []
         idx = 0
         types = []
@@ -459,6 +455,10 @@ class ReaderOMC:
                 idx += 1
         if "if" in if_statement and ("der(" in eq.replace(if_statement,"") or "der (" in eq.replace(if_statement,"")):
             types.append(DIFFERENTIAL)
+            match2 = re.findall(der_var_ptrn, eq)
+            diff_var.append([])
+            for m2 in match2:
+                diff_var[len(diff_var) - 1].append(m2)
         elif "if" in if_statement:
             slitted_eq = if_statement.split('else')
             for sub_eq in slitted_eq:
@@ -490,15 +490,20 @@ class ReaderOMC:
                 types = [ref]
         elif "der(" in eq or "der (" in eq:
             types = [DIFFERENTIAL]
+            match2 = re.findall(der_var_ptrn, eq)
+            diff_var.append([])
+            for m2 in match2:
+                diff_var[len(diff_var) - 1].append(m2)
         else:
             types = [ALGEBRAIC]
 
         if len(types) == 1:
-            self.residual_vars[defined_var_eq] = types[0]
+            self.var_name_to_eq_type[defined_var_eq] = types[0]
         else:
-            self.residual_vars[defined_var_eq] = MIXED
-            self.mixed_residual_vars_types[defined_var_eq] = types
-            self.mixed_residual_vars_differential_dependency_variables[defined_var_eq] = diff_var
+            self.var_name_to_eq_type[defined_var_eq] = MIXED
+            self.var_name_to_mixed_residual_vars_types[defined_var_eq] = types
+
+        self.var_name_to_differential_dependency_variables[defined_var_eq] = diff_var
 
 
 
@@ -508,13 +513,14 @@ class ReaderOMC:
     # @return
     def remove_fictitious_fequation(self):
         key_to_remove = []
-        for dae_var in self.residual_vars:
-            if self.residual_vars[dae_var] == DIFFERENTIAL:
+        for dae_var in self.residual_vars_to_address_map:
+            if self.var_name_to_eq_type[dae_var] == DIFFERENTIAL:
                 list_depend_vars = self.map_vars_depend_vars[dae_var]
                 if len(list_depend_vars) == 1 and "der("+list_depend_vars[0]+")" in self.fictive_continuous_vars_der:
                     key_to_remove.append(dae_var)
         for dae_var in key_to_remove:
-            del self.residual_vars[dae_var]
+            del self.var_name_to_eq_type[dae_var]
+            del self.residual_vars_to_address_map[dae_var]
         map_dep = self.get_map_dep_vars_for_func()
         for var in map_dep:
             if self.is_auxiliary_vars(var) :
@@ -921,14 +927,20 @@ class ReaderOMC:
     def set_start_value_for_syst_vars_06inz(self):
         for key, value in self.var_init_val_06inz.items():
             for var in self.list_vars:
-                if var.get_name() == key:
+                name = var.get_name()
+                if "_dummy_der" in name:
+                    name = "der("+name.replace("_dummy_der","")+")"
+                if name == key:
                     var.set_start_text_06inz(value)
                     var.set_init_by_param_in_06inz(True)
-                    var.set_num_func_06inz(self.var_num_init_val_06inz[var.get_name()])
+                    var.set_num_func_06inz(self.var_num_init_val_06inz[name])
 
         for var_name, var_assignment in self.var_init_val_06_extend.items():
             for var in self.list_vars:
-                if var.get_name() == var_name:
+                name = var.get_name()
+                if "_dummy_der" in name:
+                    name = "der("+name.repplace("_dummy_der","")+")"
+                if name == var_name:
                     var.set_start_text_06inz(['{/n', var_assignment, '}'])
                     var.set_init_by_extend_in_06inz(True)
 
@@ -1248,9 +1260,22 @@ class ReaderOMC:
                     set_param_address(name,  "auxiliaryVars")
                 elif  is_ignored_var(name):
                     set_param_address(name,  "SHOULD NOT BE USED - IGNORED VAR")
-                elif type == "derivativeVars" or "$DER" in name:
+                elif type == "derivativeVars":
                     set_param_address(name,  "derivativesVars")
                     set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")",  to_param_address(name))
+                elif "$DER" in name and "algVars" in type:
+                    print_info("Found dummy der variable " + var.get_name())
+                    set_param_address(name,  "derivativesVars")
+                    set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")",  to_param_address(name))
+                    name = name.replace("$DER.","")+"_dummy_der"
+                    self.dummy_der_variables.append(name)
+                    set_param_address(name,  "realVars")
+                    var = Variable()
+                    var.set_name(name)
+                    var.set_variability("continuous")
+                    var.set_fixed(False)
+                    var.set_type("rAlg")
+                    self.list_vars.append(var)
                 elif re.search(r'stateVars \([0-9]+\)',type) or re.search(r'algVars \([0-9]+\)',type):
                     if not var.is_fixed():
                         set_param_address(name,  "realVars")
@@ -1307,6 +1332,25 @@ class ReaderOMC:
                 set_param_address(var_name, "realVars")
 
 
+    def correct_fixed_status(self):
+        for var_name in self.map_vars_depend_vars:
+            var = self.find_variable_from_name(var_name)
+            if var is not None and var.get_variability() == "continuous" and var.is_fixed():
+                for dep_var_name in self.map_vars_depend_vars[var_name]:
+                    dep_var = self.find_variable_from_name(dep_var_name)
+                    if dep_var is not None and not dep_var.is_fixed():
+                        var.set_fixed(False)
+                        print_info("Removing fixed flag from variable " + var.get_name())
+                        set_param_address(var.get_name(),  "realVars")
+                        modified = True
+                        while modified:
+                            modified = False
+                            for var2 in self.list_vars:
+                                if var2.get_alias_name() == var_name and var2.is_fixed():
+                                    var2.set_fixed(False)
+                                    print_info("Removing fixed flag from alias variable " + var2.get_name())
+                                    modified = True
+                        break
     ##
     # Assign the final type and index to the variables
     # @param self : object pointer
@@ -1314,6 +1358,7 @@ class ReaderOMC:
     def assign_variables_indexes(self):
         # We initialize vars of self.list_vars with initial values found in *_06inz.c
         self.set_start_value_for_syst_vars_06inz()
+        self.correct_fixed_status()
 
         # We initialize vars of self.list_vars with initial values found in *_08bnd.c
         self.set_start_value_for_syst_vars()
@@ -1321,7 +1366,6 @@ class ReaderOMC:
         self.detect_z_only_used_internally()
         # Attribution of indexes done independently to make sure the order is the same as in defineVariables and defineParameters methods
         index_real_var = 0
-        index_derivative_var = 0
         index_discrete_var = 0
         index_boolean_vars = 0
         index_real_param= 0
@@ -1347,11 +1391,6 @@ class ReaderOMC:
             elif "discreteVars" in address:
                 set_param_address(name, "data->localData[0]->discreteVars["+str(index_discrete_var)+"]")
                 index_discrete_var+=1
-            elif "derivativesVars" in address:
-                set_param_address(name, "data->localData[0]->derivativesVars["+str(index_derivative_var)+"]")
-                set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")", to_param_address(name))
-                set_param_address(name.replace("der(",alternative_way_to_declare_der)[:-1], to_param_address(name))
-                index_derivative_var+=1
             elif "integerDoubleVars" in address:
                 set_param_address(name, "data->localData[0]->integerDoubleVars["+str(index_integer_double)+"]")
                 index_integer_double+=1
@@ -1367,6 +1406,21 @@ class ReaderOMC:
             elif "stringParameter" in address:
                 set_param_address(name, "data->simulationInfo->stringParameter["+str(index_string_param)+"]")
                 index_string_param+=1
+        for var in self.list_vars:
+            name = var.get_name()
+            test_param_address(name)
+            address = to_param_address(name)
+            if "derivativesVars" in address:
+                name_equivalent_state = name
+                if alternative_way_to_declare_der in name_equivalent_state:
+                    name_equivalent_state = name_equivalent_state.replace(alternative_way_to_declare_der, "")
+                if "der(" in name_equivalent_state:
+                    name_equivalent_state = name_equivalent_state.replace("der(","")[:-1]
+                test_param_address(name_equivalent_state)
+                index = to_param_address(name_equivalent_state).replace("data->localData[0]->realVars[","")[:-1]
+                set_param_address(name, "data->localData[0]->derivativesVars["+str(index)+"]")
+                set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")", to_param_address(name))
+                set_param_address(name.replace("der(",alternative_way_to_declare_der)[:-1], to_param_address(name))
 
         self.nb_real_vars = index_real_var
         self.nb_discrete_vars = index_discrete_var
@@ -1490,8 +1544,11 @@ class ReaderOMC:
 
             list_depend = [] # list of vars on which depends the function
             is_eligible = True
+            #derivative variables should be kept in f
+            if name_var_eval is not None and "der("+name_var_eval+")" in get_map_var_name_2_addresses():
+                is_eligible = False
             for line in f.get_body():
-                if "STATE_DER" in line:
+                if "STATE_DER" in line or "DUMMY_DER" in line:
                     # equations with derivatives should be kept in F
                     is_eligible = False
                 if "RELATIONHYSTERESIS" in line:
@@ -1713,11 +1770,11 @@ class ReaderOMC:
     # @param var_name : variable name to test
     # @return True if the variable is a fictitious residual var
     def is_fictitious_residual_vars(self, var_name):
-        return var_name in self.residual_vars_to_address_map and var_name not in self.residual_vars
+        return var_name in self.residual_vars_to_address_map and var_name not in self.var_name_to_eq_type
     ##
     # return True if the variable is a residual derivative (not fictive) var
     # @param self : object pointer
     # @param var_name : variable name to test
     # @return True if the variable is a residual derivative (not fictive) var
-    def get_residual_vars_type(self, var_name):
-        return self.residual_vars[var_name]
+    def get_vars_type(self, var_name):
+        return self.var_name_to_eq_type[var_name]
