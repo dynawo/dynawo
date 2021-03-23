@@ -155,9 +155,20 @@ def replace_var_names(line):
     ptrn_param = re.compile(r'data->simulationInfo->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
     ptrn_var_add = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w]+)\[(?P<varIdx>[0-9]+)\]')
     data_simulation_info = "data->simulationInfo->"
-    match = ptrn_var.findall(line)
+    dummy_der_var = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) DUMMY_DER \*\/')
     map_to_replace = {}
     pattern_index  = 0
+    match = dummy_der_var.findall(line)
+    for idx, add, name in match:
+        dummy_name = name
+        if "_dummy_der" not in dummy_name:
+            dummy_name = name.replace("der(","")[:-1] + "_dummy_der"
+        test_param_address(dummy_name)
+        replacement_string = "@@@" + str(pattern_index) + "@@@"
+        line = line.replace("data->localData["+str(idx)+"]->"+add, replacement_string)
+        map_to_replace[replacement_string] = to_param_address(dummy_name)
+        pattern_index +=1
+    match = ptrn_var.findall(line)
     for idx, add, name in match:
         test_param_address(name)
         replacement_string = "@@@" + str(pattern_index) + "@@@"
@@ -1089,6 +1100,7 @@ def replace_equations_in_a_if_statement(eq_body, lines_to_insert, additional_lea
     tmp_assign_ptrn = re.compile(r'tmp[0-9]+\s*=\s*tmp[0-9]+;')
     tmp_assign_cste = re.compile(r'tmp[0-9]+\s*=\s*[0-9\.]+;')
     tmp_eq_ptrn = re.compile(r'\s*tmp[0-9]+\s*=.*;')
+    tmp_eq_residual = re.compile(r'\s*f\[[0-9]+\]\s*=.*;')
     idx = 0
     leading_spaces_gen= ""
     for _ in range(1, additional_leading_space):
@@ -1102,6 +1114,8 @@ def replace_equations_in_a_if_statement(eq_body, lines_to_insert, additional_lea
                 continue
             if "$P$DAEres" in line:
                 continue
+            if re.search(tmp_eq_residual, line) is not None:
+                continue
             if re.search(tmp_assign_cste, line) is None and "data->localData" not in line or "modelica_boolean" in line:
                 res_body.append(leading_spaces_gen + line)
                 continue
@@ -1109,13 +1123,15 @@ def replace_equations_in_a_if_statement(eq_body, lines_to_insert, additional_lea
             leading_spaces= ""
             for _ in range(1, nb_leading_spaces+additional_leading_space):
                 leading_spaces+=" "
-            assert(idx < len(lines_to_insert))
             if not insertion_done_for_this_branch:
+                assert(idx < len(lines_to_insert))
                 res_body.append(leading_spaces + lines_to_insert[idx])
                 insertion_done_for_this_branch = True
                 idx+=1
         else:
             if "$P$DAEres" in line:
+                continue
+            if re.search(tmp_eq_residual, line) is not None:
                 continue
             res_body.append(leading_spaces_gen + line)
     return res_body
