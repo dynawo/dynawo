@@ -47,7 +47,7 @@ model Converter_INIT
   Types.PerUnit IqConv0Pu "Start value of the q-axis current created by the converter in pu (base UNom, SNom) (generator convention)";
   Types.PerUnit IqPcc0Pu "Start value of the q-axis current at the PCC in pu (base UNom, SNom) (generator convention)";
   Types.PerUnit IdcSource0Pu "Start value of the DC source current in pu (base SnRefConverter)";
-  Types.PerUnit UdcSource0Pu "Start value of the DC voltage in pu (base Unom)";
+  Types.PerUnit Udc0Pu "Start value of the DC voltage in pu (base Unom)";
 
   equation
 
@@ -69,7 +69,7 @@ model Converter_INIT
   0 = IqConv0Pu - SystemBase.omegaRef0Pu * Cfilter * UdFilter0Pu - IqPcc0Pu;
 
   /* Power Conservation */
-  UdConv0Pu * IdConv0Pu + UqConv0Pu * IqConv0Pu = UdcSource0Pu * IdcSource0Pu;
+  UdConv0Pu * IdConv0Pu + UqConv0Pu * IqConv0Pu = Udc0Pu * IdcSource0Pu;
 
 annotation(preferredView = "text");
 

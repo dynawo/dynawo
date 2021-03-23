@@ -44,6 +44,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B.xml
   GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2BStepURef.xml
   GenericAutomaton.xml
+  GridFollowingControl.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
   GridFormingConverterDispatchableVirtualOscillatorControl.xml
@@ -71,6 +72,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVSCDanglingP.xml
   HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
+  IECWT4AControl.xml
+  IECWP4AControl.xml
   InfiniteBus.xml
   InfiniteBusWithVariations.xml
   InjectorBG.xml

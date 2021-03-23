@@ -1,4 +1,8 @@
+FirstOrderRamp
+FirstOrderRampLimit
+IntegratorFixLimits
 IntegratorSetFreeze
+IntegratorVariableLimits
 LeadMOrderLag
 LimitedPI
 LimPIDFreeze

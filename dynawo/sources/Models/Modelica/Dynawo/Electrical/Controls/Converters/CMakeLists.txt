@@ -9,18 +9,34 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 add_subdirectory(BaseControls B)
+add_subdirectory(Parameters P)
 
 set(MODEL_FILES
   # Converter control models
   package.mo
   package.order
+  GridFollowingControl.mo
+  GridFollowingControl.extvar
   GridFormingControlDroopControl.mo
   GridFormingControlDroopControl.extvar
   GridFormingControlMatchingControl.mo
   GridFormingControlMatchingControl.extvar
   GridFormingControlDispatchableVirtualOscillatorControl.mo
   GridFormingControlDispatchableVirtualOscillatorControl.extvar
+  IECWT4AControl.mo
+  IECWT4AControl.extvar
+  IECWP4AControl.mo
+  IECWP4AControl.extvar
+  IECWT4AControlVs.mo
+  IECWT4AControlVs.extvar
+  GridFollowingControl_INIT.mo
   GridFormingControl_INIT.mo
+  IECWT4AControl_INIT.mo
+  IECWP4AControl_INIT.mo
+  IECWT4AControlVs_INIT.mo
+  IECAUXControl.mo
+  IECWT4BControl.mo
+  IECWT4BControl.extvar
   )
 
 #

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+   <!-- InfiniteBus -->
+  <set id="InfiniteBus">
+    <par type="DOUBLE" name="UPu" value="1.0678"/>
+    <par type="DOUBLE" name="UPhase" value="-0.04"/>
+  </set>
+  <!-- Line-->
+  <set id="Line">
+    <par type="DOUBLE" name="RPu" value="0.015"/>
+    <par type="DOUBLE" name="XPu" value="0.025"/>
+    <par type="DOUBLE" name="BPu" value="0.005"/>
+    <par type="DOUBLE" name="GPu" value="0"/>
+  </set>
+  <!-- Line2-->
+  <set id="Line2">
+    <par type="DOUBLE" name="RPu" value="0.01"/>
+    <par type="DOUBLE" name="XPu" value="0.1"/>
+    <par type="DOUBLE" name="BPu" value="0.01"/>
+    <par type="DOUBLE" name="GPu" value="0.0"/>
+  </set>
+  <!-- Line3A-->
+  <set id="Line3A">
+    <par type="DOUBLE" name="RPu" value="0.005"/>
+    <par type="DOUBLE" name="XPu" value="0.05"/>
+    <par type="DOUBLE" name="BPu" value="0.005"/>
+    <par type="DOUBLE" name="GPu" value="0.0"/>
+  </set>
+  <!-- Line3B-->
+  <set id="Line3B">
+    <par type="DOUBLE" name="RPu" value="0.005"/>
+    <par type="DOUBLE" name="XPu" value="0.05"/>
+    <par type="DOUBLE" name="BPu" value="0.005"/>
+    <par type="DOUBLE" name="GPu" value="0.0"/>
+  </set>
+  <!-- Line4-->
+  <set id="Line4">
+    <par type="DOUBLE" name="RPu" value="0"/>
+    <par type="DOUBLE" name="XPu" value="0.0457"/>
+    <par type="DOUBLE" name="BPu" value="0"/>
+    <par type="DOUBLE" name="GPu" value="0"/>
+  </set>
+    <!-- tfo1 -->
+  <set id="tfo1">
+    <par type="DOUBLE" name="RPu" value="0"/>
+    <par type="DOUBLE" name="XPu" value="0.05"/>
+    <par type="DOUBLE" name="BPu" value="0"/>
+    <par type="DOUBLE" name="GPu" value="0"/>
+    <par type="DOUBLE" name="rTfoPu" value="1"/>
+  </set>
+    <!-- tfo2 -->
+  <set id="tfo2">
+    <par type="DOUBLE" name="RPu" value="0"/>
+    <par type="DOUBLE" name="XPu" value="0.1"/>
+    <par type="DOUBLE" name="BPu" value="0"/>
+    <par type="DOUBLE" name="GPu" value="0"/>
+    <par type="DOUBLE" name="rTfoPu" value="1"/>
+  </set>
+  <set id="OmegaRef">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <set id="Fault">
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="1"/>
+    <par type="DOUBLE" name="fault_tBegin" value="6"/>
+    <par type="DOUBLE" name="fault_tEnd" value="6.25"/>
+  </set>
+  <set id="Fault2">
+    <par type="DOUBLE" name="RPu" value="0"/>
+    <par type="DOUBLE" name="XPu" value="0.05"/>
+    <par type="DOUBLE" name="tBegin" value="12"/>
+    <par type="DOUBLE" name="tEnd" value="12.15"/>
+  </set>
+  <set id="PRef">
+    <par type="DOUBLE" name="step_Height" value="-0.5"/>
+    <par type="DOUBLE" name="step_tStep" value="2"/>
+    <par type="DOUBLE" name="step_Value0" value="1"/>
+  </set>
+  <set id="QRef">
+    <par type="DOUBLE" name="step_Height" value="0.2"/>
+    <par type="DOUBLE" name="step_tStep" value="4"/>
+    <par type="DOUBLE" name="step_Value0" value="-0.21"/>
+  </set>
+  <set id="IDAOrder2">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="0.00000001"/>
+    <par type="DOUBLE" name="minStep" value="0.00001"/>
+        <par type="DOUBLE" name="minimalAcceptableStep" value="0.000000001"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-7"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-7"/>
+  </set>
+    <set id="IECGridFollowingParameters">
+    <par type="DOUBLE" name="converter_P0Pu" value="-1"/>
+    <par type="DOUBLE" name="converter_Q0Pu" value="0.21"/>
+    <par type="DOUBLE" name="converter_SNom" value="100"/>
+    <par type="DOUBLE" name="PRefPu_Value0" value="1"/>
+    <par type="DOUBLE" name="QRefPu_Value0" value="-0.21"/>
+    <par type="DOUBLE" name="control_IpMax0Pu" value="1.2"/>
+    <par type="DOUBLE" name="control_IqMax0Pu" value="0.4"/>
+    <par type="DOUBLE" name="control_IqMin0Pu" value="-0.4"/>
+    <par type="DOUBLE" name="control_Kiq" value="0"/>
+    <par type="DOUBLE" name="control_Kiu" value="0"/>
+    <par type="DOUBLE" name="control_Kpq" value="1.1"/>
+    <par type="DOUBLE" name="control_Kpqu" value="20"/>
+    <par type="DOUBLE" name="control_Kpu" value="2"/>
+    <par type="DOUBLE" name="control_Kpufrt" value="2"/>
+    <par type="DOUBLE" name="control_Kqv" value="-2"/>
+    <par type="BOOL" name="control_Mdfslim" value="false"/>
+    <par type="BOOL" name="control_MpUScale" value="false"/>
+    <par type="DOUBLE" name="control_P0Pu" value="-1"/>
+    <par type="DOUBLE" name="control_Q0Pu" value="0.21"/>
+    <par type="DOUBLE" name="control_QMax0Pu" value="0.8"/>
+    <par type="DOUBLE" name="control_QMin0Pu" value="-0.8"/>
+    <par type="DOUBLE" name="control_QMax" value="0.8"/>
+    <par type="DOUBLE" name="control_QMin" value="-0.8"/>
+    <par type="DOUBLE" name="control_RDrop" value="0"/>
+    <par type="DOUBLE" name="control_SNom" value="100"/>
+    <par type="DOUBLE" name="control_TanPhi" value="0.3"/>
+    <par type="DOUBLE" name="control_Td" value="0"/>
+    <par type="DOUBLE" name="control_Ts" value="0.0001"/>
+    <par type="DOUBLE" name="control_Tffilt" value="0.01"/>
+    <par type="DOUBLE" name="control_Tpfilt" value="0.01"/>
+    <par type="DOUBLE" name="control_Tqfilt" value="0.01"/>
+    <par type="DOUBLE" name="control_Tufilt" value="0.01"/>
+    <par type="DOUBLE" name="control_TpWTRef4A" value="0.01"/>
+    <par type="DOUBLE" name="control_TpOrdp4A" value="0.1"/>
+    <par type="DOUBLE" name="control_TqOrd" value="0.001"/>
+    <par type="DOUBLE" name="control_Tuss" value="1"/>
+    <par type="DOUBLE" name="control_XDrop" value="0"/>
+    <par type="DOUBLE" name="control_DpMaxp4A" value="1"/>
+    <par type="DOUBLE" name="control_DpRefMax4A" value="100"/>
+    <par type="DOUBLE" name="control_DpRefMin4A" value="-100"/>
+    <par type="DOUBLE" name="control_IMax" value="1.3"/>
+    <par type="DOUBLE" name="control_IMaxDip" value="1.3"/>
+    <par type="DOUBLE" name="control_IMaxHookPu" value="0"/>
+    <par type="DOUBLE" name="control_IdfHook" value="0"/>
+    <par type="DOUBLE" name="control_IpfHook" value="0"/>
+    <par type="DOUBLE" name="control_IqMax" value="1.05"/>
+    <par type="DOUBLE" name="control_IqMaxHook" value="0"/>
+    <par type="DOUBLE" name="control_IqMin" value="-1.05"/>
+    <par type="DOUBLE" name="control_IqPost" value="0"/>
+    <par type="DOUBLE" name="control_IqH1" value="1.05"/>
+    <par type="DOUBLE" name="control_UMax" value="1.1"/>
+    <par type="DOUBLE" name="control_UMin" value="0.9"/>
+    <par type="DOUBLE" name="control_UdbOne" value="-0.1"/>
+    <par type="DOUBLE" name="control_UdbTwo" value="0.1"/>
+    <par type="DOUBLE" name="control_UpDip" value="0"/>
+    <par type="DOUBLE" name="control_UpRise" value="1.1"/>
+    <par type="DOUBLE" name="control_UpquMax" value="1.1"/>
+    <par type="DOUBLE" name="control_UqDip" value="0.9"/>
+    <par type="DOUBLE" name="control_UqRise" value="1.1"/>
+    <par type="DOUBLE" name="converter_Bes" value="0"/>
+    <par type="DOUBLE" name="converter_Ges" value="0"/>
+    <par type="DOUBLE" name="converter_DipMax" value="1"/>
+    <par type="DOUBLE" name="converter_DiqMax" value="100"/>
+    <par type="DOUBLE" name="converter_DiqMin" value="-100"/>
+    <par type="DOUBLE" name="converter_IpMax0Pu" value="1.2"/>
+    <par type="DOUBLE" name="converter_IqMax0Pu" value="0.4"/>
+    <par type="DOUBLE" name="converter_IqMin0Pu" value="-0.4"/>
+    <par type="DOUBLE" name="converter_Xes" value="0"/>
+    <par type="DOUBLE" name="converter_Res" value="0"/>
+    <par type="DOUBLE" name="converter_Tg" value="0.01"/>
+    <par type="DOUBLE" name="control_Tpll" value="0.01"/>
+    <par type="DOUBLE" name="control_Upll1" value="999"/>
+    <par type="DOUBLE" name="control_Upll2" value="0.13"/>
+    <par type="BOOL" name="control_Mqpri" value="true"/>
+    <par type="INT" name="control_Mqfrt" value="0"/>
+    <par type="INT" name="control_MqG" value="1"/>
+    <par type="DOUBLE" name="control_U0Pu" value="1"/>
+    <par type="DOUBLE" name="control_UPhase0" value="0.22"/>
+    <par type="DOUBLE" name="converter_U0Pu" value="1"/>
+    <par type="DOUBLE" name="converter_UPhase0" value="0.22"/>
+    <par type="DOUBLE" name="omegaRefPu_Value0" value="1"/>
+    <par type="BOOL" name="control_QlConst" value="true"/>
+  </set>
+</parametersSet>

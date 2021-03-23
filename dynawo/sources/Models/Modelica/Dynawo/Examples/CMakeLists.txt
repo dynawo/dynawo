@@ -16,6 +16,8 @@ add_subdirectory(HVDC H)
 add_subdirectory(SVarC SV)
 add_subdirectory(Photovoltaics P)
 add_subdirectory(Wind W)
+add_subdirectory(VSCIB V)
+add_subdirectory(IECWT4ANeplan N)
 
 set(MODEL_FILES
   package.mo

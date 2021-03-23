@@ -36,14 +36,14 @@ model GridFormingControl_INIT "Initialization model for the grid forming control
   Types.PerUnit UqConv0Pu;
   Types.Angle Theta0;
   Types.PerUnit IdcSource0Pu;
-  Types.PerUnit UdcSource0Pu;
+  Types.PerUnit Udc0Pu;
 
   equation
 
   PRef0Pu = UdFilter0Pu * IdPcc0Pu;
-  PRef0Pu = IdcSourceRef0Pu * UdcSource0Pu;
+  PRef0Pu = IdcSourceRef0Pu * Udc0Pu;
   QRef0Pu =  - UdFilter0Pu * IqPcc0Pu;
-  UdcSource0Pu = UdFilter0Pu;
+  Udc0Pu = UdFilter0Pu;
 
 annotation(preferredView = "text");
 

@@ -22,9 +22,9 @@ model DCVoltageControl "DC Voltage control"
 
   Modelica.Blocks.Interfaces.RealInput IdcSourceRefPu(start = IdcSourceRef0Pu) "DC current reference in pu" annotation(
     Placement(visible = true, transformation(origin = {-140, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UdcSourcePu(start = UdcSource0Pu) "DC voltage in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UdcSourceRefPu(start = UdcSource0Pu) "DC voltage reference in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = Udc0Pu) "DC voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-140, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealOutput IdcSourcePu(start = IdcSource0Pu) "DC current in pu" annotation(
@@ -39,12 +39,12 @@ model DCVoltageControl "DC Voltage control"
 
   parameter Types.PerUnit IdcSourceRef0Pu;
   parameter Types.PerUnit IdcSource0Pu;
-  parameter Types.PerUnit UdcSource0Pu;
+  parameter Types.PerUnit Udc0Pu;
 
 equation
-  connect(feedback.u1, UdcSourceRefPu) annotation(
+  connect(feedback.u1, UdcRefPu) annotation(
     Line(points = {{-98, 40}, {-120, 40}, {-120, 40}, {-140, 40}}, color = {0, 0, 127}));
-  connect(feedback.u2, UdcSourcePu) annotation(
+  connect(feedback.u2, UdcPu) annotation(
     Line(points = {{-90, 32}, {-90, 32}, {-90, 0}, {-140, 0}, {-140, 0}}, color = {0, 0, 127}));
   connect(feedback.y, gaindc.u) annotation(
     Line(points = {{-80, 40}, {-60, 40}, {-60, 40}, {-58, 40}}, color = {0, 0, 127}));

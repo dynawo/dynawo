@@ -1,5 +1,16 @@
 BaseControls
+Parameters
+GridFollowingControl
 GridFormingControlDroopControl
 GridFormingControlMatchingControl
 GridFormingControlDispatchableVirtualOscillatorControl
 GridFormingControl_INIT
+GridFollowingControl_INIT
+IECWT4AControl
+IECWT4AControl_INIT
+IECWP4AControl
+IECWP4AControl_INIT
+IECWT4AControlVs
+IECWT4AControlVs_INIT
+IECAUXControl
+IECWT4BControl

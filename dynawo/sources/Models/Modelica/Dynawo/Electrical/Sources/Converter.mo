@@ -20,7 +20,7 @@ model Converter "Converter Model for Grid Forming and Grid Following application
 IdcSourcePu     IdcPu |          |iConvPu                           iPccPu
 -------->-------->----|          |-->-----(Rfilter,Lfilter)---------->--(Rtransformer,Ltransformer)---(terminal)
               |       |          |                                |
-UdcSourcePu (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (Cfilter)                      uPccPu
+UdcPu       (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (Cfilter)                      uPccPu
               |       |          |                                |
               |       |          |                                |
 ----------------------|__________|---------------------------------------------------------------------
@@ -57,7 +57,7 @@ UdcSourcePu (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (Cfilter)         
     Placement(visible = true, transformation(origin = {-58, 50}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, 90}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omegaRef0Pu) "Converter angular frequency in pu (base OmegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-58, -50}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, -90}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UdcSourceRefPu(start = UdcSource0Pu) "DC Voltage reference in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = Udc0Pu) "DC Voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {0, 63}, extent = {{-3, -3}, {3, 3}}, rotation = -90), iconTransformation(origin = { -105, -70}, extent = {{5, -5}, {-5, 5}}, rotation = 180)));
 
   Modelica.Blocks.Interfaces.RealOutput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
@@ -72,7 +72,7 @@ UdcSourcePu (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (Cfilter)         
     Placement(visible = true, transformation(origin = {67, 40}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {105, 60}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqPccPu(start = IqPcc0Pu) "q-axis current at the PCC in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {67, -40}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {105, -60}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput UdcSourcePu(start = UdcSource0Pu) "DC Voltage in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput UdcPu(start = Udc0Pu) "DC Voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {67, 0}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {105, 0}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
   Types.PerUnit udConvPu(start = UdConv0Pu) "d-axis modulated voltage created by the converter in pu (base UNom)";
@@ -97,7 +97,7 @@ UdcSourcePu (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (Cfilter)         
   parameter Types.PerUnit IqConv0Pu "Start value of the q-axis current created by the converter in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit IqPcc0Pu "Start value of the q-axis current at the PCC in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit IdcSource0Pu "Start value of the DC source current in pu (base SnRefConverter)";
-  parameter Types.PerUnit UdcSource0Pu "Start value of the DC voltage in pu (base Unom)";
+  parameter Types.PerUnit Udc0Pu "Start value of the DC voltage in pu (base Unom)";
 
 equation
   if running.value then
@@ -117,14 +117,14 @@ equation
     IConvPu = sqrt (idConvPu * idConvPu + iqConvPu * iqConvPu);
 
     /* DC Side */
-    Cdc * der(UdcSourcePu) = IdcSourcePu - IdcPu;
+    Cdc * der(UdcPu) = IdcSourcePu - IdcPu;
 
     /* AC Voltage Source */
-    udConvPu = udConvRefPu * UdcSourcePu / UdcSourceRefPu;
-    uqConvPu = uqConvRefPu * UdcSourcePu / UdcSourceRefPu;
+    udConvPu = udConvRefPu * UdcPu / UdcRefPu;
+    uqConvPu = uqConvRefPu * UdcPu / UdcRefPu;
 
     /* Power Conservation */
-    udConvPu * idConvPu + uqConvPu * iqConvPu = UdcSourcePu * IdcPu;
+    udConvPu * idConvPu + uqConvPu * iqConvPu = UdcPu * IdcPu;
 
     /* Power Calculation */
     PGenPu = (udPccPu * idPccPu + uqPccPu * iqPccPu) * SNom / SystemBase.SnRef;
@@ -144,12 +144,13 @@ equation
     IdcPu = 0;
     udConvPu = 0;
     uqConvPu = 0;
-    UdcSourcePu = 0;
+    UdcPu = 0;
     PGenPu = 0;
     QGenPu = 0;
   end if;
 
   annotation(preferredView = "text",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-55, -60}, {64, 60}})),
-    Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-133, -85.5}, extent = {{-25, 5.5}, {8, -4.5}}, textString = "omegaPu"), Text(origin = {-133, 4.5}, extent = {{-35, 14.5}, {8, -4.5}}, textString = "IdcSourcePu"), Text(origin = {-133, 44.5}, extent = {{-39, 12.5}, {8, -4.5}}, textString = "udConvRefPu"), Text(origin = {-133, 94.5}, extent = {{-17, 5.5}, {8, -4.5}}, textString = "theta"), Text(origin = {-131, -66.5}, extent = {{-43, 16.5}, {8, -4.5}}, textString = "UdcSourceRefPu"), Text(origin = {119, 100.5}, extent = {{-8, 4.5}, {38, -12.5}}, textString = "udFilterPu"), Text(origin = {-133, -35.5}, extent = {{-41, 14.5}, {8, -4.5}}, textString = "uqConvRefPu"), Text(origin = {119, 68.5}, extent = {{-8, 4.5}, {25, -9.5}}, textString = "idPccPu"), Text(origin = {117, 10.5}, extent = {{-8, 4.5}, {38, -16.5}}, textString = "UdcSourcePu"), Text(origin = {118, 37.5}, extent = {{-8, 4.5}, {25, -9.5}}, textString = "idConvPu"), Text(origin = {118, -21.5}, extent = {{-8, 4.5}, {30, -10.5}}, textString = "iqConvPu"), Text(origin = {118, -51.5}, extent = {{-8, 4.5}, {24, -12.5}}, textString = "iqPccPu"), Text(origin = {118, -78.5}, extent = {{-8, 4.5}, {35, -16.5}}, textString = "uqFilterPu"), Text(origin = {17, -107.5}, extent = {{-8, 4.5}, {14, -7.5}}, textString = "ACPower"), Text(origin = {5, 6}, extent = {{-95, 56}, {90, -68}}, textString = "Converter")}));
+    Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-133, -85.5}, extent = {{-25, 5.5}, {8, -4.5}}, textString = "omegaPu"), Text(origin = {-133, 4.5}, extent = {{-35, 14.5}, {8, -4.5}}, textString = "IdcSourcePu"), Text(origin = {-133, 44.5}, extent = {{-39, 12.5}, {8, -4.5}}, textString = "udConvRefPu"), Text(origin = {-133, 94.5}, extent = {{-17, 5.5}, {8, -4.5}}, textString = "theta"), Text(origin = {-131, -66.5}, extent = {{-43, 16.5}, {8, -4.5}}, textString = "UdcRefPu"), Text(origin = {119, 100.5}, extent = {{-8, 4.5}, {38, -12.5}}, textString = "udFilterPu"), Text(origin = {-133, -35.5}, extent = {{-41, 14.5}, {8, -4.5}}, textString = "uqConvRefPu"), Text(origin = {119, 68.5}, extent = {{-8, 4.5}, {25, -9.5}}, textString = "idPccPu"), Text(origin = {117, 10.5}, extent = {{-8, 4.5}, {38, -16.5}}, textString = "UdcPu"), Text(origin = {118, 37.5}, extent = {{-8, 4.5}, {25, -9.5}}, textString = "idConvPu"), Text(origin = {118, -21.5}, extent = {{-8, 4.5}, {30, -10.5}}, textString = "iqConvPu"), Text(origin = {118, -51.5}, extent = {{-8, 4.5}, {24, -12.5}}, textString = "iqPccPu"), Text(origin = {118, -78.5}, extent = {{-8, 4.5}, {35, -16.5}}, textString = "uqFilterPu"), Text(origin = {17, -107.5}, extent = {{-8, 4.5}, {14, -7.5}}, textString = "ACPower"), Text(origin = {5, 6}, extent = {{-95, 56}, {90, -68}}, textString = "Converter")}));
+
 end Converter;

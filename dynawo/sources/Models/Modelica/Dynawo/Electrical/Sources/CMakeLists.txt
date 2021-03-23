@@ -8,6 +8,8 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
+add_subdirectory(BaseConverters B)
+
 set(MODEL_FILES
   # Sources models
   package.mo
@@ -23,6 +25,20 @@ set(MODEL_FILES
   InjectorIDQ_INIT.mo
   InjectorURI.mo
   InjectorURI.extvar
+  VSCIdcSource.mo
+  VSCIdcSource.extvar
+  WT4AIECelec.mo
+  WT4AIECelec.extvar
+  WT4AIECelec_INIT.mo
+  WT4AIECelecVs.mo
+  WT4AIECelecVs.extvar
+  WT4AIECelecVs_INIT.mo
+  IECPowerCollector.mo
+  WT4BIECelec.mo
+  WT4BIECelec.extvar
+  WT4AIECelecAux.mo
+  WT4AIECelecAux.extvar
+  WT4AIECelecPC.mo
   )
 
 #

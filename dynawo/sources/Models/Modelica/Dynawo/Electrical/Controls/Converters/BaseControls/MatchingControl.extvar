@@ -14,8 +14,8 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable id="UFilterRefPu" type="continuous" />
   <variable id="omegaRefPu" type="continuous" />
-  <variable id="UdcSourcePu" type="continuous" />
-  <variable id="UdcSourceRefPu" type="continuous" />
+  <variable id="UdcPu" type="continuous" />
+  <variable id="UdcRefPu" type="continuous" />
   <variable id="DeltaVVId" type="continuous" />
   <variable id="DeltaVVIq" type="continuous" />
 </external_variables>

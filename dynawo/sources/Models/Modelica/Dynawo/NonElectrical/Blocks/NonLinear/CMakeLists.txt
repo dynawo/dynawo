@@ -15,6 +15,7 @@ set(MODEL_FILES
   package.order
   BacklashHysteresis.mo
   DeadBand.mo
+  DelayFlag.mo
   FixedBooleanDelay.mo
   FlipFlopR.mo
   FlipFlopS.mo
@@ -26,8 +27,12 @@ set(MODEL_FILES
   LimiterWithLag_INIT.mo
   MaxThresholdSwitch.mo
   MinThresholdSwitch.mo
+  MultiSwitchThree.mo
+  MultiSwitchFour.mo
+  MultiSwitchFive.mo
   PulseFixedDuration.mo
   PulseMinimumDuration.mo
+  SwitchInt.mo
   VariableLimiter.mo
   )
 

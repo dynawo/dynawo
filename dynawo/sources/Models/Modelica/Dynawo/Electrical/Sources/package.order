@@ -1,3 +1,4 @@
+BaseConverters
 Converter
 Converter_INIT
 InjectorBG
@@ -5,3 +6,12 @@ InjectorBG_INIT
 InjectorIDQ
 InjectorIDQ_INIT
 InjectorURI
+VSCIdcSource
+WT4AIECelec
+WT4AIECelec_INIT
+WT4AIECelecVs
+WT4AIECelecVs_INIT
+IECPowerCollector
+WT4BIECelec
+WT4AIECelecAux
+WT4AIECelecPC

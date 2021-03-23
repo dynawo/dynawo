@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="IECWT4AControl">
+    <dyn:unitDynamicModel id="converter" name="Dynawo.Electrical.Sources.WT4AIECelec" initName="Dynawo.Electrical.Sources.WT4AIECelec_INIT"/>
+    <dyn:unitDynamicModel id="control" name="Dynawo.Electrical.Controls.Converters.IECWT4AControl" initName="Dynawo.Electrical.Controls.Converters.IECWT4AControl_INIT"/>
+    <dyn:connect id1="converter" var1="iWtRePu" id2="control" var2="iWtRePu"/>
+    <dyn:connect id1="converter" var1="iWtImPu" id2="control" var2="iWtImPu"/>
+    <dyn:connect id1="converter" var1="uWtRePu" id2="control" var2="uWtRePu"/>
+    <dyn:connect id1="converter" var1="uWtImPu" id2="control" var2="uWtImPu"/>
+    <dyn:connect id1="control" var1="ipCmdPu" id2="converter" var2="ipCmdPu"/>
+    <dyn:connect id1="control" var1="iqCmdPu" id2="converter" var2="iqCmdPu"/>
+    <dyn:connect id1="control" var1="ipMaxPu" id2="converter" var2="ipMaxPu"/>
+    <dyn:connect id1="control" var1="iqMaxPu" id2="converter" var2="iqMaxPu"/>
+    <dyn:connect id1="control" var1="iqMinPu" id2="converter" var2="iqMinPu"/>
+    <dyn:connect id1="control" var1="theta" id2="converter" var2="theta"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>

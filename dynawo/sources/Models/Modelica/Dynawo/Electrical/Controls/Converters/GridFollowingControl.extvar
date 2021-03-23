@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<external_variables xmlns="http://www.rte-france.com/dynawo">
+  <variable id="PRefPu" type="continuous" />
+  <variable id="QRefPu" type="continuous" />
+  <variable id="UFilterRefPu" type="continuous" />
+  <variable id="omegaRefPu" type="continuous" />
+  <variable id="IdcSourceRefPu" type="continuous" />
+  <variable id="UdcRefPu" type="continuous" />
+  <variable id="UdcPu" type="continuous" />
+  <variable id="idConvPu" type="continuous" />
+  <variable id="iqConvPu" type="continuous" />
+  <variable id="udFilterPu" type="continuous" />
+  <variable id="uqFilterPu" type="continuous" />
+</external_variables>
