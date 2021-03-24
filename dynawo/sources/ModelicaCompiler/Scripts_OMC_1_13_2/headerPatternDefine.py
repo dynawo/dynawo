@@ -62,8 +62,10 @@ class HeaderPatternDefine:
     void setOomc();
     void setY0omc();
     void callCustomParametersConstructors();
-    void setYType_omc(propertyContinuousVar_t* yType);
-    void setFType_omc(propertyF_t* fType);
+    void evalStaticYType_omc(propertyContinuousVar_t* yType);
+    void evalStaticFType_omc(propertyF_t* fType);
+    void evalDynamicYType_omc(propertyContinuousVar_t* yType);
+    void evalDynamicFType_omc(propertyF_t* fType);
     boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues();
     void setParameters( boost::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
@@ -145,8 +147,10 @@ namespace DYN {
     void collectSilentZ(BitMask* silentZTable);
     void setY0omc();
     void callCustomParametersConstructors();
-    void setYType_omc(propertyContinuousVar_t* yType);
-    void setFType_omc(propertyF_t* fType);
+    void evalStaticYType_omc(propertyContinuousVar_t* yType);
+    void evalStaticFType_omc(propertyF_t* fType);
+    void evalDynamicYType_omc(propertyContinuousVar_t* yType);
+    void evalDynamicFType_omc(propertyF_t* fType);
     boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues(); ///< set parameter values based on internal Modelica data
     void setParameters(boost::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);

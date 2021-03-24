@@ -439,39 +439,37 @@ ModelBus::iiAdd(const double& ii) {
 }
 
 void
-ModelBus::evalYType() {
-  yType_[0] = ALGEBRAIC;
-  yType_[1] = ALGEBRAIC;
-
-  if (hasDifferentialVoltages_ && !getSwitchOff()) {
-    yType_[0] = DIFFERENTIAL;
-    yType_[1] = DIFFERENTIAL;
-  }
-
-  if (!network_->isInitModel() && hasConnection_) {
+ModelBus::evalStaticYType() {
+  if (hasConnection_) {
     yType_[2] = ALGEBRAIC;
     yType_[3] = ALGEBRAIC;
   }
 }
 
 void
-ModelBus::updateYType() {
-  evalYType();
+ModelBus::evalDynamicYType() {
+  if (hasDifferentialVoltages_ && !getSwitchOff()) {
+    yType_[0] = DIFFERENTIAL;
+    yType_[1] = DIFFERENTIAL;
+  } else {
+    yType_[0] = ALGEBRAIC;
+    yType_[1] = ALGEBRAIC;
+  }
 }
 
 void
-ModelBus::evalFType() {
+ModelBus::evalStaticFType() {
+  /* not needed */
+}
+
+void
+ModelBus::evalDynamicFType() {
   fType_[0] = ALGEBRAIC_EQ;
   fType_[1] = ALGEBRAIC_EQ;
   if (hasDifferentialVoltages_ && !getSwitchOff()) {
     fType_[0] = DIFFERENTIAL_EQ;
     fType_[1] = DIFFERENTIAL_EQ;
   }
-}
-
-void
-ModelBus::updateFType() {
-  evalFType();
 }
 
 void

@@ -1256,36 +1256,36 @@ ModelNetwork::defineParameters(vector<ParameterModeler>& parameters) {
 }
 
 void
-ModelNetwork::evalYType() {
+ModelNetwork::evalStaticYType() {
   unsigned int offset = 0;
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
     if ((*itComponent)->sizeY() != 0) {
       (*itComponent)->setBufferYType(yType_, offset);
       offset += (*itComponent)->sizeY();
-      (*itComponent)->evalYType();
+      (*itComponent)->evalStaticYType();
     }
   }
 }
 
 void
-ModelNetwork::updateYType() {
+ModelNetwork::evalDynamicYType() {
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
     if ((*itComponent)->sizeY() != 0) {
-      (*itComponent)->updateYType();
+      (*itComponent)->evalDynamicYType();
     }
   }
 }
 
 void
-ModelNetwork::evalFType() {
+ModelNetwork::evalStaticFType() {
   unsigned int offsetComponent = 0;
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
     if ((*itComponent)->sizeF() != 0) {
       (*itComponent)->setBufferFType(fType_, offsetComponent);
       offsetComponent += (*itComponent)->sizeF();
-      (*itComponent)->evalFType();
+      (*itComponent)->evalStaticFType();
     }
   }
 }
@@ -1303,10 +1303,10 @@ ModelNetwork::collectSilentZ(BitMask* silentZTable) {
 }
 
 void
-ModelNetwork::updateFType() {
+ModelNetwork::evalDynamicFType() {
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
     if ((*itComponent)->sizeF() != 0)
-      (*itComponent)->evalFType();
+      (*itComponent)->evalDynamicFType();
   }
 }
 

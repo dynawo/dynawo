@@ -264,7 +264,7 @@ void ModelTest_Dyn::callCustomParametersConstructors()
 {
 }
 
-void ModelTest_Dyn::setYType_omc(propertyContinuousVar_t* yType)
+void ModelTest_Dyn::evalStaticYType_omc(propertyContinuousVar_t* yType)
 {
    yType[ 0 ] = DIFFERENTIAL;   /* u (rSta)  */
    yType[ 1 ] = ALGEBRAIC;   /* x (rAlg)  */
@@ -272,12 +272,20 @@ void ModelTest_Dyn::setYType_omc(propertyContinuousVar_t* yType)
    yType[ 3 ] = ALGEBRAIC;   /* z (rAlg)  */
 }
 
-void ModelTest_Dyn::setFType_omc(propertyF_t* fType)
+void ModelTest_Dyn::evalDynamicYType_omc(propertyContinuousVar_t* yType)
+{
+}
+
+void ModelTest_Dyn::evalStaticFType_omc(propertyF_t* fType)
 {
    fType[ 0 ] = DIFFERENTIAL_EQ;
    fType[ 1 ] = ALGEBRAIC_EQ;
    fType[ 2 ] = ALGEBRAIC_EQ;
    fType[ 3 ] = ALGEBRAIC_EQ;
+}
+
+void ModelTest_Dyn::evalDynamicFType_omc(propertyF_t* fType)
+{
 }
 
 boost::shared_ptr<parameters::ParametersSet> ModelTest_Dyn::setSharedParametersDefaultValues()

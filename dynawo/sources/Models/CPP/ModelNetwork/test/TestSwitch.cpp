@@ -475,10 +475,12 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
   bus2->setReferenceY(&y2[0], &yp2[0], &f2[0], 0, 0);
 
   // test evalYType
-  sw->evalYType();
+  sw->evalStaticYType();
+  sw->evalDynamicYType();
   ASSERT_EQ(yTypes[urIndex], ALGEBRAIC);
   ASSERT_EQ(yTypes[uiIndex], ALGEBRAIC);
-  sw->evalFType();
+  sw->evalStaticFType();
+  sw->evalDynamicFType();
   ASSERT_EQ(fTypes[urIndex], ALGEBRAIC_EQ);
   ASSERT_EQ(fTypes[uiIndex], ALGEBRAIC_EQ);
 

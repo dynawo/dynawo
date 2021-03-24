@@ -180,12 +180,14 @@ TEST(ModelsModelVariationArea, ModelVariationAreaTypeMethods) {
   ASSERT_EQ(modelVariationArea->sizeG(), 2);
   ASSERT_EQ(modelVariationArea->sizeMode(), 2);
 
-  modelVariationArea->evalYType();
+  modelVariationArea->evalStaticYType();
+  modelVariationArea->evalDynamicYType();
   for (size_t i = 0; i < nbY; ++i) {
     ASSERT_EQ(yTypes[i], ALGEBRAIC);
   }
 
-  modelVariationArea->evalFType();
+  modelVariationArea->evalStaticFType();
+  modelVariationArea->evalDynamicFType();
   for (size_t i = 0; i < nbF; ++i) {
     ASSERT_EQ(fTypes[i], ALGEBRAIC_EQ);
   }
@@ -240,8 +242,8 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   ASSERT_NO_THROW(modelVariationArea->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
   ASSERT_NO_THROW(modelVariationArea->evalCalculatedVarI(0));
   ASSERT_NO_THROW(modelVariationArea->evalCalculatedVars());
-  ASSERT_NO_THROW(modelVariationArea->updateFType());
-  ASSERT_NO_THROW(modelVariationArea->updateYType());
+  ASSERT_NO_THROW(modelVariationArea->evalDynamicFType());
+  ASSERT_NO_THROW(modelVariationArea->evalDynamicYType());
   modelVariationArea->collectSilentZ(silentZ);
   for (size_t i = 0; i < modelVariationArea->sizeZ(); ++i) {
     if (i == 0)

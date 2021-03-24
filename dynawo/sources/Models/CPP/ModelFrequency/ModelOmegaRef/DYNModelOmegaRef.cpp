@@ -402,14 +402,14 @@ ModelOmegaRef::getY0() {
 }
 
 void
-ModelOmegaRef::evalYType() {
+ModelOmegaRef::evalStaticYType() {
   std::fill(yType_, yType_ + nbMaxCC, ALGEBRAIC);  // omegaRef[i] is an algebraic variable
   std::fill(yType_+ nbMaxCC, yType_ + nbMaxCC + nbOmega_, EXTERNAL);  // omega[i] is an external variable
   std::fill(yType_ + nbMaxCC + nbOmega_, yType_ + sizeY_, ALGEBRAIC);  // omegaRefGrp[i] is an algebraic variable
 }
 
 void
-ModelOmegaRef::evalFType() {
+ModelOmegaRef::evalStaticFType() {
   //  equation 0 to nbMaxCC
   // ----------------------
   std::fill(fType_, fType_ + nbMaxCC, ALGEBRAIC_EQ);  // no differential variable
@@ -479,8 +479,8 @@ ModelOmegaRef::setSubModelParameters() {
   indexOmega_.clear();
   for (int k = 0; k < nbGen_; ++k) {
     if (weights_[k] > 0) {
+      indexOmega_.push_back(nbOmega_);
       ++nbOmega_;
-      indexOmega_.push_back(k);
     } else {
       indexOmega_.push_back(-1);
     }

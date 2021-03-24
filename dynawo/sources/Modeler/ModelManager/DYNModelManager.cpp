@@ -432,13 +432,23 @@ ModelManager::getY0() {
 }
 
 void
-ModelManager::evalYType() {
-  modelModelica()->setYType_omc(yType_);
+ModelManager::evalStaticYType() {
+  modelModelica()->evalStaticYType_omc(yType_);
 }
 
 void
-ModelManager::evalFType() {
-  modelModelica()->setFType_omc(fType_);
+ModelManager::evalStaticFType() {
+  modelModelica()->evalStaticFType_omc(fType_);
+}
+
+void
+ModelManager::evalDynamicYType() {
+  modelModelica()->evalDynamicYType_omc(yType_);
+}
+
+void
+ModelManager::evalDynamicFType() {
+  modelModelica()->evalDynamicFType_omc(fType_);
 }
 
 

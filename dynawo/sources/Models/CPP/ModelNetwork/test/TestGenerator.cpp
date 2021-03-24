@@ -325,9 +325,11 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorContinuousVariables) {
   ASSERT_EQ(gen->sizeY(), nbY);
   ASSERT_EQ(gen->sizeF(), nbF);
 
-  // test evalYType
-  ASSERT_NO_THROW(gen->evalYType());
-  ASSERT_NO_THROW(gen->evalFType());
+  // test evalStaticYType
+  ASSERT_NO_THROW(gen->evalStaticYType());
+  ASSERT_NO_THROW(gen->evalStaticFType());
+  ASSERT_NO_THROW(gen->evalDynamicYType());
+  ASSERT_NO_THROW(gen->evalDynamicFType());
 
   // test evalF
   ASSERT_NO_THROW(gen->evalF(UNDEFINED_EQ));

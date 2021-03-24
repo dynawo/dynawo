@@ -83,6 +83,15 @@ equation
   Line23Bis2.switchOffSignal2.value = false;
   Load.switchOffSignal1.value = false;
   Load.switchOffSignal2.value = false;
+  Conv250.switchOffSignal1.value = false;
+  Conv250.switchOffSignal2.value = false;
+  Conv250.switchOffSignal3.value = false;
+  Conv500.switchOffSignal1.value = false;
+  Conv500.switchOffSignal2.value = false;
+  Conv500.switchOffSignal3.value = false;
+  Conv1000.switchOffSignal1.value = false;
+  Conv1000.switchOffSignal2.value = false;
+  Conv1000.switchOffSignal3.value = false;
   Load.PRefPu.value = PRefLoadPu;
   Load.QRefPu.value = QRefLoadPu;
   connect(Droop.theta, Conv250.theta) annotation(

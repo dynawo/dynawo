@@ -539,7 +539,7 @@ Simulation::setSolver() {
   parameters->propagateOriginData(solverParFile);
   referenceParameters_[solverParFile] = parameters;
   string parId = jobEntry_->getSolverEntry()->getParametersId();
-  parameters->getParametersFromMacroParameter(parId);
+  parameters->getParametersFromMacroParameter();
   if (parameters->getParametersSet(parId)) {
     shared_ptr<ParametersSet> solverParams = boost::shared_ptr<ParametersSet>(new ParametersSet(*parameters->getParametersSet(parId)));
     solver_->setParameters(solverParams);
@@ -757,6 +757,9 @@ Simulation::calculateIC() {
   model_->setIsInitProcess(false);
   Trace::info() << DYNLog(ModelLocalInitEnd) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
+
+  model_->evalDynamicYType();
+  model_->evalDynamicFType();
 
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(ModelGlobalInit) << Trace::endline;

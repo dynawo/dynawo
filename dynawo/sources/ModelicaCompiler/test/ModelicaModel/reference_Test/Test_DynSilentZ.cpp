@@ -278,14 +278,22 @@ void ModelTestSilentZ_Dyn::callCustomParametersConstructors()
 {
 }
 
-void ModelTestSilentZ_Dyn::setYType_omc(propertyContinuousVar_t* yType)
+void ModelTestSilentZ_Dyn::evalStaticYType_omc(propertyContinuousVar_t* yType)
 {
    yType[ 0 ] = DIFFERENTIAL;   /* u (rSta)  */
 }
 
-void ModelTestSilentZ_Dyn::setFType_omc(propertyF_t* fType)
+void ModelTestSilentZ_Dyn::evalDynamicYType_omc(propertyContinuousVar_t* yType)
+{
+}
+
+void ModelTestSilentZ_Dyn::evalStaticFType_omc(propertyF_t* fType)
 {
    fType[ 0 ] = DIFFERENTIAL_EQ;
+}
+
+void ModelTestSilentZ_Dyn::evalDynamicFType_omc(propertyF_t* fType)
+{
 }
 
 boost::shared_ptr<parameters::ParametersSet> ModelTestSilentZ_Dyn::setSharedParametersDefaultValues()

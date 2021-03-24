@@ -180,7 +180,7 @@ ModelMulti::initBuffers() {
   connectorContainer_->setOffsetModel(sizeF_);
   connectorContainer_->setSizeY(sizeY_);
   connectorContainer_->mergeConnectors();
-  evalYType();
+  evalStaticYType();
 
   numVarsOptional_.clear();
   for (int i = 0; i < sizeY_; ++i) {
@@ -196,7 +196,7 @@ ModelMulti::initBuffers() {
 
   offsetFOptional_ = sizeF_;
   sizeF_ += numVarsOptional_.size();  /// fictitious equation will be added for unconnected optional external variables
-  evalFType();
+  evalStaticFType();
 
   // (2) Initialize buffers that would be used during the simulation (avoid copy)
   // ----------------------------------------------------------------------------
@@ -645,51 +645,51 @@ ModelMulti::getY0(const double& t0, vector<double>& y0, vector<double>& yp0) {
 }
 
 void
-ModelMulti::evalYType() {
+ModelMulti::evalStaticYType() {
   yType_ = new propertyContinuousVar_t[sizeY_]();
   int offsetYType = 0;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     int sizeYType = subModels_[i]->sizeY();
     if (sizeYType > 0) {
       subModels_[i]->setBufferYType(yType_, offsetYType);
-      subModels_[i]->evalYType();
+      subModels_[i]->evalStaticYType();
       offsetYType += sizeYType;
     }
   }
 }
 
 void
-ModelMulti::updateYType() {
+ModelMulti::evalDynamicYType() {
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     int sizeYType = subModels_[i]->sizeY();
     if (sizeYType > 0)
-      subModels_[i]->updateYType();
+      subModels_[i]->evalDynamicYType();
   }
 }
 
 void
-ModelMulti::evalFType() {
+ModelMulti::evalStaticFType() {
   fType_ = new propertyF_t[sizeF_]();
   int offsetFType = 0;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     int sizeFType = subModels_[i]->sizeF();
     if (sizeFType > 0) {
       subModels_[i]->setBufferFType(fType_, offsetFType);
-      subModels_[i]->evalFType();
+      subModels_[i]->evalStaticFType();
       offsetFType += sizeFType;
     }
   }
   connectorContainer_->setBufferFType(fType_, offsetFType);
-  connectorContainer_->evalFType();
+  connectorContainer_->evalStaticFType();
   std::fill(fType_ + offsetFOptional_, fType_ + sizeF_, ALGEBRAIC_EQ);
 }
 
 void
-ModelMulti::updateFType() {
+ModelMulti::evalDynamicFType() {
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     int sizeFType = subModels_[i]->sizeF();
     if (sizeFType > 0)
-      subModels_[i]->updateFType();
+      subModels_[i]->evalDynamicFType();
   }
   // connectors equations (A = B) can't change during the simulation so we don't need to update them.
 }

@@ -424,12 +424,14 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   load->setBufferFType(&fTypes[0], 0);
 
   // test evalYType
-  load->evalYType();
+  load->evalStaticYType();
+  load->evalDynamicYType();
   ASSERT_EQ(yTypes[DeltaPcIdx], EXTERNAL);
   ASSERT_EQ(yTypes[DeltaQcIdx], EXTERNAL);
   ASSERT_EQ(yTypes[zPIdx], DIFFERENTIAL);
   ASSERT_EQ(yTypes[zQIdx], DIFFERENTIAL);
-  load->evalFType();
+  load->evalStaticFType();
+  load->evalDynamicFType();
   ASSERT_EQ(fTypes[DeltaPcIdx], DIFFERENTIAL_EQ);
   ASSERT_EQ(fTypes[DeltaQcIdx], DIFFERENTIAL_EQ);
 

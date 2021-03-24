@@ -159,6 +159,12 @@ class ReaderOMC:
         self.derivative_residual_vars = []
         ## List of residual variables which computes a derivative values
         self.assign_residual_vars = []
+        ## dictionary of residual variables with their types (differential, algebraic, or mixed - depending on some conditions)
+        self.residual_vars = {}
+        ## dictionary of residual variables equation with type MIXED associated to the detailed list of types
+        self.mixed_residual_vars_types = {}
+        ## dictionary of residual variables equation with type MIXED associated to the list of differential variables for each branch
+        self.mixed_residual_vars_differential_dependency_variables = {}
         ## List of auxiliary variables which are used in a variable equation
         self.auxiliary_var_to_keep = []
         self.auxiliary_vars_counted_as_variables = []
@@ -408,13 +414,12 @@ class ReaderOMC:
                         self.map_vars_depend_vars[name] = list_depend_vars
 
                 for name in list_defined_vars :
-                    if self.is_residual_vars(name):
+                    if name in self.residual_vars_to_address_map:
                         if "equation" in keys:
                             eq = equation["equation"]
-                            if "der(" in str(eq) or "der (" in str(eq):
-                                self.derivative_residual_vars.append(name)
-                                continue
-                        self.assign_residual_vars.append(name)
+                            self.analyse_equations_and_get_types(str(eq), name)
+                        else:
+                            self.residual_vars[name] = ALGEBRAIC
             elif type_eq == "initial":
                 list_defined_vars=[]
                 if "defines" in keys:
@@ -423,6 +428,79 @@ class ReaderOMC:
                         if name not in self.initial_defined: # if/else split in two in the json file
                             self.initial_defined.append(name)
 
+    ##
+    # Analyse the equation to retrieve the type (ALGEBRAIC, DIFFERENTIAL or MIXED) and the differential variables in a branch
+    # @param self : object pointer
+    # @param eq : equation pseudo code
+    # @param defined_var_eq : name of the variable defined by this equation
+    def analyse_equations_and_get_types(self, eq, defined_var_eq):
+        if_ptrn = re.compile(r'if\s*(?P<cond>[\(\S\) ]+)\s*then\s*(?P<eq>[\(\S\) ]+)\s*')
+        der_var_ptrn = re.compile(r'der\s*\((?P<var>[\(\S\) ]+)\)')
+        diff_var = []
+        idx = 0
+        types = []
+        if_statement = eq
+        splitted_eq_parenthesis = eq.split('(if')
+        if len(splitted_eq_parenthesis) > 1:
+            idx = 1
+            nb_opening = 1
+            nb_closing = 0
+            if_statement = ""
+            while idx < len(splitted_eq_parenthesis):
+                for char in splitted_eq_parenthesis[idx]:
+                    if char == '(':
+                        nb_opening+=1
+                    if char == ')':
+                        nb_closing+=1
+                    if_statement+=char
+                    if nb_opening == nb_closing:
+                        idx = len(splitted_eq_parenthesis)
+                        break
+                idx += 1
+        if "if" in if_statement and ("der(" in eq.replace(if_statement,"") or "der (" in eq.replace(if_statement,"")):
+            types.append(DIFFERENTIAL)
+        elif "if" in if_statement:
+            slitted_eq = if_statement.split('else')
+            for sub_eq in slitted_eq:
+                diff_var.append([])
+                match = re.findall(if_ptrn, sub_eq)
+                for m in match:
+                    if "der(" in m[1] or "der (" in m[1]:
+                        types.append(DIFFERENTIAL)
+                        match2 = re.findall(der_var_ptrn, m[1])
+                        for m2 in match2:
+                            diff_var[len(diff_var) - 1].append(m2)
+                    else:
+                        types.append(ALGEBRAIC)
+                if len(match) == 0: # else case
+                    if "der(" in sub_eq or "der (" in sub_eq:
+                        types.append(DIFFERENTIAL)
+                        match2 = re.findall(der_var_ptrn, sub_eq)
+                        for m2 in match2:
+                            diff_var[len(diff_var) - 1].append(m2)
+                    else:
+                        types.append(ALGEBRAIC)
+            assert(len(types) > 0)
+            ref = types[0]
+            keep_it = False
+            for type in types:
+                if type != ref:
+                    keep_it = True
+            if not keep_it:
+                types = [ref]
+        elif "der(" in eq or "der (" in eq:
+            types = [DIFFERENTIAL]
+        else:
+            types = [ALGEBRAIC]
+
+        if len(types) == 1:
+            self.residual_vars[defined_var_eq] = types[0]
+        else:
+            self.residual_vars[defined_var_eq] = MIXED
+            self.mixed_residual_vars_types[defined_var_eq] = types
+            self.mixed_residual_vars_differential_dependency_variables[defined_var_eq] = diff_var
+
+
 
     ##
     # Detect and add the auxiliary variables related to fictive equations to a dictionary
@@ -430,17 +508,18 @@ class ReaderOMC:
     # @return
     def remove_fictitious_fequation(self):
         key_to_remove = []
-        for dae_var in self.derivative_residual_vars:
-            list_depend_vars = self.map_vars_depend_vars[dae_var]
-            if len(list_depend_vars) == 1 and "der("+list_depend_vars[0]+")" in self.fictive_continuous_vars_der:
-                key_to_remove.append(dae_var)
+        for dae_var in self.residual_vars:
+            if self.residual_vars[dae_var] == DIFFERENTIAL:
+                list_depend_vars = self.map_vars_depend_vars[dae_var]
+                if len(list_depend_vars) == 1 and "der("+list_depend_vars[0]+")" in self.fictive_continuous_vars_der:
+                    key_to_remove.append(dae_var)
         for dae_var in key_to_remove:
-            self.derivative_residual_vars.remove(dae_var)
+            del self.residual_vars[dae_var]
         map_dep = self.get_map_dep_vars_for_func()
         for var in map_dep:
             if self.is_auxiliary_vars(var) :
                 continue
-            if self.is_residual_vars(var) and not self.is_der_residual_vars(var) and not self.is_assign_residual_vars(var):
+            if self.is_fictitious_residual_vars(var):
                 continue
             for deps in map_dep[var]:
                 if self.is_auxiliary_vars(deps) and deps not in self.auxiliary_var_to_keep:
@@ -601,7 +680,7 @@ class ReaderOMC:
     def read_eq_fictive_xml(self):
         # If this file does not exist, we exit
         if not os.path.isfile(self.eq_fictive_xml_file) :
-            print ("Warning: extvar file of fictitious (external) variables does not exist...")
+            print_warning("extvar file of fictitious (external) variables does not exist...")
             return
 
         list_var_ext_continuous, list_var_ext_optional_continuous, list_var_ext_discrete, liste_var_ext_boolean = scriptVarExt.list_external_variables (self.eq_fictive_xml_file)
@@ -1406,8 +1485,7 @@ class ReaderOMC:
                     error_exit("   Error: Found an equation (id: " + f_num_omc+") defining multiple variables. This is not supported in Dynawo.")
                 name_var_eval = map_num_eq_vars_defined[f_num_omc] [0]
 
-            if name_var_eval is not None and self.is_residual_vars(name_var_eval) and \
-                not self.is_der_residual_vars(name_var_eval) and not self.is_assign_residual_vars(name_var_eval):
+            if name_var_eval is not None and self.is_fictitious_residual_vars(name_var_eval):
                 continue
 
             list_depend = [] # list of vars on which depends the function
@@ -1437,7 +1515,7 @@ class ReaderOMC:
                     function_to_eval_variable[f] = name_var_eval
                 for var_name in list_depend:
                     if var_name == "time": continue
-                    if self.is_residual_vars(var_name) : continue
+                    if var_name in self.residual_vars_to_address_map: continue
                     if var_name in self.list_flow_vars: continue
                     var = self.find_variable_from_name(var_name)
                     if (var is None): continue
@@ -1630,23 +1708,16 @@ class ReaderOMC:
     def is_auxiliary_vars(self, var_name):
         return var_name in self.auxiliary_vars_to_address_map.keys()
     ##
-    # return True if the variable is a residual var
+    # return True if the variable is a fictitious residual var
     # @param self : object pointer
     # @param var_name : variable name to test
-    # @return True if the variable is a residual var
-    def is_residual_vars(self, var_name):
-        return var_name in self.residual_vars_to_address_map.keys()
+    # @return True if the variable is a fictitious residual var
+    def is_fictitious_residual_vars(self, var_name):
+        return var_name in self.residual_vars_to_address_map and var_name not in self.residual_vars
     ##
     # return True if the variable is a residual derivative (not fictive) var
     # @param self : object pointer
     # @param var_name : variable name to test
     # @return True if the variable is a residual derivative (not fictive) var
-    def is_der_residual_vars(self, var_name):
-        return var_name in self.derivative_residual_vars
-    ##
-    # return True if the variable is a residual (not fictive) assignment var
-    # @param self : object pointer
-    # @param var_name : variable name to test
-    # @return True if the variable is a residual (not fictive) assignment var
-    def is_assign_residual_vars(self, var_name):
-        return var_name in self.assign_residual_vars
+    def get_residual_vars_type(self, var_name):
+        return self.residual_vars[var_name]

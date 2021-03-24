@@ -324,24 +324,24 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   double evalCalculatedVarI(unsigned numCalculatedVar) const;
 
   /**
-   * @copydoc NetworkComponent::evalYType()
+   * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalYType() { /* not needed */ }
+  void evalStaticYType() { /* not needed */ }
 
   /**
-   * @copydoc NetworkComponent::updateYType()
+   * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void updateYType() { /* not needed */ }
+  void evalDynamicYType() { /* not needed */ }
 
   /**
-   * @copydoc NetworkComponent::evalFType()
+   * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalFType() { /* not needed */ }
+  void evalStaticFType() { /* not needed */ }
 
   /**
-   * @copydoc NetworkComponent::updateFType()
+   * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void updateFType() { /* not needed */ }
+  void evalDynamicFType() { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()

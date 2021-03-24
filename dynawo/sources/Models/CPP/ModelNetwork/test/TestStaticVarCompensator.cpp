@@ -285,9 +285,11 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorContinuousVariables) {
   ASSERT_EQ(svc->sizeY(), nbY);
   ASSERT_EQ(svc->sizeF(), nbF);
 
-  // test evalYType
-  ASSERT_NO_THROW(svc->evalYType());
-  ASSERT_NO_THROW(svc->evalFType());
+  // test evalStaticYType
+  ASSERT_NO_THROW(svc->evalStaticYType());
+  ASSERT_NO_THROW(svc->evalDynamicYType());
+  ASSERT_NO_THROW(svc->evalStaticFType());
+  ASSERT_NO_THROW(svc->evalDynamicFType());
 
   // test evalF
   ASSERT_NO_THROW(svc->evalF(UNDEFINED_EQ));
@@ -299,8 +301,6 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorContinuousVariables) {
   ASSERT_NO_THROW(svc->evalDerivatives(0.));
   ASSERT_NO_THROW(svc->evalDerivativesPrim());
   ASSERT_NO_THROW(svc->addBusNeighbors());
-  ASSERT_NO_THROW(svc->updateYType());
-  ASSERT_NO_THROW(svc->updateFType());
   delete[] zConnected;
 }
 

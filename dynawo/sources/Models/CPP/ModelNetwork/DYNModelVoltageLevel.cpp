@@ -345,23 +345,23 @@ ModelVoltageLevel::setFequations(map<int, string>& fEquationIndex) {
 
 
 void
-ModelVoltageLevel::evalFType() {
+ModelVoltageLevel::evalStaticFType() {
   unsigned int offsetComponent = 0;
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeF() != 0) {
       (*itComponent)->setBufferFType(fType_, offsetComponent);
       offsetComponent += (*itComponent)->sizeF();
-      (*itComponent)->evalFType();
+      (*itComponent)->evalStaticFType();
     }
   }
 }
 
 void
-ModelVoltageLevel::updateFType() {
+ModelVoltageLevel::evalDynamicFType() {
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeF() != 0)
-      (*itComponent)->updateFType();
+      (*itComponent)->evalDynamicFType();
   }
 }
 
@@ -386,23 +386,23 @@ ModelVoltageLevel::evalYMat() {
 }
 
 void
-ModelVoltageLevel::evalYType() {
+ModelVoltageLevel::evalStaticYType() {
   unsigned int offset = 0;
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeY() != 0) {
       (*itComponent)->setBufferYType(yType_, offset);
       offset += (*itComponent)->sizeY();
-      (*itComponent)->evalYType();
+      (*itComponent)->evalStaticYType();
     }
   }
 }
 
 void
-ModelVoltageLevel::updateYType() {
+ModelVoltageLevel::evalDynamicYType() {
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeY() != 0)
-      (*itComponent)->updateYType();
+      (*itComponent)->evalDynamicYType();
   }
 }
 

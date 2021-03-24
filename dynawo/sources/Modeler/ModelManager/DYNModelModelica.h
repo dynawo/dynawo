@@ -200,18 +200,32 @@ class ModelModelica {
   virtual void setModelManager(ModelManager* model) = 0;
 
   /**
-   * @brief defines the property of each continuous variables
+   * @brief defines the property of each continuous variable with constant type
    *
    * @param yType local buffer to fill
    */
-  virtual void setYType_omc(propertyContinuousVar_t* yType) = 0;
+  virtual void evalStaticYType_omc(propertyContinuousVar_t* yType) = 0;
 
   /**
-   * @brief defines the property of each residual function
+   * @brief defines the property of each residual function with constant type
    *
    * @param fType local buffer to fill
    */
-  virtual void setFType_omc(propertyF_t* fType) = 0;
+  virtual void evalStaticFType_omc(propertyF_t* fType) = 0;
+
+  /**
+   * @brief defines the property of each continuous variable with dynamic type
+   *
+   * @param yType local buffer to fill
+   */
+  virtual void evalDynamicYType_omc(propertyContinuousVar_t* yType) = 0;
+
+  /**
+   * @brief defines the property of each residual function with dynamic type
+   *
+   * @param fType local buffer to fill
+   */
+  virtual void evalDynamicFType_omc(propertyF_t* fType) = 0;
 
   /**
    * @brief define the elements of the model

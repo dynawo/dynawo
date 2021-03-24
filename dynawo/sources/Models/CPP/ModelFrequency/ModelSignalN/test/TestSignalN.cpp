@@ -127,14 +127,16 @@ TEST(ModelsModelSignalN, ModelSignalNTypeMethods) {
   ASSERT_EQ(modelSignalN->sizeG(), 0);
   ASSERT_EQ(modelSignalN->sizeMode(), 1);
 
-  modelSignalN->evalYType();
+  modelSignalN->evalStaticYType();
+  modelSignalN->evalDynamicYType();
   propertyContinuousVar_t* yTypeGet = modelSignalN->getYType();
   ASSERT_EQ(yTypeGet[0], ALGEBRAIC);
   ASSERT_EQ(yTypeGet[1], ALGEBRAIC);
   ASSERT_EQ(yTypeGet[2], ALGEBRAIC);
   ASSERT_NE(yTypeGet[1], EXTERNAL);
 
-  modelSignalN->evalFType();
+  modelSignalN->evalStaticFType();
+  modelSignalN->evalDynamicFType();
   ASSERT_EQ(fTypes[0], ALGEBRAIC_EQ);
   ASSERT_EQ(fTypes[1], ALGEBRAIC_EQ);
   ASSERT_NO_THROW(modelSignalN->dumpUserReadableElementList("MyElement"));
@@ -144,8 +146,8 @@ TEST(ModelsModelSignalN, ModelSignalNTypeMethods) {
   ASSERT_NO_THROW(modelSignalN->evalJCalculatedVarI(0, res));
   ASSERT_NO_THROW(modelSignalN->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
   ASSERT_NO_THROW(modelSignalN->evalCalculatedVars());
-  ASSERT_NO_THROW(modelSignalN->updateFType());
-  ASSERT_NO_THROW(modelSignalN->updateYType());
+  ASSERT_NO_THROW(modelSignalN->evalDynamicFType());
+  ASSERT_NO_THROW(modelSignalN->evalDynamicYType());
   ASSERT_NO_THROW(modelSignalN->initializeStaticData());
   ASSERT_NO_THROW(modelSignalN->setGequations());
   ASSERT_EQ(modelSignalN->evalCalculatedVarI(0), 0.);

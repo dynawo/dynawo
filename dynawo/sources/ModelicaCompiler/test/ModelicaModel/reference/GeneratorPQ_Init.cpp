@@ -446,7 +446,7 @@ void ModelGeneratorPQ_Init::setGequations(std::map<int,std::string>& gEquationIn
 // -----------------------------
 }
 
-void ModelGeneratorPQ_Init::setYType_omc(propertyContinuousVar_t* yType)
+void ModelGeneratorPQ_Init::evalStaticYType_omc(propertyContinuousVar_t* yType)
 {
    yType[ 0 ] = ALGEBRAIC;   /* generator_i0Pu_im (rAlg)  */
    yType[ 1 ] = ALGEBRAIC;   /* generator_i0Pu_re (rAlg)  */
@@ -456,7 +456,11 @@ void ModelGeneratorPQ_Init::setYType_omc(propertyContinuousVar_t* yType)
    yType[ 5 ] = ALGEBRAIC;   /* generator_u0Pu_re (rAlg)  */
 }
 
-void ModelGeneratorPQ_Init::setFType_omc(propertyF_t* fType)
+void ModelGeneratorPQ_Init::evalDynamicYType_omc(propertyContinuousVar_t* /*yType*/)
+{
+}
+
+void ModelGeneratorPQ_Init::evalStaticFType_omc(propertyF_t* fType)
 {
    fType[ 0 ] = ALGEBRAIC_EQ;
    fType[ 1 ] = ALGEBRAIC_EQ;
@@ -464,6 +468,10 @@ void ModelGeneratorPQ_Init::setFType_omc(propertyF_t* fType)
    fType[ 3 ] = ALGEBRAIC_EQ;
    fType[ 4 ] = ALGEBRAIC_EQ;
    fType[ 5 ] = ALGEBRAIC_EQ;
+}
+
+void ModelGeneratorPQ_Init::evalDynamicFType_omc(propertyF_t* /*fType*/)
+{
 }
 
 void ModelGeneratorPQ_Init::evalCalculatedVars(std::vector<double>& calculatedVars)

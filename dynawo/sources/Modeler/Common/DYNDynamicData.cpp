@@ -271,7 +271,7 @@ DynamicData::getParametersSet(const string& modelId, const string& parFile, cons
   shared_ptr<ParametersSetCollection> parametersSetCollection = parametersImporter.importFromFile(canonical(parFile, rootDirectory_));
   parametersSetCollection->propagateOriginData(parFile);
   referenceParameters_[parFile] = parametersSetCollection;
-  parametersSetCollection->getParametersFromMacroParameter(parId);
+  parametersSetCollection->getParametersFromMacroParameter();
   return parametersSetCollection->getParametersSet(parId);
 }
 
