@@ -10,6 +10,7 @@
 
 //-------------  Modelica models ------------------------------------------
 ComponentDisconnected     =             COMPONENT : disconnecting
+ComponentConnected        =             COMPONENT : connecting
 // --> Governor
 ActivatePMIN              =             PMIN : activation
 ActivatePMAX              =             PMAX : activation
@@ -27,10 +28,12 @@ GeneratorPVBackRegulation =             PV Generator : back to voltage regulatio
 TapUp                     =             Tap +1
 TapDown                   =             Tap -1
 // --> Tap-Changer
+TapChangerSwitchOn        =             Tap-changer : switched onLineClosed
 TapChangerSwitchOff       =             Tap-changer : switched off
 TapChangerAboveMax        =             Tap-changer : above maximum allowed value
 TapChangerBelowMin        =             Tap-changer : below minimum allowed value
 // --> Phase-shifter
+PhaseShifterSwitchOn      =             Phase-shifter : switched on
 PhaseShifterSwitchOff     =             Phase-shifter : switched off
 PhaseShifterAboveMax      =             Phase-shifter : above maximum allowed value
 PhaseShifterBelowMin      =             Phase-shifter : below minimum allowed value
@@ -46,6 +49,7 @@ TapChangersLockedT        =             TCL : high voltage tap changers locked o
 TapChangersLockedD        =             TCL : low voltage tap changers locked on area
 // --> Transformer
 TransformerSwitchOff      =             Transformer : switched off
+TransformerSwitchOn       =             Transformer : switched on
 // --> Voltage Regulator
 VRBackToRegulation        =             Voltage regulator : back to regulation
 VRLimitationEfdMin        =             Voltage regulator : lower limit reached (Efd)
@@ -65,8 +69,10 @@ NodeFaultEnd              =             Fault (node) : end
 NodeFaultBegin            =             Fault (node) : beginning
 // --> Ideal Switch
 IdealSwitchSwitchOff      =             Ideal switch opened
+IdealSwitchSwitchOn       =             Ideal switch closed
 // --> HVDC Line
 DCLineOpen                =             DC line open
+DCLineClosed              =             DC line closed
 //-------------  C++ models ----------------------------------------------
 // --> BUS
 NodeOff                   =             BUS : switch off
