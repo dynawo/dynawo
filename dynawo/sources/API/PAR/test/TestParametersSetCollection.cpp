@@ -101,11 +101,11 @@ TEST(APIPARTest, CollectionIterator) {
   // Test const iterator
   int nbParametersSets = 0;
   for (ParametersSetCollection::parametersSet_const_iterator itParamSet = collection->cbeginParametersSet();
-        itParamSet != collection->cendParametersSet();
-        ++itParamSet) {
+      itParamSet != collection->cendParametersSet();
+      ++itParamSet) {
     ++nbParametersSets;
-    ASSERT_NO_THROW(itParamSet == itParamSet);
-        }
+    ASSERT_TRUE(itParamSet == itParamSet);
+  }
   ASSERT_EQ(nbParametersSets, 3);
 
   ParametersSetCollection::parametersSet_const_iterator itVariablec(collection->cbeginParametersSet());
@@ -137,7 +137,7 @@ TEST(APIPARTest, MacroParameterSetTest) {
   ASSERT_NO_THROW(itMacroParameterSet--);
   ASSERT_NO_THROW(++itMacroParameterSet);
   ASSERT_NO_THROW(--itMacroParameterSet);
-  ASSERT_NO_THROW(itMacroParameterSet == itMacroParameterSet);
+  ASSERT_TRUE(itMacroParameterSet == itMacroParameterSet);
   ASSERT_NO_THROW(itMacroParameterSet->get()->getId());
   ASSERT_NO_THROW((*itMacroParameterSet)->getId());
 }
