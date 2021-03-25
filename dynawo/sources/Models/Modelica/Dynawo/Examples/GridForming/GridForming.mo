@@ -69,10 +69,10 @@ model GridForming "Grid Forming converters test case"
     Placement(visible = true, transformation(origin = {-15, 100}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Dynawo.Electrical.Events.NodeFault Fault(RPu = 0.0001, XPu = 0.001, tBegin = 1.5, tEnd = 1.65) annotation(
     Placement(visible = true, transformation(origin = {0, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Events.Event.SingleBooleanEvent Disconnection(stateEvent1 = true, tEvent = 0.5);
+  Modelica.Blocks.Sources.BooleanStep Disconnection(startValue = false, startTime = 0.5);
 equation
+  Line12.switchOffSignal2.value = Disconnection.y;
   Line12.switchOffSignal1.value = false;
-  connect(Disconnection.state1, Line12.switchOffSignal2);
   Line13.switchOffSignal1.value = false;
   Line13.switchOffSignal2.value = false;
   Line23.switchOffSignal1.value = false;

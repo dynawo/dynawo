@@ -94,6 +94,7 @@ package BaseClasses
     import Dynawo.Electrical.SystemBase;
     extends GeneratorSynchronousParameters;
     extends SwitchOff.SwitchOffGenerator;
+
   public
     Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid" annotation(
       Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -103,12 +104,8 @@ package BaseClasses
     Connectors.ImPin efdPu(value(start = Efd0Pu)) "Input voltage of exciter winding in p.u (user-selected base voltage)";
     // Output variables
     Connectors.ImPin omegaPu(value(start = SystemBase.omega0Pu)) "Angular frequency in p.u.";
+
   protected
-    // Start values given as inputs of the initialization process
-    parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
-    parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.Angle UPhase0 "Start value of voltage angle in rad";
     // Internal parameters of the synchronous machine in p.u (base UNom, SNom)
     // These parameters are calculated at the initialization stage from the inputs parameters (internal or external)
     // These are the parameters used in the dynamic equations of the synchronous machine
@@ -131,6 +128,18 @@ package BaseClasses
     // p.u factor for excitation voltage
     parameter Types.PerUnit MdPPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
     final parameter Types.PerUnit Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 elseif ExcitationPu == ExcitationPuType.UserBase then RfPPu / MdPPuEfd else RfPPu / MdPPu "Scaling factor for excitation p.u. voltage";
+
+  public
+    // Start values given as inputs of the initialization process
+    parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
+    parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
+    parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
+    parameter Types.Angle UPhase0 "Start value of voltage angle in rad";
+    // Start values used by the regulations
+    parameter Types.PerUnit Efd0Pu "Start value of input exciter voltage in p.u. (user-selected base)";
+    parameter Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNomTurb/OmegaNom)";
+
+  protected
     // Start values calculated by the initialization model
     parameter Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef)";
     parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
@@ -142,7 +151,6 @@ package BaseClasses
     parameter Types.PerUnit Iq0Pu "Start value of current of quadrature axis in p.u";
     parameter Types.PerUnit If0Pu "Start value of flux of excitation winding in p.u";
     parameter Types.PerUnit Uf0Pu "Start value of exciter voltage in p.u. (Kundur base)";
-    parameter Types.PerUnit Efd0Pu "Start value of input exciter voltage in p.u. (user-selcted base)";
     parameter Types.PerUnit Lambdad0Pu "Start value of flux of direct axis in p.u";
     parameter Types.PerUnit Lambdaq0Pu "Start value of flux of quadrature axis in p.u";
     parameter Types.PerUnit LambdaD0Pu "Start value of flux of direct axis damper";
@@ -151,7 +159,6 @@ package BaseClasses
     parameter Types.PerUnit LambdaQ20Pu "Start value of flux of quadrature axis 2nd damper";
     parameter Types.PerUnit Ce0Pu "Start value of electrical torque in p.u (base SNom/OmegaNom)";
     parameter Types.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNomTurb/OmegaNom)";
-    parameter Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNomTurb/OmegaNom)";
     parameter Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in p.u.";
     parameter Types.PerUnit MqSat0PPu "Start value of quadrature axis saturated mutual inductance in p.u.";
     parameter Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in p.u.";
@@ -162,6 +169,8 @@ package BaseClasses
     parameter Types.PerUnit Cos2Eta0 "Start value of the common flux of direct axis contribution to the total air gap flux in p.u.";
     parameter Types.PerUnit Sin2Eta0 "Start value of the common flux of quadrature axis contribution to the total air gap flux in p.u.";
     parameter Types.PerUnit Mi0Pu "Start value of intermediate axis saturated mutual inductance in p.u.";
+
+  public
     // d-q axis p.u. variables (base UNom, SNom)
     Types.PerUnit udPu(start = Ud0Pu) "Voltage of direct axis in p.u";
     Types.PerUnit uqPu(start = Uq0Pu) "Voltage of quadrature axis in p.u";
@@ -183,6 +192,8 @@ package BaseClasses
     Types.PerUnit cmPu(start = Cm0Pu) "Mechanical torque in p.u (base PNomTurb/OmegaNom)";
     Types.PerUnit cePu(start = Ce0Pu) "Electrical torque in p.u (base SNom/OmegaNom)";
     Types.PerUnit PePu(start = Ce0Pu * SystemBase.omega0Pu) "Electrical active power in p.u (base SNom)";
+
+  protected
     // Saturated mutual inductances and related variables
     Types.PerUnit MdSatPPu(start = MdSat0PPu) "Direct axis saturated mutual inductance in p.u.";
     Types.PerUnit MqSatPPu(start = MqSat0PPu) "Quadrature axis saturated mutual inductance in p.u.";
@@ -194,6 +205,7 @@ package BaseClasses
     Types.PerUnit cos2Eta(start = Cos2Eta0) "Common flux of direct axis contribution to the total air gap flux in p.u.";
     Types.PerUnit sin2Eta(start = Sin2Eta0) "Common flux of quadrature axis contribution to the total air gap flux in p.u.";
     Types.PerUnit miPu(start = Mi0Pu) "Intermediate axis saturated mutual inductance in p.u.";
+
   equation
     assert(SNom <> PNomAlt, "The alternator nominal active power should be different from the nominal apparent power");
     if running.value then
