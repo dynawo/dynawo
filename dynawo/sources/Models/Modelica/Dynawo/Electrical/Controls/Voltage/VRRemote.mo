@@ -24,7 +24,7 @@ import Dynawo.Types;
 
   Connectors.ImPin URef (value(start = URef0)) "Voltage regulation set point in kV";
   Connectors.ImPin URegulated (value(start = U0)) "Regulated voltage in kV";
-  Connectors.ImPin NQ "Signal to change the reactive power generation of the generators participating in the centralized distant voltage regulation";
+  Connectors.ImPin NQ "Signal to change the reactive power generation of the generators participating in the centralized distant voltage regulation (generator convention)";
 
 protected
   Types.PerUnit UErrorIntegral (start = 0) "Time-integral of the control error in kV";

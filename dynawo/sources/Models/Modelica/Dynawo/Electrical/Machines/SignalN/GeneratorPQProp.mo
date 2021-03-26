@@ -23,7 +23,7 @@ public
   parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
   parameter Real QPercent "Percentage of the coordinated reactive control that comes from this machine";
 
-  Connectors.ImPin NQ "Signal to change the reactive power generation of the group depending on the centralized distant voltage regulation";
+  Connectors.ImPin NQ "Signal to change the reactive power generation of the group depending on the centralized distant voltage regulation (generator convention)";
 
 protected
   Types.ReactivePowerPu QGenRawPu (start = QGen0Pu) "Reactive power generation without taking limits into account in p.u (base SnRef) (generator convention)";
