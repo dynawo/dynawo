@@ -9,6 +9,7 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 add_subdirectory(Current C)
+add_subdirectory(Frequency F)
 add_subdirectory(HVDC H)
 add_subdirectory(Converters I)
 add_subdirectory(Machines M)
