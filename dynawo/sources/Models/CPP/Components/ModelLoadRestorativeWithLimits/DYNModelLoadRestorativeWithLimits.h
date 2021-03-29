@@ -78,8 +78,10 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   * @brief  calculated variables type
   */
   typedef enum {
-    loadStateNum_ = 0,
-    nbCalculatedVariables_ = 1
+    PNum_ = 0,
+    QNum_ = 1,
+    loadStateNum_ = 2,
+    nbCalculatedVariables_ = 3
   } CalculatedVariables_t;
   /**
   * @brief define parameters
@@ -287,8 +289,6 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   unsigned int UiYNum_;  ///< local Y index for Ui
   unsigned int IrYNum_;  ///< local Y index for Ir
   unsigned int IiYNum_;  ///< local Y index for Ii
-  unsigned int PYNum_;  ///< local Y index for P
-  unsigned int QYNum_;  ///< local Y index for Q
 
   double u0Pu_;  ///< initial voltage
   double UfRawprim0_;  ///< initial value of derivative of UfRaw
