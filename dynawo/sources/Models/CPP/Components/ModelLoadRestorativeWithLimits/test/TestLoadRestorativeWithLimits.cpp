@@ -59,7 +59,7 @@ boost::shared_ptr<SubModel> initModelLoad(double u0Pu) {
   return modelLoad;
 }
 
-TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsNDefineMethods) {
+TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsDefineMethods) {
   boost::shared_ptr<SubModel> modelLoad =
   SubModelFactory::createSubModelFromLib("../DYNModelLoadRestorativeWithLimits" + std::string(sharedLibraryExtension()));
 
@@ -112,8 +112,8 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsNDefineMetho
 
 TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsTypeMethods) {
   boost::shared_ptr<SubModel> modelLoad = initModelLoad(1.0);
-  unsigned nbY = 8;
-  unsigned nbF = 6;
+  unsigned nbY = 6;
+  unsigned nbF = 4;
   unsigned nbZ = 2;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
@@ -130,14 +130,10 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsTypeMethods)
 
   modelLoad->evalStaticFType();
   ASSERT_NO_THROW(modelLoad->initializeFromData(boost::shared_ptr<DataInterface>()));
-  std:: vector<double> res;
-  std::vector<int> indexes;
-  ASSERT_NO_THROW(modelLoad->evalJCalculatedVarI(0, res));
-  ASSERT_NO_THROW(modelLoad->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
-  ASSERT_NO_THROW(modelLoad->evalCalculatedVars());
+  ASSERT_NO_THROW(modelLoad->checkDataCoherence(0.));
+  ASSERT_NO_THROW(modelLoad->initializeStaticData());
   ASSERT_NO_THROW(modelLoad->evalDynamicFType());
   ASSERT_NO_THROW(modelLoad->evalDynamicYType());
-  ASSERT_NO_THROW(modelLoad->initializeStaticData());
 }
 
 TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsInit) {
@@ -165,10 +161,6 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsInit) {
   ASSERT_EQ(yp[4], 0);
   ASSERT_EQ(y[5], -1);
   ASSERT_EQ(yp[5], 0);
-  ASSERT_EQ(y[6], 1);
-  ASSERT_EQ(yp[6], 0);
-  ASSERT_EQ(y[7], 1);
-  ASSERT_EQ(yp[7], 0);
   ASSERT_EQ(z[0], 0);
   ASSERT_EQ(z[1], 0);
   delete[] zConnected;
@@ -218,7 +210,20 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   smjPrim.init(size, size);
   ASSERT_NO_THROW(modelLoad->evalJtPrim(0, 0, smjPrim, 0));
   ASSERT_NO_THROW(modelLoad->evalCalculatedVarI(0));
-  ASSERT_THROW_DYNAWO(modelLoad->evalCalculatedVarI(1), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_NO_THROW(modelLoad->evalCalculatedVarI(1));
+  ASSERT_NO_THROW(modelLoad->evalCalculatedVarI(2));
+  ASSERT_THROW_DYNAWO(modelLoad->evalCalculatedVarI(3), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_NO_THROW(modelLoad->evalCalculatedVars());
+  std::vector<double> res(3, 0.);
+  ASSERT_NO_THROW(modelLoad->evalJCalculatedVarI(0, res));
+  ASSERT_NO_THROW(modelLoad->evalJCalculatedVarI(1, res));
+  ASSERT_NO_THROW(modelLoad->evalJCalculatedVarI(2, res));
+  ASSERT_THROW_DYNAWO(modelLoad->evalJCalculatedVarI(3, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  std::vector<int> indexes;
+  ASSERT_NO_THROW(modelLoad->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
+  ASSERT_NO_THROW(modelLoad->getIndexesOfVariablesUsedForCalculatedVarI(1, indexes));
+  ASSERT_NO_THROW(modelLoad->getIndexesOfVariablesUsedForCalculatedVarI(2, indexes));
+  ASSERT_THROW_DYNAWO(modelLoad->getIndexesOfVariablesUsedForCalculatedVarI(3, indexes), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   z[0] = 1;
   z[1] = 0;
   ASSERT_NO_THROW(modelLoad->evalZ(1));
