@@ -200,8 +200,8 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_NO_THROW(modelLoad->evalF(0, UNDEFINED_EQ));
   ASSERT_NO_THROW(modelLoad->evalF(0, DIFFERENTIAL_EQ));
   ASSERT_NO_THROW(modelLoad->evalF(0, ALGEBRAIC_EQ));
-
-
+  y[2] = 1.0;
+  y[3] = 1.0;
   SparseMatrix smj;
   int size = modelLoad->sizeY();
   smj.init(size, size);
@@ -210,13 +210,22 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   smjPrim.init(size, size);
   ASSERT_NO_THROW(modelLoad->evalJtPrim(0, 0, smjPrim, 0));
   ASSERT_NO_THROW(modelLoad->evalCalculatedVarI(0));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(modelLoad->evalCalculatedVarI(0), 1.681792830507);
   ASSERT_NO_THROW(modelLoad->evalCalculatedVarI(1));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(modelLoad->evalCalculatedVarI(1), 2.378414230005);
   ASSERT_NO_THROW(modelLoad->evalCalculatedVarI(2));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(modelLoad->evalCalculatedVarI(2), 2.);
   ASSERT_THROW_DYNAWO(modelLoad->evalCalculatedVarI(3), Error::MODELER, KeyError_t::UndefCalculatedVarI);
   ASSERT_NO_THROW(modelLoad->evalCalculatedVars());
   std::vector<double> res(3, 0.);
   ASSERT_NO_THROW(modelLoad->evalJCalculatedVarI(0, res));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 1.261344622881);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 1.261344622881);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -2.522689245761);
   ASSERT_NO_THROW(modelLoad->evalJCalculatedVarI(1, res));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 2.973017787507);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 2.973017787507);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -5.946035575014);
   ASSERT_NO_THROW(modelLoad->evalJCalculatedVarI(2, res));
   ASSERT_THROW_DYNAWO(modelLoad->evalJCalculatedVarI(3, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   std::vector<int> indexes;
@@ -252,6 +261,8 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_NO_THROW(modelLoad->evalF(1, ALGEBRAIC_EQ));
 
   y[1] = 0;
+  y[2] = 0;
+  y[3] = 0;
   ASSERT_THROW_DYNAWO(modelLoad->evalF(0, ALGEBRAIC_EQ), Error::NUMERICAL_ERROR, KeyError_t::NumericalErrorFunction);
 }
 
