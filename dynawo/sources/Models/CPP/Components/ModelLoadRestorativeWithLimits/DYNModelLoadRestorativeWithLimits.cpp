@@ -391,8 +391,9 @@ namespace DYN {
     calculatedVars_[QNum_] = 0.;
     calculatedVars_[loadStateNum_] = connectionState_;
     if (isConnected()) {
-      calculatedVars_[PNum_] = evalCalculatedVarI(PNum_);
-      calculatedVars_[QNum_] = evalCalculatedVarI(QNum_);
+      double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
+      calculatedVars_[PNum_] = P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);;
+      calculatedVars_[QNum_] = Q0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], beta_);
     }
   }
 
