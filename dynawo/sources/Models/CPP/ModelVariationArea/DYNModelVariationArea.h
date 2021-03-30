@@ -133,7 +133,7 @@ class ModelVariationArea : public ModelCPP::Impl {
   void collectSilentZ(BitMask* silentZTable);
 
   /**
-   * @copydoc ModelCPP::evalMode(const double& t)
+   * @copydoc ModelCPP::evalMode(const double t)
    */
   modeChangeType_t evalMode(const double t);
   /**

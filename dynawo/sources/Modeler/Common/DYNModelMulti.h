@@ -96,7 +96,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim);
 
   /**
-   * @copydoc Model::checkDataCoherence(const double & t)
+   * @copydoc Model::checkDataCoherence(const double t)
    */
   void checkDataCoherence(const double t);
 
@@ -116,7 +116,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   void setGequationsModel();
 
   /**
-   * @copydoc Model::getY0(const double& t0, std::vector<double> &y0, std::vector<double> &yp0)
+   * @copydoc Model::getY0(const double t0, std::vector<double>& y0, std::vector<double>& yp0)
    */
   void getY0(const double t0, std::vector<double>& y0, std::vector<double>& yp0);
 
@@ -217,7 +217,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   void setIsInitProcess(bool isInitProcess);
 
   /**
-   * @copydoc Model::setInitialTime(const double& t0)
+   * @copydoc Model::setInitialTime(const double t0)
    */
   void setInitialTime(const double t0);
 
@@ -292,12 +292,12 @@ class ModelMulti : public Model, private boost::noncopyable {
   void printInitValues(const std::string& directory);
 
   /**
-   * @copydoc Model::evalCalculatedVariables(const double & t, const std::vector<double> &y, const std::vector<double> &yp,const std::vector<double> &z)
+   * @copydoc Model::evalCalculatedVariables(const double t, const std::vector<double>& y, const std::vector<double>& yp,const std::vector<double>& z)
    */
   void evalCalculatedVariables(const double t, const std::vector<double>& y, const std::vector<double>& yp, const std::vector<double>& z);
 
   /**
-   * @copydoc Model::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection)
+   * @copydoc Model::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const
    */
   void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const;
 
@@ -450,7 +450,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::string getVariableName(int index);
 
   /**
-   * @copydoc Model::getCurrentZ(std::vector<double> &z)
+   * @copydoc Model::getCurrentZ(std::vector<double>& z) const
    */
   void getCurrentZ(std::vector<double>& z) const;
 

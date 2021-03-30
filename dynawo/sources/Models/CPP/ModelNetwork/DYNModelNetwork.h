@@ -135,17 +135,17 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
   void evalZ(const double t);
 
   /**
-   * @copydoc ModelCPP::evalJt (const double & t,const double & cj, SparseMatrix& jt, const int & rowOffset)
+   * @copydoc ModelCPP::evalJt (const double t,const double cj, SparseMatrix& jt, const int rowOffset)
    */
   void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
 
   /**
-   * @copydoc ModelCPP::evalJtPrim(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset)
+   * @copydoc ModelCPP::evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset)
    */
   void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
 
   /**
-   * @copydoc ModelCPP::evalMode(const double& t)
+   * @copydoc ModelCPP::evalMode(const double t)
    */
   modeChangeType_t evalMode(const double t);
 
