@@ -169,7 +169,7 @@ class ModelCPP : public SubModel {
   virtual void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) = 0;
 
   /**
-   * @copydoc SubModel::evalMode(const double& t)
+   * @copydoc SubModel::evalMode(const double t)
    */
   virtual modeChangeType_t evalMode(const double t) = 0;
 
@@ -290,7 +290,7 @@ class ModelCPP : public SubModel {
   virtual void defineParametersInit(std::vector<ParameterModeler>& parameters) = 0;
 
   /**
-   * @copydoc SubModel::checkDataCoherence(const double& t)
+   * @copydoc SubModel::checkDataCoherence(const double t)
    */
   virtual void checkDataCoherence(const double t) = 0;
 

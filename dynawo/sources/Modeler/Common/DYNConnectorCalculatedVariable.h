@@ -64,17 +64,17 @@ class ConnectorCalculatedVariable : public SubModel {
   void evalF(double t, propertyF_t type);
 
   /**
-   * @copydoc SubModel::evalG(const double & t)
+   * @copydoc SubModel::evalG(const double t)
    */
   void evalG(const double t);
 
   /**
-   * @copydoc SubModel::evalZ(const double & t)
+   * @copydoc SubModel::evalZ(const double t)
    */
   void evalZ(const double t);
 
   /**
-   * @copydoc SubModel::evalMode(const double & t)
+   * @copydoc SubModel::evalMode(const double t)
    */
   modeChangeType_t evalMode(const double t);
 
@@ -84,12 +84,12 @@ class ConnectorCalculatedVariable : public SubModel {
   void evalCalculatedVars();
 
   /**
-   * @copydoc SubModel::evalJt(const double& t, const double& cj, SparseMatrix& Jt, const int& rowOffset)
+   * @copydoc SubModel::evalJt(const double t, const double cj, SparseMatrix& Jt, const int rowOffset)
    */
   void evalJt(const double t, const double cj, SparseMatrix& Jt, const int rowOffset);
 
   /**
-   * @copydoc SubModel::evalJtPrim(const double& t, const double& cj, SparseMatrix& Jt, const int& rowOffset)
+   * @copydoc SubModel::evalJtPrim(const double t, const double cj, SparseMatrix& Jt, const int rowOffset)
    */
   void evalJtPrim(const double t, const double cj, SparseMatrix& Jt, const int rowOffset);
 
@@ -209,7 +209,7 @@ class ConnectorCalculatedVariable : public SubModel {
   void defineParametersInit(std::vector<ParameterModeler>& parameters);
 
   /**
-   * @copydoc SubModel::checkDataCoherence (const double& t)
+   * @copydoc SubModel::checkDataCoherence (const double t)
    */
   void checkDataCoherence(const double t);
 

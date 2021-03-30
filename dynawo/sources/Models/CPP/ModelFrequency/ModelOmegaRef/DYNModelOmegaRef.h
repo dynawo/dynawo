@@ -136,7 +136,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
   void collectSilentZ(BitMask* silentZTable);
 
   /**
-   * @copydoc ModelCPP::evalMode(const double& t)
+   * @copydoc ModelCPP::evalMode(const double t)
    */
   modeChangeType_t evalMode(const double t);
   /**
@@ -277,7 +277,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
   void initParams() { /* not needed */ }
 
   /**
-   * @copydoc ModelCPP::checkDataCoherence(const double& t)
+   * @copydoc ModelCPP::checkDataCoherence(const double t)
    */
   void checkDataCoherence(const double t);
 

@@ -77,28 +77,28 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void evalF(double t, propertyF_t type);
 
   /**
-   * @copydoc SubModel::evalG(const double &t)
+   * @copydoc SubModel::evalG(const double t)
    */
   void evalG(const double t);
 
   /**
-   * @copydoc SubModel::evalZ(const double &t)
+   * @copydoc SubModel::evalZ(const double t)
    */
   void evalZ(const double t);
 
   /**
-   * @copydoc SubModel::evalMode(const double &t);
+   * @copydoc SubModel::evalMode(const double t);
    */
   //--------------------------------------------------------------------
   modeChangeType_t evalMode(const double t);
 
   /**
-   * @copydoc SubModel::evalJt(const double &t,const double & cj, SparseMatrix& Jt, const int& rowOffset)
+   * @copydoc SubModel::evalJt(const double t,const double cj, SparseMatrix& Jt, const int rowOffset)
    */
   void evalJt(const double t, const double cj, SparseMatrix& Jt, const int rowOffset);
 
   /**
-   * @copydoc SubModel::evalJtPrim(const double &t,const double & cj, SparseMatrix& Jt, const int& rowOffset)
+   * @copydoc SubModel::evalJtPrim(const double t,const double cj, SparseMatrix& Jt, const int rowOffset)
    */
   void evalJtPrim(const double t, const double cj, SparseMatrix& Jt, const int rowOffset);
   /**
@@ -109,7 +109,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void evalZ(std::vector<double>& z);
 
   /**
-   * @copydoc SubModel::checkDataCoherence (const double & t)
+   * @copydoc SubModel::checkDataCoherence (const double t)
    */
   void checkDataCoherence(const double t);
 
