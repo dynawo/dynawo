@@ -297,8 +297,10 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalCalculatedVariables(const double t, const std::vector<double>& y, const std::vector<double>& yp, const std::vector<double>& z);
 
   /**
-   * @copydoc Model::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const
-   */
+  * @brief update the subset of calculated variables needed for curves
+  *
+  * @param curvesCollection set of curves
+  */
   void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const;
 
   /**
@@ -450,12 +452,14 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::string getVariableName(int index);
 
   /**
-   * @copydoc Model::getCurrentZ(std::vector<double>& z) const
-   */
+  * @brief Copy the discrete variable values from the model data structure to the solver data structure
+  *
+  * @param z vector of discrete values from the solver data structure
+  */
   void getCurrentZ(std::vector<double>& z) const;
 
   /**
-   * @copydoc Model::setCurrentZ(const std::vector<double> &zLocal)
+   * @copydoc Model::setCurrentZ(const std::vector<double>& z)
    */
   void setCurrentZ(const std::vector<double>& z);
 
