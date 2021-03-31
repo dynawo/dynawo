@@ -17,7 +17,7 @@
         <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
         <dyn:staticRef var="generator_state" staticVar="state"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="Signal_N" lib="SignalN" parFile="LoadRestoration.par" parId="2"/>
+  <dyn:blackBoxModel id="Signal_N" lib="DYNModelSignalN" parFile="LoadRestoration.par" parId="2"/>
   <dyn:blackBoxModel id="Load__10" lib="LoadAlphaBetaRestorative" parFile="LoadRestoration.par" parId="3" staticId="_Load__10">
         <dyn:staticRef var="load_PPu" staticVar="p"/>
         <dyn:staticRef var="load_QPu" staticVar="q"/>
@@ -26,8 +26,9 @@
   <dyn:blackBoxModel id="Disconnect_Line" lib="EventQuadripoleDisconnection" parFile="LoadRestoration.par" parId="9"/>
   <dyn:connect id1="Generator___1" var1="generator_terminal" id2="NETWORK" var2="@_Generator___1@@NODE@_ACPIN"/>
   <dyn:connect id1="Generator___1" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_Generator___1@@NODE@_switchOff"/>
-  <dyn:connect id1="Generator___1" var1="generator_N_value" id2="Signal_N" var2="signalN_N_value"/>
-  <dyn:connect id1="Signal_N" var1="signalN_thetaRef_value" id2="NETWORK" var2="@_Generator___1@@NODE@_phi_value"/>
+  <dyn:connect id1="Generator___1" var1="generator_N_value" id2="Signal_N" var2="n_grp_0_value"/>
+  <dyn:connect id1="Generator___1" var1="generator_alpha_value" id2="Signal_N" var2="alpha_grp_0_value"/>
+  <dyn:connect id1="Signal_N" var1="tetaRef_0_value" id2="NETWORK" var2="@_Generator___1@@NODE@_phi_value"/>
   <dyn:connect id1="Load__10" var1="load_terminal" id2="NETWORK" var2="_BUS___10_TN_ACPIN"/>
   <dyn:connect id1="Disconnect_Line" var1="event_state1_value" id2="NETWORK" var2="_BUS____8-BUS___10-2_AC_state_value"/>
 </dyn:dynamicModelsArchitecture>

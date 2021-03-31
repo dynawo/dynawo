@@ -17,7 +17,7 @@
         <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
         <dyn:staticRef var="generator_state" staticVar="state"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="Signal_N" lib="SignalN" parFile="HvdcPQPropDiagramPQ.par" parId="2"/>
+  <dyn:blackBoxModel id="Signal_N" lib="DYNModelSignalN" parFile="HvdcPQPropDiagramPQ.par" parId="2"/>
   <dyn:blackBoxModel id="Hvdc1" lib="HvdcPQPropDiagramPQEmulation" parFile="HvdcPQPropDiagramPQ.par" parId="4" staticId="HVDC1">
       <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
       <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
@@ -39,8 +39,9 @@
   <dyn:blackBoxModel id="Disconnect_Hvdc1" lib="EventSetPointBoolean" parFile="HvdcPQPropDiagramPQ.par" parId="9"/>
   <dyn:connect id1="Generator___1" var1="generator_terminal" id2="NETWORK" var2="@_Generator___1@@NODE@_ACPIN"/>
   <dyn:connect id1="Generator___1" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_Generator___1@@NODE@_switchOff"/>
-  <dyn:connect id1="Generator___1" var1="generator_N_value" id2="Signal_N" var2="signalN_N_value"/>
-  <dyn:connect id1="Signal_N" var1="signalN_thetaRef_value" id2="NETWORK" var2="@_Generator___1@@NODE@_phi_value"/>
+  <dyn:connect id1="Generator___1" var1="generator_N_value" id2="Signal_N" var2="n_grp_0_value"/>
+  <dyn:connect id1="Generator___1" var1="generator_alpha_value" id2="Signal_N" var2="alpha_grp_0_value"/>
+  <dyn:connect id1="Signal_N" var1="tetaRef_0_value" id2="NETWORK" var2="@_Generator___1@@NODE@_phi_value"/>
   <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="Hvdc1" var2="hvdc_terminal2"/>
   <dyn:connect id1="NETWORK" var1="_BUS____8_TN_ACPIN" id2="Hvdc1" var2="hvdc_terminal1"/>
   <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="Hvdc2" var2="hvdc_terminal2"/>
