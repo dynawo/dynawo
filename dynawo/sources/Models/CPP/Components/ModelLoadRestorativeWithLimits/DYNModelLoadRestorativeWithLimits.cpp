@@ -140,7 +140,7 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::init(const double& /*t0*/) {
+  ModelLoadRestorativeWithLimits::init(const double /*t0*/) {
     UfRawYNum_ = 0;
     UfYNum_ = 1;
     UrYNum_ = 2;
@@ -234,7 +234,7 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::evalZ(const double & /*t*/) {
+  ModelLoadRestorativeWithLimits::evalZ(const double /*t*/) {
     if ((zLocal_[0] > 0 || zLocal_[1] > 0) && getConnected() == CLOSED) {
       setConnected(OPEN);
     } else if ((zLocal_[0] <= 0 || zLocal_[1] <= 0) && getConnected() == OPEN) {
@@ -254,7 +254,7 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::evalJt(const double& /*t*/, const double& cj, SparseMatrix& jt, const int& rowOffset) {
+  ModelLoadRestorativeWithLimits::evalJt(const double /*t*/, const double cj, SparseMatrix& jt, const int rowOffset) {
     if (!isConnected()) {
       jt.changeCol();  //  ufRaw
       jt.addTerm(UfRawYNum_ + rowOffset, cj);
@@ -303,7 +303,7 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::evalG(const double& /*t*/) {
+  ModelLoadRestorativeWithLimits::evalG(const double /*t*/) {
     gLocal_[0] = (doubleNotEquals(yLocal_[UfRawYNum_], UMaxPu_) && yLocal_[UfRawYNum_] > UMaxPu_) ? ROOT_UP : ROOT_DOWN;
     gLocal_[1] = (doubleNotEquals(yLocal_[UfRawYNum_], UMinPu_) && UMinPu_ - yLocal_[UfRawYNum_] > 0) ? ROOT_UP : ROOT_DOWN;
   }
@@ -315,7 +315,7 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::evalJtPrim(const double & /*t*/, const double & /*cj*/, SparseMatrix& jt, const int& rowOffset) {
+  ModelLoadRestorativeWithLimits::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
     jt.changeCol();
     if (isConnected())
       jt.addTerm(UfRawYNum_ + rowOffset, Tf_);
@@ -327,7 +327,7 @@ namespace DYN {
   }
 
   modeChangeType_t
-  ModelLoadRestorativeWithLimits::evalMode(const double& /*t*/) {
+  ModelLoadRestorativeWithLimits::evalMode(const double /*t*/) {
     if (gLocal_[0] == ROOT_UP || gLocal_[1] == ROOT_UP)
       return ALGEBRAIC_MODE;
     if (preConnectionState_ != getConnected()) {

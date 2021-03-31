@@ -49,9 +49,9 @@ class ConnectorCalculatedVariable : public SubModel {
   void initializeStaticData() { /*no static data*/ }
 
   /**
-   * @copydoc SubModel::init(const double& t0)
+   * @copydoc SubModel::init(const double t0)
    */
-  void init(const double& t0);
+  void init(const double t0);
 
   /**
    * @copydoc SubModel::getSize()
@@ -64,19 +64,19 @@ class ConnectorCalculatedVariable : public SubModel {
   void evalF(double t, propertyF_t type);
 
   /**
-   * @copydoc SubModel::evalG(const double & t)
+   * @copydoc SubModel::evalG(const double t)
    */
-  void evalG(const double& t);
+  void evalG(const double t);
 
   /**
-   * @copydoc SubModel::evalZ(const double & t)
+   * @copydoc SubModel::evalZ(const double t)
    */
-  void evalZ(const double& t);
+  void evalZ(const double t);
 
   /**
-   * @copydoc SubModel::evalMode(const double & t)
+   * @copydoc SubModel::evalMode(const double t)
    */
-  modeChangeType_t evalMode(const double& t);
+  modeChangeType_t evalMode(const double t);
 
   /**
    * @copydoc SubModel::evalCalculatedVars()
@@ -84,14 +84,14 @@ class ConnectorCalculatedVariable : public SubModel {
   void evalCalculatedVars();
 
   /**
-   * @copydoc SubModel::evalJt(const double& t, const double& cj, SparseMatrix& Jt, const int& rowOffset)
+   * @copydoc SubModel::evalJt(const double t, const double cj, SparseMatrix& Jt, const int rowOffset)
    */
-  void evalJt(const double& t, const double& cj, SparseMatrix& Jt, const int& rowOffset);
+  void evalJt(const double t, const double cj, SparseMatrix& Jt, const int rowOffset);
 
   /**
-   * @copydoc SubModel::evalJtPrim(const double& t, const double& cj, SparseMatrix& Jt, const int& rowOffset)
+   * @copydoc SubModel::evalJtPrim(const double t, const double cj, SparseMatrix& Jt, const int rowOffset)
    */
-  void evalJtPrim(const double& t, const double& cj, SparseMatrix& Jt, const int& rowOffset);
+  void evalJtPrim(const double t, const double cj, SparseMatrix& Jt, const int rowOffset);
 
   /**
    * @copydoc SubModel::initParams()
@@ -209,9 +209,9 @@ class ConnectorCalculatedVariable : public SubModel {
   void defineParametersInit(std::vector<ParameterModeler>& parameters);
 
   /**
-   * @copydoc SubModel::checkDataCoherence (const double& t)
+   * @copydoc SubModel::checkDataCoherence (const double t)
    */
-  void checkDataCoherence(const double& t);
+  void checkDataCoherence(const double t);
 
   /**
    * @copydoc SubModel::checkParametersCoherence () const
@@ -249,7 +249,7 @@ class ConnectorCalculatedVariable : public SubModel {
    * @param model model where is located the calculated variable
    * @param indexCalculatedVariable index of the calculated variable inside the model
    */
-  void setParams(const boost::shared_ptr<SubModel>& model, const int& indexCalculatedVariable);
+  void setParams(const boost::shared_ptr<SubModel>& model, const int indexCalculatedVariable);
 
   /**
    * @copydoc SubModel::initSubBuffers()

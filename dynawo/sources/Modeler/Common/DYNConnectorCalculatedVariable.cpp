@@ -56,12 +56,12 @@ void ConnectorCalculatedVariable::getSize() {
 }
 
 void
-ConnectorCalculatedVariable::init(const double& /*t0*/) {
+ConnectorCalculatedVariable::init(const double /*t0*/) {
   // no initialization needed
 }
 
 void
-ConnectorCalculatedVariable::checkDataCoherence(const double& /*t*/) {
+ConnectorCalculatedVariable::checkDataCoherence(const double /*t*/) {
   // no check
 }
 
@@ -84,12 +84,12 @@ ConnectorCalculatedVariable::setFequations() {
   fEquationIndex_[0] = "Calculated variable connector for variable " + name();
 }
 void
-ConnectorCalculatedVariable::evalG(const double& /*t*/) {
+ConnectorCalculatedVariable::evalG(const double /*t*/) {
   // no root function for now
 }
 
 void
-ConnectorCalculatedVariable::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatrix& Jt, const int& rowOffset) {
+ConnectorCalculatedVariable::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& Jt, const int rowOffset) {
   // only one equation : 0 = calculatedVariable -y
 
   const double dMOne(-1.);
@@ -106,14 +106,14 @@ ConnectorCalculatedVariable::evalJt(const double& /*t*/, const double& /*cj*/, S
 }
 
 void
-ConnectorCalculatedVariable::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix& Jt, const int& /*rowOffset*/) {
+ConnectorCalculatedVariable::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& Jt, const int /*rowOffset*/) {
   // only one equation : 0 = calculatedVariable  -y
   Jt.changeCol();
   // We assume that calculated variables do not depend on derivatives.
 }
 
 void
-ConnectorCalculatedVariable::evalZ(const double& /*t*/) {
+ConnectorCalculatedVariable::evalZ(const double /*t*/) {
   // no discrete variable
 }
 
@@ -124,7 +124,7 @@ ConnectorCalculatedVariable::collectSilentZ(BitMask* /*silentZTable*/) {
 }
 
 modeChangeType_t
-ConnectorCalculatedVariable::evalMode(const double& /*t*/) {
+ConnectorCalculatedVariable::evalMode(const double /*t*/) {
   // no modes, F has always the same formula
   return NO_MODE;
 }
@@ -135,7 +135,7 @@ ConnectorCalculatedVariable::evalCalculatedVars() {
 }
 
 void
-ConnectorCalculatedVariable::setParams(const shared_ptr<SubModel>& model, const int& indexCalculatedVariable) {
+ConnectorCalculatedVariable::setParams(const shared_ptr<SubModel>& model, const int indexCalculatedVariable) {
   model_ = model;
   indexCalculatedVariable_ = indexCalculatedVariable;
   if (indexCalculatedVariable_ == -1)

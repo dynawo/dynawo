@@ -12,6 +12,5 @@
     simulation tools for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="URef.value" type="discrete"/>
-  <variable id="NQ.value" type="continuous"/>
+  <variable id="URegulated" type="continuous"/>
 </external_variables>

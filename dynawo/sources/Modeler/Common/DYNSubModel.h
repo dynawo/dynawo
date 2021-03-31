@@ -80,7 +80,7 @@ class SubModel {
    * @brief initialize all the data for a sub model
    * @param t0 : initial time of the simulation
    */
-  virtual void init(const double& t0) = 0;
+  virtual void init(const double t0) = 0;
 
   /**
    * @brief get the type of the sub model
@@ -93,28 +93,28 @@ class SubModel {
    *
    * @param mapParameters : map associating the file where parameters should be dumped with the stream of parameters
    */
-  virtual void dumpParameters(std::map< std::string, std::string > & mapParameters) = 0;
+  virtual void dumpParameters(std::map< std::string, std::string >& mapParameters) = 0;
 
   /**
    * @brief export the variables values of the sub model for dump
    *
    * @param mapVariables : map associating the file where values should be dumped with the stream of values
    */
-  virtual void dumpVariables(std::map< std::string, std::string > & mapVariables) = 0;
+  virtual void dumpVariables(std::map< std::string, std::string >& mapVariables) = 0;
 
   /**
    * @brief load the parameters values from a previous dump
    *
    * @param parameters : stream of values where the parameters were dumped
    */
-  virtual void loadParameters(const std::string &parameters) = 0;
+  virtual void loadParameters(const std::string& parameters) = 0;
 
   /**
    * @brief load the variables values from a previous dump
    *
    * @param variables : stream of values where the variables were dumped
    */
-  virtual void loadVariables(const std::string &variables) = 0;
+  virtual void loadVariables(const std::string& variables) = 0;
 
   /**
    * @brief set the silent flag for discrete variables
@@ -139,7 +139,7 @@ class SubModel {
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  virtual void evalG(const double & t) = 0;
+  virtual void evalG(const double t) = 0;
 
   /**
    * @brief Model discrete variables evaluation
@@ -149,7 +149,7 @@ class SubModel {
    * @param[in] t Simulation instant
    * @throws Error::MODELER typed @p Error.
    */
-  virtual void evalZ(const double & t) = 0;
+  virtual void evalZ(const double t) = 0;
 
   /**
    * @brief compute the value of calculated variables
@@ -164,7 +164,7 @@ class SubModel {
    * @param Jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  virtual void evalJt(const double & t, const double & cj, SparseMatrix& Jt, const int& rowOffset) = 0;
+  virtual void evalJt(const double t, const double cj, SparseMatrix& Jt, const int rowOffset) = 0;
 
   /**
    * @brief compute the transpose prim jacobian of the sub model \f$ J'= @F/@x' \f$
@@ -174,7 +174,7 @@ class SubModel {
    * @param Jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  virtual void evalJtPrim(const double & t, const double & cj, SparseMatrix& Jt, const int& rowOffset) = 0;
+  virtual void evalJtPrim(const double t, const double cj, SparseMatrix& Jt, const int rowOffset) = 0;
 
   /**
    * @brief Model mode change type evaluation
@@ -184,7 +184,7 @@ class SubModel {
    * @param[in] t Simulation instant
    * @return mode change type value
    */
-  virtual modeChangeType_t evalMode(const double & t) = 0;
+  virtual modeChangeType_t evalMode(const double t) = 0;
 
   /**
    * @brief Coherence check on parameters (min/max values, sanity checks)
@@ -196,7 +196,7 @@ class SubModel {
    *
    * @param t time for which to conduct the data coherence check
    */
-  virtual void checkDataCoherence(const double & t) = 0;  ///< sanity checks on data
+  virtual void checkDataCoherence(const double t) = 0;  ///< sanity checks on data
 
   /**
    * @brief set formula for modelica models' equation
@@ -286,7 +286,7 @@ class SubModel {
    *
    * @param directory directory where the file should be printed
    */
-  virtual void printInitValues(const std::string & directory) = 0;
+  virtual void printInitValues(const std::string& directory) = 0;
 
   /**
    * @brief define each variables of the model
@@ -389,7 +389,7 @@ class SubModel {
    * @brief initialize the subModel
    * @param t0 time to use when calling initialization
    */
-  void initSub(const double& t0);
+  void initSub(const double t0);
 
   /**
    * @brief initialize size and offset to use during the simulation
@@ -400,7 +400,7 @@ class SubModel {
    * @param sizeFGlob offset to use for the subModel in the F global vector
    * @param sizeGGlob offset to use for the subModel in the G global vector
    */
-  void initSize(int &sizeYGlob, int &sizeZGlob, int& sizeModeGlob, int & sizeFGlob, int & sizeGGlob);
+  void initSize(int& sizeYGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob);
 
   /**
    * @brief Model F(t,y,y') function evaluation
@@ -408,20 +408,20 @@ class SubModel {
    * state variables derivatives
    * @param t Simulation instant
    */
-  void evalFSub(const double &t);
+  void evalFSub(const double t);
 
   /**
    * Get the differential residues' values at a certain instant time
    * @param t Simulation instant
    */
-  virtual void evalFDiffSub(const double &t);
+  virtual void evalFDiffSub(const double t);
 
   /**
    * @brief Model G(t,y,y') function evaluation
    * Get the roots' value
    * @param t Simulation instant
    */
-  void evalGSub(const double &t);
+  void evalGSub(const double t);
 
   /**
    * @brief Model discrete variables evaluation
@@ -429,14 +429,14 @@ class SubModel {
    * current state variables values.
    * @param t Simulation instant
    */
-  void evalZSub(const double & t);
+  void evalZSub(const double t);
 
   /**
    * @brief  calculate calculated variables
    *
    * @param t Simulation instant
    */
-  void evalCalculatedVariablesSub(const double & t);
+  void evalCalculatedVariablesSub(const double t);
 
   /**
    * @brief Model transposed jacobian evaluation
@@ -447,7 +447,7 @@ class SubModel {
    * @param Jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  void evalJtSub(const double & t, const double & cj, SparseMatrix& Jt, int& rowOffset);
+  void evalJtSub(const double t, const double cj, SparseMatrix& Jt, int& rowOffset);
 
   /**
    * @brief Model transposed jacobian prime matrix evaluation \f$( J = @F/@x' )\f$
@@ -458,7 +458,7 @@ class SubModel {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  void evalJtPrimSub(const double & t, const double & cj, SparseMatrix& jt, int& rowOffset);
+  void evalJtPrimSub(const double t, const double cj, SparseMatrix& jt, int& rowOffset);
 
   /**
    * @brief Model mode change type evaluation
@@ -469,7 +469,7 @@ class SubModel {
    * @return mode change type
    */
   //--------------------------------------------------------------------
-  modeChangeType_t evalModeSub(const double & t);
+  modeChangeType_t evalModeSub(const double t);
 
   /**
   * @brief Get the mode change value
@@ -485,7 +485,7 @@ class SubModel {
   *
   * @param modeChange mode change value
   */
-  inline void modeChange(const bool& modeChange) {
+  inline void modeChange(const bool modeChange) {
     modeChange_ = modeChange;
   }
 
@@ -504,7 +504,7 @@ class SubModel {
    *
    * @param t : time for which to conduct the data coherence check
    */
-  void checkDataCoherenceSub(const double & t);
+  void checkDataCoherenceSub(const double t);
 
   /**
    * @brief For calling setFequations() in SubModel
@@ -598,21 +598,21 @@ class SubModel {
    *
    * @param mapParameters map associating name of the model and data saved
    */
-  void loadParameters(const std::map< std::string, std::string > & mapParameters);
+  void loadParameters(const std::map< std::string, std::string >& mapParameters);
 
   /**
    * @brief load variables from a previous save
    *
    * @param mapVariables map associating name of the model and data saved
    */
-  void loadVariables(const std::map< std::string, std::string > & mapVariables);
+  void loadVariables(const std::map< std::string, std::string >& mapVariables);
 
   /**
    * @brief get the current values of discrete variables
    *
    * @param z global vector to fill
    */
-  void getZ(std::vector<double> &z);
+  void getZ(std::vector<double>& z);
 
   /**
    * @brief define the elements of the subModel (terminal, structure)
@@ -631,7 +631,7 @@ class SubModel {
    *
    * @return elements associating to the variable/structure
    */
-  std::vector<Element> getElements(const std::string & name) const;
+  std::vector<Element> getElements(const std::string& name) const;
 
   /**
    * @brief dump into the log the list of elements of the submodel
@@ -646,7 +646,7 @@ class SubModel {
    *
    * @return @b true if the variable exists inside the model
    */
-  bool hasVariable(const std::string & nameVariable) const;
+  bool hasVariable(const std::string& nameVariable) const;
 
   /**
    * @brief check whether the variable is available within the init sub-model
@@ -655,7 +655,7 @@ class SubModel {
    *
    * @return @b true if the variable exists inside the init model
    */
-  bool hasVariableInit(const std::string & nameVariable) const;
+  bool hasVariableInit(const std::string& nameVariable) const;
 
   /**
    * @brief retrieve a given sub-model variable
@@ -665,7 +665,7 @@ class SubModel {
    * @return @p towards the variable
    * @throw an assert if the variable does not exist
    */
-  boost::shared_ptr <Variable> getVariable(const std::string & variableName) const;
+  boost::shared_ptr <Variable> getVariable(const std::string& variableName) const;
 
   /**
    * @brief retrieve the current value of a given variable
@@ -683,7 +683,7 @@ class SubModel {
    *
    * @return value of the variable
    */
-  double getVariableValue(const boost::shared_ptr <Variable> variable) const;
+  double getVariableValue(const boost::shared_ptr<Variable>& variable) const;
 
   /**
    * @brief retrieve the global index of a given variable
@@ -693,7 +693,7 @@ class SubModel {
    * @return the variable index in the relevant matrix
    * @throw an error when the variable type is not relevant
    */
-  int getVariableIndexGlobal(const boost::shared_ptr <Variable> variable) const;
+  int getVariableIndexGlobal(const boost::shared_ptr<Variable>& variable) const;
 
   /**
    * @brief check whether the parameter is available within the sub-model
@@ -702,7 +702,7 @@ class SubModel {
    * @param isInitParam: whether to retrieve the initial (or dynamic) parameters
    * @return @b true if the parameter exists inside the model
    */
-  bool hasParameter(const std::string & nameParameter, const bool isInitParam);
+  bool hasParameter(const std::string& nameParameter, const bool isInitParam);
 
   /**
    * @brief check whether the initial parameter is available within the sub-model
@@ -710,7 +710,7 @@ class SubModel {
    * @param nameParameter name of the parameter
    * @return @b true if the initial parameter exists inside the model
    */
-  inline bool hasParameterInit(const std::string & nameParameter) {
+  inline bool hasParameterInit(const std::string& nameParameter) {
     return hasParameter(nameParameter, true);
   }
 
@@ -870,7 +870,7 @@ class SubModel {
    * @param parametersSet: the set to scan for a value
    * @param origin: the origin of the set data (MO, PAR, INIT, ...)
    */
-  void setParameterFromSet(ParameterModeler& parameter, const boost::shared_ptr<parameters::ParametersSet> parametersSet, const parameterOrigin_t& origin);
+  void setParameterFromSet(ParameterModeler& parameter, const boost::shared_ptr<parameters::ParametersSet>& parametersSet, const parameterOrigin_t& origin);
 
   /**
    * @brief set all parameters values from a parameters set (API PAR)
@@ -995,7 +995,7 @@ class SubModel {
    * @param f global buffer for the evaluation of residual function
    * @param offsetF offset to use to find the beginning of the local buffer
    */
-  void setBufferF(double* f, const int & offsetF);
+  void setBufferF(double* f, const int offsetF);
 
   /**
    * @brief defines the local buffer to use for the evaluation of root function
@@ -1003,7 +1003,7 @@ class SubModel {
    * @param g global buffer for the evaluation of root function
    * @param offsetG offset to use to find the beginning of the local buffer
    */
-  void setBufferG(state_g* g, const int & offsetG);
+  void setBufferG(state_g* g, const int offsetG);
 
   /**
    * @brief defines the local buffer to define the continuous variables
@@ -1012,7 +1012,7 @@ class SubModel {
    * @param yp global buffer to define the derivative of the continuous variable
    * @param offsetY offset to use to find the beginning of the local buffer
    */
-  void setBufferY(double* y, double* yp, const int & offsetY);
+  void setBufferY(double* y, double* yp, const int offsetY);
 
   /**
    * @brief   defines the local buffer to define the discrete variables
@@ -1029,7 +1029,7 @@ class SubModel {
    * @param yType global buffer to define the variable properties
    * @param offsetYType offset to use to find the beginning of the local buffer
    */
-  void setBufferYType(propertyContinuousVar_t* yType, const int & offsetYType);
+  void setBufferYType(propertyContinuousVar_t* yType, const int offsetYType);
 
   /**
    * @brief   defines the local buffer to define the residual functions properties
@@ -1037,7 +1037,7 @@ class SubModel {
    * @param fType global buffer to define the residual functions properties
    * @param offsetFType offset to use to find the beginning of the local buffer
    */
-  void setBufferFType(propertyF_t* fType, const int & offsetFType);
+  void setBufferFType(propertyF_t* fType, const int offsetFType);
 
   /**
    * @brief get the index to use to find the discrete values of the model inside the global vector
@@ -1090,7 +1090,7 @@ class SubModel {
    *
    * @param name name of the subModel
    */
-  inline void name(const std::string & name) {
+  inline void name(const std::string& name) {
     name_ = name;
   }
 
@@ -1108,7 +1108,7 @@ class SubModel {
    *
    * @param id staticId of the subModel
    */
-  inline void staticId(const std::string & id) {
+  inline void staticId(const std::string& id) {
     staticId_ = id;
   }
 
@@ -1283,7 +1283,7 @@ class SubModel {
    *
    * @param time time to use
    */
-  inline void setCurrentTime(const double& time) {
+  inline void setCurrentTime(const double time) {
     currentTime_ = time;
   }
 
@@ -1320,7 +1320,7 @@ class SubModel {
    * @param index WARNING index is local index in this submodel, not global index
    * @return string of equation
    */
-  std::string getFequationByLocalIndex(const int& index);
+  std::string getFequationByLocalIndex(const int index);
 
   /**
    * @brief get root equation string for debug log
@@ -1328,7 +1328,7 @@ class SubModel {
    * @param index WARNING index is local index in this submodel, not global index
    * @return string of root equation
    */
-  std::string getGequationByLocalIndex(const int& index);
+  std::string getGequationByLocalIndex(const int index);
 
   /**
    * @brief setter for the parameters set read from PAR file
@@ -1344,7 +1344,7 @@ class SubModel {
    * @param value value of the parameter
    * @param found @b true if the parameter exist, @b false else
    */
-  virtual void getSubModelParameterValue(const std::string & nameParameter, double & value, bool & found);
+  virtual void getSubModelParameterValue(const std::string & nameParameter, double& value, bool& found);
 
   /**
    * @brief get index of this submodel in the global continuous variable table

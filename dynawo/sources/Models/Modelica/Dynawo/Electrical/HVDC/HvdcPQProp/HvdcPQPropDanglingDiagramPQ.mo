@@ -28,7 +28,7 @@ model HvdcPQPropDanglingDiagramPQ "Model for HVDC link with a reactive power pro
 
   Connectors.ZPin Q1RefPu (value (start = s10Pu.im)) "Reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 1";
   Connectors.BPin modeU1 (value (start = modeU10)) "Boolean assessing the mode of the control of converter 1: true if U mode (here a proportional Q regulation), false if Q mode (fixed Q)";
-  Connectors.ImPin NQ1 "Signal to change the reactive power of converter 1 depending on the centralized voltage regulation";
+  Connectors.ImPin NQ1 "Signal to change the reactive power of converter 1 depending on the centralized voltage regulation (generator convention)";
 
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control of converter 1";
   parameter Real QPercent1 "Percentage of the coordinated reactive control that comes from converter 1";

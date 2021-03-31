@@ -343,7 +343,7 @@ void ModelGeneratorPQ_Dyn::setFomc(double * f, propertyF_t type)
   }
 }
 
-modeChangeType_t ModelGeneratorPQ_Dyn::evalMode(const double & t) const
+modeChangeType_t ModelGeneratorPQ_Dyn::evalMode(const double t) const
 {
   modeChangeType_t modeChangeType = NO_MODE;
  

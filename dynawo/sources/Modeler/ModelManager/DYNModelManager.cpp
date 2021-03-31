@@ -69,7 +69,7 @@ ModelManager::~ModelManager() {
   delete dataDyn_;
 }
 
-DYNDATA *
+DYNDATA*
 ModelManager::data() const {
   if (modelInitUsed_)
     return dataInit_;
@@ -77,17 +77,17 @@ ModelManager::data() const {
     return dataDyn_;
 }
 
-MODEL_DATA *
+MODEL_DATA*
 ModelManager::modelData() const {
   return data()->modelData;
 }
 
-SIMULATION_INFO *
+SIMULATION_INFO*
 ModelManager::simulationInfo() const {
   return data()->simulationInfo;
 }
 
-ModelModelica *
+ModelModelica*
 ModelManager::modelModelicaInit() const {
   if (hasInit())
     return modelInit_;
@@ -95,12 +95,12 @@ ModelManager::modelModelicaInit() const {
     throw DYNError(Error::MODELER, NoInitModel, modelType(), name());
 }
 
-ModelModelica *
+ModelModelica*
 ModelManager::modelModelicaDynamic() const {
   return modelDyn_;
 }
 
-ModelModelica *
+ModelModelica*
 ModelManager::modelModelica() const {
   if (hasInit() && modelInitUsed_)
     return modelModelicaInit();
@@ -117,7 +117,7 @@ ModelManager::initializeStaticData() {
 }
 
 void
-ModelManager::createParametersValueSet(const boost::unordered_map<string, ParameterModeler>& parameters, shared_ptr<ParametersSet> parametersSet) {
+ModelManager::createParametersValueSet(const boost::unordered_map<string, ParameterModeler>& parameters, shared_ptr<ParametersSet>& parametersSet) {
   for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = it->second;
     const string& parameterName = parameter.getName();
@@ -155,7 +155,7 @@ ModelManager::initSubBuffers() {
 }
 
 void
-ModelManager::init(const double& t0) {
+ModelManager::init(const double t0) {
   // initialization of the dynamic model
   shared_ptr<ParametersSet> mergedParametersSet(boost::shared_ptr<ParametersSet>(new ParametersSet("merged_" + name())));
 
@@ -237,7 +237,7 @@ ModelManager::evalF(double t, propertyF_t type) {
 }
 
 void
-ModelManager::checkDataCoherence(const double & t) {
+ModelManager::checkDataCoherence(const double t) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::checkDataCoherence");
 #endif
@@ -278,8 +278,8 @@ ModelManager::setGequationsInit() {
 #ifdef _ADEPT_
 
 void
-ModelManager::evalF(const double & t, const vector<adept::adouble> &y,
-        const vector<adept::adouble> &yp, vector<adept::adouble> &f) {
+ModelManager::evalF(const double t, const vector<adept::adouble>& y,
+        const vector<adept::adouble>& yp, vector<adept::adouble>& f) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalF adept");
 #endif
@@ -297,7 +297,7 @@ ModelManager::evalF(const double & t, const vector<adept::adouble> &y,
 }
 
 void
-ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double & cj, SparseMatrix &Jt, const int& rowOffset, bool complete) {
+ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj, SparseMatrix& Jt, const int rowOffset, bool complete) {
   if (sizeY() == 0)
     return;
 
@@ -363,7 +363,7 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
 #endif
 
 void
-ModelManager::evalG(const double & t) {
+ModelManager::evalG(const double t) {
   setManagerTime(t);
 
   modelModelica()->setGomc(gLocal_);
@@ -371,7 +371,7 @@ ModelManager::evalG(const double & t) {
 }
 
 void
-ModelManager::evalJt(const double &t, const double & cj, SparseMatrix& jt, const int& rowOffset) {
+ModelManager::evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalJ");
 #endif
@@ -385,7 +385,7 @@ ModelManager::evalJt(const double &t, const double & cj, SparseMatrix& jt, const
 }
 
 void
-ModelManager::evalJtPrim(const double &t, const double & cj, SparseMatrix& jt, const int& rowOffset) {
+ModelManager::evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalJPrim");
 #endif
@@ -399,7 +399,7 @@ ModelManager::evalJtPrim(const double &t, const double & cj, SparseMatrix& jt, c
 }
 
 void
-ModelManager::evalZ(const double &t) {
+ModelManager::evalZ(const double t) {
   if (sizeZ() > 0) {
     setManagerTime(t);
 
@@ -408,7 +408,7 @@ ModelManager::evalZ(const double &t) {
 }
 
 modeChangeType_t
-ModelManager::evalMode(const double & t) {
+ModelManager::evalMode(const double t) {
   modeChangeType_t delay_mode = delayManager_.isTriggered() ? ALGEBRAIC_MODE : NO_MODE;
   if (delayManager_.isTriggered()) {
     // reset trigger if delay mode is detected to prevent detection next time for the same reasons
@@ -545,7 +545,7 @@ ModelManager::initParams() {
 }
 
 void
-ModelManager::dumpParameters(map< string, string > & mapParameters) {
+ModelManager::dumpParameters(map< string, string >& mapParameters) {
   stringstream parameters;
   boost::archive::binary_oarchive os(parameters);
 
@@ -642,7 +642,7 @@ void ModelManager::writeParametersFinalValues() {
   }
 }
 
-void ModelManager::getSubModelParameterValue(const string & nameParameter, double & value, bool & found) {
+void ModelManager::getSubModelParameterValue(const string& nameParameter, double& value, bool& found) {
   found = hasParameterDynamic(nameParameter);
   if (found) {
     const ParameterModeler& parameter = findParameterDynamic(nameParameter);
@@ -656,7 +656,7 @@ void ModelManager::getSubModelParameterValue(const string & nameParameter, doubl
 }
 
 void
-ModelManager::dumpVariables(map< string, string > & mapVariables) {
+ModelManager::dumpVariables(map< string, string >& mapVariables) {
   stringstream values;
   boost::archive::binary_oarchive os(values);
 
@@ -702,7 +702,7 @@ ModelManager::dumpVariables(map< string, string > & mapVariables) {
 }
 
 void
-ModelManager::loadVariables(const string &variables) {
+ModelManager::loadVariables(const string& variables) {
   setManagerTime(getCurrentTime());
   stringstream vars(variables);
 
@@ -760,7 +760,7 @@ ModelManager::loadVariables(const string &variables) {
 }
 
 void
-ModelManager::loadParameters(const string & parameters) {
+ModelManager::loadParameters(const string& parameters) {
   stringstream params(parameters);
 
   boost::archive::binary_iarchive is(params);
@@ -1229,7 +1229,7 @@ ModelManager::createCalculatedParametersFromInitialCalculatedVariables(const vec
 }
 
 void
-ModelManager::printInitValues(const string & directory) {
+ModelManager::printInitValues(const string& directory) {
   const string& fileName = absolute("dumpInitValues-" + name() + ".txt", directory);
 
   std::ofstream file;
@@ -1354,7 +1354,7 @@ ModelManager::defineElements(vector<Element> &elements, map<string, int>& mapEle
 }
 
 void
-ModelManager::setManagerTime(const double & st) {
+ModelManager::setManagerTime(const double st) {
   data()->localData[0]->timeValue = st;
 }
 

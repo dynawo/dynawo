@@ -37,7 +37,7 @@ class SubModelMock : public SubModel {
 
   virtual ~SubModelMock() {}
 
-  void init(const double&) {
+  void init(const double) {
     // Dummy class used for testing
   }
 
@@ -70,11 +70,11 @@ class SubModelMock : public SubModel {
     // Dummy class used for testing
   }
 
-  void evalG(const double&) {
+  void evalG(const double) {
     // Dummy class used for testing
   }
 
-  void evalZ(const double&) {
+  void evalZ(const double) {
     // Dummy class used for testing
   }
 
@@ -82,15 +82,15 @@ class SubModelMock : public SubModel {
     // Dummy class used for testing
   }
 
-  void evalJt(const double&, const double&, SparseMatrix&, const int&) {
+  void evalJt(const double, const double, SparseMatrix&, const int) {
     // Dummy class used for testing
   }
 
-  void evalJtPrim(const double&, const double&, SparseMatrix&, const int&) {
+  void evalJtPrim(const double, const double, SparseMatrix&, const int) {
     // Dummy class used for testing
   }
 
-  void checkDataCoherence(const double&) {
+  void checkDataCoherence(const double) {
     // Dummy class used for testing
   }
 
@@ -223,7 +223,7 @@ class SubModelMock : public SubModel {
     // Dummy class used for testing
   }
 
-  modeChangeType_t evalMode(const double&) {
+  modeChangeType_t evalMode(const double) {
     // Dummy class used for testing
     return NO_MODE;
   }

@@ -149,7 +149,7 @@ class MyModelica: public ModelModelica {
    * @param t the time for which to check
    * @return @b true if a mode has been trigered, @b false otherwise (for use by ModelManager)
    */
-  modeChangeType_t evalMode(const double & /*t*/) const {
+  modeChangeType_t evalMode(const double /*t*/) const {
     return DIFFERENTIAL_MODE;
   }
 

@@ -73,7 +73,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   /**
    * @copydoc Model::evalG(double t, std::vector<state_g> &g)
    */
-  void evalG(double t, std::vector<state_g> &g);
+  void evalG(double t, std::vector<state_g>& g);
 
   /**
    * @copydoc Model::evalZ(double t)
@@ -96,9 +96,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim);
 
   /**
-   * @copydoc Model::checkDataCoherence(const double & t)
+   * @copydoc Model::checkDataCoherence(const double t)
    */
-  void checkDataCoherence(const double & t);
+  void checkDataCoherence(const double t);
 
   /**
    * @copydoc Model::checkParametersCoherence() const
@@ -116,9 +116,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   void setGequationsModel();
 
   /**
-   * @copydoc Model::getY0(const double& t0, std::vector<double> &y0, std::vector<double> &yp0)
+   * @copydoc Model::getY0(const double t0, std::vector<double>& y0, std::vector<double>& yp0)
    */
-  void getY0(const double& t0, std::vector<double> &y0, std::vector<double> &yp0);
+  void getY0(const double t0, std::vector<double>& y0, std::vector<double>& yp0);
 
   /**
    * @copydoc Model::modeChange()
@@ -217,9 +217,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   void setIsInitProcess(bool isInitProcess);
 
   /**
-   * @copydoc Model::setInitialTime(const double& t0)
+   * @copydoc Model::setInitialTime(const double t0)
    */
-  void setInitialTime(const double& t0);
+  void setInitialTime(const double t0);
 
   /**
    * @copydoc Model::sizeG() const
@@ -274,7 +274,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    *
    * @param t0 time to use to initialize the model
    */
-  void init(const double& t0);
+  void init(const double t0);
 
   /**
    * @copydoc Model::initBuffers()
@@ -289,42 +289,42 @@ class ModelMulti : public Model, private boost::noncopyable {
   /**
    * @copydoc Model::printInitValues(const std::string & directory)
    */
-  void printInitValues(const std::string & directory);
+  void printInitValues(const std::string& directory);
 
   /**
-   * @copydoc Model::evalCalculatedVariables(const double & t, const std::vector<double> &y, const std::vector<double> &yp,const std::vector<double> &z)
+   * @copydoc Model::evalCalculatedVariables(const double t, const std::vector<double>& y, const std::vector<double>& yp,const std::vector<double>& z)
    */
-  void evalCalculatedVariables(const double & t, const std::vector<double> &y, const std::vector<double> &yp, const std::vector<double> &z);
+  void evalCalculatedVariables(const double t, const std::vector<double>& y, const std::vector<double>& yp, const std::vector<double>& z);
 
   /**
-   * @copydoc Model::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection)
+   * @copydoc Model::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const
    */
-  void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection);
+  void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection>& curvesCollection) const;
 
   /**
    * @copydoc Model::dumpParameters(std::map< std::string, std::string> & mapParameters)
    */
-  void dumpParameters(std::map< std::string, std::string> & mapParameters);
+  void dumpParameters(std::map< std::string, std::string>& mapParameters);
 
   /**
    * @copydoc Model::getModelParameterValue(const std::string & curveModelName, const std::string & curveVariable, double & value, bool & found)
    */
-  void getModelParameterValue(const std::string & curveModelName, const std::string & curveVariable, double & value, bool & found);
+  void getModelParameterValue(const std::string& curveModelName, const std::string& curveVariable, double& value, bool& found);
 
   /**
    * @copydoc Model::loadParameters(const std::map< std::string, std::string> & mapParameters)
    */
-  void loadParameters(const std::map< std::string, std::string> & mapParameters);
+  void loadParameters(const std::map< std::string, std::string>& mapParameters);
 
   /**
    * @copydoc Model::dumpVariables(std::map< std::string, std::string> & mapVariables)
    */
-  void dumpVariables(std::map< std::string, std::string> & mapVariables);
+  void dumpVariables(std::map< std::string, std::string>& mapVariables);
 
   /**
    * @copydoc Model::loadVariables(const std::map< std::string, std::string> & mapVariables)
    */
-  void loadVariables(const std::map< std::string, std::string> & mapVariables);
+  void loadVariables(const std::map< std::string, std::string>& mapVariables);
 
   /**
    * @copydoc Model::rotateBuffers()
@@ -378,7 +378,8 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param subModel2 second subModel where the variable is located
    * @param name2 name of the variable to connect inside the subModel 2
    */
-  void connectElements(boost::shared_ptr<SubModel> &subModel1, const std::string &name1, boost::shared_ptr<SubModel> &subModel2, const std::string &name2);
+  void connectElements(const boost::shared_ptr<SubModel>& subModel1, const std::string& name1, const boost::shared_ptr<SubModel>& subModel2,
+                       const std::string& name2);
   /**
 
    * @brief seek all variables that are connected by a connection
@@ -389,8 +390,8 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param name2 name of the variable to connect inside the subModel 2
    * @param variables outputs: after the call contains all couples variable1->variable2 connected by this connection
    */
-  void findVariablesConnectedBy(const boost::shared_ptr<SubModel> &subModel1, const std::string &name1,
-      const boost::shared_ptr<SubModel> &subModel2, const std::string &name2, std::vector<std::pair<std::string, std::string> >& variables) const;
+  void findVariablesConnectedBy(const boost::shared_ptr<SubModel>& subModel1, const std::string& name1,
+      const boost::shared_ptr<SubModel>& subModel2, const std::string& name2, std::vector<std::pair<std::string, std::string> >& variables) const;
 
   /**
    * @brief find a sub model inside the model multi thanks to its name
@@ -399,7 +400,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    *
    * @return the subModel if it exists
    */
-  boost::shared_ptr<SubModel> findSubModelByName(const std::string& name);
+  boost::shared_ptr<SubModel> findSubModelByName(const std::string& name) const;
 
   /**
    * @brief find all subModels created from a library thanks to its name
@@ -449,14 +450,14 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::string getVariableName(int index);
 
   /**
-   * @copydoc Model::getCurrentZ(std::vector<double> &z)
+   * @copydoc Model::getCurrentZ(std::vector<double>& z) const
    */
-  void getCurrentZ(std::vector<double> &z);
+  void getCurrentZ(std::vector<double>& z) const;
 
   /**
    * @copydoc Model::setCurrentZ(const std::vector<double> &zLocal)
    */
-  void setCurrentZ(const std::vector<double> &z);
+  void setCurrentZ(const std::vector<double>& z);
 
  private:
   /**
@@ -476,8 +477,8 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param forceConnection @b true if we should ignore the flow type for continuous variable
    * @param throwIfCalculatedVarConn @b true if we should throw if two calculated variables are connected together
    */
-  void createConnection(boost::shared_ptr<SubModel> &subModel1, const std::string & name1, boost::shared_ptr<SubModel> &subModel2,
-                        const std::string &name2, bool forceConnection = false, bool throwIfCalculatedVarConn = true);
+  void createConnection(const boost::shared_ptr<SubModel>& subModel1, const std::string& name1, const boost::shared_ptr<SubModel>& subModel2,
+                        const std::string& name2, bool forceConnection = false, bool throwIfCalculatedVarConn = true);
 
   /**
    * @brief create a connection bewteen a variable and a calculated variable
@@ -487,8 +488,8 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param subModel2 second  subModel where the variable is located
    * @param variable2 variable of the subModel 2
    */
-  void createCalculatedVariableConnection(boost::shared_ptr<SubModel> &subModel1, const boost::shared_ptr<Variable>& variable1,
-      boost::shared_ptr<SubModel> &subModel2, const boost::shared_ptr<Variable>& variable2);
+  void createCalculatedVariableConnection(const boost::shared_ptr<SubModel>& subModel1, const boost::shared_ptr<Variable>& variable1,
+      const boost::shared_ptr<SubModel>& subModel2, const boost::shared_ptr<Variable>& variable2);
 
   /**
    * @brief struct used identify properties from a subModel found with a variable name
@@ -512,11 +513,11 @@ class ModelMulti : public Model, private boost::noncopyable {
      * @param isDynParam true if the variable is a dynamic parameter
      * @param variableNameInSubModel The accurate name of the variable in the subModel
      */
-    findSubModelFromVarName_t(boost::shared_ptr<SubModel> subModel,
-        bool isNetwork, bool isDynParam, std::string variableNameInSubModel) :subModel_(subModel),
+    findSubModelFromVarName_t(boost::shared_ptr<SubModel>& subModel,
+        bool isNetwork, bool isDynParam, std::string variableNameInSubModel) : subModel_(subModel),
             isNetwork_(isNetwork),
             isDynParam_(isDynParam),
-            variableNameInSubModel_(variableNameInSubModel){}
+            variableNameInSubModel_(variableNameInSubModel) {}
   };
   /**
    * @brief find the subModel which contains this variable
@@ -525,7 +526,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param varName  name of the variable
    * @return the subModel which contains this variable or nullptr if not found
    */
-  findSubModelFromVarName_t findSubModel(const std::string& modelName, const std::string& varName);
+  findSubModelFromVarName_t findSubModel(const std::string& modelName, const std::string& varName) const;
 
   /**
    * @brief set the silent flag for discrete variables

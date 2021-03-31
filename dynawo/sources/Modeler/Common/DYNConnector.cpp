@@ -46,7 +46,7 @@ Connector::addConnectedSubModel(const connectedSubModel& subModel) {
 }
 
 void
-Connector::addConnectedSubModel(const boost::shared_ptr<SubModel> & subModel, const boost::shared_ptr<Variable> & variable, bool negated) {
+Connector::addConnectedSubModel(const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable, bool negated) {
   connectedSubModels_.push_back(connectedSubModel(subModel, variable, negated));
 }
 
@@ -82,17 +82,17 @@ unsigned int ConnectorContainer::nbYConnectors() const {
 }
 
 void
-ConnectorContainer::addFlowConnector(shared_ptr<Connector> & connector) {
+ConnectorContainer::addFlowConnector(shared_ptr<Connector>& connector) {
   flowConnectorsDeclared_.push_back(connector);  // do not forget mutual statement in the map
 }
 
 void
-ConnectorContainer::addContinuousConnector(shared_ptr<Connector> & connector) {
+ConnectorContainer::addContinuousConnector(shared_ptr<Connector>& connector) {
   yConnectorsDeclared_.push_back(connector);
 }
 
 void
-ConnectorContainer::addDiscreteConnector(shared_ptr<Connector> & connector) {
+ConnectorContainer::addDiscreteConnector(shared_ptr<Connector>& connector) {
   zConnectorsDeclared_.push_back(connector);
 }
 
@@ -233,7 +233,7 @@ ConnectorContainer::mergeZConnector() {
 }
 
 void
-ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<Connector> reference, list<shared_ptr<Connector> > &connectorsList,
+ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<Connector> reference, list<shared_ptr<Connector> >& connectorsList,
                                     unordered_map<int, shared_ptr<Connector> >& connectorsByVarNum, bool flowConnector) {
   // Looking for common variable to test the negated attributes
   bool negatedMerge = false;
@@ -310,7 +310,7 @@ ConnectorContainer::getConnectorInfos(const int & globalFIndex, std::string & su
 }
 
 string
-ConnectorContainer::getYConnectorInfos(const int & index) const {
+ConnectorContainer::getYConnectorInfos(const int index) const {
   string equation = "";
   int offset = 0;
 
@@ -336,7 +336,7 @@ ConnectorContainer::getYConnectorInfos(const int & index) const {
 }
 
 string
-ConnectorContainer::getConnectorInfos(const string& prefix, const shared_ptr<Connector> connector) const {
+ConnectorContainer::getConnectorInfos(const string& prefix, const shared_ptr<Connector>& connector) const {
   string equation = prefix;
   for (vector<connectedSubModel>::const_iterator it = connector->connectedSubModels().begin();
           it != connector->connectedSubModels().end();
@@ -503,7 +503,7 @@ ConnectorContainer::setBufferZ(double* z, bool* zConnected) {
 }
 
 void
-ConnectorContainer::evalFConnector(const double& /*t*/) {
+ConnectorContainer::evalFConnector(const double /*t*/) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ConnectorContainer::evalF");
 #endif
@@ -765,7 +765,7 @@ ConnectorContainer::evalStaticFType() const {
 }
 
 void
-ConnectorContainer::propagateZDiff(vector<int> & indicesDiff, double* z) {
+ConnectorContainer::propagateZDiff(const vector<int>& indicesDiff, double* z) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ConnectorContainer::propagateZDiff");
 #endif

@@ -56,7 +56,7 @@ class ModelCPP : public SubModel {
    * @brief initialize all the data for a sub model
    * @param t0: initial time of the simulation
    */
-  virtual void init(const double& t0) = 0;
+  virtual void init(const double t0) = 0;
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable
@@ -95,28 +95,28 @@ class ModelCPP : public SubModel {
    *
    * @param mapParameters : map associating the file where parameters should be dumped with the stream of parameters
    */
-  virtual void dumpParameters(std::map< std::string, std::string > & mapParameters) = 0;
+  virtual void dumpParameters(std::map< std::string, std::string >& mapParameters) = 0;
 
   /**
    * @brief export the variables values of the sub model for dump
    *
    * @param mapVariables : map associating the file where values should be dumped with the stream of values
    */
-  virtual void dumpVariables(std::map< std::string, std::string > & mapVariables) = 0;
+  virtual void dumpVariables(std::map< std::string, std::string >& mapVariables) = 0;
 
   /**
    * @brief load the parameters values from a previous dump
    *
    * @param parameters : stream of values where the parameters were dumped
    */
-  virtual void loadParameters(const std::string &parameters) = 0;
+  virtual void loadParameters(const std::string& parameters) = 0;
 
   /**
    * @brief load the variables values from a previous dump
    *
    * @param variables : stream of values where the variables were dumped
    */
-  virtual void loadVariables(const std::string &variables) = 0;
+  virtual void loadVariables(const std::string& variables) = 0;
 
   /**
    * @brief  CPP Model F(t,y,y') function evaluation
@@ -134,7 +134,7 @@ class ModelCPP : public SubModel {
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  virtual void evalG(const double & t) = 0;
+  virtual void evalG(const double t) = 0;
 
   /**
    * @brief  CPP Model discrete variables evaluation
@@ -145,7 +145,7 @@ class ModelCPP : public SubModel {
    * @throws Error::MODELER typed @p Error. Shouldn't, but if it happens
    * it shows that there is a bug in the selection of activated shunt.
    */
-  virtual void evalZ(const double & t) = 0;
+  virtual void evalZ(const double t) = 0;
 
   /**
    * @brief  CPP Model transposed jacobian evaluation
@@ -156,7 +156,7 @@ class ModelCPP : public SubModel {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  virtual void evalJt(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset) = 0;
+  virtual void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset) = 0;
 
   /**
    * @brief calculate jacobien prime matrix
@@ -166,12 +166,12 @@ class ModelCPP : public SubModel {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  virtual void evalJtPrim(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset) = 0;
+  virtual void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) = 0;
 
   /**
-   * @copydoc SubModel::evalMode(const double& t)
+   * @copydoc SubModel::evalMode(const double t)
    */
-  virtual modeChangeType_t evalMode(const double & t) = 0;
+  virtual modeChangeType_t evalMode(const double t) = 0;
 
   /**
    * @brief  CPP Model initial state variables' evaluation
@@ -248,7 +248,7 @@ class ModelCPP : public SubModel {
    * @param[out] mapElement Map associating each element index in the elements vector to its name
    */
   //---------------------------------------------------------------------
-  virtual void defineElements(std::vector<Element> &elements, std::map<std::string, int >& mapElement) = 0;
+  virtual void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) = 0;
 
   /**
    * @brief initialze static data
@@ -261,7 +261,7 @@ class ModelCPP : public SubModel {
    *
    * @param directory directory where the file should be printed
    */
-  virtual void printInitValues(const std::string & directory) = 0;
+  virtual void printInitValues(const std::string& directory) = 0;
 
   /**
    * @brief rotate buffers
@@ -290,9 +290,9 @@ class ModelCPP : public SubModel {
   virtual void defineParametersInit(std::vector<ParameterModeler>& parameters) = 0;
 
   /**
-   * @copydoc SubModel::checkDataCoherence(const double& t)
+   * @copydoc SubModel::checkDataCoherence(const double t)
    */
-  virtual void checkDataCoherence(const double & t) = 0;
+  virtual void checkDataCoherence(const double t) = 0;
 
   /**
    * @copydoc SubModel::checkParametersCoherence() const

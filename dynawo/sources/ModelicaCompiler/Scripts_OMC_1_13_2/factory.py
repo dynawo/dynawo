@@ -903,8 +903,7 @@ class Factory:
             for eq in filter(lambda x: (not x.get_is_modelica_reinit()) and (x.get_evaluated_var() == var_name), self.list_all_equations):
                 self.list_eq_syst.append(eq)
 
-        list_residual_vars_for_sys_build = self.reader.residual_vars.keys()
-        list_residual_vars_for_sys_build.sort()
+        list_residual_vars_for_sys_build = sorted(self.reader.residual_vars.keys())
         for var_name in list_residual_vars_for_sys_build:
             for eq in filter(lambda x: (not x.get_is_modelica_reinit()) and (x.get_evaluated_var() == var_name), self.list_all_equations):
                 self.list_eq_syst.append(eq)
@@ -2399,8 +2398,7 @@ class Factory:
 
         for name in self.reader.auxiliary_var_to_keep:
             self.list_for_evalfadept.append("  adept::adouble " + name +";\n")
-        list_residual_vars_for_sys_build = self.reader.residual_vars.keys()
-        list_residual_vars_for_sys_build.sort()
+        list_residual_vars_for_sys_build = sorted(self.reader.residual_vars.keys())
         for name in list_residual_vars_for_sys_build:
             self.list_for_evalfadept.append("  adept::adouble " + name +";\n")
         # Recovery of the text content of the equations that evaluate the system's vars
@@ -2803,8 +2801,7 @@ class Factory:
             variable_definitions.append("#define $P"+ dae_var + " data->simulationInfo->daeModeData->auxiliaryVars["+str(index_residual_var)+"]\n")
             index_residual_var +=1
         index_aux_var = 0
-        list_residual_vars_for_sys_build = self.reader.residual_vars.keys()
-        list_residual_vars_for_sys_build.sort()
+        list_residual_vars_for_sys_build = sorted(self.reader.residual_vars.keys())
         for dae_var in list_residual_vars_for_sys_build:
             variable_definitions.append("#define "+ "$P"+dae_var + " data->simulationInfo->daeModeData->residualVars["+str(index_aux_var)+"]\n")
             index_aux_var+=1

@@ -304,14 +304,14 @@ class Simulation {
    * @brief setter of the start time of the simulation
    * @param time start time of the simulation
    */
-  inline void setStartTime(const double& time) {
+  inline void setStartTime(const double time) {
     tStart_ = time;
   }
   /**
    * @brief setter of the stop time of the simulation
    * @param time stop time of the simulation
    */
-  inline void setStopTime(const double& time) {
+  inline void setStopTime(const double time) {
     tStop_ = time;
   }
   /**
@@ -325,7 +325,7 @@ class Simulation {
    * @brief setter for criteria step
    * @param step number of iterations between 2 criteria check
    */
-  void setCriteriaStep(const int& step);
+  void setCriteriaStep(const int step);
   /**
    * @brief getter for the start time of the simulation
    * @return the start time of the simulation

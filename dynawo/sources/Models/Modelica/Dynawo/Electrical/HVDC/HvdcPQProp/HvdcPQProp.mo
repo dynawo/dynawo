@@ -31,8 +31,8 @@ model HvdcPQProp "Model of HVDC link with a proportional reactive power control.
   Connectors.ZPin Q2RefPu (value (start = s20Pu.im)) "Reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 2";
   Connectors.BPin modeU1 (value (start = modeU10)) "Boolean assessing the mode of the control of converter 1: true if U mode (here a proportional Q regulation), false if Q mode (fixed Q)";
   Connectors.BPin modeU2 (value (start = modeU20)) "Boolean assessing the mode of the control of converter 2: true if U mode (here a proportional Q regulation), false if Q mode (fixed Q)";
-  Connectors.ImPin NQ1 "Signal to change the reactive power of converter 1 depending on the centralized voltage regulation";
-  Connectors.ImPin NQ2 "Signal to change the reactive power of converter 2 depending on the centralized voltage regulation";
+  Connectors.ImPin NQ1 "Signal to change the reactive power of converter 1 depending on the centralized voltage regulation (generator convention)";
+  Connectors.ImPin NQ2 "Signal to change the reactive power of converter 2 depending on the centralized voltage regulation (generator convention)";
 
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control of converter 1";
   parameter Boolean modeU20 "Start value of the boolean assessing the mode of the control of converter 2";
@@ -61,8 +61,8 @@ equation
   Theta1 = Modelica.Math.atan2(terminal1.V.im,terminal1.V.re);
   Theta2 = Modelica.Math.atan2(terminal2.V.im,terminal2.V.re);
 
-  Q1RawModeUPu = Q1RefPu.value + QPercent1 * NQ1.value;
-  Q2RawModeUPu = Q2RefPu.value + QPercent2 * NQ2.value;
+  Q1RawModeUPu = Q1RefPu.value - QPercent1 * NQ1.value;
+  Q2RawModeUPu = Q2RefPu.value - QPercent2 * NQ2.value;
   Q1RawPu = if modeU1.value then Q1RawModeUPu else Q1RefPu.value;
   Q2RawPu = if modeU2.value then Q2RawModeUPu else Q2RefPu.value;
 
