@@ -83,6 +83,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     SetPoint.xml
     StaticVarCompensator.xml
     StaticVarCompensatorPV.xml
+    StaticVarCompensatorPVRemote.xml
     Step.xml
     TapChangerAutomaton.xml
     TapChangerBlockingArea.xml
