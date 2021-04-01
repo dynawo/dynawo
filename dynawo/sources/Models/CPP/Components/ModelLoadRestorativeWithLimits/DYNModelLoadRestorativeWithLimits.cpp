@@ -443,6 +443,7 @@ namespace DYN {
           numVars.push_back(UiYNum_);
           numVars.push_back(UfYNum_);
         }
+        break;
       case loadStateNum_:
         break;
       default:
