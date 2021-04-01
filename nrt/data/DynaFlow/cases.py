@@ -128,3 +128,43 @@ if os.environ["DYNAWO_CXX11_ENABLED"] == "YES":
     job_file = os.path.join(os.path.dirname(__file__), "HvdcPQPropDiagramPQ", "HvdcPQPropDiagramPQ.jobs")
 
     test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###########################################
+#           SVarCPV_1_StepUref              #
+###########################################
+
+case_name = "DynaFlow - SVarCPV - Step Uref"
+case_description = "SVarCPV test case with a step on the reference voltage"
+job_file = os.path.join(os.path.dirname(__file__),  "SVarCPV", "SVarC_1_StepUref", "SVarC.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+##########################################
+#           SVarCPV_2_LoadVarQ             #
+##########################################
+
+case_name = "DynaFlow - SVarCPV - Load variation"
+case_description = "SVarCPV test case with a load variation"
+job_file = os.path.join(os.path.dirname(__file__),  "SVarCPV", "SVarC_2_LoadVarQ", "SVarC.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+###########################################
+#           SVarCPVRemote_1_StepUref              #
+###########################################
+
+case_name = "DynaFlow - SVarCPVRemote - Step Uref"
+case_description = "SVarCPV Remote test case with a step on the reference voltage"
+job_file = os.path.join(os.path.dirname(__file__),  "SVarCPVRemote", "SVarC_1_StepUref", "SVarC.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+##########################################
+#           SVarCPVRemote_2_LoadVarQ             #
+##########################################
+
+case_name = "DynaFlow - SVarCPVRemote - Load variation"
+case_description = "SVarCPV Remote test case with a load variation"
+job_file = os.path.join(os.path.dirname(__file__),  "SVarCPVRemote", "SVarC_2_LoadVarQ", "SVarC.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

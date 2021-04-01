@@ -1,5 +1,7 @@
 BaseControls
 SVarCPV
 SVarCPV_INIT
+SVarCPVRemote
+SVarCPVRemote_INIT
 SVarCStandard
 SVarCStandard_INIT

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="InfBus" lib="InfiniteBus" parFile="SVarC.par" parId="1"/>
+  <dyn:blackBoxModel id="Line1" lib="Line" parFile="SVarC.par" parId="2"/>
+  <dyn:blackBoxModel id="Line2" lib="Line" parFile="SVarC.par" parId="2"/>
+  <dyn:blackBoxModel id="SVarC" lib="StaticVarCompensatorPVRemote" parFile="SVarC.par" parId="3"/>
+  <dyn:blackBoxModel id="Load" lib="LoadPQ" parFile="SVarC.par" parId="4"/>
+  <dyn:blackBoxModel id="LoadVar" lib="EventSetPointDoubleReal" parFile="SVarC.par" parId="5"/>
+  <dyn:connect id1="InfBus" var1="infiniteBus_terminal" id2="Line1" var2="line_terminal1"/>
+  <dyn:connect id1="Line1" var1="line_terminal2" id2="Line2" var2="line_terminal1"/>
+  <dyn:connect id1="Line2" var1="line_terminal2" id2="SVarC" var2="SVarC_terminal"/>
+  <dyn:connect id1="Line1" var1="line_terminal2" id2="Load" var2="load_terminal"/>
+  <dyn:connect id1="LoadVar" var1="event_state1" id2="Load" var2="load_PRefPu"/>
+  <dyn:connect id1="LoadVar" var1="event_state2" id2="Load" var2="load_QRefPu"/>
+  <dyn:connect id1="Load" var1="load_UPu_value" id2="SVarC" var2="SVarC_URegulatedPu"/>
+</dyn:dynamicModelsArchitecture>
