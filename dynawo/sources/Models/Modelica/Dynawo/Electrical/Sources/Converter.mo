@@ -139,7 +139,9 @@ equation
     /* Power Calculation */
     PGenPu = (udPccPu * idPccPu + uqPccPu * iqPccPu) * SNom / SystemBase.SnRef;
     QGenPu = (uqPccPu * idPccPu - udPccPu * iqPccPu) * SNom / SystemBase.SnRef;
-    
+    PGenPuBaseSNom = (udPccPu * idPccPu + uqPccPu * iqPccPu);
+    QGenPuBaseSNom = (uqPccPu * idPccPu - udPccPu * iqPccPu);
+
     /* Voltage module calculation */
     UConvPu = sqrt (udFilterPu^2 + uqFilterPu^2);
 
@@ -162,6 +164,8 @@ equation
     UdcSourcePu = 0;
     PGenPu = 0;
     QGenPu = 0;
+    PGenPuBaseSNom = 0;
+    QGenPuBaseSNom = 0;
     UConvPu = 0;
 
   end if;
