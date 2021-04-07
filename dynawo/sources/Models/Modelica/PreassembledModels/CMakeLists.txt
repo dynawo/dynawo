@@ -24,9 +24,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     GeneratorPQPropDiagramPQSignalN.xml
     GeneratorPV.xml
     GeneratorPVSignalN.xml
-    GeneratorPVWithImpedanceSignalN.xml
     GeneratorPVDiagramPQSignalN.xml
-    GeneratorPVDiagramPQWithImpedanceSignalN.xml
     GeneratorPVPropSignalN.xml
     GeneratorPVRemoteSignalN.xml
     GeneratorPVRemoteDiagramPQSignalN.xml
