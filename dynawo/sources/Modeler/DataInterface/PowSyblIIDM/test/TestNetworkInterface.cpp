@@ -53,7 +53,7 @@ TEST(DataInterfaceTest, Network) {
                                      .setId("VL1")
                                      .setName("VL1_NAME")
                                      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
-                                     .setNominalVoltage(380.0)
+                                     .setNominalV(380.0)
                                      .setLowVoltageLimit(340.0)
                                      .setHighVoltageLimit(420.0)
                                      .add();
@@ -64,7 +64,7 @@ TEST(DataInterfaceTest, Network) {
                                      .setId("VL2")
                                      .setName("VL2_NAME")
                                      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
-                                     .setNominalVoltage(225.0)
+                                     .setNominalV(225.0)
                                      .setLowVoltageLimit(200.0)
                                      .setHighVoltageLimit(260.0)
                                      .add();
@@ -82,7 +82,7 @@ TEST(DataInterfaceTest, Network) {
                                      .setId("VL3")
                                      .setName("VL3_NAME")
                                      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
-                                     .setNominalVoltage(360.0)
+                                     .setNominalV(360.0)
                                      .setLowVoltageLimit(340.0)
                                      .setHighVoltageLimit(420.0)
                                      .add();
@@ -93,7 +93,7 @@ TEST(DataInterfaceTest, Network) {
                                      .setId("VL4")
                                      .setName("VL4_NAME")
                                      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
-                                     .setNominalVoltage(225.0)
+                                     .setNominalV(225.0)
                                      .setLowVoltageLimit(200.0)
                                      .setHighVoltageLimit(260.0)
                                      .add();
@@ -197,7 +197,7 @@ TEST(DataInterfaceTest, Network) {
       .setConverterStationId1("LCC1")
       .setConverterStationId2("VSC2")
       .setMaxP(12.0)
-      .setNominalVoltage(13.0)
+      .setNominalV(13.0)
       .setR(14.0)
       .add();
   NetworkInterfaceIIDM network(networkIIDM);
