@@ -56,7 +56,7 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
       .setId("VL1")
       .setName("VL1_NAME")
       .setTopologyKind(TopologyKind::BUS_BREAKER)
-      .setNominalVoltage(380.0)
+      .setNominalV(380.0)
       .setLowVoltageLimit(340.0)
       .setHighVoltageLimit(420.0)
       .add();
@@ -79,7 +79,7 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
       .setId("VL2")
       .setName("VL2_NAME")
       .setTopologyKind(TopologyKind::BUS_BREAKER)
-      .setNominalVoltage(225.0)
+      .setNominalV(225.0)
       .setLowVoltageLimit(200.0)
       .setHighVoltageLimit(260.0)
       .add();
@@ -289,7 +289,7 @@ TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections) {
       .setId("VL1")
       .setName("VL1_NAME")
       .setTopologyKind(TopologyKind::BUS_BREAKER)
-      .setNominalVoltage(380.0)
+      .setNominalV(380.0)
       .setLowVoltageLimit(340.0)
       .setHighVoltageLimit(420.0)
       .add();
@@ -302,7 +302,7 @@ TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections) {
       .setId("VL2")
       .setName("VL2_NAME")
       .setTopologyKind(TopologyKind::BUS_BREAKER)
-      .setNominalVoltage(225.0)
+      .setNominalV(225.0)
       .setLowVoltageLimit(200.0)
       .setHighVoltageLimit(260.0)
       .add();

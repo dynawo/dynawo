@@ -101,8 +101,8 @@ GeneratorInterfaceIIDM::importStaticParameters() {
   if (getBusInterface()) {
     double U0 = getBusInterface()->getV0();
     double vNom;
-    if (generatorIIDM_.getTerminal().getVoltageLevel().getNominalVoltage() > 0)
-      vNom = generatorIIDM_.getTerminal().getVoltageLevel().getNominalVoltage();
+    if (generatorIIDM_.getTerminal().getVoltageLevel().getNominalV() > 0)
+      vNom = generatorIIDM_.getTerminal().getVoltageLevel().getNominalV();
     else
       throw DYNError(Error::MODELER, UndefinedNominalV, generatorIIDM_.getTerminal().getVoltageLevel().getId());
 

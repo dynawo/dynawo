@@ -48,7 +48,7 @@ TEST(DataInterfaceTest, SVarC_1) {
                           .setId("VL1")
                           .setName("VL1_NAME")
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(382.0)
+                          .setNominalV(382.0)
                           .setLowVoltageLimit(340.0)
                           .setHighVoltageLimit(420.0)
                           .add();
@@ -141,7 +141,7 @@ TEST(DataInterfaceTest, SVarC_2) {  // tests assuming getInitialConnected == fal
                           .setId("VL1")
                           .setName("VL1_NAME")
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(380.0)
+                          .setNominalV(380.0)
                           .setLowVoltageLimit(340.0)
                           .setHighVoltageLimit(420.0)
                           .add();
