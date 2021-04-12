@@ -1573,6 +1573,7 @@ deploy_dynawo() {
   cd $DYNAWO_DEPLOY_DIR
   export_var_env_to_file "dynawoEnv.txt"
   mkdir -p lib
+  mkdir -p bin
 
   echo "deploying Sundials libraries"
   cp -P $DYNAWO_SUNDIALS_INSTALL_DIR/lib*/*.* lib/
@@ -1592,6 +1593,9 @@ deploy_dynawo() {
   cp -P $DYNAWO_LIBXML_HOME/lib/*.* lib/
   echo "deploying libiidm libraries"
   cp -P $DYNAWO_LIBIIDM_HOME/lib/*.* lib/
+  if [ -d "$DYNAWO_LIBIIDM_HOME/bin" ]; then
+    cp -n -R -P $DYNAWO_LIBIIDM_HOME/bin/* bin/
+  fi
   if [ "$DYNAWO_BUILD_TYPE" = "Debug" ]; then
     if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
       echo "deploying gtest libraries"

@@ -60,9 +60,11 @@ TEST(DataInterfaceTest, ShuntCompensator) {
       .setName("SHUNT1_NAME")
       .setBus(bus1.getId())
       .setConnectableBus(bus1.getId())
-      .setbPerSection(12.0)
-      .setCurrentSectionCount(2UL)
+      .newLinearModel()
+      .setBPerSection(12.0)
       .setMaximumSectionCount(3UL)
+      .add()
+      .setSectionCount(2UL)
       .add();
 
   ShuntCompensator& shuntCompensator = network.getShuntCompensator("SHUNT1");

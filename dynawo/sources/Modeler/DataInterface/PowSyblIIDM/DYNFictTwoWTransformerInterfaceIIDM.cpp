@@ -116,9 +116,9 @@ namespace DYN {
   bool
   FictTwoWTransformerInterfaceIIDM::getInitialConnected2() {
     if (initialConnected2_ == boost::none) {
-      initialConnected2_ = leg_.get().getTerminal().get().isConnected();
+      initialConnected2_ = leg_.get().getTerminal().isConnected();
       if (voltageLevelInterface2_->isNodeBreakerTopology()) {
-        initialConnected2_ = initialConnected2_ && voltageLevelInterface2_->isNodeConnected(leg_.get().getTerminal().get().getNodeBreakerView().getNode());
+        initialConnected2_ = initialConnected2_ && voltageLevelInterface2_->isNodeConnected(leg_.get().getTerminal().getNodeBreakerView().getNode());
       }
     }
     return initialConnected2_.value();
@@ -131,7 +131,7 @@ namespace DYN {
 
   double
   FictTwoWTransformerInterfaceIIDM::getVNom2() const {
-    return leg_.get().getTerminal().get().getVoltageLevel().getNominalVoltage();
+    return leg_.get().getTerminal().getVoltageLevel().getNominalVoltage();
   }
 
   double
@@ -279,8 +279,8 @@ namespace DYN {
   void
   FictTwoWTransformerInterfaceIIDM::exportStateVariablesUnitComponent() {
     int state = getValue<int>(VAR_STATE);
-    leg_.get().getTerminal().get().setP(getValue<double>(VAR_P2) * SNREF);
-    leg_.get().getTerminal().get().setQ(getValue<double>(VAR_Q2) * SNREF);
+    leg_.get().getTerminal().setP(getValue<double>(VAR_P2) * SNREF);
+    leg_.get().getTerminal().setQ(getValue<double>(VAR_Q2) * SNREF);
 
     if (getPhaseTapChanger()) {
       getPhaseTapChanger()->setCurrentPosition(getValue<int>(VAR_TAPINDEX));
@@ -292,15 +292,15 @@ namespace DYN {
 
     if (voltageLevelInterface2_->isNodeBreakerTopology()) {
       if (connected2 && !getInitialConnected2())
-        voltageLevelInterface2_->connectNode(leg_.get().getTerminal().get().getNodeBreakerView().getNode());
+        voltageLevelInterface2_->connectNode(leg_.get().getTerminal().getNodeBreakerView().getNode());
       else if (!connected2 && getInitialConnected2())
-        voltageLevelInterface2_->disconnectNode(leg_.get().getTerminal().get().getNodeBreakerView().getNode());
+        voltageLevelInterface2_->disconnectNode(leg_.get().getTerminal().getNodeBreakerView().getNode());
     }
 
     if (connected2)
-      leg_.get().getTerminal().get().connect();
+      leg_.get().getTerminal().connect();
     else
-      leg_.get().getTerminal().get().disconnect();
+      leg_.get().getTerminal().disconnect();
   }
 
   int

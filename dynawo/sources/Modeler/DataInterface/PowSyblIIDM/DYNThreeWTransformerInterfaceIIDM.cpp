@@ -90,10 +90,10 @@ ThreeWTransformerInterfaceIIDM::getID() const {
 bool
 ThreeWTransformerInterfaceIIDM::getInitialConnected1() {
   if (initialConnected1_ == boost::none) {
-    initialConnected1_ = tfoIIDM_.getLeg1().getTerminal().get().isConnected();
+    initialConnected1_ = tfoIIDM_.getLeg1().getTerminal().isConnected();
     if (voltageLevelInterface1_->isNodeBreakerTopology()) {
       initialConnected1_ = initialConnected1_ &&
-          voltageLevelInterface1_->isNodeConnected(tfoIIDM_.getLeg1().getTerminal().get().getNodeBreakerView().getNode());
+          voltageLevelInterface1_->isNodeConnected(tfoIIDM_.getLeg1().getTerminal().getNodeBreakerView().getNode());
     }
   }
   return initialConnected1_.value();
@@ -102,10 +102,10 @@ ThreeWTransformerInterfaceIIDM::getInitialConnected1() {
 bool
 ThreeWTransformerInterfaceIIDM::getInitialConnected2() {
   if (initialConnected2_ == boost::none) {
-    initialConnected2_ = tfoIIDM_.getLeg2().getTerminal().get().isConnected();
+    initialConnected2_ = tfoIIDM_.getLeg2().getTerminal().isConnected();
     if (voltageLevelInterface2_->isNodeBreakerTopology()) {
       initialConnected2_ = initialConnected2_ &&
-          voltageLevelInterface2_->isNodeConnected(tfoIIDM_.getLeg2().getTerminal().get().getNodeBreakerView().getNode());
+          voltageLevelInterface2_->isNodeConnected(tfoIIDM_.getLeg2().getTerminal().getNodeBreakerView().getNode());
     }
   }
   return initialConnected2_.value();
@@ -114,10 +114,10 @@ ThreeWTransformerInterfaceIIDM::getInitialConnected2() {
 bool
 ThreeWTransformerInterfaceIIDM::getInitialConnected3() {
   if (initialConnected3_ == boost::none) {
-    initialConnected3_ = tfoIIDM_.getLeg3().getTerminal().get().isConnected();
+    initialConnected3_ = tfoIIDM_.getLeg3().getTerminal().isConnected();
     if (voltageLevelInterface3_->isNodeBreakerTopology()) {
       initialConnected3_ = initialConnected3_ &&
-          voltageLevelInterface3_->isNodeConnected(tfoIIDM_.getLeg3().getTerminal().get().getNodeBreakerView().getNode());
+          voltageLevelInterface3_->isNodeConnected(tfoIIDM_.getLeg3().getTerminal().getNodeBreakerView().getNode());
     }
   }
   return initialConnected3_.value();
