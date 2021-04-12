@@ -36,7 +36,7 @@ TEST(DataInterfaceTest, Switch) {
 
   VoltageLevel& vl1 = s.newVoltageLevel()
                           .setId("VL1")
-                          .setNominalVoltage(400.)
+                          .setNominalV(400.)
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
                           .setHighVoltageLimit(420.)
                           .setLowVoltageLimit(380.)
@@ -71,4 +71,5 @@ TEST(DataInterfaceTest, Switch) {
   ASSERT_EQ(sw.getComponentVarIndex("state"), 0);
   ASSERT_EQ(sw.getComponentVarIndex("others"), -1);
 }  // TEST(DataInterfaceTest, Switch)
+
 }  // namespace DYN

@@ -64,7 +64,7 @@ TEST(DataInterfaceTest, VoltageLevel) {
 
   VoltageLevel& vlIIDM1 = s.newVoltageLevel()
                           .setId("VL1")
-                          .setNominalVoltage(400.)
+                          .setNominalV(400.)
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
                           .setHighVoltageLimit(420.)
                           .setLowVoltageLimit(380.)
@@ -161,7 +161,7 @@ TEST(DataInterfaceTest, VoltageLevel) {
 
   VoltageLevel& vlIIDM2 = s.newVoltageLevel()
                           .setId("VL2")
-                          .setNominalVoltage(63.)
+                          .setNominalV(63.)
                           .setTopologyKind(TopologyKind::NODE_BREAKER)
                           .setHighVoltageLimit(420.)
                           .setLowVoltageLimit(380.)
