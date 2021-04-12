@@ -92,7 +92,7 @@ BusInterfaceIIDM::getAngle0() const {
 
 double
 BusInterfaceIIDM::getVNom() const {
-  return busIIDM_.getVoltageLevel().getNominalVoltage();
+  return busIIDM_.getVoltageLevel().getNominalV();
 }
 
 double

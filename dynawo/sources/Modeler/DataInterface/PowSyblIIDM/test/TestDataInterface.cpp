@@ -95,7 +95,7 @@ createNodeBreakerNetworkIIDM() {
                                      .setId("MyVoltageLevel")
                                      .setName("MyVoltageLevel_NAME")
                                      .setTopologyKind(powsybl::iidm::TopologyKind::NODE_BREAKER)
-                                     .setNominalVoltage(190.)
+                                     .setNominalV(190.)
                                      .setLowVoltageLimit(120.)
                                      .setHighVoltageLimit(150.)
                                      .add();
@@ -226,7 +226,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
 
   powsybl::iidm::VoltageLevel& vl1 = s.newVoltageLevel()
       .setId("VL1")
-      .setNominalVoltage(150.)
+      .setNominalV(150.)
       .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
       .add();
 
@@ -242,7 +242,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
                                      .setId("VL2")
                                      .setName("VL2_NAME")
                                      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
-                                     .setNominalVoltage(225.0)
+                                     .setNominalV(225.0)
                                      .setLowVoltageLimit(200.0)
                                      .setHighVoltageLimit(260.0)
                                      .add();
@@ -253,7 +253,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
                                      .setId("VL3")
                                      .setName("VL3_NAME")
                                      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
-                                     .setNominalVoltage(225.0)
+                                     .setNominalV(225.0)
                                      .setLowVoltageLimit(200.0)
                                      .setHighVoltageLimit(260.0)
                                      .add();
@@ -358,7 +358,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
         .setConverterStationId1("MyVscConverter")
         .setConverterStationId2("MyVscConverter2")
         .setMaxP(12.0)
-        .setNominalVoltage(13.0)
+        .setNominalV(13.0)
         .setR(14.0)
         .add();
   }
@@ -394,7 +394,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
         .setConverterStationId1("MyLccConverter")
         .setConverterStationId2("MyLccConverter2")
         .setMaxP(12.0)
-        .setNominalVoltage(13.0)
+        .setNominalV(13.0)
         .setR(14.0)
         .add();
   }
@@ -1539,9 +1539,9 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
   ASSERT_EQ(data->getBusName(FictTwoWTransf2_Id, "@NODE2@"), "VL2_BUS1");
   ASSERT_EQ(data->getBusName(FictTwoWTransf3_Id, "@NODE1@"), "MyTransformer3Winding_FictBUS");
   ASSERT_EQ(data->getBusName(FictTwoWTransf3_Id, "@NODE2@"), "VL3_BUS1");
-  double VNomLeg1 = threeWTIIDM.getLeg1().getTerminal().getVoltageLevel().getNominalVoltage();
-  double VNomLeg2 = threeWTIIDM.getLeg2().getTerminal().getVoltageLevel().getNominalVoltage();
-  double VNomLeg3 = threeWTIIDM.getLeg3().getTerminal().getVoltageLevel().getNominalVoltage();
+  double VNomLeg1 = threeWTIIDM.getLeg1().getTerminal().getVoltageLevel().getNominalV();
+  double VNomLeg2 = threeWTIIDM.getLeg2().getTerminal().getVoltageLevel().getNominalV();
+  double VNomLeg3 = threeWTIIDM.getLeg3().getTerminal().getVoltageLevel().getNominalV();
   double VRebase1 = VNomLeg1 * VNomLeg1 / (threeWTIIDM.getRatedU0() * threeWTIIDM.getRatedU0());
   double VRebase2 = VNomLeg2 * VNomLeg2 / (threeWTIIDM.getRatedU0() * threeWTIIDM.getRatedU0());
   double VRebase3 = VNomLeg3 * VNomLeg3 / (threeWTIIDM.getRatedU0() * threeWTIIDM.getRatedU0());
@@ -1642,7 +1642,7 @@ TEST(DataInterfaceIIDMTest, testImportExport) {
   shared_ptr<DataInterfaceIIDM> dataOutput = createDataItfFromNetwork(createNodeBreakerNetworkIIDM());
   ASSERT_NO_THROW(dataOutput->dumpToFile("network.xml"));
   const powsybl::iidm::Network& outputNetwork = dataOutput->getNetworkIIDM();
-  ASSERT_THROW_DYNAWO(dataOutput->dumpToFile(".."), Error::GENERAL, KeyError_t::FileGenerationFailed);
+  ASSERT_THROW_DYNAWO(dataOutput->dumpToFile(".."), Error::GENERAL, KeyError_t::XmlFileParsingError);
 
   shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network.xml");
   shared_ptr<DataInterfaceIIDM> dataInputIIDM = boost::dynamic_pointer_cast<DataInterfaceIIDM>(dataInput);
