@@ -40,6 +40,10 @@
 #include "JOBSolverEntry.h"
 #include "JOBTimelineEntry.h"
 #include "JOBTimetableEntry.h"
+#include "JOBLineariseEntry.h"
+#include "JOBModalAnalysisEntry.h"
+#include "JOBSubParticipationEntry.h"
+
 
 #include <boost/shared_ptr.hpp>
 #include <string>
@@ -361,7 +365,7 @@ class TimelineHandler : public xml::sax::parser::ComposableElementHandler {
   boost::shared_ptr<TimelineEntry> timeline_;  ///< current timeline entry object
 };
 
-/**
+ /**
  * @class TimetableHandler
  * @brief Handler used to parse timetable element
  */
@@ -384,6 +388,7 @@ class TimetableHandler : public xml::sax::parser::ComposableElementHandler {
    */
   boost::shared_ptr<TimetableEntry> get() const;
 
+
  protected:
   /**
    * @brief Called when the XML element opening tag is read
@@ -393,6 +398,108 @@ class TimetableHandler : public xml::sax::parser::ComposableElementHandler {
 
  private:
   boost::shared_ptr<TimetableEntry> timetable_;  ///< current timetable entry object
+};
+
+/**
+ * @class LineariseHandler
+ * @brief Handler used to parse linearise element
+ */
+class LineariseHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit LineariseHandler(elementName_type const &root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~LineariseHandler() { }
+
+  /**
+   * @brief return the linearise entry read in xml file
+   * @return linearise entry object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<LineariseEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<LineariseEntry> linearise_;  ///< current linearise entry object
+};
+
+/**
+ * @class ModalAnalysisHandler
+ * @brief Handler used to parse ModalAnalysis element
+ */
+class ModalAnalysisHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit ModalAnalysisHandler(elementName_type const &root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~ModalAnalysisHandler() { }
+
+  /**
+   * @brief return the ModalAnalysis entry read in xml file
+   * @return ModalAnaysis entry object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<ModalAnalysisEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<ModalAnalysisEntry> modalanalysis_;  ///< current modalanalysis entry object
+};
+
+/**
+ * @class SubParticipationHandler
+ * @brief Handler used to parse SubParticipation element
+ */
+class SubParticipationHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit SubParticipationHandler(elementName_type const &root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~SubParticipationHandler() { }
+
+  /**
+   * @brief return the SubParticipation entry read in xml file
+   * @return SubParticipation entry object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<SubParticipationEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<SubParticipationEntry> subparticipation_;  ///< current subparticipation entry object
 };
 
 /**
@@ -561,6 +668,21 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
    */
   void addLog();
 
+    /**
+   * @brief add a linearise object to the current job
+   */
+  void addLinearise();
+
+  /**
+   * @brief add a modalanalysis object to the current job
+   */
+  void addModalAnalysis();
+
+  /**
+   * @brief add a subParticipation object to the current job
+   */
+  void addSubParticipation();
+
  protected:
   /**
    * @brief Called when the XML element opening tag is read
@@ -569,14 +691,17 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<OutputsEntry> outputs_;  ///< current outputs entry object
-  InitValuesHandler initValuesHandler_;      ///< handler used to read init values element
-  ConstraintsHandler constraintsHandler_;    ///< handler used to read constraints element
-  TimelineHandler timelineHandler_;          ///< handler used to read timeline element
-  TimetableHandler timetableHandler_;        ///< handler used to read timetable element
-  FinalStateHandler finalStateHandler_;      ///< handler used to read finalState element
-  CurvesHandler curvesHandler_;              ///< handler used to read curves element
-  LogsHandler logsHandler_;                  ///< handler used to read logs element
+  boost::shared_ptr<OutputsEntry> outputs_;          ///< current outputs entry object
+  InitValuesHandler initValuesHandler_;              ///< handler used to read init values element
+  ConstraintsHandler constraintsHandler_;            ///< handler used to read constraints element
+  TimelineHandler timelineHandler_;                  ///< handler used to read timeline element
+  TimetableHandler timetableHandler_;                ///< handler used to read timetable element
+  FinalStateHandler finalStateHandler_;              ///< handler used to read finalState element
+  CurvesHandler curvesHandler_;                      ///< handler used to read curves element
+  LogsHandler logsHandler_;                          ///< handler used to read logs element
+  ModalAnalysisHandler modalanalysisHandler_;        ///< handler used to read modalanalysis element
+  SubParticipationHandler subparticipationHandler_;  ///< handler used to read subparticipation element
+  LineariseHandler lineariseHandler_;                ///< handler used to read linearise element
 };
 
 /**

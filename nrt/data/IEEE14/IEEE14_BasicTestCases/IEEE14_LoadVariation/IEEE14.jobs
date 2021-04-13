@@ -25,10 +25,14 @@
       <dyn:dumpInitValues local="true" global="true"/>
       <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>
       <dyn:timeline exportMode="TXT"/>
+      <dyn:linearise lineariseTime="30"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
         <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
         <dyn:appender tag="MODELER" file="dynawoModeler.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="NETWORK" file="network.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="PARAMETERS" file="param.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="EQUATIONS" file="equations.log" lvlFilter="DEBUG"/>
       </dyn:logs>
     </dyn:outputs>
   </dyn:job>

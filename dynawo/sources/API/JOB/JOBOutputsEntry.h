@@ -27,7 +27,9 @@
 #include "JOBLogsEntry.h"
 #include "JOBTimelineEntry.h"
 #include "JOBTimetableEntry.h"
-
+#include "JOBLineariseEntry.h"
+#include "JOBModalAnalysisEntry.h"
+#include "JOBSubParticipationEntry.h"
 #include <boost/shared_ptr.hpp>
 #include <string>
 
@@ -135,15 +137,56 @@ class OutputsEntry {
    */
   boost::shared_ptr<LogsEntry> getLogsEntry() const;
 
+  /**
+   * @brief Linearise entry setter
+   * @param lineariseEntry : linearise entry container for the job
+   */
+  void setLineariseEntry(const boost::shared_ptr<LineariseEntry>& lineariseEntry);
+
+  /**
+   * @brief Linearise entries container getter
+   * @return the linearise entry container
+   */
+  boost::shared_ptr<LineariseEntry> getLineariseEntry();
+
+  /**
+   * @brief ModalAnalysis entry setter
+   * @param ModalAnalysisEntry : ModalAnalysis entry container for the job
+   */
+  void setModalAnalysisEntry(const boost::shared_ptr<ModalAnalysisEntry>& modalanalysisEntry);
+
+  /**
+   * @brief ModalAnalysis entries container getter
+   * @return the modalanalysis entry container
+   */
+  boost::shared_ptr<ModalAnalysisEntry> getModalAnalysisEntry();
+
+  /**
+   * @brief Sub Participation entry setter
+   * @param SubParticipationEntry : SubParticipation entry container for the job
+   */
+  void setSubParticipationEntry(const boost::shared_ptr<SubParticipationEntry>& subparticipationEntry);
+
+  /**
+   * @brief SubParticipation entries container getter
+   * @return the subparticipation entry container
+   */
+
+   boost::shared_ptr<SubParticipationEntry> getSubParticipationEntry();
+
  private:
-  std::string outputsDirectory_;                          ///< directory for simulation outputs
-  boost::shared_ptr<InitValuesEntry> initValuesEntry_;    ///< Init Values entries container
-  boost::shared_ptr<ConstraintsEntry> constraintsEntry_;  ///< Constraints entries container
-  boost::shared_ptr<TimelineEntry> timelineEntry_;        ///< Timeline entries container
-  boost::shared_ptr<TimetableEntry> timetableEntry_;      ///< Timetable entries container
-  boost::shared_ptr<FinalStateEntry> finalStateEntry_;    ///< Final State entries container
-  boost::shared_ptr<CurvesEntry> curvesEntry_;            ///< Curves entries container
-  boost::shared_ptr<LogsEntry> logsEntry_;                ///< Logs entries container
+  std::string outputsDirectory_;                                    ///< directory for simulation outputs
+  boost::shared_ptr<InitValuesEntry> initValuesEntry_;              ///< Init Values entries container
+  boost::shared_ptr<ConstraintsEntry> constraintsEntry_;            ///< Constraints entries container
+  boost::shared_ptr<TimelineEntry> timelineEntry_;                  ///< Timeline entries container
+  boost::shared_ptr<TimetableEntry> timetableEntry_;                ///< Timetable entries container
+  boost::shared_ptr<FinalStateEntry> finalStateEntry_;              ///< Final State entries container
+  boost::shared_ptr<CurvesEntry> curvesEntry_;                      ///< Curves entries container
+  boost::shared_ptr<LogsEntry> logsEntry_;                          ///< Logs entries container
+  boost::shared_ptr<LineariseEntry> lineariseEntry_;                ///< Linearise entries container
+  boost::shared_ptr<ModalAnalysisEntry> modalanalysisEntry_;        ///< ModalAnalysis entries container
+  boost::shared_ptr<SubParticipationEntry> subparticipationEntry_;  ///< SubParticipation entries container
+
 };
 
 }  // namespace job

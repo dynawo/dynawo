@@ -16,6 +16,7 @@ set(MODULE_SOURCES
   TestDelay.cpp
   TestRingBuffer.cpp
   TestGetNames.cpp
+  TestModalAnalysis.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

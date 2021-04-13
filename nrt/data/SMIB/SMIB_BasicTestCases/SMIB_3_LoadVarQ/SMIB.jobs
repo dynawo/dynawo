@@ -26,8 +26,13 @@
         <dyn:dumpInitValues local="true" global="true"/>
         <dyn:curves inputFile="curves.crv" exportMode="CSV"/>
         <dyn:logs>
+          <dyn:appender tag="NETWORK" file="network.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="MODELER" file="modeler.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="COMPILE" file="compile.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="PARAMETERS" file="param.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="EQUATIONS" file="equations.log" lvlFilter="DEBUG"/>
           <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
-          <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="VARIABLES" file="dynawoVariables.log" lvlFilter="DEBUG"/>
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>

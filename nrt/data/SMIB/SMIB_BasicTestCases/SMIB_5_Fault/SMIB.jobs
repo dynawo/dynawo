@@ -27,6 +27,7 @@
         <dyn:logs>
           <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
           <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="VARIABLES" file="dynawoVariables.log" lvlFilter="DEBUG"/>
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>

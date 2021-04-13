@@ -23,6 +23,9 @@
 #include <map>
 #include <fstream>
 #include <algorithm>
+#include <iomanip>
+
+#include <eigen3/Eigen/Sparse>
 
 #include "TLTimeline.h"
 #include "CRVCurve.h"
@@ -45,6 +48,10 @@
 #include "DYNCommon.h"
 #include "DYNVariableAlias.h"
 
+#include "DYNModalAnalysis.h"
+#include "DYNCommonModalAnalysis.h"
+
+using std::min;
 using std::min;
 using std::max;
 using std::vector;
@@ -60,6 +67,7 @@ using finalState::finalStateModel_iterator;
 using finalState::finalStateVariable_iterator;
 using constraints::ConstraintsCollection;
 using std::fstream;
+
 
 namespace DYN {
 
@@ -162,7 +170,6 @@ ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& libName) {
   sub->defineNames();
   sub->defineElements();
 
-  subModelByName_[sub->name()] = subModels_.size();
   if (libName != "") {
     subModelByLib_[libName].push_back(sub);
   }
@@ -1308,4 +1315,404 @@ void ModelMulti::setCurrentZ(const vector<double>& z) {
   assert(z.size() == (size_t)sizeZ());
   std::copy(z.begin(), z.end(), zLocal_);
 }
+
+string
+ModelMulti::getDynamicDeviceNameVariable(int index) {
+  if (yNamesDynamicDevices_.empty()) {
+    string varName;
+    for (unsigned int i = 0; i < subModels_.size(); ++i) {
+      const vector<string> & xNames = subModels_[i] -> xNames();
+      for (unsigned int j = 0; j < xNames.size(); ++j) {
+        varName = subModels_[i] -> name();
+        yNamesDynamicDevices_.push_back(varName);
+      }
+    }
+  }
+  assert(index < static_cast < int > (yNamesDynamicDevices_.size()));
+  return yNamesDynamicDevices_[index];
+}
+
+void
+ModelMulti::getAllNamesDiffDynamicDevices() {
+  if (namesDiffDynamicDevices_.empty()) {
+    for (int i = 0; i < sizeY(); ++i) {
+      if (yType_[i] == DYN::DIFFERENTIAL) {
+        namesDiffDynamicDevices_.push_back(getDynamicDeviceNameVariable(i));  // names of dynamic devices that are associated to
+                                                                              // differential variables with redundancy
+      }
+    }
+  }
+}
+
+vector<string>
+ModelMulti::findNamesDiffDynamicDevices(std::vector<int> &indices) {
+  getAllNamesDiffDynamicDevices();
+  std::vector<string> selectNamesDiffDynamicDevices;
+  for (unsigned int i = 0; i < indices.size(); i++) {
+    selectNamesDiffDynamicDevices.push_back(namesDiffDynamicDevices_[indices[i]]);
+  }
+  return selectNamesDiffDynamicDevices;
+}
+
+void
+ModelMulti::getIndicesDiffAlgVariables() {
+  if (indicesDiffVars_.empty()) {
+    if (indicesAlgVars_.empty()) {
+      for (int i = 0; i < sizeY(); ++i) {
+        if (yType_[i] == DYN::DIFFERENTIAL) {
+          indicesDiffVars_.push_back(i);
+        } else {
+          indicesAlgVars_.push_back(i);
+        }
+      }
+    }
+  }
+}
+
+void
+ModelMulti::getIndicesDiffAlgEquations() {
+  if (indicesDiffEqus_.empty()) {
+    if (indicesAlgEqus_.empty()) {
+      for (int i = 0; i < sizeF(); ++i) {
+        if (fType_[i] == DYN::DIFFERENTIAL_EQ) {
+          indicesDiffEqus_.push_back(i);
+        } else {
+          indicesAlgEqus_.push_back(i);
+        }
+      }
+    }
+  }
+}
+
+void
+ModelMulti::getNamesDiffAlgVariables() {
+  if (varDiffNames_.empty()) {
+    if (varAlgNames_.empty()) {
+      for (int i = 0; i < sizeY(); ++i) {
+        if (yType_[i] == DYN::DIFFERENTIAL) {
+          varDiffNames_.push_back(getVariableName(i));
+        } else {
+          varAlgNames_.push_back(getVariableName(i));
+        }
+      }
+    }
+  }
+}
+
+void
+ModelMulti::createMatrixA(const double t) {
+  if (A_.size() == 0) {
+    SparseMatrix Jt;  // J in sparse form
+    Jt.init(sizeY(), sizeY());
+    evalJt(t, 1, Jt);
+
+    SparseMatrix JtPrim;  // JPrime in sparse form
+    JtPrim.init(sizeY(), sizeY());
+    evalJtPrim(t, 1, JtPrim);
+
+    Eigen::MatrixXd Aold = Jt.EigenMatrix() - JtPrim.EigenMatrix();
+
+    getIndicesDiffAlgVariables();  // indices of differential/algebraic variables
+    getIndicesDiffAlgEquations();  // indices of differential/algebraic equations
+    Eigen::MatrixXd A11Prim = contructSubMatrix(JtPrim.EigenMatrix(), indicesDiffEqus_, indicesDiffVars_);
+
+    if (A11Prim.determinant() == 0) {
+      throw DYNError(Error::MODELER, ModelFuncError, "The matrix A11Prim is singular");
+    } else {
+      Eigen::MatrixXd A11 = contructSubMatrix(Aold, indicesDiffEqus_, indicesDiffVars_);
+      Eigen::MatrixXd A12 = contructSubMatrix(Aold, indicesDiffEqus_, indicesAlgVars_);
+      Eigen::MatrixXd A21 = contructSubMatrix(Aold, indicesAlgEqus_, indicesDiffVars_);
+      Eigen::MatrixXd A22 = contructSubMatrix(Aold, indicesAlgEqus_, indicesAlgVars_);
+
+      if (A22.determinant() != 0) {
+        A_ = -(A11Prim.inverse()) * A11 + (A11Prim.inverse()) * (A12 * (A22.inverse()) * A21);
+      } else {
+        throw DYNError(Error::MODELER, ModelFuncError, "The matrix A22 is singular");
+      }
+    }
+  }
+}
+
+void
+ModelMulti::createMatrixB(const double t) {
+  if (B_.size() == 0) {
+    SparseMatrix Jt;
+    SparseMatrix JtPrim;
+    Jt.init(sizeY(), sizeY());
+    JtPrim.init(sizeY(), sizeY());
+    evalJtPrim(t, 1, JtPrim);
+    evalJt(t, 1, Jt);
+    Eigen::MatrixXd Aold = Jt.EigenMatrix() - JtPrim.EigenMatrix();
+    getNamesDiffAlgVariables();  // names of differential/algebraic variables
+    getIndicesDiffAlgVariables();
+    getIndicesDiffAlgEquations();
+
+    Eigen::MatrixXd A12 = contructSubMatrix(Aold, indicesDiffEqus_, indicesAlgVars_);
+    Eigen::MatrixXd A22 = contructSubMatrix(Aold, indicesAlgEqus_, indicesAlgVars_);
+
+    if (A22.determinant() == 0) {
+      throw DYNError(Error::MODELER, ModelFuncError, "The matrix A11Prim is singular");
+    } else {
+      Eigen::MatrixXd A11Prim = contructSubMatrix(JtPrim.EigenMatrix(), indicesDiffEqus_, indicesDiffVars_);
+
+      if (A11Prim.determinant() != 0) {
+        std::vector<int> indicesVref1 = getIndicesString(varAlgNames_, "URef");
+        std::vector<int> indicesVref2 = getIndicesString(varAlgNames_, "UsRefPu");
+        indicesVref1.insert(indicesVref1.end(), indicesVref2.begin(), indicesVref2.end());
+
+        if (indicesVref1.empty()) {
+          throw DYNError(Error::MODELER, ModelFuncError, "Input variable was not found, choose another input variable");
+        } else {
+          Eigen::MatrixXd R = Eigen::MatrixXd::Zero(varAlgNames_.size(), indicesVref1.size());
+          for (unsigned int k = 0; k < indicesVref1.size(); k++) {
+            for (unsigned int j = 0; j < varAlgNames_.size(); j++) {
+              if (A22(j, indicesVref1[k]) > 0) {
+                R(j, k) = 1;
+              }
+            }
+          }
+          B_ = -(A11Prim.inverse()) * (A12 * (A22.inverse()) * R);  // input matrix
+         }
+        } else {
+          throw DYNError(Error::MODELER, ModelFuncError, "The matrix A22 is singular");
+        }
+      }
+  }
+}
+
+void
+ModelMulti::createMatrixC() {
+  if (C_.size() == 0) {
+    getNamesDiffAlgVariables();
+    std::vector<int> indicesOmega = getIndicesString(varDiffNames_, "omega");  // indices of output variable
+
+    if (indicesOmega.empty()) {
+      throw DYNError(Error::MODELER, ModelFuncError, "Output variable was not found, choose another output variable");
+    } else {
+      C_ = Eigen::MatrixXd::Zero(indicesOmega.size(), varDiffNames_.size());
+      for (unsigned int i = 0; i < indicesOmega.size(); i++) {
+        C_(i, indicesOmega[i]) = 1;
+      }
+    }
+  }
+}
+
+void
+ModelMulti::generalizedEigenSolver(const double t) {
+  boost::shared_ptr<ModalAnalysis> modalAnalysis(new ModalAnalysis());
+
+  if (allEigenvalues_.size() == 0 && rightEigenvectors_.size() == 0) {
+    createMatrixA(t);
+    Eigen::EigenSolver<Eigen::MatrixXd> s(A_);
+    allEigenvalues_ = s.eigenvalues();
+    rightEigenvectorsInitial_ = s.eigenvectors();
+    // normalized eigenvectors
+    Eigen::MatrixXd rightEigenvectorsAbs(rightEigenvectorsInitial_.cols(), rightEigenvectorsInitial_.cols());
+    Eigen::MatrixXcd rightEigenvectorsNormalized(rightEigenvectorsInitial_.cols(), rightEigenvectorsInitial_.cols());
+
+    rightEigenvectorsAbs = rightEigenvectorsInitial_.cwiseAbs();
+    std::vector < int > maxIndices = getIndicesMax(rightEigenvectorsAbs);
+
+    for (unsigned int i = 0; i < rightEigenvectorsInitial_.cols(); i++) {
+      rightEigenvectorsNormalized.col(i) = (rightEigenvectorsInitial_.col(i)) / (rightEigenvectorsInitial_(maxIndices[i], i));
+    }
+    rightEigenvectors_ = rightEigenvectorsNormalized;
+
+    if (rightEigenvectors_.determinant().real() == 0 && rightEigenvectors_.determinant().imag() == 0) {
+      throw DYNError(Error::MODELER, ModelFuncError, "The matrix of right eigenvectors is singular");
+    } else {
+      matParticipation_ = modalAnalysis -> createParticipationMatrix(rightEigenvectors_);
+      matPhase_ = modalAnalysis -> createPhaseMatrix(rightEigenvectors_);
+    }
+  }
+}
+
+void
+ModelMulti::printSmallModalAnalysis(const double t, const double partFactor) {
+  boost::shared_ptr<ModalAnalysis> modalAnalysis(new ModalAnalysis());
+
+  generalizedEigenSolver(t);
+  getNamesDiffAlgVariables();
+  imagEigenvalues_ = allEigenvalues_.imag();
+  realEigenvalues_ = allEigenvalues_.real();
+
+  std::vector<int> indicesNonzeroImagParts = modalAnalysis -> getIndicesNonzeroImagParts(imagEigenvalues_);
+  std::vector<int> indicesRealModes = modalAnalysis -> getIndicesRealModes(imagEigenvalues_);
+  std::vector<int> indicesMaxParticitpations = getIndicesMax(matParticipation_);
+
+  if (!indicesNonzeroImagParts.empty()) {
+    std::vector<int> indicesStableModes = modalAnalysis -> getIndicesStableModes(indicesNonzeroImagParts, realEigenvalues_);
+    std::vector<int> indicesUnstableModes = modalAnalysis -> getIndicesUnstableModes(imagEigenvalues_, realEigenvalues_);
+
+    if (!indicesStableModes.empty()) {
+      std::vector<int> indicesMaxParticipationStableModes = getIndicesMaxParticipationModes(indicesMaxParticitpations, indicesStableModes);
+      std::vector<double> maxPartStableModes = getValuesIndices(matParticipation_, indicesStableModes, indicesMaxParticitpations);
+      std::vector<std::string> namesMostVarDiff = modalAnalysis -> getNamesMostVarDiff(varDiffNames_, indicesMaxParticipationStableModes);
+      std::vector<std::string> selectNamesDiffDynamicDevices = findNamesDiffDynamicDevices(indicesMaxParticipationStableModes);
+
+      Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << "Modal Analysis" << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << "Number of Stable Modes  :" << indicesStableModes.size() << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << "Number of Unstable Modes:" << indicesUnstableModes.size() << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << "Number of Real Modes    :" << indicesRealModes.size() << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+
+      Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << "Stable Modes" << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << boost::format("%-8s%-13s%-13s%-10s%-10s%-13s%-15s%-13s%-15s") % "Nb." % "Imag. part" %
+      "Real part" % "Freq.(Hz)" % "Damp.(%)" % "Parti.(%)" % "Phase(deg)" % "Type" % "Gen. With Greatest Part." << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+
+      vector<double> phaseStableModes = getValuesIndices(matPhase_, indicesStableModes, indicesMaxParticitpations);
+      for (unsigned int i = 0; i < indicesStableModes.size(); i++) {
+        string modeType = getTypeMode(namesMostVarDiff[i]);
+        double frequStableMode = modalAnalysis -> computeFrequency(imagEigenvalues_[indicesStableModes[i]]);
+        double dampStableMode = modalAnalysis -> computeDamping(realEigenvalues_[indicesStableModes[i]],
+        imagEigenvalues_[indicesStableModes[i]]);
+        double maxPartStableModesFinal = 100*maxPartStableModes[i];
+        Trace::debug(Trace::fullmodalanalysis()) << boost::format("%-8i%-13.4f%-13.4f%-10.4f%-10.4f%-13.4f%-15.4f%-13s%-15s") %
+        indicesStableModes[i] % imagEigenvalues_[indicesStableModes[i]] % realEigenvalues_[indicesStableModes[i]] %
+        frequStableMode % dampStableMode % maxPartStableModesFinal % phaseStableModes[i] % modeType %
+        selectNamesDiffDynamicDevices[i] << Trace::endline;
+      }
+    }
+
+    if (!indicesUnstableModes.empty()) {
+      std::vector<int> indicesMaxParticipationUnstableModes = getIndicesMaxParticipationModes(indicesMaxParticitpations, indicesUnstableModes);
+      std::vector<double> maxParticipationUnstableModes = getValuesIndices(matParticipation_, indicesUnstableModes, indicesMaxParticitpations);
+      std::vector<std::string> namesMostVarDiff = modalAnalysis -> getNamesMostVarDiff(varDiffNames_, indicesMaxParticipationUnstableModes);
+      std::vector<std::string> selectNamesDiffDynamicDevices = findNamesDiffDynamicDevices(indicesMaxParticipationUnstableModes);
+
+      Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << "Unstable Modes" << Trace::endline;
+      Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+
+      std::vector<double> phaseUnstableModes = getValuesIndices(matPhase_, indicesUnstableModes, indicesMaxParticitpations);
+      for (unsigned int i = 0; i < indicesUnstableModes.size(); i++) {
+        double maxParticipationUnstableModesFinal = 100*maxParticipationUnstableModes[i];
+        string modeType = getTypeMode(namesMostVarDiff[i]);
+        double frequUnstableMode = modalAnalysis -> computeFrequency(imagEigenvalues_[indicesUnstableModes[i]]);
+        double dampUnstableMode = modalAnalysis -> computeDamping(realEigenvalues_[indicesUnstableModes[i]],
+        imagEigenvalues_[indicesUnstableModes[i]]);
+        Trace::debug(Trace::fullmodalanalysis()) << boost::format("%-8i%-12.4f%-12.4f%-10.4f%-10.4f%-12.4f%-12.4f%-8s%-17s") %
+        indicesUnstableModes[i] % imagEigenvalues_[indicesUnstableModes[i]] % realEigenvalues_[indicesUnstableModes[i]] %
+        frequUnstableMode % dampUnstableMode % maxParticipationUnstableModesFinal % phaseUnstableModes[i] % modeType %
+        selectNamesDiffDynamicDevices[i] << Trace::endline;
+      }
+    }
+  }
+
+  if (!indicesRealModes.empty()) {
+    std::vector<double> maxParticipationRealModes = getValuesIndices(matParticipation_, indicesRealModes, indicesMaxParticitpations);
+    std::vector<int> indicesMaxParticipationRealModes = getIndicesMaxParticipationModes(indicesMaxParticitpations, indicesRealModes);
+    std::vector<std::string> namesMostVarDiff = modalAnalysis -> getNamesMostVarDiff(varDiffNames_, indicesMaxParticipationRealModes);
+    std::vector<std::string> selectNamesDiffDynamicDevices = findNamesDiffDynamicDevices(indicesMaxParticipationRealModes);
+
+    Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+    Trace::debug(Trace::fullmodalanalysis()) << "Real Modes" << Trace::endline;
+    Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+    Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+    Trace::debug(Trace::fullmodalanalysis()) << boost::format("%-8s%-13s%-15s%-13s%-15s") % "Nb." % "Real part" % "Parti.(%)" %
+    "Type" % "Gen. With Greatest Part." << Trace::endline;
+    Trace::debug(Trace::fullmodalanalysis()) << "------------------------------" << Trace::endline;
+
+    for (unsigned int i = 0; i < indicesRealModes.size(); i++) {
+      string modeType = getTypeMode(namesMostVarDiff[i]);
+      double maxParticipationRealModesFinal = 100*maxParticipationRealModes[i];
+      Trace::debug(Trace::fullmodalanalysis()) << boost::format("%-8d%-13.4f%-15.4f%-13s%-15s") % indicesRealModes[i] %
+      realEigenvalues_[indicesRealModes[i]] % maxParticipationRealModesFinal % modeType % selectNamesDiffDynamicDevices[i] << Trace::endline;
+    }
+  }
+
+  if (partFactor >= 0) {
+  getAllNamesDiffDynamicDevices();
+  modalAnalysis->printCoupledDevices(indicesNonzeroImagParts, matParticipation_, matPhase_,
+   allEigenvalues_, partFactor, varDiffNames_, namesDiffDynamicDevices_);
+  } else {
+    throw DYNError(Error::MODELER, ModelFuncError, "The minimum value of participation factor should be positive");
+  }
+}
+
+void
+ModelMulti::evalLinearise(const double t) {
+  if (t == 0) {
+    throw DYNError(Error::MODELER, ModelFuncError, "The evaluation time should be different to zero");
+  } else {
+    Trace::debug(Trace::statespace()) << "------------------------------" << Trace::endline;
+    Trace::debug(Trace::statespace()) << " A " << Trace::endline;
+    Trace::debug(Trace::statespace()) << "------------------------------" << Trace::endline;
+    createMatrixA(t);
+    Trace::debug(Trace::statespace()) << "\n" << A_<< Trace::endline;
+
+    Trace::debug(Trace::statespace()) << "------------------------------" << Trace::endline;
+    Trace::debug(Trace::statespace()) << " B " << Trace::endline;
+    Trace::debug(Trace::statespace()) << "------------------------------" << Trace::endline;
+    createMatrixB(t);
+    Trace::debug(Trace::statespace()) << "\n" << B_ << Trace::endline;
+
+    Trace::debug(Trace::statespace()) << "------------------------------" << Trace::endline;
+    Trace::debug(Trace::statespace()) << " C " << Trace::endline;
+    Trace::debug(Trace::statespace()) << "------------------------------" << Trace::endline;
+    createMatrixC();
+    Trace::debug(Trace::statespace()) << "\n" << C_ << Trace::endline;
+  }
+}
+
+void
+ModelMulti::smallModalAnalysis(const double t, const double partFactor) {
+  if (t == 0) {
+    throw DYNError(Error::MODELER, ModelFuncError, "The evaluation time should be different to zero");
+  } else {
+  printSmallModalAnalysis(t, partFactor);
+  }
+}
+
+void
+ModelMulti::subParticipation(const double t, const int nbrMode) {
+  boost::shared_ptr<ModalAnalysis> modalAnalysis(new ModalAnalysis());
+  if (t == 0) {
+    throw DYNError(Error::MODELER, ModelFuncError, "The evaluation time should be different to zero");
+  } else {
+    generalizedEigenSolver(t);
+    getNamesDiffAlgVariables();
+
+    if (nbrMode >= 0) {
+      Trace::debug(Trace::subparticipation()) << "----------------------------------------" << Trace::endline;
+      Trace::debug(Trace::subparticipation()) << " Subsystem Participation of the" << Trace::endline;
+      Trace::debug(Trace::subparticipation()) << " dynamic device components in the mode" << Trace::endline;
+      Trace::debug(Trace::subparticipation()) << "---------------------------------------" << Trace::endline;
+
+      Trace::debug(Trace::subparticipation()) << "---------------------------------------" << Trace::endline;
+      Trace::debug(Trace::subparticipation()) << "Mode: " << "<" << allEigenvalues_(nbrMode) << ">" << Trace::endline;
+      Trace::debug(Trace::subparticipation()) << "---------------------------------------" << Trace::endline;
+      vector<int> indicesROT = modalAnalysis -> getIndicesROT(varDiffNames_);
+      Trace::debug(Trace::subparticipation()) << "ROT: " << modalAnalysis -> getSubParticipation(nbrMode, indicesROT, matParticipation_) << Trace::endline;
+      vector<int> indicesSMD = modalAnalysis -> getIndicesSMD(varDiffNames_);
+      Trace::debug(Trace::subparticipation()) << "SMD: " << modalAnalysis -> getSubParticipation(nbrMode, indicesSMD, matParticipation_) << Trace::endline;
+      vector<int> indicesSMQ = modalAnalysis -> getIndicesSMQ(varDiffNames_);
+      Trace::debug(Trace::subparticipation()) << "SMQ: " << modalAnalysis -> getSubParticipation(nbrMode, indicesSMQ, matParticipation_) << Trace::endline;
+      vector<int> indicesAVR = modalAnalysis -> getIndicesAVR(varDiffNames_);
+      Trace::debug(Trace::subparticipation()) << "AVR: " << modalAnalysis -> getSubParticipation(nbrMode, indicesAVR, matParticipation_) << Trace::endline;
+      vector<int> indicesGOV = modalAnalysis -> getIndicesGOV(varDiffNames_);
+      Trace::debug(Trace::subparticipation()) << "GOV: " << modalAnalysis -> getSubParticipation(nbrMode, indicesGOV, matParticipation_) << Trace::endline;
+      vector<int> indicesINJ = modalAnalysis -> getIndicesINJ(varDiffNames_);
+      Trace::debug(Trace::subparticipation()) << "INJ: " << modalAnalysis -> getSubParticipation(nbrMode, indicesINJ, matParticipation_) << Trace::endline;
+      fixedIndices_.insert(fixedIndices_.end(), indicesROT.begin(), indicesROT.end());
+      fixedIndices_.insert(fixedIndices_.end(), indicesSMD.begin(), indicesSMD.end());
+      fixedIndices_.insert(fixedIndices_.end(), indicesSMQ.begin(), indicesSMQ.end());
+      fixedIndices_.insert(fixedIndices_.end(), indicesAVR.begin(), indicesAVR.end());
+      fixedIndices_.insert(fixedIndices_.end(), indicesGOV.begin(), indicesGOV.end());
+      fixedIndices_.insert(fixedIndices_.end(), indicesINJ.begin(), indicesINJ.end());
+      vector<int> indicesOTH = modalAnalysis -> getIndicesOTH(varDiffNames_, fixedIndices_);
+      Trace::debug(Trace::subparticipation()) << "OTH: " << modalAnalysis -> getSubParticipation(nbrMode, indicesOTH, matParticipation_) << Trace::endline;
+      Trace::debug(Trace::subparticipation()) << "---------------------------------------" << Trace::endline;
+    } else {
+      throw DYNError(Error::MODELER, ModelFuncError, "The number of mode should be positive");
+    }
+  }
+}
+
 }  // namespace DYN

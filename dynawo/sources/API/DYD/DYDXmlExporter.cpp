@@ -69,9 +69,9 @@ XmlExporter::exportToFile(const shared_ptr<DynamicModelsCollection>& collection,
 void XmlExporter::exportToStream(const boost::shared_ptr<DynamicModelsCollection>& collection, std::ostream& stream, const std::string& encoding) const {
   FormatterPtr formatter = Formatter::createFormatter(stream);
   formatter->addNamespace("dyn", "http://www.rte-france.com/dynawo");
-  if (!encoding.empty()) {
+  /* if (!encoding.empty()) {
     formatter->setEncoding(encoding);
-  }
+  }*/
 
   formatter->startDocument();
   AttributeList attrs;

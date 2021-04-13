@@ -295,6 +295,21 @@ Trace::modeler() {
   return "MODELER";
 }
 
+std::string
+Trace::fullmodalanalysis() {
+  return "FULLMODALANALYSIS";
+}
+
+std::string
+Trace::subparticipation() {
+  return "SUBPARTICIPATION";
+}
+
+std::string
+Trace::statespace() {
+  return "STATESPACE";
+}
+
 void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& message) {
   instance().log_(slv, tag, message);
 }

@@ -25,13 +25,19 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/unordered_map.hpp>
 
+
 #include "DYNModel.h"
 #include "DYNVariable.h"
 #include "DYNBitMask.h"
 
+#include "DYNModalAnalysis.h"
+#include "DYNCommonModalAnalysis.h"
+
+
 namespace DYN {
 class SubModel;
 class ConnectorContainer;
+class ModalAnalysis;
 
 class ModelMulti : public Model, private boost::noncopyable {
  public:
@@ -260,6 +266,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @copydoc Model::getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation)
    */
   void getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation);
+
   /**
    * @copydoc Model::getGInfos(const int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation)
    */
@@ -363,6 +370,21 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void fillVariable(boost::shared_ptr<finalState::Variable>& variable);
 
+  /**
+   * @copydoc Model::evalLinearise() const
+   */
+  void evalLinearise(const double t);
+
+  /**
+   * @copydoc Model::subParticipation() const
+   */
+  void subParticipation(const double t, int const nbrMode);
+
+  /**
+   * @copydoc Model::smallModalAnalysis() const
+   */
+  void smallModalAnalysis(const double t, const double partFactor);
+
  public:
   /**
    * @brief add a sub model to the model multi container
@@ -463,6 +485,87 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void setCurrentZ(const std::vector<double>& z);
 
+  /**
+   * @brief get the name of dynamic device thanks to its index
+   *
+   * @param index Index of differential/algebraic variable
+   *
+   * @return name of the dynamic device
+   */  
+  std::string getDynamicDeviceNameVariable(int index);
+
+  /**
+   * @brief get the names of differential dynamic devices that are associated to differential variables
+   */
+  void getAllNamesDiffDynamicDevices();
+
+  /**
+   * @brief find the names of dynamic devices thanks to their indices
+   *
+   * @param indices Indices of selected variables
+   *
+   * @return names of the dynamic devices
+   */
+  std::vector<std::string> findNamesDiffDynamicDevices(std::vector<int> &indices);
+
+  /**
+   * @brief get the indices of differential/algebraic variables
+   */
+  void getIndicesDiffAlgVariables();
+
+  /**
+   * @brief get the indices of differential/algebraic equations
+   */
+  void getIndicesDiffAlgEquations();
+
+  /**
+   * @brief get the names of differential/algebraic variables
+   */
+  void getNamesDiffAlgVariables();
+
+  /**
+   * @brief create the state matrix A
+   *
+   * @param t time to use for the evaluation
+   */
+  void createMatrixA(const double t);
+
+  /**
+   * @brief creat the input matrix B
+   *
+   * @param t time to use for the evaluation
+   */
+  void createMatrixB(const double t);
+
+  /**
+   * @brief creat the output matrix C
+   *
+   * @param t time to use for the evaluation
+   */
+  void createMatrixC();
+
+  /**
+   * @brief compute the eigenvalues, and eigenvectors of matrix A
+   *
+   * @param  t time to use for the evaluation
+   */
+  void generalizedEigenSolver(const double t);
+
+  /**
+   * @brief print a full modal analysis of a small system
+   *
+   * @param  t time to use for the evaluation
+   * @param  partFactor minimum value of participation factor
+   */
+  void printSmallModalAnalysis(const double t, const double partFactor);
+
+  /**
+   * @brief print the coupled modes
+   *
+   * @param  partFactor minimum value of participation factor
+   */
+  void printCoupledModes(const double partFactor);
+
  private:
   /**
    * @brief copy the new values of discretes variables to the variables connected to it
@@ -556,6 +659,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::vector<double> zSave_;  ///< save of the last discretes values
   propertyF_t* fType_;  ///< local buffer to fill with the property of each continuous equation (Algebraic or Differential)
   propertyContinuousVar_t* yType_;  ///< local buffer to fill with the property of each variable (Algebraic / Differential / External)
+  std::ofstream outputFile;
 
   int sizeF_;  ///< number of the residuals functions
   int sizeZ_;  ///< number of discretes values
@@ -580,6 +684,26 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::vector<size_t> notUsedInDiscreteEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in discrete equations
   std::vector<size_t> notUsedInContinuousEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in continuous equations
   std::vector<size_t> nonSilentZIndexes_;  ///< indexes of non silent discrete variables
+
+  Eigen::MatrixXd A_;  ///< state matrix
+  Eigen::MatrixXd B_;  ///< input matrix
+  Eigen::MatrixXd C_;  ///< output matrix
+  Eigen::VectorXcd allEigenvalues_;  ///< eigenvalues of the matrix A
+  Eigen::VectorXd imagEigenvalues_;  ///< imaginary parts of eigenvalues
+  Eigen::VectorXd realEigenvalues_;  ///< real parts of eigenvalues
+  Eigen::MatrixXcd rightEigenvectors_;  ///< normalized right eigenvectors of the matrix A
+  Eigen::MatrixXcd rightEigenvectorsInitial_;  ///< initial right eigenvectors of the matrix A
+  Eigen::MatrixXd matParticipation_;  ///< participation factors of the matrix A
+  Eigen::MatrixXd matPhase_;  ///< matrix of mode shapes (phase positions)
+  std::vector<std::string> yNamesDynamicDevices_;  ///< names of dynamic devices associated to variables y
+  std::vector<std::string> varDiffNames_;  ///< names of differential variables
+  std::vector<std::string> varAlgNames_;  ///< names of algebraic variables
+  std::vector<int> indicesDiffVars_;  ///< indices of differential variables
+  std::vector<int> indicesDiffEqus_;  ///< indices of differential equations
+  std::vector<int> indicesAlgVars_;   ///< indices of algebraic variables
+  std::vector<int> indicesAlgEqus_;  ///< indices of algebraic equations
+  std::vector<std::string> namesDiffDynamicDevices_;  ///< names of dynamic devices that are associated to differential variables
+  std::vector<int> fixedIndices_;  ///< indices associated to predefined differential variables
 };  ///< Class for Multiple-Model
 
 

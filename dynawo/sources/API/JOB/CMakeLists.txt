@@ -21,6 +21,7 @@ install(FILES ${API_JOB_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 set(API_JOB_SOURCES
     JOBXmlHandler.cpp
     JOBXmlImporter.cpp
+<<<<<<< HEAD
     JOBAppenderEntry.cpp
     JOBAppenderEntryFactory.cpp
     JOBConstraintsEntry.cpp
@@ -31,6 +32,16 @@ set(API_JOB_SOURCES
     JOBFinalStateEntryFactory.cpp
     JOBInitValuesEntry.cpp
     JOBInitialStateEntry.cpp
+=======
+    JOBAppenderEntryImpl.cpp
+    JOBConstraintsEntryImpl.cpp
+    JOBCurvesEntryImpl.cpp
+    JOBDynModelsEntryImpl.cpp
+    JOBDynModelsEntryFactory.cpp
+    JOBFinalStateEntryImpl.cpp
+    JOBInitValuesEntryImpl.cpp
+    JOBInitialStateEntryImpl.cpp
+>>>>>>> ModalAnalysisDynawo
     JOBIterators.cpp
     JOBJobEntry.cpp
     JOBJobsCollectionFactory.cpp
@@ -52,25 +63,25 @@ set(API_JOB_SOURCES
     JOBSimulationEntryFactory.cpp
     JOBSolverEntryFactory.cpp
     JOBModelsDirEntryFactory.cpp
+    JOBLineariseEntry.cpp
+    JOBModalAnalysisEntry.cpp
+    JOBSubParticipationEntry.cpp
     )
 
 set(API_JOB_INCLUDE_HEADERS
     JOBXmlHandler.h
     JOBXmlImporter.h
     JOBAppenderEntry.h
-    JOBAppenderEntryFactory.h
     JOBConstraintsEntry.h
     JOBCurvesEntry.h
     JOBDynModelsEntry.h
     JOBDynModelsEntryFactory.h
     JOBFinalStateEntry.h
-    JOBFinalStateEntryFactory.h
     JOBInitValuesEntry.h
     JOBInitialStateEntry.h
     JOBIterators.h
     JOBImporter.h
     JOBJobEntry.h
-    JOBJobEntryFactory.h
     JOBJobsCollectionFactory.h
     JOBJobsCollection.h
     JOBJobsCollection.h
@@ -80,16 +91,12 @@ set(API_JOB_INCLUDE_HEADERS
     JOBOutputsEntry.h
     JOBSimulationEntry.h
     JOBSolverEntry.h
-    JOBLogsEntryFactory.h
-    JOBModelerEntryFactory.h
-    JOBNetworkEntryFactory.h
-    JOBOutputsEntryFactory.h
-    JOBSimulationEntryFactory.h
-    JOBSolverEntryFactory.h
-    JOBModelsDirEntryFactory.h
     JOBTimelineEntry.h
     JOBTimetableEntry.h
     JOBModelsDirEntry.h
+    JOBLineariseEntry.h
+    JOBModalAnalysisEntry.h
+    JOBSubParticipationEntry.h
     )
 
 add_library(dynawo_API_JOB ${LIBRARY_TYPE} ${API_JOB_SOURCES})

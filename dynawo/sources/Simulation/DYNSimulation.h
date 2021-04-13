@@ -30,10 +30,21 @@
 
 #include "DYNSignalHandler.h"
 #include "PARParametersSetCollection.h"
-#include "DYNDataInterface.h"
 
 namespace timeline {
 class Timeline;
+}
+
+namespace linearise {
+class Linearise;
+}
+
+namespace modalanalysis {
+class ModalAnalysis;
+}
+
+namespace subparticipation {
+class SubParticipation;
 }
 
 namespace curves {
@@ -120,10 +131,8 @@ class Simulation {
    *
    * @param jobEntry data read in jobs file
    * @param context context of the simulation (configuration, directories, locale, etc...)
-   * @param data data interface to use for the simulation (NULL if we build it inside simulation)
    */
-  Simulation(boost::shared_ptr<job::JobEntry>& jobEntry, boost::shared_ptr<SimulationContext>& context,
-              boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
+  Simulation(boost::shared_ptr<job::JobEntry>& jobEntry, boost::shared_ptr<SimulationContext>& context);
 
   /**
    * @brief destructor
@@ -206,13 +215,40 @@ class Simulation {
    * @warning the file should be set before the call of this method
    */
   void importFinalStateRequest();
+
   /**
    * @brief setter for the output file of the timeline
    * @param outputFile timeline's output file
    */
+
   inline void setTimelineOutputFile(const std::string& outputFile) {
     timelineOutputFile_ = outputFile;
   }
+
+  /**
+   * @brief setter for the output file of the linearise
+   * @param outputFile linearise's output file
+   */
+  /* inline void setLineariseOutputFile(const std::string& outputFile) {
+    lineariseOutputFile_ = outputFile;
+  }*/
+
+  /**
+   * @brief setter for the output file of the modal analysis
+   * @param outputFile modal analysis's output file
+   */
+  inline void setModalAnalysisOutputFile(const std::string& outputFile) {
+    modalanalysisOutputFile_ = outputFile;
+  }
+
+  /**
+   * @brief setter for the output file of the subparticipation
+   * @param outputFile subparticipation's output file
+   */
+  inline void setSubParticipationOutputFile(const std::string& outputFile) {
+    subparticipationOutputFile_ = outputFile;
+  }
+
   /**
    * @brief setter for the export mode of the timeline
    * @param mode timeline's mode export
@@ -220,6 +256,7 @@ class Simulation {
   inline void setTimelineExportMode(const exportTimelineMode_t& mode) {
     exportTimelineMode_ = mode;
   }
+
   /**
    * @brief setter for the export mode of curves
    * @param mode curves' export mode
@@ -227,6 +264,7 @@ class Simulation {
   inline void setCurvesExportMode(const exportCurvesMode_t& mode) {
     exportCurvesMode_ = mode;
   }
+
   /**
    * @brief setter for the curves input file
    * @param inputFile input file of curves request
@@ -234,6 +272,7 @@ class Simulation {
   inline void setCurvesInputFile(const std::string& inputFile) {
     curvesInputFile_ = inputFile;
   }
+
   /**
    * @brief setter for the curves' output file
    * @param outputFile curves' output file
@@ -241,6 +280,7 @@ class Simulation {
   inline void setCurvesOutputFile(const std::string& outputFile) {
     curvesOutputFile_ = outputFile;
   }
+
   /**
    * @brief setter for the export mode of final state
    * @param mode final state's export mode
@@ -248,6 +288,7 @@ class Simulation {
   inline void setFinalStateExportMode(const exportFinalStateMode_t& mode) {
     exportFinalStateMode_ = mode;
   }
+
   /**
    * @brief setter for the final state input file
    * @param inputFile input file of final state request
@@ -255,6 +296,7 @@ class Simulation {
   inline void setFinalStateInputFile(const std::string& inputFile) {
     finalStateInputFile_ = inputFile;
   }
+
   /**
    * @brief setter for the final state output file
    * @param outputFile final state's output file
@@ -262,6 +304,7 @@ class Simulation {
   inline void setFinalStateOutputFile(const std::string& outputFile) {
     finalStateOutputFile_ = outputFile;
   }
+
   /**
    * @brief setter for the constraints' output file
    * @param outputFile constraints' output file
@@ -269,6 +312,7 @@ class Simulation {
   inline void setConstraintsOutputFile(const std::string& outputFile) {
     constraintsOutputFile_ = outputFile;
   }
+
   /**
    * @brief setter for the constraints' export mode
    * @param mode constraints' export mode
@@ -285,6 +329,7 @@ class Simulation {
   inline void setDumpLocalInitValues(const bool dumpLocalInitValues) {
     dumpLocalInitValues_ = dumpLocalInitValues;
   }
+
   /**
    * @brief setter for global init values dump mode
    * @param dumpGlobalInitValues  @b true if global init values should be dumped
@@ -293,6 +338,7 @@ class Simulation {
   inline void setDumpGlobalInitValues(const bool dumpGlobalInitValues) {
     dumpGlobalInitValues_ = dumpGlobalInitValues;
   }
+
   /**
    * @brief indicates if the simulation has reached the stop time
    * @return @b true if current time >= stop time, @b false otherwise
@@ -300,6 +346,47 @@ class Simulation {
   inline bool end() const {
     return (tCurrent_ >= tStop_);
   }
+
+  /**
+   * @brief setter of the time of the linearisation
+   * @param time start time of the linearisation
+   */
+  inline void setLineariseTime(const double& time) {
+    tLinearise_ = time;
+  }
+
+  /**
+   * @brief setter of the time of the modal analysis
+   * @param time start time of the modal analysis
+   */
+  inline void setModalAnalysisTime(const double& time) {
+    tModalAnalysis_ = time;
+  }
+
+  /**
+   * @brief setter of the value of minimum relative participation
+   * @param participation start the value of minimum relative participation
+   */
+  inline void setModalAnalysisPart(const double& participation) {
+    Part_ = participation;
+  }
+
+  /**
+   * @brief setter of the time of the Sub Participation
+   * @param time start time of the Sub Participation
+   */
+  inline void setSubParticipationTime(const double& time) {
+    tSubParticipation_ = time;
+  }
+
+  /**
+   * @brief setter of the number of mode of minimum relative participation
+   * @param participation start the number of minimum relative participation
+   */
+  inline void setSubParticipationNbMode(const double& nbmode) {
+    NbMode_ = nbmode;
+  }
+
   /**
    * @brief setter of the start time of the simulation
    * @param time start time of the simulation
@@ -307,6 +394,7 @@ class Simulation {
   inline void setStartTime(const double time) {
     tStart_ = time;
   }
+
   /**
    * @brief setter of the stop time of the simulation
    * @param time stop time of the simulation
@@ -314,6 +402,7 @@ class Simulation {
   inline void setStopTime(const double time) {
     tStop_ = time;
   }
+
   /**
    * @brief setter for activating the checking of criteria (minimal voltage, etc..)
    * @param activate @b true if checking of criteria should be activated during simulation
@@ -321,11 +410,13 @@ class Simulation {
   inline void setActivateCriteria(bool activate) {
     activateCriteria_ = activate;
   }
+
   /**
    * @brief setter for criteria step
    * @param step number of iterations between 2 criteria check
    */
   void setCriteriaStep(const int step);
+
   /**
    * @brief getter for the start time of the simulation
    * @return the start time of the simulation
@@ -333,6 +424,47 @@ class Simulation {
   inline double getStartTime() const {
     return tStart_;
   }
+
+  /**
+   * @brief getter for the start time of the linearisation
+   * @return the start time of the linearisation
+   */
+  inline double getLineariseTime() const {
+    return tLinearise_;
+  }
+
+  /**
+   * @brief getter for the start time of the modal analysis
+   * @return the start time of the modal analysis
+   */
+  inline double getModalAnalysisTime() const {
+    return tModalAnalysis_;
+  }
+
+  /**
+   * @brief getter for the start value of minimum relative participation factor
+   * @return the start value of minimum relative participation factor
+   */
+  inline double getModalAnalysisPart() const {
+    return Part_;
+  }
+
+  /**
+   * @brief getter for the start time of the subParticipation
+   * @return the start time of the subParticipation
+   */
+  inline double getSubParticipationTime() const {
+    return tSubParticipation_;
+  }
+
+  /**
+   * @brief getter for the start number of mode of subparticipation
+   * @return the start number of mode of subparticipation factor
+   */
+  inline double getSubParticipationNbMode() const {
+    return NbMode_;
+  }
+
   /**
    * @brief getter for the current time of the simulation
    * @return the current time of the simulation
@@ -516,6 +648,9 @@ class Simulation {
   boost::shared_ptr<finalState::FinalStateCollection> finalStateCollection_;  ///< instance of final state collection where final state are stored
   boost::shared_ptr<constraints::ConstraintsCollection> constraintsCollection_;  ///< instance of constraints collection where constraints are stored
   boost::shared_ptr<criteria::CriteriaCollection> criteriaCollection_;  ///< instance of criteria collection where criteria are stored
+  boost::shared_ptr<linearise::Linearise> linearise_;  ///< instance of the linearise where events are stored
+  boost::shared_ptr<modalanalysis::ModalAnalysis> modalanalysis_;  ///< instance of the modalanalysis where events are stored
+  boost::shared_ptr<subparticipation::SubParticipation> subparticipation_;  ///< instance of the sub participation where events are stored
 
   std::vector<std::string> dydFiles_;  ///< list of files to used dynamic data
   std::string iidmFile_;  ///< iidm input file
@@ -537,6 +672,12 @@ class Simulation {
   std::string timetableOutputFile_;  ///< timetable export file
   int timetableSteps_;  ///< timetable' steps
 
+  // std::string lineariseOutputFile_;  ///< linearise's export file
+
+  std::string modalanalysisOutputFile_;  ///< modalanalysis's export file
+
+  std::string subparticipationOutputFile_;  ///< modalanalysis's export file
+
   exportFinalStateMode_t exportFinalStateMode_;  ///< final state's export mode
   std::string finalStateInputFile_;  ///< final state's request input file
   std::string finalStateOutputFile_;  ///< final state's output file
@@ -554,12 +695,18 @@ class Simulation {
 
   double tStart_;  ///< start time of the simulation
   double tCurrent_;  ///< current time of the simulation
+  double Part_;  ///< minimum value of relative participation factor
+  // int Solver_;  ///< minimum value of relative participation factor
   double tStop_;  ///< stop time of the simulation
   bool activateCriteria_;  ///< whether to activate the verification if criteria are fullfilled
   int  criteriaStep_;  ///< if activated, this number will be the number of iterations between two criteria checks
   bool dumpLocalInitValues_;  ///< whether to export the results from the local initialisation
   bool dumpGlobalInitValues_;  ///< whether to export the results from the global initialisation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
+  double tLinearise_;  ///< start time of the Linearisation
+  double tModalAnalysis_;  ///< start time of the Modal analysis
+  double tSubParticipation_;  ///< start time of the sub participation
+  double NbMode_;  ///< start number of mode of the sub participation
 
  private:
   /**
@@ -586,6 +733,21 @@ class Simulation {
    * @brief configure the final state outputs
    */
   void configureFinalStateOutputs();
+
+ /**
+   * @brief configure the linearisation outputs
+   */
+  void configureLineariseOutputs();
+
+ /**
+   * @brief configure the modal analysis outputs
+   */
+  void configureModalAnalysisOutputs();
+
+ /**
+   * @brief configure the sub-participation outputs
+   */
+  void configureSubParticipationOutputs();
 };
 
 }  // end of namespace DYN

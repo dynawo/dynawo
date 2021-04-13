@@ -412,3 +412,4 @@ For more information about Dyna&omega;o:
 
 * Consult [Dyna&omega;o website](http://dynawo.org)
 * Contact us at [rte-dynawo@rte-france.com](mailto:rte-dynawo@rte-france.com)
+#Modal Analysis of small/large scale power system

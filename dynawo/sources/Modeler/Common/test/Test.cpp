@@ -22,6 +22,16 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/pointer_cast.hpp>
+#include <boost/test/unit_test.hpp>
+#include <boost/test/included/unit_test.hpp>
+
+
+#include <boost/test/auto_unit_test.hpp>
+
+// Boost Test declaration and Checking macros
+#include <boost/test/unit_test_suite.hpp>
+#include <boost/test/test_tools.hpp>
+#include <boost/test/floating_point_comparison.hpp>
 
 #include "DYNParameterModeler.h"
 #include "gtest_dynawo.h"
@@ -42,12 +52,14 @@
 #include "PARParametersSet.h"
 #include "DYNDynamicData.h"
 
+
 #include "DYNError.h"
 #include "DYNErrorQueue.h"
 #include "DYNStaticRefInterface.h"
 
 using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
+
 
 using parameters::ParametersSet;
 
@@ -1099,7 +1111,7 @@ TEST(ModelerCommonTest, CommonModeler) {
 }
 
 TEST(ModelerCommonTest, StaticRefInterface) {
-  StaticRefInterface sri;
+    StaticRefInterface sri;
 
   ASSERT_EQ(sri.getModelID(), "");
   ASSERT_EQ(sri.getModelVar(), "");
@@ -1113,4 +1125,5 @@ TEST(ModelerCommonTest, StaticRefInterface) {
   ASSERT_EQ(sri.getModelVar(), "MyModelVar");
   ASSERT_EQ(sri.getStaticVar(), "MyStaticVar");
 }
+
 }  // namespace DYN
