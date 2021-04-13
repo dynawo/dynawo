@@ -29,6 +29,7 @@
 #include <iostream>
 #include <sstream>
 #include <eigen3/Eigen/Eigenvalues>
+#include "DYNSparseMatrix.h"
 
 namespace timeline {
 class Timeline;
@@ -133,7 +134,6 @@ class Model {
    * @param Jt jacobian matrix to fullfill
    */
   virtual void evalJt(const double t, const double cj, SparseMatrix& Jt) = 0;
-
   /**
    * @brief compute the transpose prim jacobian of the sub model \f$ J'= @F/@x' \f$  based on the variable values contained in the model
    *
@@ -144,35 +144,27 @@ class Model {
   virtual void evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) = 0;
 
   /**
-   * @brief compute all modes of the linear power system \f$ @x = Ax \f$
+   * @brief compute the sub-participation factors of a mode
    *
    * @param t time to use for the evaluation
+   * @param nbrMode number of the mode
    */
-  virtual void allModes(const double t) = 0;
+  virtual void subParticipation(const double t, const int nbrMode) = 0;
 
   /**
-   * @brief compute all modes of the linear power system \f$ @x = Ax \f$
-   *
-   * @param t time to use for the evaluation
-   * @param nbrMode number of slected mode
-   */
-  virtual void subParticipation(const double t, int nbrMode) = 0;
-
-  /**
-   * @brief compute the modes of the linear power system \f$ @x = Ax \f$
+   * @brief modal analysis of the small linear power system \f$ @x = Ax \f$
    *
    * @param t time to use for the evaluation
    * @param partFactor value of minimum relative participation factor
    */
-  virtual void evalmodalAnalysis(const double t, const double partFactor) = 0;
+  virtual void smallModalAnalysis(const double t, const double partFactor) = 0;
 
   /**
-   * @brief determine the linear model of the nonlinear given power system \f$ J = @F/@x $
+   * @brief provide a state space realization of the nonlinear power system \f$ J = @F/@x $
    *
    * @param t time to use for the evaluation
    */
   virtual void evalLinearise(const double t) = 0;
-
 
   /**
    * @brief ensure data coherence (asserts, min/max, sanity checks ....)
@@ -191,12 +183,12 @@ class Model {
    *
    */
   virtual void setFequationsModel() = 0;
+
   /**
    * @brief set root equation's formula in Model
    *
    */
   virtual void setGequationsModel() = 0;
-
 
   /**
    * @brief retrieve the initial values of the model
