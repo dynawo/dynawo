@@ -358,6 +358,24 @@ class Trace {
   static std::string modeler();
 
   /**
+   * @brief Get fullmodalanalysis identifier
+   * @return fullmodalanalysis identifier
+   */
+  static std::string fullmodalanalysis();
+
+  /**
+   * @brief Get subparticipation identifier
+   * @return subparticipation identifier
+   */
+  static std::string subparticipation();
+
+  /**
+   * @brief Get statespace identifier
+   * @return statespace identifier
+   */
+  static std::string statespace();
+
+  /**
    * @brief Print end of line in trace.
    *
    * @param os: Trace to add end of line.
