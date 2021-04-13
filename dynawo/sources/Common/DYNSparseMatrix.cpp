@@ -26,8 +26,6 @@
 #include <fstream>
 #include <cassert>
 #include <cmath>
-#include <eigen3/Eigen/Eigenvalues>
-#include <eigen3/Eigen/Dense>
 
 #include "DYNCommon.h"
 #include "DYNMacrosMessage.h"
@@ -207,24 +205,39 @@ void SparseMatrix::printToFile(bool sparse) const {
   file.close();
 }
 
-Eigen::MatrixXd SparseMatrix::fullMatrix(bool sparse) const {
-  Eigen::MatrixXd x = Eigen::MatrixXd::Zero(nbCol_, nbCol_);
+Eigen::MatrixXd
+SparseMatrix::EigenMatrix(bool sparse) const {
   if (!sparse) {
-    std::vector< std::vector<double> > matrix;
-    for (int i = 0; i < nbCol_; ++i) {
-      std::vector<double> row(nbCol_, 0);
-      matrix.push_back(row);
-    }
+    Eigen::MatrixXd denseMat = Eigen::MatrixXd::Zero(nbCol_, nbCol_);
     for (int iCol = 0; iCol < nbCol_; ++iCol) {
       for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
-        int iRow1 = Ai_[ind];
+        int iRow = Ai_[ind];
         double val = Ax_[ind];
-        matrix[iRow1][iCol] = val;
-        x(iCol, iRow1) = val;
+        denseMat(iCol, iRow) = val;
       }
     }
-}
-  return x;
+    return denseMat;
+  } else {
+    std::vector<int> indicesRows;
+    std::vector<int> indicesCols;
+    std::vector<double> values;
+    for (int iCol = 0; iCol < nbCol_; ++iCol) {
+      for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
+        int iRow = Ai_[ind];
+        indicesRows.push_back(iRow);
+        indicesCols.push_back(iCol);
+        double val = Ax_[ind];
+        values.push_back(val);
+      }
+    }
+    Eigen::MatrixXd sparseMat(indicesRows.size(), 3);
+    for (unsigned int i = 0; i < indicesRows.size(); i++) {
+      sparseMat(i, 0) = indicesRows[i];
+      sparseMat(i, 1) = indicesCols[i];
+      sparseMat(i, 2) = values[i];
+    }
+    return sparseMat;
+  }
 }
 
 void SparseMatrix::print() const {
