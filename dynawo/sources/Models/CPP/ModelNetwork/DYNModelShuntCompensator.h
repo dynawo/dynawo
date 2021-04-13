@@ -330,9 +330,9 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
    */
   bool isAvailable() const;
 
-  double suscepPerSect_;  ///< The shunt susceptance per section in Siemens
   int currentSection_;  ///< The current number of connected section of the shunt compensator
   int maximumSection_;  ///< The maximum number of sections of the shunt compensator
+  double suscepAtMaximumSec_;  ///< The shunt susceptance at maximum section in Siemens
   double vNom_;  ///< The nominal voltage of the bus where the shunt compensator is connected in kV
   double suscepPu_;  ///< The shunt current susceptance in pu (based SNREF)
   double tLastOpening_;  ///< Last shunt opening time

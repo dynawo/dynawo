@@ -21,6 +21,7 @@
 //======================================================================
 
 #include <powsybl/iidm/ShuntCompensator.hpp>
+#include <powsybl/iidm/ShuntCompensatorNonLinearModel.hpp>
 
 #include "DYNShuntCompensatorInterfaceIIDM.h"
 
@@ -130,8 +131,13 @@ ShuntCompensatorInterfaceIIDM::getMaximumSection() const {
 }
 
 double
-ShuntCompensatorInterfaceIIDM::getBPerSection() const {
-  return shuntCompensatorIIDM_.getB(getMaximumSection())/getMaximumSection();
+ShuntCompensatorInterfaceIIDM::getB(const int section) const {
+  return shuntCompensatorIIDM_.getB(section);
+}
+
+bool
+ShuntCompensatorInterfaceIIDM::isLinear() const {
+  return (shuntCompensatorIIDM_.getModelType() == powsybl::iidm::ShuntCompensatorModelType::LINEAR);
 }
 
 }  // namespace DYN
