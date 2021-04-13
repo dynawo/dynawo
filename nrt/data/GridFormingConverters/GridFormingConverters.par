@@ -104,30 +104,36 @@
     <par type="DOUBLE" name="UdcSourceRefPu_ValueIn" value="1"/>
   </set>
   <set id="4">
+    <par type="INT" name="nbGen" value="3"/>
+    <par type="DOUBLE" name="weight_gen_0" value="250"/>
+    <par type="DOUBLE" name="weight_gen_1" value="500"/>
+    <par type="DOUBLE" name="weight_gen_2" value="1000"/>
+  </set>
+  <set id="5">
     <par type="DOUBLE" name="line_XPu" value="0.0075"/>
     <par type="DOUBLE" name="line_RPu" value="0.00075"/>
     <par type="DOUBLE" name="line_BPu" value="0.0000075"/>
     <par type="DOUBLE" name="line_GPu" value="0"/>
   </set>
-  <set id="5">
+  <set id="6">
     <par type="DOUBLE" name="line_XPu" value="0.015"/>
     <par type="DOUBLE" name="line_RPu" value="0.0015"/>
     <par type="DOUBLE" name="line_BPu" value="0.000015"/>
     <par type="DOUBLE" name="line_GPu" value="0"/>
   </set>
-  <set id="6">
+  <set id="7">
     <par type="DOUBLE" name="line_XPu" value="0.03"/>
     <par type="DOUBLE" name="line_RPu" value="0.003"/>
     <par type="DOUBLE" name="line_BPu" value="0.00003"/>
     <par type="DOUBLE" name="line_GPu" value="0"/>
   </set>
-  <set id="7">
+  <set id="8">
     <par type="DOUBLE" name="line_XPu" value="0.0375"/>
     <par type="DOUBLE" name="line_RPu" value="0.00375"/>
     <par type="DOUBLE" name="line_BPu" value="0.0000375"/>
     <par type="DOUBLE" name="line_GPu" value="0"/>
   </set>
-  <set id="8">
+  <set id="9">
     <par type="DOUBLE" name="load_alpha" value="2"/>
     <par type="DOUBLE" name="load_beta" value="0"/>
     <par type="DOUBLE" name="load_U0Pu" value="1"/>
@@ -135,13 +141,13 @@
     <par type="DOUBLE" name="load_P0Pu" value="11.25"/>
     <par type="DOUBLE" name="load_Q0Pu" value="0"/>
   </set>
-  <set id="9">
+  <set id="10">
     <par type="DOUBLE" name="fault_RPu" value="0.0001"/>
     <par type="DOUBLE" name="fault_XPu" value="0.001"/>
     <par type="DOUBLE" name="fault_tBegin" value="1.5"/>
     <par type="DOUBLE" name="fault_tEnd" value="1.65"/>
   </set>
-  <set id="10">
+  <set id="11">
     <par type="DOUBLE" name="event_tEvent" value="0.5"/>
     <par type="BOOL" name="event_stateEvent1" value="true"/>
   </set>
