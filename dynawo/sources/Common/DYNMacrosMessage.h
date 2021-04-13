@@ -39,6 +39,12 @@ namespace DYN {
 #define DYNTimeline(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__ )
 
 /**
+ * @brief Macro to define a linearise message
+ * @param key key to find the message
+ */
+#define DYNLinearise(key, ...) (DYN::MessageLinearise(DYN::KeyLinearise_t::names(DYN::KeyLinearise_t::key)), ##__VA_ARGS__ )
+
+/**
  * @brief Macro to define a constraint message
  * @param key key to find the message
  */

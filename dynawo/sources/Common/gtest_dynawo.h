@@ -26,7 +26,7 @@
 #endif
 #include <cstdlib>
 #include <gtest/gtest.h>
-#include "gmock/gmock.h"
+#include <gmock/gmock.h>
 #include "DYNError.h"
 
 /**
