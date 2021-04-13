@@ -17,8 +17,8 @@
  *
  */
 
-#ifndef API_JOB_JOBEVALMODALANALYSISENTRYIMPL_H_
-#define API_JOB_JOBEVALMODALANALYSISENTRYIMPL_H_
+#ifndef API_JOB_JOBMODALANALYSISENTRYIMPL_H_
+#define API_JOB_JOBMODALANALYSISENTRYIMPL_H_
 
 #include <string>
 #include "JOBModalAnalysisEntry.h"
@@ -56,41 +56,17 @@ class ModalAnalysisEntry::Impl : public ModalAnalysisEntry {
    */
   void setModalAnalysisPart(const double & modalanalysisPart);
 
-  /* void setModalAnalysisSolver(const int & modalanalysisSolver);
-  int getModalAnalysisSolver() const;*/
   /**
    * @copydoc ModalAnalysisEntry::getModalAnalysisPart()
    */
   double getModalAnalysisPart() const;
 
-  /**
-   * @copydoc ModalAnalysisEntry::setOutputFile()
-   */
-  void setOutputFile(const std::string & outputFile);
-
-  /**
-   * @copydoc ModalAnalysisEntry::setExportMode()
-   */
-  // void setExportMode(const std::string & exportMode);
-
-  /**
-   * @copydoc ModalAnalysisEntry::getOutputFile()
-   */
-  std::string getOutputFile() const;
-
-  /**
-   * @copydoc ModalAnalysisEntry::getExportMode()
-   */
-  // std::string getExportMode() const;
 
  private:
-  double modalanalysisTime_;  ///< Time of Modal Analysis
-  std::string outputFile_;  ///< Export file for Modal Analysis
-  double modalanalysisPart_;  ///< Minimum Relative Participation of Modal Analysis
-  // int modalanalysisSolver_;  ///< Minimum Relative Participation of Modal Analysis
-  // std::string exportMode_;  ///< Export mode TXT, CSV, XML for Modal Analysis output file
+  double modalanalysisTime_;  ///< Time to start the modal analysis
+  double modalanalysisPart_;  ///< Minimum relative participation factor for modal analysis
 };
 
 }  // namespace job
 
-#endif  // API_JOB_JOBTIMELINEENTRYIMPL_H_
+#endif  // API_JOB_JOBMODALANALYSISENTRYIMPL_H_

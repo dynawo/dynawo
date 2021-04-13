@@ -45,10 +45,9 @@
 #include "JOBTimetableEntryImpl.h"
 #include "DYNMacrosMessage.h"
 #include "JOBModelsDirEntryImpl.h"
-#include "JOBEvalModalAnalysisEntryImpl.h"
-#include "JOBAllModesEntryImpl.h"
+#include "JOBModalAnalysisEntryImpl.h"
 #include "JOBSubParticipationEntryImpl.h"
-#include "JOBEvalLineariseEntryImpl.h"
+#include "JOBLineariseEntryImpl.h"
 
 using std::map;
 using std::string;
@@ -256,7 +255,6 @@ constraintsHandler_(parser::ElementName(jobs_ns, "constraints")),
 timelineHandler_(parser::ElementName(jobs_ns, "timeline")),
 timetableHandler_(parser::ElementName(jobs_ns, "timetable")),
 modalanalysisHandler_(parser::ElementName(jobs_ns, "modalanalysis")),
-allmodesHandler_(parser::ElementName(jobs_ns, "allmodes")),
 subparticipationHandler_(parser::ElementName(jobs_ns, "subparticipation")),
 lineariseHandler_(parser::ElementName(jobs_ns, "linearise")),
 finalStateHandler_(parser::ElementName(jobs_ns, "finalState")),
@@ -269,7 +267,6 @@ logsHandler_(parser::ElementName(jobs_ns, "logs")) {
   onElement(root_element + jobs_ns("timeline"), timelineHandler_);
   onElement(root_element + jobs_ns("timetable"), timetableHandler_);
   onElement(root_element + jobs_ns("modalanalysis"), modalanalysisHandler_);
-  onElement(root_element + jobs_ns("allmodes"), allmodesHandler_);
   onElement(root_element + jobs_ns("subparticipation"), subparticipationHandler_);
   onElement(root_element + jobs_ns("linearise"), lineariseHandler_);
   onElement(root_element + jobs_ns("finalState"), finalStateHandler_);
@@ -284,7 +281,6 @@ logsHandler_(parser::ElementName(jobs_ns, "logs")) {
   curvesHandler_.onEnd(lambda::bind(&OutputsHandler::addCurves, lambda::ref(*this)));
   logsHandler_.onEnd(lambda::bind(&OutputsHandler::addLog, lambda::ref(*this)));
   modalanalysisHandler_.onEnd(lambda::bind(&OutputsHandler::addModalAnalysis, lambda::ref(*this)));
-  allmodesHandler_.onEnd(lambda::bind(&OutputsHandler::addAllModes, lambda::ref(*this)));
   subparticipationHandler_.onEnd(lambda::bind(&OutputsHandler::addSubParticipation, lambda::ref(*this)));
   lineariseHandler_.onEnd(lambda::bind(&OutputsHandler::addLinearise, lambda::ref(*this)));
 }
@@ -292,11 +288,6 @@ logsHandler_(parser::ElementName(jobs_ns, "logs")) {
 void
 OutputsHandler::addModalAnalysis() {
   outputs_->setModalAnalysisEntry(modalanalysisHandler_.get());
-}
-
-void
-OutputsHandler::addAllModes() {
-  outputs_->setAllModesEntry(allmodesHandler_.get());
 }
 
 void
@@ -430,21 +421,6 @@ ModalAnalysisHandler::create(attributes_type const& attributes) {
 shared_ptr<ModalAnalysisEntry>
 ModalAnalysisHandler::get() const {
   return modalanalysis_;
-}
-
-AllModesHandler::AllModesHandler(elementName_type const& root_element) {
-  onStartElement(root_element, lambda::bind(&AllModesHandler::create, lambda::ref(*this), lambda_args::arg2));
-}
-
-void
-AllModesHandler::create(attributes_type const& attributes) {
-  allmodes_ = shared_ptr<AllModesEntry>(new AllModesEntry::Impl());
-  allmodes_->setAllModesTime(attributes["allmodesTime"]);
-}
-
-shared_ptr<AllModesEntry>
-AllModesHandler::get() const {
-  return allmodes_;
 }
 
 SubParticipationHandler::SubParticipationHandler(elementName_type const& root_element) {

@@ -99,16 +99,6 @@ OutputsEntry::Impl::getModalAnalysisEntry() const {
 }
 
 void
-OutputsEntry::Impl::setAllModesEntry(const boost::shared_ptr<AllModesEntry>& allmodesEntry) {
-  allmodesEntry_ = allmodesEntry;
-}
-
-boost::shared_ptr<AllModesEntry>
-OutputsEntry::Impl::getAllModesEntry() const {
-  return allmodesEntry_;
-}
-
-void
 OutputsEntry::Impl::setSubParticipationEntry(const boost::shared_ptr<SubParticipationEntry>& subparticipationEntry) {
   subparticipationEntry_ = subparticipationEntry;
 }

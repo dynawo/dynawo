@@ -12,8 +12,8 @@
 //
 
 /**
- * @file JOBAllModesEntry.h
- * @brief AllModes entries description : interface file
+ * @file JOBSubParticipationEntry.h
+ * @brief SubParticipation entries description : interface file
  *
  */
 
@@ -21,8 +21,6 @@
 #define API_JOB_JOBSUBPARTICIPATIONENTRY_H_
 
 #include <string>
-
-// #include "JOBExport.h"
 
 namespace job {
 
@@ -39,50 +37,27 @@ class SubParticipationEntry {
 
   /**
    * @brief SubParticipation time setter
-   * @param SubParticipationTime : Start time of SubParticipation
+   * @param SubParticipationTime : Start time for SubParticipation
    */
   virtual void setSubParticipationTime(const double & SubParticipationTime) = 0;
 
   /**
    * @brief SubParticipation time getter
-   * @return to retrieve time of SubParticipation
+   * @return start time for SubParticipation
    */
   virtual double getSubParticipationTime() const = 0;
 
   /**
    * @brief SubParticipation NbMode setter
-   * @param SubParticipationNbMode : Start number of mode of SubParticipation
+   * @param SubParticipationNbMode : Start mode number for SubParticipation
    */
   virtual void setSubParticipationNbMode(const double & SubParticipationNbMode) = 0;
 
   /**
    * @brief SubParticipation NbMode getter
-   * @return to retrieve NbMode of SubParticipation
+   * @return start mode number for SubParticipation
    */
   virtual double getSubParticipationNbMode() const = 0;
-  /**
-   * @brief SubParticipation NbMode setter
-   * @param SubParticipationNbMode : Start number of mode of SubParticipation
-   */
-  /* virtual void setSubParticipationSolver(const int & SubParticipationSolver) = 0;*/
-
-  /**
-   * @brief SubParticipation NbMode getter
-   * @return to retrieve NbMode of SubParticipation
-   */
-  /* virtual int getSubParticipationSolver() const = 0;*/
-
-  /**
-   * @brief Output file attribute setter
-   * @param outputFile: Output file for SubParticipation
-   */
-  virtual void setOutputFile(const std::string & outputFile) = 0;
-
-  /**
-   * @brief Output file attribute getter
-   * @return Output file for SubParticipation
-   */
-  virtual std::string getOutputFile() const = 0;
 
   class Impl;  ///< implemented class
 };

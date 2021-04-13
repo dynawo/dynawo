@@ -33,7 +33,6 @@ class CurvesEntry;
 class LogsEntry;
 class LineariseEntry;
 class ModalAnalysisEntry;
-class AllModesEntry;
 class SubParticipationEntry;
 /**
  * @class OutputsEntry
@@ -165,18 +164,6 @@ class OutputsEntry {
    * @return the modalanalysis entry container
    */
   virtual boost::shared_ptr<ModalAnalysisEntry> getModalAnalysisEntry() const = 0;
-
-  /**
-   * @brief All Modes entry setter
-   * @param AllModesEntry : AllModes entry container for the job
-   */
-  virtual void setAllModesEntry(const boost::shared_ptr<AllModesEntry>& allmodesEntry) = 0;
-
-  /**
-   * @brief AllModes entries container getter
-   * @return the allmodes entry container
-   */
-  virtual boost::shared_ptr<AllModesEntry> getAllModesEntry() const = 0;
 
   /**
    * @brief Sub Participation entry setter

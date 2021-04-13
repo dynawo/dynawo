@@ -52,7 +52,6 @@ class JobEntry;
 class JobsCollection;
 class LineariseEntry;
 class ModalAnalysisEntry;
-class AllModesEntry;
 class SubParticipationEntry;
 /**
  * @class AppenderHandler
@@ -471,40 +470,6 @@ class ModalAnalysisHandler : public xml::sax::parser::ComposableElementHandler {
 };
 
 /**
- * @class AllModesHandler
- * @brief Handler used to parse AllModes element
- */
-class AllModesHandler : public xml::sax::parser::ComposableElementHandler {
- public:
-  /**
-   * @brief Constructor
-   * @param root_element complete name of the element read by the handler
-   */
-  explicit AllModesHandler(elementName_type const &root_element);
-
-  /**
-   * @brief default destructor
-   */
-  ~AllModesHandler() { }
-
-  /**
-   * @brief return the AllModes entry read in xml file
-   * @return allModes entry object build thanks to infos read in xml file
-   */
-  boost::shared_ptr<AllModesEntry> get() const;
-
- protected:
-  /**
-   * @brief Called when the XML element opening tag is read
-   * @param attributes attributes of the element
-   */
-  void create(attributes_type const& attributes);
-
- private:
-  boost::shared_ptr<AllModesEntry> allmodes_;  ///< current allmodes entry object
-};
-
-/**
  * @class SubParticipationHandler
  * @brief Handler used to parse SubParticipation element
  */
@@ -715,11 +680,6 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   void addModalAnalysis();
 
   /**
-   * @brief add a allmodes object to the current job
-   */
-  void addAllModes();
-
-  /**
    * @brief add a subParticipation object to the current job
    */
   void addSubParticipation();
@@ -741,7 +701,6 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   CurvesHandler curvesHandler_;  ///< handler used to read curves element
   LogsHandler logsHandler_;  ///< handler used to read logs element
   ModalAnalysisHandler modalanalysisHandler_;  ///< handler used to read modalanalysis element
-  AllModesHandler allmodesHandler_;  ///< handler used to read allmodes element
   SubParticipationHandler subparticipationHandler_;  ///< handler used to read subparticipation element
   LineariseHandler lineariseHandler_;  ///< handler used to read linearise element
 };

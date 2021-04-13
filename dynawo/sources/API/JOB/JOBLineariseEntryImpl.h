@@ -12,13 +12,13 @@
 //
 
 /**
- * @file JOBEvalLineariseEntryImpl.h
+ * @file JOBLineariseEntryImpl.h
  * @brief Linearise entries description : header file
  *
  */
 
-#ifndef API_JOB_JOBEVALLINEARISEENTRYIMPL_H_
-#define API_JOB_JOBEVALLINEARISEENTRYIMPL_H_
+#ifndef API_JOB_JOBLINEARISEENTRYIMPL_H_
+#define API_JOB_JOBLINEARISEENTRYIMPL_H_
 
 #include <string>
 #include "JOBLineariseEntry.h"
@@ -51,32 +51,10 @@ class LineariseEntry::Impl : public LineariseEntry {
    */
   double getLineariseTime() const;
 
-  /**
-   * @copydoc LineariseEntry::setOutputFile()
-   */
-  void setOutputFile(const std::string & outputFile);
-
-  /**
-   * @copydoc LineariseEntry::setExportMode()
-   */
-  // void setExportMode(const std::string & exportMode);
-
-  /**
-   * @copydoc LineariseEntry::getOutputFile()
-   */
-  std::string getOutputFile() const;
-
-  /**
-   * @copydoc LineariseEntry::getExportMode()
-   */
-  // std::string getExportMode() const;
-
  private:
-  double lineariseTime_;  ///< Time of the linearization
-  std::string outputFile_;  ///< Export file for Linearise
-  // std::string exportMode_;  ///< Export mode TXT, CSV, XML for Linearise output file
+  double lineariseTime_;  ///< Time to start the linearization
 };
 
 }  // namespace job
 
-#endif  // API_JOB_JOBTIMELINEENTRYIMPL_H_
+#endif  // API_JOB_JOBLINEARISEENTRYIMPL_H_

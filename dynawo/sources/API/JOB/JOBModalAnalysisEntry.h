@@ -12,8 +12,8 @@
 //
 
 /**
- * @file JOBLineariseEntry.h
- * @brief Linearise entries description : interface file
+ * @file JOBModalAnalysisEntry.h
+ * @brief ModalAnalysis entries description : interface file
  *
  */
 
@@ -22,15 +22,13 @@
 
 #include <string>
 
-// #include "JOBExport.h"
-
 namespace job {
 
 /**
  * @class ModalAnalysisEntry
  * @brief ModalAnalysis entries container class
  */
-// class __DYNAWO_JOB_EXPORT ModalAnalysisEntry {
+
 class ModalAnalysisEntry {
  public:
   /**
@@ -39,54 +37,28 @@ class ModalAnalysisEntry {
   virtual ~ModalAnalysisEntry() {}
 
   /**
-   * @brief Modal Analysis time setter
-   * @param ModalAnalysisTime : Start time of Modal Analysis
+   * @brief ModalAnalysis time setter
+   * @param ModalAnalysisTime : Start time for modal analysis
    */
   virtual void setModalAnalysisTime(const double & ModalAnalysisTime) = 0;
 
   /**
-   * @brief Modal Analysis part setter
-   * @param ModalAnalysisPart : Start value of minimum relative participation factor
+   * @brief ModalAnalysis part setter
+   * @param ModalAnalysisPart : Start relative participation factor for modal analysis
    */
   virtual void setModalAnalysisPart(const double & ModalAnalysisPart) = 0;
 
-  /* virtual void setModalAnalysisSolver(const int & ModalAnalysisSolver) = 0;
-  virtual int getModalAnalysisSolver() const = 0;*/
   /**
-   * @brief Modal Analysis time getter
-   * @return to retrieve time of Modal Analysis
+   * @brief ModalAnalysis time getter
+   * @return start time for modal analysis
    */
   virtual double getModalAnalysisTime() const = 0;
 
   /**
-   * @brief Modal Analysis part getter
-   * @return to retrieve value of minimum relativ participation factor
+   * @brief ModalAnalysis part getter
+   * @return start relative participation factor for modal analysis
    */
   virtual double getModalAnalysisPart() const = 0;
-
-  /**
-   * @brief Output file attribute setter
-   * @param outputFile: Output file for Modal Analysis
-   */
-  virtual void setOutputFile(const std::string & outputFile) = 0;
-
-  /**
-   * @brief Export Mode attribute setter
-   * @param exportMode: Export mode for Modal Analysis
-   */
-  // virtual void setExportMode(const std::string & exportMode) = 0;
-
-  /**
-   * @brief Output file attribute getter
-   * @return Output file for Modal Analysis
-   */
-  virtual std::string getOutputFile() const = 0;
-
-  /**
-   * @brief Export mode attribute getter
-   * @return Export mode for ModalAnalysis
-   */
-  // virtual std::string getExportMode() const = 0;
 
   class Impl;  ///< implemented class
 };

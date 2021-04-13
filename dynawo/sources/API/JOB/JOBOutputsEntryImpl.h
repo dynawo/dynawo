@@ -144,16 +144,6 @@ class OutputsEntry::Impl : public OutputsEntry {
   boost::shared_ptr<ModalAnalysisEntry> getModalAnalysisEntry() const;
 
  /**
-   * @copydoc OutputsEntry::setAllModesEntry()
-   */
-  void setAllModesEntry(const boost::shared_ptr<AllModesEntry>& allmodesEntry);
-
-  /**
-   * @copydoc OutputsEntry::getAllModesEntry()
-   */
-  boost::shared_ptr<AllModesEntry> getAllModesEntry() const;
-
- /**
    * @copydoc OutputsEntry::setSubParticipationEntry()
    */
   void setSubParticipationEntry(const boost::shared_ptr<SubParticipationEntry>& subparticipationEntry);
@@ -162,6 +152,7 @@ class OutputsEntry::Impl : public OutputsEntry {
    * @copydoc OutputsEntry::getSubParticipationEntry()
    */
   boost::shared_ptr<SubParticipationEntry> getSubParticipationEntry() const;
+
 
  private:
   std::string outputsDirectory_;  ///< directory for simulation outputs
@@ -174,7 +165,6 @@ class OutputsEntry::Impl : public OutputsEntry {
   boost::shared_ptr<LogsEntry> logsEntry_;  ///< Logs entries container
   boost::shared_ptr<LineariseEntry> lineariseEntry_;  ///< Linearise entries container
   boost::shared_ptr<ModalAnalysisEntry> modalanalysisEntry_;  ///< ModalAnalysis entries container
-  boost::shared_ptr<AllModesEntry> allmodesEntry_;  ///< AllModes entries container
   boost::shared_ptr<SubParticipationEntry> subparticipationEntry_;  ///< SubParticipation entries container
 };
 

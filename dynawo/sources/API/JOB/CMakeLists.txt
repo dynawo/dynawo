@@ -43,9 +43,8 @@ set(API_JOB_SOURCES
     JOBTimelineEntryImpl.cpp
     JOBTimetableEntryImpl.cpp
     JOBModelsDirEntryImpl.cpp
-    JOBEvalLineariseEntryImpl.cpp
-    JOBEvalModalAnalysisEntryImpl.cpp
-    JOBAllModesEntryImpl.cpp
+    JOBLineariseEntryImpl.cpp
+    JOBModalAnalysisEntryImpl.cpp
     JOBSubParticipationEntryImpl.cpp
     )
 
@@ -77,7 +76,6 @@ set(API_JOB_INCLUDE_HEADERS
     JOBModelsDirEntry.h
     JOBLineariseEntry.h
     JOBModalAnalysisEntry.h
-    JOBAllModesEntry.h
     JOBSubParticipationEntry.h
     )
 

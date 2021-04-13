@@ -12,7 +12,7 @@
 //
 
 /**
- * @file JOBAllModesEntryImpl.h
+ * @file JOBSubParticipationEntryImpl.h
  * @brief All Modes entries description : header file
  *
  */
@@ -61,32 +61,9 @@ class SubParticipationEntry::Impl : public SubParticipationEntry {
    */
   double getSubParticipationNbMode() const;
 
-
-  /**
-   * @copydoc SubParticipationEntry::setSubParticipationNbMode()
-   */
-  /* void setSubParticipationSolver(const int & subparticipationSolver);*/
-
-  /**
-   * @copydoc SubParticipationEntry::getSubParticipationNbMode()
-   */
-  /* int getSubParticipationSolver() const;*/
-
-  /**
-   * @copydoc SubParticipationEntry::setOutputFile()
-   */
-  void setOutputFile(const std::string & outputFile);
-
-  /**
-   * @copydoc SubParticipationEntry::getOutputFile()
-   */
-  std::string getOutputFile() const;
-
  private:
-  double subparticipationTime_;  ///< Time of compute SubParticipation
-  double subparticipationNbMode_;  ///< NbMode of compute SubParticipation
-  // double subparticipationSolver_;  ///< NbMode of compute SubParticipation
-  std::string outputFile_;  ///< Export file for SubParticipation
+  double subparticipationTime_;  ///< Start time for SubParticipation
+  double subparticipationNbMode_;  ///< Start mode number for SubParticipation
 };
 
 }  // namespace job

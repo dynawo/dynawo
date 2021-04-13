@@ -22,55 +22,30 @@
 namespace job {
 
 SubParticipationEntry::Impl::Impl() :
-subparticipationTime_(0),
-outputFile_("") {
-
+subparticipationTime_(0) {
 }
 
 SubParticipationEntry::Impl::~Impl() {
 }
 
-// to change the value of SubParticipation time
 void
 SubParticipationEntry::Impl::setSubParticipationTime(const double & subparticipationTime) {
   subparticipationTime_ = subparticipationTime;
 }
-// to retrieve the value of Sub Participation time
+
 double
 SubParticipationEntry::Impl::getSubParticipationTime() const {
   return subparticipationTime_;
 }
 
-// to change the value of SubParticipation NbMode
 void
 SubParticipationEntry::Impl::setSubParticipationNbMode(const double & subparticipationNbMode) {
   subparticipationNbMode_ = subparticipationNbMode;
 }
-// to retrieve the value of Sub Participation NbMode
+
 double
 SubParticipationEntry::Impl::getSubParticipationNbMode() const {
   return subparticipationNbMode_;
 }
-// to change the value of SubParticipation NbMode
-/* void
-SubParticipationEntry::Impl::setSubParticipationSolver(const int & subparticipationSolver) {
-  subparticipationSolver_ = subparticipationSolver;
-}
-// to retrieve the value of Sub Participation NbMode
-int
-SubParticipationEntry::Impl::getSubParticipationSolver() const {
-  return subparticipationSolver_;
-}*/
-// functions set and get of output file and export mode (TXT, log,...)
-void
-SubParticipationEntry::Impl::setOutputFile(const std::string & outputFile) {
-  outputFile_ = outputFile;
-}
-
-std::string
-SubParticipationEntry::Impl::getOutputFile() const {
-  return outputFile_;
-}
-
 
 }  // namespace job
