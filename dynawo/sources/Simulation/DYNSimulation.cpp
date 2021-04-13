@@ -17,7 +17,7 @@
  * @brief Simulation implementation
  *
  */
-#include <eigen3/Eigen/Eigenvalues>
+// #include <eigen3/Eigen/Eigenvalues>
 #include <iomanip>
 #include <vector>
 #include <map>
@@ -84,16 +84,16 @@
 #include "JOBConstraintsEntry.h"
 #include "JOBTimelineEntry.h"
 #include "JOBTimetableEntry.h"
-#include "JOBLineariseEntry.h"
-#include "JOBModalAnalysisEntry.h"
-#include "JOBAllModesEntry.h"
-#include "JOBSubParticipationEntry.h"
 #include "JOBFinalStateEntry.h"
 #include "JOBCurvesEntry.h"
 #include "JOBSimulationEntry.h"
 #include "JOBLogsEntry.h"
 #include "JOBAppenderEntry.h"
 #include "JOBDynModelsEntry.h"
+
+#include "JOBLineariseEntry.h"
+#include "JOBModalAnalysisEntry.h"
+#include "JOBSubParticipationEntry.h"
 
 #include "gitversion.h"
 #include "config.h"
@@ -163,10 +163,6 @@ curvesInputFile_(""),
 curvesOutputFile_(""),
 exportTimelineMode_(EXPORT_TIMELINE_NONE),
 timelineOutputFile_(""),
-lineariseOutputFile_(""),
-modalanalysisOutputFile_(""),
-allmodesOutputFile_(""),
-subparticipationOutputFile_(""),
 exportFinalStateMode_(EXPORT_FINALSTATE_NONE),
 finalStateInputFile_(""),
 finalStateOutputFile_(""),
@@ -279,10 +275,9 @@ Simulation::configureSimulationOutputs() {
       setDumpLocalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpLocalInitValues());
       setDumpGlobalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpGlobalInitValues());
     }
-    configureAllModesOutputs();
+    configureLineariseOutputs();
     configureModalAnalysisOutputs();
     configureSubParticipationOutputs();
-    configureLineariseOutputs();
     configureConstraintsOutputs();
     configureTimelineOutputs();
     configureTimetableOutputs();
@@ -292,44 +287,36 @@ Simulation::configureSimulationOutputs() {
 }
 
 void
-Simulation::configureAllModesOutputs() {
-    // All Modes settings
-    if (jobEntry_->getOutputsEntry()->getAllModesEntry()) {
-      double tAllModes_ = jobEntry_->getOutputsEntry()->getAllModesEntry()->getAllModesTime();
-      setAllModesTime(tAllModes_);
-}
+Simulation::configureLineariseOutputs() {
+  // Linearise settings
+  if (jobEntry_->getOutputsEntry()->getLineariseEntry()) {
+    double tLinearise_ = jobEntry_->getOutputsEntry()->getLineariseEntry()->getLineariseTime();
+    setLineariseTime(tLinearise_);
+  }
 }
 
 void
 Simulation::configureModalAnalysisOutputs() {
-    // Modal Analysis settings
-    if (jobEntry_->getOutputsEntry()->getModalAnalysisEntry()) {
-      double tModalAnalysis_ = jobEntry_->getOutputsEntry()->getModalAnalysisEntry()->getModalAnalysisTime();
-      setModalAnalysisTime(tModalAnalysis_);
-      double Part_ = jobEntry_->getOutputsEntry()->getModalAnalysisEntry()->getModalAnalysisPart();
-      setModalAnalysisPart(Part_);
-}
+  // Modal Analysis settings
+  if (jobEntry_ -> getOutputsEntry() -> getModalAnalysisEntry()) {
+    double tModalAnalysis_ = jobEntry_ -> getOutputsEntry() -> getModalAnalysisEntry() -> getModalAnalysisTime();
+    setModalAnalysisTime(tModalAnalysis_);
+    double Part_ = jobEntry_ -> getOutputsEntry() -> getModalAnalysisEntry() -> getModalAnalysisPart();
+    setModalAnalysisPart(Part_);
+  }
 }
 
 void
 Simulation::configureSubParticipationOutputs() {
-      // sub Participation settings
-    if (jobEntry_->getOutputsEntry()->getSubParticipationEntry()) {
-      double tSubParticipation_ = jobEntry_->getOutputsEntry()->getSubParticipationEntry()->getSubParticipationTime();
-      setSubParticipationTime(tSubParticipation_);
-      double NbMode_ = jobEntry_->getOutputsEntry()->getSubParticipationEntry()->getSubParticipationNbMode();
-      setSubParticipationNbMode(NbMode_);
-}
+  // sub Participation settings
+  if (jobEntry_->getOutputsEntry()->getSubParticipationEntry()) {
+    double tSubParticipation_ = jobEntry_->getOutputsEntry()->getSubParticipationEntry()->getSubParticipationTime();
+    setSubParticipationTime(tSubParticipation_);
+    double NbMode_ = jobEntry_->getOutputsEntry()->getSubParticipationEntry()->getSubParticipationNbMode();
+    setSubParticipationNbMode(NbMode_);
+  }
 }
 
-void
-Simulation::configureLineariseOutputs() {
-    // Linearise settings
-    if (jobEntry_->getOutputsEntry()->getLineariseEntry()) {
-      double tLinearise_ = jobEntry_->getOutputsEntry()->getLineariseEntry()->getLineariseTime();
-      setLineariseTime(tLinearise_);
-}
-}
 void
 Simulation::configureConstraintsOutputs() {
   // Constraints settings
@@ -717,8 +704,8 @@ Simulation::init() {
     model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
     model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
     model_->printEquations();
-    // model_->printEquationsNew();
   }
+
 #ifdef _DEBUG_
   model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
   model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
@@ -873,25 +860,6 @@ Simulation::simulate() {
         model_->getCurrentZ(zCurrent_);
         modifZ = true;
       }
-      // Compute the state matrix, input matrix B, and output matrix C
-      if (tCurrent_ == tLinearise_) {
-      model_->evalLinearise(tCurrent_);
-      }
-      // Compute all modes of small system
-      if (tCurrent_ == tAllModes_) {
-      model_->allModes(tCurrent_);
-      }
-      // Compute the sub participation factor of a given mode
-      if (tCurrent_ == tSubParticipation_) {
-      model_->subParticipation(tCurrent_, NbMode_);
-      }
-      // Call of Complete Eigenanalysis Function
-      if (tCurrent_ == tModalAnalysis_) {
-      model_->evalmodalAnalysis(tCurrent_, Part_);
-      }
-      // end of call
-
-
       if (isCheckCriteriaIter)
       model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
       updateCurves(!isCheckCriteriaIter && !modifZ);
@@ -900,21 +868,22 @@ Simulation::simulate() {
       if (timetableOutputFile_ != "" && currentIterNb % timetableSteps_ == 0)
         printCurrentTime(timetableOutputFile_);
 
-      // Compute the state matrix, input matrix B, and output matrix C
       if (tCurrent_ == tLinearise_) {
-      model_->evalLinearise(tCurrent_);
+        if (Trace::logExists(Trace::statespace(), DEBUG)) {
+          model_->evalLinearise(tCurrent_);  // state space realisation (state matrix A, input matrix B, and output matrix C)
+        }
       }
-      // Compute all modes of small system
-      if (tCurrent_ == tAllModes_) {
-      model_->allModes(tCurrent_);
-      }
-      // Compute the sub participation factor of a given mode
+
       if (tCurrent_ == tSubParticipation_) {
-      model_->subParticipation(tCurrent_, NbMode_);
+        if (Trace::logExists(Trace::subparticipation(), DEBUG)) {
+          model_->subParticipation(tCurrent_, NbMode_);  // sub participation factors of a given mode
+        }
       }
-      // Call of Complete Eigenanalysis Function
+
       if (tCurrent_ == tModalAnalysis_) {
-      model_->evalmodalAnalysis(tCurrent_, Part_);
+        if (Trace::logExists(Trace::fullmodalanalysis(), DEBUG)) {
+          model_->smallModalAnalysis(tCurrent_, Part_);  // full modal analysis
+        }
       }
       // end of call
 
@@ -1082,22 +1051,6 @@ Simulation::terminate() {
     fileTimeline.close();
   }
 
-/* if (lineariseOutputFile_ != "") {
-    ofstream fileLinearise;
-    openFileStream(fileLinearise, lineariseOutputFile_);
-    // std::cin >> tCurrent_;
-    // printLinearise(fileLinearise);
-    fileLinearise.close();
-  }*/
-// à vérifier: erreur lors de la compilation
-/* if (modalanalysisOutputFile_ != "") {
-    ofstream fileModalanalysis;
-    openFileStream(fileModalAnalysis, modalanalysisOutputFile_);
-    // std::cin >> tCurrent_;
-    // printLinearise(fileLinearise);
-    fileModalAnalysis.close();
-  }
-*/
   if (finalStateOutputFile_ != "") {
     ofstream fileFinalState;
     openFileStream(fileFinalState, finalStateOutputFile_);
@@ -1169,26 +1122,6 @@ Simulation::printTimeline(std::ostream& stream) const {
     }
   }
 }
-
-/* void
-Simulation::printLinearise() const {
-  switch (exportLineariseMode_) {
-  case EXPORT_LINEARISE_NONE:
-      break;
-  case EXPORT_LINEARISE_CSV: {
-      model_->evalLinearise(tCurrent_, yCurrent_);
-      break;
-    }
-    case EXPORT_LINEARISE_XML: {
-      model_->evalLinearise(tCurrent_, yCurrent_);
-      break;
-    }
-    case EXPORT_LINEARISE_TXT: {
-    model_->evalLinearise(tCurrent_, yCurrent_);
-      break;
-    }
-  }
-}*/
 
 void
 Simulation::printFinalState(std::ostream& stream) const {
