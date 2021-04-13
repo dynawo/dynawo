@@ -15,17 +15,24 @@
   <dyn:blackBoxModel id="Converter250" lib="GridFormingConverterDroopControl" parFile="./GridFormingConverters.par" parId="1"/>
   <dyn:blackBoxModel id="Converter500" lib="GridFormingConverterDispatchableVirtualOscillatorControl" parFile="./GridFormingConverters.par" parId="2"/>
   <dyn:blackBoxModel id="Converter1000" lib="GridFormingConverterMatchingControl" parFile="./GridFormingConverters.par" parId="3"/>
-  <dyn:blackBoxModel id="Line12" lib="Line" parFile="./GridFormingConverters.par" parId="4"/>
-  <dyn:blackBoxModel id="Line23bis1" lib="Line" parFile="./GridFormingConverters.par" parId="5"/>
-  <dyn:blackBoxModel id="Line23bis2" lib="Line" parFile="./GridFormingConverters.par" parId="5"/>
-  <dyn:blackBoxModel id="Line23" lib="Line" parFile="./GridFormingConverters.par" parId="6"/>
-  <dyn:blackBoxModel id="Line13" lib="Line" parFile="./GridFormingConverters.par" parId="7"/>
-  <dyn:blackBoxModel id="Load" lib="LoadAlphaBeta" parFile="./GridFormingConverters.par" parId="8"/>
-  <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="./GridFormingConverters.par" parId="9"/>
-  <dyn:blackBoxModel id="Disconnect" lib="EventSetPointBoolean" parFile="./GridFormingConverters.par" parId="10"/>
-  <dyn:connect id1="Converter250" var1="control_omegaRefPu" id2="Converter1000" var2="control_omegaPu"/>
-  <dyn:connect id1="Converter500" var1="control_omegaRefPu" id2="Converter1000" var2="control_omegaPu"/>
-  <dyn:connect id1="Converter1000" var1="control_omegaRefPu" id2="Converter500" var2="control_omegaRefPu"/>
+  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="./GridFormingConverters.par" parId="4"/>
+  <dyn:blackBoxModel id="Line12" lib="Line" parFile="./GridFormingConverters.par" parId="5"/>
+  <dyn:blackBoxModel id="Line23bis1" lib="Line" parFile="./GridFormingConverters.par" parId="6"/>
+  <dyn:blackBoxModel id="Line23bis2" lib="Line" parFile="./GridFormingConverters.par" parId="6"/>
+  <dyn:blackBoxModel id="Line23" lib="Line" parFile="./GridFormingConverters.par" parId="7"/>
+  <dyn:blackBoxModel id="Line13" lib="Line" parFile="./GridFormingConverters.par" parId="8"/>
+  <dyn:blackBoxModel id="Load" lib="LoadAlphaBeta" parFile="./GridFormingConverters.par" parId="9"/>
+  <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="./GridFormingConverters.par" parId="10"/>
+  <dyn:blackBoxModel id="Disconnect" lib="EventSetPointBoolean" parFile="./GridFormingConverters.par" parId="11"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0_value" id2="Converter250" var2="converter_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0_value" id2="Converter250" var2="control_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_0" id2="Converter250" var2="converter_running"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_1_value" id2="Converter500" var2="converter_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_1_value" id2="Converter500" var2="control_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_1" id2="Converter500" var2="converter_running"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_2_value" id2="Converter1000" var2="converter_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_2_value" id2="Converter1000" var2="control_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="running_grp_2" id2="Converter1000" var2="converter_running"/>
   <dyn:connect id1="Converter1000" var1="converter_terminal" id2="Line12" var2="line_terminal1"/>
   <dyn:connect id1="Converter1000" var1="converter_terminal" id2="Line13" var2="line_terminal1"/>
   <dyn:connect id1="Converter250" var1="converter_terminal" id2="Line23" var2="line_terminal1"/>
