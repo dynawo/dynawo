@@ -29,10 +29,9 @@
         <dyn:modalanalysis modalanalysisTime="30" modalanalysisPart="1"/>
       <dyn:subparticipation subparticipationTime="30" subparticipationNbMode="2"/>
        <dyn:logs>
-          <dyn:appender tag="NETWORK" file="network.log" lvlFilter="DEBUG"/>
-          <dyn:appender tag="MODELER" file="modeler.log" lvlFilter="DEBUG"/>
-          <dyn:appender tag="COMPILE" file="compile.log" lvlFilter="DEBUG"/>
-          <dyn:appender tag="PARAMETERS" file="param.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="STATESPACE" file="linearise.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="FULLMODALANALYSIS" file="modalanalysis.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="SUBPARTICIPATION" file="subparticipation.log" lvlFilter="DEBUG"/>
           <dyn:appender tag="EQUATIONS" file="equations.log" lvlFilter="DEBUG"/>
           <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
           <dyn:appender tag="VARIABLES" file="dynawoVariables.log" lvlFilter="DEBUG"/>

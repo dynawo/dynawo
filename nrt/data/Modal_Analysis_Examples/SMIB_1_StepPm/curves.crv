@@ -14,7 +14,7 @@
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
   <curve model="SM" variable="gen_omegaPu"/>
   <curve model="SM" variable="avr_UsRefPu"/>
-  <!--curve model="SM" variable="gen_cePu"/>
+  <curve model="SM" variable="gen_cePu"/>
   <curve model="SM" variable="gen_PePu"/>
   <curve model="SM" variable="gen_cmPu"/>
   <curve model="SM" variable="gen_PmPu"/>
@@ -31,5 +31,5 @@
   <curve model="SM" variable="gen_UStatorPu"/>
   <curve model="SM" variable="gen_QStatorPu"/>
   <curve model="SM" variable="gen_thetaInternal"/>
-  <curve model="SM" variable="gover_PmRefPu"/-->
+  <curve model="SM" variable="gover_PmRefPu"/>
 </curvesInput>

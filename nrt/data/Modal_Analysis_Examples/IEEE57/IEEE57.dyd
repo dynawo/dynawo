@@ -62,6 +62,7 @@
   <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="7" staticId="_GEN____8_SM"/>
   <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="8" staticId="_GEN____2_SM"/>
   <!--dyn:blackBoxModel id="LoadVariation" lib="EventSetPointDoubleReal" parFile="event.par" parId="1"/-->
+  <dyn:blackBoxModel id="FAULT_GEN_1" lib="NodeFault" parFile="IEEE57.par" parId="11"/>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE57.par" parId="9"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____6_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____6_SM" var2="generator_omegaRefPu"/>
@@ -147,6 +148,7 @@
   <dyn:connect id1="GEN____8_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____2_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_ACPIN"/>
   <dyn:connect id1="GEN____2_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="FAULT_GEN_1" var1="fault_terminal" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_ACPIN"/>
   <!--dyn:connect id1="LoadVariation" var1="event_state1" id2="_LOAD____9_EC" var2="load_PRefPu"/>
   <dyn:connect id1="LoadVariation" var1="event_state2" id2="_LOAD____9_EC" var2="load_QRefPu"/-->
 </dyn:dynamicModelsArchitecture>
