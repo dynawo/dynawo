@@ -100,6 +100,7 @@ where [option] can be:"
 
         =========== Tests
         nrt ([-p regex] [-n name_filter])     run (filtered) non-regression tests and open the result in chosen browser
+        nrt-clean                             clean non-regression tests
         nrt-diff ([args])                     make a diff between two non-regression test outputs
         nrt-ref ([args])                      define or redefine automatically the non-regression tests references
         nrt-xsl ([args])                      update automatically the xml input files from the nrt
@@ -1372,6 +1373,15 @@ nrt() {
   fi
 }
 
+nrt_clean() {
+  find $DYNAWO_NRT_DIR/data -depth -type d -name "outputs*" -not -path "*reference*/*" -exec rm -rf {} \; > /dev/null 2>&1
+  rm -rf $DYNAWO_NRT_DIR/output
+  rm -rf $DYNAWO_HOME/util/nrt_diff/output
+  find $DYNAWO_NRT_DIR -name "*.pyc" -exec rm -rf {} \;
+  find $DYNAWO_HOME/util/nrt_diff -name "*.pyc" -exec rm -rf {} \;
+  find $DYNAWO_NRT_DIR/data -empty -type d -delete
+}
+
 run_documentation_test() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
@@ -2473,6 +2483,10 @@ case $MODE in
 
   nrt)
     nrt ${ARGS} || error_exit "Error during Dynawo's non regression tests execution"
+    ;;
+
+  nrt-clean)
+    nrt_clean || error_exit "Error during Dynawo's non regression tests clean"
     ;;
 
   nrt-diff)
