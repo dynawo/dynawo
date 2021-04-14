@@ -132,8 +132,13 @@ ShuntCompensatorInterfaceIIDM::getMaximumSection() const {
 }
 
 double
-ShuntCompensatorInterfaceIIDM::getBPerSection() const {
-  return shuntCompensatorIIDM_.bPerSection();
+ShuntCompensatorInterfaceIIDM::getB(const int section) const {
+  return shuntCompensatorIIDM_.bPerSection() * section;
+}
+
+bool
+ShuntCompensatorInterfaceIIDM::isLinear() const {
+  return true;
 }
 
 }  // namespace DYN
