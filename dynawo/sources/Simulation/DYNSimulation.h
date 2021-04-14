@@ -30,6 +30,7 @@
 
 #include "DYNSignalHandler.h"
 #include "PARParametersSetCollection.h"
+#include "DYNDataInterface.h"
 
 namespace timeline {
 class Timeline;
@@ -131,9 +132,10 @@ class Simulation {
    *
    * @param jobEntry data read in jobs file
    * @param context context of the simulation (configuration, directories, locale, etc...)
+   * @param data data interface to use for the simulation (NULL if we build it inside simulation)
    */
-  Simulation(boost::shared_ptr<job::JobEntry>& jobEntry, boost::shared_ptr<SimulationContext>& context);
-
+  Simulation(boost::shared_ptr<job::JobEntry>& jobEntry, boost::shared_ptr<SimulationContext>& context,
+              boost::shared_ptr<DataInterface> data = boost::shared_ptr<DataInterface>());
   /**
    * @brief destructor
    */

@@ -147,7 +147,7 @@ static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump t
 
 namespace DYN {
 
-Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context) :
+Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
 context_(context),
 jobEntry_(jobEntry),
 data_(data),
@@ -565,11 +565,6 @@ Simulation::loadDynamicData() {
 
     // the Network parameter file path is considered to be relative to the jobs file directory
     dyd_->getNetworkParameters(networkParFile_, networkParSet_);
-  } else {
-    dyd_->initFromDydFiles(dydFiles_);
-    if (activateCriteria_)
-      Trace::warn() << DYNLog(CriteriaDefinedButNoIIDM) << Trace::endline;
-  }
 }
 
 void
