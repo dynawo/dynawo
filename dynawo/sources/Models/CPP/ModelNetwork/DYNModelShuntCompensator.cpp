@@ -49,13 +49,13 @@ modelBus_(),
 noReclosingDelay_(0.),
 stateModified_(false) {
   // init data
-  suscepPerSect_ = shunt->getBPerSection();
   currentSection_ = shunt->getCurrentSection();
   maximumSection_ = shunt->getMaximumSection();
+  suscepAtMaximumSec_ = shunt->getB(maximumSection_);
   vNom_ = shunt->getVNom();
-  suscepPu_ = (suscepPerSect_ * currentSection_) * vNom_ * vNom_ / SNREF;
+  suscepPu_ = shunt->getB(currentSection_) * vNom_ * vNom_ / SNREF;
   tLastOpening_ = VALDEF;
-  type_ = (suscepPerSect_ > 0) ? CAPACITOR : REACTANCE;
+  type_ = (shunt->getB(currentSection_) > 0) ? CAPACITOR : REACTANCE;
   connectionState_ = shunt->getInitialConnected() ? CLOSED : OPEN;
 
   double Q = shunt->getQ() / SNREF;
@@ -217,13 +217,14 @@ ModelShuntCompensator::evalZ(const double& t) {
       DYNAddTimelineEvent(network_, id_, ShuntDisconnected);
       tLastOpening_ = t;
       currentSection_ = 0;
+      suscepPu_ = 0.;
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
     } else if (currState == CLOSED) {
       DYNAddTimelineEvent(network_, id_, ShuntConnected);
       currentSection_ = maximumSection_;
+      suscepPu_ = suscepAtMaximumSec_ * vNom_ * vNom_ / SNREF;
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
     }
-    suscepPu_ = (suscepPerSect_ * currentSection_) * vNom_ * vNom_ / SNREF;
     setConnected(currState);
   }
   return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;

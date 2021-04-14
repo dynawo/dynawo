@@ -98,10 +98,18 @@ class ShuntCompensatorInterface : public ComponentInterface {
   virtual int getMaximumSection() const = 0;
 
   /**
-   * @brief Getter for the shuntCompensator's susceptance per section
-   * @return The susceptance per section of the shunt compensator in Siemens
+   * @brief Getter for the shuntCompensator's cumulative susceptance at given section
+   *  i.e. the sum of the sections' susceptances from 1 to section
+   * @param section at which calculate the shuntsCompensator's susceptance
+   * @return The cumulative susceptance in Siemens, at given section of the shunt compensator
    */
-  virtual double getBPerSection() const = 0;
+  virtual double getB(const int section) const = 0;
+
+  /**
+   * @brief Getter for model type of the shunt compensator
+   * @return @b true if the shunt compensator is linear, @b false otherwise
+   */
+  virtual bool isLinear() const = 0;
 };  ///< Interface class for Shunt Compensator
 
 }  // namespace DYN

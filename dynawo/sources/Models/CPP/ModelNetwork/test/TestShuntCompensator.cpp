@@ -42,6 +42,7 @@
 #include "TLTimelineFactory.h"
 #include "DYNSparseMatrix.h"
 #include "DYNVariable.h"
+#include "DYNElement.h"
 
 #include "gtest_dynawo.h"
 
@@ -313,6 +314,9 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   ASSERT_NO_THROW(capa->evalG(1.));
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[0], ROOT_DOWN);
 
+  BitMask* silentZ = new BitMask[capa->sizeZ()];
+  ASSERT_NO_THROW(capa->collectSilentZ(silentZ));
+
   shared_ptr<ModelShuntCompensator> capaInit = createModelShuntCompensator(false, capacitance, true).first;
   capaInit->initSize();
   ASSERT_EQ(capaInit->sizeZ(), 0);
@@ -352,6 +356,8 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorContinuousVariables) {
   fEquationIndex.clear();
   ASSERT_NO_THROW(capaInit->setFequations(fEquationIndex));
   ASSERT_EQ(fEquationIndex.size(), 0);
+  ASSERT_NO_THROW(capa->evalDerivatives(1));
+  ASSERT_NO_THROW(capa->evalNodeInjection());
 }
 
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDefineInstantiate) {
@@ -393,6 +399,11 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDefineInstantiate) {
   param2.setValue<double>(10., PAR);
   parametersModels.insert(std::make_pair(paramName2, param2));
   ASSERT_NO_THROW(rea->setSubModelParameters(parametersModels));
+
+  std::vector<Element> elements;
+  std::map<std::string, int> mapElement;
+  ASSERT_NO_THROW(capa->defineElements(elements, mapElement));
+  ASSERT_EQ(elements.size(), 10);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorJt) {

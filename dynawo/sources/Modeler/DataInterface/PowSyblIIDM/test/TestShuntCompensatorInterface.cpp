@@ -88,12 +88,40 @@ TEST(DataInterfaceTest, ShuntCompensator) {
   shuntCompensatorIfce.setBusInterface(busIfce);
   ASSERT_EQ(shuntCompensatorIfce.getBusInterface().get()->getID(), "VL1_BUS1");
 
-  ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getBPerSection(), 12.0);
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getCurrentSection(), 2UL);
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getMaximumSection(), 3UL);
   shuntCompensator.getTerminal().setQ(4.0);
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getQ(), 4.0);
   ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getVNom(), 380);
+  ASSERT_TRUE(shuntCompensatorIfce.isLinear());
+  ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getB(0), 0.);
+  ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getB(1), 12.);
+  ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getB(2), 24.);
+  ASSERT_DOUBLE_EQ(shuntCompensatorIfce.getB(3), 36.);
+
+  vl1.newShuntCompensator()
+      .setId("SHUNT2")
+      .setName("SHUNT2_NAME")
+      .setBus(bus1.getId())
+      .setConnectableBus(bus1.getId())
+      .newNonLinearModel()
+      .beginSection()
+      .setB(11.)
+      .endSection()
+      .beginSection()
+      .setB(24.0)
+      .endSection()
+      .add()
+      .setSectionCount(2)
+      .add();
+  ShuntCompensator& shuntCompensator_2 = network.getShuntCompensator("SHUNT2");
+  ShuntCompensatorInterfaceIIDM shuntCompensatorIfce_2(shuntCompensator_2);
+  const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce_2(new VoltageLevelInterfaceIIDM(vl1));
+  shuntCompensatorIfce_2.setVoltageLevelInterface(voltageLevelIfce_2);
+  ASSERT_FALSE(shuntCompensatorIfce_2.isLinear());
+  ASSERT_DOUBLE_EQ(shuntCompensatorIfce_2.getB(0), 0.);
+  ASSERT_DOUBLE_EQ(shuntCompensatorIfce_2.getB(1), 11.);
+  ASSERT_DOUBLE_EQ(shuntCompensatorIfce_2.getB(2), 24.);
 }  // TEST(DataInterfaceTest, ShuntCompensator)
 
 }  // namespace DYN
