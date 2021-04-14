@@ -82,32 +82,32 @@ OutputsEntry::getFinalStateEntry() const {
 }
 
 void
-OutputsEntry::Impl::setLineariseEntry(const boost::shared_ptr<LineariseEntry>& lineariseEntry) {
+OutputsEntry::setLineariseEntry(const boost::shared_ptr<LineariseEntry>& lineariseEntry) {
   lineariseEntry_ = lineariseEntry;
 }
 
 boost::shared_ptr<LineariseEntry>
-OutputsEntry::Impl::getLineariseEntry() const {
+OutputsEntry::getLineariseEntry() const {
   return lineariseEntry_;
 }
 
 void
-OutputsEntry::Impl::setModalAnalysisEntry(const boost::shared_ptr<ModalAnalysisEntry>& modalanalysisEntry) {
+OutputsEntry::setModalAnalysisEntry(const boost::shared_ptr<ModalAnalysisEntry>& modalanalysisEntry) {
   modalanalysisEntry_ = modalanalysisEntry;
 }
 
 boost::shared_ptr<ModalAnalysisEntry>
-OutputsEntry::Impl::getModalAnalysisEntry() const {
+OutputsEntry::getModalAnalysisEntry() const {
   return modalanalysisEntry_;
 }
 
 void
-OutputsEntry::Impl::setSubParticipationEntry(const boost::shared_ptr<SubParticipationEntry>& subparticipationEntry) {
+OutputsEntry::setSubParticipationEntry(const boost::shared_ptr<SubParticipationEntry>& subparticipationEntry) {
   subparticipationEntry_ = subparticipationEntry;
 }
 
 boost::shared_ptr<SubParticipationEntry>
-OutputsEntry::Impl::getSubParticipationEntry() const {
+OutputsEntry::getSubParticipationEntry() const {
   return subparticipationEntry_;
 }
 

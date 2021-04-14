@@ -32,35 +32,32 @@ namespace job {
 class ModalAnalysisEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~ModalAnalysisEntry() {}
-
-  /**
    * @brief ModalAnalysis time setter
    * @param ModalAnalysisTime : Start time for modal analysis
    */
-  virtual void setModalAnalysisTime(const double & ModalAnalysisTime) = 0;
+  void setModalAnalysisTime(const double & ModalAnalysisTime);
 
   /**
    * @brief ModalAnalysis part setter
    * @param ModalAnalysisPart : Start relative participation factor for modal analysis
    */
-  virtual void setModalAnalysisPart(const double & ModalAnalysisPart) = 0;
+  void setModalAnalysisPart(const double & ModalAnalysisPart);
 
   /**
    * @brief ModalAnalysis time getter
    * @return start time for modal analysis
    */
-  virtual double getModalAnalysisTime() const = 0;
+  double getModalAnalysisTime() const;
 
   /**
    * @brief ModalAnalysis part getter
    * @return start relative participation factor for modal analysis
    */
-  virtual double getModalAnalysisPart() const = 0;
+  double getModalAnalysisPart() const;
 
-  class Impl;  ///< implemented class
+ private:
+  double modalanalysisTime_;  ///< Time to start the modal analysis
+  double modalanalysisPart_;  ///< Minimum relative participation factor for modal analysis
 };
 
 }  // namespace job

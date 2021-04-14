@@ -17,34 +17,27 @@
  *
  */
 
-#include "JOBModalAnalysisEntryImpl.h"
+#include "JOBModalAnalysisEntry.h"
 
 namespace job {
 
-ModalAnalysisEntry::Impl::Impl() :
-modalanalysisTime_(0) {
-}
-
-ModalAnalysisEntry::Impl::~Impl() {
-}
-
 void
-ModalAnalysisEntry::Impl::setModalAnalysisTime(const double & modalanalysisTime) {
+ModalAnalysisEntry::setModalAnalysisTime(const double & modalanalysisTime) {
   modalanalysisTime_ = modalanalysisTime;
 }
 
 double
-ModalAnalysisEntry::Impl::getModalAnalysisTime() const {
+ModalAnalysisEntry::getModalAnalysisTime() const {
   return modalanalysisTime_;
 }
 
 void
-ModalAnalysisEntry::Impl::setModalAnalysisPart(const double & modalanalysisPart) {
+ModalAnalysisEntry::setModalAnalysisPart(const double & modalanalysisPart) {
   modalanalysisPart_ = modalanalysisPart;
 }
 
 double
-ModalAnalysisEntry::Impl::getModalAnalysisPart() const {
+ModalAnalysisEntry::getModalAnalysisPart() const {
   return modalanalysisPart_;
 }
 

@@ -31,35 +31,32 @@ namespace job {
 class SubParticipationEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~SubParticipationEntry() {}
-
-  /**
    * @brief SubParticipation time setter
    * @param SubParticipationTime : Start time for SubParticipation
    */
-  virtual void setSubParticipationTime(const double & SubParticipationTime) = 0;
+  void setSubParticipationTime(const double & SubParticipationTime);
 
   /**
    * @brief SubParticipation time getter
    * @return start time for SubParticipation
    */
-  virtual double getSubParticipationTime() const = 0;
+  double getSubParticipationTime() const;
 
   /**
    * @brief SubParticipation NbMode setter
    * @param SubParticipationNbMode : Start mode number for SubParticipation
    */
-  virtual void setSubParticipationNbMode(const double & SubParticipationNbMode) = 0;
+  void setSubParticipationNbMode(const double & SubParticipationNbMode);
 
   /**
    * @brief SubParticipation NbMode getter
    * @return start mode number for SubParticipation
    */
-  virtual double getSubParticipationNbMode() const = 0;
+  double getSubParticipationNbMode() const;
 
-  class Impl;  ///< implemented class
+ private:
+  double subparticipationTime_;  ///< Start time for SubParticipation
+  double subparticipationNbMode_;  ///< Start mode number for SubParticipation
 };
 
 }  // namespace job

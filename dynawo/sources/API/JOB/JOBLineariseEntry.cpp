@@ -17,24 +17,17 @@
  *
  */
 
-#include "JOBLineariseEntryImpl.h"
+#include "JOBLineariseEntry.h"
 
 namespace job {
 
-LineariseEntry::Impl::Impl() :
-lineariseTime_(0) {
-}
-
-LineariseEntry::Impl::~Impl() {
-}
-
 void
-LineariseEntry::Impl::setLineariseTime(const double & lineariseTime) {
+LineariseEntry::setLineariseTime(const double & lineariseTime) {
   lineariseTime_ = lineariseTime;
 }
 
 double
-LineariseEntry::Impl::getLineariseTime() const {
+LineariseEntry::getLineariseTime() const {
   return lineariseTime_;
 }
 

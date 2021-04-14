@@ -413,7 +413,7 @@ ModalAnalysisHandler::ModalAnalysisHandler(elementName_type const& root_element)
 
 void
 ModalAnalysisHandler::create(attributes_type const& attributes) {
-  modalanalysis_ = shared_ptr<ModalAnalysisEntry>(new ModalAnalysisEntry::Impl());
+  modalanalysis_ = shared_ptr<ModalAnalysisEntry>(new ModalAnalysisEntry);
   modalanalysis_->setModalAnalysisTime(attributes["modalanalysisTime"]);
   modalanalysis_->setModalAnalysisPart(attributes["modalanalysisPart"]);
 }
@@ -429,7 +429,7 @@ SubParticipationHandler::SubParticipationHandler(elementName_type const& root_el
 
 void
 SubParticipationHandler::create(attributes_type const& attributes) {
-  subparticipation_ = shared_ptr<SubParticipationEntry>(new SubParticipationEntry::Impl());
+  subparticipation_ = shared_ptr<SubParticipationEntry>(new SubParticipationEntry);
   subparticipation_->setSubParticipationTime(attributes["subparticipationTime"]);
   subparticipation_->setSubParticipationNbMode(attributes["subparticipationNbMode"]);
 }
@@ -445,7 +445,7 @@ LineariseHandler::LineariseHandler(elementName_type const& root_element) {
 
 void
 LineariseHandler::create(attributes_type const& attributes) {
-  linearise_ = shared_ptr<LineariseEntry>(new LineariseEntry::Impl());
+  linearise_ = shared_ptr<LineariseEntry>(new LineariseEntry);
   linearise_->setLineariseTime(attributes["lineariseTime"]);
 }
 

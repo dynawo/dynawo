@@ -147,7 +147,7 @@ class OutputsEntry {
    * @brief Linearise entries container getter
    * @return the linearise entry container
    */
-  boost::shared_ptr<LineariseEntry> getLineariseEntry();
+  boost::shared_ptr<LineariseEntry> getLineariseEntry() const;
 
   /**
    * @brief ModalAnalysis entry setter
@@ -159,7 +159,7 @@ class OutputsEntry {
    * @brief ModalAnalysis entries container getter
    * @return the modalanalysis entry container
    */
-  boost::shared_ptr<ModalAnalysisEntry> getModalAnalysisEntry();
+  boost::shared_ptr<ModalAnalysisEntry> getModalAnalysisEntry() const;
 
   /**
    * @brief Sub Participation entry setter
@@ -172,7 +172,7 @@ class OutputsEntry {
    * @return the subparticipation entry container
    */
 
-   boost::shared_ptr<SubParticipationEntry> getSubParticipationEntry();
+  boost::shared_ptr<SubParticipationEntry> getSubParticipationEntry() const;
 
  private:
   std::string outputsDirectory_;                                    ///< directory for simulation outputs
@@ -186,7 +186,6 @@ class OutputsEntry {
   boost::shared_ptr<LineariseEntry> lineariseEntry_;                ///< Linearise entries container
   boost::shared_ptr<ModalAnalysisEntry> modalanalysisEntry_;        ///< ModalAnalysis entries container
   boost::shared_ptr<SubParticipationEntry> subparticipationEntry_;  ///< SubParticipation entries container
-
 };
 
 }  // namespace job

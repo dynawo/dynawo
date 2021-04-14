@@ -31,23 +31,19 @@ namespace job {
 class LineariseEntry {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~LineariseEntry() {}
-
-  /**
    * @brief Start time setter
    * @param startTime : Start time of the linearization
    */
-  virtual void setLineariseTime(const double & lineariseTime) = 0;
+  void setLineariseTime(const double & lineariseTime);
 
   /**
    * @brief Start time getter
    * @return linearise time for the job
    */
-  virtual double getLineariseTime() const = 0;
+  double getLineariseTime() const;
 
-  class Impl;  ///< implemented class
+ private:
+  double lineariseTime_;  ///< Time to start the linearization
 };
 
 }  // namespace job

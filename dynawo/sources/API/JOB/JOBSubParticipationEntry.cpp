@@ -17,34 +17,28 @@
  *
  */
 
-#include "JOBSubParticipationEntryImpl.h"
+#include "JOBSubParticipationEntry.h"
 
 namespace job {
 
-SubParticipationEntry::Impl::Impl() :
-subparticipationTime_(0) {
-}
-
-SubParticipationEntry::Impl::~Impl() {
-}
 
 void
-SubParticipationEntry::Impl::setSubParticipationTime(const double & subparticipationTime) {
+SubParticipationEntry::setSubParticipationTime(const double & subparticipationTime) {
   subparticipationTime_ = subparticipationTime;
 }
 
 double
-SubParticipationEntry::Impl::getSubParticipationTime() const {
+SubParticipationEntry::getSubParticipationTime() const {
   return subparticipationTime_;
 }
 
 void
-SubParticipationEntry::Impl::setSubParticipationNbMode(const double & subparticipationNbMode) {
+SubParticipationEntry::setSubParticipationNbMode(const double & subparticipationNbMode) {
   subparticipationNbMode_ = subparticipationNbMode;
 }
 
 double
-SubParticipationEntry::Impl::getSubParticipationNbMode() const {
+SubParticipationEntry::getSubParticipationNbMode() const {
   return subparticipationNbMode_;
 }
 

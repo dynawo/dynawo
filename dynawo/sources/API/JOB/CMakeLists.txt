@@ -21,7 +21,6 @@ install(FILES ${API_JOB_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 set(API_JOB_SOURCES
     JOBXmlHandler.cpp
     JOBXmlImporter.cpp
-<<<<<<< HEAD
     JOBAppenderEntry.cpp
     JOBAppenderEntryFactory.cpp
     JOBConstraintsEntry.cpp
@@ -32,16 +31,6 @@ set(API_JOB_SOURCES
     JOBFinalStateEntryFactory.cpp
     JOBInitValuesEntry.cpp
     JOBInitialStateEntry.cpp
-=======
-    JOBAppenderEntryImpl.cpp
-    JOBConstraintsEntryImpl.cpp
-    JOBCurvesEntryImpl.cpp
-    JOBDynModelsEntryImpl.cpp
-    JOBDynModelsEntryFactory.cpp
-    JOBFinalStateEntryImpl.cpp
-    JOBInitValuesEntryImpl.cpp
-    JOBInitialStateEntryImpl.cpp
->>>>>>> ModalAnalysisDynawo
     JOBIterators.cpp
     JOBJobEntry.cpp
     JOBJobsCollectionFactory.cpp
@@ -113,9 +102,8 @@ target_include_directories(dynawo_API_JOB SYSTEM
   )
 
 target_link_libraries(dynawo_API_JOB
-  PUBLIC
-    XMLSAXParser${LibXML_LINK_SUFFIX}
   PRIVATE
+    XMLSAXParser${LibXML_LINK_SUFFIX}
     dynawo_Common
     Boost::system
     )
