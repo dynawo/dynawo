@@ -115,9 +115,14 @@ class ShuntCompensatorInterfaceIIDM : public ShuntCompensatorInterface, public I
   int getMaximumSection() const;
 
   /**
-   * @copydoc ShuntCompensatorInterface::getBPerSection() const
+   * @copydoc ShuntCompensatorInterface::getB(const int section) const
    */
-  double getBPerSection() const;
+  double getB(const int section) const;
+
+  /**
+   * @copydoc ShuntCompensatorInterface::isLinear() const
+   */
+  bool isLinear() const;
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()
