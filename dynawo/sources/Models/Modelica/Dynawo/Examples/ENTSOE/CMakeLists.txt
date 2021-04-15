@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,18 +6,18 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+# This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain simulation tools for power systems.
 
-# Governors models
+
+add_subdirectory(INIT I)
+add_subdirectory(BaseClasses B)
 
 set(MODEL_FILES
   package.mo
   package.order
-  GoverProportional.mo
-  GoverProportional.extvar
-  Governor_INIT.mo
-  IEEE_TGOV1.mo
-  IEEE_TGOV1.extvar
+  TestCase1.mo
+  TestCase2.mo
+  TestCase3.mo
   )
 
 #

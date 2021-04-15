@@ -11,6 +11,8 @@
 set(MODEL_FILES
   package.mo
   package.order
+  LeadLag.mo
+  FirstOrderLimiter.mo
   PIAntiWindup.mo
   PIAntiWindupVariableLimits.mo
   )

@@ -21,6 +21,8 @@ set(MODEL_FILES
   VRProportionalIntegral_INIT.mo
   VRProportionalReactiveFeedback.extvar
   VRProportionalReactiveFeedback.mo
+  IEEE_SEXS.mo
+  IEEE_SEXS.extvar
   )
 
 #

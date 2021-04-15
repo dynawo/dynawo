@@ -11,6 +11,7 @@
 add_subdirectory(Protections P)
 add_subdirectory(VoltageRegulators V)
 add_subdirectory(Governors G)
+add_subdirectory(PowerSystemStabilizers PSS)
 
 set(MODEL_FILES
   # Machines control models
