@@ -2,8 +2,12 @@ Dynawo authors:
 
 Francois BEAUDE
 Gautier BUREAU
+Marco CHIARAMELLO
 Angela CHIEH
+Quentin COSSART
 Sebastien DOUMEIX
+Lluc FIGUERAS
+Erwan GUICHARD
 Adrien GUIRONNET
 Romain LOSSEAU
 Emilie MILIN

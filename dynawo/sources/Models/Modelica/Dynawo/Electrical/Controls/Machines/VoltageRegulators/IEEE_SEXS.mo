@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.Machines.VoltageRegulators;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
