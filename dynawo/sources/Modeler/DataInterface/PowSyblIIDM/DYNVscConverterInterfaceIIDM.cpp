@@ -113,7 +113,7 @@ VscConverterInterfaceIIDM::getP() {
 
 double
 VscConverterInterfaceIIDM::getQMax() {
-  return vscConverterIIDM_.getReactiveLimits<powsybl::iidm::ReactiveLimits>().getMaxQ(getP());
+  return vscConverterIIDM_.getReactiveLimits<powsybl::iidm::ReactiveLimits>().getMaxQ(-1 * getP());
 }
 
 double
