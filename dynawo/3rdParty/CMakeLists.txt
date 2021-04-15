@@ -129,9 +129,9 @@ else()
 endif()
 
 if(CXX11_ENABLED)
-  if(${boost_version} STRLESS "1.65.0")
-    set(boost_version "1.65.0")
-    set(boost_md5          d75a27ad1a34cfc7c9b5cb92594410c3)
+  if(${boost_version} STRLESS "1.70.0")
+    set(boost_version "1.70.0")
+    set(boost_md5          fea771fe8176828fabf9c09242ee8c26)
   endif()
 endif(CXX11_ENABLED)
 
