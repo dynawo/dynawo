@@ -21,6 +21,9 @@
 #define COMMON_DYNINITXML_H_
 
 #include <xercesc/util/PlatformUtils.hpp>
+#ifdef LANG_CXX11
+#include <libxml/parser.h>
+#endif
 
 namespace DYN {
 
@@ -37,6 +40,22 @@ class InitXerces {
     xercesc::XMLPlatformUtils::Terminate();
   }
 };
+
+#ifdef LANG_CXX11
+/**
+ * Helper class to load/unload properly LibXml2
+ */
+class InitLibXml2 {
+ public:
+  InitLibXml2() {
+    xmlInitParser();
+  }
+
+  ~InitLibXml2() {
+    xmlCleanupParser();
+  }
+};
+#endif
 
 }  // namespace DYN
 

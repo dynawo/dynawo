@@ -50,8 +50,6 @@
 #include "DYNFictTwoWTransformerInterfaceIIDM.h"
 #include "DYNFictVoltageLevelInterfaceIIDM.h"
 
-#include <libxml/parser.h>
-
 #include <powsybl/iidm/converter/ExportOptions.hpp>
 #include <powsybl/iidm/converter/ImportOptions.hpp>
 #include <powsybl/iidm/converter/FakeAnonymizer.hpp>
@@ -77,20 +75,6 @@ using boost::dynamic_pointer_cast;
 
 using criteria::CriteriaCollection;
 
-/**
- * Helper class to load/unload properly LibXml2
- */
-class LibXml2 {
- public:
-  LibXml2() {
-      xmlInitParser();
-  }
-
-  ~LibXml2() {
-      xmlCleanupParser();
-  }
-};
-
 namespace DYN {
 DataInterfaceIIDM::DataInterfaceIIDM(powsybl::iidm::Network&& networkIIDM) :
 networkIIDM_(std::forward<powsybl::iidm::Network>(networkIIDM)),
@@ -105,7 +89,6 @@ boost::shared_ptr<DataInterface>
 DataInterfaceIIDM::build(std::string iidmFilePath) {
   boost::shared_ptr<DataInterfaceIIDM>  data;
   try {
-    LibXml2 libxml2;
     std::ifstream inputStream(iidmFilePath);
     stdcxx::Properties properties;
     properties.set(powsybl::iidm::converter::ImportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
@@ -135,7 +118,6 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
 void
 DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
   try {
-    LibXml2 libxml2;
     std::ofstream outputStream(iidmFilePath);
     if (!outputStream) {
       throw DYNError(Error::GENERAL, FileGenerationFailed, iidmFilePath, "invalid file name or permissions");
