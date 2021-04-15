@@ -223,17 +223,28 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   if (solv->getFirstIteration()) {
     solv->setFirstIteration(false);
   } else {
-    if (solv->mode_ == KIN_NORMAL) {
-      // add current values of algebraic variables
-      for (unsigned int i = 0; i < solv->indexY_.size(); ++i) {
-        solv->Y_[solv->indexY_[i]] = iyy[i];
+    try {
+      if (solv->mode_ == KIN_NORMAL) {
+        // add current values of algebraic variables
+        for (unsigned int i = 0; i < solv->indexY_.size(); ++i) {
+          solv->Y_[solv->indexY_[i]] = iyy[i];
+        }
+        model->evalF(solv->t0_, &solv->Y_[0], &solv->yp0_[0], &solv->F_[0]);
+      } else if (solv->mode_ == KIN_YPRIM) {
+        for (unsigned int i = 0; i < solv->indexY_.size(); ++i) {
+          solv->YP_[solv->indexY_[i]] = iyy[i];
+        }
+        model->evalFDiff(solv->t0_, &solv->y0_[0], &solv->YP_[0], &solv->F_[0]);
       }
-      model->evalF(solv->t0_, &solv->Y_[0], &solv->yp0_[0], &solv->F_[0]);
-    } else if (solv->mode_ == KIN_YPRIM) {
-      for (unsigned int i = 0; i < solv->indexY_.size(); ++i) {
-        solv->YP_[solv->indexY_[i]] = iyy[i];
+    } catch (const DYN::Error& e) {
+      if (e.type() == DYN::Error::NUMERICAL_ERROR) {
+      #ifdef _DEBUG_
+       Trace::debug() << e.what() << Trace::endline;
+      #endif
+        return (-1);
+      } else {
+        throw;
       }
-      model->evalFDiff(solv->t0_, &solv->y0_[0], &solv->YP_[0], &solv->F_[0]);
     }
   }
 
