@@ -96,7 +96,13 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
 
     std::string extensionsPaths = getMandatoryEnvVar("DYNAWO_LIBIIDM_EXTENSIONS");
     vector<string> paths;
-    boost::split(paths, extensionsPaths, boost::is_any_of(":"));
+    std::string splitCharacter;
+#ifdef _WIN32
+    splitCharacter = ";";
+#else
+    splitCharacter = ":";
+#endif
+    boost::split(paths, extensionsPaths, boost::is_any_of(splitCharacter));
 
     for (unsigned int i = 0; i < paths.size(); ++i) {
       std::regex fileRegex(stdcxx::format(".*libiidm-ext-.*\\%1%", boost::dll::shared_library::suffix().string()));
