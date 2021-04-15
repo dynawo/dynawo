@@ -55,7 +55,7 @@ stateModified_(false) {
   vNom_ = shunt->getVNom();
   suscepPu_ = shunt->getB(currentSection_) * vNom_ * vNom_ / SNREF;
   tLastOpening_ = VALDEF;
-  type_ = (shunt->getB(currentSection_) > 0) ? CAPACITOR : REACTANCE;
+  type_ = (suscepAtMaximumSec_ > 0) ? CAPACITOR : REACTANCE;
   connectionState_ = shunt->getInitialConnected() ? CLOSED : OPEN;
 
   double Q = shunt->getQ() / SNREF;
