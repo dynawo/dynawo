@@ -143,5 +143,24 @@ TEST(DataInterfaceTest, VscConverter) {
   ASSERT_EQ(Ifce.getVscIIDM().getId(), vsc.getId());
   ASSERT_DOUBLE_EQ(Ifce.getVNom(), 388);
   ASSERT_EQ(Ifce.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
+
+  vsc.newReactiveCapabilityCurve()
+     .beginPoint()
+       .setP(-2000)
+       .setMinQ(10)
+       .setMaxQ(10)
+     .endPoint()
+     .beginPoint()
+       .setP(0)
+       .setMinQ(10)
+       .setMaxQ(20)
+     .endPoint()
+     .beginPoint()
+       .setP(2000)
+       .setMinQ(10)
+       .setMaxQ(10)
+     .endPoint()
+     .add();
+  ASSERT_DOUBLE_EQ(Ifce.getQMax(), 15.0);
 }  // TEST(DataInterfaceTest, VscConverter)
 };  // namespace DYN
