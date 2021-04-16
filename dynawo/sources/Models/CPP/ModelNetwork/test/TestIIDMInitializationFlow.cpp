@@ -306,6 +306,7 @@ createNetwork(const NetworkProperty& properties) {
   if (properties.instantiateCapacitorShuntCompensator) {
     IIDM::builders::ShuntCompensatorBuilder scb;
     scb.b_per_section(8.);
+    scb.section_max(1);
     IIDM::ShuntCompensator sc = scb.build("MyCapacitorShuntCompensator");
     vl.add(sc, c1);
   }
@@ -313,6 +314,7 @@ createNetwork(const NetworkProperty& properties) {
   if (properties.instantiateReactanceShuntCompensator) {
     IIDM::builders::ShuntCompensatorBuilder scb;
     scb.b_per_section(-8.);
+    scb.section_max(1);
     IIDM::ShuntCompensator sc = scb.build("MyReactanceShuntCompensator");
     vl.add(sc, c1);
   }
