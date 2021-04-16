@@ -79,6 +79,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     ShuntBWithSections.xml
     ShuntBWithSectionsWithRegulation.xml
     SetPoint.xml
+    SignalN.xml
     StaticVarCompensator.xml
     StaticVarCompensatorPV.xml
     StaticVarCompensatorPVRemote.xml
