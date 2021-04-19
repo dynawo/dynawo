@@ -54,7 +54,7 @@ class Dictionaries:
     # @param modelica_dir : directory where modelica files should be created
     # @param modelica_package : Parent package of modelica keys files
     # @return
-    def generate_files(self,output_dir, modelica_dir, modelica_package):
+    def generate_files(self,output_dir, namespace, modelica_dir, modelica_package):
         for name in self.names_:
             dictionary = Dictionary()
             for d in self.dicts_:
@@ -62,8 +62,8 @@ class Dictionaries:
                     dictionary = d
             dictionary.set_output_dir(output_dir)
             dictionary.set_modelica_dir(modelica_dir)
-            dictionary.generate_header()
-            dictionary.generate_cpp()
+            dictionary.generate_header(namespace)
+            dictionary.generate_cpp(namespace)
             dictionary.generate_modelica(modelica_package)
             dictionary.copy_delete_files()
 ##
@@ -159,7 +159,7 @@ class Dictionary:
     # Generate a header file associated to the dictionary
     # @param self : object pointer
     # @return
-    def generate_header(self):
+    def generate_header(self, namespace):
         file_name = os.path.join(str(self.directory_),str(self.name_)+'_keys.h-tmp')
         tag = str(self.name_).upper()  + '_KEYS_H'
         header_file = open(file_name,'w')
@@ -178,8 +178,7 @@ class Dictionary:
 ''')
         header_file.write("#ifndef "+str(tag)+"\n")
         header_file.write("#define "+str(tag)+"\n")
-        header_file.write("#include <string>\n")
-        header_file.write("namespace DYN {\n\n")
+        header_file.write("namespace "+namespace+" {\n\n")
         header_file.write("  ///< struct of Key"+str(name)+" to declare enum values and names associated to the enum to be used in dynawo\n")
         header_file.write("  struct Key"+name+"_t\n")
         header_file.write("  {\n")
@@ -200,7 +199,7 @@ class Dictionary:
         header_file.write("    */\n")
         header_file.write("    static const char* names(const value&); ///< names associated to the enum\n")
         header_file.write("  };\n")
-        header_file.write("} //namespace DYN\n")
+        header_file.write("} //namespace "+namespace+"\n")
         header_file.write("#endif\n")
         header_file.close()
 
@@ -208,7 +207,7 @@ class Dictionary:
     # Generate a cpp file associated to the dictionary
     # @param self : object pointer
     # @return
-    def generate_cpp(self):
+    def generate_cpp(self, namespace):
         file_name = os.path.join(str(self.directory_),str(self.name_)+'_keys.cpp-tmp')
         cpp_file = open(file_name,'w')
         name = self.name_[ 3:]
@@ -225,7 +224,7 @@ class Dictionary:
 //
 ''')
         cpp_file.write('#include "'+ str(self.name_)+'_keys.h"\n')
-        cpp_file.write("namespace DYN {\n\n")
+        cpp_file.write("namespace "+namespace+" {\n\n")
         cpp_file.write("const char* Key"+name+"_t::names(const value& v) {\n")
         cpp_file.write("  static const char* names[] = {\n")
         list_keys = list(self.keys())
@@ -235,7 +234,7 @@ class Dictionary:
         cpp_file.write("  };\n")
         cpp_file.write("  return names[v];\n")
         cpp_file.write("};\n")
-        cpp_file.write("} //namespace DYN\n")
+        cpp_file.write("} //namespace "+namespace+"\n")
         cpp_file.close()
 
     ##
@@ -244,6 +243,8 @@ class Dictionary:
     # @param modelica_package : Parent package of modelica keys files
     # @return
     def generate_modelica(self, modelica_package):
+        if not self.modelica_dir_:
+            return
         if not os.path.exists(self.modelica_dir_):
             print ("Modelica directory :"+str(self.modelica_dir_)+" does not exist")
             exit(1)
@@ -281,6 +282,9 @@ class Dictionary:
     # @return
     def copy_delete_files(self):
         self.copy_delete_cpp_h_files()
+
+        if not self.modelica_dir_:
+            return
 
         name = self.name_[3:]
         mo_file = os.path.join(str(self.modelica_dir_), str(name)+'Keys.mo')
@@ -411,7 +415,7 @@ def create_dictionary(file_2_read):
 ##
 #   Main function of the utility
 def main():
-    usage =u""" usage: %prog --inputDir=<directories> --outputDir=<directory> --modelicaDir=<directory> --modelicaPackage=<packageName>
+    usage =u""" usage: %prog --inputDir=<directories> --outputDir=<directory> [--namespace=<namespace>] [--modelicaDir=<directory> --modelicaPackage=<packageName>]
 
     Script generates keys.h and keys.cpp of inputDir files in outputDir
     Generates keys.mo files in modelicaDir
@@ -423,10 +427,12 @@ def main():
                        help=u"input directories where dictionaries files should be read (commas separated)")
     parser.add_option( '--outputDir', dest="outputDir",
                        help=u"Output directory where keys (.h and .cpp) files should be created")
+    parser.add_option( '--namespace', dest="namespace", default="DYN",
+                       help=u"Optional namespace to use in .h and .cpp files (default to DYN)")
     parser.add_option( '--modelicaDir', dest="modelicaDir",
-                       help=u"Output directory where modelica keys files should be created")
+                       help=u"Optional output directory where modelica keys files should be created")
     parser.add_option( '--modelicaPackage', dest="modelicaPackage",
-                       help=u"Parent package of modelica keys files")
+                       help=u"Parent package of modelica keys files (required if --modelicaDir is used)")
 
     (options, args) = parser.parse_args()
 
@@ -436,10 +442,7 @@ def main():
     if options.outputDir == None:
         parser.error("Output directory should be informed")
 
-    if options.modelicaDir == None:
-        parser.error("Output directory for modelica files should be informed")
-
-    if options.modelicaPackage == None:
+    if options.modelicaDir is not None and options.modelicaPackage is None:
         parser.error("Parent package of modelica keys files should be informed")
 
     # create dictionaries structure
@@ -462,7 +465,7 @@ def main():
         dicts.add_dict(dictionary)
 
     # generate files
-    dicts.generate_files(options.outputDir, options.modelicaDir, options.modelicaPackage)
+    dicts.generate_files(options.outputDir, options.namespace, options.modelicaDir, options.modelicaPackage)
 
 if __name__ == "__main__":
     main()
