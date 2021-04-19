@@ -112,12 +112,16 @@ class ShuntCompensatorInterfaceIIDM : public ShuntCompensatorInterface, public I
   int getMaximumSection() const;
 
   /**
-   * @copydoc ShuntCompensatorInterface::getB(const int section) const
+   * @brief Getter for the shuntCompensator's cumulative susceptance at given section
+   *  i.e. the sum of the sections' susceptances from 1 to section
+   * @param section at which calculate the shuntsCompensator's susceptance
+   * @return The cumulative susceptance in Siemens, at given section of the shunt compensator
    */
   double getB(const int section) const;
 
   /**
-   * @copydoc ShuntCompensatorInterface::isLinear() const
+   * @brief Getter for model type of the shunt compensator
+   * @return @b true if the shunt compensator is linear, @b false otherwise
    */
   bool isLinear() const;
 
