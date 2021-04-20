@@ -39,7 +39,7 @@ class Dictionaries:
     # @param self: object pointer
     # @param dictionary : new dictionary to add
     # @return
-    def add_dict(self , dictionary):
+    def add_dict(self, dictionary):
         index = [x for x in self.names_ if x == dictionary.name()]
         if index:
             self.dicts_[self.names_.index(dictionary.name())].dict_.update(dictionary.dict_)
@@ -50,11 +50,12 @@ class Dictionaries:
     ##
     #  Generate files with respect to keys found in dictionary
     # @param self: object pointer
+    # @param namespace : cpp namespace to use for keys declarations
     # @param output_dir : directory where files should be created
     # @param modelica_dir : directory where modelica files should be created
     # @param modelica_package : Parent package of modelica keys files
     # @return
-    def generate_files(self,output_dir, namespace, modelica_dir, modelica_package):
+    def generate_files(self, output_dir, namespace, modelica_dir, modelica_package):
         for name in self.names_:
             dictionary = Dictionary()
             for d in self.dicts_:
@@ -89,7 +90,7 @@ class Dictionary:
     # @param self : object pointer
     # @param name : name of the dictionary
     # @return
-    def set_name(self,name):
+    def set_name(self, name):
         self.name_ = name
 
     ##
@@ -113,7 +114,7 @@ class Dictionary:
     # @param self : object pointer
     # @param name : full name of the dictionary
     # @return
-    def set_full_name(self,name):
+    def set_full_name(self, name):
         self.full_name_ = name
 
     ##
@@ -122,8 +123,8 @@ class Dictionary:
     # @param key : key to add in the dictionary
     # @param value: value associated to the key
     # @return
-    def add_pair(self,key,value):
-        self.dict_[key]=value
+    def add_pair(self, key, value):
+        self.dict_[key] = value
 
     ##
     # Getter of the dictionary's name
@@ -151,13 +152,14 @@ class Dictionary:
     # @param self: object pointer
     # @param key: key of the message to find
     # @return  the message associated to the key
-    def get_message(self,key):
+    def get_message(self, key):
         return self.dict_[key]
 
 
     ##
     # Generate a header file associated to the dictionary
     # @param self : object pointer
+    # @param namespace : cpp namespace to use for keys declarations
     # @return
     def generate_header(self, namespace):
         file_name = os.path.join(str(self.directory_),str(self.name_)+'_keys.h-tmp')
@@ -206,6 +208,7 @@ class Dictionary:
     ##
     # Generate a cpp file associated to the dictionary
     # @param self : object pointer
+    # @param namespace : cpp namespace to use for keys declarations
     # @return
     def generate_cpp(self, namespace):
         file_name = os.path.join(str(self.directory_),str(self.name_)+'_keys.cpp-tmp')
@@ -363,7 +366,7 @@ class Status():
 # @param dictionary : dictionary where the message should be added
 # @param check_capital_letters : whether we should check if the first letter of the first word is capitalized or not
 # @return  True is the line is correctly added to the dictionary
-def read_line(line,dictionary,check_capital_letters):
+def read_line(line, dictionary, check_capital_letters):
     if( line.find("//") != -1):
         line = line[ :line.find("//")] # erase any comment
 
@@ -428,7 +431,7 @@ def main():
     parser.add_option( '--outputDir', dest="outputDir",
                        help=u"Output directory where keys (.h and .cpp) files should be created")
     parser.add_option( '--namespace', dest="namespace", default="DYN",
-                       help=u"Optional namespace to use in .h and .cpp files (default to DYN)")
+                       help=u"Optional namespace to use in keys (.h and .cpp) files (default to DYN)")
     parser.add_option( '--modelicaDir', dest="modelicaDir",
                        help=u"Optional output directory where modelica keys files should be created")
     parser.add_option( '--modelicaPackage', dest="modelicaPackage",
