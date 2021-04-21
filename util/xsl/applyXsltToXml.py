@@ -50,7 +50,7 @@ def collectXsl(directory, types, xsl_ids):
     for file in os.listdir(directory):
         for type in types:
             if file.endswith("."+type+".xsl"):
-                if len(xsl_ids) == 0 or file.replace("."+type+".xsl", "") in xsl_ids:
+                if xsl_ids is None or len(xsl_ids) == 0 or file.replace("."+type+".xsl", "") in xsl_ids:
                     xsl_to_apply[type].append(os.path.join(directory, file))
 
     for type in types:
