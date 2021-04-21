@@ -165,6 +165,14 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    */
   void setSolverCommonParameters();
 
+
+  /**
+   * @copydoc Solver::silentZEnabled() const
+   */
+  bool silentZEnabled() const {
+    return enableSilentZ_;
+  }
+
   /**
    * @copydoc Solver::setSolverSpecificParameters()
    */

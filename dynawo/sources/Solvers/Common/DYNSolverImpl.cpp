@@ -106,7 +106,6 @@ Solver::Impl::clean() {
 void
 Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
   model_ = model;
-  model_->setEnableSilentZ(enableSilentZ_);
 
   // Problem size
   // ---------------------------

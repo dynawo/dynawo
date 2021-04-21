@@ -82,7 +82,8 @@ ypLocal_(NULL),
 zLocal_(NULL),
 zConnectedLocal_(NULL),
 silentZ_(NULL),
-enableSilentZ_(true) {
+enableSilentZ_(true),
+silentZInitialized_(false) {
   connectorContainer_.reset(new ConnectorContainer());
 }
 
@@ -636,8 +637,18 @@ ModelMulti::getY0(const double t0, vector<double>& y0, vector<double>& yp0) {
     subModels_[i]->evalCalculatedVariablesSub(t0);
   }
   connectorContainer_->getY0Connector();
-  if (!subModels_.empty() && subModels_[0]->getIsInitProcess() && enableSilentZ_) {
-    collectSilentZ();
+  if (!silentZInitialized_ && !subModels_.empty()) {
+    silentZInitialized_ = true;
+    if (enableSilentZ_) {
+      collectSilentZ();
+    } else {
+      nonSilentZIndexes_.clear();
+      for (int i = 0; i < sizeZ_; ++i) {
+        silentZ_[i].reset();
+        silentZ_[i].setFlags(NotSilent);
+        nonSilentZIndexes_.push_back(i);
+      }
+    }
   }
 
   std::copy(yLocal_, yLocal_ + sizeY_, y0.begin());
@@ -996,6 +1007,9 @@ ModelMulti::findSubModel(const string& modelName, const string& variable) const 
 
 void
 ModelMulti::collectSilentZ() {
+  nonSilentZIndexes_.clear();
+  notUsedInDiscreteEqSilentZIndexes_.clear();
+  nonSilentZIndexes_.clear();
   unsigned offsetZ = 0;
   for (unsigned int i = 0, iEnd = subModels_.size(); i < iEnd; ++i) {
     int sizeZ = subModels_[i]->sizeZ();

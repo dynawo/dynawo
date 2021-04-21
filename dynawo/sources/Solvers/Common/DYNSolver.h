@@ -293,6 +293,13 @@ class Solver {
    */
   virtual void updateStatistics() = 0;
 
+  /**
+   * @brief whether the silentZ optimization is activated
+   *
+   * @return @b true if the silentZ optimization is activated, false otherwise
+   */
+  virtual bool silentZEnabled() const = 0;
+
   class Impl;
 };
 
