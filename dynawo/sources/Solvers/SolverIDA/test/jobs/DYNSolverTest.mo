@@ -70,6 +70,34 @@ equation
   y = x;
 end DYNSolverTestSilentZ;
 
+model DYNSolverTestSilentZNotUsedInContinuous
+  Real x(start = 0);
+  discrete Real zNotUsedInContinuous(start = 0);
+  discrete Real zNotUsedInDiscrete(start = 0.5);
+equation
+  der(x) = 1 + zNotUsedInDiscrete;
+  when x - time >= 2 then
+    zNotUsedInContinuous = time;
+  end when;
+  when zNotUsedInContinuous >= 1 then
+    zNotUsedInDiscrete = 1;
+  end when;
+end DYNSolverTestSilentZNotUsedInContinuous;
+
+model DYNSolverTestSilentZNotUsedInContinuous2
+  Real x(start = 0);
+  discrete Real zNotUsedInContinuous(start = 0);
+  discrete Real zNotUsedInDiscrete(start = 1);
+equation
+  der(x) = 1 + zNotUsedInDiscrete;
+  when x - time >= 2 then
+    zNotUsedInContinuous = time;
+  end when;
+  when x - time >= 3 and zNotUsedInContinuous >= 0 then
+    zNotUsedInDiscrete = 2;
+  end when;
+end DYNSolverTestSilentZNotUsedInContinuous2;
+
 connector ZPin "connector for propagating discrete values (and events)"
   public
     discrete Real value;

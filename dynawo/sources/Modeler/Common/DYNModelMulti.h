@@ -577,6 +577,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   bool* zConnectedLocal_;  ///< local buffer to use when accessing discretes variables connection status
   BitMask* silentZ_;  ///< local buffer indicating if the corresponding discrete variable is silent
   bool enableSilentZ_;  ///< enable or disable the use of silentZ in the discrete variable propagation loop
+  bool silentZInitialized_;  ///< true if silentZ were collected
   std::vector<size_t> notUsedInDiscreteEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in discrete equations
   std::vector<size_t> notUsedInContinuousEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in continuous equations
   std::vector<size_t> nonSilentZIndexes_;  ///< indexes of non silent discrete variables

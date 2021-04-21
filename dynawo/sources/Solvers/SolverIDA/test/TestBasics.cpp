@@ -68,7 +68,7 @@ testing::Environment* initXmlEnvironment();
 namespace DYN {
 testing::Environment* const env = initXmlEnvironment();
 
-boost::shared_ptr<Solver> initSolver() {
+boost::shared_ptr<Solver> initSolver(bool enableSilentZ = true) {
   // Solver
   boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverIDA" + std::string(sharedLibraryExtension()));
 
@@ -93,6 +93,7 @@ boost::shared_ptr<Solver> initSolver() {
   params->addParameter(parameters::ParameterFactory::newParameter("printflAlgJ", 0));
   params->addParameter(parameters::ParameterFactory::newParameter("minimalAcceptableStep", 10e-6));
   params->addParameter(parameters::ParameterFactory::newParameter("maximumNumberSlowStepIncrease", 10));
+  params->addParameter(parameters::ParameterFactory::newParameter("enableSilentZ", enableSilentZ));
   solver->setParameters(params);
 
   return solver;
@@ -134,9 +135,10 @@ void compile(boost::shared_ptr<DynamicData> dyd) {
   cf.concatRefs();
 }
 
-boost::shared_ptr<Model> initModel(Modeler modeler, const double& tStart = 0) {
+boost::shared_ptr<Model> initModel(Modeler modeler, const double& tStart = 0, bool enableSilentZ = true) {
   boost::shared_ptr<Model> model = modeler.getModel();
   model->initBuffers();
+  model->setEnableSilentZ(enableSilentZ);
   model->setIsInitProcess(true);
   model->init(tStart);
   model->rotateBuffers();
@@ -195,7 +197,7 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
   return std::make_pair(solver, model);
 }
 
-boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
+boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName, bool enableSilentZ = true) {
 // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   std::vector <std::string> fileNames;
@@ -210,14 +212,14 @@ boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
   modeler.setDynamicData(dyd);
   modeler.initSystem();
 
-  boost::shared_ptr<Model> model = initModel(modeler);
+  boost::shared_ptr<Model> model = initModel(modeler, 0, enableSilentZ);
   return model;
 }
 
 std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
- const double& tStart, const double& tStop) {
-  boost::shared_ptr<Solver> solver = initSolver();
-  boost::shared_ptr<Model> model = initModelFromDyd(dydFileName);
+ const double& tStart, const double& tStop, bool enableSilentZ = true) {
+  boost::shared_ptr<Solver> solver = initSolver(enableSilentZ);
+  boost::shared_ptr<Model> model = initModelFromDyd(dydFileName, enableSilentZ);
   solver->init(model, tStart, tStop);
 
   return std::make_pair(solver, model);
@@ -511,6 +513,179 @@ TEST(SimulationTest, testSolverIDASilentZ) {
   ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
   ASSERT_TRUE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
   ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+}
+
+TEST(SimulationTest, testSolverIDASilentZDisabled) {
+  const double tStart = 0.;
+  const double tStop = 10.;
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZ.dyd",
+                                                                                                tStart, tStop, false);
+  boost::shared_ptr<Solver> solver = p.first;
+  boost::shared_ptr<Model> model = p.second;
+
+  solver->calculateIC();
+
+  std::vector<double> y0(model->sizeY());
+  std::vector<double> yp0(model->sizeY());
+  std::vector<double> z0(model->sizeZ());
+  model->getY0(tStart, y0, yp0);
+  model->getCurrentZ(z0);
+
+  double tCurrent = tStart;
+  std::vector<double> y(y0);
+  std::vector<double> yp(yp0);
+  std::vector<double> z(z0);
+  // Solve at t = 1
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 2 => z1 is modified
+  solver->solve(tStop, tCurrent);
+  ASSERT_TRUE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 3
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 4 -> z2 is modified
+  solver->solve(tStop, tCurrent);
+  ASSERT_TRUE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 4
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 5 -> z1 and z2 are modified
+  solver->solve(tStop, tCurrent);
+  ASSERT_TRUE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+}
+
+TEST(SimulationTest, testSolverIDASilentZNotUsedInContinuous) {
+  const double tStart = 0.;
+  const double tStop = 10.;
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZNotUsedInContinuous.dyd",
+                                                                                                tStart, tStop);
+  boost::shared_ptr<Solver> solver = p.first;
+  boost::shared_ptr<Model> model = p.second;
+
+  solver->calculateIC();
+
+  std::vector<double> y0(model->sizeY());
+  std::vector<double> yp0(model->sizeY());
+  std::vector<double> z0(model->sizeZ());
+  model->getY0(tStart, y0, yp0);
+  model->getCurrentZ(z0);
+
+  double tCurrent = tStart;
+  std::vector<double> y(y0);
+  std::vector<double> yp(yp0);
+  std::vector<double> z(z0);
+  // Solve at t = 1
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 2
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 4 => zNotUsedInContinuous and zNotUsedInDiscrete are modified
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_TRUE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_TRUE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+}
+
+TEST(SimulationTest, testSolverIDASilentZNotUsedInContinuousDisabled) {
+  const double tStart = 0.;
+  const double tStop = 10.;
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZNotUsedInContinuous.dyd",
+                                                                                                tStart, tStop, false);
+  boost::shared_ptr<Solver> solver = p.first;
+  boost::shared_ptr<Model> model = p.second;
+
+  solver->calculateIC();
+
+  std::vector<double> y0(model->sizeY());
+  std::vector<double> yp0(model->sizeY());
+  std::vector<double> z0(model->sizeZ());
+  model->getY0(tStart, y0, yp0);
+  model->getCurrentZ(z0);
+
+  double tCurrent = tStart;
+  std::vector<double> y(y0);
+  std::vector<double> yp(yp0);
+  std::vector<double> z(z0);
+  // Solve at t = 1
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 2
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 4 => zNotUsedInContinuous and zNotUsedInDiscrete are modified
+  solver->solve(tStop, tCurrent);
+  ASSERT_TRUE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+}
+
+TEST(SimulationTest, testSolverIDASilentZNotUsedInContinuous2) {
+  const double tStart = 0.;
+  const double tStop = 10.;
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZNotUsedInContinuous2.dyd",
+                                                                                                tStart, tStop);
+  boost::shared_ptr<Solver> solver = p.first;
+  boost::shared_ptr<Model> model = p.second;
+
+  solver->calculateIC();
+
+  std::vector<double> y0(model->sizeY());
+  std::vector<double> yp0(model->sizeY());
+  std::vector<double> z0(model->sizeZ());
+  model->getY0(tStart, y0, yp0);
+  model->getCurrentZ(z0);
+
+  double tCurrent = tStart;
+  std::vector<double> y(y0);
+  std::vector<double> yp(yp0);
+  std::vector<double> z(z0);
+  // Solve at t = 1
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 2 => zNotUsedInContinuous is modified
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_TRUE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 2
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 3 => zNotUsedInDiscrete is modified
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_TRUE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
+  // Solve at t = 4
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(NotSilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInContinuousEqChange));
 }
 
 TEST(SimulationTest, testSolverIDAInit) {
