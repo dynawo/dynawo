@@ -393,9 +393,9 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   std::pair<shared_ptr<ModelLoad>, shared_ptr<ModelVoltageLevel> > p = createModelLoad(false, false);
   shared_ptr<ModelLoad> load = p.first;
   int yNum = 0;
-  load->init(yNum);
   fillParameters(load);
   load->initSize();
+  load->init(yNum);
   unsigned nbY = 4;
   unsigned nbF = 2;
   ASSERT_EQ(load->sizeY(), nbY);
@@ -456,8 +456,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
 
   // test evalF
   load->evalF(UNDEFINED_EQ);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[DeltaPcIdx], -402.24999999999994);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[DeltaQcIdx], 6.1766109710079018);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], -386.09435562925358);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 2.6661147710671438);
 
   // test setFequations
   std::map<int, std::string> fEquationIndex;
@@ -481,8 +481,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
 
   // test evalF (bus switchoff)
   load->evalF(UNDEFINED_EQ);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[DeltaPcIdx], 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[DeltaPcIdx], 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
 
   // test setFequations
   fEquationIndex.clear();
@@ -544,6 +544,9 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   shared_ptr<ModelLoad> load = p.first;
   fillParameters(load);
   load->initSize();
+  int yNum = 0;
+  load->init(yNum);
+  ASSERT_EQ(yNum, load->sizeY());
   std::vector<double> y(load->sizeY(), 0.);
   std::vector<double> yp(load->sizeY(), 0.);
   std::vector<double> f(load->sizeF(), 0.);
@@ -568,16 +571,14 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   load->evalJt(smj, 1., 0);
   smj.changeCol();
   smj.changeCol();
-  ASSERT_EQ(smj.nbElem(), 6);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 22.155644370746373);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], -153.29392144688848);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -87.596526541079143);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3],  8.4895038000592429);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[4],  2.3388791341676249);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[5],  1.3365023623815);
+  ASSERT_EQ(smj.nbElem(), 4);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], 8.4895038000592429);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], 5.2397892818982124);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3], 2.9941653039418354);
   ASSERT_EQ(smj.Ap_[0], 0);
-  ASSERT_EQ(smj.Ap_[1], 3);
-  ASSERT_EQ(smj.Ap_[2], 6);
+  ASSERT_EQ(smj.Ap_[1], 1);
+  ASSERT_EQ(smj.Ap_[2], 4);
 
   load->getModelBus()->switchOff();
   SparseMatrix smj2;
