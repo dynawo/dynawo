@@ -13,6 +13,7 @@ within Dynawo.Electrical.Loads;
 */
 
 model LoadAlphaBeta "Load with voltage dependant active and reactive power (alpha-beta model)"
+
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
 
@@ -20,14 +21,10 @@ model LoadAlphaBeta "Load with voltage dependant active and reactive power (alph
     parameter Real alpha "Active load sensitivity to voltage";
     parameter Real beta "Reactive load sensitivity to voltage";
 
-    // In order to change the load set-point, connect an event to PRefPu or QRefPu
-    Connectors.ImPin PRefPu (value (start = s0Pu.re)) "Active power request";
-    Connectors.ImPin QRefPu (value (start = s0Pu.im)) "Reactive power request";
-
   equation
     if (running.value) then
-      PPu = PRefPu.value * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ alpha);
-      QPu = QRefPu.value * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ beta);
+      PPu = PRefPu * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ alpha);
+      QPu = QRefPu * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ beta);
     else
       terminal.i = Complex(0);
     end if;

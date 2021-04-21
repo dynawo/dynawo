@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -33,22 +33,22 @@
   <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_Generator___1" id2="Model_Signal_N" index2="0"/>
   <dyn:connect id1="Model_Signal_N" var1="tetaRef_0_value" id2="NETWORK" var2="_BUS____5_TN_phi_value"/>
   <dyn:blackBoxModel id="HVDCLCC" lib="HvdcPTanPhiDangling" parFile="HvdcDangling.par" parId="HVDC" staticId="HVDCLCCLine">
-      <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
-      <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
-      <dyn:staticRef var="hvdc_state" staticVar="state1"/>
-      <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
-      <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
-      <dyn:staticRef var="hvdc_state" staticVar="state2"/>
+    <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
+    <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state1"/>
+    <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
+    <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state2"/>
   </dyn:blackBoxModel>
   <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="HVDCLCC" var2="hvdc_terminal1"/>
   <dyn:connect id1="NETWORK" var1="_BUS___11_TN_ACPIN" id2="HVDCLCC" var2="hvdc_terminal2"/>
   <dyn:blackBoxModel id="HVDCVSC" lib="HvdcPVDangling" parFile="HvdcDangling.par" parId="HVDC" staticId="HVDCVSCLine">
-      <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
-      <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
-      <dyn:staticRef var="hvdc_state" staticVar="state1"/>
-      <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
-      <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
-      <dyn:staticRef var="hvdc_state" staticVar="state2"/>
+    <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
+    <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state1"/>
+    <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
+    <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state2"/>
   </dyn:blackBoxModel>
   <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="HVDCVSC" var2="hvdc_terminal1"/>
   <dyn:connect id1="NETWORK" var1="_BUS___11_TN_ACPIN" id2="HVDCVSC" var2="hvdc_terminal2"/>
