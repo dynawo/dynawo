@@ -11,8 +11,7 @@
 //
 #ifndef MYDIC_KEYS_H
 #define MYDIC_KEYS_H
-#include <string>
-namespace DYN {
+namespace MyNS {
 
   ///< struct of Keyic to declare enum values and names associated to the enum to be used in dynawo
   struct Keyic_t
@@ -30,5 +29,5 @@ namespace DYN {
     */
     static const char* names(const value&); ///< names associated to the enum
   };
-} //namespace DYN
+} //namespace MyNS
 #endif
