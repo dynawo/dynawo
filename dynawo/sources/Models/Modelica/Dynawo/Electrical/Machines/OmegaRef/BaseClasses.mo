@@ -139,12 +139,14 @@ package BaseClasses
     parameter Types.PerUnit Efd0Pu "Start value of input exciter voltage in p.u. (user-selected base)";
     parameter Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNomTurb/OmegaNom)";
 
-  protected
     // Start values calculated by the initialization model
     parameter Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef)";
     parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
     parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in p.u (base UNom, SnRef)";
     parameter Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
+
+  protected
+    // Start values calculated by the initialization model
     parameter Types.PerUnit Ud0Pu "Start value of voltage of direct axis in p.u";
     parameter Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in p.u";
     parameter Types.PerUnit Id0Pu "Start value of current of direct axis in p.u";
