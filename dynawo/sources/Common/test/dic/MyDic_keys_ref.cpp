@@ -10,7 +10,7 @@
 // This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 //
 #include "MyDic_keys.h"
-namespace DYN {
+namespace MyNS {
 
 const char* Keyic_t::names(const value& v) {
   static const char* names[] = {
@@ -18,4 +18,4 @@ const char* Keyic_t::names(const value& v) {
   };
   return names[v];
 };
-} //namespace DYN
+} //namespace MyNS

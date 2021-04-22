@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -35,6 +35,6 @@
   <dyn:connect id1="Network" var1="tfo_terminal2" id2="SM" var2="generator_terminal"/>
   <dyn:connect id1="Network" var1="tfo_terminal2" id2="Load" var2="load_terminal"/>
   <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="SM" var2="generator_omegaRefPu"/>
-  <dyn:connect id1="LoadVar" var1="event_state1" id2="Load" var2="load_PRefPu"/>
-  <dyn:connect id1="LoadVar" var1="event_state2" id2="Load" var2="load_QRefPu"/>
+  <dyn:connect id1="LoadVar" var1="event_state1_value" id2="Load" var2="load_PRefPu"/>
+  <dyn:connect id1="LoadVar" var1="event_state2_value" id2="Load" var2="load_QRefPu"/>
 </dyn:dynamicModelsArchitecture>
