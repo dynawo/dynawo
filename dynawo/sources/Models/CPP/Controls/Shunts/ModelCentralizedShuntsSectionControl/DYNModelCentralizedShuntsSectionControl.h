@@ -265,9 +265,9 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP::Impl {
  private:
   int nbShunts_;                  ///< number of shunts
   std::vector<int> sections0_;    ///< initial section values of each shunt
-  std::vector<int> SectionsMin_;  ///< minimum section values of each shunt
-  std::vector<int> SectionsMax_;  ///< maximum section values of each shunt
-  std::vector<double> DeadbandsUPu_;  ///< deadband value of the section control in p.u (base UNom) of each shunt
+  std::vector<int> sectionsMin_;  ///< minimum section values of each shunt
+  std::vector<int> sectionsMax_;  ///< maximum section values of each shunt
+  std::vector<double> deadBandsUPu_;  ///< deadband value of the section control in p.u (base UNom) of each shunt
   bool isSelf_;       ///< boolean that states if the shunts are selfs (true) or condensers (false)
   double URef0Pu_;    ///< voltage regulation set point in p.u (base UNom)
   int changingShunt;  ///< index of the shunt changing section

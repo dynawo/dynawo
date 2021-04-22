@@ -25,6 +25,6 @@
   <curve model="Shunt2" variable="shunt_QPu"/>
   <curve model="Shunt2" variable="shunt_BPu"/>
   <curve model="ShuntRegulation" variable="UMonitoredPu"/>
-  <curve model="ShuntRegulation" variable="URefPu_0"/>
+  <curve model="ShuntRegulation" variable="URefPu"/>
   <curve model="ShuntRegulation" variable="DeadbandsUPu__0"/>
 </curvesInput>

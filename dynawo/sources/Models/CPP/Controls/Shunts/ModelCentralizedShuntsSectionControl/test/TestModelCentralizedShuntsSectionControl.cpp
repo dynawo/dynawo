@@ -40,7 +40,7 @@ boost::shared_ptr<SubModel> initModelShunt(int nbShunts, int section0 = 0, bool 
   modelShunt->defineParameters(parameters);
   boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbShunts", nbShunts);
-  parametersSet->createParameter("IsSelf", isSelf);
+  parametersSet->createParameter("isSelf", isSelf);
   parametersSet->createParameter("tNext", 10.);
   parametersSet->createParameter("URef0Pu", 0.95);
   for (int s = 0; s < nbShunts; ++s) {
@@ -48,13 +48,13 @@ boost::shared_ptr<SubModel> initModelShunt(int nbShunts, int section0 = 0, bool 
     section0Name << "section0_" << s;
     parametersSet->createParameter(section0Name.str(), section0);
     std::stringstream SectionMinName;
-    SectionMinName << "SectionMin_" << s;
+    SectionMinName << "sectionMin_" << s;
     parametersSet->createParameter(SectionMinName.str(), 0);
     std::stringstream SectionMaxName;
-    SectionMaxName << "SectionMax_" << s;
+    SectionMaxName << "sectionMax_" << s;
     parametersSet->createParameter(SectionMaxName.str(), 2);
     std::stringstream DeadbandUPuName;
-    DeadbandUPuName << "DeadbandUPu_" << s;
+    DeadbandUPuName << "deadBandUPu_" << s;
     parametersSet->createParameter(DeadbandUPuName.str(), 0.1);
   }
   modelShunt->setPARParameters(parametersSet);
@@ -77,10 +77,10 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
   boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbShunts", 1);
   parametersSet->createParameter("section0_0", 0);
-  parametersSet->createParameter("SectionMin_0", 0);
-  parametersSet->createParameter("SectionMax_0", 2);
-  parametersSet->createParameter("IsSelf", false);
-  parametersSet->createParameter("DeadbandUPu_0", 0.1);
+  parametersSet->createParameter("sectionMin_0", 0);
+  parametersSet->createParameter("sectionMax_0", 2);
+  parametersSet->createParameter("isSelf", false);
+  parametersSet->createParameter("deadBandUPu_0", 0.1);
   parametersSet->createParameter("URef0Pu", 0.95);
   parametersSet->createParameter("tNext", 10.);
   ASSERT_NO_THROW(modelShunt->setPARParameters(parametersSet));
@@ -116,7 +116,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     boost::shared_ptr<SubModel> modelShunt = initModelShunt(nbShunts);
     unsigned nbY = 1;
     unsigned nbF = 0;
-    unsigned nbZ = 2 * nbShunts;
+    unsigned nbZ = nbShunts + 1;
     unsigned nbG = 4;
     unsigned nbMode = 0;
     std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
@@ -147,8 +147,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_NO_THROW(modelShunt->init(0));
     ASSERT_NO_THROW(modelShunt->getY0());
     ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 0.95);
-    ASSERT_DOUBLE_EQUALS_DYNAWO(z[1], 0.95);
-    ASSERT_DOUBLE_EQUALS_DYNAWO(z[2], 0.);
+    ASSERT_DOUBLE_EQUALS_DYNAWO(z[1], 0.);
     ASSERT_DOUBLE_EQUALS_DYNAWO(z[2], 0.);
   }
 
@@ -197,7 +196,8 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_EQ(g[2], ROOT_UP);
     ASSERT_EQ(g[3], ROOT_DOWN);
     ASSERT_NO_THROW(modelShuntCond->evalZ(10));
-    ASSERT_EQ(z[2], 2);
+    ASSERT_EQ(z[1], 2);
+    ASSERT_EQ(z[2], 1);
     // UMonitored = URef
     modelShuntCond->getY0();
     y[0] = 0.95;
@@ -221,6 +221,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_EQ(g[2], ROOT_DOWN);
     ASSERT_EQ(g[3], ROOT_UP);
     ASSERT_NO_THROW(modelShuntCond->evalZ(20));
+    ASSERT_EQ(z[1], 1);
     ASSERT_EQ(z[2], 1);
 
     // isSelf = true

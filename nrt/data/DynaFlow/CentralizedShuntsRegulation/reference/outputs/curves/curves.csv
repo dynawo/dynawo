@@ -1,4 +1,4 @@
-time;Load__10_load_PPu;Load__10_load_QPu;Load__10_load_UPu;Generator___1_generator_PGenPu;Generator___1_generator_QGenPu;Shunt_shunt_section_value;Shunt_shunt_QPu;Shunt_shunt_BPu;Shunt2_shunt_section_value;Shunt2_shunt_QPu;Shunt2_shunt_BPu;ShuntRegulation_UMonitoredPu;ShuntRegulation_URefPu_0;
+time;Load__10_load_PPu;Load__10_load_QPu;Load__10_load_UPu;Generator___1_generator_PGenPu;Generator___1_generator_QGenPu;Shunt_shunt_section_value;Shunt_shunt_QPu;Shunt_shunt_BPu;Shunt2_shunt_section_value;Shunt2_shunt_QPu;Shunt2_shunt_BPu;ShuntRegulation_UMonitoredPu;ShuntRegulation_URefPu;
 0.000000;29.450330;0.000000;0.955158;29.860500;8.538288;0.000000;0.000000;-0.000000;0.000000;0.000000;-0.000000;0.955158;0.955158;
 10.000000;29.450330;0.000000;0.955158;29.860500;8.538288;0.000000;0.000000;-0.000000;0.000000;0.000000;-0.000000;0.955158;0.955158;
 20.000000;29.450330;0.000000;0.955158;29.860500;8.538288;0.000000;0.000000;-0.000000;0.000000;0.000000;-0.000000;0.955158;0.955158;
