@@ -62,6 +62,8 @@ extern "C" void DYN::ModelCentralizedShuntsSectionControlFactory::destroy(DYN::S
 }
 
 namespace DYN {
+  const unsigned int URefPuIndex = 0;  ///< local Z index for URefPu
+
   ModelCentralizedShuntsSectionControl::ModelCentralizedShuntsSectionControl() : Impl("CentralizedShuntsSectionControl"),
     nbShunts_(0),
     isSelf_(false),
@@ -140,7 +142,7 @@ namespace DYN {
 
   void
   ModelCentralizedShuntsSectionControl::collectSilentZ(BitMask* silentZTable) {
-    for (int s = 0; s < (nbShunts_ + 1); ++s) {
+    for (unsigned int s = 0; s < sizeZ_; ++s) {
       silentZTable[s].setFlags(NotUsedInContinuousEquations);
     }
   }
@@ -173,12 +175,13 @@ namespace DYN {
   void
   ModelCentralizedShuntsSectionControl::evalG(const double t) {
     double UMonitoredPu = yLocal_[0];
+    double URefPu = zLocal_[URefPuIndex];
     double minValue;
     double maxValue;
     if (isSelf_) {
       for (int s = 0; s < nbShunts_; ++s) {
-        minValue = zLocal_[0] - deadBandsUPu_[s];
-        maxValue = zLocal_[0] + deadBandsUPu_[s];
+        minValue = URefPu - deadBandsUPu_[s];
+        maxValue = URefPu + deadBandsUPu_[s];
         if (doubleNotEquals(UMonitoredPu, minValue) &&
           UMonitoredPu < minValue &&
           sections0_[s] > sectionsMin_[s]) {
@@ -206,8 +209,8 @@ namespace DYN {
       }
     } else {
       for (int s = 0; s < nbShunts_; ++s) {
-        minValue = zLocal_[0] - deadBandsUPu_[s];
-        maxValue = zLocal_[0] + deadBandsUPu_[s];
+        minValue = URefPu - deadBandsUPu_[s];
+        maxValue = URefPu + deadBandsUPu_[s];
         if (doubleNotEquals(UMonitoredPu, minValue) &&
           UMonitoredPu < minValue &&
           sections0_[s] < sectionsMax_[s]) {
