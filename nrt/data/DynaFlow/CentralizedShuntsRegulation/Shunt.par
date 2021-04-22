@@ -50,17 +50,17 @@
   </set>
   <set id="ShuntRegulationPar">
     <par type="INT" name="nbShunts" value="2"/>
-    <par type="BOOL" name="IsSelf" value="false"/>
+    <par type="BOOL" name="isSelf" value="false"/>
     <reference type="DOUBLE" name="URef0Pu" origData="IIDM" origName="v_pu" componentId="_Load__10"/>
     <par type="DOUBLE" name="tNext" value="10"/>
     <par type="INT" name="section0_0" value="0"/>
-    <par type="INT" name="SectionMin_0" value="0"/>
-    <par type="INT" name="SectionMax_0" value="2"/>
-    <par type="DOUBLE" name="DeadbandUPu_0" value="0.01"/>
+    <par type="INT" name="sectionMin_0" value="0"/>
+    <par type="INT" name="sectionMax_0" value="2"/>
+    <par type="DOUBLE" name="deadBandUPu_0" value="0.01"/>
     <par type="INT" name="section0_1" value="0"/>
-    <par type="INT" name="SectionMin_1" value="0"/>
-    <par type="INT" name="SectionMax_1" value="1"/>
-    <par type="DOUBLE" name="DeadbandUPu_1" value="0.01"/>
+    <par type="INT" name="sectionMin_1" value="0"/>
+    <par type="INT" name="sectionMax_1" value="1"/>
+    <par type="DOUBLE" name="deadBandUPu_1" value="0.01"/>
   </set>
   <set id="5">
     <par type="DOUBLE" name="event_tEvent" value="40"/>
