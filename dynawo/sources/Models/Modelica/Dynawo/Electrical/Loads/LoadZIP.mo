@@ -13,6 +13,7 @@ within Dynawo.Electrical.Loads;
 */
 
 model LoadZIP "ZIP coefficients load model"
+
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
 
@@ -27,14 +28,10 @@ public
   parameter Real Iq "Current coefficient for reactive power";
   parameter Real Pq "Power coefficient for reactive power";
 
-  // In order to change the load set-point, connect an event to PRefPu or QRefPu
-  Connectors.ImPin PRefPu (value (start = s0Pu.re)) "Active power request";
-  Connectors.ImPin QRefPu (value (start = s0Pu.im)) "Reactive power request";
-
 equation
   if (running.value) then
-    PPu = PRefPu.value * (Zp * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ 2 + Ip * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) + Pp);
-    QPu = QRefPu.value * (Zq * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ 2 + Iq * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) + Pq);
+    PPu = PRefPu * (Zp * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ 2 + Ip * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) + Pp);
+    QPu = QRefPu * (Zq * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ 2 + Iq * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) + Pq);
   else
     terminal.i = Complex(0);
   end if;
