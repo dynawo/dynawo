@@ -88,6 +88,7 @@ def getOutputIIDMInfo(filename, prefix):
                     set_values(child,'bus',myObject)
                 elif myObject.type == 'shunt':
                     set_values(child,'currentSectionCount',myObject)
+                    set_values(child,'sectionCount',myObject)
                     set_values(child,'bus',myObject)
                     set_values(child,'q',myObject)
                 elif myObject.type == 'staticVarCompensator':
@@ -138,6 +139,22 @@ def OutputIIDMCloseEnough (path_left, path_right):
             secondObj = right_file_info[firstId]
             for attr1 in firstObj.values:
                 if attr1 not in secondObj.values:
+                    if attr1=="currentSectionCount":
+                        if ('sectionCount' in secondObj.values):
+                            if (firstObj.values[attr1] == secondObj.values['sectionCount']):
+                                continue
+                            else:
+                                nb_differences+=1
+                                msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " has another value on right side (value: " + secondObj.values['sectionCount'] + ")\n"
+                                continue
+                    elif attr1=="sectionCount":
+                        if ('currentSectionCount' in secondObj.values):
+                            if (firstObj.values[attr1] == secondObj.values['currentSectionCount']):
+                                continue
+                            else:
+                                nb_differences+=1
+                                msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " has another value on right side (value: " + secondObj.values['currentSectionCount'] + ")\n"
+                                continue
                     nb_differences+=1
                     msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " is not in the equivalent object on right side\n"
                 else:
@@ -156,6 +173,22 @@ def OutputIIDMCloseEnough (path_left, path_right):
                             msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " has another value on right side (value: " + secondObj.values[attr1] + ")\n"
             for attr1 in secondObj.values:
                 if attr1 not in firstObj.values:
+                    if attr1=="currentSectionCount":
+                        if ('sectionCount' in firstObj.values):
+                            if (secondObj.values[attr1] == firstObj.values['sectionCount']):
+                                continue
+                            else:
+                                nb_differences+=1
+                                msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + secondObj.values[attr1] + " has another value on right side (value: " + firstObj.values['sectionCount'] + ")\n"
+                                continue
+                    elif attr1=="sectionCount":
+                        if ('currentSectionCount' in firstObj.values):
+                            if (secondObj.values[attr1] == firstObj.values['currentSectionCount']):
+                                continue
+                            else:
+                                nb_differences+=1
+                                msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + secondObj.values[attr1] + " has another value on right side (value: " + firstObj.values['currentSectionCount'] + ")\n"
+                                continue
                     nb_differences+=1
                     msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + secondObj.values[attr1] + " is not in the equivalent object on left side\n"
     for error in sorted(differences, key=operator.itemgetter(0), reverse=True)[:settings.max_nb_iidm_outputs]:
