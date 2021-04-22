@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -15,7 +15,7 @@
   <dyn:modelicaModel id="Test">
     <dyn:unitDynamicModel id="busInf" name="Dynawo.Electrical.Buses.InfiniteBus" parFile="SVarC.par" parId="1"/>
     <dyn:unitDynamicModel id="line1" name="Dynawo.Electrical.Lines.Line" parFile="SVarC.par" parId="2"/>
-    <dyn:unitDynamicModel id="load" name="Dynawo.Electrical.Loads.LoadPQ" initName= "Dynawo.Electrical.Loads.Load_INIT" parFile="SVarC.par" parId="3"/>
+    <dyn:unitDynamicModel id="load" name="Dynawo.Electrical.Loads.LoadPQ" initName="Dynawo.Electrical.Loads.Load_INIT" parFile="SVarC.par" parId="3"/>
     <dyn:unitDynamicModel id="line2" name="Dynawo.Electrical.Lines.Line" parFile="SVarC.par" parId="2"/>
     <dyn:unitDynamicModel id="svarc" name="Dynawo.Electrical.StaticVarCompensators.SVarCPVRemote" initName="Dynawo.Electrical.StaticVarCompensators.SVarCPVRemote_INIT" parFile="SVarC.par" parId="4"/>
     <dyn:unitDynamicModel id="URef" name="Dynawo.Electrical.Controls.Basics.Step" initName="Dynawo.Electrical.Controls.Basics.Step_INIT" parFile="SVarC.par" parId="5"/>
