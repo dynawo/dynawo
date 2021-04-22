@@ -563,7 +563,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   const size_t zQIdx = 3;
   y[DeltaPcIdx] = 5;
   y[DeltaQcIdx] = 7;
-  y[zPIdx] = 9;
+  y[zPIdx] = 5;
   y[zQIdx] = 11;
   SparseMatrix smj;
   int size = load->sizeY();
@@ -571,14 +571,16 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   load->evalJt(smj, 1., 0);
   smj.changeCol();
   smj.changeCol();
-  ASSERT_EQ(smj.nbElem(), 4);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], 8.4895038000592429);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], 5.2397892818982124);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3], 2.9941653039418354);
+  ASSERT_EQ(smj.nbElem(), 6);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 22.155644370746373);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], -153.29392144688848);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -87.596526541079143);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3],  8.4895038000592429);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[4],  5.2397892818982124);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[5],  2.9941653039418354);
   ASSERT_EQ(smj.Ap_[0], 0);
-  ASSERT_EQ(smj.Ap_[1], 1);
-  ASSERT_EQ(smj.Ap_[2], 4);
+  ASSERT_EQ(smj.Ap_[1], 3);
+  ASSERT_EQ(smj.Ap_[2], 6);
 
   load->getModelBus()->switchOff();
   SparseMatrix smj2;
