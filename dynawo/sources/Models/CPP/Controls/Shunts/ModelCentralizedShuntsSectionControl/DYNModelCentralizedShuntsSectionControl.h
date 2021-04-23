@@ -97,7 +97,7 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP::Impl {
    * interact with the model
    * @param variables vector to fill with each variables
    */
-  void defineVariables(std::vector<boost::shared_ptr<Variable>> &variables);
+  void defineVariables(std::vector<boost::shared_ptr<Variable> > &variables);
   /**
    * @brief ModelCentralizedShuntsSectionControl model initialization
    * @param t0 : initial time of the simulation
