@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -82,8 +82,8 @@
   <dyn:connect id1="TAP_CHANGER_LOCK" var1="tapChangerLock_UMonitored" id2="NETWORK" var2="_BUS____3_TN_U"/>
   <dyn:connect id2="TAP_CHANGER_LOAD_2" var2="tapChanger_locked" id1="TAP_CHANGER_LOCK" var1="tapChangerLock_lockedT"/>
   <dyn:connect id2="TAP_CHANGER_LOAD_3" var2="tapChanger_locked" id1="TAP_CHANGER_LOCK" var1="tapChangerLock_lockedT"/>
-  <dyn:connect id1="LOADVAR_LOAD2" var1="event_state1" id2="_LOAD___2_EC" var2="load_PRefPu"/>
-  <dyn:connect id1="LOADVAR_LOAD2" var1="event_state2" id2="_LOAD___2_EC" var2="load_QRefPu"/>
-  <dyn:connect id1="LOADVAR_LOAD3" var1="event_state1" id2="_LOAD___3_EC" var2="load_PRefPu"/>
-  <dyn:connect id1="LOADVAR_LOAD3" var1="event_state2" id2="_LOAD___3_EC" var2="load_QRefPu"/>
+  <dyn:connect id1="LOADVAR_LOAD2" var1="event_state1_value" id2="_LOAD___2_EC" var2="load_PRefPu"/>
+  <dyn:connect id1="LOADVAR_LOAD2" var1="event_state2_value" id2="_LOAD___2_EC" var2="load_QRefPu"/>
+  <dyn:connect id1="LOADVAR_LOAD3" var1="event_state1_value" id2="_LOAD___3_EC" var2="load_PRefPu"/>
+  <dyn:connect id1="LOADVAR_LOAD3" var1="event_state2_value" id2="_LOAD___3_EC" var2="load_QRefPu"/>
 </dyn:dynamicModelsArchitecture>

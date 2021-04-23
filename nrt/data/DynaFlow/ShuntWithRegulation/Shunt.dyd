@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -13,15 +13,15 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="Generator___1" lib="GeneratorPVSignalN" parFile="Shunt.par" parId="1" staticId="_Generator___1">
-        <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
-        <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
-        <dyn:staticRef var="generator_state" staticVar="state"/>
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="Signal_N" lib="DYNModelSignalN" parFile="Shunt.par" parId="2"/>
   <dyn:blackBoxModel id="Load__10" lib="LoadAlphaBetaRestorative" parFile="Shunt.par" parId="3" staticId="_Load__10">
-        <dyn:staticRef var="load_PPu" staticVar="p"/>
-        <dyn:staticRef var="load_QPu" staticVar="q"/>
-        <dyn:staticRef var="load_state" staticVar="state"/>
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="Shunt" lib="ShuntBWithSectionsWithRegulation" parFile="Shunt.par" parId="4"/>
   <dyn:blackBoxModel id="Disconnect_Line" lib="EventQuadripoleDisconnection" parFile="Shunt.par" parId="5"/>

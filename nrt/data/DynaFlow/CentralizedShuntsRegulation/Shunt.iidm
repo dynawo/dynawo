@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<network xmlns="http://www.itesla_project.eu/schema/iidm/1_0" xmlns:as="http://www.itesla_project.eu/schema/iidm/ext/active-season/1_0" xmlns:bbsp="http://www.itesla_project.eu/schema/iidm/ext/busbarsectionposition/1_0" xmlns:clps="http://www.itesla_project.eu/schema/iidm/ext/current-limits-per-season/1_0" xmlns:cp="http://www.itesla_project.eu/schema/iidm/ext/connectable_position/1_0" xmlns:gapc="http://www.itesla_project.eu/schema/iidm/ext/generator_active_power_control/1_0" xmlns:gec="http://www.itesla_project.eu/schema/iidm/ext/generator_entsoe_category/1_0" xmlns:gs="http://www.itesla_project.eu/schema/iidm/ext/generator_startup/1_0" xmlns:hapc="http://www.itesla_project.eu/schema/iidm/ext/hvdc_angle_droop_active_power_control/1_0" xmlns:hopr="http://www.itesla_project.eu/schema/iidm/ext/hvdc_operator_active_power_range/1_0" xmlns:ld="http://www.itesla_project.eu/schema/iidm/ext/load_detail/1_0" xmlns:sa="http://www.itesla_project.eu/schema/iidm/ext/standby_automaton/1_0" id="ieee14bus" caseDate="2017-06-09T10:14:24.146+02:00" forecastDistance="0" sourceFormat="CIM1">
+  <substation id="_BUS___10_SS" name="BUS   10_SS" country="AF">
+    <voltageLevel id="_BUS___10_VL" name="BUS   10_VL" nominalV="400" topologyKind="BUS_BREAKER">
+      <busBreakerTopology>
+        <bus id="_BUS___10_TN" v="382.06334857392562" angle="-16.04174422679765"/>
+      </busBreakerTopology>
+      <load id="_Load__10" name="LOAD  10" loadType="UNDEFINED" p0="3000" q0="0" bus="_BUS___10_TN" connectableBus="_BUS___10_TN" p="2945.0330081576221" q="0"/>
+    </voltageLevel>
+  </substation>
+  <substation id="_BUS____1_SS" name="BUS    1_SS" country="AF">
+    <voltageLevel id="_BUS____1_VL" name="BUS    1_VL" nominalV="69" topologyKind="BUS_BREAKER">
+      <busBreakerTopology>
+        <bus id="_BUS____1_TN" v="68" angle="0"/>
+      </busBreakerTopology>
+      <generator id="_Generator___1" name="GEN    1" energySource="OTHER" minP="-9999" maxP="9999" voltageRegulatorOn="true" targetP="100" targetQ="0" targetV="73.140000000000001" bus="_BUS____1_TN" connectableBus="_BUS____1_TN" p="-2986.0500384349516" q="-853.82881133084948">
+        <minMaxReactiveLimits minQ="-999" maxQ="999"/>
+      </generator>
+    </voltageLevel>
+  </substation>
+  <substation id="_BUS____5_SS" name="BUS    5_SS" country="AF">
+    <voltageLevel id="_BUS____6_VL" name="BUS    6_VL" nominalV="400" topologyKind="BUS_BREAKER">
+      <busBreakerTopology>
+        <bus id="_BUS____7_TN" v="389.84437618833806" angle="-6.4105873588485549"/>
+        <bus id="_BUS____8_TN" v="388.68774064975685" angle="-8.1481737838639763"/>
+      </busBreakerTopology>
+    </voltageLevel>
+    <voltageLevel id="_BUS____5_VL" name="BUS    5_VL" nominalV="69" topologyKind="BUS_BREAKER">
+      <busBreakerTopology>
+        <bus id="_BUS____5_TN" v="66.963296002368423" angle="-1.7711877870497637"/>
+      </busBreakerTopology>
+    </voltageLevel>
+    <twoWindingsTransformer id="_BUS____5-BUS____7-2_PT" name="BUS    5-BUS    7-2" r="0" x="10" g="0" b="0" ratedU1="69" ratedU2="400" voltageLevelId1="_BUS____5_VL" bus1="_BUS____5_TN" connectableBus1="_BUS____5_TN" voltageLevelId2="_BUS____6_VL" bus2="_BUS____7_TN" connectableBus2="_BUS____7_TN" p1="1251.597145313116" q1="331.76195113296319" p2="-1251.597145313116" q2="-225.34720738440973">
+      <ratioTapChanger lowTapPosition="1" tapPosition="5" loadTapChangingCapabilities="false" regulating="false">
+        <step r="0" x="0" g="0" b="0" rho="1.1111112000000001"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0875475999999999"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0649626999999999"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0432965999999999"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948"/>
+        <step r="0" x="0" g="0" b="0" rho="1"/>
+        <step r="0" x="0" g="0" b="0" rho="0.98039215999999996"/>
+        <step r="0" x="0" g="0" b="0" rho="0.96153849999999996"/>
+        <step r="0" x="0" g="0" b="0" rho="0.94339629999999997"/>
+        <step r="0" x="0" g="0" b="0" rho="0.92592589999999997"/>
+        <step r="0" x="0" g="0" b="0" rho="0.90909090000000004"/>
+      </ratioTapChanger>
+      <currentLimits1 permanentLimit="836.74000000000001"/>
+      <currentLimits2 permanentLimit="4183.6999999999998"/>
+    </twoWindingsTransformer>
+    <twoWindingsTransformer id="_BUS____5-BUS____8-1_PT" name="BUS    5-BUS    8-1" r="0" x="10" g="0" b="0" ratedU1="69" ratedU2="400" voltageLevelId1="_BUS____5_VL" bus1="_BUS____5_TN" connectableBus1="_BUS____5_TN" voltageLevelId2="_BUS____6_VL" bus2="_BUS____8_TN" connectableBus2="_BUS____8_TN" p1="1713.5843720349342" q1="422.43040125542063" p2="-1713.5843720349342" q2="-224.72654868813305">
+      <ratioTapChanger lowTapPosition="1" tapPosition="5" loadTapChangingCapabilities="false" regulating="false">
+        <step r="0" x="0" g="0" b="0" rho="1.1111112000000001"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0875475999999999"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0649626999999999"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0432965999999999"/>
+        <step r="0" x="0" g="0" b="0" rho="1.0224948"/>
+        <step r="0" x="0" g="0" b="0" rho="1"/>
+        <step r="0" x="0" g="0" b="0" rho="0.98039215999999996"/>
+        <step r="0" x="0" g="0" b="0" rho="0.96153849999999996"/>
+        <step r="0" x="0" g="0" b="0" rho="0.94339629999999997"/>
+        <step r="0" x="0" g="0" b="0" rho="0.92592589999999997"/>
+        <step r="0" x="0" g="0" b="0" rho="0.90909090000000004"/>
+      </ratioTapChanger>
+      <currentLimits1 permanentLimit="836.74000000000001"/>
+      <currentLimits2 permanentLimit="4183.6999999999998"/>
+    </twoWindingsTransformer>
+  </substation>
+  <line id="_BUS____1-BUS____5-1_AC" name="BUS    1-BUS    5-1" r="0.01" x="0.050000000000000003" g1="0" b1="0.00051670000000000004" g2="0" b2="0.00051670000000000004" voltageLevelId1="_BUS____1_VL" bus1="_BUS____1_TN" connectableBus1="_BUS____1_TN" voltageLevelId2="_BUS____5_VL" bus2="_BUS____5_TN" connectableBus2="_BUS____5_TN" p1="2986.0500384349511" q1="853.82881133084197" p2="-2965.1815173480491" q2="-754.19235238837427">
+    <currentLimits1 permanentLimit="836.74000000000001"/>
+  </line>
+  <line id="_BUS____8-BUS___10-2_AC" name="BUS    8-BUS   10-2" r="0.75" x="12" g1="0" b1="0" g2="0" b2="0" voltageLevelId1="_BUS____6_VL" bus1="_BUS____8_TN" connectableBus1="_BUS____8_TN" voltageLevelId2="_BUS___10_VL" bus2="_BUS___10_TN" connectableBus2="_BUS___10_TN" p1="1713.5843720349335" q1="224.7265486881287" p2="-1698.7565830923866" q2="12.518074392616718">
+    <currentLimits1 permanentLimit="4183.6999999999998"/>
+  </line>
+  <line id="_BUS____7-BUS___10-1_AC" name="BUS    7-BUS   10-1" r="0.5" x="20" g1="0" b1="0" g2="0" b2="0" voltageLevelId1="_BUS____6_VL" bus1="_BUS____7_TN" connectableBus1="_BUS____7_TN" voltageLevelId2="_BUS___10_VL" bus2="_BUS___10_TN" connectableBus2="_BUS___10_TN" p1="1251.5971453131153" q1="225.347207384406" p2="-1246.2764081256876" q2="-12.517719887296508">
+    <currentLimits1 permanentLimit="4183.6999999999998"/>
+  </line>
+</network>
