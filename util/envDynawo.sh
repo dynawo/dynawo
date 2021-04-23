@@ -277,6 +277,14 @@ set_environment() {
       export_var_env_force DYNAWO_BUILD_TESTS_COVERAGE=OFF
       export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
       ;;
+    unittest-gdb)
+      export_var_env_force DYNAWO_BUILD_TYPE=Debug
+      DYNAWO_FOLDER_BUILD_TYPE=Tests
+      export_var_env_force DYNAWO_BUILD_TESTS=ON
+      export_var_env_force DYNAWO_BUILD_TESTS_COVERAGE=OFF
+      export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
+      export_var_env_force DYNAWO_XSD_DIR=./
+      ;;
     clean-tests)
       export_var_env_force DYNAWO_BUILD_TYPE=Debug
       DYNAWO_FOLDER_BUILD_TYPE=Tests
