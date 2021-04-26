@@ -136,14 +136,6 @@ class job_const_iterator {
   job_const_iterator(const JobsCollection* iterated, bool begin);
 
   /**
-   * @brief assignment
-   * @param other : job_const_iterator to assign
-   *
-   * @returns Reference to this job_const_iterator
-   */
-  job_const_iterator& operator=(const job_const_iterator& other);
-
-  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this job_const_iterator
