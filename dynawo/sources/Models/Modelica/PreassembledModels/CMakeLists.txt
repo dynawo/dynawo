@@ -77,7 +77,6 @@ set(MODELICA_PREASSEMBLED_MODELS
     PhaseShifterP.xml
     PowerTransferHVDCEmulation.xml
     ShuntBWithSections.xml
-    ShuntBWithSectionsWithRegulation.xml
     SetPoint.xml
     SignalN.xml
     StaticVarCompensator.xml
