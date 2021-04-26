@@ -23,7 +23,10 @@
 #include "FSXmlExporter.h"
 #include "FSFinalStateCollection.h"
 
+testing::Environment* initXmlEnvironment();
+
 namespace finalState {
+testing::Environment* const env = initXmlEnvironment();
 
 //-----------------------------------------------------
 // TEST import missing file
