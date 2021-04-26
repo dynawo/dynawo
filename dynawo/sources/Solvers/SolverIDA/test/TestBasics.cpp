@@ -63,7 +63,10 @@
 #include "TLTimelineFactory.h"
 #include "DYNMacrosMessage.h"
 
+testing::Environment* initXmlEnvironment();
+
 namespace DYN {
+testing::Environment* const env = initXmlEnvironment();
 
 boost::shared_ptr<Solver> initSolver() {
   // Solver

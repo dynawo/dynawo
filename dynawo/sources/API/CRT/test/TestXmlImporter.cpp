@@ -27,7 +27,10 @@
 
 using DYN::doubleEquals;
 
+testing::Environment* initXmlEnvironment();
+
 namespace criteria {
+testing::Environment* const env = initXmlEnvironment();
 
 //-----------------------------------------------------
 // TEST XmlImporter
