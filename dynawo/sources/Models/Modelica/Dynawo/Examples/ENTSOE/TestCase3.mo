@@ -30,7 +30,7 @@ model TestCase3 "Synchronous machine connected to an infinite bus, with governor
     Placement(visible = true, transformation(origin = {-32, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   // Generator
-  BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
+  Dynawo.Examples.ENTSOE.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
    Ce0Pu = 0.95,
    Cm0Pu = 1,
    Cos2Eta0 = 0.586492,
@@ -108,8 +108,12 @@ model TestCase3 "Synchronous machine connected to an infinite bus, with governor
   // Load
   Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(0.952267, 0)) annotation(
     Placement(visible = true, transformation(origin = {-80, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint PRefPu(Value0 = 4.75);
-  Dynawo.Electrical.Controls.Basics.SetPoint QRefPu(Value0 = 0.76);
+  Modelica.Blocks.Sources.Constant PRefPu(k = 4.75) annotation(
+    Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant QRefPu(k = 0.76) annotation(
+    Placement(visible = true, transformation(origin = {-50, -70}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
+  // Node fault
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0.000173, XPu = 0, tBegin = 0.1, tEnd = 0.2) annotation(
     Placement(visible = true, transformation(origin = {-52, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -133,10 +137,6 @@ equation
   connect(load.terminal, gridImpedance.terminal2) annotation(
     Line(points = {{-80, -38}, {-80, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint) annotation(
-    Line);
-  connect(load.PRefPu, PRefPu.setPoint) annotation(
-    Line);
-  connect(load.QRefPu, QRefPu.setPoint) annotation(
     Line);
   connect(nodeFault.terminal, transformer.terminal1) annotation(
     Line(points = {{-52, 50}, {-52, 0}}, color = {0, 0, 255}));
@@ -165,8 +165,11 @@ equation
     Line(points = {{102, -30}, {102, -30.5}, {110, -30.5}, {110, -51}, {32, -51}, {32, -16}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
     Line(points = {{141, 18}, {150, 18}, {150, -60}, {8, -60}, {8, -16}}, color = {0, 0, 127}));
-
-  annotation(
+  connect(PRefPu.y, load.PRefPu) annotation(
+    Line(points = {{-98, -70}, {-86, -70}, {-86, -46}}, color = {0, 0, 127}));
+  connect(QRefPu.y, load.QRefPu) annotation(
+    Line(points = {{-61, -70}, {-74, -70}, {-74, -46}}, color = {0, 0, 127}));
+  annotation(preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
   Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),

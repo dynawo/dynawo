@@ -13,7 +13,7 @@ within Dynawo.Examples;
 */
 
 package ENTSOE
-
+  import Modelica;
   extends Modelica.Icons.Package;
 
   annotation(

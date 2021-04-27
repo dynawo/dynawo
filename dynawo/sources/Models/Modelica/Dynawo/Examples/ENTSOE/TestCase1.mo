@@ -20,7 +20,7 @@ model TestCase1 "Synchronous machine connected to a zero current bus, with gover
   extends Modelica.Icons.Example;
 
   // Generator
-  BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
+  Dynawo.Examples.ENTSOE.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
    Ce0Pu = 0,
    Cm0Pu = 0,
    Cos2Eta0 = 1,
@@ -131,7 +131,7 @@ equation
     Line(points = {{102, -30}, {102, -30.5}, {110, -30.5}, {110, -51}, {32, -51}, {32, -16}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
     Line(points = {{141, 18}, {150, 18}, {150, -60}, {8, -60}, {8, -16}}, color = {0, 0, 127}));
-  annotation(
+  annotation(preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 2, Tolerance = 1e-06),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})));

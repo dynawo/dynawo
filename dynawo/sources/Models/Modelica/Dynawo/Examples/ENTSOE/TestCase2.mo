@@ -20,7 +20,7 @@ model TestCase2 "Synchronous machine connected to a load, with governor and AVR"
   extends Modelica.Icons.Example;
 
   // Generator
-  BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
+  Dynawo.Examples.ENTSOE.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
    Ce0Pu = 0.76,
    Cm0Pu = 0.8,
    Cos2Eta0 = 0.459383,
@@ -96,10 +96,11 @@ model TestCase2 "Synchronous machine connected to a load, with governor and AVR"
 
   // Load
   Dynawo.Electrical.Loads.LoadAlphaBeta load(alpha = 2, beta = 2, u0Pu = Complex(1, 0)) annotation(
-    Placement(visible = true, transformation(origin = {-40, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.SetPoint QRefPu(Value0 = 0);
-  Modelica.Blocks.Sources.Step PRefPu(height = 0.05 * generatorSynchronous.PNomAlt / 100, offset = 3.8, startTime = 0.1);
-
+    Placement(visible = true, transformation(origin = {-80, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Step PRefPu(height = 0.05 * generatorSynchronous.PNomAlt / 100, offset = 3.8, startTime = 0.1) annotation(
+    Placement(visible = true, transformation(origin = {-120, -54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant QRefPu(k = 0) annotation(
+    Placement(visible = true, transformation(origin = {-40, -54}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   // Regulations
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.IEEE_SEXS avr(EMax = 4, EMin = 0, Efd0Pu = generatorSynchronous.Efd0Pu, K = 200, Ta = 3, Tb = 10, Te = 0.05, Upss0Pu = 0, Us0Pu = 1) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -116,13 +117,10 @@ equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
-  connect(load.QRefPu, QRefPu.setPoint) annotation(
-    Line);
-  load.PRefPu.value = PRefPu.y;
   load.switchOffSignal1.value = false;
   load.switchOffSignal2.value = false;
   connect(load.terminal, generatorSynchronous.terminal) annotation(
-    Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
+    Line(points = {{-80, -18}, {-80, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
     Line(points = {{38, 6}, {60, 6}, {60, -36}, {78, -36}}, color = {0, 0, 127}));
   connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
@@ -132,11 +130,14 @@ equation
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
     Line(points = {{141, 18}, {150, 18}, {150, -60}, {8, -60}, {8, -16}}, color = {0, 0, 127}));
   connect(const.y, avr.UpssPu) annotation(
-    Line(points = {{102, 0}, {110, 0}, {110, 12}, {118, 12}, {118, 12}}, color = {0, 0, 127}));
+    Line(points = {{101, 0}, {110, 0}, {110, 12}, {118, 12}}, color = {0, 0, 127}));
   connect(const1.y, avr.UsRefPu) annotation(
     Line(points = {{21, 60}, {50, 60}, {50, 24}, {118, 24}}, color = {0, 0, 127}));
-
-  annotation(
+  connect(PRefPu.y, load.PRefPu) annotation(
+    Line(points = {{-109, -54}, {-87, -54}, {-87, -26}}, color = {0, 0, 127}));
+  connect(load.QRefPu, QRefPu.y) annotation(
+    Line(points = {{-74, -26}, {-74, -54}, {-51, -54}}, color = {0, 0, 127}));
+  annotation(preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 15, Tolerance = 1e-06),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})));
