@@ -456,6 +456,12 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerWithRatioTapChangerPar
   ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
   modelNetwork->setParameterValue("transformer_tolV", PAR, 13., isInitParam);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
+
+  modelNetwork->setParameterValue("transformer_disable_internal_ratioTapChanger", PAR, false, isInitParam);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
+
+  modelNetwork->setParameterValue("transformer_disable_internal_phaseTapChanger", PAR, false, isInitParam);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 }
 

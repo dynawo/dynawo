@@ -111,7 +111,7 @@ TEST(ModelsModelNetwork, ModelNetworkPhaseTapChanger) {
   double t = 5.;
   double iValue = 6.;
   const bool nodeOff = false;
-  double disable = -1.;
+  bool disable = false;
   double locked = 0.;
   bool tfoClosed = true;
   ptc.evalG(t, iValue, nodeOff, &states[0], disable, locked, tfoClosed);
@@ -222,7 +222,7 @@ TEST(ModelsModelNetwork, ModelNetworkRatioTapChanger) {
   double t = 5.;
   double uValue = 11.2;
   const bool nodeOff = false;
-  double disable = -1.;
+  bool disable = false;
   double locked = -1.;
   bool tfoClosed = true;
   ptc.evalG(t, uValue, nodeOff, &states[0], disable, locked, tfoClosed);

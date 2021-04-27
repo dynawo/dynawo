@@ -53,7 +53,7 @@ class ModelPhaseTapChanger : public ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed : is the transformer connected ?
    */
-  void evalG(double t, double iValue, bool nodeOff, state_g* g, double disable,
+  void evalG(double t, double iValue, bool nodeOff, state_g* g, bool disable,
              double locked, bool tfoClosed);
 
   /**
@@ -67,7 +67,7 @@ class ModelPhaseTapChanger : public ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed :is the transformer connected ?
    */
-  void evalZ(double t, state_g* g, ModelNetwork* network, double disable,
+  void evalZ(double t, state_g* g, ModelNetwork* network, bool disable,
              bool P1SupP2, double locked, bool tfoClosed);
 
   /**
