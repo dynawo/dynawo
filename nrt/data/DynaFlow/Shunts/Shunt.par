@@ -74,5 +74,7 @@
     <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
     <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
     <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
+    <par type="BOOL" name="transformer_disable_internal_phaseTapChanger" value="false"/>
+    <par type="BOOL" name="transformer_disable_internal_ratioTapChanger" value="false"/>
   </set>
 </parametersSet>

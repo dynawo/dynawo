@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <macroParameterSet id="macro1">
     <par name="generator_tFilter" type="DOUBLE" value="0.001"/>
@@ -12,7 +12,6 @@
     <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="targetV_pu"/>
   </macroParameterSet>
-
   <set id="12293692827806051710">
     <par name="generator_KGover" type="DOUBLE" value="0"/>
     <par name="generator_QMax0" type="DOUBLE" value="41"/>
