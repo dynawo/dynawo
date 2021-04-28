@@ -9,8 +9,7 @@
     <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="GEN_SIGNALN_CONNECTOR">
-    <dyn:connect var1="generator_alpha_value" var2="alpha_grp_@INDEX@_value"/>
-    <dyn:connect var1="generator_N_value" var2="n_grp_@INDEX@_value"/>
+    <dyn:connect var1="generator_N" var2="signalN_N"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="LOAD_NETWORK_CONNECTOR">
     <dyn:connect var1="Ui_value" var2="@STATIC_ID@@NODE@_ACPIN_V_im"/>
@@ -34,7 +33,7 @@
     <dyn:staticRef var="QPu_value" staticVar="q"/>
     <dyn:staticRef var="state_value" staticVar="state"/>
   </dyn:macroStaticReference>
-  <dyn:blackBoxModel id="Model_Signal_N" lib="DYNModelSignalN" parFile="LoadRestorativeWithLimits.par" parId="SignalN"/>
+  <dyn:blackBoxModel id="Model_Signal_N" lib="SignalN" parFile="LoadRestorativeWithLimits.par" parId="SignalN"/>
   <dyn:blackBoxModel id="_Generator___1" staticId="_Generator___1" lib="GeneratorPVSignalN" parFile="LoadRestorativeWithLimits.par" parId="signalNGenerator">
     <dyn:macroStaticRef id="GeneratorStaticRef"/>
   </dyn:blackBoxModel>
@@ -44,7 +43,7 @@
   <dyn:macroConnect connector="LOAD_NETWORK_CONNECTOR" id1="_Load__10" id2="NETWORK"/>
   <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR" id1="_Generator___1" id2="NETWORK"/>
   <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_Generator___1" id2="Model_Signal_N" index2="0"/>
-  <dyn:connect id1="Model_Signal_N" var1="tetaRef_0_value" id2="NETWORK" var2="_BUS___10_TN_phi_value"/>
+  <dyn:connect id1="Model_Signal_N" var1="signalN_thetaRef_value" id2="NETWORK" var2="_BUS___10_TN_phi_value"/>
   <dyn:blackBoxModel id="Disconnect_Line" lib="EventQuadripoleDisconnection" parFile="LoadRestorativeWithLimits.par" parId="disconnection"/>
   <dyn:connect id1="Disconnect_Line" var1="event_state1_value" id2="NETWORK" var2="_BUS____8-BUS___10-2_AC_state_value"/>
 </dyn:dynamicModelsArchitecture>

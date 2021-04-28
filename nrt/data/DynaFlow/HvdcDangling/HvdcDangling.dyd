@@ -17,21 +17,20 @@
     <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="GEN_SIGNALN_CONNECTOR">
-    <dyn:connect var1="generator_alpha_value" var2="alpha_grp_@INDEX@_value"/>
-    <dyn:connect var1="generator_N_value" var2="n_grp_@INDEX@_value"/>
+    <dyn:connect var1="generator_N" var2="signalN_N"/>
   </dyn:macroConnector>
   <dyn:macroStaticReference id="GeneratorStaticRef">
     <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
     <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
     <dyn:staticRef var="generator_state" staticVar="state"/>
   </dyn:macroStaticReference>
-  <dyn:blackBoxModel id="Model_Signal_N" lib="DYNModelSignalN" parFile="HvdcDangling.par" parId="SignalN"/>
+  <dyn:blackBoxModel id="Model_Signal_N" lib="SignalN" parFile="HvdcDangling.par" parId="SignalN"/>
   <dyn:blackBoxModel id="_Generator___1" staticId="_Generator___1" lib="GeneratorPVSignalN" parFile="HvdcDangling.par" parId="Generator">
     <dyn:macroStaticRef id="GeneratorStaticRef"/>
   </dyn:blackBoxModel>
   <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR" id1="_Generator___1" id2="NETWORK"/>
   <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_Generator___1" id2="Model_Signal_N" index2="0"/>
-  <dyn:connect id1="Model_Signal_N" var1="tetaRef_0_value" id2="NETWORK" var2="_BUS____5_TN_phi_value"/>
+  <dyn:connect id1="Model_Signal_N" var1="signalN_thetaRef_value" id2="NETWORK" var2="_BUS____5_TN_phi_value"/>
   <dyn:blackBoxModel id="HVDCLCC" lib="HvdcPTanPhiDangling" parFile="HvdcDangling.par" parId="HVDC" staticId="HVDCLCCLine">
     <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
     <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
