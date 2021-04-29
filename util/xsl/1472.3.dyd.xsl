@@ -1,5 +1,5 @@
 <!--  This xsl:
-    * drops connect containing alphaSum for generator
+    * drops connect containing AutomatonExists for phaseShifter
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:dyn="http://www.rte-france.com/dynawo">
     <xsl:output method='xml' version='1.0' encoding='UTF-8' indent='yes'/>
