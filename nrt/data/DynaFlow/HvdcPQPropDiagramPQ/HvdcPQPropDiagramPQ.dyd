@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -13,26 +13,26 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="Generator___1" lib="GeneratorPVSignalN" parFile="HvdcPQPropDiagramPQ.par" parId="1" staticId="_Generator___1">
-        <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
-        <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
-        <dyn:staticRef var="generator_state" staticVar="state"/>
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="Signal_N" lib="DYNModelSignalN" parFile="HvdcPQPropDiagramPQ.par" parId="2"/>
   <dyn:blackBoxModel id="Hvdc1" lib="HvdcPQPropDiagramPQEmulation" parFile="HvdcPQPropDiagramPQ.par" parId="4" staticId="HVDC1">
-      <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
-      <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
-      <dyn:staticRef var="hvdc_state" staticVar="state1"/>
-      <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
-      <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
-      <dyn:staticRef var="hvdc_state" staticVar="state2"/>
+    <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
+    <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state1"/>
+    <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
+    <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state2"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="Hvdc2" lib="HvdcPQPropDiagramPQEmulation" parFile="HvdcPQPropDiagramPQ.par" parId="5" staticId="HVDC2">
-      <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
-      <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
-      <dyn:staticRef var="hvdc_state" staticVar="state1"/>
-      <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
-      <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
-      <dyn:staticRef var="hvdc_state" staticVar="state2"/>
+    <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
+    <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state1"/>
+    <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
+    <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state2"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="HvdcVoltageRegulationTerminal1" lib="VRRemote" parFile="HvdcPQPropDiagramPQ.par" parId="6"/>
   <dyn:blackBoxModel id="HvdcVoltageRegulationTerminal2" lib="VRRemote" parFile="HvdcPQPropDiagramPQ.par" parId="7"/>

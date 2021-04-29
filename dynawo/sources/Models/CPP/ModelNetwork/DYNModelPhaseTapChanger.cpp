@@ -59,9 +59,9 @@ bool ModelPhaseTapChanger::getIncreaseTap(bool P1SupP2) const {
 }
 
 void ModelPhaseTapChanger::evalG(double t, double iValue, bool /*nodeOff*/,
-                                 state_g* g, double disable, double locked,
+                                 state_g* g, bool disable, double locked,
                                  bool tfoClosed) {
-  g[0] = (iValue >= thresholdI_ && !(disable > 0.) && tfoClosed)
+  g[0] = (iValue >= thresholdI_ && !disable && tfoClosed)
              ? ROOT_UP
              : ROOT_DOWN;  // I > IThreshold
   g[1] = (iValue < thresholdI_) ? ROOT_UP : ROOT_DOWN;
@@ -90,9 +90,9 @@ void ModelPhaseTapChanger::evalG(double t, double iValue, bool /*nodeOff*/,
 }
 
 void ModelPhaseTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
-                                 double disable, bool P1SupP2, double locked,
+                                 bool disable, bool P1SupP2, double locked,
                                  bool tfoClosed) {
-  if (!(disable > 0.) && !(locked > 0.) && tfoClosed) {
+  if (!disable && !(locked > 0.) && tfoClosed) {
     if (g[0] == ROOT_UP && !currentOverThresholdState_) {  // I > IThreshold
       if (getIncreaseTap(P1SupP2)) {
         whenUp_ = t;

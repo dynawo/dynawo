@@ -68,7 +68,6 @@ partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-
 
     Connectors.ImPin valueToMonitor (value (start = valueToMonitor0)) "Monitored value";
     Connectors.ZPin tap (value (start = tap0)) "Current tap";
-    Connectors.BPin AutomatonExists (value = true) "Pin to indicate to deactivate internal automaton";
 
     Boolean locked (start = locked0) "Whether the tap-changer/phase-shifter is locked";
     State state(start = state0);

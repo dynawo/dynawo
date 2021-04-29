@@ -95,8 +95,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
     connectionStateNum_ = 0,
     currentStepIndexNum_ = 1,
     currentLimitsDesactivateNum_ = 2,
-    disableInternalTapChangerNum_ = 3,
-    tapChangerLockedNum_ = 4
+    tapChangerLockedNum_ = 3
   } IndexDiscreteVariable_t;
 
   /**
@@ -188,22 +187,6 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   double getCurrentLimitsDesactivate() const {
     return currentLimitsDesactivate_;
   }  // get whether the current limit automaton is deactivated
-
-  /**
-   * @brief set whether to rely on an internal (or external) tap-changer model
-   * @param disable
-   */
-  void setDisableInternalTapChanger(const double& disable) {
-    disableInternalTapChanger_ = disable;
-  }  // set whether to rely on an internal (or external) tap-changer model
-
-  /**
-   * @brief get whether to rely on an internal (or external) tap-changer model
-   * @return whether to rely on an internal (or external) tap-changer model
-   */
-  double getDisableInternalTapChanger() const {
-    return disableInternalTapChanger_;
-  }  // get whether to rely on an internal (or external) tap-changer model
 
   /**
    * @brief  set whether the tap-changer is locked (and cannot change taps)
@@ -702,7 +685,8 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   bool stateIndexModified_;  ///< true if the 2wt state index was modified
   bool updateYMat_;  ///< true if YMat needs to be updated (= topologyModified or stateIndexModified on this 2wt)
   double currentLimitsDesactivate_;  ///< whether the current limit automaton is deactivated
-  double disableInternalTapChanger_;  ///< whether an external (or internal) model is used for the tap-changer
+  bool disableInternalRatioTapChanger_;  ///< whether an external (or internal) RatioTapChanger model is used for the tap-changer
+  bool disableInternalPhaseTapChanger_;  ///< whether an external (or internal) PhaseTapChanger model is used for the tap-changer
   double tapChangerLocked_;  ///< whether the tap-changer is locked
   boost::shared_ptr<ModelRatioTapChanger> modelRatioChanger_;  ///< model used for the ratio tap-changer
   std::string terminalRefId_;  ///< id of the terminal where the voltage is measured

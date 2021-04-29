@@ -53,7 +53,7 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed : is the transformer connected ?
    */
-  void evalG(double t, double uValue, bool nodeOff, state_g* g, double disable,
+  void evalG(double t, double uValue, bool nodeOff, state_g* g, bool disable,
              double locked, bool tfoClosed);
 
   /**
@@ -67,7 +67,7 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed :is the transformer connected ?
    */
-  void evalZ(double t, state_g* g, ModelNetwork* network, double disable,
+  void evalZ(double t, state_g* g, ModelNetwork* network, bool disable,
              bool nodeOff, double locked, bool tfoClosed);
 
   /**

@@ -139,7 +139,8 @@ modelType_("TwoWindingsTransformer") {
     knownBus_ = BUS2;
 
   currentLimitsDesactivate_ = 0.;
-  disableInternalTapChanger_ = 0.;
+  disableInternalRatioTapChanger_ = false;
+  disableInternalPhaseTapChanger_ = false;
   tapChangerLocked_ = 0.;
 
   // tap changer and tap init
@@ -327,7 +328,7 @@ ModelTwoWindingsTransformer::initSize() {
       sizeG_ += currentLimits2_->sizeG();
     }
 
-    sizeZ_ += 2;  // add tap changer locked variable and disable_internal_tapChanger
+    sizeZ_ += 1;  // add tap changer locked variable
 
     if (modelRatioChanger_) {
       sizeG_ += modelRatioChanger_->sizeG();
@@ -380,8 +381,9 @@ ModelTwoWindingsTransformer::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOf
 }
 
 void
-ModelTwoWindingsTransformer::defineNonGenericParameters(std::vector<ParameterModeler>& /*parameters*/) {
-  // not needed
+ModelTwoWindingsTransformer::defineNonGenericParameters(std::vector<ParameterModeler>& parameters) {
+  parameters.push_back(ParameterModeler(id_ + "_disable_internal_ratioTapChanger", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_disable_internal_phaseTapChanger", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 }
 
 void
@@ -1083,7 +1085,6 @@ ModelTwoWindingsTransformer::instantiateVariables(vector<shared_ptr<Variable> >&
   variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_step_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_desactivate_currentLimits_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_disable_internal_tapChanger_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState(id_ + "_TAP_CHANGER_locked_value", BOOLEAN));
 }
 
@@ -1105,7 +1106,6 @@ ModelTwoWindingsTransformer::defineVariables(vector<shared_ptr<Variable> >& vari
   variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_step_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_desactivate_currentLimits_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState("@ID@_disable_internal_tapChanger_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState("@ID@_TAP_CHANGER_locked_value", BOOLEAN));
 }
 
@@ -1128,7 +1128,6 @@ ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std:
   addElementWithValue(twtName + string("_state"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_step"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_desactivate_currentLimits"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_disable_internal_tapChanger"), modelType_, elements, mapElement);
   addElementWithValue(twtName + string("_TAP_CHANGER_locked"), modelType_, elements, mapElement);
 }
 
@@ -1152,7 +1151,7 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
   }
 
   if (modelRatioChanger_ && modelBusMonitored_) {
-    modelRatioChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, modelBusMonitored_->getSwitchOff(), tapChangerLocked_,
+    modelRatioChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalRatioTapChanger_, modelBusMonitored_->getSwitchOff(), tapChangerLocked_,
         getConnectionState() == CLOSED);
     offsetRoot += modelRatioChanger_->sizeG();
   }
@@ -1165,7 +1164,7 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     double pSide1 = P1(ur1Val, ui1Val, ur2Val, ui2Val);
     double pSide2 = P2(ur1Val, ui1Val, ur2Val, ui2Val);
     bool P1SupP2 = (pSide1 > pSide2);
-    modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED);
+    modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalPhaseTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED);
   }
 
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
@@ -1289,7 +1288,7 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
 
   int currStateIndex = static_cast<int>(static_cast<int>(z_[currentStepIndexNum_]));
   if (currStateIndex != getCurrentStepIndex()) {
-    if (disableInternalTapChanger_ > 0.) {
+    if (disableInternalRatioTapChanger_ || disableInternalPhaseTapChanger_) {
       // external automaton
       Trace::debug() << DYNLog(TfoTapChange, id_, getCurrentStepIndex(), z_[currentStepIndexNum_]) << Trace::endline;
     } else {
@@ -1304,11 +1303,6 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
   if (doubleNotEquals(z_[currentLimitsDesactivateNum_], getCurrentLimitsDesactivate())) {
     setCurrentLimitsDesactivate(z_[currentLimitsDesactivateNum_]);
     Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
-  }
-
-  if (doubleNotEquals(z_[disableInternalTapChangerNum_], getDisableInternalTapChanger())) {
-    setDisableInternalTapChanger(z_[disableInternalTapChangerNum_]);
-    Trace::debug() << DYNLog(DisableInternalTapChanger, id_) << Trace::endline;
   }
 
   if (doubleNotEquals(z_[tapChangerLockedNum_], getTapChangerLocked())) {
@@ -1332,7 +1326,6 @@ ModelTwoWindingsTransformer::collectSilentZ(BitMask* silentZTable) {
   silentZTable[connectionStateNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
   silentZTable[currentStepIndexNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
   silentZTable[currentLimitsDesactivateNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
-  silentZTable[disableInternalTapChangerNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
   silentZTable[tapChangerLockedNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
 }
 
@@ -1412,13 +1405,13 @@ ModelTwoWindingsTransformer::evalG(const double& t) {
       vValue = modelBusMonitored_->getCurrentU(ModelBus::UType_);
       nodeOff = modelBusMonitored_->getSwitchOff();
     }
-    modelRatioChanger_->evalG(t, vValue, nodeOff, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED);
+    modelRatioChanger_->evalG(t, vValue, nodeOff, &g_[offset], disableInternalRatioTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED);
     offset += modelRatioChanger_->sizeG();
   }
 
   if (modelPhaseChanger_) {
     double iValue = i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
-    modelPhaseChanger_->evalG(t, iValue, false, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED);
+    modelPhaseChanger_->evalG(t, iValue, false, &g_[offset], disableInternalPhaseTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED);
   }
 }
 
@@ -1634,7 +1627,6 @@ ModelTwoWindingsTransformer::getY0() {
     z_[connectionStateNum_] = getConnectionState();
     z_[currentStepIndexNum_] = getCurrentStepIndex();
     z_[currentLimitsDesactivateNum_] = getCurrentLimitsDesactivate();
-    z_[disableInternalTapChangerNum_] = getDisableInternalTapChanger();
     z_[tapChangerLockedNum_] = getTapChangerLocked();
   }
 }
@@ -1685,7 +1677,8 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
       double tNextTHT = getParameterDynamic<double>(params, "tNext_THT", ids);
       double t1stHT = getParameterDynamic<double>(params, "t1st_HT", ids);
       double tNextHT = getParameterDynamic<double>(params, "tNext_HT", ids);
-
+      disableInternalRatioTapChanger_ = getParameterDynamic<bool>(params, "disable_internal_ratioTapChanger", ids);
+      disableInternalPhaseTapChanger_ = getParameterDynamic<bool>(params, "disable_internal_phaseTapChanger", ids);
       const bool bus1VHV = (vNom1_ >= VHV_THRESHOLD);
       const bool bus1HV = (vNom1_ >= HV_THRESHOLD && vNom1_ < VHV_THRESHOLD);
       const bool bus2VHV = (vNom2_ >= VHV_THRESHOLD);
@@ -1729,6 +1722,8 @@ ModelTwoWindingsTransformer::defineParameters(vector<ParameterModeler>& paramete
   parameters.push_back(ParameterModeler("transformer_t1st_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("transformer_tNext_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("transformer_tolV", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_disable_internal_ratioTapChanger", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_disable_internal_phaseTapChanger", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 }
 
 }  // namespace DYN

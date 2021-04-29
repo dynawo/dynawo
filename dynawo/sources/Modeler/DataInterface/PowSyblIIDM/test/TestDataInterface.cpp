@@ -641,6 +641,8 @@ initializeModel(shared_ptr<DataInterface> data) {
   parametersSet->createParameter("transformer_t1st_HT", 11.);
   parametersSet->createParameter("transformer_tNext_HT", 12.);
   parametersSet->createParameter("transformer_tolV", 13.);
+  parametersSet->createParameter("transformer_disable_internal_ratioTapChanger", false);
+  parametersSet->createParameter("transformer_disable_internal_phaseTapChanger", false);
   modelNetwork->setPARParameters(parametersSet);
 
   return modelNetwork;
