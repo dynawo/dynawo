@@ -328,7 +328,7 @@ ModelTwoWindingsTransformer::initSize() {
       sizeG_ += currentLimits2_->sizeG();
     }
 
-    sizeZ_ += 1;  // add tap changer locked variable and disable_internal_tapChanger
+    sizeZ_ += 1;  // add tap changer locked variable
 
     if (modelRatioChanger_) {
       sizeG_ += modelRatioChanger_->sizeG();
