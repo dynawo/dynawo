@@ -115,9 +115,6 @@
     <reference name="generator_PRef0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_URef0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
   </set>
-  <set id="SignalN">
-    <par type="INT" name="nbGen" value="5"/>
-  </set>
   <set id="DisconnectLine">
     <par type="DOUBLE" name="event_tEvent" value="100"/>
     <par type="BOOL" name="event_disconnectOrigin" value="true"/>

@@ -12,7 +12,6 @@
     <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="targetV_pu"/>
   </macroParameterSet>
-
   <set id="12293692827806051710">
     <par name="generator_KGover" type="DOUBLE" value="0"/>
     <par name="generator_QMax0" type="DOUBLE" value="41"/>
@@ -74,9 +73,6 @@
     <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q0_pu"/>
     <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
     <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
-  </set>
-  <set id="SignalN">
-    <par name="nbGen" type="INT" value="5"/>
   </set>
   <set id="impSignalNGenerator">
     <par name="generator_KGover" type="DOUBLE" value="1"/>

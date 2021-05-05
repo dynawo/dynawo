@@ -26,9 +26,6 @@
     <par type="DOUBLE" name="generator_KGover" value="1"/>
     <par type="DOUBLE" name="generator_PNom" value="1"/>
   </set>
-  <set id="2">
-    <par type="INT" name="nbGen" value="1"/>
-  </set>
   <set id="3">
     <par type="DOUBLE" name="load_Alpha" value="1.5"/>
     <par type="DOUBLE" name="load_Beta" value="2.5"/>

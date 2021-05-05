@@ -17,7 +17,7 @@
     <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
     <dyn:staticRef var="generator_state" staticVar="state"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="Signal_N" lib="SignalN" parFile="HvdcPQPropDiagramPQ.par" parId="2"/>
+  <dyn:blackBoxModel id="Signal_N" lib="SignalN"/>
   <dyn:blackBoxModel id="Hvdc1" lib="HvdcPQPropDiagramPQEmulation" parFile="HvdcPQPropDiagramPQ.par" parId="4" staticId="HVDC1">
     <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
     <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
