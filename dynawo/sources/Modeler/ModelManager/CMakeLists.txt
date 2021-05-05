@@ -64,3 +64,7 @@ install(TARGETS dynawo_ModelManager EXPORT dynawo-targets DESTINATION ${LIBDIR_N
 install(FILES ${MODEL_MANAGER_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
 add_subdirectory(ModelicaExternalC)
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()
