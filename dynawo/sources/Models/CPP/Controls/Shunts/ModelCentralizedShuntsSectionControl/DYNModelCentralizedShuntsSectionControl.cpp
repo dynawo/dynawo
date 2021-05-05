@@ -66,7 +66,6 @@ namespace DYN {
 
   ModelCentralizedShuntsSectionControl::ModelCentralizedShuntsSectionControl() : Impl("CentralizedShuntsSectionControl"),
     nbShunts_(0),
-    isSelf_(false),
     URef0Pu_(0.),
     changingShunt(-1),
     whenUp_(VALDEF),
@@ -81,7 +80,7 @@ namespace DYN {
     parameters.push_back(ParameterModeler("sectionMin", VAR_TYPE_INT, EXTERNAL_PARAMETER, "*", "nbShunts"));
     parameters.push_back(ParameterModeler("sectionMax", VAR_TYPE_INT, EXTERNAL_PARAMETER, "*", "nbShunts"));
     parameters.push_back(ParameterModeler("deadBandUPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbShunts"));
-    parameters.push_back(ParameterModeler("isSelf", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+    parameters.push_back(ParameterModeler("isSelf", VAR_TYPE_BOOL, EXTERNAL_PARAMETER, "*", "nbShunts"));
     parameters.push_back(ParameterModeler("URef0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
     parameters.push_back(ParameterModeler("tNext", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   }
@@ -90,13 +89,13 @@ namespace DYN {
   ModelCentralizedShuntsSectionControl::setSubModelParameters() {
     try {
       nbShunts_ = findParameterDynamic("nbShunts").getValue<int>();
-      isSelf_ = findParameterDynamic("isSelf").getValue<bool>();
       URef0Pu_ = findParameterDynamic("URef0Pu").getValue<double>();
       tNext_ = findParameterDynamic("tNext").getValue<double>();
       std::stringstream section0Name;
       std::stringstream sectionMinName;
       std::stringstream sectionMaxName;
       std::stringstream deadBandUPuName;
+      std::stringstream isSelfName;
       for (int s = 0; s < nbShunts_; ++s) {
         section0Name.str(std::string());
         section0Name.clear();
@@ -114,6 +113,10 @@ namespace DYN {
         deadBandUPuName.clear();
         deadBandUPuName << "deadBandUPu_" << s;
         deadBandsUPu_.push_back(findParameterDynamic(deadBandUPuName.str()).getValue<double>());
+        isSelfName.str(std::string());
+        isSelfName.clear();
+        isSelfName << "isSelf_" << s;
+        isSelf_.push_back(findParameterDynamic(isSelfName.str()).getValue<bool>());
       }
     } catch (const DYN::Error& e) {
     Trace::error() << e.what() << Trace::endline;
@@ -178,113 +181,113 @@ namespace DYN {
     double URefPu = zLocal_[URefPuIndex];
     double minValue;
     double maxValue;
-    if (isSelf_) {
-      for (int s = 0; s < nbShunts_; ++s) {
-        minValue = URefPu - deadBandsUPu_[s];
-        maxValue = URefPu + deadBandsUPu_[s];
-        if (doubleNotEquals(UMonitoredPu, minValue) &&
-          UMonitoredPu < minValue &&
-          sections0_[s] > sectionsMin_[s]) {
-          gLocal_[0] = ROOT_UP;
-          gLocal_[1] = ROOT_DOWN;
-          gLocal_[2] = ((t - whenDown_) > tNext_ || doubleEquals((t - whenDown_), tNext_)) ? ROOT_UP : ROOT_DOWN;
-          gLocal_[3] = ROOT_DOWN;
-          changingShunt = s;
-          break;
-        } else if (doubleNotEquals(UMonitoredPu, maxValue) &&
-          UMonitoredPu > maxValue &&
-          sections0_[s] < sectionsMax_[s]) {
-          gLocal_[0] = ROOT_DOWN;
-          gLocal_[1] = ROOT_UP;
-          gLocal_[2] = ROOT_DOWN;
-          gLocal_[3] = ((t - whenUp_) > tNext_ || doubleEquals((t - whenUp_), tNext_)) ? ROOT_UP : ROOT_DOWN;
-          changingShunt = s;
-          break;
-        } else {
-          gLocal_[0] = ROOT_DOWN;
-          gLocal_[1] = ROOT_DOWN;
-          gLocal_[2] = ROOT_DOWN;
-          gLocal_[3] = ROOT_DOWN;
-        }
-      }
-    } else {
-      for (int s = 0; s < nbShunts_; ++s) {
-        minValue = URefPu - deadBandsUPu_[s];
-        maxValue = URefPu + deadBandsUPu_[s];
-        if (doubleNotEquals(UMonitoredPu, minValue) &&
-          UMonitoredPu < minValue &&
-          sections0_[s] < sectionsMax_[s]) {
-          gLocal_[0] = ROOT_UP;
-          gLocal_[1] = ROOT_DOWN;
-          gLocal_[2] = ((t - whenUp_) > tNext_ || doubleEquals((t - whenUp_), tNext_)) ? ROOT_UP : ROOT_DOWN;
-          gLocal_[3] = ROOT_DOWN;
-          changingShunt = s;
-          break;
-        } else if (doubleNotEquals(UMonitoredPu, maxValue) &&
-          UMonitoredPu > maxValue &&
-          sections0_[s] > sectionsMin_[s]) {
-          gLocal_[0] = ROOT_DOWN;
-          gLocal_[1] = ROOT_UP;
-          gLocal_[2] = ROOT_DOWN;
-          gLocal_[3] = ((t - whenDown_) > tNext_ || doubleEquals((t - whenDown_), tNext_)) ? ROOT_UP : ROOT_DOWN;
-          changingShunt = s;
-          break;
-        } else {
-          gLocal_[0] = ROOT_DOWN;
-          gLocal_[1] = ROOT_DOWN;
-          gLocal_[2] = ROOT_DOWN;
-          gLocal_[3] = ROOT_DOWN;
-        }
+    for (int s = 0; s < nbShunts_; ++s) {
+      if (isSelf_[s]) {
+          minValue = URefPu - deadBandsUPu_[s];
+          maxValue = URefPu + deadBandsUPu_[s];
+          if (doubleNotEquals(UMonitoredPu, minValue) &&
+            UMonitoredPu < minValue &&
+            sections0_[s] > sectionsMin_[s]) {
+            gLocal_[0] = ROOT_UP;
+            gLocal_[1] = ROOT_DOWN;
+            gLocal_[2] = ((t - whenDown_) > tNext_ || doubleEquals((t - whenDown_), tNext_)) ? ROOT_UP : ROOT_DOWN;
+            gLocal_[3] = ROOT_DOWN;
+            changingShunt = s;
+            break;
+          } else if (doubleNotEquals(UMonitoredPu, maxValue) &&
+            UMonitoredPu > maxValue &&
+            sections0_[s] < sectionsMax_[s]) {
+            gLocal_[0] = ROOT_DOWN;
+            gLocal_[1] = ROOT_UP;
+            gLocal_[2] = ROOT_DOWN;
+            gLocal_[3] = ((t - whenUp_) > tNext_ || doubleEquals((t - whenUp_), tNext_)) ? ROOT_UP : ROOT_DOWN;
+            changingShunt = s;
+            break;
+          } else {
+            gLocal_[0] = ROOT_DOWN;
+            gLocal_[1] = ROOT_DOWN;
+            gLocal_[2] = ROOT_DOWN;
+            gLocal_[3] = ROOT_DOWN;
+          }
+      } else {
+          minValue = URefPu - deadBandsUPu_[s];
+          maxValue = URefPu + deadBandsUPu_[s];
+          if (doubleNotEquals(UMonitoredPu, minValue) &&
+            UMonitoredPu < minValue &&
+            sections0_[s] < sectionsMax_[s]) {
+            gLocal_[0] = ROOT_UP;
+            gLocal_[1] = ROOT_DOWN;
+            gLocal_[2] = ((t - whenUp_) > tNext_ || doubleEquals((t - whenUp_), tNext_)) ? ROOT_UP : ROOT_DOWN;
+            gLocal_[3] = ROOT_DOWN;
+            changingShunt = s;
+            break;
+          } else if (doubleNotEquals(UMonitoredPu, maxValue) &&
+            UMonitoredPu > maxValue &&
+            sections0_[s] > sectionsMin_[s]) {
+            gLocal_[0] = ROOT_DOWN;
+            gLocal_[1] = ROOT_UP;
+            gLocal_[2] = ROOT_DOWN;
+            gLocal_[3] = ((t - whenDown_) > tNext_ || doubleEquals((t - whenDown_), tNext_)) ? ROOT_UP : ROOT_DOWN;
+            changingShunt = s;
+            break;
+          } else {
+            gLocal_[0] = ROOT_DOWN;
+            gLocal_[1] = ROOT_DOWN;
+            gLocal_[2] = ROOT_DOWN;
+            gLocal_[3] = ROOT_DOWN;
+          }
       }
     }
   }
 
   void
   ModelCentralizedShuntsSectionControl::evalZ(const double t) {
-    if (isSelf_) {
-      if (gLocal_[0] == ROOT_UP) {
-        whenUp_ = VALDEF;
-        whenDown_ = t;
-      } else if (gLocal_[1] == ROOT_UP) {
-        whenUp_ = t;
-        whenDown_ = VALDEF;
-      }
-      if (gLocal_[2] == ROOT_UP) {
-        if (doubleNotEquals(lastTime_, t)) {
-          zLocal_[changingShunt + 1] = sections0_[changingShunt] - 1;
-          sections0_[changingShunt] -= 1;
-          changingShunt = -1;
-          lastTime_ = t;
+    if (changingShunt >= 0) {
+      if (isSelf_[changingShunt]) {
+        if (gLocal_[0] == ROOT_UP) {
+          whenUp_ = VALDEF;
+          whenDown_ = t;
+        } else if (gLocal_[1] == ROOT_UP) {
+          whenUp_ = t;
+          whenDown_ = VALDEF;
         }
-      } else if (gLocal_[3] == ROOT_UP) {
-        if (doubleNotEquals(lastTime_, t)) {
-          zLocal_[changingShunt + 1] = sections0_[changingShunt] + 1;
-          sections0_[changingShunt] += 1;
-          changingShunt = -1;
-          lastTime_ = t;
+        if (gLocal_[2] == ROOT_UP) {
+          if (doubleNotEquals(lastTime_, t)) {
+            zLocal_[changingShunt + 1] = sections0_[changingShunt] - 1;
+            sections0_[changingShunt] -= 1;
+            changingShunt = -1;
+            lastTime_ = t;
+          }
+        } else if (gLocal_[3] == ROOT_UP) {
+          if (doubleNotEquals(lastTime_, t)) {
+            zLocal_[changingShunt + 1] = sections0_[changingShunt] + 1;
+            sections0_[changingShunt] += 1;
+            changingShunt = -1;
+            lastTime_ = t;
+          }
         }
-      }
-    } else {
-      if (gLocal_[0] == ROOT_UP) {
-        whenUp_ = t;
-        whenDown_ = VALDEF;
-      } else if (gLocal_[1] == ROOT_UP) {
-        whenUp_ = VALDEF;
-        whenDown_ = t;
-      }
-      if (gLocal_[2] == ROOT_UP) {
-        if (doubleNotEquals(lastTime_, t)) {
-          zLocal_[changingShunt + 1] = sections0_[changingShunt] + 1;
-          sections0_[changingShunt] += 1;
-          changingShunt = -1;
-          lastTime_ = t;
+      } else {
+        if (gLocal_[0] == ROOT_UP) {
+          whenUp_ = t;
+          whenDown_ = VALDEF;
+        } else if (gLocal_[1] == ROOT_UP) {
+          whenUp_ = VALDEF;
+          whenDown_ = t;
         }
-      } else if (gLocal_[3] == ROOT_UP) {
-        if (doubleNotEquals(lastTime_, t)) {
-          zLocal_[changingShunt + 1] = sections0_[changingShunt] - 1;
-          sections0_[changingShunt] -= 1;
-          changingShunt = -1;
-          lastTime_ = t;
+        if (gLocal_[2] == ROOT_UP) {
+          if (doubleNotEquals(lastTime_, t)) {
+            zLocal_[changingShunt + 1] = sections0_[changingShunt] + 1;
+            sections0_[changingShunt] += 1;
+            changingShunt = -1;
+            lastTime_ = t;
+          }
+        } else if (gLocal_[3] == ROOT_UP) {
+          if (doubleNotEquals(lastTime_, t)) {
+            zLocal_[changingShunt + 1] = sections0_[changingShunt] - 1;
+            sections0_[changingShunt] -= 1;
+            changingShunt = -1;
+            lastTime_ = t;
+          }
         }
       }
     }
@@ -292,17 +295,12 @@ namespace DYN {
 
   void
   ModelCentralizedShuntsSectionControl::setGequations() {
-    if (isSelf_) {
-      gEquationIndex_[0] = std::string("UMonitoredPu > (URefPu + DeadbandsUPu_) && sections0_ > SectionsMin_ ");
-      gEquationIndex_[1] = std::string("UMonitoredPu < (URefPu - DeadbandsUPu_) && sections0_ < SectionsMax_ ");
-      gEquationIndex_[2] = std::string("(t - whenDown_) >= tNext_ ");
-      gEquationIndex_[3] = std::string("(t - whenUp_) >= tNext_ ");
-    } else {
-      gEquationIndex_[0] = std::string("UMonitoredPu < (URefPu - DeadbandsUPu_) && sections0_ < SectionsMax_ ");
-      gEquationIndex_[1] = std::string("UMonitoredPu > (URefPu + DeadbandsUPu_) && sections0_ > SectionsMin_ ");
-      gEquationIndex_[2] = std::string("(t - whenUp_) >= tNext_ ");
-      gEquationIndex_[3] = std::string("(t - whenDown_) >= tNext_ ");
-    }
+    gEquationIndex_[0] = std::string("if isSelf (UMonitoredPu > (URefPu - DeadbandsUPu_) && sections0_ > SectionsMin_)"
+                                    "else (UMonitoredPu < (URefPu - DeadbandsUPu_) && sections0_ < SectionsMax_)");
+    gEquationIndex_[1] = std::string("if (isSelf) {(UMonitoredPu > (URefPu + DeadbandsUPu_) && sections0_ < SectionsMax_)}"
+                                    " else {(UMonitoredPu > (URefPu + DeadbandsUPu_) && sections0_ > SectionsMin_)}");
+    gEquationIndex_[2] = std::string("if isSelf ((t - whenDown_) > tNext_) else ((t - whenUp_) > tNext_)");
+    gEquationIndex_[3] = std::string("if isSelf ((t - whenUp_) > tNext_) else ((t - whenDown_) > tNext_)");
   }
 
   void
