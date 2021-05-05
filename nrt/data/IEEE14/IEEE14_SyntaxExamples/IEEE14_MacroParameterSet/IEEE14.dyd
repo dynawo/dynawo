@@ -30,7 +30,7 @@
     <dyn:staticRef var="load_QPu" staticVar="q"/>
     <dyn:staticRef var="load_state" staticVar="state"/>
   </dyn:macroStaticReference>
-  <dyn:blackBoxModel id="Model_Signal_N" lib="SignalN" parFile="IEEE14.par" parId="SignalN"/>
+  <dyn:blackBoxModel id="Model_Signal_N" lib="SignalN"/>
   <dyn:blackBoxModel id="_GEN____1_SM" staticId="_GEN____1_SM" lib="GeneratorPVDiagramPQSignalN" parFile="IEEE14.par" parId="12497041103945231709">
     <dyn:macroStaticRef id="GeneratorStaticRef"/>
   </dyn:blackBoxModel>

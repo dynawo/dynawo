@@ -17,7 +17,7 @@
     <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
     <dyn:staticRef var="generator_state" staticVar="state"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="Signal_N" lib="SignalN" parFile="Shunt.par" parId="2"/>
+  <dyn:blackBoxModel id="Signal_N" lib="SignalN"/>
   <dyn:blackBoxModel id="Load__10" lib="LoadAlphaBetaRestorative" parFile="Shunt.par" parId="3" staticId="_Load__10">
     <dyn:staticRef var="load_PPu" staticVar="p"/>
     <dyn:staticRef var="load_QPu" staticVar="q"/>
