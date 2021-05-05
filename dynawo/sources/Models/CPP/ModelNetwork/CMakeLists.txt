@@ -55,3 +55,7 @@ target_link_libraries(${MODEL_NAME}
   PUBLIC
     dynawo_SolverKINSOL
   )
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()
