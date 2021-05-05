@@ -40,24 +40,33 @@
     <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
     <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
   </set>
-  <set id="4">
+  <set id="Condenser">
     <par type="DOUBLE" name="shunt_Section0" value="0"/>
     <par type="STRING" name="shunt_TableBPuName" value="tableBPu"/>
-    <par type="STRING" name="shunt_TableBPuFile" value="nrt/data/DynaFlow/CentralizedShuntsRegulation/ShuntSections.txt"/>
+    <par type="STRING" name="shunt_TableBPuFile" value="nrt/data/DynaFlow/CentralizedShuntsRegulation/ShuntSectionCondenser.txt"/>
+    <par type="DOUBLE" name="shunt_Q0Pu" value="0"/>
+    <reference type="DOUBLE" name="shunt_U0Pu" origData="IIDM" origName="v_pu" componentId="_Load__10"/>
+    <reference type="DOUBLE" name="shunt_UPhase0" origData="IIDM" origName="angle_pu" componentId="_Load__10"/>
+  </set>
+  <set id="Self">
+    <par type="DOUBLE" name="shunt_Section0" value="1"/>
+    <par type="STRING" name="shunt_TableBPuName" value="tableBPu"/>
+    <par type="STRING" name="shunt_TableBPuFile" value="nrt/data/DynaFlow/CentralizedShuntsRegulation/ShuntSectionSelf.txt"/>
     <par type="DOUBLE" name="shunt_Q0Pu" value="0"/>
     <reference type="DOUBLE" name="shunt_U0Pu" origData="IIDM" origName="v_pu" componentId="_Load__10"/>
     <reference type="DOUBLE" name="shunt_UPhase0" origData="IIDM" origName="angle_pu" componentId="_Load__10"/>
   </set>
   <set id="ShuntRegulationPar">
     <par type="INT" name="nbShunts" value="2"/>
-    <par type="BOOL" name="isSelf" value="false"/>
+    <par type="BOOL" name="isSelf_0" value="false"/>
+    <par type="BOOL" name="isSelf_1" value="true"/>
     <reference type="DOUBLE" name="URef0Pu" origData="IIDM" origName="v_pu" componentId="_Load__10"/>
     <par type="DOUBLE" name="tNext" value="10"/>
     <par type="INT" name="section0_0" value="0"/>
     <par type="INT" name="sectionMin_0" value="0"/>
     <par type="INT" name="sectionMax_0" value="2"/>
     <par type="DOUBLE" name="deadBandUPu_0" value="0.01"/>
-    <par type="INT" name="section0_1" value="0"/>
+    <par type="INT" name="section0_1" value="1"/>
     <par type="INT" name="sectionMin_1" value="0"/>
     <par type="INT" name="sectionMax_1" value="1"/>
     <par type="DOUBLE" name="deadBandUPu_1" value="0.01"/>

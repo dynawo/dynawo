@@ -40,7 +40,6 @@ boost::shared_ptr<SubModel> initModelShunt(int nbShunts, int section0 = 0, bool 
   modelShunt->defineParameters(parameters);
   boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbShunts", nbShunts);
-  parametersSet->createParameter("isSelf", isSelf);
   parametersSet->createParameter("tNext", 10.);
   parametersSet->createParameter("URef0Pu", 0.95);
   for (int s = 0; s < nbShunts; ++s) {
@@ -56,6 +55,9 @@ boost::shared_ptr<SubModel> initModelShunt(int nbShunts, int section0 = 0, bool 
     std::stringstream DeadbandUPuName;
     DeadbandUPuName << "deadBandUPu_" << s;
     parametersSet->createParameter(DeadbandUPuName.str(), 0.1);
+    std::stringstream isSelfName;
+    isSelfName << "isSelf_" << s;
+    parametersSet->createParameter(isSelfName.str(), isSelf);
   }
   modelShunt->setPARParameters(parametersSet);
   modelShunt->addParameters(parameters, false);
@@ -79,7 +81,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
   parametersSet->createParameter("section0_0", 0);
   parametersSet->createParameter("sectionMin_0", 0);
   parametersSet->createParameter("sectionMax_0", 2);
-  parametersSet->createParameter("isSelf", false);
+  parametersSet->createParameter("isSelf_0", false);
   parametersSet->createParameter("deadBandUPu_0", 0.1);
   parametersSet->createParameter("URef0Pu", 0.95);
   parametersSet->createParameter("tNext", 10.);
