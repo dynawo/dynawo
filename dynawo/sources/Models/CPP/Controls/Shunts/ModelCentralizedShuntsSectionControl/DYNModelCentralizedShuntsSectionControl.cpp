@@ -182,9 +182,9 @@ namespace DYN {
     double minValue;
     double maxValue;
     for (int s = 0; s < nbShunts_; ++s) {
+      minValue = URefPu - deadBandsUPu_[s];
+      maxValue = URefPu + deadBandsUPu_[s];
       if (isSelf_[s]) {
-          minValue = URefPu - deadBandsUPu_[s];
-          maxValue = URefPu + deadBandsUPu_[s];
           if (doubleNotEquals(UMonitoredPu, minValue) &&
             UMonitoredPu < minValue &&
             sections0_[s] > sectionsMin_[s]) {
@@ -210,8 +210,6 @@ namespace DYN {
             gLocal_[3] = ROOT_DOWN;
           }
       } else {
-          minValue = URefPu - deadBandsUPu_[s];
-          maxValue = URefPu + deadBandsUPu_[s];
           if (doubleNotEquals(UMonitoredPu, minValue) &&
             UMonitoredPu < minValue &&
             sections0_[s] < sectionsMax_[s]) {
