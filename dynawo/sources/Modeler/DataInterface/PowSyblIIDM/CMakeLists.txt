@@ -102,3 +102,7 @@ set_target_properties(dynawo_DataInterfaceIIDMExtension PROPERTIES VERSION ${DAT
   SOVERSION ${DATA_INTERFACE_IIDM_VERSION_MAJOR})
 
 install(TARGETS dynawo_DataInterfaceIIDMExtension EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()

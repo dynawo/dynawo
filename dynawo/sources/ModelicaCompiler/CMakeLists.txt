@@ -44,3 +44,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib.cm
 
 #Add post processing scripts
 add_subdirectory(Scripts_OMC_${OPENMODELICA_VERSION})
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()

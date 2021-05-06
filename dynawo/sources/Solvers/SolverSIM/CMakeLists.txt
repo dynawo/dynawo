@@ -53,3 +53,7 @@ install(TARGETS dynawo_SolverSIM EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME
 install(FILES ${SOLVER_SIM_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
 desc_solver(dynawo_SolverSIM)
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()
