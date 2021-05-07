@@ -93,7 +93,7 @@ equation
     IStatorPu.value = ComplexMath.'abs' (iStatorPu);
     QStatorPu.value = - ComplexMath.imag(sStatorPu);
     QStatorPuQNom.value = QStatorPu.value * SystemBase.SnRef / QNomAlt;
-    IRotorPu.value = MdPPu / rTfoPu * ifPu;
+    IRotorPu.value =  RfPPu / (rTfoPu * Kuf) * ifPu;//Formerly MdPPu / rTfoPu * ifPu
     thetaInternal.value = ComplexMath.arg(Complex(uqPu, udPu));
 
   else

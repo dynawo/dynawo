@@ -241,7 +241,7 @@ package BaseClasses_INIT
     IStator0Pu = rTfoPu * I0Pu *SNom/SystemBase.SnRef;
     QStator0Pu = - ComplexMath.imag(sStator0Pu);
     QStator0PuQNom = QStator0Pu * SystemBase.SnRef / QNomAlt;
-    IRotor0Pu = MdSat0PPu / rTfoPu * If0Pu;
+    IRotor0Pu = (MdSat0PPu * RfPPu) / (rTfoPu * MdPPu * Kuf) * If0Pu;//Formerly MdSat0PPu / rTfoPu * If0Pu
     ThetaInternal0 = Theta0;
     S0Pu = ComplexMath.'abs'(s0Pu)*SystemBase.SnRef/SNom;
     I0Pu = ComplexMath.'abs'(i0Pu)*SystemBase.SnRef/SNom;
