@@ -151,7 +151,7 @@ package BaseClasses
     parameter Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in p.u";
     parameter Types.PerUnit Id0Pu "Start value of current of direct axis in p.u";
     parameter Types.PerUnit Iq0Pu "Start value of current of quadrature axis in p.u";
-    parameter Types.PerUnit If0Pu "Start value of flux of excitation winding in p.u";
+    parameter Types.PerUnit If0Pu "Start value of current of excitation winding in p.u";
     parameter Types.PerUnit Uf0Pu "Start value of exciter voltage in p.u. (Kundur base)";
     parameter Types.PerUnit Lambdad0Pu "Start value of flux of direct axis in p.u";
     parameter Types.PerUnit Lambdaq0Pu "Start value of flux of quadrature axis in p.u";
