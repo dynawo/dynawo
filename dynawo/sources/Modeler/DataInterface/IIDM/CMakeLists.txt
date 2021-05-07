@@ -81,3 +81,7 @@ set_target_properties(dynawo_DataInterfaceIIDM PROPERTIES VERSION ${DATA_INTERFA
 
 install(TARGETS dynawo_DataInterfaceIIDM EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${DATA_INTERFACE_IIDM_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()

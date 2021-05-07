@@ -18,12 +18,12 @@
   <curve model="Load__10" variable="load_UPu"/>
   <curve model="Generator___1" variable="generator_PGenPu"/>
   <curve model="Generator___1" variable="generator_QGenPu"/>
-  <curve model="Shunt" variable="shunt_section_value"/>
-  <curve model="Shunt" variable="shunt_QPu"/>
-  <curve model="Shunt" variable="shunt_BPu"/>
-  <curve model="Shunt2" variable="shunt_section_value"/>
-  <curve model="Shunt2" variable="shunt_QPu"/>
-  <curve model="Shunt2" variable="shunt_BPu"/>
+  <curve model="Condenser" variable="shunt_section_value"/>
+  <curve model="Condenser" variable="shunt_QPu"/>
+  <curve model="Condenser" variable="shunt_BPu"/>
+  <curve model="Self" variable="shunt_section_value"/>
+  <curve model="Self" variable="shunt_QPu"/>
+  <curve model="Self" variable="shunt_BPu"/>
   <curve model="ShuntRegulation" variable="UMonitoredPu"/>
   <curve model="ShuntRegulation" variable="URefPu"/>
   <curve model="ShuntRegulation" variable="DeadbandsUPu__0"/>

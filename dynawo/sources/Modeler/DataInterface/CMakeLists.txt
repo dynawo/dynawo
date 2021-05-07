@@ -104,6 +104,10 @@ set_target_properties(dynawo_DataInterfaceFactory PROPERTIES VERSION ${DATA_INTE
 install(TARGETS dynawo_DataInterface dynawo_DataInterfaceFactory EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${DATA_INTERFACE_INCLUDE_HEADERS} ${DATA_INTERFACE_FACTORY_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()
+
 if(CXX11_ENABLED)
   add_subdirectory(PowSyblIIDM)
 else()
