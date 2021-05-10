@@ -10,17 +10,20 @@
 // This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
 // for power systems.
 //
-#ifndef MYDIC_KEYS_H
-#define MYDIC_KEYS_H
+#ifndef DICO_KEYS_H
+#define DICO_KEYS_H
 namespace MyNS {
 
-  ///< struct of Keyic to declare enum values and names associated to the enum to be used in dynawo
-  struct Keyic_t
+  ///< struct of Keyo to declare enum values and names associated to the enum to be used in dynawo
+  struct Keyo_t
   {
-    ///< enum of possible key for ic
+    ///< enum of possible key for o
     enum value
     {
-      MyLabel,                                                                ///< Hi.
+      MyEntry,                                                                ///< My First Entry
+      MyFourthEntry,                                                          ///< My Fourth Entry
+      MySecondEntry,                                                          ///< My Second Entry %u
+      MyThirdEntry,                                                           ///< My Third Entry
     };
 
     /**
