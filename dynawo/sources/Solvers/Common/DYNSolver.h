@@ -51,15 +51,6 @@ typedef enum {
 } StateFlags;
 
 /**
- * @brief Status of the previous reinitialization scheme
- */
-typedef enum {
-  None = 0,
-  Algebraic,
-  AlgebraicWithJUpdate
-} PreviousReinit;
-
-/**
  * @brief Identifier of the current solver used
  */
 typedef enum {
@@ -90,18 +81,6 @@ class Solver {
    * @return solver state
    */
   virtual const BitMask& getState() const = 0;
-
-  /**
-   * @brief set the previous reinitialization status
-   * @param previousReinit : new previous reinitialization status
-   */
-  virtual void setPreviousReinit(const PreviousReinit& previousReinit) = 0;
-
-  /**
-   * @brief get the previous reinitialization status
-   * @return previous reinitialization status
-   */
-  virtual const PreviousReinit& getPreviousReinit() const = 0;
 
   /**
    * @brief set the solver's parameters
@@ -193,7 +172,6 @@ class Solver {
    */
   virtual void setSolverSpecificParameters() = 0;
 
-
   /**
    * @brief initialize the solver
    *
@@ -220,6 +198,12 @@ class Solver {
    * @brief Restore the equations after an algebraic mode - reinitialize the DAE problem (new initial point)
    */
   virtual void reinit() = 0;
+
+  /**
+  * @brief compute time scheme related derivatives
+  * @param yy current values of continuous variables
+  */
+  virtual void computeYP(const double* yy) = 0;
 
   /**
    * @brief print the latest step made by the solver (i.e solution)
@@ -259,13 +243,13 @@ class Solver {
    * @brief getter for the current value of variables' derivatives
    * @return the current value of variables' derivatives
    */
-  virtual const std::vector<double>& getCurrentYP() = 0;
+  virtual const std::vector<double>& getCurrentYP() const = 0;
 
   /**
    * @brief getter for the current value of continuous variables
    * @return the current value of continuous derivatives
    */
-  virtual const std::vector<double>& getCurrentY() = 0;
+  virtual const std::vector<double>& getCurrentY() const = 0;
 
   /**
    * @brief getter for the current internal time of the solver
@@ -284,9 +268,9 @@ class Solver {
    * @brief initialize the algebraic restoration solver with the good settings
    *
    * @param modeChangeType type of mode change
-   * @return @b true if a Jacobian evaluation is not needed at the next time-domain time-step
+   * @return @b true if a Jacobian evaluation is needed at the next algebraic restoration
    */
-  virtual bool initAlgRestoration(modeChangeType_t modeChangeType) = 0;
+  virtual bool setupNewAlgRestoration(modeChangeType_t modeChangeType) = 0;
 
   /**
    * @brief update the statistics
@@ -299,6 +283,11 @@ class Solver {
    * @return @b true if the silentZ optimization is activated, false otherwise
    */
   virtual bool silentZEnabled() const = 0;
+
+  /*
+  * @brief get time step
+  */
+  virtual double getTimeStep() const = 0;
 
   class Impl;
 };

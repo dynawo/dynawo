@@ -55,6 +55,7 @@ SolverJacobianWithNulColumn =             jacobian has nul column %1%: equation 
 SolverJacobianWithNulRow    =             jacobian has nul row %1%: variable '%2%' is ill-formed
 SolverJacobianTwoEqualLines =             jacobian has equal lines %1% and %2%, corresponding to variables '%3%' and '%4%'
 SolverJacobianTwoEqualCol   =             jacobian has equal columns %1% and %2%, corresponding to equations '%3%' and '%4%'
+InvalidAlgebraicMode        =             invalid algebraic restoration mode: %1%
 //--------------- MODELER -----------------------------------------
 UndefinedStep               =             step %1% does not exist for tap changer %2%
 NanValue                    =             error when calculating F function for model %2% (index %1%) : find a NaN (Not a Number)

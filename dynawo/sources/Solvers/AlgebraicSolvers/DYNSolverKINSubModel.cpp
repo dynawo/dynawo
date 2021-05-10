@@ -18,21 +18,17 @@
  *
  */
 #include <kinsol/kinsol.h>
-#include <sunlinsol/sunlinsol_klu.h>
 #include <sundials/sundials_types.h>
-#include <sundials/sundials_math.h>
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
 #include <cstring>
 #include <vector>
 #include <cmath>
 #include <map>
-#include <iomanip>
 
 #include "DYNSolverKINSubModel.h"
 #include "DYNSolverCommon.h"
 #include "DYNSubModel.h"
-#include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTimer.h"
@@ -53,11 +49,17 @@ fBuffer_(NULL) {
 }
 
 SolverKINSubModel::~SolverKINSubModel() {
-  clean();
+  if (sundialsVectorY_ != NULL) {
+    N_VDestroy_Serial(sundialsVectorY_);
+    sundialsVectorY_ = NULL;
+  }
+  yBuffer_ = NULL;
+  fBuffer_ = NULL;
+  subModel_ = NULL;
 }
 
 void
-SolverKINSubModel::init(SubModel* subModel, const double t0, double* yBuffer, double *fBuffer, int mxiter, double fnormtol, double initialaddtol,
+SolverKINSubModel::init(SubModel* subModel, const double t0, double* yBuffer, double* fBuffer, int mxiter, double fnormtol, double initialaddtol,
     double scsteptol, double mxnewtstep, int msbset, int printfl) {
   // (1) Attributes
   // --------------
@@ -70,39 +72,39 @@ SolverKINSubModel::init(SubModel* subModel, const double t0, double* yBuffer, do
 
   // (2) Size of the problem to solve
   // --------------------------------
-  nbF_ = subModel_->sizeF();  // All the equations
-  if (nbF_ == 0)
+  numF_ = subModel_->sizeF();  // All the equations
+  if (numF_ == 0)
     return;
 
-  vYy_.assign(nbF_, 0);
+  vectorYSubModel_.assign(numF_, 0.);
 
-  yy_ = N_VMake_Serial(nbF_, &(vYy_[0]));
-  if (yy_ == NULL)
+  sundialsVectorY_ = N_VMake_Serial(numF_, &(vectorYSubModel_[0]));
+  if (sundialsVectorY_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYY);
 
-  initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalFInit_KIN, evalJInit_KIN);
+  initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalFInit_KIN, evalJInit_KIN, sundialsVectorY_);
 
-  vYy_.assign(yBuffer, yBuffer + nbF_);
+  vectorYSubModel_.assign(yBuffer, yBuffer + numF_);
 }
 
 int
 SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
-  SolverKINSubModel * solv = reinterpret_cast<SolverKINSubModel*> (data);
-  SubModel* subModel = solv->getSubModel();
+  SolverKINSubModel* solver = reinterpret_cast<SolverKINSubModel*> (data);
+  SubModel* subModel = solver->getSubModel();
 
   // evalF has already been called in the scaling part so it doesn't have to be called again for the first iteration
-  if (solv->getFirstIteration()) {
-    solv->setFirstIteration(false);
+  if (solver->getFirstIteration()) {
+    solver->setFirstIteration(false);
   } else {  // update of F
     realtype *iyy = NV_DATA_S(yy);
     int yL = NV_LENGTH_S(yy);
-    std::copy(iyy, iyy+yL, solv->yBuffer_);
-    subModel->evalF(solv->t0_, UNDEFINED_EQ);
+    std::copy(iyy, iyy+yL, solver->yBuffer_);
+    subModel->evalF(solver->t0_, UNDEFINED_EQ);
   }
 
   // copy of values in output vector
   realtype *irr = NV_DATA_S(rr);
-  memcpy(irr, solv->fBuffer_, solv->nbF_ * sizeof(solv->fBuffer_[0]));
+  memcpy(irr, solver->fBuffer_, solver->numF_ * sizeof(solver->fBuffer_[0]));
 
   return (0);
 }
@@ -110,12 +112,12 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
 int
 SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
         SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
-  SolverKINSubModel* solv = reinterpret_cast<SolverKINSubModel*> (data);
-  SubModel* subModel = solv->getSubModel();
+  SolverKINSubModel* solver = reinterpret_cast<SolverKINSubModel*> (data);
+  SubModel* subModel = solver->getSubModel();
 
   realtype *iyy = NV_DATA_S(yy);
   int yL = NV_LENGTH_S(yy);
-  std::copy(iyy, iyy+yL, solv->yBuffer_);
+  std::copy(iyy, iyy+yL, solver->yBuffer_);
 
   // Sparse matrix
   // -------------
@@ -124,9 +126,9 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
   smj.init(size, size);
 
   // Arbitrary value for cj
-  double cj = 1;
-  subModel->evalJt(solv->t0_, cj, smj, 0);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solv->lastRowVals_, solv->LS_, solv->linearSolverName_, false);
+  double cj = 1.;
+  subModel->evalJt(solver->t0_, cj, smj, 0);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, false);
 
   return (0);
 }
@@ -137,7 +139,7 @@ SolverKINSubModel::solve() {
   Timer timer("SolverKINSubModel::solve");
 #endif
 
-  if (nbF_ == 0)
+  if (numF_ == 0)
     return KIN_SUCCESS;
 
   SubModel* subModel = getSubModel();
@@ -145,12 +147,12 @@ SolverKINSubModel::solve() {
   subModel->evalF(t0_, UNDEFINED_EQ);
   firstIteration_ = true;
 
-  fScale_.assign(subModel->sizeF(), 1.0);
-  for (unsigned int i = 0; i < nbF_; ++i) {
+  vectorFScale_.assign(subModel->sizeF(), 1.0);
+  for (unsigned int i = 0; i < numF_; ++i) {
     if (std::abs(fBuffer_[i])  > 1.)
-      fScale_[i] = 1 / std::abs(fBuffer_[i]);
+      vectorFScale_[i] = 1 / std::abs(fBuffer_[i]);
   }
-  yScale_.assign(subModel->sizeY(), 1.0);
+  vectorYScale_.assign(subModel->sizeY(), 1.0);
 
   // SubModel initialization can fail, especially on switch currents.
   // This failure shouldn't be stopping the simulation.
