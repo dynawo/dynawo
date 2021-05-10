@@ -147,11 +147,13 @@ class SolverIDA : public Solver::Impl {
    */
   void getLastConf(long int &nst, int & kused, double & hused) const;
 
+#ifdef _DEBUG_
   /**
    * @brief indicates which root was activated
    * @return an array showing which root was activated
    */
   std::vector<state_g> getRootsFound() const;
+#endif
 
   /**
    * @brief computes the problem residual for given values of time, state vector
@@ -218,7 +220,7 @@ class SolverIDA : public Solver::Impl {
   /**
    * @brief destroy all allocated memory
    */
-  void clean();
+  void cleanIDA();
 
   /**
    * @brief Analyse a flag return by the IDA solver
@@ -227,6 +229,11 @@ class SolverIDA : public Solver::Impl {
    */
   void analyseFlag(const int & flag);
 
+  /**
+   * @brief get time step
+   */
+  double getTimeStep() const;
+
  protected:
   /**
    * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
@@ -234,14 +241,15 @@ class SolverIDA : public Solver::Impl {
   void solveStep(double tAim, double &tNxt);
 
   /**
-   * @copydoc Solver::initAlgRestoration(modeChangeType_t modeChangeType)
+   * @copydoc Solver::setupNewAlgRestoration(modeChangeType_t modeChangeType)
    */
-  bool initAlgRestoration(modeChangeType_t modeChangeType);
+  bool setupNewAlgRestoration(modeChangeType_t modeChangeType);
 
  private:
   void* IDAMem_;  ///< IDA internal memory structure
-  SUNLinearSolver LS_;  ///< Linear Solver pointer
-  SUNMatrix M_;  ///< sparse SUNMatrix
+  SUNLinearSolver linearSolver_;  ///< Linear Solver pointer
+  SUNMatrix sundialsMatrix_;  ///< sparse SUNMatrix
+  N_Vector sundialsVectorYType_;  ///< property of variables (algebraic/differential) stored in sundials structure
   boost::shared_ptr<SolverKINAlgRestoration> solverKINNormal_;  ///< Newton Raphson solver for the algebraic variables restoration
   boost::shared_ptr<SolverKINAlgRestoration> solverKINYPrim_;  ///< Newton-Raphson solver for the derivatives of the differential variables restoration
 

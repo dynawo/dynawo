@@ -117,6 +117,16 @@ class SolverSIM : public Solver::Impl {
   void reinit();
 
   /**
+  * @brief compute YP prediction
+  */
+  virtual void computePrediction();
+
+  /**
+  * @copydoc Solver::computeYP()
+  */
+  virtual void computeYP(const double* yy);
+
+  /**
    * @copydoc Solver::calculateIC()
    */
   void calculateIC();
@@ -206,6 +216,13 @@ class SolverSIM : public Solver::Impl {
    */
   void updateTimeStep(double& tNxt);
 
+  /**
+   * @brief get time step
+   */
+  double getTimeStep() const {
+    return h_;
+  }
+
  protected:
   /**
    * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
@@ -213,14 +230,19 @@ class SolverSIM : public Solver::Impl {
   void solveStep(double tAim, double &tNxt);
 
   /**
-   * @copydoc Solver::initAlgRestoration(modeChangeType_t modeChangeType)
+   * @copydoc Solver::setupNewAlgRestoration(modeChangeType_t modeChangeType)
    */
-  bool initAlgRestoration(modeChangeType_t modeChangeType);
+  bool setupNewAlgRestoration(modeChangeType_t modeChangeType);
 
   /**
    * @copydoc Solver::updateStatistics()
    */
   void updateStatistics();
+
+  /**
+  * @brief set the index of each differential variables
+  */
+  void setDifferentialVariablesIndices();
 
  private:
   boost::shared_ptr<SolverKINEuler> solverKINEuler_;  ///< Backward Euler solver
@@ -252,8 +274,7 @@ class SolverSIM : public Solver::Impl {
   bool skipNextNR_;  ///< indicates if the next algebraic resolution could be skipped
 
   std::vector<double> ySave_;  ///< values of state variables before step
-  std::vector<double> zSave_;  ///< values of discrete variables before step
-  std::vector<state_g> gSave_;  ///< values of roots before step
+  std::vector<int> differentialVariablesIndices_;  ///< index of each differential variables
   bool skipAlgebraicResidualsEvaluation_;  ///< flag used to skip algebraic residuals evaluation after a convergence or a mode
   bool optimizeAlgebraicResidualsEvaluations_;  ///< enable or disable the optimization of the number of algebraic residuals evals
   bool skipNRIfInitialGuessOK_;  ///< enable the possibility to skip next iterations if the simulation is stable

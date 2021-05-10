@@ -23,25 +23,16 @@
 #include "DYNSolverSIM.h"
 
 #include <cmath>
-#include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <set>
-#include <sstream>
 #include <vector>
-#include <algorithm>
 
 #include <boost/shared_ptr.hpp>
-
-#include <nvector/nvector_serial.h>
-#include <sundials/sundials_types.h>
-#include <sundials/sundials_math.h>
 
 #include "PARParametersSet.h"
 #include "PARParameter.h"
 
 #include "DYNMacrosMessage.h"
-#include "DYNSparseMatrix.h"
 #include "DYNSolverKINEuler.h"
 #include "DYNSolverKINAlgRestoration.h"
 #include "DYNTrace.h"
@@ -126,7 +117,6 @@ skipAlgebraicResidualsEvaluation_(false),
 optimizeAlgebraicResidualsEvaluations_(true),
 skipNRIfInitialGuessOK_(true),
 nbLastTimeSimulated_(0) {
-  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
   minimalAcceptableStep_ = 0.1;
 }
 
@@ -154,6 +144,7 @@ SolverSIM::defineSpecificParameters() {
   parameters_.insert(make_pair("printfl", ParameterSolver("printfl", VAR_TYPE_INT, optional)));
   parameters_.insert(make_pair("optimizeAlgebraicResidualsEvaluations", ParameterSolver("optimizeAlgebraicResidualsEvaluations", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("skipNRIfInitialGuessOK", ParameterSolver("skipNRIfInitialGuessOK", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("minimalAcceptableStep", ParameterSolver("minimalAcceptableStep", VAR_TYPE_DOUBLE, optional)));
 }
 
 void
@@ -191,6 +182,9 @@ SolverSIM::setSolverSpecificParameters() {
   const ParameterSolver& skipNRIfInitialGuessOK = findParameter("skipNRIfInitialGuessOK");
   if (skipNRIfInitialGuessOK.hasValue())
     skipNRIfInitialGuessOK_ = skipNRIfInitialGuessOK.getValue<bool>();
+  const ParameterSolver& minimalAcceptableStep = findParameter("minimalAcceptableStep");
+  if (minimalAcceptableStep.hasValue())
+    minimalAcceptableStep_ = minimalAcceptableStep.getValue<double>();
 }
 
 std::string
@@ -207,18 +201,22 @@ SolverSIM::init(const shared_ptr<Model> &model, const double & t0, const double 
   nNewt_ = 0;
   countRestart_ = 0;
   factorizationForced_ = false;
-  previousReinit_ = None;
-
-  if (model->sizeY() != 0) {
-    solverKINEuler_.reset(new SolverKINEuler());
-    solverKINEuler_->init(model, linearSolverName_, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_);
-    solverKINEuler_->setIdVars();
-  }
 
   Solver::Impl::init(t0, model);
   Solver::Impl::resetStats();
   g0_.assign(model_->sizeG(), NO_ROOT);
   g1_.assign(model_->sizeG(), NO_ROOT);
+
+  if (model->sizeY() != 0) {
+    solverKINEuler_.reset(new SolverKINEuler());
+    solverKINEuler_->init(model, this, linearSolverName_, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_, sundialsVectorY_);
+  }
+
+  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
+  solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL);
+
+  setDifferentialVariablesIndices();
+
   Trace::debug() << DYNLog(SolverSIMInitOK) << Trace::endline;
 }
 
@@ -227,21 +225,20 @@ SolverSIM::calculateIC() {
   Trace::debug() << DYNLog(CalculateIC) << Trace::endline;
   // Root evaluation before the initialization
   // --------------------------------
-  ySave_.assign(vYy_.begin(), vYy_.end());
+  ySave_.assign(vectorY_.begin(), vectorY_.end());
   int counter = 0;
   bool change = true;
 
   // Updating discrete variable values and mode
-  model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
+  model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
   model_->evalG(tSolve_, g0_);
   evalZMode(g0_, g1_, tSolve_);
   model_->rotateBuffers();
   state_.reset();
   model_->reinitMode();
 
-  // KINSOL initialization
-  solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
-      initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+  solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_,
+                                                         printflAlg_);
 #if _DEBUG_
   solverKINAlgRestoration_->setCheckJacobian(true);
 #endif
@@ -251,9 +248,9 @@ SolverSIM::calculateIC() {
     Trace::debug() << DYNLog(CalculateICIteration, counter) << Trace::endline;
 
     // Global initialization - continuous part
-    solverKINAlgRestoration_->setInitialValues(tSolve_, vYy_, vYp_);
+    solverKINAlgRestoration_->setInitialValues(tSolve_, vectorY_, vectorYp_);
     solverKINAlgRestoration_->solve();
-    solverKINAlgRestoration_->getValues(vYy_, vYp_);
+    solverKINAlgRestoration_->getValues(vectorY_, vectorYp_);
 
     // Updating discrete variable values and mode
     model_->evalG(tSolve_, g1_);
@@ -275,7 +272,6 @@ SolverSIM::calculateIC() {
   } while (change);
 
   Trace::debug() << DYNLog(EndCalculateIC) << Trace::endline;
-  solverKINAlgRestoration_->clean();
 #if _DEBUG_
   solverKINAlgRestoration_->setCheckJacobian(false);
 #endif
@@ -347,8 +343,24 @@ void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
 }
 
 void
+SolverSIM::computeYP(const double* yy) {
+  // YP[i] = (y[i]-yprec[i])/h for each differential variable
+  assert(h_ > 0.);
+  for (unsigned int i = 0; i < differentialVariablesIndices_.size(); ++i) {
+    vectorYp_[differentialVariablesIndices_[i]] = (yy[differentialVariablesIndices_[i]] - ySave_[differentialVariablesIndices_[i]]) / h_;
+  }
+}
+
+void
 SolverSIM::saveContinuousVariables() {
-  ySave_.assign(vYy_.begin(), vYy_.end());
+  ySave_.assign(vectorY_.begin(), vectorY_.end());
+}
+
+void
+SolverSIM::computePrediction() {
+  // order-0 prediction - YP = 0
+  // and Y0_{n+1} = Y_n (natively true so nothing to do)
+  std::fill(vectorYp_.begin(), vectorYp_.end(), 0.);
 }
 
 void SolverSIM::handleMaximumTries(int& counter) {
@@ -364,7 +376,7 @@ SolverSIM::callAlgebraicSolver() {
     return KIN_INITIAL_GUESS_OK;
   } else {
     // Step initialization
-    solverKINEuler_->setInitialValues(tSolve_, h_, vYy_);
+    computePrediction();
 
     // Forcing the Jacobian calculation for the next Newton-Raphson resolution
     bool noInitSetup = true;
@@ -390,8 +402,6 @@ SolverSIM::SolverStatus_t SolverSIM::analyzeResult(int& flag) {
     skipNextNR_ = skipNRIfInitialGuessOK_;
     Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
   }
-
-  solverKINEuler_->getValues(vYy_, vYp_);
   return CONV;
 }
 
@@ -443,7 +453,7 @@ SolverSIM::decreaseStep() {
 
 void
 SolverSIM::restoreContinuousVariables() {
-  vYy_.assign(ySave_.begin(), ySave_.end());
+  vectorY_.assign(ySave_.begin(), ySave_.end());
 }
 
 void SolverSIM::handleConvergence(bool& redoStep) {
@@ -485,33 +495,17 @@ void SolverSIM::updateTimeStep(double& tNxt) {
   }
 }
 
-bool SolverSIM::initAlgRestoration(modeChangeType_t modeChangeType) {
+bool SolverSIM::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
   if (modeChangeType == ALGEBRAIC_MODE) {
-    if (previousReinit_ == None) {
-      solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
-            initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
-      previousReinit_ = Algebraic;
-      return true;
-    } else if (previousReinit_ == AlgebraicWithJUpdate) {
-      solverKINAlgRestoration_->modifySettings(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
-      previousReinit_ = Algebraic;
-      return true;
-    }
-    return true;
-  } else {
-    if (previousReinit_ == None) {
-      solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlgJ_,
-            initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
-      previousReinit_ = AlgebraicWithJUpdate;
-      return false;
-    } else if (previousReinit_ == Algebraic) {
-      solverKINAlgRestoration_->modifySettings(fnormtolAlgJ_, initialaddtolAlgJ_,
-            scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
-      previousReinit_ = AlgebraicWithJUpdate;
-      return false;
-    }
-    return false;
+    solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_,
+                                                           printflAlg_);
+    return false;  // no J factorization
+  } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
+    solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_,
+                                                           printflAlgJ_);
+    return true;  // new J factorization
   }
+  return false;  // no J factorization
 }
 
 /*
@@ -535,9 +529,9 @@ SolverSIM::reinit() {
 
     // During the algebraic equation restoration, the system could have moved a lot from its previous state.
     // J updates and preconditioner calls must be done on a regular basis.
-    bool noInitSetup = initAlgRestoration(modeChangeType);
+    bool noInitSetup = !setupNewAlgRestoration(modeChangeType);
 
-    solverKINAlgRestoration_->setInitialValues(tSolve_, vYy_, vYp_);
+    solverKINAlgRestoration_->setInitialValues(tSolve_, vectorY_, vectorYp_);
     int flag = solverKINAlgRestoration_->solve(noInitSetup, evaluateOnlyMode);
     model_->reinitMode();
 
@@ -552,7 +546,7 @@ SolverSIM::reinit() {
     // If the initial guess is fine, nor the variables neither the time would have changed so we can return here and skip following treatments
     if (flag == KIN_INITIAL_GUESS_OK)
       return;
-    solverKINAlgRestoration_->getValues(vYy_, vYp_);
+    solverKINAlgRestoration_->getValues(vectorY_, vectorYp_);
 
     // Root stabilization - tSolve_ has been updated in the solve method to the current time
     model_->evalG(tSolve_, g1_);
@@ -569,6 +563,19 @@ SolverSIM::reinit() {
     if (counter >= maxNumberUnstableRoots)
       throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
   } while (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_);
+}
+
+void
+SolverSIM::setDifferentialVariablesIndices() {
+  const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
+
+  differentialVariablesIndices_.clear();
+
+  for (int i = 0; i < model_->sizeY(); ++i) {
+    if (modelYType[i] == DYN::DIFFERENTIAL) {
+      differentialVariablesIndices_.push_back(i);
+    }
+  }
 }
 
 void

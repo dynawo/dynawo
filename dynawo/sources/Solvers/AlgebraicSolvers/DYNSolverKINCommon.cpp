@@ -24,21 +24,14 @@
 #ifdef WITH_NICSLU
 #include <sunlinsol/sunlinsol_nicslu.h>
 #endif
-#include <sundials/sundials_types.h>
-#include <sundials/sundials_math.h>
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
-#include <string.h>
-#include <vector>
+#include <string>
 #include <cmath>
-#include <map>
-#include <algorithm>
-#include <iomanip>
 
 #include "DYNSolverKINCommon.h"
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
-#include "DYNSolverCommon.h"
 
 using std::vector;
 using std::map;
@@ -50,47 +43,61 @@ namespace DYN {
 
 SolverKINCommon::SolverKINCommon() :
 KINMem_(NULL),
-LS_(NULL),
-M_(NULL),
-yy_(NULL),
+linearSolver_(NULL),
+sundialsMatrix_(NULL),
+sundialsVectorY_(NULL),
 lastRowVals_(NULL),
-nbF_(0),
+numF_(0),
 t0_(0.),
-firstIteration_(false) {
+firstIteration_(false),
+sundialsVectorFScale_(NULL),
+sundialsVectorYScale_(NULL) {
 }
 
 SolverKINCommon::~SolverKINCommon() {
   clean();
+  // This vector is not allocated by this class so no need to release the memory
+  if (sundialsVectorY_ != NULL)
+    sundialsVectorY_ = NULL;
 }
 
 void SolverKINCommon::clean() {
-  if (M_ != NULL) {
-    SUNMatDestroy(M_);
-    M_ = NULL;
+  if (sundialsMatrix_ != NULL) {
+    SUNMatDestroy(sundialsMatrix_);
+    sundialsMatrix_ = NULL;
   }
-  if (LS_ != NULL) {
-    SUNLinSolFree(LS_);
-    LS_ = NULL;
+  if (linearSolver_ != NULL) {
+    SUNLinSolFree(linearSolver_);
+    linearSolver_ = NULL;
   }
   if (KINMem_ != NULL) {
     KINFree(&KINMem_);
     KINMem_ = NULL;
-    if (yy_ != NULL) N_VDestroy_Serial(yy_);
   }
   if (lastRowVals_ != NULL) {
     free(lastRowVals_);
     lastRowVals_ = NULL;
   }
+
+  if (sundialsVectorFScale_ != NULL) {
+    N_VDestroy_Serial(sundialsVectorFScale_);
+    sundialsVectorFScale_ = NULL;
+  }
+  if (sundialsVectorYScale_ != NULL) {
+    N_VDestroy_Serial(sundialsVectorYScale_);
+    sundialsVectorYScale_ = NULL;
+  }
 }
 
 void
 SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol, double initialaddtol, double scsteptol,
-                     double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ) {
+                     double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ, N_Vector yy) {
   linearSolverName_ = linearSolverName;
+  sundialsVectorY_ = yy;
 
   // (1) Problem size
   // ----------------
-  if (nbF_ == 0)
+  if (numF_ == 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverEmptyYVector);
 
   // (2) Creation of Kinsol internal memory
@@ -101,7 +108,7 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
 
   // (3) Kinsol initialization
   // -------------------------
-  int flag = KINInit(KINMem_, evalF, yy_);
+  int flag = KINInit(KINMem_, evalF, sundialsVectorY_);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINInit");
 
@@ -126,27 +133,27 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetUserdata");
 
-  // (6) Solver choice
+  // (6) Linear Solver choice
   // -------------------
   // Passing CSR_MAT indicates that we solve A'x = B - linear system using the matrix transpose -
   // and not Ax = B (see sunlinsol_klu.c:149)
-  const int nnz = 0.0001 * nbF_ * nbF_;  // This value will be adjusted later on in the process
-  M_ = SUNSparseMatrix(nbF_, nbF_, nnz, CSR_MAT);
-  if (M_ == NULL)
+  const int nnz = 0.0001 * numF_ * numF_;  // This value will be adjusted later on in the process
+  sundialsMatrix_ = SUNSparseMatrix(numF_, numF_, nnz, CSR_MAT);
+  if (sundialsMatrix_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
   if (linearSolverName_ == "KLU") {
-    LS_ = SUNLinSol_KLU(yy_, M_);
-    if (LS_ == NULL)
+    linearSolver_ = SUNLinSol_KLU(sundialsVectorY_, sundialsMatrix_);
+    if (linearSolver_ == NULL)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNLinSol_KLU");
-    flag = KINSetLinearSolver(KINMem_, LS_, M_);
+    flag = KINSetLinearSolver(KINMem_, linearSolver_, sundialsMatrix_);
     if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINKLU");
 #ifdef WITH_NICSLU
   } else if (linearSolverName_ == "NICSLU") {
-    LS_ = SUNLinSol_NICSLU(yy_, M_);
-    if (LS_ == NULL)
+    linearSolver_ = SUNLinSol_NICSLU(sundialsVectorY_, sundialsMatrix_);
+    if (linearSolver_ == NULL)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNLinSol_NICSLU");
-    flag = KINSetLinearSolver(KINMem_, LS_, M_);
+    flag = KINSetLinearSolver(KINMem_, linearSolver_, sundialsMatrix_);
     if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "kinNICSLU");
 #endif
@@ -185,20 +192,17 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
   flag = KINSetPrintLevel(KINMem_, printfl);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetPrintLevel");
+
+  vectorFScale_.resize(numF_);
+  vectorYScale_.resize(numF_);
+  sundialsVectorFScale_ = N_VMake_Serial(numF_, &vectorFScale_[0]);
+  sundialsVectorYScale_ = N_VMake_Serial(numF_, &vectorYScale_[0]);
 }
 
 int
 SolverKINCommon::solveCommon() {
-  N_Vector fScaleNV = N_VNew_Serial(fScale_.size());
-  N_Vector yScaleNV = N_VNew_Serial(yScale_.size());
-  memcpy(NV_DATA_S(fScaleNV), &fScale_[0], fScale_.size() * sizeof (fScale_[0]));
-  memcpy(NV_DATA_S(yScaleNV), &yScale_[0], yScale_.size() * sizeof (yScale_[0]));
-
-  int flag = KINSol(KINMem_, yy_, KIN_NONE, yScaleNV, fScaleNV);
+  int flag = KINSol(KINMem_, sundialsVectorY_, KIN_NONE, sundialsVectorYScale_, sundialsVectorFScale_);
   analyseFlag(flag);
-
-  if (fScaleNV != NULL) N_VDestroy_Serial(fScaleNV);
-  if (yScaleNV != NULL) N_VDestroy_Serial(yScaleNV);
 
   return flag;
 }
