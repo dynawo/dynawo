@@ -92,7 +92,7 @@
     <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
     <dyn:staticRef var="generator_state" staticVar="state"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="Model_Signal_N" lib="SignalN" parFile="IEEE14.par" parId="SignalN"/>
+  <dyn:blackBoxModel id="Model_Signal_N" lib="SignalN"/>
   <dyn:blackBoxModel id="DISCONNECT_LINE" lib="EventQuadripoleDisconnection" parFile="IEEE14.par" parId="DisconnectLine"/>
   <dyn:connect id1="GEN____1_SM" var1="generator_N" id2="Model_Signal_N" var2="signalN_N"/>
   <dyn:connect id1="GEN____2_SM" var1="generator_N" id2="Model_Signal_N" var2="signalN_N"/>

@@ -33,7 +33,7 @@
     <dyn:staticRef var="QPu_value" staticVar="q"/>
     <dyn:staticRef var="state_value" staticVar="state"/>
   </dyn:macroStaticReference>
-  <dyn:blackBoxModel id="Model_Signal_N" lib="SignalN" parFile="LoadRestorativeWithLimits.par" parId="SignalN"/>
+  <dyn:blackBoxModel id="Model_Signal_N" lib="SignalN"/>
   <dyn:blackBoxModel id="_Generator___1" staticId="_Generator___1" lib="GeneratorPVSignalN" parFile="LoadRestorativeWithLimits.par" parId="signalNGenerator">
     <dyn:macroStaticRef id="GeneratorStaticRef"/>
   </dyn:blackBoxModel>

@@ -72,3 +72,7 @@ set_target_properties(dynawo_API_FS PROPERTIES VERSION ${API_FS_VERSION_STRING}
 
 install(TARGETS dynawo_API_FS EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${API_FS_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()

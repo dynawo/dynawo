@@ -26,9 +26,6 @@
     <par type="DOUBLE" name="generator_KGover" value="1"/>
     <par type="DOUBLE" name="generator_PNom" value="1"/>
   </set>
-  <set id="2">
-    <par type="INT" name="nbGen" value="1"/>
-  </set>
   <set id="3">
     <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
     <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>

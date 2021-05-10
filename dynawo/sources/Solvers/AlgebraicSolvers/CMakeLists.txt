@@ -61,3 +61,7 @@ set_target_properties(dynawo_SolverKINSOL PROPERTIES VERSION ${SOLVER_KINSOL_VER
 
 install(TARGETS dynawo_SolverKINSOL EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${SOLVER_KINSOL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()

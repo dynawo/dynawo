@@ -100,3 +100,7 @@ install(PROGRAMS ${PYTHON_SCRIPTS_PREASSEMBLED_MODELS} DESTINATION ${SBINDIR_NAM
 foreach( FILE ${MODELICA_PREASSEMBLED_MODELS} )
     compile_preassembled_model(${FILE})
 endforeach( FILE )
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()
