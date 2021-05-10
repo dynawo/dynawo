@@ -1,7 +1,7 @@
-within Dynawo.Electrical.Controls;
+within Dynawo.Examples;
 
 /*
-* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,6 +12,8 @@ within Dynawo.Electrical.Controls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package Shunts "Shunts control elements"
+package SVarC "Validation tests for static var compensators"
   extends Icons.Package;
-end Shunts;
+  annotation(
+    Documentation(info = "<html><head></head><body>This test case consists in one static var compensator connected to an infinite bus. Several events are simulated.</body></html>"));
+end SVarC;

@@ -9,8 +9,7 @@
     <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="GEN_SIGNALN_CONNECTOR">
-    <dyn:connect var1="generator_alpha_value" var2="alpha_grp_@INDEX@_value"/>
-    <dyn:connect var1="generator_N_value" var2="n_grp_@INDEX@_value"/>
+    <dyn:connect var1="generator_N" var2="signalN_N"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="LOAD_NETWORK_CONNECTOR">
     <dyn:connect var1="load_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
@@ -31,7 +30,7 @@
     <dyn:staticRef var="load_QPu" staticVar="q"/>
     <dyn:staticRef var="load_state" staticVar="state"/>
   </dyn:macroStaticReference>
-  <dyn:blackBoxModel id="Model_Signal_N" lib="DYNModelSignalN" parFile="IEEE14.par" parId="SignalN"/>
+  <dyn:blackBoxModel id="Model_Signal_N" lib="SignalN"/>
   <dyn:blackBoxModel id="_GEN____1_SM" staticId="_GEN____1_SM" lib="GeneratorPVDiagramPQSignalN" parFile="IEEE14.par" parId="12497041103945231709">
     <dyn:macroStaticRef id="GeneratorStaticRef"/>
   </dyn:blackBoxModel>
@@ -73,5 +72,5 @@
   <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_GEN____1_SM" id2="Model_Signal_N" index2="3"/>
   <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR" id1="_GEN____3_SM" id2="NETWORK"/>
   <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_GEN____3_SM" id2="Model_Signal_N" index2="4"/>
-  <dyn:connect id1="Model_Signal_N" var1="tetaRef_0_value" id2="NETWORK" var2="_BUS____4_TN_phi_value"/>
+  <dyn:connect id1="Model_Signal_N" var1="signalN_thetaRef_value" id2="NETWORK" var2="_BUS____4_TN_phi_value"/>
 </dyn:dynamicModelsArchitecture>

@@ -40,3 +40,7 @@ if(CXX11_ENABLED)
 endif()
 
 install(TARGETS dumpSolver EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()

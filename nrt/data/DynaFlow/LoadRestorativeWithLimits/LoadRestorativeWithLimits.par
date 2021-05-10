@@ -12,9 +12,6 @@
     <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
     <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
   </set>
-  <set id="SignalN">
-    <par name="nbGen" type="INT" value="1"/>
-  </set>
   <set id="impSignalNGenerator">
     <par name="generator_KGover" type="DOUBLE" value="1"/>
     <par name="generator_PMax" type="DOUBLE" value="1.7976931348623157e+308"/>
