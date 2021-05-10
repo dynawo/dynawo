@@ -147,13 +147,13 @@ VscConverterInterfaceIIDM::getQMax() {
         IIDM::ReactiveCapabilityCurve::point next_point = reactiveCurve[i+1];
         if (current_point.p <= pGen && next_point.p >= pGen) {
           qMax = current_point.qmax + (pGen - current_point.p) * (next_point.qmax - current_point.qmax) / (next_point.p - current_point.p);
+          break;
         }
       }
     }
     return qMax;
-  } else {
-    return 0.;
   }
+  return 0.;
 }
 
 string
