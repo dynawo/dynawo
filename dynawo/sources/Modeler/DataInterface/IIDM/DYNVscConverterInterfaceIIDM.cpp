@@ -51,8 +51,13 @@ VscConverterInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
   staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(-1 * getP() / SNREF)));
   staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(-1 * getQ() / SNREF)));
+  staticParameters_.insert(std::make_pair("targetQ_pu", StaticParameter("targetQ_pu",
+      StaticParameter::DOUBLE).setValue(-1 * getReactivePowerSetpoint() / SNREF)));
+  staticParameters_.insert(std::make_pair("qMax_pu", StaticParameter("qMax_pu", StaticParameter::DOUBLE).setValue(getQMax() / SNREF)));
   staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(-1 * getP())));
   staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(-1 * getQ())));
+  staticParameters_.insert(std::make_pair("targetQ", StaticParameter("targetQ", StaticParameter::DOUBLE).setValue(-1 * getReactivePowerSetpoint())));
+  staticParameters_.insert(std::make_pair("qMax", StaticParameter("qMax", StaticParameter::DOUBLE).setValue(getQMax())));
   if (busInterface_) {
     double U0 = busInterface_->getV0();
     double vNom;
@@ -64,13 +69,17 @@ VscConverterInterfaceIIDM::importStaticParameters() {
     double teta = busInterface_->getAngle0();
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(U0 / vNom)));
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("targetV_pu", StaticParameter("targetV_pu", StaticParameter::DOUBLE).setValue(getVoltageSetpoint() / getVNom())));
     staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(U0)));
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta)));
+    staticParameters_.insert(std::make_pair("targetV", StaticParameter("targetV", StaticParameter::DOUBLE).setValue(getVoltageSetpoint())));
   } else {
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("targetV_pu", StaticParameter("targetV_pu", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("targetV", StaticParameter("targetV", StaticParameter::DOUBLE).setValue(0.)));
   }
 }
 
@@ -117,6 +126,34 @@ VscConverterInterfaceIIDM::getP() {
 double
 VscConverterInterfaceIIDM::getQ() {
   return InjectorInterfaceIIDM<IIDM::VscConverterStation>::getQ();
+}
+
+double
+VscConverterInterfaceIIDM::getQMax() {
+  if (vscConverterIIDM_.has_minMaxReactiveLimits()) {
+    return vscConverterIIDM_.minMaxReactiveLimits().max();
+  } else if (vscConverterIIDM_.has_reactiveCapabilityCurve()) {
+    assert(vscConverterIIDM_.reactiveCapabilityCurve().size() > 0);
+    double qMax = 0;
+    const double pGen = - getP();
+    const IIDM::ReactiveCapabilityCurve& reactiveCurve = vscConverterIIDM_.reactiveCapabilityCurve();
+    if (pGen <= reactiveCurve[0].p) {
+      qMax = reactiveCurve[0].qmax;
+    } else if (pGen > reactiveCurve[reactiveCurve.size() - 1].p) {
+      qMax = reactiveCurve[reactiveCurve.size() - 1].qmax;
+    } else {
+      for (unsigned int i = 0; i <= reactiveCurve.size() - 2; ++i) {
+        IIDM::ReactiveCapabilityCurve::point current_point = reactiveCurve[i];
+        IIDM::ReactiveCapabilityCurve::point next_point = reactiveCurve[i+1];
+        if (current_point.p <= pGen && next_point.p >= pGen) {
+          qMax = current_point.qmax + (pGen - current_point.p) * (next_point.qmax - current_point.qmax) / (next_point.p - current_point.p);
+          break;
+        }
+      }
+    }
+    return qMax;
+  }
+  return 0.;
 }
 
 string

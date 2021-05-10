@@ -202,6 +202,8 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     IIDM::builders::VscConverterStationBuilder vsccb;
     vsccb.p(150.);
     vsccb.q(90.);
+    vsccb.reactivePowerSetpoint(10.);
+    vsccb.voltageSetpoint(225.);
     IIDM::MinMaxReactiveLimits limits(1., 2.);
     vsccb.minMaxReactiveLimits(limits);
     IIDM::VscConverterStation vsc = vsccb.build("MyVscConverterStation");
@@ -527,6 +529,41 @@ TEST(DataInterfaceIIDMTest, testLccConverterIIDMAndStaticParameters) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "angle_pu"), 0.02617993877991494148);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "v"), 150.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "angle"), 1.5);
+}
+
+TEST(DataInterfaceIIDMTest, testVscConverterIIDMAndStaticParameters) {
+  const BusBreakerNetworkProperty properties = {
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensator*/,
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTapChanger*/,
+      false /*instantiatePhaseTapChanger*/,
+      false /*instantiateDanglingLine*/,
+      false /*instantiateGenerator*/,
+      false /*instantiateLccConverter*/,
+      false /*instantiateLine*/,
+      false /*instantiateLoad*/,
+      false /*instantiateSwitch*/,
+      true /*instantiateVscConverter*/,
+      false /*instantiateThreeWindingTransformer*/
+  };
+  shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
+  exportStateVariables(data);
+
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "p_pu"), -150. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "q_pu"), -90. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "qMax_pu"), 2. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "targetQ_pu"), -10. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "targetV_pu"), 225. / 150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "p"), -150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "q"), -90.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "qMax"), 2.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "targetQ"), -10.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "targetV"), 225.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "v_pu"), 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "angle_pu"), 0.02617993877991494148);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "v"), 150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "angle"), 1.5);
 }
 
 TEST(DataInterfaceIIDMTest, testLineIIDMAndStaticParameters) {
