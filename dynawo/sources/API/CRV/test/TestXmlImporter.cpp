@@ -21,7 +21,10 @@
 
 #include "CRVXmlImporter.h"
 
+testing::Environment* initXmlEnvironment();
+
 namespace curves {
+testing::Environment* const env = initXmlEnvironment();
 
 //-----------------------------------------------------
 // TEST XmlImporter
