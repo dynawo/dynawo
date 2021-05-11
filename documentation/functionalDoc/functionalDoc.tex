@@ -368,11 +368,8 @@ This model is connected to all the generators of one synchronous area and takes 
 \paragraph{Implicit frequency model - SignalN}
 ~~\\
 
-All generators of the network are connected to this model through their participation in the frequency
-regulation Alpha, which is a coefficient that can be equal to the nominal active power of the generator,
-its maximum active power, or its active power set point, through the total participation SignalN, which
-is calculated in this model and is equal to the sum of the Alpha, and through the signal N, which is common to all the generators in the same "synchronous area" and that changes the active power reference of the generators to balance the generation and the consumption. \\
-Moreover, the voltage angle of a chosen bus is fixed here to 0 to balance the number of equations and the number of variables.
+All generators of the network are connected to this model through the signal N, which is common to all the generators in the same "synchronous area" and that changes the active power reference of the generators to balance the generation and the consumption. \\
+Moreover, the voltage angle of a chosen bus is fixed here to balance the number of equations and the number of variables.
 
 \subsubsection{Variation area model}
 

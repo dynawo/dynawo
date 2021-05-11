@@ -73,6 +73,8 @@ SolverKINEuler::init(const shared_ptr<Model>& model, const std::string& linearSo
   int sizeY = model_->sizeY();
   if (sizeY == 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverEmptyYVector);
+  if (sizeY != model_->sizeF())
+    throw DYNError(Error::SUNDIALS_ERROR, SolverYvsF, sizeY, model_->sizeF());
   y0_.assign(sizeY, 0);
   F_.resize(model_->sizeF());
   YP_.assign(sizeY, 0);

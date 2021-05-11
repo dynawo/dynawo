@@ -24,3 +24,7 @@ target_include_directories(${MODEL_NAME} SYSTEM
   PRIVATE
     $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
   )
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()

@@ -113,3 +113,7 @@ set_target_properties(dynawo_ModelerCommon PROPERTIES VERSION ${MODELER_VERSION_
 
 install(TARGETS dynawo_ModelerCommon EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${MODELER_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()

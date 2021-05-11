@@ -77,3 +77,7 @@ endif()
 set_target_properties(generate-preassembled PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 
 install(TARGETS generate-preassembled EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
+
+if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
+  add_subdirectory(test)
+endif()

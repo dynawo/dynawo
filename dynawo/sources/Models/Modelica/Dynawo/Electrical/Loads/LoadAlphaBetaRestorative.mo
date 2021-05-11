@@ -13,6 +13,7 @@ within Dynawo.Electrical.Loads;
 */
 
 model LoadAlphaBetaRestorative "Generic model of a restorative Alpha-Beta load."
+
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
 
@@ -23,10 +24,6 @@ model LoadAlphaBetaRestorative "Generic model of a restorative Alpha-Beta load."
     parameter Real Alpha "Active load sensitivity to voltage";
     parameter Real Beta  "Reactive load sensitivity to voltage";
 
-    // in order to change the load set-point, connect an event to PRefPu or QRefPu
-    Connectors.ZPin PRefPu (value (start = s0Pu.re)) "Active power request in p.u (base SnRef)";
-    Connectors.ZPin QRefPu (value (start = s0Pu.im)) "Reactive power request in p.u (base SnRef)";
-
   protected
     Types.VoltageModulePu UFilteredRawPu (start = ComplexMath.'abs' (u0Pu)) "Filtered voltage amplitude at terminal in p.u (base UNom)";
     Types.VoltageModulePu UFilteredPu (start = ComplexMath.'abs' (u0Pu)) "Bounded filtered voltage amplitude at terminal in p.u (base UNom)";
@@ -35,8 +32,8 @@ model LoadAlphaBetaRestorative "Generic model of a restorative Alpha-Beta load."
     if (running.value) then
       tFilter * der(UFilteredRawPu) = ComplexMath.'abs' (terminal.V) - UFilteredRawPu;
       UFilteredPu = if UFilteredRawPu >= UMaxPu then UMaxPu elseif UFilteredRawPu <= UMinPu then UMinPu else UFilteredRawPu;
-      PPu = PRefPu.value * ((ComplexMath.'abs' (terminal.V) / UFilteredPu) ^ Alpha);
-      QPu = QRefPu.value * ((ComplexMath.'abs' (terminal.V) / UFilteredPu) ^ Beta);
+      PPu = PRefPu * ((ComplexMath.'abs' (terminal.V) / UFilteredPu) ^ Alpha);
+      QPu = QRefPu * ((ComplexMath.'abs' (terminal.V) / UFilteredPu) ^ Beta);
     else
       UFilteredRawPu = 0;
       UFilteredPu = 0;
