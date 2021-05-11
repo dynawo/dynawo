@@ -152,7 +152,6 @@ package BaseClasses_INIT
       Types.PerUnit LQ2PPu "Quadrature axis 2nd damper leakage in p.u.";
       Types.PerUnit RQ2PPu "Quadrature axis 2nd damper resistance in p.u.";
 
-
       // Start values calculated by the initialization model
       Types.PerUnit MdPPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
       Types.PerUnit Kuf "Scaling factor for excitation p.u voltage";
@@ -177,9 +176,9 @@ package BaseClasses_INIT
       Types.PerUnit Id0Pu "Start value of current of direct axis in p.u";
       Types.PerUnit Iq0Pu "Start value of current of quadrature axis in p.u";
 
-      Types.PerUnit If0Pu "Start value of flux of excitation winding in p.u";
+      Types.PerUnit If0Pu "Start value of current of excitation winding in p.u";
       Types.PerUnit Uf0Pu "Start value of exciter voltage in p.u (Kundur base)";
-      Types.PerUnit Efd0Pu "Start value of input exciter voltage in p.u (user-selcted base)";
+      Types.PerUnit Efd0Pu "Start value of input exciter voltage in p.u (user-selected base)";
 
       Types.PerUnit Lambdad0Pu "Start value of flux of direct axis in p.u";
       Types.PerUnit Lambdaq0Pu "Start value of flux of quadrature axis in p.u";
@@ -196,8 +195,8 @@ package BaseClasses_INIT
       Types.CurrentModulePu IStator0Pu "Start value of stator current amplitude in p.u (base SnRef)";
       Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power generated in p.u (base SnRef)";
       Types.ReactivePowerPu QStator0PuQNom "Start value of stator reactive power generated in p.u (base QNomAlt)";
-      Types.CurrentModulePu IRotor0Pu "Start value of rotor current in p.u (base SNom)";
-      Types.Angle ThetaInternal0 "Start value of internal angle";
+      Types.CurrentModulePu IRotor0Pu "Start value of rotor current in p.u (base SNom, user-selected base voltage)";
+      Types.Angle ThetaInternal0 "Start value of internal angle in rad";
 
       Types.PerUnit MsalPu "Constant difference between direct and quadrature axis saturated mutual inductances in p.u.";
       Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in p.u.";
@@ -241,8 +240,8 @@ package BaseClasses_INIT
     IStator0Pu = rTfoPu * I0Pu *SNom/SystemBase.SnRef;
     QStator0Pu = - ComplexMath.imag(sStator0Pu);
     QStator0PuQNom = QStator0Pu * SystemBase.SnRef / QNomAlt;
-    IRotor0Pu = MdSat0PPu / rTfoPu * If0Pu;
-    ThetaInternal0 = Theta0;
+    IRotor0Pu = RfPPu / (Kuf * rTfoPu) * If0Pu;
+    ThetaInternal0 = ComplexMath.arg(Complex(Uq0Pu, Ud0Pu));
     S0Pu = ComplexMath.'abs'(s0Pu)*SystemBase.SnRef/SNom;
     I0Pu = ComplexMath.'abs'(i0Pu)*SystemBase.SnRef/SNom;
 
