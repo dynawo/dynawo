@@ -18,7 +18,10 @@
 
 \chapter{Install procedure}
 
-\Dynawo is available on three platforms: \textbf{Linux}, \textbf{MacOS} and \textbf{Windows}. You can either build it from sources on each platform or use binaries distributed on Github.
+\Dynawo is available on two platforms: \textbf{Linux} and \textbf{Windows}. You
+can either build it from sources on each platform or use binaries distributed on
+Github. If you are on \textbf{MacOS} you ca use a \hyperref[sec:docker]{Docker}
+solution.
 
 \section{\Dynawo binaries distribution}
 
@@ -26,8 +29,6 @@ To start testing \Dynawo you can use binary releases on Github:
 \begin{itemize}
 \item
   \href{https://github.com/dynawo/dynawo/releases/download/v1.2.1/Dynawo_Linux_v1.2.1.zip}{Linux}
-\item
-  \href{#}{MacOS} (Soon)
 \item
   \href{https://github.com/dynawo/dynawo/releases/download/v1.2.1/Dynawo_Windows_v1.2.1.zip}{Windows}
 \end{itemize}
@@ -51,14 +52,6 @@ $> apt install -y g++ unzip curl python
 $> dnf install -y gcc-c++ unzip curl python
 \end{lstlisting}
 
-
-\subsection{MacOS Requirements for Distribution}
-
-\begin{itemize}
-\item Command Line Tools (with \lstinline[language=bash]{xcode-select --install})
-\item \href{https://cmake.org/}{CMake}: minimum version 3.9.6
-\end{itemize}
-
 \subsection{Windows Requirements for Distribution}
 
 On Windows you can either run \Dynawo with the distribution models and in this case nothing is required. If you want to be able to add new models you will need:
@@ -73,7 +66,7 @@ On Windows you can either run \Dynawo with the distribution models and in this c
 
 \subsection{Using a distribution}
 
-\subsubsection{Linux and MacOS}
+\subsubsection{Linux}
 
 You can launch the following commands to download and test the latest distribution:
 
@@ -98,7 +91,7 @@ Download the zip of the distribution and unzip it somewhere. Then open either \t
 
 \subsection{Linux/Unix}
 
-\Dynawo has be tested on Linux platforms (Centos and Debian based) and provided that you can install system packages there should be no problem on other Linux distribution. It has also been tested on macOS (only on Mojave 10.14.5) and works, a complete procedure to help non-developers install it on this platform will be available soon.
+\Dynawo has be tested on Linux platforms (Centos and Debian based) and provided that you can install system packages there should be no problem on other Linux distribution.
 
 In the following we give a list of requirements needed to build \Dynawo and its dependencies.
 
@@ -315,6 +308,7 @@ For example, for the generator disconnections simulation - DynaWaltz example, on
 \end{figure}
 
 \section{\Dynawo Docker}
+\label{sec:docker}
 
 We provide on \href{https://hub.docker.com/r/dynawo/dynawo}{Docker Hub} an image of \Dynawo master. You can use it by launching the following command:
 
