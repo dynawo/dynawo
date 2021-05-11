@@ -26,14 +26,13 @@ This repository contains Dyna&omega;o's simulation tool code.
 - [Getting started!](#start)
 - [Dyna&omega;o Binaries](#distribution)
 - [Building requirements](#requirements)
-  * [Linux and MacOS](#requirements_linux)
+  * [Linux](#requirements_linux)
   * [Windows](#requirements_windows)
 - [Building Dyna&omega;o](#build)
   * [Linux](#build_linux)
   * [Windows](#build_windows)
-  * [MacOS](#build_macos)
 - [Launch Dyna&omega;o](#launch)
-  * [Linux and MacOS](#launch_linux)
+  * [Linux](#launch_linux)
   * [Windows](#launch_windows)
 - [Docker Dyna&omega;o](#docker)
 - [Dyna&omega;o Documentation](#documentation)
@@ -68,10 +67,11 @@ To get started with Dyna&omega;o you have different possibilities, depending on 
 <a name="distribution"></a>
 ## Dyna&omega;o Distribution
 
-You can download a pre-built Dyna&omega;o release to start testing it. Pre-built releases are available for **Linux**, **MacOS** and **Windows**:
+You can download a pre-built Dyna&omega;o release to start testing it. Pre-built releases are available for **Linux** and **Windows**:
 - [Linux](https://github.com/dynawo/dynawo/releases/download/v1.2.1/Dynawo_Linux_v1.2.1.zip)
-- [MacOS](https://github.com/dynawo/dynawo/releases/download/v1.2.1/Dynawo_MacOS_v1.2.1.zip)
 - [Windows](https://github.com/dynawo/dynawo/releases/download/v1.2.1/Dynawo_Windows_v1.2.1.zip)
+
+If you are on **MacOS** you can use [Docker](#docker).
 
 ### Linux Requirements for Distribution
 
@@ -89,11 +89,6 @@ $> apt install -y g++ unzip curl python
 $> dnf install -y gcc-c++ unzip curl python
 ```
 
-### MacOS Requirements for Distribution
-
-- Command Line Tools (with `xcode-select --install`)
-- [CMake](https://cmake.org/)
-
 ### Windows Requirements for Distribution
 
 On Windows you can either run Dyna&omega;o with distribution models and in this case nothing is required. If you want to be able to add new models you will need:
@@ -106,7 +101,7 @@ On Windows you can either run Dyna&omega;o with distribution models and in this 
 
 ### Using a distribution
 
-#### Linux and MacOS
+#### Linux
 
 You can launch the following commands to download and test the latest distribution:
 
@@ -130,16 +125,15 @@ Download the zip of the distribution and unzip it somewhere. Then open either `C
 <a name="requirements"></a>
 ## Building requirements
 
-You can also build Dyna&omega;o from sources. Dyna&omega;o is a cross-platform software and has been tested on **Linux** platforms (Centos and Debian based), for other distributions don't hesitate to contact us if you run in problems. It has also been tested on **MacOS** (only on Mojave), a complete procedure to help non-developers install it on this platform will be available soon. We recently added **Windows** compatibility and you can now completly build and develop Dynawo on it. <br>
-If you have any issue building Dyna&omega;o don't hesitate to send us an [email](mailto:rte-dynawo@rte-france.com) with your errors and we will try to answer you back quickly.
+You can build Dyna&omega;o from sources. Dyna&omega;o is available on two platforms **Linux** and **Windows**. **Linux** has been tested on Centos and Debian based distributions, for other distributions don't hesitate to contact us if you run in problems. Only **Windows 10** has been tested for Windows. If you are on **MacOS** we recommend you to use a [Docker solution](#docker). <br>
 
 In the following we give a list of requirements needed to build Dyna&omega;o and its dependencies.
 
 <a name="requirements_linux"></a>
-### Unix (Linux and MacOS)
+### Unix (Linux)
 
 #### Global
-- Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/), [clang](https://clang.llvm.org/) or Apple Clang with Xcode or Command Line Tools), C++98 or C++11 compatible for C++ standard
+- Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/), [clang](https://clang.llvm.org/) or Command Line Tools), C++98 or C++11 compatible for C++ standard
 
 #### OpenModelica Compiler
 - Compiler: Fortran ([gfortran](https://gcc.gnu.org/fortran/))
@@ -256,54 +250,11 @@ Open `x64 Native Tools Command Prompt for VS2019` and run the following commands
 
 **Warning** Only the build directories (b and b-3-p) can be located in the `dynawo` folder, the install (d-i and d-3-p), OMDev and OpenModelica folders should be located outside to avoid problems with CMake.
 
-<a name="build_macos"></a>
-### MacOS
-
-The difficult part of building Dyna&omega;o on MacOS is the compilation of OpenModelica. We propose two solutions, one with pre-built binaries for OpenModelica and one with building OpenModelica.
-
-#### With pre-built OpenModelica
-
-Use the following commands in a terminal to download those binaries and use them to build Dyna&omega;o:
-
-``` bash
-$> curl -L $(curl -s -L -X GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep "Dynawo_MacOS" | grep url | cut -d '"' -f 4) -o $HOME/Dynawo_MacOS_latest.zip
-$> unzip $HOME/Dynawo_MacOS_latest.zip -d $HOME/Dynawo_MacOS_latest
-$> git clone https://github.com/dynawo/dynawo.git dynawo
-$> cd dynawo
-$> mkdir OpenModelica
-$> mv $HOME/Dynawo_MacOS_latest/OpenModelica OpenModelica/Install
-$> rm -rf $HOME/Dynawo_MacOS_latest*
-$> echo '#!/bin/bash
-export DYNAWO_HOME=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-
-export DYNAWO_SRC_OPENMODELICA=$DYNAWO_HOME/OpenModelica/Source
-export DYNAWO_INSTALL_OPENMODELICA=$DYNAWO_HOME/OpenModelica/Install
-
-export DYNAWO_LOCALE=en_GB
-export DYNAWO_RESULTS_SHOW=true
-export DYNAWO_BROWSER="open -a Safari"
-export DYNAWO_NB_PROCESSORS_USED=1
-
-export DYNAWO_BUILD_TYPE=Release
-export DYNAWO_CXX11_ENABLED=YES
-export DYNAWO_COMPILER=CLANG
-
-export PATH="$(dirname $(xcrun -f llvm-cov))":$PATH
-
-$DYNAWO_HOME/util/envDynawo.sh $@' > myEnvDynawo.sh
-$> chmod +x myEnvDynawo.sh
-$> ./myEnvDynawo.sh build-user
-```
-
-#### With building OpenModelica
-
-A solution has been develop but it is not yet available on Github and we advise you to [contact us](mailto:rte-dynawo@rte-france.com) so we can provide you with it. This solution should be available soon once it is completely stable.
-
 <a name="launch"></a>
 ## Launch Dyna&omega;o
 
 <a name="launch_linux"></a>
-### Linux and MacOS
+### Linux
 
 Once you have build Dyna&omega;o you can start launching a simulation with the command:
 ``` bash
