@@ -69,9 +69,9 @@ To get started with Dyna&omega;o you have different possibilities, depending on 
 ## Dyna&omega;o Distribution
 
 You can download a pre-built Dyna&omega;o release to start testing it. Pre-built releases are available for **Linux**, **MacOS** and **Windows**:
-- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.2.1/Dynawo_Linux_v1.2.1.zip)
-- [MacOS](https://github.com/dynawo/dynawo/releases/download/v1.2.1/Dynawo_MacOS_v1.2.1.zip)
-- [Windows](https://github.com/dynawo/dynawo/releases/download/v1.2.1/Dynawo_Windows_v1.2.1.zip)
+- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.2.2/Dynawo_Linux_v1.2.2.zip)
+- [MacOS](Soon)
+- [Windows](https://github.com/dynawo/dynawo/releases/download/v1.2.2/Dynawo_Windows_v1.2.2.zip)
 
 ### Linux Requirements for Distribution
 
@@ -350,7 +350,7 @@ You can have more information on how to use Docker to build and try Dyna&omega;o
 
 <a name="documentation"></a>
 ## Dyna&omega;o Documentation
-You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.2.1/DynawoDocumentation.pdf).
+You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.2.2/DynawoDocumentation.pdf).
 
 <a name="contributions"></a>
 ## Get involved!
