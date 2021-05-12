@@ -65,6 +65,27 @@ TEST(Models, TestBuildCheckSum) {
   std::cout << ssDiff.str() << std::endl;
   ASSERT_EQ(ssDiff.str(), "Executing command : diff dic/icKeys.mo dic/icKeys_ref.mo\n");
   ssDiff.str(std::string());
+
+  cmd = pythonCmd + " validateDictionaries.py --inputDir dicMapping/,dicMapping/folder --outputDir dicMapping/ --modelicaDir dicMapping/ "
+      "--modelicaPackage myPackage --namespace MyNS";
+  executeCommand(cmd, ssPython);
+  ssPython.str(std::string());
+  ssDiff.str(std::string());
+  ASSERT_TRUE(exists("dicMapping/dico_keys.cpp"));
+  ASSERT_TRUE(exists("dicMapping/dico_keys.h"));
+  ASSERT_TRUE(exists("dicMapping/oKeys.mo"));
+  executeCommand("diff dicMapping/dico_keys.cpp dicMapping/dico_keys_ref.cpp", ssDiff);
+  std::cout << ssDiff.str() << std::endl;
+  ASSERT_EQ(ssDiff.str(), "Executing command : diff dicMapping/dico_keys.cpp dicMapping/dico_keys_ref.cpp\n");
+  ssDiff.str(std::string());
+  executeCommand("diff dicMapping/dico_keys.h dicMapping/dico_keys_ref.h", ssDiff);
+  std::cout << ssDiff.str() << std::endl;
+  ASSERT_EQ(ssDiff.str(), "Executing command : diff dicMapping/dico_keys.h dicMapping/dico_keys_ref.h\n");
+  ssDiff.str(std::string());
+  executeCommand("diff dicMapping/oKeys.mo dicMapping/oKeys_ref.mo", ssDiff);
+  std::cout << ssDiff.str() << std::endl;
+  ASSERT_EQ(ssDiff.str(), "Executing command : diff dicMapping/oKeys.mo dicMapping/oKeys_ref.mo\n");
+  ssDiff.str(std::string());
 }
 
 

@@ -12,8 +12,11 @@
 */
 within myPackage;
 
-encapsulated package icKeys
+encapsulated package oKeys
 
-final constant Integer MyLabel = 0;
+final constant Integer MyEntry = 0;
+final constant Integer MyFourthEntry = 1;
+final constant Integer MySecondEntry = 2;
+final constant Integer MyThirdEntry = 3;
 
-end icKeys;
+end oKeys;

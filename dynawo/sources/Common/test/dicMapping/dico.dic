@@ -10,13 +10,6 @@
 // This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
 // for power systems.
 //
-#include "MyDic_keys.h"
-namespace MyNS {
 
-const char* Keyic_t::names(const value& v) {
-  static const char* names[] = {
-    "MyLabel",
-  };
-  return names[v];
-};
-} //namespace MyNS
+MyEntry = My First Entry
+MySecondEntry = My Second Entry %u
