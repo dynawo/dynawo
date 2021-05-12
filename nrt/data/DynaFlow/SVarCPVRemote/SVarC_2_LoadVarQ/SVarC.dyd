@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -22,7 +22,7 @@
   <dyn:connect id1="Line1" var1="line_terminal2" id2="Line2" var2="line_terminal1"/>
   <dyn:connect id1="Line2" var1="line_terminal2" id2="SVarC" var2="SVarC_terminal"/>
   <dyn:connect id1="Line1" var1="line_terminal2" id2="Load" var2="load_terminal"/>
-  <dyn:connect id1="LoadVar" var1="event_state1" id2="Load" var2="load_PRefPu"/>
-  <dyn:connect id1="LoadVar" var1="event_state2" id2="Load" var2="load_QRefPu"/>
+  <dyn:connect id1="LoadVar" var1="event_state1_value" id2="Load" var2="load_PRefPu"/>
+  <dyn:connect id1="LoadVar" var1="event_state2_value" id2="Load" var2="load_QRefPu"/>
   <dyn:connect id1="Load" var1="load_UPu_value" id2="SVarC" var2="SVarC_URegulatedPu"/>
 </dyn:dynamicModelsArchitecture>

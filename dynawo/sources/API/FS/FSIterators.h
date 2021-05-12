@@ -275,14 +275,6 @@ class finalStateVariable_const_iterator {
   finalStateVariable_const_iterator(const FinalStateModel* iterated, bool begin);
 
   /**
-   * @brief assignment
-   * @param other : variable_const_iterator to assign
-   *
-   * @returns Reference to this variable_const_iterator
-   */
-  THIS& operator=(const THIS& other);
-
-  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this variable_const_iterator

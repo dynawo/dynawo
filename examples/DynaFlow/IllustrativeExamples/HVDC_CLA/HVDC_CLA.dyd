@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -13,20 +13,20 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="Generator___1" lib="GeneratorPVSignalN" parFile="HVDC_CLA.par" parId="1" staticId="_Generator___1">
-        <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
-        <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
-        <dyn:staticRef var="generator_state" staticVar="state"/>
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="Signal_N" lib="DYNModelSignalN" parFile="HVDC_CLA.par" parId="2"/>
+  <dyn:blackBoxModel id="Signal_N" lib="SignalN"/>
   <dyn:blackBoxModel id="Load__10" lib="LoadPQ" parFile="HVDC_CLA.par" parId="3" staticId="_Load__10">
-        <dyn:staticRef var="load_PPu" staticVar="p"/>
-        <dyn:staticRef var="load_QPu" staticVar="q"/>
-        <dyn:staticRef var="load_state" staticVar="state"/>
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="Load__11" lib="LoadPQ" parFile="HVDC_CLA.par" parId="3" staticId="_Load__11">
-        <dyn:staticRef var="load_PPu" staticVar="p"/>
-        <dyn:staticRef var="load_QPu" staticVar="q"/>
-        <dyn:staticRef var="load_state" staticVar="state"/>
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="HVDC" lib="HvdcPVEmulation" parFile="HVDC_CLA.par" parId="5"/>
   <dyn:blackBoxModel id="U1RefPu" lib="EventSetPointReal" parFile="HVDC_CLA.par" parId="6"/>
@@ -35,9 +35,8 @@
   <dyn:blackBoxModel id="CLA" lib="CurrentLimitAutomaton" parFile="HVDC_CLA.par" parId="11"/>
   <dyn:connect id1="Generator___1" var1="generator_terminal" id2="NETWORK" var2="@_Generator___1@@NODE@_ACPIN"/>
   <dyn:connect id1="Generator___1" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_Generator___1@@NODE@_switchOff"/>
-  <dyn:connect id1="Generator___1" var1="generator_N_value" id2="Signal_N" var2="n_grp_0_value"/>
-  <dyn:connect id1="Generator___1" var1="generator_alpha_value" id2="Signal_N" var2="alpha_grp_0_value"/>
-  <dyn:connect id1="Signal_N" var1="tetaRef_0_value" id2="NETWORK" var2="@_Generator___1@@NODE@_phi_value"/>
+  <dyn:connect id1="Generator___1" var1="generator_N" id2="Signal_N" var2="signalN_N"/>
+  <dyn:connect id1="Signal_N" var1="signalN_thetaRef_value" id2="NETWORK" var2="@_Generator___1@@NODE@_phi_value"/>
   <dyn:connect id1="Load__10" var1="load_terminal" id2="NETWORK" var2="_BUS___10_TN_ACPIN"/>
   <dyn:connect id1="Load__11" var1="load_terminal" id2="NETWORK" var2="_BUS____8_TN_ACPIN"/>
   <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="HVDC" var2="hvdc_terminal2"/>

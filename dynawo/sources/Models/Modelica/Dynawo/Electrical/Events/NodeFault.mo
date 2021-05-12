@@ -21,7 +21,8 @@ model NodeFault "Node fault which lasts from tBegin to tEnd"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  Connectors.ACPower terminal;
+  Connectors.ACPower terminal annotation(
+    Placement(visible = true, transformation(origin = {2, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Connectors.BPin nodeFault (value(start = false)) "True when the fault is ongoing, false otherwise";
 
   parameter Types.PerUnit RPu  "Fault resistance in p.u (base SnRef)";
@@ -48,5 +49,6 @@ equation
     end if;
 
 annotation(preferredView = "text",
-    Documentation(info = "<html><head></head><body>During the fault, the impedance between the node and the ground is defined by R and X values.</body></html>"));
+    Documentation(info = "<html><head></head><body>During the fault, the impedance between the node and the ground is defined by R and X values.</body></html>"),
+  Icon(graphics = {Polygon(origin = {0, 55}, fillPattern = FillPattern.Solid, points = {{0, 45}, {-6, 5}, {20, 5}, {0, -45}, {6, -5}, {-20, -5}, {0, 45}, {0, 45}})}));
 end NodeFault;

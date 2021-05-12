@@ -43,7 +43,7 @@ def is_syst_var(var):
     is_continuous = (variability == "continuous")
     is_fixed = (var.is_fixed())
 
-    return is_continuous and right_var_type and not is_fixed
+    return is_continuous and right_var_type and not is_fixed and "der(" not in name_var
 
 ##
 # Check whether the variable is a variable of the system or not
@@ -60,6 +60,8 @@ def is_var(var):
     right_var_type = (type_var in ["rSta", "rAlg", "rAli", "iAlg", "iAli", "bAlg","bAli"])
     is_continuous = (variability in ["continuous","discrete"])
 
+    if type_var == "rAlg" and "der(" in name_var: return False
+
     return is_continuous and right_var_type
 
 ##
@@ -67,13 +69,14 @@ def is_var(var):
 # @param var : variable to test
 # @return @b True if the variable is a algebraic variable of the system
 def is_alg_var(var):
+    name_var = var.get_name()
     type_var = var.get_type()
     variability = var.get_variability()
 
     right_var_type = (type_var in ["rAlg"])
     is_continuous = (variability == "continuous")
 
-    return is_continuous and right_var_type
+    return is_continuous and right_var_type and "der(" not in name_var
 
 ##
 # Check whether the variable is a continuous variable of the system or not

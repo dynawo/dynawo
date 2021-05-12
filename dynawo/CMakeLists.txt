@@ -220,7 +220,7 @@ endif()
 add_definitions(-DBOOST_ALL_NO_LIB)
 
 if(CXX11_ENABLED)
-  set(Boost_RequiredVersion  "1.65")
+  set(Boost_RequiredVersion  "1.70")
 else()
   set(Boost_RequiredVersion  "1.64")
 endif()

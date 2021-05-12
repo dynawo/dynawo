@@ -20,7 +20,10 @@
 #include "DYNDynamicData.h"
 #include "DYNMacrosMessage.h"
 
+testing::Environment* initXmlEnvironment();
+
 namespace DYN {
+testing::Environment* const env = initXmlEnvironment();
 
 TEST(CompilerTest, testMissingModelicaFile) {
   boost::shared_ptr<DynamicData> dyd(new DynamicData());

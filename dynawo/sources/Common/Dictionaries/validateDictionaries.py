@@ -39,7 +39,7 @@ class Dictionaries:
     # @param self: object pointer
     # @param dictionary : new dictionary to add
     # @return
-    def add_dict(self , dictionary):
+    def add_dict(self, dictionary):
         index = [x for x in self.names_ if x == dictionary.name()]
         if index:
             self.dicts_[self.names_.index(dictionary.name())].dict_.update(dictionary.dict_)
@@ -50,11 +50,12 @@ class Dictionaries:
     ##
     #  Generate files with respect to keys found in dictionary
     # @param self: object pointer
+    # @param namespace : cpp namespace to use for keys declarations
     # @param output_dir : directory where files should be created
     # @param modelica_dir : directory where modelica files should be created
     # @param modelica_package : Parent package of modelica keys files
     # @return
-    def generate_files(self,output_dir, modelica_dir, modelica_package):
+    def generate_files(self, output_dir, namespace, modelica_dir, modelica_package):
         for name in self.names_:
             dictionary = Dictionary()
             for d in self.dicts_:
@@ -62,8 +63,8 @@ class Dictionaries:
                     dictionary = d
             dictionary.set_output_dir(output_dir)
             dictionary.set_modelica_dir(modelica_dir)
-            dictionary.generate_header()
-            dictionary.generate_cpp()
+            dictionary.generate_header(namespace)
+            dictionary.generate_cpp(namespace)
             dictionary.generate_modelica(modelica_package)
             dictionary.copy_delete_files()
 ##
@@ -89,7 +90,7 @@ class Dictionary:
     # @param self : object pointer
     # @param name : name of the dictionary
     # @return
-    def set_name(self,name):
+    def set_name(self, name):
         self.name_ = name
 
     ##
@@ -113,7 +114,7 @@ class Dictionary:
     # @param self : object pointer
     # @param name : full name of the dictionary
     # @return
-    def set_full_name(self,name):
+    def set_full_name(self, name):
         self.full_name_ = name
 
     ##
@@ -122,8 +123,8 @@ class Dictionary:
     # @param key : key to add in the dictionary
     # @param value: value associated to the key
     # @return
-    def add_pair(self,key,value):
-        self.dict_[key]=value
+    def add_pair(self, key, value):
+        self.dict_[key] = value
 
     ##
     # Getter of the dictionary's name
@@ -151,21 +152,22 @@ class Dictionary:
     # @param self: object pointer
     # @param key: key of the message to find
     # @return  the message associated to the key
-    def get_message(self,key):
+    def get_message(self, key):
         return self.dict_[key]
 
 
     ##
     # Generate a header file associated to the dictionary
     # @param self : object pointer
+    # @param namespace : cpp namespace to use for keys declarations
     # @return
-    def generate_header(self):
+    def generate_header(self, namespace):
         file_name = os.path.join(str(self.directory_),str(self.name_)+'_keys.h-tmp')
         tag = str(self.name_).upper()  + '_KEYS_H'
         header_file = open(file_name,'w')
         name = self.name_[ 3:]
         header_file.write('''//
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2021, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -173,13 +175,13 @@ class Dictionary:
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+// for power systems.
 //
 ''')
         header_file.write("#ifndef "+str(tag)+"\n")
         header_file.write("#define "+str(tag)+"\n")
-        header_file.write("#include <string>\n")
-        header_file.write("namespace DYN {\n\n")
+        header_file.write("namespace "+namespace+" {\n\n")
         header_file.write("  ///< struct of Key"+str(name)+" to declare enum values and names associated to the enum to be used in dynawo\n")
         header_file.write("  struct Key"+name+"_t\n")
         header_file.write("  {\n")
@@ -200,20 +202,21 @@ class Dictionary:
         header_file.write("    */\n")
         header_file.write("    static const char* names(const value&); ///< names associated to the enum\n")
         header_file.write("  };\n")
-        header_file.write("} //namespace DYN\n")
+        header_file.write("} //namespace "+namespace+"\n")
         header_file.write("#endif\n")
         header_file.close()
 
     ##
     # Generate a cpp file associated to the dictionary
     # @param self : object pointer
+    # @param namespace : cpp namespace to use for keys declarations
     # @return
-    def generate_cpp(self):
+    def generate_cpp(self, namespace):
         file_name = os.path.join(str(self.directory_),str(self.name_)+'_keys.cpp-tmp')
         cpp_file = open(file_name,'w')
         name = self.name_[ 3:]
         cpp_file.write('''//
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2021, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -221,11 +224,12 @@ class Dictionary:
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+// for power systems.
 //
 ''')
         cpp_file.write('#include "'+ str(self.name_)+'_keys.h"\n')
-        cpp_file.write("namespace DYN {\n\n")
+        cpp_file.write("namespace "+namespace+" {\n\n")
         cpp_file.write("const char* Key"+name+"_t::names(const value& v) {\n")
         cpp_file.write("  static const char* names[] = {\n")
         list_keys = list(self.keys())
@@ -235,7 +239,7 @@ class Dictionary:
         cpp_file.write("  };\n")
         cpp_file.write("  return names[v];\n")
         cpp_file.write("};\n")
-        cpp_file.write("} //namespace DYN\n")
+        cpp_file.write("} //namespace "+namespace+"\n")
         cpp_file.close()
 
     ##
@@ -244,6 +248,8 @@ class Dictionary:
     # @param modelica_package : Parent package of modelica keys files
     # @return
     def generate_modelica(self, modelica_package):
+        if not self.modelica_dir_:
+            return
         if not os.path.exists(self.modelica_dir_):
             print ("Modelica directory :"+str(self.modelica_dir_)+" does not exist")
             exit(1)
@@ -251,7 +257,7 @@ class Dictionary:
         file_name = os.path.join(str(self.modelica_dir_),str(name)+'Keys.mo-tmp')
         mo_file = open(file_name,'w')
         mo_file.write('''/*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -259,7 +265,8 @@ class Dictionary:
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+* for power systems.
 */
 ''')
         mo_file.write("within " + modelica_package + ";\n\n")
@@ -281,6 +288,9 @@ class Dictionary:
     # @return
     def copy_delete_files(self):
         self.copy_delete_cpp_h_files()
+
+        if not self.modelica_dir_:
+            return
 
         name = self.name_[3:]
         mo_file = os.path.join(str(self.modelica_dir_), str(name)+'Keys.mo')
@@ -359,7 +369,7 @@ class Status():
 # @param dictionary : dictionary where the message should be added
 # @param check_capital_letters : whether we should check if the first letter of the first word is capitalized or not
 # @return  True is the line is correctly added to the dictionary
-def read_line(line,dictionary,check_capital_letters):
+def read_line(line, dictionary, check_capital_letters):
     if( line.find("//") != -1):
         line = line[ :line.find("//")] # erase any comment
 
@@ -411,7 +421,7 @@ def create_dictionary(file_2_read):
 ##
 #   Main function of the utility
 def main():
-    usage =u""" usage: %prog --inputDir=<directories> --outputDir=<directory> --modelicaDir=<directory> --modelicaPackage=<packageName>
+    usage =u""" usage: %prog --inputDir=<directories> --outputDir=<directory> [--namespace=<namespace>] [--modelicaDir=<directory> --modelicaPackage=<packageName>]
 
     Script generates keys.h and keys.cpp of inputDir files in outputDir
     Generates keys.mo files in modelicaDir
@@ -423,10 +433,12 @@ def main():
                        help=u"input directories where dictionaries files should be read (commas separated)")
     parser.add_option( '--outputDir', dest="outputDir",
                        help=u"Output directory where keys (.h and .cpp) files should be created")
+    parser.add_option( '--namespace', dest="namespace", default="DYN",
+                       help=u"Optional namespace to use in keys (.h and .cpp) files (default to DYN)")
     parser.add_option( '--modelicaDir', dest="modelicaDir",
-                       help=u"Output directory where modelica keys files should be created")
+                       help=u"Optional output directory where modelica keys files should be created")
     parser.add_option( '--modelicaPackage', dest="modelicaPackage",
-                       help=u"Parent package of modelica keys files")
+                       help=u"Parent package of modelica keys files (required if --modelicaDir is used)")
 
     (options, args) = parser.parse_args()
 
@@ -436,10 +448,7 @@ def main():
     if options.outputDir == None:
         parser.error("Output directory should be informed")
 
-    if options.modelicaDir == None:
-        parser.error("Output directory for modelica files should be informed")
-
-    if options.modelicaPackage == None:
+    if options.modelicaDir is not None and options.modelicaPackage is None:
         parser.error("Parent package of modelica keys files should be informed")
 
     # create dictionaries structure
@@ -462,7 +471,7 @@ def main():
         dicts.add_dict(dictionary)
 
     # generate files
-    dicts.generate_files(options.outputDir, options.modelicaDir, options.modelicaPackage)
+    dicts.generate_files(options.outputDir, options.namespace, options.modelicaDir, options.modelicaPackage)
 
 if __name__ == "__main__":
     main()

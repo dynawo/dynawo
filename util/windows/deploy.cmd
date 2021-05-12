@@ -102,6 +102,7 @@ xcopy %thirdPartyInstallPath%\libiidm\include %deploy_dir%\include /E /i
 xcopy %thirdPartyInstallPath%\libiidm\lib %deploy_dir%\lib /E /i
 xcopy %thirdPartyInstallPath%\libiidm\share %deploy_dir%\share /E /i
 xcopy %thirdPartyInstallPath%\libiidm\cmake %deploy_dir%\cmake /E /i
+xcopy %thirdPartyInstallPath%\libiidm\LibIIDM %deploy_dir%\LibIIDM /E /i
 
 xcopy %thirdPartyInstallPath%\libxml\bin %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\libxml\include %deploy_dir%\include /E /i

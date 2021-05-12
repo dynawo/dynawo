@@ -76,7 +76,7 @@ voltageLevelIIDM_(voltageLevel) {
     }
     // Additional edges for internal connections
     stringstream ssInternalConnectionId;
-    for (const powsybl::iidm::node_breaker_view::InternalConnection& itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
+    for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
       buildInternalConnectionId(itInternalConnection, ssInternalConnectionId);
       int node1 = itInternalConnection.getNode1();
       int node2 = itInternalConnection.getNode2();
@@ -273,7 +273,7 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   }
   // Add all internal connections with weight 1
   stringstream ssInternalConnectionId;
-  for (const powsybl::iidm::node_breaker_view::InternalConnection& itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
+  for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
     buildInternalConnectionId(itInternalConnection, ssInternalConnectionId);
     topologicalWeights[ssInternalConnectionId.str()] = 1;
     electricalWeights[ssInternalConnectionId.str()] = 1;
@@ -403,7 +403,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
   }
   // Additional edges for internal connections, all closed
   stringstream ssInternalConnectionId;
-  for (const powsybl::iidm::node_breaker_view::InternalConnection& itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
+  for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
     buildInternalConnectionId(itInternalConnection, ssInternalConnectionId);
     weights[ssInternalConnectionId.str()] = 1;
   }
@@ -448,7 +448,7 @@ VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
   }
   // Additional edges for internal connections, all closed
   stringstream ssInternalConnectionId;
-  for (const powsybl::iidm::node_breaker_view::InternalConnection& itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
+  for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
     buildInternalConnectionId(itInternalConnection, ssInternalConnectionId);
     weights[ssInternalConnectionId.str()] = 1;
   }

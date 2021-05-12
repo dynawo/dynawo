@@ -607,7 +607,7 @@ class Factory:
         for eq_mak in self.list_eq_maker_16dae:
             tag = find_value_in_map( map_tags_num_eq, eq_mak.get_num_omc() )
             if eq_mak.get_evaluated_var() == "" and tag == 'algorithm' and eq_mak.with_throw(): continue
-            if eq_mak.get_evaluated_var() == "" and tag != 'when':
+            if (eq_mak.get_evaluated_var() == "" and tag != 'when') or (eq_mak.get_evaluated_var() != "" and tag == 'algorithm'):
                 # call to a function and not evaluation of a variable
                 body = eq_mak.get_body()
                 body_tmp=[]
@@ -876,8 +876,8 @@ class Factory:
                 eq_type = ALGEBRAIC
                 if len(list(filter(lambda x : x.get_name() == name_var_eval, self.list_vars_der))) > 0:
                     eq_type = DIFFERENTIAL
-                elif name_var_eval in self.reader.residual_vars:
-                    eq_type = self.reader.residual_vars[name_var_eval]
+                elif name_var_eval in self.reader.var_name_to_eq_type:
+                    eq_type = self.reader.var_name_to_eq_type[name_var_eval]
                 eq_mak.set_type( eq_type )
 
         # Build an equation for each function in the dae *.c file
@@ -903,7 +903,7 @@ class Factory:
             for eq in filter(lambda x: (not x.get_is_modelica_reinit()) and (x.get_evaluated_var() == var_name), self.list_all_equations):
                 self.list_eq_syst.append(eq)
 
-        list_residual_vars_for_sys_build = sorted(self.reader.residual_vars.keys())
+        list_residual_vars_for_sys_build = sorted(self.reader.residual_vars_to_address_map.keys())
         for var_name in list_residual_vars_for_sys_build:
             for eq in filter(lambda x: (not x.get_is_modelica_reinit()) and (x.get_evaluated_var() == var_name), self.list_all_equations):
                 self.list_eq_syst.append(eq)
@@ -912,6 +912,11 @@ class Factory:
         for var in list_vars_for_sys_build:
             for eq in filter(lambda x: (not x.get_is_modelica_reinit()) and (x.get_evaluated_var() == var.get_name()), self.list_all_equations):
                 self.list_eq_syst.append(eq)
+        for var_name in self.reader.dummy_der_variables:
+            name = "der("+var_name.replace("_dummy_der","")+")"
+            for eq in filter(lambda x: (not x.get_is_modelica_reinit()) and (x.get_evaluated_var() == name), self.list_all_equations):
+                self.list_eq_syst.append(eq)
+
 
         #... Sort the previous functions with their index in the main *.c file (and other *.c)
         self.list_eq_syst.sort(key = cmp_to_key_dynawo(cmp_equations))
@@ -950,8 +955,8 @@ class Factory:
                 eq_type = ALGEBRAIC
                 if var in self.list_vars_der > 0:
                     eq_type = DIFFERENTIAL
-                elif var.get_name() in self.reader.residual_vars:
-                    eq_type = self.reader.residual_vars[var.get_name()]
+                elif var.get_name() in self.reader.var_name_to_eq_type:
+                    eq_type = self.reader.var_name_to_eq_type[var.get_name()]
                 equation = Equation(eq.get_body(), eq.get_evaluated_var(), eq.get_depend_vars(), "", eq.get_num_omc(), eq_type)
                 if (num_dyn is not None):
                     equation.set_num_dyn(num_dyn)
@@ -1341,6 +1346,12 @@ class Factory:
 
         # sort by taking init function number read in *06inz.c
         list_vars = sorted(list_vars,key = cmp_to_key_dynawo(cmp_num_init_vars))
+        calc_var_2_index = {}
+        index=0
+        for var in self.reader.list_calculated_vars:
+            calc_var_2_index[var.get_name()] = index
+            index += 1
+        ptrn_calc_var = re.compile(r'SHOULD NOT BE USED - CALCULATED VAR \/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
         # We prepare the results to print in setY0omc
         for var in list_vars :
             if var.is_alias() and  (to_param_address(var.get_name()).startswith("SHOULD NOT BE USED")): continue
@@ -1392,6 +1403,10 @@ class Factory:
                 for L in var.get_start_text_06inz() :
                     if "FILE_INFO" not in L and "omc_assert_warning" not in L:
                         L = replace_var_names(L)
+                        match = ptrn_calc_var.findall(L)
+                        for name in match:
+                            L = L.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                                    "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
                         self.list_for_sety0.append("  " + L)
                 self.list_for_sety0.append("  }\n")
 
@@ -2117,7 +2132,7 @@ class Factory:
                 line = line [ :line.find("=") ] + "= " + str(self.reader.nb_bool_vars)+";\n"
                 filtered_func[n] = line
             if "daeModeData->nResidualVars" in line:
-                line = line [ :line.find("=") ] + "= " + str(len(self.reader.residual_vars))+";\n"
+                line = line [ :line.find("=") ] + "= " + str(len(self.reader.residual_vars_to_address_map))+";\n"
                 filtered_func[n] = line
             if "daeModeData->nAuxiliaryVars" in line:
                 line = line [ :line.find("=") ] + "= " + str(len(self.reader.auxiliary_var_to_keep) + len(self.reader.auxiliary_vars_counted_as_variables))+";\n"
@@ -2398,7 +2413,7 @@ class Factory:
 
         for name in self.reader.auxiliary_var_to_keep:
             self.list_for_evalfadept.append("  adept::adouble " + name +";\n")
-        list_residual_vars_for_sys_build = sorted(self.reader.residual_vars.keys())
+        list_residual_vars_for_sys_build = sorted(self.reader.residual_vars_to_address_map.keys())
         for name in list_residual_vars_for_sys_build:
             self.list_for_evalfadept.append("  adept::adouble " + name +";\n")
         # Recovery of the text content of the equations that evaluate the system's vars
@@ -2411,7 +2426,7 @@ class Factory:
 
         # ... Transpose to translate
         #     vars [ var or der(var) ] --> [ x[i]  xd[i] ou rpar[i] ]
-        trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.residual_vars)
+        trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.residual_vars_to_address_map)
 
         map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
 
@@ -2801,13 +2816,13 @@ class Factory:
             variable_definitions.append("#define $P"+ dae_var + " data->simulationInfo->daeModeData->auxiliaryVars["+str(index_residual_var)+"]\n")
             index_residual_var +=1
         index_aux_var = 0
-        list_residual_vars_for_sys_build = sorted(self.reader.residual_vars.keys())
+        list_residual_vars_for_sys_build = sorted(self.reader.residual_vars_to_address_map.keys())
         for dae_var in list_residual_vars_for_sys_build:
             variable_definitions.append("#define "+ "$P"+dae_var + " data->simulationInfo->daeModeData->residualVars["+str(index_aux_var)+"]\n")
             index_aux_var+=1
 
         lines_to_write = variable_definitions
-#
+
         self.list_for_definition_header.extend (lines_to_write)
 
 
@@ -2819,14 +2834,18 @@ class Factory:
     def prepare_for_evalstaticytype(self):
         ind = 0
         mixed_var = []
+        external_diff_var = []
         for eq in self.get_list_eq_syst():
             var_name = eq.get_evaluated_var()
-            if var_name in self.reader.mixed_residual_vars_differential_dependency_variables:
-                diff_vars = self.reader.mixed_residual_vars_differential_dependency_variables[var_name]
+            if var_name in self.reader.var_name_to_differential_dependency_variables:
+                diff_vars = self.reader.var_name_to_differential_dependency_variables[var_name]
                 for tables in diff_vars:
                     for diff_var in tables:
                         if not diff_var in mixed_var:
-                            mixed_var.append(diff_var)
+                            if self.reader.var_name_to_eq_type[var_name] == MIXED:
+                                mixed_var.append(diff_var)
+                            elif diff_var in self.reader.fictive_continuous_vars or diff_var in self.reader.fictive_optional_continuous_vars:
+                                external_diff_var.append(diff_var)
         for v in self.list_vars_syst:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
             if v in self.reader.list_calculated_vars : continue
@@ -2834,10 +2853,10 @@ class Factory:
                 spin = "DIFFERENTIAL"
                 var_ext = ""
                 if is_alg_var(v) : spin = "ALGEBRAIC"
-                if v.get_name() in self.reader.fictive_continuous_vars:
+                if v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var:
                   spin = "EXTERNAL"
                   var_ext = "- external variables"
-                elif v.get_name() in self.reader.fictive_optional_continuous_vars:
+                elif v.get_name() in self.reader.fictive_optional_continuous_vars and not v.get_name() in external_diff_var:
                   spin = "OPTIONAL_EXTERNAL"
                   var_ext = "- optional external variables"
                 line = "   yType[ %s ] = %s;   /* %s (%s) %s */\n" % (str(ind), spin, to_compile_name(v.get_name()), v.get_type(), var_ext)
@@ -2853,8 +2872,8 @@ class Factory:
         diff_var_to_eq = {}
         for eq in self.get_list_eq_syst():
             var_name = eq.get_evaluated_var()
-            if var_name in self.reader.mixed_residual_vars_differential_dependency_variables:
-                diff_vars = self.reader.mixed_residual_vars_differential_dependency_variables[var_name]
+            if self.reader.var_name_to_eq_type[var_name] == MIXED and var_name in self.reader.var_name_to_differential_dependency_variables:
+                diff_vars = self.reader.var_name_to_differential_dependency_variables[var_name]
                 for tables in diff_vars:
                     for diff_var in tables:
                         if diff_var not in diff_var_to_eq:
@@ -2876,7 +2895,7 @@ class Factory:
                 print_info("Variable " + v.get_name() + " has a dynamic type.")
                 for eq in diff_var_to_eq[v.get_name()]:
                     lines_to_insert = []
-                    diff_vars = self.reader.mixed_residual_vars_differential_dependency_variables[eq.get_evaluated_var()]
+                    diff_vars = self.reader.var_name_to_differential_dependency_variables[eq.get_evaluated_var()]
                     for tables in diff_vars:
                         if len(tables) == 0:
                             line = "   if (yType[ %s ] != DIFFERENTIAL) yType[ %s ] = %s;   /* %s (%s) */\n" % (str(ind), str(ind), "ALGEBRAIC", to_compile_name(v.get_name()), v.get_type())
@@ -2918,7 +2937,7 @@ class Factory:
                     lines_to_insert = []
                     self.list_for_evaldynamicftype.append("  {\n")
                     self.list_for_evaldynamicftype.append("    propertyF_t type = ALGEBRAIC_EQ;\n")
-                    for type in self.reader.mixed_residual_vars_types[var_name]:
+                    for type in self.reader.var_name_to_mixed_residual_vars_types[var_name]:
                         if type == DIFFERENTIAL:
                             lines_to_insert.append("type = DIFFERENTIAL_EQ;\n")
                         else:
@@ -2937,7 +2956,7 @@ class Factory:
                     lines_to_insert = []
                     self.list_for_evaldynamicftype.append("  {\n")
                     self.list_for_evaldynamicftype.append("    propertyF_t type = ALGEBRAIC_EQ;\n")
-                    for type in self.reader.mixed_residual_vars_types[var_name]:
+                    for type in self.reader.var_name_to_mixed_residual_vars_types[var_name]:
                         if type == DIFFERENTIAL:
                             lines_to_insert.append("type = DIFFERENTIAL_EQ;\n")
                         else:
@@ -3242,7 +3261,7 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_evalcalculatedvariadept(self):
-        trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.residual_vars)
+        trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.residual_vars_to_address_map)
         ptrn_vars = re.compile(r'x\[(?P<varId>[0-9]+)\]')
 
         num_ternary = 0

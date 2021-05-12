@@ -36,12 +36,11 @@ package Types "Standard types for electrical variables"
 
   // Angle
   type Angle = Real (final unit = "rad") "Angle";
+  type AngularVelocity = Real (final unit = "rad/s") "Angular velocity";
+  type AngularAcceleration = Real (final unit = "rad/s2") "Angular acceleration";
 
   // Frequency
   type Frequency = Real (final unit = "Hz") "Frequency";
-
-  // AngularVelocity
-  type AngularVelocity = Real (final unit = "rad/s") "Angular velocity";
 
   // Time
   type Time = Real (final unit = "s") "Time";

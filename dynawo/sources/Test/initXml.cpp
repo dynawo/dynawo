@@ -17,9 +17,9 @@
 #include <libxml/parser.h>
 #endif
 
-class Environment : public testing::Environment {
+class XmlEnvironment : public testing::Environment {
  public:
-  ~Environment() {}
+  ~XmlEnvironment() {}
 
   // Override this to define how to set up the environment.
   void SetUp() {
@@ -38,5 +38,6 @@ class Environment : public testing::Environment {
   }
 };
 
-testing::Environment* const foo_env =
-  testing::AddGlobalTestEnvironment(new Environment);
+testing::Environment* initXmlEnvironment() {
+  return testing::AddGlobalTestEnvironment(new XmlEnvironment);
+}

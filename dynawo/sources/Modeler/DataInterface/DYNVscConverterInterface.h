@@ -50,6 +50,12 @@ class VscConverterInterface : public ConverterInterface {
    * @return The voltage set-point in kV
    */
   virtual double getVoltageSetpoint() const = 0;
+
+  /**
+   * @brief Getter for the maximum reactive power of the converter
+   * @return The maximum reactive power of the converter in Mvar (following iidm convention)
+   */
+  virtual double getQMax() = 0;
 };  ///< Interface class for Vsc Converter
 
 }  // namespace DYN

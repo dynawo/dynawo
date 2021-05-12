@@ -104,6 +104,11 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
   double getQ();
 
   /**
+   * @copydoc VscConverterInterface::getQMax()
+   */
+  double getQMax();
+
+  /**
    * @copydoc VscConverterInterface::getID() const
    */
   std::string getID() const;

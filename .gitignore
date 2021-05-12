@@ -41,6 +41,7 @@ dynawo/sources/Models/CPP/ModelNetwork/DYNModelNetwork.hpp
 dynawo/sources/Models/CPP/ModelFrequency/ModelOmegaRef/DYNModelOmegaRef.hpp
 dynawo/sources/Models/CPP/ModelFrequency/ModelSignalN/DYNModelSignalN.hpp
 dynawo/sources/Models/CPP/Components/ModelLoadRestorativeWithLimits/DYNModelLoadRestorativeWithLimits.hpp
+dynawo/sources/Models/CPP/Controls/Shunts/ModelCentralizedShuntsSectionControl/DYNModelCentralizedShuntsSectionControl.hpp
 dynawo/sources/Models/CPP/ModelVariationArea/DYNModelVariationArea.hpp
 nrt/output/
 *.pyc
