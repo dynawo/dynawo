@@ -14,7 +14,7 @@ add_subdirectory(Resources R)
 set(MODEL_FILES
   package.mo
   package.order
-  VSCIBStepUd.mo
+  VSCIBStepPQ.mo
   )
 
 #

@@ -69,7 +69,8 @@ IdcSourcePu     IdcPu |          |iConvPu                           iPccPu
     Dialog(group = "group", tab = "Control"));
   parameter Types.Time tauIqRef             "Approximation of the response time of the reactive power loop is seconds" annotation(
     Dialog(group = "group", tab = "Control"));
-  parameter Types.PerUnit RPmaxPu           "Maximal primary reserve in p.u (base SNom)";
+  parameter Types.PerUnit RPmaxPu           "Maximal primary reserve in p.u (base SNom)" annotation(
+    Dialog(group = "group", tab = "Control"));
 
   parameter Types.ActivePowerPu P0Pu    "Start value of active power at the PCC in p.u (base SnRef) (receptor convention)" annotation(
     Dialog(group = "group", tab = "Operating point"));
@@ -107,17 +108,17 @@ IdcSourcePu     IdcPu |          |iConvPu                           iPccPu
   parameter Types.PerUnit IdcSource0Pu  "Start value of the DC source current in p.u (base UNom, SNom)" annotation(
     Dialog(group = "group", tab = "Operating point"));
 
-  parameter Types.PerUnit PstepHPu  "Height of the active power step in p.u (base SNom)" annotation(
+  parameter Types.PerUnit PstepHPu      "Height of the active power step in p.u (base SNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
-  parameter Types.PerUnit QstepHPu  "Height of the reactive power step in p.u (base SNom)" annotation(
+  parameter Types.PerUnit QstepHPu      "Height of the reactive power step in p.u (base SNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
-  parameter Types.PerUnit UstepHPu  "Height of the AC voltage step in p.u (base UNom)" annotation(
+  parameter Types.PerUnit UstepHPu      "Height of the AC voltage step in p.u (base UNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
-  parameter Types.Time t_Pstep      "Time of the active power step in p.u (base SNom)" annotation(
+  parameter Types.Time t_Pstep          "Time of the active power step in p.u (base SNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
-  parameter Types.Time t_Qstep      "Time of the reactive power step in p.u (base SNom)" annotation(
+  parameter Types.Time t_Qstep          "Time of the reactive power step in p.u (base SNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
-  parameter Types.Time t_Ustep      "Time of the AC voltage step in p.u (base UNom)" annotation(
+  parameter Types.Time t_Ustep          "Time of the AC voltage step in p.u (base UNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
 
   Dynawo.Electrical.Sources.VSCIdcSource vSCIdcSource(Cdc = Cdc,Cfilter = Cfilter, ConvFixLossPu = ConvFixLossPu, ConvVarLossPu = ConvVarLossPu, IdConv0Pu = IdConv0Pu, IdPcc0Pu = IdPcc0Pu, IdcSource0Pu = IdcSource0Pu, IqConv0Pu = IqConv0Pu, IqPcc0Pu = IqPcc0Pu, Lfilter = Lfilter, Ltransformer = Ltransformer, P0Pu = P0Pu, Q0Pu = Q0Pu, Rfilter = Rfilter, Rtransformer = Rtransformer, SNom = SNom, Theta0 = Theta0, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, UdcSource0Pu = UdcSource0Pu, UqConv0Pu = UqConv0Pu, i0Pu = i0Pu, u0Pu = u0Pu)  annotation(

@@ -159,10 +159,6 @@ equation
     Line(points = {{-58, -16}, {-45, -16}}, color = {0, 0, 127}));
   connect(uqFilterPu, qControl.uqFilterPu) annotation(
     Line(points = {{-58, 40}, {-71, 40}, {-71, -12}, {-45, -12}}, color = {0, 0, 127}));
-  connect(currentLimitation.idConvRefPu, currentControl.idConvRefPu) annotation(
-    Line(points = {{-7, -4}, {-4, -4}, {-4, 30}, {11, 30}, {11, 30}}, color = {0, 0, 127}));
-  connect(currentLimitation.iqConvRefPu, currentControl.iqConvRefPu) annotation(
-    Line(points = {{-7, -9}, {0, -9}, {0, 27}, {10, 27}, {10, 28}, {11, 28}}, color = {0, 0, 127}));
   connect(udFilterPu, pControl.udFilterPu) annotation(
     Line(points = {{-58, -4}, {-45, -4}, {-45, -4}, {-45, -4}}, color = {0, 0, 127}));
   connect(PRefPu, pControl.PRefPu) annotation(
@@ -171,6 +167,11 @@ equation
     Line(points = {{-13, 48}, {77, 48}, {77, 63}, {-78, 63}, {-78, 4}, {-45, 4}, {-45, 5}}, color = {0, 0, 127}));
   connect(omegaRefPu, pControl.omegaRefPu) annotation(
     Line(points = {{-57, 54}, {-75, 54}, {-75, 8}, {-46, 8}, {-46, 9}, {-45, 9}}, color = {0, 0, 127}));
+  connect(currentLimitation.idConvRefPu, currentControl.idConvRefPu) annotation(
+    Line(points = {{-7, -4}, {-2, -4}, {-2, 30}, {11, 30}, {11, 30}}, color = {0, 0, 127}));
+  connect(currentLimitation.iqConvRefPu, currentControl.iqConvRefPu) annotation(
+    Line(points = {{-7, -9}, {3, -9}, {3, 27}, {11, 27}, {11, 28}, {11, 28}}, color = {0, 0, 127}));
+
 annotation(
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-55, -60}, {64, 60}})),
     preferredView = "diagram",
