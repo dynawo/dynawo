@@ -12,34 +12,12 @@ set(MODEL_FILES
   # Converter control elements models
   package.mo
   package.order
-  PLL.mo
-  PLL.extvar
-  Modulation.mo
-  Modulation.extvar
-  CurrentControl.mo
-  CurrentControl.extvar
-  DCCurrentControl.mo
-  DCCurrentControl.extvar
-  PControl.mo
-  PControl.extvar
-  QControl.mo
-  QControl.extvar
-  CurrentLimitation.mo
-  CurrentLimitation.extvar
-  CurrentLoop.mo
-  CurrentLoop.extvar
-  VoltageLoop.mo
-  VoltageLoop.extvar
-  DCVoltageControl.mo
-  DCVoltageControl.extvar
-  VirtualImpedance.mo
-  VirtualImpedance.extvar
-  DroopControl.mo
-  DroopControl.extvar
-  MatchingControl.mo
-  MatchingControl.extvar
-  DispatchableVirtualOscillatorControl.mo
-  DispatchableVirtualOscillatorControl.extvar
+  DCbusIdcSource.mo
+  DCbusIdcSource.extvar
+  GridInterface.mo
+  GridInterface.extvar
+  VSCAverage.mo
+  VSCAverage.extvar
   )
 
 #

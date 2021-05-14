@@ -16,6 +16,8 @@ set(MODEL_FILES
   package.order
   GridFollowingControl.mo
   GridFollowingControl.extvar
+  GridFollowingCtrl.mo
+  GridFollowingCtrl.extvar
   GridFormingControlDroopControl.mo
   GridFormingControlDroopControl.extvar
   GridFormingControlMatchingControl.mo

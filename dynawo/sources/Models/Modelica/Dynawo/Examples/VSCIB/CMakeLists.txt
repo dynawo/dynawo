@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,24 +8,13 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(BaseConverters B)
+
+add_subdirectory(Resources R)
 
 set(MODEL_FILES
-  # Sources models
   package.mo
   package.order
-  Converter.mo
-  Converter.extvar
-  Converter_INIT.mo
-  InjectorBG.mo
-  InjectorBG.extvar
-  InjectorBG_INIT.mo
-  InjectorIDQ.mo
-  InjectorIDQ.extvar
-  InjectorIDQ_INIT.mo
-  VSCIdcSource.extvar
-  VSCIdcSource.mo
-  GfolConverter.mo
+  VSCIBStepUd.mo
   )
 
 #
