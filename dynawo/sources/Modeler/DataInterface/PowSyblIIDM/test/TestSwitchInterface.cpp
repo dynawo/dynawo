@@ -13,6 +13,7 @@
 
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
+#include "DYNDataInterfaceIIDM.h"
 
 #include "gtest_dynawo.h"
 
@@ -71,4 +72,36 @@ TEST(DataInterfaceTest, Switch) {
   ASSERT_EQ(sw.getComponentVarIndex("state"), 0);
   ASSERT_EQ(sw.getComponentVarIndex("others"), -1);
 }  // TEST(DataInterfaceTest, Switch)
+
+TEST(DataInterfaceTest, SwitchWithSameExtremities) {
+  Network network("test", "test");
+  Substation& s = network.newSubstation()
+                      .setId("S")
+                      .add();
+
+  VoltageLevel& vl1 = s.newVoltageLevel()
+                          .setId("VL1")
+                          .setNominalVoltage(400.)
+                          .setTopologyKind(TopologyKind::BUS_BREAKER)
+                          .setHighVoltageLimit(420.)
+                          .setLowVoltageLimit(380.)
+                          .add();
+
+  auto swAdder = vl1.getBusBreakerView().newSwitch().setId("SwSameBus").setName("SwNameSameBus").setFictitious(false);
+  auto swAdder2 = vl1.getBusBreakerView().newSwitch().setId("Sw").setName("SwName").setFictitious(false);
+
+  vl1.getBusBreakerView().newBus().setId("BUS1").add();
+  vl1.getBusBreakerView().newBus().setId("BUS2").add();
+  swAdder.setBus1("BUS1");
+  swAdder.setBus2("BUS1");
+  swAdder.add();
+  swAdder2.setBus1("BUS1");
+  swAdder2.setBus2("BUS2");
+  swAdder2.add();
+  boost::shared_ptr<DataInterfaceIIDM> data;
+  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(std::forward<powsybl::iidm::Network>(network));
+  ptr->initFromIIDM();
+  data.reset(ptr);
+  ASSERT_THROW_DYNAWO(data->findComponent("SwSameBus"), Error::MODELER, KeyError_t::UnknownStaticComponent);
+}
 }  // namespace DYN
