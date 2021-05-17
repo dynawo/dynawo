@@ -25,7 +25,6 @@
 #include <boost/shared_ptr.hpp>
 
 #include "CRTCriteriaCollection.h"
-#include "DYNServiceManagerInterface.h"
 
 namespace DYN {
 class NetworkInterface;
@@ -156,13 +155,6 @@ class DataInterface {
    * @param filepath file to create
    */
   virtual void dumpToFile(const std::string& filepath) const = 0;
-
-  /**
-   * @brief Retrieve service manager associated with this data interface
-   *
-   * @returns the service manager
-   */
-  virtual boost::shared_ptr<ServiceManagerInterface> getServiceManager() const = 0;
 };  ///< Class for data interface
 }  // namespace DYN
 

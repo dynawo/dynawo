@@ -62,10 +62,22 @@ class LoadInterface : public ComponentInterface {
   virtual double getP() = 0;
 
   /**
+   * @brief Getter for the initial active power of the load
+   * @return The initial active power of the load in MW (load convention)
+   */
+  virtual double getP0() = 0;
+
+  /**
    * @brief Getter for the reactive power of the load
    * @return The reactive power of the load in Mvar (load convention)
    */
   virtual double getQ() = 0;
+
+  /**
+   * @brief Getter for the initial reactive power of the load
+   * @return The initial reactive power of the load in Mvar (load convention)
+   */
+  virtual double getQ0() = 0;
 
   /**
    * @brief Getter for the initial connection state of the load

@@ -105,7 +105,7 @@ int main(int argc, char ** argv) {
 
     if (!exists(jobsFileName)) {
       cout << " failed to locate jobs file (" << jobsFileName << ")" << endl;
-      usage(desc);
+      cout << desc << endl;
       return 1;
     }
 
@@ -131,7 +131,7 @@ int main(int argc, char ** argv) {
     return -1;
   } catch (const xml::sax::parser::ParserException& exp) {
     Trace::error() << DYNLog(XmlParsingError, jobsFileName, exp.what()) << Trace::endline;
-    return -1;s
+    return -1;
   } catch (std::exception & exc) {
     Trace::error() << exc.what() << Trace::endline;
     return -1;

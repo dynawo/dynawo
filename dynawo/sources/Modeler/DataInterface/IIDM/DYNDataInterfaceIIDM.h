@@ -190,13 +190,6 @@ class DataInterfaceIIDM : public DataInterface {
    */
   std::string getBusName(const std::string& staticID, const std::string& labelNode);
 
-  /**
-   * @copydoc DataInterface::getServiceManager
-   */
-  boost::shared_ptr<ServiceManagerInterface> getServiceManager() const {
-    return serviceManager_;
-  }
-
  private:
   /**
    * @brief find a bus interface thanks to its id
@@ -373,7 +366,6 @@ class DataInterfaceIIDM : public DataInterface {
   std::map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   std::map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
   std::vector<boost::shared_ptr<Criteria> > criteria_;  ///< table of criteria to check
-  boost::shared_ptr<ServiceManagerInterfaceIIDM> serviceManager_;  ///< Service manager
 };  ///< Generic data interface for IIDM format files
 }  // namespace DYN
 

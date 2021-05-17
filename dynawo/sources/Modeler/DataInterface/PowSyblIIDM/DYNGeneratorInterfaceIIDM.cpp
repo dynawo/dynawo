@@ -271,9 +271,5 @@ vector<GeneratorInterface::ReactiveCurvePoint> GeneratorInterfaceIIDM::getReacti
   return ret;
 }
 
-bool GeneratorInterfaceIIDM::isVoltageRegulationOn() const {
-  return generatorIIDM_.isVoltageRegulatorOn();
-}
-
 
 }  // namespace DYN

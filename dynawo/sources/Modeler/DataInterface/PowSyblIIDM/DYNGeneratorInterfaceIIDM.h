@@ -148,11 +148,6 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const;
 
   /**
-   * @copydoc GeneratorInterface::isVoltageRegulationOn() const
-   */
-  bool isVoltageRegulationOn() const;
-
-  /**
    * @brief Getter for the generator' country
    * @return the generator country
    */
