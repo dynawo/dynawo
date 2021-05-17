@@ -418,7 +418,7 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
     ASSERT_EQ(voltageLevel->getDanglingLines().size(), 1);
     ASSERT_EQ(voltageLevel->getLoads().size(), 1);
     ASSERT_EQ(voltageLevel->getGenerators().size(), 1);
-    ASSERT_EQ(voltageLevel->getSwitches().size(), 1);
+    ASSERT_EQ(voltageLevel->getSwitches().size(), 0);
     ASSERT_EQ(voltageLevel->getLccConverters().size(), 2);
     ASSERT_EQ(voltageLevel->getVscConverters().size(), 2);
   }
@@ -653,6 +653,41 @@ TEST(DataInterfaceTest, testStateVariableSwitch) {
   };
   shared_ptr<DataInterface> data = createNetwork(properties);
   ASSERT_NO_THROW(testexportStateVariables(data));
+}
+
+TEST(DataInterfaceTest, testStateVariableSwitchWithSameExtremities) {
+  IIDM::builders::NetworkBuilder nb;
+  IIDM::Network network = nb.build("MyNetwork");
+  IIDM::connection_status_t cs = {true /*connected*/};
+  IIDM::Port p1("MyBus", cs), p2("MyBus", cs);
+  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_1);
+  IIDM::builders::SubstationBuilder ssb;
+  IIDM::Substation ss = ssb.build("MySubStation");
+  IIDM::builders::BusBuilder bb;
+  bb.v(0.5);
+  bb.angle(1.);
+  IIDM::Bus bus = bb.build("MyBus");
+  IIDM::Bus bus2 = bb.build("MyBus2");
+  IIDM::builders::VoltageLevelBuilder vlb;
+  vlb.mode(IIDM::VoltageLevel::bus_breaker);
+  vlb.nominalV(5.);
+  IIDM::VoltageLevel vl = vlb.build("MyVoltageLevel");
+  vl.add(bus);
+  vl.add(bus2);
+  vl.lowVoltageLimit(0.5);
+  vl.highVoltageLimit(2.);
+  IIDM::builders::SwitchBuilder sb;
+  IIDM::Switch s = sb.build("MySwitch");
+  IIDM::Switch s2 = sb.build("MySwitchSameBus");
+  vl.add(s2, "MyBus", "MyBus");
+  vl.add(s, "MyBus", "MyBus2");
+  ss.add(vl);
+  network.add(ss);
+  shared_ptr<DataInterfaceIIDM> data;
+  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
+  ptr->initFromIIDM();
+  data.reset(ptr);
+  ASSERT_EQ(data->getNetwork()->getVoltageLevels().at(0)->getSwitches().size(), 1);
 }
 
 TEST(DataInterfaceTest, testStateVariableVscConverter) {
