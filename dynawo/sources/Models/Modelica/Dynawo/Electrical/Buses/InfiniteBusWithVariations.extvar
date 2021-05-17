@@ -11,12 +11,7 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
-<external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="idConvRefPu" type="continuous" />
-  <variable id="iqConvRefPu" type="continuous" />
-  <variable id="idConvPu" type="continuous" />
-  <variable id="iqConvPu" type="continuous" />
-  <variable id="udFilterPu" type="continuous" />
-  <variable id="uqFilterPu" type="continuous" />
-  <variable id="omegaPu" type="continuous" />
+<external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <variable type="continuous" id="terminal.i.re"/>
+  <variable type="continuous" id="terminal.i.im"/>
 </external_variables>

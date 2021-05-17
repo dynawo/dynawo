@@ -43,7 +43,7 @@
     <par type="DOUBLE" name="QRefPu_ValueIn" value="0"/>
     <par type="DOUBLE" name="UFilterRefPu_ValueIn" value="1"/>
     <par type="DOUBLE" name="IdcSourceRefPu_ValueIn" value="0.6"/>
-    <par type="DOUBLE" name="UdcSourceRefPu_ValueIn" value="1"/>
+    <par type="DOUBLE" name="UdcRefPu_ValueIn" value="1"/>
   </set>
   <set id="2">
     <par type="DOUBLE" name="converter_P0Pu" value="-3"/>
@@ -74,7 +74,7 @@
     <par type="DOUBLE" name="QRefPu_ValueIn" value="0"/>
     <par type="DOUBLE" name="UFilterRefPu_ValueIn" value="1"/>
     <par type="DOUBLE" name="IdcSourceRefPu_ValueIn" value="0.6"/>
-    <par type="DOUBLE" name="UdcSourceRefPu_ValueIn" value="1"/>
+    <par type="DOUBLE" name="UdcRefPu_ValueIn" value="1"/>
   </set>
   <set id="3">
     <par type="DOUBLE" name="converter_P0Pu" value="-6.35"/>
@@ -101,7 +101,7 @@
     <par type="DOUBLE" name="control_KMatching" value="1"/>
     <par type="DOUBLE" name="UFilterRefPu_ValueIn" value="1"/>
     <par type="DOUBLE" name="IdcSourceRefPu_ValueIn" value="0.6"/>
-    <par type="DOUBLE" name="UdcSourceRefPu_ValueIn" value="1"/>
+    <par type="DOUBLE" name="UdcRefPu_ValueIn" value="1"/>
   </set>
   <set id="4">
     <par type="INT" name="nbGen" value="3"/>

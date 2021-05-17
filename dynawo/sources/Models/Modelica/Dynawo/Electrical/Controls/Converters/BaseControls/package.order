@@ -1,7 +1,5 @@
 PLL
 Modulation
-CurrentControl
-DCCurrentControl
 PControl
 QControl
 CurrentLimitation

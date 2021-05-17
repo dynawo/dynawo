@@ -34,17 +34,17 @@ Pdc=Pconv + Ploss
   parameter Types.PerUnit ConvVarLossPu "Converter variable losses in p.u (base UNom, SNom), such that Plvar=ConvVarLossPu*Idc";
   parameter Types.PerUnit Cdc           "DC bus capacitance in p.u (base UNom, SNom)";
 
-  parameter Types.PerUnit UdcSource0Pu  "Start value of the DC bus voltage in p.u (base UNom)";
+  parameter Types.PerUnit Udc0Pu  "Start value of the DC bus voltage in p.u (base UNom)";
   parameter Types.PerUnit IdcSource0Pu  "Start value of the DC source current in p.u (base UNom, SNom)";
 
   Modelica.Blocks.Interfaces.BooleanInput running(start = true) annotation(
         Placement(visible = true, transformation(origin = {-70, 40}, extent = {{-15, -15}, {15, 15}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput IdcSourcePu(start = IdcSource0Pu) "DC source current in p.u  (base UNom, SNom)" annotation(
         Placement(visible = true, transformation(origin = {-70, -40}, extent = {{-15, -15}, {15, 15}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput PConvPu(start = IdcSource0Pu*UdcSource0Pu) "Active Power at converter side, before filter (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PConvPu(start = IdcSource0Pu*Udc0Pu) "Active Power at converter side, before filter (base SNom)" annotation(
         Placement(visible = true, transformation(origin = {-70.5, -0.5}, extent = {{-15.5, -15.5}, {15.5, 15.5}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput UdcPu(start = UdcSource0Pu) "DC bus voltage in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput UdcPu(start = Udc0Pu) "DC bus voltage in p.u (base UNom)" annotation(
         Placement(visible = true, transformation(origin = {79.5, -0.5}, extent = {{-15.5, -15.5}, {15.5, 15.5}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
 
   Types.PerUnit IdcPu(start = IdcSource0Pu) "DC Current entering the converter in p.u (base UNom, SNom)";

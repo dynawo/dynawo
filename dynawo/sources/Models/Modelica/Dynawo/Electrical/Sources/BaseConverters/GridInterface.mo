@@ -28,6 +28,7 @@ uFilterPu                         uPccPu
 */
 
   import Modelica;
+  import Dynawo;
   import Dynawo.Types;
   import Dynawo.Electrical.SystemBase;
 

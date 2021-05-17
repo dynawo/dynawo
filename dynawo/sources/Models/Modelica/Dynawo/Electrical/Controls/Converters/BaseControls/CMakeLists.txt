@@ -16,10 +16,6 @@ set(MODEL_FILES
   PLL.extvar
   Modulation.mo
   Modulation.extvar
-  CurrentControl.mo
-  CurrentControl.extvar
-  DCCurrentControl.mo
-  DCCurrentControl.extvar
   PControl.mo
   PControl.extvar
   QControl.mo

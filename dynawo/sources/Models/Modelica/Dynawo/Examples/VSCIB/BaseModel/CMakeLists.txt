@@ -9,10 +9,10 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 
-add_subdirectory(Images I)
-
 set(MODEL_FILES
-    )
+  package.mo
+  GfolConverter.mo
+  )
 
 #
 # Modelica models install

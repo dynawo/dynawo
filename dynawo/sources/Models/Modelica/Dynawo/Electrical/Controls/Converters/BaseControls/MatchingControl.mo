@@ -21,9 +21,9 @@ model MatchingControl "Matching Control"
 
   parameter Types.PerUnit KMatching "Proportional gain of the matching control";
 
-  Modelica.Blocks.Interfaces.RealInput UdcSourceRefPu(start = UdcSource0Pu) "reference voltage on the dc side in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = Udc0Pu) "reference voltage on the dc side in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 10}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UdcSourcePu(start = UdcSource0Pu) "voltage on the dc side in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "voltage on the dc side in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {70, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "grid frequency in p.u" annotation(
     Placement(visible = true, transformation(origin = {-120, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {30, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -66,7 +66,7 @@ protected
 
   parameter Types.PerUnit UdFilter0Pu;
   parameter Types.Angle Theta0;
-  parameter Types.PerUnit UdcSource0Pu;
+  parameter Types.PerUnit Udc0Pu;
 
 equation
 
@@ -88,7 +88,7 @@ equation
     Line(points = {{-120, -80}, {0, -80}, {0, -87}}, color = {0, 0, 127}));
   connect(feedback7.y, uqFilterRefPu) annotation(
     Line(points = {{9, -95}, {110, -95}}, color = {0, 0, 127}));
-  connect(UdcSourcePu, feedback1.u1) annotation(
+  connect(UdcPu, feedback1.u1) annotation(
     Line(points = {{-120, 40}, {-79, 40}}, color = {0, 0, 127}));
   connect(feedback1.y, gain.u) annotation(
     Line(points = {{-62, 40}, {-49, 40}}, color = {0, 0, 127}));
@@ -96,7 +96,7 @@ equation
     Line(points = {{11, 64}, {18.5, 64}, {18.5, 65}, {33, 65}}, color = {0, 0, 127}));
   connect(const.y, feedback7.u1) annotation(
     Line(points = {{-42, -96}, {-8, -96}, {-8, -95}}, color = {0, 0, 127}));
-  connect(UdcSourceRefPu, feedback1.u2) annotation(
+  connect(UdcRefPu, feedback1.u2) annotation(
     Line(points = {{-120, 10}, {-71, 10}, {-71, 32}}, color = {0, 0, 127}));
   connect(gain.y, add1.u2) annotation(
     Line(points = {{-26, 40}, {-20, 40}, {-20, 58}, {-12, 58}, {-12, 58}}, color = {0, 0, 127}));

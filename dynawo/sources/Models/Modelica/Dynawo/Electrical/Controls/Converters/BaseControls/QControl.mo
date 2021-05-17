@@ -27,12 +27,10 @@ model QControl "Reactive power Control"
   parameter Types.PerUnit UdFilter0Pu "Start value of the d-axis voltage at the converter terminal (filter) in p.u (base UNom)";
   parameter Types.PerUnit IqConv0Pu   "Start value of the q-axis valve current (before filter) in p.u (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit QRef0Pu     "Start value of the reactive power reference at the converter terminal (filter) in p.u (base SNom) (generator convention)";
-  parameter Types.PerUnit URef0Pu     "Start value of the AC voltage reference at the converter terminal (filter) in p.u (base UNom)";
-
 
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = QRef0Pu) "Reactive power reference at the converter terminal (filter) in p.u (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-58, 10}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, -24}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = URef0Pu) "AC voltage reference at the converter terminal (filter) in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = UdFilter0Pu) "AC voltage reference at the converter terminal (filter) in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-58, 39}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, -92}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter terminal (filter) in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-58, -19}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, 94}, extent = {{5, -5}, {-5, 5}}, rotation = 180)));

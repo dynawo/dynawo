@@ -25,7 +25,6 @@ set(MODEL_FILES
   InjectorIDQ_INIT.mo
   VSCIdcSource.extvar
   VSCIdcSource.mo
-  GfolConverter.mo
   )
 
 #

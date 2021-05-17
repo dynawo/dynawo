@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Converters;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GridFollowingControl "Grid Forming Control with Droop Control"
+model GridFollowingControl "Grid following control"
 
   import Modelica;
   import Dynawo;
@@ -47,9 +47,9 @@ model GridFollowingControl "Grid Forming Control with Droop Control"
 
   parameter Types.PerUnit PRef0Pu           "Start value of the active power reference at the converter terminal (filter) in p.u (base SNom) (generator convention)";
   parameter Types.PerUnit QRef0Pu           "Start value of the reactive power reference at the converter terminal (filter) in p.u (base SNom) (generator convention)";
-  parameter Types.PerUnit URef0Pu           "Start value of the AC voltage reference at the converter terminal (filter) in p.u (base UNom)";
-  parameter Types.PerUnit UdcSource0Pu      "Start value of the DC bus voltage in p.u (base UNom)";
+  parameter Types.PerUnit Udc0Pu      "Start value of the DC bus voltage in p.u (base UNom)";
   parameter Types.PerUnit IdcSource0Pu      "Start value of the DC source current in p.u (base UNom, SNom)";
+  parameter Types.PerUnit IdcSourceRef0Pu  "Start value of the DC source current reference in p.u (base UNom, SNom)";
 
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Grid frequency in p.u" annotation(
     Placement(visible = true, transformation(origin = {-57, 54}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, -14}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
@@ -57,7 +57,7 @@ model GridFollowingControl "Grid Forming Control with Droop Control"
     Placement(visible = true, transformation(origin = {-58, 1}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, 85}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = QRef0Pu) "Rective power reference at the converter terminal (filter) in p.u (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-58, -16}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, 57}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = URef0Pu) "AC voltage reference at the converter terminal (filter) in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = UdFilter0Pu) "AC voltage reference at the converter terminal (filter) in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-58, -21}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, 14}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter terminal (filter) in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-58, -4}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {17, -105}, extent = {{5, -5}, {-5, 5}}, rotation = -90)));
@@ -69,9 +69,9 @@ model GridFollowingControl "Grid Forming Control with Droop Control"
     Placement(visible = true, transformation(origin = {-58, 19}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {86, -105}, extent = {{5, -5}, {-5, 5}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput IdcSourceRefPu(start = IdcSource0Pu) "DC source reference current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-58, -54}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, -57}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = UdcSource0Pu) "DC bus reference voltage in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = Udc0Pu) "DC bus reference voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-58, -38}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, -84}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UdcPu(start = UdcSource0Pu) "DC bus voltage in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC bus voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-58, -46}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-8, -105}, extent = {{5, -5}, {-5, 5}}, rotation = -90)));
 
   Modelica.Blocks.Interfaces.RealOutput theta(start = Theta0) "Phase shift between the converter's rotating frame and the grid rotating frame in radians" annotation(
@@ -87,24 +87,23 @@ model GridFollowingControl "Grid Forming Control with Droop Control"
 
   Dynawo.Electrical.Controls.Converters.BaseControls.PLL pll(KiPll = KiPll, KpPll = KpPll, Theta0 = Theta0)  annotation(
     Placement(visible = true, transformation(origin = {-20, 51}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.BaseControls.Modulation modulation(UdConv0Pu = UdConv0Pu, UdcSource0Pu = UdcSource0Pu, UqConv0Pu = UqConv0Pu)  annotation(
+  Dynawo.Electrical.Controls.Converters.BaseControls.Modulation modulation(UdConv0Pu = UdConv0Pu, Udc0Pu = Udc0Pu, UqConv0Pu = UqConv0Pu)  annotation(
     Placement(visible = true, transformation(origin = {49, 35}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.BaseControls.CurrentControl currentControl(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, Kic = Kic, Kpc = Kpc, Lfilter = Lfilter, Rfilter = Rfilter, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, UqConv0Pu = UqConv0Pu)  annotation(
+  Dynawo.Electrical.Controls.Converters.BaseControls.CurrentLoop currentControl(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, Kic = Kic, Kpc = Kpc, Lfilter = Lfilter, Rfilter = Rfilter, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, UqConv0Pu = UqConv0Pu)  annotation(
     Placement(visible = true, transformation(origin = {20, 35}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.BaseControls.DCCurrentControl dCCurrentControl(IdcSource0Pu = IdcSource0Pu, Kpdc = Kpdc, UdcSource0Pu = UdcSource0Pu)  annotation(
+  Dynawo.Electrical.Controls.Converters.BaseControls.DCVoltageControl dCCurrentControl(IdcSource0Pu = IdcSource0Pu, Kpdc = Kpdc, Udc0Pu = Udc0Pu, IdcSourceRef0Pu = IdcSourceRef0Pu)  annotation(
     Placement(visible = true, transformation(origin = {46, -46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.PControl pControl(DroopFP = DroopFP,IdConv0Pu = IdConv0Pu, PRef0Pu = PRef0Pu, PmaxPu = PmaxPu, RPmaxPu = RPmaxPu, UdFilter0Pu = UdFilter0Pu, tauIdRef = tauIdRef) annotation(
     Placement(visible = true, transformation(origin = {-37.5, 2.5}, extent = {{-7.5, -7.5}, {7.5, 7.5}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.CurrentLimitation currentLimitation(IdConv0Pu = IdConv0Pu, ImaxPu = ImaxPu, IqConv0Pu = IqConv0Pu, PmaxPu = PmaxPu, UdFilter0Pu = UdFilter0Pu) annotation(
     Placement(visible = true, transformation(origin = {-13.5, -6.5}, extent = {{-6.5, -6.5}, {6.5, 6.5}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.BaseControls.QControl qControl(DroopUQ = DroopUQ, IqConv0Pu = IqConv0Pu, QRef0Pu = QRef0Pu, QmaxPu = QmaxPu, URef0Pu = URef0Pu, UdFilter0Pu = UdFilter0Pu, tauIqRef = tauIqRef) annotation(
+  Dynawo.Electrical.Controls.Converters.BaseControls.QControl qControl(DroopUQ = DroopUQ, IqConv0Pu = IqConv0Pu, QRef0Pu = QRef0Pu, QmaxPu = QmaxPu, UdFilter0Pu = UdFilter0Pu, tauIqRef = tauIqRef) annotation(
     Placement(visible = true, transformation(origin = {-37.5, -14.5}, extent = {{-7.5, -7.5}, {7.5, 7.5}}, rotation = 0)));
 
   Modelica.Blocks.Sources.Step IdConvRefPu(height = 0.1, offset = IdConv0Pu, startTime = 0.4) annotation(
     Placement(visible = true, transformation(origin = {-18, 25}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Step IqConvRefPu(height = 0, offset = IqConv0Pu, startTime = 0) annotation(
     Placement(visible = true, transformation(origin = {-18, 12}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
-
 
 equation
   connect(pll.theta, theta) annotation(

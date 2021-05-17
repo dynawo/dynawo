@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Sources;
+within Dynawo.Examples.VSCIB.BaseModel;
 
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -101,9 +101,7 @@ IdcSourcePu     IdcPu |          |iConvPu                           iPccPu
     Dialog(group = "group", tab = "Operating point"));
   parameter Types.PerUnit QRef0Pu       "Start value of the reactive power reference at the converter terminal (filter) in p.u (base SNom) (generator convention)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.PerUnit URef0Pu       "Start value of the AC voltage reference at the converter terminal (filter) in p.u (base UNom)" annotation(
-    Dialog(group = "group", tab = "Operating point"));
-  parameter Types.PerUnit UdcSource0Pu  "Start value of the DC bus voltage in p.u (base UNom)" annotation(
+  parameter Types.PerUnit Udc0Pu  "Start value of the DC bus voltage in p.u (base UNom)" annotation(
     Dialog(group = "group", tab = "Operating point"));
   parameter Types.PerUnit IdcSource0Pu  "Start value of the DC source current in p.u (base UNom, SNom)" annotation(
     Dialog(group = "group", tab = "Operating point"));
@@ -121,9 +119,9 @@ IdcSourcePu     IdcPu |          |iConvPu                           iPccPu
   parameter Types.Time t_Ustep          "Time of the AC voltage step in p.u (base UNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
 
-  Dynawo.Electrical.Sources.VSCIdcSource vSCIdcSource(Cdc = Cdc,Cfilter = Cfilter, ConvFixLossPu = ConvFixLossPu, ConvVarLossPu = ConvVarLossPu, IdConv0Pu = IdConv0Pu, IdPcc0Pu = IdPcc0Pu, IdcSource0Pu = IdcSource0Pu, IqConv0Pu = IqConv0Pu, IqPcc0Pu = IqPcc0Pu, Lfilter = Lfilter, Ltransformer = Ltransformer, P0Pu = P0Pu, Q0Pu = Q0Pu, Rfilter = Rfilter, Rtransformer = Rtransformer, SNom = SNom, Theta0 = Theta0, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, UdcSource0Pu = UdcSource0Pu, UqConv0Pu = UqConv0Pu, i0Pu = i0Pu, u0Pu = u0Pu)  annotation(
+  Dynawo.Electrical.Sources.VSCIdcSource vSCIdcSource(Cdc = Cdc,Cfilter = Cfilter, ConvFixLossPu = ConvFixLossPu, ConvVarLossPu = ConvVarLossPu, IdConv0Pu = IdConv0Pu, IdPcc0Pu = IdPcc0Pu, IdcSource0Pu = IdcSource0Pu, IqConv0Pu = IqConv0Pu, IqPcc0Pu = IqPcc0Pu, Lfilter = Lfilter, Ltransformer = Ltransformer, P0Pu = P0Pu, Q0Pu = Q0Pu, Rfilter = Rfilter, Rtransformer = Rtransformer, SNom = SNom, Theta0 = Theta0, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, Udc0Pu = Udc0Pu, UqConv0Pu = UqConv0Pu, i0Pu = i0Pu, u0Pu = u0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-13, 1}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.GridFollowingControl gridFollowingControl(DroopFP = DroopFP,DroopUQ = DroopUQ,IdConv0Pu = IdConv0Pu, IdcSource0Pu = IdcSource0Pu, ImaxPu = ImaxPu, IqConv0Pu = IqConv0Pu, KiPll = KiPll, Kic = Kic, KpPll = KpPll, Kpc = Kpc, Kpdc = Kpdc, Lfilter = Lfilter, PRef0Pu = PRef0Pu, PmaxPu = PmaxPu, QRef0Pu = QRef0Pu, QmaxPu = QmaxPu, RPmaxPu = RPmaxPu, Rfilter = Rfilter, Theta0 = Theta0, URef0Pu = URef0Pu, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, UdcSource0Pu = UdcSource0Pu, UqConv0Pu = UqConv0Pu, tauIdRef = tauIdRef, tauIqRef = tauIqRef)  annotation(
+  Dynawo.Electrical.Controls.Converters.GridFollowingControl gridFollowingControl(DroopFP = DroopFP,DroopUQ = DroopUQ,IdConv0Pu = IdConv0Pu, IdcSource0Pu = IdcSource0Pu, ImaxPu = ImaxPu, IqConv0Pu = IqConv0Pu, KiPll = KiPll, Kic = Kic, KpPll = KpPll, Kpc = Kpc, Kpdc = Kpdc, Lfilter = Lfilter, PRef0Pu = PRef0Pu, PmaxPu = PmaxPu, QRef0Pu = QRef0Pu, QmaxPu = QmaxPu, RPmaxPu = RPmaxPu, Rfilter = Rfilter, Theta0 = Theta0, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, Udc0Pu = Udc0Pu, UqConv0Pu = UqConv0Pu, tauIdRef = tauIdRef, tauIqRef = tauIqRef)  annotation(
     Placement(visible = true, transformation(origin = {21, 1}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Sources.Step PrefPu(height = PstepHPu, offset = PRef0Pu, startTime = t_Pstep)  annotation(
@@ -136,7 +134,7 @@ IdcSourcePu     IdcPu |          |iConvPu                           iPccPu
     Placement(visible = true, transformation(origin = {43, 0}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Step IdcSourceRefPu(height = 0, offset = IdcSource0Pu, startTime = 0)  annotation(
     Placement(visible = true, transformation(origin = {43, -13}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step UdcRefPu(height = 0, offset = UdcSource0Pu, startTime = 0)  annotation(
+  Modelica.Blocks.Sources.Step UdcRefPu(height = 0, offset = Udc0Pu, startTime = 0)  annotation(
     Placement(visible = true, transformation(origin = {43, -26}, extent = {{4, -4}, {-4, 4}}, rotation= 0)));
 
   Dynawo.Connectors.ACPower aCPower annotation(

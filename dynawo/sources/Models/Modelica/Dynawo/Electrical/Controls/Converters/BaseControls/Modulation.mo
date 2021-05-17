@@ -15,13 +15,13 @@ model Modulation "Modulation"
   import Modelica;
   import Dynawo.Types;
 
-  parameter Types.PerUnit UdcSource0Pu  "Start value of the DC bus voltage in p.u (base UNom)";
+  parameter Types.PerUnit Udc0Pu  "Start value of the DC bus voltage in p.u (base UNom)";
   parameter Types.PerUnit UdConv0Pu     "Start value of the d-axis converter modulated voltage in p.u (base UNom)";
   parameter Types.PerUnit UqConv0Pu     "Start value of the q-axis converter modulated voltage in p.u (base UNom)";
 
-  Modelica.Blocks.Interfaces.RealInput UdcPu(start = UdcSource0Pu)    "DC bus voltage in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu)    "DC bus voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-121, 30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-111, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = UdcSource0Pu) "DC Voltage reference in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = Udc0Pu) "DC Voltage reference in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-121, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-111, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput udConvRefPu(start = UdConv0Pu) "d-axis reference for the converter modulated voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-121, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-111, 71}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
