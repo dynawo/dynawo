@@ -27,7 +27,6 @@ set(MODULE_SOURCES
   TestNetworkInterface.cpp
   TestPhaseTapChangerInterface.cpp
   TestRatioTapChangerInterface.cpp
-  TestServiceManagerInterface.cpp
   TestShuntCompensatorInterface.cpp
   TestStaticVarCompensatorInterface.cpp
   TestStepInterface.cpp

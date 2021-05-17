@@ -100,8 +100,7 @@ using criteria::CriteriaCollection;
 
 namespace DYN {
 DataInterfaceIIDM::DataInterfaceIIDM(IIDM::Network networkIIDM) :
-networkIIDM_(networkIIDM),
-serviceManager_(boost::make_shared<ServiceManagerInterfaceIIDM>()) {
+networkIIDM_(networkIIDM) {
 }
 
 DataInterfaceIIDM::~DataInterfaceIIDM() {

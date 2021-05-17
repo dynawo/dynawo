@@ -108,8 +108,6 @@ TEST(DataInterfaceTest, Generator_1) {
   ASSERT_EQ(genItf.getTargetQ(), -5.0);
   ASSERT_EQ(genItf.getTargetV(), 24.0);
 
-  ASSERT_TRUE(genItf.isVoltageRegulationOn());
-
   ASSERT_EQ(genItf.getReactiveCurvesPoints().size(), 0);
 
   ASSERT_TRUE(genItf.getCountry().empty());
@@ -207,7 +205,6 @@ TEST(DataInterfaceTest, Generator_2) {
   ASSERT_EQ(genItf.getID(), "GEN1");
 
   ASSERT_FALSE(genItf.getInitialConnected());
-  ASSERT_FALSE(genItf.isVoltageRegulationOn());
 
   ASSERT_EQ(genItf.getTargetV(), 0.0);
   gen.setTargetV(24.0).setVoltageRegulatorOn(true).setReactivePowerSetpoint(stdcxx::nan());

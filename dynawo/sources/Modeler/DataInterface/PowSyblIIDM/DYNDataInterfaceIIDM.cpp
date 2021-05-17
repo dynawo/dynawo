@@ -77,8 +77,7 @@ using criteria::CriteriaCollection;
 
 namespace DYN {
 DataInterfaceIIDM::DataInterfaceIIDM(powsybl::iidm::Network&& networkIIDM) :
-networkIIDM_(std::forward<powsybl::iidm::Network>(networkIIDM)),
-serviceManager_(boost::make_shared<ServiceManagerInterfaceIIDM>(this)) {
+networkIIDM_(std::forward<powsybl::iidm::Network>(networkIIDM)) {
 }
 
 DataInterfaceIIDM::~DataInterfaceIIDM() {
@@ -910,11 +909,6 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
           const boost::shared_ptr<ComponentInterface>& cmp = busItfIter->second;
           if (cmp->getType() != ComponentInterface::BUS)
             Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "bus") << Trace::endline;
-          if (crit->hasCountryFilter()) {
-            boost::shared_ptr<BusInterfaceIIDM> bus = dynamic_pointer_cast<BusInterfaceIIDM>(cmp);
-            if (bus && !bus->getCountry().empty() && !crit->containsCountry(bus->getCountry()))
-              continue;
-          }
           boost::shared_ptr<BusInterface> bus = dynamic_pointer_cast<BusInterface>(cmp);
           assert(bus);
           dynCriteria->addBus(bus);
@@ -926,11 +920,6 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
       for (boost::unordered_map<std::string, boost::shared_ptr<BusInterface> >::const_iterator cmpIt = busComponents_.begin(),
           cmpItEnd = busComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        if (crit->hasCountryFilter()) {
-          boost::shared_ptr<BusInterfaceIIDM> bus = dynamic_pointer_cast<BusInterfaceIIDM>(cmpIt->second);
-          if (!bus->getCountry().empty() && !crit->containsCountry(bus->getCountry()))
-            continue;
-        }
         dynCriteria->addBus(cmpIt->second);
       }
     }
@@ -957,11 +946,6 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
           const boost::shared_ptr<ComponentInterface>& cmp = loadItfIter->second;
           if (cmp->getType() != ComponentInterface::LOAD)
             Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "load") << Trace::endline;
-          if (crit->hasCountryFilter()) {
-            boost::shared_ptr<LoadInterfaceIIDM> load = dynamic_pointer_cast<LoadInterfaceIIDM>(cmp);
-            if (!load->getCountry().empty() && !crit->containsCountry(load->getCountry()))
-              continue;
-          }
           boost::shared_ptr<LoadInterface> load = dynamic_pointer_cast<LoadInterface>(cmp);
           assert(load);
           dynCriteria->addLoad(load);
@@ -973,11 +957,6 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
       for (boost::unordered_map<std::string, boost::shared_ptr<LoadInterface> >::const_iterator cmpIt = loadComponents_.begin(),
           cmpItEnd = loadComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        if (crit->hasCountryFilter()) {
-          boost::shared_ptr<LoadInterfaceIIDM> load = dynamic_pointer_cast<LoadInterfaceIIDM>(cmpIt->second);
-          if (!load->getCountry().empty() && !crit->containsCountry(load->getCountry()))
-            continue;
-        }
         dynCriteria->addLoad(cmpIt->second);
       }
     }
@@ -1004,11 +983,6 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
           const boost::shared_ptr<ComponentInterface>& cmp = generatorItfIter->second;
           if (cmp->getType() != ComponentInterface::GENERATOR)
             Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "generator") << Trace::endline;
-          if (crit->hasCountryFilter()) {
-            boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmp);
-            if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
-              continue;
-          }
           boost::shared_ptr<GeneratorInterface> gen = dynamic_pointer_cast<GeneratorInterface>(cmp);
           assert(gen);
           dynCriteria->addGenerator(gen);
@@ -1020,11 +994,6 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
       for (boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> >::const_iterator cmpIt = generatorComponents_.begin(),
           cmpItEnd = generatorComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        if (crit->hasCountryFilter()) {
-          boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmpIt->second);
-          if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
-            continue;
-        }
         dynCriteria->addGenerator(cmpIt->second);
       }
     }
