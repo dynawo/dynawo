@@ -411,9 +411,11 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
     //===========================
     IIDM::Contains<IIDM::Switch>::iterator itSwitch = voltageLevelIIDM.switches().begin();
     for (; itSwitch != voltageLevelIIDM.switches().end(); ++itSwitch) {
-      shared_ptr<SwitchInterface> sw = importSwitch(*itSwitch);  // in bus breaker topology, keep all switches
-      components_[sw->getID()] = sw;
-      voltageLevel->addSwitch(sw);
+      shared_ptr<SwitchInterface> sw = importSwitch(*itSwitch);
+      if (sw->getBusInterface1() != sw->getBusInterface2()) {  // if the switch is connecting one single bus, don't create a specific switch model
+        components_[sw->getID()] = sw;
+        voltageLevel->addSwitch(sw);
+      }
     }
   }
 
