@@ -33,7 +33,6 @@
 
 #include "DYNEnumUtils.h"
 #include "DYNParameterModeler.h"
-#include "DYNConnector.h"
 #include "PARParametersSet.h"
 #include "CSTRConstraintsCollection.h"
 #include "DYNVariable.h"
@@ -1419,49 +1418,15 @@ class SubModel {
   int getOffsetY() const {return offsetY_;}
 
   /**
-   * @brief Retrieves the local buffer for variables
-   *
-   * @param index index of the variable to retrieve
-   *
-   * @returns local buffer
-   */
-  inline double* yLocal(int index) const {
-    return &yLocal_[index];
-  }
-
-  /**
-   * @brief Retrieves the local buffer for derivative variables
-   *
-   * @param index index of the variable to retrieve
-   *
-   * @returns local buffer
-   */
-  inline double* ypLocal(int index) const {
-    return &ypLocal_[index];
-  }
-
-  /**
    * @brief Connect an external variable to a reference
    *
    * @param referenceValuePtr the reference buffer for the value of the variable
    * @param referenceValuePPtr the reference buffer for the derivative value of the variable
-   * @param indexExternalVariable the local index of the external variable
+   * @param globalIndexReferenceVariable the global index of the referenced variable
+   * @param externalVariable the external variable to connect to
    */
-  void connectExternalVariable(double* const referenceValuePtr, double* const referenceValuePPtr, int indexExternalVariable) {
-    yExternalLocal_[indexExternalVariable] = referenceValuePtr;
-    ypExternalLocal_[indexExternalVariable] = referenceValuePPtr;
-  }
-
-  /**
-   * @brief Set reference to the connector container
-   *
-   * Required to retrieve the reference index of an external variable
-   *
-   * @param container the connector container
-   */
-  inline void setConnectorContainer(const boost::shared_ptr<ConnectorContainer>& container) {
-    connectorContainer_ = container;
-  }
+  void connectExternalVariable(double* const referenceValuePtr, double* const referenceValuePPtr, int globalIndexReferenceVariable,
+                              const boost::shared_ptr<Variable>& externalVariable);
 
   /**
    * @brief Add a dependency submodel handling a fictive variable
@@ -1638,7 +1603,7 @@ class SubModel {
   std::map<int, std::string> fEquationInitIndex_;  ///< for DEBUG log, map of index of equation and equation in string for init model
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
 
-  boost::weak_ptr<ConnectorContainer> connectorContainer_;  ///< connector container pointer
+  boost::unordered_map<int, int> externalConnectionsByVarNum_;  ///< external connections: pairs (global index external, global referenceIndex)
 
   std::vector<boost::weak_ptr<SubModel> > dependencies_;  ///< List of sub models the current model depends on
 

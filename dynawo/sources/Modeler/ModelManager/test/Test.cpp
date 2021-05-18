@@ -644,14 +644,8 @@ TEST(TestModelManager, TestModelManagerBasics) {
   mm->setBufferFType(&fTypes[0], 0);
   mm->initSubBuffers();
 
-  boost::shared_ptr<ConnectorContainer> connectorContainer = boost::make_shared<ConnectorContainer>();
-  mm->setConnectorContainer(connectorContainer);
-  boost::shared_ptr<Connector> connector0 = boost::make_shared<Connector>();
-  connector0->addConnectedSubModel(mm, mm->getVariable("MyVariableExt1"), false);
-  connector0->addConnectedSubModel(mm, mm->getVariable("MyVariable"), false);
-  connectorContainer->addContinuousConnector(connector0);
-  connectorContainer->mergeConnectors();
-  connectorContainer->performExternalConnections();
+  int indexRef = mm->getVariableIndexGlobal(mm->getVariable("MyVariable"));
+  mm->connectExternalVariable(&y[0], &yp[0], indexRef, mm->getVariable("MyVariableExt1"));
 
   mm->checkDataCoherence(0.);
   mm->testNbCallCheckDataCoherence(1);

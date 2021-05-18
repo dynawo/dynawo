@@ -506,18 +506,10 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   submodel->setBufferY(&yother[0], &ypother[0], 0);
   modelOmegaRef->setBufferYExternal(&yExt[0], &ypExt[0], 0);
 
-  boost::shared_ptr<ConnectorContainer> connectorContainer = boost::make_shared<ConnectorContainer>();
-  modelOmegaRef->setConnectorContainer(connectorContainer);
-  boost::shared_ptr<Connector> connector0 = boost::make_shared<Connector>();
-  connector0->addConnectedSubModel(submodel, submodel->getVariable("var0"), false);
-  connector0->addConnectedSubModel(modelOmegaRef, modelOmegaRef->getVariable("omega_grp_0_value"), false);
-  connectorContainer->addContinuousConnector(connector0);
-  boost::shared_ptr<Connector> connector1 = boost::make_shared<Connector>();
-  connector1->addConnectedSubModel(submodel, submodel->getVariable("var1"), false);
-  connector1->addConnectedSubModel(modelOmegaRef, modelOmegaRef->getVariable("omega_grp_1_value"), false);
-  connectorContainer->addContinuousConnector(connector1);
-  connectorContainer->mergeConnectors();
-  connectorContainer->performExternalConnections();
+  int indexRef = submodel->getVariableIndexGlobal(submodel->getVariable("var0"));
+  modelOmegaRef->connectExternalVariable(&yother[0], &ypother[0], indexRef, modelOmegaRef->getVariable("omega_grp_0_value"));
+  indexRef = submodel->getVariableIndexGlobal(submodel->getVariable("var1"));
+  modelOmegaRef->connectExternalVariable(&yother[1], &ypother[1], indexRef, modelOmegaRef->getVariable("omega_grp_1_value"));
 
   std::vector<double> z(modelOmegaRef->sizeZ(), 0);
   bool* zConnected = new bool[modelOmegaRef->sizeZ()];

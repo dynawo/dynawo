@@ -295,7 +295,6 @@ ModelMulti::initBuffers() {
     size_t sizeYExternal = subModels_[i]->sizeYExternal();
     if (sizeYExternal > 0) {
       subModels_[i]->setBufferYExternal(yExternalLocal_, ypExternalLocal_, offsetYExternal);
-      subModels_[i]->setConnectorContainer(connectorContainer_);
     }
     offsetYExternal += sizeYExternal;
 
@@ -326,7 +325,7 @@ ModelMulti::initBuffers() {
   connectorContainer_->setBufferY(yLocal_, ypLocal_);  // connectors access to the whole y Buffer
   connectorContainer_->setBufferZ(zLocal_, zConnectedLocal_);  // connectors access to the whole z buffer
   std::fill(fLocal_ + offsetFOptional_, fLocal_ + sizeF_, 0);
-  connectorContainer_->performExternalConnections();
+  performExternalConnections();
 
   // (3) init buffers of each sub-model (useful for the network model)
   // (4) release elements that were used and declared only for connections
@@ -334,6 +333,33 @@ ModelMulti::initBuffers() {
     subModels_[i]->initSubBuffers();
     subModels_[i]->releaseElements();
   }
+}
+
+void
+ModelMulti::performExternalConnections() {
+  const ConnectorContainer::MapConnectedSubModel& externalConnections = connectorContainer_->externalConnections();
+  for (boost::unordered_map<connectedSubModel, boost::unordered_set<DYN::connectedSubModel> >::const_iterator it =
+    externalConnections.begin(); it != externalConnections.end(); ++it) {
+    boost::shared_ptr<SubModel> referenceModel = it->first.subModel();
+    boost::shared_ptr<Variable> referenceVariable = it->first.variable();
+    int referenceVariableGlobalIndex = referenceModel->getVariableIndexGlobal(referenceVariable);
+    double* const varRefLocalPtr  = &yLocal_[referenceVariableGlobalIndex];
+    double* const varPRefLocalPtr = &ypLocal_[referenceVariableGlobalIndex];
+
+    for (boost::unordered_set<connectedSubModel>::const_iterator itModel = it->second.begin(); itModel != it->second.end(); ++itModel) {
+      boost::shared_ptr<SubModel> submodel = itModel->subModel();
+      boost::shared_ptr<Variable> variable = itModel->variable();
+      const int externalVariableGlobalIndex = submodel->getVariableIndexGlobal(variable);
+      submodel->connectExternalVariable(varRefLocalPtr, varPRefLocalPtr, referenceVariableGlobalIndex, variable);
+
+      Trace::debug(Trace::variables()) << DYNLog(ConnectorExternalConnection, externalVariableGlobalIndex, submodel->name(), variable->getName(),
+                                                 referenceVariableGlobalIndex, referenceModel->name(), referenceVariable->getName())
+                                       << Trace::endline;
+    }
+  }
+
+  // we don't need it any more
+  connectorContainer_->clearExternalConnection();
 }
 
 void

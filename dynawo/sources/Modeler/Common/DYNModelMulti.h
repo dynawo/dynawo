@@ -572,6 +572,16 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void processYConnectorsFullExternal();
 
+  /**
+   * @brief Perform external connections
+   *
+   * For each connection registered, connect models buffers corresponding to the external variables and its reference buffer
+   * corresponding to a state variable, for y and yp
+   *
+   * Clear the external connections at the end
+   */
+  void performExternalConnections();
+
   boost::unordered_map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel
   boost::unordered_map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
   std::vector<std::string> yNames_;  ///< names of all variables y

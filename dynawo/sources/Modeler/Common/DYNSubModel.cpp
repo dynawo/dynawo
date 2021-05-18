@@ -342,9 +342,8 @@ SubModel::getVariable(const string& variableName) const {
 
 int
 SubModel::getReferenceIndex(int externalIndexLocal) const {
-  const boost::unordered_map<int, int>& externalConnections = connectorContainer_.lock()->externalConnectionsByVarNum();
   int indexGlobalExternal = getVariableIndexGlobal(getVariable(xExternalNames().at(externalIndexLocal)));
-  return externalConnections.at(indexGlobalExternal);
+  return externalConnectionsByVarNum_.at(indexGlobalExternal);
 }
 
 double
@@ -1032,9 +1031,8 @@ SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
         curve->setCurveType(Curve::CONTINUOUS_VARIABLE);
         if (variable->isExternal()) {
           buffer = yExternalLocal_[varNum];
-          const boost::unordered_map<int, int>& references = connectorContainer_.lock()->externalConnectionsByVarNum();
           int globalIndex = getVariableIndexGlobal(variable);
-          curve->setGlobalIndex(references.at(globalIndex));
+          curve->setGlobalIndex(externalConnectionsByVarNum_.at(globalIndex));
         } else {
           buffer = &(yLocal_[varNum]);
           curve->setGlobalIndex(yDeb() + varNum);
@@ -1378,6 +1376,22 @@ SubModel::addFictiveVariableSubModelDependency(const boost::weak_ptr<SubModel>& 
   assert(model.lock()->isFictiveVariableModel());
 #endif
   dependencies_.push_back(model);
+}
+
+void
+SubModel::connectExternalVariable(double* const referenceValuePtr, double* const referenceValuePPtr, int globalIndexReferenceVariable,
+  const boost::shared_ptr<Variable>& externalVariable) {
+#if _DEBUG_
+  // This function is relevant only if the external variable belongs to the model
+  // This will throw if the name is not found
+  boost::shared_ptr<DYN::Variable> var = getVariable(externalVariable->getName());
+  assert(var == externalVariable);
+#endif
+  int indexLocalExternalVariable = externalVariable->getIndex();
+  yExternalLocal_[indexLocalExternalVariable] = referenceValuePtr;
+  ypExternalLocal_[indexLocalExternalVariable] = referenceValuePPtr;
+
+  externalConnectionsByVarNum_[getVariableIndexGlobal(externalVariable)] = globalIndexReferenceVariable;
 }
 
 }  // namespace DYN

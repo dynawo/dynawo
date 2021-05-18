@@ -175,6 +175,10 @@ class Connector {
  */
 class ConnectorContainer {
  public:
+  /// @brief Alias type for map of reference connected submodel connected to n external variables
+  typedef boost::unordered_map<connectedSubModel, boost::unordered_set<DYN::connectedSubModel> > MapConnectedSubModel;
+
+ public:
   /**
    * @brief default constructor
    *
@@ -209,6 +213,21 @@ class ConnectorContainer {
    */
   inline unsigned int nbZConnectors() const {
     return zConnectors_.size();
+  }
+
+  /**
+   * @brief Retrieve external connections
+   * @returns mapping of external connections
+   */
+  inline const MapConnectedSubModel& externalConnections() const {
+    return externalConnections_;
+  }
+
+  /**
+   * @brief Clear external connections declarations
+   */
+  inline void clearExternalConnection() {
+    externalConnections_.clear();
   }
 
   /**
@@ -398,25 +417,6 @@ class ConnectorContainer {
   bool isConnected(const int numVariable);
 
   /**
-   * @brief Perform external connections
-   *
-   * For each connection registered, connect models buffers corresponding to the external variables and its reference buffer
-   * corresponding to a state variable, for y and yp
-   *
-   * Clear the external connections at the end
-   */
-  void performExternalConnections();
-
-  /**
-   * @brief Retrieve list of external connections by id
-   *
-   * @returns reference to the list of connections by external id
-   */
-  const boost::unordered_map<int, int>& externalConnectionsByVarNum() const {
-    return externalConnectionsByVarNum_;
-  }
-
-  /**
    * @brief Add external variable connection
    *
    * @param fictiveVariableConnectedModel connected model corresponding to a fictive variable
@@ -603,8 +603,7 @@ class ConnectorContainer {
   /**
    * @brief external connections: pairs (reference_model, set of models with reference variables)
    */
-  boost::unordered_map<connectedSubModel, boost::unordered_set<DYN::connectedSubModel> > externalConnections_;
-  boost::unordered_map<int, int> externalConnectionsByVarNum_;  ///< external connections: pairs (index_external, referenceIndex)
+  MapConnectedSubModel externalConnections_;
 };
 
 }  // namespace DYN
