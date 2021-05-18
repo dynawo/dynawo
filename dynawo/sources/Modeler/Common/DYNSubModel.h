@@ -130,7 +130,7 @@ class SubModel {
    *
    * By default, it is not
    *
-   * @returns @whether current submodel handles a fictive variable
+   * @returns @@b true if current submodel handles a fictive variable, @b false if not
    */
   virtual bool isFictiveVariableModel() const {
     return false;
