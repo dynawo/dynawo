@@ -64,6 +64,9 @@ boost::shared_ptr<SubModel> initModelShunt(int nbShunts, int section0 = 0, bool 
   modelShunt->setParametersFromPARFile();
   modelShunt->setSubModelParameters();
 
+  modelShunt->defineVariables();
+  modelShunt->defineNames();
+
   modelShunt->getSize();
 
   return modelShunt;
@@ -116,20 +119,19 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
   TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControlTypeMethods) {
     int nbShunts = 2;
     boost::shared_ptr<SubModel> modelShunt = initModelShunt(nbShunts);
-    unsigned nbY = 1;
+    unsigned nbY = 0;
+    unsigned nbYExternal = 1;
     unsigned nbF = 0;
     unsigned nbZ = nbShunts + 1;
     unsigned nbG = 4;
     unsigned nbMode = 0;
-    std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
-    modelShunt->setBufferYType(&yTypes[0], 0);
     ASSERT_EQ(modelShunt->sizeY(), nbY);
+    ASSERT_EQ(modelShunt->sizeYExternal(), nbYExternal);
     ASSERT_EQ(modelShunt->sizeF(), nbF);
     ASSERT_EQ(modelShunt->sizeZ(), nbZ);
     ASSERT_EQ(modelShunt->sizeG(), nbG);
     ASSERT_EQ(modelShunt->sizeMode(), nbMode);
     ASSERT_NO_THROW(modelShunt->evalStaticYType());
-    ASSERT_EQ(yTypes[0], EXTERNAL);
     ASSERT_NO_THROW(modelShunt->initializeFromData(boost::shared_ptr<DataInterface>()));
     ASSERT_NO_THROW(modelShunt->checkDataCoherence(0.));
     ASSERT_NO_THROW(modelShunt->initializeStaticData());
@@ -157,9 +159,15 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     // isSelf = false
     int nbShunts = 2;
     boost::shared_ptr<SubModel> modelShuntCond = initModelShunt(nbShunts, 1);
-    std::vector<double> y(modelShuntCond->sizeY(), 0);
-    std::vector<double> yp(modelShuntCond->sizeY(), 0);
-    modelShuntCond->setBufferY(&y[0], &yp[0], 0.);
+    std::vector<double*> yExt(modelShuntCond->sizeYExternal(), NULL);
+    std::vector<double*> ypExt(modelShuntCond->sizeYExternal(), NULL);
+    modelShuntCond->setBufferYExternal(&yExt[0], &ypExt[0], 0);
+
+    double yother = 0.0;
+    double ypother = 0.0;
+    // reference index here is irrelevant as it is not used in jacobian
+    modelShuntCond->connectExternalVariable(&yother, &ypother, modelShuntCond->sizeY()+1, modelShuntCond->getVariable("UMonitoredPu_value"));
+
     std::vector<double> z(modelShuntCond->sizeZ(), 0);
     bool* zConnected = new bool[modelShuntCond->sizeZ()];
     for (size_t i = 0; i < modelShuntCond->sizeZ(); ++i)
@@ -177,7 +185,8 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_NO_THROW(modelShuntCond->evalMode(0));
     ASSERT_NO_THROW(modelShuntCond->evalCalculatedVarI(0));
     std::vector<int> indexes;
-    ASSERT_NO_THROW(modelShuntCond->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
+    std::vector<int> indexesExternal;
+    ASSERT_NO_THROW(modelShuntCond->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes, indexesExternal));
     std::vector<double> res;
     ASSERT_NO_THROW(modelShuntCond->evalJCalculatedVarI(0, res));
     ASSERT_NO_THROW(modelShuntCond->evalCalculatedVars());
@@ -185,7 +194,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     modelShuntCond->setBufferG(&g[0], 0);
     ASSERT_NO_THROW(modelShuntCond->setGequations());
     // UMonitored < URef
-    y[0] = 0.8;
+    yother = 0.8;
     ASSERT_NO_THROW(modelShuntCond->evalG(0));
     ASSERT_EQ(g[0], ROOT_UP);
     ASSERT_EQ(g[1], ROOT_DOWN);
@@ -202,14 +211,14 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_EQ(z[2], 1);
     // UMonitored = URef
     modelShuntCond->getY0();
-    y[0] = 0.95;
+    yother = 0.95;
     ASSERT_NO_THROW(modelShuntCond->evalG(0));
     ASSERT_EQ(g[0], ROOT_DOWN);
     ASSERT_EQ(g[1], ROOT_DOWN);
     ASSERT_EQ(g[2], ROOT_DOWN);
     ASSERT_EQ(g[3], ROOT_DOWN);
     // Umonitored > Uref
-    y[0] = 1.1;
+    yother = 1.1;
     modelShuntCond->getY0();
     ASSERT_NO_THROW(modelShuntCond->evalG(0));
     ASSERT_EQ(g[0], ROOT_DOWN);
@@ -228,9 +237,13 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
 
     // isSelf = true
     boost::shared_ptr<SubModel> modelShuntSelf = initModelShunt(1, 1, true);
-    std::vector<double> ySelf(modelShuntSelf->sizeY(), 0);
-    std::vector<double> ypSelf(modelShuntSelf->sizeY(), 0);
-    modelShuntSelf->setBufferY(&ySelf[0], &ypSelf[0], 0.);
+    std::vector<double*> yExtSelf(modelShuntSelf->sizeYExternal(), NULL);
+    std::vector<double*> ypExtSelf(modelShuntSelf->sizeYExternal(), NULL);
+    modelShuntSelf->setBufferYExternal(&yExtSelf[0], &ypExtSelf[0], 0);
+    double ySelfOther = 0.0;
+    double ypSelfOther = 0.0;
+    modelShuntSelf->connectExternalVariable(&ySelfOther, &ypSelfOther, modelShuntSelf->sizeY()+1, modelShuntSelf->getVariable("UMonitoredPu_value"));
+
     std::vector<double> zSelf(modelShuntSelf->sizeZ(), 0);
     bool* zConnectedSelf = new bool[modelShuntSelf->sizeZ()];
     for (size_t i = 0; i < modelShuntSelf->sizeZ(); ++i)
@@ -241,7 +254,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     modelShuntSelf->setBufferG(&gSelf[0], 0);
     ASSERT_NO_THROW(modelShuntSelf->setGequations());
     // UMonitored < URef
-    ySelf[0] = 0.8;
+    ySelfOther = 0.8;
     ASSERT_NO_THROW(modelShuntSelf->evalG(0));
     ASSERT_EQ(gSelf[0], ROOT_UP);
     ASSERT_EQ(gSelf[1], ROOT_DOWN);
@@ -257,14 +270,14 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_EQ(zSelf[1], 0);
     // UMonitored = URef
     modelShuntSelf->getY0();
-    ySelf[0] = 0.95;
+    ySelfOther = 0.95;
     ASSERT_NO_THROW(modelShuntSelf->evalG(0));
     ASSERT_EQ(gSelf[0], ROOT_DOWN);
     ASSERT_EQ(gSelf[1], ROOT_DOWN);
     ASSERT_EQ(gSelf[2], ROOT_DOWN);
     ASSERT_EQ(gSelf[3], ROOT_DOWN);
     // Umonitored > Uref
-    ySelf[0] = 1.1;
+    ySelfOther = 1.1;
     modelShuntSelf->getY0();
     ASSERT_NO_THROW(modelShuntSelf->evalG(0));
     ASSERT_EQ(gSelf[0], ROOT_DOWN);

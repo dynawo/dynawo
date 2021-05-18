@@ -127,7 +127,7 @@ namespace DYN {
   void
   ModelCentralizedShuntsSectionControl::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
     // only one UMonitoredPu variable shared among all shunts as all of them are regulating the same node
-    variables.push_back(VariableNativeFactory::createState("UMonitoredPu_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createExternalState("UMonitoredPu_value", CONTINUOUS));
     variables.push_back(VariableNativeFactory::createState("URefPu_value", DISCRETE));
     std::stringstream sectionName;
     for (int s = 0; s < nbShunts_; ++s) {
@@ -153,7 +153,8 @@ namespace DYN {
   void
   ModelCentralizedShuntsSectionControl::getSize() {
     sizeF_ = 0;
-    sizeY_ = 1;  // UMonitoredPu
+    sizeY_ = 0;
+    sizeYExternal_ = 1;  // UMonitoredPu
     sizeZ_ = nbShunts_ + 1;  // URefPu value is stored at index 0, sections are stored at [1, nbShunts[
     sizeG_ = 4;
     sizeMode_ = 0;
@@ -162,7 +163,7 @@ namespace DYN {
 
   void
   ModelCentralizedShuntsSectionControl::evalStaticYType() {
-    yType_[0] = EXTERNAL;
+    /* not need */
   }
 
   void
@@ -177,7 +178,7 @@ namespace DYN {
 
   void
   ModelCentralizedShuntsSectionControl::evalG(const double t) {
-    double UMonitoredPu = yLocal_[0];
+    double UMonitoredPu = *(yExternalLocal_[0]);
     double URefPu = zLocal_[URefPuIndex];
     double minValue;
     double maxValue;
@@ -310,6 +311,16 @@ namespace DYN {
   }
 
   void
+  ModelCentralizedShuntsSectionControl::getY0External(unsigned int numVarEx, double& value) const {
+    if (numVarEx == 0) {
+      value = 0.0;
+      return;
+    }
+
+    throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
+  }
+
+  void
   ModelCentralizedShuntsSectionControl::initializeFromData(const boost::shared_ptr<DataInterface>& /*data*/) {
     /* not need */
   }
@@ -330,7 +341,8 @@ namespace DYN {
   }
 
   void
-  ModelCentralizedShuntsSectionControl::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/) const {
+  ModelCentralizedShuntsSectionControl::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/,
+    std::vector<int>&) const {
     /* not need */
   }
 

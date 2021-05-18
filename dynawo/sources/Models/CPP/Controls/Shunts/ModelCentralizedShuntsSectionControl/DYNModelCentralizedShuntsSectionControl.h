@@ -181,6 +181,10 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP::Impl {
    */
   void getY0();
   /**
+   * @copydoc ModelCPP::getY0External(unsigned int numVarEx, double& value) const
+   */
+  void getY0External(unsigned int numVarEx, double& value) const;
+  /**
    * @copydoc ModelCPP::initParams()
    */
   void initParams() { /* not needed */ }
@@ -232,14 +236,9 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP::Impl {
    */
   modeChangeType_t evalMode(const double t);
   /**
-   * @brief get the global indexes of the variables used to compute a calculated
-   * variable
-   *
-   * @param iCalculatedVar index of the calculated variable
-   * @param indexes vector to fill with the indexes
-   *
+   * @copydoc ModelCPP::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int> &indexes) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
   /**
    * @copydoc ModelCPP::setGequations()
    */
