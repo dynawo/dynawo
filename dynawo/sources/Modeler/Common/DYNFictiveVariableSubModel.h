@@ -24,12 +24,12 @@
 #ifndef MODELER_COMMON_DYNFICTIVEVARIABLESUBMODEL_H_
 #define MODELER_COMMON_DYNFICTIVEVARIABLESUBMODEL_H_
 
-#include "DYNConnector.h"
 #include "DYNEnumUtils.h"
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
 
 #include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 
 namespace DYN {
 
@@ -45,9 +45,10 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @brief Constructor
    *
-   * @param externalConnectedSubModel the reference model containing the reference external variable
+   * @param subModel the reference submodel containing the reference external variable
+   * @param variable the reference external variable
    */
-  explicit FictiveVariableSubModel(const connectedSubModel& externalConnectedSubModel);
+  FictiveVariableSubModel(const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable);
 
   /**
    * @copydoc SubModel::initializeStaticData()
@@ -90,7 +91,10 @@ class FictiveVariableSubModel : public SubModel {
 
   /**
    * @brief Model mode change type evaluation
-   * @returns NO_MODE
+   *
+   * Set the mode change type value depending on current simulation instant and
+   * current state variables values.
+   * @return mode change type value
    */
   modeChangeType_t evalMode(const double) {
     return NO_MODE;
@@ -127,12 +131,16 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @copydoc SubModel::evalStaticFType()
    */
-  void evalStaticFType() {}
+  void evalStaticFType() {
+    /* not needed */
+  }
 
   /**
    * @brief set the silent flag for discrete variables
    */
-  void collectSilentZ(BitMask*) {}
+  void collectSilentZ(BitMask*) {
+    /* not needed */
+  }
 
   /**
    * @copydoc SubModel::evalDynamicFType()
@@ -361,7 +369,8 @@ class FictiveVariableSubModel : public SubModel {
   }
 
  private:
-  const connectedSubModel& referenceConnectedModel_;  ///< the model and variable handled by the fictiounous variabled
+  boost::weak_ptr<SubModel> subModel_;  ///< submodel handled by the fictive variable
+  boost::weak_ptr<Variable> variable_;  ///< variable handled by the fictive variable
 };
 }  // namespace DYN
 

@@ -130,7 +130,7 @@ class SubModel {
    *
    * By default, it is not
    *
-   * @returns status
+   * @returns @whether current submodel handles a fictive variable
    */
   virtual bool isFictiveVariableModel() const {
     return false;
@@ -354,7 +354,7 @@ class SubModel {
    *
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes
-   * @param indexesExternal vector to fill with theindexes of external variables
+   * @param indexesExternal vector to fill with the indexes of external variables
    */
   virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const = 0;
 
@@ -585,7 +585,6 @@ class SubModel {
    */
   inline void defineNames() {
     defineNamesImpl(variables_, zNames_, xNames_, xExternalNames_, calculatedVarNames_);
-    sizeYExternal_ = xExternalNames_.size();
   }
 
   /**
@@ -1185,7 +1184,7 @@ class SubModel {
    *
    * @returns the names of the external variables
    */
-  inline const std::vector<std::string>& xExternalNames() {
+  inline const std::vector<std::string>& xExternalNames() const {
     return xExternalNames_;
   }
 
@@ -1422,19 +1421,23 @@ class SubModel {
   /**
    * @brief Retrieves the local buffer for variables
    *
+   * @param index index of the variable to retrieve
+   *
    * @returns local buffer
    */
-  inline double* yLocal() const {
-    return yLocal_;
+  inline double* yLocal(int index) const {
+    return &yLocal_[index];
   }
 
   /**
    * @brief Retrieves the local buffer for derivative variables
    *
+   * @param index index of the variable to retrieve
+   *
    * @returns local buffer
    */
-  inline double* ypLocal() const {
-    return ypLocal_;
+  inline double* ypLocal(int index) const {
+    return &ypLocal_[index];
   }
 
   /**
@@ -1635,7 +1638,6 @@ class SubModel {
   std::map<int, std::string> fEquationInitIndex_;  ///< for DEBUG log, map of index of equation and equation in string for init model
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
 
-  std::vector<std::string> xExternalNames_;                 ///< vector of the external continuous variables names
   boost::weak_ptr<ConnectorContainer> connectorContainer_;  ///< connector container pointer
 
   std::vector<boost::weak_ptr<SubModel> > dependencies_;  ///< List of sub models the current model depends on
@@ -1666,6 +1668,7 @@ class SubModel {
 
   std::vector<std::string> zNames_;  ///< vector of the discretes variables name
   std::vector<std::string> xNames_;  ///< vector of the continuous variables names
+  std::vector<std::string> xExternalNames_;  ///< vector of the external continuous variables names
   std::vector<std::string> calculatedVarNames_;  ///< vector of sub-model calculated variables names
   std::vector<std::pair<std::string, std::pair<std::string, bool> > > xAliasesNames_;  ///< vector of the continuous aliases variables names
   std::vector<std::pair<std::string, std::pair<std::string, bool> > > zAliasesNames_;  ///< vector of the discrete aliases variables names

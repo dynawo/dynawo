@@ -326,9 +326,9 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
     vector<adept::adouble> xExt(sizeYExternal());
     vector<adept::adouble> xpExt(sizeYExternal());
     for (size_t i = 0; i < sizeYExternal(); i++) {
-      double value = getVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      double value = getVariableValue(variablesByName_.at(xExternalNames().at(i)));
       xExt[i].set_value(value);
-      value = getDerivativeVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      value = getDerivativeVariableValue(variablesByName_.at(xExternalNames().at(i)));
       xpExt[i].set_value(value);
     }
 
@@ -362,7 +362,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
         double term = coeff * jac[indice] + cj * jac[indice + offsetJPrim];
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
-          throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), indice);   // i is local index
+          throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);   // i is local index
         }
 #endif
         Jt.addTerm(j + rowOffset, term);
@@ -375,7 +375,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
         int referenceIndex = getReferenceIndex(j);
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
-          throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), referenceIndex);
+          throw DYNError(Error::MODELER, JacobianWithExternalNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);
         }
 #endif
         Jt.addTerm(referenceIndex, term);
@@ -1438,9 +1438,9 @@ ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& 
     }
 
     for (size_t i = 0; i < sizeYExternal(); i++) {
-      double value = getVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      double value = getVariableValue(variablesByName_.at(xExternalNames().at(i)));
       xExt[i].set_value(value);
-      value = getDerivativeVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      value = getDerivativeVariableValue(variablesByName_.at(xExternalNames().at(i)));
       xpExt[i].set_value(value);
     }
 

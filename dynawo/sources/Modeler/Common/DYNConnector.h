@@ -474,7 +474,7 @@ class ConnectorContainer {
    *
    * In case the handled variable is an external continous variable, computes an unique id based on the names of the models and variable.
    *
-   * In case the handled variable is a problem variable, return the global variable index
+   * In case the handled variable is a state variable, return the global variable index
    *
    * @param cmodel the connected model
    * @returns an unique id

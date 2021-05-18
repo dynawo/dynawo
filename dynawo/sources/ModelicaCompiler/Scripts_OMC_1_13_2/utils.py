@@ -145,7 +145,7 @@ def get_map_var_name_2_addresses() :
 
 ##
 # Replace external variables references by its correct address
-# @param line the ine to process
+# @param line the line to process
 # @return the formatted line
 def replace_external_var_names(line):
     ptrn_ext_var = re.compile(r'\*\(data->externalVars\[(?P<index>\d+)\]\)')

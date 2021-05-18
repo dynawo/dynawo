@@ -188,10 +188,13 @@ void ModelMulti::processYConnectorsFullExternal() {
 
   for (std::vector<boost::shared_ptr<Connector> >::const_iterator it = connectors.begin(); it !=  connectors.end(); ++it) {
     boost::shared_ptr<Connector> yc = boost::make_shared<Connector>();
-    for (std::vector<connectedSubModel>::const_iterator it_s = (*it)->connectedSubModels().begin(); it_s != (*it)->connectedSubModels().end(); ++it_s) {
+    for (std::vector<connectedSubModel>::const_iterator itConnectedSubModel = (*it)->connectedSubModels().begin();
+      itConnectedSubModel != (*it)->connectedSubModels().end(); ++itConnectedSubModel) {
       // Make fictive variable model
-      boost::shared_ptr<FictiveVariableSubModel> model = boost::make_shared<FictiveVariableSubModel>(*it_s);
-      std::string name = "fict_" + it_s->subModel()->name() + "_" + it_s->variable()->getName();
+      boost::shared_ptr<SubModel> subModel = itConnectedSubModel->subModel();
+      boost::shared_ptr<Variable> variable = itConnectedSubModel->variable();
+      boost::shared_ptr<FictiveVariableSubModel> model = boost::make_shared<FictiveVariableSubModel>(subModel, variable);
+      std::string name = "fict_" + subModel->name() + "_" + variable->getName();
       model->name(name);
       boost::shared_ptr<SubModel> subModelConnector = dynamic_pointer_cast<SubModel>(model);
       addSubModel(subModelConnector, "");  // no library for connectors
@@ -202,7 +205,7 @@ void ModelMulti::processYConnectorsFullExternal() {
       assert(sizeExternal == 0);  // no external variable in these models
 
       // Make connected submodel for fictive variable
-      std::string varName = "fict_" + it_s->variable()->getName();
+      std::string varName = "fict_" + variable->getName();
       boost::shared_ptr<VariableNative> var = boost::dynamic_pointer_cast<VariableNative>(model->getVariable(varName));
       const bool negated = false;
       connectedSubModel connectedModel(model, var, negated);
@@ -211,10 +214,10 @@ void ModelMulti::processYConnectorsFullExternal() {
       yc->addConnectedSubModel(connectedModel);
 
       // link the fictive variable with their external variable
-      connectorContainer_->addExternalConnection(connectedModel, *it_s);
+      connectorContainer_->addExternalConnection(connectedModel, *itConnectedSubModel);
 
       // Add sub model to dependencies
-      it_s->subModel()->addFictiveVariableSubModelDependency(model);
+      subModel->addFictiveVariableSubModelDependency(model);
     }
     connectorContainer_->addYConnector(yc);
   }

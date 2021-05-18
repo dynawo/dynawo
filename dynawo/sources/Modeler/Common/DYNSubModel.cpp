@@ -235,6 +235,7 @@ SubModel::loadVariables(const map<string, string>& mapVariables) {
 void
 SubModel::initSize(int& sizeYGlob, int& sizeYExternalGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob) {
   getSize();
+  sizeYExternal_ = xExternalNames_.size();
 
   if (sizeY_ != xNames_.size())
       throw DYNError(Error::MODELER, MismatchingVariableSizes, "Y", name(), sizeY_, xNames_.size());
@@ -342,7 +343,7 @@ SubModel::getVariable(const string& variableName) const {
 int
 SubModel::getReferenceIndex(int externalIndexLocal) const {
   const boost::unordered_map<int, int>& externalConnections = connectorContainer_.lock()->externalConnectionsByVarNum();
-  int indexGlobalExternal = getVariableIndexGlobal(getVariable(xExternalNames_.at(externalIndexLocal)));
+  int indexGlobalExternal = getVariableIndexGlobal(getVariable(xExternalNames().at(externalIndexLocal)));
   return externalConnections.at(indexGlobalExternal);
 }
 

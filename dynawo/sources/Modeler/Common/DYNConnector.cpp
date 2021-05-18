@@ -143,17 +143,17 @@ ConnectorContainer::processExternalConnectors(std::list<boost::shared_ptr<Connec
       continue;
     }
 
-    std::vector<connectedSubModel> new_models;
+    std::vector<connectedSubModel> newModels;
     std::vector<connectedSubModel>& models = (*it)->connectedSubModels();
     for (std::vector<connectedSubModel>::const_iterator it = models.begin(); it != models.end(); ++it) {
       if (it->variable()->isExternal()) {
         externalVars.push_back(*it);
       } else {
-        new_models.push_back(*it);
+        newModels.push_back(*it);
       }
     }
     // replace previous models by filtered ones
-    models = new_models;
+    models = newModels;
 
     // This assert shouldn't happen since at least one variable is non external at this point
     assert((*it)->nbConnectedSubModels() > 0);
@@ -229,17 +229,17 @@ void
 ConnectorContainer::performExternalConnections() {
   for (boost::unordered_map<connectedSubModel, boost::unordered_set<DYN::connectedSubModel> >::const_iterator it =
     externalConnections_.begin(); it != externalConnections_.end(); ++it) {
-    double* const varRefLocalPtr = &(it->first.subModel()->yLocal()[it->first.variable()->getIndex()]);
+    double* const varRefLocalPtr = it->first.subModel()->yLocal(it->first.variable()->getIndex());
     int referenceVariableGlobalIndex = it->first.subModel()->getVariableIndexGlobal(it->first.variable());
 
-    double* const varPRefLocalPtr = &(it->first.subModel()->ypLocal()[it->first.variable()->getIndex()]);
-    for (boost::unordered_set<connectedSubModel>::const_iterator it_m = it->second.begin(); it_m != it->second.end(); ++it_m) {
-      const int externalVariableGlobalIndex = it_m->subModel()->getVariableIndexGlobal(it_m->variable());
+    double* const varPRefLocalPtr = it->first.subModel()->ypLocal(it->first.variable()->getIndex());
+    for (boost::unordered_set<connectedSubModel>::const_iterator itModel = it->second.begin(); itModel != it->second.end(); ++itModel) {
+      const int externalVariableGlobalIndex = itModel->subModel()->getVariableIndexGlobal(itModel->variable());
       externalConnectionsByVarNum_[externalVariableGlobalIndex] = referenceVariableGlobalIndex;
       Trace::debug(Trace::variables()) << DYNLog(ConnectorExternalConnection, externalVariableGlobalIndex,
-       it_m->subModel()->name(), it_m->variable()->getName(), referenceVariableGlobalIndex,  it->first.subModel()->name(),
+       itModel->subModel()->name(), itModel->variable()->getName(), referenceVariableGlobalIndex,  it->first.subModel()->name(),
        it->first.variable()->getName())<< Trace::endline;
-      it_m->subModel()->connectExternalVariable(varRefLocalPtr, varPRefLocalPtr, it_m->variable()->getIndex());
+      itModel->subModel()->connectExternalVariable(varRefLocalPtr, varPRefLocalPtr, itModel->variable()->getIndex());
     }
   }
 
