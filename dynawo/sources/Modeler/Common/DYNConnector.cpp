@@ -244,11 +244,9 @@ ConnectorContainer::performExternalConnections() {
     for (boost::unordered_set<connectedSubModel>::const_iterator it_m = it->second.begin(); it_m != it->second.end(); ++it_m) {
       const int externalVariableGlobalIndex = it_m->subModel()->getVariableIndexGlobal(it_m->variable());
       externalConnectionsByVarNum_[externalVariableGlobalIndex] = referenceVariableGlobalIndex;
-      Trace::debug(Trace::variables()) << "Connect external var num " <<
-        externalVariableGlobalIndex << "(" << it_m->subModel()->name() << ":" << it_m->variable()->getName() <<
-        ")" << " to " <<
-        referenceVariableGlobalIndex << "(" << it->first.subModel()->name() << ":" <<
-        it->first.variable()->getName() << ")" << Trace::endline;
+      Trace::debug(Trace::variables()) << DYNLog(ConnectorExternalConnection, externalVariableGlobalIndex,
+       it_m->subModel()->name(), it_m->variable()->getName(), referenceVariableGlobalIndex,  it->first.subModel()->name(),
+       it->first.variable()->getName())<< Trace::endline;
       it_m->subModel()->connectExternalVariable(varRefLocalPtr, varPRefLocalPtr, it_m->variable()->getIndex());
     }
   }

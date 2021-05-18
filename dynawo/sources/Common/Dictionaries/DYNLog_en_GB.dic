@@ -19,6 +19,7 @@ StaticConnect                 =             connecting %1%_%2% with %3%
 DynamicConnectStart           =             connection list
 DynamicConnect                =             connecting %1%_%2% with %3%_%4%
 ModelName                     =             model :
+ConnectorExternalConnection   =             connect external var num %1% (%2%:%3%) to %4%(%5%:%6%)
 ConnectedModels               =             model %1% to model %2%
 SolveParameters               =             starting local initialization of model %1%
 SolveParametersOK             =             local initialization of model %1% ended successfully
