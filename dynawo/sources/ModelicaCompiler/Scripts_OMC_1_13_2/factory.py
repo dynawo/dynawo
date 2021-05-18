@@ -1453,7 +1453,7 @@ class Factory:
     # @return
     def prepare_for_sety0external(self):
         # We concatenate system vars
-        list_vars = itertools.chain(self.list_vars_syst, self.list_vars_int, self.reader.list_complex_const_vars)
+        list_vars = itertools.chain(self.list_vars_syst)
         found_init_by_param_and_at_least2lines = False # for reading comfort when printing
 
         # sort by taking init function number read in *06inz.c
