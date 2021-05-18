@@ -546,7 +546,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
   SparseMatrix smj;
-  int size = modelOmegaRef->sizeY() + 2;  // counting the external variables
+  int size = modelOmegaRef->sizeY() + modelOmegaRef->sizeYExternal();  // counting the external variables
   smj.init(size, size);
   modelOmegaRef->evalJt(0, 0, smj, 0);
   smj.changeCol();
@@ -570,17 +570,17 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[12], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[13], -1);
 
-  y[10] = 2.5;  // Modifying omegaGrp_0
+  yother[0] = 2.5;  // Modifying omegaGrp_0
   modelOmegaRef->evalF(1, UNDEFINED_EQ);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], -1.5);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
 
   y[0] = 2;  // Modifying omegaRef_grp_0
   modelOmegaRef->evalF(1, UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], -0.5);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 1);
   SparseMatrix smjPrim;
   smjPrim.init(size, size);
@@ -591,16 +591,16 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_THROW_DYNAWO(modelOmegaRef->checkDataCoherence(0), Error::MODELER, KeyError_t::FrequencyIncrease);
 
   z[2] = 0;  // Switching off gen1
-  yother[0] = 2;
-  yother[1] = 2;
+  y[10] = 2;
+  y[11] = 2;
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, NO_MODE);
   modelOmegaRef->evalZ(2);  // Propagating the changes to internal discrete values
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, ALGEBRAIC_J_UPDATE_MODE);
   modelOmegaRef->evalF(2, UNDEFINED_EQ);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], -1.5);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], -1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
   SparseMatrix smj2;
   smj2.init(size, size);
   modelOmegaRef->evalJt(2, 0, smj2, 0);
