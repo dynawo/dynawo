@@ -1452,12 +1452,8 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_sety0external(self):
-        # We concatenate system vars
-        list_vars = itertools.chain(self.list_vars_syst)
-        found_init_by_param_and_at_least2lines = False # for reading comfort when printing
-
         # sort by taking init function number read in *06inz.c
-        list_vars = sorted(list_vars,key = cmp_to_key_dynawo(cmp_num_init_vars))
+        list_vars = sorted(self.list_vars_syst,key = cmp_to_key_dynawo(cmp_num_init_vars))
         # We prepare the results to print in setY0omc
         iexternal = 0
 

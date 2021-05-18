@@ -248,8 +248,8 @@ class MyModelica: public ModelModelica {
     ASSERT_EQ(yExt.size(), 1);
     ASSERT_EQ(ypExt.size(), 1);
     ASSERT_EQ(res.size(), 2);
-    res[0] = 2*y[0]+yp[1];
-    res[1] = 0.5*y[1]-yp[0];
+    res[0] = 2*y[0]+yp[1] - yExt[0];
+    res[1] = 0.5*y[1]-yp[0] - ypExt[0];
   }
 #endif
 
@@ -497,6 +497,7 @@ class MyModelicaInit: public MyModelica {
   virtual void initData(DYNDATA* data) {
     data->nbF = 1;
     data->nbCalculatedVars = 0;
+    data->nbExternalVars = 0;
     data->nbDelays = 0;
     data->nbModes = 0;
     data->nbVars = 1;
@@ -689,24 +690,27 @@ TEST(TestModelManager, TestModelManagerBasics) {
   int size = mm->sizeF();
   smj.init(size, size);
   mm->evalJt(0., 1., smj, 0);
-  ASSERT_EQ(smj.nbElem(), 4);
+  ASSERT_EQ(smj.nbElem(), 6);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 2.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3], .5);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3], -1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[4], .5);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[5], -1);
   ASSERT_EQ(smj.Ap_[0], 0);
-  ASSERT_EQ(smj.Ap_[1], 2);
-  ASSERT_EQ(smj.Ap_[2], 4);
+  ASSERT_EQ(smj.Ap_[1], 3);
+  ASSERT_EQ(smj.Ap_[2], 6);
 
   SparseMatrix smj2;
   smj2.init(size, size);
   mm->evalJtPrim(0., 1., smj2, 0);
-  ASSERT_EQ(smj2.nbElem(), 2);
+  ASSERT_EQ(smj2.nbElem(), 3);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[0], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[1], -1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[2], -1.);
   ASSERT_EQ(smj2.Ap_[0], 0);
   ASSERT_EQ(smj2.Ap_[1], 1);
-  ASSERT_EQ(smj2.Ap_[2], 2);
+  ASSERT_EQ(smj2.Ap_[2], 3);
 
   mm->setSharedParametersDefaultValues();
   mm->setSharedParametersDefaultValuesInit();
