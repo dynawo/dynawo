@@ -826,7 +826,6 @@ ModelLine::defineElements(std::vector<Element>& elements, std::map<std::string, 
     addElement(name, Element::STRUCTURE, elements, mapElement);
     addSubElement("re", name, Element::TERMINAL, id(), modelType_, elements, mapElement);
     addSubElement("im", name, Element::TERMINAL, id(), modelType_, elements, mapElement);
-    addElementWithValue(lineName + string("_omegaRef"), modelType_, elements, mapElement);
   }
   addElementWithValue(lineName + string("_i1"), modelType_, elements, mapElement);
   addElementWithValue(lineName + string("_i2"), modelType_, elements, mapElement);
@@ -1050,10 +1049,6 @@ ModelLine::setFequations(std::map<int, std::string>& fEquationIndex) {
 
 void
 ModelLine::evalStaticYType() {
-  if (network_->isInitModel()) return;
-  if (isDynamic_) {
-    yType_[2] = EXTERNAL;
-  }
 }
 
 void

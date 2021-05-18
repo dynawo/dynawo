@@ -465,6 +465,10 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[zQIdx], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[zPIdx], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[zQIdx], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(*yExternal[0], 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(*yExternal[1], 5);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(*ypExternal[0], 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(*ypExternal[1], 5);
 
   // test evalF
   load->evalF(UNDEFINED_EQ);
@@ -576,7 +580,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   y[zPIdx] = 5;
   y[zQIdx] = 11;
   SparseMatrix smj;
-  int size = load->sizeY() + 2;
+  int size = load->sizeY() + load->sizeYExternal();
   smj.init(size, size);
   load->evalJt(smj, 1., 0);
   smj.changeCol();

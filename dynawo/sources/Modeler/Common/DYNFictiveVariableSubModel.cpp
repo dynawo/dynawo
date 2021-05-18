@@ -22,7 +22,7 @@
 #include "DYNVariableNativeFactory.h"
 
 namespace DYN {
-FictiveVariableSubModel::FictiveVariableSubModel(const connectedSubModel& connectedModel) : SubModel(), referenceConnectedModel_(connectedModel) {}
+FictiveVariableSubModel::FictiveVariableSubModel(const connectedSubModel& connectedModel) : referenceConnectedModel_(connectedModel) {}
 
 void
 FictiveVariableSubModel::getSize() {
@@ -36,7 +36,7 @@ FictiveVariableSubModel::getY0() {
   // it was a regular native variable of the model. This information is given by the sub model
 
   referenceConnectedModel_.subModel()->getY0External(referenceConnectedModel_.variable()->getIndex(), yLocal_[0]);
-  ypLocal_[0] = 0.;  // no derivative for external variable
+  ypLocal_[0] = 0.;  // derivative for external variables are always initialized to 0
 }
 
 void
@@ -56,8 +56,8 @@ FictiveVariableSubModel::evalCalculatedVarI(unsigned) const {
 
 void
 FictiveVariableSubModel::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState("fict_" + referenceConnectedModel_.variable()->getName(),
-                                                         referenceConnectedModel_.variable()->getType(), referenceConnectedModel_.variable()->getNegated()));
+  boost::shared_ptr<Variable> referenceVar = referenceConnectedModel_.variable();
+  variables.push_back(VariableNativeFactory::createState("fict_" + referenceVar->getName(), referenceVar->getType(), referenceVar->getNegated()));
 }
 
 }  // namespace DYN

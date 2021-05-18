@@ -14,8 +14,10 @@
 /**
  * @file  DYNFictiveVariableSubModel.h
  *
- * @brief Submodel for fictive variable header : defines a sub model used only when creating a connectedSubmodel with a fictive variable refering
- to an external variable. This model aims only to have one variable, with any logical operation
+ * @brief Submodel for fictive variable header : defines a submodel that creates a state variable corresponding to an external variable.
+ * Used when there is a connection with only external variables.
+ *
+ * This model aims only to have one variable, with no logical operation
  *
  */
 
@@ -34,8 +36,8 @@ namespace DYN {
 /**
  * @brief Sub model for fictive variable
  *
- * This sub model aims to handle a native variable connected to an external variable. This aims to re-introduce into the optimization
- * problem connected external variables which do not have a reference native variable and threfore cannot be connected throught the buffers
+ * This sub model aims to handle a state variable connected to an external variable. This aims to re-introduce into the optimization
+ * problem connected external variables which do not have a reference state variable and therefore cannot be connected throught the buffers
  * like regular external variables
  */
 class FictiveVariableSubModel : public SubModel {
@@ -43,14 +45,15 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @brief Constructor
    *
-   * @param connectedModel the reference model containing the reference external variable
+   * @param externalConnectedSubModel the reference model containing the reference external variable
    */
-  explicit FictiveVariableSubModel(const connectedSubModel& connectedModel);
+  explicit FictiveVariableSubModel(const connectedSubModel& externalConnectedSubModel);
 
   /**
    * @copydoc SubModel::initializeStaticData()
    */
-  void initializeStaticData() { /*no static data*/
+  void initializeStaticData() {
+    /*no static data*/
   }
 
   /**
@@ -104,7 +107,8 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @copydoc SubModel::initParams()
    */
-  void initParams() { /*no parameter*/
+  void initParams() {
+    /*no parameter*/
   }
 
   /**
@@ -120,18 +124,23 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @copydoc SubModel::evalDynamicFType()
    */
-  void evalDynamicFType() { /* not needed */
+  void evalDynamicFType() {
+    /* not needed */
   }
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&, std::vector<int>&) const {}
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&, std::vector<int>&) const {
+    /* not needed */
+  }
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
    */
-  void evalJCalculatedVarI(unsigned, std::vector<double>&) const {}
+  void evalJCalculatedVarI(unsigned, std::vector<double>&) const {
+    /* not needed */
+  }
 
   /**
    * @copydoc SubModel::evalCalculatedVarI(unsigned iCalculatedVar) const
@@ -156,43 +165,57 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @copydoc SubModel::evalDynamicYType()
    */
-  void evalDynamicYType() { /* not needed */
+  void evalDynamicYType() {
+    /* not needed */
   }
 
   /**
    * @brief export the parameters of the sub model for dump
    */
-  void dumpParameters(std::map<std::string, std::string>&) {}
+  void dumpParameters(std::map<std::string, std::string>&) {
+    /* not needed */
+  }
 
   /**
    * @brief retrieve the value of a parameter
    */
-  void getSubModelParameterValue(const std::string&, double&, bool&) {}
+  void getSubModelParameterValue(const std::string&, double&, bool&) {
+    /* not needed */
+  }
 
   /**
    * @brief export the variables values of the sub model for dump
    */
-  void dumpVariables(std::map<std::string, std::string>&) {}
+  void dumpVariables(std::map<std::string, std::string>&) {
+    /* not needed */
+  }
 
   /**
    * @brief load variables from a previous save
    */
-  void loadParameters(const std::string&) {}
+  void loadParameters(const std::string&) {
+    /*not needed*/
+  }
 
   /**
    * @brief load the variables values from a previous dump
    */
-  void loadVariables(const std::string&) {}
+  void loadVariables(const std::string&) {
+    /*not needed*/
+  }
 
   /**
    * @brief write initial values of a model in a file
    */
-  void printInitValues(const std::string&) {}
+  void printInitValues(const std::string&) {
+    /*not needed*/
+  }
 
   /**
    * @copydoc SubModel::rotateBuffers()
    */
-  void rotateBuffers() { /*not needed*/
+  void rotateBuffers() {
+    /*not needed*/
   }
 
   /**
@@ -203,49 +226,64 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @brief define each parameters of the model
    */
-  void defineParameters(std::vector<ParameterModeler>&) {}
+  void defineParameters(std::vector<ParameterModeler>&) {
+    /*not needed*/
+  }
 
   /**
    * @brief define each variables of the init model
    */
-  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >&) {}
+  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >&) {
+    /*not needed*/
+  }
 
   /**
    * @brief define each parameters of the init model
    */
-  void defineParametersInit(std::vector<ParameterModeler>&) {}
+  void defineParametersInit(std::vector<ParameterModeler>&) {
+    /*not needed*/
+  }
 
   /**
    * @brief set the silent flag for discrete variables
    */
-  void checkDataCoherence(const double) {}
+  void checkDataCoherence(const double) {
+    /*not needed*/
+  }
 
   /**
    * @copydoc SubModel::checkParametersCoherence () const
    */
-  void checkParametersCoherence() const {}
+  void checkParametersCoherence() const {
+    /*not needed*/
+  }
 
   /**
    * @copydoc SubModel::setFequations()
    */
-  void setFequations() {}
+  void setFequations() {
+    /*not needed*/
+  }
 
   /**
    * @copydoc SubModel::setGequations()
    */
-  void setGequations() { /*no G equation*/
+  void setGequations() {
+    /*no G equation*/
   }
 
   /**
    * @copydoc SubModel::setFequationsInit()
    */
-  void setFequationsInit() { /*no F equation*/
+  void setFequationsInit() {
+    /*no F equation*/
   }
 
   /**
    * @copydoc SubModel::setGequationsInit()
    */
-  void setGequationsInit() { /*no G equation*/
+  void setGequationsInit() {
+    /*no G equation*/
   }
 
   /**
@@ -256,7 +294,9 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @copydoc SubModel::initSubBuffers()
    */
-  void initSubBuffers() {}
+  void initSubBuffers() {
+    /*not needed*/
+  }
 
   /**
    * @copydoc SubModel::modelType() const
@@ -268,17 +308,23 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @copydoc SubModel::setSubModelParameters()
    */
-  void setSubModelParameters() {}
+  void setSubModelParameters() {
+    /*not needed*/
+  }
 
   /**
    * @copydoc SubModel::setSharedParametersDefaultValues()
    */
-  void setSharedParametersDefaultValues() {}
+  void setSharedParametersDefaultValues() {
+    /*not needed*/
+  }
 
   /**
    * @copydoc SubModel::setSharedParametersDefaultValuesInit()
    */
-  void setSharedParametersDefaultValuesInit() {}
+  void setSharedParametersDefaultValuesInit() {
+    /*not needed*/
+  }
 
   /**
    * @brief Model elements initializer

@@ -94,7 +94,7 @@ NetworkComponent::Impl::setBufferFType(propertyF_t* fType, const unsigned int& o
 }
 
 void
-NetworkComponent::Impl::setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext,
+NetworkComponent::Impl::setReferenceY(double* y, double* yp, double** yExt, double** ypExt,
   double* f, const int& offsetY, const int& offsetF, int offsetYExternal) {
   if (sizeY() != 0) {
     y_ = &(y[offsetY]);
@@ -102,8 +102,8 @@ NetworkComponent::Impl::setReferenceY(double* y, double* yp, double** y_ext, dou
   }
 
   if (sizeYExternal_ > 0) {
-    yExternal_ = &(y_ext[offsetYExternal]);
-    ypExternal_ = &(yp_ext[offsetYExternal]);
+    yExternal_ = &(yExt[offsetYExternal]);
+    ypExternal_ = &(ypExt[offsetYExternal]);
   }
 
   if (sizeF() != 0)

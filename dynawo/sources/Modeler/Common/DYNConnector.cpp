@@ -77,11 +77,11 @@ ConnectorContainer::~ConnectorContainer() {
 }
 
 bool ConnectorContainer::IsExternalPredicate::operator()(const connectedSubModel& cmodel) const {
-  return SubModel::isVariableExternal(cmodel.variable());
+  return cmodel.variable()->isExternal();
 }
 
 bool ConnectorContainer::IsNonExternalPredicate::operator()(const connectedSubModel& cmodel) const {
-  return !SubModel::isVariableExternal(cmodel.variable());
+  return !cmodel.variable()->isExternal();
 }
 
 unsigned int ConnectorContainer::nbYConnectors() const {
@@ -129,18 +129,18 @@ ConnectorContainer::processExternalConnectors(std::list<boost::shared_ptr<Connec
 
   yConnectorsFullExternal_.clear();
 
-  std::vector<connectedSubModel> external_vars;
-  list<shared_ptr<Connector> >::iterator it_to_remove = yConnectorsList.end();
+  std::vector<connectedSubModel> externalVars;
+  list<shared_ptr<Connector> >::iterator iteratorToRemove = yConnectorsList.end();
   for (list<shared_ptr<Connector> >::iterator it = yConnectorsList.begin(); it != yConnectorsList.end(); ++it) {
     // remove the item designated to be removed by previous loop index before processing new item
-    if (it_to_remove != yConnectorsList.end()) {
-      yConnectorsList.erase(it_to_remove);
-      it_to_remove = yConnectorsList.end();
+    if (iteratorToRemove != yConnectorsList.end()) {
+      yConnectorsList.erase(iteratorToRemove);
+      iteratorToRemove = yConnectorsList.end();
     }
 
     if ((*it)->nbConnectedSubModels() == 0) {
       // no submodel connected in this connector: nothing to do and remove it
-      it_to_remove = it;
+      iteratorToRemove = it;
       continue;
     }
 
@@ -149,7 +149,7 @@ ConnectorContainer::processExternalConnectors(std::list<boost::shared_ptr<Connec
     if (found == (*it)->connectedSubModels().end()) {
       // case only external variables in connectors: save the connector for further process and remove it from the actual list
       yConnectorsFullExternal_.push_back(*it);
-      it_to_remove = it;
+      iteratorToRemove = it;
       continue;
     }
 
@@ -159,7 +159,7 @@ ConnectorContainer::processExternalConnectors(std::list<boost::shared_ptr<Connec
       if (found == (*it)->connectedSubModels().end()) {
         break;
       }
-      external_vars.push_back(*found);
+      externalVars.push_back(*found);
       (*it)->connectedSubModels().erase(found);
     } while (true);
 
@@ -168,20 +168,20 @@ ConnectorContainer::processExternalConnectors(std::list<boost::shared_ptr<Connec
 
     if ((*it)->nbConnectedSubModels() == 1) {
       // this corresponds to the case 1 non-external variable connected to n external variables
-      it_to_remove = it;
+      iteratorToRemove = it;
     }
 
-    if (external_vars.size() > 0) {
+    if (externalVars.size() > 0) {
       // In case there is a connector with more than one non external variable, we can use anyone
       boost::unordered_set<DYN::connectedSubModel>& connections = externalConnections_[(*it)->connectedSubModels().front()];
-      connections.insert(external_vars.begin(), external_vars.end());
-      external_vars.clear();
+      connections.insert(externalVars.begin(), externalVars.end());
+      externalVars.clear();
     }
   }
 
-  if (it_to_remove != yConnectorsList.end()) {
-    yConnectorsList.erase(it_to_remove);
-    it_to_remove = yConnectorsList.end();
+  if (iteratorToRemove != yConnectorsList.end()) {
+    yConnectorsList.erase(iteratorToRemove);
+    iteratorToRemove = yConnectorsList.end();
   }
 }
 
@@ -237,19 +237,19 @@ void
 ConnectorContainer::performExternalConnections() {
   for (boost::unordered_map<connectedSubModel, boost::unordered_set<DYN::connectedSubModel> >::const_iterator it =
     externalConnections_.begin(); it != externalConnections_.end(); ++it) {
-    double* const var_ref_local = &(it->first.subModel()->yLocal()[it->first.variable()->getIndex()]);
-    int num_var_ref = it->first.subModel()->getVariableIndexGlobal(it->first.variable());
+    double* const varRefLocalPtr = &(it->first.subModel()->yLocal()[it->first.variable()->getIndex()]);
+    int referenceVariableGlobalIndex = it->first.subModel()->getVariableIndexGlobal(it->first.variable());
 
-    double* const var_p_ref_local = &(it->first.subModel()->ypLocal()[it->first.variable()->getIndex()]);
+    double* const varPRefLocalPtr = &(it->first.subModel()->ypLocal()[it->first.variable()->getIndex()]);
     for (boost::unordered_set<connectedSubModel>::const_iterator it_m = it->second.begin(); it_m != it->second.end(); ++it_m) {
-      const int num_var = it_m->subModel()->getVariableIndexGlobal(it_m->variable());
-      externalConnectionsByVarNum_[num_var] = num_var_ref;
+      const int externalVariableGlobalIndex = it_m->subModel()->getVariableIndexGlobal(it_m->variable());
+      externalConnectionsByVarNum_[externalVariableGlobalIndex] = referenceVariableGlobalIndex;
       Trace::debug(Trace::variables()) << "Connect external var num " <<
-        num_var << "(" << it_m->subModel()->name() << ":" << it_m->variable()->getName() <<
+        externalVariableGlobalIndex << "(" << it_m->subModel()->name() << ":" << it_m->variable()->getName() <<
         ")" << " to " <<
-        num_var_ref << "(" << it->first.subModel()->name() << ":" <<
+        referenceVariableGlobalIndex << "(" << it->first.subModel()->name() << ":" <<
         it->first.variable()->getName() << ")" << Trace::endline;
-      it_m->subModel()->connectExternalVariable(var_ref_local, var_p_ref_local, it_m->variable()->getIndex());
+      it_m->subModel()->connectExternalVariable(varRefLocalPtr, varPRefLocalPtr, it_m->variable()->getIndex());
     }
   }
 

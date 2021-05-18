@@ -46,8 +46,8 @@ namespace DYN {
     double evalCalculatedVarI(unsigned iCalculatedVar) const;
     void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
 #ifdef _ADEPT_
-    void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &F);
-    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext) const;
+    void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &yExt, const std::vector<adept::adouble> &ypExt, std::vector<adept::adouble> &F);
+    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &yExt, const std::vector<adept::adouble> &ypExt) const;
 #endif
 
     void checkDataCoherence ();
@@ -58,7 +58,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("0f7b14a7ab899e56faffdf24edb90272"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("3ba205294ca0c09bcc0a831d1196f67e"); }
 
     private:
     DYNDATA * data;

@@ -208,9 +208,9 @@ class NetworkComponent::Impl : public NetworkComponent {
   void setBufferFType(propertyF_t* fType, const unsigned int& offset);
 
   /**
-   * @copydoc NetworkComponent::setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext, double* f, const int & offsetY, const int& offsetF, int offsetYExternal)
+   * @copydoc NetworkComponent::setReferenceY(double* y, double* yp, double** yExt, double** ypExt, double* f, const int & offsetY, const int& offsetF, int offsetYExternal)
    */
-  void setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext, double* f, const int& offsetY, const int& offsetF, int offsetYExternal);
+  void setReferenceY(double* y, double* yp, double** yExt, double** ypExt, double* f, const int& offsetY, const int& offsetF, int offsetYExternal);
 
   /**
    * @copydoc NetworkComponent::setReferenceZ( double* z, bool* zConnected, const int & offsetZ )
@@ -378,7 +378,7 @@ class NetworkComponent::Impl : public NetworkComponent {
 
   int sizeF_;  ///< size of F
   int sizeY_;  ///< size of Y
-  size_t sizeYExternal_;  ///< size of external Y
+  int sizeYExternal_;  ///< size of external Y
   int sizeZ_;  ///< size of Z
   int sizeG_;  ///< size of G
   int sizeMode_;  ///< size of Mode

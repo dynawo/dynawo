@@ -519,7 +519,7 @@ class Factory:
         iexternal = 0
         for v in self.list_vars_der:
             if v.get_name() in self.reader.fictive_continuous_vars_der:
-                v.set_dynawo_name("xd_ext[%s]" % str(iexternal))
+                v.set_dynawo_name("xdExt[%s]" % str(iexternal))
                 iexternal += 1
             else:
                 v.set_dynawo_name( "xd[%s]" % str(i) )
@@ -542,7 +542,7 @@ class Factory:
         for v in self.list_vars_syst:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
             if v.get_name() in self.reader.fictive_continuous_vars:
-                v.set_dynawo_name( "x_ext[%s]" % str(iexternal) )
+                v.set_dynawo_name( "xExt[%s]" % str(iexternal) )
                 iexternal += 1
             else:
                 v.set_dynawo_name( "x[%s]" % str(i) )
@@ -1447,8 +1447,11 @@ class Factory:
         # convert native boolean variables
         convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], self.list_for_sety0)
 
+    ##
+    # prepare the variables for setY0External methods
+    # @param self : object pointer
+    # @return
     def prepare_for_sety0external(self):
-        # In addition to system vars, discrete vars (bool or not) must be initialized as well
         # We concatenate system vars and discrete vars
         list_vars = itertools.chain(self.list_vars_syst, self.list_all_vars_discr, self.list_vars_int, self.reader.list_complex_const_vars)
         found_init_by_param_and_at_least2lines = False # for reading comfort when printing
@@ -1501,11 +1504,6 @@ class Factory:
                     init_val = "0.0"
                 self.list_for_sety0external.extend(get_value_lines(iexternal, var.get_name(), init_val))
                 iexternal += 1
-            # expr = self.reader.dic_calculated_vars_values[var_name]
-            # index = self.dic_calc_var_index[var_name]
-            # self.list_for_sety0external.append("  if (numVarEx == " + str(index)+")  /* "+ var_name + " */\n")
-            # self.list_for_sety0external.append("    value = "+ expr+";\n")
-            # self.list_for_sety0external.append("    return true;\n")
         convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], self.list_for_sety0external)
         self.list_for_sety0external.append("  throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);\n")
 
@@ -1523,6 +1521,10 @@ class Factory:
         return self.list_for_sety0
 
 
+    ##
+    # return the list of lines that constitues the body of setY0External
+    # @param self : object pointer
+    # @return list of lines
     def get_list_for_sety0external(self):
         for line in self.list_for_sety0external:
             if "omc_Modelica_Math_atan3" in line:
@@ -2491,7 +2493,7 @@ class Factory:
         self.list_for_evalfadept.append("  /*\n")
         for v in self.list_vars_syst + self.list_vars_der:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
-            if v.get_name() in self.reader.fictive_continuous_vars: continue
+            # if v.get_name() in self.reader.fictive_continuous_vars: continue
             if v.get_name() in self.reader.fictive_continuous_vars_der: continue
             self.list_for_evalfadept.append( "    %s : %s\n" % (to_compile_name(v.get_name()), v.get_dynawo_name()) )
         self.list_for_evalfadept.append("\n")
@@ -2942,7 +2944,7 @@ class Factory:
                 var_ext = ""
                 if is_alg_var(v) : spin = "ALGEBRAIC"
                 if v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var and v.get_dyn_type() == "CONTINUOUS":
-                  # skip external variables
+                  # skip continuous external variables
                   continue
                 elif v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var:
                   spin = "EXTERNAL"
@@ -3419,7 +3421,7 @@ class Factory:
                         if name in calc_var_to_offset:
                             offset = calc_var_to_offset[name]
                         line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                            "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd, x_ext, xd_ext) /* " + name)
+                            "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd, xExt, xdExt) /* " + name)
                 body.append(line)
 
 
@@ -3438,11 +3440,16 @@ class Factory:
     def get_list_for_evalcalculatedvariadept(self):
         return self.list_for_evalcalculatedvariadept
 
+    ##
+    # Extract the cpp array index
+    # @param self pointer
+    # @param var the string representation of the variable as an array case
+    # @return the index of the variable in its array
     def extract_index_var(self, var):
         name = var.get_dynawo_name()
         is_external = False
         if var.get_name() in self.reader.fictive_continuous_vars:
-            base = "x_ext"
+            base = "xExt"
             is_external = True
         else:
             base = "x"

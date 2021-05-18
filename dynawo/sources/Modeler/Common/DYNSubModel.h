@@ -67,19 +67,6 @@ class Element;
 class SubModel {
  public:
   /**
-   * @brief Check if a variable is external
-   *
-   * A variable is considered external (Dynawo level) if it is external (dynawo model level) and continuous
-   *
-   * @param var the variable to check
-   * @returns the check status
-   */
-  static inline bool isVariableExternal(const boost::shared_ptr<Variable>& var) {
-    return var->isExternal() && var->getType() == CONTINUOUS;
-  }
-
- public:
-  /**
    * @brief default constructor
    */
   SubModel();
@@ -257,7 +244,7 @@ class SubModel {
    * @brief Retrieve the init value for external variable
    *
    * Retrieve the initial value that the external whould have been initialized to if the variable was
-   * a regular variable of the model. This is relevant only for the first iteration of the  solver's process
+   * a regular variable of the model. this is relevant only for local initialization
    * as after that the external variables have the value of their connected variable.
    *
    * @param numVarEx Local external variable index
@@ -367,7 +354,7 @@ class SubModel {
    *
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes
-   * @param indexesExternal indexes of external variables
+   * @param indexesExternal vector to fill with theindexes of external variables
    */
   virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const = 0;
 
@@ -441,7 +428,7 @@ class SubModel {
    * @param sizeFGlob offset to use for the subModel in the F global vector
    * @param sizeGGlob offset to use for the subModel in the G global vector
    */
-  void initSize(int &sizeYGlob, int& sizeYExternalGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob);
+  void initSize(int& sizeYGlob, int& sizeYExternalGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob);
 
   /**
    * @brief Model F(t,y,y') function evaluation
@@ -731,7 +718,7 @@ class SubModel {
   double getVariableValue(const boost::shared_ptr<Variable>& variable) const;
 
   /**
-   * @brief retrieve the current erivative value of a given variable
+   * @brief retrieve the current derivative value of a given variable
    *
    * @param variable variable
    *
@@ -1453,13 +1440,13 @@ class SubModel {
   /**
    * @brief Connect an external variable to a reference
    *
-   * @param value_ref the reference buffer for the value of the variable
-   * @param value_p_ref the reference buffer for the derivative value of the variable
+   * @param referenceValuePtr the reference buffer for the value of the variable
+   * @param referenceValuePPtr the reference buffer for the derivative value of the variable
    * @param indexExternalVariable the local index of the external variable
    */
-  void connectExternalVariable(double* const value_ref, double* const value_p_ref, int indexExternalVariable) {
-    yExternalLocal_[indexExternalVariable] = value_ref;
-    ypExternalLocal_[indexExternalVariable] = value_p_ref;
+  void connectExternalVariable(double* const referenceValuePtr, double* const referenceValuePPtr, int indexExternalVariable) {
+    yExternalLocal_[indexExternalVariable] = referenceValuePtr;
+    ypExternalLocal_[indexExternalVariable] = referenceValuePPtr;
   }
 
   /**
@@ -1476,9 +1463,7 @@ class SubModel {
   /**
    * @brief Add a dependency submodel handling a fictive variable
    *
-   * This variable will be initialized with the rest of the model as long as during its own initialization. That way,
-   * if the external variables referenced by these fictive variables are used during initialization, they will have the correct
-   * value
+   * During the initialization phase, the model @a model will be initialized before this model. see @a getY0Sub
    *
    * @param model the model to add
    */

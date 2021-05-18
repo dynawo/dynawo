@@ -36,7 +36,7 @@ set(MODELER_SOURCES
     DYNDelay.cpp
     DYNDelayManager.cpp
     DYNRingBuffer.cpp
-    DYNFictiveVariableSubModel
+    DYNFictiveVariableSubModel.cpp
     )
 
 set(MODELER_INCLUDE_HEADERS

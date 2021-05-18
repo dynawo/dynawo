@@ -601,7 +601,7 @@ void
 ModelLoad::getY0External(unsigned int numVarEx, double& value) const {
   // deltaPc and deltaQc
   if (isControllable_ &&
-    (numVarEx == 0 || numVarEx == 1)) {
+    (numVarEx == DeltaPcYNum_ || numVarEx == DeltaQcYNum_)) {
     value = 0.0;
     return;
   }

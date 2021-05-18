@@ -62,8 +62,6 @@ class VariableNativeFactory {
   /**
    * @brief Create new external VariableNative instance
    *
-   * External variables (dyanwo model level) will be considered external in dynawo logic only if they are continuous
-   *
    * @param[in] name name of the new VariableNative instance
    * @param[in] type the VariableNative type (INTEGER, BOOLEAN, ...)
    * @param[in] negated @b whether the variable is negated

@@ -351,8 +351,8 @@ void ModelGeneratorPQ_Init::defineParameters(std::vector<ParameterModeler>& para
 #ifdef _ADEPT_
 void ModelGeneratorPQ_Init::evalFAdept(const std::vector<adept::adouble> & x,
                               const std::vector<adept::adouble> & xd,
-                              const std::vector<adept::adouble> & x_ext,
-                              const std::vector<adept::adouble> & xd_ext,
+                              const std::vector<adept::adouble> & xExt,
+                              const std::vector<adept::adouble> & xdExt,
                               std::vector<adept::adouble> & res)
 {
   /*
@@ -506,7 +506,7 @@ double ModelGeneratorPQ_Init::evalCalculatedVarI(unsigned iCalculatedVar) const
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd, const std::vector<adept::adouble> &x_ext, const std::vector<adept::adouble> &xd_ext) const
+adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd, const std::vector<adept::adouble> &xExt, const std::vector<adept::adouble> &xdExt) const
 {
   if (iCalculatedVar == 0)  /* generator.PGen0Pu */
   {

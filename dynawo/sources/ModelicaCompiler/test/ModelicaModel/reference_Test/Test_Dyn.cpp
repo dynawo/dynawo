@@ -310,8 +310,8 @@ void ModelTest_Dyn::defineElements(std::vector<Element>& elements, std::map<std:
 #ifdef _ADEPT_
 void ModelTest_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
                               const std::vector<adept::adouble> & xd,
-                              const std::vector<adept::adouble> & x_ext,
-                              const std::vector<adept::adouble> & xd_ext,
+                              const std::vector<adept::adouble> & xExt,
+                              const std::vector<adept::adouble> & xdExt,
                               std::vector<adept::adouble> & res)
 {
   /*
@@ -375,7 +375,7 @@ double ModelTest_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd, const std::vector<adept::adouble> &x_ext, const std::vector<adept::adouble> &xd_ext) const
+adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd, const std::vector<adept::adouble> &xExt, const std::vector<adept::adouble> &xdExt) const
 {
   if (iCalculatedVar == 0)  /* y */
   {
@@ -385,7 +385,7 @@ adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, u
 
   if (iCalculatedVar == 1)  /* z */
   {
-      return (4.0) * ((evalCalculatedVarIAdept(0, indexOffset + 1, x, xd, x_ext, xd_ext) /* y variable */) * (x[indexOffset +0]));
+      return (4.0) * ((evalCalculatedVarIAdept(0, indexOffset + 1, x, xd, xExt, xdExt) /* y variable */) * (x[indexOffset +0]));
   }
 
 

@@ -319,14 +319,14 @@ ModelVoltageLevel::getY0() {
 
 void
 ModelVoltageLevel::getY0External(unsigned int numVarEx, double& value) const {
-  int numVarExt_tmp = static_cast<int>(numVarEx);
+  int numVarExtTmp = static_cast<int>(numVarEx);
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
   itComponent != components_.end(); ++itComponent) {
-    if (numVarExt_tmp < (*itComponent)->sizeYExternal()) {
-      (*itComponent)->getY0External(numVarExt_tmp, value);
+    if (numVarExtTmp < (*itComponent)->sizeYExternal()) {
+      (*itComponent)->getY0External(numVarExtTmp, value);
       return;
     }
-    numVarExt_tmp -= (*itComponent)->sizeYExternal();
+    numVarExtTmp -= (*itComponent)->sizeYExternal();
   }
 
   throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
@@ -542,10 +542,10 @@ ModelVoltageLevel::evalCalculatedVars() {
 }
 
 void
-ModelVoltageLevel::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars, std::vector<int>& indexesExternal) const {
+ModelVoltageLevel::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars, std::vector<int>& numVarsExternal) const {
   int index = componentIndexByCalculatedVar_[numCalculatedVar];
   int varIndex = numCalculatedVar - components_[index]->getOffsetCalculatedVar();
-  components_[index]->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, numVars, indexesExternal);
+  components_[index]->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, numVars, numVarsExternal);
 }
 
 void
@@ -621,7 +621,7 @@ ModelVoltageLevel::addBusNeighbors() {
 }
 
 void
-ModelVoltageLevel::setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext,
+ModelVoltageLevel::setReferenceY(double* y, double* yp, double** yExt, double** ypExt,
   double* f, const int & offsetY, const int & offsetF, int offsetYExternal) {
   int offsetYComponent = offsetY;
   int offsetFComponent = offsetF;
@@ -629,7 +629,7 @@ ModelVoltageLevel::setReferenceY(double* y, double* yp, double** y_ext, double**
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeY() != 0 || (*itComponent)->sizeYExternal() != 0) {
-      (*itComponent)->setReferenceY(y, yp, y_ext, yp_ext, f, offsetYComponent, offsetFComponent, offsetYExternalComponent);
+      (*itComponent)->setReferenceY(y, yp, yExt, ypExt, f, offsetYComponent, offsetFComponent, offsetYExternalComponent);
       offsetYComponent += (*itComponent)->sizeY();
       offsetFComponent += (*itComponent)->sizeF();
       offsetYExternalComponent += (*itComponent)->sizeYExternal();

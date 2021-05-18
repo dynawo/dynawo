@@ -154,7 +154,7 @@ class ModelGenerator : public NetworkComponent::Impl {
    * @param numVars index of variables used to define the jacobian
    * @param indexesExternal indexes of external variables
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>& indexesExternal) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>& numVarsExternal) const;
   /**
    * @brief evaluate the jacobian associated to a calculated variable
    *

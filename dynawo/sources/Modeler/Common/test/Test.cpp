@@ -1144,10 +1144,10 @@ TEST(ModelerCommonTest, StaticRefInterface) {
 }
 
 TEST(CommonTest, testFictiveVariableSubModel) {
-  boost::shared_ptr<VariableNative> var_ref = VariableNativeFactory::createState("test", CONTINUOUS, false);
-  var_ref->setIndex(0);
-  boost::shared_ptr<SubModel> model_ref = boost::make_shared<SubModelExternal>(1, 0);
-  connectedSubModel connectedRef(model_ref, var_ref, false);
+  boost::shared_ptr<VariableNative> refVar = VariableNativeFactory::createState("test", CONTINUOUS, false);
+  refVar->setIndex(0);
+  boost::shared_ptr<SubModel> refModel = boost::make_shared<SubModelExternal>(1, 0);
+  connectedSubModel connectedRef(refModel, refVar, false);
 
   FictiveVariableSubModel model(connectedRef);
 

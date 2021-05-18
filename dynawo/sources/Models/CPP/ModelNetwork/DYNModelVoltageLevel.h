@@ -304,9 +304,9 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void addBusNeighbors();
 
   /**
-   * @copydoc NetworkComponent::setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext, double* f, const int & offsetY, const int& offsetF, int offsetYExternal)
+   * @copydoc NetworkComponent::setReferenceY(double* y, double* yp, double** yExt, double** ypExt, double* f, const int & offsetY, const int& offsetF, int offsetYExternal)
    */
-  void setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext, double* f, const int& offsetY, const int& offsetF, int offsetYExternal);
+  void setReferenceY(double* y, double* yp, double** yExt, double** ypExt, double* f, const int& offsetY, const int& offsetF, int offsetYExternal);
 
   /**
    * @copydoc NetworkComponent::setReferenceZ( double* z, bool* zConnected, const int & offsetZ )

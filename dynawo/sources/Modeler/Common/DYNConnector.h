@@ -31,7 +31,7 @@
 
 namespace DYN {
 class connectedSubModel;
-}
+}  // namespace DYN
 
 namespace boost {
 
@@ -107,20 +107,20 @@ class connectedSubModel {
    * @brief Equality operator
    *
    * Required in order to use set container
-   * @param other
-   * @returns operator status
+   * @param other connected sub model to compare to
+   * @returns @b true if the two models are considered equal, @b false if not
    */
   bool operator==(const connectedSubModel& other) const {
     return (subModel_ == other.subModel_) && (variable_ == other.variable_);
   }
 
   /**
-   * @brief Equality operator
+   * @brief Different operator
    *
    * defined to comply with existence of equality operator
    *
-   * @param other
-   * @returns operator status
+   * @param other connected sub model to compare to
+   * @returns @b true if the two models are considered different, @b false if not
    */
   bool operator!=(const connectedSubModel& other) const {
     return !((*this) == other);
@@ -403,7 +403,8 @@ class ConnectorContainer {
   /**
    * @brief Perform external connections
    *
-   * For each connection registered, connect models buffers and its reference buffer, pour y and yp
+   * For each connection registered, connect models buffers corresponding to the external variables and its reference buffer
+   * corresponding to a state variable, for y and yp
    *
    * Clear the external connections at the end
    */
@@ -421,12 +422,12 @@ class ConnectorContainer {
   /**
    * @brief Add external variable connection
    *
-   * @param key the external model to connect
-   * @param value the reference value of the external variable
+   * @param fictiveVariableConnectedModel connected model corresponding to a fictive variable
+   * @param externalVariableModel the external variable model corresponding to the fictive variable
    */
-  void addExternalConnection(const connectedSubModel& key, const DYN::connectedSubModel& value) {
+  void addExternalConnection(const connectedSubModel& fictiveVariableConnectedModel, const DYN::connectedSubModel& externalVariableModel) {
     // key will be created if necessary
-    externalConnections_[key].insert(value);
+    externalConnections_[fictiveVariableConnectedModel].insert(externalVariableModel);
   }
 
   /**
@@ -633,7 +634,7 @@ class ConnectorContainer {
    * @brief external connections: pairs (reference_model, set of models with reference variables)
    */
   boost::unordered_map<connectedSubModel, boost::unordered_set<DYN::connectedSubModel> > externalConnections_;
-  boost::unordered_map<int, int> externalConnectionsByVarNum_;  ///< external connections: pairs (index_external, index_reference)
+  boost::unordered_map<int, int> externalConnectionsByVarNum_;  ///< external connections: pairs (index_external, referenceIndex)
 };
 
 }  // namespace DYN

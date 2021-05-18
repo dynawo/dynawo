@@ -60,6 +60,7 @@ class MyModelica: public ModelModelica {
     data->nbModes = 1;
     data->nbVars = 2;
     data->nbZ = 1;
+    data->nbExternalVars = 1;
     data->modelData = reinterpret_cast<MODEL_DATA *>(calloc(1, sizeof(MODEL_DATA)));
     data->simulationInfo = reinterpret_cast<SIMULATION_INFO *>(calloc(1, sizeof(SIMULATION_INFO)));
     data->simulationInfo->daeModeData = reinterpret_cast<DAEMODE_DATA *>(calloc(1, sizeof(DAEMODE_DATA)));
@@ -206,6 +207,7 @@ class MyModelica: public ModelModelica {
    * @param variables vector to fill
    */
   virtual void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
+    variables.push_back(DYN::VariableNativeFactory::createExternalState("MyVariableExt1", CONTINUOUS, false));
     variables.push_back(DYN::VariableNativeFactory::createState("MyVariable", DISCRETE, false));
     variables.push_back(DYN::VariableNativeFactory::createState("MyVariable2", CONTINUOUS, false));
     variables.push_back(DYN::VariableNativeFactory::createState("MyVariable3", CONTINUOUS, false));
@@ -240,11 +242,11 @@ class MyModelica: public ModelModelica {
    * @param F computes values of the residual functions
    */
   virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp,
-    const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &res) {
+    const std::vector<adept::adouble> &yExt, const std::vector<adept::adouble> &ypExt, std::vector<adept::adouble> &res) {
     ASSERT_EQ(y.size(), 2);
     ASSERT_EQ(yp.size(), 2);
-    ASSERT_EQ(y_ext.size(), 0);
-    ASSERT_EQ(yp_ext.size(), 0);
+    ASSERT_EQ(yExt.size(), 1);
+    ASSERT_EQ(ypExt.size(), 1);
     ASSERT_EQ(res.size(), 2);
     res[0] = 2*y[0]+yp[1];
     res[1] = 0.5*y[1]-yp[0];
@@ -413,7 +415,7 @@ class MyModelica: public ModelModelica {
    */
   adept::adouble evalCalculatedVarIAdept(unsigned /*iCalculatedVar*/, unsigned /*indexOffset*/,
       const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &/*yp*/, const std::vector<adept::adouble> &/*y_text*/,
-      const std::vector<adept::adouble> & /*yp_ext*/) const {
+      const std::vector<adept::adouble> & /*ypExt*/) const {
     return 2*y[0];
   }
 #endif
@@ -478,11 +480,11 @@ class MyModelicaInit: public MyModelica {
    * @param F computes values of the residual functions
    */
   virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp,
-    const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &res) {
+    const std::vector<adept::adouble> &yExt, const std::vector<adept::adouble> &ypExt, std::vector<adept::adouble> &res) {
     ASSERT_EQ(y.size(), 1);
     ASSERT_EQ(yp.size(), 1);
-    ASSERT_EQ(y_ext.size(), 0);
-    ASSERT_EQ(yp_ext.size(), 0);
+    ASSERT_EQ(yExt.size(), 0);
+    ASSERT_EQ(ypExt.size(), 0);
     ASSERT_EQ(res.size(), 1);
     res[0] = y[0] - 8;
   }
@@ -604,6 +606,8 @@ TEST(TestModelManager, TestModelManagerBasics) {
   boost::dynamic_pointer_cast<SubModel>(mm)->defineParametersInit();
   boost::dynamic_pointer_cast<SubModel>(mm)->defineVariables();
   boost::dynamic_pointer_cast<SubModel>(mm)->defineVariablesInit();
+  mm->defineNames();
+  mm->defineNamesInit();
 
   ASSERT_EQ(mm->getParametersDynamic().size(), 2);
   mm->init(0.);
@@ -612,6 +616,7 @@ TEST(TestModelManager, TestModelManagerBasics) {
   ASSERT_EQ(mm->sizeCalculatedVar(), 1);
   ASSERT_EQ(mm->sizeMode(), 1);
   ASSERT_EQ(mm->sizeY(), 2);
+  ASSERT_EQ(mm->sizeYExternal(), 1);
   ASSERT_EQ(mm->sizeZ(), 1);
 
   std::vector<double> y(mm->sizeY(), 0.);
@@ -620,6 +625,8 @@ TEST(TestModelManager, TestModelManagerBasics) {
   std::vector<double> yp(mm->sizeY(), 0.);
   yp[0] = 1;
   yp[1] = 2;
+  std::vector<double*> yExt(mm->sizeYExternal(), NULL);
+  std::vector<double*> ypExt(mm->sizeYExternal(), NULL);
   std::vector<double> f(mm->sizeF(), 0.);
   std::vector<double> z(mm->sizeZ(), 0.);
   bool* zConnected = new bool[mm->sizeZ()];
@@ -631,10 +638,20 @@ TEST(TestModelManager, TestModelManagerBasics) {
   mm->setBufferG(&g[0], 0);
   mm->setBufferZ(&z[0], zConnected, 0);
   mm->setBufferY(&y[0], &yp[0], 0);
+  mm->setBufferYExternal(&yExt[0], &ypExt[0], 0);
   mm->setBufferF(&f[0], 0);
   mm->setBufferYType(&yTypes[0], 0);
   mm->setBufferFType(&fTypes[0], 0);
   mm->initSubBuffers();
+
+  boost::shared_ptr<ConnectorContainer> connectorContainer = boost::make_shared<ConnectorContainer>();
+  mm->setConnectorContainer(connectorContainer);
+  boost::shared_ptr<Connector> connector0 = boost::make_shared<Connector>();
+  connector0->addConnectedSubModel(mm, mm->getVariable("MyVariableExt1"), false);
+  connector0->addConnectedSubModel(mm, mm->getVariable("MyVariable"), false);
+  connectorContainer->addContinuousConnector(connector0);
+  connectorContainer->mergeConnectors();
+  connectorContainer->performExternalConnections();
 
   mm->checkDataCoherence(0.);
   mm->testNbCallCheckDataCoherence(1);
@@ -714,9 +731,6 @@ TEST(TestModelManager, TestModelManagerBasics) {
   std::map< std::string, std::string > mapVariables;
   mm->dumpVariables(mapVariables);
   ASSERT_EQ(mapVariables.size(), 1);
-
-  mm->defineNames();
-  mm->defineNamesInit();
 
   mm->loadParameters(mapParameters["MyModelica-MyModelManager-parameters.bin"]);
   for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = mm->getParametersDynamic().begin(), itEnd = mm->getParametersDynamic().end();

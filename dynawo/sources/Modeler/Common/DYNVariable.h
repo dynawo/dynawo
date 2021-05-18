@@ -86,7 +86,9 @@ class Variable {
   }
 
   /**
-   * @brief Determines if the variable is external (dynawo model level)
+   * @brief Determines if the variable is marked as external in its declaration.
+   *
+   * External variables can be either discrete or continuous
    *
    * @returns status
    */

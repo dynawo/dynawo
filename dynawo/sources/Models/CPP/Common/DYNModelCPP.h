@@ -63,7 +63,7 @@ class ModelCPP : public SubModel {
    *
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes
-   * @param indexesExternal indexes of external variables
+   * @param indexesExternal vector to fill with the indexes of external variables
    */
   virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const = 0;
 

@@ -143,17 +143,21 @@ def has_param_address(var_name):
 def get_map_var_name_2_addresses() :
     return map_var_name_2_addresses
 
+##
+# Replace external variables references by its correct address
+# @param line the ine to process
+# @return the formatted line
 def replace_external_var_names(line):
     ptrn_ext_var = re.compile(r'\*\(data->externalVars\[(?P<index>\d+)\]\)')
     ptrn_dext_var = re.compile(r'\*\(data->externalPVars\[(?P<index>\d+)\]\)')
     match = re.search(ptrn_ext_var, line)
     while match:
-        line = line.replace("*(data->externalVars[" + str(match.group("index")) + "])", "x_ext[" + str(match.group("index")) + "]")
+        line = line.replace("*(data->externalVars[" + str(match.group("index")) + "])", "xExt[" + str(match.group("index")) + "]")
         match = re.search(ptrn_ext_var, line[match.end():-1])
 
     match = re.search(ptrn_dext_var, line)
     while match:
-        line = line.replace("*(data->externalPVars[" + str(match.group("index")) + "])", "xd_ext[" + str(match.group("index")) + "]")
+        line = line.replace("*(data->externalPVars[" + str(match.group("index")) + "])", "xdExt[" + str(match.group("index")) + "]")
         match = re.search(ptrn_dext_var, line[match.end():-1])
     return line
 

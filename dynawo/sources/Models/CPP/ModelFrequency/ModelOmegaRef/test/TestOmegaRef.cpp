@@ -437,9 +437,9 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   std::vector<double> y(modelOmegaRef2->sizeY(), 0);
   std::vector<double> yp(modelOmegaRef2->sizeY(), 0);
   modelOmegaRef2->setBufferY(&y[0], &yp[0], 0.);
-  std::vector<double*> y_ext(modelOmegaRef2->sizeYExternal(), NULL);
-  std::vector<double*> yp_ext(modelOmegaRef2->sizeYExternal(), NULL);
-  modelOmegaRef2->setBufferYExternal(&y_ext[0], &yp_ext[0], 0);
+  std::vector<double*> yExt(modelOmegaRef2->sizeYExternal(), NULL);
+  std::vector<double*> ypExt(modelOmegaRef2->sizeYExternal(), NULL);
+  modelOmegaRef2->setBufferYExternal(&yExt[0], &ypExt[0], 0);
   std::vector<double> z(modelOmegaRef2->sizeZ(), 0);
   bool* zConnected = new bool[modelOmegaRef2->sizeZ()];
   for (size_t i = 0; i < modelOmegaRef2->sizeZ(); ++i)
@@ -492,8 +492,8 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   modelOmegaRef->setBufferY(&y[0], &yp[0], 0.);
 
   boost::shared_ptr<SubModel> submodel = boost::make_shared<SubModelMock>();
-  std::vector<double*> y_ext(modelOmegaRef->sizeYExternal(), NULL);
-  std::vector<double*> yp_ext(modelOmegaRef->sizeYExternal(), NULL);
+  std::vector<double*> yExt(modelOmegaRef->sizeYExternal(), NULL);
+  std::vector<double*> ypExt(modelOmegaRef->sizeYExternal(), NULL);
   submodel->defineVariables();
   submodel->defineNames();
   modelOmegaRef->defineVariables();
@@ -504,7 +504,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   std::vector<double> yother(2, 1.);
   std::vector<double> ypother(2, 0.);
   submodel->setBufferY(&yother[0], &ypother[0], 0);
-  modelOmegaRef->setBufferYExternal(&y_ext[0], &yp_ext[0], 0);
+  modelOmegaRef->setBufferYExternal(&yExt[0], &ypExt[0], 0);
 
   boost::shared_ptr<ConnectorContainer> connectorContainer = boost::make_shared<ConnectorContainer>();
   modelOmegaRef->setConnectorContainer(connectorContainer);

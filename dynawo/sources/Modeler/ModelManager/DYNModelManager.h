@@ -362,7 +362,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param f values of the residual functions
    */
   void evalF(const double t, const std::vector<adept::adouble>& y, const std::vector<adept::adouble>& yp,
-    const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &f);
+    const std::vector<adept::adouble> &yExt, const std::vector<adept::adouble> &ypExt, std::vector<adept::adouble> &f);
 
   /**
    * @brief evaluate the jacobian with adept values

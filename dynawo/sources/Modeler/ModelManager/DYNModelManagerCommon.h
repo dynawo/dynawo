@@ -281,7 +281,7 @@ struct DYNDATA : public DATA {
   int nbDelays;  ///< Number of delays handled
   std::vector<double> constCalcVars;  ///< values of constant calculated variables with complex initialization
 
-  int nbExternalVars;             ///< Number of external variabled
+  int nbExternalVars;             ///< Number of external variables
   modelica_real** externalVars;   ///< buffer for pointers to external variables value
   modelica_real** externalPVars;  ///< buffer for pointers to derivative of external variables value
 };

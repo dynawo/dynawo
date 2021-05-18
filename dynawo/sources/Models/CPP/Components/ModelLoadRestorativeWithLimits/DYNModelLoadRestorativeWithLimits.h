@@ -290,8 +290,8 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   State preConnectionState_;  ///< "internal" load connection status at previous timestamp
   unsigned int UfRawYNum_;  ///< local Y index for UfRaw
   unsigned int UfYNum_;  ///< local Y index for Uf
-  unsigned int UrYNum_;  ///< local Y index for Ur
-  unsigned int UiYNum_;  ///< local Y index for Ui
+  unsigned int UrYExternalNum_;  ///< local Y index for Ur
+  unsigned int UiYExternalNum_;  ///< local Y index for Ui
   unsigned int IrYNum_;  ///< local Y index for Ir
   unsigned int IiYNum_;  ///< local Y index for Ii
 

@@ -552,19 +552,19 @@ class ModelMulti : public Model, private boost::noncopyable {
    *
    * example:
    * @verbatim
-    a <=> b <=> c
+    a -> b -> c
     @endverbatim
    * where a, b, c are connected external variables
    * we'll create a', b', c' as:
     @verbatim
-    a <=> a'
-    b <=> b'
-    c <=> c'
+    a -> a'
+    b -> b'
+    c -> c'
     @endverbatim
    * These connections are performed using buffer referencing
    * We'll also have:
     @verbatim
-    a' <=> b' <=> c' using Y connectors
+    a' -> b' -> c' using Y connectors
     @endverbatim
    *
    * The fictive variable will ensure that the initial value of these fictive variables is the same as it would be

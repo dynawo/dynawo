@@ -342,8 +342,8 @@ SubModel::getVariable(const string& variableName) const {
 int
 SubModel::getReferenceIndex(int externalIndexLocal) const {
   const boost::unordered_map<int, int>& externalConnections = connectorContainer_.lock()->externalConnectionsByVarNum();
-  int index_external = getVariableIndexGlobal(getVariable(xExternalNames_.at(externalIndexLocal)));
-  return externalConnections.at(index_external);
+  int indexGlobalExternal = getVariableIndexGlobal(getVariable(xExternalNames_.at(externalIndexLocal)));
+  return externalConnections.at(indexGlobalExternal);
 }
 
 double
@@ -355,17 +355,16 @@ SubModel::getDerivativeVariableValue(const shared_ptr <Variable> variable) const
   const typeVar_t typeVar = variable->getType();
   const bool negated = variable->getNegated();
   const bool isState = variable->isState();
-  const bool isExternal = variable->isExternal();
 
   if (!isState) {
     throw DYNError(Error::MODELER, ModelFuncError, "Derivative variables only for state variables");
   }
-  if (typeVar != CONTINUOUS && typeVar != FLOW) {
+  if (typeVar != CONTINUOUS) {
     throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
   }
 
   double value;
-  if (isExternal && typeVar == CONTINUOUS) {
+  if (variable->isExternal()) {
     value = *(ypExternalLocal_[varNum]);
   } else {
     value = ypLocal_[varNum];
@@ -386,12 +385,11 @@ SubModel::getVariableValue(const shared_ptr<Variable>& variable) const {
   const typeVar_t typeVar = variable->getType();
   const bool negated = variable->getNegated();
   const bool isState = variable->isState();
-  const bool isExternal = variable->isExternal();
 
   double value;
   if (!isState) {
     value = calculatedVars_[varNum];
-  } else if (isExternal && typeVar == CONTINUOUS) {
+  } else if (variable->isExternal()) {
     value = *(yExternalLocal_[varNum]);
   } else {
     switch (typeVar) {
@@ -432,14 +430,13 @@ SubModel::getVariableIndexGlobal(const shared_ptr<Variable>& variable) const {
   const int varNum = variable->getIndex();
   const typeVar_t typeVar = variable->getType();
   const bool isState = variable->isState();
-  const bool isExternal = variable->isExternal();
 
   // global variable indexes are only defined for state variables
   if (!isState) {
     throw DYNError(Error::MODELER, SubModelBadVariableTypeForVariableIndex, name(), modelType(), variable->getName());
   }
 
-  if (isExternal && typeVar == CONTINUOUS) {
+  if (variable->isExternal()) {
     return yExternalDeb_ + varNum;
   }
 
@@ -745,7 +742,6 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
     const typeVar_t type = currentVariable->getType();
     const string name = currentVariable->getName();
     const bool isState = currentVariable->isState();
-    const bool isExternal = currentVariable->isExternal();
     int index = -1;
 
     if (currentVariable->isAlias())  // no alias in names vector
@@ -756,7 +752,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
       index = calculatedVarNames.size();
       calculatedVarNames.push_back(name);
       nativeVariable->setIndex(index);
-    } else if (isExternal && type == CONTINUOUS) {
+    } else if (currentVariable->isExternal()) {
       index = xExternalNames.size();
       xExternalNames.push_back(name);
       nativeVariable->setIndex(index);
@@ -992,7 +988,9 @@ SubModel::getY0Sub() {
   // get y0 , yp0, and z0  values of the subModel
   // external values are also included in y0
   if (!initialized_) {
+    // Required here in case some state or calculated variables are using the external variables value to init themselves
     getY0Dependencies();
+
     getY0();
     initialized_ = true;
   }
@@ -1031,11 +1029,11 @@ SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
     switch (typeVar) {
       case CONTINUOUS: {
         curve->setCurveType(Curve::CONTINUOUS_VARIABLE);
-        if (isVariableExternal(variable)) {
+        if (variable->isExternal()) {
           buffer = yExternalLocal_[varNum];
           const boost::unordered_map<int, int>& references = connectorContainer_.lock()->externalConnectionsByVarNum();
-          int index_global = getVariableIndexGlobal(variable);
-          curve->setGlobalIndex(references.at(index_global));
+          int globalIndex = getVariableIndexGlobal(variable);
+          curve->setGlobalIndex(references.at(globalIndex));
         } else {
           buffer = &(yLocal_[varNum]);
           curve->setGlobalIndex(yDeb() + varNum);

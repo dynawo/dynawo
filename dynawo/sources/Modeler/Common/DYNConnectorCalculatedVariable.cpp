@@ -105,8 +105,8 @@ ConnectorCalculatedVariable::evalJt(const double /*t*/, const double /*cj*/, Spa
   }
 
   for (unsigned i = 0, iEnd = varExtExternalIndexes_.size(); i < iEnd; ++i) {  // d(f)/dyModel = d(calculatedVariable)/d(yModel)
-    int index_reference = model_->getReferenceIndex(varExtExternalIndexes_[i]);
-    Jt.addTerm(index_reference, JModel[varExtIndexes_.size() + i]);
+    int globalIndexReference = model_->getReferenceIndex(varExtExternalIndexes_[i]);
+    Jt.addTerm(globalIndexReference, JModel[varExtIndexes_.size() + i]);
   }
 }
 

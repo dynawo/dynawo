@@ -112,7 +112,7 @@ class ModelModelica {
   /**
    * @brief Retrieve the initial values of external variables of the model
    *
-   * Used only for the first iteration of the solver
+   * Used only in local initialization.
    * this function is named set althought it is a getter to comply with the style of the equivalent function @a setY0omc
    *
    * @throw if @a numVarEx is not a valid external variable index
@@ -166,7 +166,7 @@ class ModelModelica {
    * @param F computes values of the residual functions
    */
   virtual void evalFAdept(const std::vector<adept::adouble>& y, const std::vector<adept::adouble>& yp,
-    const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &F) = 0;
+    const std::vector<adept::adouble> &yExt, const std::vector<adept::adouble> &ypExt, std::vector<adept::adouble> &F) = 0;
 #endif
 
   /**
@@ -279,12 +279,12 @@ class ModelModelica {
    * @param indexOffset offset to read the first variable in y and yp
    * @param y values of the continuous variable
    * @param yp values of the derivatives of the continuous variable
-   * @param y_ext values of the external continuous variables
-   * @param yp_ext values of the derivatives of the external continuous variables
+   * @param yExt values of the external continuous variables
+   * @param ypExt values of the derivatives of the external continuous variables
    * @return value of the calculated variable
    */
   virtual adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble>& y,
-      const std::vector<adept::adouble>& yp, const std::vector<adept::adouble>& y_ext, const std::vector<adept::adouble>& yp_ext) const = 0;
+      const std::vector<adept::adouble>& yp, const std::vector<adept::adouble>& yExt, const std::vector<adept::adouble>& ypExt) const = 0;
 #endif
 
   /**
@@ -292,7 +292,7 @@ class ModelModelica {
    *
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes
-   * @param indexesExternal indexes of external variables
+   * @param indexesExternal vector to fill with the indexes of external variables
    */
   virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const = 0;
 };

@@ -229,14 +229,14 @@ class NetworkComponent {  ///< Base class for network component models
    *
    * @param y global buffer for the continuous variables
    * @param yp global buffer for the derivatives of the continuous variables
-   * @param y_ext global buffer for external continuous variables
-   * @param yp_ext global buffer for the derivative for external continuous variables
+   * @param yExt global buffer for external continuous variables
+   * @param ypExt global buffer for the derivative for external continuous variables
    * @param f global buffer for the residual values
    * @param offsetY offset to use to find the beginning of the local buffer
    * @param offsetF offset to use to find the beginning of the local buffer for residual functions
    * @param offsetYExternal offset to use to find the beginning of the local buffer for external variables
    */
-  virtual void setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext,
+  virtual void setReferenceY(double* y, double* yp, double** yExt, double** ypExt,
     double* f, const int & offsetY, const int& offsetF, int offsetYExternal) = 0;
 
   /**

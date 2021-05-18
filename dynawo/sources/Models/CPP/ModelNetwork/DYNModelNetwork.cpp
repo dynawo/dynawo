@@ -1197,14 +1197,14 @@ ModelNetwork::getY0() {
 
 void
 ModelNetwork::getY0External(unsigned int numVarEx, double& value) const {
-  int numVarExt_tmp = static_cast<int>(numVarEx);
+  int numVarExtTmp = static_cast<int>(numVarEx);
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
     itComponent != components_.end(); ++itComponent) {
-    if (numVarExt_tmp < (*itComponent)->sizeYExternal()) {
-      (*itComponent)->getY0External(numVarExt_tmp, value);
+    if (numVarExtTmp < (*itComponent)->sizeYExternal()) {
+      (*itComponent)->getY0External(numVarExtTmp, value);
       return;
     }
-    numVarExt_tmp -= (*itComponent)->sizeYExternal();
+    numVarExtTmp -= (*itComponent)->sizeYExternal();
   }
 
   throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
