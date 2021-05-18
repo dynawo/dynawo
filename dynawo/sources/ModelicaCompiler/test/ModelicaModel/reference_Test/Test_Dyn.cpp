@@ -66,7 +66,8 @@ void ModelTest_Dyn::setupDataStruc()
   data->simulationInfo->daeModeData->nResidualVars = 1;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 0;
 
-  data->nbVars =1;
+  data->nbVars = 1;
+  data->nbExternalVars = 0;
   data->nbF = 1;
   data->nbModes = 0;
   data->nbZ = 0;
@@ -228,6 +229,11 @@ void ModelTest_Dyn::setY0omc()
   data->localData[0]->realVars[0] /* u */ = 1.0;
 }
 
+void ModelTest_Dyn::setY0Externalomc(unsigned int numVarEx, double& value) const
+{
+  throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
+}
+
 void ModelTest_Dyn::callCustomParametersConstructors()
 {
 }
@@ -304,6 +310,8 @@ void ModelTest_Dyn::defineElements(std::vector<Element>& elements, std::map<std:
 #ifdef _ADEPT_
 void ModelTest_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
                               const std::vector<adept::adouble> & xd,
+                              const std::vector<adept::adouble> & x_ext,
+                              const std::vector<adept::adouble> & xd_ext,
                               std::vector<adept::adouble> & res)
 {
   /*
@@ -367,7 +375,7 @@ double ModelTest_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
+adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd, const std::vector<adept::adouble> &x_ext, const std::vector<adept::adouble> &xd_ext) const
 {
   if (iCalculatedVar == 0)  /* y */
   {
@@ -377,7 +385,7 @@ adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, u
 
   if (iCalculatedVar == 1)  /* z */
   {
-      return (4.0) * ((evalCalculatedVarIAdept(0, indexOffset + 1, x, xd) /* y variable */) * (x[indexOffset +0]));
+      return (4.0) * ((evalCalculatedVarIAdept(0, indexOffset + 1, x, xd, x_ext, xd_ext) /* y variable */) * (x[indexOffset +0]));
   }
 
 
@@ -385,14 +393,14 @@ adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, u
 }
 #endif
 
-void ModelTest_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
+void ModelTest_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
 {
   if (iCalculatedVar == 0)  /* y */ {
     indexes.push_back(0);
   }
   if (iCalculatedVar == 1)  /* z */ {
     indexes.push_back(0);
-    getIndexesOfVariablesUsedForCalculatedVarI(0, indexes);
+    getIndexesOfVariablesUsedForCalculatedVarI(0, indexes, indexesExternal);
   }
 }
 

@@ -276,6 +276,7 @@ ModelVoltageLevel::disconnectNode(const unsigned int nodeToDisconnect) {
 void
 ModelVoltageLevel::initSize() {
   sizeY_ = 0;
+  sizeYExternal_ = 0;
   sizeF_ = 0;
   sizeZ_ = 0;
   sizeG_ = 0;
@@ -289,6 +290,7 @@ ModelVoltageLevel::initSize() {
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     (*itComponent)->initSize();
     sizeY_ += (*itComponent)->sizeY();
+    sizeYExternal_ += (*itComponent)->sizeYExternal();
     sizeF_ += (*itComponent)->sizeF();
     sizeZ_ += (*itComponent)->sizeZ();
     sizeG_ += (*itComponent)->sizeG();
@@ -301,10 +303,10 @@ ModelVoltageLevel::initSize() {
 }
 
 void
-ModelVoltageLevel::init(int& yNum) {
+ModelVoltageLevel::init(int& yNum, int& yNumExternal) {
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-    (*itComponent)->init(yNum);
+    (*itComponent)->init(yNum, yNumExternal);
   }
 }
 
@@ -313,6 +315,21 @@ ModelVoltageLevel::getY0() {
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->getY0();
+}
+
+void
+ModelVoltageLevel::getY0External(unsigned int numVarEx, double& value) const {
+  int numVarExt_tmp = static_cast<int>(numVarEx);
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
+  itComponent != components_.end(); ++itComponent) {
+    if (numVarExt_tmp < (*itComponent)->sizeYExternal()) {
+      (*itComponent)->getY0External(numVarExt_tmp, value);
+      return;
+    }
+    numVarExt_tmp -= (*itComponent)->sizeYExternal();
+  }
+
+  throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
 }
 
 void
@@ -525,10 +542,10 @@ ModelVoltageLevel::evalCalculatedVars() {
 }
 
 void
-ModelVoltageLevel::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
+ModelVoltageLevel::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars, std::vector<int>& indexesExternal) const {
   int index = componentIndexByCalculatedVar_[numCalculatedVar];
   int varIndex = numCalculatedVar - components_[index]->getOffsetCalculatedVar();
-  components_[index]->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, numVars);
+  components_[index]->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, numVars, indexesExternal);
 }
 
 void
@@ -604,15 +621,18 @@ ModelVoltageLevel::addBusNeighbors() {
 }
 
 void
-ModelVoltageLevel::setReferenceY(double* y, double* yp, double* f, const int & offsetY, const int & offsetF) {
+ModelVoltageLevel::setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext,
+  double* f, const int & offsetY, const int & offsetF, int offsetYExternal) {
   int offsetYComponent = offsetY;
   int offsetFComponent = offsetF;
+  int offsetYExternalComponent = offsetYExternal;
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-    if ((*itComponent)->sizeY() != 0) {
-      (*itComponent)->setReferenceY(y, yp, f, offsetYComponent, offsetFComponent);
+    if ((*itComponent)->sizeY() != 0 || (*itComponent)->sizeYExternal() != 0) {
+      (*itComponent)->setReferenceY(y, yp, y_ext, yp_ext, f, offsetYComponent, offsetFComponent, offsetYExternalComponent);
       offsetYComponent += (*itComponent)->sizeY();
       offsetFComponent += (*itComponent)->sizeF();
+      offsetYExternalComponent += (*itComponent)->sizeYExternal();
     }
   }
 }

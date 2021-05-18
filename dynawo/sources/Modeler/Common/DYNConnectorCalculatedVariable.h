@@ -118,9 +118,10 @@ class ConnectorCalculatedVariable : public SubModel {
    *
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes
+   * @param indexesExternal vector to fill with the external variables indexes
    *
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
@@ -142,6 +143,11 @@ class ConnectorCalculatedVariable : public SubModel {
    * @copydoc SubModel::getY0()
    */
   void getY0();
+
+  /**
+   * @copydoc SubModel::getY0External(unsigned int numVarEx, double& value) const
+   */
+  void getY0External(unsigned int numVarEx, double& value) const;
 
   /**
    * @copydoc SubModel::evalStaticYType()
@@ -305,6 +311,7 @@ class ConnectorCalculatedVariable : public SubModel {
   std::string variableName_;  ///< Name of the calculated variable from the model
   int indexCalculatedVariable_;  ///< Index of the calculated variable inside the list calculated variables in the model
   std::vector<int> varExtIndexes_;  ///< Indexes of variables on which depends the calculated variable
+  std::vector<int> varExtExternalIndexes_;  ///< Indexes of external variables on which depends the calculated variable
 };
 }  // namespace DYN
 

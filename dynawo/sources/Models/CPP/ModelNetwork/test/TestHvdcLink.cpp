@@ -323,13 +323,14 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(y1, yp1, f1, 0, 0);
+  bus1->setReferenceY(y1, yp1, NULL, NULL, f1, 0, 0, 0);
   y1[ModelBus::urNum_] = 3.5;
   y1[ModelBus::uiNum_] = 2;
   if (!initModel)
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
-  bus1->init(offset);
+  int offsetExternal = 0;
+  bus1->init(offset, offsetExternal);
   bus1->setVoltageLevel(vl);
   shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
   bus2->setNetwork(network);
@@ -343,12 +344,12 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   for (int i = 0; i < bus2->sizeZ(); ++i)
     zConnected2[i] = true;
   bus2->setReferenceZ(&z2[0], zConnected2, 0);
-  bus2->setReferenceY(y2, yp2, f2, 0, 0);
+  bus2->setReferenceY(y2, yp2, NULL, NULL, f2, 0, 0, 0);
   y2[ModelBus::urNum_] = 5.;
   y2[ModelBus::uiNum_] = 2.5;
   if (!initModel)
     z2[ModelBus::switchOffNum_] = -1;
-  bus2->init(offset);
+  bus2->init(offset, offsetExternal);
   bus2->setVoltageLevel(vl);
   hvdc->setModelBus1(bus1);
   hvdc->setModelBus2(bus2);
@@ -408,7 +409,7 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariables) {
   for (int i = 0; i < hvdc->sizeZ(); ++i)
     zConnected[i] = true;
   hvdc->setReferenceZ(&z[0], zConnected, 0);
-  hvdc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  hvdc->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   ASSERT_EQ(hvdc->sizeCalculatedVar(), ModelHvdcLink::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelHvdcLink::nbCalculatedVariables_, 0.);
@@ -516,28 +517,30 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariables) {
   hvdc->setConnected2(CLOSED);
 
   int offset = 2;
-  hvdc->init(offset);
+  int offsetExternal = 0;
+  hvdc->init(offset, offsetExternal);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::p1Num_, numVars));
+  std::vector<int> numVarsExternal;
+  ASSERT_THROW_DYNAWO(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::p1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::q1Num_, numVars));
+  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::q1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::p2Num_, numVars));
+  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::p2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::q2Num_, numVars));
+  ASSERT_NO_THROW(hvdc->getIndexesOfVariablesUsedForCalculatedVarI(ModelHvdcLink::q2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
@@ -568,7 +571,7 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDiscreteVariables) {
   for (int i = 0; i < hvdc->sizeZ(); ++i)
     zConnected[i] = true;
   hvdc->setReferenceZ(&z[0], zConnected, 0);
-  hvdc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  hvdc->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
 
   hvdc->getY0();
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], CLOSED);

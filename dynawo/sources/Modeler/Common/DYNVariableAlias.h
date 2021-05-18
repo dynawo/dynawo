@@ -106,6 +106,10 @@ class VariableAlias : public Variable {
    */
   bool isState() const;
 
+  inline bool isExternal() const {
+    return false;
+  }
+
   /**
    * @brief Check whether the alias reference variable is already set
    *

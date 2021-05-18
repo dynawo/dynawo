@@ -52,7 +52,7 @@ void ConnectorCalculatedVariable::getSize() {
   sizeZ_ = 0;
   sizeG_ = 0;
   sizeMode_ = 0;
-  model_->getIndexesOfVariablesUsedForCalculatedVarI(indexCalculatedVariable_, varExtIndexes_);
+  model_->getIndexesOfVariablesUsedForCalculatedVarI(indexCalculatedVariable_, varExtIndexes_, varExtExternalIndexes_);
 }
 
 void
@@ -97,11 +97,16 @@ ConnectorCalculatedVariable::evalJt(const double /*t*/, const double /*cj*/, Spa
   Jt.changeCol();
   Jt.addTerm(rowOffset, dMOne);  // d(f)/d(yLocal) = -1
 
-  vector<double> JModel(varExtIndexes_.size());
+  vector<double> JModel(varExtIndexes_.size() + varExtExternalIndexes_.size());
   model_->evalJCalculatedVarI(indexCalculatedVariable_, JModel);
 
   for (unsigned i = 0, iEnd = varExtIndexes_.size(); i < iEnd; ++i) {  // d(f)/dyModel = d(calculatedVariable)/d(yModel)
     Jt.addTerm(model_->getOffsetY() + varExtIndexes_[i], JModel[i]);
+  }
+
+  for (unsigned i = 0, iEnd = varExtExternalIndexes_.size(); i < iEnd; ++i) {  // d(f)/dyModel = d(calculatedVariable)/d(yModel)
+    int index_reference = model_->getReferenceIndex(varExtExternalIndexes_[i]);
+    Jt.addTerm(index_reference, JModel[varExtIndexes_.size() + i]);
   }
 }
 
@@ -148,7 +153,7 @@ ConnectorCalculatedVariable::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, ve
 }
 
 void
-ConnectorCalculatedVariable::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/) const {
+ConnectorCalculatedVariable::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/, std::vector<int>&) const {
   throw DYNError(Error::MODELER, FuncNotYetCoded);
 }
 
@@ -163,6 +168,11 @@ ConnectorCalculatedVariable::getY0() {
 
   yLocal_[0] = model_->getCalculatedVar(indexCalculatedVariable_);  // value computed at t=0
   ypLocal_[0] = 0.;
+}
+
+void
+ConnectorCalculatedVariable::getY0External(unsigned int numVarEx, double&) const {
+  throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
 }
 
 void

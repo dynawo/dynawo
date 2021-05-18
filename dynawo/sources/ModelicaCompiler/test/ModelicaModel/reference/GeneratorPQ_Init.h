@@ -31,6 +31,7 @@ namespace DYN {
     void setZomc();
     void collectSilentZ(BitMask* silentZTable);
     void setY0omc();
+    void setY0Externalomc(unsigned int, double& value) const;
     void callCustomParametersConstructors();
     void evalStaticYType_omc(propertyContinuousVar_t* yType);
     void evalStaticFType_omc(propertyF_t* fType);
@@ -43,10 +44,10 @@ namespace DYN {
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
     double evalCalculatedVarI(unsigned iCalculatedVar) const;
-    void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+    void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
 #ifdef _ADEPT_
-    void evalFAdept( const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F);
-    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp) const;
+    void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &F);
+    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext) const;
 #endif
 
     void checkDataCoherence ();
@@ -57,7 +58,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("1363f597d6ff78a7d986ef2557ea37a5"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("0f7b14a7ab899e56faffdf24edb90272"); }
 
     private:
     DYNDATA * data;

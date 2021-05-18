@@ -28,7 +28,7 @@
 80 | TAP_CHANGER_LOAD_2 | Tap +1
 80 | TAP_CHANGER_LOAD_3 | Tap +1
 80.0047 | TAP_CHANGER_LOCK | TCL : tap changers lock arming (U < UMin)
-80.3744 | TAP_CHANGER_LOCK | TCL : tap changers lock disarming (U > UMin)
+80.3743 | TAP_CHANGER_LOCK | TCL : tap changers lock disarming (U > UMin)
 90 | TAP_CHANGER_LOAD_2 | Tap +1
 90 | TAP_CHANGER_LOAD_3 | Tap +1
 90 | TAP_CHANGER_LOAD_2 | Tap +1

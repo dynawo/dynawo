@@ -38,6 +38,8 @@ namespace DYN {
 NetworkComponent::Impl::Impl() :
 y_(NULL),
 yp_(NULL),
+yExternal_(NULL),
+ypExternal_(NULL),
 f_(NULL),
 z_(NULL),
 zConnected_(NULL),
@@ -47,6 +49,7 @@ fType_(NULL),
 yType_(NULL),
 sizeF_(0),
 sizeY_(0),
+sizeYExternal_(0),
 sizeZ_(0),
 sizeG_(0),
 sizeMode_(0),
@@ -57,6 +60,8 @@ network_(NULL) { }
 NetworkComponent::Impl::Impl(const string& id) :
 y_(NULL),
 yp_(NULL),
+yExternal_(NULL),
+ypExternal_(NULL),
 f_(NULL),
 z_(NULL),
 zConnected_(NULL),
@@ -66,13 +71,14 @@ fType_(NULL),
 yType_(NULL),
 sizeF_(0),
 sizeY_(0),
+sizeYExternal_(0),
 sizeZ_(0),
 sizeG_(0),
 sizeMode_(0),
 sizeCalculatedVar_(0),
 offsetCalculatedVar_(0),
 id_(id),
-network_(NULL) { }
+network_(NULL) {}
 
 NetworkComponent::Impl::~Impl() {
 }
@@ -88,10 +94,16 @@ NetworkComponent::Impl::setBufferFType(propertyF_t* fType, const unsigned int& o
 }
 
 void
-NetworkComponent::Impl::setReferenceY(double* y, double* yp, double* f, const int& offsetY, const int& offsetF) {
+NetworkComponent::Impl::setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext,
+  double* f, const int& offsetY, const int& offsetF, int offsetYExternal) {
   if (sizeY() != 0) {
     y_ = &(y[offsetY]);
     yp_ = &(yp[offsetY]);
+  }
+
+  if (sizeYExternal_ > 0) {
+    yExternal_ = &(y_ext[offsetYExternal]);
+    ypExternal_ = &(yp_ext[offsetYExternal]);
   }
 
   if (sizeF() != 0)
@@ -174,6 +186,11 @@ NetworkComponent::Impl::addElementWithValue(const string& elementName, const std
     vector<Element>& elements, std::map<string, int>& mapElement) {
   addElement(elementName, Element::STRUCTURE, elements, mapElement);
   addSubElement("value", elementName, Element::TERMINAL, id(), parentType, elements, mapElement);
+}
+
+void
+NetworkComponent::Impl::getY0External(unsigned int numVarEx, double&) const {
+  throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
 }
 
 }  // namespace DYN

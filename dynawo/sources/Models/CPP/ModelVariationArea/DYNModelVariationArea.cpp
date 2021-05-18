@@ -239,7 +239,7 @@ ModelVariationArea::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<doub
 }
 
 void
-ModelVariationArea::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/) const {
+ModelVariationArea::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/, std::vector<int>&) const {
   // output depends only on discrete variables
 }
 
@@ -258,6 +258,11 @@ ModelVariationArea::getY0() {
   std::fill(yLocal_, yLocal_ + nbLoads_ * 2, 0);
   std::fill(ypLocal_, ypLocal_ + nbLoads_ * 2, 0);
   zLocal_[0] = NOT_STARTED;
+}
+
+void
+ModelVariationArea::getY0External(unsigned int numVarEx, double&) const {
+  throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
 }
 
 void

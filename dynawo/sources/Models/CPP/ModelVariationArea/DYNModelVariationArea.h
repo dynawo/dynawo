@@ -177,6 +177,11 @@ class ModelVariationArea : public ModelCPP::Impl {
   void getY0();
 
   /**
+  * @copydoc ModelCPP::getY0External(unsigned int numVarEx, double& value) const
+  */
+  void getY0External(unsigned int numVarEx, double& value) const;
+
+  /**
    * @copydoc ModelCPP::evalStaticYType()
    */
   void evalStaticYType();
@@ -187,12 +192,9 @@ class ModelVariationArea : public ModelCPP::Impl {
   void evalDynamicYType() { /* not needed */}
 
   /**
-   * @brief get the index of variables used to define the jacobian associated to a calculated variable
-   *
-   * @param iCalculatedVar index of the calculated variable
-   * @param indexes vector to fill with the indexes
+   * @copydoc ModelCPP::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable

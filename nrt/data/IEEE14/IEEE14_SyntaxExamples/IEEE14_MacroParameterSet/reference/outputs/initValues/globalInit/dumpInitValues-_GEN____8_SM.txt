@@ -1,9 +1,6 @@
  ====== INIT VARIABLES VALUES ======
-generator_N_value                                 : y =       0.000002 yp =       0.000000
 generator_QMaxPu                                  : y =       0.250000 yp =       0.000000
 generator_QMinPu                                  : y =      -0.070000 yp =       0.000000
-generator_terminal_V_im                           : y =      -0.057934 yp =       0.000000
-generator_terminal_V_re                           : y =       1.088459 yp =       0.000000
 generator_PGenRawPu                               : y =       0.000000 yp =       0.000000
 generator_QGenPu                                  : y =       0.176234 yp =       0.000000
 generator_UPu                                     : y =       1.090000 yp =       0.000000
@@ -16,6 +13,10 @@ generator_PGenPu                                  : alias of generator_tableQMax
 generator_SGenPu_im                               : alias of generator_QGenPu
 generator_SGenPu_re                               : alias of generator_tableQMax_u_1_
 generator_tableQMin_u_1_                          : alias of generator_tableQMax_u_1_
+ ====== INIT EXTERNAL VARIABLES VALUES ======
+generator_N_value                                 : y =       0.000002 yp =       0.000000
+generator_terminal_V_im                           : y =      -0.057934 yp =       0.000000
+generator_terminal_V_re                           : y =       1.088459 yp =       0.000000
  ====== INIT DISCRETE VARIABLES VALUES ======
 generator_URefPu_value                            : z =       1.090000
 generator_alpha_value                             : z =       0.000000
@@ -63,11 +64,11 @@ generator_tableQMin_columns_1_                     =              2
 generator_tableQMin_extrapolation                  =              2
 generator_tableQMin_n                              =              1
 generator_tableQMin_smoothness                     =              1
-generator_QMaxTableFile                            =IEEE14_Diagram/_GEN____8_SM_Diagram.txt
+generator_QMaxTableFile                            =nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt
 generator_QMaxTableName                            =5821770868043647431_tableqmax
-generator_QMinTableFile                            =IEEE14_Diagram/_GEN____8_SM_Diagram.txt
+generator_QMinTableFile                            =nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt
 generator_QMinTableName                            =5821770868043647431_tableqmin
-generator_tableQMax_fileName                       =IEEE14_Diagram/_GEN____8_SM_Diagram.txt
+generator_tableQMax_fileName                       =nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt
 generator_tableQMax_tableName                      =5821770868043647431_tableqmax
-generator_tableQMin_fileName                       =IEEE14_Diagram/_GEN____8_SM_Diagram.txt
+generator_tableQMin_fileName                       =nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt
 generator_tableQMin_tableName                      =5821770868043647431_tableqmin

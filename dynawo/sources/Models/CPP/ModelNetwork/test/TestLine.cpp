@@ -253,12 +253,13 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     for (int i = 0; i < bus1->sizeZ(); ++i)
       zConnected1[i] = true;
     bus1->setReferenceZ(&z1[0], zConnected1, 0);
-    bus1->setReferenceY(y1, yp1, f1, 0, 0);
+    bus1->setReferenceY(y1, yp1, NULL, NULL, f1, 0, 0, 0);
     y1[ModelBus::urNum_] = 3.5;
     y1[ModelBus::uiNum_] = 2;
     if (!initModel)
       z1[ModelBus::switchOffNum_] = -1;
-    bus1->init(offset);
+    int offsetExternal = 0;
+    bus1->init(offset, offsetExternal);
   }
   if (closed2) {
     shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
@@ -275,12 +276,13 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     for (int i = 0; i < bus2->sizeZ(); ++i)
       zConnected2[i] = true;
     bus2->setReferenceZ(&z2[0], zConnected2, 0);
-    bus2->setReferenceY(y2, yp2, f2, 0, 0);
+    bus2->setReferenceY(y2, yp2, NULL, NULL, f2, 0, 0, 0);
     y2[ModelBus::urNum_] = 4.;
     y2[ModelBus::uiNum_] = 1.5;
     if (!initModel)
       z2[ModelBus::switchOffNum_] = -1;
-    bus2->init(offset);
+    int offsetExternal = 0;
+    bus2->init(offset, offsetExternal);
   }
   return std::make_pair(dl, vl);
 }
@@ -329,7 +331,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariables) {
   for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
-  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   dl->evalYMat();
   ASSERT_EQ(dl->sizeCalculatedVar(), ModelLine::nbCalculatedVariables_);
 
@@ -455,95 +457,112 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariables) {
   ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::lineStateNum_, res));
 
   int offset = 4;
-  dl->init(offset);
+  int offsetExternal = 0;
+  dl->init(offset, offsetExternal);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i1Num_, numVars));
+  std::vector<int> numVarsExternal;
+  ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 4);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i+2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::lineStateNum_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::lineStateNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 0);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   numVars.clear();
 
   shared_ptr<ModelLine> dlInit = createModelLine(false, true).first;
@@ -563,7 +582,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed2) {
   for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
-  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   dl->evalYMat();
   ASSERT_EQ(dl->sizeCalculatedVar(), ModelLine::nbCalculatedVariables_);
 
@@ -692,92 +711,109 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed2) {
   ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::lineStateNum_, res));
 
   int offset = 2;
-  dl->init(offset);
+  int offsetExternal = 0;
+  dl->init(offset, offsetExternal);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i1Num_, numVars));
+  std::vector<int> numVarsExternal;
+  ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 0);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::lineStateNum_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::lineStateNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 0);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   numVars.clear();
   delete[] zConnected;
 }
@@ -793,7 +829,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed1) {
   for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
-  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   dl->evalYMat();
   ASSERT_EQ(dl->sizeCalculatedVar(), ModelLine::nbCalculatedVariables_);
 
@@ -922,92 +958,109 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed1) {
   ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::lineStateNum_, res));
 
   int offset = 2;
-  dl->init(offset);
+  int offsetExternal = 0;
+  dl->init(offset, offsetExternal);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i1Num_, numVars));
+  std::vector<int> numVarsExternal;
+  ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u1Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u2Num_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 0);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   numVars.clear();
-  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::lineStateNum_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::lineStateNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 0);
+  ASSERT_EQ(numVarsExternal.size(), 0);
   numVars.clear();
   delete[] zConnected;
 }
@@ -1030,7 +1083,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
   std::vector<state_g> g(nbG, NO_ROOT);
   dl->setReferenceG(&g[0], 0);
   dl->setReferenceZ(&z[0], zConnected, 0);
-  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   dl->setCurrentLimitsDesactivate(10.);
 
   dl->getY0();
@@ -1192,7 +1245,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineContinuousVariables) {
   for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
-  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   dl->evalYMat();
   dl->setBufferYType(&yTypes[0], 0);
   dl->setBufferFType(&fTypes[0], 0);
@@ -1245,7 +1298,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   dl->setSubModelParameters(parametersModels);
 
   dl->initSize();
-  unsigned nbY = 3;
+  unsigned nbY = 2;
   unsigned nbF = 2;
   ASSERT_EQ(dl->sizeY(), nbY);
   ASSERT_EQ(dl->sizeF(), nbF);
@@ -1260,7 +1313,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   for (int i = 0; i < dl->sizeZ(); ++i)
     zConnected[i] = true;
   dl->setReferenceZ(&z[0], zConnected, 0);
-  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   dl->evalYMat();
   dl->setBufferYType(&yTypes[0], 0);
   dl->setBufferFType(&fTypes[0], 0);
@@ -1270,7 +1323,6 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   ASSERT_NO_THROW(dl->evalDynamicYType());
   ASSERT_NO_THROW(dl->evalDynamicFType());
   ASSERT_EQ(yTypes[0], DIFFERENTIAL);
-  ASSERT_EQ(yTypes[2], EXTERNAL);
   ASSERT_EQ(fTypes[0], DIFFERENTIAL_EQ);
   std::vector<propertyF_t> fTypesSave(nbF, UNDEFINED_EQ);
   std::vector<propertyContinuousVar_t> yTypesSave(nbY, UNDEFINED_PROPERTY);
@@ -1280,17 +1332,16 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   ASSERT_NO_THROW(dl->evalDynamicFType());
   ASSERT_EQ(fTypes[0], fTypesSave[0]);
   ASSERT_EQ(yTypes[0], yTypesSave[0]);
-  ASSERT_EQ(yTypes[2], yTypesSave[2]);
 
   // test init
   int yNum = 0;
-  dl->init(yNum);
-  ASSERT_EQ(yNum, 3);
+  int yNumExternal = 0;
+  dl->init(yNum, yNumExternal);
+  ASSERT_EQ(yNum, 2);
+  ASSERT_EQ(yNumExternal, 0);
 
   // test getY0
   ASSERT_NO_THROW(dl->getY0());
-  ASSERT_EQ(y[2], 1);
-  ASSERT_EQ(yp[2], 0);
 
   // test evalF
   ASSERT_NO_THROW(dl->evalF(UNDEFINED_EQ));
@@ -1305,7 +1356,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
 
   // test evalJt, evalJtPrim, evalDerivatives and evalDerivativesPrim
   SparseMatrix smj;
-  int size = dl->sizeY() + 1;
+  int size = 4;
   smj.init(size, size);
   dl->evalJt(smj, 1., 0);
   smj.changeCol();
@@ -1344,14 +1395,15 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   std::vector<double> y3(nbY, 0.);
   std::vector<double> yp3(nbY, 0.);
   std::vector<double> f3(nbF, 0.);
-  dl3->setReferenceY(&y3[0], &yp3[0], &f3[0], 0, 0);
+  dl3->setReferenceY(&y3[0], &yp3[0], NULL, NULL, &f3[0], 0, 0, 0);
   std::vector<double> z3(dl3->sizeZ(), 0.);
   bool* zConnected3 = new bool[dl3->sizeZ()];
   for (int i = 0; i < dl3->sizeZ(); ++i)
     zConnected3[i] = true;
   dl3->setReferenceZ(&z3[0], zConnected3, 0);
   yNum = 0;
-  dl3->init(yNum);
+  yNumExternal = 0;
+  dl3->init(yNum, yNumExternal);
   dl3->getY0();
 
   // test evalStaticYType
@@ -1359,7 +1411,6 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   ASSERT_NO_THROW(dl3->evalDynamicYType());
   ASSERT_NO_THROW(dl3->evalDynamicFType());
   ASSERT_EQ(yTypes3[0], ALGEBRAIC);
-  ASSERT_EQ(yTypes3[2], EXTERNAL);
   ASSERT_EQ(fTypes3[0], ALGEBRAIC_EQ);
   std::vector<propertyF_t> fTypesSave3(nbF, UNDEFINED_EQ);
   std::vector<propertyContinuousVar_t> yTypesSave3(nbY, UNDEFINED_PROPERTY);
@@ -1369,7 +1420,6 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   ASSERT_NO_THROW(dl3->evalDynamicFType());
   ASSERT_EQ(fTypes3[0], fTypesSave3[0]);
   ASSERT_EQ(yTypes3[0], yTypesSave3[0]);
-  ASSERT_EQ(yTypes3[2], yTypesSave3[2]);
 
   // test evalF
   ASSERT_NO_THROW(dl3->evalF(UNDEFINED_EQ));

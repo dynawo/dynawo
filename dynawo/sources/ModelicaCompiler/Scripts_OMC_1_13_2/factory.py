@@ -251,6 +251,8 @@ class Factory:
 
         ## List of equations to add in setY0 function
         self.list_for_sety0 = []
+        ## List of equations to add in setY0external function
+        self.list_for_sety0external = []
         ## List of equations to add in setY0 function
         self.list_for_callcustomparametersconstructors = []
         ## List of equations to add in setFOmc function
@@ -514,9 +516,14 @@ class Factory:
             v.set_dyn_type()
 
         i = 0
+        iexternal = 0
         for v in self.list_vars_der:
-            v.set_dynawo_name( "xd[%s]" % str(i) )
-            i += 1
+            if v.get_name() in self.reader.fictive_continuous_vars_der:
+                v.set_dynawo_name("xd_ext[%s]" % str(iexternal))
+                iexternal += 1
+            else:
+                v.set_dynawo_name( "xd[%s]" % str(i) )
+                i += 1
 
         i = 0
         for v in self.list_all_vars_discr:
@@ -531,10 +538,15 @@ class Factory:
             i += 1
 
         i = 0
+        iexternal = 0
         for v in self.list_vars_syst:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
-            v.set_dynawo_name( "x[%s]" % str(i) )
-            i += 1
+            if v.get_name() in self.reader.fictive_continuous_vars:
+                v.set_dynawo_name( "x_ext[%s]" % str(iexternal) )
+                iexternal += 1
+            else:
+                v.set_dynawo_name( "x[%s]" % str(i) )
+                i += 1
 
         i = 0
         # only for real parameters!
@@ -1356,6 +1368,7 @@ class Factory:
         for var in list_vars :
             if var.is_alias() and  (to_param_address(var.get_name()).startswith("SHOULD NOT BE USED")): continue
             if var in self.reader.list_complex_calculated_vars: continue
+            if var.get_name() in self.reader.fictive_continuous_vars: continue
             if var.get_use_start() and not (is_const_var(var) and var.get_init_by_param_in_06inz()):
                 init_val = var.get_start_text()[0]
                 if init_val == "":
@@ -1433,6 +1446,69 @@ class Factory:
 
         # convert native boolean variables
         convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], self.list_for_sety0)
+
+    def prepare_for_sety0external(self):
+        # In addition to system vars, discrete vars (bool or not) must be initialized as well
+        # We concatenate system vars and discrete vars
+        list_vars = itertools.chain(self.list_vars_syst, self.list_all_vars_discr, self.list_vars_int, self.reader.list_complex_const_vars)
+        found_init_by_param_and_at_least2lines = False # for reading comfort when printing
+
+        # sort by taking init function number read in *06inz.c
+        list_vars = sorted(list_vars,key = cmp_to_key_dynawo(cmp_num_init_vars))
+        # We prepare the results to print in setY0omc
+        iexternal = 0
+
+        def get_value_lines(index, var_name, value):
+            lines = []
+            lines.append("  if (numVarEx == " + str(index) + ") {  /* " + var_name + " */\n")
+            lines.append("    value = " + value + ";\n")
+            lines.append("    return;\n  }\n")
+            return lines
+
+        for var in list_vars :
+            if var.get_name() not in self.reader.fictive_continuous_vars: continue
+            if var.get_init_by_param (): # If the var was initialized with a param (not with an actual value)
+                var.clean_start_text () # Clean up initialization text before printing
+
+                for L in var.get_start_text() :
+                    if "FILE_INFO" not in L and "omc_assert_warning" not in L:
+                        new_value = L.split("=")[1].strip()
+                        for const_string in self.reader.list_of_stringconstants:
+                            if const_string+"," in new_value:
+                                new_value = new_value.replace(const_string+",", const_string+".c_str(),")
+                            elif const_string+";" in new_value:
+                                new_value = new_value.replace(const_string+";", const_string+".c_str();")
+                            elif const_string+" " in new_value:
+                                new_value = new_value.replace(const_string+" ", const_string+".c_str() ")
+                        self.list_for_sety0external.extend(get_value_lines(iexternal, var.get_name(), new_value))
+                        iexternal += 1
+
+                if len(var.get_start_text()) > 1 : self.list_for_sety0external.append("\n") # reading comfort
+            elif var.get_init_by_param_in_06inz():
+                var.clean_start_text_06inz()
+
+                self.list_for_sety0external.append("  {\n")
+                for L in var.get_start_text_06inz() :
+                    if "FILE_INFO" not in L and "omc_assert_warning" not in L:
+                        new_value = L.split("=")[1].strip()
+                        self.list_for_sety0external.extend(get_value_lines(iexternal, var.get_name(), new_value))
+                        iexternal += 1
+
+                if len(var.get_start_text_06inz()) > 1 : self.list_for_sety0external.append("\n") # reading comfort
+            else:
+                init_val = var.get_start_text()[0]
+                if init_val == "":
+                    init_val = "0.0"
+                self.list_for_sety0external.extend(get_value_lines(iexternal, var.get_name(), init_val))
+                iexternal += 1
+            # expr = self.reader.dic_calculated_vars_values[var_name]
+            # index = self.dic_calc_var_index[var_name]
+            # self.list_for_sety0external.append("  if (numVarEx == " + str(index)+")  /* "+ var_name + " */\n")
+            # self.list_for_sety0external.append("    value = "+ expr+";\n")
+            # self.list_for_sety0external.append("    return true;\n")
+        convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], self.list_for_sety0external)
+        self.list_for_sety0external.append("  throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);\n")
+
     ##
     # return the list of lines that constitues the body of setY0
     # @param self : object pointer
@@ -1445,6 +1521,16 @@ class Factory:
                 self.list_for_sety0.pop(index)
                 self.list_for_sety0.insert(index,line_tmp)
         return self.list_for_sety0
+
+
+    def get_list_for_sety0external(self):
+        for line in self.list_for_sety0external:
+            if "omc_Modelica_Math_atan3" in line:
+                index = self.list_for_sety0external.index(line)
+                line_tmp = transform_atan3_operator(line)
+                self.list_for_sety0external.pop(index)
+                self.list_for_sety0external.insert(index,line_tmp)
+        return self.list_for_sety0external
 
 
     ##
@@ -2405,6 +2491,8 @@ class Factory:
         self.list_for_evalfadept.append("  /*\n")
         for v in self.list_vars_syst + self.list_vars_der:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
+            if v.get_name() in self.reader.fictive_continuous_vars: continue
+            if v.get_name() in self.reader.fictive_continuous_vars_der: continue
             self.list_for_evalfadept.append( "    %s : %s\n" % (to_compile_name(v.get_name()), v.get_dynawo_name()) )
         self.list_for_evalfadept.append("\n")
 
@@ -2853,7 +2941,10 @@ class Factory:
                 spin = "DIFFERENTIAL"
                 var_ext = ""
                 if is_alg_var(v) : spin = "ALGEBRAIC"
-                if v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var:
+                if v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var and v.get_dyn_type() == "CONTINUOUS":
+                  # skip external variables
+                  continue
+                elif v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var:
                   spin = "EXTERNAL"
                   var_ext = "- external variables"
                 elif v.get_name() in self.reader.fictive_optional_continuous_vars and not v.get_name() in external_diff_var:
@@ -3017,6 +3108,7 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_setvariables(self):
+        line_ptrn_native_external_state = '  variables.push_back (VariableNativeFactory::createExternalState ("%s", %s, %s));\n'
         line_ptrn_native_state = '  variables.push_back (VariableNativeFactory::createState ("%s", %s, %s));\n'
         line_ptrn_native_calculated = '  variables.push_back (VariableNativeFactory::createCalculated ("%s", %s, %s));\n'
         line_ptrn_alias =  '  variables.push_back (VariableAliasFactory::create ("%s", "%s", %s, %s));\n'
@@ -3036,6 +3128,8 @@ class Factory:
             elif v.is_alias():
                 alias_name = to_compile_name(v.get_alias_name())
                 line = line_ptrn_alias % ( name, alias_name, v.get_dyn_type(), negated)
+            elif v.get_name() in self.reader.fictive_continuous_vars and v.get_dyn_type() == "CONTINUOUS":
+                line = line_ptrn_native_external_state % ( name, v.get_dyn_type(), "false")
             else:
                 line = line_ptrn_native_state % ( name, v.get_dyn_type(), negated)
             self.list_for_setvariables.append(line)
@@ -3250,7 +3344,7 @@ class Factory:
                     for syst_var in self.list_vars_syst:
                         if syst_var.get_dynawo_name() is None or  syst_var.get_dynawo_name() == "": continue
                         if syst_var.get_name() == dependency:
-                            dependency_index = int(syst_var.get_dynawo_name().replace("]","").replace("x[",""))
+                            dependency_index = self.extract_index_var(syst_var)
                             if dependency_index not in list_of_indexes:
                                 list_of_indexes.append(dependency_index)
                 recursive_calc_vars_num_deps[var_name] = len(list_of_indexes)
@@ -3325,7 +3419,7 @@ class Factory:
                         if name in calc_var_to_offset:
                             offset = calc_var_to_offset[name]
                         line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                            "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd) /* " + name)
+                            "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd, x_ext, xd_ext) /* " + name)
                 body.append(line)
 
 
@@ -3344,6 +3438,16 @@ class Factory:
     def get_list_for_evalcalculatedvariadept(self):
         return self.list_for_evalcalculatedvariadept
 
+    def extract_index_var(self, var):
+        name = var.get_dynawo_name()
+        is_external = False
+        if var.get_name() in self.reader.fictive_continuous_vars:
+            base = "x_ext"
+            is_external = True
+        else:
+            base = "x"
+        return int(name.replace("]", "").replace(base+"[", "")), is_external
+
     ##
     # prepare the lines that constitues the body for getIndexesOfVariablesUsedForCalculatedVarI
     # @param self : object pointer
@@ -3356,21 +3460,27 @@ class Factory:
             if var_name in map_dep:
                 list_depend = map_dep[var_name]
                 list_of_indexes = []
+                list_of_indexes_external = []
                 for dependency in list_depend:
                     for syst_var in self.list_vars_syst:
                         if syst_var.get_dynawo_name() is None or  syst_var.get_dynawo_name() == "": continue
                         if syst_var.get_name() == dependency:
-                            dependency_index = int(syst_var.get_dynawo_name().replace("]","").replace("x[",""))
+                            dependency_index, external = self.extract_index_var(syst_var)
                             if dependency_index not in list_of_indexes:
-                                list_of_indexes.append(dependency_index)
-                if len(list_of_indexes) > 0 or var_name in self.dic_calc_var_recursive_deps:
+                                if external:
+                                    list_of_indexes_external.append(dependency_index)
+                                else:
+                                    list_of_indexes.append(dependency_index)
+                if len(list_of_indexes) > 0 or len(list_of_indexes_external) > 0 or var_name in self.dic_calc_var_recursive_deps:
                     self.list_for_getindexofvarusedforcalcvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */ {\n")
                     list_of_indexes.sort()
                     for dependency_index in list_of_indexes:
                         self.list_for_getindexofvarusedforcalcvari.append("    indexes.push_back(" + str(dependency_index) + ");\n")
+                    for dependency_index in list_of_indexes_external:
+                        self.list_for_getindexofvarusedforcalcvari.append("    indexesExternal.push_back(" + str(dependency_index) + ");\n")
                     if var_name in self.dic_calc_var_recursive_deps:
                         for name in self.dic_calc_var_recursive_deps[var_name]:
-                            self.list_for_getindexofvarusedforcalcvari.append("    getIndexesOfVariablesUsedForCalculatedVarI(" + str(self.dic_calc_var_index[name])+ ", indexes);\n")
+                            self.list_for_getindexofvarusedforcalcvari.append("    getIndexesOfVariablesUsedForCalculatedVarI(" + str(self.dic_calc_var_index[name])+ ", indexes, indexesExternal);\n")
                     self.list_for_getindexofvarusedforcalcvari.append("  }\n")
             index+=1
 
@@ -3550,6 +3660,7 @@ class Factory:
         self.prepare_for_setg()
         self.prepare_for_setg_equations()
         self.prepare_for_sety0()
+        self.prepare_for_sety0external()
         self.prepare_for_callcustomparametersconstructors()
         self.prepare_for_initrpar()
         self.prepare_for_setupdatastruc()

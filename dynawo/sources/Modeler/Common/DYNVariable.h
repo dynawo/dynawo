@@ -85,6 +85,13 @@ class Variable {
     return isAlias_;
   }
 
+  /**
+   * @brief Determines if the variable is external (dynawo model level)
+   *
+   * @returns status
+   */
+  virtual bool isExternal() const = 0;
+
  protected:
   /**
    * @brief Constructor

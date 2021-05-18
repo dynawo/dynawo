@@ -44,7 +44,7 @@
 50 | _LOAD___6_EC | Tap-changer : below minimum allowed value
 57 | _LOAD___3_EC | Tap-changer : below minimum allowed value
 60 | UVA | Under-voltage automaton for generator arming
-64 | _LOAD___4_EC | Tap-changer : below minimum allowed value
+63 | _LOAD___4_EC | Tap-changer : below minimum allowed value
 65 | UVA | Under-voltage generator trip
 65 | GEN____3_SM | GENERATOR : disconnecting
 65 | UVA | Under-voltage generator trip
@@ -76,13 +76,13 @@
 90 | _LOAD___5_EC | Tap +1
 90 | _LOAD___2_EC | Tap +1
 90 | _LOAD___5_EC | Tap +1
-94 | _LOAD___4_EC | Tap +1
+93 | _LOAD___4_EC | Tap +1
 95 | _LOAD___3_EC | Tap +1
 100 | _LOAD___2_EC | Tap +1
 100 | _LOAD___5_EC | Tap +1
 100 | _LOAD___2_EC | Tap +1
 100 | _LOAD___5_EC | Tap +1
-104 | _LOAD___4_EC | Tap +1
+103 | _LOAD___4_EC | Tap +1
 105 | _LOAD___3_EC | Tap +1
 110 | _LOAD__10_EC | Tap +1
 110 | _LOAD__13_EC | Tap +1
@@ -96,7 +96,7 @@
 110 | _LOAD___2_EC | Tap +1
 110 | _LOAD___4_EC | Tap +1
 110 | _LOAD___5_EC | Tap +1
-114 | _LOAD___4_EC | Tap +1
+113 | _LOAD___4_EC | Tap +1
 115 | _LOAD___3_EC | Tap +1
 117 | _LOAD___3_EC | Tap +1
 120 | _LOAD__10_EC | Tap +1
@@ -106,7 +106,7 @@
 120 | _LOAD__14_EC | Tap +1
 120 | _LOAD___2_EC | Tap +1
 120 | _LOAD__13_EC | Tap-changer : below minimum allowed value
-124 | _LOAD___4_EC | Tap +1
+123 | _LOAD___4_EC | Tap +1
 125 | _LOAD__11_EC | Tap +1
 125 | _LOAD__12_EC | Tap +1
 125 | _LOAD___3_EC | Tap +1

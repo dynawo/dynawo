@@ -167,11 +167,9 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   void evalCalculatedVars();
 
   /**
-   * @brief get the index of variables used to define the jacobian associated to a calculated variable
-   * @param numCalculatedVar : index of the calculated variable
-   * @param numVars : index of variables used to define the jacobian associated to the calculated variable
+   * @copydoc ModelCPP::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -216,9 +214,9 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   void evalYMat();
 
   /**
-   * @copydoc NetworkComponent::init(int& yNum)
+   * @copydoc NetworkComponent::init(int& yNum, int& yNumExternal)
    */
-  void init(int& yNum);
+  void init(int& yNum, int& yNumExternal);
 
   /**
    * @copydoc NetworkComponent::Impl::getY0()

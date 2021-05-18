@@ -44,6 +44,7 @@
 
 #include "DYNError.h"
 #include "DYNErrorQueue.h"
+#include "DYNFictiveVariableSubModel.h"
 #include "DYNStaticRefInterface.h"
 
 using boost::shared_ptr;
@@ -145,6 +146,10 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
+  virtual void getY0External(unsigned int numVarEx, double&) const {
+    throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
+  }
+
   void initSubBuffers() {
     // Dummy class used for testing
   }
@@ -227,7 +232,7 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const {
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&, std::vector<int>&) const {
     // Dummy class used for testing
   }
 
@@ -287,6 +292,29 @@ class SubModelMode : public SubModelMockBase {
   return NO_MODE;
   }
 };
+
+class SubModelExternal : public SubModelMockBase {
+ public:
+  SubModelExternal(unsigned nbY, unsigned nbZ) : SubModelMockBase(nbY, nbZ) {}
+
+  SubModelExternal() : SubModelMockBase(1, 1) {}
+
+  virtual ~SubModelExternal() {}
+
+  void getY0External(unsigned int numVarEx, double& value) const {
+    if (numVarEx == 0) {
+      value = 1.;
+      return;
+    }
+
+    throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
+  }
+
+  modeChangeType_t evalMode(const double) {
+    return NO_MODE;
+  }
+};
+
 //-----------------------------------------------------
 // TEST DYNParameter
 //-----------------------------------------------------
@@ -1044,25 +1072,26 @@ TEST(ModelerCommonTest, SanityCheckOnSizeYZ) {
   boost::dynamic_pointer_cast< SubModel >(submodel)->defineVariables();
   submodel->defineNames();
   int sizeYGlob = 0;
+  int sizeYExternal = 0;
   int sizeZGlob = 0;
   int sizeModeGlob = 0;
   int sizeFGlob = 0;
   int sizeGGlob = 0;
-  ASSERT_THROW_DYNAWO(submodel->initSize(sizeYGlob, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob),
+  ASSERT_THROW_DYNAWO(submodel->initSize(sizeYGlob, sizeYExternal, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob),
       Error::MODELER, KeyError_t::MismatchingVariableSizes);
 
 
   submodel = boost::shared_ptr<SubModelMock>(new SubModelMock(1, 2));
   boost::dynamic_pointer_cast< SubModel >(submodel)->defineVariables();
   submodel->defineNames();
-  ASSERT_THROW_DYNAWO(submodel->initSize(sizeYGlob, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob),
+  ASSERT_THROW_DYNAWO(submodel->initSize(sizeYGlob, sizeYExternal, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob),
       Error::MODELER, KeyError_t::MismatchingVariableSizes);
 
 
   submodel = boost::shared_ptr<SubModelMock>(new SubModelMock(1, 1));
   boost::dynamic_pointer_cast< SubModel >(submodel)->defineVariables();
   submodel->defineNames();
-  ASSERT_NO_THROW(submodel->initSize(sizeYGlob, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob));
+  ASSERT_NO_THROW(submodel->initSize(sizeYGlob, sizeYExternal, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob));
 }
 
 
@@ -1113,4 +1142,33 @@ TEST(ModelerCommonTest, StaticRefInterface) {
   ASSERT_EQ(sri.getModelVar(), "MyModelVar");
   ASSERT_EQ(sri.getStaticVar(), "MyStaticVar");
 }
+
+TEST(CommonTest, testFictiveVariableSubModel) {
+  boost::shared_ptr<VariableNative> var_ref = VariableNativeFactory::createState("test", CONTINUOUS, false);
+  var_ref->setIndex(0);
+  boost::shared_ptr<SubModel> model_ref = boost::make_shared<SubModelExternal>(1, 0);
+  connectedSubModel connectedRef(model_ref, var_ref, false);
+
+  FictiveVariableSubModel model(connectedRef);
+
+  propertyContinuousVar_t prop;
+  model.setBufferYType(&prop, 0);
+  double value;
+  double pvalue;
+  model.setBufferY(&value, &pvalue, 0);
+
+  model.getSize();
+  model.evalStaticYType();
+  model.getY0();
+
+  std::vector<boost::shared_ptr<Variable> > vars;
+  model.defineVariables(vars);
+
+  ASSERT_EQ(vars.size(), 1);
+  ASSERT_EQ(vars.front()->getName(), "fict_test");
+  ASSERT_EQ(vars.front()->getType(), CONTINUOUS);
+  ASSERT_EQ(vars.front()->getNegated(), false);
+  ASSERT_THROW_DYNAWO(vars.front()->getIndex(), Error::MODELER, KeyError_t::VariableNativeIndexNotSet);
+}
+
 }  // namespace DYN

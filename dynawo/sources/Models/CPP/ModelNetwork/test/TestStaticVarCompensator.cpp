@@ -150,12 +150,13 @@ createModelStaticVarCompensator(bool open, bool initModel) {
   for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(y1, yp1, f1, 0, 0);
+  bus1->setReferenceY(y1, yp1, NULL, NULL,  f1, 0, 0, 0);
   y1[ModelBus::urNum_] = 3.5;
   y1[ModelBus::uiNum_] = 2;
   z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
-  bus1->init(offset);
+  int offsetExternal = 0;
+  bus1->init(offset, offsetExternal);
   return std::make_pair(sc, vl);
 }
 
@@ -178,7 +179,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
   for (int i = 0; i < svc->sizeZ(); ++i)
     zConnected[i] = true;
   svc->setReferenceZ(&z[0], zConnected, 0);
-  svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  svc->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   svc->evalYMat();
   ASSERT_EQ(svc->sizeCalculatedVar(), ModelStaticVarCompensator::nbCalculatedVariables_);
 
@@ -208,10 +209,12 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
 
   svc->setConnected(CLOSED);
   int offset = 2;
-  svc->init(offset);
+  int offsetExternal = 0;
+  svc->init(offset, offsetExternal);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(svc->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(svc->getIndexesOfVariablesUsedForCalculatedVarI(ModelStaticVarCompensator::qNum_, numVars));
+  std::vector<int> numVarsExternal;
+  ASSERT_THROW_DYNAWO(svc->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(svc->getIndexesOfVariablesUsedForCalculatedVarI(ModelStaticVarCompensator::qNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
@@ -237,7 +240,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   for (int i = 0; i < svc->sizeZ(); ++i)
     zConnected[i] = true;
   svc->setReferenceZ(&z[0], zConnected, 0);
-  svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  svc->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
 
   svc->getY0();
   ASSERT_EQ(svc->getConnected(), CLOSED);
@@ -281,7 +284,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorContinuousVariables) {
   for (int i = 0; i < svc->sizeZ(); ++i)
     zConnected[i] = true;
   svc->setReferenceZ(&z[0], zConnected, 0);
-  svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  svc->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   ASSERT_EQ(svc->sizeY(), nbY);
   ASSERT_EQ(svc->sizeF(), nbF);
 
@@ -348,7 +351,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorJt) {
   for (int i = 0; i < svc->sizeZ(); ++i)
     zConnected[i] = true;
   svc->setReferenceZ(&z[0], zConnected, 0);
-  svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  svc->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   svc->evalYMat();
   SparseMatrix smj;
   int size = svc->sizeY();

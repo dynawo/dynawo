@@ -152,8 +152,9 @@ class ModelLoad : public NetworkComponent::Impl {
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    * @param numCalculatedVar index of the calculated variable
    * @param numVars index of variables used to define the jacobian associated to a calculated variable
+   * @param indexesExternal indexes of external variables
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>& indexesExternal) const;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -203,14 +204,19 @@ class ModelLoad : public NetworkComponent::Impl {
   void evalYMat() { /* not needed*/ }
 
   /**
-   * @copydoc NetworkComponent::init(int& yNum)
+   * @copydoc NetworkComponent::init(int& yNum, int& yNumExternal)
    */
-  void init(int & yNum);
+  void init(int & yNum, int& yNumExternal);
 
   /**
    * @copydoc NetworkComponent::Impl::getY0()
    */
   void getY0();
+
+  /**
+   * @copydoc NetworkComponent::Impl::getY0External()
+   */
+  void getY0External(unsigned int numVarEx, double& value) const;
 
   /**
    * @copydoc NetworkComponent::Impl::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
@@ -515,15 +521,14 @@ class ModelLoad : public NetworkComponent::Impl {
   double u0_;  ///< initial voltage
 
   // Variables
-  double DeltaPc0_;  ///< delta pc0
-  double DeltaQc0_;  ///< delta qc0
   double zP0_;  ///< zP0
   double zQ0_;  ///< zQ0
   double zPprim0_;  ///< zPprim0
   double zQprim0_;  ///< zQprim0
   unsigned int yOffset_;  ///< global Y offset at the beginning of the load model
-  unsigned int DeltaPcYNum_;  ///< local Y index for DeltaPc
-  unsigned int DeltaQcYNum_;  ///< local Y index for DeltaQc
+  unsigned int yExternalOffset_;  ///< global external y offset
+  static const unsigned int DeltaPcYNum_;  ///< local Y external index for DeltaPc
+  static const unsigned int DeltaQcYNum_;  ///< local Y external index for DeltaQc
   unsigned int zPYNum_;  ///< local Y index for zP
   unsigned int zQYNum_;  ///< local Y index for zQ
 };  ///< class for Load model

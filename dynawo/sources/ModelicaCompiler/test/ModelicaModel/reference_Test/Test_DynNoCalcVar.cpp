@@ -66,7 +66,8 @@ void ModelTest_Dyn::setupDataStruc()
   data->simulationInfo->daeModeData->nResidualVars = 1;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 0;
 
-  data->nbVars =3;
+  data->nbVars = 3;
+  data->nbExternalVars = 0;
   data->nbF = 3;
   data->nbModes = 0;
   data->nbZ = 0;
@@ -250,6 +251,11 @@ void ModelTest_Dyn::setY0omc()
   }
 }
 
+void ModelTest_Dyn::setY0Externalomc(unsigned int numVarEx, double& value) const
+{
+  throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
+}
+
 void ModelTest_Dyn::callCustomParametersConstructors()
 {
 }
@@ -330,6 +336,8 @@ void ModelTest_Dyn::defineElements(std::vector<Element>& elements, std::map<std:
 #ifdef _ADEPT_
 void ModelTest_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
                               const std::vector<adept::adouble> & xd,
+                              const std::vector<adept::adouble> & x_ext,
+                              const std::vector<adept::adouble> & xd_ext,
                               std::vector<adept::adouble> & res)
 {
   /*
@@ -397,13 +405,13 @@ double ModelTest_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
+adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd, const std::vector<adept::adouble> &x_ext, const std::vector<adept::adouble> &xd_ext) const
 {
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 #endif
 
-void ModelTest_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
+void ModelTest_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
 {
 }
 

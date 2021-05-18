@@ -300,11 +300,9 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   void evalCalculatedVars();  // compute calculated variables (for outputs)
 
   /**
-   * @brief get the index of variables used to define the jacobian associated to a calculated variable
-   * @param numCalculatedVar : index of the calculated variable
-   * @param numVars : index of variables used to define the jacobian associated to the calculated variable
+   * @copydoc ModelCPP::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -354,10 +352,9 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   void evalYMat();
 
   /**
-   * @brief init
-   * @param yNum
+   * @copydoc NetworkComponent::Impl::init()
    */
-  void init(int& yNum);
+  void init(int& yNum, int& yNumExternal);
 
   /**
    * @copydoc NetworkComponent::Impl::getY0()

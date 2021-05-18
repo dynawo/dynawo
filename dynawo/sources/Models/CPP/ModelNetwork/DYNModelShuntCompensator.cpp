@@ -318,7 +318,7 @@ ModelShuntCompensator::evalCalculatedVars() {
 }
 
 void
-ModelShuntCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const {
+ModelShuntCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case qNum_: {
       if (isConnected()) {
@@ -372,7 +372,7 @@ ModelShuntCompensator::evalCalculatedVarI(unsigned numCalculatedVar) const {
 }
 
 void
-ModelShuntCompensator::init(int& /*yNum*/) {
+ModelShuntCompensator::init(int& /*yNum*/, int&) {
   /* not needed */
 }
 

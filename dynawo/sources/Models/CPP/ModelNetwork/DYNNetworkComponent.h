@@ -146,8 +146,9 @@ class NetworkComponent {  ///< Base class for network component models
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    * @param numCalculatedVar index of the calculated variable
    * @param numVars index of variables used to define the jacobian
+   * @param numVarsExternal index of external variables
    */
-  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const = 0;
+  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>& numVarsExternal) const = 0;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -215,20 +216,28 @@ class NetworkComponent {  ///< Base class for network component models
 
   /**
    * @brief init
-   * @param yNum
+   *
+   * Updates @a yNum and @a yNumExternal
+   *
+   * @param yNum Number of variables
+   * @param yNumExternal Number of external variables
    */
-  virtual void init(int& yNum) = 0;
+  virtual void init(int& yNum, int& yNumExternal) = 0;
 
   /**
    * @brief set the local buffer for continuous variables and their derivatives
    *
    * @param y global buffer for the continuous variables
    * @param yp global buffer for the derivatives of the continuous variables
+   * @param y_ext global buffer for external continuous variables
+   * @param yp_ext global buffer for the derivative for external continuous variables
    * @param f global buffer for the residual values
    * @param offsetY offset to use to find the beginning of the local buffer
    * @param offsetF offset to use to find the beginning of the local buffer for residual functions
+   * @param offsetYExternal offset to use to find the beginning of the local buffer for external variables
    */
-  virtual void setReferenceY(double* y, double* yp, double* f, const int & offsetY, const int& offsetF) = 0;
+  virtual void setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext,
+    double* f, const int & offsetY, const int& offsetF, int offsetYExternal) = 0;
 
   /**
    * @brief set the local buffer for discretes variables
@@ -259,6 +268,17 @@ class NetworkComponent {  ///< Base class for network component models
    * @brief get the initial values for discrete/continuous variables
    */
   virtual void getY0() = 0;
+
+  /**
+   * @brief Retrieve the init value for external variable
+   *
+   * same as @a SubModel::getY0External()
+   *
+   * @param numVarEx Local external variable index
+   * @param value the value to retrieve
+   * @throw exception if external cannot be found
+   */
+  virtual void getY0External(unsigned int numVarEx, double& value) const = 0;
 
   /**
    * @brief network submodels parameters setter
@@ -318,6 +338,12 @@ class NetworkComponent {  ///< Base class for network component models
    * @return size y
    */
   virtual int sizeY() const = 0;
+
+  /**
+   * @brief get size external y
+   * @return size external y
+   */
+  virtual int sizeYExternal() const = 0;
 
   /**
    * @brief get size z

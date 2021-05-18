@@ -21,11 +21,36 @@
 #define MODELER_COMMON_DYNCONNECTOR_H_
 
 #include <boost/unordered_map.hpp>
+#include <boost/unordered_set.hpp>
 #include <vector>
 #include <list>
 #include <boost/shared_ptr.hpp>
+#include <boost/functional/hash.hpp>
 #include "DYNEnumUtils.h"
 #include "DYNVariable.h"
+
+namespace DYN {
+class connectedSubModel;
+}
+
+namespace boost {
+
+/**
+ * @brief Specialization of hash for connectedSubModel in order to use boost::unordered_map
+ */
+template<>
+struct hash<DYN::connectedSubModel> {
+  /**
+   * @brief action operator
+   *
+   * relies on hash values of shared pointers
+   *
+   * @param model the model to hash
+   * @returns hash value
+   */
+  std::size_t operator()(const ::DYN::connectedSubModel& model) const;
+};
+}  // namespace boost
 
 namespace DYN {
 class SparseMatrix;
@@ -43,18 +68,6 @@ class connectedSubModel {
   negated_(false) { }
 
   /**
-   * @brief copy constructor
-   *
-   * @param model connected sub model to used to initialize the created one
-   */
-  //---------------------------------------------------------------------
-
-  connectedSubModel(const connectedSubModel & model) :
-  subModel_(model.subModel_),
-  variable_(model.variable_),
-  negated_(model.negated_) { }
-
-  /**
    * @brief constructor
    *
    * @param subModel submodel connected
@@ -65,26 +78,6 @@ class connectedSubModel {
   subModel_(subModel),
   variable_(variable),
   negated_(negated) { }
-
-  /**
-   * @brief destructor
-   */
-  ~connectedSubModel() { }
-
-  /**
-   * @brief assignment
-   * @param other : const_iterator to assign
-   *
-   * @returns Reference to this const_iterator
-   */
-  connectedSubModel& operator=(const connectedSubModel& other) {
-    if (this == &other)
-      return *this;
-    subModel_ = other.subModel_;
-    variable_ = other.variable_;
-    negated_ = other.negated_;
-    return *this;
-  }
 
   /**
    * @brief getter of the submodel connected by the connector
@@ -109,6 +102,31 @@ class connectedSubModel {
   inline bool negated() const {
     return negated_;
   }
+
+  /**
+   * @brief Equality operator
+   *
+   * Required in order to use set container
+   * @param other
+   * @returns operator status
+   */
+  bool operator==(const connectedSubModel& other) const {
+    return (subModel_ == other.subModel_) && (variable_ == other.variable_);
+  }
+
+  /**
+   * @brief Equality operator
+   *
+   * defined to comply with existence of equality operator
+   *
+   * @param other
+   * @returns operator status
+   */
+  bool operator!=(const connectedSubModel& other) const {
+    return !((*this) == other);
+  }
+
+  friend class ::boost::hash<connectedSubModel>;
 
  public:
   boost::shared_ptr<SubModel> subModel_;  ///< submodel connected by the connector
@@ -382,6 +400,102 @@ class ConnectorContainer {
    */
   bool isConnected(const int numVariable);
 
+  /**
+   * @brief Perform external connections
+   *
+   * For each connection registered, connect models buffers and its reference buffer, pour y and yp
+   *
+   * Clear the external connections at the end
+   */
+  void performExternalConnections();
+
+  /**
+   * @brief Retrieve list of external connections by id
+   *
+   * @returns reference to the list of connections by external id
+   */
+  const boost::unordered_map<int, int>& externalConnectionsByVarNum() const {
+    return externalConnectionsByVarNum_;
+  }
+
+  /**
+   * @brief Add external variable connection
+   *
+   * @param key the external model to connect
+   * @param value the reference value of the external variable
+   */
+  void addExternalConnection(const connectedSubModel& key, const DYN::connectedSubModel& value) {
+    // key will be created if necessary
+    externalConnections_[key].insert(value);
+  }
+
+  /**
+   * @brief Retrieve the list of full external variables connectors
+   *
+   * @returns the list
+   */
+  const std::vector<boost::shared_ptr<Connector> >& getYConnectorsFullExternal() const {
+    return yConnectorsFullExternal_;
+  }
+
+   /**
+   * @brief Retrieve the list of full external variables connectors for update
+   *
+   * @returns the list
+   */
+  std::vector<boost::shared_ptr<Connector> >& getYConnectorsFullExternal() {
+    return yConnectorsFullExternal_;
+  }
+
+  /**
+   * @brief Add a Y connector
+   *
+   * @param connector connector to add
+   */
+  void addYConnector(const boost::shared_ptr<Connector>& connector) {
+    yConnectors_.push_back(connector);
+  }
+
+ private:
+  /**
+   * @brief Predicate functor to determine if a model handles an external variable
+   */
+  struct IsExternalPredicate {
+    /**
+     * @brief action operator
+     *
+     * @param cmodel the model to check
+     * @return predicate status
+     */
+    bool operator()(const connectedSubModel& cmodel) const;
+  };
+
+  /**
+   * @brief Predicate functor to determine if a model do not handle an external variable
+   */
+  struct IsNonExternalPredicate {
+    /**
+     * @brief action operator
+     *
+     * @param cmodel the model to check
+     * @return predicate status
+     */
+    bool operator()(const connectedSubModel& cmodel) const;
+  };
+
+ private:
+  /**
+   * @brief Computes the unique id for connected model
+   *
+   * In case the handled variable is an external continous variable, computes an unique id based on the names of the models and variable.
+   *
+   * In case the handled variable is a problem variable, return the global variable index
+   *
+   * @param cmodel the connected model
+   * @returns an unique id
+   */
+  static int getYConnectorNumVar(const connectedSubModel& cmodel);
+
  private:
   /**
    * @brief get Y connector's information according to its index
@@ -469,13 +583,22 @@ class ConnectorContainer {
   void getY0ConnectorForZConnector();
 
   /**
-   * @brief compute the variable id to use in the flow connector structures
-   * @param subModel submodel to connect
-   * @param variable variable of the submodel to connect
+   * @brief Compute the variable id to use in the flow connector structures
+   * @param cmodel submodel to connect
    * @param flowConnector true if the connector is a flow connector
-   * @return variable numerical id
+   * @return variable unique id
    */
-  int getConnectorVarNum(const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable, bool flowConnector = false);
+  int getConnectorVarNum(const connectedSubModel& cmodel, bool flowConnector = false);
+
+  /**
+   * @brief Process the connector list to extract the full external list
+   *
+   * Put all connectors which connect only external variables into a dedicated member and remove them from
+   * the Y connectors list
+   *
+   * @param yConnectorsList the list of connectors to process
+   */
+  void processExternalConnectors(std::list<boost::shared_ptr<Connector> >& yConnectorsList);
 
  private:
   std::vector<boost::shared_ptr<Connector> >yConnectorsDeclared_;  ///< continuous connectors before merge
@@ -483,6 +606,7 @@ class ConnectorContainer {
   std::vector<boost::shared_ptr<Connector> >zConnectorsDeclared_;  ///< discrete connectors before merge
 
   std::vector<boost::shared_ptr<Connector> >yConnectors_;  ///< continuous connectors after merge
+  std::vector<boost::shared_ptr<Connector> > yConnectorsFullExternal_;  ///< y connectors connecting only external variables
   std::vector<boost::shared_ptr<Connector> >flowConnectors_;  ///< flow connectors after merge
   std::vector<boost::shared_ptr<Connector> >zConnectors_;  ///< discrete connectors after merge
 
@@ -504,6 +628,12 @@ class ConnectorContainer {
   std::vector< std::vector<int> > factor_;  ///< factor to use for evalF by variables by connector (should be 1 or -1)
 
   bool connectorsMerged_;  ///< indicates if the connectors are already merged or not
+
+  /**
+   * @brief external connections: pairs (reference_model, set of models with reference variables)
+   */
+  boost::unordered_map<connectedSubModel, boost::unordered_set<DYN::connectedSubModel> > externalConnections_;
+  boost::unordered_map<int, int> externalConnectionsByVarNum_;  ///< external connections: pairs (index_external, index_reference)
 };
 
 }  // namespace DYN

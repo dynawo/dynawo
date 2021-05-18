@@ -495,7 +495,7 @@ ModelBus::evalCalculatedVars() {
 }
 
 void
-ModelBus::init(int& yNum) {
+ModelBus::init(int& yNum, int&) {
   if (network_->isInitModel()) {
     urYNum_ = yNum;
     ++yNum;
@@ -728,7 +728,7 @@ ModelBus::setGequations(std::map<int, std::string>& gEquationIndex) {
 }
 
 void
-ModelBus::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
+ModelBus::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case upuNum_:
     case phipuNum_:

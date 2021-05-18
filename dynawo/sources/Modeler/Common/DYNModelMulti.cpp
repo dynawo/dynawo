@@ -43,6 +43,9 @@
 #include "DYNTimer.h"
 #include "DYNConnectorCalculatedVariable.h"
 #include "DYNCommon.h"
+#include "DYNFictiveVariableSubModel.h"
+#include "DYNVariableNative.h"
+#include "DYNVariableNativeFactory.h"
 #include "DYNVariableAlias.h"
 
 using std::min;
@@ -78,6 +81,8 @@ offsetFOptional_(0),
 fLocal_(NULL),
 gLocal_(NULL),
 yLocal_(NULL),
+yExternalLocal_(NULL),
+ypExternalLocal_(NULL),
 ypLocal_(NULL),
 zLocal_(NULL),
 zConnectedLocal_(NULL),
@@ -101,8 +106,16 @@ ModelMulti::cleanBuffers() {
   if (yLocal_ != NULL)
     delete[] yLocal_;
 
+  if (yExternalLocal_ != NULL) {
+    delete[] yExternalLocal_;
+  }
+
   if (ypLocal_ != NULL)
     delete[] ypLocal_;
+
+  if (ypExternalLocal_ != NULL) {
+    delete[] ypExternalLocal_;
+  }
 
   if (gLocal_ != NULL)
     delete[] gLocal_;
@@ -170,17 +183,60 @@ ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& libName) {
   subModels_.push_back(sub);
 }
 
+void ModelMulti::processYConnectorsFullExternal() {
+  std::vector<boost::shared_ptr<Connector> >& connectors = connectorContainer_->getYConnectorsFullExternal();
+
+  for (std::vector<boost::shared_ptr<Connector> >::const_iterator it = connectors.begin(); it !=  connectors.end(); ++it) {
+    boost::shared_ptr<Connector> yc = boost::make_shared<Connector>();
+    for (std::vector<connectedSubModel>::const_iterator it_s = (*it)->connectedSubModels().begin(); it_s != (*it)->connectedSubModels().end(); ++it_s) {
+      // Make fictionous variable model
+      boost::shared_ptr<FictiveVariableSubModel> model = boost::make_shared<FictiveVariableSubModel>(*it_s);
+      model->name("fict_" + it_s->subModel()->name() + "_" + it_s->variable()->getName());
+      boost::shared_ptr<SubModel> subModelConnector = dynamic_pointer_cast<SubModel>(model);
+      addSubModel(subModelConnector, "");  // no library for connectors
+
+      // init new model
+      int sizeExternal = 0;
+      model->initSize(sizeY_, sizeExternal, sizeZ_, sizeMode_, sizeF_, sizeG_);
+      assert(sizeExternal == 0);  // no external variable in these models
+
+      // Make connected submodel for fictionous variable
+      boost::shared_ptr<VariableNative> var = boost::dynamic_pointer_cast<VariableNative>(model->getVariable("fict_" + it_s->variable()->getName()));
+      connectedSubModel connected_model(model, var, false);
+
+      // Link all fictionous variables between themselves
+      yc->addConnectedSubModel(connected_model);
+
+      // link the fictionous variable with their external variable
+      connectorContainer_->addExternalConnection(connected_model, *it_s);
+
+      // Add sub model to dependencies
+      it_s->subModel()->addFictiveVariableSubModelDependency(model);
+    }
+    connectorContainer_->addYConnector(yc);
+  }
+
+  // no longer needed
+  connectors.clear();
+}
+
 void
 ModelMulti::initBuffers() {
   // (1) Get size of each sub models
   // -------------------------------
+  int sizeExternal = 0;
   for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->initSize(sizeY_, sizeZ_, sizeMode_, sizeF_, sizeG_);
+    subModels_[i]->initSize(sizeY_, sizeExternal, sizeZ_, sizeMode_, sizeF_, sizeG_);
 
 
   connectorContainer_->setOffsetModel(sizeF_);
   connectorContainer_->setSizeY(sizeY_);
   connectorContainer_->mergeConnectors();
+
+  // this must be done after the merge of the connectors:
+  // This will add several sub models to handle fictionous variables for external variables
+  processYConnectorsFullExternal();
+
   evalStaticYType();
 
   numVarsOptional_.clear();
@@ -204,6 +260,12 @@ ModelMulti::initBuffers() {
   fLocal_ = new double[sizeF_]();
   gLocal_ = new state_g[sizeG_]();
   yLocal_ = new double[sizeY_]();
+  if (sizeExternal > 0) {
+    yExternalLocal_ = new double*[sizeExternal];
+    std::fill_n(yExternalLocal_, sizeExternal, static_cast<double*>(NULL));
+    ypExternalLocal_ = new double*[sizeExternal];
+    std::fill_n(ypExternalLocal_, sizeExternal, static_cast<double*>(NULL));
+  }
   ypLocal_ = new double[sizeY_]();
   zLocal_ = new double[sizeZ_]();
   zConnectedLocal_ = new bool[sizeZ_];
@@ -216,12 +278,20 @@ ModelMulti::initBuffers() {
   int offsetF = 0;
   int offsetG = 0;
   int offsetY = 0;
+  int offsetYExternal = 0;
   int offsetZ = 0;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     int sizeY = subModels_[i]->sizeY();
     if (sizeY > 0)
       subModels_[i]->setBufferY(yLocal_, ypLocal_, offsetY);
     offsetY += sizeY;
+
+    size_t sizeYExternal = subModels_[i]->sizeYExternal();
+    if (sizeYExternal > 0) {
+      subModels_[i]->setBufferYExternal(yExternalLocal_, ypExternalLocal_, offsetYExternal);
+      subModels_[i]->setConnectorContainer(connectorContainer_);
+    }
+    offsetYExternal += sizeYExternal;
 
     int sizeF = subModels_[i]->sizeF();
     if (sizeF > 0) {
@@ -250,6 +320,7 @@ ModelMulti::initBuffers() {
   connectorContainer_->setBufferY(yLocal_, ypLocal_);  // connectors access to the whole y Buffer
   connectorContainer_->setBufferZ(zLocal_, zConnectedLocal_);  // connectors access to the whole z buffer
   std::fill(fLocal_ + offsetFOptional_, fLocal_ + sizeF_, 0);
+  connectorContainer_->performExternalConnections();
 
   // (3) init buffers of each sub-model (useful for the network model)
   // (4) release elements that were used and declared only for connections
@@ -1211,6 +1282,18 @@ void ModelMulti::printVariableNames() {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     const std::vector<std::string>& xNames = subModels_[i]->getCalculatedVarNames();
+    for (unsigned int j = 0; j < xNames.size(); ++j) {
+      std::string varName = subModels_[i]->name() + "_" + xNames[j];
+      Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;
+      ++nVar;
+    }
+  }
+  nVar = 0;
+  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::variables()) << "X external variables" << Trace::endline;
+  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    const std::vector<std::string>& xNames = subModels_[i]->xExternalNames();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
       std::string varName = subModels_[i]->name() + "_" + xNames[j];
       Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;

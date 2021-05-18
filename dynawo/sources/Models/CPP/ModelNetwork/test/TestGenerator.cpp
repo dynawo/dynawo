@@ -143,13 +143,14 @@ createModelGenerator(bool open, bool initModel) {
   for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(y1, yp1, f1, 0, 0);
+  bus1->setReferenceY(y1, yp1, NULL, NULL,  f1, 0, 0, 0);
   y1[ModelBus::urNum_] = 0.35;
   y1[ModelBus::uiNum_] = 0.02;
   if (!initModel)
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
-  bus1->init(offset);
+  int offsetExternal = 0;
+  bus1->init(offset, offsetExternal);
   return std::make_pair(gen, vl);
 }
 
@@ -183,7 +184,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
   for (int i = 0; i < gen->sizeZ(); ++i)
     zConnected[i] = true;
   gen->setReferenceZ(&z[0], zConnected, 0);
-  gen->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  gen->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   ASSERT_EQ(gen->sizeCalculatedVar(), ModelGenerator::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelGenerator::nbCalculatedVariables_, 0.);
@@ -230,22 +231,24 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
   gen->setConnected(CLOSED);
 
   int offset = 2;
-  gen->init(offset);
+  int offsetExternal = 0;
+  gen->init(offset, offsetExternal);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(gen->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(gen->getIndexesOfVariablesUsedForCalculatedVarI(ModelGenerator::pNum_, numVars));
+  std::vector<int> numVarsExternal;
+  ASSERT_THROW_DYNAWO(gen->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(gen->getIndexesOfVariablesUsedForCalculatedVarI(ModelGenerator::pNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(gen->getIndexesOfVariablesUsedForCalculatedVarI(ModelGenerator::qNum_, numVars));
+  ASSERT_NO_THROW(gen->getIndexesOfVariablesUsedForCalculatedVarI(ModelGenerator::qNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(gen->getIndexesOfVariablesUsedForCalculatedVarI(ModelGenerator::genStateNum_, numVars));
+  ASSERT_NO_THROW(gen->getIndexesOfVariablesUsedForCalculatedVarI(ModelGenerator::genStateNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 0);
 
   shared_ptr<ModelGenerator> genInit = createModelGenerator(false, true).first;
@@ -272,7 +275,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
   std::vector<state_g> g(nbG, NO_ROOT);
   gen->setReferenceG(&g[0], 0);
   gen->setReferenceZ(&z[0], zConnected, 0);
-  gen->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  gen->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
 
   gen->getY0();
   ASSERT_EQ(gen->getConnected(), CLOSED);

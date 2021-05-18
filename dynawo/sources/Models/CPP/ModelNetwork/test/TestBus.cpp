@@ -172,7 +172,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   for (int i = 0; i < bus->sizeZ(); ++i)
     zConnected[i] = true;
   bus->setReferenceZ(&z[0], zConnected, 0);
-  bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  bus->setReferenceY(&y[0], &yp[0], NULL, NULL, &f[0], 0, 0, 0);
   y[ModelBus::urNum_] = 0.35;
   y[ModelBus::uiNum_] = 0.02;
   ASSERT_EQ(bus->sizeCalculatedVar(), ModelBus::nbCalculatedVariables_);
@@ -239,28 +239,30 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   bus->switchOn();
 //
   int offset = 2;
-  bus->init(offset);
+  int offsetExternal = 0;
+  bus->init(offset, offsetExternal);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(bus->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::upuNum_, numVars));
+  std::vector<int> numVarsExternal;
+  ASSERT_THROW_DYNAWO(bus->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::upuNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::phipuNum_, numVars));
+  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::phipuNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::uNum_, numVars));
+  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::uNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::phiNum_, numVars));
+  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::phiNum_, numVars, numVarsExternal));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
@@ -291,7 +293,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   std::vector<state_g> g(nbG, NO_ROOT);
   bus->setReferenceG(&g[0], 0);
   bus->setReferenceZ(&z[0], zConnected, 0);
-  bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  bus->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   ModelNetwork* network = new ModelNetwork();
   boost::shared_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
@@ -396,7 +398,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
   bus->setReferenceG(&g[0], 0);
   bus->setReferenceZ(&z[0], zConnected, 0);
-  bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  bus->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   bus->evalYMat();
   bus->setBufferYType(&yTypes[0], 0);
   bus->setBufferFType(&fTypes[0], 0);
@@ -500,7 +502,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
   bus->setReferenceG(&g[0], 0);
   bus->setReferenceZ(&z[0], zConnected, 0);
-  bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  bus->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   bus->evalYMat();
   bus->setBufferYType(&yTypes[0], 0);
   bus->setBufferFType(&fTypes[0], 0);
@@ -591,7 +593,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   for (int i = 0; i < bus->sizeZ(); ++i)
     zConnected[i] = true;
   bus->setReferenceZ(&z[0], zConnected, 0);
-  bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  bus->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   bus->evalYMat();
   y[ModelBus::urNum_] = 0.35;
   y[ModelBus::uiNum_] = 0.02;
@@ -604,10 +606,12 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   ASSERT_EQ(smj.Ap_[1], 0);
 
   int yNum = 2;
-  bus->init(yNum);
+  int offsetExternal = 0;
+  bus->init(yNum, offsetExternal);
   ASSERT_EQ(yNum, 6);
   yNum = 0;
-  bus->init(yNum);
+  int yNumExternal = 0;
+  bus->init(yNum, yNumExternal);
   bus->evalDerivatives(1);
   SparseMatrix smj2;
   size = bus->sizeY();
@@ -741,7 +745,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
+  bus1->setReferenceY(&y1[0], &yp1[0], NULL, NULL,  &f1[0], 0, 0, 0);
   bus1->evalYMat();
   bus1->irAdd(0.1);
   bus1->iiAdd(0.01);
@@ -756,7 +760,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   for (int i = 0; i < bus2->sizeZ(); ++i)
     zConnected2[i] = true;
   bus2->setReferenceZ(&z2[0], zConnected2, 0);
-  bus2->setReferenceY(&y2[0], &yp2[0], &f2[0], 0, 0);
+  bus2->setReferenceY(&y2[0], &yp2[0], NULL, NULL,  &f2[0], 0, 0, 0);
   bus2->evalYMat();
   bus2->irAdd(0.2);
   bus2->iiAdd(0.02);
@@ -771,7 +775,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   for (int i = 0; i < bus3->sizeZ(); ++i)
     zConnected3[i] = true;
   bus3->setReferenceZ(&z3[0], zConnected3, 0);
-  bus3->setReferenceY(&y3[0], &yp3[0], &f3[0], 0, 0);
+  bus3->setReferenceY(&y3[0], &yp3[0], NULL, NULL,  &f3[0], 0, 0, 0);
   bus3->evalYMat();
   bus3->irAdd(0.3);
   bus3->iiAdd(0.03);
@@ -861,7 +865,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusCurrentU) {
   std::vector<double> y(bus->sizeY(), 0.);
   std::vector<double> yp(bus->sizeY(), 0.);
   std::vector<double> f(bus->sizeF(), 0.);
-  bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  bus->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   y[ModelBus::urNum_] = 1;
   y[ModelBus::uiNum_] = 2.;
   std::vector<double> z(bus->sizeZ(), 0.);

@@ -189,6 +189,8 @@ ModelManager::associateBuffers() {
     dataInit_->localData[0]->realVars = static_cast<modelica_real*>(0);
     dataInit_->localData[0]->derivativesVars = static_cast<modelica_real*>(0);
     dataInit_->localData[0]->discreteVars = static_cast<modelica_real*>(0);
+    dataInit_->externalVars = static_cast<modelica_real**>(0);
+    dataInit_->externalPVars = static_cast<modelica_real**>(0);
 
     if (!yLocalInit_.empty())
       dataInit_->localData[0]->realVars = &(yLocalInit_[0]);
@@ -203,6 +205,8 @@ ModelManager::associateBuffers() {
     }
   } else {
     dataDyn_->localData[0]->realVars = &(yLocal_[0]);
+    dataDyn_->externalVars = &(yExternalLocal_[0]);
+    dataDyn_->externalPVars = &(ypExternalLocal_[0]);
 
     dataDyn_->localData[0]->derivativesVars = &(ypLocal_[0]);
     dataDyn_->localData[0]->discreteVars = &(zLocal_[0]);
@@ -279,13 +283,13 @@ ModelManager::setGequationsInit() {
 
 void
 ModelManager::evalF(const double t, const vector<adept::adouble>& y,
-        const vector<adept::adouble>& yp, vector<adept::adouble>& f) {
+        const vector<adept::adouble>& yp, const vector<adept::adouble>& y_ext, const vector<adept::adouble>& yp_ext, vector<adept::adouble>& f) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalF adept");
 #endif
   setManagerTime(t);
 
-  modelModelica()->evalFAdept(y, yp, f);
+  modelModelica()->evalFAdept(y, yp, y_ext, yp_ext, f);
 #ifdef _DEBUG_
   for (unsigned int i = 0; i < sizeF(); i++) {
     double term = f[i].value();
@@ -302,8 +306,11 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
     return;
 
   try {
-    const int nbInput = sizeY() + sizeY();  // Y and Y '
-    const int nbOutput = sizeY();
+    const int nbInput = sizeY() + sizeY() + sizeYExternal() + sizeYExternal();  // Y and Y ' for variables and external variables
+    const int nbOutput = sizeF();
+    if (nbOutput == 0) {
+      return;
+    }
     const int coeff = (complete) ? 1: 0;  // complete => jacobian @F/@y + cj.@F/@Y' else @F/@Y'
     vector<double> jac(nbInput * nbOutput);
 
@@ -315,11 +322,22 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
     vector<adept::adouble> xp(sizeY());
     adept::set_values(&xp[0], sizeY(), yp);
 
+    vector<adept::adouble> x_ext(sizeYExternal());
+    vector<adept::adouble> xp_ext(sizeYExternal());
+    for (size_t i = 0; i < sizeYExternal(); i++) {
+      double value = getVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      x_ext[i].set_value(value);
+      value = getDerivativeVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      xp_ext[i].set_value(value);
+    }
+
     stack.new_recording();
     vector<adept::adouble> output(nbOutput);
-    evalF(t, x, xp, output);
+    evalF(t, x, xp, x_ext, xp_ext, output);
     stack.independent(&x[0], x.size());
     stack.independent(&xp[0], xp.size());
+    stack.independent(&x_ext[0], x_ext.size());
+    stack.independent(&xp_ext[0], xp_ext.size());
     stack.dependent(&output[0], nbOutput);
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer * timer1 = new Timer("zzz reading");
@@ -331,21 +349,38 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
 #endif
 
     int offsetJPrim = sizeY() * sizeY();
+    int offsetJPrimExternal = sizeY() * sizeYExternal();
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer * timer3 = new Timer("zzz filling");
 #endif
 
     for (unsigned int i = 0; i < sizeF(); ++i) {
       Jt.changeCol();
-      for (unsigned int j = 0; j < sizeY(); ++j) {
-        int indice = i + j * sizeY();
+      for (unsigned int j = 0; j < sizeF(); ++j) {
+        int indice = i + j * sizeF();
         double term = coeff * jac[indice] + cj * jac[indice + offsetJPrim];
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
-          throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);   // i is local index
+          throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), indice);   // i is local index
         }
 #endif
         Jt.addTerm(j + rowOffset, term);
+      }
+
+      if (sizeYExternal() == 0) {
+        continue;
+      }
+      // assuming that external connections array has been set during initialization if external variables are handled
+      for (unsigned int j = 0; j < sizeYExternal(); j++) {
+        int index = 2 * sizeY() * sizeY() + i + j * sizeF();
+        double term = coeff * jac[index] + cj * jac[index + offsetJPrimExternal];
+        int index_reference = getReferenceIndex(j);
+#ifdef _DEBUG_
+        if (isnan(term) || isinf(term)) {
+          throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), index_reference);
+        }
+#endif
+        Jt.addTerm(index_reference, term);
       }
     }
 
@@ -429,6 +464,11 @@ ModelManager::getY0() {
   }
 
   simulationInfo()->initial = false;
+}
+
+void
+ModelManager::getY0External(unsigned int numVarEx, double& value) const {
+  modelModelica()->setY0Externalomc(numVarEx, value);
 }
 
 void
@@ -1245,6 +1285,12 @@ ModelManager::printInitValues(const string& directory) {
     file << std::setw(50) << std::left << xAliasesNames[i].first << std::right << ": " <<
     ((xAliasesNames[i].second.second)?"negated ":"") << "alias of " << xAliasesNames[i].second.first << "\n";
 
+  file << " ====== INIT EXTERNAL VARIABLES VALUES ======\n";
+  const vector<string>& xExternalNames = (*this).xExternalNames();
+  for (unsigned int i = 0; i < sizeYExternal(); ++i)
+    file << std::setw(50) << std::left << xExternalNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(*yExternalLocal_[i])
+      << " yp =" << std::setw(15) << DYN::double2String(*ypExternalLocal_[i]) << "\n";
+
   if (sizeCalculatedVar() > 0) {
     evalCalculatedVars();
     file << " ====== INIT CALCULATED VARIABLES VALUES ======\n";
@@ -1377,26 +1423,38 @@ ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& 
 #if _ADEPT_
   try {
     std::vector<int> indexes;
-    getIndexesOfVariablesUsedForCalculatedVarI(iCalculatedVar, indexes);
-    size_t size = indexes.size();
+    std::vector<int> indexesExternal;
+    getIndexesOfVariablesUsedForCalculatedVarI(iCalculatedVar, indexes, indexesExternal);
+    size_t size = indexes.size() + indexesExternal.size();
     assert(res.size() == size);
-    size_t nbInput = size;
 
     adept::Stack stack;
     stack.activate();
-    vector<adept::adouble> x(nbInput);
-    vector<adept::adouble> xp(nbInput);
-    for (size_t i = 0; i < size; ++i) {
+    vector<adept::adouble> x(indexes.size());
+    vector<adept::adouble> xp(indexes.size());
+    vector<adept::adouble> x_ext(sizeYExternal());
+    vector<adept::adouble> xp_ext(sizeYExternal());
+    for (size_t i = 0; i < indexes.size(); ++i) {
       x[i] = yLocal_[indexes[i]];
       xp[i] = ypLocal_[indexes[i]];
     }
 
+    for (size_t i = 0; i < sizeYExternal(); i++) {
+      double value = getVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      x_ext[i].set_value(value);
+      value = getDerivativeVariableValue(variablesByName_.at(xExternalNames_.at(i)));
+      xp_ext[i].set_value(value);
+    }
+
     stack.new_recording();
-    adept::adouble output = modelModelica()->evalCalculatedVarIAdept(iCalculatedVar, 0, x, xp);
+    adept::adouble output = modelModelica()->evalCalculatedVarIAdept(iCalculatedVar, 0, x, xp, x_ext, xp_ext);
     output.set_gradient(1.0);
     stack.compute_adjoint();
-    for (size_t i = 0; i < size; ++i) {
+    for (size_t i = 0; i < indexes.size(); ++i) {
       res[i] = x[i].get_gradient();
+    }
+    for (size_t i = 0; i < indexesExternal.size(); ++i) {
+      res[indexes.size() + i] = x_ext[i].get_gradient();
     }
     stack.pause_recording();
   } catch (adept::stack_already_active & e) {
@@ -1413,8 +1471,8 @@ ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& 
 }
 
 void
-ModelManager::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const {
-  return  modelModelica()->getIndexesOfVariablesUsedForCalculatedVarI(iCalculatedVar, indexes);
+ModelManager::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const {
+  return  modelModelica()->getIndexesOfVariablesUsedForCalculatedVarI(iCalculatedVar, indexes, indexesExternal);
 }
 
 void

@@ -88,6 +88,7 @@ MultiIncorrectConnection    =             impossible to connect two elements : %
 MultiSubModelNotFound       =             model %1% named %2% not found (research key %3%)
 UndefJCalculatedVarI        =             getDefJCalculatedVarI is not defined for this variable %1%
 UndefCalculatedVarI         =             evalCalculatedVarI is not defined for this variable %1%
+UndefExternalVar            =             setY0Externalomc is not defined for this variable %1%
 NetworkUndefCalculatedVar   =             calculated Variable definition does not exist for variable num %1%
 SubModelUnknownElement      =             element %1% not found in subModel %2% (type %3%)
 MacroNotResolved            =             could not resolve macro %1% (reason: %2%)

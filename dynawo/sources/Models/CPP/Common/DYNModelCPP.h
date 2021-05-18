@@ -63,9 +63,9 @@ class ModelCPP : public SubModel {
    *
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes
-   *
+   * @param indexesExternal indexes of external variables
    */
-  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
+  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const = 0;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -180,6 +180,14 @@ class ModelCPP : public SubModel {
    * and discrete variables.
    */
   virtual void getY0() = 0;
+
+  /**
+   * @brief Retrieve the initial value of an external variable
+   *
+   * @param numVarEx local external index
+   * @param value the value tor retrieve
+   */
+  virtual void getY0External(unsigned int numVarEx, double& value) const = 0;
 
   /**
    * @brief calculate calculated variables

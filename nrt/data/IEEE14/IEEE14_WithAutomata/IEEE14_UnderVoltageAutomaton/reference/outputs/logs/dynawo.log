@@ -1,404 +1,372 @@
-2020-06-24 08:56:32 | INFO |  ============================================================ 
-2020-06-24 08:56:32 | INFO | DYNAWO VERSION  :     1.1.0
-2020-06-24 08:56:32 | INFO | DYNAWO REVISION :  917_recursive_calc_vars-c4302af4
-2020-06-24 08:56:32 | INFO |  ============================================================ 
-2020-06-24 08:56:32 | INFO | 
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO | building model from input files
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO | model was built successfully
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO | 
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO | starting local initialization
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | DEBUG | keep SubNetworks num : 0
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model GEN____1_SM
-2020-06-24 08:56:32 | DEBUG | local initialization of model GEN____1_SM ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model GEN____2_SM
-2020-06-24 08:56:32 | DEBUG | local initialization of model GEN____2_SM ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model GEN____3_SM
-2020-06-24 08:56:32 | DEBUG | local initialization of model GEN____3_SM ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model GEN____6_SM
-2020-06-24 08:56:32 | DEBUG | local initialization of model GEN____6_SM ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model GEN____8_SM
-2020-06-24 08:56:32 | DEBUG | local initialization of model GEN____8_SM ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model _LOAD__10_EC
-2020-06-24 08:56:32 | DEBUG | local initialization of model _LOAD__10_EC ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model _LOAD__11_EC
-2020-06-24 08:56:32 | DEBUG | local initialization of model _LOAD__11_EC ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model _LOAD__12_EC
-2020-06-24 08:56:32 | DEBUG | local initialization of model _LOAD__12_EC ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model _LOAD__13_EC
-2020-06-24 08:56:32 | DEBUG | local initialization of model _LOAD__13_EC ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model _LOAD__14_EC
-2020-06-24 08:56:32 | DEBUG | local initialization of model _LOAD__14_EC ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model _LOAD___2_EC
-2020-06-24 08:56:32 | DEBUG | local initialization of model _LOAD___2_EC ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model _LOAD___3_EC
-2020-06-24 08:56:32 | DEBUG | local initialization of model _LOAD___3_EC ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model _LOAD___4_EC
-2020-06-24 08:56:32 | DEBUG | local initialization of model _LOAD___4_EC ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model _LOAD___5_EC
-2020-06-24 08:56:32 | DEBUG | local initialization of model _LOAD___5_EC ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model _LOAD___6_EC
-2020-06-24 08:56:32 | DEBUG | local initialization of model _LOAD___6_EC ended successfully
-2020-06-24 08:56:32 | DEBUG | ------------------------------
-2020-06-24 08:56:32 | DEBUG | starting local initialization of model _LOAD___9_EC
-2020-06-24 08:56:32 | DEBUG | local initialization of model _LOAD___9_EC ended successfully
-2020-06-24 08:56:32 | INFO | end of local initialization
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO | 
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO | starting global initialization
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | DEBUG | initialization of IDA solver : ok
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO | end of global initialization
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO | 
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO | starting curve initialization
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____1_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____2_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____3_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____4_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____5_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____6_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____7_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____8_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____9_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___10_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___11_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___12_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___13_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___14_TN_Upu_value found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____1_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____2_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____3_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____6_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____8_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____1_SM; curve: generator_PGen found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____2_SM; curve: generator_PGen found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____3_SM; curve: generator_PGen found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____6_SM; curve: generator_PGen found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____8_SM; curve: generator_PGen found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____1_SM; curve: generator_QGen found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____2_SM; curve: generator_QGen found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____3_SM; curve: generator_QGen found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____6_SM; curve: generator_QGen found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____8_SM; curve: generator_QGen found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: GEN____3_SM; output: generator_running found.( generator_running_value )
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: _LOAD___2_EC; curve: load_PPu found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: _LOAD___2_EC; curve: load_QPu found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: _LOAD___3_EC; curve: load_PPu found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding curve : Id: _LOAD___3_EC; curve: load_QPu found. (exact name)
-2020-06-24 08:56:32 | DEBUG | adding parameter curve: Id: UVA; parameter curve: underVoltageAutomaton_UMinPu found. (exact name)
-2020-06-24 08:56:32 | INFO | end of curve initialization, added 35 curves
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO | 
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO | starting simulation with solver IDASolver
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO | number of continuous variables : 312
-2020-06-24 08:56:32 | INFO | number of discrete variables : 202
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO |         time | iter num   order (k)      time step (h)
-2020-06-24 08:56:32 | INFO | -----------------------------------------------------------------------
-2020-06-24 08:56:32 | INFO |        0.000 |        0           0              0.010 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.000 |        1           1              0.000 
-2020-06-24 08:56:32 | INFO |        0.000 |        2           1              0.000 
-2020-06-24 08:56:32 | INFO |        0.000 |        3           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.000 |        4           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.000 |        5           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.000 |        6           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.000 |        7           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.000 |        8           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.000 |        9           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.001 |       10           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.001 |       11           2              0.001 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.002 |       12           2              0.001 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.004 |       13           2              0.002 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.008 |       14           2              0.004 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.016 |       15           2              0.008 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.033 |       16           2              0.016 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.066 |       17           2              0.033 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.131 |       18           2              0.066 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.262 |       19           1              0.131 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        0.524 |       20           1              0.262 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        1.049 |       21           1              0.524 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        2.097 |       22           1              1.049 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        4.194 |       23           1              2.097 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |        8.389 |       24           1              4.194 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       16.777 |       25           1              8.389 
-2020-06-24 08:56:32 | INFO | Algebraic mode change for model _LOAD___2_EC
-2020-06-24 08:56:32 | INFO | Algebraic mode change for model _LOAD___3_EC
-2020-06-24 08:56:32 | INFO |       20.000 |       26           1             10.000 
-2020-06-24 08:56:32 | INFO | calculation of the new starting point of the simulation.
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.000 |        0           0              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.000 |        1           1              0.000 
-2020-06-24 08:56:32 | INFO |       20.000 |        2           1              0.000 
-2020-06-24 08:56:32 | INFO |       20.000 |        3           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.000 |        4           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.000 |        5           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.000 |        6           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.000 |        7           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.000 |        8           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.000 |        9           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.001 |       10           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.001 |       11           2              0.001 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.002 |       12           2              0.001 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.004 |       13           2              0.002 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.008 |       14           2              0.004 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.016 |       15           2              0.008 
-2020-06-24 08:56:32 | INFO |       20.025 |       16           2              0.008 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.041 |       17           2              0.016 
-2020-06-24 08:56:32 | INFO |       20.057 |       18           2              0.016 
-2020-06-24 08:56:32 | INFO |       20.074 |       19           2              0.016 
-2020-06-24 08:56:32 | INFO |       20.090 |       20           2              0.016 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.123 |       21           2              0.033 
-2020-06-24 08:56:32 | INFO |       20.156 |       22           2              0.033 
-2020-06-24 08:56:32 | INFO |       20.188 |       23           2              0.033 
-2020-06-24 08:56:32 | INFO |       20.221 |       24           2              0.033 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.287 |       25           2              0.066 
-2020-06-24 08:56:32 | INFO |       20.352 |       26           2              0.066 
-2020-06-24 08:56:32 | INFO |       20.418 |       27           2              0.066 
-2020-06-24 08:56:32 | INFO |       20.483 |       28           2              0.066 
-2020-06-24 08:56:32 | INFO |       20.549 |       29           2              0.066 
-2020-06-24 08:56:32 | INFO |       20.614 |       30           2              0.066 
-2020-06-24 08:56:32 | INFO |       20.680 |       31           2              0.066 
-2020-06-24 08:56:32 | INFO |       20.745 |       32           2              0.066 
-2020-06-24 08:56:32 | INFO |       20.811 |       33           2              0.066 
-2020-06-24 08:56:32 | INFO |       20.877 |       34           2              0.066 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       20.966 |       35           2              0.090 
-2020-06-24 08:56:32 | INFO |       21.056 |       36           2              0.090 
-2020-06-24 08:56:32 | INFO |       21.145 |       37           2              0.090 
-2020-06-24 08:56:32 | INFO |       21.235 |       38           2              0.090 
-2020-06-24 08:56:32 | INFO |       21.325 |       39           2              0.090 
-2020-06-24 08:56:32 | INFO |       21.414 |       40           2              0.090 
-2020-06-24 08:56:32 | INFO |       21.504 |       41           2              0.090 
-2020-06-24 08:56:32 | INFO |       21.593 |       42           2              0.090 
-2020-06-24 08:56:32 | INFO |       21.683 |       43           2              0.090 
-2020-06-24 08:56:32 | INFO |       21.772 |       44           2              0.090 
-2020-06-24 08:56:32 | INFO |       21.862 |       45           2              0.090 
-2020-06-24 08:56:32 | INFO |       21.952 |       46           2              0.090 
-2020-06-24 08:56:32 | INFO |       22.041 |       47           2              0.090 
-2020-06-24 08:56:32 | INFO |       22.131 |       48           2              0.090 
-2020-06-24 08:56:32 | INFO |       22.220 |       49           2              0.090 
-2020-06-24 08:56:32 | INFO |       22.310 |       50           2              0.090 
-2020-06-24 08:56:32 | INFO |       22.400 |       51           2              0.090 
-2020-06-24 08:56:32 | INFO |       22.489 |       52           2              0.090 
-2020-06-24 08:56:32 | INFO |       22.579 |       53           2              0.090 
-2020-06-24 08:56:32 | INFO |       22.668 |       54           2              0.090 
-2020-06-24 08:56:32 | INFO |       22.793 |       55           2              0.124 
-2020-06-24 08:56:32 | INFO |       22.917 |       56           2              0.124 
-2020-06-24 08:56:32 | INFO |       23.041 |       57           2              0.124 
-2020-06-24 08:56:32 | INFO |       23.166 |       58           2              0.124 
-2020-06-24 08:56:32 | INFO |       23.290 |       59           2              0.124 
-2020-06-24 08:56:32 | INFO |       23.415 |       60           2              0.124 
-2020-06-24 08:56:32 | INFO |       23.539 |       61           2              0.124 
-2020-06-24 08:56:32 | INFO |       23.663 |       62           2              0.124 
-2020-06-24 08:56:32 | INFO |       23.788 |       63           2              0.124 
-2020-06-24 08:56:32 | INFO |       23.912 |       64           2              0.124 
-2020-06-24 08:56:32 | INFO |       24.036 |       65           2              0.124 
-2020-06-24 08:56:32 | INFO |       24.161 |       66           2              0.124 
-2020-06-24 08:56:32 | INFO |       24.285 |       67           2              0.124 
-2020-06-24 08:56:32 | INFO |       24.409 |       68           2              0.124 
-2020-06-24 08:56:32 | INFO |       24.534 |       69           2              0.124 
-2020-06-24 08:56:32 | INFO |       24.658 |       70           2              0.124 
-2020-06-24 08:56:32 | INFO |       24.783 |       71           2              0.124 
-2020-06-24 08:56:32 | INFO |       24.907 |       72           2              0.124 
-2020-06-24 08:56:32 | INFO |       25.031 |       73           2              0.124 
-2020-06-24 08:56:32 | INFO |       25.156 |       74           2              0.124 
-2020-06-24 08:56:32 | INFO |       25.280 |       75           2              0.124 
-2020-06-24 08:56:32 | INFO |       25.404 |       76           2              0.124 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       25.653 |       77           2              0.249 
-2020-06-24 08:56:32 | INFO |       25.902 |       78           2              0.249 
-2020-06-24 08:56:32 | INFO |       26.150 |       79           2              0.249 
-2020-06-24 08:56:32 | INFO |       26.399 |       80           2              0.249 
-2020-06-24 08:56:32 | INFO |       26.648 |       81           2              0.249 
-2020-06-24 08:56:32 | INFO |       26.897 |       82           2              0.249 
-2020-06-24 08:56:32 | INFO |       27.145 |       83           2              0.249 
-2020-06-24 08:56:32 | INFO |       27.394 |       84           1              0.249 
-2020-06-24 08:56:32 | INFO |       27.618 |       85           1              0.224 
-2020-06-24 08:56:32 | INFO |       27.842 |       86           1              0.224 
-2020-06-24 08:56:32 | INFO |       28.066 |       87           1              0.224 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       28.513 |       88           1              0.448 
-2020-06-24 08:56:32 | INFO |       28.916 |       89           1              0.403 
-2020-06-24 08:56:32 | INFO |       29.319 |       90           1              0.403 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       29.975 |       91           1              0.806 
-2020-06-24 08:56:32 | INFO |       30.125 |       91           1              0.806 
-2020-06-24 08:56:32 | INFO |       30.931 |       92           1              0.806 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       32.543 |       93           1              1.612 
-2020-06-24 08:56:32 | INFO |       34.154 |       94           1              1.612 
-2020-06-24 08:56:32 | INFO | Algebraic mode (with J recalculation) change for model GEN____3_SM
-2020-06-24 08:56:32 | INFO | Algebraic mode (with J recalculation) change for model OMEGA_REF
-2020-06-24 08:56:32 | INFO |       34.975 |       95           1              1.612 
-2020-06-24 08:56:32 | INFO | calculation of the new starting point of the simulation.
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.975 |        0           0              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.975 |        1           1              0.000 
-2020-06-24 08:56:32 | INFO |       34.975 |        2           1              0.000 
-2020-06-24 08:56:32 | INFO |       34.975 |        3           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.975 |        4           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.975 |        5           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.975 |        6           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.975 |        7           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.975 |        8           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.975 |        9           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.976 |       10           2              0.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.976 |       11           2              0.001 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.977 |       12           2              0.001 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.979 |       13           2              0.002 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.983 |       14           2              0.004 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       34.992 |       15           2              0.008 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       35.008 |       16           2              0.016 
-2020-06-24 08:56:32 | INFO |       35.024 |       17           2              0.016 
-2020-06-24 08:56:32 | INFO |       35.041 |       18           2              0.016 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       35.073 |       19           2              0.033 
-2020-06-24 08:56:32 | INFO |       35.106 |       20           2              0.033 
-2020-06-24 08:56:32 | INFO |       35.139 |       21           2              0.033 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       35.205 |       22           2              0.066 
-2020-06-24 08:56:32 | INFO |       35.270 |       23           1              0.066 
-2020-06-24 08:56:32 | INFO |       35.336 |       24           1              0.066 
-2020-06-24 08:56:32 | INFO |       35.401 |       25           1              0.066 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       35.532 |       26           2              0.131 
-2020-06-24 08:56:32 | INFO |       35.650 |       27           2              0.118 
-2020-06-24 08:56:32 | INFO |       35.768 |       28           2              0.118 
-2020-06-24 08:56:32 | INFO |       35.886 |       29           2              0.118 
-2020-06-24 08:56:32 | INFO |       36.004 |       30           2              0.118 
-2020-06-24 08:56:32 | INFO |       36.122 |       31           2              0.118 
-2020-06-24 08:56:32 | INFO |       36.240 |       32           2              0.118 
-2020-06-24 08:56:32 | INFO |       36.358 |       33           2              0.118 
-2020-06-24 08:56:32 | INFO |       36.476 |       34           2              0.118 
-2020-06-24 08:56:32 | INFO |       36.594 |       35           2              0.118 
-2020-06-24 08:56:32 | INFO |       36.712 |       36           2              0.118 
-2020-06-24 08:56:32 | INFO |       36.830 |       37           2              0.118 
-2020-06-24 08:56:32 | INFO |       36.948 |       38           2              0.118 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       37.184 |       39           2              0.236 
-2020-06-24 08:56:32 | INFO |       37.420 |       40           1              0.236 
-2020-06-24 08:56:32 | INFO |       37.656 |       41           1              0.236 
-2020-06-24 08:56:32 | INFO |       37.892 |       42           1              0.236 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       38.363 |       43           1              0.472 
-2020-06-24 08:56:32 | INFO |       38.835 |       44           1              0.472 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       39.779 |       45           1              0.944 
-2020-06-24 08:56:32 | INFO |       40.723 |       46           1              0.944 
-2020-06-24 08:56:32 | INFO |       40.723 |       47           1              0.944 
-2020-06-24 08:56:32 | INFO |       41.666 |       47           1              0.944 
-2020-06-24 08:56:32 | INFO |       43.554 |       48           2              1.887 
-2020-06-24 08:56:32 | INFO |       45.441 |       49           2              1.887 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       49.216 |       50           2              3.775 
-2020-06-24 08:56:32 | INFO |       52.614 |       51           2              3.397 
-2020-06-24 08:56:32 | INFO |       52.614 |       52           2              3.397 
-2020-06-24 08:56:32 | INFO |       56.011 |       52           2              3.397 
-2020-06-24 08:56:32 | INFO |       59.408 |       53           2              3.397 
-2020-06-24 08:56:32 | INFO |       62.806 |       54           2              3.397 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |       69.600 |       55           2              6.795 
-2020-06-24 08:56:32 | INFO |       69.600 |       56           2              6.795 
-2020-06-24 08:56:32 | INFO |       76.395 |       56           2              6.795 
-2020-06-24 08:56:32 | INFO |       86.395 |       57           2             10.000 
-2020-06-24 08:56:32 | INFO |       96.395 |       58           2             10.000 
-2020-06-24 08:56:32 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-24 08:56:32 | INFO |      100.000 |       59           2              3.605 
-2020-06-24 08:56:32 | INFO | 
-2020-06-24 08:56:32 | INFO | execution statistics :
-2020-06-24 08:56:32 | INFO | 
-2020-06-24 08:56:32 | INFO | number of time iterations                  = 180
-2020-06-24 08:56:32 | INFO | number of residual evaluations             = 263
-2020-06-24 08:56:32 | INFO | number of Jacobian evaluations             = 74
-2020-06-24 08:56:32 | INFO | number of nonlinear iterations             = 257
-2020-06-24 08:56:32 | INFO | number of error test failures              = 2
-2020-06-24 08:56:32 | INFO | number of nonlinear convergence failures   = 0
-2020-06-24 08:56:32 | INFO | number of root functions evaluations       = 382
-2020-06-24 08:56:32 | INFO | number of discrete variables evaluations   = 14
-2020-06-24 08:56:32 | INFO | number of mode evaluations                 = 8
-2020-06-24 08:56:32 | INFO | end of job 'IEEE14 - UnderVoltageAutomaton'
+2021-04-14 11:51:42 | INFO |  ============================================================ 
+2021-04-14 11:51:42 | INFO | DYNAWO VERSION  :     1.3.0
+2021-04-14 11:51:42 | INFO | DYNAWO REVISION :  964_external_variables-cbe03798
+2021-04-14 11:51:42 | INFO |  ============================================================ 
+2021-04-14 11:51:42 | INFO | 
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO | building model from input files
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO | model was built successfully
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO | 
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO | starting local initialization
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | DEBUG | keep SubNetworks num : 0
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model GEN____1_SM
+2021-04-14 11:51:42 | DEBUG | local initialization of model GEN____1_SM ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model GEN____2_SM
+2021-04-14 11:51:42 | DEBUG | local initialization of model GEN____2_SM ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model GEN____3_SM
+2021-04-14 11:51:42 | DEBUG | local initialization of model GEN____3_SM ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model GEN____6_SM
+2021-04-14 11:51:42 | DEBUG | local initialization of model GEN____6_SM ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model GEN____8_SM
+2021-04-14 11:51:42 | DEBUG | local initialization of model GEN____8_SM ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model _LOAD__10_EC
+2021-04-14 11:51:42 | DEBUG | local initialization of model _LOAD__10_EC ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model _LOAD__11_EC
+2021-04-14 11:51:42 | DEBUG | local initialization of model _LOAD__11_EC ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model _LOAD__12_EC
+2021-04-14 11:51:42 | DEBUG | local initialization of model _LOAD__12_EC ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model _LOAD__13_EC
+2021-04-14 11:51:42 | DEBUG | local initialization of model _LOAD__13_EC ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model _LOAD__14_EC
+2021-04-14 11:51:42 | DEBUG | local initialization of model _LOAD__14_EC ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model _LOAD___2_EC
+2021-04-14 11:51:42 | DEBUG | local initialization of model _LOAD___2_EC ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model _LOAD___3_EC
+2021-04-14 11:51:42 | DEBUG | local initialization of model _LOAD___3_EC ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model _LOAD___4_EC
+2021-04-14 11:51:42 | DEBUG | local initialization of model _LOAD___4_EC ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model _LOAD___5_EC
+2021-04-14 11:51:42 | DEBUG | local initialization of model _LOAD___5_EC ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model _LOAD___6_EC
+2021-04-14 11:51:42 | DEBUG | local initialization of model _LOAD___6_EC ended successfully
+2021-04-14 11:51:42 | DEBUG | ------------------------------
+2021-04-14 11:51:42 | DEBUG | starting local initialization of model _LOAD___9_EC
+2021-04-14 11:51:42 | DEBUG | local initialization of model _LOAD___9_EC ended successfully
+2021-04-14 11:51:42 | INFO | end of local initialization
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO | 
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO | starting global initialization
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | DEBUG | initialization of IDA solver : ok
+2021-04-14 11:51:42 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:42 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:42 | INFO | end of global initialization
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO | 
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO | starting curve initialization
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____1_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____2_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____3_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____4_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____5_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____6_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____7_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____8_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____9_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___10_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___11_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___12_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___13_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___14_TN_Upu_value found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____1_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____2_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____3_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____6_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____8_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____1_SM; curve: generator_PGen found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____2_SM; curve: generator_PGen found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____3_SM; curve: generator_PGen found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____6_SM; curve: generator_PGen found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____8_SM; curve: generator_PGen found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____1_SM; curve: generator_QGen found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____2_SM; curve: generator_QGen found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____3_SM; curve: generator_QGen found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____6_SM; curve: generator_QGen found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____8_SM; curve: generator_QGen found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: GEN____3_SM; output: generator_running found.( generator_running_value )
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: _LOAD___2_EC; curve: load_PPu found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: _LOAD___2_EC; curve: load_QPu found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: _LOAD___3_EC; curve: load_PPu found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding curve : Id: _LOAD___3_EC; curve: load_QPu found. (exact name)
+2021-04-14 11:51:42 | DEBUG | adding parameter curve: Id: UVA; parameter curve: underVoltageAutomaton_UMinPu found. (exact name)
+2021-04-14 11:51:42 | INFO | end of curve initialization, added 35 curves
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO | 
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO | starting simulation with solver IDASolver
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO | number of continuous variables : 269
+2021-04-14 11:51:42 | INFO | number of discrete variables : 202
+2021-04-14 11:51:42 | INFO | number of root functions : 116
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO |         time | iter num   order (k)      time step (h)
+2021-04-14 11:51:42 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:42 | INFO |        0.000 |        0           0              0.010 
+2021-04-14 11:51:42 | INFO |        0.000 |        1           1              0.000 
+2021-04-14 11:51:42 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
+2021-04-14 11:51:42 | DEBUG | YP[158]=1.73315 (variable=GEN____6_SM_generator_iDPu)
+2021-04-14 11:51:42 | DEBUG | YP[162]=-0.816991 (variable=GEN____6_SM_generator_ifPu)
+2021-04-14 11:51:42 | DEBUG | YP[161]=-0.424774 (variable=GEN____6_SM_generator_idPu)
+2021-04-14 11:51:42 | DEBUG | YP[173]=0.362119 (variable=GEN____6_SM_generator_terminal_i_im)
+2021-04-14 11:51:42 | DEBUG | YP[45]=-0.355472 (variable=NETWORK__BUS____6_TN_PWPIN_ii)
+2021-04-14 11:51:42 | DEBUG | YP[159]=0.32247 (variable=GEN____6_SM_generator_iQ1Pu)
+2021-04-14 11:51:42 | DEBUG | YP[155]=0.175854 (variable=GEN____6_SM_generator_cePu)
+2021-04-14 11:51:42 | DEBUG | YP[163]=-0.166638 (variable=GEN____6_SM_generator_iqPu)
+2021-04-14 11:51:42 | DEBUG | YP[80]=-0.126705 (variable=GEN____1_SM_generator_terminal_i_im)
+2021-04-14 11:51:42 | DEBUG | YP[23]=0.126705 (variable=NETWORK__BUS____1_TN_PWPIN_ii)
+2021-04-14 11:51:42 | INFO |        0.000 |        2           1              0.000 
+2021-04-14 11:51:42 | INFO |        0.000 |        3           2              0.000 
+2021-04-14 11:51:42 | INFO |        0.000 |        4           2              0.000 
+2021-04-14 11:51:42 | INFO |        0.000 |        5           2              0.000 
+2021-04-14 11:51:42 | INFO |        0.000 |        6           2              0.000 
+2021-04-14 11:51:42 | INFO |        0.000 |        7           2              0.000 
+2021-04-14 11:51:42 | INFO |        0.000 |        8           2              0.000 
+2021-04-14 11:51:42 | INFO |        0.000 |        9           2              0.000 
+2021-04-14 11:51:42 | INFO |        0.001 |       10           2              0.000 
+2021-04-14 11:51:42 | INFO |        0.001 |       11           2              0.001 
+2021-04-14 11:51:42 | INFO |        0.002 |       12           2              0.001 
+2021-04-14 11:51:42 | INFO |        0.004 |       13           2              0.002 
+2021-04-14 11:51:42 | INFO |        0.008 |       14           2              0.004 
+2021-04-14 11:51:42 | INFO |        0.016 |       15           2              0.008 
+2021-04-14 11:51:42 | INFO |        0.033 |       16           2              0.016 
+2021-04-14 11:51:42 | INFO |        0.066 |       17           2              0.033 
+2021-04-14 11:51:42 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:42 | INFO |        0.131 |       18           2              0.066 
+2021-04-14 11:51:42 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:42 | INFO |        0.262 |       19           1              0.131 
+2021-04-14 11:51:42 | INFO |        0.524 |       20           1              0.262 
+2021-04-14 11:51:42 | INFO |        1.049 |       21           1              0.524 
+2021-04-14 11:51:42 | INFO |        2.097 |       22           1              1.049 
+2021-04-14 11:51:42 | INFO |        4.194 |       23           1              2.097 
+2021-04-14 11:51:42 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:42 | INFO |        8.389 |       24           1              4.194 
+2021-04-14 11:51:42 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:42 | INFO |       16.777 |       25           1              8.389 
+2021-04-14 11:51:42 | DEBUG | Algebraic mode change for model _LOAD___2_EC at t = 20
+2021-04-14 11:51:42 | DEBUG | Algebraic mode change for model _LOAD___3_EC at t = 20
+2021-04-14 11:51:42 | INFO | Algebraic mode change at t = 20
+2021-04-14 11:51:42 | INFO |       20.000 |       26           1             10.000 
+2021-04-14 11:51:42 | INFO | calculation of the new starting point of the simulation.
+2021-04-14 11:51:42 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:42 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:42 | INFO |       20.000 |        0           0              0.000 
+2021-04-14 11:51:42 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
+2021-04-14 11:51:42 | DEBUG | YP[148]=-0.420097 (variable=GEN____6_SM_generator_lambdaQ1Pu)
+2021-04-14 11:51:42 | DEBUG | YP[116]=-0.376412 (variable=GEN____3_SM_generator_lambdaDPu)
+2021-04-14 11:51:42 | DEBUG | YP[85]=-0.344142 (variable=GEN____2_SM_generator_lambdaDPu)
+2021-04-14 11:51:42 | DEBUG | YP[147]=-0.246095 (variable=GEN____6_SM_generator_lambdaDPu)
+2021-04-14 11:51:42 | DEBUG | YP[118]=-0.192322 (variable=GEN____3_SM_generator_lambdaQ2Pu)
+2021-04-14 11:51:42 | DEBUG | YP[87]=-0.119281 (variable=GEN____2_SM_generator_lambdaQ2Pu)
+2021-04-14 11:51:42 | DEBUG | YP[54]=-0.094071 (variable=GEN____1_SM_generator_lambdaDPu)
+2021-04-14 11:51:42 | DEBUG | YP[178]=-0.0486938 (variable=GEN____8_SM_generator_lambdaDPu)
+2021-04-14 11:51:42 | DEBUG | YP[117]=-0.0356116 (variable=GEN____3_SM_generator_lambdaQ1Pu)
+2021-04-14 11:51:42 | DEBUG | YP[86]=-0.0247606 (variable=GEN____2_SM_generator_lambdaQ1Pu)
+2021-04-14 11:51:42 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:42 | INFO |       20.000 |        1           1              0.000 
+2021-04-14 11:51:42 | INFO |       20.000 |        2           1              0.000 
+2021-04-14 11:51:42 | INFO |       20.000 |        3           2              0.000 
+2021-04-14 11:51:42 | INFO |       20.000 |        4           2              0.000 
+2021-04-14 11:51:42 | INFO |       20.000 |        5           2              0.000 
+2021-04-14 11:51:42 | INFO |       20.000 |        6           2              0.000 
+2021-04-14 11:51:42 | INFO |       20.000 |        7           2              0.000 
+2021-04-14 11:51:42 | INFO |       20.000 |        8           2              0.000 
+2021-04-14 11:51:42 | INFO |       20.000 |        9           2              0.000 
+2021-04-14 11:51:42 | INFO |       20.001 |       10           2              0.000 
+2021-04-14 11:51:42 | INFO |       20.001 |       11           2              0.001 
+2021-04-14 11:51:42 | INFO |       20.002 |       12           2              0.001 
+2021-04-14 11:51:42 | INFO |       20.004 |       13           2              0.002 
+2021-04-14 11:51:42 | INFO |       20.008 |       14           2              0.004 
+2021-04-14 11:51:42 | INFO |       20.016 |       15           2              0.008 
+2021-04-14 11:51:42 | INFO |       20.025 |       16           2              0.008 
+2021-04-14 11:51:42 | INFO |       20.041 |       17           2              0.016 
+2021-04-14 11:51:42 | INFO |       20.057 |       18           2              0.016 
+2021-04-14 11:51:42 | INFO |       20.074 |       19           2              0.016 
+2021-04-14 11:51:42 | INFO |       20.090 |       20           2              0.016 
+2021-04-14 11:51:42 | INFO |       20.123 |       21           2              0.033 
+2021-04-14 11:51:42 | INFO |       20.156 |       22           2              0.033 
+2021-04-14 11:51:42 | INFO |       20.188 |       23           2              0.033 
+2021-04-14 11:51:42 | INFO |       20.221 |       24           2              0.033 
+2021-04-14 11:51:42 | INFO |       20.287 |       25           2              0.066 
+2021-04-14 11:51:42 | INFO |       20.352 |       26           2              0.066 
+2021-04-14 11:51:42 | INFO |       20.418 |       27           2              0.066 
+2021-04-14 11:51:42 | INFO |       20.483 |       28           2              0.066 
+2021-04-14 11:51:42 | INFO |       20.549 |       29           2              0.066 
+2021-04-14 11:51:42 | INFO |       20.614 |       30           2              0.066 
+2021-04-14 11:51:42 | INFO |       20.680 |       31           2              0.066 
+2021-04-14 11:51:42 | INFO |       20.745 |       32           2              0.066 
+2021-04-14 11:51:42 | INFO |       20.811 |       33           2              0.066 
+2021-04-14 11:51:42 | INFO |       20.877 |       34           2              0.066 
+2021-04-14 11:51:42 | INFO |       20.964 |       35           2              0.087 
+2021-04-14 11:51:42 | INFO |       21.051 |       36           2              0.087 
+2021-04-14 11:51:42 | INFO |       21.139 |       37           2              0.087 
+2021-04-14 11:51:42 | INFO |       21.226 |       38           2              0.087 
+2021-04-14 11:51:42 | INFO |       21.314 |       39           2              0.087 
+2021-04-14 11:51:42 | INFO |       21.401 |       40           2              0.087 
+2021-04-14 11:51:42 | INFO |       21.488 |       41           2              0.087 
+2021-04-14 11:51:42 | INFO |       21.576 |       42           2              0.087 
+2021-04-14 11:51:42 | INFO |       21.663 |       43           2              0.087 
+2021-04-14 11:51:42 | INFO |       21.751 |       44           2              0.087 
+2021-04-14 11:51:42 | INFO |       21.838 |       45           2              0.087 
+2021-04-14 11:51:42 | INFO |       21.925 |       46           2              0.087 
+2021-04-14 11:51:42 | INFO |       22.013 |       47           2              0.087 
+2021-04-14 11:51:42 | INFO |       22.100 |       48           2              0.087 
+2021-04-14 11:51:42 | INFO |       22.188 |       49           2              0.087 
+2021-04-14 11:51:42 | INFO |       22.275 |       50           2              0.087 
+2021-04-14 11:51:42 | INFO |       22.362 |       51           2              0.087 
+2021-04-14 11:51:42 | INFO |       22.450 |       52           2              0.087 
+2021-04-14 11:51:42 | INFO |       22.537 |       53           2              0.087 
+2021-04-14 11:51:42 | INFO |       22.625 |       54           2              0.087 
+2021-04-14 11:51:42 | INFO |       22.799 |       55           2              0.175 
+2021-04-14 11:51:42 | INFO |       22.940 |       56           2              0.141 
+2021-04-14 11:51:42 | INFO |       23.081 |       57           2              0.141 
+2021-04-14 11:51:42 | INFO |       23.222 |       58           2              0.141 
+2021-04-14 11:51:42 | INFO |       23.362 |       59           2              0.141 
+2021-04-14 11:51:42 | INFO |       23.503 |       60           2              0.141 
+2021-04-14 11:51:42 | INFO |       23.644 |       61           2              0.141 
+2021-04-14 11:51:42 | INFO |       23.784 |       62           2              0.141 
+2021-04-14 11:51:42 | INFO |       23.925 |       63           2              0.141 
+2021-04-14 11:51:42 | INFO |       24.066 |       64           2              0.141 
+2021-04-14 11:51:42 | INFO |       24.206 |       65           2              0.141 
+2021-04-14 11:51:42 | INFO |       24.347 |       66           2              0.141 
+2021-04-14 11:51:42 | INFO |       24.488 |       67           2              0.141 
+2021-04-14 11:51:42 | INFO |       24.628 |       68           2              0.141 
+2021-04-14 11:51:42 | INFO |       24.769 |       69           2              0.141 
+2021-04-14 11:51:42 | INFO |       24.910 |       70           2              0.141 
+2021-04-14 11:51:42 | INFO |       25.050 |       71           2              0.141 
+2021-04-14 11:51:42 | INFO |       25.191 |       72           2              0.141 
+2021-04-14 11:51:42 | INFO |       25.332 |       73           2              0.141 
+2021-04-14 11:51:42 | INFO |       25.472 |       74           2              0.141 
+2021-04-14 11:51:42 | INFO |       25.754 |       75           2              0.281 
+2021-04-14 11:51:42 | INFO |       25.982 |       76           2              0.228 
+2021-04-14 11:51:42 | INFO |       26.210 |       77           2              0.228 
+2021-04-14 11:51:42 | INFO |       26.438 |       78           2              0.228 
+2021-04-14 11:51:42 | INFO |       26.666 |       79           2              0.228 
+2021-04-14 11:51:42 | INFO |       26.894 |       80           2              0.228 
+2021-04-14 11:51:42 | INFO |       27.122 |       81           2              0.228 
+2021-04-14 11:51:42 | INFO |       27.350 |       82           2              0.228 
+2021-04-14 11:51:42 | INFO |       27.578 |       83           2              0.228 
+2021-04-14 11:51:42 | INFO |       27.806 |       84           2              0.228 
+2021-04-14 11:51:42 | INFO |       28.216 |       85           1              0.410 
+2021-04-14 11:51:42 | INFO |       28.626 |       86           1              0.410 
+2021-04-14 11:51:42 | INFO |       29.037 |       87           1              0.410 
+2021-04-14 11:51:42 | INFO |       29.447 |       88           1              0.410 
+2021-04-14 11:51:42 | INFO |       29.958 |       89           1              0.821 
+2021-04-14 11:51:42 | INFO |       30.268 |       89           1              0.821 
+2021-04-14 11:51:42 | INFO |       31.088 |       90           1              0.821 
+2021-04-14 11:51:42 | INFO |       31.909 |       91           1              0.821 
+2021-04-14 11:51:42 | INFO |       33.551 |       92           2              1.641 
+2021-04-14 11:51:42 | DEBUG | Algebraic mode (with J recalculation) change for model GEN____3_SM at t = 34.9577
+2021-04-14 11:51:42 | DEBUG | Algebraic mode (with J recalculation) change for model OMEGA_REF at t = 34.9577
+2021-04-14 11:51:42 | INFO | Algebraic mode (with J recalculation) change at t = 34.9577
+2021-04-14 11:51:42 | INFO |       34.958 |       93           2              1.641 
+2021-04-14 11:51:42 | INFO | calculation of the new starting point of the simulation.
+2021-04-14 11:51:42 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:42 | INFO |       34.958 |        0           0              0.000 
+2021-04-14 11:51:42 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
+2021-04-14 11:51:42 | DEBUG | YP[147]=-0.334735 (variable=GEN____6_SM_generator_lambdaDPu)
+2021-04-14 11:51:42 | DEBUG | YP[85]=-0.158943 (variable=GEN____2_SM_generator_lambdaDPu)
+2021-04-14 11:51:42 | DEBUG | YP[148]=-0.135718 (variable=GEN____6_SM_generator_lambdaQ1Pu)
+2021-04-14 11:51:42 | DEBUG | YP[178]=-0.0712252 (variable=GEN____8_SM_generator_lambdaDPu)
+2021-04-14 11:51:42 | DEBUG | YP[54]=-0.0492213 (variable=GEN____1_SM_generator_lambdaDPu)
+2021-04-14 11:51:42 | DEBUG | YP[87]=0.026537 (variable=GEN____2_SM_generator_lambdaQ2Pu)
+2021-04-14 11:51:42 | DEBUG | YP[56]=0.0158121 (variable=GEN____1_SM_generator_lambdaQ2Pu)
+2021-04-14 11:51:42 | DEBUG | YP[150]=-0.0104258 (variable=GEN____6_SM_generator_lambdafPu)
+2021-04-14 11:51:42 | DEBUG | YP[88]=-0.00608193 (variable=GEN____2_SM_generator_lambdafPu)
+2021-04-14 11:51:42 | DEBUG | YP[181]=-0.00589339 (variable=GEN____8_SM_generator_lambdafPu)
+2021-04-14 11:51:42 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:42 | INFO |       34.958 |        1           1              0.000 
+2021-04-14 11:51:42 | INFO |       34.958 |        2           1              0.000 
+2021-04-14 11:51:42 | INFO |       34.958 |        3           2              0.000 
+2021-04-14 11:51:42 | INFO |       34.958 |        4           2              0.000 
+2021-04-14 11:51:42 | INFO |       34.958 |        5           2              0.000 
+2021-04-14 11:51:42 | INFO |       34.958 |        6           2              0.000 
+2021-04-14 11:51:42 | INFO |       34.958 |        7           2              0.000 
+2021-04-14 11:51:42 | INFO |       34.958 |        8           2              0.000 
+2021-04-14 11:51:42 | INFO |       34.958 |        9           2              0.000 
+2021-04-14 11:51:42 | INFO |       34.958 |       10           2              0.000 
+2021-04-14 11:51:42 | INFO |       34.959 |       11           2              0.001 
+2021-04-14 11:51:42 | INFO |       34.960 |       12           2              0.001 
+2021-04-14 11:51:42 | INFO |       34.962 |       13           2              0.002 
+2021-04-14 11:51:42 | INFO |       34.966 |       14           2              0.004 
+2021-04-14 11:51:42 | INFO |       34.974 |       15           2              0.008 
+2021-04-14 11:51:42 | INFO |       34.990 |       16           2              0.016 
+2021-04-14 11:51:42 | INFO |       35.007 |       17           2              0.016 
+2021-04-14 11:51:42 | INFO |       35.023 |       18           2              0.016 
+2021-04-14 11:51:42 | INFO |       35.056 |       19           2              0.033 
+2021-04-14 11:51:42 | INFO |       35.089 |       20           2              0.033 
+2021-04-14 11:51:42 | INFO |       35.122 |       21           2              0.033 
+2021-04-14 11:51:42 | INFO |       35.187 |       22           2              0.066 
+2021-04-14 11:51:42 | INFO |       35.253 |       23           1              0.066 
+2021-04-14 11:51:42 | INFO |       35.318 |       24           1              0.066 
+2021-04-14 11:51:42 | INFO |       35.384 |       25           1              0.066 
+2021-04-14 11:51:42 | INFO |       35.515 |       26           2              0.131 
+2021-04-14 11:51:42 | INFO |       35.633 |       27           2              0.118 
+2021-04-14 11:51:42 | INFO |       35.751 |       28           2              0.118 
+2021-04-14 11:51:42 | INFO |       35.869 |       29           2              0.118 
+2021-04-14 11:51:42 | INFO |       35.987 |       30           2              0.118 
+2021-04-14 11:51:42 | INFO |       36.105 |       31           2              0.118 
+2021-04-14 11:51:42 | INFO |       36.223 |       32           2              0.118 
+2021-04-14 11:51:42 | INFO |       36.340 |       33           2              0.118 
+2021-04-14 11:51:42 | INFO |       36.458 |       34           2              0.118 
+2021-04-14 11:51:42 | INFO |       36.576 |       35           2              0.118 
+2021-04-14 11:51:42 | INFO |       36.694 |       36           2              0.118 
+2021-04-14 11:51:42 | INFO |       36.812 |       37           2              0.118 
+2021-04-14 11:51:42 | INFO |       36.930 |       38           2              0.118 
+2021-04-14 11:51:42 | INFO |       37.166 |       39           2              0.236 
+2021-04-14 11:51:42 | INFO |       37.402 |       40           1              0.236 
+2021-04-14 11:51:42 | INFO |       37.638 |       41           1              0.236 
+2021-04-14 11:51:42 | INFO |       37.874 |       42           1              0.236 
+2021-04-14 11:51:42 | INFO |       38.110 |       43           1              0.236 
+2021-04-14 11:51:42 | INFO |       38.582 |       44           1              0.472 
+2021-04-14 11:51:42 | INFO |       39.054 |       45           1              0.472 
+2021-04-14 11:51:42 | INFO |       39.997 |       46           1              0.944 
+2021-04-14 11:51:42 | INFO |       40.941 |       47           1              0.944 
+2021-04-14 11:51:42 | INFO |       41.885 |       48           1              0.944 
+2021-04-14 11:51:42 | INFO |       43.772 |       49           2              1.887 
+2021-04-14 11:51:42 | INFO |       45.660 |       50           2              1.887 
+2021-04-14 11:51:42 | INFO |       49.435 |       51           2              3.775 
+2021-04-14 11:51:42 | INFO |       52.832 |       52           2              3.397 
+2021-04-14 11:51:42 | INFO |       56.229 |       53           2              3.397 
+2021-04-14 11:51:42 | INFO |       59.627 |       54           2              3.397 
+2021-04-14 11:51:42 | INFO |       63.024 |       55           2              3.397 
+2021-04-14 11:51:42 | INFO |       69.819 |       56           2              6.795 
+2021-04-14 11:51:42 | INFO |       76.614 |       57           2              6.795 
+2021-04-14 11:51:42 | INFO |       86.614 |       58           2             10.000 
+2021-04-14 11:51:42 | INFO |       96.614 |       59           2             10.000 
+2021-04-14 11:51:42 | INFO |      100.000 |       60           2              3.386 
+2021-04-14 11:51:42 | INFO | 
+2021-04-14 11:51:42 | INFO | execution statistics :
+2021-04-14 11:51:42 | INFO | 
+2021-04-14 11:51:42 | INFO | number of time iterations                  = 179
+2021-04-14 11:51:42 | INFO | number of residual evaluations             = 262
+2021-04-14 11:51:42 | INFO | number of Jacobian evaluations             = 73
+2021-04-14 11:51:42 | INFO | number of nonlinear iterations             = 256
+2021-04-14 11:51:42 | INFO | number of error test failures              = 2
+2021-04-14 11:51:42 | INFO | number of nonlinear convergence failures   = 0
+2021-04-14 11:51:42 | INFO | number of root functions evaluations       = 330
+2021-04-14 11:51:42 | INFO | number of discrete variables evaluations   = 10
+2021-04-14 11:51:42 | INFO | number of mode evaluations                 = 5
+2021-04-14 11:51:42 | INFO | end of job 'IEEE14 - UnderVoltageAutomaton'

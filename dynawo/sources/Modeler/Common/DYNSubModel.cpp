@@ -69,12 +69,15 @@ sizeZ_(0),
 sizeG_(0),
 sizeMode_(0),
 sizeY_(0),
+sizeYExternal_(0),
 sizeCalculatedVar_(0),
 fLocal_(NULL),
 gLocal_(NULL),
 yLocal_(NULL),
 offsetY_(-1),
 ypLocal_(NULL),
+yExternalLocal_(NULL),
+ypExternalLocal_(NULL),
 zLocal_(NULL),
 zLocalConnected_(NULL),
 yType_(NULL),
@@ -91,6 +94,7 @@ sizeZSave_(0),
 sizeGSave_(0),
 sizeModeSave_(0),
 sizeYSave_(0),
+sizeYExternalSave_(0),
 sizeCalculatedVarSave_(0),
 fLocalSave_(NULL),
 gLocalSave_(NULL),
@@ -149,6 +153,7 @@ SubModel::saveData() {
   sizeGSave_ = sizeG_;
   sizeModeSave_ = sizeMode_;
   sizeYSave_ = sizeY_;
+  sizeYExternalSave_ = sizeYExternal_;
   sizeCalculatedVarSave_ = sizeCalculatedVar_;
   fLocalSave_ = fLocal_;
   gLocalSave_ = gLocal_;
@@ -165,6 +170,7 @@ SubModel::restoreData() {
   sizeG_ = sizeGSave_;
   sizeMode_ = sizeModeSave_;
   sizeY_ = sizeYSave_;
+  sizeYExternal_ = sizeYExternalSave_;
   sizeCalculatedVar_ = sizeCalculatedVarSave_;
   fLocal_ = fLocalSave_;
   gLocal_ = gLocalSave_;
@@ -180,6 +186,9 @@ SubModel::initSub(const double t0) {
 
   if (!withLoadedParameters_) {
     saveData();
+    // no external variable at init
+    sizeYExternal_ = 0;
+
     initParams();
     restoreData();
   }
@@ -224,7 +233,7 @@ SubModel::loadVariables(const map<string, string>& mapVariables) {
 }
 
 void
-SubModel::initSize(int& sizeYGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob) {
+SubModel::initSize(int& sizeYGlob, int& sizeYExternalGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob) {
   getSize();
 
   if (sizeY_ != xNames_.size())
@@ -234,12 +243,14 @@ SubModel::initSize(int& sizeYGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeF
 
 
   yDeb_ = sizeYGlob;
+  yExternalDeb_ = sizeYExternalGlob;
   zDeb_ = sizeZGlob;
   modeDeb_ = sizeModeGlob;
   fDeb_ = sizeFGlob;
   gDeb_ = sizeGGlob;
 
   sizeYGlob += sizeY_;
+  sizeYExternalGlob += sizeYExternal_;
   sizeZGlob += sizeZ_;
   sizeModeGlob += sizeMode_;
   sizeFGlob += sizeF_;
@@ -328,6 +339,44 @@ SubModel::getVariable(const string& variableName) const {
   return iter->second;
 }
 
+int
+SubModel::getReferenceIndex(int externalIndexLocal) const {
+  const boost::unordered_map<int, int>& externalConnections = connectorContainer_.lock()->externalConnectionsByVarNum();
+  int index_external = getVariableIndexGlobal(getVariable(xExternalNames_.at(externalIndexLocal)));
+  return externalConnections.at(index_external);
+}
+
+double
+SubModel::getDerivativeVariableValue(const shared_ptr <Variable> variable) const {
+#ifdef _DEBUG_
+  assert(variable && "SubModel::getDerivativeVariableValue variable not found");
+#endif
+  const int varNum = variable->getIndex();
+  const typeVar_t typeVar = variable->getType();
+  const bool negated = variable->getNegated();
+  const bool isState = variable->isState();
+  const bool isExternal = variable->isExternal();
+
+  if (!isState) {
+    throw DYNError(Error::MODELER, ModelFuncError, "Derivative variables only for state variables");
+  }
+  if (typeVar != CONTINUOUS && typeVar != FLOW) {
+    throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
+  }
+
+  double value;
+  if (isExternal && typeVar == CONTINUOUS) {
+    value = *(ypExternalLocal_[varNum]);
+  } else {
+    value = ypLocal_[varNum];
+  }
+
+  if (negated)
+    value = -1 * value;
+
+  return value;
+}
+
 double
 SubModel::getVariableValue(const shared_ptr<Variable>& variable) const {
 #ifdef _DEBUG_
@@ -337,10 +386,13 @@ SubModel::getVariableValue(const shared_ptr<Variable>& variable) const {
   const typeVar_t typeVar = variable->getType();
   const bool negated = variable->getNegated();
   const bool isState = variable->isState();
+  const bool isExternal = variable->isExternal();
 
   double value;
   if (!isState) {
     value = calculatedVars_[varNum];
+  } else if (isExternal && typeVar == CONTINUOUS) {
+    value = *(yExternalLocal_[varNum]);
   } else {
     switch (typeVar) {
       case CONTINUOUS:
@@ -380,10 +432,15 @@ SubModel::getVariableIndexGlobal(const shared_ptr<Variable>& variable) const {
   const int varNum = variable->getIndex();
   const typeVar_t typeVar = variable->getType();
   const bool isState = variable->isState();
+  const bool isExternal = variable->isExternal();
 
   // global variable indexes are only defined for state variables
   if (!isState) {
     throw DYNError(Error::MODELER, SubModelBadVariableTypeForVariableIndex, name(), modelType(), variable->getName());
+  }
+
+  if (isExternal && typeVar == CONTINUOUS) {
+    return yExternalDeb_ + varNum;
   }
 
   switch (typeVar) {
@@ -421,14 +478,14 @@ SubModel::defineVariables() {
   variablesByName_.clear();
   defineVariables(variables_);
   // sort variable by name
-  for (unsigned int i = 0; i < variables_.size(); ++i) {
-    variablesByName_[variables_[i]->getName()] = variables_[i];
+  for (std::vector<boost::shared_ptr<DYN::Variable> >::const_iterator it = variables_.begin(); it != variables_.end(); ++it) {
+    variablesByName_[(*it)->getName()] = *it;
   }
 
   // define alias
-  for (unsigned int i = 0; i < variables_.size(); ++i) {
-    if (variables_[i]->isAlias()) {
-      shared_ptr <VariableAlias> variable = dynamic_pointer_cast<VariableAlias> (variables_[i]);
+  for (std::vector<boost::shared_ptr<DYN::Variable> >::const_iterator it = variables_.begin(); it != variables_.end(); ++it) {
+    if ((*it)->isAlias()) {
+      shared_ptr <VariableAlias> variable = dynamic_pointer_cast<VariableAlias> (*it);
       if (!variable->referenceVariableSet()) {
         boost::unordered_map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variable->getReferenceVariableName());
         if (iter == variablesByName_.end()) {
@@ -669,9 +726,11 @@ SubModel::defineParameters(const bool isInitParam) {
 }
 
 void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<string>& zNames,
-                               vector<string>& xNames, vector<string>& calculatedVarNames) {
+                               vector<string>& xNames, std::vector<string>& xExternalNames,
+                               vector<string>& calculatedVarNames) {
   zNames.clear();
   xNames.clear();
+  xExternalNames.clear();
   calculatedVarNames.clear();
   vector <std::pair <string, int> > integer_variables;  // integer variables have to be dealt with last
 
@@ -686,6 +745,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
     const typeVar_t type = currentVariable->getType();
     const string name = currentVariable->getName();
     const bool isState = currentVariable->isState();
+    const bool isExternal = currentVariable->isExternal();
     int index = -1;
 
     if (currentVariable->isAlias())  // no alias in names vector
@@ -695,6 +755,10 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
     if (!isState) {
       index = calculatedVarNames.size();
       calculatedVarNames.push_back(name);
+      nativeVariable->setIndex(index);
+    } else if (isExternal && type == CONTINUOUS) {
+      index = xExternalNames.size();
+      xExternalNames.push_back(name);
       nativeVariable->setIndex(index);
     } else {
       switch (type) {
@@ -796,6 +860,19 @@ SubModel::setBufferY(double* y, double* yp, const int offsetY) {
   if (yp)
     ypLocal_ = &(yp[offsetY]);
   offsetY_ = offsetY;
+}
+
+void
+SubModel::setBufferYExternal(double** yExternal, double** ypExternal, int offset) {
+  yExternalLocal_ = static_cast<double**>(NULL);
+  if (yExternal) {
+    yExternalLocal_ = &(yExternal[offset]);
+  }
+
+  ypExternalLocal_ = static_cast<double**>(NULL);
+  if (ypExternal) {
+    ypExternalLocal_ = &(ypExternal[offset]);
+  }
 }
 
 void
@@ -915,8 +992,16 @@ SubModel::getY0Sub() {
   // get y0 , yp0, and z0  values of the subModel
   // external values are also included in y0
   if (!initialized_) {
+    getY0Dependencies();
     getY0();
     initialized_ = true;
+  }
+}
+
+void
+SubModel::getY0Dependencies() {
+  for (std::vector<boost::weak_ptr<SubModel> >::const_iterator it = dependencies_.begin(); it != dependencies_.end(); ++it) {
+    it->lock()->getY0();
   }
 }
 
@@ -944,7 +1029,19 @@ SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
     curve->setCurveType(Curve::CALCULATED_VARIABLE);
   } else {
     switch (typeVar) {
-      case CONTINUOUS:
+      case CONTINUOUS: {
+        curve->setCurveType(Curve::CONTINUOUS_VARIABLE);
+        if (isVariableExternal(variable)) {
+          buffer = yExternalLocal_[varNum];
+          const boost::unordered_map<int, int>& references = connectorContainer_.lock()->externalConnectionsByVarNum();
+          int index_global = getVariableIndexGlobal(variable);
+          curve->setGlobalIndex(references.at(index_global));
+        } else {
+          buffer = &(yLocal_[varNum]);
+          curve->setGlobalIndex(yDeb() + varNum);
+        }
+        break;
+      }
       case FLOW: {
         buffer = &(yLocal_[varNum]);
         curve->setCurveType(Curve::CONTINUOUS_VARIABLE);
@@ -1273,6 +1370,15 @@ void SubModel::getSubModelParameterValue(const string& nameParameter, double& va
     found = true;
     value = parameter.getDoubleValue();
   }
+}
+
+void
+SubModel::addFictiveVariableSubModelDependency(const boost::weak_ptr<SubModel>& model) {
+#if _DEBUG_
+  // perform check only in debug because lock() function call may decrease performances
+  assert(model.lock()->isFictiveVariableModel());
+#endif
+  dependencies_.push_back(model);
 }
 
 }  // namespace DYN

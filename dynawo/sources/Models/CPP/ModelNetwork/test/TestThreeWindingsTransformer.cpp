@@ -226,7 +226,8 @@ TEST(ModelsModelNetwork, ModelNetworkThreeWindingsTransformerInitializationClose
   std::vector<double> res;
   ASSERT_THROW_DYNAWO(tw3->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(tw3->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  std::vector<int> numVarsExternal;
+  ASSERT_THROW_DYNAWO(tw3->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(tw3->getY0());
   std::map<int, std::string> gEquationIndex;
   tw3->setGequations(gEquationIndex);

@@ -268,11 +268,10 @@ nbMaxOutputs, this->getModelManager()->getWorkingDirectory());
 #endif  // DOXYGEN_SHOULD_SKIP_THIS
 
 /**
- * @brief Class DYNDATA : class to define new data needed for describing memory structure
+ * @brief Struct DYNDATA : class to define new data needed for describing memory structure
  * @class DYNDATA
  */
-class DYNDATA : public DATA {
- public:
+struct DYNDATA : public DATA {
   int nbDummy;  ///< number of dummy variables
   int nbVars;  ///< number of variables
   int nbF;  ///< number of residual functions
@@ -281,6 +280,10 @@ class DYNDATA : public DATA {
   int nbCalculatedVars;  ///< number of calculated variables
   int nbDelays;  ///< Number of delays handled
   std::vector<double> constCalcVars;  ///< values of constant calculated variables with complex initialization
+
+  int nbExternalVars;             ///< Number of external variabled
+  modelica_real** externalVars;   ///< buffer for pointers to external variables value
+  modelica_real** externalPVars;  ///< buffer for pointers to derivative of external variables value
 };
 
 namespace DYN {

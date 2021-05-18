@@ -168,14 +168,19 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void initSize();
 
   /**
-   * @copydoc NetworkComponent::init(int& yNum )
+   * @copydoc NetworkComponent::init(int& yNum, int& yNumExternal)
    */
-  void init(int& yNum);
+  void init(int& yNum, int& yNumExternal);
 
   /**
    * @copydoc NetworkComponent::getY0()
    */
   void getY0();
+
+  /**
+   * @copydoc NetworkComponent::getY0External(unsigned int numVarEx, double& value) const
+   */
+  void getY0External(unsigned int numVarEx, double& value) const;
 
   /**
    * @copydoc NetworkComponent::setFequations(std::map<int,std::string>& fEquationIndex)
@@ -253,13 +258,9 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void evalCalculatedVars();
 
   /**
-   * @brief get the global indexes of the variables used to compute a calculated variable
-   *
-   * @param numCalculatedVar index of the calculated variable
-   * @param numVars vector to fill with the indexes
-   *
+   * @copydoc NetworkComponent::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>& numVarsExternal) const
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>& numVarsExternal) const;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
@@ -303,9 +304,9 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void addBusNeighbors();
 
   /**
-   * @copydoc NetworkComponent::setReferenceY( double* y, double* yp, double* f, const int & offsetY, const int & offsetF)
+   * @copydoc NetworkComponent::setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext, double* f, const int & offsetY, const int& offsetF, int offsetYExternal)
    */
-  void setReferenceY(double* y, double* yp, double* f, const int& offsetY, const int& offsetF);
+  void setReferenceY(double* y, double* yp, double** y_ext, double** yp_ext, double* f, const int& offsetY, const int& offsetF, int offsetYExternal);
 
   /**
    * @copydoc NetworkComponent::setReferenceZ( double* z, bool* zConnected, const int & offsetZ )

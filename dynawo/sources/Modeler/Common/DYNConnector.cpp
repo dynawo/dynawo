@@ -38,6 +38,12 @@ using std::string;
 using boost::shared_ptr;
 using boost::unordered_map;
 
+
+namespace boost {
+std::size_t hash<DYN::connectedSubModel>::operator()(const ::DYN::connectedSubModel& model) const {
+  return hash<boost::shared_ptr<DYN::SubModel> >()(model.subModel_) ^ hash<boost::shared_ptr<DYN::Variable> >()(model.variable_);
+}
+}  // namespace boost
 namespace DYN {
 
 void
@@ -68,6 +74,14 @@ connectorsMerged_(false) {
 }
 
 ConnectorContainer::~ConnectorContainer() {
+}
+
+bool ConnectorContainer::IsExternalPredicate::operator()(const connectedSubModel& cmodel) const {
+  return SubModel::isVariableExternal(cmodel.variable());
+}
+
+bool ConnectorContainer::IsNonExternalPredicate::operator()(const connectedSubModel& cmodel) const {
+  return !SubModel::isVariableExternal(cmodel.variable());
 }
 
 unsigned int ConnectorContainer::nbYConnectors() const {
@@ -108,6 +122,79 @@ ConnectorContainer::mergeConnectors() {
 }
 
 void
+ConnectorContainer::processExternalConnectors(std::list<boost::shared_ptr<Connector> >& yConnectorsList) {
+  if (yConnectorsList.empty()) {
+    return;
+  }
+
+  yConnectorsFullExternal_.clear();
+
+  std::vector<connectedSubModel> external_vars;
+  list<shared_ptr<Connector> >::iterator it_to_remove = yConnectorsList.end();
+  for (list<shared_ptr<Connector> >::iterator it = yConnectorsList.begin(); it != yConnectorsList.end(); ++it) {
+    // remove the item designated to be removed by previous loop index before processing new item
+    if (it_to_remove != yConnectorsList.end()) {
+      yConnectorsList.erase(it_to_remove);
+      it_to_remove = yConnectorsList.end();
+    }
+
+    if ((*it)->nbConnectedSubModels() == 0) {
+      // no submodel connected in this connector: nothing to do and remove it
+      it_to_remove = it;
+      continue;
+    }
+
+    std::vector<connectedSubModel>::const_iterator found =
+      std::find_if((*it)->connectedSubModels().begin(), (*it)->connectedSubModels().end(), IsNonExternalPredicate());
+    if (found == (*it)->connectedSubModels().end()) {
+      // case only external variables in connectors: save the connector for further process and remove it from the actual list
+      yConnectorsFullExternal_.push_back(*it);
+      it_to_remove = it;
+      continue;
+    }
+
+    do {
+      std::vector<connectedSubModel>::iterator found =
+        std::find_if((*it)->connectedSubModels().begin(), (*it)->connectedSubModels().end(), IsExternalPredicate());
+      if (found == (*it)->connectedSubModels().end()) {
+        break;
+      }
+      external_vars.push_back(*found);
+      (*it)->connectedSubModels().erase(found);
+    } while (true);
+
+    // This assert shouldn't happen since at least one variable is non external at this point
+    assert((*it)->nbConnectedSubModels() > 0);
+
+    if ((*it)->nbConnectedSubModels() == 1) {
+      // this corresponds to the case 1 non-external variable connected to n external variables
+      it_to_remove = it;
+    }
+
+    if (external_vars.size() > 0) {
+      // In case there is a connector with more than one non external variable, we can use anyone
+      boost::unordered_set<DYN::connectedSubModel>& connections = externalConnections_[(*it)->connectedSubModels().front()];
+      connections.insert(external_vars.begin(), external_vars.end());
+      external_vars.clear();
+    }
+  }
+
+  if (it_to_remove != yConnectorsList.end()) {
+    yConnectorsList.erase(it_to_remove);
+    it_to_remove = yConnectorsList.end();
+  }
+}
+
+int
+ConnectorContainer::getYConnectorNumVar(const connectedSubModel& cmodel) {
+  if (cmodel.variable()->isExternal() && cmodel.variable()->getType() == CONTINUOUS) {
+    return static_cast<int>(boost::hash<std::string>()(cmodel.subModel()->name() + "_" + cmodel.variable()->getName()));
+  }
+
+  return cmodel.subModel()->getVariableIndexGlobal(cmodel.variable());
+}
+
+void
 ConnectorContainer::mergeYConnector() {
   // order Y connectors
   yConnectors_.clear();
@@ -119,7 +206,9 @@ ConnectorContainer::mergeYConnector() {
     for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
         it != yc->connectedSubModels().end();
         ++it) {
-      const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
+      // use custom num var for external variables to avoid issues between global indexes (external and non external
+      // variables are in different arrays)
+      const int numVar = getYConnectorNumVar(*it);
       if (yConnectorByVarNum_.find(numVar) != yConnectorByVarNum_.end()) {
         mergeConnectors(yc, yConnectorByVarNum_[numVar], yConnectorsList, yConnectorByVarNum_);
         merged = true;
@@ -129,25 +218,50 @@ ConnectorContainer::mergeYConnector() {
 
     if (!merged) {
       yConnectorsList.push_back(yc);
-      for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+      for (vector<connectedSubModel>::const_iterator it = yc->connectedSubModels().begin();
           it != yc->connectedSubModels().end();
           ++it) {
-        const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
+        const int numVar = getYConnectorNumVar(*it);
         yConnectorByVarNum_[numVar] = yc;
       }
     }
   }
 
+  processExternalConnectors(yConnectorsList);
+
   // Copy kept yConnectors in the vector
   yConnectors_.assign(yConnectorsList.begin(), yConnectorsList.end());
 }
 
+void
+ConnectorContainer::performExternalConnections() {
+  for (boost::unordered_map<connectedSubModel, boost::unordered_set<DYN::connectedSubModel> >::const_iterator it =
+    externalConnections_.begin(); it != externalConnections_.end(); ++it) {
+    double* const var_ref_local = &(it->first.subModel()->yLocal()[it->first.variable()->getIndex()]);
+    int num_var_ref = it->first.subModel()->getVariableIndexGlobal(it->first.variable());
+
+    double* const var_p_ref_local = &(it->first.subModel()->ypLocal()[it->first.variable()->getIndex()]);
+    for (boost::unordered_set<connectedSubModel>::const_iterator it_m = it->second.begin(); it_m != it->second.end(); ++it_m) {
+      const int num_var = it_m->subModel()->getVariableIndexGlobal(it_m->variable());
+      externalConnectionsByVarNum_[num_var] = num_var_ref;
+      Trace::debug(Trace::variables()) << "Connect external var num " <<
+        num_var << "(" << it_m->subModel()->name() << ":" << it_m->variable()->getName() <<
+        ")" << " to " <<
+        num_var_ref << "(" << it->first.subModel()->name() << ":" <<
+        it->first.variable()->getName() << ")" << Trace::endline;
+      it_m->subModel()->connectExternalVariable(var_ref_local, var_p_ref_local, it_m->variable()->getIndex());
+    }
+  }
+
+  // we don't need it any more
+  externalConnections_.clear();
+}
 
 int
-ConnectorContainer::getConnectorVarNum(const shared_ptr<SubModel>& subModel, const shared_ptr<Variable>& variable, bool flowConnector) {
+ConnectorContainer::getConnectorVarNum(const connectedSubModel& cmodel, bool flowConnector) {
   int numVar;
-  if (flowConnector && variable->isAlias()) {
-    string id = subModel->name()+"_"+variable->getName();
+  if (flowConnector && cmodel.variable()->isAlias()) {
+    string id = cmodel.subModel()->name()+"_"+cmodel.variable()->getName();
     boost::unordered_map<std::string, int>::const_iterator aliasIt = flowAliasNameToFictitiousVarNum_.find(id);
     if (aliasIt != flowAliasNameToFictitiousVarNum_.end()) {
       numVar = aliasIt->second;
@@ -156,7 +270,7 @@ ConnectorContainer::getConnectorVarNum(const shared_ptr<SubModel>& subModel, con
       flowAliasNameToFictitiousVarNum_[id] = numVar;
     }
   } else {
-    numVar = subModel->getVariableIndexGlobal(variable);
+    numVar = getYConnectorNumVar(cmodel);
   }
   return numVar;
 }
@@ -174,7 +288,7 @@ ConnectorContainer::mergeFlowConnector() {
     for (vector<connectedSubModel>::iterator it = flowc->connectedSubModels().begin();
         it != flowc->connectedSubModels().end();
         ++it) {
-      int numVar = getConnectorVarNum(it->subModel(), it->variable(), flowConnector);
+      int numVar = getConnectorVarNum(*it, flowConnector);
       if (flowConnectorByVarNum_.find(numVar) != flowConnectorByVarNum_.end()) {
         mergeConnectors(flowc, flowConnectorByVarNum_[numVar], flowConnectorsList, flowConnectorByVarNum_, flowConnector);
         merged = true;
@@ -187,7 +301,7 @@ ConnectorContainer::mergeFlowConnector() {
       for (vector<connectedSubModel>::iterator it = flowc->connectedSubModels().begin();
           it != flowc->connectedSubModels().end();
           ++it) {
-        int numVar = getConnectorVarNum(it->subModel(), it->variable(), flowConnector);
+        int numVar = getConnectorVarNum(*it, flowConnector);
         flowConnectorByVarNum_[numVar] = flowc;
       }
     }
@@ -240,14 +354,14 @@ ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<
   for (vector<connectedSubModel>::const_iterator itCon = connector->connectedSubModels().begin();
           itCon != connector->connectedSubModels().end();
           ++itCon) {
-    const int numVar = itCon->subModel()->getVariableIndexGlobal(itCon->variable());
+    const int numVar = getYConnectorNumVar(*itCon);
     if (connectorsByVarNum.find(numVar) != connectorsByVarNum.end() && connectorsByVarNum[numVar] == reference) {
       // check whether the two connectors have at least one variable in common :
       // if so, the negated attribute of the merge is derived from the shared variable negated attribute comparison
       for (vector<connectedSubModel>::const_iterator itRef = connector->connectedSubModels().begin();
           itRef != connector->connectedSubModels().end();
           ++itRef) {
-        if (itRef->subModel()->getVariableIndexGlobal(itRef->variable()) == numVar) {  // found the two connectedSubModels
+        if (getYConnectorNumVar(*itRef) == numVar) {  // found the two connectedSubModels
           negatedMerge = itRef->negated() != itCon->negated();
           break;
         }
@@ -259,7 +373,7 @@ ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<
   for (vector<connectedSubModel>::const_iterator it = connector->connectedSubModels().begin();
           it != connector->connectedSubModels().end();
           ++it) {
-    int numVar = getConnectorVarNum(it->subModel(), it->variable(), flowConnector);
+    int numVar = getConnectorVarNum(*it, flowConnector);
     if (connectorsByVarNum.find(numVar) != connectorsByVarNum.end()) {
       // variable used in a final connector
       if (connectorsByVarNum[numVar] == reference) {
@@ -665,7 +779,10 @@ ConnectorContainer::getY0ConnectorForYConnector() {
             ++it) {
       propertyContinuousVar_t * yType = it->subModel()->getYType();
 
-      if (yType[it->variable()->getIndex()] != EXTERNAL && yType[it->variable()->getIndex()] != OPTIONAL_EXTERNAL) {  // non external variable
+      if (!it->variable()->isExternal() &&
+        !it->subModel()->isFictiveVariableModel() &&
+        yType[it->variable()->getIndex()] != EXTERNAL &&
+        yType[it->variable()->getIndex()] != OPTIONAL_EXTERNAL) {  // non external variable
         itReference = it;
         referenceFound = true;
         zNegated = it->negated();

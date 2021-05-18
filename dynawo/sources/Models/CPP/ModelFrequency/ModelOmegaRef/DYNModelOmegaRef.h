@@ -182,6 +182,11 @@ class ModelOmegaRef : public ModelCPP::Impl {
   void getY0();
 
   /**
+  * @copydoc ModelCPP::getY0External()
+  */
+  void getY0External(unsigned int numVarEx, double& value) const;
+
+  /**
    * @copydoc ModelCPP::evalStaticYType()
    */
   void evalStaticYType();
@@ -193,12 +198,9 @@ class ModelOmegaRef : public ModelCPP::Impl {
 
   // output management
   /**
-   * @brief get the index of variables used to define the jacobian associated to a calculated variable
-   *
-   * @param iCalculatedVar index of the calculated variable
-   * @param indexes vector to fill with the indexes
+   * @copydoc ModelCPP::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -296,7 +298,6 @@ class ModelOmegaRef : public ModelCPP::Impl {
 
  private:
   static int col1stOmegaRef_;  ///< offset to find the first row the residual functions about omegaRef
-  static int col1stOmega_;  ///< offset to find the first row the residual functions about omega
   int col1stOmegaRefGrp_;  ///< offset to find the first row the residual functions about omegaRef for each generators
 
   bool firstState_;  ///< @b true if the initial state must be calculated

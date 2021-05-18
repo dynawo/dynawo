@@ -143,6 +143,20 @@ def has_param_address(var_name):
 def get_map_var_name_2_addresses() :
     return map_var_name_2_addresses
 
+def replace_external_var_names(line):
+    ptrn_ext_var = re.compile(r'\*\(data->externalVars\[(?P<index>\d+)\]\)')
+    ptrn_dext_var = re.compile(r'\*\(data->externalPVars\[(?P<index>\d+)\]\)')
+    match = re.search(ptrn_ext_var, line)
+    while match:
+        line = line.replace("*(data->externalVars[" + str(match.group("index")) + "])", "x_ext[" + str(match.group("index")) + "]")
+        match = re.search(ptrn_ext_var, line[match.end():-1])
+
+    match = re.search(ptrn_dext_var, line)
+    while match:
+        line = line.replace("*(data->externalPVars[" + str(match.group("index")) + "])", "xd_ext[" + str(match.group("index")) + "]")
+        match = re.search(ptrn_dext_var, line[match.end():-1])
+    return line
+
 ##
 # Replace all variables by its correct address
 # @param self: object pointer
@@ -850,6 +864,7 @@ def transform_line_adept(line):
     line_tmp = transform_atan3_operator_evalf(line_tmp)
     line_tmp = sub_division_sim(line_tmp)
     line_tmp = replace_var_names(line_tmp)
+    line_tmp = replace_external_var_names(line_tmp)
     line_tmp = line_tmp.replace("modelica_real ", "adept::adouble ")
     line_tmp = line_tmp.replace("Greater(", "Greater<adept::adouble>(")
     line_tmp = line_tmp.replace("Less(", "Less<adept::adouble>(")

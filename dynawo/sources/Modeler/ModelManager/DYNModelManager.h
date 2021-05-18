@@ -164,6 +164,11 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void getY0();
 
   /**
+   * @copydoc SubModel::getY0External(unsigned int numVarEx, double& value) const
+   */
+  void getY0External(unsigned int numVarEx, double& value) const;
+
+  /**
    * @copydoc SubModel::evalStaticYType()
    */
   void evalStaticYType();
@@ -252,13 +257,9 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const;
 
   /**
-   * @brief get the global indexes of the variables used to compute a calculated variable
-   *
-   * @param iCalculatedVar index of the calculated variable
-   * @param indexes vector to fill with the indexes
-   *
+   * @copydoc SubModel::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const;
 
   /**
    * @copydoc SubModel::initializeStaticData()
@@ -360,7 +361,8 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param yp current values of the derivative of the continuous variables
    * @param f values of the residual functions
    */
-  void evalF(const double t, const std::vector<adept::adouble>& y, const std::vector<adept::adouble>& yp, std::vector<adept::adouble>& f);
+  void evalF(const double t, const std::vector<adept::adouble>& y, const std::vector<adept::adouble>& yp,
+    const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &f);
 
   /**
    * @brief evaluate the jacobian with adept values

@@ -446,6 +446,14 @@ class ModelWriter(ModelWriterBase):
         self.addBody(self.builder.get_list_for_sety0())
         self.addLine("}\n")
 
+    def fill_setY0Externalomc(self):
+        self.addEmptyLine()
+        self.addLine(self.void_function_prefix+ self.className + "::setY0Externalomc(unsigned int numVarEx, double& value) const\n")
+        self.addLine("{\n")
+
+        self.addBody(self.builder.get_list_for_sety0external())
+        self.addLine("}\n")
+
     ##
     # Add the body of callCustomParametersConstructors in the cpp file
     # @param self : object pointer
@@ -508,7 +516,12 @@ class ModelWriter(ModelWriterBase):
 
         self.addBody(self.builder.get_setupdatastruc())
 
-        self.addLine("  data->nbVars ="+str(len(self.builder.list_vars_syst) - len(self.builder.reader.auxiliary_vars_counted_as_variables))+";\n")
+        nbvars_continuous = len([x for x in self.builder.reader.fictive_continuous_vars if x not in self.builder.reader.list_flow_vars])
+
+        nbvars = len(self.builder.list_vars_syst) - len(self.builder.reader.auxiliary_vars_counted_as_variables) - nbvars_continuous
+
+        self.addLine("  data->nbVars = "+str(nbvars)+";\n")
+        self.addLine("  data->nbExternalVars = "+str(nbvars_continuous)+";\n")
         self.addLine("  data->nbF = "+str(self.builder.get_nb_eq_dyn()) +";\n")
         self.addLine("  data->nbModes = " +str(self.builder.get_nb_modes()) + ";\n")
         self.addLine("  data->nbZ = "+str(self.builder.nb_z)+";\n")
@@ -633,6 +646,8 @@ class ModelWriter(ModelWriterBase):
         self.addLine("#ifdef _ADEPT_\n")
         self.addLine(self.void_function_prefix+ self.className + "::evalFAdept(const std::vector<adept::adouble> & x,\n")
         self.addLine("                              const std::vector<adept::adouble> & xd,\n")
+        self.addLine("                              const std::vector<adept::adouble> & x_ext,\n")
+        self.addLine("                              const std::vector<adept::adouble> & xd_ext,\n")
         self.addLine("                              std::vector<adept::adouble> & res)\n")
         self.addLine("{\n")
 
@@ -794,7 +809,7 @@ class ModelWriter(ModelWriterBase):
     def fill_evalCalculatedVarIAdept(self):
         self.addEmptyLine()
         self.addLine("#ifdef _ADEPT_\n")
-        self.addLine("adept::adouble Model" + self.className + "::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const\n")
+        self.addLine("adept::adouble Model" + self.className + "::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd, const std::vector<adept::adouble> &x_ext, const std::vector<adept::adouble> &xd_ext) const\n")
         self.addLine("{\n")
         self.addBody(self.builder.get_list_for_evalcalculatedvariadept())
         self.addLine("}\n")
@@ -807,7 +822,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_getIndexesOfVariablesUsedForCalculatedVarI(self):
         self.addEmptyLine()
-        self.addLine("void Model" + self.className + "::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const\n")
+        self.addLine("void Model" + self.className + "::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_getindexofvarusedforcalcvari())

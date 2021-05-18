@@ -18,6 +18,7 @@
  */
 
 #include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 
 #include "DYNElement.h"
 #include "DYNModelOmegaRef.h"
@@ -26,6 +27,8 @@
 #include "DYNSparseMatrix.h"
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
+#include "DYNVariableNativeFactory.h"
+#include "DYNVariableNative.h"
 #include "PARParametersSet.h"
 
 #include "gtest_dynawo.h"
@@ -52,6 +55,211 @@ boost::shared_ptr<SubModel> initModelOmegaRef(double weightGen2) {
 
   return modelOmegaRef;
 }
+
+class SubModelMock : public SubModel {
+ public:
+  SubModelMock(): SubModel() {
+    sizeY_ = 2;
+  }
+
+  virtual ~SubModelMock() {}
+
+  void init(const double) {
+    // Dummy class used for testing
+  }
+
+  std::string modelType() const {
+    // Dummy class used for testing
+    return "";
+  }
+
+  void dumpParameters(std::map<std::string, std::string>&) {
+    // Dummy class used for testing
+  }
+
+  void getSubModelParameterValue(const std::string&, double&, bool&) {
+    // Dummy class used for testing
+  }
+
+  void dumpVariables(std::map<std::string, std::string>&) {
+    // Dummy class used for testing
+  }
+
+  void loadParameters(const std::string&) {
+    // Dummy class used for testing
+  }
+
+  void loadVariables(const std::string&) {
+    // Dummy class used for testing
+  }
+
+  void evalF(double , propertyF_t ) {
+    // Dummy class used for testing
+  }
+
+  void evalG(const double) {
+    // Dummy class used for testing
+  }
+
+  void evalZ(const double) {
+    // Dummy class used for testing
+  }
+
+  void evalCalculatedVars() {
+    // Dummy class used for testing
+  }
+
+  void evalJt(const double, const double, SparseMatrix& , const int) {
+    // Dummy class used for testing
+  }
+
+  void evalJtPrim(const double, const double, SparseMatrix& , const int) {
+    // Dummy class used for testing
+  }
+
+  modeChangeType_t evalMode(const double) {
+    // Dummy class used for testing
+    return NO_MODE;
+  }
+
+  void checkDataCoherence(const double) {
+    // Dummy class used for testing
+  }
+
+  void checkParametersCoherence() const {
+    // Dummy class used for testing
+  }
+
+  void setFequations() {
+    // Dummy class used for testing
+  }
+
+  void setGequations() {
+    // Dummy class used for testing
+  }
+
+  void setFequationsInit() {
+    // Dummy class used for testing
+  }
+
+  void setGequationsInit() {
+    // Dummy class used for testing
+  }
+
+  void getY0() {
+    // Dummy class used for testing
+  }
+
+  void getY0External(unsigned int numVarEx, double&) const {
+    throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
+  }
+
+  void initSubBuffers() {
+    // Dummy class used for testing
+  }
+
+  void evalYType() {
+    // Dummy class used for testing
+  }
+
+  void evalFType() {
+    // Dummy class used for testing
+  }
+
+  void collectSilentZ(BitMask* ) {
+    // Dummy class used for testing
+  }
+
+  void evalStaticYType() {
+    // Dummy class used for testing
+  }
+
+  void evalDynamicYType() {
+    // Dummy class used for testing
+  }
+
+  void evalDynamicFType() {
+    // Dummy class used for testing
+  }
+
+  void evalStaticFType() {
+    // Dummy class used for testing
+  }
+
+  void getSize() {
+    // Dummy class used for testing
+  }
+
+  void defineElements(std::vector<Element>&, std::map<std::string, int>&) {
+    // Dummy class used for testing
+  }
+
+  void initializeStaticData() {
+    // Dummy class used for testing
+  }
+
+  void initializeFromData(const boost::shared_ptr<DataInterface>&) {
+    // Dummy class used for testing
+  }
+
+  void printInitValues(const std::string&) {
+    // Dummy class used for testing
+  }
+
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
+    variables.push_back(VariableNativeFactory::createState("var0", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState("var1", CONTINUOUS));
+  }
+
+  void defineParameters(std::vector<ParameterModeler>&) {
+    // Dummy class used for testing
+  }
+
+  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >&) {
+    // Dummy class used for testing
+  }
+
+  void defineParametersInit(std::vector<ParameterModeler>&) {
+    // Dummy class used for testing
+  }
+
+  void setSharedParametersDefaultValues() {
+    // Dummy class used for testing
+  }
+
+  void setSharedParametersDefaultValuesInit() {
+    // Dummy class used for testing
+  }
+
+  void rotateBuffers() {
+    // Dummy class used for testing
+  }
+
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&, std::vector<int>&) const {
+    // Dummy class used for testing
+  }
+
+  void evalJCalculatedVarI(unsigned, std::vector<double>&) const {
+    // Dummy class used for testing
+  }
+
+  double evalCalculatedVarI(unsigned) const {
+    // Dummy class used for testing
+    return 0.;
+  }
+
+  void setSubModelParameters() {
+    // Dummy class used for testing
+  }
+
+  void initParams() {
+    // Dummy class used for testing
+  }
+
+  void notifyTimeStep() {
+    // Dummy class used for testing
+  }
+};
 
 TEST(ModelsModelOmegaRef, ModelOmegaRefDefineMethods) {
   boost::shared_ptr<SubModel> modelOmegaRef = SubModelFactory::createSubModelFromLib("../DYNModelOmegaRef" + std::string(sharedLibraryExtension()));
@@ -162,7 +370,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefDefineMethods) {
 
 TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   boost::shared_ptr<SubModel> modelOmegaRef = initModelOmegaRef(-1);
-  unsigned nbY = 13;
+  unsigned nbY = 12;
   unsigned nbF = 12;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
@@ -170,6 +378,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   modelOmegaRef->setBufferFType(&fTypes[0], 0);
 
   ASSERT_EQ(modelOmegaRef->sizeY(), nbY);
+  ASSERT_EQ(modelOmegaRef->sizeYExternal(), 1);
   ASSERT_EQ(modelOmegaRef->sizeF(), nbF);
   ASSERT_EQ(modelOmegaRef->sizeZ(), 4);
   ASSERT_EQ(modelOmegaRef->sizeG(), 0);
@@ -179,10 +388,8 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   modelOmegaRef->evalDynamicYType();
   propertyContinuousVar_t* yTypeGet = modelOmegaRef->getYType();
   ASSERT_EQ(yTypeGet[0], ALGEBRAIC);
-  ASSERT_EQ(yTypeGet[10], EXTERNAL);
+  ASSERT_EQ(yTypeGet[10], ALGEBRAIC);
   ASSERT_EQ(yTypeGet[11], ALGEBRAIC);
-  ASSERT_EQ(yTypeGet[12], ALGEBRAIC);
-  ASSERT_NE(yTypeGet[9], EXTERNAL);
 
   modelOmegaRef->evalStaticFType();
   modelOmegaRef->evalDynamicFType();
@@ -193,8 +400,9 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   ASSERT_NO_THROW(modelOmegaRef->initializeFromData(boost::shared_ptr<DataInterface>()));
   std:: vector<double> res;
   std::vector<int> indexes;
+  std::vector<int> indexesExternal;
   ASSERT_NO_THROW(modelOmegaRef->evalJCalculatedVarI(0, res));
-  ASSERT_NO_THROW(modelOmegaRef->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
+  ASSERT_NO_THROW(modelOmegaRef->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes, indexesExternal));
   ASSERT_NO_THROW(modelOmegaRef->evalCalculatedVars());
   ASSERT_NO_THROW(modelOmegaRef->evalDynamicFType());
   ASSERT_NO_THROW(modelOmegaRef->evalDynamicYType());
@@ -229,6 +437,9 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   std::vector<double> y(modelOmegaRef2->sizeY(), 0);
   std::vector<double> yp(modelOmegaRef2->sizeY(), 0);
   modelOmegaRef2->setBufferY(&y[0], &yp[0], 0.);
+  std::vector<double*> y_ext(modelOmegaRef2->sizeYExternal(), NULL);
+  std::vector<double*> yp_ext(modelOmegaRef2->sizeYExternal(), NULL);
+  modelOmegaRef2->setBufferYExternal(&y_ext[0], &yp_ext[0], 0);
   std::vector<double> z(modelOmegaRef2->sizeZ(), 0);
   bool* zConnected = new bool[modelOmegaRef2->sizeZ()];
   for (size_t i = 0; i < modelOmegaRef2->sizeZ(); ++i)
@@ -261,9 +472,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefInit) {
   ASSERT_EQ(y[10], 1);  // weight0_gen_0
   ASSERT_EQ(yp[10], 0);
   ASSERT_EQ(y[11], 1);  // OmegaRef0_gen_0
-  ASSERT_EQ(y[12], 1);  // OmegaRef0_gen_1
   ASSERT_EQ(yp[11], 0);
-  ASSERT_EQ(yp[12], 0);
 
   ASSERT_EQ(z[0], 0);
   ASSERT_EQ(z[2], 0);
@@ -274,7 +483,42 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   boost::shared_ptr<SubModel> modelOmegaRef = initModelOmegaRef(1);
   std::vector<double> y(modelOmegaRef->sizeY(), 0);
   std::vector<double> yp(modelOmegaRef->sizeY(), 0);
+  int sizeY = 0;
+  int sizeExternal = 0;
+  int sizeZ = 0;
+  int sizeMode = 0;
+  int sizeF = 0;
+  int sizeG = 0;
   modelOmegaRef->setBufferY(&y[0], &yp[0], 0.);
+
+  boost::shared_ptr<SubModel> submodel = boost::make_shared<SubModelMock>();
+  std::vector<double*> y_ext(modelOmegaRef->sizeYExternal(), NULL);
+  std::vector<double*> yp_ext(modelOmegaRef->sizeYExternal(), NULL);
+  submodel->defineVariables();
+  submodel->defineNames();
+  modelOmegaRef->defineVariables();
+  modelOmegaRef->defineNames();
+  modelOmegaRef->initSize(sizeY, sizeExternal, sizeZ, sizeMode, sizeF, sizeG);
+  submodel->initSize(sizeY, sizeExternal, sizeZ, sizeMode, sizeF, sizeG);
+
+  std::vector<double> yother(2, 1.);
+  std::vector<double> ypother(2, 0.);
+  submodel->setBufferY(&yother[0], &ypother[0], 0);
+  modelOmegaRef->setBufferYExternal(&y_ext[0], &yp_ext[0], 0);
+
+  boost::shared_ptr<ConnectorContainer> connectorContainer = boost::make_shared<ConnectorContainer>();
+  modelOmegaRef->setConnectorContainer(connectorContainer);
+  boost::shared_ptr<Connector> connector0 = boost::make_shared<Connector>();
+  connector0->addConnectedSubModel(submodel, submodel->getVariable("var0"), false);
+  connector0->addConnectedSubModel(modelOmegaRef, modelOmegaRef->getVariable("omega_grp_0_value"), false);
+  connectorContainer->addContinuousConnector(connector0);
+  boost::shared_ptr<Connector> connector1 = boost::make_shared<Connector>();
+  connector1->addConnectedSubModel(submodel, submodel->getVariable("var1"), false);
+  connector1->addConnectedSubModel(modelOmegaRef, modelOmegaRef->getVariable("omega_grp_1_value"), false);
+  connectorContainer->addContinuousConnector(connector1);
+  connectorContainer->mergeConnectors();
+  connectorContainer->performExternalConnections();
+
   std::vector<double> z(modelOmegaRef->sizeZ(), 0);
   bool* zConnected = new bool[modelOmegaRef->sizeZ()];
   BitMask* silentZ = new BitMask[modelOmegaRef->sizeZ()];
@@ -302,7 +546,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
   SparseMatrix smj;
-  int size = modelOmegaRef->sizeY();
+  int size = modelOmegaRef->sizeY() + 2;  // counting the external variables
   smj.init(size, size);
   modelOmegaRef->evalJt(0, 0, smj, 0);
   smj.changeCol();
@@ -314,12 +558,12 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[10], 12);  // omega_grp_0
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[11], 14);  // 2 elements non zero for omega_grp_0
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[1], 10);  // first index of omega
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[2], 11);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[1], 12);  // first index of omega
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[2], 13);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[12], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[13], 12);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[13], 10);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[14], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[15], 13);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[15], 11);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], 0.6666666);  // first index of omega
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], 0.3333333);
@@ -328,15 +572,15 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
 
   y[10] = 2.5;  // Modifying omegaGrp_0
   modelOmegaRef->evalF(1, UNDEFINED_EQ);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], -1.5);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
 
   y[0] = 2;  // Modifying omegaRef_grp_0
   modelOmegaRef->evalF(1, UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], -0.5);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 1);
   SparseMatrix smjPrim;
   smjPrim.init(size, size);
@@ -347,16 +591,16 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_THROW_DYNAWO(modelOmegaRef->checkDataCoherence(0), Error::MODELER, KeyError_t::FrequencyIncrease);
 
   z[2] = 0;  // Switching off gen1
-  y[12] = 2;
-  y[13] = 2;
+  yother[0] = 2;
+  yother[1] = 2;
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, NO_MODE);
   modelOmegaRef->evalZ(2);  // Propagating the changes to internal discrete values
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, ALGEBRAIC_J_UPDATE_MODE);
   modelOmegaRef->evalF(2, UNDEFINED_EQ);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], -1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], -1.5);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 1);
   SparseMatrix smj2;
   smj2.init(size, size);
   modelOmegaRef->evalJt(2, 0, smj2, 0);
@@ -366,9 +610,9 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[9], 10);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[10], 11);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[11], 12);  // 1 element non zero for omega_grp_0
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[11], 12);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[11], 10);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[12], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[13], 13);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[13], 11);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[11], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[12], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[13], -1);
@@ -380,6 +624,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, ALGEBRAIC_J_UPDATE_MODE);
   delete[] zConnected;
+  delete[] silentZ;
 
   y[0] = 1.2;  // Modifying omegaRef_grp_0
   ASSERT_NO_THROW(modelOmegaRef->checkDataCoherence(0));

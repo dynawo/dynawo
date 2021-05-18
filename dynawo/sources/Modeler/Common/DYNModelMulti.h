@@ -544,6 +544,34 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void cleanBuffers();
 
+  /**
+   * @brief Process Y connectors registered as connecting only external variables
+   *
+   * Since we cannot connect external variables by buffer if there is no reference variable, we'll create a fictive
+   * variable for each external variable and connect these fictionous variables using Y connectors.
+   *
+   * example:
+   * @verbatim
+    a <=> b <=> c
+    @endverbatim
+   * where a, b, c are connected external variables
+   * we'll create a', b', c' as:
+    @verbatim
+    a <=> a'
+    b <=> b'
+    c <=> c'
+    @endverbatim
+   * These connections are performed using buffer referencing
+   * We'll also have:
+    @verbatim
+    a' <=> b' <=> c' using Y connectors
+    @endverbatim
+   *
+   * The fictionous variable will ensure that the initial value of these fictionous variables is the same as it would be
+   * if we use the external variable as regular variables, using the @a getY0External function of sub models.
+   */
+  void processYConnectorsFullExternal();
+
   boost::unordered_map<int, int> mapAssociationF_;  ///< association between an index of f functions and a subModel
   boost::unordered_map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
   std::vector<std::string> yNames_;  ///< names of all variables y
@@ -572,6 +600,8 @@ class ModelMulti : public Model, private boost::noncopyable {
   double* fLocal_;  ///< local buffer to fill with the residual values
   state_g* gLocal_;  ///< local buffer to fill with the roots values
   double* yLocal_;  ///< local buffer to use when accessing continuous variables
+  double** yExternalLocal_;  ///< local buffer to use when accessing external variables
+  double** ypExternalLocal_;  ///< local buffer to use when accessing derivatives external variables
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use when accessing discretes variables
   bool* zConnectedLocal_;  ///< local buffer to use when accessing discretes variables connection status

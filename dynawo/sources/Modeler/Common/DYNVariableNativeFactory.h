@@ -42,9 +42,10 @@ class VariableNativeFactory {
    * @param[in] type the VariableNative type (INTEGER, BOOLEAN, ...)
    * @param[in] isState @b whether the variable is needed for local model simulation
    * @param[in] negated @b whether the variable is negated
+   * @param[in] external @b whether the variable is an external variable
    * @returns Shared pointer to a new @p VariableNative with given name, type, and negated attributes
    */
-  static boost::shared_ptr<VariableNative> create(const std::string& name, const typeVar_t& type, bool isState, bool negated = false);
+  static boost::shared_ptr<VariableNative> create(const std::string& name, const typeVar_t& type, bool isState, bool negated = false, bool external = false);
 
   /**
    * @brief Create new (state) VariableNative instance
@@ -56,6 +57,20 @@ class VariableNativeFactory {
    */
   inline static boost::shared_ptr<VariableNative> createState(const std::string& name, const typeVar_t& type, bool negated = false) {
     return create(name, type, true, negated);
+  }
+
+  /**
+   * @brief Create new external VariableNative instance
+   *
+   * External variables (dyanwo model level) will be considered external in dynawo logic only if they are continuous
+   *
+   * @param[in] name name of the new VariableNative instance
+   * @param[in] type the VariableNative type (INTEGER, BOOLEAN, ...)
+   * @param[in] negated @b whether the variable is negated
+   * @returns Shared pointer to a new @p VariableNative with given name, type, and negated attributes
+   */
+  inline static boost::shared_ptr<VariableNative> createExternalState(const std::string& name, const typeVar_t& type, bool negated = false) {
+    return create(name, type, true, negated, true);
   }
 
   /**

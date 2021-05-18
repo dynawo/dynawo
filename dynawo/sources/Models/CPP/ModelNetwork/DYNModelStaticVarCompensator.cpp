@@ -123,7 +123,7 @@ ModelStaticVarCompensator::setFequations(map<int, string>& /*fEquationIndex*/) {
 }
 
 void
-ModelStaticVarCompensator::init(int& /*yNum*/) {
+ModelStaticVarCompensator::init(int& /*yNum*/, int&) {
   // not needed
 }
 
@@ -246,7 +246,7 @@ ModelStaticVarCompensator::evalCalculatedVars() {
 }
 
 void
-ModelStaticVarCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
+ModelStaticVarCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case pNum_:
       break;

@@ -239,7 +239,8 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   std::vector<double> res;
   ASSERT_NO_THROW(modelVariationArea->evalJCalculatedVarI(0, res));
   std::vector<int> indexes;
-  ASSERT_NO_THROW(modelVariationArea->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
+  std::vector<int> indexesExternal;
+  ASSERT_NO_THROW(modelVariationArea->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes, indexesExternal));
   ASSERT_NO_THROW(modelVariationArea->evalCalculatedVarI(0));
   ASSERT_NO_THROW(modelVariationArea->evalCalculatedVars());
   ASSERT_NO_THROW(modelVariationArea->evalDynamicFType());

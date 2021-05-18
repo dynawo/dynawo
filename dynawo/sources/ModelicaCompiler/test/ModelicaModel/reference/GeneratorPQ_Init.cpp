@@ -66,7 +66,8 @@ void ModelGeneratorPQ_Init::setupDataStruc()
   data->simulationInfo->daeModeData->nResidualVars = 2;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 2;
 
-  data->nbVars =6;
+  data->nbVars = 6;
+  data->nbExternalVars = 0;
   data->nbF = 6;
   data->nbModes = 0;
   data->nbZ = 0;
@@ -293,6 +294,11 @@ void ModelGeneratorPQ_Init::setY0omc()
   }
 }
 
+void ModelGeneratorPQ_Init::setY0Externalomc(unsigned int numVarEx, double& value) const
+{
+  throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
+}
+
 void ModelGeneratorPQ_Init::callCustomParametersConstructors()
 {
 }
@@ -345,6 +351,8 @@ void ModelGeneratorPQ_Init::defineParameters(std::vector<ParameterModeler>& para
 #ifdef _ADEPT_
 void ModelGeneratorPQ_Init::evalFAdept(const std::vector<adept::adouble> & x,
                               const std::vector<adept::adouble> & xd,
+                              const std::vector<adept::adouble> & x_ext,
+                              const std::vector<adept::adouble> & xd_ext,
                               std::vector<adept::adouble> & res)
 {
   /*
@@ -498,7 +506,7 @@ double ModelGeneratorPQ_Init::evalCalculatedVarI(unsigned iCalculatedVar) const
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
+adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd, const std::vector<adept::adouble> &x_ext, const std::vector<adept::adouble> &xd_ext) const
 {
   if (iCalculatedVar == 0)  /* generator.PGen0Pu */
   {
@@ -516,7 +524,7 @@ adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(unsigned iCalculat
 }
 #endif
 
-void ModelGeneratorPQ_Init::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
+void ModelGeneratorPQ_Init::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
 {
 }
 

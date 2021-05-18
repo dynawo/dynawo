@@ -1366,6 +1366,8 @@ class ReaderOMC:
         self.detect_z_only_used_internally()
         # Attribution of indexes done independently to make sure the order is the same as in defineVariables and defineParameters methods
         index_real_var = 0
+        index_external = 0
+        index_external_derivative_var = 0
         index_discrete_var = 0
         index_boolean_vars = 0
         index_real_param= 0
@@ -1384,13 +1386,14 @@ class ReaderOMC:
                 self.auxiliary_vars_to_address_map[name.replace("$cse","cse")] = to_param_address(name)
                 self.auxiliary_vars_counted_as_variables.append(name)
             elif "realVars" in address:
-                set_param_address(name, "data->localData[0]->realVars["+str(index_real_var)+"]")
-                index_real_var+=1
+                if name in self.fictive_continuous_vars:
+                    set_param_address(name, "*(data->externalVars["+str(index_external)+"])")
+                    index_external+=1
+                else:
+                    set_param_address(name, "data->localData[0]->realVars["+str(index_real_var)+"]")
+                    index_real_var+=1
                 if var.is_fixed():
                     var.set_fixed(False)
-            elif "discreteVars" in address:
-                set_param_address(name, "data->localData[0]->discreteVars["+str(index_discrete_var)+"]")
-                index_discrete_var+=1
             elif "integerDoubleVars" in address:
                 set_param_address(name, "data->localData[0]->integerDoubleVars["+str(index_integer_double)+"]")
                 index_integer_double+=1
@@ -1418,14 +1421,19 @@ class ReaderOMC:
                     name_equivalent_state = name_equivalent_state.replace("der(","")[:-1]
                 test_param_address(name_equivalent_state)
                 index = to_param_address(name_equivalent_state).replace("data->localData[0]->realVars[","")[:-1]
-                set_param_address(name, "data->localData[0]->derivativesVars["+str(index)+"]")
-                set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")", to_param_address(name))
-                set_param_address(name.replace("der(",alternative_way_to_declare_der)[:-1], to_param_address(name))
+                if name in self.fictive_continuous_vars_der:
+                    set_param_address(name, "*(data->externalPVars["+str(index_external_derivative_var)+"])")
+                    index_external_derivative_var += 1
+                else:
+                    set_param_address(name, "data->localData[0]->derivativesVars["+str(index)+"]")
+                    set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")", to_param_address(name))
+                    set_param_address(name.replace("der(",alternative_way_to_declare_der)[:-1], to_param_address(name))
 
         self.nb_real_vars = index_real_var
         self.nb_discrete_vars = index_discrete_var
         self.nb_bool_vars = index_boolean_vars
         self.nb_integer_vars = index_integer_double
+        self.nb_external_vars = index_external
         self.find_calculated_variables()
 
 

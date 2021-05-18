@@ -240,6 +240,8 @@ util/curvesToHtml/resources/1.3.2.tar.gz
 util/curvesToHtml/resources/v0.6.0.tar.gz
 curvesOutput
 
+*.orig
+
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode
 

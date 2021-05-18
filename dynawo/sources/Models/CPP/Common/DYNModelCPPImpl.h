@@ -54,13 +54,9 @@ class ModelCPP::Impl : public ModelCPP {
   virtual void init(const double t0) = 0;
 
   /**
-   * @brief get the global indexes of the variables used to compute a calculated variable
-   *
-   * @param iCalculatedVar index of the calculated variable
-   * @param indexes vector to fill with the indexes
-   *
+   * @copydoc ModelCPP::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const
    */
-  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
+  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const = 0;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
@@ -112,6 +108,11 @@ class ModelCPP::Impl : public ModelCPP {
    * @copydoc ModelCPP::getY0()
    */
   virtual void getY0() = 0;
+
+  /**
+   * @copydoc ModelCPP::getY0External(unsigned int numVarEx, double& value) const
+   */
+  virtual void getY0External(unsigned int numVarEx, double& value) const = 0;
 
   /**
    * @brief evaluate the properties of the variables that won't change during simulation

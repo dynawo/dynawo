@@ -190,6 +190,7 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP::Impl {
    * @param data data interface to use to initialize the model
    */
   void initializeFromData(const boost::shared_ptr<DataInterface> &data);
+
   /**
    * @copydoc ModelCPP::initializeStaticData()
    */

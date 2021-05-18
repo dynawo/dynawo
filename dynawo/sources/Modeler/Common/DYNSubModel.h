@@ -29,11 +29,14 @@
 #include <boost/unordered_set.hpp>
 
 #include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 
 #include "DYNEnumUtils.h"
 #include "DYNParameterModeler.h"
+#include "DYNConnector.h"
 #include "PARParametersSet.h"
 #include "CSTRConstraintsCollection.h"
+#include "DYNVariable.h"
 #include "DYNBitMask.h"
 
 namespace parameters {
@@ -62,6 +65,19 @@ class Element;
  * Class interface to each sub model that is used to generate the whole model
  */
 class SubModel {
+ public:
+  /**
+   * @brief Check if a variable is external
+   *
+   * A variable is considered external (Dynawo level) if it is external (dynawo model level) and continuous
+   *
+   * @param var the variable to check
+   * @returns the check status
+   */
+  static inline bool isVariableExternal(const boost::shared_ptr<Variable>& var) {
+    return var->isExternal() && var->getType() == CONTINUOUS;
+  }
+
  public:
   /**
    * @brief default constructor
@@ -121,6 +137,17 @@ class SubModel {
    * @param silentZTable flag table
    */
   virtual void collectSilentZ(BitMask* silentZTable) = 0;
+
+  /**
+   * @brief Determine if the model handles a fictionous variable
+   *
+   * By default, it is not
+   *
+   * @returns status
+   */
+  virtual bool isFictiveVariableModel() const {
+    return false;
+  }
 
  public:
   /**
@@ -227,6 +254,19 @@ class SubModel {
   virtual void getY0() = 0;
 
   /**
+   * @brief Retrieve the init value for external variable
+   *
+   * Retrieve the initial value that the external whould have been initialized to if the variable was
+   * a regular variable of the model. This is relevant only for the first iteration of the  solver's process
+   * as after that the external variables have the value of their connected variable.
+   *
+   * @param numVarEx Local external variable index
+   * @param value the value to retrieve
+   * @throw exception if external cannot be found
+   */
+  virtual void getY0External(unsigned int numVarEx, double& value) const = 0;
+
+  /**
    * @brief evaluate the properties of the variables that won't change during simulation
    * (algebraic, differential, external or external optional variables)
    *
@@ -327,9 +367,9 @@ class SubModel {
    *
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes
-   *
+   * @param indexesExternal indexes of external variables
    */
-  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
+  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const = 0;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
@@ -395,12 +435,13 @@ class SubModel {
    * @brief initialize size and offset to use during the simulation
    *
    * @param sizeYGlob offset to use for the subModel in the Y global vector
+   * @param sizeYExternalGlob offset to use the subModel in the yExternal global vector
    * @param sizeZGlob offset to use for the subModel in the Z global vector
    * @param sizeModeGlob offset to use for the subModel in the Mode global vector
    * @param sizeFGlob offset to use for the subModel in the F global vector
    * @param sizeGGlob offset to use for the subModel in the G global vector
    */
-  void initSize(int& sizeYGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob);
+  void initSize(int &sizeYGlob, int& sizeYExternalGlob, int& sizeZGlob, int& sizeModeGlob, int& sizeFGlob, int& sizeGGlob);
 
   /**
    * @brief Model F(t,y,y') function evaluation
@@ -556,7 +597,8 @@ class SubModel {
    *
    */
   inline void defineNames() {
-    defineNamesImpl(variables_, zNames_, xNames_, calculatedVarNames_);
+    defineNamesImpl(variables_, zNames_, xNames_, xExternalNames_, calculatedVarNames_);
+    sizeYExternal_ = xExternalNames_.size();
   }
 
   /**
@@ -564,7 +606,8 @@ class SubModel {
    *
    */
   inline void defineNamesInit() {
-    defineNamesImpl(variablesInit_, zNamesInit_, xNamesInit_, calculatedVarNamesInit_);
+    std::vector<std::string> xExternalNamesInit;
+    defineNamesImpl(variablesInit_, zNamesInit_, xNamesInit_, xExternalNamesInit, calculatedVarNamesInit_);
   }
 
   /**
@@ -573,10 +616,12 @@ class SubModel {
    * @param variables variables vector
    * @param zNames vector linking discrete variables with names
    * @param xNames vector linking continuous (possibly flow) variables with names
+   * @param xExternalNames vector linking external variables with names
    * @param calculatedVarNames vector linking calculated variables with names
    */
-  void defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, std::vector<std::string>& zNames,
-                       std::vector<std::string>& xNames, std::vector<std::string>& calculatedVarNames);
+  static void defineNamesImpl(std::vector<boost::shared_ptr<Variable> >& variables, std::vector<std::string>& zNames,
+                       std::vector<std::string>& xNames, std::vector<std::string>& xExternalNames,
+                       std::vector<std::string>& calculatedVarNames);
 
   /**
    * @brief print some data for the subModel (size,index, etc...)
@@ -684,6 +729,15 @@ class SubModel {
    * @return value of the variable
    */
   double getVariableValue(const boost::shared_ptr<Variable>& variable) const;
+
+  /**
+   * @brief retrieve the current erivative value of a given variable
+   *
+   * @param variable variable
+   *
+   * @returns value of the derivative of the variable
+   */
+  double getDerivativeVariableValue(const boost::shared_ptr <Variable> variable) const;
 
   /**
    * @brief retrieve the global index of a given variable
@@ -1015,6 +1069,15 @@ class SubModel {
   void setBufferY(double* y, double* yp, const int offsetY);
 
   /**
+   * @brief defines the local buffer to define the external continuous variables
+   *
+   * @param yExternal global buffer to define the external continuous variable
+   * @param ypExternal global buffer to define the derivative of the external continuous variable
+   * @param offset offset to use to find the beginning of the local buffer
+   */
+  void setBufferYExternal(double** yExternal, double** ypExternal, int offset);
+
+  /**
    * @brief   defines the local buffer to define the discrete variables
    *
    * @param z global buffer to define the discrete variable
@@ -1128,6 +1191,15 @@ class SubModel {
    */
   inline const std::vector<std::string>& xNames() {
     return xNames_;
+  }
+
+  /**
+   * @brief get the names of all external continuous variables
+   *
+   * @returns the names of the external variables
+   */
+  inline const std::vector<std::string>& xExternalNames() {
+    return xExternalNames_;
   }
 
   /**
@@ -1252,6 +1324,14 @@ class SubModel {
   }
 
   /**
+   * @brief Retrieve the number of external variables
+   * @returns the number of external variables
+   */
+  inline unsigned int sizeYExternal() const {
+    return sizeYExternal_;
+  }
+
+  /**
    * @brief get the number of calculated variables
    *
    * @return number of calculated variables
@@ -1352,6 +1432,68 @@ class SubModel {
    */
   int getOffsetY() const {return offsetY_;}
 
+  /**
+   * @brief Retrieves the local buffer for variables
+   *
+   * @returns local buffer
+   */
+  inline double* yLocal() const {
+    return yLocal_;
+  }
+
+  /**
+   * @brief Retrieves the local buffer for derivative variables
+   *
+   * @returns local buffer
+   */
+  inline double* ypLocal() const {
+    return ypLocal_;
+  }
+
+  /**
+   * @brief Connect an external variable to a reference
+   *
+   * @param value_ref the reference buffer for the value of the variable
+   * @param value_p_ref the reference buffer for the derivative value of the variable
+   * @param indexExternalVariable the local index of the external variable
+   */
+  void connectExternalVariable(double* const value_ref, double* const value_p_ref, int indexExternalVariable) {
+    yExternalLocal_[indexExternalVariable] = value_ref;
+    ypExternalLocal_[indexExternalVariable] = value_p_ref;
+  }
+
+  /**
+   * @brief Set reference to the connector container
+   *
+   * Required to retrieve the reference index of an external variable
+   *
+   * @param container the connector container
+   */
+  inline void setConnectorContainer(const boost::shared_ptr<ConnectorContainer>& container) {
+    connectorContainer_ = container;
+  }
+
+  /**
+   * @brief Add a dependency submodel handling a fictive variable
+   *
+   * This variable will be initialized with the rest of the model as long as during its own initialization. That way,
+   * if the external variables referenced by these fictive variables are used during initialization, they will have the correct
+   * value
+   *
+   * @param model the model to add
+   */
+  void addFictiveVariableSubModelDependency(const boost::weak_ptr<SubModel>& model);
+
+  /**
+   * @brief Retrieve the global index of the variable connected to an external variable
+   *
+   * precondition: @a externalIndexLocal is a valid external variable index
+   *
+   * @param externalIndexLocal the local index of the external variable
+   * @returns global index of the reference of the external variable
+   */
+  int getReferenceIndex(int externalIndexLocal) const;
+
  protected:
   /**
    * @brief get the name of the file where parameters should be dumped
@@ -1446,6 +1588,11 @@ class SubModel {
       setParameterFromSet(parameter, readPARParameters_, PAR);
   }
 
+  /**
+   * @brief Initiate dependencies sub models
+   */
+  void getY0Dependencies();
+
  protected:
   boost::shared_ptr<parameters::ParametersSet> readPARParameters_;  ///< parameters set read from PAR file
 
@@ -1455,6 +1602,7 @@ class SubModel {
   unsigned int sizeG_;  ///< size of the local G function
   unsigned int sizeMode_;  ///< size of the local mode function
   unsigned int sizeY_;  ///< size of the local Y function
+  unsigned int sizeYExternal_;  ///< size of the local Y external buffer
   unsigned int sizeCalculatedVar_;  ///< number of calculated variables
 
   // Data associated to a subModel
@@ -1464,6 +1612,8 @@ class SubModel {
   double* yLocal_;  ///< local buffer to use when accessing continuous variables
   int offsetY_;  ///< index in the global variable table
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
+  double** yExternalLocal_;  ///< local buffer to use when accessing external variables
+  double** ypExternalLocal_;  ///< local buffer to use when accessing derivative of external variables
   double* zLocal_;  ///< local buffer to use when accessing discretes variables
   bool* zLocalConnected_;  ///< table to know whether a discrete var is connected or not
 
@@ -1485,6 +1635,7 @@ class SubModel {
   // Index to access data inside global buffers
   // -------------------------------------------
   int yDeb_;  ///< offset to use to find y values inside the global buffer
+  int yExternalDeb_;  ///< offset to use to find external y values inside the global buffer
   int zDeb_;  ///< offset to use to find z values inside the global buffer
   int modeDeb_;  ///< offset to use to find mode values inside the global buffer
   int fDeb_;  ///< offset to use to find residual functions values inside the global buffer
@@ -1499,12 +1650,18 @@ class SubModel {
   std::map<int, std::string> fEquationInitIndex_;  ///< for DEBUG log, map of index of equation and equation in string for init model
   std::map<int, std::string> gEquationInitIndex_;  ///< for DEBUG log, map of index of root equation and root equation in string  for init model
 
+  std::vector<std::string> xExternalNames_;                 ///< vector of the external continuous variables names
+  boost::weak_ptr<ConnectorContainer> connectorContainer_;  ///< connector container pointer
+
+  std::vector<boost::weak_ptr<SubModel> > dependencies_;  ///< List of sub models the current model depends on
+
  private:
   int sizeFSave_;  ///< save of the size of F
   int sizeZSave_;  ///< save of the size of Z
   int sizeGSave_;  ///< save of the size of G
   int sizeModeSave_;  ///< save of the size of the Mode
   int sizeYSave_;  ///< save of the size of Y
+  unsigned sizeYExternalSave_;  ///< save of the size of Y external
   int sizeCalculatedVarSave_;  ///< size of the size of calculated variables
   double* fLocalSave_;  ///< save of the local buffer of residual functions
   state_g* gLocalSave_;  ///< save of the local buffer of root functions

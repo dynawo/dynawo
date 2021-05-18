@@ -786,9 +786,10 @@ ModelNetwork::printComponentStats(KeyLog_t::value message, unsigned nbStatic, un
 void
 ModelNetwork::initializeStaticData() {
   int yNum = 0;
+  int yNumExternal = 0;
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
-    (*itComponent)->init(yNum);
+    (*itComponent)->init(yNum, yNumExternal);
   }
 }
 
@@ -831,6 +832,7 @@ ModelNetwork::computeComponents(double t) {
 void
 ModelNetwork::getSize() {
   sizeY_ = 0;
+  sizeYExternal_ = 0;
   sizeZ_ = 0;
   sizeMode_ = 0;
   sizeF_ = 0;
@@ -842,6 +844,7 @@ ModelNetwork::getSize() {
       itComponent != getComponents().end(); ++itComponent) {
     (*itComponent)->initSize();
     sizeY_ += (*itComponent)->sizeY();
+    sizeYExternal_ += (*itComponent)->sizeYExternal();
     sizeZ_ += (*itComponent)->sizeZ();
     sizeMode_ += (*itComponent)->sizeMode();
     sizeF_ += (*itComponent)->sizeF();
@@ -944,7 +947,8 @@ ModelNetwork::initSubBuffers() {
     vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
     for (itComponent = initComponents_.begin(); itComponent != initComponents_.end(); ++itComponent) {
       if ((*itComponent)->sizeY() != 0) {
-        (*itComponent)->setReferenceY(&yLocalInit_[0], &ypLocalInit_[0], &fLocalInit_[0], offsetY, offsetF);
+        // no external variable at init
+        (*itComponent)->setReferenceY(&yLocalInit_[0], &ypLocalInit_[0], NULL, NULL, &fLocalInit_[0], offsetY, offsetF, 0);
         offsetY += (*itComponent)->sizeY();
         offsetF += (*itComponent)->sizeF();
       }
@@ -957,6 +961,7 @@ ModelNetwork::initSubBuffers() {
     calculatedVars_.assign(sizeCalculatedVar_, 0);
 
     int offsetY = 0;
+    int offsetExternal = 0;
     int offsetF = 0;
     int offsetZ = 0;
     int offsetCalculatedVars = 0;
@@ -964,10 +969,11 @@ ModelNetwork::initSubBuffers() {
 
     vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
     for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-      if ((*itComponent)->sizeY() != 0) {
-        (*itComponent)->setReferenceY(yLocal_, ypLocal_, fLocal_, offsetY, offsetF);
+      if ((*itComponent)->sizeY() != 0 || (*itComponent)->sizeYExternal() != 0) {
+        (*itComponent)->setReferenceY(yLocal_, ypLocal_, yExternalLocal_, ypExternalLocal_, fLocal_, offsetY, offsetF, offsetExternal);
         offsetY += (*itComponent)->sizeY();
         offsetF += (*itComponent)->sizeF();
+        offsetExternal += (*itComponent)->sizeYExternal();
       }
       if ((*itComponent)->sizeZ() != 0) {
         (*itComponent)->setReferenceZ(zLocal_, zLocalConnected_, offsetZ);
@@ -1148,11 +1154,11 @@ ModelNetwork::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& 
 }
 
 void
-ModelNetwork::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const {
+ModelNetwork::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes, std::vector<int>& indexesExternal) const {
   int index = componentIndexByCalculatedVar_[iCalculatedVar];
   const boost::shared_ptr<NetworkComponent>& comp = (isInitModel_) ?  initComponents_[index] : components_[index];
   unsigned varIndex = iCalculatedVar - comp->getOffsetCalculatedVar();
-  comp->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, indexes);
+  comp->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, indexes, indexesExternal);
 }
 
 void
@@ -1187,6 +1193,21 @@ ModelNetwork::getY0() {
 
   busContainer_->resetCurrentUStatus();
   isInit_ = false;
+}
+
+void
+ModelNetwork::getY0External(unsigned int numVarEx, double& value) const {
+  int numVarExt_tmp = static_cast<int>(numVarEx);
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
+    itComponent != components_.end(); ++itComponent) {
+    if (numVarExt_tmp < (*itComponent)->sizeYExternal()) {
+      (*itComponent)->getY0External(numVarExt_tmp, value);
+      return;
+    }
+    numVarExt_tmp -= (*itComponent)->sizeYExternal();
+  }
+
+  throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
 }
 
 void

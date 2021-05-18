@@ -1,163 +1,209 @@
-2020-06-16 09:06:50 | INFO |  ============================================================ 
-2020-06-16 09:06:50 | INFO | DYNAWO VERSION  :     1.1.0
-2020-06-16 09:06:50 | INFO | DYNAWO REVISION :  917_recursive_calc_vars-b135125f
-2020-06-16 09:06:50 | INFO |  ============================================================ 
-2020-06-16 09:06:50 | INFO | 
-2020-06-16 09:06:50 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:50 | INFO | building model from input files
-2020-06-16 09:06:50 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO | model was built successfully
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO | 
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO | starting local initialization
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | DEBUG | keep SubNetworks num : 0
-2020-06-16 09:06:51 | DEBUG | ------------------------------
-2020-06-16 09:06:51 | DEBUG | starting local initialization of model GEN___12_SM
-2020-06-16 09:06:51 | DEBUG | local initialization of model GEN___12_SM ended successfully
-2020-06-16 09:06:51 | DEBUG | ------------------------------
-2020-06-16 09:06:51 | DEBUG | starting local initialization of model GEN____1_SM
-2020-06-16 09:06:51 | DEBUG | local initialization of model GEN____1_SM ended successfully
-2020-06-16 09:06:51 | DEBUG | ------------------------------
-2020-06-16 09:06:51 | DEBUG | starting local initialization of model GEN____2_SM
-2020-06-16 09:06:51 | DEBUG | local initialization of model GEN____2_SM ended successfully
-2020-06-16 09:06:51 | DEBUG | ------------------------------
-2020-06-16 09:06:51 | DEBUG | starting local initialization of model GEN____3_SM
-2020-06-16 09:06:51 | DEBUG | local initialization of model GEN____3_SM ended successfully
-2020-06-16 09:06:51 | DEBUG | ------------------------------
-2020-06-16 09:06:51 | DEBUG | starting local initialization of model GEN____6_SM
-2020-06-16 09:06:51 | DEBUG | local initialization of model GEN____6_SM ended successfully
-2020-06-16 09:06:51 | DEBUG | ------------------------------
-2020-06-16 09:06:51 | DEBUG | starting local initialization of model GEN____8_SM
-2020-06-16 09:06:51 | DEBUG | local initialization of model GEN____8_SM ended successfully
-2020-06-16 09:06:51 | DEBUG | ------------------------------
-2020-06-16 09:06:51 | DEBUG | starting local initialization of model GEN____9_SM
-2020-06-16 09:06:51 | DEBUG | local initialization of model GEN____9_SM ended successfully
-2020-06-16 09:06:51 | INFO | end of local initialization
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO | 
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO | starting global initialization
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | DEBUG | initialization of SIM solver : ok
-2020-06-16 09:06:51 | DEBUG | calculate initial condition of the DAE
-2020-06-16 09:06:51 | DEBUG | initial condition iteration 0
-2020-06-16 09:06:51 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-16 09:06:51 | DEBUG | end of calculate initial condition of the DAE
-2020-06-16 09:06:51 | INFO | end of global initialization
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO | 
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO | starting curve initialization
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: NETWORK; curve: _KANA___1_TN_Upu_value found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: NETWORK; curve: _TURN___2_TN_Upu_value found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: NETWORK; curve: _LOGA___3_TN_Upu_value found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: NETWORK; curve: _BEAV___6_TN_Upu_value found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: NETWORK; curve: _CLIN___8_TN_Upu_value found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: NETWORK; curve: _SALT___9_TN_Upu_value found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: NETWORK; curve: _GLEN__12_TN_Upu_value found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____1_SM; curve: generator_PGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____2_SM; curve: generator_PGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____3_SM; curve: generator_PGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____6_SM; curve: generator_PGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____8_SM; curve: generator_PGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____9_SM; curve: generator_PGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN___12_SM; curve: generator_PGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____1_SM; curve: generator_QGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____2_SM; curve: generator_QGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____3_SM; curve: generator_QGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____6_SM; curve: generator_QGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____8_SM; curve: generator_QGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____9_SM; curve: generator_QGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN___12_SM; curve: generator_QGen found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____1_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____2_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____3_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____6_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____8_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____9_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN___12_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____1_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____2_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____3_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____6_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____8_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN____9_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: GEN___12_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: NETWORK; curve: _BEAV___6-BUS____7-1_AC_P2_value found. (exact name)
-2020-06-16 09:06:51 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____7-CLIN___8-1_AC_P1_value found. (exact name)
-2020-06-16 09:06:51 | INFO | end of curve initialization, added 37 curves
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO | 
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO | starting simulation with solver SimplifiedSolver
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO | number of continuous variables : 467
-2020-06-16 09:06:51 | INFO | number of discrete variables : 577
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO |         time | iter num   Nonlinear iter   jac eval      time step (h)
-2020-06-16 09:06:51 | INFO | -----------------------------------------------------------------------
-2020-06-16 09:06:51 | INFO |        0.000 |        0                0          0              1.000 
-2020-06-16 09:06:51 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-16 09:06:51 | INFO | state of Line _BEAV___6-CLIN___8-1_AC change from 2 to 4
-2020-06-16 09:06:51 | DEBUG | keep SubNetworks num : 0
-2020-06-16 09:06:51 | INFO | Algebraic mode (with J recalculation) change for model NETWORK
-2020-06-16 09:06:51 | INFO |        1.000 |        1                1          1              1.000 
-2020-06-16 09:06:51 | INFO | calculation of the new starting point of the simulation.
-2020-06-16 09:06:51 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-16 09:06:51 | INFO |        1.000 |        1                2          2              1.000 
-2020-06-16 09:06:51 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-16 09:06:51 | INFO | Algebraic mode change for model GEN____9_SM
-2020-06-16 09:06:51 | INFO |        2.000 |        2                5          3              1.000 
-2020-06-16 09:06:51 | INFO | calculation of the new starting point of the simulation.
-2020-06-16 09:06:51 | INFO |        2.000 |        2                6          3              1.000 
-2020-06-16 09:06:51 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-16 09:06:51 | INFO | Algebraic mode change for model GEN____9_SM
-2020-06-16 09:06:51 | INFO |        3.000 |        3                7          4              1.000 
-2020-06-16 09:06:51 | INFO | calculation of the new starting point of the simulation.
-2020-06-16 09:06:51 | INFO |        3.000 |        3                8          4              1.000 
-2020-06-16 09:06:51 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-06-16 09:06:51 | INFO |        4.000 |        4                9          5              1.000 
-2020-06-16 09:06:51 | INFO |        5.000 |        5               10          5              1.000 
-2020-06-16 09:06:51 | INFO |        6.000 |        6               11          5              1.000 
-2020-06-16 09:06:51 | INFO |        7.000 |        7               12          5              1.000 
-2020-06-16 09:06:51 | INFO |        8.000 |        8               13          5              1.000 
-2020-06-16 09:06:51 | INFO |        9.000 |        9               14          5              1.000 
-2020-06-16 09:06:51 | INFO |       10.000 |       10               15          5              1.000 
-2020-06-16 09:06:51 | INFO |       11.000 |       11               16          5              1.000 
-2020-06-16 09:06:51 | INFO |       12.000 |       12               17          5              1.000 
-2020-06-16 09:06:51 | INFO | initial guess of the algebraic solver is accurate, following solver iterations will be skipped until the next mode change
-2020-06-16 09:06:51 | INFO |       13.000 |       13               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       14.000 |       14               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       15.000 |       15               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       16.000 |       16               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       17.000 |       17               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       18.000 |       18               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       19.000 |       19               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       20.000 |       20               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       21.000 |       21               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       22.000 |       22               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       23.000 |       23               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       24.000 |       24               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       25.000 |       25               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       26.000 |       26               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       27.000 |       27               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       28.000 |       28               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       29.000 |       29               17          5              1.000 
-2020-06-16 09:06:51 | INFO |       30.000 |       30               17          5              1.000 
-2020-06-16 09:06:51 | INFO | 
-2020-06-16 09:06:51 | INFO | execution statistics :
-2020-06-16 09:06:51 | INFO | 
-2020-06-16 09:06:51 | INFO | number of time iterations                  = 30
-2020-06-16 09:06:51 | INFO | number of residual evaluations             = 33
-2020-06-16 09:06:51 | INFO | number of Jacobian evaluations             = 5
-2020-06-16 09:06:51 | INFO | number of nonlinear iterations             = 17
-2020-06-16 09:06:51 | INFO | number of error test failures              = 0
-2020-06-16 09:06:51 | INFO | number of nonlinear convergence failures   = 0
-2020-06-16 09:06:51 | INFO | number of root functions evaluations       = 45
-2020-06-16 09:06:51 | INFO | number of discrete variables evaluations   = 12
-2020-06-16 09:06:51 | INFO | number of mode evaluations                 = 8
-2020-06-16 09:06:51 | INFO | end of job 'IEEE57 - Disconnect line 6-8 - Simplified solver'
+2021-04-14 11:51:36 | INFO |  ============================================================ 
+2021-04-14 11:51:36 | INFO | DYNAWO VERSION  :     1.3.0
+2021-04-14 11:51:36 | INFO | DYNAWO REVISION :  964_external_variables-cbe03798
+2021-04-14 11:51:36 | INFO |  ============================================================ 
+2021-04-14 11:51:36 | INFO | 
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO | building model from input files
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO | model was built successfully
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO | 
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO | starting local initialization
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | DEBUG | keep SubNetworks num : 0
+2021-04-14 11:51:36 | DEBUG | ------------------------------
+2021-04-14 11:51:36 | DEBUG | starting local initialization of model GEN___12_SM
+2021-04-14 11:51:36 | DEBUG | local initialization of model GEN___12_SM ended successfully
+2021-04-14 11:51:36 | DEBUG | ------------------------------
+2021-04-14 11:51:36 | DEBUG | starting local initialization of model GEN____1_SM
+2021-04-14 11:51:36 | DEBUG | local initialization of model GEN____1_SM ended successfully
+2021-04-14 11:51:36 | DEBUG | ------------------------------
+2021-04-14 11:51:36 | DEBUG | starting local initialization of model GEN____2_SM
+2021-04-14 11:51:36 | DEBUG | local initialization of model GEN____2_SM ended successfully
+2021-04-14 11:51:36 | DEBUG | ------------------------------
+2021-04-14 11:51:36 | DEBUG | starting local initialization of model GEN____3_SM
+2021-04-14 11:51:36 | DEBUG | local initialization of model GEN____3_SM ended successfully
+2021-04-14 11:51:36 | DEBUG | ------------------------------
+2021-04-14 11:51:36 | DEBUG | starting local initialization of model GEN____6_SM
+2021-04-14 11:51:36 | DEBUG | local initialization of model GEN____6_SM ended successfully
+2021-04-14 11:51:36 | DEBUG | ------------------------------
+2021-04-14 11:51:36 | DEBUG | starting local initialization of model GEN____8_SM
+2021-04-14 11:51:36 | DEBUG | local initialization of model GEN____8_SM ended successfully
+2021-04-14 11:51:36 | DEBUG | ------------------------------
+2021-04-14 11:51:36 | DEBUG | starting local initialization of model GEN____9_SM
+2021-04-14 11:51:36 | DEBUG | local initialization of model GEN____9_SM ended successfully
+2021-04-14 11:51:36 | INFO | end of local initialization
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO | 
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO | starting global initialization
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | DEBUG | initialization of SIM solver : ok
+2021-04-14 11:51:36 | DEBUG | calculate initial condition of the DAE
+2021-04-14 11:51:36 | DEBUG | initial condition iteration 0
+2021-04-14 11:51:36 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:36 | DEBUG | end of calculate initial condition of the DAE
+2021-04-14 11:51:36 | INFO | end of global initialization
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO | 
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO | starting curve initialization
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: NETWORK; curve: _KANA___1_TN_Upu_value found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: NETWORK; curve: _TURN___2_TN_Upu_value found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: NETWORK; curve: _LOGA___3_TN_Upu_value found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: NETWORK; curve: _BEAV___6_TN_Upu_value found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: NETWORK; curve: _CLIN___8_TN_Upu_value found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: NETWORK; curve: _SALT___9_TN_Upu_value found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: NETWORK; curve: _GLEN__12_TN_Upu_value found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____1_SM; curve: generator_PGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____2_SM; curve: generator_PGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____3_SM; curve: generator_PGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____6_SM; curve: generator_PGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____8_SM; curve: generator_PGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____9_SM; curve: generator_PGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN___12_SM; curve: generator_PGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____1_SM; curve: generator_QGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____2_SM; curve: generator_QGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____3_SM; curve: generator_QGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____6_SM; curve: generator_QGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____8_SM; curve: generator_QGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____9_SM; curve: generator_QGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN___12_SM; curve: generator_QGen found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____1_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____2_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____3_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____6_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____8_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____9_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN___12_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____1_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____2_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____3_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____6_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____8_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN____9_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: GEN___12_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: NETWORK; curve: _BEAV___6-BUS____7-1_AC_P2_value found. (exact name)
+2021-04-14 11:51:36 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____7-CLIN___8-1_AC_P1_value found. (exact name)
+2021-04-14 11:51:36 | INFO | end of curve initialization, added 37 curves
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO | 
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO | starting simulation with solver SimplifiedSolver
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO | number of continuous variables : 439
+2021-04-14 11:51:36 | INFO | number of discrete variables : 577
+2021-04-14 11:51:36 | INFO | number of root functions : 373
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO |         time | iter num   Nonlinear iter   jac eval      time step (h)
+2021-04-14 11:51:36 | INFO | -----------------------------------------------------------------------
+2021-04-14 11:51:36 | INFO |        0.000 |        0                0          0              1.000 
+2021-04-14 11:51:36 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:36 | INFO | state of Line _BEAV___6-CLIN___8-1_AC change from 2 to 4
+2021-04-14 11:51:36 | DEBUG | keep SubNetworks num : 0
+2021-04-14 11:51:36 | DEBUG | Algebraic mode (with J recalculation) change for model NETWORK at t = 1
+2021-04-14 11:51:36 | INFO | Algebraic mode (with J recalculation) change at t = 1
+2021-04-14 11:51:36 | INFO |        1.000 |        1                1          1              1.000 
+2021-04-14 11:51:36 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
+2021-04-14 11:51:36 | DEBUG | YP[343]=7.63276e-05 (variable=GEN____8_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[385]=-6.71828e-05 (variable=GEN____9_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[259]=5.46881e-05 (variable=GEN____3_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[301]=-5.2891e-05 (variable=GEN____6_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[217]=3.917e-05 (variable=GEN____2_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[133]=-3.67549e-05 (variable=GEN___12_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[341]=-2.81899e-05 (variable=GEN____8_SM_generator_lambdafPu)
+2021-04-14 11:51:36 | DEBUG | YP[131]=2.75131e-05 (variable=GEN___12_SM_generator_lambdafPu)
+2021-04-14 11:51:36 | DEBUG | YP[339]=-2.27464e-05 (variable=GEN____8_SM_generator_lambdaQ1Pu)
+2021-04-14 11:51:36 | DEBUG | YP[340]=-2.20214e-05 (variable=GEN____8_SM_generator_lambdaQ2Pu)
+2021-04-14 11:51:36 | INFO | calculation of the new starting point of the simulation.
+2021-04-14 11:51:36 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:36 | INFO |        1.000 |        1                2          2              1.000 
+2021-04-14 11:51:36 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
+2021-04-14 11:51:36 | DEBUG | YP[343]=7.63276e-05 (variable=GEN____8_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[385]=-6.71828e-05 (variable=GEN____9_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[259]=5.46881e-05 (variable=GEN____3_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[301]=-5.2891e-05 (variable=GEN____6_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[217]=3.917e-05 (variable=GEN____2_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[133]=-3.67549e-05 (variable=GEN___12_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[341]=-2.81899e-05 (variable=GEN____8_SM_generator_lambdafPu)
+2021-04-14 11:51:36 | DEBUG | YP[131]=2.75131e-05 (variable=GEN___12_SM_generator_lambdafPu)
+2021-04-14 11:51:36 | DEBUG | YP[339]=-2.27464e-05 (variable=GEN____8_SM_generator_lambdaQ1Pu)
+2021-04-14 11:51:36 | DEBUG | YP[340]=-2.20214e-05 (variable=GEN____8_SM_generator_lambdaQ2Pu)
+2021-04-14 11:51:36 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2021-04-14 11:51:36 | DEBUG | Algebraic mode change for model GEN____9_SM at t = 2
+2021-04-14 11:51:36 | INFO | Algebraic mode change at t = 2
+2021-04-14 11:51:36 | INFO |        2.000 |        2                5          3              1.000 
+2021-04-14 11:51:36 | INFO | calculation of the new starting point of the simulation.
+2021-04-14 11:51:36 | INFO |        2.000 |        2                6          3              1.000 
+2021-04-14 11:51:36 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
+2021-04-14 11:51:36 | DEBUG | YP[301]=-0.0259034 (variable=GEN____6_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[343]=0.0194116 (variable=GEN____8_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[385]=0.00994187 (variable=GEN____9_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[259]=-0.00713398 (variable=GEN____3_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[133]=0.00317701 (variable=GEN___12_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[217]=-0.0029631 (variable=GEN____2_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[299]=0.00264861 (variable=GEN____6_SM_generator_lambdafPu)
+2021-04-14 11:51:36 | DEBUG | YP[341]=-0.00185702 (variable=GEN____8_SM_generator_lambdafPu)
+2021-04-14 11:51:36 | DEBUG | YP[175]=-0.00185171 (variable=GEN____1_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[298]=-0.00140085 (variable=GEN____6_SM_generator_lambdaQ2Pu)
+2021-04-14 11:51:36 | DEBUG | Algebraic mode change for model GEN____9_SM at t = 3
+2021-04-14 11:51:36 | INFO | Algebraic mode change at t = 3
+2021-04-14 11:51:36 | INFO |        3.000 |        3                8          3              1.000 
+2021-04-14 11:51:36 | INFO | calculation of the new starting point of the simulation.
+2021-04-14 11:51:36 | INFO |        3.000 |        3                9          3              1.000 
+2021-04-14 11:51:36 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
+2021-04-14 11:51:36 | DEBUG | YP[301]=-0.00395007 (variable=GEN____6_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[343]=0.00342376 (variable=GEN____8_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[385]=0.00186057 (variable=GEN____9_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[339]=-0.0014953 (variable=GEN____8_SM_generator_lambdaQ1Pu)
+2021-04-14 11:51:36 | DEBUG | YP[340]=-0.00148285 (variable=GEN____8_SM_generator_lambdaQ2Pu)
+2021-04-14 11:51:36 | DEBUG | YP[259]=-0.00138752 (variable=GEN____3_SM_generator_theta)
+2021-04-14 11:51:36 | DEBUG | YP[298]=0.00127394 (variable=GEN____6_SM_generator_lambdaQ2Pu)
+2021-04-14 11:51:36 | DEBUG | YP[297]=0.00109071 (variable=GEN____6_SM_generator_lambdaQ1Pu)
+2021-04-14 11:51:36 | DEBUG | YP[341]=-0.00108832 (variable=GEN____8_SM_generator_lambdafPu)
+2021-04-14 11:51:36 | DEBUG | YP[338]=-0.0010618 (variable=GEN____8_SM_generator_lambdaDPu)
+2021-04-14 11:51:36 | INFO |        4.000 |        4               11          3              1.000 
+2021-04-14 11:51:36 | INFO |        5.000 |        5               12          3              1.000 
+2021-04-14 11:51:36 | INFO |        6.000 |        6               13          3              1.000 
+2021-04-14 11:51:36 | INFO |        7.000 |        7               14          3              1.000 
+2021-04-14 11:51:36 | INFO |        8.000 |        8               15          3              1.000 
+2021-04-14 11:51:36 | INFO |        9.000 |        9               16          3              1.000 
+2021-04-14 11:51:36 | INFO |       10.000 |       10               17          3              1.000 
+2021-04-14 11:51:36 | INFO |       11.000 |       11               18          3              1.000 
+2021-04-14 11:51:36 | INFO |       12.000 |       12               19          3              1.000 
+2021-04-14 11:51:36 | INFO | initial guess of the algebraic solver is accurate, following solver iterations will be skipped until the next mode change
+2021-04-14 11:51:36 | INFO |       13.000 |       13               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       14.000 |       14               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       15.000 |       15               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       16.000 |       16               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       17.000 |       17               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       18.000 |       18               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       19.000 |       19               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       20.000 |       20               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       21.000 |       21               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       22.000 |       22               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       23.000 |       23               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       24.000 |       24               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       25.000 |       25               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       26.000 |       26               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       27.000 |       27               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       28.000 |       28               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       29.000 |       29               19          3              1.000 
+2021-04-14 11:51:36 | INFO |       30.000 |       30               19          3              1.000 
+2021-04-14 11:51:36 | INFO | 
+2021-04-14 11:51:36 | INFO | execution statistics :
+2021-04-14 11:51:36 | INFO | 
+2021-04-14 11:51:36 | INFO | number of time iterations                  = 30
+2021-04-14 11:51:36 | INFO | number of residual evaluations             = 35
+2021-04-14 11:51:36 | INFO | number of Jacobian evaluations             = 3
+2021-04-14 11:51:36 | INFO | number of nonlinear iterations             = 19
+2021-04-14 11:51:36 | INFO | number of error test failures              = 0
+2021-04-14 11:51:36 | INFO | number of nonlinear convergence failures   = 0
+2021-04-14 11:51:36 | INFO | number of root functions evaluations       = 37
+2021-04-14 11:51:36 | INFO | number of discrete variables evaluations   = 12
+2021-04-14 11:51:36 | INFO | number of mode evaluations                 = 8
+2021-04-14 11:51:36 | INFO | end of job 'IEEE57 - Disconnect line 6-8 - Simplified solver'

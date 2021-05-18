@@ -259,7 +259,7 @@ ModelGenerator::evalCalculatedVars() {
 }
 
 void
-ModelGenerator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const {
+ModelGenerator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case pNum_:
     case qNum_: {
@@ -368,7 +368,7 @@ ModelGenerator::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 }
 
 void
-ModelGenerator::init(int & /*yNum*/) {
+ModelGenerator::init(int & /*yNum*/, int&) {
   // not needed
 }
 

@@ -1,6 +1,7 @@
  ====== INIT VARIABLES VALUES ======
 MyVariable2                                       : y =       8.000000 yp =       0.000000
 MyAliasVariable                                   : alias of MyVariable2
+ ====== INIT EXTERNAL VARIABLES VALUES ======
  ====== INIT CALCULATED VARIABLES VALUES ======
 MyVariable4                                       : y =       0.000000
  ====== INIT DISCRETE VARIABLES VALUES ======

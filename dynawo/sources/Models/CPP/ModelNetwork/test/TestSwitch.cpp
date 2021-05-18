@@ -301,8 +301,9 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchCalculatedVariables) {
   ASSERT_THROW_DYNAWO(sw->evalJCalculatedVarI(1, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(sw->evalJCalculatedVarI(ModelSwitch::swStateNum_, res));
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(sw->getIndexesOfVariablesUsedForCalculatedVarI(1, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(sw->getIndexesOfVariablesUsedForCalculatedVarI(ModelSwitch::swStateNum_, numVars));
+  std::vector<int> numVarsExternal;
+  ASSERT_THROW_DYNAWO(sw->getIndexesOfVariablesUsedForCalculatedVarI(1, numVars, numVarsExternal), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(sw->getIndexesOfVariablesUsedForCalculatedVarI(ModelSwitch::swStateNum_, numVars, numVarsExternal));
 
   shared_ptr<ModelSwitch> swInit = createModelSwitch(false, true);
   swInit->initSize();
@@ -324,7 +325,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchDiscreteVariables) {
   for (size_t i = 0; i < nbZ; ++i)
     zConnected[i] = true;
   sw->setReferenceZ(&z[0], zConnected, 0);
-  sw->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  sw->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
 
   sw->getY0();
   ASSERT_EQ(z[0], CLOSED);
@@ -377,7 +378,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
   for (size_t i = 0; i < nbZ; ++i)
     zConnected[i] = true;
   sw->setReferenceZ(&z[0], zConnected, 0);
-  sw->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  sw->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
 
   shared_ptr<ModelBus> bus1 = sw->getModelBus1();
   bus1->initSize();
@@ -391,7 +392,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
   std::vector<state_g> g1(bus1->sizeG(), NO_ROOT);
   bus1->setReferenceG(&g1[0], 0);
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
+  bus1->setReferenceY(&y1[0], &yp1[0], NULL, NULL,  &f1[0], 0, 0, 0);
   bus1->numSubNetwork(2);
 
   shared_ptr<ModelBus> bus2 = sw->getModelBus2();
@@ -406,7 +407,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
   std::vector<state_g> g2(bus2->sizeG(), NO_ROOT);
   bus2->setReferenceG(&g2[0], 0);
   bus2->setReferenceZ(&z2[0], zConnected2, 0);
-  bus2->setReferenceY(&y2[0], &yp2[0], &f2[0], 0, 0);
+  bus2->setReferenceY(&y2[0], &yp2[0], NULL, NULL,  &f2[0], 0, 0, 0);
   bus2->numSubNetwork(2);
 
   const unsigned indexConnectionStateBus = 2;
@@ -446,7 +447,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
   for (int i = 0; i < sw->sizeZ(); ++i)
     zConnected[i] = true;
   sw->setReferenceZ(&z[0], zConnected, 0);
-  sw->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  sw->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
   sw->setBufferYType(&yTypes[0], 0);
   sw->setBufferFType(&fTypes[0], 0);
 
@@ -460,7 +461,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
   for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
+  bus1->setReferenceY(&y1[0], &yp1[0], NULL, NULL,  &f1[0], 0, 0, 0);
 
   shared_ptr<ModelBus> bus2 = sw->getModelBus2();
   bus2->initSize();
@@ -472,7 +473,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
   for (int i = 0; i < bus2->sizeZ(); ++i)
     zConnected2[i] = true;
   bus2->setReferenceZ(&z2[0], zConnected2, 0);
-  bus2->setReferenceY(&y2[0], &yp2[0], &f2[0], 0, 0);
+  bus2->setReferenceY(&y2[0], &yp2[0], NULL, NULL,  &f2[0], 0, 0, 0);
 
   // test evalYType
   sw->evalStaticYType();
@@ -554,7 +555,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariablesInit) {
   for (int i = 0; i < sw->sizeZ(); ++i)
     zConnected[i] = true;
   sw->setReferenceZ(&z[0], zConnected, 0);
-  sw->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  sw->setReferenceY(&y[0], &yp[0], NULL, NULL,  &f[0], 0, 0, 0);
 
   sw->inLoop(true);
   sw->getY0();
@@ -605,7 +606,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
   for (int i = 0; i < bus1->sizeZ(); ++i)
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
-  bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
+  bus1->setReferenceY(&y1[0], &yp1[0], NULL, NULL,  &f1[0], 0, 0, 0);
 
   shared_ptr<ModelBus> bus2 = sw->getModelBus2();
   bus2->initSize();
@@ -617,7 +618,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
   for (int i = 0; i < bus2->sizeZ(); ++i)
     zConnected2[i] = true;
   bus2->setReferenceZ(&z2[0], zConnected2, 0);
-  bus2->setReferenceY(&y2[0], &yp2[0], &f2[0], 0, 0);
+  bus2->setReferenceY(&y2[0], &yp2[0], NULL, NULL,  &f2[0], 0, 0, 0);
 
   SparseMatrix smj;
   int size = sw->sizeY();
@@ -655,7 +656,8 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
   sw->setConnectionState(CLOSED);
 
   int offset = 3;
-  sw->init(offset);
+  int offsetExternal = 0;
+  sw->init(offset, offsetExternal);
   SparseMatrix smj4;
   smj4.init(size, size);
   sw->evalJt(smj4, 1., 0);

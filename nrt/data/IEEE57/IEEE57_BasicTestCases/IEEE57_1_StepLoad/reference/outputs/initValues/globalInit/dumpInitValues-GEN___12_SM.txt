@@ -4,9 +4,6 @@ generator_lambdaQ1Pu                              : y =      -0.317162 yp =     
 generator_lambdaQ2Pu                              : y =      -0.317162 yp =       0.000038
 generator_lambdafPu                               : y =       1.151918 yp =       0.000050
 generator_omegaPu_value                           : y =       1.000000 yp =      -0.000001
-generator_omegaRefPu_value                        : y =       1.000000 yp =       0.000000
-generator_terminal_V_im                           : y =      -0.184460 yp =       0.000000
-generator_terminal_V_re                           : y =       0.998138 yp =       0.000000
 generator_theta                                   : y =       0.187920 yp =      -0.000000
 generator_MdSatPPu                                : y =       2.461561 yp =       0.000000
 generator_MqSatPPu                                : y =       2.271561 yp =       0.000000
@@ -59,6 +56,10 @@ voltageRegulator_feedback_u2                      : alias of voltageRegulator_Us
 voltageRegulator_gain_u                           : alias of voltageRegulator_feedback_y
 voltageRegulator_limiterWithLag_u                 : alias of voltageRegulator_gain_y
 voltageRegulator_limiterWithLag_y                 : alias of voltageRegulator_EfdPu
+ ====== INIT EXTERNAL VARIABLES VALUES ======
+generator_omegaRefPu_value                        : y =       1.000000 yp =       0.000000
+generator_terminal_V_im                           : y =      -0.184460 yp =       0.000000
+generator_terminal_V_re                           : y =       0.998138 yp =       0.000000
  ====== INIT CALCULATED VARIABLES VALUES ======
 generator_IRotorPu_value                          : y =       1.423478
 generator_IStatorPu_value                         : y =       3.307141

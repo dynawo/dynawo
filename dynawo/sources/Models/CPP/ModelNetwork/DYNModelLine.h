@@ -205,8 +205,9 @@ class ModelLine : public NetworkComponent::Impl {
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    * @param numCalculatedVar index of the calculated variable
    * @param numVars index of variables used to define the jacobian associated to a calculated variable
+   * @param indexesExternal indexes of external variables
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars, std::vector<int>& indexesExternal) const;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -267,9 +268,9 @@ class ModelLine : public NetworkComponent::Impl {
   void evalYMat();
 
   /**
-   * @copydoc NetworkComponent::init(int& yNum)
+   * @copydoc NetworkComponent::init(int& yNum, int& yNumExternal)
    */
-  void init(int & yNum);
+  void init(int & yNum, int& yNumExternal);
 
   /**
    * @copydoc NetworkComponent::Impl::getY0()
@@ -563,7 +564,6 @@ class ModelLine : public NetworkComponent::Impl {
   unsigned int yOffset_;  ///< global Y offset at the beginning of the line model
   unsigned int IbReNum_;  ///< local Y index for IBranch_re
   unsigned int IbImNum_;  ///< local Y index for IBranch_im
-  unsigned int omegaRefNum_;  ///< local Y index for omegaRef
 
   double omegaNom_;  ///< nominal angular frequency
   double omegaRef_;  ///< reference angular frequency in p.u.

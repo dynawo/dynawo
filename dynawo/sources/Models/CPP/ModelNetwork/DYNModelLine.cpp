@@ -74,7 +74,6 @@ ii2_dUi2_(0.),
 yOffset_(0.),
 IbReNum_(0.),
 IbImNum_(0.),
-omegaRefNum_(0.),
 omegaNom_(OMEGA_NOM),
 omegaRef_(1.),
 modelType_("Line") {
@@ -219,7 +218,7 @@ ModelLine::initSize() {
     sizeY_ = 0;
     if (isDynamic_) {
       sizeF_ = 2;
-      sizeY_ = 3;  // IBranch_re, IBranch_im, omegaRef
+      sizeY_ = 2;  // IBranch_re, IBranch_im
     }
     sizeZ_ = 2;
     sizeG_ = 0;
@@ -239,7 +238,7 @@ ModelLine::initSize() {
 }
 
 void
-ModelLine::init(int& yNum) {
+ModelLine::init(int& yNum, int&) {
   if (!network_->isInitModel()) {
     assert(yNum >= 0);
     yOffset_ = static_cast<unsigned int>(yNum);
@@ -249,8 +248,6 @@ ModelLine::init(int& yNum) {
       IbReNum_ = localIndex;
       ++localIndex;
       IbImNum_ = localIndex;
-      ++localIndex;
-      omegaRefNum_ = localIndex;
       ++localIndex;
     }
 
@@ -777,7 +774,6 @@ ModelLine::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   if (isDynamic_) {
     variables.push_back(VariableNativeFactory::createState(id_ + "_iBranch_re", CONTINUOUS));
     variables.push_back(VariableNativeFactory::createState(id_ + "_iBranch_im", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState(id_ + "_omegaRef_value", CONTINUOUS));
   }
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i2_value", CONTINUOUS));
@@ -803,7 +799,6 @@ void
 ModelLine::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState("@ID@_iBranch_re", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_iBranch_im", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState("@ID@_omegaRef_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_i1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_i2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_P1_value", CONTINUOUS));
@@ -1231,7 +1226,7 @@ ModelLine::i2(const double& ur1, const double& ui1, const double& ur2, const dou
 }
 
 void
-ModelLine::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int> & numVars) const {
+ModelLine::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int> & numVars, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case i1Num_:
     case i2Num_:
@@ -1644,10 +1639,8 @@ ModelLine::getY0() {
     if (isDynamic_) {
       y_[0] = ir01_;
       y_[1] = ii01_;
-      y_[2] = 1;
       yp_[0] = 0;
       yp_[1] = 0;
-      yp_[2] = 0;
     }
     z_[0] = getConnectionState();
     z_[1] = getCurrentLimitsDesactivate();

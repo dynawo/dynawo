@@ -49,6 +49,9 @@ using parameters::ParametersSet;
 
 namespace DYN {
 
+const unsigned int ModelLoad::DeltaPcYNum_ = 0;
+const unsigned int ModelLoad::DeltaQcYNum_ = 1;
+
 ModelLoad::ModelLoad(const shared_ptr<LoadInterface>& load) :
 Impl(load->getID()),
 stateModified_(false),
@@ -67,15 +70,12 @@ zQMax_(0.),
 alphaLong_(0.),
 betaLong_(0.),
 u0_(0.),
-DeltaPc0_(0),
-DeltaQc0_(0),
 zP0_(1),
 zQ0_(1),
 zPprim0_(0),
 zQprim0_(0),
 yOffset_(0),
-DeltaPcYNum_(0),
-DeltaQcYNum_(0),
+yExternalOffset_(0),
 zPYNum_(0),
 zQYNum_(0) {
   // init data
@@ -106,8 +106,9 @@ ModelLoad::initSize() {
       sizeF_ += 2;  // zP and zQ equations
 
     sizeY_ = 0;
+    sizeYExternal_ = 0;
     if (isControllable_)
-      sizeY_ += 2;  // DeltaPc and DeltaQc
+      sizeYExternal_ += 2;  // DeltaPc and DeltaQc
     if (isRestorative_)
       sizeY_ += 2;  // zP and zQ
 
@@ -120,13 +121,6 @@ ModelLoad::initSize() {
 
 void ModelLoad::evalStaticYType() {
   unsigned int yTypeIndex = 0;
-  if (isControllable_) {
-    yType_[yTypeIndex] = EXTERNAL;  // DeltaPc
-    ++yTypeIndex;
-    yType_[yTypeIndex] = EXTERNAL;  // DeltaQc
-    ++yTypeIndex;
-  }
-
   if (isRestorative_) {
     yType_[yTypeIndex] = DIFFERENTIAL;  // differential equations for zP and zQ
     ++yTypeIndex;
@@ -208,17 +202,16 @@ ModelLoad::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 }
 
 void
-ModelLoad::init(int& yNum) {
+ModelLoad::init(int& yNum, int& yNumExternal) {
   if (!network_->isInitModel()) {
     assert(yNum >= 0);
+    assert(yNumExternal >= 0);
     yOffset_ = static_cast<unsigned int>(yNum);
+    yExternalOffset_ = static_cast<unsigned int>(yNumExternal);
     unsigned int localIndex = 0;
 
     if (isControllable_) {
-      DeltaPcYNum_ = localIndex;
-      ++localIndex;
-      DeltaQcYNum_ = localIndex;
-      ++localIndex;
+      yNumExternal += 2;
     }
 
     if (isRestorative_) {
@@ -390,22 +383,18 @@ ModelLoad::zPPrim() const {
 
 double
 ModelLoad::deltaQc() const {
-  if (network_->isInit())
-    return DeltaQc0_;
-  else if (!isControllable_)
+  if (network_->isInit() || !isControllable_)
     return 0.;
   else
-    return y_[DeltaQcYNum_];
+    return *(yExternal_[DeltaQcYNum_]);
 }
 
 double
 ModelLoad::deltaPc() const {
-  if (network_->isInit())
-    return DeltaPc0_;
-  else if (!isControllable_)
+  if (network_->isInit() || !isControllable_)
     return 0.;
   else
-    return y_[DeltaPcYNum_];
+    return *(yExternal_[DeltaPcYNum_]);
 }
 
 void
@@ -517,8 +506,8 @@ ModelLoad::evalDerivatives(const double /*cj*/) {
 void
 ModelLoad::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   if (isControllable_) {
-    variables.push_back(VariableNativeFactory::createState(id_ + "_DeltaPc_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState(id_ + "_DeltaQc_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createExternalState(id_ + "_DeltaPc_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createExternalState(id_ + "_DeltaQc_value", CONTINUOUS));
   }
 
   if (isRestorative_) {
@@ -595,13 +584,6 @@ void
 ModelLoad::getY0() {
   if (!network_->isInitModel()) {
     unsigned int index = 0;
-    if (isControllable_) {
-      y_[index] = DeltaPc0_;
-      ++index;
-      y_[index] = DeltaQc0_;
-      ++index;
-    }
-
     if (isRestorative_) {
       y_[index] = zP0_;
       yp_[index] = zPprim0_;
@@ -613,6 +595,17 @@ ModelLoad::getY0() {
 
     z_[0] = getConnected();
   }
+}
+
+void
+ModelLoad::getY0External(unsigned int numVarEx, double& value) const {
+  // deltaPc and deltaQc
+  if (isControllable_ &&
+    (numVarEx == 0 || numVarEx == 1)) {
+    value = 0.0;
+    return;
+  }
+  throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
 }
 
 void
@@ -722,14 +715,14 @@ ModelLoad::evalCalculatedVars() {
 }
 
 void
-ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
+ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars, std::vector<int>& numVarsExternal) const {
   switch (numCalculatedVar) {
     case pNum_: {
       if (isRunning()) {
         numVars.push_back(modelBus_->urYNum());
         numVars.push_back(modelBus_->uiYNum());
         if (isControllable_)
-          numVars.push_back(DeltaPcYNum_ + yOffset_);
+          numVarsExternal.push_back(DeltaPcYNum_ + yExternalOffset_);
         if (isRestorative_)
           numVars.push_back(zPYNum_ + yOffset_);
       }
@@ -740,7 +733,7 @@ ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar,
         numVars.push_back(modelBus_->urYNum());
         numVars.push_back(modelBus_->uiYNum());
         if (isControllable_)
-          numVars.push_back(DeltaQcYNum_ + yOffset_);
+          numVarsExternal.push_back(DeltaQcYNum_ + yExternalOffset_);
         if (isRestorative_)
           numVars.push_back(zQYNum_ + yOffset_);
       }
@@ -748,13 +741,13 @@ ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar,
     break;
     case pcNum_: {
       if (isRunning() && isControllable_) {
-        numVars.push_back(DeltaPcYNum_ + yOffset_);
+        numVarsExternal.push_back(DeltaPcYNum_ + yExternalOffset_);
       }
     }
     break;
     case qcNum_: {
       if (isRunning() && isControllable_) {
-        numVars.push_back(DeltaQcYNum_ + yOffset_);
+        numVarsExternal.push_back(DeltaQcYNum_ + yExternalOffset_);
       }
     }
     break;

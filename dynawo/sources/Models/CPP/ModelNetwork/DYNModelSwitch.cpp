@@ -177,7 +177,7 @@ ModelSwitch::evalStaticFType() {
 }
 
 void
-ModelSwitch::init(int& yNum) {
+ModelSwitch::init(int& yNum, int&) {
   irYNum_ = yNum;
   ++yNum;
   iiYNum_ = yNum;
@@ -330,7 +330,7 @@ ModelSwitch::evalCalculatedVars() {
 }
 
 void
-ModelSwitch::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& /*numVars*/) const {
+ModelSwitch::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& /*numVars*/, std::vector<int>&) const {
   switch (numCalculatedVar) {
     case swStateNum_:
       break;

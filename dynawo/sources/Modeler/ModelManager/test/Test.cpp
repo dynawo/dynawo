@@ -179,6 +179,10 @@ class MyModelica: public ModelModelica {
     ++nbCallY0_;
   }
 
+  void setY0Externalomc(unsigned int, double&) const {
+    // do nothing
+  }
+
   /**
    * @brief call the constructors of objects that need a custom build based on parameters values
    *
@@ -235,9 +239,12 @@ class MyModelica: public ModelModelica {
    * @param yp values of the derivatives of the continuous variable
    * @param F computes values of the residual functions
    */
-  virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &res) {
+  virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp,
+    const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &res) {
     ASSERT_EQ(y.size(), 2);
     ASSERT_EQ(yp.size(), 2);
+    ASSERT_EQ(y_ext.size(), 0);
+    ASSERT_EQ(yp_ext.size(), 0);
     ASSERT_EQ(res.size(), 2);
     res[0] = 2*y[0]+yp[1];
     res[1] = 0.5*y[1]-yp[0];
@@ -405,7 +412,8 @@ class MyModelica: public ModelModelica {
    * @return value of the calculated variable
    */
   adept::adouble evalCalculatedVarIAdept(unsigned /*iCalculatedVar*/, unsigned /*indexOffset*/,
-      const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &/*yp*/) const {
+      const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &/*yp*/, const std::vector<adept::adouble> &/*y_text*/,
+      const std::vector<adept::adouble> & /*yp_ext*/) const {
     return 2*y[0];
   }
 #endif
@@ -417,7 +425,7 @@ class MyModelica: public ModelModelica {
    *
    * @return index of variables used to define the jacobian
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& indexes) const {
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& indexes, std::vector<int>&) const {
     indexes.push_back(0);
     indexes.push_back(1);
   }
@@ -469,9 +477,12 @@ class MyModelicaInit: public MyModelica {
    * @param yp values of the derivatives of the continuous variable
    * @param F computes values of the residual functions
    */
-  void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &res) {
+  virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp,
+    const std::vector<adept::adouble> &y_ext, const std::vector<adept::adouble> &yp_ext, std::vector<adept::adouble> &res) {
     ASSERT_EQ(y.size(), 1);
     ASSERT_EQ(yp.size(), 1);
+    ASSERT_EQ(y_ext.size(), 0);
+    ASSERT_EQ(yp_ext.size(), 0);
     ASSERT_EQ(res.size(), 1);
     res[0] = y[0] - 8;
   }
@@ -649,7 +660,8 @@ TEST(TestModelManager, TestModelManagerBasics) {
   mm->testNbCallCalcVars(1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(mm->evalCalculatedVarI(0), 10.);
   std::vector<int> res;
-  mm->getIndexesOfVariablesUsedForCalculatedVarI(0, res);
+  std::vector<int> resExternal;
+  mm->getIndexesOfVariablesUsedForCalculatedVarI(0, res, resExternal);
   ASSERT_EQ(res.size(), 2);
   ASSERT_EQ(res[0], 0);
   ASSERT_EQ(res[1], 1);

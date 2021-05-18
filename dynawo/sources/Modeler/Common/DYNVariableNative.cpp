@@ -25,11 +25,12 @@ using std::string;
 
 namespace DYN {
 
-VariableNative::VariableNative(const string& name, const typeVar_t& type, bool isState, bool negated) :
+VariableNative::VariableNative(const string& name, const typeVar_t& type, bool isState, bool negated, bool external) :
 Variable(name, false),
 type_(type),
 isState_(isState),
-negated_(negated) {
+negated_(negated),
+isExternal_(external) {
 }
 
 void
