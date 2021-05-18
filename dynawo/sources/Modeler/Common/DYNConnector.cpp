@@ -138,12 +138,6 @@ ConnectorContainer::processExternalConnectors(std::list<boost::shared_ptr<Connec
       iteratorToRemove = yConnectorsList.end();
     }
 
-    if ((*it)->nbConnectedSubModels() == 0) {
-      // no submodel connected in this connector: nothing to do and remove it
-      iteratorToRemove = it;
-      continue;
-    }
-
     std::vector<connectedSubModel>::const_iterator found =
       std::find_if((*it)->connectedSubModels().begin(), (*it)->connectedSubModels().end(), IsNonExternalPredicate());
     if (found == (*it)->connectedSubModels().end()) {

@@ -357,8 +357,8 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
 
     for (unsigned int i = 0; i < sizeF(); ++i) {
       Jt.changeCol();
-      for (unsigned int j = 0; j < sizeF(); ++j) {
-        int indice = i + j * sizeF();
+      for (unsigned int j = 0; j < sizeY(); ++j) {
+        int indice = i + j * sizeY();
         double term = coeff * jac[indice] + cj * jac[indice + offsetJPrim];
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
@@ -368,9 +368,6 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
         Jt.addTerm(j + rowOffset, term);
       }
 
-      if (sizeYExternal() == 0) {
-        continue;
-      }
       // assuming that external connections array has been set during initialization if external variables are handled
       for (unsigned int j = 0; j < sizeYExternal(); j++) {
         int index = 2 * sizeY() * sizeY() + i + j * sizeF();

@@ -357,7 +357,7 @@ SubModel::getDerivativeVariableValue(const shared_ptr <Variable> variable) const
   const bool isState = variable->isState();
 
   if (!isState) {
-    throw DYNError(Error::MODELER, ModelFuncError, "Derivative variables only for state variables");
+    throw DYNError(Error::MODELER, ModelFuncError, "Derivative variables only for continuous state variables");
   }
   if (typeVar != CONTINUOUS) {
     throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");

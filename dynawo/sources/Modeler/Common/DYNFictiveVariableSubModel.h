@@ -59,7 +59,9 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @brief initialize all the data for a sub model
    */
-  void init(const double) {}
+  void init(const double) {
+    /* not needed */
+  }
 
   /**
    * @copydoc SubModel::getSize()
@@ -69,17 +71,22 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @brief Model F(t,y,y') function evaluation
    */
-  void evalF(double, propertyF_t) {}
+  void evalF(double, propertyF_t) {
+    /* not needed */
+  }
 
   /**
    * @brief Model G(t,y,y') function evaluation
    */
-  void evalG(const double) {}
+  void evalG(const double) {
+    /* not needed */
+  }
 
   /**
    * @brief Model discrete variables evaluation
    */
-  void evalZ(const double) {}
+  void evalZ(const double) {
+  /* not needed */}
 
   /**
    * @brief Model mode change type evaluation
@@ -92,17 +99,23 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @copydoc SubModel::evalCalculatedVars()
    */
-  void evalCalculatedVars() {}
+  void evalCalculatedVars() {
+    /* not needed */
+  }
 
   /**
    * @brief compute the transpose jacobian of the sub model \f$ J = @F/@x + cj * @F/@x' \f$
    */
-  void evalJt(const double, const double, SparseMatrix&, const int) {}
+  void evalJt(const double, const double, SparseMatrix&, const int) {
+    /* not needed */
+  }
 
   /**
    * @brief compute the transpose prim jacobian of the sub model \f$ J'= @F/@x' \f$
    */
-  void evalJtPrim(const double, const double, SparseMatrix&, const int) {}
+  void evalJtPrim(const double, const double, SparseMatrix&, const int) {
+    /* not needed */
+  }
 
   /**
    * @copydoc SubModel::initParams()
