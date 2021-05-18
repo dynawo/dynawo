@@ -2517,7 +2517,6 @@ class Factory:
         self.list_for_evalfadept.append("  /*\n")
         for v in self.list_vars_syst + self.list_vars_der:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
-            # if v.get_name() in self.reader.fictive_continuous_vars: continue
             if v.get_name() in self.reader.fictive_continuous_vars_der: continue
             self.list_for_evalfadept.append( "    %s : %s\n" % (to_compile_name(v.get_name()), v.get_dynawo_name()) )
         self.list_for_evalfadept.append("\n")
@@ -2967,7 +2966,7 @@ class Factory:
                 spin = "DIFFERENTIAL"
                 var_ext = ""
                 if is_alg_var(v) : spin = "ALGEBRAIC"
-                if v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var and v.get_dyn_type() == "CONTINUOUS":
+                if v.get_name() in self.reader.fictive_continuous_vars and v.get_dyn_type() == "CONTINUOUS":
                   # skip continuous external variables
                   continue
                 elif v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var:
@@ -2999,6 +2998,7 @@ class Factory:
                             diff_var_to_eq[diff_var].append(eq)
         for v in self.list_vars_syst:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
+            if v.get_name() in self.reader.fictive_continuous_vars: continue
             if v in self.reader.list_calculated_vars : continue
             if v.get_name() in diff_var_to_eq:
                 self.list_for_evaldynamicytype.append("  yType[ %s ] = ALGEBRAIC;\n" % (str(ind)))
@@ -3008,6 +3008,7 @@ class Factory:
         for v in self.list_vars_syst:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
             if v in self.reader.list_calculated_vars : continue
+            if v.get_name() in self.reader.fictive_continuous_vars: continue
             if v.get_name() in diff_var_to_eq:
                 print_info("Variable " + v.get_name() + " has a dynamic type.")
                 for eq in diff_var_to_eq[v.get_name()]:

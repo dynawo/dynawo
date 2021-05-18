@@ -1394,6 +1394,9 @@ class ReaderOMC:
                     index_real_var+=1
                 if var.is_fixed():
                     var.set_fixed(False)
+            elif "discreteVars" in address:
+                set_param_address(name, "data->localData[0]->discreteVars["+str(index_discrete_var)+"]")
+                index_discrete_var+=1
             elif "integerDoubleVars" in address:
                 set_param_address(name, "data->localData[0]->integerDoubleVars["+str(index_integer_double)+"]")
                 index_integer_double+=1
