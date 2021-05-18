@@ -1429,13 +1429,13 @@ class SubModel {
                               const boost::shared_ptr<Variable>& externalVariable);
 
   /**
-   * @brief Add a dependency submodel handling a fictive variable
+   * @brief Add a dependency submodel
    *
    * During the initialization phase, the model @a model will be initialized before this model. see @a getY0Sub
    *
    * @param model the model to add
    */
-  void addFictiveVariableSubModelDependency(const boost::weak_ptr<SubModel>& model);
+  void addSubModelDependency(const boost::weak_ptr<SubModel>& model);
 
   /**
    * @brief Retrieve the global index of the variable connected to an external variable

@@ -1370,11 +1370,7 @@ void SubModel::getSubModelParameterValue(const string& nameParameter, double& va
 }
 
 void
-SubModel::addFictiveVariableSubModelDependency(const boost::weak_ptr<SubModel>& model) {
-#if _DEBUG_
-  // perform check only in debug because lock() function call may decrease performances
-  assert(model.lock()->isFictiveVariableModel());
-#endif
+SubModel::addSubModelDependency(const boost::weak_ptr<SubModel>& model) {
   dependencies_.push_back(model);
 }
 

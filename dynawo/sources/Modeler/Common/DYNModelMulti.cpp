@@ -217,7 +217,7 @@ void ModelMulti::processYConnectorsFullExternal() {
       connectorContainer_->addExternalConnection(connectedModel, *itConnectedSubModel);
 
       // Add sub model to dependencies
-      subModel->addFictiveVariableSubModelDependency(model);
+      subModel->addSubModelDependency(model);
     }
     connectorContainer_->addYConnector(yc);
   }
@@ -351,6 +351,9 @@ ModelMulti::performExternalConnections() {
       boost::shared_ptr<Variable> variable = itModel->variable();
       const int externalVariableGlobalIndex = submodel->getVariableIndexGlobal(variable);
       submodel->connectExternalVariable(varRefLocalPtr, varPRefLocalPtr, referenceVariableGlobalIndex, variable);
+
+      // Add dependency : the reference model must be initialized before the external variable sub model
+      submodel->addSubModelDependency(referenceModel);
 
       Trace::debug(Trace::variables()) << DYNLog(ConnectorExternalConnection, externalVariableGlobalIndex, submodel->name(), variable->getName(),
                                                  referenceVariableGlobalIndex, referenceModel->name(), referenceVariable->getName())
