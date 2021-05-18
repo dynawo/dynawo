@@ -271,7 +271,7 @@ nbMaxOutputs, this->getModelManager()->getWorkingDirectory());
  * @brief Struct DYNDATA : class to define new data needed for describing memory structure
  * @class DYNDATA
  */
-struct DYNDATA : public DATA {
+struct DYNDATA : DATA {
   int nbDummy;  ///< number of dummy variables
   int nbVars;  ///< number of variables
   int nbF;  ///< number of residual functions

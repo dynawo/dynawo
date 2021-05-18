@@ -1049,6 +1049,7 @@ ModelLine::setFequations(std::map<int, std::string>& fEquationIndex) {
 
 void
 ModelLine::evalStaticYType() {
+  // no continuous variable
 }
 
 void

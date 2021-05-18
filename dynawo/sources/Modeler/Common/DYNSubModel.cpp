@@ -1012,6 +1012,19 @@ SubModel::getY0Values(vector<double>& y0, vector<double>& yp0, vector<double>& z
 }
 
 void
+SubModel::updateContinuousCurve(const boost::shared_ptr<curves::Curve>& curve, const boost::shared_ptr<Variable>& variable, const int varNum, double*& buffer) {
+  curve->setCurveType(Curve::CONTINUOUS_VARIABLE);
+  if (variable->isExternal()) {
+    buffer = yExternalLocal_[varNum];
+    int globalIndex = getVariableIndexGlobal(variable);
+    curve->setGlobalIndex(externalConnectionsByVarNum_.at(globalIndex));
+  } else {
+    buffer = &(yLocal_[varNum]);
+    curve->setGlobalIndex(yDeb() + varNum);
+  }
+}
+
+void
 SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
   const string variableName = curve->getFoundVariableName();
   const shared_ptr <Variable> variable = getVariable(variableName);
@@ -1028,15 +1041,7 @@ SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
   } else {
     switch (typeVar) {
       case CONTINUOUS: {
-        curve->setCurveType(Curve::CONTINUOUS_VARIABLE);
-        if (variable->isExternal()) {
-          buffer = yExternalLocal_[varNum];
-          int globalIndex = getVariableIndexGlobal(variable);
-          curve->setGlobalIndex(externalConnectionsByVarNum_.at(globalIndex));
-        } else {
-          buffer = &(yLocal_[varNum]);
-          curve->setGlobalIndex(yDeb() + varNum);
-        }
+        updateContinuousCurve(curve, variable, varNum, buffer);
         break;
       }
       case FLOW: {

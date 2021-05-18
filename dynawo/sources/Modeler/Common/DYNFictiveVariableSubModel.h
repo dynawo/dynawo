@@ -310,7 +310,9 @@ class FictiveVariableSubModel : public SubModel {
   /**
    * @brief initialize the model from data interface
    */
-  void initializeFromData(const boost::shared_ptr<DataInterface>&) {}
+  void initializeFromData(const boost::shared_ptr<DataInterface>&) {
+    // not needed
+  }
 
   /**
    * @copydoc SubModel::initSubBuffers()

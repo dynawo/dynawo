@@ -1546,6 +1546,17 @@ class SubModel {
    */
   void getY0Dependencies();
 
+  /**
+   * @brief Update curve in case the variable is continuous
+   *
+   * @param curve the curve to update
+   * @param variable the continous variable to put into the curve
+   * @param varNum the variable index of the variable
+   * @param buffer the variable buffer to set
+   */
+  void updateContinuousCurve(const boost::shared_ptr<curves::Curve>& curve,
+    const boost::shared_ptr<Variable>& variable, const int varNum, double*& buffer);
+
  protected:
   boost::shared_ptr<parameters::ParametersSet> readPARParameters_;  ///< parameters set read from PAR file
 
