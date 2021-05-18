@@ -584,11 +584,11 @@ void ModelGeneratorPQ_Dyn::setY0Externalomc(unsigned int numVarEx, double& value
     return;
   }
   if (numVarEx == 1) {  /* generator.terminal.V.im */
-    value = data->simulationInfo->realParameter[12] /* generator.u0Pu.im PARAM */;;
+    value = data->simulationInfo->realParameter[12] /* generator.u0Pu.im PARAM */;
     return;
   }
   if (numVarEx == 2) {  /* generator.terminal.V.re */
-    value = data->simulationInfo->realParameter[13] /* generator.u0Pu.re PARAM */;;
+    value = data->simulationInfo->realParameter[13] /* generator.u0Pu.re PARAM */;
     return;
   }
   throw DYNError(Error::MODELER, UndefExternalVar, numVarEx);
