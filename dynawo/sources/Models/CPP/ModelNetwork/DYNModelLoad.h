@@ -152,7 +152,7 @@ class ModelLoad : public NetworkComponent::Impl {
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    * @param numCalculatedVar index of the calculated variable
    * @param numVars index of variables used to define the jacobian associated to a calculated variable
-   * @param indexesExternal indexes of external variables
+   * @param numVarsExternal indexes of external variables
    */
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars, std::vector<int>& numVarsExternal) const;
 

@@ -106,7 +106,6 @@ class connectedSubModel {
   /**
    * @brief Equality operator
    *
-   * Required in order to use set container
    * @param other connected sub model to compare to
    * @returns @b true if the two models are considered equal, @b false if not
    */
@@ -116,8 +115,6 @@ class connectedSubModel {
 
   /**
    * @brief Different operator
-   *
-   * defined to comply with existence of equality operator
    *
    * @param other connected sub model to compare to
    * @returns @b true if the two models are considered different, @b false if not
