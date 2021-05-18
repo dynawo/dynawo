@@ -46,6 +46,12 @@ std::size_t hash<DYN::connectedSubModel>::operator()(const ::DYN::connectedSubMo
 }  // namespace boost
 namespace DYN {
 
+
+static bool isNonExternalPredicate(const connectedSubModel& cmodel) {
+  return !cmodel.variable()->isExternal();
+}
+
+
 void
 Connector::addConnectedSubModel(const connectedSubModel& subModel) {
   connectedSubModels_.push_back(subModel);
@@ -74,10 +80,6 @@ connectorsMerged_(false) {
 }
 
 ConnectorContainer::~ConnectorContainer() {
-}
-
-bool ConnectorContainer::IsNonExternalPredicate::operator()(const connectedSubModel& cmodel) const {
-  return !cmodel.variable()->isExternal();
 }
 
 unsigned int ConnectorContainer::nbYConnectors() const {
@@ -135,7 +137,7 @@ ConnectorContainer::processExternalConnectors(std::list<boost::shared_ptr<Connec
     }
 
     std::vector<connectedSubModel>::const_iterator found =
-      std::find_if((*it)->connectedSubModels().begin(), (*it)->connectedSubModels().end(), IsNonExternalPredicate());
+      std::find_if((*it)->connectedSubModels().begin(), (*it)->connectedSubModels().end(), isNonExternalPredicate);
     if (found == (*it)->connectedSubModels().end()) {
       // case only external variables in connectors: save the connector for further process and remove it from the actual list
       yConnectorsFullExternal_.push_back(*it);

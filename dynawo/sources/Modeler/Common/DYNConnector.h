@@ -456,20 +456,6 @@ class ConnectorContainer {
 
  private:
   /**
-   * @brief Predicate functor to determine if a model do not handle an external variable
-   */
-  struct IsNonExternalPredicate {
-    /**
-     * @brief action operator
-     *
-     * @param cmodel the model to check
-     * @return predicate status
-     */
-    bool operator()(const connectedSubModel& cmodel) const;
-  };
-
- private:
-  /**
    * @brief Computes the unique id for connected model
    *
    * In case the handled variable is an external continous variable, computes an unique id based on the names of the models and variable.
