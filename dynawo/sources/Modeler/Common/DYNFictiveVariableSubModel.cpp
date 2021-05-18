@@ -32,7 +32,7 @@ FictiveVariableSubModel::getSize() {
 
 void
 FictiveVariableSubModel::getY0() {
-  // we initialize the fictionous variable with the value that the external variable would have been initialized to if
+  // we initialize the fictive variable with the value that the external variable would have been initialized to if
   // it was a regular native variable of the model. This information is given by the sub model
 
   referenceConnectedModel_.subModel()->getY0External(referenceConnectedModel_.variable()->getIndex(), yLocal_[0]);

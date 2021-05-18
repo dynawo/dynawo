@@ -139,7 +139,7 @@ class SubModel {
   virtual void collectSilentZ(BitMask* silentZTable) = 0;
 
   /**
-   * @brief Determine if the model handles a fictionous variable
+   * @brief Determine if the model handles a fictive variable
    *
    * By default, it is not
    *

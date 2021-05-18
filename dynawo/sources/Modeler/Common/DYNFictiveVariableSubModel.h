@@ -14,7 +14,7 @@
 /**
  * @file  DYNFictiveVariableSubModel.h
  *
- * @brief Submodel for fictionous variable header : defines a sub model used only when creating a connectedSubmodel with a fictionous variable refering
+ * @brief Submodel for fictive variable header : defines a sub model used only when creating a connectedSubmodel with a fictive variable refering
  to an external variable. This model aims only to have one variable, with any logical operation
  *
  */

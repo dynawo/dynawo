@@ -189,7 +189,7 @@ void ModelMulti::processYConnectorsFullExternal() {
   for (std::vector<boost::shared_ptr<Connector> >::const_iterator it = connectors.begin(); it !=  connectors.end(); ++it) {
     boost::shared_ptr<Connector> yc = boost::make_shared<Connector>();
     for (std::vector<connectedSubModel>::const_iterator it_s = (*it)->connectedSubModels().begin(); it_s != (*it)->connectedSubModels().end(); ++it_s) {
-      // Make fictionous variable model
+      // Make fictive variable model
       boost::shared_ptr<FictiveVariableSubModel> model = boost::make_shared<FictiveVariableSubModel>(*it_s);
       model->name("fict_" + it_s->subModel()->name() + "_" + it_s->variable()->getName());
       boost::shared_ptr<SubModel> subModelConnector = dynamic_pointer_cast<SubModel>(model);
@@ -200,14 +200,14 @@ void ModelMulti::processYConnectorsFullExternal() {
       model->initSize(sizeY_, sizeExternal, sizeZ_, sizeMode_, sizeF_, sizeG_);
       assert(sizeExternal == 0);  // no external variable in these models
 
-      // Make connected submodel for fictionous variable
+      // Make connected submodel for fictive variable
       boost::shared_ptr<VariableNative> var = boost::dynamic_pointer_cast<VariableNative>(model->getVariable("fict_" + it_s->variable()->getName()));
       connectedSubModel connected_model(model, var, false);
 
-      // Link all fictionous variables between themselves
+      // Link all fictive variables between themselves
       yc->addConnectedSubModel(connected_model);
 
-      // link the fictionous variable with their external variable
+      // link the fictive variable with their external variable
       connectorContainer_->addExternalConnection(connected_model, *it_s);
 
       // Add sub model to dependencies
@@ -234,7 +234,7 @@ ModelMulti::initBuffers() {
   connectorContainer_->mergeConnectors();
 
   // this must be done after the merge of the connectors:
-  // This will add several sub models to handle fictionous variables for external variables
+  // This will add several sub models to handle fictive variables for external variables
   processYConnectorsFullExternal();
 
   evalStaticYType();

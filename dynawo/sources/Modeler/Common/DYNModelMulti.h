@@ -548,7 +548,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @brief Process Y connectors registered as connecting only external variables
    *
    * Since we cannot connect external variables by buffer if there is no reference variable, we'll create a fictive
-   * variable for each external variable and connect these fictionous variables using Y connectors.
+   * variable for each external variable and connect these fictive variables using Y connectors.
    *
    * example:
    * @verbatim
@@ -567,7 +567,7 @@ class ModelMulti : public Model, private boost::noncopyable {
     a' <=> b' <=> c' using Y connectors
     @endverbatim
    *
-   * The fictionous variable will ensure that the initial value of these fictionous variables is the same as it would be
+   * The fictive variable will ensure that the initial value of these fictive variables is the same as it would be
    * if we use the external variable as regular variables, using the @a getY0External function of sub models.
    */
   void processYConnectorsFullExternal();
