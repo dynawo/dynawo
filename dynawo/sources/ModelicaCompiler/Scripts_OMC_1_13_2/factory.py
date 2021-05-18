@@ -1473,18 +1473,27 @@ class Factory:
             if var.get_init_by_param (): # If the var was initialized with a param (not with an actual value)
                 var.clean_start_text () # Clean up initialization text before printing
 
+                body_extended = []
+                body_extended.append("  if (numVarEx == " + str(iexternal) + ") {  /* " + var.get_name() + " */\n")
                 for L in var.get_start_text() :
                     if "FILE_INFO" not in L and "omc_assert_warning" not in L:
-                        new_value = L.split("=")[1].strip()
+                        L = replace_var_names(L)
                         for const_string in self.reader.list_of_stringconstants:
-                            if const_string+"," in new_value:
-                                new_value = new_value.replace(const_string+",", const_string+".c_str(),")
-                            elif const_string+";" in new_value:
-                                new_value = new_value.replace(const_string+";", const_string+".c_str();")
-                            elif const_string+" " in new_value:
-                                new_value = new_value.replace(const_string+" ", const_string+".c_str() ")
-                        self.list_for_sety0external.extend(get_value_lines(iexternal, var.get_name(), new_value))
-                        iexternal += 1
+                            if const_string+"," in L:
+                                L = L.replace(const_string+",", const_string+".c_str(),")
+                            elif const_string+";" in L:
+                                L = L.replace(const_string+";", const_string+".c_str();")
+                            elif const_string+" " in L:
+                                L = L.replace(const_string+" ", const_string+".c_str() ")
+                        if "=" in L and "tmp" not in L.split("=")[0]:
+                            new_value = L.split("=")[1].strip()
+                            body_extended.extend("    value = " + new_value + "\n")
+                            body_extended.append("    return;\n  }\n")
+                            iexternal += 1
+                            self.list_for_sety0external.extend(body_extended)
+                            body_extended = []
+                        else:
+                            body_extended.append(L)
 
                 if len(var.get_start_text()) > 1 : self.list_for_sety0external.append("\n") # reading comfort
             elif var.get_init_by_param_in_06inz():
@@ -1492,7 +1501,22 @@ class Factory:
 
                 self.list_for_sety0external.append("  {\n")
                 for L in var.get_start_text_06inz() :
-                    if "FILE_INFO" not in L and "omc_assert_warning" not in L:
+                    if type(L) == list:
+                        body_extended = []
+                        body_extended.append("  if (numVarEx == " + str(iexternal) + ") {  /* " + var.get_name() + " */\n")
+                        L = replace_var_names(L)
+                        for l in L:
+                            if "FILE_INFO" in l or "omc_assert_warning" in l:
+                                continue
+                            if "tmp" not in l.split("=")[0]:
+                                new_value = l.split("=")[1].strip()
+                                body_extended.extend("    value = " + new_value + ";\n")
+                                body_extended.append("    return;\n  }\n")
+                                iexternal += 1
+                            else:
+                                body_extended.append(l)
+                        self.list_for_sety0external.extend(body_extended)
+                    elif "FILE_INFO" not in L and "omc_assert_warning" not in L:
                         new_value = L.split("=")[1].strip()
                         self.list_for_sety0external.extend(get_value_lines(iexternal, var.get_name(), new_value))
                         iexternal += 1
