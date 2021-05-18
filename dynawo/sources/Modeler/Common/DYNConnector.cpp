@@ -76,10 +76,6 @@ connectorsMerged_(false) {
 ConnectorContainer::~ConnectorContainer() {
 }
 
-bool ConnectorContainer::IsExternalPredicate::operator()(const connectedSubModel& cmodel) const {
-  return cmodel.variable()->isExternal();
-}
-
 bool ConnectorContainer::IsNonExternalPredicate::operator()(const connectedSubModel& cmodel) const {
   return !cmodel.variable()->isExternal();
 }
@@ -147,15 +143,17 @@ ConnectorContainer::processExternalConnectors(std::list<boost::shared_ptr<Connec
       continue;
     }
 
-    do {
-      std::vector<connectedSubModel>::iterator found =
-        std::find_if((*it)->connectedSubModels().begin(), (*it)->connectedSubModels().end(), IsExternalPredicate());
-      if (found == (*it)->connectedSubModels().end()) {
-        break;
+    std::vector<connectedSubModel> new_models;
+    std::vector<connectedSubModel>& models = (*it)->connectedSubModels();
+    for (std::vector<connectedSubModel>::const_iterator it = models.begin(); it != models.end(); ++it) {
+      if (it->variable()->isExternal()) {
+        externalVars.push_back(*it);
+      } else {
+        new_models.push_back(*it);
       }
-      externalVars.push_back(*found);
-      (*it)->connectedSubModels().erase(found);
-    } while (true);
+    }
+    // replace previous models by filtered ones
+    models = new_models;
 
     // This assert shouldn't happen since at least one variable is non external at this point
     assert((*it)->nbConnectedSubModels() > 0);

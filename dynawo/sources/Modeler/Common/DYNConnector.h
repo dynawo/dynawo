@@ -459,19 +459,6 @@ class ConnectorContainer {
 
  private:
   /**
-   * @brief Predicate functor to determine if a model handles an external variable
-   */
-  struct IsExternalPredicate {
-    /**
-     * @brief action operator
-     *
-     * @param cmodel the model to check
-     * @return predicate status
-     */
-    bool operator()(const connectedSubModel& cmodel) const;
-  };
-
-  /**
    * @brief Predicate functor to determine if a model do not handle an external variable
    */
   struct IsNonExternalPredicate {
