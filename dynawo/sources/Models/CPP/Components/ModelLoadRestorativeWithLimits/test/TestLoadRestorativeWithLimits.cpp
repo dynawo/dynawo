@@ -344,6 +344,8 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsTypeMethods)
   std::vector<int> indexesExternal;
   std::vector<int> indexes;
   ASSERT_NO_THROW(modelLoad->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes, indexesExternal));
+  ASSERT_EQ(indexes.size(), 1);
+  ASSERT_EQ(indexesExternal.size(), 2);
   ASSERT_NO_THROW(modelLoad->evalDynamicFType());
   ASSERT_NO_THROW(modelLoad->evalDynamicYType());
 }
@@ -450,8 +452,8 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_NO_THROW(modelLoad->evalF(0, UNDEFINED_EQ));
   ASSERT_NO_THROW(modelLoad->evalF(0, DIFFERENTIAL_EQ));
   ASSERT_NO_THROW(modelLoad->evalF(0, ALGEBRAIC_EQ));
-  y[2] = 1.0;
-  y[3] = 1.0;
+  yother[0] = 1.0;
+  yother[1] = 1.0;
   SparseMatrix smj;
   int size = modelLoad->sizeY();
   smj.init(size, size);
@@ -512,8 +514,8 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_NO_THROW(modelLoad->evalF(1, ALGEBRAIC_EQ));
 
   y[1] = 0;
-  y[2] = 0;
-  y[3] = 0;
+  yother[0] = 0;
+  yother[1] = 0;
   ASSERT_THROW_DYNAWO(modelLoad->evalF(0, ALGEBRAIC_EQ), Error::NUMERICAL_ERROR, KeyError_t::NumericalErrorFunction);
 }
 

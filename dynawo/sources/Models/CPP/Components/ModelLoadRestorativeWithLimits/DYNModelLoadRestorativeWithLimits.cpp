@@ -283,11 +283,11 @@ namespace DYN {
       double Q_dUf = -1.0 * beta_ * Q0Pu_ * beta_pow / Uf;
       jt.changeCol();  // ufRaw
       int urReferenceIndex = getReferenceIndex(UrYExternalNum_);
-      int index_reference_ui = getReferenceIndex(UiYExternalNum_);
+      int uiReferenceIndex = getReferenceIndex(UiYExternalNum_);
 
       jt.addTerm(UfRawYNum_ + rowOffset, 1.0 + cj * Tf_);
       jt.addTerm(urReferenceIndex, -Ur/U);
-      jt.addTerm(index_reference_ui, -Ui/U);
+      jt.addTerm(uiReferenceIndex, -Ui/U);
       jt.changeCol();  // Uf
       jt.addTerm(UfYNum_ + rowOffset, 1);
       if (UMaxPuReached_ == false && UMinPuReached_ == false) {
@@ -296,11 +296,11 @@ namespace DYN {
       jt.changeCol();  // Ir
       jt.addTerm(IrYNum_ + rowOffset, 1);
       jt.addTerm(urReferenceIndex, - ((Ur * P_dUr + P + Ui * Q_dUr) * U2 - 2 * Ur * (P * Ur + Q * Ui)) / (U2 * U2));
-      jt.addTerm(index_reference_ui, - ((Ur * P_dUi + Q + Ui * Q_dUi) * U2 - 2 * Ui * (P * Ur + Q * Ui)) / (U2 * U2));
+      jt.addTerm(uiReferenceIndex, - ((Ur * P_dUi + Q + Ui * Q_dUi) * U2 - 2 * Ui * (P * Ur + Q * Ui)) / (U2 * U2));
       jt.addTerm(UfYNum_ + rowOffset, - (Ur * P_dUf + Ui * Q_dUf) / U2);
       jt.changeCol();  // Ii
       jt.addTerm(IiYNum_ + rowOffset, 1);
-      jt.addTerm(index_reference_ui, - ((Ui * P_dUi + P - Ur * Q_dUi) * U2 - 2 * Ui * (P * Ui - Q * Ur)) / (U2 * U2));
+      jt.addTerm(uiReferenceIndex, - ((Ui * P_dUi + P - Ur * Q_dUi) * U2 - 2 * Ui * (P * Ui - Q * Ur)) / (U2 * U2));
       jt.addTerm(urReferenceIndex, - ((Ui * P_dUr - Q - Ur * Q_dUr) * U2 - 2 * Ur * (P * Ui - Q * Ur)) / (U2 * U2));
       jt.addTerm(UfYNum_ + rowOffset, - (Ui * P_dUf - Ur * Q_dUf) / U2);
     }
@@ -379,13 +379,15 @@ namespace DYN {
     switch (iCalculatedVar) {
       case PNum_:
         if (isConnected()) {
-          double U = sqrt(yLocal_[UrYExternalNum_] * yLocal_[UrYExternalNum_] + yLocal_[UiYExternalNum_] * yLocal_[UiYExternalNum_]);
+          double U = sqrt(*yExternalLocal_[UrYExternalNum_] * *yExternalLocal_[UrYExternalNum_]
+            + *yExternalLocal_[UiYExternalNum_] * *yExternalLocal_[UiYExternalNum_]);
           output = P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
         }
         break;
       case QNum_:
         if (isConnected()) {
-          double U = sqrt(yLocal_[UrYExternalNum_] * yLocal_[UrYExternalNum_] + yLocal_[UiYExternalNum_] * yLocal_[UiYExternalNum_]);
+          double U = sqrt(*yExternalLocal_[UrYExternalNum_] * *yExternalLocal_[UrYExternalNum_]
+            + *yExternalLocal_[UiYExternalNum_] * *yExternalLocal_[UiYExternalNum_]);
           output = Q0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], beta_);
         }
         break;
@@ -404,7 +406,8 @@ namespace DYN {
     calculatedVars_[QNum_] = 0.;
     calculatedVars_[loadStateNum_] = connectionState_;
     if (isConnected()) {
-      double U = sqrt(yLocal_[UrYExternalNum_] * yLocal_[UrYExternalNum_] + yLocal_[UiYExternalNum_] * yLocal_[UiYExternalNum_]);
+      double U = sqrt(*yExternalLocal_[UrYExternalNum_] * *yExternalLocal_[UrYExternalNum_]
+        + *yExternalLocal_[UiYExternalNum_] * *yExternalLocal_[UiYExternalNum_]);
       calculatedVars_[PNum_] = P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
       calculatedVars_[QNum_] = Q0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], beta_);
     }
@@ -415,21 +418,23 @@ namespace DYN {
     switch (iCalculatedVar) {
       case PNum_:
         if (isConnected()) {
-          double U2 = yLocal_[UrYExternalNum_] * yLocal_[UrYExternalNum_] + yLocal_[UiYExternalNum_] * yLocal_[UiYExternalNum_];
+          double U2 = *yExternalLocal_[UrYExternalNum_] * *yExternalLocal_[UrYExternalNum_]
+            + *yExternalLocal_[UiYExternalNum_] * *yExternalLocal_[UiYExternalNum_];
           double U = sqrt(U2);
           double alpha_pow = pow_dynawo(U/yLocal_[UfYNum_], alpha_);
-          res[0] = P0Pu_ * alpha_ * yLocal_[UrYExternalNum_] * alpha_pow / U2;  // P_dUr
-          res[1] = P0Pu_ * alpha_ * yLocal_[UiYExternalNum_] * alpha_pow / U2;  // P_dUi
+          res[0] = P0Pu_ * alpha_ * *yExternalLocal_[UrYExternalNum_] * alpha_pow / U2;  // P_dUr
+          res[1] = P0Pu_ * alpha_ * *yExternalLocal_[UiYExternalNum_] * alpha_pow / U2;  // P_dUi
           res[2] = -1.0 * alpha_ * P0Pu_ * alpha_pow / yLocal_[UfYNum_];  // P_dUf
         }
         break;
       case QNum_:
         if (isConnected()) {
-          double U2 = yLocal_[UrYExternalNum_] * yLocal_[UrYExternalNum_] + yLocal_[UiYExternalNum_] * yLocal_[UiYExternalNum_];
+          double U2 = *yExternalLocal_[UrYExternalNum_] * *yExternalLocal_[UrYExternalNum_]
+            + *yExternalLocal_[UiYExternalNum_] * *yExternalLocal_[UiYExternalNum_];
           double U = sqrt(U2);
           double beta_pow = pow_dynawo(U/yLocal_[UfYNum_], beta_);
-          res[0] = Q0Pu_ * beta_ * yLocal_[UrYExternalNum_] * beta_pow / U2;  // Q_dUr
-          res[1] = Q0Pu_ * beta_ * yLocal_[UiYExternalNum_] * beta_pow / U2;  // Q_dUi
+          res[0] = Q0Pu_ * beta_ * *yExternalLocal_[UrYExternalNum_] * beta_pow / U2;  // Q_dUr
+          res[1] = Q0Pu_ * beta_ * *yExternalLocal_[UiYExternalNum_] * beta_pow / U2;  // Q_dUi
           res[2] = -1.0 * beta_ * Q0Pu_ * beta_pow / yLocal_[UfYNum_];  // Q_dUf
         }
         break;
@@ -441,19 +446,20 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars, std::vector<int>&) const {
+  ModelLoadRestorativeWithLimits::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars,
+    std::vector<int>& numVarExternal) const {
     switch (numCalculatedVar) {
       case PNum_:
         if (isConnected()) {
-          numVars.push_back(UrYExternalNum_);
-          numVars.push_back(UiYExternalNum_);
+          numVarExternal.push_back(UrYExternalNum_);
+          numVarExternal.push_back(UiYExternalNum_);
           numVars.push_back(UfYNum_);
         }
         break;
       case QNum_:
         if (isConnected()) {
-          numVars.push_back(UrYExternalNum_);
-          numVars.push_back(UiYExternalNum_);
+          numVarExternal.push_back(UrYExternalNum_);
+          numVarExternal.push_back(UiYExternalNum_);
           numVars.push_back(UfYNum_);
         }
         break;
