@@ -583,7 +583,7 @@ ModelLoad::evalZ(const double& /*t*/) {
     stateModified_ = true;
     setConnected(currState);
   }
-  return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
+  return stateModified_?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
 
 void
@@ -881,14 +881,14 @@ ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
     break;
     case pcNum_: {
       if (isRunning()) {
-        double deltaPcVal = (isControllable_) ? deltaPc() : 0.;
+        double deltaPcVal = isControllable_ ? deltaPc() : 0.;
         output = P0_ * (1. + deltaPcVal) * kp_;
       }
     }
     break;
     case qcNum_: {
       if (isRunning()) {
-        double deltaQcVal = (isControllable_) ? deltaQc() : 0.;
+        double deltaQcVal = isControllable_ ? deltaQc() : 0.;
         output = Q0_ * (1. + deltaQcVal) * kq_;
       }
     }
@@ -899,7 +899,7 @@ ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
     default:
       throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
-  return (output);
+  return output;
 }
 
 }  // namespace DYN

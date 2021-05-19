@@ -55,7 +55,7 @@ const char * Error::what() const throw() {
 }
 
 Error::TypeError_t Error::type() const {
-  return (type_);
+  return type_;
 }
 
 int Error::key() const {

@@ -207,7 +207,7 @@ ModelGenerator::evalZ(const double& /*t*/) {
     DYNAddTimelineEvent(network_, id_, GeneratorTargetQ, z_[2]);
     Qc_ = z_[2];
   }
-  return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
+  return stateModified_?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
 
 void

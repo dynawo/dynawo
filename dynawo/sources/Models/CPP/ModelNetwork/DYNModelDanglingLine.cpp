@@ -701,7 +701,7 @@ ModelDanglingLine::evalZ(const double& t) {
     setCurrentLimitsDesactivate(z_[1]);
     Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
-  return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
+  return stateModified_?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
 
 void

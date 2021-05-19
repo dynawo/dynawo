@@ -343,7 +343,7 @@ Modeler::SanityCheckFlowConnection() const {
     if (itModelDescription->second->getModel()->getType() != dynamicdata::Model::MODELICA_MODEL) {
       continue;
     }
-    shared_ptr<ModelDescription> modelDesc = (itModelDescription)->second;
+    shared_ptr<ModelDescription> modelDesc = itModelDescription->second;
     string modelId = modelDesc->getID();
     shared_ptr<dynamicdata::ModelicaModel> model = dynamic_pointer_cast<dynamicdata::ModelicaModel> (modelDesc->getModel());
 
