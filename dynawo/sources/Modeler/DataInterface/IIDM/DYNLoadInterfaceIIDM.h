@@ -95,9 +95,19 @@ class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM<IID
   double getP();
 
   /**
+   * @copydoc LoadInterface::getP0()
+   */
+  double getP0();
+
+  /**
    * @copydoc LoadInterface::getQ()
    */
   double getQ();
+
+  /**
+   * @copydoc LoadInterface::getQ0()
+   */
+  double getQ0();
 
   /**
    * @copydoc LoadInterface::getID() const

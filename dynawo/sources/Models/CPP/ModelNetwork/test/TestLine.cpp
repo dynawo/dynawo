@@ -194,7 +194,7 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
   dlb.q2(45.);
   IIDM::CurrentLimits limits(200.);
   limits.add("MyLimit", 10., 5.);
-  limits.add("DeactivatedLimit", std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
+  limits.add("DeactivatedLimit", std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<int>::quiet_NaN());
   dlb.currentLimits1(limits);
   IIDM::CurrentLimits limits2(200.);
   limits2.add("MyLimit2", 15., 10.);

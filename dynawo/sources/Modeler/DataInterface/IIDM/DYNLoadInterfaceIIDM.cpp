@@ -144,8 +144,18 @@ LoadInterfaceIIDM::getP() {
 }
 
 double
+LoadInterfaceIIDM::getP0() {
+  return loadIIDM_.p0();
+}
+
+double
 LoadInterfaceIIDM::getQ() {
   return InjectorInterfaceIIDM<IIDM::Load>::getQ();
+}
+
+double
+LoadInterfaceIIDM::getQ0() {
+  return loadIIDM_.q0();
 }
 
 string

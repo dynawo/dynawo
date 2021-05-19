@@ -141,7 +141,7 @@ createModelDanglingLine(bool open, bool initModel) {
   IIDM::CurrentLimits limits(200.);
   limits.add("MyLimit", 10., 5.);
   limits.add("MyLimit2", 15., 10.);
-  limits.add("DeactivatedLimit", std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
+  limits.add("DeactivatedLimit", std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<int>::quiet_NaN());
   dlb.currentLimits(limits);
   IIDM::DanglingLine dlIIDM = dlb.build("MyDanglingLine");
   vlIIDM.add(dlIIDM, c1);
