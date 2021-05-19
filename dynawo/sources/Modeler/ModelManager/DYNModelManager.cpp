@@ -304,7 +304,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
   try {
     const int nbInput = sizeY() + sizeY();  // Y and Y '
     const int nbOutput = sizeY();
-    const int coeff = (complete) ? 1: 0;  // complete => jacobian @F/@y + cj.@F/@Y' else @F/@Y'
+    const int coeff = complete ? 1: 0;  // complete => jacobian @F/@y + cj.@F/@Y' else @F/@Y'
     vector<double> jac(nbInput * nbOutput);
 
     adept::Stack stack;

@@ -40,6 +40,7 @@ StaticVarCompensatorInterfaceIIDMExtensionNoStandByAutomaton(powsybl::iidm::Stat
   staticVarCompensatorIIDM_(svc) {
 }
 void StaticVarCompensatorInterfaceIIDMExtensionNoStandByAutomaton::exportStandByMode(bool /*standByMode*/) {
+  // not needed
 }
 
 double

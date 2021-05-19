@@ -227,7 +227,7 @@ ModelShuntCompensator::evalZ(const double& t) {
     }
     setConnected(currState);
   }
-  return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
+  return stateModified_?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
 
 void

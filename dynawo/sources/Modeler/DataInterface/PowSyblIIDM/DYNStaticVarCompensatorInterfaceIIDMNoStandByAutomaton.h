@@ -29,7 +29,7 @@ namespace DYN {
 /**
  * class StaticVarCompensatorInterfaceIIDM
  */
-class StaticVarCompensatorInterfaceIIDMExtensionNoStandByAutomaton : StaticVarCompensatorInterfaceIIDMExtension {
+class StaticVarCompensatorInterfaceIIDMExtensionNoStandByAutomaton : public StaticVarCompensatorInterfaceIIDMExtension {
  public:
   /**
    * @brief Destructor

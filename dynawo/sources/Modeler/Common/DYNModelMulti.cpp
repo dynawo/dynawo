@@ -822,7 +822,7 @@ ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string
       throw DYNError(Error::MODELER, ConnectorCalculatedVariables, subModel1->name(), name1, subModel2->name(), name2);
     else
       Trace::warn() << DYNLog(CalcVarConnectionIgnored, name1, name2) << Trace::endline;
-  } else if ((!isState1) && (isState2)) {  // when one variable is a state variable and the other one isn't, use a specific connection
+  } else if (!isState1 && isState2) {  // when one variable is a state variable and the other one isn't, use a specific connection
     if (typeVar2 != CONTINUOUS && typeVar2 != FLOW) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
@@ -922,7 +922,7 @@ ModelMulti::checkConnects() {
       }
     }
   }
-  return (connectOk);
+  return connectOk;
 }
 
 void

@@ -118,7 +118,7 @@ ModelSwitch::evalZ(const double& /*t*/) {
     }
     setConnectionState(currState);
   }
-  return (topologyModified_) ? NetworkComponent::TOPO_CHANGE: NetworkComponent::NO_CHANGE;
+  return topologyModified_ ? NetworkComponent::TOPO_CHANGE: NetworkComponent::NO_CHANGE;
 }
 
 void
