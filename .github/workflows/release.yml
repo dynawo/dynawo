@@ -36,85 +36,31 @@ jobs:
           curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_minimal_v${version}.zip --data-binary @distributions/Dynawo_V${version}.zip
           curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Modelica_library_v${version}.zip --data-binary @distributions/Dynawo_Modelica_library_V${version}.zip
 
-    distribution-cxx11:
-      name: Distribution Linux cxx11
-      runs-on: ubuntu-latest
-      container: dynawo/dynawo-distribution-cxx11:latest
-      env:
-        DYNAWO_BUILD_TYPE: Release
-        DYNAWO_CXX11_ENABLED: YES
-        DYNAWO_COMPILER: GCC
-        DYNAWO_LIBRARY_TYPE: STATIC
-        DYNAWO_FORCE_CXX11_ABI: "true"
-        DYNAWO_RESULTS_SHOW: "false"
-        DYNAWO_NB_PROCESSORS_USED: 2
+  distribution-cxx11:
+    name: Distribution Linux cxx11
+    runs-on: ubuntu-latest
+    container: dynawo/dynawo-distribution-cxx11:latest
+    env:
+      DYNAWO_BUILD_TYPE: Release
+      DYNAWO_CXX11_ENABLED: YES
+      DYNAWO_COMPILER: GCC
+      DYNAWO_LIBRARY_TYPE: STATIC
+      DYNAWO_FORCE_CXX11_ABI: "true"
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_NB_PROCESSORS_USED: 2
 
-      steps:
-        - name: Checkout sources
-          uses: actions/checkout@v1
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v1
 
-        - name: Build
-          env:
-            DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
-            DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          run: |
-            export DYNAWO_HOME=$(pwd)
-            util/envDynawo.sh build-user
-            util/envDynawo.sh distrib-headers
-            version=$(util/envDynawo.sh version | cut -f1 -d' ')
-            curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_cxx11_v${version}.zip --data-binary @distributions/Dynawo_headers_V${version}.zip
-
-    macos:
-      name: Distribution MacOS
-      runs-on: macos-latest
-      env:
-        DYNAWO_BUILD_TYPE: Release
-        DYNAWO_CXX11_ENABLED: YES
-        DYNAWO_COMPILER: CLANG
-        DYNAWO_LIBRARY_TYPE: SHARED
-        DYNAWO_RESULTS_SHOW: "false"
-        MACOSX_DEPLOYMENT_TARGET: 10.14
-        DYNAWO_BOOST_HOME_DEFAULT: "false"
-        DYNAWO_NB_PROCESSORS_USED: 2
-        DYNAWO_PYTHON_COMMAND: python3
-
-      steps:
-        - name: Checkout sources
-          uses: actions/checkout@v1
-
-        - name: Pre-requisites
-          run: |
-            pip3 install lxml psutil
-            brew install automake gnu-sed
-            ln -s /usr/local/bin/gfortran-9 /usr/local/bin/gfortran
-
-        - name: Build
-          env:
-            DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
-            DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          run: |
-            export DYNAWO_HOME=$(pwd)
-            util/envDynawo.sh build-user
-            cd $DYNAWO_INSTALL_OPENMODELICA
-            find lib -name "libipopt*" -exec rm -f '{}' \;
-            find lib -name "libcoinmumps*" -exec rm -f '{}' \;
-            find lib -name "*.a" -exec rm -f '{}' \;
-            find lib -name "libamd*" -exec rm -f '{}' \;
-            find lib -name "libbtf*" -exec rm -f '{}' \;
-            find lib -name "libcminpack*" -exec rm -f '{}' \;
-            find lib -name "libcolamd*" -exec rm -f '{}' \;
-            find lib -name "libklu*" -exec rm -f '{}' \;
-            find lib -name "liblis*" -exec rm -f '{}' \;
-            find lib -name "libomopcua*" -exec rm -f '{}' \;
-            find lib -name "libOpenModelicaFMIRuntimeC*" -exec rm -f '{}' \;
-            find lib -name "libSimulationRuntimeC*" -exec rm -f '{}' \;
-            find lib -name "libsundials*" -exec rm -f '{}' \;
-            find lib -name "libumfpack*" -exec rm -f '{}' \;
-            find lib -name "libzlib*" -exec rm -f '{}' \;
-            cd -
-            util/envDynawo.sh distrib-omc
-            util/envDynawo.sh distrib
-            version=$(util/envDynawo.sh version | cut -f1 -d' ')
-            curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_MacOS_v${version}.zip --data-binary @distributions/Dynawo_omc_V${version}.zip
+      - name: Build
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-user
+          util/envDynawo.sh distrib-headers
+          version=$(util/envDynawo.sh version | cut -f1 -d' ')
+          curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/zip" -X POST $(curl -s --request GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep upload_url | cut -d '"' -f 4 | grep -o ".*assets")?name=Dynawo_Linux_cxx11_v${version}.zip --data-binary @distributions/Dynawo_headers_V${version}.zip
