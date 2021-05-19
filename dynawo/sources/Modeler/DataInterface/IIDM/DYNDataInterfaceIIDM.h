@@ -27,7 +27,6 @@
 
 #include "DYNDataInterface.h"
 #include "DYNCriteria.h"
-#include "DYNServiceManagerInterfaceIIDM.h"
 
 namespace IIDM {
 class Network;

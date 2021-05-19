@@ -160,6 +160,12 @@ GeneratorInterfaceIIDM::getPMax() {
 }
 
 double
+GeneratorInterfaceIIDM::getTargetP() {
+  return - 1.0 * generatorIIDM_.targetP();
+}
+
+
+double
 GeneratorInterfaceIIDM::getQ() {
   return InjectorInterfaceIIDM<IIDM::Generator>::getQ();
 }
@@ -169,7 +175,7 @@ GeneratorInterfaceIIDM::getQMax() {
   if (generatorIIDM_.has_minMaxReactiveLimits()) {
     return generatorIIDM_.minMaxReactiveLimits().max();
   } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
-    assert(generatorIIDM_.reactiveCapabilityCurve().size()>0);
+    assert(generatorIIDM_.reactiveCapabilityCurve().size() > 0);
     double qMax = 0;
     const double pGen = - getP();
     const IIDM::ReactiveCapabilityCurve& reactiveCurve = generatorIIDM_.reactiveCapabilityCurve();
@@ -197,7 +203,7 @@ GeneratorInterfaceIIDM::getQMin() {
   if (generatorIIDM_.has_minMaxReactiveLimits()) {
     return generatorIIDM_.minMaxReactiveLimits().min();
   } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
-    assert(generatorIIDM_.reactiveCapabilityCurve().size()>0);
+    assert(generatorIIDM_.reactiveCapabilityCurve().size() > 0);
     double qMin = 0;
     const double pGen = - getP();
     const IIDM::ReactiveCapabilityCurve& reactiveCurve = generatorIIDM_.reactiveCapabilityCurve();
@@ -220,9 +226,41 @@ GeneratorInterfaceIIDM::getQMin() {
   }
 }
 
+double
+GeneratorInterfaceIIDM::getTargetQ() {
+  if (generatorIIDM_.has_targetQ()) {
+    return - 1.0 * generatorIIDM_.targetQ();
+  } else {
+    return 0;
+  }
+}
+
+double
+GeneratorInterfaceIIDM::getTargetV() {
+  if (generatorIIDM_.has_targetV()) {
+    return generatorIIDM_.targetV();
+  } else {
+    return 0;
+  }
+}
+
+
 string
 GeneratorInterfaceIIDM::getID() const {
   return generatorIIDM_.id();
+}
+
+std::vector<GeneratorInterface::ReactiveCurvePoint> GeneratorInterfaceIIDM::getReactiveCurvesPoints() const {
+  std::vector<GeneratorInterface::ReactiveCurvePoint> ret;
+  if (generatorIIDM_.has_reactiveCapabilityCurve()) {
+    const IIDM::ReactiveCapabilityCurve& reactiveCurve = generatorIIDM_.reactiveCapabilityCurve();
+    for (IIDM::ReactiveCapabilityCurve::const_iterator it = reactiveCurve.begin(); it != reactiveCurve.end(); ++it) {
+      ReactiveCurvePoint point(it->p, it->qmin, it->qmax);
+      ret.push_back(point);
+    }
+  }
+
+  return ret;
 }
 
 }  // namespace DYN

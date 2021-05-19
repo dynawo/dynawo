@@ -850,7 +850,10 @@ Simulation::simulate() {
     endSimulationWithError(fileName.str(), criteriaChecked);
   } catch (const Error& e) {
     Trace::error() << e.what() << Trace::endline;
-    endSimulationWithError(fileName.str(), criteriaChecked);
+    bool staticModelWellInitialized = true;
+    if (e.key() == DYN::KeyError_t::StateVariableNoReference)
+      staticModelWellInitialized = false;
+    endSimulationWithError(fileName.str(), criteriaChecked && staticModelWellInitialized);
     throw;
   } catch (...) {
     endSimulationWithError(fileName.str(), criteriaChecked);

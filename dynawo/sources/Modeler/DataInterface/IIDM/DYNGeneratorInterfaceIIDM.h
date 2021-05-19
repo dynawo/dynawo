@@ -105,6 +105,11 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   double getPMax();
 
   /**
+   * @copydoc GeneratorInterface::getTargetP()
+   */
+  double getTargetP();
+
+  /**
    * @copydoc GeneratorInterface::getQ()
    */
   double getQ();
@@ -120,6 +125,16 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   double getQMin();
 
   /**
+   * @copydoc GeneratorInterface::getTargetQ()
+   */
+  double getTargetQ();
+
+  /**
+   * @copydoc GeneratorInterface::getTargetV()
+   */
+  double getTargetV();
+
+  /**
    * @copydoc GeneratorInterface::getID() const
    */
   std::string getID() const;
@@ -128,6 +143,11 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
   int getComponentVarIndex(const std::string& varName) const;
+
+  /**
+   * @copydoc GeneratorInterface::getReactiveCurvesPoints() const
+   */
+  std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const;
 
  private:
   IIDM::Generator& generatorIIDM_;  ///< reference to the iidm generator instance
