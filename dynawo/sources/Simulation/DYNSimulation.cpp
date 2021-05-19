@@ -881,7 +881,10 @@ Simulation::simulate() {
     endSimulationWithError(criteriaChecked);
   } catch (const Error& e) {
     Trace::error() << e.what() << Trace::endline;
-    endSimulationWithError(criteriaChecked);
+    bool staticModelWellInitialized = true;
+    if (e.key() == DYN::KeyError_t::StateVariableNoReference)
+      staticModelWellInitialized = false;
+    endSimulationWithError(criteriaChecked && staticModelWellInitialized);
     throw;
   } catch (...) {
     endSimulationWithError(criteriaChecked);
