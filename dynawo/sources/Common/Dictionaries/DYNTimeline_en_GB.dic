@@ -28,7 +28,7 @@ GeneratorPVBackRegulation =             PV Generator : back to voltage regulatio
 TapUp                     =             Tap +1
 TapDown                   =             Tap -1
 // --> Tap-Changer
-TapChangerSwitchOn        =             Tap-changer : switched onLineClosed
+TapChangerSwitchOn        =             Tap-changer : switched on
 TapChangerSwitchOff       =             Tap-changer : switched off
 TapChangerAboveMax        =             Tap-changer : above maximum allowed value
 TapChangerBelowMin        =             Tap-changer : below minimum allowed value
