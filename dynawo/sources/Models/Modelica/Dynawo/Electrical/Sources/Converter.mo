@@ -57,7 +57,7 @@ UdcSourcePu (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (Cfilter)         
     Placement(visible = true, transformation(origin = {-58, 50}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, 90}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omegaRef0Pu) "Converter angular frequency in p.u (base OmegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-58, -50}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-105, -90}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UdcSourceRefPu(start = SystemBase.omegaRef0Pu) "DC Voltage reference in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcSourceRefPu(start = UdcSource0Pu) "DC Voltage reference in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {0, 63}, extent = {{-3, -3}, {3, 3}}, rotation = -90), iconTransformation(origin = { -105, -70}, extent = {{5, -5}, {-5, 5}}, rotation = 180)));
 
   Modelica.Blocks.Interfaces.RealOutput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
