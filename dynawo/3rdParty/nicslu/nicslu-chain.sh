@@ -71,8 +71,6 @@ export_var_env DYNAWO_C_COMPILER=$(command -v gcc)
 
 if [ "`uname`" = "Linux" ]; then
   export_var_env_force DYNAWO_SHARED_LIBRARY_SUFFIX="so"
-elif [ "`uname`" = "Darwin" ]; then
-  export_var_env_force DYNAWO_SHARED_LIBRARY_SUFFIX="dylib"
 else
   echo "OS `uname` not supported."
   exit 1
