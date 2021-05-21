@@ -55,121 +55,63 @@ if(NOT MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-parentheses -Wno-sign-compare")
 endif()
 
-if (LibXML_SAX_BUILD_SHARED)
-  add_library(XMLSAXParser${LINK_SUFFIX_SHARED} SHARED ${PARSER_SOURCES})
+add_library(XMLSAXParser${LINK_SUFFIX_SHARED} SHARED ${PARSER_SOURCES})
 
-  target_include_directories(XMLSAXParser${LINK_SUFFIX_SHARED}
-    PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-      $<BUILD_INTERFACE:${XML_common_SOURCE_DIR}/include>
-      $<INSTALL_INTERFACE:${LibXML_INSTALL_INCLUDE}>
-      $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
-  )
+target_include_directories(XMLSAXParser${LINK_SUFFIX_SHARED}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${XML_common_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:${LibXML_INSTALL_INCLUDE}>
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+)
 
-  target_link_libraries(XMLSAXParser${LINK_SUFFIX_SHARED} XercesC::XercesC)
+target_link_libraries(XMLSAXParser${LINK_SUFFIX_SHARED} XercesC::XercesC)
 
-  set_target_properties(XMLSAXParser${LINK_SUFFIX_SHARED}
-    PROPERTIES
-      OUTPUT_NAME XMLSAXParser
-      SOVERSION ${LIBXML_VERSION_MAJOR}
-      VERSION ${LIBXML_VERSION}
-      WINDOWS_EXPORT_ALL_SYMBOLS TRUE
-  )
+set_target_properties(XMLSAXParser${LINK_SUFFIX_SHARED}
+  PROPERTIES
+    OUTPUT_NAME XMLSAXParser
+    SOVERSION ${LIBXML_VERSION_MAJOR}
+    VERSION ${LIBXML_VERSION}
+    WINDOWS_EXPORT_ALL_SYMBOLS TRUE
+)
 
-  install(TARGETS XMLSAXParser${LINK_SUFFIX_SHARED} EXPORT XMLSAXParser${LINK_SUFFIX_SHARED}-config
-    PUBLIC_HEADER DESTINATION ${LibXML_INSTALL_INCLUDE}
-    ARCHIVE DESTINATION ${LibXML_INSTALL_LIBRARIES}
-    LIBRARY DESTINATION ${LibXML_INSTALL_LIBRARIES}
-    RUNTIME DESTINATION ${LibXML_INSTALL_BINARIES}
-    COMPONENT sax-parser
-  )
+install(TARGETS XMLSAXParser${LINK_SUFFIX_SHARED} EXPORT XMLSAXParser${LINK_SUFFIX_SHARED}-config
+  PUBLIC_HEADER DESTINATION ${LibXML_INSTALL_INCLUDE}
+  ARCHIVE DESTINATION ${LibXML_INSTALL_LIBRARIES}
+  LIBRARY DESTINATION ${LibXML_INSTALL_LIBRARIES}
+  RUNTIME DESTINATION ${LibXML_INSTALL_BINARIES}
+  COMPONENT sax-parser
+)
 
-  # installed config file for find_package
-  install(EXPORT XMLSAXParser${LINK_SUFFIX_SHARED}-config
-    DESTINATION ${LibXML_INSTALL_CMAKE}
-    FILE libxml-sax-parser${LINK_SUFFIX_SHARED}-targets.cmake
-    COMPONENT sax-parser
-  )
+# installed config file for find_package
+install(EXPORT XMLSAXParser${LINK_SUFFIX_SHARED}-config
+  DESTINATION ${LibXML_INSTALL_CMAKE}
+  FILE libxml-sax-parser${LINK_SUFFIX_SHARED}-targets.cmake
+  COMPONENT sax-parser
+)
 
-  include(CMakePackageConfigHelpers)
-  configure_package_config_file(libxml-sax-parser${LINK_SUFFIX_SHARED}-config.cmake.in
-    ${CMAKE_CURRENT_BINARY_DIR}/libxml-sax-parser${LINK_SUFFIX_SHARED}-config.cmake
-    INSTALL_DESTINATION ${LibXML_INSTALL_CMAKE}
-    PATH_VARS
-      LibXML_INSTALL_INCLUDE
-      LibXML_INSTALL_LIBRARIES
-      LibXML_INSTALL_BINARIES
-    NO_CHECK_REQUIRED_COMPONENTS_MACRO
-  )
+include(CMakePackageConfigHelpers)
+configure_package_config_file(libxml-sax-parser${LINK_SUFFIX_SHARED}-config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/libxml-sax-parser${LINK_SUFFIX_SHARED}-config.cmake
+  INSTALL_DESTINATION ${LibXML_INSTALL_CMAKE}
+  PATH_VARS
+    LibXML_INSTALL_INCLUDE
+    LibXML_INSTALL_LIBRARIES
+    LibXML_INSTALL_BINARIES
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO
+)
 
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libxml-sax-parser${LINK_SUFFIX_SHARED}-config.cmake
-    DESTINATION ${LibXML_INSTALL_CMAKE}
-    COMPONENT sax-parser
-  )
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libxml-sax-parser${LINK_SUFFIX_SHARED}-config.cmake
+  DESTINATION ${LibXML_INSTALL_CMAKE}
+  COMPONENT sax-parser
+)
 
-endif ()
-
-if (LibXML_SAX_BUILD_STATIC)
-  add_library(XMLSAXParser${LINK_SUFFIX_STATIC} STATIC ${PARSER_SOURCES})
-
-  target_include_directories(XMLSAXParser${LINK_SUFFIX_STATIC}
-    PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-      $<BUILD_INTERFACE:${XML_common_SOURCE_DIR}/include>
-      $<INSTALL_INTERFACE:${LibXML_INSTALL_INCLUDE}>
-      $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
-  )
-
-  target_link_libraries(XMLSAXParser${LINK_SUFFIX_STATIC} XercesC::XercesC)
-
-  set_target_properties(XMLSAXParser${LINK_SUFFIX_STATIC}
-    PROPERTIES
-      OUTPUT_NAME XMLSAXParser
-      SOVERSION ${LIBXML_VERSION_MAJOR}
-      VERSION ${LIBXML_VERSION}
-  )
-
-  install(TARGETS XMLSAXParser${LINK_SUFFIX_STATIC} EXPORT XMLSAXParser${LINK_SUFFIX_STATIC}-config
-    PUBLIC_HEADER DESTINATION ${LibXML_INSTALL_INCLUDE}
-    ARCHIVE DESTINATION ${LibXML_INSTALL_LIBRARIES}
-    LIBRARY DESTINATION ${LibXML_INSTALL_LIBRARIES}
-    RUNTIME DESTINATION ${LibXML_INSTALL_BINARIES}
-    COMPONENT sax-parser
-  )
-
-  # installed config file for find_package
-  install(EXPORT XMLSAXParser${LINK_SUFFIX_STATIC}-config
-    DESTINATION ${LibXML_INSTALL_CMAKE}
-    FILE libxml-sax-parser${LINK_SUFFIX_STATIC}-targets.cmake
-    COMPONENT sax-parser
-  )
-
-  include(CMakePackageConfigHelpers)
-  configure_package_config_file(libxml-sax-parser-config.cmake.in
-    ${CMAKE_CURRENT_BINARY_DIR}/libxml-sax-parser${LINK_SUFFIX_STATIC}-config.cmake
-    INSTALL_DESTINATION ${LibXML_INSTALL_CMAKE}
-    PATH_VARS
-      LibXML_INSTALL_INCLUDE
-      LibXML_INSTALL_LIBRARIES
-      LibXML_INSTALL_BINARIES
-    NO_CHECK_REQUIRED_COMPONENTS_MACRO
-  )
-
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libxml-sax-parser${LINK_SUFFIX_STATIC}-config.cmake
-    DESTINATION ${LibXML_INSTALL_CMAKE}
-    COMPONENT sax-parser
-  )
-
-endif ()
-
-if (LibXML_SAX_BUILD_SHARED OR LibXML_SAX_BUILD_STATIC)
-  install(DIRECTORY include/xml/sax/parser
-    DESTINATION ${LibXML_INSTALL_INCLUDE}/xml/sax
-    # MANDATORY
-    COMPONENT sax-parser
-    FILES_MATCHING PATTERN "*.h"
-  )
-endif ()
+install(DIRECTORY include/xml/sax/parser
+  DESTINATION ${LibXML_INSTALL_INCLUDE}/xml/sax
+  # MANDATORY
+  COMPONENT sax-parser
+  FILES_MATCHING PATTERN "*.h"
+)
 
 if (LibXML_BUILD_TESTS)
   add_subdirectory(tests)

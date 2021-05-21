@@ -145,9 +145,9 @@ int main(int argc, char ** argv) {
 
   // Launch the compile of the model
   try {
-    boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
-    dicos->addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
+    DYN::IoDicos& dicos = DYN::IoDicos::instance();
+    dicos.addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
+    dicos.addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
 
     // Create .c, .h and .xml files from .mo
     bool withInitFile = false;

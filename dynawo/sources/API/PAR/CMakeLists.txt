@@ -49,7 +49,7 @@ set(API_PAR_INCLUDE_HEADERS
     PARMacroParSet.h
     )
 
-add_library(dynawo_API_PAR ${LIBRARY_TYPE} ${API_PAR_SOURCES})
+add_library(dynawo_API_PAR SHARED ${API_PAR_SOURCES})
 
 target_include_directories(dynawo_API_PAR
   INTERFACE

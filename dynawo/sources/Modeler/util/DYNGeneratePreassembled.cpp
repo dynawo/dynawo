@@ -128,9 +128,9 @@ int main(int argc, char ** argv) {
 
     // Initializes logs, parsers & dictionnaries for Dynawo
     Trace::init();
-    shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
-    dicos->addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
+    DYN::IoDicos& dicos = DYN::IoDicos::instance();
+    dicos.addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
+    dicos.addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
 
     // Dynamic data import
     shared_ptr<DYN::DynamicData> dyd(new DYN::DynamicData());

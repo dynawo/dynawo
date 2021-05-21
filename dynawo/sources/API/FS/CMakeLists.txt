@@ -46,7 +46,7 @@ set(API_FS_INCLUDE_HEADERS
     FSXmlImporter.h
     )
 
-add_library(dynawo_API_FS ${LIBRARY_TYPE} ${API_FS_SOURCES})
+add_library(dynawo_API_FS SHARED ${API_FS_SOURCES})
 
 target_include_directories(dynawo_API_FS
   INTERFACE

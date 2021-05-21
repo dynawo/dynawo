@@ -130,7 +130,7 @@ class IoDicos {
    *
    * @return the IoDicos instance created
    */
-  static boost::shared_ptr<IoDicos> getInstance();
+  static IoDicos& instance();
 
   /**
    * @brief add path to the paths where dictionaries are researched

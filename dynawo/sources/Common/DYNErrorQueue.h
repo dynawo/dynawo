@@ -35,7 +35,7 @@ class DYNErrorQueue  : private boost::noncopyable{
    *
    * @return singleton
    */
-  static boost::shared_ptr<DYNErrorQueue>& get();
+  static DYNErrorQueue& instance();
 
   /**
    * @brief register a new error in the queue
@@ -60,7 +60,6 @@ class DYNErrorQueue  : private boost::noncopyable{
   DYNErrorQueue() {}
 
  private:
-  static boost::shared_ptr<DYNErrorQueue> errorQueue;  ///< singleton
   std::queue< DYN::Error > exceptionQueue_;  ///< error queue
 };
 

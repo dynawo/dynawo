@@ -51,7 +51,7 @@ class Timers : private boost::noncopyable {
    *
    * @return the unique instance
    */
-  static Timers& getInstance();
+  static Timers& instance();
 
  private:
   /**
@@ -71,13 +71,6 @@ class Timers : private boost::noncopyable {
    * @param time time elapsed for the timer
    */
   void add_(const std::string& name, const double& time);
-
-  /**
-   * @brief get the best candidate for unique instance of Timers
-   *
-   * @return the unique instance
-   */
-  static Timers& getInstance_();
 
  private:
   std::map<std::string, double> timers_;  ///< association between timers and time elapsed
@@ -116,16 +109,5 @@ class Timer : private boost::noncopyable {
 };
 
 }  // namespace DYN
-
-#ifdef DYNTIMERS_INSTANCE
-/**
- * @brief get the unique instance of Timers in the executable
- *
- * @return the unique instance
- */
-extern "C" DYN::Timers& getTimersInstance() {
-  return DYN::Timers::getInstance();
-}
-#endif
 
 #endif  // COMMON_DYNTIMER_H_

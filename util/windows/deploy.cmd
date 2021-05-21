@@ -88,11 +88,6 @@ xcopy %thirdPartyInstallPath%\adept\bin %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\boost\include %deploy_dir%\include /E /i
 xcopy %thirdPartyInstallPath%\boost\lib %deploy_dir%\lib /E /i
 
-xcopy %thirdPartyInstallPath%\dlfcnwin32\bin %deploy_dir%\bin /E /i
-xcopy %thirdPartyInstallPath%\dlfcnwin32\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\dlfcnwin32\lib %deploy_dir%\lib /E /i
-xcopy %thirdPartyInstallPath%\dlfcnwin32\share %deploy_dir%\share /E /i
-
 xcopy %thirdPartyInstallPath%\libarchive\include %deploy_dir%\include /E /i
 xcopy %thirdPartyInstallPath%\libarchive\lib %deploy_dir%\lib /E /i
 xcopy %thirdPartyInstallPath%\libarchive\bin\archive* %deploy_dir%\bin /E /i

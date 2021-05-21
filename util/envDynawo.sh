@@ -317,13 +317,12 @@ set_environment() {
   export_var_env_force DYNAWO_USE_ADEPT=YES
 
   export_var_env DYNAWO_COMPILER_VERSION=$($DYNAWO_C_COMPILER -dumpversion)
-  export_var_env DYNAWO_LIBRARY_TYPE=SHARED
 
   # Dynawo
   export_var_env DYNAWO_HOME=UNDEFINED
   export_git_branch
   export_var_env_force DYNAWO_SRC_DIR=$DYNAWO_HOME/dynawo
-  export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
+  export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared/dynawo
 
   SUFFIX_CX11=""
   if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
@@ -331,19 +330,19 @@ set_environment() {
   fi
 
   if [ ! -z "$DYNAWO_JENKINS_MODE" ]; then
-    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")$SUFFIX_CX11/dynawo
-    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")$SUFFIX_CX11/dynawo
+    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared$SUFFIX_CX11/dynawo
+    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared$SUFFIX_CX11/dynawo
   else
-    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_FOLDER_BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
-    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_FOLDER_BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
+    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_FOLDER_BUILD_TYPE$SUFFIX_CX11/shared/dynawo
+    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_FOLDER_BUILD_TYPE$SUFFIX_CX11/shared/dynawo
   fi
   export_var_env DYNAWO_DEBUG_COMPILER_OPTION="-O0"
   export_var_env DYNAWO_FORCE_CXX11_ABI=false
 
   # Third parties
   export_var_env_force DYNAWO_THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
-  export_var_env_force DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION=$DYNAWO_HOME/build/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/$DYNAWO_BUILD_TYPE$SUFFIX_CX11
-  export_var_env_force DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION=$DYNAWO_HOME/install/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/$DYNAWO_BUILD_TYPE$SUFFIX_CX11
+  export_var_env_force DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION=$DYNAWO_HOME/build/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared/$DYNAWO_BUILD_TYPE$SUFFIX_CX11
+  export_var_env_force DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION=$DYNAWO_HOME/install/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared/$DYNAWO_BUILD_TYPE$SUFFIX_CX11
   export_var_env DYNAWO_THIRD_PARTY_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION
   export_var_env DYNAWO_THIRD_PARTY_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION
 
@@ -351,11 +350,6 @@ set_environment() {
     if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR/boost)" ]; then
       export_var_env DYNAWO_BOOST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/boost
       unset DYNAWO_BOOST_HOME_DEFAULT
-      if [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
-        if [ "$DYNAWO_BOOST_HOME" = "$DYNAWO_THIRD_PARTY_INSTALL_DIR/boost" ]; then
-          export_var_env_force DYNAWO_BOOST_USE_STATIC=ON
-        fi
-      fi
     fi
   fi
 
@@ -393,7 +387,6 @@ set_environment() {
   export_var_env_default DYNAWO_ZLIB_HOME=UNDEFINED
   export_var_env_default DYNAWO_LIBARCHIVE_HOME=UNDEFINED
   export_var_env_default DYNAWO_BOOST_HOME=UNDEFINED
-  export_var_env DYNAWO_BOOST_USE_STATIC=OFF
   export_var_env_default DYNAWO_GTEST_HOME=UNDEFINED
   export_var_env_default DYNAWO_GMOCK_HOME=UNDEFINED
   export_var_env_default DYNAWO_LIBXML2_HOME=UNDEFINED
@@ -703,7 +696,6 @@ config_3rd_party() {
     -DCMAKE_BUILD_TYPE=$DYNAWO_BUILD_TYPE \
     -DOPENMODELICA_INSTALL=$DYNAWO_INSTALL_OPENMODELICA \
     -DOPENMODELICA_SRC=$DYNAWO_SRC_OPENMODELICA \
-    -DBUILD_SHARED_LIBS=$(if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then echo -n "ON"; else echo -n "OFF"; fi) \
     -G "$DYNAWO_CMAKE_GENERATOR" \
     $CMAKE_OPTIONAL
   RETURN_CODE=$?
@@ -811,8 +803,7 @@ config_dynawo() {
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DFORCE_CXX11_ABI=$DYNAWO_FORCE_CXX11_ABI"
   fi
 
-  cmake -DLIBRARY_TYPE=$DYNAWO_LIBRARY_TYPE \
-    -DCMAKE_C_COMPILER:PATH=$DYNAWO_C_COMPILER \
+  cmake -DCMAKE_C_COMPILER:PATH=$DYNAWO_C_COMPILER \
     -DCMAKE_CXX_COMPILER:PATH=$DYNAWO_CXX_COMPILER \
     -DCMAKE_BUILD_TYPE:STRING=$DYNAWO_BUILD_TYPE \
     -DBUILD_TESTS=$DYNAWO_BUILD_TESTS \
@@ -824,7 +815,6 @@ config_dynawo() {
     -DOPENMODELICA_VERSION:STRING=$DYNAWO_OPENMODELICA_VERSION \
     -DCXX11_ENABLED:BOOL=$DYNAWO_CXX11_ENABLED \
     -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
-    -DBOOST_USE_STATIC=$DYNAWO_BOOST_USE_STATIC \
     -DDYNAWO_DEBUG_COMPILER_OPTION:STRING="$DYNAWO_DEBUG_COMPILER_OPTION" \
     -DADEPT_HOME=$DYNAWO_ADEPT_INSTALL_DIR \
     -DSUNDIALS_HOME=$DYNAWO_SUNDIALS_INSTALL_DIR \
@@ -1535,23 +1525,13 @@ find_lib_system_path() {
   if [ ! -f "$DYNAWO_INSTALL_DIR/bin/dynawo" ]; then
     error_exit "Dynawo binary should exist to deploy and find system library used to link against it."
   fi
-  if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
-    if [ "`uname`" = "Linux" ]; then
-      path=$(ldd $DYNAWO_INSTALL_DIR/bin/dynawo | grep "$1" | cut -d '>' -f 2 | awk '{print $1}' | sed "s/lib$1.*//g"  | uniq)
-    elif [ "`uname`" = "Darwin" ]; then
-      path=$(otool -L $DYNAWO_INSTALL_DIR/bin/dynawo | grep "$1" | awk '{print $1}' | sed "s/lib$1.*//g"  | uniq)
-    else
-      echo "OS not supported."
-      exit 1
-    fi
-  elif [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
-    LIBRARY_SUFFIX="a"
-    if [ ! -f "$DYNAWO_BUILD_DIR/CMakeCache.txt" ]; then
-      error_exit "$DYNAWO_BUILD_DIR should not be deleted before deploy to be able to determine include system paths used during compilation."
-    fi
-    path=$(cat $DYNAWO_BUILD_DIR/CMakeCache.txt | grep -i "${1}_LIBRARY_DIR_RELEASE:PATH" | cut -d '=' -f 2)
+  if [ "`uname`" = "Linux" ]; then
+    path=$(ldd $DYNAWO_INSTALL_DIR/bin/dynawo | grep "$1" | cut -d '>' -f 2 | awk '{print $1}' | sed "s/lib$1.*//g"  | uniq)
+  elif [ "`uname`" = "Darwin" ]; then
+    path=$(otool -L $DYNAWO_INSTALL_DIR/bin/dynawo | grep "$1" | awk '{print $1}' | sed "s/lib$1.*//g"  | uniq)
   else
-    error_exit "Wrong type of library build: $DYNAWO_LIBRARY_TYPE, either SHARED or STATIC."
+    echo "OS not supported."
+    exit 1
   fi
   if [ -z "$path" ]; then
     error_exit "Could not find any path for $1 library, it should not happen so an issue must be addressed to the Dynawo team."
@@ -1704,13 +1684,7 @@ deploy_dynawo() {
     done
   fi
 
-  if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
-    LIBRARY_SUFFIX=$DYNAWO_SHARED_LIBRARY_SUFFIX
-  elif [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
-    LIBRARY_SUFFIX="a"
-  else
-    error_exit "Wrong type of library build: $DYNAWO_LIBRARY_TYPE, either SHARED or STATIC."
-  fi
+  LIBRARY_SUFFIX=$DYNAWO_SHARED_LIBRARY_SUFFIX
 
   # BOOST
   echo "deploying boost"
@@ -1974,13 +1948,11 @@ create_distrib_with_headers() {
 
   if [ "`uname`" = "Linux" ]; then
     if [ -x "$(command -v chrpath)" ]; then
-      if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
-        chrpath -d $DYNAWO_DEPLOY_DIR/lib/libamd.so
-        chrpath -d $DYNAWO_DEPLOY_DIR/lib/libbtf.so
-        chrpath -d $DYNAWO_DEPLOY_DIR/lib/libcolamd.so
-        chrpath -d $DYNAWO_DEPLOY_DIR/lib/libklu.so
-        chrpath -d $DYNAWO_DEPLOY_DIR/lib/libsuitesparseconfig.so
-      fi
+      chrpath -d $DYNAWO_DEPLOY_DIR/lib/libamd.so
+      chrpath -d $DYNAWO_DEPLOY_DIR/lib/libbtf.so
+      chrpath -d $DYNAWO_DEPLOY_DIR/lib/libcolamd.so
+      chrpath -d $DYNAWO_DEPLOY_DIR/lib/libklu.so
+      chrpath -d $DYNAWO_DEPLOY_DIR/lib/libsuitesparseconfig.so
     fi
   fi
 
@@ -2207,7 +2179,7 @@ reset_environment_variables() {
   path_remove $DYNAWO_INSTALL_OPENMODELICA/bin
   python_path_remove $DYNAWO_SCRIPTS_DIR
 
-  do_not_unset="DYNAWO_BUILD_TYPE DYNAWO_COMPILER DYNAWO_CXX11_ENABLED DYNAWO_HOME DYNAWO_LIBRARY_TYPE DYNAWO_INSTALL_OPENMODELICA \
+  do_not_unset="DYNAWO_BUILD_TYPE DYNAWO_COMPILER DYNAWO_CXX11_ENABLED DYNAWO_HOME DYNAWO_INSTALL_OPENMODELICA \
 DYNAWO_SRC_OPENMODELICA DYNAWO_ZLIB_HOME DYNAWO_LIBARCHIVE_HOME DYNAWO_BOOST_HOME DYNAWO_GTEST_HOME DYNAWO_GMOCK_HOME DYNAWO_XSD_DIR"
 
   for var in $(printenv | grep DYNAWO_ | cut -d '=' -f 1); do
@@ -2224,7 +2196,6 @@ reset_environment_variables_full() {
   unset DYNAWO_CXX11_ENABLED
   unset DYNAWO_HOME
   unset DYNAWO_INSTALL_OPENMODELICA
-  unset DYNAWO_LIBRARY_TYPE
   unset DYNAWO_SRC_OPENMODELICA
   unset DYNAWO_ZLIB_HOME
   unset DYNAWO_LIBARCHIVE_HOME

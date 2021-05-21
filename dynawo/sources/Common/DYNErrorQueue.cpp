@@ -20,18 +20,15 @@
 
 namespace DYN {
 
-boost::shared_ptr<DYNErrorQueue> DYNErrorQueue::errorQueue = boost::shared_ptr<DYNErrorQueue>();
-
 size_t DYNErrorQueue::getMaxDisplayedError() const {
   static const size_t maxDisplayedError = 100;
   return maxDisplayedError;
 }
 
-boost::shared_ptr<DYNErrorQueue>&
-DYNErrorQueue::get() {
-  if (!errorQueue)
-    errorQueue.reset(new DYNErrorQueue());
-  return errorQueue;
+DYNErrorQueue&
+DYNErrorQueue::instance() {
+  static DYNErrorQueue instance;
+  return instance;
 }
 
 void
