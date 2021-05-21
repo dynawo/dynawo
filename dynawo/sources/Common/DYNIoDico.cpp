@@ -104,11 +104,22 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
   // build name of the file to search
   vector<string> files;
   string fileName;
-  // To deal with a Priority dictionnary that does not have a locale.
+  // To deal with a Priority dictionary that does not have a locale.
   if (locale != "") {
     fileName = baseName + string("_") + locale + string(".dic");
-    files = findFiles(fileName);
   } else {
+    fileName = baseName + string(".dic");
+  }
+  files = findFiles(fileName);
+
+  if (files.empty() && locale != "en_GB") {
+    // try default en_GB locale
+    fileName = baseName + string("_en_GB.dic");
+    files = findFiles(fileName);
+  }
+
+  if (files.empty() && locale != "") {
+    // try no locale
     fileName = baseName + string(".dic");
     files = findFiles(fileName);
   }
@@ -116,7 +127,7 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
   if (files.empty())
     throw MessageError("Impossible to find the dictionary : " + fileName);
   if (files.size() != 1) {
-    throw MessageError("Multiple occurences of the dictionary : " + fileName);
+    throw MessageError("Multiple occurrences of the dictionary : " + fileName);
   }
   string file = files[0];
 
