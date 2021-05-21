@@ -18,8 +18,41 @@
  */
 
 #include "JOBModelerEntry.h"
+#include "JOBUtils.hpp"
 
 namespace job {
+
+ModelerEntry::ModelerEntry() {}
+
+ModelerEntry::ModelerEntry(const ModelerEntry& other):
+    compileDir_(other.compileDir_),
+    preCompiledModelsDirEntry_(clone(other.preCompiledModelsDirEntry_)),
+    modelicaModelsDirEntry_(clone(other.modelicaModelsDirEntry_)),
+    networkEntry_(clone(other.networkEntry_)),
+    initialStateEntry_(clone(other.initialStateEntry_)) {
+  unsigned int size = other.dynModelsEntries_.size();
+  dynModelsEntries_.reserve(size);
+  for (unsigned int i = 0; i < size; i++) {
+    dynModelsEntries_.push_back(clone(other.dynModelsEntries_.at(i)));
+  }
+}
+
+ModelerEntry&
+ModelerEntry::operator=(const ModelerEntry& other) {
+  compileDir_ = other.compileDir_;
+  preCompiledModelsDirEntry_ = clone(other.preCompiledModelsDirEntry_);
+  modelicaModelsDirEntry_ = clone(other.modelicaModelsDirEntry_);
+  networkEntry_ = clone(other.networkEntry_);
+  initialStateEntry_ = clone(other.initialStateEntry_);
+
+  unsigned int size = other.dynModelsEntries_.size();
+  dynModelsEntries_.reserve(size);
+  for (unsigned int i = 0; i < size; i++) {
+    dynModelsEntries_.push_back(clone(other.dynModelsEntries_.at(i)));
+  }
+
+  return *this;
+}
 
 void
 ModelerEntry::setPreCompiledModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& preCompiledModelsDirEntry) {

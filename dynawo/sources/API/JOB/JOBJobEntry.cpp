@@ -17,8 +17,29 @@
  */
 
 #include "JOBJobEntry.h"
+#include "JOBUtils.hpp"
 
 namespace job {
+
+JobEntry::JobEntry() {}
+
+JobEntry::JobEntry(const JobEntry& other) :
+    modelerEntry_(clone(other.modelerEntry_)),
+    solverEntry_(clone(other.solverEntry_)),
+    simulationEntry_(clone(other.simulationEntry_)),
+    outputsEntry_(clone(other.outputsEntry_)),
+    name_(other.name_)
+{}
+
+JobEntry&
+JobEntry::operator=(const JobEntry& other) {
+  modelerEntry_ = clone(other.modelerEntry_);
+  solverEntry_ = clone(other.solverEntry_);
+  simulationEntry_ = clone(other.simulationEntry_);
+  outputsEntry_ = clone(other.outputsEntry_);
+  name_ = other.name_;
+  return *this;
+}
 
 void
 JobEntry::setModelerEntry(const boost::shared_ptr<ModelerEntry> & modelerEntry) {

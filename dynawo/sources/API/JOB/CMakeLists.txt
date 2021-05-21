@@ -52,6 +52,7 @@ set(API_JOB_SOURCES
     JOBSimulationEntryFactory.cpp
     JOBSolverEntryFactory.cpp
     JOBModelsDirEntryFactory.cpp
+    JOBUtils.hpp
     )
 
 set(API_JOB_INCLUDE_HEADERS

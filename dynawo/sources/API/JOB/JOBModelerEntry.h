@@ -110,6 +110,24 @@ class ModelerEntry {
    */
   boost::shared_ptr<InitialStateEntry> getInitialStateEntry() const;
 
+  /**
+   * @brief Default constructor
+   */
+  ModelerEntry();
+
+  /**
+   * @brief Copy constructor
+   * @param other the modeler entry to copy
+   */
+  ModelerEntry(const ModelerEntry& other);
+
+  /**
+   * @brief Copy assignment operator
+   * @param other the modeler entry to copy
+   * @returns reference to this
+   */
+  ModelerEntry& operator=(const ModelerEntry& other);
+
  private:
   std::string compileDir_;                                            ///< Compiling directory for the simulation
   boost::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry_;       ///< preCompiled models directories
