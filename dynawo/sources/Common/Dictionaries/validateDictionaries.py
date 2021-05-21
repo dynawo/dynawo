@@ -68,7 +68,7 @@ class DictionariesPool:
     def _check_locales(self):
         for dictionaries in self._dictionaries.values():
             ref_dictionary = None
-            for other_dictionary in dictionaries.values():
+            for _, other_dictionary in sorted(dictionaries.items()):
                 if ref_dictionary is None:
                     ref_dictionary = other_dictionary
                     continue
@@ -86,7 +86,7 @@ class DictionariesPool:
     # @return True if comparison is right, False otherwise
     @staticmethod
     def _compare_keys(dictionary1, dictionary2):
-        if set(dictionary1.messages.keys()) != set(dictionary2.messages.keys()):
+        if set(dictionary1.messages) != set(dictionary2.messages):
             print("Error: " + str(dictionary1.paths) + " and "
                   + str(dictionary2.paths) + " have not the same entries.")
             return False
@@ -101,7 +101,7 @@ class DictionariesPool:
     # @return True if is right, False otherwise
     @staticmethod
     def _compare_messages(dictionary1, dictionary2):
-        for key in dictionary1.messages.keys():
+        for key in dictionary1.messages:
             if dictionary2.get_args_count(key) != dictionary1.get_args_count(key):
                 print("Error: Messages of key '" + str(key) + "' for dictionary " + str(dictionary1.paths) + " and " +
                       str(dictionary2.paths) + " have not the same number of arguments.")
@@ -120,12 +120,12 @@ class DictionariesPool:
             if not name.endswith('TimelinePriority'):
                 continue
 
-            if len(dictionaries) > 1 or dictionaries.keys()[0]:
+            locale, timeline_priority_dictionary = next(iter(dictionaries.items()))
+            if len(dictionaries) > 1 or locale:
                 print("Error: " + name
                       + " dictionary should be present only once and without a locale.")
                 return False
 
-            timeline_priority_dictionary = dictionaries.values()[0]
             timeline_name = name[:-len('Priority')]
             timeline_dictionaries = self._dictionaries.get(timeline_name)
             if not timeline_dictionaries:
@@ -160,7 +160,7 @@ class DictionariesPool:
                 continue
 
             # take english dic as reference if possible else the first available
-            dictionary = dictionaries.get('en_GB', dictionaries.values()[0])
+            dictionary = dictionaries.get('en_GB', next(iter(dictionaries.values())))
             dictionary.generate_header_files(namespace, output_dir)
             dictionary.generate_cpp_files(namespace, output_dir)
             dictionary.generate_modelica_files(modelica_package, modelica_dir)
@@ -404,10 +404,20 @@ class Dictionary:
     # @return
     # @throw  Raise ValueError is the file is not well formatted
     def parse_file(self, check_capital_letters):
-        with open(self.paths[0]) as dic_file:
-            for line in dic_file:
-                line = line.rstrip('\n\r')  # remove endline characters
-                self._parse_line(line, check_capital_letters)
+        if not self.paths:
+            return
+
+        from io import open
+        try:
+            with open(self.paths[0]) as dic_file:
+                lines = dic_file.readlines()
+        except UnicodeDecodeError:
+            with open(self.paths[0], encoding='iso8859-1') as dic_file:
+                lines = dic_file.readlines()
+
+        for line in lines:
+            line = line.rstrip('\n\r')  # remove endline characters
+            self._parse_line(line, check_capital_letters)
 
     ##
     # Parse a line and add a key/value to the dictionary.
@@ -505,7 +515,7 @@ def main():
     # read all dictionary files
     dictionaries = DictionariesPool()
     try:
-        for path in dic_paths:
+        for path in sorted(dic_paths):
             dictionaries.add_dictionary(create_dictionary(path))
 
     except ValueError as ve:
