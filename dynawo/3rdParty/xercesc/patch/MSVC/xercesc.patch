@@ -1,6 +1,7 @@
-diff -urpN xerces-c-3.2.2/CMakeLists.txt xerces-c-3.2.2.patch/CMakeLists.txt
---- xerces-c-3.2.2/CMakeLists.txt	2018-02-20 01:17:32.000000000 +0100
-+++ xerces-c-3.2.2.patch/CMakeLists.txt	2019-10-09 10:47:09.722377485 +0200
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4254f89..4da39a3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
 @@ -21,6 +21,12 @@
  
  cmake_minimum_required(VERSION 3.2.0)
@@ -14,19 +15,3 @@ diff -urpN xerces-c-3.2.2/CMakeLists.txt xerces-c-3.2.2.patch/CMakeLists.txt
  # Use new variable expansion policy.
  if (POLICY CMP0053)
    cmake_policy(SET CMP0053 NEW)
-@@ -71,6 +77,15 @@ project(xerces-c
-         LANGUAGES C CXX)
- enable_testing()
- 
-+SET(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
-+if(MSVC)
-+  if(NOT BUILD_SHARED_LIBS)
-+	if(MSVC_STATIC_RUNTIME_LIBRARY)
-+      set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-+	endif()
-+  endif()
-+endif()
-+
- # For autotools header compatibility
- set(PACKAGE "${PROJECT_NAME}")
- set(PACKAGE_NAME "${PROJECT_NAME}")

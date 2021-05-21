@@ -11,10 +11,8 @@ project(XML_common CXX)
 
 set(CPACK_COMPONENT_SAX-COMMON_DISPLAY_NAME "XML common headers")
 
-if (LibXML_SAX_BUILD_SHARED OR LibXML_SAX_BUILD_STATIC)
-  install(DIRECTORY include/xml
-    DESTINATION ${LibXML_INSTALL_INCLUDE}
-    COMPONENT sax-common
-    FILES_MATCHING PATTERN "*.h"
-  )
-endif ()
+install(DIRECTORY include/xml
+  DESTINATION ${LibXML_INSTALL_INCLUDE}
+  COMPONENT sax-common
+  FILES_MATCHING PATTERN "*.h"
+)

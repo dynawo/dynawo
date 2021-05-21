@@ -77,8 +77,6 @@ $> make install
 
 | Options | Default | Description |
 | ------- | ------- | ----------- |
-| LIBZIP_BUILD_SHARED | ON | Build LibZIP as shared library |
-| LIBZIP_BUILD_STATIC | ON | Build LibZIP as static library |
 | LIBZIP_BUILD_TESTS | ON | Build LibZIP tests |
 | LIBZIP_BUILD_SAMPLES | ON | Build LibZIP samples |
 

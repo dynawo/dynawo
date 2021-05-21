@@ -25,7 +25,7 @@ set(SOLVER_KINSOL_INCLUDE_HEADERS
   DYNSolverKINSubModel.h
 )
 
-add_library(dynawo_SolverKINSOL ${LIBRARY_TYPE} ${SOLVER_KINSOL_SOURCES})
+add_library(dynawo_SolverKINSOL SHARED ${SOLVER_KINSOL_SOURCES})
 
 target_include_directories(dynawo_SolverKINSOL
   INTERFACE

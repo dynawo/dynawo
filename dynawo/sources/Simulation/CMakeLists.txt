@@ -21,7 +21,7 @@ set(SIM_INCLUDE_HEADERS
     DYNSimulationLauncher.h
     )
 
-add_library(dynawo_Simulation ${LIBRARY_TYPE} ${SIM_SOURCES})
+add_library(dynawo_Simulation SHARED ${SIM_SOURCES})
 
 target_include_directories(dynawo_Simulation
   INTERFACE
@@ -72,7 +72,7 @@ set(SIMCOMMON_INCLUDE_HEADERS
     DYNSimulationContext.h
     )
 
-add_library(dynawo_SimulationCommon ${LIBRARY_TYPE} ${SIMCOMMON_SOURCES})
+add_library(dynawo_SimulationCommon SHARED ${SIMCOMMON_SOURCES})
 
 target_include_directories(dynawo_SimulationCommon
   INTERFACE

@@ -38,7 +38,7 @@ set(API_CSTR_INCLUDE_HEADERS
     CSTRTxtExporter.h
     )
 
-add_library(dynawo_API_CSTR ${LIBRARY_TYPE} ${API_CSTR_SOURCES})
+add_library(dynawo_API_CSTR SHARED ${API_CSTR_SOURCES})
 
 target_include_directories(dynawo_API_CSTR
   INTERFACE

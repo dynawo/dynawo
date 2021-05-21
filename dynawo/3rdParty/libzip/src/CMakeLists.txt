@@ -19,48 +19,16 @@ set(libzip_SOURCES
 include(LibZipVersion)
 GetLibZipVersion()
 
-if (LIBZIP_BUILD_SHARED)
-    unset(LibArchive_INCLUDE_DIR CACHE)
-    unset(LibArchive_LIBRARY CACHE)
-    find_package(LibArchive 2.8.0 REQUIRED)
+unset(LibArchive_INCLUDE_DIR CACHE)
+unset(LibArchive_LIBRARY CACHE)
+find_package(LibArchive 2.8.0 REQUIRED)
 
-    add_library(${CMAKE_PROJECT_NAME} SHARED ${libzip_SOURCES})
-    target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${LibArchive_INCLUDE_DIRS})
+add_library(${CMAKE_PROJECT_NAME} SHARED ${libzip_SOURCES})
+target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${LibArchive_INCLUDE_DIRS})
 
-    set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES SOVERSION ${LibZIP_SOVERSION} VERSION ${LibZIP_VERSION} WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
-    target_link_libraries(${CMAKE_PROJECT_NAME} ${LibArchive_LIBRARIES})
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES SOVERSION ${LibZIP_SOVERSION} VERSION ${LibZIP_VERSION} WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+target_link_libraries(${CMAKE_PROJECT_NAME} ${LibArchive_LIBRARIES})
 
-    install(TARGETS ${CMAKE_PROJECT_NAME} RUNTIME DESTINATION ${BIN_INSTALL_DIR} LIBRARY DESTINATION ${LIB_INSTALL_DIR} ARCHIVE DESTINATION ${LIB_INSTALL_DIR} COMPONENT libraries)
-endif ()
-
-if (LIBZIP_BUILD_STATIC)
-    unset(LibArchive_INCLUDE_DIR CACHE)
-    unset(LibArchive_LIBRARY CACHE)
-    if (MSVC)
-     set(CMAKE_FIND_LIBRARY_SUFFIXES_bak "${CMAKE_FIND_LIBRARY_SUFFIXES}")
-     set(CMAKE_FIND_LIBRARY_SUFFIXES "_static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-    endif()
-    find_package(LibArchive 2.8.0 REQUIRED)
-    if (MSVC)
-      if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-        set(CMAKE_FIND_LIBRARY_SUFFIXES "staticd${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-      else()
-       set(CMAKE_FIND_LIBRARY_SUFFIXES "static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-      endif()
-    endif()
-    find_package(ZLIB 1.2.11 REQUIRED)
-    if (MSVC)
-      set(CMAKE_FIND_LIBRARY_SUFFIXES "${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-    endif()
-
-    add_library(${CMAKE_PROJECT_NAME}-static STATIC ${libzip_SOURCES})
-    target_include_directories(${CMAKE_PROJECT_NAME}-static PUBLIC ${LibArchive_INCLUDE_DIRS})
-
-    set_target_properties(${CMAKE_PROJECT_NAME}-static PROPERTIES OUTPUT_NAME ${CMAKE_PROJECT_NAME} COMPILE_DEFINITIONS LIBARCHIVE_STATIC)
-
-    target_link_libraries(${CMAKE_PROJECT_NAME}-static ${LibArchive_LIBRARIES} ${ZLIB_LIBRARIES})
-
-    install(TARGETS ${CMAKE_PROJECT_NAME}-static ARCHIVE DESTINATION ${LIB_INSTALL_DIR} COMPONENT libraries)
-endif ()
+install(TARGETS ${CMAKE_PROJECT_NAME} RUNTIME DESTINATION ${BIN_INSTALL_DIR} LIBRARY DESTINATION ${LIB_INSTALL_DIR} ARCHIVE DESTINATION ${LIB_INSTALL_DIR} COMPONENT libraries)
 
 install(DIRECTORY ../include/libzip DESTINATION ${INCLUDE_INSTALL_DIR} PATTERN ".svn" EXCLUDE)

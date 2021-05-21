@@ -39,7 +39,7 @@ set(API_TL_INCLUDE_HEADERS
     TLXmlExporter.h
     )
 
-add_library(dynawo_API_TL ${LIBRARY_TYPE} ${API_TL_SOURCES})
+add_library(dynawo_API_TL SHARED ${API_TL_SOURCES})
 
 target_include_directories(dynawo_API_TL
   INTERFACE

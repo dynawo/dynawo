@@ -19,12 +19,8 @@ project(zip)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-set(LIBZIP_BUILD_SHARED TRUE CACHE BOOL "Build LibZIP as shared library.")
-set(LIBZIP_BUILD_STATIC TRUE CACHE BOOL "Build LibZIP as static library.")
 set(LIBZIP_BUILD_TESTS TRUE CACHE BOOL "Build LibZIP tests.")
 set(LIBZIP_BUILD_SAMPLES TRUE CACHE BOOL "Build LibZIP samples.")
-
-set(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -36,14 +32,6 @@ endif ()
 if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build: Debug Release RelWithDebInfo MinSizeRel" FORCE)
 endif ()
-
-if(MSVC)
-  if(LIBZIP_BUILD_STATIC)
-    if(MSVC_STATIC_RUNTIME_LIBRARY)
-      set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-    endif()
-  endif()
-endif()
 
 if(NOT MSVC)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")

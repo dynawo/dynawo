@@ -26,7 +26,7 @@ set(SOLVER_COMMON_INCLUDE_HEADERS
     DYNParameterSolver.hpp
     )
 
-add_library(dynawo_SolverCommon ${LIBRARY_TYPE} ${SOLVER_COMMON_SOURCES})
+add_library(dynawo_SolverCommon SHARED ${SOLVER_COMMON_SOURCES})
 
 target_include_directories(dynawo_SolverCommon
   INTERFACE

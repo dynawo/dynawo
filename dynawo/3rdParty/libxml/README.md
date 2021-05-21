@@ -48,10 +48,6 @@ Open a "*Invite des commandes des outils natifs x64 de VS2015*"
 
 # CMake variables associated
 
-- At least one of the following property must be TRUE:
-    - **LibXML_SAX_BUILD_SHARED**     (*TRUE*: build / *FALSE*: do not build) XML shared library
-    - **LibXML_SAX_BUILD_STATIC**     (*TRUE*: build / *FALSE*: do not build) XML static library
-
 - Variables controlling components build
     - **LibXML_SAX_BUILD_FORMATTER**  (*ON*: build / *OFF*: do not build) XML SAX formatter
     - **LibXML_SAX_BUILD_PARSER**     (*ON*: build / *OFF*: do not build) XML SAX parser

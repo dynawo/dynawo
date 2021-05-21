@@ -34,7 +34,6 @@
         "BUILD_TESTS_COVERAGE": "OFF",
         "BOOST_ROOT_DEFAULT": "true",
         "DYNAWO_DEBUG_COMPILER_OPTION": "-O0",
-        "BUILD_SHARED_LIBS": "ON",
         "TMP_DIR": "${workspaceFolder}/build-code/tmp",
         "DOWNLOAD_DIR": "${workspaceFolder}/build-code/src",
         "GTEST_ROOT": "${workspaceFolder}/build-code/Install/3rdParty/googletest",

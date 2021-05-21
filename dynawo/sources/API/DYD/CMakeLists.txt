@@ -92,7 +92,7 @@ set(API_DYD_INCLUDE_HEADERS
     DYDWhiteBoxModelCommon.h
     )
 
-add_library(dynawo_API_DYD ${LIBRARY_TYPE} ${API_DYD_SOURCES})
+add_library(dynawo_API_DYD SHARED ${API_DYD_SOURCES})
 
 target_include_directories(dynawo_API_DYD
   INTERFACE

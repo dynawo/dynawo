@@ -32,15 +32,6 @@ option(BUILD_XML "enables the XML support." OFF)
 
 option(BUILD_SAMPLES "enables the building of the samples (only those related to built components)." OFF)
 
-# making an option allow "shared" to be the default value
-option(IIDM_BUILD_SHARED "build shared libraries instead of static ones" ON)
-
-set(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
-
-if(NOT IIDM_BUILD_SHARED)
-  set(LibXML_USE_STATIC_LIBS True)
-endif()
-
 set(CXX11_ENABLED OFF CACHE BOOL "activates the C++11 compilation")
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
@@ -51,21 +42,13 @@ else()
   set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "build type, one of (Release, Debug, RelWithDebInfo)")
 endif()
 
-if(MSVC)
-  if(NOT IIDM_BUILD_SHARED)
-    if(MSVC_STATIC_RUNTIME_LIBRARY)
-      set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-    endif()
-  endif()
-endif()
-
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 set(BOOST_ROOT ${BOOST_ROOT} CACHE STRING "Boost library install directory")
 
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} CACHE STRING "pathes where cmake searches for package-config.cmake files")
 
-set(BUILD_SHARED_LIBS ${IIDM_BUILD_SHARED})
+set(BUILD_SHARED_LIBS ON) # Required in order dependencies to be retrieved properly
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 

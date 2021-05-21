@@ -46,7 +46,7 @@ set(API_CRV_INCLUDE_HEADERS
   CRVCsvExporter.h
   )
 
-add_library(dynawo_API_CRV ${LIBRARY_TYPE} ${API_CRV_SOURCES})
+add_library(dynawo_API_CRV SHARED ${API_CRV_SOURCES})
 
 target_include_directories(dynawo_API_CRV
   INTERFACE
