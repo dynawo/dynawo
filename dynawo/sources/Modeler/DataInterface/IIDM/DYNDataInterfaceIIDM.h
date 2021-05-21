@@ -170,13 +170,13 @@ class DataInterfaceIIDM : public DataInterface {
   void exportStateVariables();
 
   /**
-   * @copydoc DataInterface::configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria)
+   * @copydoc DataInterface::configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria, std::vector<boost::shared_ptr<Criteria> >& criterias)
    */
   void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
     std::vector<boost::shared_ptr<Criteria> >& criterias);
 
   /**
-   * @copydoc DataInterface::checkCriteria(double t, bool finalStep)
+   * @copydoc DataInterface::checkCriteria(double t, bool finalStep, const std::vector<boost::shared_ptr<Criteria> >& criterias)
    */
   bool checkCriteria(double t, bool finalStep,
     const std::vector<boost::shared_ptr<Criteria> >& criterias);
@@ -360,6 +360,7 @@ class DataInterfaceIIDM : public DataInterface {
    * @brief configure the bus criteria
    *
    * @param criteria criteria to be used
+   * @param criterias the criteria to update
    */
   void configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
     std::vector<boost::shared_ptr<Criteria> >& criterias);
@@ -368,6 +369,7 @@ class DataInterfaceIIDM : public DataInterface {
    * @brief configure the load criteria
    *
    * @param criteria criteria to be used
+   * @param criterias the criteria to update
    */
   void configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
     std::vector<boost::shared_ptr<Criteria> >& criterias);
@@ -376,6 +378,7 @@ class DataInterfaceIIDM : public DataInterface {
    * @brief configure the generator criteria
    *
    * @param criteria criteria to be used
+   * @param criterias the criteria to update
    */
   void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
     std::vector<boost::shared_ptr<Criteria> >& criterias);

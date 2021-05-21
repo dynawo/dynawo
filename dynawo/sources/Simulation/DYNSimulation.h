@@ -562,7 +562,7 @@ class Simulation {
   bool dumpGlobalInitValues_;  ///< whether to export the results from the global initialisation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
 
-  std::vector<boost::shared_ptr<Criteria> > criteria_;
+  std::vector<boost::shared_ptr<Criteria> > criteria_;  ///< Table of criteria to check
 
  private:
   /**

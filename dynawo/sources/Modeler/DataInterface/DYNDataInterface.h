@@ -114,7 +114,8 @@ class DataInterface {
 
   /**
    * @brief set the criteria for this model
-   * @param criteria criteria to be used
+   * @param criteria configuration criteria to be used
+   * @param criterias the criteria to update
    */
   virtual void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
     std::vector<boost::shared_ptr<Criteria> >& criterias) = 0;
@@ -123,6 +124,7 @@ class DataInterface {
    * @brief check if criteria for static model is respected
    * @param t current time of the simulation
    * @param finalStep @b true check criteria at each iteration, @b false check only at the end of simulation
+   * @param criterias the list of criterias to check
    * @return false if criteria is not respected
    */
   virtual bool checkCriteria(double t, bool finalStep, const std::vector<boost::shared_ptr<Criteria> >& criterias) = 0;
