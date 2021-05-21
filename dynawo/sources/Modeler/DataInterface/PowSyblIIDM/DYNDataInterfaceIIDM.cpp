@@ -89,7 +89,6 @@ boost::shared_ptr<DataInterface>
 DataInterfaceIIDM::build(std::string iidmFilePath) {
   boost::shared_ptr<DataInterfaceIIDM>  data;
   try {
-    std::ifstream inputStream(iidmFilePath);
     stdcxx::Properties properties;
     properties.set(powsybl::iidm::converter::ImportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
     powsybl::iidm::converter::ImportOptions options(properties);
@@ -109,8 +108,7 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
       powsybl::iidm::ExtensionProviders<powsybl::iidm::converter::xml::ExtensionXmlSerializer>::getInstance().loadExtensions(paths[i], fileRegex);
     }
 
-    powsybl::iidm::converter::FakeAnonymizer anonymizer;
-    powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(inputStream, options, anonymizer);
+    powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(boost::filesystem::path(iidmFilePath), options);
 
     data.reset(new DataInterfaceIIDM(std::move(networkIIDM)));
     data->initFromIIDM();
@@ -124,15 +122,11 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
 void
 DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
   try {
-    std::ofstream outputStream(iidmFilePath);
-    if (!outputStream) {
-      throw DYNError(Error::GENERAL, FileGenerationFailed, iidmFilePath, "invalid file name or permissions");
-    }
     stdcxx::Properties properties;
     properties.set(powsybl::iidm::converter::ExportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
     powsybl::iidm::converter::ExportOptions options(properties);
 
-    powsybl::iidm::Network::writeXml(outputStream, networkIIDM_, options);
+    powsybl::iidm::Network::writeXml(boost::filesystem::path(iidmFilePath), networkIIDM_, options);
   } catch (const powsybl::PowsyblException& exp) {
     throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFilePath, exp.what());
   }

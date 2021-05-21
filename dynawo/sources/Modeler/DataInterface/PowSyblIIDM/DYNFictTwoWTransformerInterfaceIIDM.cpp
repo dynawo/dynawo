@@ -131,7 +131,7 @@ namespace DYN {
 
   double
   FictTwoWTransformerInterfaceIIDM::getVNom2() const {
-    return leg_.get().getTerminal().getVoltageLevel().getNominalVoltage();
+    return leg_.get().getTerminal().getVoltageLevel().getNominalV();
   }
 
   double

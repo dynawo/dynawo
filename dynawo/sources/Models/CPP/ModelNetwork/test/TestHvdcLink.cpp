@@ -78,7 +78,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
 
   powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
       .setId("MyVoltageLevel")
-      .setNominalVoltage(5.)
+      .setNominalV(5.)
       .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
       .setHighVoltageLimit(2.)
       .setLowVoltageLimit(.5)
@@ -136,7 +136,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
         .setConverterStationId1("MyVscConverterStation")
         .setConverterStationId2("MyVscConverterStation2")
         .setMaxP(12.0)
-        .setNominalVoltage(13.0)
+        .setNominalV(13.0)
         .setR(14.0)
         .setActivePowerSetpoint(111.1)
         .add();
@@ -173,7 +173,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
         .setConverterStationId1("MyLccConverter")
         .setConverterStationId2("MyLccConverter2")
         .setMaxP(12.0)
-        .setNominalVoltage(13.0)
+        .setNominalV(13.0)
         .setR(14.0)
         .setActivePowerSetpoint(111.1)
         .add();

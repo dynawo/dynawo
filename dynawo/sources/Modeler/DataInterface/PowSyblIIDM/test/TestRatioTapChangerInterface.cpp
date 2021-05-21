@@ -49,7 +49,7 @@ createTwoWindingsTransformerNetwork() {
                           .setId("VL1")
                           .setName("VL1_NAME")
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(380.0)
+                          .setNominalV(380.0)
                           .setLowVoltageLimit(340.0)
                           .setHighVoltageLimit(420.0)
                           .add();
@@ -70,7 +70,7 @@ createTwoWindingsTransformerNetwork() {
                           .setId("VL2")
                           .setName("VL2_NAME")
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(225.0)
+                          .setNominalV(225.0)
                           .setLowVoltageLimit(200.0)
                           .setHighVoltageLimit(260.0)
                           .add();
@@ -239,7 +239,7 @@ createThreeWindingsTransformerNetwork() {
                           .setId("VL1")
                           .setName("VL1_NAME")
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(380.0)
+                          .setNominalV(380.0)
                           .setLowVoltageLimit(340.0)
                           .setHighVoltageLimit(420.0)
                           .add();
@@ -260,7 +260,7 @@ createThreeWindingsTransformerNetwork() {
                           .setId("VL2")
                           .setName("VL2_NAME")
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(225.0)
+                          .setNominalV(225.0)
                           .setLowVoltageLimit(200.0)
                           .setHighVoltageLimit(260.0)
                           .add();
@@ -281,7 +281,7 @@ createThreeWindingsTransformerNetwork() {
                           .setId("VL3")
                           .setName("VL3_NAME")
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(380.0)
+                          .setNominalV(380.0)
                           .setLowVoltageLimit(340.0)
                           .setHighVoltageLimit(420.0)
                           .add();
@@ -299,7 +299,7 @@ createThreeWindingsTransformerNetwork() {
                           .setId("VL4")
                           .setName("VL4_NAME")
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(225.0)
+                          .setNominalV(225.0)
                           .setLowVoltageLimit(200.0)
                           .setHighVoltageLimit(260.0)
                           .add();

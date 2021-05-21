@@ -45,7 +45,7 @@ TEST(DataInterfaceTest, testBusInterface) {
 
   VoltageLevel& vl1 = s.newVoltageLevel()
       .setId("VL1")
-      .setNominalVoltage(400.)
+      .setNominalV(400.)
       .setTopologyKind(TopologyKind::BUS_BREAKER)
       .setHighVoltageLimit(420.)
       .setLowVoltageLimit(380.)
@@ -87,7 +87,7 @@ TEST(DataInterfaceTest, testBusInterfaceCornerCases) {
 
   VoltageLevel& vl1 = s.newVoltageLevel()
       .setId("VL1")
-      .setNominalVoltage(400.)
+      .setNominalV(400.)
       .setTopologyKind(TopologyKind::BUS_BREAKER)
       .add();
 
@@ -110,7 +110,7 @@ TEST(DataInterfaceTest, testCalculatedBusInterface) {
   VoltageLevel& vl = s.newVoltageLevel()
       .setId("MyVoltageLevel")
       .setTopologyKind(TopologyKind::NODE_BREAKER)
-      .setNominalVoltage(400.0)
+      .setNominalV(400.0)
       .setLowVoltageLimit(380.0)
       .setHighVoltageLimit(420.0)
       .add();
