@@ -128,7 +128,7 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
 
  private:
   boost::shared_ptr<Model> model_;  ///< instance of model to interact with
-  Solver* timeSchemeSolver_;  ///< instance of time-schme solver to interact with
+  Solver* timeSchemeSolver_;  ///< instance of time-scheme solver to interact with
 };
 
 }  // namespace DYN
