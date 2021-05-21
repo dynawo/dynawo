@@ -34,6 +34,8 @@ target_include_directories(dynawo_SolverKINSOL
     $<TARGET_PROPERTY:Sundials::Sundials_NVECSERIAL,INTERFACE_INCLUDE_DIRECTORIES>
   PRIVATE
     $<TARGET_PROPERTY:dynawo_ModelerCommon,INTERFACE_INCLUDE_DIRECTORIES>
+  PUBLIC
+    $<TARGET_PROPERTY:dynawo_SolverCommon,INTERFACE_INCLUDE_DIRECTORIES>
 )
 target_include_directories(dynawo_SolverKINSOL SYSTEM
   PRIVATE

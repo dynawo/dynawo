@@ -24,11 +24,13 @@ target_include_directories(${MODULE_NAME}
 
 target_link_libraries(${MODULE_NAME}
   dynawo_Test
+  dynawo_SolverCommon
   dynawo_SolverKINSOL
   dynawo_ModelerCommon
   dynawo_API_DYD
   dynawo_API_TL
-  dynawo_DataInterface)
+  dynawo_DataInterface
+  Sundials::Sundials_NVECSERIAL)
 
 if(CXX11_ENABLED)
   target_link_libraries(${MODULE_NAME}
@@ -37,7 +39,23 @@ if(CXX11_ENABLED)
 endif()
 
 add_custom_target(${MODULE_NAME}-tests
-  COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" "DYNAWO_XSD_DIR=./" $<TARGET_FILE:${MODULE_NAME}>
+  COMMAND ${CMAKE_COMMAND} -E env "${runtime_PATH}"
+  "${runtime_tests_PATH}"
+  "DYNAWO_INSTALL_DIR=${installdir}"
+  "DYNAWO_DDB_DIR=${ddbdir}"
+  "DYNAWO_SCRIPTS_DIR=${sbindir}"
+  "DYNAWO_RESOURCES_DIR=${sharedir}"
+  "DYNAWO_DICTIONARIES=dictionaries_mapping"
+  "DYNAWO_XSD_DIR=${sharedir}/xsd/"
+  "DYNAWO_ADEPT_INSTALL_DIR=${ADEPT_HOME}"
+  "DYNAWO_INSTALL_OPENMODELICA=${INSTALL_OPENMODELICA}"
+  "DYNAWO_XERCESC_INSTALL_DIR=${XERCESC_HOME}"
+  "DYNAWO_SUITESPARSE_INSTALL_DIR=${SUITESPARSE_HOME}"
+  "DYNAWO_SUNDIALS_INSTALL_DIR=${SUNDIALS_HOME}"
+  "DYNAWO_BOOST_HOME=${BOOST_ROOT}"
+  "DYNAWO_LIBXML_HOME=${LIBXML_HOME}"
+  "DYNAWO_NICSLU_INSTALL_DIR=${NICSLU_HOME}"
+  $<TARGET_FILE:${MODULE_NAME}>
   DEPENDS
     ${MODULE_NAME}-pre-tests
     ${MODULE_NAME}
