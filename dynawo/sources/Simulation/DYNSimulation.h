@@ -31,6 +31,7 @@
 #include "DYNSignalHandler.h"
 #include "PARParametersSetCollection.h"
 #include "DYNDataInterface.h"
+#include "DYNCriteria.h"
 
 namespace timeline {
 class Timeline;
@@ -560,6 +561,8 @@ class Simulation {
   bool dumpLocalInitValues_;  ///< whether to export the results from the local initialisation
   bool dumpGlobalInitValues_;  ///< whether to export the results from the global initialisation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
+
+  std::vector<boost::shared_ptr<Criteria> > criteria_;  ///< Criteria array to check
 
  private:
   /**

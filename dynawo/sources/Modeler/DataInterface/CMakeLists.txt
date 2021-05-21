@@ -52,6 +52,7 @@ set(DATA_INTERFACE_INCLUDE_HEADERS
     DYNStateVariable.hpp
     DYNStaticParameter.h
     DYNStaticParameter.hpp
+    DYNCriteria.h
     DYNConverterInterface.h
     DYNServiceManagerInterface.h
     )
