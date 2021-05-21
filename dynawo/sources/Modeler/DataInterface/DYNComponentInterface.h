@@ -25,6 +25,12 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
 
+#ifdef LANG_CXX11
+#include <mutex>
+#include <unordered_map>
+#include <thread>
+#endif
+
 namespace DYN {
 
 class SubModel;
@@ -197,8 +203,26 @@ class ComponentInterface {
   ComponentType_t type_;  ///< type of the interface
 
  private:
+#ifdef LANG_CXX11
+  struct DynamicModelDef {
+    DynamicModelDef() = default;
+    explicit DynamicModelDef(bool hasDynamicModel, const boost::shared_ptr<SubModel>& modelDyn): hasDynamicModel_(hasDynamicModel), modelDyn_(modelDyn) {}
+    bool hasDynamicModel_ = false;  ///< @b true is component has a dynamic model (other than c++ one), @b false else
+    boost::shared_ptr<SubModel> modelDyn_;  ///< dynamic model of the component
+  };
+#endif
+
+  boost::shared_ptr<SubModel> getModelDyn() const;
+
+ private:
+#ifdef LANG_CXX11
+  std::unordered_map<std::thread::id, DynamicModelDef> dynamicDef_;
+  mutable std::mutex dynamicDefMutex_;
+#else
   bool hasDynamicModel_;  ///< @b true is component has a dynamic model (other than c++ one), @b false else
   boost::shared_ptr<SubModel> modelDyn_;  ///< dynamic model of the component
+#endif
+
 #ifdef _DEBUG_
   bool checkStateVariableAreUpdatedBeforeCriteriaCheck_;  ///< true if we want to check that all state variable used in check criteria are properly updated
 #endif

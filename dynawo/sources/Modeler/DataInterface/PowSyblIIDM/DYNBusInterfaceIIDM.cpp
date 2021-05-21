@@ -34,8 +34,7 @@ using std::string;
 namespace DYN {
 
 BusInterfaceIIDM::BusInterfaceIIDM(Bus& bus) :
-busIIDM_(bus),
-hasConnection_(false) {
+busIIDM_(bus) {
   setType(ComponentInterface::BUS);
   if (!std::isnan(busIIDM_.getV()))
     U0_ = busIIDM_.getV();
@@ -107,12 +106,21 @@ BusInterfaceIIDM::getStateVarAngle() const {
 
 void
 BusInterfaceIIDM::hasConnection(bool hasConnection) {
-  hasConnection_ = hasConnection;
+  auto thread_id = std::this_thread::get_id();
+  if (hasConnections_.map().count(thread_id) == 0) {
+    hasConnections_.insert({thread_id, hasConnection});
+    return;
+  }
+  hasConnections_.at(thread_id) = hasConnection;
 }
 
 bool
 BusInterfaceIIDM::hasConnection() const {
-  return hasConnection_;
+  if (hasConnections_.map().count(std::this_thread::get_id()) == 0) {
+    // considered as default value in case it is not set
+    return false;
+  }
+  return hasConnections_.at(std::this_thread::get_id());
 }
 
 int

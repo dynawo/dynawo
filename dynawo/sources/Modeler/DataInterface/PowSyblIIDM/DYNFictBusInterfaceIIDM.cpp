@@ -28,7 +28,7 @@ using std::string;
 
 namespace DYN {
 FictBusInterfaceIIDM::FictBusInterfaceIIDM(const string& Id, double VNom, const string& country) : Id_(Id),
-                                          Vnom_(VNom), hasConnection_(false),
+                                          Vnom_(VNom),
                                           U0_(VNom), angle0_(defaultAngle0), country_(country) {
   setType(ComponentInterface::BUS);
   stateVariables_.resize(2);
@@ -72,12 +72,21 @@ FictBusInterfaceIIDM::getID() const {
 
 void
 FictBusInterfaceIIDM::hasConnection(bool hasConnection) {
-  hasConnection_ = hasConnection;
+  auto thread_id = std::this_thread::get_id();
+  if (hasConnections_.map().count(thread_id) == 0) {
+    hasConnections_.insert({thread_id, hasConnection});
+    return;
+  }
+  hasConnections_.at(thread_id) = hasConnection;
 }
 
 bool
 FictBusInterfaceIIDM::hasConnection() const {
-  return hasConnection_;
+  if (hasConnections_.map().count(std::this_thread::get_id()) == 0) {
+    // considered as default value in case it is not set
+    return false;
+  }
+  return hasConnections_.at(std::this_thread::get_id());
 }
 
 void

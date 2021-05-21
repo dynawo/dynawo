@@ -23,6 +23,7 @@
 #include <boost/optional.hpp>
 
 #include "DYNBusInterface.h"
+#include "DYNSafeUnorderedMapThread.hpp"
 
 namespace DYN {
 
@@ -161,7 +162,7 @@ class FictBusInterfaceIIDM : public BusInterface {
  private:
   std::string Id_;                     ///< Id of fictitious bus
   double Vnom_;                        ///< nominal voltage of fictitious bar in kV
-  bool hasConnection_;                 ///< @b true if the bus has an outside connection, @b false else
+  SafeUnorderedMapThread<bool> hasConnections_;  ///< @b true if the bus has an outside connection, @b false else, by thread id
   double U0_;         ///< initial voltage
   double angle0_;     ///< initial angle
   std::string country_;                ///< country of the bus

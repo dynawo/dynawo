@@ -25,6 +25,7 @@
 #include <boost/optional.hpp>
 
 #include "DYNBusInterface.h"
+#include "DYNSafeUnorderedMapThread.hpp"
 
 namespace DYN {
 
@@ -151,7 +152,7 @@ class BusInterfaceIIDM : public BusInterface {
 
  private:
   powsybl::iidm::Bus& busIIDM_;        ///< reference to the iidm bus instance
-  bool hasConnection_;                 ///< @b true if the bus has an outside connection, @b false else
+  SafeUnorderedMapThread<bool> hasConnections_;  ///< @b true if the bus has an outside connection, @b false else, by thread id
   // state variables
   boost::optional<double> U0_;         ///< initial voltage
   boost::optional<double> angle0_;     ///< initial angle

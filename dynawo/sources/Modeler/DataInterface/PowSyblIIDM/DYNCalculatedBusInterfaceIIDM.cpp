@@ -38,8 +38,7 @@ namespace DYN {
 CalculatedBusInterfaceIIDM::CalculatedBusInterfaceIIDM(powsybl::iidm::VoltageLevel& voltageLevel, const string& name, const int busIndex) :
 busIndex_(busIndex),
 name_(name),
-voltageLevel_(voltageLevel),
-hasConnection_(false) {
+voltageLevel_(voltageLevel) {
   setType(ComponentInterface::CALCULATED_BUS);
   stateVariables_.resize(2);
   bool neededForCriteriaCheck = true;
@@ -126,12 +125,21 @@ CalculatedBusInterfaceIIDM::getStateVarAngle() const {
 
 void
 CalculatedBusInterfaceIIDM::hasConnection(bool hasConnection) {
-  hasConnection_ = hasConnection;
+  auto thread_id = std::this_thread::get_id();
+  if (hasConnections_.map().count(thread_id) == 0) {
+    hasConnections_.insert({thread_id, hasConnection});
+    return;
+  }
+  hasConnections_.at(thread_id) = hasConnection;
 }
 
 bool
 CalculatedBusInterfaceIIDM::hasConnection() const {
-  return hasConnection_;
+  if (hasConnections_.map().count(std::this_thread::get_id()) == 0) {
+    // considered as default value in case it is not set
+    return false;
+  }
+  return hasConnections_.at(std::this_thread::get_id());
 }
 
 int

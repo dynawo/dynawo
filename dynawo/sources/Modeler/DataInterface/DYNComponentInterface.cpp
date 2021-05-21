@@ -30,8 +30,10 @@ using std::map;
 namespace DYN {
 
 ComponentInterface::ComponentInterface() :
-type_(UNKNOWN),
-hasDynamicModel_(false) {
+type_(UNKNOWN) {
+#ifndef LANG_CXX11
+  hasDynamicModel_ = false;
+#endif
 #ifdef _DEBUG_
   checkStateVariableAreUpdatedBeforeCriteriaCheck_ = false;
 #endif
@@ -42,17 +44,58 @@ ComponentInterface::~ComponentInterface() {
 
 void
 ComponentInterface::hasDynamicModel(bool hasDynamicModel) {
+#ifdef LANG_CXX11
+  auto thread_id = std::this_thread::get_id();
+  if (dynamicDef_.count(thread_id) == 0) {
+    std::unique_lock<std::mutex> lock(dynamicDefMutex_);
+    dynamicDef_.insert({thread_id, DynamicModelDef(hasDynamicModel, nullptr)});
+    return;
+  }
+  dynamicDef_.at(thread_id).hasDynamicModel_ = hasDynamicModel;
+#else
   hasDynamicModel_ = hasDynamicModel;
+#endif
 }
 
 bool
 ComponentInterface::hasDynamicModel() const {
+#ifdef LANG_CXX11
+  auto thread_id = std::this_thread::get_id();
+  if (dynamicDef_.count(thread_id) == 0) {
+    return false;
+  }
+  return dynamicDef_.at(thread_id).hasDynamicModel_;
+#else
   return hasDynamicModel_;
+#endif
 }
 
 void
 ComponentInterface::setModelDyn(const shared_ptr<SubModel>& model) {
+#ifdef LANG_CXX11
+  auto thread_id = std::this_thread::get_id();
+  if (dynamicDef_.count(thread_id) == 0) {
+    std::unique_lock<std::mutex> lock(dynamicDefMutex_);
+    dynamicDef_.insert({thread_id, DynamicModelDef(false, model)});
+    return;
+  }
+  dynamicDef_.at(thread_id).modelDyn_ = model;
+#else
   modelDyn_ = model;
+#endif
+}
+
+boost::shared_ptr<SubModel>
+ComponentInterface::getModelDyn() const {
+#ifdef LANG_CXX11
+  auto thread_id = std::this_thread::get_id();
+  if (dynamicDef_.count(thread_id) == 0) {
+    return nullptr;
+  }
+  return dynamicDef_.at(thread_id).modelDyn_;
+#else
+  return modelDyn_;
+#endif
 }
 
 void
@@ -69,7 +112,7 @@ ComponentInterface::updateFromModel(bool filterForCriteriaCheck) {
   for (unsigned int i =0; i< stateVariables_.size(); ++i) {
     StateVariable& var = stateVariables_[i];
     if (!filterForCriteriaCheck || var.isNeededForCriteriaCheck())
-      var.setValue(modelDyn_->getVariableValue(var.getVariable()));
+      var.setValue(getModelDyn()->getVariableValue(var.getVariable()));
   }
 }
 
@@ -88,13 +131,12 @@ ComponentInterface::exportStateVariables() {
 
 void
 ComponentInterface::getStateVariableReference() {
-  assert(modelDyn_);
   for (unsigned int i=0; i< stateVariables_.size(); ++i) {
     try {
-      if (hasDynamicModel_)
-        stateVariables_[i].setVariable(modelDyn_->getVariable(stateVariables_[i].getVariableId()));
+      if (hasDynamicModel())
+        stateVariables_[i].setVariable(getModelDyn()->getVariable(stateVariables_[i].getVariableId()));
       else  /// specific for network models
-        stateVariables_[i].setVariable(modelDyn_->getVariable(stateVariables_[i].getModelId() + "_" + stateVariables_[i].getVariableId()));
+        stateVariables_[i].setVariable(getModelDyn()->getVariable(stateVariables_[i].getModelId() + "_" + stateVariables_[i].getVariableId()));
     } catch (const DYN::Error &) {
       throw DYNError(Error::MODELER, StateVariableNoReference, stateVariables_[i].getName(), getID());
     }

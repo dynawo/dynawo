@@ -15,6 +15,7 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNCALCULATEDBUSINTERFACEIIDM_H_
 
 #include "DYNBusInterface.h"
+#include "DYNSafeUnorderedMapThread.hpp"
 
 #include <powsybl/iidm/VoltageLevel.hpp>
 #include <powsybl/iidm/Bus.hpp>
@@ -192,7 +193,7 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
   std::string name_;  ///< name of the calculated bus
   std::set<int> nodes_;  ///< index of the nodes associated to the bus
   powsybl::iidm::VoltageLevel& voltageLevel_;  ///< IIDM voltage level instance
-  bool hasConnection_;  ///< @b true if the bus has an outside connection, @b false else
+  SafeUnorderedMapThread<bool> hasConnections_;  ///< @b true if the bus has an outside connection, @b false else, by thread id
   std::string country_;  ///< country of the bus
   std::vector<std::string> bbsNames_;  ///< names of the bus bar sections
   std::vector<stdcxx::Reference<powsybl::iidm::BusbarSection>> bbs_;  ///< bus bar sections
