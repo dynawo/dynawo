@@ -226,7 +226,7 @@ else()
 endif()
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
-  find_package(Boost 1.64 REQUIRED
+  find_package(Boost "${Boost_RequiredVersion}" REQUIRED
           COMPONENTS
           filesystem
           program_options
