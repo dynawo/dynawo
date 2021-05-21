@@ -37,6 +37,8 @@
 #include <powsybl/iidm/Network.hpp>
 #include <boost/unordered_set.hpp>
 
+#include <mutex>
+
 namespace DYN {
 
 class DataInterfaceIIDM : public DataInterface {
@@ -379,6 +381,8 @@ class DataInterfaceIIDM : public DataInterface {
   boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   boost::unordered_map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
   boost::shared_ptr<ServiceManagerInterfaceIIDM> serviceManager_;  ///< Service manager
+
+  static std::mutex loadExtensionMutex_;  ///< Mutex to protect access to singleton for extension during build
 };  ///< Generic data interface for IIDM format files
 }  // namespace DYN
 

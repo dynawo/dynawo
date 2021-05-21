@@ -76,6 +76,9 @@ using boost::dynamic_pointer_cast;
 using criteria::CriteriaCollection;
 
 namespace DYN {
+
+std::mutex DataInterfaceIIDM::loadExtensionMutex_;
+
 DataInterfaceIIDM::DataInterfaceIIDM(powsybl::iidm::Network&& networkIIDM) :
 networkIIDM_(std::forward<powsybl::iidm::Network>(networkIIDM)),
 serviceManager_(boost::make_shared<ServiceManagerInterfaceIIDM>(this)) {
@@ -103,9 +106,12 @@ DataInterfaceIIDM::build(const std::string& iidmFilePath, unsigned int nbVariant
 #endif
     boost::split(paths, extensionsPaths, boost::is_any_of(splitCharacter));
 
-    for (unsigned int i = 0; i < paths.size(); ++i) {
-      std::regex fileRegex(stdcxx::format(".*libiidm-ext-.*\\%1%", boost::dll::shared_library::suffix().string()));
-      powsybl::iidm::ExtensionProviders<powsybl::iidm::converter::xml::ExtensionXmlSerializer>::getInstance().loadExtensions(paths[i], fileRegex);
+    {
+      std::unique_lock<std::mutex> lock(loadExtensionMutex_);
+      for (unsigned int i = 0; i < paths.size(); ++i) {
+        std::regex fileRegex(stdcxx::format(".*libiidm-ext-.*\\%1%", boost::dll::shared_library::suffix().string()));
+        powsybl::iidm::ExtensionProviders<powsybl::iidm::converter::xml::ExtensionXmlSerializer>::getInstance().loadExtensions(paths[i], fileRegex);
+      }
     }
 
     powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(boost::filesystem::path(iidmFilePath), options);
