@@ -180,7 +180,7 @@ TEST(AlgebraicSolvers, testInit) {
 TEST(AlgebraicSolvers, testModifySettings) {
   boost::shared_ptr<Model> model = initModelFromDyd("dyd/solverTestAlpha.dyd");
   boost::shared_ptr<SolverKINAlgRestoration> solver(new SolverKINAlgRestoration());
-  ASSERT_NO_THROW(solver->init(model, SolverKINAlgRestoration::KIN_NORMAL));
+  ASSERT_NO_THROW(solver->init(model, SolverKINAlgRestoration::KIN_ALGEBRAIC));
   ASSERT_NO_THROW(solver->setupNewAlgebraicRestoration(1e-4, 0.1, 1e-4, 1000, 0, 15, 0));
 
   std::vector<double> vectorY(model->sizeY());
@@ -241,7 +241,7 @@ TEST(AlgebraicSolvers, testModifySettings) {
   ASSERT_EQ(vectorYp[1], 0.);
 
   boost::shared_ptr<SolverKINAlgRestoration> solver2(new SolverKINAlgRestoration());
-  ASSERT_NO_THROW(solver2->init(model, SolverKINAlgRestoration::KIN_YPRIM));
+  ASSERT_NO_THROW(solver2->init(model, SolverKINAlgRestoration::KIN_DERIVATIVES));
   ASSERT_NO_THROW(solver2->setupNewAlgebraicRestoration(1e-4, 0.1, 1e-4, 1000, 0, 15, 0));
 
   vectorY[0] = -4.;
@@ -275,8 +275,8 @@ TEST(AlgebraicSolvers, testModifySettings) {
   // KINSetPrintLevel
   ASSERT_THROW_DYNAWO(solver->setupNewAlgebraicRestoration(1, 1, 1, 1, 1, 1, -1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
 
-  ASSERT_EQ(SolverKINAlgRestoration::stringFromMode(SolverKINAlgRestoration::modeKin_t::KIN_NORMAL), "normal");
-  ASSERT_EQ(SolverKINAlgRestoration::stringFromMode(SolverKINAlgRestoration::modeKin_t::KIN_YPRIM), "derivatives");
+  ASSERT_EQ(SolverKINAlgRestoration::stringFromMode(SolverKINAlgRestoration::modeKin_t::KIN_ALGEBRAIC), "algebraic");
+  ASSERT_EQ(SolverKINAlgRestoration::stringFromMode(SolverKINAlgRestoration::modeKin_t::KIN_DERIVATIVES), "derivatives");
 }
 
 TEST(AlgebraicSolvers, testAnalyseFlag) {

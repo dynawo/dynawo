@@ -144,7 +144,6 @@ SolverSIM::defineSpecificParameters() {
   parameters_.insert(make_pair("printfl", ParameterSolver("printfl", VAR_TYPE_INT, optional)));
   parameters_.insert(make_pair("optimizeAlgebraicResidualsEvaluations", ParameterSolver("optimizeAlgebraicResidualsEvaluations", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("skipNRIfInitialGuessOK", ParameterSolver("skipNRIfInitialGuessOK", VAR_TYPE_BOOL, optional)));
-  parameters_.insert(make_pair("minimalAcceptableStep", ParameterSolver("minimalAcceptableStep", VAR_TYPE_DOUBLE, optional)));
 }
 
 void
@@ -182,9 +181,6 @@ SolverSIM::setSolverSpecificParameters() {
   const ParameterSolver& skipNRIfInitialGuessOK = findParameter("skipNRIfInitialGuessOK");
   if (skipNRIfInitialGuessOK.hasValue())
     skipNRIfInitialGuessOK_ = skipNRIfInitialGuessOK.getValue<bool>();
-  const ParameterSolver& minimalAcceptableStep = findParameter("minimalAcceptableStep");
-  if (minimalAcceptableStep.hasValue())
-    minimalAcceptableStep_ = minimalAcceptableStep.getValue<double>();
 }
 
 std::string
@@ -213,7 +209,7 @@ SolverSIM::init(const shared_ptr<Model> &model, const double & t0, const double 
   }
 
   solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
-  solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL);
+  solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_ALGEBRAIC);
 
   setDifferentialVariablesIndices();
 

@@ -53,8 +53,8 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * or only solve the new value of the derivative of differential variables
    */
   typedef enum {
-    KIN_NORMAL,  ///< solve only algebraic equations
-    KIN_YPRIM  ///< solve the new value of the derivative of differential variables
+    KIN_ALGEBRAIC,  ///< solve only algebraic equations
+    KIN_DERIVATIVES  ///< solve the new value of the derivative of differential variables
   } modeKin_t;
 
   /**
@@ -184,9 +184,9 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   /**
    * @brief computes and collects the equations and variables' types
    *
-   * @return true if KINSOL structure needs to be allocated
+   * @return number of F
    */
-  bool initVarAndEqTypes();
+  unsigned int initVarAndEqTypes();
 
   /**
   * @brief modify the solver settings
