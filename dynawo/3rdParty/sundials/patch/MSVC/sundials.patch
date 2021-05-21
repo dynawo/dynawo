@@ -1,20 +1,3 @@
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 24f4baa..338a0af 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -23,6 +23,12 @@
- # to require CMake 3.10
- cmake_minimum_required(VERSION 3.5)
- 
-+if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
-+  if(POLICY CMP0091)
-+    cmake_policy(SET CMP0091 NEW)
-+  endif()
-+endif()
-+
- # Project SUNDIALS (initially only C supported)
- # sets PROJECT_SOURCE_DIR and PROJECT_BINARY_DIR variables
- project(sundials C)
 diff --git a/src/sunlinsol/klu/sunlinsol_klu.c b/src/sunlinsol/klu/sunlinsol_klu.c
 index 000a4e2..67e2fbd 100644
 --- a/src/sunlinsol/klu/sunlinsol_klu.c
