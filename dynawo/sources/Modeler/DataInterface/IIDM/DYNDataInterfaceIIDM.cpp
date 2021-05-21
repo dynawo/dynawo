@@ -135,6 +135,7 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
     IIDM::Network networkIIDM = parser.from_xml(iidmFilePath, xsdValidation);
     data.reset(new DataInterfaceIIDM(networkIIDM));
     data->initFromIIDM();
+    data->importStaticParameters();
   } catch (const xml::sax::parser::ParserException& exp) {
     throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFilePath, exp.what());
   }
@@ -1151,15 +1152,17 @@ DataInterfaceIIDM::exportStateVariables() {
 }
 
 void
-DataInterfaceIIDM::configureCriteria(const shared_ptr<CriteriaCollection>& criteria) {
-  configureBusCriteria(criteria);
-  configureLoadCriteria(criteria);
-  configureGeneratorCriteria(criteria);
+DataInterfaceIIDM::configureCriteria(const shared_ptr<CriteriaCollection>& criteria,
+    std::vector<boost::shared_ptr<Criteria> >& criterias) {
+  configureBusCriteria(criteria, criterias);
+  configureLoadCriteria(criteria, criterias);
+  configureGeneratorCriteria(criteria, criterias);
 }
 
 
 void
-DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
+DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
+    std::vector<boost::shared_ptr<Criteria> >& criterias) {
   for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::BUS),
       itEnd = criteria->end(CriteriaCollection::BUS);
       it != itEnd; ++it) {
@@ -1213,13 +1216,14 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
       }
     }
     if (!dynCriteria->empty()) {
-      criteria_.push_back(dynCriteria);
+      criterias.push_back(dynCriteria);
     }
   }
 }
 
 void
-DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
+DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
+    std::vector<boost::shared_ptr<Criteria> >& criterias) {
   for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::LOAD),
       itEnd = criteria->end(CriteriaCollection::LOAD);
       it != itEnd; ++it) {
@@ -1260,13 +1264,14 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
       }
     }
     if (!dynCriteria->empty()) {
-      criteria_.push_back(dynCriteria);
+      criterias.push_back(dynCriteria);
     }
   }
 }
 
 void
-DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
+DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
+    std::vector<boost::shared_ptr<Criteria> >& criterias) {
   for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::GENERATOR),
       itEnd = criteria->end(CriteriaCollection::GENERATOR);
       it != itEnd; ++it) {
@@ -1307,13 +1312,14 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
       }
     }
     if (!dynCriteria->empty()) {
-      criteria_.push_back(dynCriteria);
+      criterias.push_back(dynCriteria);
     }
   }
 }
 
 bool
-DataInterfaceIIDM::checkCriteria(double t, bool finalStep) {
+DataInterfaceIIDM::checkCriteria(double t, bool finalStep,
+    const std::vector<boost::shared_ptr<Criteria> >& criterias) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("DataInterfaceIIDM::checkCriteria");
 #endif
@@ -1323,7 +1329,7 @@ DataInterfaceIIDM::checkCriteria(double t, bool finalStep) {
   }
 #endif
   bool criteriaOk = true;
-  for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criteria_.begin(), itEnd = criteria_.end();
+  for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criterias.begin(), itEnd = criterias.end();
       it != itEnd; ++it) {
     criteriaOk &= (*it)->checkCriteria(t, finalStep);
   }
@@ -1333,15 +1339,6 @@ DataInterfaceIIDM::checkCriteria(double t, bool finalStep) {
   }
 #endif
   return criteriaOk;
-}
-
-void
-DataInterfaceIIDM::getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const {
-  for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criteria_.begin(), itEnd = criteria_.end();
-      it != itEnd; ++it) {
-    const std::vector<std::pair<double, std::string> >& ids = (*it)->getFailingCriteria();
-    failingCriteria.insert(failingCriteria.end(), ids.begin(), ids.end());
-  }
 }
 
 double

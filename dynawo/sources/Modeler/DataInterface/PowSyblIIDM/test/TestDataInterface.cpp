@@ -34,6 +34,7 @@
 #include "DYNTwoWTransformerInterfaceIIDM.h"
 #include "DYNSubModelFactory.h"
 #include "DYNSubModel.h"
+#include "DYNLoadInterfaceIIDM.h"
 #include "DYNModelMulti.h"
 #include "DYNNetworkInterface.h"
 #include "DYNThreeWTransformerInterfaceIIDM.h"
@@ -67,6 +68,8 @@
 #include <powsybl/iidm/GeneratorAdder.hpp>
 #include <powsybl/iidm/StaticVarCompensator.hpp>
 #include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
+
+#include <thread>
 
 using boost::shared_ptr;
 
@@ -1651,5 +1654,51 @@ TEST(DataInterfaceIIDMTest, testImportExport) {
   ASSERT_EQ(outputNetwork.getId(), inputNetwork.getId());
   ASSERT_EQ(outputNetwork.getId(), network.getId());
   ASSERT_EQ(inputNetwork.getId(), network.getId());
+}
+
+TEST(DataInterfaceIIDMTest, testMultiThreading) {
+  const powsybl::iidm::Network& network = createNodeBreakerNetworkIIDM();
+
+  shared_ptr<DataInterfaceIIDM> dataOutput = createDataItfFromNetwork(createNodeBreakerNetworkIIDM());
+  ASSERT_NO_THROW(dataOutput->dumpToFile("network.xml"));
+  const powsybl::iidm::Network& outputNetwork = dataOutput->getNetworkIIDM();
+  ASSERT_THROW_DYNAWO(dataOutput->dumpToFile(".."), Error::GENERAL, KeyError_t::XmlFileParsingError);
+
+  shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network.xml");
+  ASSERT_FALSE(dataInput->canUseVariant());
+  dataInput = DataInterfaceIIDM::build("network.xml", 2);
+  ASSERT_TRUE(dataInput->canUseVariant());
+  shared_ptr<DataInterfaceIIDM> dataInputIIDM = boost::dynamic_pointer_cast<DataInterfaceIIDM>(dataInput);
+  const powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
+
+  ASSERT_EQ(outputNetwork.getId(), inputNetwork.getId());
+  ASSERT_EQ(outputNetwork.getId(), network.getId());
+  ASSERT_EQ(inputNetwork.getId(), network.getId());
+
+  auto load_interface_ptr = dataInput->getNetwork()->getVoltageLevels()[0]->getLoads().front();
+  auto load_iterface_iidm_ptr = boost::dynamic_pointer_cast<LoadInterfaceIIDM>(load_interface_ptr);
+  auto& load = load_iterface_iidm_ptr->getUnderlyingLoad();
+
+  std::thread launch0([&dataInput, &load](){
+    dataInput->useVariant("0");
+    load.setP0(3.0);
+    load.setQ0(5.0);
+  });
+  std::thread launch1([&dataInput, &load](){
+    dataInput->useVariant("1");
+    load.setP0(2.0);
+    load.setQ0(4.0);
+  });
+
+  launch0.join();
+  launch1.join();
+
+  dataInput->useVariant("0");
+  ASSERT_EQ(load.getP0(), 3.0);
+  ASSERT_EQ(load.getQ0(), 5.0);
+
+  dataInput->useVariant("1");
+  ASSERT_EQ(load.getP0(), 2.0);
+  ASSERT_EQ(load.getQ0(), 4.0);
 }
 }  // namespace DYN

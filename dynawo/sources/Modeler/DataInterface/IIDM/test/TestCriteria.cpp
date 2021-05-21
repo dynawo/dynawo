@@ -314,6 +314,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
 
 TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  std::vector<boost::shared_ptr<DYN::Criteria> > criterias;
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setUNomMin(225);
   criteriap->setUNomMax(400);
@@ -323,9 +324,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   collection->add(CriteriaCollection::BUS, criteria);
   shared_ptr<DataInterface> data = createBusBreakerNetwork(180, 225);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // not eligible
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -338,9 +339,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   collection->add(CriteriaCollection::BUS, criteria);
   data = createBusBreakerNetwork(190, 200);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // vNom < min
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -354,9 +355,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   collection->add(CriteriaCollection::BUS, criteria);
   data = createBusBreakerNetwork(190, 225);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -371,9 +372,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   collection->add(CriteriaCollection::BUS, criteria);
   data = createBusBreakerNetwork(190, 225);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom but criteria filter is KO
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -388,9 +389,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   collection->add(CriteriaCollection::BUS, criteria);
   data = createBusBreakerNetwork(190, 225);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom and criteria filter is OK
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -405,9 +406,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   collection->add(CriteriaCollection::BUS, criteria);
   data = createBusBreakerNetwork(190, 225, false);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom and criteria filter is OK
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -421,9 +422,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   collection->add(CriteriaCollection::BUS, criteria);
   data = createBusBreakerNetwork(190, 200);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // bus not found
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -438,9 +439,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   collection->add(CriteriaCollection::BUS, criteria);
   data = createBusBreakerNetwork(190, 225);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -455,10 +456,10 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   collection->add(CriteriaCollection::BUS, criteria);
   data = createBusBreakerNetwork(190, 225);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(0, false));
-  ASSERT_FALSE(data->checkCriteria(0, true));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
+  ASSERT_FALSE(data->checkCriteria(0, true, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -474,9 +475,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   collection->add(CriteriaCollection::BUS, criteria);
   data = createBusBreakerNetwork(190, 225);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom but the bus is ignored due to country filter
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -492,9 +493,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   collection->add(CriteriaCollection::BUS, criteria);
   data = createBusBreakerNetwork(190, 225);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom and the country filter is OK
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -510,9 +511,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   collection->add(CriteriaCollection::BUS, criteria);
   data = createBusBreakerNetwork(190, 225, false);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom and the country filter is OK
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
@@ -700,6 +701,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  std::vector<boost::shared_ptr<DYN::Criteria> > criterias;
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
   criteriap->setUNomMin(225);
@@ -711,9 +713,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   shared_ptr<DataInterface> data = createBusBreakerNetworkWithLoads(180, 225, 100, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // not eligible
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -728,9 +730,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(190, 200, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // vNom < min
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -745,9 +747,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(190, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -762,9 +764,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -780,9 +782,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax but country filter is KO
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -798,9 +800,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax and country filter is OK
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -816,9 +818,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100, false);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax and country filter is OK
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -834,9 +836,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 200, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // load not found
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -852,9 +854,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -870,9 +872,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P < PMax
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -888,10 +890,10 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(0, false));
-  ASSERT_FALSE(data->checkCriteria(0, true));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
+  ASSERT_FALSE(data->checkCriteria(0, true, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -908,9 +910,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax but country filter is KO
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -927,9 +929,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax and country filter is OK
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -946,13 +948,14 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100, false);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax and country filter is OK
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  std::vector<boost::shared_ptr<DYN::Criteria> > criterias;
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
   criteriap->setUNomMin(225);
@@ -964,9 +967,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::LOAD, criteria);
   shared_ptr<DataInterface> data = createBusBreakerNetworkWithLoads(180, 225, 100, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // not eligible
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -981,9 +984,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(190, 200, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // vNom < min
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -998,9 +1001,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(190, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1016,9 +1019,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 200, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // load not found
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1033,9 +1036,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 50, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // sum(P)<= PMax
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1051,13 +1054,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax
-  ASSERT_FALSE(data->checkCriteria(0, false));
-  std::vector<std::pair<double, std::string> > failingCriteria;
-  data->getFailingCriteria(failingCriteria);
-  ASSERT_EQ(failingCriteria.size(), 1);
-  ASSERT_EQ(failingCriteria[0].second, "SourcePowerAboveMax 300 150 MyCriteria");
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1073,9 +1072,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P < PMax
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1090,10 +1089,10 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::LOAD, criteria);
   data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(0, false));
-  ASSERT_FALSE(data->checkCriteria(0, true));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
+  ASSERT_FALSE(data->checkCriteria(0, true, criterias));
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
@@ -1281,6 +1280,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  std::vector<boost::shared_ptr<DYN::Criteria> > criterias;
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
   criteriap->setUNomMin(225);
@@ -1292,9 +1292,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   shared_ptr<DataInterface> data = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // not eligible
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1309,9 +1309,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(190, 200, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // vNom < min
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1326,9 +1326,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(190, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1343,9 +1343,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1361,9 +1361,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax but country filter is KO
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1379,9 +1379,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax and country filter is OK
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1397,9 +1397,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax and country filter is OK
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1415,9 +1415,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 200, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // generator not found
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1433,9 +1433,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1451,9 +1451,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P < PMax
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1469,10 +1469,10 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(0, false));
-  ASSERT_FALSE(data->checkCriteria(0, true));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
+  ASSERT_FALSE(data->checkCriteria(0, true, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1489,9 +1489,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax but criteria filter is KO
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1508,9 +1508,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax and criteria filter is OK
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1527,13 +1527,14 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax and criteria filter is OK
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
+  std::vector<boost::shared_ptr<DYN::Criteria> > criterias;
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
   criteriap->setUNomMin(225);
@@ -1545,9 +1546,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   shared_ptr<DataInterface> data = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // not eligible
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1562,9 +1563,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(190, 200, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // vNom < min
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1579,9 +1580,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(190, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1597,9 +1598,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 200, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // generator not found
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1614,9 +1615,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 50, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // sum(P)<= PMax
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1631,9 +1632,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P > PMax
-  ASSERT_FALSE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1649,9 +1650,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // P < PMax
-  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1666,10 +1667,10 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
-  data->configureCriteria(collection);
+  data->configureCriteria(collection, criterias);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(0, false));
-  ASSERT_FALSE(data->checkCriteria(0, true));
+  ASSERT_TRUE(data->checkCriteria(0, false, criterias));
+  ASSERT_FALSE(data->checkCriteria(0, true, criterias));
 }
 
 }  // namespace DYN

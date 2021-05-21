@@ -105,6 +105,21 @@ class DataInterfaceIIDM : public DataInterface {
   void dumpToFile(const std::string& filepath) const;
 
   /**
+   * @copydoc DataInterface::canUseVariant() const
+   */
+  bool canUseVariant() const {
+    return false;
+  }
+
+  /**
+   * @copydoc DataInterface::useVariant(const std::string& variantName)
+   */
+  void useVariant(const std::string& variantName) {
+    // do nothing
+    (void)variantName;
+  }
+
+  /**
    * @copydoc DataInterface::getNetwork() const
    */
   boost::shared_ptr<NetworkInterface> getNetwork() const;
@@ -157,18 +172,14 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @copydoc DataInterface::configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria)
    */
-  void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
+    std::vector<boost::shared_ptr<Criteria> >& criterias);
 
   /**
    * @copydoc DataInterface::checkCriteria(double t, bool finalStep)
    */
-  bool checkCriteria(double t, bool finalStep);
-
-  /**
-   * @brief fill a vector with the ids of the failing criteria
-   * @param failingCriteria vector to fill
-   */
-  void getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const;
+  bool checkCriteria(double t, bool finalStep,
+    const std::vector<boost::shared_ptr<Criteria> >& criterias);
 
   /**
    * @copydoc DataInterface::getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName)
@@ -350,21 +361,24 @@ class DataInterfaceIIDM : public DataInterface {
    *
    * @param criteria criteria to be used
    */
-  void configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
+    std::vector<boost::shared_ptr<Criteria> >& criterias);
 
   /**
    * @brief configure the load criteria
    *
    * @param criteria criteria to be used
    */
-  void configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
+    std::vector<boost::shared_ptr<Criteria> >& criterias);
 
   /**
    * @brief configure the generator criteria
    *
    * @param criteria criteria to be used
    */
-  void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
+    std::vector<boost::shared_ptr<Criteria> >& criterias);
 
  private:
   IIDM::Network networkIIDM_;  ///< instance of the IIDM network
@@ -375,7 +389,6 @@ class DataInterfaceIIDM : public DataInterface {
   std::map<std::string, boost::shared_ptr<LoadInterface> > loadComponents_;  ///< map of loads by name
   std::map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   std::map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
-  std::vector<boost::shared_ptr<Criteria> > criteria_;  ///< table of criteria to check
   boost::shared_ptr<ServiceManagerInterfaceIIDM> serviceManager_;  ///< Service manager
 };  ///< Generic data interface for IIDM format files
 }  // namespace DYN

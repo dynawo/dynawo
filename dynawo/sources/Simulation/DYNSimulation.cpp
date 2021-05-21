@@ -257,6 +257,14 @@ Simulation::clean() {
   solver_.reset();
   data_.reset();
   dyd_.reset();
+  curvesCollection_.reset();
+  finalStateCollection_.reset();
+  constraintsCollection_.reset();
+  criteriaCollection_.reset();
+  dydFiles_.clear();
+  referenceParameters_.clear();
+  zCurrent_.clear();
+  criteria_.clear();
 }
 
 void
@@ -515,9 +523,7 @@ Simulation::loadDynamicData() {
     }
   }
   if (criteriaCollection_)
-    data_->configureCriteria(criteriaCollection_);
-
-  data_->importStaticParameters();  // Import static model's parameters' values into DataInterface, these values are useful for referece parameters.
+    data_->configureCriteria(criteriaCollection_, criteria_);
 
   dyd_->setDataInterface(data_);
 
@@ -911,14 +917,17 @@ Simulation::checkCriteria(double t, bool finalStep) {
 #endif
   const bool filterForCriteriaCheck = true;
   data_->updateFromModel(filterForCriteriaCheck);
-  bool criteriaChecked = data_->checkCriteria(t, finalStep);
+  bool criteriaChecked = data_->checkCriteria(t, finalStep, criteria_);
   return criteriaChecked;
 }
 
-
 void
 Simulation::getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const {
-  data_->getFailingCriteria(failingCriteria);
+  for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criteria_.begin(), itEnd = criteria_.end();
+      it != itEnd; ++it) {
+    const std::vector<std::pair<double, std::string> >& ids = (*it)->getFailingCriteria();
+    failingCriteria.insert(failingCriteria.end(), ids.begin(), ids.end());
+  }
 }
 
 void

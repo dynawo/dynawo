@@ -25,6 +25,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "CRTCriteriaCollection.h"
+#include "DYNCriteria.h"
 #include "DYNServiceManagerInterface.h"
 
 namespace DYN {
@@ -37,6 +38,18 @@ class DataInterface {
    * @brief Destructor
    */
   virtual ~DataInterface() { }
+
+  /**
+   * @brief Determines if variant managing is supported
+   * @returns @b true if network variant is supported, @b false if not
+   */
+  virtual bool canUseVariant() const = 0;
+
+  /**
+   * @brief Choose which network variant to use
+   * @param variantName the name of the variant to use
+   */
+  virtual void useVariant(const std::string& variantName) = 0;
 
   /**
    * @brief Getter for the network interface instance
@@ -103,7 +116,8 @@ class DataInterface {
    * @brief set the criteria for this model
    * @param criteria criteria to be used
    */
-  virtual void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) = 0;
+  virtual void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria,
+    std::vector<boost::shared_ptr<Criteria> >& criterias) = 0;
 
   /**
    * @brief check if criteria for static model is respected
@@ -111,13 +125,7 @@ class DataInterface {
    * @param finalStep @b true check criteria at each iteration, @b false check only at the end of simulation
    * @return false if criteria is not respected
    */
-  virtual bool checkCriteria(double t, bool finalStep) = 0;
-
-  /**
-   * @brief fill a vector with the ids of the failing criteria
-   * @param failingCriteria vector to fill
-   */
-  virtual void getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const = 0;
+  virtual bool checkCriteria(double t, bool finalStep, const std::vector<boost::shared_ptr<Criteria> >& criterias) = 0;
 
   /**
    * @brief get static parameter value

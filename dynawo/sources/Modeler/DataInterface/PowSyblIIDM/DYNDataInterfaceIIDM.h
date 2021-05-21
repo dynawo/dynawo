@@ -44,9 +44,10 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief Build an instance of this class by reading a file
    * @param iidmFilePath iidm file path
+   * @param nbVariants number of variants of the network
    * @return The data interface built from the input file
    */
-  static boost::shared_ptr<DataInterface> build(std::string iidmFilePath);
+  static boost::shared_ptr<DataInterface> build(const std::string& iidmFilePath, unsigned int nbVariants = 1);
 
   /**
    * @brief Constructor
@@ -81,6 +82,16 @@ class DataInterfaceIIDM : public DataInterface {
    * @param filepath file to create
    */
   void dumpToFile(const std::string& filepath) const;
+
+  /**
+   * @copydoc DataInterface::canUseVariant() const
+   */
+  bool canUseVariant() const;
+
+  /**
+   * @copydoc DataInterface::useVariant(const std::string& variantName)
+   */
+  void useVariant(const std::string& variantName);
 
   /**
    * @copydoc DataInterface::getNetwork() const
@@ -142,18 +153,12 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @copydoc DataInterface::configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria)
    */
-  void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria, std::vector<boost::shared_ptr<Criteria> >& criterias);
 
   /**
    * @copydoc DataInterface::checkCriteria(double t, bool finalStep)
    */
-  bool checkCriteria(double t, bool finalStep);
-
-  /**
-   * @brief fill a vector with the ids of the failing criteria
-   * @param failingCriteria vector to fill
-   */
-  void getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const;
+  bool checkCriteria(double t, bool finalStep, const std::vector<boost::shared_ptr<Criteria> >& criterias);
 
   /**
    * @copydoc DataInterface::getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName)
@@ -345,21 +350,21 @@ class DataInterfaceIIDM : public DataInterface {
    *
    * @param criteria criteria to be used
    */
-  void configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria, std::vector<boost::shared_ptr<Criteria> >& criterias);
 
   /**
    * @brief configure the load criteria
    *
    * @param criteria criteria to be used
    */
-  void configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria, std::vector<boost::shared_ptr<Criteria> >& criterias);
 
   /**
    * @brief configure the generator criteria
    *
    * @param criteria criteria to be used
    */
-  void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+  void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria, std::vector<boost::shared_ptr<Criteria> >& criterias);
 
  private:
   powsybl::iidm::Network networkIIDM_;                                                            ///< instance of the IIDM network
@@ -368,7 +373,6 @@ class DataInterfaceIIDM : public DataInterface {
   boost::unordered_map<std::string, boost::shared_ptr<VoltageLevelInterface> > voltageLevels_;     ///< map of voltageLevel by name
   boost::unordered_map<std::string, boost::shared_ptr<BusInterface> > busComponents_;              ///< map of bus by name
   boost::unordered_map<std::string, boost::shared_ptr<LoadInterface> > loadComponents_;            ///< map of loads by name
-  std::vector<boost::shared_ptr<Criteria> > criteria_;                                             ///< table of criteria to check
   boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   boost::unordered_map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
   boost::shared_ptr<ServiceManagerInterfaceIIDM> serviceManager_;  ///< Service manager
