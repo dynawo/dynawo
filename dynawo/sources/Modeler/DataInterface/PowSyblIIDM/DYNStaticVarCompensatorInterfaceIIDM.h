@@ -178,7 +178,6 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
  private:
   powsybl::iidm::StaticVarCompensator& staticVarCompensatorIIDM_;  ///< reference to the iidm static var compensator instance
   StaticVarCompensatorInterfaceIIDMExtension* extension_;  ///< extension's pointer
-  void* handle_;  ///< handle's pointer of the extension
   boost::function<destroy_t> destroy_extension_;  ///< function pointer to destroy the extension
 };
 }  // namespace DYN

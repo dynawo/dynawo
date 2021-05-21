@@ -1216,7 +1216,7 @@ void
 SubModel::addConstraint(const string& modelName, bool begin, const Message& description,
     const string& modelType) {
   if (constraints_) {
-    constraints::Type_t type = (begin)?constraints::CONSTRAINT_BEGIN:constraints::CONSTRAINT_END;
+    constraints::Type_t type = begin?constraints::CONSTRAINT_BEGIN:constraints::CONSTRAINT_END;
     constraints_->addConstraint(modelName, description.str(), getCurrentTime(), type, modelType);
   }
 }

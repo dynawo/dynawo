@@ -189,7 +189,7 @@ ModelHvdcLink::evalZ(const double& /*t*/) {
     setConnected2(currState2);
     stateModified_ = true;
   }
-  return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
+  return stateModified_?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
 
 void

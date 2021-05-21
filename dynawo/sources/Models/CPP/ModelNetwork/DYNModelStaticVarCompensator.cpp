@@ -226,7 +226,7 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
     stateModified_ = true;
     setConnected(currState);
   }
-  return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
+  return stateModified_?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
 
 void

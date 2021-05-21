@@ -336,7 +336,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   string compileDirPath = createAbsolutePath(thisCompiledId, modelDirPath_);
   string compileCommand = prettyPath(installDir + "/sbin")
     + "/compileModelicaModel --model " + thisCompiledId + " --model-dir " + modelDirPath_ + " --compilation-dir " + compileDirPath + " --lib " + libName +
-    " --useAliasing " + ((useAliasing)?"true":"false") + " --generateCalculatedVariables " + ((genCalculatedVariables)?"true":"false");
+    " --useAliasing " + (useAliasing?"true":"false") + " --generateCalculatedVariables " + (genCalculatedVariables?"true":"false");
 
   if (moFilesCompilation_.size() > 0) {
     string moFilesList = "";
@@ -370,7 +370,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
 
   // testing if the lib was successfully compiled (test if it exists, and if no undefined symbol was noticed)
   string lib = modelDirPath_ + "/" + libName;
-  if ((!exists(lib)) || (hasUndefinedSymbol))
+  if ((!exists(lib)) || hasUndefinedSymbol)
     throw DYNError(Error::MODELER, CompilationFailed, libName);
 
 #ifndef _DEBUG_
@@ -840,7 +840,7 @@ Compiler::concatRefs() {
   // reset old static ref and add new static ref
   map<string, shared_ptr<ModelDescription> >::iterator iMd;
   for (iMd = compiledModelDescriptions_.begin(); iMd != compiledModelDescriptions_.end(); ++iMd) {
-    shared_ptr<ModelDescription> model = (iMd)->second;
+    shared_ptr<ModelDescription> model = iMd->second;
 
     // --------------------------------
     // retrieve StaticRef elements

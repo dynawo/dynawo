@@ -1253,17 +1253,17 @@ class ReaderOMC:
                 next_iter = next(it, None) # Line on which "dropwhile" stopped
                 if next_iter is None: break # If we reach the end of the file, exit loop
                 match = re.search(ptrn_var, next_iter)
-                type = match.group("type")
+                var_type = match.group("type")
                 name = match.group("name")
                 var = self.find_variable_from_name(name)
                 if "$cse" in name:
                     set_param_address(name,  "auxiliaryVars")
                 elif  is_ignored_var(name):
                     set_param_address(name,  "SHOULD NOT BE USED - IGNORED VAR")
-                elif type == "derivativeVars":
+                elif var_type == "derivativeVars":
                     set_param_address(name,  "derivativesVars")
                     set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")",  to_param_address(name))
-                elif "$DER" in name and "algVars" in type:
+                elif "$DER" in name and "algVars" in var_type:
                     print_info("Found dummy der variable " + var.get_name())
                     set_param_address(name,  "derivativesVars")
                     set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")",  to_param_address(name))
@@ -1276,23 +1276,23 @@ class ReaderOMC:
                     var.set_fixed(False)
                     var.set_type("rAlg")
                     self.list_vars.append(var)
-                elif re.search(r'stateVars \([0-9]+\)',type) or re.search(r'algVars \([0-9]+\)',type):
+                elif re.search(r'stateVars \([0-9]+\)',var_type) or re.search(r'algVars \([0-9]+\)',var_type):
                     if not var.is_fixed():
                         set_param_address(name,  "realVars")
                     else:
                         set_param_address(name,  "constVars")
-                elif type == "discreteAlgVars":
+                elif var_type == "discreteAlgVars":
                     set_param_address(name,  "discreteVars")
-                elif type == "constVars":
+                elif var_type == "constVars":
                     set_param_address(name,  "SHOULD NOT BE USED - CONST VAR")
-                elif type == "intAlgVars":
+                elif var_type == "intAlgVars":
                     set_param_address(name,  "integerDoubleVars")
-                elif type == "boolAlgVars":
+                elif var_type == "boolAlgVars":
                     if is_when_condition(name):
                         set_param_address(name,  "booleanVars")
                     else:
                         set_param_address(name,  "discreteVars")
-                elif type == "aliasVars":
+                elif var_type == "aliasVars":
                     # fixed discrete real vars are not aliased and are initialized in Y0
                     if is_discrete_real_var(var) and var.is_fixed():
                         set_param_address(name,  "discreteVars")
@@ -1302,25 +1302,25 @@ class ReaderOMC:
                     # fixed real vars goes into the const var mechanism (either replaced by their alias if they are in the form a = b, or initialized in Y0 if more complex)
                     else:
                         set_param_address(name,  "constVars")
-                elif type == "intAliasVars":
+                elif var_type == "intAliasVars":
                     if var.is_fixed():
                         set_param_address(name,  "integerDoubleVars")
                     else:
                         set_param_address(name,  "SHOULD NOT BE USED - INT ALIAS VAR")
-                elif type == "boolAliasVars":
+                elif var_type == "boolAliasVars":
                     if var.is_fixed():
                         set_param_address(name,  "discreteVars")
                     else:
                         set_param_address(name,  "SHOULD NOT BE USED - BOOL ALIAS VAR")
-                elif type == "intConstVars":
+                elif var_type == "intConstVars":
                     set_param_address(name,  "constVars")
-                elif type == "paramVars" or type == "boolParamVars":
+                elif var_type == "paramVars" or var_type == "boolParamVars":
                     set_param_address(name,  "realParameter")
-                elif type == "intParamVars":
+                elif var_type == "intParamVars":
                     set_param_address(name,  "integerParameter")
-                elif type == "stringParamVars":
+                elif var_type == "stringParamVars":
                     set_param_address(name,  "stringParameter")
-                elif type == "extObjVars":
+                elif var_type == "extObjVars":
                     set_param_address(name,  "data->simulationInfo->extObjs["+str(index_extobjs)+"]")
                     index_extobjs+=1
                     ext = Variable();
@@ -1745,10 +1745,10 @@ class ReaderOMC:
                     index = 0
                     for params in match.group('params').split(','):
                         if(params.startswith("threadData_t")): continue
-                        type = params.split()[0]
+                        param_type = params.split()[0]
                         name = params.split()[1]
                         is_input = not name.startswith("*out_")
-                        func.add_params(OmcFunctionParameter(name, type, index, is_input))
+                        func.add_params(OmcFunctionParameter(name, param_type, index, is_input))
                         index +=1
 
                     # "takewhile" only stops when the whole body of the function is read

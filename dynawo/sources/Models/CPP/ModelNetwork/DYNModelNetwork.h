@@ -338,7 +338,7 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
    * @return the vector of network component modeled
    */
   inline std::vector<boost::shared_ptr<NetworkComponent> >& getComponents() {
-    return (isInitModel_) ?  initComponents_ : components_;
+    return isInitModel_ ?  initComponents_ : components_;
   }
 
   /**
@@ -346,7 +346,7 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
    * @return the vector of voltage levels modeled
    */
   inline std::vector<boost::shared_ptr<ModelVoltageLevel> >& getVoltageLevels() {
-    return (isInitModel_) ?  vLevelInitComponents_ : vLevelComponents_;
+    return isInitModel_ ?  vLevelInitComponents_ : vLevelComponents_;
   }
 
   /**
