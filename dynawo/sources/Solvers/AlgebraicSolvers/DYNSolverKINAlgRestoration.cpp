@@ -43,9 +43,9 @@ namespace DYN {
 string
 SolverKINAlgRestoration::stringFromMode(modeKin_t mode) {
   switch (mode) {
-    case KIN_NORMAL:
-      return "normal";
-    case KIN_YPRIM:
+    case KIN_ALGEBRAIC:
+      return "algebraic";
+    case KIN_DERIVATIVES:
       return "derivatives";
     default:
       throw DYNError(Error::GENERAL, InvalidAlgebraicMode, static_cast<int>(mode));
@@ -54,7 +54,7 @@ SolverKINAlgRestoration::stringFromMode(modeKin_t mode) {
 
 SolverKINAlgRestoration::SolverKINAlgRestoration() :
 SolverKINCommon(),
-mode_(KIN_NORMAL) {
+mode_(KIN_ALGEBRAIC) {
 #if _DEBUG_
   checkJacobian_ = false;
 #endif
@@ -84,9 +84,8 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode) {
   mode_ = mode;
 }
 
-bool
+unsigned int
 SolverKINAlgRestoration::initVarAndEqTypes() {
-  unsigned int numFPrevious = numF_;
   // For some specific models, the equation type could vary during the simulation.
   model_->evalDynamicFType();
   model_->evalDynamicYType();
@@ -94,34 +93,24 @@ SolverKINAlgRestoration::initVarAndEqTypes() {
   const std::vector<propertyF_t>& modelFType = model_->getFType();
   const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
 
-  // (2) Size of the problem
-  switch (mode_) {
-    case KIN_NORMAL:
-      numF_ = count(modelFType.begin(), modelFType.end(), DYN::ALGEBRAIC_EQ);  // Only algebraic equation
-      break;
-    case KIN_YPRIM:
-      numF_ = count(modelFType.begin(), modelFType.end(), DYN::DIFFERENTIAL_EQ);  // Only differential equation
-      break;
-  }
-
-  if (numF_ == 0)
-    return false;
-
   // Analyze variables to find differential variables and differential equation
   // depending of the kind of the problem to solve, keep differential variables/equation or algebraic variables/equation
   ignoreY_.clear();  // variables to ignore
   ignoreF_.clear();  // equations to ignore
   indexY_.clear();  // variables to keep
   indexF_.clear();  // equations to keep
+  unsigned int numF = 0;
 
   // As sizeF and sizeY are equal, it is possible to fill F and Y vectors in the same loop
   switch (mode_) {
-    case KIN_NORMAL: {
+    case KIN_ALGEBRAIC: {
       for (int i = 0; i < model_->sizeF(); ++i) {
-        if (modelFType[i] > 0)
+        if (modelFType[i] > 0) {
           ignoreF_.insert(i);
-        else
+        } else {
           indexF_.push_back(i);
+          ++numF;
+        }
 
         if (modelYType[i] > 0)
           ignoreY_.insert(i);
@@ -130,12 +119,14 @@ SolverKINAlgRestoration::initVarAndEqTypes() {
       }
       break;
     }
-    case KIN_YPRIM: {
+    case KIN_DERIVATIVES: {
       for (int i = 0; i < model_->sizeF(); ++i) {
-        if (modelFType[i] < 0)
+        if (modelFType[i] < 0) {
           ignoreF_.insert(i);
-        else
+        } else {
           indexF_.push_back(i);
+          ++numF;
+        }
 
         if (modelYType[i] < 0)
           ignoreY_.insert(i);
@@ -146,7 +137,7 @@ SolverKINAlgRestoration::initVarAndEqTypes() {
     }
   }
 
-  assert(numF_ == indexY_.size());
+  assert(numF == indexY_.size());
 
   if (ignoreF_.size() != ignoreY_.size() || indexF_.size() != indexY_.size()) {
 #ifdef _DEBUG_
@@ -164,22 +155,21 @@ SolverKINAlgRestoration::initVarAndEqTypes() {
     throw DYNError(Error::SOLVER_ALGO, SolverUnbalanced);
   }
 
-  if (numFPrevious != numF_)
-    return true;
-  else
-    return false;
+  return numF;
 }
 
 void
 SolverKINAlgRestoration::setupNewAlgebraicRestoration(double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep,
                                   int msbset, int mxiter, int printfl) {
-  bool initKinsol = initVarAndEqTypes();
+  unsigned int numFPrevious = numF_;
+  numF_ = initVarAndEqTypes();
   if (numF_ == 0)
     return;
+  bool initKinsol = (numFPrevious != numF_);
   if (initKinsol) {
-    // warning: model_->sizeF() != nbF_
+    // warning: model_->sizeF() != numF_
     // model_->sizeF() is fixed during the whole simulation
-    // nbF_ could vary
+    // numF_ could vary
     vectorF_.resize(model_->sizeF());
 
     vectorYOrYpSolution_.assign(numF_, 0.);
@@ -191,10 +181,10 @@ SolverKINAlgRestoration::setupNewAlgebraicRestoration(double fnormtol, double in
 
     clean();
     switch (mode_) {
-      case KIN_NORMAL:
+      case KIN_ALGEBRAIC:
         initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN, sundialsVectorY_);
         break;
-      case KIN_YPRIM:
+      case KIN_DERIVATIVES:
         initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJPrim_KIN, sundialsVectorY_);
         break;
     }
@@ -254,13 +244,13 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
     solver->setFirstIteration(false);
   } else {
     try {
-      if (solver->mode_ == KIN_NORMAL) {
+      if (solver->mode_ == KIN_ALGEBRAIC) {
         // add current values of algebraic variables
         for (unsigned int i = 0; i < solver->indexY_.size(); ++i) {
           solver->vectorYForRestoration_[solver->indexY_[i]] = iyy[i];
         }
         model.evalF(solver->t0_, &solver->vectorYForRestoration_[0], &solver->vectorYpForRestoration_[0], &solver->vectorF_[0]);
-      } else if (solver->mode_ == KIN_YPRIM) {
+      } else if (solver->mode_ == KIN_DERIVATIVES) {
         for (unsigned int i = 0; i < solver->indexY_.size(); ++i) {
           solver->vectorYpForRestoration_[solver->indexY_[i]] = iyy[i];
         }
@@ -414,13 +404,13 @@ SolverKINAlgRestoration::setInitialValues(const double t, const vector<double>& 
   vectorYpForRestoration_.assign(yp.begin(), yp.end());
 
   switch (mode_) {
-    case KIN_NORMAL: {
+    case KIN_ALGEBRAIC: {
       for (unsigned int i = 0; i < indexY_.size(); ++i) {
         vectorYOrYpSolution_[i] = y[indexY_[i]];
       }
       break;
     }
-    case KIN_YPRIM: {
+    case KIN_DERIVATIVES: {
       for (unsigned int i = 0; i < indexY_.size(); ++i) {
         vectorYOrYpSolution_[i] = yp[indexY_[i]];
       }
@@ -432,13 +422,13 @@ SolverKINAlgRestoration::setInitialValues(const double t, const vector<double>& 
 void
 SolverKINAlgRestoration::getValues(vector<double>& y, vector<double>& yp) {
   switch (mode_) {
-    case KIN_NORMAL: {
+    case KIN_ALGEBRAIC: {
       for (unsigned int i = 0; i < indexY_.size(); ++i) {
         y[indexY_[i]] = vectorYOrYpSolution_[i];
       }
       break;
     }
-    case KIN_YPRIM: {
+    case KIN_DERIVATIVES: {
       for (unsigned int i = 0; i < indexY_.size(); ++i) {
         yp[indexY_[i]] = vectorYOrYpSolution_[i];
       }

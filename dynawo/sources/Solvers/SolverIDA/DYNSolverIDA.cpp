@@ -352,8 +352,8 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
   //-----------------------
   solverKINNormal_.reset(new SolverKINAlgRestoration());
   solverKINYPrim_.reset(new SolverKINAlgRestoration());
-  solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL);
-  solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_YPRIM);
+  solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_ALGEBRAIC);
+  solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
 }
 
 void
@@ -802,8 +802,10 @@ SolverIDA::getRootsFound() const {
 #endif
 
 double SolverIDA::getTimeStep() const {
-  double hused;
-  IDAGetLastStep(IDAMem_, &hused);
+  double hused = 0.;
+  int flag = IDAGetLastStep(IDAMem_, &hused);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetLastStep");
   return hused;
 }
 
@@ -813,7 +815,7 @@ SolverIDA::printHeaderSpecific(std::stringstream& ss) const {
 }
 
 void
-SolverIDA::getLastConf(long int &nst, int & kused, double & hused) const {
+SolverIDA::getLastConf(long int& nst, int& kused, double& hused) const {
   // number of used intern iterations
   if (IDAGetNumSteps(IDAMem_, &nst) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumSteps");
@@ -822,17 +824,14 @@ SolverIDA::getLastConf(long int &nst, int & kused, double & hused) const {
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetLastOrder");
 
   // value of last used intern time step
-  if (IDAGetLastStep(IDAMem_, &hused) < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetLastStep");
-
-  return;
+  hused = getTimeStep();
 }
 
 void
 SolverIDA::printSolveSpecific(std::stringstream& msg) const {
-  long int nst;
-  int kused;
-  double hused;
+  long int nst = 0;
+  int kused = 0;
+  double hused = 0.;
   getLastConf(nst, kused, hused);
   msg << "| " << setw(8) << nst << " "
           << setw(11) << kused << " "
