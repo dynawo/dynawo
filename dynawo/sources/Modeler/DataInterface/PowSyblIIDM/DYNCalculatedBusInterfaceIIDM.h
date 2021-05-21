@@ -15,6 +15,7 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNCALCULATEDBUSINTERFACEIIDM_H_
 
 #include "DYNBusInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 #include "DYNSafeUnorderedMapThread.hpp"
 
 #include <powsybl/iidm/VoltageLevel.hpp>
@@ -31,7 +32,7 @@ namespace DYN {
  * @class CalculatedBusInterfaceIIDM
  * @brief Specialisation of BusInterface class for calculated bus
  */
-class CalculatedBusInterfaceIIDM : public BusInterface {
+class CalculatedBusInterfaceIIDM : public ComponentInterfaceIIDM, public BusInterface {
  public:
   /**
    * @brief defines the index of each state variable

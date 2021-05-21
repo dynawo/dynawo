@@ -26,6 +26,7 @@
 
 #include "DYNGeneratorInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 namespace IIDM {
 class Generator;
@@ -36,7 +37,7 @@ namespace DYN {
 /**
  * class GeneratorInterfaceIIDM
  */
-class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfaceIIDM<IIDM::Generator> {
+class GeneratorInterfaceIIDM : public ComponentInterfaceIIDM, public GeneratorInterface, public InjectorInterfaceIIDM<IIDM::Generator> {
  public:
   /**
    * @brief defines the index of each state variable

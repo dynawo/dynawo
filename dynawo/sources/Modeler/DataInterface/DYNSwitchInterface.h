@@ -29,7 +29,7 @@ class BusInterface;
 /**
  * class SwitchInterface
  */
-class SwitchInterface : public ComponentInterface {
+class SwitchInterface : virtual public ComponentInterface {
  public:
   /**
    * @brief Destructor

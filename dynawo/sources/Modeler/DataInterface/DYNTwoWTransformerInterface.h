@@ -32,7 +32,7 @@ class VoltageLevelInterface;
 /**
  * class TwoWTransformerInterface
  */
-class TwoWTransformerInterface : public ComponentInterface {
+class TwoWTransformerInterface : virtual public ComponentInterface {
  public:
   /**
    * @brief Destructor

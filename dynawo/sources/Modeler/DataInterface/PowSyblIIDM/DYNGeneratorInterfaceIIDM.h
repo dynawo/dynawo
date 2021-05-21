@@ -25,6 +25,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNGeneratorInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 #include "DYNInjectorInterfaceIIDM.h"
 
 #include <powsybl/iidm/Generator.hpp>
@@ -34,7 +35,7 @@ namespace DYN {
 /**
  * class GeneratorInterfaceIIDM
  */
-class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfaceIIDM {
+class GeneratorInterfaceIIDM : public ComponentInterfaceIIDM, public GeneratorInterface, public InjectorInterfaceIIDM {
  public:
   /**
    * @brief defines the index of each state variable

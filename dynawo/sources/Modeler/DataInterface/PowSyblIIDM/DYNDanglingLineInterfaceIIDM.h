@@ -26,11 +26,12 @@
 
 #include "DYNDanglingLineInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
+#include "DYNComponentInterfaceIIDM.h"
 #include <powsybl/iidm/DanglingLine.hpp>
 
 namespace DYN {
 
-class DanglingLineInterfaceIIDM : public DanglingLineInterface, public InjectorInterfaceIIDM {
+class DanglingLineInterfaceIIDM : public ComponentInterfaceIIDM, public DanglingLineInterface, public InjectorInterfaceIIDM {
  public:
   /**
    * @brief defines the index of each state variable

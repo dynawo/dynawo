@@ -21,6 +21,7 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNFICTVOLTAGELEVELINTERFACEIIDM_H_
 
 #include "DYNVoltageLevelInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 #include "DYNGraph.h"
 #include "DYNCalculatedBusInterfaceIIDM.h"
 

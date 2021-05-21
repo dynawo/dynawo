@@ -30,7 +30,7 @@ class VoltageLevelInterface;
 /**
  * class LineInterface
  */
-class LineInterface : public ComponentInterface {
+class LineInterface : virtual public ComponentInterface {
  public:
   /**
    * @brief Destructor

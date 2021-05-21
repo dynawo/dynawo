@@ -26,6 +26,7 @@
 
 #include "DYNVscConverterInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 namespace IIDM {
 class VscConverterStation;
@@ -36,7 +37,7 @@ namespace DYN {
 /**
  * class VscConverterInterfaceIIDM
  */
-class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorInterfaceIIDM<IIDM::VscConverterStation> {
+class VscConverterInterfaceIIDM : public ComponentInterfaceIIDM, public VscConverterInterface, public InjectorInterfaceIIDM<IIDM::VscConverterStation> {
  public:
   /**
    * @brief Destructor

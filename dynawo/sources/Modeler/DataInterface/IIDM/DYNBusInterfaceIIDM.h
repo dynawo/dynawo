@@ -23,6 +23,7 @@
 #include <boost/optional.hpp>
 
 #include "DYNBusInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 namespace IIDM {
 class Bus;
@@ -34,7 +35,7 @@ namespace DYN {
  * @class BusInterfaceIIDM
  * @brief Specialization of BusInterface class for IIDM
  */
-class BusInterfaceIIDM : public BusInterface {
+class BusInterfaceIIDM : public ComponentInterfaceIIDM, public BusInterface {
  public:
   /**
    * @brief defines the index of each state variable

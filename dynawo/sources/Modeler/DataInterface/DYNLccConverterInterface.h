@@ -26,7 +26,7 @@
 
 namespace DYN {
 
-class LccConverterInterface : public ConverterInterface {
+class LccConverterInterface : virtual public ConverterInterface {
  public:
   /**
    * @brief Destructor

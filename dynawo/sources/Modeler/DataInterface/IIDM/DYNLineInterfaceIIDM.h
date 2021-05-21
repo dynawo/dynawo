@@ -23,6 +23,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNLineInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 namespace IIDM {
 class Line;
@@ -30,7 +31,7 @@ class Line;
 
 namespace DYN {
 
-class LineInterfaceIIDM : public LineInterface {
+class LineInterfaceIIDM : public ComponentInterfaceIIDM, public LineInterface {
  public:
   /**
    * @brief defines the index of each state variable

@@ -25,6 +25,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNShuntCompensatorInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 #include "DYNInjectorInterfaceIIDM.h"
 
 namespace IIDM {
@@ -36,7 +37,10 @@ namespace DYN {
 /**
  * class ShuntCompensatorInterfaceIIDM
  */
-class ShuntCompensatorInterfaceIIDM : public ShuntCompensatorInterface, public InjectorInterfaceIIDM<IIDM::ShuntCompensator> {
+class ShuntCompensatorInterfaceIIDM :
+    public ComponentInterfaceIIDM,
+    public ShuntCompensatorInterface,
+    public InjectorInterfaceIIDM<IIDM::ShuntCompensator> {
  public:
   /**
    * @brief defines the index of each state variable

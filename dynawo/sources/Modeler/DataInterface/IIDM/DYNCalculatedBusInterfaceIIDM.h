@@ -21,6 +21,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNBusInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 namespace IIDM {
 class VoltageLevel;
@@ -33,7 +34,7 @@ class BusBarSectionInterface;
  * @class CalculatedBusInterfaceIIDM
  * @brief Specialisation of BusInterface class for calculated bus
  */
-class CalculatedBusInterfaceIIDM : public BusInterface {
+class CalculatedBusInterfaceIIDM : public ComponentInterfaceIIDM, public BusInterface {
  public:
   /**
    * @brief defines the index of each state variable

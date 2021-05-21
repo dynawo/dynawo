@@ -27,7 +27,7 @@ class BusInterface;
 class VoltageLevelInterface;
 class CurrentLimitInterface;
 
-class DanglingLineInterface : public ComponentInterface {
+class DanglingLineInterface : virtual public ComponentInterface {
  public:
   /**
    * @brief Destructor

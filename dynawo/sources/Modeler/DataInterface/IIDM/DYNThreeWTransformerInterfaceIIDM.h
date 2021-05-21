@@ -23,6 +23,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNThreeWTransformerInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 namespace IIDM {
 class Transformer3Windings;
@@ -33,7 +34,7 @@ namespace DYN {
 /**
  * ThreeTransformerInterfaceIIDM
  */
-class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
+class ThreeWTransformerInterfaceIIDM : public ComponentInterfaceIIDM, public ThreeWTransformerInterface {
  public:
   /**
    * @brief Destructor

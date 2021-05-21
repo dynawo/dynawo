@@ -33,7 +33,7 @@ class ConverterInterface;
 /**
  * class HvdcLineInterface
  */
-class HvdcLineInterface : public ComponentInterface {
+class HvdcLineInterface : virtual public ComponentInterface {
  public:
   /**
    * @brief Definition of the hvdc converters mode

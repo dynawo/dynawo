@@ -328,6 +328,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   // not eligible
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setUNomMin(225);
@@ -343,6 +344,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   // vNom < min
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -359,6 +361,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   // v > 0.8*vNom
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -376,6 +379,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   // v > 0.8*vNom but criteria filter is KO
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -393,6 +397,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   // v > 0.8*vNom and criteria filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -410,6 +415,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   // v > 0.8*vNom and criteria filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setUNomMin(225);
@@ -426,6 +432,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   // bus not found
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -443,6 +450,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   // v > 0.8*vNom
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::FINAL);
@@ -461,6 +469,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
   ASSERT_FALSE(data->checkCriteria(0, true, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -479,6 +488,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   // v > 0.8*vNom but the bus is ignored due to country filter
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -497,6 +507,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   // v > 0.8*vNom and the country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -717,6 +728,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // not eligible
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -734,6 +746,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // vNom < min
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -751,6 +764,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -768,6 +782,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // P > PMax
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -786,6 +801,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // P > PMax but country filter is KO
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -804,6 +820,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // P > PMax and country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -822,6 +839,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // P > PMax and country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -840,6 +858,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // load not found
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -858,6 +877,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // P > PMax
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -876,6 +896,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // P < PMax
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::FINAL);
@@ -895,6 +916,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
   ASSERT_FALSE(data->checkCriteria(0, true, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -914,6 +936,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // P > PMax but country filter is KO
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -933,6 +956,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // P > PMax and country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -971,6 +995,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   // not eligible
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -988,6 +1013,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   // vNom < min
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1005,6 +1031,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1023,6 +1050,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   // load not found
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1040,6 +1068,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   // sum(P)<= PMax
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1058,6 +1087,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   // P > PMax
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1076,6 +1106,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   // P < PMax
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::FINAL);
@@ -1296,6 +1327,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // not eligible
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1313,6 +1345,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // vNom < min
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1330,6 +1363,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1347,6 +1381,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // P > PMax
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1365,6 +1400,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // P > PMax but country filter is KO
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1383,6 +1419,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // P > PMax and country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1401,6 +1438,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // P > PMax and country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1419,6 +1457,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // generator not found
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1437,6 +1476,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // P > PMax
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1455,6 +1495,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // P < PMax
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::FINAL);
@@ -1474,6 +1515,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
   ASSERT_FALSE(data->checkCriteria(0, true, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1493,6 +1535,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // P > PMax but criteria filter is KO
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1512,6 +1555,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // P > PMax and criteria filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1550,6 +1594,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   // not eligible
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1567,6 +1612,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   // vNom < min
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1584,6 +1630,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1602,6 +1649,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   // generator not found
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1619,6 +1667,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   // sum(P)<= PMax
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1636,6 +1685,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   // P > PMax
   ASSERT_FALSE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1654,6 +1704,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   // P < PMax
   ASSERT_TRUE(data->checkCriteria(0, false, criterias));
 
+  criterias.clear();
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::FINAL);

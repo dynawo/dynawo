@@ -28,7 +28,7 @@ namespace DYN {
 class BusInterface;
 class VoltageLevelInterface;
 
-class StaticVarCompensatorInterface : public ComponentInterface {
+class StaticVarCompensatorInterface : virtual public ComponentInterface {
  public:
   /**
    * @brief Definition of the regulation mode of the static var compensator

@@ -31,71 +31,12 @@ namespace DYN {
 
 ComponentInterface::ComponentInterface() :
 type_(UNKNOWN) {
-#ifndef LANG_CXX11
-  hasDynamicModel_ = false;
-#endif
 #ifdef _DEBUG_
   checkStateVariableAreUpdatedBeforeCriteriaCheck_ = false;
 #endif
 }
 
 ComponentInterface::~ComponentInterface() {
-}
-
-void
-ComponentInterface::hasDynamicModel(bool hasDynamicModel) {
-#ifdef LANG_CXX11
-  auto thread_id = std::this_thread::get_id();
-  if (dynamicDef_.count(thread_id) == 0) {
-    std::unique_lock<std::mutex> lock(dynamicDefMutex_);
-    dynamicDef_.insert({thread_id, DynamicModelDef(hasDynamicModel, nullptr)});
-    return;
-  }
-  dynamicDef_.at(thread_id).hasDynamicModel_ = hasDynamicModel;
-#else
-  hasDynamicModel_ = hasDynamicModel;
-#endif
-}
-
-bool
-ComponentInterface::hasDynamicModel() const {
-#ifdef LANG_CXX11
-  auto thread_id = std::this_thread::get_id();
-  if (dynamicDef_.count(thread_id) == 0) {
-    return false;
-  }
-  return dynamicDef_.at(thread_id).hasDynamicModel_;
-#else
-  return hasDynamicModel_;
-#endif
-}
-
-void
-ComponentInterface::setModelDyn(const shared_ptr<SubModel>& model) {
-#ifdef LANG_CXX11
-  auto thread_id = std::this_thread::get_id();
-  if (dynamicDef_.count(thread_id) == 0) {
-    std::unique_lock<std::mutex> lock(dynamicDefMutex_);
-    dynamicDef_.insert({thread_id, DynamicModelDef(false, model)});
-    return;
-  }
-  dynamicDef_.at(thread_id).modelDyn_ = model;
-#else
-  modelDyn_ = model;
-#endif
-}
-
-boost::shared_ptr<SubModel>
-ComponentInterface::getModelDyn() const {
-#ifdef LANG_CXX11
-  auto thread_id = std::this_thread::get_id();
-  if (dynamicDef_.count(thread_id) == 0) {
-    return nullptr;
-  }
-  return dynamicDef_.at(thread_id).modelDyn_;
-#else
-  return modelDyn_;
-#endif
 }
 
 void

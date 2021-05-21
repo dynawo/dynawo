@@ -24,6 +24,7 @@
 
 #include "DYNThreeWTransformerInterface.h"
 #include "DYNVoltageLevelInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 #include <powsybl/iidm/ThreeWindingsTransformer.hpp>
 
@@ -32,7 +33,7 @@ namespace DYN {
 /**
  * ThreeTransformerInterfaceIIDM
  */
-class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
+class ThreeWTransformerInterfaceIIDM : public ComponentInterfaceIIDM, public ThreeWTransformerInterface {
  public:
   /**
    * @brief Destructor

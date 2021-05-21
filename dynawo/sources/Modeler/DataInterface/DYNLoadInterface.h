@@ -30,7 +30,7 @@ class ModelLoad;
 /**
  * class LoadInterface
  */
-class LoadInterface : public ComponentInterface {
+class LoadInterface : virtual public ComponentInterface {
  public:
   /**
    * @brief Destructor

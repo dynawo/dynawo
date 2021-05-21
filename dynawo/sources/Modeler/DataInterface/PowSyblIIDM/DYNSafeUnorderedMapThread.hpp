@@ -11,6 +11,11 @@
 // simulation tool for power systems.
 //
 
+/**
+ * @file DYNSafeUnorderedMapThread.hpp
+ * @brief Specialization of safe unordered map with thread key
+ */
+
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSAFEUNORDEREDMAPTHREAD_HPP_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSAFEUNORDEREDMAPTHREAD_HPP_
 
@@ -19,6 +24,7 @@
 #include <thread>
 
 namespace DYN {
+/// @brief Alias for safe unordered map with threads
 template<typename T, typename Hash = std::hash<std::thread::id>, typename KeyEqual = std::equal_to<std::thread::id>,
          typename Allocator = std::allocator<std::pair<const std::thread::id, T> > >
 using SafeUnorderedMapThread = SafeUnorderedMap<std::thread::id, T, Hash, KeyEqual, Allocator>;

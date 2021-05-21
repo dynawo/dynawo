@@ -25,6 +25,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNLccConverterInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 #include "DYNInjectorInterfaceIIDM.h"
 
 namespace IIDM {
@@ -36,7 +37,7 @@ namespace DYN {
 /**
  * class LccConverterInterfaceIIDM
  */
-class LccConverterInterfaceIIDM : public LccConverterInterface, public InjectorInterfaceIIDM<IIDM::LccConverterStation> {
+class LccConverterInterfaceIIDM : public ComponentInterfaceIIDM, public LccConverterInterface, public InjectorInterfaceIIDM<IIDM::LccConverterStation> {
  public:
   /**
    * @brief Destructor

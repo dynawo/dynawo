@@ -24,6 +24,7 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNHVDCLINEINTERFACEIIDM_H_
 
 #include "DYNHvdcLineInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 #include <powsybl/iidm/HvdcLine.hpp>
 
@@ -33,7 +34,7 @@
 
 namespace DYN {
 
-class HvdcLineInterfaceIIDM : public HvdcLineInterface {
+class HvdcLineInterfaceIIDM : public ComponentInterfaceIIDM, public HvdcLineInterface {
  public:
   /**
    * @brief defines the index of each state variable

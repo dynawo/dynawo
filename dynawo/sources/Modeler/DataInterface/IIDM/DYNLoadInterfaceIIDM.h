@@ -26,6 +26,7 @@
 
 #include "DYNLoadInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 namespace IIDM {
 class Load;
@@ -36,7 +37,7 @@ namespace DYN {
 /**
  * class LoadInterfaceIIDM
  */
-class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM<IIDM::Load> {
+class LoadInterfaceIIDM : public ComponentInterfaceIIDM, public LoadInterface, public InjectorInterfaceIIDM<IIDM::Load> {
  public:
   /**
    * @brief defines the index of each state variable

@@ -26,7 +26,7 @@
 
 namespace DYN {
 
-class BusInterface : public ComponentInterface {
+class BusInterface : virtual public ComponentInterface {
  public:
   /**
    * @brief Destructor

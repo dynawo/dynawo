@@ -24,10 +24,11 @@
 
 #include <boost/shared_ptr.hpp>
 #include "DYNSwitchInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 namespace DYN {
 
-class SwitchInterfaceIIDM : public SwitchInterface {
+class SwitchInterfaceIIDM : public ComponentInterfaceIIDM, public SwitchInterface {
  public:
   /**
    * @brief defines the index of each state variable

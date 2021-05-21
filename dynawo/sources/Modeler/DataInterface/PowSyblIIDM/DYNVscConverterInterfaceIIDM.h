@@ -23,7 +23,7 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNVSCCONVERTERINTERFACEIIDM_H_
 
 #include "DYNVscConverterInterface.h"
-
+#include "DYNComponentInterfaceIIDM.h"
 #include "DYNInjectorInterfaceIIDM.h"
 
 #include <powsybl/iidm/VscConverterStation.hpp>
@@ -35,7 +35,7 @@ namespace DYN {
 /**
  * class VscConverterInterfaceIIDM
  */
-class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorInterfaceIIDM {
+class VscConverterInterfaceIIDM : public ComponentInterfaceIIDM, public VscConverterInterface, public InjectorInterfaceIIDM {
  public:
   /**
    * @brief Destructor

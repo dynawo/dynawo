@@ -83,13 +83,13 @@ class ComponentInterface {
    * @brief Setter for the component's hasDynamicModel_ attribute
    * @param hasDynamicModel @b true is component has a dynamic model (other than c++ one), @b false else
    */
-  void hasDynamicModel(bool hasDynamicModel);
+  virtual void hasDynamicModel(bool hasDynamicModel) = 0;
 
   /**
    * @brief Setter for the component's model attribute
    * @param model : dynamic model of the component
    */
-  void setModelDyn(const boost::shared_ptr<SubModel>& model);
+  virtual void setModelDyn(const boost::shared_ptr<SubModel>& model) = 0;
 
   /**
    * @brief associate a component variable with a model variable
@@ -103,7 +103,7 @@ class ComponentInterface {
    * @brief Getter for the component's hasDynamicModel_ attribute
    * @return  @b true is component has a dynamic model (other than c++ one), @b false else
    */
-  bool hasDynamicModel() const;
+  virtual bool hasDynamicModel() const = 0;
 
   /**
    * @brief update state variables with data from model (c++ or dynamic model)
@@ -202,27 +202,14 @@ class ComponentInterface {
   boost::unordered_map<std::string, StaticParameter> staticParameters_;  ///< static parameter by name, from iidm data
   ComponentType_t type_;  ///< type of the interface
 
- private:
-#ifdef LANG_CXX11
-  struct DynamicModelDef {
-    DynamicModelDef() = default;
-    explicit DynamicModelDef(bool hasDynamicModel, const boost::shared_ptr<SubModel>& modelDyn): hasDynamicModel_(hasDynamicModel), modelDyn_(modelDyn) {}
-    bool hasDynamicModel_ = false;  ///< @b true is component has a dynamic model (other than c++ one), @b false else
-    boost::shared_ptr<SubModel> modelDyn_;  ///< dynamic model of the component
-  };
-#endif
-
-  boost::shared_ptr<SubModel> getModelDyn() const;
+ protected:
+  /**
+   * @brief Retrieve the current dynamic model
+   * @returns the current dynamic model, NULL if not defined
+   */
+  virtual boost::shared_ptr<SubModel> getModelDyn() const = 0;
 
  private:
-#ifdef LANG_CXX11
-  std::unordered_map<std::thread::id, DynamicModelDef> dynamicDef_;
-  mutable std::mutex dynamicDefMutex_;
-#else
-  bool hasDynamicModel_;  ///< @b true is component has a dynamic model (other than c++ one), @b false else
-  boost::shared_ptr<SubModel> modelDyn_;  ///< dynamic model of the component
-#endif
-
 #ifdef _DEBUG_
   bool checkStateVariableAreUpdatedBeforeCriteriaCheck_;  ///< true if we want to check that all state variable used in check criteria are properly updated
 #endif

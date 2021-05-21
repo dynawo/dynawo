@@ -16,6 +16,7 @@ set(DATA_INTERFACE_IIDM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 set(DATA_INTERFACE_IIDM_SOURCES
     DYNBusInterfaceIIDM.cpp
+    DYNComponentInterfaceIIDM.cpp
     DYNCalculatedBusInterfaceIIDM.cpp
     DYNSwitchInterfaceIIDM.cpp
     DYNLineInterfaceIIDM.cpp

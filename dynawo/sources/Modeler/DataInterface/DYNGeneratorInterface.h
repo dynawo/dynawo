@@ -28,7 +28,7 @@ namespace DYN {
 class BusInterface;
 class VoltageLevelInterface;
 
-class GeneratorInterface : public ComponentInterface {
+class GeneratorInterface : virtual public ComponentInterface {
  public:
   /**
    * @brief Reactive curve point

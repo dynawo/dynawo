@@ -23,6 +23,8 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNTwoWTransformerInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 namespace IIDM {
 class Transformer2Windings;
@@ -33,7 +35,7 @@ namespace DYN {
 /**
  * class TwoWTransformerInterfaceIIDM
  */
-class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
+class TwoWTransformerInterfaceIIDM : public ComponentInterfaceIIDM, public TwoWTransformerInterface {
  public:
   /**
    * @brief defines the index of each state variable

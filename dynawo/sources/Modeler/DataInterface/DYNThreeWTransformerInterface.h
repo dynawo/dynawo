@@ -27,7 +27,7 @@ class BusInterface;
 class VoltageLevelInterface;
 class CurrentLimitInterface;
 
-class ThreeWTransformerInterface : public ComponentInterface {
+class ThreeWTransformerInterface : virtual public ComponentInterface {
  public:
   /**
    * @brief Destructor

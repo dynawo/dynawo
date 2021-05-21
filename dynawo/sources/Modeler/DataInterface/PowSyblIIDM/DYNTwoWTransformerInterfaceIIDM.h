@@ -21,6 +21,7 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNTWOWTRANSFORMERINTERFACEIIDM_H_
 
 #include "DYNTwoWTransformerInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -31,7 +32,7 @@ namespace DYN {
 /**
  * class TwoWTransformerInterfaceIIDM
  */
-class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
+class TwoWTransformerInterfaceIIDM : public ComponentInterfaceIIDM, public TwoWTransformerInterface {
  public:
   /**
    * @brief defines the index of each state variable

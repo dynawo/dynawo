@@ -28,6 +28,7 @@
 #include <powsybl/iidm/StaticVarCompensator.hpp>
 
 #include "DYNStaticVarCompensatorInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 #include "DYNInjectorInterfaceIIDM.h"
 #include "DYNStaticVarCompensatorInterfaceIIDMExtension.h"
 
@@ -36,7 +37,7 @@ namespace DYN {
 /**
  * class StaticVarCompensatorInterfaceIIDM
  */
-class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, public InjectorInterfaceIIDM {
+class StaticVarCompensatorInterfaceIIDM : public ComponentInterfaceIIDM, public StaticVarCompensatorInterface, public InjectorInterfaceIIDM {
  public:
   /**
    * @brief defines the index of each state variable

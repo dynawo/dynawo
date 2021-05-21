@@ -22,6 +22,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include "DYNSwitchInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 namespace IIDM {
 class Switch;
@@ -30,7 +31,7 @@ class Switch;
 namespace DYN {
 class Switch;
 
-class SwitchInterfaceIIDM : public SwitchInterface {
+class SwitchInterfaceIIDM : public ComponentInterfaceIIDM, public SwitchInterface {
  public:
   /**
    * @brief defines the index of each state variable

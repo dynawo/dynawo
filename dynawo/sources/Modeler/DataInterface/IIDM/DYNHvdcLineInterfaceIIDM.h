@@ -23,6 +23,7 @@
 #define MODELER_DATAINTERFACE_IIDM_DYNHVDCLINEINTERFACEIIDM_H_
 
 #include "DYNHvdcLineInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 
 namespace IIDM {
 class HvdcLine;
@@ -30,7 +31,7 @@ class HvdcLine;
 
 namespace DYN {
 
-class HvdcLineInterfaceIIDM : public HvdcLineInterface {
+class HvdcLineInterfaceIIDM : public ComponentInterfaceIIDM, public HvdcLineInterface {
  public:
   /**
    * @brief defines the index of each state variable

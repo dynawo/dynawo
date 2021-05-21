@@ -25,6 +25,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNDanglingLineInterface.h"
+#include "DYNComponentInterfaceIIDM.h"
 #include "DYNInjectorInterfaceIIDM.h"
 
 namespace IIDM {
@@ -33,7 +34,7 @@ class DanglingLine;
 
 namespace DYN {
 
-class DanglingLineInterfaceIIDM : public DanglingLineInterface, public InjectorInterfaceIIDM<IIDM::DanglingLine> {
+class DanglingLineInterfaceIIDM : public ComponentInterfaceIIDM, public DanglingLineInterface, public InjectorInterfaceIIDM<IIDM::DanglingLine> {
  public:
   /**
    * @brief defines the index of each state variable
