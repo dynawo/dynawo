@@ -69,12 +69,8 @@ INSTALL_DIR=$HERE/install
 BUILD_TYPE=Debug
 export_var_env DYNAWO_C_COMPILER=$(command -v gcc)
 
-export_var_env DYNAWO_LIBRARY_TYPE=SHARED
-
 if [ "`uname`" = "Linux" ]; then
   export_var_env_force DYNAWO_SHARED_LIBRARY_SUFFIX="so"
-elif [ "`uname`" = "Darwin" ]; then
-  export_var_env_force DYNAWO_SHARED_LIBRARY_SUFFIX="dylib"
 else
   echo "OS `uname` not supported."
   exit 1
@@ -98,23 +94,12 @@ install_nicslu() {
   if [ -f "$SCRIPT_DIR/$NICSLU_ARCHIVE" ]; then
     patch_nicslu
     cd $BUILD_DIR/$NICSLU_DIR
-    if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
-      if [ "${BUILD_TYPE}" = "Debug" ]; then
-        make shared DEBUGFLAG="-g" OPTIMIZATION="-O0" CC=$DYNAWO_C_COMPILER || error_exit "Error while building Nicslu"
-      else
-        make shared CC=$DYNAWO_C_COMPILER || error_exit "Error while building Nicslu"
-      fi
-      cp lib/*.$DYNAWO_SHARED_LIBRARY_SUFFIX $INSTALL_DIR/lib && cp util/*.$DYNAWO_SHARED_LIBRARY_SUFFIX $INSTALL_DIR/lib || error_exit "Error while building Nicslu"
-    elif [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
-      if [ "${BUILD_TYPE}" = "Debug" ]; then
-        make static DEBUGFLAG="-g" OPTIMIZATION="-O0" CC=$DYNAWO_C_COMPILER || error_exit "Error while building Nicslu"
-      else
-        make static CC=$DYNAWO_C_COMPILER || error_exit "Error while building Nicslu"
-      fi
-      cp lib/*.a $INSTALL_DIR/lib && cp util/*.a $INSTALL_DIR/lib || error_exit "Error while building Nicslu"
+    if [ "${BUILD_TYPE}" = "Debug" ]; then
+      make shared DEBUGFLAG="-g" OPTIMIZATION="-O0" CC=$DYNAWO_C_COMPILER || error_exit "Error while building Nicslu"
     else
-      error_exit "Error while building Nicslu BUILD_TYPE is invalid"
+      make shared CC=$DYNAWO_C_COMPILER || error_exit "Error while building Nicslu"
     fi
+    cp lib/*.$DYNAWO_SHARED_LIBRARY_SUFFIX $INSTALL_DIR/lib && cp util/*.$DYNAWO_SHARED_LIBRARY_SUFFIX $INSTALL_DIR/lib || error_exit "Error while building Nicslu"
     cp -R include $INSTALL_DIR || error_exit "Error while building Nicslu"
     cp util/nicslu_util.h $INSTALL_DIR/include || error_exit "Error while building Nicslu"
   else

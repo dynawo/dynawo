@@ -70,8 +70,8 @@ else()
 
       CONFIGURE_COMMAND   cd win32
                 COMMAND   cscript configure.js compiler=msvc iconv=no prefix=<INSTALL_DIR>
-                          debug=$<IF:$<CONFIG:Debug>,yes,no> static=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,no,yes>
-                          cruntime=$<IF:$<BOOL:${MSVC_STATIC_RUNTIME_LIBRARY}>,/MT$<$<CONFIG:Debug>:d>,/MD$<$<CONFIG:Debug>:d>>
+                          debug=$<IF:$<CONFIG:Debug>,yes,no> static=no
+                          cruntime=/MD$<$<CONFIG:Debug>:d>
 
       BUILD_COMMAND       cd win32
             COMMAND       nmake /f Makefile.msvc
@@ -99,8 +99,8 @@ else()
                           "CC=${CMAKE_C_COMPILER}"
                           "CFLAGS=${CMAKE_C_FLAGS} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0>"
                           "--prefix=<INSTALL_DIR>"
-                          "$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static>"
-                          "$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared>"
+                          "--disable-static"
+                          "--enable-shared"
                           "--without-python"
                           "--without-zlib"
 

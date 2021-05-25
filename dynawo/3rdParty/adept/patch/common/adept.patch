@@ -1,9 +1,9 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 new file mode 100644
-index 0000000..bbcf0da
+index 0000000..b2031e0
 --- /dev/null
 +++ b/CMakeLists.txt
-@@ -0,0 +1,33 @@
+@@ -0,0 +1,31 @@
 +cmake_minimum_required(VERSION 3.4.3 FATAL_ERROR)
 +
 +project(adept)
@@ -15,8 +15,6 @@ index 0000000..bbcf0da
 +set(ADEPT_VERSION_STRING ${CMAKE_MATCH_1})
 +set(ADEPT_VERSION_MAJOR  ${CMAKE_MATCH_2})
 +message("ADEPT_VERSION_STRING=${ADEPT_VERSION_STRING}")
-+
-+option(BUILD_SHARED_LIBS "Build shared libraries (.dll/.so) instead of static ones (.lib/.a)" ON)
 +
 +set(INCLUDE_INSTALL_DIR "include")
 +set(LIB_INSTALL_DIR     "lib")
@@ -39,10 +37,10 @@ index 0000000..bbcf0da
 +    )
 diff --git a/adept/CMakeLists.txt b/adept/CMakeLists.txt
 new file mode 100644
-index 0000000..11cff56
+index 0000000..91b5ac9
 --- /dev/null
 +++ b/adept/CMakeLists.txt
-@@ -0,0 +1,71 @@
+@@ -0,0 +1,67 @@
 +set(ADEPT_SOURCES
 +    Array.cpp
 +    Stack.cpp
@@ -88,10 +86,6 @@ index 0000000..11cff56
 +message("COMPILE_DEFINITIONS=[${_compile_definitions}]")
 +
 +target_compile_definitions(adept PUBLIC ${_compile_definitions})
-+
-+if(NOT BUILD_SHARED_LIBS)
-+    target_compile_definitions(adept PUBLIC ADEPT_STATIC_DEFINE)
-+endif()
 +
 +target_include_directories(adept
 +    PUBLIC

@@ -457,10 +457,8 @@ VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
     const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(nodeIndex);
     if (terminal) {
       const auto& bus = terminal.get().getBusView().getBus();
-      if (bus) {
-        if (graph_.pathExist(nodeToCheck, nodeIndex, weights)) {
-          return true;
-        }
+      if (bus && graph_.pathExist(nodeToCheck, nodeIndex, weights)) {
+        return true;
       }
     }
   }

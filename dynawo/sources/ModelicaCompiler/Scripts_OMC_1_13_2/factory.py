@@ -874,7 +874,7 @@ class Factory:
 
                 eq_mak.set_depend_vars(list_depend)
                 eq_type = ALGEBRAIC
-                if len(list(filter(lambda x : x.get_name() == name_var_eval, self.list_vars_der))) > 0:
+                if len(list(filter(lambda x, name = name_var_eval : x.get_name() == name, self.list_vars_der))) > 0:
                     eq_type = DIFFERENTIAL
                 elif name_var_eval in self.reader.var_name_to_eq_type:
                     eq_type = self.reader.var_name_to_eq_type[name_var_eval]
@@ -1233,9 +1233,9 @@ class Factory:
                             tmps_to_add.extend(add_tmp_update_relations(tmp, tmps_assignment, tmps_to_add))
                         index_relation_to_create = index_additional_relation + self.nb_existing_relations
                         index_additional_relation += 1
-                        type = eq.get_type()
-                        assert(type == ALGEBRAIC or type == DIFFERENTIAL)
-                        relation_to_create = Relation(index_relation_to_create, type)
+                        eq_type = eq.get_type()
+                        assert(eq_type == ALGEBRAIC or eq_type == DIFFERENTIAL)
+                        relation_to_create = Relation(index_relation_to_create, eq_type)
                         relation_to_create.set_condition(line)
                         relation_to_create.add_eq(eq.get_src_fct_name())
                         relation_to_create.set_body_definition("  data->simulationInfo->relations[" + str(index_relation_to_create) + "] = " + line.split(" = ")[0].replace("tmp", "tmp_cr").replace("  ", "") + ";\n")
@@ -2209,16 +2209,16 @@ class Factory:
                 func_header = func.get_return_type() + ADEPT_SUFFIX + get_adept_function_name(func) + "("
                 func_header_cpp = MODEL_NAME_NAMESPACE+func.get_return_type() + ADEPT_SUFFIX + get_adept_function_name(func) + "("
             for param in func.get_params():
-                type = param.get_type()
-                if type == "modelica_real":
-                    type = ADEPT_DOUBLE
-                elif type in self.list_adept_structs:
-                    type += "_adept"
+                param_type = param.get_type()
+                if param_type == "modelica_real":
+                    param_type = ADEPT_DOUBLE
+                elif param_type in self.list_adept_structs:
+                    param_type += "_adept"
                 last_char = ", "
                 if param.get_index() == len(func.get_params()) - 1 :
                     last_char=") "
-                func_header+=type + " " + param.get_name()+ last_char
-                func_header_cpp+=type + " " + param.get_name()+ last_char
+                func_header+=param_type + " " + param.get_name()+ last_char
+                func_header_cpp+=param_type + " " + param.get_name()+ last_char
             func_body.append(func_header_cpp.replace(get_adept_function_name(func), MODEL_NAME_NAMESPACE +get_adept_function_name(func)))
             func_header+= ";\n"
             self.list_for_evalfadept_external_call_headers.append(func_header)
@@ -2228,8 +2228,8 @@ class Factory:
                 if ptrn_modelica_integer_cast_adouble.search(line) is not None:
                     line = line.replace("(modelica_integer)","")
                 line = line.replace("modelica_real",ADEPT_DOUBLE).replace(THREAD_DATA_OMC_PARAM,"")
-                for type in self.list_adept_structs:
-                    line = line.replace(type + " ",type+ADEPT_SUFFIX)
+                for base_type in self.list_adept_structs:
+                    line = line.replace(base_type + " ",base_type+ADEPT_SUFFIX)
                 for func in list_omc_functions:
                     if func.get_name() + "(" in line or func.get_name() + " (" in line:
                         line = line.replace(func.get_name() + "(", get_adept_function_name(func) + "(")

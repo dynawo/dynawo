@@ -40,7 +40,7 @@ set(API_CRT_INCLUDE_HEADERS
   CRTXmlImporter.h
   )
 
-add_library(dynawo_API_CRT ${LIBRARY_TYPE} ${API_CRT_SOURCES})
+add_library(dynawo_API_CRT SHARED ${API_CRT_SOURCES})
 
 target_include_directories(dynawo_API_CRT
   INTERFACE

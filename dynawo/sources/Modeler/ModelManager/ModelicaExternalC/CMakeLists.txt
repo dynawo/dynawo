@@ -40,7 +40,7 @@ set(MODELICA_INCLUDE_HEADERS
 
 #set_source_files_properties(${MODELICA_SOURCES} PROPERTIES LANGUAGE CXX)
 
-add_library(Modelica_externalC ${LIBRARY_TYPE} ${MODELICA_SOURCES})
+add_library(Modelica_externalC SHARED ${MODELICA_SOURCES})
 
 target_compile_options(Modelica_externalC PRIVATE -w)
 

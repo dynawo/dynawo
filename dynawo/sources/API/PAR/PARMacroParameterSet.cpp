@@ -40,11 +40,11 @@ void
 MacroParameterSet::addReference(boost::shared_ptr<Reference> reference) {
   std::string name = reference->getName();
   std::pair<std::map<std::string, boost::shared_ptr<Reference> >::iterator, bool> ret;
-  #ifdef LANG_CXX11
+#ifdef LANG_CXX11
   ret = references_.emplace(name, reference);
-  #else
+#else
   ret = references_.insert(std::make_pair(name, reference));
-  #endif
+#endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, ReferenceAlreadySetInMacroParameterSet, reference->getName(), getId());
 }
@@ -53,11 +53,11 @@ void
 MacroParameterSet::addParameter(boost::shared_ptr<Parameter> parameter) {
   std::string name = parameter->getName();
   std::pair<std::map<std::string, boost::shared_ptr<Parameter> >::iterator, bool> ret;
-  #ifdef LANG_CXX11
+#ifdef LANG_CXX11
   ret = parameters_.emplace(name, parameter);
-  #else
+#else
   ret = parameters_.insert(std::make_pair(name, parameter));
-  #endif
+#endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, ParameterAlreadySetInMacroParameterSet, parameter->getName(), getId());
 }

@@ -46,7 +46,7 @@ set(DATA_INTERFACE_IIDM_HEADERS
   DYNStaticVarCompensatorInterfaceIIDMExtension.h
   )
 
-add_library(dynawo_DataInterfaceIIDM ${LIBRARY_TYPE} ${DATA_INTERFACE_IIDM_SOURCES})
+add_library(dynawo_DataInterfaceIIDM SHARED ${DATA_INTERFACE_IIDM_SOURCES})
 
 target_include_directories(dynawo_DataInterfaceIIDM
   INTERFACE

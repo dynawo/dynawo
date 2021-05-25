@@ -71,7 +71,7 @@ set(MODELER_INCLUDE_HEADERS
     DYNRingBuffer.h
     )
 
-add_library(dynawo_ModelerCommon ${LIBRARY_TYPE} ${MODELER_SOURCES})
+add_library(dynawo_ModelerCommon SHARED ${MODELER_SOURCES})
 
 target_compile_definitions(dynawo_ModelerCommon PUBLIC $<$<BOOL:${MSVC}>:_USE_MATH_DEFINES>)
 

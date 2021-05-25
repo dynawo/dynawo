@@ -145,9 +145,9 @@ int main(int argc, char ** argv) {
 
   // Launch the compile of the model
   try {
-    boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
-    dicos->addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
+    DYN::IoDicos& dicos = DYN::IoDicos::instance();
+    dicos.addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
+    dicos.addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
 
     // Create .c, .h and .xml files from .mo
     bool withInitFile = false;
@@ -326,7 +326,7 @@ string
 runOptions(bool useAliasing) {
   return string("simCodeTarget=C +showErrorMessages -g=Modelica "
       "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode --postOptmodules-=wrapFunctionCalls")
-      + ((useAliasing)?string():string(" --preOptModules-=comSubExp,removeSimpleEquations")) +string(" +numProcs=1 +daeMode ");
+      + (useAliasing?string():string(" --preOptModules-=comSubExp,removeSimpleEquations")) +string(" +numProcs=1 +daeMode ");
 }
 
 string

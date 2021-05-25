@@ -164,7 +164,7 @@ irYNum_(0),
 busIndex_(bus->getBusIndex()),
 hasConnection_(bus->hasConnection()),
 hasDifferentialVoltages_(false),
-modelType_((isCalculated)?"Bus":"Node") {
+modelType_(isCalculated?"Bus":"Node") {
   neighbors_.clear();
   busBarSectionNames_.clear();
   busBarSectionNames_ = bus->getBusBarSectionNames();
@@ -707,7 +707,7 @@ ModelBus::evalZ(const double& /*t*/) {
     }
     connectionState_ = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   }
-  return (topologyModified_)? NetworkComponent::TOPO_CHANGE: NetworkComponent::NO_CHANGE;
+  return topologyModified_? NetworkComponent::TOPO_CHANGE: NetworkComponent::NO_CHANGE;
 }
 
 void

@@ -17,7 +17,7 @@ set(COMMON_CPP_MODELS_HEADERS
     DYNModelCPPImpl.h
     )
 
-add_library(dynawo_CPPModelsCommon ${LIBRARY_TYPE} ${COMMON_CPP_MODELS_SOURCES})
+add_library(dynawo_CPPModelsCommon SHARED ${COMMON_CPP_MODELS_SOURCES})
 
 target_include_directories(dynawo_CPPModelsCommon
   INTERFACE

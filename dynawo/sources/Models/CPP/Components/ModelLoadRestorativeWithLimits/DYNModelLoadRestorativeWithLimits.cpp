@@ -382,7 +382,7 @@ namespace DYN {
       default:
         throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
     }
-    return (output);
+    return output;
   }
 
   void

@@ -32,14 +32,14 @@ TEST(CommonIoDicoTest, testCommonIoDicosTest) {
   ASSERT_EQ(IoDicos::hasIoDico("MyIoDico"), false);
   ASSERT_THROW(IoDicos::getIoDico("MyIoDico"), MessageError);
 
-  boost::shared_ptr<IoDicos> dicos = IoDicos::getInstance();
-  dicos->addPath("res");
-  ASSERT_NO_THROW(dicos->addDico("MyIoDico", "dico", ""));
-  ASSERT_THROW(dicos->addDico("MyIoDico", "", ""), MessageError);
-  ASSERT_THROW(dicos->addDico("MyIoDico", "MyDummyDico", ""), MessageError);
+  IoDicos& dicos = IoDicos::instance();
+  dicos.addPath("res");
+  ASSERT_NO_THROW(dicos.addDico("MyIoDico", "dico", ""));
+  ASSERT_THROW(dicos.addDico("MyIoDico", "", ""), MessageError);
+  ASSERT_THROW(dicos.addDico("MyIoDico", "MyDummyDico", ""), MessageError);
 
-  ASSERT_THROW(dicos->addDicos(""), MessageError);
-  ASSERT_THROW(dicos->addDicos("MyDummyDicoMappingFile"), MessageError);
+  ASSERT_THROW(dicos.addDicos(""), MessageError);
+  ASSERT_THROW(dicos.addDicos("MyDummyDicoMappingFile"), MessageError);
 
   ASSERT_EQ(IoDicos::hasIoDico("MyIoDico"), true);
   assert(IoDicos::getIoDico("MyIoDico"));
@@ -50,13 +50,13 @@ TEST(CommonIoDicoTest, testCommonIoDicosTest) {
   ASSERT_EQ(dico->msg("MySecondEntry"), "My Second Entry %u");
   ASSERT_THROW(dico->msg("MyThirdEntry"), MessageError);
 
-  ASSERT_NO_THROW(dicos->addDico("MyIoDico", "dico", "2"));
+  ASSERT_NO_THROW(dicos.addDico("MyIoDico", "dico", "2"));
   ASSERT_EQ(dico->msg("MyEntry"), "My First Entry");
   ASSERT_EQ(dico->msg("MySecondEntry"), "My Second Entry %u");
   ASSERT_EQ(dico->msg("MyThirdEntry"), "My Third Entry");
   ASSERT_EQ(dico->msg("MyFourthEntry"), "My Fourth Entry");
 
-  ASSERT_THROW(dicos->addDico("MyIoDico", "dico", ""), MessageError);
+  ASSERT_THROW(dicos.addDico("MyIoDico", "dico", ""), MessageError);
   boost::shared_ptr<IoDico> dico2 = boost::shared_ptr<IoDico>(new IoDico(*dico.get()));
   ASSERT_EQ(dico2->msg("MyEntry"), "My First Entry");
   ASSERT_EQ(dico2->msg("MySecondEntry"), "My Second Entry %u");
@@ -68,8 +68,8 @@ TEST(CommonIoDicoTest, testCommonIoDicosTest) {
   Message mess2(mess);
   ASSERT_EQ(mess2.str(), "My Second Entry 4");
 
-  ASSERT_NO_THROW(dicos->addDico("TIMELINE", "TIMELINE", ""));
-  ASSERT_NO_THROW(dicos->addDico("TIMELINE_PRIORITY", "TIMELINE_PRIORITY", ""));
+  ASSERT_NO_THROW(dicos.addDico("TIMELINE", "TIMELINE", ""));
+  ASSERT_NO_THROW(dicos.addDico("TIMELINE_PRIORITY", "TIMELINE_PRIORITY", ""));
   MessageTimeline tmess0("MyEntry");
   assert(tmess0.priority() == boost::none);
 
@@ -87,9 +87,9 @@ TEST(CommonIoDicoTest, testCommonIoDicosTest) {
 }
 
 TEST(CommonIoDicoTest, testDuplicatedIoDicosTest) {
-  boost::shared_ptr<IoDicos> dicos = IoDicos::getInstance();
-  dicos->addPath("res2");
-  ASSERT_THROW(dicos->addDico("MyIoDico", "dico", ""), MessageError);
+  IoDicos& dicos = IoDicos::instance();
+  dicos.addPath("res2");
+  ASSERT_THROW(dicos.addDico("MyIoDico", "dico", ""), MessageError);
 }
 
 }  // namespace DYN

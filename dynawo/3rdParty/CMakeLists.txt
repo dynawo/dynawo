@@ -11,10 +11,8 @@
 # Minimum required (for ExternalProject_Add)
 cmake_minimum_required(VERSION 3.9.6 FATAL_ERROR)
 
-option(BUILD_SHARED_LIBS "Build shared libraries (.dll/.so) instead of static ones (.lib/.a)" ON)
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)")
 option(CXX11_ENABLED "Enable support of C++11 standard" TRUE)
-set(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
 set(BOOST_ROOT_DEFAULT "true" CACHE STRING "Enable to find boost in system path or not.")
 set(FORCE_CXX11_ABI OFF CACHE BOOL "Choose either ON or OFF.")
 
@@ -22,10 +20,6 @@ if(BOOST_ROOT_DEFAULT STREQUAL "true")
   set(Boost_NO_SYSTEM_PATHS FALSE)
 else()
   set(Boost_NO_SYSTEM_PATHS TRUE)
-endif()
-
-if(MSVC_STATIC_RUNTIME_LIBRARY)
-  set(Boost_USE_STATIC_RUNTIME ON)
 endif()
 
 if(NOT DEFINED OPENMODELICA_INSTALL)
@@ -157,16 +151,6 @@ else()
 endif()
 set(libarchive_url       ${libarchive_prefix_url}/v${libarchive_version}.tar.gz)
 
-set(dlfcnwin32_version   1.2.0)
-set(dlfcnwin32_name      dlfcn-win32-${dlfcnwin32_version}.tar.gz)
-if(DEFINED ENV{DYNAWO_DLFCNWIN32_DOWNLOAD_URL})
-  set(dlfcnwin32_prefix_url $ENV{DYNAWO_DLFCNWIN32_DOWNLOAD_URL})
-else()
-  set(dlfcnwin32_prefix_url https://github.com/dlfcn-win32/dlfcn-win32/archive)
-endif()
-set(dlfcnwin32_url       ${dlfcnwin32_prefix_url}/v${dlfcnwin32_version}.tar.gz)
-set(dlfcnwin32_md5       2298CBFB793CD8B58FC9D89EE410A792)
-
 set(adept_version        2.0.8)
 set(adept_name           adept-${adept_version}.tar.gz)
 if(DEFINED ENV{DYNAWO_ADEPT_DOWNLOAD_URL})
@@ -267,7 +251,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   if(GTEST_FOUND)
     add_custom_target(googletest)
   else()
-    # GoogleTest is always built as static library
     ExternalProject_Add(googletest
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/googletest
       DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/googletest
@@ -316,9 +299,6 @@ list(APPEND CMAKE_PREFIX_PATH ${LIBARCHIVE_HOME})
 
 # ...nor search for the static lib
 set(CMAKE_FIND_LIBRARY_SUFFIXES_bak "${CMAKE_FIND_LIBRARY_SUFFIXES}")
-if(NOT BUILD_SHARED_LIBS)
-  set(CMAKE_FIND_LIBRARY_SUFFIXES "_static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-endif()
 find_package(LibArchive ${libarchive_version_required} QUIET)
 set(CMAKE_FIND_LIBRARY_SUFFIXES "${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
 
@@ -331,14 +311,6 @@ else()
   unset(ZLIB_LIBRARY_RELEASE CACHE)
 
   GetPatchCommand(zlib)
-  # workaround to find zlib static lib
-  if(NOT BUILD_SHARED_LIBS)
-    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-      set(CMAKE_FIND_LIBRARY_SUFFIXES "staticd${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-    else()
-      set(CMAKE_FIND_LIBRARY_SUFFIXES "static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-    endif()
-  endif()
   find_package(ZLIB ${zlib_required_version} QUIET)
   set(CMAKE_FIND_LIBRARY_SUFFIXES "${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
 
@@ -362,17 +334,10 @@ else()
 
       CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                           -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-                          -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
-                          -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
+                          -DBUILD_SHARED_LIBS:BOOL=ON # always build shared, required for WIN32 compilation
     )
     ExternalProject_Get_Property(zlib install_dir)
     set(ZLIB_ROOT ${install_dir} CACHE PATH "Path to ZLib installation" FORCE)
-    if(NOT BUILD_SHARED_LIBS AND UNIX)
-      ExternalProject_Add_Step(zlib install-static
-        DEPENDEES install
-        COMMAND ${CMAKE_COMMAND} -E remove <INSTALL_DIR>/lib/libz.so <INSTALL_DIR>/lib/libz.so.${zlib_version} <INSTALL_DIR>/lib/libz.so.1
-      )
-    endif()
   endif()
 
   GetPatchCommand(libarchive)
@@ -395,12 +360,11 @@ else()
 
     CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                         -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-                        -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
+                        -DBUILD_SHARED_LIBS:BOOL=ON
                         -DZLIB_ROOT:PATH=${ZLIB_ROOT}
                         -DENABLE_WERROR=OFF
                         -DENABLE_TEST:BOOL=OFF
                         -Wno-dev
-                        -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
                         -DENABLE_NETTLE=OFF
                         -DENABLE_OPENSSL=OFF
                         -DENABLE_ZSTD=OFF
@@ -412,31 +376,15 @@ else()
                         -DENABLE_EXPAT=OFF
                         -DENABLE_PCREPOSIX=OFF
                         -DENABLE_CNG=OFF
-                        -DCMAKE_MACOSX_RPATH=True
-                        -DCMAKE_SKIP_BUILD_RPATH=False
-                        -DCMAKE_BUILD_WITH_INSTALL_RPATH=False
-                        -DCMAKE_INSTALL_RPATH=${CMAKE_INSTALL_PREFIX}/libarchive/lib
-                        -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
   )
   ExternalProject_Get_Property(libarchive install_dir)
   set(LIBARCHIVE_HOME ${install_dir} CACHE PATH "Path to LibArchive installation" FORCE)
-  if(NOT BUILD_SHARED_LIBS AND UNIX)
-    ExternalProject_Add_Step(libarchive install-static
-      DEPENDEES install
-      COMMAND ${CMAKE_COMMAND} -E remove <INSTALL_DIR>/lib/libarchive.so <INSTALL_DIR>/lib/libarchive.so.${libarchive_version} <INSTALL_DIR>/lib/libarchive.so.17
-      COMMAND ${CMAKE_COMMAND} -E remove_directory <INSTALL_DIR>/pkgconfig
-    )
-  endif()
 endif()
 
 # clear cache variables to force find
 unset(Boost_DIR CACHE)
 unset(Boost_INCLUDE_DIR CACHE)
 
-if(NOT BUILD_SHARED_LIBS)
-  set(Boost_USE_STATIC_LIBS TRUE)
-  set(Boost_NO_SYSTEM_PATHS TRUE) # Always build a static boost instead of a system one
-endif()
 # find Boost in two steps to avoid warnings 'Imported targets and dependency information not available for Boost version'
 find_package(Boost ${boost_version} QUIET)
 
@@ -487,8 +435,8 @@ else()
                           architecture=x86
                           address-model=64
                           variant=$<IF:$<CONFIG:Debug>,debug,release>
-                          link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static>
-                          runtime-link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,$<IF:$<BOOL:${MSVC_STATIC_RUNTIME_LIBRARY}>,static,shared>>
+                          link=shared
+                          runtime-link=shared
                           stage
 
       INSTALL_COMMAND     ""
@@ -522,7 +470,7 @@ else()
                           install
                           --prefix=<INSTALL_DIR>
                           --disable-icu variant=$<IF:$<CONFIG:Debug>,debug,release>
-                          link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static>
+                          link=shared
                           stage
 
       INSTALL_COMMAND     ""
@@ -561,8 +509,6 @@ else()
 
       CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                           -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-                          -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
-                          -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
     )
   else()
     ExternalProject_Add(adept
@@ -581,8 +527,8 @@ else()
                           "CXX=${CMAKE_CXX_COMPILER}"
                           "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0>"
                           --prefix=<INSTALL_DIR>
-                          $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static>
-                          $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared>
+                          --disable-static
+                          --enable-shared
                           --disable-openmp
                           --without-blas
                           --without-lapack
@@ -617,8 +563,6 @@ else()
 
     CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                         -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-                        -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
-                        -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
   )
   ExternalProject_Get_Property(suitesparse install_dir)
   set(SUITESPARSE_HOME ${install_dir})
@@ -693,8 +637,8 @@ else()
 
     CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                         -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-                        -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
-                        -DBUILD_STATIC_LIBS:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>
+                        -DBUILD_SHARED_LIBS:BOOL=ON # always in shared
+                        -DBUILD_STATIC_LIBS:BOOL=OFF
                         -DEXAMPLES_INSTALL:BOOL=OFF
                         -DEXAMPLES_ENABLE_C:BOOL=OFF
                         -DBUILD_CVODES:BOOL=OFF
@@ -704,40 +648,11 @@ else()
                         -DKLU_ENABLE:BOOL=ON
                         -DKLU_INCLUDE_DIR:PATH=${SUITESPARSE_HOME}/include
                         -DKLU_LIBRARY_DIR:PATH=${SUITESPARSE_HOME}/lib
-                        -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
                         -DNICSLU_ENABLE=$<BOOL:${NICSLU_FOUND}>
                         -DNICSLU_HOME=${NICSLU_HOME}
   )
   ExternalProject_Get_Property(sundials install_dir)
   set(SUNDIALS_HOME ${install_dir})
-endif()
-
-GetPatchCommand(dlfcnwin32)
-if(MSVC)
-  ExternalProject_Add(dlfcnwin32
-    INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/dlfcnwin32
-    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/dlfcnwin32
-    TMP_DIR             ${TMP_DIR}
-    STAMP_DIR           ${DOWNLOAD_DIR}/dlfcnwin32-stamp
-    SOURCE_DIR          ${DOWNLOAD_DIR}/dlfcnwin32
-    BINARY_DIR          ${DOWNLOAD_DIR}/dlfcnwin32-build
-    DOWNLOAD_NAME       ${dlfcnwin32_name}
-    URL                 ${dlfcnwin32_url}
-    URL_MD5             ${dlfcnwin32_md5}
-    PATCH_COMMAND       ${dlfcnwin32_patch_common}
-    COMMAND             ${dlfcnwin32_patch_compiler}
-
-    CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER}
-
-    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
-                        -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-                        -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
-                        -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
-  )
-  ExternalProject_Get_Property(dlfcnwin32 install_dir)
-  set(DLFCNWIN32_ROOT ${install_dir})
-else()
-  add_custom_target(dlfcnwin32)
 endif()
 
 # clear cache variables to force find
@@ -877,15 +792,12 @@ else()
       CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                           -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
                           $<$<BOOL:${FORCE_CXX11_ABI}>:-DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=1>
-                          -DLIBZIP_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
-                          -DLIBZIP_BUILD_STATIC:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>
                           -DLIBZIP_BUILD_TESTS:BOOL=$<BOOL:${LIBZIP_BUILD_TESTS}>
                           -DLIBZIP_BUILD_SAMPLES:BOOL=$<BOOL:${LIBZIP_BUILD_SAMPLES}>
                           -DLIBARCHIVE_HOME:PATH=${LIBARCHIVE_HOME}
                           -DBOOST_ROOT:PATH=${BOOST_ROOT}
                           -DCMAKE_PREFIX_PATH:PATH=${ZLIB_ROOT}
                           $<$<BOOL:${LIBZIP_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}>
-                          -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
   )
   ExternalProject_Get_Property(libzip install_dir)
   set(LIBZIP_HOME ${install_dir})
@@ -940,9 +852,8 @@ else()
 
       CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                           -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-                          -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
+                          -DBUILD_SHARED_LIBS=ON
                           -Dnetwork:BOOL=OFF
-                          -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
     )
   else()
     ExternalProject_Add(xercesc
@@ -958,11 +869,11 @@ else()
       CONFIGURE_COMMAND   <SOURCE_DIR>/configure
                           "CC=${CMAKE_C_COMPILER}"
                           "CXX=${CMAKE_CXX_COMPILER}"
-                          "CXXFLAGS=${CXX_STDFLAG} $<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:-fPIC> $<IF:$<CONFIG:Release>,-O3,-O0>"
-                          "CFLAGS=$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:-fPIC> $<IF:$<CONFIG:Release>,-O3,-O0>"
+                          "CXXFLAGS=${CXX_STDFLAG} $<IF:$<CONFIG:Release>,-O3,-O0>"
+                          "CFLAGS=$<IF:$<CONFIG:Release>,-O3,-O0>"
                           --prefix=<INSTALL_DIR>
-                          $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static>
-                          $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared>
+                          --disable-static
+                          --enable-shared
                           --disable-network
                           --without-icu
                           $<IF:$<BOOL:CXX11_ENABLED>,,--disable-xmlch-char16_t>
@@ -997,14 +908,11 @@ else()
       CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                           $<$<BOOL:${FORCE_CXX11_ABI}>:-DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=1>
                           -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-                          -DLibXML_SAX_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
-                          -DLibXML_SAX_BUILD_STATIC:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>
                           -DLibXML_BUILD_TESTS:BOOL=$<BOOL:${LIBXML_BUILD_TESTS}>
                           -DLibXML_SAX_BUILD_SAMPLES:BOOL=$<BOOL:${LIBXML_BUILD_SAMPLES}>
                           -DXERCESC_HOME:PATH=${XERCESC_HOME}
                           -DBOOST_ROOT:PATH=${BOOST_ROOT}
                           $<$<BOOL:${LIBXML_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}>
-                          -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
   )
   ExternalProject_Get_Property(libxml install_dir)
   set(LIBXML_HOME ${install_dir})
@@ -1041,13 +949,11 @@ else()
           CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                               -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
                               $<$<BOOL:${FORCE_CXX11_ABI}>:-DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=1>
-                              -DIIDM_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
                               -DBUILD_XML:BOOL=ON
                               -DBUILD_SAMPLES:BOOL=$<BOOL:${LIBIIDM_BUILD_SAMPLES}>
                               -DCMAKE_PREFIX_PATH:PATH=${LIBXML_HOME}
                               -DXERCESC_HOME:PATH=${XERCESC_HOME}
                               -DBOOST_ROOT:PATH=${BOOST_ROOT}
-                              -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
   )
   ExternalProject_Get_Property(libiidm install_dir)
   set(LIBIIDM_HOME ${install_dir})

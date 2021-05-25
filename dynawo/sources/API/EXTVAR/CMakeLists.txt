@@ -41,7 +41,7 @@ set(API_EXTVAR_INCLUDE_HEADERS
     EXTVARXmlImporter.h
     )
 
-add_library(dynawo_API_EXTVAR ${LIBRARY_TYPE} ${API_EXTVAR_SOURCES})
+add_library(dynawo_API_EXTVAR SHARED ${API_EXTVAR_SOURCES})
 
 target_include_directories(dynawo_API_EXTVAR
   INTERFACE

@@ -103,6 +103,10 @@ TEST(Models, TestBuildCheckSum) {
 
   cmd = pythonCmd + " validateDictionaries.py --inputDir dic/allInOne/,dic/allInOne/otherDir/share/ "
                     "--outputDir dic/allInOne/ --namespace AIO --existingKeysDir dic/allInOne/otherDir/include/";
+  remove("dic/allInOne/AIOMyLog_keys.cpp");
+  remove("dic/allInOne/AIOMyLog_keys.h");
+  remove("dic/allInOne/AIOMyTimeline_keys.cpp");
+  remove("dic/allInOne/AIOMyTimeline_keys.h");
   executeCommand(cmd, ssPython);
   ssPython.str(std::string());
   ASSERT_FALSE(exists("dic/allInOne/AIOMyDic_keys.cpp"));
@@ -130,6 +134,9 @@ TEST(Models, TestBuildCheckSum) {
   ssDiff.str(std::string());
 
   cmd = pythonCmd + " validateDictionaries.py --inputDir dic/ --outputDir dic/ --modelicaDir dic/ --modelicaPackage myPackage --namespace MyNS";
+  remove("dic/MyDic_keys.cpp");
+  remove("dic/MyDic_keys.h");
+  remove("dic/icKeys.mo");
   executeCommand(cmd, ssPython);
   ssPython.str(std::string());
   ASSERT_TRUE(exists("dic/MyDic_keys.cpp"));
@@ -151,6 +158,9 @@ TEST(Models, TestBuildCheckSum) {
 
   cmd = pythonCmd + " validateDictionaries.py --inputDir dicMapping/,dicMapping/folder --outputDir dicMapping/ --modelicaDir dicMapping/ "
       "--modelicaPackage myPackage --namespace MyNS";
+  remove("dicMapping/dico_keys.cpp");
+  remove("dicMapping/dico_keys.h");
+  remove("dicMapping/oKeys.mo");
   executeCommand(cmd, ssPython);
   ssPython.str(std::string());
   ssDiff.str(std::string());

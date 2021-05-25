@@ -36,7 +36,6 @@
 #include "DYNFileSystemUtils.h"
 #include "DYNExecUtils.h"
 #include "DYNInitXml.h"
-#define DYNTIMERS_INSTANCE  // this should be defined only once in main source before header inclusion
 #include "DYNTimer.h"
 
 using std::string;
@@ -123,9 +122,9 @@ int main(int argc, char ** argv) {
 #ifdef LANG_CXX11
     DYN::InitLibXml2 libxml2;
 #endif
-    boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
-    dicos->addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
+    DYN::IoDicos& dicos = DYN::IoDicos::instance();
+    dicos.addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
+    dicos.addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
     if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") != "true")
       cout << "[INFO] xsd validation will not be used" << endl;
 

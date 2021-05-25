@@ -238,9 +238,9 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
       }
     } catch (const DYN::Error& e) {
       if (e.type() == DYN::Error::NUMERICAL_ERROR) {
-      #ifdef _DEBUG_
+#ifdef _DEBUG_
        Trace::debug() << e.what() << Trace::endline;
-      #endif
+#endif
         return (-1);
       } else {
         throw;

@@ -40,12 +40,9 @@ namespace DYN {
 
 static bool readLine(string& line, string& key, string& phrase);
 
-shared_ptr<IoDicos> IoDicos::getInstance() {
-  static shared_ptr<IoDicos> instance;
-  if (instance)
-    return instance;
-
-  instance.reset(new IoDicos());
+IoDicos&
+IoDicos::instance() {
+  static IoDicos instance;
   return instance;
 }
 
@@ -54,12 +51,12 @@ void IoDicos::addPath(const string& path) {
 }
 
 bool IoDicos::hasIoDico(const string& dicoName) {
-  return ( getInstance()->dicos_.find(dicoName) != getInstance()->dicos_.end());
+  return ( instance().dicos_.find(dicoName) != instance().dicos_.end());
 }
 
 boost::shared_ptr<IoDico> IoDicos::getIoDico(const string& dicoName) {
   if (hasIoDico(dicoName)) {
-    return getInstance()->dicos_[dicoName];
+    return instance().dicos_[dicoName];
   } else {
     throw MessageError("Unknown dictionary '" + dicoName + "'");
   }
@@ -73,9 +70,9 @@ vector<std::string> IoDicos::findFiles(const string& fileName) {
 
   // Research file in paths
   vector<string> allPaths;
-  for (unsigned int i = 0; i < getInstance()->paths_.size(); ++i) {
+  for (unsigned int i = 0; i < instance().paths_.size(); ++i) {
     vector<string> paths;
-    boost::algorithm::split(paths, getInstance()->paths_[i], boost::is_any_of(":"));
+    boost::algorithm::split(paths, instance().paths_[i], boost::is_any_of(":"));
     allPaths.insert(allPaths.begin(), paths.begin(), paths.end());
   }
 
@@ -107,11 +104,22 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
   // build name of the file to search
   vector<string> files;
   string fileName;
-  // To deal with a Priority dictionnary that does not have a locale.
+  // To deal with a Priority dictionary that does not have a locale.
   if (locale != "") {
     fileName = baseName + string("_") + locale + string(".dic");
-    files = findFiles(fileName);
   } else {
+    fileName = baseName + string(".dic");
+  }
+  files = findFiles(fileName);
+
+  if (files.empty() && locale != "en_GB") {
+    // try default en_GB locale
+    fileName = baseName + string("_en_GB.dic");
+    files = findFiles(fileName);
+  }
+
+  if (files.empty() && locale != "") {
+    // try no locale
     fileName = baseName + string(".dic");
     files = findFiles(fileName);
   }
@@ -119,7 +127,7 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
   if (files.empty())
     throw MessageError("Impossible to find the dictionary : " + fileName);
   if (files.size() != 1) {
-    throw MessageError("Multiple occurences of the dictionary : " + fileName);
+    throw MessageError("Multiple occurrences of the dictionary : " + fileName);
   }
   string file = files[0];
 
@@ -129,7 +137,7 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
   } else {
     boost::shared_ptr<IoDico> dico(new IoDico(name));
     dico->readFile(file);
-    getInstance()->dicos_[name] = dico;
+    instance().dicos_[name] = dico;
   }
 }
 

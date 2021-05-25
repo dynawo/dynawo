@@ -171,7 +171,7 @@ class SparseMatrix {
    * @return @b true if there isn't any NAN value in the matrix
    */
   inline bool withoutNan() const {
-    return (withoutNan_);
+    return withoutNan_;
   }
 
   /**
@@ -180,7 +180,7 @@ class SparseMatrix {
    * @return @b true if there isn't any infinite value in the matrix
    */
   inline bool withoutInf() const {
-    return (withoutInf_);
+    return withoutInf_;
   }
 
   /**

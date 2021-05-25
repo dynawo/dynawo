@@ -28,7 +28,7 @@ set(MODEL_MANAGER_INCLUDE_HEADERS
     DYNModelManagerOwnFunctions.h
     )
 
-add_library(dynawo_ModelManager ${LIBRARY_TYPE} ${MODEL_MANAGER_SOURCES})
+add_library(dynawo_ModelManager SHARED ${MODEL_MANAGER_SOURCES})
 
 target_include_directories(dynawo_ModelManager
   INTERFACE

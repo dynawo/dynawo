@@ -246,7 +246,7 @@ DynamicData::associateParameters() {
       }
     }
   }
-  DYNErrorQueue::get()->flush();
+  DYNErrorQueue::instance().flush();
 }
 
 shared_ptr<ParametersSet>
@@ -255,11 +255,11 @@ DynamicData::getParametersSet(const string& modelId, const string& parFile, cons
     return shared_ptr<ParametersSet>();
   }
   if (parFile != "" && parId == "") {
-    DYNErrorQueue::get()->push(DYNError(Error::API, MissingParameterId, modelId));
+    DYNErrorQueue::instance().push(DYNError(Error::API, MissingParameterId, modelId));
     return shared_ptr<ParametersSet>();
   }
   if (parFile == "" && parId != "") {
-    DYNErrorQueue::get()->push(DYNError(Error::API, MissingParameterFile, modelId));
+    DYNErrorQueue::instance().push(DYNError(Error::API, MissingParameterFile, modelId));
     return shared_ptr<ParametersSet>();
   }
 
@@ -412,7 +412,7 @@ DynamicData::mergeParameters(shared_ptr<ParametersSet>& concatParams, const stri
 void
 DynamicData::getNetworkParameters(const string& parFile, const string& parSet) {
   shared_ptr<ParametersSet> parameters = getParametersSet("network", parFile, parSet);
-  DYNErrorQueue::get()->flush();
+  DYNErrorQueue::instance().flush();
   setNetworkParameters(parameters);
 }
 

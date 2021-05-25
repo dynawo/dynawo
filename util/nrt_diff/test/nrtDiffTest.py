@@ -35,7 +35,7 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves2.csv"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(message, "nrt_diff/test/curves.csv: 5 absolute errors , GEN____8_SM_generator_UStatorPu , GEN____6_SM_voltageRegulator_EfdPu , GEN____8_SM_voltageRegulator_EfdPu , GEN____1_SM_voltageRegulator_EfdPu , GEN____2_SM_voltageRegulator_EfdPu")
+        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 5 absolute errors", "GEN____8_SM_generator_UStatorPu", "GEN____6_SM_voltageRegulator_EfdPu", "GEN____8_SM_voltageRegulator_EfdPu", "GEN____1_SM_voltageRegulator_EfdPu", "GEN____2_SM_voltageRegulator_EfdPu"})
 
     def test_curves_xml(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))

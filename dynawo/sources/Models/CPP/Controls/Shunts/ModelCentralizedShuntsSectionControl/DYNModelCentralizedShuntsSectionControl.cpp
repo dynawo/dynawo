@@ -256,13 +256,11 @@ namespace DYN {
             changingShunt = -1;
             lastTime_ = t;
           }
-        } else if (gLocal_[3] == ROOT_UP) {
-          if (doubleNotEquals(lastTime_, t)) {
-            zLocal_[changingShunt + 1] = sections0_[changingShunt] + 1;
-            sections0_[changingShunt] += 1;
-            changingShunt = -1;
-            lastTime_ = t;
-          }
+        } else if (gLocal_[3] == ROOT_UP && doubleNotEquals(lastTime_, t)) {
+          zLocal_[changingShunt + 1] = sections0_[changingShunt] + 1;
+          sections0_[changingShunt] += 1;
+          changingShunt = -1;
+          lastTime_ = t;
         }
       } else {
         if (gLocal_[0] == ROOT_UP) {
@@ -279,13 +277,11 @@ namespace DYN {
             changingShunt = -1;
             lastTime_ = t;
           }
-        } else if (gLocal_[3] == ROOT_UP) {
-          if (doubleNotEquals(lastTime_, t)) {
-            zLocal_[changingShunt + 1] = sections0_[changingShunt] - 1;
-            sections0_[changingShunt] -= 1;
-            changingShunt = -1;
-            lastTime_ = t;
-          }
+        } else if (gLocal_[3] == ROOT_UP && doubleNotEquals(lastTime_, t)) {
+          zLocal_[changingShunt + 1] = sections0_[changingShunt] - 1;
+          sections0_[changingShunt] -= 1;
+          changingShunt = -1;
+          lastTime_ = t;
         }
       }
     }

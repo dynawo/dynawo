@@ -92,7 +92,7 @@ set(API_JOB_INCLUDE_HEADERS
     JOBModelsDirEntry.h
     )
 
-add_library(dynawo_API_JOB ${LIBRARY_TYPE} ${API_JOB_SOURCES})
+add_library(dynawo_API_JOB SHARED ${API_JOB_SOURCES})
 
 target_include_directories(dynawo_API_JOB
   INTERFACE

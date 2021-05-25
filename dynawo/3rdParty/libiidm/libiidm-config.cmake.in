@@ -7,8 +7,6 @@
 #
 # This file is part of Libiidm, a library to model IIDM networks and allows importing and exporting them to files.
 
-# set LibXML_USE_STATIC_LIBS to a true value to use static linked libraries
-
 #  The module defines the following variables:
 #
 # LibIIDM_FOUND        - TRUE
@@ -186,14 +184,8 @@ unset(_supported_extensions)
 
 # including actual component definitions
 
-if(LibIIDM_USE_STATIC_LIBS)
-  set(COMPILE_MODE "-static")
-  set(LibXML_USE_STATIC_LIBS True)
-  set(LibXML_LINK_SUFFIX "-static")
-else()
-  set(COMPILE_MODE "")
-  set(LibXML_LINK_SUFFIX "")
-endif()
+set(COMPILE_MODE "")
+set(LibXML_LINK_SUFFIX "")
 
 message(STATUS "requested components: ${LibIIDM_FIND_COMPONENTS}")
 # This loop is explicit, to manage inclusion order

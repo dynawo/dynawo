@@ -1,50 +1,28 @@
-diff -urpN libarchive-3.4.0/CMakeLists.txt libarchive-3.4.0.patch/CMakeLists.txt
---- libarchive-3.4.0/CMakeLists.txt	2019-06-11 21:53:23.000000000 +0200
-+++ libarchive-3.4.0.patch/CMakeLists.txt	2020-01-30 15:37:27.356545031 +0100
-@@ -1,15 +1,35 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4fd93d0..6a67d0a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,5 +1,12 @@
  #
--CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
+ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
++#
 +if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
 +  if(POLICY CMP0091)
 +    cmake_policy(SET CMP0091 NEW)
 +  endif()
 +endif()
 +#
-+SET(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
  if(POLICY CMP0074)
    cmake_policy(SET CMP0074 NEW) #3.12.0 `find_package()`` uses ``<PackageName>_ROOT`` variables.
  endif()
- #
- PROJECT(libarchive C)
-+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
- #
- SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/cmake")
- if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${libarchive_BINARY_DIR}/bin)
- endif()
-+if(MSVC)
-+  if(NOT BUILD_SHARED_LIBS)
-+   if(MSVC_STATIC_RUNTIME_LIBRARY)
-+     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-+   endif()
-+   set(CMAKE_FIND_LIBRARY_SUFFIXES_bak "${CMAKE_FIND_LIBRARY_SUFFIXES}")
-+   if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-+     set(CMAKE_FIND_LIBRARY_SUFFIXES "staticd${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-+   else()
-+     set(CMAKE_FIND_LIBRARY_SUFFIXES "static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-+   endif()
-+  endif()
-+endif()
- #
- # Set the Build type for make based generators.
- # You can choose following types:
-@@ -406,6 +426,9 @@ SET(ADDITIONAL_LIBS "")
+@@ -406,6 +413,9 @@ SET(ADDITIONAL_LIBS "")
  #
  IF(ENABLE_ZLIB)
    FIND_PACKAGE(ZLIB)
-+  if(MSVC)  
++  if(MSVC)
 +    set(CMAKE_FIND_LIBRARY_SUFFIXES "${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
 +  endif()
  ELSE()
    SET(ZLIB_FOUND FALSE) # Override cached value
  ENDIF()
+ 
