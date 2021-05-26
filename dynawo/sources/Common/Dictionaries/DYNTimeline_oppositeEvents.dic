@@ -1,0 +1,35 @@
+// Copyright (c) 2021, RTE (http://www.rte-france.com)
+// See AUTHORS.txt
+// All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, you can obtain one at http://mozilla.org/MPL/2.0/.
+// SPDX-License-Identifier: MPL-2.0
+//
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+// for power systems.
+ActivatePMIN = DeactivatePMIN
+ActivatePMAX = DeactivatePMAX
+GeneratorPVMaxQ = GeneratorPVBackRegulation
+GeneratorPVMinQ = GeneratorPVBackRegulation
+PhaseShifterAboveMax = PhaseShifterBelowMax
+UVAArming = UVADisarming
+NodeOn = NodeOff
+TapChangersArming = TapChangersUnarming
+TransformerSwitchOff = TransformerSwitchOn
+IdealSwitchSwitchOff = IdealSwitchSwitchOn
+DCLineOpen = DCLineClosed
+LineCloseSide1 = LineOpenSide1
+LineCloseSide2 = LineOpenSide2
+LineOpen = LineClosed
+LoadConnected = LoadDisconnected
+DanglingLineConnected = DanglingLineDisconnected
+GeneratorConnected = GeneratorDisconnected
+ShuntConnected = ShuntDisconnected
+SVarCConnected = SVarCDisconnected
+SwitchClosed = SwitchOpened
+Converter1SwitchOff = Converter1Connected
+Converter2SwitchOff = Converter2Connected
+TwoWTFOCloseSide1 = TwoWTFOOpenSide1
+TwoWTFOCloseSide2 = TwoWTFOOpenSide2
+TwoWTFOOpen = TwoWTFOClosed

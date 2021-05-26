@@ -16,6 +16,7 @@ namespace AIO {
 const char* KeyMyTimeline_t::names(const value& v) {
   static const char* names[] = {
     "MyState",
+    "MyState2",
   };
   return names[v];
 };
