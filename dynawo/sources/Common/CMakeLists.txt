@@ -23,15 +23,20 @@ set(DYNAWO_DICTIONARIES
 
 set(DYNAWO_DICTIONARIES_MAPPING
   Dictionaries/dictionaries_mapping.dic
+  DYNTimeline_en_GB_oppositeEvents.py
   )
 
-# custom target to generate files associated to dictionnaries
+set(DYNAWO_DICTIONARIES_OPPOSITE_EVENTS
+  Dictionaries/DYNTimeline_oppositeEvents.dic
+  )
+
+# custom target to generate files associated to dictionaries
 add_custom_target(create_keys_files ALL DEPENDS ${DYNAWO_DICTIONARIES})
 
 add_custom_command(TARGET create_keys_files
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Dictionaries/validateDictionaries.py --inputDir=${CMAKE_CURRENT_SOURCE_DIR}/Dictionaries,${CMAKE_DYN_DICTIONARY_PATHS} --outputDir=${CMAKE_CURRENT_SOURCE_DIR} --modelicaPackage=Dynawo.NonElectrical.Logs --modelicaDir=${CMAKE_CURRENT_SOURCE_DIR}/../Models/Modelica/Dynawo/NonElectrical/Logs/
-  COMMENT "Generate key files for dictionnaries"
+  COMMENT "Generate key files for dictionaries"
   )
 
 # Find keys.cpp files (generated files)
@@ -151,4 +156,5 @@ set(PYTHON_SCRIPTS_COMMON
 install(TARGETS dynawo_Interface dynawo_Common EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${COMMON_INCLUDE_HEADERS} ${UTIL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 install(FILES ${DYNAWO_DICTIONARIES} ${DYNAWO_DICTIONARIES_MAPPING} DESTINATION ${SHAREDIR_NAME})
+install(FILES ${DYNAWO_DICTIONARIES_OPPOSITE_EVENTS} DESTINATION ${SHAREDIR_NAME})
 install(PROGRAMS ${PYTHON_SCRIPTS_COMMON} DESTINATION ${SBINDIR_NAME})

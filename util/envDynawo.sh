@@ -405,6 +405,7 @@ set_environment() {
   export_var_env_force DYNAWO_CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
+  export_var_env_force DYNAWO_TIMELINE_FILTER_DIR=$DYNAWO_HOME/util/timeline_filter
   export_var_env_force DYNAWO_ENV_DYNAWO=$SCRIPT
   export_var_env DYNAWO_CMAKE_GENERATOR="Unix Makefiles"
   export_var_env DYNAWO_CMAKE_BUILD_OPTION=""
@@ -962,6 +963,11 @@ build_tests() {
   echo "#######################"
   ${DYNAWO_PYTHON_COMMAND} $DYNAWO_NRT_DIFF_DIR/test/nrtDiffTest.py
   RETURN_CODE=$?
+  if [ ${RETURN_CODE} -ne 0 ]; then
+    return ${RETURN_CODE}
+  fi
+  ${DYNAWO_PYTHON_COMMAND} $DYNAWO_TIMELINE_FILTER_DIR/test/timelineFilterTest.py
+  RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
@@ -1481,7 +1487,7 @@ nrt_xsl() {
 }
 
 filter_timeline() {
-  $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/timeline_filter/timelineFilter.py $@
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_TIMELINE_FILTER_DIR/timelineFilter.py $@
 }
 
 check_coding_files() {
