@@ -17,10 +17,6 @@ set(UNIT_TEST_SOURCES
 
 add_executable(unittest ${UNIT_TEST_SOURCES})
 target_link_libraries(unittest $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread> ${GTEST_BOTH_LIBRARIES})
-if (LIBZIP_BUILD_SHARED)
-  target_link_libraries(unittest ${CMAKE_PROJECT_NAME})
-elseif(LIBZIP_BUILD_STATIC)
-  target_link_libraries(unittest ${CMAKE_PROJECT_NAME}-static)
-endif ()
+target_link_libraries(unittest ${CMAKE_PROJECT_NAME})
 
 add_custom_target(tests unittest DEPENDS unittest COMMENT "Running unit tests...")

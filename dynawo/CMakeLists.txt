@@ -28,9 +28,6 @@ option(BUILD_TESTS_COVERAGE "Choose to build tests coverage")
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)")
-set(LIBRARY_TYPE SHARED CACHE STRING "Choose either STATIC or SHARED.")
-set(BOOST_USE_STATIC OFF CACHE BOOL "Choose either ON or OFF.")
-set(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
 set(FORCE_CXX11_ABI OFF CACHE BOOL "Choose either ON or OFF.")
 
 # Project Dynawo
@@ -96,17 +93,6 @@ list(APPEND CMAKE_PREFIX_PATH "${LIBXML2_HOME}")
 if(MSVC)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0601)
   add_definitions(-DLANG_CXX11)
-
-  list(APPEND CMAKE_PREFIX_PATH "${DYNAWO_THIRD_PARTY_DIR}/dlfcnwin32")
-
-  find_package(dlfcn-win32 REQUIRED)
-  set(CMAKE_DL_LIBS dlfcn-win32::dl)
-  if(LIBRARY_TYPE STREQUAL "STATIC")
-    if(MSVC_STATIC_RUNTIME_LIBRARY)
-      set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-    endif()
-  endif()
-
 elseif(CXX11_ENABLED)
   # Test if a C++11 flag is supported
   include(CheckCXXCompilerFlag)
@@ -204,18 +190,8 @@ else()
   set(Boost_NO_SYSTEM_PATHS TRUE)
 endif()
 
-if(BOOST_USE_STATIC)
-  set(Boost_USE_STATIC_LIBS TRUE)
-  if(MSVC_STATIC_RUNTIME_LIBRARY)
-    set(Boost_USE_STATIC_RUNTIME True)
-  else()
-    set(Boost_USE_STATIC_RUNTIME False)
-  endif()
-else()
-  set(BUILD_SHARED_LIBS ON)
-  set(Boost_USE_STATIC_RUNTIME False)
-  add_definitions(-DBOOST_ALL_DYN_LINK)
-endif()
+set(Boost_USE_STATIC_RUNTIME False)
+add_definitions(-DBOOST_ALL_DYN_LINK)
 # Tell BOOST to disable auto linking
 add_definitions(-DBOOST_ALL_NO_LIB)
 
@@ -293,22 +269,10 @@ find_package(XercesC 3.2.2 REQUIRED)
 
 if(MSVC)
   set(CMAKE_FIND_LIBRARY_SUFFIXES_bak "${CMAKE_FIND_LIBRARY_SUFFIXES}")
-  if(LIBRARY_TYPE STREQUAL "STATIC")
-    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-      set(CMAKE_FIND_LIBRARY_SUFFIXES "staticd${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-    else()
-      set(CMAKE_FIND_LIBRARY_SUFFIXES "static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-    endif()
-  endif()
 endif()
 find_package(ZLIB 1.2.3 REQUIRED)
 set_property(TARGET ZLIB::ZLIB APPEND PROPERTY IMPORTED_LOCATION "${ZLIB_LIBRARY}")
 
-if(MSVC)
-  if(LIBRARY_TYPE STREQUAL "STATIC")
-    set(CMAKE_FIND_LIBRARY_SUFFIXES "_static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-  endif()
-endif()
 find_package(LibArchive 2.8.0 REQUIRED)
 if(MSVC)
   set(CMAKE_FIND_LIBRARY_SUFFIXES "${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
@@ -329,10 +293,6 @@ find_package(Sundials REQUIRED)
 
 #libZIP
 find_package(libZIP 1.3.0 REQUIRED)
-
-if(LIBRARY_TYPE STREQUAL "STATIC")
-  set(LibXML_USE_STATIC_LIBS TRUE)
-endif()
 
 # libXML
 find_package(libXML 0.2.4 REQUIRED PATHS ${LIBXML_HOME})
@@ -382,9 +342,9 @@ add_custom_target(CREATE_DDBDIR
 )
 
 if(MSVC)
-  set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${LIBXML2_HOME}/bin;${libdir};$ENV{PATH}")
+  set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${LIBXML2_HOME}/bin;${libdir};$ENV{PATH}")
   if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
-    set(runtime_tests_PATH "PATH=${GTEST_ROOT}/bin;${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
+    set(runtime_tests_PATH "PATH=${GTEST_ROOT}/bin;${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
   endif()
 else() # Linux
   set(runtime_LD_LIBRARY_PATH "LD_LIBRARY_PATH=${ADEPT_HOME}/lib:${SUITESPARSE_HOME}/lib:${SUNDIALS_HOME}/lib64:${SUNDIALS_HOME}/lib:${XercesC_INCLUDE_DIRS}/../lib:${LibIIDM_LIB_DIR}:${LibXML_LIB_DIR}:${libdir}:${Boost_INCLUDE_DIR}/../lib:${LIBXML2_HOME}/lib:$ENV{LD_LIBRARY_PATH}")

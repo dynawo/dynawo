@@ -390,7 +390,7 @@ DataInterfaceIIDM::initFromIIDM() {
     network_->addHvdcLine(hvdc);
     components_[hvdc->getID()] = hvdc;
   }
-  DYNErrorQueue::get()->flush();
+  DYNErrorQueue::instance().flush();
 }
 
 shared_ptr<VoltageLevelInterface>

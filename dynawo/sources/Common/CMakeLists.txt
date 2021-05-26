@@ -118,7 +118,7 @@ target_link_libraries(dynawo_Interface
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>
   )
 
-add_library(dynawo_Common ${LIBRARY_TYPE} ${COMMON_SOURCES})
+add_library(dynawo_Common SHARED ${COMMON_SOURCES})
 
 add_dependencies(dynawo_Common create_keys_files)
 

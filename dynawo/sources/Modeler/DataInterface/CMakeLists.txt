@@ -64,7 +64,7 @@ set(DATA_INTERFACE_FACTORY_INCLUDE_HEADERS
     DYNDataInterfaceFactory.h
     )
 
-add_library(dynawo_DataInterface ${LIBRARY_TYPE} ${DATA_INTERFACE_SOURCES})
+add_library(dynawo_DataInterface SHARED ${DATA_INTERFACE_SOURCES})
 
 target_include_directories(dynawo_DataInterface
   INTERFACE
@@ -90,7 +90,7 @@ target_link_libraries(dynawo_DataInterface
 set_target_properties(dynawo_DataInterface PROPERTIES VERSION ${DATA_INTERFACE_VERSION_STRING}
                                                     SOVERSION ${DATA_INTERFACE_VERSION_MAJOR})
 
-add_library(dynawo_DataInterfaceFactory ${LIBRARY_TYPE} ${DATA_INTERFACE_FACTORY_SOURCES})
+add_library(dynawo_DataInterfaceFactory SHARED ${DATA_INTERFACE_FACTORY_SOURCES})
 
 target_link_libraries(dynawo_DataInterfaceFactory
   dynawo_Common

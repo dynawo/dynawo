@@ -7,11 +7,7 @@
 #
 # This file is part of Libxml, a library to handle XML files parsing.
 
-# set LibXML_USE_STATIC_LIBS to a true value to use static linked libraries
-#
 # The following variables as effect on the found component
-#
-# LibXML_USE_STATIC_LIBS: if set to a true value, only static libraries are searched. Otherwise, only shared ones.
 #
 # The module defines the following variables:
 #
@@ -43,11 +39,7 @@ if(_LibXML_FIND_COMPONENTS_count EQUAL 0)
   set(LibXML_FIND_COMPONENTS Formatter Parser)
 endif()
 
-if(LibXML_USE_STATIC_LIBS)
-  set(LibXML_LINK_SUFFIX "@LINK_SUFFIX_STATIC@")
-else()
-  set(LibXML_LINK_SUFFIX "@LINK_SUFFIX_SHARED@")
-endif()
+set(LibXML_LINK_SUFFIX "@LINK_SUFFIX_SHARED@")
 
 foreach(COMPONENT ${LibXML_FIND_COMPONENTS})
   string(TOLOWER ${COMPONENT} COMPONENT_LOWER)

@@ -11,6 +11,7 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
+    Bus.xml
     CurrentLimitAutomaton.xml
     EventConnectedStatus.xml
     EventQuadripoleConnection.xml

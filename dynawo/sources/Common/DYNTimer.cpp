@@ -19,8 +19,6 @@
  */
 #include <iostream>
 
-#include <dlfcn.h>
-
 #include "DYNTimer.h"
 
 using std::stringstream;
@@ -40,39 +38,14 @@ Timers::~Timers() {
 }
 
 Timers&
-Timers::getInstance() {
-  static Timers INSTANCE;  ///< the quasi singleton !
-  return INSTANCE;
-}
-
-typedef Timers& getTimersInstance_t();
-
-Timers&
-Timers::getInstance_() {
-  void* handle = dlopen(NULL, RTLD_NOW);
-  Timers* pTimers = NULL;
-
-  if (!handle) {
-    std::cerr << dlerror() << '\n';
-  } else {
-    dlerror();
-    getTimersInstance_t* getTimersInstance = reinterpret_cast<getTimersInstance_t*> (dlsym(handle, "getTimersInstance"));
-    if (!dlerror()) {
-      pTimers = &(getTimersInstance());
-    }
-    dlclose(handle);
-  }
-
-  if (!pTimers) {
-    pTimers = &(getInstance());
-  }
-
-  return *pTimers;
+Timers::instance() {
+  static Timers instance;
+  return instance;
 }
 
 void
 Timers::add(const std::string& name, const double& time) {
-  Timers& timers = getInstance_();
+  Timers& timers = instance();
   timers.add_(name, time);
 }
 
