@@ -111,7 +111,7 @@ CalculatedBusInterfaceIIDM::getAngle0() const {
 
 double
 CalculatedBusInterfaceIIDM::getVNom() const {
-  return voltageLevel_.getNominalVoltage();
+  return voltageLevel_.getNominalV();
 }
 
 double

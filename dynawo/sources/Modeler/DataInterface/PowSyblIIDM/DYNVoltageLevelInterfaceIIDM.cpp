@@ -96,7 +96,7 @@ VoltageLevelInterfaceIIDM::getID() const {
 
 double
 VoltageLevelInterfaceIIDM::getVNom() const {
-  return voltageLevelIIDM_.getNominalVoltage();
+  return voltageLevelIIDM_.getNominalV();
 }
 
 VoltageLevelInterface::VoltageLevelTopologyKind_t

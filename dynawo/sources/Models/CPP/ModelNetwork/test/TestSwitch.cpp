@@ -54,7 +54,7 @@ createModelSwitch(bool open, bool initModel) {
 
   powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
       .setId("MyVoltageLevel")
-      .setNominalVoltage(5.)
+      .setNominalV(5.)
       .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
       .setHighVoltageLimit(2.)
       .setLowVoltageLimit(.5)
@@ -132,7 +132,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
 
   powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
       .setId("MyVoltageLevel")
-      .setNominalVoltage(5.)
+      .setNominalV(5.)
       .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
       .setHighVoltageLimit(2.)
       .setLowVoltageLimit(.5)
@@ -211,7 +211,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationClosed) {
 
   powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
       .setId("MyVoltageLevel")
-      .setNominalVoltage(5.)
+      .setNominalV(5.)
       .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
       .setHighVoltageLimit(2.)
       .setLowVoltageLimit(.5)

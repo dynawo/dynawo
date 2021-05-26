@@ -80,7 +80,7 @@ TEST(DataInterfaceTest, ServiceManager) {
 
   VoltageLevel& vlIIDM1 = s.newVoltageLevel()
                               .setId("VL1")
-                              .setNominalVoltage(400.)
+                              .setNominalV(400.)
                               .setTopologyKind(TopologyKind::BUS_BREAKER)
                               .setHighVoltageLimit(420.)
                               .setLowVoltageLimit(380.)
@@ -88,7 +88,7 @@ TEST(DataInterfaceTest, ServiceManager) {
 
   VoltageLevel& vlIIDM2 = s.newVoltageLevel()
                               .setId("VL2")
-                              .setNominalVoltage(400.)
+                              .setNominalV(400.)
                               .setTopologyKind(TopologyKind::NODE_BREAKER)
                               .setHighVoltageLimit(420.)
                               .setLowVoltageLimit(380.)
@@ -237,14 +237,14 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
 
   VoltageLevel& vlIIDM1 = s.newVoltageLevel()
                               .setId("VL1")
-                              .setNominalVoltage(400.)
+                              .setNominalV(400.)
                               .setTopologyKind(TopologyKind::BUS_BREAKER)
                               .setHighVoltageLimit(420.)
                               .setLowVoltageLimit(380.)
                               .add();
   VoltageLevel& vlIIDM2 = s.newVoltageLevel()
                               .setId("VL2")
-                              .setNominalVoltage(400.)
+                              .setNominalV(400.)
                               .setTopologyKind(TopologyKind::BUS_BREAKER)
                               .setHighVoltageLimit(420.)
                               .setLowVoltageLimit(380.)

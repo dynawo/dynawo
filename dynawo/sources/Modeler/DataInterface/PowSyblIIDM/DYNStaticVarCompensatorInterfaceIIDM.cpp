@@ -135,8 +135,8 @@ StaticVarCompensatorInterfaceIIDM::importStaticParameters() {
   if (getBusInterface()) {
     double U0 = getBusInterface()->getV0();
     double vNom;
-    if (staticVarCompensatorIIDM_.getTerminal().getVoltageLevel().getNominalVoltage() > 0)
-      vNom = staticVarCompensatorIIDM_.getTerminal().getVoltageLevel().getNominalVoltage();
+    if (staticVarCompensatorIIDM_.getTerminal().getVoltageLevel().getNominalV() > 0)
+      vNom = staticVarCompensatorIIDM_.getTerminal().getVoltageLevel().getNominalV();
     else
       throw DYNError(Error::MODELER, UndefinedNominalV, staticVarCompensatorIIDM_.getTerminal().getVoltageLevel().getId());
 

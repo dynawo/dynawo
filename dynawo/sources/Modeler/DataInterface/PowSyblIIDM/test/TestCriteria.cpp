@@ -80,7 +80,7 @@ createBusBreakerNetwork(double busV, double busVNom, bool addCountry = true) {
                                      .setId("MyVoltageLevel")
                                      .setName("MyVoltageLevel_NAME")
                                      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
-                                     .setNominalVoltage(busVNom)
+                                     .setNominalV(busVNom)
                                      .add();
 
   powsybl::iidm::Bus& bus = vl1.getBusBreakerView().newBus().setId("MyBus").add();
@@ -106,7 +106,7 @@ createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, doubl
                                      .setId("MyVoltageLevel")
                                      .setName("MyVoltageLevel_NAME")
                                      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
-                                     .setNominalVoltage(busVNom)
+                                     .setNominalV(busVNom)
                                      .add();
 
   powsybl::iidm::Bus& bus = vl1.getBusBreakerView().newBus().setId("MyBus").add();
@@ -156,7 +156,7 @@ createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, 
                                      .setId("MyVoltageLevel")
                                      .setName("MyVoltageLevel_NAME")
                                      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
-                                     .setNominalVoltage(busVNom)
+                                     .setNominalV(busVNom)
                                      .add();
 
   powsybl::iidm::Bus& bus = vl1.getBusBreakerView().newBus().setId("MyBus").add();
