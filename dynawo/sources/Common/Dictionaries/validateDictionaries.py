@@ -156,9 +156,15 @@ class DictionariesPool:
         for name, dictionaries in self._dictionaries.items():
             if name.endswith('TimelinePriority'):  # No need to generate keys as we use those of Timeline
                 continue
+
+            for _,dictionary in dictionaries.items():
+                if any(os.path.isfile(os.path.join(include_dir, name + "_" + dictionary.locale + '_oppositeEvents.py')) for include_dir in include_dirs):
+                    continue
+                dictionary.generate_opposite_events_file(output_dir)
+                dictionary.copy_delete_opposite_event_file(output_dir)
+
             if any(os.path.isfile(os.path.join(include_dir, name + '_keys.h')) for include_dir in include_dirs):
                 continue
-
             # take english dic as reference if possible else the first available
             dictionary = dictionaries.get('en_GB', next(iter(dictionaries.values())))
             dictionary.generate_header_files(namespace, output_dir)
@@ -188,6 +194,8 @@ class Dictionary:
         self.messages = dict()
         ## path to sparse files
         self.paths = [str(full_path)] if full_path else []
+        ## path to optional associated opposite event file
+        self.opposite_events = {}
 
     ##
     # Extend the dictionary with another dictionary.
@@ -301,6 +309,61 @@ class Dictionary:
             cpp_file.write("} //namespace " + namespace + "\n")
 
     ##
+    # Generate a opposite events file associated to the dictionary
+    # @param self : object pointer
+    # @return
+    def generate_opposite_events_file(self, op_events_dir=None):
+        if not op_events_dir or len(self.opposite_events) == 0:
+            return
+        name_with_locale = self.name+"_"+self.locale
+        file_name = os.path.join(str(op_events_dir), name_with_locale +'_oppositeEvents.py-tmp')
+        table_to_dump = {}
+        for key1 in self.opposite_events:
+            if not key1 in self.messages:
+                print ("File : DYN"+self.name+"_oppositeEvents.dic, the key " + key1 + " is not found in dictionary file.")
+                exit(1)
+            key1_text = self.messages[key1].replace("\'","\\\'")
+            key2 = self.opposite_events[key1]
+            if not key2 in self.messages:
+                print ("File : DYN"+self.name+"_oppositeEvents.dic, the key " + key2 + " is not found in dictionary file.")
+                exit(1)
+            key2_text = self.messages[key2].replace("'","\'")
+            if key1_text not in table_to_dump:
+                table_to_dump[key1_text] = []
+            if key2_text not in table_to_dump:
+                table_to_dump[key2_text] = []
+            table_to_dump[key1_text].append(key2_text)
+            table_to_dump[key2_text].append(key1_text)
+
+        oe_file = open(file_name,'w')
+        if "fr_FR" in name_with_locale:
+            oe_file.write("# -*-coding:iso8859-1 -*")
+        oe_file.write('''#
+# Copyright (c) 2021, RTE (http://www.rte-france.com)
+# See AUTHORS.txt
+# All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, you can obtain one at http://mozilla.org/MPL/2.0/.
+# SPDX-License-Identifier: MPL-2.0
+#
+# This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+# for power systems.
+''')
+        oe_file.write("dicOppositeEvents = {\n")
+        for key1 in table_to_dump:
+            msg_list = ""
+            for key2 in table_to_dump[key1]:
+                msg_list+="'"+key2+"',"
+            msg_list = msg_list[:-1]
+            try:
+                oe_file.write("    \'" + key1 + "\' : ["+msg_list+"],\n")
+            except UnicodeEncodeError:
+                oe_file.write("    \'" + key1.encode('iso8859-1') + "\' : ["+msg_list.encode('iso8859-1')+"],\n")
+        oe_file.write("}\n")
+        oe_file.close()
+
+    ##
     # Generate a modelica file to declare the enum of the dictionary.
     #
     # @param  self: the object pointer
@@ -391,10 +454,37 @@ class Dictionary:
             shutil.copyfile(tmp_cpp_file, cpp_file)
             os.chmod(h_file, 0o444)  # file only readable
             os.chmod(cpp_file, 0o444)  # file only readable
-
         # remove tmp files
         os.remove(tmp_h_file)
         os.remove(tmp_cpp_file)
+
+    ##
+    # To avoid regeneration of sources, tmp files are created.
+    # If files exist and are equal to tmp files, tmp files are deleted,
+    # else tmp files are copied.
+    #
+    # @param  self: the object pointer
+    # @param  cpp_dir: the path where cpp/header files was created
+    # @return
+    def copy_delete_opposite_event_file(self, cpp_dir=None):
+        if not cpp_dir:
+            return
+
+        oe_file = os.path.join(str(cpp_dir),self.name + "_" + self.locale + '_oppositeEvents.py')
+        tmp_oe_file = oe_file+'-tmp'
+
+        if (not os.path.exists(oe_file)
+                or not filecmp.cmp(tmp_oe_file, oe_file)):
+            if os.path.exists(oe_file):
+                os.chmod(oe_file,0o777)
+            if os.path.exists(tmp_oe_file):
+                shutil.copyfile(tmp_oe_file, oe_file)
+            if os.path.exists(oe_file):
+                os.chmod(oe_file,0o444) # file only readable
+
+        # remove tmp files
+        if os.path.exists(tmp_oe_file):
+            os.remove(tmp_oe_file)
 
     ##
     # Parse the dictionary file.
@@ -452,16 +542,44 @@ class Dictionary:
 
         self.messages[key] = value
 
+##
+# Create a opposite event dictionary thanks to information found in a file.
+#
+# @param  full_path: the file where the information are stored
+# @return the opposite event dictionary created by the function
+def parse_opposite_event_file(full_path):
+    opposite_events = {}
+    file_read = open(full_path,'r')
+    lines = file_read.readlines()
+    file_read.close()
+    for line in lines:
+        line = line.rstrip('\n\r') # erase the endline characters
+        if( line.find("//") != -1):
+            line = line[ :line.find("//")] # erase any comment
+
+        line=line.strip()
+        if( len(line) == 0): # it was only a comment
+            continue
+        if( line.find("=") == -1): # no separator => error
+            continue
+
+        key = line[ : line.find("=")].strip()
+        value = line[ line.find("=")+1:].strip()
+        opposite_events[key] = value
+    return opposite_events
 
 ##
 # Create a dictionary thanks to information found in a file.
 #
 # @param  full_path: the file where the information are stored
+# @param opposite_events_dico: dictionary with key=opposite events name => dictionary
 # @return the dictionary created by the function
 # @throw  Raise ValueError is the file is not well formatted
-def create_dictionary(full_path):
+def create_dictionary(full_path, opposite_events_dico):
     dictionary = Dictionary(full_path)
     dictionary.parse_file('Log' in dictionary.name or 'Error' in dictionary.name)
+    if dictionary.name in opposite_events_dico:
+        dictionary.opposite_events = opposite_events_dico[dictionary.name]
     return dictionary
 
 
@@ -505,18 +623,26 @@ def main():
     # retrieve dictionaries paths
     dic_mapping_name = os.environ.get('DYNAWO_DICTIONARIES', 'dictionaries_mapping') + '.dic'
     dic_paths = []
+    opposite_events_dico = {}
+    existing_opposite_events_python_folder = []
     input_dirs = str(options.inputDir).split(',')
     for input_dir in input_dirs:
         if input_dir:
             for path in glob.glob(os.path.join(input_dir, '*.dic')):
                 if os.path.basename(path) not in ('dictionaries_mapping.dic', dic_mapping_name):
-                    dic_paths.append(path)
+                    if not path.endswith("_oppositeEvents.dic"):
+                        dic_paths.append(path)
+                    else:
+                        opposite_events_dico[os.path.basename(path).replace("_oppositeEvents.dic", "")] = parse_opposite_event_file(path)
+            for path in glob.glob(os.path.join(input_dir, '*_oppositeEvents.py')):
+                if os.path.dirname(path) not in existing_opposite_events_python_folder:
+                    existing_opposite_events_python_folder.append(os.path.dirname(path))
 
     # read all dictionary files
     dictionaries = DictionariesPool()
     try:
         for path in sorted(dic_paths):
-            dictionaries.add_dictionary(create_dictionary(path))
+            dictionaries.add_dictionary(create_dictionary(path, opposite_events_dico))
 
     except ValueError as ve:
         exit(ve)
@@ -525,8 +651,10 @@ def main():
         exit(1)
 
     # generate cpp and modelica files
+    existing_dir = str(options.existingKeysDir).split(',')
+    existing_dir.extend(existing_opposite_events_python_folder)
     dictionaries.generate_files(options.outputDir, options.namespace, options.modelicaDir, options.modelicaPackage,
-                                str(options.existingKeysDir).split(','))
+                                existing_dir)
 
 
 if __name__ == '__main__':
