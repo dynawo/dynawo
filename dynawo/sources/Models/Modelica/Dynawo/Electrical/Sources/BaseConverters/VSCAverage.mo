@@ -34,7 +34,6 @@ Equivalent circuit and conventions:
   parameter Types.PerUnit Rfilter       "Converter filter resistance in p.u (base UNom, SNom)";
   parameter Types.PerUnit Lfilter       "Converter filter inductance in p.u (base UNom, SNom)";
   parameter Types.PerUnit Cfilter       "Converter filter capacitance in p.u (base UNom, SNom)";
-
   parameter Types.PerUnit UdFilter0Pu   "Start value of the d-axis voltage at the converter terminal (filter) in p.u (base UNom)";
   parameter Types.PerUnit UdConv0Pu     "Start value of the d-axis converter modulated voltage in p.u (base UNom)";
   parameter Types.PerUnit UqConv0Pu     "Start value of the q-axis converter modulated voltage in p.u (base UNom)";

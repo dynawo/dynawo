@@ -26,160 +26,159 @@ IdcSourcePu     IdcPu |          |iConvPu                           iPccPu
 ----------------------|__________|---------------------------------------------------------------------
 
 */
+
   import Dynawo;
   import Dynawo.Types;
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  parameter Types.ApparentPowerModule SNom  "Nominal converter apparent power in MVA";
-  parameter Types.PerUnit PmaxPu            "Maximal converter active power in p.u (base SNom)";
-  parameter Types.PerUnit QmaxPu            "Maximal converter reactive power in p.u (base SNom)";
-  parameter Types.PerUnit ImaxPu            "Maximal converter valve current in p.u (base UNom, SNom)";
-  parameter Types.PerUnit ConvFixLossPu     "Converter fix losses in p.u (base SNom), such that PlossPu=ConvFixLossPu+Plvar";
-  parameter Types.PerUnit ConvVarLossPu     "Converter variable losses in p.u (base UNom, SNom), such that Plvar=ConvVarLossPu*Idc";
-
-  parameter Types.PerUnit Rtransformer      "Transformer resistance in p.u (base UNom, SNom)" annotation(
+  parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
+  parameter Types.PerUnit PMaxPu "Maximal converter active power in p.u (base SNom)";
+  parameter Types.PerUnit QMaxPu "Maximal converter reactive power in p.u (base SNom)";
+  parameter Types.PerUnit IMaxPu "Maximal converter valve current in p.u (base UNom, SNom)";
+  parameter Types.PerUnit ConvFixLossPu "Converter fix losses in p.u (base SNom), such that PlossPu=ConvFixLossPu+Plvar";
+  parameter Types.PerUnit ConvVarLossPu "Converter variable losses in p.u (base UNom, SNom), such that Plvar=ConvVarLossPu*Idc";
+  parameter Types.PerUnit Rtransformer "Transformer resistance in p.u (base UNom, SNom)" annotation(
     Dialog(group = "group", tab = "Electrical"));
-  parameter Types.PerUnit Ltransformer      "Transformer inductance in p.u (base UNom, SNom)" annotation(
+  parameter Types.PerUnit Ltransformer "Transformer inductance in p.u (base UNom, SNom)" annotation(
     Dialog(group = "group", tab = "Electrical"));
-  parameter Types.PerUnit Rfilter           "Converter filter resistance in p.u (base UNom, SNom)" annotation(
+  parameter Types.PerUnit Rfilter "Converter filter resistance in p.u (base UNom, SNom)" annotation(
     Dialog(group = "group", tab = "Electrical"));
-  parameter Types.PerUnit Lfilter           "Converter filter inductance in p.u (base UNom, SNom)" annotation(
+  parameter Types.PerUnit Lfilter "Converter filter inductance in p.u (base UNom, SNom)" annotation(
     Dialog(group = "group", tab = "Electrical"));
-  parameter Types.PerUnit Cfilter           "Converter filter capacitance in p.u (base UNom, SNom)" annotation(
+  parameter Types.PerUnit Cfilter "Converter filter capacitance in p.u (base UNom, SNom)" annotation(
     Dialog(group = "group", tab = "Electrical"));
-  parameter Types.PerUnit Cdc               "DC bus capacitance in p.u (base UNom, SNom)" annotation(
+  parameter Types.PerUnit Cdc "DC bus capacitance in p.u (base UNom, SNom)" annotation(
     Dialog(group = "group", tab = "Electrical"));
-
-  parameter Types.PerUnit KpPll             "Proportional gain of the phase-locked loop (PLL)" annotation(
+  parameter Types.PerUnit KpPll "Proportional gain of the phase-locked loop (PLL)" annotation(
     Dialog(group = "group", tab = "Control"));
-  parameter Types.PerUnit KiPll             "Integral gain of the phase-locked loop (PLL)" annotation(
+  parameter Types.PerUnit KiPll "Integral gain of the phase-locked loop (PLL)" annotation(
     Dialog(group = "group", tab = "Control"));
-  parameter Types.PerUnit Kpc               "Proportional gain of the current loop" annotation(
+  parameter Types.PerUnit Kpc "Proportional gain of the current loop" annotation(
     Dialog(group = "group", tab = "Control"));
-  parameter Types.PerUnit Kic               "Integral gain of the current loop" annotation(
+  parameter Types.PerUnit Kic "Integral gain of the current loop" annotation(
     Dialog(group = "group", tab = "Control"));
-  parameter Types.PerUnit Kpdc              "Proportional gain of the dc voltage control" annotation(
+  parameter Types.PerUnit KpDc "Proportional gain of the dc voltage control" annotation(
     Dialog(group = "group", tab = "Control"));
-  parameter Types.PerUnit DroopUQ           "Proportional gain of the reactive power loop (AC voltage regulation), such that Qsp=Qref+DroopUQ*(UacRef-Uac)" annotation(
+  parameter Types.PerUnit DroopUQ "Proportional gain of the reactive power loop (AC voltage regulation), such that Qsp=Qref+DroopUQ*(UacRef-Uac)" annotation(
     Dialog(group = "group", tab = "Control"));
-  parameter Types.PerUnit DroopFP           "Proportional gain of the active power loop (frequency regulation), such that Psp=Pref-DroopFP*(fnom-f)" annotation(
+  parameter Types.PerUnit DroopFP "Proportional gain of the active power loop (frequency regulation), such that Psp=Pref-DroopFP*(fnom-f)" annotation(
     Dialog(group = "group", tab = "Control"));
-  parameter Types.Time tauIdRef             "Approximation of the response time of the active power loop is seconds" annotation(
+  parameter Types.Time tauIdRef "Approximation of the response time of the active power loop is seconds" annotation(
     Dialog(group = "group", tab = "Control"));
-  parameter Types.Time tauIqRef             "Approximation of the response time of the reactive power loop is seconds" annotation(
+  parameter Types.Time tauIqRef "Approximation of the response time of the reactive power loop is seconds" annotation(
     Dialog(group = "group", tab = "Control"));
-  parameter Types.PerUnit RPmaxPu           "Maximal primary reserve in p.u (base SNom)" annotation(
+  parameter Types.PerUnit RPmaxPu "Maximal primary reserve in p.u (base SNom)" annotation(
     Dialog(group = "group", tab = "Control"));
-
-  parameter Types.ActivePowerPu P0Pu    "Start value of active power at the PCC in p.u (base SnRef) (receptor convention)" annotation(
+  parameter Types.ActivePowerPu P0Pu "Start value of active power at the PCC in p.u (base SnRef) (receptor convention)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power at the PCC in p.u (base SnRef) (receptor convention)" annotation(
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at the PCC in p.u (base SnRef) (receptor convention)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.ComplexPerUnit u0Pu   "Start value of the complex voltage at plant terminal (PCC) in p.u (base UNom)" annotation(
+  parameter Types.ComplexPerUnit u0Pu "Start value of the complex voltage at plant terminal (PCC) in p.u (base UNom)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.ComplexPerUnit i0Pu   "Start value of the complex current at plant terminal (PCC) in p.u (base UNom, SnRef) (receptor convention)" annotation(
+  parameter Types.ComplexPerUnit i0Pu "Start value of the complex current at plant terminal (PCC) in p.u (base UNom, SnRef) (receptor convention)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.Angle Theta0          "Start value of the phase shift between the converter's rotating frame and the grid rotating frame in radians" annotation(
+  parameter Types.Angle Theta0 "Start value of the phase shift between the converter's rotating frame and the grid rotating frame in radians" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.PerUnit UdFilter0Pu   "Start value of the d-axis voltage at the converter terminal (filter) in p.u (base UNom)" annotation(
+  parameter Types.PerUnit UdFilter0Pu "Start value of the d-axis voltage at the converter terminal (filter) in p.u (base UNom)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.PerUnit UdConv0Pu     "Start value of the d-axis converter modulated voltage in p.u (base UNom)" annotation(
+  parameter Types.PerUnit UdConv0Pu "Start value of the d-axis converter modulated voltage in p.u (base UNom)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.PerUnit UqConv0Pu     "Start value of the q-axis converter modulated voltage in p.u (base UNom)" annotation(
+  parameter Types.PerUnit UqConv0Pu "Start value of the q-axis converter modulated voltage in p.u (base UNom)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.PerUnit IdConv0Pu     "Start value of the d-axis valve current (before filter) in p.u (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.PerUnit IdConv0Pu "Start value of the d-axis valve current (before filter) in p.u (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.PerUnit IqConv0Pu     "Start value of the q-axis valve current (before filter) in p.u (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.PerUnit IqConv0Pu "Start value of the q-axis valve current (before filter) in p.u (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.PerUnit IdPcc0Pu      "Start value of the d-axis current injected at the PCC in p.u (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.PerUnit IdPcc0Pu "Start value of the d-axis current injected at the PCC in p.u (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.PerUnit IqPcc0Pu      "Start value of the q-axis current injected at the PCC in p.u (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.PerUnit IqPcc0Pu "Start value of the q-axis current injected at the PCC in p.u (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-
-  parameter Types.PerUnit PRef0Pu       "Start value of the active power reference at the converter terminal (filter) in p.u (base SNom) (generator convention)" annotation(
+  parameter Types.PerUnit PRef0Pu "Start value of the active power reference at the converter terminal (filter) in p.u (base SNom) (generator convention)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.PerUnit QRef0Pu       "Start value of the reactive power reference at the converter terminal (filter) in p.u (base SNom) (generator convention)" annotation(
+  parameter Types.PerUnit QRef0Pu "Start value of the reactive power reference at the converter terminal (filter) in p.u (base SNom) (generator convention)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.PerUnit Udc0Pu  "Start value of the DC bus voltage in p.u (base UNom)" annotation(
+  parameter Types.PerUnit Udc0Pu "Start value of the DC bus voltage in p.u (base UNom)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-  parameter Types.PerUnit IdcSource0Pu  "Start value of the DC source current in p.u (base UNom, SNom)" annotation(
+  parameter Types.PerUnit IdcSource0Pu "Start value of the DC source current in p.u (base UNom, SNom)" annotation(
     Dialog(group = "group", tab = "Operating point"));
-
-  parameter Types.PerUnit PstepHPu      "Height of the active power step in p.u (base SNom)" annotation(
+  parameter Types.PerUnit IdcSourceRef0Pu "Start value of the reference DC source current in p.u (base UNom, SNom)"annotation(
+    Dialog(group = "group", tab = "Operating point"));
+  parameter Types.PerUnit PstepHPu "Height of the active power step in p.u (base SNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
-  parameter Types.PerUnit QstepHPu      "Height of the reactive power step in p.u (base SNom)" annotation(
+  parameter Types.PerUnit QstepHPu "Height of the reactive power step in p.u (base SNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
-  parameter Types.PerUnit UstepHPu      "Height of the AC voltage step in p.u (base UNom)" annotation(
+  parameter Types.PerUnit UstepHPu "Height of the AC voltage step in p.u (base UNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
-  parameter Types.Time t_Pstep          "Time of the active power step in p.u (base SNom)" annotation(
+  parameter Types.Time t_Pstep "Time of the active power step in p.u (base SNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
-  parameter Types.Time t_Qstep          "Time of the reactive power step in p.u (base SNom)" annotation(
+  parameter Types.Time t_Qstep "Time of the reactive power step in p.u (base SNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
-  parameter Types.Time t_Ustep          "Time of the AC voltage step in p.u (base UNom)" annotation(
+  parameter Types.Time t_Ustep "Time of the AC voltage step in p.u (base UNom)" annotation(
     Dialog(group = "group", tab = "Reference steps"));
 
   Dynawo.Electrical.Sources.VSCIdcSource vSCIdcSource(Cdc = Cdc,Cfilter = Cfilter, ConvFixLossPu = ConvFixLossPu, ConvVarLossPu = ConvVarLossPu, IdConv0Pu = IdConv0Pu, IdPcc0Pu = IdPcc0Pu, IdcSource0Pu = IdcSource0Pu, IqConv0Pu = IqConv0Pu, IqPcc0Pu = IqPcc0Pu, Lfilter = Lfilter, Ltransformer = Ltransformer, P0Pu = P0Pu, Q0Pu = Q0Pu, Rfilter = Rfilter, Rtransformer = Rtransformer, SNom = SNom, Theta0 = Theta0, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, Udc0Pu = Udc0Pu, UqConv0Pu = UqConv0Pu, i0Pu = i0Pu, u0Pu = u0Pu)  annotation(
-    Placement(visible = true, transformation(origin = {-13, 1}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.GridFollowingControl gridFollowingControl(DroopFP = DroopFP,DroopUQ = DroopUQ,IdConv0Pu = IdConv0Pu, IdcSource0Pu = IdcSource0Pu, ImaxPu = ImaxPu, IqConv0Pu = IqConv0Pu, KiPll = KiPll, Kic = Kic, KpPll = KpPll, Kpc = Kpc, Kpdc = Kpdc, Lfilter = Lfilter, PRef0Pu = PRef0Pu, PmaxPu = PmaxPu, QRef0Pu = QRef0Pu, QmaxPu = QmaxPu, RPmaxPu = RPmaxPu, Rfilter = Rfilter, Theta0 = Theta0, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, Udc0Pu = Udc0Pu, UqConv0Pu = UqConv0Pu, tauIdRef = tauIdRef, tauIqRef = tauIqRef)  annotation(
-    Placement(visible = true, transformation(origin = {21, 1}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-38, -1.77636e-15}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Converters.GridFollowingControl gridFollowingControl(DroopFP = DroopFP,DroopUQ = DroopUQ, IMaxPu = IMaxPu,IdConv0Pu = IdConv0Pu, IdcSource0Pu = IdcSource0Pu, IdcSourceRef0Pu = IdcSourceRef0Pu, IqConv0Pu = IqConv0Pu, KiPll = KiPll, Kic = Kic, KpPll = KpPll, Kpc = Kpc, KpDc = KpDc, Lfilter = Lfilter, PMaxPu = PMaxPu, PRef0Pu = PRef0Pu, QMaxPu = QMaxPu, QRef0Pu = QRef0Pu, RPmaxPu = RPmaxPu, Rfilter = Rfilter, Theta0 = Theta0, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, Udc0Pu = Udc0Pu, UqConv0Pu = UqConv0Pu, tauIdRef = tauIdRef, tauIqRef = tauIqRef)  annotation(
+    Placement(visible = true, transformation(origin = {28, 3.9968e-15}, extent = {{25, -25}, {-25, 25}}, rotation = 0)));
 
   Modelica.Blocks.Sources.Step PrefPu(height = PstepHPu, offset = PRef0Pu, startTime = t_Pstep)  annotation(
-    Placement(visible = true, transformation(origin = {43, 37}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {89, 89}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step QRefPu(height = QstepHPu, offset = QRef0Pu, startTime = t_Qstep)  annotation(
-    Placement(visible = true, transformation(origin = {43, 25}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {89, 55}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step UFilterRefPu(height = UstepHPu, offset = UdFilter0Pu, startTime = t_Ustep)  annotation(
-    Placement(visible = true, transformation(origin = {43, 13}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant omegaRefPu(k = 1)  annotation(
-    Placement(visible = true, transformation(origin = {43, 0}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {89, 17}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step IdcSourceRefPu(height = 0, offset = IdcSource0Pu, startTime = 0)  annotation(
-    Placement(visible = true, transformation(origin = {43, -13}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {89, -55}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step UdcRefPu(height = 0, offset = Udc0Pu, startTime = 0)  annotation(
-    Placement(visible = true, transformation(origin = {43, -26}, extent = {{4, -4}, {-4, 4}}, rotation= 0)));
+    Placement(visible = true, transformation(origin = {89, -90}, extent = {{10, -10}, {-10, 10}}, rotation= 0)));
+  Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
+    Placement(visible = true, transformation(origin = {89, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   Dynawo.Connectors.ACPower aCPower annotation(
-    Placement(visible = true, transformation(origin = {-42.5, -0.5}, extent = {{-4.5, -4.5}, {4.5, 4.5}}, rotation = 0), iconTransformation(origin = {-110, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-86.5, -0.5}, extent = {{-12.5, -12.5}, {12.5, 12.5}}, rotation = 0), iconTransformation(origin = {-110, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  connect(gridFollowingControl.theta, vSCIdcSource.theta) annotation(
-    Line(points = {{10.5, 9}, {-2, 9}}, color = {0, 0, 127}));
-  connect(gridFollowingControl.omegaPu, vSCIdcSource.omegaPu) annotation(
-    Line(points = {{10.5, 5}, {-2, 5}}, color = {0, 0, 127}));
-  connect(gridFollowingControl.udConvPu, vSCIdcSource.udConvPu) annotation(
-    Line(points = {{10.5, 1}, {-2, 1}}, color = {0, 0, 127}));
-  connect(gridFollowingControl.uqConvPu, vSCIdcSource.uqConvPu) annotation(
-    Line(points = {{10.5, -3}, {-2, -3}}, color = {0, 0, 127}));
-  connect(gridFollowingControl.IdcSourcePu, vSCIdcSource.IdcSourcePu) annotation(
-    Line(points = {{10.5, -7}, {-2, -7}}, color = {0, 0, 127}));
-  connect(vSCIdcSource.idConvPu, gridFollowingControl.idConvPu) annotation(
-    Line(points = {{-6, -10}, {-6, -13}, {15, -13}, {15, -9.5}}, color = {0, 0, 127}));
-  connect(vSCIdcSource.uqFilterPu, gridFollowingControl.uqFilterPu) annotation(
-    Line(points = {{-8.5, -10}, {-8.5, -15}, {17, -15}, {17, -9.5}}, color = {0, 0, 127}));
-  connect(vSCIdcSource.udFilterPu, gridFollowingControl.udFilterPu) annotation(
-    Line(points = {{-11, -10}, {-11, -17}, {19, -17}, {19, -9.5}}, color = {0, 0, 127}));
-  connect(vSCIdcSource.UdcPu, gridFollowingControl.UdcPu) annotation(
-    Line(points = {{-13, -10}, {-13, -19}, {22, -19}, {22, -9.5}}, color = {0, 0, 127}));
-  connect(gridFollowingControl.UdcRefPu, UdcRefPu.y) annotation(
-    Line(points = {{31.5, -7}, {33, -7}, {33, -26}, {39, -26}}, color = {0, 0, 127}));
-  connect(IdcSourceRefPu.y, gridFollowingControl.IdcSourceRefPu) annotation(
-    Line(points = {{39, -13}, {35, -13}, {35, -5}, {31.5, -5}}, color = {0, 0, 127}));
-  connect(omegaRefPu.y, gridFollowingControl.omegaRefPu) annotation(
-    Line(points = {{39, 0}, {31.5, 0}}, color = {0, 0, 127}));
-  connect(UFilterRefPu.y, gridFollowingControl.UFilterRefPu) annotation(
-    Line(points = {{39, 13}, {39, 7.5}, {37, 7.5}, {37, 2}, {31.5, 2}}, color = {0, 0, 127}));
-  connect(QRefPu.y, gridFollowingControl.QRefPu) annotation(
-    Line(points = {{39, 25}, {35, 25}, {35, 7}, {31.5, 7}}, color = {0, 0, 127}));
-  connect(PrefPu.y, gridFollowingControl.PRefPu) annotation(
-    Line(points = {{39, 37}, {33, 37}, {33, 9.5}, {31.5, 9.5}}, color = {0, 0, 127}));
-  connect(vSCIdcSource.iqConvPu, gridFollowingControl.iqConvPu) annotation(
-    Line(points = {{-4, -10}, {-4, -10}, {-4, -12}, {12, -12}, {12, -9}, {12, -9}}, color = {0, 0, 127}));
-  connect(aCPower, vSCIdcSource.terminal) annotation(
-    Line(points = {{-42, -1}, {-24, -1}, {-24, -1}, {-24, -1}}));
+
   vSCIdcSource.switchOffSignal1.value = false;
   vSCIdcSource.switchOffSignal2.value = false;
   vSCIdcSource.switchOffSignal3.value = false;
+  connect(PrefPu.y, gridFollowingControl.PRefPu) annotation(
+    Line(points = {{78, 89}, {55, 89}, {55, 22}, {54, 22}}, color = {0, 0, 127}));
+  connect(vSCIdcSource.terminal, aCPower) annotation(
+    Line(points = {{-65.5, 0}, {-86, 0}}, color = {0, 0, 255}));
+  connect(gridFollowingControl.theta, vSCIdcSource.theta) annotation(
+    Line(points = {{2, 20}, {-11, 20}}, color = {0, 0, 127}));
+  connect(gridFollowingControl.udConvPu, vSCIdcSource.udConvPu) annotation(
+    Line(points = {{2, 0}, {-11, 0}}, color = {0, 0, 127}));
+  connect(gridFollowingControl.IdcSourcePu, vSCIdcSource.IdcSourcePu) annotation(
+    Line(points = {{2, -20}, {-11, -20}}, color = {0, 0, 127}));
+  connect(vSCIdcSource.iqConvPu, gridFollowingControl.iqConvPu) annotation(
+    Line(points = {{-16, -27}, {-16, -31}, {8, -31}, {8, -27}}, color = {0, 0, 127}));
+  connect(vSCIdcSource.udFilterPu, gridFollowingControl.udFilterPu) annotation(
+    Line(points = {{-32, -27}, {-32, -44}, {38, -44}, {38, -27}}, color = {0, 0, 127}));
+  connect(vSCIdcSource.UdcPu, gridFollowingControl.UdcPu) annotation(
+    Line(points = {{-38, -27}, {-38, -50}, {48, -50}, {48, -27}}, color = {0, 0, 127}));
+  connect(vSCIdcSource.idConvPu, gridFollowingControl.idConvPu) annotation(
+    Line(points = {{-21, -27}, {-21, -36}, {18, -36}, {18, -26}}, color = {0, 0, 127}));
+  connect(vSCIdcSource.uqFilterPu, gridFollowingControl.uqFilterPu) annotation(
+    Line(points = {{-27, -27}, {-27, -40}, {28, -40}, {28, -26}}, color = {0, 0, 127}));
+  connect(QRefPu.y, gridFollowingControl.QRefPu) annotation(
+    Line(points = {{78, 56}, {60, 56}, {60, 14}, {54, 14}, {54, 14}}, color = {0, 0, 127}));
+  connect(UFilterRefPu.y, gridFollowingControl.UFilterRefPu) annotation(
+    Line(points = {{78, 18}, {64, 18}, {64, 6}, {54, 6}, {54, 6}}, color = {0, 0, 127}));
+  connect(omegaRefPu.y, gridFollowingControl.omegaRefPu) annotation(
+    Line(points = {{78, -20}, {64, -20}, {64, -4}, {54, -4}, {54, -4}}, color = {0, 0, 127}));
+  connect(IdcSourceRefPu.y, gridFollowingControl.IdcSourceRefPu) annotation(
+    Line(points = {{78, -54}, {60, -54}, {60, -12}, {54, -12}, {54, -12}}, color = {0, 0, 127}));
+  connect(UdcRefPu.y, gridFollowingControl.UdcRefPu) annotation(
+    Line(points = {{78, -90}, {56, -90}, {56, -22}, {54, -22}}, color = {0, 0, 127}));
+  connect(gridFollowingControl.omegaPu, vSCIdcSource.omegaPu) annotation(
+    Line(points = {{2, 10}, {-11, 10}}, color = {0, 0, 127}));
+  connect(gridFollowingControl.uqConvPu, vSCIdcSource.uqConvPu) annotation(
+    Line(points = {{2, -10}, {-11, -10}}, color = {0, 0, 127}));
 
-annotation(
+  annotation(
     experiment(StartTime = 0, StopTime = 30, Tolerance = 0.000001),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls="kinsol",  s = "ida", nlsLS = "klu",  maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">

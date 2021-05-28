@@ -12,14 +12,15 @@ model Modulation "Modulation"
     *
     * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
     */
+
   import Modelica;
   import Dynawo.Types;
 
-  parameter Types.PerUnit Udc0Pu  "Start value of the DC bus voltage in p.u (base UNom)";
-  parameter Types.PerUnit UdConv0Pu     "Start value of the d-axis converter modulated voltage in p.u (base UNom)";
-  parameter Types.PerUnit UqConv0Pu     "Start value of the q-axis converter modulated voltage in p.u (base UNom)";
+  parameter Types.PerUnit Udc0Pu "Start value of the DC bus voltage in p.u (base UNom)";
+  parameter Types.PerUnit UdConv0Pu "Start value of the d-axis converter modulated voltage in p.u (base UNom)";
+  parameter Types.PerUnit UqConv0Pu "Start value of the q-axis converter modulated voltage in p.u (base UNom)";
 
-  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu)    "DC bus voltage in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC bus voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-121, 30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-111, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = Udc0Pu) "DC Voltage reference in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-121, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-111, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -27,13 +28,12 @@ model Modulation "Modulation"
     Placement(visible = true, transformation(origin = {-121, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-111, 71}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput uqConvRefPu(start = UqConv0Pu) "q-axis reference for the converter modulated voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-122, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-111, 29}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Interfaces.RealOutput udConvPu(start = UdConv0Pu)   "d-axis converter modulated voltage in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput udConvPu(start = UdConv0Pu) "d-axis converter modulated voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {119.5, 29.5}, extent = {{-19.5, -19.5}, {19.5, 19.5}}, rotation = 0), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput uqConvPu(start = UqConv0Pu)   "q-axis converter modulated voltage in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput uqConvPu(start = UqConv0Pu) "q-axis converter modulated voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {120, -31}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, -51}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Types.PerUnit UConvPu(start = sqrt(UdConv0Pu ^ 2 + UqConv0Pu ^ 2))  "Module of the modulated voltage (base UNom)";
+  Types.PerUnit UConvPu(start = sqrt(UdConv0Pu ^ 2 + UqConv0Pu ^ 2)) "Module of the modulated voltage (base UNom)";
 
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {70, 29}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -49,7 +49,9 @@ model Modulation "Modulation"
     Placement(visible = true, transformation(origin = {-12, -55}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
+
 /* Modulated voltage module */
+
   UConvPu = sqrt(udConvPu ^ 2 + uqConvPu ^ 2);
 
   connect(division.y, udConvPu) annotation(
@@ -78,7 +80,7 @@ equation
     Line(points = {{-121, -80}, {-40, -80}, {-40, -61}, {-24, -61}, {-24, -61}}, color = {0, 0, 127}));
 
 annotation(
-    Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-41.5, 43}, extent = {{-37.5, 19}, {118.5, -99}}, textString = "Modulation")}),
+    Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-53.5, 59}, extent = {{-37.5, 19}, {143.5, -137}}, textString = "Modulation")}),
     preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1}, initialScale = 0.1)));
 

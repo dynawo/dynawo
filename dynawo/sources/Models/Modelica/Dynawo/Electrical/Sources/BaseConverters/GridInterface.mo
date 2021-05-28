@@ -38,7 +38,6 @@ uFilterPu                         uPccPu
   parameter Types.ApparentPowerModule SNom  "Nominal converter apparent power in MVA";
   parameter Types.PerUnit Rtransformer      "Transformer resistance in p.u (base UNom, SNom)";
   parameter Types.PerUnit Ltransformer      "Transformer inductance in p.u (base UNom, SNom)";
-
   parameter Types.ActivePowerPu P0Pu    "Start value of active power at the PCC in p.u (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power at the PCC in p.u (base SnRef) (receptor convention)";
   parameter Types.ComplexPerUnit u0Pu   "Start value of the complex voltage at plant terminal (PCC) in p.u (base UNom)";

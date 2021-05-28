@@ -33,7 +33,6 @@ Pdc=Pconv + Ploss
   parameter Types.PerUnit ConvFixLossPu "Converter fix losses in p.u (base SNom), such that PlossPu=ConvFixLossPu+Plvar";
   parameter Types.PerUnit ConvVarLossPu "Converter variable losses in p.u (base UNom, SNom), such that Plvar=ConvVarLossPu*Idc";
   parameter Types.PerUnit Cdc           "DC bus capacitance in p.u (base UNom, SNom)";
-
   parameter Types.PerUnit Udc0Pu  "Start value of the DC bus voltage in p.u (base UNom)";
   parameter Types.PerUnit IdcSource0Pu  "Start value of the DC source current in p.u (base UNom, SNom)";
 
@@ -43,7 +42,6 @@ Pdc=Pconv + Ploss
         Placement(visible = true, transformation(origin = {-70, -40}, extent = {{-15, -15}, {15, 15}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput PConvPu(start = IdcSource0Pu*Udc0Pu) "Active Power at converter side, before filter (base SNom)" annotation(
         Placement(visible = true, transformation(origin = {-70.5, -0.5}, extent = {{-15.5, -15.5}, {15.5, 15.5}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   Modelica.Blocks.Interfaces.RealOutput UdcPu(start = Udc0Pu) "DC bus voltage in p.u (base UNom)" annotation(
         Placement(visible = true, transformation(origin = {79.5, -0.5}, extent = {{-15.5, -15.5}, {15.5, 15.5}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
 
