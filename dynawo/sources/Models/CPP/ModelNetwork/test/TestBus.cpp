@@ -556,7 +556,6 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
         ++nbCalc;
     }
   }
-  ASSERT_EQ(nbAlias, 4);
   ASSERT_EQ(nbCalc, 4);
   ASSERT_EQ(nbVar, 7);
 
