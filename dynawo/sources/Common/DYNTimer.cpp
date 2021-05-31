@@ -21,8 +21,6 @@
 
 #include "DYNTimer.h"
 
-using std::stringstream;
-
 namespace DYN {
 
 Timers::Timers() {

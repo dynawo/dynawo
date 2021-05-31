@@ -40,7 +40,6 @@ using std::pair;
 using std::map;
 using std::set;
 using std::list;
-using std::stringstream;
 
 namespace DYN {
 FictVoltageLevelInterfaceIIDM::FictVoltageLevelInterfaceIIDM(const std::string& Id, const double& VNom, const string& country) :

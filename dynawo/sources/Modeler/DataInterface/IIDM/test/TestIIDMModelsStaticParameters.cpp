@@ -737,7 +737,6 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
   ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyLoad", "myBadModelVar"));
   ASSERT_THROW_DYNAWO(data->getStateVariableReference(), Error::MODELER, KeyError_t::StateVariableNoReference);
   const bool filterForCriteriaCheck = false;
-  ASSERT_NO_THROW(data->updateFromModel(filterForCriteriaCheck));
 
   // Reset
   data = createBusBreakerNetwork(properties);

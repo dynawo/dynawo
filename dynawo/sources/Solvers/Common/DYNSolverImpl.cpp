@@ -165,7 +165,7 @@ Solver::Impl::printHeader() const {
 
 void
 Solver::Impl::printSolve() const {
-  std::stringstream msg;
+  stringstream msg;
   msg << setfill(' ') << setw(12) << std::fixed << std::setprecision(3) << getTSolve() << " ";
 
   printSolveSpecific(msg);
