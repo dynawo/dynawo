@@ -27,7 +27,6 @@
 
 namespace DYN {
 
-using std::stringstream;
 using std::string;
 
 Terminate::Terminate(const Message& m) :

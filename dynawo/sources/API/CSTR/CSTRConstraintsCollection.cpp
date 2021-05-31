@@ -48,11 +48,13 @@ ConstraintsCollection::addConstraint(const string& modelName, const string& desc
     constraintsByModel_[modelName] = vector<shared_ptr<Constraint> >();
   } else {
     vector<shared_ptr<Constraint> > constraints = iter->second;
+    stringstream oldId;
     for (unsigned int i = 0; i < constraints.size(); ++i) {
       string oldDescription = constraints[i]->getDescription();
       Type_t oldType = constraints[i]->getType();
       double oldTime = constraints[i]->getTime();
-      stringstream oldId;
+      oldId.str("");
+      oldId.clear();
       oldId << oldTime << "_" << modelName << "_" << oldDescription;
       if (oldDescription == description && oldType == CONSTRAINT_BEGIN && type == CONSTRAINT_END) {
         addConstraint = false;

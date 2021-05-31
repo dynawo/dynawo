@@ -25,7 +25,6 @@
 #include "DYNIoDico.h"
 #include "DYNMacrosMessage.h"
 
-using std::stringstream;
 using std::string;
 
 namespace DYN {
