@@ -130,7 +130,7 @@ void compile(boost::shared_ptr<DynamicData> dyd) {
 boost::shared_ptr<Model> initModel(const double& tStart, Modeler modeler, bool silentZenabled = true) {
   boost::shared_ptr<Model> model = modeler.getModel();
   model->initBuffers();
-  model->setEnableSilentZ(silentZenabled);
+  model->initSilentZ(silentZenabled);
   model->setIsInitProcess(true);
   model->init(tStart);
   model->rotateBuffers();

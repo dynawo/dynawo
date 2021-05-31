@@ -207,12 +207,12 @@ class Model {
   virtual zChangeType_t getSilentZChangeType() const = 0;
 
   /**
-   * @brief enable or disable the possibility to break discrete variable propagation loop if only silent z are modified
+   * @brief initialize the type of discrete variables (notSilent, used only in discrete equations, used only in continuous equations)
    *
    *
-   * @param enableSilentZ whether to enable or disable silent z
+   * @param enableSilentZ whether silent z is enabled or disabled
    */
-  virtual void setEnableSilentZ(bool enableSilentZ) = 0;
+  virtual void initSilentZ(bool enableSilentZ) = 0;
 
   /**
    * @brief get the properties of each residual function (algebraic or differential equation)
