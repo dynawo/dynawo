@@ -168,14 +168,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   }
 
   /**
-   * @brief enable or disable the possibility to break discrete variable propagation loop if only silent z are modified
-   *
-   *
-   * @param enableSilentZ whether to enable or disable silent z
+   * @copydoc Model::initSilentZ(bool enableSilentZ)
    */
-  inline void setEnableSilentZ(bool enableSilentZ) {
-    enableSilentZ_ = enableSilentZ;
-  }
+  void initSilentZ(bool enableSilentZ);
 
   /**
    * @copydoc Model::getFType()
@@ -576,7 +571,6 @@ class ModelMulti : public Model, private boost::noncopyable {
   double* zLocal_;  ///< local buffer to use when accessing discretes variables
   bool* zConnectedLocal_;  ///< local buffer to use when accessing discretes variables connection status
   BitMask* silentZ_;  ///< local buffer indicating if the corresponding discrete variable is silent
-  bool enableSilentZ_;  ///< enable or disable the use of silentZ in the discrete variable propagation loop
   bool silentZInitialized_;  ///< true if silentZ were collected
   std::vector<size_t> notUsedInDiscreteEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in discrete equations
   std::vector<size_t> notUsedInContinuousEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in continuous equations
