@@ -233,6 +233,25 @@ ConnectorContainer::mergeZConnector() {
 }
 
 void
+ConnectorContainer::propagateZConnectionInfoToModel() const {
+  if (!connectorsMerged_)
+    return;
+
+  for (unsigned int i = 0; i < nbZConnectors(); ++i) {
+    boost::shared_ptr<Connector> zc = zConnectors_[i];
+    if (zc->connectedSubModels().empty()) {
+      throw DYNError(Error::MODELER, EmptyConnector);  // should not happen but who knows ...
+    }
+    for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
+        it != zc->connectedSubModels().end();
+        ++it) {
+      const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
+      zConnectedLocal_[numVar2] = true;
+    }
+  }
+}
+
+void
 ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<Connector> reference, list<shared_ptr<Connector> >& connectorsList,
                                     unordered_map<int, shared_ptr<Connector> >& connectorsByVarNum, bool flowConnector) {
   // Looking for common variable to test the negated attributes
@@ -728,13 +747,11 @@ ConnectorContainer::getY0ConnectorForZConnector() {
 
     // Propagating reference init value
     const int numVarReference = itReference->subModel()->getVariableIndexGlobal(itReference->variable());
-    zConnectedLocal_[numVarReference] = true;
     for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
         it != zc->connectedSubModels().end();
         ++it) {
       if (it != itReference) {
         const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
-        zConnectedLocal_[numVar2] = true;
         if (it->negated() == zNegated) {
           zLocal_[numVar2] = zLocal_[numVarReference];
         } else {
