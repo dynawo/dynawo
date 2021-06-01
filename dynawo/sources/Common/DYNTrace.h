@@ -90,7 +90,14 @@ class Trace {
     /**
      * @brief TraceAppender constructor
      */
-    TraceAppender() { }
+    TraceAppender():
+      tag_(),
+      filePath_(),
+      lvlFilter_(INFO),
+      showLevelTag_(false),
+      separator_(),
+      showTimeStamp_(false),
+      timeStampFormat_() { }
 
     /**
      * @brief TraceAppender destructor
@@ -101,7 +108,7 @@ class Trace {
      * @brief Tag attribute getter
      * @return Tag filtered by the appender
      */
-    std::string getTag() {
+    const std::string& getTag() const {
       return tag_;
     }
 
@@ -109,7 +116,7 @@ class Trace {
      * @brief File path attribute getter
      * @return Output file path of the appender
      */
-    std::string getFilePath() {
+    const std::string& getFilePath() const {
       return filePath_;
     }
 
@@ -117,7 +124,7 @@ class Trace {
      * @brief Level filter attribute getter
      * @return Minimum severity level exported by the appender
      */
-    SeverityLevel getLvlFilter() {
+    SeverityLevel getLvlFilter() const {
       return lvlFilter_;
     }
 
@@ -133,7 +140,7 @@ class Trace {
      * @brief separator between log information getter
      * @return the separator used to separate information inside the log
      */
-    std::string getSeparator() const {
+    const std::string& getSeparator() const {
       return separator_;
     }
 
@@ -149,7 +156,7 @@ class Trace {
      * @brief get the time stamp format used inside the log
      * @return the time stamp format used
      */
-    std::string getTimeStampFormat() const {
+    const std::string& getTimeStampFormat() const {
       return timeStampFormat_;
     }
 
@@ -238,7 +245,7 @@ class Trace {
    * @brief Add custom appenders to trace system
    * @param[in] appenders: Appenders to add
    */
-  static void addAppenders(std::vector<TraceAppender> & appenders);
+  static void addAppenders(const std::vector<TraceAppender>& appenders);
 
   /**
    * @brief Reset all custom appenders of trace system
