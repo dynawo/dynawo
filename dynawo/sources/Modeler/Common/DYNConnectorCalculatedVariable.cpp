@@ -33,7 +33,6 @@
 #include "DYNVariableNativeFactory.h"
 
 using std::string;
-using std::stringstream;
 using std::vector;
 using std::map;
 using boost::shared_ptr;

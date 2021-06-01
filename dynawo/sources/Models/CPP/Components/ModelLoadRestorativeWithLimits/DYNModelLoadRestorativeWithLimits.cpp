@@ -40,7 +40,6 @@
 using std::vector;
 using std::string;
 using std::map;
-using std::stringstream;
 
 using boost::shared_ptr;
 

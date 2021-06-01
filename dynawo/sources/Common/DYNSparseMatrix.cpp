@@ -181,20 +181,24 @@ void SparseMatrix::printToFile(bool sparse) const {
       }
     }
 
+    stringstream val;
     for (unsigned int i = 0; i < matrix.size(); ++i) {
       std::vector<double> row = matrix[i];
       for (unsigned int j = 0; j < row.size(); ++j) {
-        stringstream val;
+        val.str("");
+        val.clear();
         val << std::setprecision(5) << row[j];
         file << val.str() << ";";
       }
       file << "\n";
     }
   } else {
+    stringstream val;
     for (int iCol = 0; iCol < nbCol_; ++iCol) {
       for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
         int iRow = Ai_[ind];
-        stringstream val;
+        val.str("");
+        val.clear();
         val << std::setprecision(16) << Ax_[ind];
         file << iRow << ";" << iCol << ";" << val.str() << "\n";
       }

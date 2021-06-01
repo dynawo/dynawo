@@ -428,31 +428,37 @@ ModelOmegaRef::evalStaticFType() {
  */
 void
 ModelOmegaRef::defineVariables(vector<shared_ptr<Variable> >& variables) {
+  stringstream name;
   for (int i = 0; i < nbMaxCC; ++i) {
-    std::stringstream name;
+    name.str("");
+    name.clear();
     name << "omegaRef_" << i << "_value";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
   for (int k = 0; k < nbGen_; ++k) {
     if (weights_[k] > 0) {
-      std::stringstream name;
+      name.str("");
+      name.clear();
       name << "omega_grp_" << k << "_value";
       variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
     }
   }
   for (int k = 0; k < nbGen_; ++k) {
-    std::stringstream name;
+    name.str("");
+    name.clear();
     name << "omegaRef_grp_" << k << "_value";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
   for (int k = 0; k < nbGen_; ++k) {
-    std::stringstream name;
+    name.str("");
+    name.clear();
     name << "numcc_node_" << k << "_value";
     variables.push_back(VariableNativeFactory::createState(name.str(), DISCRETE));
   }
 
   for (int k = 0; k < nbGen_; ++k) {
-    std::stringstream name;
+    name.str("");
+    name.clear();
     name << "running_grp_" << k << "_value";
     variables.push_back(VariableNativeFactory::createState(name.str(), BOOLEAN));
   }
@@ -469,8 +475,10 @@ ModelOmegaRef::defineParameters(vector<ParameterModeler>& parameters) {
 void
 ModelOmegaRef::setSubModelParameters() {
   nbGen_ = findParameterDynamic("nbGen").getValue<int>();
+  stringstream weightName;
   for (int k = 0; k < nbGen_; ++k) {
-    std::stringstream weightName;
+    weightName.str("");
+    weightName.clear();
     weightName << "weight_gen_" << k;
     weights_.push_back(findParameterDynamic(weightName.str()).getValue<double>());
   }
@@ -504,8 +512,10 @@ ModelOmegaRef::setSubModelParameters() {
  */
 void
 ModelOmegaRef::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
+  stringstream namess;
   for (int i = 0; i < nbMaxCC; ++i) {
-    std::stringstream namess;
+    namess.str("");
+    namess.clear();
     namess << "omegaRef_" << i;
     addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
     addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
@@ -513,26 +523,30 @@ ModelOmegaRef::defineElements(std::vector<Element> &elements, std::map<std::stri
 
   for (int k = 0; k < nbGen_; ++k) {
     if (weights_[k] > 0) {
-      std::stringstream namess;
+      namess.str("");
+      namess.clear();
       namess << "omega_grp_" << k;
       addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
       addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
     }
 
-    std::stringstream name1;
-    name1 << "numcc_node_" << k;
-    addElement(name1.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name1.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+    namess.str("");
+    namess.clear();
+    namess << "numcc_node_" << k;
+    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
 
-    std::stringstream name2;
-    name2 << "running_grp_" << k;
-    addElement(name2.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name2.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+    namess.str("");
+    namess.clear();
+    namess << "running_grp_" << k;
+    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
 
-    std::stringstream name3;
-    name3 << "omegaRef_grp_" << k;
-    addElement(name3.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name3.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+    namess.str("");
+    namess.clear();
+    namess << "omegaRef_grp_" << k;
+    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
 }
 
@@ -548,14 +562,17 @@ ModelOmegaRef::dumpUserReadableElementList(const std::string& /*nameElement*/) c
 
 void
 ModelOmegaRef::setFequations() {
+  stringstream f;
   for (int i = 0; i < nbMaxCC; ++i) {
-    std::stringstream f;
+    f.str("");
+    f.clear();
     f << "Synchronous area " << i << " : 0 = sum_k (omega[k] * weight[k]) - omegaRef[i] * sum_k (weight[k])";
     fEquationIndex_[i] =  f.str();
   }
 
   for (int k = 0; k < nbGen_; ++k) {
-    std::stringstream f;
+    f.str("");
+    f.clear();
     f << "Generator " << k << " : 0 = omegaRef[CC] - omegaRefGrp[k]";
     fEquationIndex_[k + nbMaxCC] = f.str();
   }

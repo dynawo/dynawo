@@ -29,7 +29,6 @@
 
 using std::map;
 using std::string;
-using std::stringstream;
 
 namespace DYN {
 typedef SubModelFactory* getSubModelFactory_t();
