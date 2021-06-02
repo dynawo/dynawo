@@ -450,6 +450,7 @@ SubModel::instantiateNonUnitaryParameters(const bool isInitParam,
     const std::map<string, ParameterModeler>& nonUnitaryParameters,
     unordered_set<string>& addedParameter) {
   typedef std::map<string, ParameterModeler>::const_iterator ParamIterator;
+  stringstream ss;
   for (ParamIterator it = nonUnitaryParameters.begin(), itEnd = nonUnitaryParameters.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = it->second;
     const string paramName = parameter.getName();
@@ -466,7 +467,8 @@ SubModel::instantiateNonUnitaryParameters(const bool isInitParam,
       }
       const int cardinalityValue = cardinaliyInformator.getValue<int>();
       for (int index = 0; index < cardinalityValue; ++index) {
-        stringstream ss;
+        ss.str("");
+        ss.clear();
         ss << index;
         const string& indexAsString = ss.str();
         const string& newName = paramName + "_" + indexAsString;
