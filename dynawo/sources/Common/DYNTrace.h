@@ -29,6 +29,12 @@
 
 #include "DYNTraceStream.h"
 
+#include <boost/log/sinks.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/unordered_map.hpp>
+#include <boost/log/attributes.hpp>
+#include <boost/thread/mutex.hpp>
+
 namespace DYN {
 
 /**
@@ -41,6 +47,36 @@ namespace DYN {
  */
 class Trace {
  public:
+  typedef boost::log::sinks::synchronous_sink< boost::log::sinks::text_file_backend > FileSink;  ///< File sink for log
+  typedef boost::log::sinks::synchronous_sink< boost::log::sinks::text_ostream_backend > TextSink;  ///< Text sink for log
+
+  /**
+   * @brief Stucture defining traces for a specific thread
+   */
+  struct TraceSinks {
+    std::vector< boost::shared_ptr<FileSink> > sinks;  ///<  vector of file sink
+    std::vector< boost::shared_ptr<FileSink> > persistantSinks;  ///<  vector of persistant file sink
+  };
+
+  /**
+   * @brief Hash for current_thread_id::value_type
+   *
+   * This structure is required in order current_thread_id::value_type to be used as a key in an unordered_map
+   */
+  struct Hasher {
+    /**
+     * @brief Calling operator
+     *
+     * @param id the value to hash
+     * @returns the hash of the id
+     */
+    std::size_t operator()(const boost::log::attributes::current_thread_id::value_type& id) const {
+      // the thread id is unique in the same process
+      return static_cast<std::size_t>(id.native_id());
+    }
+  };
+
+
   /**
    * @brief Trace appender class
    *
@@ -54,7 +90,14 @@ class Trace {
     /**
      * @brief TraceAppender constructor
      */
-    TraceAppender() { }
+    TraceAppender():
+      tag_(),
+      filePath_(),
+      lvlFilter_(INFO),
+      showLevelTag_(false),
+      separator_(),
+      showTimeStamp_(false),
+      timeStampFormat_() { }
 
     /**
      * @brief TraceAppender destructor
@@ -65,7 +108,7 @@ class Trace {
      * @brief Tag attribute getter
      * @return Tag filtered by the appender
      */
-    std::string getTag() {
+    const std::string& getTag() const {
       return tag_;
     }
 
@@ -73,7 +116,7 @@ class Trace {
      * @brief File path attribute getter
      * @return Output file path of the appender
      */
-    std::string getFilePath() {
+    const std::string& getFilePath() const {
       return filePath_;
     }
 
@@ -81,7 +124,7 @@ class Trace {
      * @brief Level filter attribute getter
      * @return Minimum severity level exported by the appender
      */
-    SeverityLevel getLvlFilter() {
+    SeverityLevel getLvlFilter() const {
       return lvlFilter_;
     }
 
@@ -97,7 +140,7 @@ class Trace {
      * @brief separator between log information getter
      * @return the separator used to separate information inside the log
      */
-    std::string getSeparator() const {
+    const std::string& getSeparator() const {
       return separator_;
     }
 
@@ -113,7 +156,7 @@ class Trace {
      * @brief get the time stamp format used inside the log
      * @return the time stamp format used
      */
-    std::string getTimeStampFormat() const {
+    const std::string& getTimeStampFormat() const {
       return timeStampFormat_;
     }
 
@@ -202,7 +245,7 @@ class Trace {
    * @brief Add custom appenders to trace system
    * @param[in] appenders: Appenders to add
    */
-  static void addAppenders(std::vector<TraceAppender> & appenders);
+  static void addAppenders(const std::vector<TraceAppender>& appenders);
 
   /**
    * @brief Reset all custom appenders of trace system
@@ -342,6 +385,13 @@ class Trace {
   static const SeverityLevel defaultLevel_;  ///< Default log level for standard output
 
  private:
+ /**
+  * @brief Retrieves static instance
+  *
+  * @returns static instance
+  */
+  static Trace& instance();
+
   /**
    * @brief Add a log to logging core.
    *
@@ -355,7 +405,69 @@ class Trace {
    */
   static void log(SeverityLevel slv, const std::string& tag, const std::string& message);
 
+  /**
+   * @brief Constructor
+   */
+  Trace();
+
+  /**
+   * @brief Init function.
+   *
+   * Implementation of static function
+   */
+  void init_();
+
+    /**
+   * @brief Add custom appenders to trace system
+   *
+   * Implementation of static function
+   *
+   * @param[in] appenders: Appenders to add
+   */
+  void addAppenders_(const std::vector<TraceAppender>& appenders);
+
+  /**
+   * @brief Reset non-persistant custom appenders of trace system
+   *
+   * Implementation of static function
+   */
+  void resetCustomAppenders_();
+
+  /**
+   * @brief Reset persistant custom appenders of trace system
+   *
+   * Implementation of static function
+   */
+  void resetPersistantCustomAppenders_();
+
+  /**
+   * @brief test if a log exists
+   *
+   * Implementation of static function
+   *
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @param slv : Severity level.
+   * @return true if this log with this level exists
+   */
+  bool logExists_(const std::string& tag, SeverityLevel slv);
+
+  /**
+   * @brief Add a log to logging core.
+   *
+   * Implementation of static function
+   *
+   * @param slv : Severity level of the log.
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @param message : Message to log.
+   */
+  void log_(SeverityLevel slv, const std::string& tag, const std::string& message);
+
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
+
+ private:
+  boost::unordered_map<boost::log::attributes::current_thread_id::value_type, TraceSinks, Hasher> sinks_;  ///< thread specific sinks
+  std::vector< boost::shared_ptr<Trace::TextSink> > originalSinks_;  ///< Original sinks
+  boost::mutex mutex_;  ///< mutex to synchronize logs at init
 };
 
 }  // namespace DYN
