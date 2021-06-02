@@ -47,7 +47,7 @@ TEST(DataInterfaceTest, Generator_1) {
                                 .setId("VL1")
                                 .setName("VL1_NAME")
                                 .setTopologyKind(TopologyKind::BUS_BREAKER)
-                                .setNominalVoltage(382.0)
+                                .setNominalV(382.0)
                                 .setLowVoltageLimit(340.0)
                                 .setHighVoltageLimit(420.0)
                                 .add();
@@ -185,7 +185,7 @@ TEST(DataInterfaceTest, Generator_2) {
   VoltageLevel& vl1 = substation.newVoltageLevel()
                                 .setId("VL1")
                                 .setTopologyKind(TopologyKind::BUS_BREAKER)
-                                .setNominalVoltage(380.0)
+                                .setNominalV(380.0)
                                 .add();
 
   Bus& bus1 = vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add();

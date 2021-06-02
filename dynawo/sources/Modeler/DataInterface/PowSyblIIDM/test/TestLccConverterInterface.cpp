@@ -38,7 +38,7 @@ createHvdcLccConverterStationNetwork() {
                           .setId("VL1")
                           .setName("VL1_NAME")
                           .setTopologyKind(TopologyKind::BUS_BREAKER)
-                          .setNominalVoltage(380.0)
+                          .setNominalV(380.0)
                           .setLowVoltageLimit(340.0)
                           .setHighVoltageLimit(420.0)
                           .add();
@@ -71,7 +71,7 @@ createHvdcLccConverterStationNetwork() {
       .setConverterStationId1("LCC1")
       .setConverterStationId2("LCC2")
       .setMaxP(12.0)
-      .setNominalVoltage(13.0)
+      .setNominalV(13.0)
       .setR(14.0)
       .add();
 

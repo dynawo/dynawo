@@ -190,6 +190,7 @@ else()
   set(Boost_NO_SYSTEM_PATHS TRUE)
 endif()
 
+set(BUILD_SHARED_LIBS ON)
 set(Boost_USE_STATIC_RUNTIME False)
 add_definitions(-DBOOST_ALL_DYN_LINK)
 # Tell BOOST to disable auto linking
@@ -202,7 +203,7 @@ else()
 endif()
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
-  find_package(Boost 1.64 REQUIRED
+  find_package(Boost "${Boost_RequiredVersion}" REQUIRED
           COMPONENTS
           filesystem
           program_options
@@ -301,7 +302,7 @@ find_package(libXML 0.2.4 REQUIRED PATHS ${LIBXML_HOME})
 
 if(CXX11_ENABLED)
   find_package(LibXml2 "2.9" REQUIRED)
-  find_package(LibIIDM "1.3.2" REQUIRED PATHS ${LIBIIDM_HOME})
+  find_package(LibIIDM "1.4.0" REQUIRED PATHS ${LIBIIDM_HOME})
 else()
   find_package(libIIDM "0.2.8" REQUIRED PATHS ${LIBIIDM_HOME}
     COMPONENTS

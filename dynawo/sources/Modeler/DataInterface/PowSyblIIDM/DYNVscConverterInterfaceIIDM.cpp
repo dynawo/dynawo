@@ -53,7 +53,7 @@ VscConverterInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("qMax", StaticParameter("qMax", StaticParameter::DOUBLE).setValue(getQMax())));
   if (getBusInterface()) {
     double U0 = getBusInterface()->getV0();
-    double vNom = vscConverterIIDM_.getHvdcLine().get().getNominalVoltage();
+    double vNom = vscConverterIIDM_.getHvdcLine().get().getNominalV();
     double teta = getBusInterface()->getAngle0();
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(U0 / vNom)));
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180)));

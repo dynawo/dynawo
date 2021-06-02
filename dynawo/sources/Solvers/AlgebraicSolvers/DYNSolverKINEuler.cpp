@@ -39,7 +39,6 @@
 using std::vector;
 using std::map;
 using std::string;
-using std::stringstream;
 using boost::shared_ptr;
 
 namespace DYN {

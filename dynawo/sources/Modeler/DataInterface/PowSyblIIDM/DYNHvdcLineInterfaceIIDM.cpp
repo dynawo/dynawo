@@ -192,7 +192,7 @@ HvdcLineInterfaceIIDM::getResistanceDC() const {
 
 double
 HvdcLineInterfaceIIDM::getVNom() const {
-  return hvdcLineIIDM_.getNominalVoltage();
+  return hvdcLineIIDM_.getNominalV();
 }
 
 double

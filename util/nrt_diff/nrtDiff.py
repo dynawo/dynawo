@@ -666,15 +666,43 @@ def DirectoryDiffReferenceDataJob (nrt_directory):
 # @param case : the case class to analyse
 # @param semaphore : the semaphore used for multi-thread
 # @param pool : the pool used for multi-thread
-def DirectoryDiffReferenceDataJobMultiThread (case, semaphore, pool):
+def DirectoryDiffReferenceDataJobMultiThread (case, index, nbCases, semaphore, pool):
+    ##
+    # Following from Python cookbook, #475186
+    def has_colours(stream):
+        if not hasattr(stream, "isatty"):
+            return False
+        if not stream.isatty():
+            return False # auto color only on TTYs
+        try:
+            import curses
+            curses.setupterm()
+            return curses.tigetnum("colors") > 2
+        except:
+            # guess false in case of error
+            return False
+    has_colours = has_colours(sys.stdout)
     with semaphore:
+#        start_time = time.time()
         name = threading.currentThread().getName()
+
+        toPrint = '[{0:>3}/{1:<3}]'.format(index, nbCases-1)
+        toPrint = str(toPrint)
+        if has_colours:
+            seq = "\x1b[1;%dm" % (31) + toPrint + "\x1b[0m"
+            sys.stdout.write(seq)
+        else:
+            sys.stdout.write(toPrint)
+        sys.stdout.write(" " +  case.name_ + "\n")
+
         pool.makeActive(name)
         case_dir = os.path.dirname (case.jobs_file_)
         (status, messages) = DirectoryDiffReferenceDataJob (case_dir)
         case.diff_ = status
         case.diff_messages_ = messages
         pool.makeInactive(name)
+#        end_time = time.time()
+#        sys.stdout.write(case.name_ + " Finished in " + str(end_time-start_time) +"s\n")
 
 ##
 # Check whether a given directory should be included in the diff
