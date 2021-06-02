@@ -11,8 +11,8 @@
 // simulation tools for power systems.
 //
 
-#ifndef DYNAWO_SOURCES_COMMON_DYNNUMERICALUTILS_H_
-#define DYNAWO_SOURCES_COMMON_DYNNUMERICALUTILS_H_
+#ifndef COMMON_DYNNUMERICALUTILS_H_
+#define COMMON_DYNNUMERICALUTILS_H_
 
 #include "DYNMacrosMessage.h"
 
@@ -27,7 +27,7 @@ namespace DYN {
 template<typename T>
 T pow_dynawo(T a, T b) {
   T value = pow(a, b);
-  if (std::isnan(value)) {
+  if (std::isnan(value) || std::isinf(value)) {
     throw(DYN::Error(DYN::Error::NUMERICAL_ERROR, DYN::KeyError_t::NumericalErrorFunction, std::string(__FILE__), __LINE__, \
           (DYN::Message("ERROR", DYN::KeyError_t::names(DYN::KeyError_t::NumericalErrorFunction)), "pow")));
   }
@@ -36,4 +36,4 @@ T pow_dynawo(T a, T b) {
 
 } /* namespace DYN */
 
-#endif  // DYNAWO_SOURCES_COMMON_DYNNUMERICALUTILS_H_
+#endif  // COMMON_DYNNUMERICALUTILS_H_

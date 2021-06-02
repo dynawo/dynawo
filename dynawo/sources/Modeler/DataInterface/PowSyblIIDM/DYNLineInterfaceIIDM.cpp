@@ -81,12 +81,12 @@ LineInterfaceIIDM::getBusInterface2() const {
 
 double
 LineInterfaceIIDM::getVNom1() const {
-  return lineIIDM_.getTerminal1().getVoltageLevel().getNominalVoltage();
+  return lineIIDM_.getTerminal1().getVoltageLevel().getNominalV();
 }
 
 double
 LineInterfaceIIDM::getVNom2() const {
-  return lineIIDM_.getTerminal2().getVoltageLevel().getNominalVoltage();
+  return lineIIDM_.getTerminal2().getVoltageLevel().getNominalV();
 }
 
 double

@@ -29,7 +29,6 @@
 
 using boost::shared_ptr;
 using std::string;
-using std::stringstream;
 using std::set;
 using std::vector;
 
@@ -111,7 +110,7 @@ CalculatedBusInterfaceIIDM::getAngle0() const {
 
 double
 CalculatedBusInterfaceIIDM::getVNom() const {
-  return voltageLevel_.getNominalVoltage();
+  return voltageLevel_.getNominalV();
 }
 
 double

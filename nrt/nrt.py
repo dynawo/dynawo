@@ -616,8 +616,10 @@ def main():
         maximumNumberOfThreads = int(os.getenv ('DYNAWO_NB_PROCESSORS_USED'))
         threads_list = []
         dir_list = []
+        sys.stdout.write("Running references comparison\n")
         semaphore = threading.Semaphore (maximumNumberOfThreads)
         pool = nrtDiff.ActivePool()
+        index = 1
         for case in NRT.test_cases_:
             if (not case.ok_):
                 case.diff_ = nrtDiff.UNABLE_TO_CHECK
@@ -625,10 +627,11 @@ def main():
                 case_dir = os.path.dirname (case.jobs_file_)
                 if case_dir in dir_list: continue
                 dir_list.append(case_dir)
-                thread = threading.Thread (target = nrtDiff.DirectoryDiffReferenceDataJobMultiThread, name = case_dir, args = (case, semaphore, pool))
+                thread = threading.Thread (target = nrtDiff.DirectoryDiffReferenceDataJobMultiThread, name = case_dir, args = (case, index, len(NRT.test_cases_)+1, semaphore, pool))
                 thread.setDaemon(True)
                 threads_list.append(thread)
                 thread.start()
+                index+=1
         #Keep the main thread alive while threads are running and catch interruptions
         try:
             while True in [t.is_alive() for t in threads_list]:

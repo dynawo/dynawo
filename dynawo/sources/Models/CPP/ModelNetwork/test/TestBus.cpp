@@ -58,7 +58,7 @@ createModelBus(bool initModel) {
 
   powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
       .setId("MyVoltageLevel")
-      .setNominalVoltage(5.)
+      .setNominalV(5.)
       .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
       .setHighVoltageLimit(2.)
       .setLowVoltageLimit(.5)
@@ -556,7 +556,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
         ++nbCalc;
     }
   }
-  ASSERT_EQ(nbAlias, 4);
+  ASSERT_EQ(nbAlias, 0);
   ASSERT_EQ(nbCalc, 4);
   ASSERT_EQ(nbVar, 7);
 
@@ -652,7 +652,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
 
   powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
       .setId("MyVoltageLevel")
-      .setNominalVoltage(5.)
+      .setNominalV(5.)
       .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
       .setHighVoltageLimit(2.)
       .setLowVoltageLimit(.5)

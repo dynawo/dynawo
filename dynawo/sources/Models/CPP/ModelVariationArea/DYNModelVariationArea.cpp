@@ -155,8 +155,10 @@ ModelVariationArea::evalG(const double t) {
 
 void
 ModelVariationArea::setFequations() {
+  stringstream ss;
   for (int i = 0; i < nbLoads_; ++i) {
-    stringstream ss;
+    ss.str("");
+    ss.clear();
     ss << i;
     fEquationIndex_[i * 2] = "deltaP_" + ss.str();
     fEquationIndex_[i * 2 + 1] = "deltaQ_" + ss.str();
@@ -272,14 +274,17 @@ ModelVariationArea::evalStaticFType() {
 
 void
 ModelVariationArea::defineVariables(vector<shared_ptr<Variable> >& variables) {
+  std::stringstream name;
   for (int i = 0; i < nbLoads_; ++i) {
-    std::stringstream name;
+    name.str("");
+    name.clear();
     name << "DeltaPc_load_" << i << "_value";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
 
-    std::stringstream name1;
-    name1 << "DeltaQc_load_" << i << "_value";
-    variables.push_back(VariableNativeFactory::createState(name1.str(), CONTINUOUS));
+    name.str("");
+    name.clear();
+    name << "DeltaQc_load_" << i << "_value";
+    variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
   variables.push_back(VariableNativeFactory::createState("state", DISCRETE));
 }
@@ -301,29 +306,35 @@ ModelVariationArea::setSubModelParameters() {
 
   deltaP_.clear();
   deltaQ_.clear();
+  std::stringstream deltaName;
   for (int k = 0; k < nbLoads_; ++k) {
-    std::stringstream deltaPName;
-    deltaPName << "deltaP_load_" << k;
-    deltaP_.push_back(findParameterDynamic(deltaPName.str()).getValue<double>());
+    deltaName.str("");
+    deltaName.clear();
+    deltaName << "deltaP_load_" << k;
+    deltaP_.push_back(findParameterDynamic(deltaName.str()).getValue<double>());
 
-    std::stringstream deltaQName;
-    deltaQName << "deltaQ_load_" << k;
-    deltaQ_.push_back(findParameterDynamic(deltaQName.str()).getValue<double>());
+    deltaName.str("");
+    deltaName.clear();
+    deltaName << "deltaQ_load_" << k;
+    deltaQ_.push_back(findParameterDynamic(deltaName.str()).getValue<double>());
   }
 }
 
 void
 ModelVariationArea::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
+  std::stringstream namess;
   for (int i = 0; i < nbLoads_; ++i) {
-    std::stringstream namess;
+    namess.str("");
+    namess.clear();
     namess << "DeltaPc_load_" << i;
     addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
     addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
 
-    std::stringstream name1;
-    name1 << "DeltaQc_load_" << i;
-    addElement(name1.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name1.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+    namess.str("");
+    namess.clear();
+    namess << "DeltaQc_load_" << i;
+    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
 }
 

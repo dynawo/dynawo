@@ -19,7 +19,7 @@ set(package_name       "libiidm")
 set(package_config_dir "LibIIDM")
 set(package_install_dir  "${CMAKE_INSTALL_PREFIX}/${package_name}")
 string(TOUPPER "${package_name}" package_uppername)
-set(package_RequiredVersion 1.3.2)
+set(package_RequiredVersion 1.4.0)
 
 set(CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}/${package_name}/${package_config_dir}")
 
@@ -30,7 +30,7 @@ if(${package_name}_FOUND)
   message(STATUS "Found ${package_name} ${PACKAGE_VERSION}")
 
 else()
-  set(package_md5    c09506583108aa0ba3ee8ed670b2f0c4)
+  set(package_md5    d1f682c7610de891e91f4ab4cb900682)
   if(DEFINED ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
     set(package_prefix_url $ENV{DYNAWO_LIBIIDM_DOWNLOAD_URL})
   else()
@@ -60,6 +60,7 @@ else()
                       "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"
                       "-DBOOST_ROOT:PATH=${BOOST_ROOT}"
                       "-DCMAKE_PREFIX_PATH=${LIBXML2_HOME}"
+                      "-DBUILD_SHARED_LIBS=ON"
   )
 
   unset(package_git_repo)

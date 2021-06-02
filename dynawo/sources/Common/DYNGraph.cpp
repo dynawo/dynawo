@@ -27,7 +27,6 @@ using std::vector;
 using std::map;
 using std::pair;
 using std::list;
-using std::stringstream;
 using boost::add_vertex;
 using boost::put;
 using boost::edge;

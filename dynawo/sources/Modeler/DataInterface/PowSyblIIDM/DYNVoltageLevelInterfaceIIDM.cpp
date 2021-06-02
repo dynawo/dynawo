@@ -96,7 +96,7 @@ VoltageLevelInterfaceIIDM::getID() const {
 
 double
 VoltageLevelInterfaceIIDM::getVNom() const {
-  return voltageLevelIIDM_.getNominalVoltage();
+  return voltageLevelIIDM_.getNominalV();
 }
 
 VoltageLevelInterface::VoltageLevelTopologyKind_t
@@ -283,8 +283,10 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   pair<unsigned int, vector<unsigned int> >electricalComponents = graph_.calculateComponents(electricalWeights);
 
   // created calculated bus, one per connected_components
+  stringstream busName;
   for (unsigned int i = 0; i < topoComponents.first; ++i) {
-    stringstream busName;
+    busName.str("");
+    busName.clear();
     busName << "calculatedBus_" << voltageLevelIIDM_.getId() << "_" << i;
     shared_ptr<CalculatedBusInterfaceIIDM> bus(new CalculatedBusInterfaceIIDM(voltageLevelIIDM_, busName.str(), i));
     calculatedBus_.push_back(bus);
