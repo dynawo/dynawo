@@ -186,7 +186,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual void reinit() = 0;
 
   /**
-  * @copydoc Solver::computeYP()
+  * @brief compute time scheme related derivatives
   */
   virtual void computeYP(const double* /*yy*/) { }
 
@@ -292,6 +292,8 @@ class Solver::Impl : public Solver, private boost::noncopyable {
 
   /**
   * @brief get updated values of root functions
+  *
+  * @return the vector of root functions
   */
   std::vector<state_g>& getG1() {
     return g1_;
