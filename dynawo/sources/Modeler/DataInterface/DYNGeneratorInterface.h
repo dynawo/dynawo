@@ -29,6 +29,27 @@ class VoltageLevelInterface;
 class GeneratorInterface : public ComponentInterface {
  public:
   /**
+   * @brief Reactive curve point
+   *
+   * Represents a point extracted from network file
+   */
+  struct ReactiveCurvePoint {
+      /**
+       * @brief Constructor
+       *
+       * @param p active power
+       * @param qmin minimum reactive power
+       * @param qmax maximum reactive power
+       */
+      ReactiveCurvePoint(double p, double qmin, double qmax): p(p), qmin(qmin), qmax(qmax) {}
+
+      double p;     ///< active power
+      double qmin;  ///< minimum reactive power
+      double qmax;  ///< maximum reactive power
+  };
+
+ public:
+  /**
    * @brief Destructor
    */
   virtual ~GeneratorInterface() { }
@@ -70,6 +91,12 @@ class GeneratorInterface : public ComponentInterface {
   virtual double getPMax() = 0;
 
   /**
+   * @brief Getter for the target active power of the generator
+   * @return The target active power of the generator in MW (receptor convention)
+   */
+  virtual double getTargetP() = 0;
+
+  /**
    * @brief Getter for the reactive power of the generator
    * @return The reactive power of the generator in Mvar (generator convention)
    */
@@ -88,6 +115,18 @@ class GeneratorInterface : public ComponentInterface {
   virtual double getQMin() = 0;
 
   /**
+   * @brief Getter for the target reactive power of the generator
+   * @return The target reactive power of the generator in MVar (receptor convention)
+   */
+  virtual double getTargetQ() = 0;
+
+  /**
+   * @brief Getter for the target voltage of the generator
+   * @return The target voltage of the generator in kV
+   */
+  virtual double getTargetV() = 0;
+
+  /**
    * @brief Getter for the initial connection state of the generator
    * @return @b true if the generator is connected, @b false else
    */
@@ -103,6 +142,12 @@ class GeneratorInterface : public ComponentInterface {
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
   virtual void exportStateVariablesUnitComponent() = 0;
+
+  /**
+   * @brief Retrieve the list of reactive curve points, if any
+   * @returns list of reactive curve points
+   */
+  virtual std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const = 0;
 };  ///< Class for Generator data interface
 }  // namespace DYN
 

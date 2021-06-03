@@ -42,21 +42,6 @@
 #include <libzip/ZipInputStream.h>
 #include <libzip/ZipOutputStream.h>
 
-#include <IIDM/xml/export.h>
-#include <IIDM/xml/import.h>
-#include <IIDM/Network.h>
-#include <IIDM/extensions/standbyAutomaton/xml.h>
-#include <IIDM/extensions/activeSeason/xml.h>
-#include <IIDM/extensions/currentLimitsPerSeason/xml.h>
-#include <IIDM/extensions/generatorActivePowerControl/xml.h>
-#include <IIDM/extensions/busbarSectionPosition/xml.h>
-#include <IIDM/extensions/connectablePosition/xml.h>
-#include <IIDM/extensions/hvdcAngleDroopActivePowerControl/xml.h>
-#include <IIDM/extensions/hvdcOperatorActivePowerRange/xml.h>
-#include <IIDM/extensions/generatorEntsoeCategory/xml.h>
-#include <IIDM/extensions/generatorStartup/xml.h>
-#include <IIDM/extensions/loadDetail/xml.h>
-
 #include "TLTimelineFactory.h"
 #include "TLTimeline.h"
 #include "TLTxtExporter.h"
@@ -123,9 +108,9 @@
 #include "DYNFileSystemUtils.h"
 #include "DYNTerminate.h"
 #include "DYNDataInterface.h"
+#include "DYNDataInterfaceFactory.h"
 #include "DYNExecUtils.h"
 #include "DYNSignalHandler.h"
-#include "DYNDataInterfaceIIDM.h"
 #include "DYNBitMask.h"
 
 using std::ofstream;
@@ -497,32 +482,9 @@ Simulation::loadDynamicData() {
   dyd_->setParametersReference(referenceParameters_);
 
   if (iidmFile_ != "") {
-    try {
-      IIDM::xml::xml_parser parser;
-      parser.register_extension<IIDM::extensions::standbyautomaton::xml::StandbyAutomatonHandler>();
-      parser.register_extension<IIDM::extensions::activeseason::xml::ActiveSeasonHandler>();
-      parser.register_extension<IIDM::extensions::currentlimitsperseason::xml::CurrentLimitsPerSeasonHandler>();
-      parser.register_extension<IIDM::extensions::generatoractivepowercontrol::xml::GeneratorActivePowerControlHandler>();
-      parser.register_extension<IIDM::extensions::busbarsection_position::xml::BusbarSectionPositionHandler>();  // useless for simulation
-      parser.register_extension<IIDM::extensions::connectable_position::xml::ConnectablePositionHandler>();
-      parser.register_extension<IIDM::extensions::hvdcangledroopactivepowercontrol::xml::HvdcAngleDroopActivePowerControlHandler>();
-      parser.register_extension<IIDM::extensions::hvdcoperatoractivepowerrange::xml::HvdcOperatorActivePowerRangeHandler>();
-      parser.register_extension<IIDM::extensions::generator_entsoe_category::xml::GeneratorEntsoeCategoryHandler>();
-      parser.register_extension<IIDM::extensions::generator_startup::xml::GeneratorStartupHandler>();
-      parser.register_extension<IIDM::extensions::load_detail::xml::LoadDetailHandler>();
-
-      bool xsdValidation = false;
-      if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true")
-        xsdValidation = true;
-
-      IIDM::Network networkIIDM = parser.from_xml(iidmFile_, xsdValidation);
-      data_.reset(new DataInterfaceIIDM(networkIIDM));
-      boost::dynamic_pointer_cast<DataInterfaceIIDM>(data_)->initFromIIDM();
-      if (criteriaCollection_)
-        data_->configureCriteria(criteriaCollection_);
-    } catch (const xml::sax::parser::ParserException& exp) {
-      throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFile_, exp.what());
-    }
+    data_ = DataInterfaceFactory::build(DataInterfaceFactory::DATAINTERFACE_IIDM, iidmFile_);
+    if (criteriaCollection_)
+      data_->configureCriteria(criteriaCollection_);
 
     data_->importStaticParameters();  // Import static model's parameters' values into DataInterface, these values are useful for referece parameters.
 
@@ -888,7 +850,10 @@ Simulation::simulate() {
     endSimulationWithError(fileName.str(), criteriaChecked);
   } catch (const Error& e) {
     Trace::error() << e.what() << Trace::endline;
-    endSimulationWithError(fileName.str(), criteriaChecked);
+    bool staticModelWellInitialized = true;
+    if (e.key() == DYN::KeyError_t::StateVariableNoReference)
+      staticModelWellInitialized = false;
+    endSimulationWithError(fileName.str(), criteriaChecked && staticModelWellInitialized);
     throw;
   } catch (...) {
     endSimulationWithError(fileName.str(), criteriaChecked);
@@ -1151,65 +1116,7 @@ Simulation::dumpIIDMFile() {
 #endif
     data_->exportStateVariables();
   }
-
-  IIDM::xml::xml_formatter formatter;
-  formatter.register_extension(
-          &IIDM::extensions::busbarsection_position::xml::exportBusbarSectionPosition,
-          IIDM::extensions::busbarsection_position::xml::BusbarSectionPositionHandler::uri(),
-          "bbsp");
-
-  formatter.register_extension(
-          &IIDM::extensions::connectable_position::xml::exportConnectablePosition,
-          IIDM::extensions::connectable_position::xml::ConnectablePositionHandler::uri(),
-          "cp");
-
-  formatter.register_extension(
-          &IIDM::extensions::generatoractivepowercontrol::xml::exportGeneratorActivePowerControl,
-          IIDM::extensions::generatoractivepowercontrol::xml::GeneratorActivePowerControlHandler::uri(),
-          "gapc");
-
-  formatter.register_extension(
-          &IIDM::extensions::standbyautomaton::xml::exportStandbyAutomaton,
-          IIDM::extensions::standbyautomaton::xml::StandbyAutomatonHandler::uri(),
-          "sa");
-
-  formatter.register_extension(
-          &IIDM::extensions::hvdcoperatoractivepowerrange::xml::exportHvdcOperatorActivePowerRange,
-          IIDM::extensions::hvdcoperatoractivepowerrange::xml::HvdcOperatorActivePowerRangeHandler::uri(),
-          "hopr");
-
-  formatter.register_extension(
-          &IIDM::extensions::hvdcangledroopactivepowercontrol::xml::exportHvdcAngleDroopActivePowerControl,
-          IIDM::extensions::hvdcangledroopactivepowercontrol::xml::HvdcAngleDroopActivePowerControlHandler::uri(),
-          "hapc");
-
-  formatter.register_extension(
-          &IIDM::extensions::activeseason::xml::exportActiveSeason,
-          IIDM::extensions::activeseason::xml::ActiveSeasonHandler::uri(),
-          "as");
-
-  formatter.register_extension(
-          &IIDM::extensions::currentlimitsperseason::xml::exportCurrentLimitsPerSeason,
-          IIDM::extensions::currentlimitsperseason::xml::CurrentLimitsPerSeasonHandler::uri(),
-          "clps");
-
-  formatter.register_extension(
-          &IIDM::extensions::generator_entsoe_category::xml::exportGeneratorEntsoeCategory,
-          IIDM::extensions::generator_entsoe_category::xml::GeneratorEntsoeCategoryHandler::uri(),
-          "gec");
-
-  formatter.register_extension(
-          &IIDM::extensions::generator_startup::xml::exportGeneratorStartup,
-          IIDM::extensions::generator_startup::xml::GeneratorStartupHandler::uri(),
-          "gs");
-
-  formatter.register_extension(
-          &IIDM::extensions::load_detail::xml::exportLoadDetail,
-          IIDM::extensions::load_detail::xml::LoadDetailHandler::uri(),
-          "ld");
-
-  fstream file(exportIIDMFile_.c_str(), fstream::out);
-  formatter.to_xml(boost::dynamic_pointer_cast<DataInterfaceIIDM>(data_)->getNetworkIIDM(), file);
+  data_->dumpToFile(exportIIDMFile_);
 }
 
 void

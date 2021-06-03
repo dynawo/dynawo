@@ -24,6 +24,17 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/pointer_cast.hpp>
 
+#ifdef LANG_CXX11
+#include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/DanglingLineAdder.hpp>
+#include <powsybl/iidm/LoadAdder.hpp>
+#include <powsybl/iidm/ShuntCompensatorAdder.hpp>
+#include <powsybl/iidm/TwoWindingsTransformerAdder.hpp>
+#include <powsybl/iidm/RatioTapChangerAdder.hpp>
+#include <powsybl/iidm/LineAdder.hpp>
+#else
 #include <IIDM/Network.h>
 #include <IIDM/components/Connection.h>
 #include <IIDM/components/ConnectionPoint.h>
@@ -47,6 +58,7 @@
 #include <IIDM/builders/LoadBuilder.h>
 #include <IIDM/builders/ShuntCompensatorBuilder.h>
 #include <IIDM/builders/SwitchBuilder.h>
+#endif
 
 
 #include "gtest_dynawo.h"
@@ -85,8 +97,178 @@ struct NetworkProperty {
   bool instantiateSwitch;
 };
 
+#ifdef LANG_CXX11
 shared_ptr<DataInterface>
+createDataItfFromNetwork(powsybl::iidm::Network&& network) {
+  shared_ptr<DataInterfaceIIDM> data;
+  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(std::move(network));
+  ptr->initFromIIDM();
+  data.reset(ptr);
+  return data;
+}
+#endif
+
+#ifdef LANG_CXX11
+powsybl::iidm::Network
+#else
+shared_ptr<DataInterface>
+#endif
 createNetwork(const NetworkProperty& properties) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network network("test", "test");
+
+  powsybl::iidm::Substation& s = network.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus")
+              .add();
+  iidmBus.setV(1);
+  iidmBus.setAngle(0.);
+
+  powsybl::iidm::Bus& iidmBus2 = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus2")
+              .add();
+  iidmBus2.setV(1);
+  iidmBus2.setAngle(0.);
+  if (properties.instantiateDanglingLine) {
+    vlIIDM.newDanglingLine()
+           .setId("MyDanglingLine")
+           .setBus("MyBus")
+           .setConnectableBus("MyBus")
+           .setName("MyDanglingLine_NAME")
+           .setB(3.0)
+           .setG(3.0)
+           .setP0(105.0)
+           .setQ0(90.0)
+           .setR(3.0)
+           .setX(3.0)
+           .setUcteXnodeCode("ucteXnodeCodeTest")
+           .add();
+  }
+
+  if (properties.instantiateLoad) {
+    vlIIDM.newLoad()
+        .setId("MyLoad")
+        .setBus("MyBus")
+        .setConnectableBus("MyBus")
+        .setName("LOAD1_NAME")
+        .setLoadType(powsybl::iidm::LoadType::UNDEFINED)
+        .setP0(105.0)
+        .setQ0(90.0)
+        .add();
+  }
+
+  if (properties.instantiateCapacitorShuntCompensator) {
+    vlIIDM.newShuntCompensator()
+        .setId("MyCapacitorShuntCompensator")
+        .setName("MyCapacitorShuntCompensator_NAME")
+        .setBus("MyBus")
+        .setConnectableBus("MyBus")
+        .newLinearModel()
+        .setBPerSection(8.0)
+        .setMaximumSectionCount(3UL)
+        .add()
+        .setSectionCount(2UL)
+        .add();
+  }
+
+  if (properties.instantiateReactanceShuntCompensator) {
+    vlIIDM.newShuntCompensator()
+        .setId("MyReactanceShuntCompensator")
+        .setName("MyReactanceShuntCompensator_NAME")
+        .setBus("MyBus")
+        .setConnectableBus("MyBus")
+        .newLinearModel()
+        .setBPerSection(-8.0)
+        .setMaximumSectionCount(3UL)
+        .add()
+        .setSectionCount(2UL)
+        .add();
+  }
+
+  if (properties.instantiateSwitch) {
+    vlIIDM.getBusBreakerView().newSwitch()
+        .setId("MySwitch")
+        .setName("MySwitchName")
+        .setFictitious(false)
+        .setBus1("MyBus")
+        .setBus2("MyBus2")
+        .add();
+  }
+
+  if (properties.instantiateTwoWindingTransformer) {
+    powsybl::iidm::TwoWindingsTransformer& transformer = s.newTwoWindingsTransformer()
+        .setId("MyTransformer2Winding")
+        .setVoltageLevel1(vlIIDM.getId())
+        .setBus1("MyBus")
+        .setConnectableBus1("MyBus")
+        .setVoltageLevel2(vlIIDM.getId())
+        .setBus2("MyBus2")
+        .setConnectableBus2("MyBus2")
+        .setR(3.0)
+        .setX(33.0)
+        .setG(1.0)
+        .setB(0.2)
+        .setRatedU1(2.0)
+        .setRatedU2(0.4)
+        .setRatedS(3.0)
+        .add();
+    if (properties.instantiateRatioTap) {
+      transformer.newRatioTapChanger()
+          .setTapPosition(1)
+          .setLowTapPosition(0)
+          .setRegulationTerminal(stdcxx::ref<powsybl::iidm::Terminal>(transformer.getTerminal1()))
+          .setRegulating(true)
+          .setLoadTapChangingCapabilities(10.)
+          .setTargetV(2.)
+          .setTargetDeadband(1.)
+          .beginStep()
+          .setR(1.)
+          .setX(1.)
+          .setG(1.)
+          .setB(1.)
+          .setRho(1.)
+          .endStep()
+          .beginStep()
+          .setR(2.)
+          .setX(1.)
+          .setG(1.)
+          .setB(1.)
+          .setRho(1.)
+          .endStep()
+          .add();
+    }
+  }
+
+  if (properties.instantiateLine) {
+    network.newLine()
+                                      .setId("VL1_VL2")
+                                      .setName("VL1_VL2_NAME")
+                                      .setVoltageLevel1(vlIIDM.getId())
+                                      .setBus1("MyBus")
+                                      .setConnectableBus1("MyBus")
+                                      .setVoltageLevel2(vlIIDM.getId())
+                                      .setBus2("MyBus2")
+                                      .setConnectableBus2("MyBus2")
+                                      .setR(3.0)
+                                      .setX(33.33)
+                                      .setG1(1.0)
+                                      .setB1(0.2)
+                                      .setG2(2.0)
+                                      .setB2(0.4)
+                                      .add();
+  }
+#else
   IIDM::builders::NetworkBuilder nb;
   IIDM::Network network = nb.build("MyNetwork");
   IIDM::connection_status_t cs = {true /*connected*/};
@@ -163,12 +345,17 @@ createNetwork(const NetworkProperty& properties) {
     IIDM::Line dl = lb.build("MyLine");
     network.add(dl, c1, c2);
   }
+#endif
 
+#ifdef LANG_CXX11
+  return network;
+#else
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
   ptr->initFromIIDM();
   data.reset(ptr);
   return data;
+#endif
 }
 
 TEST(ModelsModelNetwork, TestNetworkCreation) {
@@ -182,7 +369,11 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
       true /*instantiateReactanceShuntCompensator*/,
       true /*instantiateSwitch*/
   };
+#ifdef LANG_CXX11
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
+#else
   shared_ptr<DataInterface> data = createNetwork(properties);
+#endif
   assert(data.get() != NULL);
   assert(data->getNetwork().get() != NULL);
 
@@ -201,7 +392,11 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
+#ifdef LANG_CXX11
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
+#else
   shared_ptr<DataInterface> data = createNetwork(properties);
+#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -231,7 +426,11 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerWithRatioTapChangerPar
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
+#ifdef LANG_CXX11
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
+#else
   shared_ptr<DataInterface> data = createNetwork(properties);
+#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -269,7 +468,11 @@ TEST(ModelsModelNetwork, ModelNetworkBusParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
+#ifdef LANG_CXX11
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
+#else
   shared_ptr<DataInterface> data = createNetwork(properties);
+#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -299,7 +502,11 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
+#ifdef LANG_CXX11
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
+#else
   shared_ptr<DataInterface> data = createNetwork(properties);
+#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -323,7 +530,11 @@ TEST(ModelsModelNetwork, ModelNetworkLineParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
+#ifdef LANG_CXX11
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
+#else
   shared_ptr<DataInterface> data = createNetwork(properties);
+#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -347,7 +558,11 @@ TEST(ModelsModelNetwork, ModelNetworkLoadParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
+#ifdef LANG_CXX11
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
+#else
   shared_ptr<DataInterface> data = createNetwork(properties);
+#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -411,7 +626,11 @@ TEST(ModelsModelNetwork, ModelNetworkCapacitorShuntCompensatorParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
+#ifdef LANG_CXX11
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
+#else
   shared_ptr<DataInterface> data = createNetwork(properties);
+#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -439,7 +658,11 @@ TEST(ModelsModelNetwork, ModelNetworkReactanceShuntCompensatorParam) {
       true /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
+#ifdef LANG_CXX11
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
+#else
   shared_ptr<DataInterface> data = createNetwork(properties);
+#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineParameters();
@@ -467,7 +690,11 @@ TEST(ModeslModelNetwork, ModelNetworkSwitchVariablesCheck) {
       false /*instantiateReactanceShuntCompensator*/,
       true /*instantiateSwitch*/
   };
+#ifdef LANG_CXX11
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
+#else
   shared_ptr<DataInterface> data = createNetwork(properties);
+#endif
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineVariables();

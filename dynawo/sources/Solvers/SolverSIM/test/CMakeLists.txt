@@ -23,10 +23,25 @@ target_link_libraries(${MODULE_NAME}
   dynawo_SolverSIM
   dynawo_SolverCommon
   dynawo_API_DYD
-  iidm-xml
-  dynawo_DataInterface
   dynawo_CPPModelsCommon
-  dynawo_Test)
+  dynawo_Test
+  )
+
+if(CXX11_ENABLED)
+  target_link_libraries(${MODULE_NAME}
+    IIDM::iidm
+    LibXml2::LibXml2
+    )
+else()
+  target_link_libraries(${MODULE_NAME}
+    iidm-xml
+    )
+endif()
+
+target_link_libraries(${MODULE_NAME}
+  dynawo_DataInterfaceIIDM
+  dynawo_DataInterface
+  )
 
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" "DYNAWO_XSD_DIR=./" $<TARGET_FILE:${MODULE_NAME}>

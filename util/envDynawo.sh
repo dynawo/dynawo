@@ -360,6 +360,13 @@ set_environment() {
     fi
   fi
 
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR/libxml2" ]; then
+    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR/libxml2)" ]; then
+      export_var_env DYNAWO_LIBXML2_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/libxml2
+      unset DYNAWO_LIBXML2_HOME_DEFAULT
+    fi
+  fi
+
   # External libs
   export_var_env_default DYNAWO_ZLIB_HOME=UNDEFINED
   export_var_env_default DYNAWO_LIBARCHIVE_HOME=UNDEFINED
@@ -367,6 +374,7 @@ set_environment() {
   export_var_env DYNAWO_BOOST_USE_STATIC=OFF
   export_var_env_default DYNAWO_GTEST_HOME=UNDEFINED
   export_var_env_default DYNAWO_GMOCK_HOME=UNDEFINED
+  export_var_env_default DYNAWO_LIBXML2_HOME=UNDEFINED
 
   export_var_env_force DYNAWO_SUITESPARSE_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/suitesparse
   export_var_env_force DYNAWO_NICSLU_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/nicslu
@@ -382,6 +390,9 @@ set_environment() {
 
   export_var_env_force DYNAWO_LIBXML_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/libxml
   export_var_env_force DYNAWO_LIBXML_INSTALL_DIR=$DYNAWO_LIBXML_HOME
+
+  export_var_env DYNAWO_IIDM_EXTENSION=$DYNAWO_INSTALL_DIR/lib/libdynawo_DataInterfaceIIDMExtension.so
+  export_var_env DYNAWO_LIBIIDM_EXTENSIONS=$DYNAWO_LIBIIDM_INSTALL_DIR/lib
 
   # Miscellaneous
   export_var_env DYNAWO_USE_XSD_VALIDATION=true
@@ -489,6 +500,10 @@ set_standard_environment_variables() {
     ld_library_path_prepend $DYNAWO_BOOST_HOME/lib
   fi
 
+  if [ $DYNAWO_LIBXML2_HOME_DEFAULT != true ]; then
+    ld_library_path_prepend $DYNAWO_LIBXML2_HOME/lib
+  fi
+
   if [ "$DYNAWO_BUILD_TYPE" = "Debug" -o "$DYNAWO_BUILD_TYPE" = "Tests" -o "$DYNAWO_BUILD_TYPE" = "TestCoverage" ]; then
     if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
       if [ -d "$DYNAWO_GTEST_HOME/lib64" ]; then
@@ -554,7 +569,7 @@ $DYNAWO_HOME/util/hooks/commit_hook.sh"' $1'
     fi
   fi
 
-  hook_file_master='#!'"/bin/sh
+  hook_file_master='#!'"/bin/bash
 # Avoid committing in master
 branch=\"\$(git rev-parse --abbrev-ref HEAD)\"
 if [ \"\$branch\" = \"master\" ]; then
@@ -640,6 +655,9 @@ config_3rd_party() {
   fi
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
+  fi
+  if [ $DYNAWO_LIBXML2_HOME_DEFAULT != true ]; then
+    CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBXML2_HOME=$DYNAWO_LIBXML2_HOME"
   fi
   case $DYNAWO_BUILD_TYPE_THIRD_PARTY in
     Debug)
@@ -756,6 +774,9 @@ config_dynawo() {
   fi
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
+  fi
+  if [ $DYNAWO_LIBXML2_HOME_DEFAULT != true ]; then
+    CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBXML2_HOME=$DYNAWO_LIBXML2_HOME"
   fi
   case $DYNAWO_BUILD_TYPE in
     Tests|TestCoverage)
@@ -1525,6 +1546,7 @@ deploy_dynawo() {
   mkdir -p $DYNAWO_DEPLOY_DIR || error_exit "Impossible to create $DYNAWO_DEPLOY_DIR."
   cd $DYNAWO_DEPLOY_DIR
   mkdir -p lib
+  mkdir -p bin
 
   echo "deploying Sundials libraries"
   cp -P $DYNAWO_SUNDIALS_INSTALL_DIR/lib*/*.* lib/
@@ -1544,6 +1566,9 @@ deploy_dynawo() {
   cp -P $DYNAWO_LIBXML_HOME/lib/*.* lib/
   echo "deploying libiidm libraries"
   cp -P $DYNAWO_LIBIIDM_HOME/lib/*.* lib/
+  if [ -d "$DYNAWO_LIBIIDM_HOME/bin" ]; then
+    cp -n -R -P $DYNAWO_LIBIIDM_HOME/bin/* bin/
+  fi
   if [ "$DYNAWO_BUILD_TYPE" = "Debug" -o "$DYNAWO_BUILD_TYPE" = "Tests" -o "$DYNAWO_BUILD_TYPE" = "TestCoverage" ]; then
     if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
       echo "deploying gtest libraries"
@@ -1575,7 +1600,12 @@ deploy_dynawo() {
   echo "deploying libxml include folder"
   cp -n -R -P $DYNAWO_LIBXML_HOME/include/xml include/
   echo "deploying libiidm include folder"
-  cp -n -R -P $DYNAWO_LIBIIDM_HOME/include/IIDM include/
+  if [ -d "$DYNAWO_LIBIIDM_HOME/include/IIDM" ]; then
+    cp -n -R -P $DYNAWO_LIBIIDM_HOME/include/IIDM include/
+  fi
+  if [ -d "$DYNAWO_LIBIIDM_HOME/include/powsybl" ]; then
+    cp -n -R -P $DYNAWO_LIBIIDM_HOME/include/powsybl include/
+  fi
   echo "deploying gtest include folder"
   if [ "$DYNAWO_BUILD_TYPE" = "Debug" -o "$DYNAWO_BUILD_TYPE" = "Tests" -o "$DYNAWO_BUILD_TYPE" = "TestCoverage" ]; then
     if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
@@ -1586,8 +1616,13 @@ deploy_dynawo() {
 
   mkdir -p share
   cp -R -P $DYNAWO_LIBXML_HOME/share/cmake share/
-  cp -R -P $DYNAWO_LIBIIDM_HOME/share/cmake share/
-  cp -R -P $DYNAWO_LIBIIDM_HOME/share/iidm share/
+  if [ -d "$DYNAWO_LIBIIDM_HOME/share" ]; then
+    cp -R -P $DYNAWO_LIBIIDM_HOME/share/cmake share/
+    cp -R -P $DYNAWO_LIBIIDM_HOME/share/iidm share/
+  fi
+  if [ -d "$DYNAWO_LIBIIDM_HOME/LibIIDM" ]; then
+    cp -R -P $DYNAWO_LIBIIDM_HOME/LibIIDM/cmake share/
+  fi
 
   mkdir -p cmake
   cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/cmake/* cmake
@@ -1641,13 +1676,32 @@ deploy_dynawo() {
     boost_system_folder=$(find_lib_system_path boost) || error_exit "Path for boost could not be found for deploy."
     boost_system_folder_include=$(find_include_system_path Boost_INCLUDE_DIR) || error_exit "Path for boost include could not be found for deploy."
   fi
+  boost_libraries=""
+  if [ -f "$DYNAWO_THIRD_PARTY_BUILD_DIR/build/CMakeCache.txt" ]; then
+    for lib_boost in $(grep -o "libboost.*.$LIBRARY_SUFFIX" $DYNAWO_THIRD_PARTY_BUILD_DIR/build/CMakeCache.txt | tr ';' '\n' | grep -o "libboost.*.$LIBRARY_SUFFIX" | sort | uniq); do
+      boost_libraries="${boost_libraries[@]} $lib_boost"
+    done
+  else
+    error_exit "$DYNAWO_THIRD_PARTY_BUILD_DIR/build should not be deleted before deploy to be able to determine boost libraries used during compilation."
+  fi
+  if [ -f "$DYNAWO_THIRD_PARTY_BUILD_DIR/src/libiidm-build/CMakeCache.txt" ]; then
+    for lib_boost in $(grep -o "libboost.*.$LIBRARY_SUFFIX" $DYNAWO_THIRD_PARTY_BUILD_DIR/src/libiidm-build/CMakeCache.txt | tr ';' '\n' | grep -o "libboost.*.$LIBRARY_SUFFIX" | sort | uniq); do
+      boost_libraries="${boost_libraries[@]} $lib_boost"
+    done
+  else
+    error_exit "$DYNAWO_THIRD_PARTY_BUILD_DIR/src/libiidm-build should not be deleted before deploy to be able to determine boost libraries used during compilation."
+  fi
   if [ -f "$DYNAWO_BUILD_DIR/CMakeCache.txt" ]; then
     for lib_boost in $(grep -o "libboost.*.$LIBRARY_SUFFIX" $DYNAWO_BUILD_DIR/CMakeCache.txt | tr ';' '\n' | grep -o "libboost.*.$LIBRARY_SUFFIX" | sort | uniq); do
-      cp -P ${boost_system_folder}/${lib_boost}* lib/
+      boost_libraries="${boost_libraries[@]} $lib_boost"
     done
   else
     error_exit "$DYNAWO_BUILD_DIR should not be deleted before deploy to be able to determine boost libraries used during compilation."
   fi
+  boost_libraries=($(echo "${boost_libraries[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
+  for lib_boost in ${boost_libraries[@]}; do
+    cp -P ${boost_system_folder}/${lib_boost}* lib/
+  done
   if [ -f "$boost_system_folder/libboost_iostreams.$LIBRARY_SUFFIX" ]; then
     cp -P $boost_system_folder/libboost_iostreams*.$LIBRARY_SUFFIX* lib/
   fi
@@ -1697,6 +1751,20 @@ deploy_dynawo() {
           cp $(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2) lib/
         fi
       done
+    fi
+  fi
+
+  if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
+    # libXML2
+    echo "deploying libxml2"
+    if [ $DYNAWO_LIBXML2_HOME_DEFAULT != true ]; then
+      cp -P $DYNAWO_LIBXML2_HOME/lib/libxml2*.$LIBRARY_SUFFIX* lib/
+      cp -n -R $DYNAWO_LIBXML2_HOME/include/libxml2 include/
+    else
+      libxml2_system_folder=$(find_lib_system_path xml2) || error_exit "Path for libxml2 could not be found for deploy."
+      cp -P ${libxml2_system_folder}/libxml2*.$LIBRARY_SUFFIX* lib/
+      libxml2_system_folder_include=$(find_include_system_path LIBXML2_INCLUDE_DIR) || error_exit "Path for libxml2 include could not be found for deploy."
+      cp -n -P -R ${libxml2_system_folder_include} include/
     fi
   fi
 

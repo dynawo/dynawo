@@ -55,9 +55,10 @@ target_include_directories(dynawo_API_EXTVAR SYSTEM
   )
 
 target_link_libraries(dynawo_API_EXTVAR
-  PRIVATE
+  PUBLIC
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     XMLSAXParser${LibXML_LINK_SUFFIX}
+  PRIVATE
     dynawo_Common
     Boost::system
     )

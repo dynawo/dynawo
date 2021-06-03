@@ -44,19 +44,8 @@ target_link_libraries(dynawo_Simulation
     dynawo_API_CSTR
     dynawo_ModelerCommon
     dynawo_DataInterface
+    dynawo_DataInterfaceFactory
     dynawo_SolverCommon
-    iidm-xml
-    iidm-ext-activeseason-xml
-    iidm-ext-busbarsectionposition-xml
-    iidm-ext-connectableposition-xml
-    iidm-ext-currentlimitsperseason-xml
-    iidm-ext-generatoractivepowercontrol-xml
-    iidm-ext-generatorentsoecategory-xml
-    iidm-ext-generatorstartup-xml
-    iidm-ext-hvdcangledroopactivepowercontrol-xml
-    iidm-ext-hvdcoperatoractivepowerrange-xml
-    iidm-ext-loaddetail-xml
-    iidm-ext-standbyautomaton-xml
     libZIP::libZIP
     Boost::filesystem
     Boost::serialization

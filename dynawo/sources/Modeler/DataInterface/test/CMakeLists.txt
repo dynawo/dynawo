@@ -11,10 +11,6 @@
 set(MODULE_NAME MODELER_DATAINTERFACE_unittest)
 
 set(MODULE_SOURCES
-    TestBusBarSectionInterface.cpp
-    TestCriteria.cpp
-    TestIIDMModelsStaticParameters.cpp
-    TestStateVariable.cpp
     TestStaticParameter.cpp
 )
 
@@ -25,17 +21,6 @@ target_link_libraries(${MODULE_NAME}
   dynawo_API_CRT
   dynawo_ModelerCommon
   dynawo_DataInterface
-  iidm-ext-activeseason-xml
-  iidm-ext-busbarsectionposition-xml
-  iidm-ext-connectableposition-xml
-  iidm-ext-currentlimitsperseason-xml
-  iidm-ext-generatoractivepowercontrol-xml
-  iidm-ext-generatorentsoecategory-xml
-  iidm-ext-generatorstartup-xml
-  iidm-ext-hvdcangledroopactivepowercontrol-xml
-  iidm-ext-hvdcoperatoractivepowerrange-xml
-  iidm-ext-loaddetail-xml
-  iidm-ext-standbyautomaton-xml
   dynawo_Test)
 
 add_custom_target(${MODULE_NAME}-tests

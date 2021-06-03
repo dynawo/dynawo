@@ -37,6 +37,13 @@ if(APPLE)
   set_target_properties(dynawo PROPERTIES INSTALL_RPATH "@loader_path/../lib")
 endif()
 
+if(CXX11_ENABLED)
+  target_link_libraries(dynawo
+    PRIVATE
+      LibXml2::LibXml2
+    )
+endif()
+
 set_target_properties(dynawo PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 
 install(TARGETS dynawo DESTINATION ${BINDIR_NAME})

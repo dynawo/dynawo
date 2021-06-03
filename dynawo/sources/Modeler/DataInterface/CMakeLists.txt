@@ -14,37 +14,53 @@
 set(DATA_INTERFACE_VERSION_STRING ${DYNAWO_VERSION_STRING})
 set(DATA_INTERFACE_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
+set(DATA_INTERFACE_FACTORY_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(DATA_INTERFACE_FACTORY_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+
 set(DATA_INTERFACE_SOURCES
-    DYNBusInterfaceIIDM.cpp
-    DYNCalculatedBusInterfaceIIDM.cpp
-    DYNSwitchInterfaceIIDM.cpp
-    DYNLineInterfaceIIDM.cpp
-    DYNTwoWTransformerInterfaceIIDM.cpp
-    DYNThreeWTransformerInterfaceIIDM.cpp
-    DYNLoadInterfaceIIDM.cpp
-    DYNShuntCompensatorInterfaceIIDM.cpp
-    DYNStaticVarCompensatorInterfaceIIDM.cpp
-    DYNGeneratorInterfaceIIDM.cpp
-    DYNDanglingLineInterfaceIIDM.cpp
-    DYNNetworkInterfaceIIDM.cpp
-    DYNPhaseTapChangerInterfaceIIDM.cpp
-    DYNRatioTapChangerInterfaceIIDM.cpp
-    DYNStepInterfaceIIDM.cpp
     DYNComponentInterface.cpp
-    DYNCurrentLimitInterfaceIIDM.cpp
     DYNStateVariable.cpp
     DYNStaticParameter.cpp
-    DYNDataInterfaceIIDM.cpp
-    DYNVoltageLevelInterfaceIIDM.cpp
-    DYNVscConverterInterfaceIIDM.cpp
-    DYNLccConverterInterfaceIIDM.cpp
-    DYNHvdcLineInterfaceIIDM.cpp
     DYNCriteria.cpp
     )
 
 set(DATA_INTERFACE_INCLUDE_HEADERS
     DYNDataInterface.h
-    DYNDataInterfaceIIDM.h
+    DYNNetworkInterface.h
+    DYNLineInterface.h
+    DYNTwoWTransformerInterface.h
+    DYNThreeWTransformerInterface.h
+    DYNVoltageLevelInterface.h
+    DYNHvdcLineInterface.h
+    DYNBusInterface.h
+    DYNCurrentLimitInterface.h
+    DYNSwitchInterface.h
+    DYNLoadInterface.h
+    DYNGeneratorInterface.h
+    DYNStaticVarCompensatorInterface.h
+    DYNShuntCompensatorInterface.h
+    DYNVscConverterInterface.h
+    DYNLccConverterInterface.h
+    DYNBusInterface.h
+    DYNPhaseTapChangerInterface.h
+    DYNRatioTapChangerInterface.h
+    DYNDanglingLineInterface.h
+    DYNComponentInterface.h
+    DYNComponentInterface.hpp
+    DYNStepInterface.h
+    DYNStateVariable.h
+    DYNStateVariable.hpp
+    DYNStaticParameter.h
+    DYNStaticParameter.hpp
+    DYNConverterInterface.h
+    )
+
+set(DATA_INTERFACE_FACTORY_SOURCES
+    DYNDataInterfaceFactory.cpp
+    )
+
+set(DATA_INTERFACE_FACTORY_INCLUDE_HEADERS
+    DYNDataInterfaceFactory.h
     )
 
 add_library(dynawo_DataInterface ${LIBRARY_TYPE} ${DATA_INTERFACE_SOURCES})
@@ -66,22 +82,27 @@ target_link_libraries(dynawo_DataInterface
     dynawo_Common
     dynawo_ModelerCommon
     dynawo_API_CRT
-  PUBLIC
-    iidm-ext-activeseason-xml
-    iidm-ext-busbarsectionposition-xml
-    iidm-ext-connectableposition-xml
-    iidm-ext-currentlimitsperseason-xml
-    iidm-ext-generatoractivepowercontrol-xml
-    iidm-ext-generatorentsoecategory-xml
-    iidm-ext-generatorstartup-xml
-    iidm-ext-hvdcangledroopactivepowercontrol-xml
-    iidm-ext-hvdcoperatoractivepowerrange-xml
-    iidm-ext-loaddetail-xml
-    iidm-ext-standbyautomaton-xml
   )
 
 set_target_properties(dynawo_DataInterface PROPERTIES VERSION ${DATA_INTERFACE_VERSION_STRING}
                                                     SOVERSION ${DATA_INTERFACE_VERSION_MAJOR})
 
-install(TARGETS dynawo_DataInterface EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-install(FILES ${DATA_INTERFACE_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+add_library(dynawo_DataInterfaceFactory ${LIBRARY_TYPE} ${DATA_INTERFACE_FACTORY_SOURCES})
+
+target_link_libraries(dynawo_DataInterfaceFactory
+  dynawo_Common
+  dynawo_DataInterface
+  dynawo_DataInterfaceIIDM
+)
+
+set_target_properties(dynawo_DataInterfaceFactory PROPERTIES VERSION ${DATA_INTERFACE_FACTORY_VERSION_STRING}
+                                                             SOVERSION ${DATA_INTERFACE_VERSION_MAJOR})
+
+install(TARGETS dynawo_DataInterface dynawo_DataInterfaceFactory EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${DATA_INTERFACE_INCLUDE_HEADERS} ${DATA_INTERFACE_FACTORY_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+
+if(CXX11_ENABLED)
+  add_subdirectory(PowSyblIIDM)
+else()
+  add_subdirectory(IIDM)
+endif()

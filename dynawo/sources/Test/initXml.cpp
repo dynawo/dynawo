@@ -13,6 +13,9 @@
 
 #include "gtest_dynawo.h"
 #include <xercesc/util/PlatformUtils.hpp>
+#ifdef LANG_CXX11
+#include <libxml/parser.h>
+#endif
 
 class Environment : public testing::Environment {
  public:
@@ -21,11 +24,17 @@ class Environment : public testing::Environment {
   // Override this to define how to set up the environment.
   void SetUp() {
     xercesc::XMLPlatformUtils::Initialize();
+#ifdef LANG_CXX11
+      xmlInitParser();
+#endif
   }
 
   // Override this to define how to tear down the environment.
   void TearDown() {
     xercesc::XMLPlatformUtils::Terminate();
+#ifdef LANG_CXX11
+    xmlCleanupParser();
+#endif
   }
 };
 
