@@ -236,7 +236,7 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::evalZ(const double /*t*/) {
-    if (preSwitchOff1_ != zLocal_[0]) {
+    if (doubleNotEquals(preSwitchOff1_, zLocal_[0])) {
       if (zLocal_[0] > 0 && getConnected() == CLOSED) {
         setConnected(OPEN);
         DYNAddTimelineEvent(this, name(), LoadDisconnected);
@@ -246,7 +246,7 @@ namespace DYN {
       }
       preSwitchOff1_ = zLocal_[0];
     }
-    if (preSwitchOff2_ != zLocal_[1]) {
+    if (doubleNotEquals(preSwitchOff2_, zLocal_[1])) {
       if (zLocal_[1] > 0 && getConnected() == CLOSED) {
         setConnected(OPEN);
         DYNAddTimelineEvent(this, name(), LoadDisconnected);
