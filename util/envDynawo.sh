@@ -66,6 +66,7 @@ where [option] can be:"
         clean-3rd-party                       remove all 3rd party softwares objects
         clean-dynawo                          remove Dynawo's objects
         clean-all                             call clean-3rd-party, clean-dynawo
+        clean-models [args]                   clean given preassembled models
         clean-tests                           remove all objects needed for unittest
         clean-tests-coverage                  remove all objects needed for unittest-coverage
         clean-old-branches                    remove old build/install/nrt results from merge branches
@@ -74,6 +75,7 @@ where [option] can be:"
         clean-build-3rd-party                 clean then build 3rd party libraries
         clean-build-dynawo                    clean, then configure and build Dynawo
         clean-build-all                       clean, then configure and build 3rd party libraries, Dynawo
+        clean-build-models [args]             clean and build given preassembled models
 
         =========== Uninstall
         uninstall-3rd-party                   uninstall all 3rd party softwares
@@ -107,6 +109,7 @@ where [option] can be:"
         filter-timeline ([args])              filter timeline file to remove duplicated or opposed elements
         version-validation                    clean all built items, then build them all and run non-regression tests
         list-tests                            print all available unittest target
+        list-models                           list all preassembled models you can use with clean-models or clean-build-models
         run-doc-tests                         run all tests provided in the documentation
 
         =========== Utilities
@@ -1047,6 +1050,26 @@ build_tests_coverage() {
     export_var_env_force DYNAWO_PYTHON_COMMAND=${DYNAWO_PYTHON_COMMAND_SAVE}
     ${DYNAWO_PYTHON_COMMAND} $DYNAWO_HOME/util/ci/correctCoberturaPaths.py
   fi
+}
+
+clean_models() {
+  for model in `echo $@`; do
+    rm -rf $DYNAWO_BUILD_DIR/sources/Models/Modelica/P/${model}*
+  done
+}
+
+clean_build_models() {
+  clean_models $@
+  for model in `echo $@`; do
+    if ! list_models | grep -w $model &> /dev/null; then
+      error_exit "$model is not a valid model to build."
+    fi
+  done
+  build_dynawo_lib $@
+}
+
+list_models() {
+  ls -l ${DYNAWO_HOME}/dynawo/sources/Models/Modelica/PreassembledModels/*.xml | awk '{print $NF}' | xargs -i basename {} '.xml'
 }
 
 clean_tests() {
@@ -2236,12 +2259,20 @@ case $MODE in
     clean_build_dynawo || error_exit "Error while clean build all"
     ;;
 
+  clean-build-models)
+    clean_build_models ${ARGS} || error_exit "Error while clean build models"
+    ;;
+
   clean-doc)
     clean_doc || error_exit "Error during the clean of Dynawo documentation"
     ;;
 
   clean-dynawo)
     clean_dynawo || error_exit "Error while cleaning Dynawo"
+    ;;
+
+  clean-models)
+    clean_models ${ARGS} || error_exit "Error during the clean of models"
     ;;
 
   clean-nrt-doc)
@@ -2366,6 +2397,10 @@ case $MODE in
 
   jobs-with-curves)
     jobs_with_curves ${ARGS} || error_exit "Dynawo job with curves failed"
+    ;;
+
+  list-models)
+    list_models || error_exit "Error during the display of models list"
     ;;
 
   list-tests)
