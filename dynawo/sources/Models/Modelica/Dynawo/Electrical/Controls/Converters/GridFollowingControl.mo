@@ -28,7 +28,7 @@ model GridFollowingControl "Grid following control"
   parameter Types.PerUnit KiPll "Integral gain of the phase-locked loop (PLL)";
   parameter Types.PerUnit Kpc "Proportional gain of the current loop";
   parameter Types.PerUnit Kic "Integral gain of the current loop";
-  parameter Types.PerUnit KpDc "Proportional gain of the dc voltage control";
+  parameter Types.PerUnit Kpdc "Proportional gain of the dc voltage control";
   parameter Types.PerUnit DroopUQ "Proportional gain of the reactive power loop (AC voltage regulation), such that Qsp=Qref+DroopUQ*(UacRef-Uac)";
   parameter Types.PerUnit DroopFP "Proportional gain of the active power loop (frequency regulation), such that Psp=Pref-DroopFP*(fnom-f)";
   parameter Types.Time tauIdRef "Approximation of the response time of the active power loop is seconds";
@@ -84,7 +84,7 @@ model GridFollowingControl "Grid following control"
     Placement(visible = true, transformation(origin = {69, -1}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.CurrentLoop currentControl(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, Kic = Kic, Kpc = Kpc, Lfilter = Lfilter, Rfilter = Rfilter, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, UqConv0Pu = UqConv0Pu)  annotation(
     Placement(visible = true, transformation(origin = {23, -1}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.BaseControls.DCVoltageControl dCCurrentControl(IdcSource0Pu = IdcSource0Pu, KpDc = KpDc, Udc0Pu = Udc0Pu, IdcSourceRef0Pu = IdcSourceRef0Pu)  annotation(
+  Dynawo.Electrical.Controls.Converters.BaseControls.DCVoltageControl dCCurrentControl(IdcSource0Pu = IdcSource0Pu, IdcSourceRef0Pu = IdcSourceRef0Pu, Kpdc = Kpdc, Udc0Pu = Udc0Pu)  annotation(
     Placement(visible = true, transformation(origin = {65, -65}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.PControl pControl(DroopFP = DroopFP,IdConv0Pu = IdConv0Pu, PMaxPu = PMaxPu, PRef0Pu = PRef0Pu, RPmaxPu = RPmaxPu, UdFilter0Pu = UdFilter0Pu, tauIdRef = tauIdRef) annotation(
     Placement(visible = true, transformation(origin = {-60, 13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
