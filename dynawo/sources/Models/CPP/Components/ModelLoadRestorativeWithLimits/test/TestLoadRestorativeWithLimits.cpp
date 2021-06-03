@@ -263,11 +263,6 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_NO_THROW(modelLoad->evalMode(0));
   ASSERT_NO_THROW(modelLoad->setGequations());
   ASSERT_NO_THROW(modelLoad->evalF(1, ALGEBRAIC_EQ));
-
-  y[1] = 0;
-  y[2] = 0;
-  y[3] = 0;
-  // ASSERT_THROW_DYNAWO(modelLoad->evalF(0, ALGEBRAIC_EQ), Error::NUMERICAL_ERROR, KeyError_t::NumericalErrorFunction);
 }
 
 }  // namespace DYN
