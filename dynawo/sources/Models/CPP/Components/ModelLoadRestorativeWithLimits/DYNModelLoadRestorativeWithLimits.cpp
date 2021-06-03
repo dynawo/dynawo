@@ -73,6 +73,8 @@ namespace DYN {
   UiYNum_(0),
   IrYNum_(0),
   IiYNum_(0),
+  preSwitchOff1_(0),
+  preSwitchOff2_(0),
   u0Pu_(0),
   UfRawprim0_(0),
   Tf_(0),
@@ -234,10 +236,25 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::evalZ(const double /*t*/) {
-    if ((zLocal_[0] > 0 || zLocal_[1] > 0) && getConnected() == CLOSED) {
-      setConnected(OPEN);
-    } else if ((zLocal_[0] <= 0 || zLocal_[1] <= 0) && getConnected() == OPEN) {
-      setConnected(CLOSED);
+    if (preSwitchOff1_ != zLocal_[0]) {
+      if (zLocal_[0] > 0 && getConnected() == CLOSED) {
+        setConnected(OPEN);
+        DYNAddTimelineEvent(this, name(), LoadDisconnected);
+      } else if (zLocal_[0] <= 0 && getConnected() == OPEN) {
+        DYNAddTimelineEvent(this, name(), LoadConnected);
+        setConnected(CLOSED);
+      }
+      preSwitchOff1_ = zLocal_[0];
+    }
+    if (preSwitchOff2_ != zLocal_[1]) {
+      if (zLocal_[1] > 0 && getConnected() == CLOSED) {
+        setConnected(OPEN);
+        DYNAddTimelineEvent(this, name(), LoadDisconnected);
+      } else if (zLocal_[1] <= 0 && getConnected() == OPEN) {
+        DYNAddTimelineEvent(this, name(), LoadConnected);
+        setConnected(CLOSED);
+      }
+      preSwitchOff2_ = zLocal_[1];
     }
     if (gLocal_[0] == ROOT_UP) {
       UMaxPuReached_ = true;
