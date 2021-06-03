@@ -217,7 +217,7 @@ class SolverSIM : public Solver::Impl {
   void updateTimeStep(double& tNxt);
 
   /**
-   * @brief get time step
+   * @copydoc Solver::getTimeStep()
    */
   double getTimeStep() const {
     return h_;

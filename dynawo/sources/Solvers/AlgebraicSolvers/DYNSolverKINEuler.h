@@ -57,6 +57,7 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
    * @brief initialize all memory of KINSOL
    *
    * @param model instance of model to interact with
+   * @param timeSchemeSolver instance of time scheme solver calling for an algebraic resolution
    * @param linearSolverName choice for linear solver (KLU or NICSLU at the moment)
    * @param fnormtol stopping tolerance on L2-norm of function value
    * @param initialaddtol stopping tolerance at initialization
@@ -65,14 +66,14 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
    * @param msbset maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
    * @param mxiter maximum number of nonlinear iterations
    * @param printfl level of verbosity of output
+   * @param sundialsVectorY solution of the algebraic resolution
    */
   void init(const boost::shared_ptr<Model>& model, Solver* timeSchemeSolver, const std::string& linearSolverName, double fnormtol,
-            double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector yy);
+            double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY);
 
   /**
    * @brief solve the problem
    *
-   * @param t time to solve
    * @param noInitSetup indicate if kinsol have to rebuilt the jacobian at the beginning
    * @param skipAlgebraicResidualsEvaluation indicate if algebraic residuals needs to be be evaluated
    *

@@ -91,9 +91,9 @@ void SolverKINCommon::clean() {
 
 void
 SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol, double initialaddtol, double scsteptol,
-                     double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ, N_Vector yy) {
+                     double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ, N_Vector sundialsVectorY) {
   linearSolverName_ = linearSolverName;
-  sundialsVectorY_ = yy;
+  sundialsVectorY_ = sundialsVectorY;
 
   // (1) Problem size
   // ----------------

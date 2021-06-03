@@ -53,7 +53,7 @@ SolverKINEuler::~SolverKINEuler() {
 
 void
 SolverKINEuler::init(const shared_ptr<Model>& model, Solver* timeSchemeSolver, const std::string& linearSolverName, double fnormtol,
-                     double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector yy) {
+                     double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY) {
   clean();
   model_ = model;
   timeSchemeSolver_ = timeSchemeSolver;
@@ -69,7 +69,7 @@ SolverKINEuler::init(const shared_ptr<Model>& model, Solver* timeSchemeSolver, c
   vectorF_.resize(model_->sizeF());
   numF_ = model_->sizeF();
 
-  initCommon(linearSolverName, fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN, yy);
+  initCommon(linearSolverName, fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN, sundialsVectorY);
 }
 
 int

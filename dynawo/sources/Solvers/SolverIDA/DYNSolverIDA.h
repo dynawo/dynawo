@@ -230,7 +230,7 @@ class SolverIDA : public Solver::Impl {
   void analyseFlag(const int & flag);
 
   /**
-   * @brief get time step
+   * @copydoc Solver::getTimeStep()
    */
   double getTimeStep() const;
 
