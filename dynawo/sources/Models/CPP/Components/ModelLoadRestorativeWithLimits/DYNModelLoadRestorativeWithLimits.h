@@ -289,6 +289,8 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   unsigned int UiYNum_;  ///< local Y index for Ui
   unsigned int IrYNum_;  ///< local Y index for Ir
   unsigned int IiYNum_;  ///< local Y index for Ii
+  double preSwitchOff1_;  ///< previous value of switchOff1 state
+  double preSwitchOff2_;  ///< previous value of switchOff2 state
 
   double u0Pu_;  ///< initial voltage
   double UfRawprim0_;  ///< initial value of derivative of UfRaw
