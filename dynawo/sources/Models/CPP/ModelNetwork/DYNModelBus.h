@@ -625,7 +625,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   std::vector<boost::weak_ptr<ModelSwitch> > connectableSwitches_;  ///< switch connected or connectable on the node
 
   const std::string modelType_;  ///< model Type
-  const bool isNodeBreaker_;  ///< true if bus is a calculated one
+  const bool isNodeBreaker_;  ///< true if the bus is modeled as node-breaker (called also calculated bus)
   std::string constraintId_;  ///< id to use in constraints
 };
 
