@@ -111,6 +111,7 @@ class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable{
 
   SubModel* subModel_;  ///< model currently simulated
 
+  std::vector<double> vectorYSubModel_;  ///< Current values of variables during the call of the solver
   double* yBuffer_;  ///< variables values
   double* fBuffer_;  ///< values of residual functions
 };  ///< class Solver related to a SubModel

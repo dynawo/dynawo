@@ -62,7 +62,7 @@ class Model {
    * @param yp current values of the derivative of the continuous variables
    * @param f values of the residual functions
    */
-  virtual void evalF(const double t, double* y, double* yp, double* f) = 0;
+  virtual void evalF(const double t, const double* y, const double* yp, double* f) = 0;
 
   /**
    * @brief evaluate the differential residual functions of the model
@@ -72,7 +72,7 @@ class Model {
    * @param yp current values of the derivative of the continuous variables
    * @param f values of the residual functions
    */
-  virtual void evalFDiff(const double t, double* y, double* yp, double* f) = 0;
+  virtual void evalFDiff(const double t, const double* y, const double* yp, double* f) = 0;
 
   /**
    * @brief evaluate the differential residual functions of the models for which there was a mode change
@@ -82,7 +82,7 @@ class Model {
    * @param yp current values of the derivative of the continuous variables
    * @param f values of the residual functions
    */
-  virtual void evalFMode(const double t, double* y, double* yp, double* f) = 0;
+  virtual void evalFMode(const double t, const double* y, const double* yp, double* f) = 0;
 
   /**
    * @brief get the current value of the continuous variables
@@ -90,14 +90,14 @@ class Model {
    * @param y current values of continuous variables
    * @param yp current values of the derivative of the continuous variables
    */
-  virtual void copyContinuousVariables(double* y, double* yp) = 0;
+  virtual void copyContinuousVariables(const double* y, const double* yp) = 0;
 
   /**
    * @brief get the current value of the discrete variables
    *
    * @param z current values of discrete variables
    */
-  virtual void copyDiscreteVariables(double* z) = 0;
+  virtual void copyDiscreteVariables(const double* z) = 0;
 
   /**
    * @brief evaluate the root functions of the model based on the variable values contained in the model
@@ -219,14 +219,14 @@ class Model {
    *
    * @return properties of each equation
    */
-  virtual propertyF_t* getFType() const = 0;
+  virtual const std::vector<propertyF_t>& getFType() const = 0;
 
   /**
    * @brief get the properties of the variables (algebraic, external or differential variable)
    *
    * @return properties of each variable
    */
-  virtual propertyContinuousVar_t* getYType() const = 0;
+  virtual const std::vector<propertyContinuousVar_t>& getYType() const = 0;
 
   /**
    * @brief evaluate the properties of the variables that won't change during simulation
@@ -316,7 +316,8 @@ class Model {
    * @param localFIndex local index of the residual functions inside the subModel
    * @param fEquation equation formula related to local index
    */
-  virtual void getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) = 0;
+  virtual void getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const = 0;
+
   /**
    * @brief get informations about root functions
    *
@@ -325,7 +326,7 @@ class Model {
    * @param localGIndex local index of the root functions inside the subModel
    * @param gEquation equation formula related to local index
    */
-  virtual void getGInfos(const int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation) = 0;
+  virtual void getGInfos(const int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation) const = 0;
 
   /**
    * @brief initialize the model
