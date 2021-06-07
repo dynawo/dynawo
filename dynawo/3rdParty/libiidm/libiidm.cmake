@@ -61,6 +61,8 @@ else()
                       "-DBOOST_ROOT:PATH=${BOOST_ROOT}"
                       "-DCMAKE_PREFIX_PATH=${LIBXML2_HOME}"
                       "-DBUILD_SHARED_LIBS=ON"
+                      "-DBUILD_TESTS=OFF"
+                      "-DBUILD_TOOLS=OFF"
   )
 
   unset(package_git_repo)
