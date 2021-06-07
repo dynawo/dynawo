@@ -311,6 +311,7 @@ ModelMulti::init(const double t0) {
     }
     rotateBuffers();
   }
+  zSave_.assign(zLocal_, zLocal_ + sizeZ());
 }
 
 void
