@@ -19,4 +19,3 @@
     <curve model="Converter1000" variable="control_omegaPu"/>
     <curve model="Converter1000" variable="converter_IConvPu"/>
 </curvesInput>
-

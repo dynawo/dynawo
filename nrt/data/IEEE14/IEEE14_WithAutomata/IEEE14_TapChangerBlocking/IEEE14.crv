@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -61,8 +61,8 @@
   <curve model="TAP_CHANGER_LOAD_3" variable="tapChanger_valueMax"/>
   <curve model="TAP_CHANGER_LOAD_2" variable="tapChanger_tap_value"/>
   <curve model="TAP_CHANGER_LOAD_3" variable="tapChanger_tap_value"/>
-  <curve model="TAP_CHANGER_LOCK" variable="tapChangerLock_lockedD"/>
-  <curve model="TAP_CHANGER_LOCK" variable="tapChangerLock_lockedT"/>
-  <curve model="TAP_CHANGER_LOCK" variable="tapChangerLock_UMin"/>
-  <curve model="TAP_CHANGER_LOCK" variable="tapChangerLock_state"/>
+  <curve model="TAP_CHANGER_LOCK" variable="tapChangerBlocking_blockedD"/>
+  <curve model="TAP_CHANGER_LOCK" variable="tapChangerBlocking_blockedT"/>
+  <curve model="TAP_CHANGER_LOCK" variable="tapChangerBlocking_UMin"/>
+  <curve model="TAP_CHANGER_LOCK" variable="tapChangerBlocking_state"/>
 </curvesInput>

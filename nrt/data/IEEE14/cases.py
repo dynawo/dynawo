@@ -159,11 +159,11 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE1
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 #########################################
-#       IEEE14 - Tap Changer Lock       #
+#       IEEE14 - Tap Changer Blocking   #
 #########################################
 
-case_name = "IEEE14 - Tap Changer Lock"
-case_description = "IEEE14 with load 2 and 3 behind a transformer with a tap changer + Tap Changer Lock"
-job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_TapChangerLock", "IEEE14.jobs")
+case_name = "IEEE14 - Tap Changer Blocking"
+case_description = "IEEE14 with load 2 and 3 behind a transformer with a tap changer + Tap Changer Blocking"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_TapChangerBlocking", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
