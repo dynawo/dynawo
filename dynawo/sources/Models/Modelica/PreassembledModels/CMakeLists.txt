@@ -11,61 +11,62 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
-    CurrentLimitAutomaton.xml
-    EventConnectedStatus.xml
-    EventQuadripoleConnection.xml
-    EventQuadripoleDisconnection.xml
-    EventSetPointBoolean.xml
-    EventSetPointReal.xml
-    EventSetPointDoubleReal.xml
-    GeneratorFictitious.xml
-    GeneratorPQ.xml
-    GeneratorPV.xml
-    GeneratorPVSignalN.xml
-    GeneratorPVPropSignalN.xml
-    GeneratorSynchronousFourWindings.xml
-    GeneratorSynchronousThreeWindings.xml
-    GeneratorSynchronousFourWindingsProportionalRegulations.xml
-    GeneratorSynchronousThreeWindingsProportionalRegulations.xml
-    GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
-    GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
-    GenericAutomaton.xml
-    GridFormingConverterDroopControl.xml
-    GridFormingConverterMatchingControl.xml
-    GridFormingConverterDispatchableVirtualOscillatorControl.xml
-    HvdcPVEmulation.xml
-    HvdcPTanPhi.xml
-    HvdcVSC.xml
-    HvdcVSCEmulation.xml
-    InfiniteBus.xml
-    InjectorBG.xml
-    Line.xml
-    LoadAlphaBeta.xml
-    LoadAlphaBetaRestorative.xml
-    LoadOneTransformer.xml
-    LoadOneTransformerTapChanger.xml
-    LoadPQ.xml
-    LoadTwoTransformers.xml
-    LoadTwoTransformersTapChangers.xml
-    NodeFault.xml
-    PhaseShifterI.xml
-    PhaseShifterP.xml
-    SetPoint.xml
-    StaticVarCompensator.xml
-    Step.xml
-    TapChangerAutomaton.xml
-    TapChangerBlockingArea.xml
-    TransformerFixedRatio.xml
-    UnderVoltageAutomaton.xml
-    )
+  CurrentLimitAutomaton.xml
+  EventConnectedStatus.xml
+  EventQuadripoleConnection.xml
+  EventQuadripoleDisconnection.xml
+  EventSetPointBoolean.xml
+  EventSetPointReal.xml
+  EventSetPointDoubleReal.xml
+  GeneratorFictitious.xml
+  GeneratorPQ.xml
+  GeneratorPV.xml
+  GeneratorPVSignalN.xml
+  GeneratorPVPropSignalN.xml
+  GeneratorSynchronousFourWindings.xml
+  GeneratorSynchronousThreeWindings.xml
+  GeneratorSynchronousFourWindingsProportionalRegulations.xml
+  GeneratorSynchronousThreeWindingsProportionalRegulations.xml
+  GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
+  GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
+  GenericAutomaton.xml
+  GridFormingConverterDroopControl.xml
+  GridFormingConverterMatchingControl.xml
+  GridFormingConverterDispatchableVirtualOscillatorControl.xml
+  HvdcPVEmulation.xml
+  HvdcPTanPhi.xml
+  HvdcVSC.xml
+  HvdcVSCEmulation.xml
+  InfiniteBus.xml
+  InjectorBG.xml
+  Line.xml
+  LoadAlphaBeta.xml
+  LoadAlphaBetaRestorative.xml
+  LoadOneTransformer.xml
+  LoadOneTransformerTapChanger.xml
+  LoadPQ.xml
+  LoadTwoTransformers.xml
+  LoadTwoTransformersTapChangers.xml
+  NodeFault.xml
+  PhaseShifterI.xml
+  PhaseShifterP.xml
+  SetPoint.xml
+  StaticVarCompensator.xml
+  Step.xml
+  TapChangerAutomaton.xml
+  TapChangerBlockingAutomaton1.xml
+  TapChangerBlockingAutomaton2.xml
+  TransformerFixedRatio.xml
+  UnderVoltageAutomaton.xml
+  )
 
 # PYTHON scripts preassembled models
 set(PYTHON_SCRIPTS_PREASSEMBLED_MODELS
-    buildChecker.py
-    )
+  buildChecker.py
+  )
 
 install(PROGRAMS ${PYTHON_SCRIPTS_PREASSEMBLED_MODELS} DESTINATION ${SBINDIR_NAME})
 
 foreach( FILE ${MODELICA_PREASSEMBLED_MODELS} )
-    compile_preassembled_model(${FILE})
+  compile_preassembled_model(${FILE})
 endforeach( FILE )

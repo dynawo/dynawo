@@ -11,15 +11,19 @@
 add_subdirectory(Images I)
 
 set(MODEL_FILES
-    # Voltage control models
-    package.mo
-    TCL.mo
-    TCL.extvar
-    )
+  # Voltage control models
+  package.mo
+  package.order
+  BaseClasses.mo
+  TapChangerBlocking1.mo
+  TapChangerBlocking1.extvar
+  TapChangerBlocking2.mo
+  TapChangerBlocking2.extvar
+  )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+foreach(MODEL_FILE ${MODEL_FILES})
+  install_model_file(${MODEL_FILE})
+endforeach(MODEL_FILE)
