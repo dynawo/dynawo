@@ -1069,6 +1069,10 @@ build_tests_coverage() {
 }
 
 clean_models() {
+  if [ $# -eq 0 ]; then
+    echo "No model given as argument."
+    return 0
+  fi
   for model in `echo $@`; do
     rm -rf $DYNAWO_BUILD_DIR/sources/Models/Modelica/P/${model}*
   done
@@ -1076,6 +1080,9 @@ clean_models() {
 
 clean_build_models() {
   clean_models $@
+  if [ $# -eq 0 ]; then
+    return 0
+  fi
   for model in `echo $@`; do
     if ! list_models | grep -w $model &> /dev/null; then
       error_exit "$model is not a valid model to build."
