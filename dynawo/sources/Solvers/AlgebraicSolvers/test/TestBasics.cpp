@@ -275,8 +275,8 @@ TEST(AlgebraicSolvers, testModifySettings) {
   // KINSetPrintLevel
   ASSERT_THROW_DYNAWO(solver->setupNewAlgebraicRestoration(1, 1, 1, 1, 1, 1, -1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
 
-  ASSERT_EQ(SolverKINAlgRestoration::stringFromMode(SolverKINAlgRestoration::modeKin_t::KIN_ALGEBRAIC), "algebraic");
-  ASSERT_EQ(SolverKINAlgRestoration::stringFromMode(SolverKINAlgRestoration::modeKin_t::KIN_DERIVATIVES), "derivatives");
+  ASSERT_EQ(SolverKINAlgRestoration::stringFromMode(SolverKINAlgRestoration::KIN_ALGEBRAIC), "algebraic");
+  ASSERT_EQ(SolverKINAlgRestoration::stringFromMode(SolverKINAlgRestoration::KIN_DERIVATIVES), "derivatives");
 }
 
 TEST(AlgebraicSolvers, testAnalyseFlag) {
