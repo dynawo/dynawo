@@ -54,11 +54,11 @@ add_custom_target(${MODULE_NAME}-tests
   DEPENDS ${MODULE_NAME}
   COMMENT "Running ${MODULE_NAME}...")
 
-if(BUILD_TESTS_COVERAGE)
+if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
   set(EXTRACT_PATTERNS "'*/sources/Modeler/DataInterface/PowSyblIIDM/DYN*'")
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
 
-if(BUILD_TESTS)
+if(CMAKE_BUILD_TYPE STREQUAL "Tests")
   add_test(${MODULE_NAME}-tests)
 endif()
