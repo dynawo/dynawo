@@ -61,6 +61,8 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @brief get string from mode type
    *
    * @param mode algebraic mode restoration
+   *
+   * @return the mode of the algebraic restoration
    */
   static std::string stringFromMode(modeKin_t mode);
 
@@ -216,6 +218,8 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
 
   /**
   * @brief get mode
+  *
+  * @return the mode of the restoration
   */
   modeKin_t getMode() { return mode_; }
 

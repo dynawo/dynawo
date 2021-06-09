@@ -46,27 +46,27 @@ class ModelMulti : public Model, private boost::noncopyable {
   ~ModelMulti();
 
   /**
-   * @copydoc Model::evalF(const double t, double* y, double* yp, double* f)
+   * @copydoc Model::evalF(const double t, const double* y, const double* yp, double* f)
    */
   void evalF(const double t, const double* y, const double* yp, double* f);
 
   /**
-   * @copydoc Model::evalFDiff(const double t, double* y, double* yp, double* f)
+   * @copydoc Model::evalFDiff(const double t, const double* y, const double* yp, double* f)
    */
   void evalFDiff(const double t, const double* y, const double* yp, double* f);
 
   /**
-   * @copydoc Model::evalFMode(const double t, double* y, double* yp, double* f)
+   * @copydoc Model::evalFMode(const double t, const double* y, const double* yp, double* f)
    */
   void evalFMode(const double t, const double* y, const double* yp, double* f);
 
   /**
-   * @copydoc Model::copyContinuousVariables(double* y, double* yp)
+   * @copydoc Model::copyContinuousVariables(const double* y, const double* yp)
    */
   void copyContinuousVariables(const double* y, const double* yp);
 
   /**
-   * @copydoc Model::copyDiscreteVariables(double* z)
+   * @copydoc Model::copyDiscreteVariables(const double* z)
    */
   void copyDiscreteVariables(const double* z);
 
@@ -178,7 +178,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   }
 
   /**
-   * @copydoc Model::getFType()
+   * @copydoc Model::getFType() const
    */
   inline const std::vector<propertyF_t>& getFType() const {
     return fType_;
@@ -257,11 +257,22 @@ class ModelMulti : public Model, private boost::noncopyable {
   }
 
   /**
-   * @copydoc Model::getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation)
+   * @brief get informations about residual functions
+   *
+   * @param globalFIndex global index of the residual functions to find
+   * @param subModelName name of the subModel who contains the residual functions
+   * @param localFIndex local index of the residual functions inside the subModel
+   * @param fEquation equation formula related to local index
    */
   void getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const;
+
   /**
-   * @copydoc Model::getGInfos(const int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation)
+   * @brief get informations about root functions
+   *
+   * @param globalGIndex global index of the root functions to find
+   * @param subModelName name of the subModel who contains the root functions
+   * @param localGIndex local index of the root functions inside the subModel
+   * @param gEquation equation formula related to local index
    */
   void getGInfos(const int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation) const;
 

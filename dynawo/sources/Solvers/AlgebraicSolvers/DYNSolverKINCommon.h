@@ -56,9 +56,10 @@ class SolverKINCommon {
    * @param printfl level of verbosity of output
    * @param evalF method to evaluate the residuals
    * @param evalJ method to evaluate the Jacobian
+   * @param sundialsVectorY solution of the algebraic resolution
    */
   void initCommon(const std::string& linearSolverName, double fnormtol, double initialaddtol, double scsteptol,
-            double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ, N_Vector yy);
+            double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ, N_Vector sundialsVectorY);
 
   /**
    * @brief delete all internal structure allocated by init method

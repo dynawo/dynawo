@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <macroParameterSet id="macro1">
     <par name="generator_tFilter" type="DOUBLE" value="0.001"/>

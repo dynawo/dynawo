@@ -33,7 +33,7 @@
   <dyn:blackBoxModel id="LOADVAR_LOAD3" lib="EventSetPointDoubleReal" parFile="IEEE14.par" parId="12"/>
   <dyn:blackBoxModel id="TAP_CHANGER_LOAD_2" lib="TapChangerAutomaton" parFile="IEEE14.par" parId="13"/>
   <dyn:blackBoxModel id="TAP_CHANGER_LOAD_3" lib="TapChangerAutomaton" parFile="IEEE14.par" parId="13"/>
-  <dyn:blackBoxModel id="TAP_CHANGER_LOCK" lib="TapChangerBlockingArea" parFile="IEEE14.par" parId="14"/>
+  <dyn:blackBoxModel id="TAP_CHANGER_LOCK" lib="TapChangerBlockingAutomaton1" parFile="IEEE14.par" parId="14"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____1_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_numcc"/>
@@ -79,9 +79,9 @@
   <dyn:connect id1="GEN____6_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_ACPIN"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
-  <dyn:connect id1="TAP_CHANGER_LOCK" var1="tapChangerLock_UMonitored" id2="NETWORK" var2="_BUS____3_TN_U"/>
-  <dyn:connect id2="TAP_CHANGER_LOAD_2" var2="tapChanger_locked" id1="TAP_CHANGER_LOCK" var1="tapChangerLock_lockedT"/>
-  <dyn:connect id2="TAP_CHANGER_LOAD_3" var2="tapChanger_locked" id1="TAP_CHANGER_LOCK" var1="tapChangerLock_lockedT"/>
+  <dyn:connect id1="TAP_CHANGER_LOCK" var1="tapChangerBlocking_UMonitored" id2="NETWORK" var2="_BUS____3_TN_U"/>
+  <dyn:connect id2="TAP_CHANGER_LOAD_2" var2="tapChanger_locked" id1="TAP_CHANGER_LOCK" var1="tapChangerBlocking_blockedT"/>
+  <dyn:connect id2="TAP_CHANGER_LOAD_3" var2="tapChanger_locked" id1="TAP_CHANGER_LOCK" var1="tapChangerBlocking_blockedT"/>
   <dyn:connect id1="LOADVAR_LOAD2" var1="event_state1_value" id2="_LOAD___2_EC" var2="load_PRefPu"/>
   <dyn:connect id1="LOADVAR_LOAD2" var1="event_state2_value" id2="_LOAD___2_EC" var2="load_QRefPu"/>
   <dyn:connect id1="LOADVAR_LOAD3" var1="event_state1_value" id2="_LOAD___3_EC" var2="load_PRefPu"/>

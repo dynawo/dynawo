@@ -284,8 +284,10 @@ class Solver {
    */
   virtual bool silentZEnabled() const = 0;
 
-  /*
+  /**
   * @brief get time step
+  *
+  * @return the current time step
   */
   virtual double getTimeStep() const = 0;
 

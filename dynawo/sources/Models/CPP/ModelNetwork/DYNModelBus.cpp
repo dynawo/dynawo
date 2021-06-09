@@ -143,7 +143,7 @@ ModelBusContainer::initDerivatives() {
     (*itModelBus)->initDerivatives();
 }
 
-ModelBus::ModelBus(const shared_ptr<BusInterface>& bus, bool isCalculated) :
+ModelBus::ModelBus(const shared_ptr<BusInterface>& bus, bool isNodeBreaker) :
 Impl(bus->getID()),
 stateUmax_(false),
 stateUmin_(false),
@@ -164,7 +164,8 @@ irYNum_(0),
 busIndex_(bus->getBusIndex()),
 hasConnection_(bus->hasConnection()),
 hasDifferentialVoltages_(false),
-modelType_(isCalculated?"Bus":"Node") {
+modelType_(isNodeBreaker?"Bus":"Node"),
+isNodeBreaker_(isNodeBreaker) {
   neighbors_.clear();
   busBarSectionNames_.clear();
   busBarSectionNames_ = bus->getBusBarSectionNames();
@@ -185,7 +186,7 @@ modelType_(isCalculated?"Bus":"Node") {
 
   constraintId_ = bus->getID();
   const vector<string>& busBarSections = bus->getBusBarSectionNames();
-  if (isCalculated && !busBarSections.empty()) {
+  if (isNodeBreaker && !busBarSections.empty()) {
     constraintId_ = busBarSections[0];
   }
 }
@@ -673,6 +674,9 @@ ModelBus::evalZ(const double& /*t*/) {
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != connectionState_) {
     topologyModified_ = true;
+    if (isNodeBreaker_ && connectableSwitches_.size() == 0) {
+      throw DYNError(Error::MODELER, CalculatedBusNoSwitchStateChange, id_);
+    }
     if (currState == OPEN) {
       switchOff();
       DYNAddTimelineEvent(network_, id_, NodeOff);
