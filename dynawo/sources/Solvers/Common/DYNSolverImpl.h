@@ -88,19 +88,6 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   }
 
   /**
-   * @copydoc Solver::setPreviousReinit(const PreviousReinit& previousReinit)
-   */
-  inline void setPreviousReinit(const PreviousReinit& previousReinit) {
-    previousReinit_ = previousReinit;
-  }
-
-  /**
-   * @copydoc Solver::getPreviousReinit()
-   */
-  inline const PreviousReinit& getPreviousReinit() const {
-    return previousReinit_;
-  }
-  /**
    * @copydoc Solver::setParameters(const boost::shared_ptr<parameters::ParametersSet> &params)
    */
   void setParameters(const boost::shared_ptr<parameters::ParametersSet> &params);
@@ -199,6 +186,11 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual void reinit() = 0;
 
   /**
+  * @brief compute time scheme related derivatives
+  */
+  virtual void computeYP(const double* /*yy*/) { }
+
+  /**
    * @copydoc Solver::printSolve() const
    */
   void printSolve() const;
@@ -221,15 +213,15 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::getCurrentY()
    */
-  inline const std::vector<double>& getCurrentY() {
-    return vYy_;
+  inline const std::vector<double>& getCurrentY() const {
+    return vectorY_;
   }
 
   /**
    * @copydoc Solver::getCurrentYP()
    */
-  inline const std::vector<double>& getCurrentYP() {
-    return vYp_;
+  inline const std::vector<double>& getCurrentYP() const {
+    return vectorYp_;
   }
 
   /**
@@ -269,8 +261,9 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @brief getter for the model currently simulated
    * @return the model currently simulated
    */
-  inline boost::shared_ptr<Model> getModel() const {
-    return model_;
+  inline Model& getModel() const {
+    assert(!(!model_));
+    return *model_;
   }
 
   /**
@@ -287,6 +280,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @return @b true zero crossing functions or discretes variables have changed
    */
   bool evalZMode(std::vector<state_g> &G0, std::vector<state_g> &G1, const double &time);
+
   /**
    * @brief print the unstable roots
    *
@@ -295,6 +289,15 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @param G1 new value of zero crossing functions
    */
   void printUnstableRoot(double t, const std::vector<state_g>& G0, const std::vector<state_g>& G1) const;
+
+  /**
+  * @brief get updated values of root functions
+  *
+  * @return the vector of root functions
+  */
+  std::vector<state_g>& getG1() {
+    return g1_;
+  }
 
  protected:
   /**
@@ -306,9 +309,9 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual void solveStep(double tAim, double &tNxt) = 0;
 
   /**
-   * @copydoc Solver::initAlgRestoration(modeChangeType_t modeChangeType)
+   * @copydoc Solver::setupNewAlgRestoration(modeChangeType_t modeChangeType)
    */
-  virtual bool initAlgRestoration(modeChangeType_t modeChangeType) = 0;
+  virtual bool setupNewAlgRestoration(modeChangeType_t modeChangeType) = 0;
 
   std::map<std::string, ParameterSolver> parameters_;  ///< map between parameters and parameters' names
   boost::shared_ptr<Model> model_;  ///< model currently simulated
@@ -317,12 +320,10 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   std::vector<state_g> g0_;  ///< previous values of root functions
   std::vector<state_g> g1_;  ///< updated values of root functions
 
-  N_Vector yy_;  ///< continuous variables values stored in sundials structure
-  N_Vector yp_;  ///<  derivative of variables stored in sundials structure
-  N_Vector yId_;  ///< property of variables (algebraic/differential) stored in sundials structure
-  std::vector<double> vYy_;  ///< continuous variables values
-  std::vector<double> vYp_;  ///< derivative of variables
-  std::vector<DYN::propertyContinuousVar_t> vYId_;  ///< property of variables (algebraic/differential)
+  N_Vector sundialsVectorY_;  ///< continuous variables values stored in sundials structure
+  N_Vector sundialsVectorYp_;  ///<  derivative of variables stored in sundials structure
+  std::vector<double> vectorY_;  ///< continuous variables values
+  std::vector<double> vectorYp_;  ///< derivative of variables
 
   // Parameters for the algebraic restoration
   double fnormtolAlg_;  ///< stopping tolerance on L2-norm of residual function
@@ -354,7 +355,6 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver
   BitMask state_;  ///< current state value of the solver
-  PreviousReinit previousReinit_;  ///< previous reinitialization status of the solver
 };
 
 }  // end of namespace DYN

@@ -20,22 +20,13 @@
  * kinsol solver.
  */
 #include <cmath>
-#include <string.h>
-#include <map>
+#include <string>
 #include <algorithm>
-#include <iomanip>
-#include <sstream>
 
 #include <kinsol/kinsol.h>
-#include <sunlinsol/sunlinsol_klu.h>
 #include <sundials/sundials_types.h>
-#include <sundials/sundials_math.h>
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
-
-#ifdef WITH_NICSLU
-#include <sunlinsol/sunlinsol_nicslu.h>
-#endif
 
 #include "DYNSparseMatrix.h"
 #include "DYNSolverKINEuler.h"
@@ -54,17 +45,18 @@ namespace DYN {
 
 SolverKINEuler::SolverKINEuler() :
 SolverKINCommon(),
-h0_(0.) { }
+timeSchemeSolver_(NULL) { }
 
 SolverKINEuler::~SolverKINEuler() {
-  clean();
+  timeSchemeSolver_ = NULL;
 }
 
 void
-SolverKINEuler::init(const shared_ptr<Model>& model, const std::string& linearSolverName, double fnormtol, double initialaddtol, double scsteptol,
-        double mxnewtstep, int msbset, int mxiter, int printfl) {
+SolverKINEuler::init(const shared_ptr<Model>& model, Solver* timeSchemeSolver, const std::string& linearSolverName, double fnormtol,
+                     double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY) {
   clean();
   model_ = model;
+  timeSchemeSolver_ = timeSchemeSolver;
   linearSolverName_ = linearSolverName;
 
   // Problem size
@@ -74,43 +66,31 @@ SolverKINEuler::init(const shared_ptr<Model>& model, const std::string& linearSo
     throw DYNError(Error::SUNDIALS_ERROR, SolverEmptyYVector);
   if (sizeY != model_->sizeF())
     throw DYNError(Error::SUNDIALS_ERROR, SolverYvsF, sizeY, model_->sizeF());
-  y0_.assign(sizeY, 0);
-  F_.resize(model_->sizeF());
-  YP_.assign(sizeY, 0);
-  nbF_ = model_->sizeF();
+  vectorF_.resize(model_->sizeF());
+  numF_ = model_->sizeF();
 
-  vYy_.assign(sizeY, 0);
-
-  yy_ = N_VMake_Serial(sizeY, &(vYy_[0]));
-  if (yy_ == NULL)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYY);
-
-  initCommon(linearSolverName, fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN);
+  initCommon(linearSolverName, fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN, sundialsVectorY);
 }
 
 int
 SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
-  SolverKINEuler* solv = reinterpret_cast<SolverKINEuler*> (data);
-  shared_ptr<Model> mod = solv->getModel();
+  SolverKINEuler* solver = reinterpret_cast<SolverKINEuler*> (data);
+  Model& model = solver->getModel();
+  Solver& timeSchemeSolver = solver->getTimeSchemeSolver();
 
   // evalF has already been called in the scaling part so it doesn't have to be called again for the first iteration
-  realtype *irr = NV_DATA_S(rr);
-  if (solv->getFirstIteration()) {
-    solv->setFirstIteration(false);
+  realtype* irr = NV_DATA_S(rr);
+  if (solver->getFirstIteration()) {
+    solver->setFirstIteration(false);
     // copy of values in output vector
-    memcpy(irr, &solv->F_[0], solv->F_.size() * sizeof(solv->F_[0]));
+    memcpy(irr, &solver->vectorF_[0], solver->vectorF_.size() * sizeof(solver->vectorF_[0]));
   } else {  // update of F
-    realtype *iyy = NV_DATA_S(yy);
-    const vector<int>& diffVar = solv->differentialVars_;
+    realtype* iyy = NV_DATA_S(yy);
 
-    // YP[i] = (y[i]-yprec[i])/h for each differential variable
-    assert(solv->h0_ > 0);
-    for (unsigned int i = 0; i < diffVar.size(); ++i) {
-      solv->YP_[diffVar[i]] = (iyy[diffVar[i]] - solv->y0_[diffVar[i]]) / solv->h0_;
-    }
+    timeSchemeSolver.computeYP(iyy);
 
     try {
-      mod->evalF(solv->t0_ + solv->h0_, iyy, &solv->YP_[0], irr);
+      model.evalF(solver->t0_ + timeSchemeSolver.getTimeStep(), iyy, &timeSchemeSolver.getCurrentYP()[0], irr);
     } catch (const DYN::Error& e) {
       if (e.type() == DYN::Error::NUMERICAL_ERROR) {
 #ifdef _DEBUG_
@@ -125,21 +105,21 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
 
 #ifdef _DEBUG_
   // Print the current residual norms, the first one is used as a stopping criterion
-  if (!solv->getFirstIteration()) {
-    memcpy(&solv->F_[0], irr, solv->F_.size() * sizeof(solv->F_[0]));
+  if (!solver->getFirstIteration()) {
+    memcpy(&solver->vectorF_[0], irr, solver->vectorF_.size() * sizeof(solver->vectorF_[0]));
   }
-  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solv->F_, solv->fScale_);
-  double wL2Norm = SolverCommon::weightedL2Norm(solv->F_, solv->fScale_);
+  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solver->vectorF_, solver->vectorFScale_);
+  double wL2Norm = SolverCommon::weightedL2Norm(solver->vectorF_, solver->vectorFScale_);
   long int current_nni = 0;
-  KINGetNumNonlinSolvIters(solv->KINMem_, &current_nni);
+  KINGetNumNonlinSolvIters(solver->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 
   const int nbErr = 10;
   Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
   vector<std::pair<double, size_t> > fErr;
-  for (size_t i = 0; i < solv->nbF_; ++i)
-    fErr.push_back(std::pair<double, size_t>(solv->F_[i], i));
-  SolverCommon::printLargestErrors(fErr, mod, nbErr);
+  for (size_t i = 0; i < solver->numF_; ++i)
+    fErr.push_back(std::pair<double, size_t>(solver->vectorF_[i], i));
+  SolverCommon::printLargestErrors(fErr, model, nbErr);
 #endif
 
   return (0);
@@ -152,21 +132,22 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   Timer timer("SolverKINEuler::evalJ_KIN");
 #endif
 
-  SolverKINEuler* solv = reinterpret_cast<SolverKINEuler*> (data);
-  shared_ptr<Model> model = solv->getModel();
+  SolverKINEuler* solver = reinterpret_cast<SolverKINEuler*> (data);
+  Model& model = solver->getModel();
 
   // cj = 1/h
-  double cj = 1 / solv->h0_;
+  const double h0 = solver->getTimeSchemeSolver().getTimeStep();
+  const double cj = 1. / h0;
 
   // Sparse matrix version
   // ----------------------
   SparseMatrix smj;
-  int size = model->sizeY();
+  int size = model.sizeY();
   smj.init(size, size);
-  model->evalJt(solv->t0_ + solv->h0_, cj, smj);
-  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
+  model.evalJt(solver->t0_ + h0, cj, smj);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);
 
-  return (0);
+  return 0;
 }
 
 int
@@ -174,55 +155,34 @@ SolverKINEuler::solve(bool noInitSetup, bool skipAlgebraicResidualsEvaluation) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverKINEuler::solve");
 #endif
+  t0_ = timeSchemeSolver_->getTSolve();
 
   int flag = KINSetNoInitSetup(KINMem_, noInitSetup);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNoInitSetup");
 
+  const std::vector<double>& currentY = timeSchemeSolver_->getCurrentY();
   firstIteration_ = true;
   if (skipAlgebraicResidualsEvaluation)
-    model_->evalFDiff(t0_ + h0_ , &y0_[0], &YP_[0], &F_[0]);
+    model_->evalFDiff(t0_ + timeSchemeSolver_->getTimeStep(), &currentY[0], &timeSchemeSolver_->getCurrentYP()[0], &vectorF_[0]);
   else
-    model_->evalF(t0_ + h0_ , &y0_[0], &YP_[0], &F_[0]);
+    model_->evalF(t0_ + timeSchemeSolver_->getTimeStep() , &currentY[0], &timeSchemeSolver_->getCurrentYP()[0], &vectorF_[0]);
 
-  fScale_.assign(nbF_, 1.0);
-  for (unsigned int i = 0; i < nbF_; ++i) {
-    if (std::abs(F_[i]) > RCONST(1.0))
-      fScale_[i] = 1 / std::abs(F_[i]);
+  vectorFScale_.assign(numF_, 1.);
+  for (unsigned int i = 0; i < numF_; ++i) {
+    if (std::abs(vectorF_[i]) > RCONST(1.))
+      vectorFScale_[i] = 1. / std::abs(vectorF_[i]);
   }
 
-  yScale_.assign(model_->sizeY(), 1.0);
-  for (int i = 0; i < model_->sizeY(); ++i) {
-    if (std::abs(y0_[i]) > RCONST(1.0))
-      yScale_[i] = 1 / std::abs(y0_[i]);
+  vectorYScale_.assign(numF_, 1.);
+  for (unsigned int i = 0; i < numF_; ++i) {
+    if (std::abs(currentY[i]) > RCONST(1.))
+      vectorYScale_[i] = 1. / std::abs(currentY[i]);
   }
 
   flag = solveCommon();
 
   return flag;
-}
-
-void
-SolverKINEuler::setInitialValues(const double& t, const double& h, const vector<double>& y) {
-  t0_ = t;
-  h0_ = h;
-  std::copy(y.begin(), y.end(), y0_.begin());
-  std::copy(y.begin(), y.end(), vYy_.begin());
-  // order-0 prediction - YP = 0
-  std::fill(YP_.begin(), YP_.end(), 0);
-}
-
-void
-SolverKINEuler::setIdVars() {
-  DYN::propertyContinuousVar_t* vId = model_->getYType();
-
-  differentialVars_.clear();
-
-  for (int i = 0; i < model_->sizeY(); ++i) {
-    if (vId[i] == DYN::DIFFERENTIAL) {
-      differentialVars_.push_back(i);
-    }
-  }
 }
 
 }  // namespace DYN
