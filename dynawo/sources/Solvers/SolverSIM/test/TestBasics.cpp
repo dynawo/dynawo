@@ -446,11 +446,9 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
     }
   }
 
-  ASSERT_EQ(solver->getPreviousReinit(), None);
   solver->reinit();
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getPreviousReinit(), AlgebraicWithJUpdate);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.92684239292330972138);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482860045165197);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[10], 0);
@@ -490,9 +488,6 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
     }
   }
-
-  solver->setPreviousReinit(Algebraic);
-  ASSERT_EQ(solver->getPreviousReinit(), Algebraic);
 }
 
 TEST(SimulationTest, testSolverSkipNR) {

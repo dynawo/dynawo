@@ -272,11 +272,9 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getPreviousReinit(), None);
   // The event in the model is written as if (x <= 0) which means that the root is detected just after t = 2 (2 + epsilon).
   // IDA will thus stop just after t = 2 and is reinitialized (thus the next time step will be t = 3)
   ASSERT_NO_THROW(solver->reinit());
-  ASSERT_EQ(solver->getPreviousReinit(), Algebraic);
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
@@ -286,9 +284,6 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
-
-  solver->setPreviousReinit(AlgebraicWithJUpdate);
-  ASSERT_EQ(solver->getPreviousReinit(), AlgebraicWithJUpdate);
 
   ASSERT_EQ(solver->solverType(), "IDASolver");
   solver->printHeader();
@@ -421,7 +416,6 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
 
   // Algebraic equations restoration
   solver->reinit();
-  ASSERT_EQ(solver->getPreviousReinit(), AlgebraicWithJUpdate);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
   model->getCurrentZ(z);

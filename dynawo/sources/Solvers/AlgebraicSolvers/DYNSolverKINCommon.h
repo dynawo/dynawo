@@ -56,9 +56,10 @@ class SolverKINCommon {
    * @param printfl level of verbosity of output
    * @param evalF method to evaluate the residuals
    * @param evalJ method to evaluate the Jacobian
+   * @param sundialsVectorY solution of the algebraic resolution
    */
   void initCommon(const std::string& linearSolverName, double fnormtol, double initialaddtol, double scsteptol,
-            double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ);
+            double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ, N_Vector sundialsVectorY);
 
   /**
    * @brief delete all internal structure allocated by init method
@@ -137,19 +138,21 @@ class SolverKINCommon {
 
  protected:
   void* KINMem_;  ///< KINSOL internal memory structure
-  SUNLinearSolver LS_;  ///< Linear Solver pointer
-  SUNMatrix M_;  ///< sparse SUNMatrix
-  N_Vector yy_;  ///< variables values stored in Sundials structure
+  SUNLinearSolver linearSolver_;  ///< Linear Solver pointer
+  SUNMatrix sundialsMatrix_;  ///< sparse SUNMatrix
+  N_Vector sundialsVectorY_;  ///< variables values stored in Sundials structure
   sunindextype* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
 
   std::string linearSolverName_;  ///< linear solver name used
-  std::vector<double> vYy_;  ///< Current values of variables during the call of the solver
-  unsigned int nbF_;  ///< number of equations to solve
+  unsigned int numF_;  ///< number of equations to solve
   double t0_;  ///< initial time to use
   bool firstIteration_;  ///< @b true if first iteration, @b false otherwise
 
-  std::vector<double> fScale_;  ///< Scaling vector for residual functions
-  std::vector<double> yScale_;  ///< Scaling vector for variables
+  std::vector<double> vectorF_;  ///< current values of residual function
+  std::vector<double> vectorFScale_;  ///< Scaling vector for residual functions
+  std::vector<double> vectorYScale_;  ///< Scaling vector for variables
+  N_Vector sundialsVectorFScale_;  ///< Scaling vector for residual functions in Sundials structure
+  N_Vector sundialsVectorYScale_;  ///< Scaling vector for variables in Sundials structure
 };
 
 }  // end of namespace DYN

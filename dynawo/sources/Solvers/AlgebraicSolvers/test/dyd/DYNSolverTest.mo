@@ -17,7 +17,7 @@ model DYNSolverTestAlpha
   Real y;
 equation
   der(x) = 1;
-  if ( x <=  0 ) then
+  if ( x <= 0 ) then
     y = -1;
   else
     y = 1;

@@ -29,6 +29,7 @@
 #include <sundials/sundials_matrix.h>
 #include <sundials/sundials_linearsolver.h>
 #include "DYNSolverKINCommon.h"
+#include "DYNSolver.h"
 
 namespace DYN {
 class Model;
@@ -40,7 +41,7 @@ class Model;
  * SolverKINEuler is the implementation of a solver with euler method based on
  * KINSOL solver.
  */
-class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
+class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
  public:
   /**
    * @brief Default constructor
@@ -56,6 +57,7 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
    * @brief initialize all memory of KINSOL
    *
    * @param model instance of model to interact with
+   * @param timeSchemeSolver instance of time scheme solver calling for an algebraic resolution
    * @param linearSolverName choice for linear solver (KLU or NICSLU at the moment)
    * @param fnormtol stopping tolerance on L2-norm of function value
    * @param initialaddtol stopping tolerance at initialization
@@ -64,16 +66,10 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
    * @param msbset maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
    * @param mxiter maximum number of nonlinear iterations
    * @param printfl level of verbosity of output
+   * @param sundialsVectorY solution of the algebraic resolution
    */
-  void init(const boost::shared_ptr<Model>& model, const std::string& linearSolverName, double fnormtol, double initialaddtol, double scsteptol,
-          double mxnewtstep, int msbset, int mxiter, int printfl);
-
-  /**
-   * @brief set identity of each variable
-   *
-   * Are they algebraic variable or differential variable ?
-   */
-  void setIdVars();
+  void init(const boost::shared_ptr<Model>& model, Solver* timeSchemeSolver, const std::string& linearSolverName, double fnormtol,
+            double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY);
 
   /**
    * @brief solve the problem
@@ -84,26 +80,6 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
    * @return @b KIN_SUCCESS if everything ok, error flag else
    */
   int solve(bool noInitSetup, bool skipAlgebraicResidualsEvaluation);
-
-  /**
-   * @brief get the final value of variable after the solver call
-   *
-   * @param y final value after the solver call
-   * @param yp final value after the solver call
-   */
-  inline void getValues(std::vector<double>& y, std::vector<double>& yp) {
-    std::copy(vYy_.begin(), vYy_.end(), y.begin());
-    std::copy(YP_.begin(), YP_.end(), yp.begin());
-  }
-
-  /**
-   * @brief set initial values of the problem to solver
-   *
-   * @param t initial time value
-   * @param h step to reach
-   * @param y initial variables values
-   */
-  void setInitialValues(const double& t, const double& h, const std::vector<double>& y);
 
   /**
    * @brief calculated F(u) for a given value of u
@@ -136,18 +112,24 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
    *
    * @return instance of the model for the solver
    */
-  inline boost::shared_ptr<Model> getModel() const {
-    return model_;
+  inline Model& getModel() const {
+    assert(!(!model_));
+    return *model_;
+  }
+
+  /**
+   * @brief Time-scheme solver instance getter
+   *
+   * @return instance of the time-scheme solver
+   */
+  inline Solver& getTimeSchemeSolver() const {
+    assert(!(!model_));
+    return *timeSchemeSolver_;
   }
 
  private:
   boost::shared_ptr<Model> model_;  ///< instance of model to interact with
-
-  std::vector<double> y0_;  ///< Initial values of Y variables before call of kinsol
-  std::vector<int> differentialVars_;  ///< index of each differential variables
-  std::vector<double> F_;  ///< current values of residual function
-  std::vector<double> YP_;  ///< calculated values of derivatives
-  double h0_;  ///< Step of the solver to reach
+  Solver* timeSchemeSolver_;  ///< instance of time-scheme solver to interact with
 };
 
 }  // namespace DYN
