@@ -26,6 +26,9 @@ class Event :
     def __eq__(self, obj):
         return self.time == obj.time and self.model == obj.model and self.event == obj.event
 
+    def to_string(self):
+        return str(self.time) + "|" + self.model + "|" + self.event
+
 class Timeline :
     def __init__(self):
         self.time_to_events = {}
@@ -38,18 +41,14 @@ class Timeline :
     def filter_useless_events(self, dicOppositeEvents):
         print "[INFO] Filtering duplicated events"
         for time in self.time_to_events:
+            event_found = set()
             events = self.time_to_events[time]
-            idx_to_check = 1
-            while idx_to_check <= len(events) - 1:
-                curr_event = events[len(events) - idx_to_check]
-                id_to_remove = []
-                for i in range(len(events) - idx_to_check - 1, -1, -1):
-                    if curr_event == events[i]:
-                        id_to_remove.append(i)
-                for i in id_to_remove:
-                    del events[i]
-                idx_to_check += 1
-            self.time_to_events[time] = events
+            new_events = []
+            for event in reversed(events):
+                if event.to_string() not in event_found:
+                    new_events.insert(0, event)
+                    event_found.add(event.to_string())
+            self.time_to_events[time] = new_events
 
         print "[INFO] Removing opposed events"
         for time in self.time_to_events:
