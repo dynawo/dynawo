@@ -143,7 +143,7 @@ ModelBusContainer::initDerivatives() {
     (*itModelBus)->initDerivatives();
 }
 
-ModelBus::ModelBus(const shared_ptr<BusInterface>& bus, bool isCalculated) :
+ModelBus::ModelBus(const shared_ptr<BusInterface>& bus, bool isNodeBreaker) :
 Impl(bus->getID()),
 stateUmax_(false),
 stateUmin_(false),
@@ -164,7 +164,8 @@ irYNum_(0),
 busIndex_(bus->getBusIndex()),
 hasConnection_(bus->hasConnection()),
 hasDifferentialVoltages_(false),
-modelType_(isCalculated?"Bus":"Node") {
+modelType_(isNodeBreaker?"Bus":"Node"),
+isNodeBreaker_(isNodeBreaker) {
   neighbors_.clear();
   busBarSectionNames_.clear();
   busBarSectionNames_ = bus->getBusBarSectionNames();
@@ -185,7 +186,7 @@ modelType_(isCalculated?"Bus":"Node") {
 
   constraintId_ = bus->getID();
   const vector<string>& busBarSections = bus->getBusBarSectionNames();
-  if (isCalculated && !busBarSections.empty()) {
+  if (isNodeBreaker && !busBarSections.empty()) {
     constraintId_ = busBarSections[0];
   }
 }
@@ -562,15 +563,11 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_phipu_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_U_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_phi_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_PWPIN_vr", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_PWPIN_vi", CONTINUOUS));
-  variables.push_back(VariableAliasFactory::create(id_ + "_ACPIN_V_re", id_ + "_PWPIN_vr"));
-  variables.push_back(VariableAliasFactory::create(id_ + "_ACPIN_V_im", id_ + "_PWPIN_vi"));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_ACPIN_V_re", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_ACPIN_V_im", CONTINUOUS));
   if (hasConnection_) {
-    variables.push_back(VariableNativeFactory::createState(id_ + "_PWPIN_ir", FLOW));
-    variables.push_back(VariableNativeFactory::createState(id_ + "_PWPIN_ii", FLOW));
-    variables.push_back(VariableAliasFactory::create(id_ + "_ACPIN_i_re", id_ + "_PWPIN_ir"));
-    variables.push_back(VariableAliasFactory::create(id_ + "_ACPIN_i_im", id_ + "_PWPIN_ii"));
+    variables.push_back(VariableNativeFactory::createState(id_ + "_ACPIN_i_re", FLOW));
+    variables.push_back(VariableNativeFactory::createState(id_ + "_ACPIN_i_im", FLOW));
   }
   variables.push_back(VariableNativeFactory::createState(id_ + "_numcc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_switchOff_value", BOOLEAN));
@@ -582,15 +579,11 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_phipu_value", id_ + "_phipu_value"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_U_value", id_ + "_U_value"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_phi_value", id_ + "_phi_value"));
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_PWPIN_vr", id_ + "_PWPIN_vr"));
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_PWPIN_vi", id_ + "_PWPIN_vi"));
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_V_re", id_ + "_PWPIN_vr"));
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_V_im", id_ + "_PWPIN_vi"));
+    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_V_re", id_ + "_ACPIN_V_re"));
+    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_V_im", id_ + "_ACPIN_V_im"));
     if (hasConnection_) {
-      variables.push_back(VariableAliasFactory::create(busBarSectionId + "_PWPIN_ir", id_ + "_PWPIN_ir"));
-      variables.push_back(VariableAliasFactory::create(busBarSectionId + "_PWPIN_ii", id_ + "_PWPIN_ii"));
-      variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_i_re", id_ + "_PWPIN_ir"));
-      variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_i_im", id_ + "_PWPIN_ii"));
+      variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_i_re", id_ + "_ACPIN_i_re"));
+      variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_i_im", id_ + "_ACPIN_i_im"));
     }
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_numcc_value", id_ + "_numcc_value"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_switchOff_value", id_ + "_switchOff_value"));
@@ -615,14 +608,10 @@ ModelBus::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_phipu_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_U_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_phi_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState("@ID@_PWPIN_vr", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState("@ID@_PWPIN_vi", CONTINUOUS));
-  variables.push_back(VariableAliasFactory::create("@ID@_ACPIN_V_re", "@ID@_PWPIN_vr"));
-  variables.push_back(VariableAliasFactory::create("@ID@_ACPIN_V_im", "@ID@_PWPIN_vi"));
-  variables.push_back(VariableNativeFactory::createState("@ID@_PWPIN_ir", FLOW));
-  variables.push_back(VariableNativeFactory::createState("@ID@_PWPIN_ii", FLOW));
-  variables.push_back(VariableAliasFactory::create("@ID@_ACPIN_i_re", "@ID@_PWPIN_ir"));
-  variables.push_back(VariableAliasFactory::create("@ID@_ACPIN_i_im", "@ID@_PWPIN_ii"));
+  variables.push_back(VariableNativeFactory::createState("@ID@_ACPIN_V_re", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_ACPIN_V_im", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_ACPIN_i_re", FLOW));
+  variables.push_back(VariableNativeFactory::createState("@ID@_ACPIN_i_im", FLOW));
   variables.push_back(VariableNativeFactory::createState("@ID@_numcc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_switchOff_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
@@ -637,26 +626,17 @@ ModelBus::defineElements(std::vector<Element>& elements, std::map<std::string, i
 
 void
 ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
+  string ACName = id + string("_ACPIN");
+  addElement(ACName, Element::STRUCTURE, elements, mapElement);
+  string ACNameV = id + string("_ACPIN_V");
+  addSubElement("V", ACName, Element::STRUCTURE, id_, modelType_, elements, mapElement);
+  addSubElement("re", ACNameV, Element::TERMINAL, id_, modelType_, elements, mapElement);
+  addSubElement("im", ACNameV, Element::TERMINAL, id_, modelType_, elements, mapElement);
   if (hasConnection_) {
-    string name = id + string("_PWPIN");
-    addElement(name, Element::STRUCTURE, elements, mapElement);
-    addSubElement("vr", name, Element::TERMINAL, id_, modelType_, elements, mapElement);
-    addSubElement("vi", name, Element::TERMINAL, id_, modelType_, elements, mapElement);
-    addSubElement("ir", name, Element::TERMINAL, id_, modelType_, elements, mapElement);
-    addSubElement("ii", name, Element::TERMINAL, id_, modelType_, elements, mapElement);
-
-    string ACName = id + string("_ACPIN");
-    addElement(ACName, Element::STRUCTURE, elements, mapElement);
     string ACNameI = id + string("_ACPIN_i");
-    string ACNameV = id + string("_ACPIN_V");
-    addElement(ACNameI, Element::STRUCTURE, elements, mapElement);
-    addElement(ACNameV, Element::STRUCTURE, elements, mapElement);
     addSubElement("i", ACName, Element::STRUCTURE, id_, modelType_, elements, mapElement);
-    addSubElement("V", ACName, Element::STRUCTURE, id_, modelType_, elements, mapElement);
     addSubElement("re", ACNameI, Element::TERMINAL, id_, modelType_, elements, mapElement);
     addSubElement("im", ACNameI, Element::TERMINAL, id_, modelType_, elements, mapElement);
-    addSubElement("re", ACNameV, Element::TERMINAL, id_, modelType_, elements, mapElement);
-    addSubElement("im", ACNameV, Element::TERMINAL, id_, modelType_, elements, mapElement);
   }
 
   // Calculated variables addition
@@ -694,6 +674,9 @@ ModelBus::evalZ(const double& /*t*/) {
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != connectionState_) {
     topologyModified_ = true;
+    if (isNodeBreaker_ && connectableSwitches_.size() == 0) {
+      throw DYNError(Error::MODELER, CalculatedBusNoSwitchStateChange, id_);
+    }
     if (currState == OPEN) {
       switchOff();
       DYNAddTimelineEvent(network_, id_, NodeOff);

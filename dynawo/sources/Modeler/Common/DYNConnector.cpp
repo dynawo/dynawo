@@ -387,10 +387,12 @@ ConnectorContainer::printEquations() const {
       ++offset;
     }
   }
+  stringstream ss;
   for (unsigned int i = 0; i < nbFlowConnectors(); ++i) {
     shared_ptr<Connector> fc = flowConnectors_[i];
-    stringstream ss;
     bool first = true;
+    ss.str("");
+    ss.clear();
     for (vector<connectedSubModel>::iterator it = fc->connectedSubModels().begin();
         it != fc->connectedSubModels().end();
         ++it) {

@@ -307,9 +307,11 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   pair<unsigned int, vector<unsigned int> >topoComponents = graph_.calculateComponents(topologicalWeights);
   pair<unsigned int, vector<unsigned int> >electricalComponents = graph_.calculateComponents(electricalWeights);
 
+  stringstream busName;
   // created calculated bus, one per connected_components
   for (unsigned int i = 0; i < topoComponents.first; ++i) {
-    stringstream busName;
+    busName.str("");
+    busName.clear();
     busName << "calculatedBus_" << voltageLevelIIDM_.id() << "_" << i;
     shared_ptr<CalculatedBusInterfaceIIDM> bus(new CalculatedBusInterfaceIIDM(voltageLevelIIDM_, busName.str(), i));
     calculatedBus_.push_back(bus);

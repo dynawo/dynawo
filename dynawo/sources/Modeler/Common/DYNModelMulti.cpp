@@ -64,8 +64,6 @@ using std::fstream;
 namespace DYN {
 
 ModelMulti::ModelMulti() :
-fType_(NULL),
-yType_(NULL),
 sizeF_(0),
 sizeZ_(0),
 sizeG_(0),
@@ -115,12 +113,6 @@ ModelMulti::cleanBuffers() {
 
   if (silentZ_ != NULL)
     delete[] silentZ_;
-
-  if (fType_ != NULL)
-    delete[] fType_;
-
-  if (yType_ != NULL)
-    delete[] yType_;
 }
 
 ModelMulti::~ModelMulti() {
@@ -362,18 +354,18 @@ ModelMulti::printInitValues(const string& directory) {
 }
 
 void
-ModelMulti::copyContinuousVariables(double* y, double* yp) {
+ModelMulti::copyContinuousVariables(const double* y, const double* yp) {
   std::copy(y, y + sizeY() , yLocal_);
   std::copy(yp, yp + sizeY(), ypLocal_);
 }
 
 void
-ModelMulti::copyDiscreteVariables(double* z) {
+ModelMulti::copyDiscreteVariables(const double* z) {
   std::copy(z, z + sizeZ(), zLocal_);
 }
 
 void
-ModelMulti::evalF(const double t, double* y, double* yp, double* f) {
+ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalF");
 #endif
@@ -396,7 +388,7 @@ ModelMulti::evalF(const double t, double* y, double* yp, double* f) {
 }
 
 void
-ModelMulti::evalFDiff(const double t, double* y, double* yp, double* f) {
+ModelMulti::evalFDiff(const double t, const double* y, const double* yp, double* f) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalFDiff");
 #endif
@@ -409,7 +401,7 @@ ModelMulti::evalFDiff(const double t, double* y, double* yp, double* f) {
 }
 
 void
-ModelMulti::evalFMode(const double t, double* y, double* yp, double* f) {
+ModelMulti::evalFMode(const double t, const double* y, const double* yp, double* f) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalFMode");
 #endif
@@ -658,12 +650,12 @@ ModelMulti::getY0(const double t0, vector<double>& y0, vector<double>& yp0) {
 
 void
 ModelMulti::evalStaticYType() {
-  yType_ = new propertyContinuousVar_t[sizeY_]();
+  yType_.resize(sizeY_);
   int offsetYType = 0;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     int sizeYType = subModels_[i]->sizeY();
     if (sizeYType > 0) {
-      subModels_[i]->setBufferYType(yType_, offsetYType);
+      subModels_[i]->setBufferYType(&yType_[0], offsetYType);
       subModels_[i]->evalStaticYType();
       offsetYType += sizeYType;
     }
@@ -681,19 +673,19 @@ ModelMulti::evalDynamicYType() {
 
 void
 ModelMulti::evalStaticFType() {
-  fType_ = new propertyF_t[sizeF_]();
+  fType_.resize(sizeF_);
   int offsetFType = 0;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     int sizeFType = subModels_[i]->sizeF();
     if (sizeFType > 0) {
-      subModels_[i]->setBufferFType(fType_, offsetFType);
+      subModels_[i]->setBufferFType(&fType_[0], offsetFType);
       subModels_[i]->evalStaticFType();
       offsetFType += sizeFType;
     }
   }
-  connectorContainer_->setBufferFType(fType_, offsetFType);
+  connectorContainer_->setBufferFType(&fType_[0], offsetFType);
   connectorContainer_->evalStaticFType();
-  std::fill(fType_ + offsetFOptional_, fType_ + sizeF_, ALGEBRAIC_EQ);
+  std::fill(fType_.begin() + offsetFOptional_, fType_.begin() + sizeF_, ALGEBRAIC_EQ);
 }
 
 void
@@ -927,7 +919,7 @@ ModelMulti::checkConnects() {
 }
 
 void
-ModelMulti::getFInfos(const int globalFIndex, string& subModelName, int& localFIndex, string& fEquation) {
+ModelMulti::getFInfos(const int globalFIndex, string& subModelName, int& localFIndex, string& fEquation) const {
   if (globalFIndex >= connectorContainer_->getOffsetModel()) {
     connectorContainer_->getConnectorInfos(globalFIndex, subModelName, localFIndex, fEquation);
   } else {
@@ -941,7 +933,7 @@ ModelMulti::getFInfos(const int globalFIndex, string& subModelName, int& localFI
 }
 
 void
-ModelMulti::getGInfos(const int globalGIndex, string& subModelName, int& localGIndex, string& gEquation) {
+ModelMulti::getGInfos(const int globalGIndex, string& subModelName, int& localGIndex, string& gEquation) const {
   boost::unordered_map<int, int>::const_iterator iter = mapAssociationG_.find(globalGIndex);
   if (iter != mapAssociationG_.end()) {
     subModelName = subModels_[iter->second]->name();

@@ -17,9 +17,7 @@
  * @brief Common utility method shared between all solvers
  *
  */
-#include <iostream>
-#include <string.h>
-#include <stdlib.h>
+#include <string>
 #include <cmath>
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <sunlinsol/sunlinsol_klu.h>
@@ -97,7 +95,7 @@ void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& sm
 }
 
 void
-SolverCommon::printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, const boost::shared_ptr<Model>& model,
+SolverCommon::printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, const Model& model,
                    int nbErr) {
   std::sort(fErr.begin(), fErr.end(), mapcompabs());
 
@@ -109,7 +107,7 @@ SolverCommon::printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, 
     int subModelIndexF = 0;
     std::string fEquation("");
     std::pair<double, size_t> currentErr = fErr[i];
-    model->getFInfos(currentErr.second, subModelName, subModelIndexF, fEquation);
+    model.getFInfos(currentErr.second, subModelName, subModelIndexF, fEquation);
 
     Trace::debug() << DYNLog(KinErrorValue, currentErr.second, currentErr.first,
                              subModelName, subModelIndexF, fEquation) << Trace::endline;

@@ -352,9 +352,9 @@
     <par type="INT" name="tapChanger_tap0" value="5"/>
   </set>
   <set id="14">
-    <par type="DOUBLE" name="tapChangerLock_UMin" value="68.240"/>
-    <par type="DOUBLE" name="tapChangerLock_tLagBeforeLocked" value="20"/>
-    <par type="DOUBLE" name="tapChangerLock_tLagTransLockedT" value="10"/>
-    <par type="DOUBLE" name="tapChangerLock_tLagTransLockedD" value="10"/>
+    <par type="DOUBLE" name="tapChangerBlocking_UMin" value="68.240"/>
+    <par type="DOUBLE" name="tapChangerBlocking_tLagBeforeBlocked" value="20"/>
+    <par type="DOUBLE" name="tapChangerBlocking_tLagTransBlockedT" value="10"/>
+    <par type="DOUBLE" name="tapChangerBlocking_tLagTransBlockedD" value="10"/>
   </set>
 </parametersSet>

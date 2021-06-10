@@ -17,10 +17,8 @@
  * @brief Dynawo solvers : implementation file
  *
  */
-#include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <sstream>
 #include <nvector/nvector_serial.h>
 #include <boost/static_assert.hpp>
 
@@ -33,7 +31,6 @@
 #include "DYNTrace.h"
 
 #include "PARParametersSet.h"
-#include "PARParameter.h"
 #include "TLTimeline.h"
 
 using std::endl;
@@ -67,9 +64,8 @@ BOOST_STATIC_ASSERT_MSG(sizeof (double) == sizeof (realtype), "wrong size of sun
 }  // namespace conditions
 
 Solver::Impl::Impl() :
-yy_(NULL),
-yp_(NULL),
-yId_(NULL),
+sundialsVectorY_(NULL),
+sundialsVectorYp_(NULL),
 fnormtolAlg_(1e-4),
 initialaddtolAlg_(0.1),
 scsteptolAlg_(1e-4),
@@ -89,8 +85,8 @@ maximumNumberSlowStepIncrease_(10),
 enableSilentZ_(true),
 optimizeReinitAlgebraicResidualsEvaluations_(true),
 minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
-tSolve_(0.),
-previousReinit_(None) { }
+tSolve_(0.)
+{ }
 
 Solver::Impl::~Impl() {
   clean();
@@ -98,9 +94,14 @@ Solver::Impl::~Impl() {
 
 void
 Solver::Impl::clean() {
-  if (yy_ != NULL) N_VDestroy_Serial(yy_);
-  if (yp_ != NULL) N_VDestroy_Serial(yp_);
-  if (yId_ != NULL) N_VDestroy_Serial(yId_);
+  if (sundialsVectorY_ != NULL) {
+    N_VDestroy_Serial(sundialsVectorY_);
+    sundialsVectorY_ = NULL;
+  }
+  if (sundialsVectorYp_ != NULL) {
+    N_VDestroy_Serial(sundialsVectorYp_);
+    sundialsVectorYp_ = NULL;
+  }
 }
 
 void
@@ -114,37 +115,20 @@ Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
   if (nbEq != model->sizeF())
     throw DYNError(Error::SUNDIALS_ERROR, SolverYvsF, nbEq, model->sizeF());
 
-  vYy_.resize(nbEq);
-  yy_ = N_VMake_Serial(nbEq, &(vYy_[0]));
-  if (yy_ == NULL)
+  vectorY_.resize(nbEq);
+  sundialsVectorY_ = N_VMake_Serial(nbEq, &(vectorY_[0]));
+  if (sundialsVectorY_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYY);
 
   // Derivatives
-  vYp_.resize(nbEq);
-  yp_ = N_VMake_Serial(nbEq, &(vYp_[0]));
-  if (yp_ == NULL)
+  vectorYp_.assign(nbEq, 0.);
+  sundialsVectorYp_ = N_VMake_Serial(nbEq, &(vectorYp_[0]));
+  if (sundialsVectorYp_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYP);
-
-  // Algebraic or differential variable indicator (vector<int>)
-  yId_ = N_VNew_Serial(nbEq);
-  if (yId_ == NULL)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverCreateID);
-
-  // Solver parameters
-  // ---------------------
-  vYId_.resize(nbEq);
-  std::copy(model->getYType(), model->getYType() + model->sizeY(), vYId_.begin());
-
-  double *idx = NV_DATA_S(yId_);
-  for (int ieq = 0; ieq < model->sizeY(); ++ieq) {
-    idx[ieq] = RCONST(1.0);
-    if (vYId_[ieq] != DYN::DIFFERENTIAL)  // Algebraic or external variable
-      idx[ieq] = RCONST(0.0);
-  }
 
   // Initial values
   // -----------------
-  model_->getY0(t0, vYy_, vYp_);
+  model_->getY0(t0, vectorY_, vectorYp_);
 }
 
 void
@@ -165,7 +149,7 @@ Solver::Impl::printHeader() const {
 
 void
 Solver::Impl::printSolve() const {
-  std::stringstream msg;
+  stringstream msg;
   msg << setfill(' ') << setw(12) << std::fixed << std::setprecision(3) << getTSolve() << " ";
 
   printSolveSpecific(msg);

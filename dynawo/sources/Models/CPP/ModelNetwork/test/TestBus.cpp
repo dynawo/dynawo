@@ -48,7 +48,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
-createModelBus(bool initModel) {
+createModelBus(bool initModel, bool isNodeBreaker) {
 #ifdef LANG_CXX11
   powsybl::iidm::Network networkIIDM("test", "test");
 
@@ -99,7 +99,7 @@ createModelBus(bool initModel) {
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   network->setConstraints(constraints);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, true));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, isNodeBreaker));
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
   return std::make_pair(bus1, vl);
@@ -120,7 +120,7 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
   EXPECT_ASSERT_DYNAWO(sub.addBus(shared_ptr<ModelBus>()));
 #endif
 
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
   shared_ptr<ModelBus> bus = p.first;
   sub.addBus(bus);
   bus->initSize();
@@ -141,7 +141,7 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
   shared_ptr<ModelBus> bus = p.first;
   bus->initSize();
   std::vector<double> z(bus->sizeZ(), 0.);
@@ -161,7 +161,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
   shared_ptr<ModelBus> bus = p.first;
   bus->initSize();
   std::vector<double> y(bus->sizeY(), 0.);
@@ -267,14 +267,14 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   }
   numVars.clear();
 
-  shared_ptr<ModelBus> busInit = createModelBus(true).first;
+  shared_ptr<ModelBus> busInit = createModelBus(true, false).first;
   busInit->initSize();
   ASSERT_EQ(busInit->sizeCalculatedVar(), 0);
   delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
   shared_ptr<ModelBus> bus = p.first;
   bus->initSize();
   unsigned nbZ = 3;
@@ -366,15 +366,57 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   bus->clearNumSubNetwork();
   ASSERT_FALSE(bus->numSubNetworkSet());
 
-  shared_ptr<ModelBus> busInit = createModelBus(true).first;
+  shared_ptr<ModelBus> busInit = createModelBus(true, false).first;
   busInit->initSize();
   ASSERT_EQ(busInit->sizeZ(), 0);
   ASSERT_EQ(busInit->sizeG(), 0);
   delete[] zConnected;
 }
 
+TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
+  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, true);
+  shared_ptr<ModelBus> bus = p.first;
+  bus->initSize();
+  unsigned nbZ = 3;
+  unsigned nbG = 2;
+  ASSERT_EQ(bus->sizeZ(), nbZ);
+  ASSERT_EQ(bus->sizeG(), nbG);
+  std::vector<double> y(bus->sizeY(), 0.);
+  std::vector<double> yp(bus->sizeY(), 0.);
+  std::vector<double> f(bus->sizeF(), 0.);
+  std::vector<double> z(nbZ, 0.);
+  bool* zConnected = new bool[nbZ];
+  for (size_t i = 0; i < nbZ; ++i)
+    zConnected[i] = true;
+  std::vector<state_g> g(nbG, NO_ROOT);
+  bus->setReferenceG(&g[0], 0);
+  bus->setReferenceZ(&z[0], zConnected, 0);
+  bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  ModelNetwork* network = new ModelNetwork();
+  boost::shared_ptr<constraints::ConstraintsCollection> constraints =
+      constraints::ConstraintsCollectionFactory::newInstance("MyConstraintsCollection");
+  network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
+  network->setConstraints(constraints);
+  bus->setNetwork(network);
+
+
+  bus->numSubNetwork(2);
+  ASSERT_TRUE(bus->numSubNetworkSet());
+  bus->getY0();
+  ASSERT_EQ(z[0], bus->numSubNetwork());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(z[1], fromNativeBool(bus->getSwitchOff()));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(z[2], CLOSED);
+
+  z[0] = 42;
+  z[2] = OPEN;
+  ASSERT_EQ(bus->getConnectionState(), CLOSED);
+  g[0] = ROOT_UP;
+  g[1] = ROOT_UP;
+  ASSERT_THROW_DYNAWO(bus->evalZ(0.), Error::MODELER, KeyError_t::CalculatedBusNoSwitchStateChange);
+}
+
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
   shared_ptr<ModelBus> bus = p.first;
 
   unsigned nbY = 4;
@@ -480,7 +522,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(true);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(true, false);
   shared_ptr<ModelBus> bus = p.first;
 
   unsigned nbY = 2;
@@ -527,7 +569,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
   shared_ptr<ModelBus> bus = p.first;
 
   std::vector<shared_ptr<Variable> > definedVariables;
@@ -556,7 +598,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
         ++nbCalc;
     }
   }
-  ASSERT_EQ(nbAlias, 4);
+  ASSERT_EQ(nbAlias, 0);
   ASSERT_EQ(nbCalc, 4);
   ASSERT_EQ(nbVar, 7);
 
@@ -579,7 +621,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusJt) {
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
   shared_ptr<ModelBus> bus = p.first;
 
   bus->initSize();
@@ -716,13 +758,13 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   network->setConstraints(constraints);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, true));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, true));
+  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
   bus2->setNetwork(network);
   bus2->setVoltageLevel(vl);
-  shared_ptr<ModelBus> bus3 = shared_ptr<ModelBus>(new ModelBus(bus3ItfIIDM, true));
+  shared_ptr<ModelBus> bus3 = shared_ptr<ModelBus>(new ModelBus(bus3ItfIIDM, false));
   bus3->setNetwork(network);
   bus3->setVoltageLevel(vl);
 
@@ -855,7 +897,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusCurrentU) {
-  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
+  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false, false);
   shared_ptr<ModelBus> bus = p.first;
   bus->initSize();
   std::vector<double> y(bus->sizeY(), 0.);

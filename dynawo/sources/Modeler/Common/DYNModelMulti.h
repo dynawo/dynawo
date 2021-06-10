@@ -46,29 +46,29 @@ class ModelMulti : public Model, private boost::noncopyable {
   ~ModelMulti();
 
   /**
-   * @copydoc Model::evalF(const double t, double* y, double* yp, double* f)
+   * @copydoc Model::evalF(const double t, const double* y, const double* yp, double* f)
    */
-  void evalF(const double t, double* y, double* yp, double* f);
+  void evalF(const double t, const double* y, const double* yp, double* f);
 
   /**
-   * @copydoc Model::evalFDiff(const double t, double* y, double* yp, double* f)
+   * @copydoc Model::evalFDiff(const double t, const double* y, const double* yp, double* f)
    */
-  void evalFDiff(const double t, double* y, double* yp, double* f);
+  void evalFDiff(const double t, const double* y, const double* yp, double* f);
 
   /**
-   * @copydoc Model::evalFMode(const double t, double* y, double* yp, double* f)
+   * @copydoc Model::evalFMode(const double t, const double* y, const double* yp, double* f)
    */
-  void evalFMode(const double t, double* y, double* yp, double* f);
+  void evalFMode(const double t, const double* y, const double* yp, double* f);
 
   /**
-   * @copydoc Model::copyContinuousVariables(double* y, double* yp)
+   * @copydoc Model::copyContinuousVariables(const double* y, const double* yp)
    */
-  void copyContinuousVariables(double* y, double* yp);
+  void copyContinuousVariables(const double* y, const double* yp);
 
   /**
-   * @copydoc Model::copyDiscreteVariables(double* z)
+   * @copydoc Model::copyDiscreteVariables(const double* z)
    */
-  void copyDiscreteVariables(double* z);
+  void copyDiscreteVariables(const double* z);
 
   /**
    * @copydoc Model::evalG(double t, std::vector<state_g> &g)
@@ -178,9 +178,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   }
 
   /**
-   * @copydoc Model::getFType()
+   * @copydoc Model::getFType() const
    */
-  inline propertyF_t* getFType() const {
+  inline const std::vector<propertyF_t>& getFType() const {
     return fType_;
   }
 
@@ -197,7 +197,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   /**
    * @copydoc Model::getYType()
    */
-  inline propertyContinuousVar_t* getYType() const {
+  inline const std::vector<propertyContinuousVar_t>& getYType() const {
     return yType_;
   }
 
@@ -257,13 +257,24 @@ class ModelMulti : public Model, private boost::noncopyable {
   }
 
   /**
-   * @copydoc Model::getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation)
+   * @brief get informations about residual functions
+   *
+   * @param globalFIndex global index of the residual functions to find
+   * @param subModelName name of the subModel who contains the residual functions
+   * @param localFIndex local index of the residual functions inside the subModel
+   * @param fEquation equation formula related to local index
    */
-  void getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation);
+  void getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation) const;
+
   /**
-   * @copydoc Model::getGInfos(const int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation)
+   * @brief get informations about root functions
+   *
+   * @param globalGIndex global index of the root functions to find
+   * @param subModelName name of the subModel who contains the root functions
+   * @param localGIndex local index of the root functions inside the subModel
+   * @param gEquation equation formula related to local index
    */
-  void getGInfos(const int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation);
+  void getGInfos(const int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation) const;
 
   // ==============================
   // interface SIMULATION <-> MODEL
@@ -554,8 +565,8 @@ class ModelMulti : public Model, private boost::noncopyable {
     subModelIdxToConnectorCalcVarsIdx_;  ///< associates a subModel index to the associated calculated variables connectors indexes
   boost::shared_ptr<ConnectorContainer> connectorContainer_;  ///< list of each connector
   std::vector<double> zSave_;  ///< save of the last discretes values
-  propertyF_t* fType_;  ///< local buffer to fill with the property of each continuous equation (Algebraic or Differential)
-  propertyContinuousVar_t* yType_;  ///< local buffer to fill with the property of each variable (Algebraic / Differential / External)
+  std::vector<propertyF_t> fType_;  ///< local buffer to fill with the property of each continuous equation (Algebraic or Differential)
+  std::vector<propertyContinuousVar_t> yType_;  ///< local buffer to fill with the property of each variable (Algebraic / Differential / External)
 
   int sizeF_;  ///< number of the residuals functions
   int sizeZ_;  ///< number of discretes values

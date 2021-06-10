@@ -43,9 +43,9 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   /**
    * @brief default constructor
    * @param bus: bus data interface to use for the model
-   * @param isCalculated: true if the voltage level is in BUS BREAKER
+   * @param isNodeBreaker: true if the voltage level is in NODE BREAKER
    */
-  explicit ModelBus(const boost::shared_ptr<BusInterface>& bus, bool isCalculated);
+  explicit ModelBus(const boost::shared_ptr<BusInterface>& bus, bool isNodeBreaker);
 
   /**
    * @brief destructor
@@ -625,6 +625,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   std::vector<boost::weak_ptr<ModelSwitch> > connectableSwitches_;  ///< switch connected or connectable on the node
 
   const std::string modelType_;  ///< model Type
+  const bool isNodeBreaker_;  ///< true if the bus is modeled as node-breaker (called also calculated bus)
   std::string constraintId_;  ///< id to use in constraints
 };
 
