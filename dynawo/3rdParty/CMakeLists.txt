@@ -391,7 +391,7 @@ find_package(Boost ${boost_version} QUIET)
 if(Boost_FOUND)
   if(CXX11_ENABLED)
     find_package(Boost ${boost_version} QUIET
-      COMPONENTS date_time filesystem program_options serialization system log iostreams unit_test_framework
+      COMPONENTS date_time filesystem program_options serialization system log iostreams
     )
   else()
     find_package(Boost ${boost_version} QUIET
@@ -451,7 +451,7 @@ else()
 
   else()
     if(CXX11_ENABLED)
-      set(TmpVar "--with-libraries=date_time,filesystem,program_options,serialization,system,log,iostreams,test")
+      set(TmpVar "--with-libraries=date_time,filesystem,program_options,serialization,system,log,iostreams")
     else()
       set(TmpVar "--with-libraries=filesystem,program_options,serialization,system,log,iostreams")
     endif()
