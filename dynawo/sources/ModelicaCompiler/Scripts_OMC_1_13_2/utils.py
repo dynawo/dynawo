@@ -203,6 +203,27 @@ def replace_var_names(line):
         line = line.replace(pattern_to_replace, map_to_replace[pattern_to_replace])
     return line
 ##
+# Replace all relation indexes by their dynawo index
+# @param line: line to analyse
+# @param omc_relation_index_2_dynawo_relations_index: dictionary that maps omc relation index to dynawo relations index
+# @return line to use
+def replace_relation_indexes(line, omc_relation_index_2_dynawo_relations_index):
+    if "RELATIONHYSTERESIS" not in line: return line
+    index_tmp = 0
+    map_to_replace ={}
+    relations_found = re.findall(r'RELATIONHYSTERESIS\((?P<target_var>.*?), (?P<variable>.*?), (?P<value>.*?), (?P<rel_index>[0-9]+), (?P<operator>.*?)\)', line)
+    for target_var,variable,value,rel_index,operator in relations_found:
+        if rel_index not in omc_relation_index_2_dynawo_relations_index: continue
+        replacement_string = "@@@" + str(index_tmp) + "@@@"
+        line = line.replace("RELATIONHYSTERESIS("+target_var+", "+variable+", "+value+", "+rel_index+", "+operator+")",\
+                                      "RELATIONHYSTERESIS("+target_var+", "+variable+", "+value+", "+replacement_string+", "+operator+")")
+        map_to_replace[replacement_string] = omc_relation_index_2_dynawo_relations_index[rel_index]
+        index_tmp+=1
+
+    for pattern_to_replace in map_to_replace:
+        line = line.replace(pattern_to_replace, map_to_replace[pattern_to_replace])
+    return line
+##
 # Count the number of opening braces in an expression
 # @param expr : the expression to analyze
 # @return the number of opening braces

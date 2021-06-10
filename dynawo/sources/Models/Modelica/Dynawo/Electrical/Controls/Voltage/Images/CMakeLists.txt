@@ -9,7 +9,7 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
 set(MODEL_FILES
-    TapChangerLock.png
+  TapChangerBlocking.png
     )
 
 #
