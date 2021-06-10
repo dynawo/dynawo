@@ -14,8 +14,11 @@ set(MODEL_FILES
   # Voltage control models
   package.mo
   package.order
-  TCL.mo
-  TCL.extvar
+  BaseClasses.mo
+  TapChangerBlocking1.mo
+  TapChangerBlocking1.extvar
+  TapChangerBlocking2.mo
+  TapChangerBlocking2.extvar
   VRRemote.mo
   VRRemote.extvar
   )

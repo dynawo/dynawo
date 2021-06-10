@@ -431,6 +431,13 @@ else()
                           install
                           --prefix=<INSTALL_DIR>
                           --disable-icu
+                          --with-date_time
+                          --with-filesystem
+                          --with-program_options
+                          --with-serialization
+                          --with-system
+                          --with-log
+                          --with-iostreams
                           --layout=system
                           architecture=x86
                           address-model=64
