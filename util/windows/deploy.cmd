@@ -126,6 +126,10 @@ xcopy %thirdPartyInstallPath%\zlib\include %deploy_dir%\include /E /i
 xcopy %thirdPartyInstallPath%\zlib\lib %deploy_dir%\lib /E /i
 xcopy %thirdPartyInstallPath%\zlib\bin\zlib* %deploy_dir%\bin /E /i
 
+xcopy %thirdPartyInstallPath%\libxml2\bin\*.dll %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\libxml2\include %deploy_dir%\include /E /i
+xcopy %thirdPartyInstallPath%\libxml2\lib %deploy_dir%\lib /E /i
+
 :: OpenModelica
 xcopy %OPENMODELICA_HOME%\bin %deploy_dir%\OpenModelica\bin /E /i
 xcopy %OPENMODELICA_HOME%\include %deploy_dir%\OpenModelica\include /E /i
