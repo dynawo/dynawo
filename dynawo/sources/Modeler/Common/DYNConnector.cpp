@@ -235,7 +235,7 @@ ConnectorContainer::mergeZConnector() {
 void
 ConnectorContainer::propagateZConnectionInfoToModel() const {
   if (!connectorsMerged_)
-    return;
+    throw DYNError(Error::MODELER, AttemptToPropagateBeforeMerge);  // should not happen but who knows ...
 
   for (unsigned int i = 0; i < nbZConnectors(); ++i) {
     boost::shared_ptr<Connector> zc = zConnectors_[i];
