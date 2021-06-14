@@ -21,7 +21,7 @@
 #define COMMON_DYNINITXML_H_
 
 #include <xercesc/util/PlatformUtils.hpp>
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
 #include <libxml/parser.h>
 #endif
 
@@ -41,7 +41,7 @@ class InitXerces {
   }
 };
 
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
 /**
  * Helper class to load/unload properly LibXml2
  */
