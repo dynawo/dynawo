@@ -119,7 +119,7 @@ int main(int argc, char ** argv) {
     }
 
     DYN::InitXerces xerces;
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
     DYN::InitLibXml2 libxml2;
 #endif
     DYN::IoDicos& dicos = DYN::IoDicos::instance();
