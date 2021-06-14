@@ -16,7 +16,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
@@ -45,7 +45,7 @@ namespace DYN {
 
 shared_ptr<ModelSwitch>
 createModelSwitch(bool open, bool initModel) {
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -123,7 +123,7 @@ createModelSwitch(bool open, bool initModel) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -202,7 +202,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationClosed) {
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()

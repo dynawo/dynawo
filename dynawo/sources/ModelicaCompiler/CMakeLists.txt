@@ -27,19 +27,12 @@ target_link_libraries(compileModelicaModel
     Boost::log
     Boost::program_options
     XMLSAXParser${LibXML_LINK_SUFFIX}
+    $<$<NOT:$<BOOL:${USE_LEGACY_IIDM}>>:LibXml2::LibXml2>
   )
 
-
 if(APPLE)
-    # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
-    set_target_properties(compileModelicaModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
-endif()
-
-if(CXX11_ENABLED)
-  target_link_libraries(compileModelicaModel
-    PRIVATE
-      LibXml2::LibXml2
-    )
+  # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
+  set_target_properties(compileModelicaModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
 endif()
 
 install(TARGETS compileModelicaModel EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})

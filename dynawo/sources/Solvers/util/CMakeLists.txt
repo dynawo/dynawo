@@ -26,17 +26,11 @@ target_link_libraries(dumpSolver
   PRIVATE
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     XMLSAXParser${LibXML_LINK_SUFFIX}
+    $<$<NOT:$<BOOL:${USE_LEGACY_IIDM}>>:LibXml2::LibXml2>
     dynawo_Common
     dynawo_SolverCommon
     Boost::system
     Boost::program_options
   )
-
-if(CXX11_ENABLED)
-  target_link_libraries(dumpSolver
-    PRIVATE
-      LibXml2::LibXml2
-    )
-endif()
 
 install(TARGETS dumpSolver EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})

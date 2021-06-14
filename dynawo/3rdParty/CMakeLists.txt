@@ -14,6 +14,7 @@ cmake_minimum_required(VERSION 3.9.6 FATAL_ERROR)
 option(BUILD_SHARED_LIBS "Build shared libraries (.dll/.so) instead of static ones (.lib/.a)" ON)
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)")
 option(CXX11_ENABLED "Enable support of C++11 standard" TRUE)
+option(USE_LEGACY_IIDM "Force use of legacy IIDM library" FALSE)
 set(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
 set(BOOST_ROOT_DEFAULT "true" CACHE STRING "Enable to find boost in system path or not.")
 
@@ -957,7 +958,7 @@ else()
   set(LIBXML_HOME ${install_dir})
 endif()
 
-if(CXX11_ENABLED)
+if(CXX11_ENABLED AND NOT USE_LEGACY_IIDM)
  cmake_minimum_required(VERSION 3.12)
 
  include("${CMAKE_CURRENT_SOURCE_DIR}/libxml2/libxml2.cmake")
@@ -969,22 +970,22 @@ find_package(libIIDM 0.2.8 QUIET)
 unset(LIBIIDM_HOME)
 
 if(libIIDM_FOUND)
-  add_custom_target(libiidm DEPENDS libxml boost)
-  set(LIBIIDM_HOME ${CMAKE_INSTALL_PREFIX}/libiidm)
+  add_custom_target(libiidm0 DEPENDS libxml boost)
+  set(LIBIIDM_HOME ${CMAKE_INSTALL_PREFIX}/libiidm0)
 else()
-  ExternalProject_Add(libiidm
+  ExternalProject_Add(libiidm0
           DEPENDS             libxml boost
-          INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/libiidm
+          INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/libiidm0
           DOWNLOAD_DIR        ${DOWNLOAD_DIR}
           TMP_DIR             ${TMP_DIR}
-          STAMP_DIR           ${DOWNLOAD_DIR}/libiidm-stamp
-          BINARY_DIR          ${DOWNLOAD_DIR}/libiidm-build
+          STAMP_DIR           ${DOWNLOAD_DIR}/libiidm0-stamp
+          BINARY_DIR          ${DOWNLOAD_DIR}/libiidm0-build
           DOWNLOAD_COMMAND    ""
           SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libiidm
           CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER} -DCXX11_ENABLED:BOOL=${CXX11_ENABLED}
           CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DIIDM_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DBUILD_XML:BOOL=ON -DBUILD_SAMPLES:BOOL=$<BOOL:${LIBIIDM_BUILD_SAMPLES}> -DCMAKE_PREFIX_PATH:PATH=${LIBXML_HOME} -DXERCESC_HOME:PATH=${XERCESC_HOME} -DBOOST_ROOT:PATH=${BOOST_ROOT} -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
           )
-  ExternalProject_Get_Property(libiidm install_dir)
+  ExternalProject_Get_Property(libiidm0 install_dir)
   set(LIBIIDM_HOME ${install_dir})
 endif()
-endif(CXX11_ENABLED)
+endif(CXX11_ENABLED AND NOT USE_LEGACY_IIDM)

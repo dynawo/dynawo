@@ -14,7 +14,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
@@ -50,7 +50,7 @@ using boost::shared_ptr;
 namespace DYN {
 std::pair<shared_ptr<ModelDanglingLine>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelDanglingLine(bool open, bool initModel) {
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -358,7 +358,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
   }
   ASSERT_NO_THROW(dl->evalG(0.));
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[0], ROOT_DOWN);
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[1], NO_ROOT);
 #else
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[1], ROOT_DOWN);

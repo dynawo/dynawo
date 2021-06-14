@@ -28,6 +28,7 @@ target_link_libraries(dynawo
     dynawo_Common
     dynawo_Simulation
     XMLSAXParser${LibXML_LINK_SUFFIX}
+    $<$<NOT:$<BOOL:${USE_LEGACY_IIDM}>>:LibXml2::LibXml2>
     Boost::filesystem
     Boost::program_options
     )
@@ -35,13 +36,6 @@ target_link_libraries(dynawo
 if(APPLE)
   # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
   set_target_properties(dynawo PROPERTIES INSTALL_RPATH "@loader_path/../lib")
-endif()
-
-if(CXX11_ENABLED)
-  target_link_libraries(dynawo
-    PRIVATE
-      LibXml2::LibXml2
-    )
 endif()
 
 set_target_properties(dynawo PROPERTIES VERSION ${DYNAWO_VERSION_STRING})

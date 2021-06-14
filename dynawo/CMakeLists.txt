@@ -28,6 +28,7 @@ set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options a
 set(LIBRARY_TYPE SHARED CACHE STRING "Choose either STATIC or SHARED.")
 set(BOOST_USE_STATIC OFF CACHE BOOL "Choose either ON or OFF.")
 set(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
+set(USE_LEGACY_IIDM OFF CACHE BOOL "Force use of legacy IIDM library")
 
 # Project Dynawo
 project(dynawo)
@@ -39,24 +40,6 @@ set(DYNAWO_VERSION_STRING ${DYNAWO_VERSION_MAJOR}.${DYNAWO_VERSION_MINOR}.${DYNA
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)    # export all symbols from dll on Windows
 set(CMAKE_ENABLE_EXPORTS ON)                # export all symbols from exe on Windows
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)     # set -fPIC on Linux
-
-if(DEFINED DYNAWO_THIRD_PARTY_DIR)
-  get_filename_component(DYNAWO_THIRD_PARTY_DIR ${DYNAWO_THIRD_PARTY_DIR} ABSOLUTE)
-  set(ADEPT_HOME ${DYNAWO_THIRD_PARTY_DIR}/adept CACHE PATH "Path where an Adept installation already exists")
-  set(SUITESPARSE_HOME ${DYNAWO_THIRD_PARTY_DIR}/suitesparse CACHE PATH "Path where an SuiteSparse installation already exists")
-  set(SUNDIALS_HOME ${DYNAWO_THIRD_PARTY_DIR}/sundials CACHE PATH "Path where an Sundials installation already exists")
-  set(LIBZIP_HOME ${DYNAWO_THIRD_PARTY_DIR}/libzip CACHE PATH "Path where an libzip installation already exists")
-  set(LIBXML_HOME ${DYNAWO_THIRD_PARTY_DIR}/libxml CACHE PATH "Path where an libxml installation already exists")
-  set(LIBIIDM_HOME ${DYNAWO_THIRD_PARTY_DIR}/libiidm CACHE PATH "Path where an libiidm installation already exists")
-  set(BOOST_ROOT ${DYNAWO_THIRD_PARTY_DIR}/boost CACHE PATH "Path where a Boost installation already exists")
-  set(GTEST_ROOT ${DYNAWO_THIRD_PARTY_DIR}/googletest CACHE PATH "Path where a GoogleTest installation already exists")
-  set(GMOCK_HOME ${DYNAWO_THIRD_PARTY_DIR}/googletest CACHE PATH "Path where a GoogleTest installation already exists")
-  set(LIBARCHIVE_HOME ${DYNAWO_THIRD_PARTY_DIR}/libarchive CACHE PATH "Path where a LibArchive installation already exists")
-  set(ZLIB_ROOT ${DYNAWO_THIRD_PARTY_DIR}/zlib CACHE PATH "Path where a ZLib installation already exists")
-  set(XERCESC_HOME ${DYNAWO_THIRD_PARTY_DIR}/xerces-c CACHE PATH "Path where a Xerces-c installation already exists")
-  set(NICSLU_HOME ${DYNAWO_THIRD_PARTY_DIR}/nicslu CACHE PATH "Path where a Nicslu installation already exists")
-  set(LIBXML2_HOME ${DYNAWO_THIRD_PARTY_DIR}/libxml2 CACHE PATH "Path where libxml2 installation already exists")
-endif()
 
 get_filename_component(DYNAWO_HOME ${DYNAWO_HOME} ABSOLUTE)
 
@@ -91,6 +74,7 @@ list(APPEND CMAKE_PREFIX_PATH "${LIBXML2_HOME}")
 
 if(MSVC)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0601)
+  set(CXX11_ENABLED ON CACHE BOOL "" FORCE)
   add_definitions(-DLANG_CXX11)
 
   list(APPEND CMAKE_PREFIX_PATH "${DYNAWO_THIRD_PARTY_DIR}/dlfcnwin32")
@@ -109,14 +93,23 @@ elseif(CXX11_ENABLED)
   check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
   check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
   if(COMPILER_SUPPORTS_CXX11)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -DLANG_CXX11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -DLANG_CXX11")
   elseif(COMPILER_SUPPORTS_CXX0X)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -DLANG_CXX0X")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -DLANG_CXX0X")
   else()
-      message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Disabling C++11.")
+    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Disabling C++11.")
+    set(CXX11_ENABLED OFF CACHE BOOL "" FORCE)
   endif()
 else()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
+endif()
+
+if(NOT CXX11_ENABLED)
+  set(USE_LEGACY_IIDM ON CACHE BOOL "Force use of legacy IIDM library" FORCE)
+endif()
+
+if(NOT USE_LEGACY_IIDM)
+  add_definitions(-DUSE_POWSYBL)
 endif()
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${DYNAWO_DEBUG_COMPILER_OPTION}")
@@ -196,6 +189,28 @@ if(APPLE)
   # add the automatically determined parts of the RPATH
   # which point to directories outside the build tree to the install RPATH
   set(CMAKE_INSTALL_RPATH_USE_LINK_PATH True)
+endif()
+
+if(DEFINED DYNAWO_THIRD_PARTY_DIR)
+  get_filename_component(DYNAWO_THIRD_PARTY_DIR ${DYNAWO_THIRD_PARTY_DIR} ABSOLUTE)
+  set(ADEPT_HOME ${DYNAWO_THIRD_PARTY_DIR}/adept CACHE PATH "Path where an Adept installation already exists")
+  set(SUITESPARSE_HOME ${DYNAWO_THIRD_PARTY_DIR}/suitesparse CACHE PATH "Path where an SuiteSparse installation already exists")
+  set(SUNDIALS_HOME ${DYNAWO_THIRD_PARTY_DIR}/sundials CACHE PATH "Path where an Sundials installation already exists")
+  set(LIBZIP_HOME ${DYNAWO_THIRD_PARTY_DIR}/libzip CACHE PATH "Path where an libzip installation already exists")
+  set(LIBXML_HOME ${DYNAWO_THIRD_PARTY_DIR}/libxml CACHE PATH "Path where an libxml installation already exists")
+  if(USE_LEGACY_IIDM)
+    set(LIBIIDM_HOME ${DYNAWO_THIRD_PARTY_DIR}/libiidm0 CACHE PATH "Path where an libiidm installation already exists")
+  else()
+    set(LIBIIDM_HOME ${DYNAWO_THIRD_PARTY_DIR}/libiidm CACHE PATH "Path where an libiidm installation already exists")
+  endif()
+  set(BOOST_ROOT ${DYNAWO_THIRD_PARTY_DIR}/boost CACHE PATH "Path where a Boost installation already exists")
+  set(GTEST_ROOT ${DYNAWO_THIRD_PARTY_DIR}/googletest CACHE PATH "Path where a GoogleTest installation already exists")
+  set(GMOCK_HOME ${DYNAWO_THIRD_PARTY_DIR}/googletest CACHE PATH "Path where a GoogleTest installation already exists")
+  set(LIBARCHIVE_HOME ${DYNAWO_THIRD_PARTY_DIR}/libarchive CACHE PATH "Path where a LibArchive installation already exists")
+  set(ZLIB_ROOT ${DYNAWO_THIRD_PARTY_DIR}/zlib CACHE PATH "Path where a ZLib installation already exists")
+  set(XERCESC_HOME ${DYNAWO_THIRD_PARTY_DIR}/xerces-c CACHE PATH "Path where a Xerces-c installation already exists")
+  set(NICSLU_HOME ${DYNAWO_THIRD_PARTY_DIR}/nicslu CACHE PATH "Path where a Nicslu installation already exists")
+  set(LIBXML2_HOME ${DYNAWO_THIRD_PARTY_DIR}/libxml2 CACHE PATH "Path where libxml2 installation already exists")
 endif()
 
 # Python Interpreter
@@ -350,7 +365,7 @@ find_package(libXML 0.2.4 REQUIRED PATHS ${LIBXML_HOME})
 
 # libIIDM
 
-if(CXX11_ENABLED)
+if(NOT USE_LEGACY_IIDM)
   find_package(LibXml2 "2.9" REQUIRED)
   find_package(LibIIDM "1.4.0" REQUIRED PATHS ${LIBIIDM_HOME})
 else()

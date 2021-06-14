@@ -15,7 +15,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
@@ -49,7 +49,7 @@ using boost::shared_ptr;
 namespace DYN {
 std::pair<shared_ptr<ModelGenerator>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelGenerator(bool open, bool initModel) {
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()

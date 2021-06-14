@@ -24,7 +24,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/pointer_cast.hpp>
 
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
@@ -97,7 +97,7 @@ struct NetworkProperty {
   bool instantiateSwitch;
 };
 
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
 shared_ptr<DataInterface>
 createDataItfFromNetwork(powsybl::iidm::Network&& network) {
   shared_ptr<DataInterfaceIIDM> data;
@@ -108,13 +108,13 @@ createDataItfFromNetwork(powsybl::iidm::Network&& network) {
 }
 #endif
 
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
 powsybl::iidm::Network
 #else
 shared_ptr<DataInterface>
 #endif
 createNetwork(const NetworkProperty& properties) {
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   powsybl::iidm::Network network("test", "test");
 
   powsybl::iidm::Substation& s = network.newSubstation()
@@ -347,7 +347,7 @@ createNetwork(const NetworkProperty& properties) {
   }
 #endif
 
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   return network;
 #else
   shared_ptr<DataInterface> data;
@@ -369,7 +369,7 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
       true /*instantiateReactanceShuntCompensator*/,
       true /*instantiateSwitch*/
   };
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
@@ -392,7 +392,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
@@ -426,7 +426,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerWithRatioTapChangerPar
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
@@ -468,7 +468,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
@@ -502,7 +502,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
@@ -530,7 +530,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
@@ -558,7 +558,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
@@ -626,7 +626,7 @@ TEST(ModelsModelNetwork, ModelNetworkCapacitorShuntCompensatorParam) {
       false /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
@@ -658,7 +658,7 @@ TEST(ModelsModelNetwork, ModelNetworkReactanceShuntCompensatorParam) {
       true /*instantiateReactanceShuntCompensator*/,
       false /*instantiateSwitch*/
   };
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);
@@ -690,7 +690,7 @@ TEST(ModeslModelNetwork, ModelNetworkSwitchVariablesCheck) {
       false /*instantiateReactanceShuntCompensator*/,
       true /*instantiateSwitch*/
   };
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
 #else
   shared_ptr<DataInterface> data = createNetwork(properties);

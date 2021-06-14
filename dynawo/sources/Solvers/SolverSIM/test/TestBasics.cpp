@@ -27,7 +27,7 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
 #else
 #include <IIDM/xml/import.h>
 #include <IIDM/xml/export.h>
@@ -142,7 +142,7 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
 
   // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(boost::filesystem::path(iidmFileName));
   boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(std::move(networkIIDM)));
 #else
