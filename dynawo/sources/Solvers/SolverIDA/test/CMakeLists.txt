@@ -27,10 +27,9 @@ target_link_libraries(${MODULE_NAME}
   dynawo_Test
 )
 
-if(CXX11_ENABLED)
+if(NOT USE_LEGACY_IIDM)
   target_link_libraries(${MODULE_NAME}
     IIDM::iidm
-    LibXml2::LibXml2
   )
 else()
   target_link_libraries(${MODULE_NAME}

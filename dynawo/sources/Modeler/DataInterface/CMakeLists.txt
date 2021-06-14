@@ -101,7 +101,7 @@ set_target_properties(dynawo_DataInterfaceFactory PROPERTIES VERSION ${DATA_INTE
 install(TARGETS dynawo_DataInterface dynawo_DataInterfaceFactory EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${DATA_INTERFACE_INCLUDE_HEADERS} ${DATA_INTERFACE_FACTORY_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
-if(CXX11_ENABLED)
+if(NOT USE_LEGACY_IIDM)
   add_subdirectory(PowSyblIIDM)
 else()
   add_subdirectory(IIDM)

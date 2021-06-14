@@ -14,7 +14,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
@@ -61,7 +61,7 @@ namespace DYN {
 std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChanger, bool phaseTapChanger,
                                   bool loadTapChangingCapabilities = true, bool closed1 = true, bool closed2 = true) {
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -454,7 +454,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   t2w->setReferenceCalculatedVar(&calculatedVars[0], 0);
   t2w->evalCalculatedVars();
 
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::i1Num_], 24.757516580070948);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::i2Num_], 0.071608989099576165);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::q1Num_], -81.705228892187009);
@@ -508,7 +508,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   std::vector<double> res(4, 0.);
   ASSERT_THROW_DYNAWO(t2w->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::i1Num_, res));
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 5.287451914198817);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 3.0660650075063498);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.038997534699257062);
@@ -535,7 +535,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.055207845128365379);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.13966730458782481);
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::q1Num_, res));
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -35.003849116457509);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -20.070693489732513);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.18531446909337082);
@@ -552,7 +552,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.094915182523564012);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.080838605946987468);
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_, res));
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 61054.235719797791);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 35403.869148733662);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 450.30474312695685);
@@ -564,7 +564,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -288.39640769798376);
 #endif
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_, res));
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -61054.235719797791);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -35403.869148733662);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -450.30474312695685);
@@ -586,7 +586,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 225.50983163474882);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 225.50983163474879);
   ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_, res));
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 61054.235719797791);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 35403.869148733662);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 450.30474312695685);

@@ -74,6 +74,11 @@ if(MSVC)
   find_package(dlfcn-win32 REQUIRED)
 endif()
 
+set(USE_LEGACY_IIDM "@USE_LEGACY_IIDM@")
+if(NOT USE_LEGACY_IIDM)
+  add_definitions(-DUSE_POWSYBL)
+endif()
+
 set(BOOST_ROOT_DEFAULT "@BOOST_ROOT_DEFAULT@")
 set(BOOST_USE_STATIC "@BOOST_USE_STATIC@")
 

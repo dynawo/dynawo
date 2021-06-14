@@ -29,7 +29,7 @@ set(MODULE_SOURCES
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
-if(CXX11_ENABLED)
+if(NOT USE_LEGACY_IIDM)
 target_include_directories(${MODULE_NAME}
   PRIVATE
     $<TARGET_PROPERTY:IIDM::iidm,INTERFACE_INCLUDE_DIRECTORIES>
@@ -41,7 +41,6 @@ target_include_directories(${MODULE_NAME}
   )
 endif()
 
-if(CXX11_ENABLED)
 target_link_libraries(${MODULE_NAME}
   dynawo_DataInterfaceIIDM
   dynawo_DataInterface
@@ -49,19 +48,9 @@ target_link_libraries(${MODULE_NAME}
   DYNModelNetwork
   dynawo_API_CSTR
   dynawo_API_TL
-  IIDM::iidm
+  $<$<NOT:$<BOOL:${USE_LEGACY_IIDM}>>:IIDM::iidm>
+  $<$<BOOL:${USE_LEGACY_IIDM}>:iidm>
   dynawo_Test)
-else()
-target_link_libraries(${MODULE_NAME}
-  dynawo_DataInterfaceIIDM
-  dynawo_DataInterface
-  dynawo_ModelerCommon
-  DYNModelNetwork
-  dynawo_API_CSTR
-  dynawo_API_TL
-  iidm
-  dynawo_Test)
-endif()
 
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>
