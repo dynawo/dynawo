@@ -31,9 +31,11 @@ ModelerEntry::ModelerEntry(const ModelerEntry& other):
     networkEntry_(clone(other.networkEntry_)),
     initialStateEntry_(clone(other.initialStateEntry_)) {
   unsigned int size = other.dynModelsEntries_.size();
+  dynModelsEntries_.clear();
   dynModelsEntries_.reserve(size);
-  for (unsigned int i = 0; i < size; i++) {
-    dynModelsEntries_.push_back(clone(other.dynModelsEntries_.at(i)));
+  for (std::vector<boost::shared_ptr<DynModelsEntry> >::const_iterator it = other.dynModelsEntries_.begin();
+    it != other.dynModelsEntries_.end(); ++it) {
+    dynModelsEntries_.push_back(clone(*it));
   }
 }
 
@@ -46,9 +48,11 @@ ModelerEntry::operator=(const ModelerEntry& other) {
   initialStateEntry_ = clone(other.initialStateEntry_);
 
   unsigned int size = other.dynModelsEntries_.size();
+  dynModelsEntries_.clear();
   dynModelsEntries_.reserve(size);
-  for (unsigned int i = 0; i < size; i++) {
-    dynModelsEntries_.push_back(clone(other.dynModelsEntries_.at(i)));
+  for (std::vector<boost::shared_ptr<DynModelsEntry> >::const_iterator it = other.dynModelsEntries_.begin();
+    it != other.dynModelsEntries_.end(); ++it) {
+    dynModelsEntries_.push_back(clone(*it));
   }
 
   return *this;
