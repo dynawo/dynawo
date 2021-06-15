@@ -34,6 +34,24 @@ namespace job {
  */
 class LogsEntry {
  public:
+  /// @brief Destructor
+  ~LogsEntry();
+
+  /// @brief Constructor
+  LogsEntry();
+
+  /**
+   * @brief Copy constructor
+   * @param other originalto copy
+   */
+  LogsEntry(const LogsEntry& other);
+
+  /**
+   * @brief Assignement OPerator
+   * @param other originalto copy
+   */
+  LogsEntry& operator=(const LogsEntry& other);
+
   /**
    * @brief Appender entry adder
    * @param appenderEntry : appender for the job
@@ -45,6 +63,13 @@ class LogsEntry {
    * @return Vector of the appenders for the job
    */
   const std::vector<boost::shared_ptr<AppenderEntry> >& getAppenderEntries() const;
+
+ private:
+  /**
+   * @brief Copy
+   * @param other original to copy
+   */
+  void copy(const LogsEntry& other);
 
  private:
   std::vector<boost::shared_ptr<AppenderEntry> > appenders_;  ///< Appenders for the job

@@ -1680,12 +1680,12 @@ TEST(DataInterfaceIIDMTest, testMultiThreading) {
   auto& load = load_iterface_iidm_ptr->getUnderlyingLoad();
 
   std::thread launch0([&dataInput, &load](){
-    dataInput->useVariant("0");
+    dataInput->selectVariant("0");
     load.setP0(3.0);
     load.setQ0(5.0);
   });
   std::thread launch1([&dataInput, &load](){
-    dataInput->useVariant("1");
+    dataInput->selectVariant("1");
     load.setP0(2.0);
     load.setQ0(4.0);
   });
@@ -1693,11 +1693,11 @@ TEST(DataInterfaceIIDMTest, testMultiThreading) {
   launch0.join();
   launch1.join();
 
-  dataInput->useVariant("0");
+  dataInput->selectVariant("0");
   ASSERT_EQ(load.getP0(), 3.0);
   ASSERT_EQ(load.getQ0(), 5.0);
 
-  dataInput->useVariant("1");
+  dataInput->selectVariant("1");
   ASSERT_EQ(load.getP0(), 2.0);
   ASSERT_EQ(load.getQ0(), 4.0);
 }

@@ -136,7 +136,6 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
     boost::shared_ptr<IIDM::Network> networkIIDM = boost::make_shared<IIDM::Network>(parser.from_xml(iidmFilePath, xsdValidation));
     data.reset(new DataInterfaceIIDM(networkIIDM));
     data->initFromIIDM();
-    data->importStaticParameters();
   } catch (const xml::sax::parser::ParserException& exp) {
     throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFilePath, exp.what());
   }

@@ -129,7 +129,6 @@ DataInterfaceIIDM::build(const std::string& iidmFilePath, unsigned int nbVariant
 
     data.reset(new DataInterfaceIIDM(networkIIDM));
     data->initFromIIDM();
-    data->importStaticParameters();
   } catch (const powsybl::PowsyblException& exp) {
     throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFilePath, exp.what());
   }
@@ -140,7 +139,7 @@ bool DataInterfaceIIDM::canUseVariant() const {
   return getNetworkIIDM().getVariantManager().isVariantMultiThreadAccessAllowed();
 }
 
-void DataInterfaceIIDM::useVariant(const std::string& variantName) {
+void DataInterfaceIIDM::selectVariant(const std::string& variantName) {
   getNetworkIIDM().getVariantManager().setWorkingVariant(variantName);
 }
 

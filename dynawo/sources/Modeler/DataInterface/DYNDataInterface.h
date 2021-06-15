@@ -39,7 +39,7 @@ class DataInterface {
   virtual ~DataInterface() { }
 
   /**
-   * @brief Determines if variant managing is supported
+   * @brief Determines if variant mangement is supported
    * @returns @b true if network variant is supported, @b false if not
    */
   virtual bool canUseVariant() const = 0;
@@ -48,7 +48,7 @@ class DataInterface {
    * @brief Choose which network variant to use
    * @param variantName the name of the variant to use
    */
-  virtual void useVariant(const std::string& variantName) = 0;
+  virtual void selectVariant(const std::string& variantName) = 0;
 
   /**
    * @brief Getter for the network interface instance

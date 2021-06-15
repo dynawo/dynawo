@@ -69,7 +69,7 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief Copy constructor
    *
-   * This does NOT clone criterias and IIDM network
+   * This does NOT clone criteria and IIDM network
    *
    * @param other data interface to clone
    */
@@ -78,7 +78,7 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief Assignement operator
    *
-   * This does NOT clone criterias and IIDM network
+   * This does NOT clone criteria and IIDM network
    *
    * @param other data interface to copy
    * @returns current data interface
@@ -114,9 +114,9 @@ class DataInterfaceIIDM : public DataInterface {
   bool canUseVariant() const;
 
   /**
-   * @copydoc DataInterface::useVariant(const std::string& variantName)
+   * @copydoc DataInterface::selectVariant(const std::string& variantName)
    */
-  void useVariant(const std::string& variantName);
+  void selectVariant(const std::string& variantName);
 
   /**
    * @copydoc DataInterface::getNetwork() const
@@ -237,7 +237,7 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief Clone data interface
    *
-   * This does NOT clone criterias and IIDM network
+   * This does NOT clone criteria and IIDM network
    *
    * @returns clone of current data interface
    */
@@ -409,7 +409,7 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief Copy data interface info
    *
-   * This does NOT copy criterias and IIDM network
+   * This does NOT copy criteria and IIDM network
    *
    * @param other data interface to copy
    */

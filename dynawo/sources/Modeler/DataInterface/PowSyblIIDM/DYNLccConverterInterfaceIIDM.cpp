@@ -60,8 +60,7 @@ LccConverterInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(-1 * getQ())));
   if (getBusInterface()) {
     double U0 = getBusInterface()->getV0();
-    stdcxx::Reference<powsybl::iidm::HvdcLine> hvdcRef = lccConverterIIDM_.getHvdcLine();
-    double vNom = hvdcRef ? hvdcRef.get().getNominalV() : 0.0;
+    double vNom = lccConverterIIDM_.getHvdcLine().get().getNominalV();
     double teta = getBusInterface()->getAngle0();
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(U0 / vNom)));
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180)));

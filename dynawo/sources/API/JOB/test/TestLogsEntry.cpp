@@ -21,6 +21,8 @@
 #include "JOBLogsEntry.h"
 #include "JOBAppenderEntry.h"
 
+#include "DYNClone.hpp"
+
 namespace job {
 
 TEST(APIJOBTest, testLogsEntry) {
@@ -34,6 +36,9 @@ TEST(APIJOBTest, testLogsEntry) {
   logs->addAppenderEntry(appender1);
 
   ASSERT_EQ(logs->getAppenderEntries().size(), 2);
+
+  boost::shared_ptr<LogsEntry> logs_bis = DYN::clone(logs);
+  ASSERT_EQ(logs_bis->getAppenderEntries().size(), 2);
 }
 
 }  // namespace job
