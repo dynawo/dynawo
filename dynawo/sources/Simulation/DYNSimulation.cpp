@@ -678,6 +678,9 @@ Simulation::init() {
 #endif
 
   tCurrent_ = tStart_;
+
+  model_->initSilentZ(solver_->silentZEnabled());
+
   Trace::info() << DYNLog(ModelBuildingEnd) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 
@@ -737,7 +740,6 @@ Simulation::calculateIC() {
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(ModelLocalInit) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
-  model_->setEnableSilentZ(solver_->silentZEnabled());
   model_->setIsInitProcess(true);
   model_->init(tStart_);
   model_->rotateBuffers();
