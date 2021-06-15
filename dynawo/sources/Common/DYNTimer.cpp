@@ -49,6 +49,9 @@ Timers::add(const std::string& name, const double& time) {
 
 void
 Timers::add_(const std::string& name, const double& time) {
+#ifdef LANG_CXX11
+  std::unique_lock<std::mutex> lock(timersMutex_);
+#endif
   timers_[name] += time;
   nbAppels_[name] += 1;
 }
