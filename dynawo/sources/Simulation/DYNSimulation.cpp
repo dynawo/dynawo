@@ -517,8 +517,6 @@ Simulation::loadDynamicData() {
   if (criteriaCollection_)
     data_->configureCriteria(criteriaCollection_);
 
-  data_->importStaticParameters();  // Import static model's parameters' values into DataInterface, these values are useful for referece parameters.
-
   dyd_->setDataInterface(data_);
 
   dyd_->initFromDydFiles(dydFiles_);

@@ -143,6 +143,12 @@ class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM {
     country_ = country;
   }
 
+#if _DEBUG_
+  powsybl::iidm::Load& getUnderlyingLoad() {
+    return loadIIDM_;
+  }
+#endif
+
  private:
   powsybl::iidm::Load& loadIIDM_;  ///< reference to the iidm load instance
   double loadPUnderV_;             ///< load power value if voltage is under threshold

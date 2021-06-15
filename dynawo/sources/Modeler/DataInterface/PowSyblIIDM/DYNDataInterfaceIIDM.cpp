@@ -85,7 +85,7 @@ DataInterfaceIIDM::~DataInterfaceIIDM() {
 
 
 boost::shared_ptr<DataInterface>
-DataInterfaceIIDM::build(std::string iidmFilePath) {
+DataInterfaceIIDM::build(const std::string& iidmFilePath, unsigned int nbVariants) {
   boost::shared_ptr<DataInterfaceIIDM>  data;
   try {
     stdcxx::Properties properties;
@@ -109,14 +109,31 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
 
     powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(boost::filesystem::path(iidmFilePath), options);
 
+    if (nbVariants > 1) {
+      auto& manager = networkIIDM.getVariantManager();
+      manager.allowVariantMultiThreadAccess(true);
+      for (unsigned int i = 0; i < nbVariants; ++i) {
+        const std::string& variantName = std::to_string(i);
+        manager.cloneVariant(powsybl::iidm::VariantManager::getInitialVariantId(), variantName, true);
+      }
+    }
+
     data.reset(new DataInterfaceIIDM(std::move(networkIIDM)));
     data->initFromIIDM();
+    data->importStaticParameters();
   } catch (const powsybl::PowsyblException& exp) {
     throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFilePath, exp.what());
   }
   return data;
 }
 
+bool DataInterfaceIIDM::canUseVariant() const {
+  return getNetworkIIDM().getVariantManager().isVariantMultiThreadAccessAllowed();
+}
+
+void DataInterfaceIIDM::useVariant(const std::string& variantName) {
+  getNetworkIIDM().getVariantManager().setWorkingVariant(variantName);
+}
 
 void
 DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {

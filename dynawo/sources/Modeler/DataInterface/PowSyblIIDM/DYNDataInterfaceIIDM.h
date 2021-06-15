@@ -44,9 +44,10 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief Build an instance of this class by reading a file
    * @param iidmFilePath iidm file path
+   * @param nbVariants number of variants of the network
    * @return The data interface built from the input file
    */
-  static boost::shared_ptr<DataInterface> build(std::string iidmFilePath);
+  static boost::shared_ptr<DataInterface> build(const std::string& iidmFilePath, unsigned int nbVariants = 1);
 
   /**
    * @brief Constructor
@@ -81,6 +82,16 @@ class DataInterfaceIIDM : public DataInterface {
    * @param filepath file to create
    */
   void dumpToFile(const std::string& filepath) const;
+
+  /**
+   * @copydoc DataInterface::canUseVariant() const
+   */
+  bool canUseVariant() const;
+
+  /**
+   * @copydoc DataInterface::useVariant(const std::string& variantName)
+   */
+  void useVariant(const std::string& variantName);
 
   /**
    * @copydoc DataInterface::getNetwork() const
