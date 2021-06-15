@@ -29,18 +29,6 @@ set IIDM_XML_XSD_PATH=%LIBIIDM_HOME%\share\iidm\xsd\
 set DYNAWO_IIDM_EXTENSION=%DYNAWO_INSTALL_DIR%\lib\dynawo_DataInterfaceIIDMExtension.dll
 set DYNAWO_LIBIIDM_EXTENSIONS=%LIBIIDM_HOME%\bin
 
-:: For DLL runtime
-set DLFCNWIN32_ROOT=%thirdPartyInstallPath%
-set LIBXML_HOME=%thirdPartyInstallPath%
-set BOOST_PATH=%thirdPartyInstallPath%
-set LIBARCHIVE_HOME=%thirdPartyInstallPath%
-set ZLIB_ROOT=%thirdPartyInstallPath%
-set LIBZIP_HOME=%thirdPartyInstallPath%
-set ADEPT_HOME=%thirdPartyInstallPath%
-set SUITESPARSE_HOME=%thirdPartyInstallPath%
-set SUNDIALS_HOME=%thirdPartyInstallPath%
-set XERCESC_HOME=%thirdPartyInstallPath%
-
 set OPENMODELICA_HOME=%DYNAWO_INSTALL_DIR%OpenModelica
 
 if not defined DYNAWO_PYTHON_COMMAND (
@@ -72,9 +60,7 @@ if not defined DYNAWO_BROWSER (
 
 set oldpath=%path%
 
-PATH=%OPENMODELICA_HOME%\bin;%DYNAWO_INSTALL_DIR%ddb;%DYNAWO_INSTALL_DIR%lib;%PATH%
-PATH=%DLFCNWIN32_ROOT%\bin;%LIBXML_HOME%\bin;%PATH%
-PATH=%BOOST_PATH%\lib;%LIBARCHIVE_HOME%\bin;%ZLIB_ROOT%\bin;%LIBIIDM_HOME%\bin;%LIBZIP_HOME%\bin;%ADEPT_HOME%\bin;%SUITESPARSE_HOME%\bin;%SUNDIALS_HOME%\lib;%XERCESC_HOME%\bin;%PATH%
+PATH=%OPENMODELICA_HOME%\bin;%DYNAWO_INSTALL_DIR%ddb;%DYNAWO_INSTALL_DIR%lib;%DYNAWO_INSTALL_DIR%bin;%PATH%
 
 :: To compile Modelica models
 set DYNAWO_ADEPT_INSTALL_DIR=%thirdPartyInstallPath%
