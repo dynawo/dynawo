@@ -49,6 +49,7 @@
 #include "DYNFictBusInterfaceIIDM.h"
 #include "DYNFictTwoWTransformerInterfaceIIDM.h"
 #include "DYNFictVoltageLevelInterfaceIIDM.h"
+#include "DYNClone.hpp"
 
 #include <powsybl/iidm/converter/ExportOptions.hpp>
 #include <powsybl/iidm/converter/ImportOptions.hpp>
@@ -78,8 +79,8 @@ namespace DYN {
 
 std::mutex DataInterfaceIIDM::loadExtensionMutex_;
 
-DataInterfaceIIDM::DataInterfaceIIDM(powsybl::iidm::Network&& networkIIDM) :
-networkIIDM_(std::forward<powsybl::iidm::Network>(networkIIDM)),
+DataInterfaceIIDM::DataInterfaceIIDM(const boost::shared_ptr<powsybl::iidm::Network>& networkIIDM) :
+networkIIDM_(networkIIDM),
 serviceManager_(boost::make_shared<ServiceManagerInterfaceIIDM>(this)) {
 }
 
@@ -113,10 +114,10 @@ DataInterfaceIIDM::build(const std::string& iidmFilePath, unsigned int nbVariant
       }
     }
 
-    powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(boost::filesystem::path(iidmFilePath), options);
+    auto networkIIDM = boost::make_shared<powsybl::iidm::Network>(powsybl::iidm::Network::readXml(boost::filesystem::path(iidmFilePath), options));
 
     if (nbVariants > 1) {
-      auto& manager = networkIIDM.getVariantManager();
+      auto& manager = networkIIDM->getVariantManager();
       manager.allowVariantMultiThreadAccess(true);
       for (unsigned int i = 0; i < nbVariants; ++i) {
         const std::string& variantName = std::to_string(i);
@@ -124,7 +125,7 @@ DataInterfaceIIDM::build(const std::string& iidmFilePath, unsigned int nbVariant
       }
     }
 
-    data.reset(new DataInterfaceIIDM(std::move(networkIIDM)));
+    data.reset(new DataInterfaceIIDM(networkIIDM));
     data->initFromIIDM();
     data->importStaticParameters();
   } catch (const powsybl::PowsyblException& exp) {
@@ -148,7 +149,7 @@ DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
     properties.set(powsybl::iidm::converter::ExportOptions::THROW_EXCEPTION_IF_EXTENSION_NOT_FOUND, "true");
     powsybl::iidm::converter::ExportOptions options(properties);
 
-    powsybl::iidm::Network::writeXml(boost::filesystem::path(iidmFilePath), networkIIDM_, options);
+    powsybl::iidm::Network::writeXml(boost::filesystem::path(iidmFilePath), *networkIIDM_, options);
   } catch (const powsybl::PowsyblException& exp) {
     throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFilePath, exp.what());
   }
@@ -156,12 +157,12 @@ DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
 
 powsybl::iidm::Network&
 DataInterfaceIIDM::getNetworkIIDM() {
-  return networkIIDM_;
+  return *networkIIDM_;
 }
 
 const powsybl::iidm::Network&
 DataInterfaceIIDM::getNetworkIIDM() const {
-  return networkIIDM_;
+  return *networkIIDM_;
 }
 
 std::string
@@ -266,11 +267,11 @@ DataInterfaceIIDM::getBusName(const std::string& componentName, const std::strin
 void
 DataInterfaceIIDM::initFromIIDM() {
   // create network interface
-  network_.reset(new NetworkInterfaceIIDM(networkIIDM_));
+  network_.reset(new NetworkInterfaceIIDM(*networkIIDM_));
 
-  for (auto& substation : networkIIDM_.getSubstations()) {
+  for (auto& substation : networkIIDM_->getSubstations()) {
     for (auto& voltageLevel : substation.getVoltageLevels()) {
-      shared_ptr<VoltageLevelInterface> vl = importVoltageLevel(voltageLevel, substation.getCountry());
+      auto vl = importVoltageLevel(voltageLevel, substation.getCountry());
       network_->addVoltageLevel(vl);
       voltageLevels_[vl->getID()] = vl;
     }
@@ -279,8 +280,8 @@ DataInterfaceIIDM::initFromIIDM() {
   //===========================
   //  ADD 2WTFO INTERFACE
   //===========================
-  for (auto& twoWindingTransfoIIDM : networkIIDM_.getTwoWindingsTransformers()) {
-    shared_ptr<TwoWTransformerInterface> tfo = importTwoWindingsTransformer(twoWindingTransfoIIDM);
+  for (auto& twoWindingTransfoIIDM : networkIIDM_->getTwoWindingsTransformers()) {
+    auto tfo = importTwoWindingsTransformer(twoWindingTransfoIIDM);
     network_->addTwoWTransformer(tfo);
     components_[tfo->getID()] = tfo;
   }
@@ -288,15 +289,15 @@ DataInterfaceIIDM::initFromIIDM() {
   //==========================================
   //  CONVERT THREE WINDINGS TRANSFORMERS
   //==========================================
-  for (auto& threeWindingTransfoIIDM : networkIIDM_.getThreeWindingsTransformers()) {
+  for (auto& threeWindingTransfoIIDM : networkIIDM_->getThreeWindingsTransformers()) {
     convertThreeWindingsTransformers(threeWindingTransfoIIDM);
   }
 
   //===========================
   //  ADD LINE INTERFACE
   //===========================
-  for (auto& lineIIDM : networkIIDM_.getLines()) {
-    shared_ptr<LineInterface> line = importLine(lineIIDM);
+  for (auto& lineIIDM : networkIIDM_->getLines()) {
+    auto line = importLine(lineIIDM);
     network_->addLine(line);
     components_[line->getID()] = line;
   }
@@ -304,15 +305,15 @@ DataInterfaceIIDM::initFromIIDM() {
   //===========================
   //  ADD HVDC LINE INTERFACE
   //===========================
-  for (auto& hvdcLineIIDM : networkIIDM_.getHvdcLines()) {
-    shared_ptr<HvdcLineInterface> hvdc = importHvdcLine(hvdcLineIIDM);
+  for (auto& hvdcLineIIDM : networkIIDM_->getHvdcLines()) {
+    auto hvdc = importHvdcLine(hvdcLineIIDM);
     network_->addHvdcLine(hvdc);
     components_[hvdc->getID()] = hvdc;
   }
   DYNErrorQueue::instance().flush();
 }
 
-shared_ptr<VoltageLevelInterface>
+shared_ptr<VoltageLevelInterfaceIIDM>
 DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelIIDM, const stdcxx::optional<powsybl::iidm::Country>& country) {
   shared_ptr<VoltageLevelInterfaceIIDM> voltageLevel(new VoltageLevelInterfaceIIDM(voltageLevelIIDM));
   string countryStr;
@@ -367,9 +368,9 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     //  ADD SWITCH INTERFACE
     //===========================
     for (auto& switchIIDM : voltageLevelIIDM.getSwitches()) {
-      shared_ptr<BusInterface> bus1 = findBusBreakerBusInterface(voltageLevelIIDM.getBusBreakerView().getBus1(switchIIDM.getId()).get());
-      shared_ptr<BusInterface> bus2 = findBusBreakerBusInterface(voltageLevelIIDM.getBusBreakerView().getBus2(switchIIDM.getId()).get());
-      shared_ptr<SwitchInterface> sw = importSwitch(switchIIDM, bus1, bus2);
+      auto bus1 = findBusBreakerBusInterface(voltageLevelIIDM.getBusBreakerView().getBus1(switchIIDM.getId()).get());
+      auto bus2 = findBusBreakerBusInterface(voltageLevelIIDM.getBusBreakerView().getBus2(switchIIDM.getId()).get());
+      auto sw = importSwitch(switchIIDM, bus1, bus2);
       if (sw->getBusInterface1() != sw->getBusInterface2()) {  // if the switch is connecting one single bus, don't create a specific switch model
         components_[sw->getID()] = sw;
         voltageLevel->addSwitch(sw);
@@ -381,7 +382,7 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
   //  ADD VSC CONVERTER INTERFACE
   //==========================================
   for (auto& vscConverterIIDM : voltageLevelIIDM.getVscConverterStations()) {
-    shared_ptr<VscConverterInterface> vsc = importVscConverter(vscConverterIIDM);
+    auto vsc = importVscConverter(vscConverterIIDM);
     voltageLevel->addVscConverter(vsc);
     components_[vsc->getID()] = vsc;
     vsc->setVoltageLevelInterface(voltageLevel);
@@ -391,7 +392,7 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
   //  ADD LCC CONVERTER INTERFACE
   //==========================================
   for (auto& lccConverterIIDM : voltageLevelIIDM.getLccConverterStations()) {
-    shared_ptr<LccConverterInterface> lcc = importLccConverter(lccConverterIIDM);
+    auto lcc = importLccConverter(lccConverterIIDM);
     voltageLevel->addLccConverter(lcc);
     components_[lcc->getID()] = lcc;
     lcc->setVoltageLevelInterface(voltageLevel);
@@ -400,7 +401,7 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
   //  ADD GENERATOR INTERFACE
   //===========================
   for (auto& genIIDM : voltageLevelIIDM.getGenerators()) {
-    shared_ptr<GeneratorInterface> generator = importGenerator(genIIDM, countryStr);
+    auto generator = importGenerator(genIIDM, countryStr);
     voltageLevel->addGenerator(generator);
     components_[generator->getID()] = generator;
     generatorComponents_[generator->getID()] = generator;
@@ -411,7 +412,7 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
   //  ADD LOAD INTERFACE
   //===========================
   for (auto& loadIIDM : voltageLevelIIDM.getLoads()) {
-    shared_ptr<LoadInterface> load = importLoad(loadIIDM, countryStr);
+    auto load = importLoad(loadIIDM, countryStr);
     voltageLevel->addLoad(load);
     components_[load->getID()] = load;
     loadComponents_[load->getID()] = load;
@@ -421,7 +422,7 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
   //    ADD SHUNTCOMPENSATORS INTERFACE
   // =======================================
   for (auto& shuntCompensators : voltageLevelIIDM.getShuntCompensators()) {
-    shared_ptr<ShuntCompensatorInterface> shunt = importShuntCompensator(shuntCompensators);
+    auto shunt = importShuntCompensator(shuntCompensators);
     voltageLevel->addShuntCompensator(shunt);
     components_[shunt->getID()] = shunt;
     shunt->setVoltageLevelInterface(voltageLevel);
@@ -431,7 +432,7 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
   //  ADD DANGLINGLINE INTERFACE
   //==============================
   for (auto& danglingLine : voltageLevelIIDM.getDanglingLines()) {
-    shared_ptr<DanglingLineInterface> line = importDanglingLine(danglingLine);
+    auto line = importDanglingLine(danglingLine);
     voltageLevel->addDanglingLine(line);
     components_[line->getID()] = line;
     line->setVoltageLevelInterface(voltageLevel);
@@ -441,7 +442,7 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
   //  ADD STATICVARCOMPENSATOR INTERFACE
   //==========================================
   for (auto& staticVarCompensator : voltageLevelIIDM.getStaticVarCompensators()) {
-    shared_ptr<StaticVarCompensatorInterface> svc = importStaticVarCompensator(staticVarCompensator);
+    auto svc = importStaticVarCompensator(staticVarCompensator);
     voltageLevel->addStaticVarCompensator(svc);
     components_[svc->getID()] = svc;
     svc->setVoltageLevelInterface(voltageLevel);
@@ -450,7 +451,7 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
   return voltageLevel;
 }
 
-shared_ptr<SwitchInterface>
+shared_ptr<SwitchInterfaceIIDM>
 DataInterfaceIIDM::importSwitch(powsybl::iidm::Switch& switchIIDM, const shared_ptr<BusInterface>& bus1
     , const shared_ptr<BusInterface>& bus2) {
   shared_ptr<SwitchInterfaceIIDM> sw(new SwitchInterfaceIIDM(switchIIDM));
@@ -459,7 +460,7 @@ DataInterfaceIIDM::importSwitch(powsybl::iidm::Switch& switchIIDM, const shared_
   return sw;
 }
 
-shared_ptr<GeneratorInterface>
+shared_ptr<GeneratorInterfaceIIDM>
 DataInterfaceIIDM::importGenerator(powsybl::iidm::Generator & generatorIIDM, const std::string& country) {
   shared_ptr<GeneratorInterfaceIIDM> generator(new GeneratorInterfaceIIDM(generatorIIDM));
   generator->setCountry(country);
@@ -467,7 +468,7 @@ DataInterfaceIIDM::importGenerator(powsybl::iidm::Generator & generatorIIDM, con
   return generator;
 }
 
-shared_ptr<LoadInterface>
+shared_ptr<LoadInterfaceIIDM>
 DataInterfaceIIDM::importLoad(powsybl::iidm::Load& loadIIDM, const std::string& country) {
   shared_ptr<LoadInterfaceIIDM> load(new LoadInterfaceIIDM(loadIIDM));
   load->setCountry(country);
@@ -475,14 +476,14 @@ DataInterfaceIIDM::importLoad(powsybl::iidm::Load& loadIIDM, const std::string& 
   return load;
 }
 
-shared_ptr<ShuntCompensatorInterface>
+shared_ptr<ShuntCompensatorInterfaceIIDM>
 DataInterfaceIIDM::importShuntCompensator(powsybl::iidm::ShuntCompensator& shuntIIDM) {
   shared_ptr<ShuntCompensatorInterfaceIIDM> shunt(new ShuntCompensatorInterfaceIIDM(shuntIIDM));
   shunt->setBusInterface(findBusInterface(shuntIIDM.getTerminal()));
   return shunt;
 }
 
-shared_ptr<DanglingLineInterface>
+shared_ptr<DanglingLineInterfaceIIDM>
 DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineIIDM) {
   shared_ptr<DanglingLineInterfaceIIDM> danglingLine(new DanglingLineInterfaceIIDM(danglingLineIIDM));
   danglingLine->setBusInterface(findBusInterface(danglingLineIIDM.getTerminal()));
@@ -507,14 +508,14 @@ DataInterfaceIIDM::importDanglingLine(powsybl::iidm::DanglingLine& danglingLineI
   return danglingLine;
 }
 
-shared_ptr<StaticVarCompensatorInterface>
+shared_ptr<StaticVarCompensatorInterfaceIIDM>
 DataInterfaceIIDM::importStaticVarCompensator(powsybl::iidm::StaticVarCompensator& svcIIDM) {
   shared_ptr<StaticVarCompensatorInterfaceIIDM> svc(new StaticVarCompensatorInterfaceIIDM(svcIIDM));
   svc->setBusInterface(findBusInterface(svcIIDM.getTerminal()));
   return svc;
 }
 
-shared_ptr<TwoWTransformerInterface>
+shared_ptr<TwoWTransformerInterfaceIIDM>
 DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransformer& twoWTfoIIDM) {
   shared_ptr<TwoWTransformerInterfaceIIDM> twoWTfo(new TwoWTransformerInterfaceIIDM(twoWTfoIIDM));
 
@@ -654,7 +655,7 @@ DataInterfaceIIDM::convertThreeWindingsTransformers(powsybl::iidm::ThreeWindings
   return;
 }
 
-shared_ptr<LineInterface>
+shared_ptr<LineInterfaceIIDM>
 DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
   shared_ptr<LineInterfaceIIDM> line(new LineInterfaceIIDM(lineIIDM));
   line->setBusInterface1(findBusInterface(lineIIDM.getTerminal1()));
@@ -698,21 +699,21 @@ DataInterfaceIIDM::importLine(powsybl::iidm::Line& lineIIDM) {
   return line;
 }
 
-shared_ptr<VscConverterInterface>
+shared_ptr<VscConverterInterfaceIIDM>
 DataInterfaceIIDM::importVscConverter(powsybl::iidm::VscConverterStation& vscIIDM) {
   shared_ptr<VscConverterInterfaceIIDM> vsc(new VscConverterInterfaceIIDM(vscIIDM));
   vsc->setBusInterface(findBusInterface(vscIIDM.getTerminal()));
   return vsc;
 }
 
-shared_ptr<LccConverterInterface>
+shared_ptr<LccConverterInterfaceIIDM>
 DataInterfaceIIDM::importLccConverter(powsybl::iidm::LccConverterStation& lccIIDM) {
   shared_ptr<LccConverterInterfaceIIDM> lcc(new LccConverterInterfaceIIDM(lccIIDM));
   lcc->setBusInterface(findBusInterface(lccIIDM.getTerminal()));
   return lcc;
 }
 
-shared_ptr<HvdcLineInterface>
+shared_ptr<HvdcLineInterfaceIIDM>
 DataInterfaceIIDM::importHvdcLine(powsybl::iidm::HvdcLine& hvdcLineIIDM) {
   shared_ptr<ConverterInterface> conv1 = dynamic_pointer_cast<ConverterInterface>(findComponent(hvdcLineIIDM.getConverterStation1().get().getId()));
   shared_ptr<ConverterInterface> conv2 = dynamic_pointer_cast<ConverterInterface>(findComponent(hvdcLineIIDM.getConverterStation2().get().getId()));
@@ -749,7 +750,7 @@ DataInterfaceIIDM::findBusBreakerBusInterface(const powsybl::iidm::Bus& bus) con
 }
 
 
-boost::shared_ptr<BusInterface>
+boost::shared_ptr<CalculatedBusInterfaceIIDM>
 DataInterfaceIIDM::findNodeBreakerBusInterface(const powsybl::iidm::VoltageLevel& vl, const int node) const {
   if (vl.getTopologyKind() == powsybl::iidm::TopologyKind::BUS_BREAKER) {
     throw DYNError(Error::MODELER, UnknownCalculatedBus, vl.getId(), node);
@@ -994,12 +995,11 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
         }
       }
     } else {
-      for (boost::unordered_map<std::string, boost::shared_ptr<LoadInterface> >::const_iterator cmpIt = loadComponents_.begin(),
+      for (boost::unordered_map<std::string, boost::shared_ptr<LoadInterfaceIIDM> >::const_iterator cmpIt = loadComponents_.begin(),
           cmpItEnd = loadComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
         if (crit->hasCountryFilter()) {
-          boost::shared_ptr<LoadInterfaceIIDM> load = dynamic_pointer_cast<LoadInterfaceIIDM>(cmpIt->second);
-          if (!load->getCountry().empty() && !crit->containsCountry(load->getCountry()))
+          if (!cmpIt->second->getCountry().empty() && !crit->containsCountry(cmpIt->second->getCountry()))
             continue;
         }
         dynCriteria->addLoad(cmpIt->second);
@@ -1041,12 +1041,11 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
         }
       }
     } else {
-      for (boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> >::const_iterator cmpIt = generatorComponents_.begin(),
+      for (boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterfaceIIDM> >::const_iterator cmpIt = generatorComponents_.begin(),
           cmpItEnd = generatorComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
         if (crit->hasCountryFilter()) {
-          boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmpIt->second);
-          if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
+          if (!cmpIt->second->getCountry().empty() && !crit->containsCountry(cmpIt->second->getCountry()))
             continue;
         }
         dynCriteria->addGenerator(cmpIt->second);
@@ -1105,6 +1104,29 @@ DataInterfaceIIDM::getStaticParameterBoolValue(const std::string& staticID, cons
   return findComponent(staticID)->getStaticParameterValue<bool>(refOrigName);
 }
 
+void
+DataInterfaceIIDM::copy(const DataInterfaceIIDM& other) {
+  networkIIDM_  = other.networkIIDM_;  // No clone here because iidm network is not copyable
+  // Criterias are not copied and must be initialized again
 
+  initFromIIDM();
+  importStaticParameters();
+
+  serviceManager_ = DYN::clone(other.serviceManager_);
+}
+
+DataInterfaceIIDM::DataInterfaceIIDM(const DataInterfaceIIDM& other) {
+  copy(other);
+}
+
+DataInterfaceIIDM& DataInterfaceIIDM::operator=(const DataInterfaceIIDM& other) {
+  copy(other);
+  return *this;
+}
+
+boost::shared_ptr<DataInterface>
+DataInterfaceIIDM::clone() const {
+  return boost::make_shared<DataInterfaceIIDM>(*this);
+}
 
 }  // namespace DYN

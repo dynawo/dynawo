@@ -93,9 +93,12 @@ set_target_properties(dynawo_DataInterface PROPERTIES VERSION ${DATA_INTERFACE_V
 add_library(dynawo_DataInterfaceFactory SHARED ${DATA_INTERFACE_FACTORY_SOURCES})
 
 target_link_libraries(dynawo_DataInterfaceFactory
-  dynawo_Common
-  dynawo_DataInterface
-  dynawo_DataInterfaceIIDM
+  PUBLIC
+    dynawo_Common
+    dynawo_DataInterface
+    dynawo_DataInterfaceIIDM
+  PRIVATE
+    dynawo_ModelerCommon
 )
 
 set_target_properties(dynawo_DataInterfaceFactory PROPERTIES VERSION ${DATA_INTERFACE_FACTORY_VERSION_STRING}

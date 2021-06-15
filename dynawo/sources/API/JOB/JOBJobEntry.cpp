@@ -17,26 +17,26 @@
  */
 
 #include "JOBJobEntry.h"
-#include "JOBUtils.hpp"
+#include "DYNClone.hpp"
 
 namespace job {
 
 JobEntry::JobEntry() {}
 
 JobEntry::JobEntry(const JobEntry& other) :
-    modelerEntry_(clone(other.modelerEntry_)),
-    solverEntry_(clone(other.solverEntry_)),
-    simulationEntry_(clone(other.simulationEntry_)),
-    outputsEntry_(clone(other.outputsEntry_)),
+    modelerEntry_(DYN::clone(other.modelerEntry_)),
+    solverEntry_(DYN::clone(other.solverEntry_)),
+    simulationEntry_(DYN::clone(other.simulationEntry_)),
+    outputsEntry_(DYN::clone(other.outputsEntry_)),
     name_(other.name_)
 {}
 
 JobEntry&
 JobEntry::operator=(const JobEntry& other) {
-  modelerEntry_ = clone(other.modelerEntry_);
-  solverEntry_ = clone(other.solverEntry_);
-  simulationEntry_ = clone(other.simulationEntry_);
-  outputsEntry_ = clone(other.outputsEntry_);
+  modelerEntry_ = DYN::clone(other.modelerEntry_);
+  solverEntry_ = DYN::clone(other.solverEntry_);
+  simulationEntry_ = DYN::clone(other.simulationEntry_);
+  outputsEntry_ = DYN::clone(other.outputsEntry_);
   name_ = other.name_;
   return *this;
 }

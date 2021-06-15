@@ -175,6 +175,8 @@ class DataInterface {
    * @returns the service manager
    */
   virtual boost::shared_ptr<ServiceManagerInterface> getServiceManager() const = 0;
+
+  virtual boost::shared_ptr<DataInterface> clone() const = 0;
 };  ///< Class for data interface
 }  // namespace DYN
 

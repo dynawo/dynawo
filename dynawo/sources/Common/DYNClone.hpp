@@ -12,16 +12,17 @@
 //
 
 /**
- * @file JOBUtils.hpp
- * @brief Utils for jobs file managements
+ * @file DYNClone.hpp
+ * @brief clone shared pointer
  */
-#ifndef API_JOB_JOBUTILS_HPP_
-#define API_JOB_JOBUTILS_HPP_
+#ifndef COMMON_DYNCLONE_HPP_
+#define COMMON_DYNCLONE_HPP_
 
 #include <boost/make_shared.hpp>
 #include <boost/shared_ptr.hpp>
+#include <vector>
 
-namespace job {
+namespace DYN {
 
 /**
  * @brief Util function to clone content of a shared pointer into another shared pointer
@@ -38,6 +39,6 @@ clone(const boost::shared_ptr<T>& other) {
   return boost::make_shared<T>(*other);
 }
 
-}  // namespace job
+}  // namespace DYN
 
-#endif  // API_JOB_JOBUTILS_HPP_
+#endif  // COMMON_DYNCLONE_HPP_

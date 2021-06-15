@@ -22,6 +22,7 @@
 
 #include <map>
 #include <boost/unordered_set.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include <IIDM/Network.h>
 
@@ -80,12 +81,15 @@ class DataInterfaceIIDM : public DataInterface {
    * @brief Constructor
    * @param networkIIDM instance of iidm network
    */
-  explicit DataInterfaceIIDM(IIDM::Network networkIIDM);
+  explicit DataInterfaceIIDM(const boost::shared_ptr<IIDM::Network>& networkIIDM);
 
   /**
    * @brief Destructor
    */
   ~DataInterfaceIIDM();
+
+  DataInterfaceIIDM(const DataInterfaceIIDM& other);
+  DataInterfaceIIDM& operator=(const DataInterfaceIIDM& other);
 
   /**
    * @brief init dataInterface from iidm network
@@ -195,6 +199,23 @@ class DataInterfaceIIDM : public DataInterface {
    */
   boost::shared_ptr<ServiceManagerInterface> getServiceManager() const {
     return serviceManager_;
+  }
+
+  boost::shared_ptr<DataInterface> clone() const;
+
+  /**
+   * @copydoc DataInterface::canUseVariant() const
+   */
+  bool canUseVariant() const {
+    return false;
+  }
+
+  /**
+   * @copydoc DataInterface::useVariant(const std::string& variantName)
+   */
+  void useVariant(const std::string& variantName) {
+    // do nothing
+    (void)variantName;
   }
 
  private:
@@ -366,8 +387,10 @@ class DataInterfaceIIDM : public DataInterface {
    */
   void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
 
+  void copy(const DataInterfaceIIDM& other);
+
  private:
-  IIDM::Network networkIIDM_;  ///< instance of the IIDM network
+  boost::shared_ptr<IIDM::Network> networkIIDM_;  ///< instance of the IIDM network
   boost::shared_ptr<NetworkInterfaceIIDM> network_;  ///< instance of the network interface
   std::map<std::string, boost::shared_ptr<VoltageLevelInterface> > voltageLevels_;  ///< map of voltageLevel by name
   std::map<std::string, boost::shared_ptr<ComponentInterface> > components_;  ///< map of components by name
