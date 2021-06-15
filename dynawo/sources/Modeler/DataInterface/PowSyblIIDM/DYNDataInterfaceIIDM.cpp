@@ -1108,7 +1108,6 @@ DataInterfaceIIDM::copy(const DataInterfaceIIDM& other) {
   serviceManager_ = boost::make_shared<ServiceManagerInterfaceIIDM>(this);
 
   initFromIIDM();
-  importStaticParameters();
 }
 
 DataInterfaceIIDM::DataInterfaceIIDM(const DataInterfaceIIDM& other) {

@@ -1366,7 +1366,6 @@ DataInterfaceIIDM::copy(const DataInterfaceIIDM& other) {
   // Criterias are not copied and must be initialized again
 
   initFromIIDM();
-  importStaticParameters();
 
   serviceManager_ = DYN::clone(other.serviceManager_);
 }
