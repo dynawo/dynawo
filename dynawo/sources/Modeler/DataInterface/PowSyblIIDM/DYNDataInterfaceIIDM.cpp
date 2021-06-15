@@ -120,7 +120,8 @@ DataInterfaceIIDM::build(const std::string& iidmFilePath, unsigned int nbVariant
       manager.allowVariantMultiThreadAccess(true);
       for (unsigned int i = 0; i < nbVariants; ++i) {
         const std::string& variantName = std::to_string(i);
-        manager.cloneVariant(powsybl::iidm::VariantManager::getInitialVariantId(), variantName, true);
+        constexpr bool overwrite = true;
+        manager.cloneVariant(powsybl::iidm::VariantManager::getInitialVariantId(), variantName, overwrite);
       }
     }
 
@@ -1107,11 +1108,10 @@ void
 DataInterfaceIIDM::copy(const DataInterfaceIIDM& other) {
   networkIIDM_  = other.networkIIDM_;  // No clone here because iidm network is not copyable
   // Criterias are not copied and must be initialized again
+  serviceManager_ = boost::make_shared<ServiceManagerInterfaceIIDM>(this);
 
   initFromIIDM();
   importStaticParameters();
-
-  serviceManager_ = boost::make_shared<ServiceManagerInterfaceIIDM>(this);
 }
 
 DataInterfaceIIDM::DataInterfaceIIDM(const DataInterfaceIIDM& other) {
