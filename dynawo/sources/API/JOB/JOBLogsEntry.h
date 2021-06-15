@@ -49,6 +49,7 @@ class LogsEntry {
   /**
    * @brief Assignement OPerator
    * @param other originalto copy
+   * @returns reference on current entry
    */
   LogsEntry& operator=(const LogsEntry& other);
 

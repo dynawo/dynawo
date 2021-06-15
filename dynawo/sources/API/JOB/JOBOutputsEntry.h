@@ -54,6 +54,7 @@ class OutputsEntry {
   /**
    * @brief Assignement OPerator
    * @param other originalto copy
+   * @returns reference on current entry
    */
   OutputsEntry& operator=(const OutputsEntry& other);
 

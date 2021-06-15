@@ -29,10 +29,6 @@
 
 // #define PRINT_TIMERS
 
-#ifdef LANG_CXX11
-#include <mutex>
-#endif
-
 namespace DYN {
 
 /**
@@ -79,9 +75,6 @@ class Timers : private boost::noncopyable {
  private:
   std::map<std::string, double> timers_;  ///< association between timers and time elapsed
   std::map<std::string, int32_t> nbAppels_;  ///< association between timers and number of call
-#ifdef LANG_CXX11
-  std::mutex timersMutex_;  ///< Mutex to handle multithreading access
-#endif
 };
 
 /**
