@@ -49,7 +49,6 @@
 #include "DYNFictBusInterfaceIIDM.h"
 #include "DYNFictTwoWTransformerInterfaceIIDM.h"
 #include "DYNFictVoltageLevelInterfaceIIDM.h"
-#include "DYNClone.hpp"
 
 #include <powsybl/iidm/converter/ExportOptions.hpp>
 #include <powsybl/iidm/converter/ImportOptions.hpp>
@@ -1112,7 +1111,7 @@ DataInterfaceIIDM::copy(const DataInterfaceIIDM& other) {
   initFromIIDM();
   importStaticParameters();
 
-  serviceManager_ = DYN::clone(other.serviceManager_);
+  serviceManager_ = boost::make_shared<ServiceManagerInterfaceIIDM>(this);
 }
 
 DataInterfaceIIDM::DataInterfaceIIDM(const DataInterfaceIIDM& other) {
