@@ -102,6 +102,9 @@ class JobEntry {
    */
   JobEntry();
 
+  /// @brief Destructor
+  ~JobEntry();
+
   /**
    * @brief Copy assignment operator
    * @param other the job entry to copy

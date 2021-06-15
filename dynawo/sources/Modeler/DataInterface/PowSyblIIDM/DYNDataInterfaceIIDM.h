@@ -415,6 +415,12 @@ class DataInterfaceIIDM : public DataInterface {
    */
   void copy(const DataInterfaceIIDM& other);
 
+  /**
+   * @brief Load IIDM extensions
+   * @param paths paths list
+   */
+  static void loadExtensions(const std::vector<std::string>& paths);
+
  private:
   boost::shared_ptr<powsybl::iidm::Network> networkIIDM_;                                              ///< instance of the IIDM network
   boost::shared_ptr<NetworkInterfaceIIDM> network_;                                                    ///< instance of the network interface

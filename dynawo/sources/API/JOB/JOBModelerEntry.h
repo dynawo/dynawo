@@ -128,6 +128,9 @@ class ModelerEntry {
    */
   ModelerEntry& operator=(const ModelerEntry& other);
 
+  /// @brief Destructor
+  ~ModelerEntry();
+
  private:
   std::string compileDir_;                                            ///< Compiling directory for the simulation
   boost::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry_;       ///< preCompiled models directories

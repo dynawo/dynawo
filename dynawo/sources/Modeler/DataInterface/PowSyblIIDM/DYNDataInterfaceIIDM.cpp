@@ -86,6 +86,14 @@ serviceManager_(boost::make_shared<ServiceManagerInterfaceIIDM>(this)) {
 DataInterfaceIIDM::~DataInterfaceIIDM() {
 }
 
+void
+DataInterfaceIIDM::loadExtensions(const std::vector<std::string>& paths) {
+  std::unique_lock<std::mutex> lock(loadExtensionMutex_);
+  for (const auto& path : paths) {
+    std::regex fileRegex(stdcxx::format(".*libiidm-ext-.*\\%1%", boost::dll::shared_library::suffix().string()));
+    powsybl::iidm::ExtensionProviders<powsybl::iidm::converter::xml::ExtensionXmlSerializer>::getInstance().loadExtensions(path, fileRegex);
+  }
+}
 
 boost::shared_ptr<DataInterface>
 DataInterfaceIIDM::build(const std::string& iidmFilePath, unsigned int nbVariants) {
@@ -105,13 +113,7 @@ DataInterfaceIIDM::build(const std::string& iidmFilePath, unsigned int nbVariant
 #endif
     boost::split(paths, extensionsPaths, boost::is_any_of(splitCharacter));
 
-    {
-      std::unique_lock<std::mutex> lock(loadExtensionMutex_);
-      for (unsigned int i = 0; i < paths.size(); ++i) {
-        std::regex fileRegex(stdcxx::format(".*libiidm-ext-.*\\%1%", boost::dll::shared_library::suffix().string()));
-        powsybl::iidm::ExtensionProviders<powsybl::iidm::converter::xml::ExtensionXmlSerializer>::getInstance().loadExtensions(paths[i], fileRegex);
-      }
-    }
+    loadExtensions(paths);
 
     auto networkIIDM = boost::make_shared<powsybl::iidm::Network>(powsybl::iidm::Network::readXml(boost::filesystem::path(iidmFilePath), options));
 
@@ -998,10 +1000,8 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
       for (boost::unordered_map<std::string, boost::shared_ptr<LoadInterfaceIIDM> >::const_iterator cmpIt = loadComponents_.begin(),
           cmpItEnd = loadComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        if (crit->hasCountryFilter()) {
-          if (!cmpIt->second->getCountry().empty() && !crit->containsCountry(cmpIt->second->getCountry()))
+        if (crit->hasCountryFilter() && !cmpIt->second->getCountry().empty() && !crit->containsCountry(cmpIt->second->getCountry()))
             continue;
-        }
         dynCriteria->addLoad(cmpIt->second);
       }
     }
@@ -1044,10 +1044,8 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
       for (boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterfaceIIDM> >::const_iterator cmpIt = generatorComponents_.begin(),
           cmpItEnd = generatorComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        if (crit->hasCountryFilter()) {
-          if (!cmpIt->second->getCountry().empty() && !crit->containsCountry(cmpIt->second->getCountry()))
+        if (crit->hasCountryFilter() && !cmpIt->second->getCountry().empty() && !crit->containsCountry(cmpIt->second->getCountry()))
             continue;
-        }
         dynCriteria->addGenerator(cmpIt->second);
       }
     }
