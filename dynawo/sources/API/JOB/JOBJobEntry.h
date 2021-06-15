@@ -97,6 +97,24 @@ class JobEntry {
    */
   const std::string& getName() const;
 
+  /**
+   * @brief Default constructor
+   */
+  JobEntry();
+
+  /**
+   * @brief Copy assignment operator
+   * @param other the job entry to copy
+   * @returns reference to this
+   */
+  JobEntry& operator=(const JobEntry& other);
+
+  /**
+   * @brief Copy constructor
+   * @param other the job entry to copy
+   */
+  JobEntry(const JobEntry& other);
+
  private:
   boost::shared_ptr<ModelerEntry> modelerEntry_;        ///< Modeler entries container
   boost::shared_ptr<SolverEntry> solverEntry_;          ///< Solver entries container
