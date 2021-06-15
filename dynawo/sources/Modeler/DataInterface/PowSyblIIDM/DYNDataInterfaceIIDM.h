@@ -66,7 +66,23 @@ class DataInterfaceIIDM : public DataInterface {
    */
   ~DataInterfaceIIDM();
 
+  /**
+   * @brief Copy constructor
+   *
+   * This does NOT clone criterias and IIDM network
+   *
+   * @param other data interface to clone
+   */
   DataInterfaceIIDM(const DataInterfaceIIDM& other);
+
+  /**
+   * @brief Assignement operator
+   *
+   * This does NOT clone criterias and IIDM network
+   *
+   * @param other data interface to copy
+   * @returns current data interface
+   */
   DataInterfaceIIDM& operator=(const DataInterfaceIIDM& other);
 
   /**
@@ -218,6 +234,13 @@ class DataInterfaceIIDM : public DataInterface {
     return serviceManager_;
   }
 
+  /**
+   * @brief Clone data interface
+   *
+   * This does NOT clone criterias and IIDM network
+   *
+   * @returns clone of current data interface
+   */
   boost::shared_ptr<DataInterface> clone() const final;
 
  private:
@@ -383,6 +406,13 @@ class DataInterfaceIIDM : public DataInterface {
    */
   void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
 
+  /**
+   * @brief Copy data interface info
+   *
+   * This does NOT copy criterias and IIDM network
+   *
+   * @param other data interface to copy
+   */
   void copy(const DataInterfaceIIDM& other);
 
  private:

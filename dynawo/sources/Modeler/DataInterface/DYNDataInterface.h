@@ -176,6 +176,11 @@ class DataInterface {
    */
   virtual boost::shared_ptr<ServiceManagerInterface> getServiceManager() const = 0;
 
+  /**
+   * @brief Clone the current data interface
+   *
+   * @returns cloned data interface
+   */
   virtual boost::shared_ptr<DataInterface> clone() const = 0;
 };  ///< Class for data interface
 }  // namespace DYN
