@@ -16,6 +16,12 @@ set(MODEL_FILES
   HvdcVSC.mo
   HvdcVSC_INIT.mo
   HvdcVSC.extvar
+  HvdcVSCDanglingP.mo
+  HvdcVSCDanglingP_INIT.mo
+  HvdcVSCDanglingP.extvar
+  HvdcVSCDanglingUdc.mo
+  HvdcVSCDanglingUdc_INIT.mo
+  HvdcVSCDanglingUdc.extvar
   )
 
 #
