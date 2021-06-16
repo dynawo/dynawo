@@ -108,6 +108,13 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   */
   void init(const double t0);
   /**
+  * @brief check whether the load is connected to the bus
+  * @return @b True if the load is connected, @b false else
+  */
+  inline bool isConnected() const {
+    return (static_cast<int>(zLocal_[running]) == RUNNING_TRUE);
+  }
+  /**
   * @brief set the silent flag for discrete variables
   * @param silentZTable flag table
   */
