@@ -41,7 +41,8 @@ nrt/data/*/*/description/*.out
 dynawo/sources/Models/CPP/ModelNetwork/DYNModelNetwork.hpp
 dynawo/sources/Models/CPP/ModelFrequency/ModelOmegaRef/DYNModelOmegaRef.hpp
 dynawo/sources/Models/CPP/ModelFrequency/ModelSignalN/DYNModelSignalN.hpp
-dynawo/sources/Models/CPP/ModelVariationArea/DYNModelVariationArea.hpp
+dynawo/sources/Models/CPP/Events/ModelVariationArea/DYNModelVariationArea.hpp
+dynawo/sources/Models/CPP/Events/ModelVoltageSetPointChange/DYNModelVoltageSetPointChange.hpp
 nrt/output/
 *.pyc
 nbproject/*

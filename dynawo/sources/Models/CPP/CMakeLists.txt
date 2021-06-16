@@ -10,5 +10,6 @@
 
 add_subdirectory(Common)
 add_subdirectory(ModelFrequency)
-add_subdirectory(ModelVariationArea)
+add_subdirectory(Events/ModelVariationArea)
+add_subdirectory(Events/ModelVoltageSetPointChange)
 add_subdirectory(ModelNetwork)

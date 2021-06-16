@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2021, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,18 +7,18 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-// simulation tool for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+// for power systems.
 //
 
 /**
- * @file  DYNModelVariationArea.h
+ * @file  DYNVoltageSetPointChange.h
  *
  * @brief
  *
  */
-#ifndef MODELS_CPP_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
-#define MODELS_CPP_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
+#ifndef MODELS_CPP_EVENTS_MODELVOLTAGESETPOINTCHANGE_DYNMODELVOLTAGESETPOINTCHANGE_H_
+#define MODELS_CPP_EVENTS_MODELVOLTAGESETPOINTCHANGE_DYNMODELVOLTAGESETPOINTCHANGE_H_
 
 #include "DYNModelCPPImpl.h"
 #include "DYNSubModelFactory.h"
@@ -26,40 +26,40 @@
 namespace DYN {
 
 /**
- * @brief ModelVariationAreaFactory Model factory
+ * @brief ModelVoltageSetPointChangeFactory Model factory
  *
- * Implementation of @p SubModelFactory template for ModelVariationAreaFactory Model
+ * Implementation of @p SubModelFactory template for ModelVoltageSetPointChangeFactory Model
  */
-class ModelVariationAreaFactory : public SubModelFactory {
+class ModelVoltageSetPointChangeFactory : public SubModelFactory {
  public:
   /**
    * @brief default constructor
    *
    */
-  ModelVariationAreaFactory() { }
+  ModelVoltageSetPointChangeFactory() { }
   /**
    * @brief default destructor
    *
    */
-  ~ModelVariationAreaFactory() { }
+  ~ModelVoltageSetPointChangeFactory() { }
 
   /**
-   * @brief Model VariationArea getter
+   * @brief Model VoltageSetPointChange getter
    *
-   * @return A pointer to a new instance of Model VariationArea
+   * @return A pointer to a new instance of Model VoltageSetPointChange
    */
   SubModel* create() const;
 
   /**
-   * @brief Model VariationArea destroy
+   * @brief Model VoltageSetPointChange destroy
    */
   void destroy(SubModel*) const;
 };
 
 /**
- * class ModelVariationArea
+ * class ModelVoltageSetPointChange
  */
-class ModelVariationArea : public ModelCPP::Impl {
+class ModelVoltageSetPointChange : public ModelCPP::Impl {
  public:
   /**
    * @brief define type of calculated variables
@@ -72,36 +72,33 @@ class ModelVariationArea : public ModelCPP::Impl {
   /**
    * @brief Default constructor
    *
-   * Creates a new ModelVariationArea instance.
+   * Creates a new ModelVoltageSetPointChange instance.
    */
-  ModelVariationArea();
+  ModelVoltageSetPointChange();
   /**
    * @brief Default destructor
    *
-   * Creates a new ModelVariationArea instance.
+   * Creates a new ModelVoltageSetPointChange instance.
    */
-  ~ModelVariationArea() { }
-
-  // instantiate virtual methods of the Model class
+  ~ModelVoltageSetPointChange() { }
 
   /**
-   * @brief  VariationArea model initialization routine
+   * @brief  VoltageSetPointChange model initialization routine
    * @param t0 : initial time of the simulation
    */
   void init(const double& t0);
 
   /**
-   * @brief  VariationArea model's sizes getter
+   * @brief  VoltageSetPointChange model's sizes getter
    *
    * Get the sizes of the vectors and matrixs used by the solver to simulate
-   * Model VariationArea instance. Used by @p ModelMulti to generate right size matrixs
+   * Model VoltageSetPointChange instance. Used by @p ModelMulti to generate right size matrixs
    * and vector for the solver.
    */
   void getSize();
 
-  // methodes avec std::vector
   /**
-   * @brief  VariationArea F(t,y,y') function evaluation
+   * @brief  VoltageSetPointChange F(t,y,y') function evaluation
    *
    * Get the residues' values at a certain instant time with given state variables,
    * state variables derivatives
@@ -109,15 +106,17 @@ class ModelVariationArea : public ModelCPP::Impl {
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
   void evalF(double t, propertyF_t type);
+
   /**
-   * @brief  VariationArea G(t,y,y') function evaluation
+   * @brief  VoltageSetPointChange G(t,y,y') function evaluation
    *
    * Get the roots' value
    * @param[in] t Simulation instant
    */
-  void evalG(const double & t);
+  void evalG(const double& t);
+
   /**
-   * @brief  VariationArea discrete variables evaluation
+   * @brief  VoltageSetPointChange discrete variables evaluation
    *
    * Get the discrete variables' value depending on current simulation instant and
    * current state variables values.
@@ -125,7 +124,7 @@ class ModelVariationArea : public ModelCPP::Impl {
    * @throws Error::MODELER typed @p Error. Shouldn't, but if it happens
    * it shows that there is a bug in the selection of activated shunt.
    */
-  void evalZ(const double & t);
+  void evalZ(const double& t);
 
   /**
    * @copydoc SubModel::collectSilentZ()
@@ -133,16 +132,17 @@ class ModelVariationArea : public ModelCPP::Impl {
   void collectSilentZ(BitMask* silentZTable);
 
   /**
-   * @copydoc ModelCPP::evalMode(const double& t)
+   * @copydoc ModelCPP::evalMode(const double t)
    */
-  modeChangeType_t evalMode(const double & t);
+  modeChangeType_t evalMode(const double& t);
+
   /**
    * @brief calculate calculated variables
    */
   void evalCalculatedVars();
 
   /**
-   * @brief  VariationArea transposed jacobian evaluation
+   * @brief  VoltageSetPointChange transposed jacobian evaluation
    *
    * Get the sparse transposed jacobian
    * @param[in] t Simulation instant
@@ -150,7 +150,8 @@ class ModelVariationArea : public ModelCPP::Impl {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  void evalJt(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset);
+  void evalJt(const double& t, const double& cj, SparseMatrix& jt, const int& rowOffset);
+
   /**
    * @brief calculate jacobien prime matrix
    *
@@ -159,12 +160,16 @@ class ModelVariationArea : public ModelCPP::Impl {
    * @param jt jacobian matrix to fullfill
    * @param rowOffset offset to use to identify the row where data should be added
    */
-  void evalJtPrim(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset);
+  void evalJtPrim(const double& t, const double& cj, SparseMatrix& jt, const int& rowOffset);
 
+  /**
+   * @copydoc ModelCPP::getY0()
+   */
+  void getY0();
   /**
    * @copydoc ModelCPP::evalFType()
    */
-  void evalFType();
+  void evalFType() { /* not needed */}
 
   /**
    * @copydoc ModelCPP::updateFType()
@@ -172,14 +177,9 @@ class ModelVariationArea : public ModelCPP::Impl {
   void updateFType() { /* not needed */}
 
   /**
-   * @copydoc ModelCPP::getY0()
-   */
-  void getY0();
-
-  /**
-   * @copydoc ModelCPP::evalYType()
-   */
-  void evalYType();
+ * @copydoc ModelCPP::evalYType()
+ */
+  void evalYType() { /* not needed */}
 
   /**
    * @copydoc ModelCPP::updateYType()
@@ -201,6 +201,7 @@ class ModelVariationArea : public ModelCPP::Impl {
    * @param res values of the jacobian
    */
   void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res)const;
+
   /**
    * @brief evaluate the value of a calculated variable
    *
@@ -211,19 +212,18 @@ class ModelVariationArea : public ModelCPP::Impl {
   double evalCalculatedVarI(unsigned iCalculatedVar) const;
 
   /**
-   * @brief  VariationArea parameters setter
+   * @brief  VoltageSetPointChange parameters setter
    */
   void setSubModelParameters();
 
   /**
-   * @brief  VariationArea elements initializer
+   * @brief  VoltageSetPointChange elements initializer
    *
-   * Define  VariationArea elements (connection variables for output and other models).
+   * Define  VoltageSetPointChange elements (connection variables for output and other models).
    * @param[out] elements Reference to elements' vector
    * @param[out] mapElement Map associating each element index in the elements vector to its name
    */
-  //---------------------------------------------------------------------
-  void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
 
   /**
    * @copydoc ModelCPP::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)
@@ -272,26 +272,12 @@ class ModelVariationArea : public ModelCPP::Impl {
   void checkDataCoherence(const double& /*t*/) { /* not needed */ }
 
  private:
-  // parameters
-  std::vector<double> deltaP_;  ///< load variations for active power
-  std::vector<double> deltaQ_;  ///< load variations for reactive power
   double startTime_;  ///< start time
   double stopTime_;  ///< stop time
-  int nbLoads_;  ///< number of loads
-  double timeModeOnGoingRaised_;  ///< true if the mode change indicating the start of the slope has been done
-  double timeModeFinishedRaised_;  ///< true if the mode change indicating the end of the slope has been done
-
-  /**
-   * @brief enum to represent the current state of the variation
-   */
-  typedef enum {
-    NOT_STARTED = 0,
-    ON_GOING = 1,
-    FINISHED = 2
-  } variationState_t;
-  variationState_t stateVariationArea_;  ///< equal to 1 if activated, 2 if ended, 0 either
+  double voltageSetPointChange_;
+  int numLoads_;  ///< number of loads
 };
 
 }  // namespace DYN
 
-#endif  // MODELS_CPP_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
+#endif  // MODELS_CPP_EVENTS_MODELVOLTAGESETPOINTCHANGE_DYNMODELVOLTAGESETPOINTCHANGE_H_
