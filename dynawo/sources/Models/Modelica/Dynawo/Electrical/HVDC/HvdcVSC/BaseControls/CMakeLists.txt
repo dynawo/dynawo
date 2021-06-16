@@ -19,7 +19,9 @@ set(MODEL_FILES
     package.mo
     Parameters.mo
     DCVoltageControlSide.mo
+    DCVoltageControlSideDangling.mo
     ActivePowerControlSide.mo
+    ActivePowerControlSideDangling.mo
     )
 
 #
