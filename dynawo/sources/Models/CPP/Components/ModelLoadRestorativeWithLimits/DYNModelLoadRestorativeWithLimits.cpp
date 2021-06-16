@@ -185,7 +185,7 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::evalF(double /*t*/, propertyF_t type) {
-    if (static_cast<int>(zLocal_[running]) == RUNNING_TRUE) {
+    if (isConnected()) {
       double UfRawValue = yLocal_[UfRawYNum_];
       double Ur = yLocal_[UrYNum_];
       double Ui = yLocal_[UiYNum_];
@@ -221,7 +221,7 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::setFequations() {
-    if (static_cast<int>(zLocal_[running]) == RUNNING_TRUE) {
+    if (isConnected()) {
       fEquationIndex_[0] = std::string("Tf_*UfRawPrim - (U - UfRaw ):");
       fEquationIndex_[1] = std::string("Uf - UfRaw:");
       fEquationIndex_[2] = std::string("Ir - (P * Ur + Q * Ui) / (U * U): ");
@@ -237,11 +237,11 @@ namespace DYN {
   void
   ModelLoadRestorativeWithLimits::evalZ(const double /*t*/) {
     if (gLocal_[2] == ROOT_UP) {
-      if (static_cast<int>(zLocal_[running]) == RUNNING_TRUE) {
+      if (isConnected()) {
         running_ = static_cast<int>(zLocal_[running]);
         zLocal_[running] = RUNNING_FALSE;
         DYNAddTimelineEvent(this, name(), LoadDisconnected);
-      } else if (static_cast<int>(zLocal_[running]) == RUNNING_FALSE) {
+      } else if (!isConnected()) {
         running_ = static_cast<int>(zLocal_[running]);
         zLocal_[running] = RUNNING_TRUE;
         DYNAddTimelineEvent(this, name(), LoadConnected);
@@ -263,7 +263,7 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::evalJt(const double /*t*/, const double cj, SparseMatrix& jt, const int rowOffset) {
-    if (static_cast<int>(zLocal_[running]) == RUNNING_FALSE) {
+    if (!isConnected()) {
       jt.changeCol();  //  ufRaw
       jt.addTerm(UfRawYNum_ + rowOffset, cj);
       jt.changeCol();  //  uf
@@ -330,7 +330,7 @@ namespace DYN {
   void
   ModelLoadRestorativeWithLimits::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
     jt.changeCol();
-    if (static_cast<int>(zLocal_[running]) == RUNNING_TRUE)
+    if (isConnected())
       jt.addTerm(UfRawYNum_ + rowOffset, Tf_);
     else
       jt.addTerm(UfRawYNum_ + rowOffset, 1);
@@ -380,23 +380,23 @@ namespace DYN {
     double output = 0;
     switch (iCalculatedVar) {
       case PNum_:
-        if (static_cast<int>(zLocal_[running]) == RUNNING_TRUE) {
+        if (isConnected()) {
           double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
           output = P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
         }
         break;
       case QNum_:
-        if (static_cast<int>(zLocal_[running]) == RUNNING_TRUE) {
+        if (isConnected()) {
           double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
           output = Q0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], beta_);
         }
         break;
       case loadStateNum_:
-      if (static_cast<int>(zLocal_[running]) == RUNNING_TRUE) {
-        output = CLOSED;
-      } else if (static_cast<int>(zLocal_[running]) == RUNNING_FALSE) {
-        output = OPEN;
-      }
+        if (isConnected()) {
+          output = CLOSED;
+        } else if (!isConnected()) {
+          output = OPEN;
+        }
         break;
       default:
         throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
@@ -409,7 +409,7 @@ namespace DYN {
     calculatedVars_[PNum_] = 0.;
     calculatedVars_[QNum_] = 0.;
     calculatedVars_[loadStateNum_] = OPEN;
-    if (static_cast<int>(zLocal_[running]) == RUNNING_TRUE) {
+    if (isConnected()) {
       double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
       calculatedVars_[PNum_] = P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
       calculatedVars_[QNum_] = Q0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], beta_);
@@ -421,7 +421,7 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const {
     switch (iCalculatedVar) {
       case PNum_:
-        if (static_cast<int>(zLocal_[running]) == RUNNING_TRUE) {
+        if (isConnected()) {
           double U2 = yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_];
           double U = sqrt(U2);
           double alpha_pow = pow_dynawo(U/yLocal_[UfYNum_], alpha_);
@@ -431,7 +431,7 @@ namespace DYN {
         }
         break;
       case QNum_:
-        if (static_cast<int>(zLocal_[running]) == RUNNING_TRUE) {
+        if (isConnected()) {
           double U2 = yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_];
           double U = sqrt(U2);
           double beta_pow = pow_dynawo(U/yLocal_[UfYNum_], beta_);
@@ -451,14 +451,14 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
     switch (numCalculatedVar) {
       case PNum_:
-        if (static_cast<int>(zLocal_[running]) == RUNNING_TRUE) {
+        if (isConnected()) {
           numVars.push_back(UrYNum_);
           numVars.push_back(UiYNum_);
           numVars.push_back(UfYNum_);
         }
         break;
       case QNum_:
-        if (static_cast<int>(zLocal_[running]) == RUNNING_TRUE) {
+        if (isConnected()) {
           numVars.push_back(UrYNum_);
           numVars.push_back(UiYNum_);
           numVars.push_back(UfYNum_);
