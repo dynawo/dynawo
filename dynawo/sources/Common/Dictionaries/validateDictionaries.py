@@ -194,7 +194,7 @@ class Dictionary:
         self.messages = dict()
         ## path to sparse files
         self.paths = [str(full_path)] if full_path else []
-        ## path to optional associated opposite event file
+        ## dictionary of event key to opposite event key
         self.opposite_events = {}
 
     ##
@@ -311,6 +311,7 @@ class Dictionary:
     ##
     # Generate a opposite events file associated to the dictionary
     # @param self : object pointer
+    # @param op_events_dir : the path where to create opposite event files
     # @return
     def generate_opposite_events_file(self, op_events_dir=None):
         if not op_events_dir or len(self.opposite_events) == 0:
@@ -320,12 +321,12 @@ class Dictionary:
         table_to_dump = {}
         for key1 in self.opposite_events:
             if not key1 in self.messages:
-                print ("File : DYN"+self.name+"_oppositeEvents.dic, the key " + key1 + " is not found in dictionary file.")
+                print ("File : "+self.name+"_oppositeEvents.dic, the key " + key1 + " is not found in dictionary file.")
                 exit(1)
             key1_text = self.messages[key1].replace("\'","\\\'")
             key2 = self.opposite_events[key1]
             if not key2 in self.messages:
-                print ("File : DYN"+self.name+"_oppositeEvents.dic, the key " + key2 + " is not found in dictionary file.")
+                print ("File : "+self.name+"_oppositeEvents.dic, the key " + key2 + " is not found in dictionary file.")
                 exit(1)
             key2_text = self.messages[key2].replace("'","\'")
             if key1_text not in table_to_dump:
@@ -464,13 +465,13 @@ class Dictionary:
     # else tmp files are copied.
     #
     # @param  self: the object pointer
-    # @param  cpp_dir: the path where cpp/header files was created
+    # @param  op_events_dir: the path where opposite event files were created
     # @return
-    def copy_delete_opposite_event_file(self, cpp_dir=None):
-        if not cpp_dir:
+    def copy_delete_opposite_event_file(self, op_events_dir=None):
+        if not op_events_dir:
             return
 
-        oe_file = os.path.join(str(cpp_dir),self.name + "_" + self.locale + '_oppositeEvents.py')
+        oe_file = os.path.join(str(op_events_dir),self.name + "_" + self.locale + '_oppositeEvents.py')
         tmp_oe_file = oe_file+'-tmp'
 
         if (not os.path.exists(oe_file)
@@ -551,7 +552,8 @@ def parse_opposite_event_file(full_path):
         if( len(line) == 0): # it was only a comment
             continue
         if( line.find("=") == -1): # no separator => error
-            continue
+            raise ValueError("Error: File: " + full_path + " line: '" + line
+                             + "' is not well defined, no separator '=' between the key and the value.")
 
         key = line[ : line.find("=")].strip()
         value = line[ line.find("=")+1:].strip()
