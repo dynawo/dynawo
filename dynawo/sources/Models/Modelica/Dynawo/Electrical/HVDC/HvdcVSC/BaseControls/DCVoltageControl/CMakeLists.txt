@@ -11,6 +11,7 @@
 set(MODEL_FILES
     package.mo
     DCVoltageControl.mo
+    DCVoltageControlDangling.mo
     ActivateDeltaP.mo
     )
 

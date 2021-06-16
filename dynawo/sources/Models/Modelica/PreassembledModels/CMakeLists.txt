@@ -36,6 +36,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcPVEmulation.xml
   HvdcPTanPhi.xml
   HvdcVSC.xml
+  HvdcVSCDanglingP.xml
+  HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
   InfiniteBus.xml
   InjectorBG.xml
