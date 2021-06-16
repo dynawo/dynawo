@@ -122,7 +122,7 @@ def read_txt(filepath):
         event.time = time
         event.model = array[1].strip()
         event.event = array[2].rstrip().lstrip()
-        if (len(array) ==4):
+        if (len(array) >= 4):
             event.priority = array[3].rstrip().lstrip()
         timeline.add_event(event)
     f.close()

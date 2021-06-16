@@ -105,7 +105,7 @@ TEST(Models, TestBuildCheckSum) {
   executeCommand(cmd, ssPython);
   result = ssPython.str();
   boost::erase_all(result, "\n");
-  ASSERT_EQ(result, "Executing command : " + cmd + "File : DYNAIOMyTimeline_oppositeEvents.dic, the key DummyMsg is not found in dictionary file.");
+  ASSERT_EQ(result, "Executing command : " + cmd + "File : AIOMyTimeline_oppositeEvents.dic, the key DummyMsg is not found in dictionary file.");
   ssPython.str(std::string());
 
   cmd = pythonCmd + " validateDictionaries.py --inputDir dic/allInOne/,dic/allInOne/otherDir/share/ "
@@ -115,6 +115,8 @@ TEST(Models, TestBuildCheckSum) {
   remove("dic/allInOne/AIOMyTimeline_keys.cpp");
   remove("dic/allInOne/AIOMyTimeline_keys.h");
   remove("dic/allInOne/AIOMyTimeline_oppositeEvents.py");
+  remove("dic/allInOne/AIOMyTimeline_en_GB_oppositeEvents.py");
+  remove("dic/allInOne/AIOMyTimeline_fr_FR_oppositeEvents.py");
   executeCommand(cmd, ssPython);
   ssPython.str(std::string());
   ASSERT_FALSE(exists("dic/allInOne/AIOMyDic_keys.cpp"));
