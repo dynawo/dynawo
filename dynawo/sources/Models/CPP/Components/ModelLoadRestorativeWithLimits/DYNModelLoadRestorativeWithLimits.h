@@ -83,6 +83,16 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
     loadStateNum_ = 2,
     nbCalculatedVariables_ = 3
   } CalculatedVariables_t;
+
+  /**
+   * @brief enum to represent z indices value
+   */
+  typedef enum {
+    switchOffSignal1 = 0,
+    switchOffSignal2 = 1,
+    running = 2,
+    numZ = 3
+  } zInd;
   /**
   * @brief define parameters
   * @param parameters: vector to fill with the generic parameters
@@ -97,27 +107,6 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   * @param t0 : initial time of the simulation
   */
   void init(const double t0);
-  /**
-  * @brief get the connection status of the load
-  * @return connection status
-  */
-  inline State getConnected() const {
-    return connectionState_;
-  }
-  /**
-  * @brief set the load connection status
-  * @param state
-  */
-  void setConnected(State state) {
-    connectionState_ = state;
-  }
-  /**
-  * @brief check whether the load is connected to the bus
-  * @return @b True if the load is connected, @b false else
-  */
-  inline bool isConnected() const {
-    return (connectionState_ == CLOSED);
-  }
   /**
   * @brief set the silent flag for discrete variables
   * @param silentZTable flag table
@@ -281,16 +270,13 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   void checkDataCoherence(const double /*t*/) { /* not needed */ }
 
  private:
-  State connectionState_;  ///< "internal" load connection status
-  State preConnectionState_;  ///< "internal" load connection status at previous timestamp
   unsigned int UfRawYNum_;  ///< local Y index for UfRaw
   unsigned int UfYNum_;  ///< local Y index for Uf
   unsigned int UrYNum_;  ///< local Y index for Ur
   unsigned int UiYNum_;  ///< local Y index for Ui
   unsigned int IrYNum_;  ///< local Y index for Ir
   unsigned int IiYNum_;  ///< local Y index for Ii
-  double preSwitchOff1_;  ///< previous value of switchOff1 state
-  double preSwitchOff2_;  ///< previous value of switchOff2 state
+  int running_;  ///< Indicates if the component is running or not at previous step
 
   double u0Pu_;  ///< initial voltage
   double UfRawprim0_;  ///< initial value of derivative of UfRaw
@@ -304,6 +290,12 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   double UMaxPu_;  ///< Maximum value of the voltage amplitude at terminal in p.u (base UNom) that ensures the P/Q restoration
   bool UMinPuReached_;  ///< true if UMinPu limit is reached by UfRaw
   bool UMaxPuReached_;  ///< true if UMaxPu limit is reached by UfRaw
+
+  static const int RUNNING_TRUE = 1;  ///< to represent running value
+  static const int RUNNING_FALSE = 0;  ///< to represent a not running value
+
+  static const int SWITCHOFF_TRUE = 1;  ///< to represent switchoff value
+  static const int SWITCHOFF_FALSE = -1;  ///< to represent a not switchoff value
 };
 
 }  // namespace DYN
