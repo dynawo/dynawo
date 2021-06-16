@@ -110,9 +110,7 @@ int main(int argc, char ** argv) {
     }
 
     DYN::InitXerces xerces;
-#ifdef USE_POWSYBL
     DYN::InitLibXml2 libxml2;
-#endif
     boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
     dicos->addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
     dicos->addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));

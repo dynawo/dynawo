@@ -366,9 +366,11 @@ find_package(libXML 0.2.4 REQUIRED PATHS ${LIBXML_HOME})
 # libIIDM
 
 if(NOT USE_LEGACY_IIDM)
+  set(DYNAWO_USE_LIBXML2 "Y")
   find_package(LibXml2 "2.9" REQUIRED)
   find_package(LibIIDM "1.4.0" REQUIRED PATHS ${LIBIIDM_HOME})
 else()
+  set(DYNAWO_USE_LIBXML2 "N")
   find_package(libIIDM "0.2.8" REQUIRED PATHS ${LIBIIDM_HOME}
     COMPONENTS
       core
