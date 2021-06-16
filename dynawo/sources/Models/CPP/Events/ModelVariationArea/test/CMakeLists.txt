@@ -34,7 +34,7 @@ add_custom_target(${MODULE_NAME}-tests
   COMMENT "Running ${MODULE_NAME}...")
 
 if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
-  set(EXTRACT_PATTERNS "'*/sources/Models/CPP/ModelVariationArea/DYN*'")
+  set(EXTRACT_PATTERNS "'*/sources/Models/CPP/Events/ModelVariationArea/DYN*'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
