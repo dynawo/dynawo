@@ -29,4 +29,8 @@
 
 #define DYNAWO_VERSION_STRING "@DYNAWO_VERSION_STRING@" ///< Dynawo version in string
 
+#if '@DYNAWO_USE_LIBXML2@' == 'Y'
+#define DYNAWO_USE_LIBXML2 ///< defined if Dynawo use LibXml2
+#endif
+
 #endif /* DYNAWO_CONFIG_H_ */
