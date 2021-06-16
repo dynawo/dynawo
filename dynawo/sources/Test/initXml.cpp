@@ -12,10 +12,7 @@
 //
 
 #include "gtest_dynawo.h"
-#include <xercesc/util/PlatformUtils.hpp>
-#ifdef USE_POWSYBL
-#include <libxml/parser.h>
-#endif
+#include "DYNInitXml.h"
 
 class XmlEnvironment : public testing::Environment {
  public:
@@ -24,7 +21,7 @@ class XmlEnvironment : public testing::Environment {
   // Override this to define how to set up the environment.
   void SetUp() {
     xercesc::XMLPlatformUtils::Initialize();
-#ifdef USE_POWSYBL
+#ifdef DYNAWO_USE_LIBXML2
       xmlInitParser();
 #endif
   }
@@ -32,7 +29,7 @@ class XmlEnvironment : public testing::Environment {
   // Override this to define how to tear down the environment.
   void TearDown() {
     xercesc::XMLPlatformUtils::Terminate();
-#ifdef USE_POWSYBL
+#ifdef DYNAWO_USE_LIBXML2
     xmlCleanupParser();
 #endif
   }
