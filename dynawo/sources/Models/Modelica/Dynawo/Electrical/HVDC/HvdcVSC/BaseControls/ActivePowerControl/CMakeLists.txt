@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   DeltaP.mo
   ActivePowerControl.mo
+  ActivePowerControlDangling.mo
   RPFaultFunction.mo
   )
 
