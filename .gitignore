@@ -2,6 +2,7 @@ build/
 build-code/
 dynawo/sources/Common/*_keys.cpp
 dynawo/sources/Common/*_keys.h
+dynawo/sources/Common/*_oppositeEvents.py
 dynawo/sources/Models/Modelica/Dynawo/NonElectrical/Logs/*Keys.mo
 dynawo/sources/config.h
 dynawo/sources/gitversion.h*
@@ -48,6 +49,7 @@ nrt/output/
 nbproject/*
 util/nrt_diff/output/
 util/nrt_diff/nrtDiff.txt
+util/timeline_filter/test/filtered*
 documents/ModelicaDocumentation
 .gitignore_local
 nrt/documentation/*.aux

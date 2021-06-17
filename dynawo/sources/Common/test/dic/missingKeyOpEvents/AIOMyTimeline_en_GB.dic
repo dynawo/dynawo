@@ -11,5 +11,4 @@
 // for power systems.
 //
 
-MyState = État initial
-MyState2 = État final
+MyState = Initial state
