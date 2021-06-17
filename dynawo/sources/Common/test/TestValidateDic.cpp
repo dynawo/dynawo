@@ -67,9 +67,13 @@ TEST(Models, TestBuildCheckSum) {
   executeCommand(cmd, ssPython);
   result = ssPython.str();
   boost::erase_all(result, "\n");
-  ASSERT_EQ(result, "Executing command : " + cmd +
-    "Error: Messages of key 'Hello' for dictionary ['dic/argsCount/ArgsCount_en_GB.dic'] and "
-    "['dic/argsCount/ArgsCount_fr_FR.dic'] have not the same number of arguments.");
+  if (result != "Executing command : " + cmd +
+      "Error: Messages of key 'Hello' for dictionary ['dic/argsCount/ArgsCount_en_GB.dic'] and "
+      "['dic/argsCount/ArgsCount_fr_FR.dic'] have not the same number of arguments."
+      && result != "Executing command : " + cmd +
+      "Error: Messages of key 'Hello' for dictionary ['dic/argsCount/ArgsCount_fr_FR.dic'] and "
+      "['dic/argsCount/ArgsCount_en_GB.dic'] have not the same number of arguments.")
+    ASSERT_FALSE(true);
   ssPython.str(std::string());
 
   cmd = pythonCmd + " validateDictionaries.py --inputDir dic/timelinePriorityLocale/";
@@ -147,27 +151,6 @@ TEST(Models, TestBuildCheckSum) {
   executeCommand("diff dic/icKeys.mo dic/icKeys_ref.mo", ssDiff);
   std::cout << ssDiff.str() << std::endl;
   ASSERT_EQ(ssDiff.str(), "Executing command : diff dic/icKeys.mo dic/icKeys_ref.mo\n");
-  ssDiff.str(std::string());
-
-  cmd = pythonCmd + " validateDictionaries.py --inputDir dicMapping/,dicMapping/folder --outputDir dicMapping/ --modelicaDir dicMapping/ "
-      "--modelicaPackage myPackage --namespace MyNS";
-  executeCommand(cmd, ssPython);
-  ssPython.str(std::string());
-  ssDiff.str(std::string());
-  ASSERT_TRUE(exists("dicMapping/dico_keys.cpp"));
-  ASSERT_TRUE(exists("dicMapping/dico_keys.h"));
-  ASSERT_TRUE(exists("dicMapping/oKeys.mo"));
-  executeCommand("diff dicMapping/dico_keys.cpp dicMapping/dico_keys_ref.cpp", ssDiff);
-  std::cout << ssDiff.str() << std::endl;
-  ASSERT_EQ(ssDiff.str(), "Executing command : diff dicMapping/dico_keys.cpp dicMapping/dico_keys_ref.cpp\n");
-  ssDiff.str(std::string());
-  executeCommand("diff dicMapping/dico_keys.h dicMapping/dico_keys_ref.h", ssDiff);
-  std::cout << ssDiff.str() << std::endl;
-  ASSERT_EQ(ssDiff.str(), "Executing command : diff dicMapping/dico_keys.h dicMapping/dico_keys_ref.h\n");
-  ssDiff.str(std::string());
-  executeCommand("diff dicMapping/oKeys.mo dicMapping/oKeys_ref.mo", ssDiff);
-  std::cout << ssDiff.str() << std::endl;
-  ASSERT_EQ(ssDiff.str(), "Executing command : diff dicMapping/oKeys.mo dicMapping/oKeys_ref.mo\n");
   ssDiff.str(std::string());
 }
 

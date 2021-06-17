@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2021, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,12 +7,12 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+// for power systems.
 //
 #ifndef MYDIC_KEYS_H
 #define MYDIC_KEYS_H
-#include <string>
-namespace DYN {
+namespace MyNS {
 
   ///< struct of Keyic to declare enum values and names associated to the enum to be used in dynawo
   struct Keyic_t
@@ -30,5 +30,5 @@ namespace DYN {
     */
     static const char* names(const value&); ///< names associated to the enum
   };
-} //namespace DYN
+} //namespace MyNS
 #endif
