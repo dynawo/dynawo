@@ -131,6 +131,12 @@ class RatioTapChangerInterface {
    * @return The current ratio of the ratio tap changer in p.u.
    */
   virtual double getCurrentRho() const = 0;
+
+  /**
+   * @brief Getter for the voltage target deadband of the ratio tap changer
+   * @return the voltage regulation target deadband
+   */
+  virtual double getTargetDeadBand() const = 0;
 };
 }  // namespace DYN
 

@@ -129,4 +129,9 @@ RatioTapChangerInterfaceIIDM::getCurrentRho() const {
   return steps_.at(currentStep)->getRho();
 }
 
+double
+RatioTapChangerInterfaceIIDM::getTargetDeadBand() const {
+  return getRegulating() ? tapChangerIIDM_.getTargetDeadband() : 0.;
+}
+
 }  // namespace DYN
