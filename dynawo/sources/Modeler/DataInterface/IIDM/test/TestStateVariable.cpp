@@ -428,8 +428,10 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
     shared_ptr<TwoWTransformerInterface> twoWTransformer = twoWTransformers[i];
     shared_ptr<PhaseTapChangerInterface> phaseTapChanger = twoWTransformer->getPhaseTapChanger();
     ASSERT_EQ(phaseTapChanger->getCurrentPosition(), 2);
+    ASSERT_DOUBLE_EQUALS_DYNAWO(phaseTapChanger->getTargetDeadBand(), 0.);
     shared_ptr<RatioTapChangerInterface> ratioTapChanger = twoWTransformer->getRatioTapChanger();
     ASSERT_EQ(ratioTapChanger->getCurrentPosition(), 1);  // Not set
+    ASSERT_DOUBLE_EQUALS_DYNAWO(ratioTapChanger->getTargetDeadBand(), 0.);
   }
 
   ASSERT_EQ(network->getLines().size(), 1);
