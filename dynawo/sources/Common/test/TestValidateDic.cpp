@@ -58,9 +58,13 @@ TEST(Models, TestBuildCheckSum) {
   executeCommand(cmd, ssPython);
   result = ssPython.str();
   boost::erase_all(result, "\n");
-  ASSERT_EQ(result, "Executing command : " + cmd +
+  if (result != "Executing command : " + cmd +
     "Error: ['dic/differentKeys/DifferentKeys_en_GB.dic'] and "
-    "['dic/differentKeys/DifferentKeys_fr_FR.dic'] have not the same entries.");
+    "['dic/differentKeys/DifferentKeys_fr_FR.dic'] have not the same entries."
+    && result != "Executing command : " + cmd +
+        "Error: ['dic/differentKeys/DifferentKeys_fr_FR.dic'] and "
+        "['dic/differentKeys/DifferentKeys_en_GB.dic'] have not the same entries.")
+    ASSERT_TRUE(false);
   ssPython.str(std::string());
 
   cmd = pythonCmd + " validateDictionaries.py --inputDir dic/argsCount/";
