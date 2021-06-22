@@ -41,6 +41,7 @@ generatorIIDM_(generator) {
   stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);   // connectionState
+  activePowerControl_ = generator.findExtension<powsybl::iidm::extensions::iidm::ActivePowerControl>();
 }
 
 int
@@ -275,5 +276,28 @@ bool GeneratorInterfaceIIDM::isVoltageRegulationOn() const {
   return generatorIIDM_.isVoltageRegulatorOn();
 }
 
+bool
+GeneratorInterfaceIIDM::hasActivePowerControl() const {
+  if (activePowerControl_) {
+    return true;
+  }
+  return false;
+}
+
+bool
+GeneratorInterfaceIIDM::isParticipating() const {
+  if (hasActivePowerControl()) {
+    return activePowerControl_.get().isParticipate();
+  }
+  return false;
+}
+
+double
+GeneratorInterfaceIIDM::getActivePowerControlDroop() const {
+  if (hasActivePowerControl()) {
+    return activePowerControl_.get().getDroop();
+  }
+  return 0.;
+}
 
 }  // namespace DYN

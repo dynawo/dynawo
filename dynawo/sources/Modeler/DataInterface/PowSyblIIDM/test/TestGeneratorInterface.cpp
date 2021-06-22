@@ -14,6 +14,7 @@
 #include "DYNGeneratorInterfaceIIDM.h"
 
 #include "DYNBusInterfaceIIDM.h"
+#include "DYNCommon.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
 
 #include <powsybl/iidm/Bus.hpp>
@@ -21,6 +22,9 @@
 #include <powsybl/iidm/GeneratorAdder.hpp>
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/extensions/iidm/ActivePowerControl.hpp>
+#include <powsybl/iidm/extensions/iidm/ActivePowerControlAdder.hpp>
+#include <powsybl/iidm/ExtensionProviders.hpp>
 
 #include "gtest_dynawo.h"
 
@@ -170,6 +174,14 @@ TEST(DataInterfaceTest, Generator_1) {
   // TODO(TBA) genItf.exportStateVariablesUnitComponent();
   gen.getTerminal().disconnect();
   // TODO(TBA) genItf.exportStateVariablesUnitComponent();
+  ASSERT_FALSE(genItf.hasActivePowerControl());
+  ASSERT_FALSE(genItf.isParticipating());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genItf.getActivePowerControlDroop(), 0.);
+  gen.newExtension<powsybl::iidm::extensions::iidm::ActivePowerControlAdder>().withDroop(4.0).withParticipate(true).add();
+  GeneratorInterfaceIIDM genItfWithActivePowerExtension(gen);
+  ASSERT_TRUE(genItfWithActivePowerExtension.hasActivePowerControl());
+  ASSERT_TRUE(genItfWithActivePowerExtension.isParticipating());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genItfWithActivePowerExtension.getActivePowerControlDroop(), 4.);
 }  // TEST(DataInterfaceTest, Generator_1)
 
 TEST(DataInterfaceTest, Generator_2) {
