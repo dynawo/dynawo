@@ -163,6 +163,7 @@ iiYNum_(0),
 irYNum_(0),
 busIndex_(bus->getBusIndex()),
 hasConnection_(bus->hasConnection()),
+isControllable_(false),
 hasDifferentialVoltages_(false),
 modelType_(isNodeBreaker?"Bus":"Node"),
 isNodeBreaker_(isNodeBreaker) {
@@ -270,7 +271,7 @@ ModelBus::initSize() {
   } else {
     sizeF_ = 2;
     sizeY_ = 2;
-    if (hasConnection_)
+    if (isControllable())
       sizeY_ = 4;
     sizeZ_ = 3;  // numCC, switchOff, state
     sizeG_ = 0;
@@ -335,6 +336,14 @@ ModelBus::setSubModelParameters(const boost::unordered_map<std::string, Paramete
   value = getParameterDynamicNoThrow<double>(params, "bus_uMin", success);
   if (success)
     uMin_ = value;
+
+  vector<string> ids;
+  ids.push_back(id_);
+  ids.push_back("bus");
+  success = false;
+  bool bool_value = getParameterDynamicNoThrow<bool>(params, "isControllable", success, ids);
+  if (success)
+    isControllable_ = bool_value;
 }
 
 void
@@ -363,7 +372,7 @@ ModelBus::addNeighbor(boost::shared_ptr<ModelBus>& bus) {
 
 void
 ModelBus::evalDerivatives(const double /*cj*/) {
-  if (!network_->isInitModel() && hasConnection_) {
+  if (!network_->isInitModel() && isControllable()) {
     derivatives_->addDerivative(IR_DERIVATIVE, irYNum_, -1);
     derivatives_->addDerivative(II_DERIVATIVE, iiYNum_, -1);
   }
@@ -384,7 +393,7 @@ ModelBus::evalF(propertyF_t type) {
       f_[0] = irConnection_;
       f_[1] = iiConnection_;
 
-      if (hasConnection_) {
+      if (isControllable()) {
         f_[0] -= y_[irNum_];
         f_[1] -= y_[iiNum_];
       }
@@ -401,7 +410,7 @@ ModelBus::setFequations(std::map<int, std::string>& fEquationIndex) {
     fEquationIndex[0] = std::string("irConnection_ localModel:").append(id());
     fEquationIndex[1] = std::string("iiConnection_ localModel:").append(id());
 
-    if (hasConnection_) {
+    if (isControllable()) {
       fEquationIndex[0] = std::string("irConnection_ - y_[irNum_] localModel:").append(id());
       fEquationIndex[1] = std::string("iiConnection_ - y_[iiNum_] localModel:").append(id());
     }
@@ -441,7 +450,7 @@ ModelBus::iiAdd(const double& ii) {
 
 void
 ModelBus::evalStaticYType() {
-  if (hasConnection_) {
+  if (isControllable()) {
     yType_[2] = ALGEBRAIC;
     yType_[3] = ALGEBRAIC;
   }
@@ -510,7 +519,7 @@ ModelBus::init(int& yNum) {
     uiYNum_ = yNum;
     ++yNum;
 
-    if (hasConnection_) {
+    if (isControllable()) {
       irYNum_ = yNum;
       ++yNum;
       iiYNum_ = yNum;
@@ -543,7 +552,7 @@ ModelBus::getY0() {
 
     yp_[urNum_] = 0.0;
     yp_[uiNum_] = 0.0;
-    if (hasConnection_) {
+    if (isControllable()) {
       y_[irNum_] = ir0_;
       y_[iiNum_] = ii0_;
       yp_[irNum_] = 0.0;
@@ -565,7 +574,7 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_phi_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_ACPIN_V_re", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_ACPIN_V_im", CONTINUOUS));
-  if (hasConnection_) {
+  if (isControllable()) {
     variables.push_back(VariableNativeFactory::createState(id_ + "_ACPIN_i_re", FLOW));
     variables.push_back(VariableNativeFactory::createState(id_ + "_ACPIN_i_im", FLOW));
   }
@@ -581,7 +590,7 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_phi_value", id_ + "_phi_value"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_V_re", id_ + "_ACPIN_V_re"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_V_im", id_ + "_ACPIN_V_im"));
-    if (hasConnection_) {
+    if (isControllable()) {
       variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_i_re", id_ + "_ACPIN_i_re"));
       variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_i_im", id_ + "_ACPIN_i_im"));
     }
@@ -595,11 +604,12 @@ void
 ModelBus::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("bus_uMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("bus_uMin", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("bus_isControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 }
 
 void
-ModelBus::defineNonGenericParameters(vector<ParameterModeler>& /*parameters*/) {
-  // not parameter
+ModelBus::defineNonGenericParameters(vector<ParameterModeler>& parameters) {
+  parameters.push_back(ParameterModeler(id_ + "_isControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 }
 
 void
@@ -632,7 +642,7 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
   addSubElement("V", ACName, Element::STRUCTURE, id_, modelType_, elements, mapElement);
   addSubElement("re", ACNameV, Element::TERMINAL, id_, modelType_, elements, mapElement);
   addSubElement("im", ACNameV, Element::TERMINAL, id_, modelType_, elements, mapElement);
-  if (hasConnection_) {
+  if (isControllable()) {
     string ACNameI = id + string("_ACPIN_i");
     addSubElement("i", ACName, Element::STRUCTURE, id_, modelType_, elements, mapElement);
     addSubElement("re", ACNameI, Element::TERMINAL, id_, modelType_, elements, mapElement);

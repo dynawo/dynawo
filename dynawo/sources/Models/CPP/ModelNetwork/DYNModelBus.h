@@ -581,6 +581,14 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
     return UPu_ * unom_;
   }
 
+  /**
+   * @brief check if the load can be controlled even without connection
+   * @return whether the load can be controlled
+   */
+  inline bool isControllable() const {
+    return hasConnection_ || isControllable_;
+  }
+
  private:
   boost::weak_ptr<ModelVoltageLevel> modelVoltageLevel_;  ///< voltage level that contains the bus
 
@@ -616,6 +624,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
 
   int busIndex_;  ///< index of bus in its voltage level
   bool hasConnection_;  ///< whether has connection
+  bool isControllable_;  ///< whether the load can be controlled even without connection
   bool hasDifferentialVoltages_;  ///< whether the bus model has differential voltages
 
   double unom_;  ///< nominal voltage
