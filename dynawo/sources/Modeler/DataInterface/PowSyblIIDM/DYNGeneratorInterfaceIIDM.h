@@ -29,6 +29,7 @@
 
 #include <powsybl/iidm/Generator.hpp>
 #include <powsybl/iidm/extensions/iidm/ActivePowerControl.hpp>
+#include <powsybl/iidm/extensions/iidm/CoordinatedReactiveControl.hpp>
 
 namespace DYN {
 
@@ -169,6 +170,16 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   double getActivePowerControlDroop() const;
 
   /**
+   * @copydoc GeneratorInterface::hasCoordinatedReactiveControl() const
+   */
+  bool hasCoordinatedReactiveControl() const;
+
+  /**
+   * @copydoc GeneratorInterface::getCoordinatedReactiveControlPercent() const
+   */
+  double getCoordinatedReactiveControlPercent() const;
+
+  /**
    * @brief Getter for the generator' country
    * @return the generator country
    */
@@ -188,6 +199,8 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   powsybl::iidm::Generator& generatorIIDM_;  ///< reference to the iidm generator instance
   std::string country_;  ///< country of the generator
   stdcxx::Reference<powsybl::iidm::extensions::iidm::ActivePowerControl> activePowerControl_;  ///< reference to ActivePowerControl extension
+  stdcxx::Reference<powsybl::iidm::extensions
+                    ::iidm::CoordinatedReactiveControl> coordinatedReactiveControl_;  ///< reference to CoordinatedReactiveControl extension
 };
 }  // namespace DYN
 
