@@ -47,13 +47,13 @@ class OutputsEntry {
 
   /**
    * @brief Copy constructor
-   * @param other originalto copy
+   * @param other original to copy
    */
   OutputsEntry(const OutputsEntry& other);
 
   /**
    * @brief Assignement OPerator
-   * @param other originalto copy
+   * @param other original to copy
    * @returns reference on current entry
    */
   OutputsEntry& operator=(const OutputsEntry& other);

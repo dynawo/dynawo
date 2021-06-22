@@ -62,6 +62,13 @@ TEST(APIJOBTest, testJobEntry) {
   ASSERT_NE(job_bis->getSolverEntry(), solver);
   ASSERT_NE(job_bis->getSimulationEntry(), simulation);
   ASSERT_NE(job_bis->getOutputsEntry(), outputs);
+
+  JobEntry job_bis2 = *job;
+  ASSERT_EQ(job_bis2.getName(), "job1");
+  ASSERT_NE(job_bis2.getModelerEntry(), modeler);
+  ASSERT_NE(job_bis2.getSolverEntry(), solver);
+  ASSERT_NE(job_bis2.getSimulationEntry(), simulation);
+  ASSERT_NE(job_bis2.getOutputsEntry(), outputs);
 }
 
 }  // namespace job

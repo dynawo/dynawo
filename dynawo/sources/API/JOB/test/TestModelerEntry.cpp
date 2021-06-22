@@ -71,6 +71,14 @@ TEST(APIJOBTest, testModelerEntry) {
   ASSERT_NE(modeler_bis->getModelicaModelsDirEntry(), modelicaModelsDirEntry);
   ASSERT_NE(modeler_bis->getNetworkEntry(), network);
   ASSERT_NE(modeler_bis->getInitialStateEntry(), initialState);
+
+  ModelerEntry modeler_bis2 = *modeler;
+  ASSERT_EQ(modeler_bis2.getCompileDir(), "/tmp/compilation");
+  ASSERT_EQ(modeler_bis2.getDynModelsEntries().size(), 2);
+  ASSERT_NE(modeler_bis2.getPreCompiledModelsDirEntry(), preCompiledModelsDirEntry);
+  ASSERT_NE(modeler_bis2.getModelicaModelsDirEntry(), modelicaModelsDirEntry);
+  ASSERT_NE(modeler_bis2.getNetworkEntry(), network);
+  ASSERT_NE(modeler_bis2.getInitialStateEntry(), initialState);
 }
 
 }  // namespace job

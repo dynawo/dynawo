@@ -39,7 +39,7 @@ class DataInterface {
   virtual ~DataInterface() { }
 
   /**
-   * @brief Determines if variant mangement is supported
+   * @brief Determines if variant management is supported
    * @returns @b true if network variant is supported, @b false if not
    */
   virtual bool canUseVariant() const = 0;

@@ -120,9 +120,9 @@ DataInterfaceIIDM::build(const std::string& iidmFilePath, unsigned int nbVariant
     if (nbVariants > 1) {
       auto& manager = networkIIDM->getVariantManager();
       manager.allowVariantMultiThreadAccess(true);
+      constexpr bool overwrite = true;
       for (unsigned int i = 0; i < nbVariants; ++i) {
         const std::string& variantName = std::to_string(i);
-        constexpr bool overwrite = true;
         manager.cloneVariant(powsybl::iidm::VariantManager::getInitialVariantId(), variantName, overwrite);
       }
     }
