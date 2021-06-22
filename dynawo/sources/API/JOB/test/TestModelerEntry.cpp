@@ -24,6 +24,8 @@
 #include "JOBInitialStateEntry.h"
 #include "JOBModelsDirEntry.h"
 
+#include "DYNClone.hpp"
+
 namespace job {
 
 TEST(APIJOBTest, testModelerEntry) {
@@ -61,6 +63,14 @@ TEST(APIJOBTest, testModelerEntry) {
   ASSERT_EQ(modeler->getNetworkEntry(), network);
   ASSERT_EQ(modeler->getDynModelsEntries().size(), 2);
   ASSERT_EQ(modeler->getInitialStateEntry(), initialState);
+
+  boost::shared_ptr<ModelerEntry> modeler_bis = DYN::clone(modeler);
+  ASSERT_EQ(modeler_bis->getCompileDir(), "/tmp/compilation");
+  ASSERT_EQ(modeler_bis->getDynModelsEntries().size(), 2);
+  ASSERT_NE(modeler_bis->getPreCompiledModelsDirEntry(), preCompiledModelsDirEntry);
+  ASSERT_NE(modeler_bis->getModelicaModelsDirEntry(), modelicaModelsDirEntry);
+  ASSERT_NE(modeler_bis->getNetworkEntry(), network);
+  ASSERT_NE(modeler_bis->getInitialStateEntry(), initialState);
 }
 
 }  // namespace job

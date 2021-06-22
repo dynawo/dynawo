@@ -12,7 +12,7 @@
 //
 
 /**
- * @file Modeler/DataInterface/PowSyblIIDM/test/TestIIDMModels.cpp
+ * @file Modeler/DataInterface/PowSyblIIDM/test/TestDataInterfaceIIDM.cpp
  * @brief Unit tests for DataInterfaceIIDM class
  *
  */
@@ -34,6 +34,7 @@
 #include "DYNTwoWTransformerInterfaceIIDM.h"
 #include "DYNSubModelFactory.h"
 #include "DYNSubModel.h"
+#include "DYNLoadInterfaceIIDM.h"
 #include "DYNModelMulti.h"
 #include "DYNNetworkInterface.h"
 #include "DYNThreeWTransformerInterfaceIIDM.h"
@@ -68,24 +69,26 @@
 #include <powsybl/iidm/StaticVarCompensator.hpp>
 #include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
 
+#include <thread>
+
 using boost::shared_ptr;
 
 namespace DYN {
 
 shared_ptr<DataInterfaceIIDM>
-createDataItfFromNetwork(powsybl::iidm::Network&& network) {
+createDataItfFromNetwork(const boost::shared_ptr<powsybl::iidm::Network>& network) {
   shared_ptr<DataInterfaceIIDM> data;
-  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(std::forward<powsybl::iidm::Network>(network));
+  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
   ptr->initFromIIDM();
   data.reset(ptr);
   return data;
 }
 
-powsybl::iidm::Network
+boost::shared_ptr<powsybl::iidm::Network>
 createNodeBreakerNetworkIIDM() {
-  powsybl::iidm::Network network("MyNetwork", "MyNetwork");
+  auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
-  powsybl::iidm::Substation& substation = network.newSubstation()
+  powsybl::iidm::Substation& substation = network->newSubstation()
                                      .setId("MySubStation")
                                      .setName("MySubStation_NAME")
                                      .setTso("TSO")
@@ -216,11 +219,11 @@ struct BusBreakerNetworkProperty {
   bool instantiateThreeWindingTransformer;
 };
 
-powsybl::iidm::Network
+boost::shared_ptr<powsybl::iidm::Network>
 createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
-  powsybl::iidm::Network network("MyNetwork", "MyNetwork");
+  auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
-  powsybl::iidm::Substation& s = network.newSubstation()
+  powsybl::iidm::Substation& s = network->newSubstation()
       .setId("MySubStation")
       .add();
 
@@ -350,7 +353,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     vsc2.getTerminal().setP(150.);
     vsc2.getTerminal().setQ(90.);
 
-    network.newHvdcLine()
+    network->newHvdcLine()
         .setId("MyHvdcLine")
         .setName("MyHvdcLine_NAME")
         .setActivePowerSetpoint(111.1)
@@ -386,7 +389,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     lcc2.getTerminal().setP(105.);
     lcc2.getTerminal().setQ(90.);
 
-    network.newHvdcLine()
+    network->newHvdcLine()
         .setId("MyHvdcLine")
         .setName("MyHvdcLine_NAME")
         .setActivePowerSetpoint(111.1)
@@ -596,7 +599,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
   }
 
   if (properties.instantiateLine) {
-    powsybl::iidm::Line& line = network.newLine()
+    powsybl::iidm::Line& line = network->newLine()
                                       .setId("VL1_VL2")
                                       .setName("VL1_VL2_NAME")
                                       .setVoltageLevel1(vl1.getId())
@@ -1637,7 +1640,7 @@ TEST(DataInterfaceIIDMTest, testImportError) {
 }
 
 TEST(DataInterfaceIIDMTest, testImportExport) {
-  const powsybl::iidm::Network& network = createNodeBreakerNetworkIIDM();
+  auto network = createNodeBreakerNetworkIIDM();
 
   shared_ptr<DataInterfaceIIDM> dataOutput = createDataItfFromNetwork(createNodeBreakerNetworkIIDM());
   ASSERT_NO_THROW(dataOutput->dumpToFile("network.xml"));
@@ -1649,7 +1652,182 @@ TEST(DataInterfaceIIDMTest, testImportExport) {
   const powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
 
   ASSERT_EQ(outputNetwork.getId(), inputNetwork.getId());
-  ASSERT_EQ(outputNetwork.getId(), network.getId());
-  ASSERT_EQ(inputNetwork.getId(), network.getId());
+  ASSERT_EQ(outputNetwork.getId(), network->getId());
+  ASSERT_EQ(inputNetwork.getId(), network->getId());
+}
+
+TEST(DataInterfaceIIDMTest, testClone) {
+  auto network = createNodeBreakerNetworkIIDM();
+
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data2 = boost::dynamic_pointer_cast<DataInterfaceIIDM>(data->clone());
+
+  ASSERT_TRUE(data);
+  ASSERT_NE(data, data2);
+  ASSERT_NE(data->getServiceManager(), data2->getServiceManager());
+
+  ASSERT_EQ(data->getNetworkIIDM().getId(), data2->getNetworkIIDM().getId());
+
+  boost::shared_ptr<NetworkInterfaceIIDM> network_interface = boost::dynamic_pointer_cast<NetworkInterfaceIIDM>(data->getNetwork());
+  boost::shared_ptr<NetworkInterfaceIIDM> network_interface2 = boost::dynamic_pointer_cast<NetworkInterfaceIIDM>(data2->getNetwork());
+  ASSERT_NE(network_interface, network_interface2);
+  ASSERT_EQ(network_interface->getLines().size(), network_interface2->getLines().size());
+  for (unsigned int i = 0; i < network_interface->getLines().size(); i++) {
+    ASSERT_NE(network_interface->getLines().at(i), network_interface2->getLines().at(i));
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getVNom1(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getVNom1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getVNom2(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getVNom2());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getR(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getR());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getX(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getX());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getB1(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getB1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getB2(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getB2());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getG1(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getG1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getG2(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getG2());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getP1(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getP1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getQ1(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getQ1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getP2(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getP2());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getQ2(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getQ2());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getInitialConnected1(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getInitialConnected1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getInitialConnected2(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getInitialConnected2());
+    ASSERT_EQ(boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface->getLines().at(i))->getID(),
+      boost::dynamic_pointer_cast<LineInterfaceIIDM>(network_interface2->getLines().at(i))->getID());
+  }
+
+  ASSERT_EQ(network_interface->getHvdcLines().size(), network_interface2->getHvdcLines().size());
+  for (unsigned int i = 0; i < network_interface->getHvdcLines().size(); i++) {
+    ASSERT_NE(network_interface->getHvdcLines().at(i), network_interface2->getHvdcLines().at(i));
+    ASSERT_EQ(boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface->getHvdcLines().at(i))->getID(),
+      boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface2->getHvdcLines().at(i))->getID());
+    ASSERT_EQ(boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface->getHvdcLines().at(i))->getResistanceDC(),
+      boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface2->getHvdcLines().at(i))->getResistanceDC());
+    ASSERT_EQ(boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface->getHvdcLines().at(i))->getVNom(),
+      boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface2->getHvdcLines().at(i))->getVNom());
+    ASSERT_EQ(boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface->getHvdcLines().at(i))->getActivePowerSetpoint(),
+      boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface2->getHvdcLines().at(i))->getActivePowerSetpoint());
+    ASSERT_EQ(boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface->getHvdcLines().at(i))->getPmax(),
+      boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface2->getHvdcLines().at(i))->getPmax());
+    ASSERT_EQ(boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface->getHvdcLines().at(i))->getConverterMode(),
+      boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface2->getHvdcLines().at(i))->getConverterMode());
+    ASSERT_EQ(boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface->getHvdcLines().at(i))->getIdConverter1(),
+      boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface2->getHvdcLines().at(i))->getIdConverter1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface->getHvdcLines().at(i))->getIdConverter2(),
+      boost::dynamic_pointer_cast<HvdcLineInterfaceIIDM>(network_interface2->getHvdcLines().at(i))->getIdConverter2());
+  }
+
+  ASSERT_EQ(network_interface->getVoltageLevels().size(), network_interface2->getVoltageLevels().size());
+  for (unsigned int i = 0; i < network_interface->getVoltageLevels().size(); i++) {
+    ASSERT_NE(network_interface->getVoltageLevels().at(i), network_interface2->getVoltageLevels().at(i));
+    ASSERT_EQ(boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface->getVoltageLevels().at(i))->getID(),
+      boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface2->getVoltageLevels().at(i))->getID());
+    ASSERT_EQ(boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface->getVoltageLevels().at(i))->getVNom(),
+      boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface2->getVoltageLevels().at(i))->getVNom());
+    ASSERT_EQ(boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface->getVoltageLevels().at(i))->getVoltageLevelTopologyKind(),
+      boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface2->getVoltageLevels().at(i))->getVoltageLevelTopologyKind());
+  }
+
+  ASSERT_EQ(network_interface->getTwoWTransformers().size(), network_interface2->getTwoWTransformers().size());
+  for (unsigned int i = 0; i < network_interface->getTwoWTransformers().size(); i++) {
+    ASSERT_NE(network_interface->getTwoWTransformers().at(i), network_interface2->getTwoWTransformers().at(i));
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getID(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getID());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getInitialConnected1(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getInitialConnected1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getInitialConnected2(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getInitialConnected2());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getVNom1(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getVNom1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getVNom2(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getVNom2());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getRatedU1(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getRatedU1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getRatedU2(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getRatedU2());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getR(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getR());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getX(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getX());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getG(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getG());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getB(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getB());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getP1(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getP1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getQ1(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getQ1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getP2(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getP2());
+    ASSERT_EQ(boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface->getTwoWTransformers().at(i))->getQ2(),
+      boost::dynamic_pointer_cast<TwoWTransformerInterfaceIIDM>(network_interface2->getTwoWTransformers().at(i))->getQ2());
+  }
+
+  ASSERT_EQ(network_interface->getThreeWTransformers().size(), network_interface2->getThreeWTransformers().size());
+  for (unsigned int i = 0; i < network_interface->getThreeWTransformers().size(); i++) {
+    ASSERT_NE(network_interface->getThreeWTransformers().at(i), network_interface2->getThreeWTransformers().at(i));
+    ASSERT_EQ(boost::dynamic_pointer_cast<ThreeWTransformerInterfaceIIDM>(network_interface->getThreeWTransformers().at(i))->getID(),
+      boost::dynamic_pointer_cast<ThreeWTransformerInterfaceIIDM>(network_interface2->getThreeWTransformers().at(i))->getID());
+    ASSERT_EQ(boost::dynamic_pointer_cast<ThreeWTransformerInterfaceIIDM>(network_interface->getThreeWTransformers().at(i))->getInitialConnected1(),
+      boost::dynamic_pointer_cast<ThreeWTransformerInterfaceIIDM>(network_interface2->getThreeWTransformers().at(i))->getInitialConnected1());
+    ASSERT_EQ(boost::dynamic_pointer_cast<ThreeWTransformerInterfaceIIDM>(network_interface->getThreeWTransformers().at(i))->getInitialConnected2(),
+      boost::dynamic_pointer_cast<ThreeWTransformerInterfaceIIDM>(network_interface2->getThreeWTransformers().at(i))->getInitialConnected2());
+  }
+}
+
+TEST(DataInterfaceIIDMTest, testMultiThreading) {
+  auto network = createNodeBreakerNetworkIIDM();
+
+  shared_ptr<DataInterfaceIIDM> dataOutput = createDataItfFromNetwork(createNodeBreakerNetworkIIDM());
+  ASSERT_NO_THROW(dataOutput->dumpToFile("network.xml"));
+  const powsybl::iidm::Network& outputNetwork = dataOutput->getNetworkIIDM();
+  ASSERT_THROW_DYNAWO(dataOutput->dumpToFile(".."), Error::GENERAL, KeyError_t::XmlFileParsingError);
+
+  shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network.xml");
+  ASSERT_FALSE(dataInput->canUseVariant());
+  dataInput = DataInterfaceIIDM::build("network.xml", 2);
+  ASSERT_TRUE(dataInput->canUseVariant());
+  shared_ptr<DataInterfaceIIDM> dataInputIIDM = boost::dynamic_pointer_cast<DataInterfaceIIDM>(dataInput);
+  const powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
+
+  ASSERT_EQ(outputNetwork.getId(), inputNetwork.getId());
+  ASSERT_EQ(outputNetwork.getId(), network->getId());
+  ASSERT_EQ(inputNetwork.getId(), network->getId());
+
+  auto load_interface_ptr = dataInput->getNetwork()->getVoltageLevels().front()->getLoads().front();
+  auto load_iterface_iidm_ptr = boost::dynamic_pointer_cast<LoadInterfaceIIDM>(load_interface_ptr);
+  auto& load = load_iterface_iidm_ptr->getUnderlyingLoad();
+
+  std::thread launch0([&dataInput, &load](){
+    dataInput->selectVariant("0");
+    load.setP0(3.0);
+    load.setQ0(5.0);
+  });
+  std::thread launch1([&dataInput, &load](){
+    dataInput->selectVariant("1");
+    load.setP0(2.0);
+    load.setQ0(4.0);
+  });
+
+  launch0.join();
+  launch1.join();
+
+  dataInput->selectVariant("0");
+  ASSERT_EQ(load.getP0(), 3.0);
+  ASSERT_EQ(load.getQ0(), 5.0);
+
+  dataInput->selectVariant("1");
+  ASSERT_EQ(load.getP0(), 2.0);
+  ASSERT_EQ(load.getQ0(), 4.0);
 }
 }  // namespace DYN

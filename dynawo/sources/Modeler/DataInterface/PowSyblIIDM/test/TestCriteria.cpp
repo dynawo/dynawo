@@ -55,19 +55,19 @@ using criteria::CriteriaCollectionFactory;
 namespace DYN {
 
 shared_ptr<DataInterface>
-createDataItfFromNetworkCriteria(powsybl::iidm::Network&& network) {
+createDataItfFromNetworkCriteria(const boost::shared_ptr<powsybl::iidm::Network>& network) {
   shared_ptr<DataInterface> data;
-  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(std::forward<powsybl::iidm::Network>(network));
+  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
   ptr->initFromIIDM();
   data.reset(ptr);
   return data;
 }
 
-powsybl::iidm::Network
+boost::shared_ptr<powsybl::iidm::Network>
 createBusBreakerNetwork(double busV, double busVNom, bool addCountry = true) {
-  powsybl::iidm::Network network("MyNetwork", "MyNetwork");
+  auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
-  auto substationAdder = network.newSubstation()
+  auto substationAdder = network->newSubstation()
                                      .setId("MySubStation")
                                      .setName("MySubStation_NAME")
                                      .setTso("TSO");
@@ -89,11 +89,11 @@ createBusBreakerNetwork(double busV, double busVNom, bool addCountry = true) {
   return network;
 }
 
-powsybl::iidm::Network
+boost::shared_ptr<powsybl::iidm::Network>
 createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, double pow2, bool addCountry = true) {
-  powsybl::iidm::Network network("MyNetwork", "MyNetwork");
+  auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
-  auto substationAdder = network.newSubstation()
+  auto substationAdder = network->newSubstation()
                                      .setId("MySubStation")
                                      .setName("MySubStation_NAME")
                                      .setTso("TSO");
@@ -139,11 +139,11 @@ createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, doubl
   return network;
 }
 
-powsybl::iidm::Network
+boost::shared_ptr<powsybl::iidm::Network>
 createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, double pow2, bool addCountry = true) {
-  powsybl::iidm::Network network("MyNetwork", "MyNetwork");
+  auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
-  auto substationAdder = network.newSubstation()
+  auto substationAdder = network->newSubstation()
                                      .setId("MySubStation")
                                      .setName("MySubStation_NAME")
                                      .setTso("TSO");

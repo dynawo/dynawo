@@ -39,6 +39,25 @@ namespace job {
  */
 class OutputsEntry {
  public:
+  /// @brief Destructor
+  ~OutputsEntry();
+
+  /// @brief Default constructor
+  OutputsEntry();
+
+  /**
+   * @brief Copy constructor
+   * @param other originalto copy
+   */
+  OutputsEntry(const OutputsEntry& other);
+
+  /**
+   * @brief Assignement OPerator
+   * @param other originalto copy
+   * @returns reference on current entry
+   */
+  OutputsEntry& operator=(const OutputsEntry& other);
+
   /**
    * @brief Outputs directory setter
    * @param outputsDirectory : directory for simulation outputs
@@ -134,6 +153,13 @@ class OutputsEntry {
    * @return the log entry container
    */
   boost::shared_ptr<LogsEntry> getLogsEntry() const;
+
+ private:
+  /**
+   * @brief Copy
+   * @param other original to copy
+   */
+  void copy(const OutputsEntry& other);
 
  private:
   std::string outputsDirectory_;                          ///< directory for simulation outputs

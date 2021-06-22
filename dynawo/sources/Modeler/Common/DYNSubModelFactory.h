@@ -27,6 +27,10 @@
 #include <boost/dll.hpp>
 #include <boost/function.hpp>
 
+#ifdef LANG_CXX11
+#include <mutex>
+#endif
+
 namespace DYN {
 class SubModel;
 class SubModelFactories;
@@ -143,6 +147,9 @@ class SubModelFactories : private boost::noncopyable {
  private:
   std::map<std::string, SubModelFactory*> factoryMap_;  ///< associate a library factory with the name of the library
   std::map<std::string, boost::function<deleteSubModelFactory_t> > factoryMapDelete_;  ///< associate a library factory with its destruction method
+#ifdef LANG_CXX11
+  mutable std::mutex factoriesMutex_;  ///< Mutex to handle multithreading access to factories
+#endif
 };
 
 /**
