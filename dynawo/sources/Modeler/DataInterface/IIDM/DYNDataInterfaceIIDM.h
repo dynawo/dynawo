@@ -89,25 +89,6 @@ class DataInterfaceIIDM : public DataInterface {
   ~DataInterfaceIIDM();
 
   /**
-   * @brief Copy constructor
-   *
-   * This does NOT clone criteria and IIDM network
-   *
-   * @param other data interface to clone
-   */
-  DataInterfaceIIDM(const DataInterfaceIIDM& other);
-
-  /**
-   * @brief Assignement operator
-   *
-   * This does NOT clone criteria and IIDM network
-   *
-   * @param other data interface to copy
-   * @returns current data interface
-   */
-  DataInterfaceIIDM& operator=(const DataInterfaceIIDM& other);
-
-  /**
    * @brief init dataInterface from iidm network
    */
   void initFromIIDM();
@@ -418,6 +399,25 @@ class DataInterfaceIIDM : public DataInterface {
    * @param other data interface to copy
    */
   void copy(const DataInterfaceIIDM& other);
+
+  /**
+   * @brief Copy constructor
+   *
+   * This does NOT clone criteria and IIDM network
+   *
+   * @param other data interface to clone
+   */
+  DataInterfaceIIDM(const DataInterfaceIIDM& other);
+
+  /**
+   * @brief Assignement operator
+   *
+   * This does NOT clone criteria and IIDM network
+   *
+   * @param other data interface to copy
+   * @returns current data interface
+   */
+  DataInterfaceIIDM& operator=(const DataInterfaceIIDM& other);
 
  private:
   boost::shared_ptr<IIDM::Network> networkIIDM_;  ///< instance of the IIDM network
