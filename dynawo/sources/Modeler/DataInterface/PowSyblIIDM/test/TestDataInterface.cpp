@@ -1798,15 +1798,13 @@ TEST(DataInterfaceIIDMTest, testMultiThreading) {
   dataInput = DataInterfaceIIDM::build("network.xml", 2);
   ASSERT_TRUE(dataInput->canUseVariant());
   shared_ptr<DataInterfaceIIDM> dataInputIIDM = boost::dynamic_pointer_cast<DataInterfaceIIDM>(dataInput);
-  const powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
+  powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
 
   ASSERT_EQ(outputNetwork.getId(), inputNetwork.getId());
   ASSERT_EQ(outputNetwork.getId(), network->getId());
   ASSERT_EQ(inputNetwork.getId(), network->getId());
 
-  auto load_interface_ptr = dataInput->getNetwork()->getVoltageLevels().front()->getLoads().front();
-  auto load_iterface_iidm_ptr = boost::dynamic_pointer_cast<LoadInterfaceIIDM>(load_interface_ptr);
-  auto& load = load_iterface_iidm_ptr->getUnderlyingLoad();
+  auto& load = inputNetwork.getLoad("MyLoad");
 
   std::thread launch0([&dataInput, &load](){
     dataInput->selectVariant("0");
