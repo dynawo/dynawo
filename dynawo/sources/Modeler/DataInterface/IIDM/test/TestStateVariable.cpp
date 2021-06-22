@@ -50,6 +50,9 @@
 #include <IIDM/builders/SwitchBuilder.h>
 #include <IIDM/builders/VscConverterStationBuilder.h>
 
+#include <IIDM/extensions/generatorActivePowerControl/GeneratorActivePowerControl.h>
+#include <IIDM/extensions/generatorActivePowerControl/GeneratorActivePowerControlBuilder.h>
+
 #include "gtest_dynawo.h"
 #include "DYNStateVariable.h"
 #include "DYNVariableNative.h"
@@ -181,6 +184,7 @@ struct NetworkProperty {
   bool instantiatePhaseTapChanger;
   bool instantiateDanglingLine;
   bool instantiateGenerator;
+  bool instantiateGeneratorWithActivePowerControlExt;
   bool instantiateLccConverter;
   bool instantiateLine;
   bool instantiateLoad;
@@ -267,6 +271,19 @@ createNetwork(const NetworkProperty& properties) {
     gb.minMaxReactiveLimits(limits);
     IIDM::Generator g = gb.build("MyGenerator");
     g.connectTo("MyVoltageLevel", p1);
+    vl.add(g);
+  }
+
+  if (properties.instantiateGeneratorWithActivePowerControlExt) {
+    IIDM::builders::GeneratorBuilder gb;
+    IIDM::MinMaxReactiveLimits limits(1., 2.);
+    gb.minMaxReactiveLimits(limits);
+    IIDM::Generator g = gb.build("MyGenerator");
+    g.connectTo("MyVoltageLevel", p1);
+    IIDM::extensions::generatoractivepowercontrol::GeneratorActivePowerControlBuilder gapc;
+    gapc.droop(4.);
+    gapc.participate(true);
+    g.setExtension(gapc.build());
     vl.add(g);
   }
 
@@ -380,6 +397,7 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
       true /*instantiatePhaseTapChanger*/,
       true /*instantiateDanglingLine*/,
       true /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       true /*instantiateLccConverter*/,
       true /*instantiateLine*/,
       true /*instantiateLoad*/,
@@ -457,6 +475,7 @@ TEST(DataInterfaceTest, testStateVariableShuntCompensator) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       false /*instantiateLccConverter*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -476,6 +495,7 @@ TEST(DataInterfaceTest, testStateVariableStaticVarCompensator) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       false /*instantiateLccConverter*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -495,6 +515,7 @@ TEST(DataInterfaceTest, testStateVariableTwoWTransformerWithPhaseTapChanger) {
       true /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       false /*instantiateLccConverter*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -514,6 +535,7 @@ TEST(DataInterfaceTest, testStateVariableTwoWTransformerWithRatioTapChanger) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       false /*instantiateLccConverter*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -533,6 +555,7 @@ TEST(DataInterfaceTest, testStateVariableTwoWTransformerWithRatioTapChangerAndPh
       true /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       false /*instantiateLccConverter*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -552,6 +575,7 @@ TEST(DataInterfaceTest, testStateVariableDanglingLine) {
       false /*instantiatePhaseTapChanger*/,
       true /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       false /*instantiateLccConverter*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -571,6 +595,7 @@ TEST(DataInterfaceTest, testStateVariableGenerator) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       true /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       false /*instantiateLccConverter*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -579,6 +604,44 @@ TEST(DataInterfaceTest, testStateVariableGenerator) {
   };
   shared_ptr<DataInterface> data = createNetwork(properties);
   ASSERT_NO_THROW(testexportStateVariables(data));
+  shared_ptr<NetworkInterface> network = data->getNetwork();
+  const std::vector< shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
+  for (unsigned i = 0, iEnd = voltageLevels.size(); i < iEnd; ++i) {
+    for (unsigned g =0, gEnd = voltageLevels[i]->getGenerators().size(); g < gEnd; ++g) {
+      ASSERT_FALSE(voltageLevels[i]->getGenerators()[g]->isParticipating());
+      ASSERT_FALSE(voltageLevels[i]->getGenerators()[g]->hasActivePowerControl());
+      ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getGenerators()[g]->getActivePowerControlDroop(), 0.);
+    }
+  }
+}
+
+TEST(DataInterfaceTest, testStateVariableGeneratorWithActivePowerControlExt) {
+  const NetworkProperty properties = {
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensator*/,
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTapChanger*/,
+      false /*instantiatePhaseTapChanger*/,
+      false /*instantiateDanglingLine*/,
+      false /*instantiateGenerator*/,
+      true /*instantiateGeneratorWithActivePowerControlExt*/,
+      false /*instantiateLccConverter*/,
+      false /*instantiateLine*/,
+      false /*instantiateLoad*/,
+      false /*instantiateSwitch*/,
+      false /*instantiateVscConverter*/
+  };
+  shared_ptr<DataInterface> data = createNetwork(properties);
+  ASSERT_NO_THROW(testexportStateVariables(data));
+  shared_ptr<NetworkInterface> network = data->getNetwork();
+  const std::vector< shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
+  for (unsigned i = 0, iEnd = voltageLevels.size(); i < iEnd; ++i) {
+    for (unsigned g =0, gEnd = voltageLevels[i]->getGenerators().size(); g < gEnd; ++g) {
+      ASSERT_TRUE(voltageLevels[i]->getGenerators()[g]->isParticipating());
+      ASSERT_TRUE(voltageLevels[i]->getGenerators()[g]->hasActivePowerControl());
+      ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getGenerators()[g]->getActivePowerControlDroop(), 4.);
+    }
+  }
 }
 
 TEST(DataInterfaceTest, testStateVariableLccConverter) {
@@ -590,6 +653,7 @@ TEST(DataInterfaceTest, testStateVariableLccConverter) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       true /*instantiateLccConverter*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -609,6 +673,7 @@ TEST(DataInterfaceTest, testStateVariableLine) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       false /*instantiateLccConverter*/,
       true /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -628,6 +693,7 @@ TEST(DataInterfaceTest, testStateVariableLoad) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       false /*instantiateLccConverter*/,
       false /*instantiateLine*/,
       true /*instantiateLoad*/,
@@ -647,6 +713,7 @@ TEST(DataInterfaceTest, testStateVariableSwitch) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       false /*instantiateLccConverter*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -701,6 +768,7 @@ TEST(DataInterfaceTest, testStateVariableVscConverter) {
       false /*instantiatePhaseTapChanger*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
       false /*instantiateLccConverter*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,

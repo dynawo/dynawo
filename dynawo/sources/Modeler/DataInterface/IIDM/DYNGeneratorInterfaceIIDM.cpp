@@ -40,6 +40,7 @@ generatorIIDM_(generator) {
   stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);   // connectionState
+  activePowerControl_ = generator.findExtension<IIDM::extensions::generatoractivepowercontrol::GeneratorActivePowerControl>();
 }
 
 int
@@ -252,6 +253,29 @@ GeneratorInterfaceIIDM::getTargetV() {
   }
 }
 
+bool
+GeneratorInterfaceIIDM::hasActivePowerControl() const {
+  if (activePowerControl_) {
+    return true;
+  }
+  return false;
+}
+
+bool
+GeneratorInterfaceIIDM::isParticipating() const {
+  if (hasActivePowerControl()) {
+    return activePowerControl_->participate();
+  }
+  return false;
+}
+
+double
+GeneratorInterfaceIIDM::getActivePowerControlDroop() const {
+  if (hasActivePowerControl()) {
+    return activePowerControl_->droop();
+  }
+  return 0.;
+}
 
 string
 GeneratorInterfaceIIDM::getID() const {
