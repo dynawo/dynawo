@@ -342,7 +342,8 @@ DataInterfaceIIDM::initFromIIDM() {
     //===========================
     //  ADD 3WTFO INTERFACE
     //===========================
-    for (IIDM::Contains<IIDM::Transformer3Windings>::iterator it3WTfo = itSubstation->threeWindingsTransformers().begin(); it3WTfo != itSubstation->threeWindingsTransformers().end(); ++it3WTfo) {
+    for (IIDM::Contains<IIDM::Transformer3Windings>::iterator it3WTfo = itSubstation->threeWindingsTransformers().begin();
+      it3WTfo != itSubstation->threeWindingsTransformers().end(); ++it3WTfo) {
       if (!(*it3WTfo).has_connection(IIDM::side_1) && !(*it3WTfo).has_connection(IIDM::side_2) && !(*it3WTfo).has_connection(IIDM::side_3)) {
         Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*it3WTfo).id()) << Trace::endline;
         continue;
@@ -1376,7 +1377,7 @@ DataInterfaceIIDM& DataInterfaceIIDM::operator=(const DataInterfaceIIDM& other) 
 
 boost::shared_ptr<DataInterface>
 DataInterfaceIIDM::clone() const {
-  return boost::make_shared<DataInterfaceIIDM>(*this);
+  return boost::shared_ptr<DataInterfaceIIDM>(new DataInterfaceIIDM(*this));
 }
 
 }  // namespace DYN

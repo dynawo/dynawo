@@ -1121,7 +1121,7 @@ DataInterfaceIIDM& DataInterfaceIIDM::operator=(const DataInterfaceIIDM& other) 
 
 boost::shared_ptr<DataInterface>
 DataInterfaceIIDM::clone() const {
-  return boost::make_shared<DataInterfaceIIDM>(*this);
+  return boost::shared_ptr<DataInterfaceIIDM>(new DataInterfaceIIDM(*this));
 }
 
 }  // namespace DYN
