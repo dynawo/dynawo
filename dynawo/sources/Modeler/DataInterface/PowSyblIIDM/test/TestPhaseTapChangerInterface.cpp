@@ -14,6 +14,7 @@
 #include "DYNPhaseTapChangerInterfaceIIDM.h"
 
 #include "DYNStepInterfaceIIDM.h"
+#include "DYNCommon.h"
 
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Load.hpp>
@@ -131,7 +132,7 @@ create_2WT_PhaseTapChanger_Network() {
       .endStep()  // No position 4L, neither 0L or -1L
       .setRegulating(false)
       .setRegulationTerminal(stdcxx::ref<Terminal>(l1.getTerminal()))
-      .setTargetDeadband(0.0)
+      .setTargetDeadband(0.1)
       .add();
 
   return network;
@@ -195,8 +196,10 @@ TEST(DataInterfaceTest, PhaseTapChanger_2WT) {
 
   ptcCopy.setRegulating(true);
   ASSERT_TRUE(Ifce.getRegulating());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(Ifce.getTargetDeadBand(), 0.1);
   ptcCopy.setRegulating(false);
   ASSERT_FALSE(Ifce.getRegulating());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(Ifce.getTargetDeadBand(), 0.);
 }  // TEST(DataInterfaceTest, PhaseTapChanger_2WT)
 };  // namespace DYN
 

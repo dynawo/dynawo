@@ -76,6 +76,8 @@ else()
   set(Boost_NO_SYSTEM_PATHS TRUE)
 endif()
 
+set(BUILD_SHARED_LIBS ON)
+set(Boost_USE_STATIC_RUNTIME False)
 add_definitions(-DBOOST_ALL_DYN_LINK)
 # Tell BOOST to disable auto linking
 add_definitions(-DBOOST_ALL_NO_LIB)
