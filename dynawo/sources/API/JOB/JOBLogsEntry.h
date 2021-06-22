@@ -42,13 +42,13 @@ class LogsEntry {
 
   /**
    * @brief Copy constructor
-   * @param other originalto copy
+   * @param other original to copy
    */
   LogsEntry(const LogsEntry& other);
 
   /**
    * @brief Assignement OPerator
-   * @param other originalto copy
+   * @param other original to copy
    * @returns reference on current entry
    */
   LogsEntry& operator=(const LogsEntry& other);

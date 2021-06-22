@@ -78,6 +78,15 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_NE(outputs_bis->getFinalStateEntry(), finalState);
   ASSERT_NE(outputs_bis->getCurvesEntry(), curves);
   ASSERT_NE(outputs_bis->getLogsEntry(), logs);
+
+  OutputsEntry outputs_bis2 = *outputs;
+  ASSERT_EQ(outputs_bis2.getOutputsDirectory(), "/tmp/outputs");
+  ASSERT_NE(outputs_bis2.getInitValuesEntry(), initValues);
+  ASSERT_NE(outputs_bis2.getConstraintsEntry(), constraints);
+  ASSERT_NE(outputs_bis2.getTimelineEntry(), timeline);
+  ASSERT_NE(outputs_bis2.getFinalStateEntry(), finalState);
+  ASSERT_NE(outputs_bis2.getCurvesEntry(), curves);
+  ASSERT_NE(outputs_bis2.getLogsEntry(), logs);
 }
 
 }  // namespace job

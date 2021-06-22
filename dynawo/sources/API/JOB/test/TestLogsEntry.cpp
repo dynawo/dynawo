@@ -39,6 +39,9 @@ TEST(APIJOBTest, testLogsEntry) {
 
   boost::shared_ptr<LogsEntry> logs_bis = DYN::clone(logs);
   ASSERT_EQ(logs_bis->getAppenderEntries().size(), 2);
+
+  LogsEntry logs_bis2 = *logs;
+  ASSERT_EQ(logs_bis2.getAppenderEntries().size(), 2);
 }
 
 }  // namespace job
