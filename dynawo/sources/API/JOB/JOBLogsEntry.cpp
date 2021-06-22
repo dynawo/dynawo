@@ -19,7 +19,31 @@
 
 #include "JOBLogsEntry.h"
 
+#include "DYNClone.hpp"
+
 namespace job {
+
+LogsEntry::~LogsEntry() {}
+
+LogsEntry::LogsEntry() {}
+
+LogsEntry::LogsEntry(const LogsEntry& other) {
+  copy(other);
+}
+
+LogsEntry& LogsEntry::operator=(const LogsEntry& other) {
+  copy(other);
+  return *this;
+}
+
+void
+LogsEntry::copy(const LogsEntry& other) {
+  appenders_.reserve(other.appenders_.size());
+  for (std::vector<boost::shared_ptr<AppenderEntry> >::const_iterator it = other.appenders_.begin(); it != other.appenders_.end();
+    ++it) {
+      appenders_.push_back(DYN::clone(*it));
+  }
+}
 
 void
 LogsEntry::addAppenderEntry(const boost::shared_ptr<AppenderEntry>& appenderEntry) {
