@@ -558,6 +558,14 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    */
   void resetCurrentUStatus();
 
+  /**
+   * @brief check if the load can be controlled even without connection
+   * @return whether the load can be controlled
+   */
+  inline bool isControllable() const {
+    return hasConnection_ || isControllable_;
+  }
+
  private:
   /**
    * @brief define elements of the bus model using id as prefix (to deal with alias)
@@ -579,14 +587,6 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    */
   inline double calculateU() const {
     return UPu_ * unom_;
-  }
-
-  /**
-   * @brief check if the load can be controlled even without connection
-   * @return whether the load can be controlled
-   */
-  inline bool isControllable() const {
-    return hasConnection_ || isControllable_;
   }
 
  private:
