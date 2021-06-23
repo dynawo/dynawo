@@ -32,12 +32,6 @@ target_link_libraries(${MODULE_NAME}
   dynawo_DataInterface
   Sundials::Sundials_NVECSERIAL)
 
-if(CXX11_ENABLED)
-  target_link_libraries(${MODULE_NAME}
-    LibXml2::LibXml2
-  )
-endif()
-
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_PATH}"
   "${runtime_tests_PATH}"
