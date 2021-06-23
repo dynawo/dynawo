@@ -310,7 +310,7 @@ GeneratorInterfaceIIDM::hasCoordinatedReactiveControl() const {
 }
 
 double
-GeneratorInterfaceIIDM::getCoordinatedReactiveControlPercent() const {
+GeneratorInterfaceIIDM::getCoordinatedReactiveControlPercentage() const {
   if (hasCoordinatedReactiveControl()) {
     return coordinatedReactiveControl_.get().getQPercent();
   }

@@ -176,9 +176,9 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   bool hasCoordinatedReactiveControl() const;
 
   /**
-   * @copydoc GeneratorInterface::getCoordinatedReactiveControlPercent() const
+   * @copydoc GeneratorInterface::getCoordinatedReactiveControlPercentage() const
    */
-  double getCoordinatedReactiveControlPercent() const;
+  double getCoordinatedReactiveControlPercentage() const;
 
   /**
    * @brief Getter for the generator' country
