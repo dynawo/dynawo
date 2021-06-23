@@ -99,9 +99,9 @@ struct NetworkProperty {
 
 #ifdef USE_POWSYBL
 shared_ptr<DataInterface>
-createDataItfFromNetwork(powsybl::iidm::Network&& network) {
+createDataItfFromNetwork(const boost::shared_ptr<powsybl::iidm::Network>& network) {
   shared_ptr<DataInterfaceIIDM> data;
-  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(std::move(network));
+  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
   ptr->initFromIIDM();
   data.reset(ptr);
   return data;
@@ -109,15 +109,15 @@ createDataItfFromNetwork(powsybl::iidm::Network&& network) {
 #endif
 
 #ifdef USE_POWSYBL
-powsybl::iidm::Network
+shared_ptr<powsybl::iidm::Network>
 #else
 shared_ptr<DataInterface>
 #endif
 createNetwork(const NetworkProperty& properties) {
 #ifdef USE_POWSYBL
-  powsybl::iidm::Network network("test", "test");
+  auto network = boost::make_shared<powsybl::iidm::Network>("test", "test");
 
-  powsybl::iidm::Substation& s = network.newSubstation()
+  powsybl::iidm::Substation& s = network->newSubstation()
       .setId("S")
       .add();
 
@@ -251,7 +251,7 @@ createNetwork(const NetworkProperty& properties) {
   }
 
   if (properties.instantiateLine) {
-    network.newLine()
+    network->newLine()
                                       .setId("VL1_VL2")
                                       .setName("VL1_VL2_NAME")
                                       .setVoltageLevel1(vlIIDM.getId())
@@ -270,7 +270,7 @@ createNetwork(const NetworkProperty& properties) {
   }
 #else
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::connection_status_t cs = {true /*connected*/};
   IIDM::Port p1("MyBus1", cs), p2("MyBus2", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_1);
@@ -338,12 +338,12 @@ createNetwork(const NetworkProperty& properties) {
     ss.add(t2W, c1, c2);
   }
 
-  network.add(ss);
+  network->add(ss);
 
   if (properties.instantiateLine) {
     IIDM::builders::LineBuilder lb;
     IIDM::Line dl = lb.build("MyLine");
-    network.add(dl, c1, c2);
+    network->add(dl, c1, c2);
   }
 #endif
 

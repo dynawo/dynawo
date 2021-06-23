@@ -67,6 +67,15 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_EQ(outputs->getFinalStateEntry(), finalState);
   ASSERT_EQ(outputs->getCurvesEntry(), curves);
   ASSERT_EQ(outputs->getLogsEntry(), logs);
+
+  boost::shared_ptr<OutputsEntry> outputs_bis = outputs->clone();
+  ASSERT_EQ(outputs_bis->getOutputsDirectory(), "/tmp/outputs");
+  ASSERT_NE(outputs_bis->getInitValuesEntry(), initValues);
+  ASSERT_NE(outputs_bis->getConstraintsEntry(), constraints);
+  ASSERT_NE(outputs_bis->getTimelineEntry(), timeline);
+  ASSERT_NE(outputs_bis->getFinalStateEntry(), finalState);
+  ASSERT_NE(outputs_bis->getCurvesEntry(), curves);
+  ASSERT_NE(outputs_bis->getLogsEntry(), logs);
 }
 
 }  // namespace job

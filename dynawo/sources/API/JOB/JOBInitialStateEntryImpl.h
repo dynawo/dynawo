@@ -51,6 +51,9 @@ class InitialStateEntry::Impl : public InitialStateEntry {
    */
   std::string getInitialStateFile() const;
 
+  /// @copydoc InitialStateEntry::clone()
+  boost::shared_ptr<InitialStateEntry> clone() const;
+
  private:
   std::string initialStateFile_;  ///< initial state file for the simulation
 };

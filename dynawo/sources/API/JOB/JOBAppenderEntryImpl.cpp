@@ -19,6 +19,8 @@
 
 #include "JOBAppenderEntryImpl.h"
 
+#include <boost/make_shared.hpp>
+
 namespace job {
 
 AppenderEntry::Impl::Impl() :
@@ -28,6 +30,10 @@ lvlFilter_(""),
 showLevelTag_(true),
 separator_(" | "),
 timeStampFormat_("%Y-%m-%d %H:%M:%S") {
+}
+
+boost::shared_ptr<AppenderEntry> AppenderEntry::Impl::clone() const {
+  return boost::make_shared<AppenderEntry::Impl>(*this);
 }
 
 AppenderEntry::Impl::~Impl() {

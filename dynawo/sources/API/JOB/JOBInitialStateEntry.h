@@ -21,6 +21,7 @@
 #define API_JOB_JOBINITIALSTATEENTRY_H_
 
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 namespace job {
 
@@ -46,6 +47,12 @@ class InitialStateEntry {
    * @return initial state file  for the job
    */
   virtual std::string getInitialStateFile() const = 0;
+
+  /**
+   * @brief Clone current entry
+   * @returns copy of current entry
+   */
+  virtual boost::shared_ptr<InitialStateEntry> clone() const = 0;
 
   class Impl;  ///< implemented class
 };

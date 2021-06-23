@@ -19,7 +19,34 @@
 
 #include "JOBOutputsEntryImpl.h"
 
+#include "JOBLogsEntry.h"
+#include "JOBCurvesEntry.h"
+#include "JOBInitValuesEntry.h"
+#include "JOBConstraintsEntry.h"
+#include "JOBTimelineEntry.h"
+#include "JOBFinalStateEntry.h"
+
+#include <boost/make_shared.hpp>
+
 namespace job {
+
+void OutputsEntry::Impl::copy(const OutputsEntry::Impl& other) {
+  outputsDirectory_ = other.outputsDirectory_;
+
+  initValuesEntry_ = other.initValuesEntry_ ? other.initValuesEntry_->clone() : NULL;
+  constraintsEntry_ = other.constraintsEntry_ ? other.constraintsEntry_->clone() : NULL;
+  timelineEntry_ = other.timelineEntry_ ? other.timelineEntry_->clone() : NULL;
+  finalStateEntry_ = other.finalStateEntry_ ? other.finalStateEntry_->clone() : NULL;
+  curvesEntry_ = other.curvesEntry_ ? other.curvesEntry_->clone() : NULL;
+  logsEntry_ = other.logsEntry_ ? other.logsEntry_->clone() : NULL;
+}
+
+boost::shared_ptr<OutputsEntry>
+OutputsEntry::Impl::clone() const {
+  boost::shared_ptr<OutputsEntry::Impl> newPtr = boost::make_shared<OutputsEntry::Impl>();
+  newPtr->copy(*this);
+  return newPtr;
+}
 
 OutputsEntry::Impl::Impl() :
 outputsDirectory_("") {

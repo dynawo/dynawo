@@ -22,6 +22,8 @@
 
 #include <string>
 
+#include <boost/shared_ptr.hpp>
+
 namespace job {
 
 /**
@@ -70,6 +72,12 @@ class CurvesEntry {
    * @param exportMode: Export mode for curves
    */
   virtual void setExportMode(const std::string & exportMode) = 0;
+
+  /**
+   * @brief Clone current entry
+   * @returns copy of current entry
+   */
+  virtual boost::shared_ptr<CurvesEntry> clone() const = 0;
 
   class Impl;  ///< Implemented class
 };

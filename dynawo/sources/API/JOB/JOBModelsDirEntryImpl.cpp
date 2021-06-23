@@ -19,6 +19,8 @@
 
 #include "JOBModelsDirEntryImpl.h"
 
+#include <boost/make_shared.hpp>
+
 namespace job {
 
 ModelsDirEntry::Impl::Impl() :
@@ -27,6 +29,11 @@ useStandardModels_(false) {
 }
 
 ModelsDirEntry::Impl::~Impl() {
+}
+
+boost::shared_ptr<ModelsDirEntry>
+ModelsDirEntry::Impl::clone() const {
+  return boost::make_shared<ModelsDirEntry::Impl>(*this);
 }
 
 void

@@ -18,8 +18,27 @@
  */
 
 #include "JOBLogsEntryImpl.h"
+#include "JOBAppenderEntry.h"
+
+#include <boost/make_shared.hpp>
 
 namespace job {
+
+boost::shared_ptr<LogsEntry>
+LogsEntry::Impl::clone() const {
+  boost::shared_ptr<LogsEntry::Impl> newPtr = boost::make_shared<LogsEntry::Impl>();
+  newPtr->copy(*this);
+  return newPtr;
+}
+
+void
+LogsEntry::Impl::copy(const LogsEntry::Impl& other) {
+  appenders_.reserve(other.appenders_.size());
+  for (std::vector<boost::shared_ptr<AppenderEntry> >::const_iterator it = other.appenders_.begin(); it != other.appenders_.end();
+    ++it) {
+      appenders_.push_back((*it)->clone());
+  }
+}
 
 LogsEntry::Impl::Impl() {
 }

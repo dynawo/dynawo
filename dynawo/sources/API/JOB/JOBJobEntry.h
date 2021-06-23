@@ -102,6 +102,12 @@ class JobEntry {
    */
   virtual std::string getName() const = 0;
 
+  /**
+   * @brief Clone current job entry
+   * @returns copy of current job entry
+   */
+  virtual boost::shared_ptr<JobEntry> clone() const = 0;
+
   class Impl;  ///< Implemented class
 };
 

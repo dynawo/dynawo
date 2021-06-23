@@ -103,6 +103,11 @@ class ModelerEntry::Impl : public ModelerEntry {
    */
   boost::shared_ptr<InitialStateEntry> getInitialStateEntry() const;
 
+  /**
+   * @copydoc ModelerEntry::clone()
+   */
+  boost::shared_ptr<ModelerEntry> clone() const;
+
  private:
   std::string compileDir_;  ///< Compiling directory for the simulation
   boost::shared_ptr<ModelsDirEntry> preCompiledModelsDirEntry_;  ///< preCompiled models directories

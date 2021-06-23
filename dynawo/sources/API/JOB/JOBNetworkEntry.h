@@ -21,6 +21,7 @@
 #define API_JOB_JOBNETWORKENTRY_H_
 
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 namespace job {
 
@@ -70,6 +71,12 @@ class NetworkEntry {
    * @return Network parameters set number for the job
    */
   virtual std::string getNetworkParId() const = 0;
+
+  /**
+   * @brief Clone current job entry
+   * @returns copy of current job entry
+   */
+  virtual boost::shared_ptr<NetworkEntry> clone() const = 0;
 
   class Impl;  ///< implemented class
 };

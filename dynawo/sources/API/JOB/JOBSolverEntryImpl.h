@@ -71,6 +71,9 @@ class SolverEntry::Impl : public SolverEntry {
    */
   std::string getParametersId() const;
 
+  /// @copydoc SolverEntry::clone()
+  boost::shared_ptr<SolverEntry> clone() const;
+
  private:
   std::string lib_;  ///< Solver library used
   std::string parametersFile_;  ///< Parameters file for the solver

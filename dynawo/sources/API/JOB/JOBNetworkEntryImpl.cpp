@@ -19,6 +19,8 @@
 
 #include "JOBNetworkEntryImpl.h"
 
+#include <boost/make_shared.hpp>
+
 namespace job {
 
 NetworkEntry::Impl::Impl() :
@@ -28,6 +30,11 @@ networkParId_("") {
 }
 
 NetworkEntry::Impl::~Impl() {
+}
+
+boost::shared_ptr<NetworkEntry>
+NetworkEntry::Impl::clone() const {
+  return boost::make_shared<NetworkEntry::Impl>(*this);
 }
 
 void

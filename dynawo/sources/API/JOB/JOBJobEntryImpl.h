@@ -91,6 +91,11 @@ class JobEntry::Impl : public JobEntry {
    */
   std::string getName() const;
 
+  /**
+   * @copydoc JobEntry::clone()
+   */
+  boost::shared_ptr<JobEntry> clone() const;
+
  private:
   boost::shared_ptr<ModelerEntry> modelerEntry_;  ///< Modeler entries container
   boost::shared_ptr<SolverEntry> solverEntry_;  ///< Solver entries container

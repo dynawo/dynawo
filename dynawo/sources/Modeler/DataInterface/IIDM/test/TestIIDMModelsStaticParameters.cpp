@@ -69,6 +69,8 @@
 #include "DYNVoltageLevelInterface.h"
 #include "DYNLoadInterface.h"
 
+#include <boost/make_shared.hpp>
+
 using boost::shared_ptr;
 
 namespace DYN {
@@ -76,7 +78,7 @@ namespace DYN {
 shared_ptr<DataInterface>
 createNodeBreakerNetworkIIDM() {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::Port p1(0), p2(0);
 
   IIDM::builders::SubstationBuilder ssb;
@@ -99,7 +101,7 @@ createNodeBreakerNetworkIIDM() {
 
   ss.add(vl);
 
-  network.add(ss);
+  network->add(ss);
 
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
@@ -127,7 +129,7 @@ struct BusBreakerNetworkProperty {
 shared_ptr<DataInterface>
 createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::connection_status_t cs = {true /*connected*/};
   IIDM::Port p1("MyBus", cs), p2("MyBus", cs), p3("MyBus", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2),
@@ -214,7 +216,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     hvdcb.converterStation2("MyVscConverterStation2");
     hvdcb.convertersMode(IIDM::HvdcLine::mode_InverterRectifier);
     IIDM::HvdcLine hvdc = hvdcb.build("MyHvdcLine2");
-    network.add(hvdc);
+    network->add(hvdc);
   }
 
   if (properties.instantiateLccConverter) {
@@ -234,7 +236,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     hvdcb.converterStation2("MyLccConverter2");
     hvdcb.convertersMode(IIDM::HvdcLine::mode_InverterRectifier);
     IIDM::HvdcLine hvdc = hvdcb.build("MyHvdcLine");
-    network.add(hvdc);
+    network->add(hvdc);
   }
 
   if (properties.instantiateCapacitorShuntCompensator) {
@@ -305,7 +307,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
   }
 
 
-  network.add(ss);
+  network->add(ss);
 
   if (properties.instantiateLine) {
     IIDM::CurrentLimits limits(200.);
@@ -320,7 +322,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     lb.p2(150.);
     lb.q2(80.);
     IIDM::Line dl = lb.build("MyLine");
-    network.add(dl, c1, c2);
+    network->add(dl, c1, c2);
   }
 
   shared_ptr<DataInterface> data;
@@ -707,7 +709,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
 
 TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTargetV) {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::connection_status_t cs = {true /*connected*/};
   IIDM::Port p1("MyBus", cs), p2("MyBus", cs), p3("MyBus", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2),
@@ -736,7 +738,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTargetV) {
   rtp.terminalReference(tr);
   t2W.ratioTapChanger(rtp);
   ss.add(t2W, c1, c2);
-  network.add(ss);
+  network->add(ss);
 
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM ptr(network);
@@ -745,7 +747,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTargetV) {
 
 TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTerminalRef) {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::connection_status_t cs = {true /*connected*/};
   IIDM::Port p1("MyBus", cs), p2("MyBus", cs), p3("MyBus", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2),
@@ -773,7 +775,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTerminalRe
   rtp.targetV(20.);
   t2W.ratioTapChanger(rtp);
   ss.add(t2W, c1, c2);
-  network.add(ss);
+  network->add(ss);
 
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM ptr(network);
@@ -782,7 +784,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTerminalRe
 
 TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTerminalRefSide) {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::connection_status_t cs = {true /*connected*/};
   IIDM::Port p1("MyBus", cs), p2("MyBus", cs), p3("MyBus", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2),
@@ -812,7 +814,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTerminalRe
   rtp.terminalReference(tr);
   t2W.ratioTapChanger(rtp);
   ss.add(t2W, c1, c2);
-  network.add(ss);
+  network->add(ss);
 
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM ptr(network);
@@ -821,7 +823,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTerminalRe
 
 TEST(DataInterfaceIIDMTest, testRegulatingRatioTapChanger) {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::connection_status_t cs = {true /*connected*/};
   IIDM::Port p1("MyBus", cs), p2("MyBus", cs), p3("MyBus", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2),
@@ -851,7 +853,7 @@ TEST(DataInterfaceIIDMTest, testRegulatingRatioTapChanger) {
   rtp.terminalReference(tr);
   t2W.ratioTapChanger(rtp);
   ss.add(t2W, c1, c2);
-  network.add(ss);
+  network->add(ss);
 
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM ptr(network);

@@ -61,6 +61,9 @@ class TimelineEntry::Impl : public TimelineEntry {
    */
   std::string getExportMode() const;
 
+  /// @copydoc TimelineEntry::clone()
+  boost::shared_ptr<TimelineEntry> clone() const;
+
  private:
   std::string outputFile_;  ///< Export file for timeline
   std::string exportMode_;  ///< Export mode TXT, CSV, XML for timeline output file

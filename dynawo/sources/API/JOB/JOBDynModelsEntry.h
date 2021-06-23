@@ -21,6 +21,7 @@
 #define API_JOB_JOBDYNMODELSENTRY_H_
 
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 namespace job {
 
@@ -46,6 +47,12 @@ class DynModelsEntry {
    * @return .dyd file for the dynamic models entry
    */
   virtual std::string getDydFile() const = 0;
+
+  /**
+   * @brief Clone current job entry
+   * @returns copy of current job entry
+   */
+  virtual boost::shared_ptr<DynModelsEntry> clone() const = 0;
 
   class Impl;  ///< implemented class
 };

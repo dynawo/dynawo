@@ -36,9 +36,10 @@ class DataInterfaceFactory {
    * @brief Build an instance of a static network by reading a file
    * @param type format of the file
    * @param filepath input file path
+   * @param nbVariants number of variants to handle (relevant only with basic network models with variant)
    * @return The data interface built from the input file
    */
-  static boost::shared_ptr<DataInterface> build(dataInterfaceType_t type, const std::string& filepath);
+  static boost::shared_ptr<DataInterface> build(dataInterfaceType_t type, const std::string& filepath, unsigned int nbVariants = 1);
 };
 }  // namespace DYN
 

@@ -91,6 +91,9 @@ class SimulationEntry::Impl : public SimulationEntry {
    */
   double getPrecision() const;
 
+  /// @copydoc SimulationEntry::clone()
+  boost::shared_ptr<SimulationEntry> clone() const;
+
  private:
   double startTime_;  ///< Start time of the simulation
   double stopTime_;  ///< Stop time of the simulation

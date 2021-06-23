@@ -22,6 +22,7 @@
 
 #include <vector>
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 namespace job {
 
@@ -95,6 +96,12 @@ class SimulationEntry {
    * @return precision for the job
    */
   virtual double getPrecision() const = 0;
+
+  /**
+   * @brief Clone current job entry
+   * @returns copy of current job entry
+   */
+  virtual boost::shared_ptr<SimulationEntry> clone() const = 0;
 
   class Impl;  ///< Implemented class
 };

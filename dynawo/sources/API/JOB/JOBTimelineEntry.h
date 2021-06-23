@@ -21,6 +21,7 @@
 #define API_JOB_JOBTIMELINEENTRY_H_
 
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 namespace job {
 
@@ -58,6 +59,12 @@ class TimelineEntry {
    * @return Export mode for timeline
    */
   virtual std::string getExportMode() const = 0;
+
+  /**
+   * @brief Clone current entry
+   * @returns copy of current entry
+   */
+  virtual boost::shared_ptr<TimelineEntry> clone() const = 0;
 
   class Impl;  ///< implemented class
 };

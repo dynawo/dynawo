@@ -60,6 +60,9 @@ class InitValuesEntry::Impl : public InitValuesEntry {
    */
   bool getDumpGlobalInitValues() const;
 
+  /// @copydoc InitValuesEntry::clone()
+  boost::shared_ptr<InitValuesEntry> clone() const;
+
  private:
   bool dumpLocalInitValues_;  ///< boolean indicating whether to write the local init values in the outputs directory
   bool dumpGlobalInitValues_;  ///< boolean indicating whether to write the global init values in the outputs directory

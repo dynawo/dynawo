@@ -126,6 +126,12 @@ class OutputsEntry {
    */
   virtual boost::shared_ptr<LogsEntry> getLogsEntry() const = 0;
 
+  /**
+   * @brief Clone current entry
+   * @returns copy of current entry
+   */
+  virtual boost::shared_ptr<OutputsEntry> clone() const = 0;
+
   class Impl;  ///< implemented class
 };
 

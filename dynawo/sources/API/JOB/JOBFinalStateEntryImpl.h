@@ -81,6 +81,9 @@ class FinalStateEntry::Impl : public FinalStateEntry {
    */
   void setDumpFile(const std::string& dumpFile);
 
+  /// @copydoc FinalStateEntry::clone()
+  boost::shared_ptr<FinalStateEntry> clone() const;
+
  private:
   bool exportIIDMFile_;  ///< Boolean indicating whether to export IIDM output file
   bool exportDumpFile_;  ///< Boolean indicating whether to export output state

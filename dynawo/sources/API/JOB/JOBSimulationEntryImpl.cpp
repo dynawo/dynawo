@@ -19,6 +19,8 @@
 
 #include "JOBSimulationEntryImpl.h"
 
+#include <boost/make_shared.hpp>
+
 namespace job {
 
 SimulationEntry::Impl::Impl():
@@ -29,6 +31,11 @@ precision_(1e-6) {
 }
 
 SimulationEntry::Impl::~Impl() {
+}
+
+boost::shared_ptr<SimulationEntry>
+SimulationEntry::Impl::clone() const {
+  return boost::make_shared<SimulationEntry::Impl>(*this);
 }
 
 void
