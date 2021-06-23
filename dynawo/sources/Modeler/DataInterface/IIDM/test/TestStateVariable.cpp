@@ -504,6 +504,14 @@ TEST(DataInterfaceTest, testStateVariableStaticVarCompensator) {
   };
   shared_ptr<DataInterface> data = createNetwork(properties);
   ASSERT_NO_THROW(testexportStateVariables(data));
+  shared_ptr<NetworkInterface> network = data->getNetwork();
+  const std::vector< shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
+  for (unsigned i = 0, iEnd = voltageLevels.size(); i < iEnd; ++i) {
+    for (unsigned g =0, gEnd = voltageLevels[i]->getStaticVarCompensators().size(); g < gEnd; ++g) {
+      ASSERT_FALSE(voltageLevels[i]->getStaticVarCompensators()[g]->hasVoltagePerReactivePowerControl());
+      ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getStaticVarCompensators()[g]->getSlope(), 0.);
+    }
+  }
 }
 
 TEST(DataInterfaceTest, testStateVariableTwoWTransformerWithPhaseTapChanger) {
@@ -642,6 +650,8 @@ TEST(DataInterfaceTest, testStateVariableGeneratorWithActivePowerControlExt) {
       ASSERT_TRUE(voltageLevels[i]->getGenerators()[g]->isParticipating());
       ASSERT_TRUE(voltageLevels[i]->getGenerators()[g]->hasActivePowerControl());
       ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getGenerators()[g]->getActivePowerControlDroop(), 4.);
+      ASSERT_FALSE(voltageLevels[i]->getGenerators()[g]->hasCoordinatedReactiveControl());
+      ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getGenerators()[g]->getCoordinatedReactiveControlPercent(), 0.);
     }
   }
 }

@@ -22,6 +22,8 @@
 #include <powsybl/iidm/StaticVarCompensator.hpp>
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/extensions/iidm/VoltagePerReactivePowerControl.hpp>
+#include <powsybl/iidm/extensions/iidm/VoltagePerReactivePowerControlAdder.hpp>
 
 #include "gtest_dynawo.h"
 
@@ -101,6 +103,8 @@ TEST(DataInterfaceTest, SVarC_1) {
 
   ASSERT_FALSE(svcInterface.hasStandbyAutomaton());
   ASSERT_FALSE(svcInterface.isStandBy());
+  ASSERT_FALSE(svcInterface.hasVoltagePerReactivePowerControl());
+  ASSERT_DOUBLE_EQ(svcInterface.getSlope(), 0.);
   ASSERT_DOUBLE_EQ(svcInterface.getB0(), 0.);
   ASSERT_DOUBLE_EQ(svcInterface.getUMinActivation(), 0.);
   ASSERT_DOUBLE_EQ(svcInterface.getUMaxActivation(), 0.);
@@ -161,6 +165,7 @@ TEST(DataInterfaceTest, SVarC_2) {  // tests assuming getInitialConnected == fal
     .add();
 
   StaticVarCompensator& svc = network.getStaticVarCompensator("SVC1");
+  svc.newExtension<powsybl::iidm::extensions::iidm::VoltagePerReactivePowerControlAdder>().withSlope(0.1).add();
   StaticVarCompensatorInterfaceIIDM svcInterface(svc);
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelIfce(new VoltageLevelInterfaceIIDM(vl1));
   svcInterface.setVoltageLevelInterface(voltageLevelIfce);
@@ -173,5 +178,7 @@ TEST(DataInterfaceTest, SVarC_2) {  // tests assuming getInitialConnected == fal
   ASSERT_FALSE(svcInterface.hasQInjector());
   ASSERT_DOUBLE_EQ(svcInterface.getPInjector(), 0.0);
   ASSERT_DOUBLE_EQ(svcInterface.getQ(), 0.0);
+  ASSERT_TRUE(svcInterface.hasVoltagePerReactivePowerControl());
+  ASSERT_DOUBLE_EQ(svcInterface.getSlope(), 0.1);
 }  // TEST(DataInterfaceTest, SVarC_2)
 }  // namespace DYN
