@@ -294,7 +294,7 @@ GeneratorInterfaceIIDM::isParticipating() const {
 
 double
 GeneratorInterfaceIIDM::getActivePowerControlDroop() const {
-  if (hasActivePowerControl()) {
+  if (hasActivePowerControl() && isParticipating()) {
     return activePowerControl_.get().getDroop();
   }
   return 0.;
