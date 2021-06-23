@@ -19,6 +19,8 @@
 
 #include "JOBCurvesEntryImpl.h"
 
+#include <boost/make_shared.hpp>
+
 namespace job {
 
 CurvesEntry::Impl::Impl() :
@@ -28,6 +30,11 @@ exportMode_("") {
 }
 
 CurvesEntry::Impl::~Impl() {
+}
+
+boost::shared_ptr<CurvesEntry>
+CurvesEntry::Impl::clone() const  {
+  return boost::make_shared<CurvesEntry::Impl>(*this);
 }
 
 std::string

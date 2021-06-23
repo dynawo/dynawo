@@ -19,6 +19,8 @@
 
 #include "JOBInitialStateEntryImpl.h"
 
+#include <boost/make_shared.hpp>
+
 namespace job {
 
 InitialStateEntry::Impl::Impl() :
@@ -26,6 +28,11 @@ initialStateFile_("") {
 }
 
 InitialStateEntry::Impl::~Impl() {
+}
+
+boost::shared_ptr<InitialStateEntry>
+InitialStateEntry::Impl::clone() const {
+  return boost::make_shared<InitialStateEntry::Impl>(*this);
 }
 
 void

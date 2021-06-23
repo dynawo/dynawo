@@ -22,6 +22,7 @@
 
 #include <string>
 #include <vector>
+#include <boost/shared_ptr.hpp>
 
 namespace job {
 class AppenderEntry;
@@ -48,6 +49,12 @@ class LogsEntry {
    * @return Vector of the appenders for the job
    */
   virtual std::vector<boost::shared_ptr<AppenderEntry> > getAppenderEntries() const = 0;
+
+  /**
+   * @brief Clone current log entry
+   * @returns copy of current log entry
+   */
+  virtual boost::shared_ptr<LogsEntry> clone() const = 0;
 
   class Impl;  ///< implemented class
 };

@@ -21,6 +21,7 @@
 #define API_JOB_JOBSOLVERENTRY_H_
 
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 namespace job {
 
@@ -70,6 +71,12 @@ class SolverEntry {
    * @return Solver parameters set number for the job
    */
   virtual std::string getParametersId() const = 0;
+
+  /**
+   * @brief Clone current entry
+   * @returns copy of current entry
+   */
+  virtual boost::shared_ptr<SolverEntry> clone() const = 0;
 
   class Impl;  ///< implemented class
 };

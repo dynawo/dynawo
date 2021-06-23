@@ -19,6 +19,8 @@
 
 #include "JOBConstraintsEntryImpl.h"
 
+#include <boost/make_shared.hpp>
+
 namespace job {
 
 ConstraintsEntry::Impl::Impl() :
@@ -27,6 +29,11 @@ exportMode_("") {
 }
 
 ConstraintsEntry::Impl::~Impl() {
+}
+
+boost::shared_ptr<ConstraintsEntry>
+ConstraintsEntry::Impl::clone() const {
+  return boost::make_shared<ConstraintsEntry::Impl>(*this);
 }
 
 void

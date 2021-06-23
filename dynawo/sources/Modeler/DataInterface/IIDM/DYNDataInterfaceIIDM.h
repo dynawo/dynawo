@@ -22,6 +22,7 @@
 
 #include <map>
 #include <boost/unordered_set.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include <IIDM/Network.h>
 
@@ -79,7 +80,7 @@ class DataInterfaceIIDM : public DataInterface {
    * @brief Constructor
    * @param networkIIDM instance of iidm network
    */
-  explicit DataInterfaceIIDM(IIDM::Network networkIIDM);
+  explicit DataInterfaceIIDM(const boost::shared_ptr<IIDM::Network>& networkIIDM);
 
   /**
    * @brief Destructor
@@ -188,6 +189,30 @@ class DataInterfaceIIDM : public DataInterface {
    * @copydoc DataInterface::getBusName(const std::string& staticID, const std::string& labelNode)
    */
   std::string getBusName(const std::string& staticID, const std::string& labelNode);
+
+  /**
+   * @brief Clone data interface
+   *
+   * This does NOT clone criteria and IIDM network
+   *
+   * @returns clone of current data interface
+   */
+  boost::shared_ptr<DataInterface> clone() const;
+
+  /**
+   * @copydoc DataInterface::canUseVariant() const
+   */
+  bool canUseVariant() const {
+    return false;
+  }
+
+  /**
+   * @copydoc DataInterface::selectVariant(const std::string& variantName)
+   */
+  void selectVariant(const std::string& variantName) {
+    // do nothing
+    (void)variantName;
+  }
 
  private:
   /**
@@ -364,8 +389,17 @@ class DataInterfaceIIDM : public DataInterface {
    */
   void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
 
+  /**
+   * @brief Copy data interface info
+   *
+   * This does NOT copy criteria and IIDM network
+   *
+   * @param other data interface to copy
+   */
+  void copy(const DataInterfaceIIDM& other);
+
  private:
-  IIDM::Network networkIIDM_;  ///< instance of the IIDM network
+  boost::shared_ptr<IIDM::Network> networkIIDM_;  ///< instance of the IIDM network
   boost::shared_ptr<NetworkInterfaceIIDM> network_;  ///< instance of the network interface
   std::map<std::string, boost::shared_ptr<VoltageLevelInterface> > voltageLevels_;  ///< map of voltageLevel by name
   std::map<std::string, boost::shared_ptr<ComponentInterface> > components_;  ///< map of components by name

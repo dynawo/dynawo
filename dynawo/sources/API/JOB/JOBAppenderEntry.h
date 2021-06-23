@@ -21,6 +21,7 @@
 #define API_JOB_JOBAPPENDERENTRY_H_
 
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 namespace job {
 
@@ -106,6 +107,12 @@ class AppenderEntry {
    * @param format format of the time
    */
   virtual void setTimeStampFormat(const std::string& format) = 0;
+
+  /**
+   * @brief Clone current appender entry
+   * @returns copy of current appender entry
+   */
+  virtual boost::shared_ptr<AppenderEntry> clone() const = 0;
 
   class Impl;  ///< implemented class
 };

@@ -240,13 +240,14 @@ util/autocompletion/_dynawo
 .DS_Store
 util/curvesToHtml/resources/1.3.2.tar.gz
 util/curvesToHtml/resources/v0.6.0.tar.gz
+*.orig
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode
 
 ### VisualStudioCode ###
 .vscode/*
-#!.vscode/settings.json
+!.vscode/settings.json
 #!.vscode/tasks.json
 #!.vscode/launch.json
 #!.vscode/extensions.json

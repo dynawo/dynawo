@@ -61,6 +61,9 @@ class ConstraintsEntry::Impl : public ConstraintsEntry {
    */
   std::string getExportMode() const;
 
+  /// @copydoc ConstraintsEntry::clone()
+  boost::shared_ptr<ConstraintsEntry> clone() const;
+
  private:
   std::string outputFile_;  ///< Export file for constraints
   std::string exportMode_;  ///< Export mode for constraints output file

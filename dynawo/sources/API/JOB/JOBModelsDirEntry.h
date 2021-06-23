@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include "DYNFileSystemUtils.h"
+#include <boost/shared_ptr.hpp>
 
 namespace job {
 
@@ -77,6 +78,12 @@ class ModelsDirEntry {
    * @param directory : the list of user defined directories
    */
   virtual void addDirectory(const UserDefinedDirectory& directory) = 0;
+
+  /**
+   * @brief Clone current entry
+   * @returns copy of current entry
+   */
+  virtual boost::shared_ptr<ModelsDirEntry> clone() const = 0;
 
   class Impl;  ///< implemented class
 };

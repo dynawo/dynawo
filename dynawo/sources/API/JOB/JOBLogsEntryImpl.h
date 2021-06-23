@@ -53,6 +53,15 @@ class LogsEntry::Impl : public LogsEntry {
    */
   std::vector<boost::shared_ptr<AppenderEntry> > getAppenderEntries() const;
 
+  boost::shared_ptr<LogsEntry> clone() const;
+
+ private:
+  /**
+   * @brief Copy
+   * @param other original to copy
+   */
+  void copy(const Impl& other);
+
  private:
   std::vector<boost::shared_ptr<AppenderEntry> > appenders_;  ///< Appenders for the job
 };

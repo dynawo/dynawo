@@ -102,6 +102,11 @@ class AppenderEntry::Impl : public AppenderEntry {
    */
   void setTimeStampFormat(const std::string& format);
 
+  /**
+   * @copydoc AppenderEntry::clone()
+   */
+  boost::shared_ptr<AppenderEntry> clone() const;
+
  private:
   std::string tag_;  ///< Tag filtered by the appender
   std::string filePath_;  ///< Output file path of the appender

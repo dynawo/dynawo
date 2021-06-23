@@ -71,6 +71,9 @@ class NetworkEntry::Impl : public NetworkEntry {
    */
   std::string getNetworkParId() const;
 
+  /// @copydoc NetworkEntry::clone()
+  boost::shared_ptr<NetworkEntry> clone() const;
+
  private:
   std::string iidmFile_;  ///< IIDM file for the simulation
   std::string networkParFile_;  ///< Parameters file for the network model

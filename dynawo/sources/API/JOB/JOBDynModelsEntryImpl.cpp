@@ -19,6 +19,8 @@
 
 #include "JOBDynModelsEntryImpl.h"
 
+#include <boost/make_shared.hpp>
+
 namespace job {
 
 DynModelsEntry::Impl::Impl() :
@@ -26,6 +28,11 @@ dydFile_("") {
 }
 
 DynModelsEntry::Impl::~Impl() {
+}
+
+boost::shared_ptr<DynModelsEntry>
+DynModelsEntry::Impl::clone() const {
+  return boost::make_shared<DynModelsEntry::Impl>(*this);
 }
 
 void

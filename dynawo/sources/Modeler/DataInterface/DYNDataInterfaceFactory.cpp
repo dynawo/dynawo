@@ -27,10 +27,15 @@ using boost::shared_ptr;
 
 namespace DYN {
 shared_ptr<DataInterface>
-DataInterfaceFactory::build(dataInterfaceType_t type, const string& filepath) {
+DataInterfaceFactory::build(dataInterfaceType_t type, const string& filepath, unsigned int nbVariants) {
   switch (type) {
   case DATAINTERFACE_IIDM:
+#ifdef LANG_CXX11
+    return DataInterfaceIIDM::build(filepath, nbVariants);
+#else
+    (void)nbVariants;  // parameter unused in c++03
     return DataInterfaceIIDM::build(filepath);
+#endif
   }
   return boost::shared_ptr<DataInterface>();
 }

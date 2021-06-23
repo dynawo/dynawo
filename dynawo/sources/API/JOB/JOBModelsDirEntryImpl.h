@@ -76,6 +76,11 @@ class ModelsDirEntry::Impl : public ModelsDirEntry {
    */
   void addDirectory(const UserDefinedDirectory& directory);
 
+  /**
+   * @copydoc ModelsDirEntry::clone()
+   */
+  boost::shared_ptr<ModelsDirEntry> clone() const;
+
  private:
   std::string modelExtension_;  ///< extension of model to used
   bool useStandardModels_;  ///< @b true if standard models should be used

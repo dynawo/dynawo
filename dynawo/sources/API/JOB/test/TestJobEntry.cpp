@@ -53,6 +53,13 @@ TEST(APIJOBTest, testJobEntry) {
   ASSERT_EQ(job->getSolverEntry(), solver);
   ASSERT_EQ(job->getSimulationEntry(), simulation);
   ASSERT_EQ(job->getOutputsEntry(), outputs);
+
+  boost::shared_ptr<JobEntry> job_bis = job->clone();
+  ASSERT_EQ(job_bis->getName(), "job1");
+  ASSERT_NE(job_bis->getModelerEntry(), modeler);
+  ASSERT_NE(job_bis->getSolverEntry(), solver);
+  ASSERT_NE(job_bis->getSimulationEntry(), simulation);
+  ASSERT_NE(job_bis->getOutputsEntry(), outputs);
 }
 
 }  // namespace job

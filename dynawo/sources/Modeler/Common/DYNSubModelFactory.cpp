@@ -52,19 +52,31 @@ SubModelFactories::~SubModelFactories() {
 }
 
 SubModelFactories::SubmodelFactoryIterator SubModelFactories::find(const std::string& lib) {
+#ifdef LANG_CXX11
+  std::unique_lock<std::mutex> lock(factoriesMutex_);
+#endif
   return (factoryMap_.find(lib));
 }
 
 bool SubModelFactories::end(SubmodelFactoryIterator& iter) {
+#ifdef LANG_CXX11
+  std::unique_lock<std::mutex> lock(factoriesMutex_);
+#endif
   return (iter == factoryMap_.end());
 }
 
 void
 SubModelFactories::add(const std::string& lib, SubModelFactory* factory) {
+#ifdef LANG_CXX11
+  std::unique_lock<std::mutex> lock(factoriesMutex_);
+#endif
   factoryMap_.insert(std::make_pair(lib, factory));
 }
 
 void SubModelFactories::add(const std::string& lib, destroy_model_t* deleteFactory) {
+#ifdef LANG_CXX11
+  std::unique_lock<std::mutex> lock(factoriesMutex_);
+#endif
   factoryMapDestroy_.insert(std::make_pair(lib, deleteFactory));
 }
 

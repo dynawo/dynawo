@@ -112,6 +112,18 @@ class OutputsEntry::Impl : public OutputsEntry {
    */
   boost::shared_ptr<LogsEntry> getLogsEntry() const;
 
+  /**
+   * @copydoc OutputsEntry::clone()
+   */
+  boost::shared_ptr<OutputsEntry> clone() const;
+
+ private:
+  /**
+   * @brief Copy
+   * @param other original to copy
+   */
+  void copy(const OutputsEntry::Impl& other);
+
  private:
   std::string outputsDirectory_;  ///< directory for simulation outputs
   boost::shared_ptr<InitValuesEntry> initValuesEntry_;  ///< Init Values entries container

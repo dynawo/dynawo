@@ -19,6 +19,8 @@
 
 #include "JOBFinalStateEntryImpl.h"
 
+#include <boost/make_shared.hpp>
+
 namespace job {
 
 FinalStateEntry::Impl::Impl() :
@@ -29,6 +31,11 @@ dumpFile_("") {
 }
 
 FinalStateEntry::Impl::~Impl() {
+}
+
+boost::shared_ptr<FinalStateEntry>
+FinalStateEntry::Impl::clone() const {
+  return boost::make_shared<FinalStateEntry::Impl>(*this);
 }
 
 bool

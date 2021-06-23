@@ -17,8 +17,25 @@
  */
 
 #include "JOBJobEntryImpl.h"
+#include "JOBModelerEntry.h"
+#include "JOBSolverEntry.h"
+#include "JOBSimulationEntry.h"
+#include "JOBOutputsEntry.h"
+
+#include <boost/make_shared.hpp>
 
 namespace job {
+
+boost::shared_ptr<JobEntry>
+JobEntry::Impl::clone() const {
+  boost::shared_ptr<JobEntry::Impl> newJob = boost::make_shared<JobEntry::Impl>();
+  newJob->modelerEntry_ = modelerEntry_ ? modelerEntry_->clone() : NULL;
+  newJob->solverEntry_ = solverEntry_ ? solverEntry_->clone() : NULL;
+  newJob->simulationEntry_ = simulationEntry_ ? simulationEntry_->clone() : NULL;
+  newJob->outputsEntry_ = outputsEntry_ ? outputsEntry_->clone() : NULL;
+  newJob->name_ = name_;
+  return newJob;
+}
 
 JobEntry::Impl::Impl() :
 name_("") {

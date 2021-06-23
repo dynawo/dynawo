@@ -19,6 +19,8 @@
 
 #include "JOBSolverEntryImpl.h"
 
+#include <boost/make_shared.hpp>
+
 namespace job {
 
 SolverEntry::Impl::Impl() :
@@ -28,6 +30,11 @@ parametersId_("") {
 }
 
 SolverEntry::Impl::~Impl() {
+}
+
+boost::shared_ptr<SolverEntry>
+SolverEntry::Impl::clone() const {
+  return boost::make_shared<SolverEntry::Impl>(*this);
 }
 
 void

@@ -20,6 +20,8 @@
 #ifndef API_JOB_JOBINITVALUESENTRY_H_
 #define API_JOB_JOBINITVALUESENTRY_H_
 
+#include <boost/shared_ptr.hpp>
+
 namespace job {
 
 /**
@@ -56,6 +58,12 @@ class InitValuesEntry {
    * @return whether to dump the global init values for the job
    */
   virtual bool getDumpGlobalInitValues() const = 0;
+
+  /**
+   * @brief Clone current entry
+   * @returns copy of current entry
+   */
+  virtual boost::shared_ptr<InitValuesEntry> clone() const = 0;
 
   class Impl;  ///< implemented class
 };

@@ -19,7 +19,33 @@
 
 #include "JOBModelerEntryImpl.h"
 
+#include "JOBDynModelsEntry.h"
+#include "JOBNetworkEntry.h"
+#include "JOBModelsDirEntry.h"
+#include "JOBInitialStateEntry.h"
+
+#include <boost/make_shared.hpp>
+
 namespace job {
+
+boost::shared_ptr<ModelerEntry>
+ModelerEntry::Impl::clone() const {
+  boost::shared_ptr<ModelerEntry::Impl> newPtr = boost::make_shared<ModelerEntry::Impl>();
+  newPtr->compileDir_ = compileDir_;
+  newPtr->preCompiledModelsDirEntry_ = preCompiledModelsDirEntry_ ? preCompiledModelsDirEntry_->clone() : NULL;
+  newPtr->modelicaModelsDirEntry_ = modelicaModelsDirEntry_ ? modelicaModelsDirEntry_->clone() : NULL;
+  newPtr->networkEntry_ = networkEntry_ ? networkEntry_->clone() : NULL;
+  newPtr->initialStateEntry_ = initialStateEntry_ ? initialStateEntry_->clone() : NULL;
+
+  unsigned int size = dynModelsEntries_.size();
+  newPtr->dynModelsEntries_.clear();
+  newPtr->dynModelsEntries_.reserve(size);
+  for (std::vector<boost::shared_ptr<DynModelsEntry> >::const_iterator it = dynModelsEntries_.begin();
+    it != dynModelsEntries_.end(); ++it) {
+    newPtr->dynModelsEntries_.push_back((*it)->clone());
+  }
+  return newPtr;
+}
 
 ModelerEntry::Impl::Impl() :
 compileDir_("") {

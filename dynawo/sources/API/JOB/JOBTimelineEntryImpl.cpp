@@ -19,6 +19,8 @@
 
 #include "JOBTimelineEntryImpl.h"
 
+#include <boost/make_shared.hpp>
+
 namespace job {
 
 TimelineEntry::Impl::Impl() :
@@ -27,6 +29,11 @@ exportMode_("") {
 }
 
 TimelineEntry::Impl::~Impl() {
+}
+
+boost::shared_ptr<TimelineEntry>
+TimelineEntry::Impl::clone() const {
+  return boost::make_shared<TimelineEntry::Impl>(*this);
 }
 
 void
