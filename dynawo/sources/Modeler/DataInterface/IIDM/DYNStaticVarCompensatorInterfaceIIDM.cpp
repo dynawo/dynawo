@@ -188,6 +188,16 @@ StaticVarCompensatorInterfaceIIDM::getQ() {
   return InjectorInterfaceIIDM<IIDM::StaticVarCompensator>::getQ();
 }
 
+bool
+StaticVarCompensatorInterfaceIIDM::hasVoltagePerReactivePowerControl() const {
+  return false;
+}
+
+double
+StaticVarCompensatorInterfaceIIDM::getSlope() const {
+  return 0.;
+}
+
 double
 StaticVarCompensatorInterfaceIIDM::getVSetPoint() const {
   if (!staticVarCompensatorIIDM_.has_voltageSetPoint()) {
