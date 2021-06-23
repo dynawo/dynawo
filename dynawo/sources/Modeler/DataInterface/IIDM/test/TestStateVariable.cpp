@@ -620,7 +620,7 @@ TEST(DataInterfaceTest, testStateVariableGenerator) {
       ASSERT_FALSE(voltageLevels[i]->getGenerators()[g]->hasActivePowerControl());
       ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getGenerators()[g]->getActivePowerControlDroop(), 0.);
       ASSERT_FALSE(voltageLevels[i]->getGenerators()[g]->hasCoordinatedReactiveControl());
-      ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getGenerators()[g]->getCoordinatedReactiveControlPercent(), 0.);
+      ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getGenerators()[g]->getCoordinatedReactiveControlPercentage(), 0.);
     }
   }
 }
@@ -651,7 +651,7 @@ TEST(DataInterfaceTest, testStateVariableGeneratorWithActivePowerControlExt) {
       ASSERT_TRUE(voltageLevels[i]->getGenerators()[g]->hasActivePowerControl());
       ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getGenerators()[g]->getActivePowerControlDroop(), 4.);
       ASSERT_FALSE(voltageLevels[i]->getGenerators()[g]->hasCoordinatedReactiveControl());
-      ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getGenerators()[g]->getCoordinatedReactiveControlPercent(), 0.);
+      ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getGenerators()[g]->getCoordinatedReactiveControlPercentage(), 0.);
     }
   }
 }

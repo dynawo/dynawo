@@ -180,7 +180,7 @@ TEST(DataInterfaceTest, Generator_1) {
   ASSERT_FALSE(genItf.isParticipating());
   ASSERT_DOUBLE_EQUALS_DYNAWO(genItf.getActivePowerControlDroop(), 0.);
   ASSERT_FALSE(genItf.hasCoordinatedReactiveControl());
-  ASSERT_DOUBLE_EQUALS_DYNAWO(genItf.getCoordinatedReactiveControlPercent(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genItf.getCoordinatedReactiveControlPercentage(), 0.);
 
   gen.newExtension<powsybl::iidm::extensions::iidm::ActivePowerControlAdder>().withDroop(4.0).withParticipate(true).add();
   gen.newExtension<powsybl::iidm::extensions::iidm::CoordinatedReactiveControlAdder>().withQPercent(50).add();
@@ -189,7 +189,7 @@ TEST(DataInterfaceTest, Generator_1) {
   ASSERT_TRUE(genItfWithExtensions.isParticipating());
   ASSERT_DOUBLE_EQUALS_DYNAWO(genItfWithExtensions.getActivePowerControlDroop(), 4.);
   ASSERT_TRUE(genItfWithExtensions.hasCoordinatedReactiveControl());
-  ASSERT_DOUBLE_EQUALS_DYNAWO(genItfWithExtensions.getCoordinatedReactiveControlPercent(), 50.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genItfWithExtensions.getCoordinatedReactiveControlPercentage(), 50.);
 }  // TEST(DataInterfaceTest, Generator_1)
 
 TEST(DataInterfaceTest, Generator_2) {

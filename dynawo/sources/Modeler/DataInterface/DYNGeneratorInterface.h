@@ -182,10 +182,10 @@ class GeneratorInterface : public ComponentInterface {
   virtual bool hasCoordinatedReactiveControl() const = 0;
 
   /**
-   * @brief Getter for the reactive power control percent of participation
-   * @returns reactive power control percent of participation value
+   * @brief Getter for the reactive power control percentage of participation
+   * @returns reactive power control percentage of participation value
    */
-  virtual double getCoordinatedReactiveControlPercent() const = 0;
+  virtual double getCoordinatedReactiveControlPercentage() const = 0;
 };  ///< Class for Generator data interface
 }  // namespace DYN
 
