@@ -286,8 +286,8 @@ DataInterfaceIIDM::initFromIIDM() {
   // create network interface
   network_.reset(new NetworkInterfaceIIDM(*networkIIDM_));
 
-  IIDM::Contains<IIDM::Substation>::iterator itSubstation = networkIIDM_->substations().begin();
-  for (; itSubstation != networkIIDM_->substations().end(); ++itSubstation) {
+  for (IIDM::Contains<IIDM::Substation>::iterator itSubstation = networkIIDM_->substations().begin();
+    itSubstation != networkIIDM_->substations().end(); ++itSubstation) {
     IIDM::Contains<IIDM::VoltageLevel>::iterator itVoltageLevel = itSubstation->voltageLevels().begin();
     for (; itVoltageLevel != itSubstation->voltageLevels().end(); ++itVoltageLevel) {
       shared_ptr<VoltageLevelInterface> voltageLevel = importVoltageLevel(*itVoltageLevel);
@@ -298,8 +298,8 @@ DataInterfaceIIDM::initFromIIDM() {
     //===========================
     //  ADD 2WTFO INTERFACE
     //===========================
-    IIDM::Contains<IIDM::Transformer2Windings>::iterator it2WTfo = itSubstation->twoWindingsTransformers().begin();
-    for (; it2WTfo != itSubstation->twoWindingsTransformers().end(); ++it2WTfo) {
+    for (IIDM::Contains<IIDM::Transformer2Windings>::iterator it2WTfo = itSubstation->twoWindingsTransformers().begin();
+      it2WTfo != itSubstation->twoWindingsTransformers().end(); ++it2WTfo) {
       if ( !(*it2WTfo).has_connection(IIDM::side_1) && !(*it2WTfo).has_connection(IIDM::side_2) ) {
         Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*it2WTfo).id()) << Trace::endline;
         continue;
@@ -312,8 +312,7 @@ DataInterfaceIIDM::initFromIIDM() {
     //===========================
     //  ADD 3WTFO INTERFACE
     //===========================
-    IIDM::Contains<IIDM::Transformer3Windings>::iterator it3WTfo = itSubstation->threeWindingsTransformers().begin();
-    for (; it3WTfo != itSubstation->threeWindingsTransformers().end(); ++it3WTfo) {
+    for (IIDM::Contains<IIDM::Transformer3Windings>::iterator it3WTfo = itSubstation->threeWindingsTransformers().begin(); it3WTfo != itSubstation->threeWindingsTransformers().end(); ++it3WTfo) {
       if (!(*it3WTfo).has_connection(IIDM::side_1) && !(*it3WTfo).has_connection(IIDM::side_2) && !(*it3WTfo).has_connection(IIDM::side_3)) {
         Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*it3WTfo).id()) << Trace::endline;
         continue;
@@ -328,8 +327,7 @@ DataInterfaceIIDM::initFromIIDM() {
   //===========================
   //  ADD LINE INTERFACE
   //===========================
-  IIDM::Contains<IIDM::Line>::iterator itLine = networkIIDM_->lines().begin();
-  for (; itLine != networkIIDM_->lines().end(); ++itLine) {
+  for (IIDM::Contains<IIDM::Line>::iterator itLine = networkIIDM_->lines().begin(); itLine != networkIIDM_->lines().end(); ++itLine) {
     if ( !(*itLine).has_connection(IIDM::side_1) && !(*itLine).has_connection(IIDM::side_2) ) {
       Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itLine).id()) << Trace::endline;
       continue;
@@ -342,8 +340,7 @@ DataInterfaceIIDM::initFromIIDM() {
   //===========================
   //  ADD TIELINE INTERFACE
   //===========================
-  IIDM::Contains<IIDM::TieLine>::iterator itTieLine = networkIIDM_->tielines().begin();
-  for (; itTieLine != networkIIDM_->tielines().end(); ++itTieLine) {
+  for (IIDM::Contains<IIDM::TieLine>::iterator itTieLine = networkIIDM_->tielines().begin(); itTieLine != networkIIDM_->tielines().end(); ++itTieLine) {
     if ( !(*itTieLine).has_connection(IIDM::side_1) && !(*itTieLine).has_connection(IIDM::side_2) ) {
       Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itTieLine).id()) << Trace::endline;
       continue;
@@ -354,8 +351,7 @@ DataInterfaceIIDM::initFromIIDM() {
   //===========================
   //  ADD HVDC LINE INTERFACE
   //===========================
-  IIDM::Contains<IIDM::HvdcLine>::iterator itHvdcLine = networkIIDM_->hvdclines().begin();
-  for (; itHvdcLine != networkIIDM_->hvdclines().end(); ++itHvdcLine) {
+  for (IIDM::Contains<IIDM::HvdcLine>::iterator itHvdcLine = networkIIDM_->hvdclines().begin(); itHvdcLine != networkIIDM_->hvdclines().end(); ++itHvdcLine) {
     shared_ptr<HvdcLineInterface> hvdc = importHvdcLine(*itHvdcLine);
     network_->addHvdcLine(hvdc);
     components_[hvdc->getID()] = hvdc;
