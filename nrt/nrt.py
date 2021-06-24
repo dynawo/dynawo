@@ -547,7 +547,7 @@ def main():
     if os.path.isdir(output_dir) == True:
         shutil.rmtree(output_dir)
 
-    os.mkdir(output_dir)
+    os.makedirs(output_dir)
 
     # Copy resources in outputs repository
     shutil.copytree(resources_dir, os.path.join(output_dir,"resources"))
