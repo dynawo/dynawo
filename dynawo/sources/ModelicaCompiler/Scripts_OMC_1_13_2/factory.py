@@ -2094,7 +2094,9 @@ class Factory:
         keys = dict_line_par_by_param.keys()
         sorted_keys = sorted(keys)
         for key in sorted_keys:
+            self.list_for_initrpar +=  "{\n"
             self.list_for_initrpar +=  dict_line_par_by_param[key]
+            self.list_for_initrpar +=  "}\n"
 
     ##
     # prepare the lines that constitues the body of initRpar
