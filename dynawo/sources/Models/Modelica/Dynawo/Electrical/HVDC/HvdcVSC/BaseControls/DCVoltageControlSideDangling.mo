@@ -12,13 +12,13 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model DCVoltageControlSideDangling "DC Voltage Control Side for the HVDC VSC model that connects two different synchronous areas (Udc control on the side of the main one)"
+model DCVoltageControlSideDangling "DC Voltage Control Side for the HVDC VSC model with terminal2 connected to a switched-off bus (Udc control on terminal 1)"
 
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_DCVoltageControlDangling;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BaseDCVoltageControl;
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ACVoltageControl;
   parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in p.u (base SNom, UNom)";
   parameter Types.CurrentModulePu InPu "Nominal current in p.u (base SNom, UNom)";

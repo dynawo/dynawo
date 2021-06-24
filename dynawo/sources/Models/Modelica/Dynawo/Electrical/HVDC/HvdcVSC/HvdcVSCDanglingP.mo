@@ -12,7 +12,7 @@ within Dynawo.Electrical.HVDC.HvdcVSC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model HvdcVSCDanglingP "HVDC VSC model that connects two different synchronous areas (P control on the side of the main one)"
+model HvdcVSCDanglingP "HVDC VSC model with terminal2 connected to a switched-off bus (P control on terminal 1)"
   extends AdditionalIcons.Hvdc;
 
   import Modelica;
@@ -27,7 +27,7 @@ model HvdcVSCDanglingP "HVDC VSC model that connects two different synchronous a
   Connectors.ACPower terminal2 "Connector used to connect the injector to the grid (switched off side)" annotation(
     Placement(visible = true, transformation(origin = {130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ActivePowerControlDangling;
+  extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BaseActivePowerControl;
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BlockingFunction;
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ACVoltageControl;
   parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in p.u (base SNom, UNom)";

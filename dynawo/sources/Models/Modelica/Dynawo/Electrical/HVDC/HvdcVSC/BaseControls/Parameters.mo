@@ -37,16 +37,11 @@ package Parameters "Parameters of the HVDC VSC model"
 
   record Params_ActivePowerControl
     extends Params_DeltaP;
-    extends Params_RPFaultFunction;
-    parameter Types.PerUnit KpPControl "Proportional coefficient of the PI controller for the active power control";
-    parameter Types.PerUnit KiPControl "Integral coefficient of the PI controller for the active power control";
-    parameter Types.ActivePowerPu PMaxOPPu "Maximum operator value of the active power in p.u (base SNom)";
-    parameter Types.ActivePowerPu PMinOPPu "Minimum operator value of the active power in p.u (base SNom)";
-    parameter Types.Time SlopePRefPu "Slope of the ramp of PRefPu";
+    extends Params_BaseActivePowerControl;
   annotation(preferredView = "text");
   end Params_ActivePowerControl;
 
-  record Params_ActivePowerControlDangling
+  record Params_BaseActivePowerControl
     extends Params_RPFaultFunction;
     parameter Types.PerUnit KpPControl "Proportional coefficient of the PI controller for the active power control";
     parameter Types.PerUnit KiPControl "Integral coefficient of the PI controller for the active power control";
@@ -54,7 +49,7 @@ package Parameters "Parameters of the HVDC VSC model"
     parameter Types.ActivePowerPu PMinOPPu "Minimum operator value of the active power in p.u (base SNom)";
     parameter Types.Time SlopePRefPu "Slope of the ramp of PRefPu";
   annotation(preferredView = "text");
-  end Params_ActivePowerControlDangling;
+  end Params_BaseActivePowerControl;
 
   record Params_ActivateDeltaP
     parameter Types.CurrentModulePu DUDC "Deadband for the activate DeltaP function";
@@ -63,20 +58,17 @@ package Parameters "Parameters of the HVDC VSC model"
 
   record Params_DCVoltageControl
     extends Params_ActivateDeltaP;
-    parameter Types.VoltageModulePu UdcRefMaxPu "Maximum value of the DC voltage reference in p.u (base UNom)";
-    parameter Types.VoltageModulePu UdcRefMinPu "Minimum value of the DC voltage reference in p.u (base UNom)";
-    parameter Types.PerUnit Kpdc "Proportional coefficient of the PI controller for the dc voltage control";
-    parameter Types.PerUnit Kidc "Integral coefficient of the PI controller for the dc voltage control";
+    extends Params_BaseDCVoltageControl;
   annotation(preferredView = "text");
   end Params_DCVoltageControl;
 
-  record Params_DCVoltageControlDangling
+  record Params_BaseDCVoltageControl
     parameter Types.VoltageModulePu UdcRefMaxPu "Maximum value of the DC voltage reference in p.u (base UNom)";
     parameter Types.VoltageModulePu UdcRefMinPu "Minimum value of the DC voltage reference in p.u (base UNom)";
     parameter Types.PerUnit Kpdc "Proportional coefficient of the PI controller for the dc voltage control";
     parameter Types.PerUnit Kidc "Integral coefficient of the PI controller for the dc voltage control";
   annotation(preferredView = "text");
-  end Params_DCVoltageControlDangling;
+  end Params_BaseDCVoltageControl;
 
   record Params_BlockingFunction
     parameter Types.VoltageModulePu UBlockUVPu "Minimum voltage that triggers the blocking function in p.u (base UNom)";
