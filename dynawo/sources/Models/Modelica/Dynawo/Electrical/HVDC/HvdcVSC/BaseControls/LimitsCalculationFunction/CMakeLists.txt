@@ -10,6 +10,7 @@
 
 set(MODEL_FILES
     package.mo
+    BaseLimitsCalculationFunction.mo
     LimitsCalculationFunction.mo
     LimitsCalculationFunctionDangling.mo
     )

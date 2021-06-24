@@ -12,7 +12,7 @@ within Dynawo.Electrical.HVDC.HvdcVSC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model HvdcVSCDanglingP_INIT "Initialisation model for the HVDC VSC model that connects two different synchronous areas (P control on the side of the main one)"
+model HvdcVSCDanglingP_INIT "Initialisation model for the HVDC VSC model with terminal2 connected to a switched-off bus (P control on terminal 1)"
   extends AdditionalIcons.Init;
 
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
