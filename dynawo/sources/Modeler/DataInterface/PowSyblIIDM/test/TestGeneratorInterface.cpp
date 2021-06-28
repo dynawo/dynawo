@@ -14,6 +14,7 @@
 #include "DYNGeneratorInterfaceIIDM.h"
 
 #include "DYNBusInterfaceIIDM.h"
+#include "DYNCommon.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
 
 #include <powsybl/iidm/Bus.hpp>
@@ -21,6 +22,11 @@
 #include <powsybl/iidm/GeneratorAdder.hpp>
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/extensions/iidm/ActivePowerControl.hpp>
+#include <powsybl/iidm/extensions/iidm/ActivePowerControlAdder.hpp>
+#include <powsybl/iidm/extensions/iidm/CoordinatedReactiveControl.hpp>
+#include <powsybl/iidm/extensions/iidm/CoordinatedReactiveControlAdder.hpp>
+#include <powsybl/iidm/ExtensionProviders.hpp>
 
 #include "gtest_dynawo.h"
 
@@ -170,6 +176,20 @@ TEST(DataInterfaceTest, Generator_1) {
   // TODO(TBA) genItf.exportStateVariablesUnitComponent();
   gen.getTerminal().disconnect();
   // TODO(TBA) genItf.exportStateVariablesUnitComponent();
+  ASSERT_FALSE(genItf.hasActivePowerControl());
+  ASSERT_FALSE(genItf.isParticipating());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genItf.getActivePowerControlDroop(), 0.);
+  ASSERT_FALSE(genItf.hasCoordinatedReactiveControl());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genItf.getCoordinatedReactiveControlPercentage(), 0.);
+
+  gen.newExtension<powsybl::iidm::extensions::iidm::ActivePowerControlAdder>().withDroop(4.0).withParticipate(true).add();
+  gen.newExtension<powsybl::iidm::extensions::iidm::CoordinatedReactiveControlAdder>().withQPercent(50).add();
+  GeneratorInterfaceIIDM genItfWithExtensions(gen);
+  ASSERT_TRUE(genItfWithExtensions.hasActivePowerControl());
+  ASSERT_TRUE(genItfWithExtensions.isParticipating());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genItfWithExtensions.getActivePowerControlDroop(), 4.);
+  ASSERT_TRUE(genItfWithExtensions.hasCoordinatedReactiveControl());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genItfWithExtensions.getCoordinatedReactiveControlPercentage(), 50.);
 }  // TEST(DataInterfaceTest, Generator_1)
 
 TEST(DataInterfaceTest, Generator_2) {

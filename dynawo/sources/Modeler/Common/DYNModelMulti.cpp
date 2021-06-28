@@ -80,7 +80,6 @@ ypLocal_(NULL),
 zLocal_(NULL),
 zConnectedLocal_(NULL),
 silentZ_(NULL),
-enableSilentZ_(true),
 silentZInitialized_(false) {
   connectorContainer_.reset(new ConnectorContainer());
 }
@@ -241,6 +240,7 @@ ModelMulti::initBuffers() {
   connectorContainer_->setBufferF(fLocal_, offsetF);
   connectorContainer_->setBufferY(yLocal_, ypLocal_);  // connectors access to the whole y Buffer
   connectorContainer_->setBufferZ(zLocal_, zConnectedLocal_);  // connectors access to the whole z buffer
+  connectorContainer_->propagateZConnectionInfoToModel();
   std::fill(fLocal_ + offsetFOptional_, fLocal_ + sizeF_, 0);
 
   // (3) init buffers of each sub-model (useful for the network model)
@@ -624,15 +624,10 @@ ModelMulti::setGequationsModel() {
 }
 
 void
-ModelMulti::getY0(const double t0, vector<double>& y0, vector<double>& yp0) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    subModels_[i]->getY0Sub();
-    subModels_[i]->evalCalculatedVariablesSub(t0);
-  }
-  connectorContainer_->getY0Connector();
+ModelMulti::initSilentZ(bool enableSilentZ) {
   if (!silentZInitialized_ && !subModels_.empty()) {
     silentZInitialized_ = true;
-    if (enableSilentZ_) {
+    if (enableSilentZ) {
       collectSilentZ();
     } else {
       nonSilentZIndexes_.clear();
@@ -643,6 +638,15 @@ ModelMulti::getY0(const double t0, vector<double>& y0, vector<double>& yp0) {
       }
     }
   }
+}
+
+void
+ModelMulti::getY0(const double t0, vector<double>& y0, vector<double>& yp0) {
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    subModels_[i]->getY0Sub();
+    subModels_[i]->evalCalculatedVariablesSub(t0);
+  }
+  connectorContainer_->getY0Connector();
 
   std::copy(yLocal_, yLocal_ + sizeY_, y0.begin());
   std::copy(ypLocal_, ypLocal_ + sizeY_, yp0.begin());
@@ -820,7 +824,7 @@ ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
     createCalculatedVariableConnection(subModel1, variable1, subModel2, variable2);
-  } else if ((isState1) && (!isState2)) {
+  } else if (isState1 && (!isState2)) {
     if (typeVar1 != CONTINUOUS && typeVar1 != FLOW) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }

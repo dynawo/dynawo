@@ -13,58 +13,21 @@ import sys
 import re
 from optparse import OptionParser
 from xml.dom import minidom
-
-
-dicOppositeEvents = {
-    "PMIN : activation" : ["PMIN : deactivation"],
-    "PMIN : deactivation" : ["PMIN : activation"],
-    "PV Generator : max reactive power limit reached" : ["PV Generator : back to voltage regulation"],
-    "PV Generator : min reactive power limit reached" : ["PV Generator : back to voltage regulation"],
-    "PV Generator : back to voltage regulation" : ["PV Generator : min reactive power limit reached", "PV Generator : max reactive power limit reached"],
-    "Phase-shifter : above maximum allowed value" : ["Phase-shifter : below maximum allowed value"],
-    "Phase-shifter : below maximum allowed value" : ["Phase-shifter : above maximum allowed value"],
-    "Under-voltage automaton for generator arming" : ["Under-voltage automaton for generator disarming"],
-    "Under-voltage automaton for generator disarming" : ["Under-voltage automaton for generator arming"],
-    "BUS : switch on" : ["BUS : switch off"],
-    "BUS : switch off" : ["BUS : switch on"],
-    "LINE : closing on side 1" : ["LINE : opening on side 1"],
-    "LINE : opening on side 1" : [" LINE : closing on side 1"],
-    "LINE : closing on side 2" : ["LINE : opening on side 2"],
-    "LINE : opening on side 2" : [" LINE : closing on side 2"],
-    "LINE : opening both sides" : ["LINE : closing both sides"],
-    "LINE : closing both sides" : ["LINE : opening both sides"],
-    "LOAD : connecting" : ["LOAD : disconnecting"],
-    "LOAD : disconnecting" : ["LOAD : connecting"],
-    "LINE : connecting" : ["LINE : disconnecting"],
-    "LINE : disconnecting" : ["LINE : connecting"],
-    "GENERATOR : connecting" : ["GENERATOR : disconnecting"],
-    "GENERATOR : disconnecting" : ["GENERATOR : connecting"],
-    "SHUNT : connecting" : ["SHUNT : disconnecting"],
-    "SHUNT : disconnecting" : ["SHUNT : connecting"],
-    "SVarC : connecting" : ["SVarC : disconnecting"],
-    "SVarC : disconnecting" : ["SVarC : connecting"],
-    "SWITCH : closing" : ["SWITCH : opening"],
-    "SWITCH : opening" : ["SWITCH : closing"],
-    "CONVERTER1 : disconnecting" : ["CONVERTER1 : connecting"],
-    "CONVERTER1 : connecting" : ["CONVERTER1 : disconnecting"],
-    "CONVERTER2 : disconnecting" : ["CONVERTER2 : connecting"],
-    "CONVERTER2 : connecting" : ["CONVERTER2 : disconnecting"],
-    "TRANSFORMER : closing on side 1" : ["TRANSFORMER : opening on side 1"],
-    "TRANSFORMER : opening on side 1" : [" TRANSFORMER : closing on side 1"],
-    "TRANSFORMER : closing on side 2" : ["TRANSFORMER : opening on side 2"],
-    "TRANSFORMER : opening on side 2" : [" TRANSFORMER : closing on side 2"],
-    "TRANSFORMER : opening both sides" : ["TRANSFORMER : closing both sides"],
-    "TRANSFORMER : closing both sides" : ["TRANSFORMER : opening both sides"],
-    }
+import glob
+import importlib
 
 class Event :
     def __init__(self):
         self.time = 0
         self.model = ""
         self.event = ""
+        self.priority = None
 
     def __eq__(self, obj):
         return self.time == obj.time and self.model == obj.model and self.event == obj.event
+
+    def to_string(self):
+        return str(self.time) + "|" + self.model + "|" + self.event
 
 class Timeline :
     def __init__(self):
@@ -75,21 +38,17 @@ class Timeline :
             self.time_to_events[event.time] = []
         self.time_to_events[event.time].append(event)
 
-    def filter_useless_events(self):
+    def filter_useless_events(self, dicOppositeEvents):
         print "[INFO] Filtering duplicated events"
         for time in self.time_to_events:
+            event_found = set()
             events = self.time_to_events[time]
-            idx_to_check = 1
-            while idx_to_check <= len(events) - 1:
-                curr_event = events[len(events) - idx_to_check]
-                id_to_remove = []
-                for i in range(len(events) - idx_to_check - 1, -1, -1):
-                    if curr_event == events[i]:
-                        id_to_remove.append(i)
-                for i in id_to_remove:
-                    del events[i]
-                idx_to_check += 1
-            self.time_to_events[time] = events
+            new_events = []
+            for event in reversed(events):
+                if event.to_string() not in event_found:
+                    new_events.insert(0, event)
+                    event_found.add(event.to_string())
+            self.time_to_events[time] = new_events
 
         print "[INFO] Removing opposed events"
         for time in self.time_to_events:
@@ -131,7 +90,10 @@ class Timeline :
             for time in sorted_keys:
                 events = self.time_to_events[time]
                 for event in events:
-                    f.write(str(time) + " | " + event.model + " | " + event.event+"\n")
+                    if event.priority == None:
+                        f.write(str(time) + " | " + event.model + " | " + event.event+"\n")
+                    else:
+                        f.write(str(time) + " | " + event.model + " | " + event.event+ " | " + event.priority+"\n")
             f.close()
         elif type == "XML":
             f = open(filepath, "w")
@@ -140,12 +102,12 @@ class Timeline :
             for time in sorted_keys:
                 events = self.time_to_events[time]
                 for event in events:
-                    f.write("<event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event + "\"/>\n")
+                    if event.priority == None:
+                        f.write("<event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event + "\"/>\n")
+                    else:
+                        f.write("<event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event+ "\" priority=\"" + event.priority + "\"/>\n")
             f.write("</timeline>\n")
             f.close()
-
-
-
 
 def read_txt(filepath):
     timeline = Timeline()
@@ -153,13 +115,15 @@ def read_txt(filepath):
 
     for line in f.readlines():
         array = line.split('|')
-        if (len(array) != 3):
+        if (len(array) < 3):
             continue
         event = Event()
         time = float(array[0].strip())
         event.time = time
         event.model = array[1].strip()
         event.event = array[2].rstrip().lstrip()
+        if (len(array) >= 4):
+            event.priority = array[3].rstrip().lstrip()
         timeline.add_event(event)
     f.close()
     return timeline
@@ -179,13 +143,15 @@ def read_xml(filepath):
         event.time = time
         event.model = event_timeline.getAttribute('modelName').strip()
         event.event = event_timeline.getAttribute('message').rstrip().lstrip()
+        if event_timeline.hasAttribute('priority'):
+            event.priority = event_timeline.getAttribute('priority').rstrip().lstrip()
         timeline.add_event(event)
 
     return timeline
 
 
 
-def main():
+def main(args):
     usage=u""" Usage: %prog
 
     Script to filter a timeline
@@ -202,7 +168,7 @@ def main():
     parser = OptionParser(usage)
     for param, option in options.items():
         parser.add_option(*param, **option)
-    (options, args) = parser.parse_args()
+    (options, args) = parser.parse_args(args)
 
     if (options.timeline_file is None):
         print("[ERROR] parameter '--timelineFile' is missing.")
@@ -220,13 +186,33 @@ def main():
         print("[ERROR] unrecognized file extension.")
         sys.exit(1)
 
+    #Read opposite events tables
+    if os.getenv("DYNAWO_RESOURCES_DIR") is None:
+        print("environment variable DYNAWO_RESOURCES_DIR needs to be defined")
+        sys.exit(1)
+    resources_dirs = os.environ["DYNAWO_RESOURCES_DIR"].split(":")
+    if os.getenv("DYNAWO_LOCALE") is None:
+        print("environment variable DYNAWO_LOCALE needs to be defined")
+        sys.exit(1)
+    locale = os.environ["DYNAWO_LOCALE"]
+    dicOppEvents = {}
+    for dir in resources_dirs:
+        sys.path.append(dir)
+        for path in glob.glob(os.path.join(str(dir), '*_'+locale+'_oppositeEvents.py')):
+            python_package = os.path.basename(path).replace(".py","")
+            my_module = importlib.import_module(python_package)
+            dicOppEvents.update(my_module.dicOppositeEvents)
+            del sys.modules[python_package]
+
+        sys.path.remove(dir)
+
     timeline = None
     if type == "TXT":
         timeline = read_txt(timeline_file)
     elif type == "XML":
         timeline = read_xml(timeline_file)
 
-    timeline.filter_useless_events()
+    timeline.filter_useless_events(dicOppEvents)
     if options.models is not None and len(options.models) > 0:
         timeline.filter_model(options.models)
     if type == "TXT":
@@ -236,4 +222,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

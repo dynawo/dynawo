@@ -125,6 +125,11 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
    */
   double getCurrentRho() const;
 
+  /**
+   * @copydoc RatioTapChangerInterface::getTargetDeadBand() const
+   */
+  double getTargetDeadBand() const;
+
  private:
   /**
   * @brief sanity check to make sure the ratio tap changer is properly built

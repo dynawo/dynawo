@@ -108,7 +108,7 @@ if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   add_subdirectory(test)
 endif()
 
-if(CXX11_ENABLED)
+if(NOT USE_LEGACY_IIDM)
   add_subdirectory(PowSyblIIDM)
 else()
   add_subdirectory(IIDM)

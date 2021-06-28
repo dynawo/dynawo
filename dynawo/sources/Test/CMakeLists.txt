@@ -23,13 +23,8 @@ target_link_libraries(dynawo_Test_utils
     GTest::gmock_main
     GTest::gtest_main
     XMLSAXParser${LibXML_LINK_SUFFIX}
+    $<$<NOT:$<BOOL:${USE_LEGACY_IIDM}>>:LibXml2::LibXml2>
 )
-if(CXX11_ENABLED)
-  target_link_libraries(dynawo_Test_utils
-    PRIVATE
-      LibXml2::LibXml2
-  )
-endif()
 
 set_target_properties(dynawo_Test_utils PROPERTIES VERSION ${TEST_UTILS_VERSION_STRING}
                                                  SOVERSION ${TEST_UTILS_VERSION_MAJOR})

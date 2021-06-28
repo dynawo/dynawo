@@ -26,6 +26,7 @@
 #include <boost/function.hpp>
 
 #include <powsybl/iidm/StaticVarCompensator.hpp>
+#include <powsybl/iidm/extensions/iidm/VoltagePerReactivePowerControl.hpp>
 
 #include "DYNStaticVarCompensatorInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
@@ -175,10 +176,22 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
    */
   double getQ();
 
+  /**
+   * @copydoc StaticVarCompensatorInterface::hasVoltagePerReactivePowerControl() const
+   */
+  bool hasVoltagePerReactivePowerControl() const;
+
+  /**
+   * @copydoc StaticVarCompensatorInterface::getSlope() const
+   */
+  double getSlope() const;
+
  private:
   powsybl::iidm::StaticVarCompensator& staticVarCompensatorIIDM_;  ///< reference to the iidm static var compensator instance
   StaticVarCompensatorInterfaceIIDMExtension* extension_;  ///< extension's pointer
   boost::function<destroy_t> destroy_extension_;  ///< function pointer to destroy the extension
+  stdcxx::Reference<powsybl::iidm::extensions
+                    ::iidm::VoltagePerReactivePowerControl> voltagePerReactivePowerControl_;  ///< reference to voltagePerReactivePowerControl_ extension
 };
 }  // namespace DYN
 

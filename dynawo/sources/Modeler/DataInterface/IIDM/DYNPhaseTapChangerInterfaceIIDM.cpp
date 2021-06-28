@@ -120,4 +120,9 @@ namespace DYN {
     return steps_[currentStep]->getAlpha();
   }
 
+  double
+  PhaseTapChangerInterfaceIIDM::getTargetDeadBand() const {
+    return 0.;
+  }
+
 }  // namespace DYN

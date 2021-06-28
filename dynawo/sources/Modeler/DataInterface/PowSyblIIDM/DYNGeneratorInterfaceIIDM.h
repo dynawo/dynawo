@@ -28,6 +28,8 @@
 #include "DYNInjectorInterfaceIIDM.h"
 
 #include <powsybl/iidm/Generator.hpp>
+#include <powsybl/iidm/extensions/iidm/ActivePowerControl.hpp>
+#include <powsybl/iidm/extensions/iidm/CoordinatedReactiveControl.hpp>
 
 namespace DYN {
 
@@ -153,6 +155,31 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   bool isVoltageRegulationOn() const;
 
   /**
+   * @copydoc GeneratorInterface::hasActivePowerControl() const
+   */
+  bool hasActivePowerControl() const;
+
+  /**
+   * @copydoc GeneratorInterface::isParticipating() const
+   */
+  bool isParticipating() const;
+
+  /**
+   * @copydoc GeneratorInterface::getActivePowerControlDroop() const
+   */
+  double getActivePowerControlDroop() const;
+
+  /**
+   * @copydoc GeneratorInterface::hasCoordinatedReactiveControl() const
+   */
+  bool hasCoordinatedReactiveControl() const;
+
+  /**
+   * @copydoc GeneratorInterface::getCoordinatedReactiveControlPercentage() const
+   */
+  double getCoordinatedReactiveControlPercentage() const;
+
+  /**
    * @brief Getter for the generator' country
    * @return the generator country
    */
@@ -171,6 +198,9 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
  private:
   powsybl::iidm::Generator& generatorIIDM_;  ///< reference to the iidm generator instance
   std::string country_;  ///< country of the generator
+  stdcxx::Reference<powsybl::iidm::extensions::iidm::ActivePowerControl> activePowerControl_;  ///< reference to ActivePowerControl extension
+  stdcxx::Reference<powsybl::iidm::extensions
+                    ::iidm::CoordinatedReactiveControl> coordinatedReactiveControl_;  ///< reference to CoordinatedReactiveControl extension
 };
 }  // namespace DYN
 

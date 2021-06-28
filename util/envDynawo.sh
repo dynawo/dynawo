@@ -314,6 +314,7 @@ set_environment() {
   export_var_env DYNAWO_BUILD_TESTS_COVERAGE=OFF
   export_var_env DYNAWO_BUILD_TYPE=UNDEFINED
   export_var_env DYNAWO_CXX11_ENABLED=UNDEFINED
+  export_var_env DYNAWO_USE_LEGACY_IIDM=NO
   export_var_env_force DYNAWO_USE_ADEPT=YES
 
   export_var_env DYNAWO_COMPILER_VERSION=$($DYNAWO_C_COMPILER -dumpversion)
@@ -327,6 +328,13 @@ set_environment() {
   SUFFIX_CX11=""
   if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     SUFFIX_CX11="-cxx11"
+    export_var_env DYNAWO_CXX11_ENABLED=YES
+  else
+    export_var_env_force DYNAWO_USE_LEGACY_IIDM=YES
+  fi
+  DIR_LIBIIDM="libiidm"
+  if [ "$(echo "$DYNAWO_USE_LEGACY_IIDM" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_USE_LEGACY_IIDM" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_USE_LEGACY_IIDM" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
+    DIR_LIBIIDM="libiidm0"
   fi
 
   if [ ! -z "$DYNAWO_JENKINS_MODE" ]; then
@@ -397,7 +405,7 @@ set_environment() {
   export_var_env_force DYNAWO_ADEPT_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/adept
   export_var_env_force DYNAWO_XERCESC_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/xerces-c
 
-  export_var_env_force DYNAWO_LIBIIDM_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/libiidm
+  export_var_env_force DYNAWO_LIBIIDM_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/$DIR_LIBIIDM
   export_var_env_force DYNAWO_LIBIIDM_INSTALL_DIR=$DYNAWO_LIBIIDM_HOME
 
   export_var_env_force DYNAWO_LIBZIP_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/libzip
@@ -419,6 +427,7 @@ set_environment() {
   export_var_env_force DYNAWO_CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
+  export_var_env_force DYNAWO_TIMELINE_FILTER_DIR=$DYNAWO_HOME/util/timeline_filter
   export_var_env_force DYNAWO_ENV_DYNAWO=$SCRIPT
   export_var_env DYNAWO_CMAKE_GENERATOR="Unix Makefiles"
   export_var_env DYNAWO_CMAKE_BUILD_OPTION=""
@@ -690,6 +699,7 @@ config_3rd_party() {
     -DCMAKE_C_COMPILER=$DYNAWO_C_COMPILER \
     -DCMAKE_CXX_COMPILER=$DYNAWO_CXX_COMPILER \
     -DCXX11_ENABLED=$DYNAWO_CXX11_ENABLED \
+    -DUSE_LEGACY_IIDM=$DYNAWO_USE_LEGACY_IIDM \
     -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
     -DCMAKE_BUILD_TYPE=$DYNAWO_BUILD_TYPE \
     -DOPENMODELICA_INSTALL=$DYNAWO_INSTALL_OPENMODELICA \
@@ -812,6 +822,7 @@ config_dynawo() {
     -DINSTALL_OPENMODELICA:PATH=$DYNAWO_INSTALL_OPENMODELICA \
     -DOPENMODELICA_VERSION:STRING=$DYNAWO_OPENMODELICA_VERSION \
     -DCXX11_ENABLED:BOOL=$DYNAWO_CXX11_ENABLED \
+    -DUSE_LEGACY_IIDM=$DYNAWO_USE_LEGACY_IIDM \
     -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
     -DDYNAWO_DEBUG_COMPILER_OPTION:STRING="$DYNAWO_DEBUG_COMPILER_OPTION" \
     -DADEPT_HOME=$DYNAWO_ADEPT_INSTALL_DIR \
@@ -968,6 +979,11 @@ build_tests() {
   echo "Running python tests"
   echo "#######################"
   ${DYNAWO_PYTHON_COMMAND} $DYNAWO_NRT_DIFF_DIR/test/nrtDiffTest.py
+  RETURN_CODE=$?
+  if [ ${RETURN_CODE} -ne 0 ]; then
+    return ${RETURN_CODE}
+  fi
+  ${DYNAWO_PYTHON_COMMAND} $DYNAWO_TIMELINE_FILTER_DIR/test/timelineFilterTest.py
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1504,7 +1520,7 @@ nrt_xsl() {
 }
 
 filter_timeline() {
-  $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/timeline_filter/timelineFilter.py $@
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_TIMELINE_FILTER_DIR/timelineFilter.py $@
 }
 
 check_coding_files() {
@@ -1699,12 +1715,12 @@ deploy_dynawo() {
   else
     error_exit "$DYNAWO_THIRD_PARTY_BUILD_DIR/build should not be deleted before deploy to be able to determine boost libraries used during compilation."
   fi
-  if [ -f "$DYNAWO_THIRD_PARTY_BUILD_DIR/src/libiidm-build/CMakeCache.txt" ]; then
-    for lib_boost in $(grep -o "libboost.*.$LIBRARY_SUFFIX" $DYNAWO_THIRD_PARTY_BUILD_DIR/src/libiidm-build/CMakeCache.txt | tr ';' '\n' | grep -o "libboost.*.$LIBRARY_SUFFIX" | sort | uniq); do
+  if [ -f "$DYNAWO_THIRD_PARTY_BUILD_DIR/src/$DIR_LIBIIDM-build/CMakeCache.txt" ]; then
+    for lib_boost in $(grep -o "libboost.*.$LIBRARY_SUFFIX" $DYNAWO_THIRD_PARTY_BUILD_DIR/src/$DIR_LIBIIDM-build/CMakeCache.txt | tr ';' '\n' | grep -o "libboost.*.$LIBRARY_SUFFIX" | sort | uniq); do
       boost_libraries="${boost_libraries[@]} $lib_boost"
     done
   else
-    error_exit "$DYNAWO_THIRD_PARTY_BUILD_DIR/src/libiidm-build should not be deleted before deploy to be able to determine boost libraries used during compilation."
+    error_exit "$DYNAWO_THIRD_PARTY_BUILD_DIR/src/$DIR_LIBIIDM-build should not be deleted before deploy to be able to determine boost libraries used during compilation."
   fi
   if [ -f "$DYNAWO_BUILD_DIR/CMakeCache.txt" ]; then
     for lib_boost in $(grep -o "libboost.*.$LIBRARY_SUFFIX" $DYNAWO_BUILD_DIR/CMakeCache.txt | tr ';' '\n' | grep -o "libboost.*.$LIBRARY_SUFFIX" | sort | uniq); do
@@ -1769,7 +1785,9 @@ deploy_dynawo() {
     fi
   fi
 
-  if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
+  if [ "$(echo "$DYNAWO_USE_LEGACY_IIDM" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_USE_LEGACY_IIDM" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_USE_LEGACY_IIDM" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
+    : # do nothing
+  else
     # libXML2
     echo "deploying libxml2"
     if [ $DYNAWO_LIBXML2_HOME_DEFAULT != true ]; then
@@ -2097,7 +2115,7 @@ reset_environment_variables() {
   path_remove $DYNAWO_INSTALL_OPENMODELICA/bin
   python_path_remove $DYNAWO_SCRIPTS_DIR
 
-  do_not_unset="DYNAWO_BUILD_TYPE DYNAWO_COMPILER DYNAWO_CXX11_ENABLED DYNAWO_HOME DYNAWO_INSTALL_OPENMODELICA \
+  do_not_unset="DYNAWO_BUILD_TYPE DYNAWO_COMPILER DYNAWO_CXX11_ENABLED DYNAWO_USE_LEGACY_IIDM DYNAWO_HOME DYNAWO_INSTALL_OPENMODELICA \
 DYNAWO_SRC_OPENMODELICA DYNAWO_ZLIB_HOME DYNAWO_LIBARCHIVE_HOME DYNAWO_BOOST_HOME DYNAWO_GTEST_HOME DYNAWO_GMOCK_HOME DYNAWO_XSD_DIR"
 
   for var in $(printenv | grep DYNAWO_ | cut -d '=' -f 1); do
@@ -2112,6 +2130,7 @@ reset_environment_variables_full() {
   unset DYNAWO_BUILD_TYPE
   unset DYNAWO_COMPILER
   unset DYNAWO_CXX11_ENABLED
+  unset DYNAWO_USE_LEGACY_IIDM
   unset DYNAWO_HOME
   unset DYNAWO_INSTALL_OPENMODELICA
   unset DYNAWO_SRC_OPENMODELICA

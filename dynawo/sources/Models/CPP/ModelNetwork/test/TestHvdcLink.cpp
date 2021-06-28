@@ -14,7 +14,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Substation.hpp>
 #include <powsybl/iidm/VoltageLevel.hpp>
@@ -69,7 +69,7 @@ namespace DYN {
 
 std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = true) {
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -262,7 +262,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   network->setConstraints(constraints);
   shared_ptr<ModelHvdcLink> hvdc;
   if (vsc) {
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
     for (auto& vscConverterIIDM : vlIIDM.getVscConverterStations()) {
       shared_ptr<VscConverterInterfaceIIDM> vsc(new VscConverterInterfaceIIDM(vscConverterIIDM));
       vsc->setVoltageLevelInterface(vlItfIIDM);
@@ -286,7 +286,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
 #endif
     hvdc = shared_ptr<ModelHvdcLink>(new ModelHvdcLink(hvdcItfIIDM));
   } else {
-#ifdef LANG_CXX11
+#ifdef USE_POWSYBL
     for (auto& lccConverterIIDM : vlIIDM.getLccConverterStations()) {
       shared_ptr<LccConverterInterfaceIIDM> lcc(new LccConverterInterfaceIIDM(lccConverterIIDM));
       lcc->setVoltageLevelInterface(vlItfIIDM);

@@ -84,12 +84,12 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsDefineMethod
   ASSERT_NO_THROW(modelLoad->setSubModelParameters());
   std::vector<boost::shared_ptr<Variable> > variables;
   modelLoad->defineVariables(variables);
-  ASSERT_EQ(variables.size(), 11);
+  ASSERT_EQ(variables.size(), 12);
   std::vector<Element> elements;
   std::map<std::string, int> mapElements;
   modelLoad->defineElements(elements, mapElements);
   ASSERT_EQ(elements.size(), mapElements.size());
-  ASSERT_EQ(elements.size(), 22);
+  ASSERT_EQ(elements.size(), 24);
 
   boost::shared_ptr<SubModel> modelLoad2 = initModelLoad(0.85);
   boost::shared_ptr<SubModel> modelLoad3 = initModelLoad(1.15);
@@ -114,7 +114,7 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsTypeMethods)
   boost::shared_ptr<SubModel> modelLoad = initModelLoad(1.0);
   unsigned nbY = 6;
   unsigned nbF = 4;
-  unsigned nbZ = 2;
+  unsigned nbZ = 3;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
   modelLoad->setBufferYType(&yTypes[0], 0);
@@ -123,7 +123,7 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsTypeMethods)
   ASSERT_EQ(modelLoad->sizeY(), nbY);
   ASSERT_EQ(modelLoad->sizeF(), nbF);
   ASSERT_EQ(modelLoad->sizeZ(), nbZ);
-  ASSERT_EQ(modelLoad->sizeG(), 2);
+  ASSERT_EQ(modelLoad->sizeG(), 3);
   ASSERT_EQ(modelLoad->sizeMode(), 2);
 
   modelLoad->evalStaticYType();
@@ -161,8 +161,9 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsInit) {
   ASSERT_EQ(yp[4], 0);
   ASSERT_EQ(y[5], -1);
   ASSERT_EQ(yp[5], 0);
-  ASSERT_EQ(z[0], 0);
-  ASSERT_EQ(z[1], 0);
+  ASSERT_EQ(z[0], -1);
+  ASSERT_EQ(z[1], -1);
+  ASSERT_EQ(z[2], 1);
   delete[] zConnected;
 
   boost::shared_ptr<SubModel> modelLoad2 = initModelLoad(1.0);
@@ -181,8 +182,9 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
     zConnected[i] = true;
   modelLoad->setBufferZ(&z[0], zConnected, 0);
   BitMask* silentZ = new BitMask[modelLoad->sizeZ()];
-  z[0] = 0;
-  z[1] = 0;
+  z[0] = -1;
+  z[1] = -1;
+  z[2] = 1;
   std::vector<double> f(modelLoad->sizeF(), 0);
   modelLoad->setBufferF(&f[0], 0);
   modelLoad->init(0);
@@ -233,22 +235,55 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_NO_THROW(modelLoad->getIndexesOfVariablesUsedForCalculatedVarI(1, indexes));
   ASSERT_NO_THROW(modelLoad->getIndexesOfVariablesUsedForCalculatedVarI(2, indexes));
   ASSERT_THROW_DYNAWO(modelLoad->getIndexesOfVariablesUsedForCalculatedVarI(3, indexes), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  z[0] = 1;
-  z[1] = 0;
-  ASSERT_NO_THROW(modelLoad->evalZ(1));
-  z[0] = 0;
+  // case switchOff1 is false, switchOff2 is true, running is true -> at the end the load should be disconnected
+  z[0] = -1;
   z[1] = 1;
+  z[2] = 1;
+  ASSERT_NO_THROW(modelLoad->evalG(1));
+  ASSERT_NO_THROW(modelLoad->setGequations());
+  ASSERT_NO_THROW(modelLoad->setFequations());
+  ASSERT_EQ(g[0], ROOT_DOWN);
+  ASSERT_EQ(g[1], ROOT_DOWN);
+  ASSERT_EQ(g[2], ROOT_UP);
   ASSERT_NO_THROW(modelLoad->evalZ(1));
+  ASSERT_EQ(z[2], 0);
   ASSERT_NO_THROW(modelLoad->evalMode(1));
-  ASSERT_NO_THROW(modelLoad->evalF(0, UNDEFINED_EQ));
   SparseMatrix smj2;
   smj2.init(size, size);
   ASSERT_NO_THROW(modelLoad->evalJt(1, 0, smj2, 0));
   SparseMatrix smjPrim2;
   smjPrim2.init(size, size);
   ASSERT_NO_THROW(modelLoad->evalJtPrim(0, 0, smjPrim2, 0));
+  ASSERT_NO_THROW(modelLoad->evalCalculatedVarI(2));
+  // case switchOff1 is true, switchOff2 is false, running is true -> at the end the load should be disconnected
+  z[0] = 1;
+  z[1] = -1;
+  z[2] = 1;
+  ASSERT_NO_THROW(modelLoad->evalG(1));
+  ASSERT_NO_THROW(modelLoad->setGequations());
+  ASSERT_NO_THROW(modelLoad->setFequations());
+  ASSERT_EQ(g[0], ROOT_DOWN);
+  ASSERT_EQ(g[1], ROOT_DOWN);
+  ASSERT_EQ(g[2], ROOT_UP);
+  ASSERT_NO_THROW(modelLoad->evalZ(1));
+  ASSERT_EQ(z[2], 0);
+  ASSERT_NO_THROW(modelLoad->evalMode(1));
+  // case switchOff1 is false, switchOff2 is false, running is false -> at the end the load should be connected
+  z[0] = -1;
+  z[1] = -1;
+  z[2] = 0;
+  ASSERT_NO_THROW(modelLoad->evalG(1));
+  ASSERT_NO_THROW(modelLoad->setGequations());
+  ASSERT_NO_THROW(modelLoad->setFequations());
+  ASSERT_EQ(g[0], ROOT_DOWN);
+  ASSERT_EQ(g[1], ROOT_DOWN);
+  ASSERT_EQ(g[2], ROOT_UP);
+  ASSERT_NO_THROW(modelLoad->evalZ(1));
+  ASSERT_EQ(z[2], 1);
+  ASSERT_NO_THROW(modelLoad->evalMode(1));
 
   g[0] = ROOT_UP;
+  g[1] = ROOT_DOWN;
   ASSERT_NO_THROW(modelLoad->evalZ(0));
   ASSERT_NO_THROW(modelLoad->evalMode(0));
   ASSERT_NO_THROW(modelLoad->setGequations());
@@ -258,11 +293,12 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_NO_THROW(modelLoad->evalZ(0));
   ASSERT_NO_THROW(modelLoad->evalMode(0));
   ASSERT_NO_THROW(modelLoad->setGequations());
-  ASSERT_NO_THROW(modelLoad->evalF(1, ALGEBRAIC_EQ));
+  ASSERT_NO_THROW(modelLoad->evalF(0, ALGEBRAIC_EQ));
 
-  y[1] = 0;
-  y[2] = 0;
-  y[3] = 0;
+  y[1] = 0.;
+  y[2] = 0.;
+  y[3] = 0.;
+
   ASSERT_THROW_DYNAWO(modelLoad->evalF(0, ALGEBRAIC_EQ), Error::NUMERICAL_ERROR, KeyError_t::NumericalErrorFunction);
 }
 

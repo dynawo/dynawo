@@ -118,6 +118,11 @@ class PhaseTapChangerInterfaceIIDM : public PhaseTapChangerInterface {
    */
   double getCurrentAlpha() const;
 
+  /**
+   * @copydoc PhaseTapChangerInterface::getTargetDeadBand() const
+   */
+  double getTargetDeadBand() const;
+
  private:
   std::vector<boost::shared_ptr<StepInterface> > steps_;  ///< steps of the phase tap changer
   IIDM::PhaseTapChanger& tapChangerIIDM_;  ///< reference to the iidm phaseTapChanger's instance

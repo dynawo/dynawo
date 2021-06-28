@@ -128,6 +128,11 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
    */
   double getCurrentRho() const;
 
+  /**
+   * @copydoc RatioTapChangerInterface::getTargetDeadBand() const
+   */
+  double getTargetDeadBand() const;
+
  private:
   std::vector<boost::shared_ptr<StepInterface> > steps_;  ///< steps of the ratio tap changer
   powsybl::iidm::RatioTapChanger& tapChangerIIDM_;        ///< reference to the iidm ratioTapChanger's instance

@@ -298,6 +298,11 @@ class ConnectorContainer {
                        std::list<boost::shared_ptr<Connector> > &connectorsList,
                        boost::unordered_map<int, boost::shared_ptr<Connector> >& connectorsByVarNum, bool flowConnector = false);
 
+  /**
+   * @brief collect the indexes of connected discrete variables and set the model accordingly
+   */
+  void propagateZConnectionInfoToModel() const;
+
 
   /**
    * @brief evaluate the property of each residual functions for each connectors
