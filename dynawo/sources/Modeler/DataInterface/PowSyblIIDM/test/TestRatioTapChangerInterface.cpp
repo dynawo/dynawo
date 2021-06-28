@@ -15,6 +15,8 @@
 
 #include "DYNStepInterfaceIIDM.h"
 
+#include "DYNCommon.h"
+
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Load.hpp>
 #include <powsybl/iidm/LoadAdder.hpp>
@@ -130,7 +132,7 @@ createTwoWindingsTransformerNetwork() {
       .setRegulating(true)
       .setRegulationTerminal(stdcxx::ref<Terminal>(l1.getTerminal()))
       .setTargetV(25.0)
-      .setTargetDeadband(0.0)
+      .setTargetDeadband(0.1)
       .add();
 
   return network;
@@ -195,6 +197,7 @@ TEST(DataInterfaceTest, RatioTapChanger_2WT) {
   ASSERT_DOUBLE_EQ(Ifce.getTargetV(), 99999.0L);
   ASSERT_EQ(Ifce.getTerminalRefId(), "");
   ASSERT_EQ(Ifce.getTerminalRefSide(), "ONE");
+  ASSERT_DOUBLE_EQUALS_DYNAWO(Ifce.getTargetDeadBand(), 0.);
 
   rtcCopy.setTargetV(666.666);
   rtcCopy.setRegulating(true);
@@ -203,6 +206,7 @@ TEST(DataInterfaceTest, RatioTapChanger_2WT) {
 
   rtcCopy.setRegulating(true);
   ASSERT_THROW(rtcCopy.setTargetV(stdcxx::nan()), std::exception);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(Ifce.getTargetDeadBand(), 0.1);
 
   ASSERT_EQ(Ifce.getTerminalRefId(), "LOAD1");
   ASSERT_EQ(Ifce.getTerminalRefSide(), "ONE");

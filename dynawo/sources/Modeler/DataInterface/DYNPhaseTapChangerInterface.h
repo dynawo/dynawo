@@ -123,6 +123,12 @@ class PhaseTapChangerInterface {
    * @return The current phase shift of the phase tap changer in degree
    */
   virtual double getCurrentAlpha() const = 0;
+
+  /**
+   * @brief Getter for the voltage target deadband of the phase tap changer
+   * @return the voltage regulation target deadband
+   */
+  virtual double getTargetDeadBand() const = 0;
 };  ///< class for phase tap chagner interface
 }  // namespace DYN
 

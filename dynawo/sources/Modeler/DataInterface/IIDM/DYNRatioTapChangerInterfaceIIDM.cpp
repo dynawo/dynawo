@@ -145,6 +145,11 @@ RatioTapChangerInterfaceIIDM::getCurrentRho() const {
   return steps_[currentStep]->getRho();
 }
 
+double
+RatioTapChangerInterfaceIIDM::getTargetDeadBand() const {
+  return 0.;
+}
+
 void
 RatioTapChangerInterfaceIIDM::sanityCheck(const std::string& parentName) const {
   if (tapChangerIIDM_.has_regulating() && tapChangerIIDM_.regulating()) {

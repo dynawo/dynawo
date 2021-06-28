@@ -126,4 +126,9 @@ PhaseTapChangerInterfaceIIDM::getCurrentAlpha() const {
   return steps_.at(i)->getAlpha();
 }
 
+double
+PhaseTapChangerInterfaceIIDM::getTargetDeadBand() const {
+  return getRegulating() ? tapChangerIIDM_.getTargetDeadband() : 0.;
+}
+
 }  // namespace DYN

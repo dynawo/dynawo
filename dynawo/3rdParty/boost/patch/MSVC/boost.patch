@@ -1,7 +1,19 @@
-diff -urpN boost_1_64_0/boost/process/environment.hpp boost_1_64_0.patch/boost/process/environment.hpp
---- boost_1_64_0/boost/process/environment.hpp	2017-04-17 04:22:23.000000000 +0200
-+++ boost_1_64_0.patch/boost/process/environment.hpp	2020-02-19 14:52:11.574928297 +0100
-@@ -669,7 +669,7 @@ inline std::vector<boost::filesystem::pa
+diff -urpN boost_1_70_0/boost/process/detail/windows/search_path.hpp boost_1_70_0.patch/boost/process/detail/windows/search_path.hpp
+--- boost_1_70_0/boost/process/detail/windows/search_path.hpp	2019-04-09 21:36:19.000000000 +0200
++++ boost_1_70_0.patch/boost/process/detail/windows/search_path.hpp	2021-04-20 14:43:00.075911147 +0200
+@@ -29,7 +29,7 @@ inline boost::filesystem::path search_pa
+         const std::vector<boost::filesystem::path> &path)
+ {
+     const ::boost::process::wnative_environment ne{};
+-    typedef typename ::boost::process::wnative_environment::const_entry_type value_type;
++    typedef ::boost::process::wnative_environment::const_entry_type value_type;
+     const auto id = L"PATHEXT";
+ 
+     auto itr = std::find_if(ne.cbegin(), ne.cend(),
+diff -urpN boost_1_70_0/boost/process/environment.hpp boost_1_70_0.patch/boost/process/environment.hpp
+--- boost_1_70_0/boost/process/environment.hpp	2019-04-09 21:36:19.000000000 +0200
++++ boost_1_70_0.patch/boost/process/environment.hpp	2021-04-20 14:42:13.268231697 +0200
+@@ -676,7 +676,7 @@ inline std::vector<boost::filesystem::pa
  {
  #if defined(BOOST_WINDOWS_API)
      const ::boost::process::wnative_environment ne{};

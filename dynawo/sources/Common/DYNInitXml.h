@@ -20,8 +20,10 @@
 #ifndef COMMON_DYNINITXML_H_
 #define COMMON_DYNINITXML_H_
 
+#include "config.h"
+
 #include <xercesc/util/PlatformUtils.hpp>
-#ifdef LANG_CXX11
+#ifdef DYNAWO_USE_LIBXML2
 #include <libxml/parser.h>
 #endif
 
@@ -41,21 +43,23 @@ class InitXerces {
   }
 };
 
-#ifdef LANG_CXX11
 /**
  * Helper class to load/unload properly LibXml2
  */
 class InitLibXml2 {
  public:
   InitLibXml2() {
+#ifdef DYNAWO_USE_LIBXML2
     xmlInitParser();
+#endif
   }
 
   ~InitLibXml2() {
+#ifdef DYNAWO_USE_LIBXML2
     xmlCleanupParser();
+#endif
   }
 };
-#endif
 
 }  // namespace DYN
 

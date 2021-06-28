@@ -65,14 +65,13 @@ extern "C" void DYN::ModelLoadRestorativeWithLimitsFactory::destroy(DYN::SubMode
 
 namespace DYN {
   ModelLoadRestorativeWithLimits::ModelLoadRestorativeWithLimits() : Impl("LoadRestorativeWithLimits"),
-  connectionState_(CLOSED),
-  preConnectionState_(CLOSED),
   UfRawYNum_(0),
   UfYNum_(0),
   UrYNum_(0),
   UiYNum_(0),
   IrYNum_(0),
   IiYNum_(0),
+  running_(RUNNING_FALSE),
   u0Pu_(0),
   UfRawprim0_(0),
   Tf_(0),
@@ -136,6 +135,7 @@ namespace DYN {
     variables.push_back(VariableNativeFactory::createCalculated("state_value", INTEGER));
     variables.push_back(VariableNativeFactory::createState("switchOff1_value", BOOLEAN));
     variables.push_back(VariableNativeFactory::createState("switchOff2_value", BOOLEAN));
+    variables.push_back(VariableNativeFactory::createState("running_value", BOOLEAN));
   }
 
   void
@@ -149,16 +149,18 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::collectSilentZ(BitMask* /*silentZTable*/) {
-    /* not need */
+  ModelLoadRestorativeWithLimits::collectSilentZ(BitMask* silentZTable) {
+    silentZTable[switchOffSignal1].setFlags(NotUsedInContinuousEquations);
+    silentZTable[switchOffSignal2].setFlags(NotUsedInContinuousEquations);
+    silentZTable[running].setFlags(NotSilent);
   }
 
   void
   ModelLoadRestorativeWithLimits::getSize() {
     sizeF_ = 4;
     sizeY_ = 6;
-    sizeZ_ = 2;
-    sizeG_ = 2;
+    sizeZ_ = numZ;
+    sizeG_ = 3;
     sizeMode_ = 2;
     calculatedVars_.assign(nbCalculatedVariables_, 0);
   }
@@ -234,11 +236,18 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::evalZ(const double /*t*/) {
-    if ((zLocal_[0] > 0 || zLocal_[1] > 0) && getConnected() == CLOSED) {
-      setConnected(OPEN);
-    } else if ((zLocal_[0] <= 0 || zLocal_[1] <= 0) && getConnected() == OPEN) {
-      setConnected(CLOSED);
+    if (gLocal_[2] == ROOT_UP) {
+      if (isConnected()) {
+        running_ = static_cast<int>(zLocal_[running]);
+        zLocal_[running] = RUNNING_FALSE;
+        DYNAddTimelineEvent(this, name(), LoadDisconnected);
+      } else if (!isConnected()) {
+        running_ = static_cast<int>(zLocal_[running]);
+        zLocal_[running] = RUNNING_TRUE;
+        DYNAddTimelineEvent(this, name(), LoadConnected);
+      }
     }
+
     if (gLocal_[0] == ROOT_UP) {
       UMaxPuReached_ = true;
     } else {
@@ -305,12 +314,17 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::evalG(const double /*t*/) {
     gLocal_[0] = (doubleNotEquals(yLocal_[UfRawYNum_], UMaxPu_) && yLocal_[UfRawYNum_] > UMaxPu_) ? ROOT_UP : ROOT_DOWN;
     gLocal_[1] = (doubleNotEquals(yLocal_[UfRawYNum_], UMinPu_) && UMinPu_ - yLocal_[UfRawYNum_] > 0) ? ROOT_UP : ROOT_DOWN;
+    gLocal_[2] = (((zLocal_[switchOffSignal1] > 0 || zLocal_[switchOffSignal2] > 0) &&
+      static_cast<int>(zLocal_[running]) == RUNNING_TRUE) || ((zLocal_[switchOffSignal1] < 0 && zLocal_[switchOffSignal2] < 0) &&
+      static_cast<int>(zLocal_[running]) == RUNNING_FALSE)) ? ROOT_UP : ROOT_DOWN;
   }
 
   void
   ModelLoadRestorativeWithLimits::setGequations() {
     gEquationIndex_[0] = std::string("UfRawPu > UMaxPu ");
     gEquationIndex_[1] = std::string("UfRawPu < UMinPu ");
+    gEquationIndex_[2] = "((switchoff_signal_1 = true or switchOffSignal2 = true) and running) || "
+                       "((switchoff_signal_1 = false and switchOffSignal2 = false) && not(running))";
   }
 
   void
@@ -329,8 +343,8 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::evalMode(const double /*t*/) {
     if (gLocal_[0] == ROOT_UP || gLocal_[1] == ROOT_UP)
       return ALGEBRAIC_MODE;
-    if (preConnectionState_ != getConnected()) {
-      preConnectionState_ = getConnected();
+    if (running_ != static_cast<int>(zLocal_[running])) {
+      running_ = static_cast<int>(zLocal_[running]);
       return ALGEBRAIC_J_UPDATE_MODE;
     }
     return NO_MODE;
@@ -350,8 +364,10 @@ namespace DYN {
     // Ii
     yLocal_[5] = (P0Pu_ * u0Pu_ * sin(angleO_) - Q0Pu_ * u0Pu_ * cos(angleO_)) / (u0Pu_ * u0Pu_);
     ypLocal_[5] = 0;
-    zLocal_[0] = false;
-    zLocal_[1] = false;
+    running_ = RUNNING_TRUE;
+    zLocal_[switchOffSignal1] = SWITCHOFF_FALSE;
+    zLocal_[switchOffSignal2] = SWITCHOFF_FALSE;
+    zLocal_[running] = running_;
   }
 
   void
@@ -376,7 +392,11 @@ namespace DYN {
         }
         break;
       case loadStateNum_:
-        output = connectionState_;
+        if (isConnected()) {
+          output = CLOSED;
+        } else if (!isConnected()) {
+          output = OPEN;
+        }
         break;
       default:
         throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
@@ -388,11 +408,12 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::evalCalculatedVars() {
     calculatedVars_[PNum_] = 0.;
     calculatedVars_[QNum_] = 0.;
-    calculatedVars_[loadStateNum_] = connectionState_;
+    calculatedVars_[loadStateNum_] = OPEN;
     if (isConnected()) {
       double U = sqrt(yLocal_[UrYNum_] * yLocal_[UrYNum_] + yLocal_[UiYNum_] * yLocal_[UiYNum_]);
       calculatedVars_[PNum_] = P0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], alpha_);
       calculatedVars_[QNum_] = Q0Pu_ * pow_dynawo(U/yLocal_[UfYNum_], beta_);
+      calculatedVars_[loadStateNum_] = CLOSED;
     }
   }
 
@@ -474,5 +495,7 @@ namespace DYN {
     addSubElement("value", "switchOff1", Element::TERMINAL, name(), modelType(), elements, mapElement);
     addElement("switchOff2", Element::STRUCTURE, elements, mapElement);
     addSubElement("value", "switchOff2", Element::TERMINAL, name(), modelType(), elements, mapElement);
+    addElement("running", Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", "running", Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
 }  // namespace DYN

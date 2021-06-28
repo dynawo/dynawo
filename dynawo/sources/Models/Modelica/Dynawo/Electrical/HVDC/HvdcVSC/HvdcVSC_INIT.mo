@@ -18,7 +18,7 @@ model HvdcVSC_INIT "Initialisation model for the HVDC VSC model"
 
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
   parameter Types.PerUnit Lambda "Lambda coefficient for the QRefUPu calculation";
-  parameter Types.PerUnit RdcPu "DC line resistance in p.u (base UNom, SNom)";
+  parameter Types.PerUnit RdcPu "DC line resistance in p.u (base UNom, SnRef)";
 
   parameter Real modeU1Set "Set value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
   parameter Real modeU2Set "Set value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";

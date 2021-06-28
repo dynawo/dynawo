@@ -13,6 +13,7 @@ cmake_minimum_required(VERSION 3.9.6 FATAL_ERROR)
 
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)")
 option(CXX11_ENABLED "Enable support of C++11 standard" TRUE)
+option(USE_LEGACY_IIDM "Force use of legacy IIDM library" FALSE)
 set(BOOST_ROOT_DEFAULT "true" CACHE STRING "Enable to find boost in system path or not.")
 set(FORCE_CXX11_ABI OFF CACHE BOOL "Choose either ON or OFF.")
 
@@ -391,7 +392,7 @@ find_package(Boost ${boost_version} QUIET)
 if(Boost_FOUND)
   if(CXX11_ENABLED)
     find_package(Boost ${boost_version} QUIET
-      COMPONENTS date_time filesystem program_options serialization system log iostreams unit_test_framework
+      COMPONENTS date_time filesystem program_options serialization system log iostreams
     )
   else()
     find_package(Boost ${boost_version} QUIET
@@ -431,6 +432,13 @@ else()
                           install
                           --prefix=<INSTALL_DIR>
                           --disable-icu
+                          --with-date_time
+                          --with-filesystem
+                          --with-program_options
+                          --with-serialization
+                          --with-system
+                          --with-log
+                          --with-iostreams
                           --layout=system
                           architecture=x86
                           address-model=64
@@ -444,7 +452,7 @@ else()
 
   else()
     if(CXX11_ENABLED)
-      set(TmpVar "--with-libraries=date_time,filesystem,program_options,serialization,system,log,iostreams,test")
+      set(TmpVar "--with-libraries=date_time,filesystem,program_options,serialization,system,log,iostreams")
     else()
       set(TmpVar "--with-libraries=filesystem,program_options,serialization,system,log,iostreams")
     endif()
@@ -918,7 +926,7 @@ else()
   set(LIBXML_HOME ${install_dir})
 endif()
 
-if(CXX11_ENABLED)
+if(CXX11_ENABLED AND NOT USE_LEGACY_IIDM)
  cmake_minimum_required(VERSION 3.12)
 
  include("${CMAKE_CURRENT_SOURCE_DIR}/libxml2/libxml2.cmake")
@@ -930,16 +938,16 @@ find_package(libIIDM 0.2.8 QUIET)
 unset(LIBIIDM_HOME)
 
 if(libIIDM_FOUND)
-  add_custom_target(libiidm DEPENDS libxml boost)
-  set(LIBIIDM_HOME ${CMAKE_INSTALL_PREFIX}/libiidm)
+  add_custom_target(libiidm0 DEPENDS libxml boost)
+  set(LIBIIDM_HOME ${CMAKE_INSTALL_PREFIX}/libiidm0)
 else()
-  ExternalProject_Add(libiidm
+  ExternalProject_Add(libiidm0
           DEPENDS             libxml boost
-          INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/libiidm
+          INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/libiidm0
           DOWNLOAD_DIR        ${DOWNLOAD_DIR}
           TMP_DIR             ${TMP_DIR}
-          STAMP_DIR           ${DOWNLOAD_DIR}/libiidm-stamp
-          BINARY_DIR          ${DOWNLOAD_DIR}/libiidm-build
+          STAMP_DIR           ${DOWNLOAD_DIR}/libiidm0-stamp
+          BINARY_DIR          ${DOWNLOAD_DIR}/libiidm0-build
           DOWNLOAD_COMMAND    ""
           SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libiidm
 
@@ -955,7 +963,7 @@ else()
                               -DXERCESC_HOME:PATH=${XERCESC_HOME}
                               -DBOOST_ROOT:PATH=${BOOST_ROOT}
   )
-  ExternalProject_Get_Property(libiidm install_dir)
+  ExternalProject_Get_Property(libiidm0 install_dir)
   set(LIBIIDM_HOME ${install_dir})
 endif()
-endif(CXX11_ENABLED)
+endif(CXX11_ENABLED AND NOT USE_LEGACY_IIDM)

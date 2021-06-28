@@ -172,6 +172,18 @@ class StaticVarCompensatorInterface : public ComponentInterface {
    * @return The reactive power of the static var compensator in Mvar (Receptor convention)
    */
   virtual double getQ() = 0;
+
+  /**
+   * @brief Determines if static var compensator has voltage per reactive power control information
+   * @returns whether static var compensator has voltage per reactive power control information
+   */
+  virtual bool hasVoltagePerReactivePowerControl() const = 0;
+
+  /**
+   * @brief Getter for static var compensator slope
+   * @returns static var compensator slope value
+   */
+  virtual double getSlope() const = 0;
 };  ///< Interface class for Static Var Compensator
 
 }  // namespace DYN

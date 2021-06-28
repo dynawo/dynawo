@@ -6,4 +6,6 @@ LimitsCalculationFunction
 BlockingFunction
 DCLine
 DCVoltageControlSide
+DCVoltageControlSideDangling
 ActivePowerControlSide
+ActivePowerControlSideDangling
