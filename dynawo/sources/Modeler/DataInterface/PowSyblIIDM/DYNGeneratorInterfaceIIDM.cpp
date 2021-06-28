@@ -155,7 +155,15 @@ GeneratorInterfaceIIDM::getInitialConnected() {
 
 double
 GeneratorInterfaceIIDM::getP() {
-  return getPInjector();
+  if (getInitialConnectedInjector()) {
+    if (!hasPInjector()) {
+      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSetUsingAnother, "Injection", getIDInjector(), "P", "targetP") << Trace::endline;
+      return getTargetP();
+    }
+    return generatorIIDM_.getTerminal().getP();
+  } else {
+    return 0.;
+  }
 }
 
 double
@@ -176,7 +184,15 @@ GeneratorInterfaceIIDM::getTargetP() {
 
 double
 GeneratorInterfaceIIDM::getQ() {
-  return getQInjector();
+  if (getInitialConnectedInjector()) {
+    if (!hasQInjector()) {
+      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSetUsingAnother, "Injection", getIDInjector(), "Q", "targetQ") << Trace::endline;
+      return getTargetQ();
+    }
+    return generatorIIDM_.getTerminal().getQ();
+  } else {
+    return 0.;
+  }
 }
 
 double

@@ -99,11 +99,11 @@ TEST(DataInterfaceTest, Generator_1) {
 
   ASSERT_TRUE(genItf.getInitialConnected());
 
-  ASSERT_EQ(genItf.getP(), 0.0);
+  ASSERT_EQ(genItf.getP(), -45);
   gen.getTerminal().setP(10.0);
   ASSERT_EQ(genItf.getP(), 10.0);
 
-  ASSERT_EQ(genItf.getQ(), 0.0);
+  ASSERT_EQ(genItf.getQ(), -5.0);
   gen.getTerminal().setQ(11.0);
   ASSERT_EQ(genItf.getQ(), 11.0);
 

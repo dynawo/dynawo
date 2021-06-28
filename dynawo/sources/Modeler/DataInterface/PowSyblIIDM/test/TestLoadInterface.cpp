@@ -93,13 +93,13 @@ TEST(DataInterfaceTest, Load_1) {
   ASSERT_FALSE(loadIfce.hasQInjector());
 
   ASSERT_DOUBLE_EQ(loadIfce.getP0(), 50.0);
-  ASSERT_DOUBLE_EQ(loadIfce.getP(), 0.0);
+  ASSERT_DOUBLE_EQ(loadIfce.getP(), 50.0);
   load.getTerminal().setP(1000.0);
   ASSERT_TRUE(loadIfce.hasPInjector());
   ASSERT_DOUBLE_EQ(loadIfce.getP(), 1000.0);
 
   ASSERT_DOUBLE_EQ(loadIfce.getQ0(), 40.0);
-  ASSERT_DOUBLE_EQ(loadIfce.getQ(), 0.0);
+  ASSERT_DOUBLE_EQ(loadIfce.getQ(), 40.0);
   load.getTerminal().setQ(499.0);
   ASSERT_TRUE(loadIfce.hasQInjector());
   ASSERT_DOUBLE_EQ(loadIfce.getQ(), 499.0);

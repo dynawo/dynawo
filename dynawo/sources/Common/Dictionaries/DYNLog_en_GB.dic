@@ -110,6 +110,7 @@ NetworkNbThreeWTfo            =             number of three windings transformer
 NetworkNbHVDC                 =             number of HVDCs                       : %1% (static: %2%, dynamic: %3%)
 //---------------------- DATAINTERFACE --------------------------------------
 VariableNotSet                =             %1% : "%3%" is not set for model %2%
+VariableNotSetUsingAnother    =             %1% : "%3%" is not set for model %2%, using "%4%"
 BusUnderVoltage               =             node: %1% has a voltage %2% kV (%3% p.u.) < %4% kV (%5% p.u.) (criteria id: %6%)
 BusAboveVoltage               =             node: %1% has a voltage %2% kV (%3% p.u.) > %4% kV (%5% p.u.) (criteria id: %6%)
 SumBusCriteriaIgnored         =             sum criteria is not applicable to buses
