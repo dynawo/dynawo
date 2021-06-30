@@ -28,7 +28,7 @@ namespace DYN {
  * @brief Base template class for traits
  *
  * Traits for IIDM extensions are:
- * - NetworkInputType: the powsybl type of input for the extension
+ * - NetworkComponentType: the powsybl type of input for the extension
  * - name: the name of the extension, used to build the creation/destruction functions
  */
 template<class T>
@@ -37,8 +37,8 @@ struct IIDMExtTrait {};
 /// @brief Specialization trait for StaticVarCompensatorInterfaceIIDMExtension
 template<>
 struct IIDMExtTrait<StaticVarCompensatorInterfaceIIDMExtension> {
-  using NetworkInputType = powsybl::iidm::StaticVarCompensator;  ///< network input type
-  static const std::string name;                                 ///< name of the extension
+  using NetworkComponentType = powsybl::iidm::StaticVarCompensator;  ///< network component type
+  static const std::string name;                                     ///< name of the extension
 };
 }  // namespace DYN
 

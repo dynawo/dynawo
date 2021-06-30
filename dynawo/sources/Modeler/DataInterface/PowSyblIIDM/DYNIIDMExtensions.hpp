@@ -13,7 +13,7 @@
 
 /**
  * @file DYNIIDMExtensions.hpp
- * @brief File for private IIDM extensions management
+ * @brief File for external IIDM extensions management
  */
 
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNIIDMEXTENSIONS_HPP_
@@ -33,7 +33,7 @@ namespace DYN {
 struct IIDMExtensions {
   /// @brief Alias type for base extension create function
   template<class T>
-  using CreateFunctionBase = T*(typename IIDMExtTrait<T>::NetworkInputType&);
+  using CreateFunctionBase = T*(typename IIDMExtTrait<T>::NetworkComponentType&);
 
   /// @brief Alias type for extension create function with STL wrapper
   template<class T>
