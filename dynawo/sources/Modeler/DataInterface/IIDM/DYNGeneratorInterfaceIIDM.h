@@ -170,6 +170,15 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
    */
   double getActivePowerControlDroop() const;
 
+  /**
+   * @copydoc GeneratorInterface::hasCoordinatedReactiveControl() const
+   */
+  bool hasCoordinatedReactiveControl() const;
+
+  /**
+   * @copydoc GeneratorInterface::getCoordinatedReactiveControlPercentage() const
+   */
+  double getCoordinatedReactiveControlPercentage() const;
 
   /**
    * @brief Getter for the generator' country

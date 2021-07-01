@@ -174,6 +174,18 @@ class GeneratorInterface : public ComponentInterface {
    * @returns active power control droop value
    */
   virtual double getActivePowerControlDroop() const = 0;
+
+  /**
+   * @brief Determines if generator has coordinated reactive power control information
+   * @returns whether generator has coordinated reactive power power control information
+   */
+  virtual bool hasCoordinatedReactiveControl() const = 0;
+
+  /**
+   * @brief Getter for the reactive power control percentage of participation
+   * @returns reactive power control percentage of participation value
+   */
+  virtual double getCoordinatedReactiveControlPercentage() const = 0;
 };  ///< Class for Generator data interface
 }  // namespace DYN
 

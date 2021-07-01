@@ -66,6 +66,8 @@ staticVarCompensatorIIDM_(svc) {
 
   // create an instance of the class
   extension_ = create_extension(svc);
+
+  voltagePerReactivePowerControl_ = svc.findExtension<powsybl::iidm::extensions::iidm::VoltagePerReactivePowerControl>();
 }
 
 int
@@ -200,6 +202,22 @@ StaticVarCompensatorInterfaceIIDM::getP() {
 double
 StaticVarCompensatorInterfaceIIDM::getQ() {
   return getQInjector();
+}
+
+bool
+StaticVarCompensatorInterfaceIIDM::hasVoltagePerReactivePowerControl() const {
+  if (voltagePerReactivePowerControl_) {
+    return true;
+  }
+  return false;
+}
+
+double
+StaticVarCompensatorInterfaceIIDM::getSlope() const {
+  if (hasVoltagePerReactivePowerControl()) {
+    return voltagePerReactivePowerControl_.get().getSlope();
+  }
+  return 0.;
 }
 
 double

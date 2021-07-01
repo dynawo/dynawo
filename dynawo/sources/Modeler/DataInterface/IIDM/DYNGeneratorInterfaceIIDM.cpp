@@ -277,6 +277,16 @@ GeneratorInterfaceIIDM::getActivePowerControlDroop() const {
   return 0.;
 }
 
+bool
+GeneratorInterfaceIIDM::hasCoordinatedReactiveControl() const {
+  return false;
+}
+
+double
+GeneratorInterfaceIIDM::getCoordinatedReactiveControlPercentage() const {
+  return 0.;
+}
+
 string
 GeneratorInterfaceIIDM::getID() const {
   return generatorIIDM_.id();

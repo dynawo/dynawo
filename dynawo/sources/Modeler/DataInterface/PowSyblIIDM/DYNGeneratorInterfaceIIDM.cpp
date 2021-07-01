@@ -42,6 +42,7 @@ generatorIIDM_(generator) {
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);   // connectionState
   activePowerControl_ = generator.findExtension<powsybl::iidm::extensions::iidm::ActivePowerControl>();
+  coordinatedReactiveControl_ = generator.findExtension<powsybl::iidm::extensions::iidm::CoordinatedReactiveControl>();
 }
 
 int
@@ -296,6 +297,22 @@ double
 GeneratorInterfaceIIDM::getActivePowerControlDroop() const {
   if (hasActivePowerControl() && isParticipating()) {
     return activePowerControl_.get().getDroop();
+  }
+  return 0.;
+}
+
+bool
+GeneratorInterfaceIIDM::hasCoordinatedReactiveControl() const {
+  if (coordinatedReactiveControl_) {
+    return true;
+  }
+  return false;
+}
+
+double
+GeneratorInterfaceIIDM::getCoordinatedReactiveControlPercentage() const {
+  if (hasCoordinatedReactiveControl()) {
+    return coordinatedReactiveControl_.get().getQPercent();
   }
   return 0.;
 }
