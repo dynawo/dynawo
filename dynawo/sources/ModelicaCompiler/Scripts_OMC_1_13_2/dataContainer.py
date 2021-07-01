@@ -818,12 +818,14 @@ class Variable:
                 # the function "sub_division_sim()" (see utils.py)
                 line_tmp = sub_division_sim(line)
                 line_tmp = throw_stream_indexes(line_tmp)
+                if "omc_assert_warning" in line_tmp:
+                    line_tmp = line_tmp.replace(INFO_OMC_PARAM,"")
                 if re.search(tmp_abs_var_prtn, line_tmp) is not None:
                     error_exit("Variable " + self.get_name() + " is defined in a equation with multiple solutions. In this case a start value should be defined to provide the initial sign of this variable.")
 
-                if THREAD_DATA_OMC_PARAM in line:
-                    line=line.replace(THREAD_DATA_OMC_PARAM, "")
-                    txt_tmp.append(line)
+                if THREAD_DATA_OMC_PARAM in line_tmp:
+                    line_tmp=line_tmp.replace(THREAD_DATA_OMC_PARAM, "")
+                    txt_tmp.append(line_tmp)
                 elif HASHTAG_IFDEF not in line_tmp and HASHTAG_ENDIF not in line_tmp \
                         and "SIM_PROF_" not in line_tmp and "NORETCALL" not in line_tmp:
                     txt_tmp.append(line_tmp)

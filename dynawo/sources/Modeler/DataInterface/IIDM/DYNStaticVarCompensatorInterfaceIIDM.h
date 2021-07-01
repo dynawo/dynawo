@@ -180,6 +180,16 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
    */
   double getQ();
 
+  /**
+   * @copydoc StaticVarCompensatorInterface::hasVoltagePerReactivePowerControl() const
+   */
+  bool hasVoltagePerReactivePowerControl() const;
+
+  /**
+   * @copydoc StaticVarCompensatorInterface::getSlope() const
+   */
+  double getSlope() const;
+
  private:
   IIDM::StaticVarCompensator& staticVarCompensatorIIDM_;  ///< reference to the iidm static var compensator instance
   IIDM::extensions::standbyautomaton::StandbyAutomaton * sa_;  ///< pointer to StandbyAutomaton extension when it exists

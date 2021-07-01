@@ -156,6 +156,36 @@ class GeneratorInterface : public ComponentInterface {
    * @returns whether voltage regulation is on
    */
   virtual bool isVoltageRegulationOn() const = 0;
+
+  /**
+   * @brief Determines if generator has active power control information
+   * @returns whether generator has active power control information
+   */
+  virtual bool hasActivePowerControl() const = 0;
+
+  /**
+   * @brief Determines if generator is participating in active power control
+   * @returns whether generator is participating to active power control
+   */
+  virtual bool isParticipating() const = 0;
+
+  /**
+   * @brief Getter for the active power control droop
+   * @returns active power control droop value
+   */
+  virtual double getActivePowerControlDroop() const = 0;
+
+  /**
+   * @brief Determines if generator has coordinated reactive power control information
+   * @returns whether generator has coordinated reactive power power control information
+   */
+  virtual bool hasCoordinatedReactiveControl() const = 0;
+
+  /**
+   * @brief Getter for the reactive power control percentage of participation
+   * @returns reactive power control percentage of participation value
+   */
+  virtual double getCoordinatedReactiveControlPercentage() const = 0;
 };  ///< Class for Generator data interface
 }  // namespace DYN
 

@@ -23,6 +23,7 @@
 #define MODELER_DATAINTERFACE_IIDM_DYNGENERATORINTERFACEIIDM_H_
 
 #include <boost/shared_ptr.hpp>
+#include <IIDM/extensions/generatorActivePowerControl/GeneratorActivePowerControl.h>
 
 #include "DYNGeneratorInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
@@ -155,6 +156,31 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   bool isVoltageRegulationOn() const;
 
   /**
+   * @copydoc GeneratorInterface::hasActivePowerControl() const
+   */
+  bool hasActivePowerControl() const;
+
+  /**
+   * @copydoc GeneratorInterface::isParticipating() const
+   */
+  bool isParticipating() const;
+
+  /**
+   * @copydoc GeneratorInterface::getActivePowerControlDroop() const
+   */
+  double getActivePowerControlDroop() const;
+
+  /**
+   * @copydoc GeneratorInterface::hasCoordinatedReactiveControl() const
+   */
+  bool hasCoordinatedReactiveControl() const;
+
+  /**
+   * @copydoc GeneratorInterface::getCoordinatedReactiveControlPercentage() const
+   */
+  double getCoordinatedReactiveControlPercentage() const;
+
+  /**
    * @brief Getter for the generator' country
    * @return the generator country
    */
@@ -173,6 +199,7 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
  private:
   IIDM::Generator& generatorIIDM_;  ///< reference to the iidm generator instance
   std::string country_;  ///< country of the generator
+  IIDM::extensions::generatoractivepowercontrol::GeneratorActivePowerControl * activePowerControl_;  ///< pointer to ActivePowerControl extension
 };
 }  // namespace DYN
 
