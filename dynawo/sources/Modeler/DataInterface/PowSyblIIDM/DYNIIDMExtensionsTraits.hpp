@@ -32,11 +32,11 @@ namespace DYN {
  * - name: the name of the extension, used to build the creation/destruction functions
  */
 template<class T>
-struct IIDMExtTrait {};
+struct IIDMExtensionTrait {};
 
 /// @brief Specialization trait for StaticVarCompensatorInterfaceIIDMExtension
 template<>
-struct IIDMExtTrait<StaticVarCompensatorInterfaceIIDMExtension> {
+struct IIDMExtensionTrait<StaticVarCompensatorInterfaceIIDMExtension> {
   using NetworkComponentType = powsybl::iidm::StaticVarCompensator;  ///< network component type
   static const std::string name;                                     ///< name of the extension
 };

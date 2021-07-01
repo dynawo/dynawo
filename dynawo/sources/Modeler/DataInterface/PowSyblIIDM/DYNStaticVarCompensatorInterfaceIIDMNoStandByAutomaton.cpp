@@ -23,12 +23,12 @@
 #include "DYNStaticVarCompensatorInterfaceIIDMNoStandByAutomaton.h"
 
 extern "C" DYN::StaticVarCompensatorInterfaceIIDMExtensionNoStandByAutomaton*
-createExtensionStaticVarCompensatorInterfaceIIDMExtension(powsybl::iidm::StaticVarCompensator& svc) {
+createStaticVarCompensatorInterfaceIIDMExtension(powsybl::iidm::StaticVarCompensator& svc) {
   return (new DYN::StaticVarCompensatorInterfaceIIDMExtensionNoStandByAutomaton(svc));
 }
 
 extern "C" void
-destroyExtensionStaticVarCompensatorInterfaceIIDMExtension(DYN::StaticVarCompensatorInterfaceIIDMExtensionNoStandByAutomaton* p) {
+destroyStaticVarCompensatorInterfaceIIDMExtension(DYN::StaticVarCompensatorInterfaceIIDMExtensionNoStandByAutomaton* p) {
   delete p;
 }
 
