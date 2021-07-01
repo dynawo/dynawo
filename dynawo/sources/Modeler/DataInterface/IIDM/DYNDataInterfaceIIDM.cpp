@@ -82,6 +82,7 @@
 #include "DYNTrace.h"
 #include "DYNErrorQueue.h"
 #include "DYNCriteria.h"
+#include "DYNClone.hpp"
 #include "CRTCriteria.h"
 #include "CRTCriteriaParams.h"
 
@@ -98,7 +99,7 @@ using boost::dynamic_pointer_cast;
 using criteria::CriteriaCollection;
 
 namespace DYN {
-DataInterfaceIIDM::DataInterfaceIIDM(IIDM::Network networkIIDM) :
+DataInterfaceIIDM::DataInterfaceIIDM(const boost::shared_ptr<IIDM::Network>& networkIIDM) :
 networkIIDM_(networkIIDM),
 serviceManager_(boost::make_shared<ServiceManagerInterfaceIIDM>()) {
 }
@@ -131,7 +132,7 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
     if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true")
       xsdValidation = true;
 
-    IIDM::Network networkIIDM = parser.from_xml(iidmFilePath, xsdValidation);
+    boost::shared_ptr<IIDM::Network> networkIIDM = boost::make_shared<IIDM::Network>(parser.from_xml(iidmFilePath, xsdValidation));
     data.reset(new DataInterfaceIIDM(networkIIDM));
     data->initFromIIDM();
   } catch (const xml::sax::parser::ParserException& exp) {
@@ -203,12 +204,12 @@ DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
       "ld");
 
   fstream file(iidmFilePath.c_str(), fstream::out);
-  formatter.to_xml(networkIIDM_, file);
+  formatter.to_xml(*networkIIDM_, file);
 }
 
 IIDM::Network&
 DataInterfaceIIDM::getNetworkIIDM() {
-  return networkIIDM_;
+  return *networkIIDM_;
 }
 
 std::string
@@ -313,10 +314,10 @@ DataInterfaceIIDM::getBusName(const std::string& componentName, const std::strin
 void
 DataInterfaceIIDM::initFromIIDM() {
   // create network interface
-  network_.reset(new NetworkInterfaceIIDM(networkIIDM_));
+  network_.reset(new NetworkInterfaceIIDM(*networkIIDM_));
 
-  IIDM::Contains<IIDM::Substation>::iterator itSubstation = networkIIDM_.substations().begin();
-  for (; itSubstation != networkIIDM_.substations().end(); ++itSubstation) {
+  for (IIDM::Contains<IIDM::Substation>::iterator itSubstation = networkIIDM_->substations().begin();
+    itSubstation != networkIIDM_->substations().end(); ++itSubstation) {
     IIDM::Contains<IIDM::VoltageLevel>::iterator itVoltageLevel = itSubstation->voltageLevels().begin();
     for (; itVoltageLevel != itSubstation->voltageLevels().end(); ++itVoltageLevel) {
       shared_ptr<VoltageLevelInterface> voltageLevel = importVoltageLevel(*itVoltageLevel, itSubstation->country());
@@ -327,8 +328,8 @@ DataInterfaceIIDM::initFromIIDM() {
     //===========================
     //  ADD 2WTFO INTERFACE
     //===========================
-    IIDM::Contains<IIDM::Transformer2Windings>::iterator it2WTfo = itSubstation->twoWindingsTransformers().begin();
-    for (; it2WTfo != itSubstation->twoWindingsTransformers().end(); ++it2WTfo) {
+    for (IIDM::Contains<IIDM::Transformer2Windings>::iterator it2WTfo = itSubstation->twoWindingsTransformers().begin();
+      it2WTfo != itSubstation->twoWindingsTransformers().end(); ++it2WTfo) {
       if ( !(*it2WTfo).has_connection(IIDM::side_1) && !(*it2WTfo).has_connection(IIDM::side_2) ) {
         Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*it2WTfo).id()) << Trace::endline;
         continue;
@@ -341,8 +342,8 @@ DataInterfaceIIDM::initFromIIDM() {
     //===========================
     //  ADD 3WTFO INTERFACE
     //===========================
-    IIDM::Contains<IIDM::Transformer3Windings>::iterator it3WTfo = itSubstation->threeWindingsTransformers().begin();
-    for (; it3WTfo != itSubstation->threeWindingsTransformers().end(); ++it3WTfo) {
+    for (IIDM::Contains<IIDM::Transformer3Windings>::iterator it3WTfo = itSubstation->threeWindingsTransformers().begin();
+      it3WTfo != itSubstation->threeWindingsTransformers().end(); ++it3WTfo) {
       if (!(*it3WTfo).has_connection(IIDM::side_1) && !(*it3WTfo).has_connection(IIDM::side_2) && !(*it3WTfo).has_connection(IIDM::side_3)) {
         Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*it3WTfo).id()) << Trace::endline;
         continue;
@@ -357,8 +358,7 @@ DataInterfaceIIDM::initFromIIDM() {
   //===========================
   //  ADD LINE INTERFACE
   //===========================
-  IIDM::Contains<IIDM::Line>::iterator itLine = networkIIDM_.lines().begin();
-  for (; itLine != networkIIDM_.lines().end(); ++itLine) {
+  for (IIDM::Contains<IIDM::Line>::iterator itLine = networkIIDM_->lines().begin(); itLine != networkIIDM_->lines().end(); ++itLine) {
     if ( !(*itLine).has_connection(IIDM::side_1) && !(*itLine).has_connection(IIDM::side_2) ) {
       Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itLine).id()) << Trace::endline;
       continue;
@@ -371,8 +371,7 @@ DataInterfaceIIDM::initFromIIDM() {
   //===========================
   //  ADD TIELINE INTERFACE
   //===========================
-  IIDM::Contains<IIDM::TieLine>::iterator itTieLine = networkIIDM_.tielines().begin();
-  for (; itTieLine != networkIIDM_.tielines().end(); ++itTieLine) {
+  for (IIDM::Contains<IIDM::TieLine>::iterator itTieLine = networkIIDM_->tielines().begin(); itTieLine != networkIIDM_->tielines().end(); ++itTieLine) {
     if ( !(*itTieLine).has_connection(IIDM::side_1) && !(*itTieLine).has_connection(IIDM::side_2) ) {
       Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itTieLine).id()) << Trace::endline;
       continue;
@@ -383,8 +382,7 @@ DataInterfaceIIDM::initFromIIDM() {
   //===========================
   //  ADD HVDC LINE INTERFACE
   //===========================
-  IIDM::Contains<IIDM::HvdcLine>::iterator itHvdcLine = networkIIDM_.hvdclines().begin();
-  for (; itHvdcLine != networkIIDM_.hvdclines().end(); ++itHvdcLine) {
+  for (IIDM::Contains<IIDM::HvdcLine>::iterator itHvdcLine = networkIIDM_->hvdclines().begin(); itHvdcLine != networkIIDM_->hvdclines().end(); ++itHvdcLine) {
     shared_ptr<HvdcLineInterface> hvdc = importHvdcLine(*itHvdcLine);
     network_->addHvdcLine(hvdc);
     components_[hvdc->getID()] = hvdc;
@@ -1358,5 +1356,28 @@ DataInterfaceIIDM::getStaticParameterBoolValue(const std::string& staticID, cons
   return findComponent(staticID)->getStaticParameterValue<bool>(refOrigName);
 }
 
+void
+DataInterfaceIIDM::copy(const DataInterfaceIIDM& other) {
+  networkIIDM_  = other.networkIIDM_;  // No clone here because iidm network is not copyable
+  // Criterias are not copied and must be initialized again
+
+  initFromIIDM();
+
+  serviceManager_ = DYN::clone(other.serviceManager_);
+}
+
+DataInterfaceIIDM::DataInterfaceIIDM(const DataInterfaceIIDM& other) {
+  copy(other);
+}
+
+DataInterfaceIIDM& DataInterfaceIIDM::operator=(const DataInterfaceIIDM& other) {
+  copy(other);
+  return *this;
+}
+
+boost::shared_ptr<DataInterface>
+DataInterfaceIIDM::clone() const {
+  return boost::shared_ptr<DataInterfaceIIDM>(new DataInterfaceIIDM(*this));
+}
 
 }  // namespace DYN

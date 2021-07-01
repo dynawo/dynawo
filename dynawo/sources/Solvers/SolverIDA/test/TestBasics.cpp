@@ -157,11 +157,11 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
   // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
 #ifdef USE_POWSYBL
-  powsybl::iidm::Network networkIIDM = powsybl::iidm::Network::readXml(boost::filesystem::path(iidmFileName));
-  boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(std::move(networkIIDM)));
+  auto networkIIDM = boost::make_shared<powsybl::iidm::Network>(powsybl::iidm::Network::readXml(boost::filesystem::path(iidmFileName)));
+  boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(networkIIDM));
 #else
   IIDM::xml::xml_parser parser;
-  IIDM::Network networkIIDM = parser.from_xml(iidmFileName, false);
+  boost::shared_ptr<IIDM::Network> networkIIDM = boost::make_shared<IIDM::Network>(parser.from_xml(iidmFileName, false));
   boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(networkIIDM));
 #endif
   boost::dynamic_pointer_cast<DataInterfaceIIDM>(data)->initFromIIDM();

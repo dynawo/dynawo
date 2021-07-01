@@ -39,6 +39,18 @@ class DataInterface {
   virtual ~DataInterface() { }
 
   /**
+   * @brief Determines if variant management is supported
+   * @returns @b true if network variant is supported, @b false if not
+   */
+  virtual bool canUseVariant() const = 0;
+
+  /**
+   * @brief Choose which network variant to use
+   * @param variantName the name of the variant to use
+   */
+  virtual void selectVariant(const std::string& variantName) = 0;
+
+  /**
    * @brief Getter for the network interface instance
    * @return the network interface instance
    */
@@ -163,6 +175,13 @@ class DataInterface {
    * @returns the service manager
    */
   virtual boost::shared_ptr<ServiceManagerInterface> getServiceManager() const = 0;
+
+  /**
+   * @brief Clone the current data interface
+   *
+   * @returns cloned data interface
+   */
+  virtual boost::shared_ptr<DataInterface> clone() const = 0;
 };  ///< Class for data interface
 }  // namespace DYN
 

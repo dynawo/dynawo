@@ -76,6 +76,8 @@
 #include "CRTCriteriaCollection.h"
 #include "CRTCriteriaCollectionFactory.h"
 
+#include <boost/make_shared.hpp>
+
 using boost::shared_ptr;
 using criteria::CriteriaFactory;
 using criteria::CriteriaParams;
@@ -88,7 +90,7 @@ namespace DYN {
 shared_ptr<DataInterface>
 createBusBreakerNetwork(double busV, double busVNom, bool addCountry = true) {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
 
   IIDM::builders::SubstationBuilder ssb;
   if (addCountry)
@@ -106,7 +108,7 @@ createBusBreakerNetwork(double busV, double busVNom, bool addCountry = true) {
   IIDM::VoltageLevel vl = vlb.build("MyVoltageLevel");
   vl.add(bus);
   ss.add(vl);
-  network.add(ss);
+  network->add(ss);
 
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
@@ -118,7 +120,7 @@ createBusBreakerNetwork(double busV, double busVNom, bool addCountry = true) {
 shared_ptr<DataInterface>
 createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, double pow2, bool addCountry = true) {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::connection_status_t cs = {true /*connected*/};
   IIDM::Port p1("MyBus", cs), p2("MyBus", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_1);
@@ -152,7 +154,7 @@ createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, doubl
   vl.add(load, c1);
   vl.add(load2, c2);
   ss.add(vl);
-  network.add(ss);
+  network->add(ss);
 
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
@@ -164,7 +166,7 @@ createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, doubl
 shared_ptr<DataInterface>
 createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, double pow2, bool addCountry = true) {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::connection_status_t cs = {true /*connected*/};
   IIDM::Port p1("MyBus", cs), p2("MyBus", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_1);
@@ -196,7 +198,7 @@ createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, 
   vl.add(gen, c1);
   vl.add(gen2, c2);
   ss.add(vl);
-  network.add(ss);
+  network->add(ss);
 
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
