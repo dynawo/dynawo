@@ -69,13 +69,13 @@ struct IIDMExtensions {
     boost::dll::shared_library extensionLibrary(libPath);
     const auto& name = IIDMExtensionTrait<T>::name;
 
-    std::string createName = "create" + name;
+    std::string createName = "create" + std::string(name);
     if (!extensionLibrary.has(createName)) {
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath + "::" + createName);
     }
     auto createFunc = boost::dll::import<CreateFunctionBase<T> >(extensionLibrary, createName);
 
-    std::string destroyName = "destroy" + name;
+    std::string destroyName = "destroy" + std::string(name);
     if (!extensionLibrary.has(destroyName)) {
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath + "::" + destroyName);
     }

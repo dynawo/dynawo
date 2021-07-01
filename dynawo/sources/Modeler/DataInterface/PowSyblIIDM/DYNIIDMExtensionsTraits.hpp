@@ -38,7 +38,7 @@ struct IIDMExtensionTrait {};
 template<>
 struct IIDMExtensionTrait<StaticVarCompensatorInterfaceIIDMExtension> {
   using NetworkComponentType = powsybl::iidm::StaticVarCompensator;  ///< network component type
-  static const std::string name;                                     ///< name of the extension
+  static const char name[];                                          ///< name of the extension
 };
 }  // namespace DYN
 
