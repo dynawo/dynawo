@@ -27,13 +27,15 @@
 
 #include "gtest_dynawo.h"
 
+#include <boost/make_shared.hpp>
+
 using boost::shared_ptr;
 
 namespace DYN {
 
 TEST(DataInterfaceTest, testBusBarSectionInterface) {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::Port p1(0), p2(0);
 
   IIDM::builders::SubstationBuilder ssb;
@@ -56,7 +58,7 @@ TEST(DataInterfaceTest, testBusBarSectionInterface) {
 
   ss.add(vl);
 
-  network.add(ss);
+  network->add(ss);
 
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);

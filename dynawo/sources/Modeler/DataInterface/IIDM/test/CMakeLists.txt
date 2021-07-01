@@ -15,6 +15,7 @@ set(MODULE_SOURCES
     TestCriteria.cpp
     TestIIDMModelsStaticParameters.cpp
     TestStateVariable.cpp
+    TestDataInterfaceIIDM.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

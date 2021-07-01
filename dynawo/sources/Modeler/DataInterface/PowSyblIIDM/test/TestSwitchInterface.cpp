@@ -74,8 +74,8 @@ TEST(DataInterfaceTest, Switch) {
 }  // TEST(DataInterfaceTest, Switch)
 
 TEST(DataInterfaceTest, SwitchWithSameExtremities) {
-  Network network("test", "test");
-  Substation& s = network.newSubstation()
+  auto network = boost::make_shared<Network>("test", "test");
+  Substation& s = network->newSubstation()
                       .setId("S")
                       .add();
 
@@ -99,7 +99,7 @@ TEST(DataInterfaceTest, SwitchWithSameExtremities) {
   swAdder2.setBus2("BUS2");
   swAdder2.add();
   boost::shared_ptr<DataInterfaceIIDM> data;
-  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(std::forward<powsybl::iidm::Network>(network));
+  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
   ptr->initFromIIDM();
   data.reset(ptr);
   ASSERT_THROW_DYNAWO(data->findComponent("SwSameBus"), Error::MODELER, KeyError_t::UnknownStaticComponent);

@@ -24,6 +24,8 @@
 #include "JOBSimulationEntry.h"
 #include "JOBOutputsEntry.h"
 
+#include "DYNClone.hpp"
+
 namespace job {
 
 TEST(APIJOBTest, testJobEntry) {
@@ -53,6 +55,20 @@ TEST(APIJOBTest, testJobEntry) {
   ASSERT_EQ(job->getSolverEntry(), solver);
   ASSERT_EQ(job->getSimulationEntry(), simulation);
   ASSERT_EQ(job->getOutputsEntry(), outputs);
+
+  boost::shared_ptr<JobEntry> job_bis = DYN::clone(job);
+  ASSERT_EQ(job_bis->getName(), "job1");
+  ASSERT_NE(job_bis->getModelerEntry(), modeler);
+  ASSERT_NE(job_bis->getSolverEntry(), solver);
+  ASSERT_NE(job_bis->getSimulationEntry(), simulation);
+  ASSERT_NE(job_bis->getOutputsEntry(), outputs);
+
+  JobEntry job_bis2 = *job;
+  ASSERT_EQ(job_bis2.getName(), "job1");
+  ASSERT_NE(job_bis2.getModelerEntry(), modeler);
+  ASSERT_NE(job_bis2.getSolverEntry(), solver);
+  ASSERT_NE(job_bis2.getSimulationEntry(), simulation);
+  ASSERT_NE(job_bis2.getOutputsEntry(), outputs);
 }
 
 }  // namespace job
