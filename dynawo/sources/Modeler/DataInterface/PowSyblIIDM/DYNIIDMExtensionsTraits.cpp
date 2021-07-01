@@ -14,5 +14,5 @@
 #include "DYNIIDMExtensionsTraits.hpp"
 
 namespace DYN {
-const std::string IIDMExtTrait<StaticVarCompensatorInterfaceIIDMExtension>::name("StaticVarCompensatorInterfaceIIDMExtension");
+const std::string IIDMExtensionTrait<StaticVarCompensatorInterfaceIIDMExtension>::name("StaticVarCompensatorInterfaceIIDMExtension");
 }  // namespace DYN

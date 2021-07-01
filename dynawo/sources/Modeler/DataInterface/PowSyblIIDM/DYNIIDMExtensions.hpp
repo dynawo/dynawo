@@ -33,7 +33,7 @@ namespace DYN {
 struct IIDMExtensions {
   /// @brief Alias type for base extension create function
   template<class T>
-  using CreateFunctionBase = T*(typename IIDMExtTrait<T>::NetworkComponentType&);
+  using CreateFunctionBase = T*(typename IIDMExtensionTrait<T>::NetworkComponentType&);
 
   /// @brief Alias type for extension create function with STL wrapper
   template<class T>
@@ -67,15 +67,15 @@ struct IIDMExtensions {
   template<class T>
   static ExtensionDefinition<T> getExtension(const std::string& libPath) {
     boost::dll::shared_library extensionLibrary(libPath);
-    const auto& name = IIDMExtTrait<T>::name;
+    const auto& name = IIDMExtensionTrait<T>::name;
 
-    std::string createName = "createExtension" + name;
+    std::string createName = "create" + name;
     if (!extensionLibrary.has(createName)) {
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath + "::" + createName);
     }
     auto createFunc = boost::dll::import<CreateFunctionBase<T> >(extensionLibrary, createName);
 
-    std::string destroyName = "destroyExtension" + name;
+    std::string destroyName = "destroy" + name;
     if (!extensionLibrary.has(destroyName)) {
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath + "::" + destroyName);
     }
