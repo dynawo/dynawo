@@ -15,12 +15,6 @@ if(POLICY CMP0074)
   cmake_policy(SET CMP0074 NEW)
 endif()
 
-if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
-  if(POLICY CMP0091)
-    cmake_policy(SET CMP0091 NEW)
-  endif()
-endif()
-
 option(BUILD_TESTS "Choose to build the unit tests")
 option(BUILD_TESTS_COVERAGE "Choose to build tests coverage")
 
