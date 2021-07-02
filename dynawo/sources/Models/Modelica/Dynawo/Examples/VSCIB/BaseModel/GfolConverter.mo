@@ -58,7 +58,7 @@ IdcSourcePu     IdcPu |          |iConvPu                           iPccPu
     Dialog(group = "group", tab = "Control"));
   parameter Types.PerUnit Kic "Integral gain of the current loop" annotation(
     Dialog(group = "group", tab = "Control"));
-  parameter Types.PerUnit KpDc "Proportional gain of the dc voltage control" annotation(
+  parameter Types.PerUnit Kpdc "Proportional gain of the dc voltage control" annotation(
     Dialog(group = "group", tab = "Control"));
   parameter Types.PerUnit DroopUQ "Proportional gain of the reactive power loop (AC voltage regulation), such that Qsp=Qref+DroopUQ*(UacRef-Uac)" annotation(
     Dialog(group = "group", tab = "Control"));
@@ -119,7 +119,7 @@ IdcSourcePu     IdcPu |          |iConvPu                           iPccPu
 
   Dynawo.Electrical.Sources.VSCIdcSource vSCIdcSource(Cdc = Cdc,Cfilter = Cfilter, ConvFixLossPu = ConvFixLossPu, ConvVarLossPu = ConvVarLossPu, IdConv0Pu = IdConv0Pu, IdPcc0Pu = IdPcc0Pu, IdcSource0Pu = IdcSource0Pu, IqConv0Pu = IqConv0Pu, IqPcc0Pu = IqPcc0Pu, Lfilter = Lfilter, Ltransformer = Ltransformer, P0Pu = P0Pu, Q0Pu = Q0Pu, Rfilter = Rfilter, Rtransformer = Rtransformer, SNom = SNom, Theta0 = Theta0, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, Udc0Pu = Udc0Pu, UqConv0Pu = UqConv0Pu, i0Pu = i0Pu, u0Pu = u0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-38, -1.77636e-15}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.GridFollowingControl gridFollowingControl(DroopFP = DroopFP,DroopUQ = DroopUQ, IMaxPu = IMaxPu,IdConv0Pu = IdConv0Pu, IdcSource0Pu = IdcSource0Pu, IdcSourceRef0Pu = IdcSourceRef0Pu, IqConv0Pu = IqConv0Pu, KiPll = KiPll, Kic = Kic, KpPll = KpPll, Kpc = Kpc, KpDc = KpDc, Lfilter = Lfilter, PMaxPu = PMaxPu, PRef0Pu = PRef0Pu, QMaxPu = QMaxPu, QRef0Pu = QRef0Pu, RPmaxPu = RPmaxPu, Rfilter = Rfilter, Theta0 = Theta0, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, Udc0Pu = Udc0Pu, UqConv0Pu = UqConv0Pu, tauIdRef = tauIdRef, tauIqRef = tauIqRef)  annotation(
+  Dynawo.Electrical.Controls.Converters.GridFollowingControl gridFollowingControl(DroopFP = DroopFP,DroopUQ = DroopUQ, IMaxPu = IMaxPu,IdConv0Pu = IdConv0Pu, IdcSource0Pu = IdcSource0Pu, IdcSourceRef0Pu = IdcSourceRef0Pu, IqConv0Pu = IqConv0Pu, KiPll = KiPll, Kic = Kic, KpPll = KpPll, Kpc = Kpc, Kpdc = Kpdc, Lfilter = Lfilter, PMaxPu = PMaxPu, PRef0Pu = PRef0Pu, QMaxPu = QMaxPu, QRef0Pu = QRef0Pu, RPmaxPu = RPmaxPu, Rfilter = Rfilter, Theta0 = Theta0, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, Udc0Pu = Udc0Pu, UqConv0Pu = UqConv0Pu, tauIdRef = tauIdRef, tauIqRef = tauIqRef)  annotation(
     Placement(visible = true, transformation(origin = {28, 3.9968e-15}, extent = {{25, -25}, {-25, 25}}, rotation = 0)));
 
   Modelica.Blocks.Sources.Step PrefPu(height = PstepHPu, offset = PRef0Pu, startTime = t_Pstep)  annotation(
