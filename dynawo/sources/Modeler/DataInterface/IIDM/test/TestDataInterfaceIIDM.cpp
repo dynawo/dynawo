@@ -19,6 +19,7 @@
 #include "DYNDataInterfaceIIDM.h"
 #include "DYNHvdcLineInterfaceIIDM.h"
 #include "DYNLineInterfaceIIDM.h"
+#include "DYNLoadInterfaceIIDM.h"
 #include "DYNNetworkInterfaceIIDM.h"
 #include "DYNThreeWTransformerInterfaceIIDM.h"
 #include "DYNTwoWTransformerInterfaceIIDM.h"
