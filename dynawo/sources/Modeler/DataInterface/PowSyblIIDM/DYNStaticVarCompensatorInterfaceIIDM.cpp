@@ -49,11 +49,8 @@ staticVarCompensatorIIDM_(svc) {
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
   stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
 
-  string libPath = getMandatoryEnvVar("DYNAWO_IIDM_EXTENSION");
-  if (!exists(libPath))
-    throw DYNError(Error::STATIC_DATA, WrongExtensionPath, libPath);
-
-  auto extensionDef = IIDMExtensions::getExtension<StaticVarCompensatorInterfaceIIDMExtension>(libPath);
+  auto libPath = IIDMExtensions::findLibraryPath();
+  auto extensionDef = IIDMExtensions::getExtension<StaticVarCompensatorInterfaceIIDMExtension>(libPath.generic_string());
 
   extension_ = std::get<IIDMExtensions::CREATE_FUNCTION>(extensionDef)(svc);
   destroy_extension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(extensionDef);
@@ -98,7 +95,9 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
     default:
       throw DYNError(Error::STATIC_DATA, RegulationModeNotInIIDM, regulatingMode, staticVarCompensatorIIDM_.getId());
   }
-  extension_->exportStandByMode(standbyMode);
+  if (extension_) {
+    extension_->exportStandByMode(standbyMode);
+  }
 
   if (getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
     // should be removed once a solution has been found to propagate switches (de)connection
@@ -223,41 +222,41 @@ StaticVarCompensatorInterfaceIIDM::getReactivePowerSetPoint() const {
 
 double
 StaticVarCompensatorInterfaceIIDM::getUMinActivation() const {
-  return extension_->getUMinActivation();
+  return extension_ ? extension_->getUMinActivation() : 0.0;
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getUMaxActivation() const {
-  return extension_->getUMaxActivation();
+  return extension_ ? extension_->getUMaxActivation() : 0.0;
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getUSetPointMin() const {
-  return extension_->getUSetPointMin();
+  return extension_ ? extension_->getUSetPointMin() : 0.0;
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getUSetPointMax() const {
-  return extension_->getUSetPointMax();
+  return extension_ ? extension_->getUSetPointMax() : 0.0;
 }
 
 bool
 StaticVarCompensatorInterfaceIIDM::hasStandbyAutomaton() const {
-  return extension_->hasStandbyAutomaton();
+  return extension_ ? extension_->hasStandbyAutomaton() : false;
 }
 
 bool
 StaticVarCompensatorInterfaceIIDM::isStandBy() const {
-  return extension_->isStandBy();
+  return extension_ ? extension_->isStandBy() : false;
 }
 
 double
 StaticVarCompensatorInterfaceIIDM::getB0() const {
-  return extension_->getB0();
+  return extension_ ? extension_->getB0() : 0.0;
 }
 
 StaticVarCompensatorInterface::RegulationMode_t StaticVarCompensatorInterfaceIIDM::getRegulationMode() const {
-  if (extension_->isStandBy()) {
+  if (extension_ && extension_->isStandBy()) {
     return StaticVarCompensatorInterface::STANDBY;
   }
 

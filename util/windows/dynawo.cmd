@@ -26,7 +26,6 @@ set thirdPartyInstallPath=%DYNAWO_INSTALL_DIR%
 set LIBIIDM_HOME=%thirdPartyInstallPath%
 set IIDM_XML_XSD_PATH=%LIBIIDM_HOME%\share\iidm\xsd\
 
-set DYNAWO_IIDM_EXTENSION=%DYNAWO_INSTALL_DIR%\lib\dynawo_DataInterfaceIIDMExtension.dll
 set DYNAWO_LIBIIDM_EXTENSIONS=%LIBIIDM_HOME%\bin
 
 set OPENMODELICA_HOME=%DYNAWO_INSTALL_DIR%OpenModelica

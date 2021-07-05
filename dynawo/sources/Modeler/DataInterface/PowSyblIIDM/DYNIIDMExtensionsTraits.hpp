@@ -37,7 +37,7 @@ struct IIDMExtensionTrait {};
 /// @brief Specialization trait for StaticVarCompensatorInterfaceIIDMExtension
 template<>
 struct IIDMExtensionTrait<StaticVarCompensatorInterfaceIIDMExtension> {
-  /// @brief network component type
+  /// @brief Network component type
   using NetworkComponentType = powsybl::iidm::StaticVarCompensator;
   static const char name[];  ///< name of the extension
 };
