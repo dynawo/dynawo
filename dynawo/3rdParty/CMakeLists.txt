@@ -386,17 +386,19 @@ endif()
 unset(Boost_DIR CACHE)
 unset(Boost_INCLUDE_DIR CACHE)
 
+set(BUILD_SHARED_LIBS ON)
+set(Boost_USE_STATIC_RUNTIME False)
 # find Boost in two steps to avoid warnings 'Imported targets and dependency information not available for Boost version'
 find_package(Boost ${boost_version} QUIET)
 
 if(Boost_FOUND)
   if(CXX11_ENABLED)
     find_package(Boost ${boost_version} QUIET
-      COMPONENTS date_time filesystem program_options serialization system log iostreams
+      COMPONENTS date_time filesystem program_options serialization system log iostreams thread regex chrono atomic
     )
   else()
     find_package(Boost ${boost_version} QUIET
-      COMPONENTS filesystem program_options serialization system log iostreams
+      COMPONENTS filesystem program_options serialization system log iostreams thread regex chrono atomic
     )
   endif()
 
