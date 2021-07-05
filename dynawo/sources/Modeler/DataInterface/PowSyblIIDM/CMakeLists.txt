@@ -41,6 +41,7 @@ set(DATA_INTERFACE_IIDM_SOURCES
   DYNVscConverterInterfaceIIDM.cpp
   DYNServiceManagerInterfaceIIDM.cpp
   DYNIIDMExtensionsTraits.cpp
+  DYNIIDMExtensions.cpp
 )
 
 set(DATA_INTERFACE_IIDM_HEADERS
@@ -77,33 +78,6 @@ set_target_properties(dynawo_DataInterfaceIIDM PROPERTIES VERSION ${DATA_INTERFA
 
 install(TARGETS dynawo_DataInterfaceIIDM EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${DATA_INTERFACE_IIDM_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
-
-set(DATA_INTERFACE_IIDM_EXTENSION_SOURCES
-  DYNStaticVarCompensatorInterfaceIIDMNoStandByAutomaton.cpp
-  )
-
-add_library(dynawo_DataInterfaceIIDMExtension SHARED ${DATA_INTERFACE_IIDM_EXTENSION_SOURCES})
-
-target_include_directories(dynawo_DataInterfaceIIDMExtension
-  INTERFACE
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-  $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-  )
-
-target_include_directories(dynawo_DataInterfaceIIDMExtension SYSTEM
-  PRIVATE
-  $<TARGET_PROPERTY:dynawo_DataInterface,INTERFACE_INCLUDE_DIRECTORIES>
-  )
-
-target_link_libraries(dynawo_DataInterfaceIIDMExtension
-  PUBLIC
-  IIDM::iidm
-  )
-
-set_target_properties(dynawo_DataInterfaceIIDMExtension PROPERTIES VERSION ${DATA_INTERFACE_IIDM_VERSION_STRING}
-  SOVERSION ${DATA_INTERFACE_IIDM_VERSION_MAJOR})
-
-install(TARGETS dynawo_DataInterfaceIIDMExtension EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   add_subdirectory(test)

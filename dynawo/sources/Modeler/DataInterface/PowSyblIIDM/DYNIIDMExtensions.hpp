@@ -20,17 +20,22 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNIIDMEXTENSIONS_HPP_
 
 #include "DYNIIDMExtensionsTraits.hpp"
+#include "DYNMacrosMessage.h"
+#include "DYNTrace.h"
 
 #include <boost/dll.hpp>
 #include <boost/filesystem.hpp>
 #include <functional>
+#include <mutex>
 #include <string>
 #include <tuple>
+#include <unordered_map>
 
 namespace DYN {
 
 /// @brief IIDM extensions management wrapper
-struct IIDMExtensions {
+class IIDMExtensions {
+ public:
   /// @brief Alias type for base extension create function
   template<class T>
   using CreateFunctionBase = T*(typename IIDMExtensionTrait<T>::NetworkComponentType&);
@@ -57,6 +62,13 @@ struct IIDMExtensions {
   };
 
   /**
+   * @brief Find library path from DYNAMO environment
+   * @returns the IIDM extension library path
+   */
+  static boost::filesystem::path findLibraryPath();
+
+ public:
+  /**
    * @brief Retrieve the extension definition
    *
    * This will extract the create/destroy functions with a name pattern
@@ -66,23 +78,66 @@ struct IIDMExtensions {
    */
   template<class T>
   static ExtensionDefinition<T> getExtension(const std::string& libPath) {
-    boost::dll::shared_library extensionLibrary(libPath);
+    std::shared_ptr<boost::dll::shared_library> extensionLibrary;
+    std::unique_lock<std::mutex> lock(librariesMutex_);
+    if (libraries_.count(libPath) > 0) {
+      extensionLibrary = libraries_.at(libPath);
+    } else {
+      try {
+        extensionLibrary = std::make_shared<boost::dll::shared_library>(libPath);
+      } catch (const std::exception&) {
+        // No log here as if extension is not defined, it is not defined for all elements and this function is called for
+        // every network element supporting an external extension
+        return buildDefaultExtensionDefinition<T>();
+      }
+      libraries_[libPath] = extensionLibrary;
+    }
+    lock.unlock();
     const auto& name = IIDMExtensionTrait<T>::name;
 
     std::string createName = "create" + std::string(name);
-    if (!extensionLibrary.has(createName)) {
-      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath + "::" + createName);
+    if (!extensionLibrary->has(createName)) {
+      // warning here because if the library can be loaded, all extensions should be defined in it
+      Trace::warn() << DYNLog(IIDMExtensionNoCreate, name, libPath, createName);
+      return buildDefaultExtensionDefinition<T>();
     }
-    auto createFunc = boost::dll::import<CreateFunctionBase<T> >(extensionLibrary, createName);
+    auto createFunc = boost::dll::import<CreateFunctionBase<T> >(*extensionLibrary, createName);
 
     std::string destroyName = "destroy" + std::string(name);
-    if (!extensionLibrary.has(destroyName)) {
-      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath + "::" + destroyName);
+    if (!extensionLibrary->has(destroyName)) {
+      // warning here because if the library can be loaded, all extensions should be defined in it
+      Trace::warn() << DYNLog(IIDMExtensionNoDestroy, name, libPath, destroyName);
+      return buildDefaultExtensionDefinition<T>();
     }
-    auto destroyFunc = boost::dll::import<DestroyFunctionBase<T> >(extensionLibrary, destroyName);
+    auto destroyFunc = boost::dll::import<DestroyFunctionBase<T> >(*extensionLibrary, destroyName);
 
     return ExtensionDefinition<T>(createFunc, destroyFunc);
   }
+
+ private:
+  using LibraryPath = std::string;  ///< Alias for library path in map
+
+ private:
+  /**
+   * @brief Build a default extension definition
+   *
+   * By default, the create function returns a NULL pointer
+   * By default the destroy function does nothing
+   *
+   * @returns an extension definition that does nothing
+   */
+  template<class T>
+  static inline ExtensionDefinition<T> buildDefaultExtensionDefinition() {
+    auto defaultCreate = [](typename IIDMExtensionTrait<T>::NetworkComponentType&) { return nullptr; };
+    auto defaultDestroy = [](T*) {
+      // do nothing
+    };
+    return ExtensionDefinition<T>(defaultCreate, defaultDestroy);
+  }
+
+ private:
+  static std::unordered_map<LibraryPath, std::shared_ptr<boost::dll::shared_library> > libraries_;  ///< List of loaded libraries
+  static std::mutex librariesMutex_;                                                                ///< Mutex to access libraries
 };
 }  // namespace DYN
 
