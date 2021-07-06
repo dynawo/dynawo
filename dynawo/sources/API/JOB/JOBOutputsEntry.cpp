@@ -19,7 +19,35 @@
 
 #include "JOBOutputsEntry.h"
 
+#include "DYNClone.hpp"
+
 namespace job {
+
+OutputsEntry::~OutputsEntry() {}
+
+OutputsEntry::OutputsEntry() {}
+
+OutputsEntry::OutputsEntry(const OutputsEntry& other) {
+  copy(other);
+}
+
+OutputsEntry&
+OutputsEntry::operator=(const OutputsEntry& other) {
+  copy(other);
+  return *this;
+}
+
+void OutputsEntry::copy(const OutputsEntry& other) {
+  outputsDirectory_ = other.outputsDirectory_;
+
+  initValuesEntry_ = DYN::clone(other.initValuesEntry_);
+  constraintsEntry_ = DYN::clone(other.constraintsEntry_);
+  timelineEntry_ = DYN::clone(other.timelineEntry_);
+  timetableEntry_ = DYN::clone(other.timetableEntry_);
+  finalStateEntry_ = DYN::clone(other.finalStateEntry_);
+  curvesEntry_ = DYN::clone(other.curvesEntry_);
+  logsEntry_ = DYN::clone(other.logsEntry_);
+}
 
 void
 OutputsEntry::setOutputsDirectory(const std::string& outputsDirectory) {

@@ -25,6 +25,7 @@
 #include "DYNStaticVarCompensatorInterfaceIIDM.h"
 #include "DYNExecUtils.h"
 #include "DYNFileSystemUtils.h"
+#include "DYNIIDMExtensions.hpp"
 #include <iostream>
 
 using powsybl::iidm::StaticVarCompensator;
@@ -52,20 +53,10 @@ staticVarCompensatorIIDM_(svc) {
   if (!exists(libPath))
     throw DYNError(Error::STATIC_DATA, WrongExtensionPath, libPath);
 
-  boost::function<create_t> create_extension;
-  boost::dll::shared_library extensionLibrary(libPath);
+  auto extensionDef = IIDMExtensions::getExtension<StaticVarCompensatorInterfaceIIDMExtension>(libPath);
 
-  if (extensionLibrary.has("createExtension"))
-    create_extension = boost::dll::import<create_t>(extensionLibrary, "createExtension");
-  else
-    throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath+"::createExtension");
-  if (extensionLibrary.has("destroyExtension"))
-    destroy_extension_ = boost::dll::import<destroy_t>(libPath, "destroyExtension");
-  else
-    throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, libPath+"::destroyExtension");
-
-  // create an instance of the class
-  extension_ = create_extension(svc);
+  extension_ = std::get<IIDMExtensions::CREATE_FUNCTION>(extensionDef)(svc);
+  destroy_extension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(extensionDef);
 
   voltagePerReactivePowerControl_ = svc.findExtension<powsybl::iidm::extensions::iidm::VoltagePerReactivePowerControl>();
 }

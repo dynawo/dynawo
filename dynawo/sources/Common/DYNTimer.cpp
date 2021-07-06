@@ -21,6 +21,11 @@
 
 #include "DYNTimer.h"
 
+#ifdef LANG_CXX11
+#include <thread>
+#include <sstream>
+#endif
+
 namespace DYN {
 
 Timers::Timers() {
@@ -37,7 +42,11 @@ Timers::~Timers() {
 
 Timers&
 Timers::instance() {
+#ifdef LANG_CXX11
+  static thread_local Timers instance;
+#else
   static Timers instance;
+#endif
   return instance;
 }
 
@@ -49,8 +58,15 @@ Timers::add(const std::string& name, const double& time) {
 
 void
 Timers::add_(const std::string& name, const double& time) {
-  timers_[name] += time;
-  nbAppels_[name] += 1;
+#ifdef LANG_CXX11
+  std::stringstream ss;
+  ss << std::this_thread::get_id() << "_" << name;
+  std::string name_formatted = ss.str();
+#else
+  std::string name_formatted = name;
+#endif
+  timers_[name_formatted] += time;
+  nbAppels_[name_formatted] += 1;
 }
 
 Timer::Timer(const std::string& name) :

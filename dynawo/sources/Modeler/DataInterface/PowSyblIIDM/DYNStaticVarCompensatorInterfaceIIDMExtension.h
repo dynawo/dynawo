@@ -77,16 +77,6 @@ class StaticVarCompensatorInterfaceIIDMExtension {
    */
   virtual double getB0() const = 0;
 };
-
-/**
-* @brief function pointer type to create an extension.
-*/
-typedef StaticVarCompensatorInterfaceIIDMExtension* create_t(powsybl::iidm::StaticVarCompensator&);
-/**
-* @brief function pointer type to destroy an extension.
-*/
-typedef void destroy_t(StaticVarCompensatorInterfaceIIDMExtension*);
-
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSTATICVARCOMPENSATORINTERFACEIIDMEXTENSION_H_

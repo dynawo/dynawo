@@ -69,6 +69,8 @@
 #include "DYNPhaseTapChangerInterface.h"
 #include "DYNRatioTapChangerInterface.h"
 
+#include <boost/make_shared.hpp>
+
 using boost::shared_ptr;
 
 namespace DYN {
@@ -225,7 +227,7 @@ initializeModelNetwork(shared_ptr<DataInterface> data) {
 shared_ptr<DataInterface>
 createNetwork(const NetworkProperty& properties) {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::connection_status_t cs = {true /*connected*/};
   IIDM::Port p1("MyBus", cs), p2("MyBus", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_1);
@@ -305,7 +307,7 @@ createNetwork(const NetworkProperty& properties) {
     hvdcb.converterStation2("MyVscConverterStation2");
     hvdcb.convertersMode(IIDM::HvdcLine::mode_InverterRectifier);
     IIDM::HvdcLine hvdc = hvdcb.build("MyHvdcLine2");
-    network.add(hvdc);
+    network->add(hvdc);
   }
 
   if (properties.instantiateLccConverter) {
@@ -324,7 +326,7 @@ createNetwork(const NetworkProperty& properties) {
     hvdcb.converterStation2("MyLccConverter2");
     hvdcb.convertersMode(IIDM::HvdcLine::mode_InverterRectifier);
     IIDM::HvdcLine hvdc = hvdcb.build("MyHvdcLine");
-    network.add(hvdc);
+    network->add(hvdc);
   }
 
   if (properties.instantiateCapacitorShuntCompensator) {
@@ -373,12 +375,12 @@ createNetwork(const NetworkProperty& properties) {
     ss.add(t2W, c1, c2);
   }
 
-  network.add(ss);
+  network->add(ss);
 
   if (properties.instantiateLine) {
     IIDM::builders::LineBuilder lb;
     IIDM::Line dl = lb.build("MyLine");
-    network.add(dl, c1, c2);
+    network->add(dl, c1, c2);
   }
 
   shared_ptr<DataInterface> data;
@@ -738,7 +740,7 @@ TEST(DataInterfaceTest, testStateVariableSwitch) {
 
 TEST(DataInterfaceTest, testStateVariableSwitchWithSameExtremities) {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::connection_status_t cs = {true /*connected*/};
   IIDM::Port p1("MyBus", cs), p2("MyBus", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_1);
@@ -763,7 +765,7 @@ TEST(DataInterfaceTest, testStateVariableSwitchWithSameExtremities) {
   vl.add(s2, "MyBus", "MyBus");
   vl.add(s, "MyBus", "MyBus2");
   ss.add(vl);
-  network.add(ss);
+  network->add(ss);
   shared_ptr<DataInterfaceIIDM> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
   ptr->initFromIIDM();

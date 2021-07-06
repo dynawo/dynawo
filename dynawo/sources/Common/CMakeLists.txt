@@ -104,6 +104,7 @@ set(COMMON_INCLUDE_HEADERS
   DYNTimer.h
   DYNTrace.h
   DYNTraceStream.h
+  DYNClone.hpp
   )
 
 add_library(dynawo_Interface INTERFACE)

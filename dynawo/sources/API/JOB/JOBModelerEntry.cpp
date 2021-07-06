@@ -18,8 +18,47 @@
  */
 
 #include "JOBModelerEntry.h"
+#include "DYNClone.hpp"
 
 namespace job {
+
+ModelerEntry::ModelerEntry() {}
+
+ModelerEntry::~ModelerEntry() {}
+
+ModelerEntry::ModelerEntry(const ModelerEntry& other):
+    compileDir_(other.compileDir_),
+    preCompiledModelsDirEntry_(DYN::clone(other.preCompiledModelsDirEntry_)),
+    modelicaModelsDirEntry_(DYN::clone(other.modelicaModelsDirEntry_)),
+    networkEntry_(DYN::clone(other.networkEntry_)),
+    initialStateEntry_(DYN::clone(other.initialStateEntry_)) {
+  unsigned int size = other.dynModelsEntries_.size();
+  dynModelsEntries_.clear();
+  dynModelsEntries_.reserve(size);
+  for (std::vector<boost::shared_ptr<DynModelsEntry> >::const_iterator it = other.dynModelsEntries_.begin();
+    it != other.dynModelsEntries_.end(); ++it) {
+    dynModelsEntries_.push_back(DYN::clone(*it));
+  }
+}
+
+ModelerEntry&
+ModelerEntry::operator=(const ModelerEntry& other) {
+  compileDir_ = other.compileDir_;
+  preCompiledModelsDirEntry_ = DYN::clone(other.preCompiledModelsDirEntry_);
+  modelicaModelsDirEntry_ = DYN::clone(other.modelicaModelsDirEntry_);
+  networkEntry_ = DYN::clone(other.networkEntry_);
+  initialStateEntry_ = DYN::clone(other.initialStateEntry_);
+
+  unsigned int size = other.dynModelsEntries_.size();
+  dynModelsEntries_.clear();
+  dynModelsEntries_.reserve(size);
+  for (std::vector<boost::shared_ptr<DynModelsEntry> >::const_iterator it = other.dynModelsEntries_.begin();
+    it != other.dynModelsEntries_.end(); ++it) {
+    dynModelsEntries_.push_back(DYN::clone(*it));
+  }
+
+  return *this;
+}
 
 void
 ModelerEntry::setPreCompiledModelsDirEntry(const boost::shared_ptr<ModelsDirEntry>& preCompiledModelsDirEntry) {

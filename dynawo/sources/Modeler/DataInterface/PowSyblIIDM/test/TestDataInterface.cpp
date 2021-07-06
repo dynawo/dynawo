@@ -12,7 +12,7 @@
 //
 
 /**
- * @file Modeler/DataInterface/PowSyblIIDM/test/TestIIDMModels.cpp
+ * @file Modeler/DataInterface/PowSyblIIDM/test/TestDataInterfaceIIDM.cpp
  * @brief Unit tests for DataInterfaceIIDM class
  *
  */
@@ -34,11 +34,13 @@
 #include "DYNTwoWTransformerInterfaceIIDM.h"
 #include "DYNSubModelFactory.h"
 #include "DYNSubModel.h"
+#include "DYNLoadInterfaceIIDM.h"
 #include "DYNModelMulti.h"
 #include "DYNNetworkInterface.h"
 #include "DYNThreeWTransformerInterfaceIIDM.h"
 #include "DYNModelConstants.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
+#include "DYNLoadInterfaceIIDM.h"
 
 #include <powsybl/iidm/Network.hpp>
 #include <powsybl/iidm/Substation.hpp>
@@ -68,24 +70,26 @@
 #include <powsybl/iidm/StaticVarCompensator.hpp>
 #include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
 
+#include <thread>
+
 using boost::shared_ptr;
 
 namespace DYN {
 
 shared_ptr<DataInterfaceIIDM>
-createDataItfFromNetwork(powsybl::iidm::Network&& network) {
+createDataItfFromNetwork(const boost::shared_ptr<powsybl::iidm::Network>& network) {
   shared_ptr<DataInterfaceIIDM> data;
-  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(std::forward<powsybl::iidm::Network>(network));
+  DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
   ptr->initFromIIDM();
   data.reset(ptr);
   return data;
 }
 
-powsybl::iidm::Network
+boost::shared_ptr<powsybl::iidm::Network>
 createNodeBreakerNetworkIIDM() {
-  powsybl::iidm::Network network("MyNetwork", "MyNetwork");
+  auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
-  powsybl::iidm::Substation& substation = network.newSubstation()
+  powsybl::iidm::Substation& substation = network->newSubstation()
                                      .setId("MySubStation")
                                      .setName("MySubStation_NAME")
                                      .setTso("TSO")
@@ -216,11 +220,11 @@ struct BusBreakerNetworkProperty {
   bool instantiateThreeWindingTransformer;
 };
 
-powsybl::iidm::Network
+boost::shared_ptr<powsybl::iidm::Network>
 createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
-  powsybl::iidm::Network network("MyNetwork", "MyNetwork");
+  auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
-  powsybl::iidm::Substation& s = network.newSubstation()
+  powsybl::iidm::Substation& s = network->newSubstation()
       .setId("MySubStation")
       .add();
 
@@ -350,7 +354,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     vsc2.getTerminal().setP(150.);
     vsc2.getTerminal().setQ(90.);
 
-    network.newHvdcLine()
+    network->newHvdcLine()
         .setId("MyHvdcLine")
         .setName("MyHvdcLine_NAME")
         .setActivePowerSetpoint(111.1)
@@ -386,7 +390,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     lcc2.getTerminal().setP(105.);
     lcc2.getTerminal().setQ(90.);
 
-    network.newHvdcLine()
+    network->newHvdcLine()
         .setId("MyHvdcLine")
         .setName("MyHvdcLine_NAME")
         .setActivePowerSetpoint(111.1)
@@ -596,7 +600,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
   }
 
   if (properties.instantiateLine) {
-    powsybl::iidm::Line& line = network.newLine()
+    powsybl::iidm::Line& line = network->newLine()
                                       .setId("VL1_VL2")
                                       .setName("VL1_VL2_NAME")
                                       .setVoltageLevel1(vl1.getId())
@@ -1141,7 +1145,7 @@ TEST(DataInterfaceIIDMTest, testLineIIDM) {
   ASSERT_TRUE(bus2->hasConnection());
 }  // TEST(DataInterfaceIIDMTest, testLineIIDM)
 
-TEST(DataInterfaceIIDMTest, testLoadIIDM) {
+TEST(DataInterfaceIIDMTest, testLoadInterfaceIIDM) {
   const BusBreakerNetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
@@ -1191,7 +1195,7 @@ TEST(DataInterfaceIIDMTest, testLoadIIDM) {
   load->setValue(LoadInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
   ASSERT_TRUE(loadIIDM.getTerminal().isConnected());
-}  // TEST(DataInterfaceIIDMTest, testLoadIIDM)
+}  // TEST(DataInterfaceIIDMTest, testLoadInterfaceIIDM)
 
 TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
   const BusBreakerNetworkProperty properties = {
@@ -1637,7 +1641,7 @@ TEST(DataInterfaceIIDMTest, testImportError) {
 }
 
 TEST(DataInterfaceIIDMTest, testImportExport) {
-  const powsybl::iidm::Network& network = createNodeBreakerNetworkIIDM();
+  auto network = createNodeBreakerNetworkIIDM();
 
   shared_ptr<DataInterfaceIIDM> dataOutput = createDataItfFromNetwork(createNodeBreakerNetworkIIDM());
   ASSERT_NO_THROW(dataOutput->dumpToFile("network.xml"));
@@ -1649,7 +1653,116 @@ TEST(DataInterfaceIIDMTest, testImportExport) {
   const powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
 
   ASSERT_EQ(outputNetwork.getId(), inputNetwork.getId());
-  ASSERT_EQ(outputNetwork.getId(), network.getId());
-  ASSERT_EQ(inputNetwork.getId(), network.getId());
+  ASSERT_EQ(outputNetwork.getId(), network->getId());
+  ASSERT_EQ(inputNetwork.getId(), network->getId());
+}
+
+TEST(DataInterfaceIIDMTest, testClone) {
+  auto network = createNodeBreakerNetworkIIDM();
+
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(network);
+  shared_ptr<DataInterfaceIIDM> data2 = boost::dynamic_pointer_cast<DataInterfaceIIDM>(data->clone());
+
+  ASSERT_TRUE(data);
+  ASSERT_NE(data, data2);
+  ASSERT_NE(data->getServiceManager(), data2->getServiceManager());
+
+  ASSERT_EQ(data->getNetworkIIDM().getId(), data2->getNetworkIIDM().getId());
+
+  boost::shared_ptr<NetworkInterfaceIIDM> network_interface = boost::dynamic_pointer_cast<NetworkInterfaceIIDM>(data->getNetwork());
+  boost::shared_ptr<NetworkInterfaceIIDM> network_interface2 = boost::dynamic_pointer_cast<NetworkInterfaceIIDM>(data2->getNetwork());
+  ASSERT_NE(network_interface, network_interface2);
+  ASSERT_EQ(network_interface->getLines().size(), network_interface2->getLines().size());
+
+  ASSERT_EQ(network_interface->getVoltageLevels().size(), network_interface2->getVoltageLevels().size());
+  for (unsigned int i = 0; i < network_interface->getVoltageLevels().size(); i++) {
+    ASSERT_NE(network_interface->getVoltageLevels().at(i), network_interface2->getVoltageLevels().at(i));
+    ASSERT_EQ(boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface->getVoltageLevels().at(i))->getID(),
+              boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface2->getVoltageLevels().at(i))->getID());
+    ASSERT_EQ(boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface->getVoltageLevels().at(i))->getVNom(),
+              boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface2->getVoltageLevels().at(i))->getVNom());
+    ASSERT_EQ(boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface->getVoltageLevels().at(i))->getVoltageLevelTopologyKind(),
+              boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(network_interface2->getVoltageLevels().at(i))->getVoltageLevelTopologyKind());
+
+    const std::vector<boost::shared_ptr<LoadInterface> >& loads = network_interface->getVoltageLevels().at(i)->getLoads();
+    const std::vector<boost::shared_ptr<LoadInterface> >& loads2 = network_interface2->getVoltageLevels().at(i)->getLoads();
+    ASSERT_EQ(loads.size(), loads2.size());
+    for (unsigned int j = 0; j < loads.size(); j++) {
+      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getInitialConnected(),
+                boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getInitialConnected());
+      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getP(), boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getP());
+      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getP0(), boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getP0());
+      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getQ(), boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getQ());
+      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getQ0(), boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getQ0());
+      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getID(), boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getID());
+      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getPUnderVoltage(),
+                boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getPUnderVoltage());
+      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getCountry(),
+                boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getCountry());
+    }
+    const std::vector<boost::shared_ptr<DYN::BusInterface> >& buses = network_interface->getVoltageLevels().at(i)->getBuses();
+    const std::vector<boost::shared_ptr<DYN::BusInterface> >& buses2 = network_interface2->getVoltageLevels().at(i)->getBuses();
+    ASSERT_EQ(buses.size(), buses2.size());
+    for (unsigned int j = 0; j < buses.size(); j++) {
+      const std::vector<std::string>& names = buses[j]->getBusBarSectionNames();
+      const std::vector<std::string>& names2 = buses2[j]->getBusBarSectionNames();
+      ASSERT_EQ(names.size(), names2.size());
+      for (unsigned k = 0; k < names.size(); k++) {
+        ASSERT_EQ(names[k], names2[k]);
+      }
+    }
+    const std::vector<boost::shared_ptr<DYN::SwitchInterface> >& switches = network_interface->getVoltageLevels().at(i)->getSwitches();
+    const std::vector<boost::shared_ptr<DYN::SwitchInterface> >& switches2 = network_interface2->getVoltageLevels().at(i)->getSwitches();
+    ASSERT_EQ(switches.size(), switches2.size());
+    for (unsigned int j = 0; j < switches.size(); j++) {
+      ASSERT_EQ(switches[j]->getID(), switches2[j]->getID());
+    }
+  }
+  ASSERT_EQ(network_interface->getTwoWTransformers().size(), network_interface2->getTwoWTransformers().size());
+  ASSERT_EQ(network_interface->getThreeWTransformers().size(), network_interface2->getThreeWTransformers().size());
+}
+
+TEST(DataInterfaceIIDMTest, testMultiThreading) {
+  auto network = createNodeBreakerNetworkIIDM();
+
+  shared_ptr<DataInterfaceIIDM> dataOutput = createDataItfFromNetwork(createNodeBreakerNetworkIIDM());
+  ASSERT_NO_THROW(dataOutput->dumpToFile("network.xml"));
+  const powsybl::iidm::Network& outputNetwork = dataOutput->getNetworkIIDM();
+  ASSERT_THROW_DYNAWO(dataOutput->dumpToFile(".."), Error::GENERAL, KeyError_t::XmlFileParsingError);
+
+  shared_ptr<DataInterface> dataInput = DataInterfaceIIDM::build("network.xml");
+  ASSERT_FALSE(dataInput->canUseVariant());
+  dataInput = DataInterfaceIIDM::build("network.xml", 2);
+  ASSERT_TRUE(dataInput->canUseVariant());
+  shared_ptr<DataInterfaceIIDM> dataInputIIDM = boost::dynamic_pointer_cast<DataInterfaceIIDM>(dataInput);
+  powsybl::iidm::Network& inputNetwork = dataInputIIDM->getNetworkIIDM();
+
+  ASSERT_EQ(outputNetwork.getId(), inputNetwork.getId());
+  ASSERT_EQ(outputNetwork.getId(), network->getId());
+  ASSERT_EQ(inputNetwork.getId(), network->getId());
+
+  auto& load = inputNetwork.getLoad("MyLoad");
+
+  std::thread launch0([&dataInput, &load](){
+    dataInput->selectVariant("0");
+    load.setP0(3.0);
+    load.setQ0(5.0);
+  });
+  std::thread launch1([&dataInput, &load](){
+    dataInput->selectVariant("1");
+    load.setP0(2.0);
+    load.setQ0(4.0);
+  });
+
+  launch0.join();
+  launch1.join();
+
+  dataInput->selectVariant("0");
+  ASSERT_EQ(load.getP0(), 3.0);
+  ASSERT_EQ(load.getQ0(), 5.0);
+
+  dataInput->selectVariant("1");
+  ASSERT_EQ(load.getP0(), 2.0);
+  ASSERT_EQ(load.getQ0(), 4.0);
 }
 }  // namespace DYN

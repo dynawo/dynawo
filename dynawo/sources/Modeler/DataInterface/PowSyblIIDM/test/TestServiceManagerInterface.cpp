@@ -73,7 +73,7 @@ using powsybl::iidm::VscConverterStation;
 namespace DYN {
 
 TEST(DataInterfaceTest, ServiceManager) {
-  DataInterfaceIIDM interface(Network("test", "test"));
+  DataInterfaceIIDM interface(boost::make_shared<Network>("test", "test"));
   auto& network = interface.getNetworkIIDM();
 
   Substation& s = network.newSubstation().setId("S").add();
@@ -230,7 +230,7 @@ TEST(DataInterfaceTest, ServiceManager) {
 }
 
 TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
-  DataInterfaceIIDM interface(Network("test", "test"));
+  DataInterfaceIIDM interface(boost::make_shared<Network>("test", "test"));
   auto& network = interface.getNetworkIIDM();
 
   Substation& s = network.newSubstation().setId("S").add();

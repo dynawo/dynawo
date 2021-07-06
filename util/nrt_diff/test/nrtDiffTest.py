@@ -113,6 +113,16 @@ class TestnrtDiffDirectoryDiff(unittest.TestCase):
                 self.assertEqual(msg, "1 different initial values")
             i += 1
 
+    def test_reference_diff(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        (diff_statuses, return_message_str) = nrtDiff.DirectoryDiffReferenceDataJob (os.path.join(dir_path, "test.jobs"))
+        self.assertEqual(diff_statuses, nrtDiff.DIFFERENT)
+        self.assertEqual(len(return_message_str), 2)
+        self.assertEqual(len(return_message_str[0]), 0)
+        if "output/Job2/curves.csv: 5 absolute errors" not in return_message_str[1]:
+            self.assertTrue(False)
+
+
 # the main function
 if __name__ == "__main__":
     unittest.main()

@@ -642,24 +642,54 @@ def update_one_log_file(file_path, output_file_path):
     file_out.close()
 
 ##
-# conduct a directory diff looking for reference data, and return only the most critical diff status
-# @param nrt_directory : the base directory of the non-regression test case
-def DirectoryDiffReferenceDataJob (nrt_directory):
-    reference_data_directory = os.path.join (nrt_directory, REFERENCE_DATA_DIRECTORY_NAME)
-    status_priority = [UNABLE_TO_CHECK, NO_FILES_TO_COMPARE, MISSING_DATA_BOTH_SIDES, MISSING_DATA_LEFT, DIFFERENT, WITHIN_TOLERANCE, LOG_DIFFERENT_WITHIN_TOLERANCE, MISSING_DATA_RIGHT, SAME_LOG_WITH_DIFFERENT_TIMESTAMP, IDENTICAL]
+# Read the jobs file and find the output directories used
+# @param jobs_file : the path to the jobs file
+# @return a list of output directories
+def findOutputDirFromJob(jobs_file):
+    if ".zip" in jobs_file:
+      return [os.path.dirname (jobs_file)]
+    # Parse jobs file
+    try:
+        doc = minidom.parse(jobs_file)
+        jobs_root = doc.documentElement
+    except:
+        print("Fail to import XML file " + jobs_file + os.linesep)
+        sys.exit(1)
 
-    diff_statuses = None
-    diff_messages = None
-    if (not os.path.isdir (reference_data_directory)):
-        diff_statuses = [NO_FILES_TO_COMPARE]
-        diff_messages = ["No files to compare."]
-    else:
-        (diff_statuses, return_message, file_names, left_paths, right_paths, diff_messages) = DirectoryDiff (nrt_directory, reference_data_directory, True)
-    for status in status_priority:
-        if status in diff_statuses:
-            indices = [i for i, x in enumerate(diff_statuses) if x == status]
-            messages = [ diff_messages[index] for index in indices ]
-            return (status, messages)
+    output_dirs = []
+    for job in jobs_root.getElementsByTagNameNS(jobs_root.namespaceURI, 'job'):
+        for outputs in job.getElementsByTagNameNS(jobs_root.namespaceURI, "outputs"):
+            if (not outputs.hasAttribute('directory')):
+                continue
+            output_dirs.append(outputs.getAttribute("directory"))
+    return output_dirs
+
+
+##
+# conduct a directory diff looking for reference data, and return only the most critical diff status
+# @param jobs_file : the path to the jobs file
+def DirectoryDiffReferenceDataJob (jobs_file):
+    output_dirs = findOutputDirFromJob(jobs_file)
+    messages = []
+    final_status = IDENTICAL
+    for output_dir in output_dirs:
+        reference_data_directory = os.path.join (os.path.dirname(jobs_file), REFERENCE_DATA_DIRECTORY_NAME, output_dir)
+        nrt_directory = os.path.join (os.path.dirname(jobs_file),output_dir)
+        status_priority = [UNABLE_TO_CHECK, NO_FILES_TO_COMPARE, MISSING_DATA_BOTH_SIDES, MISSING_DATA_LEFT, DIFFERENT, WITHIN_TOLERANCE, LOG_DIFFERENT_WITHIN_TOLERANCE, MISSING_DATA_RIGHT, SAME_LOG_WITH_DIFFERENT_TIMESTAMP, IDENTICAL]
+
+        diff_statuses = None
+        diff_messages = None
+        if (not os.path.isdir (reference_data_directory)):
+            diff_statuses = [NO_FILES_TO_COMPARE]
+            diff_messages = ["No files to compare."]
+        else:
+            (diff_statuses, return_message, file_names, left_paths, right_paths, diff_messages) = DirectoryDiff (nrt_directory, reference_data_directory, True)
+        for status in status_priority:
+            if status in diff_statuses:
+                indices = [i for i, x in enumerate(diff_statuses) if x == status]
+                messages.extend([ diff_messages[index] for index in indices ])
+                final_status = status
+    return (final_status, messages)
 
 ##
 # conduct a directory diff looking for reference data, and return only the most critical diff status in a multithreading environment
@@ -696,8 +726,7 @@ def DirectoryDiffReferenceDataJobMultiThread (case, index, nbCases, semaphore, p
         sys.stdout.write(" " +  case.name_ + "\n")
 
         pool.makeActive(name)
-        case_dir = os.path.dirname (case.jobs_file_)
-        (status, messages) = DirectoryDiffReferenceDataJob (case_dir)
+        (status, messages) = DirectoryDiffReferenceDataJob (case.jobs_file_)
         case.diff_ = status
         case.diff_messages_ = messages
         pool.makeInactive(name)
