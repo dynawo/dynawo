@@ -47,15 +47,50 @@ class Criteria {
   virtual const boost::shared_ptr<CriteriaParams>& getParams() const = 0;
 
   /**
-   * @brief Add an id to the component list
-   * @param id id to add
+   * @brief Add a component to the component list
+   * @param id id of the component to add
+   * @param voltageLevelId optional voltageLevelId of the component to add in case of bus criteria
    */
-  virtual void addComponentId(const std::string& id) = 0;
+  virtual void addComponentId(const std::string& id, const std::string& voltageLevelId = "") = 0;
 
 
   class Impl;
  protected:
   class BaseCompIdConstIteratorImpl;  // Abstract class for the interface
+
+ private:
+  /**
+   * @class ComponentId
+   * @brief Container for component id
+   *
+   * Container for a component id and voltageLevelId.
+   */
+  class ComponentId {
+   public:
+    /**
+     * @brief Constructor
+     *
+     * @param id The component id
+     * @param voltageLevelId The component voltageLevelId
+     */
+    ComponentId(const std::string& id, const std::string& voltageLevelId);
+
+    /**
+     * @brief Getter for component id
+     * @return component id
+     */
+    const std::string& getId() const;
+
+    /**
+     * @brief Getter for voltageLevelId
+     * @return voltageLevelId
+     */
+    const std::string& getVoltageLevelId() const;
+
+   private:
+    std::string id_;              ///< id of the component
+    std::string voltageLevelId_;  ///< voltageLevelId of the component
+  };
 
  public:
    /**
@@ -144,16 +179,16 @@ class Criteria {
     /**
      * @brief Indirection operator
      *
-     * @returns id pointed to by this
+     * @returns component id pointed to by this
      */
-    const std::string& operator*() const;
+    const ComponentId& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
-     * @returns Pointer to the id pointed to by this
+     * @returns Pointer to the component id pointed to by this
      */
-    const std::string* operator->() const;
+    const ComponentId* operator->() const;
 
    private:
     BaseCompIdConstIteratorImpl* impl_;  ///<  Pointer to the implementation of the const iterator

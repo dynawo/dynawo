@@ -46,9 +46,9 @@ class Criteria::Impl : public Criteria {
   const boost::shared_ptr<CriteriaParams>& getParams() const;
 
   /**
-   * @copydoc Criteria::addComponentId(const std::string& id)
+   * @copydoc Criteria::addComponentId(const std::string& id, const std::string& voltageLevelId = "")
    */
-  void addComponentId(const std::string& id);
+  void addComponentId(const std::string& id, const std::string& voltageLevelId = "");
 
   /**
    * @copydoc Criteria::begin() const
@@ -62,8 +62,8 @@ class Criteria::Impl : public Criteria {
   friend class Criteria::BaseCompIdConstIteratorImpl;
 
  protected:
-  boost::shared_ptr<CriteriaParams> params_;  ///< parameters of this criteria
-  std::vector<std::string> compIds_;  ///< ids of the components
+  boost::shared_ptr<CriteriaParams> params_;              ///< parameters of this criteria
+  std::vector<boost::shared_ptr<ComponentId> > compIds_;  ///< ids of the components
 };
 
 /**
@@ -138,17 +138,17 @@ class Criteria::BaseCompIdConstIteratorImpl {
    *
    * @returns id pointed to by this
    */
-  const std::string& operator*() const;
+  const ComponentId& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Pointer to the id pointed to by this
    */
-  const std::string* operator->() const;
+  const ComponentId* operator->() const;
 
  private:
-  std::vector<std::string>::const_iterator current_;  ///< current vector const iterator
+  std::vector<boost::shared_ptr<ComponentId> >::const_iterator current_;  ///< current vector const iterator
 };
 }  // namespace criteria
 
