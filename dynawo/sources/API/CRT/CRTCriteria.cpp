@@ -26,8 +26,8 @@ Criteria::getParams() const {
 }
 
 void
-Criteria::addComponentId(const std::string& id) {
-  compIds_.push_back(id);
+Criteria::addComponentId(const std::string& id, const std::string& voltageLevelId) {
+  compIds_.push_back(boost::shared_ptr<ComponentId>(new ComponentId(id, voltageLevelId)));
 }
 
 void
@@ -53,6 +53,22 @@ Criteria::containsCountry(const std::string& country) const {
 bool
 Criteria::hasCountryFilter() const {
   return !countryIds_.empty();
+}
+
+/////////////////////////////////////////////////
+
+Criteria::ComponentId::ComponentId(const std::string& id, const std::string& voltageLevelId) :
+    id_(id),
+    voltageLevelId_(voltageLevelId) {}
+
+const std::string&
+Criteria::ComponentId::getId() const {
+  return id_;
+}
+
+const std::string&
+Criteria::ComponentId::getVoltageLevelId() const {
+  return voltageLevelId_;
 }
 
 /////////////////////////////////////////////////
@@ -96,14 +112,14 @@ Criteria::component_id_const_iterator::operator!=(const Criteria::component_id_c
   return current_ != other.current_;
 }
 
-const std::string&
+const Criteria::ComponentId&
 Criteria::component_id_const_iterator::operator*() const {
-  return *current_;
+  return **current_;
 }
 
-const std::string*
+const Criteria::ComponentId*
 Criteria::component_id_const_iterator::operator->() const {
-  return &(*current_);
+  return &(**current_);
 }
 
 }  // namespace criteria

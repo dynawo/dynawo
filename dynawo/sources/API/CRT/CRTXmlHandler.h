@@ -42,10 +42,10 @@ class ElementWithIdHandler : public xml::sax::parser::ComposableElementHandler {
   ~ElementWithIdHandler() { }
 
   /**
-   * @brief return the component read in xml file
-   * @return component id build thanks to infos read in xml file
+   * @brief return the id read in xml file
+   * @return id build thanks to infos read in xml file
    */
-  const std::string& get() const;
+  const std::string& getId() const;
 
  protected:
   /**
@@ -55,7 +55,48 @@ class ElementWithIdHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  std::string cmpRead_;  ///< current component
+  std::string idRead_;  ///< current element id
+};
+
+/**
+ * @class ComponentHandler
+ * @brief Handler used to parse a component element
+ */
+class ComponentHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit ComponentHandler(elementName_type const& root_element);
+
+  /**
+   * @brief default destructor
+   */
+  virtual ~ComponentHandler() { }
+
+  /**
+   * @brief return the id read in xml file
+   * @return id build thanks to infos read in xml file
+   */
+  const std::string& getId() const;
+
+  /**
+   * @brief return the voltageLevel id read in xml file
+   * @return voltageLevel id build thanks to infos read in xml file
+   */
+  const std::string& getVoltageLevelId() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  std::string idRead_;              ///< current component id
+  std::string voltageLevelIdRead_;  ///< current voltageLevel id
 };
 
 /**
@@ -137,8 +178,8 @@ class CriteriaHandler : public xml::sax::parser::ComposableElementHandler {
  private:
   boost::shared_ptr<Criteria> criteriaRead_;  ///< current criteria
   CriteriaParamsHandler criteriaParamsHandler_;  ///< handler used to read criteria parameters element
-  ElementWithIdHandler cmpHandler_;  ///< handler used to read component
-  ElementWithIdHandler countryHandler_;  ///< handler used to read countries
+  ComponentHandler cmpHandler_;  ///< handler used to read component elements
+  ElementWithIdHandler countryHandler_;  ///< handler used to read country elements
 };
 
 /**

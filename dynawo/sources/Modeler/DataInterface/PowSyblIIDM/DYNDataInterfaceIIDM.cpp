@@ -777,6 +777,19 @@ DataInterfaceIIDM::findVoltageLevelInterface(const string& id) const {
     throw DYNError(Error::MODELER, UnknownVoltageLevel, id);
 }
 
+shared_ptr<BusInterface>
+DataInterfaceIIDM::findCalculatedBusInterface(const string& voltageLevelId, const string& bbsId) const {
+  boost::unordered_map<string, vector<shared_ptr<CalculatedBusInterfaceIIDM> > >::const_iterator iter = calculatedBusComponents_.find(voltageLevelId);
+  if (iter != calculatedBusComponents_.end()) {
+    vector<shared_ptr<CalculatedBusInterfaceIIDM> > buses = iter->second;
+    for (unsigned int i = 0; i < buses.size(); ++i) {
+      if (buses[i]->hasBusBarSection(bbsId))
+        return buses[i];
+    }
+  }
+  return shared_ptr<BusInterface>();
+}
+
 const shared_ptr<ComponentInterface>&
 DataInterfaceIIDM::findComponent(const std::string& id) const {
   boost::unordered_map<string, shared_ptr<ComponentInterface> >::const_iterator iter = components_.find(id);
@@ -931,22 +944,34 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
       for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
           cmpItEnd = crit->end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator busItfIter = components_.find(*cmpIt);
-        if (busItfIter != components_.end()) {
-          const boost::shared_ptr<ComponentInterface>& cmp = busItfIter->second;
-          if (cmp->getType() != ComponentInterface::BUS)
-            Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "bus") << Trace::endline;
-          if (crit->hasCountryFilter()) {
-            boost::shared_ptr<BusInterfaceIIDM> bus = dynamic_pointer_cast<BusInterfaceIIDM>(cmp);
-            if (bus && !bus->getCountry().empty() && !crit->containsCountry(bus->getCountry()))
-              continue;
+        shared_ptr<BusInterface> bus;
+        if (!cmpIt->getVoltageLevelId().empty()) {
+          bus = findCalculatedBusInterface(cmpIt->getVoltageLevelId(), cmpIt->getId());
+          if (!bus) {
+            Trace::warn() << DYNLog(CalculatedBusNotFound, cmpIt->getVoltageLevelId(), cmpIt->getId()) << Trace::endline;
+            continue;
           }
-          boost::shared_ptr<BusInterface> bus = dynamic_pointer_cast<BusInterface>(cmp);
-          assert(bus);
-          dynCriteria->addBus(bus);
         } else {
-          Trace::warn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+          boost::unordered_map<std::string, shared_ptr<ComponentInterface> >::const_iterator busItfIter = components_.find(cmpIt->getId());
+          if (busItfIter != components_.end()) {
+            const shared_ptr<ComponentInterface> &cmp = busItfIter->second;
+            if (cmp->getType() != ComponentInterface::BUS) {
+              Trace::warn() << DYNLog(WrongComponentType, cmpIt->getId(), "bus") << Trace::endline;
+              continue;
+            }
+            bus = dynamic_pointer_cast<BusInterface>(cmp);
+            assert(bus);
+          } else {
+            Trace::warn() << DYNLog(ComponentNotFound, cmpIt->getId()) << Trace::endline;
+            continue;
+          }
         }
+        if (crit->hasCountryFilter()) {
+          shared_ptr<BusInterfaceIIDM> busIIDM = dynamic_pointer_cast<BusInterfaceIIDM>(bus);
+          if (busIIDM && !busIIDM->getCountry().empty() && !crit->containsCountry(busIIDM->getCountry()))
+            continue;
+        }
+        dynCriteria->addBus(bus);
       }
     } else {
       for (boost::unordered_map<std::string, boost::shared_ptr<BusInterface> >::const_iterator cmpIt = busComponents_.begin(),
@@ -978,11 +1003,13 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
       for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
           cmpItEnd = crit->end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator loadItfIter = components_.find(*cmpIt);
+        boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator loadItfIter = components_.find(cmpIt->getId());
         if (loadItfIter != components_.end()) {
           const boost::shared_ptr<ComponentInterface>& cmp = loadItfIter->second;
-          if (cmp->getType() != ComponentInterface::LOAD)
-            Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "load") << Trace::endline;
+          if (cmp->getType() != ComponentInterface::LOAD) {
+            Trace::warn() << DYNLog(WrongComponentType, cmpIt->getId(), "load") << Trace::endline;
+            continue;
+          }
           if (crit->hasCountryFilter()) {
             boost::shared_ptr<LoadInterfaceIIDM> load = dynamic_pointer_cast<LoadInterfaceIIDM>(cmp);
             if (!load->getCountry().empty() && !crit->containsCountry(load->getCountry()))
@@ -992,7 +1019,7 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
           assert(load);
           dynCriteria->addLoad(load);
         } else {
-          Trace::warn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+          Trace::warn() << DYNLog(ComponentNotFound, cmpIt->getId()) << Trace::endline;
         }
       }
     } else {
@@ -1022,11 +1049,13 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
       for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
           cmpItEnd = crit->end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator generatorItfIter = components_.find(*cmpIt);
+        boost::unordered_map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator generatorItfIter = components_.find(cmpIt->getId());
         if (generatorItfIter != components_.end()) {
           const boost::shared_ptr<ComponentInterface>& cmp = generatorItfIter->second;
-          if (cmp->getType() != ComponentInterface::GENERATOR)
-            Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "generator") << Trace::endline;
+          if (cmp->getType() != ComponentInterface::GENERATOR) {
+            Trace::warn() << DYNLog(WrongComponentType, cmpIt->getId(), "generator") << Trace::endline;
+            continue;
+          }
           if (crit->hasCountryFilter()) {
             boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmp);
             if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
@@ -1036,7 +1065,7 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
           assert(gen);
           dynCriteria->addGenerator(gen);
         } else {
-          Trace::warn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+          Trace::warn() << DYNLog(ComponentNotFound, cmpIt->getId()) << Trace::endline;
         }
       }
     } else {

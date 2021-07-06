@@ -44,16 +44,51 @@ class Criteria {
   const boost::shared_ptr<CriteriaParams>& getParams() const;
 
   /**
-   * @brief Add an id to the component list
-   * @param id id to add
+   * @brief Add a component to the component list
+   * @param id id of the component to add
+   * @param voltageLevelId optional voltageLevelId of the component to add in case of bus criteria
    */
-  void addComponentId(const std::string& id);
+  void addComponentId(const std::string& id, const std::string& voltageLevelId = "");
 
   /**
    * @brief Add a country to the country list
    * @param id country id to add
    */
   void addCountry(const std::string& id);
+
+ private:
+  /**
+   * @class ComponentId
+   * @brief Container for component id
+   *
+   * Container for a component id and voltageLevelId.
+   */
+  class ComponentId {
+   public:
+    /**
+     * @brief Constructor
+     *
+     * @param id The component id
+     * @param voltageLevelId The component voltageLevelId
+     */
+    ComponentId(const std::string& id, const std::string& voltageLevelId);
+
+    /**
+     * @brief Getter for component id
+     * @return component id
+     */
+    const std::string& getId() const;
+
+    /**
+     * @brief Getter for voltageLevelId
+     * @return voltageLevelId
+     */
+    const std::string& getVoltageLevelId() const;
+
+   private:
+    std::string id_;              ///< id of the component
+    std::string voltageLevelId_;  ///< voltageLevelId of the component
+  };
 
  public:
   /**
@@ -123,19 +158,19 @@ class Criteria {
     /**
      * @brief Indirection operator
      *
-     * @returns id pointed to by this
+     * @returns component id pointed to by this
      */
-    const std::string& operator*() const;
+    const ComponentId& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
-     * @returns Pointer to the id pointed to by this
+     * @returns Pointer to the component id pointed to by this
      */
-    const std::string* operator->() const;
+    const ComponentId* operator->() const;
 
    private:
-    std::vector<std::string>::const_iterator current_;  ///< current vector const iterator
+    std::vector<boost::shared_ptr<ComponentId> >::const_iterator current_;  ///< current vector const iterator
   };
 
   /**
@@ -164,9 +199,9 @@ class Criteria {
   bool containsCountry(const std::string& country) const;
 
  private:
-  boost::shared_ptr<CriteriaParams> params_;      ///< parameters of this criteria
-  std::vector<std::string> compIds_;              ///< ids of the components
-  boost::unordered_set<std::string> countryIds_;  ///< ids of the countries
+  boost::shared_ptr<CriteriaParams> params_;              ///< parameters of this criteria
+  std::vector<boost::shared_ptr<ComponentId> > compIds_;  ///< ids of the components
+  boost::unordered_set<std::string> countryIds_;          ///< ids of the countries
 };
 
 }  // namespace criteria
