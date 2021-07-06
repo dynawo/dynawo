@@ -44,9 +44,16 @@ LineInterfaceIIDM::LineInterfaceIIDM(powsybl::iidm::Line& line) : lineIIDM_(line
   stateVariables_[VAR_Q1] = StateVariable("q1", StateVariable::DOUBLE);     // Q1
   stateVariables_[VAR_Q2] = StateVariable("q2", StateVariable::DOUBLE);     // Q2
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
+
+  auto libPath = IIDMExtensions::findLibraryPath();
+  auto extensionDef = IIDMExtensions::getExtension<ActiveSeasonIIDMExtension>(libPath.generic_string());
+
+  activeSeasonExtension_ = std::get<IIDMExtensions::CREATE_FUNCTION>(extensionDef)(line);
+  destroyActiveSeasonExtension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(extensionDef);
 }
 
 LineInterfaceIIDM::~LineInterfaceIIDM() {
+  destroyActiveSeasonExtension_(activeSeasonExtension_);
 }
 
 void
@@ -275,6 +282,11 @@ LineInterfaceIIDM::exportStateVariablesUnitComponent() {
     lineIIDM_.getTerminal2().connect();
   else
     lineIIDM_.getTerminal2().disconnect();
+}
+
+std::string
+LineInterfaceIIDM::getActiveSeason() const {
+  return activeSeasonExtension_ ? activeSeasonExtension_->getValue() : std::string("UNDEFINED");
 }
 
 void
