@@ -646,12 +646,14 @@ def update_one_log_file(file_path, output_file_path):
 # @param jobs_file : the path to the jobs file
 # @return a list of output directories
 def findOutputDirFromJob(jobs_file):
+    if ".zip" in jobs_file:
+      return [os.path.dirname (jobs_file)]
     # Parse jobs file
     try:
         doc = minidom.parse(jobs_file)
         jobs_root = doc.documentElement
     except:
-        printout("Fail to import XML file " + self.jobs_file_ + os.linesep, BLACK)
+        print("Fail to import XML file " + jobs_file + os.linesep)
         sys.exit(1)
 
     output_dirs = []
