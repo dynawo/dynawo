@@ -19,6 +19,7 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNIIDMEXTENSIONSTRAITS_HPP_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNIIDMEXTENSIONSTRAITS_HPP_
 
+#include "DYNActiveSeasonIIDMExtension.h"
 #include "DYNStaticVarCompensatorInterfaceIIDMExtension.h"
 
 #include <string>
@@ -39,6 +40,14 @@ template<>
 struct IIDMExtensionTrait<StaticVarCompensatorInterfaceIIDMExtension> {
   /// @brief Network component type
   using NetworkComponentType = powsybl::iidm::StaticVarCompensator;
+  static const char name[];  ///< name of the extension
+};
+
+/// @brief Specialization trait for ActiveSeasonIIDMExtension
+template<>
+struct IIDMExtensionTrait<ActiveSeasonIIDMExtension> {
+  /// @brief Network component type
+  using NetworkComponentType = powsybl::iidm::Connectable;
   static const char name[];  ///< name of the extension
 };
 }  // namespace DYN

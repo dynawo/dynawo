@@ -15,4 +15,5 @@
 
 namespace DYN {
 const char IIDMExtensionTrait<StaticVarCompensatorInterfaceIIDMExtension>::name[] = "StaticVarCompensatorInterfaceIIDMExtension";
+const char IIDMExtensionTrait<ActiveSeasonIIDMExtension>::name[] = "ActiveSeasonIIDMExtension";
 }  // namespace DYN

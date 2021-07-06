@@ -176,6 +176,12 @@ class LineInterface : public ComponentInterface {
   virtual std::string getID() const = 0;
 
   /**
+   * @brief Retrieve active season for the line
+   * @returns active season
+   */
+  virtual std::string getActiveSeason() const = 0;
+
+  /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
   virtual void exportStateVariablesUnitComponent() = 0;

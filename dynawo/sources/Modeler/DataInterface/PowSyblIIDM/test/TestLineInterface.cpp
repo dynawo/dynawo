@@ -174,6 +174,8 @@ TEST(DataInterfaceTest, Line) {
   ASSERT_EQ(li.getCurrentLimitInterfaces1().size(), 1);
   ASSERT_EQ(li.getCurrentLimitInterfaces2().size(), 1);
 
+  std::string season = "UNDEFINED";
+  ASSERT_EQ(li.getActiveSeason(), season);
   powsybl::iidm::Line& MySecondLine = network.newLine()
                                        .setId("VL1_VL3_Bad")
                                        .setVoltageLevel1(vl1.getId())
