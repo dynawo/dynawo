@@ -86,8 +86,8 @@ class IIDMExtensions {
       try {
         extensionLibrary = std::make_shared<boost::dll::shared_library>(libPath);
       } catch (const std::exception&) {
-        // No log here as if extension is not defined, it is not defined for all elements and this function is called for
-        // every network element supporting an external extension
+        // no log here because if extension library cannot be loaded, this will happen
+        // for every network element supporting an external extension, resulting in a polluted logging file
         return buildDefaultExtensionDefinition<T>();
       }
       libraries_[libPath] = extensionLibrary;
@@ -97,7 +97,7 @@ class IIDMExtensions {
 
     std::string createName = "create" + std::string(name);
     if (!extensionLibrary->has(createName)) {
-      // warning here because if the library can be loaded, all extensions should be defined in it
+      // warning here because if the extension is not implemented, it may not be a problem for the simulation
       Trace::warn() << DYNLog(IIDMExtensionNoCreate, name, libPath, createName);
       return buildDefaultExtensionDefinition<T>();
     }
@@ -105,7 +105,7 @@ class IIDMExtensions {
 
     std::string destroyName = "destroy" + std::string(name);
     if (!extensionLibrary->has(destroyName)) {
-      // warning here because if the library can be loaded, all extensions should be defined in it
+      // warning here because if the extension is not implemented, it may not be a problem for the simulation
       Trace::warn() << DYNLog(IIDMExtensionNoDestroy, name, libPath, destroyName);
       return buildDefaultExtensionDefinition<T>();
     }
