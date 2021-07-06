@@ -23,14 +23,13 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSTATICVARCOMPENSATORINTERFACEIIDM_H_
 
 #include <boost/shared_ptr.hpp>
-#include <boost/function.hpp>
-
 #include <powsybl/iidm/StaticVarCompensator.hpp>
 #include <powsybl/iidm/extensions/iidm/VoltagePerReactivePowerControl.hpp>
 
 #include "DYNStaticVarCompensatorInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
 #include "DYNStaticVarCompensatorInterfaceIIDMExtension.h"
+#include "DYNIIDMExtensions.hpp"
 
 namespace DYN {
 
@@ -189,7 +188,7 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
  private:
   powsybl::iidm::StaticVarCompensator& staticVarCompensatorIIDM_;  ///< reference to the iidm static var compensator instance
   StaticVarCompensatorInterfaceIIDMExtension* extension_;  ///< extension's pointer
-  boost::function<destroy_t> destroy_extension_;  ///< function pointer to destroy the extension
+  IIDMExtensions::DestroyFunction<StaticVarCompensatorInterfaceIIDMExtension> destroy_extension_;  ///< function pointer to destroy the extension
   stdcxx::Reference<powsybl::iidm::extensions
                     ::iidm::VoltagePerReactivePowerControl> voltagePerReactivePowerControl_;  ///< reference to voltagePerReactivePowerControl_ extension
 };
