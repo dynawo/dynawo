@@ -25,27 +25,33 @@ class Criteria;
 class CriteriaParams;
 
 /**
- * @class ComponentsHandler
- * @brief Handler used to parse component element
+ * @class ComponentHandler
+ * @brief Handler used to parse a component element
  */
-class ComponentsHandler : public xml::sax::parser::ComposableElementHandler {
+class ComponentHandler : public xml::sax::parser::ComposableElementHandler {
  public:
   /**
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit ComponentsHandler(elementName_type const& root_element);
+  explicit ComponentHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~ComponentsHandler() { }
+  virtual ~ComponentHandler() { }
 
   /**
-   * @brief return the component read in xml file
-   * @return component id build thanks to infos read in xml file
+   * @brief return the id read in xml file
+   * @return id build thanks to infos read in xml file
    */
-  const std::string& get() const;
+  const std::string& getId() const;
+
+  /**
+   * @brief return the voltageLevel id read in xml file
+   * @return voltageLevel id build thanks to infos read in xml file
+   */
+  const std::string& getVoltageLevelId() const;
 
  protected:
   /**
@@ -55,7 +61,8 @@ class ComponentsHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  std::string cmpRead_;  ///< current component
+  std::string idRead_;              ///< current component id
+  std::string voltageLevelIdRead_;  ///< current voltageLevel id
 };
 
 /**
@@ -133,7 +140,7 @@ class CriteriaHandler : public xml::sax::parser::ComposableElementHandler {
  private:
   boost::shared_ptr<Criteria> criteriaRead_;  ///< current criteria
   CriteriaParamsHandler criteriaParamsHandler_;  ///< handler used to read criteria parameters element
-  ComponentsHandler cmpHandler_;  ///< handler used to read criteria parameters element
+  ComponentHandler cmpHandler_;  ///< handler used to read component elements
 };
 
 /**

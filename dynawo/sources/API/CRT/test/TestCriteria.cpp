@@ -96,7 +96,7 @@ TEST(APICRTTest, Criteria) {
   criteriap->setPMax(200);
   criteriap->setPMin(0);
   criteria->setParams(criteriap);
-  criteria->addComponentId("MyCompId1");
+  criteria->addComponentId("MyCompId1", "MyVoltageLevelId");
   criteria->addComponentId("MyCompId2");
 
   // test setted attributes
@@ -104,20 +104,23 @@ TEST(APICRTTest, Criteria) {
   size_t idx = 0;
   for (Criteria::component_id_const_iterator it = criteria->begin(), itEnd = criteria->end();
       it != itEnd; ++it, ++idx) {
-    if (idx == 0)
-      ASSERT_EQ(*it, "MyCompId1");
-    else if (idx == 1)
-      ASSERT_EQ(*it, "MyCompId2");
-    else
+    if (idx == 0) {
+      ASSERT_EQ(it->getId(), "MyCompId1");
+      ASSERT_EQ(it->getVoltageLevelId(), "MyVoltageLevelId");
+    } else if (idx == 1) {
+      ASSERT_EQ(it->getId(), "MyCompId2");
+      ASSERT_EQ(it->getVoltageLevelId(), "");
+    } else {
       assert(false);
+    }
   }
   Criteria::component_id_const_iterator itCt = criteria->begin();
-  ASSERT_EQ(*(++itCt), "MyCompId2");
-  ASSERT_EQ(*(--itCt), "MyCompId1");
-  ASSERT_EQ(*(itCt++), "MyCompId1");
-  ASSERT_EQ(*(itCt--), "MyCompId2");
-  ASSERT_EQ(*itCt, "MyCompId1");
-  ASSERT_EQ(itCt->size(), 9);
+  ASSERT_EQ((++itCt)->getId(), "MyCompId2");
+  ASSERT_EQ((--itCt)->getId(), "MyCompId1");
+  ASSERT_EQ((itCt++)->getId(), "MyCompId1");
+  ASSERT_EQ((itCt--)->getId(), "MyCompId2");
+  ASSERT_EQ(itCt->getId(), "MyCompId1");
+  ASSERT_EQ(idx, 2);
   Criteria::component_id_const_iterator itCt2 = criteria->end();
   itCt2 = itCt;
   ASSERT_EQ(itCt == itCt2, true);

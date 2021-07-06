@@ -27,8 +27,8 @@ Criteria::Impl::getParams() const {
 }
 
 void
-Criteria::Impl::addComponentId(const std::string& id) {
-  compIds_.push_back(id);
+Criteria::Impl::addComponentId(const std::string& id, const std::string& voltageLevelId) {
+  compIds_.push_back(boost::shared_ptr<ComponentId>(new ComponentId(id, voltageLevelId)));
 }
 
 Criteria::component_id_const_iterator
@@ -83,14 +83,14 @@ Criteria::BaseCompIdConstIteratorImpl::operator!=(const Criteria::BaseCompIdCons
   return current_ != other.current_;
 }
 
-const std::string&
+const Criteria::ComponentId&
 Criteria::BaseCompIdConstIteratorImpl::operator*() const {
-  return *current_;
+  return **current_;
 }
 
-const std::string*
+const Criteria::ComponentId*
 Criteria::BaseCompIdConstIteratorImpl::operator->() const {
-  return &(*current_);
+  return &(**current_);
 }
 
 }  // namespace criteria

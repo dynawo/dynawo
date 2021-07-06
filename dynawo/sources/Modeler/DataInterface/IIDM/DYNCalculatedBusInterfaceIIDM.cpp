@@ -173,6 +173,11 @@ CalculatedBusInterfaceIIDM::getBusBarSectionNames() const {
   return bbsNames_;
 }
 
+bool
+CalculatedBusInterfaceIIDM::hasBusBarSection(const string& bbs) const {
+  return std::find(bbsNames_.begin(), bbsNames_.end(), bbs) != bbsNames_.end();
+}
+
 set<int>
 CalculatedBusInterfaceIIDM::getNodes() const {
   return nodes_;

@@ -24,6 +24,7 @@
 #include "DYNTrace.h"
 
 #include <powsybl/iidm/Bus.hpp>
+#include <algorithm>
 #include <sstream>
 #include <cmath>
 
@@ -175,6 +176,11 @@ CalculatedBusInterfaceIIDM::hasNode(const int node) {
 const vector<string>&
 CalculatedBusInterfaceIIDM::getBusBarSectionNames() const {
   return bbsNames_;
+}
+
+bool
+CalculatedBusInterfaceIIDM::hasBusBarSection(const string& bbs) const {
+  return std::find(bbsNames_.begin(), bbsNames_.end(), bbs) != bbsNames_.end();
 }
 
 set<int>

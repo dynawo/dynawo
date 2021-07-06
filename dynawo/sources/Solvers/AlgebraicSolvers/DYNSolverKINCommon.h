@@ -23,6 +23,8 @@
 #include <kinsol/kinsol.h>
 #include <sundials/sundials_nvector.h>
 #include <boost/shared_ptr.hpp>
+#include <string>
+#include <vector>
 
 namespace DYN {
 

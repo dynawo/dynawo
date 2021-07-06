@@ -21,6 +21,7 @@
 #define API_EXTVAR_EXTVARVARIABLESCOLLECTIONIMPL_H_
 
 #include <map>
+#include <string>
 
 #include "EXTVARVariablesCollection.h"
 
