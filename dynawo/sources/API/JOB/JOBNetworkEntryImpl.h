@@ -71,7 +71,9 @@ class NetworkEntry::Impl : public NetworkEntry {
    */
   std::string getNetworkParId() const;
 
-  /// @copydoc NetworkEntry::clone()
+  /**
+   * @copydoc NetworkEntry::clone()
+   */
   boost::shared_ptr<NetworkEntry> clone() const;
 
  private:

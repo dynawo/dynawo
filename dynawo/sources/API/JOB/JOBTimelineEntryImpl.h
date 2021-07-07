@@ -61,7 +61,9 @@ class TimelineEntry::Impl : public TimelineEntry {
    */
   std::string getExportMode() const;
 
-  /// @copydoc TimelineEntry::clone()
+  /**
+   * @copydoc TimelineEntry::clone()
+   */
   boost::shared_ptr<TimelineEntry> clone() const;
 
  private:

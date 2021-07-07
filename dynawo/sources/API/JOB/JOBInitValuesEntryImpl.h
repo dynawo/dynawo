@@ -60,7 +60,9 @@ class InitValuesEntry::Impl : public InitValuesEntry {
    */
   bool getDumpGlobalInitValues() const;
 
-  /// @copydoc InitValuesEntry::clone()
+  /**
+   * @copydoc InitValuesEntry::clone()
+   */
   boost::shared_ptr<InitValuesEntry> clone() const;
 
  private:
