@@ -23,12 +23,13 @@
 
 #include "DYNTimer.h"
 
-using std::stringstream;
 
 #ifdef LANG_CXX11
 #include <thread>
 #include <sstream>
 #endif
+
+using std::stringstream;
 
 namespace DYN {
 
