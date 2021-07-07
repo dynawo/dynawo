@@ -71,7 +71,9 @@ class CurvesEntry::Impl : public CurvesEntry {
    */
   void setExportMode(const std::string & exportMode);
 
-  /// @copydoc CurvesEntry::clone()
+  /**
+   * @copydoc CurvesEntry::clone()
+   */
   boost::shared_ptr<CurvesEntry> clone() const;
 
  private:

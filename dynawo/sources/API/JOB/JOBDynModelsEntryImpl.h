@@ -51,7 +51,9 @@ class DynModelsEntry::Impl : public DynModelsEntry {
    */
   std::string getDydFile() const;
 
-  /// @copydoc DynModelsEntry::clone()
+  /**
+   * @copydoc DynModelsEntry::clone()
+   */
   boost::shared_ptr<DynModelsEntry> clone() const;
 
  private:

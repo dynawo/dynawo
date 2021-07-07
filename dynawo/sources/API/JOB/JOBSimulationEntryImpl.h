@@ -91,7 +91,9 @@ class SimulationEntry::Impl : public SimulationEntry {
    */
   double getPrecision() const;
 
-  /// @copydoc SimulationEntry::clone()
+  /**
+   * @copydoc SimulationEntry::clone()
+   */
   boost::shared_ptr<SimulationEntry> clone() const;
 
  private:

@@ -51,7 +51,9 @@ class InitialStateEntry::Impl : public InitialStateEntry {
    */
   std::string getInitialStateFile() const;
 
-  /// @copydoc InitialStateEntry::clone()
+  /**
+   * @copydoc InitialStateEntry::clone()
+   */
   boost::shared_ptr<InitialStateEntry> clone() const;
 
  private:
