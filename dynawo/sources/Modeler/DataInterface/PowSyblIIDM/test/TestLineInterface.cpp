@@ -176,11 +176,6 @@ TEST(DataInterfaceTest, Line) {
   std::string season = "UNDEFINED";
   ASSERT_EQ(li.getActiveSeason(), season);
 
-  auto libis = std::move(li);
-  ASSERT_EQ(libis.getID(), "VL1_VL3");
-  LineInterfaceIIDM litri(std::move(libis));
-  ASSERT_EQ(litri.getID(), "VL1_VL3");
-
   powsybl::iidm::Line& MySecondLine = network.newLine()
                                        .setId("VL1_VL3_Bad")
                                        .setVoltageLevel1(vl1.getId())

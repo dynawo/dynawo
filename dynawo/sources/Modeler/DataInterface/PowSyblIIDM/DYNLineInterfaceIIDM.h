@@ -27,9 +27,11 @@
 #include "DYNActiveSeasonIIDMExtension.h"
 #include "DYNIIDMExtensions.hpp"
 
+#include <boost/noncopyable.hpp>
+
 namespace DYN {
 
-class LineInterfaceIIDM : public LineInterface {
+class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
  public:
   /**
    * @brief defines the index of each state variable
@@ -53,31 +55,6 @@ class LineInterfaceIIDM : public LineInterface {
    * @param line line's iidm instance
    */
   explicit LineInterfaceIIDM(powsybl::iidm::Line& line);
-
-  // Delete copy constructors and assignment operator because of destruction of IIDM extensions pointers in destructor
-  /**
-   * @brief Deleted copy constructor
-   */
-  LineInterfaceIIDM(const LineInterfaceIIDM&) = delete;
-
-  /**
-   * @brief Deleted copy assignement operator
-   * @returns
-   */
-  LineInterfaceIIDM& operator=(const LineInterfaceIIDM&) = delete;
-
-  /**
-   * @brief Movement constructor
-   * @param other the line to move from
-   */
-  LineInterfaceIIDM(LineInterfaceIIDM&& other) = default;
-
-  /**
-   * @brief Movement assignment operator
-   * @param other the line to move from
-   * @returns itself
-   */
-  LineInterfaceIIDM& operator=(LineInterfaceIIDM&& other) = default;
 
   /**
    * @copydoc LineInterface::getVNom1() const
