@@ -9,7 +9,7 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci:latest
+    container: dynawo/dynawo-ci-v12x:latest
     env:
       DYNAWO_BUILD_TYPE: Debug
       DYNAWO_CXX11_ENABLED: YES
@@ -36,7 +36,7 @@ jobs:
 
   coverage:
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci:latest
+    container: dynawo/dynawo-ci-v12x:latest
     env:
       DYNAWO_CXX11_ENABLED: YES
       DYNAWO_COMPILER: GCC
