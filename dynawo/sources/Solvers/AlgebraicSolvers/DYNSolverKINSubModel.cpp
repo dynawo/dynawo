@@ -105,7 +105,7 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
   realtype *irr = NV_DATA_S(rr);
   memcpy(irr, solver->fBuffer_, solver->numF_ * sizeof(solver->fBuffer_[0]));
 
-  return (0);
+  return 0;
 }
 
 int
@@ -129,7 +129,7 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
   subModel->evalJt(solver->t0_, cj, smj, 0);
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, false);
 
-  return (0);
+  return 0;
 }
 
 int
