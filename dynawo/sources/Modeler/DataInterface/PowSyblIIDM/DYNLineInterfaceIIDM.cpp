@@ -53,7 +53,9 @@ LineInterfaceIIDM::LineInterfaceIIDM(powsybl::iidm::Line& line) : lineIIDM_(line
 }
 
 LineInterfaceIIDM::~LineInterfaceIIDM() {
-  destroyActiveSeasonExtension_(activeSeasonExtension_);
+  if (destroyActiveSeasonExtension_) {
+    destroyActiveSeasonExtension_(activeSeasonExtension_);
+  }
 }
 
 void
