@@ -122,7 +122,7 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
   SolverCommon::printLargestErrors(fErr, model, nbErr);
 #endif
 
-  return (0);
+  return 0;
 }
 
 int
