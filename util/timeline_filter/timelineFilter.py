@@ -14,7 +14,6 @@ import re
 from optparse import OptionParser
 from xml.dom import minidom
 import glob
-import importlib
 
 class Event :
     def __init__(self):
@@ -102,10 +101,16 @@ class Timeline :
             for time in sorted_keys:
                 events = self.time_to_events[time]
                 for event in events:
-                    if event.priority == None:
-                        f.write("<event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event + "\"/>\n")
-                    else:
-                        f.write("<event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event+ "\" priority=\"" + event.priority + "\"/>\n")
+                    try:
+                        if event.priority == None:
+                            f.write("<event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event + "\"/>\n")
+                        else:
+                            f.write("<event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event+ "\" priority=\"" + event.priority + "\"/>\n")
+                    except UnicodeEncodeError:
+                        if event.priority == None:
+                            f.write("<event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.mode.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1') + "\"/>\n")
+                        else:
+                            f.write("<event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.model.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1')+ "\" priority=\"" + event.priority.encode('iso8859-1') + "\"/>\n")
             f.write("</timeline>\n")
             f.close()
 
@@ -200,7 +205,7 @@ def main(args):
         sys.path.append(dir)
         for path in glob.glob(os.path.join(str(dir), '*_'+locale+'_oppositeEvents.py')):
             python_package = os.path.basename(path).replace(".py","")
-            my_module = importlib.import_module(python_package)
+            my_module = __import__(python_package)
             dicOppEvents.update(my_module.dicOppositeEvents)
             del sys.modules[python_package]
 
