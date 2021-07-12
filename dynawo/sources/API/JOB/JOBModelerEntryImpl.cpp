@@ -32,10 +32,10 @@ boost::shared_ptr<ModelerEntry>
 ModelerEntry::Impl::clone() const {
   boost::shared_ptr<ModelerEntry::Impl> newPtr = boost::make_shared<ModelerEntry::Impl>();
   newPtr->compileDir_ = compileDir_;
-  newPtr->preCompiledModelsDirEntry_ = preCompiledModelsDirEntry_ ? preCompiledModelsDirEntry_->clone() : NULL;
-  newPtr->modelicaModelsDirEntry_ = modelicaModelsDirEntry_ ? modelicaModelsDirEntry_->clone() : NULL;
-  newPtr->networkEntry_ = networkEntry_ ? networkEntry_->clone() : NULL;
-  newPtr->initialStateEntry_ = initialStateEntry_ ? initialStateEntry_->clone() : NULL;
+  newPtr->preCompiledModelsDirEntry_ = preCompiledModelsDirEntry_ ? preCompiledModelsDirEntry_->clone() : boost::shared_ptr<ModelsDirEntry>();
+  newPtr->modelicaModelsDirEntry_ = modelicaModelsDirEntry_ ? modelicaModelsDirEntry_->clone() : boost::shared_ptr<ModelsDirEntry>();
+  newPtr->networkEntry_ = networkEntry_ ? networkEntry_->clone() : boost::shared_ptr<NetworkEntry>();
+  newPtr->initialStateEntry_ = initialStateEntry_ ? initialStateEntry_->clone() : boost::shared_ptr<InitialStateEntry>();
 
   unsigned int size = dynModelsEntries_.size();
   newPtr->dynModelsEntries_.clear();

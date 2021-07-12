@@ -146,8 +146,6 @@ TEST(DataInterfaceIIDMTest, testClone) {
       ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getID(), boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getID());
       ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getPUnderVoltage(),
                 boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getPUnderVoltage());
-      ASSERT_EQ(boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads[j])->getCountry(),
-                boost::dynamic_pointer_cast<LoadInterfaceIIDM>(loads2[j])->getCountry());
     }
     const std::vector<boost::shared_ptr<DYN::BusInterface> >& buses = network_interface->getVoltageLevels().at(i)->getBuses();
     const std::vector<boost::shared_ptr<DYN::BusInterface> >& buses2 = network_interface2->getVoltageLevels().at(i)->getBuses();

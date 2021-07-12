@@ -90,7 +90,7 @@ namespace DYN {
 shared_ptr<DataInterface>
 createNodeBreakerNetworkCriteria() {
   IIDM::builders::NetworkBuilder nb;
-  IIDM::Network network = nb.build("MyNetwork");
+  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
 
   IIDM::builders::SubstationBuilder ssb;
   IIDM::Substation ss = ssb.build("MySubStation");
@@ -116,7 +116,7 @@ createNodeBreakerNetworkCriteria() {
 
   ss.add(vl);
 
-  network.add(ss);
+  network->add(ss);
 
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
