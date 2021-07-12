@@ -70,12 +70,15 @@ TEST(APICRTTest, testXmlFileImporter) {
       size_t idx2 = 0;
       for (Criteria::component_id_const_iterator it2 = criteria->begin(), it2End = criteria->end();
           it2 != it2End; ++it2, ++idx2) {
-        if (idx2 == 0)
-          ASSERT_EQ(*it2, "MyId");
-        else if (idx2 == 1)
-          ASSERT_EQ(*it2, "MyId2");
-        else
+        if (idx2 == 0) {
+          ASSERT_EQ(it2->getId(), "MyId");
+          ASSERT_EQ(it2->getVoltageLevelId(), "MyVoltageLevelId");
+        } else if (idx2 == 1) {
+          ASSERT_EQ(it2->getId(), "MyId2");
+          ASSERT_EQ(it2->getVoltageLevelId(), "");
+        } else {
           assert(false);
+        }
       }
       ASSERT_TRUE(criteria->hasCountryFilter());
       ASSERT_TRUE(criteria->containsCountry("BE"));
@@ -131,9 +134,9 @@ TEST(APICRTTest, testXmlFileImporter) {
       for (Criteria::component_id_const_iterator it2 = criteria->begin(), it2End = criteria->end();
           it2 != it2End; ++it2, ++idx2) {
         if (idx2 == 0)
-          ASSERT_EQ(*it2, "MyLoad");
+          ASSERT_EQ(it2->getId(), "MyLoad");
         else if (idx2 == 1)
-          ASSERT_EQ(*it2, "MyLoad2");
+          ASSERT_EQ(it2->getId(), "MyLoad2");
         else
           assert(false);
       }

@@ -37,6 +37,8 @@ WrongCheckSum                 =             unable to load dump state : Checksum
 WrongParameterNum             =             unable to load dump state : Number of parameters has change in comparison with the registered state (%1%)
 SubModelFeqFormulaNotExist    =             failed to retrieve equation %2% of submodel %1%
 SubModelGeqFormulaNotExist    =             failed to retrieve root equation %2% of submodel %1%
+IIDMExtensionNoCreate         =             iidm extension %1% from library %2% has no create function %3%
+IIDMExtensionNoDestroy        =             iidm extension %1% from library %2% has no destroy function %3%
 //---------------------- PARAMETER -------------------------------------
 ParamNoValueFound             =             no value found for parameter %1%
 InternalParam                 =             parameter %1% was computed internally
@@ -118,6 +120,7 @@ SourceUnderPower              =             node: %1% has a load power %2%MW < %
 SourceAbovePower              =             node: %1% has a load power %2%MW > %3%MW (criteria id: %4%)
 WrongComponentType            =             a %1% component has been found in a %2% criteria, it will be ignored
 ComponentNotFound             =             component %1% was not found
+CalculatedBusNotFound         =             calculated bus associated to '%1%' bus bar section '%2%' was not found
 SourcePowerAboveMax           =             total load power = %1%MW > %2%MW (criteria id: %3%)
 SourcePowerBelowMin           =             total load power = %1%MW < %2%MW (criteria id: %3%)
 SourcePowerTakenIntoAccount   =             power of %1% %2% was added into the total power sum (criteria id: %3%, power=%4%, V=%5%)

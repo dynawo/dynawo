@@ -417,7 +417,7 @@ set_environment() {
   export_var_env_force DYNAWO_LIBXML_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/libxml
   export_var_env_force DYNAWO_LIBXML_INSTALL_DIR=$DYNAWO_LIBXML_HOME
 
-  export_var_env DYNAWO_IIDM_EXTENSION=$DYNAWO_INSTALL_DIR/lib/libdynawo_DataInterfaceIIDMExtension.so
+  # DYNAWO_IIDM_EXTENSION not set by default
   export_var_env DYNAWO_LIBIIDM_EXTENSIONS=$DYNAWO_LIBIIDM_INSTALL_DIR/lib
 
   # Miscellaneous

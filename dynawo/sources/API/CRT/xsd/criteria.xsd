@@ -19,12 +19,25 @@
   <xs:element name="criteria">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="busCriteria" type="dyn:Criteria" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="busCriteria" type="dyn:BusCriteria" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="loadCriteria" type="dyn:Criteria" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="generatorCriteria" type="dyn:Criteria" minOccurs="0" maxOccurs="unbounded"/>
       </xs:choice>
     </xs:complexType>
   </xs:element>
+
+  <xs:complexType name="BusCriteria">
+    <xs:sequence>
+      <xs:element name="parameters" type="dyn:CriteriaParams" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="component" minOccurs="0" maxOccurs="unbounded" type="dyn:BusComponent"/>
+      <xs:element name="country" minOccurs="0" maxOccurs="unbounded" type="dyn:Country"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BusComponent">
+    <xs:attribute name="id" use="required" type="xs:string"/>
+    <xs:attribute name="voltageLevelId" use="optional" type="xs:string"/>
+  </xs:complexType>
 
   <xs:complexType name="Criteria">
     <xs:sequence>

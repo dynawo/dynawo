@@ -144,6 +144,13 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
   std::set<int> getNodes() const;
 
   /**
+   * @brief check if a bus bar section is contained in the calculated bus
+   * @param bbs id of the bus bar section
+   * @return @b true if the bus bar section is contained in the calculated bus
+   */
+  bool hasBusBarSection(const std::string& bbs) const;
+
+  /**
    * @copydoc BusInterface::getBusBarSectionNames() const
    */
   const std::vector<std::string>& getBusBarSectionNames() const;

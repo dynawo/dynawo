@@ -71,13 +71,22 @@ Timers::add_(const std::string& name, const double& time) {
 
 Timer::Timer(const std::string& name) :
 name_(name),
+#ifdef LANG_CXX11
+startPoint_(std::chrono::steady_clock::now()),
+#endif
 isStopped_(false) {
 }
 
 void
 Timer::stop() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timers::add(name_, timer_.elapsed());
+#if LANG_CXX11
+  auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - startPoint_);
+  double elapsed = static_cast<double>(duration.count()) / 1000000;  // For the result in seconds
+#else
+  double elapsed = timer_.elapsed();
+#endif
+  Timers::add(name_, elapsed);
 #endif
   isStopped_ = true;
 }

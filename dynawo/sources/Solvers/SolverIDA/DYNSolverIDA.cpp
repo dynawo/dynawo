@@ -545,7 +545,7 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
     }
   }
 #endif
-return (0);
+return 0;
 }
 
 int
@@ -568,7 +568,7 @@ SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype *gout,
     gout[i] = g1[i];
   }
 
-  return (0);
+  return 0;
 }
 
 int
@@ -592,7 +592,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
   model.evalJt(tt, cj, smj);
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, "KLU", true);
 
-  return (0);
+  return 0;
 }
 
 void

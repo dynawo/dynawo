@@ -112,12 +112,12 @@ CriteriaHandler::addCriteriaParams() {
 
 void
 CriteriaHandler::addComponent() {
-  criteriaRead_->addComponentId(cmpHandler_.get());
+  criteriaRead_->addComponentId(cmpHandler_.getId(), cmpHandler_.getVoltageLevelId());
 }
 
 void
 CriteriaHandler::addCountry() {
-  criteriaRead_->addCountry(countryHandler_.get());
+  criteriaRead_->addCountry(countryHandler_.getId());
 }
 
 
@@ -155,11 +155,34 @@ ElementWithIdHandler::ElementWithIdHandler(elementName_type const& root_element)
 }
 
 void ElementWithIdHandler::create(attributes_type const & attributes) {
-  cmpRead_ = attributes["id"].as_string();
+  idRead_ = attributes["id"].as_string();
 }
 
 const std::string&
-ElementWithIdHandler::get() const {
-  return cmpRead_;
+ElementWithIdHandler::getId() const {
+  return idRead_;
+}
+
+
+ComponentHandler::ComponentHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&ComponentHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+void ComponentHandler::create(attributes_type const & attributes) {
+  idRead_ = attributes["id"].as_string();
+  if (attributes.has("voltageLevelId"))
+    voltageLevelIdRead_ = attributes["voltageLevelId"].as_string();
+  else
+    voltageLevelIdRead_.clear();
+}
+
+const std::string&
+ComponentHandler::getId() const {
+  return idRead_;
+}
+
+const std::string&
+ComponentHandler::getVoltageLevelId() const {
+  return voltageLevelIdRead_;
 }
 }  // namespace criteria

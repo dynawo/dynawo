@@ -64,6 +64,52 @@ createDataItfFromNetworkCriteria(const boost::shared_ptr<powsybl::iidm::Network>
 }
 
 boost::shared_ptr<powsybl::iidm::Network>
+createNodeBreakerNetworkCriteria() {
+  auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
+
+  auto& substation = network->newSubstation()
+    .setId("MySubStation")
+    .setName("MySubStation_NAME")
+    .setTso("TSO")
+    .add();
+
+  auto& vl = substation.newVoltageLevel()
+    .setId("MyVoltageLevel")
+    .setName("MyVoltageLevel_NAME")
+    .setTopologyKind(powsybl::iidm::TopologyKind::NODE_BREAKER)
+    .setNominalV(225.)
+    .setLowVoltageLimit(120.)
+    .setHighVoltageLimit(150.)
+    .add();
+  vl.getNodeBreakerView().newBusbarSection()
+    .setId("MyBusBarSection")
+    .setName("MyBusBarSection_NAME")
+    .setNode(0)
+    .add();
+  vl.getNodeBreakerView().newBreaker()
+    .setId("BK1")
+    .setNode1(0)
+    .setNode2(1)
+    .setRetained(true)
+    .setOpen(false)
+    .add();
+  vl.newLoad()
+    .setId("MyLoad")
+    .setName("MyLoad_NAME")
+    .setNode(1)
+    .setLoadType(powsybl::iidm::LoadType::UNDEFINED)
+    .setP0(105.0)
+    .setQ0(90.0)
+    .add();
+
+  auto& calculatedIIDMBus0 = vl.getBusBreakerView().getBus("MyVoltageLevel_0").get();
+  calculatedIIDMBus0.setV(190.);
+  calculatedIIDMBus0.setAngle(1.5);
+
+  return network;
+}
+
+boost::shared_ptr<powsybl::iidm::Network>
 createBusBreakerNetwork(double busV, double busVNom, bool addCountry = true) {
   auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
@@ -505,6 +551,73 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   data->configureCriteria(collection);
   // v > 0.8*vNom and the country filter is OK
   ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyBusBarSection", "DummyVoltageLevel");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::BUS, criteria);
+  data = createDataItfFromNetworkCriteria(createNodeBreakerNetworkCriteria());
+  exportStates(data);
+  data->configureCriteria(collection);
+  // voltage level not found
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("DummyBBS", "MyVoltageLevel");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::BUS, criteria);
+  data = createDataItfFromNetworkCriteria(createNodeBreakerNetworkCriteria());
+  exportStates(data);
+  data->configureCriteria(collection);
+  // bbs not found
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyBusBarSection", "MyVoltageLevel");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::BUS, criteria);
+  data = createDataItfFromNetworkCriteria(createNodeBreakerNetworkCriteria());
+  exportStates(data);
+  data->configureCriteria(collection);
+  // v > 0.8*vNom
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::FINAL);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyBusBarSection", "MyVoltageLevel");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::BUS, criteria);
+  data = createDataItfFromNetworkCriteria(createNodeBreakerNetworkCriteria());
+  exportStates(data);
+  data->configureCriteria(collection);
+  // v > 0.8*vNom
+  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, true));
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {

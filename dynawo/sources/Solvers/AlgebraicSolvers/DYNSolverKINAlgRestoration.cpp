@@ -286,7 +286,7 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
     fErr.push_back(std::pair<double, size_t>(solver->vectorF_[solver->indexF_[i]], solver->indexF_[i]));
   SolverCommon::printLargestErrors(fErr, model, nbErr);
 #endif
-  return (0);
+  return 0;
 }
 
 #if _DEBUG_
@@ -333,7 +333,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 #endif
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);
 
-  return (0);
+  return 0;
 }
 
 int
@@ -355,7 +355,7 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);
 
-  return (0);
+  return 0;
 }
 
 int
