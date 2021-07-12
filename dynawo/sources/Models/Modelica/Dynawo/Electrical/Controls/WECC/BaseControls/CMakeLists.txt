@@ -10,10 +10,11 @@
 
 set(MODEL_FILES
   package.mo
+  package.order
   UdqRef.mo
-  calcUPcc.mo
+  LineDropCompensation.mo
   VoltageCheck.mo
-  CurrentLimitLogic.mo
+  CurrentLimitsCalculation.mo
   VSourceRef.mo
   )
 

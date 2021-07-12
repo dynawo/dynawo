@@ -12,27 +12,21 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block VoltageCheck
+block VoltageCheck "This block generates a signal to freeze the control when the voltage is too low or too high"
   import Modelica.Blocks;
   import Dynawo.Types;
 
-  parameter Types.PerUnit Vdip "Lower Voltage limit for freeze";
-  parameter Types.PerUnit Vup "Upper Voltage limit for freeze";
+  parameter Types.PerUnit UMinPu "Lower voltage limit for freeze";
+  parameter Types.PerUnit UMaxPu "Upper voltage limit for freeze";
 
-  Blocks.Interfaces.RealInput Vt annotation(
+  Blocks.Interfaces.RealInput UPu annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Interfaces.BooleanOutput freeze annotation(
     Placement(visible = true, transformation(origin = {110, 2.88658e-15}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 2.88658e-15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  if Vt < Vdip then
-    freeze = true;
-  elseif Vt > Vup then
-    freeze = true;
-  else
-    freeze = false;
-  end if;
+  freeze = UPu < UMinPu or UPu > UMaxPu;
 
   annotation(preferredView = "text",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {18, -4}, extent = {{-98, 84}, {62, -76}}, textString = "Voltage Check"), Text(origin = {-121.5, 18}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "Vt"), Text(origin = {112.5, 20}, extent = {{-10.5, 7}, {31.5, -20}}, textString = "freeze")}, coordinateSystem(initialScale = 0.1)));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {18, -4}, extent = {{-98, 84}, {62, -76}}, textString = "Voltage Check"), Text(origin = {-121.5, 18}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "UPu"), Text(origin = {112.5, 20}, extent = {{-10.5, 7}, {31.5, -20}}, textString = "freeze")}, coordinateSystem(initialScale = 0.1)));
 end VoltageCheck;

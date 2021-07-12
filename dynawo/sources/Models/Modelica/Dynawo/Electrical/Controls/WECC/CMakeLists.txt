@@ -13,10 +13,11 @@ add_subdirectory(Utilities U)
 
 set(MODEL_FILES
   package.mo
+  package.order
   Parameters.mo
-  REEC_ElectricalControl.mo
-  REGC_GeneratorControl.mo
-  REPC_PlantControl.mo
+  ElectricalControl.mo
+  GeneratorControl.mo
+  PlantControl.mo
   )
 
 #

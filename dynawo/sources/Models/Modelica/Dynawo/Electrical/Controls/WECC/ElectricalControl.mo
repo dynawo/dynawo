@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC;
 */
 
 
-model REEC_ElectricalControl "WECC PV Electrical Control REEC"
+model ElectricalControl "WECC PV Electrical Control REEC"
   import Modelica;
   import Dynawo;
   import Dynawo.Types;
@@ -84,11 +84,11 @@ model REEC_ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {90, 79}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze PID_V(Ti = Kqp / Kqi, controllerType = Modelica.Blocks.Types.SimpleController.PI, initType = Modelica.Blocks.Types.InitPID.InitialState, k = Kqp, limitsAtInit = true, xi_start = UInj0Pu / Kvp, yMax = Vmax, yMin = Vmin, y_start = UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, 20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltage_Dip(Vdip = Vdip, Vup = Vup) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltage_Dip(UMinPu = UMinPu, UMaxPu = UMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-230, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.VarLimPIDFreeze PID_VQ(Ti = Kvp / Kvi, controllerType = Modelica.Blocks.Types.SimpleController.PI, initType = Modelica.Blocks.Types.InitPID.InitialState, k = Kvp, limitsAtInit = true, xi_start = QInj0Pu / UInj0Pu / Kqp, y_start = QInj0Pu / UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {180, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitLogic currentLimitLogic1(Imax = Imax, Pqflag = PqFlag) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculation currentLimitsCalculation1(Imax = Imax, PPriority = PPriority) annotation(
     Placement(visible = true, transformation(origin = {410, 29}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter Iqcmd_lim(limitsAtInit = true) annotation(
     Placement(visible = true, transformation(origin = {410, -21}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -116,9 +116,9 @@ model REEC_ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {4, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn3(y = FRTon)  annotation(
     Placement(visible = true, transformation(origin = {-80, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitLogic1.Iqmax)  annotation(
+  Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.Iqmax)  annotation(
     Placement(visible = true, transformation(origin = {130, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitLogic1.Iqmin)  annotation(
+  Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.Iqmin)  annotation(
     Placement(visible = true, transformation(origin = {130, -33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu1(y = UFilteredPu)  annotation(
     Placement(visible = true, transformation(origin = {50, 73}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -186,19 +186,19 @@ equation
     Line(points = {{-270, -70}, {-242, -70}}, color = {0, 0, 127}));
   connect(Vref.y, Verr_FRT.u1) annotation(
     Line(points = {{21, 36}, {118, 36}}, color = {0, 0, 127}));
-  connect(currentLimitLogic1.Ipmax, Idcmd_lim.limit1) annotation(
+  connect(currentLimitsCalculation1.Ipmax, Idcmd_lim.limit1) annotation(
     Line(points = {{399, 31}, {360, 31}, {360, 87}, {398, 87}}, color = {0, 0, 127}));
-  connect(currentLimitLogic1.Iqmin, Iqcmd_lim.limit2) annotation(
+  connect(currentLimitsCalculation1.Iqmin, Iqcmd_lim.limit2) annotation(
     Line(points = {{399, 27}, {360, 27}, {360, -29}, {398, -29}}, color = {0, 0, 127}));
-  connect(currentLimitLogic1.Iqmax, Iqcmd_lim.limit1) annotation(
+  connect(currentLimitsCalculation1.Iqmax, Iqcmd_lim.limit1) annotation(
     Line(points = {{399, 23}, {380, 23}, {380, -13}, {398, -13}}, color = {0, 0, 127}));
-  connect(Id_delay.y, currentLimitLogic1.Ipcmd) annotation(
+  connect(Id_delay.y, currentLimitsCalculation1.Ipcmd) annotation(
     Line(points = {{439, 49}, {430, 49}, {430, 33}, {421, 33}}, color = {0, 0, 127}));
-  connect(Iq_delay.y, currentLimitLogic1.Iqcmd) annotation(
+  connect(Iq_delay.y, currentLimitsCalculation1.Iqcmd) annotation(
     Line(points = {{439, 9}, {430, 9}, {430, 25}, {421, 25}}, color = {0, 0, 127}));
   connect(Iqcmd_lim.y, Iq_delay.u) annotation(
     Line(points = {{421, -21}, {480, -21}, {480, 9}, {462, 9}}, color = {0, 0, 127}));
-  connect(currentLimitLogic1.Ipmin, Idcmd_lim.limit2) annotation(
+  connect(currentLimitsCalculation1.Ipmin, Idcmd_lim.limit2) annotation(
     Line(points = {{399, 35}, {380, 35}, {380, 71}, {398, 71}}, color = {0, 0, 127}));
   connect(Qflag_const.y, Qflagswitch.u2) annotation(
     Line(points = {{231, -40}, {240, -40}, {240, -27}, {268, -27}, {268, -27}}, color = {255, 0, 255}));
@@ -248,7 +248,7 @@ equation
     Line(points = {{-29, 160}, {-20, 160}, {-20, 184}, {-1, 184}}, color = {0, 0, 127}));
   connect(dPmax_const.y, Pcmd_filt.dy_max) annotation(
     Line(points = {{-29, 220}, {-20, 220}, {-20, 197}, {-1, 197}, {-1, 197}}, color = {0, 0, 127}));
-  connect(UPu, voltage_Dip.Vt) annotation(
+  connect(UPu, voltage_Dip.UPu) annotation(
     Line(points = {{-270, -70}, {-250, -70}, {-250, -40}, {-241, -40}, {-241, -40}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
@@ -264,4 +264,4 @@ equation
 </ul> </p></html>"),
     Diagram(coordinateSystem(extent = {{-260, -130}, {500, 250}}, grid = {1, 1})),
   Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-23, 22}, extent = {{-57, 58}, {103, -102}}, textString = "Electrical Control"), Text(origin = {137, 79}, extent = {{-23, 13}, {35, -21}}, textString = "idCmdPu"), Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"), Text(origin = {141, 13}, extent = {{-23, 13}, {17, -11}}, textString = "FRTon"), Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}}, textString = "UPu"), Text(origin = {-19, -117}, extent = {{-33, 21}, {9, -3}}, textString = "QInjPu"), Text(origin = {41, -117}, extent = {{-33, 21}, {9, -3}}, textString = "PInjPu"), Text(origin = {-135, 79}, extent = {{-23, 13}, {35, -21}}, textString = "PInjRefPu"), Text(origin = {-135, -41}, extent = {{-23, 13}, {35, -21}}, textString = "QInjRefPu"), Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu")}, coordinateSystem(initialScale = 0.1)));
-end REEC_ElectricalControl;
+end ElectricalControl;

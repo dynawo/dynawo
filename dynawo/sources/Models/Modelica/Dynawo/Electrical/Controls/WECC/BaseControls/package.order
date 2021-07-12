@@ -1,5 +1,5 @@
 UdqRef
-calcUPcc
+LineDropCompensation
 VoltageCheck
-CurrentLimitLogic
+CurrentLimitsCalculation
 VSourceRef

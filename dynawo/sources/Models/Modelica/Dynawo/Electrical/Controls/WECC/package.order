@@ -1,6 +1,6 @@
 BaseControls
 Parameters
-REEC_ElectricalControl
-REGC_GeneratorControl
-REPC_PlantControl
+ElectricalControl
+GeneratorControl
+PlantControl
 Utilities

@@ -53,10 +53,10 @@ record Parameters "Parameters of the PV WECC model"
     parameter Boolean QFlag "Q control flag: const. pf or Q ctrl (0) or voltage/Q (1)";
     parameter Boolean VFlag "Voltage control flag: voltage control (0) or Q ctrl (1)";
     parameter Boolean PfFlag "Power factor flag: Q control (0) or pf control(1)";
-    parameter Boolean PqFlag "Q/P priority: Q priority (0) or P priority (1)";
+    parameter Boolean PPriority "Q/P priority: Q priority (0) or P priority (1)";
     parameter Types.Time Trv "Filter time constant terminal voltage (typical: 0.01..0.02)";
-    parameter Types.PerUnit Vdip "Low voltage condition trigger voltage for FRT (typical: 0..0.9)";
-    parameter Types.PerUnit Vup "High voltage condition trigger voltage for FRT (typical: 1.1..1.3)";
+    parameter Types.PerUnit UMinPu "Low voltage condition trigger voltage for FRT (typical: 0..0.9)";
+    parameter Types.PerUnit UMaxPu "High voltage condition trigger voltage for FRT (typical: 1.1..1.3)";
     parameter Types.PerUnit Vref0 "Reference voltage for reactive current injection (typical: 0.95..1.05)";
     parameter Types.PerUnit dbd1 "Overvoltage deadband for reactive current injection (typical: -0.1..0)";
     parameter Types.PerUnit dbd2 "Undervoltage deadband for reactive current injection (typical: 0..0.1)";

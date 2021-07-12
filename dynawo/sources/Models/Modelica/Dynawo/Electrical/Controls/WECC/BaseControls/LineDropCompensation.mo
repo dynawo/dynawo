@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model calcUPcc
+model LineDropCompensation
   import Modelica;
   import Dynawo.Types;
 
@@ -21,18 +21,18 @@ model calcUPcc
 
   Modelica.ComplexBlocks.Interfaces.ComplexInput iPu annotation(
     Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Interfaces.ComplexInput uPu annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput u2Pu annotation(
     Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput UPuLineDrop annotation(
+  Modelica.Blocks.Interfaces.RealOutput U1Pu annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput UPu annotation(
+  Modelica.Blocks.Interfaces.RealOutput U2Pu annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  UPuLineDrop = ComplexMath.'abs'(uPu + iPu * Complex(Rc,Xc));
-  UPu = ComplexMath.'abs'(uPu);
+  U1Pu = ComplexMath.'abs'(u2Pu + iPu * Complex(Rc,Xc));
+  U2Pu = ComplexMath.'abs'(u2Pu);
 
   annotation(preferredView = "text",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-4, 2}, extent = {{-76, 78}, {84, -82}}, textString = "|V-Z*I|"), Text(origin = {-141, 89}, extent = {{3, -3}, {37, -19}}, textString = "iPu"), Text(origin = {-141, -31}, extent = {{3, -3}, {37, -19}}, textString = "uPu"), Text(origin = {112.5, 82}, extent = {{-10.5, 7}, {49.5, -24}}, textString = "UPuLineDrop"), Text(origin = {89, -35}, extent = {{9, -7}, {37, -19}}, textString = "UPu")}, coordinateSystem(initialScale = 0.1)));
-end calcUPcc;
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-4, 2}, extent = {{-76, 78}, {84, -82}}, textString = "|V-Z*I|"), Text(origin = {-141, 89}, extent = {{3, -3}, {37, -19}}, textString = "iPu"), Text(origin = {-141, -31}, extent = {{3, -3}, {37, -19}}, textString = "u2Pu"),  Text(origin = {89, -35}, extent = {{9, -7}, {37, -19}}, textString = "U2Pu"), Text(origin = {89, 87}, extent = {{9, -7}, {37, -19}}, textString = "U1Pu")}, coordinateSystem(initialScale = 0.1)));
+end LineDropCompensation;

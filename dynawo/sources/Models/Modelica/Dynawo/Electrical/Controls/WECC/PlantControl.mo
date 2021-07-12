@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.WECC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model REPC_PlantControl "WECC PV Plant Control REPC"
+model PlantControl "WECC PV Plant Control REPC"
   import Modelica;
   import Dynawo;
   import Dynawo.Types;
@@ -81,7 +81,7 @@ model REPC_PlantControl "WECC PV Plant Control REPC"
     Placement(visible = true, transformation(origin = {-30, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder Ubranch_Filt(T = Tfltr, initType = Modelica.Blocks.Types.Init.SteadyState, y_start = if VcompFlag == true then URefPu else UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.calcUPcc calcUPCC1(Rc = Rc, Xc = Xc) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.LineDropCompensation lineDropCompensation1(Rc = Rc, Xc = Xc) annotation(
     Placement(visible = true, transformation(origin = {-270, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch VCompFlagSwitch annotation(
     Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -109,7 +109,7 @@ model REPC_PlantControl "WECC PV Plant Control REPC"
     Placement(visible = true, transformation(origin = {50, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze PID_Q(Td = 0, Ti = Kp / Ki, controllerType = Modelica.Blocks.Types.SimpleController.PI, initType = Modelica.Blocks.Types.InitPID.InitialState, k = Kp, limitsAtInit = true, xi_start = QInj0Pu / Kp, yMax = QMax, yMin = QMin, y_start = QInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltage_check1(Vdip = Vfrz, Vup = 999) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltage_check1(UMinPu = Vfrz, UMaxPu = 999) annotation(
     Placement(visible = true, transformation(origin = {-230, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant uRefPu(k = URefPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -128,7 +128,7 @@ protected
   final parameter Types.PerUnit URefPu = if VcompFlag == true then UInj0Pu else (U0Pu + Kc * QGen0Pu) "Voltage setpoint for plant level control, calculated depending on VcompFlag";
 
 equation
-  connect(calcUPCC1.UPu, voltage_check1.Vt) annotation(
+  connect(lineDropCompensation1.U2Pu, voltage_check1.UPu) annotation(
     Line(points = {{-259, 94}, {-241, 94}}, color = {0, 0, 127}));
   connect(PID_Q.y, QVext_LeadLag.u) annotation(
     Line(points = {{141, 50}, {158, 50}}, color = {0, 0, 127}));
@@ -176,13 +176,13 @@ equation
     Line(points = {{-139, 80}, {-122, 80}}, color = {255, 0, 255}));
   connect(GainKc.y, QVCtrlErr.u2) annotation(
     Line(points = {{-259, 50}, {-242, 50}}, color = {0, 0, 127}));
-  connect(uPu, calcUPCC1.uPu) annotation(
+  connect(uPu, lineDropCompensation1.u2Pu) annotation(
     Line(points = {{-310, 80}, {-290, 80}, {-290, 94}, {-281, 94}, {-281, 94}}, color = {85, 170, 255}));
-  connect(iPu, calcUPCC1.iPu) annotation(
+  connect(iPu, lineDropCompensation1.iPu) annotation(
     Line(points = {{-310, 120}, {-290, 120}, {-290, 106}, {-281, 106}, {-281, 106}}, color = {85, 170, 255}));
   connect(QRegPu, Qbranch_Filt.u) annotation(
     Line(points = {{-310, 50}, {-290, 50}, {-290, 20}, {-242, 20}}, color = {0, 0, 127}));
-  connect(calcUPCC1.UPu, QVCtrlErr.u1) annotation(
+  connect(lineDropCompensation1.U2Pu, QVCtrlErr.u1) annotation(
     Line(points = {{-259, 94}, {-250, 94}, {-250, 62}, {-242, 62}, {-242, 62}}, color = {0, 0, 127}));
   connect(freeze1.y, PID_Q.freeze) annotation(
     Line(points = {{111, 90}, {123, 90}, {123, 62}}, color = {255, 0, 255}));
@@ -208,7 +208,7 @@ equation
     Line(points = {{-18, 14}, {-10, 14}, {-10, 42}, {-3, 42}}, color = {0, 0, 127}));
   connect(uRefPu.y, UCtrlErr.u1) annotation(
     Line(points = {{-59, 120}, {-50, 120}, {-50, 92}, {-42, 92}}, color = {0, 0, 127}));
-  connect(calcUPCC1.UPuLineDrop, VCompFlagSwitch.u1) annotation(
+  connect(lineDropCompensation1.U1Pu, VCompFlagSwitch.u1) annotation(
     Line(points = {{-259, 106}, {-130, 106}, {-130, 88}, {-122, 88}, {-122, 88}}, color = {0, 0, 127}));
   connect(QVCtrlErr.y, VCompFlagSwitch.u3) annotation(
     Line(points = {{-219, 56}, {-130, 56}, {-130, 72}, {-122, 72}, {-122, 72}}, color = {0, 0, 127}));
@@ -232,4 +232,4 @@ equation
     uses(Modelica(version = "3.2.3")),
     __OpenModelica_commandLineOptions = "",
   Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "Plant Control"), Text(origin = {137, 74}, extent = {{-23, 10}, {41, -12}}, textString = "PInjRefPu"), Text(origin = {59, 110}, extent = {{-15, 12}, {11, -12}}, textString = "QPu"), Text(origin = {103, 110}, extent = {{-15, 12}, {11, -12}}, textString = "PPu"), Text(origin = {-53, 110}, extent = {{-15, 12}, {11, -12}}, textString = "iPu"), Text(origin = {-7, 110}, extent = {{-15, 12}, {11, -12}}, textString = "uPu"), Text(origin = {-149, -10}, extent = {{-23, 10}, {21, -10}}, textString = "PRefPu"), Text(origin = {-149, -52}, extent = {{-23, 10}, {21, -10}}, textString = "QRefPu"), Text(origin = {-149, 34}, extent = {{-55, 40}, {21, -10}}, textString = "OmegaRefPu"), Text(origin = {-151, 78}, extent = {{-31, 32}, {21, -10}}, textString = "OmegaPu"),  Text(origin = {139, -46}, extent = {{-23, 10}, {41, -12}}, textString = "QInjRefPu"), Text(origin = {137, 12}, extent = {{-23, 10}, {27, -8}}, textString = "freeze")}, coordinateSystem(initialScale = 0.1)));
-end REPC_PlantControl;
+end PlantControl;

@@ -12,17 +12,16 @@ within Dynawo.NonElectrical.Blocks.MathBoolean;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block FallingEdgeDelay "Trigger on falling edge with reset time, based on Modelica.Blocks.MathBoolean.OnDelay."
-  import Modelica.Blocks.Interfaces;
-  import Modelica.SIunits;
+block OffDelay "Delay a falling edge of the input, but do not delay a rising edge."
+  import Modelica;
 
-  extends Interfaces.PartialBooleanSISO_small;
+  extends Modelica.Blocks.Interfaces.PartialBooleanSISO_small;
 
-  parameter SIunits.Time delayTime "Delay time, used as reset time";
+  parameter Modelica.SIunits.Time delayTime "Delay time";
 
 protected
   Boolean delaySignal(start = false, fixed = true);
-  discrete SIunits.Time t_next;
+  discrete Modelica.SIunits.Time t_next;
 
 initial equation
   pre(u) = false;
@@ -34,7 +33,7 @@ algorithm
     t_next := time - 1;
   elsewhen u then
     delaySignal := false;
-    t_next := time -1;
+    t_next := time - 1;
   elsewhen not u then
     delaySignal := true;
     t_next := time + delayTime;
@@ -47,4 +46,4 @@ equation
     y = false;
   end if;
 
-end FallingEdgeDelay;
+end OffDelay;

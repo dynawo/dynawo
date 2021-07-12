@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.WECC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model REGC_GeneratorControl "WECC PV Generator Control REGC"
+model GeneratorControl "WECC PV Generator Control REGC"
   import Modelica;
   import Dynawo;
 
@@ -68,7 +68,7 @@ model REGC_GeneratorControl "WECC PV Generator Control REGC"
     Placement(visible = true, transformation(origin = {-80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constMinFix(k = -9999) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.MathBoolean.FallingEdgeDelay fallingEdge(delayTime = max(abs(1/Iqrmax),abs(1/Iqrmin)))  annotation(
+  Dynawo.NonElectrical.Blocks.MathBoolean.OffDelay fallingEdge(delayTime = max(abs(1/Iqrmax),abs(1/Iqrmin)))  annotation(
     Placement(visible = true, transformation(origin = {-120, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
@@ -139,4 +139,4 @@ Documentation(info="<html>
   reactive power injection (posititve)")}),
   Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-27, 20}, extent = {{-53, 60}, {107, -100}}, textString = "Generator Control"), Text(origin = {134, -42}, extent = {{-22, 16}, {36, -28}}, textString = "idRefPu"), Text(origin = {134, 62}, extent = {{-22, 16}, {36, -32}}, textString = "iqRefPu"), Text(origin = {-28, -117}, extent = {{-18, 15}, {6, -1}}, textString = "UPu"), Text(origin = {-138, 82}, extent = {{-22, 16}, {36, -28}}, textString = "idCmdPu"), Text(origin = {-138, -38}, extent = {{-22, 16}, {36, -28}}, textString = "iqCmdPu"), Text(origin = {-138, 28}, extent = {{-8, 6}, {36, -28}}, textString = "FRTon")}, coordinateSystem(initialScale = 0.1)));
 
-end REGC_GeneratorControl;
+end GeneratorControl;

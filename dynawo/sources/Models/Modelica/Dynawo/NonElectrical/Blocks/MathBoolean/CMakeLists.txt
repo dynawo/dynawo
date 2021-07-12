@@ -10,7 +10,8 @@
 
 set(MODEL_FILES
   package.mo
-  FallingEdgeDelay.mo
+  package.order
+  OffDelay.mo
   )
 
 #

@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block UdqRef "Calculation of setpoints udRef and uqRef of inner voltage source with source impedance R+jX based on current setpoints idRef and iqRef at measured terminal voltage ud and uq "
+block UdqRef "Calculation of setpoints udRef and uqRef with source impedance R+jX based on current setpoints idRef and iqRef and measured terminal voltage ud and uq "
 
   import Modelica.Blocks;
   import Dynawo.Types;
