@@ -29,10 +29,10 @@ namespace job {
 boost::shared_ptr<JobEntry>
 JobEntry::Impl::clone() const {
   boost::shared_ptr<JobEntry::Impl> newJob = boost::make_shared<JobEntry::Impl>();
-  newJob->modelerEntry_ = modelerEntry_ ? modelerEntry_->clone() : NULL;
-  newJob->solverEntry_ = solverEntry_ ? solverEntry_->clone() : NULL;
-  newJob->simulationEntry_ = simulationEntry_ ? simulationEntry_->clone() : NULL;
-  newJob->outputsEntry_ = outputsEntry_ ? outputsEntry_->clone() : NULL;
+  newJob->modelerEntry_ = modelerEntry_ ? modelerEntry_->clone() : boost::shared_ptr<ModelerEntry>();
+  newJob->solverEntry_ = solverEntry_ ? solverEntry_->clone() : boost::shared_ptr<SolverEntry>();
+  newJob->simulationEntry_ = simulationEntry_ ? simulationEntry_->clone() : boost::shared_ptr<SimulationEntry>();
+  newJob->outputsEntry_ = outputsEntry_ ? outputsEntry_->clone() : boost::shared_ptr<OutputsEntry>();
   newJob->name_ = name_;
   return newJob;
 }

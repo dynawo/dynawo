@@ -33,12 +33,12 @@ namespace job {
 void OutputsEntry::Impl::copy(const OutputsEntry::Impl& other) {
   outputsDirectory_ = other.outputsDirectory_;
 
-  initValuesEntry_ = other.initValuesEntry_ ? other.initValuesEntry_->clone() : NULL;
-  constraintsEntry_ = other.constraintsEntry_ ? other.constraintsEntry_->clone() : NULL;
-  timelineEntry_ = other.timelineEntry_ ? other.timelineEntry_->clone() : NULL;
-  finalStateEntry_ = other.finalStateEntry_ ? other.finalStateEntry_->clone() : NULL;
-  curvesEntry_ = other.curvesEntry_ ? other.curvesEntry_->clone() : NULL;
-  logsEntry_ = other.logsEntry_ ? other.logsEntry_->clone() : NULL;
+  initValuesEntry_ = other.initValuesEntry_ ? other.initValuesEntry_->clone() : boost::shared_ptr<InitValuesEntry>();
+  constraintsEntry_ = other.constraintsEntry_ ? other.constraintsEntry_->clone() : boost::shared_ptr<ConstraintsEntry>();
+  timelineEntry_ = other.timelineEntry_ ? other.timelineEntry_->clone() : boost::shared_ptr<TimelineEntry>();
+  finalStateEntry_ = other.finalStateEntry_ ? other.finalStateEntry_->clone() : boost::shared_ptr<FinalStateEntry>();
+  curvesEntry_ = other.curvesEntry_ ? other.curvesEntry_->clone() : boost::shared_ptr<CurvesEntry>();
+  logsEntry_ = other.logsEntry_ ? other.logsEntry_->clone() : boost::shared_ptr<LogsEntry>();
 }
 
 boost::shared_ptr<OutputsEntry>
