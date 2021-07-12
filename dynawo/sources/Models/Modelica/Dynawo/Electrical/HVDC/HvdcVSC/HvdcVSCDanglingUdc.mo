@@ -21,6 +21,7 @@ model HvdcVSCDanglingUdc "HVDC VSC model with terminal2 connected to a switched-
   import Dynawo.Types;
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
+  import Dynawo.Electrical.Constants;
 
   Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(visible = true, transformation(origin = {-130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -62,6 +63,7 @@ model HvdcVSCDanglingUdc "HVDC VSC model with terminal2 connected to a switched-
     Placement(visible = true, transformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PQDanglingTerminal(k = 0) annotation(
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Constants.state Conv2_state (start = Conv2_State0) "Converter 2 connection state";
 
 protected
   parameter Types.VoltageModulePu U10Pu  "Start value of voltage amplitude at terminal 1 in p.u (base UNom)";
@@ -78,6 +80,7 @@ protected
 
   parameter Types.ActivePowerPu P20Pu  "Start value of active power at terminal 2 in p.u (base SnRef) (receptor convention)";
   parameter Types.VoltageModulePu Udc20Pu "Start value of dc voltage at terminal 2 in p.u (base UdcNom)";
+  parameter Constants.state Conv2_State0 = Constants.state.Closed "Start value of converter 2 connection state";
 
 equation
   connect(PQDanglingTerminal.y, Conv2_PInjPu) annotation(
@@ -117,6 +120,7 @@ equation
   connect(Conv1.QInjPuSn, UdcPu_Side.QPu) annotation(
     Line(points = {{-101, 1}, {-108, 1}, {-108, -26}, {-59, -26}, {-59, -16}, {-59, -16}}, color = {0, 0, 127}));
   terminal2.i = Complex(0,0);
+  Conv2_state = Conv1.state;
 
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -70}, {120, 70}})),

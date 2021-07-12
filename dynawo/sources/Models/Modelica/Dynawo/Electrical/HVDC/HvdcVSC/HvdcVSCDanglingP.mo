@@ -21,6 +21,7 @@ model HvdcVSCDanglingP "HVDC VSC model with terminal2 connected to a switched-of
   import Dynawo.Types;
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
+  import Dynawo.Electrical.Constants;
 
   Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(visible = true, transformation(origin = {-130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -57,6 +58,7 @@ model HvdcVSCDanglingP "HVDC VSC model with terminal2 connected to a switched-of
     Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput Conv2_QInjPu(start = 0) annotation(
     Placement(visible = true, transformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Constants.state Conv2_state (start = Conv2_State0) "Converter 2 connection state";
 
 protected
   parameter Types.VoltageModulePu U10Pu  "Start value of voltage amplitude at terminal 1 in p.u (base UNom)";
@@ -69,6 +71,8 @@ protected
   parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in p.u (base SNom)";
   parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in p.u (base SNom)";
   parameter Real modeU10 "Start value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
+
+  parameter Constants.state Conv2_State0 = Constants.state.Closed "Start value of converter 2 connection state";
 
 equation
   connect(modeU1, realToBoolean.u) annotation(
@@ -102,6 +106,7 @@ equation
   connect(PQDanglingTerminal.y, Conv2_QInjPu) annotation(
     Line(points = {{91, 40}, {100, 40}, {100, 30}, {130, 30}, {130, 30}}, color = {0, 0, 127}));
   terminal2.i = Complex(0,0);
+  Conv2_state = Conv1.state;
 
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -70}, {120, 70}})),
