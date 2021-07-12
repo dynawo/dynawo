@@ -1,4 +1,11 @@
 BaseControls
+<<<<<<< HEAD
+=======
+Parameters
+ElectricalControl
+GeneratorControl
+PlantControl
+>>>>>>> #672 Some renaming
 Utilities
 Parameters
 ElectricalControl
