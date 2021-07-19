@@ -763,7 +763,7 @@ if(NOT OMCompiler)
                 COMMAND   <SOURCE_DIR>/configure
                           "CC=${CMAKE_C_COMPILER}"
                           "CXX=${CMAKE_CXX_COMPILER}"
-                          --prefix=<INSTALL_DIR> -
+                          --prefix=<INSTALL_DIR>
                           -disable-modelica3d
                           --disable-omnotebook
                           --disable-omshell-terminal
