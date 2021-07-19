@@ -223,6 +223,15 @@ class DataInterfaceIIDM : public DataInterface {
   boost::shared_ptr<VoltageLevelInterface> findVoltageLevelInterface(const std::string& id) const;
 
   /**
+   * @brief find a calculated bus interface thanks to its voltageLevel id and a bus bar section id
+   * @param voltageLevelId id of the voltageLevel where the bus should be found
+   * @param bbsId id of a bus bar section associated to the bus to be found
+   *
+   * @return instance of the calculated bus interface
+   */
+  boost::shared_ptr<BusInterface> findCalculatedBusInterface(const std::string& voltageLevelId, const std::string& bbsId) const;
+
+  /**
    * @brief import and create a voltage level interface thanls to the IIDM instance
    *
    * @param voltageLevelIIDM IIDM instance to use to create voltageLevelInterface

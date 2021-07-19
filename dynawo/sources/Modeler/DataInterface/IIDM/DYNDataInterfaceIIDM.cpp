@@ -1038,7 +1038,7 @@ shared_ptr<BusInterface>
 DataInterfaceIIDM::findCalculatedBusInterface(const string& voltageLevelId, const int& node) {
   map<string, vector<shared_ptr<CalculatedBusInterfaceIIDM> > >::iterator iter = calculatedBusComponents_.find(voltageLevelId);
   if (iter == calculatedBusComponents_.end())
-    throw DYNError(Error::MODELER, UnknownCalculatedBus, voltageLevelId);
+    throw DYNError(Error::MODELER, UnknownCalculatedBus, voltageLevelId, node);
 
   vector<shared_ptr<CalculatedBusInterfaceIIDM> > buses = iter->second;
   for (unsigned int i = 0; i < buses.size(); ++i) {
@@ -1046,6 +1046,19 @@ DataInterfaceIIDM::findCalculatedBusInterface(const string& voltageLevelId, cons
       return buses[i];
   }
   throw DYNError(Error::MODELER, UnknownCalculatedBus, voltageLevelId, node);
+}
+
+shared_ptr<BusInterface>
+DataInterfaceIIDM::findCalculatedBusInterface(const string& voltageLevelId, const string& bbsId) {
+  map<string, vector<shared_ptr<CalculatedBusInterfaceIIDM> > >::iterator iter = calculatedBusComponents_.find(voltageLevelId);
+  if (iter != calculatedBusComponents_.end()) {
+    vector<shared_ptr<CalculatedBusInterfaceIIDM> > buses = iter->second;
+    for (unsigned int i = 0; i < buses.size(); ++i) {
+      if (buses[i]->hasBusBarSection(bbsId))
+        return buses[i];
+    }
+  }
+  return shared_ptr<BusInterface>();
 }
 
 shared_ptr<ComponentInterface>&
@@ -1185,17 +1198,29 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
       for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
           cmpItEnd = crit->end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        std::map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator busItfIter = components_.find(*cmpIt);
-        if (busItfIter != components_.end()) {
-          const boost::shared_ptr<ComponentInterface>& cmp = busItfIter->second;
-          if (cmp->getType() != ComponentInterface::BUS)
-            Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "bus") << Trace::endline;
-          boost::shared_ptr<BusInterface> bus = dynamic_pointer_cast<BusInterface>(cmp);
-          assert(bus);
-          dynCriteria->addBus(bus);
+        shared_ptr<BusInterface> bus;
+        if (!cmpIt->getVoltageLevelId().empty()) {
+          bus = findCalculatedBusInterface(cmpIt->getVoltageLevelId(), cmpIt->getId());
+          if (!bus) {
+            Trace::warn() << DYNLog(CalculatedBusNotFound, cmpIt->getVoltageLevelId(), cmpIt->getId()) << Trace::endline;
+            continue;
+          }
         } else {
-          Trace::warn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+          map<std::string, shared_ptr<ComponentInterface> >::const_iterator busItfIter = components_.find(cmpIt->getId());
+          if (busItfIter != components_.end()) {
+            const shared_ptr<ComponentInterface> &cmp = busItfIter->second;
+            if (cmp->getType() != ComponentInterface::BUS) {
+              Trace::warn() << DYNLog(WrongComponentType, cmpIt->getId(), "bus") << Trace::endline;
+              continue;
+            }
+            bus = dynamic_pointer_cast<BusInterface>(cmp);
+            assert(bus);
+          } else {
+            Trace::warn() << DYNLog(ComponentNotFound, cmpIt->getId()) << Trace::endline;
+            continue;
+          }
         }
+        dynCriteria->addBus(bus);
       }
     } else {
       for (std::map<std::string, boost::shared_ptr<BusInterface> >::const_iterator cmpIt = busComponents_.begin(),
@@ -1230,16 +1255,18 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
       for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
           cmpItEnd = crit->end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        std::map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator loadItfIter = components_.find(*cmpIt);
+        std::map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator loadItfIter = components_.find(cmpIt->getId());
         if (loadItfIter != components_.end()) {
           const boost::shared_ptr<ComponentInterface>& cmp = loadItfIter->second;
-          if (cmp->getType() != ComponentInterface::LOAD)
-            Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "load") << Trace::endline;
+          if (cmp->getType() != ComponentInterface::LOAD) {
+            Trace::warn() << DYNLog(WrongComponentType, cmpIt->getId(), "load") << Trace::endline;
+            continue;
+          }
           boost::shared_ptr<LoadInterface> load = dynamic_pointer_cast<LoadInterface>(cmp);
           assert(load);
           dynCriteria->addLoad(load);
         } else {
-          Trace::warn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+          Trace::warn() << DYNLog(ComponentNotFound, cmpIt->getId()) << Trace::endline;
         }
       }
     } else {
@@ -1267,16 +1294,18 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
       for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
           cmpItEnd = crit->end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        std::map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator generatorItfIter = components_.find(*cmpIt);
+        std::map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator generatorItfIter = components_.find(cmpIt->getId());
         if (generatorItfIter != components_.end()) {
           const boost::shared_ptr<ComponentInterface>& cmp = generatorItfIter->second;
-          if (cmp->getType() != ComponentInterface::GENERATOR)
-            Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "generator") << Trace::endline;
+          if (cmp->getType() != ComponentInterface::GENERATOR) {
+            Trace::warn() << DYNLog(WrongComponentType, cmpIt->getId(), "generator") << Trace::endline;
+            continue;
+          }
           boost::shared_ptr<GeneratorInterface> gen = dynamic_pointer_cast<GeneratorInterface>(cmp);
           assert(gen);
           dynCriteria->addGenerator(gen);
         } else {
-          Trace::warn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+          Trace::warn() << DYNLog(ComponentNotFound, cmpIt->getId()) << Trace::endline;
         }
       }
     } else {

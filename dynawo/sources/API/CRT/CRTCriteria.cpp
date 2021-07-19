@@ -16,6 +16,22 @@
 
 namespace criteria {
 
+  Criteria::ComponentId::ComponentId(const std::string& id, const std::string& voltageLevelId) :
+    id_(id),
+    voltageLevelId_(voltageLevelId) {}
+
+  const std::string&
+  Criteria::ComponentId::getId() const {
+    return id_;
+  }
+
+  const std::string&
+  Criteria::ComponentId::getVoltageLevelId() const {
+    return voltageLevelId_;
+  }
+
+/////////////////////////////////////////////////
+
 Criteria::component_id_const_iterator::component_id_const_iterator(const Criteria::Impl* iterated, bool begin) :
 impl_(new BaseCompIdConstIteratorImpl(iterated, begin)) { }
 
@@ -72,12 +88,12 @@ Criteria::component_id_const_iterator::operator!=(const Criteria::component_id_c
   return *impl_ != *(other.impl_);
 }
 
-const std::string&
+const Criteria::ComponentId&
 Criteria::component_id_const_iterator::operator*() const {
   return *(*impl_);
 }
 
-const std::string*
+const Criteria::ComponentId*
 Criteria::component_id_const_iterator::operator->() const {
   return impl_->operator->();
 }
