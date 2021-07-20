@@ -50,19 +50,45 @@ class Timeline :
             self.time_to_events[time] = new_events
 
         print "[INFO] Removing opposed events"
+        use_iso88591 = False
+        for event in events:
+            try:
+                event.event.decode('utf-8')
+            except UnicodeDecodeError:
+                use_iso88591 = True
+                break
+        if not use_iso88591:
+            for event in dicOppositeEvents:
+                try:
+                    event.decode('utf-8')
+                    for msg in dicOppositeEvents[event]:
+                        msg.decode('utf-8')
+                except UnicodeDecodeError:
+                    use_iso88591 = True
+                    break
         for time in self.time_to_events:
             events = self.time_to_events[time]
             idx_to_check = 1
             while idx_to_check <= len(events) - 1:
                 curr_event = events[len(events) - idx_to_check]
-                if curr_event.event not in dicOppositeEvents:
-                    idx_to_check += 1
-                    continue
-                id_to_remove = []
-                events_to_delete = dicOppositeEvents[curr_event.event]
-                for i in range(len(events) - idx_to_check - 1, -1, -1):
-                    if events[i].event in events_to_delete:
-                        id_to_remove.append(i)
+                if not use_iso88591:
+                    if curr_event.event not in dicOppositeEvents:
+                        idx_to_check += 1
+                        continue
+                    id_to_remove = []
+                    events_to_delete = dicOppositeEvents[curr_event.event]
+                    for i in range(len(events) - idx_to_check - 1, -1, -1):
+                        if events[i].event in events_to_delete:
+                            id_to_remove.append(i)
+                else:
+                    if curr_event.event.encode('iso8859-1') not in dicOppositeEvents:
+                        idx_to_check += 1
+                        continue
+                    id_to_remove = []
+                    events_to_delete = dicOppositeEvents[curr_event.event.encode('iso8859-1')]
+                    for i in range(len(events) - idx_to_check - 1, -1, -1):
+                        if events[i].event.encode('iso8859-1') in events_to_delete:
+                            id_to_remove.append(i)
                 for i in id_to_remove:
                     del events[i]
                 idx_to_check += 1
