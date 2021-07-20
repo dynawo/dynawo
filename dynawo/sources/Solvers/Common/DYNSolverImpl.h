@@ -188,7 +188,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
   * @brief compute time scheme related derivatives
   */
-  virtual void computeYP(const double* /*yy*/) { }
+  virtual void computeYP(const double* /*yy*/) { /* not needed */ }
 
   /**
    * @copydoc Solver::printSolve() const

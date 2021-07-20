@@ -115,7 +115,8 @@ class IIDMExtensions {
   }
 
  private:
-  using LibraryPath = std::string;  ///< Alias for library path in map
+  ///< Alias for library path in map
+  using LibraryPath = std::string;
 
  private:
   /**
