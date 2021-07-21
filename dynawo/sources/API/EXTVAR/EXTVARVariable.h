@@ -49,7 +49,6 @@ class Variable : public boost::noncopyable {
    * @brief Create new Variable
    * @param[in] id the variable identifier
    * @param[in] type the variable type (discrete or continuous)
-   * @return Shared pointer to a new @p Variable
    */
   Variable(const std::string& id, Type type);
 

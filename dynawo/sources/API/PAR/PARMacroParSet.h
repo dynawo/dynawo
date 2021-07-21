@@ -32,7 +32,6 @@ class MacroParSet {
   /**
    * @brief MacroParSet constructor
    * @param[in] id: id of the macroParSet
-   * @returns new MacroParSet::Impl instance with given attributes
    */
   explicit MacroParSet(const std::string& id);
 

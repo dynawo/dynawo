@@ -28,6 +28,9 @@ namespace DYN {
 class BusInterface;
 class VoltageLevelInterface;
 
+/**
+ * @brief Generator component
+ */
 class GeneratorInterface : public ComponentInterface {
  public:
   /**

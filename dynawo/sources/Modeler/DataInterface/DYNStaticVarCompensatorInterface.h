@@ -28,6 +28,9 @@ namespace DYN {
 class BusInterface;
 class VoltageLevelInterface;
 
+/**
+ * @brief Static var compensator interface
+ */
 class StaticVarCompensatorInterface : public ComponentInterface {
  public:
   /**

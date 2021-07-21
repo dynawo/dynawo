@@ -22,6 +22,9 @@
 
 namespace DYN {
 
+/**
+ * @brief Current limit interface
+ */
 class CurrentLimitInterface {
  public:
   /**

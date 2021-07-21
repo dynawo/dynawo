@@ -28,6 +28,9 @@
 namespace DYN {
 class LoadInterface;
 
+/**
+ * @brief Load component
+ */
 class ModelLoad : public NetworkComponent::Impl {
  public:
   /**
@@ -375,7 +378,6 @@ class ModelLoad : public NetworkComponent::Impl {
    * @param U2 voltage square
    * @param ir output: real current
    * @param ii output: imaginary current
-   * @return value
    */
   void getI(double ur, double ui, double U, double U2, double& ir, double& ii) const;  // compute the real current
 

@@ -26,6 +26,9 @@
 
 namespace DYN {
 
+/**
+ * @brief LCC converter interface
+ */
 class LccConverterInterface : public ConverterInterface {
  public:
   /**

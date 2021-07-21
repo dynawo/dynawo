@@ -26,6 +26,9 @@
 
 namespace DYN {
 
+/**
+ * @brief Bus interface
+ */
 class BusInterface : public ComponentInterface {
  public:
   /**

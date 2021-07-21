@@ -32,6 +32,9 @@ struct RatioTapChangerStep;
 
 namespace DYN {
 
+/**
+ * @brief IIDM Step interface implementation
+ */
 class StepInterfaceIIDM : public StepInterface {
  public:
   /**

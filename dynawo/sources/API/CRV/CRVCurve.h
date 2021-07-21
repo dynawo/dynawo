@@ -192,7 +192,6 @@ class Curve {
      * @param iterated Pointer to the points' vector iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the points' container.
-     * @returns Created const_iterator.
      */
     const_iterator(const Curve* iterated, bool begin);
     /**
@@ -206,7 +205,6 @@ class Curve {
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the points' container.
      * @param i Relative position of the iterator comparing to the beginning (true) or the ending (false)
-     * @returns Created const_iterator.
      */
     const_iterator(const Curve* iterated, bool begin, int i);
 

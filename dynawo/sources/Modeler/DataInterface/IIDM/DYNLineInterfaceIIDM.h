@@ -30,6 +30,9 @@ class Line;
 
 namespace DYN {
 
+/**
+ * @brief IIDM Line interface implementation
+ */
 class LineInterfaceIIDM : public LineInterface {
  public:
   /**
