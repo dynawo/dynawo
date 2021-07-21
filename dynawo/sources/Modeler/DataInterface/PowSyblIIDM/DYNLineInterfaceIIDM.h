@@ -24,10 +24,14 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNLineInterface.h"
+#include "DYNActiveSeasonIIDMExtension.h"
+#include "DYNIIDMExtensions.hpp"
+
+#include <boost/noncopyable.hpp>
 
 namespace DYN {
 
-class LineInterfaceIIDM : public LineInterface {
+class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
  public:
   /**
    * @brief defines the index of each state variable
@@ -180,6 +184,11 @@ class LineInterfaceIIDM : public LineInterface {
   std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces2() const;
 
   /**
+   * @copydoc LineInterface::getActiveSeason()
+   */
+  std::string getActiveSeason() const final;
+
+  /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();
@@ -204,6 +213,9 @@ class LineInterfaceIIDM : public LineInterface {
   std::vector<boost::shared_ptr<CurrentLimitInterface> > currentLimitInterfaces2_;  ///< current limit interfaces for side 2
   boost::optional<bool> initialConnected1_;                                         ///< side 1 initially connected
   boost::optional<bool> initialConnected2_;                                         ///< side 2 initially connected
+
+  ActiveSeasonIIDMExtension* activeSeasonExtension_;                                         ///< Active season extension
+  IIDMExtensions::DestroyFunction<ActiveSeasonIIDMExtension> destroyActiveSeasonExtension_;  ///< active season destroy function
 };                                                                                  ///< Interface class for Line model
 }  // namespace DYN
 

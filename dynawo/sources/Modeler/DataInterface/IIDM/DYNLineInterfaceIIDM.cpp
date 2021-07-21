@@ -299,6 +299,12 @@ LineInterfaceIIDM::exportStateVariablesUnitComponent() {
   }
 }
 
+std::string
+LineInterfaceIIDM::getActiveSeason() const {
+  // not implemented
+  return "UNDEFINED";
+}
+
 void
 LineInterfaceIIDM::importStaticParameters() {
   // no static parameter

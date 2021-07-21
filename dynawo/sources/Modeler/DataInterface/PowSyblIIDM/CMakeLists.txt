@@ -46,6 +46,7 @@ set(DATA_INTERFACE_IIDM_SOURCES
 
 set(DATA_INTERFACE_IIDM_HEADERS
   DYNStaticVarCompensatorInterfaceIIDMExtension.h
+  DYNActiveSeasonIIDMExtension.h
   )
 
 add_library(dynawo_DataInterfaceIIDM SHARED ${DATA_INTERFACE_IIDM_SOURCES})

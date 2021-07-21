@@ -184,6 +184,11 @@ class LineInterfaceIIDM : public LineInterface {
   std::vector<boost::shared_ptr<CurrentLimitInterface> > getCurrentLimitInterfaces2() const;
 
   /**
+   * @copydoc LineInterface::getActiveSeason()
+   */
+  std::string getActiveSeason() const;
+
+  /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();
