@@ -12,9 +12,9 @@
 //
 
 /**
- * @file  DYNVoltageSetPointChange.h
+ * @file  DYNModelVoltageSetPointChange.h
  *
- * @brief
+ * @brief Model to handle a voltage set point change on loads
  *
  */
 #ifndef MODELS_CPP_EVENTS_MODELVOLTAGESETPOINTCHANGE_DYNMODELVOLTAGESETPOINTCHANGE_H_
@@ -274,7 +274,7 @@ class ModelVoltageSetPointChange : public ModelCPP::Impl {
  private:
   double startTime_;  ///< start time
   double stopTime_;  ///< stop time
-  double voltageSetPointChange_;
+  double voltageSetPointChange_;  ///< value of the voltage change point change
   int numLoads_;  ///< number of loads
 };
 
