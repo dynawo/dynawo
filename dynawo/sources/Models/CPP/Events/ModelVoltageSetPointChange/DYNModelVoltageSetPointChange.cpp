@@ -14,7 +14,7 @@
 /**
  * @file  DYNModelVoltageSetPointChange.cpp
  *
- * @brief
+ * @brief Model to handle a voltage set point change on loads
  *
  */
 #include <iostream>
