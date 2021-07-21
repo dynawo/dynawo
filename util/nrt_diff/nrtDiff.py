@@ -688,7 +688,8 @@ def DirectoryDiffReferenceDataJob (jobs_file):
             if status in diff_statuses:
                 indices = [i for i, x in enumerate(diff_statuses) if x == status]
                 messages.extend([ diff_messages[index] for index in indices ])
-                final_status = status
+                if status_priority.index(status) < status_priority.index(final_status):
+                    final_status = status
     return (final_status, messages)
 
 ##

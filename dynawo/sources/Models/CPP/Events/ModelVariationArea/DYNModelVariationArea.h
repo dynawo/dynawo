@@ -17,8 +17,8 @@
  * @brief
  *
  */
-#ifndef MODELS_CPP_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
-#define MODELS_CPP_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
+#ifndef MODELS_CPP_EVENTS_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
+#define MODELS_CPP_EVENTS_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
 
 #include "DYNModelCPPImpl.h"
 #include "DYNSubModelFactory.h"
@@ -99,7 +99,6 @@ class ModelVariationArea : public ModelCPP::Impl {
    */
   void getSize();
 
-  // methodes avec std::vector
   /**
    * @brief  VariationArea F(t,y,y') function evaluation
    *
@@ -299,4 +298,4 @@ class ModelVariationArea : public ModelCPP::Impl {
 
 }  // namespace DYN
 
-#endif  // MODELS_CPP_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
+#endif  // MODELS_CPP_EVENTS_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
