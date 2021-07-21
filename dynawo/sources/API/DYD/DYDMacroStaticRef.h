@@ -37,8 +37,6 @@ class MacroStaticRef {
    * MacroStaticRef::Impl constructor.
    *
    * @param[in] id: id of the macroStaticRef
-   *
-   * @returns New MacroStaticRef::Impl instance with given attributes
    */
   explicit MacroStaticRef(const std::string& id);
 

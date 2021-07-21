@@ -76,7 +76,6 @@ class CurvesCollection {
      * @param iterated Pointer to the curves' collection iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the curves' container.
-     * @returns Created iterator.
      */
     iterator(CurvesCollection* iterated, bool begin);
 
@@ -160,7 +159,6 @@ class CurvesCollection {
      * @param iterated Pointer to the curves' collection iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the curves' container.
-     * @returns Created const_iterator.
      */
     const_iterator(const CurvesCollection* iterated, bool begin);
 

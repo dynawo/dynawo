@@ -33,6 +33,9 @@ class DanglingLine;
 
 namespace DYN {
 
+/**
+ * @brief IIDM Dangling line interface implementation
+ */
 class DanglingLineInterfaceIIDM : public DanglingLineInterface, public InjectorInterfaceIIDM<IIDM::DanglingLine> {
  public:
   /**

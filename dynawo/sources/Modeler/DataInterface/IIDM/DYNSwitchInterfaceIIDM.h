@@ -30,6 +30,9 @@ class Switch;
 namespace DYN {
 class Switch;
 
+/**
+ * @brief IIDM Switch interface implementation
+ */
 class SwitchInterfaceIIDM : public SwitchInterface {
  public:
   /**

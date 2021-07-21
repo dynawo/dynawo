@@ -69,6 +69,9 @@ class ThreeWTransformerInterface;
 class LineInterface;
 class HvdcLineInterface;
 
+/**
+ * @brief Data interface implementation
+ */
 class DataInterfaceIIDM : public DataInterface {
  public:
   /**

@@ -31,6 +31,9 @@ class ModelBus;
 class VscConverterInterface;
 class LccConverterInterface;
 
+/**
+ * @brief HVDC link component
+ */
 class ModelHvdcLink : public NetworkComponent::Impl {
  public:
   /**

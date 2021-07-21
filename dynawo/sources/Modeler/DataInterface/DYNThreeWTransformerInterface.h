@@ -27,6 +27,9 @@ class BusInterface;
 class VoltageLevelInterface;
 class CurrentLimitInterface;
 
+/**
+ * @brief 3W transformator interface
+ */
 class ThreeWTransformerInterface : public ComponentInterface {
  public:
   /**

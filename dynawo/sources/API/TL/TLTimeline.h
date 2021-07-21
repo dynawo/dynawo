@@ -83,7 +83,6 @@ class Timeline {
      * @param iterated Pointer to the events' set iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the events' container.
-     * @returns Created event_const_iterator.
      */
     event_const_iterator(const Timeline* iterated, bool begin);
 

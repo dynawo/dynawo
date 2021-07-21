@@ -326,7 +326,6 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
      * @param iterated Pointer to the parameters' set iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the parameters' container.
-     * @returns Created parameter_const_iterator.
      */
     parameter_const_iterator(const ParametersSet* iterated, bool begin);
 
@@ -422,7 +421,6 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
      * @param iterated Pointer to the references' set iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the references' container.
-     * @returns Created reference_const_iterator.
      */
     reference_const_iterator(const ParametersSet* iterated, bool begin);
 
@@ -504,7 +502,6 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
      * @param iterated Pointer to the macroparsets' set iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the macroparsets' container.
-     * @returns Created macroparset_const_iterator.
      */
     macroparset_const_iterator(const ParametersSet* iterated, bool begin);
 

@@ -26,6 +26,9 @@
 
 namespace DYN {
 
+/**
+ * @brief VSC converter interface
+ */
 class VscConverterInterface : public ConverterInterface {
  public:
   /**

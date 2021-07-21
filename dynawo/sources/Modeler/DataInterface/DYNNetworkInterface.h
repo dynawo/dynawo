@@ -31,6 +31,9 @@ class ThreeWTransformerInterface;
 class VoltageLevelInterface;
 class HvdcLineInterface;
 
+/**
+ * @brief Network interface
+ */
 class NetworkInterface {
  public:
   /**

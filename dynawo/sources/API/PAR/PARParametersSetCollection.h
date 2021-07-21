@@ -116,7 +116,6 @@ class ParametersSetCollection {
      * @param iterated Pointer to the parameters' set collection iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the parameters' sets container.
-     * @returns Created parametersSet_const_iterator.
      */
     parametersSet_const_iterator(const ParametersSetCollection* iterated, bool begin);
 
@@ -212,7 +211,6 @@ class ParametersSetCollection {
      * @param iterated Pointer to the parameters' set collection iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the macroparameters' sets container.
-     * @returns Created macroparameterset_const_iterator.
      */
     macroparameterset_const_iterator(const ParametersSetCollection* iterated, bool begin);
 

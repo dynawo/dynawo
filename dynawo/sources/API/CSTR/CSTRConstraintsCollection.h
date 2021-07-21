@@ -75,7 +75,6 @@ class ConstraintsCollection {
      * @param iterated Pointer to the constraints' map iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the constraints' container.
-     * @returns Created const_iterator.
      */
     const_iterator(const ConstraintsCollection* iterated, bool begin);
 

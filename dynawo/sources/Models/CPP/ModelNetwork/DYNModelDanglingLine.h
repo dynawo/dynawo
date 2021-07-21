@@ -14,7 +14,7 @@
 /**
  * @file  DYNModelDanglingLine.h
  *
- * @brief
+ * @brief Dangling line model : header file
  *
  */
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELDANGLINGLINE_H_
@@ -28,6 +28,9 @@ class ModelBus;
 class DanglingLineInterface;
 class ModelCurrentLimits;
 
+/**
+ * @brief Dangling line model
+ */
 class ModelDanglingLine : public NetworkComponent::Impl {
  public:
   /**

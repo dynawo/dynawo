@@ -47,6 +47,9 @@ class CurvesCollection;
 namespace DYN {
 class SparseMatrix;
 
+/**
+ * @brief Generic model
+ */
 class Model {
  public:
   /**

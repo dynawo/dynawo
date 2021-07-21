@@ -39,8 +39,6 @@ class MacroConnection {
    *
    * @param var1   First model connected port name
    * @param var2  Second model connected port name
-   *
-   * @returns New MacroConnection instance with given attributes
    */
   MacroConnection(const std::string& var1, const std::string& var2);
 

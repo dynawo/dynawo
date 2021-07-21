@@ -40,7 +40,6 @@ class BlackBoxModel : public Model {
    * @brief Constructor
    *
    * @param id Blackbox model's ID
-   * @returns New BlackBoxModel instance
    */
   explicit BlackBoxModel(const std::string& id);
 

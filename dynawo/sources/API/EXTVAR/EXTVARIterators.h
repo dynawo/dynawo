@@ -48,7 +48,6 @@ class variable_iterator {
    * @param iterated Pointer to the dynamic models collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the models' container.
-   * @returns Created variable_iterator.
    */
   variable_iterator(VariablesCollection* iterated, bool begin);
 
@@ -132,7 +131,6 @@ class variable_const_iterator {
    * @param iterated Pointer to the final states collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the models' container.
-   * @returns Created variable_const_iterator.
    */
   variable_const_iterator(const VariablesCollection* iterated, bool begin);
 

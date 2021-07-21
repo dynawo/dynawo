@@ -14,7 +14,7 @@
 /**
  * @file  DYNNetworkComponentImpl.h
  *
- * @brief
+ * @brief Implementation of network component interface : header file
  *
  */
 #ifndef MODELS_CPP_MODELNETWORK_DYNNETWORKCOMPONENTIMPL_H_
@@ -27,6 +27,9 @@ class Element;
 class ParameterModeler;
 class SparseMatrix;
 
+/**
+ * @brief Network component implementation
+ */
 class NetworkComponent::Impl : public NetworkComponent {
  public:
   /**

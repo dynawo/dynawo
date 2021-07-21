@@ -30,6 +30,9 @@
 namespace DYN {
 class SubModel;
 
+/**
+ * @brief Sub model for solver KIN
+ */
 class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable{
  public:
   /**
