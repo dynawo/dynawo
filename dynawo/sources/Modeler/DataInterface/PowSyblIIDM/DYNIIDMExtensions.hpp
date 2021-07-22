@@ -78,6 +78,10 @@ class IIDMExtensions {
    */
   template<class T>
   static ExtensionDefinition<T> getExtension(const std::string& libPath) {
+    if (libPath.empty()) {
+      // This corresponds to default case if environement variable for external IIDM extensions paths is not set
+      return buildDefaultExtensionDefinition<T>();
+    }
     std::shared_ptr<boost::dll::shared_library> extensionLibrary;
     std::unique_lock<std::mutex> lock(librariesMutex_);
     if (libraries_.count(libPath) > 0) {

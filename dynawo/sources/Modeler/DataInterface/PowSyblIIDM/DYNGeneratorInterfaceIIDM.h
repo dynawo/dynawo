@@ -23,9 +23,12 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNGENERATORINTERFACEIIDM_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/noncopyable.hpp>
 
 #include "DYNGeneratorInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
+#include "DYNGeneratorActivePowerControlIIDMExtension.h"
+#include "DYNIIDMExtensions.hpp"
 
 #include <powsybl/iidm/Generator.hpp>
 #include <powsybl/iidm/extensions/iidm/ActivePowerControl.hpp>
@@ -36,7 +39,7 @@ namespace DYN {
 /**
  * class GeneratorInterfaceIIDM
  */
-class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfaceIIDM {
+class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfaceIIDM, public boost::noncopyable {
  public:
   /**
    * @brief defines the index of each state variable
@@ -180,6 +183,16 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   double getCoordinatedReactiveControlPercentage() const;
 
   /**
+   * @copydoc GeneratorInterface::getDroop() const
+   */
+  boost::optional<double> getDroop() const final;
+
+  /**
+   * @copydoc GeneratorInterface::isParticipate() const
+   */
+  boost::optional<bool> isParticipate() const final;
+
+  /**
    * @brief Getter for the generator' country
    * @return the generator country
    */
@@ -201,6 +214,10 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   stdcxx::Reference<powsybl::iidm::extensions::iidm::ActivePowerControl> activePowerControl_;  ///< reference to ActivePowerControl extension
   stdcxx::Reference<powsybl::iidm::extensions
                     ::iidm::CoordinatedReactiveControl> coordinatedReactiveControl_;  ///< reference to CoordinatedReactiveControl extension
+
+  GeneratorActivePowerControlIIDMExtension* generatorActivePowerControl_;                                         ///< generator active power control extension
+  IIDMExtensions::DestroyFunction<GeneratorActivePowerControlIIDMExtension>
+    destroyGeneratorActivePowerControl_;  ///< function to destroy generator active power control extension
 };
 }  // namespace DYN
 

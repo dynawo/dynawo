@@ -129,5 +129,11 @@ TEST(DataInterfaceTest, HvdcLine) {
   ASSERT_EQ(Ifce.getConverterMode(), HvdcLineInterface::INVERTER_RECTIFIER);
   hvdcLine.setConvertersMode(powsybl::iidm::HvdcLine::ConvertersMode::SIDE_1_RECTIFIER_SIDE_2_INVERTER);
   ASSERT_EQ(Ifce.getConverterMode(), HvdcLineInterface::RECTIFIER_INVERTER);
+
+  ASSERT_FALSE(Ifce.getDroop());
+  ASSERT_FALSE(Ifce.getP0());
+  ASSERT_FALSE(Ifce.isEnabled());
+  ASSERT_FALSE(Ifce.getOprFromCS1toCS2());
+  ASSERT_FALSE(Ifce.getOprFromCS2toCS1());
 }  // TEST(DataInterfaceTest, HvdcLine)
 };  // namespace DYN

@@ -175,6 +175,13 @@ TEST(DataInterfaceTest, Line) {
   ASSERT_EQ(li.getCurrentLimitInterfaces2().size(), 1);
   std::string season = "UNDEFINED";
   ASSERT_EQ(li.getActiveSeason(), season);
+  ASSERT_FALSE(li.getCurrentLimitPermanent(season, 1));
+  ASSERT_FALSE(li.getCurrentLimitNbTemporary(season, 1));
+  ASSERT_FALSE(li.getCurrentLimitTemporaryName(season, 1, 0));
+  ASSERT_FALSE(li.getCurrentLimitTemporaryAcceptableDuration(season, 1, 0));
+  ASSERT_FALSE(li.getCurrentLimitTemporaryValue(season, 1, 0));
+  ASSERT_FALSE(li.getCurrentLimitTemporaryFictitious(season, 1, 0));
+
 
   powsybl::iidm::Line& MySecondLine = network.newLine()
                                        .setId("VL1_VL3_Bad")

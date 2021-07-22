@@ -24,10 +24,14 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNHVDCLINEINTERFACEIIDM_H_
 
 #include "DYNHvdcLineInterface.h"
+#include "DYNHvdcAngleDroopActivePowerControlIIDMExtension.h"
+#include "DYNHvdcOperatorActivePowerRangeIIDMExtension.h"
+#include "DYNIIDMExtensions.hpp"
 
 #include <powsybl/iidm/HvdcLine.hpp>
 
 #include <boost/shared_ptr.hpp>
+#include <boost/noncopyable.hpp>
 
 #include <string>
 
@@ -36,7 +40,7 @@ namespace DYN {
 /**
  * @brief HVDC line interface IIDM implementation
  */
-class HvdcLineInterfaceIIDM : public HvdcLineInterface {
+ class HvdcLineInterfaceIIDM : public HvdcLineInterface, public boost::noncopyable {
  public:
   /**
    * @brief defines the index of each state variable
@@ -131,10 +135,37 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface {
    */
   const boost::shared_ptr<ConverterInterface>& getConverter2() const;
 
+  /**
+   * @copydoc HvdcLineInterface::getDroop() const
+   */
+  boost::optional<double> getDroop() const final;
+  /**
+   * @copydoc HvdcLineInterface::getP0() const
+   */
+  boost::optional<double> getP0() const final;
+  /**
+   * @copydoc HvdcLineInterface::isEnabled() const
+   */
+  boost::optional<bool> isEnabled() const final;
+  /**
+   * @copydoc HvdcLineInterface::getOprFromCS1toCS2() const
+   */
+  boost::optional<double> getOprFromCS1toCS2() const final;
+  /**
+   * @copydoc HvdcLineInterface::getOprFromCS2toCS1() const
+   */
+  boost::optional<double> getOprFromCS2toCS1() const final;
+
  private:
   powsybl::iidm::HvdcLine& hvdcLineIIDM_;        ///< reference to the iidm line instance
   boost::shared_ptr<ConverterInterface> conv1_;  ///< conv1
   boost::shared_ptr<ConverterInterface> conv2_;  ///< conv2
+  HvdcAngleDroopActivePowerControlIIDMExtension* hvdcActivePowerControl_;  ///< HVDC active power control extension
+  IIDMExtensions::DestroyFunction<HvdcAngleDroopActivePowerControlIIDMExtension>
+    destroyHvdcActivePowerControl_;  ///< Function to destroy hvdc active power control extension
+  HvdcOperatorActivePowerRangeIIDMExtension* hvdcActivePowerRange_;                                         ///< HVDC active power range extension
+  IIDMExtensions::DestroyFunction<HvdcOperatorActivePowerRangeIIDMExtension>
+    destroyHvdcActivePowerRange_;  ///< Function to destroy actice power range extension
 };                                               ///< Interface class for Hvdc Line model
 
 }  // namespace DYN
