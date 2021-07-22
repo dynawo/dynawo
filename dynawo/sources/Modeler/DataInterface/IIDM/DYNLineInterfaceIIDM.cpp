@@ -305,6 +305,37 @@ LineInterfaceIIDM::getActiveSeason() const {
   return "UNDEFINED";
 }
 
+boost::optional<double>
+LineInterfaceIIDM::getCurrentLimitPermanent(const std::string&, unsigned int) const {
+  return boost::none;
+}
+
+boost::optional<unsigned int>
+LineInterfaceIIDM::getCurrentLimitNbTemporary(const std::string&, unsigned int) const {
+  return boost::none;
+}
+
+boost::optional<std::string>
+LineInterfaceIIDM::getCurrentLimitTemporaryName(const std::string&, unsigned int, unsigned int) const {
+  return boost::none;
+}
+
+boost::optional<unsigned long>
+LineInterfaceIIDM::getCurrentLimitTemporaryAcceptableDuration(const std::string&, unsigned int, unsigned int) const {
+  return boost::none;
+}
+
+boost::optional<double>
+LineInterfaceIIDM::getCurrentLimitTemporaryValue(const std::string&, unsigned int, unsigned int) const {
+  return boost::none;
+}
+
+boost::optional<bool>
+LineInterfaceIIDM::getCurrentLimitTemporaryFictitious(const std::string&, unsigned int, unsigned int) const {
+  return boost::none;
+}
+
+
 void
 LineInterfaceIIDM::importStaticParameters() {
   // no static parameter

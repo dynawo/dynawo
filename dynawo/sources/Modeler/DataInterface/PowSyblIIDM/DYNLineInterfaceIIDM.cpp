@@ -46,14 +46,19 @@ LineInterfaceIIDM::LineInterfaceIIDM(powsybl::iidm::Line& line) : lineIIDM_(line
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
 
   auto libPath = IIDMExtensions::findLibraryPath();
-  auto extensionDef = IIDMExtensions::getExtension<ActiveSeasonIIDMExtension>(libPath.generic_string());
 
-  activeSeasonExtension_ = std::get<IIDMExtensions::CREATE_FUNCTION>(extensionDef)(line);
-  destroyActiveSeasonExtension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(extensionDef);
+  auto activeSeasonExtensionDef = IIDMExtensions::getExtension<ActiveSeasonIIDMExtension>(libPath.generic_string());
+  activeSeasonExtension_ = std::get<IIDMExtensions::CREATE_FUNCTION>(activeSeasonExtensionDef)(line);
+  destroyActiveSeasonExtension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(activeSeasonExtensionDef);
+
+  auto currentLimitsPerSeasonExtensionDef = IIDMExtensions::getExtension<CurrentLimitsPerSeasonIIDMExtension>(libPath.generic_string());
+  currentLimitsPerSeasonExtension_ = std::get<IIDMExtensions::CREATE_FUNCTION>(currentLimitsPerSeasonExtensionDef)(line);
+  destroyCurrentLimitsPerSeasonExtension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(currentLimitsPerSeasonExtensionDef);
 }
 
 LineInterfaceIIDM::~LineInterfaceIIDM() {
   destroyActiveSeasonExtension_(activeSeasonExtension_);
+  destroyCurrentLimitsPerSeasonExtension_(currentLimitsPerSeasonExtension_);
 }
 
 void
@@ -288,6 +293,103 @@ std::string
 LineInterfaceIIDM::getActiveSeason() const {
   return activeSeasonExtension_ ? activeSeasonExtension_->getValue() : std::string("UNDEFINED");
 }
+
+boost::optional<double>
+LineInterfaceIIDM::getCurrentLimitPermanent(const std::string& season, unsigned int number) const {
+  if (!currentLimitsPerSeasonExtension_) {
+    return boost::none;
+  }
+  const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
+  auto found = map.find(season);
+  if (found != map.end() && number >= 1 && number <= 3 && found->second.currentLimits.at(number - 1)) {
+    return found->second.currentLimits.at(number - 1)->permanentLimit;
+  }
+
+  return boost::none;
+}
+
+boost::optional<unsigned int>
+LineInterfaceIIDM::getCurrentLimitNbTemporary(const std::string& season, unsigned int number) const {
+  if (!currentLimitsPerSeasonExtension_) {
+    return boost::none;
+  }
+  const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
+  auto found = map.find(season);
+  if (found != map.end() && number >= 1 && number <= 3 && found->second.currentLimits.at(number - 1)) {
+    return found->second.currentLimits.at(number - 1)->temporaryLimits.size();
+  }
+
+  return boost::none;
+}
+
+boost::optional<std::string>
+LineInterfaceIIDM::getCurrentLimitTemporaryName(const std::string& season, unsigned int number, unsigned int indexTemporary) const {
+  if (!currentLimitsPerSeasonExtension_) {
+    return boost::none;
+  }
+  const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
+  auto found = map.find(season);
+  if (found != map.end() && number >= 1 && number <= 3 && found->second.currentLimits.at(number - 1)) {
+    auto size = found->second.currentLimits.at(number - 1)->temporaryLimits.size();
+    if (indexTemporary < size) {
+      return found->second.currentLimits.at(number - 1)->temporaryLimits.at(indexTemporary).name;
+    }
+  }
+
+  return boost::none;
+}
+
+boost::optional<unsigned long>
+LineInterfaceIIDM::getCurrentLimitTemporaryAcceptableDuration(const std::string& season, unsigned int number, unsigned int indexTemporary) const {
+  if (!currentLimitsPerSeasonExtension_) {
+    return boost::none;
+  }
+  const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
+  auto found = map.find(season);
+  if (found != map.end() && number >= 1 && number <= 3 && found->second.currentLimits.at(number - 1)) {
+    auto size = found->second.currentLimits.at(number - 1)->temporaryLimits.size();
+    if (indexTemporary < size) {
+      return found->second.currentLimits.at(number - 1)->temporaryLimits.at(indexTemporary).acceptableDuration;
+    }
+  }
+
+  return boost::none;
+}
+
+boost::optional<double>
+LineInterfaceIIDM::getCurrentLimitTemporaryValue(const std::string& season, unsigned int number, unsigned int indexTemporary) const {
+  if (!currentLimitsPerSeasonExtension_) {
+    return boost::none;
+  }
+  const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
+  auto found = map.find(season);
+  if (found != map.end() && number >= 1 && number <= 3 && found->second.currentLimits.at(number - 1)) {
+    auto size = found->second.currentLimits.at(number - 1)->temporaryLimits.size();
+    if (indexTemporary < size) {
+      return found->second.currentLimits.at(number - 1)->temporaryLimits.at(indexTemporary).value;
+    }
+  }
+
+  return boost::none;
+}
+
+boost::optional<bool>
+LineInterfaceIIDM::getCurrentLimitTemporaryFictitious(const std::string& season, unsigned int number, unsigned int indexTemporary) const {
+  if (!currentLimitsPerSeasonExtension_) {
+    return boost::none;
+  }
+  const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
+  auto found = map.find(season);
+  if (found != map.end() && number >= 1 && number <= 3 && found->second.currentLimits.at(number - 1)) {
+    auto size = found->second.currentLimits.at(number - 1)->temporaryLimits.size();
+    if (indexTemporary < size) {
+      return found->second.currentLimits.at(number - 1)->temporaryLimits.at(indexTemporary).fictitious;
+    }
+  }
+
+  return boost::none;
+}
+
 
 void
 LineInterfaceIIDM::importStaticParameters() {

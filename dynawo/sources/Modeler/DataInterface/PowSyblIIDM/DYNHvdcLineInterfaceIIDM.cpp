@@ -52,9 +52,21 @@ HvdcLineInterfaceIIDM::HvdcLineInterfaceIIDM(powsybl::iidm::HvdcLine& hvdcLine,
   stateVariables_[VAR_Q2] = StateVariable("q2", StateVariable::DOUBLE);       // Q2
   stateVariables_[VAR_STATE1] = StateVariable("state1", StateVariable::INT);  // connectionState1
   stateVariables_[VAR_STATE2] = StateVariable("state2", StateVariable::INT);  // connectionState2
+
+  auto libPath = IIDMExtensions::findLibraryPath();
+
+  auto hvdcActivePowerControlDef = IIDMExtensions::getExtension<HvdcAngleDroopActivePowerControlIIDMExtension>(libPath.generic_string());
+  hvdcActivePowerControl_ = std::get<IIDMExtensions::CREATE_FUNCTION>(hvdcActivePowerControlDef)(hvdcLine);
+  destroyHvdcActivePowerControl_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(hvdcActivePowerControlDef);
+
+  auto hvdcActivePowerRangeDef = IIDMExtensions::getExtension<HvdcOperatorActivePowerRangeIIDMExtension>(libPath.generic_string());
+  hvdcActivePowerRange_ = std::get<IIDMExtensions::CREATE_FUNCTION>(hvdcActivePowerRangeDef)(hvdcLine);
+  destroyHvdcActivePowerRange_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(hvdcActivePowerRangeDef);
 }
 
 HvdcLineInterfaceIIDM::~HvdcLineInterfaceIIDM() {
+  destroyHvdcActivePowerControl_(hvdcActivePowerControl_);
+  destroyHvdcActivePowerRange_(hvdcActivePowerRange_);
 }
 
 void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
@@ -247,5 +259,31 @@ const shared_ptr<ConverterInterface>&
 HvdcLineInterfaceIIDM::getConverter2() const {
   return conv2_;
 }
+
+boost::optional<double>
+HvdcLineInterfaceIIDM::getDroop() const {
+  return hvdcActivePowerControl_ ? hvdcActivePowerControl_->getDroop() : boost::optional<double>();
+}
+
+boost::optional<double>
+HvdcLineInterfaceIIDM::getP0() const {
+  return hvdcActivePowerControl_ ? hvdcActivePowerControl_->getP0() : boost::optional<double>();
+}
+
+boost::optional<bool>
+HvdcLineInterfaceIIDM::isEnabled() const {
+  return hvdcActivePowerControl_ ? hvdcActivePowerControl_->isEnabled() : boost::optional<bool>();
+}
+
+boost::optional<double>
+HvdcLineInterfaceIIDM::getOprFromCS1toCS2() const {
+  return hvdcActivePowerRange_ ? hvdcActivePowerRange_->getOprFromCS1toCS2() : boost::optional<double>();
+}
+
+boost::optional<double>
+HvdcLineInterfaceIIDM::getOprFromCS2toCS1() const {
+  return hvdcActivePowerRange_ ? hvdcActivePowerRange_->getOprFromCS2toCS1() : boost::optional<double>();
+}
+
 
 }  // namespace DYN

@@ -22,6 +22,8 @@
 
 #include "DYNComponentInterface.hpp"
 
+#include <boost/optional.hpp>
+
 namespace DYN {
 class BusInterface;
 class CurrentLimitInterface;
@@ -185,6 +187,65 @@ class LineInterface : public ComponentInterface {
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
   virtual void exportStateVariablesUnitComponent() = 0;
+
+  /**
+   * @brief Retrieve the permanent limit
+   *
+   * @param season the season to apply
+   * @param number the current limit number, between 1 and 3
+   * @returns the permanent limit or nullopt if current limit extension, season or number not found
+   */
+  virtual boost::optional<double> getCurrentLimitPermanent(const std::string& season, unsigned int number) const = 0;
+
+  /**
+   * @brief Retrieve the number of temporary limits of a current limit
+   *
+   * @param season the season to apply
+   * @param number the current limit number, between 1 and 3
+   * @returns the number of temporary limits or nullopt if current limit extension, season or number not found
+   */
+  virtual boost::optional<unsigned int> getCurrentLimitNbTemporary(const std::string& season, unsigned int number) const = 0;
+
+  /**
+   * @brief Retrieve the name of a temporary limit of a current limit
+   *
+   * @param season the season to apply
+   * @param number the current limit number, between 1 and 3
+   * @param indexTemporary the index of the temporary limit
+   * @returns the name of the temporary limit or nullopt if current limit extension, season, number or index not found
+   */
+  virtual boost::optional<std::string> getCurrentLimitTemporaryName(const std::string& season, unsigned int number, unsigned int indexTemporary) const = 0;
+
+  /**
+   * @brief Retrieve the acceptable duration of a temporary limit of a current limit
+   *
+   * @param season the season to apply
+   * @param number the current limit number, between 1 and 3
+   * @param indexTemporary the index of the temporary limit
+   * @returns the acceptable duration of the temporary limit or nullopt if current limit extension, season, number or index not found
+   */
+  virtual boost::optional<unsigned long> getCurrentLimitTemporaryAcceptableDuration(const std::string& season, unsigned int number,
+    unsigned int indexTemporary) const = 0;
+
+  /**
+   * @brief Retrieve the value of a temporary limit of a current limit
+   *
+   * @param season the season to apply
+   * @param number the current limit number, between 1 and 3
+   * @param indexTemporary the index of the temporary limit
+   * @returns the value of the temporary limit or nullopt if current limit extension, season, number or index not found
+   */
+  virtual boost::optional<double> getCurrentLimitTemporaryValue(const std::string& season, unsigned int number, unsigned int indexTemporary) const = 0;
+
+  /**
+   * @brief Determines if a temporary limit of a current limit is fictitious
+   *
+   * @param season the season to apply
+   * @param number the current limit number, between 1 and 3
+   * @param indexTemporary the index of the temporary limit
+   * @returns true if the temporary limit is fictitious, false if not or nullopt if current limit extension, season, number or index not found
+   */
+  virtual boost::optional<bool> getCurrentLimitTemporaryFictitious(const std::string& season, unsigned int number, unsigned int indexTemporary) const = 0;
 };
 }  // namespace DYN
 

@@ -23,6 +23,7 @@
 #define MODELER_DATAINTERFACE_DYNHVDCLINEINTERFACE_H_
 
 #include "DYNComponentInterface.hpp"
+#include <boost/optional.hpp>
 
 namespace DYN {
 class BusInterface;
@@ -117,6 +118,36 @@ class HvdcLineInterface : public ComponentInterface {
    * @return converter 2
    */
   virtual const boost::shared_ptr<ConverterInterface>& getConverter2() const = 0;
+
+  /**
+   * @brief Get droop
+   * @returns the droop value or nullopt if the extension containing the data is not defined
+   */
+  virtual boost::optional<double> getDroop() const = 0;
+
+  /**
+   * @brief Get P0
+   * @returns the P0 value or nullopt if the extension containing the data is not defined
+   */
+  virtual boost::optional<double> getP0() const = 0;
+
+  /**
+   * @brief Determines if the HVDC is enabled
+   * @returns true if enabled, false if not or nullopt if the extension containing the data is not defined
+   */
+  virtual boost::optional<bool> isEnabled() const = 0;
+
+  /**
+   * @brief Retreive OPR from CS1 to CS2
+   * @returns the value or nullopt if extension containing the data not found
+   */
+  virtual boost::optional<double> getOprFromCS1toCS2() const = 0;
+
+  /**
+   * @brief Retreive OPR from CS2 to CS1
+   * @returns the value or nullopt if extension containing the data not found
+   */
+  virtual boost::optional<double> getOprFromCS2toCS1() const = 0;
 };
 }  // namespace DYN
 

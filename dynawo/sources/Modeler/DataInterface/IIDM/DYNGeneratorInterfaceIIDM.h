@@ -181,6 +181,22 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   double getCoordinatedReactiveControlPercentage() const;
 
   /**
+   * @copydoc GeneratorInterface::getDroop() const
+   */
+  boost::optional<double> getDroop() const {
+    // not implemented
+    return boost::none;
+  }
+
+  /**
+   * @copydoc GeneratorInterface::isParticipate() const
+   */
+  boost::optional<bool> isParticipate() const {
+    // not implemented
+    return boost::none;
+  }
+
+  /**
    * @brief Getter for the generator' country
    * @return the generator country
    */

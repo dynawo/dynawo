@@ -192,6 +192,36 @@ class LineInterfaceIIDM : public LineInterface {
   std::string getActiveSeason() const;
 
   /**
+   * @copydoc LineInterface::getCurrentLimitPermanent(const std::string& season, unsigned int number) const
+   */
+  boost::optional<double> getCurrentLimitPermanent(const std::string& season, unsigned int number) const;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitNbTemporary(const std::string& season, unsigned int number) const
+   */
+  boost::optional<unsigned int> getCurrentLimitNbTemporary(const std::string& season, unsigned int number) const;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitTemporaryName(const std::string& season, unsigned int number, unsigned int indexTemporary) const
+   */
+  boost::optional<std::string> getCurrentLimitTemporaryName(const std::string& season, unsigned int number, unsigned int indexTemporary) const;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitTemporaryAcceptableDuration(const std::string& season, unsigned int number, unsigned int indexTemporary) const
+   */
+  boost::optional<unsigned long> getCurrentLimitTemporaryAcceptableDuration(const std::string& season, unsigned int number, unsigned int indexTemporary) const;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitTemporaryValue(const std::string& season, unsigned int number, unsigned int indexTemporary) const
+   */
+  boost::optional<double> getCurrentLimitTemporaryValue(const std::string& season, unsigned int number, unsigned int indexTemporary) const;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitTemporaryFictitious(const std::string& season, unsigned int number, unsigned int indexTemporary) const
+   */
+  boost::optional<bool> getCurrentLimitTemporaryFictitious(const std::string& season, unsigned int number, unsigned int indexTemporary) const;
+
+  /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();

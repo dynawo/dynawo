@@ -31,6 +31,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 GeneratorInterfaceIIDM::~GeneratorInterfaceIIDM() {
+  destroyGeneratorActivePowerControl_(generatorActivePowerControl_);
 }
 
 GeneratorInterfaceIIDM::GeneratorInterfaceIIDM(powsybl::iidm::Generator& generator) :
@@ -43,6 +44,12 @@ generatorIIDM_(generator) {
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);   // connectionState
   activePowerControl_ = generator.findExtension<powsybl::iidm::extensions::iidm::ActivePowerControl>();
   coordinatedReactiveControl_ = generator.findExtension<powsybl::iidm::extensions::iidm::CoordinatedReactiveControl>();
+
+  auto libPath = IIDMExtensions::findLibraryPath();
+
+  auto generatorActivePowerControlDef = IIDMExtensions::getExtension<GeneratorActivePowerControlIIDMExtension>(libPath.generic_string());
+  generatorActivePowerControl_ = std::get<IIDMExtensions::CREATE_FUNCTION>(generatorActivePowerControlDef)(generator);
+  destroyGeneratorActivePowerControl_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(generatorActivePowerControlDef);
 }
 
 int
@@ -315,6 +322,14 @@ GeneratorInterfaceIIDM::getCoordinatedReactiveControlPercentage() const {
     return coordinatedReactiveControl_.get().getQPercent();
   }
   return 0.;
+}
+
+boost::optional<double> GeneratorInterfaceIIDM::getDroop() const {
+  return generatorActivePowerControl_ ? generatorActivePowerControl_->getDroop() : boost::optional<double>();
+}
+
+boost::optional<bool> GeneratorInterfaceIIDM::isParticipate() const {
+  return generatorActivePowerControl_ ? generatorActivePowerControl_->isParticipate() : boost::optional<bool>();
 }
 
 }  // namespace DYN
