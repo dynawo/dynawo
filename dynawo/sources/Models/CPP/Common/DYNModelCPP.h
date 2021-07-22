@@ -256,12 +256,6 @@ class ModelCPP : public SubModel {
    */
   virtual void initializeStaticData() = 0;
 
-  /**
-   * @brief write initial values of a model in a file
-   *
-   * @param directory directory where the file should be printed
-   */
-  virtual void printInitValues(const std::string& directory) = 0;
 
   /**
    * @brief rotate buffers

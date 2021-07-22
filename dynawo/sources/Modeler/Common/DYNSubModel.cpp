@@ -43,6 +43,7 @@
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
 #include "DYNElement.h"
+#include "DYNFileSystemUtils.h"
 #include "DYNTimer.h"
 #include "DYNDataInterface.h"
 
@@ -670,6 +671,32 @@ SubModel::defineParameters(const bool isInitParam) {
   addParameters(parameters, isInitParam);
 }
 
+void
+SubModel::printInitValues(const std::string& directory) {
+  const string& fileName = absolute("dumpInitValues-" + name() + ".txt", directory);
+
+  std::ofstream file;
+  file.open(fileName.c_str());
+
+  printInitValuesVariables(file);
+  printInitValuesParameters(file);
+
+  file.close();
+}
+
+void
+SubModel::printInitValuesParameters(std::ofstream& fstream) {
+  fstream << " ====== PARAMETERS VALUES ======\n";
+  for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = parametersDynamic_.begin(); it != parametersDynamic_.end(); ++it) {
+    bool found = false;
+    double value;
+    getSubModelParameterValue(it->first, value, found);
+    if (found) {
+      fstream << std::setw(50) << std::left << it->first << std::right << " =" << std::setw(15) << DYN::double2String(value) << std::endl;
+    }
+  }
+}
+
 void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<string>& zNames,
                                vector<string>& xNames, vector<string>& calculatedVarNames) {
   zNames.clear();
@@ -1266,7 +1293,8 @@ SubModel::gEquationIndex() {
     return gEquationIndex_;
 }
 
-void SubModel::getSubModelParameterValue(const string& nameParameter, double& value, bool& found) {
+void
+SubModel::getSubModelParameterValue(const string& nameParameter, double& value, bool& found) {
   const bool isInitParam = false;
   const ParameterModeler& parameter = findParameter(nameParameter, isInitParam);
   if (!parameter.hasValue()) {
@@ -1275,6 +1303,39 @@ void SubModel::getSubModelParameterValue(const string& nameParameter, double& va
     found = true;
     value = parameter.getDoubleValue();
   }
+}
+
+void
+SubModel::printInitValuesVariables(std::ofstream& fstream) {
+  fstream << " ====== INIT VARIABLES VALUES ======\n";
+  const vector<string>& xNames = (*this).xNames();
+  for (unsigned int i = 0; i < sizeY(); ++i)
+    fstream << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(yLocal_[i])
+      << " yp =" << std::setw(15) << DYN::double2String(ypLocal_[i]) << "\n";
+
+  const vector<std::pair<string, std::pair<string, bool> > >& xAliasesNames = (*this).xAliasesNames();
+  for (unsigned int i = 0, iEnd = xAliasesNames.size(); i < iEnd; ++i)
+    fstream << std::setw(50) << std::left << xAliasesNames[i].first << std::right << ": " <<
+    ((xAliasesNames[i].second.second)?"negated ":"") << "alias of " << xAliasesNames[i].second.first << "\n";
+
+  if (sizeCalculatedVar() > 0) {
+    evalCalculatedVars();
+    fstream << " ====== INIT CALCULATED VARIABLES VALUES ======\n";
+    const vector<string>& calculatedVarNames = (*this).getCalculatedVarNames();
+    for (unsigned int i = 0, iEnd = sizeCalculatedVar(); i < iEnd; ++i)
+      fstream << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y ="
+        << std::setw(15) << DYN::double2String(getCalculatedVar(i)) << "\n";
+  }
+
+  const vector<string>& zNames = (*this).zNames();
+  fstream << " ====== INIT DISCRETE VARIABLES VALUES ======\n";
+  for (unsigned int i = 0; i < sizeZ(); ++i)
+    fstream << std::setw(50) << std::left << zNames[i] << std::right << ": z =" << std::setw(15) << DYN::double2String(zLocal_[i]) << "\n";
+
+  const vector<std::pair<string, std::pair<string, bool> > >& zAliasesNames = (*this).zAliasesNames();
+  for (unsigned int i = 0, iEnd = zAliasesNames.size(); i < iEnd; ++i)
+    fstream << std::setw(50) << std::left << zAliasesNames[i].first << std::right << ": "<<
+    ((zAliasesNames[i].second.second)?"negated ":"") << "alias of " << zAliasesNames[i].second.first << "\n";
 }
 
 }  // namespace DYN

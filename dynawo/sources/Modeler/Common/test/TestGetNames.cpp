@@ -166,10 +166,6 @@ class SubModelMock : public SubModel {
     // Dummy class used for testing
   }
 
-  void printInitValues(const std::string&) {
-    // Dummy class used for testing
-  }
-
   void defineVariables(std::vector<boost::shared_ptr<Variable> >&) {
     // Dummy class used for testing
   }
