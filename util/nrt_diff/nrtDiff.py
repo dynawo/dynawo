@@ -686,8 +686,9 @@ def DirectoryDiffReferenceDataJob (jobs_file):
             (diff_statuses, return_message, file_names, left_paths, right_paths, diff_messages) = DirectoryDiff (nrt_directory, reference_data_directory, True)
         for status in status_priority:
             if status in diff_statuses:
-                indices = [i for i, x in enumerate(diff_statuses) if x == status]
-                messages.extend([ diff_messages[index] for index in indices ])
+                if status_priority.index(status) < status_priority.index(MISSING_DATA_RIGHT):
+                    indices = [i for i, x in enumerate(diff_statuses) if x == status]
+                    messages.extend([ diff_messages[index] for index in indices ])
                 if status_priority.index(status) < status_priority.index(final_status):
                     final_status = status
     return (final_status, messages)
