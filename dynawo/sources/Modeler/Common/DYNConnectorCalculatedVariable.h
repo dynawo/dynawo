@@ -178,10 +178,6 @@ class ConnectorCalculatedVariable : public SubModel {
    */
   void loadVariables(const std::string& variables);
 
-  /**
-   * @copydoc SubModel::printInitValues(const std::string& directory)
-   */
-  void printInitValues(const std::string& directory);
 
   /**
    * @copydoc SubModel::rotateBuffers()

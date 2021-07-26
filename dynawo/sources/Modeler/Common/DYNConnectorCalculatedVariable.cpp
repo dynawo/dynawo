@@ -232,10 +232,6 @@ ConnectorCalculatedVariable::loadVariables(const string& /*variables*/) {
   // no variable
 }
 
-void
-ConnectorCalculatedVariable::printInitValues(const string& /*directory*/) {
-  // no initialization needed
-}
 
 
 }  // namespace DYN
