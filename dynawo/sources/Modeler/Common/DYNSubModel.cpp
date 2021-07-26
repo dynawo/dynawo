@@ -20,6 +20,7 @@
 #include <iomanip>
 #include <iostream>
 #include <fstream>
+#include <map>
 #include <algorithm>  // std::find, std::copy
 #include <set>
 #ifdef _DEBUG_
@@ -686,8 +687,9 @@ SubModel::printInitValues(const std::string& directory) {
 
 void
 SubModel::printInitValuesParameters(std::ofstream& fstream) {
+  std::map<std::string, ParameterModeler> sortedParameterDynamic(parametersDynamic_.begin(), parametersDynamic_.end());
   fstream << " ====== PARAMETERS VALUES ======\n";
-  for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = parametersDynamic_.begin(); it != parametersDynamic_.end(); ++it) {
+  for (std::map<std::string, ParameterModeler>::const_iterator it = sortedParameterDynamic.begin(); it != sortedParameterDynamic.end(); ++it) {
     bool found = false;
     double value;
     getSubModelParameterValue(it->first, value, found);
