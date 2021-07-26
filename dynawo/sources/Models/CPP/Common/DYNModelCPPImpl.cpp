@@ -112,11 +112,6 @@ ModelCPP::Impl::checkParametersCoherence() const {
 }
 
 void
-ModelCPP::Impl::printInitValues(const std::string& /*directory*/) {
-  // not needed
-}
-
-void
 ModelCPP::Impl::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& /*variables*/) {
   // no init variable
 }
