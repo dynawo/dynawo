@@ -43,7 +43,7 @@ class ModelCPP::Impl : public ModelCPP {
   /**
    * @brief desctructor
    */
-  ~Impl() { }
+  virtual ~Impl() { }
 
 
   // methods to implement in each derived classes
@@ -266,11 +266,6 @@ class ModelCPP::Impl : public ModelCPP {
   void checkParametersCoherence() const;
 
  public:
-  /**
-   * @copydoc ModelCPP::printInitValues()
-   */
-  void printInitValues(const std::string& directory);
-
   /**
    * @copydoc ModelCPP::rotateBuffers()
    */
