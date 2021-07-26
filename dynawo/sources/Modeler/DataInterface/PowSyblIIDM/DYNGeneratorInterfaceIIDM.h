@@ -215,7 +215,7 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   stdcxx::Reference<powsybl::iidm::extensions
                     ::iidm::CoordinatedReactiveControl> coordinatedReactiveControl_;  ///< reference to CoordinatedReactiveControl extension
 
-  GeneratorActivePowerControlIIDMExtension* generatorActivePowerControl_;                                         ///< generator active power control extension
+  GeneratorActivePowerControlIIDMExtension* generatorActivePowerControl_;  ///< generator active power control extension
   IIDMExtensions::DestroyFunction<GeneratorActivePowerControlIIDMExtension>
     destroyGeneratorActivePowerControl_;  ///< function to destroy generator active power control extension
 };
