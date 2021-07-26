@@ -1393,7 +1393,7 @@ class SubModel {
   virtual void initParams() = 0;
 
   /**
-   * @brief write initial values variables of a model in a file
+   * @brief write initial variables values of a model in a file
    *
    * @param fstream the file to stream variables to
    */
