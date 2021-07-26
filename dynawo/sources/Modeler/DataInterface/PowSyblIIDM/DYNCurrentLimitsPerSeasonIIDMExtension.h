@@ -13,7 +13,7 @@
 
 /**
  * @file DYNCurrentLimitsPerSeasonIIDMExtension.h
- * @brief IIDM extension for current limit per seson interface file
+ * @brief IIDM extension for current limit per season interface file
  */
 
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNCURRENTLIMITSPERSEASONIIDMEXTENSION_H_

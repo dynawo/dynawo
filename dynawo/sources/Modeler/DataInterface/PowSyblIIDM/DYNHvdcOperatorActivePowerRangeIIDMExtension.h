@@ -30,13 +30,13 @@ class HvdcOperatorActivePowerRangeIIDMExtension {
   virtual ~HvdcOperatorActivePowerRangeIIDMExtension() {}
 
   /**
-   * @brief Retreive OPR from CS1 to CS2
+   * @brief Retrieve OPR from CS1 to CS2
    * @returns the value or nullopt if extension containing the data not found
    */
   virtual boost::optional<double> getOprFromCS1toCS2() const = 0;
 
   /**
-   * @brief Retreive OPR from CS2 to CS1
+   * @brief Retrieve OPR from CS2 to CS1
    * @returns the value or nullopt if extension containing the data not found
    */
   virtual boost::optional<double> getOprFromCS2toCS1() const = 0;
