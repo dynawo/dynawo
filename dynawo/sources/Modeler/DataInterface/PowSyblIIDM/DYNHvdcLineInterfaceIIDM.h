@@ -144,9 +144,9 @@ namespace DYN {
    */
   boost::optional<double> getP0() const final;
   /**
-   * @copydoc HvdcLineInterface::isEnabled() const
+   * @copydoc HvdcLineInterface::isActivePowerControlEnabled() const
    */
-  boost::optional<bool> isEnabled() const final;
+  boost::optional<bool> isActivePowerControlEnabled() const final;
   /**
    * @copydoc HvdcLineInterface::getOprFromCS1toCS2() const
    */

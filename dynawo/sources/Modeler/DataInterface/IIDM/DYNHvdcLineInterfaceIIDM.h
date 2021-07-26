@@ -142,9 +142,9 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface {
   }
 
   /**
-   * @copydoc HvdcLineInterface::isEnabled() const
+   * @copydoc HvdcLineInterface::isActivePowerControlEnabled() const
    */
-  boost::optional<bool> isEnabled() const {
+  boost::optional<bool> isActivePowerControlEnabled() const {
     // not implemented
     return boost::none;
   }
