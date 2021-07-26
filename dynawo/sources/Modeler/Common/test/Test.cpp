@@ -185,10 +185,6 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void printInitValues(const std::string & directory) {
-    // Dummy class used for testing
-  }
-
   void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
     variables.push_back(VariableNativeFactory::createState("MyVar", CONTINUOUS));
     variables.push_back(VariableAliasFactory::create("MyAliasVar", "MyVar", FLOW, false));

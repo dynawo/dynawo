@@ -24,6 +24,7 @@
 #include <map>
 #include <string>
 #include <list>
+#include <fstream>
 #include <iostream>
 #include <boost/unordered_map.hpp>
 #include <boost/unordered_set.hpp>
@@ -288,7 +289,7 @@ class SubModel {
    *
    * @param directory directory where the file should be printed
    */
-  virtual void printInitValues(const std::string & directory) = 0;
+  void printInitValues(const std::string& directory);
 
   /**
    * @brief define each variables of the model
@@ -1352,6 +1353,20 @@ class SubModel {
    * @brief initialize the parameters thanks to external values and internal equations
    */
   virtual void initParams() = 0;
+
+  /**
+   * @brief write initial values variables of a model in a file
+   *
+   * @param fstream the file to stream variables to
+   */
+  void printInitValuesVariables(std::ofstream& fstream);
+
+  /**
+   * @brief write initial values parameters of a model in a file
+   *
+   * @param fstream the file to stream parameters to
+   */
+  virtual void printInitValuesParameters(std::ofstream& fstream);
 
  private:
   /**

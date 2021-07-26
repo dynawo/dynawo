@@ -1201,42 +1201,8 @@ ModelManager::createCalculatedParametersFromInitialCalculatedVariables(const vec
 }
 
 void
-ModelManager::printInitValues(const string & directory) {
-  const string& fileName = absolute("dumpInitValues-" + name() + ".txt", directory);
-
-  std::ofstream file;
-  file.open(fileName.c_str());
-  file << " ====== INIT VARIABLES VALUES ======\n";
-  const vector<string>& xNames = (*this).xNames();
-  for (unsigned int i = 0; i < sizeY(); ++i)
-    file << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(yLocal_[i])
-      << " yp =" << std::setw(15) << DYN::double2String(ypLocal_[i]) << "\n";
-
-  const vector<std::pair<string, std::pair<string, bool> > >& xAliasesNames = (*this).xAliasesNames();
-  for (unsigned int i = 0, iEnd = xAliasesNames.size(); i < iEnd; ++i)
-    file << std::setw(50) << std::left << xAliasesNames[i].first << std::right << ": " <<
-    ((xAliasesNames[i].second.second)?"negated ":"") << "alias of " << xAliasesNames[i].second.first << "\n";
-
-  if (sizeCalculatedVar() > 0) {
-    evalCalculatedVars();
-    file << " ====== INIT CALCULATED VARIABLES VALUES ======\n";
-    const vector<string>& calculatedVarNames = (*this).getCalculatedVarNames();
-    for (unsigned int i = 0, iEnd = sizeCalculatedVar(); i < iEnd; ++i)
-      file << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y ="
-        << std::setw(15) << DYN::double2String(getCalculatedVar(i)) << "\n";
-  }
-
-  const vector<string>& zNames = (*this).zNames();
-  file << " ====== INIT DISCRETE VARIABLES VALUES ======\n";
-  for (unsigned int i = 0; i < sizeZ(); ++i)
-    file << std::setw(50) << std::left << zNames[i] << std::right << ": z =" << std::setw(15) << DYN::double2String(zLocal_[i]) << "\n";
-
-  const vector<std::pair<string, std::pair<string, bool> > >& zAliasesNames = (*this).zAliasesNames();
-  for (unsigned int i = 0, iEnd = zAliasesNames.size(); i < iEnd; ++i)
-    file << std::setw(50) << std::left << zAliasesNames[i].first << std::right << ": "<<
-    ((zAliasesNames[i].second.second)?"negated ":"") << "alias of " << zAliasesNames[i].second.first << "\n";
-
-  file << " ====== PARAMETERS VALUES ======\n";
+ModelManager::printInitValuesParameters(std::ofstream& fstream) {
+  fstream << " ====== PARAMETERS VALUES ======\n";
   const boost::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
   vector<ParameterModeler> parameters(parametersMap.size(), ParameterModeler("TMP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
@@ -1247,26 +1213,24 @@ ModelManager::printInitValues(const string & directory) {
 
   // In Modelica models, parameters are ordered as follows : real, then boolean, integer and string
   for (unsigned int i = 0; i < modelData()->nParametersReal; ++i)
-    file << std::setw(50) << std::left << parameters[i].getName() << std::right << " =" << std::setw(15)
+    fstream << std::setw(50) << std::left << parameters[i].getName() << std::right << " =" << std::setw(15)
       << DYN::double2String(simulationInfo()->realParameter[i]) << "\n";
 
   int offset = modelData()->nParametersReal;
 
   for (unsigned int i = 0; i < modelData()->nParametersBoolean; ++i)
-    file << std::setw(50) << std::left << parameters[i + offset].getName() << std::right << " =" << std::setw(15)
+    fstream << std::setw(50) << std::left << parameters[i + offset].getName() << std::right << " =" << std::setw(15)
     << std::boolalpha << static_cast<bool> (simulationInfo()->booleanParameter[i]) << "\n";
 
   offset += modelData()->nParametersBoolean;
   for (unsigned int i = 0; i < modelData()->nParametersInteger; ++i)
-    file << std::setw(50) << std::left << parameters[i + offset].getName() << std::right << " =" << std::setw(15)
+    fstream << std::setw(50) << std::left << parameters[i + offset].getName() << std::right << " =" << std::setw(15)
     << (simulationInfo()->integerParameter[i]) << "\n";
 
   offset += modelData()->nParametersInteger;
   for (unsigned int i = 0; i < modelData()->nParametersString; ++i)
-    file << std::setw(50) << std::left << parameters[i + offset].getName() << std::right << " =" << std::setw(15)
+    fstream << std::setw(50) << std::left << parameters[i + offset].getName() << std::right << " =" << std::setw(15)
     << (simulationInfo()->stringParameter[i]) << "\n";
-
-  file.close();
 }
 
 string ModelManager::modelType() const {
