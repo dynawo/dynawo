@@ -295,44 +295,74 @@ LineInterfaceIIDM::getActiveSeason() const {
 }
 
 boost::optional<double>
-LineInterfaceIIDM::getCurrentLimitPermanent(const std::string& season, unsigned int number) const {
+LineInterfaceIIDM::getCurrentLimitPermanent(const std::string& season, CurrentLimitNumber number) const {
   if (!currentLimitsPerSeasonExtension_) {
     return boost::none;
   }
+  switch (number) {
+    case CURRENT_LIMIT_NUMBER_1:
+    case CURRENT_LIMIT_NUMBER_2:
+    case CURRENT_LIMIT_NUMBER_3:
+      // all correct values
+      break;
+    default:
+      return boost::none;
+  }
+  unsigned int index = static_cast<unsigned int>(number) - 1;
   const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
   auto found = map.find(season);
-  if (found != map.end() && number >= 1 && number <= 3 && found->second.currentLimits.at(number - 1)) {
-    return found->second.currentLimits.at(number - 1)->permanentLimit;
+  if (found != map.end() && found->second.currentLimits.at(index)) {
+    return found->second.currentLimits.at(index)->permanentLimit;
   }
 
   return boost::none;
 }
 
 boost::optional<unsigned int>
-LineInterfaceIIDM::getCurrentLimitNbTemporary(const std::string& season, unsigned int number) const {
+LineInterfaceIIDM::getCurrentLimitNbTemporary(const std::string& season, CurrentLimitNumber number) const {
   if (!currentLimitsPerSeasonExtension_) {
     return boost::none;
   }
+  switch (number) {
+    case CURRENT_LIMIT_NUMBER_1:
+    case CURRENT_LIMIT_NUMBER_2:
+    case CURRENT_LIMIT_NUMBER_3:
+      // all correct values
+      break;
+    default:
+      return boost::none;
+  }
+  unsigned int index = static_cast<unsigned int>(number) - 1;
   const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
   auto found = map.find(season);
-  if (found != map.end() && number >= 1 && number <= 3 && found->second.currentLimits.at(number - 1)) {
-    return found->second.currentLimits.at(number - 1)->temporaryLimits.size();
+  if (found != map.end() && found->second.currentLimits.at(index)) {
+    return found->second.currentLimits.at(index)->temporaryLimits.size();
   }
 
   return boost::none;
 }
 
 boost::optional<std::string>
-LineInterfaceIIDM::getCurrentLimitTemporaryName(const std::string& season, unsigned int number, unsigned int indexTemporary) const {
+LineInterfaceIIDM::getCurrentLimitTemporaryName(const std::string& season, CurrentLimitNumber number, unsigned int indexTemporary) const {
   if (!currentLimitsPerSeasonExtension_) {
     return boost::none;
   }
+  switch (number) {
+    case CURRENT_LIMIT_NUMBER_1:
+    case CURRENT_LIMIT_NUMBER_2:
+    case CURRENT_LIMIT_NUMBER_3:
+      // all correct values
+      break;
+    default:
+      return boost::none;
+  }
+  unsigned int index = static_cast<unsigned int>(number) - 1;
   const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
   auto found = map.find(season);
-  if (found != map.end() && number >= 1 && number <= 3 && found->second.currentLimits.at(number - 1)) {
-    auto size = found->second.currentLimits.at(number - 1)->temporaryLimits.size();
+  if (found != map.end() && found->second.currentLimits.at(index)) {
+    auto size = found->second.currentLimits.at(index)->temporaryLimits.size();
     if (indexTemporary < size) {
-      return found->second.currentLimits.at(number - 1)->temporaryLimits.at(indexTemporary).name;
+      return found->second.currentLimits.at(index)->temporaryLimits.at(indexTemporary).name;
     }
   }
 
@@ -340,16 +370,26 @@ LineInterfaceIIDM::getCurrentLimitTemporaryName(const std::string& season, unsig
 }
 
 boost::optional<unsigned long>
-LineInterfaceIIDM::getCurrentLimitTemporaryAcceptableDuration(const std::string& season, unsigned int number, unsigned int indexTemporary) const {
+LineInterfaceIIDM::getCurrentLimitTemporaryAcceptableDuration(const std::string& season, CurrentLimitNumber number, unsigned int indexTemporary) const {
   if (!currentLimitsPerSeasonExtension_) {
     return boost::none;
   }
+  switch (number) {
+    case CURRENT_LIMIT_NUMBER_1:
+    case CURRENT_LIMIT_NUMBER_2:
+    case CURRENT_LIMIT_NUMBER_3:
+      // all correct values
+      break;
+    default:
+      return boost::none;
+  }
+  unsigned int index = static_cast<unsigned int>(number) - 1;
   const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
   auto found = map.find(season);
-  if (found != map.end() && number >= 1 && number <= 3 && found->second.currentLimits.at(number - 1)) {
-    auto size = found->second.currentLimits.at(number - 1)->temporaryLimits.size();
+  if (found != map.end() && found->second.currentLimits.at(index)) {
+    auto size = found->second.currentLimits.at(index)->temporaryLimits.size();
     if (indexTemporary < size) {
-      return found->second.currentLimits.at(number - 1)->temporaryLimits.at(indexTemporary).acceptableDuration;
+      return found->second.currentLimits.at(index)->temporaryLimits.at(indexTemporary).acceptableDuration;
     }
   }
 
@@ -357,16 +397,26 @@ LineInterfaceIIDM::getCurrentLimitTemporaryAcceptableDuration(const std::string&
 }
 
 boost::optional<double>
-LineInterfaceIIDM::getCurrentLimitTemporaryValue(const std::string& season, unsigned int number, unsigned int indexTemporary) const {
+LineInterfaceIIDM::getCurrentLimitTemporaryValue(const std::string& season, CurrentLimitNumber number, unsigned int indexTemporary) const {
   if (!currentLimitsPerSeasonExtension_) {
     return boost::none;
   }
+  switch (number) {
+    case CURRENT_LIMIT_NUMBER_1:
+    case CURRENT_LIMIT_NUMBER_2:
+    case CURRENT_LIMIT_NUMBER_3:
+      // all correct values
+      break;
+    default:
+      return boost::none;
+  }
+  unsigned int index = static_cast<unsigned int>(number) - 1;
   const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
   auto found = map.find(season);
-  if (found != map.end() && number >= 1 && number <= 3 && found->second.currentLimits.at(number - 1)) {
-    auto size = found->second.currentLimits.at(number - 1)->temporaryLimits.size();
+  if (found != map.end() && found->second.currentLimits.at(index)) {
+    auto size = found->second.currentLimits.at(index)->temporaryLimits.size();
     if (indexTemporary < size) {
-      return found->second.currentLimits.at(number - 1)->temporaryLimits.at(indexTemporary).value;
+      return found->second.currentLimits.at(index)->temporaryLimits.at(indexTemporary).value;
     }
   }
 
@@ -374,16 +424,26 @@ LineInterfaceIIDM::getCurrentLimitTemporaryValue(const std::string& season, unsi
 }
 
 boost::optional<bool>
-LineInterfaceIIDM::getCurrentLimitTemporaryFictitious(const std::string& season, unsigned int number, unsigned int indexTemporary) const {
+LineInterfaceIIDM::getCurrentLimitTemporaryFictitious(const std::string& season, CurrentLimitNumber number, unsigned int indexTemporary) const {
   if (!currentLimitsPerSeasonExtension_) {
     return boost::none;
   }
+  switch (number) {
+    case CURRENT_LIMIT_NUMBER_1:
+    case CURRENT_LIMIT_NUMBER_2:
+    case CURRENT_LIMIT_NUMBER_3:
+      // all correct values
+      break;
+    default:
+      return boost::none;
+  }
+  unsigned int index = static_cast<unsigned int>(number) - 1;
   const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
   auto found = map.find(season);
-  if (found != map.end() && number >= 1 && number <= 3 && found->second.currentLimits.at(number - 1)) {
-    auto size = found->second.currentLimits.at(number - 1)->temporaryLimits.size();
+  if (found != map.end() && found->second.currentLimits.at(index)) {
+    auto size = found->second.currentLimits.at(index)->temporaryLimits.size();
     if (indexTemporary < size) {
-      return found->second.currentLimits.at(number - 1)->temporaryLimits.at(indexTemporary).fictitious;
+      return found->second.currentLimits.at(index)->temporaryLimits.at(indexTemporary).fictitious;
     }
   }
 

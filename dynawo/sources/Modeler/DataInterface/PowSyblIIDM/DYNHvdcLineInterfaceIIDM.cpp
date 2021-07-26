@@ -271,7 +271,7 @@ HvdcLineInterfaceIIDM::getP0() const {
 }
 
 boost::optional<bool>
-HvdcLineInterfaceIIDM::isEnabled() const {
+HvdcLineInterfaceIIDM::isActivePowerControlEnabled() const {
   return hvdcActivePowerControl_ ? hvdcActivePowerControl_->isEnabled() : boost::optional<bool>();
 }
 

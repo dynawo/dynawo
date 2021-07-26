@@ -132,7 +132,7 @@ TEST(DataInterfaceTest, HvdcLine) {
 
   ASSERT_FALSE(Ifce.getDroop());
   ASSERT_FALSE(Ifce.getP0());
-  ASSERT_FALSE(Ifce.isEnabled());
+  ASSERT_FALSE(Ifce.isActivePowerControlEnabled());
   ASSERT_FALSE(Ifce.getOprFromCS1toCS2());
   ASSERT_FALSE(Ifce.getOprFromCS2toCS1());
 }  // TEST(DataInterfaceTest, HvdcLine)

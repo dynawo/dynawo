@@ -135,7 +135,7 @@ class HvdcLineInterface : public ComponentInterface {
    * @brief Determines if the HVDC is enabled
    * @returns true if enabled, false if not or nullopt if the extension containing the data is not defined
    */
-  virtual boost::optional<bool> isEnabled() const = 0;
+  virtual boost::optional<bool> isActivePowerControlEnabled() const = 0;
 
   /**
    * @brief Retrieve OPR from CS1 to CS2
