@@ -32,6 +32,7 @@
 #include "JOBJobEntry.h"
 #include "JOBJobsCollection.h"
 #include "JOBLogsEntry.h"
+#include "JOBLostEquipmentsEntry.h"
 #include "JOBModelerEntry.h"
 #include "JOBModelsDirEntry.h"
 #include "JOBNetworkEntry.h"
@@ -464,6 +465,40 @@ class CurvesHandler : public xml::sax::parser::ComposableElementHandler {
 };
 
 /**
+ * @class LostEquipmentsHandler
+ * @brief Handler used to parse lostEquipments element
+ */
+class LostEquipmentsHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit LostEquipmentsHandler(elementName_type const& root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~LostEquipmentsHandler() {}
+
+  /**
+   * @brief return the lostEquipments entry read in xml file
+   * @return curves entry object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<LostEquipmentsEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<LostEquipmentsEntry> lostEquipments_;  ///< current lostEquipments entry object
+};
+
+/**
  * @class LogsHandler
  * @brief Handler used to parse logs element
  */
@@ -557,6 +592,11 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   void addCurves();
 
   /**
+   * @brief add a lostEquipments object to the current job
+   */
+  void addLostEquipments();
+
+  /**
    * @brief add a log object to the current job
    */
   void addLog();
@@ -569,14 +609,15 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<OutputsEntry> outputs_;  ///< current outputs entry object
-  InitValuesHandler initValuesHandler_;      ///< handler used to read init values element
-  ConstraintsHandler constraintsHandler_;    ///< handler used to read constraints element
-  TimelineHandler timelineHandler_;          ///< handler used to read timeline element
-  TimetableHandler timetableHandler_;        ///< handler used to read timetable element
-  FinalStateHandler finalStateHandler_;      ///< handler used to read finalState element
-  CurvesHandler curvesHandler_;              ///< handler used to read curves element
-  LogsHandler logsHandler_;                  ///< handler used to read logs element
+  boost::shared_ptr<OutputsEntry> outputs_;      ///< current outputs entry object
+  InitValuesHandler initValuesHandler_;          ///< handler used to read init values element
+  ConstraintsHandler constraintsHandler_;        ///< handler used to read constraints element
+  TimelineHandler timelineHandler_;              ///< handler used to read timeline element
+  TimetableHandler timetableHandler_;            ///< handler used to read timetable element
+  FinalStateHandler finalStateHandler_;          ///< handler used to read finalState element
+  CurvesHandler curvesHandler_;                  ///< handler used to read curves element
+  LostEquipmentsHandler lostEquipmentsHandler_;  ///< handler used to read curves element
+  LogsHandler logsHandler_;                      ///< handler used to read logs element
 };
 
 /**

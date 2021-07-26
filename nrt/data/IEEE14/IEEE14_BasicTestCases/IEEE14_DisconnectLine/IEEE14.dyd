@@ -12,22 +12,64 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="_LOAD___2_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___2_EC"/>
-  <dyn:blackBoxModel id="_LOAD___3_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___3_EC"/>
-  <dyn:blackBoxModel id="_LOAD___4_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___4_EC"/>
-  <dyn:blackBoxModel id="_LOAD___5_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___5_EC"/>
-  <dyn:blackBoxModel id="_LOAD___6_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___6_EC"/>
-  <dyn:blackBoxModel id="_LOAD___9_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___9_EC"/>
-  <dyn:blackBoxModel id="_LOAD__10_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD__10_EC"/>
-  <dyn:blackBoxModel id="_LOAD__11_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD__11_EC"/>
-  <dyn:blackBoxModel id="_LOAD__12_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD__12_EC"/>
-  <dyn:blackBoxModel id="_LOAD__13_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD__13_EC"/>
-  <dyn:blackBoxModel id="_LOAD__14_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD__14_EC"/>
-  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE14.par" parId="2" staticId="_GEN____1_SM"/>
-  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE14.par" parId="3" staticId="_GEN____2_SM"/>
-  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE14.par" parId="4" staticId="_GEN____3_SM"/>
-  <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE14.par" parId="5" staticId="_GEN____6_SM"/>
-  <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE14.par" parId="6" staticId="_GEN____8_SM"/>
+  <dyn:macroStaticReference id="GEN">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:macroStaticReference>
+  <dyn:macroStaticReference id="LOAD">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:macroStaticReference>
+  <dyn:blackBoxModel id="_LOAD___2_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___2_EC">
+    <dyn:macroStaticRef id="LOAD"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD___3_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___3_EC">
+    <dyn:macroStaticRef id="LOAD"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD___4_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___4_EC">
+    <dyn:macroStaticRef id="LOAD"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD___5_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___5_EC">
+    <dyn:macroStaticRef id="LOAD"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD___6_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___6_EC">
+    <dyn:macroStaticRef id="LOAD"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD___9_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___9_EC">
+    <dyn:macroStaticRef id="LOAD"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD__10_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD__10_EC">
+    <dyn:macroStaticRef id="LOAD"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD__11_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD__11_EC">
+    <dyn:macroStaticRef id="LOAD"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD__12_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD__12_EC">
+    <dyn:macroStaticRef id="LOAD"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD__13_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD__13_EC">
+    <dyn:macroStaticRef id="LOAD"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_LOAD__14_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD__14_EC">
+    <dyn:macroStaticRef id="LOAD"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE14.par" parId="2" staticId="_GEN____1_SM">
+    <dyn:macroStaticRef id="GEN"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE14.par" parId="3" staticId="_GEN____2_SM">
+    <dyn:macroStaticRef id="GEN"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE14.par" parId="4" staticId="_GEN____3_SM">
+    <dyn:macroStaticRef id="GEN"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE14.par" parId="5" staticId="_GEN____6_SM">
+    <dyn:macroStaticRef id="GEN"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE14.par" parId="6" staticId="_GEN____8_SM">
+    <dyn:macroStaticRef id="GEN"/>
+  </dyn:blackBoxModel>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE14.par" parId="7"/>
   <dyn:blackBoxModel id="DISCONNECT_LINE" lib="EventQuadripoleDisconnection" parFile="IEEE14.par" parId="9"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>

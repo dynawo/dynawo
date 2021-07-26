@@ -48,6 +48,10 @@ namespace constraints {
 class ConstraintsCollection;
 }
 
+namespace lostEquipments {
+class LostEquipmentsCollection;
+}
+
 namespace job {
 class JobEntry;
 }
@@ -113,6 +117,15 @@ class Simulation {
     EXPORT_CONSTRAINTS_XML,  ///< Export constraints in xml mode in output file
     EXPORT_CONSTRAINTS_TXT  ///< Export constraints in txt mode in output file
   } exportConstraintsMode_t;
+
+  /**
+   * @brief Export mode for lostEquipments
+   * lostEquipments' export mode controlling the format of the lostEquipments' output file
+   */
+  typedef enum {
+    EXPORT_LOSTEQUIPMENTS_NONE,  ///< Export no lost equipments
+    EXPORT_LOSTEQUIPMENTS_XML  ///< Export lost equipments found in XML mode in output file
+  } exportLostEquipmentsMode_t;
 
  public:
   /**
@@ -278,6 +291,28 @@ class Simulation {
   }
 
   /**
+   * @brief setter for the lost equipments' output file
+   * @param outputFile lost equipments' output file
+   */
+  inline void setLostEquipmentsOutputFile(const std::string& outputFile) {
+    lostEquipmentsOutputFile_ = outputFile;
+  }
+  /**
+   * @brief setter for the lost equipments' export mode
+   * @param mode lost equipments' export mode
+   */
+  inline void setLostEquipmentsExportMode(const exportLostEquipmentsMode_t& mode) {
+    exportLostEquipmentsMode_ = mode;
+  }
+  /**
+   * @brief Checks if lost equipments should be exported
+   * @return whether lost equipments should be exported
+   */
+  inline bool isLostEquipmentsExported() const {
+    return exportLostEquipmentsMode_ != EXPORT_LOSTEQUIPMENTS_NONE;
+  }
+
+  /**
    * @brief setter for local init values dump mode
    * @param dumpLocalInitValues @b true if local init values should be dumped
    * local init values are the values calculated by the init algorithm for each models, one by one
@@ -419,6 +454,12 @@ class Simulation {
   void printFinalState(std::ostream& stream) const;
 
   /**
+   * @brief print lost equipments output of the simulation in the given stream
+   * @param stream stream where the lost equipments output should be printed
+   */
+  void printLostEquipments(std::ostream& stream) const;
+
+  /**
    * @brief fill a vector with the ids of the failing criteria met so far
    * @param failingCriteria vector to fill
    */
@@ -516,6 +557,7 @@ class Simulation {
   boost::shared_ptr<finalState::FinalStateCollection> finalStateCollection_;  ///< instance of final state collection where final state are stored
   boost::shared_ptr<constraints::ConstraintsCollection> constraintsCollection_;  ///< instance of constraints collection where constraints are stored
   boost::shared_ptr<criteria::CriteriaCollection> criteriaCollection_;  ///< instance of criteria collection where criteria are stored
+  boost::shared_ptr<lostEquipments::LostEquipmentsCollection> lostEquipmentsCollection_;  ///< instance of collection where lost equipments are stored
 
   std::vector<std::string> dydFiles_;  ///< list of files to used dynamic data
   std::string iidmFile_;  ///< iidm input file
@@ -543,6 +585,9 @@ class Simulation {
 
   exportConstraintsMode_t exportConstraintsMode_;  ///< contstraints' export mode
   std::string constraintsOutputFile_;  ///< constraints' export file
+
+  exportLostEquipmentsMode_t exportLostEquipmentsMode_;  ///< lostEquipments' export mode
+  std::string lostEquipmentsOutputFile_;  ///< lost equipments' export file
 
   pid_t pid_;  ///< pid of the current simulation
 
@@ -586,6 +631,11 @@ class Simulation {
    * @brief configure the final state outputs
    */
   void configureFinalStateOutputs();
+
+  /**
+   * @brief configure the lost equipments outputs
+   */
+  void configureLostEquipmentsOutputs();
 };
 
 }  // end of namespace DYN

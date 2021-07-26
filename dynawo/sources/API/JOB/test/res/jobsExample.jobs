@@ -35,6 +35,7 @@
     <dyn:outputs directory="outputs1">
       <dyn:finalState exportDumpFile="true" exportIIDMFile="true"/>
       <dyn:curves inputFile="curves.crv" exportMode="CSV"/>
+      <dyn:lostEquipments/>
       <dyn:timeline exportMode="TXT"/>
       <dyn:timetable step="10"/>
       <dyn:constraints exportMode="XML"/>

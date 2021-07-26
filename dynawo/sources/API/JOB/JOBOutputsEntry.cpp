@@ -46,6 +46,7 @@ void OutputsEntry::copy(const OutputsEntry& other) {
   timetableEntry_ = DYN::clone(other.timetableEntry_);
   finalStateEntry_ = DYN::clone(other.finalStateEntry_);
   curvesEntry_ = DYN::clone(other.curvesEntry_);
+  lostEquipmentsEntry_ = DYN::clone(other.lostEquipmentsEntry_);
   logsEntry_ = DYN::clone(other.logsEntry_);
 }
 
@@ -117,6 +118,16 @@ OutputsEntry::setCurvesEntry(const boost::shared_ptr<CurvesEntry>& curvesEntry) 
 boost::shared_ptr<CurvesEntry>
 OutputsEntry::getCurvesEntry() const {
   return curvesEntry_;
+}
+
+void
+OutputsEntry::setLostEquipmentsEntry(const boost::shared_ptr<LostEquipmentsEntry>& lostEquipmentsEntry) {
+  lostEquipmentsEntry_ = lostEquipmentsEntry;
+}
+
+boost::shared_ptr<LostEquipmentsEntry>
+OutputsEntry::getLostEquipmentsEntry() const {
+  return lostEquipmentsEntry_;
 }
 
 void

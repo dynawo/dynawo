@@ -24,6 +24,7 @@
 #include "JOBTimelineEntry.h"
 #include "JOBFinalStateEntry.h"
 #include "JOBCurvesEntry.h"
+#include "JOBLostEquipmentsEntry.h"
 #include "JOBLogsEntry.h"
 
 #include "DYNClone.hpp"
@@ -39,6 +40,7 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_EQ(outputs->getTimelineEntry(), boost::shared_ptr<TimelineEntry>());
   ASSERT_EQ(outputs->getFinalStateEntry(), boost::shared_ptr<FinalStateEntry>());
   ASSERT_EQ(outputs->getCurvesEntry(), boost::shared_ptr<CurvesEntry>());
+  ASSERT_EQ(outputs->getLostEquipmentsEntry(), boost::shared_ptr<LostEquipmentsEntry>());
   ASSERT_EQ(outputs->getLogsEntry(), boost::shared_ptr<LogsEntry>());
 
   outputs->setOutputsDirectory("/tmp/outputs");
@@ -58,6 +60,9 @@ TEST(APIJOBTest, testOutputsEntry) {
   boost::shared_ptr<CurvesEntry> curves = boost::shared_ptr<CurvesEntry>(new CurvesEntry());
   outputs->setCurvesEntry(curves);
 
+  boost::shared_ptr<LostEquipmentsEntry> lostEquipments = boost::shared_ptr<LostEquipmentsEntry>(new LostEquipmentsEntry());
+  outputs->setLostEquipmentsEntry(lostEquipments);
+
   boost::shared_ptr<LogsEntry> logs = boost::shared_ptr<LogsEntry>(new LogsEntry());
   outputs->setLogsEntry(logs);
 
@@ -68,6 +73,7 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_EQ(outputs->getTimelineEntry(), timeline);
   ASSERT_EQ(outputs->getFinalStateEntry(), finalState);
   ASSERT_EQ(outputs->getCurvesEntry(), curves);
+  ASSERT_EQ(outputs->getLostEquipmentsEntry(), lostEquipments);
   ASSERT_EQ(outputs->getLogsEntry(), logs);
 
   boost::shared_ptr<OutputsEntry> outputs_bis = DYN::clone(outputs);
@@ -77,6 +83,7 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_NE(outputs_bis->getTimelineEntry(), timeline);
   ASSERT_NE(outputs_bis->getFinalStateEntry(), finalState);
   ASSERT_NE(outputs_bis->getCurvesEntry(), curves);
+  ASSERT_NE(outputs_bis->getLostEquipmentsEntry(), lostEquipments);
   ASSERT_NE(outputs_bis->getLogsEntry(), logs);
 
   OutputsEntry outputs_bis2 = *outputs;
@@ -86,6 +93,7 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_NE(outputs_bis2.getTimelineEntry(), timeline);
   ASSERT_NE(outputs_bis2.getFinalStateEntry(), finalState);
   ASSERT_NE(outputs_bis2.getCurvesEntry(), curves);
+  ASSERT_NE(outputs_bis2.getLostEquipmentsEntry(), lostEquipments);
   ASSERT_NE(outputs_bis2.getLogsEntry(), logs);
 }
 

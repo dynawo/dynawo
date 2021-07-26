@@ -102,6 +102,19 @@ ComponentInterface::getStateVariableReference() {
 }
 
 void
+ComponentInterface::backupComponentVar(const std::string& varName) {
+  int index = getComponentVarIndex(varName);
+  if (index >= 0)
+    stateVariables_[index].setBackupValue();
+}
+
+bool
+ComponentInterface::hasComponentVarChanged(const std::string& varName, const double referenceValue) const {
+  int index = getComponentVarIndex(varName);
+  return (index >= 0) && stateVariables_[index].hasValueChanged(referenceValue);
+}
+
+void
 ComponentInterface::setType(const ComponentInterface::ComponentType_t& type) {
   type_ = type;
 }
@@ -111,6 +124,30 @@ ComponentInterface::getType() const {
   return type_;
 }
 
+const std::string&
+ComponentInterface::getTypeAsString() const {
+  static const std::string stringTypes[] = {
+      "UNKNOWN",
+      "BUS",
+      "CALCULATED_BUS",
+      "SWITCH",
+      "LOAD",
+      "LINE",
+      "GENERATOR",
+      "SHUNT",
+      "DANGLING_LINE",
+      "TWO_WINDINGS_TRANSFORMER",
+      "THREE_WINDINGS_TRANSFORMER",
+      "STATIC_VAR_COMPENSATOR",
+      "VSC_CONVERTER",
+      "LCC_CONVERTER",
+      "HVDC_LINE"
+    };
+  ComponentType_t type = type_;
+  if (type < UNKNOWN || type >= COMPONENT_TYPE_COUNT)
+    type = UNKNOWN;
+  return stringTypes[type];
+}
 
 #ifdef _DEBUG_
 void

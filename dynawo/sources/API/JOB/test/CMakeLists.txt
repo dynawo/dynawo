@@ -21,6 +21,7 @@ set(MODULE_SOURCES
   TestJobCollection.cpp
   TestJobEntry.cpp
   TestLogsEntry.cpp
+  TestLostEquipmentsEntry.cpp
   TestModelerEntry.cpp
   TestModelsDirEntry.cpp
   TestNetworkEntry.cpp

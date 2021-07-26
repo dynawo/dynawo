@@ -25,6 +25,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "CRTCriteriaCollection.h"
+#include "LEQLostEquipmentsCollection.h"
 #include "DYNServiceManagerInterface.h"
 
 namespace DYN {
@@ -108,6 +109,17 @@ class DataInterface {
    * @brief export state variables
    */
   virtual void exportStateVariables() = 0;
+
+  /**
+   * @brief backup connection state
+   */
+  virtual void backupConnectionState() = 0;
+
+  /**
+   * @brief find lost equipments (equipments which have lost connection)
+   * @param lostEquipments where to add found lostEquipments
+   */
+  virtual void findLostEquipments(const boost::shared_ptr<lostEquipments::LostEquipmentsCollection>& lostEquipments) = 0;
 
   /**
    * @brief import static parameters

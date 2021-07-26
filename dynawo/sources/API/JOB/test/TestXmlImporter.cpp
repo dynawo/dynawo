@@ -229,6 +229,11 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_EQ(curves->getExportMode(), "CSV");
   ASSERT_EQ(curves->getInputFile(), "curves.crv");
 
+  // ===== LostEquipmentsEntry =====
+  ASSERT_NE(outputs->getLostEquipmentsEntry(), boost::shared_ptr<LostEquipmentsEntry>());
+  boost::shared_ptr<LostEquipmentsEntry> lostEquipments = outputs->getLostEquipmentsEntry();
+  ASSERT_EQ(lostEquipments->getDumpLostEquipments(), true);
+
   // ===== LogsEntry =====
   ASSERT_NE(outputs->getLogsEntry(), boost::shared_ptr<LogsEntry>());
   boost::shared_ptr<LogsEntry> logs = outputs->getLogsEntry();

@@ -157,6 +157,16 @@ class DataInterfaceIIDM : public DataInterface {
 #endif
 
   /**
+   * @copydoc DataInterface::backupConnectionState()
+   */
+  virtual void backupConnectionState();
+
+  /**
+   * @copydoc DataInterface::findLostEquipments()
+   */
+  virtual void findLostEquipments(const boost::shared_ptr<lostEquipments::LostEquipmentsCollection>& lostEquipments);
+
+  /**
    * @copydoc DataInterface::configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria)
    */
   void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);

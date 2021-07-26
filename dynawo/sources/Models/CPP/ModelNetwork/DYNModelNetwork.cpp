@@ -570,6 +570,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
         case ComponentInterface::UNKNOWN:
         case ComponentInterface::CALCULATED_BUS:
         case ComponentInterface::HVDC_LINE:
+        case ComponentInterface::COMPONENT_TYPE_COUNT:
           break;
       }
       if (busInterface) {

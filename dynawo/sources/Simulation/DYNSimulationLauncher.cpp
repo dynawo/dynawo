@@ -120,6 +120,7 @@ void launchSimu(const std::string& jobsFileName) {
       // Needed as otherwise terminate might crash due to missing staticRef variables
       if (err.key() == DYN::KeyError_t::StateVariableNoReference) {
         simulation->activateExportIIDM(false);
+        simulation->setLostEquipmentsExportMode(Simulation::EXPORT_LOSTEQUIPMENTS_NONE);
       }
       print(err.what(), DYN::ERROR);
       simulation->terminate();

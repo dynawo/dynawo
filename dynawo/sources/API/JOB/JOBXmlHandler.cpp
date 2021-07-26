@@ -253,6 +253,7 @@ timelineHandler_(parser::ElementName(jobs_ns, "timeline")),
 timetableHandler_(parser::ElementName(jobs_ns, "timetable")),
 finalStateHandler_(parser::ElementName(jobs_ns, "finalState")),
 curvesHandler_(parser::ElementName(jobs_ns, "curves")),
+lostEquipmentsHandler_(parser::ElementName(jobs_ns, "lostEquipments")),
 logsHandler_(parser::ElementName(jobs_ns, "logs")) {
   onStartElement(root_element, lambda::bind(&OutputsHandler::create, lambda::ref(*this), lambda_args::arg2));
 
@@ -262,6 +263,7 @@ logsHandler_(parser::ElementName(jobs_ns, "logs")) {
   onElement(root_element + jobs_ns("timetable"), timetableHandler_);
   onElement(root_element + jobs_ns("finalState"), finalStateHandler_);
   onElement(root_element + jobs_ns("curves"), curvesHandler_);
+  onElement(root_element + jobs_ns("lostEquipments"), lostEquipmentsHandler_);
   onElement(root_element + jobs_ns("logs"), logsHandler_);
 
   initValuesHandler_.onEnd(lambda::bind(&OutputsHandler::addInitValuesEntry, lambda::ref(*this)));
@@ -270,6 +272,7 @@ logsHandler_(parser::ElementName(jobs_ns, "logs")) {
   timetableHandler_.onEnd(lambda::bind(&OutputsHandler::addTimetable, lambda::ref(*this)));
   finalStateHandler_.onEnd(lambda::bind(&OutputsHandler::addFinalState, lambda::ref(*this)));
   curvesHandler_.onEnd(lambda::bind(&OutputsHandler::addCurves, lambda::ref(*this)));
+  lostEquipmentsHandler_.onEnd(lambda::bind(&OutputsHandler::addLostEquipments, lambda::ref(*this)));
   logsHandler_.onEnd(lambda::bind(&OutputsHandler::addLog, lambda::ref(*this)));
 }
 
@@ -301,6 +304,11 @@ OutputsHandler::addFinalState() {
 void
 OutputsHandler::addCurves() {
   outputs_->setCurvesEntry(curvesHandler_.get());
+}
+
+void
+OutputsHandler::addLostEquipments() {
+  outputs_->setLostEquipmentsEntry(lostEquipmentsHandler_.get());
 }
 
 void
@@ -410,6 +418,21 @@ CurvesHandler::create(attributes_type const& attributes) {
 shared_ptr<CurvesEntry>
 CurvesHandler::get() const {
   return curves_;
+}
+
+LostEquipmentsHandler::LostEquipmentsHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&LostEquipmentsHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+void
+LostEquipmentsHandler::create(attributes_type const& /*attributes*/) {
+  lostEquipments_ = shared_ptr<LostEquipmentsEntry>(new LostEquipmentsEntry());
+  lostEquipments_->setDumpLostEquipments(true);
+}
+
+shared_ptr<LostEquipmentsEntry>
+LostEquipmentsHandler::get() const {
+  return lostEquipments_;
 }
 
 LogsHandler::LogsHandler(elementName_type const& root_element) :

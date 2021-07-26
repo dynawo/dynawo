@@ -25,6 +25,7 @@
 #include "JOBFinalStateEntry.h"
 #include "JOBInitValuesEntry.h"
 #include "JOBLogsEntry.h"
+#include "JOBLostEquipmentsEntry.h"
 #include "JOBTimelineEntry.h"
 #include "JOBTimetableEntry.h"
 
@@ -143,6 +144,18 @@ class OutputsEntry {
   boost::shared_ptr<CurvesEntry> getCurvesEntry() const;
 
   /**
+   * @brief lostEquipments entry setter
+   * @param lostEquipmentsEntry : lostEquipments for the job
+   */
+  void setLostEquipmentsEntry(const boost::shared_ptr<LostEquipmentsEntry>& lostEquipmentsEntry);
+
+  /**
+   * @brief lostEquipments entry getter
+   * @return the lostEquipments entry container
+   */
+  boost::shared_ptr<LostEquipmentsEntry> getLostEquipmentsEntry() const;
+
+  /**
    * @brief Logs entry container setter
    * @param logsEntry : logs entries container for the job
    */
@@ -162,14 +175,15 @@ class OutputsEntry {
   void copy(const OutputsEntry& other);
 
  private:
-  std::string outputsDirectory_;                          ///< directory for simulation outputs
-  boost::shared_ptr<InitValuesEntry> initValuesEntry_;    ///< Init Values entries container
-  boost::shared_ptr<ConstraintsEntry> constraintsEntry_;  ///< Constraints entries container
-  boost::shared_ptr<TimelineEntry> timelineEntry_;        ///< Timeline entries container
-  boost::shared_ptr<TimetableEntry> timetableEntry_;      ///< Timetable entries container
-  boost::shared_ptr<FinalStateEntry> finalStateEntry_;    ///< Final State entries container
-  boost::shared_ptr<CurvesEntry> curvesEntry_;            ///< Curves entries container
-  boost::shared_ptr<LogsEntry> logsEntry_;                ///< Logs entries container
+  std::string outputsDirectory_;                                ///< directory for simulation outputs
+  boost::shared_ptr<InitValuesEntry> initValuesEntry_;          ///< Init Values entries container
+  boost::shared_ptr<ConstraintsEntry> constraintsEntry_;        ///< Constraints entries container
+  boost::shared_ptr<TimelineEntry> timelineEntry_;              ///< Timeline entries container
+  boost::shared_ptr<TimetableEntry> timetableEntry_;            ///< Timetable entries container
+  boost::shared_ptr<FinalStateEntry> finalStateEntry_;          ///< Final State entries container
+  boost::shared_ptr<CurvesEntry> curvesEntry_;                  ///< Curves entries container
+  boost::shared_ptr<LostEquipmentsEntry> lostEquipmentsEntry_;  ///< Lost equipments entries container
+  boost::shared_ptr<LogsEntry> logsEntry_;                      ///< Logs entries containe
 };
 
 }  // namespace job
