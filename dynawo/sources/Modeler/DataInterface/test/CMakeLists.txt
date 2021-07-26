@@ -11,7 +11,9 @@
 set(MODULE_NAME MODELER_DATAINTERFACE_unittest)
 
 set(MODULE_SOURCES
-    TestStaticParameter.cpp
+  TestStateVariable.cpp
+  TestStaticParameter.cpp
+  TestDataInterface.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
@@ -19,8 +21,10 @@ add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 target_link_libraries(${MODULE_NAME}
   dynawo_API_PAR
   dynawo_API_CRT
+  dynawo_API_LEQ
   dynawo_ModelerCommon
   dynawo_DataInterface
+  dynawo_DataInterfaceIIDM
   dynawo_Test)
 
 add_custom_target(${MODULE_NAME}-tests

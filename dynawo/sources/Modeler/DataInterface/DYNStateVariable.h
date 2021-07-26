@@ -84,6 +84,18 @@ class StateVariable {
   void setValue(const double& value);
 
   /**
+   * @brief set the backup value of a state variable to the current value
+   */
+  void setBackupValue();
+
+  /**
+   * @brief check if a state variable has changed from a reference value to a different one
+   * @param referenceValue reference value to compare with last backup value
+   * @return @b true if the variable value has changed from referenceValue to a different value
+   */
+  bool hasValueChanged(const double referenceValue) const;
+
+  /**
    * @brief getter of the state variable's name
    * @return name of the state variable
    */
@@ -165,6 +177,7 @@ class StateVariable {
   boost::shared_ptr<Variable> variable_;  ///< variable of the model associated to the state variable
   bool valueAffected_;  ///< true if value_ was set at least once
   double rawValue_;  ///< keep the double version of the current variable value
+  double backupValue_;  ///< backup value of the current variable value
   bool neededForCriteriaCheck_;  ///< true if the state variable's value is needed for criteria check
 };  ///< class for state variable
 }  // namespace DYN

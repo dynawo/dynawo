@@ -132,6 +132,8 @@ class ConverterInterface : public ComponentInterface {
         return LCC_CONVERTER;
         break;
       }
+      case ComponentInterface::COMPONENT_TYPE_COUNT:
+        throw DYNError(Error::MODELER, ConverterWrongType, getID());
       default:
         throw DYNError(Error::MODELER, ConverterWrongType, getID());
     }

@@ -112,6 +112,7 @@
       <xs:element name="timetable" type="dyn:TimetableEntry" minOccurs="0"/>
       <xs:element name="finalState" type="dyn:FinalStateEntry" minOccurs="0"/>
       <xs:element name="curves" type="dyn:CurvesEntry" minOccurs="0"/>
+      <xs:element name="lostEquipments" type="dyn:LostEquipmentsEntry" minOccurs="0"/>
       <xs:element name="logs" type="dyn:LogsEntry" minOccurs="0"/>
     </xs:all>
     <xs:attribute name="directory" use="required" type="xs:string"/>
@@ -158,6 +159,8 @@
     <xs:attribute name="inputFile" use="required" type="xs:string"/>
     <xs:attribute name="exportMode" use="required" type="dyn:CurvesExportMode"/>
   </xs:complexType>
+
+  <xs:complexType name="LostEquipmentsEntry"/>
 
   <xs:simpleType name="CurvesExportMode">
     <xs:restriction base="xs:string">

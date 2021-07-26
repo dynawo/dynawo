@@ -259,6 +259,7 @@ DataInterfaceIIDM::getBusName(const std::string& componentName, const std::strin
         break;
       }
       case ComponentInterface::UNKNOWN:
+      case ComponentInterface::COMPONENT_TYPE_COUNT:
         break;
     }
   }
@@ -925,12 +926,28 @@ DataInterfaceIIDM::exportStateVariablesNoReadFromModel() {
 #endif
 
 void
+DataInterfaceIIDM::backupConnectionState() {
+  for (auto& component : components_) {
+    (component.second)->backupComponentVar("state");
+  }
+}
+
+void
+DataInterfaceIIDM::findLostEquipments(const boost::shared_ptr<lostEquipments::LostEquipmentsCollection>& lostEquipments) {
+  for (const auto& component : components_) {
+    auto lost = (component.second)->hasComponentVarChanged("state", CLOSED);  // from CLOSED to not CLOSED
+    if (lost) {
+      lostEquipments->addLostEquipment((component.second)->getID(), (component.second)->getTypeAsString());
+    }
+  }
+}
+
+void
 DataInterfaceIIDM::configureCriteria(const shared_ptr<CriteriaCollection>& criteria) {
   configureBusCriteria(criteria);
   configureLoadCriteria(criteria);
   configureGeneratorCriteria(criteria);
 }
-
 
 void
 DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {

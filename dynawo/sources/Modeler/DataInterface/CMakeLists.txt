@@ -72,6 +72,7 @@ target_include_directories(dynawo_DataInterface
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     $<TARGET_PROPERTY:dynawo_API_CRT,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:dynawo_API_LEQ,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
 target_include_directories(dynawo_DataInterface SYSTEM
