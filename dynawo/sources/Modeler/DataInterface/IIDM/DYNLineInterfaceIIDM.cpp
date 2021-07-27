@@ -306,32 +306,32 @@ LineInterfaceIIDM::getActiveSeason() const {
 }
 
 boost::optional<double>
-LineInterfaceIIDM::getCurrentLimitPermanent(const std::string&, CurrentLimitNumber) const {
+LineInterfaceIIDM::getCurrentLimitPermanent(const std::string&, CurrentLimitSide) const {
   return boost::none;
 }
 
 boost::optional<unsigned int>
-LineInterfaceIIDM::getCurrentLimitNbTemporary(const std::string&, CurrentLimitNumber) const {
+LineInterfaceIIDM::getCurrentLimitNbTemporary(const std::string&, CurrentLimitSide) const {
   return boost::none;
 }
 
 boost::optional<std::string>
-LineInterfaceIIDM::getCurrentLimitTemporaryName(const std::string&, CurrentLimitNumber, unsigned int) const {
+LineInterfaceIIDM::getCurrentLimitTemporaryName(const std::string&, CurrentLimitSide, unsigned int) const {
   return boost::none;
 }
 
 boost::optional<unsigned long>
-LineInterfaceIIDM::getCurrentLimitTemporaryAcceptableDuration(const std::string&, CurrentLimitNumber, unsigned int) const {
+LineInterfaceIIDM::getCurrentLimitTemporaryAcceptableDuration(const std::string&, CurrentLimitSide, unsigned int) const {
   return boost::none;
 }
 
 boost::optional<double>
-LineInterfaceIIDM::getCurrentLimitTemporaryValue(const std::string&, CurrentLimitNumber, unsigned int) const {
+LineInterfaceIIDM::getCurrentLimitTemporaryValue(const std::string&, CurrentLimitSide, unsigned int) const {
   return boost::none;
 }
 
 boost::optional<bool>
-LineInterfaceIIDM::getCurrentLimitTemporaryFictitious(const std::string&, CurrentLimitNumber, unsigned int) const {
+LineInterfaceIIDM::getCurrentLimitTemporaryFictitious(const std::string&, CurrentLimitSide, unsigned int) const {
   return boost::none;
 }
 
