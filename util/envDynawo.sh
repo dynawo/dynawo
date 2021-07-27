@@ -1196,7 +1196,7 @@ test_doxygen_doc() {
   if [ -f "$DYNAWO_INSTALL_DIR/doxygen/warnings.txt"  ] ; then
     rm -f $DYNAWO_INSTALL_DIR/doxygen/warnings_filtered.txt
     # need to filter "return type of member (*) is not documented" as it is a doxygen bug detected on 1.8.17 that will be solved in 1.8.18
-    cat $DYNAWO_INSTALL_DIR/doxygen/warnings.txt | grep -v -e "return type of member .* is not documented" > $DYNAWO_INSTALL_DIR/doxygen/warnings_filtered.txt
+    grep -Fvf $DYNAWO_HOME/util/warnings_to_filter.txt $DYNAWO_INSTALL_DIR/doxygen/warnings.txt > $DYNAWO_INSTALL_DIR/doxygen/warnings_filtered.txt
     nb_warnings=$(wc -l $DYNAWO_INSTALL_DIR/doxygen/warnings_filtered.txt | awk '{print $1}')
     if [ ${nb_warnings} -ne 0 ]; then
       echo "===================================="
