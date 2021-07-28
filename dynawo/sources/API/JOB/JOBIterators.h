@@ -47,7 +47,6 @@ class job_iterator {
    * @param iterated Pointer to the jobs collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the jobs' container.
-   * @returns Created job_iterator.
    */
   job_iterator(JobsCollection* iterated, bool begin);
 
@@ -131,7 +130,6 @@ class job_const_iterator {
    * @param iterated Pointer to the jobs collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the jobs' container.
-   * @returns Created job_const_iterator.
    */
   job_const_iterator(const JobsCollection* iterated, bool begin);
 

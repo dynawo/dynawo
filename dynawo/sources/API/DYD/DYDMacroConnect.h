@@ -39,8 +39,6 @@ class MacroConnect {
    * @param connector id of the connector
    * @param model1  id of the first model
    * @param model2  id of the second model
-   *
-   * @returns New MacroConnect::Impl instance with given attributes
    */
   MacroConnect(const std::string & connector, const std::string & model1, const std::string & model2);
 

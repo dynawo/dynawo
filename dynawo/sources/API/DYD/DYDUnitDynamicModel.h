@@ -40,8 +40,6 @@ class UnitDynamicModel {
    *
    * @param id Dynamic model ID
    * @param name name of the model
-   *
-   * @returns New UnitDynamicModel::Impl instance with given attributes
    */
   UnitDynamicModel(const std::string& id, const std::string& name);
 

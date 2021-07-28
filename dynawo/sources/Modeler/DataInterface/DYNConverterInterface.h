@@ -20,6 +20,9 @@ namespace DYN {
 class BusInterface;
 class VoltageLevelInterface;
 
+/**
+ * @brief Converter interface
+ */
 class ConverterInterface : public ComponentInterface {
  public:
   /**

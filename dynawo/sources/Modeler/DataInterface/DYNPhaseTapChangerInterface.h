@@ -26,6 +26,9 @@
 namespace DYN {
 class StepInterface;
 
+/**
+ * @brief Phase tap changer interface
+ */
 class PhaseTapChangerInterface {
  public:
   /**

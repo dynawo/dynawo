@@ -33,6 +33,9 @@
 
 namespace DYN {
 
+/**
+ * @brief HVDC line interface IIDM implementation
+ */
 class HvdcLineInterfaceIIDM : public HvdcLineInterface {
  public:
   /**

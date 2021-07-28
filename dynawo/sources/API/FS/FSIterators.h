@@ -52,7 +52,6 @@ class finalStateModel_const_iterator {
    * @param iterated Pointer to the final states collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the models' container.
-   * @returns Created model_const_iterator.
    */
   finalStateModel_const_iterator(const FinalStateCollection* iterated, bool begin);
 
@@ -66,7 +65,6 @@ class finalStateModel_const_iterator {
    * @param iterated Pointer to the model iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the models' container.
-   * @returns Created model_const_iterator.
    */
   finalStateModel_const_iterator(const FinalStateModel* iterated, bool begin);
 
@@ -154,7 +152,6 @@ class finalStateModel_iterator {
    * @param iterated Pointer to the final states collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the models' container.
-   * @returns Created model_iterator.
    */
   finalStateModel_iterator(FinalStateCollection* iterated, bool begin);
 
@@ -168,7 +165,6 @@ class finalStateModel_iterator {
    * @param iterated Pointer to the model iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the models' container.
-   * @returns Created model_iterator.
    */
   finalStateModel_iterator(FinalStateModel* iterated, bool begin);
 
@@ -256,7 +252,6 @@ class finalStateVariable_const_iterator {
    * @param iterated Pointer to the final states collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the variables' container.
-   * @returns Created variable_const_iterator.
    */
   finalStateVariable_const_iterator(const FinalStateCollection* iterated, bool begin);
 
@@ -270,7 +265,6 @@ class finalStateVariable_const_iterator {
    * @param iterated Pointer to the model iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the variables' container.
-   * @returns Created variable_const_iterator.
    */
   finalStateVariable_const_iterator(const FinalStateModel* iterated, bool begin);
 
@@ -358,7 +352,6 @@ class finalStateVariable_iterator {
    * @param iterated Pointer to the final states collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the variables' container.
-   * @returns Created variable_iterator.
    */
   finalStateVariable_iterator(FinalStateCollection* iterated, bool begin);
 
@@ -372,7 +365,6 @@ class finalStateVariable_iterator {
    * @param iterated Pointer to the model iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the variables' container.
-   * @returns Created variable_iterator.
    */
   finalStateVariable_iterator(FinalStateModel* iterated, bool begin);
 
