@@ -21,6 +21,7 @@
 #define MODELER_DATAINTERFACE_DYNLINEINTERFACE_H_
 
 #include "DYNComponentInterface.hpp"
+#include "DYNCurrentLimits.h"
 
 #include <boost/optional.hpp>
 
@@ -33,16 +34,6 @@ class VoltageLevelInterface;
  * class LineInterface
  */
 class LineInterface : public ComponentInterface {
- public:
-  /**
-   * @brief Current Limit side enum
-   */
-  typedef enum {
-    CURRENT_LIMIT_SIDE_1 = 1,
-    CURRENT_LIMIT_SIDE_2,
-    CURRENT_LIMIT_SIDE_3
-  } CurrentLimitSide;
-
  public:
   /**
    * @brief Destructor

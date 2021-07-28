@@ -54,6 +54,7 @@ set(DATA_INTERFACE_INCLUDE_HEADERS
     DYNStaticParameter.hpp
     DYNConverterInterface.h
     DYNServiceManagerInterface.h
+    DYNCurrentLimits.h
     )
 
 set(DATA_INTERFACE_FACTORY_SOURCES
