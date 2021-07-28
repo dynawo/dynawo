@@ -18,7 +18,6 @@ generator_SGenPu_re                               : alias of generator_tableQMax
 generator_tableQMin_u_1_                          : alias of generator_tableQMax_u_1_
  ====== INIT DISCRETE VARIABLES VALUES ======
 generator_URefPu_value                            : z =       1.090000
-generator_alpha_value                             : z =       1.000000
 generator_running_value                           : z =       1.000000
 generator_switchOffSignal1_value                  : z =      -1.000000
 generator_switchOffSignal2_value                  : z =      -1.000000
@@ -63,11 +62,11 @@ generator_tableQMin_columns_1_                     =              2
 generator_tableQMin_extrapolation                  =              2
 generator_tableQMin_n                              =              1
 generator_tableQMin_smoothness                     =              1
-generator_QMaxTableFile                            =IEEE14_Diagram/_GEN____8_SM_Diagram.txt
+generator_QMaxTableFile                            =nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt
 generator_QMaxTableName                            =5821770868043647431_tableqmax
-generator_QMinTableFile                            =IEEE14_Diagram/_GEN____8_SM_Diagram.txt
+generator_QMinTableFile                            =nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt
 generator_QMinTableName                            =5821770868043647431_tableqmin
-generator_tableQMax_fileName                       =IEEE14_Diagram/_GEN____8_SM_Diagram.txt
+generator_tableQMax_fileName                       =nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt
 generator_tableQMax_tableName                      =5821770868043647431_tableqmax
-generator_tableQMin_fileName                       =IEEE14_Diagram/_GEN____8_SM_Diagram.txt
+generator_tableQMin_fileName                       =nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt
 generator_tableQMin_tableName                      =5821770868043647431_tableqmin

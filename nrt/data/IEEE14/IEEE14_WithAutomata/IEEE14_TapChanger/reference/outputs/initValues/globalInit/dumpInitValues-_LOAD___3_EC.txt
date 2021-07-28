@@ -22,8 +22,8 @@ transformer_Q1Pu_value                            : y =       0.190000
 transformer_U1Pu_value                            : y =       1.010001
 transformer_U2Pu_value                            : y =       0.992373
  ====== INIT DISCRETE VARIABLES VALUES ======
-load_PRefPu_value                                 : z =       0.942000
-load_QRefPu_value                                 : z =       0.064395
+load_PRefPu                                       : z =       0.942000
+load_QRefPu                                       : z =       0.064395
 transformer_rTfoPu                                : z =       1.000000
 transformer_tap_value                             : z =       5.000000
 load_running_value                                : z =       1.000000

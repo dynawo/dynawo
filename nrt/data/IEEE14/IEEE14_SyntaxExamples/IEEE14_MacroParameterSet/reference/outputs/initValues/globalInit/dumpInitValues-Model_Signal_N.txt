@@ -1,0 +1,5 @@
+ ====== INIT VARIABLES VALUES ======
+signalN_N_value                                   : y =       0.000002 yp =       0.000000
+signalN_thetaRef_value                            : y =       0.000000 yp =       0.000000
+ ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== PARAMETERS VALUES ======
