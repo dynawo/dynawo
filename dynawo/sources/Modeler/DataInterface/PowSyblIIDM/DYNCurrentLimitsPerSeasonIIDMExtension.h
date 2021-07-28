@@ -25,6 +25,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "DYNCurrentLimits.h"
+
 namespace DYN {
 
 /**
@@ -32,26 +34,6 @@ namespace DYN {
  */
 class CurrentLimitsPerSeasonIIDMExtension {
  public:
-  /**
-   * @brief Temporary limit
-   */
-  struct TemporaryLimit {
-    std::string name;                  ///< name of the temporary limit
-    unsigned long acceptableDuration;  ///< acceptable duration of the temporary limit
-    double value;                      ///< value of the temporary limit
-    bool fictitious;                   ///< determines if the temporary limit is fictitious
-  };
-
-  /// @brief Current limit
-  struct CurrentLimit {
-    double permanentLimit;                        ///< Permanent limit
-    std::vector<TemporaryLimit> temporaryLimits;  ///< list of temporary limits
-  };
-  /// @brief Current limits, from currentLimit1 to currentLimit3
-  struct CurrentLimits {
-    // currentLimit1 corresponds to index 0
-    std::array<std::shared_ptr<CurrentLimit>, 3> currentLimits;  ///< current limits
-  };
   /// @brief alias for season name
   using SeasonName = std::string;
 
