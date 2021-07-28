@@ -1,0 +1,4 @@
+ ====== INIT VARIABLES VALUES ======
+connector_NETWORK__BUS____4_TN_phi_value          : y =       0.000000 yp =       0.000000
+ ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== PARAMETERS VALUES ======
