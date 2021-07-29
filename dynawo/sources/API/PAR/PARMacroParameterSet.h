@@ -38,7 +38,6 @@ class MacroParameterSet {
   /**
    * @brief MacroParameterSet constructor
    * @param[in] id: id of the macroParameterSet
-   * @returns new MacroParameterSet::Impl instance with given attributes
    */
   explicit MacroParameterSet(const std::string& id);
 
@@ -78,7 +77,6 @@ class MacroParameterSet {
      * @param iterated Pointer to the parameters' set iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the parameters' container.
-     * @returns Created parameter_const_iterator.
      */
     parameter_const_iterator(const MacroParameterSet* iterated, bool begin);
 
@@ -174,7 +172,6 @@ class MacroParameterSet {
      * @param iterated Pointer to the references' set iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the references' container.
-     * @returns Created reference_const_iterator.
      */
     reference_const_iterator(const MacroParameterSet* iterated, bool begin);
 

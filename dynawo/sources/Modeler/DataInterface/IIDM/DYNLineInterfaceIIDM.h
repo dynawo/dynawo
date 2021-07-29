@@ -30,6 +30,9 @@ class Line;
 
 namespace DYN {
 
+/**
+ * @brief IIDM Line interface implementation
+ */
 class LineInterfaceIIDM : public LineInterface {
  public:
   /**
@@ -187,6 +190,37 @@ class LineInterfaceIIDM : public LineInterface {
    * @copydoc LineInterface::getActiveSeason()
    */
   std::string getActiveSeason() const;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitPermanent(const std::string& season, CurrentLimitSide side) const
+   */
+  boost::optional<double> getCurrentLimitPermanent(const std::string& season, CurrentLimitSide side) const;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitNbTemporary(const std::string& season, CurrentLimitSide side) const
+   */
+  boost::optional<unsigned int> getCurrentLimitNbTemporary(const std::string& season, CurrentLimitSide side) const;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitTemporaryName(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const
+   */
+  boost::optional<std::string> getCurrentLimitTemporaryName(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitTemporaryAcceptableDuration(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const
+   */
+  boost::optional<unsigned long> getCurrentLimitTemporaryAcceptableDuration(const std::string& season, CurrentLimitSide side,
+    unsigned int indexTemporary) const;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitTemporaryValue(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const
+   */
+  boost::optional<double> getCurrentLimitTemporaryValue(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitTemporaryFictitious(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const
+   */
+  boost::optional<bool> getCurrentLimitTemporaryFictitious(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const;
 
   /**
    * @copydoc ComponentInterface::importStaticParameters()

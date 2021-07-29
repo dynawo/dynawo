@@ -20,8 +20,14 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNIIDMEXTENSIONSTRAITS_HPP_
 
 #include "DYNActiveSeasonIIDMExtension.h"
+#include "DYNCurrentLimitsPerSeasonIIDMExtension.h"
+#include "DYNGeneratorActivePowerControlIIDMExtension.h"
+#include "DYNHvdcAngleDroopActivePowerControlIIDMExtension.h"
+#include "DYNHvdcOperatorActivePowerRangeIIDMExtension.h"
 #include "DYNStaticVarCompensatorInterfaceIIDMExtension.h"
 
+#include <powsybl/iidm/Generator.hpp>
+#include <powsybl/iidm/HvdcLine.hpp>
 #include <string>
 
 namespace DYN {
@@ -48,6 +54,38 @@ template<>
 struct IIDMExtensionTrait<ActiveSeasonIIDMExtension> {
   /// @brief Network component type
   using NetworkComponentType = powsybl::iidm::Connectable;
+  static const char name[];  ///< name of the extension
+};
+
+/// @brief Specialization trait for CurrentLimitsPerSeasonIIDMExtension
+template<>
+struct IIDMExtensionTrait<CurrentLimitsPerSeasonIIDMExtension> {
+  /// @brief Network component type
+  using NetworkComponentType = powsybl::iidm::Connectable;
+  static const char name[];  ///< name of the extension
+};
+
+/// @brief Specialization trait for GeneratorActivePowerControlIIDMExtension
+template<>
+struct IIDMExtensionTrait<GeneratorActivePowerControlIIDMExtension> {
+  /// @brief Network component type
+  using NetworkComponentType = powsybl::iidm::Generator;
+  static const char name[];  ///< name of the extension
+};
+
+/// @brief Specialization trait for HvdcAngleDroopActivePowerControlIIDMExtension
+template<>
+struct IIDMExtensionTrait<HvdcAngleDroopActivePowerControlIIDMExtension> {
+  /// @brief Network component type
+  using NetworkComponentType = powsybl::iidm::HvdcLine;
+  static const char name[];  ///< name of the extension
+};
+
+/// @brief Specialization trait for HvdcOperatorActivePowerRangeIIDMExtension
+template<>
+struct IIDMExtensionTrait<HvdcOperatorActivePowerRangeIIDMExtension> {
+  /// @brief Network component type
+  using NetworkComponentType = powsybl::iidm::HvdcLine;
   static const char name[];  ///< name of the extension
 };
 }  // namespace DYN

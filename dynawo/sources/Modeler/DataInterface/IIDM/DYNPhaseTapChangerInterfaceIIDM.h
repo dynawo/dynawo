@@ -28,6 +28,9 @@ class PhaseTapChanger;
 
 namespace DYN {
 
+/**
+ * @brief IIDM phase tap changer implementation
+ */
 class PhaseTapChangerInterfaceIIDM : public PhaseTapChangerInterface {
  public:
   /**

@@ -14,7 +14,7 @@
 /**
  * @file  DYNModelShuntCompensator.h
  *
- * @brief
+ * @brief Shunt compensator model : header file
  *
  */
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELSHUNTCOMPENSATOR_H_
@@ -27,6 +27,9 @@ namespace DYN {
 class ModelBus;
 class ShuntCompensatorInterface;
 
+/**
+ * @brief Shunt compensator model
+ */
 class ModelShuntCompensator : public NetworkComponent::Impl {
  public:
   /**

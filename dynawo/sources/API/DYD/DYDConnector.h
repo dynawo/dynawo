@@ -41,8 +41,6 @@ class Connector {
    * @param var1   First model connected port name
    * @param model2 Shared pointer to the second model
    * @param var2  Second model connected port name
-   *
-   * @returns New Connector::Impl instance with given attributes
    */
   Connector(const std::string& model1, const std::string& var1, const std::string& model2, const std::string& var2);
 

@@ -31,6 +31,9 @@ namespace DYN {
 class NetworkInterface;
 class SubModel;
 
+/**
+ * @brief Data interface
+ */
 class DataInterface {
  public:
   /**

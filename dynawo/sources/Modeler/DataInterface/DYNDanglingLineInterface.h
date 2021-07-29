@@ -27,6 +27,9 @@ class BusInterface;
 class VoltageLevelInterface;
 class CurrentLimitInterface;
 
+/**
+ * @brief Dangling line interface
+ */
 class DanglingLineInterface : public ComponentInterface {
  public:
   /**

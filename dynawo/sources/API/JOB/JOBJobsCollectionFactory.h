@@ -26,6 +26,9 @@
 
 namespace job {
 
+/**
+ * @brief Factory for jobs collection
+ */
 class JobsCollectionFactory {
  public:
   /**

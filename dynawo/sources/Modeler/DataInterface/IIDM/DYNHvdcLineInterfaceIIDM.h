@@ -125,6 +125,46 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface {
    */
   const boost::shared_ptr<ConverterInterface>& getConverter2() const;
 
+  /**
+   * @copydoc HvdcLineInterface::getDroop() const
+   */
+  boost::optional<double> getDroop() const {
+    // not implemented
+    return boost::none;
+  }
+
+  /**
+   * @copydoc HvdcLineInterface::getP0() const
+   */
+  boost::optional<double> getP0() const {
+    // not implemented
+    return boost::none;
+  }
+
+  /**
+   * @copydoc HvdcLineInterface::isActivePowerControlEnabled() const
+   */
+  boost::optional<bool> isActivePowerControlEnabled() const {
+    // not implemented
+    return boost::none;
+  }
+
+  /**
+   * @copydoc HvdcLineInterface::getOprFromCS1toCS2() const
+   */
+  boost::optional<double> getOprFromCS1toCS2() const {
+    // not implemented
+    return boost::none;
+  }
+
+  /**
+   * @copydoc HvdcLineInterface::getOprFromCS2toCS1() const
+   */
+  boost::optional<double> getOprFromCS2toCS1() const {
+    // not implemented
+    return boost::none;
+  }
+
  private:
   IIDM::HvdcLine& hvdcLineIIDM_;  ///< reference to the iidm line instance
   boost::shared_ptr<ConverterInterface> conv1_;  ///< conv1

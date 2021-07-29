@@ -33,6 +33,9 @@ namespace DYN {
 class SubModel;
 class ConnectorContainer;
 
+/**
+ * @brief Model carrying multiple models
+ */
 class ModelMulti : public Model, private boost::noncopyable {
  public:
   /**

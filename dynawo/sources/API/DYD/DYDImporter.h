@@ -55,7 +55,6 @@ class Importer {
    * @param dydHandler dynamic models file handler
    * @param parser Smart pointer to SAX parser interface class
    * @param xsdValidation To use or not XSD validation
-   * @returns Collection imported
    */
   virtual void importFromStream(std::istream& stream, XmlHandler& dydHandler, xml::sax::parser::ParserPtr& parser, bool xsdValidation) const = 0;
 };

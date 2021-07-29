@@ -58,7 +58,6 @@ class dynamicModel_iterator {
    * @param iterated Pointer to the dynamic models collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the models' container.
-   * @returns Created model_iterator.
    */
   dynamicModel_iterator(DynamicModelsCollection* iterated, bool begin);
 
@@ -146,7 +145,6 @@ class dynamicModel_const_iterator {
    * @param iterated Pointer to the final states collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the models' container.
-   * @returns Created model_const_iterator.
    */
   dynamicModel_const_iterator(const DynamicModelsCollection* iterated, bool begin);
 
@@ -230,7 +228,6 @@ class connector_iterator {
    * @param iterated Pointer to the dynamic models collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the connectors' container.
-   * @returns Created connector_iterator.
    */
   connector_iterator(DynamicModelsCollection* iterated, bool begin);
 
@@ -314,7 +311,6 @@ class connector_const_iterator {
    * @param iterated Pointer to the dynamic models collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the connectors' container.
-   * @returns Created connector_const_iterator.
    */
   connector_const_iterator(const DynamicModelsCollection* iterated, bool begin);
 
@@ -398,7 +394,6 @@ class macroConnector_iterator {
    * @param iterated Pointer to the dynamic models collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the macroConnectors' container.
-   * @returns Created macroConnector_iterator.
    */
   macroConnector_iterator(DynamicModelsCollection* iterated, bool begin);
 
@@ -482,7 +477,6 @@ class macroConnector_const_iterator {
    * @param iterated Pointer to the dynamic models collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the macroConnectors' container.
-   * @returns Created macroConnector_const_iterator.
    */
   macroConnector_const_iterator(const DynamicModelsCollection* iterated, bool begin);
 
@@ -566,7 +560,6 @@ class macroConnect_iterator {
    * @param iterated Pointer to the dynamic models collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the macroConnects' container.
-   * @returns Created macroConnect_iterator.
    */
   macroConnect_iterator(DynamicModelsCollection* iterated, bool begin);
 
@@ -650,7 +643,6 @@ class macroConnect_const_iterator {
    * @param iterated Pointer to the dynamic models collection iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the macroConnects' container.
-   * @returns Created macroConnect_const_iterator.
    */
   macroConnect_const_iterator(const DynamicModelsCollection* iterated, bool begin);
 
@@ -734,7 +726,6 @@ class staticRef_iterator {
    * @param iterated Pointer to the model iterated
    * @param begin Flag indicating if the iterator points to the beginning (true)
    * or the end of the staticRefs container.
-   * @returns Created staticRef_iterator.
    */
   staticRef_iterator(Model* iterated, bool begin);
 
@@ -748,7 +739,6 @@ class staticRef_iterator {
    * @param iterated Pointer to the macroStaticReference iterated
    * @param begin Flag indicating if the iterator points to the beginning (true)
    * or the end of the staticRefs container.
-   * @returns Created staticRef_iterator.
    */
   staticRef_iterator(MacroStaticReference* iterated, bool begin);
 
@@ -832,7 +822,6 @@ class staticRef_const_iterator {
    * @param iterated Pointer to the model iterated
    * @param begin Flag indicating if the iterator points to the beginning (true)
    * or the end of the staticRefs container.
-   * @returns Created staticRef_const_iterator.
    */
   staticRef_const_iterator(const Model* iterated, bool begin);
 
@@ -846,7 +835,6 @@ class staticRef_const_iterator {
    * @param iterated Pointer to the macroStaticReference iterated
    * @param begin Flag indicating if the iterator points to the beginning (true)
    * or the end of the staticRefs container.
-   * @returns Created staticRef_const_iterator.
    */
   staticRef_const_iterator(const MacroStaticReference* iterated, bool begin);
 
@@ -930,7 +918,6 @@ class macroStaticRef_iterator {
    * @param iterated Pointer to the model iterated
    * @param begin Flag indicating if the iterator points to the beginning (true)
    * or the end of the macroStaticRefs container.
-   * @returns Created macroStaticRef_iterator.
    */
   macroStaticRef_iterator(Model* iterated, bool begin);
 
@@ -1014,7 +1001,6 @@ class macroStaticRef_const_iterator {
    * @param iterated Pointer to the model iterated
    * @param begin Flag indicating if the iterator points to the beginning (true)
    * or the end of the macroStaticRefs container.
-   * @returns Created macroStaticRef_const_iterator.
    */
   macroStaticRef_const_iterator(const Model* iterated, bool begin);
 
@@ -1098,7 +1084,6 @@ class macroStaticReference_iterator {
    * @param iterated Pointer to the dynamic models collection iterated
    * @param begin Flag indicating if the iterator points to the beginning (true)
    * or the end of the macroStaticReferences container.
-   * @returns Created macroStaticReference_iterator.
    */
   macroStaticReference_iterator(DynamicModelsCollection* iterated, bool begin);
 
@@ -1182,7 +1167,6 @@ class macroStaticReference_const_iterator {
    * @param iterated Pointer to the dynamic models collection iterated
    * @param begin Flag indicating if the iterator points to the beginning (true)
    * or the end of the macroStaticReferences container.
-   * @returns Created macroStaticReference_const_iterator.
    */
   macroStaticReference_const_iterator(const DynamicModelsCollection* iterated, bool begin);
 

@@ -25,6 +25,9 @@
 #include "FSFinalStateCollection.h"
 
 namespace finalState {
+/**
+ * @brief Factory for final state collection
+ */
 class FinalStateCollectionFactory {
  public:
   /**

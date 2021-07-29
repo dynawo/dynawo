@@ -26,6 +26,9 @@ namespace DYN {
 class BusInterface;
 class VoltageLevelInterface;
 
+/**
+ * @brief Shunt compensator interface
+ */
 class ShuntCompensatorInterface : public ComponentInterface {
  public:
   /**

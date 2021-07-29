@@ -59,7 +59,6 @@ class TraceStream {
    *
    * Creates a new TraceStream with empty buffer, severity level @p INFO and
    * no tag associated.
-   * @return Created TraceStream
    */
   TraceStream();
 
@@ -70,7 +69,6 @@ class TraceStream {
    * Default tag is "" which means no tag.
    * @param slv : Severity level of TraceStream message
    * @param tag : Tag to add to the message
-   * @return Created TraceStream
    */
   explicit TraceStream(SeverityLevel slv, const std::string& tag = "");
 
@@ -80,7 +78,6 @@ class TraceStream {
    * Creates a new TraceStream with empty buffer and same severity level and tag as
    * TraceStream object given.
    * @param ts : TraceStream to copy
-   * @return Created TraceStream
    *
    * @note Copying buffer content seemed to be a bad behaviour. It could have some
    * side effects that do not appear by creating an empty buffer.

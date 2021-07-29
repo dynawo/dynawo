@@ -237,9 +237,6 @@ bool is_directory(const std::string & path);
 /**
  * @brief Create all relevant directories in order to make a path relevant
  * @param[in] path : the path from which to create directories
- *
- * @return : whether the path was successfully created
-
  */
 void create_directory(const std::string & path);
 

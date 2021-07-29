@@ -25,6 +25,7 @@
 
 #include "DYNLineInterface.h"
 #include "DYNActiveSeasonIIDMExtension.h"
+#include "DYNCurrentLimitsPerSeasonIIDMExtension.h"
 #include "DYNIIDMExtensions.hpp"
 
 #include <boost/noncopyable.hpp>
@@ -189,6 +190,37 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
   std::string getActiveSeason() const final;
 
   /**
+   * @copydoc LineInterface::getCurrentLimitPermanent(const std::string& season, CurrentLimitSide side) const
+   */
+  boost::optional<double> getCurrentLimitPermanent(const std::string& season, CurrentLimitSide side) const final;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitNbTemporary(const std::string& season, CurrentLimitSide side) const
+   */
+  boost::optional<unsigned int> getCurrentLimitNbTemporary(const std::string& season, CurrentLimitSide side) const final;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitTemporaryName(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const
+   */
+  boost::optional<std::string> getCurrentLimitTemporaryName(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const final;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitTemporaryAcceptableDuration(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const
+   */
+  boost::optional<unsigned long> getCurrentLimitTemporaryAcceptableDuration(const std::string& season, CurrentLimitSide side,
+    unsigned int indexTemporary) const final;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitTemporaryValue(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const
+   */
+  boost::optional<double> getCurrentLimitTemporaryValue(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const final;
+
+  /**
+   * @copydoc LineInterface::getCurrentLimitTemporaryFictitious(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const
+   */
+  boost::optional<bool> getCurrentLimitTemporaryFictitious(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const final;
+
+  /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();
@@ -216,6 +248,9 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
 
   ActiveSeasonIIDMExtension* activeSeasonExtension_;                                         ///< Active season extension
   IIDMExtensions::DestroyFunction<ActiveSeasonIIDMExtension> destroyActiveSeasonExtension_;  ///< active season destroy function
+  CurrentLimitsPerSeasonIIDMExtension* currentLimitsPerSeasonExtension_;                        ///< current limit per season IIDM extension
+  IIDMExtensions::DestroyFunction<CurrentLimitsPerSeasonIIDMExtension>
+      destroyCurrentLimitsPerSeasonExtension_;  ///< current limit per season IIDM extension destroy function
 };                                                                                  ///< Interface class for Line model
 }  // namespace DYN
 

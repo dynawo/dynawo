@@ -40,8 +40,6 @@ class MacroStaticReference {
    * @brief MacroStaticReference constructor
    *
    * @param[in] id: id of the macroStaticReference
-   *
-   * @returns new MacroStaticReference::Impl instance with given attributes
    */
   explicit MacroStaticReference(const std::string& id);
 

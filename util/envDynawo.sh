@@ -1194,13 +1194,16 @@ build_doxygen_doc() {
 
 test_doxygen_doc() {
   if [ -f "$DYNAWO_INSTALL_DIR/doxygen/warnings.txt"  ] ; then
-    nb_warnings=$(wc -l $DYNAWO_INSTALL_DIR/doxygen/warnings.txt | awk '{print $1}')
+    rm -f $DYNAWO_INSTALL_DIR/doxygen/warnings_filtered.txt
+    # need to filter "return type of member (*) is not documented" as it is a doxygen bug detected on 1.8.17 that will be solved in 1.8.18
+    grep -Fvf $DYNAWO_HOME/util/warnings_to_filter.txt $DYNAWO_INSTALL_DIR/doxygen/warnings.txt > $DYNAWO_INSTALL_DIR/doxygen/warnings_filtered.txt
+    nb_warnings=$(wc -l $DYNAWO_INSTALL_DIR/doxygen/warnings_filtered.txt | awk '{print $1}')
     if [ ${nb_warnings} -ne 0 ]; then
       echo "===================================="
       echo "| Result of doxygen doc generation |"
       echo "===================================="
       echo " nbWarnings = ${nb_warnings} > 0 => doc is incomplete"
-      echo " edit ${DYNAWO_INSTALL_DIR}/doxygen/warnings.txt  to have more details"
+      echo " edit ${DYNAWO_INSTALL_DIR}/doxygen/warnings_filtered.txt  to have more details"
       error_exit "Doxygen doc is not complete"
     fi
   fi

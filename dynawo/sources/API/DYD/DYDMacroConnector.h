@@ -38,8 +38,6 @@ class MacroConnector {
    * @brief MacroConnector constructor
    *
    * @param id MacroConnector ID
-   *
-   * @returns New MacroConnector::Impl instance with given attributes
    */
   explicit MacroConnector(const std::string& id);
 

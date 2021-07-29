@@ -15,7 +15,7 @@
 /**
  * @file  DYNModelStaticVarCompensator.h
  *
- * @brief
+ * @brief Static var compensator model : header file
  *
  */
 //======================================================================
@@ -29,6 +29,9 @@
 namespace DYN {
 class ModelBus;
 
+/**
+ * @brief Static var compensator model
+ */
 class ModelStaticVarCompensator : public NetworkComponent::Impl {
  public:
   /**
