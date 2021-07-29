@@ -69,7 +69,7 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "outputIIDM.xml"), '|', os.path.join(dir_path, "outputIIDM2.xml"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(message, "2 different output values\n[ERROR] attribute bus of object BVIL7T 1 (type generator) value: FSLACK11 is not in the equivalent object on right side\n[ERROR] attribute v of object FF11 (type bus) has different values (delta = 1.0) \n")
+        self.assertEqual(message, "nrt_diff/test/outputIIDM.xml: 2 different output values\n[ERROR] attribute bus of object BVIL7T 1 (type generator) value: FSLACK11 is not in the equivalent object on right side\n[ERROR] attribute v of object FF11 (type bus) has different values (delta = 1.0) \n")
 
     def test_output_iidm_powsybl(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -86,9 +86,9 @@ class TestnrtDiffDirectoryDiff(unittest.TestCase):
             else:
                 self.assertEqual(diff_statuses[i], nrtDiff.DIFFERENT)
         if return_message_str.startswith("globalInit/dumpInitValues-GEN____1_SM.txt") :
-            self.assertEqual(return_message_str, "globalInit/dumpInitValues-GEN____1_SM.txt DIFFERENT (1 different initial values)\nglobalInit/dumpInitValues-_LOAD___2_EC.txt DIFFERENT (1 different initial values)\n(all other files are identical)\n")
+            self.assertEqual(return_message_str, "globalInit/dumpInitValues-GEN____1_SM.txt DIFFERENT (initValues/globalInit/dumpInitValues-GEN____1_SM.txt: 1 different initial values)\nglobalInit/dumpInitValues-_LOAD___2_EC.txt DIFFERENT (initValues/globalInit/dumpInitValues-_LOAD___2_EC.txt: 1 different initial values)\n(all other files are identical)\n")
         else:
-            self.assertEqual(return_message_str, "globalInit/dumpInitValues-_LOAD___2_EC.txt DIFFERENT (1 different initial values)\nglobalInit/dumpInitValues-GEN____1_SM.txt DIFFERENT (1 different initial values)\n(all other files are identical)\n")
+            self.assertEqual(return_message_str, "globalInit/dumpInitValues-_LOAD___2_EC.txt DIFFERENT (initValues/globalInit/dumpInitValues-_LOAD___2_EC.txt: 1 different initial values)\nglobalInit/dumpInitValues-GEN____1_SM.txt DIFFERENT (initValues/globalInit/dumpInitValues-GEN____1_SM.txt: 1 different initial values)\n(all other files are identical)\n")
         self.assertEqual(len(file_names), 3)
         for file in file_names:
             if "GEN" in file:
@@ -110,7 +110,7 @@ class TestnrtDiffDirectoryDiff(unittest.TestCase):
         i = 0
         for msg in diff_messages:
             if len(msg) > 0:
-                self.assertEqual(msg, "1 different initial values")
+                self.assertTrue("1 different initial values" in msg)
             i += 1
 
     def test_reference_diff(self):

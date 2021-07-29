@@ -1027,7 +1027,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
             if (nb_differences > 0):
                 return_value = DIFFERENT
-                message = str(nb_differences) + " different initial values"
+                message += str(nb_differences) + " different initial values"
             else:
                 return_value = IDENTICAL
         elif file_name.startswith("outputIIDM") and file_extension == ".xml":
@@ -1037,7 +1037,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
             if (nb_differences > 0):
                 return_value = DIFFERENT
-                message = str(nb_differences) + " different output values\n" + msg
+                message += str(nb_differences) + " different output values\n" + msg
             else:
                 return_value = IDENTICAL
         else:
@@ -1292,7 +1292,8 @@ def InitValuesCloseEnough (path_left, path_right):
     aliases_2_ref_var_right = {}
     ptrn_comment = re.compile(r'\s[=]+\s[\w]+[\s=]+')
     ptrn_var_y_yp = re.compile(r'(?P<varName>[\w]+)[\s]+: y =[\s]*(?P<yVal>[-0-9\.]+)[\s]*yp =[\s]*(?P<ypVal>[-0-9\.]+)')
-    ptrn_single_val = re.compile(r'(?P<varName>[\w]+)[\s]+=[\s]*(?P<val>[-0-9\.]+)[\s]*\n')
+    ptrn_single_val = re.compile(r'(?P<varName>[\w]+)[\s]+: [yz] =[\s]*(?P<val>[-0-9\.]+)[\s]*\n')
+    ptrn_single_val_param = re.compile(r'(?P<varName>[\w]+)[\s]+=[\s]*(?P<val>[-0-9\.]+)[\s]*\n')
     ptrn_alias_val = re.compile(r'(?P<varName>[\w]+)[\s]+: alias of (?P<refVar>[\w]+)')
     for line_left in file_left:
         if ptrn_comment.search(line_left) is not None:
@@ -1304,6 +1305,10 @@ def InitValuesCloseEnough (path_left, path_right):
             match = ptrn_single_val.findall(line_left)
             for name, val in match:
                 name_2_val_left[name] = [float(val)]
+            if len(match) == 0:
+                match = ptrn_single_val_param.findall(line_left)
+                for name, val in match:
+                    name_2_val_left[name] = [float(val)]
         match = ptrn_alias_val.findall(line_left)
         for name, ref_name in match:
             aliases_2_ref_var_left[name] = ref_name
@@ -1317,6 +1322,10 @@ def InitValuesCloseEnough (path_left, path_right):
             match = ptrn_single_val.findall(line_right)
             for name, val in match:
                 name_2_val_right[name] = [float(val)]
+            if len(match) == 0:
+                match = ptrn_single_val_param.findall(line_right)
+                for name, val in match:
+                    name_2_val_right[name] = [float(val)]
         match = ptrn_alias_val.findall(line_right)
         for name, ref_name in match:
             aliases_2_ref_var_right[name] = ref_name
