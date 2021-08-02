@@ -151,9 +151,9 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
   bool hasBusBarSection(const std::string& bbs) const;
 
   /**
-   * @copydoc BusInterface::getBusBarSectionNames() const
+   * @copydoc BusInterface::getBusBarSectionIdentifiers() const
    */
-  const std::vector<std::string>& getBusBarSectionNames() const;
+  const std::vector<std::string>& getBusBarSectionIdentifiers() const;
 
   /**
    * @brief set the initial value of the voltage magnitude
@@ -205,7 +205,7 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
   IIDM::VoltageLevel& voltageLevel_;  ///< IIDM voltage level instance
   bool hasConnection_;  ///< @b true if the bus has an outside connection, @b false else
   std::string country_;  ///< country of the bus
-  std::vector<std::string> bbsNames_;  ///< names of the bus bar sections
+  std::vector<std::string> bbsIdentifiers_;  ///< identifiers of the bus bar sections
 };  ///< Interface class for CalculatedBusInterface
 
 std::ostream& operator<<(std::ostream& stream, const CalculatedBusInterfaceIIDM& calculatedBus);

@@ -167,8 +167,8 @@ hasDifferentialVoltages_(false),
 modelType_(isNodeBreaker?"Bus":"Node"),
 isNodeBreaker_(isNodeBreaker) {
   neighbors_.clear();
-  busBarSectionNames_.clear();
-  busBarSectionNames_ = bus->getBusBarSectionNames();
+  busBarSectionIdentifiers_.clear();
+  busBarSectionIdentifiers_ = bus->getBusBarSectionIdentifiers();
 
   derivatives_.reset(new BusDerivatives());
   derivativesPrim_.reset(new BusDerivatives());
@@ -185,7 +185,7 @@ isNodeBreaker_(isNodeBreaker) {
   uMin_ = bus->getVMin() / unom_;
 
   constraintId_ = bus->getID();
-  const vector<string>& busBarSections = bus->getBusBarSectionNames();
+  const vector<string>& busBarSections = bus->getBusBarSectionIdentifiers();
   if (isNodeBreaker && !busBarSections.empty()) {
     constraintId_ = busBarSections[0];
   }
@@ -573,8 +573,8 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState(id_ + "_switchOff_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
 
-  for (unsigned int i = 0; i < busBarSectionNames_.size(); ++i) {
-    std::string busBarSectionId = busBarSectionNames_[i];
+  for (unsigned int i = 0; i < busBarSectionIdentifiers_.size(); ++i) {
+    std::string busBarSectionId = busBarSectionIdentifiers_[i];
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_Upu_value", id_ + "_Upu_value"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_phipu_value", id_ + "_phipu_value"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_U_value", id_ + "_U_value"));
@@ -620,8 +620,8 @@ ModelBus::defineVariables(vector<shared_ptr<Variable> >& variables) {
 void
 ModelBus::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   defineElementsById(id_, elements, mapElement);
-  for (unsigned int i = 0; i < busBarSectionNames_.size(); ++i)
-    defineElementsById(busBarSectionNames_[i], elements, mapElement);
+  for (unsigned int i = 0; i < busBarSectionIdentifiers_.size(); ++i)
+    defineElementsById(busBarSectionIdentifiers_[i], elements, mapElement);
 }
 
 void

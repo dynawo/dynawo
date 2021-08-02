@@ -52,7 +52,7 @@ CalculatedBusInterfaceIIDM::~CalculatedBusInterfaceIIDM() {
 
 void
 CalculatedBusInterfaceIIDM::addBusBarSection(const string& bbs) {
-  bbsNames_.push_back(bbs);
+  bbsIdentifiers_.push_back(bbs);
 }
 
 void
@@ -173,13 +173,13 @@ CalculatedBusInterfaceIIDM::hasNode(const int node) {
 }
 
 const vector<string>&
-CalculatedBusInterfaceIIDM::getBusBarSectionNames() const {
-  return bbsNames_;
+CalculatedBusInterfaceIIDM::getBusBarSectionIdentifiers() const {
+  return bbsIdentifiers_;
 }
 
 bool
 CalculatedBusInterfaceIIDM::hasBusBarSection(const string& bbs) const {
-  return std::find(bbsNames_.begin(), bbsNames_.end(), bbs) != bbsNames_.end();
+  return std::find(bbsIdentifiers_.begin(), bbsIdentifiers_.end(), bbs) != bbsIdentifiers_.end();
 }
 
 set<int>
@@ -194,9 +194,9 @@ std::ostream& operator<<(std::ostream& stream, const CalculatedBusInterfaceIIDM&
     stream << ' ' << *it;
   stream << " ]; busBarSection : [";
 
-  vector<string> bbsNames = calculatedBus.getBusBarSectionNames();
-  for (unsigned int i =0; i < bbsNames.size(); ++i)
-    stream << ' ' << bbsNames[i];
+  vector<string> bbsIdentifiers = calculatedBus.getBusBarSectionIdentifiers();
+  for (unsigned int i =0; i < bbsIdentifiers.size(); ++i)
+    stream << ' ' << bbsIdentifiers[i];
 
   stream << " ]; U0 : " << calculatedBus.getV0() << "; Angle0 : " << calculatedBus.getAngle0();
 

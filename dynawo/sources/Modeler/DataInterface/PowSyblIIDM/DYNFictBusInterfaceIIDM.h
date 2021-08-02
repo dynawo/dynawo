@@ -123,9 +123,9 @@ class FictBusInterfaceIIDM : public BusInterface {
   }
 
   /**
-   * @copydoc BusInterface::getBusBarSectionNames() const
+   * @copydoc BusInterface::getBusBarSectionIdentifiers() const
    */
-  const std::vector<std::string>& getBusBarSectionNames() const {
+  const std::vector<std::string>& getBusBarSectionIdentifiers() const {
     static std::vector<std::string> empty;
     return empty;
   }

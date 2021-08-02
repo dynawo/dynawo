@@ -69,9 +69,9 @@ TEST(DataInterfaceTest, testBusBarSectionInterface) {
   const std::vector< boost::shared_ptr<BusInterface> >& buses = vlModel->getBuses();
   ASSERT_EQ(buses.size(), 1);
   boost::shared_ptr<BusInterface> bus = buses[0];
-  std::vector<std::string> bbsNames = bus->getBusBarSectionNames();
-  ASSERT_EQ(bbsNames.size(), 1);
-  ASSERT_EQ(bbsNames[0], "MyBusBarSection");
+  std::vector<std::string> bbsIdentifiers = bus->getBusBarSectionIdentifiers();
+  ASSERT_EQ(bbsIdentifiers.size(), 1);
+  ASSERT_EQ(bbsIdentifiers[0], "MyBusBarSection");
 
 
   BusBarSectionInterfaceIIDM bbsIIDM(bbs);
