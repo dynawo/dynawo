@@ -1704,11 +1704,11 @@ TEST(DataInterfaceIIDMTest, testClone) {
     const std::vector<boost::shared_ptr<DYN::BusInterface> >& buses2 = network_interface2->getVoltageLevels().at(i)->getBuses();
     ASSERT_EQ(buses.size(), buses2.size());
     for (unsigned int j = 0; j < buses.size(); j++) {
-      const std::vector<std::string>& names = buses[j]->getBusBarSectionNames();
-      const std::vector<std::string>& names2 = buses2[j]->getBusBarSectionNames();
-      ASSERT_EQ(names.size(), names2.size());
-      for (unsigned k = 0; k < names.size(); k++) {
-        ASSERT_EQ(names[k], names2[k]);
+      const std::vector<std::string>& ids = buses[j]->getBusBarSectionIdentifiers();
+      const std::vector<std::string>& ids2 = buses2[j]->getBusBarSectionIdentifiers();
+      ASSERT_EQ(ids.size(), ids2.size());
+      for (unsigned k = 0; k < ids.size(); k++) {
+        ASSERT_EQ(ids[k], ids2[k]);
       }
     }
     const std::vector<boost::shared_ptr<DYN::SwitchInterface> >& switches = network_interface->getVoltageLevels().at(i)->getSwitches();

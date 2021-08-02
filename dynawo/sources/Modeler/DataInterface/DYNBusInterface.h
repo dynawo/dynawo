@@ -113,10 +113,10 @@ class BusInterface : public ComponentInterface {
   virtual void exportStateVariablesUnitComponent() = 0;
 
   /**
-   * @brief get the names of bus bar section associated to the bus
-   * @return names of the bus bar section associated to the bus
+   * @brief get the identifiers of bus bar section associated to the bus
+   * @return identifiers of the bus bar section associated to the bus
    */
-  virtual const std::vector<std::string>& getBusBarSectionNames() const = 0;
+  virtual const std::vector<std::string>& getBusBarSectionIdentifiers() const = 0;
 };  ///< Interface class for Bus model
 }  // namespace DYN
 

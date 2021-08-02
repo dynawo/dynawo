@@ -534,7 +534,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    * @return whether the bus has a bus bar section
    */
   inline bool hasBBS() const {
-    return !busBarSectionNames_.empty();
+    return !busBarSectionIdentifiers_.empty();
   }
 
   /**
@@ -621,7 +621,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   double unom_;  ///< nominal voltage
   double u0_;  ///< initial voltage
   double angle0_;  ///< initial angle
-  std::vector<std::string> busBarSectionNames_;  ///< name of bus bar sections on the same electrical node
+  std::vector<std::string> busBarSectionIdentifiers_;  ///< identifiers of bus bar sections on the same electrical node
   std::vector<boost::weak_ptr<ModelSwitch> > connectableSwitches_;  ///< switch connected or connectable on the node
 
   const std::string modelType_;  ///< model Type

@@ -194,16 +194,16 @@ TEST(DataInterfaceTest, ServiceManager) {
   // Node/breaker voltage level with internal connections
 
   shared_ptr<BusInterface> bus54 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[3];
-  ASSERT_EQ("BUS54", bus54->getBusBarSectionNames()[0]);
+  ASSERT_EQ("BUS54", bus54->getBusBarSectionIdentifiers()[0]);
   connected = serviceManager->getBusesConnectedBySwitch(bus54->getID(), vl2.getID());
   ASSERT_EQ(0, connected.size());
 
   shared_ptr<BusInterface> bus51 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[0];
   shared_ptr<BusInterface> bus52 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[1];
   shared_ptr<BusInterface> bus53 = interface.getNetwork()->getVoltageLevels()[1]->getBuses()[2];
-  ASSERT_EQ("BUS51", bus51->getBusBarSectionNames()[0]);
-  ASSERT_EQ("BUS52", bus52->getBusBarSectionNames()[0]);
-  ASSERT_EQ("BUS53", bus53->getBusBarSectionNames()[0]);
+  ASSERT_EQ("BUS51", bus51->getBusBarSectionIdentifiers()[0]);
+  ASSERT_EQ("BUS52", bus52->getBusBarSectionIdentifiers()[0]);
+  ASSERT_EQ("BUS53", bus53->getBusBarSectionIdentifiers()[0]);
   connected = serviceManager->getBusesConnectedBySwitch(bus51->getID(), vl2.getID());
   ASSERT_EQ(2, connected.size());
   ASSERT_EQ(bus52->getID(), connected[0]);

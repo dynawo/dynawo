@@ -72,7 +72,7 @@ TEST(DataInterfaceTest, testBusInterface) {
   ASSERT_EQ(bus.getComponentVarIndex("angle"), BusInterfaceIIDM::VAR_ANGLE);
   ASSERT_EQ(bus.getComponentVarIndex("foo"), -1);
   ASSERT_EQ(bus.getBusIndex(), 0);
-  ASSERT_TRUE(bus.getBusBarSectionNames().empty());
+  ASSERT_TRUE(bus.getBusBarSectionIdentifiers().empty());
   ASSERT_EQ(bus.getCountry(), "");
   bus.setCountry("AF");
   ASSERT_EQ(bus.getCountry(), "AF");
@@ -202,10 +202,10 @@ TEST(DataInterfaceTest, testCalculatedBusInterface) {
   ASSERT_EQ(bus.getComponentVarIndex("angle"), BusInterfaceIIDM::VAR_ANGLE);
   ASSERT_EQ(bus.getComponentVarIndex("foo"), -1);
   ASSERT_EQ(bus.getBusIndex(), 1);
-  ASSERT_EQ(bus.getBusBarSectionNames().size(), 0);
+  ASSERT_EQ(bus.getBusBarSectionIdentifiers().size(), 0);
   bus.addBusBarSection(bbs.getId());
-  ASSERT_EQ(bus.getBusBarSectionNames().size(), 1);
-  ASSERT_EQ(bus.getBusBarSectionNames()[0], "BBS");
+  ASSERT_EQ(bus.getBusBarSectionIdentifiers().size(), 1);
+  ASSERT_EQ(bus.getBusBarSectionIdentifiers()[0], "BBS");
 
   ASSERT_EQ(bus.getNodes().size(), 0);
   bus.addNode(8);
