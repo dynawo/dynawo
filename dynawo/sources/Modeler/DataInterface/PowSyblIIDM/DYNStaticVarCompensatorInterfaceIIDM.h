@@ -71,6 +71,11 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
   void importStaticParameters();
 
   /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  bool isConnected() const;
+
+  /**
    * @copydoc StaticVarCompensatorInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
    */
   void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);

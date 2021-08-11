@@ -85,7 +85,9 @@ TEST(DataInterfaceTest, SVarC_1) {
   ASSERT_EQ(svcInterface.getID(), svc.getId());
 
   ASSERT_TRUE(svcInterface.getInitialConnected());
+  ASSERT_TRUE(svcInterface.isConnected());
   svc.getTerminal().disconnect();
+  ASSERT_FALSE(svcInterface.isConnected());
   ASSERT_TRUE(svcInterface.getInitialConnected());
 
   ASSERT_EQ(svcInterface.getBusInterface().get(), nullptr);

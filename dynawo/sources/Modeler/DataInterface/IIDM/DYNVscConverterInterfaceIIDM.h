@@ -60,6 +60,11 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
   void exportStateVariablesUnitComponent();
 
   /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  bool isConnected() const;
+
+  /**
    * @copydoc VscConverterInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
    */
   void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);

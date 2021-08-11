@@ -173,9 +173,12 @@ TEST(DataInterfaceTest, Generator_1) {
   ASSERT_EQ(genItf.getQMax(), 22.5);
   ASSERT_EQ(genItf.getReactiveCurvesPoints().size(), 2);
 
+  ASSERT_TRUE(genItf.isConnected());
   // TODO(TBA) genItf.exportStateVariablesUnitComponent();
   gen.getTerminal().disconnect();
   // TODO(TBA) genItf.exportStateVariablesUnitComponent();
+  ASSERT_FALSE(genItf.isConnected());
+  ASSERT_TRUE(genItf.getInitialConnected());
   ASSERT_FALSE(genItf.hasActivePowerControl());
   ASSERT_FALSE(genItf.isParticipating());
   ASSERT_DOUBLE_EQUALS_DYNAWO(genItf.getActivePowerControlDroop(), 0.);

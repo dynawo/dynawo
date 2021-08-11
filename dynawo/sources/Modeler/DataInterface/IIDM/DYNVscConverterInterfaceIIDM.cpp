@@ -103,6 +103,11 @@ VscConverterInterfaceIIDM::getInitialConnected() {
   return InjectorInterfaceIIDM<IIDM::VscConverterStation>::getInitialConnected();
 }
 
+bool
+VscConverterInterfaceIIDM::isConnected() const {
+  return InjectorInterfaceIIDM<IIDM::VscConverterStation>::isConnected();
+}
+
 double
 VscConverterInterfaceIIDM::getVNom() const {
   return InjectorInterfaceIIDM<IIDM::VscConverterStation>::getVNom();

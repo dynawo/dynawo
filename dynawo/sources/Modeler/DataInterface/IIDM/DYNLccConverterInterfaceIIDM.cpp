@@ -89,6 +89,11 @@ LccConverterInterfaceIIDM::getInitialConnected() {
   return InjectorInterfaceIIDM<IIDM::LccConverterStation>::getInitialConnected();
 }
 
+bool
+LccConverterInterfaceIIDM::isConnected() const {
+  return InjectorInterfaceIIDM<IIDM::LccConverterStation>::isConnected();
+}
+
 double
 LccConverterInterfaceIIDM::getVNom() const {
   return InjectorInterfaceIIDM<IIDM::LccConverterStation>::getVNom();

@@ -144,6 +144,11 @@ LoadInterfaceIIDM::getInitialConnected() {
   return InjectorInterfaceIIDM<IIDM::Load>::getInitialConnected();
 }
 
+bool
+LoadInterfaceIIDM::isConnected() const {
+  return InjectorInterfaceIIDM<IIDM::Load>::isConnected();
+}
+
 double
 LoadInterfaceIIDM::getP() {
   return InjectorInterfaceIIDM<IIDM::Load>::getP();

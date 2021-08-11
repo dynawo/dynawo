@@ -133,5 +133,10 @@ TEST(DataInterfaceTest, LccConverter) {
 
   ASSERT_DOUBLE_EQ(Ifce.getVNom(), 380);
   ASSERT_EQ(Ifce.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
+
+  ASSERT_TRUE(Ifce.isConnected());
+  lcc.getTerminal().disconnect();
+  ASSERT_FALSE(Ifce.isConnected());
+  ASSERT_TRUE(Ifce.getInitialConnected());
 }  // TEST(DataInterfaceTest, LccConverter)
 };  // namespace DYN

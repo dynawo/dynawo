@@ -162,5 +162,10 @@ TEST(DataInterfaceTest, VscConverter) {
      .endPoint()
      .add();
   ASSERT_DOUBLE_EQ(Ifce.getQMax(), 15.0);
+
+  ASSERT_TRUE(Ifce.isConnected());
+  vsc.getTerminal().disconnect();
+  ASSERT_FALSE(Ifce.isConnected());
+  ASSERT_TRUE(Ifce.getInitialConnected());
 }  // TEST(DataInterfaceTest, VscConverter)
 };  // namespace DYN

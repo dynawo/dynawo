@@ -20,7 +20,6 @@
 #ifdef _DEBUG_
 #include <cmath>
 #endif
-#include <limits>
 
 #include "DYNStateVariable.h"
 #include "DYNVariable.h"
@@ -38,7 +37,6 @@ modelId_(""),
 variableId_(""),
 valueAffected_(false),
 rawValue_(0.),
-backupValue_(std::numeric_limits<double>::quiet_NaN()),
 neededForCriteriaCheck_(false) {
 }
 
@@ -50,7 +48,6 @@ modelId_(""),
 variableId_(""),
 valueAffected_(false),
 rawValue_(0.),
-backupValue_(std::numeric_limits<double>::quiet_NaN()),
 neededForCriteriaCheck_(neededForCriteriaCheck) {
 }
 
@@ -63,7 +60,6 @@ variableId_(origin.variableId_),
 variable_(origin.variable_),
 valueAffected_(origin.valueAffected_),
 rawValue_(origin.rawValue_),
-backupValue_(origin.backupValue_),
 neededForCriteriaCheck_(origin.neededForCriteriaCheck_)  {
 }
 
@@ -79,7 +75,6 @@ StateVariable::operator=(const StateVariable& origin) {
   variable_ = origin.variable_;
   valueAffected_ = origin.valueAffected_;
   rawValue_ = origin.rawValue_;
-  backupValue_ = origin.backupValue_;
   neededForCriteriaCheck_ = origin.neededForCriteriaCheck_;
   return *this;
 }
@@ -207,16 +202,6 @@ StateVariable::setValue(const double& value) {
   }
   valueAffected_ = true;
   rawValue_ = value;
-}
-
-void
-StateVariable::setBackupValue() {
-  backupValue_ = rawValue_;
-}
-
-bool
-StateVariable::hasValueChanged(const double referenceValue) const {
-  return valueAffected_ && doubleEquals(backupValue_, referenceValue) && doubleNotEquals(rawValue_, referenceValue);
 }
 
 string

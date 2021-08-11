@@ -67,6 +67,11 @@ class ShuntCompensatorInterfaceIIDM : public ShuntCompensatorInterface, public I
   void importStaticParameters();
 
   /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  bool isConnected() const;
+
+  /**
    * @copydoc ShuntCompensatorInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
    */
   void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);

@@ -132,15 +132,20 @@ TEST(DataInterfaceTest, Line) {
   ASSERT_TRUE(li.getInitialConnected1());
   ASSERT_TRUE(li.getInitialConnected2());
 
+  ASSERT_TRUE(li.isConnected());
   MyLine.getTerminal1().disconnect();
+  ASSERT_FALSE(li.isConnected());
   MyLine.getTerminal2().disconnect();
+  ASSERT_FALSE(li.isConnected());
   ASSERT_DOUBLE_EQ(li.getVNom1(), 380.0);
   ASSERT_DOUBLE_EQ(li.getVNom2(), 360.0);
   ASSERT_TRUE(li.getInitialConnected1());
   ASSERT_TRUE(li.getInitialConnected2());
 
   MyLine.getTerminal1().connect();
+  ASSERT_FALSE(li.isConnected());
   MyLine.getTerminal2().connect();
+  ASSERT_TRUE(li.isConnected());
   ASSERT_DOUBLE_EQ(li.getVNom1(), 380.0);
   ASSERT_DOUBLE_EQ(li.getVNom2(), 360.0);
 

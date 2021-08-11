@@ -85,6 +85,7 @@
 #include "DYNClone.hpp"
 #include "CRTCriteria.h"
 #include "CRTCriteriaParams.h"
+#include "LEQLostEquipmentsCollectionFactory.h"
 
 #include <boost/make_shared.hpp>
 
@@ -1161,24 +1162,47 @@ DataInterfaceIIDM::exportStateVariables() {
     (iterVL->second)->exportSwitchesState();
 }
 
+#ifdef _DEBUG_
 void
-DataInterfaceIIDM::backupConnectionState() {
+DataInterfaceIIDM::exportStateVariablesNoReadFromModel() {
+  map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin();
+  for (; iter != components_.end(); ++iter) {
+    (iter->second)->exportStateVariables();
+  }
+
+  // loop to update switch state due to topology analysis
+  // should be removed once a solution has been found to propagate switches (de)connection
+  // following component (de)connection (only Modelica models)
+  map<string, shared_ptr<VoltageLevelInterface> >::iterator iterVL = voltageLevels_.begin();
+  for (; iterVL != voltageLevels_.end(); ++iterVL)
+    (iterVL->second)->exportSwitchesState();
+}
+#endif
+
+const shared_ptr<vector<shared_ptr<ComponentInterface> > >
+DataInterfaceIIDM::findConnectedComponents() {
+  shared_ptr<vector<shared_ptr<ComponentInterface> > > connectedComponents = boost::make_shared<vector<shared_ptr<ComponentInterface> > >();
   for (map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
        iter != iterEnd; ++iter) {
-    (iter->second)->backupComponentVar("state");
+    if ((iter->second)->isConnected())
+      connectedComponents->push_back(iter->second);
   }
+  return connectedComponents;
 }
 
-void
-DataInterfaceIIDM::findLostEquipments(const boost::shared_ptr<lostEquipments::LostEquipmentsCollection>& lostEquipments) {
-  for (map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
-       iter != iterEnd; ++iter) {
-    shared_ptr<ComponentInterface> cmp = iter->second;
-    bool lost = cmp->hasComponentVarChanged("state", CLOSED);  // from CLOSED to not CLOSED
-    if (lost) {
-      lostEquipments->addLostEquipment(cmp->getID(), cmp->getTypeAsString());
+const shared_ptr<lostEquipments::LostEquipmentsCollection>
+DataInterfaceIIDM::findLostEquipments(const shared_ptr<vector<shared_ptr<ComponentInterface> > >& connectedComponents) {
+  shared_ptr<lostEquipments::LostEquipmentsCollection> lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
+  if (connectedComponents) {
+    for (vector<shared_ptr<ComponentInterface> >::iterator iter = connectedComponents->begin(), iterEnd = connectedComponents->end();
+         iter != iterEnd; ++iter) {
+      bool lost = !(*iter)->isConnected();  // from connected to not connected
+      if (lost) {
+        lostEquipments->addLostEquipment((*iter)->getID(), (*iter)->getTypeAsString());
+      }
     }
   }
+  return lostEquipments;
 }
 
 void
