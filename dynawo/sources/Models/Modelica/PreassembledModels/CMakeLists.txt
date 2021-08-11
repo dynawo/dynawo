@@ -64,6 +64,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVSCDanglingP.xml
   HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
+  IECWT4AControl.xml
   InfiniteBus.xml
   InjectorBG.xml
   Line.xml

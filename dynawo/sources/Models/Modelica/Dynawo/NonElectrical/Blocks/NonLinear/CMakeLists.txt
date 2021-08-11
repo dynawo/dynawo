@@ -11,10 +11,15 @@
 set(MODEL_FILES
   package.mo
   package.order
+  DelayFlag.mo
   LimiterWithLag.mo
   LimiterWithLag_INIT.mo
   MaxThresholdSwitch.mo
   MinThresholdSwitch.mo
+  MultiSwitchThree.mo
+  MultiSwitchFour.mo
+  MultiSwitchFive.mo
+  SwitchInt.mo
   VariableLimiter.mo
   )
 

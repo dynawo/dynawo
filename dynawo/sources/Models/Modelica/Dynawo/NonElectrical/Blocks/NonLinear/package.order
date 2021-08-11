@@ -1,5 +1,10 @@
+DelayFlag
 LimiterWithLag
 LimiterWithLag_INIT
 MaxThresholdSwitch
 MinThresholdSwitch
+MultiSwitchThree
+MultiSwitchFour
+MultiSwitchFive
+SwitchInt
 VariableLimiter

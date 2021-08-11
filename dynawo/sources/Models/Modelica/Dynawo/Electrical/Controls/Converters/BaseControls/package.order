@@ -3,6 +3,12 @@ Modulation
 PControl
 QControl
 CurrentLimitation
+IECWT4APControl
+IECWT4AQControl
+IECWT4AQLimitation
+IECWT4ACurrentLimitation
+IECQcontrolVDrop
+IECWT4AMeasures
 CurrentLoop
 VoltageLoop
 DCVoltageControl

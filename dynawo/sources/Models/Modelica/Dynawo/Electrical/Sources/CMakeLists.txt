@@ -23,8 +23,10 @@ set(MODEL_FILES
   InjectorIDQ.mo
   InjectorIDQ.extvar
   InjectorIDQ_INIT.mo
-  VSCIdcSource.extvar
   VSCIdcSource.mo
+  VSCIdcSource.extvar
+  WT4AIECelec.mo
+  WT4AIECelec.extvar
   WTModel.mo
   )
 

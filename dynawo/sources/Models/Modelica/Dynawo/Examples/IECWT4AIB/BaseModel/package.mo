@@ -1,4 +1,4 @@
-within Dynawo.Examples;
+within Dynawo.Examples.IECWT4AIB;
 
 /*
 * Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
@@ -12,6 +12,6 @@ within Dynawo.Examples;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-package VSCIEC
+package BaseModel "Wind Turbine Type 4A model from IEC 61400-27-1 standard used for the test case"
   extends Icons.Package;
-end VSCIEC;
+end BaseModel;

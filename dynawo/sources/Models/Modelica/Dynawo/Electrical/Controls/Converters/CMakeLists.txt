@@ -9,6 +9,7 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 add_subdirectory(BaseControls B)
+add_subdirectory(Parameters P)
 
 set(MODEL_FILES
   # Converter control models
@@ -22,6 +23,8 @@ set(MODEL_FILES
   GridFormingControlMatchingControl.extvar
   GridFormingControlDispatchableVirtualOscillatorControl.mo
   GridFormingControlDispatchableVirtualOscillatorControl.extvar
+  IECWT4AControl.mo
+  IECWT4AControl.extvar
   GridFollowingControl_INIT.mo
   GridFormingControl_INIT.mo
   )

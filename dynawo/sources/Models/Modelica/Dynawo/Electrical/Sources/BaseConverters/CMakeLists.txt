@@ -18,6 +18,12 @@ set(MODEL_FILES
   GridInterface.extvar
   VSCAverage.mo
   VSCAverage.extvar
+  IECElecSystem.mo
+  IECElecSystem.extvar
+  IECGenSystem.mo
+  IECGenSystem.extvar
+  IECFrameRotation.mo
+  IECFrameRotation.extvar
   )
 
 #

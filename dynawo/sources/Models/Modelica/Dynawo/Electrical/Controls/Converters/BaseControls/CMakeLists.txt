@@ -22,6 +22,18 @@ set(MODEL_FILES
   QControl.extvar
   CurrentLimitation.mo
   CurrentLimitation.extvar
+  IECWT4APControl.mo
+  IECWT4APControl.extvar
+  IECWT4AQControl.mo
+  IECWT4AQControl.extvar
+  IECWT4AQLimitation.mo
+  IECWT4AQLimitation.extvar
+  IECWT4ACurrentLimitation.mo
+  IECWT4ACurrentLimitation.extvar
+  IECQcontrolVDrop.mo
+  IECQcontrolVDrop.extvar
+  IECWT4AMeasures.mo
+  IECWT4AMeasures.extvar
   CurrentLoop.mo
   CurrentLoop.extvar
   VoltageLoop.mo
