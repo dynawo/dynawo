@@ -83,7 +83,9 @@ TEST(DataInterfaceTest, DanglingLine) {
   ASSERT_EQ(danglingLineIfce.getID(), danglingLine.getId());
 
   ASSERT_TRUE(danglingLineIfce.getInitialConnected());
+  ASSERT_TRUE(danglingLineIfce.isConnected());
   danglingLine.getTerminal().disconnect();
+  ASSERT_FALSE(danglingLineIfce.isConnected());
   ASSERT_TRUE(danglingLineIfce.getInitialConnected());
 
   ASSERT_EQ(danglingLineIfce.getBusInterface().get(), nullptr);

@@ -94,32 +94,47 @@ TwoWTransformerInterfaceIIDM::getID() const {
 
 bool
 TwoWTransformerInterfaceIIDM::getInitialConnected1() {
-  if (initialConnected1_ == boost::none) {
-    initialConnected1_ = false;
-    if (tfoIIDM_.has_connection(IIDM::side_1)) {
-      if (tfoIIDM_.connection(IIDM::side_1)->is_bus()) {
-        initialConnected1_ = tfoIIDM_.isConnected(IIDM::side_1);
-      } else {
-        initialConnected1_ = voltageLevelInterface1_->isNodeConnected(tfoIIDM_.connection(IIDM::side_1)->node());
-      }
-    }
-  }
+  if (initialConnected1_ == boost::none)
+    initialConnected1_ = isConnected1();
   return initialConnected1_.value();
 }
 
 bool
 TwoWTransformerInterfaceIIDM::getInitialConnected2() {
-  if (initialConnected2_ == boost::none) {
-    initialConnected2_ = false;
-    if (tfoIIDM_.has_connection(IIDM::side_2)) {
-      if (tfoIIDM_.connection(IIDM::side_2)->is_bus()) {
-        initialConnected2_ = tfoIIDM_.isConnected(IIDM::side_2);
-      } else {
-        initialConnected2_ = voltageLevelInterface2_->isNodeConnected(tfoIIDM_.connection(IIDM::side_2)->node());
-      }
+  if (initialConnected2_ == boost::none)
+    initialConnected2_ = isConnected2();
+  return initialConnected2_.value();
+}
+
+bool
+TwoWTransformerInterfaceIIDM::isConnected1() const {
+  bool connected = false;
+  if (tfoIIDM_.has_connection(IIDM::side_1)) {
+    if (tfoIIDM_.connection(IIDM::side_1)->is_bus()) {
+      connected = tfoIIDM_.isConnected(IIDM::side_1);
+    } else {
+      connected = voltageLevelInterface1_->isNodeConnected(tfoIIDM_.connection(IIDM::side_1)->node());
     }
   }
-  return initialConnected2_.value();
+  return connected;
+}
+
+bool
+TwoWTransformerInterfaceIIDM::isConnected2() const {
+  bool connected = false;
+  if (tfoIIDM_.has_connection(IIDM::side_2)) {
+    if (tfoIIDM_.connection(IIDM::side_2)->is_bus()) {
+      connected = tfoIIDM_.isConnected(IIDM::side_2);
+    } else {
+      connected = voltageLevelInterface2_->isNodeConnected(tfoIIDM_.connection(IIDM::side_2)->node());
+    }
+  }
+  return connected;
+}
+
+bool
+TwoWTransformerInterfaceIIDM::isConnected() const {
+  return isConnected1() && isConnected2();
 }
 
 double

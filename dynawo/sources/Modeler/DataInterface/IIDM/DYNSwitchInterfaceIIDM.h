@@ -84,6 +84,11 @@ class SwitchInterfaceIIDM : public SwitchInterface {
   std::string getID() const;
 
   /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  bool isConnected() const;
+
+  /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();

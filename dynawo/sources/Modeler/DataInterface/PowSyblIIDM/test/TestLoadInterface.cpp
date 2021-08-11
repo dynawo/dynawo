@@ -80,7 +80,9 @@ TEST(DataInterfaceTest, Load_1) {
   ASSERT_DOUBLE_EQ(loadIfce.getPUnderVoltage(), 0.0);
 
   ASSERT_TRUE(loadIfce.getInitialConnected());
+  ASSERT_TRUE(loadIfce.isConnected());
   load.getTerminal().disconnect();
+  ASSERT_FALSE(loadIfce.isConnected());
   ASSERT_TRUE(loadIfce.getInitialConnected());
 
   ASSERT_EQ(loadIfce.getBusInterface().get(), nullptr);

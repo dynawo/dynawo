@@ -109,6 +109,11 @@ DanglingLineInterfaceIIDM::getInitialConnected() {
   return InjectorInterfaceIIDM<IIDM::DanglingLine>::getInitialConnected();
 }
 
+bool
+DanglingLineInterfaceIIDM::isConnected() const {
+  return InjectorInterfaceIIDM<IIDM::DanglingLine>::isConnected();
+}
+
 double
 DanglingLineInterfaceIIDM::getVNom() const {
   return InjectorInterfaceIIDM<IIDM::DanglingLine>::getVNom();

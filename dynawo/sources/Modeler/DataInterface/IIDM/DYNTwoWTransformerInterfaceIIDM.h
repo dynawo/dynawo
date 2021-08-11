@@ -126,6 +126,18 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
   bool getInitialConnected2();
 
   /**
+   * @brief Checks the connection state of the line's side 1
+   * @return @b true if the line's side 1 is connected, @b false else
+   */
+  bool isConnected1() const;
+
+  /**
+   * @brief Checks the connection state of the line's side 2
+   * @return @b true if the line's side 2 is connected, @b false else
+   */
+  bool isConnected2() const;
+
+  /**
    * @copydoc TwoWTransformerInterface::getVNom1() const
    */
   double getVNom1() const;
@@ -219,6 +231,11 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
   int getComponentVarIndex(const std::string& varName) const;
+
+  /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  bool isConnected() const;
 
  private:
   IIDM::Transformer2Windings& tfoIIDM_;  ///< reference to the tfo's iidm instance

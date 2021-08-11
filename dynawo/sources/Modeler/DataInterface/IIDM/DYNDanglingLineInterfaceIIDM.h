@@ -70,6 +70,11 @@ class DanglingLineInterfaceIIDM : public DanglingLineInterface, public InjectorI
   void importStaticParameters();
 
   /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  bool isConnected() const;
+
+  /**
    * @copydoc DanglingLineInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
    */
   void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);

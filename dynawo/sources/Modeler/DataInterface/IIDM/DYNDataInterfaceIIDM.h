@@ -158,15 +158,23 @@ class DataInterfaceIIDM : public DataInterface {
    */
   void exportStateVariables();
 
+#ifdef _DEBUG_
   /**
-   * @copydoc DataInterface::backupConnectionState()
+   * @brief export values from static variables directly into the IIDM model without updating them
    */
-  void backupConnectionState();
+  void exportStateVariablesNoReadFromModel();
+#endif
+
+  /**
+   * @copydoc DataInterface::findConnectedComponents()
+   */
+  const boost::shared_ptr<std::vector<boost::shared_ptr<ComponentInterface> > > findConnectedComponents();
 
   /**
    * @copydoc DataInterface::findLostEquipments()
    */
-  void findLostEquipments(const boost::shared_ptr<lostEquipments::LostEquipmentsCollection>& lostEquipments);
+  const boost::shared_ptr<lostEquipments::LostEquipmentsCollection>
+    findLostEquipments(const boost::shared_ptr<std::vector<boost::shared_ptr<ComponentInterface> > >& connectedComponents);
 
   /**
    * @copydoc DataInterface::configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria)
