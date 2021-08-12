@@ -66,6 +66,9 @@
 #include "CSTRTxtExporter.h"
 #include "CSTRXmlExporter.h"
 
+#include "LEQLostEquipmentsCollectionFactory.h"
+#include "LEQXmlExporter.h"
+
 #include "PARParametersSet.h"
 #include "PARXmlImporter.h"
 
@@ -136,6 +139,8 @@ using finalState::finalStateVariable_iterator;
 
 using constraints::ConstraintsCollectionFactory;
 
+using lostEquipments::LostEquipmentsCollectionFactory;
+
 using parameters::ParametersSet;
 using parameters::ParametersSetCollection;
 
@@ -163,6 +168,8 @@ finalStateInputFile_(""),
 finalStateOutputFile_(""),
 exportConstraintsMode_(EXPORT_CONSTRAINTS_NONE),
 constraintsOutputFile_(""),
+exportLostEquipmentsMode_(EXPORT_LOSTEQUIPMENTS_NONE),
+lostEquipmentsOutputFile_(""),
 exportDumpFinalState_(false),
 dumpFinalStateFile_(""),
 exportIIDM_(false),
@@ -272,6 +279,7 @@ Simulation::configureSimulationOutputs() {
     configureTimetableOutputs();
     configureCurveOutputs();
     configureFinalStateOutputs();
+    configureLostEquipmentsOutputs();
   }
 }
 
@@ -417,6 +425,22 @@ Simulation::configureFinalStateOutputs() {
     } else {
       activateExportIIDM(false);
     }
+  }
+}
+
+void
+Simulation::configureLostEquipmentsOutputs() {
+  // Lost equipments settings
+  if (jobEntry_->getOutputsEntry()->getLostEquipmentsEntry()
+      && jobEntry_->getOutputsEntry()->getLostEquipmentsEntry()->getDumpLostEquipments()) {
+    string lostEquipmentsDir = createAbsolutePath("lostEquipments", outputsDirectory_);
+    if (!is_directory(lostEquipmentsDir))
+      create_directory(lostEquipmentsDir);
+
+    lostEquipmentsCollection_ = LostEquipmentsCollectionFactory::newInstance();
+
+    setLostEquipmentsExportMode(Simulation::EXPORT_LOSTEQUIPMENTS_XML);
+    setLostEquipmentsOutputFile(createAbsolutePath("lostEquipments.xml", lostEquipmentsDir));
   }
 }
 
@@ -805,9 +829,15 @@ Simulation::simulate() {
 
   bool criteriaChecked = true;
   try {
-    if (data_ && (exportIIDM_ || activateCriteria_)) {  // no need to update state variable if the IIDM final state is not exported (same for criteria check)
+    // update state variable only if the IIDM final state is exported, or criteria is checked, or lost equipments are exported
+    if (data_ && (exportIIDM_ || activateCriteria_ || isLostEquipmentsExported())) {
       data_->getStateVariableReference();   // Each state variable in DataInterface has a mapped reference variable in dynamic model,
                                          // either in a modelica model or in a C++ model.
+      // save initial connection state at t0 for each equipment
+      if (isLostEquipmentsExported()) {
+        data_->updateFromModel(false);  // force state variables' init
+        data_->backupConnectionState();
+      }
     }
     int currentIterNb = 0;
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
@@ -1045,6 +1075,21 @@ Simulation::terminate() {
     fileConstraints.close();
   }
 
+  if (data_ && (exportIIDM_ || isLostEquipmentsExported())) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+    Timer timer2("DataInterfaceIIDM::exportStateVariables");
+#endif
+    data_->exportStateVariables();
+  }
+
+  if (data_ && isLostEquipmentsExported()) {
+    data_->findLostEquipments(lostEquipmentsCollection_);
+    ofstream fileLostEquipments;
+    openFileStream(fileLostEquipments, lostEquipmentsOutputFile_);
+    printLostEquipments(fileLostEquipments);
+    fileLostEquipments.close();
+  }
+
   if (exportDumpFinalState_)
     dumpState();
 
@@ -1151,14 +1196,22 @@ Simulation::printConstraints(std::ostream& stream) const {
 }
 
 void
-Simulation::dumpIIDMFile() {
-  if (data_) {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
-    Timer timer("Job::exportStateVariables");
-#endif
-    data_->exportStateVariables();
+Simulation::printLostEquipments(std::ostream& stream) const {
+  switch (exportLostEquipmentsMode_) {
+    case EXPORT_LOSTEQUIPMENTS_NONE:
+      break;
+    case EXPORT_LOSTEQUIPMENTS_XML: {
+      lostEquipments::XmlExporter xmlExporter;
+      xmlExporter.exportToStream(lostEquipmentsCollection_, stream);
+      break;
+    }
   }
-  data_->dumpToFile(exportIIDMFile_);
+}
+
+void
+Simulation::dumpIIDMFile() {
+  if (data_)
+    data_->dumpToFile(exportIIDMFile_);
 }
 
 void

@@ -22,6 +22,7 @@ target_link_libraries(dynawo_Test_utils
     dynawo_Common
     GTest::gmock_main
     GTest::gtest_main
+  PUBLIC
     XMLSAXParser${LibXML_LINK_SUFFIX}
     $<$<NOT:$<BOOL:${USE_LEGACY_IIDM}>>:LibXml2::LibXml2>
 )

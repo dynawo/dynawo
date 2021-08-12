@@ -121,6 +121,7 @@ ServiceManagerInterfaceIIDM::getRegulatedBus(const std::string& regulatingCompon
     case ComponentInterface::VSC_CONVERTER:
     case ComponentInterface::LCC_CONVERTER:
     case ComponentInterface::HVDC_LINE:
+    case ComponentInterface::COMPONENT_TYPE_COUNT:
       break;
   }
   return boost::shared_ptr<BusInterface> ();
@@ -130,9 +131,6 @@ boost::shared_ptr<BusInterface>
 ServiceManagerInterfaceIIDM::getRegulatedBusOnSide(const powsybl::iidm::Terminal& terminal) const {
   const auto& regulatedComponent = dataInterface_->findComponent(terminal.getConnectable().get().getId());
   switch (regulatedComponent->getType()) {
-    case ComponentInterface::UNKNOWN:
-    case ComponentInterface::HVDC_LINE:
-      break;
     case ComponentInterface::LINE: {
       boost::shared_ptr<LineInterface> line = boost::dynamic_pointer_cast<LineInterface>(regulatedComponent);
       const auto& lineIIDM = dataInterface_->getNetworkIIDM().getLine(regulatedComponent.get()->getID());
@@ -189,6 +187,10 @@ ServiceManagerInterfaceIIDM::getRegulatedBusOnSide(const powsybl::iidm::Terminal
         return ThreeWTransf.get()->getBusInterface2();
       return ThreeWTransf.get()->getBusInterface3();
     }
+    case ComponentInterface::UNKNOWN:
+    case ComponentInterface::HVDC_LINE:
+    case ComponentInterface::COMPONENT_TYPE_COUNT:
+      break;
   }
   return boost::shared_ptr<BusInterface> ();
 }
