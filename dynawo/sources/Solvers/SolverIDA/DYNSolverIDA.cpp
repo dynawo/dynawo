@@ -391,7 +391,8 @@ SolverIDA::calculateIC() {
   bool change(true);
   int counter = 0;
 
-  solverKINNormal_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+  solverKINNormal_->setupNewAlgebraicRestoration(fnormtolAlgInit_, initialaddtolAlgInit_, scsteptolAlgInit_, mxnewtstepAlgInit_,
+                                                  msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
 
 #if _DEBUG_
   solverKINNormal_->setCheckJacobian(true);
