@@ -78,6 +78,12 @@ job_file = os.path.join(os.path.dirname(__file__), "Shunts", "Shunt.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+case_name = "DynaFlow - Shunts init"
+case_description = "Small System with a Shunt with Sections to check SIM solver parameters"
+job_file = os.path.join(os.path.dirname(__file__), "ShuntsInit", "Shunt.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 #######################################################################
 #  Small System with two Shunts with sections and sections regulation  #
 #######################################################################

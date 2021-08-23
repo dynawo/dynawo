@@ -233,8 +233,8 @@ SolverSIM::calculateIC() {
   state_.reset();
   model_->reinitMode();
 
-  solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_,
-                                                         printflAlg_);
+  solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlgInit_, initialaddtolAlgInit_, scsteptolAlgInit_, mxnewtstepAlgInit_, msbsetAlgInit_,
+                                                          mxiterAlgInit_, printflAlgInit_);
 #if _DEBUG_
   solverKINAlgRestoration_->setCheckJacobian(true);
 #endif

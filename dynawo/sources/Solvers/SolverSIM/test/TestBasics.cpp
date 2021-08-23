@@ -999,7 +999,55 @@ TEST(ParametersTest, testParameters) {
   params->addParameter(parameters::ParameterFactory::newParameter("minimumModeChangeTypeForAlgebraicRestoration", std::string("ALGEBRAIC_J_UPDATE")));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 33);
+  ASSERT_EQ(solver->getParametersMap().size(), 40);
+}
+
+TEST(ParametersTest, testParametersInit) {
+  boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverSIM" + std::string(sharedLibraryExtension()));
+  solver->defineParameters();
+  // Throw if no PAR file
+  boost::shared_ptr<parameters::ParametersSet> nullSet;
+  ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(nullSet), Error::GENERAL, KeyError_t::ParameterNotReadFromOrigin);
+  // Adding parameters from a PAR file
+  boost::shared_ptr<parameters::ParametersSet> params = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("MySolverParam"));
+  ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(params), Error::GENERAL, KeyError_t::SolverMissingParam);
+  params->addParameter(parameters::ParameterFactory::newParameter("hMin", 0.000001));
+  ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(params), Error::GENERAL, KeyError_t::SolverMissingParam);
+  params->addParameter(parameters::ParameterFactory::newParameter("hMax", 1.));
+  ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(params), Error::GENERAL, KeyError_t::SolverMissingParam);
+  params->addParameter(parameters::ParameterFactory::newParameter("kReduceStep", 0.5));
+  ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(params), Error::GENERAL, KeyError_t::SolverMissingParam);
+  params->addParameter(parameters::ParameterFactory::newParameter("maxNewtonTry", 10));
+  ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(params), Error::GENERAL, KeyError_t::SolverMissingParam);
+  params->addParameter(parameters::ParameterFactory::newParameter("linearSolverName", std::string("KLU")));
+  ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
+  ASSERT_NO_THROW(solver->setSolverParameters());
+
+  // Check unused parameters
+  params->addParameter(parameters::ParameterFactory::newParameter("falseParam", 0));
+  ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
+  solver->checkUnusedParameters(params);
+
+  // Find parameter
+  ASSERT_THROW_DYNAWO(solver->findParameter("falseParam"), Error::GENERAL, KeyError_t::ParameterNotDefined);
+
+  // Add optional parameters
+  params->addParameter(parameters::ParameterFactory::newParameter("fnormtolInit", 0.01));
+  params->addParameter(parameters::ParameterFactory::newParameter("initialaddtolInit", 1.));
+  params->addParameter(parameters::ParameterFactory::newParameter("scsteptolInit", 1.));
+  params->addParameter(parameters::ParameterFactory::newParameter("mxnewtstepInit", 1.));
+  params->addParameter(parameters::ParameterFactory::newParameter("msbsetInit", 10));
+  params->addParameter(parameters::ParameterFactory::newParameter("mxiterInit", 2));
+  params->addParameter(parameters::ParameterFactory::newParameter("printflInit", 0));
+  params->addParameter(parameters::ParameterFactory::newParameter("fnormtolAlgInit", 0.000001));
+  params->addParameter(parameters::ParameterFactory::newParameter("scsteptolAlgInit", 1.));
+  params->addParameter(parameters::ParameterFactory::newParameter("mxnewtstepAlgInit", 1.));
+  params->addParameter(parameters::ParameterFactory::newParameter("msbsetAlgInit", 10));
+  params->addParameter(parameters::ParameterFactory::newParameter("mxiterAlgInit", 2));
+  params->addParameter(parameters::ParameterFactory::newParameter("printflAlgInit", 0));
+  ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
+  ASSERT_NO_THROW(solver->setSolverParameters());
+  ASSERT_EQ(solver->getParametersMap().size(), 40);
 }
 
 }  // namespace DYN
