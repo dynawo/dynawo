@@ -1,11 +1,7 @@
 within Dynawo.Electrical.Controls.WECC;
 
 /*
-<<<<<<< HEAD
 * Copyright (c) 2021, RTE (http://www.rte-france.com)
-=======
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
->>>>>>> #672 Some renaming
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -20,6 +16,7 @@ model PlantControl "WECC PV Plant Control REPC"
   import Modelica;
   import Dynawo;
   import Dynawo.Types;
+<<<<<<< HEAD
 <<<<<<< HEAD
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Electrical.Controls.WECC.Parameters;
@@ -36,9 +33,14 @@ model PlantControl "WECC PV Plant Control REPC"
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omega0Pu) "Frequency setpoint" annotation(
 =======
   import Dynawo.Electrical.Controls.WECC.BaseControls;
+=======
+>>>>>>> #672 Add tab for parameters
   import Dynawo.Electrical.SystemBase;
+  import Dynawo.Electrical.Controls.WECC.Parameters;
 
   extends Parameters.Params_PlantControl;
+  parameter Types.PerUnit Rc "Line drop compensation resistance when VcompFlag = 1";
+  parameter Types.PerUnit Xc "Line drop compensation reactance when VcompFlag = 1";
 
   Modelica.Blocks.Interfaces.RealInput PRefPu_PC(start = PGen0Pu) "Active power setpoint at regulated bus in p.u (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -136,13 +138,18 @@ model PlantControl "WECC PV Plant Control REPC"
     Placement(visible = true, transformation(origin = {9, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone QVext_dbd(uMax = dbd, uMin = -dbd) annotation(
     Placement(visible = true, transformation(origin = {50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+<<<<<<< HEAD
   Modelica.Blocks.Continuous.FirstOrder Qbranch_Filt(T = Tfltr, initType = Modelica.Blocks.Types.Init.SteadyState, y_start = QGen0Pu) annotation(
 >>>>>>> #672 Some renaming
+=======
+  Modelica.Blocks.Continuous.FirstOrder Qbranch_Filt(T = TFltr, initType = Modelica.Blocks.Types.Init.SteadyState, y_start = QGen0Pu) annotation(
+>>>>>>> #672 Add tab for parameters
     Placement(visible = true, transformation(origin = {-230, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add QCtrlErr(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {-29, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add UCtrlErr(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-30, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+<<<<<<< HEAD
 <<<<<<< HEAD
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tFilterPC, y_start = if VCompFlag == true then UInj0Pu else U0Pu + Kc * QGen0Pu) annotation(
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -177,6 +184,9 @@ model PlantControl "WECC PV Plant Control REPC"
   Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck(UMinPu = VFrz, UMaxPu = 999) annotation(
 =======
   Modelica.Blocks.Continuous.FirstOrder Ubranch_Filt(T = Tfltr, initType = Modelica.Blocks.Types.Init.SteadyState, y_start = if VcompFlag == true then URefPu else UInj0Pu) annotation(
+=======
+  Modelica.Blocks.Continuous.FirstOrder Ubranch_Filt(T = TFltr, initType = Modelica.Blocks.Types.Init.SteadyState, y_start = if VcompFlag == true then URefPu else UInj0Pu) annotation(
+>>>>>>> #672 Add tab for parameters
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.LineDropCompensation lineDropCompensation1(Rc = Rc, Xc = Xc) annotation(
     Placement(visible = true, transformation(origin = {-270, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -433,6 +443,7 @@ equation
     Line(points = {{-139, -90}, {-130, -90}, {-130, -104}, {-122, -104}, {-122, -104}}, color = {0, 0, 127}));
   connect(dPfreq_up_lim.y, dPfreq.u2) annotation(
     Line(points = {{-138, -130}, {-130, -130}, {-130, -116}, {-122, -116}, {-122, -116}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Documentation(info = "<html>
 <p> This block contains the generic WECC PV plant level control model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>

@@ -76,51 +76,22 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
 equation
   connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
     Line(points = {{-29, -24}, {-11, -24}}, color = {0, 0, 127}));
-<<<<<<< HEAD
-=======
-  connect(bus.terminal, line.terminal1) annotation(
-    Line(points = {{150, -10}, {130, -10}}, color = {0, 0, 255}));
->>>>>>> #672 WECC PV
   connect(line.terminal2, injector.terminal) annotation(
     Line(points = {{110, -10}, {91.5, -10}}, color = {0, 0, 255}));
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
     Line(points = {{11, -24}, {29, -24}}, color = {0, 0, 127}));
-<<<<<<< HEAD
   connect(wecc_reec.frtOn, wecc_regc.frtOn) annotation(
-=======
-  connect(wecc_reec.FRTon, wecc_regc.FRTon) annotation(
->>>>>>> #672 WECC PV
     Line(points = {{11, -18}, {29, -18}}, color = {255, 0, 255}));
   connect(wecc_reec.idCmdPu, wecc_regc.idCmdPu) annotation(
     Line(points = {{11, -12}, {29, -12}}, color = {0, 0, 127}));
   connect(wecc_repc.PInjRefPu, wecc_reec.PInjRefPu) annotation(
     Line(points = {{-29, -12}, {-11, -12}}, color = {0, 0, 127}));
-<<<<<<< HEAD
   connect(OmegaRef.y, pll.omegaRefPu) annotation(
     Line(points = {{-99, 30}, {-91, 30}}, color = {0, 0, 127}));
-=======
-  connect(terminal, bus.terminal) annotation(
-    Line(points = {{180, -10}, {150, -10}}, color = {0, 0, 255}));
-  connect(OmegaRef.y, pll.omegaRefPu) annotation(
-    Line(points = {{-99, 30}, {-91, 30}}, color = {0, 0, 127}));
-  PGenPu = -ComplexMath.real(line.terminal1.V * ComplexMath.conj(line.terminal1.i));
-  QGenPu = -ComplexMath.imag(line.terminal1.V * ComplexMath.conj(line.terminal1.i));
-  pll.uPu = line.terminal1.V;
-  wecc_repc.uPu = line.terminal1.V;
-  wecc_repc.iPu = - line.terminal1.i * SystemBase.SnRef / SNom;
-  wecc_repc.PRegPu = PGenPu * SystemBase.SnRef / SNom;
-  wecc_repc.QRegPu = QGenPu * SystemBase.SnRef / SNom;
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  injector.switchOffSignal1.value = false;
-  injector.switchOffSignal2.value = false;
-  injector.switchOffSignal3.value = false;
->>>>>>> #672 WECC PV
   connect(wecc_regc.idRefPu, injector.idPu) annotation(
     Line(points = {{51, -24}, {68.5, -24}}, color = {0, 0, 127}));
   connect(wecc_regc.iqRefPu, injector.iqPu) annotation(
     Line(points = {{51, -14}, {68.5, -14}}, color = {0, 0, 127}));
-<<<<<<< HEAD
   connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(
     Line(points = {{-69, 41}, {-60, 41}, {-60, -10}, {-51, -10}}, color = {0, 0, 127}));
   connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
@@ -128,15 +99,6 @@ equation
   connect(PRefPu, wecc_repc.PRefPu) annotation(
     Line(points = {{-110, -20}, {-51, -20}, {-51, -20}, {-51, -20}}, color = {0, 0, 127}));
   connect(QRefPu, wecc_repc.QRefPu) annotation(
-=======
-  connect(pll.omegaPLLPu, wecc_repc.OmegaPu) annotation(
-    Line(points = {{-69, 41}, {-60, 41}, {-60, -10}, {-51, -10}}, color = {0, 0, 127}));
-  connect(OmegaRefPu, wecc_repc.OmegaRefPu) annotation(
-    Line(points = {{-110, 0}, {-70, 0}, {-70, -14}, {-51, -14}, {-51, -14}}, color = {0, 0, 127}));
-  connect(PRefPu, wecc_repc.PRefPu_PC) annotation(
-    Line(points = {{-110, -20}, {-51, -20}, {-51, -20}, {-51, -20}}, color = {0, 0, 127}));
-  connect(QRefPu, wecc_repc.QRefPu_PC) annotation(
->>>>>>> #672 WECC PV
     Line(points = {{-110, -40}, {-60, -40}, {-60, -24}, {-51, -24}, {-51, -24}}, color = {0, 0, 127}));
   connect(injector.UPu, wecc_regc.UPu) annotation(
     Line(points = {{92, -26}, {97, -26}, {97, -34}, {34, -34}, {34, -29}, {34, -29}}, color = {0, 0, 127}));
@@ -146,7 +108,6 @@ equation
     Line(points = {{92, -22}, {99, -22}, {99, -36}, {0, -36}, {0, -29}, {0, -29}}, color = {0, 0, 127}));
   connect(injector.QInjPuSn, wecc_reec.QInjPu) annotation(
     Line(points = {{92, -18}, {101, -18}, {101, -38}, {-6, -38}, {-6, -29}, {-6, -29}}, color = {0, 0, 127}));
-<<<<<<< HEAD
   connect(line.terminal1, measurements.terminal1) annotation(
     Line(points = {{130, -10}, {140, -10}}, color = {0, 0, 255}));
   connect(measurements.terminal2, terminal) annotation(
@@ -166,8 +127,6 @@ equation
   injector.switchOffSignal1.value = false;
   injector.switchOffSignal2.value = false;
   injector.switchOffSignal3.value = false;
-=======
->>>>>>> #672 WECC PV
 
   annotation(
     Documentation(preferredView = "diagram",

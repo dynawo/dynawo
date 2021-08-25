@@ -16,6 +16,7 @@ block TransformRItoDQ "Transformation from real/imaginary in stationary referenc
   import Modelica.Blocks;
   import Modelica.ComplexBlocks;
 
+<<<<<<< HEAD
   ComplexBlocks.Interfaces.ComplexInput uPu "Complex voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Interfaces.RealInput cosPhi "cos(Phi) with Phi the angle of the dq transform" annotation(
@@ -25,6 +26,17 @@ block TransformRItoDQ "Transformation from real/imaginary in stationary referenc
   Blocks.Interfaces.RealOutput udPu "d-axis voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Interfaces.RealOutput uqPu "q-axis voltage in p.u (base UNom)" annotation(
+=======
+  ComplexBlocks.Interfaces.ComplexInput uPu annotation(
+    Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Blocks.Interfaces.RealInput cosphi annotation(
+    Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Blocks.Interfaces.RealInput sinphi annotation(
+    Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Blocks.Interfaces.RealOutput ud annotation(
+    Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Blocks.Interfaces.RealOutput uq annotation(
+>>>>>>> #672 Add tab for parameters
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

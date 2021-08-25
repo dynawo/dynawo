@@ -81,35 +81,17 @@ equation
 <p>
 This blocks computes output <strong>y</strong> as
 <em>integral</em> of the input <strong>u</strong> multiplied with
-<<<<<<< HEAD
 the gain <em>K</em>:
 </p>
 <pre>
          K
-=======
-the gain <em>k</em>:
-</p>
-<pre>
-         k
->>>>>>> #672 WECC PV
      y = - u
          s
 </pre>
 
 <p>
-<<<<<<< HEAD
 If the <em>reset</em> port is enabled, then the output <strong>y</strong> is reset to <em>set</em>
 or to <em>Y0</em> (if the <em>set</em> port is not enabled), whenever the <em>reset</em>
-=======
-It might be difficult to initialize the integrator in steady state.
-This is discussed in the description of package
-<a href=\"modelica://Modelica.Blocks.Continuous#info\">Continuous</a>.
-</p>
-
-<p>
-If the <em>reset</em> port is enabled, then the output <strong>y</strong> is reset to <em>set</em>
-or to <em>y_start</em> (if the <em>set</em> port is not enabled), whenever the <em>reset</em>
->>>>>>> #672 WECC PV
 port has a rising edge.
 </p>
 
@@ -118,11 +100,6 @@ port has a rising edge.
 </p>
 
 </html>"),
-<<<<<<< HEAD
     Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100.0, -100.0}, {100.0, 100.0}}), graphics = {Line(points = {{-80.0, 78.0}, {-80.0, -90.0}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{-80.0, 90.0}, {-88.0, 68.0}, {-72.0, 68.0}, {-80.0, 90.0}}), Line(points = {{-90.0, -80.0}, {82.0, -80.0}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{90.0, -80.0}, {68.0, -72.0}, {68.0, -88.0}, {90.0, -80.0}}), Text(lineColor = {192, 192, 192}, extent = {{0.0, -70.0}, {60.0, -10.0}}, textString = "I"), Text(extent = {{-150.0, -150.0}, {150.0, -110.0}}, textString = "K=%K"), Line(points = DynamicSelect({{-80.0, -80.0}, {80.0, 80.0}}, if UseReset then {{-80.0, -80.0}, {60.0, 60.0}, {60.0, -80.0}, {80.0, -60.0}} else {{-80.0, -80.0}, {80.0, 80.0}}), color = {0, 0, 127}), Line(visible = UseReset, points = {{60, -100}, {60, -80}}, color = {255, 0, 255}, pattern = LinePattern.Dot), Text(visible = UseReset, extent = {{-28, -62}, {94, -86}}, textString = "reset")}),
     Diagram(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(extent = {{-60, 60}, {60, -60}}, lineColor = {0, 0, 255}), Line(points = {{-100, 0}, {-60, 0}}, color = {0, 0, 255}), Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 255}), Text(extent = {{-36, 60}, {32, 2}}, textString = "K"), Text(extent = {{-32, 0}, {36, -58}}, textString = "s"), Line(points = {{-46, 0}, {46, 0}})}));
-=======
-    Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100.0, -100.0}, {100.0, 100.0}}), graphics = {Line(points = {{-80.0, 78.0}, {-80.0, -90.0}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{-80.0, 90.0}, {-88.0, 68.0}, {-72.0, 68.0}, {-80.0, 90.0}}), Line(points = {{-90.0, -80.0}, {82.0, -80.0}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{90.0, -80.0}, {68.0, -72.0}, {68.0, -88.0}, {90.0, -80.0}}), Text(lineColor = {192, 192, 192}, extent = {{0.0, -70.0}, {60.0, -10.0}}, textString = "I"), Text(extent = {{-150.0, -150.0}, {150.0, -110.0}}, textString = "k=%k"), Line(points = DynamicSelect({{-80.0, -80.0}, {80.0, 80.0}}, if use_reset then {{-80.0, -80.0}, {60.0, 60.0}, {60.0, -80.0}, {80.0, -60.0}} else {{-80.0, -80.0}, {80.0, 80.0}}), color = {0, 0, 127}), Line(visible = use_reset, points = {{60, -100}, {60, -80}}, color = {255, 0, 255}, pattern = LinePattern.Dot), Text(visible = use_reset, extent = {{-28, -62}, {94, -86}}, textString = "reset")}),
-    Diagram(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(extent = {{-60, 60}, {60, -60}}, lineColor = {0, 0, 255}), Line(points = {{-100, 0}, {-60, 0}}, color = {0, 0, 255}), Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 255}), Text(extent = {{-36, 60}, {32, 2}}, textString = "k"), Text(extent = {{-32, 0}, {36, -58}}, textString = "s"), Line(points = {{-46, 0}, {46, 0}})}));
->>>>>>> #672 WECC PV
 end IntegratorSetFreeze;

@@ -77,37 +77,20 @@ and the output y as <em>first order</em> system:
    y = ------------ * u
           T * s + 1
 </pre>
-<<<<<<< HEAD
 
 <p>
 <strong>Extended with Freeze functionality:</strong> If boolean input is set to true, the derivative of the state variable is set to zero.
-=======
-<p>
-If you would like to be able to change easily between different
-transfer functions (FirstOrder, SecondOrder, ... ) by changing
-parameters, use the general block <strong>TransferFunction</strong> instead
-and model a first order SISO system with parameters<br>
-b = {k}, a = {T, 1}.
-</p>
-<pre>
-Example:
- parameter: k = 0.3, T = 0.4
- results in:
-           0.3
-    y = ----------- * u
-        0.4 s + 1.0
-</pre>
-
-<p>
-<strong>Extended with Freeze functionality:</strong> If boolean input is set to true, the derrivative of the state variable is set to zero.
->>>>>>> #672 WECC PV
 </p>
 
 </html>"),
     Icon(coordinateSystem(initialScale = 0.1), graphics = {Line(points = {{-80, 78}, {-80, -90}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{-80, 90}, {-88, 68}, {-72, 68}, {-80, 90}}), Line(points = {{-90, -80}, {82, -80}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{90, -80}, {68, -72}, {68, -88}, {90, -80}}), Line(origin = {-26.667, 6.667}, points = {{106.667, 43.333}, {-13.333, 29.333}, {-53.333, -86.667}}, color = {0, 0, 127}, smooth = Smooth.Bezier), Text(lineColor = {192, 192, 192}, extent = {{0, -60}, {60, 0}}, textString = "PT1"), Text(origin = {26, 8}, extent = {{-150, -150}, {150, -110}}, textString = "T=%T")}),
 <<<<<<< HEAD
+<<<<<<< HEAD
     Diagram(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Text(extent = {{-48, 52}, {50, 8}}, textString = "k"), Text(extent = {{-54, -6}, {56, -56}}, textString = "T s + 1"), Line(points = {{-50, 0}, {50, 0}}), Rectangle( lineColor = {0, 0, 255},extent = {{-60, 60}, {60, -60}}), Line(points = {{-100, 0}, {-60, 0}}, color = {0, 0, 255}), Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 255})}));
 =======
     Diagram(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Text(extent = {{-48, 52}, {50, 8}}, textString = "k"), Text(extent = {{-54, -6}, {56, -56}}, textString = "T s + 1"), Line(points = {{-50, 0}, {50, 0}}), Rectangle(extent = {{-60, 60}, {60, -60}}, lineColor = {0, 0, 255}), Line(points = {{-100, 0}, {-60, 0}}, color = {0, 0, 255}), Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 255})}));
 >>>>>>> #672 WECC PV
+=======
+    Diagram(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Text(extent = {{-48, 52}, {50, 8}}, textString = "k"), Text(extent = {{-54, -6}, {56, -56}}, textString = "T s + 1"), Line(points = {{-50, 0}, {50, 0}}), Rectangle( lineColor = {0, 0, 255},extent = {{-60, 60}, {60, -60}}), Line(points = {{-100, 0}, {-60, 0}}, color = {0, 0, 255}), Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 255})}));
+>>>>>>> #672 Add tab for parameters
 end RateLimFirstOrderFreeze;
