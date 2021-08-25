@@ -12,12 +12,19 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
+<<<<<<< HEAD
 model LimPIDFreeze "PI controller with limited output, anti-windup compensation, setpoint weighting, optional feed-forward and optional freezing of the state"
   import Modelica.Blocks;
+=======
+block LimPIDFreeze "PI controller with limited output, anti-windup compensation, setpoint weighting, optional feed-forward and optional freezing of the state"
+  import Modelica.Blocks;
+  import Modelica.Constants;
+>>>>>>> #672 Add a measurements block
   import Dynawo.Types;
 
   extends Blocks.Interfaces.SVcontrol;
 
+<<<<<<< HEAD
   parameter Real K = 1 "Gain of controller";
   parameter Types.Time Ti = 0.5 "Time constant of Integrator block";
   parameter Real Wp = 1 "Set-point weight for Proportional block (0..1)";
@@ -30,6 +37,20 @@ model LimPIDFreeze "PI controller with limited output, anti-windup compensation,
   parameter Real Xi0 = 0 "Initial or guess value for integrator output (= integrator state)";
   parameter Real Y0 = 0 "Initial value of output";
   parameter Boolean Strict = false "= true, if Strict limits with noEvent(..)" annotation(
+=======
+  parameter Real k(min = 0) = 1 "Gain of controller";
+  parameter Types.Time Ti(min = Constants.small) = 0.5 "Time constant of Integrator block";
+  parameter Real wp(min = 0) = 1 "Set-point weight for Proportional block (0..1)";
+  parameter Real Ni(min = 100 * Constants.eps) = 0.9 "Ni*Ti is time constant of anti-windup compensation";
+  parameter Boolean withFeedForward = false "Use feed-forward input?" annotation(
+    Evaluate = true,
+    choices(checkBox = true));
+  parameter Real kFF = 1 "Gain of feed-forward input" annotation(
+    Dialog(enable = withFeedForward));
+  parameter Real xi_start = 0 "Initial or guess value for integrator output (= integrator state)";
+  parameter Real y_start = 0 "Initial value of output";
+  parameter Boolean strict = false "= true, if strict limits with noEvent(..)" annotation(
+>>>>>>> #672 Add a measurements block
     Evaluate = true,
     choices(checkBox = true),
     Dialog(tab = "Advanced"));
@@ -49,7 +70,11 @@ model LimPIDFreeze "PI controller with limited output, anti-windup compensation,
     Placement(transformation(extent = {{-80, 40}, {-60, 60}})));
   Blocks.Math.Gain P(k = 1) annotation(
     Placement(transformation(extent = {{-50, 40}, {-30, 60}})));
+<<<<<<< HEAD
   Blocks.Math.Gain gainPID(k = K) annotation(
+=======
+  Blocks.Math.Gain gainPID(k = k) annotation(
+>>>>>>> #672 Add a measurements block
     Placement(transformation(extent = {{20, -10}, {40, 10}})));
   Blocks.Math.Add addPID annotation(
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
@@ -57,15 +82,27 @@ model LimPIDFreeze "PI controller with limited output, anti-windup compensation,
     Placement(transformation(extent = {{-80, -60}, {-60, -40}})));
   Blocks.Math.Add addSat(k1 = +1, k2 = -1) annotation(
     Placement(transformation(origin = {80, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
+<<<<<<< HEAD
   Blocks.Math.Gain gainTrack(k = 1 / (K * Ni)) annotation(
     Placement(transformation(extent = {{0, -80}, {-20, -60}})));
   Blocks.Nonlinear.Limiter limiter(strict = true, uMax = YMax, uMin = YMin)  annotation(
     Placement(transformation(extent = {{70, -10}, {90, 10}})));
   Blocks.Sources.Constant FFzero(k = 0) if not WithFeedForward annotation(
+=======
+  Blocks.Math.Gain gainTrack(k = 1 / (k * Ni)) annotation(
+    Placement(transformation(extent = {{0, -80}, {-20, -60}})));
+  Blocks.Nonlinear.Limiter limiter(strict = true, uMax = yMax, uMin = yMin)  annotation(
+    Placement(transformation(extent = {{70, -10}, {90, 10}})));
+  Blocks.Sources.Constant FFzero(k = 0) if not withFeedForward annotation(
+>>>>>>> #672 Add a measurements block
     Placement(transformation(extent = {{30, -35}, {40, -25}})));
   Blocks.Math.Add addFF(k1 = 1, k2 = Kff) annotation(
     Placement(transformation(extent = {{48, -6}, {60, 6}})));
+<<<<<<< HEAD
   IntegratorSetFreeze I(K = unitTime / Ti, UseFreeze = true, Y0 = Xi0)  annotation(
+=======
+  IntegratorSetFreeze I(k = unitTime / Ti, use_freeze = true, y_start = xi_start)  annotation(
+>>>>>>> #672 Add a measurements block
     Placement(visible = true, transformation(origin = {-38, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
