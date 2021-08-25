@@ -12,20 +12,15 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block RateLimFirstOrderFreeze "First order transfer function block (= 1 pole)"
+block RateLimFirstOrderFreeze "First order transfer function block with rate limiter"
   import Modelica;
-  import Modelica.Blocks.Types.Init;
   import Dynawo.Types;
 
   extends Modelica.Blocks.Interfaces.SISO(y(start = y_start));
 
-  parameter Real k(unit = "1") = 1 "Gain";
+  parameter Real k = 1 "Gain";
   parameter Types.Time T(start = 1) "Time Constant";
-  parameter Init initType = Init.NoInit "Type of initialization (1: no init, 2: steady state, 3/4: initial output)" annotation(
-    Evaluate = true,
-    Dialog(group = "Initialization"));
-  parameter Real y_start = 0 "Initial or guess value of output (= state)" annotation(
-    Dialog(group = "Initialization"));
+  parameter Real y_start = 0 "Initial or guess value of output (= state)";
   parameter Boolean use_freeze = false "= if true, freeze port enabled" annotation(
   Evaluate = true,
   HideResult = true,
@@ -49,13 +44,6 @@ protected
     HideResult = true);
   Modelica.Blocks.Interfaces.RealOutput local_dymax annotation(
     HideResult = true);
-
-initial equation
-  if initType == Init.SteadyState then
-    der(y) = 0;
-  elseif initType == Init.InitialState or initType == Init.InitialOutput then
-    y = y_start;
-  end if;
 
 equation
   if use_freeze then
@@ -89,24 +77,9 @@ and the output y as <em>first order</em> system:
    y = ------------ * u
           T * s + 1
 </pre>
-<p>
-If you would like to be able to change easily between different
-transfer functions (FirstOrder, SecondOrder, ... ) by changing
-parameters, use the general block <strong>TransferFunction</strong> instead
-and model a first order SISO system with parameters<br>
-b = {k}, a = {T, 1}.
-</p>
-<pre>
-Example:
- parameter: k = 0.3, T = 0.4
- results in:
-           0.3
-    y = ----------- * u
-        0.4 s + 1.0
-</pre>
 
 <p>
-<strong>Extended with Freeze functionality:</strong> If boolean input is set to true, the derrivative of the state variable is set to zero.
+<strong>Extended with Freeze functionality:</strong> If boolean input is set to true, the derivative of the state variable is set to zero.
 </p>
 
 </html>"),

@@ -1,6 +1,5 @@
 within Dynawo.Examples.Photovoltaics.WECC;
 
-model PVCurrentSource "WECC PV Model on infinite Bus"
   /*
   * Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
   * See AUTHORS.txt
@@ -12,10 +11,15 @@ model PVCurrentSource "WECC PV Model on infinite Bus"
   *
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
   */
+
+model PVCurrentSource "WECC PV Model on infinite Bus"
+
   import Modelica;
   import Dynawo;
+
   extends Icons.Example;
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.5, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tUEvtEnd = 2, tUEvtStart = 1, tOmegaEvtEnd = 9, tOmegaEvtStart = 6) annotation(
+
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.5, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 9, tOmegaEvtStart = 6, tUEvtEnd = 2, tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, -1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -27,6 +31,7 @@ model PVCurrentSource "WECC PV Model on infinite Bus"
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant OmegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+
 equation
   connect(line.terminal2, PV.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
@@ -40,6 +45,7 @@ equation
     Line(points = {{69, -40}, {54, -40}, {54, -12}, {42, -12}}, color = {0, 0, 127}));
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
+
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),

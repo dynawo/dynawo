@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   TransformDQtoRI.mo
   TransformRItoDQ.mo
+  Measurements.mo
   )
 
 #

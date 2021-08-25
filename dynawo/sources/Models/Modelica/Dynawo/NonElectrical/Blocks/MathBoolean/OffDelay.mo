@@ -20,12 +20,8 @@ block OffDelay "Delay a falling edge of the input, but do not delay a rising edg
   parameter Modelica.SIunits.Time delayTime "Delay time";
 
 protected
-  Boolean delaySignal(start = false, fixed = true);
+  Boolean delaySignal(start = false);
   discrete Modelica.SIunits.Time t_next;
-
-initial equation
-  pre(u) = false;
-  pre(t_next) = time - 1;
 
 algorithm
   when initial() then

@@ -15,11 +15,10 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 block IntegratorSetFreeze "Outputs the integral of the input signal with optional reset and optional state freeze"
   import Modelica;
   import Modelica.Blocks;
-  import Modelica.Blocks.Types.Init;
 
   extends Blocks.Interfaces.SISO(y(start = y_start));
 
-  parameter Real k(unit = "1") = 1 "Integrator gain";
+  parameter Real k = 1 "Integrator gain";
   parameter Boolean use_reset = false "=true, if reset port enabled" annotation(
     Evaluate = true,
     HideResult = true,
@@ -33,11 +32,7 @@ block IntegratorSetFreeze "Outputs the integral of the input signal with optiona
     Evaluate = true,
     HideResult = true,
     choices(checkBox = true));
-  parameter Init initType = Init.InitialState "Type of initialization (1: no init, 2: steady state, 3,4: initial output)" annotation(
-    Evaluate = true,
-    Dialog(group = "Initialization"));
-  parameter Real y_start = 0 "Initial or guess value of output (= state)" annotation(
-    Dialog(group = "Initialization"));
+  parameter Real y_start = 0 "Initial or guess value of output (= state)";
 
   Blocks.Interfaces.BooleanInput reset if use_reset "Optional connector of reset signal" annotation(
     Placement(transformation(extent = {{-20, -20}, {20, 20}}, rotation = 90, origin = {60, -120})));
@@ -53,13 +48,6 @@ protected
     HideResult = true);
   Blocks.Interfaces.RealOutput local_set annotation(
     HideResult = true);
-
-initial equation
-  if initType == Init.SteadyState then
-    der(y) = 0;
-  elseif initType == Init.InitialState or initType == Init.InitialOutput then
-    y = y_start;
-  end if;
 
 equation
   if use_reset then
@@ -101,12 +89,6 @@ the gain <em>k</em>:
      y = - u
          s
 </pre>
-
-<p>
-It might be difficult to initialize the integrator in steady state.
-This is discussed in the description of package
-<a href=\"modelica://Modelica.Blocks.Continuous#info\">Continuous</a>.
-</p>
 
 <p>
 If the <em>reset</em> port is enabled, then the output <strong>y</strong> is reset to <em>set</em>

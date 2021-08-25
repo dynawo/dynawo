@@ -35,7 +35,7 @@ model GeneratorControl "WECC PV Generator Control REGC"
 
   Modelica.Blocks.Sources.BooleanConstant RateFlag_const(k = RateFlag)  annotation(
     Placement(visible = true, transformation(origin = {-40, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder UPu_filt(T = Tfltr, k = 1, y(fixed = true, start = UInj0Pu), y_start = UInj0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder UPu_filt(T = Tfltr, k = 1, y(start = UInj0Pu), y_start = UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch VDependencySwitch annotation(
     Placement(visible = true, transformation(origin = {0, -78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -47,9 +47,9 @@ model GeneratorControl "WECC PV Generator Control REGC"
     Placement(visible = true, transformation(origin = {120, -72}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain IqrefPu(k = -1) annotation(
     Placement(visible = true, transformation(origin = {40, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter UPu_NonZero(limitsAtInit = true, uMax = 999, uMin = 0.01)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter UPu_NonZero(uMax = 999, uMin = 0.01)  annotation(
     Placement(visible = true, transformation(origin = {-80, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze Iqcmd_Filt(T = Tg, initType = Modelica.Blocks.Types.Init.SteadyState, use_rateLim = true, y_start = Iq0Pu)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze Iqcmd_Filt(T = Tg, use_rateLim = true, y_start = Iq0Pu)  annotation(
     Placement(visible = true, transformation(origin = {0, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Iqrmax_const(k = Iqrmax) annotation(
     Placement(visible = true, transformation(origin = {-80, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

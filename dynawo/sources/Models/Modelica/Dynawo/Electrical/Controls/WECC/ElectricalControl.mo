@@ -47,27 +47,27 @@ model ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {-40, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant Pfflag_const(k = PfFlag) annotation(
     Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter Vcmd_lim(limitsAtInit = true, uMax = Vmax, uMin = Vmin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter Vcmd_lim(uMax = Vmax, uMin = Vmin) annotation(
     Placement(visible = true, transformation(origin = {90, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division Iqcmd annotation(
     Placement(visible = true, transformation(origin = {90, -76}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder UPu_filt(T = Trv, initType = Modelica.Blocks.Types.Init.InitialState, k = 1, y_start = UInj0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder UPu_filt(T = Trv, k = 1, y_start = UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Vref(k = if Vref0 < 0.5 then UInj0Pu else Vref0) annotation(
     Placement(visible = true, transformation(origin = {10, 36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add Verr_FRT(k1 = +1, k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.DeadZone Verr_dbd(deadZoneAtInit = true, uMax = dbd2, uMin = dbd1) annotation(
+  Modelica.Blocks.Nonlinear.DeadZone Verr_dbd(uMax = dbd2, uMin = dbd1) annotation(
     Placement(visible = true, transformation(origin = {180, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain Iq_FRT(k = Kqv) annotation(
     Placement(visible = true, transformation(origin = {220, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter Iq_FRT_lim(limitsAtInit = true, uMax = Iqh1, uMin = Iql1) annotation(
+  Modelica.Blocks.Nonlinear.Limiter Iq_FRT_lim(uMax = Iqh1, uMin = Iql1) annotation(
     Placement(visible = true, transformation(origin = {280, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add Iqcmd_sum(k1 = +1, k2 = +1) annotation(
     Placement(visible = true, transformation(origin = {330, -21}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch Vflagswitch annotation(
     Placement(visible = true, transformation(origin = {10, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder PextPu_Filt(T = Tp, initType = Modelica.Blocks.Types.Init.SteadyState, y_start = PInj0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder PextPu_Filt(T = Tp, y_start = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Pfaref(k = tan(acos(PF0))) annotation(
     Placement(visible = true, transformation(origin = {-230, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -75,37 +75,37 @@ model ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch Pfflagswitch annotation(
     Placement(visible = true, transformation(origin = {-120, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter Q_lim(limitsAtInit = true, uMax = Qmax, uMin = Qmin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter Q_lim(uMax = Qmax, uMin = Qmin) annotation(
     Placement(visible = true, transformation(origin = {-80, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch Qflagswitch annotation(
     Placement(visible = true, transformation(origin = {280, -27}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division Idcmd annotation(
     Placement(visible = true, transformation(origin = {90, 79}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze PID_V(Ti = Kqp / Kqi, controllerType = Modelica.Blocks.Types.SimpleController.PI, initType = Modelica.Blocks.Types.InitPID.InitialState, k = Kqp, limitsAtInit = true, xi_start = UInj0Pu / Kvp, yMax = Vmax, yMin = Vmin, y_start = UInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze PID_V(Ti = Kqp / Kqi, k = Kqp, xi_start = UInj0Pu / Kvp, yMax = Vmax, yMin = Vmin, y_start = UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, 20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltage_Dip(UMinPu = UMinPu, UMaxPu = UMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-230, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.VarLimPIDFreeze PID_VQ(Ti = Kvp / Kvi, controllerType = Modelica.Blocks.Types.SimpleController.PI, initType = Modelica.Blocks.Types.InitPID.InitialState, k = Kvp, limitsAtInit = true, xi_start = QInj0Pu / UInj0Pu / Kqp, y_start = QInj0Pu / UInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.VarLimPIDFreeze PID_VQ(Ti = Kvp / Kvi, k = Kvp, xi_start = QInj0Pu / UInj0Pu / Kqp, y_start = QInj0Pu / UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {180, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculation currentLimitsCalculation1(Imax = Imax, PPriority = PPriority) annotation(
     Placement(visible = true, transformation(origin = {410, 29}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter Iqcmd_lim(limitsAtInit = true) annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter Iqcmd_lim annotation(
     Placement(visible = true, transformation(origin = {410, -21}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter Idcmd_lim annotation(
     Placement(visible = true, transformation(origin = {410, 79}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze Pcmd_filt(T = Tpord, initType = Modelica.Blocks.Types.Init.SteadyState, k = 1, use_freeze = true, use_rateLim = true, y_start = PInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze Pcmd_filt(T = Tpord, k = 1, use_freeze = true, use_rateLim = true, y_start = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {10, 190}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter Pcmd_lim(limitsAtInit = true, uMax = Pmax, uMin = Pmin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter Pcmd_lim(uMax = Pmax, uMin = Pmin) annotation(
     Placement(visible = true, transformation(origin = {50, 190}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant dPmax_const(k = dPmax) annotation(
     Placement(visible = true, transformation(origin = {-40, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant dPmin_const(k = dPmin) annotation(
     Placement(visible = true, transformation(origin = {-40, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder Iq_delay(T = 0.01, initType = Modelica.Blocks.Types.Init.SteadyState, k = 1, y_start = Iq0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder Iq_delay(T = 0.01, k = 1, y_start = Iq0Pu) annotation(
     Placement(visible = true, transformation(origin = {450, 9}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder Id_delay(T = 0.01, initType = Modelica.Blocks.Types.Init.SteadyState, k = 1, y_start = Id0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder Id_delay(T = 0.01, k = 1, y_start = Id0Pu) annotation(
     Placement(visible = true, transformation(origin = {450, 49}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze Iqcmd_Filt(T = Tiq, initType = Modelica.Blocks.Types.Init.SteadyState, k = 1, use_freeze = true, use_rateLim = false, y_start = QInj0Pu / UInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze Iqcmd_Filt(T = Tiq, k = 1, use_freeze = true, use_rateLim = false, y_start = QInj0Pu / UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, -76}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn(y = FRTon)  annotation(
     Placement(visible = true, transformation(origin = {124, -106}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -120,14 +120,21 @@ model ElectricalControl "WECC PV Electrical Control REEC"
   Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.Iqmin)  annotation(
     Placement(visible = true, transformation(origin = {130, -33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu1(y = UFilteredPu)  annotation(
-    Placement(visible = true, transformation(origin = {50, 73}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-20, 67}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu2(y = UFilteredPu)  annotation(
-    Placement(visible = true, transformation(origin = {50, -82}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-20, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu3(y = UFilteredPu)  annotation(
     Placement(visible = true, transformation(origin = {190, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu4(y = UFilteredPu)  annotation(
     Placement(visible = true, transformation(origin = {50, 24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
+  Modelica.Blocks.Math.Max max annotation(
+    Placement(visible = true, transformation(origin = {50, 73}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant const(k = 0.0001)  annotation(
+    Placement(visible = true, transformation(origin = {-20, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Max max1 annotation(
+    Placement(visible = true, transformation(origin = {50, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant constant1(k = 0.0001) annotation(
+    Placement(visible = true, transformation(origin = {-20, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 protected
   parameter Types.PerUnit PInj0Pu "Start value of active power at injector terminal in p.u (injector convention) (base SNom)";
   parameter Types.PerUnit QInj0Pu "Start value of reactive power at injector terminal in p.u (injector convention) (base SNom)";
@@ -211,10 +218,6 @@ equation
     Line(points = {{141, -6}, {150, -6}, {150, -13}, {168, -13}, {168, -13}}, color = {0, 0, 127}));
   connect(IqMin.y, PID_VQ.yMin) annotation(
     Line(points = {{141, -33}, {150, -33}, {150, -25}, {168, -25}}, color = {0, 0, 127}));
-  connect(UFilteredPu1.y, Idcmd.u2) annotation(
-    Line(points = {{61, 73}, {78, 73}}, color = {0, 0, 127}));
-  connect(UFilteredPu2.y, Iqcmd.u2) annotation(
-    Line(points = {{61, -82}, {78, -82}}, color = {0, 0, 127}));
   connect(UFilteredPu3.y, PID_VQ.u_m) annotation(
     Line(points = {{190, -49}, {190, -49}, {190, -40}, {180, -40}, {180, -31}, {180, -31}}, color = {0, 0, 127}));
   connect(FRTOn1.y, PID_VQ.freeze) annotation(
@@ -249,7 +252,18 @@ equation
     Line(points = {{-29, 220}, {-20, 220}, {-20, 197}, {-1, 197}, {-1, 197}}, color = {0, 0, 127}));
   connect(UPu, voltage_Dip.UPu) annotation(
     Line(points = {{-270, -70}, {-250, -70}, {-250, -40}, {-241, -40}, {-241, -40}}, color = {0, 0, 127}));
-
+  connect(max.y, Idcmd.u2) annotation(
+    Line(points = {{61, 73}, {78, 73}}, color = {0, 0, 127}));
+  connect(UFilteredPu1.y, max.u2) annotation(
+    Line(points = {{-9, 67}, {38, 67}}, color = {0, 0, 127}));
+  connect(const.y, max.u1) annotation(
+    Line(points = {{-9, 100}, {20, 100}, {20, 79}, {38, 79}}, color = {0, 0, 127}));
+  connect(max1.y, Iqcmd.u2) annotation(
+    Line(points = {{61, -90}, {70, -90}, {70, -82}, {78, -82}}, color = {0, 0, 127}));
+  connect(UFilteredPu2.y, max1.u1) annotation(
+    Line(points = {{-9, -84}, {38, -84}}, color = {0, 0, 127}));
+  connect(constant1.y, max1.u2) annotation(
+    Line(points = {{-9, -110}, {20, -110}, {20, -96}, {38, -96}}, color = {0, 0, 127}));
   annotation(preferredView = "diagram",
     Documentation(info = "<html>
     <p> This block contains the electrical inverter control of the generic WECC PV model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>
