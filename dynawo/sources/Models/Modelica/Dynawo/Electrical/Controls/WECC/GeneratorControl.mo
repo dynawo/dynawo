@@ -15,6 +15,7 @@ within Dynawo.Electrical.Controls.WECC;
 model GeneratorControl "WECC PV Generator Control REGC"
   import Modelica;
   import Dynawo;
+  import Dynawo.Electrical.Controls.WECC.Parameters;
 
   extends Parameters.Params_GeneratorControl;
 
@@ -29,7 +30,7 @@ model GeneratorControl "WECC PV Generator Control REGC"
     Placement(visible = true, transformation(origin = {160, -72}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = -Iq0Pu) "Iq setpoint to injector in p.u (injector convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {160, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput FRTon "Boolean signal for iq ramp after fault: true if FRT detected, false otherwise " annotation(
+  Modelica.Blocks.Interfaces.BooleanInput FRTon(start = false) "Boolean signal for iq ramp after fault: true if FRT detected, false otherwise " annotation(
     Placement(visible = true, transformation(origin = {-160, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 1.77636e-15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Sources.BooleanConstant RateFlag_const(k = RateFlag)  annotation(
@@ -127,6 +128,7 @@ equation
     Line(points = {{-69, 80}, {-60, 80}, {-60, 92}, {-52, 92}}, color = {0, 0, 127}));
   connect(Iqrmax_const.y, switchIqmax.u1) annotation(
     Line(points = {{-69, 120}, {-60, 120}, {-60, 108}, {-52, 108}, {-52, 108}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
 Documentation(info="<html>
 
@@ -138,5 +140,4 @@ Documentation(info="<html>
  negative reactive current refers to
   reactive power injection (posititve)")}),
   Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-27, 20}, extent = {{-53, 60}, {107, -100}}, textString = "Generator Control"), Text(origin = {134, -42}, extent = {{-22, 16}, {36, -28}}, textString = "idRefPu"), Text(origin = {134, 62}, extent = {{-22, 16}, {36, -32}}, textString = "iqRefPu"), Text(origin = {-28, -117}, extent = {{-18, 15}, {6, -1}}, textString = "UPu"), Text(origin = {-138, 82}, extent = {{-22, 16}, {36, -28}}, textString = "idCmdPu"), Text(origin = {-138, -38}, extent = {{-22, 16}, {36, -28}}, textString = "iqCmdPu"), Text(origin = {-138, 28}, extent = {{-8, 6}, {36, -28}}, textString = "FRTon")}, coordinateSystem(initialScale = 0.1)));
-
 end GeneratorControl;

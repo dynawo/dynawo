@@ -17,6 +17,7 @@ block LimPIDFreeze "P, PI, PD, and PID controller with limited output, anti-wind
   import Modelica.Blocks.Types.Init;
   import Modelica.Blocks;
   import Modelica.Constants;
+  import Modelica.Utilities;
   import Dynawo.Types;
 
   extends Blocks.Interfaces.SVcontrol;
@@ -27,8 +28,6 @@ block LimPIDFreeze "P, PI, PD, and PID controller with limited output, anti-wind
     Dialog(enable = controllerType == .Modelica.Blocks.Types.SimpleController.PI or controllerType == .Modelica.Blocks.Types.SimpleController.PID));
   parameter Types.Time Td(min = 0) = 0.1 "Time constant of Derivative block" annotation(
     Dialog(enable = controllerType == .Modelica.Blocks.Types.SimpleController.PD or controllerType == .Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real yMax(start = 1) "Upper limit of output";
-  parameter Real yMin = - yMax "Lower limit of output";
   parameter Real wp(min = 0) = 1 "Set-point weight for Proportional block (0..1)";
   parameter Real wd(min = 0) = 0 "Set-point weight for Derivative block (0..1)" annotation(
     Dialog(enable = controllerType == .Modelica.Blocks.Types.SimpleController.PD or controllerType == .Modelica.Blocks.Types.SimpleController.PID));
@@ -60,6 +59,8 @@ block LimPIDFreeze "P, PI, PD, and PID controller with limited output, anti-wind
     choices(checkBox = true));
   constant Types.Time unitTime = 1 annotation(
     HideResult = true);
+  parameter Real yMax(start = 1) "Upper limit of output";
+  parameter Real yMin = - yMax "Lower limit of output";
 
   Blocks.Interfaces.RealInput u_ff if withFeedForward "Optional connector of feed-forward input signal" annotation(
     Placement(transformation(origin = {60, -120}, extent = {{20, -20}, {-20, 20}}, rotation = 270)));
@@ -120,7 +121,7 @@ equation
   connect(addI.y, I.u) annotation(
     Line(points = {{-58, -50}, {-52, -50}, {-52, -50}, {-50, -50}}, color = {0, 0, 127}));
   if initType == InitPID.InitialOutput and (y_start < yMin or y_start > yMax) then
-    Modelica.Utilities.Streams.error("LimPID: Start value y_start (=" + String(y_start) + ") is outside of the limits of yMin (=" + String(yMin) + ") and yMax (=" + String(yMax) + ")");
+    Utilities.Streams.error("LimPID: Start value y_start (=" + String(y_start) + ") is outside of the limits of yMin (=" + String(yMin) + ") and yMax (=" + String(yMax) + ")");
   end if;
   connect(u_s, addP.u1) annotation(
     Line(points = {{-120, 0}, {-96, 0}, {-96, 56}, {-82, 56}}, color = {0, 0, 127}));

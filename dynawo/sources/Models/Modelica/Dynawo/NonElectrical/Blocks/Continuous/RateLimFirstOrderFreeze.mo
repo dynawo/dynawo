@@ -13,11 +13,11 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 */
 
 block RateLimFirstOrderFreeze "First order transfer function block (= 1 pole)"
+  import Modelica;
   import Modelica.Blocks.Types.Init;
   import Dynawo.Types;
-  import Modelica.Blocks;
 
-  extends Blocks.Interfaces.SISO(y(start = y_start));
+  extends Modelica.Blocks.Interfaces.SISO(y(start = y_start));
 
   parameter Real k(unit = "1") = 1 "Gain";
   parameter Types.Time T(start = 1) "Time Constant";
@@ -35,19 +35,19 @@ block RateLimFirstOrderFreeze "First order transfer function block (= 1 pole)"
   HideResult = true,
   choices(checkBox = true));
 
-  Blocks.Interfaces.BooleanInput freeze if use_freeze annotation(
-    Placement(visible = true, transformation(origin = {3,-119}, extent = {{-19, -19}, {19, 19}}, rotation = 90), iconTransformation(origin = {-56, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
-  Blocks.Interfaces.RealInput dy_min if use_rateLim annotation(
-    Placement(visible = true, transformation(origin = {-119, -79}, extent = {{-19, -19}, {19, 19}}, rotation = 0), iconTransformation(origin = {-113, -63}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
-  Blocks.Interfaces.RealInput dy_max if use_rateLim annotation(
-    Placement(visible = true, transformation(origin = {-119, 79}, extent = {{-19, -19}, {19, 19}}, rotation = 0), iconTransformation(origin = {-113, 69}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.BooleanInput freeze if use_freeze annotation(
+    Placement(visible = true, transformation(origin = {0,-120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-56, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput dy_min if use_rateLim annotation(
+    Placement(visible = true, transformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -63}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput dy_max if use_rateLim annotation(
+    Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 69}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
 protected
-  Blocks.Interfaces.BooleanOutput local_freeze annotation(
+  Modelica.Blocks.Interfaces.BooleanOutput local_freeze annotation(
     HideResult = true);
-  Blocks.Interfaces.RealOutput local_dymin annotation(
+  Modelica.Blocks.Interfaces.RealOutput local_dymin annotation(
     HideResult = true);
-  Blocks.Interfaces.RealOutput local_dymax annotation(
+  Modelica.Blocks.Interfaces.RealOutput local_dymax annotation(
     HideResult = true);
 
 initial equation
@@ -111,5 +111,5 @@ Example:
 
 </html>"),
     Icon(coordinateSystem(initialScale = 0.1), graphics = {Line(points = {{-80, 78}, {-80, -90}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{-80, 90}, {-88, 68}, {-72, 68}, {-80, 90}}), Line(points = {{-90, -80}, {82, -80}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{90, -80}, {68, -72}, {68, -88}, {90, -80}}), Line(origin = {-26.667, 6.667}, points = {{106.667, 43.333}, {-13.333, 29.333}, {-53.333, -86.667}}, color = {0, 0, 127}, smooth = Smooth.Bezier), Text(lineColor = {192, 192, 192}, extent = {{0, -60}, {60, 0}}, textString = "PT1"), Text(origin = {26, 8}, extent = {{-150, -150}, {150, -110}}, textString = "T=%T")}),
-    Diagram(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Text(extent = {{-48, 52}, {50, 8}}, textString = "k"), Text(extent = {{-54, -6}, {56, -56}}, textString = "T s + 1"), Line(points = {{-50, 0}, {50, 0}}), Rectangle(extent = {{-60, 60}, {60, -60}}, lineColor = {0, 0, 255}), Line(points = {{-100, 0}, {-60, 0}}, color = {0, 0, 255}), Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 255})}));
+    Diagram(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Text(extent = {{-48, 52}, {50, 8}}, textString = "k"), Text(extent = {{-54, -6}, {56, -56}}, textString = "T s + 1"), Line(points = {{-50, 0}, {50, 0}}), Rectangle( lineColor = {0, 0, 255},extent = {{-60, 60}, {60, -60}}), Line(points = {{-100, 0}, {-60, 0}}, color = {0, 0, 255}), Line(points = {{60, 0}, {100, 0}}, color = {0, 0, 255})}));
 end RateLimFirstOrderFreeze;

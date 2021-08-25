@@ -16,15 +16,15 @@ block TransformRItoDQ "Transformation from real/imaginary in stationary referenc
   import Modelica.Blocks;
   import Modelica.ComplexBlocks;
 
-  Modelica.ComplexBlocks.Interfaces.ComplexInput uPu annotation(
+  ComplexBlocks.Interfaces.ComplexInput uPu annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput cosphi annotation(
+  Blocks.Interfaces.RealInput cosphi annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput sinphi annotation(
+  Blocks.Interfaces.RealInput sinphi annotation(
     Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput ud annotation(
+  Blocks.Interfaces.RealOutput ud annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput uq annotation(
+  Blocks.Interfaces.RealOutput uq annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

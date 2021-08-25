@@ -33,7 +33,7 @@ block IntegratorSetFreeze "Outputs the integral of the input signal with optiona
     Evaluate = true,
     HideResult = true,
     choices(checkBox = true));
-  parameter Blocks.Types.Init initType = Modelica.Blocks.Types.Init.InitialState "Type of initialization (1: no init, 2: steady state, 3,4: initial output)" annotation(
+  parameter Init initType = Init.InitialState "Type of initialization (1: no init, 2: steady state, 3,4: initial output)" annotation(
     Evaluate = true,
     Dialog(group = "Initialization"));
   parameter Real y_start = 0 "Initial or guess value of output (= state)" annotation(

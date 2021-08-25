@@ -17,7 +17,6 @@ model ElectricalControl "WECC PV Electrical Control REEC"
   import Modelica;
   import Dynawo;
   import Dynawo.Types;
-  import Dynawo.Electrical.Controls.WECC.BaseControls;
   import Dynawo.Electrical.Controls.WECC.Parameters;
 
   extends Parameters.Params_ElectricalControl;
@@ -39,7 +38,7 @@ model ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {510, -21}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput UFilteredPu(start = UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-200, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanOutput FRTon "Boolean signal for iq ramp after fault: true if FRT detected, false otherwise " annotation(
+  Modelica.Blocks.Interfaces.BooleanOutput FRTon(start = false) "Boolean signal for iq ramp after fault: true if FRT detected, false otherwise " annotation(
     Placement(visible = true, transformation(origin = {-200, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Sources.BooleanConstant Qflag_const(k = QFlag) annotation(

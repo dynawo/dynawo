@@ -18,8 +18,8 @@ model PLL "Phase-Locked Loop"
   import Dynawo.Types;
   import Dynawo.Electrical.SystemBase;
 
-  parameter Types.PerUnit Kp "PLL voltage calculation proportional gain";
-  parameter Types.PerUnit Ki "PLL voltage calculation integrator gain";
+  parameter Types.PerUnit Kp "PLL proportional gain";
+  parameter Types.PerUnit Ki "PLL integrator gain";
   parameter Types.PerUnit OmegaMinPu "Lower frequency limit (only positive values!)";
   parameter Types.PerUnit OmegaMaxPu "Upper frequency limit";
 
