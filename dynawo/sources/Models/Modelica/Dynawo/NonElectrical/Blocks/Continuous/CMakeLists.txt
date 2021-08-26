@@ -16,6 +16,7 @@ set(MODEL_FILES
   PIAntiWindupVariableLimits.mo
   Power.mo
   RateLimFirstOrderFreeze.mo
+  LeadLag.mo
   LimPIDFreeze.mo
   VarLimPIDFreeze.mo
   IntegratorSetFreeze.mo

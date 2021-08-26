@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   PVCurrentSource.mo
   PVCurrentSource.extvar
+  PVCurrentSource_INIT.mo
   )
 
 #

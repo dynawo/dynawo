@@ -21,7 +21,7 @@
               <directory path="." recursive="false"/>
             </modelicaModels>
         </modeler>
-        <simulation startTime="0" stopTime="12" precision="1e-5"/>
+        <simulation startTime="0" stopTime="20" precision="1e-5"/>
         <outputs directory="outputs">
             <dumpInitValues local="true" global="true"/>
             <constraints exportMode="XML"/>

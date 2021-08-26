@@ -24,6 +24,7 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
   extends Parameters.Params_PlantControl;
   extends Parameters.Params_ElectricalControl;
   extends Parameters.Params_GeneratorControl;
+  extends Parameters.Params_PLL;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in p.u (base SnRef)";
@@ -37,16 +38,16 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {180, -10}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = PGen0Pu) "Active power reference in p.u (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P0Pu * SystemBase.SnRef / SNom) "Active power reference in p.u (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QRefPu(start = QGen0Pu) "Reactive power reference in p.u (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRefPu(start = - Q0Pu * SystemBase.SnRef / SNom) "Reactive power reference in p.u (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput OmegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in p.u (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Lines.Line line(RPu = RPu, XPu = XPu, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {120, -10}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.PlantControl wecc_repc(Ddn = Ddn, Dup = Dup, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = PGen0Pu, PInj0Pu = PInj0Pu, PMax = PMax, PMin = PMin, QGen0Pu = QGen0Pu, QInj0Pu = QInj0Pu, QMax = QMax, QMin = QMin, Rc = RPu * SNom / SystemBase.SnRef, RefFlag = RefFlag, TFltr = TFltr, Tft = Tft, Tfv = Tfv, Tlag = Tlag, Tp = Tp, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VcompFlag = VcompFlag, Vfrz = Vfrz, Xc = XPu * SNom / SystemBase.SnRef, dbd = dbd, eMax = eMax, eMin = eMin, fdbd1 = fdbd1, fdbd2 = fdbd2, feMax = feMax, feMin = feMin, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.PlantControl wecc_repc(Ddn = Ddn, Dup = Dup, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = - P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PInj0Pu, PMax = PMax, PMin = PMin, QGen0Pu = - Q0Pu * SystemBase.SnRef / SNom, QInj0Pu = QInj0Pu, QMax = QMax, QMin = QMin, Rc = RPu * SNom / SystemBase.SnRef, RefFlag = RefFlag, TFltr = TFltr, Tft = Tft, Tfv = Tfv, Tlag = Tlag, Tp = Tp, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VcompFlag = VcompFlag, Vfrz = Vfrz, Xc = XPu * SNom / SystemBase.SnRef, dbd = dbd, eMax = eMax, eMin = eMin, fdbd1 = fdbd1, fdbd2 = fdbd2, feMax = feMax, feMin = feMin, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.ElectricalControl wecc_reec(Id0Pu = Id0Pu,Imax = Imax, Iq0Pu = Iq0Pu, Iqh1 = Iqh1, Iql1 = Iql1, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PInj0Pu = PInj0Pu, PPriority = PPriority, PfFlag = PfFlag, Pmax = Pmax, Pmin = Pmin, QFlag = QFlag, QInj0Pu = QInj0Pu, Qmax = Qmax, Qmin = Qmin, Tiq = Tiq, Tp = Tp, Tpord = Tpord, Trv = Trv, UInj0Pu = UInj0Pu, UMaxPu = UMaxPu, UMinPu = UMinPu, VFlag = VFlag, Vmax = Vmax, Vmin = Vmin, Vref0 = Vref0, dPmax = dPmax, dPmin = dPmin, dbd1 = dbd1, dbd2 = dbd2) annotation(
     Placement(visible = true, transformation(origin = {0, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -56,28 +57,24 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
     Placement(visible = true, transformation(origin = {80, -18}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = 20, Kp = 3, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-80, 36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom)  annotation(
     Placement(visible = true, transformation(origin = {150, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-//protected
-  final parameter Types.ComplexPerUnit u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
-  final parameter Types.ComplexPerUnit s0Pu = Complex(P0Pu, Q0Pu);
-  final parameter Types.ComplexPerUnit i0Pu = ComplexMath.conj(s0Pu / u0Pu);
-  final parameter Types.ComplexPerUnit ZPu = Complex(RPu, XPu);
-  final parameter Types.PerUnit PGen0Pu = - P0Pu * SystemBase.SnRef / SNom;
-  final parameter Types.PerUnit QGen0Pu = - Q0Pu * SystemBase.SnRef / SNom;
-  final parameter Types.ComplexPerUnit iInj0Pu = -i0Pu * SystemBase.SnRef / SNom;
-  final parameter Types.ComplexPerUnit uInj0Pu = u0Pu -  ZPu * i0Pu;
-  final parameter Types.ComplexPerUnit sInj0Pu = uInj0Pu * ComplexMath.conj(iInj0Pu);
-  final parameter Types.PerUnit UInj0Pu = ComplexMath.'abs'(uInj0Pu);
-  final parameter Types.Angle UPhaseInj0 = ComplexMath.arg(uInj0Pu);
-  final parameter Types.PerUnit PInj0Pu = ComplexMath.real(sInj0Pu);
-  final parameter Types.PerUnit QInj0Pu = ComplexMath.imag(sInj0Pu);
-  final parameter Types.PerUnit PF0 = PInj0Pu / max(ComplexMath.'abs'(sInj0Pu), 0.001);
-  final parameter Types.PerUnit Id0Pu = Modelica.Math.cos(UPhaseInj0) * iInj0Pu.re + Modelica.Math.sin(UPhaseInj0) * iInj0Pu.im;
-  final parameter Types.PerUnit Iq0Pu = Modelica.Math.sin(UPhaseInj0) * iInj0Pu.re - Modelica.Math.cos(UPhaseInj0) * iInj0Pu.im;
+  parameter Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
+  parameter Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef) (receptor convention)";
+  parameter Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in p.u (base UNom, SnRef) (receptor convention)";
+  parameter Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in p.u (base UNom, SNom) (generator convention)";
+  parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in p.u (base UNom)";
+  parameter Types.ComplexPerUnit sInj0Pu "Start value of complex apparent power at injector in p.u (base SNom) (generator convention)";
+  parameter Types.PerUnit PInj0Pu "Start value of active power at injector in p.u (base SNom) (generator convention)";
+  parameter Types.PerUnit QInj0Pu "Start value of reactive power at injector in p.u (base SNom) (generator convention)";
+  parameter Types.PerUnit UInj0Pu "Start value of voltage module at injector in p.u (base UNom)";
+  parameter Types.Angle UPhaseInj0 "Start value of voltage angle at injector in p.u (base UNom)";
+  parameter Types.PerUnit PF0 "Start value of power factor";
+  parameter Types.PerUnit Id0Pu "Start value of d-axs current at injector in p.u (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit Iq0Pu "Start value of q-axis current at injector in p.u (base UNom, SNom) (generator convention)";
 
 equation
   connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
@@ -94,11 +91,6 @@ equation
     Line(points = {{-29, -12}, {-11, -12}}, color = {0, 0, 127}));
   connect(OmegaRef.y, pll.omegaRefPu) annotation(
     Line(points = {{-99, 30}, {-91, 30}}, color = {0, 0, 127}));
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  injector.switchOffSignal1.value = false;
-  injector.switchOffSignal2.value = false;
-  injector.switchOffSignal3.value = false;
   connect(wecc_regc.idRefPu, injector.idPu) annotation(
     Line(points = {{51, -24}, {68.5, -24}}, color = {0, 0, 127}));
   connect(wecc_regc.iqRefPu, injector.iqPu) annotation(
@@ -133,6 +125,11 @@ equation
     Line(points = {{156, 1}, {156, 16}, {-48, 16}, {-48, -7}}, color = {85, 170, 255}));
   connect(measurements.uPu, pll.uPu) annotation(
     Line(points = {{152, 1}, {152, 49}, {-95, 49}, {-95, 42}, {-91, 42}}, color = {85, 170, 255}));
+  line.switchOffSignal1.value = false;
+  line.switchOffSignal2.value = false;
+  injector.switchOffSignal1.value = false;
+  injector.switchOffSignal2.value = false;
+  injector.switchOffSignal3.value = false;
 
   annotation(
     Documentation(preferredView = "diagram",

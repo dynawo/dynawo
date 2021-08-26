@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="InfBus" lib="InfiniteBus" parFile="./WECCPV.par" parId="1"/>
+  <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="./WECCPV.par" parId="1"/>
   <dyn:blackBoxModel id="Line" lib="Line" parFile="./WECCPV.par" parId="2"/>
   <dyn:blackBoxModel id="WECCPV" lib="PhotovoltaicsWeccCurrentSource" parFile="./WECCPV.par" parId="3"/>
   <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="./WECCPV.par" parId="4"/>

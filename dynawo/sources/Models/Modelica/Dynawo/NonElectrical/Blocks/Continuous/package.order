@@ -3,6 +3,7 @@ PIAntiWindup
 PIAntiWindupVariableLimits
 Power
 IntegratorSetFreeze
+LeadLag
 LimPIDFreeze
 VarLimPIDFreeze
 RateLimFirstOrderFreeze
