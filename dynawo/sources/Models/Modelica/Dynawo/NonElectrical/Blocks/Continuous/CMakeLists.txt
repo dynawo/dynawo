@@ -22,6 +22,7 @@ set(MODEL_FILES
   VarLimPIDFreeze.mo
 =======
   RateLimFirstOrderFreeze.mo
+  LeadLag.mo
   LimPIDFreeze.mo
   VarLimPIDFreeze.mo
   IntegratorSetFreeze.mo

@@ -12,6 +12,6 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-    <curve model="HVDC" variable="photovoltaics_injector_PInjPu"/>
-    <curve model="HVDC" variable="photovoltaics_injector_QInjPu"/>
+    <curve model="WECCPV" variable="photovoltaics_injector_PInjPu"/>
+    <curve model="WECCPV" variable="photovoltaics_injector_QInjPu"/>
 </curvesInput>

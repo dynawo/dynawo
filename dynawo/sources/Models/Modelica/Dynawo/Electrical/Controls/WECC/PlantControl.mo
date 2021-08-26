@@ -107,7 +107,7 @@ model PlantControl "WECC PV Plant Control REPC"
     Placement(visible = true, transformation(origin = {210, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput QInjRefPu(start = QInj0Pu) "Reactive power setpoint at inverter terminal in p.u (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {210, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanOutput freeze annotation(
+  Modelica.Blocks.Interfaces.BooleanOutput freeze(start = false) annotation(
     Placement(visible = true, transformation(origin = {-190, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Logical.Switch FreqFlagSwitch annotation(
@@ -128,8 +128,6 @@ model PlantControl "WECC PV Plant Control REPC"
     Placement(visible = true, transformation(origin = {-270,-50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter QVErr_Lim(uMax = eMax, uMin = eMin) annotation(
     Placement(visible = true, transformation(origin = {90, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction QVext_LeadLag(a = {Tfv, 1}, b = {Tft, 1}, y_start = QInj0Pu) annotation(
-    Placement(visible = true, transformation(origin = {170, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Zero1(k = 0) annotation(
     Placement(visible = true, transformation(origin = {150, 90}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant RefFlag_const(k = RefFlag) annotation(
@@ -153,6 +151,7 @@ model PlantControl "WECC PV Plant Control REPC"
     Placement(visible = true, transformation(origin = {-29, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add UCtrlErr(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-30, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -195,6 +194,9 @@ model PlantControl "WECC PV Plant Control REPC"
 =======
   Modelica.Blocks.Continuous.FirstOrder Ubranch_Filt(T = TFltr, y_start = if VcompFlag == true then URefPu else UInj0Pu) annotation(
 >>>>>>> #672 Add a measurements block
+=======
+  Modelica.Blocks.Continuous.FirstOrder Ubranch_Filt(T = TFltr, y_start = if VcompFlag == true then UInj0Pu else U0Pu + Kc * QGen0Pu) annotation(
+>>>>>>> #672 Add _INIT model
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.LineDropCompensation lineDropCompensation1(Rc = Rc, Xc = Xc) annotation(
     Placement(visible = true, transformation(origin = {-270, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -232,12 +234,17 @@ model PlantControl "WECC PV Plant Control REPC"
   Modelica.Blocks.Sources.BooleanExpression freeze1(y = freeze)  annotation(
     Placement(visible = true, transformation(origin = {100, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 <<<<<<< HEAD
+<<<<<<< HEAD
   Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag(K = 1, t1 = tFt, t2 = tFv, Y0 = QInj0Pu)  annotation(
     Placement(visible = true, transformation(origin = {170, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 =======
 >>>>>>> #672 Some renaming
+=======
+  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag(K = 1,T1 = Tft, T2 = Tfv, y_start = QInj0Pu)  annotation(
+    Placement(visible = true, transformation(origin = {170, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+>>>>>>> #672 Add _INIT model
 
-protected
+//protected
   parameter Types.PerUnit PGen0Pu "Start value of active power at regulated bus in p.u (generator convention) (base SNom)";
   parameter Types.PerUnit QGen0Pu "Start value of reactive power at regulated bus in p.u (generator convention) (base SNom)";
 <<<<<<< HEAD
@@ -305,8 +312,6 @@ equation
 equation
   connect(lineDropCompensation1.U2Pu, voltage_check1.UPu) annotation(
     Line(points = {{-259, 94}, {-241, 94}}, color = {0, 0, 127}));
-  connect(PID_Q.y, QVext_LeadLag.u) annotation(
-    Line(points = {{141, 50}, {158, 50}}, color = {0, 0, 127}));
   connect(PRegPu, Pbranch_Filt.u) annotation(
     Line(points = {{-310, -50}, {-282, -50}}, color = {0, 0, 127}));
   connect(GainKc.u, QRegPu) annotation(
@@ -315,8 +320,6 @@ equation
     Line(points = {{-310, -140}, {-290, -140}, {-290, -136}, {-282, -136}}, color = {0, 0, 127}));
   connect(FreqFlagSwitch.y, PInjRefPu) annotation(
     Line(points = {{101, -80}, {210, -80}}, color = {0, 0, 127}));
-  connect(QVext_LeadLag.y, QInjRefPu) annotation(
-    Line(points = {{181, 50}, {210, 50}}, color = {0, 0, 127}));
   connect(wCtrlErr.y, Frq_dbd.u) annotation(
     Line(points = {{-259, -130}, {-242, -130}}, color = {0, 0, 127}));
   connect(Frq_dbd.y, dPfreq_up.u) annotation(
@@ -451,7 +454,10 @@ equation
     Line(points = {{-139, -90}, {-130, -90}, {-130, -104}, {-122, -104}, {-122, -104}}, color = {0, 0, 127}));
   connect(dPfreq_up_lim.y, dPfreq.u2) annotation(
     Line(points = {{-138, -130}, {-130, -130}, {-130, -116}, {-122, -116}, {-122, -116}}, color = {0, 0, 127}));
-
+  connect(PID_Q.y, leadLag.u) annotation(
+    Line(points = {{141, 50}, {158, 50}}, color = {0, 0, 127}));
+  connect(leadLag.y, QInjRefPu) annotation(
+    Line(points = {{181, 50}, {210, 50}}, color = {0, 0, 127}));
   annotation(preferredView = "diagram",
     Documentation(info = "<html>
 <p> This block contains the generic WECC PV plant level control model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>
