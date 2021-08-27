@@ -16,39 +16,39 @@ block CurrentLimitsCalculation "This block calculates the current limits"
   import Modelica;
   import Dynawo.Types;
 
-  parameter Types.PerUnit Imax "Maximum inverter current amplitude";
+  parameter Types.PerUnit IMax "Maximum inverter current amplitude";
   parameter Boolean PPriority "Priority: reactive power (false) or active power (true)";
 
-  Modelica.Blocks.Interfaces.RealInput Ipcmd annotation(
+  Modelica.Blocks.Interfaces.RealInput IpCmd annotation(
     Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput Iqcmd annotation(
+  Modelica.Blocks.Interfaces.RealInput IqCmd annotation(
     Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput Ipmax annotation(
+  Modelica.Blocks.Interfaces.RealOutput IpMax annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput Iqmax annotation(
+  Modelica.Blocks.Interfaces.RealOutput IqMax annotation(
     Placement(visible = true, transformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput Ipmin annotation(
+  Modelica.Blocks.Interfaces.RealOutput IpMin annotation(
     Placement(visible = true, transformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput Iqmin annotation(
+  Modelica.Blocks.Interfaces.RealOutput IqMin annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
-  Types.PerUnit Ip_lim = max(min(abs(Ipcmd), Imax), 0);
-  Types.PerUnit Iq_lim = max(min(abs(Iqcmd), Imax), - Imax);
+  Types.PerUnit IpLim = max(min(abs(IpCmd), IMax), 0);
+  Types.PerUnit IqLim = max(min(abs(IqCmd), IMax), - IMax);
 
 equation
   if PPriority then
-    Ipmax = Imax;
-    Ipmin = 0;
-    Iqmax = sqrt(Imax ^ 2 - Ip_lim ^ 2);
-    Iqmin = - Iqmax;
+    IpMax = IMax;
+    IpMin = 0;
+    IqMax = sqrt(IMax ^ 2 - IpLim ^ 2);
+    IqMin = - IqMax;
   else
-    Ipmax = sqrt(Imax ^ 2 - Iq_lim ^ 2);
-    Ipmin = 0;
-    Iqmax = Imax;
-    Iqmin = - Iqmax;
+    IpMax = sqrt(IMax ^ 2 - IqLim ^ 2);
+    IpMin = 0;
+    IqMax = IMax;
+    IqMin = - IqMax;
   end if;
 
   annotation(preferredView = "text",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {44, -1}, extent = {{-124, 81}, {36, 21}}, textString = "Current"), Text(origin = {-115, -25}, extent = {{-27, 9}, {13, -3}}, textString = "Iqcmd"), Text(origin = {-115, 53}, extent = {{-27, 9}, {13, -3}}, textString = "Ipcmd"), Text(origin = {125, -9}, extent = {{-27, 9}, {13, -3}}, textString = "Iqmin"), Text(origin = {125, -49}, extent = {{-27, 9}, {13, -3}}, textString = "Iqmax"), Text(origin = {125, 71}, extent = {{-27, 9}, {13, -3}}, textString = "Ipmin"), Text(origin = {125, 31}, extent = {{-27, 9}, {13, -3}}, textString = "Ipmax"), Text(origin = {44, -61}, extent = {{-124, 41}, {36, -19}}, textString = "limiter")}, coordinateSystem(initialScale = 0.1)));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {44, -1}, extent = {{-124, 81}, {36, 21}}, textString = "Current"), Text(origin = {-115, -25}, extent = {{-27, 9}, {13, -3}}, textString = "IqCmd"), Text(origin = {-115, 53}, extent = {{-27, 9}, {13, -3}}, textString = "IpCmd"), Text(origin = {125, -9}, extent = {{-27, 9}, {13, -3}}, textString = "IqMin"), Text(origin = {125, -49}, extent = {{-27, 9}, {13, -3}}, textString = "IqMax"), Text(origin = {125, 71}, extent = {{-27, 9}, {13, -3}}, textString = "IpMin"), Text(origin = {125, 31}, extent = {{-27, 9}, {13, -3}}, textString = "IpMax"), Text(origin = {44, -61}, extent = {{-124, 41}, {36, -19}}, textString = "limits")}, coordinateSystem(initialScale = 0.1)));
 end CurrentLimitsCalculation;

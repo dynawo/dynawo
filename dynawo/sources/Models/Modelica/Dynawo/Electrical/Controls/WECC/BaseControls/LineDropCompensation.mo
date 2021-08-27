@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model LineDropCompensation "This block calculates the voltage drop in an R,X line"
+model LineDropCompensation "This block calculates the voltage drop in an Rc, Xc line knowing the current and the voltage on one side"
   import Modelica;
   import Dynawo.Types;
 

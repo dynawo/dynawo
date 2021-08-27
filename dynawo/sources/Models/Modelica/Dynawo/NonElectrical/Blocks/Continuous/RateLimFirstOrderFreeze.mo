@@ -12,7 +12,7 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block RateLimFirstOrderFreeze "First order transfer function block with rate limiter"
+block RateLimFirstOrderFreeze "First order transfer function block with rate limiter and freeze functionality"
   import Modelica;
   import Dynawo.Types;
 

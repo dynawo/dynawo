@@ -60,5 +60,5 @@ equation
   Id0Pu = Modelica.Math.cos(UPhaseInj0) * iInj0Pu.re + Modelica.Math.sin(UPhaseInj0) * iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhaseInj0) * iInj0Pu.re - Modelica.Math.cos(UPhaseInj0) * iInj0Pu.im;
 
-  annotation(Documentation(preferredView = "diagram"));
+  annotation(Documentation(preferredView = "text"));
 end PVCurrentSource_INIT;

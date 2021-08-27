@@ -13,9 +13,7 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 */
 
 model PVCurrentSource "WECC PV model with a current source as interface with the grid"
-
   import Modelica;
-  import Modelica.ComplexMath;
   import Dynawo;
   import Dynawo.Types;
   import Dynawo.Electrical.SystemBase;
@@ -49,7 +47,7 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
     Placement(visible = true, transformation(origin = {120, -10}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.PlantControl wecc_repc(Ddn = Ddn, Dup = Dup, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = - P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PInj0Pu, PMax = PMax, PMin = PMin, QGen0Pu = - Q0Pu * SystemBase.SnRef / SNom, QInj0Pu = QInj0Pu, QMax = QMax, QMin = QMin, Rc = RPu * SNom / SystemBase.SnRef, RefFlag = RefFlag, TFltr = TFltr, Tft = Tft, Tfv = Tfv, Tlag = Tlag, Tp = Tp, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VcompFlag = VcompFlag, Vfrz = Vfrz, Xc = XPu * SNom / SystemBase.SnRef, dbd = dbd, eMax = eMax, eMin = eMin, fdbd1 = fdbd1, fdbd2 = fdbd2, feMax = feMax, feMin = feMin, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.ElectricalControl wecc_reec(Id0Pu = Id0Pu,Imax = Imax, Iq0Pu = Iq0Pu, Iqh1 = Iqh1, Iql1 = Iql1, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PInj0Pu = PInj0Pu, PPriority = PPriority, PfFlag = PfFlag, Pmax = Pmax, Pmin = Pmin, QFlag = QFlag, QInj0Pu = QInj0Pu, Qmax = Qmax, Qmin = Qmin, Tiq = Tiq, Tp = Tp, Tpord = Tpord, Trv = Trv, UInj0Pu = UInj0Pu, UMaxPu = UMaxPu, UMinPu = UMinPu, VFlag = VFlag, Vmax = Vmax, Vmin = Vmin, Vref0 = Vref0, dPmax = dPmax, dPmin = dPmin, dbd1 = dbd1, dbd2 = dbd2) annotation(
+  Dynawo.Electrical.Controls.WECC.ElectricalControl wecc_reec(Id0Pu = Id0Pu, IMax = IMax, Iq0Pu = Iq0Pu, Iqh1 = Iqh1, Iql1 = Iql1, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PInj0Pu = PInj0Pu, PPriority = PPriority, PfFlag = PfFlag, Pmax = Pmax, Pmin = Pmin, QFlag = QFlag, QInj0Pu = QInj0Pu, Qmax = Qmax, Qmin = Qmin, Tiq = Tiq, Tp = Tp, Tpord = Tpord, Trv = Trv, UInj0Pu = UInj0Pu, UMaxPu = UMaxPu, UMinPu = UMinPu, VFlag = VFlag, Vmax = Vmax, Vmin = Vmin, Vref0 = Vref0, dPmax = dPmax, dPmin = dPmin, dbd1 = dbd1, dbd2 = dbd2) annotation(
     Placement(visible = true, transformation(origin = {0, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.GeneratorControl wecc_regc(Iqrmax = Iqrmax, Iqrmin = Iqrmin, RateFlag = RateFlag, Tfltr = Tfltr, Tg = Tg, rrpwr = rrpwr, UInj0Pu = UInj0Pu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

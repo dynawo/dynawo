@@ -20,6 +20,7 @@ model PlantControl "WECC PV Plant Control REPC"
   import Dynawo.Electrical.Controls.WECC.Parameters;
 
   extends Parameters.Params_PlantControl;
+
   parameter Types.PerUnit Rc "Line drop compensation resistance when VcompFlag = 1";
   parameter Types.PerUnit Xc "Line drop compensation reactance when VcompFlag = 1";
 
@@ -118,7 +119,7 @@ model PlantControl "WECC PV Plant Control REPC"
   Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag(K = 1,T1 = Tft, T2 = Tfv, y_start = QInj0Pu)  annotation(
     Placement(visible = true, transformation(origin = {170, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-//protected
+protected
   parameter Types.PerUnit PGen0Pu "Start value of active power at regulated bus in p.u (generator convention) (base SNom)";
   parameter Types.PerUnit QGen0Pu "Start value of reactive power at regulated bus in p.u (generator convention) (base SNom)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in p.u";
@@ -224,10 +225,11 @@ equation
     Line(points = {{141, 50}, {158, 50}}, color = {0, 0, 127}));
   connect(leadLag.y, QInjRefPu) annotation(
     Line(points = {{181, 50}, {210, 50}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Documentation(info = "<html>
 <p> This block contains the generic WECC PV plant level control model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>
-<p>Plant level active and reactive power/voltage control. Reactive power or voltage control dependent on RefFlag. Frequency dependent active power control is enabled or disabled with FreqFlag. With voltage control (RefFlag = true), voltage at remote bus can be controlled when VcompFlag == true. Therefore, Rc and Xc shall be defined as per real impedance between inverter terminal and regulated bus. If measurements from the regulated bus are available, Vcomp should be set to false and the measurements from regulated bus shall be connected with the input measurement signals (PRegPu, QRegPu, uPu, iPu). </p>
+<p>Plant level active and reactive power/voltage control. Reactive power or voltage control dependent on RefFlag. Frequency dependent active power control is enabled or disabled with FreqFlag. With voltage control (RefFlag = true), voltage at remote bus can be controlled when VcompFlag == true. Therefore, Rc and Xc shall be defined as per real impedance between inverter terminal and regulated bus. If measurements from the regulated bus are available, VcompFlag should be set to false and the measurements from regulated bus shall be connected with the input measurement signals (PRegPu, QRegPu, uPu, iPu). </p>
 </html>"),
     Diagram(coordinateSystem(extent = {{-300, -150}, {200, 150}}, grid = {1, 1})),
     version = "",

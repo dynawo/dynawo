@@ -18,32 +18,32 @@ record Parameters "Parameters of the PV WECC model"
 
   record Params_PlantControl
     parameter Boolean RefFlag "Plant level reactive power (0) or voltage control (1)" annotation(Dialog(tab="Plant Control"));
-    parameter Boolean VcompFlag "Reactive droop (0) or line drop compensation (1) if RefFlag true"annotation(Dialog(tab="Plant Control"));
-    parameter Boolean FreqFlag "Governor response disable (0) or enable (1)"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit Kc "Reactive droop when VcompFlag = 0"annotation(Dialog(tab="Plant Control"));
-    parameter Types.Time TFltr "Voltage and reactive power filter time constant (typical: 0.01..0.02)"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit dbd "Reactive power deadband when RefFlag = 0; Voltage deadband when RefFlag = 1"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit eMax "Maximum Volt/VAR error"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit eMin "Minimum Volt/VAR error"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit QMax "Maximum plant level reactive power command"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit QMin "Minimum plant level reactive power command"annotation(Dialog(tab="Plant Control"));
-    parameter Types.Time Tft "Plant controller Q output lead time constant"annotation(Dialog(tab="Plant Control"));
-    parameter Types.Time Tfv "Plant controller Q output lag time constant (typical: 0.15..5)"annotation(Dialog(tab="Plant Control"));
-    parameter Types.Time Tp "Active power filter time constant (typical: 0.01..0.02)"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit fdbd1 "Overfrequency deadband for governor response (typical: 0.004)"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit fdbd2 "Underfrequency deadband for governor response (typical: 0.004)"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit Ddn "Down regulation droop (typical: 20..33.3)"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit Dup "Up regulation droop (typical: 0)"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit feMax "Maximum power error in droop regulator"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit feMin "Minimum power error in droop regulator"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit PMax "Maximum plant level active power command"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit PMin "Minimum plant level active power command"annotation(Dialog(tab="Plant Control"));
-    parameter Types.Time Tlag "Plant controller P output lag time constant (typical: 0.15..5)"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit Kp "Volt/VAR regulator proportional gain"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit Ki "Volt/VAR regulator integral gain"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit Kpg "Droop regulator proportional gain"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit Kig "Droop regulator integral gain"annotation(Dialog(tab="Plant Control"));
-    parameter Types.PerUnit Vfrz "Voltage for freezing Volt/VAR regulator integrator (typical: 0..0.9)"annotation(Dialog(tab="Plant Control"));
+    parameter Boolean VcompFlag "Reactive droop (0) or line drop compensation (1) if RefFlag true" annotation(Dialog(tab="Plant Control"));
+    parameter Boolean FreqFlag "Governor response disable (0) or enable (1)" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit Kc "Reactive droop when VcompFlag = 0" annotation(Dialog(tab="Plant Control"));
+    parameter Types.Time TFltr "Voltage and reactive power filter time constant (typical: 0.01..0.02)" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit dbd "Reactive power deadband when RefFlag = 0; Voltage deadband when RefFlag = 1" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit eMax "Maximum Volt/VAR error" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit eMin "Minimum Volt/VAR error" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit QMax "Maximum plant level reactive power command" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit QMin "Minimum plant level reactive power command" annotation(Dialog(tab="Plant Control"));
+    parameter Types.Time Tft "Plant controller Q output lead time constant" annotation(Dialog(tab="Plant Control"));
+    parameter Types.Time Tfv "Plant controller Q output lag time constant (typical: 0.15..5)" annotation(Dialog(tab="Plant Control"));
+    parameter Types.Time Tp "Active power filter time constant (typical: 0.01..0.02)" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit fdbd1 "Overfrequency deadband for governor response (typical: 0.004)" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit fdbd2 "Underfrequency deadband for governor response (typical: 0.004)" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit Ddn "Down regulation droop (typical: 20..33.3)" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit Dup "Up regulation droop (typical: 0)" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit feMax "Maximum power error in droop regulator" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit feMin "Minimum power error in droop regulator" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit PMax "Maximum plant level active power command" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit PMin "Minimum plant level active power command" annotation(Dialog(tab="Plant Control"));
+    parameter Types.Time Tlag "Plant controller P output lag time constant (typical: 0.15..5)" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit Kp "Volt/VAR regulator proportional gain" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit Ki "Volt/VAR regulator integral gain" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit Kpg "Droop regulator proportional gain" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit Kig "Droop regulator integral gain" annotation(Dialog(tab="Plant Control"));
+    parameter Types.PerUnit Vfrz "Voltage for freezing Volt/VAR regulator integrator (typical: 0..0.9)" annotation(Dialog(tab="Plant Control"));
   annotation(preferredView = "text");
   end Params_PlantControl;
 
@@ -76,7 +76,7 @@ record Parameters "Parameters of the PV WECC model"
     parameter Types.PerUnit Pmin "Active power lower limit (typical: 0)" annotation(Dialog(tab="Electrical Control"));
     parameter Types.PerUnit dPmax "Active power upper rate limit" annotation(Dialog(tab="Electrical Control"));
     parameter Types.PerUnit dPmin "Active power lower rate limit" annotation(Dialog(tab="Electrical Control"));
-    parameter Types.PerUnit Imax "Maximal apparent current magnitude (typical: 1..1.3)" annotation(Dialog(tab="Electrical Control"));
+    parameter Types.PerUnit IMax "Maximal apparent current magnitude (typical: 1..1.3)" annotation(Dialog(tab="Electrical Control"));
   annotation(preferredView = "text");
   end Params_ElectricalControl;
 

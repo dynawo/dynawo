@@ -100,6 +100,7 @@ equation
     Line(points = {{121, -20}, {130, -20}, {130, -60}, {-90, -60}, {-90, -46}, {-82, -46}, {-82, -46}}, color = {0, 0, 127}));
   connect(omegaRefPu, OmegaRad.u2) annotation(
     Line(points = {{-150, -90}, {58, -90}, {58, -90}, {58, -90}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Documentation(info = "<html>
 <p> The PLL calculates the frequency of the grid voltage by synchronizing the internal phase angle with measured voltage phasor. q-component of internal voltage phasor is therefore controlled to be zero. </p>

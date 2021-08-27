@@ -114,6 +114,7 @@ equation
     Line(points = {{-28, 50}, {-20, 50}, {-20, 6}, {-12, 6}}, color = {0, 0, 127}));
   connect(I.y, addPID.u2) annotation(
     Line(points = {{-26, -50}, {-20, -50}, {-20, -6}, {-12, -6}}, color = {0, 0, 127}));
+
   annotation(
     defaultComponentName = "PI",
     Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Line(points = {{-80, 78}, {-80, -90}}, color = {192, 192, 192}), Polygon(points = {{-80, 90}, {-88, 68}, {-72, 68}, {-80, 90}}, lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid), Line(points = {{-90, -80}, {82, -80}}, color = {192, 192, 192}), Polygon(points = {{90, -80}, {68, -72}, {68, -88}, {90, -80}}, lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid), Line(points = {{-80, -80}, {-80, -20}, {30, 60}, {80, 60}}, color = {0, 0, 127}), Text(extent = {{-20, -20}, {80, -60}}, lineColor = {192, 192, 192}), Line(visible = strict, points = {{30, 60}, {81, 60}}, color = {255, 0, 0})}),

@@ -49,7 +49,7 @@ model ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter Vcmd_lim(uMax = Vmax, uMin = Vmin) annotation(
     Placement(visible = true, transformation(origin = {90, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Division Iqcmd annotation(
+  Modelica.Blocks.Math.Division IqCmd annotation(
     Placement(visible = true, transformation(origin = {90, -76}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder UPu_filt(T = Trv, k = 1, y_start = UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -63,7 +63,7 @@ model ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {220, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter Iq_FRT_lim(uMax = Iqh1, uMin = Iql1) annotation(
     Placement(visible = true, transformation(origin = {280, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add Iqcmd_sum(k1 = +1, k2 = +1) annotation(
+  Modelica.Blocks.Math.Add IqCmd_sum(k1 = +1, k2 = +1) annotation(
     Placement(visible = true, transformation(origin = {330, -21}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch Vflagswitch annotation(
     Placement(visible = true, transformation(origin = {10, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -87,9 +87,9 @@ model ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {-230, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.VarLimPIDFreeze PID_VQ(Ti = Kvp / Kvi, k = Kvp, xi_start = QInj0Pu / UInj0Pu / Kqp, y_start = QInj0Pu / UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {180, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculation currentLimitsCalculation1(Imax = Imax, PPriority = PPriority) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculation currentLimitsCalculation1(IMax = IMax, PPriority = PPriority) annotation(
     Placement(visible = true, transformation(origin = {410, 29}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter Iqcmd_lim annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter IqCmd_lim annotation(
     Placement(visible = true, transformation(origin = {410, -21}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter Idcmd_lim annotation(
     Placement(visible = true, transformation(origin = {410, 79}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -105,7 +105,7 @@ model ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {450, 9}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder Id_delay(T = 0.01, k = 1, y_start = Id0Pu) annotation(
     Placement(visible = true, transformation(origin = {450, 49}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze Iqcmd_Filt(T = Tiq, k = 1, use_freeze = true, use_rateLim = false, y_start = QInj0Pu / UInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze IqCmd_Filt(T = Tiq, k = 1, use_freeze = true, use_rateLim = false, y_start = QInj0Pu / UInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, -76}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn(y = FRTon)  annotation(
     Placement(visible = true, transformation(origin = {124, -106}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -115,9 +115,9 @@ model ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {4, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn3(y = FRTon)  annotation(
     Placement(visible = true, transformation(origin = {-80, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.Iqmax)  annotation(
+  Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.IqMax)  annotation(
     Placement(visible = true, transformation(origin = {130, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.Iqmin)  annotation(
+  Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.IqMin)  annotation(
     Placement(visible = true, transformation(origin = {130, -33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu1(y = UFilteredPu)  annotation(
     Placement(visible = true, transformation(origin = {-20, 67}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -135,6 +135,7 @@ model ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {50, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant1(k = 0.0001) annotation(
     Placement(visible = true, transformation(origin = {-20, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 protected
   parameter Types.PerUnit PInj0Pu "Start value of active power at injector terminal in p.u (injector convention) (base SNom)";
   parameter Types.PerUnit QInj0Pu "Start value of reactive power at injector terminal in p.u (injector convention) (base SNom)";
@@ -144,7 +145,7 @@ protected
   parameter Types.CurrentModulePu Iq0Pu "Start value of q-component current at injector terminal in p.u (injector convention) (base SNom)";
 
 equation
-  connect(Iqcmd_lim.y, iqCmdPu) annotation(
+  connect(IqCmd_lim.y, iqCmdPu) annotation(
     Line(points = {{421, -21}, {510, -21}}, color = {0, 0, 127}));
   connect(PID_VQ.y, Qflagswitch.u1) annotation(
     Line(points = {{191, -19}, {268, -19}}, color = {0, 0, 127}));
@@ -164,19 +165,19 @@ equation
     Line(points = {{-109, 20}, {-92, 20}}, color = {0, 0, 127}));
   connect(Pfflag_const.y, Pfflagswitch.u2) annotation(
     Line(points = {{-179, 20}, {-132, 20}}, color = {255, 0, 255}));
-  connect(Iqcmd_Filt.y, Qflagswitch.u3) annotation(
+  connect(IqCmd_Filt.y, Qflagswitch.u3) annotation(
     Line(points = {{141, -76}, {260, -76}, {260, -35}, {268, -35}}, color = {0, 0, 127}));
-  connect(Iqcmd.y, Iqcmd_Filt.u) annotation(
+  connect(IqCmd.y, IqCmd_Filt.u) annotation(
     Line(points = {{101, -76}, {118, -76}}, color = {0, 0, 127}));
   connect(Idcmd_lim.y, idCmdPu) annotation(
     Line(points = {{421, 79}, {510, 79}}, color = {0, 0, 127}));
   connect(Idcmd.y, Idcmd_lim.u) annotation(
     Line(points = {{101, 79}, {398, 79}}, color = {0, 0, 127}));
-  connect(Iqcmd_sum.y, Iqcmd_lim.u) annotation(
+  connect(IqCmd_sum.y, IqCmd_lim.u) annotation(
     Line(points = {{341, -21}, {398, -21}}, color = {0, 0, 127}));
-  connect(Qflagswitch.y, Iqcmd_sum.u2) annotation(
+  connect(Qflagswitch.y, IqCmd_sum.u2) annotation(
     Line(points = {{291, -27}, {318, -27}}, color = {0, 0, 127}));
-  connect(Iq_FRT_lim.y, Iqcmd_sum.u1) annotation(
+  connect(Iq_FRT_lim.y, IqCmd_sum.u1) annotation(
     Line(points = {{291, 30}, {300, 30}, {300, -15}, {318, -15}}, color = {0, 0, 127}));
   connect(PInjRefPu, Pcmd_filt.u) annotation(
     Line(points = {{-270, 190}, {-2, 190}}, color = {0, 0, 127}));
@@ -192,23 +193,23 @@ equation
     Line(points = {{-270, -70}, {-242, -70}}, color = {0, 0, 127}));
   connect(Vref.y, Verr_FRT.u1) annotation(
     Line(points = {{21, 36}, {118, 36}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.Ipmax, Idcmd_lim.limit1) annotation(
+  connect(currentLimitsCalculation1.IpMax, Idcmd_lim.limit1) annotation(
     Line(points = {{399, 31}, {360, 31}, {360, 87}, {398, 87}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.Iqmin, Iqcmd_lim.limit2) annotation(
+  connect(currentLimitsCalculation1.IqMin, IqCmd_lim.limit2) annotation(
     Line(points = {{399, 27}, {360, 27}, {360, -29}, {398, -29}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.Iqmax, Iqcmd_lim.limit1) annotation(
+  connect(currentLimitsCalculation1.IqMax, IqCmd_lim.limit1) annotation(
     Line(points = {{399, 23}, {380, 23}, {380, -13}, {398, -13}}, color = {0, 0, 127}));
-  connect(Id_delay.y, currentLimitsCalculation1.Ipcmd) annotation(
+  connect(Id_delay.y, currentLimitsCalculation1.IpCmd) annotation(
     Line(points = {{439, 49}, {430, 49}, {430, 33}, {421, 33}}, color = {0, 0, 127}));
-  connect(Iq_delay.y, currentLimitsCalculation1.Iqcmd) annotation(
+  connect(Iq_delay.y, currentLimitsCalculation1.IqCmd) annotation(
     Line(points = {{439, 9}, {430, 9}, {430, 25}, {421, 25}}, color = {0, 0, 127}));
-  connect(Iqcmd_lim.y, Iq_delay.u) annotation(
+  connect(IqCmd_lim.y, Iq_delay.u) annotation(
     Line(points = {{421, -21}, {480, -21}, {480, 9}, {462, 9}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.Ipmin, Idcmd_lim.limit2) annotation(
+  connect(currentLimitsCalculation1.IpMin, Idcmd_lim.limit2) annotation(
     Line(points = {{399, 35}, {380, 35}, {380, 71}, {398, 71}}, color = {0, 0, 127}));
   connect(Qflag_const.y, Qflagswitch.u2) annotation(
     Line(points = {{231, -40}, {240, -40}, {240, -27}, {268, -27}, {268, -27}}, color = {255, 0, 255}));
-  connect(FRTOn.y, Iqcmd_Filt.freeze) annotation(
+  connect(FRTOn.y, IqCmd_Filt.freeze) annotation(
     Line(points = {{124, -95}, {124, -88}}, color = {255, 0, 255}));
   connect(FRTOn2.y, Pcmd_filt.freeze) annotation(
     Line(points = {{4, 171}, {4, 178}}, color = {255, 0, 255}));
@@ -234,7 +235,7 @@ equation
     Line(points = {{-29, 20}, {-20, 20}, {-20, -11}, {-2, -11}, {-2, -11}}, color = {0, 0, 127}));
   connect(Pfflagswitch.y, Vflagswitch.u3) annotation(
     Line(points = {{-109, 20}, {-100, 20}, {-100, -40}, {-20, -40}, {-20, -27}, {-2, -27}, {-2, -27}}, color = {0, 0, 127}));
-  connect(Pfflagswitch.y, Iqcmd.u1) annotation(
+  connect(Pfflagswitch.y, IqCmd.u1) annotation(
     Line(points = {{-109, 20}, {-100, 20}, {-100, -70}, {78, -70}, {78, -70}}, color = {0, 0, 127}));
   connect(Pext_x_Pf.y, Pfflagswitch.u1) annotation(
     Line(points = {{-179, 60}, {-170, 60}, {-170, 28}, {-132, 28}, {-132, 28}}, color = {0, 0, 127}));
@@ -258,19 +259,20 @@ equation
     Line(points = {{-9, 67}, {38, 67}}, color = {0, 0, 127}));
   connect(const.y, max.u1) annotation(
     Line(points = {{-9, 100}, {20, 100}, {20, 79}, {38, 79}}, color = {0, 0, 127}));
-  connect(max1.y, Iqcmd.u2) annotation(
+  connect(max1.y, IqCmd.u2) annotation(
     Line(points = {{61, -90}, {70, -90}, {70, -82}, {78, -82}}, color = {0, 0, 127}));
   connect(UFilteredPu2.y, max1.u1) annotation(
     Line(points = {{-9, -84}, {38, -84}}, color = {0, 0, 127}));
   connect(constant1.y, max1.u2) annotation(
     Line(points = {{-9, -110}, {20, -110}, {20, -96}, {38, -96}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Documentation(info = "<html>
     <p> This block contains the electrical inverter control of the generic WECC PV model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>
 <p> Following control modes can be activated:
 <li> local coordinated V/Q control: QFlag = true, VFlag = true </li>
 <li> only plant level control active: QFlag = false, VFlag = false</li>
-<li> if plant level control not connected: local powerfactor control: PfFlag = true, otherwise PfFlag = false./Q</li>
+<li> if plant level control not connected: local powerfactor control: PfFlag = true, otherwise PfFlag = false.</li>
 <p> The block calculates the Id and Iq setpoint values for the generator control based on the selected control algorithm.
 
 

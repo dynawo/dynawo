@@ -17,8 +17,8 @@ block UdqRef "Calculation of setpoints udRef and uqRef with source impedance R+j
   import Modelica.Blocks.Interfaces;
   import Dynawo.Types;
 
-  parameter Types.PerUnit R "Resistance equivalence ";
-  parameter Types.PerUnit X "Reactance equivalence ";
+  parameter Types.PerUnit R "Equivalent resistance";
+  parameter Types.PerUnit X "Equivalent reactance";
 
   Interfaces.RealInput idRef annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
