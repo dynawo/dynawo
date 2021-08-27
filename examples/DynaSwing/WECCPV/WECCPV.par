@@ -40,7 +40,7 @@
     <par type="DOUBLE" name="photovoltaics_Ddn" value="20"/>
     <par type="DOUBLE" name="photovoltaics_Dup" value="0.001"/>
     <par type="BOOL" name="photovoltaics_FreqFlag" value="true"/>
-    <par type="DOUBLE" name="photovoltaics_Imax" value="1.05"/>
+    <par type="DOUBLE" name="photovoltaics_IMax" value="1.05"/>
     <par type="DOUBLE" name="photovoltaics_Iqh1" value="2"/>
     <par type="DOUBLE" name="photovoltaics_Iql1" value="-2"/>
     <par type="DOUBLE" name="photovoltaics_Iqrmax" value="20"/>

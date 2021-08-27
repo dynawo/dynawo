@@ -12,7 +12,11 @@ within Dynawo.Electrical.Controls.WECC.Utilities;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
+<<<<<<< HEAD
 model Measurements "This block measures the voltage, current, active power and reactive power in p.u (base UNom, SNom or SnRef)"
+=======
+block Measurements "This block measures the voltage, current, active power and reactive power in p.u. (base UNom, SNom)"
+>>>>>>> #672 Coding style
 
 /*
   Equivalent circuit and conventions:

@@ -17,8 +17,13 @@ model UdqRef "Calculation of setpoints udRefPu and uqRefPu with source impedance
   import Modelica.Blocks.Interfaces;
   import Dynawo.Types;
 
+<<<<<<< HEAD
   parameter Types.PerUnit RPu "Source resistance in p.u (base UNom, SNom)";
   parameter Types.PerUnit XPu "Source reactance in p.u (base UNom, SNom)";
+=======
+  parameter Types.PerUnit R "Equivalent resistance";
+  parameter Types.PerUnit X "Equivalent reactance";
+>>>>>>> #672 Coding style
 
   Interfaces.RealInput idRefPu "d-axis reference current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
