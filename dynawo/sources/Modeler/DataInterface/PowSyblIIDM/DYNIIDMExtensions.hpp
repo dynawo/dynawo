@@ -30,6 +30,7 @@
 #include <string>
 #include <tuple>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace DYN {
 
@@ -82,6 +83,7 @@ class IIDMExtensions {
       // This corresponds to default case if environment variable for external IIDM extensions paths is not set
       return buildDefaultExtensionDefinition<T>();
     }
+    const auto& name = IIDMExtensionTrait<T>::name;
     std::shared_ptr<boost::dll::shared_library> extensionLibrary;
     std::unique_lock<std::mutex> lock(librariesMutex_);
     if (libraries_.count(libPath) > 0) {
@@ -89,20 +91,22 @@ class IIDMExtensions {
     } else {
       try {
         extensionLibrary = std::make_shared<boost::dll::shared_library>(libPath);
-      } catch (const std::exception&) {
-        // no log here because if extension library cannot be loaded, this will happen
-        // for every network element supporting an external extension, resulting in a polluted logging file
+      } catch (const std::exception& e) {
+        if (librariesLoadingIssues_.count(libPath) == 0) {
+          // put the log only once
+          Trace::warn() << DYNLog(IIDMExtensionLibraryNotLoaded, libPath, name, e.what()) << Trace::endline;
+          librariesLoadingIssues_.insert(libPath);
+        }
         return buildDefaultExtensionDefinition<T>();
       }
       libraries_[libPath] = extensionLibrary;
     }
     lock.unlock();
-    const auto& name = IIDMExtensionTrait<T>::name;
 
     std::string createName = "create" + std::string(name);
     if (!extensionLibrary->has(createName)) {
       // warning here because if the extension is not implemented, it may not be a problem for the simulation
-      Trace::warn() << DYNLog(IIDMExtensionNoCreate, name, libPath, createName);
+      Trace::warn() << DYNLog(IIDMExtensionNoCreate, name, libPath, createName) << Trace::endline;
       return buildDefaultExtensionDefinition<T>();
     }
     auto createFunc = boost::dll::import<CreateFunctionBase<T> >(*extensionLibrary, createName);
@@ -110,7 +114,7 @@ class IIDMExtensions {
     std::string destroyName = "destroy" + std::string(name);
     if (!extensionLibrary->has(destroyName)) {
       // warning here because if the extension is not implemented, it may not be a problem for the simulation
-      Trace::warn() << DYNLog(IIDMExtensionNoDestroy, name, libPath, destroyName);
+      Trace::warn() << DYNLog(IIDMExtensionNoDestroy, name, libPath, destroyName) << Trace::endline;
       return buildDefaultExtensionDefinition<T>();
     }
     auto destroyFunc = boost::dll::import<DestroyFunctionBase<T> >(*extensionLibrary, destroyName);
@@ -142,7 +146,8 @@ class IIDMExtensions {
 
  private:
   static std::unordered_map<LibraryPath, std::shared_ptr<boost::dll::shared_library> > libraries_;  ///< List of loaded libraries
-  static std::mutex librariesMutex_;                                                                ///< Mutex to access libraries
+  static std::unordered_set<LibraryPath> librariesLoadingIssues_;  ///< List of libraries path for which a loading issue was detected
+  static std::mutex librariesMutex_;                               ///< Mutex to access libraries
 };
 }  // namespace DYN
 
