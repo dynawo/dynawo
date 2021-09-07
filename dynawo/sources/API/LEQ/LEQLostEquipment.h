@@ -25,7 +25,7 @@
 namespace lostEquipments {
 
 /**
- * @class LostEquipment
+ * @brief LostEquipment
  */
 class LostEquipment {
  public:
