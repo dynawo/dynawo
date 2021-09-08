@@ -44,7 +44,11 @@ set(SHAREDIR_NAME share)
 set(SBINDIR_NAME sbin)
 set(DDBDIR_NAME ddb)
 set(INCLUDEDIR_NAME include)
-set(LIBDIR_NAME lib)
+if(MSVC)
+  set(LIBDIR_NAME ${BINDIR_NAME})
+else()
+  set(LIBDIR_NAME lib)
+endif()
 set(DOCDIR_NAME doxygen)
 
 # Set some install directories variables

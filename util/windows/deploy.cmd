@@ -41,7 +41,6 @@ md %deploy_dir%
 :: Dynawo
 xcopy %DYNAWO_INSTALL_DIR%\bin %deploy_dir%\bin /E /i
 xcopy %DYNAWO_INSTALL_DIR%\include %deploy_dir%\include /E /i
-xcopy %DYNAWO_INSTALL_DIR%\lib %deploy_dir%\lib /E /i
 xcopy %DYNAWO_INSTALL_DIR%\ddb %deploy_dir%\ddb /E /i
 xcopy %DYNAWO_INSTALL_DIR%\share %deploy_dir%\share /E /i
 
@@ -82,53 +81,53 @@ forfiles /p %deploy_dir%\testcases /m *.py /s /c "cmd /c del @path /s /f /q"
 :: Third parties
 xcopy %thirdPartyInstallPath%\adept\cmake %deploy_dir%\cmake /E /i
 xcopy %thirdPartyInstallPath%\adept\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\adept\lib %deploy_dir%\lib /E /i
+xcopy %thirdPartyInstallPath%\adept\lib %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\adept\bin %deploy_dir%\bin /E /i
 
 xcopy %thirdPartyInstallPath%\boost\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\boost\lib %deploy_dir%\lib /E /i
+xcopy %thirdPartyInstallPath%\boost\lib %deploy_dir%\bin /E /i
 
 xcopy %thirdPartyInstallPath%\libarchive\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\libarchive\lib %deploy_dir%\lib /E /i
+xcopy %thirdPartyInstallPath%\libarchive\lib %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\libarchive\bin\archive* %deploy_dir%\bin /E /i
 
 xcopy %thirdPartyInstallPath%\libiidm\bin %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\libiidm\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\libiidm\lib %deploy_dir%\lib /E /i
+xcopy %thirdPartyInstallPath%\libiidm\lib %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\libiidm\share %deploy_dir%\share /E /i
 xcopy %thirdPartyInstallPath%\libiidm\cmake %deploy_dir%\cmake /E /i
 xcopy %thirdPartyInstallPath%\libiidm\LibIIDM %deploy_dir%\LibIIDM /E /i
 
 xcopy %thirdPartyInstallPath%\libxml\bin %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\libxml\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\libxml\lib %deploy_dir%\lib /E /i
+xcopy %thirdPartyInstallPath%\libxml\lib %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\libxml\cmake %deploy_dir%\cmake /E /i
 
 xcopy %thirdPartyInstallPath%\libzip\bin %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\libzip\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\libzip\lib %deploy_dir%\lib /E /i
+xcopy %thirdPartyInstallPath%\libzip\lib %deploy_dir%\bin /E /i
 
 xcopy %thirdPartyInstallPath%\suitesparse\bin %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\suitesparse\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\suitesparse\lib %deploy_dir%\lib /E /i
+xcopy %thirdPartyInstallPath%\suitesparse\lib %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\suitesparse\cmake %deploy_dir%\cmake /E /i
 
 xcopy %thirdPartyInstallPath%\sundials\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\sundials\lib %deploy_dir%\lib /E /i
+xcopy %thirdPartyInstallPath%\sundials\lib %deploy_dir%\bin /E /i
 
 xcopy %thirdPartyInstallPath%\xerces-c\bin\*.dll %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\xerces-c\bin\*.lib %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\xerces-c\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\xerces-c\lib\xerces*.lib %deploy_dir%\lib /E /i
+xcopy %thirdPartyInstallPath%\xerces-c\lib\xerces*.lib %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\xerces-c\cmake %deploy_dir%\cmake /E /i
 
 xcopy %thirdPartyInstallPath%\zlib\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\zlib\lib %deploy_dir%\lib /E /i
+xcopy %thirdPartyInstallPath%\zlib\lib %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\zlib\bin\zlib* %deploy_dir%\bin /E /i
 
 xcopy %thirdPartyInstallPath%\libxml2\bin\*.dll %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\libxml2\include %deploy_dir%\include /E /i
-xcopy %thirdPartyInstallPath%\libxml2\lib %deploy_dir%\lib /E /i
+xcopy %thirdPartyInstallPath%\libxml2\lib %deploy_dir%\bin /E /i
 
 :: OpenModelica
 xcopy %OPENMODELICA_HOME%\bin %deploy_dir%\OpenModelica\bin /E /i
