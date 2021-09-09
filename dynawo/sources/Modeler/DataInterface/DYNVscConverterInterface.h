@@ -62,8 +62,8 @@ class VscConverterInterface : public ConverterInterface, public ReactiveCurvePoi
   virtual double getQMax() = 0;
 
   /**
-   * @brief Getter for the miinmum reactive power of the converter
-   * @return The miinmum reactive power of the converter in Mvar (following iidm convention)
+   * @brief Getter for the mininmum reactive power of the converter
+   * @return The mininmum reactive power of the converter in Mvar (following iidm convention)
    */
   virtual double getQMin() = 0;
 
