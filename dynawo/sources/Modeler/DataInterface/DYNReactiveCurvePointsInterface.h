@@ -1,0 +1,61 @@
+//
+// Copyright (c) 2021, RTE (http://www.rte-france.com)
+// See AUTHORS.txt
+// All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, you can obtain one at http://mozilla.org/MPL/2.0/.
+// SPDX-License-Identifier: MPL-2.0
+//
+// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+// simulation tool for power systems.
+//
+
+/**
+ * @file  DYNReactiveCurvePointsInterface.h
+ *
+ * @brief Reactive curve points interface : interface file
+ *
+ */
+#ifndef MODELER_DATAINTERFACE_DYNREACTIVECURVEPOINTSINTERFACE_H_
+#define MODELER_DATAINTERFACE_DYNREACTIVECURVEPOINTSINTERFACE_H_
+
+#include <vector>
+
+namespace DYN {
+/// @brief Curve points data interface
+class ReactiveCurvePointsInterface {
+ public:
+  /**
+   * @brief Reactive curve point
+   *
+   * Represents a point extracted from network file
+   */
+  struct ReactiveCurvePoint {
+    /**
+       * @brief Constructor
+       *
+       * @param p active power
+       * @param qmin minimum reactive power
+       * @param qmax maximum reactive power
+       */
+    ReactiveCurvePoint(double p, double qmin, double qmax) : p(p), qmin(qmin), qmax(qmax) {}
+
+    double p;     ///< active power
+    double qmin;  ///< minimum reactive power
+    double qmax;  ///< maximum reactive power
+  };
+
+ public:
+  /// @brief Destructor
+  virtual ~ReactiveCurvePointsInterface() {}
+
+  /**
+   * @brief Retrieve the list of reactive curve points, if any
+   * @returns list of reactive curve points
+   */
+  virtual std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const = 0;
+};
+}  // namespace DYN
+
+#endif  // MODELER_DATAINTERFACE_DYNREACTIVECURVEPOINTSINTERFACE_H_

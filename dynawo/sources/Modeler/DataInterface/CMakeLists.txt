@@ -55,6 +55,7 @@ set(DATA_INTERFACE_INCLUDE_HEADERS
     DYNConverterInterface.h
     DYNServiceManagerInterface.h
     DYNCurrentLimits.h
+    DYNReactiveCurvePointsInterface.h
     )
 
 set(DATA_INTERFACE_FACTORY_SOURCES

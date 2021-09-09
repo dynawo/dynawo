@@ -118,11 +118,14 @@ ServiceManagerInterfaceIIDM::getRegulatedBus(const std::string& regulatingCompon
     case ComponentInterface::LINE:
     case ComponentInterface::DANGLING_LINE:
     case ComponentInterface::THREE_WTFO:
-    case ComponentInterface::VSC_CONVERTER:
     case ComponentInterface::LCC_CONVERTER:
     case ComponentInterface::HVDC_LINE:
     case ComponentInterface::COMPONENT_TYPE_COUNT:
       break;
+    case ComponentInterface::VSC_CONVERTER: {
+      const auto& vsc = dataInterface_->getNetworkIIDM().getVscConverterStation(regulatingComp.get()->getID());
+      return getRegulatedBusOnSide(vsc.getTerminal());  // regulating at connection terminal
+    }
   }
   return boost::shared_ptr<BusInterface> ();
 }
