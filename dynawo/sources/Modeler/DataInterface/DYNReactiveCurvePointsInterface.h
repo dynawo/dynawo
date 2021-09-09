@@ -7,8 +7,7 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-// simulation tool for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems
 //
 
 /**
@@ -29,16 +28,16 @@ class ReactiveCurvePointsInterface {
   /**
    * @brief Reactive curve point
    *
-   * Represents a point extracted from network file
+   * Represents a reactive curve point extracted from network file
    */
   struct ReactiveCurvePoint {
     /**
-       * @brief Constructor
-       *
-       * @param p active power
-       * @param qmin minimum reactive power
-       * @param qmax maximum reactive power
-       */
+     * @brief Constructor
+     *
+     * @param p active power
+     * @param qmin minimum reactive power
+     * @param qmax maximum reactive power
+     */
     ReactiveCurvePoint(double p, double qmin, double qmax) : p(p), qmin(qmin), qmax(qmax) {}
 
     double p;     ///< active power
