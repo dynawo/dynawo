@@ -142,12 +142,28 @@ LoadInterfaceIIDM::getInitialConnected() {
 
 double
 LoadInterfaceIIDM::getP() {
-  return getPInjector();
+  if (getInitialConnectedInjector()) {
+    if (!hasPInjector()) {
+      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSetUsingAnother, "Injection", getIDInjector(), "P", "P0") << Trace::endline;
+      return getP0();
+    }
+    return loadIIDM_.getTerminal().getP();
+  } else {
+      return 0.;
+  }
 }
 
 double
 LoadInterfaceIIDM::getQ() {
-  return getQInjector();
+  if (getInitialConnectedInjector()) {
+    if (!hasQInjector()) {
+      Trace::warn("DATAINTERFACE") << DYNLog(VariableNotSetUsingAnother, "Injection", getIDInjector(), "Q", "Q0") << Trace::endline;
+      return getQ0();
+    }
+    return loadIIDM_.getTerminal().getQ();
+  } else {
+    return 0.;
+  }
 }
 
 double

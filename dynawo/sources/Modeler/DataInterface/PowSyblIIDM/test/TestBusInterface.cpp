@@ -96,7 +96,7 @@ TEST(DataInterfaceTest, testBusInterfaceCornerCases) {
       .add();
 
   BusInterfaceIIDM bus(iidmBus);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getV0(), 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getV0(), 400.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getAngle0(), 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getVMax(), 480.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus.getVMin(), 320.);
