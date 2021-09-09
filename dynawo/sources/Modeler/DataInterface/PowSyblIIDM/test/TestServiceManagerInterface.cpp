@@ -489,6 +489,7 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
   StaticVarCompensatorInterfaceIIDM svcItf(svc);
   StaticVarCompensatorInterfaceIIDM svcItf2(svc2);
   LoadInterfaceIIDM loadItf(load);
+  VscConverterInterfaceIIDM vscItf(vsc);
 
   shared_ptr<BusInterface> bus1(new BusInterfaceIIDM(b1));
   shared_ptr<BusInterface> bus2(new BusInterfaceIIDM(b2));
@@ -521,6 +522,7 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
   svcItf.setBusInterface(bus1);
   svcItf2.setBusInterface(bus2);
   loadItf.setBusInterface(bus1);
+  vscItf.setBusInterface(bus1);
 
   interface.initFromIIDM();
 
@@ -537,6 +539,7 @@ TEST(DataInterfaceTest, ServiceManagerRegulatedBus) {
   ASSERT_EQ(serviceManager->getRegulatedBus(shuntItf.getID())->getID(), bus3->getID());
   ASSERT_EQ(serviceManager->getRegulatedBus(svcItf.getID())->getID(), bus1->getID());
   ASSERT_EQ(serviceManager->getRegulatedBus(svcItf2.getID())->getID(), bus1->getID());
+  ASSERT_EQ(serviceManager->getRegulatedBus(vscItf.getID())->getID(), bus1->getID());
   ASSERT_FALSE(serviceManager->getRegulatedBus(lineItf.getID()));
 }
 
