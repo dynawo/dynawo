@@ -276,7 +276,7 @@ SolverKINCommon::analyseFlag(const int & flag) {
   }
 
   if (flag < 0)
-    Trace::error() << msg.str() << Trace::endline;
+    Trace::warn() << msg.str() << Trace::endline;
 }
 
 void

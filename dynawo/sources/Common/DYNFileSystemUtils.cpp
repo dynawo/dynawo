@@ -54,6 +54,7 @@ string searchFile(const string & pathFromDirectory, const string & rootPath, con
     }
   } catch (const fs::filesystem_error& ex) {
     DYN::Trace::error() << ex.what() << DYN::Trace::endline;
+    throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "filesystem", ex.what());
   }
   return filePathName;
 }
