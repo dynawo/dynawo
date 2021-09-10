@@ -48,6 +48,12 @@ SimulationEntry::addCriteriaFile(const std::string& criteriaFile) {
   criteriaFiles_.push_back(criteriaFile);
 }
 
+void
+SimulationEntry::setCriteriaFile(const std::string& criteriaFile) {
+  criteriaFiles_.clear();
+  criteriaFiles_.push_back(criteriaFile);
+}
+
 const std::vector<std::string>&
 SimulationEntry::getCriteriaFiles() const {
   return criteriaFiles_;
