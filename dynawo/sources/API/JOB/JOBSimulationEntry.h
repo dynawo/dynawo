@@ -61,10 +61,16 @@ class SimulationEntry {
   double getStopTime() const;
 
   /**
-   * @brief  add a criteria file path to the job
+   * @brief add a criteria file path to the job
    * @param criteriaFile criteria file path to add
    */
   void addCriteriaFile(const std::string& criteriaFile);
+
+  /**
+   * @brief set a unique criteria file path for the job (other are removed)
+   * @param criteriaFile criteria file path to set
+   */
+  void setCriteriaFile(const std::string& criteriaFile);
 
   /**
    * @brief list of criteria files
@@ -73,7 +79,7 @@ class SimulationEntry {
   const std::vector<std::string>& getCriteriaFiles() const;
 
   /**
-   * @brief  criteria step setter
+   * @brief criteria step setter
    * @param criteriaStep : number of iterations between 2 criteria check
    */
   void setCriteriaStep(int criteriaStep);
