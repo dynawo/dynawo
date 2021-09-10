@@ -241,8 +241,8 @@ Modeler::initConnects() {
     iter1 = subModels_.find(id1);
     iter2 = subModels_.find(id2);
     if (iter1 == subModels_.end() || iter2 == subModels_.end()) {
-      Trace::error() << DYNLog(CreateDynamicConnectFailed, id1, var1, id2, var2) << Trace::endline;
-      Trace::error() << DYNLog(NotInstancedModel) << Trace::endline;
+      Trace::warn() << DYNLog(CreateDynamicConnectFailed, id1, var1, id2, var2) << Trace::endline;
+      Trace::warn() << DYNLog(NotInstancedModel) << Trace::endline;
       continue;
     }
 

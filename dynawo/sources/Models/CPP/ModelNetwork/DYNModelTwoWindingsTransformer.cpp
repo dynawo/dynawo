@@ -1171,11 +1171,11 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != connectionState_) {
     if (currState == CLOSED && knownBus_ != BUS1_BUS2) {
-      Trace::error() << DYNLog(UnableToCloseTfo, id_) << Trace::endline;
+      Trace::warn() << DYNLog(UnableToCloseTfo, id_) << Trace::endline;
     } else if (currState == CLOSED_1 && knownBus_ == BUS2) {
-      Trace::error() << DYNLog(UnableToCloseTfoSide1, id_) << Trace::endline;
+      Trace::warn() << DYNLog(UnableToCloseTfoSide1, id_) << Trace::endline;
     } else if (currState == CLOSED_2 && knownBus_ == BUS1) {
-      Trace::error() << DYNLog(UnableToCloseTfoSide2, id_) << Trace::endline;
+      Trace::warn() << DYNLog(UnableToCloseTfoSide2, id_) << Trace::endline;
     } else {
       topologyModified_ = true;
       Trace::info() << DYNLog(TfoStateChange, id_, getConnectionState(), currState) << Trace::endline;

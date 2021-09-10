@@ -79,7 +79,7 @@ ComponentInterface::exportStateVariables() {
     exportStateVariablesUnitComponent();
   } catch (const DYN::Error& e) {
     if (e.key() == KeyError_t::UnaffectedStateVariable) {
-      Trace::error() << e.what() << Trace::endline;
+      Trace::warn() << e.what() << Trace::endline;
     } else if (e.key() == KeyError_t::UnknownStateVariable) {
       throw;   // only two possible errors for instant
     }
