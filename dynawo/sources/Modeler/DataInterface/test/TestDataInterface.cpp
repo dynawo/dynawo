@@ -193,16 +193,16 @@ TEST(DataInterfaceTest, testLostEquipments) {
   shared_ptr<lostEquipments::LostEquipmentsCollection> lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
   data->findLostEquipments(lostEquipments);
   lostEquipments::LostEquipmentsCollection::LostEquipmentsCollectionConstIterator itLostEquipment = lostEquipments->cbegin();
-  ASSERT_EQ(lostEquipments->cbegin(), lostEquipments->cend());
+  ASSERT_TRUE(itLostEquipment == lostEquipments->cend());
 
   // switch CLOSED to OPEN
   sw->setValue(SwitchInterfaceIIDM::VAR_STATE, OPEN);
   data->findLostEquipments(lostEquipments);
   itLostEquipment = lostEquipments->cbegin();
-  ASSERT_NE(itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
   ASSERT_EQ((*itLostEquipment)->getId(), sw->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), sw->getTypeAsString());
-  ASSERT_EQ(++itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
   // load CLOSED to OPEN
   data->backupConnectionState();
@@ -210,10 +210,10 @@ TEST(DataInterfaceTest, testLostEquipments) {
   lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
   data->findLostEquipments(lostEquipments);
   itLostEquipment = lostEquipments->cbegin();
-  ASSERT_NE(itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
   ASSERT_EQ((*itLostEquipment)->getId(), load->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), load->getTypeAsString());
-  ASSERT_EQ(++itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
   // generator CLOSED to OPEN
   data->backupConnectionState();
@@ -221,33 +221,33 @@ TEST(DataInterfaceTest, testLostEquipments) {
   lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
   data->findLostEquipments(lostEquipments);
   itLostEquipment = lostEquipments->cbegin();
-  ASSERT_NE(itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
   ASSERT_EQ((*itLostEquipment)->getId(), gen->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), gen->getTypeAsString());
-  ASSERT_EQ(++itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
   // all OPEN to OPEN
   data->backupConnectionState();
   lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
   data->findLostEquipments(lostEquipments);
-  ASSERT_EQ(lostEquipments->cbegin(), lostEquipments->cend());
+  ASSERT_TRUE(lostEquipments->cbegin() == lostEquipments->cend());
 
   // all OPEN to CLOSED
   sw->setValue(SwitchInterfaceIIDM::VAR_STATE, CLOSED);
   load->setValue(LoadInterfaceIIDM::VAR_STATE, CLOSED);
   gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, CLOSED);
   data->findLostEquipments(lostEquipments);
-  ASSERT_EQ(lostEquipments->cbegin(), lostEquipments->cend());
+  ASSERT_TRUE(lostEquipments->cbegin() == lostEquipments->cend());
 
   // switch CLOSED to CLOSED_1
   data->backupConnectionState();
   sw->setValue(SwitchInterfaceIIDM::VAR_STATE, CLOSED_1);
   data->findLostEquipments(lostEquipments);
   itLostEquipment = lostEquipments->cbegin();
-  ASSERT_NE(itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
   ASSERT_EQ((*itLostEquipment)->getId(), sw->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), sw->getTypeAsString());
-  ASSERT_EQ(++itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
   // load CLOSED to CLOSED_2
   data->backupConnectionState();
@@ -255,10 +255,10 @@ TEST(DataInterfaceTest, testLostEquipments) {
   lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
   data->findLostEquipments(lostEquipments);
   itLostEquipment = lostEquipments->cbegin();
-  ASSERT_NE(itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
   ASSERT_EQ((*itLostEquipment)->getId(), load->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), load->getTypeAsString());
-  ASSERT_EQ(++itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
   // generator CLOSED to CLOSED_3
   data->backupConnectionState();
@@ -266,10 +266,10 @@ TEST(DataInterfaceTest, testLostEquipments) {
   lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
   data->findLostEquipments(lostEquipments);
   itLostEquipment = lostEquipments->cbegin();
-  ASSERT_NE(itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
   ASSERT_EQ((*itLostEquipment)->getId(), gen->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), gen->getTypeAsString());
-  ASSERT_EQ(++itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
   // all CLOSED_* to OPEN
   data->backupConnectionState();
@@ -278,7 +278,7 @@ TEST(DataInterfaceTest, testLostEquipments) {
   gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, OPEN);
   lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
   data->findLostEquipments(lostEquipments);
-  ASSERT_EQ(lostEquipments->cbegin(), lostEquipments->cend());
+  ASSERT_TRUE(lostEquipments->cbegin() == lostEquipments->cend());
 
   // all CLOSED to OPEN
   sw->setValue(SwitchInterfaceIIDM::VAR_STATE, CLOSED);
