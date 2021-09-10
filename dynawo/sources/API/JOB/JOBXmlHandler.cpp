@@ -234,6 +234,9 @@ SimulationHandler::create(attributes_type const& attributes) {
     simulation_->setCriteriaStep(attributes["criteriaStep"]);
   if (attributes.has("precision"))
     simulation_->setPrecision(attributes["precision"]);
+  if (attributes.has("timeout")) {
+    simulation_->setTimeout(attributes["timeout"]);
+  }
 }
 
 shared_ptr<SimulationEntry>

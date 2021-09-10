@@ -80,13 +80,8 @@ isStopped_(false) {
 void
 Timer::stop() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-#if LANG_CXX11
-  auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - startPoint_);
-  double elapsed = static_cast<double>(duration.count()) / 1000000;  // For the result in seconds
-#else
-  double elapsed = timer_.elapsed();
-#endif
-  Timers::add(name_, elapsed);
+  double elapsedTime = elapsed();
+  Timers::add(name_, elapsedTime);
 #endif
   isStopped_ = true;
 }
@@ -94,6 +89,18 @@ Timer::stop() {
 Timer::~Timer() {
   if (!isStopped_)
     stop();
+}
+
+double Timer::elapsed() const {
+  if (isStopped_) {
+    return 0.;
+  }
+#if LANG_CXX11
+  auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - startPoint_);
+  return static_cast<double>(duration.count()) / 1000000;  // For the result in seconds
+#else
+  return timer_.elapsed();
+#endif
 }
 
 }  // namespace DYN
