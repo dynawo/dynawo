@@ -515,6 +515,7 @@ TEST(SimulationTest, testSolverSkipNR) {
   solver->solve(tStop, tCurrent);
   // Solve at t = 2
   solver->solve(tStop, tCurrent);
+  ASSERT_EQ(solver->getState().getFlags(NRSkipped), true);
   std::stringstream msg;
   msg << "| " << std::setw(8) << 2 << " "
           << std::setw(16) << 0 << " "
@@ -526,6 +527,7 @@ TEST(SimulationTest, testSolverSkipNR) {
 
   // Solve at t = 3
   solver->solve(tStop, tCurrent);
+  ASSERT_EQ(solver->getState().getFlags(NRSkipped), true);
   // Solve at t = 4 -> skipNextNR_ = false
   solver->solve(tStop, tCurrent);
   msg.str(std::string());

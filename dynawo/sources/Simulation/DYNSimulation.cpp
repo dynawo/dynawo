@@ -853,7 +853,7 @@ Simulation::simulate() {
       if (currentIterNb == 0)
         printHighestDerivativesValues();
 
-      BitMask solverState = solver_->getState();
+      const BitMask& solverState = solver_->getState();
       bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
         updateCurves(true);
@@ -870,16 +870,18 @@ Simulation::simulate() {
         modifZ = true;
       }
 
-      if (isCheckCriteriaIter)
-        model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
-      updateCurves(!isCheckCriteriaIter && !modifZ);
+      if (!solverState.getFlags(NRSkipped)) {
+        if (isCheckCriteriaIter)
+          model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
+        updateCurves(!isCheckCriteriaIter && !modifZ);
+      }
 
       model_->checkDataCoherence(tCurrent_);
       model_->printMessages();
       if (timetableOutputFile_ != "" && currentIterNb % timetableSteps_ == 0)
         printCurrentTime(timetableOutputFile_);
 
-      if (isCheckCriteriaIter) {
+      if (!solverState.getFlags(NRSkipped) && isCheckCriteriaIter) {
         criteriaChecked = checkCriteria(tCurrent_, false);
       }
       ++currentIterNb;

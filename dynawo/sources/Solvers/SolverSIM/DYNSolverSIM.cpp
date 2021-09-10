@@ -280,6 +280,11 @@ void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
   if (!skipNextNR_)
     saveContinuousVariables();
 
+  if (skipNextNR_)  {
+    // Update flag to notify upper process
+    state_.setFlags(NRSkipped);
+  }
+
   do {
     // If we have more than maxNewtonTry consecutive divergence, the simulation is stopped
     handleMaximumTries(counter);
