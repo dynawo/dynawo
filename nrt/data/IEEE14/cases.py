@@ -88,6 +88,12 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEE
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+case_name = "IEEE14 - Disconnect line with init"
+case_description = "IEEE14 - Disconnect line 1-5"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEEE14_DisconnectLineInit", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 #########################################
 #      IEEE14 - Disconnect group        #
 #########################################
