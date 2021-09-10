@@ -102,12 +102,29 @@ class SimulationEntry {
    */
   double getPrecision() const;
 
+  /**
+   * @brief Retrieves the simulation timeout, or the default value if not set
+   * @returns the simulation timeout
+   */
+  double getTimeout() const {
+    return timeout_;
+  }
+
+  /**
+   * @brief timeout setter
+   * @param timeout the timeout of the simulation
+   */
+  void setTimeout(double timeout) {
+    timeout_ = timeout;
+  }
+
  private:
   double startTime_;                        ///< Start time of the simulation
   double stopTime_;                         ///< Stop time of the simulation
   std::vector<std::string> criteriaFiles_;  ///< List of criteria files path
   int criteriaStep_;                        ///< criteria verification time step
   double precision_;                        ///< precision of the simulation
+  double timeout_;                          ///< simulation timeout
 };
 
 }  // namespace job

@@ -94,6 +94,13 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEE
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+case_name = "IEEE14 - Disconnect line with timeout"
+case_description = "IEEE14 - Disconnect line 1-5 : timeout interrupts simulation"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEEE14_DisconnectLine_timeout", "IEEE14.jobs")
+# WARNING this nrt can only work on release
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 #########################################
 #      IEEE14 - Disconnect group        #
 #########################################
