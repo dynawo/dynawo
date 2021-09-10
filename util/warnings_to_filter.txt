@@ -459,3 +459,7 @@ warning: return type of member parameters::XmlExporter::exportToStream is not do
 warning: return type of member timeline::Exporter::exportToFile is not documented
 warning: return type of member timeline::Exporter::exportToStream is not documented
 warning: return type of member DYN::SubModel::printInitValuesParameters is not documented
+warning: return type of member DYN::DataInterface::backupConnectionState is not documented
+warning: return type of member DYN::DataInterface::findLostEquipments is not documented
+warning: return type of member lostEquipments::Exporter::exportToFile is not documented
+warning: return type of member lostEquipments::Exporter::exportToStream is not documented
