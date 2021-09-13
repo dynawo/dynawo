@@ -51,10 +51,6 @@ TEST(DataInterfaceTest, testStateVariable) {
   ASSERT_THROW_DYNAWO(intVariable.setValue(2.5), Error::MODELER, KeyError_t::StateVariableWrongType);
   ASSERT_EQ(intVariable.getValue<int>(), 1);
 
-  intVariable.setBackupValue();
-  intVariable.setValue(2);
-  ASSERT_TRUE(intVariable.hasValueChanged(1));
-
   intVariable.setModelId("ModelIntVariable");
   intVariable.setVariableId("variableIntVariable");
   shared_ptr<Variable> variableForInt = shared_ptr<Variable>(new VariableNative("variableForInt", INTEGER, false, false));
@@ -76,10 +72,6 @@ TEST(DataInterfaceTest, testStateVariable) {
   ASSERT_THROW_DYNAWO(doubleVariable.getValue<int>(), Error::MODELER, KeyError_t::StateVariableBadCast);
   ASSERT_THROW_DYNAWO(doubleVariable.getValue<bool>(), Error::MODELER, KeyError_t::StateVariableBadCast);
 
-  doubleVariable.setBackupValue();
-  doubleVariable.setValue(2.2);
-  ASSERT_TRUE(doubleVariable.hasValueChanged(1.1));
-
   // check for boolean type
   StateVariable boolVariable("boolVariable", StateVariable::BOOL);
   ASSERT_EQ(boolVariable.getType(), StateVariable::BOOL);
@@ -100,12 +92,8 @@ TEST(DataInterfaceTest, testStateVariable) {
   boolVariable.setValue(1.);
   ASSERT_EQ(boolVariable.getValue<bool>(), true);
 
-  boolVariable.setBackupValue();
-
   boolVariable.setValue(-1.);
   ASSERT_EQ(boolVariable.getValue<bool>(), false);
-
-  ASSERT_TRUE(boolVariable.hasValueChanged(1.));
 
   boolVariable.setModelId("ModelBoolVariable");
   boolVariable.setVariableId("variableBoolVariable");
@@ -126,7 +114,6 @@ TEST(DataInterfaceTest, testStateVariable) {
   ASSERT_EQ(var2.getModelId(), "ModelBoolVariable");
   ASSERT_EQ(var2.getVariableId(), "variableBoolVariable");
   ASSERT_EQ(var2.getVariable(), variableForBool);
-  ASSERT_TRUE(var2.hasValueChanged(1.));
 
   // check assignment operator
   StateVariable var3;
@@ -134,11 +121,10 @@ TEST(DataInterfaceTest, testStateVariable) {
   ASSERT_EQ(var3.getType(), StateVariable::INT);
   ASSERT_EQ(var3.getName(), "intVariable");
   ASSERT_EQ(var3.valueAffected(), true);
-  ASSERT_EQ(var3.getValue<int>(), 2);
+  ASSERT_EQ(var3.getValue<int>(), 1);
   ASSERT_EQ(var3.getModelId(), "ModelIntVariable");
   ASSERT_EQ(var3.getVariableId(), "variableIntVariable");
   ASSERT_EQ(var3.getVariable(), variableForInt);
-  ASSERT_TRUE(var3.hasValueChanged(1));
-  }
+}
 
 }  // namespace DYN

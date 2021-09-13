@@ -85,7 +85,9 @@ TEST(DataInterfaceTest, Injector_1) {
   ASSERT_EQ(Ifce.getBusInterfaceInjector().get()->getID(), "VL1_BUS1");
 
   ASSERT_TRUE(Ifce.getInitialConnectedInjector());
+  ASSERT_TRUE(Ifce.isConnectedInjector());
   load.getTerminal().disconnect();
+  ASSERT_FALSE(Ifce.isConnectedInjector());
   ASSERT_TRUE(Ifce.getInitialConnectedInjector());
 
   ASSERT_FALSE(Ifce.hasPInjector());

@@ -859,7 +859,9 @@ In addition to these parameters, other have default values in the tool but could
 \item the level of verbosity of output \textit{printfl}
 \end{itemize}
 
-The parameters names have an additional suffix when they are related to the algebraic equations restoration part (fnormtolAlg for restoration following a soft event, fnormtolAlgJ for a restoration following a tough event). The default values for all these parameters are the following ones:
+The parameters names have an additional suffix when they are related to the algebraic equations restoration part (fnormtolAlg for restoration following a soft event, fnormtolAlgJ for a restoration following a tough event).
+In case of restoration following a soft event and only during solver initialization, AlgInit suffix is used. The default values are the same as with Alg suffix.
+The default values for all these parameters are the following ones:
 
 \begin{table}[h!]
 \center

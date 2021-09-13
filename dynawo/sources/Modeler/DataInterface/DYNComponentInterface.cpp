@@ -101,17 +101,9 @@ ComponentInterface::getStateVariableReference() {
   }
 }
 
-void
-ComponentInterface::backupComponentVar(const std::string& varName) {
-  int index = getComponentVarIndex(varName);
-  if (index >= 0)
-    stateVariables_[index].setBackupValue();
-}
-
 bool
-ComponentInterface::hasComponentVarChanged(const std::string& varName, const double referenceValue) const {
-  int index = getComponentVarIndex(varName);
-  return (index >= 0) && stateVariables_[index].hasValueChanged(referenceValue);
+ComponentInterface::isConnected() const {
+  return false;  // default connection state
 }
 
 void

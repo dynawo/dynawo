@@ -140,6 +140,11 @@ LoadInterfaceIIDM::getInitialConnected() {
   return getInitialConnectedInjector();
 }
 
+bool
+LoadInterfaceIIDM::isConnected() const {
+  return isConnectedInjector();
+}
+
 double
 LoadInterfaceIIDM::getP() {
   return getPInjector();

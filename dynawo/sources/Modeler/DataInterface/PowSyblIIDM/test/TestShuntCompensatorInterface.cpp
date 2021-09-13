@@ -80,7 +80,9 @@ TEST(DataInterfaceTest, ShuntCompensator) {
   ASSERT_EQ(shuntCompensatorIfce.getID(), shuntCompensator.getId());
 
   ASSERT_TRUE(shuntCompensatorIfce.getInitialConnected());
+  ASSERT_TRUE(shuntCompensatorIfce.isConnected());
   shuntCompensator.getTerminal().disconnect();
+  ASSERT_FALSE(shuntCompensatorIfce.isConnected());
   ASSERT_TRUE(shuntCompensatorIfce.getInitialConnected());
 
   ASSERT_EQ(shuntCompensatorIfce.getBusInterface().get(), nullptr);

@@ -437,8 +437,6 @@ Simulation::configureLostEquipmentsOutputs() {
     if (!is_directory(lostEquipmentsDir))
       create_directory(lostEquipmentsDir);
 
-    lostEquipmentsCollection_ = LostEquipmentsCollectionFactory::newInstance();
-
     setLostEquipmentsExportMode(Simulation::EXPORT_LOSTEQUIPMENTS_XML);
     setLostEquipmentsOutputFile(createAbsolutePath("lostEquipments.xml", lostEquipmentsDir));
   }
@@ -836,7 +834,7 @@ Simulation::simulate() {
       // save initial connection state at t0 for each equipment
       if (isLostEquipmentsExported()) {
         data_->updateFromModel(false);  // force state variables' init
-        data_->backupConnectionState();
+        connectedComponents_ = data_->findConnectedComponents();
       }
     }
     int currentIterNb = 0;
@@ -1083,7 +1081,6 @@ Simulation::terminate() {
   }
 
   if (data_ && isLostEquipmentsExported()) {
-    data_->findLostEquipments(lostEquipmentsCollection_);
     ofstream fileLostEquipments;
     openFileStream(fileLostEquipments, lostEquipmentsOutputFile_);
     printLostEquipments(fileLostEquipments);
@@ -1202,7 +1199,7 @@ Simulation::printLostEquipments(std::ostream& stream) const {
       break;
     case EXPORT_LOSTEQUIPMENTS_XML: {
       lostEquipments::XmlExporter xmlExporter;
-      xmlExporter.exportToStream(lostEquipmentsCollection_, stream);
+      xmlExporter.exportToStream(data_->findLostEquipments(connectedComponents_), stream);
       break;
     }
   }

@@ -135,5 +135,13 @@ TEST(DataInterfaceTest, HvdcLine) {
   ASSERT_FALSE(Ifce.isActivePowerControlEnabled());
   ASSERT_FALSE(Ifce.getOprFromCS1toCS2());
   ASSERT_FALSE(Ifce.getOprFromCS2toCS1());
+
+  ASSERT_TRUE(Ifce.isConnected());
+  lcc.getTerminal().disconnect();
+  ASSERT_FALSE(Ifce.isConnected());
+  vsc.getTerminal().disconnect();
+  ASSERT_FALSE(Ifce.isConnected());
+  lcc.getTerminal().connect();
+  ASSERT_FALSE(Ifce.isConnected());
 }  // TEST(DataInterfaceTest, HvdcLine)
 };  // namespace DYN

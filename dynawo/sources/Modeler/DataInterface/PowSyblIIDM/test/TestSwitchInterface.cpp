@@ -54,6 +54,7 @@ TEST(DataInterfaceTest, Switch) {
   SwitchInterfaceIIDM sw(aSwitch);
   ASSERT_EQ(sw.getID(), "Sw");
   ASSERT_FALSE(sw.isOpen());
+  ASSERT_TRUE(sw.isConnected());
 
   const boost::shared_ptr<BusInterface> x_b1(new BusInterfaceIIDM(b1));
   const boost::shared_ptr<BusInterface> x_b2(new BusInterfaceIIDM(b2));
@@ -64,10 +65,13 @@ TEST(DataInterfaceTest, Switch) {
 
   sw.close();
   ASSERT_FALSE(sw.isOpen());
+  ASSERT_TRUE(sw.isConnected());
   sw.open();
   ASSERT_TRUE(sw.isOpen());
+  ASSERT_FALSE(sw.isConnected());
   sw.close();
   ASSERT_FALSE(sw.isOpen());
+  ASSERT_TRUE(sw.isConnected());
 
   ASSERT_EQ(sw.getComponentVarIndex("state"), 0);
   ASSERT_EQ(sw.getComponentVarIndex("others"), -1);

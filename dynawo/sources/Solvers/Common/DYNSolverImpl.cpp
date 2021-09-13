@@ -67,12 +67,19 @@ Solver::Impl::Impl() :
 sundialsVectorY_(NULL),
 sundialsVectorYp_(NULL),
 fnormtolAlg_(1e-4),
+fnormtolAlgInit_(1e-4),  // same as fnormtolAlg_
 initialaddtolAlg_(0.1),
+initialaddtolAlgInit_(0.1),  // same as initialaddtolAlg_
 scsteptolAlg_(1e-4),
+scsteptolAlgInit_(1e-4),   // same as scsteptolAlg_
 mxnewtstepAlg_(100000),
+mxnewtstepAlgInit_(100000),   // same as mxnewtstepAlg_
 msbsetAlg_(5),
+msbsetAlgInit_(5),   // same as msbsetAlg_
 mxiterAlg_(30),
+mxiterAlgInit_(30),  // same as mxiterAlg_
 printflAlg_(0),
+printflAlgInit_(0),   // same as printflAlg_
 fnormtolAlgJ_(1e-4),
 initialaddtolAlgJ_(0.1),
 scsteptolAlgJ_(1e-4),
@@ -319,12 +326,19 @@ Solver::Impl::defineCommonParameters() {
   const bool optional = false;
   // Parameters for the algebraic restoration
   parameters_.insert(make_pair("fnormtolAlg", ParameterSolver("fnormtolAlg", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("fnormtolAlgInit", ParameterSolver("fnormtolAlgInit", VAR_TYPE_DOUBLE, optional)));
   parameters_.insert(make_pair("initialaddtolAlg", ParameterSolver("initialaddtolAlg", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("initialaddtolAlgInit", ParameterSolver("initialaddtolAlgInit", VAR_TYPE_DOUBLE, optional)));
   parameters_.insert(make_pair("scsteptolAlg", ParameterSolver("scsteptolAlg", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("scsteptolAlgInit", ParameterSolver("scsteptolAlgInit", VAR_TYPE_DOUBLE, optional)));
   parameters_.insert(make_pair("mxnewtstepAlg", ParameterSolver("mxnewtstepAlg", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("mxnewtstepAlgInit", ParameterSolver("mxnewtstepAlgInit", VAR_TYPE_DOUBLE, optional)));
   parameters_.insert(make_pair("msbsetAlg", ParameterSolver("msbsetAlg", VAR_TYPE_INT, optional)));
+  parameters_.insert(make_pair("msbsetAlgInit", ParameterSolver("msbsetAlgInit", VAR_TYPE_INT, optional)));
   parameters_.insert(make_pair("mxiterAlg", ParameterSolver("mxiterAlg", VAR_TYPE_INT, optional)));
+  parameters_.insert(make_pair("mxiterAlgInit", ParameterSolver("mxiterAlgInit", VAR_TYPE_INT, optional)));
   parameters_.insert(make_pair("printflAlg", ParameterSolver("printflAlg", VAR_TYPE_INT, optional)));
+  parameters_.insert(make_pair("printflAlgInit", ParameterSolver("printflAlgInit", VAR_TYPE_INT, optional)));
 
   // Parameters for the algebraic restoration with J recalculation
   parameters_.insert(make_pair("fnormtolAlgJ", ParameterSolver("fnormtolAlgJ", VAR_TYPE_DOUBLE, optional)));
@@ -417,24 +431,44 @@ void Solver::Impl::setSolverCommonParameters() {
   const ParameterSolver& fnormtolAlg = findParameter("fnormtolAlg");
   if (fnormtolAlg.hasValue())
     fnormtolAlg_ = fnormtolAlg.getValue<double>();
+  const ParameterSolver& fnormtolAlgInit = findParameter("fnormtolAlgInit");
+  fnormtolAlgInit_ = fnormtolAlgInit.hasValue() ? fnormtolAlgInit.getValue<double>() : fnormtolAlg_;
+
   const ParameterSolver& initialaddtolAlg = findParameter("initialaddtolAlg");
   if (initialaddtolAlg.hasValue())
     initialaddtolAlg_ = initialaddtolAlg.getValue<double>();
+  const ParameterSolver& initialaddtolAlgInit = findParameter("initialaddtolAlgInit");
+  initialaddtolAlgInit_ = initialaddtolAlgInit.hasValue() ? initialaddtolAlgInit.getValue<double>() : initialaddtolAlg_;
+
   const ParameterSolver& scsteptolAlg = findParameter("scsteptolAlg");
   if (scsteptolAlg.hasValue())
     scsteptolAlg_ = scsteptolAlg.getValue<double>();
+  const ParameterSolver& scsteptolAlgInit = findParameter("scsteptolAlgInit");
+  scsteptolAlgInit_ = scsteptolAlgInit.hasValue() ? scsteptolAlgInit.getValue<double>() : scsteptolAlg_;
+
   const ParameterSolver& mxnewtstepAlg = findParameter("mxnewtstepAlg");
   if (mxnewtstepAlg.hasValue())
     mxnewtstepAlg_ = mxnewtstepAlg.getValue<double>();
+  const ParameterSolver& mxnewtstepAlgInit = findParameter("mxnewtstepAlgInit");
+  mxnewtstepAlgInit_ = mxnewtstepAlgInit.hasValue() ? mxnewtstepAlgInit.getValue<double>() : mxnewtstepAlg_;
+
   const ParameterSolver& msbsetAlg = findParameter("msbsetAlg");
   if (msbsetAlg.hasValue())
     msbsetAlg_ = msbsetAlg.getValue<int>();
+  const ParameterSolver& msbsetAlgInit = findParameter("msbsetAlgInit");
+  msbsetAlgInit_ = msbsetAlgInit.hasValue() ? msbsetAlgInit.getValue<int>() : msbsetAlg_;
+
   const ParameterSolver& mxiterAlg = findParameter("mxiterAlg");
   if (mxiterAlg.hasValue())
     mxiterAlg_ = mxiterAlg.getValue<int>();
+  const ParameterSolver& mxiterAlgInit = findParameter("mxiterAlgInit");
+  mxiterAlgInit_ = mxiterAlgInit.hasValue() ? mxiterAlgInit.getValue<int>() : mxiterAlg_;
+
   const ParameterSolver& printflAlg = findParameter("printflAlg");
   if (printflAlg.hasValue())
     printflAlg_ = printflAlg.getValue<int>();
+  const ParameterSolver& printflAlgInit = findParameter("printflAlgInit");
+  printflAlgInit_ = printflAlgInit.hasValue() ? printflAlgInit.getValue<int>() : printflAlg_;
 
   const ParameterSolver& fnormtolAlgJ = findParameter("fnormtolAlgJ");
   if (fnormtolAlgJ.hasValue())

@@ -327,12 +327,19 @@ class Solver::Impl : public Solver, private boost::noncopyable {
 
   // Parameters for the algebraic restoration
   double fnormtolAlg_;  ///< stopping tolerance on L2-norm of residual function
+  double fnormtolAlgInit_;  ///< stopping tolerance on L2-norm of residual function at init
   double initialaddtolAlg_;  ///< stopping tolerance at initialization
+  double initialaddtolAlgInit_;  ///< stopping tolerance at initialization at init
   double scsteptolAlg_;  ///< scaled step length tolerance
+  double scsteptolAlgInit_;  ///< scaled step length tolerance at init
   double mxnewtstepAlg_;  ///< maximum allowable scaled step length
+  double mxnewtstepAlgInit_;  ///< maximum allowable scaled step length at init
   int msbsetAlg_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
+  int msbsetAlgInit_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine at init
   int mxiterAlg_;  ///< maximum number of nonlinear iterations
+  int mxiterAlgInit_;  ///< maximum number of nonlinear iterations at init
   int printflAlg_;  ///< level of verbosity of output
+  int printflAlgInit_;  ///< level of verbosity of output at init
 
   // Parameters for the algebraic restoration with J recalculation
   double fnormtolAlgJ_;  ///< stopping tolerance on L2-norm of residual function

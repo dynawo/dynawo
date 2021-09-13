@@ -71,6 +71,11 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface {
   void importStaticParameters();
 
   /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  bool isConnected() const;
+
+  /**
    * @copydoc HvdcLineInterface::getID() const
    */
   std::string getID() const;

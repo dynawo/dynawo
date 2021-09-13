@@ -93,24 +93,37 @@ TwoWTransformerInterfaceIIDM::getID() const {
 
 bool
 TwoWTransformerInterfaceIIDM::getInitialConnected1() {
-  if (initialConnected1_ == boost::none) {
-    initialConnected1_ = tfoIIDM_.getTerminal1().isConnected();
-    if (voltageLevelInterface1_->isNodeBreakerTopology()) {
-      initialConnected1_ = initialConnected1_ && voltageLevelInterface1_->isNodeConnected(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode());
-    }
-  }
+  if (initialConnected1_ == boost::none)
+    initialConnected1_ = isConnected1();
   return initialConnected1_.value();
 }
 
 bool
 TwoWTransformerInterfaceIIDM::getInitialConnected2() {
-  if (initialConnected2_ == boost::none) {
-    initialConnected2_ = tfoIIDM_.getTerminal2().isConnected();
-    if (voltageLevelInterface2_->isNodeBreakerTopology()) {
-      initialConnected2_ = initialConnected2_ && voltageLevelInterface2_->isNodeConnected(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode());
-    }
-  }
+  if (initialConnected2_ == boost::none)
+    initialConnected2_ = isConnected2();
   return initialConnected2_.value();
+}
+
+bool
+TwoWTransformerInterfaceIIDM::isConnected1() const {
+  bool connected = tfoIIDM_.getTerminal1().isConnected();
+  if (connected && voltageLevelInterface1_->isNodeBreakerTopology())
+    connected = voltageLevelInterface1_->isNodeConnected(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode());
+  return connected;
+}
+
+bool
+TwoWTransformerInterfaceIIDM::isConnected2() const {
+  bool connected = tfoIIDM_.getTerminal2().isConnected();
+  if (connected && voltageLevelInterface2_->isNodeBreakerTopology())
+    connected = voltageLevelInterface2_->isNodeConnected(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode());
+  return connected;
+}
+
+bool
+TwoWTransformerInterfaceIIDM::isConnected() const {
+  return isConnected1() && isConnected2();
 }
 
 double

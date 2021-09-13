@@ -109,14 +109,21 @@ class InjectorInterfaceIIDM {
    */
   bool
   getInitialConnectedInjector() {
-    if (initialConnected_ == boost::none) {
-      initialConnected_ = injectorIIDM_.getTerminal().isConnected();
-      if (getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
-        initialConnected_ = initialConnected_ &&
-            getVoltageLevelInterfaceInjector()->isNodeConnected(injectorIIDM_.getTerminal().getNodeBreakerView().getNode());
-      }
-    }
+    if (initialConnected_ == boost::none)
+      initialConnected_ = isConnectedInjector();
     return initialConnected_.value();
+  }
+
+  /**
+   * @brief Checks the connection state of the injector
+   * @return @b true is the injector is connected, @b false else
+   */
+  bool
+  isConnectedInjector() const {
+    bool connected = injectorIIDM_.getTerminal().isConnected();
+    if (connected && getVoltageLevelInterfaceInjector()->isNodeBreakerTopology())
+      connected = getVoltageLevelInterfaceInjector()->isNodeConnected(injectorIIDM_.getTerminal().getNodeBreakerView().getNode());
+    return connected;
   }
 
   /**

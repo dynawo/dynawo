@@ -49,6 +49,7 @@
 #include "DYNFictBusInterfaceIIDM.h"
 #include "DYNFictTwoWTransformerInterfaceIIDM.h"
 #include "DYNFictVoltageLevelInterfaceIIDM.h"
+#include "LEQLostEquipmentsCollectionFactory.h"
 
 #include <powsybl/iidm/converter/ExportOptions.hpp>
 #include <powsybl/iidm/converter/ImportOptions.hpp>
@@ -925,21 +926,28 @@ DataInterfaceIIDM::exportStateVariablesNoReadFromModel() {
 }
 #endif
 
-void
-DataInterfaceIIDM::backupConnectionState() {
+const shared_ptr<vector<shared_ptr<ComponentInterface> > >
+DataInterfaceIIDM::findConnectedComponents() {
+  auto connectedComponents = boost::make_shared<vector<shared_ptr<ComponentInterface> > >();
   for (auto& component : components_) {
-    (component.second)->backupComponentVar("state");
+    if ((component.second)->isConnected())
+      connectedComponents->push_back(component.second);
   }
+  return connectedComponents;
 }
 
-void
-DataInterfaceIIDM::findLostEquipments(const boost::shared_ptr<lostEquipments::LostEquipmentsCollection>& lostEquipments) {
-  for (const auto& component : components_) {
-    auto lost = (component.second)->hasComponentVarChanged("state", CLOSED);  // from CLOSED to not CLOSED
-    if (lost) {
-      lostEquipments->addLostEquipment((component.second)->getID(), (component.second)->getTypeAsString());
+const shared_ptr<lostEquipments::LostEquipmentsCollection>
+DataInterfaceIIDM::findLostEquipments(const shared_ptr<vector<shared_ptr<ComponentInterface> > >& connectedComponents) {
+  auto lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
+  if (connectedComponents) {
+    for (const auto& component : *connectedComponents) {
+      auto lost = !component->isConnected();  // from connected to not connected
+      if (lost) {
+        lostEquipments->addLostEquipment(component->getID(), component->getTypeAsString());
+      }
     }
   }
+  return lostEquipments;
 }
 
 void

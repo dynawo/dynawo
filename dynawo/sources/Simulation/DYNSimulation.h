@@ -48,10 +48,6 @@ namespace constraints {
 class ConstraintsCollection;
 }
 
-namespace lostEquipments {
-class LostEquipmentsCollection;
-}
-
 namespace job {
 class JobEntry;
 }
@@ -557,7 +553,8 @@ class Simulation {
   boost::shared_ptr<finalState::FinalStateCollection> finalStateCollection_;  ///< instance of final state collection where final state are stored
   boost::shared_ptr<constraints::ConstraintsCollection> constraintsCollection_;  ///< instance of constraints collection where constraints are stored
   boost::shared_ptr<criteria::CriteriaCollection> criteriaCollection_;  ///< instance of criteria collection where criteria are stored
-  boost::shared_ptr<lostEquipments::LostEquipmentsCollection> lostEquipmentsCollection_;  ///< instance of collection where lost equipments are stored
+  boost::shared_ptr<std::vector<
+          boost::shared_ptr<ComponentInterface> > > connectedComponents_;  ///< instance of vector of connected components at simulation start
 
   std::vector<std::string> dydFiles_;  ///< list of files to used dynamic data
   std::string iidmFile_;  ///< iidm input file
