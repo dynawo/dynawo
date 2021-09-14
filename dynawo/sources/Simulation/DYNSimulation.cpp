@@ -811,9 +811,7 @@ Simulation::calculateIC() {
 
 void
 Simulation::simulate() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::simulate()");
-#endif
   printSolverHeader();
 
   // Printing out the initial solution
@@ -839,6 +837,13 @@ Simulation::simulate() {
     }
     int currentIterNb = 0;
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
+      double elapsed = timer.elapsed();
+      double timeout = jobEntry_->getSimulationEntry()->getTimeout();
+      if (elapsed > timeout) {
+        Trace::warn() << DYNLog(SimulationTimeoutReached, jobEntry_->getName(), timeout) << Trace::endline;
+        endSimulationWithError(false);
+        return;
+      }
       bool isCheckCriteriaIter = data_ && activateCriteria_ && currentIterNb % criteriaStep_ == 0;
 
       solver_->solve(tStop_, tCurrent_);

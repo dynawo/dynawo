@@ -106,6 +106,12 @@ class Timer : private boost::noncopyable {
    */
   void stop();
 
+  /**
+   * @brief Retrieves the elapsed time of the timer
+   * @returns the elapsed time of the timer or 0 if the timer is stoppped
+   */
+  double elapsed() const;
+
  private:
   std::string name_;  ///< name of timer
 #ifdef LANG_CXX11
