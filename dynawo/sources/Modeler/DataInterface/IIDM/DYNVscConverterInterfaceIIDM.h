@@ -115,6 +115,16 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
   double getQMax();
 
   /**
+   * @copydoc VscConverterInterface::getQMax()
+   */
+  double getQMin();
+
+  /**
+   * @copydoc VscConverterInterface::getReactiveCurvesPoints()
+   */
+  std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const;
+
+  /**
    * @copydoc VscConverterInterface::getID() const
    */
   std::string getID() const;

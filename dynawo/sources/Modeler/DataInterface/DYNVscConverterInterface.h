@@ -23,13 +23,14 @@
 #define MODELER_DATAINTERFACE_DYNVSCCONVERTERINTERFACE_H_
 
 #include "DYNConverterInterface.h"
+#include "DYNReactiveCurvePointsInterface.h"
 
 namespace DYN {
 
 /**
  * @brief VSC converter interface
  */
-class VscConverterInterface : public ConverterInterface {
+class VscConverterInterface : public ConverterInterface, public ReactiveCurvePointsInterface {
  public:
   /**
    * @brief Destructor
@@ -59,6 +60,17 @@ class VscConverterInterface : public ConverterInterface {
    * @return The maximum reactive power of the converter in Mvar (following iidm convention)
    */
   virtual double getQMax() = 0;
+
+  /**
+   * @brief Getter for the mininmum reactive power of the converter
+   * @return The mininmum reactive power of the converter in Mvar (following iidm convention)
+   */
+  virtual double getQMin() = 0;
+
+  /**
+   * @copydoc ReactiveCurvePointsInterface::getReactiveCurvesPoints() const
+   */
+  virtual std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const = 0;
 };  ///< Interface class for Vsc Converter
 
 }  // namespace DYN
