@@ -571,6 +571,7 @@ class Simulation {
   std::string curvesOutputFile_;  ///< curves' output file
 
   exportTimelineMode_t exportTimelineMode_;  ///< timeline's output mode
+  bool exportTimelineWithTime_;  ///< whether to export time when exporting timeline
   std::string timelineOutputFile_;  ///< timeline's export file
 
   std::string timetableOutputFile_;  ///< timetable export file
