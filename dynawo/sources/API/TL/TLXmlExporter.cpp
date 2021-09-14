@@ -39,19 +39,21 @@ using xml::sax::formatter::FormatterPtr;
 namespace timeline {
 
 void
-XmlExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const string& filePath) const {
+XmlExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const string& filePath,
+                          const bool exportWithTime) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
     throw DYNError(DYN::Error::API, FileGenerationFailed, filePath.c_str());
   }
 
-  exportToStream(timeline, file);
+  exportToStream(timeline, file, exportWithTime);
   file.close();
 }
 
 void
-XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
+XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream,
+                            const bool exportWithTime) const {
   FormatterPtr formatter = Formatter::createFormatter(stream, "http://www.rte-france.com/dynawo");
 
   formatter->startDocument();
@@ -61,7 +63,8 @@ XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream
           itEvent != timeline->cendEvent();
           ++itEvent) {
     attrs.clear();
-    attrs.add("time", (*itEvent)->getTime());
+    if (exportWithTime)
+      attrs.add("time", (*itEvent)->getTime());
     attrs.add("modelName", (*itEvent)->getModelName());
     attrs.add("message", (*itEvent)->getMessage());
     if ((*itEvent)->hasPriority()) {

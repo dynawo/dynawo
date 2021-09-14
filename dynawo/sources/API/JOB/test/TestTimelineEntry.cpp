@@ -26,12 +26,15 @@ TEST(APIJOBTest, testTimelineEntry) {
   boost::shared_ptr<TimelineEntry> timeline = boost::shared_ptr<TimelineEntry>(new TimelineEntry());
   // check default attributes
   ASSERT_EQ(timeline->getExportMode(), "");
+  ASSERT_EQ(timeline->getExportWithTime(), true);
   ASSERT_EQ(timeline->getOutputFile(), "");
 
   timeline->setExportMode("TXT");
+  timeline->setExportWithTime(false);
   timeline->setOutputFile("/tmp/output.txt");
 
   ASSERT_EQ(timeline->getExportMode(), "TXT");
+  ASSERT_EQ(timeline->getExportWithTime(), false);
   ASSERT_EQ(timeline->getOutputFile(), "/tmp/output.txt");
 }
 

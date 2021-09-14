@@ -162,6 +162,7 @@ exportCurvesMode_(EXPORT_CURVES_NONE),
 curvesInputFile_(""),
 curvesOutputFile_(""),
 exportTimelineMode_(EXPORT_TIMELINE_NONE),
+exportTimelineWithTime_(true),
 timelineOutputFile_(""),
 exportFinalStateMode_(EXPORT_FINALSTATE_NONE),
 finalStateInputFile_(""),
@@ -343,6 +344,7 @@ Simulation::configureTimelineOutputs() {
       throw DYNError(Error::MODELER, UnknownTimelineExport, exportMode);
     }
     setTimelineExportMode(exportModeFlag);
+    exportTimelineWithTime_ = jobEntry_->getOutputsEntry()->getTimelineEntry()->getExportWithTime();
     setTimelineOutputFile(outputFile);
   } else {
     setTimelineExportMode(Simulation::EXPORT_TIMELINE_NONE);
@@ -1134,17 +1136,17 @@ Simulation::printTimeline(std::ostream& stream) const {
       break;
     case EXPORT_TIMELINE_CSV: {
       timeline::CsvExporter csvExporter;
-      csvExporter.exportToStream(timeline_, stream);
+      csvExporter.exportToStream(timeline_, stream, exportTimelineWithTime_);
       break;
     }
     case EXPORT_TIMELINE_XML: {
       timeline::XmlExporter xmlExporter;
-      xmlExporter.exportToStream(timeline_, stream);
+      xmlExporter.exportToStream(timeline_, stream, exportTimelineWithTime_);
       break;
     }
     case EXPORT_TIMELINE_TXT: {
       timeline::TxtExporter txtExporter;
-      txtExporter.exportToStream(timeline_, stream);
+      txtExporter.exportToStream(timeline_, stream, exportTimelineWithTime_);
       break;
     }
   }
