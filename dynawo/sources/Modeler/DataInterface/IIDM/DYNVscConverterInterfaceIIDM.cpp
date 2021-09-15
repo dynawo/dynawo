@@ -191,7 +191,7 @@ VscConverterInterfaceIIDM::getQMin() {
 std::vector<VscConverterInterface::ReactiveCurvePoint>
 VscConverterInterfaceIIDM::getReactiveCurvesPoints() const {
   std::vector<ReactiveCurvePoint> ret;
-  if (generatorIIDM_.has_reactiveCapabilityCurve()) {
+  if (vscConverterIIDM_.has_reactiveCapabilityCurve()) {
     const IIDM::ReactiveCapabilityCurve& reactiveCurve = vscConverterIIDM_.reactiveCapabilityCurve();
     for (IIDM::ReactiveCapabilityCurve::const_iterator it = reactiveCurve.begin(); it != reactiveCurve.end(); ++it) {
       ReactiveCurvePoint point(it->p, it->qmin, it->qmax);
