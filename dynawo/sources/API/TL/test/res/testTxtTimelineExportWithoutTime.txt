@@ -1,0 +1,5 @@
+model1 | event1 at 10s
+model1 | event2 at 10s | 5
+model2 | event1 at 10s
+model2 | event2 at 20s | 10
+model2 | event3 at 30s

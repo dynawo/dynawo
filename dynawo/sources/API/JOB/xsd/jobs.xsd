@@ -137,6 +137,7 @@
 
   <xs:complexType name="TimelineEntry">
     <xs:attribute name="exportMode" use="required" type="dyn:TimelineExportMode"/>
+    <xs:attribute name="exportTime" use="optional" type="xs:boolean"/>
   </xs:complexType>
 
   <xs:complexType name="TimetableEntry">

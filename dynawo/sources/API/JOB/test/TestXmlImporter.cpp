@@ -89,7 +89,7 @@ TEST(APIJOBTest, testXmlStreamImporter) {
     "<dyn:outputs directory=\"outputs/dump\">"
     "<dyn:finalState exportDumpFile=\"true\" exportIIDMFile=\"true\"/>"
     "<dyn:curves inputFile=\"curves_dump.crv\" exportMode=\"CSV\"/>"
-    "<dyn:timeline exportMode=\"TXT\"/>"
+    "<dyn:timeline exportMode=\"TXT\" exportTime=\"true\"/>"
     "<dyn:constraints exportMode=\"XML\"/>"
     "<dyn:dumpInitValues local=\"true\" global=\"false\"/>"
     "<dyn:logs>"
@@ -211,6 +211,7 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_NE(outputs->getTimelineEntry(), boost::shared_ptr<TimelineEntry>());
   boost::shared_ptr<TimelineEntry> timeline = outputs->getTimelineEntry();
   ASSERT_EQ(timeline->getExportMode(), "TXT");
+  ASSERT_EQ(timeline->getExportWithTime(), false);
 
   // ===== TimetableEntry =====
   ASSERT_NE(outputs->getTimetableEntry(), boost::shared_ptr<TimetableEntry>());

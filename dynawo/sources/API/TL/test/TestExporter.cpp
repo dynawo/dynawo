@@ -51,18 +51,24 @@ TEST(APITLTest, TimelineExporters) {
 
   // export the timeline in xml format
   XmlExporter exporterXML;
-  ASSERT_NO_THROW(exporterXML.exportToFile(timeline, "testXmlTimelineExport.xml"));
-  ASSERT_EQ(compareFiles("testXmlTimelineExport.xml", "res/testXmlTimelineExport.xml"), true);
+  ASSERT_NO_THROW(exporterXML.exportToFile(timeline, "testXmlTimelineExport.xml", true));
+  ASSERT_TRUE(compareFiles("testXmlTimelineExport.xml", "res/testXmlTimelineExport.xml"));
+  ASSERT_NO_THROW(exporterXML.exportToFile(timeline, "testXmlTimelineExportWithoutTime.xml", false));
+  ASSERT_TRUE(compareFiles("testXmlTimelineExportWithoutTime.xml", "res/testXmlTimelineExportWithoutTime.xml"));
 
   // export the timeline in csv format
   CsvExporter exporterCSV;
-  ASSERT_NO_THROW(exporterCSV.exportToFile(timeline, "testCsvTimelineExport.csv"));
-  ASSERT_EQ(compareFiles("testCsvTimelineExport.csv", "res/testCsvTimelineExport.csv"), true);
+  ASSERT_NO_THROW(exporterCSV.exportToFile(timeline, "testCsvTimelineExport.csv", true));
+  ASSERT_TRUE(compareFiles("testCsvTimelineExport.csv", "res/testCsvTimelineExport.csv"));
+  ASSERT_NO_THROW(exporterCSV.exportToFile(timeline, "testCsvTimelineExportWithoutTime.csv", false));
+  ASSERT_TRUE(compareFiles("testCsvTimelineExportWithoutTime.csv", "res/testCsvTimelineExportWithoutTime.csv"));
 
   // export the timeline in txt format
   TxtExporter exporterTXT;
-  ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExport.txt"));
-  ASSERT_EQ(compareFiles("testTxtTimelineExport.txt", "res/testTxtTimelineExport.txt"), true);
+  ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExport.txt", true));
+  ASSERT_TRUE(compareFiles("testTxtTimelineExport.txt", "res/testTxtTimelineExport.txt"));
+  ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExportWithoutTime.txt", false));
+  ASSERT_TRUE(compareFiles("testTxtTimelineExportWithoutTime.txt", "res/testTxtTimelineExportWithoutTime.txt"));
 }
 
 }  // namespace timeline
