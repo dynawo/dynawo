@@ -130,6 +130,18 @@ class LineInterfaceIIDM : public LineInterface {
   bool getInitialConnected2();
 
   /**
+   * @brief Checks the connection state of the line's side 1
+   * @return @b true if the line's side 1 is connected, @b false else
+   */
+  bool isConnected1() const;
+
+  /**
+   * @brief Checks the connection state of the line's side 2
+   * @return @b true if the line's side 2 is connected, @b false else
+   */
+  bool isConnected2() const;
+
+  /**
    * @copydoc LineInterface::getID() const
    */
   std::string getID() const;
@@ -263,6 +275,11 @@ class LineInterfaceIIDM : public LineInterface {
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
   int getComponentVarIndex(const std::string& varName) const;
+
+  /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  bool isConnected() const;
 
  private:
   IIDM::Line& lineIIDM_;  ///< reference to the iidm line instance

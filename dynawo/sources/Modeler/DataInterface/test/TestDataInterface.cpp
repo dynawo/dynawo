@@ -21,35 +21,36 @@
 
 #include "DYNCommon.h"
 #include "DYNDataInterface.h"
+#include "DYNLineInterface.h"
+#include "DYNModelConstants.h"
 #include "DYNModelMulti.h"
 #include "DYNNetworkInterface.h"
 #include "DYNSubModel.h"
 #include "DYNSubModelFactory.h"
 #include "DYNSwitchInterface.h"
+#include "DYNTwoWTransformerInterface.h"
 #include "DYNVoltageLevelInterface.h"
 #include "LEQLostEquipmentsCollectionFactory.h"
 #include "PARParametersSet.h"
 
-#ifdef USE_POWSYBL
-#include "PowSyblIIDM/DYNDataInterfaceIIDM.h"
+#include "DYNDataInterfaceIIDM.h"
 
-#include <powsybl/iidm/GeneratorAdder.hpp>
+#ifdef USE_POWSYBL
+#include <powsybl/iidm/LineAdder.hpp>
 #include <powsybl/iidm/LoadAdder.hpp>
 #include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/TwoWindingsTransformerAdder.hpp>
 #include <powsybl/iidm/TopologyKind.hpp>
 
 #else
-#include "IIDM/DYNDataInterfaceIIDM.h"
-#include "IIDM/DYNGeneratorInterfaceIIDM.h"
-#include "IIDM/DYNLoadInterfaceIIDM.h"
-#include "IIDM/DYNSwitchInterfaceIIDM.h"
-
+#include <IIDM/builders/BusBarSectionBuilder.h>
 #include <IIDM/builders/BusBuilder.h>
-#include <IIDM/builders/GeneratorBuilder.h>
+#include <IIDM/builders/LineBuilder.h>
 #include <IIDM/builders/LoadBuilder.h>
 #include <IIDM/builders/NetworkBuilder.h>
 #include <IIDM/builders/SubstationBuilder.h>
 #include <IIDM/builders/SwitchBuilder.h>
+#include <IIDM/builders/Transformer2WindingsBuilder.h>
 #include <IIDM/builders/VoltageLevelBuilder.h>
 #endif
 
@@ -64,7 +65,7 @@ initializeModel(shared_ptr<DataInterface> data) {
   modelNetwork->initFromData(data);
   data->setModelNetwork(modelNetwork);
   modelNetwork->name("NETWORK");
-  shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
+  shared_ptr<parameters::ParametersSet> parametersSet = shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("bus_uMax", 0.);
   parametersSet->createParameter("capacitor_no_reclosing_delay", 0.);
   parametersSet->createParameter("load_alpha", 0.);
@@ -96,208 +97,321 @@ exportStateVariables(shared_ptr<DataInterface> data) {
 
 TEST(DataInterfaceTest, testLostEquipments) {
 #ifdef USE_POWSYBL
-  auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
+  auto network = boost::make_shared<powsybl::iidm::Network>("test", "test");
 
   auto& substation = network->newSubstation()
-    .setId("MySubStation")
+    .setId("SUB")
     .add();
 
-  auto& vl = substation.newVoltageLevel()
-    .setId("MyVoltageLevel")
-    .setNominalV(5.)
+  auto& vl1 = substation.newVoltageLevel()
+    .setId("VL1")
+    .setNominalV(380.)
     .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
     .add();
 
-  vl.getBusBreakerView().newBus().setId("MyBus1").add();
-  vl.getBusBreakerView().newBus().setId("MyBus2").add();
+  vl1.getBusBreakerView().newBus().setId("VL1_BUS1").add().setAngle(1.5).setV(150.);
+  vl1.getBusBreakerView().newBus().setId("VL1_BUS2").add().setAngle(1.5).setV(150.);
 
-  vl.getBusBreakerView().newSwitch()
-    .setId("MySwitch")
-    .setBus1("MyBus1")
-    .setBus2("MyBus2")
+  vl1.getBusBreakerView().newSwitch()
+    .setId("VL1_SW12")
+    .setBus1("VL1_BUS1")
+    .setBus2("VL1_BUS2")
     .add();
 
-  vl.newLoad()
-    .setId("MyLoad")
-    .setBus("MyBus1")
-    .setP0(50.0)
-    .setQ0(40.0)
+  vl1.newLoad()
+    .setId("VL1_LOAD1")
+    .setBus("VL1_BUS1")
+    .setP0(5000.)
+    .setQ0(4000.)
     .add();
 
-  vl.newGenerator()
-    .setId("MyGenerator")
-    .setBus("MyBus2")
-    .setMaxP(50.0)
-    .setMinP(3.0)
-    .setTargetP(45.0)
-    .setTargetQ(5.0)
-    .setVoltageRegulatorOn(false)
+  auto& vl2 = substation.newVoltageLevel()
+    .setId("VL2")
+    .setNominalV(225.)
+    .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
     .add();
+
+  vl2.getBusBreakerView().newBus().setId("VL2_BUS1").add().setAngle(1.5).setV(150.);
+
+  network->newLine()
+    .setId("LINE_VL1_VL2")
+    .setVoltageLevel1("VL1")
+    .setBus1("VL1_BUS1")
+    .setVoltageLevel2("VL2")
+    .setBus2("VL2_BUS1")
+    .setR(3.0)
+    .setX(33.33)
+    .setG1(1.0)
+    .setB1(0.2)
+    .setG2(2.0)
+    .setB2(0.4)
+    .add();
+
+  substation.newTwoWindingsTransformer()
+    .setId("2WT_VL1_VL2")
+    .setVoltageLevel1(vl1.getId())
+    .setBus1("VL1_BUS1")
+    .setVoltageLevel2(vl2.getId())
+    .setBus2("VL2_BUS1")
+    .setR(3.0)
+    .setX(33.0)
+    .setG(1.0)
+    .setB(0.2)
+    .setRatedU1(2.0)
+    .setRatedU2(0.4)
+    .setRatedS(3.0)
+    .add();
+
+  auto& vl3 = substation.newVoltageLevel()
+    .setId("VL3")
+    .setNominalV(360.)
+    .setTopologyKind(powsybl::iidm::TopologyKind::NODE_BREAKER)
+    .add();
+
+  vl3.getNodeBreakerView().newBusbarSection()
+    .setId("VL3_BBS")
+    .setNode(0)
+    .add();
+
+  vl3.getNodeBreakerView().newSwitch()
+    .setId("VL3_SW01")
+    .setKind(powsybl::iidm::SwitchKind::BREAKER)
+    .setNode1(0)
+    .setNode2(1)
+    .setRetained(true)
+    .add();
+
+  vl3.newLoad()
+    .setId("VL3_LOAD")
+    .setNode(1)
+    .setP0(5000.)
+    .setQ0(4000.)
+    .add();
+
 #else
-  IIDM::connection_status_t cs = {true /*connected*/};
-  IIDM::Port p1("MyBus1", cs), p2("MyBus2", cs);
-  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2);
-
   IIDM::builders::NetworkBuilder nb;
-  boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
+  shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("test"));
 
   IIDM::builders::SubstationBuilder ssb;
-  IIDM::Substation ss = ssb.build("MySubStation");
+  IIDM::Substation ss1 = ssb.build("SUB");
 
   IIDM::builders::VoltageLevelBuilder vlb;
   vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  vlb.nominalV(5.);
-  IIDM::VoltageLevel vl = vlb.build("MyVoltageLevel");
+  IIDM::VoltageLevel vl1 = vlb.nominalV(380.).build("VL1");
 
   IIDM::builders::BusBuilder bb;
-  vl.add(bb.build("MyBus1"));
-  vl.add(bb.build("MyBus2"));
+  bb.v(150).angle(1.5);
+  vl1.add(bb.build("VL1_BUS1"));
+  vl1.add(bb.build("VL1_BUS2"));
 
   IIDM::builders::SwitchBuilder sb;
-  vl.add(sb.build("MySwitch"), "MyBus1", "MyBus2");
+  vl1.add(sb.opened(false).build("VL1_SW12"), "VL1_BUS1", "VL1_BUS2");
 
-  IIDM::builders::LoadBuilder lb;
-  lb.p0(50.);
-  lb.q0(40.);
-  vl.add(lb.build("MyLoad"), c1);
+  IIDM::connection_status_t cs = {true /*connected*/};
+  IIDM::Port p1("VL1_BUS1", cs);
+  IIDM::Connection c1("VL1", p1, IIDM::side_1);
 
-  IIDM::builders::GeneratorBuilder gb;
-  IIDM::MinMaxReactiveLimits limits(1., 20.);
-  gb.minMaxReactiveLimits(limits);
-  gb.targetP(-105.);
-  gb.pmin(3.);
-  gb.pmax(50.);
-  gb.energySource(IIDM::Generator::source_nuclear);
-  IIDM::Generator g = gb.build("MyGenerator");
-  g.p(-105.);
-  g.q(-90.);
-  g.targetQ(-90.);
-  g.targetV(150.);
-  g.connectTo("MyVoltageLevel", p2);
-  vl.add(g);
+  IIDM::builders::LoadBuilder ldb;
+  vl1.add(ldb.p0(5000.).q0(4000.).build("VL1_LOAD"), c1);
 
-  ss.add(vl);
-  network->add(ss);
+  ss1.add(vl1);
+
+  IIDM::VoltageLevel vl2 = vlb.nominalV(225.).build("VL2");
+
+  vl2.add(bb.build("VL2_BUS1"));
+
+  ss1.add(vl2);
+
+  IIDM::Port p2("VL2_BUS1", cs);
+  IIDM::Connection c2("VL2", p2, IIDM::side_2);
+
+  IIDM::builders::Transformer2WindingsBuilder t2Wb;
+  ss1.add(t2Wb.build("2WT_VL1_VL2"), c1, c2);
+
+  vlb.mode(IIDM::VoltageLevel::node_breaker);
+  IIDM::VoltageLevel vl3 = vlb.nominalV(360.).node_count(2).build("VL3");
+
+  IIDM::builders::BusBarSectionBuilder bbsb;
+  vl3.add(bbsb.node(0).build("VL3_BBS"));
+
+  vl3.add(sb.opened(false).retained(true).build("VL3_SW01"), 0, 1);
+
+  IIDM::Port p3(1);
+  IIDM::Connection c3("VL3", p3, IIDM::side_1);
+
+  vl3.add(ldb.build("VL3_LOAD"), c3);
+
+  ss1.add(vl3);
+
+  network->add(ss1);
+
+  IIDM::builders::LineBuilder lnb;
+  network->add(lnb.build("LINE_VL1_VL2"), c1, c2);
 #endif
 
   shared_ptr<DataInterfaceIIDM> data(new DataInterfaceIIDM(network));
   data->initFromIIDM();
   exportStateVariables(data);
 
-  boost::shared_ptr<SwitchInterface> sw = data->getNetwork()->getVoltageLevels()[0]->getSwitches()[0];
-  boost::shared_ptr<LoadInterface> load = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
-  boost::shared_ptr<GeneratorInterface> gen = data->getNetwork()->getVoltageLevels()[0]->getGenerators()[0];
+  shared_ptr<SwitchInterface> sw = data->getNetwork()->getVoltageLevels()[0]->getSwitches()[0];
+  shared_ptr<LoadInterface> load = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
+  shared_ptr<LineInterface> line = data->getNetwork()->getLines()[0];
+  shared_ptr<TwoWTransformerInterface> tfo = data->getNetwork()->getTwoWTransformers()[0];
 
-  // all CLOSED to CLOSED
-  data->backupConnectionState();
-  shared_ptr<lostEquipments::LostEquipmentsCollection> lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
-  data->findLostEquipments(lostEquipments);
+  const int SWITCH_STATE = sw->getComponentVarIndex("state");
+  const int LOAD_STATE = load->getComponentVarIndex("state");
+  const int LINE_STATE = line->getComponentVarIndex("state");
+  const int TRANSF_STATE = tfo->getComponentVarIndex("state");
+
+  ///
+  // BUS_BREAKER cases
+  ///
+
+  // all from CLOSED to CLOSED
+  shared_ptr<std::vector<shared_ptr<ComponentInterface> > > connectedComponents = data->findConnectedComponents();
+  shared_ptr<lostEquipments::LostEquipmentsCollection> lostEquipments = data->findLostEquipments(connectedComponents);
   lostEquipments::LostEquipmentsCollection::LostEquipmentsCollectionConstIterator itLostEquipment = lostEquipments->cbegin();
-  ASSERT_EQ(lostEquipments->cbegin(), lostEquipments->cend());
+  ASSERT_TRUE(itLostEquipment == lostEquipments->cend());
 
-  // switch CLOSED to OPEN
-  sw->setValue(SwitchInterfaceIIDM::VAR_STATE, OPEN);
-  data->findLostEquipments(lostEquipments);
+  // switch from CLOSED to OPEN
+  sw->setValue(SWITCH_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
   itLostEquipment = lostEquipments->cbegin();
-  ASSERT_NE(itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
   ASSERT_EQ((*itLostEquipment)->getId(), sw->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), sw->getTypeAsString());
-  ASSERT_EQ(++itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
-  // load CLOSED to OPEN
-  data->backupConnectionState();
-  load->setValue(LoadInterfaceIIDM::VAR_STATE, OPEN);
-  lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
-  data->findLostEquipments(lostEquipments);
+  // load from CLOSED to OPEN
+  connectedComponents = data->findConnectedComponents();
+  load->setValue(LOAD_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
   itLostEquipment = lostEquipments->cbegin();
-  ASSERT_NE(itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
   ASSERT_EQ((*itLostEquipment)->getId(), load->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), load->getTypeAsString());
-  ASSERT_EQ(++itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
-  // generator CLOSED to OPEN
-  data->backupConnectionState();
-  gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, OPEN);
-  lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
-  data->findLostEquipments(lostEquipments);
+  // line from CLOSED to OPEN
+  connectedComponents = data->findConnectedComponents();
+  line->setValue(LINE_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
   itLostEquipment = lostEquipments->cbegin();
-  ASSERT_NE(itLostEquipment, lostEquipments->cend());
-  ASSERT_EQ((*itLostEquipment)->getId(), gen->getID());
-  ASSERT_EQ((*itLostEquipment)->getType(), gen->getTypeAsString());
-  ASSERT_EQ(++itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
+  ASSERT_EQ((*itLostEquipment)->getId(), line->getID());
+  ASSERT_EQ((*itLostEquipment)->getType(), line->getTypeAsString());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
-  // all OPEN to OPEN
-  data->backupConnectionState();
-  lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
-  data->findLostEquipments(lostEquipments);
-  ASSERT_EQ(lostEquipments->cbegin(), lostEquipments->cend());
-
-  // all OPEN to CLOSED
-  sw->setValue(SwitchInterfaceIIDM::VAR_STATE, CLOSED);
-  load->setValue(LoadInterfaceIIDM::VAR_STATE, CLOSED);
-  gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, CLOSED);
-  data->findLostEquipments(lostEquipments);
-  ASSERT_EQ(lostEquipments->cbegin(), lostEquipments->cend());
-
-  // switch CLOSED to CLOSED_1
-  data->backupConnectionState();
-  sw->setValue(SwitchInterfaceIIDM::VAR_STATE, CLOSED_1);
-  data->findLostEquipments(lostEquipments);
+  // transf from CLOSED to OPEN
+  connectedComponents = data->findConnectedComponents();
+  tfo->setValue(TRANSF_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
   itLostEquipment = lostEquipments->cbegin();
-  ASSERT_NE(itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
+  ASSERT_EQ((*itLostEquipment)->getId(), tfo->getID());
+  ASSERT_EQ((*itLostEquipment)->getType(), tfo->getTypeAsString());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
+
+  // all from OPEN to OPEN
+  connectedComponents = data->findConnectedComponents();
+  lostEquipments = data->findLostEquipments(connectedComponents);
+  ASSERT_TRUE(lostEquipments->cbegin() == lostEquipments->cend());
+
+  // all from OPEN to CLOSED
+  sw->setValue(SWITCH_STATE, CLOSED);
+  load->setValue(LOAD_STATE, CLOSED);
+  line->setValue(LINE_STATE, CLOSED);
+  tfo->setValue(TRANSF_STATE, CLOSED);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
+  ASSERT_TRUE(lostEquipments->cbegin() == lostEquipments->cend());
+
+  // line from CLOSED to CLOSED_1
+  connectedComponents = data->findConnectedComponents();
+  line->setValue(LINE_STATE, CLOSED_1);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
+  itLostEquipment = lostEquipments->cbegin();
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
+  ASSERT_EQ((*itLostEquipment)->getId(), line->getID());
+  ASSERT_EQ((*itLostEquipment)->getType(), line->getTypeAsString());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
+
+  // transf from CLOSED to CLOSED_2
+  connectedComponents = data->findConnectedComponents();
+  tfo->setValue(TRANSF_STATE, CLOSED_2);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
+  itLostEquipment = lostEquipments->cbegin();
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
+  ASSERT_EQ((*itLostEquipment)->getId(), tfo->getID());
+  ASSERT_EQ((*itLostEquipment)->getType(), tfo->getTypeAsString());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
+
+  // switch from CLOSED to CLOSED_3 (no sense: it's for test only)
+  connectedComponents = data->findConnectedComponents();
+  sw->setValue(SWITCH_STATE, CLOSED_3);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
+  itLostEquipment = lostEquipments->cbegin();
+  ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
   ASSERT_EQ((*itLostEquipment)->getId(), sw->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), sw->getTypeAsString());
-  ASSERT_EQ(++itLostEquipment, lostEquipments->cend());
+  ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
-  // load CLOSED to CLOSED_2
-  data->backupConnectionState();
-  load->setValue(LoadInterfaceIIDM::VAR_STATE, CLOSED_2);
-  lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
-  data->findLostEquipments(lostEquipments);
-  itLostEquipment = lostEquipments->cbegin();
-  ASSERT_NE(itLostEquipment, lostEquipments->cend());
-  ASSERT_EQ((*itLostEquipment)->getId(), load->getID());
-  ASSERT_EQ((*itLostEquipment)->getType(), load->getTypeAsString());
-  ASSERT_EQ(++itLostEquipment, lostEquipments->cend());
+  // line, transf and switch from CLOSED_* to OPEN
+  connectedComponents = data->findConnectedComponents();
+  line->setValue(LINE_STATE, OPEN);
+  tfo->setValue(TRANSF_STATE, OPEN);
+  sw->setValue(SWITCH_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
+  ASSERT_TRUE(lostEquipments->cbegin() == lostEquipments->cend());
 
-  // generator CLOSED to CLOSED_3
-  data->backupConnectionState();
-  gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, CLOSED_3);
-  lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
-  data->findLostEquipments(lostEquipments);
-  itLostEquipment = lostEquipments->cbegin();
-  ASSERT_NE(itLostEquipment, lostEquipments->cend());
-  ASSERT_EQ((*itLostEquipment)->getId(), gen->getID());
-  ASSERT_EQ((*itLostEquipment)->getType(), gen->getTypeAsString());
-  ASSERT_EQ(++itLostEquipment, lostEquipments->cend());
-
-  // all CLOSED_* to OPEN
-  data->backupConnectionState();
-  sw->setValue(SwitchInterfaceIIDM::VAR_STATE, OPEN);
-  load->setValue(LoadInterfaceIIDM::VAR_STATE, OPEN);
-  gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, OPEN);
-  lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
-  data->findLostEquipments(lostEquipments);
-  ASSERT_EQ(lostEquipments->cbegin(), lostEquipments->cend());
-
-  // all CLOSED to OPEN
-  sw->setValue(SwitchInterfaceIIDM::VAR_STATE, CLOSED);
-  load->setValue(LoadInterfaceIIDM::VAR_STATE, CLOSED);
-  gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, CLOSED);
-  data->backupConnectionState();
-  sw->setValue(SwitchInterfaceIIDM::VAR_STATE, OPEN);
-  load->setValue(LoadInterfaceIIDM::VAR_STATE, OPEN);
-  gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, OPEN);
-  lostEquipments = lostEquipments::LostEquipmentsCollectionFactory::newInstance();
-  data->findLostEquipments(lostEquipments);
+  // all from CLOSED to OPEN
+  sw->setValue(SWITCH_STATE, CLOSED);
+  load->setValue(LOAD_STATE, CLOSED);
+  line->setValue(LINE_STATE, CLOSED);
+  tfo->setValue(TRANSF_STATE, CLOSED);
+  data->exportStateVariablesNoReadFromModel();
+  connectedComponents = data->findConnectedComponents();
+  sw->setValue(SWITCH_STATE, OPEN);
+  load->setValue(LOAD_STATE, OPEN);
+  line->setValue(LINE_STATE, OPEN);
+  tfo->setValue(TRANSF_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
   std::map<std::string, std::string> mapIdToType;
   for (itLostEquipment = lostEquipments->cbegin(); itLostEquipment != lostEquipments->cend(); ++itLostEquipment) {
     mapIdToType[(*itLostEquipment)->getId()] = (*itLostEquipment)->getType();
   }
-  ASSERT_EQ(mapIdToType.size(), 3);
+  ASSERT_EQ(mapIdToType.size(), 4);
   ASSERT_EQ(mapIdToType[sw->getID()], sw->getTypeAsString());
   ASSERT_EQ(mapIdToType[load->getID()], load->getTypeAsString());
-  ASSERT_EQ(mapIdToType[gen->getID()], gen->getTypeAsString());
+  ASSERT_EQ(mapIdToType[line->getID()], line->getTypeAsString());
+  ASSERT_EQ(mapIdToType[tfo->getID()], tfo->getTypeAsString());
+
+  ///
+  // NODE_BREAKER case
+  ///
+
+  shared_ptr<SwitchInterface> swNB = data->getNetwork()->getVoltageLevels()[2]->getSwitches()[0];
+  shared_ptr<LoadInterface> loadNB = data->getNetwork()->getVoltageLevels()[2]->getLoads()[0];
+  connectedComponents = data->findConnectedComponents();
+  swNB->setValue(SWITCH_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
+  mapIdToType.clear();
+  for (itLostEquipment = lostEquipments->cbegin(); itLostEquipment != lostEquipments->cend(); ++itLostEquipment) {
+    mapIdToType[(*itLostEquipment)->getId()] = (*itLostEquipment)->getType();
+  }
+  ASSERT_EQ(mapIdToType.size(), 2);
+  ASSERT_EQ(mapIdToType[swNB->getID()], swNB->getTypeAsString());
+  ASSERT_EQ(mapIdToType[loadNB->getID()], loadNB->getTypeAsString());
 }
 
 }  // namespace DYN

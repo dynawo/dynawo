@@ -39,6 +39,11 @@ SwitchInterfaceIIDM::isOpen() const {
   return switchIIDM_.isOpen();
 }
 
+bool
+SwitchInterfaceIIDM::isConnected() const {
+  return !isOpen();
+}
+
 std::string
 SwitchInterfaceIIDM::getID() const {
   return switchIIDM_.getId();
@@ -75,10 +80,7 @@ SwitchInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
 void
 SwitchInterfaceIIDM::exportStateVariablesUnitComponent() {
   int state = getValue<int>(VAR_STATE);
-  if (state == OPEN)
-    switchIIDM_.setOpen(true);
-  else
-    switchIIDM_.setOpen(false);
+  switchIIDM_.setOpen(state != CLOSED);
 }
 
 void

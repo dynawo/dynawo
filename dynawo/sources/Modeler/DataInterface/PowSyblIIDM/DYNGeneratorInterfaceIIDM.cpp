@@ -160,6 +160,11 @@ GeneratorInterfaceIIDM::getInitialConnected() {
   return getInitialConnectedInjector();
 }
 
+bool
+GeneratorInterfaceIIDM::isConnected() const {
+  return isConnectedInjector();
+}
+
 double
 GeneratorInterfaceIIDM::getP() {
   return getPInjector();

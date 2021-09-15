@@ -6,11 +6,13 @@
       <parameter name="enableSilentZ" valueType="BOOL" cardinality="1"/>
       <parameter name="fnormtol" valueType="DOUBLE" cardinality="1"/>
       <parameter name="fnormtolAlg" valueType="DOUBLE" cardinality="1"/>
+      <parameter name="fnormtolAlgInit" valueType="DOUBLE" cardinality="1"/>
       <parameter name="fnormtolAlgJ" valueType="DOUBLE" cardinality="1"/>
       <parameter name="hMax" valueType="DOUBLE" cardinality="1"/>
       <parameter name="hMin" valueType="DOUBLE" cardinality="1"/>
       <parameter name="initialaddtol" valueType="DOUBLE" cardinality="1"/>
       <parameter name="initialaddtolAlg" valueType="DOUBLE" cardinality="1"/>
+      <parameter name="initialaddtolAlgInit" valueType="DOUBLE" cardinality="1"/>
       <parameter name="initialaddtolAlgJ" valueType="DOUBLE" cardinality="1"/>
       <parameter name="kReduceStep" valueType="DOUBLE" cardinality="1"/>
       <parameter name="linearSolverName" valueType="STRING" cardinality="1"/>
@@ -20,20 +22,25 @@
       <parameter name="minimumModeChangeTypeForAlgebraicRestoration" valueType="STRING" cardinality="1"/>
       <parameter name="msbset" valueType="INT" cardinality="1"/>
       <parameter name="msbsetAlg" valueType="INT" cardinality="1"/>
+      <parameter name="msbsetAlgInit" valueType="INT" cardinality="1"/>
       <parameter name="msbsetAlgJ" valueType="INT" cardinality="1"/>
       <parameter name="mxiter" valueType="INT" cardinality="1"/>
       <parameter name="mxiterAlg" valueType="INT" cardinality="1"/>
+      <parameter name="mxiterAlgInit" valueType="INT" cardinality="1"/>
       <parameter name="mxiterAlgJ" valueType="INT" cardinality="1"/>
       <parameter name="mxnewtstep" valueType="DOUBLE" cardinality="1"/>
       <parameter name="mxnewtstepAlg" valueType="DOUBLE" cardinality="1"/>
+      <parameter name="mxnewtstepAlgInit" valueType="DOUBLE" cardinality="1"/>
       <parameter name="mxnewtstepAlgJ" valueType="DOUBLE" cardinality="1"/>
       <parameter name="optimizeAlgebraicResidualsEvaluations" valueType="BOOL" cardinality="1"/>
       <parameter name="optimizeReinitAlgebraicResidualsEvaluations" valueType="BOOL" cardinality="1"/>
       <parameter name="printfl" valueType="INT" cardinality="1"/>
       <parameter name="printflAlg" valueType="INT" cardinality="1"/>
+      <parameter name="printflAlgInit" valueType="INT" cardinality="1"/>
       <parameter name="printflAlgJ" valueType="INT" cardinality="1"/>
       <parameter name="scsteptol" valueType="DOUBLE" cardinality="1"/>
       <parameter name="scsteptolAlg" valueType="DOUBLE" cardinality="1"/>
+      <parameter name="scsteptolAlgInit" valueType="DOUBLE" cardinality="1"/>
       <parameter name="scsteptolAlgJ" valueType="DOUBLE" cardinality="1"/>
       <parameter name="skipNRIfInitialGuessOK" valueType="BOOL" cardinality="1"/>
     </parameters>

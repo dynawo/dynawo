@@ -111,15 +111,18 @@ class DataInterface {
   virtual void exportStateVariables() = 0;
 
   /**
-   * @brief backup connection state
+   * @brief find connected components
+   * @return vector of connected components found
    */
-  virtual void backupConnectionState() = 0;
+  virtual const boost::shared_ptr<std::vector<boost::shared_ptr<ComponentInterface> > > findConnectedComponents() = 0;
 
   /**
    * @brief find lost equipments (equipments which have lost connection)
-   * @param lostEquipments where to add found lostEquipments
+   * @param connectedComponents vector of components previously connected
+   * @return vector of lost equipments found
    */
-  virtual void findLostEquipments(const boost::shared_ptr<lostEquipments::LostEquipmentsCollection>& lostEquipments) = 0;
+  virtual const boost::shared_ptr<lostEquipments::LostEquipmentsCollection>
+    findLostEquipments(const boost::shared_ptr<std::vector<boost::shared_ptr<ComponentInterface> > >& connectedComponents) = 0;
 
   /**
    * @brief import static parameters

@@ -45,16 +45,20 @@ class Exporter {
    *
    * @param timeline Timeline to export
    * @param filePath File to export to
+   * @param exportWithTime whether to export time
    */
-  virtual void exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath) const = 0;
+  virtual void exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath,
+                            const bool exportWithTime) const = 0;
 
   /**
    * @brief Export method for this exporter
    *
    * @param timeline Timeline to export
    * @param stream stream to export to
+   * @param exportWithTime whether to export time
    */
-  virtual void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream) const = 0;
+  virtual void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream,
+                              const bool exportWithTime) const = 0;
 };
 
 }  // namespace timeline

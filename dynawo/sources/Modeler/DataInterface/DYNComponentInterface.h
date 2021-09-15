@@ -112,20 +112,6 @@ class ComponentInterface {
   void getStateVariableReference();
 
   /**
-   * @brief backup a state variable thanks to its name for later reference
-   * @param varName name of the state variable
-   */
-  void backupComponentVar(const std::string& varName);
-
-  /**
-   * @brief check if a variable has changed from a reference value to a different one
-   * @param varName name of the state variable
-   * @param referenceValue reference value to compare with last backup value
-   * @return @b true if the variable value has changed from referenceValue to a different value
-   */
-  bool hasComponentVarChanged(const std::string& varName, const double referenceValue) const;
-
-  /**
    * @brief Set the type of the interface
    *
    * @param type type of the interface
@@ -143,6 +129,12 @@ class ComponentInterface {
    * @return interface's type as string
    */
   const std::string& getTypeAsString() const;
+
+  /**
+   * @brief check the connection state of the component
+   * @return @b true is the component is connected, @b false else
+   */
+  virtual bool isConnected() const;
 
   /**
    * @brief import static parameters

@@ -158,6 +158,11 @@ StaticVarCompensatorInterfaceIIDM::getInitialConnected() {
   return InjectorInterfaceIIDM<IIDM::StaticVarCompensator>::getInitialConnected();
 }
 
+bool
+StaticVarCompensatorInterfaceIIDM::isConnected() const {
+  return InjectorInterfaceIIDM<IIDM::StaticVarCompensator>::isConnected();
+}
+
 double
 StaticVarCompensatorInterfaceIIDM::getVNom() const {
   return InjectorInterfaceIIDM<IIDM::StaticVarCompensator>::getVNom();

@@ -162,6 +162,7 @@ exportCurvesMode_(EXPORT_CURVES_NONE),
 curvesInputFile_(""),
 curvesOutputFile_(""),
 exportTimelineMode_(EXPORT_TIMELINE_NONE),
+exportTimelineWithTime_(true),
 timelineOutputFile_(""),
 exportFinalStateMode_(EXPORT_FINALSTATE_NONE),
 finalStateInputFile_(""),
@@ -343,6 +344,7 @@ Simulation::configureTimelineOutputs() {
       throw DYNError(Error::MODELER, UnknownTimelineExport, exportMode);
     }
     setTimelineExportMode(exportModeFlag);
+    exportTimelineWithTime_ = jobEntry_->getOutputsEntry()->getTimelineEntry()->getExportWithTime();
     setTimelineOutputFile(outputFile);
   } else {
     setTimelineExportMode(Simulation::EXPORT_TIMELINE_NONE);
@@ -436,8 +438,6 @@ Simulation::configureLostEquipmentsOutputs() {
     string lostEquipmentsDir = createAbsolutePath("lostEquipments", outputsDirectory_);
     if (!is_directory(lostEquipmentsDir))
       create_directory(lostEquipmentsDir);
-
-    lostEquipmentsCollection_ = LostEquipmentsCollectionFactory::newInstance();
 
     setLostEquipmentsExportMode(Simulation::EXPORT_LOSTEQUIPMENTS_XML);
     setLostEquipmentsOutputFile(createAbsolutePath("lostEquipments.xml", lostEquipmentsDir));
@@ -813,9 +813,7 @@ Simulation::calculateIC() {
 
 void
 Simulation::simulate() {
-#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::simulate()");
-#endif
   printSolverHeader();
 
   // Printing out the initial solution
@@ -836,11 +834,18 @@ Simulation::simulate() {
       // save initial connection state at t0 for each equipment
       if (isLostEquipmentsExported()) {
         data_->updateFromModel(false);  // force state variables' init
-        data_->backupConnectionState();
+        connectedComponents_ = data_->findConnectedComponents();
       }
     }
     int currentIterNb = 0;
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
+      double elapsed = timer.elapsed();
+      double timeout = jobEntry_->getSimulationEntry()->getTimeout();
+      if (elapsed > timeout) {
+        Trace::warn() << DYNLog(SimulationTimeoutReached, jobEntry_->getName(), timeout) << Trace::endline;
+        endSimulationWithError(false);
+        return;
+      }
       bool isCheckCriteriaIter = data_ && activateCriteria_ && currentIterNb % criteriaStep_ == 0;
 
       solver_->solve(tStop_, tCurrent_);
@@ -1083,7 +1088,6 @@ Simulation::terminate() {
   }
 
   if (data_ && isLostEquipmentsExported()) {
-    data_->findLostEquipments(lostEquipmentsCollection_);
     ofstream fileLostEquipments;
     openFileStream(fileLostEquipments, lostEquipmentsOutputFile_);
     printLostEquipments(fileLostEquipments);
@@ -1132,17 +1136,17 @@ Simulation::printTimeline(std::ostream& stream) const {
       break;
     case EXPORT_TIMELINE_CSV: {
       timeline::CsvExporter csvExporter;
-      csvExporter.exportToStream(timeline_, stream);
+      csvExporter.exportToStream(timeline_, stream, exportTimelineWithTime_);
       break;
     }
     case EXPORT_TIMELINE_XML: {
       timeline::XmlExporter xmlExporter;
-      xmlExporter.exportToStream(timeline_, stream);
+      xmlExporter.exportToStream(timeline_, stream, exportTimelineWithTime_);
       break;
     }
     case EXPORT_TIMELINE_TXT: {
       timeline::TxtExporter txtExporter;
-      txtExporter.exportToStream(timeline_, stream);
+      txtExporter.exportToStream(timeline_, stream, exportTimelineWithTime_);
       break;
     }
   }
@@ -1202,7 +1206,7 @@ Simulation::printLostEquipments(std::ostream& stream) const {
       break;
     case EXPORT_LOSTEQUIPMENTS_XML: {
       lostEquipments::XmlExporter xmlExporter;
-      xmlExporter.exportToStream(lostEquipmentsCollection_, stream);
+      xmlExporter.exportToStream(data_->findLostEquipments(connectedComponents_), stream);
       break;
     }
   }

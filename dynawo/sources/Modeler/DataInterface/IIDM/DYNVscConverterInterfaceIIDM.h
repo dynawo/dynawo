@@ -60,6 +60,11 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
   void exportStateVariablesUnitComponent();
 
   /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  bool isConnected() const;
+
+  /**
    * @copydoc VscConverterInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
    */
   void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);
@@ -108,6 +113,16 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
    * @copydoc VscConverterInterface::getQMax()
    */
   double getQMax();
+
+  /**
+   * @copydoc VscConverterInterface::getQMax()
+   */
+  double getQMin();
+
+  /**
+   * @copydoc VscConverterInterface::getReactiveCurvesPoints()
+   */
+  std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const;
 
   /**
    * @copydoc VscConverterInterface::getID() const

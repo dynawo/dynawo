@@ -153,6 +153,11 @@ GeneratorInterfaceIIDM::getInitialConnected() {
   return InjectorInterfaceIIDM<IIDM::Generator>::getInitialConnected();
 }
 
+bool
+GeneratorInterfaceIIDM::isConnected() const {
+  return InjectorInterfaceIIDM<IIDM::Generator>::isConnected();
+}
+
 double
 GeneratorInterfaceIIDM::getP() {
   return InjectorInterfaceIIDM<IIDM::Generator>::getP();

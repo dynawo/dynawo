@@ -40,7 +40,7 @@ namespace DYN {
 /**
  * @brief HVDC line interface IIDM implementation
  */
- class HvdcLineInterfaceIIDM : public HvdcLineInterface, public boost::noncopyable {
+class HvdcLineInterfaceIIDM : public HvdcLineInterface, public boost::noncopyable {
  public:
   /**
    * @brief defines the index of each state variable
@@ -79,6 +79,11 @@ namespace DYN {
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();
+
+  /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  bool isConnected() const;
 
   /**
    * @copydoc HvdcLineInterface::getID() const

@@ -81,6 +81,12 @@ class InjectorInterfaceIIDM {
   bool getInitialConnected();
 
   /**
+   * @brief Checks the connection state of the injector
+   * @return @b true is the injector is connected, @b false else
+   */
+  bool isConnected() const;
+
+  /**
    * @brief Getter for the nominal voltage of the bus where the injector is connected
    * @return The nominal voltage of the bus where the injector is connected in kV
    */

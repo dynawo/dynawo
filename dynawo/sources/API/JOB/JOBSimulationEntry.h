@@ -61,10 +61,16 @@ class SimulationEntry {
   double getStopTime() const;
 
   /**
-   * @brief  add a criteria file path to the job
+   * @brief add a criteria file path to the job
    * @param criteriaFile criteria file path to add
    */
   void addCriteriaFile(const std::string& criteriaFile);
+
+  /**
+   * @brief set a unique criteria file path for the job (other are removed)
+   * @param criteriaFile criteria file path to set
+   */
+  void setCriteriaFile(const std::string& criteriaFile);
 
   /**
    * @brief list of criteria files
@@ -73,7 +79,7 @@ class SimulationEntry {
   const std::vector<std::string>& getCriteriaFiles() const;
 
   /**
-   * @brief  criteria step setter
+   * @brief criteria step setter
    * @param criteriaStep : number of iterations between 2 criteria check
    */
   void setCriteriaStep(int criteriaStep);
@@ -96,12 +102,29 @@ class SimulationEntry {
    */
   double getPrecision() const;
 
+  /**
+   * @brief Retrieves the simulation timeout, or the default value if not set
+   * @returns the simulation timeout
+   */
+  double getTimeout() const {
+    return timeout_;
+  }
+
+  /**
+   * @brief timeout setter
+   * @param timeout the timeout of the simulation
+   */
+  void setTimeout(double timeout) {
+    timeout_ = timeout;
+  }
+
  private:
   double startTime_;                        ///< Start time of the simulation
   double stopTime_;                         ///< Stop time of the simulation
   std::vector<std::string> criteriaFiles_;  ///< List of criteria files path
   int criteriaStep_;                        ///< criteria verification time step
   double precision_;                        ///< precision of the simulation
+  double timeout_;                          ///< simulation timeout
 };
 
 }  // namespace job

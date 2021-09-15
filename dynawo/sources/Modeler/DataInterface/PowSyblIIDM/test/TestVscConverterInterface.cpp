@@ -162,5 +162,22 @@ TEST(DataInterfaceTest, VscConverter) {
      .endPoint()
      .add();
   ASSERT_DOUBLE_EQ(Ifce.getQMax(), 15.0);
+
+  ASSERT_TRUE(Ifce.isConnected());
+  vsc.getTerminal().disconnect();
+  ASSERT_FALSE(Ifce.isConnected());
+  ASSERT_TRUE(Ifce.getInitialConnected());
+  ASSERT_DOUBLE_EQ(Ifce.getQMin(), 10.0);
+  const auto& points = Ifce.getReactiveCurvesPoints();
+  ASSERT_EQ(points.size(), 3);
+  ASSERT_EQ(points.at(0).p, -2000);
+  ASSERT_EQ(points.at(0).qmax, 10);
+  ASSERT_EQ(points.at(0).qmin, 10);
+  ASSERT_EQ(points.at(1).p, 0.);
+  ASSERT_EQ(points.at(1).qmax, 20);
+  ASSERT_EQ(points.at(1).qmin, 10);
+  ASSERT_EQ(points.at(2).p, 2000);
+  ASSERT_EQ(points.at(2).qmax, 10);
+  ASSERT_EQ(points.at(2).qmin, 10);
 }  // TEST(DataInterfaceTest, VscConverter)
 };  // namespace DYN

@@ -102,6 +102,7 @@
     <xs:attribute name="stopTime" use="required" type="xs:float"/>
     <xs:attribute name="criteriaStep" type="xs:int"/>
     <xs:attribute name="precision" type="xs:float"/>
+    <xs:attribute name="timeout" type="xs:float"/>
   </xs:complexType>
 
   <xs:complexType name="OutputsEntry">
@@ -136,6 +137,7 @@
 
   <xs:complexType name="TimelineEntry">
     <xs:attribute name="exportMode" use="required" type="dyn:TimelineExportMode"/>
+    <xs:attribute name="exportTime" use="optional" type="xs:boolean"/>
   </xs:complexType>
 
   <xs:complexType name="TimetableEntry">

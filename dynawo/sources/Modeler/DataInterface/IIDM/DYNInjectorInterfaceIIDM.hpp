@@ -74,17 +74,23 @@ InjectorInterfaceIIDM<T>::getVoltageLevelInterface() const {
 template<class T>
 bool
 InjectorInterfaceIIDM<T>::getInitialConnected() {
-  if (initialConnected_ == boost::none) {
-    initialConnected_ = false;
-    if (injectorIIDM_.has_connection()) {
-      if (injectorIIDM_.connectionPoint()->is_bus()) {
-        initialConnected_ = injectorIIDM_.isConnected();
-      } else {
-        initialConnected_ = getVoltageLevelInterface()->isNodeConnected(injectorIIDM_.node());
-      }
+  if (initialConnected_ == boost::none)
+    initialConnected_ = isConnected();
+  return initialConnected_.value();
+}
+
+template<class T>
+bool
+InjectorInterfaceIIDM<T>::isConnected() const {
+  bool connected = false;
+  if (injectorIIDM_.has_connection()) {
+    if (injectorIIDM_.connectionPoint()->is_bus()) {
+      connected = injectorIIDM_.isConnected();
+    } else {
+      connected = getVoltageLevelInterface()->isNodeConnected(injectorIIDM_.node());
     }
   }
-  return initialConnected_.value();
+  return connected;
 }
 
 template<class T>

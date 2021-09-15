@@ -106,6 +106,11 @@ ShuntCompensatorInterfaceIIDM::getInitialConnected() {
   return InjectorInterfaceIIDM<IIDM::ShuntCompensator>::getInitialConnected();
 }
 
+bool
+ShuntCompensatorInterfaceIIDM::isConnected() const {
+  return InjectorInterfaceIIDM<IIDM::ShuntCompensator>::isConnected();
+}
+
 double
 ShuntCompensatorInterfaceIIDM::getVNom() const {
   return InjectorInterfaceIIDM<IIDM::ShuntCompensator>::getVNom();

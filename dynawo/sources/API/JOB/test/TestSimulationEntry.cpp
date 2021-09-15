@@ -30,23 +30,35 @@ TEST(APIJOBTest, testSimulationEntry) {
   ASSERT_TRUE(simulation->getCriteriaFiles().empty());
   ASSERT_EQ(simulation->getCriteriaStep(), 10);
   ASSERT_EQ(simulation->getPrecision(), 1e-6);
+  ASSERT_EQ(simulation->getTimeout(), std::numeric_limits<double>::max());
 
   simulation->setStartTime(10);
   simulation->setStopTime(100);
-  simulation->addCriteriaFile("MyFile");
+  simulation->addCriteriaFile("MyFile1");
   simulation->addCriteriaFile("MyFile2");
   simulation->setCriteriaStep(15);
   simulation->setPrecision(1e-8);
+  simulation->setTimeout(10.);
 
   ASSERT_EQ(simulation->getStartTime(), 10);
   ASSERT_EQ(simulation->getStopTime(), 100);
   ASSERT_EQ(simulation->getCriteriaFiles().size(), 2);
   ASSERT_TRUE(std::find(simulation->getCriteriaFiles().begin(),
-      simulation->getCriteriaFiles().end(), "MyFile") != simulation->getCriteriaFiles().end());
+      simulation->getCriteriaFiles().end(), "MyFile1") != simulation->getCriteriaFiles().end());
   ASSERT_TRUE(std::find(simulation->getCriteriaFiles().begin(),
       simulation->getCriteriaFiles().end(), "MyFile2") != simulation->getCriteriaFiles().end());
   ASSERT_EQ(simulation->getCriteriaStep(), 15);
   ASSERT_EQ(simulation->getPrecision(), 1e-8);
+  ASSERT_EQ(simulation->getTimeout(), 10.);
+
+  simulation->setCriteriaFile("MyFile");
+  ASSERT_EQ(simulation->getCriteriaFiles().size(), 1);
+  ASSERT_TRUE(std::find(simulation->getCriteriaFiles().begin(),
+      simulation->getCriteriaFiles().end(), "MyFile") != simulation->getCriteriaFiles().end());
+  ASSERT_TRUE(std::find(simulation->getCriteriaFiles().begin(),
+      simulation->getCriteriaFiles().end(), "MyFile1") == simulation->getCriteriaFiles().end());
+  ASSERT_TRUE(std::find(simulation->getCriteriaFiles().begin(),
+      simulation->getCriteriaFiles().end(), "MyFile2") == simulation->getCriteriaFiles().end());
 }
 
 }  // namespace job

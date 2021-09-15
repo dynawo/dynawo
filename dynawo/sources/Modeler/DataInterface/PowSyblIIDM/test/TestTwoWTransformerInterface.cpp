@@ -154,13 +154,16 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
 
   ASSERT_TRUE(tfoInterface.getInitialConnected1());
   ASSERT_EQ(tfoInterface.getVNom1(), 380.0);
+  ASSERT_TRUE(tfoInterface.isConnected());
   transformer.getTerminal1().disconnect();
+  ASSERT_FALSE(tfoInterface.isConnected());
   ASSERT_TRUE(tfoInterface.getInitialConnected1());
   ASSERT_EQ(tfoInterface.getVNom1(), 380.0);
 
   ASSERT_TRUE(tfoInterface.getInitialConnected2());
   ASSERT_EQ(tfoInterface.getVNom2(), 225.0);
   transformer.getTerminal2().disconnect();
+  ASSERT_FALSE(tfoInterface.isConnected());
   ASSERT_TRUE(tfoInterface.getInitialConnected2());
   ASSERT_EQ(tfoInterface.getVNom2(), 225.0);
 
@@ -333,11 +336,14 @@ TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections) {
   tfoInterface.setVoltageLevelInterface2(vl2Itf);
 
   ASSERT_FALSE(tfoInterface.getInitialConnected1());
+  ASSERT_FALSE(tfoInterface.isConnected());
   transformer.getTerminal1().connect();
+  ASSERT_FALSE(tfoInterface.isConnected());
   ASSERT_FALSE(tfoInterface.getInitialConnected1());
 
   ASSERT_FALSE(tfoInterface.getInitialConnected2());
   transformer.getTerminal2().connect();
+  ASSERT_TRUE(tfoInterface.isConnected());
   ASSERT_FALSE(tfoInterface.getInitialConnected2());
 
   ASSERT_EQ(tfoInterface.getP1(), 0.0);

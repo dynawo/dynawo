@@ -234,6 +234,9 @@ SimulationHandler::create(attributes_type const& attributes) {
     simulation_->setCriteriaStep(attributes["criteriaStep"]);
   if (attributes.has("precision"))
     simulation_->setPrecision(attributes["precision"]);
+  if (attributes.has("timeout")) {
+    simulation_->setTimeout(attributes["timeout"]);
+  }
 }
 
 shared_ptr<SimulationEntry>
@@ -366,6 +369,8 @@ void
 TimelineHandler::create(attributes_type const& attributes) {
   timeline_ = shared_ptr<TimelineEntry>(new TimelineEntry());
   timeline_->setExportMode(attributes["exportMode"]);
+  if (attributes.has("exportTime"))
+    timeline_->setExportWithTime(attributes["exportTime"]);
 }
 
 shared_ptr<TimelineEntry>
