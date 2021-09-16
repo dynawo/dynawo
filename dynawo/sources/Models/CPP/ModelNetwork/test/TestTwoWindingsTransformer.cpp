@@ -408,7 +408,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerInitialization) {
   ASSERT_EQ(t2w->id(), "MyTwoWindingsTransformer");
   ASSERT_EQ(t2w->getConnectionState(), CLOSED);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getCurrentLimitsDesactivate(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getDisableInternalTapChanger(), 0.);;
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getDisableInternalTapChanger(), 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getTapChangerLocked(), 0.);
   ASSERT_EQ(t2w->getTapChangerIndex(), 0);
   ASSERT_EQ(t2w->getTerminalRefId(), "MyTwoWindingsTransformer");
@@ -418,7 +418,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerInitialization) {
   ASSERT_EQ(t2wNoLTCCapabilities->id(), "MyTwoWindingsTransformer");
   ASSERT_EQ(t2wNoLTCCapabilities->getConnectionState(), CLOSED);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2wNoLTCCapabilities->getCurrentLimitsDesactivate(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2wNoLTCCapabilities->getDisableInternalTapChanger(), 0.);;
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2wNoLTCCapabilities->getDisableInternalTapChanger(), 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2wNoLTCCapabilities->getTapChangerLocked(), 0.);
   ASSERT_EQ(t2wNoLTCCapabilities->getTapChangerIndex(), 0);
   ASSERT_EQ(t2wNoLTCCapabilities->getTerminalRefId(), "");
@@ -428,7 +428,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerInitialization) {
   ASSERT_EQ(t2wPhase->id(), "MyTwoWindingsTransformer");
   ASSERT_EQ(t2wPhase->getConnectionState(), OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2wPhase->getCurrentLimitsDesactivate(), 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2wPhase->getDisableInternalTapChanger(), 0.);;
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2wPhase->getDisableInternalTapChanger(), 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2wPhase->getTapChangerLocked(), 0.);
   ASSERT_EQ(t2wPhase->getTapChangerIndex(), 0);
   ASSERT_EQ(t2wPhase->getTerminalRefId(), "");
@@ -945,7 +945,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
   ASSERT_EQ(t2w->evalZ(10.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(t2w->evalState(10.), NetworkComponent::STATE_CHANGE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getCurrentLimitsDesactivate(), 2.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getDisableInternalTapChanger(), 4.);;
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getDisableInternalTapChanger(), 4.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getTapChangerLocked(), 6.);
 
   std::map<int, std::string> gEquationIndex;
@@ -1025,7 +1025,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerOpenedDiscreteVariabl
   ASSERT_EQ(t2w->evalZ(10.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(t2w->evalState(10.), NetworkComponent::STATE_CHANGE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getCurrentLimitsDesactivate(), 2.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getDisableInternalTapChanger(), 4.);;
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getDisableInternalTapChanger(), 4.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->getTapChangerLocked(), 6.);
 
   std::map<int, std::string> gEquationIndex;
