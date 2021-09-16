@@ -229,7 +229,7 @@ createNetwork(const NetworkProperty& properties) {
           .setLowTapPosition(0)
           .setRegulationTerminal(stdcxx::ref<powsybl::iidm::Terminal>(transformer.getTerminal1()))
           .setRegulating(true)
-          .setLoadTapChangingCapabilities(10.)
+          .setLoadTapChangingCapabilities(true)
           .setTargetV(2.)
           .setTargetDeadband(1.)
           .beginStep()
