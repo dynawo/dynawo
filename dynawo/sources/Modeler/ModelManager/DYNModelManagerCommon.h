@@ -45,7 +45,14 @@
 #include "DYNMessageTimeline.h"
 #include "DYNTimeline_keys.h"
 #include "DYNModelManagerOwnTypes.h"  ///< redefinition of local own types : should be before simulation_data.h
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wextra-semi-stmt"
+#endif  // __clang__
 #include "simulation_data.h"
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 #include "ModelicaStandardTables.h"
 #include "ModelicaStrings.h"
 #include "DYNModelManagerOwnFunctions.h"  ///< redefinition of local own functions
