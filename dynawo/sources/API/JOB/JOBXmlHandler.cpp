@@ -369,6 +369,8 @@ void
 TimelineHandler::create(attributes_type const& attributes) {
   timeline_ = shared_ptr<TimelineEntry>(new TimelineEntry());
   timeline_->setExportMode(attributes["exportMode"]);
+  if (attributes.has("exportTime"))
+    timeline_->setExportWithTime(attributes["exportTime"]);
 }
 
 shared_ptr<TimelineEntry>

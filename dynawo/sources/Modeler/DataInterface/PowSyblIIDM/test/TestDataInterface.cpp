@@ -1224,7 +1224,7 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
 
   powsybl::iidm::ShuntCompensator& shuntIIDM = network.getShuntCompensator("MyCapacitorShuntCompensator");
   ASSERT_DOUBLE_EQUALS_DYNAWO(shuntIIDM.getTerminal().getQ(), -90000.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(shuntIIDM.getSectionCount(), 2UL);
+  ASSERT_EQ(shuntIIDM.getSectionCount(), 2UL);
   ASSERT_TRUE(shuntIIDM.getTerminal().isConnected());
   boost::shared_ptr<ShuntCompensatorInterfaceIIDM> shunt =
       boost::dynamic_pointer_cast<ShuntCompensatorInterfaceIIDM>(data->findComponent("MyCapacitorShuntCompensator"));
@@ -1233,7 +1233,7 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
   shunt->setValue(ShuntCompensatorInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
   ASSERT_DOUBLE_EQUALS_DYNAWO(shuntIIDM.getTerminal().getQ(), 400.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(shuntIIDM.getSectionCount(), 1);
+  ASSERT_EQ(shuntIIDM.getSectionCount(), 1);
   ASSERT_FALSE(shuntIIDM.getTerminal().isConnected());
   shunt->setValue(ShuntCompensatorInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
@@ -1373,7 +1373,7 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), -157.98045729283614);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), -0.11838723553420131);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), -0.84962943718131304);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getPhaseTapChanger().getTapPosition(), 2);
+  ASSERT_EQ(twoWTIIDM.getPhaseTapChanger().getTapPosition(), 2);
   ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
   boost::shared_ptr<TwoWTransformerInterfaceIIDM> twoWT =
@@ -1389,7 +1389,7 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), 400.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), 600.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), 800.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getPhaseTapChanger().getTapPosition(), 1);
+  ASSERT_EQ(twoWTIIDM.getPhaseTapChanger().getTapPosition(), 1);
   ASSERT_FALSE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_FALSE(twoWTIIDM.getTerminal2().isConnected());
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED);
@@ -1451,7 +1451,7 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), -155.91740692665068);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), -0.10255087406258725);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), -0.86036345858491441);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getRatioTapChanger().getTapPosition(), 1);
+  ASSERT_EQ(twoWTIIDM.getRatioTapChanger().getTapPosition(), 1);
   ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
   boost::shared_ptr<TwoWTransformerInterfaceIIDM> twoWT =
@@ -1467,7 +1467,7 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), 400.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), 600.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), 800.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getRatioTapChanger().getTapPosition(), 0);
+  ASSERT_EQ(twoWTIIDM.getRatioTapChanger().getTapPosition(), 0);
   ASSERT_FALSE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_FALSE(twoWTIIDM.getTerminal2().isConnected());
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED);

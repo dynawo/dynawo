@@ -117,7 +117,11 @@ getLibraryPathFromName(const std::string& libName) {
 
   // system directories
   testPath = getMandatoryEnvVar("DYNAWO_INSTALL_DIR");
+#ifdef _WIN32
+  testPath.append("bin");
+#else
   testPath.append("lib");
+#endif
   testPath.append(libName);
   if (boost::filesystem::exists(testPath)) {
     return boost::make_optional(testPath);
