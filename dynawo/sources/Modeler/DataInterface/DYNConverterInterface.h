@@ -129,19 +129,14 @@ class ConverterInterface : public ComponentInterface {
       case ComponentInterface::SVC:
       case ComponentInterface::HVDC_LINE:
       case ComponentInterface::UNKNOWN:
-      case ComponentInterface::VSC_CONVERTER: {
+      case ComponentInterface::VSC_CONVERTER:
         return VSC_CONVERTER;
-        break;
-      }
-      case ComponentInterface::LCC_CONVERTER: {
+      case ComponentInterface::LCC_CONVERTER:
         return LCC_CONVERTER;
-        break;
-      }
       case ComponentInterface::COMPONENT_TYPE_COUNT:
         throw DYNError(Error::MODELER, ConverterWrongType, getID());
-      default:
-        throw DYNError(Error::MODELER, ConverterWrongType, getID());
     }
+    throw DYNError(Error::MODELER, ConverterWrongType, getID());
   }
 };  ///< common interface class for converters
 

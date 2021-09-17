@@ -184,28 +184,25 @@ Solver::Impl::printParameterValues() const {
       case VAR_TYPE_BOOL: {
         const bool value = parameter.getValue<bool>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
-        break;
+        continue;
       }
       case VAR_TYPE_INT: {
         const int value = parameter.getValue<int>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
-        break;
+        continue;
       }
       case VAR_TYPE_DOUBLE: {
         const double& value = parameter.getValue<double>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
-        break;
+        continue;
       }
       case VAR_TYPE_STRING: {
         const string& value = parameter.getValue<string>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
-        break;
-      }
-      default:
-      {
-        throw DYNError(Error::MODELER, ParameterNoTypeDetected, it->first);
+        continue;
       }
     }
+    throw DYNError(Error::MODELER, ParameterNoTypeDetected, it->first);
   }
 }
 
@@ -394,28 +391,25 @@ Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr
         case VAR_TYPE_BOOL: {
           const bool value = parametersSet->getParameter(parName)->getBool();
           setParameterValue(parameter, value);
-          break;
+          return;
         }
         case VAR_TYPE_INT: {
           const int value = parametersSet->getParameter(parName)->getInt();
           setParameterValue(parameter, value);
-          break;
+          return;
         }
         case VAR_TYPE_DOUBLE: {
           const double& value = parametersSet->getParameter(parName)->getDouble();
           setParameterValue(parameter, value);
-          break;
+          return;
         }
         case VAR_TYPE_STRING: {
           const string& value = parametersSet->getParameter(parName)->getString();
           setParameterValue(parameter, value);
-          break;
-        }
-        default:
-        {
-          throw DYNError(Error::GENERAL, ParameterNoTypeDetected, parName);
+          return;
         }
       }
+      throw DYNError(Error::GENERAL, ParameterNoTypeDetected, parName);
     } else if (parameter.isMandatory()) {
       throw DYNError(Error::GENERAL, SolverMissingParam, parameter.getName(), parametersSet->getId(), parametersSet->getFilePath());
     }

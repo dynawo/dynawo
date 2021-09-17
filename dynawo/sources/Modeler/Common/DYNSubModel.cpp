@@ -340,35 +340,30 @@ SubModel::getVariableValue(const shared_ptr<Variable>& variable) const {
   const bool negated = variable->getNegated();
   const bool isState = variable->isState();
 
-  double value;
+  double value = std::numeric_limits<double>::quiet_NaN();
   if (!isState) {
     value = calculatedVars_[varNum];
   } else {
     switch (typeVar) {
       case CONTINUOUS:
-      case FLOW: {
+      case FLOW:
         value = yLocal_[varNum];
         break;
-      }
       case DISCRETE:
-      case INTEGER: {  // Z vector contains DISCRETE variables and then INTEGER variables
+      case INTEGER:  // Z vector contains DISCRETE variables and then INTEGER variables
         value = zLocal_[varNum];
         break;
-      }
-      case BOOLEAN: {
+      case BOOLEAN:
         if (toNativeBool(zLocal_[varNum]))
           value = 1;
         else
           value = 0;
         break;
-      }
-      case UNDEFINED_TYPE: {
+      case UNDEFINED_TYPE:
         throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
-      }
-      default: {
-        throw DYNError(Error::MODELER, SubModelUnknownVariable, name(), modelType(), variable->getName());
-      }
     }
+    if (std::isnan(value))
+      throw DYNError(Error::MODELER, SubModelUnknownVariable, name(), modelType(), variable->getName());
   }
 
   if (negated)
@@ -499,28 +494,25 @@ SubModel::setParameterFromSet(ParameterModeler& parameter, const shared_ptr<para
         case VAR_TYPE_BOOL: {
           const bool value = parametersSet->getParameter(parName)->getBool();
           parameter.setValue<bool>(value, origin);
-          break;
+          return;
         }
         case VAR_TYPE_INT: {
           const int value = parametersSet->getParameter(parName)->getInt();
           parameter.setValue<int>(value, origin);
-          break;
+          return;
         }
         case VAR_TYPE_DOUBLE: {
           const double& value = parametersSet->getParameter(parName)->getDouble();
           parameter.setValue<double>(value, origin);
-          break;
+          return;
         }
         case VAR_TYPE_STRING: {
           const string& value = parametersSet->getParameter(parName)->getString();
           parameter.setValue<string>(value, origin);
-          break;
-        }
-        default:
-        {
-          throw DYNError(Error::MODELER, ParameterNoTypeDetected, parName);
+          return;
         }
       }
+      throw DYNError(Error::MODELER, ParameterNoTypeDetected, parName);
     }
   }
 }
@@ -1051,28 +1043,25 @@ SubModel::printLocalInitParametersValues() const {
       case VAR_TYPE_BOOL: {
         const bool value = parameter.getValue<bool>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
-        break;
+        continue;
       }
       case VAR_TYPE_INT: {
         const int value = parameter.getValue<int>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
-        break;
+        continue;
       }
       case VAR_TYPE_DOUBLE: {
         const double& value = parameter.getValue<double>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
-        break;
+        continue;
       }
       case VAR_TYPE_STRING: {
         const string& value = parameter.getValue<string>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
-        break;
-      }
-      default:
-      {
-        throw DYNError(Error::MODELER, ParameterNoTypeDetected, *it);
+        continue;
       }
     }
+    throw DYNError(Error::MODELER, ParameterNoTypeDetected, *it);
   }
 
   for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
@@ -1111,28 +1100,25 @@ SubModel::printParameterValues() const {
       case VAR_TYPE_BOOL: {
         const bool value = parameter.getValue<bool>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
-        break;
+        continue;
       }
       case VAR_TYPE_INT: {
         const int value = parameter.getValue<int>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
-        break;
+        continue;
       }
       case VAR_TYPE_DOUBLE: {
         const double& value = parameter.getValue<double>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
-        break;
+        continue;
       }
       case VAR_TYPE_STRING: {
         const string& value = parameter.getValue<string>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
-        break;
-      }
-      default:
-      {
-        throw DYNError(Error::MODELER, ParameterNoTypeDetected, *it);
+        continue;
       }
     }
+    throw DYNError(Error::MODELER, ParameterNoTypeDetected, *it);
   }
 
   for (set<string>::const_iterator it = sortedInitParams.begin(), itEnd = sortedInitParams.end(); it != itEnd; ++it) {
@@ -1163,28 +1149,25 @@ SubModel::printParameterValues() const {
       case VAR_TYPE_BOOL: {
         const bool value = parameter.getValue<bool>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
-        break;
+        continue;
       }
       case VAR_TYPE_INT: {
         const int value = parameter.getValue<int>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
-        break;
+        continue;
       }
       case VAR_TYPE_DOUBLE: {
         const double& value = parameter.getValue<double>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
-        break;
+        continue;
       }
       case VAR_TYPE_STRING: {
         const string& value = parameter.getValue<string>();
         Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, *it, origin2Str(parameter.getOrigin()), value) << Trace::endline;
-        break;
-      }
-      default:
-      {
-        throw DYNError(Error::MODELER, ParameterNoTypeDetected, *it);
+        continue;
       }
     }
+    throw DYNError(Error::MODELER, ParameterNoTypeDetected, *it);
   }
 
   for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {

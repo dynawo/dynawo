@@ -37,16 +37,12 @@ T ComponentInterface::getStaticParameterValue(const std::string& name) const {
       switch (type) {
         case StaticParameter::INT:
           return static_cast<T>(iter->second.getValue<int>());
-          break;
         case StaticParameter::DOUBLE:
           return static_cast<T>(iter->second.getValue<double>());
-          break;
         case StaticParameter::BOOL:
           return static_cast<T>(iter->second.getValue<bool>());
-          break;
-        default:
-          throw DYNError(Error::MODELER, StaticParameterWrongType, name);
       }
+      throw DYNError(Error::MODELER, StaticParameterWrongType, name);
     }
   } else {
     throw DYNError(Error::MODELER, UnknownStaticParameter, name, getID());

@@ -370,9 +370,8 @@ Trace::stringFromSeverityLevel(SeverityLevel level) {
       return "WARN";
     case ERROR:
       return "ERROR";
-    default:
-      throw DYNError(Error::GENERAL, InvalidSeverityLevel, static_cast<int> (level));
   }
+  throw DYNError(Error::GENERAL, InvalidSeverityLevel, static_cast<int> (level));
 }
 
 }  // namespace DYN

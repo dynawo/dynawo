@@ -276,9 +276,8 @@ StaticVarCompensatorInterface::RegulationMode_t StaticVarCompensatorInterfaceIID
       return StaticVarCompensatorInterface::RUNNING_Q;
     case powsybl::iidm::StaticVarCompensator::RegulationMode::OFF:
       return StaticVarCompensatorInterface::OFF;
-    default:
-      return StaticVarCompensatorInterface::OFF;
   }
+  return StaticVarCompensatorInterface::OFF;
 }
 
 }  // namespace DYN

@@ -45,7 +45,7 @@ using DYN::SimulationContext;
 // If logging is disabled, Trace::info has no effect so we also print on standard output to have basic information
 template<class T>
 static void print(const T& output, DYN::SeverityLevel level = DYN::INFO) {
-  DYN::TraceStream ss;
+  DYN::TraceStream ss;  // level is INFO by default
   switch (level) {
     case DYN::DEBUG:
       ss = Trace::debug();
@@ -59,9 +59,6 @@ static void print(const T& output, DYN::SeverityLevel level = DYN::INFO) {
     case DYN::ERROR:
       ss = Trace::error();
       break;
-    default:
-      // impossible case by definition of the enum
-      return;
   }
   ss << output << Trace::endline;
   if (!Trace::isLoggingEnabled()) {

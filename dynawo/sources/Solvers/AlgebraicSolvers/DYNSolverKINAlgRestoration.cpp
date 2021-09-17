@@ -46,9 +46,8 @@ SolverKINAlgRestoration::stringFromMode(modeKin_t mode) {
       return "algebraic";
     case KIN_DERIVATIVES:
       return "derivatives";
-    default:
-      throw DYNError(Error::GENERAL, InvalidAlgebraicMode, static_cast<int>(mode));
   }
+  throw DYNError(Error::GENERAL, InvalidAlgebraicMode, static_cast<int>(mode));
 }
 
 SolverKINAlgRestoration::SolverKINAlgRestoration() :

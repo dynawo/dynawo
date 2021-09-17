@@ -156,12 +156,25 @@ inline std::string key2Str(const int key) {
  *
  * @param F function/method to launch
  */
+#ifdef __clang__
+#define EXPECT_ASSERT_DYNAWO_BEGIN_                                  \
+  _Pragma("clang diagnostic push")                                   \
+  _Pragma("clang diagnostic ignored \"-Wcovered-switch-default\"")
+#define EXPECT_ASSERT_DYNAWO_END_                                    \
+  _Pragma("clang diagnostic pop")
+#else
+#define EXPECT_ASSERT_DYNAWO_BEGIN_
+#define EXPECT_ASSERT_DYNAWO_END_
+#endif
+
 #define EXPECT_ASSERT_DYNAWO(F)                                      \
+  EXPECT_ASSERT_DYNAWO_BEGIN_                                        \
   GTEST_AMBIGUOUS_ELSE_BLOCKER_                                      \
   if (::testing::FLAGS_gtest_death_test_style = "threadsafe", false) \
     ;                                                                \
   else  /* NOLINT */                                                 \
-    EXPECT_EXIT(F, ::testing::KilledBySignal(SIGABRT), ".*")
+    EXPECT_EXIT(F, ::testing::KilledBySignal(SIGABRT), ".*")         \
+  EXPECT_ASSERT_DYNAWO_END_
 
 /**
  * @brief macro to test if two double are equals

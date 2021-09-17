@@ -46,13 +46,12 @@ BusDerivatives::addDerivative(typeDerivative_t type, const int& numVar, const do
   switch (type) {
     case IR_DERIVATIVE:
       irDerivatives_.addValue(numVar, value);
-      break;
+      return;
     case II_DERIVATIVE:
       iiDerivatives_.addValue(numVar, value);
-      break;
-    default:
-      throw DYNError(Error::MODELER, InvalidDerivativeType, type);
+      return;
   }
+  throw DYNError(Error::MODELER, InvalidDerivativeType, type);
 }
 
 const std::map<int, double>&

@@ -288,9 +288,8 @@ StaticVarCompensatorInterface::RegulationMode_t StaticVarCompensatorInterfaceIID
       return StaticVarCompensatorInterface::RUNNING_Q;
     case IIDM::StaticVarCompensator::regulation_off:
       return StaticVarCompensatorInterface::OFF;
-    default:
-      return StaticVarCompensatorInterface::OFF;
   }
+  return StaticVarCompensatorInterface::OFF;
 }
 
 }  // namespace DYN

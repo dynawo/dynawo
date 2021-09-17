@@ -124,27 +124,20 @@ ModelManager::createParametersValueSet(const boost::unordered_map<string, Parame
 
     if (parameter.hasValue()) {
       switch (parameter.getValueType()) {
-        case VAR_TYPE_DOUBLE: {
+        case VAR_TYPE_DOUBLE:
           parametersSet->createParameter(parameterName, parameter.getValue<double>());
-          break;
-        }
-        case VAR_TYPE_INT: {
+          continue;
+        case VAR_TYPE_INT:
           parametersSet->createParameter(parameterName, parameter.getValue<int>());
-          break;
-        }
-        case VAR_TYPE_BOOL: {
+          continue;
+        case VAR_TYPE_BOOL:
           parametersSet->createParameter(parameterName, parameter.getValue<bool>());
-          break;
-        }
-        case VAR_TYPE_STRING: {
+          continue;
+        case VAR_TYPE_STRING:
           parametersSet->createParameter(parameterName, parameter.getValue<string>());
-          break;
-        }
-        default:
-        {
-          throw DYNError(Error::MODELER, ParameterBadType, name());
-        }
+          continue;
       }
+      throw DYNError(Error::MODELER, ParameterBadType, name());
     }
   }
 }

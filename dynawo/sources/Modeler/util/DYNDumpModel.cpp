@@ -62,28 +62,28 @@ fillParameterDescription(const DYN::ParameterModeler& parameter, const std::stri
   attributes.add("readOnly", parameter.isFullyInternal());
 
   if ((parameter.isUnitary()) && (parameter.hasValue())) {
+    bool badType = true;
     switch (parameter.getValueType()) {
-      case DYN::VAR_TYPE_DOUBLE: {
+      case DYN::VAR_TYPE_DOUBLE:
         attributes.add("defaultValue", parameter.getValue<double>());
+        badType = false;
         break;
-      }
-      case DYN::VAR_TYPE_INT: {
+      case DYN::VAR_TYPE_INT:
         attributes.add("defaultValue", parameter.getValue<int>());
+        badType = false;
         break;
-      }
-      case DYN::VAR_TYPE_BOOL: {
+      case DYN::VAR_TYPE_BOOL:
         attributes.add("defaultValue", parameter.getValue<bool>());
+        badType = false;
         break;
-      }
-      case DYN::VAR_TYPE_STRING: {
+      case DYN::VAR_TYPE_STRING:
         attributes.add("defaultValue", parameter.getValue<std::string>());
+        badType = false;
         break;
-      }
-      default:
-      {
-        cout << "bad parameter for model " << modelName << " : " << parameter.getName() << " has a bad type" << endl;
-        return 1;
-      }
+    }
+    if (badType) {
+      cout << "bad parameter for model " << modelName << " : " << parameter.getName() << " has a bad type" << endl;
+      return 1;
     }
   }
 

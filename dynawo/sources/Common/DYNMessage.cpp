@@ -48,8 +48,6 @@ Message::Message(const dictionaryKey& dicoKey, const std::string& key) {
     case LOG_KEY:
       dicoName = "LOG";
       break;
-    default:
-      break;
   }
   initialize(dicoName, key);
 }

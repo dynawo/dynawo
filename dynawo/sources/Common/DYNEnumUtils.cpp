@@ -37,9 +37,8 @@ modeChangeType2Str(const modeChangeType_t& modeChangeType) {
       return "Algebraic mode change";
     case ALGEBRAIC_J_UPDATE_MODE:
       return "Algebraic mode (with J recalculation) change";
-    default:
-      assert(0 && "Mode change type should be one of the enum values");
   }
+  assert(0 && "Mode change type should be one of the enum values");
   return "";
 }
 
@@ -56,9 +55,8 @@ propertyVar2Str(const propertyContinuousVar_t& property) {
       return "OPTIONAL_EXTERNAL";
     case UNDEFINED_PROPERTY:
       return "UNDEFINED";
-    default:
-      assert(0 && "Property should be one of the enum values");
   }
+  assert(0 && "Property should be one of the enum values");
   return "";
 }
 
@@ -77,14 +75,15 @@ typeVar2Str(const typeVar_t& type) {
       return "BOOLEAN";
     case UNDEFINED_TYPE:
       return "UNDEFINED";
-    default:
-      assert(0 && "TypeVar should be one of the enum values");
   }
+  assert(0 && "TypeVar should be one of the enum values");
   return "";
 }
 
 typeVarC_t toCTypeVar(const typeVar_t& type) {
   switch (type) {
+    case UNDEFINED_TYPE:
+      assert(0 && "TypeVar undefined");
     case DISCRETE:
     case CONTINUOUS:
     case FLOW:
@@ -93,11 +92,8 @@ typeVarC_t toCTypeVar(const typeVar_t& type) {
       return VAR_TYPE_INT;
     case BOOLEAN:
       return VAR_TYPE_BOOL;
-    case UNDEFINED_TYPE:
-      assert(0 && "TypeVar undefined");
-    default:
-      assert(0 && "TypeVar should be one of the enum values");
   }
+  assert(0 && "TypeVar should be one of the enum values");
   return VAR_TYPE_DOUBLE;
 }
 
@@ -109,9 +105,8 @@ string paramScope2Str(const parameterScope_t& scope) {
       return "shared parameter";
     case INTERNAL_PARAMETER:
       return "internal parameter";
-    default:
-      assert(0 && "Parameter scope should be one of the enum values");
   }
+  assert(0 && "Parameter scope should be one of the enum values");
   return "";
 }
 

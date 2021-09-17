@@ -34,6 +34,22 @@ typedef enum {
 } CurrentLimitSide;
 
 /**
+ * @brief check if a current limit side is valid
+ * @param side current limit side to check
+ * @return whether current limit side is valid
+ */
+static inline bool isCurrentLimitSideValid(CurrentLimitSide side) {
+  switch (side) {
+    case CURRENT_LIMIT_SIDE_1:
+    case CURRENT_LIMIT_SIDE_2:
+    case CURRENT_LIMIT_SIDE_3:
+      // all correct values
+      return true;
+  }
+  return false;
+}
+
+/**
  * @brief Temporary limit
  */
 struct TemporaryLimit {

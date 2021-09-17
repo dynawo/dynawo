@@ -65,28 +65,28 @@ fillParameterDescription(const DYN::ParameterSolver& parameter, const std::strin
   attributes.add("cardinality", 1);  // default value 1 for solver parameters
 
   if (parameter.hasValue()) {
+    bool badType = true;
     switch (parameter.getValueType()) {
-      case DYN::VAR_TYPE_DOUBLE: {
+      case DYN::VAR_TYPE_DOUBLE:
         attributes.add("defaultValue", parameter.getValue<double>());
+        badType = false;
         break;
-      }
-      case DYN::VAR_TYPE_INT: {
+      case DYN::VAR_TYPE_INT:
         attributes.add("defaultValue", parameter.getValue<int>());
+        badType = false;
         break;
-      }
-      case DYN::VAR_TYPE_BOOL: {
+      case DYN::VAR_TYPE_BOOL:
         attributes.add("defaultValue", parameter.getValue<bool>());
+        badType = false;
         break;
-      }
-      case DYN::VAR_TYPE_STRING: {
+      case DYN::VAR_TYPE_STRING:
         attributes.add("defaultValue", parameter.getValue<std::string>());
+        badType = false;
         break;
-      }
-      default:
-      {
-        cout << "bad parameter for model " << solverName << " : " << parameter.getName() << " has a bad type" << endl;
-        return 1;
-      }
+    }
+    if (badType) {
+      cout << "bad parameter for model " << solverName << " : " << parameter.getName() << " has a bad type" << endl;
+      return 1;
     }
   }
 
