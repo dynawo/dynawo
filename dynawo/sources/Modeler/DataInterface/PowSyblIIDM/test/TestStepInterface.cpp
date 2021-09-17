@@ -16,27 +16,25 @@
 #include "gtest_dynawo.h"
 
 TEST(DataInterfaceTest, PhaseTapChangerStep) {
-  powsybl::iidm::PhaseTapChangerStep S(1.1L, 2.2L, 3.3L, 4.4L, 5.5L, 6.6L);
+  powsybl::iidm::PhaseTapChangerStep S(1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
   DYN::StepInterfaceIIDM Ifce(S);
 
-  ASSERT_DOUBLE_EQ(Ifce.getAlpha(), 1.1L);
-  ASSERT_DOUBLE_EQ(Ifce.getRho(), 2.2L);
-  ASSERT_DOUBLE_EQ(Ifce.getR(), 3.3L);
-  ASSERT_DOUBLE_EQ(Ifce.getX(), 4.4L);
-  ASSERT_DOUBLE_EQ(Ifce.getG(), 5.5L);
-  ASSERT_DOUBLE_EQ(Ifce.getB(), 6.6L);
-
+  ASSERT_DOUBLE_EQ(Ifce.getAlpha(), 1.1);
+  ASSERT_DOUBLE_EQ(Ifce.getRho(), 2.2);
+  ASSERT_DOUBLE_EQ(Ifce.getR(), 3.3);
+  ASSERT_DOUBLE_EQ(Ifce.getX(), 4.4);
+  ASSERT_DOUBLE_EQ(Ifce.getG(), 5.5);
+  ASSERT_DOUBLE_EQ(Ifce.getB(), 6.6);
 }  // TEST(DataInterfaceTest, PhaseTapChangerStep)
 
 TEST(DataInterfaceTest, RatioTapChangerStep) {
-  powsybl::iidm::RatioTapChangerStep S(1.1L, 2.2L, 3.3L, 4.4L, 5.5L);
+  powsybl::iidm::RatioTapChangerStep S(1.1, 2.2, 3.3, 4.4, 5.5);
   DYN::StepInterfaceIIDM Ifce(S);
 
-  ASSERT_DOUBLE_EQ(Ifce.getAlpha(), 0.0L);
-  ASSERT_DOUBLE_EQ(Ifce.getRho(), 1.1L);
-  ASSERT_DOUBLE_EQ(Ifce.getR(), 2.2L);
-  ASSERT_DOUBLE_EQ(Ifce.getX(), 3.3L);
-  ASSERT_DOUBLE_EQ(Ifce.getG(), 4.4L);
-  ASSERT_DOUBLE_EQ(Ifce.getB(), 5.5L);
-
+  ASSERT_DOUBLE_EQ(Ifce.getAlpha(), 0.0);
+  ASSERT_DOUBLE_EQ(Ifce.getRho(), 1.1);
+  ASSERT_DOUBLE_EQ(Ifce.getR(), 2.2);
+  ASSERT_DOUBLE_EQ(Ifce.getX(), 3.3);
+  ASSERT_DOUBLE_EQ(Ifce.getG(), 4.4);
+  ASSERT_DOUBLE_EQ(Ifce.getB(), 5.5);
 }  // TEST(DataInterfaceTest, RatioTapChangerStep)
