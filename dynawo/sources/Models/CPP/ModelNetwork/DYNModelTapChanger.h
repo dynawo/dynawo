@@ -63,7 +63,7 @@ class ModelTapChanger {
 
   /**
    * @brief return the step associated to the index
-   * @param index
+   * @param index index
    * @return step associated to the index
    */
   inline const TapChangerStep& getStep(int index) const {
@@ -76,7 +76,7 @@ class ModelTapChanger {
 
   /**
    * @brief  add a new TapChangerStep to the steps vector
-   * @param step
+   * @param step tap changer step
    */
   inline void addStep(const TapChangerStep& step) {
     steps_.push_back(step);
@@ -98,7 +98,7 @@ class ModelTapChanger {
 
   /**
    * @brief  set the current step to a new index
-   * @param index
+   * @param index step index
    */
   inline void setCurrentStepIndex(int index) { currentStepIndex_ = index; }
 
@@ -123,7 +123,7 @@ class ModelTapChanger {
 
   /**
    * @brief  set the highest step index
-   * @param index
+   * @param index step index
    */
   inline void setHighStepIndex(int index) { highStepIndex_ = index; }
 
@@ -135,7 +135,7 @@ class ModelTapChanger {
 
   /**
    * @brief set if the tap changer is regulating
-   * @param regulating
+   * @param regulating regulating
    */
   inline void setRegulating(bool regulating) { regulating_ = regulating; }
 
@@ -147,7 +147,7 @@ class ModelTapChanger {
 
   /**
    * @brief   set the time to wait before changing of step for the first time
-   * @param time
+   * @param time time
    */
   inline void setTFirst(double time) { tFirst_ = time; }
 
@@ -161,7 +161,7 @@ class ModelTapChanger {
   /**
    * @brief  set the time to wait before changing of step if it's not the first
    * time
-   * @param time
+   * @param time time
    */
   inline void setTNext(double time) { tNext_ = time; }
 

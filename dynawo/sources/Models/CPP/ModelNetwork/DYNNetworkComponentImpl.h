@@ -299,16 +299,16 @@ class NetworkComponent::Impl : public NetworkComponent {
 
   /**
    * @brief true if a parameter with a given name is present in a vector of parameters
-   * @param name: name of the desired parameter
-   * @param params: vector of parameters
+   * @param name name of the desired parameter
+   * @param params vector of parameters
    * @return true if the parameter with the given name has been found, false otherwise
    */
   bool hasParameter(const std::string& name, const boost::unordered_map<std::string, ParameterModeler>& params) const;
 
   /**
    * @brief get a parameter with a given name from a vector of parameters. Will throw a ParameterNotDefined exception if not found.
-   * @param name: name of the desired parameter
-   * @param params: vector of parameters
+   * @param name name of the desired parameter
+   * @param params vector of parameters
    * @return parameter with the given name
    */
   ParameterModeler findParameter(const std::string& name, const boost::unordered_map<std::string, ParameterModeler>& params) const;

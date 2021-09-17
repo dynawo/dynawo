@@ -70,19 +70,19 @@ class NetworkComponent {  ///< Base class for network component models
 
   /**
    * @brief define variables
-   * @param variables
+   * @param variables vector of variables
    */
   virtual void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) = 0;
 
   /**
    * @brief define non generic parameters
-   * @param parameters: vector to fill with the non generic parameters
+   * @param parameters vector to fill with the non generic parameters
    */
   virtual void defineNonGenericParameters(std::vector<ParameterModeler>& parameters) = 0;
 
   /**
    * @brief define elements
-   * @param elements
+   * @param elements vector of elements
    * @param mapElement map of elements
    */
   virtual void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) = 0;
@@ -215,7 +215,7 @@ class NetworkComponent {  ///< Base class for network component models
 
   /**
    * @brief init
-   * @param yNum
+   * @param yNum yNum
    */
   virtual void init(int& yNum) = 0;
 
@@ -262,22 +262,22 @@ class NetworkComponent {  ///< Base class for network component models
 
   /**
    * @brief network submodels parameters setter
-   * @param params: vector of parameters used to set network submodels parameters
+   * @param params vector of parameters used to set network submodels parameters
    */
   virtual void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) = 0;
 
   /**
    * @brief get a parameter with a given name from a vector of parameters
-   * @param name: name of the desired parameter
-   * @param params: vector of parameters
+   * @param name name of the desired parameter
+   * @param params vector of parameters
    * @return parameter with the given name
    */
   virtual ParameterModeler findParameter(const std::string& name, const boost::unordered_map<std::string, ParameterModeler>& params) const = 0;
 
   /**
    * @brief true if a parameter with a given name is present in a vector of parameters
-   * @param name: name of the desired parameter
-   * @param params: vector of parameters
+   * @param name name of the desired parameter
+   * @param params vector of parameters
    * @return true if the parameter with the given name has been found, false otherwise
    */
   virtual bool hasParameter(const std::string& name, const boost::unordered_map<std::string, ParameterModeler>& params) const = 0;
@@ -296,14 +296,14 @@ class NetworkComponent {  ///< Base class for network component models
 
   /**
    * @brief evaluate state
-   * @param time
+   * @param time time
    * @return state change type
    */
   virtual StateChange_t evalState(const double& time) = 0;
 
   /**
    * @brief set network
-   * @param model
+   * @param model model
    */
   virtual void setNetwork(ModelNetwork* model) = 0;
 

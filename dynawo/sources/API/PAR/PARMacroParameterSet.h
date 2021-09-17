@@ -37,7 +37,7 @@ class MacroParameterSet {
  public:
   /**
    * @brief MacroParameterSet constructor
-   * @param[in] id: id of the macroParameterSet
+   * @param[in] id id of the macroParameterSet
    */
   explicit MacroParameterSet(const std::string& id);
 

@@ -36,7 +36,7 @@ class ModelCPP::Impl : public ModelCPP {
   Impl();
   /**
    * @brief constructor
-   * @param modelType
+   * @param modelType model's type
    */
   explicit Impl(std::string modelType);
 

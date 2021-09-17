@@ -37,7 +37,7 @@ class VariableFactory {
   /**
    * @brief create a new Variable instance
    *
-   * @param[in] id: variable's id
+   * @param[in] id variable's id
    * @return shared pointer to a new @p Variable
    */
   static boost::shared_ptr<Variable> newVariable(const std::string& id);

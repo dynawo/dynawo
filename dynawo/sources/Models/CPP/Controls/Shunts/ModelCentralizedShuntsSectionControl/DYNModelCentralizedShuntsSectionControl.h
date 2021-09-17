@@ -83,7 +83,7 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP::Impl {
   } CalculatedVars_t;
   /**
    * @brief define parameters
-   * @param parameters: vector to fill with the generic parameters
+   * @param parameters vector to fill with the generic parameters
    */
   void defineParameters(std::vector<ParameterModeler> &parameters);
   /**

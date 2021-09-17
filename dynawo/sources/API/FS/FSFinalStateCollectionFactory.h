@@ -31,9 +31,9 @@ namespace finalState {
 class FinalStateCollectionFactory {
  public:
   /**
-   * @brief create a new instance of final stat collection
+   * @brief create a new instance of final state collection
    *
-   * @param id
+   * @param id id of the new instance
    * @return Final state collection
    */
   static boost::shared_ptr<FinalStateCollection> newInstance(const std::string& id);

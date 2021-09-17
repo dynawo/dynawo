@@ -58,7 +58,7 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
 
   /**
    * @brief Constructor
-   * @param generator: generator's iidm instance
+   * @param generator generator's iidm instance
    */
   explicit GeneratorInterfaceIIDM(powsybl::iidm::Generator& generator);
 
