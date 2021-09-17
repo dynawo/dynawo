@@ -103,7 +103,7 @@ class DynamicModelsCollection {
   dynamicModel_const_iterator cendModel() const;
 
   /**
-   * @brief connector iterator ;beginning of connector
+   * @brief connector iterator : beginning of connector
    * @return beginning of connector
    */
   connector_const_iterator cbeginConnector() const;
@@ -219,7 +219,7 @@ class DynamicModelsCollection {
 
   /**
    * @brief find a macroStaticReference thanks to its id
-   * @param id: id of the macroStaticReference to be found
+   * @param id id of the macroStaticReference to be found
    * @return the macroStaticReference associated to the id
    */
   const boost::shared_ptr<MacroStaticReference>& findMacroStaticReference(const std::string& id);

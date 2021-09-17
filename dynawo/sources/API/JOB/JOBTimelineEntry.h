@@ -37,13 +37,13 @@ class TimelineEntry {
 
   /**
    * @brief Output file attribute setter
-   * @param outputFile: Output file for timeline
+   * @param outputFile Output file for timeline
    */
   void setOutputFile(const std::string& outputFile);
 
   /**
    * @brief Export Mode attribute setter
-   * @param exportMode: Export mode for timeline
+   * @param exportMode Export mode for timeline
    */
   void setExportMode(const std::string& exportMode);
 
@@ -61,7 +61,7 @@ class TimelineEntry {
 
   /**
    * @brief whether to export time setter
-   * @param exportWithTime: whether to export time when exporting timeline
+   * @param exportWithTime whether to export time when exporting timeline
    */
   void setExportWithTime(const bool exportWithTime);
 

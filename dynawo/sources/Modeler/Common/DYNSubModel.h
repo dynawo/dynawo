@@ -502,7 +502,6 @@ class SubModel {
   /**
    * @brief Coherence check on data (asserts, min/max values, sanity checks)
    *
-   *
    * @param t : time for which to conduct the data coherence check
    */
   void checkDataCoherenceSub(const double t);
@@ -700,7 +699,7 @@ class SubModel {
    * @brief check whether the parameter is available within the sub-model
    *
    * @param nameParameter name of the parameter
-   * @param isInitParam: whether to retrieve the initial (or dynamic) parameters
+   * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    * @return @b true if the parameter exists inside the model
    */
   bool hasParameter(const std::string& nameParameter, const bool isInitParam);
@@ -843,9 +842,9 @@ class SubModel {
   /**
    * @brief instantiate all non-unitary parameters
    *
-   * @param isInitParam: whether to do it for initial (or dynamic) parameters
-   * @param nonUnitaryParameters: non unitary parameter of this model
-   * @param addedParameter: parameter added after processing non unitary parameters
+   * @param isInitParam whether to do it for initial (or dynamic) parameters
+   * @param nonUnitaryParameters non unitary parameter of this model
+   * @param addedParameter parameter added after processing non unitary parameters
    */
   void instantiateNonUnitaryParameters(const bool isInitParam,
       const std::map<std::string, ParameterModeler>& nonUnitaryParameters,
@@ -854,8 +853,8 @@ class SubModel {
   /**
    * @brief set a parameter value from a parameters set (API PAR) (only for unitary cardinality)
    *
-   * @param parameterName: name of the parameter to be set
-   * @param isInitParam: whether to do it for initial (or dynamic) parameters
+   * @param parameterName name of the parameter to be set
+   * @param isInitParam whether to do it for initial (or dynamic) parameters
    */
   inline void setParameterFromPARFile(const std::string& parameterName, const bool isInitParam) {
     if (readPARParameters_->hasReference(parameterName))
@@ -867,9 +866,9 @@ class SubModel {
   /**
    * @brief set a parameter value from a parameters set(only for unitary cardinality)
    *
-   * @param parameter: parameter to be set
-   * @param parametersSet: the set to scan for a value
-   * @param origin: the origin of the set data (MO, PAR, INIT, ...)
+   * @param parameter parameter to be set
+   * @param parametersSet the set to scan for a value
+   * @param origin the origin of the set data (MO, PAR, INIT, ...)
    */
   void setParameterFromSet(ParameterModeler& parameter, const boost::shared_ptr<parameters::ParametersSet>& parametersSet, const parameterOrigin_t& origin);
 
@@ -880,15 +879,15 @@ class SubModel {
 
   /**
    * @brief set all parameters values from a parameters set (API PAR)
-   * @param isInitParam: whether the parameter is an initParam or a dynamic parameter
+   * @param isInitParam whether the parameter is an initParam or a dynamic parameter
    */
   void setParametersFromPARFile(const bool isInitParam);
 
   /**
    * @brief search for a parameter with a given name
    *
-   * @param name: name of the desired parameter
-   * @param isInitParam: whether to retrieve the initial (or dynamic) parameters
+   * @param name name of the desired parameter
+   * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    * @return desired parameter
    */
   const ParameterModeler& findParameter(const std::string& name, const bool isInitParam) const;
@@ -896,7 +895,7 @@ class SubModel {
   /**
    * @brief search for an initial parameter with a given name
    *
-   * @param name: name of the desired parameter
+   * @param name name of the desired parameter
    * @return desired initial parameter
    */
   inline const ParameterModeler& findParameterInit(const std::string& name) const {
@@ -906,7 +905,7 @@ class SubModel {
   /**
    * @brief search for a dynamic parameter with a given name
    *
-   * @param name: name of the desired parameter
+   * @param name name of the desired parameter
    * @return desired dynamic parameter
    */
   inline const ParameterModeler& findParameterDynamic(const std::string& name) const {
@@ -916,17 +915,17 @@ class SubModel {
   /**
    * @brief set a given parameter value
    *
-   * @param name: name of the desired parameter
-   * @param origin: the origin from which the value comes from
-   * @param value : the value to set
-   * @param isInitParam: whether to retrieve the initial (or dynamic) parameters
+   * @param name name of the desired parameter
+   * @param origin the origin from which the value comes from
+   * @param value the value to set
+   * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    */
   template <typename T> void setParameterValue(const std::string& name, const parameterOrigin_t& origin, const T& value, const bool isInitParam);
 
 
   /**
    * @brief Getter for parameters
-   * @param isInitParam: whether to retrieve the initial (or dynamic) parameters
+   * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    * @return submodel parameters
    */
   inline const boost::unordered_map<std::string, ParameterModeler>& getParameters(const bool isInitParam) const {
@@ -950,23 +949,23 @@ class SubModel {
   /**
    * @brief Add parameters
    *
-   * @param parameters: vector of parameters to add
-   * @param isInitParam: whether to retrieve the initial (or dynamic) parameters
+   * @param parameters vector of parameters to add
+   * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    */
   void addParameters(const std::vector<ParameterModeler>& parameters, const bool isInitParam);
 
   /**
    * @brief Add a parameter
    *
-   * @param parameter: Parameter to add
-   * @param isInitParam: whether to retrieve the initial (or dynamic) parameters
+   * @param parameter Parameter to add
+   * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    */
   void addParameter(const ParameterModeler& parameter, const bool isInitParam);
 
   /**
    * @brief Reset the parameters
    *
-   * @param isInitParam: whether to reset the initial (or dynamic) parameters
+   * @param isInitParam whether to reset the initial (or dynamic) parameters
    */
   void resetParameters(const bool isInitParam);
 
@@ -986,7 +985,7 @@ class SubModel {
   /**
    * @brief Define all parameters for the init or dynamic model
    *
-   * @param isInitParam: whether to define the initial (or dynamic) parameters
+   * @param isInitParam whether to define the initial (or dynamic) parameters
    */
   void defineParameters(const bool isInitParam);
 
@@ -1334,7 +1333,7 @@ class SubModel {
   /**
    * @brief setter for the parameters set read from PAR file
    *
-   * @param params: parameters set read from PAR file
+   * @param params parameters set read from PAR file
    */
   void setPARParameters(const boost::shared_ptr<parameters::ParametersSet>& params);
 
@@ -1410,8 +1409,8 @@ class SubModel {
   /**
    * @brief search for a parameter with a given name
    *
-   * @param name: name of the desired parameter
-   * @param isInitParam: whether to retrieve the initial (or dynamic) parameters
+   * @param name name of the desired parameter
+   * @param isInitParam whether to retrieve the initial (or dynamic) parameters
    * @return desired parameter as a reference
    */
   ParameterModeler& findParameterReference(const std::string& name, const bool isInitParam);
@@ -1450,7 +1449,7 @@ class SubModel {
   /**
    * @brief set a parameter value from a parameters set (API PAR) (only for unitary cardinality)
    *
-   * @param parameter: parameter to be set
+   * @param parameter parameter to be set
    */
   inline void setParameterFromPARFile(ParameterModeler& parameter) {
     if (!readPARParameters_)

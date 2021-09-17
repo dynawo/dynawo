@@ -31,7 +31,7 @@ class MacroParSet {
  public:
   /**
    * @brief MacroParSet constructor
-   * @param[in] id: id of the macroParSet
+   * @param[in] id id of the macroParSet
    */
   explicit MacroParSet(const std::string& id);
 

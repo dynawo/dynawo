@@ -44,13 +44,13 @@ class StepInterfaceIIDM : public StepInterface {
 
   /**
    * @brief Constructor
-   * @param step: phase tap changer step's iidm instance
+   * @param step phase tap changer step's iidm instance
    */
   explicit StepInterfaceIIDM(const IIDM::PhaseTapChangerStep& step);
 
   /**
    * @brief Constructor
-   * @param step :ratio tap changer step's iidm instance
+   * @param step ratio tap changer step's iidm instance
    */
   explicit StepInterfaceIIDM(const IIDM::RatioTapChangerStep& step);
 

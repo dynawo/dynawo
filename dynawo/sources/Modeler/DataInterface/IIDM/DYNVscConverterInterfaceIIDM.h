@@ -45,7 +45,7 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
 
   /**
    * @brief Constructor
-   * @param vsc: vsc converter iidm instance
+   * @param vsc vsc converter iidm instance
    */
   explicit VscConverterInterfaceIIDM(IIDM::VscConverterStation& vsc);
 

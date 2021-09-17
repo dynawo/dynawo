@@ -34,7 +34,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent::Impl {
  public:
   /**
    * @brief default constructor
-   * @param tfo: three windings transformer data interface used to build the model
+   * @param tfo three windings transformer data interface used to build the model
    */
   explicit ModelThreeWindingsTransformer(const boost::shared_ptr<ThreeWTransformerInterface>& tfo);
 
@@ -84,25 +84,25 @@ class ModelThreeWindingsTransformer : public NetworkComponent::Impl {
 
   /**
    * @brief define variables
-   * @param variables
+   * @param variables variables
    */
   static void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
    * @brief instantiate variables
-   * @param variables
+   * @param variables variables
    */
   void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
    * @brief define parameters
-   * @param parameters: vector to fill with the generic parameters
+   * @param parameters vector to fill with the generic parameters
    */
   static void defineParameters(std::vector<ParameterModeler>& parameters);
 
   /**
    * @brief define non generic parameters
-   * @param parameters: vector to fill with the non generic parameters
+   * @param parameters vector to fill with the non generic parameters
    */
   void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
 

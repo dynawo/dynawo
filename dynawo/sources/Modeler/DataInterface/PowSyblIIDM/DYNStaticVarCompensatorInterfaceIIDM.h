@@ -56,7 +56,7 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
 
   /**
    * @brief Constructor
-   * @param svc: static var compensator's iidm instance
+   * @param svc static var compensator's iidm instance
    */
   explicit StaticVarCompensatorInterfaceIIDM(powsybl::iidm::StaticVarCompensator& svc);
 

@@ -73,19 +73,19 @@ class AppenderEntry {
 
   /**
    * @brief Tag attribute setter
-   * @param tag: Tag filtered by the appender
+   * @param tag Tag filtered by the appender
    */
   void setTag(const std::string& tag);
 
   /**
    * @brief File path attribute setter
-   * @param filePath: Output file path of the appender
+   * @param filePath Output file path of the appender
    */
   void setFilePath(const std::string& filePath);
 
   /**
    * @brief Level filter attribute setter
-   * @param lvlFilter: Minimum severity level exported by the appender
+   * @param lvlFilter Minimum severity level exported by the appender
    */
   void setLvlFilter(const std::string& lvlFilter);
 

@@ -52,9 +52,9 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface {
 
   /**
    * @brief Constructor
-   * @param hvdcLine: hvdc line iidm instance
-   * @param conv1: converter 1 data interface instance
-   * @param conv2: converter 2 data interface instance
+   * @param hvdcLine hvdc line iidm instance
+   * @param conv1 converter 1 data interface instance
+   * @param conv2 converter 2 data interface instance
    */
   explicit HvdcLineInterfaceIIDM(IIDM::HvdcLine& hvdcLine,
                                  const boost::shared_ptr<ConverterInterface>& conv1,

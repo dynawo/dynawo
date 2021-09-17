@@ -82,7 +82,7 @@ class Model {
 
   /**
    * @brief macroStaticRef adder
-   * @param macroStaticRef: macroStaticRef to add to the model
+   * @param macroStaticRef macroStaticRef to add to the model
    * @throws Error::API exception if macroStaticRef already exists
    */
   void addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef);
@@ -137,7 +137,7 @@ class Model {
 
   /**
    * @brief find a staticRef thanks to its key (var_staticVar)
-   * @param key: key of the staticRef to be found
+   * @param key key of the staticRef to be found
    * @throws Error::API exception if staticRef doesn't exist
    * @return the staticRef associated to the key
    */
@@ -145,7 +145,7 @@ class Model {
 
   /**
    * @brief find a macroStaticRef thanks to its id
-   * @param id: id of the macroStaticRef to be found
+   * @param id id of the macroStaticRef to be found
    * @throws Error::API exception if macroStaticRef doesn't exist
    * @return the macroStaticRef associated to the id
    */

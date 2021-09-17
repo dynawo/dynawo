@@ -101,7 +101,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
 
   /**
    * @brief set the connection state (open, closed on one side, ...)
-   * @param state
+   * @param state connection state
    */
   void setConnectionState(State state) {
     connectionState_ = state;
@@ -109,7 +109,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
 
   /**
    * @brief set the tap-changer model used along with the transformer
-   * @param model
+   * @param model tap-changer model
    */
   void setModelTapChanger(boost::shared_ptr<ModelTapChanger> model) {
     modelTapChanger_ = model;
@@ -135,7 +135,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
 
   /**
    * @brief set monitoring bus
-   * @param modelBus
+   * @param modelBus monitored bus model
    */
   void setBusMonitored(const boost::shared_ptr<ModelBus>& modelBus) {
     modelBusMonitored_ = modelBus;
@@ -175,7 +175,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
 
   /**
    * @brief set whether the current limit automaton is deactivated
-   * @param desactivate
+   * @param desactivate whether the current limit automaton is deactivated
    */
   void setCurrentLimitsDesactivate(const double& desactivate) {
     currentLimitsDesactivate_ = desactivate;
@@ -191,7 +191,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
 
   /**
    * @brief set whether to rely on an internal (or external) tap-changer model
-   * @param disable
+   * @param disable whether to rely on an internal (or external) tap-changer model
    */
   void setDisableInternalTapChanger(const double& disable) {
     disableInternalTapChanger_ = disable;
@@ -207,7 +207,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
 
   /**
    * @brief  set whether the tap-changer is locked (and cannot change taps)
-   * @param  locked
+   * @param  locked whether the tap-changer is locked
    */
   void setTapChangerLocked(const double& locked) {
     tapChangerLocked_ = locked;
@@ -254,32 +254,32 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
 
   /**
    * @brief define variables
-   * @param variables
+   * @param variables variables
    */
   static void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
    * @brief instantiate variables
-   * @param variables
+   * @param variables variables
    */
   void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
    * @brief define parameters
-   * @param parameters: vector to fill with the generic parameters
+   * @param parameters vector to fill with the generic parameters
    */
   static void defineParameters(std::vector<ParameterModeler>& parameters);
 
   /**
    * @brief define non generic parameters
-   * @param parameters: vector to fill with the non generic parameters
+   * @param parameters vector to fill with the non generic parameters
    */
   void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
 
   /**
    * @brief define elements
-   * @param elements
-   * @param mapElement
+   * @param elements vector of elements
+   * @param mapElement map of elements
    */
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
@@ -355,7 +355,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
 
   /**
    * @brief init
-   * @param yNum
+   * @param yNum yNum
    */
   void init(int& yNum);
 
@@ -381,7 +381,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
 
   /**
    * @brief evaluate state
-   * @param time
+   * @param time time
    * @return state change type
    */
   NetworkComponent::StateChange_t evalState(const double& time);

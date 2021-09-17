@@ -48,7 +48,7 @@ class Reference {
   /**
    * @brief Constructor of reference
    *
-   * @param[in] name: reference name
+   * @param[in] name reference name
    */
   explicit Reference(const std::string& name);
 

@@ -163,8 +163,8 @@ std::string absolute(const std::string & name, const std::string & rootName = ".
  * @brief return name if name is absolute, else concatenate name and rootName
  *
  *
- * @param name   the path relative to the root path (may be a file name)
- * @param rootName  the path to the root directory
+ * @param name : the path relative to the root path (may be a file name)
+ * @param rootName : the path to the root directory
  *
  * @return the concatenated file path (if path is not absolute)
  */
@@ -220,7 +220,7 @@ void current_path(const std::string & path);
  * @param[in] path : the path for which to change the extension
  * @param[in] ext : the new extension without dot (ex: "txt")
  *
- * @return : the updated path as a string
+ * @return the updated path as a string
 
  */
 std::string replace_extension(const std::string & path, const std::string & ext);
@@ -229,7 +229,7 @@ std::string replace_extension(const std::string & path, const std::string & ext)
  * @brief Check whether a path points toward a directory
  * @param[in] path : the path to check
  *
- * @return : whether the path points toward a directory
+ * @return whether the path points toward a directory
 
  */
 bool is_directory(const std::string & path);
@@ -244,7 +244,7 @@ void create_directory(const std::string & path);
  * @brief Retrieve the file extension from a file path
  * @param[in] path : the path from which to extract the file extension
  *
- * @return : the file extension (or an empty string when no extension was found)
+ * @return the file extension (or an empty string when no extension was found)
  * Warning : extension ("file.txt.tmp") will return ".tmp"
  */
 std::string extension(const std::string & path);
@@ -252,8 +252,8 @@ std::string extension(const std::string & path);
 /**
  * @brief Check wether given extentions are found in a directory
  * @param[in] directoryToScan : directory to scan
- * @param[in] extensionList: list of extensions to search in the directory
- * @return : wether given extensions are found in directory
+ * @param[in] extensionList : list of extensions to search in the directory
+ * @return whether given extensions are found in directory
  */
 bool extensionFound(const std::string directoryToScan, const std::vector <std::string> & extensionList);
 
@@ -261,7 +261,7 @@ bool extensionFound(const std::string directoryToScan, const std::vector <std::s
  * @brief Check wether file path ends with a given extension
  * @param[in] path : the path to compare with the file extension
  * @param[in] extension : given extension to compare with the path
- * @return : wether they are equals
+ * @return whether they are equals
  * Warning : extensionEquals ("file.TXT.TMP", ".txt.tmp") will return false
  */
 bool extensionEquals(const std::string path, const std::string extension);
@@ -278,7 +278,7 @@ std::list<std::string> list_directory(const std::string & path);
  * @brief Retrieve the file name from a file path
  * @param[in] path : the path from which to extract the file name
  *
- * @return : the file name (or an empty string when it fails)
+ * @return the file name (or an empty string when it fails)
 
  */
 std::string file_name(const std::string & path);
@@ -287,7 +287,7 @@ std::string file_name(const std::string & path);
  * @brief Remove the file name from a file path
  * @param[in] path : the path from which to remove the file name
  *
- * @return : the file path without the file name
+ * @return the file path without the file name
  */
 std::string remove_file_name(const std::string & path);
 
@@ -295,7 +295,7 @@ std::string remove_file_name(const std::string & path);
  * @brief Delete all contents in a directory
  *
  *
- * @param[in] directory the directory where all contents are deleted
+ * @param[in] directory : the directory where all contents are deleted
  */
 void remove_all_in_directory(const std::string & directory);
 
@@ -324,7 +324,7 @@ std::string lastParentDirectory(const std::string childPath);
  * @brief Check whether a given path is absolute or relative
  * @param[in] path : the path to check
  *
- * @return : whether the path is absolute
+ * @return whether the path is absolute
  */
 bool isAbsolutePath(const std::string path);
 

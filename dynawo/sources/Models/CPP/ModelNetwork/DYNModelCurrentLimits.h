@@ -79,26 +79,26 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @param desactivate @b true if the current limits is off
    * @param modelType type of the model
    *
-   * @return
+   * @return the state of the current limits
    */
   state_t evalZ(const std::string& componentName, const double& t, state_g * g, ModelNetwork* network,
                 const double& desactivate, const std::string& modelType);  // compute the local Z function
 
   /**
    * @brief add a new current limit (p.u. base UNom, base SNRef)
-   * @param limit
-   * @param acceptableDuration
+   * @param limit new current limit
+   * @param acceptableDuration acceptable duration
    */
   void addLimit(const double& limit, const int& acceptableDuration);
 
   /**
    * @brief set side
-   * @param side
+   * @param side side
    */
   void setSide(const side_t side);
   /**
    * @brief set the max time operation
-   * @param maxTimeOperation
+   * @param maxTimeOperation max time operation
    */
   void setMaxTimeOperation(const double& maxTimeOperation);
 

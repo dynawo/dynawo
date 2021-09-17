@@ -39,7 +39,7 @@ class MacroStaticReference {
   /**
    * @brief MacroStaticReference constructor
    *
-   * @param[in] id: id of the macroStaticReference
+   * @param[in] id id of the macroStaticReference
    */
   explicit MacroStaticReference(const std::string& id);
 
@@ -53,8 +53,8 @@ class MacroStaticReference {
   /**
    * @brief staticRef adder
    *
-   * @param[in] var: dynamic variable
-   * @param[in] staticVar: static variable
+   * @param[in] var dynamic variable
+   * @param[in] staticVar static variable
    * @throws Error::API exception if the staticRef already exists
    */
   void addStaticRef(const std::string& var, const std::string& staticVar);
@@ -85,7 +85,7 @@ class MacroStaticReference {
 
   /**
    * @brief find a staticRef thanks to its key (var_staticVar)
-   * @param key: key of the staticRef to be found
+   * @param key key of the staticRef to be found
    * @throws Error::API exception if staticRef doesn't exist
    * @return the staticRef associated to the key
    */

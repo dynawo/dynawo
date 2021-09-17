@@ -42,7 +42,7 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
  public:
   /**
    * @brief default constructor
-   * @param[in] voltageLevel: voltage level data interface to use for the model
+   * @param[in] voltageLevel voltage level data interface to use for the model
    */
   explicit ModelVoltageLevel(const boost::shared_ptr<VoltageLevelInterface>& voltageLevel);
 
@@ -111,15 +111,15 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
 
   /**
    * @brief find the closest bus bar section of a bus in a voltage level
-   * @param node: the index of the bus for which to look for the closest bus bar section
-   * @param shortestPath: list of switch names that separate the bus bar section from the initial bus
+   * @param node the index of the bus for which to look for the closest bus bar section
+   * @param shortestPath list of switch names that separate the bus bar section from the initial bus
    * @return the closest bus bar section index
    */
   unsigned int findClosestBBS(const unsigned int node, std::vector<std::string>& shortestPath);
 
   /**
    * @brief return true if the closest bus bar section is switched off
-   * @param bus: the bus from which to look for the closest bus bar section
+   * @param bus the bus from which to look for the closest bus bar section
    * @return true is the closest bus bar section is switched off, false otherwise
    */
   bool isClosestBBSSwitchedOff(const boost::shared_ptr<ModelBus>& bus);
@@ -138,7 +138,7 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   /**
    * @brief evaluate jacobian \f$( J = @F/@x + cj * @F/@x')\f$
    * @param jt sparse matrix to fill
-   * @param cj
+   * @param cj jacobian prime coefficient
    * @param rowOffset row offset to use to find the first row to fill
    */
   void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);

@@ -32,13 +32,13 @@ class ConstraintsEntry {
  public:
   /**
    * @brief Output file attribute setter
-   * @param outputFile: Output file for constraints
+   * @param outputFile Output file for constraints
    */
   void setOutputFile(const std::string& outputFile);
 
   /**
    * @brief Export Mode attribute setter
-   * @param exportMode: Export mode for constraints
+   * @param exportMode Export mode for constraints
    */
   void setExportMode(const std::string& exportMode);
 

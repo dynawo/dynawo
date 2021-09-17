@@ -117,11 +117,6 @@ class MyModelica: public ModelModelica {
    */
   void initRpar() {}
 
-  /**
-   * @brief calculates the residual functions of the model
-   *
-   * @param f local buffer to fill
-   */
   virtual void setFomc(double* /*f*/, propertyF_t /*type*/) {
     ++nbCallF_;
   }
@@ -130,11 +125,6 @@ class MyModelica: public ModelModelica {
     return nbCallF_;
   }
 
-  /**
-   * @brief  calculates the roots of the model
-   *
-   * @param g local buffer to fill
-   */
   void setGomc(state_g* /*g*/) {
     ++nbCallG_;
   }
@@ -143,12 +133,6 @@ class MyModelica: public ModelModelica {
     return nbCallG_;
   }
 
-  /**
-   * @brief check whether a mode has been triggered
-   *
-   * @param t the time for which to check
-   * @return @b true if a mode has been trigered, @b false otherwise (for use by ModelManager)
-   */
   modeChangeType_t evalMode(const double /*t*/) const {
     return DIFFERENTIAL_MODE;
   }
@@ -165,10 +149,6 @@ class MyModelica: public ModelModelica {
     return nbCallZ_;
   }
 
-  /**
-   * @brief set the silent flag for discrete variables
-   * @param silentZTable flag table
-   */
   void collectSilentZ(BitMask* /*silentZTable*/) { }
 
   /**
@@ -189,11 +169,6 @@ class MyModelica: public ModelModelica {
     return nbCallY0_;
   }
 
-  /**
-   * @brief set the values of the parameters of the model
-   *
-   * @param params set of parameters where to read the values of the model's parameters
-   */
   void setParameters(boost::shared_ptr<parameters::ParametersSet> /*params*/) {}
 
   /**
@@ -220,11 +195,6 @@ class MyModelica: public ModelModelica {
   }
 
 
-  /**
-   * @brief defines the checkSum of the model (in order to check whether it was modified)
-   *
-   * @param checkSum value of the checkSum
-   */
   void checkSum(std::string & /*checkSum*/) {}
 
 #ifdef _ADEPT_
@@ -235,12 +205,12 @@ class MyModelica: public ModelModelica {
    * @param yp values of the derivatives of the continuous variable
    * @param F computes values of the residual functions
    */
-  virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &res) {
+  virtual void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F) {
     ASSERT_EQ(y.size(), 2);
     ASSERT_EQ(yp.size(), 2);
-    ASSERT_EQ(res.size(), 2);
-    res[0] = 2*y[0]+yp[1];
-    res[1] = 0.5*y[1]-yp[0];
+    ASSERT_EQ(F.size(), 2);
+    F[0] = 2*y[0]+yp[1];
+    F[1] = 0.5*y[1]-yp[0];
   }
 #endif
 
@@ -276,11 +246,6 @@ class MyModelica: public ModelModelica {
     gEquationIndex[0] = "MyGEq";
   }
 
-  /**
-   * @brief defines the model type of the model
-   *
-   * @param modelType model type to set
-   */
   void setModelType(std::string /*modelType*/) {}
 
   /**
@@ -292,27 +257,12 @@ class MyModelica: public ModelModelica {
     return parent_;
   }
 
-  /**
-   * @brief set the current model manager used
-   *
-   * @param model current model manager used
-   */
   void setModelManager(ModelManager* /*model*/) {}
 
-  /**
-   * @brief defines the property of each continuous variables
-   *
-   * @param yType local buffer to fill
-   */
   void evalStaticYType_omc(propertyContinuousVar_t* /*yType*/) {
     ++nbCallStaticYType_;
   }
 
-  /**
-   * @brief defines the property of each continuous variable with dynamic type
-   *
-   * @param yType local buffer to fill
-   */
   void evalDynamicYType_omc(propertyContinuousVar_t* /*yType*/) {
     ++nbCallDynamicYType_;
   }
@@ -325,20 +275,10 @@ class MyModelica: public ModelModelica {
     return nbCallDynamicYType_;
   }
 
-  /**
-   * @brief defines the property of each residual function
-   *
-   * @param fType local buffer to fill
-   */
   void evalStaticFType_omc(propertyF_t* /*fType*/) {
     ++nbCallStaticFType_;
   }
 
-  /**
-   * @brief defines the property of each residual function with dynamic type
-   *
-   * @param fType local buffer to fill
-   */
   void evalDynamicFType_omc(propertyF_t* /*fType*/) {
     ++nbCallDynamicFType_;
   }
@@ -351,12 +291,6 @@ class MyModelica: public ModelModelica {
     return nbCallDynamicFType_;
   }
 
-  /**
-   * @brief define the elements of the model
-   *
-   * @param elements vector of each elements contains in the model
-   * @param mapElement map associating an element and the index of the elements contains in it
-   */
   void defineElements(std::vector<Element> &/*elements*/, std::map<std::string, int>& /*mapElement*/) {}
 
   /**
@@ -372,11 +306,6 @@ class MyModelica: public ModelModelica {
     return parametersSet;
   }
 
-  /**
-   * @brief compute the value of calculated variables
-   *
-   * @param calculatedVars calculated variables vector
-   */
   void evalCalculatedVars(std::vector<double>& /*calculatedVars*/) {
     ++nbCallCalcVars_;
   }
@@ -384,39 +313,18 @@ class MyModelica: public ModelModelica {
   unsigned getNbCallCalcVars() const {
     return nbCallCalcVars_;
   }
-  /**
-   * @brief evaluate the value of a calculated variable
-   *
-   * @param iCalculatedVar index of the calculated variable
-   * @param y values of the variables used to calculate the variable
-   * @param yp values of the derivatives used to calculate the variable
-   *
-   * @return value of the calculated variable
-   */
+
   double evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
     return 10.;
   }
 
 #ifdef _ADEPT_
-  /**
-   * @brief evaluate the value of a calculated variable with ADEPT library
-   *
-   * @param iCalculatedVar index of the calculated variable
-   * @return value of the calculated variable
-   */
   adept::adouble evalCalculatedVarIAdept(unsigned /*iCalculatedVar*/, unsigned /*indexOffset*/,
       const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &/*yp*/) const {
     return 2*y[0];
   }
 #endif
 
-  /**
-   * @brief get the index of variables used to define the jacobian associated to a calculated variable
-   *
-   * @param iCalculatedVar index of the calculated variable
-   *
-   * @return index of variables used to define the jacobian
-   */
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& indexes) const {
     indexes.push_back(0);
     indexes.push_back(1);
@@ -469,11 +377,11 @@ class MyModelicaInit: public MyModelica {
    * @param yp values of the derivatives of the continuous variable
    * @param F computes values of the residual functions
    */
-  void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &res) {
+  void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F) {
     ASSERT_EQ(y.size(), 1);
     ASSERT_EQ(yp.size(), 1);
-    ASSERT_EQ(res.size(), 1);
-    res[0] = y[0] - 8;
+    ASSERT_EQ(F.size(), 1);
+    F[0] = y[0] - 8;
   }
 #endif
 

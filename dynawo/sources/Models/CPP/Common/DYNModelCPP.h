@@ -54,7 +54,7 @@ class ModelCPP : public SubModel {
 
   /**
    * @brief initialize all the data for a sub model
-   * @param t0: initial time of the simulation
+   * @param t0 initial time of the simulation
    */
   virtual void init(const double t0) = 0;
 
