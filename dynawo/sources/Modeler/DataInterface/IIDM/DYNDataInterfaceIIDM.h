@@ -39,6 +39,7 @@ class Transformer3Windings;
 class Load;
 class ShuntCompensator;
 class Generator;
+class Battery;
 class DanglingLine;
 class TieLine;
 class StaticVarCompensator;
@@ -280,6 +281,15 @@ class DataInterfaceIIDM : public DataInterface {
    * @return the instance of GeneratorInterface created
    */
   boost::shared_ptr<GeneratorInterface> importGenerator(IIDM::Generator & generatorIIDM);
+
+  /**
+   * @brief import and create a battery interface thanks to the IIDM instance
+   *
+   * @param batteryIIDM IIDM instance to use to create generatorInterface
+   * @param country country of the parent substation
+   * @return the instance of GeneratorInterface created
+   */
+  boost::shared_ptr<GeneratorInterface> importBattery(IIDM::Battery & batteryIIDM, const std::string& country);
 
   /**
    * @brief import and create a load interface thanks to the IIDM instance

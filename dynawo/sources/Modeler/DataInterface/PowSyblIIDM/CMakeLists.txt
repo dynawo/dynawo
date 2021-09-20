@@ -15,6 +15,7 @@ set(DATA_INTERFACE_IIDM_VERSION_STRING ${DYNAWO_VERSION_STRING})
 set(DATA_INTERFACE_IIDM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 set(DATA_INTERFACE_IIDM_SOURCES
+  DYNBatteryInterfaceIIDM.cpp
   DYNBusInterfaceIIDM.cpp
   DYNCalculatedBusInterfaceIIDM.cpp
   DYNCurrentLimitInterfaceIIDM.cpp
@@ -67,6 +68,7 @@ target_link_libraries(dynawo_DataInterfaceIIDM
     ${CMAKE_DL_LIBS}
   PUBLIC
     IIDM::iidm
+    IIDM::ext-iidm
   )
 
 set_target_properties(dynawo_DataInterfaceIIDM PROPERTIES VERSION ${DATA_INTERFACE_IIDM_VERSION_STRING}

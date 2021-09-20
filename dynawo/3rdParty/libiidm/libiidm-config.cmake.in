@@ -28,6 +28,7 @@
 # ext-connectableposition                   core
 # ext-currentlimitsperseason                core
 # ext-generatoractivepowercontrol           core
+# ext-activepowercontrol             core
 # ext-generatorshortcircuits                core
 # ext-voltagelevelshortcircuits             core
 # ext-standbyautomaton                      core
@@ -37,12 +38,16 @@
 # ext-generatorstartup                      core
 # ext-loaddetail                            core
 # ext-remotemeasurements                    core
+# ext-stateofcharge                         core
+# ext-voltageregulation                     core
+# ext-congestionmanagement                  core
 
 # ext-activeseason-xml                      xml, ext-activeseason
 # ext-busbarsectionposition-xml             xml, ext-busbarsectionposition
 # ext-connectableposition-xml               xml, ext-connectableposition
 # ext-currentlimitsperseason-xml            xml, ext-currentlimitsperseason
 # ext-generatoractivepowercontrol-xml       xml, ext-generatoractivepowercontrol
+# ext-activepowercontrol-xml                xml, ext-activepowercontrol
 # ext-generatorshortcircuits-xml            xml, ext-generatorshortcircuits
 # ext-voltagelevelshortcircuits-xml         xml, ext-voltagelevelshortcircuits
 # ext-standbyautomaton-xml                  xml, ext-standbyautomaton
@@ -51,7 +56,10 @@
 # ext-generatorentsoecategory-xml           xml, ext-generatorentsoecategory
 # ext-loaddetail-xml                        xml, ext-loaddetail
 # ext-generatorstartup-xml                  xml, ext-generatorstartup
-# ext-remotemeasurements-xml                       xml, ext-remotemeasurements
+# ext-remotemeasurements-xml                xml, ext-remotemeasurements
+# ext-stateofcharge-xml                     xml, ext-stateofcharge
+# ext-voltageregulation-xml                 xml, ext-voltageregulation
+# ext-congestionmanagement-xml              xml, ext-congestionmanagement
 
 # The following pseudo component are also defined
 # extensions                                every ext-...
@@ -77,6 +85,7 @@ set(_supported_extensions
   connectableposition
   currentlimitsperseason
   standbyautomaton
+  activepowercontrol
   generatoractivepowercontrol
   generatorshortcircuits
   voltagelevelshortcircuits
@@ -86,6 +95,9 @@ set(_supported_extensions
   generatorstartup
   loaddetail
   remotemeasurements
+  stateofcharge
+  voltageregulation
+  congestionmanagement
 )
 
 set(_supported_components
@@ -210,6 +222,8 @@ foreach(_component
   "ext-currentlimitsperseason-xml"
   "ext-standbyautomaton"
   "ext-standbyautomaton-xml"
+  "ext-activepowercontrol"
+  "ext-activepowercontrol-xml"
   "ext-generatoractivepowercontrol"
   "ext-generatoractivepowercontrol-xml"
   "ext-generatorshortcircuits"
@@ -228,6 +242,12 @@ foreach(_component
   "ext-loaddetail-xml"
   "ext-remotemeasurements"
   "ext-remotemeasurements-xml"
+  "ext-stateofcharge"
+  "ext-stateofcharge-xml"
+  "ext-voltagregulation"
+  "ext-voltagregulation-xml"
+  "ext-congestionmanagement"
+  "ext-congestionmanagement-xml"
 )
   list(FIND LibIIDM_FIND_COMPONENTS "${_component}" _found)
   if(NOT _found EQUAL -1)

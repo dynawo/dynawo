@@ -20,6 +20,7 @@
 #include "DYNDataInterfaceIIDM.h"
 
 #include "DYNBusInterfaceIIDM.h"
+#include "DYNBatteryInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNLineInterfaceIIDM.h"
 #include "DYNTwoWTransformerInterfaceIIDM.h"
@@ -396,6 +397,7 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     components_[lcc->getID()] = lcc;
     lcc->setVoltageLevelInterface(voltageLevel);
   }
+
   //===========================
   //  ADD GENERATOR INTERFACE
   //===========================
@@ -405,6 +407,17 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     components_[generator->getID()] = generator;
     generatorComponents_[generator->getID()] = generator;
     generator->setVoltageLevelInterface(voltageLevel);
+  }
+
+  //===========================
+  //  ADD BATTERY INTERFACE
+  //===========================
+  for (auto& batIIDM : voltageLevelIIDM.getBatteries()) {
+    auto battery = importBattery(batIIDM, countryStr);
+    voltageLevel->addGenerator(battery);
+    components_[battery->getID()] = battery;
+    generatorComponents_[battery->getID()] = battery;
+    battery->setVoltageLevelInterface(voltageLevel);
   }
 
   //===========================
@@ -465,6 +478,14 @@ DataInterfaceIIDM::importGenerator(powsybl::iidm::Generator & generatorIIDM, con
   generator->setCountry(country);
   generator->setBusInterface(findBusInterface(generatorIIDM.getTerminal()));
   return generator;
+}
+
+shared_ptr<BatteryInterfaceIIDM>
+DataInterfaceIIDM::importBattery(powsybl::iidm::Battery & batteryIIDM, const std::string& country) {
+  shared_ptr<BatteryInterfaceIIDM> battery(new BatteryInterfaceIIDM(batteryIIDM));
+  battery->setCountry(country);
+  battery->setBusInterface(findBusInterface(batteryIIDM.getTerminal()));
+  return battery;
 }
 
 shared_ptr<LoadInterfaceIIDM>
@@ -1045,7 +1066,7 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
         }
       }
     } else {
-      for (boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterfaceIIDM> >::const_iterator cmpIt = generatorComponents_.begin(),
+      for (boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> >::const_iterator cmpIt = generatorComponents_.begin(),
           cmpItEnd = generatorComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
         dynCriteria->addGenerator(cmpIt->second);
