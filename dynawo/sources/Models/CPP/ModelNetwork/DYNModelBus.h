@@ -42,8 +42,8 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
  public:
   /**
    * @brief default constructor
-   * @param bus: bus data interface to use for the model
-   * @param isNodeBreaker: true if the voltage level is in NODE BREAKER
+   * @param bus bus data interface to use for the model
+   * @param isNodeBreaker true if the voltage level is in NODE BREAKER
    */
   explicit ModelBus(const boost::shared_ptr<BusInterface>& bus, bool isNodeBreaker);
 
@@ -117,31 +117,31 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
 
   /**
    * @brief define variables
-   * @param variables
+   * @param variables variables
    */
   static void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
    * @brief instantiate variables
-   * @param variables
+   * @param variables variables
    */
   void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
    * @brief define parameters
-   * @param parameters: vector to fill with the generic parameters
+   * @param parameters vector to fill with the generic parameters
    */
   static void defineParameters(std::vector<ParameterModeler>& parameters);
 
   /**
    * @brief define non generic parameters
-   * @param parameters: vector to fill with the non generic parameters
+   * @param parameters vector to fill with the non generic parameters
    */
   void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
 
   /**
    * @brief define elements
-   * @param elements
+   * @param elements vector of elements
    * @param mapElement map of elements
    */
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
@@ -273,7 +273,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
 
   /**
    * @brief evaluate state
-   * @param time
+   * @param time time
    * @return state change type
    */
   NetworkComponent::StateChange_t evalState(const double& time);
@@ -327,14 +327,14 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
 
   /**
    * @brief  scan a subnetwork in order to find all neighboring buses
-   * @param subNetwork
-   * @param numComponent
+   * @param subNetwork subnetwork to scan
+   * @param numComponent number of components
    */
   void exploreNeighbors(const int& numComponent, const boost::shared_ptr<SubNetwork>& subNetwork);  // scan a subnetwork to find all neighbouring buses
 
   /**
    * @brief set refIslands
-   * @param refIsland
+   * @param refIsland refIslands
    */
   inline void setRefIslands(int refIsland) {
     refIslands_ = refIsland;
@@ -647,14 +647,14 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
 
   /**
    * @brief constructor
-   * @param num
+   * @param num num
    */
   explicit SubNetwork(const int& num)
   :num_(num) { }
 
   /**
    * @brief set num
-   * @param num
+   * @param num num
    */
   inline void setNum(int num) {
     num_ = num;
@@ -670,7 +670,7 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
 
   /**
    * @brief  add a bus to the sub-network
-   * @param bus
+   * @param bus bus
    */
   inline void addBus(const boost::shared_ptr<ModelBus>& bus) {
     assert(bus && "Undefined bus");
@@ -687,7 +687,7 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
 
   /**
    * @brief get bus
-   * @param num
+   * @param num num
    * @return bus
    */
   inline boost::shared_ptr<ModelBus> bus(int num) const {
@@ -727,7 +727,7 @@ class ModelBusContainer {
 
   /**
    * @brief add bus
-   * @param model
+   * @param model model
    */
   void add(const boost::shared_ptr<ModelBus>& model);
 

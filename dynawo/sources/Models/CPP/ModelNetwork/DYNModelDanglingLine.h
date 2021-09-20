@@ -90,7 +90,7 @@ class ModelDanglingLine : public NetworkComponent::Impl {
 
   /**
    * @brief set connection state
-   * @param state
+   * @param state connection state
    */
   void setConnectionState(State state) {
     connectionState_ = state;
@@ -98,7 +98,7 @@ class ModelDanglingLine : public NetworkComponent::Impl {
 
   /**
    * @brief set current limit status
-   * @param desactivate
+   * @param desactivate currentLimitsDesactivate
    */
   void setCurrentLimitsDesactivate(const double& desactivate) {
     currentLimitsDesactivate_ = desactivate;
@@ -130,31 +130,31 @@ class ModelDanglingLine : public NetworkComponent::Impl {
 
   /**
    * @brief define variables
-   * @param variables
+   * @param variables variables
    */
   static void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
    * @brief instantiate variables
-   * @param variables
+   * @param variables variables
    */
   void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
    * @brief define parameters
-   * @param parameters: vector to fill with the generic parameters
+   * @param parameters vector to fill with the generic parameters
    */
   static void defineParameters(std::vector<ParameterModeler>& parameters);
 
   /**
    * @brief define non generic parameters
-   * @param parameters: vector to fill with the non generic parameters
+   * @param parameters vector to fill with the non generic parameters
    */
   void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
 
   /**
    * @brief define elements
-   * @param elements
+   * @param elements vector of elements
    * @param mapElement map of elements
    */
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
@@ -264,7 +264,7 @@ class ModelDanglingLine : public NetworkComponent::Impl {
 
   /**
    * @brief evaluate state
-   * @param time
+   * @param time time
    * @return state change type
    */
   NetworkComponent::StateChange_t evalState(const double& time);
@@ -328,41 +328,41 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   double ui_Fict() const;
   /**
    * @brief get ir_Load value
-   * @param ur
-   * @param ui
-   * @return value
-   */
-  double ir_Load(const double& ur, const double& ui) const;
-  /**
-   * @brief get ir_Load value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @return value
    */
-  double ii_Load(const double& ur, const double& ui) const;
+  double ir_Load(const double& ur, const double& ui) const;
   /**
    * @brief get ii_Load value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @return value
    */
+  double ii_Load(const double& ur, const double& ui) const;
+  /**
+   * @brief get irLoad_dUr value
+   * @param ur real part of the voltage
+   * @param ui imaginary part of the voltage
+   * @return value
+   */
   double irLoad_dUr(const double& ur, const double& ui) const;
   /**
-   * @brief get  value
+   * @brief get irLoad_dUi value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @return value
    */
   double irLoad_dUi(const double& ur, const double& ui) const;
   /**
-   * @brief get value
+   * @brief get iiLoad_dUr value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @return value
    */
   double iiLoad_dUr(const double& ur, const double& ui) const;
   /**
-   * @brief get  value
+   * @brief get iiLoad_dUi value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @return value
@@ -373,8 +373,8 @@ class ModelDanglingLine : public NetworkComponent::Impl {
    * @brief get ir1 value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
-   * @param urFict
-   * @param uiFict
+   * @param urFict urFict
+   * @param uiFict uiFict
    * @return value
    */
   double ir1(const double& ur, const double& ui, const double& urFict, const double& uiFict) const;
@@ -382,8 +382,8 @@ class ModelDanglingLine : public NetworkComponent::Impl {
    * @brief get ii1 value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
-   * @param urFict
-   * @param uiFict
+   * @param urFict urFict
+   * @param uiFict uiFict
    * @return value
    */
   double ii1(const double& ur, const double& ui, const double& urFict, const double& uiFict) const;
@@ -391,8 +391,8 @@ class ModelDanglingLine : public NetworkComponent::Impl {
    * @brief get ir2 value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
-   * @param urFict
-   * @param uiFict
+   * @param urFict urFict
+   * @param uiFict uiFict
    * @return value
    */
   double ir2(const double& ur, const double& ui, const double& urFict, const double& uiFict) const;
@@ -400,8 +400,8 @@ class ModelDanglingLine : public NetworkComponent::Impl {
    * @brief get ii2 value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
-   * @param urFict
-   * @param uiFict
+   * @param urFict urFict
+   * @param uiFict uiFict
    * @return value
    */
   double ii2(const double& ur, const double& ui, const double& urFict, const double& uiFict) const;

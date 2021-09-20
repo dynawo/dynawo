@@ -86,7 +86,7 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
  public:
   /**
    * @brief initialize the network model
-   * @param t0: initial time of the simulation
+   * @param t0 initial time of the simulation
    */
   void init(const double t0);
 
@@ -192,8 +192,8 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
 
   /**
    * @brief define elements
-   * @param elements
-   * @param mapElement
+   * @param elements vector of elements
+   * @param mapElement map of elements
    */
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
 
@@ -204,7 +204,7 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
 
   /**
    * @brief define variables
-   * @param variables
+   * @param variables variables
    */
   void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
@@ -216,7 +216,7 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
 
   /**
    * @brief define parameters
-   * @param parameters
+   * @param parameters parameters
    */
   void defineParameters(std::vector<ParameterModeler>& parameters);
 
@@ -233,7 +233,7 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
 
   /**
    * @brief init from data
-   * @param data
+   * @param data data
    */
   void initializeFromData(const boost::shared_ptr<DataInterface>& data);
 

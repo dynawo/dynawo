@@ -151,16 +151,16 @@ class Curve {
     isParameterCurve_ = isParameterCurve;
   }
   /**
-   * @brief Get the curve type (calculated variable, continous, discrete)
-   * @return the curve type (calculated variable, continous, discrete)
+   * @brief Get the curve type (calculated variable, continuous, discrete)
+   * @return the curve type (calculated variable, continuous, discrete)
    */
   CurveType_t getCurveType() const {
     return curveType_;
   }
 
   /**
-   * @brief Set the curve type (calculated variable, continous, discrete)
-   * @param curveType : curve type (calculated variable, continous, discrete)
+   * @brief Set the curve type (calculated variable, continuous, discrete)
+   * @param curveType : curve type (calculated variable, continuous, discrete)
    */
   void setCurveType(CurveType_t curveType) {
     curveType_ = curveType;
@@ -168,8 +168,8 @@ class Curve {
 
   /**
    * @brief update parameter curve value
-   * @param parameterName
-   * @param parameterValue
+   * @param parameterName name of parameter
+   * @param parameterValue value of parameter
    */
   void updateParameterCurveValue(std::string parameterName, double parameterValue);
 

@@ -26,8 +26,8 @@
 /**
  * @brief operator to compare 2 files
  *
- * @param[in] file1: file 1 to compare
- * @param[in] file2: file 2 to compare
+ * @param[in] file1 first file to compare
+ * @param[in] file2 second file to compare
  * @return @b true if file1 == file2 @b false else
  */
 inline bool compareFiles(const std::string& file1, const std::string& file2) {

@@ -162,7 +162,7 @@ class SubModelDelete {
   /**
    * @brief Constructor
    *
-   * @param factory: model factory to delete
+   * @param factory model factory to delete
    */
   explicit SubModelDelete(SubModelFactory* factory);
 
@@ -174,7 +174,7 @@ class SubModelDelete {
   /**
    * @brief Function to use this class as a Functor
    *
-   * @param subModel: pointer to the subModel to delete
+   * @param subModel pointer to the subModel to delete
    * map
    */
   void operator()(SubModel* subModel);

@@ -132,7 +132,7 @@ class XmlExporter : public Exporter {
   /**
    * @brief write given macroStaticRef in given formatter
    *
-   * @param[in] macroStaticRef: MacroStaticRef object to write
+   * @param[in] macroStaticRef MacroStaticRef object to write
    * @param[out] formatter Output formatter
    */
   void writeMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef, xml::sax::formatter::Formatter& formatter) const;
@@ -140,7 +140,7 @@ class XmlExporter : public Exporter {
   /**
    * @brief write given macroStaticReference in given formatter
    *
-   * @param[in] macroStaticReference: MacroStaticReference object to write
+   * @param[in] macroStaticReference MacroStaticReference object to write
    * @param[out] formatter Output formatter
    */
   void writeMacroStaticReference(const boost::shared_ptr<MacroStaticReference>& macroStaticReference, xml::sax::formatter::Formatter& formatter) const;

@@ -25,7 +25,7 @@
 namespace job {
 
 /**
- * @brief FinalState entry
+ * @class FinalStateEntry
  * @brief FinalState entries container class
  */
 class FinalStateEntry {
@@ -61,25 +61,25 @@ class FinalStateEntry {
 
   /**
    * @brief whether to export IIDM output file setter
-   * @param exportIIDMFile: whether to export IIDM output file
+   * @param exportIIDMFile whether to export IIDM output file
    */
   void setExportIIDMFile(const bool exportIIDMFile);
 
   /**
    * @brief whether to export output state setter
-   * @param exportDumpFile: whether to export output state
+   * @param exportDumpFile whether to export output state
    */
   void setExportDumpFile(const bool exportDumpFile);
 
   /**
    * @brief Output file attribute setter
-   * @param outputIIDMFile: Output file for final state
+   * @param outputIIDMFile Output file for final state
    */
   void setOutputIIDMFile(const std::string& outputIIDMFile);
 
   /**
    * @brief Dump file attribute setter
-   * @param dumpFile: Dump file for final state
+   * @param dumpFile Dump file for final state
    */
   void setDumpFile(const std::string& dumpFile);
 

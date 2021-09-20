@@ -240,15 +240,15 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @brief set a given parameter value
    *
-   * @param parameter: the desired parameter
-   * @param value : the value to set
+   * @param parameter the desired parameter
+   * @param value the value to set
    */
   template <typename T> void setParameterValue(ParameterSolver &parameter, const T &value);
 
   /**
    * @brief initialize all internal structure of the solver
-   * @param t0 : initial time of the simulation
-   * @param model : model to simulate, gives the size of all internal structure
+   * @param t0 initial time of the simulation
+   * @param model model to simulate, gives the size of all internal structure
    */
   void init(const double& t0, const boost::shared_ptr<Model> &model);
 

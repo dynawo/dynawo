@@ -37,8 +37,8 @@ class ParameterFactory {
   /**
    * @brief Create new Parameter instance
    *
-   * @param[in] name: id of the parameter
-   * @param[in] boolValue: value of the parameter
+   * @param[in] name id of the parameter
+   * @param[in] boolValue value of the parameter
    *
    * @returns Shared pointer to a new @p Parameter
    */
@@ -47,8 +47,8 @@ class ParameterFactory {
   /**
    * @brief Create new Parameter instance
    *
-   * @param[in] name: id of the parameter
-   * @param[in] intValue: value of the parameter
+   * @param[in] name id of the parameter
+   * @param[in] intValue value of the parameter
    *
    * @returns Shared pointer to a new @p Parameter
    */
@@ -57,8 +57,8 @@ class ParameterFactory {
   /**
    * @brief Create new Parameter instance
    *
-   * @param[in] name: id of the parameter
-   * @param[in] doubleValue: value of the parameter
+   * @param[in] name id of the parameter
+   * @param[in] doubleValue value of the parameter
    *
    * @returns Shared pointer to a new @p Parameter
    */
@@ -67,8 +67,8 @@ class ParameterFactory {
   /**
    * @brief Create new Parameter instance
    *
-   * @param[in] name: id of the parameter
-   * @param[in] stringValue: value of the parameter
+   * @param[in] name id of the parameter
+   * @param[in] stringValue value of the parameter
    *
    * @returns Shared pointer to a new @p Parameter
    */
