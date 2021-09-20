@@ -326,6 +326,8 @@ else()
       xml
       ext-activeseason
       ext-activeseason-xml
+      ext-activepowercontrol
+      ext-activepowercontrol-xml
       ext-busbarsectionposition
       ext-busbarsectionposition-xml
       ext-connectableposition
