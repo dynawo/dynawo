@@ -303,4 +303,16 @@ BatteryInterfaceIIDM::getCoordinatedReactiveControlPercentage() const {
   return 0.;
 }
 
+boost::optional<double>
+BatteryInterfaceIIDM::getDroop() const {
+  // external IIDM extension is irrelevant for batteries
+  return boost::none;
+}
+
+boost::optional<bool>
+BatteryInterfaceIIDM::isParticipate() const {
+  // external IIDM extension is irrelevant for batteries
+  return boost::none;
+}
+
 }  // namespace DYN
