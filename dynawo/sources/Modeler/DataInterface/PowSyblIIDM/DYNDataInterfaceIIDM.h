@@ -32,6 +32,7 @@
 #include "DYNHvdcLineInterfaceIIDM.h"
 #include "DYNLineInterfaceIIDM.h"
 #include "DYNCalculatedBusInterfaceIIDM.h"
+#include "DYNBatteryInterfaceIIDM.h"
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNLoadInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -289,6 +290,15 @@ class DataInterfaceIIDM : public DataInterface {
   boost::shared_ptr<GeneratorInterfaceIIDM> importGenerator(powsybl::iidm::Generator & generatorIIDM, const std::string& country);
 
   /**
+   * @brief import and create a generator interface thanks to the IIDM instance
+   *
+   * @param batteryIIDM IIDM instance to use to create generatorInterface
+   * @param country country of the parent substation
+   * @return the instance of GeneratorInterface created
+   */
+  boost::shared_ptr<BatteryInterfaceIIDM> importBattery(powsybl::iidm::Battery & batteryIIDM, const std::string& country);
+
+  /**
    * @brief import and create a load interface thanks to the IIDM instance
    *
    * @param loadIIDM IIDM instance to use to create loadInterface
@@ -412,7 +422,7 @@ class DataInterfaceIIDM : public DataInterface {
   boost::unordered_map<std::string, boost::shared_ptr<BusInterface> > busComponents_;              ///< map of bus by name
   boost::unordered_map<std::string, boost::shared_ptr<LoadInterfaceIIDM> > loadComponents_;            ///< map of loads by name
   std::vector<boost::shared_ptr<Criteria> > criteria_;                                                 ///< table of criteria to check
-  boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterfaceIIDM> > generatorComponents_;  ///< map of generators by name
+  boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   boost::unordered_map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
 
   static std::mutex loadExtensionMutex_;  ///< Mutex to protect access to singleton for extension during build

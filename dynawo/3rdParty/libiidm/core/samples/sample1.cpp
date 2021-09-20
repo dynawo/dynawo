@@ -41,6 +41,10 @@ int main() {
   LoadBuilder load_builder;
     load_builder.type(Load::type_undefined).p0(0).q0(0).p(0).q(0).p(2);
 
+   BatteryBuilder battery_builder;
+    battery_builder.p0(0).q0(0).p(0).q(0).pmax(1).pmin(0)
+      .minMaxReactiveLimits( MinMaxReactiveLimits(0, 10) );
+
   SubstationBuilder substation_fr_builder;
   SubstationBuilder substation_be_builder;
   substation_fr_builder.country("FR").tso(std::string("RTE"));
@@ -84,7 +88,8 @@ int main() {
   trivial0.add( substation_fr_builder.build("S1") )
     .add( bus_voltagelevel_builder.build("S1V1") )
       .add( bus_builder.build("S1V1B1") )
-        .add( load_builder.build("L1"), at("S1V1B1", connected) )
+      .add( load_builder.build("L1"), at("S1V1B1", connected) )
+      .add( battery_builder.build("B1"), at("S1V1B1", connected))
   ;
 
   trivial0.add( substation_be_builder.build("S2") )
@@ -122,7 +127,7 @@ int main() {
       .add( bus_builder.build("S1V1B1") )
       .add( load_builder.build("L1_1A"), at("S1V1B1", connected) )
       .add( load_builder.build("L1_1B"), at("S1V1B1", connected) )
-
+      .add( battery_builder.build("B1"), at("S1V1B1", connected) )
       .add( bus_builder.build("S1V1B2") )
   ;
 

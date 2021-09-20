@@ -11,6 +11,7 @@
 set(MODULE_NAME MODELER_DATAINTERFACEIIDM_unittest)
 
 set(MODULE_SOURCES
+  TestBatteryInterface.cpp
   TestBusInterface.cpp
   TestCriteria.cpp
   TestCurrentLimitInterface.cpp

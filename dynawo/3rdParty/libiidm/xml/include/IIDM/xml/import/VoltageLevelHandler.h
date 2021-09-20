@@ -24,6 +24,7 @@
 #include <IIDM/xml/import/BusBarSectionHandler.h>
 #include <IIDM/xml/import/SwitchHandler.h>
 
+#include <IIDM/xml/import/BatteryHandler.h>
 #include <IIDM/xml/import/LoadHandler.h>
 #include <IIDM/xml/import/GeneratorHandler.h>
 #include <IIDM/xml/import/DanglingLineHandler.h>
@@ -50,6 +51,7 @@ private:
   BusBarSectionHandler busbarsection_handler;
   SwitchHandler bus_switch_handler, node_switch_handler;
 
+  BatteryHandler battery_handler;
   DanglingLineHandler danglingline_handler;
   GeneratorHandler generator_handler;
   LoadHandler load_handler;

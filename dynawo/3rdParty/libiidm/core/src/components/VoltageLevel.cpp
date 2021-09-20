@@ -130,6 +130,7 @@ void VoltageLevel::register_into(Network & net) {
   net.register_all_identifiable(busBarSections());
   net.register_all_identifiable(switches());
 
+  net.register_all_identifiable(batteries());
   net.register_all_identifiable(loads());
   net.register_all_identifiable(shuntCompensators());
   net.register_all_identifiable(danglingLines());
@@ -236,6 +237,9 @@ VoltageLevel::connect(T const& connectable, boost::optional<Connection> const& c
   return *this;
 }
 
+VoltageLevel& VoltageLevel::add(Battery const& battery, boost::optional<Connection> const& connection) {
+  return connect(battery, connection);
+}
 
 
 VoltageLevel& VoltageLevel::add(Load const& load, boost::optional<Connection> const& connection) {
