@@ -41,7 +41,7 @@ class NetworkInterfaceIIDM : public NetworkInterface {
 
   /**
    * @brief Constructor
-   * @param network: the network's iidm instance
+   * @param network the network's iidm instance
    */
   explicit NetworkInterfaceIIDM(powsybl::iidm::Network& network);
 

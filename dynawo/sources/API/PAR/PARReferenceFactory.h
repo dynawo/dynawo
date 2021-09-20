@@ -38,7 +38,7 @@ class ReferenceFactory {
   /**
    * @brief Create new Reference instance
    *
-   * @param[in] name: reference name
+   * @param[in] name reference name
    *
    * @returns Shared pointer to a new @p Reference
    */

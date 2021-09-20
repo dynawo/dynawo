@@ -138,7 +138,7 @@ class Parameter {
   /**
    * @brief Set "used" boolean
    *
-   * @param used: boolean used to set "used" value
+   * @param used boolean used to set "used" value
    */
   void setUsed(bool used);
 

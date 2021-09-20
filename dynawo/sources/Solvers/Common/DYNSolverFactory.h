@@ -154,7 +154,7 @@ class SolverDelete {
   /**
    * @brief Constructor
    *
-   * @param factory: solver factory to delete
+   * @param factory solver factory to delete
    */
   explicit SolverDelete(SolverFactory* factory);
 
@@ -166,7 +166,7 @@ class SolverDelete {
   /**
    * @brief Function to use this class as a Functor
    *
-   * @param solver: pointer to the solver to delete
+   * @param solver pointer to the solver to delete
    * map
    */
   void operator()(Solver* solver);

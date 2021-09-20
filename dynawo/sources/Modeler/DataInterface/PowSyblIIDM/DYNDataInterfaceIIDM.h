@@ -262,7 +262,7 @@ class DataInterfaceIIDM : public DataInterface {
 
   /**
    * @brief find a voltage level interface thanks to its id
-   * @param id: id of the voltage level interface to find
+   * @param id id of the voltage level interface to find
    *
    * @return instance of voltage level interface found
    */
@@ -375,7 +375,7 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief import and create a vsc converter interface thanks to the IIDM instance
    *
-   * @param vscIIDM: IIDM instance to use to create vsc converter interface
+   * @param vscIIDM IIDM instance to use to create vsc converter interface
    * @return the instance of vscConverterInterface created
    */
   boost::shared_ptr<VscConverterInterfaceIIDM> importVscConverter(powsybl::iidm::VscConverterStation& vscIIDM);
@@ -383,7 +383,7 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief import and create a lcc converter interface thanks to the IIDM instance
    *
-   * @param lccIIDM: IIDM instance to use to create lcc converter interface
+   * @param lccIIDM IIDM instance to use to create lcc converter interface
    * @return the instance of lccConverterInterface created
    */
   boost::shared_ptr<LccConverterInterfaceIIDM> importLccConverter(powsybl::iidm::LccConverterStation& lccIIDM);

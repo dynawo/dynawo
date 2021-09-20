@@ -81,10 +81,10 @@ class DataInterface {
 
   /**
    * @brief Associate a component variable to a model variable
-   * @param componentVar: component's var
-   * @param staticId: static id of the model
-   * @param modelId : model's id
-   * @param modelVar: model's var associated to the component's var
+   * @param componentVar component's var
+   * @param staticId static id of the model
+   * @param modelId model's id
+   * @param modelVar model's var associated to the component's var
    */
   virtual void setReference(const std::string& componentVar, const std::string& staticId, const std::string& modelId, const std::string& modelVar) = 0;
 

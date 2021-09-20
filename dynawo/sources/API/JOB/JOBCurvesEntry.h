@@ -25,7 +25,7 @@
 namespace job {
 
 /**
- * @brief Curves entry
+ * @class CurvesEntry
  * @brief Curves entries container class
  */
 class CurvesEntry {
@@ -50,19 +50,19 @@ class CurvesEntry {
 
   /**
    * @brief Input file attribute setter
-   * @param inputFile: Input file for curves
+   * @param inputFile Input file for curves
    */
   void setInputFile(const std::string& inputFile);
 
   /**
    * @brief Output file attribute setter
-   * @param outputFile: Output file for curves
+   * @param outputFile Output file for curves
    */
   void setOutputFile(const std::string& outputFile);
 
   /**
    * @brief Export Mode attribute setter
-   * @param exportMode: Export mode for curves
+   * @param exportMode Export mode for curves
    */
   void setExportMode(const std::string& exportMode);
 

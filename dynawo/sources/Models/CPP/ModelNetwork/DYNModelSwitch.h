@@ -62,7 +62,7 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
 
   /**
    * @brief set the switch connection state
-   * @param state
+   * @param state connection state
    */
   void setConnectionState(State state) {
     connectionState_ = state;
@@ -98,7 +98,7 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
 
   /**
    * @brief inLoop or not
-   * @param inLoop
+   * @param inLoop inLoop
    */
   void inLoop(bool inLoop) {
     inLoop_ = inLoop;
@@ -162,31 +162,31 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   void evalDerivativesPrim() { /* not needed */ }
   /**
    * @brief define variables
-   * @param variables
+   * @param variables variables
    */
   static void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
    * @brief instantiate variables
-   * @param variables
+   * @param variables variables
    */
   void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
    * @brief define parameters
-   * @param parameters: vector to fill with the generic parameters
+   * @param parameters vector to fill with the generic parameters
    */
   static void defineParameters(std::vector<ParameterModeler>& parameters);
 
   /**
    * @brief define non generic parameters
-   * @param parameters: vector to fill with the non generic parameters
+   * @param parameters vector to fill with the non generic parameters
    */
   void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
 
   /**
    * @brief define elements
-   * @param elements
+   * @param elements vector of elements
    * @param mapElement map of elements
    */
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
@@ -294,7 +294,7 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
 
   /**
    * @brief evaluate state
-   * @param time
+   * @param time time
    * @return state change type
    */
   NetworkComponent::StateChange_t evalState(const double& time);

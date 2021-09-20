@@ -46,8 +46,8 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @brief  evaluate the zero crossing functions
    *
    * @param t : time to use during the evaluation
-   * @param uValue: voltage monitored by the tap changer
-   * @param nodeOff: unused
+   * @param uValue : voltage monitored by the tap changer
+   * @param nodeOff : unused
    * @param g : value of the zero crossing function
    * @param disable : is the tap changer disabled ?
    * @param locked : is the tap changer locked ?
@@ -59,8 +59,8 @@ class ModelRatioTapChanger : public ModelTapChanger {
   /**
    * @brief  evaluate discrete values
    *
-   * @param t time to use during the evaluation
-   * @param g: root values
+   * @param t : time to use during the evaluation
+   * @param g : root values
    * @param network : network of the transformer
    * @param disable : is the tap changer disabled ?
    * @param nodeOff : is the node monitored by the tap changer off ?

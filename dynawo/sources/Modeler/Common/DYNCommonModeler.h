@@ -32,7 +32,7 @@ namespace DYN {
    *
    * @param name : name of the element
    * @param type : type of the element
-   * @param elements: vector where the new element should be store
+   * @param elements : vector where the new element should be store
    * @param mapElement : map associating name of element and element where the new element should be store
    */
   void addElement(const std::string& name, const Element::typeElement& type, std::vector<Element> &elements, std::map<std::string, int>& mapElement);
@@ -45,8 +45,8 @@ namespace DYN {
    * @param type : type of the sub element
    * @param parentName : name of the parent model
    * @param parentType : type of the parent model
-   * @param elements: vector where the new sub element should be store
-   * @param mapElement: map associating name of element and element where the new sub element should be store
+   * @param elements : vector where the new sub element should be store
+   * @param mapElement : map associating name of element and element where the new sub element should be store
    */
   void addSubElement(const std::string& name, const std::string& elementName, const Element::typeElement& type,
       const std::string parentName, const std::string& parentType,
