@@ -141,4 +141,16 @@ BusInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("Teta_pu", StaticParameter("Teta_pu", StaticParameter::DOUBLE).setValue(getAngle0() * M_PI / 180)));
 }
 
+boost::optional<double>
+BatteryInterfaceIIDM::getDroop() const {
+  // external IIDM extension is irrelevant for batteries
+  return boost::none;
+}
+
+boost::optional<bool>
+BatteryInterfaceIIDM::isParticipate() const {
+  // external IIDM extension is irrelevant for batteries
+  return boost::none;
+}
+
 }  // namespace DYN
