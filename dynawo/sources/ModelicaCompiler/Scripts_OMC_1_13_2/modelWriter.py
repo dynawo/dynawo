@@ -837,9 +837,13 @@ class ModelWriter(ModelWriterBase):
     # @param self : object pointer
     # @return
     def insert_model_name(self):
+        has_check_data_coherence_str = "false" if (not self.builder.get_list_for_warnings()) else "true"
         for n, line in enumerate(self.file_content_h):
             if "__fill_model_name__" in line:
                 line_tmp = line.replace("__fill_model_name__", self.mod_name)
+                self.file_content_h [n] = line_tmp
+            if "__fill_has_check_data_coherence__" in line:
+                line_tmp = line.replace("__fill_has_check_data_coherence__", has_check_data_coherence_str)
                 self.file_content_h [n] = line_tmp
 
     ##

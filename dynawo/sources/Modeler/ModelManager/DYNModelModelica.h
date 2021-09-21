@@ -264,6 +264,15 @@ class ModelModelica {
    * @param indexes vector to fill with the indexes
    */
   virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
+
+  /**
+   * @brief Determines if the sub model has a data check coherence operation (non empty function)
+   * @returns true if the sub model has a data check coherence operation, false if not
+   */
+  inline bool hasCheckDataCoherence() const { return hasCheckDataCoherence_; }
+
+ protected:
+  bool hasCheckDataCoherence_;  ///< Determines if the modelica model has a data check coherence operation
 };
 }  // namespace DYN
 
