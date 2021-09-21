@@ -19,6 +19,7 @@
  */
 
 #include "DYNCurrentLimitInterfaceIIDM.h"
+#include "DYNCommon.h"
 
 #include <limits>
 
@@ -37,7 +38,7 @@ CurrentLimitInterfaceIIDM::~CurrentLimitInterfaceIIDM() {
 
 double
 CurrentLimitInterfaceIIDM::getLimit() const {
-  if (limit_ == std::numeric_limits<double>::max())
+  if (doubleEquals(limit_, std::numeric_limits<double>::max()))
     return std::numeric_limits<double>::quiet_NaN();
   return limit_;
 }
