@@ -117,10 +117,6 @@ class SubModelMockBase : public SubModel {
 
   virtual modeChangeType_t evalMode(const double & t) = 0;
 
-  void checkDataCoherence(const double & t) {
-    // Dummy class used for testing
-  }
-
   void checkParametersCoherence() const {
     // Dummy class used for testing
   }

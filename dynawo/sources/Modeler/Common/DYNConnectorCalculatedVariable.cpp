@@ -60,11 +60,6 @@ ConnectorCalculatedVariable::init(const double& /*t0*/) {
 }
 
 void
-ConnectorCalculatedVariable::checkDataCoherence(const double& /*t*/) {
-  // no check
-}
-
-void
 ConnectorCalculatedVariable::checkParametersCoherence() const {
   // no check
 }

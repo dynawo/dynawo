@@ -315,6 +315,11 @@ class ModelManager : public SubModel, private boost::noncopyable {
    */
   void initSubBuffers();
 
+  /**
+   * @copydoc SubModel::hasDataCheckCoherence() const
+   */
+  bool hasDataCheckCoherence() const;
+
  private:
 #ifdef _ADEPT_
 

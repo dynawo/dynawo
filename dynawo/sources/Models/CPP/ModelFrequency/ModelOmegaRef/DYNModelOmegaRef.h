@@ -277,6 +277,11 @@ class ModelOmegaRef : public ModelCPP::Impl {
    */
   void checkDataCoherence(const double& t);
 
+  /**
+   * @copydoc SubModel::hasDataCheckCoherence() const
+   */
+  bool hasCheckDataCoherence() const { return true; }
+
  private:
   /**
    * @brief Sort every generator by num of subNetwork

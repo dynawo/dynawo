@@ -901,6 +901,9 @@ SubModel::checkDataCoherenceSub(const double & t) {
   if (isInitProcess_ && withLoadedParameters_ && withLoadedVariables_) {
     return;
   }
+  if (!hasDataCheckCoherence()) {
+    return;
+  }
   setCurrentTime(t);
   checkDataCoherence(t);
 }
@@ -1306,6 +1309,11 @@ SubModel::printInitValuesVariables(std::ofstream& fstream) {
   for (unsigned int i = 0, iEnd = zAliasesNames.size(); i < iEnd; ++i)
     fstream << std::setw(50) << std::left << zAliasesNames[i].first << std::right << ": "<<
     ((zAliasesNames[i].second.second)?"negated ":"") << "alias of " << zAliasesNames[i].second.first << "\n";
+}
+
+void
+SubModel::checkDataCoherence(const double&) {
+  // Does nothing, by compliance with default implementation of hasDataCheckCoherence
 }
 
 }  // namespace DYN
