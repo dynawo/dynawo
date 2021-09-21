@@ -18,7 +18,10 @@ namespace DYN {
   class ModelGeneratorPQ_Init : public ModelModelica
   {
     public:
-    ModelGeneratorPQ_Init() {dataStructIsInitialized_ = false;}
+    ModelGeneratorPQ_Init() {
+        dataStructIsInitialized_ = false;
+        hasCheckDataCoherence_ = false;
+    }
     ~ModelGeneratorPQ_Init() {if (dataStructIsInitialized_) deInitializeDataStruc();}
 
 

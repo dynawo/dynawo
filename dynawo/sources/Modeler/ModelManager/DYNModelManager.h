@@ -349,6 +349,11 @@ class ModelManager : public SubModel, private boost::noncopyable {
    */
   void addDelay(int exprNumber, const double* time, const double* exprValue, double delayMax);
 
+  /**
+   * @copydoc SubModel::hasDataCheckCoherence() const
+   */
+  bool hasDataCheckCoherence() const;
+
  private:
 #ifdef _ADEPT_
 

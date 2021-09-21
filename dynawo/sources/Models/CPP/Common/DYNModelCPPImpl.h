@@ -256,11 +256,6 @@ class ModelCPP::Impl : public ModelCPP {
   void loadParameters(const std::string &parameters);
 
   /**
-   * @copydoc ModelCPP::checkDataCoherence()
-   */
-  virtual void checkDataCoherence(const double t) = 0;
-
-  /**
    * @copydoc ModelCPP::checkParametersCoherence() const
    */
   void checkParametersCoherence() const;
