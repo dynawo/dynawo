@@ -270,7 +270,7 @@ ModelMulti::init(const double t0) {
   for (int i = 0; i < sizeZ(); ++i) {
     if (doubleNotEquals(zLocal_[i], zSave_[i])) {
       indicesDiff.push_back(i);
-      valuesModified.push_back(zLocal_[i]);
+      valuesModified.push_back(static_cast<int>(zLocal_[i]));
     }
   }
 

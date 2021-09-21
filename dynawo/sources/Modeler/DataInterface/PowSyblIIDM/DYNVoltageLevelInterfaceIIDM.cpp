@@ -352,7 +352,7 @@ VoltageLevelInterfaceIIDM::exportSwitchesState() {
   // following component (de)connection (only Modelica models)
   for (boost::unordered_map<shared_ptr<SwitchInterface>, double >::const_iterator iter = switchState_.begin(),
       iterEnd = switchState_.end(); iter != iterEnd; ++iter) {
-    int state = iter->second;
+    int state = static_cast<int>(iter->second);
     if (state == OPEN)
       iter->first->open();
     else
