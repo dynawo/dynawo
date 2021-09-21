@@ -17,11 +17,11 @@
     <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.5"/>
     <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
     <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
-    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.01"/>
     <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="1"/>
     <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="2"/>
     <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="6"/>
-    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="9"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="6.5"/>
   </set>
   <set id="2">
     <par type="DOUBLE" name="line_XPu" value="0.0000020661"/>
