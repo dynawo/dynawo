@@ -39,10 +39,9 @@
 #include "JOBAppenderEntry.h"
 #include "JOBModelsDirEntry.h"
 
-testing::Environment* initXmlEnvironment();
+INIT_XML_DYNAWO;
 
 namespace job {
-testing::Environment* const env = initXmlEnvironment();
 
 TEST(APIJOBTest, testXmlImporterMissingFile) {
   XmlImporter importer;

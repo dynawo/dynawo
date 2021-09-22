@@ -23,10 +23,9 @@
 #include "FSXmlExporter.h"
 #include "FSFinalStateCollection.h"
 
-testing::Environment* initXmlEnvironment();
+INIT_XML_DYNAWO;
 
 namespace finalState {
-testing::Environment* const env = initXmlEnvironment();
 
 //-----------------------------------------------------
 // TEST import missing file
