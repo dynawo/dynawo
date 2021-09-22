@@ -57,6 +57,9 @@ class Timeline :
             except UnicodeDecodeError:
                 use_iso88591 = True
                 break
+            except UnicodeEncodeError:
+                use_iso88591 = True
+                break
         if not use_iso88591:
             for event in dicOppositeEvents:
                 try:
@@ -123,21 +126,21 @@ class Timeline :
         elif type == "XML":
             f = open(filepath, "w")
             f.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n")
-            f.write("<timeline xmlns:dyn=\"http://www.rte-france.com/dynawo\">\n")
+            f.write("<dyn:timeline xmlns:dyn=\"http://www.rte-france.com/dynawo\">\n")
             for time in sorted_keys:
                 events = self.time_to_events[time]
                 for event in events:
                     try:
                         if event.priority == None:
-                            f.write("<event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event + "\"/>\n")
+                            f.write("<dyn:event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event + "\"/>\n")
                         else:
-                            f.write("<event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event+ "\" priority=\"" + event.priority + "\"/>\n")
+                            f.write("<dyn:event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event+ "\" priority=\"" + event.priority + "\"/>\n")
                     except UnicodeEncodeError:
                         if event.priority == None:
-                            f.write("<event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.mode.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1') + "\"/>\n")
+                            f.write("<dyn:event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.mode.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1') + "\"/>\n")
                         else:
-                            f.write("<event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.model.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1')+ "\" priority=\"" + event.priority.encode('iso8859-1') + "\"/>\n")
-            f.write("</timeline>\n")
+                            f.write("<dyn:event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.model.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1')+ "\" priority=\"" + event.priority.encode('iso8859-1') + "\"/>\n")
+            f.write("</dyn:timeline>\n")
             f.close()
 
 def read_txt(filepath):
