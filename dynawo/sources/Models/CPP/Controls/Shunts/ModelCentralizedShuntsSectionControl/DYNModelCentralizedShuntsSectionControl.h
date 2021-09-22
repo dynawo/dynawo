@@ -195,10 +195,6 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP::Impl {
    */
   void initializeStaticData() { /* not needed */ }
   /**
-   * @brief Coherence check on data (asserts, min/max values, sanity checks)
-   */
-  void checkDataCoherence(const double /*t*/) { /* not needed */ }
-  /**
    * @brief calculate calculated variables
    */
   void evalCalculatedVars() { /* not need */ }
