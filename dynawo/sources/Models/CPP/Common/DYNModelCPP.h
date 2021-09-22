@@ -284,11 +284,6 @@ class ModelCPP : public SubModel {
   virtual void defineParametersInit(std::vector<ParameterModeler>& parameters) = 0;
 
   /**
-   * @copydoc SubModel::checkDataCoherence(const double t)
-   */
-  virtual void checkDataCoherence(const double t) = 0;
-
-  /**
    * @copydoc SubModel::checkParametersCoherence() const
    */
   virtual void checkParametersCoherence() const = 0;

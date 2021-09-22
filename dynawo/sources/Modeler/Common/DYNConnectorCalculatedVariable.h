@@ -205,11 +205,6 @@ class ConnectorCalculatedVariable : public SubModel {
   void defineParametersInit(std::vector<ParameterModeler>& parameters);
 
   /**
-   * @copydoc SubModel::checkDataCoherence (const double t)
-   */
-  void checkDataCoherence(const double t);
-
-  /**
    * @copydoc SubModel::checkParametersCoherence () const
    */
   void checkParametersCoherence() const;
