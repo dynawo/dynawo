@@ -197,7 +197,7 @@ class SubModel {
    *
    * @param t time for which to conduct the data coherence check
    */
-  virtual void checkDataCoherence(const double t) = 0;  ///< sanity checks on data
+  virtual void checkDataCoherence(const double t);
 
   /**
    * @brief set formula for modelica models' equation
@@ -1404,6 +1404,14 @@ class SubModel {
    * @param fstream the file to stream parameters to
    */
   virtual void printInitValuesParameters(std::ofstream& fstream);
+
+  /**
+   * @brief Determines if the sub model has a data check coherence operation (non empty function)
+   * @returns true if the sub model has a data check coherence operation, false if not
+   */
+  virtual bool hasDataCheckCoherence() const {
+    return false;
+  }
 
  private:
   /**

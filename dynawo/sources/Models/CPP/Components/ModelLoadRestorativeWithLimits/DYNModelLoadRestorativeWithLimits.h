@@ -271,11 +271,6 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   */
   void evalZ(const double t);
 
-  /**
-   * @brief Coherence check on data (asserts, min/max values, sanity checks)
-   */
-  void checkDataCoherence(const double /*t*/) { /* not needed */ }
-
  private:
   unsigned int UfRawYNum_;  ///< local Y index for UfRaw
   unsigned int UfYNum_;  ///< local Y index for Uf
