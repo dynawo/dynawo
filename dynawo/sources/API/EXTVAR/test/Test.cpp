@@ -26,10 +26,9 @@
 #include "EXTVARIterators.h"
 #include "EXTVARVariable.h"
 
-testing::Environment* initXmlEnvironment();
+INIT_XML_DYNAWO;
 
 namespace externalVariables {
-testing::Environment* const env = initXmlEnvironment();
 
 //-----------------------------------------------------
 // TEST build external continuous variable

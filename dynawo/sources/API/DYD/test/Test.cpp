@@ -30,10 +30,9 @@
 
 #include "TestUtil.h"
 
-testing::Environment* initXmlEnvironment();
+INIT_XML_DYNAWO;
 
 namespace dynamicdata {
-testing::Environment* const env = initXmlEnvironment();
 
 //------------------------------------------------------
 // TEST for read multiples files, wrong files

@@ -66,10 +66,9 @@
 #include "TLTimelineFactory.h"
 #include "DYNTrace.h"
 
-testing::Environment* initXmlEnvironment();
+INIT_XML_DYNAWO;
 
 namespace DYN {
-testing::Environment* const env = initXmlEnvironment();
 
 boost::shared_ptr<Solver> initSolver(bool optimizeAlgebraicResidualsEvaluations, bool skipNR, bool enableSilentZ) {
   // Solver

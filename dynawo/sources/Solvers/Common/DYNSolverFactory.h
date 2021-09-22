@@ -69,9 +69,6 @@ class SolverFactory {
   static boost::shared_ptr<Solver> createSolverFromLib(const std::string& lib);
 
   boost::shared_ptr<boost::dll::shared_library> lib_;  ///< Library of the solver
-
- private:
-  static SolverFactories factories_;  ///< Factories already available
 };
 
 /**
@@ -96,6 +93,12 @@ class SolverFactories : private boost::noncopyable {
    * @brief destructor
    */
   ~SolverFactories();
+
+  /**
+   * @brief Get unique instance
+   * @return  The unique instance
+   */
+  static SolverFactories& getInstance();
 
   /**
   * @brief iterator type on SolverFactory map.

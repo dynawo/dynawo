@@ -49,16 +49,20 @@ namespace lambda = boost::phoenix;
 namespace lambda_args = lambda::placeholders;
 namespace parser = xml::sax::parser;
 
-xml::sax::parser::namespace_uri par_ns("http://www.rte-france.com/dynawo");  ///< namespace used to read parameters xml file
-
 namespace parameters {
 
+// namespace used to read xml file
+static parser::namespace_uri& namespace_uri() {
+  static parser::namespace_uri namespace_uri("http://www.rte-france.com/dynawo");
+  return namespace_uri;
+}
+
 XmlHandler::XmlHandler() :
-setHandler_(parser::ElementName(par_ns, "set")),
+setHandler_(parser::ElementName(namespace_uri(), "set")),
 parametersSetCollection_(ParametersSetCollectionFactory::newCollection()),
-macroParameterSetHandler_(parser::ElementName(par_ns, "macroParameterSet")) {
-  onElement(par_ns("parametersSet/set"), setHandler_);
-  onElement(par_ns("parametersSet/macroParameterSet"), macroParameterSetHandler_);
+macroParameterSetHandler_(parser::ElementName(namespace_uri(), "macroParameterSet")) {
+  onElement(namespace_uri()("parametersSet/set"), setHandler_);
+  onElement(namespace_uri()("parametersSet/macroParameterSet"), macroParameterSetHandler_);
   setHandler_.onEnd(lambda::bind(&XmlHandler::addSet, lambda::ref(*this)));
   macroParameterSetHandler_.onEnd(lambda::bind(&XmlHandler::addMacroParameterSet, lambda::ref(*this)));
 }
@@ -82,14 +86,14 @@ XmlHandler::addMacroParameterSet() {
 }
 
 SetHandler::SetHandler(elementName_type const & root_element) :
-parHandler_(parser::ElementName(par_ns, "par")),
-parTableHandler_(parser::ElementName(par_ns, "parTable")),
-refHandler_(parser::ElementName(par_ns, "reference")),
-macroParSetHandler_(parser::ElementName(par_ns, "macroParSet")) {
-  onElement(root_element + par_ns("par"), parHandler_);
-  onElement(root_element + par_ns("parTable"), parTableHandler_);
-  onElement(root_element + par_ns("reference"), refHandler_);
-  onElement(root_element + par_ns("macroParSet"), macroParSetHandler_);
+parHandler_(parser::ElementName(namespace_uri(), "par")),
+parTableHandler_(parser::ElementName(namespace_uri(), "parTable")),
+refHandler_(parser::ElementName(namespace_uri(), "reference")),
+macroParSetHandler_(parser::ElementName(namespace_uri(), "macroParSet")) {
+  onElement(root_element + namespace_uri()("par"), parHandler_);
+  onElement(root_element + namespace_uri()("parTable"), parTableHandler_);
+  onElement(root_element + namespace_uri()("reference"), refHandler_);
+  onElement(root_element + namespace_uri()("macroParSet"), macroParSetHandler_);
 
   onStartElement(root_element, lambda::bind(&SetHandler::create, lambda::ref(*this), lambda_args::arg2));
 
@@ -149,8 +153,8 @@ SetHandler::addTable() {
 }
 
 ParTableHandler::ParTableHandler(elementName_type const & root_element) :
-parInTableHandler_(parser::ElementName(par_ns, "par")) {
-  onElement(root_element + par_ns("par"), parInTableHandler_);
+parInTableHandler_(parser::ElementName(namespace_uri(), "par")) {
+  onElement(root_element + namespace_uri()("par"), parInTableHandler_);
   onStartElement(root_element, lambda::bind(&ParTableHandler::create, lambda::ref(*this), lambda_args::arg2));
   parInTableHandler_.onEnd(lambda::bind(&ParTableHandler::addPar, lambda::ref(*this)));
 }
@@ -235,11 +239,11 @@ RefHandler::get() const {
 }
 
 MacroParameterSetHandler::MacroParameterSetHandler(elementName_type const& root_element) :
-refHandler_(parser::ElementName(par_ns, "reference")),
-parHandler_(parser::ElementName(par_ns, "par")) {
+refHandler_(parser::ElementName(namespace_uri(), "reference")),
+parHandler_(parser::ElementName(namespace_uri(), "par")) {
   onStartElement(root_element, lambda::bind(&MacroParameterSetHandler::create, lambda::ref(*this), lambda_args::arg2));
-  onElement(root_element + par_ns("reference"), refHandler_);
-  onElement(root_element + par_ns("par"), parHandler_);
+  onElement(root_element + namespace_uri()("reference"), refHandler_);
+  onElement(root_element + namespace_uri()("par"), parHandler_);
   refHandler_.onEnd(lambda::bind(&MacroParameterSetHandler::addReference, lambda::ref(*this)));
   parHandler_.onEnd(lambda::bind(&MacroParameterSetHandler::addParameter, lambda::ref(*this)));
 }
