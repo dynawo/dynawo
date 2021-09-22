@@ -172,7 +172,7 @@ modelType_("TwoWindingsTransformer") {
       double bTap = b * (1. + bTapChanger + steps[i]->getB() / 100.);
       modelPhaseChanger_->addStep(TapChangerStep(rho, phaseShift, rTap, xTap, gTap, bTap));
     }
-    modelPhaseChanger_->setHighStepIndex(phaseTapChanger->getNbTap() - 1. + lowIndex);
+    modelPhaseChanger_->setHighStepIndex(phaseTapChanger->getNbTap() + lowIndex - 1);
     modelPhaseChanger_->setCurrentStepIndex(phaseTapChanger->getCurrentPosition());
 
     // At the moment, only current regulation is supported.
@@ -196,7 +196,7 @@ modelType_("TwoWindingsTransformer") {
         double bTap = b * (1. + steps[i]->getB() / 100.);
         modelRatioChanger_->addStep(TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
       }
-      modelRatioChanger_->setHighStepIndex(ratioTapChanger->getNbTap() - 1. + lowIndex);
+      modelRatioChanger_->setHighStepIndex(ratioTapChanger->getNbTap() + lowIndex - 1);
       modelRatioChanger_->setCurrentStepIndex(ratioTapChanger->getCurrentPosition());
 
       bool regulating = ratioTapChanger->getRegulating();
