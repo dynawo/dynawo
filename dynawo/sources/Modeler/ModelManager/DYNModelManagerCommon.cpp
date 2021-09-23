@@ -121,6 +121,11 @@ void addLogConstraintEnd_(ModelManager* model, const Message& message) {
   model->addConstraint(model->name(), false, message);
 }
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-noreturn"
+#endif  // __clang__
+
 void assert_(ModelManager* model, const Message& message) {
   throw MessageError(model->name() + " : " + message.str());
 }
@@ -133,6 +138,10 @@ void terminate_(ModelManager* model, const MessageTimeline& messageTimeline) {
   model->addEvent(model->name(), messageTimeline);
   throw DYNTerminate(TerminateInModel, model->name(), messageTimeline.str());
 }
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 const char* modelica_integer_to_modelica_string(modelica_integer i, modelica_integer /*minLen*/, modelica_boolean /*leftJustified*/) {
   // @todo warning: no thread safe
