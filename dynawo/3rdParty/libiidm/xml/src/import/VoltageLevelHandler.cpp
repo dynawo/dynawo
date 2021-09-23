@@ -53,6 +53,7 @@ VoltageLevelHandler::VoltageLevelHandler(elementName_type const& root_element):
   bus_switch_handler(elementName_type(iidm_ns, "switch")),
   node_switch_handler(elementName_type(iidm_ns, "switch")),
 
+  battery_handler(elementName_type(iidm_ns, "battery")),
   danglingline_handler(elementName_type(iidm_ns, "danglingLine")),
   generator_handler(elementName_type(iidm_ns, "generator")),
   load_handler(elementName_type(iidm_ns, "load")),
@@ -71,6 +72,7 @@ VoltageLevelHandler::VoltageLevelHandler(elementName_type const& root_element):
   set_topology_part_handler(root_element+iidm_ns("nodeBreakerTopology/busbarSection"), busbarsection_handler, &VoltageLevelHandler::add_busbarsection);
   set_topology_part_handler(root_element+iidm_ns("nodeBreakerTopology/switch"), node_switch_handler, &VoltageLevelHandler::add_node_switch);
 
+  set_connectable_handler(root_element+iidm_ns("battery"), battery_handler);
   set_connectable_handler(root_element+iidm_ns("danglingLine"), danglingline_handler);
   set_connectable_handler(root_element+iidm_ns("generator"), generator_handler);
   set_connectable_handler(root_element+iidm_ns("load"), load_handler);

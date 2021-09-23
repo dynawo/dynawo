@@ -24,7 +24,7 @@ TEST(DataInterfaceTest, CurrentLimit) {
   ASSERT_EQ(C.getAcceptableDuration(), 99);
 
   DYN::CurrentLimitInterfaceIIDM D(std::numeric_limits<double>::max(), 9876UL);
-  ASSERT_TRUE(isnan(D.getLimit()));
+  ASSERT_TRUE(std::isnan(D.getLimit()));
   ASSERT_EQ(D.getAcceptableDuration(), 9876);
 
   DYN::CurrentLimitInterfaceIIDM E(-1000, std::numeric_limits<unsigned long>::max());

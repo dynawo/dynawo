@@ -37,6 +37,7 @@
 #include <IIDM/components/BusBarSection.h>
 #include <IIDM/components/Switch.h>
 
+#include <IIDM/components/Battery.h>
 #include <IIDM/components/Load.h>
 #include <IIDM/components/ShuntCompensator.h>
 #include <IIDM/components/DanglingLine.h>
@@ -66,6 +67,7 @@ class VoltageLevel:
   public Contains<Bus>,
   public Contains<BusBarSection>,
   public Contains<Switch>,
+  public Contains<Battery>,
   public Contains<Load>,
   public Contains<ShuntCompensator>,
   public Contains<DanglingLine>,
@@ -242,6 +244,27 @@ public:
   load_const_iterator find_load(id_type const& id) const { return loads().find(id); }
   load_iterator find_load(id_type const& id) { return loads().find(id); }
 
+//Batteries
+public:
+  typedef Contains<Battery> batteries_type;
+  typedef batteries_type::iterator battery_iterator;
+  typedef batteries_type::const_iterator battery_const_iterator;
+
+  batteries_type const& batteries() const { return *this; }
+  batteries_type & batteries() { return *this; }
+
+  battery_const_iterator batteries_begin() const { return batteries().begin(); }
+  battery_const_iterator batteries_end() const { return batteries().end(); }
+
+  battery_iterator batteries_begin() { return batteries().begin(); }
+  battery_iterator batteries_end() { return batteries().end(); }
+
+  Battery const& get_battery(id_type const& id) const { return batteries().get(id); }
+  Battery & get_battery(id_type const& id) { return batteries().get(id); }
+
+  battery_const_iterator find_battery(id_type const& id) const { return batteries().find(id); }
+  battery_iterator find_battery(id_type const& id) { return batteries().find(id); }
+
 //ShuntCompensators
 public:
   typedef Contains<ShuntCompensator> shuntCompensators_type;
@@ -385,6 +408,7 @@ private:
   VoltageLevel& add(Switch const&, Port const& port1, Port const& port2);
 
 public:
+  VoltageLevel& add(Battery const&, boost::optional<Connection> const& = boost::none);
   VoltageLevel& add(Load const&, boost::optional<Connection> const& = boost::none);
   VoltageLevel& add(ShuntCompensator const&, boost::optional<Connection> const& = boost::none);
   VoltageLevel& add(DanglingLine const&, boost::optional<Connection> const& = boost::none);

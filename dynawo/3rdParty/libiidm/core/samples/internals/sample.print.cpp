@@ -30,6 +30,7 @@
 #include <IIDM/components/Bus.h>
 #include <IIDM/components/Switch.h>
 
+#include <IIDM/components/Battery.h>
 #include <IIDM/components/Load.h>
 #include <IIDM/components/ShuntCompensator.h>
 #include <IIDM/components/DanglingLine.h>
@@ -261,6 +262,24 @@ std::ostream& operator << (std::ostream& stream, IIDM::Load const& that) {
   ;
   if (that.has_p()) stream << ", p=" << that.p();
   if (that.has_q()) stream << ", q=" << that.q();
+  return stream << connectable(that);
+}
+
+std::ostream& operator << (std::ostream& stream, IIDM::Battery const& that) {
+  stream << MACRO_INDENT MACRO_INDENT MACRO_INDENT "Battery: "
+    << static_cast<IIDM::Identifiable const&>(that)
+    << static_cast<IIDM::ContainedIn<IIDM::VoltageLevel> const&>(that)
+  ;
+  stream
+    << ", p0=" << that.p0()
+    << ", q0=" << that.q0()
+    << ", minP=" << that.pmin()
+    << ", maxP=" << that.pmax()
+  ;
+  if (that.has_p()) stream << ", p=" << that.p();
+  if (that.has_q()) stream << ", q=" << that.q();
+  if (that.has_minMaxReactiveLimits())    stream << ", minMaxReactiveLimits="   << that.minMaxReactiveLimits();
+  if (that.has_reactiveCapabilityCurve()) stream << ", reactiveCapabilityCurve="<< that.reactiveCapabilityCurve();
   return stream << connectable(that);
 }
 

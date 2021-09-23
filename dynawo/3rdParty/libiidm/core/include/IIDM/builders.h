@@ -29,6 +29,7 @@
 #include <IIDM/builders/BusBarSectionBuilder.h>
 #include <IIDM/builders/SwitchBuilder.h>
 
+#include <IIDM/builders/BatteryBuilder.h>
 #include <IIDM/builders/ShuntCompensatorBuilder.h>
 #include <IIDM/builders/StaticVarCompensatorBuilder.h>
 #include <IIDM/builders/LoadBuilder.h>
