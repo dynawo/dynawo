@@ -48,7 +48,7 @@ using std::abs;
 namespace DYN {
 
 ModelHvdcLink::ModelHvdcLink(const shared_ptr<HvdcLineInterface>& dcLine) :
-Impl(dcLine->getID()),
+NetworkComponent(dcLine->getID()),
 stateModified_(false) {
   // retrieve data from VscConverterInterface and HvdcLineInterface (IIDM)
   setAttributes(dcLine);

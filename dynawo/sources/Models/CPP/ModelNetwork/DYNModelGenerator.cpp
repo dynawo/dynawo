@@ -41,7 +41,7 @@ using std::string;
 namespace DYN {
 
 ModelGenerator::ModelGenerator(const shared_ptr<GeneratorInterface>& generator) :
-Impl(generator->getID()),
+NetworkComponent(generator->getID()),
 stateModified_(false) {
   // init data
   Pc_ = -1. * generator->getP();
