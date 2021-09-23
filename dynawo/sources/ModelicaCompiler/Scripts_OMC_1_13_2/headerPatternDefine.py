@@ -47,7 +47,10 @@ class HeaderPatternDefine:
   class Model__fill_model_name___Dyn : public ModelModelica
   {
     public:
-    Model__fill_model_name___Dyn() {dataStructIsInitialized_ = false;}
+    Model__fill_model_name___Dyn() {
+        dataStructIsInitialized_ = false;
+        hasCheckDataCoherence_ = __fill_has_check_data_coherence__;
+    }
     ~Model__fill_model_name___Dyn() {if (dataStructIsInitialized_) deInitializeDataStruc();}
 
 
@@ -133,7 +136,10 @@ namespace DYN {
   class Model__fill_model_name___Init : public ModelModelica
   {
     public:
-    Model__fill_model_name___Init() {dataStructIsInitialized_ = false;}
+    Model__fill_model_name___Init() {
+        dataStructIsInitialized_ = false;
+        hasCheckDataCoherence_ = __fill_has_check_data_coherence__;
+    }
     ~Model__fill_model_name___Init() {if (dataStructIsInitialized_) deInitializeDataStruc();}
 
 

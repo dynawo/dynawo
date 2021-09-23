@@ -36,13 +36,13 @@ T ComponentInterface::getStaticParameterValue(const std::string& name) const {
     } else {
       switch (type) {
         case StaticParameter::INT:
-          return iter->second.getValue<int>();
+          return static_cast<T>(iter->second.getValue<int>());
           break;
         case StaticParameter::DOUBLE:
-          return iter->second.getValue<double>();
+          return static_cast<T>(iter->second.getValue<double>());
           break;
         case StaticParameter::BOOL:
-          return iter->second.getValue<bool>();
+          return static_cast<T>(iter->second.getValue<bool>());
           break;
         default:
           throw DYNError(Error::MODELER, StaticParameterWrongType, name);
@@ -67,13 +67,13 @@ T ComponentInterface::getValue(const int index) const {
   } else {
     switch (stateVariables_[index].getType()) {
       case StateVariable::INT:
-        return stateVariables_[index].getValue<int>();
+        return static_cast<T>(stateVariables_[index].getValue<int>());
         break;
       case StateVariable::DOUBLE:
-        return stateVariables_[index].getValue<double>();
+        return static_cast<T>(stateVariables_[index].getValue<double>());
         break;
       case StateVariable::BOOL:
-        return stateVariables_[index].getValue<bool>();
+        return static_cast<T>(stateVariables_[index].getValue<bool>());
         break;
     }
   }

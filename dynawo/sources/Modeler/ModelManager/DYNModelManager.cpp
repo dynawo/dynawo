@@ -236,6 +236,11 @@ ModelManager::evalF(double t, propertyF_t type) {
   modelModelica()->setFomc(fLocal_, type);
 }
 
+bool
+ModelManager::hasDataCheckCoherence() const {
+  return modelModelica()->hasCheckDataCoherence();
+}
+
 void
 ModelManager::checkDataCoherence(const double t) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)

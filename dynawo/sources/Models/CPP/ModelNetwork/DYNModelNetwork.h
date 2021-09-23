@@ -291,11 +291,6 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
    */
   void printModel() const;
 
-  /**
-   * @brief Coherence check on data (asserts, min/max values, sanity checks)
-   */
-  void checkDataCoherence(const double /*t*/) { /* not needed */ }
-
  protected:
   /**
   * @copydoc SubModel::dumpUserReadableElementList()

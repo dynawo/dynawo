@@ -502,7 +502,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   inline int numSubNetwork() const {
     assert(z_ != NULL);
     assert(doubleNotEquals(z_[numSubNetworkNum_], -1.));
-    return z_[numSubNetworkNum_];
+    return static_cast<int>(z_[numSubNetworkNum_]);
   }
 
   /**

@@ -94,7 +94,7 @@ namespace DYN {
    * @brief return the current precision in the form of the number of decimals
    * @return the current precision in the form of the number of decimals
    */
-  unsigned getPrecisionAsNbDecimal();
+  int getPrecisionAsNbDecimal();
 
   /**
    * @brief convert native bool to Real (aka Dynawo boolean)
