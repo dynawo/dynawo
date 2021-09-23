@@ -21,7 +21,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELDANGLINGLINE_H_
 
 #include <boost/shared_ptr.hpp>
-#include "DYNNetworkComponentImpl.h"
+#include "DYNNetworkComponent.h"
 
 namespace DYN {
 class ModelBus;
@@ -31,7 +31,7 @@ class ModelCurrentLimits;
 /**
  * @brief Dangling line model
  */
-class ModelDanglingLine : public NetworkComponent::Impl {
+class ModelDanglingLine : public NetworkComponent {
  public:
   /**
    * @brief default constructor
@@ -166,7 +166,7 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   void evalF(propertyF_t type);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalZ()
+   * @copydoc NetworkComponent::evalZ()
    */
   NetworkComponent::StateChange_t evalZ(const double& t);
 
@@ -243,12 +243,12 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   void init(int & yNum);
 
   /**
-   * @copydoc NetworkComponent::Impl::getY0()
+   * @copydoc NetworkComponent::getY0()
    */
   void getY0();
 
   /**
-   * @copydoc NetworkComponent::Impl::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
    */
   void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
 
@@ -281,12 +281,12 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   void initSize();
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
   void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
   void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
 

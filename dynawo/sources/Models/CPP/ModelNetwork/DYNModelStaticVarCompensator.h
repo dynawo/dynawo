@@ -23,7 +23,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELSTATICVARCOMPENSATOR_H_
 
 #include <boost/shared_ptr.hpp>
-#include "DYNNetworkComponentImpl.h"
+#include "DYNNetworkComponent.h"
 #include "DYNStaticVarCompensatorInterface.h"
 
 namespace DYN {
@@ -32,7 +32,7 @@ class ModelBus;
 /**
  * @brief Static var compensator model
  */
-class ModelStaticVarCompensator : public NetworkComponent::Impl {
+class ModelStaticVarCompensator : public NetworkComponent {
  public:
   /**
    * @brief default constructor
@@ -133,7 +133,7 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
   void evalF(propertyF_t type);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalZ()
+   * @copydoc NetworkComponent::evalZ()
    */
   NetworkComponent::StateChange_t evalZ(const double& t);
 
@@ -208,12 +208,12 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
   void init(int& yNum);
 
   /**
-   * @copydoc NetworkComponent::Impl::getY0()
+   * @copydoc NetworkComponent::getY0()
    */
   void getY0();
 
   /**
-   * @copydoc NetworkComponent::Impl::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
    */
   void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
 

@@ -144,7 +144,7 @@ ModelBusContainer::initDerivatives() {
 }
 
 ModelBus::ModelBus(const shared_ptr<BusInterface>& bus, bool isNodeBreaker) :
-Impl(bus->getID()),
+NetworkComponent(bus->getID()),
 stateUmax_(false),
 stateUmin_(false),
 U2Pu_(0.0),
