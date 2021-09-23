@@ -49,6 +49,7 @@ void to_xml(::xml::sax::formatter::Element& root, IIDM::Bus const&);
 void to_xml(::xml::sax::formatter::Element& root, IIDM::BusBarSection const&);
 void to_xml(::xml::sax::formatter::Element& root, IIDM::Switch const&);
 
+void to_xml(::xml::sax::formatter::Element& root, IIDM::Battery const&);
 void to_xml(::xml::sax::formatter::Element& root, IIDM::Load const&);
 void to_xml(::xml::sax::formatter::Element& root, IIDM::ShuntCompensator const&);
 void to_xml(::xml::sax::formatter::Element& root, IIDM::DanglingLine const&);

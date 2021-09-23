@@ -37,6 +37,7 @@ class Bus;
 class BusBarSection;
 class Switch;
 
+class Battery;
 class DanglingLine;
 class Load;
 class ShuntCompensator;

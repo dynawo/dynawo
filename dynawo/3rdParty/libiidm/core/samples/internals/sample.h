@@ -28,6 +28,7 @@ class Bus;
 class BusBarSection;
 class Switch;
 
+class Battery;
 class Load;
 class ShuntCompensator;
 class DanglingLine;
@@ -57,6 +58,7 @@ std::ostream& operator << (std::ostream&, IIDM::BusBarSection const&);
 
 std::ostream& operator << (std::ostream&, IIDM::Switch const&);
 
+std::ostream& operator << (std::ostream&, IIDM::Battery const&);
 
 std::ostream& operator << (std::ostream&, IIDM::Load const&);
 

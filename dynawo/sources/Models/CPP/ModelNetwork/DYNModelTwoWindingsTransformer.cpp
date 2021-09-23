@@ -127,8 +127,8 @@ modelType_("TwoWindingsTransformer") {
     } else {
       vNom2_ = tfo->getRatedU2();  // bus2 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
     }
-    assert(vNom1_ == vNom1_);  // control that vNom != NAN
-    assert(vNom2_ == vNom2_);  // control that vNom != NAN
+    assert(!std::isnan(vNom1_));  // control that vNom != NAN
+    assert(!std::isnan(vNom2_));  // control that vNom != NAN
   }
 
   if (tfo->getBusInterface1() && tfo->getBusInterface2())

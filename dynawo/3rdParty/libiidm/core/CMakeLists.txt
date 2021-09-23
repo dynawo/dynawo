@@ -48,6 +48,7 @@ add_library(
   src/components/Bus.cpp
   src/components/Switch.cpp
 
+  src/components/Battery.cpp
   src/components/Generator.cpp
   src/components/DanglingLine.cpp
   src/components/Load.cpp
@@ -82,6 +83,7 @@ add_library(
 
   src/builders/VoltageLevelBuilder.cpp
 
+  src/builders/BatteryBuilder.cpp
   src/builders/GeneratorBuilder.cpp
   src/builders/DanglingLineBuilder.cpp
   src/builders/LoadBuilder.cpp

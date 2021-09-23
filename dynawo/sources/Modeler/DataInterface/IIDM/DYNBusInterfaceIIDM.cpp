@@ -140,5 +140,4 @@ BusInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("Upu", StaticParameter("Upu", StaticParameter::DOUBLE).setValue(getV0() / getVNom())));
   staticParameters_.insert(std::make_pair("Teta_pu", StaticParameter("Teta_pu", StaticParameter::DOUBLE).setValue(getAngle0() * M_PI / 180)));
 }
-
 }  // namespace DYN
