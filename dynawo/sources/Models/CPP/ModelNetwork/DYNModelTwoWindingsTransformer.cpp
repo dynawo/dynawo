@@ -92,8 +92,8 @@ modelType_("TwoWindingsTransformer") {
   bool connected1 = tfo->getInitialConnected1();
   bool connected2 = tfo->getInitialConnected2();
 
-  vNom1_ = NAN;
-  vNom2_ = NAN;
+  vNom1_ = std::numeric_limits<double>::quiet_NaN();
+  vNom2_ = std::numeric_limits<double>::quiet_NaN();
   if (connected1 && connected2) {
     connectionState_ = CLOSED;
     vNom1_ = tfo->getVNom1();
