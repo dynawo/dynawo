@@ -38,8 +38,6 @@
 
 namespace DYN {
 
-static memoryManagerChars mmChars;  ///< instance of modelica chars manager : chars created and which should be deleted at the end of the execution
-
 void printLogToStdOut_(ModelManager *model, const std::string & message) {
   SubModel * sub = dynamic_cast<SubModel*> (model);
   if (sub == NULL)
@@ -149,59 +147,43 @@ const char* modelica_integer_to_modelica_string(modelica_integer i, modelica_int
   // @todo warning: no thread safe
   std::stringstream ss("");
   ss << i;
-  const std::string tmp = ss.str();
-
-  mmChars.string2Keep_.push_back(tmp);
-
-  return mmChars.string2Keep_.back().c_str();
+  return memoryManagerChars::keep(ss.str());
 }
 
 const char* cat_modelica_string(modelica_string_const s1, modelica_string_const s2) {
   std::stringstream ss("");
   ss << s1 << s2;
-  const std::string tmp = ss.str();
-  mmChars.string2Keep_.push_back(tmp);
-  return mmChars.string2Keep_.back().c_str();
+  return memoryManagerChars::keep(ss.str());
 }
 
 const char* cat_modelica_string(std::string s1, modelica_string_const s2) {
   std::stringstream ss("");
   ss << s1 << s2;
-  const std::string tmp = ss.str();
-  mmChars.string2Keep_.push_back(tmp);
-  return mmChars.string2Keep_.back().c_str();
+  return memoryManagerChars::keep(ss.str());
 }
 
 const char* cat_modelica_string(modelica_string_const s1, std::string s2) {
   std::stringstream ss("");
   ss << s1 << s2;
-  const std::string tmp = ss.str();
-  mmChars.string2Keep_.push_back(tmp);
-  return mmChars.string2Keep_.back().c_str();
+  return memoryManagerChars::keep(ss.str());
 }
 
 const char* stringAppend(const modelica_string s1, const modelica_string s2) {
   std::stringstream ss("");
   ss << s1 << s2;
-  const std::string tmp = ss.str();
-  mmChars.string2Keep_.push_back(tmp);
-  return mmChars.string2Keep_.back().c_str();
+  return memoryManagerChars::keep(ss.str());
 }
 
 const char* stringAppend(const modelica_string s1, const std::string s2) {
   std::stringstream ss("");
   ss << s1 << s2;
-  const std::string tmp = ss.str();
-  mmChars.string2Keep_.push_back(tmp);
-  return mmChars.string2Keep_.back().c_str();
+  return memoryManagerChars::keep(ss.str());
 }
 
 const char* stringAppend(const std::string s1, const modelica_string s2) {
   std::stringstream ss("");
   ss << s1 << s2;
-  const std::string tmp = ss.str();
-  mmChars.string2Keep_.push_back(tmp);
-  return mmChars.string2Keep_.back().c_str();
+  return memoryManagerChars::keep(ss.str());
 }
 
 std::string mmc_strings_len1(unsigned int size) {
@@ -212,20 +194,13 @@ std::string mmc_strings_len1(unsigned int size) {
 const char* modelica_real_to_modelica_string_format(modelica_real r, std::string /*format*/) {
   std::stringstream ss("");
   ss << std::setprecision(3) << std::fixed << r;
-  const std::string tmp = ss.str();
-
-  mmChars.string2Keep_.push_back(tmp);
-
-  return mmChars.string2Keep_.back().c_str();
+  return memoryManagerChars::keep(ss.str());
 }
 
 const char* modelica_integer_to_modelica_string_format(modelica_integer i, std::string /*format*/) {
   std::stringstream ss("");
   ss << i;
-  const std::string tmp = ss.str();
-  mmChars.string2Keep_.push_back(tmp);
-
-  return mmChars.string2Keep_.back().c_str();
+  return memoryManagerChars::keep(ss.str());
 }
 
 const char * modelica_real_to_modelica_string(modelica_real r, modelica_integer /*minLen*/, modelica_boolean /*leftJustified*/,
@@ -233,11 +208,7 @@ const char * modelica_real_to_modelica_string(modelica_real r, modelica_integer 
   // @todo warning: no thread safe
   std::stringstream ss("");
   ss << std::setprecision(signDigits) << std::fixed << r;
-  const std::string tmp = ss.str();
-
-  mmChars.string2Keep_.push_back(tmp);
-
-  return mmChars.string2Keep_.back().c_str();
+  return memoryManagerChars::keep(ss.str());
 }
 
 const char * modelica_boolean_to_modelica_string(modelica_boolean b, modelica_integer /*minLen*/, modelica_boolean /*leftJustified*/) {

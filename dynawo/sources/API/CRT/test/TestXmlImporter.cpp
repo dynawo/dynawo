@@ -27,10 +27,9 @@
 
 using DYN::doubleEquals;
 
-testing::Environment* initXmlEnvironment();
+INIT_XML_DYNAWO;
 
 namespace criteria {
-testing::Environment* const env = initXmlEnvironment();
 
 //-----------------------------------------------------
 // TEST XmlImporter

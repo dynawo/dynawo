@@ -39,14 +39,18 @@ namespace lambda = boost::phoenix;
 namespace lambda_args = lambda::placeholders;
 namespace parser = xml::sax::parser;
 
-parser::namespace_uri extvar_ns("http://www.rte-france.com/dynawo");  ///< namespace used to read external variables xml file
-
 namespace externalVariables {
+
+// namespace used to read xml file
+static parser::namespace_uri& namespace_uri() {
+  static parser::namespace_uri namespace_uri("http://www.rte-france.com/dynawo");
+  return namespace_uri;
+}
 
 XmlHandler::XmlHandler() :
 variablesCollection_(VariablesCollectionFactory::newCollection()),
-variablesHandler_(parser::ElementName(extvar_ns, "variable")) {
-  onElement(extvar_ns("external_variables/variable"), variablesHandler_);
+variablesHandler_(parser::ElementName(namespace_uri(), "variable")) {
+  onElement(namespace_uri()("external_variables/variable"), variablesHandler_);
 
   variablesHandler_.onEnd(lambda::bind(&XmlHandler::addVariable, lambda::ref(*this)));
 }

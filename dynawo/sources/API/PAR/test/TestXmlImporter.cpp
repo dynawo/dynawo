@@ -25,10 +25,9 @@
 
 using boost::shared_ptr;
 
-testing::Environment* initXmlEnvironment();
+INIT_XML_DYNAWO;
 
 namespace parameters {
-testing::Environment* const env = initXmlEnvironment();
 
 //-----------------------------------------------------
 // TEST import missing file

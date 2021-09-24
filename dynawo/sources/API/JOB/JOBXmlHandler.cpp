@@ -56,14 +56,18 @@ namespace lambda = boost::phoenix;
 namespace lambda_args = lambda::placeholders;
 namespace parser = xml::sax::parser;
 
-xml::sax::parser::namespace_uri jobs_ns("http://www.rte-france.com/dynawo");  ///< namespace used to read jobs xml file
-
 namespace job {
+
+// namespace used to read xml file
+static parser::namespace_uri& namespace_uri() {
+  static parser::namespace_uri namespace_uri("http://www.rte-france.com/dynawo");
+  return namespace_uri;
+}
 
 XmlHandler::XmlHandler() :
 jobsCollection_(JobsCollectionFactory::newInstance()),
-jobHandler_(parser::ElementName(jobs_ns, "job")) {
-  onElement(jobs_ns("jobs/job"), jobHandler_);
+jobHandler_(parser::ElementName(namespace_uri(), "job")) {
+  onElement(namespace_uri()("jobs/job"), jobHandler_);
   jobHandler_.onEnd(lambda::bind(&XmlHandler::addJob, lambda::ref(*this)));
 }
 
@@ -81,16 +85,16 @@ XmlHandler::getJobsCollection() const {
 }
 
 JobHandler::JobHandler(elementName_type const& root_element) :
-solverHandler_(parser::ElementName(jobs_ns, "solver")),
-modelerHandler_(parser::ElementName(jobs_ns, "modeler")),
-simulationHandler_(parser::ElementName(jobs_ns, "simulation")),
-outputsHandler_(parser::ElementName(jobs_ns, "outputs")) {
+solverHandler_(parser::ElementName(namespace_uri(), "solver")),
+modelerHandler_(parser::ElementName(namespace_uri(), "modeler")),
+simulationHandler_(parser::ElementName(namespace_uri(), "simulation")),
+outputsHandler_(parser::ElementName(namespace_uri(), "outputs")) {
   onStartElement(root_element, lambda::bind(&JobHandler::create, lambda::ref(*this), lambda_args::arg2));
 
-  onElement(root_element + jobs_ns("solver"), solverHandler_);
-  onElement(root_element + jobs_ns("modeler"), modelerHandler_);
-  onElement(root_element + jobs_ns("simulation"), simulationHandler_);
-  onElement(root_element + jobs_ns("outputs"), outputsHandler_);
+  onElement(root_element + namespace_uri()("solver"), solverHandler_);
+  onElement(root_element + namespace_uri()("modeler"), modelerHandler_);
+  onElement(root_element + namespace_uri()("simulation"), simulationHandler_);
+  onElement(root_element + namespace_uri()("outputs"), outputsHandler_);
 
 
   solverHandler_.onEnd(lambda::bind(&JobHandler::addSolver, lambda::ref(*this)));
@@ -148,16 +152,16 @@ SolverHandler::get() const {
 }
 
 ModelerHandler::ModelerHandler(elementName_type const& root_element) :
-networkHandler_(parser::ElementName(jobs_ns, "network")),
-dynModelsHandler_(parser::ElementName(jobs_ns, "dynModels")),
-initialStateHandler_(parser::ElementName(jobs_ns, "initialState")),
-preCompiledModelsHandler_(parser::ElementName(jobs_ns, "precompiledModels")),
-modelicaModelsHandler_(parser::ElementName(jobs_ns, "modelicaModels")) {
-  onElement(root_element + jobs_ns("network"), networkHandler_);
-  onElement(root_element + jobs_ns("dynModels"), dynModelsHandler_);
-  onElement(root_element + jobs_ns("initialState"), initialStateHandler_);
-  onElement(root_element + jobs_ns("precompiledModels"), preCompiledModelsHandler_);
-  onElement(root_element + jobs_ns("modelicaModels"), modelicaModelsHandler_);
+networkHandler_(parser::ElementName(namespace_uri(), "network")),
+dynModelsHandler_(parser::ElementName(namespace_uri(), "dynModels")),
+initialStateHandler_(parser::ElementName(namespace_uri(), "initialState")),
+preCompiledModelsHandler_(parser::ElementName(namespace_uri(), "precompiledModels")),
+modelicaModelsHandler_(parser::ElementName(namespace_uri(), "modelicaModels")) {
+  onElement(root_element + namespace_uri()("network"), networkHandler_);
+  onElement(root_element + namespace_uri()("dynModels"), dynModelsHandler_);
+  onElement(root_element + namespace_uri()("initialState"), initialStateHandler_);
+  onElement(root_element + namespace_uri()("precompiledModels"), preCompiledModelsHandler_);
+  onElement(root_element + namespace_uri()("modelicaModels"), modelicaModelsHandler_);
 
   onStartElement(root_element, lambda::bind(&ModelerHandler::create, lambda::ref(*this), lambda_args::arg2));
 
@@ -218,9 +222,9 @@ CriteriaFileHandler::get() const {
 }
 
 SimulationHandler::SimulationHandler(elementName_type const& root_element) :
-criteriaFileHandler_(parser::ElementName(jobs_ns, "criteria")) {
+criteriaFileHandler_(parser::ElementName(namespace_uri(), "criteria")) {
   onStartElement(root_element, lambda::bind(&SimulationHandler::create, lambda::ref(*this), lambda_args::arg2));
-  onElement(root_element + jobs_ns("criteria"), criteriaFileHandler_);
+  onElement(root_element + namespace_uri()("criteria"), criteriaFileHandler_);
 
   criteriaFileHandler_.onEnd(lambda::bind(&SimulationHandler::addCriteriaFile, lambda::ref(*this)));
 }
@@ -250,24 +254,24 @@ SimulationHandler::addCriteriaFile() {
 }
 
 OutputsHandler::OutputsHandler(elementName_type const& root_element) :
-initValuesHandler_(parser::ElementName(jobs_ns, "dumpInitValues")),
-constraintsHandler_(parser::ElementName(jobs_ns, "constraints")),
-timelineHandler_(parser::ElementName(jobs_ns, "timeline")),
-timetableHandler_(parser::ElementName(jobs_ns, "timetable")),
-finalStateHandler_(parser::ElementName(jobs_ns, "finalState")),
-curvesHandler_(parser::ElementName(jobs_ns, "curves")),
-lostEquipmentsHandler_(parser::ElementName(jobs_ns, "lostEquipments")),
-logsHandler_(parser::ElementName(jobs_ns, "logs")) {
+initValuesHandler_(parser::ElementName(namespace_uri(), "dumpInitValues")),
+constraintsHandler_(parser::ElementName(namespace_uri(), "constraints")),
+timelineHandler_(parser::ElementName(namespace_uri(), "timeline")),
+timetableHandler_(parser::ElementName(namespace_uri(), "timetable")),
+finalStateHandler_(parser::ElementName(namespace_uri(), "finalState")),
+curvesHandler_(parser::ElementName(namespace_uri(), "curves")),
+lostEquipmentsHandler_(parser::ElementName(namespace_uri(), "lostEquipments")),
+logsHandler_(parser::ElementName(namespace_uri(), "logs")) {
   onStartElement(root_element, lambda::bind(&OutputsHandler::create, lambda::ref(*this), lambda_args::arg2));
 
-  onElement(root_element + jobs_ns("dumpInitValues"), initValuesHandler_);
-  onElement(root_element + jobs_ns("constraints"), constraintsHandler_);
-  onElement(root_element + jobs_ns("timeline"), timelineHandler_);
-  onElement(root_element + jobs_ns("timetable"), timetableHandler_);
-  onElement(root_element + jobs_ns("finalState"), finalStateHandler_);
-  onElement(root_element + jobs_ns("curves"), curvesHandler_);
-  onElement(root_element + jobs_ns("lostEquipments"), lostEquipmentsHandler_);
-  onElement(root_element + jobs_ns("logs"), logsHandler_);
+  onElement(root_element + namespace_uri()("dumpInitValues"), initValuesHandler_);
+  onElement(root_element + namespace_uri()("constraints"), constraintsHandler_);
+  onElement(root_element + namespace_uri()("timeline"), timelineHandler_);
+  onElement(root_element + namespace_uri()("timetable"), timetableHandler_);
+  onElement(root_element + namespace_uri()("finalState"), finalStateHandler_);
+  onElement(root_element + namespace_uri()("curves"), curvesHandler_);
+  onElement(root_element + namespace_uri()("lostEquipments"), lostEquipmentsHandler_);
+  onElement(root_element + namespace_uri()("logs"), logsHandler_);
 
   initValuesHandler_.onEnd(lambda::bind(&OutputsHandler::addInitValuesEntry, lambda::ref(*this)));
   constraintsHandler_.onEnd(lambda::bind(&OutputsHandler::addConstraints, lambda::ref(*this)));
@@ -441,8 +445,8 @@ LostEquipmentsHandler::get() const {
 }
 
 LogsHandler::LogsHandler(elementName_type const& root_element) :
-appenderHandler_(parser::ElementName(jobs_ns, "appender")) {
-  onElement(root_element + jobs_ns("appender"), appenderHandler_);
+appenderHandler_(parser::ElementName(namespace_uri(), "appender")) {
+  onElement(root_element + namespace_uri()("appender"), appenderHandler_);
 
   onStartElement(root_element, lambda::bind(&LogsHandler::create, lambda::ref(*this), lambda_args::arg2));
 
@@ -542,10 +546,10 @@ InitialStateHandler::get() const {
 }
 
 ModelsDirHandler::ModelsDirHandler(elementName_type const& root_element) :
-directoryHandler_(parser::ElementName(jobs_ns, "directory")) {
+directoryHandler_(parser::ElementName(namespace_uri(), "directory")) {
   onStartElement(root_element, lambda::bind(&ModelsDirHandler::create, lambda::ref(*this), lambda_args::arg2));
 
-  onElement(root_element + jobs_ns("directory"), directoryHandler_);
+  onElement(root_element + namespace_uri()("directory"), directoryHandler_);
 
   directoryHandler_.onEnd(lambda::bind(&ModelsDirHandler::addDirectory, lambda::ref(*this)));
 }

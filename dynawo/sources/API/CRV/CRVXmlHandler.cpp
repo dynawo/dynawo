@@ -41,14 +41,18 @@ namespace lambda = boost::phoenix;
 namespace lambda_args = lambda::placeholders;
 namespace parser = xml::sax::parser;
 
-xml::sax::parser::namespace_uri crv_ns("http://www.rte-france.com/dynawo");  ///< namespace used to read crv xml file
-
 namespace curves {
+
+// namespace used to read xml file
+static parser::namespace_uri& namespace_uri() {
+  static parser::namespace_uri namespace_uri("http://www.rte-france.com/dynawo");
+  return namespace_uri;
+}
 
 XmlHandler::XmlHandler() :
 curvesCollection_(CurvesCollectionFactory::newInstance("")),
-curveHandler_(parser::ElementName(crv_ns, "curve")) {
-  onElement(crv_ns("curvesInput/curve"), curveHandler_);
+curveHandler_(parser::ElementName(namespace_uri(), "curve")) {
+  onElement(namespace_uri()("curvesInput/curve"), curveHandler_);
   curveHandler_.onEnd(lambda::bind(&XmlHandler::addCurve, lambda::ref(*this)));
 }
 

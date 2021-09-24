@@ -43,18 +43,22 @@ namespace lambda = boost::phoenix;
 namespace lambda_args = lambda::placeholders;
 namespace parser = xml::sax::parser;
 
-xml::sax::parser::namespace_uri crt_ns("http://www.rte-france.com/dynawo");  ///< namespace used to read crt xml file
-
 namespace criteria {
+
+// namespace used to read xml file
+static parser::namespace_uri& namespace_uri() {
+  static parser::namespace_uri namespace_uri("http://www.rte-france.com/dynawo");
+  return namespace_uri;
+}
 
 XmlHandler::XmlHandler() :
 criteriaCollection_(CriteriaCollectionFactory::newInstance()),
-busCriteriaHandler_(parser::ElementName(crt_ns, "busCriteria")) ,
-loadCriteriaHandler_(parser::ElementName(crt_ns, "loadCriteria")),
-genCriteriaHandler_(parser::ElementName(crt_ns, "generatorCriteria")) {
-  onElement(crt_ns("criteria/busCriteria"), busCriteriaHandler_);
-  onElement(crt_ns("criteria/loadCriteria"), loadCriteriaHandler_);
-  onElement(crt_ns("criteria/generatorCriteria"), genCriteriaHandler_);
+busCriteriaHandler_(parser::ElementName(namespace_uri(), "busCriteria")) ,
+loadCriteriaHandler_(parser::ElementName(namespace_uri(), "loadCriteria")),
+genCriteriaHandler_(parser::ElementName(namespace_uri(), "generatorCriteria")) {
+  onElement(namespace_uri()("criteria/busCriteria"), busCriteriaHandler_);
+  onElement(namespace_uri()("criteria/loadCriteria"), loadCriteriaHandler_);
+  onElement(namespace_uri()("criteria/generatorCriteria"), genCriteriaHandler_);
   busCriteriaHandler_.onEnd(lambda::bind(&XmlHandler::addBusCriteria, lambda::ref(*this)));
   loadCriteriaHandler_.onEnd(lambda::bind(&XmlHandler::addLoadCriteria, lambda::ref(*this)));
   genCriteriaHandler_.onEnd(lambda::bind(&XmlHandler::addGenCriteria, lambda::ref(*this)));
@@ -84,13 +88,13 @@ XmlHandler::addGenCriteria() {
 }
 
 CriteriaHandler::CriteriaHandler(elementName_type const& root_element) :
-criteriaParamsHandler_(parser::ElementName(crt_ns, "parameters")),
-cmpHandler_(parser::ElementName(crt_ns, "component")),
-countryHandler_(parser::ElementName(crt_ns, "country")) {
+criteriaParamsHandler_(parser::ElementName(namespace_uri(), "parameters")),
+cmpHandler_(parser::ElementName(namespace_uri(), "component")),
+countryHandler_(parser::ElementName(namespace_uri(), "country")) {
   onStartElement(root_element, lambda::bind(&CriteriaHandler::create, lambda::ref(*this), lambda_args::arg2));
-  onElement(root_element + crt_ns("parameters"), criteriaParamsHandler_);
-  onElement(root_element + crt_ns("component"), cmpHandler_);
-  onElement(root_element + crt_ns("country"), countryHandler_);
+  onElement(root_element + namespace_uri()("parameters"), criteriaParamsHandler_);
+  onElement(root_element + namespace_uri()("component"), cmpHandler_);
+  onElement(root_element + namespace_uri()("country"), countryHandler_);
   criteriaParamsHandler_.onEnd(lambda::bind(&CriteriaHandler::addCriteriaParams, lambda::ref(*this)));
   cmpHandler_.onEnd(lambda::bind(&CriteriaHandler::addComponent, lambda::ref(*this)));
   countryHandler_.onEnd(lambda::bind(&CriteriaHandler::addCountry, lambda::ref(*this)));

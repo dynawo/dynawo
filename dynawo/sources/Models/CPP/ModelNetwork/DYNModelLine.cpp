@@ -87,7 +87,7 @@ modelType_("Line") {
   bool connected1 = line->getInitialConnected1();
   bool connected2 = line->getInitialConnected2();
 
-  double vNom = NAN;
+  double vNom = std::numeric_limits<double>::quiet_NaN();
   if (connected1 && connected2) {
     connectionState_ = CLOSED;
     vNom = line->getVNom1();
