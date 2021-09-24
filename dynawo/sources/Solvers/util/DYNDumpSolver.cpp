@@ -56,7 +56,8 @@ using xml::sax::formatter::FormatterPtr;
  * @param solverName the solver name (for error messages)
  * @param parametersAttributes a map between (lower case) parameter name and XML attributes
  */
-int fillParameterDescription(const DYN::ParameterSolver& parameter, const std::string& solverName, std::map<std::string, AttributeList>& parametersAttributes) {
+static int
+fillParameterDescription(const DYN::ParameterSolver& parameter, const std::string& solverName, std::map<std::string, AttributeList>& parametersAttributes) {
   AttributeList attributes;
   attributes.clear();
   attributes.add("name", parameter.getName());

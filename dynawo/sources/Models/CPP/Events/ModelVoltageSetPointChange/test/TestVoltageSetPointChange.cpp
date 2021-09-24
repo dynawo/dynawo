@@ -32,7 +32,7 @@
 
 namespace DYN {
 
-boost::shared_ptr<SubModel> initModelVoltageSetPointChange() {
+static boost::shared_ptr<SubModel> initModelVoltageSetPointChange() {
   boost::shared_ptr<SubModel> modelVoltageSetPointChange =
     SubModelFactory::createSubModelFromLib("../DYNModelVoltageSetPointChange" + std::string(sharedLibraryExtension()));
 

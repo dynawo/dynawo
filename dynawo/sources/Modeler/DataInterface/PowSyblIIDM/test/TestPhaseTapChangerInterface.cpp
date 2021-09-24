@@ -36,7 +36,7 @@ namespace powsybl {
 
 namespace iidm {
 
-Network
+static Network
 create_2WT_PhaseTapChanger_Network() {
   Network network("test", "test");
   Substation& substation = network.newSubstation()
@@ -206,7 +206,7 @@ TEST(DataInterfaceTest, PhaseTapChanger_2WT) {
 namespace powsybl {
 namespace iidm {
 
-Network
+static Network
 create_3WT_PhaseTapChanger_Network() {
   Network network("test", "test");
   Substation& substation = network.newSubstation()
@@ -326,7 +326,7 @@ create_3WT_PhaseTapChanger_Network() {
   return network;
 }  // create_3WT_PhaseTapChanger_Network()
 
-void
+static void
 addPhaseTapChangerLeg2(ThreeWindingsTransformer& transformer, Terminal& terminal) {
   transformer.getLeg2()
       .newPhaseTapChanger()
@@ -362,7 +362,7 @@ addPhaseTapChangerLeg2(ThreeWindingsTransformer& transformer, Terminal& terminal
       .add();
 }  // addRatioTapChangerLeg2()
 
-void
+static void
 addPhaseTapChangerLeg3(ThreeWindingsTransformer& transformer, Terminal& terminal) {
   transformer.getLeg3()
       .newPhaseTapChanger()

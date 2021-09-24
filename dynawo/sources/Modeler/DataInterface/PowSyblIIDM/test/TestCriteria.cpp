@@ -54,7 +54,7 @@ using criteria::CriteriaCollectionFactory;
 
 namespace DYN {
 
-shared_ptr<DataInterface>
+static shared_ptr<DataInterface>
 createDataItfFromNetworkCriteria(const boost::shared_ptr<powsybl::iidm::Network>& network) {
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
@@ -63,7 +63,7 @@ createDataItfFromNetworkCriteria(const boost::shared_ptr<powsybl::iidm::Network>
   return data;
 }
 
-boost::shared_ptr<powsybl::iidm::Network>
+static boost::shared_ptr<powsybl::iidm::Network>
 createNodeBreakerNetworkCriteria() {
   auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
@@ -109,7 +109,7 @@ createNodeBreakerNetworkCriteria() {
   return network;
 }
 
-boost::shared_ptr<powsybl::iidm::Network>
+static boost::shared_ptr<powsybl::iidm::Network>
 createBusBreakerNetwork(double busV, double busVNom, bool addCountry = true) {
   auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
@@ -135,7 +135,7 @@ createBusBreakerNetwork(double busV, double busVNom, bool addCountry = true) {
   return network;
 }
 
-boost::shared_ptr<powsybl::iidm::Network>
+static boost::shared_ptr<powsybl::iidm::Network>
 createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, double pow2, bool addCountry = true) {
   auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
@@ -185,7 +185,7 @@ createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, doubl
   return network;
 }
 
-boost::shared_ptr<powsybl::iidm::Network>
+static boost::shared_ptr<powsybl::iidm::Network>
 createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, double pow2, bool addCountry = true) {
   auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
@@ -243,7 +243,7 @@ createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, 
   return network;
 }
 
-shared_ptr<SubModel>
+static shared_ptr<SubModel>
 initModel(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib("../../../../Models/CPP/ModelNetwork/DYNModelNetwork" +
                                                 std::string(sharedLibraryExtension()));
@@ -262,7 +262,7 @@ initModel(shared_ptr<DataInterface> data) {
   return modelNetwork;
 }
 
-void
+static void
 exportStates(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = initModel(data);
   ModelMulti mm;

@@ -58,7 +58,7 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-shared_ptr<SubModel>
+static shared_ptr<SubModel>
 initializeModel(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib("../../../Models/CPP/ModelNetwork/DYNModelNetwork" +
                                                                              std::string(sharedLibraryExtension()));
@@ -82,7 +82,7 @@ initializeModel(shared_ptr<DataInterface> data) {
   return modelNetwork;
 }  // initializeModel(shared_ptr<DataInterface> data);
 
-void
+static void
 exportStateVariables(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = initializeModel(data);
   ModelMulti mm;
