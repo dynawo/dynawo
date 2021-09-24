@@ -49,6 +49,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdocumentation"
 #pragma clang diagnostic ignored "-Wextra-semi-stmt"
+#pragma clang diagnostic ignored "-Wold-style-cast"
 #endif  // __clang__
 #include "simulation_data.h"
 #ifdef __clang__

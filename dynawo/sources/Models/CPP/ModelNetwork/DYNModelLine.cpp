@@ -1110,7 +1110,7 @@ ModelLine::setGequations(std::map<int, std::string>& gEquationIndex) {
     }
   }
 
-  assert(gEquationIndex.size() == (unsigned int) sizeG_ && "ModelLine: gEquationIndex.size() != sizeG_");
+  assert(gEquationIndex.size() == static_cast<size_t>(sizeG_) && "ModelLine: gEquationIndex.size() != sizeG_");
 }
 
 void
