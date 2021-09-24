@@ -77,6 +77,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
   NodeFault.xml
+  PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
   PhotovoltaicsWeccCurrentSource.xml

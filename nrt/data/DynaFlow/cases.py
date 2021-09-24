@@ -125,12 +125,22 @@ job_file = os.path.join(os.path.dirname(__file__), "HvdcPowerTransfer", "HvdcPow
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 ################################################################################################
-#  Small System with with a Load Restoration following a line disconnection, using a cpp model #
+#  Small System with a Load Restoration following a line disconnection, using a cpp model #
 ################################################################################################
 
 case_name = "DynaFlow - LoadRestoration with line disconnection"
 case_description = "Small System with with a Load Restoration following a line disconnection, using a cpp model"
 job_file = os.path.join(os.path.dirname(__file__), "LoadRestorativeWithLimits", "LoadRestorativeWithLimits.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+################################################################################################
+#  Small System with PST locking following a line disconnection #
+################################################################################################
+
+case_name = "DynaFlow - Phase Shifter Transformer locking"
+case_description = "Small System with PST locking following a line disconnection"
+job_file = os.path.join(os.path.dirname(__file__), "PhaseShifterBlocking", "PhaseShifterBlocking.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
