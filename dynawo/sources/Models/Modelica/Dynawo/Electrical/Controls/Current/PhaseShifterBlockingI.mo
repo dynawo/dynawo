@@ -23,7 +23,8 @@ model PhaseShifterBlockingI
     parameter Types.Time tLagBeforeActing "Time lag before taking action";
     Connectors.ImPin IMonitored "Monitored current";
     Connectors.BPin locked "Is phase shifter locked?";
-   protected
+
+  protected
 
     discrete Types.Time tThresholdReached (start = Constants.inf) "Time when I > IThreshold was first reached";
 
