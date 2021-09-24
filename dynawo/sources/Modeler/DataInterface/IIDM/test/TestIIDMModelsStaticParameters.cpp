@@ -77,7 +77,7 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-shared_ptr<DataInterface>
+static shared_ptr<DataInterface>
 createNodeBreakerNetworkIIDM() {
   IIDM::builders::NetworkBuilder nb;
   boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
@@ -129,7 +129,7 @@ struct BusBreakerNetworkProperty {
   bool instantiateBattery;
 };
 
-shared_ptr<DataInterface>
+static shared_ptr<DataInterface>
 createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
   IIDM::builders::NetworkBuilder nb;
   boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
@@ -352,7 +352,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
   return data;
 }
 
-shared_ptr<SubModel>
+static shared_ptr<SubModel>
 initializeModel(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib("../../../../Models/CPP/ModelNetwork/DYNModelNetwork" +
                                                 std::string(sharedLibraryExtension()));
@@ -378,7 +378,7 @@ initializeModel(shared_ptr<DataInterface> data) {
   return modelNetwork;
 }
 
-void
+static void
 exportStateVariables(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = initializeModel(data);
   ModelMulti mm;

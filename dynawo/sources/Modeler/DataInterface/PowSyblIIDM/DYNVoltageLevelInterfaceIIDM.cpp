@@ -50,7 +50,7 @@ using std::stringstream;
 
 namespace DYN {
 
-void
+static void
 buildInternalConnectionId(const powsybl::iidm::node_breaker_view::InternalConnection& internalConnection, stringstream& ss) {
   ss.str(std::string());
   ss.clear();

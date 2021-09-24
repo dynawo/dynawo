@@ -48,7 +48,7 @@
 using boost::shared_ptr;
 
 namespace DYN {
-std::pair<shared_ptr<ModelDanglingLine>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<shared_ptr<ModelDanglingLine>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelDanglingLine(bool open, bool initModel) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");

@@ -67,7 +67,7 @@ using boost::shared_ptr;
 #define LCC false
 namespace DYN {
 
-std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = true) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");

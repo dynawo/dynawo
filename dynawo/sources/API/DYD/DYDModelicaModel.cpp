@@ -158,7 +158,7 @@ ModelicaModel::addMacroConnect(const shared_ptr<MacroConnect>& macroConnect) {
  * @brief function for hasSameStructureAs.
  * create a map: model[ID] = Name
  */
-map<string, string>
+static map<string, string>
 modelsByInitName(const map<string, shared_ptr<UnitDynamicModel> >& uDM) {
   map<string, string> modelsInitName;
   map<string, shared_ptr<UnitDynamicModel> >::const_iterator itUdm;
@@ -171,7 +171,7 @@ modelsByInitName(const map<string, shared_ptr<UnitDynamicModel> >& uDM) {
  * @brief function for hasSameStructureAs.
  * create a map: model[ID] = Name
  */
-map<string, string>
+static map<string, string>
 modelsByName(const map<string, shared_ptr<UnitDynamicModel> >& uDM) {
   map<string, string> modelsName;
   map<string, shared_ptr<UnitDynamicModel> >::const_iterator itUdm;
@@ -184,7 +184,7 @@ modelsByName(const map<string, shared_ptr<UnitDynamicModel> >& uDM) {
  * @brief function for hasSameStructureAs.
  * return "modelName_VariableId" of connect's first Element
  */
-string
+static string
 connect1stElement2String(const shared_ptr<Connector>& connect, const map<string, string>& modelsName) {
   map<string, string>::const_iterator iter = modelsName.find(connect->getFirstModelId());
   if (iter == modelsName.end())
@@ -199,7 +199,7 @@ connect1stElement2String(const shared_ptr<Connector>& connect, const map<string,
  * @brief function for hasSameStructureAs.
  * return "modelName_VariableId" of connect's second Element
  */
-string
+static string
 connect2ndElement2String(const shared_ptr<Connector>& connect, const map<string, string>& modelsName) {
   map<string, string>::const_iterator iter = modelsName.find(connect->getSecondModelId());
   if (iter == modelsName.end())
@@ -215,7 +215,7 @@ connect2ndElement2String(const shared_ptr<Connector>& connect, const map<string,
  * @brief function for hasSameStructureAs.
  * convert a connection to string
  */
-string
+static string
 connection2String(const shared_ptr<Connector>& connect, const map<string, string>& modelsName) {
   string ic_first = connect1stElement2String(connect, modelsName);
   string ic_second = connect2ndElement2String(connect, modelsName);
@@ -233,7 +233,7 @@ connection2String(const shared_ptr<Connector>& connect, const map<string, string
  * @brief function for hasSameStructureAs.
  * convert a macro connection to string
  */
-string
+static string
 macroConnect2String(const shared_ptr<MacroConnect>& connect, const map<string, string>& modelsName) {
   map<string, string>::const_iterator iter = modelsName.find(connect->getFirstModelId());
 
@@ -259,7 +259,7 @@ macroConnect2String(const shared_ptr<MacroConnect>& connect, const map<string, s
  * @brief function for hasSameStructureAs.
  * convert all connections to a list
  */
-list<string>
+static list<string>
 connections2StringList(const map<string, shared_ptr<Connector> >& connects, const map<string, string>& modelsName) {
   list<string> listIc_string;
   map<string, shared_ptr<Connector> >::const_iterator itIc;
@@ -273,7 +273,7 @@ connections2StringList(const map<string, shared_ptr<Connector> >& connects, cons
  * @brief function for hasSameStructureAs.
  * convert all model names to a list
  */
-list<string>
+static list<string>
 modelsName2List(const map<string, string>& modelsName) {
   list<string> modelsNameList;
   map<string, string>::const_iterator it;
@@ -287,7 +287,7 @@ modelsName2List(const map<string, string>& modelsName) {
  * @brief function for hasSameStructureAs.
  * convert all macro connections to a list
  */
-list<string>
+static list<string>
 macroConnect2StringList(const map<string, shared_ptr<MacroConnect> >& connects, const map<string, string>& modelsName) {
   list<string> listIc_string;
   map<string, shared_ptr<MacroConnect> >::const_iterator itIc;
@@ -300,7 +300,7 @@ macroConnect2StringList(const map<string, shared_ptr<MacroConnect> >& connects, 
 /**
  * @brief function for hasSameStructureAs. is same connection?
  */
-bool
+static bool
 isSameConnection(const shared_ptr<Connector>& connect1, const shared_ptr<Connector>& connect2, const map<string, string>& modelsName1,
                  const map<string, string>& modelsName2) {
   return (connection2String(connect1, modelsName1) == connection2String(connect2, modelsName2));
@@ -309,7 +309,7 @@ isSameConnection(const shared_ptr<Connector>& connect1, const shared_ptr<Connect
 /**
  * @brief function for hasSameStructureAs. is same macro connection?
  */
-bool
+static bool
 isSameMacroConnect(const shared_ptr<MacroConnect>& connect1, const shared_ptr<MacroConnect>& connect2, const map<string, string>& modelsName1,
                    const map<string, string>& modelsName2) {
   if (connect1->getConnector() != connect2->getConnector())
@@ -320,7 +320,7 @@ isSameMacroConnect(const shared_ptr<MacroConnect>& connect1, const shared_ptr<Ma
 /**
  * @brief for connections2MapSetofModelsInvolvedInOneTypeofConnectedVariable. return map[modelID_varID]=<ModelID1,   , ModelIDn>
  */
-map<string, set<string> >
+static map<string, set<string> >
 connections2ModelsInvolvedInOneConnectedVariableType(const map<string, shared_ptr<Connector> >& connects, const map<string, string>& modelsName) {
   map<string, set<string> > modelsInvolvedInOneConnectedVariableType;
   map<string, shared_ptr<Connector> >::const_iterator itIc;

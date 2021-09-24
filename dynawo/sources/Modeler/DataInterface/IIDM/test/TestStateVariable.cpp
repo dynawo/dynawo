@@ -91,7 +91,7 @@ struct NetworkProperty {
   bool instantiateVscConverter;
 };
 
-shared_ptr<SubModel>
+static shared_ptr<SubModel>
 initializeModelNetwork(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib("../../../../Models/CPP/ModelNetwork/DYNModelNetwork" +
                                               std::string(sharedLibraryExtension()));
@@ -121,7 +121,7 @@ initializeModelNetwork(shared_ptr<DataInterface> data) {
   return modelNetwork;
 }
 
-shared_ptr<DataInterface>
+static shared_ptr<DataInterface>
 createNetwork(const NetworkProperty& properties) {
   IIDM::builders::NetworkBuilder nb;
   boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
@@ -354,7 +354,7 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
   ASSERT_EQ(network->getLines().size(), 1);
 }
 
-void
+static void
 testexportStateVariables(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
   ModelMulti mm;
