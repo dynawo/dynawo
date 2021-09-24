@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <!--Curves for scenario-->
+  <curve model="NETWORK" variable="_BUS____9-BUS___10-1_AC_iSide2"/>
+  <curve model="NETWORK" variable="_BUS____5-BUS____6-1_PS_iSide2"/>
+  <curve model="NETWORK" variable="_BUS____5-BUS____6-1_PS_step"/>
+  <curve model="NETWORK" variable="_BUS____5-BUS____6-1_PS_i1"/>
+  <curve model="PhaseShifter" variable="phaseShifter_state"/>
+  <curve model="PhaseShifter" variable="phaseShifter_iMax"/>
+  <curve model="PhaseShifter" variable="phaseShifter_iStop"/>
+  <curve model="PhaseShifter" variable="phaseShifter_iMonitored"/>
+</curvesInput>
