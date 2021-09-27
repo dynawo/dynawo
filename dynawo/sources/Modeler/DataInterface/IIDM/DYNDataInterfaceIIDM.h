@@ -286,10 +286,9 @@ class DataInterfaceIIDM : public DataInterface {
    * @brief import and create a battery interface thanks to the IIDM instance
    *
    * @param batteryIIDM IIDM instance to use to create generatorInterface
-   * @param country country of the parent substation
    * @return the instance of GeneratorInterface created
    */
-  boost::shared_ptr<GeneratorInterface> importBattery(IIDM::Battery & batteryIIDM, const std::string& country);
+  boost::shared_ptr<GeneratorInterface> importBattery(IIDM::Battery & batteryIIDM);
 
   /**
    * @brief import and create a load interface thanks to the IIDM instance

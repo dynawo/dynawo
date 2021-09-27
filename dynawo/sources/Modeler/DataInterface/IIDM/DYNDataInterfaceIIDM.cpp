@@ -442,7 +442,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
       Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itBat).id()) << Trace::endline;
       continue;
     }
-    shared_ptr<GeneratorInterface> generator = importBattery(*itBat, country);
+    shared_ptr<GeneratorInterface> generator = importBattery(*itBat);
     voltageLevel->addGenerator(generator);
     components_[generator->getID()] = generator;
     generatorComponents_[generator->getID()] = generator;
@@ -596,9 +596,8 @@ DataInterfaceIIDM::importGenerator(IIDM::Generator & generatorIIDM) {
 }
 
 shared_ptr<GeneratorInterface>
-DataInterfaceIIDM::importBattery(IIDM::Battery & batteryIIDM, const std::string& country) {
+DataInterfaceIIDM::importBattery(IIDM::Battery & batteryIIDM) {
   shared_ptr<BatteryInterfaceIIDM> battery(new BatteryInterfaceIIDM(batteryIIDM));
-  battery->setCountry(country);
 
   // reference to bus interface
   if (batteryIIDM.is_bus()) {

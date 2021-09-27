@@ -186,25 +186,8 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
    */
   double getCoordinatedReactiveControlPercentage() const;
 
-  /**
-   * @brief Getter for the generator' country
-   * @return the battery country
-   */
-  inline const std::string& getCountry() const {
-    return country_;
-  }
-
-  /**
-   * @brief Setter for the generator' country
-   * @param country battery country
-   */
-  inline void setCountry(const std::string& country) {
-    country_ = country;
-  }
-
  private:
   IIDM::Battery& batteryIIDM_;  ///< reference to the iidm generator instance
-  std::string country_;  ///< country of the generator
   IIDM::extensions::activepowercontrol::ActivePowerControl * activePowerControl_;  ///< pointer to ActivePowerControl extension
 };
 }  // namespace DYN
