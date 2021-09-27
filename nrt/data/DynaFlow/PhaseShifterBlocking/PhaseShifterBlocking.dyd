@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+-->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:macroConnector id="GEN_NETWORK_CONNECTOR">
     <dyn:connect var1="generator_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
@@ -74,6 +85,6 @@
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_iMonitored" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_i1"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_disable_internal_tapChanger"/>
   <dyn:blackBoxModel id="PhaseShifterLock" lib="PhaseShifterBlockingI" parFile="PhaseShifterBlocking.par" parId="PhaseShifterLock"/>
-  <dyn:connect id1="PhaseShifterLock" var1="phaseShifterBlockingI_IMonitored" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_i1"/>
-  <dyn:connect id1="PhaseShifterLock" var1="phaseShifterBlockingI_locked_value" id2="PhaseShifter" var2="phaseShifter_locked"/>
+  <dyn:connect id1="PhaseShifterLock" var1="phaseShifterBlockingI_IMonitored" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_i1_value"/>
+  <dyn:connect id1="PhaseShifterLock" var1="phaseShifterBlockingI_locked" id2="PhaseShifter" var2="phaseShifter_locked"/>
 </dyn:dynamicModelsArchitecture>

@@ -10,37 +10,37 @@ within Dynawo.Electrical.Controls.Current;
 *
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
-model PhaseShifterBlockingI
+model PhaseShifterBlockingI "Phase Shifter blocking model"
 
   import Modelica.Constants;
-
   import Dynawo.Connectors;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
+  import Dynawo.Types;
 
   public
     parameter Types.CurrentModule IMax "Maximum current on the monitored component";
     parameter Types.Time tLagBeforeActing "Time lag before taking action";
-    Connectors.ImPin IMonitored "Monitored current";
-    Connectors.BPin locked "Is phase shifter locked?";
+    Types.CurrentModule IMonitored "Monitored current";
+    output Boolean locked "Is phase shifter locked?";
 
   protected
-
-    discrete Types.Time tThresholdReached (start = Constants.inf) "Time when I > IThreshold was first reached";
+    discrete Types.Time tThresholdReached (start = Constants.inf) "Time when I > IMax was first reached";
 
 equation
- when IMonitored.value > IMax and not(pre(locked.value)) then
+ when IMonitored > IMax and not(pre(locked)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.PhaseShifterBlockingIArming);
-  elsewhen IMonitored.value < IMax and pre(tThresholdReached) <> Constants.inf and not(pre(locked.value)) then
+  elsewhen IMonitored < IMax and pre(tThresholdReached) <> Constants.inf and not(pre(locked)) then
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.PhaseShifterBlockingIDisarming);
   end when;
 
   when time - tThresholdReached >= tLagBeforeActing then
-    locked.value = true;
+    locked = true;
     Timeline.logEvent1(TimelineKeys.PhaseShifterBlockingIActing);
   end when;
+
 annotation(preferredView = "text",
-    Documentation(info = "<html><head></head><body>The automaton will lock a Phase Shifter when the current stays higher than a predefined threshold during a certain amount of time on a monitored and controlled component (line, transformer, etc.)</body></html>"));
+    Documentation(info = "<html><head></head><body>The automaton will block a Phase Shifter when the current stays higher than a predefined threshold during a certain amount of time on a monitored and controlled component (line, transformer, etc.)</body></html>"));
 end PhaseShifterBlockingI;

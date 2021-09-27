@@ -128,8 +128,8 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 #  Small System with PST locking following a line disconnection #
 ################################################################################################
 
-case_name = "DynaFlow - Phase Shifter Transformer locking"
-case_description = "Small System with PST locking following a line disconnection"
+case_name = "DynaFlow - Phase Shifter Transformer blocking"
+case_description = "Small System with PST blocking following a line disconnection"
 job_file = os.path.join(os.path.dirname(__file__), "PhaseShifterBlocking", "PhaseShifterBlocking.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
