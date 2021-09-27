@@ -151,32 +151,38 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
   std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const;
 
   /**
-   * @copydoc GeneratorInterface::isVoltageRegulationOn() const
+   * @brief Determines if voltage regulation is on
+   * @returns whether voltage regulation is on
    */
   bool isVoltageRegulationOn() const;
 
   /**
-   * @copydoc GeneratorInterface::hasActivePowerControl() const
+   * @brief Determines if generator has active power control information
+   * @returns whether generator has active power control information
    */
   bool hasActivePowerControl() const;
 
   /**
-   * @copydoc GeneratorInterface::isParticipating() const
+   * @brief Determines if generator is participating in active power control
+   * @returns whether generator is participating to active power control
    */
   bool isParticipating() const;
 
   /**
-   * @copydoc GeneratorInterface::getActivePowerControlDroop() const
+   * @brief Getter for the active power control droop
+   * @returns active power control droop value
    */
   double getActivePowerControlDroop() const;
 
   /**
-   * @copydoc GeneratorInterface::hasCoordinatedReactiveControl() const
+   * @brief Determines if generator has coordinated reactive power control information
+   * @returns whether generator has coordinated reactive power power control information
    */
   bool hasCoordinatedReactiveControl() const;
 
   /**
-   * @copydoc GeneratorInterface::getCoordinatedReactiveControlPercentage() const
+   * @brief Getter for the reactive power control percentage of participation
+   * @returns reactive power control percentage of participation value
    */
   double getCoordinatedReactiveControlPercentage() const;
 
