@@ -204,11 +204,13 @@ ModelVariationArea::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMa
 void
 ModelVariationArea::evalZ(const double /*t*/) {
   if (gLocal_[0] == ROOT_UP) {  // load increase in progress
+    DYNAddTimelineEvent(this, name(), LoadModificationStarted);
     zLocal_[0] = ON_GOING;
     stateVariationArea_ = ON_GOING;
   }
 
   if (gLocal_[1] == ROOT_UP) {  // load increase ended
+    DYNAddTimelineEvent(this, name(), LoadModificationEnded);
     zLocal_[0] = FINISHED;
     stateVariationArea_ = FINISHED;
   }
