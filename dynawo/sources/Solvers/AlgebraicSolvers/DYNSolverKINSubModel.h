@@ -23,8 +23,15 @@
 
 #include <boost/core/noncopyable.hpp>
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreserved-id-macro"
+#endif  // __clang__
 #include <sundials/sundials_nvector.h>
 #include <sundials/sundials_linearsolver.h>
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 #include "DYNSolverKINCommon.h"
 
 namespace DYN {
