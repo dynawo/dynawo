@@ -20,8 +20,15 @@
 #ifndef SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINCOMMON_H_
 #define SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINCOMMON_H_
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreserved-id-macro"
+#endif  // __clang__
 #include <kinsol/kinsol.h>
 #include <sundials/sundials_nvector.h>
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 #include <boost/shared_ptr.hpp>
 #include <string>
 #include <vector>

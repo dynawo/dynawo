@@ -1143,7 +1143,8 @@ ModelManager::setInitialCalculatedParameters() {
     parametersInitial[currentParameter.getIndex()] = currentParameter;
   }
   // Copy init parameters
-  assert(parametersInitial.size() == (unsigned int) (modelData()->nParametersReal + modelData()->nParametersBoolean + modelData()->nParametersInteger + modelData()->nParametersString));   // NOLINT(whitespace/line_length)
+  assert(parametersInitial.size() == static_cast<size_t>(modelData()->nParametersReal + modelData()->nParametersBoolean
+                                                       + modelData()->nParametersInteger + modelData()->nParametersString));
   for (unsigned int i = 0; i < modelData()->nParametersReal; ++i) {
     const string& parName = parametersInitial[i].getName();
 

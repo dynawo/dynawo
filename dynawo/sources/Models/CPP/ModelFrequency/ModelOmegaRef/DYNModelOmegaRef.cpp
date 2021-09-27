@@ -533,7 +533,7 @@ ModelOmegaRef::setFequations() {
     fEquationIndex_[k + nbMaxCC] = f.str();
   }
 
-  assert(fEquationIndex_.size() == (unsigned int) sizeF() && "ModelOmegaRef:fEquationIndex_.size() != f_.size()");
+  assert(fEquationIndex_.size() == static_cast<size_t>(sizeF()) && "ModelOmegaRef:fEquationIndex_.size() != f_.size()");
 }
 
 void
