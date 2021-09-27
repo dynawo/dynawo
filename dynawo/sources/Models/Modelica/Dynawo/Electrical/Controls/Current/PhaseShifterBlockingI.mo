@@ -1,4 +1,5 @@
 within Dynawo.Electrical.Controls.Current;
+
 /*
 * Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
@@ -10,10 +11,9 @@ within Dynawo.Electrical.Controls.Current;
 *
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
-model PhaseShifterBlockingI "Phase Shifter blocking model"
 
+model PhaseShifterBlockingI "Phase Shifter blocking model"
   import Modelica.Constants;
-  import Dynawo.Connectors;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
   import Dynawo.Types;
@@ -21,14 +21,15 @@ model PhaseShifterBlockingI "Phase Shifter blocking model"
   public
     parameter Types.CurrentModule IMax "Maximum current on the monitored component";
     parameter Types.Time tLagBeforeActing "Time lag before taking action";
-    Types.CurrentModule IMonitored "Monitored current";
+
+    input Types.CurrentModule IMonitored "Monitored current";
     output Boolean locked "Is phase shifter locked?";
 
   protected
     discrete Types.Time tThresholdReached (start = Constants.inf) "Time when I > IMax was first reached";
 
 equation
- when IMonitored > IMax and not(pre(locked)) then
+  when IMonitored > IMax and not(pre(locked)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.PhaseShifterBlockingIArming);
   elsewhen IMonitored < IMax and pre(tThresholdReached) <> Constants.inf and not(pre(locked)) then
