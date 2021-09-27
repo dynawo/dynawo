@@ -194,3 +194,15 @@ def OutputIIDMCloseEnough (path_left, path_right):
     for error in sorted(differences, key=operator.itemgetter(0), reverse=True)[:settings.max_nb_iidm_outputs]:
         msg += "[ERROR] attribute " + error[2] + " of object " + error[1].id + " (type " + error[1].type + ") has different values (delta = " + str(error[0]) + ") \n"
     return (nb_differences, msg)
+
+if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print("Error : not enough arguments")
+    path_left = sys.argv[1]
+    path_right = sys.argv[2]
+    print("Comparing " + path_left + " and " + path_right)
+    nb_differences, msg = OutputIIDMCloseEnough(path_left, path_right)
+    if nb_differences > 0:
+        print(msg)
+        exit(1)
+    print("OK")
