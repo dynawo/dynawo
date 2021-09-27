@@ -84,17 +84,17 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   }
   mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
 
-  unsigned i = 0;
+  unsigned n = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
     boost::shared_ptr<constraints::Constraint> constraint = (*it);
-    if (i == 0) {
+    if (n == 0) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
       ASSERT_EQ(constraint->getDescription(), "IMAP 2");
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
       ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
       ASSERT_EQ(constraint->getModelType(), modelType);
-    } else if (i == 1) {
+    } else if (n == 1) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
       ASSERT_EQ(constraint->getDescription(), "OverloadUp 5 2");
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
@@ -103,9 +103,9 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
     } else {
       assert(0);
     }
-    ++i;
+    ++n;
   }
-  ASSERT_EQ(i, 2);
+  ASSERT_EQ(n, 2);
   current = 4.;
   t = 5.1;
   mcl.evalG(t, current, &states[0], desactivate);
@@ -120,11 +120,11 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   network.setCurrentTime(5.1);
   mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
 
-  i = 0;
+  n = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
     boost::shared_ptr<constraints::Constraint> constraint = (*it);
-    if (i == 0) {
+    if (n == 0) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
       ASSERT_EQ(constraint->getDescription(), "OverloadOpen 5 2");
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 5.1);
@@ -133,8 +133,8 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
     } else {
       assert(0);
     }
-    ++i;
+    ++n;
   }
-  ASSERT_EQ(i, 1);
+  ASSERT_EQ(n, 1);
 }
 }  // namespace DYN
