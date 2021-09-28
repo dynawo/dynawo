@@ -1019,9 +1019,9 @@ void
 Simulation::printHighestDerivativesValues() {
   if (!Trace::logExists("", DEBUG)) return;
   const vector<double>& deriv = solver_->getCurrentYP();
-  vector<std::pair<double, size_t> > derivValues;
+  vector<std::pair<double, int> > derivValues;
   for (size_t i = 0, iEnd = deriv.size(); i < iEnd; ++i)
-    derivValues.push_back(std::make_pair(deriv[i], i));
+    derivValues.push_back(std::make_pair(deriv[i], static_cast<int>(i)));
 
   std::sort(derivValues.begin(), derivValues.end(), mapcompabs());
 

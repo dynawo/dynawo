@@ -31,7 +31,7 @@ void
 addElement(const string& name, const Element::typeElement& type, vector<Element>& elements, map<string, int >& mapElement) {
   Element element(name, name, type);
   elements.push_back(element);
-  mapElement[name] = elements.size() - 1;
+  mapElement[name] = static_cast<int>(elements.size()) - 1;
 }
 
 void
@@ -40,10 +40,10 @@ addSubElement(const string& name, const string& elementName, const Element::type
   string subName = elementName + "_" + name;
   Element subElement(name, subName, type);
   elements.push_back(subElement);
-  mapElement[subName] = elements.size() - 1;
+  mapElement[subName] = static_cast<int>(elements.size()) - 1;
   map<string, int>::iterator iter = mapElement.find(elementName);
   if (iter != mapElement.end()) {
-    elements[iter->second].subElementsNum().push_back(elements.size() - 1);
+    elements[iter->second].subElementsNum().push_back(static_cast<int>(elements.size()) - 1);
   } else {
     throw DYNError(Error::MODELER, SubModelUnknownElement, elementName, parentName, parentType);
   }

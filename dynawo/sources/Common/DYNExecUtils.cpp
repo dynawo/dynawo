@@ -81,7 +81,7 @@ void parentProcess(int fd[2], std::stringstream & ss) {
     if (retsel == -1) {  // error
       throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "select", strerror_r(errno, buferr, sizeof (buferr)));
     } else if (retsel> 0) {  // some data may be available
-      int retread;
+      ssize_t retread;
       while ((retread = read(fd[0], buf, BUFSIZ)) > 0) {
         strbuf += string(buf, retread);
       }

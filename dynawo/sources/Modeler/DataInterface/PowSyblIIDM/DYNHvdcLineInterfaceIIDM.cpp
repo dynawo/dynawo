@@ -85,9 +85,9 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
         // should be removed once a solution has been found to propagate switches (de)connection
         // following component (de)connection (only Modelica models)
         if (connected1 && !vsc1->getInitialConnected())
-          vsc1->getVoltageLevelInterfaceInjector()->connectNode(vsc1->getVscIIDM().getTerminal().getNodeBreakerView().getNode());
+          vsc1->getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(vsc1->getVscIIDM().getTerminal().getNodeBreakerView().getNode()));
         else if (!connected1 && vsc1->getInitialConnected())
-          vsc1->getVoltageLevelInterfaceInjector()->disconnectNode(vsc1->getVscIIDM().getTerminal().getNodeBreakerView().getNode());
+          vsc1->getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(vsc1->getVscIIDM().getTerminal().getNodeBreakerView().getNode()));
       }
       if (connected1)
         (vsc1->getVscIIDM()).getTerminal().connect();
@@ -99,9 +99,9 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
         // should be removed once a solution has been found to propagate switches (de)connection
         // following component (de)connection (only Modelica models)
         if (connected2 && !vsc2->getInitialConnected())
-          vsc2->getVoltageLevelInterfaceInjector()->connectNode(vsc2->getVscIIDM().getTerminal().getNodeBreakerView().getNode());
+          vsc2->getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(vsc2->getVscIIDM().getTerminal().getNodeBreakerView().getNode()));
         else if (!connected2 && vsc2->getInitialConnected())
-          vsc2->getVoltageLevelInterfaceInjector()->disconnectNode(vsc2->getVscIIDM().getTerminal().getNodeBreakerView().getNode());
+          vsc2->getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(vsc2->getVscIIDM().getTerminal().getNodeBreakerView().getNode()));
       }
       if (connected2)
         (vsc2->getVscIIDM()).getTerminal().connect();
@@ -123,9 +123,9 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
         // should be removed once a solution has been found to propagate switches (de)connection
         // following component (de)connection (only Modelica models)
         if (connected1 && !lcc1->getInitialConnected())
-          lcc1->getVoltageLevelInterfaceInjector()->connectNode(lcc1->getLccIIDM().getTerminal().getNodeBreakerView().getNode());
+          lcc1->getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(lcc1->getLccIIDM().getTerminal().getNodeBreakerView().getNode()));
         else if (!connected1 && lcc1->getInitialConnected())
-          lcc1->getVoltageLevelInterfaceInjector()->disconnectNode(lcc1->getLccIIDM().getTerminal().getNodeBreakerView().getNode());
+          lcc1->getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(lcc1->getLccIIDM().getTerminal().getNodeBreakerView().getNode()));
       }
       if (connected1)
         (lcc1->getLccIIDM()).getTerminal().connect();
@@ -136,9 +136,9 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
         // should be removed once a solution has been found to propagate switches (de)connection
         // following component (de)connection (only Modelica models)
         if (connected2 && !lcc2->getInitialConnected())
-          lcc2->getVoltageLevelInterfaceInjector()->connectNode(lcc2->getLccIIDM().getTerminal().getNodeBreakerView().getNode());
+          lcc2->getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(lcc2->getLccIIDM().getTerminal().getNodeBreakerView().getNode()));
         else if (!connected2 && lcc2->getInitialConnected())
-          lcc2->getVoltageLevelInterfaceInjector()->disconnectNode(lcc2->getLccIIDM().getTerminal().getNodeBreakerView().getNode());
+          lcc2->getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(lcc2->getLccIIDM().getTerminal().getNodeBreakerView().getNode()));
       }
       if (connected2)
         (lcc2->getLccIIDM()).getTerminal().connect();

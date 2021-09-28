@@ -682,7 +682,7 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
    * @return number of buses
    */
   inline unsigned int nbBus() const {
-    return bus_.size();
+    return static_cast<unsigned int>(bus_.size());
   }   // get the number of buses within the sub-network
 
   /**
