@@ -79,7 +79,7 @@ class MyModelica: public ModelModelica {
     data->modelData->nAliasBoolean = 0;
     data->modelData->nAliasString = 0;
     // buffer for all parameters values
-    int nb = (data->modelData->nParametersReal > 0) ? data->modelData->nParametersReal : 0;
+    long nb = (data->modelData->nParametersReal > 0) ? data->modelData->nParametersReal : 0;
     data->simulationInfo->realParameter = reinterpret_cast<modelica_real *>(calloc(nb, sizeof(modelica_real)));
 
     nb = (data->modelData->nParametersBoolean > 0) ? data->modelData->nParametersBoolean : 0;

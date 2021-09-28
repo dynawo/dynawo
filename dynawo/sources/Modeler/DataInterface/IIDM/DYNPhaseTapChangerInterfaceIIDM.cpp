@@ -61,7 +61,7 @@ namespace DYN {
 
   unsigned int
   PhaseTapChangerInterfaceIIDM::getNbTap() const {
-    return steps_.size();
+    return static_cast<unsigned int>(steps_.size());
   }
 
   bool

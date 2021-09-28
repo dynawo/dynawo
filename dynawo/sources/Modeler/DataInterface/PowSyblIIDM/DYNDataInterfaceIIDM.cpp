@@ -346,8 +346,10 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     //===========================
     for (auto& switchIIDM : voltageLevelIIDM.getSwitches()) {
       if (switchIIDM.isOpen() || switchIIDM.isRetained()) {
-        shared_ptr<BusInterface> bus1 = findNodeBreakerBusInterface(voltageLevelIIDM, voltageLevelIIDM.getNodeBreakerView().getNode1(switchIIDM.getId()));
-        shared_ptr<BusInterface> bus2 = findNodeBreakerBusInterface(voltageLevelIIDM, voltageLevelIIDM.getNodeBreakerView().getNode2(switchIIDM.getId()));
+        shared_ptr<BusInterface> bus1 = findNodeBreakerBusInterface(voltageLevelIIDM,
+                                                                    static_cast<int>(voltageLevelIIDM.getNodeBreakerView().getNode1(switchIIDM.getId())));
+        shared_ptr<BusInterface> bus2 = findNodeBreakerBusInterface(voltageLevelIIDM,
+                                                                    static_cast<int>(voltageLevelIIDM.getNodeBreakerView().getNode2(switchIIDM.getId())));
         shared_ptr<SwitchInterface> sw = importSwitch(switchIIDM, bus1, bus2);
         if (sw->getBusInterface1() != sw->getBusInterface2()) {  // if the switch is connecting one single bus, don't create a specific switch model
           components_[sw->getID()] = sw;
@@ -754,7 +756,7 @@ DataInterfaceIIDM::getNetwork() const {
 shared_ptr<BusInterface>
 DataInterfaceIIDM::findBusInterface(const powsybl::iidm::Terminal& terminal) const {
   if (terminal.getVoltageLevel().getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
-    return findNodeBreakerBusInterface(terminal.getVoltageLevel(), terminal.getNodeBreakerView().getNode());
+    return findNodeBreakerBusInterface(terminal.getVoltageLevel(), static_cast<int>(terminal.getNodeBreakerView().getNode()));
   } else {
     return findBusBreakerBusInterface(terminal.getBusBreakerView().getConnectableBus().get());
   }

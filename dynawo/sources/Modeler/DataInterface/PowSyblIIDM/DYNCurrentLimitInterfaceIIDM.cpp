@@ -45,7 +45,7 @@ CurrentLimitInterfaceIIDM::getLimit() const {
 
 int
 CurrentLimitInterfaceIIDM::getAcceptableDuration() const {
-  return acceptableDuration_;
+  return static_cast<int>(acceptableDuration_);
 }
 
 }  // namespace DYN

@@ -353,7 +353,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
   std::map<int, std::string> gEquationIndex;
   dl->setGequations(gEquationIndex);
   ASSERT_EQ(gEquationIndex.size(), nbG);
-  for (size_t i = 0; i < nbG; ++i) {
+  for (unsigned i = 0; i < nbG; ++i) {
     ASSERT_TRUE(gEquationIndex.find(i) != gEquationIndex.end());
   }
   ASSERT_NO_THROW(dl->evalG(0.));
@@ -428,7 +428,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
   std::map<int, std::string> fEquationIndex;
   dl->setFequations(fEquationIndex);
   ASSERT_EQ(fEquationIndex.size(), 2);
-  for (size_t i = 0; i < nbF; ++i) {
+  for (unsigned i = 0; i < nbF; ++i) {
     ASSERT_TRUE(fEquationIndex.find(i) != fEquationIndex.end());
   }
 
@@ -447,7 +447,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
   fEquationIndex.clear();
   dl->setFequations(fEquationIndex);
   ASSERT_EQ(fEquationIndex.size(), 2);
-  for (size_t i = 0; i < nbF; ++i) {
+  for (unsigned i = 0; i < nbF; ++i) {
     ASSERT_TRUE(fEquationIndex.find(i) != fEquationIndex.end());
   }
 

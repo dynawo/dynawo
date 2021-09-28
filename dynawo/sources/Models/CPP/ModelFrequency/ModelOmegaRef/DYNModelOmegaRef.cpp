@@ -303,7 +303,7 @@ ModelOmegaRef::sortGenByCC() {
         sumWeightByCC_[numCCNode_[i]] += weights_[i];
     }
   }
-  nbCC_ = genByCC_.size();
+  nbCC_ = static_cast<int>(genByCC_.size());
   if (nbCC_ > nbMaxCC)
     throw DYNError(Error::MODELER, TooMuchSubNetwork, nbCC_, nbMaxCC);
 }

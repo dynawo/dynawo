@@ -122,7 +122,7 @@ class InjectorInterfaceIIDM {
   isConnectedInjector() const {
     bool connected = injectorIIDM_.getTerminal().isConnected();
     if (connected && getVoltageLevelInterfaceInjector()->isNodeBreakerTopology())
-      connected = getVoltageLevelInterfaceInjector()->isNodeConnected(injectorIIDM_.getTerminal().getNodeBreakerView().getNode());
+      connected = getVoltageLevelInterfaceInjector()->isNodeConnected(static_cast<unsigned int>(injectorIIDM_.getTerminal().getNodeBreakerView().getNode()));
     return connected;
   }
 

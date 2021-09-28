@@ -96,7 +96,7 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
     solver->setFirstIteration(false);
   } else {  // update of F
     realtype *iyy = NV_DATA_S(yy);
-    int yL = NV_LENGTH_S(yy);
+    std::size_t yL = NV_LENGTH_S(yy);
     std::copy(iyy, iyy+yL, solver->yBuffer_);
     subModel->evalF(solver->t0_, UNDEFINED_EQ);
   }
@@ -115,7 +115,7 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
   SubModel* subModel = solver->getSubModel();
 
   realtype *iyy = NV_DATA_S(yy);
-  int yL = NV_LENGTH_S(yy);
+  std::size_t yL = NV_LENGTH_S(yy);
   std::copy(iyy, iyy+yL, solver->yBuffer_);
 
   // Sparse matrix

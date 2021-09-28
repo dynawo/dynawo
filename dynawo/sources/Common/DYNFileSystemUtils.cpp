@@ -315,7 +315,7 @@ bool extensionFound(const string path, const vector <string> & extensionList) {
 }
 
 bool extensionEquals(const string path, const string extension) {
-  unsigned int extLength = extension.size();
+  std::size_t extLength = extension.size();
   string fileName = file_name(path);
 
   if (extLength <= fileName.size()) {

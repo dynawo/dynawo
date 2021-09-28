@@ -55,7 +55,7 @@ Timeline::eventEquals(const Event& left, const Event& right) const {
 
 int
 Timeline::getSizeEvents() {
-  return events_.size();
+  return static_cast<int>(events_.size());
 }
 
 Timeline::event_const_iterator
