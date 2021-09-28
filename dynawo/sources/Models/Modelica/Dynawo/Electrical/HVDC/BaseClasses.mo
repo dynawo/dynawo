@@ -108,27 +108,26 @@ annotation(preferredView = "text",
     Connectors.ACPower terminal2 annotation(
       Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-    parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1";
-    parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1";
-    parameter Real KLosses "Coefficient between 0 and 1 (no loss) modelling the losses in the HVDC";
+    parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in p.u (base SnRef) at terminal 1";
+    parameter Types.ReactivePowerPu Q1MaxPu "Maximum reactive power in p.u (base SnRef) at terminal 1";
 
-    input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in p.u (base SnRef) at terminal 1";
+    input Types.ActivePowerPu P1RefPu(start = s10Pu.re) "Active power regulation set point in p.u (base SnRef) at terminal 1";
 
   protected
-    parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
-    parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
+    parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in p.u (base UNom)";
+    parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
     parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in p.u (base SnRef) (receptor convention)";
 
-    Types.ActivePowerPu P1Pu (start = s10Pu.re) "Active power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    Types.ActivePowerPu P2Pu (start = 0) "Active power at terminal 2 in p.u (base SnRef) (receptor convention)";
-    Types.ActivePowerPu PInj1Pu (start = - s10Pu.re) "Active power at terminal 1 in p.u (base SnRef) (generator convention)";
-    Types.ActivePowerPu PInj2Pu (start = 0) "Active power at terminal 2 in p.u (base SnRef) (generator convention)";
-    Types.VoltageModulePu U1Pu (start = ComplexMath.'abs'(u10Pu)) "Voltage amplitude at terminal 1 in p.u (base UNom)";
-    Types.ComplexApparentPowerPu s1Pu(re (start = s10Pu.re), im (start = s10Pu.im)) "Complex apparent power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu Q1Pu (start = s10Pu.im) "Reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu Q2Pu (start = 0) "Reactive power at terminal 2 in p.u (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu QInj1Pu (start = - s10Pu.im) "Reactive power at terminal 1 in p.u (base SnRef) (generator convention)";
-    Types.ReactivePowerPu QInj2Pu (start = 0) "Reactive power at terminal 2 in p.u (base SnRef) (generator convention)";
+    Types.ActivePowerPu P1Pu(start = s10Pu.re) "Active power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    Types.ActivePowerPu P2Pu(start = 0) "Active power at terminal 2 in p.u (base SnRef) (receptor convention)";
+    Types.ActivePowerPu PInj1Pu(start = - s10Pu.re) "Active power at terminal 1 in p.u (base SnRef) (generator convention)";
+    Types.ActivePowerPu PInj2Pu(start = 0) "Active power at terminal 2 in p.u (base SnRef) (generator convention)";
+    Types.VoltageModulePu U1Pu(start = ComplexMath.'abs'(u10Pu)) "Voltage amplitude at terminal 1 in p.u (base UNom)";
+    Types.ComplexApparentPowerPu s1Pu(re(start = s10Pu.re), im(start = s10Pu.im)) "Complex apparent power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q1Pu(start = s10Pu.im) "Reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q2Pu(start = 0) "Reactive power at terminal 2 in p.u (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu QInj1Pu(start = - s10Pu.im) "Reactive power at terminal 1 in p.u (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj2Pu(start = 0) "Reactive power at terminal 2 in p.u (base SnRef) (generator convention)";
 
   equation
   // Connected side
