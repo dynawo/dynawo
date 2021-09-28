@@ -210,7 +210,9 @@ ModelVariationArea::evalZ(const double /*t*/) {
   }
 
   if (gLocal_[1] == ROOT_UP) {  // load increase ended
-    DYNAddTimelineEvent(this, name(), LoadModificationEnded);
+    if (stateVariationArea_ == ON_GOING) {
+      DYNAddTimelineEvent(this, name(), LoadModificationEnded);
+    }
     zLocal_[0] = FINISHED;
     stateVariationArea_ = FINISHED;
   }
