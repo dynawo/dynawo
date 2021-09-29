@@ -477,6 +477,7 @@ else()
                           -j${CPU_COUNT}
                           -sNO_BZIP2=1
                           cxxflags=-fPIC
+                          $<$<BOOL:${FORCE_CXX11_ABI}>:cxxflags=-D_GLIBCXX_USE_CXX11_ABI=1>
                           install
                           --prefix=<INSTALL_DIR>
                           --disable-icu variant=$<IF:$<CONFIG:Debug>,debug,release>

@@ -60,6 +60,7 @@ else()
                       "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"
                       "-DBOOST_ROOT:PATH=${BOOST_ROOT}"
                       "-DCMAKE_PREFIX_PATH=${LIBXML2_HOME}"
+                      "$<$<BOOL:${FORCE_CXX11_ABI}>:-DCMAKE_CXX_FLAGS='-D_GLIBCXX_USE_CXX11_ABI=1'>"
                       "-DBUILD_SHARED_LIBS=ON"
                       "-DBUILD_TESTS=OFF"
                       "-DBUILD_TOOLS=OFF"
