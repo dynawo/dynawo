@@ -217,8 +217,8 @@ ModelManager::associateBuffers() {
 void
 ModelManager::getSize() {
   sizeF_ = data()->nbF;
-  sizeZ_ = data()->nbZ + modelData()->nVariablesInteger;  ///< Z in dynawo = Z in Modelica + I in Modelica
-  sizeG_ = modelData()->nZeroCrossings + data()->nbDelays;
+  sizeZ_ = static_cast<unsigned int>(data()->nbZ + modelData()->nVariablesInteger);  ///< Z in dynawo = Z in Modelica + I in Modelica
+  sizeG_ = static_cast<unsigned int>(modelData()->nZeroCrossings + data()->nbDelays);
   sizeMode_ = data()->nbModes;
   sizeY_ = data()->nbVars;
   sizeCalculatedVar_ = data()->nbCalculatedVars;
@@ -323,8 +323,8 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
     stack.new_recording();
     vector<adept::adouble> output(nbOutput);
     evalF(t, x, xp, output);
-    stack.independent(&x[0], x.size());
-    stack.independent(&xp[0], xp.size());
+    stack.independent(&x[0], static_cast<adept::uIndex>(x.size()));
+    stack.independent(&xp[0], static_cast<adept::uIndex>(xp.size()));
     stack.dependent(&output[0], nbOutput);
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer * timer1 = new Timer("zzz reading");
@@ -562,15 +562,15 @@ ModelManager::dumpParameters(map< string, string >& mapParameters) {
 
   modelModelicaDynamic()->checkSum(cSum);
 
-  unsigned int nb = modelData()->nParametersReal;
+  unsigned int nb = static_cast<unsigned int>(modelData()->nParametersReal);
   vector<double> params(nb, 0.);
   std::copy(simulationInfo()->realParameter, simulationInfo()->realParameter + nb, params.begin());
 
-  nb = modelData()->nParametersBoolean;
+  nb = static_cast<unsigned int>(modelData()->nParametersBoolean);
   vector<bool> paramsBool(nb, false);
   std::copy(simulationInfo()->booleanParameter, simulationInfo()->booleanParameter + nb, paramsBool.begin());
 
-  nb = modelData()->nParametersInteger;
+  nb = static_cast<unsigned int>(modelData()->nParametersInteger);
   vector<int> paramsInt(nb, 0);
   std::copy(simulationInfo()->integerParameter, simulationInfo()->integerParameter + nb, paramsInt.begin());
 
@@ -599,9 +599,9 @@ void ModelManager::writeParametersFinalValues() {
   const boost::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
   // in the OpenModelica-generated code
   // parameters are ordered as real first, then boolean, then integer
-  const unsigned int nbParamsReal = modelData()->nParametersReal;
-  const unsigned int nbParamsBool = modelData()->nParametersBoolean;
-  const unsigned int nbParamsInt = modelData()->nParametersInteger;
+  const unsigned int nbParamsReal = static_cast<unsigned int>(modelData()->nParametersReal);
+  const unsigned int nbParamsBool = static_cast<unsigned int>(modelData()->nParametersBoolean);
+  const unsigned int nbParamsInt = static_cast<unsigned int>(modelData()->nParametersInteger);
   for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
     const ParameterModeler& currentParameter = it->second;
     unsigned int i = currentParameter.getIndex();
@@ -672,18 +672,18 @@ ModelManager::dumpVariables(map< string, string >& mapVariables) {
   }
   modelModelicaDynamic()->checkSum(cSum);
 
-  unsigned int nb = modelData()->nVariablesReal;
+  unsigned int nb = static_cast<unsigned int>(modelData()->nVariablesReal);
   vector<double> valuesReal(nb, 0.);
   std::copy(data()->localData[0]->realVars, data()->localData[0]->realVars + nb, valuesReal.begin());
 
   vector<double> valuesDerivatives(nb, 0.);
   std::copy(data()->localData[0]->derivativesVars, data()->localData[0]->derivativesVars + nb, valuesDerivatives.begin());
 
-  nb = modelData()->nVariablesBoolean;
+  nb = static_cast<unsigned int>(modelData()->nVariablesBoolean);
   vector<bool> valuesBool(nb, false);
   std::copy(data()->localData[0]->booleanVars, data()->localData[0]->booleanVars + nb, valuesBool.begin());
 
-  nb = modelData()->nVariablesInteger;
+  nb = static_cast<unsigned int>(modelData()->nVariablesInteger);
   vector<double> valuesInt(nb, 0);
   std::copy(data()->localData[0]->integerDoubleVars, data()->localData[0]->integerDoubleVars + nb, valuesInt.begin());
 
@@ -849,7 +849,7 @@ ModelManager::loadParameters(const string& parameters) {
       }
     }
   }
-  unsigned int offset = modelData()->nParametersReal;
+  unsigned int offset = static_cast<unsigned int>(modelData()->nParametersReal);
   for (unsigned int i = 0; i < modelData()->nParametersBoolean; ++i) {
     setLoadedParameter(parametersList[i + offset].getName(), parameterBoolValues[i]);
   }
@@ -1176,7 +1176,7 @@ ModelManager::setInitialCalculatedParameters() {
       }
     }
   }
-  int offset = modelData()->nParametersReal;
+  int offset = static_cast<int>(modelData()->nParametersReal);
   for (unsigned int i = 0; i < modelData()->nParametersBoolean; ++i) {
     const string& parName = parametersInitial[i + offset].getName();
     if (hasParameterDynamic(parName)) {
@@ -1250,7 +1250,7 @@ ModelManager::printInitValuesParameters(std::ofstream& fstream) {
     fstream << std::setw(50) << std::left << parameters[i].getName() << std::right << " =" << std::setw(15)
       << DYN::double2String(simulationInfo()->realParameter[i]) << "\n";
 
-  int offset = modelData()->nParametersReal;
+  int offset = static_cast<int>(modelData()->nParametersReal);
 
   for (unsigned int i = 0; i < modelData()->nParametersBoolean; ++i)
     fstream << std::setw(50) << std::left << parameters[i + offset].getName() << std::right << " =" << std::setw(15)

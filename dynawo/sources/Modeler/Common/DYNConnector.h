@@ -185,7 +185,7 @@ class ConnectorContainer {
    * @return number of flow connectors
    */
   inline unsigned int nbFlowConnectors() const {
-    return flowConnectors_.size();
+    return static_cast<unsigned int>(flowConnectors_.size());
   }
 
   /**
@@ -193,7 +193,7 @@ class ConnectorContainer {
    * @return number of discrete connectors
    */
   inline unsigned int nbZConnectors() const {
-    return zConnectors_.size();
+    return static_cast<unsigned int>(zConnectors_.size());
   }
 
   /**

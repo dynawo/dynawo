@@ -109,7 +109,7 @@ bool
 TwoWTransformerInterfaceIIDM::isConnected1() const {
   bool connected = tfoIIDM_.getTerminal1().isConnected();
   if (connected && voltageLevelInterface1_->isNodeBreakerTopology())
-    connected = voltageLevelInterface1_->isNodeConnected(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode());
+    connected = voltageLevelInterface1_->isNodeConnected(static_cast<unsigned int>(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode()));
   return connected;
 }
 
@@ -117,7 +117,7 @@ bool
 TwoWTransformerInterfaceIIDM::isConnected2() const {
   bool connected = tfoIIDM_.getTerminal2().isConnected();
   if (connected && voltageLevelInterface2_->isNodeBreakerTopology())
-    connected = voltageLevelInterface2_->isNodeConnected(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode());
+    connected = voltageLevelInterface2_->isNodeConnected(static_cast<unsigned int>(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode()));
   return connected;
 }
 
@@ -245,9 +245,9 @@ TwoWTransformerInterfaceIIDM::exportStateVariablesUnitComponent() {
     // should be removed once a solution has been found to propagate switches (de)connection
     // following component (de)connection (only Modelica models)
     if (connected1 && !getInitialConnected1())
-      voltageLevelInterface1_->connectNode(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode());
+      voltageLevelInterface1_->connectNode(static_cast<unsigned int>(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode()));
     else if (!connected1 && getInitialConnected1())
-      voltageLevelInterface1_->disconnectNode(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode());
+      voltageLevelInterface1_->disconnectNode(static_cast<unsigned int>(tfoIIDM_.getTerminal1().getNodeBreakerView().getNode()));
   }
   if (connected1)
     tfoIIDM_.getTerminal1().connect();
@@ -258,9 +258,9 @@ TwoWTransformerInterfaceIIDM::exportStateVariablesUnitComponent() {
     // should be removed once a solution has been found to propagate switches (de)connection
     // following component (de)connection (only Modelica models)
     if (connected2 && !getInitialConnected2())
-      voltageLevelInterface2_->connectNode(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode());
+      voltageLevelInterface2_->connectNode(static_cast<unsigned int>(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode()));
     else if (!connected2 && getInitialConnected2())
-      voltageLevelInterface2_->disconnectNode(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode());
+      voltageLevelInterface2_->disconnectNode(static_cast<unsigned int>(tfoIIDM_.getTerminal2().getNodeBreakerView().getNode()));
   }
   if (connected2)
     tfoIIDM_.getTerminal2().connect();

@@ -138,7 +138,7 @@ DynamicData::mappingModelicaModels() {
     // for each modelica model, either mark it as a reference model, or refer it to a reference model
 
     const string id = "Mapping Modelica Model " + itModelica->first;
-    int l = id.size() / 2;
+    int l = static_cast<int>(id.size() / 2);
     Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
     Trace::info(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
     Trace::info(Trace::compile()) << "|" << setw(50 + l) << id << setw(50 - l - 1) << "|" << Trace::endline;

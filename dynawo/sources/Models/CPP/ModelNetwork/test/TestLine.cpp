@@ -1152,7 +1152,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
   std::map<int, std::string> gEquationIndex;
   dl->setGequations(gEquationIndex);
   ASSERT_EQ(gEquationIndex.size(), nbG);
-  for (size_t i = 0; i < nbG; ++i) {
+  for (unsigned i = 0; i < nbG; ++i) {
     ASSERT_TRUE(gEquationIndex.find(i) != gEquationIndex.end());
   }
   ASSERT_NO_THROW(dl->evalG(0.));

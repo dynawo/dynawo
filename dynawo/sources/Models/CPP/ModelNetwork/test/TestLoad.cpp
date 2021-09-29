@@ -463,7 +463,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   std::map<int, std::string> fEquationIndex;
   load->setFequations(fEquationIndex);
   ASSERT_EQ(fEquationIndex.size(), 2);
-  for (size_t i = 0; i < nbF; ++i) {
+  for (unsigned i = 0; i < nbF; ++i) {
     ASSERT_TRUE(fEquationIndex.find(i) != fEquationIndex.end());
   }
 
@@ -488,7 +488,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   fEquationIndex.clear();
   load->setFequations(fEquationIndex);
   ASSERT_EQ(fEquationIndex.size(), 2);
-  for (size_t i = 0; i < nbF; ++i) {
+  for (unsigned i = 0; i < nbF; ++i) {
     ASSERT_TRUE(fEquationIndex.find(i) != fEquationIndex.end());
   }
 
