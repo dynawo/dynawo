@@ -24,6 +24,25 @@
 
 namespace DYN {
 
+template <>
+double
+NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>&,
+                                                   const std::string&, bool&, const std::vector<std::string>&) const;
+template <>
+int
+NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>&,
+                                                   const std::string&, bool&, const std::vector<std::string>&) const;
+
+template <>
+bool
+NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>&,
+                                                   const std::string&, bool&, const std::vector<std::string>&) const;
+
+template <>
+std::string
+NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>&,
+                                                   const std::string&, bool&, const std::vector<std::string>&) const;
+
 template<typename T>
 T
 inline NetworkComponent::Impl::getParameterDynamic(const boost::unordered_map<std::string, ParameterModeler>& params,
