@@ -1265,6 +1265,9 @@ def XMLCloseEnough (path_left, path_right):
 def DTWDistance(left, right) :
     n = len(left)
     m = len(right)
+    if n == m:
+        if left == right:
+            return 0.
     DTW = [[0 if (j == 0 and i == 0) else 999999 for j in range(m+1)] for i in range(n+1)]
     DTW[0][0] = 0
 
