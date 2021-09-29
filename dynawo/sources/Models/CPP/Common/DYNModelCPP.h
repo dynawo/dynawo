@@ -20,17 +20,17 @@
 #ifndef MODELS_CPP_COMMON_DYNMODELCPP_H_
 #define MODELS_CPP_COMMON_DYNMODELCPP_H_
 
-#include <vector>
-#include <set>
-#include <map>
-
 #include "DYNSubModel.h"
+
+#include <map>
+#include <set>
+#include <vector>
 
 namespace DYN {
 class SparseMatrix;
 
 /**
- * class ModelCPP
+ * @brief CPP model
  */
 class ModelCPP : public SubModel {
  public:
@@ -38,20 +38,20 @@ class ModelCPP : public SubModel {
    * @brief Default constructor
    *
    */
-  ModelCPP() { }
+  ModelCPP();
 
   /**
-   * @brief Default destructor
-   *
+   * @brief constructor
+   * @param modelType model's type
    */
-  ~ModelCPP() { }
+  explicit ModelCPP(std::string modelType);
 
   /**
-   * @brief paramters initiation
-   *
+   * @brief Destructor
    */
-  virtual void initParams() = 0;
+  virtual ~ModelCPP() {}
 
+ public:
   /**
    * @brief initialize all the data for a sub model
    * @param t0 initial time of the simulation
@@ -68,7 +68,7 @@ class ModelCPP : public SubModel {
   virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
 
   /**
-   * @brief evaluate the jacobian associated to a calculated variable
+   * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
    *
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
@@ -79,44 +79,23 @@ class ModelCPP : public SubModel {
    * @brief evaluate the value of a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
-   *
-   * @return value of the calculated variable based on current continuous variables values
+   * @return value of the calculated variable based on the current values of continuous variables
    */
   virtual double evalCalculatedVarI(unsigned iCalculatedVar) const = 0;
-
-  /**
-   * @brief get model type
-   * @return model type
-   */
-  virtual std::string modelType() const = 0;
 
   /**
    * @brief export the parameters of the sub model for dump
    *
    * @param mapParameters : map associating the file where parameters should be dumped with the stream of parameters
    */
-  virtual void dumpParameters(std::map< std::string, std::string >& mapParameters) = 0;
+  void dumpParameters(std::map< std::string, std::string >& mapParameters);
 
   /**
    * @brief export the variables values of the sub model for dump
    *
    * @param mapVariables : map associating the file where values should be dumped with the stream of values
    */
-  virtual void dumpVariables(std::map< std::string, std::string >& mapVariables) = 0;
-
-  /**
-   * @brief load the parameters values from a previous dump
-   *
-   * @param parameters : stream of values where the parameters were dumped
-   */
-  virtual void loadParameters(const std::string& parameters) = 0;
-
-  /**
-   * @brief load the variables values from a previous dump
-   *
-   * @param variables : stream of values where the variables were dumped
-   */
-  virtual void loadVariables(const std::string& variables) = 0;
+  void dumpVariables(std::map< std::string, std::string >& mapVariables);
 
   /**
    * @brief  CPP Model F(t,y,y') function evaluation
@@ -247,8 +226,13 @@ class ModelCPP : public SubModel {
    * @param[out] elements Reference to elements' vector
    * @param[out] mapElement Map associating each element index in the elements vector to its name
    */
-  //---------------------------------------------------------------------
   virtual void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) = 0;
+
+  /**
+   * @brief get checksum
+   * @return checksum string
+   */
+  virtual std::string getCheckSum() const = 0;
 
   /**
    * @brief initialze static data
@@ -258,71 +242,69 @@ class ModelCPP : public SubModel {
 
 
   /**
-   * @brief rotate buffers
-   *
-   */
-  virtual void rotateBuffers() = 0;
-
-  /**
-   * @copydoc SubModel::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)
-   */
-  virtual void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) = 0;
-
-  /**
-   * @copydoc SubModel::defineParameters(std::vector<ParameterModeler>& parameters)
-   */
-  virtual void defineParameters(std::vector<ParameterModeler>& parameters) = 0;
-
-  /**
-   * @copydoc SubModel::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables)
-   */
-  virtual void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) = 0;
-
-  /**
-   * @copydoc SubModel::defineParametersInit(std::vector<ParameterModeler>& parameters)
-   */
-  virtual void defineParametersInit(std::vector<ParameterModeler>& parameters) = 0;
-
-  /**
-   * @copydoc SubModel::checkParametersCoherence() const
-   */
-  virtual void checkParametersCoherence() const = 0;
-
-  /**
-   * @copydoc SubModel::setFequations()
-   */
-  virtual void setFequations() = 0;
-
-  /**
-   * @copydoc SubModel::setGequations()
-   */
-  virtual void setGequations() = 0;
-
-  /**
    * @copydoc SubModel::setFequationsInit()
    */
-  virtual void setFequationsInit() = 0;
+  virtual void setFequationsInit() { /* no init model for most of CPP models */ }
 
   /**
    * @copydoc SubModel::setGequationsInit()
    */
-  virtual void setGequationsInit() = 0;
+  void setGequationsInit() { /* no init model for CPP models */ }
 
   /**
    * @copydoc SubModel::initSubBuffers()
    */
-  virtual void initSubBuffers() = 0;
+  virtual void initSubBuffers() { /* no internal buffers for CPP models excepted the network model */ }
 
   /**
    * @copydoc SubModel::notifyTimeStep()
    */
-  virtual void notifyTimeStep() = 0;
+  void notifyTimeStep() {
+    // do nothing
+  }
 
   /**
-   * @brief class implementation
+   * @brief get model type
+   * @return model type
    */
+  inline std::string modelType() const {
+    return modelType_;
+  }
 
-  class Impl;
+  /**
+   * @brief load the variables values from a previous dump
+   * @param variables : stream of values where the variables were dumped
+   */
+  void loadVariables(const std::string& variables);
+
+  /**
+   * @brief load the parameters values from a previous dump
+   * @param parameters : stream of values where the parameters were dumped
+   */
+  void loadParameters(const std::string& parameters);
+
+  /**
+   * @copydoc SubModel::checkParametersCoherence() const
+   */
+  void checkParametersCoherence() const;
+
+  /**
+   * @brief rotate buffers
+   */
+  void rotateBuffers() { /* not needed */ }
+
+  /**
+   * @copydoc SubModel::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables)
+   */
+  void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables);
+
+  /**
+   * @copydoc SubModel::defineParametersInit(std::vector<ParameterModeler>& parameters)
+   */
+  void defineParametersInit(std::vector<ParameterModeler>& parameters);
+
+ private:
+  std::string modelType_;  ///< model type
 };
 
 }  // namespace DYN
