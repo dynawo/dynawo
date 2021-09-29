@@ -20,7 +20,7 @@
 #ifndef MODELS_CPP_EVENTS_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
 #define MODELS_CPP_EVENTS_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
 
-#include "DYNModelCPPImpl.h"
+#include "DYNModelCPP.h"
 #include "DYNSubModelFactory.h"
 
 namespace DYN {
@@ -59,7 +59,7 @@ class ModelVariationAreaFactory : public SubModelFactory {
 /**
  * class ModelVariationArea
  */
-class ModelVariationArea : public ModelCPP::Impl {
+class ModelVariationArea : public ModelCPP {
  public:
   /**
    * @brief define type of calculated variables

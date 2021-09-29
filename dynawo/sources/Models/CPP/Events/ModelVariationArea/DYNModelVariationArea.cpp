@@ -83,7 +83,7 @@ extern "C" void DYN::ModelVariationAreaFactory::destroy(DYN::SubModel* model) co
 namespace DYN {
 
 ModelVariationArea::ModelVariationArea() :
-Impl("VariationArea"),
+ModelCPP("VariationArea"),
 deltaP_(0.),
 deltaQ_(0.),
 startTime_(0.),

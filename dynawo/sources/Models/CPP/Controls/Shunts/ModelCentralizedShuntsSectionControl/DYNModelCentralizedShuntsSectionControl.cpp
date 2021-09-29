@@ -64,7 +64,7 @@ extern "C" void DYN::ModelCentralizedShuntsSectionControlFactory::destroy(DYN::S
 namespace DYN {
   const unsigned int URefPuIndex = 0;  ///< local Z index for URefPu
 
-  ModelCentralizedShuntsSectionControl::ModelCentralizedShuntsSectionControl() : Impl("CentralizedShuntsSectionControl"),
+  ModelCentralizedShuntsSectionControl::ModelCentralizedShuntsSectionControl() : ModelCPP("CentralizedShuntsSectionControl"),
     nbShunts_(0),
     URef0Pu_(0.),
     changingShunt(-1),
