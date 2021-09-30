@@ -179,13 +179,7 @@ TEST(CommonTest, testDelayManagerClass) {
   ASSERT_TRUE(manager.isIdAcceptable(id2));
   ASSERT_FALSE(manager.isIdAcceptable(id_none));
 
-  try {
-    manager.getDelay(id_none, 2);
-
-    // exception should be raised
-    ASSERT_TRUE(false);
-  } catch (const std::exception& e) {
-  }
+  ASSERT_ANY_THROW(manager.getDelay(id_none, 2));
 
   // for id
   double val = manager.getDelay(id, 2);
@@ -275,13 +269,8 @@ TEST(CommonTest, testDelayManagerClassTrigger) {
   std::vector<DYN::state_g> states(3, DYN::NO_ROOT);
 
   ASSERT_FALSE(manager.isTriggered());
-  try {
-    manager.triggerDelay(id_none);
+  ASSERT_ANY_THROW(manager.triggerDelay(id_none));
 
-    // exception should be caught
-    ASSERT_TRUE(false);
-  } catch (const std::exception&) {
-  }
   manager.triggerDelay(id);
   manager.setGomc(&states[0], 1);
   ASSERT_EQ(DYN::NO_ROOT, states[0]);

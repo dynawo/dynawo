@@ -373,7 +373,9 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   if ((!exists(lib)) || hasUndefinedSymbol)
     throw DYNError(Error::MODELER, CompilationFailed, libName);
 
-#ifndef _DEBUG_
+#ifdef _DEBUG_
+  (void)rmModels_;  // shut up clang -Wunused-private-field
+#else
   // remove .mo, -init.mo
   if (rmModels_) {
     remove(modelConcatFile_);
