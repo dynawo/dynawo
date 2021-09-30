@@ -17,6 +17,7 @@ import datetime
 import filecmp
 import imp
 import itertools
+from xml.dom import minidom
 
 import os
 import re
