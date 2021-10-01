@@ -24,6 +24,7 @@ target_include_directories(${MODULE_NAME}
 target_link_libraries(${MODULE_NAME}
   DYNModelVariationArea
   dynawo_API_PAR
+  dynawo_API_TL
   dynawo_ModelerCommon
   dynawo_Test)
 

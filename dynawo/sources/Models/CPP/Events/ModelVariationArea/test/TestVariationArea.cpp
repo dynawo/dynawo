@@ -27,6 +27,7 @@
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
 #include "PARParametersSet.h"
+#include "TLTimelineFactory.h"
 
 #include "gtest_dynawo.h"
 
@@ -216,6 +217,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaInit) {
 
 TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   boost::shared_ptr<SubModel> modelVariationArea = initModelVariationArea(.1, .01);
+  modelVariationArea->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   std::vector<double> y(modelVariationArea->sizeY(), 0);
   std::vector<double> yp(modelVariationArea->sizeY(), 0);
   modelVariationArea->setBufferY(&y[0], &yp[0], 0.);
