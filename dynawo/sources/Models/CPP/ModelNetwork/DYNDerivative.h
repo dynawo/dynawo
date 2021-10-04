@@ -45,8 +45,8 @@ class Derivatives {
   void reset();
   /**
    * @brief add value
-   * @param numVar : number of variable
-   * @param value: value
+   * @param numVar number of variable
+   * @param value value
    */
   void addValue(const int& numVar, const double& value);
 
@@ -85,9 +85,9 @@ class BusDerivatives {
   /**
    * @brief add derivative
    *
-   * @param type: derivative type
-   * @param numVar: number of variable
-   * @param value: number of value
+   * @param type derivative type
+   * @param numVar number of variable
+   * @param value number of value
    */
   void addDerivative(typeDerivative_t type, const int& numVar, const double& value);
   /**

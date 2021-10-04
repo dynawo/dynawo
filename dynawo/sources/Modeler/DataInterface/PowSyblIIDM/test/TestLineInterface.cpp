@@ -161,7 +161,7 @@ TEST(DataInterfaceTest, Line) {
   ASSERT_DOUBLE_EQ(li.getP2(), 0.0);
   ASSERT_DOUBLE_EQ(li.getQ2(), 0.0);
 
-  MyLine.getTerminal1().setP(999.999L);
+  MyLine.getTerminal1().setP(999.999);
   MyLine.getTerminal1().setQ(666);
   MyLine.getTerminal2().setP(999.999999999999999/2);
   MyLine.getTerminal2().setQ(666.0/3.0);

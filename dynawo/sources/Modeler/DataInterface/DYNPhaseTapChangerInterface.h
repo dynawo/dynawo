@@ -56,7 +56,7 @@ class PhaseTapChangerInterface {
 
   /**
    * @brief Setter for the current tap position
-   * @param position: the current tap position
+   * @param position the current tap position
    */
   virtual void setCurrentPosition(const int& position) = 0;
 

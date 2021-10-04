@@ -54,9 +54,7 @@ void
 buildInternalConnectionId(const powsybl::iidm::node_breaker_view::InternalConnection& internalConnection, stringstream& ss) {
   ss.str(std::string());
   ss.clear();
-  int node1 = internalConnection.getNode1();
-  int node2 = internalConnection.getNode2();
-  ss << "InternalConnection-" << node1 << "-" << node2;
+  ss << "InternalConnection-" << internalConnection.getNode1() << "-" << internalConnection.getNode2();
 }
 
 VoltageLevelInterfaceIIDM::VoltageLevelInterfaceIIDM(powsybl::iidm::VoltageLevel& voltageLevel) :
@@ -64,13 +62,13 @@ voltageLevelIIDM_(voltageLevel) {
   isNodeBreakerTopology_ = (voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
   if (voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
     for (const auto& nodeIndex : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
-      graph_.addVertex(nodeIndex);
+      graph_.addVertex(static_cast<unsigned int>(nodeIndex));
     }
 
     // Add edges
     for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
-      int node1 = voltageLevelIIDM_.getNodeBreakerView().getNode1(itSwitch.getId());
-      int node2 = voltageLevelIIDM_.getNodeBreakerView().getNode2(itSwitch.getId());
+      int node1 = static_cast<int>(voltageLevelIIDM_.getNodeBreakerView().getNode1(itSwitch.getId()));
+      int node2 = static_cast<int>(voltageLevelIIDM_.getNodeBreakerView().getNode2(itSwitch.getId()));
       graph_.addEdge(node1, node2, itSwitch.getId());
       weights1_[itSwitch.getId()] = 1;
     }
@@ -78,8 +76,8 @@ voltageLevelIIDM_(voltageLevel) {
     stringstream ssInternalConnectionId;
     for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
       buildInternalConnectionId(itInternalConnection, ssInternalConnectionId);
-      int node1 = itInternalConnection.getNode1();
-      int node2 = itInternalConnection.getNode2();
+      int node1 = static_cast<int>(itInternalConnection.getNode1());
+      int node2 = static_cast<int>(itInternalConnection.getNode2());
       graph_.addEdge(node1, node2, ssInternalConnectionId.str());
       weights1_[ssInternalConnectionId.str()] = 1;
     }
@@ -297,8 +295,8 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   boost::unordered_map<unsigned int, unsigned int> nodeIndexToComponentIndex;
   unsigned int componentIndex = 0;
   for (const auto& nodeIndex : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
-    componentIndexToNodeIndex[componentIndex] = nodeIndex;
-    nodeIndexToComponentIndex[nodeIndex] = componentIndex;
+    componentIndexToNodeIndex[componentIndex] = static_cast<unsigned int>(nodeIndex);
+    nodeIndexToComponentIndex[static_cast<unsigned int>(nodeIndex)] = componentIndex;
     componentIndex++;
   }
   for (unsigned int i = 0; i != component.size(); ++i) {
@@ -320,7 +318,7 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
     electricalNodes[component1[i]].insert(componentIndexToNodeIndex[i]);
 
   for (powsybl::iidm::BusbarSection& bbsIIDM : voltageLevelIIDM_.getNodeBreakerView().getBusbarSections()) {
-    int node = bbsIIDM.getTerminal().getNodeBreakerView().getNode();
+    int node = static_cast<int>(bbsIIDM.getTerminal().getNodeBreakerView().getNode());
     calculatedBus_[component[nodeIndexToComponentIndex[node]]]->addBusBarSection(bbsIIDM.getId());
     stdcxx::Reference<powsybl::iidm::Bus> bus = bbsIIDM.getTerminal().getBusBreakerView().getConnectableBus();
 
@@ -352,7 +350,7 @@ VoltageLevelInterfaceIIDM::exportSwitchesState() {
   // following component (de)connection (only Modelica models)
   for (boost::unordered_map<shared_ptr<SwitchInterface>, double >::const_iterator iter = switchState_.begin(),
       iterEnd = switchState_.end(); iter != iterEnd; ++iter) {
-    int state = iter->second;
+    int state = static_cast<int>(iter->second);
     if (state == OPEN)
       iter->first->open();
     else
@@ -374,7 +372,7 @@ VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
       const auto& bus = terminal.get().getBusBreakerView().getBus();
       if (bus) {
         vector<string> ret;
-        graph_.shortestPath(nodeToConnect, nodeIndex, weights1_, ret);
+        graph_.shortestPath(nodeToConnect, static_cast<unsigned int>(nodeIndex), weights1_, ret);
         if (!ret.empty() && ( ret.size() < shortestPath.size() || shortestPath.size() == 0) )
           shortestPath = ret;
       }
@@ -415,7 +413,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
       const auto& bus = terminal.get().getBusView().getBus();
       if (bus) {
         list<vector<string> > paths;
-        graph_.findAllPaths(nodeToDisconnect, nodeIndex, weights, paths);
+        graph_.findAllPaths(nodeToDisconnect, static_cast<unsigned int>(nodeIndex), weights, paths);
 
         for (list<vector<string> >::const_iterator iter = paths.begin(); iter != paths.end(); ++iter) {
           const vector<string>& path = *iter;
@@ -459,7 +457,7 @@ VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
     const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(nodeIndex);
     if (terminal) {
       const auto& bus = terminal.get().getBusView().getBus();
-      if (bus && graph_.pathExist(nodeToCheck, nodeIndex, weights)) {
+      if (bus && graph_.pathExist(nodeToCheck, static_cast<unsigned int>(nodeIndex), weights)) {
         return true;
       }
     }

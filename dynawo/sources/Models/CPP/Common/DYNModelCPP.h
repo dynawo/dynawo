@@ -54,7 +54,7 @@ class ModelCPP : public SubModel {
 
   /**
    * @brief initialize all the data for a sub model
-   * @param t0: initial time of the simulation
+   * @param t0 initial time of the simulation
    */
   virtual void init(const double t0) = 0;
 
@@ -282,11 +282,6 @@ class ModelCPP : public SubModel {
    * @copydoc SubModel::defineParametersInit(std::vector<ParameterModeler>& parameters)
    */
   virtual void defineParametersInit(std::vector<ParameterModeler>& parameters) = 0;
-
-  /**
-   * @copydoc SubModel::checkDataCoherence(const double t)
-   */
-  virtual void checkDataCoherence(const double t) = 0;
 
   /**
    * @copydoc SubModel::checkParametersCoherence() const

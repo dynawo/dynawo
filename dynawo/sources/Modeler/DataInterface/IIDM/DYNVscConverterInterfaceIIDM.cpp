@@ -161,6 +161,47 @@ VscConverterInterfaceIIDM::getQMax() {
   return 0.;
 }
 
+double
+VscConverterInterfaceIIDM::getQMin() {
+  if (vscConverterIIDM_.has_minMaxReactiveLimits()) {
+    return vscConverterIIDM_.minMaxReactiveLimits().min();
+  } else if (vscConverterIIDM_.has_reactiveCapabilityCurve()) {
+    assert(vscConverterIIDM_.reactiveCapabilityCurve().size() > 0);
+    double qMin = 0;
+    const double pGen = - getP();
+    const IIDM::ReactiveCapabilityCurve& reactiveCurve = vscConverterIIDM_.reactiveCapabilityCurve();
+    if (pGen <= reactiveCurve[0].p) {
+      qMin = reactiveCurve[0].qmin;
+    } else if (pGen > reactiveCurve[reactiveCurve.size() - 1].p) {
+      qMin = reactiveCurve[reactiveCurve.size() - 1].qmin;
+    } else {
+      for (unsigned int i = 0; i <= reactiveCurve.size() - 2; ++i) {
+        IIDM::ReactiveCapabilityCurve::point current_point = reactiveCurve[i];
+        IIDM::ReactiveCapabilityCurve::point next_point = reactiveCurve[i+1];
+        if (current_point.p <= pGen && next_point.p >= pGen) {
+          qMin = current_point.qmin + (pGen - current_point.p) * (next_point.qmin - current_point.qmin) / (next_point.p - current_point.p);
+        }
+      }
+    }
+    return qMin;
+  }
+  return 0.;
+}
+
+std::vector<VscConverterInterface::ReactiveCurvePoint>
+VscConverterInterfaceIIDM::getReactiveCurvesPoints() const {
+  std::vector<ReactiveCurvePoint> ret;
+  if (vscConverterIIDM_.has_reactiveCapabilityCurve()) {
+    const IIDM::ReactiveCapabilityCurve& reactiveCurve = vscConverterIIDM_.reactiveCapabilityCurve();
+    for (IIDM::ReactiveCapabilityCurve::const_iterator it = reactiveCurve.begin(); it != reactiveCurve.end(); ++it) {
+      ReactiveCurvePoint point(it->p, it->qmin, it->qmax);
+      ret.push_back(point);
+    }
+  }
+
+  return ret;
+}
+
 string
 VscConverterInterfaceIIDM::getID() const {
   return vscConverterIIDM_.id();

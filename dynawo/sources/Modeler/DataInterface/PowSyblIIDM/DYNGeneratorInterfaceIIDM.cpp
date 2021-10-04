@@ -74,9 +74,9 @@ GeneratorInterfaceIIDM::exportStateVariablesUnitComponent() {
     // should be removed once a solution has been found to propagate switches (de)connection
     // following component (de)connection (only Modelica models)
     if (connected && !getInitialConnected())
-      getVoltageLevelInterfaceInjector()->connectNode(generatorIIDM_.getTerminal().getNodeBreakerView().getNode());
+      getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(generatorIIDM_.getTerminal().getNodeBreakerView().getNode()));
     else if (!connected && getInitialConnected())
-      getVoltageLevelInterfaceInjector()->disconnectNode(generatorIIDM_.getTerminal().getNodeBreakerView().getNode());
+      getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(generatorIIDM_.getTerminal().getNodeBreakerView().getNode()));
   }
 
   if (connected)

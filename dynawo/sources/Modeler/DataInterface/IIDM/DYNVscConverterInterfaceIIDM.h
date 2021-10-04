@@ -45,7 +45,7 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
 
   /**
    * @brief Constructor
-   * @param vsc: vsc converter iidm instance
+   * @param vsc vsc converter iidm instance
    */
   explicit VscConverterInterfaceIIDM(IIDM::VscConverterStation& vsc);
 
@@ -113,6 +113,16 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
    * @copydoc VscConverterInterface::getQMax()
    */
   double getQMax();
+
+  /**
+   * @copydoc VscConverterInterface::getQMax()
+   */
+  double getQMin();
+
+  /**
+   * @copydoc VscConverterInterface::getReactiveCurvesPoints()
+   */
+  std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const;
 
   /**
    * @copydoc VscConverterInterface::getID() const

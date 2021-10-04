@@ -19,6 +19,7 @@
  */
 #ifdef __clang__
 #pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wold-style-cast"
 #pragma clang diagnostic ignored "-Wunused-function"
 # endif  // __clang__
 
@@ -682,8 +683,8 @@ void array_alloc_string_array(string_array_t* dest, int n, string_array_t first,
 
   int c = 0;
   for (int i = 0; i < n; ++i) {
-    int m = base_array_nr_of_elements(elts[i]);
-    for (int j = 0; j < m; ++j) {
+    std::size_t m = base_array_nr_of_elements(elts[i]);
+    for (std::size_t j = 0; j < m; ++j) {
       string_set(dest, c, string_get(elts[i], j));
       ++c;
     }
@@ -861,7 +862,7 @@ void create_integer_array_from_range(integer_array_t *dest, modelica_integer sta
     comp_func = (step > 0) ? &integer_le : &integer_ge;
     elements = comp_func(start, stop) ? (((stop - start) / step) + 1) : 0;
 
-    simple_alloc_1d_integer_array(dest, elements);
+    simple_alloc_1d_integer_array(dest, static_cast<int>(elements));
 
     for (i = 0; i < elements; start += step, ++i) {
         integer_set(dest, i, start);
@@ -886,7 +887,7 @@ void fill_alloc_real_array(real_array_t* dest, modelica_real value, int ndims, .
     va_start(ap, ndims);
     elements = alloc_base_array(dest, ndims, ap);
     va_end(ap);
-    dest->data = real_alloc(elements);
+    dest->data = real_alloc(static_cast<int>(elements));
 
     for (i = 0; i < elements; ++i) {
         real_set(dest, i, value);
@@ -918,7 +919,7 @@ void copy_real_array_data(const real_array_t source, real_array_t *dest) {
 
 /* Allocation of real data */
 void alloc_real_array_data(real_array_t *a) {
-    a->data = real_alloc(base_array_nr_of_elements(*a));
+    a->data = real_alloc(static_cast<int>(base_array_nr_of_elements(*a)));
 }
 
 void sub_real_array(const real_array_t * a, const real_array_t * b, real_array_t* dest) {

@@ -618,10 +618,10 @@ SubModel::addParameter(const ParameterModeler& parameter, const bool isInitParam
   }
   ParameterModeler parameterToAdd = ParameterModeler(parameter);
   if (isInitParam) {
-    parameterToAdd.setIndex(parametersInit_.size());
+    parameterToAdd.setIndex(static_cast<unsigned int>(parametersInit_.size()));
     parametersInit_.insert(std::make_pair(parameterToAdd.getName(), parameterToAdd));
   } else {
-    parameterToAdd.setIndex(parametersDynamic_.size());
+    parameterToAdd.setIndex(static_cast<unsigned int>(parametersDynamic_.size()));
     parametersDynamic_.insert(std::make_pair(parameterToAdd.getName(), parameterToAdd));
   }
 }
@@ -724,20 +724,20 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
 
     shared_ptr <VariableNative> nativeVariable = dynamic_pointer_cast<VariableNative> (currentVariable);
     if (!isState) {
-      index = calculatedVarNames.size();
+      index = static_cast<int>(calculatedVarNames.size());
       calculatedVarNames.push_back(name);
       nativeVariable->setIndex(index);
     } else {
       switch (type) {
         case CONTINUOUS:
         case FLOW: {
-          index = xNames.size();
+          index = static_cast<int>(xNames.size());
           xNames.push_back(name);
           break;
         }
         case DISCRETE:
         case BOOLEAN: {
-          index = zNames.size();
+          index = static_cast<int>(zNames.size());
           zNames.push_back(name);
 #ifdef _DEBUG_
           maxOtherDiscreteVarIndex = std::max(maxOtherDiscreteVarIndex, index);
@@ -761,7 +761,7 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
 
   // set integer variables after all other variables have been set
   for (unsigned int i = 0; i < integer_variables.size(); ++i) {
-    int equation_index = zNames.size();  // variable index within equations
+    int equation_index = static_cast<int>(zNames.size());  // variable index within equations
     const string& name = integer_variables[i].first;
     const int& var_index = integer_variables[i].second;   // variable index within the variables_ table
 
@@ -923,6 +923,9 @@ void
 SubModel::checkDataCoherenceSub(const double t) {
   // when loaded variables and parameters are used, do not check the init model coherence because it is not used
   if (isInitProcess_ && withLoadedParameters_ && withLoadedVariables_) {
+    return;
+  }
+  if (!hasDataCheckCoherence()) {
     return;
   }
   setCurrentTime(t);
@@ -1316,7 +1319,7 @@ SubModel::printInitValuesVariables(std::ofstream& fstream) {
       << " yp =" << std::setw(15) << DYN::double2String(ypLocal_[i]) << "\n";
 
   const vector<std::pair<string, std::pair<string, bool> > >& xAliasesNames = (*this).xAliasesNames();
-  for (unsigned int i = 0, iEnd = xAliasesNames.size(); i < iEnd; ++i)
+  for (std::size_t i = 0, iEnd = xAliasesNames.size(); i < iEnd; ++i)
     fstream << std::setw(50) << std::left << xAliasesNames[i].first << std::right << ": " <<
     ((xAliasesNames[i].second.second)?"negated ":"") << "alias of " << xAliasesNames[i].second.first << "\n";
 
@@ -1335,9 +1338,14 @@ SubModel::printInitValuesVariables(std::ofstream& fstream) {
     fstream << std::setw(50) << std::left << zNames[i] << std::right << ": z =" << std::setw(15) << DYN::double2String(zLocal_[i]) << "\n";
 
   const vector<std::pair<string, std::pair<string, bool> > >& zAliasesNames = (*this).zAliasesNames();
-  for (unsigned int i = 0, iEnd = zAliasesNames.size(); i < iEnd; ++i)
+  for (std::size_t i = 0, iEnd = zAliasesNames.size(); i < iEnd; ++i)
     fstream << std::setw(50) << std::left << zAliasesNames[i].first << std::right << ": "<<
     ((zAliasesNames[i].second.second)?"negated ":"") << "alias of " << zAliasesNames[i].second.first << "\n";
+}
+
+void
+SubModel::checkDataCoherence(const double) {
+  // Does nothing, by compliance with default implementation of hasDataCheckCoherence
 }
 
 }  // namespace DYN

@@ -95,7 +95,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   } zInd;
   /**
   * @brief define parameters
-  * @param parameters: vector to fill with the generic parameters
+  * @param parameters vector to fill with the generic parameters
   */
   void defineParameters(std::vector<ParameterModeler>& parameters);
   /**
@@ -270,11 +270,6 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   * @param t Simulation instant
   */
   void evalZ(const double t);
-
-  /**
-   * @brief Coherence check on data (asserts, min/max values, sanity checks)
-   */
-  void checkDataCoherence(const double /*t*/) { /* not needed */ }
 
  private:
   unsigned int UfRawYNum_;  ///< local Y index for UfRaw

@@ -21,6 +21,8 @@
 
 namespace job {
 
+TimelineEntry::TimelineEntry() : outputFile_(""), exportMode_(""), exportWithTime_(true) {}
+
 void
 TimelineEntry::setOutputFile(const std::string& outputFile) {
   outputFile_ = outputFile;
@@ -31,6 +33,11 @@ TimelineEntry::setExportMode(const std::string& exportMode) {
   exportMode_ = exportMode;
 }
 
+void
+TimelineEntry::setExportWithTime(const bool exportWithTime) {
+  exportWithTime_ = exportWithTime;
+}
+
 const std::string&
 TimelineEntry::getOutputFile() const {
   return outputFile_;
@@ -39,6 +46,11 @@ TimelineEntry::getOutputFile() const {
 const std::string&
 TimelineEntry::getExportMode() const {
   return exportMode_;
+}
+
+bool
+TimelineEntry::getExportWithTime() const {
+  return exportWithTime_;
 }
 
 }  // namespace job

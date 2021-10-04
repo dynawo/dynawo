@@ -122,6 +122,23 @@ VscConverterInterfaceIIDM::getQMax() {
 }
 
 double
+VscConverterInterfaceIIDM::getQMin() {
+  return vscConverterIIDM_.getReactiveLimits<powsybl::iidm::ReactiveLimits>().getMinQ(-1 * getP());
+}
+
+std::vector<VscConverterInterface::ReactiveCurvePoint> VscConverterInterfaceIIDM::getReactiveCurvesPoints() const {
+  std::vector<VscConverterInterface::ReactiveCurvePoint> ret;
+  if (vscConverterIIDM_.getReactiveLimits<powsybl::iidm::ReactiveLimits>().getKind() == powsybl::iidm::ReactiveLimitsKind::CURVE) {
+    const auto& reactiveCurve = vscConverterIIDM_.getReactiveLimits<powsybl::iidm::ReactiveCapabilityCurve>();
+    for (const auto& point : reactiveCurve.getPoints()) {
+      ret.emplace_back(point.getP(), point.getMinQ(), point.getMaxQ());
+    }
+  }
+
+  return ret;
+}
+
+double
 VscConverterInterfaceIIDM::getQ() {
   return getQInjector();
 }

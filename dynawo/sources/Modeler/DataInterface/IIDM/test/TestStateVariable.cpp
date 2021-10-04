@@ -313,21 +313,21 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
   shared_ptr<NetworkInterface> network = data->getNetwork();
   const std::vector< shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
   ASSERT_EQ(voltageLevels.size(), 1);
-  for (unsigned i = 0, iEnd = voltageLevels.size(); i < iEnd; ++i) {
+  for (std::size_t i = 0, iEnd = voltageLevels.size(); i < iEnd; ++i) {
     shared_ptr<VoltageLevelInterface> voltageLevel = voltageLevels[i];
     const std::vector< shared_ptr<LccConverterInterface> >&  lccConverters = voltageLevel->getLccConverters();
     ASSERT_EQ(lccConverters.size(), 2);
 
     const std::vector< shared_ptr<ShuntCompensatorInterface> >&  shuntCompensators = voltageLevel->getShuntCompensators();
     ASSERT_EQ(shuntCompensators.size(), 1);
-    for (unsigned j = 0, jEnd = shuntCompensators.size(); j < jEnd; ++j) {
+    for (std::size_t j = 0, jEnd = shuntCompensators.size(); j < jEnd; ++j) {
       shared_ptr<ShuntCompensatorInterface> shuntCompensator = shuntCompensators[j];
       ASSERT_EQ(shuntCompensator->getCurrentSection(), 8);
     }
 
     const std::vector< shared_ptr<StaticVarCompensatorInterface> >&  staticVarCompensators = voltageLevel->getStaticVarCompensators();
     ASSERT_EQ(staticVarCompensators.size(), 1);
-    for (unsigned j = 0, jEnd = staticVarCompensators.size(); j < jEnd; ++j) {
+    for (std::size_t j = 0, jEnd = staticVarCompensators.size(); j < jEnd; ++j) {
       shared_ptr<StaticVarCompensatorInterface> staticVarCompensator = staticVarCompensators[j];
       ASSERT_EQ(staticVarCompensator->getRegulationMode(), StaticVarCompensatorInterface::RUNNING_V);
     }
@@ -341,7 +341,7 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
   }
   const std::vector< shared_ptr<TwoWTransformerInterface> >& twoWTransformers = network->getTwoWTransformers();
   ASSERT_EQ(twoWTransformers.size(), 1);
-  for (unsigned i = 0, iEnd = twoWTransformers.size(); i < iEnd; ++i) {
+  for (std::size_t i = 0, iEnd = twoWTransformers.size(); i < iEnd; ++i) {
     shared_ptr<TwoWTransformerInterface> twoWTransformer = twoWTransformers[i];
     shared_ptr<PhaseTapChangerInterface> phaseTapChanger = twoWTransformer->getPhaseTapChanger();
     ASSERT_EQ(phaseTapChanger->getCurrentPosition(), 2);
@@ -405,8 +405,8 @@ TEST(DataInterfaceTest, testStateVariableStaticVarCompensator) {
   ASSERT_NO_THROW(testexportStateVariables(data));
   shared_ptr<NetworkInterface> network = data->getNetwork();
   const std::vector< shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
-  for (unsigned i = 0, iEnd = voltageLevels.size(); i < iEnd; ++i) {
-    for (unsigned g =0, gEnd = voltageLevels[i]->getStaticVarCompensators().size(); g < gEnd; ++g) {
+  for (std::size_t i = 0, iEnd = voltageLevels.size(); i < iEnd; ++i) {
+    for (std::size_t g =0, gEnd = voltageLevels[i]->getStaticVarCompensators().size(); g < gEnd; ++g) {
       ASSERT_FALSE(voltageLevels[i]->getStaticVarCompensators()[g]->hasVoltagePerReactivePowerControl());
       ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getStaticVarCompensators()[g]->getSlope(), 0.);
     }
@@ -513,8 +513,8 @@ TEST(DataInterfaceTest, testStateVariableGenerator) {
   ASSERT_NO_THROW(testexportStateVariables(data));
   shared_ptr<NetworkInterface> network = data->getNetwork();
   const std::vector< shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
-  for (unsigned i = 0, iEnd = voltageLevels.size(); i < iEnd; ++i) {
-    for (unsigned g =0, gEnd = voltageLevels[i]->getGenerators().size(); g < gEnd; ++g) {
+  for (std::size_t i = 0, iEnd = voltageLevels.size(); i < iEnd; ++i) {
+    for (std::size_t g =0, gEnd = voltageLevels[i]->getGenerators().size(); g < gEnd; ++g) {
       ASSERT_FALSE(voltageLevels[i]->getGenerators()[g]->isParticipating());
       ASSERT_FALSE(voltageLevels[i]->getGenerators()[g]->hasActivePowerControl());
       ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getGenerators()[g]->getActivePowerControlDroop(), 0.);
@@ -544,8 +544,8 @@ TEST(DataInterfaceTest, testStateVariableGeneratorWithActivePowerControlExt) {
   ASSERT_NO_THROW(testexportStateVariables(data));
   shared_ptr<NetworkInterface> network = data->getNetwork();
   const std::vector< shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
-  for (unsigned i = 0, iEnd = voltageLevels.size(); i < iEnd; ++i) {
-    for (unsigned g =0, gEnd = voltageLevels[i]->getGenerators().size(); g < gEnd; ++g) {
+  for (std::size_t i = 0, iEnd = voltageLevels.size(); i < iEnd; ++i) {
+    for (std::size_t g =0, gEnd = voltageLevels[i]->getGenerators().size(); g < gEnd; ++g) {
       ASSERT_TRUE(voltageLevels[i]->getGenerators()[g]->isParticipating());
       ASSERT_TRUE(voltageLevels[i]->getGenerators()[g]->hasActivePowerControl());
       ASSERT_DOUBLE_EQUALS_DYNAWO(voltageLevels[i]->getGenerators()[g]->getActivePowerControlDroop(), 4.);

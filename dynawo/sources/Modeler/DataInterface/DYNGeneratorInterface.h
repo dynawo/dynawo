@@ -21,6 +21,7 @@
 #define MODELER_DATAINTERFACE_DYNGENERATORINTERFACE_H_
 
 #include "DYNComponentInterface.hpp"
+#include "DYNReactiveCurvePointsInterface.h"
 
 #include <vector>
 #include <boost/optional.hpp>
@@ -32,28 +33,7 @@ class VoltageLevelInterface;
 /**
  * @brief Generator component
  */
-class GeneratorInterface : public ComponentInterface {
- public:
-  /**
-   * @brief Reactive curve point
-   *
-   * Represents a point extracted from network file
-   */
-  struct ReactiveCurvePoint {
-      /**
-       * @brief Constructor
-       *
-       * @param p active power
-       * @param qmin minimum reactive power
-       * @param qmax maximum reactive power
-       */
-      ReactiveCurvePoint(double p, double qmin, double qmax): p(p), qmin(qmin), qmax(qmax) {}
-
-      double p;     ///< active power
-      double qmin;  ///< minimum reactive power
-      double qmax;  ///< maximum reactive power
-  };
-
+class GeneratorInterface : public ComponentInterface, public ReactiveCurvePointsInterface {
  public:
   /**
    * @brief Destructor
@@ -150,8 +130,7 @@ class GeneratorInterface : public ComponentInterface {
   virtual void exportStateVariablesUnitComponent() = 0;
 
   /**
-   * @brief Retrieve the list of reactive curve points, if any
-   * @returns list of reactive curve points
+   * @copydoc ReactiveCurvePointsInterface::getReactiveCurvesPoints() const
    */
   virtual std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const = 0;
 

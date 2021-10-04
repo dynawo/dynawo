@@ -25,7 +25,7 @@
   </xs:element>
 
   <xs:complexType name="Event">
-    <xs:attribute name="time" use="required" type="xs:float"/>
+    <xs:attribute name="time" use="optional" type="xs:float"/>
     <xs:attribute name="modelName" use="required" type="xs:string"/>
     <xs:attribute name="message" use="required" type="xs:string"/>
     <xs:attribute name="priority" use="optional" type="xs:string"/>

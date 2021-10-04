@@ -52,6 +52,10 @@ int main() {
 
   cout << LoadBuilder().type(Load::type_auxiliary).p0(0).q0(0).p(0).q(0).name(std::string("a load")).build("Load") << endl;
 
+  cout << BatteryBuilder().p0(0).q0(0).p(0).q(0).pmin(0).pmax(1)
+          .reactiveCapabilityCurve( ReactiveCapabilityCurve(0, 0, 10)(1, 5, 15)(2, 0, 10) )
+          .name(std::string("a battery")).build("Battery") << endl;
+
   cout << ShuntCompensatorBuilder().section_current(1).section_max(2).b_per_section(1).q(0).build("Shunt") << endl;
 
   cout << DanglingLineBuilder()

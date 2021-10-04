@@ -36,7 +36,7 @@ class ModelCPP::Impl : public ModelCPP {
   Impl();
   /**
    * @brief constructor
-   * @param modelType
+   * @param modelType model's type
    */
   explicit Impl(std::string modelType);
 
@@ -254,11 +254,6 @@ class ModelCPP::Impl : public ModelCPP {
    * @copydoc ModelCPP::loadParameters()
    */
   void loadParameters(const std::string &parameters);
-
-  /**
-   * @copydoc ModelCPP::checkDataCoherence()
-   */
-  virtual void checkDataCoherence(const double t) = 0;
 
   /**
    * @copydoc ModelCPP::checkParametersCoherence() const

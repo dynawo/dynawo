@@ -74,9 +74,6 @@ class SubModelFactory : private boost::noncopyable {
   static boost::shared_ptr<SubModel> createSubModelFromLib(const std::string& lib);
 
   boost::shared_ptr<boost::dll::shared_library> lib_;  ///< Library of the submodel
-
- private:
-  static SubModelFactories factories_;  ///< Factories already available
 };
 
 /**
@@ -101,6 +98,12 @@ class SubModelFactories : private boost::noncopyable {
    * @brief destructor
    */
   ~SubModelFactories();
+
+  /**
+   * @brief Get unique instance
+   * @return  The unique instance
+   */
+  static SubModelFactories& getInstance();
 
   /**
   * @brief iterator type on SubModelFactory map.
@@ -162,7 +165,7 @@ class SubModelDelete {
   /**
    * @brief Constructor
    *
-   * @param factory: model factory to delete
+   * @param factory model factory to delete
    */
   explicit SubModelDelete(SubModelFactory* factory);
 
@@ -174,7 +177,7 @@ class SubModelDelete {
   /**
    * @brief Function to use this class as a Functor
    *
-   * @param subModel: pointer to the subModel to delete
+   * @param subModel pointer to the subModel to delete
    * map
    */
   void operator()(SubModel* subModel);

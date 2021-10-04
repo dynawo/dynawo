@@ -38,7 +38,7 @@ class ModelFactory {
   /**
    * @brief create a new Model instance
    *
-   * @param[in] id: model's id
+   * @param[in] id model's id
    * @return shared pointer to a new @p Model
    */
   static boost::shared_ptr<FinalStateModel> newModel(const std::string& id);

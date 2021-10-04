@@ -32,26 +32,28 @@ using std::ostream;
 namespace timeline {
 
 void
-CsvExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath) const {
+CsvExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath,
+                          const bool exportWithTime) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
     throw DYNError(DYN::Error::API, FileGenerationFailed, filePath.c_str());
   }
-  exportToStream(timeline, file);
+  exportToStream(timeline, file, exportWithTime);
   file.close();
 }
 
 void
-CsvExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
+CsvExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream,
+                            const bool exportWithTime) const {
   const std::string CSVEXPORTER_SEPARATOR = ";";  ///< definition of the separator to use in csv files
 
   for (Timeline::event_const_iterator itEvent = timeline->cbeginEvent();
           itEvent != timeline->cendEvent();
           ++itEvent) {
-    stream << (*itEvent)->getTime()
-            << CSVEXPORTER_SEPARATOR
-            << (*itEvent)->getModelName()
+    if (exportWithTime)
+      stream << (*itEvent)->getTime() << CSVEXPORTER_SEPARATOR;
+    stream << (*itEvent)->getModelName()
             << CSVEXPORTER_SEPARATOR
             << (*itEvent)->getMessage();
     if ((*itEvent)->hasPriority()) {

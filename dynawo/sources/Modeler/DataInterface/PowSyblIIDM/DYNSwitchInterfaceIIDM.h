@@ -43,7 +43,7 @@ class SwitchInterfaceIIDM : public SwitchInterface {
 
   /**
    * @brief Constructor
-   * @param sw: the switch's iidm instance
+   * @param sw the switch's iidm instance
    */
   explicit SwitchInterfaceIIDM(powsybl::iidm::Switch& sw);
 

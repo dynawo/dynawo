@@ -52,7 +52,7 @@ Connector::addConnectedSubModel(const boost::shared_ptr<SubModel>& subModel, con
 
 int
 Connector::nbConnectedSubModels() const {
-  return connectedSubModels_.size();
+  return static_cast<unsigned int>(connectedSubModels_.size());
 }
 
 ConnectorContainer::ConnectorContainer():
@@ -152,7 +152,7 @@ ConnectorContainer::getConnectorVarNum(const shared_ptr<SubModel>& subModel, con
     if (aliasIt != flowAliasNameToFictitiousVarNum_.end()) {
       numVar = aliasIt->second;
     } else {
-      numVar = sizeY_ + flowAliasNameToFictitiousVarNum_.size();
+      numVar = sizeY_ + static_cast<int>(flowAliasNameToFictitiousVarNum_.size());
       flowAliasNameToFictitiousVarNum_[id] = numVar;
     }
   } else {
@@ -335,7 +335,7 @@ ConnectorContainer::getYConnectorInfos(const int index) const {
 
   for (unsigned int i = 0; i < yConnectors_.size(); ++i) {
     shared_ptr<Connector> yc = yConnectors_[i];
-    const int nbSubModels = yc->connectedSubModels().size() - 1;  // -1 because first item (reference) not taken into account
+    const int nbSubModels = static_cast<int>(yc->connectedSubModels().size()) - 1;  // -1 because first item (reference) not taken into account
     // check whether the index is inside the current connector
     if (offset + nbSubModels < index) {
       offset += nbSubModels;
@@ -456,7 +456,7 @@ ConnectorContainer::printYConnectors() const {
 
 void
 ConnectorContainer::printFlowConnectors() const {
-  int offset = yConnectors_.size();
+  std::size_t offset = yConnectors_.size();
   for (unsigned int i = 0; i < nbFlowConnectors(); ++i) {
     shared_ptr<Connector> fc = flowConnectors_[i];
     stringstream ss;
@@ -648,12 +648,12 @@ ConnectorContainer::evalJtPrimConnector(SparseMatrix& jt) {
   // we only build the matrix structure without putting any value (all the derivatives of f with respect to y' are 0)
 
   // N equations of type 0 = Y0 - Y1
-  for (unsigned int i = 0; i < yConnectors_.size(); ++i) {
+  for (std::size_t i = 0; i < yConnectors_.size(); ++i) {
     shared_ptr<Connector> yc = yConnectors_[i];
     if (yc->connectedSubModels().empty()) {
       throw DYNError(Error::MODELER, EmptyConnector);  // should not happen but who knows ...
     }
-    for (unsigned j = 0, jEnd = yc->connectedSubModels().size() - 1; j < jEnd; ++j) {
+    for (std::size_t j = 0, jEnd = yc->connectedSubModels().size() - 1; j < jEnd; ++j) {
       jt.changeCol();
     }
   }
@@ -671,7 +671,7 @@ ConnectorContainer::getY0Connector() {
 void
 ConnectorContainer::getY0ConnectorForYConnector() {
   // for each YConnector, copy y0 from one pin to y0 of the other pins (reference identified by yType = -2)
-  for (unsigned int i = 0; i < yConnectors_.size(); ++i) {
+  for (std::size_t i = 0; i < yConnectors_.size(); ++i) {
     shared_ptr<Connector> yc = yConnectors_[i];
     if (yc->connectedSubModels().empty()) {
       throw DYNError(Error::MODELER, EmptyConnector);  // should not happen but who knows ...
@@ -766,12 +766,12 @@ void
 ConnectorContainer::evalStaticFType() const {
   int offset = 0;
 
-  for (unsigned int i = 0; i < yConnectors_.size(); ++i) {
+  for (std::size_t i = 0; i < yConnectors_.size(); ++i) {
     shared_ptr<Connector> yc = yConnectors_[i];
     if (yc->connectedSubModels().empty()) {
       throw DYNError(Error::MODELER, EmptyConnector);  // should not happen but who knows ...
     }
-    for (unsigned j = 0, jEnd = yc->connectedSubModels().size() - 1; j < jEnd; ++j) {
+    for (std::size_t j = 0, jEnd = yc->connectedSubModels().size() - 1; j < jEnd; ++j) {
       fType_[offset] = ALGEBRAIC_EQ;  // no differential equation in connector
       ++offset;
     }
@@ -789,7 +789,7 @@ ConnectorContainer::propagateZDiff(const vector<int>& indicesDiff, double* z) {
   Timer timer("ConnectorContainer::propagateZDiff");
 #endif
   // z modified, it is necessary to propagate the differences if we have a connector for each indicesDiff
-  for (unsigned int i = 0; i < indicesDiff.size(); ++i) {
+  for (std::size_t i = 0; i < indicesDiff.size(); ++i) {
     int index = indicesDiff[i];
     boost::unordered_map<int, shared_ptr<Connector> >::iterator iter = zConnectorByVarNum_.find(index);  // all discrete variables are not necessarily connected
     if (iter == zConnectorByVarNum_.end())

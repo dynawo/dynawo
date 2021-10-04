@@ -92,32 +92,36 @@ inline std::string key2Str(const int key) {
  */
 #ifndef _MSC_VER
 #define ASSERT_THROW_DYNAWO(F, ERROR_TYPE, ERROR_KEY)                                            \
-  try                                                                                            \
-  {                                                                                              \
-    F;                                                                                           \
-    FAIL();                                                                                      \
-  }                                                                                              \
-  catch(const DYN::Error& e)                                                                     \
-  {                                                                                              \
-    EXPECT_EQ(type2Str(ERROR_TYPE), type2Str(e.type()));                                         \
-    EXPECT_EQ(key2Str(ERROR_KEY), key2Str(e.key()));                                             \
-  }                                                                                              \
-  catch (const std::exception& e) {                                                              \
-    int status = -1;                                                                             \
-    std::ostringstream oss;                                                                      \
-    oss << "Expected: " << #F << " throws an exception of type DYN::Error" << std::endl;         \
-    oss << "  Actual: it throws an exception of type ";                                          \
-    char* realname = abi::__cxa_demangle(typeid(e).name(), NULL, NULL, &status);                 \
-    oss << ((status == 0) ? realname : typeid(e).name());                                        \
-    std::free(realname);                                                                         \
-    GTEST_FATAL_FAILURE_(oss.str().c_str());                                                     \
-  }                                                                                              \
-  catch (...) {                                                                                  \
-    std::ostringstream oss;                                                                      \
-    oss << "Expected: " << #F << " throws an exception of type DYN::Error" << std::endl;         \
-    oss << "  Actual: it throws an exception of unknown type";                                   \
-    GTEST_FATAL_FAILURE_(oss.str().c_str());                                                     \
-  }
+  GTEST_AMBIGUOUS_ELSE_BLOCKER_                                                                  \
+  if (::testing::internal::AlwaysTrue()) {                                                       \
+    try                                                                                          \
+    {                                                                                            \
+      F;                                                                                         \
+      FAIL();                                                                                    \
+    }                                                                                            \
+    catch(const DYN::Error& e)                                                                   \
+    {                                                                                            \
+      EXPECT_EQ(type2Str(ERROR_TYPE), type2Str(e.type()));                                       \
+      EXPECT_EQ(key2Str(ERROR_KEY), key2Str(e.key()));                                           \
+    }                                                                                            \
+    catch (const std::exception& e) {                                                            \
+      int status = -1;                                                                           \
+      std::ostringstream oss;                                                                    \
+      oss << "Expected: " << #F << " throws an exception of type DYN::Error" << std::endl;       \
+      oss << "  Actual: it throws an exception of type ";                                        \
+      char* realname = abi::__cxa_demangle(typeid(e).name(), NULL, NULL, &status);               \
+      oss << ((status == 0) ? realname : typeid(e).name());                                      \
+      std::free(realname);                                                                       \
+      GTEST_FATAL_FAILURE_(oss.str().c_str());                                                   \
+    }                                                                                            \
+    catch (...) {                                                                                \
+      std::ostringstream oss;                                                                    \
+      oss << "Expected: " << #F << " throws an exception of type DYN::Error" << std::endl;       \
+      oss << "  Actual: it throws an exception of unknown type";                                 \
+      GTEST_FATAL_FAILURE_(oss.str().c_str());                                                   \
+    }                                                                                            \
+  } else  /* NOLINT */                                                                           \
+    EXPECT_FALSE(false)
 #else
 #define ASSERT_THROW_DYNAWO(F, ERROR_TYPE, ERROR_KEY)                                            \
   try                                                                                            \
@@ -152,9 +156,12 @@ inline std::string key2Str(const int key) {
  *
  * @param F function/method to launch
  */
-#define EXPECT_ASSERT_DYNAWO(F)                                 \
-  ::testing::FLAGS_gtest_death_test_style = "threadsafe";       \
-  EXPECT_EXIT(F, ::testing::KilledBySignal(SIGABRT), ".*");      \
+#define EXPECT_ASSERT_DYNAWO(F)                                      \
+  GTEST_AMBIGUOUS_ELSE_BLOCKER_                                      \
+  if (::testing::FLAGS_gtest_death_test_style = "threadsafe", false) \
+    ;                                                                \
+  else  /* NOLINT */                                                 \
+    EXPECT_EXIT(F, ::testing::KilledBySignal(SIGABRT), ".*")
 
 /**
  * @brief macro to test if two double are equals
@@ -162,14 +169,43 @@ inline std::string key2Str(const int key) {
  * @param A first double
  * @param B second double
  */
-#define  ASSERT_DOUBLE_EQUALS_DYNAWO(A, B) \
-    {                                                                                                \
-      if (!doubleEquals(A, B)) {                                                                     \
-        std::ostringstream oss;                                                                      \
-        oss << "Expected: " << A << " equals to " << B << std::endl;                                 \
-        GTEST_FATAL_FAILURE_(oss.str().c_str());                                                     \
-      }                                                                                              \
-      ASSERT_EQ(doubleEquals(A, B), true);                                                           \
-    }                                                                                                \
+#define ASSERT_DOUBLE_EQUALS_DYNAWO(A, B)                          \
+  GTEST_AMBIGUOUS_ELSE_BLOCKER_                                    \
+  if (!doubleEquals(A, B)) {                                       \
+    std::ostringstream oss;                                        \
+    oss << "Expected: " << A << " equals to " << B << std::endl;   \
+    GTEST_FATAL_FAILURE_(oss.str().c_str());                       \
+  } else  /* NOLINT */                                             \
+    ASSERT_EQ(doubleEquals(A, B), true)
+
+/**
+ * @brief Macro replacement for GTest TEST macro for CLang only
+ */
+#ifdef __clang__
+#define TEST_DYNAWO_(test_case_name, test_name)                    \
+  _Pragma("clang diagnostic push")                                 \
+  _Pragma("clang diagnostic ignored \"-Wglobal-constructors\"")    \
+  GTEST_TEST(test_case_name, test_name)                            \
+  _Pragma("clang diagnostic pop")
+
+#undef TEST
+#define TEST(test_case_name, test_name) TEST_DYNAWO_(test_case_name, test_name)
+#endif
+
+/**
+ * @brief Macro to initialize Xml environment
+ */
+#ifdef __clang__
+#define INIT_XML_DYNAWO                                            \
+  testing::Environment* initXmlEnvironment();                      \
+  _Pragma("clang diagnostic push")                                 \
+  _Pragma("clang diagnostic ignored \"-Wglobal-constructors\"")    \
+  static testing::Environment* const env_ = initXmlEnvironment()   \
+  _Pragma("clang diagnostic pop")
+#else
+#define INIT_XML_DYNAWO                                            \
+  testing::Environment* initXmlEnvironment();                      \
+  static testing::Environment* const env = initXmlEnvironment()
+#endif
 
 #endif  // COMMON_GTEST_DYNAWO_H_

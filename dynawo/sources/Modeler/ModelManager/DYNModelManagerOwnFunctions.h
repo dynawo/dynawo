@@ -27,6 +27,13 @@
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /**
+ * Variables declarations copied from <OpenModelica Sources>/SimulationRuntime/c/util/modelica_string_lit.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+extern void *mmc_emptystring;
+extern void *mmc_strings_len1[256];
+
+/**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */

@@ -30,7 +30,7 @@ namespace dynamicdata {
  * @param[in] model2 Second model to connect
  * @param[in] var2 Second model var to connect
  * @param[in] id name of the parent model
- * @param[in] map of unitDynamicModel Modelica models contained in the parent model
+ * @param[in] unitDynamicModelsMap Modelica models contained in the parent model
  *
  * @returns connection id
  */
@@ -43,7 +43,7 @@ std::string getConnectionId(const std::string& model1, const std::string& var1, 
  * @param[in] model1 First model to connect
  * @param[in] model2 Second model to connect
  * @param[in] id name of the parent model
- * @param[in] map of unitDynamicModel Modelica models contained in the parent model
+ * @param[in] unitDynamicModelsMap Modelica models contained in the parent model
  *
  * @returns connection id
  */

@@ -45,7 +45,7 @@ class LccConverterInterfaceIIDM : public LccConverterInterface, public InjectorI
 
   /**
    * @brief Constructor
-   * @param lcc: lcc converter iidm instance
+   * @param lcc lcc converter iidm instance
    */
   explicit LccConverterInterfaceIIDM(IIDM::LccConverterStation& lcc);
 

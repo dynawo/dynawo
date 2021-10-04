@@ -42,16 +42,20 @@ class TxtExporter : public Exporter {
    *
    * @param timeline Timeline to export
    * @param filePath File to export txt formatted timeline to
+   * @param exportWithTime whether to export time
    */
-  void exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath) const;
+  void exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath,
+                    const bool exportWithTime) const;
 
   /**
    * @brief Export method in txt format
    *
    * @param timeline Timeline to export
    * @param stream stream to export txt formatted timeline to
+   * @param exportWithTime whether to export time
    */
-  void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream) const;
+  void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream,
+                      const bool exportWithTime) const;
 };
 }  // namespace timeline
 

@@ -83,7 +83,7 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP::Impl {
   } CalculatedVars_t;
   /**
    * @brief define parameters
-   * @param parameters: vector to fill with the generic parameters
+   * @param parameters vector to fill with the generic parameters
    */
   void defineParameters(std::vector<ParameterModeler> &parameters);
   /**
@@ -194,10 +194,6 @@ class ModelCentralizedShuntsSectionControl : public ModelCPP::Impl {
    * @copydoc ModelCPP::initializeStaticData()
    */
   void initializeStaticData() { /* not needed */ }
-  /**
-   * @brief Coherence check on data (asserts, min/max values, sanity checks)
-   */
-  void checkDataCoherence(const double /*t*/) { /* not needed */ }
   /**
    * @brief calculate calculated variables
    */

@@ -24,8 +24,6 @@
 
 namespace DYN {
 
-std::unordered_map<IIDMExtensions::LibraryPath, std::shared_ptr<boost::dll::shared_library> > IIDMExtensions::libraries_;
-std::unordered_set<IIDMExtensions::LibraryPath> IIDMExtensions::librariesLoadingIssues_;
 std::mutex IIDMExtensions::librariesMutex_;
 
 boost::filesystem::path

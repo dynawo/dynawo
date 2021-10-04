@@ -120,20 +120,20 @@ ModelMulti::~ModelMulti() {
 
 void
 ModelMulti::setTimeline(const shared_ptr<Timeline>& timeline) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->setTimeline(timeline);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->setTimeline(timeline);
 }
 
 void
 ModelMulti::setConstraints(const shared_ptr<ConstraintsCollection>& constraints) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->setConstraints(constraints);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->setConstraints(constraints);
 }
 
 void
 ModelMulti::setWorkingDirectory(const string& workingDirectory) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->setWorkingDirectory(workingDirectory);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->setWorkingDirectory(workingDirectory);
 }
 
 void
@@ -165,8 +165,8 @@ void
 ModelMulti::initBuffers() {
   // (1) Get size of each sub models
   // -------------------------------
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->initSize(sizeY_, sizeZ_, sizeMode_, sizeF_, sizeG_);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->initSize(sizeY_, sizeZ_, sizeMode_, sizeF_, sizeG_);
 
 
   connectorContainer_->setOffsetModel(sizeF_);
@@ -245,9 +245,9 @@ ModelMulti::initBuffers() {
 
   // (3) init buffers of each sub-model (useful for the network model)
   // (4) release elements that were used and declared only for connections
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    subModels_[i]->initSubBuffers();
-    subModels_[i]->releaseElements();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    (*it)->initSubBuffers();
+    (*it)->releaseElements();
   }
 }
 
@@ -261,8 +261,8 @@ ModelMulti::init(const double t0) {
 
   // (1) initialising each sub-model
   //----------------------------------------
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->initSub(t0);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->initSub(t0);
 
   // Detect if some discrete variable were modified during the initialization (e.g. subnetwork detection)
   vector<int> indicesDiff;
@@ -270,7 +270,7 @@ ModelMulti::init(const double t0) {
   for (int i = 0; i < sizeZ(); ++i) {
     if (doubleNotEquals(zLocal_[i], zSave_[i])) {
       indicesDiff.push_back(i);
-      valuesModified.push_back(zLocal_[i]);
+      valuesModified.push_back(static_cast<int>(zLocal_[i]));
     }
   }
 
@@ -292,14 +292,14 @@ ModelMulti::init(const double t0) {
     zSave_.assign(zLocal_, zLocal_ + sizeZ());
     rotateBuffers();
 
-    for (unsigned int i = 0; i < subModels_.size(); ++i)
-      subModels_[i]->evalZSub(t0);
+    for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+      (*it)->evalZSub(t0);
 
     for (unsigned j = 0; j < 10 && propagateZModif(); ++j) {
-      for (unsigned int i = 0; i < subModels_.size(); ++i)
-        subModels_[i]->evalGSub(t0);
-      for (unsigned int i = 0; i < subModels_.size(); ++i)
-        subModels_[i]->evalZSub(t0);
+      for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+        (*it)->evalGSub(t0);
+      for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+        (*it)->evalZSub(t0);
     }
     rotateBuffers();
   }
@@ -311,8 +311,8 @@ ModelMulti::printModel() const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::printModel");
 #endif
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->printModel();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->printModel();
 
   connectorContainer_->printConnectors();
 }
@@ -331,26 +331,26 @@ ModelMulti::printParameterValues() const {
       "  -- \"IIDM\"           -> value read from iidm file"<< Trace::endline <<
       "  -- \"loaded dump\"    -> value read from initial state file"<< Trace::endline <<
       "  -- \"initialization\" -> value computed by local initialization"<< Trace::endline;
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->printParameterValues();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->printParameterValues();
 }
 
 void
 ModelMulti::rotateBuffers() {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->rotateBuffers();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->rotateBuffers();
 }
 
 void
 ModelMulti::printMessages() {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->printMessages();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->printMessages();
 }
 
 void
 ModelMulti::printInitValues(const string& directory) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->printInitValues(directory);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->printInitValues(directory);
 }
 
 void
@@ -374,9 +374,9 @@ ModelMulti::evalF(const double t, const double* y, const double* yp, double* f) 
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer * timer2 = new Timer("ModelMulti::evalF_subModels");
 #endif
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    if (subModels_[i]->sizeF() != 0)
-      subModels_[i]->evalFSub(t);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    if ((*it)->sizeF() != 0)
+      (*it)->evalFSub(t);
   }
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   delete timer2;
@@ -394,8 +394,8 @@ ModelMulti::evalFDiff(const double t, const double* y, const double* yp, double*
 #endif
   copyContinuousVariables(y, yp);
 
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-      subModels_[i]->evalFDiffSub(t);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+      (*it)->evalFDiffSub(t);
   }
   std::copy(fLocal_, fLocal_ + sizeF_, f);
 }
@@ -430,8 +430,8 @@ ModelMulti::evalG(double t, vector<state_g>& g) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalG");
 #endif
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->evalGSub(t);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->evalGSub(t);
 
   std::copy(gLocal_, gLocal_ + sizeG_, g.begin());
 }
@@ -442,10 +442,10 @@ ModelMulti::evalJt(const double t, const double cj, SparseMatrix& Jt) {
   Timer timer("ModelMulti::evalJt");
 #endif
   int rowOffset = 0;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    subModels_[i]->evalJtSub(t, cj, Jt, rowOffset);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    (*it)->evalJtSub(t, cj, Jt, rowOffset);
     if (!Jt.withoutNan() || !Jt.withoutInf()) {
-      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, subModels_[i]->modelType(), subModels_[i]->name());
+      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, (*it)->modelType(), (*it)->name());
     }
   }
 
@@ -462,10 +462,10 @@ ModelMulti::evalJt(const double t, const double cj, SparseMatrix& Jt) {
 void
 ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) {
   int rowOffset = 0;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    subModels_[i]->evalJtPrimSub(t, cj, JtPrim, rowOffset);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    (*it)->evalJtPrimSub(t, cj, JtPrim, rowOffset);
     if (!JtPrim.withoutNan() || !JtPrim.withoutInf()) {
-      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, subModels_[i]->modelType(), subModels_[i]->name());
+      throw DYNError(Error::MODELER, SparseMatrixWithNanInf, (*it)->modelType(), (*it)->name());
     }
   }
 
@@ -482,8 +482,8 @@ ModelMulti::evalZ(double t) {
 #endif
   if (sizeZ() == 0) return;
   // calculate Z by model
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->evalZSub(t);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->evalZSub(t);
 
   // propagation of z changes to connected variables
   if (zSave_.size() != static_cast<size_t>(sizeZ()))
@@ -496,18 +496,18 @@ zChangeType_t
 ModelMulti::propagateZModif() {
   vector<int> indicesDiff;
   zChangeType_t zChangeType = NO_Z_CHANGE;
-  for (int i = 0, iEnd = nonSilentZIndexes_.size(); i < iEnd; ++i) {
+  for (std::size_t i = 0, iEnd = nonSilentZIndexes_.size(); i < iEnd; ++i) {
     if (doubleNotEquals(zLocal_[nonSilentZIndexes_[i]], zSave_[nonSilentZIndexes_[i]])) {
-      indicesDiff.push_back(nonSilentZIndexes_[i]);
+      indicesDiff.push_back(static_cast<int>(nonSilentZIndexes_[i]));
       zChangeType = NOT_SILENT_Z_CHANGE;
     }
   }
   // test values of discrete variables that are not used to compute continuous equations
   // and raise the flag NotUsedInContinuousEquations if at least one has changed
   // If at least one non silent Z has changed then the flag is never raised
-  for (int i = 0, iEnd = notUsedInContinuousEqSilentZIndexes_.size(); i < iEnd; ++i) {
+  for (std::size_t i = 0, iEnd = notUsedInContinuousEqSilentZIndexes_.size(); i < iEnd; ++i) {
     if (doubleNotEquals(zLocal_[notUsedInContinuousEqSilentZIndexes_[i]], zSave_[notUsedInContinuousEqSilentZIndexes_[i]])) {
-      indicesDiff.push_back(notUsedInContinuousEqSilentZIndexes_[i]);
+      indicesDiff.push_back(static_cast<int>(notUsedInContinuousEqSilentZIndexes_[i]));
       if (zChangeType != NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE && zChangeType != NOT_SILENT_Z_CHANGE)
         zChangeType = NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE;
     }
@@ -520,7 +520,7 @@ ModelMulti::propagateZModif() {
   } else {
     // if only discrete variables that are used only in continuous equations then we just raise the NotUsedInDiscreteEquations flag
     // no need to propagate
-    for (int i = 0, iEnd = notUsedInDiscreteEqSilentZIndexes_.size(); i < iEnd; ++i) {
+    for (std::size_t i = 0, iEnd = notUsedInDiscreteEqSilentZIndexes_.size(); i < iEnd; ++i) {
       if (doubleNotEquals(zLocal_[notUsedInDiscreteEqSilentZIndexes_[i]], zSave_[notUsedInDiscreteEqSilentZIndexes_[i]])) {
         std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
         return NOT_USED_IN_DISCRETE_EQ_Z_CHANGE;
@@ -546,11 +546,11 @@ ModelMulti::evalMode(double t) {
 #endif
   modeChange_ = false;
   modeChangeType_t modeChangeType = NO_MODE;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    modeChangeType_t modeChangeTypeSub = subModels_[i]->evalModeSub(t);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    modeChangeType_t modeChangeTypeSub = (*it)->evalModeSub(t);
     if (modeChangeTypeSub > modeChangeType)
       modeChangeType = modeChangeTypeSub;
-    if (subModels_[i]->modeChange()) {
+    if ((*it)->modeChange()) {
       modeChange_ = true;
     }
   }
@@ -569,16 +569,16 @@ ModelMulti::evalMode(double t) {
 void
 ModelMulti::reinitMode() {
   modeChangeType_ = NO_MODE;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    subModels_[i]->modeChange(false);
-    subModels_[i]->setModeChangeType(NO_MODE);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    (*it)->modeChange(false);
+    (*it)->setModeChangeType(NO_MODE);
   }
 }
 
 void
 ModelMulti::notifyTimeStep() {
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    subModels_[i]->notifyTimeStep();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    (*it)->notifyTimeStep();
   }
 }
 
@@ -591,14 +591,14 @@ ModelMulti::evalCalculatedVariables(const double t, const vector<double>& y, con
   std::copy(yp.begin(), yp.end(), ypLocal_);
   std::copy(z.begin(), z.end(), zLocal_);
 
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->evalCalculatedVariablesSub(t);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->evalCalculatedVariablesSub(t);
 }
 
 void
 ModelMulti::checkParametersCoherence() const {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->checkParametersCoherence();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->checkParametersCoherence();
 }
 
 void
@@ -607,20 +607,20 @@ ModelMulti::checkDataCoherence(const double t) {
   Timer timer("ModelMulti::checkDataCoherence");
 #endif
 
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->checkDataCoherenceSub(t);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->checkDataCoherenceSub(t);
 }
 
 void
 ModelMulti::setFequationsModel() {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->setFequationsSub();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->setFequationsSub();
 }
 
 void
 ModelMulti::setGequationsModel() {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->setGequationsSub();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->setGequationsSub();
 }
 
 void
@@ -642,9 +642,9 @@ ModelMulti::initSilentZ(bool enableSilentZ) {
 
 void
 ModelMulti::getY0(const double t0, vector<double>& y0, vector<double>& yp0) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    subModels_[i]->getY0Sub();
-    subModels_[i]->evalCalculatedVariablesSub(t0);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    (*it)->getY0Sub();
+    (*it)->evalCalculatedVariablesSub(t0);
   }
   connectorContainer_->getY0Connector();
 
@@ -656,11 +656,11 @@ void
 ModelMulti::evalStaticYType() {
   yType_.resize(sizeY_);
   int offsetYType = 0;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    int sizeYType = subModels_[i]->sizeY();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    int sizeYType = (*it)->sizeY();
     if (sizeYType > 0) {
-      subModels_[i]->setBufferYType(&yType_[0], offsetYType);
-      subModels_[i]->evalStaticYType();
+      (*it)->setBufferYType(&yType_[0], offsetYType);
+      (*it)->evalStaticYType();
       offsetYType += sizeYType;
     }
   }
@@ -668,10 +668,10 @@ ModelMulti::evalStaticYType() {
 
 void
 ModelMulti::evalDynamicYType() {
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    int sizeYType = subModels_[i]->sizeY();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    int sizeYType = (*it)->sizeY();
     if (sizeYType > 0)
-      subModels_[i]->evalDynamicYType();
+      (*it)->evalDynamicYType();
   }
 }
 
@@ -679,11 +679,11 @@ void
 ModelMulti::evalStaticFType() {
   fType_.resize(sizeF_);
   int offsetFType = 0;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    int sizeFType = subModels_[i]->sizeF();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    int sizeFType = (*it)->sizeF();
     if (sizeFType > 0) {
-      subModels_[i]->setBufferFType(&fType_[0], offsetFType);
-      subModels_[i]->evalStaticFType();
+      (*it)->setBufferFType(&fType_[0], offsetFType);
+      (*it)->evalStaticFType();
       offsetFType += sizeFType;
     }
   }
@@ -694,24 +694,24 @@ ModelMulti::evalStaticFType() {
 
 void
 ModelMulti::evalDynamicFType() {
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    int sizeFType = subModels_[i]->sizeF();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    int sizeFType = (*it)->sizeF();
     if (sizeFType > 0)
-      subModels_[i]->evalDynamicFType();
+      (*it)->evalDynamicFType();
   }
   // connectors equations (A = B) can't change during the simulation so we don't need to update them.
 }
 
 void
 ModelMulti::dumpParameters(std::map< string, string >& mapParameters) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->dumpParameters(mapParameters);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->dumpParameters(mapParameters);
 }
 
 void
 ModelMulti::dumpVariables(std::map< string, string >& mapVariables) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->dumpVariables(mapVariables);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->dumpVariables(mapVariables);
 }
 
 void
@@ -729,14 +729,14 @@ ModelMulti::getModelParameterValue(const string& curveModelName, const string& c
 
 void
 ModelMulti::loadParameters(const std::map< string, string >& mapParameters) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->loadParameters(mapParameters);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->loadParameters(mapParameters);
 }
 
 void
 ModelMulti::loadVariables(const std::map< string, string >& mapVariables) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->loadVariables(mapVariables);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->loadVariables(mapVariables);
 }
 
 void
@@ -904,15 +904,14 @@ ModelMulti::findSubModelByLib(const string& libName) {
 bool
 ModelMulti::checkConnects() {
   bool connectOk = true;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    shared_ptr<SubModel> sub = subModels_[i];
-    vector<string> name = sub->xNames();
-    const int yDeb = sub->yDeb();
-    for (unsigned int j = 0; j < sub->sizeY(); ++j) {
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    const vector<string>& names = (*it)->xNames();
+    const int yDeb = (*it)->yDeb();
+    for (unsigned int j = 0; j < (*it)->sizeY(); ++j) {
       if (yType_[yDeb + j] == EXTERNAL) {
         const bool isConnected = connectorContainer_->isConnected(yDeb + j);
         if (!isConnected) {
-          Trace::info() << DYNLog(SubModelExtVar, sub->name(), name[j]) << Trace::endline;
+          Trace::info() << DYNLog(SubModelExtVar, (*it)->name(), names[j]) << Trace::endline;
           connectOk = false;
           break;
         }
@@ -952,14 +951,14 @@ ModelMulti::setIsInitProcess(bool isInitProcess) {
   Timer timer("ModelMulti::setIsInitProcess");
 #endif
 
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->setIsInitProcess(isInitProcess);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->setIsInitProcess(isInitProcess);
 }
 
 void
 ModelMulti::setInitialTime(const double t0) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->setCurrentTime(t0);
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it)
+    (*it)->setCurrentTime(t0);
 }
 
 ModelMulti::findSubModelFromVarName_t
@@ -1008,10 +1007,10 @@ ModelMulti::collectSilentZ() {
   notUsedInDiscreteEqSilentZIndexes_.clear();
   nonSilentZIndexes_.clear();
   unsigned offsetZ = 0;
-  for (unsigned int i = 0, iEnd = subModels_.size(); i < iEnd; ++i) {
-    int sizeZ = subModels_[i]->sizeZ();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    int sizeZ = (*it)->sizeZ();
     if (sizeZ > 0)
-      subModels_[i]->collectSilentZ(&silentZ_[offsetZ]);
+      (*it)->collectSilentZ(&silentZ_[offsetZ]);
     offsetZ += sizeZ;
   }
   // a discrete variable is not silent if it is connected somewhere
@@ -1154,10 +1153,10 @@ void ModelMulti::printVariableNames() {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X variables init" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    const std::vector<std::string>& xNames = subModels_[i]->xNamesInit();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    const std::vector<std::string>& xNames = (*it)->xNamesInit();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << subModels_[i]->name() << "_" << xNames[j] << Trace::endline;
+       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << "_" << xNames[j] << Trace::endline;
        ++nVar;
     }
   }
@@ -1165,10 +1164,10 @@ void ModelMulti::printVariableNames() {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X calculated variables init" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    const std::vector<std::string>& xNames = subModels_[i]->getCalculatedVarNamesInit();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    const std::vector<std::string>& xNames = (*it)->getCalculatedVarNamesInit();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << subModels_[i]->name() << "_" << xNames[j] << Trace::endline;
+       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << "_" << xNames[j] << Trace::endline;
        ++nVar;
     }
   }
@@ -1176,10 +1175,10 @@ void ModelMulti::printVariableNames() {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "Z variables init" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    const std::vector<std::string>& zNames = subModels_[i]->zNamesInit();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    const std::vector<std::string>& zNames = (*it)->zNamesInit();
     for (unsigned int j = 0; j < zNames.size(); ++j) {
-      Trace::debug(Trace::variables()) << nVar << " " << subModels_[i]->name() << "_" << zNames[j] << Trace::endline;
+      Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << "_" << zNames[j] << Trace::endline;
       ++nVar;
     }
   }
@@ -1187,29 +1186,29 @@ void ModelMulti::printVariableNames() {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X variables" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    const std::vector<std::string>& xNames = subModels_[i]->xNames();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    const std::vector<std::string>& xNames = (*it)->xNames();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
-      std::string varName = subModels_[i]->name() + "_" + xNames[j];
+      std::string varName = (*it)->name() + "_" + xNames[j];
       Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;
       ++nVar;
     }
   }
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    const std::vector<std::pair<std::string, std::pair<std::string, bool > > >& xAlias = subModels_[i]->xAliasesNames();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    const std::vector<std::pair<std::string, std::pair<std::string, bool > > >& xAlias = (*it)->xAliasesNames();
     for (unsigned int j = 0; j < xAlias.size(); ++j) {
-      Trace::debug(Trace::variables()) << subModels_[i]->name() << "_" << xAlias[j].first << " is an alias of " <<
-          subModels_[i]->name() << "_" << xAlias[j].second.first << " (negated: " << xAlias[j].second.second << ")" << Trace::endline;
+      Trace::debug(Trace::variables()) << (*it)->name() << "_" << xAlias[j].first << " is an alias of " <<
+          (*it)->name() << "_" << xAlias[j].second.first << " (negated: " << xAlias[j].second.second << ")" << Trace::endline;
     }
   }
   nVar = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "X calculated variables" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    const std::vector<std::string>& xNames = subModels_[i]->getCalculatedVarNames();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    const std::vector<std::string>& xNames = (*it)->getCalculatedVarNames();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
-      std::string varName = subModels_[i]->name() + "_" + xNames[j];
+      std::string varName = (*it)->name() + "_" + xNames[j];
       Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;
       ++nVar;
     }
@@ -1218,18 +1217,18 @@ void ModelMulti::printVariableNames() {
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "Z variables" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    const std::vector<std::string>& zNames = subModels_[i]->zNames();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    const std::vector<std::string>& zNames = (*it)->zNames();
     for (unsigned int j = 0; j < zNames.size(); ++j) {
-       Trace::debug(Trace::variables()) << nVar << " " << subModels_[i]->name() << "_" << zNames[j] << Trace::endline;
+       Trace::debug(Trace::variables()) << nVar << " " << (*it)->name() << "_" << zNames[j] << Trace::endline;
        ++nVar;
     }
   }
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    const std::vector<std::pair<std::string, std::pair<std::string, bool > > >& zAlias = subModels_[i]->zAliasesNames();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    const std::vector<std::pair<std::string, std::pair<std::string, bool > > >& zAlias = (*it)->zAliasesNames();
     for (unsigned int j = 0; j < zAlias.size(); ++j) {
-      Trace::debug(Trace::variables()) << subModels_[i]->name() << "_" << zAlias[j].first << " is an alias of "
-          << subModels_[i]->name() << "_" << zAlias[j].second.first << " (negated: " << zAlias[j].second.second << ")" << Trace::endline;
+      Trace::debug(Trace::variables()) << (*it)->name() << "_" << zAlias[j].first << " is an alias of "
+          << (*it)->name() << "_" << zAlias[j].second.first << " (negated: " << zAlias[j].second.second << ")" << Trace::endline;
     }
   }
 }
@@ -1241,10 +1240,10 @@ void ModelMulti::printEquations() {
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::equations()) << "Equations init" << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    for (unsigned int j = 0 ; j < subModels_[i]->sizeFInit() ; ++j) {
-      Trace::debug(Trace::equations()) << nVar << " " << subModels_[i]->getFequationByLocalIndex(j) <<
-          " model: " << subModels_[i]->name() <<  Trace::endline;
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    for (unsigned int j = 0 ; j < (*it)->sizeFInit() ; ++j) {
+      Trace::debug(Trace::equations()) << nVar << " " << (*it)->getFequationByLocalIndex(j) <<
+          " model: " << (*it)->name() <<  Trace::endline;
       ++nVar;
     }
   }
@@ -1253,10 +1252,10 @@ void ModelMulti::printEquations() {
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::equations()) << "Equations" << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    for (unsigned int j = 0 ; j < subModels_[i]->sizeF() ; ++j) {
-      Trace::debug(Trace::equations()) << nVar << " " << subModels_[i]->getFequationByLocalIndex(j) <<
-          " model: " << subModels_[i]->name() << Trace::endline;
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    for (unsigned int j = 0 ; j < (*it)->sizeF() ; ++j) {
+      Trace::debug(Trace::equations()) << nVar << " " << (*it)->getFequationByLocalIndex(j) <<
+          " model: " << (*it)->name() << Trace::endline;
       ++nVar;
     }
   }
@@ -1267,10 +1266,10 @@ void ModelMulti::printEquations() {
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::equations()) << "Roots init" << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    for (unsigned int j = 0 ; j < subModels_[i]->sizeGInit() ; ++j) {
-      Trace::debug(Trace::equations()) << nVar << " " << subModels_[i]->getGequationByLocalIndex(j) <<
-          " model: " << subModels_[i]->name() <<  Trace::endline;
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    for (unsigned int j = 0 ; j < (*it)->sizeGInit() ; ++j) {
+      Trace::debug(Trace::equations()) << nVar << " " << (*it)->getGequationByLocalIndex(j) <<
+          " model: " << (*it)->name() <<  Trace::endline;
       ++nVar;
     }
   }
@@ -1279,10 +1278,10 @@ void ModelMulti::printEquations() {
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::equations()) << "Roots" << Trace::endline;
   Trace::debug(Trace::equations()) << "------------------------------" << Trace::endline;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    for (unsigned int j = 0 ; j < subModels_[i]->sizeG() ; ++j) {
-      Trace::debug(Trace::equations()) << nVar << " " << subModels_[i]->getGequationByLocalIndex(j) <<
-          " model: " << subModels_[i]->name() << Trace::endline;
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    for (unsigned int j = 0 ; j < (*it)->sizeG() ; ++j) {
+      Trace::debug(Trace::equations()) << nVar << " " << (*it)->getGequationByLocalIndex(j) <<
+          " model: " << (*it)->name() << Trace::endline;
       ++nVar;
     }
   }
@@ -1290,8 +1289,8 @@ void ModelMulti::printEquations() {
 }
 
 void ModelMulti::printLocalInitParametersValues() const {
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    subModels_[i]->printLocalInitParametersValues();
+  for (std::vector<boost::shared_ptr<DYN::SubModel> >::const_iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+    (*it)->printLocalInitParametersValues();
   }
 }
 
@@ -1299,10 +1298,10 @@ std::string ModelMulti::getVariableName(int index) {
   // At the first call we construct the association
   if (yNames_.empty()) {
     std::string varName;
-    for (unsigned int i = 0; i < subModels_.size(); ++i) {
-      const std::vector<std::string>& xNames = subModels_[i]->xNames();
+    for (std::vector<boost::shared_ptr<DYN::SubModel> >::iterator it = subModels_.begin(); it != subModels_.end(); ++it) {
+      const std::vector<std::string>& xNames = (*it)->xNames();
       for (unsigned int j = 0; j < xNames.size(); ++j) {
-        varName = subModels_[i]->name() + "_" + xNames[j];
+        varName = (*it)->name() + "_" + xNames[j];
         yNames_.push_back(varName);
       }
     }
@@ -1316,7 +1315,7 @@ void ModelMulti::getCurrentZ(vector<double>& z) const {
 }
 
 void ModelMulti::setCurrentZ(const vector<double>& z) {
-  assert(z.size() == (size_t)sizeZ());
+  assert(z.size() == static_cast<size_t>(sizeZ()));
   std::copy(z.begin(), z.end(), zLocal_);
 }
 }  // namespace DYN

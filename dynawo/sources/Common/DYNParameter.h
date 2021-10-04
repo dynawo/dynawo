@@ -96,7 +96,7 @@ class ParameterCommon {
 
   /**
    * @brief index setter
-   * @param index: the index to set
+   * @param index the index to set
    */
   void setIndex(const unsigned int& index);
 

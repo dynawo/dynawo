@@ -45,10 +45,9 @@
 #include "DYNExecUtils.h"
 #include "TLTimelineFactory.h"
 
-testing::Environment* initXmlEnvironment();
+INIT_XML_DYNAWO;
 
 namespace DYN {
-testing::Environment* const env = initXmlEnvironment();
 
 boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
   // DYD

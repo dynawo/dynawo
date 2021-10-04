@@ -65,9 +65,9 @@ ShuntCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
     // should be removed once a solution has been found to propagate switches (de)connection
     // following component (de)connection (only Modelica models)
     if (connected && !getInitialConnected())
-      getVoltageLevelInterfaceInjector()->connectNode(shuntCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode());
+      getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(shuntCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode()));
     else if (!connected && getInitialConnected())
-      getVoltageLevelInterfaceInjector()->disconnectNode(shuntCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode());
+      getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(shuntCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode()));
   }
 
   if (connected)
@@ -127,12 +127,12 @@ ShuntCompensatorInterfaceIIDM::getID() const {
 
 int
 ShuntCompensatorInterfaceIIDM::getCurrentSection() const {
-  return shuntCompensatorIIDM_.getSectionCount();
+  return static_cast<int>(shuntCompensatorIIDM_.getSectionCount());
 }
 
 int
 ShuntCompensatorInterfaceIIDM::getMaximumSection() const {
-  return shuntCompensatorIIDM_.getMaximumSectionCount();
+  return static_cast<int>(shuntCompensatorIIDM_.getMaximumSectionCount());
 }
 
 double

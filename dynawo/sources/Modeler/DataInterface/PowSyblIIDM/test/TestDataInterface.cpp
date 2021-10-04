@@ -20,6 +20,7 @@
 
 #include "gtest_dynawo.h"
 #include "DYNDataInterfaceIIDM.h"
+#include "DYNBatteryInterfaceIIDM.h"
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNDanglingLineInterfaceIIDM.h"
 #include "DYNHvdcLineInterfaceIIDM.h"
@@ -67,6 +68,7 @@
 #include <powsybl/iidm/ShuntCompensator.hpp>
 #include <powsybl/iidm/ShuntCompensatorAdder.hpp>
 #include <powsybl/iidm/GeneratorAdder.hpp>
+#include <powsybl/iidm/BatteryAdder.hpp>
 #include <powsybl/iidm/StaticVarCompensator.hpp>
 #include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
 
@@ -218,6 +220,7 @@ struct BusBreakerNetworkProperty {
   bool instantiateSwitch;
   bool instantiateVscConverter;
   bool instantiateThreeWindingTransformer;
+  bool instantiateBattery;
 };
 
 boost::shared_ptr<powsybl::iidm::Network>
@@ -326,6 +329,23 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     gen.getTerminal().setQ(-90.);
     gen.newMinMaxReactiveLimits().setMinQ(1.).setMaxQ(20.).add();
   }
+
+  if (properties.instantiateBattery) {
+    powsybl::iidm:: Battery& bat = vl1.newBattery()
+        .setId("MyBattery")
+        .setName("MyBattery_NAME")
+        .setBus("MyBus")
+        .setConnectableBus("MyBus")
+        .setMaxP(200.0)
+        .setMinP(-150.0)
+        .setP0(5.0)
+        .setQ0(5.0)
+        .add();
+    bat.getTerminal().setP(-105.);
+    bat.getTerminal().setQ(-90.);
+    bat.newMinMaxReactiveLimits().setMinQ(1.).setMaxQ(20.).add();
+  }
+
 
   if (properties.instantiateVscConverter) {
     powsybl::iidm::VscConverterStation& vsc = vl1.newVscConverterStation()
@@ -750,7 +770,8 @@ TEST(DataInterfaceIIDMTest, testBusIIDM) {
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
       false /*instantiateVscConverter*/,
-      false /*instantiateThreeWindingTransformer*/
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
 
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
@@ -787,7 +808,8 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMAndStaticParameters) {
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
       false /*instantiateVscConverter*/,
-      false /*instantiateThreeWindingTransformer*/
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
@@ -829,7 +851,8 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
       false /*instantiateVscConverter*/,
-      false /*instantiateThreeWindingTransformer*/
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
@@ -879,6 +902,71 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
   ASSERT_TRUE(genIIDM.getTerminal().isConnected());
 }
 
+TEST(DataInterfaceIIDMTest, testBatteryIIDM) {
+  const BusBreakerNetworkProperty properties = {
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensator*/,
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTapChanger*/,
+      false /*instantiatePhaseTapChanger*/,
+      false /*instantiateDanglingLine*/,
+      false /*instantiateGenerator*/,
+      false /*instantiateLccConverter*/,
+      false /*instantiateLine*/,
+      false /*instantiateLoad*/,
+      false /*instantiateSwitch*/,
+      false /*instantiateVscConverter*/,
+      false /*instantiateThreeWindingTransformer*/,
+      true /*instantiateBattery*/
+  };
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
+  exportStateVariables(data);
+  powsybl::iidm::Network& network = data->getNetworkIIDM();
+
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "p_pu"), -105. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "q_pu"), -90. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "p"), -105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "q"), -90.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "v_pu"), 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "angle_pu"), 0.02617993877991494148);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "uc_pu"), 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "v"), 150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "uc"), 150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "angle"), 1.5);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "pMin"), -150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "pMax"), 200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "pMin_pu"), -150. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "pMax_pu"), 200. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "qMax"), 20);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "qMax_pu"), 20. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "qMin"), 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "qMin_pu"), 1. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "sNom"), sqrt(20 * 20 + 200 * 200));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "vNom"), 150);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "targetV"), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "targetV_pu"), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "targetP_pu"), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "targetP"), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "targetQ_pu"), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "targetQ"), 0.);
+  ASSERT_EQ(data->getBusName("MyBattery", ""), "MyBus");
+  powsybl::iidm::Battery& batIIDM = network.getBattery("MyBattery");
+  ASSERT_DOUBLE_EQUALS_DYNAWO(batIIDM.getTerminal().getP(), -105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(batIIDM.getTerminal().getQ(), -90.);
+  ASSERT_TRUE(batIIDM.getTerminal().isConnected());
+  boost::shared_ptr<BatteryInterfaceIIDM> bat = boost::dynamic_pointer_cast<BatteryInterfaceIIDM>(data->findComponent("MyBattery"));
+  bat->setValue(BatteryInterfaceIIDM::VAR_P, 2.);
+  bat->setValue(BatteryInterfaceIIDM::VAR_Q, 4.);
+  bat->setValue(BatteryInterfaceIIDM::VAR_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(batIIDM.getTerminal().getP(), -200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(batIIDM.getTerminal().getQ(), -400.);
+  ASSERT_FALSE(batIIDM.getTerminal().isConnected());
+  bat->setValue(BatteryInterfaceIIDM::VAR_STATE, CLOSED);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_TRUE(batIIDM.getTerminal().isConnected());
+}
+
 TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
   const BusBreakerNetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
@@ -893,7 +981,8 @@ TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
       true /*instantiateVscConverter*/,
-      false /*instantiateThreeWindingTransformer*/
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
@@ -990,7 +1079,8 @@ TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM) {
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
       false /*instantiateVscConverter*/,
-      false /*instantiateThreeWindingTransformer*/
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
@@ -1087,7 +1177,8 @@ TEST(DataInterfaceIIDMTest, testLineIIDM) {
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
       false /*instantiateVscConverter*/,
-      false /*instantiateThreeWindingTransformer*/
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
@@ -1159,7 +1250,8 @@ TEST(DataInterfaceIIDMTest, testLoadInterfaceIIDM) {
       true /*instantiateLoad*/,
       false /*instantiateSwitch*/,
       false /*instantiateVscConverter*/,
-      false /*instantiateThreeWindingTransformer*/
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
 
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
@@ -1211,7 +1303,8 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
       false /*instantiateVscConverter*/,
-      false /*instantiateThreeWindingTransformer*/
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
@@ -1224,7 +1317,7 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
 
   powsybl::iidm::ShuntCompensator& shuntIIDM = network.getShuntCompensator("MyCapacitorShuntCompensator");
   ASSERT_DOUBLE_EQUALS_DYNAWO(shuntIIDM.getTerminal().getQ(), -90000.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(shuntIIDM.getSectionCount(), 2UL);
+  ASSERT_EQ(shuntIIDM.getSectionCount(), 2UL);
   ASSERT_TRUE(shuntIIDM.getTerminal().isConnected());
   boost::shared_ptr<ShuntCompensatorInterfaceIIDM> shunt =
       boost::dynamic_pointer_cast<ShuntCompensatorInterfaceIIDM>(data->findComponent("MyCapacitorShuntCompensator"));
@@ -1233,7 +1326,7 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
   shunt->setValue(ShuntCompensatorInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
   ASSERT_DOUBLE_EQUALS_DYNAWO(shuntIIDM.getTerminal().getQ(), 400.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(shuntIIDM.getSectionCount(), 1);
+  ASSERT_EQ(shuntIIDM.getSectionCount(), 1);
   ASSERT_FALSE(shuntIIDM.getTerminal().isConnected());
   shunt->setValue(ShuntCompensatorInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
@@ -1254,7 +1347,8 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
     false /*instantiateLoad*/,
     false /*instantiateSwitch*/,
     false /*instantiateVscConverter*/,
-    false /*instantiateThreeWindingTransformer*/
+    false /*instantiateThreeWindingTransformer*/,
+    false /*instantiateBattery*/
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
@@ -1310,7 +1404,8 @@ TEST(DataInterfaceIIDMTest, testSwitchIIDM) {
       false /*instantiateLoad*/,
       true /*instantiateSwitch*/,
       false /*instantiateVscConverter*/,
-      false /*instantiateThreeWindingTransformer*/
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
@@ -1342,7 +1437,8 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
       false /*instantiateVscConverter*/,
-      true /*instantiateThreeWindingTransformer*/
+      true /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
@@ -1373,7 +1469,7 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), -157.98045729283614);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), -0.11838723553420131);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), -0.84962943718131304);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getPhaseTapChanger().getTapPosition(), 2);
+  ASSERT_EQ(twoWTIIDM.getPhaseTapChanger().getTapPosition(), 2);
   ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
   boost::shared_ptr<TwoWTransformerInterfaceIIDM> twoWT =
@@ -1389,7 +1485,7 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), 400.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), 600.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), 800.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getPhaseTapChanger().getTapPosition(), 1);
+  ASSERT_EQ(twoWTIIDM.getPhaseTapChanger().getTapPosition(), 1);
   ASSERT_FALSE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_FALSE(twoWTIIDM.getTerminal2().isConnected());
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED);
@@ -1420,7 +1516,8 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
       false /*instantiateVscConverter*/,
-      true /*instantiateThreeWindingTransformer*/
+      true /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
@@ -1451,7 +1548,7 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), -155.91740692665068);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), -0.10255087406258725);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), -0.86036345858491441);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getRatioTapChanger().getTapPosition(), 1);
+  ASSERT_EQ(twoWTIIDM.getRatioTapChanger().getTapPosition(), 1);
   ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
   boost::shared_ptr<TwoWTransformerInterfaceIIDM> twoWT =
@@ -1467,7 +1564,7 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), 400.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), 600.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), 800.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getRatioTapChanger().getTapPosition(), 0);
+  ASSERT_EQ(twoWTIIDM.getRatioTapChanger().getTapPosition(), 0);
   ASSERT_FALSE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_FALSE(twoWTIIDM.getTerminal2().isConnected());
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED);
@@ -1512,7 +1609,8 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
       false /*instantiateLoad*/,
       false /*instantiateSwitch*/,
       false /*instantiateVscConverter*/,
-      true /*instantiateThreeWindingTransformer*/
+      true /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);
@@ -1607,7 +1705,8 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
       true /*instantiateLoad*/,
       false /*instantiateSwitch*/,
       false /*instantiateVscConverter*/,
-      false /*instantiateThreeWindingTransformer*/
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
   };
   shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
   exportStateVariables(data);

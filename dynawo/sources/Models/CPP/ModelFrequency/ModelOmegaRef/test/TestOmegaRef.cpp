@@ -234,7 +234,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   for (size_t i = 0; i < modelOmegaRef2->sizeZ(); ++i)
     zConnected[i] = true;
   for (size_t i = 0; i < 11; ++i)
-    z[i] = i;
+    z[i] = static_cast<double>(i);
   for (size_t i = 11; i < modelOmegaRef2->sizeZ(); ++i)
     z[i] = 1.;
   modelOmegaRef2->setBufferZ(&z[0], zConnected, 0);

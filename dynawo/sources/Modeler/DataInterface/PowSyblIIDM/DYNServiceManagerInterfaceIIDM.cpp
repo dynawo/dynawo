@@ -42,14 +42,14 @@ ServiceManagerInterfaceIIDM::buildGraph(Graph& graph, const boost::shared_ptr<Vo
     size_t i = it - buses.begin();
     indexes[(*it)->getID()] = i;
     // we are using the position in the vector as the vertex, as these buses are fixed
-    graph.addVertex(i);
+    graph.addVertex(static_cast<unsigned int>(i));
   }
 
   for (const auto& sw : vl->getSwitches()) {
     auto busid1 = sw->getBusInterface1()->getID();
     auto busid2 = sw->getBusInterface2()->getID();
     // we are using the position of the bus in the bus array as index in the graph, because these indexes won't change during simulation
-    graph.addEdge(indexes.at(busid1), indexes.at(busid2), sw->getID());
+    graph.addEdge(static_cast<unsigned int>(indexes.at(busid1)), static_cast<unsigned int>(indexes.at(busid2)), sw->getID());
   }
 }
 
@@ -85,7 +85,7 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
     if (busIndex == busIndexFound) {
       continue;
     }
-    if (graph.pathExist(busIndexFound, busIndex, weights)) {
+    if (graph.pathExist(static_cast<unsigned int>(busIndexFound), static_cast<unsigned int>(busIndex), weights)) {
       ret.push_back(buses.at(busIndex)->getID());
     }
   }
@@ -118,18 +118,22 @@ ServiceManagerInterfaceIIDM::getRegulatedBus(const std::string& regulatingCompon
     case ComponentInterface::LINE:
     case ComponentInterface::DANGLING_LINE:
     case ComponentInterface::THREE_WTFO:
-    case ComponentInterface::VSC_CONVERTER:
     case ComponentInterface::LCC_CONVERTER:
     case ComponentInterface::HVDC_LINE:
     case ComponentInterface::COMPONENT_TYPE_COUNT:
       break;
+    case ComponentInterface::VSC_CONVERTER: {
+      const auto& vsc = dataInterface_->getNetworkIIDM().getVscConverterStation(regulatingComp.get()->getID());
+      return getRegulatedBusOnSide(vsc.getTerminal());  // regulating at connection terminal
+    }
   }
   return boost::shared_ptr<BusInterface> ();
 }
 
 boost::shared_ptr<BusInterface>
 ServiceManagerInterfaceIIDM::getRegulatedBusOnSide(const powsybl::iidm::Terminal& terminal) const {
-  const auto& regulatedComponent = dataInterface_->findComponent(terminal.getConnectable().get().getId());
+  auto regulatedId = dataInterface_->findBusInterface(terminal)->getID();
+  const auto& regulatedComponent = dataInterface_->findComponent(regulatedId);
   switch (regulatedComponent->getType()) {
     case ComponentInterface::LINE: {
       boost::shared_ptr<LineInterface> line = boost::dynamic_pointer_cast<LineInterface>(regulatedComponent);

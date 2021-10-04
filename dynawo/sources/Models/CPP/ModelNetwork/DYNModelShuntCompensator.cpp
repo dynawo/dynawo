@@ -395,7 +395,7 @@ void
 ModelShuntCompensator::setGequations(std::map<int, std::string>& gEquationIndex) {
   gEquationIndex[0] = "Time out reached for reclosing delay";
 
-  assert(gEquationIndex.size() == (unsigned int) sizeG() && "Shunt compensator model: gEquationIndex.size() != gLocal_.size()");
+  assert(gEquationIndex.size() == static_cast<size_t>(sizeG()) && "Shunt compensator model: gEquationIndex.size() != gLocal_.size()");
 }
 
 }  // namespace DYN

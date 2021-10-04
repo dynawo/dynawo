@@ -69,9 +69,6 @@ class SolverFactory {
   static boost::shared_ptr<Solver> createSolverFromLib(const std::string& lib);
 
   boost::shared_ptr<boost::dll::shared_library> lib_;  ///< Library of the solver
-
- private:
-  static SolverFactories factories_;  ///< Factories already available
 };
 
 /**
@@ -96,6 +93,12 @@ class SolverFactories : private boost::noncopyable {
    * @brief destructor
    */
   ~SolverFactories();
+
+  /**
+   * @brief Get unique instance
+   * @return  The unique instance
+   */
+  static SolverFactories& getInstance();
 
   /**
   * @brief iterator type on SolverFactory map.
@@ -154,7 +157,7 @@ class SolverDelete {
   /**
    * @brief Constructor
    *
-   * @param factory: solver factory to delete
+   * @param factory solver factory to delete
    */
   explicit SolverDelete(SolverFactory* factory);
 
@@ -166,7 +169,7 @@ class SolverDelete {
   /**
    * @brief Function to use this class as a Functor
    *
-   * @param solver: pointer to the solver to delete
+   * @param solver pointer to the solver to delete
    * map
    */
   void operator()(Solver* solver);

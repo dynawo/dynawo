@@ -29,6 +29,7 @@
 #include <IIDM/components/Load.h>
 #include <IIDM/components/ShuntCompensator.h>
 #include <IIDM/components/Generator.h>
+#include <IIDM/components/Battery.h>
 #include <IIDM/components/DanglingLine.h>
 #include <IIDM/components/CurrentLimit.h>
 #include <IIDM/components/Substation.h>
@@ -43,6 +44,7 @@
 #include <IIDM/xml/import.h>
 #include <IIDM/extensions/standbyAutomaton/xml.h>
 #include <IIDM/extensions/activeSeason/xml.h>
+#include <IIDM/extensions/activePowerControl/xml.h>
 #include <IIDM/extensions/currentLimitsPerSeason/xml.h>
 #include <IIDM/extensions/generatorActivePowerControl/xml.h>
 #include <IIDM/extensions/busbarSectionPosition/xml.h>
@@ -55,6 +57,7 @@
 
 #include "DYNDataInterfaceIIDM.h"
 #include "DYNBusInterfaceIIDM.h"
+#include "DYNBatteryInterfaceIIDM.h"
 #include "DYNBusBarSectionInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNLineInterfaceIIDM.h"
@@ -119,6 +122,7 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
     IIDM::xml::xml_parser parser;
     parser.register_extension<IIDM::extensions::standbyautomaton::xml::StandbyAutomatonHandler>();
     parser.register_extension<IIDM::extensions::activeseason::xml::ActiveSeasonHandler>();
+    parser.register_extension<IIDM::extensions::activepowercontrol::xml::ActivePowerControlHandler>();
     parser.register_extension<IIDM::extensions::currentlimitsperseason::xml::CurrentLimitsPerSeasonHandler>();
     parser.register_extension<IIDM::extensions::generatoractivepowercontrol::xml::GeneratorActivePowerControlHandler>();
     parser.register_extension<IIDM::extensions::busbarsection_position::xml::BusbarSectionPositionHandler>();  // useless for simulation
@@ -183,6 +187,11 @@ DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
       &IIDM::extensions::activeseason::xml::exportActiveSeason,
       IIDM::extensions::activeseason::xml::ActiveSeasonHandler::uri(),
       "as");
+
+  formatter.register_extension(
+      &IIDM::extensions::activepowercontrol::xml::exportActivePowerControl,
+      IIDM::extensions::activepowercontrol::xml::ActivePowerControlHandler::uri(),
+      "acp");
 
   formatter.register_extension(
       &IIDM::extensions::currentlimitsperseason::xml::exportCurrentLimitsPerSeason,
@@ -449,13 +458,29 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM, cons
   //===========================
   //  ADD GENERATOR INTERFACE
   //===========================
-  IIDM::Contains<IIDM::Generator>::iterator itGen = voltageLevelIIDM.generators().begin();
-  for (; itGen != voltageLevelIIDM.generators().end(); ++itGen) {
+  for (IIDM::Contains<IIDM::Generator>::iterator itGen = voltageLevelIIDM.generators().begin();
+      itGen != voltageLevelIIDM.generators().end(); ++itGen) {
     if ( !(*itGen).has_connection() ) {
       Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itGen).id()) << Trace::endline;
       continue;
     }
     shared_ptr<GeneratorInterface> generator = importGenerator(*itGen, country);
+    voltageLevel->addGenerator(generator);
+    components_[generator->getID()] = generator;
+    generatorComponents_[generator->getID()] = generator;
+    generator->setVoltageLevelInterface(voltageLevel);
+  }
+
+  //===========================
+  //  ADD BATTERY INTERFACE
+  //===========================
+  for (IIDM::Contains<IIDM::Battery>::iterator itBat = voltageLevelIIDM.batteries().begin();
+      itBat != voltageLevelIIDM.batteries().end(); ++itBat) {
+    if ( !(*itBat).has_connection() ) {
+      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itBat).id()) << Trace::endline;
+      continue;
+    }
+    shared_ptr<GeneratorInterface> generator = importBattery(*itBat, country);
     voltageLevel->addGenerator(generator);
     components_[generator->getID()] = generator;
     generatorComponents_[generator->getID()] = generator;
@@ -595,6 +620,23 @@ DataInterfaceIIDM::importGenerator(IIDM::Generator & generatorIIDM, const std::s
     generator->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
   return generator;
+}
+
+shared_ptr<GeneratorInterface>
+DataInterfaceIIDM::importBattery(IIDM::Battery & batteryIIDM, const std::string& country) {
+  shared_ptr<BatteryInterfaceIIDM> battery(new BatteryInterfaceIIDM(batteryIIDM));
+  battery->setCountry(country);
+
+  // reference to bus interface
+  if (batteryIIDM.is_bus()) {
+    string id = batteryIIDM.bus_id();
+    battery->setBusInterface(findBusInterface(id));
+  } else if (batteryIIDM.is_node()) {
+    string voltageLevelId = batteryIIDM.voltageLevel().id();
+    int node = batteryIIDM.node();
+    battery->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
+  }
+  return battery;
 }
 
 shared_ptr<LoadInterface>

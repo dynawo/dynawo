@@ -222,8 +222,8 @@ void
 SparseMatrix::erase(const boost::unordered_set<int>& rows, const boost::unordered_set<int>& columns, SparseMatrix& M) {
   // Modifying the rows and columns numbers in the matrixes
   // However, the size allocated by KINSOL isn't modified
-  M.nbRow_ = nbRow_ - rows.size();
-  M.nbCol_ = nbCol_ - columns.size();
+  M.nbRow_ = nbRow_ - static_cast<int>(rows.size());
+  M.nbCol_ = nbCol_ - static_cast<int>(columns.size());
 
   // Map between the row numbers in the existing matrix and the rows that must be kept
   map<int, int> correspondance;
@@ -309,7 +309,7 @@ void SparseMatrix::getRowColIndicesFromPosition(unsigned int position, int& iRow
   assert(position < static_cast<unsigned int>(nbTerm_) && "Position must be lower than number of terms");
   std::vector<unsigned>::const_iterator lower = std::upper_bound(Ap_.begin(), Ap_.end(), position);
   iRow = Ai_[position];
-  jCol = (lower-Ap_.begin()) - 1;
+  jCol = static_cast<int>(lower-Ap_.begin()) - 1;
 }
 
 SparseMatrix::CheckError

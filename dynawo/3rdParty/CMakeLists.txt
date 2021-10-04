@@ -524,6 +524,7 @@ else()
 
       CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                           -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+                          -DBUILD_SHARED_LIBS=ON
     )
   else()
     ExternalProject_Add(adept

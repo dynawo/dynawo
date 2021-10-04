@@ -53,7 +53,7 @@ RatioTapChangerInterfaceIIDM::getSteps() const {
 
 int
 RatioTapChangerInterfaceIIDM::getCurrentPosition() const {
-  return tapChangerIIDM_.getTapPosition();  // getTapPosition() is 'long' in powsybl
+  return static_cast<int>(tapChangerIIDM_.getTapPosition());  // getTapPosition() is 'long' in powsybl
 }
 
 void
@@ -63,12 +63,12 @@ RatioTapChangerInterfaceIIDM::setCurrentPosition(const int& position) {
 
 int
 RatioTapChangerInterfaceIIDM::getLowPosition() const {
-  return tapChangerIIDM_.getLowTapPosition();
+  return static_cast<int>(tapChangerIIDM_.getLowTapPosition());
 }
 
 unsigned int
 RatioTapChangerInterfaceIIDM::getNbTap() const {
-  return steps_.size();
+  return static_cast<unsigned int>(steps_.size());
 }
 
 bool

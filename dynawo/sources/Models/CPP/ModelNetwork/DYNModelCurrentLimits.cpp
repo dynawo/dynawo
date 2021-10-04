@@ -39,7 +39,7 @@ ModelCurrentLimits::~ModelCurrentLimits() {
 
 int
 ModelCurrentLimits::sizeG() const {
-  return 2 * limits_.size();
+  return static_cast<int>(2 * limits_.size());
 }
 
 int

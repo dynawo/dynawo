@@ -102,7 +102,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDerivative) {
   ASSERT_EQ(derivatives.empty(), true);
 
 
-  ASSERT_THROW_DYNAWO(derivatives.addDerivative((typeDerivative_t)42, 4, 8.), Error::MODELER, KeyError_t::InvalidDerivativeType);
-  ASSERT_THROW_DYNAWO(derivatives.getValues((typeDerivative_t)42), Error::MODELER, KeyError_t::InvalidDerivativeType);
+  ASSERT_THROW_DYNAWO(derivatives.addDerivative(static_cast<typeDerivative_t>(42), 4, 8.), Error::MODELER, KeyError_t::InvalidDerivativeType);
+  ASSERT_THROW_DYNAWO(derivatives.getValues(static_cast<typeDerivative_t>(42)), Error::MODELER, KeyError_t::InvalidDerivativeType);
 }
 }  // namespace DYN

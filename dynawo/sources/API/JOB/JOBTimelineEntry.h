@@ -31,14 +31,19 @@ namespace job {
 class TimelineEntry {
  public:
   /**
+   * @brief constructor
+   */
+  TimelineEntry();
+
+  /**
    * @brief Output file attribute setter
-   * @param outputFile: Output file for timeline
+   * @param outputFile Output file for timeline
    */
   void setOutputFile(const std::string& outputFile);
 
   /**
    * @brief Export Mode attribute setter
-   * @param exportMode: Export mode for timeline
+   * @param exportMode Export mode for timeline
    */
   void setExportMode(const std::string& exportMode);
 
@@ -54,9 +59,22 @@ class TimelineEntry {
    */
   const std::string& getExportMode() const;
 
+  /**
+   * @brief whether to export time setter
+   * @param exportWithTime whether to export time when exporting timeline
+   */
+  void setExportWithTime(const bool exportWithTime);
+
+  /**
+   * @brief whether to export time getter
+   * @return whether to export time when exporting timeline
+   */
+  bool getExportWithTime() const;
+
  private:
   std::string outputFile_;  ///< Export file for timeline
   std::string exportMode_;  ///< Export mode TXT, CSV, XML for timeline output file
+  bool exportWithTime_;   ///< boolean indicating whether to export time when exporting timeline
 };
 
 }  // namespace job
