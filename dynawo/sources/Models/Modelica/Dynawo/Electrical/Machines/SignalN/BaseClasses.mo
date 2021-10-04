@@ -22,7 +22,7 @@ package BaseClasses
   extends Machines.BaseClasses.BaseGeneratorSimplified;
 
   public
-    parameter Types.VoltageModulePu PRef0Pu "Start value of the active power set point in p.u (base SnRef) (receptor convention)";
+    parameter Types.ActivePowerPu PRef0Pu "Start value of the active power set point in p.u (base SnRef) (receptor convention)";
     parameter Types.ActivePowerPu PMinPu "Minimum active power in p.u (base SnRef)";
     parameter Types.ActivePowerPu PMaxPu "Maximum active power in p.u (base SnRef)";
     parameter Types.PerUnit KGover "Mechanical power sensitivity to frequency";
