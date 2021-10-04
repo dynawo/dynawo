@@ -37,9 +37,9 @@ class ElementWithIdHandler : public xml::sax::parser::ComposableElementHandler {
   explicit ElementWithIdHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~ElementWithIdHandler() { }
+  ~ElementWithIdHandler();
 
   /**
    * @brief return the id read in xml file
@@ -71,9 +71,9 @@ class ComponentHandler : public xml::sax::parser::ComposableElementHandler {
   explicit ComponentHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  virtual ~ComponentHandler() { }
+  virtual ~ComponentHandler();
 
   /**
    * @brief return the id read in xml file
@@ -112,9 +112,9 @@ class CriteriaParamsHandler : public xml::sax::parser::ComposableElementHandler 
   explicit CriteriaParamsHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~CriteriaParamsHandler() { }
+  ~CriteriaParamsHandler();
 
   /**
    * @brief return the criteria params read in xml file
@@ -146,9 +146,9 @@ class CriteriaHandler : public xml::sax::parser::ComposableElementHandler {
   explicit CriteriaHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~CriteriaHandler() { }
+  ~CriteriaHandler();
 
   /**
    * @brief return the criteria read in xml file

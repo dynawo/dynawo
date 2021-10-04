@@ -28,6 +28,11 @@ namespace DYN {
 class BusInterface;
 class VoltageLevelInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Static var compensator interface
  */
@@ -188,6 +193,10 @@ class StaticVarCompensatorInterface : public ComponentInterface {
    */
   virtual double getSlope() const = 0;
 };  ///< Interface class for Static Var Compensator
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // namespace DYN
 

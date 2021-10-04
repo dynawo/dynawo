@@ -34,7 +34,7 @@ class StaticVarCompensatorInterfaceIIDMExtension {
   /**
    * @brief Destructor
    */
-  virtual ~StaticVarCompensatorInterfaceIIDMExtension() { }
+  virtual ~StaticVarCompensatorInterfaceIIDMExtension() = default;
 
   /**
    * @brief Interface to export the stand by mode of the svc

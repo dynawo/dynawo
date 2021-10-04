@@ -55,6 +55,8 @@ variablesHandler_(parser::ElementName(namespace_uri(), "variable")) {
   variablesHandler_.onEnd(lambda::bind(&XmlHandler::addVariable, lambda::ref(*this)));
 }
 
+XmlHandler::~XmlHandler() {}
+
 boost::shared_ptr<VariablesCollection>
 XmlHandler::getVariablesCollection() {
   return variablesCollection_;
@@ -74,6 +76,8 @@ VariableHandler::get() const {
 VariableHandler::VariableHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&VariableHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
+
+VariableHandler::~VariableHandler() {}
 
 void
 VariableHandler::create(attributes_type const& attributes) {

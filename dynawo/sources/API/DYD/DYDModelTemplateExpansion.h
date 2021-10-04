@@ -45,6 +45,11 @@ class ModelTemplateExpansion : public Model {
   explicit ModelTemplateExpansion(const std::string& id);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~ModelTemplateExpansion();
+
+  /**
    * @brief Template Model getter
    *
    * @returns Template Model absolute path

@@ -27,6 +27,12 @@
 #include <string>
 
 namespace timeline {
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @class Exporter
  * @brief Exporter interface class
@@ -81,6 +87,10 @@ class Exporter {
   bool exportWithTime_;  ///< boolean indicating whether to export time when exporting timeline
   boost::optional<int> maxPriority_;  ///< maximum priority allowed when exporting timeline
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // namespace timeline
 

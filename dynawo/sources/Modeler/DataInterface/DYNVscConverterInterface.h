@@ -27,7 +27,12 @@
 
 namespace DYN {
 
-/**
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
+  /**
  * @brief VSC converter interface
  */
 class VscConverterInterface : public ConverterInterface, public ReactiveCurvePointsInterface {
@@ -72,6 +77,10 @@ class VscConverterInterface : public ConverterInterface, public ReactiveCurvePoi
    */
   virtual std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const = 0;
 };  ///< Interface class for Vsc Converter
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // namespace DYN
 

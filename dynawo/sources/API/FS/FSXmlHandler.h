@@ -46,9 +46,9 @@ class ModelHandler : public xml::sax::parser::ComposableElementHandler {
   explicit ModelHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~ModelHandler() {}
+  ~ModelHandler();
 
   /**
    * @brief return the model object read in xml file
@@ -80,9 +80,9 @@ class VariableHandler : public xml::sax::parser::ComposableElementHandler {
   explicit VariableHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~VariableHandler() {}
+  ~VariableHandler();
 
   /**
    * @brief return the variable object read in xml file

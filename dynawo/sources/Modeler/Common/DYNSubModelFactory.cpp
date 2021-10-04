@@ -33,6 +33,8 @@ using std::string;
 namespace DYN {
 typedef SubModelFactory* getSubModelFactory_t();
 
+SubModelFactory::~SubModelFactory() {}
+
 SubModelFactories::SubModelFactories() {
 }
 

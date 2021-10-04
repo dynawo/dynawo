@@ -32,6 +32,11 @@ namespace DYN {
 class NetworkInterface;
 class SubModel;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Data interface
  */
@@ -201,6 +206,11 @@ class DataInterface {
    */
   virtual boost::shared_ptr<DataInterface> clone() const = 0;
 };  ///< Class for data interface
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNDATAINTERFACE_H_

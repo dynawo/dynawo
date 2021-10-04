@@ -30,6 +30,11 @@ class BusInterface;
 class CurrentLimitInterface;
 class VoltageLevelInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * class LineInterface
  */
@@ -249,6 +254,11 @@ class LineInterface : public ComponentInterface {
    */
   virtual boost::optional<bool> getCurrentLimitTemporaryFictitious(const std::string& season, CurrentLimitSide side, unsigned int indexTemporary) const = 0;
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNLINEINTERFACE_H_

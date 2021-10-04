@@ -20,6 +20,11 @@ namespace DYN {
 class BusInterface;
 class VoltageLevelInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Converter interface
  */
@@ -139,7 +144,11 @@ class ConverterInterface : public ComponentInterface {
     }
   }
 };  ///< common interface class for converters
-}  // namespace DYN
 
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
+}  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNCONVERTERINTERFACE_H_

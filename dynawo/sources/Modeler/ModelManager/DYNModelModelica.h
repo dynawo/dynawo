@@ -42,6 +42,11 @@ class Element;
 class ModelManager;
 class Variable;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief ModelModelica
  *
@@ -288,6 +293,11 @@ class ModelModelica {
  protected:
   bool hasCheckDataCoherence_;  ///< Determines if the modelica model has a data check coherence operation
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_MODELMANAGER_DYNMODELMODELICA_H_
