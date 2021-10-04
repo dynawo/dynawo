@@ -50,7 +50,7 @@ class SubModelFactory : private boost::noncopyable {
   /**
    * @brief Destructor
    */
-  virtual ~SubModelFactory() { }
+  virtual ~SubModelFactory();
 
   /**
    * @brief create a new instance of a submodel

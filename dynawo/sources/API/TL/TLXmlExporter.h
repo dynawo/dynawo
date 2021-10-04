@@ -32,11 +32,6 @@ namespace timeline {
 class XmlExporter : public Exporter {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~XmlExporter() {}
-
-  /**
    * @brief Export method in XML format
    *
    * @param timeline Timeline to export

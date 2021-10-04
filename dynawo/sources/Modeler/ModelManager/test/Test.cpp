@@ -42,11 +42,6 @@ class MyModelica: public ModelModelica {
     nbCallDynamicYType_(0),
     nbCallCheckDataCoherence_(0)  { }
 
-  /**
-   * @brief default destructor
-   */
-  virtual ~MyModelica() { }
-
  public:
   /**
    * @brief initialise the dyn data structure
@@ -176,13 +171,7 @@ class MyModelica: public ModelModelica {
    *
    * @param variables vector to fill
    */
-  virtual void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-    variables.push_back(DYN::VariableNativeFactory::createState("MyVariable", DISCRETE, false));
-    variables.push_back(DYN::VariableNativeFactory::createState("MyVariable2", CONTINUOUS, false));
-    variables.push_back(DYN::VariableNativeFactory::createState("MyVariable3", CONTINUOUS, false));
-    variables.push_back(DYN::VariableNativeFactory::createCalculated("MyVariable4", CONTINUOUS, false));
-    variables.push_back(DYN::VariableAliasFactory::create("MyAliasVariable", "MyVariable2", FLOW, false));
-  }
+  virtual void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
    * @brief defines the parameters of the model
@@ -344,7 +333,13 @@ class MyModelica: public ModelModelica {
   unsigned nbCallCheckDataCoherence_;
 };
 
-
+void MyModelica::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
+  variables.push_back(DYN::VariableNativeFactory::createState("MyVariable", DISCRETE, false));
+  variables.push_back(DYN::VariableNativeFactory::createState("MyVariable2", CONTINUOUS, false));
+  variables.push_back(DYN::VariableNativeFactory::createState("MyVariable3", CONTINUOUS, false));
+  variables.push_back(DYN::VariableNativeFactory::createCalculated("MyVariable4", CONTINUOUS, false));
+  variables.push_back(DYN::VariableAliasFactory::create("MyAliasVariable", "MyVariable2", FLOW, false));
+}
 
 class MyModelicaInit: public MyModelica {
  public:
@@ -352,15 +347,7 @@ class MyModelicaInit: public MyModelica {
     MyModelica(parent),
     data_(NULL) { }
 
-  /**
-   * @brief default destructor
-   */
-  virtual ~MyModelicaInit() { }
-
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-    variables.push_back(DYN::VariableNativeFactory::createState("MyParam2", CONTINUOUS, false));
-    variables.push_back(DYN::VariableNativeFactory::createState("MyParam", INTEGER, false));
-  }
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   void defineParameters(std::vector<ParameterModeler>& /*parameters*/) {
   }
@@ -421,6 +408,12 @@ class MyModelicaInit: public MyModelica {
   DYNDATA* data_;
 };
 
+void MyModelicaInit::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
+  variables.push_back(DYN::VariableNativeFactory::createState("MyParam2", CONTINUOUS, false));
+  variables.push_back(DYN::VariableNativeFactory::createState("MyParam", INTEGER, false));
+}
+
+
 class MyModelManager : public ModelManager {
  public:
   MyModelManager() :
@@ -431,7 +424,7 @@ class MyModelManager : public ModelManager {
     name("MyModelManager");
   }
 
-  virtual ~MyModelManager() {}
+  virtual ~MyModelManager();
 
   void testSize() {
     ASSERT_EQ(dataInit_->nbF, 1);
@@ -492,6 +485,9 @@ class MyModelManager : public ModelManager {
     return true;
   }
 };
+
+MyModelManager::~MyModelManager() {}
+
 
 TEST(TestModelManager, TestModelManagerBasics) {
   boost::shared_ptr<MyModelManager> mm = boost::shared_ptr<MyModelManager>(new MyModelManager());

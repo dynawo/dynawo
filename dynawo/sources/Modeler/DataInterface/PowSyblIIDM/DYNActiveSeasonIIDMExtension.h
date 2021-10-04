@@ -28,7 +28,7 @@ namespace DYN {
 class ActiveSeasonIIDMExtension {
  public:
   /// @brief Destructor
-  virtual ~ActiveSeasonIIDMExtension() {}
+  virtual ~ActiveSeasonIIDMExtension() = default;
 
   /**
    * @brief Retrieve the active season value

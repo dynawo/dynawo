@@ -52,6 +52,11 @@ class ModelicaModel : public Model {
   explicit ModelicaModel(const std::string& id);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~ModelicaModel();
+
+  /**
    * @brief Network Identifiable device modeled getter
 
    * @returns Id of Network Identifiable device modeled

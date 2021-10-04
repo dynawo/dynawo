@@ -26,7 +26,12 @@
 
 namespace DYN {
 
-/**
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
+  /**
  * @brief LCC converter interface
  */
 class LccConverterInterface : public ConverterInterface {
@@ -42,6 +47,10 @@ class LccConverterInterface : public ConverterInterface {
    */
   virtual double getPowerFactor() const = 0;
 };  ///< Interface class for Lcc Converter
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // namespace DYN
 

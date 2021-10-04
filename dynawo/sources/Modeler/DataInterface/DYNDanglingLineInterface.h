@@ -27,6 +27,11 @@ class BusInterface;
 class VoltageLevelInterface;
 class CurrentLimitInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Dangling line interface
  */
@@ -138,6 +143,11 @@ class DanglingLineInterface : public ComponentInterface {
    */
   virtual void exportStateVariablesUnitComponent() = 0;
 };  ///< class for dangling line model interface
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNDANGLINGLINEINTERFACE_H_

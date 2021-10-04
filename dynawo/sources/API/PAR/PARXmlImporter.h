@@ -33,11 +33,6 @@ namespace parameters {
 class XmlImporter : public Importer {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~XmlImporter() {}
-
-  /**
    * @copydoc Importer::importFromFile()
    */
   boost::shared_ptr<ParametersSetCollection> importFromFile(const std::string& fileName) const;

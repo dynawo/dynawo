@@ -74,7 +74,7 @@ class Solver {
    * @brief destructor
    *
    */
-  virtual ~Solver() { }
+  virtual ~Solver();
 
   /**
    * @brief get the current solver's state

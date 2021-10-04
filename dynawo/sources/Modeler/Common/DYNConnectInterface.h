@@ -22,6 +22,11 @@
 
 namespace DYN {
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @class ConnectInterface
  * @brief connections of a model
@@ -104,6 +109,9 @@ class ConnectInterface {  ///< Generic class for connecting two dynamic models
   std::string model2Var_;  ///< second model's variable
 };  ///< interface class for dynamic connections
 
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // namespace DYN
 
