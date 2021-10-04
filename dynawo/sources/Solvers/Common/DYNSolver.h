@@ -47,8 +47,7 @@ typedef enum {
   ModeChange = 0x01,
   NotSilentZChange = 0x02,
   SilentZNotUsedInDiscreteEqChange = 0x04,
-  SilentZNotUsedInContinuousEqChange = 0x08,
-  NRSkipped = 0x10
+  SilentZNotUsedInContinuousEqChange = 0x08
 } StateFlags;
 
 /**
@@ -82,6 +81,14 @@ class Solver {
    * @return solver state
    */
   virtual const BitMask& getState() const = 0;
+
+  /**
+   * @brief Determines if NR has been skipped
+   *
+   * @return true
+   * @return false
+   */
+  virtual bool isNRSkipped() const = 0;
 
   /**
    * @brief set the solver's parameters

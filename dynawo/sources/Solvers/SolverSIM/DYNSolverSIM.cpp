@@ -282,7 +282,7 @@ void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
 
   if (skipNextNR_)  {
     // Update flag to notify upper process
-    state_.setFlags(NRSkipped);
+    nrSkipped_ = true;
   }
 
   do {

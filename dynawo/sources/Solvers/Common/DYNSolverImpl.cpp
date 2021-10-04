@@ -92,7 +92,8 @@ maximumNumberSlowStepIncrease_(10),
 enableSilentZ_(true),
 optimizeReinitAlgebraicResidualsEvaluations_(true),
 minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
-tSolve_(0.)
+tSolve_(0.),
+nrSkipped_(false)
 { }
 
 Solver::Impl::~Impl() {
@@ -226,6 +227,7 @@ void
 Solver::Impl::solve(double tAim, double &tNxt) {
   // Solving
   state_.reset();
+  nrSkipped_ = false;
   model_->reinitMode();
   model_->rotateBuffers();
   solveStep(tAim, tNxt);

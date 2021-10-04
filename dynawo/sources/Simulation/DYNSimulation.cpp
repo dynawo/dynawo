@@ -870,7 +870,7 @@ Simulation::simulate() {
         modifZ = true;
       }
 
-      if (!solverState.getFlags(NRSkipped)) {
+      if (!solver_->isNRSkipped()) {
         if (isCheckCriteriaIter)
           model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
         updateCurves(!isCheckCriteriaIter && !modifZ);
@@ -881,7 +881,7 @@ Simulation::simulate() {
       if (timetableOutputFile_ != "" && currentIterNb % timetableSteps_ == 0)
         printCurrentTime(timetableOutputFile_);
 
-      if (!solverState.getFlags(NRSkipped) && isCheckCriteriaIter) {
+      if (!solver_->isNRSkipped() && isCheckCriteriaIter) {
         criteriaChecked = checkCriteria(tCurrent_, false);
       }
       ++currentIterNb;

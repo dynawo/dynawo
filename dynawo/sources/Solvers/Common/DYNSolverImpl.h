@@ -88,6 +88,13 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   }
 
   /**
+   * @copydoc Solver::isNRSkipped()
+   */
+  inline bool isNRSkipped() const {
+    return nrSkipped_;
+  }
+
+  /**
    * @copydoc Solver::setParameters(const boost::shared_ptr<parameters::ParametersSet> &params)
    */
   void setParameters(const boost::shared_ptr<parameters::ParametersSet> &params);
@@ -362,6 +369,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver
   BitMask state_;  ///< current state value of the solver
+  bool nrSkipped_;  ///< NR has been skipped
 };
 
 }  // end of namespace DYN
