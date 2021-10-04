@@ -24,14 +24,14 @@ model GeneratorPVRemoteDiagramPQ "Model for generator PV with a PQ diagram, base
 
   parameter Types.ReactivePowerPu QMin0Pu "Start value of the minimum reactive power in p.u (base SnRef)";
   parameter Types.ReactivePowerPu QMax0Pu "Start value of the maximum reactive power in p.u (base SnRef)";
-  parameter Types.VoltageModulePu URef0 "Start value of the voltage regulation set point in kV";
+  parameter Types.VoltageModule URef0 "Start value of the voltage regulation set point in kV";
   parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
   parameter String QMinTableName "Name of the table in the text file to get QMinPu from PGenPu";
   parameter String QMaxTableName "Name of the table in the text file to get QMaxPu from PGenPu";
   parameter String QMinTableFile "Text file that contains the table to get QMinPu from PGenPu";
   parameter String QMaxTableFile "Text file that contains the table to get QMaxPu from PGenPu";
 
-  input Real URegulated "Regulated voltage in kV";
+  input Types.VoltageModule URegulated "Regulated voltage in kV";
   Connectors.ImPin URef (value(start = URef0)) "Voltage regulation set point in kV";
   Modelica.Blocks.Tables.CombiTable1D tableQMin(tableOnFile = true, tableName = QMinTableName, fileName = QMinTableFile) "Table to get QMinPu from PGenPu";
   Modelica.Blocks.Tables.CombiTable1D tableQMax(tableOnFile = true, tableName = QMaxTableName, fileName = QMaxTableFile) "Table to get QMaxPu from PGenPu";

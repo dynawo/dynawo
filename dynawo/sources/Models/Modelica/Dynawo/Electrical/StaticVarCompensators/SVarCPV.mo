@@ -40,7 +40,7 @@ model SVarCPV "PV static var compensator model"
   Types.PerUnit BPu(start = B0Pu) "Susceptance of the static var compensator in p.u (base UNom, SnRef)";
   Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in p.u (base UNom)";
   Types.ReactivePowerPu QInjPu(start = B0Pu * U0Pu ^ 2) "Reactive power in p.u (base SnRef) (generator convention)";
-  Types.ReactivePowerPu PInjPu(start = 0) "Active power in p.u (base SnRef) (generator convention)";
+  Types.ActivePowerPu PInjPu(start = 0) "Active power in p.u (base SnRef) (generator convention)";
   Types.VoltageModulePu URefPu(start = URef0 / UNom) = modeHandling.URefPu "Reference voltage amplitude in p.u (base UNom)";
 
   BaseControls.ModeHandling modeHandling(Mode0 = Mode0, UNom = UNom, URefDown = URefDown, URefUp = URefUp, UThresholdDown = UThresholdDown, UThresholdUp = UThresholdUp, tThresholdDown = tThresholdDown, tThresholdUp = tThresholdUp, URef0 = URef0);
