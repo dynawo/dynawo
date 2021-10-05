@@ -1195,24 +1195,23 @@ def XMLCloseEnough (path_left, path_right):
 
     times_left = []
     left_curve = {}
-    for curvesOutput in left_file_content.getElementsByTagName('curvesOutput'):
-        for item in curvesOutput.getElementsByTagName('curve'):
-            current_curve = item.getAttribute("model")+"_"+item.getAttribute("variable")
-            left_curve[current_curve] = {}
-            for pointItem in item.getElementsByTagName('point'):
-                left_curve[current_curve][pointItem.getAttribute("time")] = pointItem.getAttribute("value")
-                if(pointItem.getAttribute("time") not in times_left):
-                        times_left.append(pointItem.getAttribute("time"))
+    ns = left_file_content.nsmap
+    for item in left_file_content.findall('curve', ns):
+        current_curve = item.attrib["model"]+"_"+item.attrib["variable"]
+        left_curve[current_curve] = {}
+        for pointItem in item.findall('point', ns):
+            left_curve[current_curve][pointItem.attrib["time"]] = pointItem.attrib["value"]
+            if(pointItem.attrib["time"] not in times_left):
+                    times_left.append(pointItem.attrib["time"])
     right_curve = {}
     times_right = []
-    for curvesOutput in right_file_content.getElementsByTagName('curvesOutput'):
-        for item in curvesOutput.getElementsByTagName('curve'):
-            current_curve = item.getAttribute("model")+"_"+item.getAttribute("variable")
-            right_curve[current_curve] = {}
-            for pointItem in item.getElementsByTagName('point'):
-                right_curve[current_curve][pointItem.getAttribute("time")] = pointItem.getAttribute("value")
-                if(pointItem.getAttribute("time") not in times_right):
-                    times_right.append(pointItem.getAttribute("time"))
+    for item in right_file_content.findall('curve', ns):
+        current_curve = item.attrib["model"]+"_"+item.attrib["variable"]
+        right_curve[current_curve] = {}
+        for pointItem in item.findall('point', ns):
+            right_curve[current_curve][pointItem.attrib["time"]] = pointItem.attrib["value"]
+            if(pointItem.attrib["time"] not in times_right):
+                times_right.append(pointItem.attrib["time"])
 
 
     times = []
