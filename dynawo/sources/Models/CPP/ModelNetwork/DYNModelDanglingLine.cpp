@@ -93,6 +93,7 @@ modelType_("DanglingLine")  {
   if (cLimit.size() > 0) {
     currentLimits_.reset(new ModelCurrentLimits());
     currentLimits_->setSide(ModelCurrentLimits::SIDE_UNDEFINED);
+    currentLimits_->setFactorPuToA(factorPuToA);
     // Due to IIDM convention
     if (cLimit[0]->getLimit() < maximumValueCurrentLimit) {
       double limit = cLimit[0]->getLimit() / factorPuToA;

@@ -53,6 +53,11 @@ ModelCurrentLimits::setSide(const side_t side) {
 }
 
 void
+ModelCurrentLimits::setFactorPuToA(double factorPuToA) {
+  factorPuToA_ = factorPuToA;
+}
+
+void
 ModelCurrentLimits::setMaxTimeOperation(const double& maxTimeOperation) {
   maxTimeOperation_ = maxTimeOperation;
 }
@@ -75,6 +80,7 @@ ModelCurrentLimits::addLimit(const double& limit, const int& acceptableDuration)
 
 void
 ModelCurrentLimits::evalG(const double& t, const double& current, state_g* g, const double& desactivate) {
+  lastCurrentValue_ = current;
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     g[0 + 2 * i] = (current > limits_[i] && !(desactivate > 0)) ? ROOT_UP : ROOT_DOWN;  // I > Imax
     if (openingAuthorized_[i])
@@ -83,18 +89,34 @@ ModelCurrentLimits::evalG(const double& t, const double& current, state_g* g, co
   }
 }
 
+constraints::ConstraintData
+ModelCurrentLimits::constraintData(const constraints::ConstraintData::kind_t& kind, unsigned int i) {
+  // The value for the limit and the current in SI units (Amperes)
+  bool isTemporary = openingAuthorized_[i];
+  if (isTemporary) {
+    return constraints::ConstraintData(kind, limits_[i]*factorPuToA_, lastCurrentValue_*factorPuToA_, side_, acceptableDurations_[i]);
+  } else {
+    return constraints::ConstraintData(kind, limits_[i]*factorPuToA_, lastCurrentValue_*factorPuToA_, side_);
+  }
+}
+
 ModelCurrentLimits::state_t
 ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g* g, ModelNetwork* network, const double& desactivate,
     const string& modelType) {
   state_t state = ModelCurrentLimits::COMPONENT_CLOSE;
+  using constraints::ConstraintData;
 
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     if (!(desactivate > 0)) {
       if (g[0 + 2 * i] == ROOT_UP && !activated_[i]) {
         if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
-          DYNAddConstraint(network, componentName,  true,  modelType, OverloadUp, acceptableDurations_[i], side_);
+          DYNAddConstraintWithData(network, componentName, true, modelType,
+            constraintData(ConstraintData::OverloadUp, i),
+            OverloadUp, acceptableDurations_[i], side_);
         } else {
-          DYNAddConstraint(network, componentName,  true,  modelType, IMAP, side_);
+          DYNAddConstraintWithData(network, componentName, true, modelType,
+            constraintData(ConstraintData::PATL, i),
+            PATL, side_);
         }
         tLimitReached_[i] = t;
         activated_[i] = true;
@@ -102,9 +124,13 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
 
       if (g[0 + 2 * i] == ROOT_DOWN && activated_[i]) {
         if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
-          DYNAddConstraint(network, componentName,  false,  modelType, OverloadUp, acceptableDurations_[i], side_);
+          DYNAddConstraintWithData(network, componentName, false, modelType,
+            constraintData(ConstraintData::OverloadUp, i),
+            OverloadUp, acceptableDurations_[i], side_);
         } else {
-          DYNAddConstraint(network, componentName,  false,  modelType, IMAP, side_);
+          DYNAddConstraintWithData(network, componentName, false, modelType,
+            constraintData(ConstraintData::PATL, i),
+            PATL, side_);
         }
         activated_[i] = false;
         tLimitReached_[i] = std::numeric_limits<double>::quiet_NaN();
@@ -112,7 +138,9 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
 
       if (openingAuthorized_[i] && g[1 + 2 * i] == ROOT_UP) {  // Warning: openingAuthorized_ = false => no associated g
         state = ModelCurrentLimits::COMPONENT_OPEN;
-        DYNAddConstraint(network, componentName,  true,  modelType, OverloadOpen, acceptableDurations_[i], side_);
+        DYNAddConstraintWithData(network, componentName, true, modelType,
+            constraintData(ConstraintData::OverloadOpen, i),
+            OverloadOpen, acceptableDurations_[i], side_);
         DYNAddTimelineEvent(network, componentName, OverloadOpen, acceptableDurations_[i]);
       }
     }

@@ -14,7 +14,7 @@ USupUmax                          = U > Umax
 UInfUmin                          = U < Umin
 // Current Constraints
 OverloadUp                        = overload %1% side %2%
-IMAP                              = permanent limit side %1%
+PATL                              = permanent limit side %1%
 OverloadOpen                      = overload %1% : open line (side %2%)
 // Generators
 UsMax                             = Us > UsMax
