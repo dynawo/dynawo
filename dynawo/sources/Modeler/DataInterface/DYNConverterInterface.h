@@ -30,7 +30,7 @@ class ConverterInterface : public ComponentInterface {
    */
   typedef enum {
     VSC_CONVERTER,  ///< the component is a voltage source converter
-    LCC_CONVERTER,  ///< the component is a line-commutated converter
+    LCC_CONVERTER   ///< the component is a line-commutated converter
   } ConverterType_t;
 
  public:

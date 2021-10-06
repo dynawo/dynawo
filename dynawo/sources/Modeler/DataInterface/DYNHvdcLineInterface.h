@@ -41,7 +41,7 @@ class HvdcLineInterface : public ComponentInterface {
    */
   typedef enum {
     RECTIFIER_INVERTER = 1,
-    INVERTER_RECTIFIER = 2,
+    INVERTER_RECTIFIER = 2
   } ConverterMode_t;
 
   /**

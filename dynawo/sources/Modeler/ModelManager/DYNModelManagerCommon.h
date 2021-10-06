@@ -47,6 +47,7 @@
 #include "DYNModelManagerOwnTypes.h"  ///< redefinition of local own types : should be before simulation_data.h
 #ifdef __clang__
 #pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wc++98-compat-pedantic"
 #pragma clang diagnostic ignored "-Wdocumentation"
 #pragma clang diagnostic ignored "-Wextra-semi-stmt"
 #pragma clang diagnostic ignored "-Wold-style-cast"
@@ -224,6 +225,11 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
 #define addLogConstraintEnd(key) \
   addLogConstraintEnd_((this)->getModelManager(), (Message("CONSTRAINT", DYN::KeyConstraint_t::names(DYN::KeyConstraint_t::value(key)))))
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wc++98-compat-pedantic"
+#endif  // __clang__
+
 /**
  * @brief Macro to define a timeline message from a Modelica model
  * @param key key to find the message
@@ -264,6 +270,10 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
 #define throwStreamPrint(data, message, ...) throw_((this)->getModelManager(), (Message("", std::string(message)), ##__VA_ARGS__))
 
 #define throwStreamPrintWithEquationIndexes(equationIndexes, message, ...) throw_((this)->getModelManager(), (Message("", std::string(message)), ##__VA_ARGS__))
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 #define stringEqual(x, y) compareString_(std::string(x), std::string(y))
 

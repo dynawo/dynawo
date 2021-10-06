@@ -51,7 +51,7 @@ class Message {
     TIMELINE_KEY,    ///< Key used to store timeline dictionary
     ERROR_KEY,       ///< Key used to store error dictionary
     CONSTRAINT_KEY,  ///< Key used to store constraint dictionary
-    LOG_KEY,         ///< Key used to store log dictionary
+    LOG_KEY          ///< Key used to store log dictionary
   };
 
   /**
