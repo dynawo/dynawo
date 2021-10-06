@@ -21,7 +21,7 @@ namespace AIO {
     enum value
     {
       Label1,                                                                 ///< First word begins with a capital letter
-      Label2,                                                                 ///< message with two args: %1%, %2%
+      Label2                                                                  ///< message with two args: %1%, %2%
     };
 
     /**

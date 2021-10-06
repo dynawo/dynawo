@@ -59,7 +59,7 @@ class ModelDanglingLine : public NetworkComponent {
    */
   typedef enum {
     urFictNum_ = 0,
-    uiFictNum_ = 1,
+    uiFictNum_ = 1
   } IndexVariables_t;
 
   /**

@@ -50,7 +50,7 @@ class ModelLine : public NetworkComponent {
   typedef enum {
     BUS1_BUS2 = 0,
     BUS1 = 1,
-    BUS2 = 2,
+    BUS2 = 2
   } KnownBus_t;
 
   /**

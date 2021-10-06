@@ -21,7 +21,7 @@ namespace AIO {
     enum value
     {
       MyState,                                                                ///< Initial state
-      MyState2,                                                               ///< Final state
+      MyState2                                                                ///< Final state
     };
 
     /**
