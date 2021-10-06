@@ -139,6 +139,7 @@ modelType_("Line") {
   if (cLimit1.size() > 0) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
+    currentLimits1_->setFactorPuToA(factorPuToA_);
     // Due to IIDM convention
     if (cLimit1[0]->getLimit() < maximumValueCurrentLimit) {
       double limit = cLimit1[0]->getLimit() / factorPuToA_;
@@ -157,6 +158,7 @@ modelType_("Line") {
   if (cLimit2.size() > 0) {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);
+    currentLimits2_->setFactorPuToA(factorPuToA_);
     // Due to IIDM convention
     if (cLimit2[0]->getLimit() < maximumValueCurrentLimit) {
       double limit = cLimit2[0]->getLimit() / factorPuToA_;

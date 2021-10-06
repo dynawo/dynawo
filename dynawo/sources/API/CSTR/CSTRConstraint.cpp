@@ -53,6 +53,11 @@ Constraint::setDescription(const string& description) {
   description_ = description;
 }
 
+void
+Constraint::setData(const boost::optional<ConstraintData>& data) {
+  data_ = data;
+}
+
 double
 Constraint::getTime() const {
   return time_;
@@ -81,6 +86,11 @@ Constraint::hasModelType() const {
 Type_t
 Constraint::getType() const {
   return type_;
+}
+
+boost::optional<ConstraintData>
+Constraint::getData() const {
+  return data_;
 }
 
 }  // namespace constraints
