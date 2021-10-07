@@ -162,11 +162,6 @@ class SolverDelete {
   explicit SolverDelete(SolverFactory* factory);
 
   /**
-   * @brief destructor
-   */
-  ~SolverDelete() { }
-
-  /**
    * @brief Function to use this class as a Functor
    *
    * @param solver pointer to the solver to delete
