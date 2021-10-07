@@ -60,8 +60,6 @@ class SubModelMockBase : public SubModel {
     sizeY_ = nbY;
   }
 
-  virtual ~SubModelMockBase() {}
-
   void init(const double) {
     // Dummy class used for testing
   }
@@ -250,8 +248,6 @@ class SubModelMock : public SubModelMockBase {
   SubModelMock(unsigned nbY, unsigned nbZ) : SubModelMockBase(nbY, nbZ) {}
 
   SubModelMock() : SubModelMockBase(1, 1) {}
-
-  virtual ~SubModelMock() {}
 
   modeChangeType_t evalMode(const double) {
     // Dummy class used for testing

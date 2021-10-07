@@ -49,11 +49,6 @@ class Modeler {
   Modeler() { }
 
   /**
-   * @brief destructor
-   */
-  ~Modeler() { }
-
-  /**
    * @brief set the data interface to use do define the model multi
    * @param data : data interface to use
    */

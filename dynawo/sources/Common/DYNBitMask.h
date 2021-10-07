@@ -30,11 +30,6 @@ class BitMask {
   BitMask();
 
   /**
-   * @brief destructor
-   */
-  ~BitMask();
-
-  /**
    * @brief activate all flags that are activated in flag
    * @param flag mask to apply
    */

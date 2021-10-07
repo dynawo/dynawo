@@ -50,12 +50,6 @@ class Element {
   :type_(STRUCTURE) { }
 
   /**
-   * @brief default destructor
-   *
-   */
-  ~Element() { }
-
-  /**
    * @brief constructor
    * @param name element's name
    * @param id element's id
