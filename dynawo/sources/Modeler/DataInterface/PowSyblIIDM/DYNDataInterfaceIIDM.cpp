@@ -138,7 +138,7 @@ DataInterfaceIIDM::build(const std::string& iidmFilePath, unsigned int nbVariant
   } catch (const powsybl::PowsyblException& exp) {
     throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFilePath, exp.what());
   }
-  return data;
+  return DYN_POLYMORPHISM_MOVE(data);
 }
 
 bool DataInterfaceIIDM::canUseVariant() const {

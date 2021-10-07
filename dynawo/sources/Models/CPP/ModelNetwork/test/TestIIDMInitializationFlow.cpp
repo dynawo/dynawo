@@ -104,7 +104,7 @@ createDataItfFromNetwork(const boost::shared_ptr<powsybl::iidm::Network>& networ
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
   ptr->initFromIIDM();
   data.reset(ptr);
-  return data;
+  return DYN_POLYMORPHISM_MOVE(data);
 }
 #endif
 

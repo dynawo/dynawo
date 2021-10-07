@@ -26,4 +26,13 @@
 #define DYN_NOEXCEPT throw()
 #endif
 
+/**
+ * @brief Macro to force 'std::move' with clang in case of polymorphism
+ */
+#if defined(__clang__) && defined(LANG_CXX11)
+#define DYN_POLYMORPHISM_MOVE(x) std::move(x)
+#else
+#define DYN_POLYMORPHISM_MOVE(x) x
+#endif
+
 #endif  // COMMON_DYNCOMPATIBILITY_H_

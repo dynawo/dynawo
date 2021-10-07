@@ -143,7 +143,7 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
   } catch (const xml::sax::parser::ParserException& exp) {
     throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFilePath, exp.what());
   }
-  return data;
+  return DYN_POLYMORPHISM_MOVE(data);
 }
 
 
@@ -577,7 +577,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM, cons
     components_[lcc->getID()] = lcc;
     lcc->setVoltageLevelInterface(voltageLevel);
   }
-  return voltageLevel;
+  return DYN_POLYMORPHISM_MOVE(voltageLevel);
 }
 
 shared_ptr<SwitchInterface>
@@ -602,7 +602,7 @@ DataInterfaceIIDM::importSwitch(IIDM::Switch& switchIIDM) {
     string voltageLevelId = switchIIDM.voltageLevel().id();
     sw->setBusInterface2(findCalculatedBusInterface(voltageLevelId, node));
   }
-  return sw;
+  return DYN_POLYMORPHISM_MOVE(sw);
 }
 
 shared_ptr<GeneratorInterface>
@@ -619,7 +619,7 @@ DataInterfaceIIDM::importGenerator(IIDM::Generator & generatorIIDM, const std::s
     int node = generatorIIDM.node();
     generator->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-  return generator;
+  return DYN_POLYMORPHISM_MOVE(generator);
 }
 
 shared_ptr<GeneratorInterface>
@@ -636,7 +636,7 @@ DataInterfaceIIDM::importBattery(IIDM::Battery & batteryIIDM, const std::string&
     int node = batteryIIDM.node();
     battery->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-  return battery;
+  return DYN_POLYMORPHISM_MOVE(battery);
 }
 
 shared_ptr<LoadInterface>
@@ -653,7 +653,7 @@ DataInterfaceIIDM::importLoad(IIDM::Load& loadIIDM, const std::string& country) 
     int node = loadIIDM.node();
     load->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-  return load;
+  return DYN_POLYMORPHISM_MOVE(load);
 }
 
 shared_ptr<ShuntCompensatorInterface>
@@ -669,7 +669,7 @@ DataInterfaceIIDM::importShuntCompensator(IIDM::ShuntCompensator& shuntIIDM) {
     int node = shuntIIDM.node();
     shunt->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-  return shunt;
+  return DYN_POLYMORPHISM_MOVE(shunt);
 }
 
 shared_ptr<DanglingLineInterface>
@@ -705,7 +705,7 @@ DataInterfaceIIDM::importDanglingLine(IIDM::DanglingLine& danglingLineIIDM) {
       }
     }
   }
-  return danglingLine;
+  return DYN_POLYMORPHISM_MOVE(danglingLine);
 }
 
 shared_ptr<StaticVarCompensatorInterface>
@@ -721,7 +721,7 @@ DataInterfaceIIDM::importStaticVarCompensator(IIDM::StaticVarCompensator& svcIID
     int node = svcIIDM.node();
     svc->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-  return svc;
+  return DYN_POLYMORPHISM_MOVE(svc);
 }
 
 shared_ptr<TwoWTransformerInterface>
@@ -813,7 +813,7 @@ DataInterfaceIIDM::importTwoWindingsTransformer(IIDM::Transformer2Windings & two
       }
     }
   }
-  return twoWTfo;
+  return DYN_POLYMORPHISM_MOVE(twoWTfo);
 }
 
 shared_ptr<ThreeWTransformerInterface>
@@ -916,7 +916,7 @@ DataInterfaceIIDM::importThreeWindingsTransformer(IIDM::Transformer3Windings & t
       }
     }
   }
-  return threeWTfo;
+  return DYN_POLYMORPHISM_MOVE(threeWTfo);
 }
 
 shared_ptr<LineInterface>
@@ -987,7 +987,7 @@ DataInterfaceIIDM::importLine(IIDM::Line& lineIIDM) {
       }
     }
   }
-  return line;
+  return DYN_POLYMORPHISM_MOVE(line);
 }
 
 void
@@ -1008,7 +1008,7 @@ DataInterfaceIIDM::importVscConverter(IIDM::VscConverterStation& vscIIDM) {
     int node = vscIIDM.node();
     vsc->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-  return vsc;
+  return DYN_POLYMORPHISM_MOVE(vsc);
 }
 
 shared_ptr<LccConverterInterface>
@@ -1024,7 +1024,7 @@ DataInterfaceIIDM::importLccConverter(IIDM::LccConverterStation& lccIIDM) {
     int node = lccIIDM.node();
     lcc->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-  return lcc;
+  return DYN_POLYMORPHISM_MOVE(lcc);
 }
 
 shared_ptr<HvdcLineInterface>
@@ -1033,7 +1033,7 @@ DataInterfaceIIDM::importHvdcLine(IIDM::HvdcLine& hvdcLineIIDM) {
   shared_ptr<ConverterInterface> conv2 = dynamic_pointer_cast<ConverterInterface>(findComponent(hvdcLineIIDM.converterStation2()));
 
   shared_ptr<HvdcLineInterfaceIIDM> hvdcLine(new HvdcLineInterfaceIIDM(hvdcLineIIDM, conv1, conv2));
-  return hvdcLine;
+  return DYN_POLYMORPHISM_MOVE(hvdcLine);
 }
 
 
