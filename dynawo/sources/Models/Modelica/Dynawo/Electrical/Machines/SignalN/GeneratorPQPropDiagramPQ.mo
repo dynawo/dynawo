@@ -19,7 +19,7 @@ model GeneratorPQPropDiagramPQ "Model for generator PQ with a PQ diagram, based 
   extends AdditionalIcons.Machine;
 
 public
-  parameter Types.VoltageModulePu QRef0Pu "Start value of the reactive power set point in p.u (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu QRef0Pu "Start value of the reactive power set point in p.u (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu QMin0Pu "Start value of the minimum reactive power in p.u (base SnRef)";
   parameter Types.ReactivePowerPu QMax0Pu "Start value of the maximum reactive power in p.u (base SnRef)";
   parameter Real QPercent "Percentage of the coordinated reactive control that comes from this machine";
