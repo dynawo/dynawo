@@ -41,7 +41,7 @@ using xml::sax::formatter::FormatterPtr;
 
 namespace finalState {
 
-void
+static void
 exportModel(FormatterPtr& formatter, finalStateModel_iterator& itModel) {
   AttributeList attrs;
 

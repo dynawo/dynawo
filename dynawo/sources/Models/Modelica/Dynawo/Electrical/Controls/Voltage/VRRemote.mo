@@ -18,8 +18,8 @@ import Dynawo.Connectors;
 import Dynawo.Types;
 import Modelica;
 
-  parameter Types.VoltageModulePu URef0 "Start value of the regulated voltage reference in kV";
-  parameter Types.VoltageModulePu U0 "Start value of the regulated voltage in kV";
+  parameter Types.VoltageModule URef0 "Start value of the regulated voltage reference in kV";
+  parameter Types.VoltageModule U0 "Start value of the regulated voltage in kV";
   parameter Real Gain "Control gain";
   parameter Types.Time tIntegral "Time integration constant";
 

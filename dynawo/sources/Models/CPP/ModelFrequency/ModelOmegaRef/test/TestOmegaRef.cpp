@@ -32,7 +32,7 @@
 
 namespace DYN {
 
-boost::shared_ptr<SubModel> initModelOmegaRef(double weightGen2) {
+static boost::shared_ptr<SubModel> initModelOmegaRef(double weightGen2) {
   boost::shared_ptr<SubModel> modelOmegaRef = SubModelFactory::createSubModelFromLib("../DYNModelOmegaRef" + std::string(sharedLibraryExtension()));
 
   std::vector<ParameterModeler> parameters;

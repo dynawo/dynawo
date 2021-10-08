@@ -100,7 +100,7 @@ createNodeBreakerNetworkIIDM() {
   return network;
 }
 
-boost::shared_ptr<DataInterfaceIIDM>
+static boost::shared_ptr<DataInterfaceIIDM>
 createDataItfFromNetwork(const boost::shared_ptr<IIDM::Network>& network) {
   boost::shared_ptr<DataInterfaceIIDM> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);

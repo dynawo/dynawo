@@ -236,7 +236,6 @@ class DataInterfaceIIDM : public DataInterface {
    */
   boost::shared_ptr<DataInterface> clone() const final;
 
- private:
   /**
    * @brief find a bus interface thanks to the terminal (works for node_breaker and bus_breaker)
    * @param terminal terminal of the bus interface to find
@@ -244,6 +243,8 @@ class DataInterfaceIIDM : public DataInterface {
    * @return instance of bus interface found
    */
   boost::shared_ptr<BusInterface> findBusInterface(const powsybl::iidm::Terminal& terminal) const;
+
+ private:
   /**
    * @brief find a bus interface thanks to its iidm
    * @param bus bus interface to find

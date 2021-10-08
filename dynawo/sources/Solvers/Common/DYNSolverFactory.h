@@ -179,4 +179,17 @@ class SolverDelete {
 };
 
 }  // end of namespace DYN
+
+/**
+ * @brief SolverFactory getter
+ * @return A pointer to a new instance of SolverFactory
+ */
+extern "C" DYN::SolverFactory* getFactory();
+
+/**
+ * @brief SolverFactory destroy method
+ * @param factory the SolverFactory to destroy
+ */
+extern "C" void deleteFactory(DYN::SolverFactory* factory);
+
 #endif  // SOLVERS_COMMON_DYNSOLVERFACTORY_H_

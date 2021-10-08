@@ -78,7 +78,7 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-shared_ptr<DataInterfaceIIDM>
+static shared_ptr<DataInterfaceIIDM>
 createDataItfFromNetwork(const boost::shared_ptr<powsybl::iidm::Network>& network) {
   shared_ptr<DataInterfaceIIDM> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
@@ -87,7 +87,7 @@ createDataItfFromNetwork(const boost::shared_ptr<powsybl::iidm::Network>& networ
   return data;
 }
 
-boost::shared_ptr<powsybl::iidm::Network>
+static boost::shared_ptr<powsybl::iidm::Network>
 createNodeBreakerNetworkIIDM() {
   auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
@@ -223,7 +223,7 @@ struct BusBreakerNetworkProperty {
   bool instantiateBattery;
 };
 
-boost::shared_ptr<powsybl::iidm::Network>
+static boost::shared_ptr<powsybl::iidm::Network>
 createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
   auto network = boost::make_shared<powsybl::iidm::Network>("MyNetwork", "MyNetwork");
 
@@ -646,7 +646,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
   return network;
 }  // createBusBreakerNetwork(const BusBreakerNetworkProperty& properties);
 
-shared_ptr<SubModel>
+static shared_ptr<SubModel>
 initializeModel(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib("../../../../Models/CPP/ModelNetwork/DYNModelNetwork" +
                                                 std::string(sharedLibraryExtension()));
@@ -670,7 +670,7 @@ initializeModel(shared_ptr<DataInterface> data) {
   return modelNetwork;
 }  // initializeModel(shared_ptr<DataInterface> data);
 
-void
+static void
 exportStateVariables(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = initializeModel(data);
   ModelMulti mm;
