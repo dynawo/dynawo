@@ -87,7 +87,7 @@ using criteria::CriteriaCollectionFactory;
 
 namespace DYN {
 
-shared_ptr<DataInterface>
+static shared_ptr<DataInterface>
 createNodeBreakerNetworkCriteria() {
   IIDM::builders::NetworkBuilder nb;
   boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
@@ -125,7 +125,7 @@ createNodeBreakerNetworkCriteria() {
   return data;
 }
 
-shared_ptr<DataInterface>
+static shared_ptr<DataInterface>
 createBusBreakerNetwork(double busV, double busVNom, bool addCountry = true) {
   IIDM::builders::NetworkBuilder nb;
   boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
@@ -155,7 +155,7 @@ createBusBreakerNetwork(double busV, double busVNom, bool addCountry = true) {
   return data;
 }
 
-shared_ptr<DataInterface>
+static shared_ptr<DataInterface>
 createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, double pow2, bool addCountry = true) {
   IIDM::builders::NetworkBuilder nb;
   boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
@@ -201,7 +201,7 @@ createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, doubl
   return data;
 }
 
-shared_ptr<DataInterface>
+static shared_ptr<DataInterface>
 createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, double pow2, bool addCountry = true) {
   IIDM::builders::NetworkBuilder nb;
   boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
@@ -245,7 +245,7 @@ createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, 
   return data;
 }
 
-shared_ptr<SubModel>
+static shared_ptr<SubModel>
 initModel(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib("../../../../Models/CPP/ModelNetwork/DYNModelNetwork" +
                                                 std::string(sharedLibraryExtension()));
@@ -264,7 +264,7 @@ initModel(shared_ptr<DataInterface> data) {
   return modelNetwork;
 }
 
-void
+static void
 exportStates(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = initModel(data);
   ModelMulti mm;

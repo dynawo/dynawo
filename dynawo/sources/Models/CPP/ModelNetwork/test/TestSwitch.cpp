@@ -43,7 +43,7 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-shared_ptr<ModelSwitch>
+static shared_ptr<ModelSwitch>
 createModelSwitch(bool open, bool initModel) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
