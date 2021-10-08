@@ -29,7 +29,7 @@
 namespace powsybl {
 namespace iidm {
 
-Network
+static Network
 createHvdcLccConverterStationNetwork() {
   Network network("test", "test");
   Substation& substation = network.newSubstation().setId("S1").setName("S1_NAME").setCountry(Country::FR).setTso("TSO").add();

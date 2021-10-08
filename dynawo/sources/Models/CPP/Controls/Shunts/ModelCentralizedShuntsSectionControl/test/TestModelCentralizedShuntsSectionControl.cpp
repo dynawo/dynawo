@@ -32,7 +32,7 @@
 
 namespace DYN {
 
-boost::shared_ptr<SubModel> initModelShunt(int nbShunts, int section0 = 0, bool isSelf = false) {
+static boost::shared_ptr<SubModel> initModelShunt(int nbShunts, int section0 = 0, bool isSelf = false) {
   boost::shared_ptr<SubModel> modelShunt =
   SubModelFactory::createSubModelFromLib("../DYNModelCentralizedShuntsSectionControl" + std::string(sharedLibraryExtension()));
 

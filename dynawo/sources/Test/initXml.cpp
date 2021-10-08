@@ -35,6 +35,8 @@ class XmlEnvironment : public testing::Environment {
   }
 };
 
+testing::Environment* initXmlEnvironment();
+
 testing::Environment* initXmlEnvironment() {
   return testing::AddGlobalTestEnvironment(new XmlEnvironment);
 }

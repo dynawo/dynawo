@@ -132,7 +132,8 @@ ServiceManagerInterfaceIIDM::getRegulatedBus(const std::string& regulatingCompon
 
 boost::shared_ptr<BusInterface>
 ServiceManagerInterfaceIIDM::getRegulatedBusOnSide(const powsybl::iidm::Terminal& terminal) const {
-  const auto& regulatedComponent = dataInterface_->findComponent(terminal.getConnectable().get().getId());
+  auto regulatedId = dataInterface_->findBusInterface(terminal)->getID();
+  const auto& regulatedComponent = dataInterface_->findComponent(regulatedId);
   switch (regulatedComponent->getType()) {
     case ComponentInterface::LINE: {
       boost::shared_ptr<LineInterface> line = boost::dynamic_pointer_cast<LineInterface>(regulatedComponent);

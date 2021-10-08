@@ -47,7 +47,7 @@
 using boost::shared_ptr;
 
 namespace DYN {
-std::pair<shared_ptr<ModelLoad>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<shared_ptr<ModelLoad>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelLoad(bool open, bool initModel) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
@@ -147,7 +147,7 @@ createModelLoad(bool open, bool initModel) {
   return std::make_pair(load, vl);
 }
 
-void
+static void
 fillParameters(shared_ptr<ModelLoad> load) {
   boost::unordered_map<std::string, ParameterModeler> parametersModels;
   std::string paramName = "load_alpha";

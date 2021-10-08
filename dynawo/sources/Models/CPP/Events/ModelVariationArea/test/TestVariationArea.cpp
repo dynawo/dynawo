@@ -32,7 +32,7 @@
 
 namespace DYN {
 
-boost::shared_ptr<SubModel> initModelVariationArea(double deltaPLoad2, double deltaQLoad2) {
+static boost::shared_ptr<SubModel> initModelVariationArea(double deltaPLoad2, double deltaQLoad2) {
   boost::shared_ptr<SubModel> modelVariationArea = SubModelFactory::createSubModelFromLib("../DYNModelVariationArea" + std::string(sharedLibraryExtension()));
 
   std::vector<ParameterModeler> parameters;
