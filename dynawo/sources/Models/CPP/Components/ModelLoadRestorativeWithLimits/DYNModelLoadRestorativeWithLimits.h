@@ -21,7 +21,7 @@
 #ifndef MODELS_CPP_COMPONENTS_MODELLOADRESTORATIVEWITHLIMITS_DYNMODELLOADRESTORATIVEWITHLIMITS_H_
 #define MODELS_CPP_COMPONENTS_MODELLOADRESTORATIVEWITHLIMITS_DYNMODELLOADRESTORATIVEWITHLIMITS_H_
 
-#include "DYNModelCPPImpl.h"
+#include "DYNModelCPP.h"
 #include "DYNModelConstants.h"
 #include "DYNSubModelFactory.h"
 
@@ -59,7 +59,7 @@ class ModelLoadRestorativeWithLimitsFactory : public SubModelFactory {
 /**
 * @brief ModelLoadRestorativeWithLimits class
 */
-class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
+class ModelLoadRestorativeWithLimits : public ModelCPP {
  public:
   /**
   * @brief default constructor

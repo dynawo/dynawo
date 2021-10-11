@@ -20,7 +20,7 @@
 #ifndef MODELS_CPP_EVENTS_MODELVOLTAGESETPOINTCHANGE_DYNMODELVOLTAGESETPOINTCHANGE_H_
 #define MODELS_CPP_EVENTS_MODELVOLTAGESETPOINTCHANGE_DYNMODELVOLTAGESETPOINTCHANGE_H_
 
-#include "DYNModelCPPImpl.h"
+#include "DYNModelCPP.h"
 #include "DYNSubModelFactory.h"
 
 namespace DYN {
@@ -59,7 +59,7 @@ class ModelVoltageSetPointChangeFactory : public SubModelFactory {
 /**
  * class ModelVoltageSetPointChange
  */
-class ModelVoltageSetPointChange : public ModelCPP::Impl {
+class ModelVoltageSetPointChange : public ModelCPP {
  public:
   /**
    * @brief define type of calculated variables
