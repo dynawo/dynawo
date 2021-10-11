@@ -50,7 +50,7 @@ ConstraintsCollection::addConstraint(const string& modelName, const string& desc
     vector<shared_ptr<Constraint> > constraints = iter->second;
     stringstream oldId;
     for (unsigned int i = 0; i < constraints.size(); ++i) {
-      string oldDescription = constraints[i]->getDescription();
+      const string& oldDescription = constraints[i]->getDescription();
       Type_t oldType = constraints[i]->getType();
       double oldTime = constraints[i]->getTime();
       oldId.str("");

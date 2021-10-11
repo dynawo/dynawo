@@ -530,7 +530,7 @@ UnitDynamicModelHandler::UnitDynamicModelHandler(elementName_type const& root_el
 
 void
 UnitDynamicModelHandler::create(attributes_type const& attributes) {
-  std::string name = attributes["name"];
+  const std::string& name = attributes["name"];
   unitDynamicModel_ = UnitDynamicModelFactory::newModel(attributes["id"], name);
 
   if (attributes.has("moFile"))
