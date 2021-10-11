@@ -132,8 +132,6 @@ def timeToString(time):
 REFERENCE_DATA_DIRECTORY_NAME = 'reference' # Name of the reference directory
 
 DYN_NAMESPACE = "http://www.rte-france.com/dynawo"
-def NamespaceDYD(tag):
-    return "{" + DYN_NAMESPACE + "}" + tag
 
 class ActivePool(object):
     def __init__(self):
@@ -610,7 +608,8 @@ def LogsSeparator (test_dir):
         file_path = os.path.join (test_dir, name)
 
         file_content = ImportXMLFile (file_path)
-        for item in itertools.chain (file_content.getElementsByTagName('appender'),  file_content.getElementsByTagName(NamespaceDYD('appender'))):
+        ns = file_content.nsmap
+        for item in file_content.findall('appender', ns):
             if item.hasAttribute('separator'):
                 separator = item.getAttribute('separator')
                 break
