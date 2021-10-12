@@ -996,8 +996,15 @@ build_tests() {
   if [ ${RETURN_CODE} -ne 0 ]; then
     return ${RETURN_CODE}
   fi
+  ${DYNAWO_PYTHON_COMMAND} $DYNAWO_NRT_DIFF_DIR/test/nrtUtilsTests.py
+  if [ ${RETURN_CODE} -ne 0 ]; then
+    return ${RETURN_CODE}
+  fi
+  ${DYNAWO_PYTHON_COMMAND} $DYNAWO_NRT_DIFF_DIR/test/defineTestReferenceTests.py
+  if [ ${RETURN_CODE} -ne 0 ]; then
+    return ${RETURN_CODE}
+  fi
   ${DYNAWO_PYTHON_COMMAND} $DYNAWO_TIMELINE_FILTER_DIR/test/timelineFilterTest.py
-  RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 

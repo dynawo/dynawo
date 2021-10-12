@@ -15,6 +15,16 @@ from optparse import OptionParser
 import glob
 from lxml import etree
 
+
+try:
+    nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
+    sys.path.append(nrtDiff_dir)
+    from iidmDiff import ImportXMLFileExtended
+    from iidmDiff import FindAll
+except:
+    print ("Failed to import nrt diff")
+    sys.exit(1)
+
 class Event :
     def __init__(self):
         self.time = 0
@@ -165,18 +175,12 @@ def read_txt(filepath):
 def read_xml(filepath):
     timeline = Timeline()
     try:
-        root=etree.parse(filepath).getroot()
-        ns = root.nsmap
-        prefix = root.prefix
-        if prefix is None:
-            prefix_root_string=''
-        else:
-            prefix_root_string=prefix+':'
+        (root, ns, _, prefix_str) = ImportXMLFileExtended(filepath)
     except:
         printout("Fail to import XML file " + filepath + os.linesep, BLACK)
         sys.exit(1)
 
-    for event_timeline in root.findall('.//' + prefix_root_string + 'event', ns):
+    for event_timeline in FindAll(root, prefix_str, "event", ns):
         event = Event()
         time = float(event_timeline.attrib['time'])
         event.time = time
