@@ -30,6 +30,17 @@ def ImportXMLFile(path):
         return None
     return etree.parse(path).getroot()
 
+def ImportXMLFileExtended(path):
+    root = ImportXMLFile(path)
+    if root.prefix is None:
+        prefix_str = ''
+    else:
+        prefix_str = root.prefix + ':'
+    return (root, root.nsmap, root.prefix, prefix_str)
+
+def FindAll(root, prefix, element, ns):
+    return root.findall(".//" + prefix + element, ns)
+
 # Utility class to compare IIDM files
 class IIDMobject:
     def __init__(self,ID):
@@ -46,15 +57,9 @@ def set_values(element,what,IIDMobject):
 # Only values that can be changed by dynawo are taken into account
 def getOutputIIDMInfo(filename):
     IIDM_objects_byID = {}
-    iidm_root = ImportXMLFile(filename)
-    ns = iidm_root.nsmap
-    prefix = iidm_root.prefix
-    if prefix is None:
-        iidm_prefix_root_string = ''
-    else:
-        iidm_prefix_root_string = prefix + ':'
-    for voltageLevel in iidm_root.findall('.//' + iidm_prefix_root_string + "voltageLevel", ns):
-        for child in voltageLevel.findall('.//' + iidm_prefix_root_string+"*",ns):
+    (iidm_root, ns, prefix, iidm_prefix_root_string) = ImportXMLFileExtended(filename)
+    for voltageLevel in FindAll(iidm_root, iidm_prefix_root_string, "voltageLevel", ns):
+        for child in FindAll(voltageLevel, iidm_prefix_root_string, "*", ns):
             if 'id' in child.attrib:
                 myId = child.attrib['id']
                 myObject = IIDMobject(myId)
