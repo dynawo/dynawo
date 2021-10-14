@@ -8,21 +8,24 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 # simulation tool for power systems.
+
 import os
 import sys
 import re
 from optparse import OptionParser
 
 try:
-    nrtDiff_dir = os.path.join(os.environ["DYNAWO_HOME"],"util", "nrt_diff")
+    nrtDiff_dir = os.path.join(os.environ["DYNAWO_HOME"], "util", "nrt_diff")
     sys.path.append(nrtDiff_dir)
     import nrtUtils
+
     sys.path.remove(nrtDiff_dir)
 except:
     try:
-        nrtDiff_dir = os.path.join(os.environ["DYNAWO_HOME"],"sbin", "nrt", "nrt_diff")
+        nrtDiff_dir = os.path.join(os.environ["DYNAWO_HOME"], "sbin", "nrt", "nrt_diff")
         sys.path.append(nrtDiff_dir)
         import nrtUtils
+
         sys.path.remove(nrtDiff_dir)
     except:
         try:
@@ -30,84 +33,92 @@ except:
                 nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
                 sys.path.append(nrtDiff_dir)
                 import nrtUtils
+
                 sys.path.remove(nrtDiff_dir)
             else:
-                print ("Failed to find nrtDiff script")
+                print("Failed to find nrtUtils script")
         except:
-            print ("Failed to import nrtDiff test script")
+            print("Failed to import nrtUtils script")
             sys.exit(1)
 
-if os.getenv("DYNAWO_NRT_DIR") is None:
-    print("environment variable DYNAWO_NRT_DIR needs to be defined")
-    sys.exit(1)
 
-data_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "data")
+def collect_xsl(directory, file_types, xsl_ids):
+    xsl_to_apply = {file_type: [] for file_type in file_types}
+    for file_name in os.listdir(directory):
+        for file_type in file_types:
+            if file_name.endswith("." + file_type + ".xsl"):
+                xsl_id = file_name.replace("." + file_type + ".xsl", "")
+                if not xsl_ids or xsl_id in xsl_ids or xsl_id.split('.')[0] in xsl_ids:
+                    xsl_to_apply[file_type].append(os.path.join(directory, file_name))
 
-def collectXsl(directory, types, xsl_ids):
-    xsl_to_apply = {}
-    for type in types:
-        xsl_to_apply[type] = []
-    for file in os.listdir(directory):
-        for type in types:
-            if file.endswith("."+type+".xsl"):
-                if xsl_ids is None or len(xsl_ids) == 0 or file.replace("."+type+".xsl", "") in xsl_ids:
-                    xsl_to_apply[type].append(os.path.join(directory, file))
+    for file_type in file_types:
+        xsl_to_apply[file_type].sort()
+    return xsl_to_apply
 
-    for type in types:
-        xsl_to_apply[type].sort()
-    return  xsl_to_apply
 
-def applyXsl(file, xsl_file):
-    print("Applying " + xsl_file + " to " + file)
-    cmd = "xsltproc -o " + file +" " + xsl_file+ " " + file
+def apply_xsl(xml_file, xsl_file):
+    print("Applying " + xsl_file + " to " + xml_file)
+    cmd = "xsltproc -o " + xml_file + " " + xsl_file + " " + xml_file
     os.system(cmd)
 
-def updateTestCase(testcase, xsl_to_apply):
-    for type in xsl_to_apply:
-        files = xsl_to_apply[type]
-        if type == "jobs":
-            for file in files:
-                applyXsl(testcase.jobs_file_, file)
-        else:
-            for job in testcase.jobs_:
-                if type == "dyd":
-                    for file in xsl_to_apply["dyd"]:
-                        for dyd_file in job.dyd_files_:
-                            applyXsl(dyd_file, file)
-                if type == "crv":
-                    for file in xsl_to_apply["crv"]:
-                        for curves_file in job.curves_files_:
-                            applyXsl(curves_file, file)
-                if type == "par":
-                    for file in xsl_to_apply["par"]:
-                        for par_file in job.par_files_:
-                            applyXsl(par_file, file)
 
+def update_xml_file(xml_file, xsl_to_apply):
+    _, file_type = os.path.splitext(xml_file)
+    if file_type:
+        _, file_type = file_type.split('.')
+    for xsl_file in xsl_to_apply.get(file_type, []):
+        apply_xsl(xml_file, xsl_file)
+
+
+def update_test_case(test_case, xsl_to_apply):
+    for file_type, xsl_files in xsl_to_apply.items():
+        if file_type == "jobs":
+            for xsl_file in xsl_files:
+                apply_xsl(test_case.jobs_file_, xsl_file)
+        else:
+            xml_files = []
+            for job in test_case.jobs_:
+                if file_type == "dyd":
+                    xml_files = job.dyd_files_
+                elif file_type == "crv":
+                    xml_files = job.curves_files_
+                elif file_type == "par":
+                    xml_files = job.par_files_
+                for xsl_file in xsl_files:
+                    for xml_file in xml_files:
+                        apply_xsl(xml_file, xsl_file)
+
+
+def is_dir_filtered(relative_dir, directory_names, directory_patterns):
+    filtered = not directory_names and not directory_patterns
+    if not filtered:
+        filtered = directory_names and any(dir_name in relative_dir for dir_name in directory_names)
+    if not filtered:
+        filtered = directory_patterns and any(re.search(pattern, relative_dir) is not None
+                                              for pattern in directory_patterns)
+    return filtered
 
 
 def main():
-    usage=u""" Usage: %prog
+    usage = u""" Usage: %prog
 
     Script to update Dynawo inputs to latest format
     """
 
-    options = {}
-
-    options[('-n', '--name')] = {'dest': 'directory_names', 'action':'append',
-                                    'help': 'name filter to only run some non-regression tests'}
-
-    options[('-p', '--pattern')] = {'dest': 'directory_patterns', 'action' : 'append',
-                                    'help': 'regular expression filter to only run some non-regression tests'}
-
-    options[('-t', '--types')] = {'dest': 'types', 'action' : 'append',
-                                    'help': 'type of files to update (jobs, dyd, par, crv)'}
-
-    options[('-i', '--ids')] = {'dest': 'xsl_ids', 'action' : 'append',
-                                    'help': 'List of xsl ids to apply'}
-
-
-    options[('-j', '--jobs')] = {'dest': 'jobs_file', 'default' : '',
-                                    'help': 'jobs file of the test to apply the update'}
+    options = {('-d', '--directory'): {'dest': 'data_directory', 'default': '',
+                                       'help': 'main data directory where to apply update'},
+               ('-n', '--name'): {'dest': 'directory_names', 'action': 'append',
+                                  'help': 'name filter to restrict update to subdir'},
+               ('-p', '--pattern'): {'dest': 'directory_patterns', 'action': 'append',
+                                     'help': 'regular expression filter to restrict update to subdir'},
+               ('-t', '--type'): {'dest': 'types', 'action': 'append',
+                                  'help': 'type of files to update (jobs, dyd, par, crv)'},
+               ('-i', '--id'): {'dest': 'xsl_ids', 'action': 'append',
+                                'help': 'xsl id to apply'},
+               ('-j', '--jobs'): {'dest': 'jobs_patterns', 'action': 'append',
+                                  'help': 'regular expression filter to specify jobs files to update'},
+               ('-f', '--file'): {'dest': 'file_patterns', 'action': 'append',
+                                  'help': 'regular expression filter to specify xml files to update'}}
 
     parser = OptionParser(usage)
     for param, option in options.items():
@@ -116,92 +127,101 @@ def main():
 
     log_message = "Applying xsl"
 
-    with_directory_name = False
-    directory_names = []
-    if (options.directory_names is not None) and (len(options.directory_names) > 0):
-        with_directory_name = True
-        directory_names = options.directory_names
-        log_message += " with"
+    xsl_ids = set(options.xsl_ids or [])
+    if xsl_ids:
+        log_message += " with id(s) " + ", ".join(xsl_ids)
 
-        for dir_name in directory_names:
-            log_message += " '" + dir_name + "'"
+    possible_types = ["jobs", "dyd", "crv", "par"]
+    file_types = {file_type.lower() for file_type in options.types or []}
+    bad_types = [file_type for file_type in file_types if file_type not in possible_types]
+    if bad_types:
+        print("error: types should be among " + ", ".join(possible_types) + " (found " + ", ".join(bad_types) + ")")
+        exit(1)
+    if file_types:
+        log_message += (" and" if xsl_ids else " with") + " type(s) '" + "', '".join(file_types) + "'"
+    file_types = file_types or possible_types
 
-        log_message += " name filter"
+    data_directory = options.data_directory or ""
+    if not data_directory:
+        if os.getenv("DYNAWO_NRT_DIR") is None:
+            print("error: environment variable DYNAWO_NRT_DIR needs to be defined... or use option -d")
+            sys.exit(1)
 
-    directory_patterns = []
-    if (options.directory_patterns is not None) and  (len(options.directory_patterns) > 0):
-        directory_patterns = options.directory_patterns
-        if with_directory_name:
-            log_message += " and"
-        else:
-            log_message += " with"
+        data_directory = os.path.join(os.environ["DYNAWO_NRT_DIR"], "data")
 
-        for pattern in directory_patterns:
-            log_message += " '" + pattern + "'"
+    if not os.path.isdir(data_directory):
+        print("error: main data directory '" + data_directory + "' doesn't exist")
+        sys.exit(1)
 
-        log_message += " pattern filter"
-
-    jobs_file = ""
-    if (options.jobs_file is not None) and  (len(options.jobs_file) > 0):
-        jobs_file = options.jobs_file
-
-    types = []
-    possible_types=["jobs","dyd","crv","par"]
-    if (options.types is not None) and  (len(options.types) > 0):
-        types = options.types
-        for type in types:
-            if type not in possible_types:
-                print("type should be one of jobs, dyd, crv, par (found " + type + ")")
-                exit(1)
+    jobs_patterns = set(options.jobs_patterns or [])
+    file_patterns = set(options.file_patterns or [])
+    if jobs_patterns or file_patterns:
+        if jobs_patterns:
+            log_message += " to jobs file(s) '" + "' '".join(jobs_patterns) + "'"
+        if file_patterns:
+            log_message += (" and" if jobs_patterns else " to") + " xml file(s) '" + "' '".join(file_patterns) + "'"
     else:
-        types = possible_types
+        log_message += " to jobs file(s) from testcases"
 
-    print (log_message)
+    log_message += " in '" + data_directory + "'"
 
-    xsl_to_apply = collectXsl(os.path.dirname(os.path.realpath(__file__)),types, options.xsl_ids)
-    # Loop on testcases
-    if jobs_file == "":
-        numCase = 0
-        for case_dir in os.listdir(data_dir):
-            case_path = os.path.join(data_dir, case_dir)
-            if os.path.isdir(case_path) == True and \
-                case_dir != ".svn" : # In order to check that we are dealing with a repository and not a file, .svn repository is filtered
+    directory_names = set(options.directory_names or [])
+    if directory_names:
+        log_message += " with '" + "' '".join(directory_names) + "' name filter(s)"
+
+    directory_patterns = set(options.directory_patterns or [])
+    if directory_patterns:
+        log_message += (" or '" if directory_names else " with '"
+                        ) + "' '".join(directory_patterns) + "' pattern filter(s)"
+
+    print(log_message)
+    xsl_to_apply = collect_xsl(os.path.dirname(os.path.realpath(__file__)), file_types, xsl_ids)
+
+    if jobs_patterns or file_patterns:
+        for dir_path, _, filenames in os.walk(data_directory):
+            if is_dir_filtered(os.path.relpath(dir_path, data_directory), directory_names, directory_patterns):
+                for filename in filenames:
+                    if any(re.search(pattern, filename) is not None for pattern in jobs_patterns):
+                        try:
+                            current_test = nrtUtils.TestCase("case", "customCase", "",
+                                                             os.path.join(dir_path, filename), "0", "", "")
+                        except:
+                            pass
+                        else:
+                            if current_test.jobs_:
+                                update_test_case(current_test, xsl_to_apply)
+                                continue
+                    if any(re.search(pattern, filename) is not None for pattern in file_patterns):
+                        update_xml_file(os.path.join(dir_path, filename), xsl_to_apply)
+    else:
+        num_case = 0
+        # Loop on testcases
+        for case_dir in os.listdir(data_directory):
+            case_path = os.path.join(data_directory, case_dir)
+            # In order to check that we are dealing with a repository and not a file, .svn repository is filtered
+            if os.path.isdir(case_path) and case_dir not in [".git", ".svn"]:
 
                 # Get needed info to build object TestCase
                 sys.path.append(case_path)
                 try:
                     import cases
-                    sys.path.remove(case_path) # Remove from path because all files share the same name
+                    sys.path.remove(case_path)  # Remove from path because all files share the same name
 
-                    for case_name, case_description, job_file, estimated_computation_time, return_code_type, expected_return_codes in cases.test_cases:
+                    for case_name, case_description, job_file, estimated_computation_time, return_code_type, \
+                            expected_return_codes in cases.test_cases:
 
-                        relative_job_dir = os.path.relpath (os.path.dirname (job_file), data_dir)
-                        keep_job = True
+                        # check if job must be kept
+                        if is_dir_filtered(os.path.relpath(os.path.dirname(job_file), data_directory),
+                                           directory_names, directory_patterns):
+                            current_test = nrtUtils.TestCase("case_" + str(num_case), case_name, case_description,
+                                                             job_file, estimated_computation_time, return_code_type,
+                                                             expected_return_codes)
+                            update_test_case(current_test, xsl_to_apply)
+                            num_case += 1
 
-                        if (len (directory_names) > 0):
-                            for dir_name in directory_names:
-                                if (dir_name not in relative_job_dir):
-                                    keep_job = False
-                                    break
-
-                        if keep_job and (len (directory_patterns) > 0):
-                            for pattern in directory_patterns:
-                                if  (re.search(pattern, relative_job_dir) is None):
-                                    keep_job = False
-                                    break
-
-                        if keep_job :
-                            case = "case_" + str(numCase)
-                            numCase += 1
-                            current_test = nrtUtils.TestCase(case, case_name, case_description, job_file, estimated_computation_time, return_code_type, expected_return_codes)
-                            updateTestCase(current_test, xsl_to_apply)
-
-                    del sys.modules['cases'] # Delete load module in order to load another module with the same name
+                    del sys.modules['cases']  # Delete load module in order to load another module with the same name
                 except:
                     pass
-    else:
-        current_test = nrtUtils.TestCase("case", "customCase", "", jobs_file, "0", "", "")
-        updateTestCase(current_test, xsl_to_apply)
 
 
 if __name__ == "__main__":
