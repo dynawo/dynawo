@@ -191,7 +191,7 @@ HvdcLineInterfaceIIDM::importStaticParameters() {
 
 bool
 HvdcLineInterfaceIIDM::isConnected() const {
-  return conv1_->isConnected() && conv2_->isConnected();
+  return conv1_->isConnected() || conv2_->isConnected();
 }
 
 string

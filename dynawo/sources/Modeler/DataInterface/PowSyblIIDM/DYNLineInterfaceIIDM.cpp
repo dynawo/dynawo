@@ -219,7 +219,7 @@ LineInterfaceIIDM::isConnected2() const {
 
 bool
 LineInterfaceIIDM::isConnected() const {
-  return isConnected1() && isConnected2();
+  return isConnected1() || isConnected2();
 }
 
 std::string

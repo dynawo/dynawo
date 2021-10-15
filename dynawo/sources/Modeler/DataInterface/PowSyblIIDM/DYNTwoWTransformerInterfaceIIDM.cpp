@@ -123,7 +123,7 @@ TwoWTransformerInterfaceIIDM::isConnected2() const {
 
 bool
 TwoWTransformerInterfaceIIDM::isConnected() const {
-  return isConnected1() && isConnected2();
+  return isConnected1() || isConnected2();
 }
 
 double
