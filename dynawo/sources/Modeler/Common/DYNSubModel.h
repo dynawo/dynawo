@@ -1085,6 +1085,15 @@ class SubModel {
     return name_;
   }
 
+    /**
+   * @brief Retrieve the name used for events for current model
+   *
+   * @return The static id, if present and if not the name
+   */
+  inline const std::string& eventName() const {
+    return !staticId_.empty() ? staticId_ : name_;
+  }
+
   /**
    * @brief defines the name of the subModel
    *

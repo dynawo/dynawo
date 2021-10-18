@@ -58,7 +58,7 @@ void addLogEvent_(ModelManager* model, const MessageTimeline& messageTimeline) {
     return;
   }
 
-  model->addEvent(model->name(), messageTimeline);
+  model->addEvent(model->eventName(), messageTimeline);
 }
 
 void addLogEventRaw2_(ModelManager* model, const char* message1, const char* message2) {
@@ -114,11 +114,11 @@ void addLogEventRaw5_(ModelManager* model, const char* message1, const char* mes
 }
 
 void addLogConstraintBegin_(ModelManager* model, const Message& message) {
-  model->addConstraint(model->name(), true, message);
+  model->addConstraint(model->eventName(), true, message);
 }
 
 void addLogConstraintEnd_(ModelManager* model, const Message& message) {
-  model->addConstraint(model->name(), false, message);
+  model->addConstraint(model->eventName(), false, message);
 }
 
 #ifdef __clang__
@@ -135,7 +135,7 @@ void throw_(ModelManager* model, const Message& message) {
 }
 
 void terminate_(ModelManager* model, const MessageTimeline& messageTimeline) {
-  model->addEvent(model->name(), messageTimeline);
+  model->addEvent(model->eventName(), messageTimeline);
   throw DYNTerminate(TerminateInModel, model->name(), messageTimeline.str());
 }
 

@@ -240,11 +240,11 @@ namespace DYN {
       if (isConnected()) {
         running_ = static_cast<int>(zLocal_[running]);
         zLocal_[running] = RUNNING_FALSE;
-        DYNAddTimelineEvent(this, name(), LoadDisconnected);
+        DYNAddTimelineEvent(this, eventName(), LoadDisconnected);
       } else if (!isConnected()) {
         running_ = static_cast<int>(zLocal_[running]);
         zLocal_[running] = RUNNING_TRUE;
-        DYNAddTimelineEvent(this, name(), LoadConnected);
+        DYNAddTimelineEvent(this, eventName(), LoadConnected);
       }
     }
 
