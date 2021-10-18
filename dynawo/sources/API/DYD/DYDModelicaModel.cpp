@@ -239,12 +239,12 @@ macroConnect2String(const shared_ptr<MacroConnect>& connect, const map<string, s
 
   if (iter == modelsName.end())
     throw DYNError(DYN::Error::API, ConnectedModelNotFound, connect->getFirstModelId());
-  string modelName1 = iter->second;
+  const string& modelName1 = iter->second;
 
   iter = modelsName.find(connect->getSecondModelId());
   if (iter == modelsName.end())
     throw DYNError(DYN::Error::API, ConnectedModelNotFound, connect->getFirstModelId());
-  string modelName2 = iter->second;
+  const string& modelName2 = iter->second;
 
   string ic_string;
   // Sort the string so as 1st_Model_ID is smaller than 2nd_Model_ID. EX: ID_1 < ID_2
