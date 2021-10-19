@@ -375,6 +375,8 @@ TimelineHandler::create(attributes_type const& attributes) {
   timeline_->setExportMode(attributes["exportMode"]);
   if (attributes.has("exportTime"))
     timeline_->setExportWithTime(attributes["exportTime"]);
+  if (attributes.has("minPriority"))
+    timeline_->setMinPriority(attributes["minPriority"]);
 }
 
 shared_ptr<TimelineEntry>

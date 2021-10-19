@@ -31,26 +31,26 @@ using std::ostream;
 namespace timeline {
 
 void
-TxtExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath,
-                          const bool exportWithTime) const {
+TxtExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
     throw DYNError(DYN::Error::API, FileGenerationFailed, filePath.c_str());
   }
 
-  exportToStream(timeline, file, exportWithTime);
+  exportToStream(timeline, file);
   file.close();
 }
 
 void
-TxtExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream,
-                            const bool exportWithTime) const {
+TxtExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
   const std::string TXTEXPORTER_SEPARATOR = " | ";  ///< definition of the separator to use in txt files
   for (Timeline::event_const_iterator itEvent = timeline->cbeginEvent();
           itEvent != timeline->cendEvent();
           ++itEvent) {
-    if (exportWithTime)
+    if ((*itEvent)->hasPriority() && (*itEvent)->getPriority() < minPriority_)
+      continue;
+    if (exportWithTime_)
       stream << (*itEvent)->getTime() << TXTEXPORTER_SEPARATOR;
     stream << (*itEvent)->getModelName()
             << TXTEXPORTER_SEPARATOR

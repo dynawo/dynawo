@@ -71,10 +71,23 @@ class TimelineEntry {
    */
   bool getExportWithTime() const;
 
+  /**
+   * @brief minimum priority setter
+   * @param minPriority minimum priority required when exporting timeline
+   */
+  void setMinPriority(const int minPriority);
+
+  /**
+   * @brief minimum priority getter
+   * @return minimum priority required when exporting timeline
+   */
+  int getMinPriority() const;
+
  private:
   std::string outputFile_;  ///< Export file for timeline
   std::string exportMode_;  ///< Export mode TXT, CSV, XML for timeline output file
   bool exportWithTime_;   ///< boolean indicating whether to export time when exporting timeline
+  int minPriority_;  ///< minimum priority required when exporting timeline
 };
 
 }  // namespace job

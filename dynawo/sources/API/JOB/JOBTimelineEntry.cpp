@@ -21,7 +21,7 @@
 
 namespace job {
 
-TimelineEntry::TimelineEntry() : outputFile_(""), exportMode_(""), exportWithTime_(true) {}
+TimelineEntry::TimelineEntry() : outputFile_(""), exportMode_(""), exportWithTime_(true), minPriority_(0) {}
 
 void
 TimelineEntry::setOutputFile(const std::string& outputFile) {
@@ -38,6 +38,11 @@ TimelineEntry::setExportWithTime(const bool exportWithTime) {
   exportWithTime_ = exportWithTime;
 }
 
+void
+TimelineEntry::setMinPriority(const int minPriority) {
+  minPriority_ = minPriority;
+}
+
 const std::string&
 TimelineEntry::getOutputFile() const {
   return outputFile_;
@@ -51,6 +56,11 @@ TimelineEntry::getExportMode() const {
 bool
 TimelineEntry::getExportWithTime() const {
   return exportWithTime_;
+}
+
+int
+TimelineEntry::getMinPriority() const {
+  return minPriority_;
 }
 
 }  // namespace job

@@ -572,6 +572,7 @@ class Simulation {
 
   exportTimelineMode_t exportTimelineMode_;  ///< timeline's output mode
   bool exportTimelineWithTime_;  ///< whether to export time when exporting timeline
+  bool exportTimelineMinPriority_;  ///< minimum priority when exporting timeline
   std::string timelineOutputFile_;  ///< timeline's export file
 
   std::string timetableOutputFile_;  ///< timetable export file
