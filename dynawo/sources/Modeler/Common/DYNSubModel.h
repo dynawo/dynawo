@@ -1103,7 +1103,7 @@ class SubModel {
    *
    * @return staticId of the subModel
    */
-  inline std::string staticId() const {
+  inline const std::string& staticId() const {
     return staticId_;
   }
 

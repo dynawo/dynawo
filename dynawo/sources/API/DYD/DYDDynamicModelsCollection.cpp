@@ -46,7 +46,7 @@ namespace dynamicdata {
 
 void
 DynamicModelsCollection::addModel(const shared_ptr<Model>& model) {
-  string id = model->getId();
+  const string& id = model->getId();
   // Used instead of models_[name] = ModelFactory::newModel(id)
   // to avoid necessity to create Model default constructor
   std::pair<std::map<std::string, boost::shared_ptr<Model> >::iterator, bool> ret;
@@ -74,7 +74,7 @@ DynamicModelsCollection::addMacroConnect(const boost::shared_ptr<MacroConnect>& 
 
 void
 DynamicModelsCollection::addMacroConnector(const boost::shared_ptr<MacroConnector>& macroConnector) {
-  string id = macroConnector->getId();
+  const string& id = macroConnector->getId();
   std::pair<std::map<std::string, boost::shared_ptr<MacroConnector> >::iterator, bool> ret;
 #ifdef LANG_CXX11
   ret = macroConnectors_.emplace(id, macroConnector);
@@ -87,7 +87,7 @@ DynamicModelsCollection::addMacroConnector(const boost::shared_ptr<MacroConnecto
 
 void
 DynamicModelsCollection::addMacroStaticReference(const boost::shared_ptr<MacroStaticReference>& macroStaticReference) {
-  string id = macroStaticReference->getId();
+  const string& id = macroStaticReference->getId();
   std::pair<std::map<std::string, boost::shared_ptr<MacroStaticReference> >::iterator, bool> ret;
 #ifdef LANG_CXX11
   ret = macroStaticReferences_.emplace(id, macroStaticReference);

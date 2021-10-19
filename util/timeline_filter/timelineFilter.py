@@ -12,8 +12,8 @@ import os
 import sys
 import re
 from optparse import OptionParser
-from xml.dom import minidom
 import glob
+from lxml import etree
 
 class Event :
     def __init__(self):
@@ -165,20 +165,25 @@ def read_txt(filepath):
 def read_xml(filepath):
     timeline = Timeline()
     try:
-        doc = minidom.parse(filepath)
-        root = doc.documentElement
+        root=etree.parse(filepath).getroot()
+        ns = root.nsmap
+        prefix = root.prefix
+        if prefix is None:
+            prefix_root_string=''
+        else:
+            prefix_root_string=prefix+':'
     except:
         printout("Fail to import XML file " + filepath + os.linesep, BLACK)
         sys.exit(1)
 
-    for event_timeline in root.getElementsByTagNameNS(root.namespaceURI, 'event'):
+    for event_timeline in root.findall('.//' + prefix_root_string + 'event', ns):
         event = Event()
-        time = float(event_timeline.getAttribute('time'))
+        time = float(event_timeline.attrib['time'])
         event.time = time
-        event.model = event_timeline.getAttribute('modelName').strip()
-        event.event = event_timeline.getAttribute('message').rstrip().lstrip()
-        if event_timeline.hasAttribute('priority'):
-            event.priority = event_timeline.getAttribute('priority').rstrip().lstrip()
+        event.model = event_timeline.attrib['modelName'].strip()
+        event.event = event_timeline.attrib['message'].rstrip().lstrip()
+        if 'priority' in event_timeline.attrib:
+            event.priority = event_timeline.attrib['priority'].rstrip().lstrip()
         timeline.add_event(event)
 
     return timeline

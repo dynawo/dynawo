@@ -108,17 +108,17 @@ Curve::getGlobalIndex() {
   return indexInGlobalTable_;
 }
 
-string
+const string&
 Curve::getModelName() const {
   return modelName_;
 }
 
-string
+const string&
 Curve::getVariable() const {
   return variable_;
 }
 
-string
+const string&
 Curve::getFoundVariableName() const {
   return foundName_;
 }

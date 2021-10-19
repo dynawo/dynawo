@@ -43,7 +43,7 @@ class Variable {
    *
    * @return variable's name
    */
-  inline std::string getName() const {
+  inline const std::string& getName() const {
     return name_;
   }
 
