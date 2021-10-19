@@ -68,7 +68,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 static std::pair<shared_ptr<ModelHvdcLink>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
-createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = true) {
+createModelHvdcLink(bool initModel, bool withVsc, bool withP = true, bool withQ = true) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
 
@@ -96,7 +96,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   iidmBus2.setV(100);
   iidmBus2.setAngle(90.);
 
-  if (vsc) {
+  if (withVsc) {
     powsybl::iidm::VscConverterStation& vsc = vlIIDM.newVscConverterStation()
         .setId("MyVscConverterStation")
         .setName("MyVscConverterStation_NAME")
@@ -204,7 +204,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   IIDM::Bus bus2IIDM = bb.build("MyBus2");
   vlIIDM.add(bus2IIDM);
 
-  if (vsc) {
+  if (withVsc) {
     IIDM::builders::VscConverterStationBuilder vsccb;
     if (withP)
       vsccb.p(2.);
@@ -261,7 +261,7 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   network->setConstraints(constraints);
   shared_ptr<ModelHvdcLink> hvdc;
-  if (vsc) {
+  if (withVsc) {
 #ifdef USE_POWSYBL
     for (auto& vscConverterIIDM : vlIIDM.getVscConverterStations()) {
       shared_ptr<VscConverterInterfaceIIDM> vsc(new VscConverterInterfaceIIDM(vscConverterIIDM));

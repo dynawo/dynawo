@@ -57,12 +57,12 @@ TEST(APICRTTest, testXmlWrongStream) {
 
 TEST(APICRTTest, testXmlFileImporter) {
   XmlImporter importer;
-  boost::shared_ptr<CriteriaCollection> criteria;
-  ASSERT_NO_THROW(criteria = importer.importFromFile("res/criteria.crt"));
+  boost::shared_ptr<CriteriaCollection> criteriaCollection;
+  ASSERT_NO_THROW(criteriaCollection = importer.importFromFile("res/criteria.crt"));
 
   size_t idx = 0;
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::BUS),
-      itEnd = criteria->end(CriteriaCollection::BUS);
+  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCollection->begin(CriteriaCollection::BUS),
+      itEnd = criteriaCollection->end(CriteriaCollection::BUS);
       it != itEnd; ++it, ++idx) {
     boost::shared_ptr<Criteria> criteria = *it;
     if (idx == 0) {
@@ -96,8 +96,8 @@ TEST(APICRTTest, testXmlFileImporter) {
   }
 
   idx = 0;
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::LOAD),
-      itEnd = criteria->end(CriteriaCollection::LOAD);
+  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCollection->begin(CriteriaCollection::LOAD),
+      itEnd = criteriaCollection->end(CriteriaCollection::LOAD);
       it != itEnd; ++it, ++idx) {
     boost::shared_ptr<Criteria> criteria = *it;
     if (idx == 0) {

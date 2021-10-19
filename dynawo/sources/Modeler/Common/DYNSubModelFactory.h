@@ -170,11 +170,6 @@ class SubModelDelete {
   explicit SubModelDelete(SubModelFactory* factory);
 
   /**
-   * @brief destructor
-   */
-  ~SubModelDelete() { }
-
-  /**
    * @brief Function to use this class as a Functor
    *
    * @param subModel pointer to the subModel to delete

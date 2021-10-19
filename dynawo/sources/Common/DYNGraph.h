@@ -88,11 +88,6 @@ class Graph {
   Graph();
 
   /**
-   * @brief destructor
-   */
-  ~Graph();
-
-  /**
    * @brief add a vertex to the graph structure
    *
    * @param indexVertex index of the vertex

@@ -34,11 +34,11 @@ class ReactiveCurvePointsInterface {
     /**
      * @brief Constructor
      *
-     * @param p active power
-     * @param qmin minimum reactive power
-     * @param qmax maximum reactive power
+     * @param p_p active power
+     * @param p_qmin minimum reactive power
+     * @param p_qmax maximum reactive power
      */
-    ReactiveCurvePoint(double p, double qmin, double qmax) : p(p), qmin(qmin), qmax(qmax) {}
+    ReactiveCurvePoint(double p_p, double p_qmin, double p_qmax) : p(p_p), qmin(p_qmin), qmax(p_qmax) {}
 
     double p;     ///< active power
     double qmin;  ///< minimum reactive power

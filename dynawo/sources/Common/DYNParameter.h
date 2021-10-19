@@ -60,7 +60,11 @@ class ParameterCommon {
   /**
    * @brief Destructor
    */
+#ifdef LANG_CXX11
+  virtual ~ParameterCommon() = default;
+#else
   virtual ~ParameterCommon() { }
+#endif
 
   /**
    * @brief Getter for parameter's name
