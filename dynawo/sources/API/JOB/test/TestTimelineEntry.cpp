@@ -27,14 +27,17 @@ TEST(APIJOBTest, testTimelineEntry) {
   // check default attributes
   ASSERT_EQ(timeline->getExportMode(), "");
   ASSERT_EQ(timeline->getExportWithTime(), true);
+  ASSERT_EQ(timeline->getMaxPriority(), boost::none);
   ASSERT_EQ(timeline->getOutputFile(), "");
 
   timeline->setExportMode("TXT");
   timeline->setExportWithTime(false);
+  timeline->setMaxPriority(2);
   timeline->setOutputFile("/tmp/output.txt");
 
   ASSERT_EQ(timeline->getExportMode(), "TXT");
   ASSERT_EQ(timeline->getExportWithTime(), false);
+  ASSERT_EQ(timeline->getMaxPriority(), 2);
   ASSERT_EQ(timeline->getOutputFile(), "/tmp/output.txt");
 }
 
