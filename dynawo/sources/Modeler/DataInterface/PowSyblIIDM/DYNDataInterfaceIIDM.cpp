@@ -92,6 +92,10 @@ void
 DataInterfaceIIDM::loadExtensions(const std::vector<std::string>& paths) {
   std::unique_lock<std::mutex> lock(loadExtensionMutex_);
   for (const auto& path : paths) {
+    if (!boost::filesystem::is_directory(path)) {
+      Trace::debug() << path << " is not a valid directory for IIDM extensions" << Trace::endline;
+      continue;
+    }
     std::regex fileRegex(stdcxx::format(".*libiidm-ext-.*\\%1%", boost::dll::shared_library::suffix().string()));
     powsybl::iidm::ExtensionProviders<powsybl::iidm::converter::xml::ExtensionXmlSerializer>::getInstance().loadExtensions(path, fileRegex);
   }
