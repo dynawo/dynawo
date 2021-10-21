@@ -50,16 +50,10 @@ class Element {
   :type_(STRUCTURE) { }
 
   /**
-   * @brief default destructor
-   *
-   */
-  ~Element() { }
-
-  /**
    * @brief constructor
-   * @param name
-   * @param id
-   * @param type
+   * @param name element's name
+   * @param id element's id
+   * @param type element's type
    */
   Element(const std::string& name, const std::string& id, typeElement type)
   : type_(type)

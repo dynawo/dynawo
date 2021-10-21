@@ -26,10 +26,9 @@
 #include "EXTVARIterators.h"
 #include "EXTVARVariable.h"
 
-testing::Environment* initXmlEnvironment();
+INIT_XML_DYNAWO;
 
 namespace externalVariables {
-testing::Environment* const env = initXmlEnvironment();
 
 //-----------------------------------------------------
 // TEST build external continuous variable
@@ -285,13 +284,13 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
 
   // create object
   // discrete variable
-  const std::string varId = "discrete_variable_1";
-  boost::shared_ptr<Variable> variable;
+  const std::string varId1 = "discrete_variable_1";
+  boost::shared_ptr<Variable> variable1;
   const std::string defaultVal = "1";
-  variable = VariableFactory::newVariable(varId, Variable::DISCRETE);
-  variable->setDefaultValue(defaultVal);
-  ASSERT_NO_THROW(variable->getDefaultValue());
-  collection->addVariable(variable);
+  variable1 = VariableFactory::newVariable(varId1, Variable::DISCRETE);
+  variable1->setDefaultValue(defaultVal);
+  ASSERT_NO_THROW(variable1->getDefaultValue());
+  collection->addVariable(variable1);
 
   // continuous variable
   const std::string varId2 = "continuous_variable_1";
@@ -341,7 +340,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
       ASSERT_EQ(variable->getId(), varId2);
       ASSERT_EQ(variable->hasDefaultValue(), false);
     } else if (variable->getType() == Variable::DISCRETE) {
-      ASSERT_EQ(variable->getId(), varId);
+      ASSERT_EQ(variable->getId(), varId1);
       ASSERT_EQ(variable->hasDefaultValue(), true);
       ASSERT_EQ(variable->getDefaultValue(), defaultVal);
     } else if (variable->getType() == Variable::BOOLEAN) {
@@ -366,29 +365,24 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
     }
   }
 
-  for (variable_iterator itVariable = collection->beginVariable(); itVariable != collection->endVariable(); ++itVariable) {
-    const boost::shared_ptr<Variable> variableLocal = *itVariable;
-    ASSERT_EQ(variableLocal->getId(), variable5->getId());
-    break;
-  }
-
-  for (variable_iterator itVariable = collection->endVariable(); itVariable == collection->beginVariable(); --itVariable) {
-    const boost::shared_ptr<Variable> variableLocal = *itVariable;
-    ASSERT_EQ(variableLocal->getId(), variable->getId());
-    break;
-  }
-
-  for (variable_iterator itVariable = collection->endVariable(); itVariable == collection->beginVariable(); itVariable--) {
-    const boost::shared_ptr<Variable> variableLocal = *itVariable;
-    ASSERT_EQ(variableLocal->getId(), variable->getId());
-    break;
-  }
-
+  // alphabetical order in the internal map of the collection is 5 3 2 4 1
   variable_iterator itVariable(collection->beginVariable());
+  ASSERT_EQ(itVariable->get()->getId(), variable5->getId());
   ASSERT_EQ((++itVariable)->get()->getId(), variable3->getId());
   ASSERT_EQ((--itVariable)->get()->getId(), variable5->getId());
   ASSERT_EQ((itVariable++)->get()->getId(), variable5->getId());
   ASSERT_EQ((itVariable--)->get()->getId(), variable3->getId());
+  ASSERT_EQ(itVariable->get()->getId(), variable5->getId());
+
+  itVariable = collection->endVariable();
+  itVariable--;
+  ASSERT_EQ(itVariable->get()->getId(), variable1->getId());
+  ASSERT_EQ((--itVariable)->get()->getId(), variable4->getId());
+  ASSERT_EQ((++itVariable)->get()->getId(), variable1->getId());
+  ASSERT_EQ((itVariable--)->get()->getId(), variable1->getId());
+  ASSERT_EQ((itVariable++)->get()->getId(), variable4->getId());
+  ASSERT_EQ(itVariable->get()->getId(), variable1->getId());
+  ASSERT_TRUE(++itVariable == collection->endVariable());
 }
 
 }  // namespace externalVariables

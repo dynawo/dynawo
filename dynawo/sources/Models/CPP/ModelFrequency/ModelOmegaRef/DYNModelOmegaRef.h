@@ -22,7 +22,7 @@
 #define MODELS_CPP_MODELFREQUENCY_MODELOMEGAREF_DYNMODELOMEGAREF_H_
 
 
-#include "DYNModelCPPImpl.h"
+#include "DYNModelCPP.h"
 #include "DYNSubModelFactory.h"
 
 namespace DYN {
@@ -65,7 +65,7 @@ class ModelOmegaRefFactory : public SubModelFactory {
  *
  *
  */
-class ModelOmegaRef : public ModelCPP::Impl {
+class ModelOmegaRef : public ModelCPP {
  public:
   /**
    * @brief define type of calculated variables
@@ -280,6 +280,11 @@ class ModelOmegaRef : public ModelCPP::Impl {
    * @copydoc ModelCPP::checkDataCoherence(const double t)
    */
   void checkDataCoherence(const double t);
+
+  /**
+   * @copydoc SubModel::hasDataCheckCoherence() const
+   */
+  bool hasCheckDataCoherence() const { return true; }
 
  private:
   /**

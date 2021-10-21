@@ -32,6 +32,7 @@
 #include "DYNHvdcLineInterfaceIIDM.h"
 #include "DYNLineInterfaceIIDM.h"
 #include "DYNCalculatedBusInterfaceIIDM.h"
+#include "DYNBatteryInterfaceIIDM.h"
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNLoadInterfaceIIDM.h"
 #include "DYNGeneratorInterfaceIIDM.h"
@@ -235,7 +236,6 @@ class DataInterfaceIIDM : public DataInterface {
    */
   boost::shared_ptr<DataInterface> clone() const final;
 
- private:
   /**
    * @brief find a bus interface thanks to the terminal (works for node_breaker and bus_breaker)
    * @param terminal terminal of the bus interface to find
@@ -243,6 +243,8 @@ class DataInterfaceIIDM : public DataInterface {
    * @return instance of bus interface found
    */
   boost::shared_ptr<BusInterface> findBusInterface(const powsybl::iidm::Terminal& terminal) const;
+
+ private:
   /**
    * @brief find a bus interface thanks to its iidm
    * @param bus bus interface to find
@@ -261,7 +263,7 @@ class DataInterfaceIIDM : public DataInterface {
 
   /**
    * @brief find a voltage level interface thanks to its id
-   * @param id: id of the voltage level interface to find
+   * @param id id of the voltage level interface to find
    *
    * @return instance of voltage level interface found
    */
@@ -305,6 +307,15 @@ class DataInterfaceIIDM : public DataInterface {
    * @return the instance of GeneratorInterface created
    */
   boost::shared_ptr<GeneratorInterfaceIIDM> importGenerator(powsybl::iidm::Generator & generatorIIDM, const std::string& country);
+
+  /**
+   * @brief import and create a generator interface thanks to the IIDM instance
+   *
+   * @param batteryIIDM IIDM instance to use to create generatorInterface
+   * @param country country of the parent substation
+   * @return the instance of GeneratorInterface created
+   */
+  boost::shared_ptr<BatteryInterfaceIIDM> importBattery(powsybl::iidm::Battery & batteryIIDM, const std::string& country);
 
   /**
    * @brief import and create a load interface thanks to the IIDM instance
@@ -365,7 +376,7 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief import and create a vsc converter interface thanks to the IIDM instance
    *
-   * @param vscIIDM: IIDM instance to use to create vsc converter interface
+   * @param vscIIDM IIDM instance to use to create vsc converter interface
    * @return the instance of vscConverterInterface created
    */
   boost::shared_ptr<VscConverterInterfaceIIDM> importVscConverter(powsybl::iidm::VscConverterStation& vscIIDM);
@@ -373,7 +384,7 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief import and create a lcc converter interface thanks to the IIDM instance
    *
-   * @param lccIIDM: IIDM instance to use to create lcc converter interface
+   * @param lccIIDM IIDM instance to use to create lcc converter interface
    * @return the instance of lccConverterInterface created
    */
   boost::shared_ptr<LccConverterInterfaceIIDM> importLccConverter(powsybl::iidm::LccConverterStation& lccIIDM);
@@ -449,7 +460,7 @@ class DataInterfaceIIDM : public DataInterface {
   boost::unordered_map<std::string, boost::shared_ptr<BusInterface> > busComponents_;              ///< map of bus by name
   boost::unordered_map<std::string, boost::shared_ptr<LoadInterfaceIIDM> > loadComponents_;            ///< map of loads by name
   std::vector<boost::shared_ptr<Criteria> > criteria_;                                                 ///< table of criteria to check
-  boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterfaceIIDM> > generatorComponents_;  ///< map of generators by name
+  boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   boost::unordered_map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
   boost::shared_ptr<ServiceManagerInterfaceIIDM> serviceManager_;  ///< Service manager
 

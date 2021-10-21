@@ -23,9 +23,9 @@ model GeneratorPVRemote "Model for generator PV based on SignalN for the frequen
 
   parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in p.u (base SnRef)";
   parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
-  parameter Types.VoltageModulePu URef0 "Start value of the voltage regulation set point in kV";
+  parameter Types.VoltageModule URef0 "Start value of the voltage regulation set point in kV";
 
-  input Real URegulated "Regulated voltage in kV";
+  input Types.VoltageModule URegulated "Regulated voltage in kV";
   Connectors.ImPin URef (value(start = URef0)) "Voltage regulation set point in kV";
 
 protected

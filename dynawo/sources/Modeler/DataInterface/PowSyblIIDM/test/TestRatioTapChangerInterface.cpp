@@ -37,7 +37,7 @@ namespace powsybl {
 
 namespace iidm {
 
-Network
+static Network
 createTwoWindingsTransformerNetwork() {
   Network network("test", "test");
   Substation& substation = network.newSubstation()
@@ -229,7 +229,7 @@ TEST(DataInterfaceTest, RatioTapChanger_bad) {
 namespace powsybl {
 namespace iidm {
 
-Network
+static Network
 createThreeWindingsTransformerNetwork() {
   Network network("test", "test");
   Substation& substation = network.newSubstation()
@@ -349,7 +349,7 @@ createThreeWindingsTransformerNetwork() {
   return network;
 }  // createThreeWindingsTransformerNetwork()
 
-void
+static void
 addRatioTapChangerLeg2(ThreeWindingsTransformer& transformer, Terminal& terminal) {
   transformer.getLeg2()
       .newRatioTapChanger()
@@ -384,7 +384,7 @@ addRatioTapChangerLeg2(ThreeWindingsTransformer& transformer, Terminal& terminal
       .add();
 }
 
-void
+static void
 addRatioTapChangerLeg3(ThreeWindingsTransformer& transformer, Terminal& terminal) {
   transformer.getLeg3()
       .newRatioTapChanger()

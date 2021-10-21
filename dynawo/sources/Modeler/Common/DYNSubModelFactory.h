@@ -74,9 +74,6 @@ class SubModelFactory : private boost::noncopyable {
   static boost::shared_ptr<SubModel> createSubModelFromLib(const std::string& lib);
 
   boost::shared_ptr<boost::dll::shared_library> lib_;  ///< Library of the submodel
-
- private:
-  static SubModelFactories factories_;  ///< Factories already available
 };
 
 /**
@@ -101,6 +98,12 @@ class SubModelFactories : private boost::noncopyable {
    * @brief destructor
    */
   ~SubModelFactories();
+
+  /**
+   * @brief Get unique instance
+   * @return  The unique instance
+   */
+  static SubModelFactories& getInstance();
 
   /**
   * @brief iterator type on SubModelFactory map.
@@ -162,19 +165,14 @@ class SubModelDelete {
   /**
    * @brief Constructor
    *
-   * @param factory: model factory to delete
+   * @param factory model factory to delete
    */
   explicit SubModelDelete(SubModelFactory* factory);
 
   /**
-   * @brief destructor
-   */
-  ~SubModelDelete() { }
-
-  /**
    * @brief Function to use this class as a Functor
    *
-   * @param subModel: pointer to the subModel to delete
+   * @param subModel pointer to the subModel to delete
    * map
    */
   void operator()(SubModel* subModel);
@@ -183,4 +181,17 @@ class SubModelDelete {
   SubModelFactory* factory_;  ///< factory associated to the model to destroy
 };
 }  // namespace DYN
+
+/**
+ * @brief SubModelFactory getter
+ * @return A pointer to a new instance of SubModelFactory
+ */
+extern "C" DYN::SubModelFactory* getFactory();
+
+/**
+ * @brief SubModelFactory destroy method
+ * @param factory the SubModelFactory to destroy
+ */
+extern "C" void deleteFactory(DYN::SubModelFactory* factory);
+
 #endif  // MODELER_COMMON_DYNSUBMODELFACTORY_H_

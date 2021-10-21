@@ -60,8 +60,6 @@ class SubModelMockBase : public SubModel {
     sizeY_ = nbY;
   }
 
-  virtual ~SubModelMockBase() {}
-
   void init(const double) {
     // Dummy class used for testing
   }
@@ -116,10 +114,6 @@ class SubModelMockBase : public SubModel {
   }
 
   virtual modeChangeType_t evalMode(const double) = 0;
-
-  void checkDataCoherence(const double) {
-    // Dummy class used for testing
-  }
 
   void checkParametersCoherence() const {
     // Dummy class used for testing
@@ -254,8 +248,6 @@ class SubModelMock : public SubModelMockBase {
   SubModelMock(unsigned nbY, unsigned nbZ) : SubModelMockBase(nbY, nbZ) {}
 
   SubModelMock() : SubModelMockBase(1, 1) {}
-
-  virtual ~SubModelMock() {}
 
   modeChangeType_t evalMode(const double) {
     // Dummy class used for testing

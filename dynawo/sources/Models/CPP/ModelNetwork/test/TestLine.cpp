@@ -53,7 +53,7 @@
 using boost::shared_ptr;
 
 namespace DYN {
-std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = true) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
@@ -70,28 +70,28 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
       .setLowVoltageLimit(.5)
       .add();
 
+  std::string idBus1 ="MyBus1";
+  std::string idBus2 ="MyBus2";
   powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
-              .setId("MyBus1")
+              .setId(idBus1)
               .add();
   iidmBus.setV(1);
   iidmBus.setAngle(0.);
 
   powsybl::iidm::Bus& iidmBus2 = vlIIDM.getBusBreakerView().newBus()
-              .setId("MyBus2")
+              .setId(idBus2)
               .add();
   iidmBus2.setV(1);
   iidmBus2.setAngle(0.);
 
-  std::string bus1 ="MyBus1";
-  std::string bus2 ="MyBus2";
   powsybl::iidm::Line& lIIDM = networkIIDM.newLine()
        .setId("MyLine")
        .setVoltageLevel1(vlIIDM.getId())
-       .setBus1(bus1)
-       .setConnectableBus1(bus1)
+       .setBus1(idBus1)
+       .setConnectableBus1(idBus1)
        .setVoltageLevel2(vlIIDM.getId())
-       .setBus2(bus2)
-       .setConnectableBus2(bus2)
+       .setBus2(idBus2)
+       .setConnectableBus2(idBus2)
        .setR(3.)
        .setX(3.)
        .setG1(3.)
@@ -1152,7 +1152,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
   std::map<int, std::string> gEquationIndex;
   dl->setGequations(gEquationIndex);
   ASSERT_EQ(gEquationIndex.size(), nbG);
-  for (size_t i = 0; i < nbG; ++i) {
+  for (unsigned i = 0; i < nbG; ++i) {
     ASSERT_TRUE(gEquationIndex.find(i) != gEquationIndex.end());
   }
   ASSERT_NO_THROW(dl->evalG(0.));

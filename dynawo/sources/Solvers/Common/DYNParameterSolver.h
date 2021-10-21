@@ -71,7 +71,7 @@ class ParameterSolver : public ParameterCommon {
 
   /**
    * @brief parameter's value setter
-   * @param value: parameter's value
+   * @param value parameter's value
    */
   template<typename T> void setValue(const T& value);
 

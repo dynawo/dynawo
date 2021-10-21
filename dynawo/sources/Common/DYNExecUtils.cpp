@@ -59,7 +59,7 @@ prettyPath(const std::string & path) {
 }
 
 #ifndef LANG_CXX11
-void parentProcess(int fd[2], std::stringstream & ss) {
+static void parentProcess(int fd[2], std::stringstream & ss) {
   char buferr[256];
   struct timeval tv;
   char buf[BUFSIZ];
@@ -81,7 +81,7 @@ void parentProcess(int fd[2], std::stringstream & ss) {
     if (retsel == -1) {  // error
       throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "select", strerror_r(errno, buferr, sizeof (buferr)));
     } else if (retsel> 0) {  // some data may be available
-      int retread;
+      ssize_t retread;
       while ((retread = read(fd[0], buf, BUFSIZ)) > 0) {
         strbuf += string(buf, retread);
       }
@@ -98,7 +98,8 @@ void parentProcess(int fd[2], std::stringstream & ss) {
 }
 #endif
 
-std::string
+#ifdef LANG_CXX11
+static std::string
 getOptionPrefix() {
 #ifdef _WIN32
   std::string prefix = "/";
@@ -108,7 +109,7 @@ getOptionPrefix() {
   return prefix;
 }
 
-std::string
+static std::string
 getShellTool() {
 #ifdef _WIN32
   std::string tool = "cmd";
@@ -117,6 +118,7 @@ getShellTool() {
 #endif
   return tool;
 }
+#endif
 
 void
 executeCommand(const std::string & command, std::stringstream & ss, const std::string & start_dir) {

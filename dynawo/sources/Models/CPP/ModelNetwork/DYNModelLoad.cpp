@@ -199,7 +199,7 @@ ModelLoad::setFequations(std::map<int, std::string>& fEquationIndex) {
     ++index;
   }
 
-  assert(fEquationIndex.size() == (unsigned int) sizeF() && "ModelLoad:fEquationIndex.size() != f_.size()");
+  assert(fEquationIndex.size() == static_cast<size_t>(sizeF()) && "ModelLoad:fEquationIndex.size() != f_.size()");
 }
 
 void

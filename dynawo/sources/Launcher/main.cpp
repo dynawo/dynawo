@@ -53,7 +53,7 @@ namespace po = boost::program_options;
 
 using boost::shared_ptr;
 
-void usage(const po::options_description& desc) {
+static void usage(const po::options_description& desc) {
   cout << "Usage: dynawo <jobs-file>" << std::endl << std::endl;
   cout << desc << endl;
 }

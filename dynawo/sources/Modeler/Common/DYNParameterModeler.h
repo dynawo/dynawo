@@ -61,13 +61,8 @@ class ParameterModeler : public ParameterCommon {
 #endif
 
   /**
-   * @brief Destructor
-   */
-  ~ParameterModeler() { }
-
-  /**
    * @brief checks whether a parameter value may be set
-   * @param origin: tested origin for the parameter
+   * @param origin tested origin for the parameter
    * @throws when it is forbidden to write data for the current parameter and origin
    * @throws when the parameter is not unitary
    */
@@ -75,7 +70,7 @@ class ParameterModeler : public ParameterCommon {
 
   /**
    * @brief checks whether a parameter value may be set for a given origin
-   * @param origin: tested origin for the parameter
+   * @param origin tested origin for the parameter
    * @return whether write rights are granted
    */
   inline bool originWriteAllowed(const parameterOrigin_t& origin) const {
@@ -84,14 +79,14 @@ class ParameterModeler : public ParameterCommon {
 
   /**
    * @brief parameter's value setter
-   * @param value: parameter's value
-   * @param origin: parameter's origin
+   * @param value parameter's value
+   * @param origin parameter's origin
    */
   template<typename T> void setValue(const T& value, const parameterOrigin_t& origin);
 
   /**
    * @brief Setter for parameter's cardinality
-   * @param cardinality: parameter's cardinality
+   * @param cardinality parameter's cardinality
    */
   inline void setCardinality(const std::string& cardinality) {
     cardinality_ = cardinality;
@@ -99,7 +94,7 @@ class ParameterModeler : public ParameterCommon {
 
   /**
    * @brief Setter for cardinality informator
-   * @param cardinalityInformator: parameter's cardinality informator
+   * @param cardinalityInformator parameter's cardinality informator
    */
   void setCardinalityInformator(const std::string& cardinalityInformator);
 
@@ -111,7 +106,7 @@ class ParameterModeler : public ParameterCommon {
 
   /**
    * @brief Update the priority origin of the parameter
-   * @param origin: origin used to update the priority origin
+   * @param origin origin used to update the priority origin
    */
   void updateOrigin(const parameterOrigin_t& origin);
 
@@ -125,7 +120,7 @@ class ParameterModeler : public ParameterCommon {
 
   /**
    * @brief Set the priority origin of the parameter
-   * @param origin: origin used to update the priority origin
+   * @param origin origin used to update the priority origin
    */
   inline void setOrigin(const parameterOrigin_t& origin) {
     origin_ = origin;
@@ -141,14 +136,14 @@ class ParameterModeler : public ParameterCommon {
 
   /**
    * @brief indicates whether a parameter has a value associated with a given origin
-   * @param origin: tested origin for the parameter
+   * @param origin tested origin for the parameter
    * @return true if the parameter has a value associated with the given origin, false otherwise
    */
   bool hasOrigin(const parameterOrigin_t& origin) const;
 
   /**
    * @brief indicates whether a parameter has a value associated with a given origin or a less important origin
-   * @param origin: tested origin for the parameter
+   * @param origin tested origin for the parameter
    * @return true if the parameter has a value associated with the given origin or a less important origin, false otherwise
    */
   inline bool hasAtLeastOrigin(const parameterOrigin_t& origin) const {
@@ -199,7 +194,7 @@ class ParameterModeler : public ParameterCommon {
 
   /**
    * @brief set whether the parameter is the result of a non-unitary parameter instanciation
-   * @param nonUnitaryParameterInstance: whether the parameter is the result of a non-unitary parameter instanciation
+   * @param nonUnitaryParameterInstance whether the parameter is the result of a non-unitary parameter instanciation
    */
   inline void setIsNonUnitaryParameterInstance(const bool nonUnitaryParameterInstance) {
     nonUnitaryParameterInstance_ = nonUnitaryParameterInstance;

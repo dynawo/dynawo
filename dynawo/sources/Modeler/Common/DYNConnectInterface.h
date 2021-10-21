@@ -35,7 +35,7 @@ class ConnectInterface {  ///< Generic class for connecting two dynamic models
 
   /**
    * @brief set first model
-   * @param model
+   * @param model first model
    */
   inline void setConnectedModel1(const std::string& model) {
     connectedModel1_ = model;
@@ -51,7 +51,7 @@ class ConnectInterface {  ///< Generic class for connecting two dynamic models
 
   /**
    * @brief set second model
-   * @param model
+   * @param model second model
    */
   inline void setConnectedModel2(const std::string& model) {
     connectedModel2_ = model;

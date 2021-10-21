@@ -73,7 +73,7 @@ class OutputsEntry {
 
   /**
    * @brief Init Values entry setter
-   * @param initValuesEntry: initValues entry container for the job
+   * @param initValuesEntry : initValues entry container for the job
    */
   void setInitValuesEntry(const boost::shared_ptr<InitValuesEntry>& initValuesEntry);
 

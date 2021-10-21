@@ -52,7 +52,8 @@ using xml::sax::formatter::FormatterPtr;
  * @param modelName the model name (for error messages)
  * @param parametersAttributes a map between (lower case) parameter name and XML attributes
  */
-int fillParameterDescription(const DYN::ParameterModeler& parameter, const std::string& modelName, std::map<std::string, AttributeList>& parametersAttributes) {
+static int
+fillParameterDescription(const DYN::ParameterModeler& parameter, const std::string& modelName, std::map<std::string, AttributeList>& parametersAttributes) {
   AttributeList attributes;
   attributes.clear();
   attributes.add("name", parameter.getName());

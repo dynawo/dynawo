@@ -59,7 +59,7 @@ string searchFile(const string & pathFromDirectory, const string & rootPath, con
   return filePathName;
 }
 
-bool scanThisDirectory(fs::path name) {
+static bool scanThisDirectory(fs::path name) {
   return (name != ".git" && name != ".svn" && name.extension() != ".dSYM");
 }
 
@@ -112,7 +112,7 @@ void searchModelsFiles(const std::string& directoryToScan, const std::string& fi
                        packageForcesSubDirsSearch, stopWhenSeePackage, namespaces, filesFound);
 }
 
-std::string getFullModelName(std::string fileName, const std::vector <std::string>& namespacesLocal,
+static std::string getFullModelName(std::string fileName, const std::vector <std::string>& namespacesLocal,
     const std::string& fileExtension, const std::string& packageFileName) {
   std::string full_model_name("");
   for (std::vector<std::string>::const_iterator itNameSpace = namespacesLocal.begin(); itNameSpace != namespacesLocal.end(); ++itNameSpace) {
@@ -315,7 +315,7 @@ bool extensionFound(const string path, const vector <string> & extensionList) {
 }
 
 bool extensionEquals(const string path, const string extension) {
-  unsigned int extLength = extension.size();
+  std::size_t extLength = extension.size();
   string fileName = file_name(path);
 
   if (extLength <= fileName.size()) {

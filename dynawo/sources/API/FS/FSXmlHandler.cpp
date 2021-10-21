@@ -40,18 +40,21 @@ namespace lambda = boost::phoenix;
 namespace lambda_args = lambda::placeholders;
 namespace parser = xml::sax::parser;
 
-xml::sax::parser::namespace_uri fs_ns("http://www.rte-france.com/dynawo");  ///< namespace used to read final state xml file
-
-
 namespace finalState {
+
+// namespace used to read xml file
+static parser::namespace_uri& namespace_uri() {
+  static parser::namespace_uri namespace_uri("http://www.rte-france.com/dynawo");
+  return namespace_uri;
+}
 
 XmlHandler::XmlHandler() :
 finalStateCollection_(FinalStateCollectionFactory::newInstance("")),
-modelHandler_(parser::ElementName(fs_ns, "model")),
-variableHandler_(parser::ElementName(fs_ns, "variable")),
+modelHandler_(parser::ElementName(namespace_uri(), "model")),
+variableHandler_(parser::ElementName(namespace_uri(), "variable")),
 level_(0) {
-  onElement(fs_ns("finalStateInput/model"), modelHandler_);
-  onElement(fs_ns("finalStateInput/variable"), variableHandler_);
+  onElement(namespace_uri()("finalStateInput/model"), modelHandler_);
+  onElement(namespace_uri()("finalStateInput/variable"), variableHandler_);
 
   modelHandler_.onStart(lambda::bind(&XmlHandler::beginFinalStateModel, lambda::ref(*this)));
   modelHandler_.onEnd(lambda::bind(&XmlHandler::endFinalStateModel, lambda::ref(*this)));

@@ -17,6 +17,7 @@ import datetime
 import filecmp
 import imp
 import itertools
+from xml.dom import minidom
 
 import os
 import re
@@ -1194,24 +1195,23 @@ def XMLCloseEnough (path_left, path_right):
 
     times_left = []
     left_curve = {}
-    for curvesOutput in left_file_content.getElementsByTagName('curvesOutput'):
-        for item in curvesOutput.getElementsByTagName('curve'):
-            current_curve = item.getAttribute("model")+"_"+item.getAttribute("variable")
-            left_curve[current_curve] = {}
-            for pointItem in item.getElementsByTagName('point'):
-                left_curve[current_curve][pointItem.getAttribute("time")] = pointItem.getAttribute("value")
-                if(pointItem.getAttribute("time") not in times_left):
-                        times_left.append(pointItem.getAttribute("time"))
+    ns = left_file_content.nsmap
+    for item in left_file_content.findall('curve', ns):
+        current_curve = item.attrib["model"]+"_"+item.attrib["variable"]
+        left_curve[current_curve] = {}
+        for pointItem in item.findall('point', ns):
+            left_curve[current_curve][pointItem.attrib["time"]] = pointItem.attrib["value"]
+            if(pointItem.attrib["time"] not in times_left):
+                    times_left.append(pointItem.attrib["time"])
     right_curve = {}
     times_right = []
-    for curvesOutput in right_file_content.getElementsByTagName('curvesOutput'):
-        for item in curvesOutput.getElementsByTagName('curve'):
-            current_curve = item.getAttribute("model")+"_"+item.getAttribute("variable")
-            right_curve[current_curve] = {}
-            for pointItem in item.getElementsByTagName('point'):
-                right_curve[current_curve][pointItem.getAttribute("time")] = pointItem.getAttribute("value")
-                if(pointItem.getAttribute("time") not in times_right):
-                    times_right.append(pointItem.getAttribute("time"))
+    for item in right_file_content.findall('curve', ns):
+        current_curve = item.attrib["model"]+"_"+item.attrib["variable"]
+        right_curve[current_curve] = {}
+        for pointItem in item.findall('point', ns):
+            right_curve[current_curve][pointItem.attrib["time"]] = pointItem.attrib["value"]
+            if(pointItem.attrib["time"] not in times_right):
+                times_right.append(pointItem.attrib["time"])
 
 
     times = []
@@ -1265,17 +1265,18 @@ def XMLCloseEnough (path_left, path_right):
 def DTWDistance(left, right) :
     n = len(left)
     m = len(right)
-    DTW = [[0 for j in range(m+1)] for i in range(n+1)]
+    if left == right:
+        return 0.
+    DTW = [[0 if (j == 0 or i == 0) else 999999 for j in range(m+1)] for i in range(n+1)]
 
     for i in range(1, n+1):
+        leftValue = left[i-1]
+        previousRow = DTW[i-1]
+        thisRow = DTW[i]
         for j in range (1, m+1):
-            DTW[i][j] = 999999
-    DTW[0][0] = 0
-
-    for i in range(1, n+1):
-        for j in range (1, m+1):
-            cost= abs(left[i-1] - right[j-1])
-            DTW[i][j] = cost + min(min(DTW[i-1][j],DTW[i][j-1]), DTW[i-1][j-1])
+            minValue = [previousRow[j],thisRow[j-1],previousRow[j-1]]
+            minValue.sort()
+            DTW[i][j] = abs(leftValue - right[j-1]) + minValue[0]
 
     return DTW[n][m]
 

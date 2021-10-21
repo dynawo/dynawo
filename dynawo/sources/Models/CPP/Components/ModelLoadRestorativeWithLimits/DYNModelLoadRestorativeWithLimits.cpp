@@ -64,7 +64,7 @@ extern "C" void DYN::ModelLoadRestorativeWithLimitsFactory::destroy(DYN::SubMode
 }
 
 namespace DYN {
-  ModelLoadRestorativeWithLimits::ModelLoadRestorativeWithLimits() : Impl("LoadRestorativeWithLimits"),
+  ModelLoadRestorativeWithLimits::ModelLoadRestorativeWithLimits() : ModelCPP("LoadRestorativeWithLimits"),
   UfRawYNum_(0),
   UfYNum_(0),
   UrYNum_(0),

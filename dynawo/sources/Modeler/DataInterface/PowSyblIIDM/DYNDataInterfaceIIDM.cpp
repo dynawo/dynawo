@@ -20,6 +20,7 @@
 #include "DYNDataInterfaceIIDM.h"
 
 #include "DYNBusInterfaceIIDM.h"
+#include "DYNBatteryInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNLineInterfaceIIDM.h"
 #include "DYNTwoWTransformerInterfaceIIDM.h"
@@ -345,8 +346,10 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     //===========================
     for (auto& switchIIDM : voltageLevelIIDM.getSwitches()) {
       if (switchIIDM.isOpen() || switchIIDM.isRetained()) {
-        shared_ptr<BusInterface> bus1 = findNodeBreakerBusInterface(voltageLevelIIDM, voltageLevelIIDM.getNodeBreakerView().getNode1(switchIIDM.getId()));
-        shared_ptr<BusInterface> bus2 = findNodeBreakerBusInterface(voltageLevelIIDM, voltageLevelIIDM.getNodeBreakerView().getNode2(switchIIDM.getId()));
+        shared_ptr<BusInterface> bus1 = findNodeBreakerBusInterface(voltageLevelIIDM,
+                                                                    static_cast<int>(voltageLevelIIDM.getNodeBreakerView().getNode1(switchIIDM.getId())));
+        shared_ptr<BusInterface> bus2 = findNodeBreakerBusInterface(voltageLevelIIDM,
+                                                                    static_cast<int>(voltageLevelIIDM.getNodeBreakerView().getNode2(switchIIDM.getId())));
         shared_ptr<SwitchInterface> sw = importSwitch(switchIIDM, bus1, bus2);
         if (sw->getBusInterface1() != sw->getBusInterface2()) {  // if the switch is connecting one single bus, don't create a specific switch model
           components_[sw->getID()] = sw;
@@ -400,6 +403,7 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     components_[lcc->getID()] = lcc;
     lcc->setVoltageLevelInterface(voltageLevel);
   }
+
   //===========================
   //  ADD GENERATOR INTERFACE
   //===========================
@@ -409,6 +413,17 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     components_[generator->getID()] = generator;
     generatorComponents_[generator->getID()] = generator;
     generator->setVoltageLevelInterface(voltageLevel);
+  }
+
+  //===========================
+  //  ADD BATTERY INTERFACE
+  //===========================
+  for (auto& batIIDM : voltageLevelIIDM.getBatteries()) {
+    auto battery = importBattery(batIIDM, countryStr);
+    voltageLevel->addGenerator(battery);
+    components_[battery->getID()] = battery;
+    generatorComponents_[battery->getID()] = battery;
+    battery->setVoltageLevelInterface(voltageLevel);
   }
 
   //===========================
@@ -469,6 +484,14 @@ DataInterfaceIIDM::importGenerator(powsybl::iidm::Generator & generatorIIDM, con
   generator->setCountry(country);
   generator->setBusInterface(findBusInterface(generatorIIDM.getTerminal()));
   return generator;
+}
+
+shared_ptr<BatteryInterfaceIIDM>
+DataInterfaceIIDM::importBattery(powsybl::iidm::Battery & batteryIIDM, const std::string& country) {
+  shared_ptr<BatteryInterfaceIIDM> battery(new BatteryInterfaceIIDM(batteryIIDM));
+  battery->setCountry(country);
+  battery->setBusInterface(findBusInterface(batteryIIDM.getTerminal()));
+  return battery;
 }
 
 shared_ptr<LoadInterfaceIIDM>
@@ -733,7 +756,7 @@ DataInterfaceIIDM::getNetwork() const {
 shared_ptr<BusInterface>
 DataInterfaceIIDM::findBusInterface(const powsybl::iidm::Terminal& terminal) const {
   if (terminal.getVoltageLevel().getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
-    return findNodeBreakerBusInterface(terminal.getVoltageLevel(), terminal.getNodeBreakerView().getNode());
+    return findNodeBreakerBusInterface(terminal.getVoltageLevel(), static_cast<int>(terminal.getNodeBreakerView().getNode()));
   } else {
     return findBusBreakerBusInterface(terminal.getBusBreakerView().getConnectableBus().get());
   }
@@ -1094,10 +1117,14 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
         }
       }
     } else {
-      for (boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterfaceIIDM> >::const_iterator cmpIt = generatorComponents_.begin(),
+      for (boost::unordered_map<std::string, boost::shared_ptr<GeneratorInterface> >::const_iterator cmpIt = generatorComponents_.begin(),
           cmpItEnd = generatorComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
-        if (crit->hasCountryFilter() && !cmpIt->second->getCountry().empty() && !crit->containsCountry(cmpIt->second->getCountry()))
+        boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmpIt->second);
+        boost::shared_ptr<BatteryInterfaceIIDM> bat = dynamic_pointer_cast<BatteryInterfaceIIDM>(cmpIt->second);
+        if (gen && crit->hasCountryFilter() && !gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
+            continue;
+        if (bat && crit->hasCountryFilter() && !bat->getCountry().empty() && !crit->containsCountry(bat->getCountry()))
             continue;
         dynCriteria->addGenerator(cmpIt->second);
       }

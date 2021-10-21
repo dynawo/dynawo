@@ -58,17 +58,17 @@ Constraint::getTime() const {
   return time_;
 }
 
-string
+const string&
 Constraint::getModelName() const {
   return modelName_;
 }
 
-string
+const string&
 Constraint::getDescription() const {
   return description_;
 }
 
-string
+const string&
 Constraint::getModelType() const {
   return modelType_;
 }

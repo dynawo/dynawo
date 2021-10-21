@@ -69,9 +69,6 @@ class SolverFactory {
   static boost::shared_ptr<Solver> createSolverFromLib(const std::string& lib);
 
   boost::shared_ptr<boost::dll::shared_library> lib_;  ///< Library of the solver
-
- private:
-  static SolverFactories factories_;  ///< Factories already available
 };
 
 /**
@@ -96,6 +93,12 @@ class SolverFactories : private boost::noncopyable {
    * @brief destructor
    */
   ~SolverFactories();
+
+  /**
+   * @brief Get unique instance
+   * @return  The unique instance
+   */
+  static SolverFactories& getInstance();
 
   /**
   * @brief iterator type on SolverFactory map.
@@ -154,19 +157,14 @@ class SolverDelete {
   /**
    * @brief Constructor
    *
-   * @param factory: solver factory to delete
+   * @param factory solver factory to delete
    */
   explicit SolverDelete(SolverFactory* factory);
 
   /**
-   * @brief destructor
-   */
-  ~SolverDelete() { }
-
-  /**
    * @brief Function to use this class as a Functor
    *
-   * @param solver: pointer to the solver to delete
+   * @param solver pointer to the solver to delete
    * map
    */
   void operator()(Solver* solver);
@@ -176,4 +174,17 @@ class SolverDelete {
 };
 
 }  // end of namespace DYN
+
+/**
+ * @brief SolverFactory getter
+ * @return A pointer to a new instance of SolverFactory
+ */
+extern "C" DYN::SolverFactory* getFactory();
+
+/**
+ * @brief SolverFactory destroy method
+ * @param factory the SolverFactory to destroy
+ */
+extern "C" void deleteFactory(DYN::SolverFactory* factory);
+
 #endif  // SOLVERS_COMMON_DYNSOLVERFACTORY_H_

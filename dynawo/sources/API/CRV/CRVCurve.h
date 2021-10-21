@@ -104,19 +104,19 @@ class Curve {
    * @brief Getter for curve's model name
    * @return model name associated to this curve
    */
-  std::string getModelName() const;
+  const std::string& getModelName() const;
 
   /**
    * @brief Getter for curve's variable
    * @return variable name associated to this curve
    */
-  std::string getVariable() const;
+  const std::string& getVariable() const;
 
   /**
    * @brief Getter for curve's found variable name
    * @return variable name found in model associated to this curve
    */
-  std::string getFoundVariableName() const;
+  const std::string& getFoundVariableName() const;
 
   /**
    * @brief Getter for curve's available attribute
@@ -151,16 +151,16 @@ class Curve {
     isParameterCurve_ = isParameterCurve;
   }
   /**
-   * @brief Get the curve type (calculated variable, continous, discrete)
-   * @return the curve type (calculated variable, continous, discrete)
+   * @brief Get the curve type (calculated variable, continuous, discrete)
+   * @return the curve type (calculated variable, continuous, discrete)
    */
   CurveType_t getCurveType() const {
     return curveType_;
   }
 
   /**
-   * @brief Set the curve type (calculated variable, continous, discrete)
-   * @param curveType : curve type (calculated variable, continous, discrete)
+   * @brief Set the curve type (calculated variable, continuous, discrete)
+   * @param curveType : curve type (calculated variable, continuous, discrete)
    */
   void setCurveType(CurveType_t curveType) {
     curveType_ = curveType;
@@ -168,8 +168,8 @@ class Curve {
 
   /**
    * @brief update parameter curve value
-   * @param parameterName
-   * @param parameterValue
+   * @param parameterName name of parameter
+   * @param parameterValue value of parameter
    */
   void updateParameterCurveValue(std::string parameterName, double parameterValue);
 

@@ -54,7 +54,7 @@ PhaseTapChangerInterfaceIIDM::getSteps() const {
 
 int
 PhaseTapChangerInterfaceIIDM::getCurrentPosition() const {
-  return tapChangerIIDM_.getTapPosition();
+  return static_cast<int>(tapChangerIIDM_.getTapPosition());
 }
 
 void
@@ -64,12 +64,12 @@ PhaseTapChangerInterfaceIIDM::setCurrentPosition(const int& position) {
 
 int
 PhaseTapChangerInterfaceIIDM::getLowPosition() const {
-  return tapChangerIIDM_.getLowTapPosition();
+  return static_cast<int>(tapChangerIIDM_.getLowTapPosition());
 }
 
 unsigned int
 PhaseTapChangerInterfaceIIDM::getNbTap() const {
-  return steps_.size();
+  return static_cast<unsigned int>(steps_.size());
 }
 
 bool

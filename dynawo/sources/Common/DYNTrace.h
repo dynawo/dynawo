@@ -102,11 +102,6 @@ class Trace {
       persistant_(false) { }
 
     /**
-     * @brief TraceAppender destructor
-     */
-    ~TraceAppender() { }
-
-    /**
      * @brief Tag attribute getter
      * @return Tag filtered by the appender
      */
@@ -180,7 +175,7 @@ class Trace {
 
     /**
      * @brief Tag attribute setter
-     * @param tag: Tag filtered by the appender
+     * @param tag Tag filtered by the appender
      */
     void setTag(std::string tag) {
       tag_ = tag;
@@ -188,7 +183,7 @@ class Trace {
 
     /**
      * @brief File path attribute setter
-     * @param filePath: Output file path of the appender
+     * @param filePath Output file path of the appender
      */
     void setFilePath(std::string filePath) {
       filePath_ = filePath;
@@ -196,7 +191,7 @@ class Trace {
 
     /**
      * @brief Level filter attribute setter
-     * @param lvlFilter: Minimum severity level exported by the appender
+     * @param lvlFilter Minimum severity level exported by the appender
      */
     void setLvlFilter(SeverityLevel lvlFilter) {
       lvlFilter_ = lvlFilter;
@@ -261,7 +256,7 @@ class Trace {
     bool showTimeStamp_;  ///< @b true if the timestamp of the log should be printed
     std::string timeStampFormat_;  ///< format of the timestamp information , "" if no time to print
     bool append_;  ///< Append to existing file instead of erasing
-    bool persistant_;  ///< Do not remove this appender when reseting
+    bool persistant_;  ///< Do not remove this appender when resetting
   };
 
   /**
@@ -288,7 +283,7 @@ class Trace {
 
   /**
    * @brief Add custom appenders to trace system
-   * @param[in] appenders: Appenders to add
+   * @param[in] appenders : Appenders to add
    */
   static void addAppenders(const std::vector<TraceAppender>& appenders);
 
@@ -403,7 +398,7 @@ class Trace {
   /**
    * @brief Print end of line in trace.
    *
-   * @param os: Trace to add end of line.
+   * @param os : Trace to add end of line.
    * @return The TraceStream with the end of line added.
    */
   static TraceStream& endline(TraceStream& os);  ///< End of line function for stream-like logging
@@ -424,7 +419,7 @@ class Trace {
    *
    * This test the level of the standard output log
    *
-   * @param slv Severity level
+   * @param slv : Severity level
    * @returns whether the standard log accepts the log level
    */
   static bool standardLogExists(SeverityLevel slv) {
@@ -472,7 +467,7 @@ class Trace {
    *
    * Implementation of static function
    *
-   * @param[in] appenders: Appenders to add
+   * @param[in] appenders : Appenders to add
    */
   void addAppenders_(const std::vector<TraceAppender>& appenders);
 

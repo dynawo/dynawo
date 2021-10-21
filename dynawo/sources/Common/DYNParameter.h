@@ -60,7 +60,11 @@ class ParameterCommon {
   /**
    * @brief Destructor
    */
+#ifdef LANG_CXX11
+  virtual ~ParameterCommon() = default;
+#else
   virtual ~ParameterCommon() { }
+#endif
 
   /**
    * @brief Getter for parameter's name
@@ -96,7 +100,7 @@ class ParameterCommon {
 
   /**
    * @brief index setter
-   * @param index: the index to set
+   * @param index the index to set
    */
   void setIndex(const unsigned int& index);
 

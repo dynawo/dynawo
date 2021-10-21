@@ -62,7 +62,7 @@ TEST(APICRVTest, test1) {
   }
 
   // simulate curve and curve update
-  for (int i = 0; i < 10; ++i) {
+  for (i = 0; i < 10; ++i) {
     variables[0] = i;
     variables[1] = i*i;
     int currentTime = i * 10;

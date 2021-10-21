@@ -66,12 +66,11 @@
 #include "TLTimelineFactory.h"
 #include "DYNTrace.h"
 
-testing::Environment* initXmlEnvironment();
+INIT_XML_DYNAWO;
 
 namespace DYN {
-testing::Environment* const env = initXmlEnvironment();
 
-boost::shared_ptr<Solver> initSolver(bool optimizeAlgebraicResidualsEvaluations, bool skipNR, bool enableSilentZ) {
+static boost::shared_ptr<Solver> initSolver(bool optimizeAlgebraicResidualsEvaluations, bool skipNR, bool enableSilentZ) {
   // Solver
   boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverSIM" + std::string(sharedLibraryExtension()));
 
@@ -89,7 +88,7 @@ boost::shared_ptr<Solver> initSolver(bool optimizeAlgebraicResidualsEvaluations,
   return solver;
 }
 
-void compile(boost::shared_ptr<DynamicData> dyd) {
+static void compile(boost::shared_ptr<DynamicData> dyd) {
   bool preCompiledUseStandardModels = false;
   std::vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
   std::string preCompiledModelsExtension = sharedLibraryExtension();
@@ -127,7 +126,7 @@ void compile(boost::shared_ptr<DynamicData> dyd) {
   cf.concatRefs();
 }
 
-boost::shared_ptr<Model> initModel(const double& tStart, Modeler modeler, bool silentZenabled = true) {
+static boost::shared_ptr<Model> initModel(const double& tStart, Modeler modeler, bool silentZenabled = true) {
   boost::shared_ptr<Model> model = modeler.getModel();
   model->initBuffers();
   model->initSilentZ(silentZenabled);
@@ -141,7 +140,7 @@ boost::shared_ptr<Model> initModel(const double& tStart, Modeler modeler, bool s
   return model;
 }
 
-std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModel(std::string dydFileName, std::string iidmFileName,
+static std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModel(std::string dydFileName, std::string iidmFileName,
  std::string parFileName, const double& tStart, const double& tStop, bool optimizeAlgebraicResidualsEvaluations = true, bool skipNR = true) {
   boost::shared_ptr<Solver> solver = initSolver(optimizeAlgebraicResidualsEvaluations, skipNR, true);
 
@@ -188,7 +187,7 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
   return std::make_pair(solver, model);
 }
 
-std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
+static std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
  const double& tStart, const double& tStop, bool optimizeAlgebraicResidualsEvaluations = true, bool skipNR = true, bool enableSilentZ = true) {
   boost::shared_ptr<Solver> solver = initSolver(optimizeAlgebraicResidualsEvaluations, skipNR, enableSilentZ);
   // DYD

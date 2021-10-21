@@ -323,7 +323,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 
   // Erase useless values in the jacobian
   SparseMatrix smjKin;
-  int size = solver->indexY_.size();
+  int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
 #if _DEBUG_
@@ -350,7 +350,7 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 
   // Erase useless values in the jacobian
   SparseMatrix smjKin;
-  int size = solver->indexY_.size();
+  int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);

@@ -67,7 +67,7 @@ class NetworkInterface {
 
   /**
    * @brief Add a new instance of hvdc line interface to the network interface
-   * @param hvdc: instance of hvdc line interface to add
+   * @param hvdc instance of hvdc line interface to add
    */
   virtual void addHvdcLine(const boost::shared_ptr<HvdcLineInterface>& hvdc) = 0;
 

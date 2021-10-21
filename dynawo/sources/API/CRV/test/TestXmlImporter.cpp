@@ -21,10 +21,9 @@
 
 #include "CRVXmlImporter.h"
 
-testing::Environment* initXmlEnvironment();
+INIT_XML_DYNAWO;
 
 namespace curves {
-testing::Environment* const env = initXmlEnvironment();
 
 //-----------------------------------------------------
 // TEST XmlImporter

@@ -67,7 +67,7 @@ RatioTapChangerInterfaceIIDM::getLowPosition() const {
 
 unsigned int
 RatioTapChangerInterfaceIIDM::getNbTap() const {
-  return steps_.size();
+  return static_cast<unsigned int>(steps_.size());
 }
 
 bool

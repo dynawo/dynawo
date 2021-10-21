@@ -55,7 +55,7 @@ class ShuntCompensatorInterfaceIIDM : public ShuntCompensatorInterface, public I
 
   /**
    * @brief Constructor
-   * @param shunt: shunt compensator's iidm instance
+   * @param shunt shunt compensator's iidm instance
    */
   explicit ShuntCompensatorInterfaceIIDM(IIDM::ShuntCompensator& shunt);
 

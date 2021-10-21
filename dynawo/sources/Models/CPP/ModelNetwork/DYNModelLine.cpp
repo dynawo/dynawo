@@ -87,7 +87,7 @@ modelType_("Line") {
   bool connected1 = line->getInitialConnected1();
   bool connected2 = line->getInitialConnected2();
 
-  double vNom = NAN;
+  double vNom = std::numeric_limits<double>::quiet_NaN();
   if (connected1 && connected2) {
     connectionState_ = CLOSED;
     vNom = line->getVNom1();
@@ -1110,7 +1110,7 @@ ModelLine::setGequations(std::map<int, std::string>& gEquationIndex) {
     }
   }
 
-  assert(gEquationIndex.size() == (unsigned int) sizeG_ && "ModelLine: gEquationIndex.size() != sizeG_");
+  assert(gEquationIndex.size() == static_cast<size_t>(sizeG_) && "ModelLine: gEquationIndex.size() != sizeG_");
 }
 
 void

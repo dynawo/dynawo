@@ -140,13 +140,13 @@ class VoltageLevelInterface {
 
    /**
    * @brief Add a new instance of vsc converter interface to the voltageLevel interface
-   * @param vsc: instance of vsc converter interface to add
+   * @param vsc instance of vsc converter interface to add
    */
   virtual void addVscConverter(const boost::shared_ptr<VscConverterInterface>& vsc) = 0;
 
   /**
    * @brief Add a new instance of lcc converter interface to the voltageLevel interface
-   * @param lcc: instance of lcc converter interface to add
+   * @param lcc instance of lcc converter interface to add
    */
   virtual void addLccConverter(const boost::shared_ptr<LccConverterInterface>& lcc) = 0;
 

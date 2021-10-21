@@ -76,7 +76,7 @@ class DynamicData {
 
   /**
    * @brief set network parameters
-   * @param parameters
+   * @param parameters parameters set
    */
   inline void setNetworkParameters(const boost::shared_ptr<parameters::ParametersSet>& parameters) {
     networkParameters_ = parameters;
@@ -132,7 +132,7 @@ class DynamicData {
 
   /**
    * @brief set static data
-   * @param data
+   * @param data static data
    */
   inline void setDataInterface(const boost::shared_ptr<DataInterface>& data) {
     dataInterface_ = data;

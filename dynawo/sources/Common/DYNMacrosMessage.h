@@ -19,6 +19,11 @@
 #include "DYNError.h"
 #include "DYNTerminate.h"
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#endif
+
 /**
  * @brief Macro description to have a shortcut.
  *  Thanks to this macro, user can only call a log message with the key to access
@@ -87,5 +92,9 @@
  * @return a Terminate
  */
 #define DYNTerminate(key, ...) DYN::Terminate((DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__))
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 
 #endif  // COMMON_DYNMACROSMESSAGE_H_

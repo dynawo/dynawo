@@ -47,7 +47,7 @@
 using boost::shared_ptr;
 
 namespace DYN {
-std::pair<shared_ptr<ModelLoad>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<shared_ptr<ModelLoad>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelLoad(bool open, bool initModel) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
@@ -147,7 +147,7 @@ createModelLoad(bool open, bool initModel) {
   return std::make_pair(load, vl);
 }
 
-void
+static void
 fillParameters(shared_ptr<ModelLoad> load) {
   boost::unordered_map<std::string, ParameterModeler> parametersModels;
   std::string paramName = "load_alpha";
@@ -463,7 +463,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   std::map<int, std::string> fEquationIndex;
   load->setFequations(fEquationIndex);
   ASSERT_EQ(fEquationIndex.size(), 2);
-  for (size_t i = 0; i < nbF; ++i) {
+  for (unsigned i = 0; i < nbF; ++i) {
     ASSERT_TRUE(fEquationIndex.find(i) != fEquationIndex.end());
   }
 
@@ -488,7 +488,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   fEquationIndex.clear();
   load->setFequations(fEquationIndex);
   ASSERT_EQ(fEquationIndex.size(), 2);
-  for (size_t i = 0; i < nbF; ++i) {
+  for (unsigned i = 0; i < nbF; ++i) {
     ASSERT_TRUE(fEquationIndex.find(i) != fEquationIndex.end());
   }
 

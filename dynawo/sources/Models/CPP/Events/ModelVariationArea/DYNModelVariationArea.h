@@ -20,7 +20,7 @@
 #ifndef MODELS_CPP_EVENTS_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
 #define MODELS_CPP_EVENTS_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
 
-#include "DYNModelCPPImpl.h"
+#include "DYNModelCPP.h"
 #include "DYNSubModelFactory.h"
 
 namespace DYN {
@@ -59,7 +59,7 @@ class ModelVariationAreaFactory : public SubModelFactory {
 /**
  * class ModelVariationArea
  */
-class ModelVariationArea : public ModelCPP::Impl {
+class ModelVariationArea : public ModelCPP {
  public:
   /**
    * @brief define type of calculated variables
@@ -269,11 +269,6 @@ class ModelVariationArea : public ModelCPP::Impl {
    * @copydoc ModelCPP::initParams()
    */
   void initParams() { /* not needed */ }
-
-  /**
-   * @brief Coherence check on data (asserts, min/max values, sanity checks)
-   */
-  void checkDataCoherence(const double /*t*/) { /* not needed */ }
 
  private:
   // parameters

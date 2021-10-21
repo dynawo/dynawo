@@ -178,4 +178,34 @@ inline std::string key2Str(const int key) {
   } else  /* NOLINT */                                             \
     ASSERT_EQ(doubleEquals(A, B), true)
 
+/**
+ * @brief Macro replacement for GTest TEST macro for CLang only
+ */
+#ifdef __clang__
+#define TEST_DYNAWO_(test_case_name, test_name)                    \
+  _Pragma("clang diagnostic push")                                 \
+  _Pragma("clang diagnostic ignored \"-Wglobal-constructors\"")    \
+  GTEST_TEST(test_case_name, test_name)                            \
+  _Pragma("clang diagnostic pop")
+
+#undef TEST
+#define TEST(test_case_name, test_name) TEST_DYNAWO_(test_case_name, test_name)
+#endif
+
+/**
+ * @brief Macro to initialize Xml environment
+ */
+#ifdef __clang__
+#define INIT_XML_DYNAWO                                            \
+  testing::Environment* initXmlEnvironment();                      \
+  _Pragma("clang diagnostic push")                                 \
+  _Pragma("clang diagnostic ignored \"-Wglobal-constructors\"")    \
+  static testing::Environment* const env_ = initXmlEnvironment()   \
+  _Pragma("clang diagnostic pop")
+#else
+#define INIT_XML_DYNAWO                                            \
+  testing::Environment* initXmlEnvironment();                      \
+  static testing::Environment* const env = initXmlEnvironment()
+#endif
+
 #endif  // COMMON_GTEST_DYNAWO_H_

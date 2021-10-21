@@ -21,7 +21,7 @@
 #ifndef MODELS_CPP_COMPONENTS_MODELLOADRESTORATIVEWITHLIMITS_DYNMODELLOADRESTORATIVEWITHLIMITS_H_
 #define MODELS_CPP_COMPONENTS_MODELLOADRESTORATIVEWITHLIMITS_DYNMODELLOADRESTORATIVEWITHLIMITS_H_
 
-#include "DYNModelCPPImpl.h"
+#include "DYNModelCPP.h"
 #include "DYNModelConstants.h"
 #include "DYNSubModelFactory.h"
 
@@ -59,7 +59,7 @@ class ModelLoadRestorativeWithLimitsFactory : public SubModelFactory {
 /**
 * @brief ModelLoadRestorativeWithLimits class
 */
-class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
+class ModelLoadRestorativeWithLimits : public ModelCPP {
  public:
   /**
   * @brief default constructor
@@ -95,7 +95,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   } zInd;
   /**
   * @brief define parameters
-  * @param parameters: vector to fill with the generic parameters
+  * @param parameters vector to fill with the generic parameters
   */
   void defineParameters(std::vector<ParameterModeler>& parameters);
   /**
@@ -270,11 +270,6 @@ class ModelLoadRestorativeWithLimits : public ModelCPP::Impl {
   * @param t Simulation instant
   */
   void evalZ(const double t);
-
-  /**
-   * @brief Coherence check on data (asserts, min/max values, sanity checks)
-   */
-  void checkDataCoherence(const double /*t*/) { /* not needed */ }
 
  private:
   unsigned int UfRawYNum_;  ///< local Y index for UfRaw

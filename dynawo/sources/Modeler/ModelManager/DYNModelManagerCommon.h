@@ -47,16 +47,32 @@
 #include "DYNModelManagerOwnTypes.h"  ///< redefinition of local own types : should be before simulation_data.h
 #ifdef __clang__
 #pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
 #pragma clang diagnostic ignored "-Wextra-semi-stmt"
+#pragma clang diagnostic ignored "-Wold-style-cast"
+#pragma clang diagnostic ignored "-Wreserved-id-macro"
+#pragma clang diagnostic ignored "-Wundef"
 #endif  // __clang__
 #include "simulation_data.h"
 #ifdef __clang__
 #pragma clang diagnostic pop
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreserved-id-macro"
 #endif  // __clang__
 #include "ModelicaStandardTables.h"
 #include "ModelicaStrings.h"
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 #include "DYNModelManagerOwnFunctions.h"  ///< redefinition of local own functions
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundef"
+#endif  // __clang__
 #include "ModelicaUtilities.h"
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 #ifdef _MSC_VER
 #undef isnan    // undef macros defined in omc.msvc.h !
@@ -293,23 +309,42 @@ class DYNDATA : public DATA {
 namespace DYN {
 
 /**
- * class memoryManagerChars
+ * @class memoryManagerChars
+ * @brief Keep track of chars created and which should be deleted at the end of the execution
  */
 class memoryManagerChars {
- public:
+ private:
   /**
    * @brief Default constructor
-   *
    */
   memoryManagerChars() { }
 
   /**
+   * @brief Get instance of modelica chars manager
+   * @return the unique instance
+   */
+  static memoryManagerChars& getInstance() {
+    static memoryManagerChars mmChars;
+    return mmChars;
+  }
+
+ public:
+  /**
    * @brief Default destructor
-   *
    */
   ~memoryManagerChars() { }
 
- public:
+  /**
+   * @brief Keep track of a string
+   * @param str the string to keep track of
+   * @return the string as null-terminated const char pointer
+   */
+  static const char* keep(const std::string& str) {
+    getInstance().string2Keep_.push_back(str);
+    return getInstance().string2Keep_.back().c_str();
+  }
+
+ private:
   std::list<std::string> string2Keep_;  ///< string created along the simulation and that should be deleted at the end of the simulation
 };
 

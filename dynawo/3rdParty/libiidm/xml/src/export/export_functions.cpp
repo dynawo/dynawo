@@ -33,6 +33,7 @@
 #include <IIDM/components/Bus.h>
 #include <IIDM/components/Switch.h>
 
+#include <IIDM/components/Battery.h>
 #include <IIDM/components/Load.h>
 #include <IIDM/components/ShuntCompensator.h>
 #include <IIDM/components/DanglingLine.h>
@@ -218,6 +219,7 @@ void to_xml(Element& root, IIDM::VoltageLevel const& v) {
     topology << v.switches();
   }
   voltageLevel << v.generators();
+  voltageLevel << v.batteries();
   voltageLevel << v.loads();
   voltageLevel << v.shuntCompensators();
   voltageLevel << v.danglingLines();
@@ -288,6 +290,24 @@ void to_xml(Element& root, IIDM::Load const& load) {
       << pq(load)
   );
   e << properties(load);
+}
+
+void to_xml(Element& root, IIDM::Battery const& battery) {
+
+  Element e = root.element(
+    "battery",
+    make_attributes(identifiable(battery))
+      ("p0", battery.p0())
+      ("q0", battery.q0())
+      ("minP", battery.pmin())
+      ("maxP", battery.pmax())
+      << connectable(battery)
+      << pq(battery)
+  );
+  e << properties(battery);
+
+  if (battery.has_reactiveCapabilityCurve()) to_xml(e, "reactiveCapabilityCurve", battery.reactiveCapabilityCurve());
+  if (battery.has_minMaxReactiveLimits())    to_xml(e, "minMaxReactiveLimits", battery.minMaxReactiveLimits());
 }
 
 void to_xml(Element& root, IIDM::ShuntCompensator const& shunt) {

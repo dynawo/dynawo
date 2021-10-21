@@ -34,8 +34,6 @@ namespace DYN {
  */
 typedef SolverFactory* getFactory_t();
 
-SolverFactories SolverFactory::factories_;
-
 SolverFactories::SolverFactories() { }
 
 SolverFactories::~SolverFactories() {
@@ -45,6 +43,11 @@ SolverFactories::~SolverFactories() {
 
     deleteFactory(iter->second);
   }
+}
+
+SolverFactories& SolverFactories::getInstance() {
+  static SolverFactories factories;  ///< Factories already available
+  return factories;
 }
 
 SolverFactories::SolverFactoryIterator SolverFactories::find(const std::string& lib) {
@@ -65,12 +68,12 @@ void SolverFactories::add(const std::string& lib, const boost::function<deleteSo
 }
 
 boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& lib) {
-  SolverFactories::SolverFactoryIterator iter = factories_.find(lib);
+  SolverFactories::SolverFactoryIterator iter = SolverFactories::getInstance().find(lib);
   Solver* solver;
   boost::shared_ptr<Solver> solverShared;
   boost::shared_ptr<boost::dll::shared_library> sharedib;
 
-  if (factories_.end(iter)) {
+  if (SolverFactories::getInstance().end(iter)) {
     std::string func;
     boost::function<getFactory_t> getFactory;
     boost::function<deleteSolverFactory_t> deleteFactory;
@@ -97,8 +100,8 @@ boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& 
 
     SolverFactory* factory = getFactory();
     factory->lib_ = sharedib;
-    factories_.add(lib, factory);
-    factories_.add(lib, deleteFactory);
+    SolverFactories::getInstance().add(lib, factory);
+    SolverFactories::getInstance().add(lib, deleteFactory);
     solver = factory->create();
     SolverDelete deleteSolver(factory);
     solverShared.reset(solver, deleteSolver);

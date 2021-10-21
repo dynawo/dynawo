@@ -58,7 +58,7 @@
 using boost::shared_ptr;
 
 namespace DYN {
-std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChanger, bool phaseTapChanger,
                                   bool loadTapChangingCapabilities = true, bool closed1 = true, bool closed2 = true) {
 #ifdef USE_POWSYBL
@@ -951,7 +951,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
   std::map<int, std::string> gEquationIndex;
   t2w->setGequations(gEquationIndex);
   ASSERT_EQ(gEquationIndex.size(), nbG);
-  for (size_t i = 0; i < nbG; ++i) {
+  for (unsigned i = 0; i < nbG; ++i) {
     ASSERT_TRUE(gEquationIndex.find(i) != gEquationIndex.end());
   }
 
@@ -1031,7 +1031,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerOpenedDiscreteVariabl
   std::map<int, std::string> gEquationIndex;
   t2w->setGequations(gEquationIndex);
   ASSERT_EQ(gEquationIndex.size(), nbG);
-  for (size_t i = 0; i < nbG; ++i) {
+  for (unsigned i = 0; i < nbG; ++i) {
     ASSERT_TRUE(gEquationIndex.find(i) != gEquationIndex.end());
   }
 

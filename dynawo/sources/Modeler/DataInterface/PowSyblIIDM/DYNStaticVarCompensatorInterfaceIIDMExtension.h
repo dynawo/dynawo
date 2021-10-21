@@ -38,7 +38,7 @@ class StaticVarCompensatorInterfaceIIDMExtension {
 
   /**
    * @brief Interface to export the stand by mode of the svc
-   * @param standByMode: svc in standby or no
+   * @param standByMode svc in standby or no
    */
   virtual void exportStandByMode(bool standByMode) = 0;
 

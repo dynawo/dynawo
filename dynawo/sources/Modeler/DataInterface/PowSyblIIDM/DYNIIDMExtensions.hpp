@@ -86,20 +86,20 @@ class IIDMExtensions {
     const auto& name = IIDMExtensionTrait<T>::name;
     std::shared_ptr<boost::dll::shared_library> extensionLibrary;
     std::unique_lock<std::mutex> lock(librariesMutex_);
-    if (libraries_.count(libPath) > 0) {
-      extensionLibrary = libraries_.at(libPath);
+    if (getLibraries().count(libPath) > 0) {
+      extensionLibrary = getLibraries().at(libPath);
     } else {
       try {
         extensionLibrary = std::make_shared<boost::dll::shared_library>(libPath);
       } catch (const std::exception& e) {
-        if (librariesLoadingIssues_.count(libPath) == 0) {
+        if (getLibrariesLoadingIssues().count(libPath) == 0) {
           // put the log only once
           Trace::warn() << DYNLog(IIDMExtensionLibraryNotLoaded, libPath, name, e.what()) << Trace::endline;
-          librariesLoadingIssues_.insert(libPath);
+          getLibrariesLoadingIssues().insert(libPath);
         }
         return buildDefaultExtensionDefinition<T>();
       }
-      libraries_[libPath] = extensionLibrary;
+      getLibraries()[libPath] = extensionLibrary;
     }
     lock.unlock();
 
@@ -126,6 +126,25 @@ class IIDMExtensions {
   ///< Alias for library path in map
   using LibraryPath = std::string;
 
+ public:
+  /**
+   * @brief Get list of loaded libraries
+   * @return the list of loaded libraries
+   */
+  static std::unordered_map<IIDMExtensions::LibraryPath, std::shared_ptr<boost::dll::shared_library> >& getLibraries() {
+    static std::unordered_map<IIDMExtensions::LibraryPath, std::shared_ptr<boost::dll::shared_library> > libraries;
+    return libraries;
+  }
+
+  /**
+   * @brief Get list of libraries path for which a loading issue was detected
+   * @return the list of libraries path for which a loading issue was detected
+   */
+  static std::unordered_set<LibraryPath>& getLibrariesLoadingIssues() {
+    static std::unordered_set<LibraryPath> librariesLoadingIssues;
+    return librariesLoadingIssues;
+  }
+
  private:
   /**
    * @brief Build a default extension definition
@@ -145,8 +164,6 @@ class IIDMExtensions {
   }
 
  private:
-  static std::unordered_map<LibraryPath, std::shared_ptr<boost::dll::shared_library> > libraries_;  ///< List of loaded libraries
-  static std::unordered_set<LibraryPath> librariesLoadingIssues_;  ///< List of libraries path for which a loading issue was detected
   static std::mutex librariesMutex_;                               ///< Mutex to access libraries
 };
 }  // namespace DYN

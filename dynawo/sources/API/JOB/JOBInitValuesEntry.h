@@ -23,7 +23,7 @@
 namespace job {
 
 /**
- * @brief InitValuesEntry
+ * @class InitValuesEntry
  * @brief Init values entries container class
  */
 class InitValuesEntry {

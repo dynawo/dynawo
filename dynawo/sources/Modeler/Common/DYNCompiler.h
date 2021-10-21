@@ -61,17 +61,17 @@ class Compiler {
  public:
   /**
    * @brief Compiler constructor.
-   * @param dyd : dynamic data instance  where data of models to compile are stored
-   * @param useStandardPrecompiledModels: whether to use standard precompiled models
-   * @param precompiledModelsDirs: precompiled models directory
-   * @param precompiledModelsExtension: precompiled modesls extension
-   * @param useStandardModelicaModels: whether to use standard modelica models
+   * @param dyd dynamic data instance  where data of models to compile are stored
+   * @param useStandardPrecompiledModels whether to use standard precompiled models
+   * @param precompiledModelsDirs precompiled models directory
+   * @param precompiledModelsExtension precompiled modesls extension
+   * @param useStandardModelicaModels whether to use standard modelica models
    * @param modelicaModelsDirs modelica models directories
-   * @param modelicaModelsExtension: modelica models extension
-   * @param pathsToIgnore : paths that shouldn't be explored
-   * @param additionalHeaderFiles: list of headers that should be included in the dynamic model files
-   * @param rmModels: remove .mo model
-   * @param outputDir: output directory
+   * @param modelicaModelsExtension modelica models extension
+   * @param pathsToIgnore paths that shouldn't be explored
+   * @param additionalHeaderFiles list of headers that should be included in the dynamic model files
+   * @param rmModels remove .mo model
+   * @param outputDir output directory
    */
   Compiler(const boost::shared_ptr<DynamicData>& dyd,
           const bool useStandardPrecompiledModels,
@@ -95,11 +95,6 @@ class Compiler {
   modelDirPath_(outputDir),
   additionalHeaderFiles_(additionalHeaderFiles),
   rmModels_(rmModels) { }
-
-  /**
-   * @brief default destructor.
-   */
-  ~Compiler() { }
 
   /**
    * @brief Compile models in a dyd files.

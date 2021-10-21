@@ -35,7 +35,7 @@ class StaticRefInterface {
 
   /**
    * @brief set model id
-   * @param modelID
+   * @param modelID model's id
    */
   void setModelID(const std::string& modelID) {
     modelID_ = modelID;
@@ -43,7 +43,7 @@ class StaticRefInterface {
 
   /**
    * @brief set model variable
-   * @param modelVar
+   * @param modelVar model's variable
    */
   void setModelVar(const std::string& modelVar) {
     modelVar_ = modelVar;
@@ -51,7 +51,7 @@ class StaticRefInterface {
 
   /**
    * @brief set static variable
-   * @param staticVar
+   * @param staticVar model's static variable
    */
   void setStaticVar(const std::string& staticVar) {
     staticVar_ = staticVar;

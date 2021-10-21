@@ -41,7 +41,7 @@ model SVarCPVRemote "PV static var compensator model with remote voltage regulat
   Types.PerUnit BPu(start = B0Pu) "Susceptance of the static var compensator in p.u (base UNomLocal, SnRef)";
   Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in p.u (base UNomLocal)";
   Types.ReactivePowerPu QInjPu(start = B0Pu * U0Pu ^ 2) "Reactive power in p.u (base SnRef) (generator convention)";
-  Types.ReactivePowerPu PInjPu(start = 0) "Active power in p.u (base SnRef) (generator convention)";
+  Types.ActivePowerPu PInjPu(start = 0) "Active power in p.u (base SnRef) (generator convention)";
   Types.VoltageModulePu URefPu(start = URef0 / UNomRemote) = modeHandling.URefPu "Reference voltage amplitude in p.u (base UNomRemote)";
 
   BaseControls.ModeHandling modeHandling(Mode0 = Mode0, UNom = UNomRemote, URefDown = URefDown, URefUp = URefUp, UThresholdDown = UThresholdDown, UThresholdUp = UThresholdUp, tThresholdDown = tThresholdDown, tThresholdUp = tThresholdUp, URef0 = URef0);

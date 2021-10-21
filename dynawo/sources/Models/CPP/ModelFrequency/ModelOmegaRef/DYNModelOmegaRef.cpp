@@ -91,7 +91,7 @@ int ModelOmegaRef::col1stOmega_;
  *
  */
 ModelOmegaRef::ModelOmegaRef() :
-Impl("omegaRef"),
+ModelCPP("omegaRef"),
 firstState_(true),
 nbGen_(0),
 nbCC_(0),
@@ -183,28 +183,11 @@ ModelOmegaRef::evalF(double /*t*/, propertyF_t type) {
   }
 }
 
-/**
- * @brief Reference frequency G(t,y,y') function evaluation
- *
- * Get the root's value
- *
- * @param t Simulation instant
- */
 void
 ModelOmegaRef::evalG(const double /*t*/) {
-  // No root fucntion for this model
+  // No root function for this model
 }
 
-/**
- * @brief Reference frequency transposed jacobian evaluation
- *
- * Get the sparse transposed jacobian \f$ Jt=@F/@y + cj*@F/@y' \f$
- *
- * @param t Simulation instant
- * @param cj Jacobian prime coefficient
- * @param jt
- * @param rowOffset
- */
 void
 ModelOmegaRef::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
   // Equations:
@@ -249,16 +232,6 @@ ModelOmegaRef::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& jt,
   }
 }
 
-/**
- * @brief  Reference frequency transposed jacobian evaluation
- *
- * Get the sparse transposed jacobian \f$ Jt=@F/@y' \f$
- *
- * @param t Simulation instant
- * @param cj Jacobian prime coefficient
- * @param jt
- * @param rowOffset
- */
 void
 ModelOmegaRef::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int /*rowOffset*/) {
   // Equations:
@@ -279,14 +252,6 @@ ModelOmegaRef::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix&
     jt.changeCol();
 }
 
-/**
- * @brief Reference frequency discrete variables evaluation
- *
- * Get the discrete variables' value depending on current simulation instant and
- * current state variables values.
- *
- * @param t Simulation instant
- */
 void
 ModelOmegaRef::evalZ(const double /*t*/) {
   std::copy(zLocal_, zLocal_ + nbGen_, numCCNode_.begin());
@@ -300,15 +265,6 @@ ModelOmegaRef::collectSilentZ(BitMask* silentZTable) {
   }
 }
 
-/**
- * @brief Reference frequency modes' evaluation
- *
- * Set the modes' value depending on current simulation instant and
- * current state variables values. For this model, the mode changes when the number
- * of subNetwork changes
- *
- * @param t Simulation instant
- */
 modeChangeType_t
 ModelOmegaRef::evalMode(const double /*t*/) {
   // mode change = number of subNetwork change or grp status change
@@ -347,7 +303,7 @@ ModelOmegaRef::sortGenByCC() {
         sumWeightByCC_[numCCNode_[i]] += weights_[i];
     }
   }
-  nbCC_ = genByCC_.size();
+  nbCC_ = static_cast<int>(genByCC_.size());
   if (nbCC_ > nbMaxCC)
     throw DYNError(Error::MODELER, TooMuchSubNetwork, nbCC_, nbMaxCC);
 }
@@ -577,7 +533,7 @@ ModelOmegaRef::setFequations() {
     fEquationIndex_[k + nbMaxCC] = f.str();
   }
 
-  assert(fEquationIndex_.size() == (unsigned int) sizeF() && "ModelOmegaRef:fEquationIndex_.size() != f_.size()");
+  assert(fEquationIndex_.size() == static_cast<size_t>(sizeF()) && "ModelOmegaRef:fEquationIndex_.size() != f_.size()");
 }
 
 void

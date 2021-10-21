@@ -107,7 +107,7 @@ SolverCommon::printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, 
     int subModelIndexF = 0;
     std::string fEquation("");
     std::pair<double, size_t> currentErr = fErr[i];
-    model.getFInfos(currentErr.second, subModelName, subModelIndexF, fEquation);
+    model.getFInfos(static_cast<int>(currentErr.second), subModelName, subModelIndexF, fEquation);
 
     Trace::debug() << DYNLog(KinErrorValue, currentErr.second, currentErr.first,
                              subModelName, subModelIndexF, fEquation) << Trace::endline;

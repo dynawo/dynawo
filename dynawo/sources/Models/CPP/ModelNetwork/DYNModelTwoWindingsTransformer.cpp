@@ -92,8 +92,8 @@ modelType_("TwoWindingsTransformer") {
   bool connected1 = tfo->getInitialConnected1();
   bool connected2 = tfo->getInitialConnected2();
 
-  vNom1_ = NAN;
-  vNom2_ = NAN;
+  vNom1_ = std::numeric_limits<double>::quiet_NaN();
+  vNom2_ = std::numeric_limits<double>::quiet_NaN();
   if (connected1 && connected2) {
     connectionState_ = CLOSED;
     vNom1_ = tfo->getVNom1();
@@ -127,8 +127,8 @@ modelType_("TwoWindingsTransformer") {
     } else {
       vNom2_ = tfo->getRatedU2();  // bus2 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
     }
-    assert(vNom1_ == vNom1_);  // control that vNom != NAN
-    assert(vNom2_ == vNom2_);  // control that vNom != NAN
+    assert(!std::isnan(vNom1_));  // control that vNom != NAN
+    assert(!std::isnan(vNom2_));  // control that vNom != NAN
   }
 
   if (tfo->getBusInterface1() && tfo->getBusInterface2())
@@ -172,7 +172,7 @@ modelType_("TwoWindingsTransformer") {
       double bTap = b * (1. + bTapChanger + steps[i]->getB() / 100.);
       modelPhaseChanger_->addStep(TapChangerStep(rho, phaseShift, rTap, xTap, gTap, bTap));
     }
-    modelPhaseChanger_->setHighStepIndex(phaseTapChanger->getNbTap() - 1. + lowIndex);
+    modelPhaseChanger_->setHighStepIndex(phaseTapChanger->getNbTap() + lowIndex - 1);
     modelPhaseChanger_->setCurrentStepIndex(phaseTapChanger->getCurrentPosition());
 
     // At the moment, only current regulation is supported.
@@ -196,7 +196,7 @@ modelType_("TwoWindingsTransformer") {
         double bTap = b * (1. + steps[i]->getB() / 100.);
         modelRatioChanger_->addStep(TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
       }
-      modelRatioChanger_->setHighStepIndex(ratioTapChanger->getNbTap() - 1. + lowIndex);
+      modelRatioChanger_->setHighStepIndex(ratioTapChanger->getNbTap() + lowIndex - 1);
       modelRatioChanger_->setCurrentStepIndex(ratioTapChanger->getCurrentPosition());
 
       bool regulating = ratioTapChanger->getRegulating();
@@ -1453,7 +1453,7 @@ ModelTwoWindingsTransformer::setGequations(std::map<int, std::string>& gEquation
   }
 
 
-  assert(gEquationIndex.size() == (unsigned int) sizeG_ && "Model TwoWindingsTransformer: gEquationIndex.size() != sizeG_");
+  assert(gEquationIndex.size() == static_cast<size_t>(sizeG_) && "Model TwoWindingsTransformer: gEquationIndex.size() != sizeG_");
 }
 
 double

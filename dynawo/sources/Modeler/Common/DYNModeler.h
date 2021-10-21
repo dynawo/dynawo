@@ -49,11 +49,6 @@ class Modeler {
   Modeler() { }
 
   /**
-   * @brief destructor
-   */
-  ~Modeler() { }
-
-  /**
    * @brief set the data interface to use do define the model multi
    * @param data : data interface to use
    */
@@ -132,10 +127,10 @@ class Modeler {
 
   /**
    * @brief replace STATIC and NODE macros in a macro connection
-   * @param subModel1: first connected model
-   * @param var1: first connected variable
-   * @param subModel2: second connected model
-   * @param var2: second connected variable
+   * @param subModel1 first connected model
+   * @param var1 first connected variable
+   * @param subModel2 second connected model
+   * @param var2 second connected variable
    */
   void replaceStaticAndNodeMacroInVariableName(const boost::shared_ptr<SubModel>& subModel1, std::string& var1,
       const boost::shared_ptr<SubModel>& subModel2, std::string& var2) const;
@@ -148,12 +143,12 @@ class Modeler {
   void initParamDescription(const boost::shared_ptr<ModelDescription>& modelDescription);
 
   /**
-   * @brief replace \@NODE\@, \@NODE1\@, \@NODE2\@ with the id of the bus the compoment is connected to
-   * @param subModel1: first connected model
-   * @param var1: first connected variable
-   * @param subModel2: second connected model
-   * @param var2: second connected variable
-   * @param labelNode: \@NODE\@ or \@NODE1\@ or \@NODE2\@
+   * @brief replace \@NODE\@, \@NODE1\@, \@NODE2\@ with the id of the bus the component is connected to
+   * @param subModel1 first connected model
+   * @param var1 first connected variable
+   * @param subModel2 second connected model
+   * @param var2 second connected variable
+   * @param labelNode \@NODE\@ or \@NODE1\@ or \@NODE2\@
    */
   void replaceNodeWithBus(const boost::shared_ptr<SubModel>& subModel1, std::string& var1,
       const boost::shared_ptr<SubModel>& subModel2, std::string& var2, const std::string& labelNode) const;

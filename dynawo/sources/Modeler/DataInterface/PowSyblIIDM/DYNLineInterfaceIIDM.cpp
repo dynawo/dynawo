@@ -205,7 +205,7 @@ bool
 LineInterfaceIIDM::isConnected1() const {
   bool connected = lineIIDM_.getTerminal1().isConnected();
   if (connected && voltageLevelInterface1_->isNodeBreakerTopology())
-    connected = voltageLevelInterface1_->isNodeConnected(lineIIDM_.getTerminal1().getNodeBreakerView().getNode());
+    connected = voltageLevelInterface1_->isNodeConnected(static_cast<unsigned int>(lineIIDM_.getTerminal1().getNodeBreakerView().getNode()));
   return connected;
 }
 
@@ -213,7 +213,7 @@ bool
 LineInterfaceIIDM::isConnected2() const {
   bool connected = lineIIDM_.getTerminal2().isConnected();
   if (connected && voltageLevelInterface2_->isNodeBreakerTopology())
-    connected = voltageLevelInterface2_->isNodeConnected(lineIIDM_.getTerminal2().getNodeBreakerView().getNode());
+    connected = voltageLevelInterface2_->isNodeConnected(static_cast<unsigned int>(lineIIDM_.getTerminal2().getNodeBreakerView().getNode()));
   return connected;
 }
 
@@ -279,9 +279,9 @@ LineInterfaceIIDM::exportStateVariablesUnitComponent() {
     // should be removed once a solution has been found to propagate switches (de)connection
     // following component (de)connection (only Modelica models)
     if (connected1 && !getInitialConnected1())
-      voltageLevelInterface1_->connectNode(lineIIDM_.getTerminal1().getNodeBreakerView().getNode());
+      voltageLevelInterface1_->connectNode(static_cast<unsigned int>(lineIIDM_.getTerminal1().getNodeBreakerView().getNode()));
     else if (!connected1 && getInitialConnected1())
-      voltageLevelInterface1_->disconnectNode(lineIIDM_.getTerminal1().getNodeBreakerView().getNode());
+      voltageLevelInterface1_->disconnectNode(static_cast<unsigned int>(lineIIDM_.getTerminal1().getNodeBreakerView().getNode()));
   }
   if (connected1)
     lineIIDM_.getTerminal1().connect();
@@ -292,9 +292,9 @@ LineInterfaceIIDM::exportStateVariablesUnitComponent() {
     // should be removed once a solution has been found to propagate switches (de)connection
     // following component (de)connection (only Modelica models)
     if (connected2 && !getInitialConnected2())
-      voltageLevelInterface2_->connectNode(lineIIDM_.getTerminal2().getNodeBreakerView().getNode());
+      voltageLevelInterface2_->connectNode(static_cast<unsigned int>(lineIIDM_.getTerminal2().getNodeBreakerView().getNode()));
     else if (!connected2 && getInitialConnected2())
-      voltageLevelInterface2_->disconnectNode(lineIIDM_.getTerminal2().getNodeBreakerView().getNode());
+      voltageLevelInterface2_->disconnectNode(static_cast<unsigned int>(lineIIDM_.getTerminal2().getNodeBreakerView().getNode()));
   }
   if (connected2)
     lineIIDM_.getTerminal2().connect();
@@ -347,7 +347,7 @@ LineInterfaceIIDM::getCurrentLimitNbTemporary(const std::string& season, Current
   const auto& map = currentLimitsPerSeasonExtension_->getCurrentLimits();
   auto found = map.find(season);
   if (found != map.end()&& found->second.currentLimits.count(side) > 0 && found->second.currentLimits.at(side)) {
-    return found->second.currentLimits.at(side)->temporaryLimits.size();
+    return static_cast<unsigned int>(found->second.currentLimits.at(side)->temporaryLimits.size());
   }
 
   return boost::none;

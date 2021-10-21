@@ -33,8 +33,6 @@ using std::string;
 namespace DYN {
 typedef SubModelFactory* getSubModelFactory_t();
 
-SubModelFactories SubModelFactory::factories_;
-
 SubModelFactories::SubModelFactories() {
 }
 
@@ -45,6 +43,11 @@ SubModelFactories::~SubModelFactories() {
 
     deleteFactory(iter->second);
   }
+}
+
+SubModelFactories& SubModelFactories::getInstance() {
+  static SubModelFactories factories;  ///< Factories already available
+  return factories;
 }
 
 SubModelFactories::SubmodelFactoryIterator SubModelFactories::find(const std::string& lib) {
@@ -77,12 +80,12 @@ void SubModelFactories::add(const std::string& lib, const boost::function<delete
 }
 
 boost::shared_ptr<SubModel> SubModelFactory::createSubModelFromLib(const std::string & lib) {
-  SubModelFactories::SubmodelFactoryIterator iter = factories_.find(lib);
+  SubModelFactories::SubmodelFactoryIterator iter = SubModelFactories::getInstance().find(lib);
   SubModel* subModel;
   boost::shared_ptr<SubModel> subModelShared;
   boost::shared_ptr<boost::dll::shared_library> sharedLib;
 
-  if (factories_.end(iter)) {
+  if (SubModelFactories::getInstance().end(iter)) {
     std::string func;
     boost::function<getSubModelFactory_t> getFactory;
     boost::function<deleteSubModelFactory_t> deleteFactory;
@@ -109,8 +112,8 @@ boost::shared_ptr<SubModel> SubModelFactory::createSubModelFromLib(const std::st
 
     SubModelFactory* factory = getFactory();
     factory->lib_ = sharedLib;
-    factories_.add(lib, factory);
-    factories_.add(lib, deleteFactory);
+    SubModelFactories::getInstance().add(lib, factory);
+    SubModelFactories::getInstance().add(lib, deleteFactory);
     subModel = factory->create();
     SubModelDelete deleteSubModel(factory);
     subModelShared.reset(subModel, deleteSubModel);

@@ -67,9 +67,9 @@ DanglingLineInterfaceIIDM::exportStateVariablesUnitComponent() {
     // should be removed once a solution has been found to propagate switches (de)connection
     // following component (de)connection (only Modelica models)
     if (connected && !getInitialConnected())
-      getVoltageLevelInterfaceInjector()->connectNode(danglingLineIIDM_.getTerminal().getNodeBreakerView().getNode());
+      getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(danglingLineIIDM_.getTerminal().getNodeBreakerView().getNode()));
     else if (!connected && getInitialConnected())
-      getVoltageLevelInterfaceInjector()->disconnectNode(danglingLineIIDM_.getTerminal().getNodeBreakerView().getNode());
+      getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(danglingLineIIDM_.getTerminal().getNodeBreakerView().getNode()));
   }
   if (connected)
     danglingLineIIDM_.getTerminal().connect();

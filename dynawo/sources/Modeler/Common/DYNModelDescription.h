@@ -46,7 +46,7 @@ class ModelDescription {
 
   /**
    * @brief default constructor.
-   * @param model
+   * @param model another model
    */
   explicit ModelDescription(const boost::shared_ptr<dynamicdata::Model>& model) :
   model_(model),
@@ -59,7 +59,7 @@ class ModelDescription {
 
   /**
    * @brief add static reference interface
-   * @param staticRefInterface
+   * @param staticRefInterface static reference interface
    */
   inline void addStaticRefInterface(const boost::shared_ptr<StaticRefInterface>& staticRefInterface) {
     staticRefInterfaces_.push_back(staticRefInterface);
@@ -99,7 +99,7 @@ class ModelDescription {
 
   /**
    * @brief set compiled model ID
-   * @param compiledModelId
+   * @param compiledModelId compiled model ID
    */
   inline void setCompiledModelId(const std::string& compiledModelId) {
     compiledModelId_ = compiledModelId;

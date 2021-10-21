@@ -61,6 +61,7 @@ set(IIDM_XML_SOURCES
   src/import/BusBarSectionHandler.cpp
   src/import/SwitchHandler.cpp
 
+  src/import/BatteryHandler.cpp
   src/import/GeneratorHandler.cpp
   src/import/DanglingLineHandler.cpp
   src/import/LoadHandler.cpp

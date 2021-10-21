@@ -40,6 +40,7 @@ class Transformer3Windings;
 class Load;
 class ShuntCompensator;
 class Generator;
+class Battery;
 class DanglingLine;
 class TieLine;
 class StaticVarCompensator;
@@ -246,7 +247,7 @@ class DataInterfaceIIDM : public DataInterface {
  private:
   /**
    * @brief find a bus interface thanks to its id
-   * @param id: id of the bus interface to find
+   * @param id id of the bus interface to find
    *
    * @return instance of bus interface found
    */
@@ -254,7 +255,7 @@ class DataInterfaceIIDM : public DataInterface {
 
   /**
    * @brief find a voltage level interface thanks to its id
-   * @param id: id of the voltage level interface to find
+   * @param id id of the voltage level interface to find
    *
    * @return instance of voltage level interface found
    */
@@ -311,6 +312,15 @@ class DataInterfaceIIDM : public DataInterface {
    * @return the instance of GeneratorInterface created
    */
   boost::shared_ptr<GeneratorInterface> importGenerator(IIDM::Generator & generatorIIDM, const std::string& country);
+
+  /**
+   * @brief import and create a battery interface thanks to the IIDM instance
+   *
+   * @param batteryIIDM IIDM instance to use to create generatorInterface
+   * @param country country of the parent substation
+   * @return the instance of GeneratorInterface created
+   */
+  boost::shared_ptr<GeneratorInterface> importBattery(IIDM::Battery & batteryIIDM, const std::string& country);
 
   /**
    * @brief import and create a load interface thanks to the IIDM instance
@@ -379,7 +389,7 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief import and create a vsc converter interface thanks to the IIDM instance
    *
-   * @param vscIIDM: IIDM instance to use to create vsc converter interface
+   * @param vscIIDM IIDM instance to use to create vsc converter interface
    * @return the instance of vscConverterInterface created
    */
   boost::shared_ptr<VscConverterInterface> importVscConverter(IIDM::VscConverterStation& vscIIDM);
@@ -387,7 +397,7 @@ class DataInterfaceIIDM : public DataInterface {
   /**
    * @brief import and create a lcc converter interface thanks to the IIDM instance
    *
-   * @param lccIIDM: IIDM instance to use to create lcc converter interface
+   * @param lccIIDM IIDM instance to use to create lcc converter interface
    * @return the instance of lccConverterInterface created
    */
   boost::shared_ptr<LccConverterInterface> importLccConverter(IIDM::LccConverterStation& lccIIDM);

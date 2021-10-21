@@ -77,7 +77,7 @@ namespace DYN {
 // TEST DYNParameter
 //-----------------------------------------------------
 
-shared_ptr<SubModel>
+static shared_ptr<SubModel>
 initializeModelNetwork(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib("../DYNModelNetwork" + std::string(sharedLibraryExtension()));
   modelNetwork->initFromData(data);
@@ -98,7 +98,7 @@ struct NetworkProperty {
 };
 
 #ifdef USE_POWSYBL
-shared_ptr<DataInterface>
+static shared_ptr<DataInterface>
 createDataItfFromNetwork(const boost::shared_ptr<powsybl::iidm::Network>& network) {
   shared_ptr<DataInterfaceIIDM> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
@@ -108,6 +108,7 @@ createDataItfFromNetwork(const boost::shared_ptr<powsybl::iidm::Network>& networ
 }
 #endif
 
+static
 #ifdef USE_POWSYBL
 shared_ptr<powsybl::iidm::Network>
 #else

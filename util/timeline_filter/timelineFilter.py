@@ -12,8 +12,8 @@ import os
 import sys
 import re
 from optparse import OptionParser
-from xml.dom import minidom
 import glob
+from lxml import etree
 
 class Event :
     def __init__(self):
@@ -55,6 +55,9 @@ class Timeline :
             try:
                 event.event.decode('utf-8')
             except UnicodeDecodeError:
+                use_iso88591 = True
+                break
+            except UnicodeEncodeError:
                 use_iso88591 = True
                 break
         if not use_iso88591:
@@ -123,21 +126,21 @@ class Timeline :
         elif type == "XML":
             f = open(filepath, "w")
             f.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n")
-            f.write("<timeline xmlns:dyn=\"http://www.rte-france.com/dynawo\">\n")
+            f.write("<dyn:timeline xmlns:dyn=\"http://www.rte-france.com/dynawo\">\n")
             for time in sorted_keys:
                 events = self.time_to_events[time]
                 for event in events:
                     try:
                         if event.priority == None:
-                            f.write("<event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event + "\"/>\n")
+                            f.write("<dyn:event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event + "\"/>\n")
                         else:
-                            f.write("<event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event+ "\" priority=\"" + event.priority + "\"/>\n")
+                            f.write("<dyn:event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event+ "\" priority=\"" + event.priority + "\"/>\n")
                     except UnicodeEncodeError:
                         if event.priority == None:
-                            f.write("<event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.mode.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1') + "\"/>\n")
+                            f.write("<dyn:event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.mode.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1') + "\"/>\n")
                         else:
-                            f.write("<event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.model.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1')+ "\" priority=\"" + event.priority.encode('iso8859-1') + "\"/>\n")
-            f.write("</timeline>\n")
+                            f.write("<dyn:event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.model.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1')+ "\" priority=\"" + event.priority.encode('iso8859-1') + "\"/>\n")
+            f.write("</dyn:timeline>\n")
             f.close()
 
 def read_txt(filepath):
@@ -162,20 +165,25 @@ def read_txt(filepath):
 def read_xml(filepath):
     timeline = Timeline()
     try:
-        doc = minidom.parse(filepath)
-        root = doc.documentElement
+        root=etree.parse(filepath).getroot()
+        ns = root.nsmap
+        prefix = root.prefix
+        if prefix is None:
+            prefix_root_string=''
+        else:
+            prefix_root_string=prefix+':'
     except:
         printout("Fail to import XML file " + filepath + os.linesep, BLACK)
         sys.exit(1)
 
-    for event_timeline in root.getElementsByTagNameNS(root.namespaceURI, 'event'):
+    for event_timeline in root.findall('.//' + prefix_root_string + 'event', ns):
         event = Event()
-        time = float(event_timeline.getAttribute('time'))
+        time = float(event_timeline.attrib['time'])
         event.time = time
-        event.model = event_timeline.getAttribute('modelName').strip()
-        event.event = event_timeline.getAttribute('message').rstrip().lstrip()
-        if event_timeline.hasAttribute('priority'):
-            event.priority = event_timeline.getAttribute('priority').rstrip().lstrip()
+        event.model = event_timeline.attrib['modelName'].strip()
+        event.event = event_timeline.attrib['message'].rstrip().lstrip()
+        if 'priority' in event_timeline.attrib:
+            event.priority = event_timeline.attrib['priority'].rstrip().lstrip()
         timeline.add_event(event)
 
     return timeline
