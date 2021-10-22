@@ -51,23 +51,41 @@ TEST(APITLTest, TimelineExporters) {
 
   // export the timeline in xml format
   XmlExporter exporterXML;
-  ASSERT_NO_THROW(exporterXML.exportToFile(timeline, "testXmlTimelineExport.xml", true));
+  exporterXML.setExportWithTime(true);
+  ASSERT_NO_THROW(exporterXML.exportToFile(timeline, "testXmlTimelineExport.xml"));
   ASSERT_TRUE(compareFiles("testXmlTimelineExport.xml", "res/testXmlTimelineExport.xml"));
-  ASSERT_NO_THROW(exporterXML.exportToFile(timeline, "testXmlTimelineExportWithoutTime.xml", false));
+  exporterXML.setMaxPriority(priority2);
+  ASSERT_NO_THROW(exporterXML.exportToFile(timeline, "testXmlTimelineExportMaxPriority.xml"));
+  ASSERT_TRUE(compareFiles("testXmlTimelineExportMaxPriority.xml", "res/testXmlTimelineExportMaxPriority.xml"));
+  exporterXML.setMaxPriority(priorityNone);
+  exporterXML.setExportWithTime(false);
+  ASSERT_NO_THROW(exporterXML.exportToFile(timeline, "testXmlTimelineExportWithoutTime.xml"));
   ASSERT_TRUE(compareFiles("testXmlTimelineExportWithoutTime.xml", "res/testXmlTimelineExportWithoutTime.xml"));
 
   // export the timeline in csv format
   CsvExporter exporterCSV;
-  ASSERT_NO_THROW(exporterCSV.exportToFile(timeline, "testCsvTimelineExport.csv", true));
+  exporterCSV.setExportWithTime(true);
+  ASSERT_NO_THROW(exporterCSV.exportToFile(timeline, "testCsvTimelineExport.csv"));
   ASSERT_TRUE(compareFiles("testCsvTimelineExport.csv", "res/testCsvTimelineExport.csv"));
-  ASSERT_NO_THROW(exporterCSV.exportToFile(timeline, "testCsvTimelineExportWithoutTime.csv", false));
+  exporterCSV.setMaxPriority(priority2);
+  ASSERT_NO_THROW(exporterCSV.exportToFile(timeline, "testCsvTimelineExportMaxPriority.csv"));
+  ASSERT_TRUE(compareFiles("testCsvTimelineExportMaxPriority.csv", "res/testCsvTimelineExportMaxPriority.csv"));
+  exporterCSV.setMaxPriority(priorityNone);
+  exporterCSV.setExportWithTime(false);
+  ASSERT_NO_THROW(exporterCSV.exportToFile(timeline, "testCsvTimelineExportWithoutTime.csv"));
   ASSERT_TRUE(compareFiles("testCsvTimelineExportWithoutTime.csv", "res/testCsvTimelineExportWithoutTime.csv"));
 
   // export the timeline in txt format
   TxtExporter exporterTXT;
-  ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExport.txt", true));
+  exporterTXT.setExportWithTime(true);
+  ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExport.txt"));
   ASSERT_TRUE(compareFiles("testTxtTimelineExport.txt", "res/testTxtTimelineExport.txt"));
-  ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExportWithoutTime.txt", false));
+  exporterTXT.setMaxPriority(priority2);
+  ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExportMaxPriority.txt"));
+  ASSERT_TRUE(compareFiles("testTxtTimelineExportMaxPriority.txt", "res/testTxtTimelineExportMaxPriority.txt"));
+  exporterTXT.setMaxPriority(priorityNone);
+  exporterTXT.setExportWithTime(false);
+  ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExportWithoutTime.txt"));
   ASSERT_TRUE(compareFiles("testTxtTimelineExportWithoutTime.txt", "res/testTxtTimelineExportWithoutTime.txt"));
 }
 

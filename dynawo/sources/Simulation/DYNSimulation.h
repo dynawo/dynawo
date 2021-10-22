@@ -21,6 +21,7 @@
 #define SIMULATION_DYNSIMULATION_H_
 
 #include <vector>
+#include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
 
@@ -572,6 +573,7 @@ class Simulation {
 
   exportTimelineMode_t exportTimelineMode_;  ///< timeline's output mode
   bool exportTimelineWithTime_;  ///< whether to export time when exporting timeline
+  boost::optional<int> exportTimelineMaxPriority_;  ///< maximum priority when exporting timeline
   std::string timelineOutputFile_;  ///< timeline's export file
 
   std::string timetableOutputFile_;  ///< timetable export file
