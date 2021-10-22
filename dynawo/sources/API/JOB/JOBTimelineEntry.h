@@ -21,6 +21,8 @@
 #define API_JOB_JOBTIMELINEENTRY_H_
 
 #include <string>
+
+#include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 
 namespace job {
@@ -59,6 +61,18 @@ class TimelineEntry {
    * @return Export mode for timeline
    */
   virtual std::string getExportMode() const = 0;
+
+  /**
+   * @brief maximum priority setter
+   * @param maxPriority maximum priority allowed when exporting timeline
+   */
+  virtual void setMaxPriority(const boost::optional<int> maxPriority) = 0;
+
+  /**
+   * @brief maximum priority getter
+   * @return maximum priority allowed when exporting timeline
+   */
+  virtual boost::optional<int> getMaxPriority() const = 0;
 
   /**
    * @brief Clone current entry

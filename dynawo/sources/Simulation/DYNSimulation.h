@@ -21,6 +21,7 @@
 #define SIMULATION_DYNSIMULATION_H_
 
 #include <vector>
+#include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
 
@@ -548,6 +549,7 @@ class Simulation {
   std::string curvesOutputFile_;  ///< curves' output file
 
   exportTimelineMode_t exportTimelineMode_;  ///< timeline's output mode
+  boost::optional<int> exportTimelineMaxPriority_;  ///< maximum priority when exporting timeline
   std::string timelineOutputFile_;  ///< timeline's export file
 
   exportFinalStateMode_t exportFinalStateMode_;  ///< final state's export mode

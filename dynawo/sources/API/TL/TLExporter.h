@@ -36,6 +36,11 @@ class Timeline;
 class Exporter {
  public:
   /**
+   * @brief Default constructor
+   */
+  Exporter() : maxPriority_(boost::none) {}
+
+  /**
    * @brief Destructor
    */
   virtual ~Exporter() {}
@@ -55,6 +60,17 @@ class Exporter {
    * @param stream stream to export to
    */
   virtual void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream) const = 0;
+
+  /**
+   * @brief maximum priority setter
+   * @param maxPriority maximum priority allowed
+   */
+  void setMaxPriority(const boost::optional<int> maxPriority) {
+    maxPriority_ = maxPriority;
+  }
+
+ protected:
+  boost::optional<int> maxPriority_;  ///< maximum priority allowed when exporting timeline
 };
 
 }  // namespace timeline
