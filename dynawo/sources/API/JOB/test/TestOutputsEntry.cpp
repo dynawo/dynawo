@@ -35,7 +35,7 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_EQ(outputs->getInitValuesEntry(), boost::shared_ptr<InitValuesEntry>());
   ASSERT_EQ(outputs->getConstraintsEntry(), boost::shared_ptr<ConstraintsEntry>());
   ASSERT_EQ(outputs->getTimelineEntry(), boost::shared_ptr<TimelineEntry>());
-  ASSERT_EQ(outputs->getFinalStateEntry(), boost::shared_ptr<FinalStateEntry>());
+  ASSERT_EQ(outputs->getFinalStateEntries().empty(), true);
   ASSERT_EQ(outputs->getCurvesEntry(), boost::shared_ptr<CurvesEntry>());
   ASSERT_EQ(outputs->getLogsEntry(), boost::shared_ptr<LogsEntry>());
 
@@ -51,7 +51,7 @@ TEST(APIJOBTest, testOutputsEntry) {
   outputs->setTimelineEntry(timeline);
 
   boost::shared_ptr<FinalStateEntry> finalState = boost::shared_ptr<FinalStateEntry>(new FinalStateEntry::Impl());
-  outputs->setFinalStateEntry(finalState);
+  outputs->addFinalStateEntry(finalState);
 
   boost::shared_ptr<CurvesEntry> curves = boost::shared_ptr<CurvesEntry>(new CurvesEntry::Impl());
   outputs->setCurvesEntry(curves);
@@ -64,7 +64,8 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_EQ(outputs->getInitValuesEntry(), initValues);
   ASSERT_EQ(outputs->getConstraintsEntry(), constraints);
   ASSERT_EQ(outputs->getTimelineEntry(), timeline);
-  ASSERT_EQ(outputs->getFinalStateEntry(), finalState);
+  ASSERT_EQ(outputs->getFinalStateEntries().size(), 1);
+  ASSERT_EQ(outputs->getFinalStateEntries().front(), finalState);
   ASSERT_EQ(outputs->getCurvesEntry(), curves);
   ASSERT_EQ(outputs->getLogsEntry(), logs);
 
@@ -73,7 +74,8 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_NE(outputs_bis->getInitValuesEntry(), initValues);
   ASSERT_NE(outputs_bis->getConstraintsEntry(), constraints);
   ASSERT_NE(outputs_bis->getTimelineEntry(), timeline);
-  ASSERT_NE(outputs_bis->getFinalStateEntry(), finalState);
+  ASSERT_EQ(outputs->getFinalStateEntries().size(), 1);
+  ASSERT_EQ(outputs->getFinalStateEntries().front(), finalState);
   ASSERT_NE(outputs_bis->getCurvesEntry(), curves);
   ASSERT_NE(outputs_bis->getLogsEntry(), logs);
 }
