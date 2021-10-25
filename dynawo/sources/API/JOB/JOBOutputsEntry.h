@@ -22,6 +22,7 @@
 
 #include <string>
 #include <boost/shared_ptr.hpp>
+#include <vector>
 
 namespace job {
 class InitValuesEntry;
@@ -94,13 +95,13 @@ class OutputsEntry {
    * @brief Final State entry setter
    * @param finalStateEntry : final state entry container for the job
    */
-  virtual void setFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) = 0;
+  virtual void addFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) = 0;
 
   /**
    * @brief FinalSate entries container getter
    * @return the final state entry container
    */
-  virtual boost::shared_ptr<FinalStateEntry> getFinalStateEntry() const = 0;
+  virtual const std::vector<boost::shared_ptr<FinalStateEntry> >& getFinalStateEntries() const = 0;
 
   /**
    * @brief Curves entry setter

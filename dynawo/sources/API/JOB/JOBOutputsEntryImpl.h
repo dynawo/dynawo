@@ -83,14 +83,14 @@ class OutputsEntry::Impl : public OutputsEntry {
   boost::shared_ptr<TimelineEntry> getTimelineEntry() const;
 
   /**
-   * @copydoc OutputsEntry::setFinalStateEntry()
+   * @copydoc OutputsEntry::addFinalStateEntry()
    */
-  void setFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry);
+  void addFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry);
 
   /**
-   * @copydoc OutputsEntry::getFinalStateEntry()
+   * @copydoc OutputsEntry::getFinalStateEntries() const
    */
-  boost::shared_ptr<FinalStateEntry> getFinalStateEntry() const;
+  const std::vector<boost::shared_ptr<FinalStateEntry> >& getFinalStateEntries() const;
 
   /**
    * @copydoc OutputsEntry::setCurvesEntry()
@@ -129,7 +129,7 @@ class OutputsEntry::Impl : public OutputsEntry {
   boost::shared_ptr<InitValuesEntry> initValuesEntry_;  ///< Init Values entries container
   boost::shared_ptr<ConstraintsEntry> constraintsEntry_;  ///< Constraints entries container
   boost::shared_ptr<TimelineEntry> timelineEntry_;  ///< Timeline entries container
-  boost::shared_ptr<FinalStateEntry> finalStateEntry_;  ///< Final State entries container
+  std::vector<boost::shared_ptr<FinalStateEntry> > finalStateEntries_;  ///< Final State entries container
   boost::shared_ptr<CurvesEntry> curvesEntry_;  ///< Curves entries container
   boost::shared_ptr<LogsEntry> logsEntry_;  ///< Logs entries container
 };

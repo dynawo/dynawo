@@ -171,6 +171,7 @@ ModelGlobalInitEnd            =             end of global initialization
 SimulationStart               =             starting simulation with solver %1%
 SolverLargestDeriv            =             largest derivative values (truncated to the first %1%) at the current iteration
 SolverLargestDerivValue       =             YP[%1%]=%2% (variable=%3%)
+WrongStartTime                =             simulation's start time (%1%) should be equal to %2% (last time in dumpFile or 0 if there is no dump) : start time ajusted
 // --> DYNSolverIMPL
 SolverInstableRoot            =             instability for the root  :%1% switch from %2% to %3%
 SolverInstableRootFound       =             at least one root is not stable

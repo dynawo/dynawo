@@ -78,4 +78,14 @@ FinalStateEntry::Impl::setDumpFile(const std::string& dumpFile) {
   dumpFile_ = dumpFile;
 }
 
+boost::optional<double>
+FinalStateEntry::Impl::getTimestamp() const {
+  return timestamp_;
+}
+
+void
+FinalStateEntry::Impl::setTimestamp(double timestamp) {
+  timestamp_ = timestamp;
+}
+
 }  // namespace job
