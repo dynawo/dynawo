@@ -214,7 +214,7 @@ if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
           )
 else()
   find_package(Boost "${Boost_RequiredVersion}" REQUIRED
-    COMPONENTS filesystem program_options serialization system log log_setup
+    COMPONENTS filesystem program_options serialization system log log_setup thread regex chrono atomic
   )
 endif()
 

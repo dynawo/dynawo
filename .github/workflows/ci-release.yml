@@ -1,0 +1,55 @@
+name: CI Release
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  "0 0 * * 1-5"
+
+jobs:
+  fedora:
+    name: Linux Fedora (Release, GCC, cxx11)
+    runs-on: ubuntu-latest
+    container: dynawo/dynawo-distribution-cxx11:latest
+    strategy:
+      fail-fast: false
+    env:
+      DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
+      DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_BUILD_TYPE: Release
+      DYNAWO_FORCE_CXX11_ABI: "true"
+      DYNAWO_CXX11_ENABLED: YES
+      DYNAWO_NB_PROCESSORS_USED: 2
+      COMPILER_FOLDER: "gcc5.3.1"
+      ZIP_NAME: "dynawo-cxx11-nightly.zip"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-user
+
+      - name: Prepare files
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh deploy
+
+      - name: Archive Release
+        run: |
+          cd "deploy/${{ env.COMPILER_FOLDER }}/shared/dynawo"
+          zip -r "${{ env.ZIP_NAME }}" ./*
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          name: "Nightly"
+          body: "Dynawo's nightly release. Compiled on *release* settings.\n\n **Don't use it for production**"
+          tag: "nightly"
+          commit: "master"
+          artifacts: "deploy/${{ env.COMPILER_FOLDER }}/shared/dynawo/${{ env.ZIP_NAME }}"
+          allowUpdates: true
+          artifactErrorsFailBuild: true
+          token: ${{ secrets.GITHUB_TOKEN }}
