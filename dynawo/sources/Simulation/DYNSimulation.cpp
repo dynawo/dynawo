@@ -768,13 +768,14 @@ Simulation::simulate() {
   Timer timer("Simulation::simulate()");
 #endif
   printSolverHeader();
-  string outputsDirectory = createAbsolutePath("outputs", context_->getInputDirectory());
-  if (!is_directory(outputsDirectory))
-    create_directory(outputsDirectory);
 
   stringstream fileName;
-  if (dumpTimetable_)
+  if (dumpTimetable_) {
+    string outputsDirectory = createAbsolutePath("outputs", context_->getInputDirectory());
+    if (!is_directory(outputsDirectory))
+      create_directory(outputsDirectory);
     fileName << outputsDirectory << "/.dynawoexec-" << pid_;
+  }
 
   // Printing out the initial solution
   solver_->printSolve();

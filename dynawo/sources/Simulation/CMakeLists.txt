@@ -45,10 +45,11 @@ target_link_libraries(dynawo_Simulation
     dynawo_ModelerCommon
     dynawo_DataInterface
     dynawo_DataInterfaceFactory
-    dynawo_SolverCommon
     libZIP::libZIP
     Boost::filesystem
     Boost::serialization
+  PUBLIC
+    dynawo_SolverCommon
   )
 
 set_target_properties(dynawo_Simulation PROPERTIES VERSION ${SIM_VERSION_STRING}
