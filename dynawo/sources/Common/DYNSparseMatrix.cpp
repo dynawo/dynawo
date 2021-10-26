@@ -161,7 +161,7 @@ void SparseMatrix::printToFile(bool sparse) const {
 
   if (!exists("tmpMat")) {
     create_directory("tmpMat");
-    }
+  }
 
   std::ofstream file;
   file.open(nomFichier.str().c_str(), std::ofstream::out);

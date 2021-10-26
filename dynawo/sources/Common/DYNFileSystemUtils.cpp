@@ -277,7 +277,7 @@ bool is_directory(const string & path) {
   return fs::is_directory(fspath);
 }
 
-void create_directory(const string & inputPath) {
+void create_directory(const string& inputPath) {
   string path = inputPath;
 #if BOOST_VERSION < 106000
   // Needed to avoid a bug in boost (v < 1.6)
@@ -286,7 +286,7 @@ void create_directory(const string & inputPath) {
   }
 #endif
   fs::path fspath(path);
-  if (!fs::create_directories(fspath)) {
+  if (!fs::exists(fspath) && !fs::create_directories(fspath)) {
     throw DYNError(DYN::Error::GENERAL, CreateDirectoryFailed, path);
   }
 }
