@@ -137,6 +137,12 @@ class ComponentInterface {
   virtual bool isConnected() const;
 
   /**
+   * @brief check the connection state of the component
+   * @return @b true is the component is connected at least at one end, @b false else
+   */
+  virtual bool isPartiallyConnected() const;
+
+  /**
    * @brief import static parameters
    */
   virtual void importStaticParameters() = 0;

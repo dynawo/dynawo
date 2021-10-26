@@ -90,47 +90,62 @@ ThreeWTransformerInterfaceIIDM::getID() const {
 
 bool
 ThreeWTransformerInterfaceIIDM::getInitialConnected1() {
-  if (initialConnected1_ == boost::none) {
-    initialConnected1_ = false;
-    if (tfoIIDM_.has_connection(IIDM::side_1)) {
-      if (tfoIIDM_.connection(IIDM::side_1)->is_bus()) {
-        initialConnected1_ = tfoIIDM_.isConnected(IIDM::side_1);
-      } else {
-        initialConnected1_ = voltageLevelInterface1_->isNodeConnected(tfoIIDM_.connection(IIDM::side_1)->node());
-      }
-    }
-  }
+  if (initialConnected1_ == boost::none)
+    initialConnected1_ = isConnected1();
   return initialConnected1_.value();
 }
 
 bool
 ThreeWTransformerInterfaceIIDM::getInitialConnected2() {
-  if (initialConnected2_ == boost::none) {
-    initialConnected2_ = false;
-    if (tfoIIDM_.has_connection(IIDM::side_2)) {
-      if (tfoIIDM_.connection(IIDM::side_2)->is_bus()) {
-        initialConnected2_ = tfoIIDM_.isConnected(IIDM::side_2);
-      } else {
-        initialConnected2_ = voltageLevelInterface2_->isNodeConnected(tfoIIDM_.connection(IIDM::side_2)->node());
-      }
-    }
-  }
+  if (initialConnected2_ == boost::none)
+    initialConnected2_ = isConnected2();
   return initialConnected2_.value();
 }
 
 bool
 ThreeWTransformerInterfaceIIDM::getInitialConnected3() {
-  if (initialConnected3_ == boost::none) {
-    initialConnected3_ = false;
-    if (tfoIIDM_.has_connection(IIDM::side_3)) {
-      if (tfoIIDM_.connection(IIDM::side_3)->is_bus()) {
-        initialConnected3_ = tfoIIDM_.isConnected(IIDM::side_3);
-      } else {
-        initialConnected3_ = voltageLevelInterface3_->isNodeConnected(tfoIIDM_.connection(IIDM::side_3)->node());
-      }
+  if (initialConnected3_ == boost::none)
+    initialConnected3_ = isConnected3();
+  return initialConnected3_.value();
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::isConnected1() const {
+  bool connected = false;
+  if (tfoIIDM_.has_connection(IIDM::side_1)) {
+    if (tfoIIDM_.connection(IIDM::side_1)->is_bus()) {
+      connected = tfoIIDM_.isConnected(IIDM::side_1);
+    } else {
+      connected = voltageLevelInterface1_->isNodeConnected(tfoIIDM_.connection(IIDM::side_1)->node());
     }
   }
-  return initialConnected3_.value();
+  return connected;
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::isConnected2() const {
+  bool connected = false;
+  if (tfoIIDM_.has_connection(IIDM::side_2)) {
+    if (tfoIIDM_.connection(IIDM::side_2)->is_bus()) {
+      connected = tfoIIDM_.isConnected(IIDM::side_2);
+    } else {
+      connected = voltageLevelInterface2_->isNodeConnected(tfoIIDM_.connection(IIDM::side_2)->node());
+    }
+  }
+  return connected;
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::isConnected3() const {
+  bool connected = false;
+  if (tfoIIDM_.has_connection(IIDM::side_3)) {
+    if (tfoIIDM_.connection(IIDM::side_3)->is_bus()) {
+      connected = tfoIIDM_.isConnected(IIDM::side_3);
+    } else {
+      connected = voltageLevelInterface3_->isNodeConnected(tfoIIDM_.connection(IIDM::side_3)->node());
+    }
+  }
+  return connected;
 }
 
 void
@@ -176,6 +191,16 @@ ThreeWTransformerInterfaceIIDM::importStaticParameters() {
 int
 ThreeWTransformerInterfaceIIDM::getComponentVarIndex(const string& /*varName*/) const {
   return -1;
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::isConnected() const {
+  return isConnected1() && isConnected2() && isConnected3();
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::isPartiallyConnected() const {
+  return isConnected1() || isConnected2() || isConnected3();
 }
 
 }  // namespace DYN

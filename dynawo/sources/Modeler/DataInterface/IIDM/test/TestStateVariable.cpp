@@ -127,7 +127,7 @@ createNetwork(const NetworkProperty& properties) {
   boost::shared_ptr<IIDM::Network> network = boost::make_shared<IIDM::Network>(nb.build("MyNetwork"));
   IIDM::connection_status_t cs = {true /*connected*/};
   IIDM::Port p1("MyBus", cs), p2("MyBus", cs);
-  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_1);
+  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2);
 
   IIDM::builders::SubstationBuilder ssb;
   IIDM::Substation ss = ssb.build("MySubStation");
@@ -343,6 +343,8 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
   ASSERT_EQ(twoWTransformers.size(), 1);
   for (std::size_t i = 0, iEnd = twoWTransformers.size(); i < iEnd; ++i) {
     shared_ptr<TwoWTransformerInterface> twoWTransformer = twoWTransformers[i];
+    ASSERT_TRUE(twoWTransformer->isConnected());
+    ASSERT_TRUE(twoWTransformer->isPartiallyConnected());
     shared_ptr<PhaseTapChangerInterface> phaseTapChanger = twoWTransformer->getPhaseTapChanger();
     ASSERT_EQ(phaseTapChanger->getCurrentPosition(), 2);
     ASSERT_DOUBLE_EQUALS_DYNAWO(phaseTapChanger->getTargetDeadBand(), 0.);
