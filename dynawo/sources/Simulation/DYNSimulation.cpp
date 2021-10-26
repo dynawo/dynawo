@@ -155,6 +155,7 @@ exportCurvesMode_(EXPORT_CURVES_NONE),
 curvesInputFile_(""),
 curvesOutputFile_(""),
 exportTimelineMode_(EXPORT_TIMELINE_NONE),
+exportTimelineMaxPriority_(boost::none),
 timelineOutputFile_(""),
 exportFinalStateMode_(EXPORT_FINALSTATE_NONE),
 finalStateInputFile_(""),
@@ -329,6 +330,7 @@ Simulation::configureTimelineOutputs() {
       throw DYNError(Error::MODELER, UnknownTimelineExport, exportMode);
     }
     setTimelineExportMode(exportModeFlag);
+    exportTimelineMaxPriority_ = jobEntry_->getOutputsEntry()->getTimelineEntry()->getMaxPriority();
     setTimelineOutputFile(outputFile);
   } else {
     setTimelineExportMode(Simulation::EXPORT_TIMELINE_NONE);
@@ -1051,16 +1053,19 @@ Simulation::printTimeline(std::ostream& stream) const {
       break;
     case EXPORT_TIMELINE_CSV: {
       timeline::CsvExporter csvExporter;
+      csvExporter.setMaxPriority(exportTimelineMaxPriority_);
       csvExporter.exportToStream(timeline_, stream);
       break;
     }
     case EXPORT_TIMELINE_XML: {
       timeline::XmlExporter xmlExporter;
+      xmlExporter.setMaxPriority(exportTimelineMaxPriority_);
       xmlExporter.exportToStream(timeline_, stream);
       break;
     }
     case EXPORT_TIMELINE_TXT: {
       timeline::TxtExporter txtExporter;
+      txtExporter.setMaxPriority(exportTimelineMaxPriority_);
       txtExporter.exportToStream(timeline_, stream);
       break;
     }

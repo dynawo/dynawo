@@ -210,6 +210,7 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_NE(outputs->getTimelineEntry(), boost::shared_ptr<TimelineEntry>());
   boost::shared_ptr<TimelineEntry> timeline = outputs->getTimelineEntry();
   ASSERT_EQ(timeline->getExportMode(), "TXT");
+  ASSERT_EQ(timeline->getMaxPriority(), 2);
 
   // ===== FinalStateEntry =====
   ASSERT_NE(outputs->getFinalStateEntry(), boost::shared_ptr<FinalStateEntry>());
