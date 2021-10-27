@@ -537,7 +537,7 @@ else()
 
       CONFIGURE_COMMAND   <SOURCE_DIR>/configure
                           "CXX=${CMAKE_CXX_COMPILER}"
-                          "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0>"
+                          "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0> $<$<BOOL:${FORCE_CXX11_ABI}>:-D_GLIBCXX_USE_CXX11_ABI=1>"
                           --prefix=<INSTALL_DIR>
                           --disable-static
                           --enable-shared
