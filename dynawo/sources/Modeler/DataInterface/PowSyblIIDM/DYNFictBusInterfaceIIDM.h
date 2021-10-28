@@ -131,6 +131,13 @@ class FictBusInterfaceIIDM : public BusInterface {
   }
 
   /**
+   * @copydoc BusInterface::isFictitious() const
+   */
+  bool isFictitious() const {
+    return true;
+  }
+
+  /**
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
   int getComponentVarIndex(const std::string& varName) const;
