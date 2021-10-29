@@ -293,16 +293,17 @@ namespace DYN {
   void
   FictTwoWTransformerInterfaceIIDM::exportStateVariablesUnitComponent() {
     int state = getValue<int>(VAR_STATE);
-    leg_.get().getTerminal().setP(getValue<double>(VAR_P2) * SNREF);
-    leg_.get().getTerminal().setQ(getValue<double>(VAR_Q2) * SNREF);
+    bool connected2 = (state == CLOSED) || (state == CLOSED_2);
+    if (connected2) {
+      leg_.get().getTerminal().setP(getValue<double>(VAR_P2) * SNREF);
+      leg_.get().getTerminal().setQ(getValue<double>(VAR_Q2) * SNREF);
+    }
 
     if (getPhaseTapChanger()) {
       getPhaseTapChanger()->setCurrentPosition(getValue<int>(VAR_TAPINDEX));
     }  else if (getRatioTapChanger()) {
       getRatioTapChanger()->setCurrentPosition(getValue<int>(VAR_TAPINDEX));
     }
-
-    bool connected2 = (state == CLOSED) || (state == CLOSED_2);
 
     if (voltageLevelInterface2_->isNodeBreakerTopology()) {
       if (connected2 && !getInitialConnected2())

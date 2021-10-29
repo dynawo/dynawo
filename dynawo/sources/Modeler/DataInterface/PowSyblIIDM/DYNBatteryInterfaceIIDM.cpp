@@ -61,8 +61,10 @@ BatteryInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
 void
 BatteryInterfaceIIDM::exportStateVariablesUnitComponent() {
   bool connected = (getValue<int>(VAR_STATE) == CLOSED);
-  batteryIIDM_.getTerminal().setP(-1 * getValue<double>(VAR_P) * SNREF);
-  batteryIIDM_.getTerminal().setQ(-1 * getValue<double>(VAR_Q) * SNREF);
+  if (connected) {
+    batteryIIDM_.getTerminal().setP(-1 * getValue<double>(VAR_P) * SNREF);
+    batteryIIDM_.getTerminal().setQ(-1 * getValue<double>(VAR_Q) * SNREF);
+  }
 
   if (getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
     // should be removed once a solution has been found to propagate switches (de)connection

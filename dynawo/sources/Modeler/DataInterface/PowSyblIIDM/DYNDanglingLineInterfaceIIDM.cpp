@@ -60,8 +60,10 @@ DanglingLineInterfaceIIDM::getComponentVarIndex(const std::string& varName) cons
 void
 DanglingLineInterfaceIIDM::exportStateVariablesUnitComponent() {
   bool connected = (getValue<int>(VAR_STATE) == CLOSED);
-  danglingLineIIDM_.getTerminal().setP(getValue<double>(VAR_P) * SNREF);
-  danglingLineIIDM_.getTerminal().setQ(getValue<double>(VAR_Q) * SNREF);
+  if (connected) {
+    danglingLineIIDM_.getTerminal().setP(getValue<double>(VAR_P) * SNREF);
+    danglingLineIIDM_.getTerminal().setQ(getValue<double>(VAR_Q) * SNREF);
+  }
 
   if (getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
     // should be removed once a solution has been found to propagate switches (de)connection

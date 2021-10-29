@@ -58,8 +58,10 @@ ShuntCompensatorInterfaceIIDM::getComponentVarIndex(const std::string& varName) 
 void
 ShuntCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
   bool connected = (getValue<int>(VAR_STATE) == CLOSED);
-  shuntCompensatorIIDM_.getTerminal().setQ(getValue<double>(VAR_Q) * SNREF);
-  shuntCompensatorIIDM_.setSectionCount(getValue<int>(VAR_CURRENTSECTION));
+  if (connected) {
+    shuntCompensatorIIDM_.getTerminal().setQ(getValue<double>(VAR_Q) * SNREF);
+    shuntCompensatorIIDM_.setSectionCount(getValue<int>(VAR_CURRENTSECTION));
+  }
 
   if (getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
     // should be removed once a solution has been found to propagate switches (de)connection

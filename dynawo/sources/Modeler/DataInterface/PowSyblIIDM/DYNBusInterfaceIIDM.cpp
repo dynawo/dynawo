@@ -24,9 +24,11 @@
 #include <powsybl/iidm/BusbarSection.hpp>
 #include <powsybl/iidm/Connectable.hpp>
 #include "DYNBusInterfaceIIDM.h"
+#include "DYNCommon.h"
 #include "DYNCommonConstants.h"
 #include "DYNStateVariable.h"
 #include "DYNTrace.h"
+
 using boost::shared_ptr;
 using powsybl::iidm::Bus;
 using std::string;
@@ -127,8 +129,10 @@ BusInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
 
 void
 BusInterfaceIIDM::exportStateVariablesUnitComponent() {
-  busIIDM_.setV(getStateVarV());
-  busIIDM_.setAngle(getStateVarAngle());
+  if (!std::isnan(busIIDM_.getV()) || !doubleEquals(getStateVarV(), 0.)) {
+    busIIDM_.setV(getStateVarV());
+    busIIDM_.setAngle(getStateVarAngle());
+  }
 }
 
 void

@@ -271,14 +271,16 @@ LineInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
 void
 LineInterfaceIIDM::exportStateVariablesUnitComponent() {
   int state = getValue<int>(VAR_STATE);
-
-  lineIIDM_.getTerminal1().setP(getValue<double>(VAR_P1) * SNREF);
-  lineIIDM_.getTerminal1().setQ(getValue<double>(VAR_Q1) * SNREF);
-  lineIIDM_.getTerminal2().setP(getValue<double>(VAR_P2) * SNREF);
-  lineIIDM_.getTerminal2().setQ(getValue<double>(VAR_Q2) * SNREF);
-
   bool connected1 = (state == CLOSED) || (state == CLOSED_1);
   bool connected2 = (state == CLOSED) || (state == CLOSED_2);
+  if (connected1) {
+    lineIIDM_.getTerminal1().setP(getValue<double>(VAR_P1) * SNREF);
+    lineIIDM_.getTerminal1().setQ(getValue<double>(VAR_Q1) * SNREF);
+  }
+  if (connected2) {
+    lineIIDM_.getTerminal2().setP(getValue<double>(VAR_P2) * SNREF);
+    lineIIDM_.getTerminal2().setQ(getValue<double>(VAR_Q2) * SNREF);
+  }
 
   if (voltageLevelInterface1_->isNodeBreakerTopology()) {
     // should be removed once a solution has been found to propagate switches (de)connection

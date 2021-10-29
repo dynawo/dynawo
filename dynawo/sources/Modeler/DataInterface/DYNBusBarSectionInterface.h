@@ -48,6 +48,12 @@ class BusBarSectionInterface {
   virtual std::string id() const = 0;
 
   /**
+   * @brief tell if the voltage magnitude of the bus bar section is set
+   * @return @b whether the voltage magnitude is set
+   */
+  virtual bool hasV() const = 0;
+
+  /**
    * @brief set the voltage magnitude of the bus bar section
    * @param v voltage magnitude
    */

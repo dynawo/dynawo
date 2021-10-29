@@ -840,11 +840,13 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMAndStaticParameters) {
   dl->setValue(DanglingLineInterfaceIIDM::VAR_Q, 4.);
   dl->setValue(DanglingLineInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dlIIDM.getTerminal().getP(), 200.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dlIIDM.getTerminal().getQ(), 400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dlIIDM.getTerminal().getP(), 105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dlIIDM.getTerminal().getQ(), 90.);
   ASSERT_FALSE(dlIIDM.getTerminal().isConnected());
   dl->setValue(DanglingLineInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dlIIDM.getTerminal().getP(), 200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dlIIDM.getTerminal().getQ(), 400.);
   ASSERT_TRUE(dlIIDM.getTerminal().isConnected());
 }
 
@@ -905,11 +907,13 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDM) {
   gen->setValue(GeneratorInterfaceIIDM::VAR_Q, 4.);
   gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getP(), -200.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getQ(), -400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getP(), -105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getQ(), -90.);
   ASSERT_FALSE(genIIDM.getTerminal().isConnected());
   gen->setValue(GeneratorInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getP(), -200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genIIDM.getTerminal().getQ(), -400.);
   ASSERT_TRUE(genIIDM.getTerminal().isConnected());
 }
 
@@ -970,11 +974,13 @@ TEST(DataInterfaceIIDMTest, testBatteryIIDM) {
   bat->setValue(BatteryInterfaceIIDM::VAR_Q, 4.);
   bat->setValue(BatteryInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(batIIDM.getTerminal().getP(), -200.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(batIIDM.getTerminal().getQ(), -400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(batIIDM.getTerminal().getP(), -105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(batIIDM.getTerminal().getQ(), -90.);
   ASSERT_FALSE(batIIDM.getTerminal().isConnected());
   bat->setValue(BatteryInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(batIIDM.getTerminal().getP(), -200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(batIIDM.getTerminal().getQ(), -400.);
   ASSERT_TRUE(batIIDM.getTerminal().isConnected());
 }
 
@@ -1054,15 +1060,19 @@ TEST(DataInterfaceIIDMTest, testHvdcLineVscConvertersIIDM) {
   hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, OPEN);
   hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, OPEN);
   data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getP(), -200.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getQ(), -400.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getP(), -600.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getQ(), -800.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getP(), 150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getQ(), 90.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getP(), 150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getQ(), 90.);
   ASSERT_FALSE(vsc1->getVscIIDM().getTerminal().isConnected());
   ASSERT_FALSE(vsc2->getVscIIDM().getTerminal().isConnected());
   hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, CLOSED);
   hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getP(), -200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc1->getVscIIDM().getTerminal().getQ(), -400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getP(), -600.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(vsc2->getVscIIDM().getTerminal().getQ(), -800.);
   ASSERT_TRUE(vsc1->getVscIIDM().getTerminal().isConnected());
   ASSERT_TRUE(vsc2->getVscIIDM().getTerminal().isConnected());
 
@@ -1152,15 +1162,19 @@ TEST(DataInterfaceIIDMTest, testHvdcLineLccConvertersIIDM) {
   hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, OPEN);
   hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, OPEN);
   data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getP(), -200.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getQ(), -400.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getP(), -600.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getQ(), -800.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getP(), 105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getQ(), 90.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getP(), 105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getQ(), 90.);
   ASSERT_FALSE(lcc1->getLccIIDM().getTerminal().isConnected());
   ASSERT_FALSE(lcc2->getLccIIDM().getTerminal().isConnected());
   hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE1, CLOSED);
   hvdc->setValue(HvdcLineInterfaceIIDM::VAR_STATE2, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getP(), -200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc1->getLccIIDM().getTerminal().getQ(), -400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getP(), -600.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lcc2->getLccIIDM().getTerminal().getQ(), -800.);
   ASSERT_TRUE(lcc1->getLccIIDM().getTerminal().isConnected());
   ASSERT_TRUE(lcc2->getLccIIDM().getTerminal().isConnected());
 
@@ -1213,23 +1227,39 @@ TEST(DataInterfaceIIDMTest, testLineIIDM) {
   line->setValue(LineInterfaceIIDM::VAR_Q2, 8.);
   line->setValue(LineInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getP(), 22560.083951694862);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getQ(), -3833.3398616136255);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getP(), 0.54438004263684103);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getQ(), -3.1327061160422587);
+  ASSERT_FALSE(lineIIDM.getTerminal1().isConnected());
+  ASSERT_FALSE(lineIIDM.getTerminal2().isConnected());
+  line->setValue(LineInterfaceIIDM::VAR_STATE, CLOSED_1);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getP(), 200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getQ(), 400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getP(), 0.54438004263684103);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getQ(), -3.1327061160422587);
+  ASSERT_TRUE(lineIIDM.getTerminal1().isConnected());
+  ASSERT_FALSE(lineIIDM.getTerminal2().isConnected());
+  line->setValue(LineInterfaceIIDM::VAR_P1, 3.);
+  line->setValue(LineInterfaceIIDM::VAR_Q1, 5.);
+  line->setValue(LineInterfaceIIDM::VAR_STATE, CLOSED_2);
+  data->exportStateVariablesNoReadFromModel();
   ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getP(), 200.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getQ(), 400.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getP(), 600.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getQ(), 800.);
   ASSERT_FALSE(lineIIDM.getTerminal1().isConnected());
-  ASSERT_FALSE(lineIIDM.getTerminal2().isConnected());
+  ASSERT_TRUE(lineIIDM.getTerminal2().isConnected());
+  line->setValue(LineInterfaceIIDM::VAR_P2, 7.);
+  line->setValue(LineInterfaceIIDM::VAR_Q2, 9.);
   line->setValue(LineInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getP(), 300.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal1().getQ(), 500.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getP(), 700.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(lineIIDM.getTerminal2().getQ(), 900.);
   ASSERT_TRUE(lineIIDM.getTerminal1().isConnected());
-  ASSERT_TRUE(lineIIDM.getTerminal2().isConnected());
-  line->setValue(LineInterfaceIIDM::VAR_STATE, CLOSED_1);
-  data->exportStateVariablesNoReadFromModel();
-  ASSERT_TRUE(lineIIDM.getTerminal1().isConnected());
-  ASSERT_FALSE(lineIIDM.getTerminal2().isConnected());
-  line->setValue(LineInterfaceIIDM::VAR_STATE, CLOSED_2);
-  data->exportStateVariablesNoReadFromModel();
-  ASSERT_FALSE(lineIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(lineIIDM.getTerminal2().isConnected());
 
   boost::shared_ptr<BusInterfaceIIDM> bus1 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
@@ -1292,11 +1322,13 @@ TEST(DataInterfaceIIDMTest, testLoadInterfaceIIDM) {
   load->setValue(LoadInterfaceIIDM::VAR_Q, 4.);
   load->setValue(LoadInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(loadIIDM.getTerminal().getP(), 200.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(loadIIDM.getTerminal().getQ(), 400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(loadIIDM.getTerminal().getP(), 105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(loadIIDM.getTerminal().getQ(), 90.);
   ASSERT_FALSE(loadIIDM.getTerminal().isConnected());
   load->setValue(LoadInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(loadIIDM.getTerminal().getP(), 200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(loadIIDM.getTerminal().getQ(), 400.);
   ASSERT_TRUE(loadIIDM.getTerminal().isConnected());
 }  // TEST(DataInterfaceIIDMTest, testLoadInterfaceIIDM)
 
@@ -1336,11 +1368,13 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDM) {
   shunt->setValue(ShuntCompensatorInterfaceIIDM::VAR_CURRENTSECTION, 1);
   shunt->setValue(ShuntCompensatorInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(shuntIIDM.getTerminal().getQ(), 400.);
-  ASSERT_EQ(shuntIIDM.getSectionCount(), 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(shuntIIDM.getTerminal().getQ(), -90000.);
+  ASSERT_EQ(shuntIIDM.getSectionCount(), 2UL);
   ASSERT_FALSE(shuntIIDM.getTerminal().isConnected());
   shunt->setValue(ShuntCompensatorInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(shuntIIDM.getTerminal().getQ(), 400.);
+  ASSERT_EQ(shuntIIDM.getSectionCount(), 1);
   ASSERT_TRUE(shuntIIDM.getTerminal().isConnected());
 }
 
@@ -1386,11 +1420,13 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
   svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_Q, 1);
   svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getP(), -400.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getQ(), -100.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getP(), 5.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getQ(), 85.);
   ASSERT_FALSE(svcIIDM.getTerminal().isConnected());
   svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getP(), -400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getQ(), -100.);
   ASSERT_TRUE(svcIIDM.getTerminal().isConnected());
 }
 
@@ -1485,24 +1521,40 @@ TEST(DataInterfaceIIDMTest, testRatioTwoWindingTransformerIIDM) {
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_TAPINDEX, 1.);
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 920.43642724743098);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), -157.98045729283614);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), -0.11838723553420131);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), -0.84962943718131304);
+  ASSERT_EQ(twoWTIIDM.getPhaseTapChanger().getTapPosition(), 1);
+  ASSERT_FALSE(twoWTIIDM.getTerminal1().isConnected());
+  ASSERT_FALSE(twoWTIIDM.getTerminal2().isConnected());
+  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED_1);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), 400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), -0.11838723553420131);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), -0.84962943718131304);
+  ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
+  ASSERT_FALSE(twoWTIIDM.getTerminal2().isConnected());
+  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_P1, 3.);
+  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_Q1, 5.);
+  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED_2);
+  data->exportStateVariablesNoReadFromModel();
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 200.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), 400.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), 600.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), 800.);
-  ASSERT_EQ(twoWTIIDM.getPhaseTapChanger().getTapPosition(), 1);
   ASSERT_FALSE(twoWTIIDM.getTerminal1().isConnected());
-  ASSERT_FALSE(twoWTIIDM.getTerminal2().isConnected());
+  ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
+  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_P2, 7.);
+  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_Q2, 9.);
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 300.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), 500.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), 700.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), 900.);
   ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
-  ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
-  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED_1);
-  data->exportStateVariablesNoReadFromModel();
-  ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
-  ASSERT_FALSE(twoWTIIDM.getTerminal2().isConnected());
-  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED_2);
-  data->exportStateVariablesNoReadFromModel();
-  ASSERT_FALSE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
 }
 
@@ -1564,24 +1616,40 @@ TEST(DataInterfaceIIDMTest, testTwoWindingTransformerIIDM) {
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_TAPINDEX, 0.);
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 911.39982127973873);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), -155.91740692665068);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), -0.10255087406258725);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), -0.86036345858491441);
+  ASSERT_EQ(twoWTIIDM.getRatioTapChanger().getTapPosition(), 0);
+  ASSERT_FALSE(twoWTIIDM.getTerminal1().isConnected());
+  ASSERT_FALSE(twoWTIIDM.getTerminal2().isConnected());
+  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED_1);
+  data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), 400.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), -0.10255087406258725);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), -0.86036345858491441);
+  ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
+  ASSERT_FALSE(twoWTIIDM.getTerminal2().isConnected());
+  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_P1, 3.);
+  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_Q1, 5.);
+  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED_2);
+  data->exportStateVariablesNoReadFromModel();
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 200.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), 400.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), 600.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), 800.);
-  ASSERT_EQ(twoWTIIDM.getRatioTapChanger().getTapPosition(), 0);
   ASSERT_FALSE(twoWTIIDM.getTerminal1().isConnected());
-  ASSERT_FALSE(twoWTIIDM.getTerminal2().isConnected());
+  ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
+  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_P2, 7.);
+  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_Q2, 9.);
   twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getP(), 300.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal1().getQ(), 500.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getP(), 700.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(twoWTIIDM.getTerminal2().getQ(), 900.);
   ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
-  ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
-  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED_1);
-  data->exportStateVariablesNoReadFromModel();
-  ASSERT_TRUE(twoWTIIDM.getTerminal1().isConnected());
-  ASSERT_FALSE(twoWTIIDM.getTerminal2().isConnected());
-  twoWT->setValue(TwoWTransformerInterfaceIIDM::VAR_STATE, CLOSED_2);
-  data->exportStateVariablesNoReadFromModel();
-  ASSERT_FALSE(twoWTIIDM.getTerminal1().isConnected());
   ASSERT_TRUE(twoWTIIDM.getTerminal2().isConnected());
 
   boost::shared_ptr<BusInterfaceIIDM> bus1 = boost::dynamic_pointer_cast<BusInterfaceIIDM>(data->findComponent("MyBus"));
