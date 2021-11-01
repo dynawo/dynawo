@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:dyn="http://www.rte-france.com/dynawo"
+           targetNamespace="http://www.rte-france.com/dynawo"
+           elementFormDefault="qualified">
+  <xs:element name="finalStateValuesInput">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="finalStateValue" type="dyn:FinalStateValueInput" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+    <xs:unique name="uniqueFinalStateValue">
+      <xs:selector xpath="dyn:finalStateValue"/>
+      <xs:field xpath="@model"/>
+      <xs:field xpath="@variable"/>
+    </xs:unique>
+  </xs:element>
+
+  <xs:complexType name="FinalStateValueInput">
+    <xs:attribute name="model" use="required" type="xs:string"/>
+    <xs:attribute name="variable" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:schema>

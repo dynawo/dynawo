@@ -95,14 +95,18 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
   ASSERT_NO_THROW(curve1->update(2));
 
   // test updateParameterCurveValue (set the value to a given value)
-  ASSERT_NO_THROW(curve1->updateParameterCurveValue("variable1", 5));
+  ASSERT_NO_THROW(curve1->updateParameterCurveValue("--unused--", 5));
 
   boost::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
 
   curve2->setVariable("variable2");
   curve2->setAvailable(true);
+  // Parameter curves ignore the negated flag
+  // This demonstrates that the value used in the updateParameterCurveValue method
+  // is the same value obtained when exporting, without a change in sign
   curve2->setNegated(true);
   curve2->setAsParameterCurve(false);
+  curve2->setExportType(curves::Curve::EXPORT_AS_BOTH);
   std::vector<double> variables2;
   variables2.assign(3, 4);
   curve2->setBuffer(&variables2[0]);
@@ -110,7 +114,7 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
   ASSERT_NO_THROW(curve2->update(0));
   ASSERT_NO_THROW(curve2->update(1));
   ASSERT_NO_THROW(curve2->update(2));
-  ASSERT_NO_THROW(curve2->updateParameterCurveValue("variable1", 7));
+  ASSERT_NO_THROW(curve2->updateParameterCurveValue("--unused--", 7));
 
   XmlExporter exporter;
   std::stringstream ss;
@@ -126,6 +130,52 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
       "<point time=\"2.000000\" value=\"7.000000\"/>\n  "
       "</curve>\n"
       "</curvesOutput>\n");
+
+  // Check curve for variable2 is also exported when EXPORT_AS_CURVE (the default value is explicitly set)
+  std::stringstream ss2;
+  curve2->setExportType(curves::Curve::EXPORT_AS_CURVE);
+  exporter.exportToStream(curvesCollection1, ss2);
+  ASSERT_EQ(ss2.str(), "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n<curvesOutput "
+      "xmlns=\"http://www.rte-france.com/dynawo\">\n  <curve model=\"\" variable=\"variable1\">\n    "
+      "<point time=\"0.000000\" value=\"5.000000\"/>\n    "
+      "<point time=\"1.000000\" value=\"5.000000\"/>\n    "
+      "<point time=\"2.000000\" value=\"5.000000\"/>\n  "
+      "</curve>\n  <curve model=\"\" variable=\"variable2\">\n    "
+      "<point time=\"0.000000\" value=\"7.000000\"/>\n    "
+      "<point time=\"1.000000\" value=\"7.000000\"/>\n    "
+      "<point time=\"2.000000\" value=\"7.000000\"/>\n  "
+      "</curve>\n"
+      "</curvesOutput>\n");
+}
+
+TEST(APICRVTest, CurvesCollectionDontExportUnmarked) {
+  boost::shared_ptr<CurvesCollection> curvesCollection1 = CurvesCollectionFactory::newInstance("Curves");
+
+  boost::shared_ptr<Curve> curve1 = CurveFactory::newCurve();
+
+  curve1->setVariable("variable1");
+  curve1->setAvailable(true);
+  curve1->setNegated(false);
+  curve1->setAsParameterCurve(true);
+  curve1->setExportType(curves::Curve::EXPORT_AS_FINAL_STATE_VALUE);
+  std::vector<double> variables;
+  variables.assign(2, 1);
+  curve1->setBuffer(&variables[0]);
+  curvesCollection1->add(curve1);
+
+  // update parameter curve (set the value of parameter curve to zero)
+  ASSERT_NO_THROW(curve1->update(0));
+  ASSERT_NO_THROW(curve1->update(1));
+  ASSERT_NO_THROW(curve1->update(2));
+
+  // test updateParameterCurveValue (set the value to a given value)
+  ASSERT_NO_THROW(curve1->updateParameterCurveValue("variable1", 5));
+
+  XmlExporter exporter;
+  std::stringstream ss;
+  exporter.exportToStream(curvesCollection1, ss);
+  ASSERT_EQ(ss.str(), "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n<curvesOutput "
+      "xmlns=\"http://www.rte-france.com/dynawo\"/>\n");
 }
 
 }  // namespace curves
