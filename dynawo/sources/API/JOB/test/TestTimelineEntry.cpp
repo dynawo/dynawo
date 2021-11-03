@@ -26,7 +26,9 @@ TEST(APIJOBTest, testTimelineEntry) {
   boost::shared_ptr<TimelineEntry> timeline = boost::shared_ptr<TimelineEntry>(new TimelineEntry::Impl());
   // check default attributes
   ASSERT_EQ(timeline->getExportMode(), "");
-  ASSERT_EQ(timeline->getMaxPriority(), boost::none);
+  boost::optional<int> priorityNone = boost::none;
+  boost::optional<int> priority2 = 2;
+  ASSERT_TRUE(timeline->getMaxPriority() == priorityNone);
   ASSERT_EQ(timeline->getOutputFile(), "");
 
   timeline->setExportMode("TXT");
@@ -34,7 +36,7 @@ TEST(APIJOBTest, testTimelineEntry) {
   timeline->setOutputFile("/tmp/output.txt");
 
   ASSERT_EQ(timeline->getExportMode(), "TXT");
-  ASSERT_EQ(timeline->getMaxPriority(), 2);
+  ASSERT_TRUE(timeline->getMaxPriority() == priority2);
   ASSERT_EQ(timeline->getOutputFile(), "/tmp/output.txt");
 }
 
