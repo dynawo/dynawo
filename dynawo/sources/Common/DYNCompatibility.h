@@ -17,6 +17,9 @@
 #ifndef COMMON_DYNCOMPATIBILITY_H_
 #define COMMON_DYNCOMPATIBILITY_H_
 
+/**
+ * @brief Macro to mimic 'noexcept' c++11 keyword in c++98
+ */
 #ifdef LANG_CXX11
 #define DYN_NOEXCEPT noexcept
 #else

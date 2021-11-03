@@ -28,6 +28,7 @@ template <>
 double
 NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>&,
                                                    const std::string&, bool&, const std::vector<std::string>&) const;
+
 template <>
 int
 NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>&,
