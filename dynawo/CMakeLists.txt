@@ -335,8 +335,6 @@ else()
   )
 endif()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sources/config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/sources/config.h @ONLY)
-
 #
 # Target used to ensure that ddbdir directory is created
 #
