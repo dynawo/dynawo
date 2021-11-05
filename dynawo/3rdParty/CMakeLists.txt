@@ -989,3 +989,28 @@ else()
   set(LIBIIDM_HOME ${install_dir})
 endif()
 endif(CXX11_ENABLED AND NOT USE_LEGACY_IIDM)
+
+if(UNIX)
+  set(GPERFTOOLS_URL https://github.com/gperftools/gperftools/releases/download/gperftools-2.6.1/gperftools-2.6.1.tar.gz)
+  find_library(tcmalloc NAMES "tcmalloc" PATHS ${CMAKE_INSTALL_PREFIX}/gperftools/lib)
+  if (NOT tcmalloc)
+    ExternalProject_Add(gperftools
+            INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/gperftools
+            DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/gperftools
+            TMP_DIR             ${TMP_DIR}
+            STAMP_DIR           ${DOWNLOAD_DIR}/gperftools-stamp
+            SOURCE_DIR          ${DOWNLOAD_DIR}/gperftools
+            URL                 ${GPERFTOOLS_URL}
+            BUILD_IN_SOURCE     1
+
+            CONFIGURE_COMMAND   <SOURCE_DIR>/configure
+                                "CC=${CMAKE_C_COMPILER}"
+                                "CXX=${CMAKE_CXX_COMPILER}"
+                                "CXXFLAGS=-fno-strict-aliasing -DTCMALLOC_LARGE_PAGES -O3"
+                                "CFLAGS=-fno-strict-aliasing -DTCMALLOC_LARGE_PAGES -O3"
+                                --prefix=<INSTALL_DIR>
+                                --disable-static
+                                --disable-libunwind
+    )
+  endif()
+endif()
