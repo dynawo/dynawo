@@ -305,7 +305,7 @@ OutputsHandler::addTimetable() {
 
 void
 OutputsHandler::addFinalState() {
-  outputs_->setFinalStateEntry(finalStateHandler_.get());
+  outputs_->addFinalStateEntry(finalStateHandler_.get());
 }
 
 void
@@ -406,6 +406,9 @@ FinalStateHandler::FinalStateHandler(elementName_type const& root_element) {
 void
 FinalStateHandler::create(attributes_type const& attributes) {
   finalState_ = shared_ptr<FinalStateEntry>(new FinalStateEntry());
+  if (attributes.has("timestamp")) {
+    finalState_->setTimestamp(attributes["timestamp"]);
+  }
   finalState_->setExportIIDMFile(attributes["exportIIDMFile"]);
   finalState_->setExportDumpFile(attributes["exportDumpFile"]);
 }
