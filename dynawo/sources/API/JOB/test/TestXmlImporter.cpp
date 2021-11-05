@@ -224,12 +224,12 @@ TEST(APIJOBTest, testXmlImporter) {
   boost::shared_ptr<FinalStateEntry> finalState = outputs->getFinalStateEntries().front();
   ASSERT_EQ(finalState->getExportIIDMFile(), true);
   ASSERT_EQ(finalState->getExportDumpFile(), true);
-  ASSERT_EQ(finalState->getTimestamp(), boost::none);
+  ASSERT_FALSE(finalState->getTimestamp());
 
   finalState = outputs->getFinalStateEntries()[1];
   ASSERT_EQ(finalState->getExportIIDMFile(), true);
   ASSERT_EQ(finalState->getExportDumpFile(), true);
-  ASSERT_NE(finalState->getTimestamp(), boost::none);
+  ASSERT_TRUE(finalState->getTimestamp());
   ASSERT_EQ(*finalState->getTimestamp(), 10);
 
   // ===== CurvesEntry =====
