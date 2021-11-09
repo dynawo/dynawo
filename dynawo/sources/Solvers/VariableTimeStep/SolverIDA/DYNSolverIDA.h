@@ -17,8 +17,8 @@
  * @brief Solver based on sundials/IDA solver : variable step, order one or two
  *
  */
-#ifndef SOLVERS_SOLVERIDA_DYNSOLVERIDA_H_
-#define SOLVERS_SOLVERIDA_DYNSOLVERIDA_H_
+#ifndef SOLVERS_VARIABLETIMESTEP_SOLVERIDA_DYNSOLVERIDA_H_
+#define SOLVERS_VARIABLETIMESTEP_SOLVERIDA_DYNSOLVERIDA_H_
 
 #include <boost/shared_ptr.hpp>
 #include <vector>
@@ -269,4 +269,4 @@ class SolverIDA : public Solver::Impl {
 
 }  // end of namespace DYN
 
-#endif  // SOLVERS_SOLVERIDA_DYNSOLVERIDA_H_
+#endif  // SOLVERS_VARIABLETIMESTEP_SOLVERIDA_DYNSOLVERIDA_H_

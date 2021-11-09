@@ -223,9 +223,9 @@ SolverIDARestorAlgebraicEqu   =             restoration of the algebraic equatio
 SolverIDADebugResidual        =             DEBUG RESIDUAL
 SolverIDALargestErrors        =             largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first %1%
 SolverIDAErrorValue           =             error > %1% : variable %2%, error %3%
-// --> DYNSolverSIM
-SolverSIMInitOK               =             initialization of SIM solver : ok
-SolverSIMInitGuessOK          =             initial guess of the algebraic solver is accurate, following solver iterations will be skipped until the next mode change
+// --> DYNSolverFixedTimeStep
+SolverFixedTimeStepInitOK     =             initialization of %1% : ok
+SolverFixedTimeStepInitGuessOK =            initial guess of the algebraic solver is accurate, following %1% iterations will be skipped until the next mode change
 // --> DYNSolverKIN
 SolverKINUnknownError         =             unknown error during KINSOL Solve
 SolverKINResidualNorm         =             newton iteration %1% : ||F(y_%1%)*Weight||_Infinity = %2% and ||F(y_%1%)*Weight||_2 = %3%
