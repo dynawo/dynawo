@@ -82,6 +82,8 @@ voltageLevelIIDM_(voltageLevel) {
       weights1_[ssInternalConnectionId.str()] = 1;
     }
   }
+
+  slackTerminalExtension_ = voltageLevelIIDM_.findExtension<powsybl::iidm::extensions::SlackTerminal>();
 }
 
 VoltageLevelInterfaceIIDM::~VoltageLevelInterfaceIIDM() {
@@ -463,6 +465,22 @@ VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
     }
   }
   return false;
+}
+
+boost::optional<std::string>
+VoltageLevelInterfaceIIDM::getSlackBusId() const {
+  if (slackTerminalExtension_) {
+    const auto& terminal = slackTerminalExtension_.get().getTerminal().get();
+    if (voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
+      const auto& bus = terminal.getBusView().getBus().get();
+      return bus.getId();
+    } else {
+      const auto& bus = terminal.getBusBreakerView().getBus().get();
+      return bus.getId();
+    }
+  } else {
+    return boost::none;
+  }
 }
 
 }  // namespace DYN

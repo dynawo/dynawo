@@ -20,6 +20,7 @@ set(package_config_dir "LibIIDM")
 set(package_install_dir  "${CMAKE_INSTALL_PREFIX}/${package_name}")
 string(TOUPPER "${package_name}" package_uppername)
 set(package_RequiredVersion 1.4.0)
+# TODO(lecourtoisflo) Use version 1.5 to remove patch application on this project
 
 set(CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}/${package_name}/${package_config_dir}")
 
@@ -38,6 +39,7 @@ else()
   endif()
   set(package_url  "${package_prefix_url}/v${package_RequiredVersion}.tar.gz")
 
+  GetPatchCommand(libiidm)
   include(ExternalProject)
   ExternalProject_Add(
                       "${package_name}"
@@ -53,6 +55,7 @@ else()
     STAMP_DIR         "${DOWNLOAD_DIR}/${package_name}-stamp"
     BINARY_DIR        "${DOWNLOAD_DIR}/${package_name}-build"
     SOURCE_DIR        "${DOWNLOAD_DIR}/${package_name}"
+    PATCH_COMMAND     "${libiidm_patch_common}"
 
     CMAKE_CACHE_ARGS  "-DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}"
 

@@ -25,9 +25,10 @@
 #include "DYNCalculatedBusInterfaceIIDM.h"
 
 #include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/extensions/SlackTerminal.hpp>
 
 #include <boost/unordered_map.hpp>
-
+#include <boost/optional.hpp>
 
 namespace DYN {
 
@@ -216,6 +217,13 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
     country_ = country;
   }
 
+  /**
+   * @brief Get the slack bus id
+   *
+   * @return the slack bus id, or boost::none if extension is not found for current voltage level
+   */
+  boost::optional<std::string> getSlackBusId() const;
+
  private:
   powsybl::iidm::VoltageLevel& voltageLevelIIDM_;  ///< reference to the iidm voltageLevel instance
   bool isNodeBreakerTopology_;  ///< @b true if the topology of the voltageLevel is node breaker topology
@@ -234,6 +242,8 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   std::vector<boost::shared_ptr<VscConverterInterface> > vscConverters_;  ///< vscConverter interface created
   std::vector<boost::shared_ptr<LccConverterInterface> > lccConverters_;  ///< lccConverter interface created
   std::string country_;  ///< country of the voltage level
+
+  stdcxx::Reference<powsybl::iidm::extensions::SlackTerminal> slackTerminalExtension_;  ///< slack terminal extension
 };  /// end of class declaration
 
 }  // namespace DYN
