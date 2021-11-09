@@ -64,6 +64,6 @@ endmacro(DESC_SOLVER)
 
 add_subdirectory(Common)
 add_subdirectory(AlgebraicSolvers)
-add_subdirectory(SolverIDA)
-add_subdirectory(SolverSIM)
+add_subdirectory(FixedTimeStep)
+add_subdirectory(VariableTimeStep)
 add_subdirectory(util)
