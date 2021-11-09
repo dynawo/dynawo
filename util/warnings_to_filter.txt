@@ -434,3 +434,5 @@ warning: return type of member DYN::SubModel::printInitValuesParameters is not d
 warning: return type of member lostEquipments::Exporter::exportToFile is not documented
 warning: return type of member lostEquipments::Exporter::exportToStream is not documented
 warning: Member getParameterDynamicNoThrow(const boost::unordered_map< std::string, ParameterModeler > &, const std::string &, bool &, const std::vector< std::string > &) const (function) of class DYN::NetworkComponent::Impl is not documented.
+warning: Member getParameterDynamicNoThrow(const boost::unordered_map< std::string, ParameterModeler > &, const std::string &, bool &, const std::vector< std::string > &) const  (function) of class DYN::NetworkComponent::Impl is not documented.
+Warning: Member getParameterDynamicNoThrow(const boost::unordered_map< std::string, ParameterModeler > &, const std::string &, bool &, const std::vector< std::string > &) const  (function) of class DYN::NetworkComponent::Impl is not documented.
