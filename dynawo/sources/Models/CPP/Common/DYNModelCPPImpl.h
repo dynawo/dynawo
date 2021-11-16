@@ -277,7 +277,7 @@ class ModelCPP::Impl : public ModelCPP {
    * @brief get whether the model is starting from dumped values
    * @return get whether the model is starting from dumped values
    */
-  inline const bool getIsStartingFromDump() const {
+  inline bool getIsStartingFromDump() const {
     return isStartingFromDump_;
   }
 
