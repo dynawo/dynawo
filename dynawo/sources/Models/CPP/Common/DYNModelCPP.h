@@ -303,8 +303,17 @@ class ModelCPP : public SubModel {
    */
   void defineParametersInit(std::vector<ParameterModeler>& parameters);
 
+  /**
+   * @brief get whether the model is starting from dumped values
+   * @return get whether the model is starting from dumped values
+   */
+  inline bool isStartingFromDump() const {
+    return isStartingFromDump_;
+  }
+
  private:
   std::string modelType_;  ///< model type
+  bool isStartingFromDump_;  ///< whether the model is starting from dumped values
 };
 
 }  // namespace DYN
