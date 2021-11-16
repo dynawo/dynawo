@@ -570,7 +570,7 @@ class Simulation {
   std::string curvesOutputFile_;  ///< curves' output file
 
   exportTimelineMode_t exportTimelineMode_;  ///< timeline's output mode
-  boost::optional<int> exportTimelineMaxPriority_;  ///< maximum priority when exporting timeline
+  int exportTimelineMaxPriority_;  ///< maximum priority when exporting timeline
   std::string timelineOutputFile_;  ///< timeline's export file
 
   exportFinalStateMode_t exportFinalStateMode_;  ///< final state's export mode

@@ -47,7 +47,7 @@ TxtExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream
   for (Timeline::event_const_iterator itEvent = timeline->cbeginEvent();
           itEvent != timeline->cendEvent();
           ++itEvent) {
-    if ((*itEvent)->hasPriority() && maxPriority_ != boost::none && (*itEvent)->getPriority() > maxPriority_)
+    if ((*itEvent)->hasPriority() && maxPriority_ >= 0 && (*itEvent)->getPriority() > maxPriority_)
       continue;
     stream << (*itEvent)->getTime()
             << TXTEXPORTER_SEPARATOR

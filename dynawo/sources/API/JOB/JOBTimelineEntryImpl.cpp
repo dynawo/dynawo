@@ -26,7 +26,7 @@ namespace job {
 TimelineEntry::Impl::Impl() :
 outputFile_(""),
 exportMode_(""),
-maxPriority_(boost::none) {
+maxPriority_(-1) {
 }
 
 TimelineEntry::Impl::~Impl() {
@@ -43,7 +43,7 @@ TimelineEntry::Impl::setOutputFile(const std::string & outputFile) {
 }
 
 void
-TimelineEntry::Impl::setMaxPriority(const boost::optional<int> maxPriority) {
+TimelineEntry::Impl::setMaxPriority(int maxPriority) {
   maxPriority_ = maxPriority;
 }
 
@@ -62,7 +62,7 @@ TimelineEntry::Impl::getExportMode() const {
   return exportMode_;
 }
 
-boost::optional<int>
+int
 TimelineEntry::Impl::getMaxPriority() const {
   return maxPriority_;
 }

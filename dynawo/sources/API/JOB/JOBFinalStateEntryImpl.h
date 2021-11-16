@@ -89,7 +89,7 @@ class FinalStateEntry::Impl : public FinalStateEntry {
   /**
    * @copydoc FinalStateEntry::getTimestamp() const
    */
-  boost::optional<double> getTimestamp() const;
+  double getTimestamp() const;
 
   /**
    * @copydoc FinalStateEntry::setTimestamp(double timestamp)
@@ -101,7 +101,7 @@ class FinalStateEntry::Impl : public FinalStateEntry {
   bool exportDumpFile_;  ///< Boolean indicating whether to export output state
   std::string outputIIDMFile_;  ///< Output IIDM file for final state
   std::string dumpFile_;  ///< Dump file for final state
-  boost::optional<double> timestamp_;  ///< Timestamp of entry, if present
+  double timestamp_;  ///< Timestamp of entry, if present
 };
 
 }  // namespace job
