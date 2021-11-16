@@ -18,6 +18,8 @@
 #include <IIDM/extensions/congestionManagement/xml/CongestionManagementHandler.h>
 #include <IIDM/extensions/CongestionManagement.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -28,7 +30,8 @@ namespace congestion_management {
 namespace xml {
 
 std::string CongestionManagementHandler::xsd_path() {
-  return IIDM_EXT_CONGESTIONMANAGEMENT_XML_XSD_PATH + std::string("congestionManagement.xsd");
+  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
+  return xsdPath + std::string("congestionManagement.xsd");
 }
 
 CongestionManagementHandler::elementName_type const CongestionManagementHandler::root(
