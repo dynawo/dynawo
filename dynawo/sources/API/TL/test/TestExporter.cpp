@@ -53,7 +53,7 @@ TEST(APITLTest, TimelineExporters) {
   XmlExporter exporterXML;
   ASSERT_NO_THROW(exporterXML.exportToFile(timeline, "testXmlTimelineExport.xml"));
   ASSERT_TRUE(compareFiles("testXmlTimelineExport.xml", "res/testXmlTimelineExport.xml"));
-  exporterXML.setMaxPriority(priority2);
+  exporterXML.setMaxPriority(*priority2);
   ASSERT_NO_THROW(exporterXML.exportToFile(timeline, "testXmlTimelineExportMaxPriority.xml"));
   ASSERT_TRUE(compareFiles("testXmlTimelineExportMaxPriority.xml", "res/testXmlTimelineExportMaxPriority.xml"));
 
@@ -61,7 +61,7 @@ TEST(APITLTest, TimelineExporters) {
   CsvExporter exporterCSV;
   ASSERT_NO_THROW(exporterCSV.exportToFile(timeline, "testCsvTimelineExport.csv"));
   ASSERT_TRUE(compareFiles("testCsvTimelineExport.csv", "res/testCsvTimelineExport.csv"));
-  exporterCSV.setMaxPriority(priority2);
+  exporterCSV.setMaxPriority(*priority2);
   ASSERT_NO_THROW(exporterCSV.exportToFile(timeline, "testCsvTimelineExportMaxPriority.csv"));
   ASSERT_TRUE(compareFiles("testCsvTimelineExportMaxPriority.csv", "res/testCsvTimelineExportMaxPriority.csv"));
 
@@ -69,7 +69,7 @@ TEST(APITLTest, TimelineExporters) {
   TxtExporter exporterTXT;
   ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExport.txt"));
   ASSERT_TRUE(compareFiles("testTxtTimelineExport.txt", "res/testTxtTimelineExport.txt"));
-  exporterTXT.setMaxPriority(priority2);
+  exporterTXT.setMaxPriority(*priority2);
   ASSERT_NO_THROW(exporterTXT.exportToFile(timeline, "testTxtTimelineExportMaxPriority.txt"));
   ASSERT_TRUE(compareFiles("testTxtTimelineExportMaxPriority.txt", "res/testTxtTimelineExportMaxPriority.txt"));
 }

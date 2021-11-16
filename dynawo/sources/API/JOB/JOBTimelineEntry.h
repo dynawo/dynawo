@@ -66,13 +66,13 @@ class TimelineEntry {
    * @brief maximum priority setter
    * @param maxPriority maximum priority allowed when exporting timeline
    */
-  virtual void setMaxPriority(const boost::optional<int> maxPriority) = 0;
+  virtual void setMaxPriority(int maxPriority) = 0;
 
   /**
    * @brief maximum priority getter
    * @return maximum priority allowed when exporting timeline
    */
-  virtual boost::optional<int> getMaxPriority() const = 0;
+  virtual int getMaxPriority() const = 0;
 
   /**
    * @brief Clone current entry
