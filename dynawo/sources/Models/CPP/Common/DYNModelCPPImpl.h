@@ -266,18 +266,10 @@ class ModelCPP::Impl : public ModelCPP {
   void defineParametersInit(std::vector<ParameterModeler>& parameters);
 
   /**
-   * @brief set whether the model is starting from dumped values
-   * @param isStartingFromDump whether the model is starting from dumped values
-   */
-  inline void setIsStartingFromDump(const bool isStartingFromDump) {
-    isStartingFromDump_ = isStartingFromDump;
-  }
-
-  /**
    * @brief get whether the model is starting from dumped values
    * @return get whether the model is starting from dumped values
    */
-  inline bool getIsStartingFromDump() const {
+  inline bool isStartingFromDump() const {
     return isStartingFromDump_;
   }
 

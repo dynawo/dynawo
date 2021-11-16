@@ -106,7 +106,7 @@ ModelCPP::Impl::loadVariables(const string& variables) {
   std::copy(ypValues.begin(), ypValues.end(), ypLocal_);
   std::copy(zValues.begin(), zValues.end(), zLocal_);
   // notify we used dumped values
-  setIsStartingFromDump(true);
+  isStartingFromDump_ = true;
 }
 
 void
