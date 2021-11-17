@@ -124,7 +124,7 @@ class BusInterfaceIIDM : public BusInterface {
   /**
    * @copydoc BusInterface::isFictitious() const
    */
-  bool isFictitious() const {
+  bool isFictitious() const final {
     return false;
   }
 
