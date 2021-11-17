@@ -29,9 +29,9 @@ namespace extensions {
 namespace hvdcangledroopactivepowercontrol {
 namespace xml {
 
-std::string HvdcAngleDroopActivePowerControlHandler::xsd_path() {
-  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
-  return xsdPath + std::string("hvdcAngleDroopActivePowerControl.xsd");
+const std::string& HvdcAngleDroopActivePowerControlHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("hvdcAngleDroopActivePowerControl.xsd");
+  return xsdPath;
 }
 
 HvdcAngleDroopActivePowerControlHandler::elementName_type const& HvdcAngleDroopActivePowerControlHandler::root() {

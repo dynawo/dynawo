@@ -60,7 +60,7 @@ public:
 
   static std::string const& uri() { return root().ns; }
 
-  static std::string xsd_path();
+  static const std::string& xsd_path();
 
 
   CurrentLimitsPerSeasonHandler();
