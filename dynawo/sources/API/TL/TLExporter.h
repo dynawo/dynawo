@@ -38,7 +38,7 @@ class Exporter {
   /**
    * @brief Default constructor
    */
-  Exporter() : maxPriority_(boost::none) {}
+  Exporter() : maxPriority_(-1) {}
 
   /**
    * @brief Destructor
@@ -65,12 +65,12 @@ class Exporter {
    * @brief maximum priority setter
    * @param maxPriority maximum priority allowed
    */
-  void setMaxPriority(const boost::optional<int> maxPriority) {
+  void setMaxPriority(int maxPriority) {
     maxPriority_ = maxPriority;
   }
 
  protected:
-  boost::optional<int> maxPriority_;  ///< maximum priority allowed when exporting timeline
+  int maxPriority_;  ///< maximum priority allowed when exporting timeline
 };
 
 }  // namespace timeline

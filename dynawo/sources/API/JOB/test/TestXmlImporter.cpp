@@ -210,21 +210,19 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_NE(outputs->getTimelineEntry(), boost::shared_ptr<TimelineEntry>());
   boost::shared_ptr<TimelineEntry> timeline = outputs->getTimelineEntry();
   ASSERT_EQ(timeline->getExportMode(), "TXT");
-  boost::optional<int> priority2 = 2;
-  ASSERT_TRUE(timeline->getMaxPriority() == priority2);
+  ASSERT_EQ(timeline->getMaxPriority(), 2);
 
   // ===== FinalStateEntry =====
   ASSERT_EQ(outputs->getFinalStateEntries().size(), 2);
   boost::shared_ptr<FinalStateEntry> finalState = outputs->getFinalStateEntries().front();
   ASSERT_EQ(finalState->getExportIIDMFile(), true);
   ASSERT_EQ(finalState->getExportDumpFile(), true);
-  ASSERT_FALSE(finalState->getTimestamp());
+  ASSERT_TRUE(std::isnan(finalState->getTimestamp()));
 
   finalState = outputs->getFinalStateEntries()[1];
   ASSERT_EQ(finalState->getExportIIDMFile(), true);
   ASSERT_EQ(finalState->getExportDumpFile(), true);
-  ASSERT_TRUE(finalState->getTimestamp());
-  ASSERT_EQ(*finalState->getTimestamp(), 10);
+  ASSERT_EQ(finalState->getTimestamp(), 10);
 
   // ===== CurvesEntry =====
   ASSERT_NE(outputs->getCurvesEntry(), boost::shared_ptr<CurvesEntry>());
