@@ -24,15 +24,15 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
+#include <string>
+
 #include <sundials/sundials_nvector.h>
-#include <sunmatrix/sunmatrix_sparse.h>
 #include <sundials/sundials_matrix.h>
-#include <sundials/sundials_linearsolver.h>
 #include "DYNSolverKINCommon.h"
-#include "DYNSolver.h"
 
 namespace DYN {
 class Model;
+class Solver;
 
 /**
  * @class SolverKINEuler
