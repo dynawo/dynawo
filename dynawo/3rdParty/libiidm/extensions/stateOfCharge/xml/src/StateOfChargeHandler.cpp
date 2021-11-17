@@ -18,6 +18,8 @@
 #include <IIDM/extensions/stateOfCharge/xml/StateOfChargeHandler.h>
 #include <IIDM/extensions/StateOfCharge.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -27,9 +29,9 @@ namespace extensions {
 namespace stateofcharge {
 namespace xml {
 
-const std::string & StateOfChargeHandler::xsd_path() {
-  static std::string XSD_PATH =  IIDM_EXT_STATEOFCHARGE_XML_XSD_PATH + std::string("stateOfCharge.xsd");
-  return XSD_PATH;
+const std::string& StateOfChargeHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("stateOfCharge.xsd");
+  return xsdPath;
 }
 
 StateOfChargeHandler::elementName_type const StateOfChargeHandler::root(

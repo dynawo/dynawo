@@ -56,7 +56,7 @@ public:
   RemoteMeasurementsHandler();
   static elementName_type const& root();
   static std::string const& uri() { return root().ns; }
-  static std::string xsd_path();
+  static const std::string& xsd_path();
   virtual elementName_type const& root_element() const IIDM_OVERRIDE IIDM_FINAL { return root(); }
 
 private:
