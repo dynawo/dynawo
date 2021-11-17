@@ -15,15 +15,16 @@ from optparse import OptionParser
 import glob
 from lxml import etree
 
+def ImportXMLFileExtended(path):
+    root = ImportXMLFile(path)
+    if root.prefix is None:
+        prefix_str = ''
+    else:
+        prefix_str = root.prefix + ':'
+    return (root, root.nsmap, root.prefix, prefix_str)
 
-try:
-    nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
-    sys.path.append(nrtDiff_dir)
-    from iidmDiff import ImportXMLFileExtended
-    from iidmDiff import FindAll
-except:
-    print ("Failed to import nrt diff")
-    sys.exit(1)
+def FindAll(root, prefix, element, ns):
+    return root.findall(".//" + prefix + element, ns)
 
 class Event :
     def __init__(self):
