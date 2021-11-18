@@ -22,13 +22,14 @@
 #define SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINSUBMODEL_H_
 
 #include <boost/core/noncopyable.hpp>
+#include <vector>
 
 #ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wreserved-id-macro"
 #endif  // __clang__
 #include <sundials/sundials_nvector.h>
-#include <sundials/sundials_linearsolver.h>
+#include <sundials/sundials_matrix.h>
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif  // __clang__
@@ -40,7 +41,7 @@ class SubModel;
 /**
  * @brief Sub model for solver KIN
  */
-class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable{
+class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable {
  public:
   /**
    * @brief default constructor
