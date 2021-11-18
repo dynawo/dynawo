@@ -56,7 +56,7 @@ if running.value then
 
 else
 
-  terminal1.i.im = 0;
+  Q1Pu = 0;
 
 end if;
 

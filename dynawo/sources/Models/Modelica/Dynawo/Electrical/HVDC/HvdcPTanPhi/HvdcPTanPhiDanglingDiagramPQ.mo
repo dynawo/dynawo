@@ -45,7 +45,7 @@ equation
      QInj1Pu = QInj1RawPu;
     end if;
   else
-    terminal1.i.im = 0;
+    Q1Pu = 0;
   end if;
 
 annotation(preferredView = "text",
