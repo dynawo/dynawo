@@ -73,7 +73,7 @@ equation
       end if;
     end if;
   else
-    Q1Pu = 0;
+    terminal1.i.im = 0;
   end if;
 
 annotation(preferredView = "text",
