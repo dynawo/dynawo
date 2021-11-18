@@ -130,10 +130,8 @@ annotation(preferredView = "text",
     Types.ReactivePowerPu QInj2Pu(start = 0) "Reactive power at terminal 2 in p.u (base SnRef) (generator convention)";
 
   equation
-  // Connected side
-    s1Pu = Complex(P1Pu, Q1Pu);
-    s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
 
+  // Connected side
     if (running.value) then
       P1Pu = P1RefPu;
       U1Pu = ComplexMath.'abs'(terminal1.V);
