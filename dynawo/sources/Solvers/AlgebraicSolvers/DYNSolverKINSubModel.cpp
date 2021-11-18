@@ -17,14 +17,13 @@
  * @brief Implementation of the solver used to calculate the initial values of the model
  *
  */
+
 #include <kinsol/kinsol.h>
-#include <sundials/sundials_types.h>
-#include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
+
+#include <algorithm>
 #include <cstring>
-#include <vector>
 #include <cmath>
-#include <map>
 
 #include "DYNSolverKINSubModel.h"
 #include "DYNSolverCommon.h"
@@ -32,11 +31,6 @@
 #include "DYNMacrosMessage.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTimer.h"
-
-using std::vector;
-using std::map;
-using std::string;
-using boost::shared_ptr;
 
 namespace DYN {
 
