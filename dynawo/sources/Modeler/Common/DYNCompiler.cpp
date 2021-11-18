@@ -374,7 +374,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
     throw DYNError(Error::MODELER, CompilationFailed, libName);
 
 #ifdef _DEBUG_
-  (void)rmModels_;  // shut up clang -Wunused-private-field
+  static_cast<void>(rmModels_);  // shut up clang -Wunused-private-field
 #else
   // remove .mo, -init.mo
   if (rmModels_) {
