@@ -132,19 +132,15 @@ package BaseClasses
   equation
 
   // Connected side
+    s1Pu = Complex(P1Pu, Q1Pu);
+    s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
 
     if (running.value) then
       P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
       U1Pu = ComplexMath.'abs'(terminal1.V);
-      s1Pu = Complex(P1Pu, Q1Pu);
-      s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
     else
       P1Pu = 0;
       U1Pu = 0;
-      s1Pu.re = 0;
-      s1Pu.im = 0;
-      terminal1.i.re = 0;
-      terminal1.i.im = 0;
     end if;
 
   // Disconnected side
