@@ -34,6 +34,9 @@ protected
 
 equation
 
+  s1Pu = Complex(P1Pu, Q1Pu);
+  s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
+
 // Reactive power control of the connected side
   QInj1RawPu = tanPhi1Ref.value * PInj1Pu;
   if running.value then

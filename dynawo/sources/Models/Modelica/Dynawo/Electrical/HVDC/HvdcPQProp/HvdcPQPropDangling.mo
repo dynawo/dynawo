@@ -43,6 +43,8 @@ protected
 
 equation
 
+  s1Pu = Complex(P1Pu, Q1Pu);
+  s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
   Q1RawModeUPu = Q1RefPu.value - QPercent1 * NQ1.value;
   Q1RawPu = if modeU1.value then Q1RawModeUPu else Q1RefPu.value;
 
