@@ -56,7 +56,7 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
 
   /**
    * @brief Constructor
-   * @param battery: battery iidm instance
+   * @param battery battery iidm instance
    */
   explicit BatteryInterfaceIIDM(IIDM::Battery& battery);
 
