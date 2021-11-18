@@ -15,6 +15,13 @@ from optparse import OptionParser
 import glob
 from lxml import etree
 
+
+def ImportXMLFile(path):
+    if (not os.path.isfile(path)):
+        print("No file found. Unable to import")
+        return None
+    return etree.parse(path).getroot()
+
 def ImportXMLFileExtended(path):
     root = ImportXMLFile(path)
     if root.prefix is None:
