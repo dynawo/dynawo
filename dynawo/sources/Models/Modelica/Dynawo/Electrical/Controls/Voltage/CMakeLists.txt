@@ -19,6 +19,12 @@ set(MODEL_FILES
   TapChangerBlocking1.extvar
   TapChangerBlocking2.mo
   TapChangerBlocking2.extvar
+  TapChangerBlocking3.mo
+  TapChangerBlocking3.extvar
+  TapChangerBlocking4.mo
+  TapChangerBlocking4.extvar
+  TapChangerBlocking5.mo
+  TapChangerBlocking5.extvar
   VRRemote.mo
   VRRemote.extvar
   )
