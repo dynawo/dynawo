@@ -140,10 +140,10 @@ target_include_directories(dynawo_Common SYSTEM
 target_link_libraries(dynawo_Common
   PUBLIC
     dynawo_Interface
-  PRIVATE
-    ${CMAKE_DL_LIBS}
     Boost::filesystem
     Boost::log
+  PRIVATE
+    ${CMAKE_DL_LIBS}
   )
 
 set_target_properties(dynawo_Common PROPERTIES VERSION ${COMMON_VERSION_STRING}
