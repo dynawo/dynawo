@@ -384,7 +384,7 @@ Simulation::configureFinalStateOutputs() {
     it != finalStateEntries.end(); ++it) {
     double timestamp = (*it)->getTimestamp();
 
-    if (!std::isnan(timestamp)) {
+    if (std::isnan(timestamp)) {
       // case no timestamp given, meaning final state
       // ---- exportDumpFile ----
       if ((*it)->getExportDumpFile()) {

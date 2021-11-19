@@ -58,6 +58,9 @@ set(MODELICA_PREASSEMBLED_MODELS
   TapChangerAutomaton.xml
   TapChangerBlockingAutomaton1.xml
   TapChangerBlockingAutomaton2.xml
+  TapChangerBlockingAutomaton3.xml
+  TapChangerBlockingAutomaton4.xml
+  TapChangerBlockingAutomaton5.xml
   TransformerFixedRatio.xml
   UnderVoltageAutomaton.xml
   )
