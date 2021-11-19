@@ -29,9 +29,9 @@ namespace extensions {
 namespace generatoractivepowercontrol {
 namespace xml {
 
-std::string GeneratorActivePowerControlHandler::xsd_path() {
-  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
-  return xsdPath + std::string("generatorActivePowerControl.xsd");
+const std::string& GeneratorActivePowerControlHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("generatorActivePowerControl.xsd");
+  return xsdPath;
 }
 
 GeneratorActivePowerControlHandler::elementName_type const& GeneratorActivePowerControlHandler::root() {

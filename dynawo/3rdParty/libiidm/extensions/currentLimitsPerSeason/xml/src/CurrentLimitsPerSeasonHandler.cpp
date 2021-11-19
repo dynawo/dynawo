@@ -41,9 +41,9 @@ namespace xml {
 
 // ************ class CurrentLimitsPerSeasonHandler ************ //
 
-std::string CurrentLimitsPerSeasonHandler::xsd_path() {
-  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
-  return xsdPath + std::string("currentLimitsPerSeason.xsd");
+const std::string& CurrentLimitsPerSeasonHandler::xsd_path() {
+  static const std::string& xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("currentLimitsPerSeason.xsd");
+  return xsdPath ;
 }
 
 CurrentLimitsPerSeasonHandler::elementName_type const& CurrentLimitsPerSeasonHandler::root() {

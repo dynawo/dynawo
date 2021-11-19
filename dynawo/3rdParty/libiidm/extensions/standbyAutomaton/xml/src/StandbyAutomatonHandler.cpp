@@ -29,9 +29,9 @@ namespace extensions {
 namespace standbyautomaton {
 namespace xml {
 
-std::string StandbyAutomatonHandler::xsd_path() {
-  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
-  return xsdPath + std::string("standbyAutomaton.xsd");
+const std::string& StandbyAutomatonHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("standbyAutomaton.xsd");
+  return xsdPath;
 }
 
 StandbyAutomatonHandler::elementName_type const& StandbyAutomatonHandler::root() {
