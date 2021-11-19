@@ -53,7 +53,7 @@ target_link_libraries(${MODEL_NAME}
   PRIVATE
     dynawo_DataInterface
   PUBLIC
-    dynawo_SolverKINSOL
+    dynawo_SolverKINSubModel
   )
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)

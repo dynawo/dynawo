@@ -193,12 +193,12 @@ class TestCase:
                 print("Fail to run nrtDiff : job without name in file  " + os.path.basename(self.jobs_file_))
                 sys.exit(1)
             if self.name_ == job.get("name"):
-                for outputs in FindAll(job, prefix_str, outputs, ns):
+                for outputs in FindAll(job, prefix_str, "outputs", ns):
                     if (not "directory" in outputs.attrib):
                         print("Fail to run nrtDiff : outputs directory is missing for job " + self.name_)
                         sys.exit(1)
                     # Get compiler log file name from appenders if exists
-                    for appender in FindAll(outputs, prefix_str, appender, ns):
+                    for appender in FindAll(outputs, prefix_str, "appender", ns):
                         if ("tag" in appender.attrib):
                             if ( appender.get("tag") == "COMPILE" ):
                                 if (not "file" in appender.attrib):

@@ -29,7 +29,7 @@ if(GIT_FOUND)
     set(GIT_COMMIT_HASH "0")
   endif()
 else(GIT_FOUND)
-  set(GIT_BRANCH "Unknwon")
+  set(GIT_BRANCH "Unknown")
   set(GIT_COMMIT_HASH "-1")
 endif()
 

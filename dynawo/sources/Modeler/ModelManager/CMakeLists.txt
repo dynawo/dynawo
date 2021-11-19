@@ -48,7 +48,7 @@ target_link_libraries(dynawo_ModelManager
     dynawo_Common
     dynawo_API_PAR
     dynawo_ModelerCommon
-    dynawo_SolverKINSOL
+    dynawo_SolverKINSubModel
     Boost::serialization
     Boost::system
   )

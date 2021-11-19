@@ -129,7 +129,7 @@ add_dependencies(dynawo_Common create_keys_files)
 target_include_directories(dynawo_Common
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../> # for config.h
+    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/sources> # for config.h & gitversion.h
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
   )
 target_include_directories(dynawo_Common SYSTEM
@@ -140,10 +140,10 @@ target_include_directories(dynawo_Common SYSTEM
 target_link_libraries(dynawo_Common
   PUBLIC
     dynawo_Interface
-  PRIVATE
-    ${CMAKE_DL_LIBS}
     Boost::filesystem
     Boost::log
+  PRIVATE
+    ${CMAKE_DL_LIBS}
   )
 
 set_target_properties(dynawo_Common PROPERTIES VERSION ${COMMON_VERSION_STRING}
