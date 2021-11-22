@@ -23,7 +23,6 @@ target_include_directories(dynawo_SolverKINCommon
 target_link_libraries(dynawo_SolverKINCommon
   PUBLIC
     dynawo_Common
-  PRIVATE
     Sundials::Sundials_KINSOL
     Sundials::Sundials_NVECSERIAL
     Sundials::Sundials_SUNLINSOLKLU
