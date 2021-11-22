@@ -58,10 +58,10 @@ class ParameterCommon {
 #endif
 
 #ifdef LANG_CXX11
-  /**
-   * @brief Default copy assigment operator
-   */
-  ParameterCommon& operator=(const ParameterCommon&) = default;
+    /**
+     * @brief Default copy assigment operator
+     */
+    ParameterCommon& operator=(const ParameterCommon&) = delete;
 #endif
 
   /**
