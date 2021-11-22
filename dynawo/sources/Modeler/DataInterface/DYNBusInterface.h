@@ -117,6 +117,12 @@ class BusInterface : public ComponentInterface {
    * @return identifiers of the bus bar section associated to the bus
    */
   virtual const std::vector<std::string>& getBusBarSectionIdentifiers() const = 0;
+
+  /**
+   * @brief Check if the bus is fictitious
+   * @return @b true if the bus is fictitious, @b false if not
+   */
+  virtual bool isFictitious() const = 0;
 };  ///< Interface class for Bus model
 }  // namespace DYN
 

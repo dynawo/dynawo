@@ -29,9 +29,9 @@ namespace extensions {
 namespace busbarsection_position {
 namespace xml {
 
-std::string BusbarSectionPositionHandler::xsd_path() {
-  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
-  return xsdPath + std::string("busbarSectionPosition.xsd");
+const std::string& BusbarSectionPositionHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("busbarSectionPosition.xsd");
+  return xsdPath;
 }
 
 BusbarSectionPositionHandler::elementName_type const& BusbarSectionPositionHandler::root() {

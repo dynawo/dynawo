@@ -50,9 +50,9 @@ void TapPositionHandler::do_startElement(elementName_type const& element, attrib
 }
 
 
-std::string RemoteMeasurementsHandler::xsd_path() {
-  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
-  return xsdPath + std::string("remoteMeasurements.xsd");
+const std::string& RemoteMeasurementsHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("remoteMeasurements.xsd");
+  return xsdPath;
 }
 
 RemoteMeasurementsHandler::elementName_type const& RemoteMeasurementsHandler::root() {

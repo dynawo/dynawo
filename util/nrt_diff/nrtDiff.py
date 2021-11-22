@@ -193,12 +193,12 @@ class TestCase:
                 print("Fail to run nrtDiff : job without name in file  " + os.path.basename(self.jobs_file_))
                 sys.exit(1)
             if self.name_ == job.get("name"):
-                for outputs in FindAll(job, prefix_str, outputs, ns):
+                for outputs in FindAll(job, prefix_str, "outputs", ns):
                     if (not "directory" in outputs.attrib):
                         print("Fail to run nrtDiff : outputs directory is missing for job " + self.name_)
                         sys.exit(1)
                     # Get compiler log file name from appenders if exists
-                    for appender in FindAll(outputs, prefix_str, appender, ns):
+                    for appender in FindAll(outputs, prefix_str, "appender", ns):
                         if ("tag" in appender.attrib):
                             if ( appender.get("tag") == "COMPILE" ):
                                 if (not "file" in appender.attrib):
@@ -633,8 +633,9 @@ def update_one_log_file(file_path, output_file_path):
 # @param jobs_file : the path to the jobs file
 # @return a list of output directories
 def findOutputDirFromJob(jobs_file):
-    if ".zip" in jobs_file:
-      return [os.path.dirname (jobs_file)]
+    if jobs_file.endswith(".zip"):
+        return ['.']  # relative current directory
+
     # Parse jobs file
     try:
         (jobs_root, ns, _, prefix_str) = ImportXMLFileExtended(jobs_file)
@@ -643,12 +644,15 @@ def findOutputDirFromJob(jobs_file):
         sys.exit(1)
 
     output_dirs = []
+    # we expect to find job elements and outputs sub-elements with a directory attribute
     for job in FindAll(jobs_root, prefix_str, "job", ns):
         for outputs in FindAll(job, prefix_str, "outputs", ns):
-            if (not 'directory' in outputs.attrib):
-                continue
-            output_dirs.append(outputs.attrib["directory"])
-    return output_dirs
+            if 'directory' in outputs.attrib:
+                output_dirs.append(outputs.attrib["directory"])
+
+    # if nothing has been found, it's probably another format of jobs file from a derived project
+    # and we return the relative current directory
+    return output_dirs or ['.']
 
 
 ##
@@ -659,6 +663,7 @@ def DirectoryDiffReferenceDataJob (jobs_file):
     messages = []
     final_status = IDENTICAL
     for output_dir in output_dirs:
+        # caution: output_dir has to be relative !
         reference_data_directory = os.path.join (os.path.dirname(jobs_file), REFERENCE_DATA_DIRECTORY_NAME, output_dir)
         nrt_directory = os.path.join (os.path.dirname(jobs_file),output_dir)
         status_priority = [UNABLE_TO_CHECK, NO_FILES_TO_COMPARE, MISSING_DATA_BOTH_SIDES, MISSING_DATA_LEFT, DIFFERENT, WITHIN_TOLERANCE, LOG_DIFFERENT_WITHIN_TOLERANCE, MISSING_DATA_RIGHT, SAME_LOG_WITH_DIFFERENT_TIMESTAMP, IDENTICAL]

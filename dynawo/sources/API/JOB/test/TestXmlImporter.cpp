@@ -211,7 +211,8 @@ TEST(APIJOBTest, testXmlImporter) {
   boost::shared_ptr<TimelineEntry> timeline = outputs->getTimelineEntry();
   ASSERT_EQ(timeline->getExportMode(), "TXT");
   ASSERT_EQ(timeline->getExportWithTime(), false);
-  ASSERT_EQ(timeline->getMaxPriority(), 2);
+  ASSERT_TRUE(timeline->getMaxPriority());
+  ASSERT_EQ(*timeline->getMaxPriority(), 2);
 
   // ===== TimetableEntry =====
   ASSERT_NE(outputs->getTimetableEntry(), boost::shared_ptr<TimetableEntry>());

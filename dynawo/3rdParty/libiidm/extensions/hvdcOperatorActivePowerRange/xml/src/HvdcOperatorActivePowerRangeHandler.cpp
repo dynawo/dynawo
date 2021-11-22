@@ -29,9 +29,9 @@ namespace extensions {
 namespace hvdcoperatoractivepowerrange {
 namespace xml {
 
-std::string HvdcOperatorActivePowerRangeHandler::xsd_path() {
-  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
-  return xsdPath + std::string("hvdcOperatorActivePowerRange.xsd");
+const std::string& HvdcOperatorActivePowerRangeHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("hvdcOperatorActivePowerRange.xsd");
+  return xsdPath;
 }
 
 HvdcOperatorActivePowerRangeHandler::elementName_type const& HvdcOperatorActivePowerRangeHandler::root() {
