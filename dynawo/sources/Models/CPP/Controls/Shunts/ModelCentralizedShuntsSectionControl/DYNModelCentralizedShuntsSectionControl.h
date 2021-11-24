@@ -21,7 +21,7 @@
 #ifndef MODELS_CPP_CONTROLS_SHUNTS_MODELCENTRALIZEDSHUNTSSECTIONCONTROL_DYNMODELCENTRALIZEDSHUNTSSECTIONCONTROL_H_
 #define MODELS_CPP_CONTROLS_SHUNTS_MODELCENTRALIZEDSHUNTSSECTIONCONTROL_DYNMODELCENTRALIZEDSHUNTSSECTIONCONTROL_H_
 
-#include "DYNModelCPPImpl.h"
+#include "DYNModelCPP.h"
 #include "DYNModelConstants.h"
 #include "DYNSubModelFactory.h"
 
@@ -60,7 +60,7 @@ class ModelCentralizedShuntsSectionControlFactory : public SubModelFactory {
 /**
  * @brief ModelCentralizedShuntsSectionControl class
  */
-class ModelCentralizedShuntsSectionControl : public ModelCPP::Impl {
+class ModelCentralizedShuntsSectionControl : public ModelCPP {
  public:
   /**
    * @brief default constructor

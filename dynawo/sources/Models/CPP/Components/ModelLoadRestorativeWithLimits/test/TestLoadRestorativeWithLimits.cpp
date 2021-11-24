@@ -32,7 +32,7 @@
 
 namespace DYN {
 
-boost::shared_ptr<SubModel> initModelLoad(double u0Pu) {
+static boost::shared_ptr<SubModel> initModelLoad(double u0Pu) {
   boost::shared_ptr<SubModel> modelLoad =
   SubModelFactory::createSubModelFromLib("../DYNModelLoadRestorativeWithLimits" + std::string(sharedLibraryExtension()));
 

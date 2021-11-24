@@ -67,7 +67,7 @@ INIT_XML_DYNAWO;
 
 namespace DYN {
 
-boost::shared_ptr<Solver> initSolver(bool enableSilentZ = true) {
+static boost::shared_ptr<Solver> initSolver(bool enableSilentZ = true) {
   // Solver
   boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverIDA" + std::string(sharedLibraryExtension()));
 
@@ -98,7 +98,7 @@ boost::shared_ptr<Solver> initSolver(bool enableSilentZ = true) {
   return solver;
 }
 
-void compile(boost::shared_ptr<DynamicData> dyd) {
+static void compile(boost::shared_ptr<DynamicData> dyd) {
   bool preCompiledUseStandardModels = false;
   std::vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
   std::string preCompiledModelsExtension = sharedLibraryExtension();
@@ -134,7 +134,7 @@ void compile(boost::shared_ptr<DynamicData> dyd) {
   cf.concatRefs();
 }
 
-boost::shared_ptr<Model> initModel(Modeler modeler, const double& tStart = 0, bool enableSilentZ = true) {
+static boost::shared_ptr<Model> initModel(Modeler modeler, const double& tStart = 0, bool enableSilentZ = true) {
   boost::shared_ptr<Model> model = modeler.getModel();
   model->initBuffers();
   model->initSilentZ(enableSilentZ);
@@ -149,7 +149,7 @@ boost::shared_ptr<Model> initModel(Modeler modeler, const double& tStart = 0, bo
 }
 
 
-std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModel(std::string dydFileName, std::string iidmFileName,
+static std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModel(std::string dydFileName, std::string iidmFileName,
  std::string parFileName, const double& tStart, const double& tStop) {
   boost::shared_ptr<Solver> solver = initSolver();
 
@@ -195,7 +195,7 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
   return std::make_pair(solver, model);
 }
 
-boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName, bool enableSilentZ = true) {
+static boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName, bool enableSilentZ = true) {
 // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   std::vector <std::string> fileNames;
@@ -214,7 +214,7 @@ boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName, bool enableSi
   return model;
 }
 
-std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
+static std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
  const double& tStart, const double& tStop, bool enableSilentZ = true) {
   boost::shared_ptr<Solver> solver = initSolver(enableSilentZ);
   boost::shared_ptr<Model> model = initModelFromDyd(dydFileName, enableSilentZ);

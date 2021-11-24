@@ -19,6 +19,8 @@
 #include <IIDM/extensions/voltageRegulation/xml/VoltageRegulationHandler.h>
 #include <IIDM/extensions/VoltageRegulation.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 #include "internals/import/TerminalReferenceHandler.h"
 
@@ -36,9 +38,9 @@ namespace extensions {
 namespace voltageregulation {
 namespace xml {
 
-const std::string & VoltageRegulationHandler::xsd_path() {
-  static std::string XSD_PATH = IIDM_EXT_VOLTAGEREGULATION_XML_XSD_PATH + std::string("voltageRegulation.xsd");
-  return XSD_PATH;
+const std::string& VoltageRegulationHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("voltageRegulation.xsd");
+  return xsdPath;
 }
 
 VoltageRegulationHandler::VoltageRegulationHandler() {

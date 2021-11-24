@@ -50,7 +50,7 @@ class SubModelFactory : private boost::noncopyable {
   /**
    * @brief Destructor
    */
-  virtual ~SubModelFactory() { }
+  virtual ~SubModelFactory();
 
   /**
    * @brief create a new instance of a submodel
@@ -170,11 +170,6 @@ class SubModelDelete {
   explicit SubModelDelete(SubModelFactory* factory);
 
   /**
-   * @brief destructor
-   */
-  ~SubModelDelete() { }
-
-  /**
    * @brief Function to use this class as a Functor
    *
    * @param subModel pointer to the subModel to delete
@@ -186,4 +181,17 @@ class SubModelDelete {
   SubModelFactory* factory_;  ///< factory associated to the model to destroy
 };
 }  // namespace DYN
+
+/**
+ * @brief SubModelFactory getter
+ * @return A pointer to a new instance of SubModelFactory
+ */
+extern "C" DYN::SubModelFactory* getFactory();
+
+/**
+ * @brief SubModelFactory destroy method
+ * @param factory the SubModelFactory to destroy
+ */
+extern "C" void deleteFactory(DYN::SubModelFactory* factory);
+
 #endif  // MODELER_COMMON_DYNSUBMODELFACTORY_H_

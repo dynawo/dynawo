@@ -52,9 +52,9 @@ void FeederHandler::do_startElement(elementName_type const& /*name*/, attributes
     feeder = ConnectablePosition::Feeder(feederName, order, direction);
 }
 
-std::string ConnectablePositionHandler::xsd_path() {
-  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
-  return xsdPath + std::string("connectablePosition.xsd");
+const std::string& ConnectablePositionHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("connectablePosition.xsd");
+  return xsdPath;
 }
 
 ConnectablePositionHandler::elementName_type const& ConnectablePositionHandler::root() {

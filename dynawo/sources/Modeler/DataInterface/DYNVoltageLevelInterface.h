@@ -35,6 +35,11 @@ class VscConverterInterface;
 class LccConverterInterface;
 class DanglingLineInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @class VoltageLevelInterface
  * @brief VoltageLevelInterface class
@@ -216,6 +221,10 @@ class VoltageLevelInterface {
    */
   virtual bool isNodeBreakerTopology() const = 0;
 };  /// end of class declaration
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // namespace DYN
 

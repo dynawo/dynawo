@@ -63,6 +63,8 @@ BOOST_STATIC_ASSERT_MSG(sizeof (double) == sizeof (realtype), "wrong size of sun
 #endif
 }  // namespace conditions
 
+Solver::~Solver() {}
+
 Solver::Impl::Impl() :
 sundialsVectorY_(NULL),
 sundialsVectorYp_(NULL),

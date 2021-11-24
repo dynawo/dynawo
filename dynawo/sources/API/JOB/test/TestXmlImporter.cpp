@@ -86,11 +86,11 @@ TEST(APIJOBTest, testXmlStreamImporter) {
     "</dyn:modeler>"
     "<dyn:simulation startTime=\"10\" stopTime=\"200\"/>"
     "<dyn:outputs directory=\"outputs/dump\">"
+    "<dyn:dumpInitValues local=\"true\" global=\"false\"/>"
+    "<dyn:constraints exportMode=\"XML\"/>"
+    "<dyn:timeline exportMode=\"TXT\" exportTime=\"true\"/>"
     "<dyn:finalState exportDumpFile=\"true\" exportIIDMFile=\"true\"/>"
     "<dyn:curves inputFile=\"curves_dump.crv\" exportMode=\"CSV\"/>"
-    "<dyn:timeline exportMode=\"TXT\" exportTime=\"true\"/>"
-    "<dyn:constraints exportMode=\"XML\"/>"
-    "<dyn:dumpInitValues local=\"true\" global=\"false\"/>"
     "<dyn:logs>"
     "<dyn:appender tag=\"\" file=\"dynawo.log\" lvlFilter=\"DEBUG\" separator=\"-\" showLevelTag=\"false\" timeStampFormat=\"%H:%M:%S\"/>"
     "<dyn:appender tag=\"COMPILE\" file=\"dynawoCompiler.log\" lvlFilter=\"INFO\"/>"
@@ -211,6 +211,8 @@ TEST(APIJOBTest, testXmlImporter) {
   boost::shared_ptr<TimelineEntry> timeline = outputs->getTimelineEntry();
   ASSERT_EQ(timeline->getExportMode(), "TXT");
   ASSERT_EQ(timeline->getExportWithTime(), false);
+  ASSERT_TRUE(timeline->getMaxPriority());
+  ASSERT_EQ(*timeline->getMaxPriority(), 2);
 
   // ===== TimetableEntry =====
   ASSERT_NE(outputs->getTimetableEntry(), boost::shared_ptr<TimetableEntry>());
@@ -218,10 +220,17 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_EQ(timetable->getStep(), 10);
 
   // ===== FinalStateEntry =====
-  ASSERT_NE(outputs->getFinalStateEntry(), boost::shared_ptr<FinalStateEntry>());
-  boost::shared_ptr<FinalStateEntry> finalState = outputs->getFinalStateEntry();
+  ASSERT_EQ(outputs->getFinalStateEntries().size(), 2);
+  boost::shared_ptr<FinalStateEntry> finalState = outputs->getFinalStateEntries().front();
   ASSERT_EQ(finalState->getExportIIDMFile(), true);
   ASSERT_EQ(finalState->getExportDumpFile(), true);
+  ASSERT_FALSE(finalState->getTimestamp());
+
+  finalState = outputs->getFinalStateEntries()[1];
+  ASSERT_EQ(finalState->getExportIIDMFile(), true);
+  ASSERT_EQ(finalState->getExportDumpFile(), true);
+  ASSERT_TRUE(finalState->getTimestamp());
+  ASSERT_EQ(*finalState->getTimestamp(), 10);
 
   // ===== CurvesEntry =====
   ASSERT_NE(outputs->getCurvesEntry(), boost::shared_ptr<CurvesEntry>());

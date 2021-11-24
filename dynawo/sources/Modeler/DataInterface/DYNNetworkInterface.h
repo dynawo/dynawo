@@ -31,6 +31,11 @@ class ThreeWTransformerInterface;
 class VoltageLevelInterface;
 class HvdcLineInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Network interface
  */
@@ -108,6 +113,10 @@ class NetworkInterface {
    */
   virtual boost::optional<std::string> getSlackNodeBusId() const = 0;
 };  ///< class for network data interface
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // namespace DYN
 

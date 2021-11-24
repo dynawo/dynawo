@@ -57,11 +57,6 @@ class ParameterSolver : public ParameterCommon {
 #endif
 
   /**
-   * @brief Destructor
-   */
-  ~ParameterSolver() { }
-
-  /**
     * @brief check whether the parameter's value is set
     * @return whether the parameter's value is set
     */

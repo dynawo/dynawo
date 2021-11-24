@@ -49,7 +49,7 @@ INIT_XML_DYNAWO;
 
 namespace DYN {
 
-boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
+static boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
   // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   std::vector <std::string> fileNames;
@@ -111,7 +111,7 @@ class SolverMock : public Solver::Impl {
  public:
   SolverMock() : Solver::Impl::Impl() {}
 
-  ~SolverMock() {}
+  ~SolverMock();
 
   void defineSpecificParameters() {}
 
@@ -137,6 +137,8 @@ class SolverMock : public Solver::Impl {
 
   void solveStep(double /*tAim*/, double& /*tNxt*/) {}
 };
+
+SolverMock::~SolverMock() {}
 
 TEST(AlgebraicSolvers, testInit) {
   boost::shared_ptr<SolverKINCommon> solver(new SolverKINCommon());

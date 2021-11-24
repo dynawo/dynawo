@@ -27,6 +27,11 @@ class BusInterface;
 class VoltageLevelInterface;
 class CurrentLimitInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief 3W transformator interface
  */
@@ -36,7 +41,6 @@ class ThreeWTransformerInterface : public ComponentInterface {
    * @brief Destructor
    */
   virtual ~ThreeWTransformerInterface() { }
-
 
   /**
    * @brief Add a curent limit interface for side 1
@@ -157,6 +161,11 @@ class ThreeWTransformerInterface : public ComponentInterface {
    */
   virtual void exportStateVariablesUnitComponent() = 0;
 };  ///< Three windings transformer data interface class
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNTHREEWTRANSFORMERINTERFACE_H_

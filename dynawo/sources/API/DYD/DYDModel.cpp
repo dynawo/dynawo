@@ -37,6 +37,8 @@ namespace dynamicdata {
 
 Model::Model(const string& id, ModelType type) : id_(IdentifiableFactory::newIdentifiable(id)), type_(type) {}
 
+Model::~Model() {}
+
 const string&
 Model::getId() const {
   return id_->get();
@@ -65,7 +67,7 @@ Model::addStaticRef(const string& var, const string& staticVar) {
 
 void
 Model::addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef) {
-  string id = macroStaticRef->getId();
+  const string& id = macroStaticRef->getId();
   std::pair<std::map<std::string, boost::shared_ptr<MacroStaticRef> >::iterator, bool> ret;
 #ifdef LANG_CXX11
   ret = macroStaticRefs_.emplace(id, macroStaticRef);

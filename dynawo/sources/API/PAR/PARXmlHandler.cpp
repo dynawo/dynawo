@@ -103,6 +103,8 @@ macroParSetHandler_(parser::ElementName(namespace_uri(), "macroParSet")) {
   macroParSetHandler_.onEnd(lambda::bind(&SetHandler::addMacroParSet, lambda::ref(*this)));
 }
 
+SetHandler::~SetHandler() {}
+
 void
 SetHandler::create(attributes_type const & attributes) {
   setRead_ = shared_ptr<ParametersSet>(new ParametersSet(attributes["id"].as_string()));
@@ -159,6 +161,8 @@ parInTableHandler_(parser::ElementName(namespace_uri(), "par")) {
   parInTableHandler_.onEnd(lambda::bind(&ParTableHandler::addPar, lambda::ref(*this)));
 }
 
+ParTableHandler::~ParTableHandler() {}
+
 void
 ParTableHandler::create(attributes_type const & attributes) {
   pars_.clear();
@@ -180,6 +184,8 @@ ParInTableHandler::ParInTableHandler(elementName_type const & root_element) {
   onStartElement(root_element, lambda::bind(&ParInTableHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
+ParInTableHandler::~ParInTableHandler() {}
+
 void
 ParInTableHandler::create(attributes_type const & attributes) {
   par_.value = attributes["value"].as_string();
@@ -195,6 +201,8 @@ ParInTableHandler::get() const {
 ParHandler::ParHandler(elementName_type const & root_element) {
   onStartElement(root_element, lambda::bind(&ParHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
+
+ParHandler::~ParHandler() {}
 
 void
 ParHandler::create(attributes_type const & attributes) {
@@ -224,6 +232,8 @@ RefHandler::RefHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&RefHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
+RefHandler::~RefHandler() {}
+
 void RefHandler::create(attributes_type const & attributes) {
   referenceRead_ = ReferenceFactory::newReference(attributes["name"]);
   referenceRead_->setType(attributes["type"]);
@@ -248,6 +258,8 @@ parHandler_(parser::ElementName(namespace_uri(), "par")) {
   parHandler_.onEnd(lambda::bind(&MacroParameterSetHandler::addParameter, lambda::ref(*this)));
 }
 
+MacroParameterSetHandler::~MacroParameterSetHandler() {}
+
 void
 MacroParameterSetHandler::create(attributes_type const & attributes) {
   macroParameterSet_ = shared_ptr<MacroParameterSet>(new MacroParameterSet(attributes["id"].as_string()));
@@ -271,6 +283,8 @@ MacroParameterSetHandler::get() const {
 MacroParSetHandler::MacroParSetHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&MacroParSetHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
+
+MacroParSetHandler::~MacroParSetHandler() {}
 
 void
 MacroParSetHandler::create(attributes_type const & attributes) {

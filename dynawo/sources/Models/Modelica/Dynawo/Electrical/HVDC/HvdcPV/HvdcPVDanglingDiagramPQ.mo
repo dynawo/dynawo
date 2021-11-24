@@ -42,6 +42,9 @@ protected
 
 equation
 
+  s1Pu = Complex(P1Pu, Q1Pu);
+  s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
+
 // Voltage/Reactive power regulation at terminal 1
   when QInj1Pu >= QInj1MaxPu and U1Pu <= U1RefPu.value then
     q1Status = QStatus.GenerationMax;

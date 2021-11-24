@@ -76,13 +76,13 @@ class Constraint {
    * @brief Getter for modelName for which constraint occurs
    * @return Model's name for which constraint occurs
    */
-  std::string getModelName() const;
+  const std::string& getModelName() const;
 
   /**
    * @brief Getter for model type for which constraint occurs
    * @return Model's type for which constraint occurs
    */
-  std::string getModelType() const;
+  const std::string& getModelType() const;
 
   /**
    * @brief test if a model type was defined for this constraint
@@ -100,7 +100,7 @@ class Constraint {
    * @brief Getter for constraint's description
    * @return message to describe constraint
    */
-  std::string getDescription() const;
+  const std::string& getDescription() const;
 
  private:
   double time_;              ///< Constraint's time

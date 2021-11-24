@@ -79,7 +79,7 @@ extern "C" void DYN::ModelVoltageSetPointChangeFactory::destroy(DYN::SubModel* m
 namespace DYN {
 
 ModelVoltageSetPointChange::ModelVoltageSetPointChange() :
-Impl("VoltageSetPointChange"),
+ModelCPP("VoltageSetPointChange"),
 startTime_(0.),
 stopTime_(0.),
 voltageSetPointChange_(0.),

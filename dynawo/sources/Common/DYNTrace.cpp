@@ -77,7 +77,7 @@ const SeverityLevel Trace::defaultLevel_ = INFO;
  * @todo Change this function to avoid duplication of the severity level into a pair
  * enum/vector. For the moment, solution based on Boost.Log examples.
  */
-std::ostream& operator<<(std::ostream& strm, SeverityLevel level) {
+static std::ostream& operator<<(std::ostream& strm, SeverityLevel level) {
   strm << Trace::stringFromSeverityLevel(level);
   return strm;
 }

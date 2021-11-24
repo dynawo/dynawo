@@ -47,7 +47,7 @@
 using boost::shared_ptr;
 
 namespace DYN {
-std::pair<shared_ptr<ModelLoad>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<shared_ptr<ModelLoad>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelLoad(bool open, bool initModel) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
@@ -147,58 +147,60 @@ createModelLoad(bool open, bool initModel) {
   return std::make_pair(load, vl);
 }
 
-void
+static void
 fillParameters(shared_ptr<ModelLoad> load) {
   boost::unordered_map<std::string, ParameterModeler> parametersModels;
-  std::string paramName = "load_alpha";
-  ParameterModeler param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param.setValue<double>(1., PAR);
-  parametersModels.insert(std::make_pair(paramName, param));
 
-  paramName = "load_beta";
-  param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param.setValue<double>(0.5, PAR);
-  parametersModels.insert(std::make_pair(paramName, param));
-
-  paramName = "load_isRestorative";
-  param = ParameterModeler(paramName, VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
-  param.setValue<bool>(true, PAR);
-  parametersModels.insert(std::make_pair(paramName, param));
-
-  paramName = "load_isControllable";
-  param = ParameterModeler(paramName, VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
-  param.setValue<bool>(true, PAR);
-  parametersModels.insert(std::make_pair(paramName, param));
-
-  paramName = "load_Tp";
-  param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param.setValue<double>(2., PAR);
-  parametersModels.insert(std::make_pair(paramName, param));
-
-  paramName = "load_Tq";
-  param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param.setValue<double>(4., PAR);
-  parametersModels.insert(std::make_pair(paramName, param));
-
-  paramName = "load_zPMax";
-  param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param.setValue<double>(6., PAR);
-  parametersModels.insert(std::make_pair(paramName, param));
-
-  paramName = "load_zQMax";
-  param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param.setValue<double>(8., PAR);
-  parametersModels.insert(std::make_pair(paramName, param));
-
-  paramName = "load_alphaLong";
-  param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param.setValue<double>(2., PAR);
-  parametersModels.insert(std::make_pair(paramName, param));
-
-  paramName = "load_betaLong";
-  param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param.setValue<double>(0.2, PAR);
-  parametersModels.insert(std::make_pair(paramName, param));
+  {
+    ParameterModeler param = ParameterModeler("load_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(1., PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  {
+    ParameterModeler param = ParameterModeler("load_beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(0.5, PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  {
+    ParameterModeler param = ParameterModeler("load_isRestorative", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
+    param.setValue<bool>(true, PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  {
+    ParameterModeler param = ParameterModeler("load_isControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
+    param.setValue<bool>(true, PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  {
+    ParameterModeler param = ParameterModeler("load_Tp", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(2., PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  {
+    ParameterModeler param = ParameterModeler("load_Tq", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(4., PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  {
+    ParameterModeler param = ParameterModeler("load_zPMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(6., PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  {
+    ParameterModeler param = ParameterModeler("load_zQMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(8., PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  {
+    ParameterModeler param = ParameterModeler("load_alphaLong", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(2., PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  {
+    ParameterModeler param = ParameterModeler("load_betaLong", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(0.2, PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
 
   load->setSubModelParameters(parametersModels);
 }

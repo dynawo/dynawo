@@ -34,10 +34,6 @@ namespace curves {
 class XmlImporter : public Importer {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~XmlImporter() {}
-  /**
    * @copydoc Importer::importFromFile()
    */
   boost::shared_ptr<CurvesCollection> importFromFile(const std::string& fileName) const;

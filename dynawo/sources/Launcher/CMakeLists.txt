@@ -20,7 +20,6 @@ add_executable(dynawo ${DYNAWO_SOURCES})
 target_include_directories(dynawo
   PRIVATE
     $<TARGET_PROPERTY:dynawo_SimulationCommon,INTERFACE_INCLUDE_DIRECTORIES>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../> # for config.h
   )
 
 target_link_libraries(dynawo

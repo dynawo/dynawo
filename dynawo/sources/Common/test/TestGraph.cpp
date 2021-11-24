@@ -68,7 +68,7 @@ TEST(CommonTest, testBuildSimpleGraph2) {
  *                 9
  */
 
-Graph defineGraph() {
+static Graph defineGraph() {
   Graph graph;
   for (unsigned int i = 0; i < 10; ++i)
     graph.addVertex(i);
@@ -89,7 +89,7 @@ Graph defineGraph() {
   return graph;
 }
 
-boost::unordered_map<string, float> defineWeights() {
+static boost::unordered_map<string, float> defineWeights() {
   boost::unordered_map<string, float> weights;
   weights["0-1"] = 1;
   weights["0-2"] = 1;

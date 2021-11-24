@@ -25,10 +25,17 @@
 #include <sstream>
 #include <boost/format.hpp>
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wshadow"
+#endif  // __clang__
 #include "DYNError_keys.h"
 #include "DYNLog_keys.h"
 #include "DYNTimeline_keys.h"
 #include "DYNConstraint_keys.h"
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 namespace DYN {
 

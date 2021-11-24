@@ -61,7 +61,7 @@ class NetworkComponent {  ///< Base class for network component models
   /**
    * @brief destructor
    */
-  virtual ~NetworkComponent() { }
+  virtual ~NetworkComponent();
 
   /**
    * @brief add bus neighbors

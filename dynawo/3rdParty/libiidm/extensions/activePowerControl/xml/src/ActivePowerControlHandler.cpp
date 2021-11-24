@@ -18,6 +18,8 @@
 #include <IIDM/extensions/activePowerControl/xml/ActivePowerControlHandler.h>
 #include <IIDM/extensions/ActivePowerControl.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -27,8 +29,9 @@ namespace extensions {
 namespace activepowercontrol {
 namespace xml {
 
-std::string ActivePowerControlHandler::xsd_path() {
-  return IIDM_EXT_ACTIVEPOWERCONTROL_XML_XSD_PATH + std::string("activePowerControl.xsd");
+const std::string& ActivePowerControlHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("activePowerControl.xsd");
+  return xsdPath;
 }
 
 ActivePowerControlHandler::elementName_type const ActivePowerControlHandler::root(

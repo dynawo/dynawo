@@ -102,11 +102,6 @@ class Trace {
       persistant_(false) { }
 
     /**
-     * @brief TraceAppender destructor
-     */
-    ~TraceAppender() { }
-
-    /**
      * @brief Tag attribute getter
      * @return Tag filtered by the appender
      */

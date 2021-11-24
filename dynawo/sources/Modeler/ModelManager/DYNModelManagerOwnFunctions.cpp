@@ -569,7 +569,7 @@ MMC_REFSTRINGLIT(OMC_STRINGLIT_1_FF),
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/index_spec.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
-int imax(int i, int j) { return ((i < j) ? j : i); }
+static inline int imax(int i, int j) { return ((i < j) ? j : i); }
 
 static inline void real_set_(real_array_t *a, size_t i, modelica_real r) {
   (reinterpret_cast<modelica_real *> (a->data))[i] = r;

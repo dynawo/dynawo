@@ -58,7 +58,7 @@
 using boost::shared_ptr;
 
 namespace DYN {
-std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelTwoWindingsTransformer(bool open, bool initModel, bool ratioTapChanger, bool phaseTapChanger,
                                   bool loadTapChangingCapabilities = true, bool closed1 = true, bool closed2 = true) {
 #ifdef USE_POWSYBL
@@ -1096,41 +1096,47 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDefineInstantiate) {
     ASSERT_EQ(definedVariables[i]->getType(), instantiatedVariables[i]->getType());
   }
 
-
   std::vector<ParameterModeler> parameters;
   t2w->defineNonGenericParameters(parameters);
   ASSERT_EQ(parameters.size(), 0);
   boost::unordered_map<std::string, ParameterModeler> parametersModels;
-  const std::string paramName = "transformer_currentLimit_maxTimeOperation";
-  ParameterModeler param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param.setValue<double>(10., PAR);
-  parametersModels.insert(std::make_pair(paramName, param));
-  ASSERT_THROW_DYNAWO(t2w->setSubModelParameters(parametersModels), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  std::string param2Name = "transformer_t1st_THT";
-  ParameterModeler param2 = ParameterModeler(param2Name, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param2.setValue<double>(1., PAR);
-  parametersModels.insert(std::make_pair(param2Name, param2));
-  ASSERT_THROW_DYNAWO(t2w->setSubModelParameters(parametersModels), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  param2Name = "transformer_tNext_THT";
-  param2 = ParameterModeler(param2Name, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param2.setValue<double>(1., PAR);
-  parametersModels.insert(std::make_pair(param2Name, param2));
-  ASSERT_THROW_DYNAWO(t2w->setSubModelParameters(parametersModels), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  param2Name = "transformer_t1st_HT";
-  param2 = ParameterModeler(param2Name, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param2.setValue<double>(1., PAR);
-  parametersModels.insert(std::make_pair(param2Name, param2));
-  ASSERT_THROW_DYNAWO(t2w->setSubModelParameters(parametersModels), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  param2Name = "transformer_tNext_HT";
-  param2 = ParameterModeler(param2Name, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param2.setValue<double>(1., PAR);
-  parametersModels.insert(std::make_pair(param2Name, param2));
-  ASSERT_THROW_DYNAWO(t2w->setSubModelParameters(parametersModels), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
-  param2Name = "transformer_tolV";
-  param2 = ParameterModeler(param2Name, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param2.setValue<double>(1., PAR);
-  parametersModels.insert(std::make_pair(param2Name, param2));
-  ASSERT_NO_THROW(t2w->setSubModelParameters(parametersModels));
+
+  {
+    ParameterModeler param = ParameterModeler("transformer_currentLimit_maxTimeOperation", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(10., PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+    ASSERT_THROW_DYNAWO(t2w->setSubModelParameters(parametersModels), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
+  }
+  {
+    ParameterModeler param = ParameterModeler("transformer_t1st_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(1., PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+    ASSERT_THROW_DYNAWO(t2w->setSubModelParameters(parametersModels), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
+  }
+  {
+    ParameterModeler param = ParameterModeler("transformer_tNext_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(1., PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+    ASSERT_THROW_DYNAWO(t2w->setSubModelParameters(parametersModels), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
+  }
+  {
+    ParameterModeler param = ParameterModeler("transformer_t1st_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(1., PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+    ASSERT_THROW_DYNAWO(t2w->setSubModelParameters(parametersModels), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
+  }
+  {
+    ParameterModeler param = ParameterModeler("transformer_tNext_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(1., PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+    ASSERT_THROW_DYNAWO(t2w->setSubModelParameters(parametersModels), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
+  }
+  {
+    ParameterModeler param = ParameterModeler("transformer_tolV", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+    param.setValue<double>(1., PAR);
+    parametersModels.insert(std::make_pair(param.getName(), param));
+    ASSERT_NO_THROW(t2w->setSubModelParameters(parametersModels));
+  }
 }
 
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerJt) {

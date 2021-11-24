@@ -12,8 +12,26 @@ import os
 import sys
 import re
 from optparse import OptionParser
-from xml.dom import minidom
 import glob
+from lxml import etree
+
+
+def ImportXMLFile(path):
+    if (not os.path.isfile(path)):
+        print("No file found. Unable to import")
+        return None
+    return etree.parse(path).getroot()
+
+def ImportXMLFileExtended(path):
+    root = ImportXMLFile(path)
+    if root.prefix is None:
+        prefix_str = ''
+    else:
+        prefix_str = root.prefix + ':'
+    return (root, root.nsmap, root.prefix, prefix_str)
+
+def FindAll(root, prefix, element, ns):
+    return root.findall(".//" + prefix + element, ns)
 
 class Event :
     def __init__(self):
@@ -165,20 +183,19 @@ def read_txt(filepath):
 def read_xml(filepath):
     timeline = Timeline()
     try:
-        doc = minidom.parse(filepath)
-        root = doc.documentElement
+        (root, ns, _, prefix_str) = ImportXMLFileExtended(filepath)
     except:
         printout("Fail to import XML file " + filepath + os.linesep, BLACK)
         sys.exit(1)
 
-    for event_timeline in root.getElementsByTagNameNS(root.namespaceURI, 'event'):
+    for event_timeline in FindAll(root, prefix_str, "event", ns):
         event = Event()
-        time = float(event_timeline.getAttribute('time'))
+        time = float(event_timeline.attrib['time'])
         event.time = time
-        event.model = event_timeline.getAttribute('modelName').strip()
-        event.event = event_timeline.getAttribute('message').rstrip().lstrip()
-        if event_timeline.hasAttribute('priority'):
-            event.priority = event_timeline.getAttribute('priority').rstrip().lstrip()
+        event.model = event_timeline.attrib['modelName'].strip()
+        event.event = event_timeline.attrib['message'].rstrip().lstrip()
+        if 'priority' in event_timeline.attrib:
+            event.priority = event_timeline.attrib['priority'].rstrip().lstrip()
         timeline.add_event(event)
 
     return timeline

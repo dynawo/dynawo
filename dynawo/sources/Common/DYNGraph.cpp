@@ -32,16 +32,13 @@ using boost::put;
 using boost::edge;
 using boost::add_edge;
 
-bool path_length_is_shorter(const PathDescription& path1, const PathDescription& path2) {
+static bool path_length_is_shorter(const PathDescription& path1, const PathDescription& path2) {
   return (path1.size() < path2.size());
 }
 
 namespace DYN {
 
 Graph::Graph() {
-}
-
-Graph::~Graph() {
 }
 
 void

@@ -27,6 +27,12 @@
 #include <string>
 
 namespace timeline {
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @class Exporter
  * @brief Exporter interface class
@@ -35,6 +41,11 @@ namespace timeline {
  */
 class Exporter {
  public:
+  /**
+   * @brief Default constructor
+   */
+  Exporter() : exportWithTime_(true), maxPriority_(boost::none) {}
+
   /**
    * @brief Destructor
    */
@@ -45,21 +56,41 @@ class Exporter {
    *
    * @param timeline Timeline to export
    * @param filePath File to export to
-   * @param exportWithTime whether to export time
    */
-  virtual void exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath,
-                            const bool exportWithTime) const = 0;
+  virtual void exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath) const = 0;
 
   /**
    * @brief Export method for this exporter
    *
    * @param timeline Timeline to export
    * @param stream stream to export to
+   */
+  virtual void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream) const = 0;
+
+  /**
+   * @brief whether to export time setter
    * @param exportWithTime whether to export time
    */
-  virtual void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream,
-                              const bool exportWithTime) const = 0;
+  void setExportWithTime(const bool exportWithTime) {
+    exportWithTime_ = exportWithTime;
+  }
+
+  /**
+   * @brief maximum priority setter
+   * @param maxPriority maximum priority allowed
+   */
+  void setMaxPriority(const boost::optional<int> maxPriority) {
+    maxPriority_ = maxPriority;
+  }
+
+ protected:
+  bool exportWithTime_;  ///< boolean indicating whether to export time when exporting timeline
+  boost::optional<int> maxPriority_;  ///< maximum priority allowed when exporting timeline
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // namespace timeline
 

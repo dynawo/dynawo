@@ -45,7 +45,7 @@ class SolverFactory {
   /**
    * @brief Destructor
    */
-  virtual ~SolverFactory() { }
+  virtual ~SolverFactory();
 
   /**
    * @brief create a new instance of a solver
@@ -162,11 +162,6 @@ class SolverDelete {
   explicit SolverDelete(SolverFactory* factory);
 
   /**
-   * @brief destructor
-   */
-  ~SolverDelete() { }
-
-  /**
    * @brief Function to use this class as a Functor
    *
    * @param solver pointer to the solver to delete
@@ -179,4 +174,17 @@ class SolverDelete {
 };
 
 }  // end of namespace DYN
+
+/**
+ * @brief SolverFactory getter
+ * @return A pointer to a new instance of SolverFactory
+ */
+extern "C" DYN::SolverFactory* getFactory();
+
+/**
+ * @brief SolverFactory destroy method
+ * @param factory the SolverFactory to destroy
+ */
+extern "C" void deleteFactory(DYN::SolverFactory* factory);
+
 #endif  // SOLVERS_COMMON_DYNSOLVERFACTORY_H_
