@@ -310,7 +310,7 @@ class Dictionary:
                 cpp_file.write('    "' + key + '",\n')
             cpp_file.write("  };\n")
             cpp_file.write("  return names[v];\n")
-            cpp_file.write("};\n")
+            cpp_file.write("}\n")
             cpp_file.write("} //namespace " + namespace + "\n")
 
     ##

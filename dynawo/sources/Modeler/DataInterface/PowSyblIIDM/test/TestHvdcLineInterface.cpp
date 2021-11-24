@@ -144,4 +144,4 @@ TEST(DataInterfaceTest, HvdcLine) {
   lcc.getTerminal().connect();
   ASSERT_FALSE(Ifce.isConnected());
 }  // TEST(DataInterfaceTest, HvdcLine)
-};  // namespace DYN
+}  // namespace DYN
