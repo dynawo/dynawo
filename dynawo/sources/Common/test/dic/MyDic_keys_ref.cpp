@@ -18,5 +18,5 @@ const char* Keyic_t::names(const value& v) {
     "MyLabel",
   };
   return names[v];
-};
+}
 } //namespace MyNS
