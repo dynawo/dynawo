@@ -419,12 +419,12 @@ Simulation::configureFinalStateOutputs() {
       // case no timestamp given, meaning final state
       // ---- exportDumpFile ----
       if ((*it)->getExportDumpFile()) {
-        finalState_.dumpFile = createAbsolutePath("outputState.dmp", finalStateDir);
+        finalState_.dumpFile_ = createAbsolutePath("outputState.dmp", finalStateDir);
       }
 
       // --- exportIIDMFile ----
       if ((*it)->getExportIIDMFile()) {
-        finalState_.iidmFile = createAbsolutePath("outputIIDM.xml", finalStateDir);
+        finalState_.iidmFile_ = createAbsolutePath("outputIIDM.xml", finalStateDir);
       }
     } else {
       if (!(*it)->getExportDumpFile() && !(*it)->getExportIIDMFile()) {
@@ -435,12 +435,12 @@ Simulation::configureFinalStateOutputs() {
       if ((*it)->getExportDumpFile()) {
         std::stringstream ss;
         ss << *timestamp << "_outputState.dmp";
-        dumpStateDefinition.dumpFile = createAbsolutePath(ss.str(), finalStateDir);
+        dumpStateDefinition.dumpFile_ = createAbsolutePath(ss.str(), finalStateDir);
       }
       if ((*it)->getExportIIDMFile()) {
         std::stringstream ss;
         ss << *timestamp << "_outputIIDM.xml";
-        dumpStateDefinition.iidmFile = createAbsolutePath(ss.str(), finalStateDir);
+        dumpStateDefinition.iidmFile_ = createAbsolutePath(ss.str(), finalStateDir);
       }
       dumpStateDefinitionsMap.insert(std::make_pair(*timestamp, dumpStateDefinition));
     }
@@ -844,7 +844,7 @@ Simulation::simulate() {
   bool criteriaChecked = true;
   try {
     // update state variable only if the IIDM final state is exported, or criteria is checked, or lost equipments are exported
-    if (data_ && (finalState_.iidmFile || activateCriteria_ || isLostEquipmentsExported())) {
+    if (data_ && (finalState_.iidmFile_ || activateCriteria_ || isLostEquipmentsExported())) {
       data_->getStateVariableReference();   // Each state variable in DataInterface has a mapped reference variable in dynamic model,
                                          // either in a modelica model or in a C++ model.
       // save initial connection state at t0 for each equipment
@@ -911,18 +911,18 @@ Simulation::simulate() {
       while (hasIntermediateStateToDump()) {
         const ExportStateDefinition& dumpDefinition = intermediateStates_.front();
         data_->exportStateVariables();
-        if (dumpDefinition.dumpFile) {
-          dumpState(*dumpDefinition.dumpFile);
+        if (dumpDefinition.dumpFile_) {
+          dumpState(*dumpDefinition.dumpFile_);
         }
-        if (dumpDefinition.iidmFile) {
-          dumpIIDMFile(*dumpDefinition.iidmFile);
+        if (dumpDefinition.iidmFile_) {
+          dumpIIDMFile(*dumpDefinition.iidmFile_);
         }
         intermediateStates_.pop();
       }
     }
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here if it might be used in the post process
-    if (finalState_.iidmFile || exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_)
+    if (finalState_.iidmFile_ || exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_)
       model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
 
     if (SignalHandler::gotExitSignal() && !end()) {
@@ -967,7 +967,7 @@ bool
 Simulation::hasIntermediateStateToDump() const {
   // Intermediate timestamp of the simulation reached
   return !intermediateStates_.empty() &&
-        (doubleEquals(tCurrent_, intermediateStates_.front().timestamp) || tCurrent_ > intermediateStates_.front().timestamp);
+        (doubleEquals(tCurrent_, intermediateStates_.front().timestamp_) || tCurrent_ > intermediateStates_.front().timestamp_);
 }
 
 void
@@ -1114,7 +1114,7 @@ Simulation::terminate() {
     fileConstraints.close();
   }
 
-  if (data_ && (finalState_.iidmFile || isLostEquipmentsExported())) {
+  if (data_ && (finalState_.iidmFile_ || isLostEquipmentsExported())) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer timer2("DataInterfaceIIDM::exportStateVariables");
 #endif
@@ -1128,10 +1128,10 @@ Simulation::terminate() {
     fileLostEquipments.close();
   }
 
-  if (finalState_.dumpFile)
+  if (finalState_.dumpFile_)
     dumpState();
 
-  if (finalState_.iidmFile)
+  if (finalState_.iidmFile_)
     dumpIIDMFile();
 
   printEnd();
@@ -1260,15 +1260,15 @@ Simulation::dumpIIDMFile(const boost::filesystem::path& iidmFile) {
 
 void
 Simulation::dumpIIDMFile() {
-  if (finalState_.iidmFile) {
-    dumpIIDMFile(*finalState_.iidmFile);
+  if (finalState_.iidmFile_) {
+    dumpIIDMFile(*finalState_.iidmFile_);
   }
 }
 
 void
 Simulation::dumpState() {
-  if (finalState_.dumpFile) {
-    dumpState(*finalState_.dumpFile);
+  if (finalState_.dumpFile_) {
+    dumpState(*finalState_.dumpFile_);
   }
 }
 
@@ -1338,9 +1338,9 @@ Simulation::printCurrentTime(const string& fileName) {
 Simulation::ExportStateDefinition::ExportStateDefinition(double timestamp,
       boost::optional<boost::filesystem::path> dumpFile,
       boost::optional<boost::filesystem::path> iidmFile):
-  timestamp(timestamp),
-  dumpFile(dumpFile),
-  iidmFile(iidmFile) {
+  timestamp_(timestamp),
+  dumpFile_(dumpFile),
+  iidmFile_(iidmFile) {
 }
 
 }  // end of namespace DYN

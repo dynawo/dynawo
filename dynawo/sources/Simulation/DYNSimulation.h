@@ -142,9 +142,9 @@ class Simulation {
       boost::optional<boost::filesystem::path> dumpFile = boost::none,
       boost::optional<boost::filesystem::path> iidmFile = boost::none);
 
-    double timestamp;                                   ///< Timestamp of the export (can be max for final state)
-    boost::optional<boost::filesystem::path> dumpFile;  ///< Path of the dump state file, if requested
-    boost::optional<boost::filesystem::path> iidmFile;  ///< Path of the IIDM export file, if requested
+    double timestamp_;                                   ///< Timestamp of the export (can be max for final state)
+    boost::optional<boost::filesystem::path> dumpFile_;  ///< Path of the dump state file, if requested
+    boost::optional<boost::filesystem::path> iidmFile_;  ///< Path of the IIDM export file, if requested
   };
 
  public:
@@ -394,7 +394,7 @@ class Simulation {
    * @param file final state dump output file
    */
   inline void setDumpFinalStateFile(const std::string& file) {
-    finalState_.dumpFile = file;
+    finalState_.dumpFile_ = file;
   }
 
   /**
@@ -402,21 +402,21 @@ class Simulation {
    * @param file final state IIDM output file
    */
   inline void setExportIIDMFile(const std::string& file) {
-    finalState_.iidmFile = file;
+    finalState_.iidmFile_ = file;
   }
 
   /**
    * @brief disable IIDM export for final state
    */
   inline void disableExportIIDM() {
-    finalState_.iidmFile.reset();
+    finalState_.iidmFile_.reset();
   }
 
   /**
    * @brief disable dump export for final state
    */
   inline void disableDumpFinalState() {
-    finalState_.dumpFile.reset();
+    finalState_.dumpFile_.reset();
   }
 
   /**
