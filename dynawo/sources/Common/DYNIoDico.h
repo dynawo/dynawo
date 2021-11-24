@@ -148,7 +148,7 @@ class IoDicos {
   /**
    * @brief Copy constructor
    */
-  IoDicos(const IoDicos&);
+  IoDicos(const IoDicos&) = delete;
 
   /**
    * @brief Assignement operator

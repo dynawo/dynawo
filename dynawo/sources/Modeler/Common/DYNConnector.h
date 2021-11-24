@@ -49,10 +49,7 @@ class connectedSubModel {
    */
   //---------------------------------------------------------------------
 
-  connectedSubModel(const connectedSubModel & model) :
-  subModel_(model.subModel_),
-  variable_(model.variable_),
-  negated_(model.negated_) { }
+  connectedSubModel(const connectedSubModel & model) = delete;
 
   /**
    * @brief constructor
@@ -77,14 +74,7 @@ class connectedSubModel {
    *
    * @returns Reference to this const_iterator
    */
-  connectedSubModel& operator=(const connectedSubModel& other) {
-    if (this == &other)
-      return *this;
-    subModel_ = other.subModel_;
-    variable_ = other.variable_;
-    negated_ = other.negated_;
-    return *this;
-  }
+  connectedSubModel& operator=(const connectedSubModel& other) = delete;
 
   /**
    * @brief getter of the submodel connected by the connector
@@ -126,15 +116,9 @@ class Connector {
    * @brief getter of the submodels connected by the connector
    * @return submodels connected by the connector
    */
-  inline std::vector<connectedSubModel>& connectedSubModels() {
+  inline std::vector<boost::shared_ptr<connectedSubModel>>& connectedSubModels() {
     return connectedSubModels_;
   }
-
-  /**
-   * @brief add a submodel to the list of the submodel connected by the connector
-   * @param subModel subModel connected by the connector
-   */
-  void addConnectedSubModel(const connectedSubModel& subModel);
 
   /**
    * @brief add a submodel to the list of the submodel connected by the connector
@@ -151,7 +135,7 @@ class Connector {
   int nbConnectedSubModels() const;
 
  private:
-  std::vector<connectedSubModel> connectedSubModels_;  ///< submodels connected by this connector
+  std::vector<boost::shared_ptr<connectedSubModel>> connectedSubModels_;  ///< submodels connected by this connector
 };
 
 /**

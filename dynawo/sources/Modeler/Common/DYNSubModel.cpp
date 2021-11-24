@@ -474,7 +474,7 @@ SubModel::instantiateNonUnitaryParameters(const bool isInitParam,
         ss << index;
         const string& indexAsString = ss.str();
         const string& newName = paramName + "_" + indexAsString;
-        ParameterModeler newParameter = ParameterModeler(newName, parameter.getValueType(), parameter.getScope());
+        ParameterModeler newParameter(newName, parameter.getValueType(), parameter.getScope());
         newParameter.setIsNonUnitaryParameterInstance(true);
         addParameter(newParameter, isInitParam);
         addedParameter.insert(newName);
@@ -538,7 +538,7 @@ SubModel::setParametersFromPARFile(const bool isInitParam) {
     if ((currentParameter.isUnitary()) && (!currentParameter.isFullyInternal())) {
       setParameterFromPARFile(currentParameter);
     } else if (!currentParameter.isUnitary()) {
-      nonUnitaryParameters.insert(std::make_pair(it->first, currentParameter));
+      nonUnitaryParameters.insert(std::pair<string, ParameterModeler>(it->first, currentParameter));
     }
   }
 

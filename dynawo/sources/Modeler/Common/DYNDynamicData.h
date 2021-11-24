@@ -258,7 +258,7 @@ class DynamicData {
    * @brief dynamic data copy constructor
    * @param data : the dynamic data instance to copy
    */
-  DynamicData(const DynamicData& data);
+  DynamicData(const DynamicData& data) = delete;
 
  private:
   std::string rootDirectory_;  ///< directory to use as root when reading file

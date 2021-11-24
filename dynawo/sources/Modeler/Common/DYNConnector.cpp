@@ -41,13 +41,8 @@ using boost::unordered_map;
 namespace DYN {
 
 void
-Connector::addConnectedSubModel(const connectedSubModel& subModel) {
-  connectedSubModels_.push_back(subModel);
-}
-
-void
 Connector::addConnectedSubModel(const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable, bool negated) {
-  connectedSubModels_.push_back(connectedSubModel(subModel, variable, negated));
+  connectedSubModels_.push_back(boost::shared_ptr<connectedSubModel>(new connectedSubModel(subModel, variable, negated)));
 }
 
 int
@@ -116,10 +111,10 @@ ConnectorContainer::mergeYConnector() {
   for (unsigned int i = 0; i < yConnectorsDeclared_.size(); ++i) {
     shared_ptr<Connector> yc(new Connector(*yConnectorsDeclared_[i]));
     bool merged = false;
-    for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = yc->connectedSubModels().begin();
         it != yc->connectedSubModels().end();
         ++it) {
-      const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
+      const int numVar = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
       if (yConnectorByVarNum_.find(numVar) != yConnectorByVarNum_.end()) {
         mergeConnectors(yc, yConnectorByVarNum_[numVar], yConnectorsList, yConnectorByVarNum_);
         merged = true;
@@ -129,10 +124,10 @@ ConnectorContainer::mergeYConnector() {
 
     if (!merged) {
       yConnectorsList.push_back(yc);
-      for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+      for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = yc->connectedSubModels().begin();
           it != yc->connectedSubModels().end();
           ++it) {
-        const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
+        const int numVar = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
         yConnectorByVarNum_[numVar] = yc;
       }
     }
@@ -171,10 +166,10 @@ ConnectorContainer::mergeFlowConnector() {
   for (unsigned int i = 0; i < flowConnectorsDeclared_.size(); ++i) {
     shared_ptr<Connector> flowc(new Connector(*flowConnectorsDeclared_[i]));
     bool merged = false;
-    for (vector<connectedSubModel>::iterator it = flowc->connectedSubModels().begin();
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = flowc->connectedSubModels().begin();
         it != flowc->connectedSubModels().end();
         ++it) {
-      int numVar = getConnectorVarNum(it->subModel(), it->variable(), flowConnector);
+      int numVar = getConnectorVarNum((*it)->subModel(), (*it)->variable(), flowConnector);
       if (flowConnectorByVarNum_.find(numVar) != flowConnectorByVarNum_.end()) {
         mergeConnectors(flowc, flowConnectorByVarNum_[numVar], flowConnectorsList, flowConnectorByVarNum_, flowConnector);
         merged = true;
@@ -184,10 +179,10 @@ ConnectorContainer::mergeFlowConnector() {
 
     if (!merged) {
       flowConnectorsList.push_back(flowc);
-      for (vector<connectedSubModel>::iterator it = flowc->connectedSubModels().begin();
+      for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = flowc->connectedSubModels().begin();
           it != flowc->connectedSubModels().end();
           ++it) {
-        int numVar = getConnectorVarNum(it->subModel(), it->variable(), flowConnector);
+        int numVar = getConnectorVarNum((*it)->subModel(), (*it)->variable(), flowConnector);
         flowConnectorByVarNum_[numVar] = flowc;
       }
     }
@@ -206,10 +201,10 @@ ConnectorContainer::mergeZConnector() {
   for (unsigned int i = 0; i < zConnectorsDeclared_.size(); ++i) {
     shared_ptr<Connector> zc(new Connector(*zConnectorsDeclared_[i]));
     bool merged = false;
-    for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = zc->connectedSubModels().begin();
         it != zc->connectedSubModels().end();
         ++it) {
-      const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
+      const int numVar = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
       if (zConnectorByVarNum_.find(numVar) != zConnectorByVarNum_.end()) {
         mergeConnectors(zc, zConnectorByVarNum_[numVar], zConnectorsList, zConnectorByVarNum_);
         merged = true;
@@ -219,10 +214,10 @@ ConnectorContainer::mergeZConnector() {
 
     if (!merged) {
       zConnectorsList.push_back(zc);
-      for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
+      for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = zc->connectedSubModels().begin();
           it != zc->connectedSubModels().end();
           ++it) {
-        const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
+        const int numVar = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
         zConnectorByVarNum_[numVar] = zc;
       }
     }
@@ -242,10 +237,10 @@ ConnectorContainer::propagateZConnectionInfoToModel() const {
     if (zc->connectedSubModels().empty()) {
       throw DYNError(Error::MODELER, EmptyConnector);  // should not happen but who knows ...
     }
-    for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = zc->connectedSubModels().begin();
         it != zc->connectedSubModels().end();
         ++it) {
-      const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
+      const int numVar2 = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
       zConnectedLocal_[numVar2] = true;
     }
   }
@@ -256,18 +251,18 @@ ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<
                                     unordered_map<int, shared_ptr<Connector> >& connectorsByVarNum, bool flowConnector) {
   // Looking for common variable to test the negated attributes
   bool negatedMerge = false;
-  for (vector<connectedSubModel>::const_iterator itCon = connector->connectedSubModels().begin();
+  for (vector<boost::shared_ptr<connectedSubModel>>::const_iterator itCon = connector->connectedSubModels().begin();
           itCon != connector->connectedSubModels().end();
           ++itCon) {
-    const int numVar = itCon->subModel()->getVariableIndexGlobal(itCon->variable());
+    const int numVar = (*itCon)->subModel()->getVariableIndexGlobal((*itCon)->variable());
     if (connectorsByVarNum.find(numVar) != connectorsByVarNum.end() && connectorsByVarNum[numVar] == reference) {
       // check whether the two connectors have at least one variable in common :
       // if so, the negated attribute of the merge is derived from the shared variable negated attribute comparison
-      for (vector<connectedSubModel>::const_iterator itRef = connector->connectedSubModels().begin();
+      for (vector<boost::shared_ptr<connectedSubModel>>::const_iterator itRef = connector->connectedSubModels().begin();
           itRef != connector->connectedSubModels().end();
           ++itRef) {
-        if (itRef->subModel()->getVariableIndexGlobal(itRef->variable()) == numVar) {  // found the two connectedSubModels
-          negatedMerge = itRef->negated() != itCon->negated();
+        if ((*itRef)->subModel()->getVariableIndexGlobal((*itRef)->variable()) == numVar) {  // found the two connectedSubModels
+          negatedMerge = (*itRef)->negated() != (*itCon)->negated();
           break;
         }
       }
@@ -275,10 +270,10 @@ ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<
   }
 
   // Merging connectors
-  for (vector<connectedSubModel>::const_iterator it = connector->connectedSubModels().begin();
+  for (vector<boost::shared_ptr<connectedSubModel>>::const_iterator it = connector->connectedSubModels().begin();
           it != connector->connectedSubModels().end();
           ++it) {
-    int numVar = getConnectorVarNum(it->subModel(), it->variable(), flowConnector);
+    int numVar = getConnectorVarNum((*it)->subModel(), (*it)->variable(), flowConnector);
     if (connectorsByVarNum.find(numVar) != connectorsByVarNum.end()) {
       // variable used in a final connector
       if (connectorsByVarNum[numVar] == reference) {
@@ -288,7 +283,7 @@ ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<
         continue;
       }
     }
-    reference->addConnectedSubModel(it->subModel(), it->variable(), (negatedMerge ? !(it->negated()) : it->negated()));
+    reference->addConnectedSubModel((*it)->subModel(), (*it)->variable(), (negatedMerge ? !((*it)->negated()) : (*it)->negated()));
     connectorsByVarNum[numVar] = reference;
   }
 
@@ -341,11 +336,11 @@ ConnectorContainer::getYConnectorInfos(const int index) const {
       offset += nbSubModels;
     } else {
       const int localOffset = index - offset;  // first item (reference) not taken into account
-      vector<connectedSubModel>::const_iterator it = yc->connectedSubModels().begin();
+      vector<boost::shared_ptr<connectedSubModel>>::const_iterator it = yc->connectedSubModels().begin();
       // First is reference
-      const connectedSubModel& reference = *it;
+      const connectedSubModel& reference = *(*it);
       equation.append("Y Connector : ").append(reference.subModel()->name()).append(" - ");
-      equation.append(yc->connectedSubModels().at(localOffset).subModel()->name());
+      equation.append(yc->connectedSubModels().at(localOffset)->subModel()->name());
 
       return equation;
     }
@@ -357,13 +352,13 @@ ConnectorContainer::getYConnectorInfos(const int index) const {
 string
 ConnectorContainer::getConnectorInfos(const string& prefix, const shared_ptr<Connector>& connector) const {
   string equation = prefix;
-  for (vector<connectedSubModel>::const_iterator it = connector->connectedSubModels().begin();
+  for (vector<boost::shared_ptr<connectedSubModel>>::const_iterator it = connector->connectedSubModels().begin();
           it != connector->connectedSubModels().end();
           ++it) {
     if (it != connector->connectedSubModels().begin()) {
       equation.append(" - ");
     }
-    equation.append(it->subModel()->name());
+    equation.append((*it)->subModel()->name());
   }
   return equation;
 }
@@ -393,16 +388,16 @@ ConnectorContainer::printEquations() const {
       continue;  // should not happen but who knows ...
     }
 
-    vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+    vector<boost::shared_ptr<connectedSubModel>>::iterator it = yc->connectedSubModels().begin();
     // First is reference
-    connectedSubModel reference = *it;
+    connectedSubModel& reference = *(*it);
     ++it;
     for (;
         it != yc->connectedSubModels().end();
         ++it) {
       const int numEq = offsetModel_ + offset;
       Trace::debug(Trace::equations()) << numEq << " "  << reference.subModel()->name()+"_"+reference.variable()->getName()  <<
-          " = " << it->subModel()->name()+"_"+it->variable()->getName() << Trace::endline;
+          " = " << (*it)->subModel()->name()+"_"+(*it)->variable()->getName() << Trace::endline;
       ++offset;
     }
   }
@@ -412,11 +407,11 @@ ConnectorContainer::printEquations() const {
     bool first = true;
     ss.str("");
     ss.clear();
-    for (vector<connectedSubModel>::iterator it = fc->connectedSubModels().begin();
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = fc->connectedSubModels().begin();
         it != fc->connectedSubModels().end();
         ++it) {
       string op = (first ? "" : "+");
-      ss << (it->negated() ? "-" : op) << it->variable()->getName();
+      ss << ((*it)->negated() ? "-" : op) << (*it)->variable()->getName();
       first = false;
     }
     ss << " = 0";
@@ -436,19 +431,19 @@ ConnectorContainer::printYConnectors() const {
       continue;  // should not happen but who knows ...
     }
 
-    vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+    vector<boost::shared_ptr<connectedSubModel>>::iterator it = yc->connectedSubModels().begin();
     // First is reference
-    connectedSubModel reference = *it;
+    connectedSubModel& reference = *(*it);
     const int numVarReference = reference.subModel()->getVariableIndexGlobal(reference.variable());
     ++it;
     for (;
         it != yc->connectedSubModels().end();
         ++it) {
-      const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
-      Trace::debug(Trace::modeler()) << "         Yconnector " << (it->negated() ? "-" : "") << "Y[" << std::setw(6) << numVar2 << "] = "
+      const int numVar2 = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
+      Trace::debug(Trace::modeler()) << "         Yconnector " << ((*it)->negated() ? "-" : "") << "Y[" << std::setw(6) << numVar2 << "] = "
           << (reference.negated() ? "-" : "") << "Y[" << std::setw(6) << numVarReference << "]"
           << "      F = F[" << std::setw(6) << offsetModel_ + offset
-          << "] / " << DYNLog(ConnectedModels, it->subModel()->name(), reference.subModel()->name()) << Trace::endline;
+          << "] / " << DYNLog(ConnectedModels, (*it)->subModel()->name(), reference.subModel()->name()) << Trace::endline;
       ++offset;
     }
   }
@@ -462,11 +457,11 @@ ConnectorContainer::printFlowConnectors() const {
     stringstream ss;
     ss << "         flowConnector : ";
     bool first = true;
-    for (vector<connectedSubModel>::iterator it = fc->connectedSubModels().begin();
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = fc->connectedSubModels().begin();
         it != fc->connectedSubModels().end();
         ++it) {
-      const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
-      ss << (it->negated() ? "-" : (first ? "" : "+")) << "Y[" << std::setw(6) << numVar << "] ";
+      const int numVar = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
+      ss << ((*it)->negated() ? "-" : (first ? "" : "+")) << "Y[" << std::setw(6) << numVar << "] ";
       first = false;
     }
     ss << " = 0";
@@ -485,18 +480,18 @@ ConnectorContainer::printZConnectors() const {
       continue;  // should not happen but who knows ...
     }
 
-    vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
+    vector<boost::shared_ptr<connectedSubModel>>::iterator it = zc->connectedSubModels().begin();
     // First is reference
-    connectedSubModel reference = *it;
+    connectedSubModel& reference = *(*it);
     const int numVarReference = reference.subModel()->getVariableIndexGlobal(reference.variable());
     ++it;
     for (;
         it != zc->connectedSubModels().end();
         ++it) {
-      const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
-      Trace::debug(Trace::modeler()) << "         Zconnector " << (it->negated() ? "-" : "") << "Z[" << std::setw(6) << numVar2 << "] = "
+      const int numVar2 = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
+      Trace::debug(Trace::modeler()) << "         Zconnector " << ((*it)->negated() ? "-" : "") << "Z[" << std::setw(6) << numVar2 << "] = "
           << (reference.negated() ? "-" : "") << "Z[" << std::setw(6) << numVarReference << "] / "
-          << DYNLog(ConnectedModels, it->subModel()->name(), reference.subModel()->name()) << Trace::endline;
+          << DYNLog(ConnectedModels, (*it)->subModel()->name(), reference.subModel()->name()) << Trace::endline;
     }
   }
 }
@@ -540,9 +535,9 @@ ConnectorContainer::evalFConnector(const double /*t*/) {
         throw DYNError(Error::MODELER, EmptyConnector);  // should not happen but who knows ...
       }
 
-      vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+      vector<boost::shared_ptr<connectedSubModel>>::iterator it = yc->connectedSubModels().begin();
       // First is reference
-      connectedSubModel reference = *it;
+      connectedSubModel& reference = *(*it);
       const int numVarReference = reference.subModel()->getVariableIndexGlobal(reference.variable());
       ++it;
       for (; it != yc->connectedSubModels().end(); ++it) {
@@ -551,8 +546,8 @@ ConnectorContainer::evalFConnector(const double /*t*/) {
         // First is reference
         index[0] = numVarReference;
         // second the other variable
-        index[1] = it->subModel()->getVariableIndexGlobal(it->variable());
-        factor[1] = (reference.negated() == it->negated()) ? -1 : 1;
+        index[1] = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
+        factor[1] = (reference.negated() == (*it)->negated()) ? -1 : 1;
         index_[offset] = index;
         factor_[offset] = factor;
         ++offset;
@@ -566,8 +561,8 @@ ConnectorContainer::evalFConnector(const double /*t*/) {
       vector<int> factor(fc->connectedSubModels().size(), 1);
 
       for (unsigned int j=0; j < fc->connectedSubModels().size(); ++j) {
-        index[j] = fc->connectedSubModels()[j].subModel()->getVariableIndexGlobal(fc->connectedSubModels()[j].variable());
-        factor[j] = (fc->connectedSubModels()[j].negated()) ? -1 : 1;
+        index[j] = fc->connectedSubModels()[j]->subModel()->getVariableIndexGlobal(fc->connectedSubModels()[j]->variable());
+        factor[j] = (fc->connectedSubModels()[j]->negated()) ? -1 : 1;
       }
       index_[offset] = index;
       factor_[offset] = factor;
@@ -606,17 +601,17 @@ ConnectorContainer::evalJtConnector(SparseMatrix& jt) {
       throw DYNError(Error::MODELER, EmptyConnector);  // should not happen but who knows ...
     }
 
-    vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+    vector<boost::shared_ptr<connectedSubModel>>::iterator it = yc->connectedSubModels().begin();
     // First is reference
-    connectedSubModel reference = *it;
+    connectedSubModel& reference = *(*it);
     const int numVarReference = reference.subModel()->getVariableIndexGlobal(reference.variable());
     ++it;
     for (;
             it != yc->connectedSubModels().end();
             ++it) {
-      const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
+      const int numVar2 = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
       jt.changeCol();
-      if (reference.negated() == it->negated()) {
+      if (reference.negated() == (*it)->negated()) {
         jt.addTerm(numVarReference, dPOne);  // d(f)/d(Y0) = +1;
         jt.addTerm(numVar2, dMOne);  // d(f)/d(Y1) = -1;
       } else {
@@ -630,11 +625,11 @@ ConnectorContainer::evalJtConnector(SparseMatrix& jt) {
   for (unsigned int i = 0; i < nbFlowConnectors(); ++i) {
     shared_ptr<Connector> fc = flowConnectors_[i];
     jt.changeCol();
-    for (vector<connectedSubModel>::iterator it = fc->connectedSubModels().begin();
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = fc->connectedSubModels().begin();
             it != fc->connectedSubModels().end();
             ++it) {
-      const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
-      if (it->negated()) {
+      const int numVar = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
+      if ((*it)->negated()) {
         jt.addTerm(numVar, dMOne);  // d(f)/d(Yi) = -1;
       } else {
         jt.addTerm(numVar, dPOne);  // d(f)/d(Yi) = +1;
@@ -678,18 +673,18 @@ ConnectorContainer::getY0ConnectorForYConnector() {
     }
 
     // Searching the initialization reference
-    vector<connectedSubModel>::iterator itReference;
+    vector<boost::shared_ptr<connectedSubModel>>::iterator itReference;
     bool referenceFound = false;
     bool zNegated = false;
-    for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = yc->connectedSubModels().begin();
             it != yc->connectedSubModels().end();
             ++it) {
-      propertyContinuousVar_t * yType = it->subModel()->getYType();
+      propertyContinuousVar_t * yType = (*it)->subModel()->getYType();
 
-      if (yType[it->variable()->getIndex()] != EXTERNAL && yType[it->variable()->getIndex()] != OPTIONAL_EXTERNAL) {  // non external variable
+      if (yType[(*it)->variable()->getIndex()] != EXTERNAL && yType[(*it)->variable()->getIndex()] != OPTIONAL_EXTERNAL) {  // non external variable
         itReference = it;
         referenceFound = true;
-        zNegated = it->negated();
+        zNegated = (*it)->negated();
         break;
       }
     }
@@ -698,13 +693,13 @@ ConnectorContainer::getY0ConnectorForYConnector() {
       continue;
 
     // Propagating reference init value
-    const int numVarReference = itReference->subModel()->getVariableIndexGlobal(itReference->variable());
-    for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+    const int numVarReference = (*itReference)->subModel()->getVariableIndexGlobal((*itReference)->variable());
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = yc->connectedSubModels().begin();
         it != yc->connectedSubModels().end();
         ++it) {
       if (it != itReference) {
-        const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
-        if (it->negated() == zNegated) {
+        const int numVar2 = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
+        if ((*it)->negated() == zNegated) {
           yLocal_[ numVar2 ] = yLocal_[ numVarReference ];
           ypLocal_[ numVar2 ] = ypLocal_[ numVarReference ];
         } else {
@@ -727,16 +722,16 @@ ConnectorContainer::getY0ConnectorForZConnector() {
     }
 
     // Searching the initialization reference
-    vector<connectedSubModel>::iterator itReference;
+    vector<boost::shared_ptr<connectedSubModel>>::iterator itReference;
     bool nonZeroVariableFound = false;
     bool zNegated = false;
-    for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = zc->connectedSubModels().begin();
         it != zc->connectedSubModels().end();
         ++it) {
-      const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
+      const int numVar = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
       if (doubleNotEquals(zLocal_[numVar], 0)) {  // non zero variable
         itReference = it;
-        zNegated = it->negated();
+        zNegated = (*it)->negated();
         nonZeroVariableFound = true;
         break;
       }
@@ -746,13 +741,13 @@ ConnectorContainer::getY0ConnectorForZConnector() {
       itReference = zc->connectedSubModels().begin();
 
     // Propagating reference init value
-    const int numVarReference = itReference->subModel()->getVariableIndexGlobal(itReference->variable());
-    for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
+    const int numVarReference = (*itReference)->subModel()->getVariableIndexGlobal((*itReference)->variable());
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = zc->connectedSubModels().begin();
         it != zc->connectedSubModels().end();
         ++it) {
       if (it != itReference) {
-        const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
-        if (it->negated() == zNegated) {
+        const int numVar2 = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
+        if ((*it)->negated() == zNegated) {
           zLocal_[numVar2] = zLocal_[numVarReference];
         } else {
           zLocal_[numVar2] = -zLocal_[numVarReference];
@@ -799,22 +794,22 @@ ConnectorContainer::propagateZDiff(const vector<int>& indicesDiff, double* z) {
     // Get negated attribute of the z variable in the connector
     bool zNegated = false;
     bool found = false;
-    for (vector<connectedSubModel>::iterator it = connect->connectedSubModels().begin();
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = connect->connectedSubModels().begin();
             it != connect->connectedSubModels().end();
             ++it) {
-      const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
+      const int numVar = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
       if (numVar == index) {
         found = true;
-        zNegated = it->negated();
+        zNegated = (*it)->negated();
       }
     }
     if (!found)
       continue;
-    for (vector<connectedSubModel>::iterator it = connect->connectedSubModels().begin();
+    for (vector<boost::shared_ptr<connectedSubModel>>::iterator it = connect->connectedSubModels().begin();
             it != connect->connectedSubModels().end();
             ++it) {
-      const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
-      if (it->negated() == zNegated) {
+      const int numVar = (*it)->subModel()->getVariableIndexGlobal((*it)->variable());
+      if ((*it)->negated() == zNegated) {
         z[numVar] = z[index];
       } else {
         z[numVar] = -z[index];
