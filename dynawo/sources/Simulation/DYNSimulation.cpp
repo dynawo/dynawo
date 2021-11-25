@@ -156,7 +156,7 @@ exportCurvesMode_(EXPORT_CURVES_NONE),
 curvesInputFile_(""),
 curvesOutputFile_(""),
 exportTimelineMode_(EXPORT_TIMELINE_NONE),
-exportTimelineMaxPriority_(boost::none),
+exportTimelineMaxPriority_(-1),
 timelineOutputFile_(""),
 exportFinalStateMode_(EXPORT_FINALSTATE_NONE),
 exportConstraintsMode_(EXPORT_CONSTRAINTS_NONE),
@@ -382,9 +382,9 @@ Simulation::configureFinalStateOutputs() {
   std::map<double, ExportStateDefinition> dumpStateDefinitionsMap;
   for (std::vector<boost::shared_ptr<job::FinalStateEntry> >::const_iterator it = finalStateEntries.begin();
     it != finalStateEntries.end(); ++it) {
-    boost::optional<double> timestamp = (*it)->getTimestamp();
+    double timestamp = (*it)->getTimestamp();
 
-    if (!timestamp) {
+    if (std::isnan(timestamp)) {
       // case no timestamp given, meaning final state
       // ---- exportDumpFile ----
       if ((*it)->getExportDumpFile()) {
@@ -400,18 +400,18 @@ Simulation::configureFinalStateOutputs() {
         // no need to add a definition if no file is exported
         continue;
       }
-      ExportStateDefinition dumpStateDefinition(*timestamp);
+      ExportStateDefinition dumpStateDefinition(timestamp);
       if ((*it)->getExportDumpFile()) {
         std::stringstream ss;
-        ss << *timestamp << "_outputState.dmp";
+        ss << timestamp << "_outputState.dmp";
         dumpStateDefinition.dumpFile = createAbsolutePath(ss.str(), finalStateDir);
       }
       if ((*it)->getExportIIDMFile()) {
         std::stringstream ss;
-        ss << *timestamp << "_outputIIDM.xml";
+        ss << timestamp << "_outputIIDM.xml";
         dumpStateDefinition.iidmFile = createAbsolutePath(ss.str(), finalStateDir);
       }
-      dumpStateDefinitionsMap.insert(std::make_pair(*timestamp, dumpStateDefinition));
+      dumpStateDefinitionsMap.insert(std::make_pair(timestamp, dumpStateDefinition));
     }
   }
   // The map is used here to sort the requested final states according to the time requested

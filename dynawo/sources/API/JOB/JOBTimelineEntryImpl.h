@@ -64,12 +64,12 @@ class TimelineEntry::Impl : public TimelineEntry {
   /**
    * @copydoc TimelineEntry::setMaxPriority()
    */
-  void setMaxPriority(const boost::optional<int> maxPriority);
+  void setMaxPriority(int maxPriority);
 
   /**
    * @copydoc TimelineEntry::getMaxPriority()
    */
-  boost::optional<int> getMaxPriority() const;
+  int getMaxPriority() const;
 
   /**
    * @copydoc TimelineEntry::clone()
@@ -79,7 +79,7 @@ class TimelineEntry::Impl : public TimelineEntry {
  private:
   std::string outputFile_;  ///< Export file for timeline
   std::string exportMode_;  ///< Export mode TXT, CSV, XML for timeline output file
-  boost::optional<int> maxPriority_;  ///< maximum priority allowed when exporting timeline
+  int maxPriority_;  ///< maximum priority allowed when exporting timeline
 };
 
 }  // namespace job

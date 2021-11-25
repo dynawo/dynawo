@@ -38,7 +38,8 @@ ModelCPP::Impl::Impl() {
 }
 
 ModelCPP::Impl::Impl(std::string modelType) :
-modelType_(modelType) {
+modelType_(modelType),
+isStartingFromDump_(false) {
 }
 
 void
@@ -104,6 +105,8 @@ ModelCPP::Impl::loadVariables(const string& variables) {
   std::copy(yValues.begin(), yValues.end(), yLocal_);
   std::copy(ypValues.begin(), ypValues.end(), ypLocal_);
   std::copy(zValues.begin(), zValues.end(), zLocal_);
+  // notify we used dumped values
+  isStartingFromDump_ = true;
 }
 
 void

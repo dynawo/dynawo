@@ -96,7 +96,7 @@ class FinalStateEntry {
    *
    * @return the timestamp of the final state if present
    */
-  virtual boost::optional<double> getTimestamp() const = 0;
+  virtual double getTimestamp() const = 0;
 
   /**
    * @brief Set the Timestamp
