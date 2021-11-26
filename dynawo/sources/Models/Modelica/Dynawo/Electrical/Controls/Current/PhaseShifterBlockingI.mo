@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.Current;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -32,7 +32,7 @@ equation
   when IMonitored > IMax and not(pre(locked)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.PhaseShifterBlockingIArming);
-  elsewhen IMonitored < IMax and pre(tThresholdReached) <> Constants.inf and not(pre(locked)) then
+  elsewhen IMonitored <= IMax and pre(tThresholdReached) <> Constants.inf and not(pre(locked)) then
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.PhaseShifterBlockingIDisarming);
   end when;

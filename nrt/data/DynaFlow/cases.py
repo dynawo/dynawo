@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -135,7 +135,7 @@ job_file = os.path.join(os.path.dirname(__file__), "LoadRestorativeWithLimits", 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 ################################################################################################
-#  Small System with PST locking following a line disconnection #
+#  Small System with PST blocking following a line disconnection #
 ################################################################################################
 
 case_name = "DynaFlow - Phase Shifter Transformer blocking"
