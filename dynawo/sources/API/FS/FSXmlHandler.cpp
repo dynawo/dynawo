@@ -110,6 +110,8 @@ ModelHandler::ModelHandler(elementName_type const & root_element) {
   onStartElement(root_element, lambda::bind(&ModelHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
+ModelHandler::~ModelHandler() {}
+
 void
 ModelHandler::create(attributes_type const & attributes) {
   modelRead_ = ModelFactory::newModel(attributes["id"]);
@@ -123,6 +125,8 @@ ModelHandler::get() const {
 VariableHandler::VariableHandler(elementName_type const & root_element) {
   onStartElement(root_element, lambda::bind(&VariableHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
+
+VariableHandler::~VariableHandler() {}
 
 void
 VariableHandler::create(attributes_type const & attributes) {

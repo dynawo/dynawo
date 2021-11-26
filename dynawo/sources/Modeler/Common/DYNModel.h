@@ -47,6 +47,11 @@ class CurvesCollection;
 namespace DYN {
 class SparseMatrix;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Generic model
  */
@@ -519,6 +524,11 @@ class Model {
    */
   virtual void notifyTimeStep() = 0;
 };  ///< Generic class for Model
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_COMMON_DYNMODEL_H_

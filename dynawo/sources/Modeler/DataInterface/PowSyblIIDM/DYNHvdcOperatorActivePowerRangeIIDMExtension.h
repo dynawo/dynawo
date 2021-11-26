@@ -27,7 +27,7 @@ namespace DYN {
 class HvdcOperatorActivePowerRangeIIDMExtension {
  public:
   /// @brief Destructor
-  virtual ~HvdcOperatorActivePowerRangeIIDMExtension() {}
+  virtual ~HvdcOperatorActivePowerRangeIIDMExtension() = default;
 
   /**
    * @brief Retrieve OPR from CS1 to CS2

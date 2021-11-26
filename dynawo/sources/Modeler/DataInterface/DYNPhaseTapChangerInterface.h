@@ -26,6 +26,11 @@
 namespace DYN {
 class StepInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Phase tap changer interface
  */
@@ -133,6 +138,11 @@ class PhaseTapChangerInterface {
    */
   virtual double getTargetDeadBand() const = 0;
 };  ///< class for phase tap chagner interface
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNPHASETAPCHANGERINTERFACE_H_

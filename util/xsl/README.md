@@ -4,7 +4,10 @@ Starting from commit c600353edaa664e306293978751239454823d86b we will now provid
 
 This directory contains XSL files to be able to follow naming changes in various Dyna&omega;o XML files (.dyd, .par ...).
 
-They will apply on some of Dyna&omega;o files and the naming will be the following: `issueNumber.type.xsl`, where **issueNumber** refers to the associated issue on Github and **type** will be either be dyd or par.
+They will apply on some of Dyna&omega;o files and the naming will be the following: `issueNumber.subNumber.type.xsl`, where:
+- **issueNumber** refers to the associated issue on Github,
+- **.subNumber** is optional and designates a step in update,
+- **type** will be either _jobs_, _dyd_, _par_ or _crv_.
 
 On Linux to apply it you can do:
 ``` bash
@@ -13,28 +16,48 @@ $> xsltproc -o myFile_new.par 267.par.xsl myFile.par
 
 `xsltproc` is available in the package `libxslt` on Fedora.
 
-an utility script is provided to automatically apply those XSL on existing projects.
+A utility script is provided to automatically apply those XSL on existing projects.
 To apply all XSL on all non-regression tests:
 ``` bash
 $> dynawo nrt-xsl
 ```
 
-It is also possible to filter by names on which non-regression tests the XSL are applied:
+By default, environment variable `DYNAWO_NRT_DIR` with subdir `data` is used as main directory where to apply update.
+The **-d** or **--directory** option is provided to specify another directory:
 ``` bash
-$> dynawo nrt-xsl -n IEEE14
+$> dynawo nrt-xsl --directory <DIRECTORY>
 ```
 
-To apply the XSL on a specific simulation project the option --jobs can be used:
+The **-t** or **--type** option is provided to specify which types should be updated:
 ``` bash
-$> dynawo nrt-xsl --jobs <JOBS_FILE>
+$> dynawo nrt-xsl --type <jobs/dyd/par/crv>
 ```
 
-The --types option is provided to specify which types should be updated. It could be added to any of the possibilities described below:
+The **-i** or **--id** option is provided to specify which xsl should be used to update.
+The xsl id is the issue number mentioned above.
+If you don't specify the subNumber (if exists), all subNumber will be applied in sequence:
 ``` bash
-$> --types <jobs/dyd/par/crv>
+$> dynawo nrt-xsl --id 958
 ```
 
-The --ids option is provided to specify which xsl should be updated. The xsl id is the number used beofre its extensions:
+With **-n** or **--name** option, it's also possible to filter by *directory* names the subdirectories on which to apply update:
 ``` bash
-$> dynawo nrt-xsl --jobs <JOBS_FILE> --ids 958
+$> dynawo nrt-xsl --name IEEE14
+```
+
+The **-p** or **--pattern** option has the same goal as **--name** but with a regular expression filter:
+``` bash
+$> dynawo nrt-xsl --pattern IEEE..Basic
+```
+
+The **-j** or **--jobs** option use a regular expression filter on *filename* to specified simulation project on which to apply update.
+Files are scanned from **-d** option and only jobs files are concerned:
+``` bash
+$> dynawo nrt-xsl -d <DIRECTORY> --jobs <JOBS_PATTERN>
+```
+
+The **-f** or **--file** option use a regular expression filter on *filename* to specified XML file on which to apply update.
+Files are scanned from **-d** option and type is taken from file extension:
+``` bash
+$> dynawo nrt-xsl -d <DIRECTORY> --file <FILE_PATTERN>
 ```

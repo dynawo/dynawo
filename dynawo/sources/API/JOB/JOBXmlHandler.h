@@ -63,9 +63,9 @@ class AppenderHandler : public xml::sax::parser::ComposableElementHandler {
   explicit AppenderHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~AppenderHandler() {}
+  ~AppenderHandler();
 
   /**
    * @brief return the appender read in xml file
@@ -97,9 +97,9 @@ class DirectoryHandler : public xml::sax::parser::ComposableElementHandler {
   explicit DirectoryHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~DirectoryHandler() {}
+  ~DirectoryHandler();
 
   /**
    * @brief return the directory read in xml file
@@ -131,9 +131,9 @@ class ModelsDirHandler : public xml::sax::parser::ComposableElementHandler {
   explicit ModelsDirHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~ModelsDirHandler() {}
+  ~ModelsDirHandler();
 
   /**
    * @brief add a directory to the list of directory
@@ -171,9 +171,9 @@ class InitialStateHandler : public xml::sax::parser::ComposableElementHandler {
   explicit InitialStateHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~InitialStateHandler() {}
+  ~InitialStateHandler();
 
   /**
    * @brief get the initial state element read in xml file
@@ -205,9 +205,9 @@ class DynModelsHandler : public xml::sax::parser::ComposableElementHandler {
   explicit DynModelsHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~DynModelsHandler() {}
+  ~DynModelsHandler();
 
   /**
    * @brief get the dynModels objects read in xml file
@@ -239,9 +239,9 @@ class NetworkHandler : public xml::sax::parser::ComposableElementHandler {
   explicit NetworkHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~NetworkHandler() {}
+  ~NetworkHandler();
 
   /**
    * @brief return the network entry element read in xml file
@@ -273,9 +273,9 @@ class InitValuesHandler : public xml::sax::parser::ComposableElementHandler {
   explicit InitValuesHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~InitValuesHandler() {}
+  ~InitValuesHandler();
 
   /**
    * @brief return the init values entry read in xml file
@@ -307,9 +307,9 @@ class ConstraintsHandler : public xml::sax::parser::ComposableElementHandler {
   explicit ConstraintsHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~ConstraintsHandler() {}
+  ~ConstraintsHandler();
 
   /**
    * @brief return the constraints entry read in xml file
@@ -341,9 +341,9 @@ class TimelineHandler : public xml::sax::parser::ComposableElementHandler {
   explicit TimelineHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~TimelineHandler() {}
+  ~TimelineHandler();
 
   /**
    * @brief return the timeline entry read in xml file
@@ -375,9 +375,9 @@ class TimetableHandler : public xml::sax::parser::ComposableElementHandler {
   explicit TimetableHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~TimetableHandler() {}
+  ~TimetableHandler();
 
   /**
    * @brief return the timetable entry read in xml file
@@ -409,9 +409,9 @@ class FinalStateHandler : public xml::sax::parser::ComposableElementHandler {
   explicit FinalStateHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~FinalStateHandler() {}
+  ~FinalStateHandler();
 
   /**
    * @brief return the final state entry read in xml file
@@ -443,9 +443,9 @@ class CurvesHandler : public xml::sax::parser::ComposableElementHandler {
   explicit CurvesHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~CurvesHandler() {}
+  ~CurvesHandler();
 
   /**
    * @brief return the curves entry read in xml file
@@ -477,9 +477,9 @@ class LostEquipmentsHandler : public xml::sax::parser::ComposableElementHandler 
   explicit LostEquipmentsHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~LostEquipmentsHandler() {}
+  ~LostEquipmentsHandler();
 
   /**
    * @brief return the lostEquipments entry read in xml file
@@ -511,9 +511,9 @@ class LogsHandler : public xml::sax::parser::ComposableElementHandler {
   explicit LogsHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~LogsHandler() {}
+  ~LogsHandler();
 
   /**
    * @brief return the logs entry read in xml file
@@ -551,9 +551,9 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   explicit OutputsHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~OutputsHandler() {}
+  ~OutputsHandler();
 
   /**
    * @brief return the outputs entry read in xml file
@@ -633,9 +633,9 @@ class CriteriaFileHandler : public xml::sax::parser::ComposableElementHandler {
   explicit CriteriaFileHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~CriteriaFileHandler() {}
+  ~CriteriaFileHandler();
 
   /**
    * @brief return the simulation entry read in xml file
@@ -667,9 +667,9 @@ class SimulationHandler : public xml::sax::parser::ComposableElementHandler {
   explicit SimulationHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~SimulationHandler() {}
+  ~SimulationHandler();
 
   /**
    * @brief return the simulation entry read in xml file
@@ -707,9 +707,9 @@ class ModelerHandler : public xml::sax::parser::ComposableElementHandler {
   explicit ModelerHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~ModelerHandler() {}
+  ~ModelerHandler();
 
   /**
    * @brief return the modeler entry read in xml file
@@ -771,9 +771,9 @@ class SolverHandler : public xml::sax::parser::ComposableElementHandler {
   explicit SolverHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~SolverHandler() {}
+  ~SolverHandler();
 
   /**
    * @brief return the solver entry read in xml file
@@ -805,9 +805,9 @@ class JobHandler : public xml::sax::parser::ComposableElementHandler {
   explicit JobHandler(elementName_type const& root_element);
 
   /**
-   * @brief default destructor
+   * @brief Destructor
    */
-  ~JobHandler() {}
+  ~JobHandler();
 
   /**
    * @brief return the job read in xml file

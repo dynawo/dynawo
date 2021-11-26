@@ -106,7 +106,7 @@ macro(INSTALL_MODEL_FILE
     add_custom_command(
       TARGET ${TARGET_PROCESSING_NAME}
       PRE_BUILD
-      COMMAND xmllint --nofixup-base-uris --nowarning --xinclude "${OUTPUT_FILE_PATH}" --output "${TMP_FILE_PATH}" 2>&1 || ((echo "*** Failed to include external variable files") && exit -1)
+      COMMAND xmllint --nofixup-base-uris --nowarning --xinclude "${OUTPUT_FILE_PATH}" --output "${TMP_FILE_PATH}" 2>&1 || ((echo "*** Failed to include external variable files") && exit 1)
       COMMAND xmllint --format --noblanks "${TMP_FILE_PATH}" --output "${OUTPUT_FILE_PATH}"
       COMMAND rm -rf "${TMP_FILE_PATH}"
       )
@@ -145,7 +145,7 @@ macro(COMPILE_PREASSEMBLED_MODEL
             dynawo_ModelManager
         COMMAND
             ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/buildChecker.py ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} > ${MODEL_NAME}.log 2>&1 ||
-            (echo "*** [${MODEL_NAME}] Error : for more information see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit -1)
+            (echo "*** [${MODEL_NAME}] Error : for more information see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit 1)
         COMMAND
           ${CMAKE_COMMAND} -E echo "@echo off" > ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
         COMMAND
@@ -181,7 +181,7 @@ macro(COMPILE_PREASSEMBLED_MODEL
         COMMAND
             ${CMAKE_COMMAND} -E env
               cmd /c ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat $<TARGET_FILE:generate-preassembled> --model-list ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} --output-dir ${CMAKE_CURRENT_BINARY_DIR} --remove-model-files true >> ${MODEL_NAME}.log 2>&1 ||
-              (echo "*** [${MODEL_NAME}] Error : for more information please see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit -1)
+              (echo "*** [${MODEL_NAME}] Error : for more information please see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit 1)
         COMMENT "Building ${MODEL_NAME}"
         )
     else()
@@ -194,7 +194,7 @@ macro(COMPILE_PREASSEMBLED_MODEL
             dynawo_ModelManager
         COMMAND
             ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/buildChecker.py ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} > ${MODEL_NAME}.log 2>&1 ||
-            (echo "*** [${MODEL_NAME}] Error : for more information see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit -1)
+            (echo "*** [${MODEL_NAME}] Error : for more information see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit 1)
         COMMAND
          ${CMAKE_COMMAND} -E env
               "${runtime_PATH}"
@@ -214,7 +214,7 @@ macro(COMPILE_PREASSEMBLED_MODEL
               "DYNAWO_LIBXML_HOME=${LIBXML_HOME}"
               "DYNAWO_NICSLU_INSTALL_DIR=${NICSLU_HOME}"
                 $<TARGET_FILE:generate-preassembled> --model-list ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} --output-dir ${CMAKE_CURRENT_BINARY_DIR} --remove-model-files true >> ${MODEL_NAME}.log 2>&1 ||
-                (echo "*** [${MODEL_NAME}] Error : for more information please see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit -1)
+                (echo "*** [${MODEL_NAME}] Error : for more information please see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit 1)
         COMMENT "Building ${MODEL_NAME}"
         )
     endif()
@@ -278,7 +278,7 @@ macro(COMPILE_CPP_MODEL
     add_custom_target(${CPP_MODEL}_HPP
         COMMAND
             ${PYTHON_EXECUTABLE} ${CHECKSUM_SCRIPT_PATH} -m ${CMAKE_CURRENT_SOURCE_DIR}/${CPP_MODEL} 2>&1 ||
-            (echo "*** [${CPP_MODEL}] Error : for more information see previous log" && exit -1)
+            (echo "*** [${CPP_MODEL}] Error : for more information see previous log" && exit 1)
         COMMENT "Creating checkSum for ${CPP_MODEL}"
         )
 
