@@ -125,6 +125,9 @@ TwoWTFOCloseSide1         =             TRANSFORMER : closing on side 1
 TwoWTFOCloseSide2         =             TRANSFORMER : closing on side 2
 TwoWTFOOpenSide1          =             TRANSFORMER : opening on side 1
 TwoWTFOOpenSide2          =             TRANSFORMER : opening on side 2
+// --> VariationArea
+LoadModificationStarted   =             LOADS : variation started
+LoadModificationEnded     =             LOADS : variation ended
 //-------------  Simulation process  --------------------------------------
 TerminateInModel          =             Simulation stopped : model %1% terminated simulation : %2%
 CriteriaNotChecked        =             Simulation stopped : one criteria is not respected

@@ -44,7 +44,7 @@ using parameters::ParametersSet;
 namespace DYN {
 
 ModelShuntCompensator::ModelShuntCompensator(const shared_ptr<ShuntCompensatorInterface>& shunt) :
-Impl(shunt->getID()),
+NetworkComponent(shunt->getID()),
 modelBus_(),
 noReclosingDelay_(0.),
 stateModified_(false) {
@@ -395,7 +395,7 @@ void
 ModelShuntCompensator::setGequations(std::map<int, std::string>& gEquationIndex) {
   gEquationIndex[0] = "Time out reached for reclosing delay";
 
-  assert(gEquationIndex.size() == (unsigned int) sizeG() && "Shunt compensator model: gEquationIndex.size() != gLocal_.size()");
+  assert(gEquationIndex.size() == static_cast<size_t>(sizeG()) && "Shunt compensator model: gEquationIndex.size() != gLocal_.size()");
 }
 
 }  // namespace DYN

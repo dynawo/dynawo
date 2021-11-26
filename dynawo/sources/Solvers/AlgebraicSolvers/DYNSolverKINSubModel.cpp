@@ -17,14 +17,13 @@
  * @brief Implementation of the solver used to calculate the initial values of the model
  *
  */
+
 #include <kinsol/kinsol.h>
-#include <sundials/sundials_types.h>
-#include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
+
+#include <algorithm>
 #include <cstring>
-#include <vector>
 #include <cmath>
-#include <map>
 
 #include "DYNSolverKINSubModel.h"
 #include "DYNSolverCommon.h"
@@ -32,11 +31,6 @@
 #include "DYNMacrosMessage.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTimer.h"
-
-using std::vector;
-using std::map;
-using std::string;
-using boost::shared_ptr;
 
 namespace DYN {
 
@@ -96,7 +90,7 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
     solver->setFirstIteration(false);
   } else {  // update of F
     realtype *iyy = NV_DATA_S(yy);
-    int yL = NV_LENGTH_S(yy);
+    std::size_t yL = NV_LENGTH_S(yy);
     std::copy(iyy, iyy+yL, solver->yBuffer_);
     subModel->evalF(solver->t0_, UNDEFINED_EQ);
   }
@@ -115,7 +109,7 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
   SubModel* subModel = solver->getSubModel();
 
   realtype *iyy = NV_DATA_S(yy);
-  int yL = NV_LENGTH_S(yy);
+  std::size_t yL = NV_LENGTH_S(yy);
   std::copy(iyy, iyy+yL, solver->yBuffer_);
 
   // Sparse matrix

@@ -41,7 +41,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 ModelSwitch::ModelSwitch(const shared_ptr<SwitchInterface>& sw) :
-Impl(sw->getID()),
+NetworkComponent(sw->getID()),
 topologyModified_(false),
 inLoop_(false) {
   // init data
@@ -161,7 +161,7 @@ ModelSwitch::setFequations(std::map<int, std::string>& fEquationIndex) {
     fEquationIndex[1] = std::string("y_[iiNum_] localModel:").append(id());
   }
 
-  assert(fEquationIndex.size() == (unsigned int) sizeF_ && "ModelSwitch: fEquationIndex.size() != f_.size()");
+  assert(fEquationIndex.size() == static_cast<size_t>(sizeF_) && "ModelSwitch: fEquationIndex.size() != f_.size()");
 }
 
 void

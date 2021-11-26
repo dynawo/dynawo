@@ -29,9 +29,9 @@ namespace extensions {
 namespace generatorshortcircuits {
 namespace xml {
 
-std::string GeneratorShortCircuitsHandler::xsd_path() {
-  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
-  return xsdPath + std::string("generatorShortCircuits.xsd");
+const std::string& GeneratorShortCircuitsHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("generatorShortCircuits.xsd");
+  return xsdPath;
 }
 
 GeneratorShortCircuitsHandler::elementName_type const& GeneratorShortCircuitsHandler::root() {

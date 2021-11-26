@@ -12,10 +12,7 @@
 # simulation tool for power systems.
 
 import datetime
-import glob
-import imp
 import sys
-from xml.dom import minidom
 import multiprocessing as mp
 from optparse import OptionParser
 import os
@@ -593,6 +590,7 @@ def main():
 
                 del sys.modules['cases'] # Delete load module in order to load another module with the same name
             except:
+                print("Error during loading case path " + case_path)
                 pass
 
     if len (NRT.test_cases_) == 0:

@@ -213,7 +213,7 @@ Compiler::compileModelTemplateExpansionDescription(const shared_ptr<ModelDescrip
   }
 
   string id = DYNLog(CompilingModel, modelTemplateExpansionDescription->getID()).str();
-  int l = id.size() / 2;
+  int l = static_cast<int>(id.size() / 2);
   Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
   Trace::info(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
   Trace::info(Trace::compile()) << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
@@ -253,7 +253,7 @@ Compiler::compileBlackBoxModelDescription(const shared_ptr<ModelDescription>& bl
   }
 
   string id = DYNLog(CompilingModel, blackBoxModelDescription->getID()).str();
-  int l = id.size() / 2;
+  int l = static_cast<int>(id.size() / 2);
   Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
   Trace::info(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
   Trace::info(Trace::compile()) << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
@@ -319,7 +319,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   string thisCompiledId = modelDescription->getCompiledModelId();
 
   string id = DYNLog(CompilingModel, modelDescription->getID()).str();
-  int l = id.size() / 2;
+  int l = static_cast<int>(id.size() / 2);
   Trace::info(Trace::compile()) << "====================================================================================================" << Trace::endline;
   Trace::info(Trace::compile()) << "|                                                                                                  |" << Trace::endline;
   Trace::info(Trace::compile()) << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
@@ -349,7 +349,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
 
   if (!additionalHeaderFiles_.empty()) {
     string additionalHeaderList = "";
-    for (unsigned i = 0, iEnd = additionalHeaderFiles_.size(); i < iEnd; ++i) {
+    for (std::size_t i = 0, iEnd = additionalHeaderFiles_.size(); i < iEnd; ++i) {
       additionalHeaderList += " " + additionalHeaderFiles_[i];
     }
 
@@ -373,7 +373,9 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   if ((!exists(lib)) || hasUndefinedSymbol)
     throw DYNError(Error::MODELER, CompilationFailed, libName);
 
-#ifndef _DEBUG_
+#ifdef _DEBUG_
+  static_cast<void>(rmModels_);  // shut up clang -Wunused-private-field
+#else
   // remove .mo, -init.mo
   if (rmModels_) {
     remove(modelConcatFile_);

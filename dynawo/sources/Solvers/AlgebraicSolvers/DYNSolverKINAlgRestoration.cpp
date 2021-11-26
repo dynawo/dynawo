@@ -20,22 +20,22 @@
 
 #include <kinsol/kinsol.h>
 #include <sundials/sundials_types.h>
-#include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
+
 #include <string>
 #include <vector>
 #include <cmath>
-#include <algorithm>
 
 #include "DYNSolverKINAlgRestoration.h"
+#include "DYNModel.h"
 #include "DYNSolverCommon.h"
+#include "DYNSparseMatrix.h"
+
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
 
 using std::vector;
-using std::map;
 using std::string;
-using boost::shared_ptr;
 
 namespace DYN {
 
@@ -78,7 +78,7 @@ void SolverKINAlgRestoration::resetAlgebraicRestoration() {
 }
 
 void
-SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode) {
+SolverKINAlgRestoration::init(const boost::shared_ptr<Model>& model, modeKin_t mode) {
   model_ = model;
   mode_ = mode;
 }
@@ -89,8 +89,8 @@ SolverKINAlgRestoration::initVarAndEqTypes() {
   model_->evalDynamicFType();
   model_->evalDynamicYType();
 
-  const std::vector<propertyF_t>& modelFType = model_->getFType();
-  const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
+  const vector<propertyF_t>& modelFType = model_->getFType();
+  const vector<propertyContinuousVar_t>& modelYType = model_->getYType();
 
   // Analyze variables to find differential variables and differential equation
   // depending of the kind of the problem to solve, keep differential variables/equation or algebraic variables/equation
@@ -141,8 +141,8 @@ SolverKINAlgRestoration::initVarAndEqTypes() {
   if (ignoreF_.size() != ignoreY_.size() || indexF_.size() != indexY_.size()) {
 #ifdef _DEBUG_
     for (int i = 0; i < model_->sizeF(); ++i) {
-      std::string fEquation("");
-      std::string subModelName;
+      string fEquation("");
+      string subModelName;
       int localFIndex = -1;
       model_->getFInfos(i, subModelName, localFIndex, fEquation);
       Trace::debug() << DYNLog(SolverEquationsType, i, ((modelFType[i] > 0)? "differential":"algebraic"), fEquation) << Trace::endline;
@@ -293,9 +293,9 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
 void
 SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, Model& model) {
   SparseMatrix::CheckError error = smj.check();
-  std::string sub_model_name;
-  std::string equation;
-  std::string equation_bis;
+  string sub_model_name;
+  string equation;
+  string equation_bis;
   int local_index;
   switch (error.code) {
   case SparseMatrix::CHECK_ZERO_ROW:
@@ -323,7 +323,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 
   // Erase useless values in the jacobian
   SparseMatrix smjKin;
-  int size = solver->indexY_.size();
+  int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
 #if _DEBUG_
@@ -350,7 +350,7 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 
   // Erase useless values in the jacobian
   SparseMatrix smjKin;
-  int size = solver->indexY_.size();
+  int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, true);

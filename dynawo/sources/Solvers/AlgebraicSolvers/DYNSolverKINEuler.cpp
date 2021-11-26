@@ -19,13 +19,13 @@
  * SolverKINEuler is the implementation of a solver with euler method based on
  * kinsol solver.
  */
+
 #include <cmath>
-#include <string>
-#include <algorithm>
+#include <cstring>
+#include <vector>
 
 #include <kinsol/kinsol.h>
 #include <sundials/sundials_types.h>
-#include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
 
 #include "DYNSparseMatrix.h"
@@ -35,11 +35,9 @@
 #include "DYNMacrosMessage.h"
 #include "DYNTimer.h"
 #include "DYNSolverCommon.h"
+#include "DYNSolver.h"
 
 using std::vector;
-using std::map;
-using std::string;
-using boost::shared_ptr;
 
 namespace DYN {
 
@@ -52,7 +50,7 @@ SolverKINEuler::~SolverKINEuler() {
 }
 
 void
-SolverKINEuler::init(const shared_ptr<Model>& model, Solver* timeSchemeSolver, const std::string& linearSolverName, double fnormtol,
+SolverKINEuler::init(const boost::shared_ptr<Model>& model, Solver* timeSchemeSolver, const std::string& linearSolverName, double fnormtol,
                      double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY) {
   clean();
   model_ = model;
@@ -161,7 +159,7 @@ SolverKINEuler::solve(bool noInitSetup, bool skipAlgebraicResidualsEvaluation) {
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNoInitSetup");
 
-  const std::vector<double>& currentY = timeSchemeSolver_->getCurrentY();
+  const vector<double>& currentY = timeSchemeSolver_->getCurrentY();
   firstIteration_ = true;
   if (skipAlgebraicResidualsEvaluation)
     model_->evalFDiff(t0_ + timeSchemeSolver_->getTimeStep(), &currentY[0], &timeSchemeSolver_->getCurrentYP()[0], &vectorF_[0]);

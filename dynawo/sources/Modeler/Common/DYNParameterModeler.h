@@ -61,11 +61,6 @@ class ParameterModeler : public ParameterCommon {
 #endif
 
   /**
-   * @brief Destructor
-   */
-  ~ParameterModeler() { }
-
-  /**
    * @brief checks whether a parameter value may be set
    * @param origin tested origin for the parameter
    * @throws when it is forbidden to write data for the current parameter and origin

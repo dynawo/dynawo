@@ -44,6 +44,11 @@ class BlackBoxModel : public Model {
   explicit BlackBoxModel(const std::string& id);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~BlackBoxModel();
+
+  /**
    * @brief Model library getter
    *
    * @returns Model library absolute path

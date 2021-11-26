@@ -35,7 +35,7 @@ using std::map;
 namespace DYN {
 
 ModelThreeWindingsTransformer::ModelThreeWindingsTransformer(const shared_ptr<ThreeWTransformerInterface>& tfo) :
-Impl(tfo->getID()) {
+NetworkComponent(tfo->getID()) {
 }
 
 void

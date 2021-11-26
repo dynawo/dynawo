@@ -74,6 +74,10 @@ class SubModel {
    */
   virtual ~SubModel();
 
+#ifdef LANG_CXX11
+  SubModel(SubModel&&) = default;
+  SubModel& operator=(SubModel&&) = default;
+#endif
 
   // methods to implement for each submodels
  public:
@@ -1099,7 +1103,7 @@ class SubModel {
    *
    * @return staticId of the subModel
    */
-  inline std::string staticId() const {
+  inline const std::string& staticId() const {
     return staticId_;
   }
 
@@ -1257,7 +1261,7 @@ class SubModel {
    * @return number of calculated variables
    */
   inline unsigned int sizeCalculatedVar() const {
-    return calculatedVars_.size();
+    return static_cast<unsigned int>(calculatedVars_.size());
   }
 
   /**
@@ -1266,7 +1270,7 @@ class SubModel {
    * @return number of residual functions of init
    */
   inline unsigned int sizeFInit() const {
-    return fEquationInitIndex_.size();
+    return static_cast<unsigned int>(fEquationInitIndex_.size());
   }
 
   /**
@@ -1275,7 +1279,7 @@ class SubModel {
    * @return number of root functions of init
    */
   inline unsigned int sizeGInit() const {
-    return gEquationInitIndex_.size();
+    return static_cast<unsigned int>(gEquationInitIndex_.size());
   }
 
   /**

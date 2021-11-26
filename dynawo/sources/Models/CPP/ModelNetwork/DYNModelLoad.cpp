@@ -50,7 +50,7 @@ using parameters::ParametersSet;
 namespace DYN {
 
 ModelLoad::ModelLoad(const shared_ptr<LoadInterface>& load) :
-Impl(load->getID()),
+NetworkComponent(load->getID()),
 stateModified_(false),
 kp_(0.),
 kq_(0.),
@@ -199,7 +199,7 @@ ModelLoad::setFequations(std::map<int, std::string>& fEquationIndex) {
     ++index;
   }
 
-  assert(fEquationIndex.size() == (unsigned int) sizeF() && "ModelLoad:fEquationIndex.size() != f_.size()");
+  assert(fEquationIndex.size() == static_cast<size_t>(sizeF()) && "ModelLoad:fEquationIndex.size() != f_.size()");
 }
 
 void

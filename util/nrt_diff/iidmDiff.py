@@ -11,10 +11,10 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 # simulation tool for power systems.
 
-from xml.dom import minidom
 import operator
 import os
 import sys
+from lxml import etree
 
 try:
     settings_dir = os.path.join(os.path.dirname(__file__))
@@ -28,7 +28,18 @@ def ImportXMLFile(path):
     if (not os.path.isfile(path)):
         print("No file found. Unable to import")
         return None
-    return minidom.parse(path)
+    return etree.parse(path).getroot()
+
+def ImportXMLFileExtended(path):
+    root = ImportXMLFile(path)
+    if root.prefix is None:
+        prefix_str = ''
+    else:
+        prefix_str = root.prefix + ':'
+    return (root, root.nsmap, root.prefix, prefix_str)
+
+def FindAll(root, prefix, element, ns):
+    return root.findall(".//" + prefix + element, ns)
 
 # Utility class to compare IIDM files
 class IIDMobject:
@@ -39,20 +50,20 @@ class IIDMobject:
 
 # Utility method to compare IIDM files
 def set_values(element,what,IIDMobject):
-    if element.hasAttribute(what):
-        IIDMobject.values[what] = element.getAttribute(what)
+    if  what in element.attrib:
+        IIDMobject.values[what] = element.attrib[what]
 
 # Read a IIDM file name and build a dictionary object id => values
 # Only values that can be changed by dynawo are taken into account
-def getOutputIIDMInfo(filename, prefix):
+def getOutputIIDMInfo(filename):
     IIDM_objects_byID = {}
-    iidm_root = ImportXMLFile(filename)
-    for voltageLevel in iidm_root.getElementsByTagName(prefix+"voltageLevel"):
-        for child in voltageLevel.getElementsByTagName("*"):
-            if child.hasAttribute('id'):
-                myId=child.getAttribute('id')
+    (iidm_root, ns, prefix, iidm_prefix_root_string) = ImportXMLFileExtended(filename)
+    for voltageLevel in FindAll(iidm_root, iidm_prefix_root_string, "voltageLevel", ns):
+        for child in FindAll(voltageLevel, iidm_prefix_root_string, "*", ns):
+            if 'id' in child.attrib:
+                myId = child.attrib['id']
                 myObject = IIDMobject(myId)
-                myObject.type = child._get_tagName().replace(prefix, "")
+                myObject.type = child.tag.replace("{"+ns[prefix]+"}", "")
                 if myObject.type == 'bus':
                     set_values(child,'v',myObject)
                     set_values(child,'angle',myObject)
@@ -109,14 +120,14 @@ def OutputIIDMCloseEnough (path_left, path_right):
         if 'iidm:network' in f.read():
             prefix_left = "iidm:"
             is_left_powsybl_iidm = True
-    left_file_info = getOutputIIDMInfo(path_left, prefix_left)
+    left_file_info = getOutputIIDMInfo(path_left)
     prefix_right = ""
     is_right_powsybl_iidm = False
     with open(path_right) as f:
         if 'iidm:network' in f.read():
             prefix_right = "iidm:"
             is_right_powsybl_iidm = True
-    right_file_info = getOutputIIDMInfo(path_right, prefix_right)
+    right_file_info = getOutputIIDMInfo(path_right)
     nb_differences = 0
     msg = ""
     differences = []
@@ -194,3 +205,15 @@ def OutputIIDMCloseEnough (path_left, path_right):
     for error in sorted(differences, key=operator.itemgetter(0), reverse=True)[:settings.max_nb_iidm_outputs]:
         msg += "[ERROR] attribute " + error[2] + " of object " + error[1].id + " (type " + error[1].type + ") has different values (delta = " + str(error[0]) + ") \n"
     return (nb_differences, msg)
+
+if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print("Error : not enough arguments")
+    path_left = sys.argv[1]
+    path_right = sys.argv[2]
+    print("Comparing " + path_left + " and " + path_right)
+    nb_differences, msg = OutputIIDMCloseEnough(path_left, path_right)
+    if nb_differences > 0:
+        print(msg)
+        exit(1)
+    print("OK")

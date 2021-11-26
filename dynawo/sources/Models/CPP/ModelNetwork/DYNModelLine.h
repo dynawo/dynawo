@@ -21,7 +21,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELLINE_H_
 
 #include <boost/shared_ptr.hpp>
-#include "DYNNetworkComponentImpl.h"
+#include "DYNNetworkComponent.h"
 
 namespace DYN {
 class ModelBus;
@@ -31,7 +31,7 @@ class ModelCurrentLimits;
 /**
  * @brief Generic AC line model
  */
-class ModelLine : public NetworkComponent::Impl {
+class ModelLine : public NetworkComponent {
  public:
   /**
    * @brief default constructor
@@ -50,7 +50,7 @@ class ModelLine : public NetworkComponent::Impl {
   typedef enum {
     BUS1_BUS2 = 0,
     BUS1 = 1,
-    BUS2 = 2,
+    BUS2 = 2
   } KnownBus_t;
 
   /**
@@ -186,7 +186,7 @@ class ModelLine : public NetworkComponent::Impl {
   void evalF(propertyF_t type);
 
   /**
-  * @copydoc NetworkComponent::Impl::evalZ()
+  * @copydoc NetworkComponent::evalZ()
   */
   NetworkComponent::StateChange_t evalZ(const double& t);  // get the local Z function for time t
 
@@ -218,12 +218,12 @@ class ModelLine : public NetworkComponent::Impl {
   void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) const;
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
   void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
   void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
 
@@ -272,12 +272,12 @@ class ModelLine : public NetworkComponent::Impl {
   void init(int & yNum);
 
   /**
-   * @copydoc NetworkComponent::Impl::getY0()
+   * @copydoc NetworkComponent::getY0()
    */
   void getY0();
 
   /**
-   * @copydoc NetworkComponent::Impl::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
    */
   void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
 

@@ -23,8 +23,8 @@
     <dyn:simulation startTime="0" stopTime="170"/>
     <dyn:outputs directory="outputs">
       <dyn:dumpInitValues local="false" global="true"/>
-      <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>
       <dyn:timeline exportMode="TXT"/>
+      <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
       </dyn:logs>

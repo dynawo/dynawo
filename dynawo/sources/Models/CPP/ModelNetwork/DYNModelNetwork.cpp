@@ -119,7 +119,7 @@ extern "C" void DYN::ModelNetworkFactory::destroy(DYN::SubModel* model) const {
 namespace DYN {
 
 ModelNetwork::ModelNetwork() :
-Impl("NETWORK"),
+ModelCPP("NETWORK"),
 calculatedVarBuffer_(NULL),
 isInit_(false) ,
 isInitModel_(false),
@@ -668,7 +668,7 @@ ModelNetwork::printStats(const shared_ptr<DataInterface>& data) const {
 
 
   const vector<shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
-  nbVoltageLevels = voltageLevels.size();
+  nbVoltageLevels = static_cast<unsigned>(voltageLevels.size());
   for (vector<shared_ptr<VoltageLevelInterface> >::const_iterator iVL = voltageLevels.begin();
       iVL != voltageLevels.end(); ++iVL) {
     nbBuses += (*iVL)->getBuses().size();

@@ -153,6 +153,13 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
   const std::vector<std::string>& getBusBarSectionIdentifiers() const;
 
   /**
+   * @copydoc BusInterface::isFictitious() const
+   */
+  bool isFictitious() const final {
+    return false;
+  }
+
+  /**
    * @brief set the initial value of the voltage magnitude
    * @param u0 : initial value of the voltage magnitude
    */

@@ -16,7 +16,7 @@
 
 class XmlEnvironment : public testing::Environment {
  public:
-  ~XmlEnvironment() {}
+  ~XmlEnvironment();
 
   // Override this to define how to set up the environment.
   void SetUp() {
@@ -34,6 +34,10 @@ class XmlEnvironment : public testing::Environment {
 #endif
   }
 };
+
+XmlEnvironment::~XmlEnvironment() {}
+
+testing::Environment* initXmlEnvironment();
 
 testing::Environment* initXmlEnvironment() {
   return testing::AddGlobalTestEnvironment(new XmlEnvironment);

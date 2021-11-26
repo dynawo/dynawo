@@ -33,7 +33,7 @@
 namespace powsybl {
 namespace iidm {
 
-Network
+static Network
 createHvdcLineNetwork() {
   Network network("test", "test");
   Substation& substation = network.newSubstation().setId("S1").setName("S1_NAME").setCountry(Country::FR).setTso("TSO").add();
@@ -144,4 +144,4 @@ TEST(DataInterfaceTest, HvdcLine) {
   lcc.getTerminal().connect();
   ASSERT_FALSE(Ifce.isConnected());
 }  // TEST(DataInterfaceTest, HvdcLine)
-};  // namespace DYN
+}  // namespace DYN

@@ -48,7 +48,7 @@ using std::string;
 namespace DYN {
 
 ModelDanglingLine::ModelDanglingLine(const shared_ptr<DanglingLineInterface>& line) :
-Impl(line->getID()),
+NetworkComponent(line->getID()),
 stateModified_(false),
 modelType_("DanglingLine")  {
   // init data
@@ -252,7 +252,7 @@ ModelDanglingLine::setFequations(std::map<int, std::string>& fEquationIndex) {
     fEquationIndex[1] = std::string("y_[uiFictNum_] localModel:").append(id());
   }
 
-  assert(fEquationIndex.size() == (unsigned int) sizeF_ && "ModelDanglingLine: fEquationIndex.size() != f_.size()");
+  assert(fEquationIndex.size() == static_cast<size_t>(sizeF_) && "ModelDanglingLine: fEquationIndex.size() != f_.size()");
 }
 
 void
@@ -271,7 +271,7 @@ ModelDanglingLine::setGequations(std::map<int, std::string>& gEquationIndex) {
     }
   }
 
-  assert(gEquationIndex.size() == (unsigned int) sizeG_ && "ModelDanglingLine: gEquationIndex.size() != sizeG_");
+  assert(gEquationIndex.size() == static_cast<size_t>(sizeG_) && "ModelDanglingLine: gEquationIndex.size() != sizeG_");
 }
 
 double

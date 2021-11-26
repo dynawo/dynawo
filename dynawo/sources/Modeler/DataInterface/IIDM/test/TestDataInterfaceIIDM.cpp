@@ -100,7 +100,7 @@ createNodeBreakerNetworkIIDM() {
   return network;
 }
 
-boost::shared_ptr<DataInterfaceIIDM>
+static boost::shared_ptr<DataInterfaceIIDM>
 createDataItfFromNetwork(const boost::shared_ptr<IIDM::Network>& network) {
   boost::shared_ptr<DataInterfaceIIDM> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
@@ -153,6 +153,8 @@ TEST(DataInterfaceIIDMTest, testClone) {
     const std::vector<boost::shared_ptr<DYN::BusInterface> >& buses2 = network_interface2->getVoltageLevels().at(i)->getBuses();
     ASSERT_EQ(buses.size(), buses2.size());
     for (unsigned int j = 0; j < buses.size(); j++) {
+      ASSERT_FALSE(buses[j]->isFictitious());
+      ASSERT_FALSE(buses2[j]->isFictitious());
       const std::vector<std::string>& ids = buses[j]->getBusBarSectionIdentifiers();
       const std::vector<std::string>& ids2 = buses2[j]->getBusBarSectionIdentifiers();
       ASSERT_EQ(ids.size(), ids2.size());

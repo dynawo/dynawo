@@ -104,19 +104,19 @@ class Curve {
    * @brief Getter for curve's model name
    * @return model name associated to this curve
    */
-  std::string getModelName() const;
+  const std::string& getModelName() const;
 
   /**
    * @brief Getter for curve's variable
    * @return variable name associated to this curve
    */
-  std::string getVariable() const;
+  const std::string& getVariable() const;
 
   /**
    * @brief Getter for curve's found variable name
    * @return variable name found in model associated to this curve
    */
-  std::string getFoundVariableName() const;
+  const std::string& getFoundVariableName() const;
 
   /**
    * @brief Getter for curve's available attribute

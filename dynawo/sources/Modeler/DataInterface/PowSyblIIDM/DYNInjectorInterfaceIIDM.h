@@ -37,6 +37,11 @@
 
 namespace DYN {
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * class InjectorInterfaceIIDM
  */
@@ -122,7 +127,7 @@ class InjectorInterfaceIIDM {
   isConnectedInjector() const {
     bool connected = injectorIIDM_.getTerminal().isConnected();
     if (connected && getVoltageLevelInterfaceInjector()->isNodeBreakerTopology())
-      connected = getVoltageLevelInterfaceInjector()->isNodeConnected(injectorIIDM_.getTerminal().getNodeBreakerView().getNode());
+      connected = getVoltageLevelInterfaceInjector()->isNodeConnected(static_cast<unsigned int>(injectorIIDM_.getTerminal().getNodeBreakerView().getNode()));
     return connected;
   }
 
@@ -193,5 +198,10 @@ class InjectorInterfaceIIDM {
   std::string injectorId_;                                        ///< injector's id
   boost::optional<bool> initialConnected_;                        ///< whether the injector is initially connected or not
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 #endif  // MODELER_DATAINTERFACE_POWSYBLIIDM_DYNINJECTORINTERFACEIIDM_H_

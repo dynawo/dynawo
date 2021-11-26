@@ -11,11 +11,41 @@
 set(SOLVER_KINSOL_VERSION_STRING ${DYNAWO_VERSION_STRING})
 set(SOLVER_KINSOL_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
+add_library(dynawo_SolverKINCommon SHARED DYNSolverKINCommon.cpp)
+
+target_include_directories(dynawo_SolverKINCommon
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    $<TARGET_PROPERTY:Sundials::Sundials_NVECSERIAL,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+
+target_link_libraries(dynawo_SolverKINCommon
+  PUBLIC
+    dynawo_Common
+    Sundials::Sundials_KINSOL
+    Sundials::Sundials_NVECSERIAL
+    Sundials::Sundials_SUNLINSOLKLU
+    $<$<BOOL:${NICSLU_FOUND}>:Sundials::Sundials_SUNLINSOLNICSLU>
+  )
+
+add_library(dynawo_SolverKINSubModel SHARED DYNSolverKINSubModel.cpp)
+
+target_include_directories(dynawo_SolverKINSubModel
+  PRIVATE
+    $<TARGET_PROPERTY:dynawo_ModelerCommon,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+
+target_link_libraries(dynawo_SolverKINSubModel
+  PUBLIC
+    dynawo_SolverKINCommon
+  PRIVATE
+    dynawo_SolverCommon
+  )
+
 set(SOLVER_KINSOL_SOURCES
-  DYNSolverKINCommon.cpp
   DYNSolverKINAlgRestoration.cpp
   DYNSolverKINEuler.cpp
-  DYNSolverKINSubModel.cpp
 )
 
 set(SOLVER_KINSOL_INCLUDE_HEADERS
@@ -28,40 +58,23 @@ set(SOLVER_KINSOL_INCLUDE_HEADERS
 add_library(dynawo_SolverKINSOL SHARED ${SOLVER_KINSOL_SOURCES})
 
 target_include_directories(dynawo_SolverKINSOL
-  INTERFACE
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-    $<TARGET_PROPERTY:Sundials::Sundials_NVECSERIAL,INTERFACE_INCLUDE_DIRECTORIES>
   PRIVATE
     $<TARGET_PROPERTY:dynawo_ModelerCommon,INTERFACE_INCLUDE_DIRECTORIES>
-  PUBLIC
-    $<TARGET_PROPERTY:dynawo_SolverCommon,INTERFACE_INCLUDE_DIRECTORIES>
-)
-target_include_directories(dynawo_SolverKINSOL SYSTEM
-  PRIVATE
-    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
 target_link_libraries(dynawo_SolverKINSOL
+  PUBLIC
+    dynawo_SolverKINCommon
   PRIVATE
-    Sundials::Sundials_NVECSERIAL
-    Sundials::Sundials_KINSOL
-    Sundials::Sundials_SUNLINSOLKLU
-    dynawo_Common
     dynawo_SolverCommon
   )
 
-if(${NICSLU_FOUND})
-  target_link_libraries(dynawo_SolverKINSOL
-    PRIVATE
-      Sundials::Sundials_SUNLINSOLNICSLU
-  )
-endif()
+set_target_properties(dynawo_SolverKINCommon dynawo_SolverKINSubModel dynawo_SolverKINSOL
+  PROPERTIES VERSION ${SOLVER_KINSOL_VERSION_STRING}
+             SOVERSION ${SOLVER_KINSOL_VERSION_MAJOR})
 
-set_target_properties(dynawo_SolverKINSOL PROPERTIES VERSION ${SOLVER_KINSOL_VERSION_STRING}
-                                                   SOVERSION ${SOLVER_KINSOL_VERSION_MAJOR})
-
-install(TARGETS dynawo_SolverKINSOL EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(TARGETS dynawo_SolverKINCommon dynawo_SolverKINSubModel dynawo_SolverKINSOL
+  EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${SOLVER_KINSOL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)

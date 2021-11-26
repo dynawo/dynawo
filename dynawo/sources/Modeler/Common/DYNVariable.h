@@ -36,14 +36,14 @@ class Variable {
   /**
    * @brief Destructor
    */
-  virtual ~Variable() { }
+  virtual ~Variable();
 
   /**
    * @brief Getter for variable's name
    *
    * @return variable's name
    */
-  inline std::string getName() const {
+  inline const std::string& getName() const {
     return name_;
   }
 

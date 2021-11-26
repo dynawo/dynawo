@@ -111,43 +111,33 @@ if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'GNU')
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Werror -fdiagnostics-show-option -Wno-unused-local-typedefs")
   # -Wswitch-enum : Warn whenever a switch statement has an index of enumerated type and lacks a case for one or more of the named codes of that enumeration
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wswitch-enum -Wunused")
-elseif('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang' OR '${CMAKE_CXX_COMPILER_ID}')
+elseif('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang')
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Weverything")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-conditional-uninitialized")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-covered-switch-default")
-  # error: unknown command tag name (@copydoc @n) [-Werror,-Wdocumentation-unknown-command]
+  # error: unknown command tag name [-Werror,-Wdocumentation-unknown-command]
+  # => used command tag names (@copydoc and @n) are legal !
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-documentation-unknown-command")
+  # error: declaration requires an exit-time destructor [-Werror,-Wexit-time-destructors]
+  # => occurs with static objects, including singleton implementations
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-exit-time-destructors")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-extra-semi")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-mismatched-tags")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-missing-prototypes")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-missing-variable-declarations")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-old-style-cast")
+  # error: padding class 'DYN::Message' with 7 bytes to align 'key_' [-Werror,-Wpadded]
+  # error: padding size of 'DYN::ParameterCommon' with 3 bytes to alignment boundary [-Werror,-Wpadded]
+  # => it's better to let compiler generate correct padding
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-padded")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-reserved-id-macro")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-return-type")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-shadow")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-shorten-64-to-32")
+  # error: implicit conversion changes signedness: 'something signed' to 'something unsigned' [-Werror,-Wsign-conversion]
+  # error: operand of ? changes signedness: 'something unsigned' to 'something signed' [-Werror,-Wsign-conversion]
+  # => occurs many times in particular when a signed value is used as an index which must be an unsigned (size_t) !
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-sign-conversion")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-sometimes-uninitialized")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-undef")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-undefined-func-template")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unreachable-code-break")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unreachable-code-loop-increment")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unreachable-code-return")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unused-exception-parameter")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unused-macros")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unused-private-field")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-weak-vtables")
+  # error: 'arg2' was marked unused but was used [-Werror,-Wused-but-marked-unused]
+  # => occurs in all API Xml handlers (using boost::phoenix::placeholders)
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-used-but-marked-unused")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-overloaded-virtual")
+  # error: zero as null pointer constant [-Werror,-Wzero-as-null-pointer-constant]
+  # => caused by NULL macro use in many places (mandatory with c++98, should be replaced by nullptr with c++11)
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-zero-as-null-pointer-constant")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Werror")
   if(CXX11_ENABLED)
+    # -Wno-c++98-compat shall be kept to allow c++11 code !
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-c++98-compat")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-c++98-compat-local-type-template-args")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-c++98-compat-pedantic")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-deprecated")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-return-std-move-in-c++11")
   else()
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-pedantic")
@@ -225,7 +215,7 @@ if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
           )
 else()
   find_package(Boost "${Boost_RequiredVersion}" REQUIRED
-    COMPONENTS filesystem program_options serialization system log log_setup
+    COMPONENTS filesystem program_options serialization system log log_setup thread regex chrono atomic
   )
 endif()
 
@@ -242,16 +232,22 @@ if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
 
   if(NOT TARGET GTest::gtest AND TARGET GTest::GTest)
     add_library(GTest::gtest UNKNOWN IMPORTED)
-    if(EXISTS "${GTEST_LIBRARY}")
+    if(EXISTS "${GTEST_LIBRARY_DEBUG}")
       set_target_properties(GTest::gtest PROPERTIES
-              IMPORTED_LOCATION "${GTEST_LIBRARY}")
+              IMPORTED_LOCATION "${GTEST_LIBRARY_DEBUG}")
+    elseif(EXISTS "${GTEST_LIBRARY}")
+      set_target_properties(GTest::gtest PROPERTIES
+        IMPORTED_LOCATION "${GTEST_LIBRARY}")
     endif()
   endif()
   if(NOT TARGET GTest::gtest_main AND TARGET GTest::Main)
     add_library(GTest::gtest_main UNKNOWN IMPORTED)
-    if(EXISTS "${GTEST_MAIN_LIBRARY}")
+    if(EXISTS "${GTEST_MAIN_LIBRARY_DEBUG}")
       set_target_properties(GTest::gtest_main PROPERTIES
-              IMPORTED_LOCATION "${GTEST_MAIN_LIBRARY}")
+              IMPORTED_LOCATION "${GTEST_MAIN_LIBRARY_DEBUG}")
+    elseif(EXISTS "${GTEST_MAIN_LIBRARY}")
+      set_target_properties(GTest::gtest_main PROPERTIES
+        IMPORTED_LOCATION "${GTEST_MAIN_LIBRARY}")
     endif()
   endif()
   find_package(GMock REQUIRED)
@@ -346,8 +342,6 @@ else()
       ext-standbyautomaton-xml
   )
 endif()
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sources/config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/sources/config.h @ONLY)
 
 #
 # Target used to ensure that ddbdir directory is created

@@ -118,7 +118,8 @@ namespace DYN {
     if (initialConnected2_ == boost::none) {
       initialConnected2_ = leg_.get().getTerminal().isConnected();
       if (voltageLevelInterface2_->isNodeBreakerTopology()) {
-        initialConnected2_ = initialConnected2_ && voltageLevelInterface2_->isNodeConnected(leg_.get().getTerminal().getNodeBreakerView().getNode());
+        initialConnected2_ = initialConnected2_
+                          && voltageLevelInterface2_->isNodeConnected(static_cast<unsigned int>(leg_.get().getTerminal().getNodeBreakerView().getNode()));
       }
     }
     return initialConnected2_.value();
@@ -292,9 +293,9 @@ namespace DYN {
 
     if (voltageLevelInterface2_->isNodeBreakerTopology()) {
       if (connected2 && !getInitialConnected2())
-        voltageLevelInterface2_->connectNode(leg_.get().getTerminal().getNodeBreakerView().getNode());
+        voltageLevelInterface2_->connectNode(static_cast<unsigned int>(leg_.get().getTerminal().getNodeBreakerView().getNode()));
       else if (!connected2 && getInitialConnected2())
-        voltageLevelInterface2_->disconnectNode(leg_.get().getTerminal().getNodeBreakerView().getNode());
+        voltageLevelInterface2_->disconnectNode(static_cast<unsigned int>(leg_.get().getTerminal().getNodeBreakerView().getNode()));
     }
 
     if (connected2)

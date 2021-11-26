@@ -91,7 +91,7 @@ int ModelOmegaRef::col1stOmega_;
  *
  */
 ModelOmegaRef::ModelOmegaRef() :
-Impl("omegaRef"),
+ModelCPP("omegaRef"),
 firstState_(true),
 nbGen_(0),
 nbCC_(0),
@@ -303,7 +303,7 @@ ModelOmegaRef::sortGenByCC() {
         sumWeightByCC_[numCCNode_[i]] += weights_[i];
     }
   }
-  nbCC_ = genByCC_.size();
+  nbCC_ = static_cast<int>(genByCC_.size());
   if (nbCC_ > nbMaxCC)
     throw DYNError(Error::MODELER, TooMuchSubNetwork, nbCC_, nbMaxCC);
 }
@@ -533,7 +533,7 @@ ModelOmegaRef::setFequations() {
     fEquationIndex_[k + nbMaxCC] = f.str();
   }
 
-  assert(fEquationIndex_.size() == (unsigned int) sizeF() && "ModelOmegaRef:fEquationIndex_.size() != f_.size()");
+  assert(fEquationIndex_.size() == static_cast<size_t>(sizeF()) && "ModelOmegaRef:fEquationIndex_.size() != f_.size()");
 }
 
 void

@@ -27,6 +27,11 @@ class BusInterface;
 class VoltageLevelInterface;
 class ModelLoad;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * class LoadInterface
  */
@@ -102,6 +107,11 @@ class LoadInterface : public ComponentInterface {
    */
   virtual double getPUnderVoltage() = 0;
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNLOADINTERFACE_H_

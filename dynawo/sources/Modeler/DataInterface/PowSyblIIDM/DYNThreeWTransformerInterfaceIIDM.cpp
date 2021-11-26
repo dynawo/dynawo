@@ -93,7 +93,7 @@ ThreeWTransformerInterfaceIIDM::getInitialConnected1() {
     initialConnected1_ = tfoIIDM_.getLeg1().getTerminal().isConnected();
     if (voltageLevelInterface1_->isNodeBreakerTopology()) {
       initialConnected1_ = initialConnected1_ &&
-          voltageLevelInterface1_->isNodeConnected(tfoIIDM_.getLeg1().getTerminal().getNodeBreakerView().getNode());
+          voltageLevelInterface1_->isNodeConnected(static_cast<unsigned int>(tfoIIDM_.getLeg1().getTerminal().getNodeBreakerView().getNode()));
     }
   }
   return initialConnected1_.value();
@@ -105,7 +105,7 @@ ThreeWTransformerInterfaceIIDM::getInitialConnected2() {
     initialConnected2_ = tfoIIDM_.getLeg2().getTerminal().isConnected();
     if (voltageLevelInterface2_->isNodeBreakerTopology()) {
       initialConnected2_ = initialConnected2_ &&
-          voltageLevelInterface2_->isNodeConnected(tfoIIDM_.getLeg2().getTerminal().getNodeBreakerView().getNode());
+          voltageLevelInterface2_->isNodeConnected(static_cast<unsigned int>(tfoIIDM_.getLeg2().getTerminal().getNodeBreakerView().getNode()));
     }
   }
   return initialConnected2_.value();
@@ -117,7 +117,7 @@ ThreeWTransformerInterfaceIIDM::getInitialConnected3() {
     initialConnected3_ = tfoIIDM_.getLeg3().getTerminal().isConnected();
     if (voltageLevelInterface3_->isNodeBreakerTopology()) {
       initialConnected3_ = initialConnected3_ &&
-          voltageLevelInterface3_->isNodeConnected(tfoIIDM_.getLeg3().getTerminal().getNodeBreakerView().getNode());
+          voltageLevelInterface3_->isNodeConnected(static_cast<unsigned int>(tfoIIDM_.getLeg3().getTerminal().getNodeBreakerView().getNode()));
     }
   }
   return initialConnected3_.value();

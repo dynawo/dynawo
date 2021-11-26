@@ -29,7 +29,7 @@
 namespace powsybl {
 namespace iidm {
 
-Network
+static Network
 createHvdcConverterStationNetwork() {
   Network network("test", "test");
   Substation& substation = network.newSubstation().setId("S1").setName("S1_NAME").setCountry(Country::FR).setTso("TSO").add();
@@ -180,4 +180,4 @@ TEST(DataInterfaceTest, VscConverter) {
   ASSERT_EQ(points.at(2).qmax, 10);
   ASSERT_EQ(points.at(2).qmin, 10);
 }  // TEST(DataInterfaceTest, VscConverter)
-};  // namespace DYN
+}  // namespace DYN

@@ -49,7 +49,7 @@
 using boost::shared_ptr;
 
 namespace DYN {
-std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
+static std::pair<shared_ptr<ModelShuntCompensator>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelShuntCompensator(bool open, bool capacitor, bool initModel) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
@@ -306,7 +306,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   std::map<int, std::string> gEquationIndex;
   capa->setGequations(gEquationIndex);
   ASSERT_EQ(gEquationIndex.size(), nbG);
-  for (size_t i = 0; i < nbG; ++i) {
+  for (unsigned i = 0; i < nbG; ++i) {
     ASSERT_TRUE(gEquationIndex.find(i) != gEquationIndex.end());
   }
   ASSERT_NO_THROW(capa->evalG(20.));

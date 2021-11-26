@@ -26,7 +26,7 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYNNetworkComponentImpl.h"
+#include "DYNNetworkComponent.h"
 #include "DYNVoltageLevelInterface.h"
 #include "DYNGraph.h"
 
@@ -38,7 +38,7 @@ class ModelSwitch;
 /**
  * class ModelVoltageLevel
  */
-class ModelVoltageLevel : public NetworkComponent::Impl {
+class ModelVoltageLevel : public NetworkComponent {
  public:
   /**
    * @brief default constructor

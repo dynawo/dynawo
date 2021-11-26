@@ -28,7 +28,7 @@ namespace DYN {
 class GeneratorActivePowerControlIIDMExtension {
  public:
   /// @brief Destructor
-  virtual ~GeneratorActivePowerControlIIDMExtension() {}
+  virtual ~GeneratorActivePowerControlIIDMExtension() = default;
 
   /**
    * @brief Get the droop parameter

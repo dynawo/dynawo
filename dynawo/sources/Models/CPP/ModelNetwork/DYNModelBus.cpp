@@ -144,7 +144,7 @@ ModelBusContainer::initDerivatives() {
 }
 
 ModelBus::ModelBus(const shared_ptr<BusInterface>& bus, bool isNodeBreaker) :
-Impl(bus->getID()),
+NetworkComponent(bus->getID()),
 stateUmax_(false),
 stateUmin_(false),
 U2Pu_(0.0),
@@ -407,7 +407,7 @@ ModelBus::setFequations(std::map<int, std::string>& fEquationIndex) {
     }
   }
 
-  assert(fEquationIndex.size() == (unsigned int) sizeF() && "ModelBus: fEquationIndex.size != f_.size()");
+  assert(fEquationIndex.size() == static_cast<size_t>(sizeF()) && "ModelBus: fEquationIndex.size != f_.size()");
 }
 
 void
@@ -707,7 +707,7 @@ ModelBus::setGequations(std::map<int, std::string>& gEquationIndex) {
   gEquationIndex[0] = "U > UMax localModel:"+id();
   gEquationIndex[1] = "U < UMin localModel:"+id();
 
-  assert(gEquationIndex.size() == (unsigned int) sizeG() && "Model Bus: gEquationIndex.size() != g_.size()");
+  assert(gEquationIndex.size() == static_cast<size_t>(sizeG()) && "Model Bus: gEquationIndex.size() != g_.size()");
 }
 
 void

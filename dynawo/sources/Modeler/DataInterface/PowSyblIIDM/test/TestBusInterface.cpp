@@ -73,6 +73,7 @@ TEST(DataInterfaceTest, testBusInterface) {
   ASSERT_EQ(bus.getComponentVarIndex("foo"), -1);
   ASSERT_EQ(bus.getBusIndex(), 0);
   ASSERT_TRUE(bus.getBusBarSectionIdentifiers().empty());
+  ASSERT_FALSE(bus.isFictitious());
   ASSERT_EQ(bus.getCountry(), "");
   bus.setCountry("AF");
   ASSERT_EQ(bus.getCountry(), "AF");
@@ -206,6 +207,7 @@ TEST(DataInterfaceTest, testCalculatedBusInterface) {
   bus.addBusBarSection(bbs.getId());
   ASSERT_EQ(bus.getBusBarSectionIdentifiers().size(), 1);
   ASSERT_EQ(bus.getBusBarSectionIdentifiers()[0], "BBS");
+  ASSERT_FALSE(bus.isFictitious());
 
   ASSERT_EQ(bus.getNodes().size(), 0);
   bus.addNode(8);

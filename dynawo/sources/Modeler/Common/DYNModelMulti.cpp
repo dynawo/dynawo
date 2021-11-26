@@ -496,18 +496,18 @@ zChangeType_t
 ModelMulti::propagateZModif() {
   vector<int> indicesDiff;
   zChangeType_t zChangeType = NO_Z_CHANGE;
-  for (int i = 0, iEnd = nonSilentZIndexes_.size(); i < iEnd; ++i) {
+  for (std::size_t i = 0, iEnd = nonSilentZIndexes_.size(); i < iEnd; ++i) {
     if (doubleNotEquals(zLocal_[nonSilentZIndexes_[i]], zSave_[nonSilentZIndexes_[i]])) {
-      indicesDiff.push_back(nonSilentZIndexes_[i]);
+      indicesDiff.push_back(static_cast<int>(nonSilentZIndexes_[i]));
       zChangeType = NOT_SILENT_Z_CHANGE;
     }
   }
   // test values of discrete variables that are not used to compute continuous equations
   // and raise the flag NotUsedInContinuousEquations if at least one has changed
   // If at least one non silent Z has changed then the flag is never raised
-  for (int i = 0, iEnd = notUsedInContinuousEqSilentZIndexes_.size(); i < iEnd; ++i) {
+  for (std::size_t i = 0, iEnd = notUsedInContinuousEqSilentZIndexes_.size(); i < iEnd; ++i) {
     if (doubleNotEquals(zLocal_[notUsedInContinuousEqSilentZIndexes_[i]], zSave_[notUsedInContinuousEqSilentZIndexes_[i]])) {
-      indicesDiff.push_back(notUsedInContinuousEqSilentZIndexes_[i]);
+      indicesDiff.push_back(static_cast<int>(notUsedInContinuousEqSilentZIndexes_[i]));
       if (zChangeType != NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE && zChangeType != NOT_SILENT_Z_CHANGE)
         zChangeType = NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE;
     }
@@ -520,7 +520,7 @@ ModelMulti::propagateZModif() {
   } else {
     // if only discrete variables that are used only in continuous equations then we just raise the NotUsedInDiscreteEquations flag
     // no need to propagate
-    for (int i = 0, iEnd = notUsedInDiscreteEqSilentZIndexes_.size(); i < iEnd; ++i) {
+    for (std::size_t i = 0, iEnd = notUsedInDiscreteEqSilentZIndexes_.size(); i < iEnd; ++i) {
       if (doubleNotEquals(zLocal_[notUsedInDiscreteEqSilentZIndexes_[i]], zSave_[notUsedInDiscreteEqSilentZIndexes_[i]])) {
         std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
         return NOT_USED_IN_DISCRETE_EQ_Z_CHANGE;

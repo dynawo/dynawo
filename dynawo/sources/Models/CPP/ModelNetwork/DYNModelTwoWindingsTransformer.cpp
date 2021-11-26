@@ -63,7 +63,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 ModelTwoWindingsTransformer::ModelTwoWindingsTransformer(const shared_ptr<TwoWTransformerInterface>& tfo) :
-Impl(tfo->getID()),
+NetworkComponent(tfo->getID()),
 ir1_dUr1_(0.),
 ir1_dUi1_(0.),
 ir1_dUr2_(0.),
@@ -1453,7 +1453,7 @@ ModelTwoWindingsTransformer::setGequations(std::map<int, std::string>& gEquation
   }
 
 
-  assert(gEquationIndex.size() == (unsigned int) sizeG_ && "Model TwoWindingsTransformer: gEquationIndex.size() != sizeG_");
+  assert(gEquationIndex.size() == static_cast<size_t>(sizeG_) && "Model TwoWindingsTransformer: gEquationIndex.size() != sizeG_");
 }
 
 double

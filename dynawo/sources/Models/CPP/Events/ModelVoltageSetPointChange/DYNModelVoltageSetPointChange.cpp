@@ -79,7 +79,7 @@ extern "C" void DYN::ModelVoltageSetPointChangeFactory::destroy(DYN::SubModel* m
 namespace DYN {
 
 ModelVoltageSetPointChange::ModelVoltageSetPointChange() :
-Impl("VoltageSetPointChange"),
+ModelCPP("VoltageSetPointChange"),
 startTime_(0.),
 stopTime_(0.),
 voltageSetPointChange_(0.),
@@ -133,7 +133,7 @@ ModelVoltageSetPointChange::setGequations() {
   gEquationIndex_[0] = "stopTime > t >= startTime";
   gEquationIndex_[1] = "t >= stopTime";
 
-  assert(gEquationIndex_.size() == (unsigned int) sizeG() && "Model VoltageSetPointChange: gEquationIndex.size() != gLocal_.size()");
+  assert(gEquationIndex_.size() == static_cast<size_t>(sizeG()) && "Model VoltageSetPointChange: gEquationIndex.size() != gLocal_.size()");
 }
 
 void

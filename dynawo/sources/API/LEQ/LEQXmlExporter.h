@@ -34,10 +34,6 @@ namespace lostEquipments {
 class XmlExporter : public Exporter {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~XmlExporter() {}
-  /**
    * @brief Export method in XML format
    *
    * @param lostEquipments Lost equipments to export

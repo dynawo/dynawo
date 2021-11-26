@@ -28,6 +28,16 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+###########################################################
+#     IEEE 14 - Disconnect Line with intermediate dump    #
+###########################################################
+
+case_name = "DynaFlow - IEEE14 - DisconnectLine intermediate"
+case_description = "IEEE 14 test case with a line disconnection and intermediate dumps"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "IEEE14", "IEEE14_DisconnectLine_intermediate_dump", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 ##############################################
 #  Small System with an HVDC link and a CLA  #
 ##############################################

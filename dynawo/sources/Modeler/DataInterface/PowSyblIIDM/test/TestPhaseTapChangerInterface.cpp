@@ -36,7 +36,7 @@ namespace powsybl {
 
 namespace iidm {
 
-Network
+static Network
 create_2WT_PhaseTapChanger_Network() {
   Network network("test", "test");
   Substation& substation = network.newSubstation()
@@ -201,12 +201,12 @@ TEST(DataInterfaceTest, PhaseTapChanger_2WT) {
   ASSERT_FALSE(Ifce.getRegulating());
   ASSERT_DOUBLE_EQUALS_DYNAWO(Ifce.getTargetDeadBand(), 0.);
 }  // TEST(DataInterfaceTest, PhaseTapChanger_2WT)
-};  // namespace DYN
+}  // namespace DYN
 
 namespace powsybl {
 namespace iidm {
 
-Network
+static Network
 create_3WT_PhaseTapChanger_Network() {
   Network network("test", "test");
   Substation& substation = network.newSubstation()
@@ -326,7 +326,7 @@ create_3WT_PhaseTapChanger_Network() {
   return network;
 }  // create_3WT_PhaseTapChanger_Network()
 
-void
+static void
 addPhaseTapChangerLeg2(ThreeWindingsTransformer& transformer, Terminal& terminal) {
   transformer.getLeg2()
       .newPhaseTapChanger()
@@ -362,7 +362,7 @@ addPhaseTapChangerLeg2(ThreeWindingsTransformer& transformer, Terminal& terminal
       .add();
 }  // addRatioTapChangerLeg2()
 
-void
+static void
 addPhaseTapChangerLeg3(ThreeWindingsTransformer& transformer, Terminal& terminal) {
   transformer.getLeg3()
       .newPhaseTapChanger()
@@ -445,4 +445,4 @@ TEST(DataInterfaceTest, PhaseTapChanger_3WT) {
   ASSERT_EQ(Ifce.getLowPosition(), -3L);
   ASSERT_EQ(Ifce.getSteps().size(), 4);
 }  // TEST(DataInterfaceTest, PhaseTapChanger_3WT)
-};  // namespace DYN
+}  // namespace DYN

@@ -36,7 +36,7 @@ public:
 
   static const std::string & uri() { return root.ns; }
 
-  static const std::string & xsd_path();
+  static const std::string& xsd_path();
 
   VoltageRegulationHandler();
 
