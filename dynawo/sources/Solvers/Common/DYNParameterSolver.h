@@ -46,22 +46,11 @@ class ParameterSolver : public ParameterCommon {
   ParameterSolver(const std::string& name, const typeVarC_t& valueType, bool mandatory);
 
   /**
-   * @brief Default copy Constructor
-   *
-   * @param parameter the parameter to copy
-   */
-#ifdef LANG_CXX11
-  ParameterSolver(const ParameterSolver&) = default;
-#else
-  ParameterSolver(const ParameterSolver& parameter);
-#endif
-
-  /**
     * @brief check whether the parameter's value is set
     * @return whether the parameter's value is set
     */
   inline bool hasValue() const {
-    return value_ != boost::none;
+    return value_.has_value();
   }
 
   /**
