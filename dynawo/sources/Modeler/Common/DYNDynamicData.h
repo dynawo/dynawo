@@ -25,6 +25,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
+#include <boost/noncopyable.hpp>
 
 namespace parameters {
 class ParametersSet;
@@ -49,17 +50,8 @@ class DataInterface;
  * @class DynamicData
  * @brief Dynamic Data container class
  */
-class DynamicData {
+class DynamicData : public boost::noncopyable {
  public:
-  /**
-   * @brief default constructor.
-   */
-  DynamicData() { }
-
-  /**
-   * @brief default destructor.
-   */
-  ~DynamicData() { }
   /**
    * @brief initiation dynamic data from dyd files
    * @param fileNames the path to the file from which to build the dynamic data model
@@ -247,18 +239,6 @@ class DynamicData {
    * @brief mark model Templates called by model template expansions, saved them in a map.
    */
   void mappingModelicaModels();
-
-  /**
-   * @brief dynamic data assignement operator
-   * @return the assigned instance of dynamic data
-   */
-  DynamicData& operator=(const DynamicData&);
-
-  /**
-   * @brief dynamic data copy constructor
-   * @param data : the dynamic data instance to copy
-   */
-  DynamicData(const DynamicData& data);
 
  private:
   std::string rootDirectory_;  ///< directory to use as root when reading file
