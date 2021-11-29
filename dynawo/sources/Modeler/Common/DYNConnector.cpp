@@ -67,9 +67,6 @@ fType_(NULL),
 connectorsMerged_(false) {
 }
 
-ConnectorContainer::~ConnectorContainer() {
-}
-
 unsigned int ConnectorContainer::nbYConnectors() const {
   unsigned int nbConnect = 0;
   for (unsigned int i = 0; i < yConnectors_.size(); ++i) {  // if there are n variables connected together
