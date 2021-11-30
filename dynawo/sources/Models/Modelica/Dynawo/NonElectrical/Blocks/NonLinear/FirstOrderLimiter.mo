@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.NonLinear;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,29 +15,24 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 block FirstOrderLimiter "First order filter with non-windup limiter"
 
   import Modelica;
-  import Dynawo;
   import Dynawo.Types;
 
-  extends Modelica.Blocks.Interfaces.SISO(y(start = y_start));
+  extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Types.PerUnit K = 1 "Gain";
-  parameter Types.Time T "Time constant";
-  parameter Real yMax "Upper limits of output signal";
-  parameter Real yMin = -yMax "Lower limits of output signal";
-  parameter Real y_start = 0 "Initial or guess value of output (= state)" annotation(
+  parameter Types.Time t "Time constant in s";
+  parameter Real YMax "Upper limits of output signal";
+  parameter Real YMin = -YMax "Lower limits of output signal";
+  parameter Real Y0 = 0 "Initial or guess value of output" annotation(
     Dialog(group = "Initialization"));
-  parameter Boolean strict = false "= true, if strict limits with noEvent(..)" annotation(
-    Evaluate = true,
-    choices(checkBox = true),
-    Dialog(tab = "Advanced"));
 
-  Modelica.Blocks.Nonlinear.Limiter lim(limitsAtInit = true, strict = strict, uMax = yMax, uMin = yMin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter lim(limitsAtInit = true, uMax = YMax, uMin = YMin) annotation(
     Placement(visible = true, transformation(origin = {52, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-56, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain G(k = 1 / T) annotation(
+  Modelica.Blocks.Math.Gain G(k = 1 / t) annotation(
     Placement(visible = true, transformation(origin = {-24, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator I(k = 1, y_start = y_start) annotation(
+  Modelica.Blocks.Continuous.Integrator I(k = 1, y_start = Y0) annotation(
     Placement(visible = true, transformation(origin = {16, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain Gk(k = K) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -60,11 +55,12 @@ equation
   I.u = if G.y >= 0 and lim.u > lim.uMax or G.y <= 0 and lim.u < lim.uMin then 0 else G.y;
 
   annotation(
-    Icon(coordinateSystem(grid = {0.1, 0.1}, initialScale = 0.1), graphics = {Line(origin = {0, 1.05741}, points = {{-80, -121.057}, {-40, -121.057}, {42, 118.943}, {80, 118.943}}), Rectangle(lineColor = {0, 0, 127}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {12, 28}, extent = {{-44, 34}, {26, -16}}, textString = "k"), Text(origin = {2, -44}, extent = {{-60, 22}, {60, -22}}, textString = "1 + sT"), Line(origin = {4, 0}, points = {{-86, 0}, {86, 0}})}),
-    Diagram(coordinateSystem(extent = {{-200, -100}, {200, 100}}, initialScale = 0.1), graphics = {Line(origin = {-12.32, -0.16}, points = {{-12, 0}, {12, 0}}, color = {0, 0, 127}, pattern = LinePattern.Dash), Text(origin = {-27, 34}, extent = {{-87, 34}, {137, -28}}, textString = "I.u = if (G.y >= 0 and lim.u > lim.uMax) or (G.y <= 0 and lim.u < lim.uMin) then 0 else G.y
+  preferredView = "diagram",
+  Icon(coordinateSystem(grid = {0.1, 0.1}, initialScale = 0.1), graphics = {Line(origin = {0, 1.05741}, points = {{-80, -121.057}, {-40, -121.057}, {42, 118.943}, {80, 118.943}}), Rectangle(lineColor = {0, 0, 127}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {12, 28}, extent = {{-44, 34}, {26, -16}}, textString = "k"), Text(origin = {2, -44}, extent = {{-60, 22}, {60, -22}}, textString = "1 + sT"), Line(origin = {4, 0}, points = {{-86, 0}, {86, 0}})}),
+  Diagram(coordinateSystem(extent = {{-200, -100}, {200, 100}}, initialScale = 0.1), graphics = {Line(origin = {-12.32, -0.16}, points = {{-12, 0}, {12, 0}}, color = {0, 0, 127}, pattern = LinePattern.Dash), Text(origin = {-27, 34}, extent = {{-87, 34}, {137, -28}}, textString = "I.u = if (G.y >= 0 and lim.u > lim.uMax) or (G.y <= 0 and lim.u < lim.uMin) then 0 else G.y
 
 (see text view)"), Line(origin = {85, -61}, points = {{75, 25}}), Line(origin = {-4.62687, 9.80597}, points = {{0, 14}, {0, -8}}, arrow = {Arrow.None, Arrow.Open}, arrowSize = 5), Text(origin = {-22, 53}, extent = {{-96, 11}, {16, -3}}, textString = "Integrator charging
  upper limiter engaged"), Text(origin = {78, 53}, extent = {{-94, 11}, {16, -3}}, textString = "Integrator discharging
  lower limiter engaged")}),
-    Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">Block to implement a first order filter:</span><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>y &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;k</div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>- = -------------</div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>u&nbsp; &nbsp; &nbsp; 1 + s*T</div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\">It is required that T &gt; 0.</div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\">Output limiter with anti-windup is also implemented.</div></body></html>"));
+  Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">Block to implement a first order filter:</span><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>y &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;k</div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>- = -------------</div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>u&nbsp; &nbsp; &nbsp; 1 + s*t</div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\">It is required that t &gt; 0.</div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\">Output limiter with anti-windup is also implemented.</div></body></html>"));
 end FirstOrderLimiter;

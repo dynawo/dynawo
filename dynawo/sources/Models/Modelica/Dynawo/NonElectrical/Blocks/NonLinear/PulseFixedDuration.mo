@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.NonLinear;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,17 +12,18 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block PulseFixedDuration "Activates a Boolean signal (Boolean trigger) for a duration T"
+block PulseFixedDuration "Activates a Boolean signal (Boolean trigger) for a duration t"
 
   import Dynawo;
 
   extends Dynawo.NonElectrical.Blocks.NonLinear.BaseClasses.BasePulse;
 
 equation
-  y = time - tTrigger < T;
+  y = time - tTrigger < t;
 
   annotation(
-      Documentation(info= "<html><head></head><body><p>
-The Boolean output y depends on the activation of a Boolean input.</p><p>If this Boolean becomes true, y is true for a duration T. Otherwise y is false.</p>
+  preferredView = "text",
+  Documentation(info= "<html><head></head><body><p>
+The Boolean output y depends on the activation of a Boolean input.</p><p>If this Boolean becomes true, y is true for a duration t. Otherwise y is false.</p>
 </body></html>"));
 end PulseFixedDuration;

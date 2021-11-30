@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.NonLinear;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -19,15 +19,16 @@ block FlipFlopR "RS flip flop with priority to reset"
   extends Dynawo.NonElectrical.Blocks.NonLinear.BaseClasses.BaseRSFlipFlop;
 
 equation
-  when S and not R then
+  when s and not r then
     y = true;
-  elsewhen R then
+  elsewhen r then
     y = false;
   end when;
 
   annotation(
-    Documentation(info = "<html><head></head><body><p>
-The output <code>y</code>&nbsp; becomes true when S is true and R is false. y remains true as long as R is false.</p>
+  preferredView = "text",
+  Documentation(info = "<html><head></head><body><p>
+The output <code>y</code>&nbsp; becomes true when s is true and r is false. y remains true as long as r is false.</p>
 </body></html>"),
-    Icon(graphics = {Ellipse(fillColor = {255, 255, 255}, lineThickness = 1, extent = {{-10, -90}, {-70, -30}}, endAngle = 360)}));
+  Icon(graphics = {Ellipse(fillColor = {255, 255, 255}, lineThickness = 1, extent = {{-10, -90}, {-70, -30}}, endAngle = 360)}));
 end FlipFlopR;

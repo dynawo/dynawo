@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.NonLinear;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,28 +15,28 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 block LimitedIntegrator "Integrator with limited value of the output"
 
   import Modelica;
-  import Dynawo;
   import Dynawo.Types;
 
-  extends Modelica.Blocks.Interfaces.SISO(y(start=y_start));
+  extends Modelica.Blocks.Interfaces.SISO(y(start=Y0));
 
   parameter Types.PerUnit K = 1 "Integrator gain";
-  parameter Real yMax "Upper limit of output";
-  parameter Real yMin "Lower limit of output";
-  parameter Real y_start = 0 "Initial or guess value of output (must be in the limits yMin .. yMax)" annotation (
+  parameter Real Y0 = 0 "Initial or guess value of output (must be in the limits YMin .. YMax)" annotation(
     Dialog(group="Initialization"));
+  parameter Real YMax "Upper limit of output";
+  parameter Real YMin "Lower limit of output";
 
 equation
-  if y <= yMin and K*u < 0 then
+  if y <= YMin and K * u < 0 then
     der(y) = 0;
-  elseif y >= yMax and K*u > 0 then
+  elseif y >= YMax and K * u > 0 then
     der(y) = 0;
   else
-    der(y) = K*u;
+    der(y) = K * u;
   end if;
 
-  annotation (
-    Documentation(info= "<html><head></head><body><p>
+  annotation(
+  preferredView = "text",
+  Documentation(info= "<html><head></head><body><p>
 This blocks computes <strong>y</strong> as <em>integral</em>
 of the input <strong>u</strong> multiplied with the gain <em>K</em>. If the
 integral reaches a given upper or lower <em>limit</em>, the
@@ -44,8 +44,9 @@ integration is halted and only restarted if the input drives
 the integral away from the bounds.
 </p>
 
-<p>The integrator is initialized with the value <em>y_start</em>.</p>
-</body></html>"), Icon(coordinateSystem(
+<p>The integrator is initialized with the value <em>Y0</em>.</p>
+</body></html>"),
+  Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Line(points={{-80,78},{-80,-90}}, color={192,192,192}),
@@ -74,7 +75,7 @@ the integral away from the bounds.
           points={{60,-100},{60,-80}},
           color={255,0,255},
           pattern=LinePattern.Dot)}),
-    Diagram(coordinateSystem(
+  Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
