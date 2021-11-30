@@ -8,27 +8,11 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(BaseClasses B)
-
 set(MODEL_FILES
   package.mo
   package.order
-  ApproximatedDelay.mo
-  FirstOrderLimiter.mo
-  FirstOrderWithDelay.mo
-  FixedBooleanDelay.mo
-  FlipFlopR.mo
-  FlipFlopS.mo
-  IntegratorOrFirstOrder.mo
-  LimitedIntegrator.mo
-  LimitedLeadLag.mo
-  LimiterWithLag.mo
-  LimiterWithLag_INIT.mo
-  MaxThresholdSwitch.mo
-  MinThresholdSwitch.mo
-  PulseFixedDuration.mo
-  PulseMinimumDuration.mo
-  VariableLimiter.mo
+  BasePulse.mo
+  BaseRSFlipFlop.mo
   )
 
 #

@@ -1,5 +1,17 @@
+BaseClasses
+ApproximatedDelay
+FirstOrderLimiter
+FirstOrderWithDelay
+FixedBooleanDelay
+FlipFlopR
+FlipFlopS
+IntegratorOrFirstOrder
+LimitedIntegrator
+LimitedLeadLag
 LimiterWithLag
 LimiterWithLag_INIT
 MaxThresholdSwitch
 MinThresholdSwitch
+PulseFixedDuration
+PulseMinimumDuration
 VariableLimiter
