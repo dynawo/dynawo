@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.NonLinear;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,17 +12,18 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block PulseMinimumDuration "Activates a Boolean signal (Boolean trigger) for a duration T or more if input is true"
+block PulseMinimumDuration "Activates a Boolean signal (Boolean trigger) for a duration t or more if input is true"
 
   import Dynawo;
 
   extends Dynawo.NonElectrical.Blocks.NonLinear.BaseClasses.BasePulse;
 
 equation
-  y = u or time - tTrigger < T;
+  y = u or time - tTrigger < t;
 
   annotation(
-      Documentation(info= "<html><head></head><body><p>
-The Boolean output y depends on the activation of a Boolean input.</p><p>If this Boolean becomes true, y is true at least for a duration T. y becomes false again&nbsp;<span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">if u is false and the duration T has elapsed</span>.</p>
+  preferredView = "text",
+  Documentation(info= "<html><head></head><body><p>
+The Boolean output y depends on the activation of a Boolean input.</p><p>If this Boolean becomes true, y is true at least for a duration t. y becomes false again&nbsp;<span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">if u is false and the duration t has elapsed</span>.</p>
 </body></html>"));
 end PulseMinimumDuration;
