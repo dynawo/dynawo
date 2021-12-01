@@ -21,7 +21,7 @@ block IntegratorOrFirstOrder "Switch between two operators : integrator, first-o
   extends Modelica.Blocks.Icons.PartialBooleanBlock;
 
   parameter Types.PerUnit K = 1 "Integrator gain";
-  parameter Types.Time t "First-order time constant in s";
+  parameter Types.Time tFilter "First-order time constant in s";
   parameter Real Y0 "Value of y at initial time" annotation(
     Dialog(group="Initialization"));
 
@@ -38,7 +38,7 @@ equation
   if u2 then
     der(y) = K * u1;
   else
-    der(y) = (u3 - y) / t;
+    der(y) = (u3 - y) / tFilter;
   end if;
 
   annotation(

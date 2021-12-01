@@ -20,7 +20,7 @@ block FirstOrderLimiter "First order filter with non-windup limiter"
   extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Types.PerUnit K = 1 "Gain";
-  parameter Types.Time t "Time constant in s";
+  parameter Types.Time tFilter "Time constant in s";
   parameter Real YMax "Upper limits of output signal";
   parameter Real YMin = -YMax "Lower limits of output signal";
   parameter Real Y0 = 0 "Initial or guess value of output" annotation(
@@ -30,7 +30,7 @@ block FirstOrderLimiter "First order filter with non-windup limiter"
     Placement(visible = true, transformation(origin = {52, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-56, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain G(k = 1 / t) annotation(
+  Modelica.Blocks.Math.Gain G(k = 1 / tFilter) annotation(
     Placement(visible = true, transformation(origin = {-24, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator I(k = 1, y_start = Y0) annotation(
     Placement(visible = true, transformation(origin = {16, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -62,5 +62,5 @@ equation
 (see text view)"), Line(origin = {85, -61}, points = {{75, 25}}), Line(origin = {-4.62687, 9.80597}, points = {{0, 14}, {0, -8}}, arrow = {Arrow.None, Arrow.Open}, arrowSize = 5), Text(origin = {-22, 53}, extent = {{-96, 11}, {16, -3}}, textString = "Integrator charging
  upper limiter engaged"), Text(origin = {78, 53}, extent = {{-94, 11}, {16, -3}}, textString = "Integrator discharging
  lower limiter engaged")}),
-  Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">Block to implement a first order filter:</span><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>y &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;k</div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>- = -------------</div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>u&nbsp; &nbsp; &nbsp; 1 + s*t</div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\">It is required that t &gt; 0.</div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\">Output limiter with anti-windup is also implemented.</div></body></html>"));
+  Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">Block to implement a first order filter:</span><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>y &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;k</div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>- = ------------------</div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>u&nbsp; &nbsp; &nbsp; 1 + s*tFilter</div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\">It is required that tFilter &gt; 0.</div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\">Output limiter with anti-windup is also implemented.</div></body></html>"));
 end FirstOrderLimiter;
