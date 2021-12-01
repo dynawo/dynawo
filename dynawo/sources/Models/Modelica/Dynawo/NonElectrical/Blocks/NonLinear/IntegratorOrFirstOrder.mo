@@ -12,7 +12,7 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block IntegratorOrFirstOrder "Switch between two operators : integrator, first order filter"
+block IntegratorOrFirstOrder "Switch between two operators : integrator, first-order filter"
 
   import Modelica;
   import Modelica.Blocks.Interfaces;
@@ -21,7 +21,7 @@ block IntegratorOrFirstOrder "Switch between two operators : integrator, first o
   extends Modelica.Blocks.Icons.PartialBooleanBlock;
 
   parameter Types.PerUnit K = 1 "Integrator gain";
-  parameter Types.Time t "Follower time constant in s";
+  parameter Types.Time t "First-order time constant in s";
   parameter Real Y0 "Value of y at initial time" annotation(
     Dialog(group="Initialization"));
 
