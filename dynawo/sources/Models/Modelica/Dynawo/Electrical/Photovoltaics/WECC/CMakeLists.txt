@@ -14,6 +14,9 @@ set(MODEL_FILES
   PVCurrentSource.mo
   PVCurrentSource.extvar
   PVCurrentSource_INIT.mo
+  PVVoltageSource.mo
+  PVVoltageSource.extvar
+  PVVoltageSource_INIT.mo
   )
 
 #

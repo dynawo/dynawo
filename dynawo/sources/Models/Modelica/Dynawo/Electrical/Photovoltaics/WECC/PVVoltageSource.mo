@@ -23,7 +23,6 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
   extends Parameters.Params_ElectricalControl;
   extends Parameters.Params_GeneratorControl;
   extends Parameters.Params_PLL;
-  extends Parameters.Params_IDQToVRef;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in p.u (base SnRef)";
@@ -33,6 +32,10 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
   parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in p.u (receptor convention) (base SnRef)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in p.u.";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
+
+  parameter Types.Time Te "Emulated delay in converter controls in seconds (Cannot be zero, typical: 0.02..0.05)";
+  parameter Types.PerUnit RSourcePu "Source resistance in per unit (typically set to zero, typical: 0..0.01)";
+  parameter Types.PerUnit XSourcePu "Source reactance in per unit (typical: 0.05..0.2)";
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {186, -10}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -58,9 +61,9 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
     Placement(visible = true, transformation(origin = {-80, 36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom)  annotation(
     Placement(visible = true, transformation(origin = {160, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.Utilities.IDQToVRef iDQtoVRef(RPuSource = RPuSource, Te = 0.005, Ui0Pu = Ui0Pu, Ur0Pu = Ur0Pu, XPuSource = XPuSource, u0Pu = u0Pu)  annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef VSourceRef(R = RSourcePu, Te = 0.005, Ui0Pu = Ui0Pu, Ur0Pu = Ur0Pu, X= XSourcePu, u0Pu = u0Pu)  annotation(
     Placement(visible = true, transformation(origin = {73, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.InjectorURI injector(P0Pu = -PInj0Pu * (SNom / SystemBase.SnRef), Q0Pu = -QInj0Pu * (SNom / SystemBase.SnRef), SNom = SNom, U0Pu = UInj0Pu, UPhase0 = UPhaseInj0, Ui0Pu = Ui0Pu, Ur0Pu = Ur0Pu, i0Pu = i0Pu, s0Pu = s0Pu, u0Pu = uInj0Pu) annotation(
+  Dynawo.Electrical.Sources.InjectorURI injector(P0Pu = -PInj0Pu * (SNom / SystemBase.SnRef), Q0Pu = -QInj0Pu * (SNom / SystemBase.SnRef), SNom = SNom, U0Pu = UInj0Pu, UPhase0 = UPhaseInj0, Ui0Pu = Ui0Pu, Ur0Pu = Ur0Pu, i0Pu = i0Pu, s0Pu = s0Pu, u0Pu = uInj0Pu, RSourcePu = RSourcePu, XSourcePu = XSourcePu) annotation(
     Placement(visible = true, transformation(origin = {105, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
@@ -78,6 +81,7 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
   parameter Types.PerUnit Iq0Pu "Start value of q-axis current at injector in p.u (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit Ur0Pu "Start value of real part of voltage at injector in p.u (base UNom) ";
   parameter Types.PerUnit Ui0Pu "Start value of imaginary part of voltage at injector in p.u (base UNom) ";
+
 equation
   connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
     Line(points = {{-29, -24}, {-11, -24}}, color = {0, 0, 127}));
@@ -91,9 +95,9 @@ equation
     Line(points = {{-29, -12}, {-11, -12}}, color = {0, 0, 127}));
   connect(OmegaRef.y, pll.omegaRefPu) annotation(
     Line(points = {{-99, 30}, {-91, 30}}, color = {0, 0, 127}));
-  connect(wecc_regc.idRefPu, iDQtoVRef.idPu) annotation(
+  connect(wecc_regc.idRefPu, VSourceRef.idPu) annotation(
     Line(points = {{51, -24}, {62, -24}}, color = {0, 0, 127}));
-  connect(wecc_regc.iqRefPu, iDQtoVRef.iqPu) annotation(
+  connect(wecc_regc.iqRefPu, VSourceRef.iqPu) annotation(
     Line(points = {{51, -14}, {54.5, -14}, {54.5, -18}, {62, -18}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, wecc_repc.OmegaPu) annotation(
     Line(points = {{-69, 41}, {-60, 41}, {-60, -10}, {-51, -10}}, color = {0, 0, 127}));
@@ -119,14 +123,11 @@ equation
     Line(points = {{162, -2}, {162, 49}, {-95, 49}, {-95, 42}, {-91, 42}}, color = {85, 170, 255}));
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
-  injector.switchOffSignal1.value = false;
-  injector.switchOffSignal2.value = false;
-  injector.switchOffSignal3.value = false;
-  connect(iDQtoVRef.urPu, injector.urPu) annotation(
+  connect(VSourceRef.UReSource, injector.urPu) annotation(
     Line(points = {{83, -14}, {94, -14}}, color = {0, 0, 127}));
-  connect(iDQtoVRef.uiPu, injector.uiPu) annotation(
+  connect(VSourceRef.UImSource, injector.uiPu) annotation(
     Line(points = {{83, -22}, {94, -22}}, color = {0, 0, 127}));
-  connect(injector.uPu, iDQtoVRef.uPu) annotation(
+  connect(injector.uPu, VSourceRef.uPu) annotation(
     Line(points = {{115, -10},{120, -10},{120, -4},  {114.5, -4}, {59, -4}, {59, -12},  {63, -12}}, color = {0, 0, 127}));
   connect(injector.terminal, line.terminal2) annotation(
     Line(points = {{117, -13}, {127, -13}}, color = {0, 0, 255}));

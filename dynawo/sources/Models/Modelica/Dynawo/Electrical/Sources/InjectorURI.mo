@@ -22,15 +22,15 @@ model InjectorURI "Injector controlled by real (R) part and imaginary (I) part v
   import Dynawo.Types;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
-  extends SwitchOff.SwitchOffInjector;
+  //extends SwitchOff.SwitchOffInjector;
 
   // Terminal connection
-  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid"  annotation(
+  Connectors.ACPower terminal(V(re(start = Ur0Pu), im(start = Ui0Pu)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid"  annotation(
     Placement(visible = true, transformation(extent = {{0, -26}, {0, -26}}, rotation = 0), iconTransformation(origin = {115, 47}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-  parameter Types.PerUnit RPu "Source resistance in p.u (typically set to zero, typical: 0..0.01)";
-  parameter Types.PerUnit XPu "Source reactance in p.u (typical: 0.05..0.2)";
+  parameter Types.PerUnit RSourcePu "Source resistance in p.u (typically set to zero, typical: 0..0.01)";
+  parameter Types.PerUnit XSourcePu "Source reactance in p.u (typical: 0.05..0.2)";
 
   // Inputs: real-imaginary part voltage p.u. variables (base UNom)
   Modelica.Blocks.Interfaces.RealInput urPu (start = Ur0Pu) "Real part voltage (pu base Unom)" annotation(
@@ -71,16 +71,15 @@ equation
 
   UPhase = ComplexMath.arg(terminal.V);
   UPu = ComplexMath.'abs'(terminal.V);
-  uPu = terminal.V + terminal.i * SystemBase.SnRef / SNom * Complex(RPu, XPu);
+  uPu = terminal.V + terminal.i * SystemBase.SnRef / SNom * Complex(RSourcePu, XSourcePu);
+  terminal.V.re = urPu;
+  terminal.V.im = uiPu;
   // Active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef
   QInjPuSn = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
   PInjPuSn = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
   QInjPu = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
   PInjPu = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
 
-  if not(running.value) then
-    terminal.i = Complex(0);
-  end if;
 
 annotation(preferredView = "text",
 Documentation(info="<html> <p> This block calculates the P,Q,u,i values for terminal connection based on real and imaginary parts of voltage setpoints from generator control  </p> </html>"),
