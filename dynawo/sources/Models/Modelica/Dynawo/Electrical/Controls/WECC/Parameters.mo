@@ -104,5 +104,4 @@ record Parameters "Parameters of the PV WECC model"
     parameter Types.PerUnit XPu "Source reactance in p.u (base UNom, SNom)";
   annotation(preferredView = "text");
   end Params_VSourceRef;
-
 end Parameters;
