@@ -124,7 +124,7 @@ class ShuntCompensatorInterface : public ComponentInterface {
    *
    * @return @b true if voltage regulation enabled, @b false if not
    */
-  virtual bool isVoltageRegulationOn() const  = 0;
+  virtual bool isVoltageRegulationOn() const = 0;
 
   /**
    * @brief Get the Target V of the shunt
