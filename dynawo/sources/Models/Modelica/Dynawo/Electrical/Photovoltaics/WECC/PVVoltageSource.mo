@@ -47,7 +47,8 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
   Modelica.Blocks.Interfaces.RealInput OmegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in p.u (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Lines.Line line(RPu = RPu, XPu = XPu, BPu = 0, GPu = 0) annotation(
+
+  Dynawo.Electrical.Lines.Line line(RPu = RSourcePu, XPu = XSourcePu, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {137, -13}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.PlantControl wecc_repc(Ddn = Ddn, Dup = Dup, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = - P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PInj0Pu, PMax = PMax, PMin = PMin, QGen0Pu = - Q0Pu * SystemBase.SnRef / SNom, QInj0Pu = QInj0Pu, QMax = QMax, QMin = QMin, Rc = RPu * SNom / SystemBase.SnRef, RefFlag = RefFlag, TFltr = TFltr, Tft = Tft, Tfv = Tfv, Tlag = Tlag, Tp = Tp, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VcompFlag = VcompFlag, Vfrz = Vfrz, Xc = XPu * SNom / SystemBase.SnRef, dbd = dbd, eMax = eMax, eMin = eMin, fdbd1 = fdbd1, fdbd2 = fdbd2, feMax = feMax, feMin = feMin, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
