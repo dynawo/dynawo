@@ -40,6 +40,8 @@ mandatory_(parameter.mandatory_) {
 }
 #endif
 
+ParameterCommon::~ParameterCommon() {}
+
 void
 ParameterCommon::setIndex(const unsigned int& index) {
   if (indexSet())

@@ -28,14 +28,12 @@
 
 namespace DYN {
 
-class SubModelMock : public SubModel {
+class SubModelMock0 : public SubModel {
  public:
-  SubModelMock(unsigned nbY, unsigned nbZ) : SubModel() {
+  SubModelMock0(unsigned nbY, unsigned nbZ) : SubModel() {
     sizeZ_ = nbZ;
     sizeY_ = nbY;
   }
-
-  virtual ~SubModelMock() {}
 
   void init(const double) {
     // Dummy class used for testing
@@ -166,9 +164,7 @@ class SubModelMock : public SubModel {
     // Dummy class used for testing
   }
 
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >&) {
-    // Dummy class used for testing
-  }
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >&);
 
   void defineParameters(std::vector<ParameterModeler>&) {
     // Dummy class used for testing
@@ -225,17 +221,17 @@ class SubModelMock : public SubModel {
   }
 };
 
-class SubModelMock1 : public SubModelMock {
+void SubModelMock0::defineVariables(std::vector<boost::shared_ptr<Variable> >&) {
+  // Dummy class used for testing
+}
+
+class SubModelMock1 : public SubModelMock0 {
  public:
-  SubModelMock1(unsigned nbY, unsigned nbZ) : SubModelMock(nbY, nbZ) {
+  SubModelMock1(unsigned nbY, unsigned nbZ) : SubModelMock0(nbY, nbZ) {
     sizeF_ = 2;
   }
 
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-    variables.push_back(VariableNativeFactory::create("VarC", CONTINUOUS, true));
-    variables.push_back(VariableNativeFactory::create("VarD", DISCRETE, true));
-    variables.push_back(VariableNativeFactory::create("VarF", FLOW, true));
-  }
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   void setFequations() {
     fEquationIndex_[0] = "Eq1";
@@ -243,20 +239,28 @@ class SubModelMock1 : public SubModelMock {
   }
 };
 
-class SubModelMock2 : public SubModelMock {
+void SubModelMock1::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
+  variables.push_back(VariableNativeFactory::create("VarC", CONTINUOUS, true));
+  variables.push_back(VariableNativeFactory::create("VarD", DISCRETE, true));
+  variables.push_back(VariableNativeFactory::create("VarF", FLOW, true));
+}
+
+class SubModelMock2 : public SubModelMock0 {
  public:
-  SubModelMock2(unsigned nbY, unsigned nbZ) : SubModelMock(nbY, nbZ) {
+  SubModelMock2(unsigned nbY, unsigned nbZ) : SubModelMock0(nbY, nbZ) {
     sizeF_ = 1;
   }
 
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-    variables.push_back(VariableNativeFactory::create("VarF2", FLOW, true));
-  }
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   void setFequations() {
     fEquationIndex_[0] = "Eq2_1";
   }
 };
+
+void SubModelMock2::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
+  variables.push_back(VariableNativeFactory::create("VarF2", FLOW, true));
+}
 
 TEST(TestGetName, getVariableName) {
   ModelMulti model;

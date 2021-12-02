@@ -18,26 +18,23 @@
  *
  */
 
-
 #include <kinsol/kinsol.h>
+#include <sundials/sundials_linearsolver.h>
+#include <sundials/sundials_matrix.h>
 #include <sunlinsol/sunlinsol_klu.h>
 #ifdef WITH_NICSLU
 #include <sunlinsol/sunlinsol_nicslu.h>
 #endif
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <nvector/nvector_serial.h>
-#include <string>
-#include <cmath>
+
+#include <sstream>
 
 #include "DYNSolverKINCommon.h"
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
 
-using std::vector;
-using std::map;
-using std::string;
 using std::stringstream;
-using boost::shared_ptr;
 
 namespace DYN {
 

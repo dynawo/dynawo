@@ -34,10 +34,6 @@ namespace criteria {
 class XmlImporter : public Importer {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~XmlImporter() {}
-  /**
    * @copydoc Importer::importFromFile()
    */
   boost::shared_ptr<CriteriaCollection> importFromFile(const std::string& fileName) const;

@@ -36,7 +36,7 @@ public:
 
   static const std::string & uri() { return root.ns; }
 
-  static const std::string & xsd_path();
+  static const std::string& xsd_path();
 
   virtual elementName_type const& root_element() const IIDM_OVERRIDE IIDM_FINAL { return root; }
 

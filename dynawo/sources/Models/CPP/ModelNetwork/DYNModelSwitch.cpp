@@ -41,7 +41,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 ModelSwitch::ModelSwitch(const shared_ptr<SwitchInterface>& sw) :
-Impl(sw->getID()),
+NetworkComponent(sw->getID()),
 topologyModified_(false),
 inLoop_(false) {
   // init data

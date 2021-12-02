@@ -25,7 +25,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
-#include "DYNNetworkComponentImpl.h"
+#include "DYNNetworkComponent.h"
 #include "DYNBitMask.h"
 
 namespace DYN {
@@ -38,7 +38,7 @@ class ModelVoltageLevel;
 /**
  * class ModelBus
  */
-class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
+class ModelBus : public NetworkComponent {  ///< Generic AC network bus
  public:
   /**
    * @brief default constructor
@@ -175,7 +175,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   void evalF(propertyF_t type);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalZ()
+   * @copydoc NetworkComponent::evalZ()
    */
   NetworkComponent::StateChange_t evalZ(const double& t);
 
@@ -252,12 +252,12 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   void init(int & yNum);
 
   /**
-   * @copydoc NetworkComponent::Impl::getY0()
+   * @copydoc NetworkComponent::getY0()
    */
   void getY0();
 
   /**
-   * @copydoc NetworkComponent::Impl::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
    */
   void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
 
@@ -416,12 +416,12 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   }
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
   void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
   void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
 

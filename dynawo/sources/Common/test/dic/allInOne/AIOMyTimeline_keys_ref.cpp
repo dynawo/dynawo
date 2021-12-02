@@ -19,5 +19,5 @@ const char* KeyMyTimeline_t::names(const value& v) {
     "MyState2",
   };
   return names[v];
-};
+}
 } //namespace AIO

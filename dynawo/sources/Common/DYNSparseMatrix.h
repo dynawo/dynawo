@@ -48,7 +48,7 @@ class SparseMatrix {
   typedef enum {
     CHECK_OK = 0,            ///< no error
     CHECK_ZERO_ROW,          ///< at least one row is full of 0
-    CHECK_ZERO_COLUMN,       ///< at least one column is full of 0
+    CHECK_ZERO_COLUMN        ///< at least one column is full of 0
   } CheckErrorCode;
 
   /**

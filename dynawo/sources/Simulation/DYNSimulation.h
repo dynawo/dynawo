@@ -21,9 +21,11 @@
 #define SIMULATION_DYNSIMULATION_H_
 
 #include <vector>
-#include <boost/optional.hpp>
+#include <queue>
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
+#include <boost/optional.hpp>
+#include <boost/filesystem.hpp>
 
 #ifdef _MSC_VER
   typedef int pid_t;
@@ -124,6 +126,27 @@ class Simulation {
     EXPORT_LOSTEQUIPMENTS_XML  ///< Export lost equipments found in XML mode in output file
   } exportLostEquipmentsMode_t;
 
+  /**
+   * @brief definition of dump to export
+   *
+   */
+  struct ExportStateDefinition {
+    /**
+     * @brief Constructor
+     *
+     * @param timestamp Timestamp of the export
+     * @param dumpFile Path of the dump
+     * @param iidmFile Path of the IIDM
+     */
+    ExportStateDefinition(double timestamp,
+      boost::optional<boost::filesystem::path> dumpFile = boost::none,
+      boost::optional<boost::filesystem::path> iidmFile = boost::none);
+
+    double timestamp_;                                   ///< Timestamp of the export (can be max for final state)
+    boost::optional<boost::filesystem::path> dumpFile_;  ///< Path of the dump state file, if requested
+    boost::optional<boost::filesystem::path> iidmFile_;  ///< Path of the IIDM export file, if requested
+  };
+
  public:
   /**
    * @brief default constructor
@@ -206,16 +229,23 @@ class Simulation {
   void dumpIIDMFile();
 
   /**
+   * @brief store a simulation state in a file
+   * @param dumpFile the dump file to export to
+   */
+  void dumpState(const boost::filesystem::path& dumpFile);
+
+  /**
+   * @brief dump the final state of the network in a IIDM file
+   * @param iidmFile the iidm to export to
+   */
+  void dumpIIDMFile(const boost::filesystem::path& iidmFile);
+
+  /**
    * @brief import curves request from a file (i.e curves that the user wants to plot)
    * @warning the file should be set before the call of this method
    */
   void importCurvesRequest();
 
-  /**
-   * @brief importe final state request from a file (i.e final state that the user wants to see)
-   * @warning the file should be set before the call of this method
-   */
-  void importFinalStateRequest();
   /**
    * @brief setter for the output file of the timeline
    * @param outputFile timeline's output file
@@ -257,20 +287,6 @@ class Simulation {
    */
   inline void setFinalStateExportMode(const exportFinalStateMode_t& mode) {
     exportFinalStateMode_ = mode;
-  }
-  /**
-   * @brief setter for the final state input file
-   * @param inputFile input file of final state request
-   */
-  inline void setFinalStateInputFile(const std::string& inputFile) {
-    finalStateInputFile_ = inputFile;
-  }
-  /**
-   * @brief setter for the final state output file
-   * @param outputFile final state's output file
-   */
-  inline void setFinalStateOutputFile(const std::string& outputFile) {
-    finalStateOutputFile_ = outputFile;
   }
   /**
    * @brief setter for the constraints' output file
@@ -374,27 +390,11 @@ class Simulation {
   }
 
   /**
-   * @brief set if final state dump is activated
-   * @param activate @b true if final state dump should be made, @b false otherwise
-   */
-  inline void activateDumpFinalState(bool activate) {
-    exportDumpFinalState_ = activate;
-  }
-
-  /**
    * @brief setter for the final state dump output file
    * @param file final state dump output file
    */
   inline void setDumpFinalStateFile(const std::string& file) {
-    dumpFinalStateFile_ = file;
-  }
-
-  /**
-   * @brief set if final state IIDM file should be dumped
-   * @param activate @b true if final state IIDM file should be dumped, @b false otherwise
-   */
-  inline void activateExportIIDM(bool activate) {
-    exportIIDM_ = activate;
+    finalState_.dumpFile_ = file;
   }
 
   /**
@@ -402,7 +402,21 @@ class Simulation {
    * @param file final state IIDM output file
    */
   inline void setExportIIDMFile(const std::string& file) {
-    exportIIDMFile_ = file;
+    finalState_.iidmFile_ = file;
+  }
+
+  /**
+   * @brief disable IIDM export for final state
+   */
+  inline void disableExportIIDM() {
+    finalState_.iidmFile_.reset();
+  }
+
+  /**
+   * @brief disable dump export for final state
+   */
+  inline void disableDumpFinalState() {
+    finalState_.dumpFile_.reset();
   }
 
   /**
@@ -542,6 +556,13 @@ class Simulation {
    */
   void printHighestDerivativesValues();
 
+  /**
+   * @brief Determines whether an intermediate dump state has to be performed
+   *
+   * @return true if a dump must be performed, false if not
+   */
+  bool hasIntermediateStateToDump() const;
+
  public:
   boost::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
   boost::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
@@ -580,8 +601,6 @@ class Simulation {
   int timetableSteps_;  ///< timetable' steps
 
   exportFinalStateMode_t exportFinalStateMode_;  ///< final state's export mode
-  std::string finalStateInputFile_;  ///< final state's request input file
-  std::string finalStateOutputFile_;  ///< final state's output file
 
   exportConstraintsMode_t exportConstraintsMode_;  ///< contstraints' export mode
   std::string constraintsOutputFile_;  ///< constraints' export file
@@ -591,11 +610,8 @@ class Simulation {
 
   pid_t pid_;  ///< pid of the current simulation
 
-  bool exportDumpFinalState_;  ///< @b true if final state dump should be activated
-  std::string dumpFinalStateFile_;  ///< final state dump file
-
-  bool exportIIDM_;  ///< @b true if final IIDM file should be dump
-  std::string exportIIDMFile_;  ///< final IIDM file dump
+  ExportStateDefinition finalState_;  ///< Final state definition
+  std::queue<ExportStateDefinition> intermediateStates_;  ///< Queue of intermediate dump states to perform, sorted by timestamp
 
   double tStart_;  ///< start time of the simulation
   double tCurrent_;  ///< current time of the simulation

@@ -29,9 +29,9 @@ namespace extensions {
 namespace generator_startup {
 namespace xml {
 
-std::string GeneratorStartupHandler::xsd_path() {
-  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
-  return xsdPath + std::string("generatorStartup.xsd");
+const std::string& GeneratorStartupHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("generatorStartup.xsd");
+  return xsdPath;
 }
 
 GeneratorStartupHandler::elementName_type const& GeneratorStartupHandler::root() {

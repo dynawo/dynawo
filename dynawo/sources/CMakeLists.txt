@@ -14,14 +14,15 @@ add_custom_target(revisiontag ALL)
 
 # creates gitversion.h using cmake script
 add_custom_command(TARGET revisiontag COMMAND ${CMAKE_COMMAND}
-   -DOUTPUT_DIR=${CMAKE_CURRENT_SOURCE_DIR}
+   -DOUTPUT_DIR=${CMAKE_CURRENT_BINARY_DIR}
    -DGIT_SOURCE_DIR=${DYNAWO_HOME}
    -P ${CMAKE_MODULE_PATH}/getgitheadrevision.cmake)
 
+configure_file(config.h.in config.h @ONLY)
 
 set(DYNAWO_INCLUDE_HEADERS
-  config.h
-  gitversion.h
+  ${CMAKE_CURRENT_BINARY_DIR}/config.h
+  ${CMAKE_CURRENT_BINARY_DIR}/gitversion.h
 )
 
 install(FILES ${DYNAWO_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

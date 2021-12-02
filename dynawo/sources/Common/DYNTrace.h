@@ -275,6 +275,13 @@ class Trace {
   static void disableLogging();
 
   /**
+   * @brief Enable logging
+   *
+   * Enable logging
+   */
+  static void enableLogging();
+
+  /**
    * @brief Determines if logging is enabled
    *
    * @returns whether the logging is currently enabled

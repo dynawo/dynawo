@@ -33,11 +33,6 @@ namespace timeline {
 class CsvExporter : public Exporter {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~CsvExporter() {}
-
-  /**
    * @brief Export method in csv format
    *
    * @param timeline Timeline to export

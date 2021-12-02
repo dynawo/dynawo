@@ -28,4 +28,6 @@ name_(name),
 isAlias_(isAlias) {
 }
 
+Variable::~Variable() {}
+
 }  // namespace DYN

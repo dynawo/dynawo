@@ -17,7 +17,7 @@ set(MODEL_NAME
 
 set(MODEL_SOURCES
   DYNDerivative.cpp
-  DYNNetworkComponentImpl.cpp
+  DYNNetworkComponent.cpp
   DYNModelBus.cpp
   DYNModelGenerator.cpp
   DYNModelSwitch.cpp
@@ -53,7 +53,7 @@ target_link_libraries(${MODEL_NAME}
   PRIVATE
     dynawo_DataInterface
   PUBLIC
-    dynawo_SolverKINSOL
+    dynawo_SolverKINSubModel
   )
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)

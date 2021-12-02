@@ -39,7 +39,7 @@ class CurrentLimitsPerSeasonIIDMExtension {
 
  public:
   /// @brief Destructor
-  virtual ~CurrentLimitsPerSeasonIIDMExtension() {}
+  virtual ~CurrentLimitsPerSeasonIIDMExtension() = default;
 
   /**
    * @brief Retrieve current limits

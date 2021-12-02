@@ -29,6 +29,7 @@
 #include "DYNEnumUtils.h"
 #include "DYNBitMask.h"
 #include "DYNModelConstants.h"
+#include "DYNParameterModeler.h"
 
 namespace parameters {
 class ParametersSet;
@@ -38,7 +39,6 @@ namespace DYN {
 class Element;
 class SparseMatrix;
 class Variable;
-class ParameterModeler;
 class ModelNetwork;
 
 /**
@@ -61,7 +61,18 @@ class NetworkComponent {  ///< Base class for network component models
   /**
    * @brief destructor
    */
-  virtual ~NetworkComponent() { }
+  virtual ~NetworkComponent();
+
+  /**
+   * @brief constructor
+   */
+  NetworkComponent();
+
+  /**
+   * @brief constructor
+   * @param id id of the component
+   */
+  explicit NetworkComponent(const std::string& id);
 
   /**
    * @brief add bus neighbors
@@ -182,7 +193,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param yType global buffer for variable properties
    * @param offset offset to know the beginning position for the component's variable properties
    */
-  virtual void setBufferYType(propertyContinuousVar_t* yType, const unsigned int& offset) = 0;
+  void setBufferYType(propertyContinuousVar_t* yType, const unsigned int& offset);
 
   /**
    * @brief evaluate the residual function property
@@ -206,7 +217,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param fType global buffer for residual function properties
    * @param offset offset to know the beginning position for the component's residual function properties
    */
-  virtual void setBufferFType(propertyF_t* fType, const unsigned int& offset) = 0;
+  void setBufferFType(propertyF_t* fType, const unsigned int& offset);
 
   /**
    * @brief evalYMat
@@ -228,7 +239,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param offsetY offset to use to find the beginning of the local buffer
    * @param offsetF offset to use to find the beginning of the local buffer for residual functions
    */
-  virtual void setReferenceY(double* y, double* yp, double* f, const int & offsetY, const int& offsetF) = 0;
+  virtual void setReferenceY(double* y, double* yp, double* f, const int & offsetY, const int& offsetF);
 
   /**
    * @brief set the local buffer for discretes variables
@@ -237,7 +248,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param zConnected global buffer for the discretes variables connection status
    * @param offsetZ offset to use to find the beginning of the local buffer
    */
-  virtual void setReferenceZ(double* z, bool* zConnected, const int& offsetZ) = 0;
+  virtual void setReferenceZ(double* z, bool* zConnected, const int& offsetZ);
 
   /**
    * @brief set the local buffer for calculated variables
@@ -245,7 +256,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param calculatedVars global buffer for the calculated variables
    * @param offsetCalculatedVars offset to use to find the beginning of the local buffer
    */
-  virtual void setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVars) = 0;
+  virtual void setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVars);
 
   /**
    * @brief set the local buffer for root values
@@ -253,7 +264,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param g global buffer for the root values
    * @param offsetG offset to use to find the beginning of the local buffer
    */
-  virtual void setReferenceG(state_g *g, const int& offsetG) = 0;
+  virtual void setReferenceG(state_g *g, const int& offsetG);
 
   /**
    * @brief get the initial values for discrete/continuous variables
@@ -272,7 +283,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param params vector of parameters
    * @return parameter with the given name
    */
-  virtual ParameterModeler findParameter(const std::string& name, const boost::unordered_map<std::string, ParameterModeler>& params) const = 0;
+  ParameterModeler findParameter(const std::string& name, const boost::unordered_map<std::string, ParameterModeler>& params) const;
 
   /**
    * @brief true if a parameter with a given name is present in a vector of parameters
@@ -280,7 +291,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param params vector of parameters
    * @return true if the parameter with the given name has been found, false otherwise
    */
-  virtual bool hasParameter(const std::string& name, const boost::unordered_map<std::string, ParameterModeler>& params) const = 0;
+  bool hasParameter(const std::string& name, const boost::unordered_map<std::string, ParameterModeler>& params) const;
 
   /**
    * @brief set equation's formula
@@ -305,55 +316,71 @@ class NetworkComponent {  ///< Base class for network component models
    * @brief set network
    * @param model model
    */
-  virtual void setNetwork(ModelNetwork* model) = 0;
+  void setNetwork(ModelNetwork* model);
 
   /**
    * @brief get size f
    * @return size f
    */
-  virtual int sizeF() const = 0;
+  inline int sizeF() const {
+    return sizeF_;
+  }
 
   /**
    * @brief get size y
    * @return size y
    */
-  virtual int sizeY() const = 0;
+  inline int sizeY() const {
+    return sizeY_;
+  }
 
   /**
    * @brief get size z
    * @return size z
    */
-  virtual int sizeZ() const = 0;
+  inline int sizeZ() const {
+    return sizeZ_;
+  }
 
   /**
    * @brief get size g
    * @return size g
    */
-  virtual int sizeG() const = 0;
+  inline int sizeG() const {
+    return sizeG_;
+  }
 
   /**
    * @brief get size mode
    * @return size mode
    */
-  virtual int sizeMode() const = 0;
+  inline int sizeMode() const {
+    return sizeMode_;
+  }
 
   /**
    * @brief get size calculated variables
    * @return size calculated variables
    */
-  virtual int sizeCalculatedVar() const = 0;
+  inline int sizeCalculatedVar() const {
+    return sizeCalculatedVar_;
+  }
 
    /**
    * @brief get offset to find the beginning of calculated var of the model in the global vector
    * @return offset to find the beginning of calculated var of the model in the global vector
    */
-  virtual unsigned int getOffsetCalculatedVar() const = 0;
+  inline unsigned int getOffsetCalculatedVar() const {
+    return offsetCalculatedVar_;
+  }
 
   /**
    * @brief set the offset to find the beginning of calculated var of the model in the global vector
    * @param offset to find the beginning of calculated var of the model in the global vector
    */
-  virtual void setOffsetCalculatedVar(unsigned int offset) = 0;
+  inline void setOffsetCalculatedVar(unsigned int offset) {
+    offsetCalculatedVar_ = offset;
+  }
 
   /**
    * @brief init size
@@ -364,16 +391,78 @@ class NetworkComponent {  ///< Base class for network component models
    * @brief id
    * @return id
    */
-  virtual std::string id() const = 0;
+  inline std::string id() const {
+    return id_;
+  }
+
+ protected:
+  /**
+   * @brief get the value of a given parameter.  Will throw a ParameterNotReadInPARFile exception if not found.
+   * @param params parameters of the model
+   * @param id id of the parameter to find
+   * @param ids id of the parameters
+   * @return value of the parameter
+   */
+  template <typename T> T getParameterDynamic(const boost::unordered_map<std::string, ParameterModeler>& params,
+      const std::string& id, const std::vector<std::string>& ids) const;
 
   /**
-   * @brief class implementation
+   * @brief get the value of a given parameter
+   * @param params parameters of the model
+   * @param id id of the parameter to find
+   * @param foundParam boolean to indicate if the parameter was found
+   * @param ids prefix of the parameters
+   * @return value of the parameter if foundParam==true, a default value if foundParam==false
    */
-  class Impl;
+  template <typename T> T getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
+      const std::string& id, bool& foundParam, const std::vector<std::string>& ids = std::vector<std::string>()) const;
+
+  /**
+   * @brief add an element along a value subelement
+   * @param elementName element to add
+   * @param parentType type of the parent model
+   * @param elements vector of elements to fill with new elements defined
+   * @param mapElement map of elements to fill with new elements
+   */
+  void addElementWithValue(const std::string& elementName, const std::string& parentType,
+      std::vector<Element>& elements, std::map<std::string, int>& mapElement);
+
+ private:
+  /**
+   * @brief get the value of a given parameter
+   * @param params parameters of the model
+   * @param id id of the parameter to find
+   * @param foundParam boolean to indicate if the parameter was found
+   * @param ids prefix of the parameters
+   * @param value value of the parameter
+   */
+  template <typename T> void findParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
+      const std::string& id, bool& foundParam, const std::vector<std::string>& ids, T& value) const;
+
+ protected:
+  double* y_;  ///< continuous variable
+  double* yp_;  ///< derivative of y
+  double* f_;  ///< residual functions
+  double* z_;  ///< discrete variable
+  bool* zConnected_;  ///< discrete variable connection status
+  double* calculatedVars_;  ///< calculated variables
+  state_g* g_;  ///< state
+
+  propertyF_t* fType_;  ///< property of each residual function (algebraic / differential)
+  propertyContinuousVar_t* yType_;  ///< property of each variable (algebraic / differential / external)
+
+  int sizeF_;  ///< size of F
+  int sizeY_;  ///< size of Y
+  int sizeZ_;  ///< size of Z
+  int sizeG_;  ///< size of G
+  int sizeMode_;  ///< size of Mode
+  int sizeCalculatedVar_;  ///< size of calculated variables
+  unsigned int offsetCalculatedVar_;  ///< offset to find the begin of calculated var of the model in the global vector
+  std::string id_;  ///< id of the component
+  ModelNetwork* network_;  ///< model network
 };
-
-
-
 }  // namespace DYN
+
+#include "DYNNetworkComponent.hpp"
 
 #endif  // MODELS_CPP_MODELNETWORK_DYNNETWORKCOMPONENT_H_

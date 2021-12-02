@@ -57,14 +57,17 @@ class ParameterCommon {
   ParameterCommon(const ParameterCommon& parameter);
 #endif
 
+#ifdef LANG_CXX11
+    /**
+     * @brief Default copy assigment operator
+     */
+    ParameterCommon& operator=(const ParameterCommon&) = delete;
+#endif
+
   /**
    * @brief Destructor
    */
-#ifdef LANG_CXX11
-  virtual ~ParameterCommon() = default;
-#else
-  virtual ~ParameterCommon() { }
-#endif
+  virtual ~ParameterCommon();
 
   /**
    * @brief Getter for parameter's name

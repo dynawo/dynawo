@@ -33,10 +33,6 @@ namespace curves {
 class XmlExporter : public Exporter {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~XmlExporter() {}
-  /**
    * @brief Export method in XML format
    *
    * @param curves curves to export

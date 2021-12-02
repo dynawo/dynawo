@@ -49,6 +49,11 @@ class ModelTemplate : public Model {
   explicit ModelTemplate(const std::string& id);
 
   /**
+   * @brief Destructor
+   */
+  virtual ~ModelTemplate();
+
+  /**
    * @brief Set compilation options
    * @param useAliasing activate OpenModelica aliasing
    * @param generateCalculatedVariables activate automatic computation of calculated variables

@@ -26,6 +26,12 @@
 #include "CRVCurvesCollection.h"
 
 namespace curves {
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @class Importer
  * @brief Importer interface class
@@ -38,6 +44,7 @@ class Importer {
    * @brief Destructor
    */
   virtual ~Importer() {}
+
   /**
    * @brief Import curves's collection from file
    *
@@ -56,6 +63,10 @@ class Importer {
    */
   virtual boost::shared_ptr<CurvesCollection> importFromStream(std::istream& stream) const = 0;
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // namespace curves
 

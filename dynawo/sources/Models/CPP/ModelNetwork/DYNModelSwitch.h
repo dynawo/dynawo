@@ -22,7 +22,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
-#include "DYNNetworkComponentImpl.h"
+#include "DYNNetworkComponent.h"
 #include "DYNModelBus.h"
 
 namespace DYN {
@@ -31,7 +31,7 @@ class SwitchInterface;
 /**
  * @brief Generic AC switch model
  */
-class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public NetworkComponent::Impl {
+class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public NetworkComponent {
  public:
   /**
    * @brief default constructor
@@ -198,7 +198,7 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   void evalF(propertyF_t type);  ///< compute the local F function
 
   /**
-  * @copydoc NetworkComponent::Impl::evalZ()
+  * @copydoc NetworkComponent::evalZ()
   */
   NetworkComponent::StateChange_t evalZ(const double& t);
 
@@ -300,12 +300,12 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   NetworkComponent::StateChange_t evalState(const double& time);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
   void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
+   * @copydoc NetworkComponent::evalJtPrim(SparseMatrix& jt, const int& rowOffset)
    */
   void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
 
