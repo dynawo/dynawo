@@ -118,6 +118,20 @@ class ShuntCompensatorInterface : public ComponentInterface {
    * @return @b true if the shunt compensator is linear, @b false otherwise
    */
   virtual bool isLinear() const = 0;
+
+  /**
+   * @brief Determines if voltage regulation is enabled on current shunt
+   *
+   * @return @b true if voltage regulation enabled, @b false if not
+   */
+  virtual bool isVoltageRegulationOn() const  = 0;
+
+  /**
+   * @brief Get the Target V of the shunt
+   *
+   * @return the target voltage of the shunt
+   */
+  virtual double getTargetV() const = 0;
 };  ///< Interface class for Shunt Compensator
 
 #ifdef __clang__
