@@ -451,12 +451,12 @@ class NetworkComponent {  ///< Base class for network component models
   propertyF_t* fType_;  ///< property of each residual function (algebraic / differential)
   propertyContinuousVar_t* yType_;  ///< property of each variable (algebraic / differential / external)
 
-  int sizeF_;  ///< size of F
-  int sizeY_;  ///< size of Y
-  int sizeZ_;  ///< size of Z
-  int sizeG_;  ///< size of G
-  int sizeMode_;  ///< size of Mode
-  int sizeCalculatedVar_;  ///< size of calculated variables
+  unsigned int sizeF_;  ///< size of F
+  unsigned int sizeY_;  ///< size of Y
+  unsigned int sizeZ_;  ///< size of Z
+  unsigned int sizeG_;  ///< size of G
+  unsigned int sizeMode_;  ///< size of Mode
+  unsigned int sizeCalculatedVar_;  ///< size of calculated variables
   unsigned int offsetCalculatedVar_;  ///< offset to find the begin of calculated var of the model in the global vector
   std::string id_;  ///< id of the component
   ModelNetwork* network_;  ///< model network

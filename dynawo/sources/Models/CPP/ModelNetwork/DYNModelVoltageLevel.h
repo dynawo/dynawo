@@ -30,10 +30,36 @@
 #include "DYNVoltageLevelInterface.h"
 #include "DYNGraph.h"
 
+#include "DYNModelBus.h"
+#include "DYNModelDanglingLine.h"
+#include "DYNModelGenerator.h"
+#include "DYNModelHvdcLink.h"
+#include "DYNModelLine.h"
+#include "DYNModelLoad.h"
+#include "DYNModelShuntCompensator.h"
+#include "DYNModelStaticVarCompensator.h"
+#include "DYNModelSwitch.h"
+#include "DYNModelThreeWindingsTransformer.h"
+#include "DYNModelTwoWindingsTransformer.h"
+#include "DYNNetworkComponentsBase.h"
+
 namespace DYN {
 class VoltageLevelInterface;
 class ModelBus;
 class ModelSwitch;
+
+using NetworkComponentsVL = NetworkComponentsBase<
+                              ModelBus,
+                              ModelDanglingLine,
+                              ModelGenerator,
+                              ModelHvdcLink,
+                              ModelLine,
+                              ModelLoad,
+                              ModelShuntCompensator,
+                              ModelStaticVarCompensator,
+                              ModelSwitch,
+                              ModelThreeWindingsTransformer,
+                              ModelTwoWindingsTransformer>;
 
 /**
  * class ModelVoltageLevel
@@ -78,7 +104,11 @@ class ModelVoltageLevel : public NetworkComponent {
    * @brief add a new component instance to the voltage level model
    * @param component instance to add
    */
-  void addComponent(const boost::shared_ptr<NetworkComponent>& component);
+  template<class T>
+  void addComponent(const boost::shared_ptr<T>& component) {
+    components_.push_back(component);
+    networkComponents_.addModel(component);
+  }
 
   /**
    * @brief add a new bus component instance to the voltage level model
@@ -333,11 +363,12 @@ class ModelVoltageLevel : public NetworkComponent {
   boost::unordered_map<unsigned, std::pair<unsigned, std::vector<std::string> > > ClosestBBS_;  ///< node id -> closest bbs + shortest path
   VoltageLevelInterface::VoltageLevelTopologyKind_t topologyKind_;  ///< voltage level topology (bus breaker or node breaker)
   std::vector<boost::shared_ptr<NetworkComponent> > components_;  ///< all components in a voltage level
+  NetworkComponentsVL networkComponents_;
   std::map<int, boost::shared_ptr<ModelBus> > busesByIndex_;  ///< map of voltage level buses with their index
   std::vector<boost::shared_ptr<ModelBus> > busesWithBBS_;  ///< vector of buses that contain a bus bar section
   std::vector<boost::shared_ptr<ModelSwitch> > switches_;  ///< all switch components in a voltage level
   std::map<std::string, boost::shared_ptr<ModelSwitch> > switchesById_;  ///< map of voltage level switches with their id
-  std::vector<int> componentIndexByCalculatedVar_;  ///< index of component for each calculated var
+  std::vector<unsigned int> componentIndexByCalculatedVar_;  ///< index of component for each calculated var
 };
 
 }  // namespace DYN

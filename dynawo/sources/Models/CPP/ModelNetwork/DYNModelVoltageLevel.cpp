@@ -54,14 +54,9 @@ graph_(boost::none),
 topologyKind_(voltageLevel->getVoltageLevelTopologyKind()) { }
 
 void
-ModelVoltageLevel::addComponent(const shared_ptr<NetworkComponent>& component) {
-  components_.push_back(component);
-}
-
-void
 ModelVoltageLevel::addBus(const shared_ptr<ModelBus>& bus) {
   busesByIndex_.insert(make_pair(bus->getBusIndex(), bus));
-  components_.push_back(bus);
+  addComponent(bus);
   if (bus->hasBBS())
     busesWithBBS_.push_back(bus);
 }
@@ -69,7 +64,7 @@ ModelVoltageLevel::addBus(const shared_ptr<ModelBus>& bus) {
 void
 ModelVoltageLevel::addSwitch(const shared_ptr<ModelSwitch>& sw) {
   switches_.push_back(sw);
-  components_.push_back(sw);
+  addComponent(sw);
   switchesById_[sw->id()] = sw;
 }
 
@@ -285,19 +280,7 @@ ModelVoltageLevel::initSize() {
   componentIndexByCalculatedVar_.clear();
 
   // the size of the voltage level is the sum of the unit components sizes
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-    (*itComponent)->initSize();
-    sizeY_ += (*itComponent)->sizeY();
-    sizeF_ += (*itComponent)->sizeF();
-    sizeZ_ += (*itComponent)->sizeZ();
-    sizeG_ += (*itComponent)->sizeG();
-    sizeMode_ += (*itComponent)->sizeMode();
-    (*itComponent)->setOffsetCalculatedVar(sizeCalculatedVar_);
-    sizeCalculatedVar_ += (*itComponent)->sizeCalculatedVar();
-    componentIndexByCalculatedVar_.resize(sizeCalculatedVar_, index);
-    ++index;
-  }
+  networkComponents_.initSizes(sizeY_, sizeF_, sizeZ_, sizeG_, sizeMode_, sizeCalculatedVar_, componentIndexByCalculatedVar_, index);
 }
 
 void
@@ -317,9 +300,7 @@ ModelVoltageLevel::getY0() {
 
 void
 ModelVoltageLevel::evalF(propertyF_t type) {
-  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
-      itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalF(type);
+  networkComponents_.evalF(type);
 }
 
 void
@@ -408,9 +389,7 @@ ModelVoltageLevel::evalDynamicYType() {
 
 void
 ModelVoltageLevel::evalG(const double& t) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalG(t);
+  networkComponents_.evalG(t);
 }
 
 void
@@ -435,54 +414,24 @@ ModelVoltageLevel::setGequations(map<int, string>& gEquationIndex) {
 
 NetworkComponent::StateChange_t
 ModelVoltageLevel::evalZ(const double& t) {
-  bool topoChange = false;
-  bool stateChange = false;
-  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(), itEnd = components_.end();
-      itComponent != itEnd; ++itComponent) {
-    switch ((*itComponent)->evalZ(t)) {
-    case NetworkComponent::TOPO_CHANGE:
-      topoChange = true;
-      break;
-    case NetworkComponent::STATE_CHANGE:
-      stateChange = true;
-      break;
-    case NetworkComponent::NO_CHANGE:
-      break;
-    }
-  }
-  if (topoChange)
+  auto change = networkComponents_.evalZ(t);
+  if (change.first)
     return NetworkComponent::TOPO_CHANGE;
-  else if (stateChange)
+  else if (change.second)
     return NetworkComponent::STATE_CHANGE;
   return NetworkComponent::NO_CHANGE;
 }
 
 NetworkComponent::StateChange_t
 ModelVoltageLevel::evalState(const double& time) {
-  bool topoChange = false;
-  bool stateChange = false;
-
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-    switch ((*itComponent)->evalState(time)) {
-    case NetworkComponent::TOPO_CHANGE:
-      topoChange = true;
-      break;
-    case NetworkComponent::STATE_CHANGE:
-      stateChange = true;
-      break;
-    case NetworkComponent::NO_CHANGE:
-      break;
-    }
-  }
-
+  auto change = networkComponents_.evalState(time);
   // TOPO_CHANGE if voltage level components have generated a TOPO_CHANGE (bus or switch)
   //          or if voltage level components have generated a STATE_CHANGE and the voltage level is in node breaker topology
   //          (because in that case component state change will generate neighbouring switch opening or closing)
   // STATE_CHANGE if voltage level components have generated a STATE_CHANGE and the voltage level is in bus breaker topology
-  if (topoChange || (stateChange && topologyKind_ == VoltageLevelInterface::NODE_BREAKER)) {
+  if (change.first || (change.second && topologyKind_ == VoltageLevelInterface::NODE_BREAKER)) {
     return NetworkComponent::TOPO_CHANGE;
-  } else if (stateChange && topologyKind_ == VoltageLevelInterface::BUS_BREAKER) {
+  } else if (change.second && topologyKind_ == VoltageLevelInterface::BUS_BREAKER) {
     return NetworkComponent::STATE_CHANGE;
   } else {
     return NetworkComponent::NO_CHANGE;
@@ -491,58 +440,51 @@ ModelVoltageLevel::evalState(const double& time) {
 
 void
 ModelVoltageLevel::evalDerivatives(const double cj) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalDerivatives(cj);
+  networkComponents_.evalDerivatives(cj);
 }
 
 void
 ModelVoltageLevel::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalJt(jt, cj, rowOffset);
+  networkComponents_.evalJt(jt, cj, rowOffset);
 }
 
 void
 ModelVoltageLevel::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalJtPrim(jt, rowOffset);
+  networkComponents_.evalJtPrim(jt, rowOffset);
 }
 
 void
 ModelVoltageLevel::evalNodeInjection() {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalNodeInjection();
+  networkComponents_.evalNodeInjection();
 }
 
 void
 ModelVoltageLevel::evalCalculatedVars() {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalCalculatedVars();
+  networkComponents_.evalCalculatedVars();
 }
 
 void
 ModelVoltageLevel::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
   int index = componentIndexByCalculatedVar_[numCalculatedVar];
-  int varIndex = numCalculatedVar - components_[index]->getOffsetCalculatedVar();
-  components_[index]->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, numVars);
+  auto comp = networkComponents_.getComponentByIndex(index);
+  int varIndex = numCalculatedVar - comp->getOffsetCalculatedVar();
+  comp->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, numVars);
 }
 
 void
 ModelVoltageLevel::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
   int index = componentIndexByCalculatedVar_[numCalculatedVar];
-  int varIndex = numCalculatedVar - components_[index]->getOffsetCalculatedVar();
-  components_[index]->evalJCalculatedVarI(varIndex, res);
+  auto comp = networkComponents_.getComponentByIndex(index);
+  int varIndex = numCalculatedVar - comp->getOffsetCalculatedVar();
+  comp->evalJCalculatedVarI(varIndex, res);
 }
 
 double
 ModelVoltageLevel::evalCalculatedVarI(unsigned numCalculatedVar) const {
   int index = componentIndexByCalculatedVar_[numCalculatedVar];
-  int varIndex = numCalculatedVar - components_[index]->getOffsetCalculatedVar();
-  return components_[index]->evalCalculatedVarI(varIndex);
+  auto comp = networkComponents_.getComponentByIndex(index);
+  int varIndex = numCalculatedVar - comp->getOffsetCalculatedVar();
+  return comp->evalCalculatedVarI(varIndex);
 }
 
 void
@@ -607,50 +549,25 @@ void
 ModelVoltageLevel::setReferenceY(double* y, double* yp, double* f, const int & offsetY, const int & offsetF) {
   int offsetYComponent = offsetY;
   int offsetFComponent = offsetF;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-    if ((*itComponent)->sizeY() != 0) {
-      (*itComponent)->setReferenceY(y, yp, f, offsetYComponent, offsetFComponent);
-      offsetYComponent += (*itComponent)->sizeY();
-      offsetFComponent += (*itComponent)->sizeF();
-    }
-  }
+  networkComponents_.setReferenceY(y, yp, f, offsetYComponent, offsetFComponent);
 }
 
 void
 ModelVoltageLevel::setReferenceZ(double* z, bool* zConnected, const int& offsetZ) {
   int offsetZComponent = offsetZ;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-    if ((*itComponent)->sizeZ() != 0) {
-      (*itComponent)->setReferenceZ(z, zConnected, offsetZComponent);
-      offsetZComponent += (*itComponent)->sizeZ();
-    }
-  }
+  networkComponents_.setReferenceZ(z, zConnected, offsetZComponent);
 }
 
 void
 ModelVoltageLevel::setReferenceG(state_g* g, const int& offsetG) {
   int offsetGComponent = offsetG;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-    if ((*itComponent)->sizeG() != 0) {
-      (*itComponent)->setReferenceG(g, offsetGComponent);
-      offsetGComponent += (*itComponent)->sizeG();
-    }
-  }
+  networkComponents_.setReferenceG(g, offsetGComponent);
 }
 
 void
 ModelVoltageLevel::setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVar) {
   int offsetCalculatedVarComponent = offsetCalculatedVar;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
-    if ((*itComponent)->sizeCalculatedVar() != 0) {
-      (*itComponent)->setReferenceCalculatedVar(calculatedVars, offsetCalculatedVarComponent);
-      offsetCalculatedVarComponent += (*itComponent)->sizeCalculatedVar();
-    }
-  }
+  networkComponents_.setReferenceCalculatedVar(calculatedVars, offsetCalculatedVarComponent);
 }
 
 }  // namespace DYN

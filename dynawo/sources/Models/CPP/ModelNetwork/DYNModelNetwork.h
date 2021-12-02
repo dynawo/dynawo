@@ -29,12 +29,38 @@
 #include "DYNModelCPP.h"
 #include "DYNSubModelFactory.h"
 
+#include "DYNModelBus.h"
+#include "DYNModelDanglingLine.h"
+#include "DYNModelGenerator.h"
+#include "DYNModelHvdcLink.h"
+#include "DYNModelLine.h"
+#include "DYNModelLoad.h"
+#include "DYNModelShuntCompensator.h"
+#include "DYNModelStaticVarCompensator.h"
+#include "DYNModelSwitch.h"
+#include "DYNModelThreeWindingsTransformer.h"
+#include "DYNModelTwoWindingsTransformer.h"
+#include "DYNModelVoltageLevel.h"
+#include "DYNNetworkComponentsBase.h"
+
 namespace DYN {
 class ModelBusContainer;
-class ModelSwitch;
-class ModelVoltageLevel;
 class NetworkComponent;
 class DataInterface;
+
+using NetworkComponents = NetworkComponentsBase<
+                            ModelBus,
+                            ModelDanglingLine,
+                            ModelGenerator,
+                            ModelHvdcLink,
+                            ModelLine,
+                            ModelLoad,
+                            ModelShuntCompensator,
+                            ModelStaticVarCompensator,
+                            ModelSwitch,
+                            ModelThreeWindingsTransformer,
+                            ModelTwoWindingsTransformer,
+                            ModelVoltageLevel>;
 
 static const double maximumValueCurrentLimit = 5000;   ///< Maximum acceptable value for current limits
 
@@ -336,6 +362,14 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
     return isInitModel_ ?  initComponents_ : components_;
   }
 
+  inline NetworkComponents& getNetworkComponents() {
+    return isInitModel_ ?  networkInitComponents_ : networkComponents_;
+  }
+
+  inline const NetworkComponents& getNetworkComponents() const {
+    return isInitModel_ ?  networkInitComponents_ : networkComponents_;
+  }
+
   /**
    * @brief get the voltage levels depending on the model used (init or not)
    * @return the vector of voltage levels modeled
@@ -370,7 +404,9 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   std::vector<boost::shared_ptr<ModelVoltageLevel> > vLevelInitComponents_;  ///< all voltage level components  (used for init model)
   std::vector<boost::shared_ptr<NetworkComponent> > components_;  ///< all network components without dynamic Model
   std::vector<boost::shared_ptr<NetworkComponent> > initComponents_;  ///< all network components even components with dynamic model
-  std::vector<int> componentIndexByCalculatedVar_;  ///< index of component for each calculated variable
+  NetworkComponents networkComponents_;
+  NetworkComponents networkInitComponents_;
+  std::vector<unsigned int> componentIndexByCalculatedVar_;  ///< index of component for each calculated variable
 };
 
 }  // namespace DYN

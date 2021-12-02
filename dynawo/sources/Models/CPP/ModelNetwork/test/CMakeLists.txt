@@ -26,6 +26,7 @@ set(MODULE_SOURCES
     TestStaticVarCompensator.cpp
     TestThreeWindingsTransformer.cpp
     TestTwoWindingsTransformer.cpp
+    TestNetworkComponent.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
