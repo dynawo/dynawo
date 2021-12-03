@@ -31,6 +31,11 @@ class CurrentLimitInterface;
 class VoltageLevelInterface;
 class ConverterInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * class HvdcLineInterface
  */
@@ -41,7 +46,7 @@ class HvdcLineInterface : public ComponentInterface {
    */
   typedef enum {
     RECTIFIER_INVERTER = 1,
-    INVERTER_RECTIFIER = 2,
+    INVERTER_RECTIFIER = 2
   } ConverterMode_t;
 
   /**
@@ -149,6 +154,11 @@ class HvdcLineInterface : public ComponentInterface {
    */
   virtual boost::optional<double> getOprFromCS2toCS1() const = 0;
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNHVDCLINEINTERFACE_H_

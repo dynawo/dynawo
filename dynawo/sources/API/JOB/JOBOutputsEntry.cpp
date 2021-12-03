@@ -37,17 +37,22 @@ OutputsEntry::operator=(const OutputsEntry& other) {
   return *this;
 }
 
-void OutputsEntry::copy(const OutputsEntry& other) {
+void
+OutputsEntry::copy(const OutputsEntry& other) {
   outputsDirectory_ = other.outputsDirectory_;
 
   initValuesEntry_ = DYN::clone(other.initValuesEntry_);
   constraintsEntry_ = DYN::clone(other.constraintsEntry_);
   timelineEntry_ = DYN::clone(other.timelineEntry_);
   timetableEntry_ = DYN::clone(other.timetableEntry_);
-  finalStateEntry_ = DYN::clone(other.finalStateEntry_);
   curvesEntry_ = DYN::clone(other.curvesEntry_);
   lostEquipmentsEntry_ = DYN::clone(other.lostEquipmentsEntry_);
   logsEntry_ = DYN::clone(other.logsEntry_);
+
+  finalStateEntries_.reserve(other.finalStateEntries_.size());
+  for (std::vector<boost::shared_ptr<FinalStateEntry> >::const_iterator it = other.finalStateEntries_.begin(); it != other.finalStateEntries_.end(); ++it) {
+    finalStateEntries_.push_back(DYN::clone(*it));
+  }
 }
 
 void
@@ -101,13 +106,8 @@ OutputsEntry::getTimetableEntry() const {
 }
 
 void
-OutputsEntry::setFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) {
-  finalStateEntry_ = finalStateEntry;
-}
-
-boost::shared_ptr<FinalStateEntry>
-OutputsEntry::getFinalStateEntry() const {
-  return finalStateEntry_;
+OutputsEntry::addFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) {
+  finalStateEntries_.push_back(finalStateEntry);
 }
 
 void

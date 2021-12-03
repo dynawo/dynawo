@@ -133,16 +133,16 @@ target_include_directories(dynawo_Common
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
   )
 target_include_directories(dynawo_Common SYSTEM
-  PRIVATE
+  PUBLIC
     $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
 target_link_libraries(dynawo_Common
   PUBLIC
     dynawo_Interface
+  PRIVATE
     Boost::filesystem
     Boost::log
-  PRIVATE
     ${CMAKE_DL_LIBS}
   )
 

@@ -25,6 +25,12 @@
 #include "DYNBusInterface.h"
 
 namespace DYN {
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Interface for dynawo service interface
  */
@@ -62,6 +68,11 @@ struct ServiceManagerInterface {
    */
   virtual boost::shared_ptr<BusInterface> getRegulatedBus(const std::string& regulatingComponent) const = 0;
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNSERVICEMANAGERINTERFACE_H_

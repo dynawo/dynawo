@@ -22,10 +22,10 @@
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="300"/>
     <dyn:outputs directory="outputs">
-      <dyn:finalState exportIIDMFile="true" exportDumpFile="true"/>
       <dyn:dumpInitValues local="true" global="true"/>
-      <dyn:curves inputFile="Shunt.crv" exportMode="CSV"/>
       <dyn:timeline exportMode="TXT"/>
+      <dyn:finalState exportIIDMFile="true" exportDumpFile="true"/>
+      <dyn:curves inputFile="Shunt.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
         <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>

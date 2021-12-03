@@ -26,6 +26,11 @@
 namespace DYN {
 class StepInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * class RatioTapChangerInterface
  */
@@ -138,6 +143,11 @@ class RatioTapChangerInterface {
    */
   virtual double getTargetDeadBand() const = 0;
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNRATIOTAPCHANGERINTERFACE_H_

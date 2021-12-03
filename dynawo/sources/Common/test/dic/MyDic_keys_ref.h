@@ -20,7 +20,7 @@ namespace MyNS {
     ///< enum of possible key for ic
     enum value
     {
-      MyLabel,                                                                ///< Hi.
+      MyLabel                                                                 ///< Hi.
     };
 
     /**

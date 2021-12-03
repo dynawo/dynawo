@@ -51,7 +51,7 @@ using std::string;
 namespace DYN {
 
 ModelLine::ModelLine(const shared_ptr<LineInterface>& line) :
-Impl(line->getID()),
+NetworkComponent(line->getID()),
 topologyModified_(false),
 updateYMat_(true),
 isDynamic_(false),

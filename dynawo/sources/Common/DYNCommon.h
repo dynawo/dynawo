@@ -62,7 +62,7 @@ namespace DYN {
     VAR_TYPE_STRING,  ///< the variable is a string variable
     VAR_TYPE_BOOL,  ///< The variable is a boolean variable
     VAR_TYPE_INT,  ///< The variable is an integer variable
-    VAR_TYPE_DOUBLE,  ///< The variable is a (possibly discrete) real variable
+    VAR_TYPE_DOUBLE  ///< The variable is a (possibly discrete) real variable
   } typeVarC_t;
 
   /**

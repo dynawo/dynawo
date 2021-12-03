@@ -820,13 +820,13 @@ ModelManager::loadParameters(const string& parameters) {
   // copy of loaded parameters in the map
   const boost::unordered_map<string, ParameterModeler>& parametersMap = (this)->getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
-  vector<ParameterModeler> parametersList(parametersMap.size(), ParameterModeler("TMP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  vector<string> parametersList(parametersMap.size(), "TMP");
   for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
     const ParameterModeler& currentParameter = it->second;
-    parametersList[currentParameter.getIndex()] = currentParameter;
+    parametersList[currentParameter.getIndex()] = it->first;
   }
   for (unsigned int i = 0; i < modelData()->nParametersReal; ++i) {
-    const ParameterModeler& currentParameter = parametersList[i];
+    const ParameterModeler& currentParameter = parametersMap.at(parametersList[i]);
     switch (currentParameter.getValueType()) {
       case VAR_TYPE_DOUBLE:
       {
@@ -851,15 +851,15 @@ ModelManager::loadParameters(const string& parameters) {
   }
   unsigned int offset = static_cast<unsigned int>(modelData()->nParametersReal);
   for (unsigned int i = 0; i < modelData()->nParametersBoolean; ++i) {
-    setLoadedParameter(parametersList[i + offset].getName(), parameterBoolValues[i]);
+    setLoadedParameter(parametersList[i + offset], parameterBoolValues[i]);
   }
   offset += modelData()->nParametersBoolean;
   for (unsigned int i = 0; i < modelData()->nParametersInteger; ++i) {
-    setLoadedParameter(parametersList[i + offset].getName(), parameterIntValues[i]);
+    setLoadedParameter(parametersList[i + offset], parameterIntValues[i]);
   }
   offset += modelData()->nParametersInteger;
   for (unsigned int i = 0; i < modelData()->nParametersString; ++i) {
-    setLoadedParameter(parametersList[i + offset].getName(), parameterStringValues[i]);
+    setLoadedParameter(parametersList[i + offset], parameterStringValues[i]);
   }
 }
 
@@ -1137,16 +1137,16 @@ void
 ModelManager::setInitialCalculatedParameters() {
   const boost::unordered_map<string, ParameterModeler>& parametersMap = getParametersInit();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
-  vector<ParameterModeler> parametersInitial(parametersMap.size(), ParameterModeler("TMP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  vector<string> parametersInitial(parametersMap.size(), "TMP");
   for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
     const ParameterModeler& currentParameter = it->second;
-    parametersInitial[currentParameter.getIndex()] = currentParameter;
+    parametersInitial[currentParameter.getIndex()] = it->first;
   }
   // Copy init parameters
   assert(parametersInitial.size() == static_cast<size_t>(modelData()->nParametersReal + modelData()->nParametersBoolean
                                                        + modelData()->nParametersInteger + modelData()->nParametersString));
   for (unsigned int i = 0; i < modelData()->nParametersReal; ++i) {
-    const string& parName = parametersInitial[i].getName();
+    const string& parName = parametersInitial[i];
 
     if (hasParameterDynamic(parName)) {
       const ParameterModeler& parameter = findParameterDynamic(parName);
@@ -1178,7 +1178,7 @@ ModelManager::setInitialCalculatedParameters() {
   }
   int offset = static_cast<int>(modelData()->nParametersReal);
   for (unsigned int i = 0; i < modelData()->nParametersBoolean; ++i) {
-    const string& parName = parametersInitial[i + offset].getName();
+    const string& parName = parametersInitial[i + offset];
     if (hasParameterDynamic(parName)) {
       const ParameterModeler& parameter = findParameterDynamic(parName);
       if (!parameter.isFullyInternal()) {
@@ -1189,7 +1189,7 @@ ModelManager::setInitialCalculatedParameters() {
 
   offset += modelData()->nParametersBoolean;
   for (unsigned int i = 0; i < modelData()->nParametersInteger; ++i) {
-    const string& parName = parametersInitial[i + offset].getName();
+    const string& parName = parametersInitial[i + offset];
     if (hasParameterDynamic(parName)) {
       const ParameterModeler& parameter = findParameterDynamic(parName);
       if (!parameter.isFullyInternal()) {
@@ -1200,7 +1200,7 @@ ModelManager::setInitialCalculatedParameters() {
 
   offset += modelData()->nParametersInteger;
   for (unsigned int i = 0; i < modelData()->nParametersString; ++i) {
-    const string& parName = parametersInitial[i + offset].getName();
+    const string& parName = parametersInitial[i + offset];
     if (hasParameterDynamic(parName)) {
       const ParameterModeler& parameter = findParameterDynamic(parName);
       if (!parameter.isFullyInternal()) {
@@ -1239,31 +1239,31 @@ ModelManager::printInitValuesParameters(std::ofstream& fstream) {
   fstream << " ====== PARAMETERS VALUES ======\n";
   const boost::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
-  vector<ParameterModeler> parameters(parametersMap.size(), ParameterModeler("TMP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  vector<string> parameters(parametersMap.size(), "TMP");
   for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
     const ParameterModeler& currentParameter = it->second;
-    parameters[currentParameter.getIndex()] = currentParameter;
+    parameters[currentParameter.getIndex()] = it->first;
   }
 
   // In Modelica models, parameters are ordered as follows : real, then boolean, integer and string
   for (unsigned int i = 0; i < modelData()->nParametersReal; ++i)
-    fstream << std::setw(50) << std::left << parameters[i].getName() << std::right << " =" << std::setw(15)
+    fstream << std::setw(50) << std::left << parameters[i] << std::right << " =" << std::setw(15)
       << DYN::double2String(simulationInfo()->realParameter[i]) << "\n";
 
   int offset = static_cast<int>(modelData()->nParametersReal);
 
   for (unsigned int i = 0; i < modelData()->nParametersBoolean; ++i)
-    fstream << std::setw(50) << std::left << parameters[i + offset].getName() << std::right << " =" << std::setw(15)
+    fstream << std::setw(50) << std::left << parameters[i + offset] << std::right << " =" << std::setw(15)
     << std::boolalpha << static_cast<bool> (simulationInfo()->booleanParameter[i]) << "\n";
 
   offset += modelData()->nParametersBoolean;
   for (unsigned int i = 0; i < modelData()->nParametersInteger; ++i)
-    fstream << std::setw(50) << std::left << parameters[i + offset].getName() << std::right << " =" << std::setw(15)
+    fstream << std::setw(50) << std::left << parameters[i + offset] << std::right << " =" << std::setw(15)
     << (simulationInfo()->integerParameter[i]) << "\n";
 
   offset += modelData()->nParametersInteger;
   for (unsigned int i = 0; i < modelData()->nParametersString; ++i)
-    fstream << std::setw(50) << std::left << parameters[i + offset].getName() << std::right << " =" << std::setw(15)
+    fstream << std::setw(50) << std::left << parameters[i + offset] << std::right << " =" << std::setw(15)
     << (simulationInfo()->stringParameter[i]) << "\n";
 }
 

@@ -180,4 +180,4 @@ TEST(DataInterfaceTest, VscConverter) {
   ASSERT_EQ(points.at(2).qmax, 10);
   ASSERT_EQ(points.at(2).qmin, 10);
 }  // TEST(DataInterfaceTest, VscConverter)
-};  // namespace DYN
+}  // namespace DYN

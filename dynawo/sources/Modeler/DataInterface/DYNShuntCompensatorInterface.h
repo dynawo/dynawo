@@ -26,6 +26,11 @@ namespace DYN {
 class BusInterface;
 class VoltageLevelInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Shunt compensator interface
  */
@@ -114,6 +119,10 @@ class ShuntCompensatorInterface : public ComponentInterface {
    */
   virtual bool isLinear() const = 0;
 };  ///< Interface class for Shunt Compensator
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // namespace DYN
 

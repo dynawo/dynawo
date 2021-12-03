@@ -224,7 +224,7 @@ TEST(DataInterfaceTest, RatioTapChanger_bad) {
   ASSERT_DOUBLE_EQ(Ifce.getTargetV(), 99999.0L);
   ASSERT_THROW(rTapChanger.setRegulating(true), std::exception);  // no way to regulate a bad powsybl tap changer in powsybl-2
 }  // TEST(DataInterfaceTest, RatioTapChanger_bad)
-};  // namespace DYN
+}  // namespace DYN
 
 namespace powsybl {
 namespace iidm {
@@ -464,4 +464,4 @@ TEST(DataInterfaceTest, RatioTapChanger_3WT) {
   ASSERT_EQ(Ifce.getLowPosition(), -3L);
   ASSERT_EQ(Ifce.getSteps().size(), 4);
 }  // TEST(DataInterfaceTest, RatioTapChanger_3WT)
-};  // namespace DYN
+}  // namespace DYN

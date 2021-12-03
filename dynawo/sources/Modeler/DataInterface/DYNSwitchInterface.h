@@ -26,6 +26,11 @@
 namespace DYN {
 class BusInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * class SwitchInterface
  */
@@ -87,6 +92,11 @@ class SwitchInterface : public ComponentInterface {
    */
   virtual void exportStateVariablesUnitComponent() = 0;
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNSWITCHINTERFACE_H_

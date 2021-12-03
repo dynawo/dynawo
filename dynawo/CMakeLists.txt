@@ -128,7 +128,6 @@ elseif('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang')
   # error: operand of ? changes signedness: 'something unsigned' to 'something signed' [-Werror,-Wsign-conversion]
   # => occurs many times in particular when a signed value is used as an index which must be an unsigned (size_t) !
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-sign-conversion")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-weak-vtables")
   # error: 'arg2' was marked unused but was used [-Werror,-Wused-but-marked-unused]
   # => occurs in all API Xml handlers (using boost::phoenix::placeholders)
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-used-but-marked-unused")
@@ -137,9 +136,8 @@ elseif('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang')
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-zero-as-null-pointer-constant")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Werror")
   if(CXX11_ENABLED)
+    # -Wno-c++98-compat shall be kept to allow c++11 code !
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-c++98-compat")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-c++98-compat-local-type-template-args")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-c++98-compat-pedantic")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-return-std-move-in-c++11")
   else()
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-pedantic")

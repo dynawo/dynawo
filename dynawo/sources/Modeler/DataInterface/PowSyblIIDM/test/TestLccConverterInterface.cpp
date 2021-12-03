@@ -139,4 +139,4 @@ TEST(DataInterfaceTest, LccConverter) {
   ASSERT_FALSE(Ifce.isConnected());
   ASSERT_TRUE(Ifce.getInitialConnected());
 }  // TEST(DataInterfaceTest, LccConverter)
-};  // namespace DYN
+}  // namespace DYN

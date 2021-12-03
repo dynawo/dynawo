@@ -30,16 +30,16 @@ namespace DYN {
 class BusInterface;
 class VoltageLevelInterface;
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Generator component
  */
 class GeneratorInterface : public ComponentInterface, public ReactiveCurvePointsInterface {
  public:
-  /**
-   * @brief Destructor
-   */
-  virtual ~GeneratorInterface() { }
-
   /**
    * @brief Setter for the generator's bus interface
    * @param busInterface of the bus where the generator is connected
@@ -182,6 +182,11 @@ class GeneratorInterface : public ComponentInterface, public ReactiveCurvePoints
    */
   virtual boost::optional<bool> isParticipate() const = 0;
 };  ///< Class for Generator data interface
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNGENERATORINTERFACE_H_

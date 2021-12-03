@@ -1021,7 +1021,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                 message += str(nb_differences) + " different initial values"
             else:
                 return_value = IDENTICAL
-        elif file_name.startswith("outputIIDM") and file_extension == ".xml":
+        elif "outputIIDM" in file_name and file_extension == ".xml":
             (nb_differences, msg) = OutputIIDMCloseEnough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))

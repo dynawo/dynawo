@@ -26,6 +26,11 @@
 
 namespace DYN {
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Bus interface
  */
@@ -124,6 +129,11 @@ class BusInterface : public ComponentInterface {
    */
   virtual bool isFictitious() const = 0;
 };  ///< Interface class for Bus model
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNBUSINTERFACE_H_

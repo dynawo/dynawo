@@ -256,8 +256,13 @@ class Dictionary:
             header_file.write("    ///< enum of possible key for " + name + "\n")
             header_file.write("    enum value\n")
             header_file.write("    {\n")
+            nb_keys = len(self.messages)
+            comma = ","
             for key in sorted(self.messages):
-                header_file.write("      " + (key + ",").ljust(70) + "  ///< " + self.messages[key] + "\n")
+                nb_keys -= 1
+                if nb_keys == 0:
+                    comma = ""
+                header_file.write("      " + (key + comma).ljust(70) + "  ///< " + self.messages[key] + "\n")
             header_file.write("    };\n\n")
             header_file.write("    /**\n")
             header_file.write("    * @brief Return the name associated to the enum.\n")
@@ -305,7 +310,7 @@ class Dictionary:
                 cpp_file.write('    "' + key + '",\n')
             cpp_file.write("  };\n")
             cpp_file.write("  return names[v];\n")
-            cpp_file.write("};\n")
+            cpp_file.write("}\n")
             cpp_file.write("} //namespace " + namespace + "\n")
 
     ##

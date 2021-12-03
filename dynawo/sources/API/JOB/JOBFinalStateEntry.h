@@ -20,6 +20,7 @@
 #ifndef API_JOB_JOBFINALSTATEENTRY_H_
 #define API_JOB_JOBFINALSTATEENTRY_H_
 
+#include <boost/optional.hpp>
 #include <string>
 
 namespace job {
@@ -83,11 +84,30 @@ class FinalStateEntry {
    */
   void setDumpFile(const std::string& dumpFile);
 
+  /**
+   * @brief Get the Timestamp
+   *
+   * @return the timestamp of the final state if present
+   */
+  boost::optional<double> getTimestamp() const {
+    return timestamp_;
+  }
+
+  /**
+   * @brief Set the Timestamp
+   *
+   * @param timestamp the timestamp value
+   */
+  void setTimestamp(double timestamp) {
+    timestamp_ = timestamp;
+  }
+
  private:
-  bool exportIIDMFile_;         ///< Boolean indicating whether to export IIDM output file
-  bool exportDumpFile_;         ///< Boolean indicating whether to export output state
-  std::string outputIIDMFile_;  ///< Output IIDM file for final state
-  std::string dumpFile_;        ///< Dump file for final state
+  bool exportIIDMFile_;                ///< Boolean indicating whether to export IIDM output file
+  bool exportDumpFile_;                ///< Boolean indicating whether to export output state
+  boost::optional<double> timestamp_;  ///< Timestamp of entry, if present
+  std::string outputIIDMFile_;         ///< Output IIDM file for final state
+  std::string dumpFile_;               ///< Dump file for final state
 };
 
 }  // namespace job

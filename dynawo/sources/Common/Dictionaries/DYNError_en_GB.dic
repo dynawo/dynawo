@@ -98,7 +98,6 @@ SubModelIncorrectSize       =             vector size is not the one expected
 UnknownCurveFile            =             missing curves parameters file : %1%
 UnknownFinalStateFile       =             missing final state parameters file : %1%
 UnknownInitialStateFile     =             missing initial state file : %1%
-WrongStartTime              =             simulation's start time (%1%) should be equal to %2% (last time in dumpFile or 0 if there is no dump)
 UnknownTimelineExport       =             unknown timeline export mode : %1%
 UnknownFinalStateExport     =             unknown final state export mode : %1%
 UnknownCurvesExport         =             unknown curves export mode : %1%

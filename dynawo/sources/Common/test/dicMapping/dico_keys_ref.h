@@ -23,7 +23,7 @@ namespace MyNS {
       MyEntry,                                                                ///< My First Entry
       MyFourthEntry,                                                          ///< My Fourth Entry
       MySecondEntry,                                                          ///< My Second Entry %u
-      MyThirdEntry,                                                           ///< My Third Entry
+      MyThirdEntry                                                            ///< My Third Entry
     };
 
     /**
