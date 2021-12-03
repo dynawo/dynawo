@@ -209,7 +209,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
    *
    * @return nothing
    */
-  virtual void solveStepCommon(double tAim, double &tNxt);
+  void solveStepCommon(double tAim, double &tNxt);
 
   /**
    * @copydoc Solver::setupNewAlgRestoration(modeChangeType_t modeChangeType)

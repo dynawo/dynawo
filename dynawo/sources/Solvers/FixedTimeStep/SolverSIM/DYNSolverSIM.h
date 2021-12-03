@@ -95,7 +95,6 @@ class SolverSIM : public SolverCommonFixedTimeStep {
     return h_;
   }
 
- protected:
   /**
    * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
    */
