@@ -28,9 +28,9 @@ namespace extensions {
 namespace activeseason {
 namespace xml {
 
-std::string ActiveSeasonHandler::xsd_path() {
-  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
-  return xsdPath + std::string("activeSeason.xsd");
+const std::string& ActiveSeasonHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("activeSeason.xsd");
+  return xsdPath;
 }
 
 ActiveSeasonHandler::elementName_type const& ActiveSeasonHandler::root() {

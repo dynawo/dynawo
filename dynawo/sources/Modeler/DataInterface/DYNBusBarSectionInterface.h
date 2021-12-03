@@ -25,6 +25,11 @@
 
 namespace DYN {
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @class BusBarSectionInterface
  * @brief bus bar section data interface
@@ -54,6 +59,11 @@ class BusBarSectionInterface {
    */
   virtual void setAngle(const double& angle) = 0;
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNBUSBARSECTIONINTERFACE_H_

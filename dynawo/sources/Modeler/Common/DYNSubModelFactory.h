@@ -50,7 +50,7 @@ class SubModelFactory : private boost::noncopyable {
   /**
    * @brief Destructor
    */
-  virtual ~SubModelFactory() { }
+  virtual ~SubModelFactory();
 
   /**
    * @brief create a new instance of a submodel
@@ -168,11 +168,6 @@ class SubModelDelete {
    * @param factory model factory to delete
    */
   explicit SubModelDelete(SubModelFactory* factory);
-
-  /**
-   * @brief destructor
-   */
-  ~SubModelDelete() { }
 
   /**
    * @brief Function to use this class as a Functor

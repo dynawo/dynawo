@@ -14,15 +14,10 @@
 import os
 import fnmatch
 import sys
-try:
-    import lxml.etree
-except:
-    print("Error when trying to import lxml.etree")
-    sys.exit(1)
 from shutil import copyfile
 from optparse import OptionParser
 
-from nrtDiff import TestCase, REFERENCE_DATA_DIRECTORY_NAME, namespaceDYN, CompareTwoFiles, LogsSeparator, IDENTICAL
+from nrtDiff import TestCase, REFERENCE_DATA_DIRECTORY_NAME, CompareTwoFiles, LogsSeparator, IDENTICAL, ImportXMLFileExtended, FindAll
 
 # No need to test DYNAWO_BRANCH_NAME as already done in nrtDiff
 if os.getenv("DYNAWO_NRT_DIR") is None:
@@ -36,21 +31,16 @@ nrt_results_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "output",branch_nam
 def findOutputFile(testcase):
     files = []
     # Parse jobs file
-    try:
-        jobs_root = lxml.etree.parse(testcase.jobs_file_).getroot()
-    except:
-        printout("Fail to import XML file " + testcase.jobs_file_ + os.linesep, BLACK)
-        sys.exit(1)
-
-    for job in jobs_root.iter(namespaceDYN("job")):
+    (jobs_root, ns, _, prefix_str) = ImportXMLFileExtended(testcase.jobs_file_)
+    for job in FindAll(jobs_root, prefix_str, "job", ns):
         # Get outputs
-        for outputs in job.iter(namespaceDYN("outputs")):
+        for outputs in FindAll(job, prefix_str, "outputs", ns):
             if (not "directory" in outputs.attrib):
                 printout("Fail to generate NRT ref: outputs directory is missing in jobs file " + testcase.jobs_file_ + os.linesep, BLACK)
                 sys.exit(1)
             output_dir = outputs.get("directory")
             # timeline
-            for timeline in outputs.iter(namespaceDYN("timeline")):
+            for timeline in FindAll(outputs, prefix_str, "timeline", ns):
                     if (not "exportMode" in timeline.attrib):
                         printout("Fail to generate NRT ref for " + testcase.jobs_file_ + ": a timeline element does not have an export mode " + os.linesep, BLACK)
                         sys.exit(1)
@@ -61,7 +51,7 @@ def findOutputFile(testcase):
                     elif(timeline.get("exportMode") == "TXT"):
                         files.append(os.path.join(output_dir, "timeLine", "timeline.log" ))
             # curves
-            for curves in outputs.iter(namespaceDYN("curves")):
+            for curves in FindAll(outputs, prefix_str, "curves", ns):
                 if (not "exportMode" in curves.attrib):
                     printout("Fail to generate NRT ref for " + testcase.jobs_file_ + " : a curve element does not have an export mode " + os.linesep, BLACK)
                     sys.exit(1)
@@ -71,7 +61,7 @@ def findOutputFile(testcase):
                     files.append(os.path.join(output_dir, "curves", "curves.xml" ))
 
             # logs
-            for appender in outputs.iter(namespaceDYN("appender")):
+            for appender in FindAll(outputs, prefix_str, "appender", ns):
                 if (not "file" in appender.attrib):
                     printout("Fail to generate NRT ref for " + testcase.jobs_file_ + " : an appender of output is not an attribute in file " + os.linesep, BLACK)
                     sys.exit(1)
@@ -97,7 +87,7 @@ def redefine_reference(testcase):
     case_dir = os.path.dirname (testcase.jobs_file_)
     case_ref_dir = os.path.join(case_dir, REFERENCE_DATA_DIRECTORY_NAME)
     logs_separator = LogsSeparator (case_dir)
-    for root, directories, filenames in os.walk(case_ref_dir):
+    for root, _, filenames in os.walk(case_ref_dir):
         for file_name in filenames:
             relative_file_path = os.path.join(os.path.relpath(root, case_ref_dir), file_name)
             (diff_status, _) = CompareTwoFiles (os.path.join(case_dir,relative_file_path),\

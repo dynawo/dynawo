@@ -174,7 +174,7 @@ int main(int argc, char ** argv) {
   boost::unordered_map<std::string, DYN::ParameterModeler>::const_iterator parameterIterator;
   for (parameterIterator = parametersInit.begin(); parameterIterator != parametersInit.end(); ++parameterIterator) {
     const DYN::ParameterModeler& parameterInit = parameterIterator->second;
-    // only keep parameters which
+    // only keep parameters
     // which can either be displayed or set
     if ((model->hasParameterDynamic(parameterInit.getName()) || !parameterInit.isFullyInternal()) &&
         fillParameterDescription(parameterInit, model->modelType(), parametersAttributes) != 0) {
@@ -184,19 +184,22 @@ int main(int argc, char ** argv) {
 
   // add dynamic parameters
   for (parameterIterator = parametersDynamic.begin(); parameterIterator != parametersDynamic.end(); ++parameterIterator) {
-    DYN::ParameterModeler itParameter = parameterIterator->second;
-    const string itParameterName = itParameter.getName();
+    const DYN::ParameterModeler* parameterDynamic = &(parameterIterator->second);
+    const string parameterName = parameterDynamic->getName();
 
     // initial parameters have already been described => nothing to do
-    if (model->hasParameterInit(itParameterName))
+    if (model->hasParameterInit(parameterName))
       continue;
 
     // when the dynamic parameter is set through the init process, it should be considered as internal for the description file
-    if ((!itParameter.isFullyInternal()) && (model->hasVariableInit(itParameterName))) {
-      itParameter = DYN::ParameterModeler(itParameter.getName(), itParameter.getValueType(), DYN::INTERNAL_PARAMETER, itParameter.getCardinality());
+    const DYN::ParameterModeler parameterInternal(parameterName, parameterDynamic->getValueType(),
+                                                  DYN::INTERNAL_PARAMETER,
+                                                  parameterDynamic->getCardinality());
+    if ((!parameterDynamic->isFullyInternal()) && (model->hasVariableInit(parameterName))) {
+      parameterDynamic = &parameterInternal;
     }
 
-    if (fillParameterDescription(itParameter, model->modelType(), parametersAttributes) != 0) {
+    if (fillParameterDescription(*parameterDynamic, model->modelType(), parametersAttributes) != 0) {
       return 1;
     }
   }

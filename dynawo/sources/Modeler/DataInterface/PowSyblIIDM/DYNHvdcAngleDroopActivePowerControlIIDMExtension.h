@@ -28,7 +28,7 @@ namespace DYN {
 class HvdcAngleDroopActivePowerControlIIDMExtension {
  public:
   /// @brief Destructor
-  virtual ~HvdcAngleDroopActivePowerControlIIDMExtension() {}
+  virtual ~HvdcAngleDroopActivePowerControlIIDMExtension() = default;
 
   /**
    * @brief Get droop

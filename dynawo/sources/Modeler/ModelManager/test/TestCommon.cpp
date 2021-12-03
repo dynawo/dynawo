@@ -31,13 +31,15 @@ class MyEmptyModelManager : public ModelManager {
     ModelManager() {
   }
 
-  virtual ~MyEmptyModelManager() {
-  }
+  virtual ~MyEmptyModelManager();
+
  protected:
   bool hasInit() const {
     return false;
   }
 };
+
+MyEmptyModelManager::~MyEmptyModelManager() {}
 
 TEST(TestModelManager, TestModelManagerCommonLogs) {
   MyEmptyModelManager mm;

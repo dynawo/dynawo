@@ -26,6 +26,11 @@
 
 namespace DYN {
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Bus interface
  */
@@ -117,7 +122,18 @@ class BusInterface : public ComponentInterface {
    * @return identifiers of the bus bar section associated to the bus
    */
   virtual const std::vector<std::string>& getBusBarSectionIdentifiers() const = 0;
+
+  /**
+   * @brief Check if the bus is fictitious
+   * @return @b true if the bus is fictitious, @b false if not
+   */
+  virtual bool isFictitious() const = 0;
 };  ///< Interface class for Bus model
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNBUSINTERFACE_H_

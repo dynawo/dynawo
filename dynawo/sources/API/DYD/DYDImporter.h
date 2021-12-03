@@ -28,6 +28,11 @@
 
 namespace dynamicdata {
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @class Importer
  * @brief Importer interface class
@@ -40,6 +45,7 @@ class Importer {
    * @brief Destructor
    */
   virtual ~Importer() {}
+
   /**
    * @brief Import dynamic models collection from files
    *
@@ -58,6 +64,10 @@ class Importer {
    */
   virtual void importFromStream(std::istream& stream, XmlHandler& dydHandler, xml::sax::parser::ParserPtr& parser, bool xsdValidation) const = 0;
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // namespace dynamicdata
 

@@ -15,9 +15,6 @@
 import csv
 import datetime
 import filecmp
-import imp
-import itertools
-from xml.dom import minidom
 
 import os
 import re
@@ -42,11 +39,6 @@ def natural_sort_key(s, _nsre=re.compile('([0-9]+)')):
             for text in re.split(_nsre, s)]
 
 #### Code to handle xml parsing
-DYN_NAMESPACE = "http://www.rte-france.com/dynawo"
-
-def namespaceDYN(tag):
-    return "{" + DYN_NAMESPACE + "}" + tag
-
 resources_dir = os.path.join(os.path.dirname(__file__), "..", "..","nrt", "resources")
 web_browser = os.getenv ('DYNAWO_BROWSER', 'firefox')
 files_included = set(settings.files_included)
@@ -131,10 +123,6 @@ def timeToString(time):
 
 REFERENCE_DATA_DIRECTORY_NAME = 'reference' # Name of the reference directory
 
-DYN_NAMESPACE = "http://www.rte-france.com/dynawo"
-def NamespaceDYD(tag):
-    return "{" + DYN_NAMESPACE + "}" + tag
-
 class ActivePool(object):
     def __init__(self):
         super(ActivePool, self).__init__()
@@ -194,25 +182,23 @@ class TestCase:
     def get_case_CompilerLogFile(self):
         # Parse the jobs file
         try:
-            jobs_root = minidom.parse(self.jobs_file_)
+            (jobs_root, ns, _, prefix_str) = ImportXMLFileExtended(self.jobs_file_)
         except:
             print("Fail to import XML file " + self.jobs_file_)
             sys.exit(1)
 
         compilerLogFile = ""
-
-        for job in jobs_root.getElementsByTagName(namespaceDYN("job")):
-
+        for job in FindAll(jobs_root, prefix_str, "job", ns):
             if (not "name" in job.attrib):
                 print("Fail to run nrtDiff : job without name in file  " + os.path.basename(self.jobs_file_))
                 sys.exit(1)
             if self.name_ == job.get("name"):
-                for outputs in job.getElementsByTagName(namespaceDYN("outputs")):
+                for outputs in FindAll(job, prefix_str, "outputs", ns):
                     if (not "directory" in outputs.attrib):
                         print("Fail to run nrtDiff : outputs directory is missing for job " + self.name_)
                         sys.exit(1)
                     # Get compiler log file name from appenders if exists
-                    for appender in outputs.getElementsByTagName(namespaceDYN("appender")):
+                    for appender in FindAll(outputs, prefix_str, "appender", ns):
                         if ("tag" in appender.attrib):
                             if ( appender.get("tag") == "COMPILE" ):
                                 if (not "file" in appender.attrib):
@@ -609,10 +595,10 @@ def LogsSeparator (test_dir):
     for name in list_files:
         file_path = os.path.join (test_dir, name)
 
-        file_content = ImportXMLFile (file_path)
-        for item in itertools.chain (file_content.getElementsByTagName('appender'),  file_content.getElementsByTagName(NamespaceDYD('appender'))):
-            if item.hasAttribute('separator'):
-                separator = item.getAttribute('separator')
+        (file_content, ns, _, prefix_str) = ImportXMLFileExtended(file_path)
+        for item in FindAll(file_content, prefix_str, "appender", ns):
+            if 'separator' in item.attrib:
+                separator = item.attrib['separator']
                 break
 
         return separator.lstrip().rstrip()
@@ -647,23 +633,26 @@ def update_one_log_file(file_path, output_file_path):
 # @param jobs_file : the path to the jobs file
 # @return a list of output directories
 def findOutputDirFromJob(jobs_file):
-    if ".zip" in jobs_file:
-      return [os.path.dirname (jobs_file)]
+    if jobs_file.endswith(".zip"):
+        return ['.']  # relative current directory
+
     # Parse jobs file
     try:
-        doc = minidom.parse(jobs_file)
-        jobs_root = doc.documentElement
+        (jobs_root, ns, _, prefix_str) = ImportXMLFileExtended(jobs_file)
     except:
         print("Fail to import XML file " + jobs_file + os.linesep)
         sys.exit(1)
 
     output_dirs = []
-    for job in jobs_root.getElementsByTagNameNS(jobs_root.namespaceURI, 'job'):
-        for outputs in job.getElementsByTagNameNS(jobs_root.namespaceURI, "outputs"):
-            if (not outputs.hasAttribute('directory')):
-                continue
-            output_dirs.append(outputs.getAttribute("directory"))
-    return output_dirs
+    # we expect to find job elements and outputs sub-elements with a directory attribute
+    for job in FindAll(jobs_root, prefix_str, "job", ns):
+        for outputs in FindAll(job, prefix_str, "outputs", ns):
+            if 'directory' in outputs.attrib:
+                output_dirs.append(outputs.attrib["directory"])
+
+    # if nothing has been found, it's probably another format of jobs file from a derived project
+    # and we return the relative current directory
+    return output_dirs or ['.']
 
 
 ##
@@ -674,6 +663,7 @@ def DirectoryDiffReferenceDataJob (jobs_file):
     messages = []
     final_status = IDENTICAL
     for output_dir in output_dirs:
+        # caution: output_dir has to be relative !
         reference_data_directory = os.path.join (os.path.dirname(jobs_file), REFERENCE_DATA_DIRECTORY_NAME, output_dir)
         nrt_directory = os.path.join (os.path.dirname(jobs_file),output_dir)
         status_priority = [UNABLE_TO_CHECK, NO_FILES_TO_COMPARE, MISSING_DATA_BOTH_SIDES, MISSING_DATA_LEFT, DIFFERENT, WITHIN_TOLERANCE, LOG_DIFFERENT_WITHIN_TOLERANCE, MISSING_DATA_RIGHT, SAME_LOG_WITH_DIFFERENT_TIMESTAMP, IDENTICAL]
@@ -1031,7 +1021,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                 message += str(nb_differences) + " different initial values"
             else:
                 return_value = IDENTICAL
-        elif file_name.startswith("outputIIDM") and file_extension == ".xml":
+        elif "outputIIDM" in file_name and file_extension == ".xml":
             (nb_differences, msg) = OutputIIDMCloseEnough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
@@ -1189,26 +1179,24 @@ def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separ
 # @param path_left : the absolute path to the left-side file
 # @param path_right : the absolute path to the right-side file
 def XMLCloseEnough (path_left, path_right):
-    left_file_content = ImportXMLFile(path_left)
-    right_file_content = ImportXMLFile(path_right)
-    current_curve = ""
-
+    (left_file_content, ns, _, prefix_str) = ImportXMLFileExtended(path_left)
     times_left = []
     left_curve = {}
     ns = left_file_content.nsmap
-    for item in left_file_content.findall('curve', ns):
+    for item in FindAll(left_file_content, prefix_str, "curve", ns):
         current_curve = item.attrib["model"]+"_"+item.attrib["variable"]
         left_curve[current_curve] = {}
-        for pointItem in item.findall('point', ns):
+        for pointItem in FindAll(item, prefix_str, "point", ns):
             left_curve[current_curve][pointItem.attrib["time"]] = pointItem.attrib["value"]
             if(pointItem.attrib["time"] not in times_left):
                     times_left.append(pointItem.attrib["time"])
     right_curve = {}
     times_right = []
-    for item in right_file_content.findall('curve', ns):
+    (right_file_content, ns, _, prefix_str) = ImportXMLFileExtended(path_right)
+    for item in FindAll(right_file_content, prefix_str, "curve", ns):
         current_curve = item.attrib["model"]+"_"+item.attrib["variable"]
         right_curve[current_curve] = {}
-        for pointItem in item.findall('point', ns):
+        for pointItem in FindAll(item, prefix_str, "point", ns):
             right_curve[current_curve][pointItem.attrib["time"]] = pointItem.attrib["value"]
             if(pointItem.attrib["time"] not in times_right):
                 times_right.append(pointItem.attrib["time"])
@@ -1369,33 +1357,20 @@ def InitValuesCloseEnough (path_left, path_right):
 # @param dataWrittenAsRows : whether data sets are written as rows (or columns)
 def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
 
-    path_left_comparison = path_left
-    path_right_comparison = path_right
-
     # when data is written as rows, write a temporary file where data is written as columns
     if dataWrittenAsRows:
         standard_delimiter = ";"
-        extension_length = len(".csv")
-        transpose_index = 0
-        path_left_transpose = path_left [: - extension_length] + "_transpose.csv"
-        path_right_transpose = path_right [: - extension_length] + "_transpose.csv"
 
-        while (os.path.isfile (path_left_transpose)) or (os.path.isfile (path_right_transpose)):
-            transpose_index += 1
-            path_left_transpose = path_left [: - extension_length] + "_transpose_" + str(transpose_index) + ".csv"
-            path_right_transpose = path_left [: - extension_length] + "_transpose_" + str(transpose_index) + ".csv"
-
-        transposer.transpose (path_left, path_left_transpose, standard_delimiter)
-        transposer.transpose (path_right, path_right_transpose, standard_delimiter)
-
-        path_left_comparison = path_left_transpose
-        path_right_comparison = path_right_transpose
-
-    file_left = open (path_left_comparison, "rt")
-    file_right = open (path_right_comparison, "rt")
-
-    reader_left = list(csv.reader (file_left, delimiter = ";"))
-    reader_right = list(csv.reader (file_right, delimiter = ";"))
+        left_map = transposer.transpose (path_left, None, standard_delimiter)
+        # Filter header and last empty row and make it a list of list to comply with data format returned by csv.reader
+        reader_left = [[x for x in l.split(";")] for l in left_map if l.split(";")[0] != ""]
+        right_map = transposer.transpose (path_right, None, standard_delimiter)
+        reader_right = [[x for x in l.split(";")] for l in right_map if l.split(";")[0] != ""]
+    else:
+        with open (path_left, "rt") as file:
+            reader_left = list(csv.reader (file, delimiter = ";"))
+        with open (path_right, "rt") as file:
+            reader_right = list(csv.reader (file, delimiter = ";"))
 
     times_left = {}
     curves_left = {}
@@ -1490,16 +1465,6 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
                 nb_differences_absolute += 1
                 curves_different.add (curve)
                 if nb_differences > 5: break
-
-    file_left.close()
-    file_right.close()
-
-    if (dataWrittenAsRows):
-        if (os.path.isfile(path_left_transpose)):
-            os.remove(path_left_transpose)
-
-        if (os.path.isfile(path_right_transpose)):
-            os.remove(path_right_transpose)
 
     return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different)
 

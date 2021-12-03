@@ -29,9 +29,9 @@ namespace extensions {
 namespace load_detail {
 namespace xml {
 
-std::string LoadDetailHandler::xsd_path() {
-  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
-  return xsdPath + std::string("loadDetail.xsd");
+const std::string& LoadDetailHandler::xsd_path() {
+  static const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH") + std::string("loadDetail.xsd");
+  return xsdPath;
 }
 
 LoadDetailHandler::elementName_type const& LoadDetailHandler::root() {

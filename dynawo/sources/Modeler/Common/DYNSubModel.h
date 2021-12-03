@@ -74,6 +74,10 @@ class SubModel {
    */
   virtual ~SubModel();
 
+#ifdef LANG_CXX11
+  SubModel(SubModel&&) = default;
+  SubModel& operator=(SubModel&&) = default;
+#endif
 
   // methods to implement for each submodels
  public:

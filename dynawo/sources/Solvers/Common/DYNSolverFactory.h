@@ -45,7 +45,7 @@ class SolverFactory {
   /**
    * @brief Destructor
    */
-  virtual ~SolverFactory() { }
+  virtual ~SolverFactory();
 
   /**
    * @brief create a new instance of a solver
@@ -160,11 +160,6 @@ class SolverDelete {
    * @param factory solver factory to delete
    */
   explicit SolverDelete(SolverFactory* factory);
-
-  /**
-   * @brief destructor
-   */
-  ~SolverDelete() { }
 
   /**
    * @brief Function to use this class as a Functor

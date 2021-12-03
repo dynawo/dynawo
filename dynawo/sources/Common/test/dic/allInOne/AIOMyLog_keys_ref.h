@@ -22,7 +22,7 @@ namespace AIO {
     {
       Label1,                                                                 ///< first word with no capital letter
       Label2,                                                                 ///< FIRST word in capital letters
-      Label3,                                                                 ///< message with two args: %1%, %2%
+      Label3                                                                  ///< message with two args: %1%, %2%
     };
 
     /**

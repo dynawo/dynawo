@@ -26,6 +26,12 @@
 #include "CRVCurvesCollection.h"
 
 namespace curves {
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @class Exporter
  * @brief Exporter interface class
@@ -38,6 +44,7 @@ class Exporter {
    * @brief Destructor
    */
   virtual ~Exporter() {}
+
   /**
    * @brief Export method for this exporter
    *
@@ -54,6 +61,10 @@ class Exporter {
    */
   virtual void exportToStream(const boost::shared_ptr<CurvesCollection>& curves, std::ostream& stream) const = 0;
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // namespace curves
 

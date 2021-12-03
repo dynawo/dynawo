@@ -21,5 +21,5 @@ const char* Keyo_t::names(const value& v) {
     "MyThirdEntry",
   };
   return names[v];
-};
+}
 } //namespace MyNS

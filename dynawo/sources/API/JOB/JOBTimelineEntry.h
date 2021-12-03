@@ -22,6 +22,8 @@
 
 #include <string>
 
+#include <boost/optional.hpp>
+
 namespace job {
 
 /**
@@ -71,10 +73,23 @@ class TimelineEntry {
    */
   bool getExportWithTime() const;
 
+  /**
+   * @brief maximum priority setter
+   * @param maxPriority maximum priority allowed when exporting timeline
+   */
+  void setMaxPriority(const boost::optional<int> maxPriority);
+
+  /**
+   * @brief maximum priority getter
+   * @return maximum priority allowed when exporting timeline
+   */
+  boost::optional<int> getMaxPriority() const;
+
  private:
   std::string outputFile_;  ///< Export file for timeline
   std::string exportMode_;  ///< Export mode TXT, CSV, XML for timeline output file
-  bool exportWithTime_;   ///< boolean indicating whether to export time when exporting timeline
+  bool exportWithTime_;  ///< boolean indicating whether to export time when exporting timeline
+  boost::optional<int> maxPriority_;  ///< maximum priority allowed when exporting timeline
 };
 
 }  // namespace job

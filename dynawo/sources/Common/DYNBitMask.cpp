@@ -18,9 +18,6 @@ namespace DYN {
 BitMask::BitMask() : bitmask_(0)
 {}
 
-BitMask::~BitMask() {}
-
-
 void
 BitMask::setFlags(const unsigned char& flag) {
   bitmask_ |= flag;

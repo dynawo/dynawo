@@ -15,6 +15,24 @@ from optparse import OptionParser
 import glob
 from lxml import etree
 
+
+def ImportXMLFile(path):
+    if (not os.path.isfile(path)):
+        print("No file found. Unable to import")
+        return None
+    return etree.parse(path).getroot()
+
+def ImportXMLFileExtended(path):
+    root = ImportXMLFile(path)
+    if root.prefix is None:
+        prefix_str = ''
+    else:
+        prefix_str = root.prefix + ':'
+    return (root, root.nsmap, root.prefix, prefix_str)
+
+def FindAll(root, prefix, element, ns):
+    return root.findall(".//" + prefix + element, ns)
+
 class Event :
     def __init__(self):
         self.time = 0
@@ -165,18 +183,12 @@ def read_txt(filepath):
 def read_xml(filepath):
     timeline = Timeline()
     try:
-        root=etree.parse(filepath).getroot()
-        ns = root.nsmap
-        prefix = root.prefix
-        if prefix is None:
-            prefix_root_string=''
-        else:
-            prefix_root_string=prefix+':'
+        (root, ns, _, prefix_str) = ImportXMLFileExtended(filepath)
     except:
         printout("Fail to import XML file " + filepath + os.linesep, BLACK)
         sys.exit(1)
 
-    for event_timeline in root.findall('.//' + prefix_root_string + 'event', ns):
+    for event_timeline in FindAll(root, prefix_str, "event", ns):
         event = Event()
         time = float(event_timeline.attrib['time'])
         event.time = time

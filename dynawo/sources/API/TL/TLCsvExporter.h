@@ -33,29 +33,20 @@ namespace timeline {
 class CsvExporter : public Exporter {
  public:
   /**
-   * @brief Destructor
-   */
-  virtual ~CsvExporter() {}
-
-  /**
    * @brief Export method in csv format
    *
    * @param timeline Timeline to export
    * @param filePath File to export csv formatted timeline to
-   * @param exportWithTime whether to export time
    */
-  void exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath,
-                    const bool exportWithTime) const;
+  void exportToFile(const boost::shared_ptr<Timeline>& timeline, const std::string& filePath) const;
 
   /**
    * @brief Export method in csv format
    *
    * @param timeline Timeline to export
    * @param stream stream to export csv formatted timeline to
-   * @param exportWithTime whether to export time
    */
-  void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream,
-                      const bool exportWithTime) const;
+  void exportToStream(const boost::shared_ptr<Timeline>& timeline, std::ostream& stream) const;
 };
 }  // namespace timeline
 

@@ -23,10 +23,13 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/unordered_set.hpp>
+#include <string>
+#include <vector>
+
 #include <sundials/sundials_nvector.h>
-#include "DYNEnumUtils.h"
+#include <sundials/sundials_matrix.h>
+
 #include "DYNSolverKINCommon.h"
-#include "DYNModel.h"
 #include "DYNSparseMatrix.h"
 
 namespace DYN {
@@ -36,7 +39,7 @@ class Model;
  * @brief class Solver KINSOL for algebraic equations restoration and initialization
  * Generic class for KINSOL solver
  */
-class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyable{
+class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyable {
  public:
   /**
    * @brief default constructor

@@ -27,8 +27,6 @@ target_include_directories(dynawo_Simulation
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-  PRIVATE
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../> # for gitversion.h
   )
 
 target_link_libraries(dynawo_Simulation

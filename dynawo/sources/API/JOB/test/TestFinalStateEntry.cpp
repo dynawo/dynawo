@@ -29,16 +29,20 @@ TEST(APIJOBTest, testFinalStateEntry) {
   ASSERT_EQ(finalState->getExportDumpFile(), false);
   ASSERT_EQ(finalState->getDumpFile(), "");
   ASSERT_EQ(finalState->getOutputIIDMFile(), "");
+  ASSERT_FALSE(finalState->getTimestamp());
 
   finalState->setOutputIIDMFile("/tmp/exportIIDMFile.txt");
   finalState->setDumpFile("/tmp/dumpFile.dmp");
   finalState->setExportIIDMFile(true);
   finalState->setExportDumpFile(true);
+  finalState->setTimestamp(15.);
 
   ASSERT_EQ(finalState->getOutputIIDMFile(), "/tmp/exportIIDMFile.txt");
   ASSERT_EQ(finalState->getDumpFile(), "/tmp/dumpFile.dmp");
   ASSERT_EQ(finalState->getExportIIDMFile(), true);
   ASSERT_EQ(finalState->getExportDumpFile(), true);
+  ASSERT_TRUE(finalState->getTimestamp());
+  ASSERT_EQ(*finalState->getTimestamp(), 15.);
 }
 
 }  // namespace job

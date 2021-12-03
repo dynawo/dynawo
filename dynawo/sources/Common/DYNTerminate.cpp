@@ -39,7 +39,7 @@ std::exception(t),
 msgToReturn_(t.msgToReturn_) {
 }
 
-const char* Terminate::what() const throw() {
+const char* Terminate::what() const DYN_NOEXCEPT {
   return (msgToReturn_.c_str());
 }
 

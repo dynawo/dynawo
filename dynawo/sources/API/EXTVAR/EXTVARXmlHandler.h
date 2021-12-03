@@ -41,6 +41,11 @@ class VariableHandler : public xml::sax::parser::ComposableElementHandler {
   explicit VariableHandler(elementName_type const& root_element);
 
   /**
+   * @brief Destructor
+   */
+  ~VariableHandler();
+
+  /**
    * @brief Variable getter
    * @return the Variable object
    */
@@ -73,7 +78,7 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
   /**
    * @brief Destructor
    */
-  ~XmlHandler() { }
+  ~XmlHandler();
 
   /**
    * @brief Parsed parameters set collection getter

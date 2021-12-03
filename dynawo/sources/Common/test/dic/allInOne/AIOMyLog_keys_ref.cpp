@@ -20,5 +20,5 @@ const char* KeyMyLog_t::names(const value& v) {
     "Label3",
   };
   return names[v];
-};
+}
 } //namespace AIO

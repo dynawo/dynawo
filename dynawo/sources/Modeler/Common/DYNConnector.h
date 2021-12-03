@@ -43,18 +43,6 @@ class connectedSubModel {
   negated_(false) { }
 
   /**
-   * @brief copy constructor
-   *
-   * @param model connected sub model to used to initialize the created one
-   */
-  //---------------------------------------------------------------------
-
-  connectedSubModel(const connectedSubModel & model) :
-  subModel_(model.subModel_),
-  variable_(model.variable_),
-  negated_(model.negated_) { }
-
-  /**
    * @brief constructor
    *
    * @param subModel submodel connected
@@ -65,26 +53,6 @@ class connectedSubModel {
   subModel_(subModel),
   variable_(variable),
   negated_(negated) { }
-
-  /**
-   * @brief destructor
-   */
-  ~connectedSubModel() { }
-
-  /**
-   * @brief assignment
-   * @param other : const_iterator to assign
-   *
-   * @returns Reference to this const_iterator
-   */
-  connectedSubModel& operator=(const connectedSubModel& other) {
-    if (this == &other)
-      return *this;
-    subModel_ = other.subModel_;
-    variable_ = other.variable_;
-    negated_ = other.negated_;
-    return *this;
-  }
 
   /**
    * @brief getter of the submodel connected by the connector
@@ -165,12 +133,6 @@ class ConnectorContainer {
    *
    */
   ConnectorContainer();
-
-  /**
-   * @brief destructor
-   *
-   */
-  ~ConnectorContainer();
 
   /**
    * @brief get the number of continuous connectors

@@ -97,11 +97,6 @@ class Compiler {
   rmModels_(rmModels) { }
 
   /**
-   * @brief default destructor.
-   */
-  ~Compiler() { }
-
-  /**
    * @brief Compile models in a dyd files.
    */
   void compile();

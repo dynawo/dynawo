@@ -284,10 +284,10 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
 
   // create object
   // discrete variable
-  const std::string varId = "discrete_variable_1";
+  const std::string varId1 = "discrete_variable_1";
   boost::shared_ptr<Variable> variable1;
   const std::string defaultVal = "1";
-  variable1 = VariableFactory::newVariable(varId, Variable::DISCRETE);
+  variable1 = VariableFactory::newVariable(varId1, Variable::DISCRETE);
   variable1->setDefaultValue(defaultVal);
   ASSERT_NO_THROW(variable1->getDefaultValue());
   collection->addVariable(variable1);
@@ -340,7 +340,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
       ASSERT_EQ(variable->getId(), varId2);
       ASSERT_EQ(variable->hasDefaultValue(), false);
     } else if (variable->getType() == Variable::DISCRETE) {
-      ASSERT_EQ(variable->getId(), varId);
+      ASSERT_EQ(variable->getId(), varId1);
       ASSERT_EQ(variable->hasDefaultValue(), true);
       ASSERT_EQ(variable->getDefaultValue(), defaultVal);
     } else if (variable->getType() == Variable::BOOLEAN) {

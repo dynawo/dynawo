@@ -102,11 +102,6 @@ class Trace {
       persistant_(false) { }
 
     /**
-     * @brief TraceAppender destructor
-     */
-    ~TraceAppender() { }
-
-    /**
      * @brief Tag attribute getter
      * @return Tag filtered by the appender
      */
@@ -278,6 +273,13 @@ class Trace {
    * When no log file is needed, disable logging which is showed in console.
    */
   static void disableLogging();
+
+  /**
+   * @brief Enable logging
+   *
+   * Enable logging
+   */
+  static void enableLogging();
 
   /**
    * @brief Determines if logging is enabled

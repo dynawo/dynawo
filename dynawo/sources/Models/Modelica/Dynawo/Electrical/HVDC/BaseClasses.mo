@@ -78,13 +78,13 @@ package BaseClasses
       terminal2.i.re = 0;
     end if;
 
-// Sign convention change
+  // Sign convention change
     PInj1Pu = - P1Pu;
     PInj2Pu = - P2Pu;
     QInj1Pu = - Q1Pu;
     QInj2Pu = - Q2Pu;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
       Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. The active power reference is given as an input and can be changed during the simulation.</div></body></html>"));
   end BaseHvdcP;
 
@@ -132,14 +132,12 @@ annotation(preferredView = "text",
   equation
 
   // Connected side
-    U1Pu = ComplexMath.'abs'(terminal1.V);
-    s1Pu = Complex(P1Pu, Q1Pu);
-    s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
-
     if (running.value) then
       P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
+      U1Pu = ComplexMath.'abs'(terminal1.V);
     else
-      terminal1.i.re = 0;
+      P1Pu = 0;
+      U1Pu = 0;
     end if;
 
   // Disconnected side

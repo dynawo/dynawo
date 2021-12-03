@@ -41,9 +41,6 @@ namespace DYN {
 Graph::Graph() {
 }
 
-Graph::~Graph() {
-}
-
 void
 Graph::addVertex(unsigned indexVertex) {
   vertices_[indexVertex] = add_vertex(internalGraph_);

@@ -22,6 +22,11 @@
 
 namespace DYN {
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @brief Current limit interface
  */
@@ -44,6 +49,11 @@ class CurrentLimitInterface {
    */
   virtual int getAcceptableDuration() const = 0;
 };  ///< class for current limit interface
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNCURRENTLIMITINTERFACE_H_

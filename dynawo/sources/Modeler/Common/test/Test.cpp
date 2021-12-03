@@ -60,8 +60,6 @@ class SubModelMockBase : public SubModel {
     sizeY_ = nbY;
   }
 
-  virtual ~SubModelMockBase() {}
-
   void init(const double) {
     // Dummy class used for testing
   }
@@ -189,11 +187,7 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-    variables.push_back(VariableNativeFactory::createState("MyVar", CONTINUOUS));
-    variables.push_back(VariableAliasFactory::create("MyAliasVar", "MyVar", FLOW, false));
-    variables.push_back(VariableNativeFactory::createState("MyDiscreteVar", DISCRETE));
-  }
+  void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   void defineParameters(std::vector<ParameterModeler>&) {
     // Dummy class used for testing
@@ -245,19 +239,25 @@ class SubModelMockBase : public SubModel {
   }
 };
 
+void SubModelMockBase::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
+  variables.push_back(VariableNativeFactory::createState("MyVar", CONTINUOUS));
+  variables.push_back(VariableAliasFactory::create("MyAliasVar", "MyVar", FLOW, false));
+  variables.push_back(VariableNativeFactory::createState("MyDiscreteVar", DISCRETE));
+}
+
 class SubModelMock : public SubModelMockBase {
  public:
   SubModelMock(unsigned nbY, unsigned nbZ) : SubModelMockBase(nbY, nbZ) {}
 
   SubModelMock() : SubModelMockBase(1, 1) {}
 
-  virtual ~SubModelMock() {}
-
-  modeChangeType_t evalMode(const double) {
-    // Dummy class used for testing
-    return NO_MODE;
-  }
+  modeChangeType_t evalMode(const double);
 };
+
+modeChangeType_t SubModelMock::evalMode(const double) {
+  // Dummy class used for testing
+  return NO_MODE;
+}
 
 class SubModelMode : public SubModelMockBase {
  public:
@@ -265,20 +265,21 @@ class SubModelMode : public SubModelMockBase {
 
   SubModelMode() : SubModelMockBase(1, 1) {}
 
-  virtual ~SubModelMode() {}
-
-  modeChangeType_t evalMode(const double t) {
-    if (doubleEquals(t, 1))
-      return DIFFERENTIAL_MODE;
-    else if (doubleEquals(t, 2))
-      return ALGEBRAIC_MODE;
-    else if (doubleEquals(t, 3))
-      return DIFFERENTIAL_MODE;
-    else if (doubleEquals(t, 4))
-      return ALGEBRAIC_J_UPDATE_MODE;
-  return NO_MODE;
-  }
+  modeChangeType_t evalMode(const double t);
 };
+
+modeChangeType_t SubModelMode::evalMode(const double t) {
+  if (doubleEquals(t, 1))
+    return DIFFERENTIAL_MODE;
+  else if (doubleEquals(t, 2))
+    return ALGEBRAIC_MODE;
+  else if (doubleEquals(t, 3))
+    return DIFFERENTIAL_MODE;
+  else if (doubleEquals(t, 4))
+    return ALGEBRAIC_J_UPDATE_MODE;
+  return NO_MODE;
+}
+
 //-----------------------------------------------------
 // TEST DYNParameter
 //-----------------------------------------------------

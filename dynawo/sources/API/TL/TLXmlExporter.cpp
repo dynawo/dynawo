@@ -26,7 +26,6 @@
 
 #include "TLXmlExporter.h"
 #include "TLTimeline.h"
-#include "TLEvent.h"
 
 using std::fstream;
 using std::ostream;
@@ -39,21 +38,19 @@ using xml::sax::formatter::FormatterPtr;
 namespace timeline {
 
 void
-XmlExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const string& filePath,
-                          const bool exportWithTime) const {
+XmlExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const string& filePath) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
     throw DYNError(DYN::Error::API, FileGenerationFailed, filePath.c_str());
   }
 
-  exportToStream(timeline, file, exportWithTime);
+  exportToStream(timeline, file);
   file.close();
 }
 
 void
-XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream,
-                            const bool exportWithTime) const {
+XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
   FormatterPtr formatter = Formatter::createFormatter(stream, "http://www.rte-france.com/dynawo");
 
   formatter->startDocument();
@@ -62,8 +59,10 @@ XmlExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream
   for (Timeline::event_const_iterator itEvent = timeline->cbeginEvent();
           itEvent != timeline->cendEvent();
           ++itEvent) {
+    if ((*itEvent)->hasPriority() && maxPriority_ != boost::none && (*itEvent)->getPriority() > maxPriority_)
+      continue;
     attrs.clear();
-    if (exportWithTime)
+    if (exportWithTime_)
       attrs.add("time", (*itEvent)->getTime());
     attrs.add("modelName", (*itEvent)->getModelName());
     attrs.add("message", (*itEvent)->getMessage());

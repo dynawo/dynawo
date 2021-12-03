@@ -100,6 +100,8 @@ countryHandler_(parser::ElementName(namespace_uri(), "country")) {
   countryHandler_.onEnd(lambda::bind(&CriteriaHandler::addCountry, lambda::ref(*this)));
 }
 
+CriteriaHandler::~CriteriaHandler() {}
+
 void CriteriaHandler::create(attributes_type const & /*attributes*/) {
   criteriaRead_ = CriteriaFactory::newCriteria();
 }
@@ -128,6 +130,8 @@ CriteriaHandler::addCountry() {
 CriteriaParamsHandler::CriteriaParamsHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&CriteriaParamsHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
+
+CriteriaParamsHandler::~CriteriaParamsHandler() {}
 
 void CriteriaParamsHandler::create(attributes_type const & attributes) {
   criteriaParamsRead_ = CriteriaParamsFactory::newCriteriaParams();
@@ -158,6 +162,8 @@ ElementWithIdHandler::ElementWithIdHandler(elementName_type const& root_element)
   onStartElement(root_element, lambda::bind(&ElementWithIdHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
+ElementWithIdHandler::~ElementWithIdHandler() {}
+
 void ElementWithIdHandler::create(attributes_type const & attributes) {
   idRead_ = attributes["id"].as_string();
 }
@@ -171,6 +177,8 @@ ElementWithIdHandler::getId() const {
 ComponentHandler::ComponentHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&ComponentHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
+
+ComponentHandler::~ComponentHandler() {}
 
 void ComponentHandler::create(attributes_type const & attributes) {
   idRead_ = attributes["id"].as_string();

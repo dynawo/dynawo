@@ -22,6 +22,12 @@
 #include <vector>
 
 namespace DYN {
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /// @brief Curve points data interface
 class ReactiveCurvePointsInterface {
  public:
@@ -34,11 +40,11 @@ class ReactiveCurvePointsInterface {
     /**
      * @brief Constructor
      *
-     * @param p active power
-     * @param qmin minimum reactive power
-     * @param qmax maximum reactive power
+     * @param p_p active power
+     * @param p_qmin minimum reactive power
+     * @param p_qmax maximum reactive power
      */
-    ReactiveCurvePoint(double p, double qmin, double qmax) : p(p), qmin(qmin), qmax(qmax) {}
+    ReactiveCurvePoint(double p_p, double p_qmin, double p_qmax) : p(p_p), qmin(p_qmin), qmax(p_qmax) {}
 
     double p;     ///< active power
     double qmin;  ///< minimum reactive power
@@ -55,6 +61,11 @@ class ReactiveCurvePointsInterface {
    */
   virtual std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const = 0;
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
+
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNREACTIVECURVEPOINTSINTERFACE_H_
