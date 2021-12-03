@@ -132,13 +132,13 @@ class ComponentInterface {
 
   /**
    * @brief check the connection state of the component
-   * @return @b true is the component is connected, @b false else
+   * @return @b true if the component is connected, @b false else
    */
   virtual bool isConnected() const;
 
   /**
    * @brief check the connection state of the component
-   * @return @b true is the component is connected at least at one end, @b false else
+   * @return @b true if the component is connected at least at one end, @b false else
    */
   virtual bool isPartiallyConnected() const;
 

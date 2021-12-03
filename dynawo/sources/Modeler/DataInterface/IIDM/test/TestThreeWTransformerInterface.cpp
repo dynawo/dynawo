@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+// Copyright (c) 2021, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
