@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<iidm:network xmlns:iidm="http://www.powsybl.org/schema/iidm/1_4" id="ieee14bus" caseDate="2017-06-09T10:14:24.146000+02:00" forecastDistance="0" sourceFormat="CIM1">
+<iidm:network xmlns:iidm="http://www.powsybl.org/schema/iidm/1_2" id="ieee14bus" caseDate="2017-06-09T10:14:24.146000+02:00" forecastDistance="0" sourceFormat="CIM1">
     <iidm:substation id="_BUS___10_SS" name="BUS   10_SS" country="AF" geographicalTags="_SGR_01">
         <iidm:voltageLevel id="_BUS___10_VL" name="BUS   10_VL" nominalV="13.800000000000001" topologyKind="BUS_BREAKER">
             <iidm:busBreakerTopology>

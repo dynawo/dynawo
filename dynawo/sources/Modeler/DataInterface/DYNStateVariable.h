@@ -59,24 +59,6 @@ class StateVariable {
   StateVariable(const std::string& name, const StateVariableType& type, bool neededForCriteriaCheck = false);
 
   /**
-   * @brief destructor
-   */
-  ~StateVariable();
-
-  /**
-   * @brief copy constructor
-   * @param origin StateVariable to copy
-   */
-  StateVariable(const StateVariable& origin);
-
-  /**
-   * @brief assignement operator
-   * @param origin StateVariable to copy
-   * @return the assigned instance of StateVariable
-   */
-  StateVariable& operator=(const StateVariable& origin);
-
-  /**
    * @brief set the value of a state variable
    *
    * @param value new value of the state variable
