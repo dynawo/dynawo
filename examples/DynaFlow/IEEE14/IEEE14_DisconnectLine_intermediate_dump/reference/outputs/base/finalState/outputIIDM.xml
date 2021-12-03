@@ -53,7 +53,7 @@
     <iidm:substation id="_BUS____2_SS" name="BUS    2_SS" country="AF" geographicalTags="_SGR_01">
         <iidm:voltageLevel id="_BUS____2_VL" name="BUS    2_VL" nominalV="69" topologyKind="BUS_BREAKER">
             <iidm:busBreakerTopology>
-                <iidm:bus id="_BUS____2_TN" v="72.110000084446881" angle="-7.5367978792990229"/>
+                <iidm:bus id="_BUS____2_TN" v="72.110000000782705" angle="-7.5367978792990229"/>
             </iidm:busBreakerTopology>
             <iidm:generator id="_GEN____2_SM" name="GEN    2" energySource="OTHER" minP="-9999" maxP="9999" voltageRegulatorOn="true" targetP="40" targetV="72.105000000000004" targetQ="42.399999999999999" bus="_BUS____2_TN" connectableBus="_BUS____2_TN" p="-41.920069044501204" q="-74.699704395291704">
                 <iidm:minMaxReactiveLimits minQ="-40" maxQ="50"/>
@@ -64,7 +64,7 @@
     <iidm:substation id="_BUS____3_SS" name="BUS    3_SS" country="AF" geographicalTags="_SGR_01">
         <iidm:voltageLevel id="_BUS____3_VL" name="BUS    3_VL" nominalV="69" topologyKind="BUS_BREAKER">
             <iidm:busBreakerTopology>
-                <iidm:bus id="_BUS____3_TN" v="69.690002857567322" angle="-16.573907731593401"/>
+                <iidm:bus id="_BUS____3_TN" v="69.690000000110743" angle="-16.573907731593401"/>
             </iidm:busBreakerTopology>
             <iidm:generator id="_GEN____3_SM" name="GEN    3" energySource="OTHER" minP="-9999" maxP="9999" voltageRegulatorOn="true" targetP="0" targetV="69.689999999999998" targetQ="23.399999999999999" bus="_BUS____3_TN" connectableBus="_BUS____3_TN" p="-2.8286731459169432" q="-28.802060488828364">
                 <iidm:minMaxReactiveLimits minQ="0" maxQ="40"/>
@@ -131,7 +131,7 @@
     <iidm:substation id="_BUS____5_SS" name="BUS    5_SS" country="AF" geographicalTags="_SGR_01">
         <iidm:voltageLevel id="_BUS____6_VL" name="BUS    6_VL" nominalV="13.800000000000001" topologyKind="BUS_BREAKER">
             <iidm:busBreakerTopology>
-                <iidm:bus id="_BUS____6_TN" v="14.770000140861125" angle="-20.095177635757963"/>
+                <iidm:bus id="_BUS____6_TN" v="14.770000002961662" angle="-20.095177635757963"/>
             </iidm:busBreakerTopology>
             <iidm:generator id="_GEN____6_SM" name="GEN    6" energySource="OTHER" minP="-9999" maxP="9999" voltageRegulatorOn="true" targetP="0" targetV="14.766" targetQ="12.199999999999999" bus="_BUS____6_TN" connectableBus="_BUS____6_TN" p="-0.14171938185604077" q="-21.142094584818853">
                 <iidm:minMaxReactiveLimits minQ="-6" maxQ="24"/>
@@ -165,7 +165,7 @@
     <iidm:substation id="_BUS____8_SS" name="BUS    8_SS" country="AF" geographicalTags="_SGR_01">
         <iidm:voltageLevel id="_BUS____8_VL" name="BUS    8_VL" nominalV="13.800000000000001" topologyKind="BUS_BREAKER">
             <iidm:busBreakerTopology>
-                <iidm:bus id="_BUS____8_TN" v="15.040000333666091" angle="-18.647976286010682"/>
+                <iidm:bus id="_BUS____8_TN" v="15.040000001913935" angle="-18.647976286010682"/>
             </iidm:busBreakerTopology>
             <iidm:generator id="_GEN____8_SM" name="GEN    8" energySource="OTHER" minP="-9999" maxP="9999" voltageRegulatorOn="true" targetP="0" targetV="15.042" targetQ="17.399999999999999" bus="_BUS____8_TN" connectableBus="_BUS____8_TN" p="-0.43430133149431849" q="-19.843308739131214">
                 <iidm:minMaxReactiveLimits minQ="-6" maxQ="24"/>

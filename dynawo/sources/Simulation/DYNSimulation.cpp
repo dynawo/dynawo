@@ -1135,6 +1135,10 @@ Simulation::terminate() {
     dumpIIDMFile();
 
   printEnd();
+  if (!Trace::isLoggingEnabled()) {
+    // re-enable logging for upper project
+    Trace::enableLogging();
+  }
 }
 
 void

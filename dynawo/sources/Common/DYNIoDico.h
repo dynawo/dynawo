@@ -24,6 +24,7 @@
 #include <map>
 #include <vector>
 #include <boost/shared_ptr.hpp>
+#include <boost/noncopyable.hpp>
 
 
 namespace DYN {
@@ -83,13 +84,8 @@ class IoDico {
  * @brief IoDicos class description. IoDicos read all the dictionary
  * and give an access to a dictionary thanks to his name
  */
-class IoDicos {
+class IoDicos : public boost::noncopyable {
  public:
-  /**
-   * @brief destructor
-   */
-  ~IoDicos() { }
-
   /**
    * @brief add a dictionary to the IoDicos instance
    *
@@ -144,17 +140,6 @@ class IoDicos {
    * @brief default constructor
    */
   IoDicos() { }
-
-  /**
-   * @brief Copy constructor
-   */
-  IoDicos(const IoDicos&);
-
-  /**
-   * @brief Assignement operator
-   * @return the assigned instance of IoDicos
-   */
-  IoDicos& operator=(const IoDicos&);
 
   /**
    * @brief find the @b fileName in all the paths
