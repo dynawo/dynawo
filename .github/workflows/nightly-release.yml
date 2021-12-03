@@ -148,7 +148,8 @@ jobs:
           echo "ASSETS_URL=$ASSETS_URL" >> $GITHUB_ENV
 
           echo "Upload assets"
-          for FILE in distributions/*zip; do
+          cd distributions
+          for FILE in *zip; do
             [ -f "$FILE" ] || break
             echo "Upload asset $FILE"
             upload_zip_file $UPLOAD_URL $FILE ${{ secrets.GITHUB_TOKEN }}
