@@ -1,0 +1,156 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 9cd4a76..2f9e5f9 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -181,6 +181,7 @@ set(IIDM_SOURCES
+     iidm/extensions/LoadDetailXmlSerializer.cpp
+     iidm/extensions/SlackTerminal.cpp
+     iidm/extensions/SlackTerminalAdder.cpp
++    iidm/extensions/SlackTerminalXmlSerializer.cpp
+ 
+     iidm/util/ConnectedComponents.cpp
+     iidm/util/DistinctPredicate.cpp
+diff --git a/src/iidm/ExtensionProviders.cpp b/src/iidm/ExtensionProviders.cpp
+index cf0d07c..04bb7a9 100644
+--- a/src/iidm/ExtensionProviders.cpp
++++ b/src/iidm/ExtensionProviders.cpp
+@@ -19,6 +19,7 @@
+ #include <powsybl/stdcxx/format.hpp>
+ 
+ #include "extensions/LoadDetailXmlSerializer.hpp"
++#include "extensions/SlackTerminalXmlSerializer.hpp"
+ 
+ namespace powsybl {
+ 
+@@ -27,6 +28,7 @@ namespace iidm {
+ template <>
+ ExtensionProviders<converter::xml::ExtensionXmlSerializer, void>::ExtensionProviders() {
+     registerExtension(stdcxx::make_unique<extensions::LoadDetailXmlSerializer>());
++    registerExtension(stdcxx::make_unique<extensions::SlackTerminalXmlSerializer>());
+ }
+ 
+ template <typename T, typename Dummy>
+diff --git a/src/iidm/extensions/SlackTerminalXmlSerializer.cpp b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
+new file mode 100644
+index 0000000..ccc2bb6
+--- /dev/null
++++ b/src/iidm/extensions/SlackTerminalXmlSerializer.cpp
+@@ -0,0 +1,75 @@
++/**
++ * Copyright (c) 2021, RTE (http://www.rte-france.com)
++ * This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
++ */
++
++#include "SlackTerminalXmlSerializer.hpp"
++
++#include <cmath>
++
++#include <powsybl/iidm/Bus.hpp>
++#include <powsybl/iidm/VoltageLevel.hpp>
++#include <powsybl/iidm/converter/xml/NetworkXmlReaderContext.hpp>
++#include <powsybl/iidm/converter/xml/NetworkXmlWriterContext.hpp>
++#include <powsybl/iidm/extensions/SlackTerminal.hpp>
++#include <powsybl/iidm/extensions/SlackTerminalAdder.hpp>
++#include <powsybl/stdcxx/math.hpp>
++#include <powsybl/xml/XmlStreamReader.hpp>
++#include <powsybl/xml/XmlStreamWriter.hpp>
++
++namespace powsybl {
++
++namespace iidm {
++
++namespace extensions {
++
++SlackTerminalXmlSerializer::SlackTerminalXmlSerializer() :
++    converter::xml::AbstractExtensionXmlSerializer("slackTerminal", "network", "st", "http://www.itesla_project.eu/schema/iidm/ext/slack_terminal/1_0") {
++}
++
++Extension& SlackTerminalXmlSerializer::read(Extendable& extendable, converter::xml::NetworkXmlReaderContext& context) const {
++    if (!stdcxx::isInstanceOf<VoltageLevel>(extendable)) {
++        throw AssertionError(stdcxx::format("Unexpected extendable type: %1% (%2% expected)", stdcxx::demangle(extendable), stdcxx::demangle<VoltageLevel>()));
++    }
++    const auto& slackTerminalId = context.getReader().getAttributeValue("Terminal");
++
++    auto& vl = dynamic_cast<VoltageLevel&>(extendable);
++    if (vl.getTopologyKind() == TopologyKind::NODE_BREAKER) {
++      const auto& buses = vl.getBusView().getBuses();
++      auto foundBus = std::find_if(buses.begin(), buses.end(), [&slackTerminalId](const Bus& bus){
++          return bus.getId() == slackTerminalId;
++      });
++     SlackTerminal::attach(*foundBus);
++    } else {
++      const auto& buses = vl.getBusBreakerView().getBuses();
++      auto foundBus = std::find_if(buses.begin(), buses.end(), [&slackTerminalId](const Bus& bus){
++          return bus.getId() == slackTerminalId;
++      });
++      SlackTerminal::attach(*foundBus);
++    }
++
++    return extendable.getExtension<SlackTerminal>();
++}
++
++void SlackTerminalXmlSerializer::write(const Extension& extension, converter::xml::NetworkXmlWriterContext& context) const {
++    const auto& slackTerminal = safeCast<iidm::extensions::SlackTerminal>(extension);
++    const auto& terminal = slackTerminal.getTerminal().get();
++    const auto& vl = terminal.getVoltageLevel();
++    std::string busId;
++    if (vl.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
++      const auto& bus = terminal.getBusView().getBus().get();
++      busId = bus.getId();
++    } else {
++      const auto& bus = terminal.getBusBreakerView().getBus().get();
++      busId = bus.getId();
++    }
++    context.getExtensionsWriter().writeAttribute("Terminal", busId);
++}
++
++}  // namespace extensions
++
++}  // namespace iidm
++
++}  // namespace powsybl
+diff --git a/src/iidm/extensions/SlackTerminalXmlSerializer.hpp b/src/iidm/extensions/SlackTerminalXmlSerializer.hpp
+new file mode 100644
+index 0000000..e6e4730
+--- /dev/null
++++ b/src/iidm/extensions/SlackTerminalXmlSerializer.hpp
+@@ -0,0 +1,37 @@
++/**
++ * Copyright (c) 2021, RTE (http://www.rte-france.com)
++ * This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
++ */
++
++#ifndef POWSYBL_IIDM_EXTENSIONS_SLACKTERMINALXMLSERIALIZER_HPP_
++#define POWSYBL_IIDM_EXTENSIONS_SLACKTERMINALXMLSERIALIZER_HPP_
++
++#include <powsybl/iidm/converter/xml/AbstractExtensionXmlSerializer.hpp>
++
++namespace powsybl {
++
++namespace iidm {
++
++namespace extensions {
++
++class SlackTerminalXmlSerializer : public converter::xml::AbstractExtensionXmlSerializer {
++public:  // ExtensionXmlSerializer
++    Extension& read(Extendable& extendable, converter::xml::NetworkXmlReaderContext& context) const override;
++
++    void write(const Extension& extension, converter::xml::NetworkXmlWriterContext& context) const override;
++
++public:
++    SlackTerminalXmlSerializer();
++
++    ~SlackTerminalXmlSerializer() noexcept override = default;
++};
++
++}  // namespace extensions
++
++}  // namespace iidm
++
++}  // namespace powsybl
++
++#endif  // POWSYBL_IIDM_EXTENSIONS_SLACKTERMINALXMLSERIALIZER_HPP_

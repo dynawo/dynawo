@@ -23,6 +23,7 @@
 #include "DYNTwoWTransformerInterface.h"
 #include "DYNThreeWTransformerInterface.h"
 #include "DYNVoltageLevelInterface.h"
+#include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNHvdcLineInterface.h"
 
 using std::string;
@@ -90,9 +91,11 @@ NetworkInterfaceIIDM::getHvdcLines() const {
 
 boost::optional<std::string>
 NetworkInterfaceIIDM::getSlackNodeBusId() const {
-  // TODO(lecourtoisflo) IIDM library doesn't support yet this operation but will in a future version.
-  // This API does nothing until this moment
-  return boost::none;
+  auto found = std::find_if(voltageLevels_.begin(), voltageLevels_.end(), [](const boost::shared_ptr<VoltageLevelInterface>& vl){
+    auto vlIIDM = boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(vl);
+    return vlIIDM->getSlackBusId().has_value();
+  });
+  return (found == voltageLevels_.end()) ? boost::none : boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(*found)->getSlackBusId();
 }
 
 }  // namespace DYN
