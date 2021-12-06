@@ -251,16 +251,16 @@ SolverCommonFixedTimeStep::calculateICCommon() {
   state_.reset();
   model_->reinitMode();
 
-  solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_,
-                                                         printflAlg_);
+  solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlgInit_, initialaddtolAlgInit_, scsteptolAlgInit_, mxnewtstepAlgInit_, msbsetAlgInit_,
+                                                         mxiterAlgInit_, printflAlgInit_);
 }
 
-void
+bool
 SolverCommonFixedTimeStep::calculateICCommonModeChange(int& counter, bool& change) {
   // Updating discrete variable values and mode
   model_->evalG(tSolve_, g1_);
   if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
-    return;
+    return true;
   } else {
     g0_.assign(g1_.begin(), g1_.end());
     change = evalZMode(g0_, g1_, tSolve_);
@@ -274,6 +274,7 @@ SolverCommonFixedTimeStep::calculateICCommonModeChange(int& counter, bool& chang
   ++counter;
   if (counter >= maxNumberUnstableRoots)
     throw DYNError(Error::SOLVER_ALGO, SolverFixedTimeStepUnstableRoots, solverType());
+  return false;
 }
 
 void
