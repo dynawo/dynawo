@@ -441,7 +441,7 @@ ModelBus::iiAdd(const double& ii) {
 
 void
 ModelBus::evalStaticYType() {
-  if (hasConnection_) {
+  if (!network_->isInitModel() && hasConnection_) {
     yType_[2] = ALGEBRAIC;
     yType_[3] = ALGEBRAIC;
   }

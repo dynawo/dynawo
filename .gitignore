@@ -105,6 +105,7 @@ dynawo/3rdParty/modelicalib/ModelicaStandardLibrary-*.tar.gz
 dynawo/3rdParty/libxml2/v*.tar.gz
 dynawo/3rdParty/libiidm/v*.tar.gz
 cpplint/*.tar.gz
+dynawo/3rdParty/gperftools/gperftools-*.tar.gz
 dynawo/3rdParty/googletest/googletest-release-*.tar.gz
 util/curvesToHtml/resources/arrow-down.gif
 util/curvesToHtml/resources/arrow-left.gif

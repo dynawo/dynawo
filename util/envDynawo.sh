@@ -209,6 +209,31 @@ export_var_env() {
   export $name="$value"
 }
 
+export_preload() {
+  lib="tcmalloc"
+  # uncomment to activate tcmalloc in debug when build is in debug
+  # if [ $DYNAWO_BUILD_TYPE == "Debug" ]; then
+  #   lib=$lib"_debug"
+  # fi
+  lib=$lib".so"
+
+  if [ -d $DYNAWO_TCMALLOC_INSTALL_DIR/lib ]; then
+    externalTcMallocLib=$(find $DYNAWO_TCMALLOC_INSTALL_DIR/lib -iname *$lib)
+    if [ -n "$externalTcMallocLib" ]; then
+      echo "Use downloaded tcmalloc library $externalTcMallocLib"
+      export LD_PRELOAD=$externalTcMallocLib
+      return
+    fi
+  fi
+
+  nativeTcMallocLib=$(ldconfig -p | grep -e $lib$ | cut -d ' ' -f4)
+  if [ -n "$nativeTcMallocLib" ]; then
+    echo "Use native tcmalloc library $nativeTcMallocLib"
+    export LD_PRELOAD=$nativeTcMallocLib
+    return
+  fi
+}
+
 export_var_env_default() {
   local var="$@"
   local name=${var%%=*}
@@ -417,6 +442,7 @@ set_environment() {
   export_var_env_force DYNAWO_SUNDIALS_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/sundials
   export_var_env_force DYNAWO_ADEPT_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/adept
   export_var_env_force DYNAWO_XERCESC_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/xerces-c
+  export_var_env_force DYNAWO_TCMALLOC_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/gperftools
 
   export_var_env_force DYNAWO_LIBIIDM_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/$DIR_LIBIIDM
   export_var_env_force DYNAWO_LIBIIDM_INSTALL_DIR=$DYNAWO_LIBIIDM_HOME
@@ -874,6 +900,7 @@ compile_Modelica_Model() {
   if ! is_launcher_installed; then
     (install_launcher) || error_exit "Error during launcher installation."
   fi
+  export_preload
   $DYNAWO_INSTALL_DIR/bin/launcher --compile $@ || error_exit "Error during compilation of a Modelica Model."
 }
 
@@ -976,6 +1003,7 @@ build_tests() {
   build_dynawo_core || error_exit "Error during build_dynawo_core."
   build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
 
+  export_preload
   tests=$@
   if [ -z "$tests" ]; then
     cmake --build $DYNAWO_BUILD_DIR --target tests --config Debug
@@ -1041,6 +1069,7 @@ build_tests_coverage() {
   fi
   tests=$@
 
+  export_preload
   cmake --build $DYNAWO_BUILD_DIR --target reset-coverage --config Debug || error_exit "Error during make reset-coverage."
   if [ -z "$tests" ]; then
     cmake --build $DYNAWO_BUILD_DIR --target tests-coverage --config Debug || error_exit "Error during make tests-coverage."
@@ -1049,6 +1078,7 @@ build_tests_coverage() {
       cmake --build $DYNAWO_BUILD_DIR --target ${test}-coverage --config Debug || error_exit "Error during make ${test}-coverage."
     done
   fi
+  unset LD_PRELOAD
   cmake --build $DYNAWO_BUILD_DIR --target export-coverage --config Debug
   RETURN_CODE=$?
   if [ ${RETURN_CODE} -ne 0 ]; then
@@ -1235,6 +1265,7 @@ launch_jobs() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
+  export_preload
   $DYNAWO_INSTALL_DIR/bin/launcher $@
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -1244,6 +1275,7 @@ generate_preassembled() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
+  export_preload
   $DYNAWO_INSTALL_DIR/bin/launcher --generate-preassembled $*
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -1253,6 +1285,7 @@ generate_preassembled_gdb() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
+  export_preload
   $DYNAWO_INSTALL_DIR/bin/launcher --generate-preassembled-gdb $*
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -1262,6 +1295,7 @@ compile_cpp_modelica_model_in_dynamic_lib() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
+  export_preload
   $DYNAWO_INSTALL_DIR/bin/launcher --compile-cpp-modelica-model-in-dynamic-lib $*
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -1355,6 +1389,7 @@ dump_model() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
+  export_preload
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model $@
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -1364,6 +1399,7 @@ valgrind_dump_model() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
+  export_preload
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model-valgrind $@
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -1373,6 +1409,7 @@ gdb_dump_model() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
+  export_preload
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model-gdb $@
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -1407,7 +1444,9 @@ nrt() {
     install_launcher || error_exit "Error during launcher installation."
   fi
   pushd "$DYNAWO_HOME" > /dev/null
+  export_preload
   $DYNAWO_PYTHON_COMMAND -u $DYNAWO_NRT_DIR/nrt.py $@
+  unset LD_PRELOAD # required for browsing the report
   FAILED_CASES_NUM=$?
   popd > /dev/null
 
@@ -1661,6 +1700,10 @@ deploy_dynawo() {
       echo "deploying gtest libraries"
       cp -P $DYNAWO_GTEST_HOME/lib*/*.* lib/
     fi
+  fi
+  if [ -d "$DYNAWO_TCMALLOC_INSTALL_DIR/lib" ]; then
+    echo "deploying tcmalloc libraries"
+    cp -P $DYNAWO_TCMALLOC_INSTALL_DIR/lib/*.* lib/
   fi
 
 
@@ -2130,6 +2173,7 @@ unittest_gdb() {
     done
     exit 1
   fi
+  export_preload
   unittest_exe=$(find $DYNAWO_BUILD_DIR/sources -name "$1")
   if [ -z "$unittest_exe" ]; then
     echo "The unittest you gave is not available."
@@ -2162,6 +2206,7 @@ reset_environment_variables() {
   ld_library_path_remove $DYNAWO_BOOST_HOME/lib
   ld_library_path_remove $DYNAWO_GTEST_HOME/lib64
   ld_library_path_remove $DYNAWO_GTEST_HOME/lib
+  unset LD_PRELOAD
   path_remove $DYNAWO_INSTALL_OPENMODELICA/bin
   python_path_remove $DYNAWO_SCRIPTS_DIR
 

@@ -378,22 +378,23 @@ initializeModel(shared_ptr<DataInterface> data) {
   return modelNetwork;
 }
 
-static void
+static shared_ptr<ModelMulti>
 exportStateVariables(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork = initializeModel(data);
-  ModelMulti mm;
-  mm.addSubModel(modelNetwork, "MyLib");
-  mm.initBuffers();
-  mm.init(0.0);
+  shared_ptr<ModelMulti> mm = boost::make_shared<ModelMulti>();
+  mm->addSubModel(modelNetwork, "MyLib");
+  mm->initBuffers();
+  mm->init(0.0);
   data->getStateVariableReference();
   data->exportStateVariables();
   data->updateFromModel(false);
   data->importStaticParameters();
+  return mm;
 }
 
 TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDMAndStaticParameters) {
   shared_ptr<DataInterface> data = createNodeBreakerNetworkIIDM();
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 
   ASSERT_EQ(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "U"), 110.);
   ASSERT_EQ(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "Teta"), 1.5);
@@ -419,7 +420,7 @@ TEST(DataInterfaceIIDMTest, testBusIIDMStaticParameters) {
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "U"), 150.);
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "Teta"), 1.5);
@@ -446,7 +447,7 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMAndStaticParameters) {
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p_pu"), 1.05);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q_pu"), 0.9);
@@ -472,7 +473,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDMAndStaticParameters) {
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "p_pu"), -105. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "q_pu"), -90. / SNREF);
@@ -520,7 +521,7 @@ TEST(DataInterfaceIIDMTest, testBatteryIIDMAndStaticParameters) {
       true /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "p_pu"), -105. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyBattery", "q_pu"), -90. / SNREF);
@@ -569,7 +570,7 @@ TEST(DataInterfaceIIDMTest, testHvdcLineIIDMAndStaticParameters) {
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 }
 
 TEST(DataInterfaceIIDMTest, testLccConverterIIDMAndStaticParameters) {
@@ -590,7 +591,7 @@ TEST(DataInterfaceIIDMTest, testLccConverterIIDMAndStaticParameters) {
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "p_pu"), -105. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "q_pu"), -90. / SNREF);
@@ -620,7 +621,7 @@ TEST(DataInterfaceIIDMTest, testVscConverterIIDMAndStaticParameters) {
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "p_pu"), -150. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyVscConverterStation", "q_pu"), -90. / SNREF);
@@ -656,7 +657,7 @@ TEST(DataInterfaceIIDMTest, testLineIIDMAndStaticParameters) {
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 
   ASSERT_THROW_DYNAWO(data->getStaticParameterDoubleValue("MyLine", "p_pu"), Error::MODELER, KeyError_t::UnknownStaticParameter);
 }
@@ -679,7 +680,7 @@ TEST(DataInterfaceIIDMTest, testLoadIIDMAndStaticParameters) {
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "p_pu"), 105. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "p0_pu"), 105. / SNREF);
@@ -713,7 +714,7 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDMAndStaticParameters) {
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyCapacitorShuntCompensator", "q_pu"), -360000. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyCapacitorShuntCompensator", "q"), -360000.);
@@ -738,7 +739,7 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDMAndStaticParameters) {
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p"), 5.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "q"), 90.);
@@ -765,7 +766,7 @@ TEST(DataInterfaceIIDMTest, testSwitchIIDMAndStaticParameters) {
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 }
 
 TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDMAndStaticParameters) {
@@ -786,7 +787,7 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDMAndStaticParameters) 
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 }
 
 TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
@@ -807,7 +808,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
       false /*instantiateBattery*/
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  shared_ptr<ModelMulti> mm = exportStateVariables(data);
 
   boost::shared_ptr<LoadInterface> loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
   ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyLoad", "P_value"));
@@ -819,7 +820,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
 
   // Reset
   data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  mm = exportStateVariables(data);
   loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
   ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyBadLoad", "p_pu"));
   ASSERT_THROW_DYNAWO(data->getStateVariableReference(), Error::MODELER, KeyError_t::StateVariableNoReference);
@@ -827,7 +828,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
 
   // Reset
   data = createBusBreakerNetwork(properties);
-  exportStateVariables(data);
+  mm = exportStateVariables(data);
   loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
   ASSERT_THROW_DYNAWO(data->setReference("p", "MyBadLoad", "MyLoad", "p_pu"), Error::MODELER, KeyError_t::UnknownStaticComponent);
 }
