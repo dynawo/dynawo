@@ -102,13 +102,19 @@ class TestCase:
                 libSolver = solver.attrib["lib"]
                 if libSolver == "dynawo_SolverSIM":
                     current_job.solver_="Solver SIM"
-                else:
+                elif libSolver == "dynawo_SolverTRAP":
+                    current_job.solver_="Solver TRAP"
+                elif libSolver == "dynawo_SolverIDA":
                     current_job.solver_="Solver IDA"
+                else:
+                    print(libSolver + " not supported")
+                    sys.exit(1)
                 if "parFile" in solver.attrib and not os.path.join(os.path.dirname(self.jobs_file_), solver.attrib["parFile"]) in current_job.par_files_:
                     current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), solver.attrib["parFile"]))
-                for iidm in FindAll(job, prefix_str, "network", ns):
-                    if "parFile" in iidm.attrib and not os.path.join(os.path.dirname(self.jobs_file_), iidm.attrib["parFile"]) in current_job.par_files_:
-                        current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), iidm.attrib["parFile"]))
+
+            for iidm in FindAll(job, prefix_str, "network", ns):
+                if "parFile" in iidm.attrib and not os.path.join(os.path.dirname(self.jobs_file_), iidm.attrib["parFile"]) in current_job.par_files_:
+                    current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), iidm.attrib["parFile"]))
 
             # Get dyd files
             for modeler in FindAll(job, prefix_str, "modeler", ns):

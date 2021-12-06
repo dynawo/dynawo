@@ -7,20 +7,21 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-// simulation tool for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+// for power systems.
 //
 
 /**
- * @file  DYNSolverSIM.cpp
+ * @file  DYNSolverCommonFixedTimeStep.cpp
  *
- * @brief Simplified solver implementation
+ * @brief Common methods between SIM and TRAP solver.
  *
- * Simplified solver is based on Backward Euler Method
+ * Parent class that regroup common methods of SIM and TRAP solvers. The aim is
+ * to factorize theses two solvers which are extremely closed.
  *
  */
 
-#include "DYNSolverSIM.h"
+#include "DYNSolverCommonFixedTimeStep.h"
 
 #include <cmath>
 #include <iostream>
@@ -55,46 +56,9 @@ using std::make_pair;
 using parameters::ParametersSet;
 using timeline::Timeline;
 
-/**
- * @brief SolverSIMFactory getter
- * @return A pointer to a new instance of SolverSIMFactory
- */
-extern "C" DYN::SolverFactory* getFactory() {
-  return (new DYN::SolverSIMFactory());
-}
-
-/**
- * @brief SolverSIMFactory destroy method
- */
-extern "C" void deleteFactory(DYN::SolverFactory* factory) {
-  delete factory;
-}
-
-/**
- * @brief SolverSIM getter
- * @return A pointer to a new instance of SolverSIM
- */
-extern "C" DYN::Solver* DYN::SolverSIMFactory::create() const {
-  DYN::Solver* solver(new DYN::SolverSIM());
-  return solver;
-}
-
-/**
- * @brief SolverSIM destroy method
- */
-extern "C" void DYN::SolverSIMFactory::destroy(DYN::Solver* solver) const {
-  delete solver;
-}
-
 namespace DYN {
 
-SolverSIMFactory::SolverSIMFactory() {
-}
-
-SolverSIMFactory::~SolverSIMFactory() {
-}
-
-SolverSIM::SolverSIM() :
+SolverCommonFixedTimeStep::SolverCommonFixedTimeStep() :
 hMin_(0),
 hMax_(0),
 kReduceStep_(0),
@@ -120,11 +84,8 @@ nbLastTimeSimulated_(0) {
   minimalAcceptableStep_ = 0.1;
 }
 
-SolverSIM::~SolverSIM() {
-}
-
 void
-SolverSIM::defineSpecificParameters() {
+SolverCommonFixedTimeStep::defineSpecificParameters() {
   const bool mandatory = true;
   const bool optional = false;
   // Time-domain part parameters
@@ -147,7 +108,7 @@ SolverSIM::defineSpecificParameters() {
 }
 
 void
-SolverSIM::setSolverSpecificParameters() {
+SolverCommonFixedTimeStep::setSolverSpecificParameters() {
   hMin_ = findParameter("hMin").getValue<double>();
   hMax_ = findParameter("hMax").getValue<double>();
   kReduceStep_ = findParameter("kReduceStep").getValue<double>();
@@ -183,13 +144,8 @@ SolverSIM::setSolverSpecificParameters() {
     skipNRIfInitialGuessOK_ = skipNRIfInitialGuessOK.getValue<bool>();
 }
 
-std::string
-SolverSIM::solverType() const {
-  return "SimplifiedSolver";
-}
-
 void
-SolverSIM::init(const shared_ptr<Model> &model, const double & t0, const double & tEnd) {
+SolverCommonFixedTimeStep::initCommon(const shared_ptr<Model> &model, const double &t0, const double &tEnd) {
   tSolve_ = t0;
   tEnd_ = tEnd;
   h_ = hMax_;
@@ -213,67 +169,10 @@ SolverSIM::init(const shared_ptr<Model> &model, const double & t0, const double 
 
   setDifferentialVariablesIndices();
 
-  Trace::debug() << DYNLog(SolverSIMInitOK) << Trace::endline;
+  Trace::debug() << DYNLog(SolverFixedTimeStepInitOK, solverType()) << Trace::endline;
 }
 
-void
-SolverSIM::calculateIC() {
-  Trace::debug() << DYNLog(CalculateIC) << Trace::endline;
-  // Root evaluation before the initialization
-  // --------------------------------
-  ySave_.assign(vectorY_.begin(), vectorY_.end());
-  int counter = 0;
-  bool change = true;
-
-  // Updating discrete variable values and mode
-  model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
-  model_->evalG(tSolve_, g0_);
-  evalZMode(g0_, g1_, tSolve_);
-  model_->rotateBuffers();
-  state_.reset();
-  model_->reinitMode();
-
-  solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlgInit_, initialaddtolAlgInit_, scsteptolAlgInit_, mxnewtstepAlgInit_, msbsetAlgInit_,
-                                                          mxiterAlgInit_, printflAlgInit_);
-#if _DEBUG_
-  solverKINAlgRestoration_->setCheckJacobian(true);
-#endif
-
-  // Loop as long as there is a z or a mode change
-  do {
-    Trace::debug() << DYNLog(CalculateICIteration, counter) << Trace::endline;
-
-    // Global initialization - continuous part
-    solverKINAlgRestoration_->setInitialValues(tSolve_, vectorY_, vectorYp_);
-    solverKINAlgRestoration_->solve();
-    solverKINAlgRestoration_->getValues(vectorY_, vectorYp_);
-
-    // Updating discrete variable values and mode
-    model_->evalG(tSolve_, g1_);
-    if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
-      break;
-    } else {
-      g0_.assign(g1_.begin(), g1_.end());
-      change = evalZMode(g0_, g1_, tSolve_);
-    }
-
-    model_->rotateBuffers();
-    state_.reset();
-    model_->reinitMode();
-
-    // Maximum number of initialization calculation
-    ++counter;
-    if (counter >= maxNumberUnstableRoots)
-      throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
-  } while (change);
-
-  Trace::debug() << DYNLog(EndCalculateIC) << Trace::endline;
-#if _DEBUG_
-  solverKINAlgRestoration_->setCheckJacobian(false);
-#endif
-}
-
-void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
+void SolverCommonFixedTimeStep::solveStepCommon(double /*tAim*/, double& tNxt) {
   int counter = 0;
   bool redoStep = false;
 
@@ -333,40 +232,76 @@ void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
       }
     }
   } while (redoStep);
-
   updateTimeStep(tNxt);
   ++stats_.nst_;
 }
 
 void
-SolverSIM::computeYP(const double* yy) {
-  // YP[i] = (y[i]-yprec[i])/h for each differential variable
-  assert(h_ > 0.);
-  for (unsigned int i = 0; i < differentialVariablesIndices_.size(); ++i) {
-    vectorYp_[differentialVariablesIndices_[i]] = (yy[differentialVariablesIndices_[i]] - ySave_[differentialVariablesIndices_[i]]) / h_;
+SolverCommonFixedTimeStep::calculateICCommon() {
+  Trace::debug() << DYNLog(CalculateIC) << Trace::endline;
+  // Root evaluation before the initialization
+  // --------------------------------
+  ySave_.assign(vectorY_.begin(), vectorY_.end());
+
+  // Updating discrete variable values and mode
+  model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
+  model_->evalG(tSolve_, g0_);
+  evalZMode(g0_, g1_, tSolve_);
+  model_->rotateBuffers();
+  state_.reset();
+  model_->reinitMode();
+
+  solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlgInit_, initialaddtolAlgInit_, scsteptolAlgInit_, mxnewtstepAlgInit_, msbsetAlgInit_,
+                                                         mxiterAlgInit_, printflAlgInit_);
+}
+
+bool
+SolverCommonFixedTimeStep::calculateICCommonModeChange(int& counter, bool& change) {
+  // Updating discrete variable values and mode
+  model_->evalG(tSolve_, g1_);
+  if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
+    return true;
+  } else {
+    g0_.assign(g1_.begin(), g1_.end());
+    change = evalZMode(g0_, g1_, tSolve_);
   }
+
+  model_->rotateBuffers();
+  state_.reset();
+  model_->reinitMode();
+
+  // Maximum number of initialization calculation
+  ++counter;
+  if (counter >= maxNumberUnstableRoots)
+    throw DYNError(Error::SOLVER_ALGO, SolverFixedTimeStepUnstableRoots, solverType());
+  return false;
 }
 
 void
-SolverSIM::saveContinuousVariables() {
+SolverCommonFixedTimeStep::saveContinuousVariables() {
   ySave_.assign(vectorY_.begin(), vectorY_.end());
 }
 
-void
-SolverSIM::computePrediction() {
-  // order-0 prediction - YP = 0
-  // and Y0_{n+1} = Y_n (natively true so nothing to do)
-  std::fill(vectorYp_.begin(), vectorYp_.end(), 0.);
-}
-
-void SolverSIM::handleMaximumTries(int& counter) {
+void SolverCommonFixedTimeStep::handleMaximumTries(int& counter) {
   ++counter;
   if (counter >= maxNewtonTry_)
-    throw DYNError(Error::SOLVER_ALGO, SolverSIMConvFail, maxNewtonTry_);
+    throw DYNError(Error::SOLVER_ALGO, SolverFixedTimeStepConvFail, solverType(),  maxNewtonTry_);
+}
+
+SolverCommonFixedTimeStep::SolverStatus_t SolverCommonFixedTimeStep::analyzeResult(int& flag) {
+  // Analyze the return value and do further treatments if necessary
+  if (flag < 0) {
+    stats_.ncfn_++;
+    return NON_CONV;
+  } else if (skipNRIfInitialGuessOK_ && !skipNextNR_ && flag == KIN_INITIAL_GUESS_OK) {
+    skipNextNR_ = skipNRIfInitialGuessOK_;
+    Trace::info() << DYNLog(SolverFixedTimeStepInitGuessOK, solverType()) << Trace::endline;
+  }
+  return CONV;
 }
 
 int
-SolverSIM::callAlgebraicSolver() {
+SolverCommonFixedTimeStep::callAlgebraicSolver() {
   int flag = 0;
   if (skipNextNR_) {
     return KIN_INITIAL_GUESS_OK;
@@ -389,19 +324,7 @@ SolverSIM::callAlgebraicSolver() {
   return flag;
 }
 
-SolverSIM::SolverStatus_t SolverSIM::analyzeResult(int& flag) {
-  // Analyze the return value and do further treatments if necessary
-  if (flag < 0) {
-    stats_.ncfn_++;
-    return NON_CONV;
-  } else if (skipNRIfInitialGuessOK_ && !skipNextNR_ && flag == KIN_INITIAL_GUESS_OK) {
-    skipNextNR_ = skipNRIfInitialGuessOK_;
-    Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
-  }
-  return CONV;
-}
-
-void SolverSIM::updateZAndMode(SolverStatus_t& status) {
+void SolverCommonFixedTimeStep::updateZAndMode(SolverStatus_t& status) {
   // Evaluate root values after the time step (using updated y and yp)
   model_->evalG(tSolve_ + h_, g1_);
   ++stats_.nge_;
@@ -423,7 +346,7 @@ void SolverSIM::updateZAndMode(SolverStatus_t& status) {
 }
 
 void
-SolverSIM::updateStatistics() {
+SolverCommonFixedTimeStep::updateStatistics() {
   long int nre = 0;
   long int nje = 0;
   solverKINEuler_->updateStatistics(nNewt_, nre, nje);
@@ -432,9 +355,10 @@ SolverSIM::updateStatistics() {
   stats_.nje_ += nje;
 }
 
-void SolverSIM::handleDivergence(bool& redoStep) {
+void SolverCommonFixedTimeStep::handleDivergence(bool& redoStep) {
   if (doubleEquals(h_, hMin_)) {
-    throw DYNError(Error::SOLVER_ALGO, SolverSIMConvFailMin);   // Divergence or unstable root at minimum step length, fail to resolve problem
+    // Divergence or unstable root at minimum step length, fail to resolve problem
+    throw DYNError(Error::SOLVER_ALGO, SolverFixedTimeStepConvFailMin, solverType());
   }
   factorizationForced_ = true;
   redoStep = true;
@@ -443,16 +367,16 @@ void SolverSIM::handleDivergence(bool& redoStep) {
 }
 
 void
-SolverSIM::decreaseStep() {
+SolverCommonFixedTimeStep::decreaseStep() {
   hNew_ = max(h_ * kReduceStep_, hMin_);
 }
 
 void
-SolverSIM::restoreContinuousVariables() {
+SolverCommonFixedTimeStep::restoreContinuousVariables() {
   vectorY_.assign(ySave_.begin(), ySave_.end());
 }
 
-void SolverSIM::handleConvergence(bool& redoStep) {
+void SolverCommonFixedTimeStep::handleConvergence(bool& redoStep) {
   factorizationForced_ = false;
   redoStep = false;
   skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
@@ -460,14 +384,14 @@ void SolverSIM::handleConvergence(bool& redoStep) {
 }
 
 void
-SolverSIM::increaseStep() {
+SolverCommonFixedTimeStep::increaseStep() {
   if (doubleNotEquals(h_, hMax_))
     hNew_ = min(h_ / kReduceStep_, hMax_);
   // Limitation to end up the simulation at tEnd
   hNew_ = min(hNew_, tEnd_ - (tSolve_ + h_));
 }
 
-void SolverSIM::handleRoot(bool& redoStep) {
+void SolverCommonFixedTimeStep::handleRoot(bool& redoStep) {
   if (model_->getModeChangeType() == ALGEBRAIC_J_UPDATE_MODE) {
     factorizationForced_ = true;
   } else {
@@ -477,7 +401,7 @@ void SolverSIM::handleRoot(bool& redoStep) {
   redoStep = false;
 }
 
-void SolverSIM::updateTimeStep(double& tNxt) {
+void SolverCommonFixedTimeStep::updateTimeStep(double& tNxt) {
   hNew_ = min(hNew_, tEnd_ - (tSolve_ + hNew_));
   // tNxt is the initial time step value (corresponding to the current time step done)
   tNxt = tSolve_ + h_;
@@ -491,7 +415,7 @@ void SolverSIM::updateTimeStep(double& tNxt) {
   }
 }
 
-bool SolverSIM::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
+bool SolverCommonFixedTimeStep::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
   if (modeChangeType == ALGEBRAIC_MODE) {
     solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_,
                                                            printflAlg_);
@@ -506,10 +430,10 @@ bool SolverSIM::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
 
 /*
  * This routine deals with the possible actions due to a mode change.
- * In the simplified solver, in case of a mode change, depending on the types of mode, either there is an algebraic equation restoration or nothing is done.
+ * In the simplified solver and trapezoidal one, in case of a mode change, depending on the types of mode, either there is an algebraic equation restoration or nothing is done.
  */
 void
-SolverSIM::reinit() {
+SolverCommonFixedTimeStep::reinit() {
   int counter = 0;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
 
@@ -557,12 +481,12 @@ SolverSIM::reinit() {
 
     counter++;
     if (counter >= maxNumberUnstableRoots)
-      throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
+      throw DYNError(Error::SOLVER_ALGO, SolverFixedTimeStepUnstableRoots, solverType());
   } while (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_);
 }
 
 void
-SolverSIM::setDifferentialVariablesIndices() {
+SolverCommonFixedTimeStep::setDifferentialVariablesIndices() {
   const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
 
   differentialVariablesIndices_.clear();
@@ -575,12 +499,12 @@ SolverSIM::setDifferentialVariablesIndices() {
 }
 
 void
-SolverSIM::printHeaderSpecific(std::stringstream& ss) const {
+SolverCommonFixedTimeStep::printHeaderSpecific(std::stringstream& ss) const {
   ss << "| iter num   Nonlinear iter   jac eval      time step (h)";
 }
 
 void
-SolverSIM::printSolveSpecific(std::stringstream& msg) const {
+SolverCommonFixedTimeStep::printSolveSpecific(std::stringstream& msg) const {
   msg << "| " << setw(8) << stats_.nst_ << " "
           << setw(16) << stats_.nni_ << " "
           << setw(10) << stats_.nje_ << " "

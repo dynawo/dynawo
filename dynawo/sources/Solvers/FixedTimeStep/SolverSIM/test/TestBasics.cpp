@@ -12,7 +12,7 @@
 //
 
 /**
- * @file Solvers/SolverSIM/TestBasics.cpp
+ * @file Solvers/FixedTimeStep/SolverSIM/TestBasics.cpp
  * @brief Unit tests for Solver SIM
  *
  */
@@ -169,7 +169,7 @@ static std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolve
 
   data->mapConnections();
 
-  std::string ddb_dir = getEnvVar("PWD") + "/../../../Models/CPP/ModelNetwork/";
+  std::string ddb_dir = getEnvVar("PWD") + "/../../../../Models/CPP/ModelNetwork/";
 #ifndef _MSC_VER
   setenv("DYNAWO_DDB_DIR", ddb_dir.c_str(), 0);
 #else

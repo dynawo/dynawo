@@ -7,19 +7,19 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-// simulation tool for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+// for power systems.
 //
 
 /**
- * @file  DYNSolverSIM.h
+ * @file  DYNSolverCommonFixedTimeStep.h
  *
- * @brief Solver based on backward Euler integration method using KINSOL
- * to solve each step
+ * @brief Intermediary class that regroup both SIM and TRAP solver. These
+ * last two inherist from this class.
  *
  */
-#ifndef SOLVERS_SOLVERSIM_DYNSOLVERSIM_H_
-#define SOLVERS_SOLVERSIM_DYNSOLVERSIM_H_
+#ifndef SOLVERS_FIXEDTIMESTEP_DYNSOLVERCOMMONFIXEDTIMESTEP_H_
+#define SOLVERS_FIXEDTIMESTEP_DYNSOLVERCOMMONFIXEDTIMESTEP_H_
 
 #include <vector>
 #include <boost/shared_ptr.hpp>
@@ -37,38 +37,9 @@ class SolverKINEuler;
 class SolverKINAlgRestoration;
 
 /**
- * @brief SolverSIM factory class
- *
- * Class for solver SIM creation
+ * @brief class SolverCommonFixedTimeStep : Common class between SIM and TRAP.
  */
-class SolverSIMFactory : public SolverFactory {  ///< Simplified solver factory
- public:
-  /**
-   * @brief default constructor
-   */
-  SolverSIMFactory();
-
-  /**
-   * @brief destructor
-   */
-  ~SolverSIMFactory();
-
-  /**
-   * @brief Create an instance of solver
-   * @return the new instance of solver created by the factory
-   */
-  Solver* create() const;
-
-  /**
-   * @brief SolverSIM destroy
-   */
-  void destroy(Solver*) const;
-};
-
-/**
- * @brief class Solver SIM : simplified solver
- */
-class SolverSIM : public Solver::Impl {
+class SolverCommonFixedTimeStep : public Solver::Impl {
  public:
   /**
    * @brief define returns value by the solver
@@ -79,16 +50,48 @@ class SolverSIM : public Solver::Impl {
     ROOT = 2  ///< a root was found
   } SolverStatus_t;
 
- public:
   /**
    * @brief default constructor
    */
-  SolverSIM();
+  SolverCommonFixedTimeStep();
 
   /**
-   * @brief destructor
+   * @brief default destrcutor
    */
-  ~SolverSIM();
+  virtual ~SolverCommonFixedTimeStep() {
+  }
+
+  /**
+   * @brief Common initialization part of calculateIC function.
+   */
+  void calculateICCommon();
+
+  /**
+   * @brief Second part of the common CalculateIC function.
+   * Common part in the loop that check if there is
+   * a z or a mode change.
+   *
+   * @param counter of initialization calculation
+   * @param change check if there is a z or a mode change.
+   * @returns true if we must continue the algorithm, false if we must retry
+   */
+  bool calculateICCommonModeChange(int& counter, bool& change);
+
+  /**
+  * @brief compute YP prediction
+  * @return nothing
+  */
+  virtual void computePrediction() = 0;
+
+  /**
+   * @brief Common part of the function init. Used to factorize.
+   *
+   * @param model model associated to the solver
+   * @param t0 initial time value.
+   * @param tEnd final time value.
+   *
+   */
+  void initCommon(const boost::shared_ptr<Model> &model, const double & t0, const double & tEnd);
 
   /**
    * @copydoc Solver::Impl::defineSpecificParameters()
@@ -101,34 +104,9 @@ class SolverSIM : public Solver::Impl {
   void setSolverSpecificParameters();
 
   /**
-   * @copydoc Solver::Impl::solverType()
-   */
-  std::string solverType() const;
-
-  /**
-   * @copydoc Solver::init(const boost::shared_ptr<Model> & model, const double & t0, const double & tEnd)
-   */
-  void init(const boost::shared_ptr<Model> &model, const double & t0, const double & tEnd);
-
-  /**
    * @copydoc Solver::reinit()
    */
   void reinit();
-
-  /**
-  * @brief compute YP prediction
-  */
-  virtual void computePrediction();
-
-  /**
-  * @copydoc Solver::computeYP()
-  */
-  virtual void computeYP(const double* yy);
-
-  /**
-   * @copydoc Solver::calculateIC()
-   */
-  void calculateIC();
 
   /**
    * @brief print solver specific introduction information
@@ -152,6 +130,7 @@ class SolverSIM : public Solver::Impl {
 
   /**
    * @brief increment the counter of NR tries and stop the simulation if it is higher than a threshold
+   *
    * @param counter the current number of tries
    */
   void handleMaximumTries(int& counter);
@@ -165,19 +144,23 @@ class SolverSIM : public Solver::Impl {
 
   /**
    * @brief analyze and potentially retrieve the results obtained by the algebraic solver call
+   *
    * @param flag the flag obtained after the call to the algebraic solver
+   *
    * @return the current status of the solver
    */
   SolverStatus_t analyzeResult(int& flag);
 
   /**
    * @brief update the discrete variables values and the mode of the equations
+   *
    * @param status the current status of the solver before this process
    */
   void updateZAndMode(SolverStatus_t& status);
 
   /**
    * @brief update the solver attributes and strategy following a divergence
+   *
    * @param redoStep indicates if the step has to be recalculated or not
    */
   void handleDivergence(bool& redoStep);
@@ -194,6 +177,7 @@ class SolverSIM : public Solver::Impl {
 
   /**
    * @brief update the solver attributes and strategy following a convergence
+   *
    * @param redoStep indicates if the step has to be recalculated or not
    */
   void handleConvergence(bool& redoStep);
@@ -205,28 +189,28 @@ class SolverSIM : public Solver::Impl {
 
   /**
    * @brief update the solver attributes and strategy following a root detection
+   *
    * @param redoStep indicates if the step has to be recalculated or not
    */
   void handleRoot(bool& redoStep);
 
   /**
    * @brief update the time step at the end of the current step
+   *
    * @param tNxt current time step calculated
    */
   void updateTimeStep(double& tNxt);
 
-  /**
-   * @copydoc Solver::getTimeStep()
-   */
-  double getTimeStep() const {
-    return h_;
-  }
-
  protected:
   /**
-   * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
+   * @brief Common part of solveStep function. Used to factorize.
+   *
+   * @param tAim the next time at which a computed solution is desired
+   * @param tNxt the time reached by the solver
+   *
+   * @return nothing
    */
-  void solveStep(double tAim, double &tNxt);
+  void solveStepCommon(double tAim, double &tNxt);
 
   /**
    * @copydoc Solver::setupNewAlgRestoration(modeChangeType_t modeChangeType)
@@ -243,7 +227,7 @@ class SolverSIM : public Solver::Impl {
   */
   void setDifferentialVariablesIndices();
 
- private:
+ protected:
   boost::shared_ptr<SolverKINEuler> solverKINEuler_;  ///< Backward Euler solver
   boost::shared_ptr<SolverKINAlgRestoration> solverKINAlgRestoration_;  ///< Newton Raphson solver for the algebraic variables restoration
 
@@ -279,7 +263,6 @@ class SolverSIM : public Solver::Impl {
   bool skipNRIfInitialGuessOK_;  ///< enable the possibility to skip next iterations if the simulation is stable
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time
 };
-
 }  // end of namespace DYN
 
-#endif  // SOLVERS_SOLVERSIM_DYNSOLVERSIM_H_
+#endif  // SOLVERS_FIXEDTIMESTEP_DYNSOLVERCOMMONFIXEDTIMESTEP_H_

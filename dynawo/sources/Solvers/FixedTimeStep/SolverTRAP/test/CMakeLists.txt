@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Copyright (c) 2021, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,7 +8,7 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-set(MODULE_NAME SOLVERIDA_unittest)
+set(MODULE_NAME SOLVERTRAP_unittest)
 
 set(MODULE_SOURCES
   TestBasics.cpp
@@ -20,27 +20,27 @@ target_link_libraries(${MODULE_NAME}
   dynawo_ModelerCommon
   dynawo_API_PAR
   dynawo_API_TL
-  dynawo_SolverIDA
+  dynawo_SolverTRAP
   dynawo_SolverCommon
   dynawo_API_DYD
   dynawo_CPPModelsCommon
   dynawo_Test
-)
+  )
 
 if(NOT USE_LEGACY_IIDM)
   target_link_libraries(${MODULE_NAME}
     IIDM::iidm
-  )
+    )
 else()
   target_link_libraries(${MODULE_NAME}
     iidm-xml
-)
+    )
 endif()
 
 target_link_libraries(${MODULE_NAME}
   dynawo_DataInterfaceIIDM
   dynawo_DataInterface
-)
+  )
 
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" "DYNAWO_XSD_DIR=./" $<TARGET_FILE:${MODULE_NAME}>
@@ -51,13 +51,13 @@ add_custom_target(${MODULE_NAME}-tests
 
 add_custom_target(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/jobs ${CMAKE_CURRENT_BINARY_DIR}/jobs
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../../../API/DYD/xsd/ ${CMAKE_CURRENT_BINARY_DIR}/
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../../../API/PAR/xsd/ ${CMAKE_CURRENT_BINARY_DIR}/
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../../../API/EXTVAR/xsd/ ${CMAKE_CURRENT_BINARY_DIR}/
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../../../../API/DYD/xsd/ ${CMAKE_CURRENT_BINARY_DIR}/
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../../../../API/PAR/xsd/ ${CMAKE_CURRENT_BINARY_DIR}/
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../../../../API/EXTVAR/xsd/ ${CMAKE_CURRENT_BINARY_DIR}/
   )
 
 if(BUILD_TESTS_COVERAGE)
-  set(EXTRACT_PATTERNS "'*/sources/Solvers/SolverIDA/DYN*'")
+  set(EXTRACT_PATTERNS "'*/sources/Solvers/SolverSIM/DYN*'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
