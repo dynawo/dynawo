@@ -207,8 +207,6 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
    *
    * @param tAim the next time at which a computed solution is desired
    * @param tNxt the time reached by the solver
-   *
-   * @return nothing
    */
   void solveStepCommon(double tAim, double &tNxt);
 
