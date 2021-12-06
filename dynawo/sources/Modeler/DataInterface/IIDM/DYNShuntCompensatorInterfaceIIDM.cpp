@@ -146,4 +146,9 @@ ShuntCompensatorInterfaceIIDM::isLinear() const {
   return true;
 }
 
+double
+ShuntCompensatorInterfaceIIDM::getTargetV() const {
+  return 0.0;
+}
+
 }  // namespace DYN
