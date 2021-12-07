@@ -1,9 +1,8 @@
-LeadLag
-PIAntiWindup
-PIAntiWindupVariableLimits
-Power
 IntegratorSetFreeze
 LeadLag
 LimPIDFreeze
-VarLimPIDFreeze
+PIAntiWindup
+PIAntiWindupVariableLimits
+Power
 RateLimFirstOrderFreeze
+VarLimPIDFreeze
