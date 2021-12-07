@@ -316,3 +316,13 @@ case_description = "SVarCPVRemoteModeHandling test case with a step on the refer
 job_file = os.path.join(os.path.dirname(__file__),  "StaticVarCompensators", "SVarC_StepURef", "SVarCPVRemoteModeHandling", "SVarC.jobs")
 
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+##########################################
+#        VoltageMeasurementsUtilities            #
+##########################################
+
+case_name = "DynaFlow - VoltageMeasurementsUtilities"
+case_description = "Compute Min, Max, and Mean values of input voltage"
+job_file = os.path.join(os.path.dirname(__file__),  "VoltageMeasurementsUtilities", "VMU.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
