@@ -32,6 +32,7 @@
 #include <boost/graph/properties.hpp>
 #include <boost/graph/connected_components.hpp>
 #include <boost/unordered_map.hpp>
+#include <boost/unordered_set.hpp>
 
 
 // definitions of typedef alias to hide boost types
@@ -174,9 +175,9 @@ class Graph {
    *
    * @return @b true if the vertexExtremity is reached
    */
-  bool findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity,
-      PathDescription &currentPath, std::vector<bool> &encountered, std::list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
-      bool stopWhenExtremityReached);
+  bool findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity, PathDescription& currentPath,
+                    boost::unordered_set<unsigned int>& encountered, std::list<PathDescription>& paths, FilteredBoostGraph& filteredGraph,
+                    bool stopWhenExtremityReached);
 
   /**
    * @brief find if the current edge reach the vertexExtremity
@@ -192,9 +193,9 @@ class Graph {
    *
    * @return @b true if the vertexExtremity is reached
    */
-  bool findAllPaths(const std::string& edgeId, const unsigned int& vertex, const unsigned int& vertexExtremity,
-      PathDescription &currentPath, std::vector<bool> &encountered, std::list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
-      bool stopWhenExtremityReached);
+  bool findAllPaths(const std::string& edgeId, const unsigned int& vertex, const unsigned int& vertexExtremity, PathDescription& currentPath,
+                    boost::unordered_set<unsigned int>& encountered, std::list<PathDescription>& paths, FilteredBoostGraph& filteredGraph,
+                    bool stopWhenExtremityReached);
 
  private:
   BoostGraph internalGraph_;  ///< graph description

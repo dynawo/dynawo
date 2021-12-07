@@ -455,11 +455,11 @@ VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
     weights[ssInternalConnectionId.str()] = 1;
   }
 
-  for (const auto& nodeIndex : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
-    const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(nodeIndex);
+  for (const auto& nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
+    const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(nodeId);
     if (terminal) {
       const auto& bus = terminal.get().getBusView().getBus();
-      if (bus && graph_.pathExist(nodeToCheck, static_cast<unsigned int>(nodeIndex), weights)) {
+      if (bus && graph_.pathExist(nodeToCheck, static_cast<unsigned int>(nodeId), weights)) {
         return true;
       }
     }
