@@ -16,5 +16,5 @@
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="PRefPu"/>
   <variable type="continuous" id="QRefPu"/>
-  <variable type="continuous" id="OmegaRefPu"/>
+  <variable type="continuous" id="omegaRefPu"/>
 </external_variables>

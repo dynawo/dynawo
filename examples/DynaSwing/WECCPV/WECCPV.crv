@@ -14,4 +14,9 @@
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
     <curve model="WECCPV" variable="photovoltaics_injector_PInjPu"/>
     <curve model="WECCPV" variable="photovoltaics_injector_QInjPu"/>
+    <curve model="WECCPV" variable="photovoltaics_injector_terminal_V_re"/>
+    <curve model="WECCPV" variable="photovoltaics_injector_terminal_i_re"/>
+    <curve model="WECCPV" variable="photovoltaics_injector_terminal_V_im"/>
+    <curve model="WECCPV" variable="photovoltaics_injector_terminal_i_im"/>
+    <curve model="WECCPV" variable="photovoltaics_pll_omegaPLLPu"/>
 </curvesInput>

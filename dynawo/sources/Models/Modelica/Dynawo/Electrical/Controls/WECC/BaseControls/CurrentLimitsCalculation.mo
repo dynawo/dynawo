@@ -16,39 +16,39 @@ block CurrentLimitsCalculation "This block calculates the current limits"
   import Modelica;
   import Dynawo.Types;
 
-  parameter Types.PerUnit IMax "Maximum inverter current amplitude";
+  parameter Types.PerUnit IMaxPu "Maximum inverter current amplitude in p.u (base UNom, SNom)";
   parameter Boolean PPriority "Priority: reactive power (false) or active power (true)";
 
-  Modelica.Blocks.Interfaces.RealInput IpCmd annotation(
+  Modelica.Blocks.Interfaces.RealInput IpCmdPu "p-axis command current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput IqCmd annotation(
+  Modelica.Blocks.Interfaces.RealInput IqCmdPu "q-axis command current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput IpMax annotation(
+  Modelica.Blocks.Interfaces.RealOutput IpMaxPu "p-axis maximum current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput IqMax annotation(
+  Modelica.Blocks.Interfaces.RealOutput IqMaxPu "q-axis maximum current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput IpMin annotation(
+  Modelica.Blocks.Interfaces.RealOutput IpMinPu "p-axis minimum current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput IqMin annotation(
+  Modelica.Blocks.Interfaces.RealOutput IqMinPu "q-axis minimum current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
-  Types.PerUnit IpLim = max(min(abs(IpCmd), IMax), 0);
-  Types.PerUnit IqLim = max(min(abs(IqCmd), IMax), - IMax);
+  Types.PerUnit IpLimPu = max(min(abs(IpCmdPu), IMaxPu), 0);
+  Types.PerUnit IqLimPu = max(min(abs(IqCmdPu), IMaxPu), - IMaxPu);
 
 equation
   if PPriority then
-    IpMax = IMax;
-    IpMin = 0;
-    IqMax = sqrt(IMax ^ 2 - IpLim ^ 2);
-    IqMin = - IqMax;
+    IpMaxPu = IMaxPu;
+    IpMinPu = 0;
+    IqMaxPu = sqrt(IMaxPu ^ 2 - IpLimPu ^ 2);
+    IqMinPu = - IqMaxPu;
   else
-    IpMax = sqrt(IMax ^ 2 - IqLim ^ 2);
-    IpMin = 0;
-    IqMax = IMax;
-    IqMin = - IqMax;
+    IpMaxPu = sqrt(IMaxPu ^ 2 - IqLimPu ^ 2);
+    IpMinPu = 0;
+    IqMaxPu = IMaxPu;
+    IqMinPu = - IqMaxPu;
   end if;
 
   annotation(preferredView = "text",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {44, -1}, extent = {{-124, 81}, {36, 21}}, textString = "Current"), Text(origin = {-115, -25}, extent = {{-27, 9}, {13, -3}}, textString = "IqCmd"), Text(origin = {-115, 53}, extent = {{-27, 9}, {13, -3}}, textString = "IpCmd"), Text(origin = {125, -9}, extent = {{-27, 9}, {13, -3}}, textString = "IqMin"), Text(origin = {125, -49}, extent = {{-27, 9}, {13, -3}}, textString = "IqMax"), Text(origin = {125, 71}, extent = {{-27, 9}, {13, -3}}, textString = "IpMin"), Text(origin = {125, 31}, extent = {{-27, 9}, {13, -3}}, textString = "IpMax"), Text(origin = {44, -61}, extent = {{-124, 41}, {36, -19}}, textString = "limits")}, coordinateSystem(initialScale = 0.1)));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {44, -1}, extent = {{-124, 81}, {36, 21}}, textString = "Current"), Text(origin = {-115, -25}, extent = {{-27, 9}, {13, -3}}, textString = "IqCmdPu"), Text(origin = {-115, 53}, extent = {{-27, 9}, {13, -3}}, textString = "IpCmdPu"), Text(origin = {127, -9}, extent = {{-27, 9}, {13, -3}}, textString = "IqMinPu"), Text(origin = {127, -49}, extent = {{-27, 9}, {13, -3}}, textString = "IqMaxPu"), Text(origin = {127, 71}, extent = {{-27, 9}, {13, -3}}, textString = "IpMinPu"), Text(origin = {127, 31}, extent = {{-27, 9}, {13, -3}}, textString = "IpMaxPu"), Text(origin = {44, -61}, extent = {{-124, 41}, {36, -19}}, textString = "limits")}, coordinateSystem(initialScale = 0.1)));
 end CurrentLimitsCalculation;

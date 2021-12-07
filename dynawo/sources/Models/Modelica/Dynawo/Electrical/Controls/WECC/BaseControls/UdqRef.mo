@@ -17,25 +17,25 @@ block UdqRef "Calculation of setpoints udRef and uqRef with source impedance R+j
   import Modelica.Blocks.Interfaces;
   import Dynawo.Types;
 
-  parameter Types.PerUnit R "Equivalent resistance";
-  parameter Types.PerUnit X "Equivalent reactance";
+  parameter Types.PerUnit RPu "Source resistance in p.u (base UNom, SnRef)";
+  parameter Types.PerUnit XPu "Source reactance in p.u (base UNom, SnRef)";
 
-  Interfaces.RealInput idRef annotation(
+  Interfaces.RealInput idRefPu "d-axis reference current in p.u (base UNom, SnRef)" annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput iqRef annotation(
+  Interfaces.RealInput iqRefPu "q-axis reference current in p.u (base UNom, SnRef)" annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput ud annotation(
+  Interfaces.RealInput udPu "d-axis voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput uq annotation(
+  Interfaces.RealInput uqPu "q-axis voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput udRef annotation(
+  Interfaces.RealOutput udRefPu "d-axis reference voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput uqRef annotation(
+  Interfaces.RealOutput uqRefPu "q-axis reference voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  udRef = ud + idRef * R - iqRef * X;
-  uqRef = uq + iqRef * R + idRef * X;
+  udRefPu = udPu + idRefPu * RPu - iqRefPu * XPu;
+  uqRefPu = uqPu + iqRefPu * RPu + idRefPu * XPu;
 
   annotation(preferredView = "text",
     Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Text(origin = {-121.5, 96}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "idRef"), Text(origin = {-121.5, 46}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "iqRef"), Text(origin = {-130.5, -11}, extent = {{0.5, 1}, {15.5, -10}}, textString = "ud"), Text(origin = {-130.5, -61}, extent = {{0.5, 1}, {15.5, -10}}, textString = "uq"), Text(origin = {119.5, 52}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "udRef"), Text(origin = {119.5, -29}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "uqRef"), Text(origin = {-10.5, 12}, extent = {{-69.5, 68}, {90.5, -92}}, textString = "UdqRef"), Rectangle(extent = {{-100, 100}, {100, -100}})}));

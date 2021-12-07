@@ -19,25 +19,25 @@ block VarLimPIDFreeze "PI controller with limited output (with adjustable limits
 
   extends Blocks.Interfaces.SVcontrol;
 
-  parameter Real k(min = 0) = 1 "Gain of controller";
-  parameter Types.Time Ti(min = Constants.small) = 0.5 "Time constant of Integrator block";
-  parameter Real wp(min = 0) = 1 "Set-point weight for Proportional block (0..1)";
-  parameter Real Ni(min = 100 * Constants.eps) = 0.9 "Ni*Ti is time constant of anti-windup compensation";
-  parameter Boolean withFeedForward = false "Use feed-forward input?" annotation(
+  parameter Real K = 1 "Gain of controller";
+  parameter Types.Time Ti = 0.5 "Time constant of Integrator block";
+  parameter Real Wp = 1 "Set-point weight for Proportional block (0..1)";
+  parameter Real Ni = 0.9 "Ni*Ti is time constant of anti-windup compensation";
+  parameter Boolean WithFeedForward = false "Use feed-forward input?" annotation(
     Evaluate = true,
     choices(checkBox = true));
-  parameter Real kFF = 1 "Gain of feed-forward input" annotation(
-    Dialog(enable = withFeedForward));
-  parameter Real xi_start = 0 "Initial or guess value for integrator output (= integrator state)";
-  parameter Real y_start = 0 "Initial value of output";
-  parameter Boolean strict = false "= true, if strict limits with noEvent(..)" annotation(
+  parameter Real Kff = 1 "Gain of feed-forward input" annotation(
+    Dialog(enable = WithFeedForward));
+  parameter Real Xi0 = 0 "Initial or guess value for integrator output (= integrator state)";
+  parameter Real Y0 = 0 "Initial value of output";
+  parameter Boolean Strict = false "= true, if Strict limits with noEvent(..)" annotation(
     Evaluate = true,
     choices(checkBox = true),
     Dialog(tab = "Advanced"));
   constant Types.Time unitTime = 1 annotation(
     HideResult = true);
 
-  Blocks.Interfaces.RealInput u_ff if withFeedForward "Optional connector of feed-forward input signal" annotation(
+  Blocks.Interfaces.RealInput uFF if WithFeedForward "Optional connector of feed-forward input signal" annotation(
     Placement(transformation(origin = {60, -120}, extent = {{20, -20}, {-20, 20}}, rotation = 270)));
   Blocks.Interfaces.RealInput yMin annotation(
     Placement(visible = true, transformation(origin = { -120, -62}, extent = {{20, -20}, {-20, 20}}, rotation = 180), iconTransformation(origin = { -120, -62}, extent = {{20, -20}, {-20, 20}}, rotation = 180)));
@@ -48,11 +48,11 @@ block VarLimPIDFreeze "PI controller with limited output (with adjustable limits
 
   output Real controlError = u_s - u_m "Control error (set point - measurement)";
 
-  Blocks.Math.Add addP(k1 = wp, k2 = -1) annotation(
+  Blocks.Math.Add addP(k1 = Wp, k2 = -1) annotation(
     Placement(transformation(extent = {{-80, 40}, {-60, 60}})));
   Blocks.Math.Gain P(k = 1) annotation(
     Placement(transformation(extent = {{-50, 40}, {-30, 60}})));
-  Blocks.Math.Gain gainPID(k = k) annotation(
+  Blocks.Math.Gain gainPID(k = K) annotation(
     Placement(transformation(extent = {{20, -10}, {40, 10}})));
   Blocks.Math.Add addPID annotation(
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
@@ -60,15 +60,15 @@ block VarLimPIDFreeze "PI controller with limited output (with adjustable limits
     Placement(transformation(extent = {{-80, -60}, {-60, -40}})));
   Blocks.Math.Add addSat(k1 = +1, k2 = -1) annotation(
     Placement(transformation(origin = {80, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
-  Blocks.Math.Gain gainTrack(k = 1 / (k * Ni)) annotation(
+  Blocks.Math.Gain gainTrack(k = 1 / (K * Ni)) annotation(
     Placement(transformation(extent = {{0, -80}, {-20, -60}})));
   Blocks.Nonlinear.VariableLimiter limiter annotation(
     Placement(transformation(extent = {{70, -10}, {90, 10}})));
-  Blocks.Sources.Constant FFzero(k = 0) if not withFeedForward annotation(
+  Blocks.Sources.Constant FFzero(k = 0) if not WithFeedForward annotation(
     Placement(transformation(extent = {{30, -35}, {40, -25}})));
-  Blocks.Math.Add addFF(k1 = 1, k2 = kFF) annotation(
+  Blocks.Math.Add addFF(k1 = 1, k2 = Kff) annotation(
     Placement(transformation(extent = {{48, -6}, {60, 6}})));
-  IntegratorSetFreeze I(k = unitTime / Ti, use_freeze = true, y_start = xi_start)  annotation(
+  IntegratorSetFreeze I(K = unitTime / Ti, UseFreeze = true, Y0 = Xi0)  annotation(
     Placement(visible = true, transformation(origin = {-38, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
@@ -106,7 +106,7 @@ equation
     Line(points = {{41, 0}, {44, 0}, {44, 3.6}, {46.8, 3.6}}, color = {0, 0, 127}));
   connect(FFzero.y, addFF.u2) annotation(
     Line(points = {{40.5, -30}, {44, -30}, {44, -3.6}, {46.8, -3.6}}, color = {0, 0, 127}));
-  connect(addFF.u2, u_ff) annotation(
+  connect(addFF.u2, uFF) annotation(
     Line(points = {{46.8, -3.6}, {44, -3.6}, {44, -92}, {60, -92}, {60, -120}}, color = {0, 0, 127}));
   connect(addFF.y, addSat.u2) annotation(
     Line(points = {{60.6, 0}, {64, 0}, {64, -20}, {74, -20}, {74, -38}}, color = {0, 0, 127}));
@@ -117,7 +117,7 @@ equation
 
   annotation(
     defaultComponentName = "PI",
-    Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Line(points = {{-80, 78}, {-80, -90}}, color = {192, 192, 192}), Polygon(points = {{-80, 90}, {-88, 68}, {-72, 68}, {-80, 90}}, lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid), Line(points = {{-90, -80}, {82, -80}}, color = {192, 192, 192}), Polygon(points = {{90, -80}, {68, -72}, {68, -88}, {90, -80}}, lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid), Line(points = {{-80, -80}, {-80, -20}, {30, 60}, {80, 60}}, color = {0, 0, 127}), Text(extent = {{-20, -20}, {80, -60}}, lineColor = {192, 192, 192}), Line(visible = strict, points = {{30, 60}, {81, 60}}, color = {255, 0, 0})}),
+    Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Line(points = {{-80, 78}, {-80, -90}}, color = {192, 192, 192}), Polygon(points = {{-80, 90}, {-88, 68}, {-72, 68}, {-80, 90}}, lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid), Line(points = {{-90, -80}, {82, -80}}, color = {192, 192, 192}), Polygon(points = {{90, -80}, {68, -72}, {68, -88}, {90, -80}}, lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid), Line(points = {{-80, -80}, {-80, -20}, {30, 60}, {80, 60}}, color = {0, 0, 127}), Text(extent = {{-20, -20}, {80, -60}}, lineColor = {192, 192, 192}), Line(visible = Strict, points = {{30, 60}, {81, 60}}, color = {255, 0, 0})}),
     Diagram(graphics = {Text(lineColor = {0, 0, 255}, extent = {{79, -112}, {129, -102}}, textString = " (feed-forward)")}),
     Documentation(info = "<html>
 
@@ -132,7 +132,7 @@ The following features are present:
      the setpoint in the proportional part
      independently from the measurement. The controller will respond
      to load disturbances and measurement noise independently of this setting
-     (parameters wp). However, setpoint changes will depend on this
+     (parameters Wp). However, setpoint changes will depend on this
      setting.</li>
 <li> Optional feed-forward. It is possible to add a feed-forward signal.
      The feed-forward signal is added before limitation.</li>

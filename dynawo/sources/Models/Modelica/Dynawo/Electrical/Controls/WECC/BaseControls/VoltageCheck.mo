@@ -16,12 +16,12 @@ block VoltageCheck "This block generates a signal to freeze the control when the
   import Modelica.Blocks;
   import Dynawo.Types;
 
-  parameter Types.PerUnit UMinPu "Lower voltage limit for freeze";
-  parameter Types.PerUnit UMaxPu "Upper voltage limit for freeze";
+  parameter Types.PerUnit UMinPu "Lower voltage limit for freeze in p.u (base UNom)";
+  parameter Types.PerUnit UMaxPu "Upper voltage limit for freeze in p.u (base UNom)";
 
-  Blocks.Interfaces.RealInput UPu annotation(
+  Blocks.Interfaces.RealInput UPu "Voltage module in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.BooleanOutput freeze annotation(
+  Blocks.Interfaces.BooleanOutput freeze "Boolean to freeze the regulation" annotation(
     Placement(visible = true, transformation(origin = {110, 2.88658e-15}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 2.88658e-15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

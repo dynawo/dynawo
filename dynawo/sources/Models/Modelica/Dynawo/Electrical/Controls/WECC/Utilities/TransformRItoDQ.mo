@@ -16,20 +16,20 @@ block TransformRItoDQ "Transformation from real/imaginary in stationary referenc
   import Modelica.Blocks;
   import Modelica.ComplexBlocks;
 
-  ComplexBlocks.Interfaces.ComplexInput uPu annotation(
+  ComplexBlocks.Interfaces.ComplexInput uPu "Complex voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealInput cosphi annotation(
+  Blocks.Interfaces.RealInput cosPhi "cos(Phi) with Phi the angle of the dq transform" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealInput sinphi annotation(
+  Blocks.Interfaces.RealInput sinPhi "sin(Phi) with Phi the angle of the dq transform" annotation(
     Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealOutput ud annotation(
+  Blocks.Interfaces.RealOutput udPu "d-axis voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealOutput uq annotation(
+  Blocks.Interfaces.RealOutput uqPu "q-axis voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  ud =  ComplexMath.real(uPu) * cosphi + ComplexMath.imag(uPu) * sinphi;
-  uq = - ComplexMath.real(uPu) * sinphi + ComplexMath.imag(uPu) * cosphi;
+  udPu =  ComplexMath.real(uPu) * cosPhi + ComplexMath.imag(uPu) * sinPhi;
+  uqPu = - ComplexMath.real(uPu) * sinPhi + ComplexMath.imag(uPu) * cosPhi;
 
 annotation(
-    Icon(coordinateSystem(grid = {1, 1}), graphics = {Text(origin = {-114, -18}, extent = {{-25, 14}, {14, -7}}, textString = "cos(phi)"), Text(origin = {-114, -58}, extent = {{-25, 14}, {14, -7}}, textString = "sin(phi)"), Text(origin = {114, 71}, extent = {{-14, 7}, {14, -7}}, textString = "ud"), Text(origin = {114, -50}, extent = {{-14, 7}, {14, -7}}, textString = "uq"), Text(origin = {-130, 85}, extent = {{-14, 7}, {14, -7}}, textString = "uPu"), Text(origin = {-20, 14}, extent = {{-60, 66}, {100, -94}}, textString = "RI/DQ"), Rectangle(extent = {{-100, 100}, {100, -100}})}));end TransformRItoDQ;
+    Icon(coordinateSystem(grid = {1, 1}), graphics = {Text(origin = {-114, -18}, extent = {{-25, 14}, {14, -7}}, textString = "cos(phi)"), Text(origin = {-114, -58}, extent = {{-25, 14}, {14, -7}}, textString = "sin(phi)"), Text(origin = {114, 71}, extent = {{-14, 7}, {14, -7}}, textString = "udPu"), Text(origin = {114, -50}, extent = {{-14, 7}, {14, -7}}, textString = "uqPu"), Text(origin = {-130, 85}, extent = {{-14, 7}, {14, -7}}, textString = "uPu"), Text(origin = {-20, 14}, extent = {{-60, 66}, {100, -94}}, textString = "RI/DQ"), Rectangle(extent = {{-100, 100}, {100, -100}})}));end TransformRItoDQ;

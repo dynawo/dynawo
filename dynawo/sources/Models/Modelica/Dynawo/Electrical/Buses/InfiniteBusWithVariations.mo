@@ -28,10 +28,10 @@ model InfiniteBusWithVariations "Infinite bus with configurable variations on th
   parameter Types.PerUnit omega0Pu "Infinite bus angular frequency before and after event in p.u (base OmegaNom)";
   parameter Types.PerUnit omegaEvtPu "Infinite bus angular frequency during event in p.u (base OmegaNom)";
   parameter Types.Angle UPhase "Infinite bus voltage angle before event in rad";
-  parameter Types.Time tUEvtStart "Start time of voltage event in seconds";
-  parameter Types.Time tUEvtEnd "Ending time of voltage event in seconds";
-  parameter Types.Time tOmegaEvtStart "Start time of frequency event in seconds";
-  parameter Types.Time tOmegaEvtEnd "Ending time of frequency event in seconds";
+  parameter Types.Time tUEvtStart "Start time of voltage event in s";
+  parameter Types.Time tUEvtEnd "Ending time of voltage event in s";
+  parameter Types.Time tOmegaEvtStart "Start time of frequency event in s";
+  parameter Types.Time tOmegaEvtEnd "Ending time of frequency event in s";
 
   Types.PerUnit UPu "Infinite bus voltage module in p.u (base UNom)";
   Types.PerUnit PPu "Infinite bus active power in p.u (base SnRef) (receptor convention)";

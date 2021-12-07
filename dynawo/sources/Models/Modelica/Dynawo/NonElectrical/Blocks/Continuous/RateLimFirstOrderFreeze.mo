@@ -16,54 +16,54 @@ block RateLimFirstOrderFreeze "First order transfer function block with rate lim
   import Modelica;
   import Dynawo.Types;
 
-  extends Modelica.Blocks.Interfaces.SISO(y(start = y_start));
+  extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Real k = 1 "Gain";
-  parameter Types.Time T(start = 1) "Time Constant";
-  parameter Real y_start = 0 "Initial or guess value of output (= state)";
-  parameter Boolean use_freeze = false "= if true, freeze port enabled" annotation(
+  parameter Types.Time T(start = 1) "Time Constant in s";
+  parameter Real Y0 = 0 "Initial or guess value of output (= state)";
+  parameter Boolean UseFreeze = false "= if true, freeze port enabled" annotation(
   Evaluate = true,
   HideResult = true,
   choices(checkBox = true));
-  parameter Boolean use_rateLim = false "= if true, rate limiter ports enabled" annotation(
+  parameter Boolean UseRateLim = false "= if true, rate limiter ports enabled" annotation(
   Evaluate = true,
   HideResult = true,
   choices(checkBox = true));
 
-  Modelica.Blocks.Interfaces.BooleanInput freeze if use_freeze annotation(
+  Modelica.Blocks.Interfaces.BooleanInput freeze if UseFreeze annotation(
     Placement(visible = true, transformation(origin = {0,-120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-56, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput dy_min if use_rateLim annotation(
+  Modelica.Blocks.Interfaces.RealInput dyMin if UseRateLim annotation(
     Placement(visible = true, transformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -63}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput dy_max if use_rateLim annotation(
+  Modelica.Blocks.Interfaces.RealInput dyMax if UseRateLim annotation(
     Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 69}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
 protected
   Modelica.Blocks.Interfaces.BooleanOutput local_freeze annotation(
     HideResult = true);
-  Modelica.Blocks.Interfaces.RealOutput local_dymin annotation(
+  Modelica.Blocks.Interfaces.RealOutput dyMinLocal annotation(
     HideResult = true);
-  Modelica.Blocks.Interfaces.RealOutput local_dymax annotation(
+  Modelica.Blocks.Interfaces.RealOutput dyMaxLocal annotation(
     HideResult = true);
 
 equation
-  if use_freeze then
+  if UseFreeze then
     connect(freeze,local_freeze);
   else
     local_freeze = false;
   end if;
 
-  if use_rateLim then
-    connect(local_dymin,dy_min);
-    connect(local_dymax,dy_max);
+  if UseRateLim then
+    connect(dyMinLocal,dyMin);
+    connect(dyMaxLocal,dyMax);
   else
-    local_dymin = -9999;
-    local_dymax =  9999;
+    dyMinLocal = -9999;
+    dyMaxLocal =  9999;
   end if;
 
   if local_freeze then
     der(y) = 0;
   else
-    der(y) = min(max((k * u - y) / T,local_dymin),local_dymax);
+    der(y) = min(max((k * u - y) / T, dyMinLocal), dyMaxLocal);
   end if;
 
   annotation(

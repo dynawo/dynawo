@@ -37,14 +37,14 @@
     <par type="DOUBLE" name="photovoltaics_SNom" value="100"/>
     <par type="DOUBLE" name="photovoltaics_RPu" value="0"/>
     <par type="DOUBLE" name="photovoltaics_XPu" value="0.15"/>
-    <par type="DOUBLE" name="photovoltaics_Ddn" value="20"/>
-    <par type="DOUBLE" name="photovoltaics_Dup" value="0.001"/>
+    <par type="DOUBLE" name="photovoltaics_DDn" value="20"/>
+    <par type="DOUBLE" name="photovoltaics_DUp" value="0.001"/>
     <par type="BOOL" name="photovoltaics_FreqFlag" value="true"/>
-    <par type="DOUBLE" name="photovoltaics_IMax" value="1.05"/>
-    <par type="DOUBLE" name="photovoltaics_Iqh1" value="2"/>
-    <par type="DOUBLE" name="photovoltaics_Iql1" value="-2"/>
-    <par type="DOUBLE" name="photovoltaics_Iqrmax" value="20"/>
-    <par type="DOUBLE" name="photovoltaics_Iqrmin" value="-20"/>
+    <par type="DOUBLE" name="photovoltaics_IMaxPu" value="1.05"/>
+    <par type="DOUBLE" name="photovoltaics_Iqh1Pu" value="2"/>
+    <par type="DOUBLE" name="photovoltaics_Iql1Pu" value="-2"/>
+    <par type="DOUBLE" name="photovoltaics_IqrMaxPu" value="20"/>
+    <par type="DOUBLE" name="photovoltaics_IqrMinPu" value="-20"/>
     <par type="DOUBLE" name="photovoltaics_Kc" value="0"/>
     <par type="DOUBLE" name="photovoltaics_Ki" value="1.5"/>
     <par type="DOUBLE" name="photovoltaics_Kig" value="2.36"/>
@@ -55,49 +55,45 @@
     <par type="DOUBLE" name="photovoltaics_Kqv" value="2"/>
     <par type="DOUBLE" name="photovoltaics_Kvi" value="1"/>
     <par type="DOUBLE" name="photovoltaics_Kvp" value="1"/>
-    <par type="DOUBLE" name="photovoltaics_PMax" value="1"/>
-    <par type="DOUBLE" name="photovoltaics_PMin" value="0"/>
+    <par type="DOUBLE" name="photovoltaics_PMaxPu" value="1"/>
+    <par type="DOUBLE" name="photovoltaics_PMinPu" value="0"/>
     <par type="BOOL" name="photovoltaics_PPriority" value="false"/>
     <par type="BOOL" name="photovoltaics_PfFlag" value="false"/>
-    <par type="DOUBLE" name="photovoltaics_Pmax" value="1"/>
-    <par type="DOUBLE" name="photovoltaics_Pmin" value="0"/>
     <par type="BOOL" name="photovoltaics_QFlag" value="true"/>
-    <par type="DOUBLE" name="photovoltaics_QMax" value="0.4"/>
-    <par type="DOUBLE" name="photovoltaics_QMin" value="-0.4"/>
-    <par type="DOUBLE" name="photovoltaics_Qmax" value="0.4"/>
-    <par type="DOUBLE" name="photovoltaics_Qmin" value="-0.4"/>
+    <par type="DOUBLE" name="photovoltaics_QMaxPu" value="0.4"/>
+    <par type="DOUBLE" name="photovoltaics_QMinPu" value="-0.4"/>
     <par type="BOOL" name="photovoltaics_RateFlag" value="false"/>
     <par type="BOOL" name="photovoltaics_RefFlag" value="true"/>
-    <par type="DOUBLE" name="photovoltaics_TFltr" value="0.04"/>
-    <par type="DOUBLE" name="photovoltaics_Tfltr" value="0.02"/>
-    <par type="DOUBLE" name="photovoltaics_Tft" value="1e-10"/>
-    <par type="DOUBLE" name="photovoltaics_Tfv" value="0.1"/>
-    <par type="DOUBLE" name="photovoltaics_Tg" value="0.02"/>
+    <par type="DOUBLE" name="photovoltaics_tFilterPC" value="0.04"/>
+    <par type="DOUBLE" name="photovoltaics_tFilterGC" value="0.02"/>
+    <par type="DOUBLE" name="photovoltaics_tFt" value="1e-10"/>
+    <par type="DOUBLE" name="photovoltaics_tFv" value="0.1"/>
+    <par type="DOUBLE" name="photovoltaics_tG" value="0.02"/>
     <par type="DOUBLE" name="photovoltaics_Tiq" value="0.02"/>
-    <par type="DOUBLE" name="photovoltaics_Tlag" value="0.1"/>
-    <par type="DOUBLE" name="photovoltaics_Tp" value="0.04"/>
-    <par type="DOUBLE" name="photovoltaics_Tpord" value="0.02"/>
-    <par type="DOUBLE" name="photovoltaics_Trv" value="0.02"/>
+    <par type="DOUBLE" name="photovoltaics_tLag" value="0.1"/>
+    <par type="DOUBLE" name="photovoltaics_tP" value="0.04"/>
+    <par type="DOUBLE" name="photovoltaics_tPord" value="0.02"/>
+    <par type="DOUBLE" name="photovoltaics_tRv" value="0.02"/>
     <par type="DOUBLE" name="photovoltaics_UMaxPu" value="1.1"/>
     <par type="DOUBLE" name="photovoltaics_UMinPu" value="0.9"/>
     <par type="BOOL" name="photovoltaics_VFlag" value="true"/>
-    <par type="BOOL" name="photovoltaics_VcompFlag" value="false"/>
-    <par type="DOUBLE" name="photovoltaics_Vfrz" value="0"/>
-    <par type="DOUBLE" name="photovoltaics_Vmax" value="1.1"/>
-    <par type="DOUBLE" name="photovoltaics_Vmin" value="0.9"/>
-    <par type="DOUBLE" name="photovoltaics_Vref0" value="1"/>
-    <par type="DOUBLE" name="photovoltaics_dPmax" value="999"/>
-    <par type="DOUBLE" name="photovoltaics_dPmin" value="-999"/>
-    <par type="DOUBLE" name="photovoltaics_dbd" value="0.01"/>
-    <par type="DOUBLE" name="photovoltaics_dbd1" value="-0.1"/>
-    <par type="DOUBLE" name="photovoltaics_dbd2" value="0.1"/>
-    <par type="DOUBLE" name="photovoltaics_eMax" value="999"/>
-    <par type="DOUBLE" name="photovoltaics_eMin" value="-999"/>
-    <par type="DOUBLE" name="photovoltaics_fdbd1" value="0.004"/>
-    <par type="DOUBLE" name="photovoltaics_fdbd2" value="1"/>
-    <par type="DOUBLE" name="photovoltaics_feMax" value="999"/>
-    <par type="DOUBLE" name="photovoltaics_feMin" value="-999"/>
-    <par type="DOUBLE" name="photovoltaics_rrpwr" value="10"/>
+    <par type="BOOL" name="photovoltaics_VCompFlag" value="false"/>
+    <par type="DOUBLE" name="photovoltaics_VFrz" value="0"/>
+    <par type="DOUBLE" name="photovoltaics_VMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="photovoltaics_VMinPu" value="0.9"/>
+    <par type="DOUBLE" name="photovoltaics_VRef0Pu" value="1"/>
+    <par type="DOUBLE" name="photovoltaics_DPMax" value="999"/>
+    <par type="DOUBLE" name="photovoltaics_DPMin" value="-999"/>
+    <par type="DOUBLE" name="photovoltaics_Dbd" value="0.01"/>
+    <par type="DOUBLE" name="photovoltaics_Dbd1" value="-0.1"/>
+    <par type="DOUBLE" name="photovoltaics_Dbd2" value="0.1"/>
+    <par type="DOUBLE" name="photovoltaics_EMax" value="999"/>
+    <par type="DOUBLE" name="photovoltaics_EMin" value="-999"/>
+    <par type="DOUBLE" name="photovoltaics_FDbd1" value="0.004"/>
+    <par type="DOUBLE" name="photovoltaics_FDbd2" value="1"/>
+    <par type="DOUBLE" name="photovoltaics_FEMax" value="999"/>
+    <par type="DOUBLE" name="photovoltaics_FEMin" value="-999"/>
+    <par type="DOUBLE" name="photovoltaics_Rrpwr" value="10"/>
     <par type="DOUBLE" name="photovoltaics_KiPLL" value="20"/>
     <par type="DOUBLE" name="photovoltaics_KpPLL" value="3"/>
     <par type="DOUBLE" name="photovoltaics_OmegaMaxPu" value="1.5"/>

@@ -18,7 +18,7 @@
   <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="WECCPV.par" parId="4"/>
   <dyn:blackBoxModel id="PRefPu" lib="SetPoint" parFile="WECCPV.par" parId="5"/>
   <dyn:blackBoxModel id="QRefPu" lib="SetPoint" parFile="WECCPV.par" parId="6"/>
-  <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint_value" id2="WECCPV" var2="photovoltaics_OmegaRefPu"/>
+  <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint_value" id2="WECCPV" var2="photovoltaics_omegaRefPu"/>
   <dyn:connect id1="PRefPu" var1="setPoint_setPoint_value" id2="WECCPV" var2="photovoltaics_PRefPu"/>
   <dyn:connect id1="QRefPu" var1="setPoint_setPoint_value" id2="WECCPV" var2="photovoltaics_QRefPu"/>
   <dyn:connect id1="InfBus" var1="infiniteBus_terminal" id2="Line" var2="line_terminal1"/>

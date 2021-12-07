@@ -17,27 +17,27 @@ block OffDelay "Delay a falling edge of the input, but do not delay a rising edg
 
   extends Modelica.Blocks.Interfaces.PartialBooleanSISO_small;
 
-  parameter Modelica.SIunits.Time delayTime "Delay time";
+  parameter Modelica.SIunits.Time tDelay "Delay time in s";
 
 protected
   Boolean delaySignal(start = false);
-  discrete Modelica.SIunits.Time t_next;
+  discrete Modelica.SIunits.Time tNext;
 
 algorithm
   when initial() then
     delaySignal := u;
-    t_next := time - 1;
+    tNext := time - 1;
   elsewhen u then
     delaySignal := false;
-    t_next := time - 1;
+    tNext := time - 1;
   elsewhen not u then
     delaySignal := true;
-    t_next := time + delayTime;
+    tNext := time + tDelay;
   end when;
 
 equation
   if delaySignal then
-    y = time <= t_next;
+    y = time <= tNext;
   else
     y = false;
   end if;

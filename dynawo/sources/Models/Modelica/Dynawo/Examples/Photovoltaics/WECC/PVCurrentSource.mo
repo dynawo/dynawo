@@ -22,13 +22,13 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, -1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Photovoltaics.WECC.PVCurrentSource PV(Ddn = 20, Dup = 0.001, FreqFlag = true, Id0Pu = 0.67611, IMax = 1.05, Iq0Pu = 0.26996, Iqh1 = 2, Iql1 = -2, Iqrmax = 20, Iqrmin = -20, Kc = 0, Ki = 1.5, KiPLL = 20, Kig = 2.36, Kp = 0.1, KpPLL = 3, Kpg = 0.05, Kqi = 0.5, Kqp = 1, Kqv = 2, Kvi = 1, Kvp = 1, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.7, PF0 = 0.92871, PInj0Pu = 0.7, PMax = 1, PMin = 0, PPriority = false, PfFlag = false, Pmax = 1, Pmin = 0, Q0Pu = -0.2, QFlag = true, QInj0Pu = 0.2795, QMax = 0.4, QMin = -0.4, Qmax = 0.4, Qmin = -0.4, RPu = 0, RateFlag = false, RefFlag = true, SNom = 100, TFltr = 0.04, Tfltr = 0.02, Tft = 1e-10, Tfv = 0.1, Tg = 0.02, Tiq = 0.02, Tlag = 0.1, Tp = 0.04, Tpord = 0.02, Trv = 0.02, U0Pu = 1.0, UInj0Pu = 1.03534, UMaxPu = 1.1, UMinPu = 0.9, UPhase0 = 0.00000144621, UPhaseInj0 = 0.10159, VFlag = true, VcompFlag = false, Vfrz = 0, Vmax = 1.1, Vmin = 0.9, Vref0 = 1, XPu = 0.15, dPmax = 999, dPmin = -999, dbd = 0.01, dbd1 = -0.1, dbd2 = 0.1, eMax = 999, eMin = -999, fdbd1 = 0.004, fdbd2 = 1, feMax = 999, feMin = -999, i0Pu = Complex(-0.7, 0.2), iInj0Pu = Complex(0.7, -0.2), rrpwr = 10, s0Pu = Complex(-0.7, -0.2), sInj0Pu = Complex(0.7, 0.2795), u0Pu = Complex(1, 0), uInj0Pu = Complex(1.03, 0.105)) annotation(
+  Dynawo.Electrical.Photovoltaics.WECC.PVCurrentSource PV(DDn = 20, DUp = 0.001, FreqFlag = true, Id0Pu = 0.67611, IMaxPu = 1.05, Iq0Pu = 0.26996, Iqh1Pu = 2, Iql1Pu = -2, IqrMaxPu = 20, IqrMinPu = -20, Kc = 0, Ki = 1.5, KiPLL = 20, Kig = 2.36, Kp = 0.1, KpPLL = 3, Kpg = 0.05, Kqi = 0.5, Kqp = 1, Kqv = 2, Kvi = 1, Kvp = 1, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.7, PF0 = 0.92871, PInj0Pu = 0.7, PMaxPu = 1, PMinPu = 0, PPriority = false, PfFlag = false, Q0Pu = -0.2, QFlag = true, QInj0Pu = 0.2795, QMaxPu = 0.4, QMinPu = -0.4, RPu = 0, RateFlag = false, RefFlag = true, SNom = 100, tFilterPC = 0.04, tFilterGC = 0.02, tFt = 1e-10, tFv = 0.1, tG = 0.02, Tiq = 0.02, tLag = 0.1, tP = 0.04, tPord = 0.02, tRv = 0.02, U0Pu = 1.0, UInj0Pu = 1.03534, UMaxPu = 1.1, UMinPu = 0.9, UPhase0 = 0.00000144621, UPhaseInj0 = 0.10159, VFlag = true, VCompFlag = false, VFrz = 0, VMaxPu = 1.1, VMinPu = 0.9, VRef0Pu = 1, XPu = 0.15, DPMax = 999, DPMin = -999, Dbd = 0.01, Dbd1 = -0.1, Dbd2 = 0.1, EMax = 999, EMin = -999, FDbd1 = 0.004, FDbd2 = 1, FEMax = 999, FEMin = -999, i0Pu = Complex(-0.7, 0.2), iInj0Pu = Complex(0.7, -0.2), Rrpwr = 10, s0Pu = Complex(-0.7, -0.2), sInj0Pu = Complex(0.7, 0.2795), u0Pu = Complex(1, 0), uInj0Pu = Complex(1.03, 0.105)) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
     Placement(visible = true, transformation(origin = {80, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0.2) annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant OmegaRefPu(k = 1) annotation(
+  Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
 equation
@@ -36,7 +36,7 @@ equation
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
     Line(points = {{-82, 0}, {-60, 0}, {-60, 0}, {-60, 0}}, color = {0, 0, 255}));
-  connect(OmegaRefPu.y, PV.OmegaRefPu) annotation(
+  connect(omegaRefPu.y, PV.omegaRefPu) annotation(
     Line(points = {{69, 40}, {54, 40}, {54, 12}, {42, 12}}, color = {0, 0, 127}));
   connect(QRefPu.y, PV.QRefPu) annotation(
     Line(points = {{70, 0}, {44, 0}, {44, 0}, {42, 0}}, color = {0, 0, 127}));
