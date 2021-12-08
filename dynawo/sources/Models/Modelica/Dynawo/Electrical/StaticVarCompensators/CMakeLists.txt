@@ -15,12 +15,23 @@ set(MODEL_FILES
   # Voltage control models
   package.mo
   package.order
+  SVarCPV_INIT.mo
   SVarCPV.mo
   SVarCPV.extvar
-  SVarCPV_INIT.mo
+  SVarCPVModeHandling.mo
+  SVarCPVModeHandling.extvar
   SVarCPVRemote.mo
   SVarCPVRemote.extvar
-  SVarCPVRemote_INIT.mo
+  SVarCPVRemoteModeHandling.mo
+  SVarCPVRemoteModeHandling.extvar
+  SVarCPVProp.mo
+  SVarCPVProp.extvar
+  SVarCPVPropModeHandling.mo
+  SVarCPVPropModeHandling.extvar
+  SVarCPVPropRemote.mo
+  SVarCPVPropRemote.extvar
+  SVarCPVPropRemoteModeHandling.mo
+  SVarCPVPropRemoteModeHandling.extvar
   SVarCStandard.mo
   SVarCStandard.extvar
   SVarCStandard_INIT.mo
