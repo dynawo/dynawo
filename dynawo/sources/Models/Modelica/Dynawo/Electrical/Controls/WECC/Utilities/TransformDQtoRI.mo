@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC.Utilities;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.WECC.Utilities;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block TransformDQtoRI "Transformation from d/q rotating reference frame with rotation angle phi to real/imaginary in stationary reference frame"
+model TransformDQtoRI "Transformation from d/q rotating reference frame with rotation angle phi to real/imaginary in stationary reference frame"
   import Modelica.Blocks.Interfaces;
 
   Interfaces.RealInput udPu "d-axis voltage in p.u (base UNom)" annotation(

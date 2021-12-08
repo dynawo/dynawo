@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Photovoltaics.WECC;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -40,7 +40,7 @@ protected
   Types.PerUnit PInj0Pu "Start value of active power at injector in p.u (base SNom) (generator convention)";
   Types.PerUnit QInj0Pu "Start value of reactive power at injector in p.u (base SNom) (generator convention)";
   Types.PerUnit UInj0Pu "Start value of voltage module at injector in p.u (base UNom)";
-  Types.Angle UPhaseInj0 "Start value of voltage angle at injector in p.u (base UNom)";
+  Types.Angle UPhaseInj0 "Start value of voltage angle at injector";
   Types.PerUnit PF0 "Start value of power factor";
   Types.PerUnit Id0Pu "Start value of d-axs current at injector in p.u (base UNom, SNom) (generator convention)";
   Types.PerUnit Iq0Pu "Start value of q-axis current at injector in p.u (base UNom, SNom) (generator convention)";

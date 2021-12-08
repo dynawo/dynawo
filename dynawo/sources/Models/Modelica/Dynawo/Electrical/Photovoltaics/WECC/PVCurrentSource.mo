@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Photovoltaics.WECC;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -25,13 +25,8 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
   extends Parameters.Params_PLL;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in p.u (base UNom, SNom)";
-  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in p.u (base UNom, SNom)";
-
-  parameter Types.PerUnit P0Pu "Start value of active power at regulated bus in p.u (receptor convention) (base SnRef)";
-  parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in p.u (receptor convention) (base SnRef)";
-  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in p.u.";
-  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
+  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in p.u (base SnRef, UNom)";
+  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in p.u (base SnRef, UNom)";
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {180, -10}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -45,7 +40,7 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
 
   Dynawo.Electrical.Lines.Line line(RPu = RPu, XPu = XPu, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {120, -10}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.PlantControl wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = - P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = - Q0Pu * SystemBase.SnRef / SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu * SNom / SystemBase.SnRef, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu * SNom / SystemBase.SnRef, Dbd = Dbd, EMax = EMax, EMin = EMin, FDbd1 = FDbd1, FDbd2 = FDbd2, FEMax = FEMax, FEMin = FEMin, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.PlantControl wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = - P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = - Q0Pu * SystemBase.SnRef / SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, Dbd = Dbd, EMax = EMax, EMin = EMin, FDbd1 = FDbd1, FDbd2 = FDbd2, FEMax = FEMax, FEMin = FEMin, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.ElectricalControl wecc_reec(Id0Pu = Id0Pu, IMaxPu = IMaxPu, Iq0Pu = Iq0Pu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PInj0Pu = PInj0Pu, PPriority = PPriority, PfFlag = PfFlag, PMaxPu = PMaxPu, PMinPu = PMinPu, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, Tiq = Tiq, tP = tP, tPord = tPord, tRv = tRv, UInj0Pu = UInj0Pu, UMaxPu = UMaxPu, UMinPu = UMinPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, DPMax = DPMax, DPMin = DPMin, Dbd1 = Dbd1, Dbd2 = Dbd2) annotation(
     Placement(visible = true, transformation(origin = {0, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -60,6 +55,10 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom)  annotation(
     Placement(visible = true, transformation(origin = {150, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  parameter Types.PerUnit P0Pu "Start value of active power at regulated bus in p.u (receptor convention) (base SnRef)";
+  parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in p.u (receptor convention) (base SnRef)";
+  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in p.u (base UNom)";
+  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
   parameter Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
   parameter Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef) (receptor convention)";
   parameter Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in p.u (base UNom, SnRef) (receptor convention)";
@@ -69,7 +68,7 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
   parameter Types.PerUnit PInj0Pu "Start value of active power at injector in p.u (base SNom) (generator convention)";
   parameter Types.PerUnit QInj0Pu "Start value of reactive power at injector in p.u (base SNom) (generator convention)";
   parameter Types.PerUnit UInj0Pu "Start value of voltage module at injector in p.u (base UNom)";
-  parameter Types.Angle UPhaseInj0 "Start value of voltage angle at injector in p.u (base UNom)";
+  parameter Types.Angle UPhaseInj0 "Start value of voltage angle at injector";
   parameter Types.PerUnit PF0 "Start value of power factor";
   parameter Types.PerUnit Id0Pu "Start value of d-axs current at injector in p.u (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit Iq0Pu "Start value of q-axis current at injector in p.u (base UNom, SNom) (generator convention)";

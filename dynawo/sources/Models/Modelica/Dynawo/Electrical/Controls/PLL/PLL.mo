@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.PLL;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -59,7 +59,7 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
-  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage in p.u (base UNom)";
+  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at PCC in p.u (base UNom)";
 
 equation
   connect(add1.y, add2.u1) annotation(
@@ -102,17 +102,15 @@ equation
     Line(points = {{-150, -90}, {58, -90}, {58, -90}, {58, -90}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
-    Documentation(info = "<html>
-<p> The PLL calculates the frequency of the grid voltage by synchronizing the internal phase angle with measured voltage phasor. q-component of internal voltage phasor is therefore controlled to be zero. </p>
+    Documentation(info = "<html><head></head><body><p> The PLL calculates the frequency of the grid voltage by synchronizing the internal phase angle with measured voltage phasor. q-component of internal voltage phasor is therefore controlled to be zero. </p>
 
 <p> Following relationship is used to calculate internal voltage phasor q-component: </p>
-<pre>
-   uq = ui * cos(phi) - ur * sin(phi);
+<pre>   uqPu = uiPu * cos(phi) - urPu * sin(phi);
 </pre>
 
-<p> If uq is zero, the internal phasor is locked with the measured phasor and rotates with the same frequency.</p>
+<p> If uqPu is zero, the internal phasor is locked with the measured phasor and rotates with the same frequency.</p>
 
-</html>"),
+</body></html>"),
     Diagram(coordinateSystem(extent = {{-140, -100}, {140, 100}}, initialScale = 1, grid = {1, 1})),
     __OpenModelica_commandLineOptions = "",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-31, 8}, extent = {{-49, 72}, {111, -88}}, textString = "PLL"), Text(origin = {131, 71}, extent = {{-23, 13}, {49, -25}}, textString = "omegaPLLPu"), Text(origin = {135, -11}, extent = {{-23, 13}, {37, -19}}, textString = "cos(phi)"), Text(origin = {135, -53}, extent = {{-23, 13}, {37, -19}}, textString = "sin(phi)"), Text(origin = {-137, -41}, extent = {{-31, 17}, {37, -19}}, textString = "omegaRefPu"), Text(origin = {-141, 89}, extent = {{3, -3}, {37, -19}}, textString = "uPu")}, coordinateSystem(initialScale = 0.1)));

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -39,14 +39,5 @@
     <par type="INT" name="maxNewtonTry" value="10"/>
     <par type="STRING" name="linearSolverName" value="KLU"/>
     <par type="INT" name="msbsetAlg" value="10"/>
-  </set>
-  <!-- IDA order 2 solver with higher accuracy requirements -->
-  <set id="5">
-    <par type="INT" name="order" value="2"/>
-    <par type="DOUBLE" name="initStep" value="0.001"/>
-    <par type="DOUBLE" name="minStep" value="0.000001"/>
-    <par type="DOUBLE" name="maxStep" value="10"/>
-    <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
-    <par type="DOUBLE" name="relAccuracy" value="1e-6"/>
   </set>
 </parametersSet>

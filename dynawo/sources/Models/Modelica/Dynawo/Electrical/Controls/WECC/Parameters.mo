@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -29,7 +29,7 @@ record Parameters "Parameters of the PV WECC model"
     parameter Types.PerUnit QMinPu "Minimum plant level reactive power command in p.u (base SNom)" annotation(Dialog(tab="Plant Control"));
     parameter Types.Time tFt "Plant controller Q output lead time constant in s" annotation(Dialog(tab="Plant Control"));
     parameter Types.Time tFv "Plant controller Q output lag time constant in s (typical: 0.15..5)" annotation(Dialog(tab="Plant Control"));
-    parameter Types.Time tP "Active power filter time constant in s(typical: 0.01..0.02)" annotation(Dialog(tab="Plant Control"));
+    parameter Types.Time tP "Active power filter time constant in s (typical: 0.01..0.02)" annotation(Dialog(tab="Plant Control"));
     parameter Types.PerUnit FDbd1 "Overfrequency deadband for governor response (typical: 0.004)" annotation(Dialog(tab="Plant Control"));
     parameter Types.PerUnit FDbd2 "Underfrequency deadband for governor response (typical: 0.004)" annotation(Dialog(tab="Plant Control"));
     parameter Types.PerUnit DDn "Down regulation droop (typical: 20..33.3)" annotation(Dialog(tab="Plant Control"));
@@ -61,7 +61,7 @@ record Parameters "Parameters of the PV WECC model"
     parameter Types.PerUnit Kqv "K-Factor, reactive current injection gain (typical: 0..10)" annotation(Dialog(tab="Electrical Control"));
     parameter Types.PerUnit Iqh1Pu "Maximum reactive current injection (typical: 1..1.1) in p.u (base UNom, SNom)" annotation(Dialog(tab="Electrical Control"));
     parameter Types.PerUnit Iql1Pu "Minimum reactive current injection (typical: -1.1..-1) in p.u (base UNom, SNom)" annotation(Dialog(tab="Electrical Control"));
-    parameter Types.Time tP "Filter time constant active power in s(typical: 0.1..0.2)" annotation(Dialog(tab="Electrical Control"));
+    parameter Types.Time tP "Filter time constant active power in s (typical: 0.1..0.2)" annotation(Dialog(tab="Electrical Control"));
     parameter Types.PerUnit QMaxPu "Reactive power upper limit, when vFlag == 1 in p.u (base SNom)" annotation(Dialog(tab="Electrical Control"));
     parameter Types.PerUnit QMinPu "Reactive power lower limit, when vFlag == 1 in p.u (base SNom)" annotation(Dialog(tab="Electrical Control"));
     parameter Types.PerUnit Kqp "Proportional gain local reactive power PI controller" annotation(Dialog(tab="Electrical Control"));
@@ -100,8 +100,8 @@ record Parameters "Parameters of the PV WECC model"
 
   record Params_VSourceRef
     parameter Types.Time tE "Emulated delay in converter controls in s (cannot be zero, typical: 0.02..0.05)";
-    parameter Types.PerUnit RPu "Source resistance in p.u (base UNom, SnRef)";
-    parameter Types.PerUnit XPu "Source reactance in p.u (base UNom, SnRef)";
+    parameter Types.PerUnit RPu "Source resistance in p.u (base UNom, SNom)";
+    parameter Types.PerUnit XPu "Source reactance in p.u (base UNom, SNom)";
   annotation(preferredView = "text");
   end Params_VSourceRef;
 

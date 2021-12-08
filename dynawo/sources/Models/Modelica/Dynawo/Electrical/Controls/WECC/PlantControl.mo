@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -21,8 +21,8 @@ model PlantControl "WECC PV Plant Control REPC"
 
   extends Parameters.Params_PlantControl;
 
-  parameter Types.PerUnit RcPu "Line drop compensation resistance when VcompFlag = 1";
-  parameter Types.PerUnit XcPu "Line drop compensation reactance when VcompFlag = 1";
+  parameter Types.PerUnit RcPu "Line drop compensation resistance when VcompFlag = 1 in p.u (base SnRef, UNom)";
+  parameter Types.PerUnit XcPu "Line drop compensation reactance when VcompFlag = 1 in p.u (base SnRef, UNom)";
 
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PGen0Pu) "Active power setpoint at regulated bus in p.u (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -36,7 +36,7 @@ model PlantControl "WECC PV Plant Control REPC"
     Placement(visible = true, transformation(origin = {-310, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {31, 111}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at regulated bus in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-31, 111}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.ComplexBlocks.Interfaces.ComplexInput iPu(re(start = iInj0Pu.re), im(start = iInj0Pu.im)) "Complex current at regulated bus in p.u (generator convention) (base SNom, UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput iPu(re(start = iInj0Pu.re), im(start = iInj0Pu.im)) "Complex current at regulated bus in p.u (generator convention) (base SnRef, UNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-79, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Frequency at regulated bus in p.u (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, 79}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));

@@ -1,7 +1,7 @@
 within Dynawo.Examples.Photovoltaics;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,6 +12,6 @@ within Dynawo.Examples.Photovoltaics;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package WECC "WECC models for Photovoltaics"
+package WECC "Examples with WECC models for Photovoltaics"
   extends Icons.Package;
 end WECC;

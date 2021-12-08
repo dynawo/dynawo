@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.MathBoolean;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@ within Dynawo.NonElectrical.Blocks.MathBoolean;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block OffDelay "Delay a falling edge of the input, but do not delay a rising edge."
+model OffDelay "Delay a falling edge of the input, but do not delay a rising edge."
   import Modelica;
 
   extends Modelica.Blocks.Interfaces.PartialBooleanSISO_small;

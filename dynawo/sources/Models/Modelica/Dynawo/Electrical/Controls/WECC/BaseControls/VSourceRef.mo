@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC.BaseControls;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -18,6 +18,7 @@ model VSourceRef
   import Dynawo.Types;
   import Dynawo;
   import Dynawo.Electrical.Controls.WECC.Parameters;
+  import Dynawo.Electrical.SystemBase;
 
   extends Parameters.Params_VSourceRef;
 
@@ -28,9 +29,9 @@ model VSourceRef
   Blocks.Interfaces.RealInput iqPu "q-axis current in p.u (base SNom, UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Blocks.Interfaces.RealOutput UrPu(start = Ur0Pu) "Real voltage of inner voltage source in p.u (base UNom)" annotation(
+  Blocks.Interfaces.RealOutput urPu(start = Ur0Pu) "Real voltage of inner voltage source in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealOutput UiPu(start = Ui0Pu) "Imaginary voltage of inner voltage source in p.u (base UNom)" annotation(
+  Blocks.Interfaces.RealOutput uiPu(start = Ui0Pu) "Imaginary voltage of inner voltage source in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Controls.WECC.BaseControls.UdqRef udqRef(RPu = RPu, XPu = XPu) annotation(
@@ -45,7 +46,7 @@ model VSourceRef
     Placement(visible = true, transformation(origin = {40, 3}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.PLL.PLL pll(Ki = 30, Kp = 10, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, u0Pu = u0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-90, -33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Sources.Constant OmegaRefPu(k = 1)  annotation(
+  Blocks.Sources.Constant OmegaRefPu(k = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
@@ -78,9 +79,9 @@ equation
     Line(points = {{-79, -36}, {-70, -36}, {-70, -5}, {-51, -5}}, color = {0, 0, 127}));
   connect(pll.sinPhi, transformRItoDQ.sinPhi) annotation(
     Line(points = {{-79, -40}, {-60, -40}, {-60, -9}, {-51, -9}}, color = {0, 0, 127}));
-  connect(transformDQtoRI.urPu, UrPu) annotation(
+  connect(transformDQtoRI.urPu, urPu) annotation(
     Line(points = {{101, 6}, {110, 6}, {110, 20}, {130, 20}}, color = {0, 0, 127}));
-  connect(transformDQtoRI.uiPu, UiPu) annotation(
+  connect(transformDQtoRI.uiPu, uiPu) annotation(
     Line(points = {{101, -6}, {110, -6}, {110, -20}, {130, -20}}, color = {0, 0, 127}));
   connect(pll.sinPhi, transformDQtoRI.sinPhi) annotation(
     Line(points = {{-79, -40}, {70, -40}, {70, -7}, {79, -7}}, color = {0, 0, 127}));
@@ -90,6 +91,6 @@ equation
     Line(points = {{51, 40}, {70, 40}, {70, 7}, {79, 7}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {2, 4}, extent = {{-82, 76}, {78, -84}}, textString = "VSourceRef"), Text(origin = {-141, 89}, extent = {{3, -3}, {37, -19}}, textString = "uPu"), Text(origin = {-121.5, 18}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "iqPu"), Text(origin = {-121.5, 18}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "iqPu"), Text(origin = {-121.5, -42}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "idPu"), Text(origin = {112.5, 20}, extent = {{-10.5, 7}, {31.5, -20}}, textString = "UrPu"), Text(origin = {112.5, -40}, extent = {{-10.5, 7}, {31.5, -20}}, textString = "UiPu")}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})),
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {2, 4}, extent = {{-82, 76}, {78, -84}}, textString = "VSourceRef"), Text(origin = {-141, 89}, extent = {{3, -3}, {37, -19}}, textString = "uPu"), Text(origin = {-121.5, 18}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "iqPu"), Text(origin = {-121.5, 18}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "iqPu"), Text(origin = {-121.5, -42}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "idPu"), Text(origin = {112.5, 20}, extent = {{-10.5, 7}, {31.5, -20}}, textString = "urPu"), Text(origin = {112.5, -40}, extent = {{-10.5, 7}, {31.5, -20}}, textString = "uiPu")}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})),
   Diagram(coordinateSystem(extent = {{-120, -120}, {120, 120}}, grid = {1, 1})));
 end VSourceRef;

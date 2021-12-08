@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,6 +12,6 @@ within Dynawo.NonElectrical.Blocks;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package MathBoolean "Math boolean control blocks"
+package MathBoolean "Math boolean blocks"
   extends Icons.Package;
 end MathBoolean;

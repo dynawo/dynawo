@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+# Copyright (c) 2021, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,10 +11,10 @@
 set(MODEL_FILES
   package.mo
   package.order
-  UdqRef.mo
-  LineDropCompensation.mo
-  VoltageCheck.mo
   CurrentLimitsCalculation.mo
+  LineDropCompensation.mo
+  UdqRef.mo
+  VoltageCheck.mo
   VSourceRef.mo
   )
 

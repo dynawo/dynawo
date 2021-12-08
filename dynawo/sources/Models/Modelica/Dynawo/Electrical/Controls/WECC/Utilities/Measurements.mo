@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC.Utilities;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.WECC.Utilities;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block Measurements "This block measures the voltage, current, active power and reactive power in p.u. (base UNom, SNom)"
+model Measurements "This block measures the voltage, current, active power and reactive power in p.u (base UNom, SNom or SnRef)"
 
 /*
   Equivalent circuit and conventions:
@@ -33,22 +33,22 @@ block Measurements "This block measures the voltage, current, active power and r
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  Modelica.Blocks.Interfaces.RealOutput PPu "Active power on side in p.u. (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PPu "Active power on side 1 in p.u (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput QPu "Reactive power on side in p.u. (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput QPu "Reactive power on side 1 in p.u (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu "Voltage in p.u. (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu "Complex voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput iPu "Current (base UNom, SNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput iPu "Complex current in p.u (base UNom, SnRef)" annotation(
     Placement(visible = true, transformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
   terminal1.i = - terminal2.i;
   terminal1.V = terminal2.V;
-  terminal1.i * SystemBase.SnRef / SNom = iPu;
+  terminal1.i = iPu;
   terminal1.V = uPu;
-  PPu = ComplexMath.real(terminal1.V * ComplexMath.conj(iPu));
-  QPu = ComplexMath.imag(terminal1.V * ComplexMath.conj(iPu));
+  PPu =  (SystemBase.SnRef / SNom) * ComplexMath.real(terminal1.V * ComplexMath.conj(iPu));
+  QPu =  (SystemBase.SnRef / SNom) * ComplexMath.imag(terminal1.V * ComplexMath.conj(iPu));
 
 annotation(preferredView = "text");
 end Measurements;

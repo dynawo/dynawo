@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.Continuous;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,9 +12,8 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block LimPIDFreeze "PI controller with limited output, anti-windup compensation, setpoint weighting, optional feed-forward and optional freezing of the state"
+model LimPIDFreeze "PI controller with limited output, anti-windup compensation, setpoint weighting, optional feed-forward and optional freezing of the state"
   import Modelica.Blocks;
-  import Modelica.Constants;
   import Dynawo.Types;
 
   extends Blocks.Interfaces.SVcontrol;
@@ -110,7 +109,7 @@ equation
     Line(points = {{-26, -50}, {-20, -50}, {-20, -6}, {-12, -6}}, color = {0, 0, 127}));
 
   annotation(
-    defaultComponentName = "PID",
+    defaultComponentName = "PID", preferredView = "diagram",
     Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Line(points = {{-80, 78}, {-80, -90}}, color = {192, 192, 192}), Polygon(points = {{-80, 90}, {-88, 68}, {-72, 68}, {-80, 90}}, lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid), Line(points = {{-90, -80}, {82, -80}}, color = {192, 192, 192}), Polygon(points = {{90, -80}, {68, -72}, {68, -88}, {90, -80}}, lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid), Line(points = {{-80, -80}, {-80, -20}, {30, 60}, {80, 60}}, color = {0, 0, 127}), Text(extent = {{-20, -20}, {80, -60}}, lineColor = {192, 192, 192}), Line(visible = Strict, points = {{30, 60}, {81, 60}}, color = {255, 0, 0})}),
     Diagram(graphics = {Text(lineColor = {0, 0, 255}, extent = {{79, -112}, {129, -102}}, textString = " (feed-forward)")}),
     Documentation(info = "<html>

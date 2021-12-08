@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -31,9 +31,9 @@ model ElectricalControl "WECC PV Electrical Control REEC"
   Modelica.Blocks.Interfaces.RealInput UPu(start = UInj0Pu) "Voltage magnitude at injector terminal in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
 
-  Modelica.Blocks.Interfaces.RealOutput idCmdPu(start = Id0Pu) "Id setpoint for generator control in p.u (base SNom, UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput idCmdPu(start = Id0Pu) "idCmdPu setpoint for generator control in p.u (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {510, 79}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqCmdPu(start = Iq0Pu) "Iq setpoint for generator control in p.u (base SNom, UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqCmdPu(start = Iq0Pu) "iqCmdPu setpoint for generator control in p.u (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {510, -21}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput UFilteredPu(start = UInj0Pu) "Filtered voltage module at injector terminal in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-200, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -114,9 +114,9 @@ model ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {4, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn3(y = frtOn)  annotation(
     Placement(visible = true, transformation(origin = {-80, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.IqMaxPu)  annotation(
+  Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.iqMaxPu)  annotation(
     Placement(visible = true, transformation(origin = {130, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.IqMinPu)  annotation(
+  Modelica.Blocks.Sources.RealExpression IqMin(y = currentLimitsCalculation1.iqMinPu)  annotation(
     Placement(visible = true, transformation(origin = {130, -33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression UFilteredPu1(y = UFilteredPu)  annotation(
     Placement(visible = true, transformation(origin = {-20, 67}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -136,12 +136,12 @@ model ElectricalControl "WECC PV Electrical Control REEC"
     Placement(visible = true, transformation(origin = {-20, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
-  parameter Types.PerUnit PInj0Pu "Start value of active power at injector terminal in p.u (injector convention) (base SNom)";
-  parameter Types.PerUnit QInj0Pu "Start value of reactive power at injector terminal in p.u (injector convention) (base SNom)";
+  parameter Types.PerUnit PInj0Pu "Start value of active power at injector terminal in p.u (generator convention) (base SNom)";
+  parameter Types.PerUnit QInj0Pu "Start value of reactive power at injector terminal in p.u (generator convention) (base SNom)";
   parameter Types.PerUnit UInj0Pu "Start value of voltage magnitude at injector terminal in p.u (base UNom)";
   parameter Types.PerUnit PF0 "Start value of powerfactor";
-  parameter Types.CurrentModulePu Id0Pu "Start value of d-component current at injector terminal in p.u (injector convention) (base SNom, UNom)";
-  parameter Types.CurrentModulePu Iq0Pu "Start value of q-component current at injector terminal in p.u (injector convention) (base SNom, UNom)";
+  parameter Types.CurrentModulePu Id0Pu "Start value of d-component current at injector terminal in p.u (generator convention) (base SNom, UNom)";
+  parameter Types.CurrentModulePu Iq0Pu "Start value of q-component current at injector terminal in p.u (generator convention) (base SNom, UNom)";
 
 equation
   connect(variableLimiter.y, iqCmdPu) annotation(
@@ -192,19 +192,19 @@ equation
     Line(points = {{-270, -70}, {-242, -70}}, color = {0, 0, 127}));
   connect(Vref.y, add.u1) annotation(
     Line(points = {{21, 36}, {118, 36}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.IpMaxPu, variableLimiter1.limit1) annotation(
+  connect(currentLimitsCalculation1.ipMaxPu, variableLimiter1.limit1) annotation(
     Line(points = {{399, 31}, {360, 31}, {360, 87}, {398, 87}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.IqMinPu, variableLimiter.limit2) annotation(
+  connect(currentLimitsCalculation1.iqMinPu, variableLimiter.limit2) annotation(
     Line(points = {{399, 27}, {360, 27}, {360, -29}, {398, -29}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.IqMaxPu, variableLimiter.limit1) annotation(
+  connect(currentLimitsCalculation1.iqMaxPu, variableLimiter.limit1) annotation(
     Line(points = {{399, 23}, {380, 23}, {380, -13}, {398, -13}}, color = {0, 0, 127}));
-  connect(firstOrder3.y, currentLimitsCalculation1.IpCmdPu) annotation(
+  connect(firstOrder3.y, currentLimitsCalculation1.ipCmdPu) annotation(
     Line(points = {{439, 49}, {430, 49}, {430, 33}, {421, 33}}, color = {0, 0, 127}));
-  connect(firstOrder2.y, currentLimitsCalculation1.IqCmdPu) annotation(
+  connect(firstOrder2.y, currentLimitsCalculation1.iqCmdPu) annotation(
     Line(points = {{439, 9}, {430, 9}, {430, 25}, {421, 25}}, color = {0, 0, 127}));
   connect(variableLimiter.y, firstOrder2.u) annotation(
     Line(points = {{421, -21}, {480, -21}, {480, 9}, {462, 9}}, color = {0, 0, 127}));
-  connect(currentLimitsCalculation1.IpMinPu, variableLimiter1.limit2) annotation(
+  connect(currentLimitsCalculation1.ipMinPu, variableLimiter1.limit2) annotation(
     Line(points = {{399, 35}, {380, 35}, {380, 71}, {398, 71}}, color = {0, 0, 127}));
   connect(QFlag0.y, switch2.u2) annotation(
     Line(points = {{231, -40}, {240, -40}, {240, -27}, {268, -27}, {268, -27}}, color = {255, 0, 255}));
@@ -272,9 +272,7 @@ equation
 <li> local coordinated V/Q control: QFlag = true, VFlag = true </li>
 <li> only plant level control active: QFlag = false, VFlag = false</li>
 <li> if plant level control not connected: local powerfactor control: PfFlag = true, otherwise PfFlag = false.</li>
-<p> The block calculates the Id and Iq setpoint values for the generator control based on the selected control algorithm.
-
-
+<p> The block calculates the idCmdPu and iqCmdPu setpoint values for the generator control based on the selected control algorithm.
 </ul> </p></html>"),
     Diagram(coordinateSystem(extent = {{-260, -130}, {500, 250}}, grid = {1, 1})),
   Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-23, 22}, extent = {{-57, 58}, {103, -102}}, textString = "Electrical Control"), Text(origin = {137, 79}, extent = {{-23, 13}, {35, -21}}, textString = "idCmdPu"), Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"), Text(origin = {141, 13}, extent = {{-23, 13}, {17, -11}}, textString = "frtOn"), Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}}, textString = "UPu"), Text(origin = {-19, -117}, extent = {{-33, 21}, {9, -3}}, textString = "QInjPu"), Text(origin = {41, -117}, extent = {{-33, 21}, {9, -3}}, textString = "PInjPu"), Text(origin = {-135, 79}, extent = {{-23, 13}, {35, -21}}, textString = "PInjRefPu"), Text(origin = {-135, -41}, extent = {{-23, 13}, {35, -21}}, textString = "QInjRefPu"), Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu")}, coordinateSystem(initialScale = 0.1)));

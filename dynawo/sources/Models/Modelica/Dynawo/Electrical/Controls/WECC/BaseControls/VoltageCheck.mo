@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block VoltageCheck "This block generates a signal to freeze the control when the voltage is too low or too high"
+model VoltageCheck "This block generates a signal to freeze the control when the voltage is too low or too high"
   import Modelica.Blocks;
   import Dynawo.Types;
 

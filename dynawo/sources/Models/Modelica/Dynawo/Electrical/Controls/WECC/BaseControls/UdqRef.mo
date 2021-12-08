@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC.BaseControls;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,17 +12,17 @@ within Dynawo.Electrical.Controls.WECC.BaseControls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block UdqRef "Calculation of setpoints udRef and uqRef with source impedance R+jX based on current setpoints idRef and iqRef and measured terminal voltage ud and uq "
+model UdqRef "Calculation of setpoints udRefPu and uqRefPu with source impedance RPu+jXPu based on current setpoints idRefPu and iqRefPu and measured terminal voltage udPu and uqPu"
 
   import Modelica.Blocks.Interfaces;
   import Dynawo.Types;
 
-  parameter Types.PerUnit RPu "Source resistance in p.u (base UNom, SnRef)";
-  parameter Types.PerUnit XPu "Source reactance in p.u (base UNom, SnRef)";
+  parameter Types.PerUnit RPu "Source resistance in p.u (base UNom, SNom)";
+  parameter Types.PerUnit XPu "Source reactance in p.u (base UNom, SNom)";
 
-  Interfaces.RealInput idRefPu "d-axis reference current in p.u (base UNom, SnRef)" annotation(
+  Interfaces.RealInput idRefPu "d-axis reference current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput iqRefPu "q-axis reference current in p.u (base UNom, SnRef)" annotation(
+  Interfaces.RealInput iqRefPu "q-axis reference current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Interfaces.RealInput udPu "d-axis voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
