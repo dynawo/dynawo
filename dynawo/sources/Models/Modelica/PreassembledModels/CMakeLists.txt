@@ -64,6 +64,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
   InfiniteBus.xml
+  InfiniteBusWithVariations.xml
   InjectorBG.xml
   Line.xml
   LoadAlphaBeta.xml
@@ -78,6 +79,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   NodeFault.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
+  PhotovoltaicsWeccCurrentSource.xml
   PowerTransferHVDCEmulation.xml
   ShuntBWithSections.xml
   SetPoint.xml
