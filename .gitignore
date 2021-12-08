@@ -13,6 +13,7 @@ distributions/
 nrt/data/*/outputs*/
 nrt/data/*/*/outputs*/
 nrt/data/*/*/*/outputs*/
+nrt/data/*/*/*/*/outputs*/
 examples/*/*/outputs*/
 examples/*/*/*/outputs*/
 examples/*/*/*/*/outputs*/
