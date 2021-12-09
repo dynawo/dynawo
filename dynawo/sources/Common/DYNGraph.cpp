@@ -46,8 +46,9 @@ Graph::~Graph() {
 }
 
 void
-Graph::addVertex(unsigned indexVertex) {
-  vertices_[indexVertex] = add_vertex(internalGraph_);
+Graph::addVertex(unsigned vertexId) {
+  vertices_[vertexId] = add_vertex(internalGraph_);
+  verticesIds_.push_back(vertexId);
 }
 
 void
@@ -97,17 +98,19 @@ Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertex
     adjacency_iterator_filtered neighbourEnd;
     boost::tie(neighbourIt, neighbourEnd) = boost::adjacent_vertices(vertices_[vertexOrigin], filteredGraph);
     for (; neighbourIt != neighbourEnd; ++neighbourIt) {
-      vector<bool> encountered = vector<bool>(boost::num_vertices(filteredGraph), false);
-      encountered[vertexOrigin] = true;
-      encountered[*neighbourIt] = true;
+      assert(*neighbourIt < verticesIds_.size());
+      const unsigned int neighbour = verticesIds_[static_cast<unsigned int>(*neighbourIt)];
+      boost::unordered_set<unsigned int> encounteredIds;
+      encounteredIds.insert(vertexOrigin);
+      encounteredIds.insert(neighbour);
 
-      std::pair<Edge, bool> edgePair = edge(vertices_[vertexOrigin], vertices_[*neighbourIt], filteredGraph);
+      std::pair<Edge, bool> edgePair = edge(vertices_[vertexOrigin], vertices_[neighbour], filteredGraph);
       string edgeId = boost::get(boost::edge_name, filteredGraph, edgePair.first);
       PathDescription currentPath;
       currentPath.push_back(edgeId);
 
       if (*neighbourIt != vertexExtremity) {
-        if (findAllPaths(*neighbourIt, vertexExtremity, currentPath, encountered, paths, filteredGraph, stopWhenExtremityReached) && stopWhenExtremityReached)
+        if (findAllPaths(neighbour, vertexExtremity, currentPath, encounteredIds, paths, filteredGraph, stopWhenExtremityReached) && stopWhenExtremityReached)
           break;
       } else {  // vertexExtremity found
         paths.push_back(currentPath);
@@ -121,20 +124,22 @@ Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertex
 
 bool
 Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity,
-        PathDescription& currentPath, vector<bool> &encountered, list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
+        PathDescription& currentPath, boost::unordered_set<unsigned int>& encountered, list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
         bool stopWhenExtremityReached) {
   adjacency_iterator_filtered neighbourIt;
   adjacency_iterator_filtered neighbourEnd;
   boost::tie(neighbourIt, neighbourEnd) = boost::adjacent_vertices(vertices_[vertexOrigin], filteredGraph);
   for (; neighbourIt != neighbourEnd; ++neighbourIt) {
-    if (encountered[*neighbourIt])
+    assert(*neighbourIt < verticesIds_.size());
+    const unsigned int neighbour = verticesIds_[static_cast<unsigned int>(*neighbourIt)];
+    if (encountered.count(neighbour) > 0)
       continue;
 
-    std::pair<Edge, bool> edgePair = edge(vertices_[vertexOrigin], vertices_[*neighbourIt], filteredGraph);
+    std::pair<Edge, bool> edgePair = edge(vertices_[vertexOrigin], vertices_[neighbour], filteredGraph);
     string edgeId = boost::get(boost::edge_name, filteredGraph, edgePair.first);
 
     PathDescription currentPath2 = currentPath;
-    if (findAllPaths(edgeId, *neighbourIt, vertexExtremity, currentPath2, encountered, paths, filteredGraph, stopWhenExtremityReached)) {
+    if (findAllPaths(edgeId, neighbour, vertexExtremity, currentPath2, encountered, paths, filteredGraph, stopWhenExtremityReached)) {
       currentPath.insert(currentPath.end(), currentPath2.begin(), currentPath2.end());
       if (stopWhenExtremityReached)
         return true;
@@ -144,10 +149,10 @@ Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertex
 }
 
 bool
-Graph::findAllPaths(const string& edgeId, const unsigned int& vertex, const unsigned int& vertexExtremity,
-                    PathDescription& currentPath, vector<bool> &encountered, list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
+Graph::findAllPaths(const string& edgeId, const unsigned int& vertex, const unsigned int& vertexExtremity, PathDescription& currentPath,
+                    boost::unordered_set<unsigned int>& encountered, list<PathDescription>& paths, FilteredBoostGraph& filteredGraph,
                     bool stopWhenExtremityReached) {
-  encountered[vertex] = true;
+  encountered.insert(vertex);
 
   currentPath.push_back(edgeId);
 
@@ -190,8 +195,8 @@ Graph::calculateComponents(const boost::unordered_map<string, float>& edgeWeight
 }
 
 bool
-Graph::hasVertex(unsigned int index) {
-  return (vertices_.find(index) != vertices_.end());
+Graph::hasVertex(unsigned int id) {
+  return (vertices_.find(id) != vertices_.end());
 }
 
 }  // namespace DYN

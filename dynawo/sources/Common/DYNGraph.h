@@ -32,6 +32,7 @@
 #include <boost/graph/properties.hpp>
 #include <boost/graph/connected_components.hpp>
 #include <boost/unordered_map.hpp>
+#include <boost/unordered_set.hpp>
 
 
 // definitions of typedef alias to hide boost types
@@ -95,23 +96,23 @@ class Graph {
   /**
    * @brief add a vertex to the graph structure
    *
-   * @param indexVertex index of the vertex
+   * @param vertexId id of the vertex
    */
-  void addVertex(unsigned int indexVertex);
+  void addVertex(unsigned int vertexId);
 
   /**
    * @brief add an edge between two vertices
    *
-   * @param indexVertex1 index of th first vertex
-   * @param indexVertex2 index of the second vertex
+   * @param idVertex1 id of the first vertex
+   * @param idVertex2 id of the second vertex
    * @param id id of the edge
    */
-  void addEdge(const unsigned int& indexVertex1, const unsigned int& indexVertex2, const std::string& id);
+  void addEdge(const unsigned int& idVertex1, const unsigned int& idVertex2, const std::string& id);
 
   /**
    * @brief check if a vertex exists
    *
-   * @param index index of the vertex to check
+   * @param index id of the vertex to check
    * @return @b true if the vertex exists, @b false otherwise
    */
   bool hasVertex(unsigned int index);
@@ -180,7 +181,7 @@ class Graph {
    * @return @b true if the vertexExtremity is reached
    */
   bool findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity,
-      PathDescription &currentPath, std::vector<bool> &encountered, std::list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
+      PathDescription &currentPath, boost::unordered_set<unsigned int>& encountered, std::list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
       bool stopWhenExtremityReached);
 
   /**
@@ -198,12 +199,13 @@ class Graph {
    * @return @b true if the vertexExtremity is reached
    */
   bool findAllPaths(const std::string& edgeId, const unsigned int& vertex, const unsigned int& vertexExtremity,
-      PathDescription &currentPath, std::vector<bool> &encountered, std::list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
+      PathDescription &currentPath, boost::unordered_set<unsigned int>& encountered, std::list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
       bool stopWhenExtremityReached);
 
  private:
   BoostGraph internalGraph_;  ///< graph description
-  boost::unordered_map<unsigned, Vertex> vertices_;  ///< association between vertices and their index
+  boost::unordered_map<unsigned int, Vertex> vertices_;  ///< association between vertices and their id
+  std::vector<unsigned int> verticesIds_;  ///< Vertices ids to link to an index
   boost::unordered_map<std::string, Edge> edges_;  ///< association between edges and their id
 };
 
