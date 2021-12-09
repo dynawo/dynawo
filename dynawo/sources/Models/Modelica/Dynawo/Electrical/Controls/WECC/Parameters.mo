@@ -100,8 +100,11 @@ record Parameters "Parameters of the PV WECC model"
 
   record Params_VSourceRef
     parameter Types.Time tE "Emulated delay in converter controls in s (cannot be zero, typical: 0.02..0.05)";
-    parameter Types.PerUnit RPu "Source resistance in p.u (base UNom, SNom)";
-    parameter Types.PerUnit XPu "Source reactance in p.u (base UNom, SNom)";
+    parameter Types.PerUnit RSourcePu "Source resistance in p.u (base UNom, SNom) ; typically set to zero, typical: 0..0.01";
+    parameter Types.PerUnit XSourcePu "Source reactance in p.u (base UNom, SNom) ; typical: 0.05..0.2";
+    parameter Types.PerUnit UdSource0Pu "Start value of d-axis voltage at injector in p.u (base UNom)";
+    parameter Types.PerUnit UqSource0Pu "Start value of q-axis voltage at injector in p.u (base UNom)";
   annotation(preferredView = "text");
   end Params_VSourceRef;
+
 end Parameters;

@@ -28,13 +28,13 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   parameter Types.PerUnit P0Pu "Start value of active power at regulated bus in p.u (receptor convention) (base SnRef)";
   parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in p.u (receptor convention) (base SnRef)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in p.u.";
-  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
+  parameter Types.Angle UPhase0  "Start value of voltage phase angle at regulated bus in rad";
 
   parameter Types.PerUnit RSourcePu "Source resistance in per unit (typically set to zero, typical: 0..0.01)";
   parameter Types.PerUnit XSourcePu "Source reactance in per unit (typical: 0.05..0.2)";
 
 protected
-  Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
+  Types.ComplexPerUnit u0Pu   "Start value of complex voltage at terminal in p.u (base UNom)";
   Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef) (receptor convention)";
   Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in p.u (base UNom, SnRef) (receptor convention)";
   Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in p.u (base UNom, SNom) (generator convention)";

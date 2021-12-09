@@ -11,14 +11,10 @@
 set(MODEL_FILES
   package.mo
   package.order
-<<<<<<< HEAD
   Measurements.mo
-=======
   TransformDQtoRI.mo
   TransformRItoDQ.mo
-  Measurements.mo
   )
->>>>>>> #672 Add a measurements block
 
 #
 # Modelica models install

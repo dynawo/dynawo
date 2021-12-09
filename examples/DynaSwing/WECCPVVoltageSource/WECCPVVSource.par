@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.5"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.01"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="2"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="6"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="6.5"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="line_XPu" value="0.0000020661"/>
+    <par type="DOUBLE" name="line_RPu" value="0.0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <set id="3">
+    <par type="DOUBLE" name="photovoltaicsV_P0Pu" value="-0.7"/>
+    <par type="DOUBLE" name="photovoltaicsV_Q0Pu" value="-0.2"/>
+    <par type="DOUBLE" name="photovoltaicsV_U0Pu" value="1.0"/>
+    <par type="DOUBLE" name="photovoltaicsV_UPhase0" value="0.00000144621"/>
+    <par type="DOUBLE" name="photovoltaicsV_SNom" value="100"/>
+    <par type="DOUBLE" name="photovoltaicsV_RPu" value="0"/>
+    <par type="DOUBLE" name="photovoltaicsV_XPu" value="0.15"/>
+    <par type="DOUBLE" name="photovoltaicsV_DDn" value="20"/>
+    <par type="DOUBLE" name="photovoltaicsV_DUp" value="0.001"/>
+    <par type="BOOL" name="photovoltaicsV_FreqFlag" value="true"/>
+    <par type="DOUBLE" name="photovoltaicsV_IMaxPu" value="1.05"/>
+    <par type="DOUBLE" name="photovoltaicsV_Iqh1Pu" value="2"/>
+    <par type="DOUBLE" name="photovoltaicsV_Iql1Pu" value="-2"/>
+    <par type="DOUBLE" name="photovoltaicsV_IqrMaxPu" value="20"/>
+    <par type="DOUBLE" name="photovoltaicsV_IqrMinPu" value="-20"/>
+    <par type="DOUBLE" name="photovoltaicsV_Kc" value="0"/>
+    <par type="DOUBLE" name="photovoltaicsV_Ki" value="1.5"/>
+    <par type="DOUBLE" name="photovoltaicsV_Kig" value="2.36"/>
+    <par type="DOUBLE" name="photovoltaicsV_Kp" value="0.1"/>
+    <par type="DOUBLE" name="photovoltaicsV_Kpg" value="0.05"/>
+    <par type="DOUBLE" name="photovoltaicsV_Kqi" value="0.5"/>
+    <par type="DOUBLE" name="photovoltaicsV_Kqp" value="1"/>
+    <par type="DOUBLE" name="photovoltaicsV_Kqv" value="2"/>
+    <par type="DOUBLE" name="photovoltaicsV_Kvi" value="1"/>
+    <par type="DOUBLE" name="photovoltaicsV_Kvp" value="1"/>
+    <par type="DOUBLE" name="photovoltaicsV_PMaxPu" value="1"/>
+    <par type="DOUBLE" name="photovoltaicsV_PMinPu" value="0"/>
+    <par type="BOOL" name="photovoltaicsV_PPriority" value="false"/>
+    <par type="BOOL" name="photovoltaicsV_PfFlag" value="false"/>
+    <par type="BOOL" name="photovoltaicsV_QFlag" value="true"/>
+    <par type="DOUBLE" name="photovoltaicsV_QMaxPu" value="0.4"/>
+    <par type="DOUBLE" name="photovoltaicsV_QMinPu" value="-0.4"/>
+    <par type="BOOL" name="photovoltaicsV_RateFlag" value="false"/>
+    <par type="BOOL" name="photovoltaicsV_RefFlag" value="true"/>
+    <par type="DOUBLE" name="photovoltaicsV_tFilterPC" value="0.04"/>
+    <par type="DOUBLE" name="photovoltaicsV_tFilterGC" value="0.02"/>
+    <par type="DOUBLE" name="photovoltaicsV_tFt" value="1e-10"/>
+    <par type="DOUBLE" name="photovoltaicsV_tFv" value="0.1"/>
+    <par type="DOUBLE" name="photovoltaicsV_tG" value="0.02"/>
+    <par type="DOUBLE" name="photovoltaicsV_Tiq" value="0.02"/>
+    <par type="DOUBLE" name="photovoltaicsV_tLag" value="0.1"/>
+    <par type="DOUBLE" name="photovoltaicsV_tP" value="0.04"/>
+    <par type="DOUBLE" name="photovoltaicsV_tPord" value="0.02"/>
+    <par type="DOUBLE" name="photovoltaicsV_tRv" value="0.02"/>
+    <par type="DOUBLE" name="photovoltaicsV_UMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="photovoltaicsV_UMinPu" value="0.9"/>
+    <par type="BOOL" name="photovoltaicsV_VFlag" value="true"/>
+    <par type="BOOL" name="photovoltaicsV_VCompFlag" value="false"/>
+    <par type="DOUBLE" name="photovoltaicsV_VFrz" value="0"/>
+    <par type="DOUBLE" name="photovoltaicsV_VMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="photovoltaicsV_VMinPu" value="0.9"/>
+    <par type="DOUBLE" name="photovoltaicsV_VRef0Pu" value="1"/>
+    <par type="DOUBLE" name="photovoltaicsV_DPMax" value="999"/>
+    <par type="DOUBLE" name="photovoltaicsV_DPMin" value="-999"/>
+    <par type="DOUBLE" name="photovoltaicsV_Dbd" value="0.01"/>
+    <par type="DOUBLE" name="photovoltaicsV_Dbd1" value="-0.1"/>
+    <par type="DOUBLE" name="photovoltaicsV_Dbd2" value="0.1"/>
+    <par type="DOUBLE" name="photovoltaicsV_EMax" value="999"/>
+    <par type="DOUBLE" name="photovoltaicsV_EMin" value="-999"/>
+    <par type="DOUBLE" name="photovoltaicsV_FDbd1" value="0.004"/>
+    <par type="DOUBLE" name="photovoltaicsV_FDbd2" value="1"/>
+    <par type="DOUBLE" name="photovoltaicsV_FEMax" value="999"/>
+    <par type="DOUBLE" name="photovoltaicsV_FEMin" value="-999"/>
+    <par type="DOUBLE" name="photovoltaicsV_Rrpwr" value="10"/>
+    <par type="DOUBLE" name="photovoltaicsV_KiPLL" value="20"/>
+    <par type="DOUBLE" name="photovoltaicsV_KpPLL" value="3"/>
+    <par type="DOUBLE" name="photovoltaicsV_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="photovoltaicsV_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="photovoltaicsV_RSourcePu" value="0"/>
+    <par type="DOUBLE" name="photovoltaicsV_XSourcePu" value="0.1"/>
+    <par type="DOUBLE" name="photovoltaicsV_tE" value="0.005"/>
+  </set>
+  <set id="4">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <set id="5">
+    <par type="DOUBLE" name="setPoint_Value0" value="0.7"/>
+  </set>
+  <set id="6">
+    <par type="DOUBLE" name="setPoint_Value0" value="0.2"/>
+  </set>
+</parametersSet>

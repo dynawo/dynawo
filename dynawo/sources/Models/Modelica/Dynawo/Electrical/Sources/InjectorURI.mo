@@ -22,7 +22,7 @@ model InjectorURI "Injector controlled by real (R) part and imaginary (I) part v
   import Dynawo.Types;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
-  //extends SwitchOff.SwitchOffInjector;
+  extends SwitchOff.SwitchOffInjector;
 
   // Terminal connection
   Connectors.ACPower terminal(V(re(start = Ur0Pu), im(start = Ui0Pu)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid"  annotation(
@@ -74,12 +74,19 @@ equation
   uPu = terminal.V + terminal.i * SystemBase.SnRef / SNom * Complex(RSourcePu, XSourcePu);
   terminal.V.re = urPu;
   terminal.V.im = uiPu;
-  // Active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef
-  QInjPuSn = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
-  PInjPuSn = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
-  QInjPu = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
-  PInjPu = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
 
+  if running.value then
+    // Active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef
+    QInjPuSn = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
+    PInjPuSn = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
+    QInjPu = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
+    PInjPu = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
+  else
+    QInjPuSn = 0;
+    PInjPuSn = 0;
+    QInjPu = 0;
+    PInjPu = 0;
+  end if;
 
 annotation(preferredView = "text",
 Documentation(info="<html> <p> This block calculates the P,Q,u,i values for terminal connection based on real and imaginary parts of voltage setpoints from generator control  </p> </html>"),
