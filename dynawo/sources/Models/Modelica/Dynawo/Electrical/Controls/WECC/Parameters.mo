@@ -77,6 +77,12 @@ record Parameters "Parameters of the PV WECC model"
     parameter Types.PerUnit DPMax "Active power upper rate limit" annotation(Dialog(tab="Electrical Control"));
     parameter Types.PerUnit DPMin "Active power lower rate limit" annotation(Dialog(tab="Electrical Control"));
     parameter Types.PerUnit IMaxPu "Maximal apparent current magnitude in pu (base UNom, SNom)" annotation(Dialog(tab="Electrical Control"));
+    parameter Types.ActivePowerPu PInj0Pu "Start value of active power at injector terminal in pu (generator convention) (base SNom)";
+    parameter Types.ReactivePowerPu QInj0Pu "Start value of reactive power at injector terminal in pu (generator convention) (base SNom)";
+    parameter Types.VoltageModulePu UInj0Pu "Start value of voltage magnitude at injector terminal in pu (base UNom)";
+    parameter Types.PerUnit PF0 "Start value of powerfactor";
+    parameter Types.CurrentModulePu Id0Pu "Start value of d-component current at injector terminal in pu (generator convention) (base SNom, UNom)";
+    parameter Types.CurrentModulePu Iq0Pu "Start value of q-component current at injector terminal in pu (generator convention) (base SNom, UNom)";
   annotation(preferredView = "text");
   end Params_ElectricalControl;
 
@@ -104,5 +110,12 @@ record Parameters "Parameters of the PV WECC model"
     parameter Types.PerUnit XSourcePu "Source reactance in pu (base UNom, SNom)";
   annotation(preferredView = "text");
   end Params_VSourceRef;
+
+  record Params_DriveTrain
+    parameter Types.Time Ht "Turbine Inertia in s (typical: 5s)";
+    parameter Types.Time Hg "Generator Inertia in s (typical: 1s)";
+    parameter Types.PerUnit Dshaft "Damping coefficient in pu (typical: 1.5 pu, base SNom, omegaNom)";
+    parameter Types.PerUnit Kshaft "Spring constant in pu (typical: 200 pu, base SNom, omegaNom)";
+  end Params_DriveTrain;
 
 end Parameters;

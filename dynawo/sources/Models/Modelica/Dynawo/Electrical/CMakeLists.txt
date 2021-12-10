@@ -21,6 +21,7 @@ add_subdirectory(Shunts Q)
 add_subdirectory(StaticVarCompensators V)
 add_subdirectory(Switches S)
 add_subdirectory(Photovoltaics P)
+add_subdirectory(Wind W)
 
 set(MODEL_FILES
   package.mo

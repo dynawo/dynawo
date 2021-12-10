@@ -1,4 +1,4 @@
-within Dynawo.Examples.Photovoltaics;
+within Dynawo.Electrical;
 
 /*
 * Copyright (c) 2021, RTE (http://www.rte-france.com)
@@ -12,6 +12,6 @@ within Dynawo.Examples.Photovoltaics;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package WECC "Examples with WECC models for photovoltaics"
+package Wind "Wind Turbines models"
   extends Icons.Package;
-end WECC;
+end Wind;
