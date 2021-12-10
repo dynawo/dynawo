@@ -25,7 +25,7 @@ model InjectorURI "Injector controlled by real (R) part and imaginary (I) part v
   extends SwitchOff.SwitchOffInjector;
 
   // Terminal connection
-  Connectors.ACPower terminal(V(re(start = Ur0Pu), im(start = Ui0Pu)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid"  annotation(
+  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid"  annotation(
     Placement(visible = true, transformation(extent = {{0, -26}, {0, -26}}, rotation = 0), iconTransformation(origin = {115, 47}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
@@ -33,9 +33,9 @@ model InjectorURI "Injector controlled by real (R) part and imaginary (I) part v
   parameter Types.PerUnit XSourcePu "Source reactance in p.u (typical: 0.05..0.2)";
 
   // Inputs: real-imaginary part voltage p.u. variables (base UNom)
-  Modelica.Blocks.Interfaces.RealInput urPu (start = Ur0Pu) "Real part voltage (pu base Unom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput urPu (start = u0Pu.re) "Real part voltage (pu base Unom)" annotation(
     Placement(visible = true, transformation(extent = {{10, -26}, {10, -26}}, rotation = 0), iconTransformation(origin = {-106, 38}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput uiPu (start = Ui0Pu) "Imaginary part voltage (pu base Unom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput uiPu (start = u0Pu.im) "Imaginary part voltage (pu base Unom)" annotation(
     Placement(visible = true, transformation(extent = {{0, -26}, {0, -26}}, rotation = 0), iconTransformation(origin = {-107, -43}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
   // Outputs:
@@ -64,9 +64,6 @@ protected
   parameter Types.ComplexApparentPowerPu s0Pu  "Start value of apparent power at injector terminal in p.u (base SnRef) (receptor convention)";
   parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at injector terminal in p.u (base UNom, SnRef) (receptor convention)";
 
-  parameter Types.CurrentModulePu Ur0Pu "Start value of ur in p.u (base UNom)";
-  parameter Types.CurrentModulePu Ui0Pu "Start value of iq in p.u (base UNom)";
-
 equation
 
   UPhase = ComplexMath.arg(terminal.V);
@@ -77,10 +74,13 @@ equation
 
   if running.value then
     // Active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef
-    QInjPuSn = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
-    PInjPuSn = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
-    QInjPu = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
-    PInjPu = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
+    QInjPuSn = QInjPu * SystemBase.SnRef/SNom;
+    PInjPuSn = PInjPu * SystemBase.SnRef/SNom;
+    //QInjPu = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
+    //PInjPu = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
+
+    QInjPu = -1 * ComplexMath.imag(uPu * ComplexMath.conj(terminal.i)) * SystemBase.SnRef / SNom;
+    PInjPu = -1 * ComplexMath.real(uPu * ComplexMath.conj(terminal.i)) * SystemBase.SnRef / SNom;
   else
     QInjPuSn = 0;
     PInjPuSn = 0;

@@ -20,18 +20,24 @@ model UdqRef "Calculation of setpoints udRefPu and uqRefPu with source impedance
   parameter Types.PerUnit RPu "Source resistance in p.u (base UNom, SNom)";
   parameter Types.PerUnit XPu "Source reactance in p.u (base UNom, SNom)";
 
-  Interfaces.RealInput idRefPu "d-axis reference current in p.u (base UNom, SNom)" annotation(
+  Interfaces.RealInput idRefPu(start = Id0Pu) "d-axis reference current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput iqRefPu "q-axis reference current in p.u (base UNom, SNom)" annotation(
+  Interfaces.RealInput iqRefPu(start = Iq0Pu) "q-axis reference current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput udPu "d-axis voltage in p.u (base UNom)" annotation(
+  Interfaces.RealInput udPu(start = Ud0Pu) "d-axis voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput uqPu "q-axis voltage in p.u (base UNom)" annotation(
+  Interfaces.RealInput uqPu(start = Uq0Pu) "q-axis voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput udRefPu "d-axis reference voltage in p.u (base UNom)" annotation(
+  Interfaces.RealOutput udRefPu(start = Ud0Pu + Id0Pu * RPu - Iq0Pu * XPu) "d-axis reference voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput uqRefPu "q-axis reference voltage in p.u (base UNom)" annotation(
+  Interfaces.RealOutput uqRefPu(start = Uq0Pu + Iq0Pu * RPu + Id0Pu * XPu) "q-axis reference voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+protected
+  parameter Types.PerUnit Id0Pu "Start value of d-axis current at injector in p.u (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit Iq0Pu "Start value of q-axis current at injector in p.u (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit Ud0Pu "Start value of d-axis current at injector in p.u (base UNom)";
+  parameter Types.PerUnit Uq0Pu "Start value of q-axis current at injector in p.u (base UNom)";
 
 equation
   udRefPu = udPu + idRefPu * RPu - iqRefPu * XPu;

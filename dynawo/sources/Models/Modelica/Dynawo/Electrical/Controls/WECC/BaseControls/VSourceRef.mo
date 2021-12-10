@@ -24,25 +24,25 @@ model VSourceRef
 
   ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re),im(start = u0Pu.im)) "Complex voltage at inverter terminal in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-130, 5}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealInput idPu "d-axis current in p.u (base SNom, UNom) (generator convention)" annotation(
+  Blocks.Interfaces.RealInput idPu(start = Id0Pu) "d-axis current in p.u (base SNom, UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealInput iqPu "q-axis current in p.u (base SNom, UNom) (generator convention)" annotation(
+  Blocks.Interfaces.RealInput iqPu(start = Iq0Pu) "q-axis current in p.u (base SNom, UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Blocks.Interfaces.RealOutput urPu(start = Ur0Pu) "Real voltage of inner voltage source in p.u (base UNom)" annotation(
+  Blocks.Interfaces.RealOutput urPu(start = u0Pu.re) "Real voltage of inner voltage source in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealOutput uiPu(start = Ui0Pu) "Imaginary voltage of inner voltage source in p.u (base UNom)" annotation(
+  Blocks.Interfaces.RealOutput uiPu(start = u0Pu.im) "Imaginary voltage of inner voltage source in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.WECC.BaseControls.UdqRef udqRef(RPu = RSourcePu, XPu = XSourcePu) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.UdqRef udqRef(RPu = RSourcePu, XPu = XSourcePu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, Ud0Pu = Ud0Pu, Uq0Pu = Uq0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 7}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.TransformRItoDQ transformRItoDQ annotation(
     Placement(visible = true, transformation(origin = {-40, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.FirstOrder firstOrder(T = tE, k = 1, y_start = UdSource0Pu)  annotation(
+  Blocks.Continuous.FirstOrder firstOrder(T = tE, k = 1, y_start = Ud0Pu)  annotation(
     Placement(visible = true, transformation(origin = {40, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.FirstOrder firstOrder1(T = tE, k = 1, y_start = UqSource0Pu)  annotation(
+  Blocks.Continuous.FirstOrder firstOrder1(T = tE, k = 1, y_start = Uq0Pu)  annotation(
     Placement(visible = true, transformation(origin = {40, 3}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.PLL.PLL pll(Ki = 30, Kp = 10, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, u0Pu = u0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-90, -33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -51,8 +51,10 @@ model VSourceRef
 
 protected
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at inverter terminal in p.u (base UNom)";
-  parameter Types.VoltageModulePu Ur0Pu "Start value of real voltage of inner voltage source in p.u (base UNom)";
-  parameter Types.VoltageModulePu Ui0Pu "Start value of imaginary voltage of inner voltage source in p.u (base UNom)";
+  parameter Types.PerUnit Id0Pu "Start value of d-axis current at injector in p.u (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit Iq0Pu "Start value of q-axis current at injector in p.u (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit Ud0Pu "Start value of d-axis current at injector in p.u (base UNom)";
+  parameter Types.PerUnit Uq0Pu "Start value of q-axis current at injector in p.u (base UNom)";
 
 equation
   connect(OmegaRefPu.y, pll.omegaRefPu) annotation(

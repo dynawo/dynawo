@@ -29,11 +29,6 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in p.u (base SnRef)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in p.u (base SnRef)";
 
-  parameter Types.PerUnit P0Pu "Start value of active power at regulated bus in p.u (receptor convention) (base SnRef)";
-  parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in p.u (receptor convention) (base SnRef)";
-  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in p.u.";
-  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
-
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {186, -10}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -45,7 +40,7 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 
-  Dynawo.Electrical.Lines.Line line(RPu = RPu, XPu = XPu, BPu = 0, GPu = 0) annotation(
+  Dynawo.Electrical.Lines.Line line(RPu = RPu , XPu = XPu, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {137, -13}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.PlantControl wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = - P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = - Q0Pu * SystemBase.SnRef / SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, Dbd = Dbd, EMax = EMax, EMin = EMin, FDbd1 = FDbd1, FDbd2 = FDbd2, FEMax = FEMax, FEMin = FEMin, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -59,10 +54,16 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
     Placement(visible = true, transformation(origin = {-80, 36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom)  annotation(
     Placement(visible = true, transformation(origin = {160, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef VSourceRef(RSourcePu = RSourcePu, tE = tE, Ui0Pu = Ui0Pu, Ur0Pu = Ur0Pu, XSourcePu= XSourcePu, u0Pu = u0Pu, UdSource0Pu = UdSource0Pu, UqSource0Pu = UqSource0Pu)  annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef VSourceRef(RSourcePu = RSourcePu, tE = tE, XSourcePu= XSourcePu, u0Pu = u0Pu, Id0Pu = Id0Pu, Iq0Pu =Iq0Pu, Ud0Pu=Ud0Pu, Uq0Pu=Uq0Pu)  annotation(
     Placement(visible = true, transformation(origin = {73, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.InjectorURI injector(P0Pu = -PInj0Pu * (SNom / SystemBase.SnRef), Q0Pu = -QInj0Pu * (SNom / SystemBase.SnRef), SNom = SNom, U0Pu = UInj0Pu, UPhase0 = UPhaseInj0, Ui0Pu = Ui0Pu, Ur0Pu = Ur0Pu, i0Pu = i0Pu, s0Pu = s0Pu, u0Pu = uInj0Pu, RSourcePu = RSourcePu, XSourcePu = XSourcePu) annotation(
+  Dynawo.Electrical.Sources.InjectorURI injector(P0Pu = -PInj0Pu * (SNom / SystemBase.SnRef), Q0Pu = -QInj0Pu * (SNom / SystemBase.SnRef), SNom = SNom, U0Pu = UInj0Pu, UPhase0 = UPhaseInj0, i0Pu = i0Pu, s0Pu = s0Pu, u0Pu = uInj0Pu, RSourcePu = RSourcePu, XSourcePu = XSourcePu) annotation(
     Placement(visible = true, transformation(origin = {105, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+
+  parameter Types.PerUnit P0Pu "Start value of active power at regulated bus in p.u (receptor convention) (base SnRef)";
+  parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in p.u (receptor convention) (base SnRef)";
+  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in p.u.";
+  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
 
   parameter Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
   parameter Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef) (receptor convention)";
@@ -75,10 +76,10 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
   parameter Types.PerUnit UInj0Pu "Start value of voltage module at injector in p.u (base UNom)";
   parameter Types.Angle UPhaseInj0 "Start value of voltage angle at injector in p.u (base UNom)";
   parameter Types.PerUnit PF0 "Start value of power factor";
-  parameter Types.PerUnit Id0Pu "Start value of d-axs current at injector in p.u (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit Id0Pu "Start value of d-axis current at injector in p.u (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit Iq0Pu "Start value of q-axis current at injector in p.u (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit Ur0Pu "Start value of real part of voltage at injector in p.u (base UNom) ";
-  parameter Types.PerUnit Ui0Pu "Start value of imaginary part of voltage at injector in p.u (base UNom) ";
+  parameter Types.PerUnit Ud0Pu "Start value of d-axis voltage at injector in p.u (base UNom)";
+  parameter Types.PerUnit Uq0Pu "Start value of q-axis voltage at injector in p.u (base UNom)";
 
 equation
   connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
