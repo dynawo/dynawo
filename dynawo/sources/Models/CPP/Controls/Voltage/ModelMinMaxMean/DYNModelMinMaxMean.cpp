@@ -142,14 +142,7 @@ ModelMinMaxMean::getSize() {
 }
 
 void
-ModelMinMaxMean::calculateInitialState() {
-  /*
-  sortGenByCC();
-  */
-}
-
-void
-ModelMinMaxMean::evalF(double /*t*/, propertyF_t type) {
+ModelMinMaxMean::evalF(double /*t*/, propertyF_t /*type*/) {
   /*
   if (type == DIFFERENTIAL_EQ)
     return;
@@ -196,7 +189,7 @@ ModelMinMaxMean::evalG(const double /*t*/) {
 }
 
 void
-ModelMinMaxMean::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int rowOffset) {
+ModelMinMaxMean::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& /*jt*/, const int /*rowOffset*/) {
   /*
   // Equations:
   // I: for each connected component i, for generator k in this cc i:
@@ -242,7 +235,7 @@ ModelMinMaxMean::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& j
 }
 
 void
-ModelMinMaxMean::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& jt, const int /*rowOffset*/) {
+ModelMinMaxMean::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& /*jt*/, const int /*rowOffset*/) {
   /*
   // Equations:
   // I: for each connected component i, for generator k in this cc i:
@@ -272,7 +265,7 @@ ModelMinMaxMean::evalZ(const double /*t*/) {
 }
 
 void
-ModelMinMaxMean::collectSilentZ(BitMask* silentZTable) {
+ModelMinMaxMean::collectSilentZ(BitMask* /*silentZTable*/) {
   /*
   for (unsigned k = 0; k < sizeZ_; ++k) {
     silentZTable[k].setFlags(NotUsedInDiscreteEquations);
@@ -301,30 +294,6 @@ ModelMinMaxMean::evalMode(const double /*t*/) {
   }
   */
   return NO_MODE;
-}
-
-/**
- * @brief Sort every generator by num of subNetwork
- *
- *
- */
-void
-ModelMinMaxMean::sortGenByCC() {
-  /*
-  genByCC_.clear();
-  sumWeightByCC_.clear();
-
-  for (int i = 0; i < nbGen_; ++i) {
-    if (toNativeBool(runningGrp_[i])) {
-      genByCC_[numCCNode_[i]].push_back(i);
-      if (weights_[i] > 0)
-        sumWeightByCC_[numCCNode_[i]] += weights_[i];
-    }
-  }
-  nbCC_ = static_cast<int>(genByCC_.size());
-  if (nbCC_ > nbMaxCC)
-    throw DYNError(Error::MODELER, TooMuchSubNetwork, nbCC_, nbMaxCC);
-    */
 }
 
 void
@@ -408,7 +377,7 @@ ModelMinMaxMean::evalStaticFType() {
  * A variable is a structure which contained all information needed to interact with the model
  */
 void
-ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& variables) {
+ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& /*variables*/) {
   /*
   stringstream name;
   for (int i = 0; i < nbMaxCC; ++i) {
@@ -448,7 +417,7 @@ ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& variables) {
 }
 
 void
-ModelMinMaxMean::defineParameters(vector<ParameterModeler>& parameters) {
+ModelMinMaxMean::defineParameters(vector<ParameterModeler>& /*parameters*/) {
   /*
   parameters.push_back(ParameterModeler("nbGen", VAR_TYPE_INT, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("weight_gen", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGen"));
@@ -498,7 +467,7 @@ ModelMinMaxMean::setSubModelParameters() {
  * @param mapElement Map associating each element index in the elements vector to its name
  */
 void
-ModelMinMaxMean::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
+ModelMinMaxMean::defineElements(std::vector<Element> &/*elements*/, std::map<std::string, int>& /*mapElement*/) {
   /*
   stringstream namess;
   for (int i = 0; i < nbMaxCC; ++i) {
