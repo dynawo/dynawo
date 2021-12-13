@@ -291,14 +291,9 @@ class ModelMinMaxMean : public ModelCPP {
   void updateAsset(const double newVal, const int assetId);
 
   /**
-   * @brief adds new asset to the subnetwork considered
+   * @brief re connect an asset to the subnetwork
    */
-  void addNewAsset(const double newVal, const int assetId);
-
-  /**
-   * @brief disconnects completely an asset
-   */
-  void disconnectAsset(const int id);
+  void enableAsset(const double newVal, const int assetId);
 
   /**
    * @brief disables an asset but keeps it connected
