@@ -80,24 +80,23 @@ extern "C" void DYN::ModelMinMaxMeanFactory::destroy(DYN::SubModel* model) const
 }
 
 namespace DYN {
-static const int nbMaxCC = 10;  ///< max number of subNetwork where omegaRef is calculated
-
-int ModelMinMaxMean::col1stOmegaRef_;
-int ModelMinMaxMean::col1stOmega_;
 
 /**
  * @brief Reference frequency model default constructor
  *
  *
  */
-ModelOmegaRef::ModelMinMaxMean() :
+ModelMinMaxMean::ModelMinMaxMean() :
 ModelCPP("minMaxMean"),
-firstState_(true),
-nbGen_(0),
-nbCC_(0),
-nbOmega_(0),
-omegaRefMin_(0.98),
-omegaRefMax_(1.02) {
+voltageInputs_(0),
+isActive_(0),
+minVal_(0),
+maxVal_(0),
+avgVal_(0),
+idxMin_(-1),
+idxMax_(-1),
+nbCurActiveInputs_(0),
+isInitialized_(false) {
 }
 
 /**
