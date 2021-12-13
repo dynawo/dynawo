@@ -307,8 +307,8 @@ class ModelMinMaxMean : public ModelCPP {
 
  private:
   // Inputs, which can be changed dynamically.
-  std::unsorted_map<int,double> voltageInputs_; ///< Voltages considered in the inputs
-  std::unsorted_map<int,bool> isActive_; ///< Keeps a flag if a given asset is active
+  std::vector<double> voltageInputs_; ///< Voltages considered in the inputs
+  std::vector<bool> isActive_; ///< Keeps a flag if a given asset is active
 
   // State variables which we keep to be called at any time
   double minVal_;
@@ -321,7 +321,6 @@ class ModelMinMaxMean : public ModelCPP {
 
   // A couple of useful variables to speed up computations in real time
   int nbCurActiveInputs_; ///< Number of active inputs
-  int nbCurConnectedInputs_; ///< Number of currently connected inputs (including those deactivated)
 
   bool isInitialized_;
 
