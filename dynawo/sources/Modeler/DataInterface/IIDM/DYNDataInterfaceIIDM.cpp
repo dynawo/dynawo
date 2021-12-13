@@ -191,7 +191,7 @@ DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
   formatter.register_extension(
       &IIDM::extensions::activepowercontrol::xml::exportActivePowerControl,
       IIDM::extensions::activepowercontrol::xml::ActivePowerControlHandler::uri(),
-      "acp");
+      "apc");
 
   formatter.register_extension(
       &IIDM::extensions::currentlimitsperseason::xml::exportCurrentLimitsPerSeason,
