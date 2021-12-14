@@ -27,7 +27,7 @@
 #include "PARParametersSet.h"
 
 #include "DYNModelMinMaxMean.h"
-// #include "DYNModelMinMaxMean.hpp"
+#include "DYNModelMinMaxMean.hpp"
 // #include "DYNModelConstants.h"
 // #include "DYNSparseMatrix.h"
 // #include "DYNMacrosMessage.h"
@@ -88,8 +88,8 @@ namespace DYN {
  */
 ModelMinMaxMean::ModelMinMaxMean() :
 ModelCPP("minMaxMean"),
-voltageInputs_(0),
-isActive_(0),
+voltageInputs_(),
+isActive_(),
 minVal_(0),
 maxVal_(0),
 avgVal_(0),
@@ -583,6 +583,97 @@ ModelMinMaxMean::checkDataCoherence(const double /*t*/) {
       throw DYNError(Error::MODELER, FrequencyIncrease, yLocal_[i] * FNOM, omegaRefMax_ * FNOM);
   }
   */
+}
+
+void
+ModelMinMaxMean::updateAsset(const double &newVal, const int &assetId) {
+  if(isActive_[assetId]) {
+    // Do the update
+    avgVal_ += (newVal - voltageInputs_[assetId])/nbCurActiveInputs_;
+    voltageInputs_[assetId] = newVal;
+    if( newVal < minVal_ ) {
+      idxMax_ = assetId;
+      minVal_ = newVal;
+    } else if( newVal > maxVal_) {
+      maxVal_ = newVal;
+      idxMax_ = assetId;
+    }
+  } else {
+    // Something is odd
+  }
+}
+
+void
+ModelMinMaxMean::enableAsset(const double &newVal, const int &assetId) {
+  if(isActive_[assetId]) {
+    // Only update the value
+    updateAsset(newVal, assetId);
+  } else {
+    // Need a bit more work
+    double tot = avgVal_*nbCurActiveInputs_;
+    nbCurActiveInputs_++
+    isActive_[assetId] = true;
+    voltageInputs_[assetId] = newVal;
+    tot += newVal;
+    avgVal_ = tot/nbCurActiveInputs_;
+    if( newVal < minVal_ ) {
+      idxMax_ = assetId;
+      minVal_ = newVal;
+    } else if( newVal > maxVal_) {
+      maxVal_ = newVal;
+      idxMax_ = assetId;
+    }
+
+  }
+}
+
+void
+ModelMinMaxMean::disableAsset(const int &id) {
+    if(isActive_[id]) {
+        // The asset was indeed active. Some care should be taken
+        avgVal_ = avgVal_*nbCurActiveInputs_ - voltageInputs_[id];
+        nbCurActiveInputs_--;
+        if(nbCurActiveInputs_ > 0) {
+          avgVal_ /= nbCurActiveInputs_;
+          isActive_[id] = false;
+
+          // Update min and max values
+          if(id == idxMax_){
+            // Need to search for a new max
+            maxVal_ = minVal_;
+            for(int i=0; i<isActive_.size(); i++){
+              if(isActive_[i]) {
+                if(voltageInputs_[i] > maxVal_){
+                  idxMax_ = i;
+                  maxVal_ = voltageInputs_[i];
+                }
+              }
+            }
+          }
+          if(id == idxMin_) {
+            // Need to search for a new min
+            minVal_ = maxVal_;
+            for(int i=0; i<isActive_.size(); i++){
+              if(isActive_[i]) {
+                if(voltageInputs_[i] < minVal_){
+                  idxMin_ = i;
+                  minVal_ = voltageInputs_[i];
+                }
+              }
+            }
+          }
+        } else {
+          // Nothing to see here!
+          minVal_ = 0;
+          maxVal_ = 0;
+          avgVal_ = 0;
+          idxMin_ = -1;
+          idxMin_ = -1;
+        }
+
+    } else {
+        // do nothing
+    }
 }
 
 }  // namespace DYN
