@@ -27,10 +27,10 @@
 #include "PARParametersSet.h"
 
 #include "DYNModelMinMaxMean.h"
-#include "DYNModelMinMaxMean.hpp"
+// #include "DYNModelMinMaxMean.hpp"
 // #include "DYNModelConstants.h"
 // #include "DYNSparseMatrix.h"
-// #include "DYNMacrosMessage.h"
+#include "DYNMacrosMessage.h"
 // #include "DYNElement.h"
 // #include "DYNCommonModeler.h"
 // #include "DYNTrace.h"
@@ -143,44 +143,7 @@ ModelMinMaxMean::getSize() {
 
 void
 ModelMinMaxMean::evalF(double /*t*/, propertyF_t /*type*/) {
-  /*
-  if (type == DIFFERENTIAL_EQ)
-    return;
-  if (firstState_) {
-    calculateInitialState();
-    firstState_ = false;
-  }
-
-  // I: for each connected component i, for generator k in this cc i:
-  // 0 = sum_k (omega[k] * weight[k]) - omegaRef[i] * sum_k (weight[k])
-  for (int i = 0; i < nbMaxCC; ++i) {
-    map<int, std::vector<int> >::const_iterator iterGen = genByCC_.find(i);
-    map<int, double>::const_iterator iterWeight = sumWeightByCC_.find(i);
-    if (iterGen == genByCC_.end() || iterWeight == sumWeightByCC_.end()) {
-      fLocal_[i] = 1 - yLocal_[i];
-    } else {
-      fLocal_[i] = -yLocal_[i];
-      std::vector<int> numGen = iterGen->second;
-      for (unsigned int j = 0; j < numGen.size(); ++j) {
-        if (toNativeBool(runningGrp_[numGen[j]]) && weights_[numGen[j]] > 0) {
-          fLocal_[i] += yLocal_[nbMaxCC + indexOmega_[numGen[j]]] * weights_[numGen[j]] / iterWeight->second;
-        }
-      }
-    }
-  }
-
-  // II: equation nbMaxCC to nbGen_ + nbMaxCC :
-  // for each generator k, and the connected component i which contains this generator k:
-  // 0 = omegaRef[i] - omegaRefGrp[k]
-  // the index i is given by numCCNode_[k]
-  for (int k = 0; k < nbGen_; ++k) {
-    if (toNativeBool(runningGrp_[k])) {
-      fLocal_[nbMaxCC + k] = yLocal_[numCCNode_[k]] - yLocal_[nbMaxCC + nbOmega_ + k];
-    } else {
-      fLocal_[nbMaxCC + k] = 1 - yLocal_[nbMaxCC + nbOmega_ + k];
-    }
-  }
-  */
+  // No evalF function deeded
 }
 
 void
@@ -190,78 +153,17 @@ ModelMinMaxMean::evalG(const double /*t*/) {
 
 void
 ModelMinMaxMean::evalJt(const double /*t*/, const double /*cj*/, SparseMatrix& /*jt*/, const int /*rowOffset*/) {
-  /*
-  // Equations:
-  // I: for each connected component i, for generator k in this cc i:
-  // 0 = sum_k (omega[k] * weight[k]) - omegaRef[i] * sum_k (weight[k])
-
-  // II: equation nbMaxCC to nbGen_ + nbMaxCC :
-  // for each generator k, and the connected component i which contains this generator k:
-  // 0 = omegaRef[i] - omegaRefGrp[k]
-  // the index i is given by numCCNode_[k]
-
-  static double dMOne = -1.;
-  static double dPOne = +1.;
-
-  for (int i = 0; i < nbMaxCC; ++i) {
-    jt.changeCol();
-    map<int, std::vector<int> >::const_iterator iterGen = genByCC_.find(i);
-    map<int, double>::const_iterator iterWeight = sumWeightByCC_.find(i);
-    if (iterGen == genByCC_.end() || iterWeight == sumWeightByCC_.end()) {
-      // f=1-omegaRef[i]
-      jt.addTerm(col1stOmegaRef_ + i + rowOffset, dMOne);   // d(f)/d(omegaRef[i]) = -1;
-    } else {
-      // f = sum(omega[]*weight[]) - omegaRef[i]
-      jt.addTerm(col1stOmegaRef_ + i + rowOffset, dMOne);   // d(f)/d(omegaRef[i]) = -1;
-      std::vector<int> numGen = iterGen->second;
-      for (unsigned int j = 0; j < numGen.size(); ++j) {
-        if (toNativeBool(runningGrp_[numGen[j]]) && weights_[numGen[j]] > 0) {
-          jt.addTerm(indexOmega_[numGen[j]] + col1stOmega_ + rowOffset, weights_[numGen[j]] / iterWeight->second);  // d(f0)/d(omega[i]) = weight[i]
-        }
-      }
-    }
-  }
-
-  for (int i = 0; i < nbGen_; ++i) {
-    jt.changeCol();
-    if (runningGrp_[i] > 0.5) {
-      jt.addTerm(col1stOmegaRef_ + numCCNode_[i] + rowOffset, dPOne);   // d(f)/d(omegaRef[0]) = 1:
-      jt.addTerm(i + col1stOmegaRefGrp_ + rowOffset, dMOne);   // d(f)/d(omegaRefGrp[i]) = -1
-    } else {
-      jt.addTerm(i + col1stOmegaRefGrp_ + rowOffset, dMOne);   // d(f)/d(omegaRefGrp[i]) = -1
-    }
-  }
-  */
+  // No evalJt function needed
 }
 
 void
 ModelMinMaxMean::evalJtPrim(const double /*t*/, const double /*cj*/, SparseMatrix& /*jt*/, const int /*rowOffset*/) {
-  /*
-  // Equations:
-  // I: for each connected component i, for generator k in this cc i:
-  // 0 = sum_k (omega[k] * weight[k]) - omegaRef[i] * sum_k (weight[k])
-
-  // II: equation nbMaxCC to nbGen_ + nbMaxCC :
-  // for each generator k, and the connected component i which contains this generator k:
-  // 0 = omegaRef[i] - omegaRefGrp[k]
-  // the index i is given by numCCNode_[k]
-
-  // equation 0 to nbMaxCC : no differential variable
-  for (int i = 0; i < nbMaxCC; ++i)
-    jt.changeCol();
-
-  // equation nbMaxCC to nbGen + nbMaxCC : no differential variable
-  for (int i = 0; i < nbGen_; ++i)
-    jt.changeCol();
-  */
+  // No evalJtPrim function needed
 }
 
 void
 ModelMinMaxMean::evalZ(const double /*t*/) {
-  /*
-  std::copy(zLocal_, zLocal_ + nbGen_, numCCNode_.begin());
-  std::copy(zLocal_ + nbGen_, zLocal_ + sizeZ(), runningGrp_.begin());
-  */
+  // No evalZ function needed
 }
 
 void
@@ -294,6 +196,7 @@ ModelMinMaxMean::evalMode(const double /*t*/) {
   }
   */
   return NO_MODE;
+
 }
 
 void
@@ -307,13 +210,33 @@ ModelMinMaxMean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculat
 }
 
 double
-ModelMinMaxMean::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
-  return 0;
+ModelMinMaxMean::evalCalculatedVarI(unsigned iCalculatedVar) const {
+  double out=0.0f;
+  switch (iCalculatedVar)
+  {
+  case minValIdx_:
+    out = minVal_;
+    break;
+  case maxValIdx_:
+    out = maxVal_;
+    break;
+  case avgValIdx_:
+    out = avgVal_;
+    break;
+
+  default:
+    throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar); // Macro defined in DYNMacrosMessage
+    break;
+  }
+
+  return out;
 }
 
 void
 ModelMinMaxMean::evalCalculatedVars() {
-  // not needed
+  calculatedVars_[minValIdx_] = minVal_;
+  calculatedVars_[maxValIdx_] = maxVal_;
+  calculatedVars_[avgValIdx_] = avgVal_;
 }
 
 void
@@ -378,6 +301,10 @@ ModelMinMaxMean::evalStaticFType() {
  */
 void
 ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& /*variables*/) {
+  stringstream name;
+  name.str("");
+  // Define the min variable
+
   /*
   stringstream name;
   for (int i = 0; i < nbMaxCC; ++i) {
@@ -418,12 +345,7 @@ ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& /*variables*/) {
 
 void
 ModelMinMaxMean::defineParameters(vector<ParameterModeler>& /*parameters*/) {
-  /*
-  parameters.push_back(ParameterModeler("nbGen", VAR_TYPE_INT, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("weight_gen", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGen"));
-  parameters.push_back(ParameterModeler("omegaRefMin", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("omegaRefMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  */
+  // No parameters for this module.
 }
 
 void
@@ -522,23 +444,7 @@ ModelMinMaxMean::dumpUserReadableElementList(const std::string& /*nameElement*/)
 
 void
 ModelMinMaxMean::setFequations() {
-  /*stringstream f;
-  for (int i = 0; i < nbMaxCC; ++i) {
-    f.str("");
-    f.clear();
-    f << "Synchronous area " << i << " : 0 = sum_k (omega[k] * weight[k]) - omegaRef[i] * sum_k (weight[k])";
-    fEquationIndex_[i] =  f.str();
-  }
-
-  for (int k = 0; k < nbGen_; ++k) {
-    f.str("");
-    f.clear();
-    f << "Generator " << k << " : 0 = omegaRef[CC] - omegaRefGrp[k]";
-    fEquationIndex_[k + nbMaxCC] = f.str();
-  }
-
-  assert(fEquationIndex_.size() == static_cast<size_t>(sizeF()) && "ModelOmegaRef:fEquationIndex_.size() != f_.size()");
-  */
+  // setFequations not needed
 }
 
 void
@@ -580,7 +486,7 @@ ModelMinMaxMean::enableAsset(const double &newVal, const int &assetId) {
   } else {
     // Need a bit more work
     double tot = avgVal_*nbCurActiveInputs_;
-    nbCurActiveInputs_++
+    nbCurActiveInputs_++;
     isActive_[assetId] = true;
     voltageInputs_[assetId] = newVal;
     tot += newVal;

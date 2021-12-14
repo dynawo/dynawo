@@ -70,7 +70,10 @@ class ModelMinMaxMean : public ModelCPP {
    *
    */
   typedef enum {
-    nbCalculatedVars_ = 0
+    minValIdx_ = 0,
+    maxValIdx_ = 1,
+    avgValIdx_ = 2,
+    nbCalculatedVars_ = 3
   } CalculatedVars_t;
   /**
    * @brief MinMaxMean model default constructor
@@ -288,17 +291,17 @@ class ModelMinMaxMean : public ModelCPP {
   /**
    * @brief updates the voltage value of a given asset
    */
-  void updateAsset(const double newVal, const int assetId);
+  void updateAsset(const double &newVal, const int &assetId);
 
   /**
    * @brief re connect an asset to the subnetwork
    */
-  void enableAsset(const double newVal, const int assetId);
+  void enableAsset(const double &newVal, const int &assetId);
 
   /**
    * @brief disables an asset but keeps it connected
    */
-  void disableAsset(const int id);
+  void disableAsset(const int &id);
 
  private:
   // Inputs, which can be changed dynamically.
@@ -311,13 +314,14 @@ class ModelMinMaxMean : public ModelCPP {
   double avgVal_;
 
   // We'll decide later if we need these:
-  int idxMin_;  ///< Index of the entry reaching the minimum value
-  int idxMax_;  ///< Index of the entry reaching the maximum value
+  int idxMin_;  ///< Index of an entry reaching the minimum value
+  int idxMax_;  ///< Index of an entry reaching the maximum value
 
   // A couple of useful variables to speed up computations in real time
   int nbCurActiveInputs_;  ///< Number of active inputs
 
   bool isInitialized_;
+
 };
 
 }  // namespace DYN
