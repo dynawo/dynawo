@@ -512,7 +512,7 @@ ModelMinMaxMean::disableAsset(const int &id) {
           if (id == idxMax_) {
             // Need to search for a new max
             maxVal_ = minVal_;
-            for (int i=0; i < isActive_.size(); i++) {
+            for (std::size_t i=0; i < isActive_.size(); i++) {
               if (isActive_[i]) {
                 if (voltageInputs_[i] > maxVal_) {
                   idxMax_ = i;
@@ -524,7 +524,7 @@ ModelMinMaxMean::disableAsset(const int &id) {
           if (id == idxMin_) {
             // Need to search for a new min
             minVal_ = maxVal_;
-            for (int i=0; i < isActive_.size(); i++) {
+            for (std::size_t i=0; i < isActive_.size(); i++) {
               if (isActive_[i]) {
                 if (voltageInputs_[i] < minVal_) {
                   idxMin_ = i;
