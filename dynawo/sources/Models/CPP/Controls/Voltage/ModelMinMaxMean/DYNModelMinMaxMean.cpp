@@ -32,7 +32,7 @@
 #include "DYNMacrosMessage.h"
 #include "DYNElement.h"
 #include "DYNCommonModeler.h"
-// #include "DYNTrace.h"
+#include "DYNTrace.h"
 #include "DYNVariableForModel.h"
 // #include "DYNParameter.h"
 
@@ -311,14 +311,9 @@ ModelMinMaxMean::defineElements(std::vector<Element> &elements, std::map<std::st
 
 void
 ModelMinMaxMean::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
-  /*
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << "omegaRef_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "omega_grp_" << "<0-" << nbGen_ << ">_value (and weight_gen_<num> > 0)" << Trace::endline;
-  Trace::info() << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "running_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "omegaRef_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  */
+  Trace::info() << "  ->" << "VinPu_" << "<0-" << nbConnectedInputs_ << ">_value" << Trace::endline;
+  Trace::info() << "  ->" << "isActive_" << "<0-" << nbConnectedInputs_ << ">_value" << Trace::endline;
 }
 
 void
