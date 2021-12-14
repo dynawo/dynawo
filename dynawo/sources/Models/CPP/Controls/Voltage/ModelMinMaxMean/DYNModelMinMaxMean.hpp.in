@@ -17,9 +17,8 @@ namespace DYN
 {
 
 std::string
-DYNModelMinMaxMean::getCheckSum() const
+ModelMinMaxMean::getCheckSum() const
 {
   return _CHECKSUM_;
 }
-
 }

@@ -22,13 +22,12 @@
  */
 #include <sstream>
 #include <vector>
-// #include <algorithm>
-
 #include "PARParametersSet.h"
 
 #include "DYNModelMinMaxMean.h"
-// #include "DYNModelMinMaxMean.hpp"
-// #include "DYNModelConstants.h"
+#include "DYNModelMinMaxMean.hpp"
+#include "DYNModelConstants.h"
+#include "DYNElement.h"
 // #include "DYNSparseMatrix.h"
 #include "DYNMacrosMessage.h"
 // #include "DYNElement.h"
@@ -196,7 +195,6 @@ ModelMinMaxMean::evalMode(const double /*t*/) {
   }
   */
   return NO_MODE;
-
 }
 
 void
@@ -211,9 +209,8 @@ ModelMinMaxMean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculat
 
 double
 ModelMinMaxMean::evalCalculatedVarI(unsigned iCalculatedVar) const {
-  double out=0.0f;
-  switch (iCalculatedVar)
-  {
+  double out = 0.0f;
+  switch (iCalculatedVar) {
   case minValIdx_:
     out = minVal_;
     break;
@@ -225,7 +222,7 @@ ModelMinMaxMean::evalCalculatedVarI(unsigned iCalculatedVar) const {
     break;
 
   default:
-    throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar); // Macro defined in DYNMacrosMessage
+    throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);  // Macro defined in DYNMacrosMessage
     break;
   }
 
@@ -462,14 +459,14 @@ ModelMinMaxMean::checkDataCoherence(const double /*t*/) {
 
 void
 ModelMinMaxMean::updateAsset(const double &newVal, const int &assetId) {
-  if(isActive_[assetId]) {
+  if (isActive_[assetId]) {
     // Do the update
     avgVal_ += (newVal - voltageInputs_[assetId])/nbCurActiveInputs_;
     voltageInputs_[assetId] = newVal;
-    if( newVal < minVal_ ) {
+    if (newVal < minVal_) {
       idxMax_ = assetId;
       minVal_ = newVal;
-    } else if( newVal > maxVal_) {
+    } else if (newVal > maxVal_) {
       maxVal_ = newVal;
       idxMax_ = assetId;
     }
@@ -480,7 +477,7 @@ ModelMinMaxMean::updateAsset(const double &newVal, const int &assetId) {
 
 void
 ModelMinMaxMean::enableAsset(const double &newVal, const int &assetId) {
-  if(isActive_[assetId]) {
+  if (isActive_[assetId]) {
     // Only update the value
     updateAsset(newVal, assetId);
   } else {
@@ -491,46 +488,45 @@ ModelMinMaxMean::enableAsset(const double &newVal, const int &assetId) {
     voltageInputs_[assetId] = newVal;
     tot += newVal;
     avgVal_ = tot/nbCurActiveInputs_;
-    if( newVal < minVal_ ) {
+    if (newVal < minVal_) {
       idxMax_ = assetId;
       minVal_ = newVal;
-    } else if( newVal > maxVal_) {
+    } else if (newVal > maxVal_) {
       maxVal_ = newVal;
       idxMax_ = assetId;
     }
-
   }
 }
 
 void
 ModelMinMaxMean::disableAsset(const int &id) {
-    if(isActive_[id]) {
+    if (isActive_[id]) {
         // The asset was indeed active. Some care should be taken
         avgVal_ = avgVal_*nbCurActiveInputs_ - voltageInputs_[id];
         nbCurActiveInputs_--;
-        if(nbCurActiveInputs_ > 0) {
+        if (nbCurActiveInputs_ > 0) {
           avgVal_ /= nbCurActiveInputs_;
           isActive_[id] = false;
 
           // Update min and max values
-          if(id == idxMax_){
+          if (id == idxMax_) {
             // Need to search for a new max
             maxVal_ = minVal_;
-            for(int i=0; i<isActive_.size(); i++){
-              if(isActive_[i]) {
-                if(voltageInputs_[i] > maxVal_){
+            for (int i=0; i < isActive_.size(); i++) {
+              if (isActive_[i]) {
+                if (voltageInputs_[i] > maxVal_) {
                   idxMax_ = i;
                   maxVal_ = voltageInputs_[i];
                 }
               }
             }
           }
-          if(id == idxMin_) {
+          if (id == idxMin_) {
             // Need to search for a new min
             minVal_ = maxVal_;
-            for(int i=0; i<isActive_.size(); i++){
-              if(isActive_[i]) {
-                if(voltageInputs_[i] < minVal_){
+            for (int i=0; i < isActive_.size(); i++) {
+              if (isActive_[i]) {
+                if (voltageInputs_[i] < minVal_) {
                   idxMin_ = i;
                   minVal_ = voltageInputs_[i];
                 }
