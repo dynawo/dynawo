@@ -30,9 +30,9 @@
 #include "DYNElement.h"
 // #include "DYNSparseMatrix.h"
 #include "DYNMacrosMessage.h"
-// #include "DYNElement.h"
-// #include "DYNCommonModeler.h"
-// #include "DYNTrace.h"
+#include "DYNElement.h"
+#include "DYNCommonModeler.h"
+#include "DYNTrace.h"
 #include "DYNVariableForModel.h"
 // #include "DYNParameter.h"
 
@@ -283,19 +283,37 @@ ModelMinMaxMean::setSubModelParameters() {
  * @param mapElement Map associating each element index in the elements vector to its name
  */
 void
-ModelMinMaxMean::defineElements(std::vector<Element> &/*elements*/, std::map<std::string, int>& /*mapElement*/) {
+ModelMinMaxMean::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
+  addElement("min", Element::STRUCTURE, elements, mapElement);
+  addSubElement("value", "min", Element::TERMINAL, name(), modelType(), elements, mapElement);
+  addElement("max", Element::STRUCTURE, elements, mapElement);
+  addSubElement("value", "max", Element::TERMINAL, name(), modelType(), elements, mapElement);
+  addElement("avg", Element::STRUCTURE, elements, mapElement);
+  addSubElement("value", "avg", Element::TERMINAL, name(), modelType(), elements, mapElement);
+  // Now deal with the continuous variables
+  stringstream names;
+  for (size_t i = 0; i < nbConnectedInputs_; ++i) {
+    names.str("");
+    names.clear();
+    names << "VinPu_" << i;
+    addElement(names.str(), Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", names.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+  }
+  // Now let's handle the boolean parts
+  for (size_t i = 0; i < nbConnectedInputs_; ++i) {
+    names.str("");
+    names.clear();
+    names << "isActive_" << i;
+    addElement(names.str(), Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", names.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+  }
 }
 
 void
 ModelMinMaxMean::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
-  /*
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << "omegaRef_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "omega_grp_" << "<0-" << nbGen_ << ">_value (and weight_gen_<num> > 0)" << Trace::endline;
-  Trace::info() << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "running_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "omegaRef_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  */
+  Trace::info() << "  ->" << "VinPu_" << "<0-" << nbConnectedInputs_ << ">_value" << Trace::endline;
+  Trace::info() << "  ->" << "isActive_" << "<0-" << nbConnectedInputs_ << ">_value" << Trace::endline;
 }
 
 void
