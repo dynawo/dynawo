@@ -382,8 +382,11 @@ ModelTwoWindingsTransformer::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOf
 }
 
 void
-ModelTwoWindingsTransformer::defineNonGenericParameters(std::vector<ParameterModeler>& /*parameters*/) {
-  // not needed
+ModelTwoWindingsTransformer::defineNonGenericParameters(std::vector<ParameterModeler>& parameters) {
+  parameters.push_back(ParameterModeler(id_ + "_t1st_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_tNext_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_t1st_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_tNext_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void
