@@ -33,7 +33,7 @@
 // #include "DYNElement.h"
 // #include "DYNCommonModeler.h"
 // #include "DYNTrace.h"
-// #include "DYNVariableForModel.h"
+#include "DYNVariableForModel.h"
 // #include "DYNParameter.h"
 
 using std::vector;
@@ -203,8 +203,8 @@ ModelMinMaxMean::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>
 }
 
 void
-ModelMinMaxMean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/) const {
-  // output depends only on discrete variables
+ModelMinMaxMean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& /*indexes*/) const {
+  // Need to get back the variables for the inputs and the voltages and associated booleans
 }
 
 double
@@ -212,13 +212,13 @@ ModelMinMaxMean::evalCalculatedVarI(unsigned iCalculatedVar) const {
   double out = 0.0f;
   switch (iCalculatedVar) {
   case minValIdx_:
-    out = minVal_;
+    out = computeMin();
     break;
   case maxValIdx_:
-    out = maxVal_;
+    out = computeMax();
     break;
   case avgValIdx_:
-    out = avgVal_;
+    out = computeMean();
     break;
 
   default:
@@ -231,9 +231,9 @@ ModelMinMaxMean::evalCalculatedVarI(unsigned iCalculatedVar) const {
 
 void
 ModelMinMaxMean::evalCalculatedVars() {
-  calculatedVars_[minValIdx_] = minVal_;
-  calculatedVars_[maxValIdx_] = maxVal_;
-  calculatedVars_[avgValIdx_] = avgVal_;
+  calculatedVars_[minValIdx_] = computeMin();
+  calculatedVars_[maxValIdx_] = computeMax();
+  calculatedVars_[avgValIdx_] = computeMean();
 }
 
 void
@@ -269,75 +269,41 @@ ModelMinMaxMean::getY0() {
 
 void
 ModelMinMaxMean::evalStaticYType() {
-  /*
-  std::fill(yType_, yType_ + nbMaxCC, ALGEBRAIC);  // omegaRef[i] is an algebraic variable
-  std::fill(yType_+ nbMaxCC, yType_ + nbMaxCC + nbOmega_, EXTERNAL);  // omega[i] is an external variable
-  std::fill(yType_ + nbMaxCC + nbOmega_, yType_ + sizeY_, ALGEBRAIC);  // omegaRefGrp[i] is an algebraic variable
-  */
+  std::fill(yType_ + nbCalculatedVars_, yType_ + nbCalculatedVars_ + 2*nbCurActiveInputs_, EXTERNAL);  // Variables are obtained from outside.
 }
 
 void
 ModelMinMaxMean::evalStaticFType() {
-  /*
-  //  equation 0 to nbMaxCC
-  // ----------------------
-  std::fill(fType_, fType_ + nbMaxCC, ALGEBRAIC_EQ);  // no differential variable
-
-  // equation nbMaxCC to nbGen_ + nbMaxCC =  omegaRef - omegaRefGrp[i]
-  // -------------------------------------------------------------------
-  std::fill(fType_ + nbMaxCC, fType_ + nbMaxCC + nbGen_, ALGEBRAIC_EQ);  // no differential variable
-
-  return;
-  */
+  // function not needed for MinMaxMean
 }
 
 /**
  * @brief initialize variables of the model
  *
- * A variable is a structure which contained all information needed to interact with the model
+ * A variable is a structure which contains all information needed to interact with the model
  */
 void
-ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& /*variables*/) {
+ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& variables) {
+  // Import "output" variables
+  variables.push_back(VariableNativeFactory::createCalculated("min_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("max_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("avg_value", CONTINUOUS));
+  // Add the voltages
   stringstream name;
-  name.str("");
-  // Define the min variable
-
-  /*
-  stringstream name;
-  for (int i = 0; i < nbMaxCC; ++i) {
+  for (std::size_t i=0; i < nbCurActiveInputs_; i++) {
     name.str("");
     name.clear();
-    name << "omegaRef_" << i << "_value";
+    name << "VinPu_" << i << "_value";  // As in "Voltage INput"
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
-  for (int k = 0; k < nbGen_; ++k) {
-    if (weights_[k] > 0) {
-      name.str("");
-      name.clear();
-      name << "omega_grp_" << k << "_value";
-      variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
-    }
-  }
-  for (int k = 0; k < nbGen_; ++k) {
-    name.str("");
-    name.clear();
-    name << "omegaRef_grp_" << k << "_value";
-    variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
-  }
-  for (int k = 0; k < nbGen_; ++k) {
-    name.str("");
-    name.clear();
-    name << "numcc_node_" << k << "_value";
-    variables.push_back(VariableNativeFactory::createState(name.str(), DISCRETE));
-  }
 
-  for (int k = 0; k < nbGen_; ++k) {
+  // Add the whether a bus is connected or not
+  for (std::size_t i=0; i < nbCurActiveInputs_; i++) {
     name.str("");
     name.clear();
-    name << "running_grp_" << k << "_value";
+    name << "isActive_" << i << "_value";
     variables.push_back(VariableNativeFactory::createState(name.str(), BOOLEAN));
   }
-  */
 }
 
 void
@@ -498,6 +464,41 @@ ModelMinMaxMean::enableAsset(const double &newVal, const int &assetId) {
   }
 }
 
+double
+ModelMinMaxMean::computeMin() const {
+  double minSoFar = MAXFLOAT;
+  for (std::size_t i=0; i < voltageInputs_.size(); i++) {
+    if (isActive_[i]) {
+      minSoFar =  (voltageInputs_[i] < minSoFar) ? voltageInputs_[i] : minSoFar;
+    }
+  }
+  return minSoFar;
+}
+
+double
+ModelMinMaxMean::computeMax() const {
+  double maxSoFar = -MAXFLOAT;
+  for (std::size_t i=0; i < voltageInputs_.size(); i++) {
+    if (isActive_[i]) {
+      maxSoFar =  (voltageInputs_[i] > maxSoFar) ? voltageInputs_[i] : maxSoFar;
+    }
+  }
+  return maxSoFar;
+}
+
+double
+ModelMinMaxMean::computeMean() const {
+  double totSoFar = 0;
+  unsigned int nbActive = 0;
+  for (std::size_t i=0; i < voltageInputs_.size(); i++) {
+    if (isActive_[i]) {
+      totSoFar +=  voltageInputs_[i];
+      nbActive++;
+    }
+  }
+  return totSoFar/nbActive;
+}
+
 void
 ModelMinMaxMean::disableAsset(const int &id) {
     if (isActive_[id]) {
@@ -512,7 +513,7 @@ ModelMinMaxMean::disableAsset(const int &id) {
           if (id == idxMax_) {
             // Need to search for a new max
             maxVal_ = minVal_;
-            for (int i=0; i < isActive_.size(); i++) {
+            for (std::size_t i=0; i < isActive_.size(); i++) {
               if (isActive_[i]) {
                 if (voltageInputs_[i] > maxVal_) {
                   idxMax_ = i;
@@ -524,7 +525,7 @@ ModelMinMaxMean::disableAsset(const int &id) {
           if (id == idxMin_) {
             // Need to search for a new min
             minVal_ = maxVal_;
-            for (int i=0; i < isActive_.size(); i++) {
+            for (std::size_t i=0; i < isActive_.size(); i++) {
               if (isActive_[i]) {
                 if (voltageInputs_[i] < minVal_) {
                   idxMin_ = i;
