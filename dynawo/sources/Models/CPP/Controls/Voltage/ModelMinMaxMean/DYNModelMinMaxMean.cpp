@@ -22,13 +22,12 @@
  */
 #include <sstream>
 #include <vector>
-// #include <algorithm>
-
 #include "PARParametersSet.h"
 
 #include "DYNModelMinMaxMean.h"
-// #include "DYNModelMinMaxMean.hpp"
-// #include "DYNModelConstants.h"
+#include "DYNModelMinMaxMean.hpp"
+#include "DYNModelConstants.h"
+#include "DYNElement.h"
 // #include "DYNSparseMatrix.h"
 #include "DYNMacrosMessage.h"
 // #include "DYNElement.h"
