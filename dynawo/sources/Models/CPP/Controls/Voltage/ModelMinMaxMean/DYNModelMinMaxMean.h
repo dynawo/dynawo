@@ -288,22 +288,7 @@ class ModelMinMaxMean : public ModelCPP {
   bool hasCheckDataCoherence() const { return true; }
 
  private:
-  /**
-   * @brief updates the voltage value of a given asset
-   */
-  void updateAsset(const double &newVal, const int &assetId);
-
-  /**
-   * @brief re connect an asset to the subnetwork
-   */
-  void enableAsset(const double &newVal, const int &assetId);
-
-  /**
-   * @brief disables an asset but keeps it connected
-   */
-  void disableAsset(const int &id);
-
-  /**
+   /**
    * @brief gets the minimum value of the (connected and active) input voltages
    */
   double computeMin() const;
@@ -319,23 +304,8 @@ class ModelMinMaxMean : public ModelCPP {
   double computeMean() const;
 
  private:
-  // Inputs, which can be changed dynamically.
-  std::vector<double> voltageInputs_;  ///< Voltages considered in the inputs
-  std::vector<bool> isActive_;  ///< Keeps a flag if a given asset is active
-
-  // State variables which we keep to be called at any time
-  double minVal_;
-  double maxVal_;
-  double avgVal_;
-
-  // We'll decide later if we need these:
-  int idxMin_;  ///< Index of an entry reaching the minimum value
-  int idxMax_;  ///< Index of an entry reaching the maximum value
-
-  // A couple of useful variables to speed up computations in real time
-  int nbCurActiveInputs_;  ///< Number of active inputs
-
-  bool isInitialized_;
+  // A single variable needed to keep track of the number of connected inputs
+  unsigned int nbConnectedInputs_;  ///< Number of active inputs
 };
 
 }  // namespace DYN

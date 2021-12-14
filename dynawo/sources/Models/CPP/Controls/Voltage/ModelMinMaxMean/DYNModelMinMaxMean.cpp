@@ -87,15 +87,7 @@ namespace DYN {
  */
 ModelMinMaxMean::ModelMinMaxMean() :
 ModelCPP("minMaxMean"),
-voltageInputs_(),
-isActive_(),
-minVal_(0),
-maxVal_(0),
-avgVal_(0),
-idxMin_(-1),
-idxMax_(-1),
-nbCurActiveInputs_(0),
-isInitialized_(false) {
+nbConnectedInputs_(0) {
 }
 
 /**
@@ -129,15 +121,13 @@ ModelMinMaxMean::initializeFromData(const boost::shared_ptr<DataInterface>& /*da
  */
 void
 ModelMinMaxMean::getSize() {
-  /*
-  sizeF_ = nbMaxCC + nbGen_;  // nbMaxCC eq (omegaref) + one equation by generator
-  sizeY_ = nbMaxCC + nbGen_ + nbOmega_;  // (omegaref)*nbMaxCC + omegaRef by grp + omega_ for grp with weight > 0
-  sizeZ_ = nbGen_ * 2;   // num cc for each connection node of generators + stateOff of each generators
+  sizeF_ = 0;  // No dynamics
+  sizeY_ = 2*nbConnectedInputs_;  // All voltage inputs and their boolean activity values
+  sizeZ_ = 0;
   sizeG_ = 0;
-  sizeMode_ = 1;  // change of CC organisation
+  sizeMode_ = 1;
 
   calculatedVars_.assign(nbCalculatedVars_, 0);
-  */
 }
 
 void
@@ -176,24 +166,6 @@ ModelMinMaxMean::collectSilentZ(BitMask* /*silentZTable*/) {
 
 modeChangeType_t
 ModelMinMaxMean::evalMode(const double /*t*/) {
-  /*
-  // mode change = number of subNetwork change or grp status change
-  if (numCCNodeOld_.size() == 0) {
-    numCCNodeOld_.assign(numCCNode_.begin(), numCCNode_.end());
-    sortGenByCC();
-  } else if (runningGrpOld_.size() == 0) {
-    runningGrpOld_.assign(runningGrp_.begin(), runningGrp_.end());
-    sortGenByCC();
-  } else if (!std::equal(numCCNode_.begin(), numCCNode_.end(), numCCNodeOld_.begin())) {
-    numCCNodeOld_.assign(numCCNode_.begin(), numCCNode_.end());
-    sortGenByCC();
-    return ALGEBRAIC_J_UPDATE_MODE;
-  } else if (!std::equal(runningGrp_.begin(), runningGrp_.end(), runningGrpOld_.begin())) {
-    runningGrpOld_.assign(runningGrp_.begin(), runningGrp_.end());
-    sortGenByCC();
-    return ALGEBRAIC_J_UPDATE_MODE;
-  }
-  */
   return NO_MODE;
 }
 
@@ -203,9 +175,22 @@ ModelMinMaxMean::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>
 }
 
 void
-ModelMinMaxMean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& /*indexes*/) const {
+ModelMinMaxMean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const {
   // Need to get back the variables for the inputs and the voltages and associated booleans
+  switch (iCalculatedVar) {
+    case minValIdx_:
+    case maxValIdx_:
+    case avgValIdx_:
+      for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
+        indexes.push_back(nbCalculatedVars_ + i);  // Adds the voltage ...
+        indexes.push_back(nbCalculatedVars_ + i + nbConnectedInputs_);  // and the boolean
+      }
+      break;
+    default:
+        throw DYNError(Error::MODELER, UndefJCalculatedVarI, iCalculatedVar);
+  }
 }
+
 
 double
 ModelMinMaxMean::evalCalculatedVarI(unsigned iCalculatedVar) const {
@@ -238,38 +223,11 @@ ModelMinMaxMean::evalCalculatedVars() {
 
 void
 ModelMinMaxMean::getY0() {
-  /*
-  sortGenByCC();  // need to sort generator by subnetwork
-
-  // OmegaRef by cc (I)
-  for (int i = 0; i < nbMaxCC; ++i) {
-    yLocal_[i] = omegaRef0_[i];
-    ypLocal_[i] = 0.;
-  }
-
-  // External variables (omega by generator)
-  for (int i = 0; i < nbGen_; ++i) {
-    if (weights_[i] > 0) {
-      yLocal_[i + nbMaxCC] = 1.;
-      ypLocal_[i + nbMaxCC] = 0.;
-    }
-  }
-
-  // OmegaRef for each generator (II)
-  for (int i = 0; i < nbGen_; ++i) {
-    yLocal_[i + nbMaxCC + nbOmega_] = omegaRef0_[numCCNode_[i]];
-    ypLocal_[i + nbMaxCC + nbOmega_] = 0.;
-  }
-
-  // External variables
-  std::copy(zLocal_, zLocal_ + nbGen_, numCCNode_.begin());
-  std::copy(zLocal_ + nbGen_, zLocal_ + sizeZ(), runningGrp_.begin());
-  */
 }
 
 void
 ModelMinMaxMean::evalStaticYType() {
-  std::fill(yType_ + nbCalculatedVars_, yType_ + nbCalculatedVars_ + 2*nbCurActiveInputs_, EXTERNAL);  // Variables are obtained from outside.
+  std::fill(yType_ + nbCalculatedVars_, yType_ + nbCalculatedVars_ + 2*nbConnectedInputs_, EXTERNAL);  // Variables are obtained from outside.
 }
 
 void
@@ -290,7 +248,7 @@ ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated("avg_value", CONTINUOUS));
   // Add the voltages
   stringstream name;
-  for (std::size_t i=0; i < nbCurActiveInputs_; i++) {
+  for (std::size_t i=0; i < nbConnectedInputs_; i++) {
     name.str("");
     name.clear();
     name << "VinPu_" << i << "_value";  // As in "Voltage INput"
@@ -298,7 +256,7 @@ ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& variables) {
   }
 
   // Add the whether a bus is connected or not
-  for (std::size_t i=0; i < nbCurActiveInputs_; i++) {
+  for (std::size_t i=0; i < nbConnectedInputs_; i++) {
     name.str("");
     name.clear();
     name << "isActive_" << i << "_value";
@@ -307,40 +265,13 @@ ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& variables) {
 }
 
 void
-ModelMinMaxMean::defineParameters(vector<ParameterModeler>& /*parameters*/) {
-  // No parameters for this module.
+ModelMinMaxMean::defineParameters(vector<ParameterModeler>& parameters) {
+  parameters.push_back(ParameterModeler("nbInputs", VAR_TYPE_INT, EXTERNAL_PARAMETER));
 }
 
 void
 ModelMinMaxMean::setSubModelParameters() {
-  /*
-  nbGen_ = findParameterDynamic("nbGen").getValue<int>();
-  stringstream weightName;
-  for (int k = 0; k < nbGen_; ++k) {
-    weightName.str("");
-    weightName.clear();
-    weightName << "weight_gen_" << k;
-    weights_.push_back(findParameterDynamic(weightName.str()).getValue<double>());
-  }
-
-  nbOmega_ = 0;
-  indexOmega_.clear();
-  for (int k = 0; k < nbGen_; ++k) {
-    if (weights_[k] > 0) {
-      indexOmega_.push_back(nbOmega_);
-      ++nbOmega_;
-    } else {
-      indexOmega_.push_back(-1);
-    }
-  }
-
-  omegaRef0_.assign(nbMaxCC, 1.);
-
-  // Get omegaRefMin and omegaRefMax parameters from the par file if they exist
-  bool success;
-  getSubModelParameterValue("omegaRefMin", omegaRefMin_, success);
-  getSubModelParameterValue("omegaRefMax", omegaRefMax_, success);
-  */
+  nbConnectedInputs_ = findParameterDynamic("nbInputs").getValue<unsigned int>();
 }
 
 /**
@@ -353,44 +284,6 @@ ModelMinMaxMean::setSubModelParameters() {
  */
 void
 ModelMinMaxMean::defineElements(std::vector<Element> &/*elements*/, std::map<std::string, int>& /*mapElement*/) {
-  /*
-  stringstream namess;
-  for (int i = 0; i < nbMaxCC; ++i) {
-    namess.str("");
-    namess.clear();
-    namess << "omegaRef_" << i;
-    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
-  }
-
-  for (int k = 0; k < nbGen_; ++k) {
-    if (weights_[k] > 0) {
-      namess.str("");
-      namess.clear();
-      namess << "omega_grp_" << k;
-      addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
-      addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
-    }
-
-    namess.str("");
-    namess.clear();
-    namess << "numcc_node_" << k;
-    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
-
-    namess.str("");
-    namess.clear();
-    namess << "running_grp_" << k;
-    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
-
-    namess.str("");
-    namess.clear();
-    namess << "omegaRef_grp_" << k;
-    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
-  }
-  */
 }
 
 void
@@ -423,53 +316,12 @@ ModelMinMaxMean::checkDataCoherence(const double /*t*/) {
   */
 }
 
-void
-ModelMinMaxMean::updateAsset(const double &newVal, const int &assetId) {
-  if (isActive_[assetId]) {
-    // Do the update
-    avgVal_ += (newVal - voltageInputs_[assetId])/nbCurActiveInputs_;
-    voltageInputs_[assetId] = newVal;
-    if (newVal < minVal_) {
-      idxMax_ = assetId;
-      minVal_ = newVal;
-    } else if (newVal > maxVal_) {
-      maxVal_ = newVal;
-      idxMax_ = assetId;
-    }
-  } else {
-    // Something is odd
-  }
-}
-
-void
-ModelMinMaxMean::enableAsset(const double &newVal, const int &assetId) {
-  if (isActive_[assetId]) {
-    // Only update the value
-    updateAsset(newVal, assetId);
-  } else {
-    // Need a bit more work
-    double tot = avgVal_*nbCurActiveInputs_;
-    nbCurActiveInputs_++;
-    isActive_[assetId] = true;
-    voltageInputs_[assetId] = newVal;
-    tot += newVal;
-    avgVal_ = tot/nbCurActiveInputs_;
-    if (newVal < minVal_) {
-      idxMax_ = assetId;
-      minVal_ = newVal;
-    } else if (newVal > maxVal_) {
-      maxVal_ = newVal;
-      idxMax_ = assetId;
-    }
-  }
-}
-
 double
 ModelMinMaxMean::computeMin() const {
   double minSoFar = MAXFLOAT;
-  for (std::size_t i=0; i < voltageInputs_.size(); i++) {
-    if (isActive_[i]) {
-      minSoFar =  (voltageInputs_[i] < minSoFar) ? voltageInputs_[i] : minSoFar;
+  for (std::size_t i=0; i < nbConnectedInputs_; i++) {
+    if (yLocal_[i + nbConnectedInputs_ + nbCalculatedVars_]) {
+      minSoFar =  (yLocal_[i] + nbCalculatedVars_ < minSoFar) ? yLocal_[i + nbCalculatedVars_] : minSoFar;
     }
   }
   return minSoFar;
@@ -478,9 +330,9 @@ ModelMinMaxMean::computeMin() const {
 double
 ModelMinMaxMean::computeMax() const {
   double maxSoFar = -MAXFLOAT;
-  for (std::size_t i=0; i < voltageInputs_.size(); i++) {
-    if (isActive_[i]) {
-      maxSoFar =  (voltageInputs_[i] > maxSoFar) ? voltageInputs_[i] : maxSoFar;
+  for (std::size_t i=0; i < nbConnectedInputs_; i++) {
+    if (yLocal_[i + nbConnectedInputs_ + nbCalculatedVars_]) {
+      maxSoFar =  (yLocal_[i + nbCalculatedVars_] > maxSoFar) ? yLocal_[i + nbCalculatedVars_] : maxSoFar;
     }
   }
   return maxSoFar;
@@ -490,62 +342,13 @@ double
 ModelMinMaxMean::computeMean() const {
   double totSoFar = 0;
   unsigned int nbActive = 0;
-  for (std::size_t i=0; i < voltageInputs_.size(); i++) {
-    if (isActive_[i]) {
-      totSoFar +=  voltageInputs_[i];
+  for (std::size_t i=0; i < nbConnectedInputs_; i++) {
+    if (yLocal_[i + nbConnectedInputs_ + nbCalculatedVars_]) {
+      totSoFar +=  yLocal_[i + nbCalculatedVars_];
       nbActive++;
     }
   }
   return totSoFar/nbActive;
-}
-
-void
-ModelMinMaxMean::disableAsset(const int &id) {
-    if (isActive_[id]) {
-        // The asset was indeed active. Some care should be taken
-        avgVal_ = avgVal_*nbCurActiveInputs_ - voltageInputs_[id];
-        nbCurActiveInputs_--;
-        if (nbCurActiveInputs_ > 0) {
-          avgVal_ /= nbCurActiveInputs_;
-          isActive_[id] = false;
-
-          // Update min and max values
-          if (id == idxMax_) {
-            // Need to search for a new max
-            maxVal_ = minVal_;
-            for (std::size_t i=0; i < isActive_.size(); i++) {
-              if (isActive_[i]) {
-                if (voltageInputs_[i] > maxVal_) {
-                  idxMax_ = i;
-                  maxVal_ = voltageInputs_[i];
-                }
-              }
-            }
-          }
-          if (id == idxMin_) {
-            // Need to search for a new min
-            minVal_ = maxVal_;
-            for (std::size_t i=0; i < isActive_.size(); i++) {
-              if (isActive_[i]) {
-                if (voltageInputs_[i] < minVal_) {
-                  idxMin_ = i;
-                  minVal_ = voltageInputs_[i];
-                }
-              }
-            }
-          }
-        } else {
-          // Nothing to see here!
-          minVal_ = 0;
-          maxVal_ = 0;
-          avgVal_ = 0;
-          idxMin_ = -1;
-          idxMin_ = -1;
-        }
-
-    } else {
-        // do nothing
-    }
 }
 
 }  // namespace DYN
