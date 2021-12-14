@@ -20,15 +20,43 @@
 
 #include "DYNModelMinMaxMean.h"
 #include "DYNModelMinMaxMean.hpp"
+#include "DYNVariable.h"
 
 #include "gtest_dynawo.h"
 
 namespace DYN {
 
-TEST(ModelsMinMaxMean, Init) {
+static boost::shared_ptr<SubModel> initModelMinMaxMean() {
     boost::shared_ptr<SubModel> mmm =
         SubModelFactory::createSubModelFromLib("../DYNModelMinMaxMean" + std::string(sharedLibraryExtension()));
-    ASSERT_NE(mmm, nullptr);
+
+    mmm->getSize();
+    return mmm;
 }
+
+TEST(ModelsMinMaxMean, ModelsMinMaxMeanDefineMethods) {
+    boost::shared_ptr<SubModel> mmm = initModelMinMaxMean();
+    ASSERT_NE(mmm, nullptr);
+    std::vector<boost::shared_ptr<Variable> > variables;
+    mmm->defineVariables(variables);
+    ASSERT_EQ(variables.size(), std::size_t(3));
+    std::vector<ParameterModeler> parameters;
+    mmm->defineParameters(parameters);
+    ASSERT_EQ(parameters.size(), std::size_t(1));
+    // ASSERT_EQ(mmm->computeMin(), 0.0);
+    // ASSERT_EQ(mmm->computeMax(), 0.0);
+    // ASSERT_EQ(mmm->computeMean(), 0.0);
+}
+
+TEST(ModelsMinMaxMean, ModelsMinMaxMeanInit) {
+    boost::shared_ptr<SubModel> mmm = initModelMinMaxMean();
+    std::vector<double> ySelf(mmm->sizeY(), 0);
+    mmm->setBufferY(&ySelf[0], nullptr, 0);
+
+    // Run computation of min, max and mean
+    mmm->evalCalculatedVars();
+}
+
+
 
 }  // namespace DYN
