@@ -303,6 +303,21 @@ class ModelMinMaxMean : public ModelCPP {
    */
   void disableAsset(const int &id);
 
+  /**
+   * @brief gets the minimum value of the (connected and active) input voltages
+   */
+  double computeMin() const;
+
+  /**
+   * @brief gets the maximum value of the (connected and active) input voltages
+   */
+  double computeMax() const;
+
+  /**
+   * @brief gets the average value of the (connected and active) input voltages
+   */
+  double computeMean() const;
+
  private:
   // Inputs, which can be changed dynamically.
   std::vector<double> voltageInputs_;  ///< Voltages considered in the inputs
@@ -321,7 +336,6 @@ class ModelMinMaxMean : public ModelCPP {
   int nbCurActiveInputs_;  ///< Number of active inputs
 
   bool isInitialized_;
-
 };
 
 }  // namespace DYN
