@@ -96,15 +96,7 @@ nbConnectedInputs_(0) {
  */
 void
 ModelMinMaxMean::init(const double /*t0*/) {
-  /*
-  numCCNode_.assign(nbGen_, 0);
-  runningGrp_.assign(nbGen_, 0);
-  nbCC_ = 0;
-
-  ModelMinMaxMean::col1stOmegaRef_ = 0;
-  ModelMinMaxMean::col1stOmega_ = ModelMinMaxMean::col1stOmegaRef_ + nbMaxCC;
-  col1stOmegaRefGrp_ = ModelMinMaxMean::col1stOmega_ + nbOmega_;
-  */
+  // Nothing to initalize here.
 }
 
 void
