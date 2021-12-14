@@ -20,6 +20,7 @@
 
 #include "DYNModelMinMaxMean.h"
 #include "DYNModelMinMaxMean.hpp"
+#include "DYNVariable.h"
 
 #include "gtest_dynawo.h"
 
@@ -29,6 +30,15 @@ TEST(ModelsMinMaxMean, Init) {
     boost::shared_ptr<SubModel> mmm =
         SubModelFactory::createSubModelFromLib("../DYNModelMinMaxMean" + std::string(sharedLibraryExtension()));
     ASSERT_NE(mmm, nullptr);
+    std::vector<boost::shared_ptr<Variable> > variables;
+    mmm->defineVariables(variables);
+    ASSERT_EQ(variables.size(), std::size_t(3));
+    std::vector<ParameterModeler> parameters;
+    mmm->defineParameters(parameters);
+    ASSERT_EQ(parameters.size(), std::size_t(1));
+    // ASSERT_EQ(mmm->computeMin(), 0.0);
+    // ASSERT_EQ(mmm->computeMax(), 0.0);
+    // ASSERT_EQ(mmm->computeMean(), 0.0);
 }
 
 }  // namespace DYN
