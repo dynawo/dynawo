@@ -61,13 +61,11 @@ package Types "Standard types for electrical variables"
   type ActivePowerPu = PerUnit;
   type ReactivePowerPu = PerUnit;
   type ApparentPowerPu = PerUnit;
-
-  // Percent
   type AngularVelocityPu = PerUnit;
-
   type AngularAccelerationPu = PerUnit;
 
-
+  // Percent
   type Percent = Real(unit = "100") "Percent quantity";
+
   annotation(preferredView = "text");
 end Types;
