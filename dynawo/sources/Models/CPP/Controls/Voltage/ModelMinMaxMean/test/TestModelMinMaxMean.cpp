@@ -16,10 +16,19 @@
  * @brief Unit tests for MinMaxMean model
  *
  */
+#include <boost/shared_ptr.hpp>
 
 #include "DYNModelMinMaxMean.h"
 #include "DYNModelMinMaxMean.hpp"
 
+#include "gtest_dynawo.h"
+
 namespace DYN {
+
+TEST(ModelsMinMaxMean, Init) {
+    boost::shared_ptr<SubModel> mmm =
+        SubModelFactory::createSubModelFromLib("../DYNModelMinMaxMean" + std::string(sharedLibraryExtension()));
+    ASSERT_NE(mmm, nullptr);
+}
 
 }  // namespace DYN
