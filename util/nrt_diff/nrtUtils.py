@@ -72,7 +72,7 @@ class TestCase:
     def parseJobsFile(self):
         # Parse jobs file
         try:
-            (jobs_root, ns, _, prefix_str) = ImportXMLFileExtended(self.jobs_file_)
+            (jobs_root, ns, prefix) = ImportXMLFileExtended(self.jobs_file_)
         except:
             printout("Fail to import XML file " + self.jobs_file_ + os.linesep, BLACK)
             sys.exit(1)
@@ -84,7 +84,7 @@ class TestCase:
 
         # Go through every jobs file
         job_num = 0
-        for job in FindAll(jobs_root, prefix_str, "job", ns):
+        for job in FindAll(jobs_root, prefix, "job", ns):
 
             current_job = Job()
             # Create ID
@@ -98,7 +98,7 @@ class TestCase:
             current_job.name_ = job.attrib["name"]
 
             # Get solver
-            for solver in FindAll(job, prefix_str, "solver", ns):
+            for solver in FindAll(job, prefix, "solver", ns):
                 libSolver = solver.attrib["lib"]
                 if libSolver == "dynawo_SolverSIM":
                     current_job.solver_="Solver SIM"
@@ -112,19 +112,19 @@ class TestCase:
                 if "parFile" in solver.attrib and not os.path.join(os.path.dirname(self.jobs_file_), solver.attrib["parFile"]) in current_job.par_files_:
                     current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), solver.attrib["parFile"]))
 
-            for iidm in FindAll(job, prefix_str, "network", ns):
+            for iidm in FindAll(job, prefix, "network", ns):
                 if "parFile" in iidm.attrib and not os.path.join(os.path.dirname(self.jobs_file_), iidm.attrib["parFile"]) in current_job.par_files_:
                     current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), iidm.attrib["parFile"]))
 
             # Get dyd files
-            for modeler in FindAll(job, prefix_str, "modeler", ns):
+            for modeler in FindAll(job, prefix, "modeler", ns):
                 if ('compileDir' in modeler.attrib):
                     current_job.compilation_dir_ = os.path.join(os.path.dirname(self.jobs_file_), modeler.attrib["compileDir"])
-                for dynModels in FindAll(modeler, prefix_str, "dynModels", ns):
+                for dynModels in FindAll(modeler, prefix, "dynModels", ns):
                     current_job.dyd_files_.append(os.path.join(os.path.dirname(self.jobs_file_), dynModels.attrib["dydFile"]))
 
             # Get their outputs
-            for outputs in FindAll(job, prefix_str, "outputs", ns):
+            for outputs in FindAll(job, prefix, "outputs", ns):
                 if ('directory' not in outputs.attrib):
                     printout("Fail to generate NRT : outputs directory is missing in jobs file " + current_job.name_ + os.linesep, BLACK)
                     sys.exit(1)
@@ -132,7 +132,7 @@ class TestCase:
                 current_job.output_dir_ = os.path.join(os.path.dirname(self.jobs_file_), outputsDir)
 
                 # constraints
-                for constraints in FindAll(outputs, prefix_str, "constraints", ns):
+                for constraints in FindAll(outputs, prefix, "constraints", ns):
 
                     if ('exportMode' not in constraints.attrib):
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : a constraints element does not have an export mode " + os.linesep, BLACK)
@@ -151,7 +151,7 @@ class TestCase:
 
 
                 # timeline
-                for timeline in FindAll(outputs, prefix_str, "timeline", ns):
+                for timeline in FindAll(outputs, prefix, "timeline", ns):
 
                     if ('exportMode' not in timeline.attrib):
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : a timeline element does not have an export mode " + os.linesep, BLACK)
@@ -175,7 +175,7 @@ class TestCase:
 
 
                 # curves
-                for curves in FindAll(outputs, prefix_str, "curves", ns):
+                for curves in FindAll(outputs, prefix, "curves", ns):
 
                     if ('exportMode' not in curves.attrib):
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : a curve element does not have an export mode " + os.linesep, BLACK)
@@ -196,7 +196,7 @@ class TestCase:
                         current_job.curvesType_ = CURVES_TYPE_XML
 
                 # logs
-                for appender in FindAll(outputs, prefix_str, "appender", ns):
+                for appender in FindAll(outputs, prefix, "appender", ns):
                     if ('file' not in appender.attrib):
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : an appender of output is not an attribut in file " + os.linesep, BLACK)
                         sys.exit(1)
@@ -208,17 +208,17 @@ class TestCase:
             # Parse dyd files file
             for dyd_file in current_job.dyd_files_:
                 try:
-                    (dyd_root, ns_dyd, _, prefix_str_dyd) = ImportXMLFileExtended(dyd_file)
+                    (dyd_root, ns_dyd, prefix) = ImportXMLFileExtended(dyd_file)
                 except:
                     printout("Fail to import XML file " + dyd_file + os.linesep, BLACK)
                     sys.exit(1)
-                for item in FindAll(dyd_root, prefix_str_dyd, "blackBoxModel", ns_dyd):
+                for item in FindAll(dyd_root, prefix, "blackBoxModel", ns_dyd):
                     if "parFile" in item.attrib and os.path.join(os.path.dirname(self.jobs_file_), item.attrib["parFile"]) not in current_job.par_files_:
                         current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.attrib["parFile"]))
-                for item in FindAll(dyd_root, prefix_str_dyd, "modelTemplateExpansion", ns_dyd):
+                for item in FindAll(dyd_root, prefix, "modelTemplateExpansion", ns_dyd):
                     if "parFile" in item.attrib and os.path.join(os.path.dirname(self.jobs_file_), item.attrib["parFile"]) not in current_job.par_files_:
                         current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.attrib["parFile"]))
-                for item in FindAll(dyd_root, prefix_str_dyd, "unitDynamicModel", ns_dyd):
+                for item in FindAll(dyd_root, prefix, "unitDynamicModel", ns_dyd):
                     if "parFile" in item.attrib and os.path.join(os.path.dirname(self.jobs_file_), item.attrib["parFile"]) not in current_job.par_files_:
                         current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.attrib["parFile"]))
 
