@@ -61,6 +61,7 @@ namespace DYN {
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
     void checkSum(std::string & checkSum) { checkSum = std::string("03cb8bf875a2eca69aad9f39b0c7868a"); }
+    inline bool isDataStructIsInitialized() const { return dataStructIsInitialized_; }
 
     private:
     DYNDATA * data;

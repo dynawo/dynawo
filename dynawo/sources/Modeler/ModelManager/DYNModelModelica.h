@@ -257,7 +257,7 @@ class ModelModelica {
       const std::vector<adept::adouble> &yp) const = 0;
 #endif
 
-/**
+   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
@@ -266,8 +266,15 @@ class ModelModelica {
   virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
 
   /**
+   * @brief is the internal modelica structure initialized
+   *
+   * @return true if data struct is initialized
+   */
+  virtual bool isDataStructIsInitialized() const = 0;
+
+  /**
    * @brief Determines if the sub model has a data check coherence operation (non empty function)
-   * @returns true if the sub model has a data check coherence operation, false if not
+   * @return true if the sub model has a data check coherence operation, false if not
    */
   inline bool hasCheckDataCoherence() const { return hasCheckDataCoherence_; }
 
