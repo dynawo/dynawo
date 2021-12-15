@@ -37,7 +37,8 @@ class MyModelica: public ModelModelica {
     nbCallCalcVars_(0),
     nbCallY0_(0),
     nbCallFType_(0),
-    nbCallYType_(0) { }
+    nbCallYType_(0),
+    dataStructIsInitialized_(false) { }
 
   /**
    * @brief default destructor
@@ -392,6 +393,10 @@ class MyModelica: public ModelModelica {
     indexes.push_back(1);
   }
 
+  bool isDataStructIsInitialized() const {
+    return dataStructIsInitialized_;
+  }
+
  private:
   ModelManager* parent_;
   unsigned nbCallF_;
@@ -402,6 +407,7 @@ class MyModelica: public ModelModelica {
   unsigned nbCallFType_;
   unsigned nbCallYType_;
   unsigned nbCallCheckDataCoherence_;
+  bool dataStructIsInitialized_;
 };
 
 
