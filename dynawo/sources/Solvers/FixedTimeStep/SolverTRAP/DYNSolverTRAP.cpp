@@ -117,7 +117,9 @@ SolverTRAP::calculateIC() {
     solverKINYPrim_->getValues(vectorY_, vectorYp_);
     velocitySave_.assign(vectorYp_.begin(), vectorYp_.end());
 
-    calculateICCommonModeChange(counter, change);
+    if (calculateICCommonModeChange(counter, change)) {
+      break;
+    }
   } while (change);
 
   Trace::debug() << DYNLog(EndCalculateIC) << Trace::endline;

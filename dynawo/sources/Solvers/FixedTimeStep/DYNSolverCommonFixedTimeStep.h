@@ -73,8 +73,9 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
    *
    * @param counter of initialization calculation
    * @param change check if there is a z or a mode change.
+   * @returns true if we must continue the algorithm, false if we must retry
    */
-  void calculateICCommonModeChange(int& counter, bool& change);
+  bool calculateICCommonModeChange(int& counter, bool& change);
 
   /**
   * @brief compute YP prediction
@@ -206,8 +207,6 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
    *
    * @param tAim the next time at which a computed solution is desired
    * @param tNxt the time reached by the solver
-   *
-   * @return nothing
    */
   void solveStepCommon(double tAim, double &tNxt);
 

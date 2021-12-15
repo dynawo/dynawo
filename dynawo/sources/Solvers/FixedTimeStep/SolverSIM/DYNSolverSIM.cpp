@@ -101,7 +101,9 @@ SolverSIM::calculateIC() {
     solverKINAlgRestoration_->solve();
     solverKINAlgRestoration_->getValues(vectorY_, vectorYp_);
 
-    calculateICCommonModeChange(counter, change);
+    if (calculateICCommonModeChange(counter, change)) {
+      break;
+    }
   } while (change);
 
   Trace::debug() << DYNLog(EndCalculateIC) << Trace::endline;

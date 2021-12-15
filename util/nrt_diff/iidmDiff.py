@@ -32,14 +32,11 @@ def ImportXMLFile(path):
 
 def ImportXMLFileExtended(path):
     root = ImportXMLFile(path)
-    if root.prefix is None:
-        prefix_str = ''
-    else:
-        prefix_str = root.prefix + ':'
-    return (root, root.nsmap, root.prefix, prefix_str)
+    return (root, root.nsmap, root.prefix)
 
 def FindAll(root, prefix, element, ns):
-    return root.findall(".//" + prefix + element, ns)
+    prefix_str = "{" + str(ns[prefix]) + "}" if prefix in ns else ""
+    return root.findall(".//" + prefix_str + element)
 
 # Utility class to compare IIDM files
 class IIDMobject:
@@ -57,9 +54,9 @@ def set_values(element,what,IIDMobject):
 # Only values that can be changed by dynawo are taken into account
 def getOutputIIDMInfo(filename):
     IIDM_objects_byID = {}
-    (iidm_root, ns, prefix, iidm_prefix_root_string) = ImportXMLFileExtended(filename)
-    for voltageLevel in FindAll(iidm_root, iidm_prefix_root_string, "voltageLevel", ns):
-        for child in FindAll(voltageLevel, iidm_prefix_root_string, "*", ns):
+    (iidm_root, ns, prefix) = ImportXMLFileExtended(filename)
+    for voltageLevel in FindAll(iidm_root, prefix, "voltageLevel", ns):
+        for child in FindAll(voltageLevel, prefix, "*", ns):
             if 'id' in child.attrib:
                 myId = child.attrib['id']
                 myObject = IIDMobject(myId)
@@ -114,18 +111,14 @@ def getOutputIIDMInfo(filename):
 # @param path_left : the absolute path to the left-side file
 # @param path_right : the absolute path to the right-side file
 def OutputIIDMCloseEnough (path_left, path_right):
-    prefix_left = ""
     is_left_powsybl_iidm = False
     with open(path_left) as f:
         if 'iidm:network' in f.read():
-            prefix_left = "iidm:"
             is_left_powsybl_iidm = True
     left_file_info = getOutputIIDMInfo(path_left)
-    prefix_right = ""
     is_right_powsybl_iidm = False
     with open(path_right) as f:
         if 'iidm:network' in f.read():
-            prefix_right = "iidm:"
             is_right_powsybl_iidm = True
     right_file_info = getOutputIIDMInfo(path_right)
     nb_differences = 0
