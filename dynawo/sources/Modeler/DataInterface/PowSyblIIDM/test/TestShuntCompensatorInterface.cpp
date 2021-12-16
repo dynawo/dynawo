@@ -81,7 +81,9 @@ TEST(DataInterfaceTest, ShuntCompensator) {
 
   ASSERT_TRUE(shuntCompensatorIfce.getInitialConnected());
   ASSERT_TRUE(shuntCompensatorIfce.isConnected());
+  ASSERT_TRUE(shuntCompensatorIfce.isPartiallyConnected());
   shuntCompensator.getTerminal().disconnect();
+  ASSERT_FALSE(shuntCompensatorIfce.isPartiallyConnected());
   ASSERT_FALSE(shuntCompensatorIfce.isConnected());
   ASSERT_TRUE(shuntCompensatorIfce.getInitialConnected());
 

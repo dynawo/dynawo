@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+// Copyright (c) 2021, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,10 +13,18 @@
 
 #include "DYNThreeWTransformerInterfaceIIDM.h"
 
-#include <powsybl/iidm/Bus.hpp>
-#include <powsybl/iidm/Network.hpp>
-#include <powsybl/iidm/Substation.hpp>
-#include <powsybl/iidm/ThreeWindingsTransformerAdder.hpp>
+#include <boost/make_shared.hpp>
+
+#include <IIDM/Network.h>
+#include <IIDM/builders/BusBuilder.h>
+#include <IIDM/builders/NetworkBuilder.h>
+#include <IIDM/builders/SubstationBuilder.h>
+#include <IIDM/builders/Transformer3WindingsBuilder.h>
+#include <IIDM/builders/VoltageLevelBuilder.h>
+#include <IIDM/components/Bus.h>
+#include <IIDM/components/Substation.h>
+#include <IIDM/components/Transformer3Windings.h>
+#include <IIDM/components/VoltageLevel.h>
 
 #include "gtest_dynawo.h"
 
@@ -26,96 +34,65 @@
 
 namespace DYN {
 
-using powsybl::iidm::Bus;
-using powsybl::iidm::Network;
-using powsybl::iidm::Substation;
-using powsybl::iidm::ThreeWindingsTransformer;
-using powsybl::iidm::TopologyKind;
-using powsybl::iidm::VoltageLevel;
+using IIDM::Bus;
+using IIDM::Network;
+using IIDM::Substation;
+using IIDM::Transformer3Windings;
+using IIDM::VoltageLevel;
 
 TEST(DataInterfaceTest, ThreeWTransformer_1) {
-  Network network("test", "test");
-  Substation& substation = network.newSubstation()
-           .setId("S1")
-           .setName("S1_NAME")
-           .setCountry(powsybl::iidm::Country::FR)
-           .setTso("TSO")
-           .add();
+  IIDM::builders::NetworkBuilder nb;
+  boost::shared_ptr<Network> network = boost::make_shared<Network>(nb.build("test"));
 
-  VoltageLevel& vl1 = substation.newVoltageLevel()
-           .setId("VL1")
-           .setName("VL1_NAME")
-           .setTopologyKind(TopologyKind::BUS_BREAKER)
-           .setNominalV(380.0)
-           .setLowVoltageLimit(340.0)
-           .setHighVoltageLimit(420.0)
-           .add();
+  IIDM::builders::SubstationBuilder ssb;
+  Substation substation = ssb.build("S1");
+  network->add(substation);
 
-  Bus& vl1Bus1 = vl1.getBusBreakerView().newBus()
-           .setId("VL1_BUS1")
-           .add();
+  IIDM::builders::VoltageLevelBuilder vlb;
+  vlb.mode(IIDM::VoltageLevel::bus_breaker);
+  vlb.nominalV(400.0);
+  VoltageLevel vl1 = vlb.build("VL1");
+  vlb.nominalV(200.0);
+  VoltageLevel vl2 = vlb.build("VL2");
+  vlb.nominalV(100.0);
+  VoltageLevel vl3 = vlb.build("VL3");
 
-  VoltageLevel& vl2 = substation.newVoltageLevel()
-           .setId("VL2")
-           .setName("VL2_NAME")
-           .setTopologyKind(TopologyKind::BUS_BREAKER)
-           .setNominalV(225.0)
-           .setLowVoltageLimit(200.0)
-           .setHighVoltageLimit(260.0)
-           .add();
+  IIDM::builders::BusBuilder bb;
+  bb.v(401.1);
+  bb.angle(0.01);
+  Bus vl1Bus1 = bb.build("VL1_BUS1");
+  vl1.add(vl1Bus1);
+  bb.v(202.2);
+  bb.angle(0.02);
+  Bus vl2Bus1 = bb.build("VL2_BUS1");
+  vl2.add(vl2Bus1);
+  bb.v(103.3);
+  bb.angle(0.03);
+  Bus vl3Bus1 = bb.build("VL3_BUS1");
+  vl3.add(vl3Bus1);
+  substation.add(vl1);
+  substation.add(vl2);
+  substation.add(vl3);
 
-  Bus& vl2Bus1 = vl2.getBusBreakerView().newBus()
-           .setId("VL2_BUS1")
-           .add();
-
-  VoltageLevel& vl3 = substation.newVoltageLevel()
-           .setId("VL3")
-           .setName("VL3_NAME")
-           .setTopologyKind(TopologyKind::BUS_BREAKER)
-           .setNominalV(380.0)
-           .setLowVoltageLimit(340.0)
-           .setHighVoltageLimit(420.0)
-           .add();
-
-  Bus& vl3Bus1 = vl3.getBusBreakerView().newBus()
-           .setId("VL3_BUS1")
-           .add();
-
-  ThreeWindingsTransformer& transformer = substation.newThreeWindingsTransformer()
-           .setId("3WT_VL1_VL2_VL3")
-           .setName("3WT_VL1_VL2_VL3_NAME")
-           .newLeg1()
-           .setR(1.3)
-           .setX(1.4)
-           .setG(1.6)
-           .setB(1.7)
-           .setRatedU(1.1)
-           .setRatedS(2.2)
-           .setVoltageLevel(vl1.getId())
-           .setBus(vl1Bus1.getId())
-           .setConnectableBus(vl1Bus1.getId())
-           .add()
-           .newLeg2()
-           .setR(2.3)
-           .setX(2.4)
-           .setG(0.0)
-           .setB(0.0)
-           .setRatedU(2.1)
-           .setVoltageLevel(vl2.getId())
-           .setBus(vl2Bus1.getId())
-           .setConnectableBus(vl2Bus1.getId())
-           .add()
-           .newLeg3()
-           .setR(3.3)
-           .setX(3.4)
-           .setG(0.0)
-           .setB(0.0)
-           .setRatedU(3.1)
-           .setVoltageLevel(vl3.getId())
-           .setBus(vl3Bus1.getId())
-           .setConnectableBus(vl3Bus1.getId())
-           .add()
-           .add();
+  IIDM::connection_status_t cs = {true /*connected*/};
+  IIDM::Port p1("VL1_BUS1", cs), p2("VL2_BUS1", cs), p3("VL3_BUS1", cs);
+  IIDM::Connection c1("VL1", p1, IIDM::side_1), c2("VL2", p2, IIDM::side_2), c3("VL3", p3, IIDM::side_3);
+  IIDM::builders::Transformer3WindingsBuilder tfob;
+  tfob.r1(1.1);
+  tfob.x1(1.2);
+  tfob.g1(1.3);
+  tfob.b1(1.4);
+  tfob.ratedU1(400.0);
+  tfob.r2(2.1);
+  tfob.x2(2.2);
+  tfob.ratedU2(200.0);
+  tfob.r3(3.1);
+  tfob.x3(3.2);
+  tfob.ratedU3(100.0);
+  Transformer3Windings transformer0 = tfob.build("3WT_VL1_VL2_VL3");
+  substation.add(transformer0, c1, c2, c3);
+  // The transformer that has been connected is a copy of the transformer0 that has been added to the substation
+  Transformer3Windings& transformer = *substation.find_threeWindingsTransformer("3WT_VL1_VL2_VL3");
 
   ThreeWTransformerInterfaceIIDM tfoInterface(transformer);
   ASSERT_EQ(tfoInterface.getID(), "3WT_VL1_VL2_VL3");
@@ -136,19 +113,16 @@ TEST(DataInterfaceTest, ThreeWTransformer_1) {
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces3().size(), 1);
 
   ASSERT_EQ(tfoInterface.getBusInterface1().get(), nullptr);
-  vl1Bus1.setV(10.0).setAngle(0.01);
   const boost::shared_ptr<BusInterface> busItf1(new BusInterfaceIIDM(vl1Bus1));
   tfoInterface.setBusInterface1(busItf1);
   ASSERT_EQ(tfoInterface.getBusInterface1().get()->getID(), "VL1_BUS1");
 
   ASSERT_EQ(tfoInterface.getBusInterface2().get(), nullptr);
-  vl2Bus1.setV(11.0).setAngle(0.02);
   const boost::shared_ptr<BusInterface> busItf2(new BusInterfaceIIDM(vl2Bus1));
   tfoInterface.setBusInterface2(busItf2);
   ASSERT_EQ(tfoInterface.getBusInterface2().get()->getID(), "VL2_BUS1");
 
   ASSERT_EQ(tfoInterface.getBusInterface3().get(), nullptr);
-  vl3Bus1.setV(12.0).setAngle(0.03);
   const boost::shared_ptr<BusInterface> busItf3(new BusInterfaceIIDM(vl3Bus1));
   tfoInterface.setBusInterface3(busItf3);
   ASSERT_EQ(tfoInterface.getBusInterface3().get()->getID(), "VL3_BUS1");
@@ -164,19 +138,19 @@ TEST(DataInterfaceTest, ThreeWTransformer_1) {
   ASSERT_TRUE(tfoInterface.isPartiallyConnected());
 
   ASSERT_TRUE(tfoInterface.getInitialConnected1());
-  transformer.getLeg1().getTerminal().disconnect();
+  transformer.disconnect(IIDM::side_1);
   ASSERT_TRUE(tfoInterface.getInitialConnected1());
   ASSERT_FALSE(tfoInterface.isConnected());
   ASSERT_TRUE(tfoInterface.isPartiallyConnected());
 
   ASSERT_TRUE(tfoInterface.getInitialConnected2());
-  transformer.getLeg2().getTerminal().disconnect();
+  transformer.disconnect(IIDM::side_2);
   ASSERT_TRUE(tfoInterface.getInitialConnected2());
   ASSERT_FALSE(tfoInterface.isConnected());
   ASSERT_TRUE(tfoInterface.isPartiallyConnected());
 
   ASSERT_TRUE(tfoInterface.getInitialConnected3());
-  transformer.getLeg3().getTerminal().disconnect();
+  transformer.disconnect(IIDM::side_3);
   ASSERT_TRUE(tfoInterface.getInitialConnected3());
   ASSERT_FALSE(tfoInterface.isConnected());
   ASSERT_FALSE(tfoInterface.isPartiallyConnected());

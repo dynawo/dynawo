@@ -126,6 +126,11 @@ TwoWTransformerInterfaceIIDM::isConnected() const {
   return isConnected1() && isConnected2();
 }
 
+bool
+TwoWTransformerInterfaceIIDM::isPartiallyConnected() const {
+  return isConnected1() || isConnected2();
+}
+
 double
 TwoWTransformerInterfaceIIDM::getVNom1() const {
   return tfoIIDM_.getTerminal1().getVoltageLevel().getNominalV();
