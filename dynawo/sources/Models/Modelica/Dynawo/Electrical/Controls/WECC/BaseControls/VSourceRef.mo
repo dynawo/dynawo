@@ -23,15 +23,15 @@ model VSourceRef
   extends Parameters.Params_VSourceRef;
 
   ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re),im(start = u0Pu.im)) "Complex voltage at inverter terminal in p.u (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-130, 5}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-130, 5}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Blocks.Interfaces.RealInput idPu(start = Id0Pu) "d-axis current in p.u (base SNom, UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Interfaces.RealInput iqPu(start = Iq0Pu) "q-axis current in p.u (base SNom, UNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Blocks.Interfaces.RealOutput urPu(start = u0Pu.re) "Real voltage of inner voltage source in p.u (base UNom)" annotation(
+  Blocks.Interfaces.RealOutput urPu(start = uInj0Pu.re) "Real voltage of inner voltage source in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealOutput uiPu(start = u0Pu.im) "Imaginary voltage of inner voltage source in p.u (base UNom)" annotation(
+  Blocks.Interfaces.RealOutput uiPu(start = uInj0Pu.im) "Imaginary voltage of inner voltage source in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Controls.WECC.BaseControls.UdqRef udqRef(RPu = RSourcePu, XPu = XSourcePu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, Ud0Pu = Ud0Pu, Uq0Pu = Uq0Pu) annotation(
@@ -49,8 +49,9 @@ model VSourceRef
   Blocks.Sources.Constant OmegaRefPu(k = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
+
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at inverter terminal in p.u (base UNom)";
+  parameter Types.ComplexVoltagePu uInj0Pu "Start value of complex voltage at inverter terminal in p.u (base UNom)";
   parameter Types.PerUnit Id0Pu "Start value of d-axis current at injector in p.u (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit Iq0Pu "Start value of q-axis current at injector in p.u (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit Ud0Pu "Start value of d-axis current at injector in p.u (base UNom)";
@@ -93,6 +94,6 @@ equation
     Line(points = {{51, 40}, {70, 40}, {70, 7}, {79, 7}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {2, 4}, extent = {{-82, 76}, {78, -84}}, textString = "VSourceRef"), Text(origin = {-141, 89}, extent = {{3, -3}, {37, -19}}, textString = "uPu"), Text(origin = {-121.5, 18}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "iqPu"), Text(origin = {-121.5, 18}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "iqPu"), Text(origin = {-121.5, -42}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "idPu"), Text(origin = {116, 81.2963}, extent = {{-8, 5.7037}, {24, -16.2963}}, textString = "urPu"), Text(origin = {116, 1.03704}, extent = {{-8, 5.96296}, {24, -17.037}}, textString = "uiPu")}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})),
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {2, 4}, extent = {{-82, 76}, {78, -84}}, textString = "VSourceRef"), Text(origin = {2, -109}, extent = {{3, -3}, {37, -19}}, textString = "uPu"), Text(origin = {-121.5, 59}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "iqPu"), Text(origin = {-121.5, -42}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "idPu"), Text(origin = {116, 74.2963}, extent = {{-8, 5.7037}, {24, -16.2963}}, textString = "urPu"), Text(origin = {116, -5.96296}, extent = {{-8, 5.96296}, {24, -17.037}}, textString = "uiPu")}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})),
   Diagram(coordinateSystem(extent = {{-120, -120}, {120, 120}}, grid = {1, 1})));
 end VSourceRef;
