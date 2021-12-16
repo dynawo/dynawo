@@ -41,8 +41,9 @@ model Measurements "This block measures the voltage, current, active power and r
     Placement(visible = true, transformation(origin = {20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.ComplexBlocks.Interfaces.ComplexOutput iPu "Complex current in p.u (base UNom, SnRef)" annotation(
     Placement(visible = true, transformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput UPu annotation(
+  Modelica.Blocks.Interfaces.RealOutput UPu "Voltage module in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
 equation
   terminal1.i = - terminal2.i;
   terminal1.V = terminal2.V;

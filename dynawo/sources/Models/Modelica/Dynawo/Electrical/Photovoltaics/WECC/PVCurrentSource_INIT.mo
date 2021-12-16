@@ -21,14 +21,14 @@ model PVCurrentSource_INIT "Initialization model for WECC PV model with a curren
 
   extends AdditionalIcons.Init;
 
-  parameter Types.ApparentPowerModule SNom =100 "Nominal apparent power in MVA";
-  parameter Types.PerUnit RPu =0 "Resistance of equivalent branch connection to the grid in p.u (base SnRef, UNom)";
-  parameter Types.PerUnit XPu =0.0000020661"Reactance of equivalent branch connection to the grid in p.u (base SnRef, UNom)";
+  parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in p.u (base SnRef, UNom)";
+  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in p.u (base SnRef, UNom)";
 
-  parameter Types.PerUnit P0Pu =-0.7"Start value of active power at regulated bus in p.u (receptor convention) (base SnRef)";
-  parameter Types.PerUnit Q0Pu =-0.2 "Start value of reactive power at regulated bus in p.u (receptor convention) (base SnRef)";
-  parameter Types.PerUnit U0Pu =1"Start value of voltage magnitude at regulated bus in p.u. (bae UNom)";
-  parameter Types.Angle UPhase0 = 0.00000144621"Start value of voltage phase angle at regulated bus in rad";
+  parameter Types.PerUnit P0Pu "Start value of active power at regulated bus in p.u (receptor convention) (base SnRef)";
+  parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in p.u (receptor convention) (base SnRef)";
+  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in p.u. (bae UNom)";
+  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
 
 protected
   Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
