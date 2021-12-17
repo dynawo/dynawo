@@ -756,9 +756,14 @@ class SubModel {
    * @param begin @b true if the constrain begin
    * @param description description of the constraint
    * @param modelType type of the model
+   * @param constraintData detailed information about the constraint
    */
-  void addConstraint(const std::string& modelName, bool begin, const Message& description,
-      const std::string& modelType = "");
+  void addConstraint(
+    const std::string& modelName,
+    bool begin,
+    const Message& description,
+    const std::string& modelType = "",
+    const boost::optional<constraints::ConstraintData>& constraintData = boost::none);
 
   /**
    * @brief Determines if the model has a constraint collection

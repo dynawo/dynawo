@@ -24,7 +24,6 @@
 namespace DYN {
 
 TraceStream::TraceStream() :
-buffer_(boost::shared_ptr<std::stringstream>(new std::stringstream)),
 slv_(INFO),
 tag_("") {
 }
@@ -39,9 +38,11 @@ tag_(tag) {
 }
 
 TraceStream::TraceStream(const TraceStream& ts) :
-buffer_(boost::shared_ptr<std::stringstream>(new std::stringstream)),
 slv_(ts.slv_),
 tag_(ts.tag_) {
+  if (ts.buffer_) {
+    buffer_ = boost::shared_ptr<std::stringstream>(new std::stringstream);
+  }
 }
 
 TraceStream&
@@ -49,7 +50,9 @@ TraceStream::operator=(const TraceStream& ts) {
   slv_ = ts.slv_;
   tag_ = ts.tag_;
   buffer_.reset();
-  buffer_ = boost::shared_ptr<std::stringstream>(new std::stringstream);
+  if (ts.buffer_) {
+    buffer_ = boost::shared_ptr<std::stringstream>(new std::stringstream);
+  }
   return *this;
 }
 

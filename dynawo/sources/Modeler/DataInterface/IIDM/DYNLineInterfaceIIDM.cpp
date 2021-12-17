@@ -229,6 +229,11 @@ LineInterfaceIIDM::isConnected() const {
   return isConnected1() && isConnected2();
 }
 
+bool
+LineInterfaceIIDM::isPartiallyConnected() const {
+  return isConnected1() || isConnected2();
+}
+
 string
 LineInterfaceIIDM::getID() const {
   return lineIIDM_.id();

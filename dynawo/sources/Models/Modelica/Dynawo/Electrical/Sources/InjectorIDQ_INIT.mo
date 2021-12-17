@@ -38,7 +38,7 @@ equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
 
-  // Park's transformations dq-currents in injector convention, -> receptor convention for terminal
+  // Park's transformations dq-currents in generator convention, -> receptor convention for terminal
   i0Pu.re = -1 * (cos(UPhase0) * Id0Pu - sin(UPhase0) * Iq0Pu) * (SNom/SystemBase.SnRef);
   i0Pu.im = -1 * (sin(UPhase0) * Id0Pu + cos(UPhase0) * Iq0Pu) * (SNom/SystemBase.SnRef);
 

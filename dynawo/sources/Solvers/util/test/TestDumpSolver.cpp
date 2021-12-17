@@ -39,11 +39,12 @@ TEST(SolversUtil, TestDumpSolver) {
   ss.str(std::string());
 
   remove("dumpSolver.desc.xml");
-  cmd = "../dumpSolver -m ../../SolverSIM/dynawo_SolverSIM"+std::string(sharedLibraryExtension());
+  cmd = "../dumpSolver -m ../../FixedTimeStep/SolverSIM/dynawo_SolverSIM"+std::string(sharedLibraryExtension());
   executeCommand(cmd, ss);
   result = ss.str();
   boost::erase_all(result, "\n");
-  ASSERT_EQ(result, "Executing command : ../dumpSolver -m ../../SolverSIM/dynawo_SolverSIM"+std::string(sharedLibraryExtension())+" Solver dump main Default output file used : ./dumpSolver.desc.xml  -h [ --help ]             "
+  ASSERT_EQ(result, "Executing command : ../dumpSolver -m ../../FixedTimeStep/SolverSIM/dynawo_SolverSIM"
+                    +std::string(sharedLibraryExtension())+" Solver dump main Default output file used : ./dumpSolver.desc.xml  -h [ --help ]             "
       "produce help message  -m [ --solver-file ] arg REQUIRED: set solver file (path)  -o [ --output-file ] arg set output file (path)");
   ss.str(std::string());
   ASSERT_TRUE(exists("dumpSolver.desc.xml"));

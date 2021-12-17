@@ -120,6 +120,18 @@ class ShuntCompensatorInterfaceIIDM : public ShuntCompensatorInterface, public I
   int getMaximumSection() const;
 
   /**
+   * @copydoc ShuntCompensatorInterface::isVoltageRegulationOn() const
+   */
+  inline bool isVoltageRegulationOn() const {
+    return false;
+  }
+
+  /**
+   * @copydoc ShuntCompensatorInterface::getTargetV() const
+   */
+  double getTargetV() const;
+
+  /**
    * @brief Getter for the shuntCompensator's cumulative susceptance at given section
    *  i.e. the sum of the sections' susceptances from 1 to section
    * @param section at which calculate the shuntsCompensator's susceptance

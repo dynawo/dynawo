@@ -54,6 +54,34 @@ TEST(APICSTRTest, CollectionAddConstraints) {
   ASSERT_NO_THROW(TxtExporter.exportToFile(collection, "constraint.txt"));
 }
 
+TEST(APICSTRTest, CollectionAddConstraintsWithDetails) {
+  boost::shared_ptr<ConstraintsCollection> collection;
+  collection = ConstraintsCollectionFactory::newInstance("test");
+
+  int side = 1;
+  double acceptableDuration = 60;
+  collection->addConstraint("model", "constraint U", 0, CONSTRAINT_BEGIN, "Bus",
+    ConstraintData(ConstraintData::USupUmax, 132.0, 133.0));
+  collection->addConstraint("model", "constraint I", 0, CONSTRAINT_BEGIN, "Line",
+    ConstraintData(ConstraintData::OverloadUp, 1000, 1001, side, acceptableDuration));
+  collection->addConstraint("model", "constraint I", 0, CONSTRAINT_BEGIN, "Line",
+    ConstraintData(ConstraintData::PATL, 1100, 1111, side));
+
+  int nbConstraint = 0;
+  for (ConstraintsCollection::const_iterator itConstraint = collection->cbegin();
+          itConstraint != collection->cend();
+          ++itConstraint)
+    ++nbConstraint;
+
+  ASSERT_EQ(nbConstraint, 2);  // the two constraints have been added
+
+  // export
+  XmlExporter XmlExporter;
+  ASSERT_NO_THROW(XmlExporter.exportToFile(collection, "constraint.xml"));
+  TxtExporter TxtExporter;
+  ASSERT_NO_THROW(TxtExporter.exportToFile(collection, "constraint.txt"));
+}
+
 TEST(APICSTRTest, CollectionEraseConstraint) {
   boost::shared_ptr<ConstraintsCollection> collection;
   collection = ConstraintsCollectionFactory::newInstance("test");

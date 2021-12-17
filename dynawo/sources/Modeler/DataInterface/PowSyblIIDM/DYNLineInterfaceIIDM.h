@@ -279,6 +279,11 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
    */
   bool isConnected() const;
 
+  /**
+   * @copydoc ComponentInterface::isPartiallyConnected()
+   */
+  bool isPartiallyConnected() const;
+
  private:
   powsybl::iidm::Line& lineIIDM_;                                    ///< reference to the iidm line instance
   boost::shared_ptr<BusInterface> busInterface1_;                    ///< busInterface of the bus where the side 1 of the line is connected

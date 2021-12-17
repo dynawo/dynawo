@@ -131,6 +131,10 @@ void Trace::disableLogging() {
   logging::core::get()->set_logging_enabled(false);
 }
 
+void Trace::enableLogging() {
+  logging::core::get()->set_logging_enabled(true);
+}
+
 bool Trace::isLoggingEnabled() {
   return logging::core::get()->get_logging_enabled();
 }

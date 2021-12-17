@@ -88,13 +88,13 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
       itEnd = constraints->cend(); it != itEnd; ++it) {
     boost::shared_ptr<constraints::Constraint> constraint = (*it);
-    if (n == 0) {
+    if (n == 1) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
-      ASSERT_EQ(constraint->getDescription(), "IMAP 2");
+      ASSERT_EQ(constraint->getDescription(), "PATL 2");
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
       ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
       ASSERT_EQ(constraint->getModelType(), modelType);
-    } else if (n == 1) {
+    } else if (n == 0) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
       ASSERT_EQ(constraint->getDescription(), "OverloadUp 5 2");
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
