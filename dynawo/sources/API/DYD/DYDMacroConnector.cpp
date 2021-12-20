@@ -57,11 +57,7 @@ MacroConnector::addConnect(const string& var1, const string& var2) {
 
   // to avoid necessity to create MacroConnection::Impl default constructor
   std::pair<std::map<std::string, boost::shared_ptr<MacroConnection> >::iterator, bool> ret;
-#ifdef LANG_CXX11
   ret = connectorsMap_.emplace(connectionId, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2)));
-#else
-  ret = connectorsMap_.insert(std::make_pair(connectionId, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2))));
-#endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroConnectionIDNotUnique, connectionId);
   return *this;
@@ -78,11 +74,7 @@ MacroConnector::addInitConnect(const string& var1, const string& var2) {
 
   // to avoid necessity to create MacroConnection::Impl default constructor
   std::pair<std::map<std::string, boost::shared_ptr<MacroConnection> >::iterator, bool> ret;
-#ifdef LANG_CXX11
   ret = initConnectorsMap_.emplace(connectionId, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2)));
-#else
-  ret = initConnectorsMap_.insert(std::make_pair(connectionId, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2))));
-#endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroConnectionIDNotUnique, id_, var1, var2);
   return *this;

@@ -297,21 +297,9 @@ string extension(const string & path) {
 }
 
 bool extensionFound(const string path, const vector <string> & extensionList) {
-#ifdef LANG_CXX11
   return (std::find_if(extensionList.begin(), extensionList.end(), [&path] (const string s) {
     return extensionEquals(path, s);
   }) != extensionList.end());
-#else
-  for (std::vector<std::string>::const_iterator itExt = extensionList.begin(); itExt != extensionList.end(); ++itExt) {
-    if (extensionEquals(path, *itExt)) {
-      return true;
-    }
-  }
-
-  // all extensions scanned and not found => return false
-  return false;
-
-#endif
 }
 
 bool extensionEquals(const string path, const string extension) {

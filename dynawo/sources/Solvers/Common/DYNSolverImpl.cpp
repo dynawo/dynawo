@@ -20,7 +20,6 @@
 #include <iostream>
 #include <iomanip>
 #include <nvector/nvector_serial.h>
-#include <boost/static_assert.hpp>
 
 #include "DYNSolverImpl.h"
 
@@ -50,17 +49,10 @@ using timeline::Timeline;
 namespace DYN {
 
 namespace conditions {
-#if defined LANG_CXX11 || defined LANG_CXX0X
 /**
  * @brief Test is the type defining double in sundials is equivalent to double type
  */
 static_assert(sizeof (double) == sizeof (realtype), "wrong size of sundials::realtype");
-#else
-/**
- * @brief Test is the type defining double in sundials is equivalent to double type
- */
-BOOST_STATIC_ASSERT_MSG(sizeof (double) == sizeof (realtype), "wrong size of sundials::realtype");
-#endif
 }  // namespace conditions
 
 Solver::~Solver() {}

@@ -39,7 +39,6 @@ ccmake <src-path>  -DBOOST_ROOT=<boost-path>
 ### Other variables:
 * CMAKE_INSTALL_PREFIX  Install path prefix.
 * CMAKE_BUILD_TYPE      Choose the type of build, options are: None (neither debug nor release), Debug, Release, RelWithDebInfo(both) and MinSizeRel.
-* CXX11_ENABLED         Enable to use CXX11 compilation
 
 ## III. Partial build and installation
 Once CMake was run, you may use specific make targets to build (and install) specific parts.

@@ -26,8 +26,6 @@ option(LibXML_SAX_BUILD_SAMPLES "Set to OFF to disable XML SAX samples build" ON
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-set(CXX11_ENABLED OFF CACHE BOOL "activates the C++11 compilation")
-
 set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build: Debug Release RelWithDebInfo MinSizeRel")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -46,29 +44,7 @@ set(LibXML_INSTALL_INCLUDE include)
 
 if(NOT MSVC)
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
-
-  if(CXX11_ENABLED)
-  # Test if a C++11 flag is supported
-    include(CheckCXXCompilerFlag)
-    check_cxx_compiler_flag("-std=c++14" COMPILER_SUPPORTS_CXX14)
-    if(COMPILER_SUPPORTS_CXX14)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-    else()
-      check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
-      if(COMPILER_SUPPORTS_CXX11)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-      else()
-        check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-        if(COMPILER_SUPPORTS_CXX0X)
-          set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-        else()
-          message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Disabling C++11.")
-        endif()
-      endif()
-    endif()
-  else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
-  endif()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif()
 
 # Add specific options for gcc
