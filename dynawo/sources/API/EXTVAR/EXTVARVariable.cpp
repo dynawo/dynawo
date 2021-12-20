@@ -62,7 +62,7 @@ Variable::hasSize() const {
 
 Variable&
 Variable::setSize(unsigned int size) {
-  if (type_ != CONTINUOUS_ARRAY && type_ != DISCRETE_ARRAY)
+  if (type_ != Type::CONTINUOUS_ARRAY && type_ != Type::DISCRETE_ARRAY)
     throw DYNError(DYN::Error::API, ExternalVariableAttributeOnlyForArray, id_, "size");
   size_ = size;
   return *this;
@@ -82,7 +82,7 @@ Variable::hasOptional() const {
 
 Variable&
 Variable::setOptional(bool optional) {
-  if (type_ != CONTINUOUS_ARRAY && type_ != DISCRETE_ARRAY)
+  if (type_ != Type::CONTINUOUS_ARRAY && type_ != Type::DISCRETE_ARRAY)
     throw DYNError(DYN::Error::API, ExternalVariableAttributeOnlyForArray, id_, "optional");
   optional_ = optional;
   return *this;

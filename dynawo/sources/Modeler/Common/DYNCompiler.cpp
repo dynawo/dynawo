@@ -677,7 +677,7 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
             atLeastOneExternalVariable = true;
             extvarIds.insert(variable->getId());
           }
-        } else if ((*itExternalVariable)->getType() == externalVariables::Variable::DISCRETE) {
+        } else if ((*itExternalVariable)->getType() == externalVariables::Variable::Type::DISCRETE) {
           connectedDiscreteExtVar.insert(std::make_pair(itUnitDynamicModelName + "." + modelicaObjectName, *itExternalVariable));
         }
       }

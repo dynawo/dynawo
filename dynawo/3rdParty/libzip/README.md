@@ -82,7 +82,6 @@ $> make install
 
 You can also override the CMAKE common variables:
 - CMAKE_BUILD_TYPE
-- CXX11_ENABLED
 - BIN_INSTALL_DIR, INCLUDE_INSTALL_DIR, LIB_INSTALL_DIR
 
 ### Compilation
