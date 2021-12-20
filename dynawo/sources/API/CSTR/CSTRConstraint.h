@@ -27,32 +27,40 @@
 
 namespace constraints {
 
+/**
+ * @brief Constraint data definition
+ */
 struct ConstraintData {
   /**
-   * possible values for kind
+   * @brief possible values for kind
    */
-  typedef enum {
-    PATL = 0,
-    OverloadUp,
-    OverloadOpen,
-    UInfUmin,
-    USupUmax
-  } kind_t;
+  typedef enum { PATL = 0, OverloadUp, OverloadOpen, UInfUmin, USupUmax } kind_t;
 
-  kind_t kind;
-  double limit;
-  double value;
-  boost::optional<int> side;
-  boost::optional<double> acceptableDuration;
+  kind_t kind;                                 ///< Kind of constraint
+  double limit;                                ///< Limit of the constraint
+  double value;                                ///< value of the constraint
+  boost::optional<int> side;                   ///< Side the constraint applies
+  boost::optional<double> acceptableDuration;  ///< the acceptable duration of the constraint
 
-  ConstraintData(const kind_t& kind, double limit, double value,
-    boost::optional<int> side = boost::none, boost::optional<double> acceptableDuration = boost::none)
-    : kind(kind), limit(limit), value(value), side(side), acceptableDuration(acceptableDuration) {
-  }
+  /**
+   * @brief Construct a new Constraint Data object
+   *
+   * @param kind Kind of constraint
+   * @param limit Limit of the constraint
+   * @param value value of the constraint
+   * @param side Side the constraint applies
+   * @param acceptableDuration the acceptable duration of the constraint
+   */
+  ConstraintData(kind_t kind, double limit, double value, boost::optional<int> side = boost::none, boost::optional<double> acceptableDuration = boost::none) :
+      kind(kind),
+      limit(limit),
+      value(value),
+      side(side),
+      acceptableDuration(acceptableDuration) {}
 };
 
 /**
- * class Constraint
+ * @brief Constraint
  */
 class Constraint {
  public:

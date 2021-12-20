@@ -122,7 +122,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
   int sizeZ() const;
 
  private:
-  /*
+  /**
    * @brief build constraint data details for a violation of limit i
    * @param kind of limit violation
    * @param i limit index
