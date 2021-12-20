@@ -1,51 +1,55 @@
-0.0256306 | GEN____3_SM | PMIN : activation
-1.08481 | GEN____3_SM | PMIN : deactivation
-2.92116 | GEN____3_SM | PMIN : activation
+0 | GEN____8_SM | PMIN : activation
+0.0306911 | GEN____3_SM | PMIN : activation
+0.348405 | GEN____8_SM | PMIN : deactivation
+0.828675 | GEN____3_SM | PMIN : deactivation
+0.834701 | GEN____8_SM | PMIN : activation
+1.90571 | GEN____8_SM | PMIN : deactivation
+2.18387 | GEN____3_SM | PMIN : activation
+2.33844 | GEN____8_SM | PMIN : activation
+2.75809 | GEN____3_SM | PMIN : deactivation
 5 | _BUS____1-BUS____5-1_AC | LINE : opening on side 2
-5 | GEN____3_SM | PMIN : deactivation
-5.24795 | CLA_2_5 | CLA : arming by over-current constraint
-5.40465 | GEN____6_SM | PMIN : activation
-5.56596 | GEN____8_SM | PMIN : activation
-5.77925 | GEN____6_SM | PMIN : deactivation
-5.92172 | GEN____3_SM | PMIN : activation
-6.04407 | GEN____8_SM | PMIN : deactivation
-6.16877 | GEN____6_SM | PMIN : activation
-6.37791 | GEN____6_SM | PMIN : deactivation
-6.49311 | GEN____3_SM | PMIN : deactivation
-6.58537 | GEN____8_SM | PMIN : activation
-6.82632 | GEN____6_SM | PMIN : activation
-7.0246 | GEN____8_SM | PMIN : deactivation
-7.14364 | GEN____6_SM | PMIN : deactivation
-7.67839 | GEN____6_SM | PMIN : activation
-7.75682 | GEN____8_SM | PMIN : activation
-7.92766 | GEN____6_SM | PMIN : deactivation
-8.04596 | GEN____8_SM | PMIN : deactivation
+5 | GEN____8_SM | PMIN : deactivation
+5.24792 | CLA_2_5 | CLA : arming by over-current constraint
+5.40477 | GEN____6_SM | PMIN : activation
+5.56365 | GEN____8_SM | PMIN : activation
+5.7761 | GEN____6_SM | PMIN : deactivation
+5.92097 | GEN____3_SM | PMIN : activation
+6.04281 | GEN____8_SM | PMIN : deactivation
+6.16524 | GEN____6_SM | PMIN : activation
+6.37405 | GEN____6_SM | PMIN : deactivation
+6.49218 | GEN____3_SM | PMIN : deactivation
+6.58255 | GEN____8_SM | PMIN : activation
+6.82065 | GEN____6_SM | PMIN : activation
+7.02304 | GEN____8_SM | PMIN : deactivation
+7.13891 | GEN____6_SM | PMIN : deactivation
+7.6736 | GEN____6_SM | PMIN : activation
+7.75024 | GEN____8_SM | PMIN : activation
+7.92244 | GEN____6_SM | PMIN : deactivation
+8.04731 | GEN____8_SM | PMIN : deactivation
 10.2479 | CLA_2_5 | CLA : order to change topology
 10.2479 | _BUS____2-BUS____5-1_AC | LINE : opening both sides
 10.2479 | CLA_2_5 | CLA : order to change topology
 10.4396 | CLA_2_4 | CLA : arming by over-current constraint
-10.6886 | GEN____6_SM | PMIN : activation
-10.8654 | GEN____8_SM | PMIN : activation
-11.0127 | GEN____6_SM | PMIN : deactivation
-11.2933 | GEN____8_SM | PMIN : deactivation
-11.4525 | GEN____6_SM | PMIN : activation
-11.5992 | GEN____6_SM | PMIN : deactivation
-11.8928 | GEN____8_SM | PMIN : activation
-12.1342 | GEN____6_SM | PMIN : activation
-12.222 | GEN____8_SM | PMIN : deactivation
-12.3802 | GEN____6_SM | PMIN : deactivation
-12.9966 | GEN____6_SM | PMIN : activation
-13.1765 | GEN____6_SM | PMIN : deactivation
+10.6887 | GEN____6_SM | PMIN : activation
+10.8648 | GEN____8_SM | PMIN : activation
+11.0106 | GEN____6_SM | PMIN : deactivation
+11.2925 | GEN____8_SM | PMIN : deactivation
+11.45 | GEN____6_SM | PMIN : activation
+11.5968 | GEN____6_SM | PMIN : deactivation
+11.8907 | GEN____8_SM | PMIN : activation
+12.1313 | GEN____6_SM | PMIN : activation
+12.2219 | GEN____8_SM | PMIN : deactivation
+12.3779 | GEN____6_SM | PMIN : deactivation
 20.4396 | CLA_2_4 | CLA : order to change topology
 20.4396 | _BUS____2-BUS____4-1_AC | LINE : opening on side 2
 20.4396 | CLA_2_4 | CLA : order to change topology
-21.2022 | GEN____8_SM | PMIN : activation
-21.5888 | GEN____8_SM | PMIN : deactivation
-21.5903 | GEN____6_SM | PMIN : activation
-21.8198 | GEN____6_SM | PMIN : deactivation
-21.8887 | GEN____3_SM | PMIN : activation
-22.1028 | GEN____3_SM | PMIN : deactivation
-22.2135 | GEN____8_SM | PMIN : activation
-22.3194 | GEN____6_SM | PMIN : activation
-22.552 | GEN____8_SM | PMIN : deactivation
-22.602 | GEN____6_SM | PMIN : deactivation
+21.2018 | GEN____8_SM | PMIN : activation
+21.5881 | GEN____8_SM | PMIN : deactivation
+21.5887 | GEN____6_SM | PMIN : activation
+21.8183 | GEN____6_SM | PMIN : deactivation
+21.888 | GEN____3_SM | PMIN : activation
+22.1023 | GEN____3_SM | PMIN : deactivation
+22.2118 | GEN____8_SM | PMIN : activation
+22.3163 | GEN____6_SM | PMIN : activation
+22.5534 | GEN____8_SM | PMIN : deactivation
+22.6 | GEN____6_SM | PMIN : deactivation
