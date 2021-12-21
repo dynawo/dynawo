@@ -178,6 +178,25 @@ ModelManager::init(const double t0) {
   setManagerTime(t0);
 }
 
+void ModelManager::setSubModelParameters() {
+  if (modelModelica()->isDataStructIsInitialized()) {
+    shared_ptr<ParametersSet> mergedParametersSet(boost::shared_ptr<ParametersSet>(new ParametersSet("merged_" + name())));
+
+    const boost::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
+
+    createParametersValueSet(parameters, mergedParametersSet);
+    mergedParametersSet_ = mergedParametersSet;
+    modelModelica()->setParameters(mergedParametersSet_);
+
+    // parameters (number and order = those of the .mo file)
+    // --------------------------------------------------
+    // apparently problem of scheduling of inits in WTO
+    for (int i = 0; i < 2; ++i) {
+      modelModelica()->initRpar();
+    }
+  }
+}
+
 void
 ModelManager::associateBuffers() {
   if (modelInitUsed_) {
