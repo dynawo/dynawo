@@ -91,6 +91,7 @@ class HeaderPatternDefine:
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
     void checkSum(std::string & checkSum) { checkSum = std::string("__fill_model_checkSum__"); }
+    inline bool isDataStructIsInitialized() const { return dataStructIsInitialized_; }
 
     private:
     DYNDATA * data;
@@ -179,6 +180,7 @@ namespace DYN {
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
     void checkSum(std::string & checkSum) { checkSum = std::string("__fill_model_checkSum__"); }
+    inline bool isDataStructIsInitialized() const { return dataStructIsInitialized_; }
 
     private:
     DYNDATA * data;
