@@ -141,6 +141,24 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
   bool getInitialConnected3();
 
   /**
+   * @brief Checks the connection state of the transformer's side 1
+   * @return @b true if the transformer's side 1 is connected, @b false else
+   */
+  bool isConnected1() const;
+
+  /**
+   * @brief Checks the connection state of the transformer's side 2
+   * @return @b true if the transformer's side 2 is connected, @b false else
+   */
+  bool isConnected2() const;
+
+  /**
+   * @brief Checks the connection state of the transformer's side 3
+   * @return @b true if the transformer's side 3 is connected, @b false else
+   */
+  bool isConnected3() const;
+
+  /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();
@@ -154,6 +172,16 @@ class ThreeWTransformerInterfaceIIDM : public ThreeWTransformerInterface {
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
   int getComponentVarIndex(const std::string& varName) const;
+
+  /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  virtual bool isConnected() const;
+
+  /**
+   * @copydoc ComponentInterface::isPartiallyConnected()
+   */
+  virtual bool isPartiallyConnected() const;
 
  private:
   powsybl::iidm::ThreeWindingsTransformer& tfoIIDM_;  ///< reference to the tfo's iidm instance

@@ -16,6 +16,7 @@ set(MODULE_SOURCES
     TestIIDMModelsStaticParameters.cpp
     TestStateVariable.cpp
     TestDataInterfaceIIDM.cpp
+    TestThreeWTransformerInterface.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

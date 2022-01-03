@@ -12,6 +12,7 @@ add_subdirectory(SMIB S)
 add_subdirectory(GridForming G)
 add_subdirectory(HVDC H)
 add_subdirectory(SVarC SV)
+add_subdirectory(Photovoltaics P)
 
 set(MODEL_FILES
   package.mo

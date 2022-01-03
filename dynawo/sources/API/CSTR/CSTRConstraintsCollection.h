@@ -53,8 +53,12 @@ class ConstraintsCollection {
    * @param time time when the constraint occurs
    * @param type begin/end
    * @param modelType type of the model
+   * @param data the constraint data to add
    */
-  void addConstraint(const std::string& modelName, const std::string& description, const double& time, Type_t type, const std::string& modelType = "");
+  void addConstraint(const std::string& modelName, const std::string& description,
+    const double& time, Type_t type,
+    const std::string& modelType = "",
+    const boost::optional<ConstraintData>& data = boost::none);
 
  public:
   /**

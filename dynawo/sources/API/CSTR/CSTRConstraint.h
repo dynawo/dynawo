@@ -22,12 +22,45 @@
 
 #include "CSTRConstraintCommon.h"
 
+#include <boost/optional.hpp>
 #include <string>
 
 namespace constraints {
 
 /**
- * class Constraint
+ * @brief Constraint data definition
+ */
+struct ConstraintData {
+  /**
+   * @brief possible values for kind
+   */
+  typedef enum { PATL = 0, OverloadUp, OverloadOpen, UInfUmin, USupUmax } kind_t;
+
+  kind_t kind;                                 ///< Kind of constraint
+  double limit;                                ///< Limit of the constraint
+  double value;                                ///< value of the constraint
+  boost::optional<int> side;                   ///< Side the constraint applies
+  boost::optional<double> acceptableDuration;  ///< the acceptable duration of the constraint
+
+  /**
+   * @brief Construct a new Constraint Data object
+   *
+   * @param kind Kind of constraint
+   * @param limit Limit of the constraint
+   * @param value value of the constraint
+   * @param side Side the constraint applies
+   * @param acceptableDuration the acceptable duration of the constraint
+   */
+  ConstraintData(kind_t kind, double limit, double value, boost::optional<int> side = boost::none, boost::optional<double> acceptableDuration = boost::none) :
+      kind(kind),
+      limit(limit),
+      value(value),
+      side(side),
+      acceptableDuration(acceptableDuration) {}
+};
+
+/**
+ * @brief Constraint
  */
 class Constraint {
  public:
@@ -67,6 +100,12 @@ class Constraint {
   void setDescription(const std::string& description);
 
   /**
+   * @brief Setter for constraint's data
+   * @param data constraint's data
+   */
+  void setData(const boost::optional<ConstraintData>& data);
+
+  /**
    * @brief Getter for constraint's time
    * @return constraint's time
    */
@@ -102,12 +141,20 @@ class Constraint {
    */
   const std::string& getDescription() const;
 
+  /**
+   * @brief Getter for constraint's data
+   * @return constraint's data
+   */
+  boost::optional<ConstraintData> getData() const;
+
  private:
   double time_;              ///< Constraint's time
   Type_t type_;              ///< Constraint's type : begin or end
   std::string modelName_;    ///< Model's name for which constraint occurs
   std::string description_;  ///< Description of the constraint
   std::string modelType_;    ///< Model's type for which constraint occurs
+
+  boost::optional<ConstraintData> data_;  ///< Constraint's detailed data
 };
 }  // namespace constraints
 

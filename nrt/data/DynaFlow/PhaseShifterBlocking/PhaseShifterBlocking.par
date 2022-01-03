@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <macroParameterSet id="macro_signalNGenerator">
+    <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PMax" origData="IIDM" origName="pMax"/>
+    <reference type="DOUBLE" name="generator_PMin" origData="IIDM" origName="pMin"/>
+    <reference type="DOUBLE" name="generator_PNom" origData="IIDM" origName="pMax_pu"/>
+    <reference type="DOUBLE" name="generator_PRef0Pu" origData="IIDM" origName="targetP_pu"/>
+    <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
+    <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="targetV_pu"/>
+    <par name="generator_KGover" type="DOUBLE" value="1"/>
+    <par name="generator_tFilter" type="DOUBLE" value="0.001"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_signalNGeneratorFixedP">
+    <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PMax" origData="IIDM" origName="pMax"/>
+    <reference type="DOUBLE" name="generator_PMin" origData="IIDM" origName="pMin"/>
+    <reference type="DOUBLE" name="generator_PNom" origData="IIDM" origName="pMax_pu"/>
+    <reference type="DOUBLE" name="generator_PRef0Pu" origData="IIDM" origName="targetP_pu"/>
+    <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
+    <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="targetV_pu"/>
+    <par name="generator_KGover" type="DOUBLE" value="0"/>
+    <par name="generator_tFilter" type="DOUBLE" value="0.001"/>
+  </macroParameterSet>
+  <set id="12293692827806051710">
+    <par name="generator_QMax0" type="DOUBLE" value="41"/>
+    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/PhaseShifterBlocking/PhaseShifterBlocking_Diagram/_GEN____3_SM_Diagram.txt"/>
+    <par name="generator_QMaxTableName" type="STRING" value="12293692827806051710_tableqmax"/>
+    <par name="generator_QMin0" type="DOUBLE" value="-1"/>
+    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/PhaseShifterBlocking/PhaseShifterBlocking_Diagram/_GEN____3_SM_Diagram.txt"/>
+    <par name="generator_QMinTableName" type="STRING" value="12293692827806051710_tableqmin"/>
+    <macroParSet id="macro_signalNGeneratorFixedP"/>
+  </set>
+  <set id="12497041103945231709">
+    <par name="generator_QMax0" type="DOUBLE" value="1000"/>
+    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/PhaseShifterBlocking/PhaseShifterBlocking_Diagram/_GEN____1_SM_Diagram.txt"/>
+    <par name="generator_QMaxTableName" type="STRING" value="12497041103945231709_tableqmax"/>
+    <par name="generator_QMin0" type="DOUBLE" value="-1000"/>
+    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/PhaseShifterBlocking/PhaseShifterBlocking_Diagram/_GEN____1_SM_Diagram.txt"/>
+    <par name="generator_QMinTableName" type="STRING" value="12497041103945231709_tableqmin"/>
+    <macroParSet id="macro_signalNGenerator"/>
+  </set>
+  <set id="3926348227757243444">
+    <par name="generator_QMax0" type="DOUBLE" value="51"/>
+    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/PhaseShifterBlocking/PhaseShifterBlocking_Diagram/_GEN____2_SM_Diagram.txt"/>
+    <par name="generator_QMaxTableName" type="STRING" value="3926348227757243444_tableqmax"/>
+    <par name="generator_QMin0" type="DOUBLE" value="-41"/>
+    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/PhaseShifterBlocking/PhaseShifterBlocking_Diagram/_GEN____2_SM_Diagram.txt"/>
+    <par name="generator_QMinTableName" type="STRING" value="3926348227757243444_tableqmin"/>
+    <macroParSet id="macro_signalNGenerator"/>
+  </set>
+  <set id="5381922176910680352">
+    <par name="generator_QMax0" type="DOUBLE" value="25"/>
+    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/PhaseShifterBlocking/PhaseShifterBlocking_Diagram/_GEN____6_SM_Diagram.txt"/>
+    <par name="generator_QMaxTableName" type="STRING" value="5381922176910680352_tableqmax"/>
+    <par name="generator_QMin0" type="DOUBLE" value="-7"/>
+    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/PhaseShifterBlocking/PhaseShifterBlocking_Diagram/_GEN____6_SM_Diagram.txt"/>
+    <par name="generator_QMinTableName" type="STRING" value="5381922176910680352_tableqmin"/>
+    <macroParSet id="macro_signalNGeneratorFixedP"/>
+  </set>
+  <set id="5821770868043647431">
+    <par name="generator_QMax0" type="DOUBLE" value="25"/>
+    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/PhaseShifterBlocking/PhaseShifterBlocking_Diagram/_GEN____8_SM_Diagram.txt"/>
+    <par name="generator_QMaxTableName" type="STRING" value="5821770868043647431_tableqmax"/>
+    <par name="generator_QMin0" type="DOUBLE" value="-7"/>
+    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/PhaseShifterBlocking/PhaseShifterBlocking_Diagram/_GEN____8_SM_Diagram.txt"/>
+    <par name="generator_QMinTableName" type="STRING" value="5821770868043647431_tableqmin"/>
+    <macroParSet id="macro_signalNGeneratorFixedP"/>
+  </set>
+  <set id="GenericRestorativeLoad">
+    <par name="load_Alpha" type="DOUBLE" value="1.5"/>
+    <par name="load_Beta" type="DOUBLE" value="2.5"/>
+    <par name="load_UDeadBandPu" type="DOUBLE" value="0.01"/>
+    <par name="load_UMax0Pu" type="DOUBLE" value="1.1499999999999999"/>
+    <par name="load_UMin0Pu" type="DOUBLE" value="0.84999999999999998"/>
+    <par name="load_tFilter" type="DOUBLE" value="10"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p0_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q0_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+
+  <set id="DISCONNECTION">
+    <par type="DOUBLE" name="event_tEvent" value="20"/>
+    <par type="BOOL" name="event_disconnectOrigin" value="true"/>
+    <par type="BOOL" name="event_disconnectExtremity" value="true"/>
+  </set>
+
+  <set id="PhaseShifter">
+    <par type="DOUBLE" name="phaseShifter_sign" value="-1"/>
+    <par type="DOUBLE" name="phaseShifter_t1st" value="10"/>
+    <par type="DOUBLE" name="phaseShifter_tNext" value="5"/>
+    <par type="DOUBLE" name="phaseShifter_iMax" value="0.475"/>
+    <par type="DOUBLE" name="phaseShifter_iStop" value="0.45"/>
+    <reference type="DOUBLE" name="phaseShifter_I0" origData="IIDM" origName="i1" componentId="_BUS____5-BUS____6-1_PS"/>
+    <reference type="INT" name="phaseShifter_tap0" origData="IIDM" origName="tapPosition" componentId="_BUS____5-BUS____6-1_PS"/>
+    <reference type="INT" name="phaseShifter_tapMin" origData="IIDM" origName="lowTapPosition" componentId="_BUS____5-BUS____6-1_PS"/>
+    <reference type="INT" name="phaseShifter_tapMax" origData="IIDM" origName="highTapPosition" componentId="_BUS____5-BUS____6-1_PS"/>
+    <reference type="BOOL" name="phaseShifter_regulating0" origData="IIDM" origName="regulating" componentId="_BUS____5-BUS____6-1_PS"/>
+    <reference type="INT" name="phaseShifter_increasePhase" origData="IIDM" origName="increasePhase" componentId="_BUS____5-BUS____6-1_PS"/>
+  </set>
+
+  <set id="PhaseShifterLock">
+    <par type="DOUBLE" name="phaseShifterBlockingI_IMax" value="0.45"/>
+    <par type="DOUBLE" name="phaseShifterBlockingI_tLagBeforeActing" value="20"/>
+  </set>
+</parametersSet>

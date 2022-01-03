@@ -21,6 +21,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELCURRENTLIMITS_H_
 
 #include <vector>
+#include "CSTRConstraint.h"
 #include "DYNEnumUtils.h"
 
 namespace DYN {
@@ -96,6 +97,13 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @param side side
    */
   void setSide(const side_t side);
+
+  /**
+   * @brief set factor to convert from p.u. to Amperes
+   * @param factorPuToA factor
+   */
+  void setFactorPuToA(double factorPuToA);
+
   /**
    * @brief set the max time operation
    * @param maxTimeOperation max time operation
@@ -114,10 +122,20 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
   int sizeZ() const;
 
  private:
+  /**
+   * @brief build constraint data details for a violation of limit i
+   * @param kind of limit violation
+   * @param i limit index
+   * @return details for the constraint
+   */
+  constraints::ConstraintData constraintData(const constraints::ConstraintData::kind_t& kind, unsigned int i);
+
   int nbTemporaryLimits_;  ///< number of temporary limits (limits with a time duration)
   side_t side_;  ///< side
 
   double maxTimeOperation_;  ///< maximum time operation, if limits duration is over this time, the current limit does not operate
+  double lastCurrentValue_;  ///< last value of the current, kept to be reported in constraints
+  double factorPuToA_;  ///< factor to convert p.u. values to Amperes
 
   std::vector<double> limits_;  ///< vector of current limits (p.u. base UNom, base SNRef)
   std::vector<double> acceptableDurations_;  ///< vector of limits duration (unit : s)

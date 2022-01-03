@@ -70,6 +70,38 @@ XmlExporter::exportToStream(const boost::shared_ptr<ConstraintsCollection>& cons
     attrs.add("time", (*itConstraint)->getTime());
     if ((*itConstraint)->hasModelType())
       attrs.add("type", (*itConstraint)->getModelType());
+
+    const boost::optional<ConstraintData>& data = (*itConstraint)->getData();
+    if (data) {
+      switch ((*data).kind) {
+        case ConstraintData::OverloadOpen:
+          attrs.add("kind", "OverloadOpen");
+          break;
+        case ConstraintData::OverloadUp:
+          attrs.add("kind", "OverloadUp");
+          break;
+        case ConstraintData::PATL:
+          attrs.add("kind", "PATL");
+          break;
+        case ConstraintData::UInfUmin:
+          attrs.add("kind", "UInfUmin");
+          break;
+        case ConstraintData::USupUmax:
+          attrs.add("kind", "USupUmax");
+          break;
+      }
+      attrs.add("limit", (*data).limit);
+      attrs.add("value", (*data).value);
+      boost::optional<int> side = (*data).side;
+      if (side) {
+        attrs.add("side", side.value());
+      }
+      boost::optional<double> acceptableDuration = (*data).acceptableDuration;
+      if (acceptableDuration) {
+        attrs.add("acceptableDuration", acceptableDuration.value());
+      }
+    }
+
     formatter->startElement("constraint", attrs);
     formatter->endElement();   // constraint
   }

@@ -86,6 +86,11 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface, public boost::noncopyabl
   bool isConnected() const;
 
   /**
+   * @copydoc ComponentInterface::isPartiallyConnected()
+   */
+  bool isPartiallyConnected() const;
+
+  /**
    * @copydoc HvdcLineInterface::getID() const
    */
   std::string getID() const;
