@@ -44,13 +44,13 @@ model QRefLim "Function that applies the limitations to QRef"
     Placement(visible = true, transformation(origin = {-70, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1D QMaxUPu(table = tableQMaxUPu) annotation(
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tFilterLim, y_start = tableQMaxPPu12 + DeadBand0)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrderQMaxPPu(T = tFilterLim, y_start = tableQMaxPPu12 + DeadBand0)  annotation(
     Placement(visible = true, transformation(origin = {-40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tFilterLim, y_start = tableQMinPPu12 - DeadBand0)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrderQMinPPu(T = tFilterLim, y_start = tableQMinPPu12 - DeadBand0)  annotation(
     Placement(visible = true, transformation(origin = {-40, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tFilterLim, y_start = tableQMaxUPu12 + DeadBand0)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrderQMaxUPu(T = tFilterLim, y_start = tableQMaxUPu12 + DeadBand0)  annotation(
     Placement(visible = true, transformation(origin = {-40, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tFilterLim, y_start = tableQMinUPu32 - DeadBand0)  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrderQMinUPu(T = tFilterLim, y_start = tableQMinUPu32 - DeadBand0)  annotation(
     Placement(visible = true, transformation(origin = {-40, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
@@ -73,25 +73,25 @@ equation
     Line(points = {{-120, 75}, {-90, 75}, {-90, 60}, {-82, 60}}, color = {0, 0, 127}));
   connect(QRefUQPu, limiter.u) annotation(
     Line(points = {{-120, 0}, {-62, 0}}, color = {0, 0, 127}));
-  connect(QMaxPPu.y[1], firstOrder.u) annotation(
+  connect(QMaxPPu.y[1], firstOrderQMaxPPu.u) annotation(
     Line(points = {{-59, 90}, {-52, 90}}, color = {0, 0, 127}));
-  connect(QMinPPu.y[1], firstOrder1.u) annotation(
+  connect(QMinPPu.y[1], firstOrderQMinPPu.u) annotation(
     Line(points = {{-59, 60}, {-52, 60}}, color = {0, 0, 127}));
-  connect(QMinUPu.y[1], firstOrder3.u) annotation(
+  connect(QMinUPu.y[1], firstOrderQMinUPu.u) annotation(
     Line(points = {{-59, -90}, {-52, -90}}, color = {0, 0, 127}));
-  connect(QMaxUPu.y[1], firstOrder2.u) annotation(
+  connect(QMaxUPu.y[1], firstOrderQMaxUPu.u) annotation(
     Line(points = {{-59, -60}, {-52, -60}}, color = {0, 0, 127}));
-  connect(firstOrder2.y, variableLimiter1.limit1) annotation(
+  connect(firstOrderQMaxUPu.y, variableLimiter1.limit1) annotation(
     Line(points = {{-29, -60}, {40, -60}, {40, 8}, {58, 8}}, color = {0, 0, 127}));
-  connect(firstOrder3.y, variableLimiter1.limit2) annotation(
+  connect(firstOrderQMinUPu.y, variableLimiter1.limit2) annotation(
     Line(points = {{-29, -90}, {50, -90}, {50, -8}, {58, -8}}, color = {0, 0, 127}));
   connect(UPu, QMinUPu.u[1]) annotation(
     Line(points = {{-120, -75}, {-90, -75}, {-90, -90}, {-82, -90}}, color = {0, 0, 127}));
   connect(UPu, QMaxUPu.u[1]) annotation(
     Line(points = {{-120, -75}, {-90, -75}, {-90, -60}, {-82, -60}}, color = {0, 0, 127}));
-  connect(firstOrder.y, variableLimiter.limit1) annotation(
+  connect(firstOrderQMaxPPu.y, variableLimiter.limit1) annotation(
     Line(points = {{-29, 90}, {-10, 90}, {-10, 8}, {-2, 8}}, color = {0, 0, 127}));
-  connect(firstOrder1.y, variableLimiter.limit2) annotation(
+  connect(firstOrderQMinPPu.y, variableLimiter.limit2) annotation(
     Line(points = {{-29, 60}, {-20, 60}, {-20, -8}, {-2, -8}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
