@@ -12,8 +12,8 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-    <curve model="WECCPVVSource" variable="photovoltaicsV_injector_PInjPu"/>
-    <curve model="WECCPVVSource" variable="photovoltaicsV_injector_QInjPu"/>
+    <curve model="WECCPVVSource" variable="photovoltaicsV_wecc_reec_PInjPu"/>
+    <curve model="WECCPVVSource" variable="photovoltaicsV_wecc_reec_QInjPu"/>
     <curve model="WECCPVVSource" variable="photovoltaicsV_injector_terminal_V_re"/>
     <curve model="WECCPVVSource" variable="photovoltaicsV_injector_terminal_i_re"/>
     <curve model="WECCPVVSource" variable="photovoltaicsV_injector_terminal_V_im"/>

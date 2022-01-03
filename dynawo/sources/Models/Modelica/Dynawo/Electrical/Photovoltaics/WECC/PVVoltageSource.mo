@@ -42,7 +42,7 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
 
   Dynawo.Electrical.Lines.Line line(RPu = RPu , XPu = XPu, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {110, -13}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.PlantControl wecc_repc(DDn = DDn, DUp = DUp, Dbd = Dbd, EMax = EMax, EMin = EMin, FDbd1 = FDbd1, FDbd2 = FDbd2, FEMax = FEMax, FEMin = FEMin, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = - P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PLine0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = - Q0Pu * SystemBase.SnRef / SNom, QInj0Pu = QLine0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, U0Pu = U0Pu, UInj0Pu = ULine0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, iInj0Pu = iInj0Pu, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.PlantControl wecc_repc(DDn = DDn, DUp = DUp, Dbd = Dbd, EMax = EMax, EMin = EMin, FDbd1 = FDbd1, FDbd2 = FDbd2, FEMax = FEMax, FEMin = FEMin, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = - P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PLine0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = - Q0Pu * SystemBase.SnRef / SNom, QInj0Pu = QLine0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, U0Pu = U0Pu, UInj0Pu = ULine0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, iInj0Pu = iSource0Pu, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-100, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.ElectricalControl wecc_reec( DPMax = DPMax, DPMin = DPMin, Dbd1 = Dbd1, Dbd2 = Dbd2, IMaxPu = IMaxPu,Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PInj0Pu = PLine0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PPriority = PPriority, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QLine0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, Tiq = Tiq, UInj0Pu = ULine0Pu, UMaxPu = UMaxPu, UMinPu = UMinPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, tP = tP, tPord = tPord, tRv = tRv) annotation(
     Placement(visible = true, transformation(origin = {-70, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -54,9 +54,9 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
     Placement(visible = true, transformation(origin = {-180, 35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom)  annotation(
     Placement(visible = true, transformation(origin = {140, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef VSourceRef( Id0Pu = Id0Pu, Iq0Pu =Iq0Pu,RSourcePu = RSourcePu, Ud0Pu= UInjd0Pu, Uq0Pu= UInjq0Pu, XSourcePu= XSourcePu, tE = tE, u0Pu = uLine0Pu, uInj0Pu = uInj0Pu)  annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef VSourceRef(Id0Pu = Id0Pu, Iq0Pu =Iq0Pu, RSourcePu = RSourcePu, Ud0Pu= USourced0Pu, Uq0Pu= USourceq0Pu, XSourcePu= XSourcePu, tE = tE, u0Pu = uLine0Pu, uInj0Pu = uSource0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-10, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.InjectorURI injector(i0Pu = i0Pu, u0Pu = uInj0Pu) annotation(
+  Dynawo.Electrical.Sources.InjectorURI injector(i0Pu = i0Pu, u0Pu = uSource0Pu) annotation(
     Placement(visible = true, transformation(origin = {20, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements1(SNom = SNom)  annotation(
     Placement(visible = true, transformation(origin = {80, -13}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -64,15 +64,17 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
     Placement(visible = true, transformation(origin = {50, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 
-  parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in p.u (base UNom)";
-  parameter Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in p.u (base UNom, SNom) (generator convention)";
-  parameter Types.ComplexPerUnit sInj0Pu "Start value of complex apparent power at injector in p.u (base SNom) (generator convention)";
-  parameter Types.PerUnit PInj0Pu "Start value of active power at injector in p.u (base SNom) (generator convention)";
-  parameter Types.PerUnit QInj0Pu "Start value of reactive power at injector in p.u (base SNom) (generator convention)";
-  parameter Types.PerUnit UInj0Pu "Start value of voltage module at injector in p.u (base UNom)";
-  parameter Types.Angle UPhaseInj0 "Start value of voltage angle at injector in p.u (base UNom)";
-  parameter Types.PerUnit UInjd0Pu "Start value of d-axis voltage at injector in p.u (base UNom)";
-  parameter Types.PerUnit UInjq0Pu "Start value of q-axis voltage at injector in p.u (base UNom)";
+  parameter Types.ComplexPerUnit uSource0Pu "Start value of complex voltage at voltage source injector in p.u (base UNom)";
+  parameter Types.ComplexPerUnit iSource0Pu "Start value of complex current at voltage source injector in p.u (base UNom, SNom) (generator convention)";
+  parameter Types.ComplexPerUnit sSource0Pu "Start value of complex apparent power at voltage source injector in p.u (base SNom) (generator convention)";
+  parameter Types.PerUnit PSource0Pu "Start value of active power at voltage source injector in p.u (base SNom) (generator convention)";
+  parameter Types.PerUnit QSource0Pu "Start value of reactive power at voltage source injector in p.u (base SNom) (generator convention)";
+  parameter Types.PerUnit USource0Pu "Start value of voltage module at voltage source injector in p.u (base UNom)";
+  parameter Types.Angle UPhaseSource0 "Start value of voltage angle at voltage source injector in p.u (base UNom)";
+  parameter Types.PerUnit USourced0Pu "Start value of d-axis voltage at voltage source injector in p.u (base UNom)";
+  parameter Types.PerUnit USourceq0Pu "Start value of q-axis voltage at voltage source injector in p.u (base UNom)";
+  parameter Types.PerUnit Id0Pu "Start value of d-axis current at voltage source injector in p.u (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit Iq0Pu "Start value of q-axis current at voltage source injector in p.u (base UNom, SNom) (generator convention)";
 
   parameter Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
   parameter Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in p.u (base UNom, SnRef) (receptor convention)";
@@ -82,13 +84,10 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in p.u.";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
 
-  parameter Types.PerUnit PLine0Pu "Start value of active power at injector in p.u (base SNom) (generator convention)";
-  parameter Types.PerUnit QLine0Pu "Start value of reactive power at injector in p.u (base SNom) (generator convention)";
-  parameter Types.PerUnit ULine0Pu "Start value of voltage module at injector in p.u (base UNom)";
-  parameter Types.ComplexPerUnit uLine0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
-  parameter Types.PerUnit Id0Pu "Start value of d-axis current at injector in p.u (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit Iq0Pu "Start value of q-axis current at injector in p.u (base UNom, SNom) (generator convention)";
-
+  parameter Types.PerUnit PLine0Pu "Start value of active power at voltage source connected bus before equivalent branch connection to the grid in p.u (base SNom) (generator convention)";
+  parameter Types.PerUnit QLine0Pu "Start value of reactive power at voltage source connected bus before equivalent branch connection to the grid in p.u (base SNom) (generator convention)";
+  parameter Types.PerUnit ULine0Pu "Start value of voltage module at voltage source connected bus before equivalent branch connection to the grid in p.u (base UNom)";
+  parameter Types.ComplexPerUnit uLine0Pu "Start value of complex voltage at voltage source connected bus before equivalent branch connection to the grid in p.u (base UNom)";
 
   parameter Types.PerUnit PF0 "Start value of power factor";
 
