@@ -81,8 +81,7 @@ extern "C" void DYN::ModelMinMaxMeanFactory::destroy(DYN::SubModel* model) const
 namespace DYN {
 
 /**
- * @brief Reference frequency model default constructor
- *
+ * @brief MinMaxMean model default constructor
  *
  */
 ModelMinMaxMean::ModelMinMaxMean() :
@@ -167,8 +166,8 @@ ModelMinMaxMean::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>
 }
 
 void
-ModelMinMaxMean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const {
-  // Need to get back the variables for the inputs and the voltages and associated booleans
+ModelMinMaxMean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned int iCalculatedVar, std::vector<int>& indexes) const {
+  // Need to return the variables for the inputs voltages and associated booleans
   switch (iCalculatedVar) {
     case minValIdx_:
     case maxValIdx_:
@@ -247,7 +246,7 @@ ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& variables) {
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
 
-  // Add the whether a bus is connected or not
+  // Add whether a bus is connected or not
   for (std::size_t i=0; i < nbConnectedInputs_; i++) {
     name.str("");
     name.clear();
@@ -315,15 +314,16 @@ ModelMinMaxMean::setFequations() {
 
 void
 ModelMinMaxMean::checkDataCoherence(const double /*t*/) {
-  /*for (int i = 0; i < nbMaxCC; ++i) {
-    if (doubleEquals(yLocal_[i], omegaRef0_[i]))
-      continue;
-    if (yLocal_[i] < omegaRefMin_ && doubleNotEquals(yLocal_[i], omegaRefMin_))
-      throw DYNError(Error::MODELER, FrequencyCollapse, yLocal_[i] * FNOM, omegaRefMin_ * FNOM);
-    else if (yLocal_[i] > omegaRefMax_ && doubleNotEquals(yLocal_[i], omegaRefMax_))
-      throw DYNError(Error::MODELER, FrequencyIncrease, yLocal_[i] * FNOM, omegaRefMax_ * FNOM);
+  for (std::size_t i = nbCalculatedVars_; i < nbCalculatedVars_+ nbConnectedInputs_; ++i) {
+    if (yLocal_[i+nbConnectedInputs_]) {  // Current input is active.
+      if (yLocal_[i] < yLocal_[minValIdx_]) {
+        throw DYNError(Error::MODELER, FrequencyCollapse, yLocal_[i], yLocal_[minValIdx_]);
+      }
+      if (yLocal_[i] > yLocal_[maxValIdx_]) {
+        throw DYNError(Error::MODELER, FrequencyIncrease, yLocal_[i], yLocal_[maxValIdx_]);
+      }
+    }
   }
-  */
 }
 
 double
@@ -331,7 +331,7 @@ ModelMinMaxMean::computeMin() const {
   double minSoFar = MAXFLOAT;
   for (std::size_t i=0; i < nbConnectedInputs_; i++) {
     if (yLocal_[i + nbConnectedInputs_ + nbCalculatedVars_]) {
-      minSoFar =  (yLocal_[i] + nbCalculatedVars_ < minSoFar) ? yLocal_[i + nbCalculatedVars_] : minSoFar;
+      minSoFar =  (yLocal_[i + nbCalculatedVars_] < minSoFar) ? yLocal_[i + nbCalculatedVars_] : minSoFar;
     }
   }
   return minSoFar;
