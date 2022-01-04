@@ -57,6 +57,34 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanInit) {
     mmm->evalCalculatedVars();
 }
 
+TEST(ModelsMinMaxMean, ModelsMinMaxMeanTypeMethods) {
+    boost::shared_ptr<SubModel> mmm = initModelMinMaxMean();
+    unsigned nbCalculated = DYN::ModelMinMaxMean::nbCalculatedVars_;
+    unsigned nbVoltages = 5;
+    unsigned nbY = 2*nbVoltages;
+    unsigned nbF = 0;
+    unsigned nbZ = 0;
+    std::vector<propertyContinuousVar_t> yTypes(nbCalculated + nbY, UNDEFINED_PROPERTY);
+    std::fill(yTypes.begin() + nbCalculated, yTypes.begin() + nbCalculated + nbY, DYN::EXTERNAL);
+    // std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
+    std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
+    mmm->setBufferYType(&yTypes[0], 0);
+    mmm->setBufferFType(&fTypes[0], 0);
 
+    ASSERT_EQ(mmm->sizeY(), nbY);
+    ASSERT_EQ(mmm->sizeF(), nbF);
+    ASSERT_EQ(mmm->sizeZ(), nbZ);
+    ASSERT_EQ(mmm->sizeG(), 0);
+    ASSERT_EQ(mmm->sizeMode(), 1);
+
+    mmm->evalStaticYType();
+
+    mmm->evalStaticFType();
+    ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
+    ASSERT_NO_THROW(mmm->checkDataCoherence(0.));
+    ASSERT_NO_THROW(mmm->initializeStaticData());
+    ASSERT_NO_THROW(mmm->evalDynamicFType());
+    ASSERT_NO_THROW(mmm->evalDynamicYType());
+    }
 
 }  // namespace DYN
