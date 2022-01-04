@@ -56,6 +56,29 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanEmptyInput) {
     ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::avgValIdx_), 0.0);
 }
 
+TEST(ModelsMinMaxMean, ModelsMinMaxMeanSimpleInput) {
+    boost::shared_ptr<SubModel> mmm = initModelMinMaxMean();
+    boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
+    // 5 fake connections
+    parametersSet->createParameter("nbInputs", 5);
+    mmm->setPARParameters(parametersSet);
+    mmm->setParametersFromPARFile();
+    mmm->setSubModelParameters();
+
+    std::vector<double> z(mmm->sizeZ(), 0);
+    // Binary variable for line connections
+    std::vector<char> zConnected(mmm->sizeZ(), false);
+    mmm->setBufferZ(&z[0], reinterpret_cast<bool*>(zConnected.data()), 0);
+
+    std::vector<double> voltages(mmm->sizeY(), 0.);
+    mmm->setBufferY(&voltages[0], nullptr, 0);
+
+    // Run computation of min, max and mean on empty input stream
+    ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::minValIdx_), MAXFLOAT);
+    ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::maxValIdx_), -MAXFLOAT);
+    ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::avgValIdx_), 0.0);
+}
+
 
 
 }  // namespace DYN
