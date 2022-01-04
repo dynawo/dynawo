@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Sources;
 
 /*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,44 +9,33 @@ within Dynawo.Electrical.Sources;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
 model InjectorURI "Injector controlled by real (R) part and imaginary (I) part voltage components urPu and uiPu"
-
   import Modelica;
-  import Modelica.ComplexMath;
-
   import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
   import Dynawo.Types;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
   extends SwitchOff.SwitchOffInjector;
 
-  // Terminal connection
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid"  annotation(
     Placement(visible = true, transformation(extent = {{0, -26}, {0, -26}}, rotation = 0), iconTransformation(origin = {115, -1}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
-  // Inputs: real-imaginary part voltage p.u. variables (base UNom)
-  Modelica.Blocks.Interfaces.RealInput urPu (start = u0Pu.re) "Real part voltage (pu base Unom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput urPu (start = u0Pu.re) "Real part voltage in pu (base Unom)" annotation(
     Placement(visible = true, transformation(extent = {{10, -25}, {10, -25}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput uiPu (start = u0Pu.im) "Imaginary part voltage (pu base Unom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput uiPu (start = u0Pu.im) "Imaginary part voltage in pu (base Unom)" annotation(
     Placement(visible = true, transformation(extent = {{0, -25}, {0, -25}}, rotation = 0), iconTransformation(origin = {-111, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-
-  parameter Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at injector terminal in p.u (base UNom)";
-  parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at injector terminal in p.u (base UNom, SnRef) (receptor convention)";
+  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in p.u (base UNom)";
+  parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in p.u (base UNom, SnRef) (receptor convention)";
 
 equation
-
   terminal.V.re = urPu;
   terminal.V.im = uiPu;
 
 annotation(preferredView = "text",
-Documentation(info="<html> <p> This block calculates the P,Q,u,i values for terminal connection based on real and imaginary parts of voltage setpoints from generator control  </p> </html>"),
     Diagram,
     Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "Injector"), Text(origin = {-104, 64}, extent = {{-32, 12}, {4, -4}}, textString = "urPu"), Text(origin = {-104, -16}, extent = {{-32, 12}, {4, -4}}, textString = "uiPu"), Text(origin = {168, 4}, extent = {{-32, 12}, {4, -4}}, textString = "ACPower")}));
-
-
 end InjectorURI;

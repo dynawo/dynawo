@@ -17,31 +17,31 @@ model UdqRef "Calculation of setpoints udRefPu and uqRefPu with source impedance
   import Modelica.Blocks.Interfaces;
   import Dynawo.Types;
 
-  parameter Types.PerUnit RPu "Source resistance in p.u (base UNom, SNom)";
-  parameter Types.PerUnit XPu "Source reactance in p.u (base UNom, SNom)";
+  parameter Types.PerUnit RSourcePu "Source resistance in p.u (base UNom, SNom)";
+  parameter Types.PerUnit XSourcePu "Source reactance in p.u (base UNom, SNom)";
 
   Interfaces.RealInput idRefPu(start = Id0Pu) "d-axis reference current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Interfaces.RealInput iqRefPu(start = Iq0Pu) "q-axis reference current in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput udPu(start = Ud0Pu) "d-axis voltage in p.u (base UNom)" annotation(
+  Interfaces.RealInput udInjPu(start = UdInj0Pu) "d-axis voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput uqPu(start = Uq0Pu) "q-axis voltage in p.u (base UNom)" annotation(
+  Interfaces.RealInput uqInjPu(start = UqInj0Pu) "q-axis voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput udRefPu(start = Ud0Pu + Id0Pu * RPu - Iq0Pu * XPu) "d-axis reference voltage in p.u (base UNom)" annotation(
+  Interfaces.RealOutput udSourceRefPu(start = UdInj0Pu + Id0Pu * RSourcePu - Iq0Pu * XSourcePu) "d-axis reference voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput uqRefPu(start = Uq0Pu + Iq0Pu * RPu + Id0Pu * XPu) "q-axis reference voltage in p.u (base UNom)" annotation(
+  Interfaces.RealOutput uqSourceRefPu(start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu) "q-axis reference voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
   parameter Types.PerUnit Id0Pu "Start value of d-axis current at injector in p.u (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit Iq0Pu "Start value of q-axis current at injector in p.u (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit Ud0Pu "Start value of d-axis current at injector in p.u (base UNom)";
-  parameter Types.PerUnit Uq0Pu "Start value of q-axis current at injector in p.u (base UNom)";
+  parameter Types.PerUnit UdInj0Pu "Start value of d-axis current at injector in p.u (base UNom)";
+  parameter Types.PerUnit UqInj0Pu "Start value of q-axis current at injector in p.u (base UNom)";
 
 equation
-  udRefPu = udPu + idRefPu * RPu - iqRefPu * XPu;
-  uqRefPu = uqPu + iqRefPu * RPu + idRefPu * XPu;
+  udSourceRefPu = udInjPu + idRefPu * RSourcePu - iqRefPu * XSourcePu;
+  uqSourceRefPu = uqInjPu + iqRefPu * RSourcePu + idRefPu * XSourcePu;
 
   annotation(preferredView = "text",
     Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Text(origin = {-121.5, 96}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "idRef"), Text(origin = {-121.5, 46}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "iqRef"), Text(origin = {-130.5, -11}, extent = {{0.5, 1}, {15.5, -10}}, textString = "ud"), Text(origin = {-130.5, -61}, extent = {{0.5, 1}, {15.5, -10}}, textString = "uq"), Text(origin = {119.5, 52}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "udRef"), Text(origin = {119.5, -29}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "uqRef"), Text(origin = {-10.5, 12}, extent = {{-69.5, 68}, {90.5, -92}}, textString = "UdqRef"), Rectangle(extent = {{-100, 100}, {100, -100}})}));

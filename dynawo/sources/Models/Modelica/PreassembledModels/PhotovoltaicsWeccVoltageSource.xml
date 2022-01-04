@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="PhotovoltaicsWeccVoltageSource">
-    <dyn:unitDynamicModel id="photovoltaicsV" name="Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource" initName="Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource_INIT"/>
+    <dyn:unitDynamicModel id="photovoltaics" name="Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource" initName="Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
