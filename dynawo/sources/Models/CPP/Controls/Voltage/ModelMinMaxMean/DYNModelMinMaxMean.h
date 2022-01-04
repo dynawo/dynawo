@@ -75,6 +75,7 @@ class ModelMinMaxMean : public ModelCPP {
     avgValIdx_ = 2,
     nbCalculatedVars_ = 3
   } CalculatedVars_t;
+
   /**
    * @brief MinMaxMean model default constructor
    *
@@ -302,6 +303,11 @@ class ModelMinMaxMean : public ModelCPP {
    * @brief gets the average value of the (connected and active) input voltages
    */
   double computeMean() const;
+
+  /**
+   * @brief returns whether or not an input is actively connected
+   */
+  bool isConnected(unsigned int iInputIdx) const;
 
  private:
   // A single variable needed to keep track of the number of connected inputs
