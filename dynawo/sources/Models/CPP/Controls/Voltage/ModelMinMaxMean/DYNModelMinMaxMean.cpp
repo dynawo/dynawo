@@ -167,7 +167,7 @@ ModelMinMaxMean::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>
 
 void
 ModelMinMaxMean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned int iCalculatedVar, std::vector<int>& indexes) const {
-  // Need to return the variables for the inputs voltages and associated booleans
+  // Need to return the variables for the input voltages and associated booleans
   switch (iCalculatedVar) {
     case minValIdx_:
     case maxValIdx_:
@@ -214,6 +214,7 @@ ModelMinMaxMean::evalCalculatedVars() {
 
 void
 ModelMinMaxMean::getY0() {
+  // Not needed
 }
 
 void
@@ -358,7 +359,7 @@ ModelMinMaxMean::computeMean() const {
       nbActive++;
     }
   }
-  return totSoFar/nbActive;
+  return nbActive == 0? 0.0: totSoFar/nbActive;
 }
 
 }  // namespace DYN
