@@ -27,17 +27,17 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
 
   extends AdditionalIcons.Init;
 
-  parameter Types.ApparentPowerModule SNom =100 "Nominal apparent power in MVA";
-  parameter Types.PerUnit RPu=0 "Resistance of equivalent branch connection to the grid in p.u (base SnRef)";
-  parameter Types.PerUnit XPu=0.15 "Reactance of equivalent branch connection to the grid in p.u (base SnRef)";
+  parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in p.u (base SnRef)";
+  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in p.u (base SnRef)";
 
-  parameter Types.PerUnit P0Pu = -0.7"Start value of active power at regulated bus in p.u (receptor convention) (base SnRef)";
-  parameter Types.PerUnit Q0Pu = -0.2 "Start value of reactive power at regulated bus in p.u (receptor convention) (base SnRef)";
-  parameter Types.PerUnit U0Pu =1 "Start value of voltage magnitude at regulated bus in p.u.";
-  parameter Types.Angle UPhase0 = 0.00000144621 "Start value of voltage phase angle at regulated bus in rad";
+  parameter Types.PerUnit P0Pu "Start value of active power at regulated bus in p.u (receptor convention) (base SnRef)";
+  parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in p.u (receptor convention) (base SnRef)";
+  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in p.u.";
+  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
 
-  parameter Types.PerUnit RSourcePu =0 "Source resistance in per unit (typically set to zero, typical: 0..0.01)";
-  parameter Types.PerUnit XSourcePu = 0.1 "Source reactance in per unit (typical: 0.05..0.2)";
+  parameter Types.PerUnit RSourcePu "Source resistance in per unit (typically set to zero, typical: 0..0.01)";
+  parameter Types.PerUnit XSourcePu "Source reactance in per unit (typical: 0.05..0.2)";
 
   Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
   Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef) (receptor convention)";
@@ -59,6 +59,9 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   Types.PerUnit PInj0Pu "Start value of active power at voltage source connected bus before equivalent branch connection to the grid in p.u (base SNom) (generator convention)";
   Types.PerUnit QInj0Pu "Start value of reactive power at voltage source connected bus before equivalent branch connection to the grid in p.u (base SNom) (generator convention)";
   Types.PerUnit UInj0Pu "Start value of voltage module at voltage source connected bus before equivalent branch connection to the grid in p.u (base UNom)";
+  Types.Angle UInjPhase0 "Start value of voltage phase angle at injector in rad";
+  Types.PerUnit UdInj0Pu "Start value of d-axis current at injector in p.u (base UNom)";
+  Types.PerUnit UqInj0Pu "Start value of q-axis current at injector in p.u (base UNom)";
 
 equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
@@ -70,14 +73,17 @@ equation
   QSource0Pu = ComplexMath.imag(sSource0Pu);
 
   uInj0Pu = u0Pu -  Complex(RPu, XPu) * i0Pu;
+  UInjPhase0 = ComplexMath.arg(uInj0Pu);
   sInj0Pu = uInj0Pu * ComplexMath.conj(iSource0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
   UInj0Pu = ComplexMath.'abs'(uInj0Pu);
   PF0 = PInj0Pu / ComplexMath.'abs'(sInj0Pu);
+  UdInj0Pu =  ComplexMath.real(uInj0Pu) * cos(UInjPhase0) + ComplexMath.imag(uInj0Pu) * sin(UInjPhase0);
+  UqInj0Pu = - ComplexMath.real(uInj0Pu) * sin(UInjPhase0) + ComplexMath.imag(uInj0Pu) * cos(UInjPhase0);
 
-  Id0Pu = Modelica.Math.cos(UPhase0) * iSource0Pu.re + Modelica.Math.sin(UPhase0) * iSource0Pu.im;
-  Iq0Pu = Modelica.Math.sin(UPhase0) * iSource0Pu.re - Modelica.Math.cos(UPhase0) * iSource0Pu.im;
+  Id0Pu = Modelica.Math.cos(UInjPhase0) * iSource0Pu.re + Modelica.Math.sin(UInjPhase0) * iSource0Pu.im;
+  Iq0Pu = Modelica.Math.sin(UInjPhase0) * iSource0Pu.re - Modelica.Math.cos(UInjPhase0) * iSource0Pu.im;
   UdSource0Pu = U0Pu + Id0Pu * (RSourcePu + RPu) - Iq0Pu * (XSourcePu + XPu);
   UqSource0Pu = 0 + Iq0Pu * (RSourcePu + RPu) + Id0Pu * (XSourcePu + XPu);
 
