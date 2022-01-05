@@ -34,7 +34,7 @@
 #include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNVariableForModel.h"
-// #include "DYNParameter.h"
+#include "DYNParameter.h"
 
 using std::vector;
 using std::string;
@@ -263,7 +263,7 @@ ModelMinMaxMean::defineParameters(vector<ParameterModeler>& parameters) {
 
 void
 ModelMinMaxMean::setSubModelParameters() {
-  nbConnectedInputs_ = findParameterDynamic("nbInputs").getValue<unsigned int>();
+  nbConnectedInputs_ = findParameterDynamic("nbInputs").getValue<int>();
 }
 
 /**
