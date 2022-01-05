@@ -53,7 +53,7 @@ model PVVoltageSource "WECC PV model with a voltage source as interface with the
     Placement(visible = true, transformation(origin = {-180, 35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom)  annotation(
     Placement(visible = true, transformation(origin = {140, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef VSourceRef(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, RSourcePu = RSourcePu, UdInj0Pu= UdInj0Pu, UqInj0Pu= UqInj0Pu, XSourcePu= XSourcePu, tE = tE, uSource0Pu = uSource0Pu, uInj0Pu = uInj0Pu)  annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef VSourceRef(Id0Pu = Id0Pu, Iq0Pu = -Iq0Pu, RSourcePu = RSourcePu, UdInj0Pu= UdInj0Pu, UqInj0Pu= UqInj0Pu, XSourcePu= XSourcePu, tE = tE, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-10, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Sources.InjectorURI injector(i0Pu = i0Pu, u0Pu = uSource0Pu) annotation(
     Placement(visible = true, transformation(origin = {20, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
