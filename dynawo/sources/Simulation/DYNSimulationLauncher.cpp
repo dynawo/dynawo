@@ -73,7 +73,7 @@ void launchSimu(const std::string& jobsFileName) {
     } catch (const DYN::Error& err) {
       // Needed as otherwise terminate might crash due to missing staticRef variables
       if (err.key() == DYN::KeyError_t::StateVariableNoReference)
-        simulation->activateExportIIDM(false);
+        simulation->disableExportIIDM();
       simulation->terminate();
       throw;
     } catch (const DYN::Terminate&) {

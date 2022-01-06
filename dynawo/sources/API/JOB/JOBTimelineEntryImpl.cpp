@@ -25,7 +25,8 @@ namespace job {
 
 TimelineEntry::Impl::Impl() :
 outputFile_(""),
-exportMode_("") {
+exportMode_(""),
+maxPriority_(-1) {
 }
 
 TimelineEntry::Impl::~Impl() {
@@ -42,6 +43,11 @@ TimelineEntry::Impl::setOutputFile(const std::string & outputFile) {
 }
 
 void
+TimelineEntry::Impl::setMaxPriority(int maxPriority) {
+  maxPriority_ = maxPriority;
+}
+
+void
 TimelineEntry::Impl::setExportMode(const std::string & exportMode) {
   exportMode_ = exportMode;
 }
@@ -54,6 +60,11 @@ TimelineEntry::Impl::getOutputFile() const {
 std::string
 TimelineEntry::Impl::getExportMode() const {
   return exportMode_;
+}
+
+int
+TimelineEntry::Impl::getMaxPriority() const {
+  return maxPriority_;
 }
 
 }  // namespace job

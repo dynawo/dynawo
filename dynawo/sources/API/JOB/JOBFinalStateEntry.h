@@ -22,6 +22,7 @@
 
 #include <string>
 #include <boost/shared_ptr.hpp>
+#include <boost/optional.hpp>
 
 namespace job {
 
@@ -89,6 +90,20 @@ class FinalStateEntry {
    * @returns copy of current entry
    */
   virtual boost::shared_ptr<FinalStateEntry> clone() const = 0;
+
+  /**
+   * @brief Get the Timestamp
+   *
+   * @return the timestamp of the final state if present
+   */
+  virtual double getTimestamp() const = 0;
+
+  /**
+   * @brief Set the Timestamp
+   *
+   * @param timestamp the timestamp value
+   */
+  virtual void setTimestamp(double timestamp) = 0;
 
   class Impl;  ///< implemented class
 };

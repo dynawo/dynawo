@@ -19,6 +19,7 @@
 
 #include "JOBFinalStateEntryImpl.h"
 
+#include <limits>
 #include <boost/make_shared.hpp>
 
 namespace job {
@@ -27,7 +28,8 @@ FinalStateEntry::Impl::Impl() :
 exportIIDMFile_(false),
 exportDumpFile_(false),
 outputIIDMFile_(""),
-dumpFile_("") {
+dumpFile_(""),
+timestamp_(std::numeric_limits<double>::quiet_NaN()) {
 }
 
 FinalStateEntry::Impl::~Impl() {
@@ -76,6 +78,16 @@ FinalStateEntry::Impl::setOutputIIDMFile(const std::string& outputIIDMFile) {
 void
 FinalStateEntry::Impl::setDumpFile(const std::string& dumpFile) {
   dumpFile_ = dumpFile;
+}
+
+double
+FinalStateEntry::Impl::getTimestamp() const {
+  return timestamp_;
+}
+
+void
+FinalStateEntry::Impl::setTimestamp(double timestamp) {
+  timestamp_ = timestamp;
 }
 
 }  // namespace job

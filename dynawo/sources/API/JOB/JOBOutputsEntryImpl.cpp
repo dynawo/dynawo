@@ -36,9 +36,13 @@ void OutputsEntry::Impl::copy(const OutputsEntry::Impl& other) {
   initValuesEntry_ = other.initValuesEntry_ ? other.initValuesEntry_->clone() : boost::shared_ptr<InitValuesEntry>();
   constraintsEntry_ = other.constraintsEntry_ ? other.constraintsEntry_->clone() : boost::shared_ptr<ConstraintsEntry>();
   timelineEntry_ = other.timelineEntry_ ? other.timelineEntry_->clone() : boost::shared_ptr<TimelineEntry>();
-  finalStateEntry_ = other.finalStateEntry_ ? other.finalStateEntry_->clone() : boost::shared_ptr<FinalStateEntry>();
   curvesEntry_ = other.curvesEntry_ ? other.curvesEntry_->clone() : boost::shared_ptr<CurvesEntry>();
   logsEntry_ = other.logsEntry_ ? other.logsEntry_->clone() : boost::shared_ptr<LogsEntry>();
+
+  finalStateEntries_.reserve(other.finalStateEntries_.size());
+  for (std::vector<boost::shared_ptr<FinalStateEntry> >::const_iterator it = other.finalStateEntries_.begin(); it != other.finalStateEntries_.end(); ++it) {
+    finalStateEntries_.push_back((*it)->clone());
+  }
 }
 
 boost::shared_ptr<OutputsEntry>
@@ -96,14 +100,14 @@ OutputsEntry::Impl::getTimelineEntry() const {
 }
 
 void
-OutputsEntry::Impl::setFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) {
-  finalStateEntry_ = finalStateEntry;
+OutputsEntry::Impl::addFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) {
+  finalStateEntries_.push_back(finalStateEntry);
 }
 
-boost::shared_ptr<FinalStateEntry>
-OutputsEntry::Impl::getFinalStateEntry() const {
-  return finalStateEntry_;
-}
+const std::vector<boost::shared_ptr<FinalStateEntry> >&
+OutputsEntry::Impl::getFinalStateEntries() const {
+    return finalStateEntries_;
+  }
 
 void
 OutputsEntry::Impl::setCurvesEntry(const boost::shared_ptr<CurvesEntry>& curvesEntry) {

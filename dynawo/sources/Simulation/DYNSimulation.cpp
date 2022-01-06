@@ -24,6 +24,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <fstream>
+#include <limits>
 #ifdef _MSC_VER
 #include <process.h>
 #endif
@@ -155,16 +156,12 @@ exportCurvesMode_(EXPORT_CURVES_NONE),
 curvesInputFile_(""),
 curvesOutputFile_(""),
 exportTimelineMode_(EXPORT_TIMELINE_NONE),
+exportTimelineMaxPriority_(-1),
 timelineOutputFile_(""),
 exportFinalStateMode_(EXPORT_FINALSTATE_NONE),
-finalStateInputFile_(""),
-finalStateOutputFile_(""),
 exportConstraintsMode_(EXPORT_CONSTRAINTS_NONE),
 constraintsOutputFile_(""),
-exportDumpFinalState_(false),
-dumpFinalStateFile_(""),
-exportIIDM_(false),
-exportIIDMFile_(""),
+finalState_(std::numeric_limits<double>::max()),
 dumpLocalInitValues_(false),
 dumpGlobalInitValues_(false),
 dumpTimetable_(true) {
@@ -329,6 +326,7 @@ Simulation::configureTimelineOutputs() {
       throw DYNError(Error::MODELER, UnknownTimelineExport, exportMode);
     }
     setTimelineExportMode(exportModeFlag);
+    exportTimelineMaxPriority_ = jobEntry_->getOutputsEntry()->getTimelineEntry()->getMaxPriority();
     setTimelineOutputFile(outputFile);
   } else {
     setTimelineExportMode(Simulation::EXPORT_TIMELINE_NONE);
@@ -376,26 +374,50 @@ Simulation::configureCurveOutputs() {
 void
 Simulation::configureFinalStateOutputs() {
   // Final state settings
-  if (jobEntry_->getOutputsEntry()->getFinalStateEntry()) {
-    string finalStateDir = createAbsolutePath("finalState", outputsDirectory_);
-    if (!is_directory(finalStateDir))
-      create_directory(finalStateDir);
+  const std::vector<boost::shared_ptr<job::FinalStateEntry> >& finalStateEntries = jobEntry_->getOutputsEntry()->getFinalStateEntries();
+  string finalStateDir = createAbsolutePath("finalState", outputsDirectory_);
+  if (!finalStateEntries.empty() && !is_directory(finalStateDir)) {
+    create_directory(finalStateDir);
+  }
+  std::map<double, ExportStateDefinition> dumpStateDefinitionsMap;
+  for (std::vector<boost::shared_ptr<job::FinalStateEntry> >::const_iterator it = finalStateEntries.begin();
+    it != finalStateEntries.end(); ++it) {
+    double timestamp = (*it)->getTimestamp();
 
-    // ---- exportDumpFile ----
-    if (jobEntry_->getOutputsEntry()->getFinalStateEntry()->getExportDumpFile()) {
-      activateDumpFinalState(true);
-      setDumpFinalStateFile(createAbsolutePath("outputState.dmp", finalStateDir));
-    } else {
-      activateDumpFinalState(false);
-    }
+    if (std::isnan(timestamp)) {
+      // case no timestamp given, meaning final state
+      // ---- exportDumpFile ----
+      if ((*it)->getExportDumpFile()) {
+        finalState_.dumpFile = createAbsolutePath("outputState.dmp", finalStateDir);
+      }
 
-    // --- exportIIDMFile ----
-    if (jobEntry_->getOutputsEntry()->getFinalStateEntry()->getExportIIDMFile()) {
-      activateExportIIDM(true);
-      setExportIIDMFile(createAbsolutePath("outputIIDM.xml", finalStateDir));
+      // --- exportIIDMFile ----
+      if ((*it)->getExportIIDMFile()) {
+        finalState_.iidmFile = createAbsolutePath("outputIIDM.xml", finalStateDir);
+      }
     } else {
-      activateExportIIDM(false);
+      if (!(*it)->getExportDumpFile() && !(*it)->getExportIIDMFile()) {
+        // no need to add a definition if no file is exported
+        continue;
+      }
+      ExportStateDefinition dumpStateDefinition(timestamp);
+      if ((*it)->getExportDumpFile()) {
+        std::stringstream ss;
+        ss << timestamp << "_outputState.dmp";
+        dumpStateDefinition.dumpFile = createAbsolutePath(ss.str(), finalStateDir);
+      }
+      if ((*it)->getExportIIDMFile()) {
+        std::stringstream ss;
+        ss << timestamp << "_outputIIDM.xml";
+        dumpStateDefinition.iidmFile = createAbsolutePath(ss.str(), finalStateDir);
+      }
+      dumpStateDefinitionsMap.insert(std::make_pair(timestamp, dumpStateDefinition));
     }
+  }
+  // The map is used here to sort the requested final states according to the time requested
+  for (std::map<double, DYN::Simulation::ExportStateDefinition>::const_iterator it = dumpStateDefinitionsMap.begin();
+    it != dumpStateDefinitionsMap.end(); ++it) {
+    intermediateStates_.push(it->second);
   }
 }
 
@@ -584,12 +606,6 @@ Simulation::importCurvesRequest() {
 }
 
 void
-Simulation::importFinalStateRequest() {
-  finalState::XmlImporter importer;
-  finalStateCollection_ = FinalStateCollectionFactory::copyInstance(importer.importFromFile(finalStateInputFile_));
-}
-
-void
 Simulation::initFromData(const shared_ptr<DataInterface> & data, const shared_ptr<DynamicData> &dyd) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::initFromData()");
@@ -670,6 +686,12 @@ Simulation::init() {
     Trace::info() << DYNLog(ModelInitialStateLoadEnd) << Trace::endline;
     Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
   }
+  // if no dump to load t0 should be equal to zero
+  // if dump loaded, t0 should be equal to the current time loaded
+  if (doubleNotEquals(tStart_, t0)) {
+    Trace::warn() << DYNLog(WrongStartTime, tStart_, t0) << Trace::endline;
+    tStart_ = t0;
+  }
 
   // When a simulation starts with a dumpfile (initial condition of variables for dynamic models),
   // initial condition's calculation is not necessary for those dynamic models;
@@ -702,12 +724,6 @@ Simulation::init() {
   ss << nbCurves;
   Trace::info() << DYNLog(CurveInitEnd, ss.str()) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
-
-  // if no dump to load t0 should be equal to zero
-  // if dump loaded, t0 should be equal to the current time loaded
-
-  if (doubleNotEquals(getStartTime(), t0))
-    throw DYNError(Error::GENERAL, WrongStartTime, getStartTime(), t0);
 
   solver_->setTimeline(timeline_);
 }
@@ -766,13 +782,14 @@ Simulation::simulate() {
   Timer timer("Simulation::simulate()");
 #endif
   printSolverHeader();
-  string outputsDirectory = createAbsolutePath("outputs", context_->getInputDirectory());
-  if (!is_directory(outputsDirectory))
-    create_directory(outputsDirectory);
 
   stringstream fileName;
-  if (dumpTimetable_)
+  if (dumpTimetable_) {
+    string outputsDirectory = createAbsolutePath("outputs", context_->getInputDirectory());
+    if (!is_directory(outputsDirectory))
+      create_directory(outputsDirectory);
     fileName << outputsDirectory << "/.dynawoexec-" << pid_;
+  }
 
   // Printing out the initial solution
   solver_->printSolve();
@@ -785,7 +802,7 @@ Simulation::simulate() {
 
   bool criteriaChecked = true;
   try {
-    if (data_ && (exportIIDM_ || activateCriteria_)) {  // no need to update state variable if the IIDM final state is not exported (same for criteria check)
+    if (data_ && (finalState_.iidmFile || activateCriteria_)) {  // no need to update state variable if the IIDM final state is not exported (same for criteria check)
       data_->getStateVariableReference();   // Each state variable in DataInterface has a mapped reference variable in dynamic model,
                                          // either in a modelica model or in a C++ model.
     }
@@ -828,10 +845,27 @@ Simulation::simulate() {
         criteriaChecked = checkCriteria(tCurrent_, false);
       }
       ++currentIterNb;
+
+      if (hasIntermediateStateToDump() && !isCheckCriteriaIter) {
+        // In case it was not already done beause of check criteria and intermediate state dump will be done at least one for current
+        // iteration
+        model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
+      }
+      while (hasIntermediateStateToDump()) {
+        const ExportStateDefinition& dumpDefinition = intermediateStates_.front();
+        data_->exportStateVariables();
+        if (dumpDefinition.dumpFile) {
+          dumpState(*dumpDefinition.dumpFile);
+        }
+        if (dumpDefinition.iidmFile) {
+          dumpIIDMFile(*dumpDefinition.iidmFile);
+        }
+        intermediateStates_.pop();
+      }
     }
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here for the IIDM file export
-    if (exportIIDM_ && (exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_))
+    if (finalState_.iidmFile && (exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_))
       model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
 
     if (SignalHandler::gotExitSignal() && !end()) {
@@ -864,6 +898,13 @@ Simulation::simulate() {
     endSimulationWithError(fileName.str(), criteriaChecked);
     throw;
   }
+}
+
+bool
+Simulation::hasIntermediateStateToDump() const {
+  // Intermediate timestamp of the simulation reached
+  return !intermediateStates_.empty() &&
+        (doubleEquals(tCurrent_, intermediateStates_.front().timestamp) || tCurrent_ > intermediateStates_.front().timestamp);
 }
 
 void
@@ -994,13 +1035,6 @@ Simulation::terminate() {
     fileTimeline.close();
   }
 
-  if (finalStateOutputFile_ != "") {
-    ofstream fileFinalState;
-    openFileStream(fileFinalState, finalStateOutputFile_);
-    printFinalState(fileFinalState);
-    fileFinalState.close();
-  }
-
   if (constraintsOutputFile_ != "") {
     ofstream fileConstraints;
     openFileStream(fileConstraints, constraintsOutputFile_);
@@ -1008,10 +1042,10 @@ Simulation::terminate() {
     fileConstraints.close();
   }
 
-  if (exportDumpFinalState_)
+  if (finalState_.dumpFile)
     dumpState();
 
-  if (exportIIDM_)
+  if (finalState_.iidmFile)
     dumpIIDMFile();
 
   printEnd();
@@ -1050,16 +1084,19 @@ Simulation::printTimeline(std::ostream& stream) const {
       break;
     case EXPORT_TIMELINE_CSV: {
       timeline::CsvExporter csvExporter;
+      csvExporter.setMaxPriority(exportTimelineMaxPriority_);
       csvExporter.exportToStream(timeline_, stream);
       break;
     }
     case EXPORT_TIMELINE_XML: {
       timeline::XmlExporter xmlExporter;
+      xmlExporter.setMaxPriority(exportTimelineMaxPriority_);
       xmlExporter.exportToStream(timeline_, stream);
       break;
     }
     case EXPORT_TIMELINE_TXT: {
       timeline::TxtExporter txtExporter;
+      txtExporter.setMaxPriority(exportTimelineMaxPriority_);
       txtExporter.exportToStream(timeline_, stream);
       break;
     }
@@ -1115,17 +1152,31 @@ Simulation::printConstraints(std::ostream& stream) const {
 
 void
 Simulation::dumpIIDMFile() {
+  if (finalState_.iidmFile) {
+    dumpIIDMFile(*finalState_.iidmFile);
+  }
+}
+
+void
+Simulation::dumpIIDMFile(const boost::filesystem::path& iidmFile) {
   if (data_) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer timer("Job::exportStateVariables");
 #endif
     data_->exportStateVariables();
   }
-  data_->dumpToFile(exportIIDMFile_);
+  data_->dumpToFile(iidmFile.generic_string());
 }
 
 void
 Simulation::dumpState() {
+  if (finalState_.dumpFile) {
+    dumpState(*finalState_.dumpFile);
+  }
+}
+
+void
+Simulation::dumpState(const boost::filesystem::path& dumpFile) {
   if (!model_) return;
   stringstream state;
   boost::archive::binary_oarchive os(state);
@@ -1145,7 +1196,7 @@ Simulation::dumpState() {
           ++it) {
     archive->addEntry(it->first, it->second);
   }
-  zip::ZipOutputStream::write(dumpFinalStateFile_, archive);
+  zip::ZipOutputStream::write(dumpFile.generic_string(), archive);
 }
 
 double
@@ -1171,9 +1222,6 @@ Simulation::loadState(const string & fileName) {
   // loading information
   tCurrent_ = tCurrent;
 
-  setStartTime(tStart_);
-  setStopTime(tStop_);
-
   model_->setInitialTime(tCurrent_);
 
   // loading parameters/model variables
@@ -1194,6 +1242,15 @@ Simulation::printCurrentTime(const string& fileName) {
   out << tCurrent_;
   out.close();
   fs::permissions(fileName, fs::group_read | fs::group_write | fs::owner_write | fs::others_write | fs::owner_read | fs::others_read);
+}
+
+
+Simulation::ExportStateDefinition::ExportStateDefinition(double timestamp,
+      boost::optional<boost::filesystem::path> dumpFile,
+      boost::optional<boost::filesystem::path> iidmFile):
+  timestamp(timestamp),
+  dumpFile(dumpFile),
+  iidmFile(iidmFile) {
 }
 
 }  // end of namespace DYN

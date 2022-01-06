@@ -286,7 +286,7 @@ OutputsHandler::addTimeline() {
 
 void
 OutputsHandler::addFinalState() {
-  outputs_->setFinalStateEntry(finalStateHandler_.get());
+  outputs_->addFinalStateEntry(finalStateHandler_.get());
 }
 
 void
@@ -349,6 +349,8 @@ void
 TimelineHandler::create(attributes_type const& attributes) {
   timeline_ = shared_ptr<TimelineEntry>(new TimelineEntry::Impl());
   timeline_->setExportMode(attributes["exportMode"]);
+  if (attributes.has("maxPriority"))
+    timeline_->setMaxPriority(attributes["maxPriority"]);
 }
 
 shared_ptr<TimelineEntry>
@@ -363,6 +365,9 @@ FinalStateHandler::FinalStateHandler(elementName_type const& root_element) {
 void
 FinalStateHandler::create(attributes_type const& attributes) {
   finalState_ = shared_ptr<FinalStateEntry>(new FinalStateEntry::Impl());
+  if (attributes.has("timestamp")) {
+    finalState_->setTimestamp(attributes["timestamp"]);
+  }
   finalState_->setExportIIDMFile(attributes["exportIIDMFile"]);
   finalState_->setExportDumpFile(attributes["exportDumpFile"]);
 }

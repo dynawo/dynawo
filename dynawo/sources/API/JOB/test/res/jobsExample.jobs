@@ -33,11 +33,12 @@
       <dyn:criteria criteriaFile="myCriteriaFile2.crt"/>
     </dyn:simulation>
     <dyn:outputs directory="outputs1">
-      <dyn:finalState exportDumpFile="true" exportIIDMFile="true"/>
-      <dyn:curves inputFile="curves.crv" exportMode="CSV"/>
-      <dyn:timeline exportMode="TXT"/>
-      <dyn:constraints exportMode="XML"/>
       <dyn:dumpInitValues local="true" global="false"/>
+      <dyn:constraints exportMode="XML"/>
+      <dyn:timeline exportMode="TXT" maxPriority="2"/>
+      <dyn:finalState exportDumpFile="true" exportIIDMFile="true"/>
+      <dyn:finalState exportDumpFile="true" exportIIDMFile="true" timestamp="10"/>
+      <dyn:curves inputFile="curves.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG" separator="-" showLevelTag="false" timeStampFormat="%H:%M:%S"/>
         <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="INFO"/>

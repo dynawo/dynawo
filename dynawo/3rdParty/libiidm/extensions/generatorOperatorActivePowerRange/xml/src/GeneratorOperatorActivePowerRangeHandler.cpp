@@ -13,6 +13,8 @@
 #include <IIDM/extensions/generatorOperatorActivePowerRange/xml/GeneratorOperatorActivePowerRangeHandler.h>
 #include <IIDM/extensions/GeneratorOperatorActivePowerRange.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -23,7 +25,8 @@ namespace generator_operator_activepower_range {
 namespace xml {
 
 std::string GeneratorOperatorActivePowerRangeHandler::xsd_path() {
-  return IIDM_EXT_GENERATOROPERATORACTIVEPOWERRANGE_XML_XSD_PATH + std::string("generatorOperatorActivePowerRange.xsd");
+  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
+  return xsdPath + std::string("generatorOperatorActivePowerRange.xsd");
 }
 
 GeneratorOperatorActivePowerRangeHandler::elementName_type const GeneratorOperatorActivePowerRangeHandler::root(

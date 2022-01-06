@@ -104,6 +104,7 @@ dynawo/3rdParty/boost/boost_1_64_0.tar.gz
 dynawo/3rdParty/zlib/zlib-1.2.11.tar.gz
 dynawo/3rdParty/modelicalib/ModelicaStandardLibrary-3.2.3.tar.gz
 cpplint/1.4.4.tar.gz
+dynawo/3rdParty/gperftools/gperftools-*.tar.gz
 dynawo/3rdParty/dlfcnwin32/dlfcn-win32-1.2.0.tar.gz
 dynawo/3rdParty/googletest/googletest-release-1.8.1.tar.gz
 util/curvesToHtml/resources/arrow-down.gif

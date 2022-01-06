@@ -86,11 +86,22 @@ class FinalStateEntry::Impl : public FinalStateEntry {
    */
   boost::shared_ptr<FinalStateEntry> clone() const;
 
+  /**
+   * @copydoc FinalStateEntry::getTimestamp() const
+   */
+  double getTimestamp() const;
+
+  /**
+   * @copydoc FinalStateEntry::setTimestamp(double timestamp)
+   */
+  void setTimestamp(double timestamp);
+
  private:
   bool exportIIDMFile_;  ///< Boolean indicating whether to export IIDM output file
   bool exportDumpFile_;  ///< Boolean indicating whether to export output state
   std::string outputIIDMFile_;  ///< Output IIDM file for final state
   std::string dumpFile_;  ///< Dump file for final state
+  double timestamp_;  ///< Timestamp of entry, if present
 };
 
 }  // namespace job
