@@ -11,6 +11,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  FirstOrderLimiter.mo
   IntegratorSetFreeze.mo
   LeadLag.mo
   LimPIDFreeze.mo

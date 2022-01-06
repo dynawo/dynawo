@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.Machines.VoltageRegulators;
+within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)

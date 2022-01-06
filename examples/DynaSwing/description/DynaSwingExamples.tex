@@ -246,6 +246,194 @@ These results match the results obtained in the example 13 of the "Power System 
   \end{tikzpicture}
 \end{figure}
 
+\chapter{ENTSO-E Controller Test Report}
+
+These three test cases are the ones used in an ENTSO-E work conducted to compare different transient simulation tools responses on a single machine infinite bus. The different test cases and the models used are presented in the ENTSO-E report called "Documentation on Controller Tests in Test Grid Configurations" available online at \url{https://eepublicdownloads.entsoe.eu/clean-documents/pre2015/publications/entsoe/RG_SOC_CE/131127_Controller_Test_Report.pdf}.\\
+
+\textbf{Note. As compilation at run-time is utilized for test cases 1 and 2, the simulation time for each test case is around 1' with 95\% of the time spent in the Modelica models compilation. For test case 3, only blackbox models are used and the simulation time is around 1 s, as one could expect for such a test case.}
+
+\section{Test case description}
+
+\subsection{Scenario}
+
+The scenarios considered are the following ones:
+
+\begin{center}
+  \resizebox{\textwidth}{!}{
+\begin{tabular}{|c|c|c|}
+  \hline
+  Test Case & Network & Event \\
+  \hline
+  1 & Generator Only & Voltage reference step \\
+  2 & Generator and Load & Active power variation on the load \\
+  3 & SMIB & Three-phase short circuit at the transformer high-level side \\
+  \hline
+\end{tabular} }
+\end{center}
+
+\subsection{Solver}
+
+The solver used for these simulations is the variable time step solver IDA with the following main parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=$10^{-6}$;
+\item $Accuracy_{Abs}$=$10^{-6}$;
+\end{itemize}
+
+\section{Results}
+
+The results obtained perfectly match the ones presented in the report and demonstrate DynaSwing accuracy.
+
+\subsection{Test Case 1}
+
+The purpose of the first test case is to compare the dynamic behaviour of the model for the synchronous machine and its AVR by analysing the terminal voltage and the excitation voltage inside the machine. These variables evolutions are identical to the ones reported in the reference document.
+
+\begin{figure}[H]
+\subfigure[Terminal voltage]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=SynchronousGenerator_generator_UPu]
+        {../ENTSOE/TestCase1/reference/outputsTestCase1/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Excitation voltage]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y=SynchronousGenerator_generator_efdPu]
+        {../ENTSOE/TestCase1/reference/outputsTestCase1/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Test Case 1 Results}
+\end{figure}
+
+\subsection{Test Case 2}
+
+The purpose of the second test case is to compare the dynamic behaviour of the model for the synchronous generator and its governor by analysing the terminal voltage, the active and mechanical power of the synchronous machine, the reactive power of the synchronous machine and the speed. The results got with DynaSwing match the ones presented in the official report.
+
+\begin{figure}[H]
+\subfigure[Terminal voltage]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in, yticklabel style={/pgf/number format/.cd,fixed,precision=3}]
+        \addplot[color=blue!50]
+        table[x=time,y=SynchronousGenerator_generator_UPu]
+        {../ENTSOE/TestCase2/reference/outputsTestCase2/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Active power]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SynchronousGenerator_generator_PGenPu}/4.75]
+        {../ENTSOE/TestCase2/reference/outputsTestCase2/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Mechanical power]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SynchronousGenerator_generator_PmPu}]
+        {../ENTSOE/TestCase2/reference/outputsTestCase2/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Speed]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in, yticklabel style={/pgf/number format/.cd,fixed,precision=3}]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SynchronousGenerator_generator_omegaPu}]
+        {../ENTSOE/TestCase2/reference/outputsTestCase2/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Test Case 2 Results}
+\end{figure}
+
+\subsection{Test Case 3}
+
+The purpose of the third test case is to compare the dynamic behaviour of the model for the synchronous machine with its whole control in operation during and after a three-phase short-circuit by analysing the terminal voltage, the excitation voltage inside the generator, the active and reactive power of the synchronous machine as well as speed. The results obtained prove the good behavior of DynaSwing.
+
+\begin{figure}[H]
+\subfigure[Terminal voltage]
+{%
+  \begin{tikzpicture}
+    \begin{axis}
+        \addplot[color=blue!50]
+        table[x=time,y=SynchronousGenerator_generator_UPu]
+        {../ENTSOE/TestCase3/reference/outputsTestCase3/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Excitation voltage]
+{%
+  \begin{tikzpicture}
+    \begin{axis}
+        \addplot[color=blue!50]
+        table[x=time,y=SynchronousGenerator_generator_UPu]
+        {../ENTSOE/TestCase3/reference/outputsTestCase3/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\begin{figure}[H]
+\subfigure[Active power]
+{%
+  \begin{tikzpicture}
+    \begin{axis}
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SynchronousGenerator_generator_PGenPu}/4.75]
+        {../ENTSOE/TestCase3/reference/outputsTestCase3/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power]
+{%
+  \begin{tikzpicture}
+    \begin{axis}
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SynchronousGenerator_generator_QGenPu}/1.56]
+        {../ENTSOE/TestCase3/reference/outputsTestCase3/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\begin{figure}[H]
+\subfigure[Speed]
+{%
+  \begin{tikzpicture}
+    \begin{axis}
+        \addplot[color=blue!50]
+        table[x=time, y=SynchronousGenerator_generator_omegaPu]
+        {../ENTSOE/TestCase3/reference/outputsTestCase3/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[PSS Output Signal]
+{%
+  \begin{tikzpicture}
+    \begin{axis}
+        \addplot[color=blue!50]
+        table[x=time, y=SynchronousGenerator_pss_UpssPu]
+        {../ENTSOE/TestCase3/reference/outputsTestCase3/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Test Case 3 Results}
+\end{figure}
+
 \chapter{IEEE14}
 
 The IEEE 14-bus system is a standard test case in the power system community. It represents a simple approximation of the American Electric Power system (in the U.S. Midwest) as it was in the early 1960s. The data were provided by Iraj Dabbagchi of AEP and converted into the IEEE Common Data Format by Rich Christie at the University of Washington in August 1993.

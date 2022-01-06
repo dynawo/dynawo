@@ -8,19 +8,14 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-# Voltage regulators models
+# Voltage regulator models
+
+add_subdirectory(IEEE I)
+add_subdirectory(Simplified S)
 
 set(MODEL_FILES
   package.mo
   package.order
-  VRProportional.extvar
-  VRProportional.mo
-  VRProportional_INIT.mo
-  VRProportionalIntegral.extvar
-  VRProportionalIntegral.mo
-  VRProportionalIntegral_INIT.mo
-  VRProportionalReactiveFeedback.extvar
-  VRProportionalReactiveFeedback.mo
   )
 
 #
