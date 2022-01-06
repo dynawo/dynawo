@@ -60,6 +60,10 @@
     <par type="DOUBLE" name="hvdc_tFilter" value="0.01"/>
     <par type="BOOL" name="hvdc_modeU10" value="true"/>
     <par type="BOOL" name="hvdc_modeU20" value="true"/>
+    <reference name="hvdc_U1Ref0Pu" origData="IIDM" origName="v1_pu" type="DOUBLE"/>
+    <reference name="hvdc_U2Ref0Pu" origData="IIDM" origName="v2_pu" type="DOUBLE"/>
+    <reference name="hvdc_Q1Ref0Pu" origData="IIDM" origName="q1_pu" type="DOUBLE"/>
+    <reference name="hvdc_Q2Ref0Pu" origData="IIDM" origName="q2_pu" type="DOUBLE"/>
     <par type="DOUBLE" name="acemulation_tFilter" value="50"/>
     <par type="DOUBLE" name="acemulation_KACEmulation" value="250"/>
   </set>
@@ -91,6 +95,10 @@
     <par type="DOUBLE" name="hvdc_tFilter" value="0.01"/>
     <par type="BOOL" name="hvdc_modeU10" value="true"/>
     <par type="BOOL" name="hvdc_modeU20" value="true"/>
+    <reference name="hvdc_U1Ref0Pu" origData="IIDM" origName="v1_pu" type="DOUBLE"/>
+    <reference name="hvdc_U2Ref0Pu" origData="IIDM" origName="v2_pu" type="DOUBLE"/>
+    <reference name="hvdc_Q1Ref0Pu" origData="IIDM" origName="q1_pu" type="DOUBLE"/>
+    <reference name="hvdc_Q2Ref0Pu" origData="IIDM" origName="q2_pu" type="DOUBLE"/>
     <par type="DOUBLE" name="acemulation_tFilter" value="50"/>
     <par type="DOUBLE" name="acemulation_KACEmulation" value="250"/>
   </set>
