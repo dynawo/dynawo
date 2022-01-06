@@ -99,6 +99,8 @@ package Parameters "Parameters of the HVDC VSC model"
   end Params_QRefQU;
 
   record Params_QRefLim
+    parameter Types.ReactivePowerPu DeadBand0 = 0.1 "Deadband for the initialization of the reactive limits in p.u (base SNom)";
+    parameter Types.Time tFilterLim = 1 "Time constant for the limits filter in s";
     parameter Types.ReactivePowerPu QMinOPPu "Minimum operator value of the reactive power in p.u (base SNom)";
     parameter Types.ReactivePowerPu QMaxOPPu "Maximum operator value of the reactive power in p.u (base SNom)";
     parameter Real tableQMaxPPu11 = 0;

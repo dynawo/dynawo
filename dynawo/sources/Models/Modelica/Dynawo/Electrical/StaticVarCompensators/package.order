@@ -1,7 +1,12 @@
 BaseControls
-SVarCPV
 SVarCPV_INIT
+SVarCPV
+SVarCPVModeHandling
 SVarCPVRemote
-SVarCPVRemote_INIT
+SVarCPVRemoteModeHandling
+SVarCPVProp
+SVarCPVPropModeHandling
+SVarCPVPropRemote
+SVarCPVPropRemoteModeHandling
 SVarCStandard
 SVarCStandard_INIT

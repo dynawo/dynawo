@@ -70,6 +70,20 @@
   if (model->hasConstraints()) model->addConstraint(name, begin, DYNConstraint(key, ##__VA_ARGS__), type)
 
 /**
+ * @brief Macro to add a constraint and add some structured data to be saved
+ * only if constraints collection exists. Expects the message to have extra
+ * arguments
+ *
+ * @param model the model to add the event to
+ * @param name the name of the model
+ * @param begin boolean determining if the constraint starts
+ * @param data structure with detailed information
+ * @param key key to find the message
+ */
+#define DYNAddConstraintWithData(model, name, begin, type, data, key, ...) \
+  if (model->hasConstraints()) model->addConstraint(name, begin, DYNConstraint(key, ##__VA_ARGS__), type, data)
+
+/**
  * @brief Macro description to have a shortcut.
  *  Thanks to this macro, user can only call an error with the type and the key to access
  *  to the message (+ optionnal arguments if the message need)

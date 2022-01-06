@@ -36,7 +36,13 @@ namespace constraints {
 ConstraintsCollection::ConstraintsCollection(const string& id) : id_(id) {}
 
 void
-ConstraintsCollection::addConstraint(const string& modelName, const string& description, const double& time, Type_t type, const string& modelType) {
+ConstraintsCollection::addConstraint(
+  const string& modelName,
+  const string& description,
+  const double& time,
+  Type_t type,
+  const string& modelType,
+  const boost::optional<constraints::ConstraintData>& data) {
   stringstream id;
   id << time << "_" << modelName << "_" << description;  // allow to sort constraint by time, then modelName
 
@@ -72,6 +78,7 @@ ConstraintsCollection::addConstraint(const string& modelName, const string& desc
     constraint->setDescription(description);
     constraint->setTime(time);
     constraint->setType(type);
+    constraint->setData(data);
     constraint->setModelType(modelType);
     constraintsByModel_[modelName].push_back(constraint);
     constraintsById_[id.str()] = constraint;

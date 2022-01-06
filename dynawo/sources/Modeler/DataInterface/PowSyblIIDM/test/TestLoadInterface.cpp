@@ -81,7 +81,9 @@ TEST(DataInterfaceTest, Load_1) {
 
   ASSERT_TRUE(loadIfce.getInitialConnected());
   ASSERT_TRUE(loadIfce.isConnected());
+  ASSERT_TRUE(loadIfce.isPartiallyConnected());
   load.getTerminal().disconnect();
+  ASSERT_FALSE(loadIfce.isPartiallyConnected());
   ASSERT_FALSE(loadIfce.isConnected());
   ASSERT_TRUE(loadIfce.getInitialConnected());
 
