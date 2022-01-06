@@ -23,9 +23,9 @@ model InjectorURI "Injector controlled by real (R) part and imaginary (I) part v
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid"  annotation(
     Placement(visible = true, transformation(extent = {{0, -26}, {0, -26}}, rotation = 0), iconTransformation(origin = {115, -1}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealInput urPu (start = u0Pu.re) "Real part voltage in pu (base Unom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput urPu(start = u0Pu.re) "Voltage real part in p.u (base Unom)" annotation(
     Placement(visible = true, transformation(extent = {{10, -25}, {10, -25}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput uiPu (start = u0Pu.im) "Imaginary part voltage in pu (base Unom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput uiPu(start = u0Pu.im) "Voltage imaginary part in p.u (base Unom)" annotation(
     Placement(visible = true, transformation(extent = {{0, -25}, {0, -25}}, rotation = 0), iconTransformation(origin = {-111, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in p.u (base UNom)";
@@ -37,5 +37,5 @@ equation
 
 annotation(preferredView = "text",
     Diagram,
-    Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "Injector"), Text(origin = {-104, 64}, extent = {{-32, 12}, {4, -4}}, textString = "urPu"), Text(origin = {-104, -16}, extent = {{-32, 12}, {4, -4}}, textString = "uiPu"), Text(origin = {168, 4}, extent = {{-32, 12}, {4, -4}}, textString = "ACPower")}));
+    Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "Injector"), Text(origin = {-104, 52}, extent = {{-32, 12}, {4, -4}}, textString = "urPu"), Text(origin = {-104, -26}, extent = {{-32, 12}, {4, -4}}, textString = "uiPu"), Text(origin = {168, 4}, extent = {{-32, 12}, {4, -4}}, textString = "ACPower")}));
 end InjectorURI;
