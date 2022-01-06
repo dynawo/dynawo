@@ -81,6 +81,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterI.xml
   PhaseShifterP.xml
   PhotovoltaicsWeccCurrentSource.xml
+  PhotovoltaicsWeccVoltageSource.xml
   PowerTransferHVDCEmulation.xml
   ShuntBWithSections.xml
   SetPoint.xml
