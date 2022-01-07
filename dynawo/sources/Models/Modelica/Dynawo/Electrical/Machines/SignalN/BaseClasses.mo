@@ -29,7 +29,7 @@ package BaseClasses
     parameter Types.ActivePower PNom "Nominal power in MW";
     final parameter Real Alpha = PNom * KGover "Participation of the considered generator in the frequency regulation";
 
-    Connectors.ImPin N "Signal to change the active power reference setpoint of all the generators in the system in pu (base SnRef)";
+    input Types.PerUnit N "Signal to change the active power reference setpoint of all the generators in the system in pu (base SnRef)";
 
   protected
     Types.ActivePowerPu PGenRawPu (start = PGen0Pu) "Active power generation without taking limits into account in pu (base SnRef) (generator convention)";
@@ -37,7 +37,7 @@ package BaseClasses
   equation
 
     if running.value then
-      PGenRawPu = - PRef0Pu + Alpha * N.value;
+      PGenRawPu = - PRef0Pu + Alpha * N;
       PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
     else
       PGenRawPu = 0;

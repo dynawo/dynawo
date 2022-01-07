@@ -26,19 +26,19 @@ model HvdcPTanPhiDanglingDiagramPQ "Model for P/tan(Phi) HVDC link with a PQ dia
 
 */
 
-  Connectors.ZPin tanPhi1Ref (value (start = s10Pu.im/s10Pu.re)) "tan(Phi) regulation set point at terminal 1";
+  input Real tanPhi1Ref(start = s10Pu.im/s10Pu.re) "tan(Phi) regulation set point at terminal 1";
 
 protected
 
-  Types.ReactivePowerPu QInj1RawPu (start = - s10Pu.im) "Raw reactive power at terminal 1 in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QInj1RawPu(start = - s10Pu.im) "Raw reactive power at terminal 1 in pu (base SnRef) (generator convention)";
 
 equation
 
   s1Pu = Complex(P1Pu, Q1Pu);
   s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
 
-// Reactive power control of the connected side
-  QInj1RawPu = tanPhi1Ref.value * PInj1Pu;
+  // Reactive power control of the connected side
+  QInj1RawPu = tanPhi1Ref * PInj1Pu;
   if running.value then
     if QInj1RawPu >= QInj1MaxPu then
      QInj1Pu = QInj1MaxPu;
@@ -51,6 +51,6 @@ equation
     terminal1.i.im = 0;
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself and the reactive power at terminal1. The power factor setpoint is given as an input and can be modified during the simulation, as well as the active power setpoint. The terminal2 is connected to a switched-off bus.</div></body></html>"));
 end HvdcPTanPhiDanglingDiagramPQ;

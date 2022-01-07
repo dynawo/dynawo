@@ -18,10 +18,6 @@ model GeneratorPQPropDiagramPQ "Model for generator PQ with a PQ diagram, based 
   extends BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
 
-public
-  parameter Types.ReactivePowerPu QRef0Pu "Start value of the reactive power set point in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu QMin0Pu "Start value of the minimum reactive power in pu (base SnRef)";
-  parameter Types.ReactivePowerPu QMax0Pu "Start value of the maximum reactive power in pu (base SnRef)";
   parameter Real QPercent "Percentage of the coordinated reactive control that comes from this machine";
   parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
   parameter String QMinTableName "Name of the table in the text file to get QMinPu from PGenPu";
@@ -29,14 +25,19 @@ public
   parameter String QMinTableFile "Text file that contains the table to get QMinPu from PGenPu";
   parameter String QMaxTableFile "Text file that contains the table to get QMaxPu from PGenPu";
 
-  Connectors.ImPin NQ "Signal to change the reactive power generation of the group depending on the centralized distant voltage regulation (generator convention)";
+  input Types.PerUnit NQ "Signal to change the reactive power generation of the generator depending on the centralized distant voltage regulation (generator convention)";
+
   Modelica.Blocks.Tables.CombiTable1D tableQMin(tableOnFile = true, tableName = QMinTableName, fileName = QMinTableFile) "Table to get QMinPu from PGenPu";
   Modelica.Blocks.Tables.CombiTable1D tableQMax(tableOnFile = true, tableName = QMaxTableName, fileName = QMaxTableFile) "Table to get QMaxPu from PGenPu";
   Types.ReactivePowerPu QMinPu(start = QMin0Pu) "Minimum reactive power in pu (base SnRef)";
   Types.ReactivePowerPu QMaxPu(start = QMax0Pu) "Maximum reactive power in pu (base SnRef)";
 
+  parameter Types.ReactivePowerPu QRef0Pu "Start value of the reactive power set point in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu QMin0Pu "Start value of the minimum reactive power in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QMax0Pu "Start value of the maximum reactive power in pu (base SnRef)";
+
 protected
-  Types.ReactivePowerPu QGenRawPu (start = QGen0Pu) "Reactive power generation without taking limits into account in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QGenRawPu(start = QGen0Pu) "Reactive power generation without taking limits into account in pu (base SnRef) (generator convention)";
 
 equation
 
@@ -45,7 +46,7 @@ equation
   PGenPu = tableQMax.u[1];
   tFilter * der(QMaxPu) + QMaxPu = tableQMax.y[1];
 
-  QGenRawPu = - QRef0Pu + QPercent * NQ.value;
+  QGenRawPu = - QRef0Pu + QPercent * NQ;
 
 if running.value then
   QGenPu = if QGenRawPu >= QMaxPu then QMaxPu elseif QGenRawPu <= QMinPu then QMinPu else QGenRawPu;

@@ -18,26 +18,26 @@ model PowerTransferHVDCEmulation "Power transfer model for HVDC with AC emulatio
   import Dynawo.Electrical.Controls.HVDC;
   extends HVDC.PowerTransferHVDC;
 
-  Connectors.ImPin KACEmulation1 (value(start = KACEmulation10)) "Inverse of the emulated AC reactance for HVDC link 1";
-  Connectors.ImPin KACEmulation2 (value(start = KACEmulation20)) "Inverse of the emulated AC reactance for HVDC link 2";
+  output Types.PerUnit KACEmulation1(start = KACEmulation10) "Inverse of the emulated AC reactance for HVDC link 1";
+  output Types.PerUnit KACEmulation2(start = KACEmulation20) "Inverse of the emulated AC reactance for HVDC link 2";
 
   parameter Types.PerUnit KACEmulation10 "Start value of inverse of the emulated AC reactance for HVDC link 1";
   parameter Types.PerUnit KACEmulation20 "Start value of inverse of the emulated AC reactance for HVDC link 2";
 
 equation
 
-  if running1.value and running2.value then
-    KACEmulation1.value = KACEmulation10;
-    KACEmulation2.value = KACEmulation20;
-  elseif not(running1.value) and running2.value then
-    KACEmulation1.value = 0;
-    KACEmulation2.value = KACEmulation20 + KACEmulation10;
-  elseif running1.value and not(running2.value) then
-    KACEmulation1.value = KACEmulation10 + KACEmulation20;
-    KACEmulation2.value = 0;
+  if running1 and running2 then
+    KACEmulation1 = KACEmulation10;
+    KACEmulation2 = KACEmulation20;
+  elseif not(running1) and running2 then
+    KACEmulation1 = 0;
+    KACEmulation2 = KACEmulation20 + KACEmulation10;
+  elseif running1 and not(running2) then
+    KACEmulation1 = KACEmulation10 + KACEmulation20;
+    KACEmulation2 = 0;
   else
-    KACEmulation1.value = 0;
-    KACEmulation2.value = 0;
+    KACEmulation1 = 0;
+    KACEmulation2 = 0;
   end if;
 
 annotation(preferredView = "text",
