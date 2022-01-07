@@ -63,9 +63,9 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanTypeMethods) {
     mmm->defineParameters(parameters);
     ASSERT_EQ(parameters.size(), 1);
     // 5 fake connections
-    int nbVoltages = 5;
+    unsigned int nbVoltages = 5;
     boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
-    parametersSet->createParameter("nbInputs", nbVoltages);
+    parametersSet->createParameter("nbInputs", static_cast<int>(nbVoltages));
     ASSERT_NO_THROW(mmm->setPARParameters(parametersSet));
     mmm->addParameters(parameters, false);  // Might be true here.
     ASSERT_NO_THROW(mmm->setParametersFromPARFile());
@@ -74,11 +74,6 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanTypeMethods) {
     std::vector<boost::shared_ptr<Variable> > variables;
     mmm->defineVariables(variables);
     ASSERT_EQ(variables.size(), 3+2*nbVoltages);
-
-    /*
-    mmm->setParametersFromPARFile();
-    mmm->getSize(); */
-    // ASSERT_EQ(mmm->sizeY(), 2*nbVoltages);
 
     unsigned nbCalculated = DYN::ModelMinMaxMean::nbCalculatedVars_;
     unsigned nbY = 2*nbVoltages;
@@ -95,17 +90,21 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanTypeMethods) {
 
     mmm->evalStaticYType();
     ASSERT_EQ(yTypes[nbCalculated], DYN::EXTERNAL);
+    ASSERT_EQ(yTypes[0], DYN::ALGEBRAIC);
     mmm->evalStaticFType();  // Does nothing here.
     ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
     // The following is needed to check data coherence (otherwise no data has been set!)
     std::vector<double> voltages(mmm->sizeY()+nbCalculated, 0.);
+    for (std::size_t i = 0; i < nbVoltages; ++i) {
+        voltages[i+nbCalculated] = 0.;
+        voltages[i+nbCalculated+nbVoltages] = 1.0;  // Means TRUE
+    }
     mmm->setBufferY(&voltages[0], nullptr, 0);
+    mmm->evalCalculatedVars();
     ASSERT_NO_THROW(mmm->checkDataCoherence(0.));
-    /*
     ASSERT_NO_THROW(mmm->initializeStaticData());
     ASSERT_NO_THROW(mmm->evalDynamicFType());
     ASSERT_NO_THROW(mmm->evalDynamicYType());
-    */
     }
 
 }  // namespace DYN
