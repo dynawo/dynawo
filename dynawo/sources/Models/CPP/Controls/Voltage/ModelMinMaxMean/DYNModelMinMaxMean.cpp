@@ -219,6 +219,7 @@ ModelMinMaxMean::getY0() {
 
 void
 ModelMinMaxMean::evalStaticYType() {
+  std::fill(yType_, yType_ + nbCalculatedVars_, ALGEBRAIC);  // Variables are computed inside.
   std::fill(yType_ + nbCalculatedVars_, yType_ + nbCalculatedVars_ + 2*nbConnectedInputs_, EXTERNAL);  // Variables are obtained from outside.
 }
 
