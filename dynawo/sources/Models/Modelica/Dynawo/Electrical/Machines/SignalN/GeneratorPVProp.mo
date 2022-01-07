@@ -21,38 +21,39 @@ model GeneratorPVProp "Model for generator PV based on SignalN for the frequency
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
-  parameter Types.ReactivePowerPu QRef0Pu "Start value of the reactive power set point in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in pu (base SnRef)";
   parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in pu (base SnRef)";
   parameter Types.PerUnit KVoltage "Parameter of the proportional voltage regulation";
 
-  Connectors.ImPin URefPu (value(start = URef0Pu)) "Voltage regulation set point in pu (base UNom)";
+  input Types.VoltageModulePu URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
+
+  parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
+  parameter Types.ReactivePowerPu QRef0Pu "Start value of the reactive power set point in pu (base SnRef) (receptor convention)";
 
 protected
   QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
 
-  when QGenPu <= QMinPu and UPu >= URefPu.value then
+  when QGenPu <= QMinPu and UPu >= URefPu then
     qStatus = QStatus.AbsorptionMax;
-  elsewhen QGenPu >= QMaxPu and UPu <= URefPu.value then
+  elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
     qStatus = QStatus.GenerationMax;
-  elsewhen (QGenPu > QMinPu or UPu < URefPu.value) and (QGenPu < QMaxPu or UPu > URefPu.value) then
+  elsewhen (QGenPu > QMinPu or UPu < URefPu) and (QGenPu < QMaxPu or UPu > URefPu) then
     qStatus = QStatus.Standard;
   end when;
 
-if running.value then
-  if qStatus == QStatus.GenerationMax then
-    QGenPu = QMaxPu;
-  elseif qStatus == QStatus.AbsorptionMax then
-    QGenPu = QMinPu;
+  if running.value then
+    if qStatus == QStatus.GenerationMax then
+      QGenPu = QMaxPu;
+    elseif qStatus == QStatus.AbsorptionMax then
+      QGenPu = QMinPu;
+    else
+      QGenPu = - QRef0Pu + KVoltage * (URefPu - UPu);
+    end if;
   else
-    QGenPu = - QRef0Pu + KVoltage * (URefPu.value - UPu);
+    terminal.i.im = 0;
   end if;
-else
-  terminal.i.im = 0;
-end if;
 
 annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This generator regulates the voltage UPu with a proportional regulation unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated).</div></body></html>"));

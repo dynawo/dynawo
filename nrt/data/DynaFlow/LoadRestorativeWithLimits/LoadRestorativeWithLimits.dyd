@@ -43,7 +43,7 @@
   <dyn:macroConnect connector="LOAD_NETWORK_CONNECTOR" id1="_Load__10" id2="NETWORK"/>
   <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR" id1="_Generator___1" id2="NETWORK"/>
   <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_Generator___1" id2="Model_Signal_N" index2="0"/>
-  <dyn:connect id1="Model_Signal_N" var1="signalN_thetaRef_value" id2="NETWORK" var2="_BUS___10_TN_phi_value"/>
+  <dyn:connect id1="Model_Signal_N" var1="signalN_thetaRef" id2="NETWORK" var2="_BUS___10_TN_phi_value"/>
   <dyn:blackBoxModel id="Disconnect_Line" lib="EventQuadripoleDisconnection" parFile="LoadRestorativeWithLimits.par" parId="disconnection"/>
   <dyn:connect id1="Disconnect_Line" var1="event_state1_value" id2="NETWORK" var2="_BUS____8-BUS___10-2_AC_state_value"/>
 </dyn:dynamicModelsArchitecture>
