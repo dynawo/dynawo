@@ -113,8 +113,8 @@ ModelMinMaxMean::initializeFromData(const boost::shared_ptr<DataInterface>& /*da
 void
 ModelMinMaxMean::getSize() {
   sizeF_ = 0;  // No dynamics
-  sizeY_ = 2*nbConnectedInputs_;  // All voltage inputs and their boolean activity values
-  sizeZ_ = 0;
+  sizeY_ = nbConnectedInputs_;  // All voltage inputs and their boolean activity values
+  sizeZ_ = nbConnectedInputs_;
   sizeG_ = 0;
   sizeMode_ = 1;
 
@@ -219,8 +219,7 @@ ModelMinMaxMean::getY0() {
 
 void
 ModelMinMaxMean::evalStaticYType() {
-  std::fill(yType_, yType_ + nbCalculatedVars_, ALGEBRAIC);  // Variables are computed inside.
-  std::fill(yType_ + nbCalculatedVars_, yType_ + nbCalculatedVars_ + 2*nbConnectedInputs_, EXTERNAL);  // Variables are obtained from outside.
+  std::fill(yType_, yType_ + nbConnectedInputs_, EXTERNAL);  // Variables are obtained from outside.
 }
 
 void
@@ -235,16 +234,12 @@ ModelMinMaxMean::evalStaticFType() {
  */
 void
 ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  // Import "output" variables
-  variables.push_back(VariableNativeFactory::createCalculated("min_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("max_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("avg_value", CONTINUOUS));
   // Add the voltages
   stringstream name;
   for (std::size_t i=0; i < nbConnectedInputs_; i++) {
     name.str("");
     name.clear();
-    name << "VinPu_" << i << "_value";  // As in "Voltage INput"
+    name << "UMonitored_" << i << "Pu_value";  // As in "Voltage INput"
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
 
@@ -252,7 +247,7 @@ ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& variables) {
   for (std::size_t i=0; i < nbConnectedInputs_; i++) {
     name.str("");
     name.clear();
-    name << "isActive_" << i << "_value";
+    name << "running_" << i << "_value";
     variables.push_back(VariableNativeFactory::createState(name.str(), BOOLEAN));
   }
 }
@@ -288,7 +283,7 @@ ModelMinMaxMean::defineElements(std::vector<Element> &elements, std::map<std::st
   for (size_t i = 0; i < nbConnectedInputs_; ++i) {
     names.str("");
     names.clear();
-    names << "VinPu_" << i;
+    names << "UMonitored_" << i;
     addElement(names.str(), Element::STRUCTURE, elements, mapElement);
     addSubElement("value", names.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
@@ -296,7 +291,7 @@ ModelMinMaxMean::defineElements(std::vector<Element> &elements, std::map<std::st
   for (size_t i = 0; i < nbConnectedInputs_; ++i) {
     names.str("");
     names.clear();
-    names << "isActive_" << i;
+    names << "running_" << i;
     addElement(names.str(), Element::STRUCTURE, elements, mapElement);
     addSubElement("value", names.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
@@ -316,8 +311,8 @@ ModelMinMaxMean::setFequations() {
 
 void
 ModelMinMaxMean::checkDataCoherence(const double /*t*/) {
-  for (std::size_t i = nbCalculatedVars_; i < nbCalculatedVars_+ nbConnectedInputs_; ++i) {
-    if (yLocal_[i+nbConnectedInputs_]) {  // Current input is active.
+  for (std::size_t i = 0; i < nbConnectedInputs_; ++i) {
+    if (isConnected(i)) {  // Current input is active.
       if (yLocal_[i] < calculatedVars_[minValIdx_]) {
         throw DYNError(Error::MODELER, FrequencyCollapse, yLocal_[i], calculatedVars_[minValIdx_]);
       }
@@ -332,11 +327,10 @@ double
 ModelMinMaxMean::computeMin() const {
   double minSoFar = MAXFLOAT;
   for (std::size_t i=0; i < nbConnectedInputs_; i++) {
-    if (yLocal_[i + nbConnectedInputs_ + nbCalculatedVars_]) {
-      minSoFar =  (yLocal_[i + nbCalculatedVars_] < minSoFar) ? yLocal_[i + nbCalculatedVars_] : minSoFar;
+    if (isConnected(i)) {
+      minSoFar =  (yLocal_[i] < minSoFar) ? yLocal_[i] : minSoFar;
     }
   }
-  yLocal_[minValIdx_] = minSoFar;
   return minSoFar;
 }
 
@@ -344,11 +338,10 @@ double
 ModelMinMaxMean::computeMax() const {
   double maxSoFar = -MAXFLOAT;
   for (std::size_t i=0; i < nbConnectedInputs_; i++) {
-    if (yLocal_[i + nbConnectedInputs_ + nbCalculatedVars_]) {
-      maxSoFar =  (yLocal_[i + nbCalculatedVars_] > maxSoFar) ? yLocal_[i + nbCalculatedVars_] : maxSoFar;
+    if (isConnected(i)) {
+      maxSoFar =  (yLocal_[i] > maxSoFar) ? yLocal_[i] : maxSoFar;
     }
   }
-  yLocal_[maxValIdx_] = maxSoFar;
   return maxSoFar;
 }
 
@@ -357,13 +350,22 @@ ModelMinMaxMean::computeMean() const {
   double totSoFar = 0;
   unsigned int nbActive = 0;
   for (std::size_t i=0; i < nbConnectedInputs_; i++) {
-    if (yLocal_[i + nbConnectedInputs_ + nbCalculatedVars_]) {
-      totSoFar +=  yLocal_[i + nbCalculatedVars_];
+    if (isConnected(i)) {
+      totSoFar +=  yLocal_[i];
       nbActive++;
     }
   }
-  yLocal_[avgValIdx_] = nbActive == 0? 0.0: totSoFar/nbActive;
-  return yLocal_[avgValIdx_];
+  return nbActive == 0? 0.0: totSoFar/nbActive;
+}
+
+bool
+ModelMinMaxMean::isConnected(unsigned int iInputIdx) const {
+  bool out = false;
+  if (iInputIdx < nbConnectedInputs_) {
+    out = zLocal_[iInputIdx] > 0;
+  }
+
+  return out;
 }
 
 }  // namespace DYN

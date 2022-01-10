@@ -51,7 +51,7 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanDefineMethods) {
     ASSERT_NE(mmm, nullptr);
     std::vector<boost::shared_ptr<Variable> > variables;
     mmm->defineVariables(variables);
-    ASSERT_EQ(variables.size(), std::size_t(3));
+    ASSERT_EQ(variables.size(), std::size_t(0));
     std::vector<ParameterModeler> parameters;
     mmm->defineParameters(parameters);
     ASSERT_EQ(parameters.size(), std::size_t(1));
@@ -74,8 +74,14 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanDefineMethods) {
 
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanEmptyInput) {
     boost::shared_ptr<SubModel> mmm = initModelMinMaxMean();
-    std::vector<double> ySelf(mmm->sizeY()+DYN::ModelMinMaxMean::nbCalculatedVars_, 0);
+    std::vector<double> ySelf(mmm->sizeY(), 0);
     mmm->setBufferY(&ySelf[0], nullptr, 0);
+    std::vector<double> z(mmm->sizeZ(), 0.);
+    bool* zConnected = new bool[mmm->sizeZ()];
+    for (std::size_t i=0; i < mmm->sizeZ(); ++i) {
+        zConnected[i] = true;
+    }
+    mmm->setBufferZ(&z[0], zConnected, 0);
 
     // Run computation of min, max and mean on empty input stream
     ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::minValIdx_), MAXFLOAT);
@@ -86,22 +92,17 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanEmptyInput) {
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanSimpleInput) {
     unsigned int nbVoltages = 25;
     boost::shared_ptr<SubModel> mmm = initModelMinMaxMean(nbVoltages);
-    ASSERT_EQ(mmm->sizeY(), 2*nbVoltages);
-
-    std::vector<double> z(mmm->sizeZ(), 0);
-    // Binary variable for line connections
-    std::vector<char> zConnected(mmm->sizeZ(), false);
-    mmm->setBufferZ(&z[0], reinterpret_cast<bool*>(zConnected.data()), 0);
+    ASSERT_EQ(mmm->sizeY(), nbVoltages);
+    ASSERT_EQ(mmm->sizeZ(), nbVoltages);
 
     std::vector<boost::shared_ptr<Variable> > variables;
     mmm->defineVariables(variables);
-    ASSERT_EQ(variables.size(), 3+2*nbVoltages);
+    ASSERT_EQ(variables.size(), mmm->sizeY() + mmm->sizeZ());
 
-    unsigned nbCalculated = DYN::ModelMinMaxMean::nbCalculatedVars_;
-    unsigned nbY = 2*nbVoltages;
+    unsigned nbY = nbVoltages;
     unsigned nbF = 0;
-    unsigned nbZ = 0;
-    std::vector<propertyContinuousVar_t> yTypes(nbCalculated + nbY, UNDEFINED_PROPERTY);
+    unsigned nbZ = nbVoltages;
+    std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
     mmm->setBufferYType(&yTypes[0], 0);
     ASSERT_NO_THROW(mmm->evalStaticYType());
     ASSERT_EQ(mmm->sizeY(), nbY);
@@ -111,17 +112,21 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanSimpleInput) {
     ASSERT_EQ(mmm->sizeMode(), 1);
 
     mmm->evalStaticYType();
-    ASSERT_EQ(yTypes[nbCalculated], DYN::EXTERNAL);
-    ASSERT_EQ(yTypes[0], DYN::ALGEBRAIC);
+    ASSERT_EQ(yTypes[0], DYN::EXTERNAL);
     mmm->evalStaticFType();  // Does nothing here.
     ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
 
     // The following is needed to check data coherence (otherwise no data has been set!)
-    std::vector<double> voltages(mmm->sizeY()+nbCalculated, 0.);
+    std::vector<double> voltages(mmm->sizeY(), 0.);
     for (std::size_t i = 0; i < nbVoltages; ++i) {
-        voltages[i+nbCalculated] = i + 1;
-        voltages[i+nbCalculated+nbVoltages] = 1.0;  // Means TRUE
+        voltages[i] = i + 1;
     }
+    std::vector<double> z(mmm->sizeZ(), 1.);
+    bool* zConnected = new bool[mmm->sizeZ()];
+    for (std::size_t i=0; i < mmm->sizeZ(); ++i) {
+        zConnected[i] = true;
+    }
+    mmm->setBufferZ(&z[0], zConnected, 0);
     mmm->setBufferY(&voltages[0], nullptr, 0);
     mmm->evalCalculatedVars();
     ASSERT_NO_THROW(mmm->initializeStaticData());
@@ -151,13 +156,12 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanTypeMethods) {
     mmm->getSize();  // Sets all the sizes
     std::vector<boost::shared_ptr<Variable> > variables;
     mmm->defineVariables(variables);
-    ASSERT_EQ(variables.size(), 3+2*nbVoltages);
+    ASSERT_EQ(variables.size(), 2*nbVoltages);
 
-    unsigned nbCalculated = DYN::ModelMinMaxMean::nbCalculatedVars_;
-    unsigned nbY = 2*nbVoltages;
+    unsigned nbY = nbVoltages;
     unsigned nbF = 0;
-    unsigned nbZ = 0;
-    std::vector<propertyContinuousVar_t> yTypes(nbCalculated + nbY, UNDEFINED_PROPERTY);
+    unsigned nbZ = nbVoltages;
+    std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
     mmm->setBufferYType(&yTypes[0], 0);
     ASSERT_NO_THROW(mmm->evalStaticYType());
     ASSERT_EQ(mmm->sizeY(), nbY);
@@ -167,8 +171,7 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanTypeMethods) {
     ASSERT_EQ(mmm->sizeMode(), 1);
 
     mmm->evalStaticYType();
-    ASSERT_EQ(yTypes[nbCalculated], DYN::EXTERNAL);
-    ASSERT_EQ(yTypes[0], DYN::ALGEBRAIC);
+    ASSERT_EQ(yTypes[0], DYN::EXTERNAL);
     mmm->evalStaticFType();  // Does nothing here.
     ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
 }
@@ -177,17 +180,16 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanTypeMethods) {
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanSomeDisconnectedInputs) {
     unsigned int nbVoltages = 5;
     boost::shared_ptr<SubModel> mmm = initModelMinMaxMean(nbVoltages);
-    ASSERT_EQ(mmm->sizeY(), 2*nbVoltages);
+    ASSERT_EQ(mmm->sizeY(), nbVoltages);
 
     std::vector<boost::shared_ptr<Variable> > variables;
     mmm->defineVariables(variables);
-    ASSERT_EQ(variables.size(), 3+2*nbVoltages);
+    ASSERT_EQ(variables.size(), 2*nbVoltages);
 
-    unsigned nbCalculated = DYN::ModelMinMaxMean::nbCalculatedVars_;
-    unsigned nbY = 2*nbVoltages;
+    unsigned nbY = nbVoltages;
     unsigned nbF = 0;
-    unsigned nbZ = 0;
-    std::vector<propertyContinuousVar_t> yTypes(nbCalculated + nbY, UNDEFINED_PROPERTY);
+    unsigned nbZ = nbVoltages;
+    std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
     mmm->setBufferYType(&yTypes[0], 0);
     ASSERT_NO_THROW(mmm->evalStaticYType());
     ASSERT_EQ(mmm->sizeY(), nbY);
@@ -201,17 +203,23 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanSomeDisconnectedInputs) {
     ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
 
     // The following is needed to check data coherence (otherwise no data has been set!)
-    std::vector<double> voltages(mmm->sizeY()+nbCalculated, 0.);
+    std::vector<double> voltages(mmm->sizeY(), 0.);
+    std::vector<double> z(mmm->sizeZ(), 0.);
+    // Binary variable for line connections
+    bool* zConnected = new bool[mmm->sizeZ()];
     unsigned int nbConnected = 2;
     for (std::size_t i = 0; i < nbConnected; ++i) {
-        voltages[i+nbCalculated] = static_cast<double>(i+1);
-        voltages[i+nbCalculated+nbVoltages] = 1.0;  // Means TRUE
+        voltages[i] = static_cast<double>(i+1);
+        z[i] = 1.0;
+        zConnected[i] = true;
     }
     for (std::size_t i = nbConnected; i < nbVoltages; ++i) {
-        voltages[i+nbCalculated] = static_cast<double>(i+1);
-        voltages[i+nbCalculated+nbVoltages] = 0.;  // Means FALSE
+        voltages[i] = static_cast<double>(i+1);
+        z[i] = -1.0;
+        zConnected[i] = true;
     }
     mmm->setBufferY(&voltages[0], nullptr, 0);
+    mmm->setBufferZ(&z[0], zConnected, 0);
     mmm->evalCalculatedVars();
     ASSERT_NO_THROW(mmm->checkDataCoherence(0.));
     ASSERT_NO_THROW(mmm->initializeStaticData());
@@ -227,25 +235,25 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanSomeDisconnectedInputs) {
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanAllDisconnectedInputs) {
     unsigned int nbVoltages = 25;
     boost::shared_ptr<SubModel> mmm = initModelMinMaxMean(nbVoltages);
-    ASSERT_EQ(mmm->sizeY(), 2*nbVoltages);
+    ASSERT_EQ(mmm->sizeY(), nbVoltages);
 
-    std::vector<double> z(mmm->sizeZ(), 0);
     // Binary variable for line connections
-    std::vector<char> zConnected(mmm->sizeZ(), false);
-    mmm->setBufferZ(&z[0], reinterpret_cast<bool*>(zConnected.data()), 0);
+    std::vector<double> z(mmm->sizeZ(), 0.);
+    bool* zConnected = new bool[mmm->sizeZ()];
 
     std::vector<boost::shared_ptr<Variable> > variables;
     mmm->defineVariables(variables);
 
-    unsigned nbCalculated = DYN::ModelMinMaxMean::nbCalculatedVars_;
     ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
 
-    std::vector<double> voltages(mmm->sizeY()+nbCalculated, 0.);
+    std::vector<double> voltages(mmm->sizeY(), 0.);
     for (std::size_t i = 0; i < nbVoltages; ++i) {
-        voltages[i+nbCalculated] = i + 1;
-        voltages[i+nbCalculated+nbVoltages] = 0.0;  // Means FALSE
+        voltages[i] = static_cast<double>(i + 1);
+        z[i] = -1.0;
+        zConnected[i] = true;
     }
     mmm->setBufferY(&voltages[0], nullptr, 0);
+    mmm->setBufferZ(&z[0], zConnected, 0);
     mmm->evalCalculatedVars();
 
     ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::minValIdx_), MAXFLOAT);
@@ -257,51 +265,52 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanAllDisconnectedInputs) {
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanDataCoherenceExceptions) {
     unsigned int nbVoltages = 25;
     boost::shared_ptr<SubModel> mmm = initModelMinMaxMean(nbVoltages);
-    ASSERT_EQ(mmm->sizeY(), 2*nbVoltages);
+    ASSERT_EQ(mmm->sizeY(), nbVoltages);
 
-    std::vector<double> z(mmm->sizeZ(), 0);
     // Binary variable for line connections
-    std::vector<char> zConnected(mmm->sizeZ(), false);
-    mmm->setBufferZ(&z[0], reinterpret_cast<bool*>(zConnected.data()), 0);
+    std::vector<double> z(mmm->sizeZ(), 0.);
+    bool* zConnected = new bool[mmm->sizeZ()];
 
     std::vector<boost::shared_ptr<Variable> > variables;
     mmm->defineVariables(variables);
 
-    unsigned nbCalculated = DYN::ModelMinMaxMean::nbCalculatedVars_;
     ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
 
-    std::vector<double> voltages(mmm->sizeY()+nbCalculated, 0.);
+    std::vector<double> voltages(mmm->sizeY(), 0.);
     for (std::size_t i = 0; i < nbVoltages; ++i) {
-        voltages[i+nbCalculated] = static_cast<double>(i + 1);
-        voltages[i+nbCalculated+nbVoltages] = 1.0;  // Means FALSE
+        voltages[i] = static_cast<double>(i + 1);
+        z[i] = 1.0;
+        zConnected[i] = true;
     }
     mmm->setBufferY(&voltages[0], nullptr, 0);
+    mmm->setBufferZ(&z[0], zConnected, 0);
     // FrequencyIncrease will need to be adapted once we know better.
     ASSERT_THROW_DYNAWO(mmm->checkDataCoherence(0.), Error::MODELER, KeyError_t::FrequencyIncrease);
 
     for (std::size_t i = 0; i < nbVoltages; ++i) {
-        voltages[i+nbCalculated] = -static_cast<double>(i + 1);
-        voltages[i+nbCalculated+nbVoltages] = 1.0;  // Means FALSE
+        voltages[i] = -static_cast<double>(i + 1);
+        z[i] = 1.0;
+        zConnected[i] = true;
     }
     mmm->setBufferY(&voltages[0], nullptr, 0);
+    mmm->setBufferZ(&z[0], zConnected, 0);
     // FrequencyCollapse will need to be adapted once we know better.
     ASSERT_THROW_DYNAWO(mmm->checkDataCoherence(0.), Error::MODELER, KeyError_t::FrequencyCollapse);
 }
 
-TEST(ModelsMinMaxMean, ModelsMinMaxMeanUnknownIdxCalculatedVAr) {
+TEST(ModelsMinMaxMean, ModelsMinMaxMeanUnknownIdxCalculatedVar) {
     unsigned int nbVoltages = 5;
     boost::shared_ptr<SubModel> mmm = initModelMinMaxMean(nbVoltages);
-    ASSERT_EQ(mmm->sizeY(), 2*nbVoltages);
+    ASSERT_EQ(mmm->sizeY(), nbVoltages);
 
     std::vector<boost::shared_ptr<Variable> > variables;
     mmm->defineVariables(variables);
-    ASSERT_EQ(variables.size(), 3+2*nbVoltages);
+    ASSERT_EQ(variables.size(), 2*nbVoltages);
 
-    unsigned nbCalculated = DYN::ModelMinMaxMean::nbCalculatedVars_;
-    unsigned nbY = 2*nbVoltages;
+    unsigned nbY = nbVoltages;
     unsigned nbF = 0;
-    unsigned nbZ = 0;
-    std::vector<propertyContinuousVar_t> yTypes(nbCalculated + nbY, UNDEFINED_PROPERTY);
+    unsigned nbZ = nbVoltages;
+    std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
     mmm->setBufferYType(&yTypes[0], 0);
     ASSERT_NO_THROW(mmm->evalStaticYType());
     ASSERT_EQ(mmm->sizeY(), nbY);
@@ -314,18 +323,23 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanUnknownIdxCalculatedVAr) {
     mmm->evalStaticFType();  // Does nothing here.
     ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
 
-    // The following is needed to check data coherence (otherwise no data has been set!)
-    std::vector<double> voltages(mmm->sizeY()+nbCalculated, 0.);
+    std::vector<double> voltages(mmm->sizeY(), 0.);
+    // Binary variable for line connections
+    std::vector<double> z(mmm->sizeZ(), 0.);
+    bool* zConnected = new bool[mmm->sizeZ()];
     unsigned int nbConnected = 2;
     for (std::size_t i = 0; i < nbConnected; ++i) {
-        voltages[i+nbCalculated] = static_cast<double>(i+1);
-        voltages[i+nbCalculated+nbVoltages] = 1.0;  // Means TRUE
+        voltages[i] = static_cast<double>(i+1);
+        z[i] = 1.0;
+        zConnected[i] = true;
     }
     for (std::size_t i = nbConnected; i < nbVoltages; ++i) {
-        voltages[i+nbCalculated] = static_cast<double>(i+1);
-        voltages[i+nbCalculated+nbVoltages] = 0.;  // Means FALSE
+        voltages[i] = static_cast<double>(i+1);
+        z[i] = -1.0;
+        zConnected[i] = true;
     }
     mmm->setBufferY(&voltages[0], nullptr, 0);
+    mmm->setBufferZ(&z[0], zConnected, 0);
     mmm->evalCalculatedVars();
     mmm->checkDataCoherence(0.);
     mmm->initializeStaticData();
