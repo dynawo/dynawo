@@ -23,6 +23,7 @@
 #include "DYNVariable.h"
 #include "PARParametersSet.h"
 #include "DYNParameterModeler.h"
+#include "DYNSparseMatrix.h"
 
 #include "gtest_dynawo.h"
 
@@ -41,6 +42,7 @@ static boost::shared_ptr<SubModel> initModelMinMaxMean(unsigned int nbVoltages_ 
     mmm->setParametersFromPARFile();
     mmm->setSubModelParameters();
     mmm->getSize();  // Sets all the sizes
+    mmm->init(0.);  // Harmless coverage
     return mmm;
 }
 
@@ -53,6 +55,21 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanDefineMethods) {
     std::vector<ParameterModeler> parameters;
     mmm->defineParameters(parameters);
     ASSERT_EQ(parameters.size(), std::size_t(1));
+
+    // Harmless coverage
+    SparseMatrix mat;
+    std::vector<double> resd;
+    std::vector<int> resi;
+    ASSERT_NO_THROW(mmm->evalF(0, UNDEFINED_EQ));
+    ASSERT_NO_THROW(mmm->evalG(0));
+    ASSERT_NO_THROW(mmm->evalZ(0));
+    ASSERT_NO_THROW(mmm->evalJt(0, 0, mat, 0));
+    ASSERT_NO_THROW(mmm->evalJtPrim(0, 0, mat, 0));
+    ASSERT_NO_THROW(mmm->collectSilentZ(nullptr));
+    ASSERT_NO_THROW(mmm->evalMode(0));
+    ASSERT_NO_THROW(mmm->evalJCalculatedVarI(0, resd));
+    ASSERT_NO_THROW(mmm->getIndexesOfVariablesUsedForCalculatedVarI(0, resi));
+    // ASSERT_THROW_DYNAWO(mmm->evalCalculatedVarI(999), DYN::Error::MODELER);
 }
 
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanEmptyInput) {
