@@ -318,11 +318,11 @@ void
 ModelMinMaxMean::checkDataCoherence(const double /*t*/) {
   for (std::size_t i = nbCalculatedVars_; i < nbCalculatedVars_+ nbConnectedInputs_; ++i) {
     if (yLocal_[i+nbConnectedInputs_]) {  // Current input is active.
-      if (yLocal_[i] < yLocal_[minValIdx_]) {
-        throw DYNError(Error::MODELER, FrequencyCollapse, yLocal_[i], yLocal_[minValIdx_]);
+      if (yLocal_[i] < calculatedVars_[minValIdx_]) {
+        throw DYNError(Error::MODELER, FrequencyCollapse, yLocal_[i], calculatedVars_[minValIdx_]);
       }
-      if (yLocal_[i] > yLocal_[maxValIdx_]) {
-        throw DYNError(Error::MODELER, FrequencyIncrease, yLocal_[i], yLocal_[maxValIdx_]);
+      if (yLocal_[i] > calculatedVars_[maxValIdx_]) {
+        throw DYNError(Error::MODELER, FrequencyIncrease, yLocal_[i], calculatedVars_[maxValIdx_]);
       }
     }
   }
@@ -336,6 +336,7 @@ ModelMinMaxMean::computeMin() const {
       minSoFar =  (yLocal_[i + nbCalculatedVars_] < minSoFar) ? yLocal_[i + nbCalculatedVars_] : minSoFar;
     }
   }
+  yLocal_[minValIdx_] = minSoFar;
   return minSoFar;
 }
 
@@ -347,6 +348,7 @@ ModelMinMaxMean::computeMax() const {
       maxSoFar =  (yLocal_[i + nbCalculatedVars_] > maxSoFar) ? yLocal_[i + nbCalculatedVars_] : maxSoFar;
     }
   }
+  yLocal_[maxValIdx_] = maxSoFar;
   return maxSoFar;
 }
 
@@ -360,7 +362,8 @@ ModelMinMaxMean::computeMean() const {
       nbActive++;
     }
   }
-  return nbActive == 0? 0.0: totSoFar/nbActive;
+  yLocal_[avgValIdx_] = nbActive == 0? 0.0: totSoFar/nbActive;
+  return yLocal_[avgValIdx_];
 }
 
 }  // namespace DYN

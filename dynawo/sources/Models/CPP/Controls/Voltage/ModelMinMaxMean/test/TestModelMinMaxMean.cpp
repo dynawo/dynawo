@@ -57,8 +57,8 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanDefineMethods) {
 
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanEmptyInput) {
     boost::shared_ptr<SubModel> mmm = initModelMinMaxMean();
-    /*std::vector<double> ySelf(mmm->sizeY(), 0);
-    mmm->setBufferY(&ySelf[0], nullptr, 0);*/
+    std::vector<double> ySelf(mmm->sizeY()+DYN::ModelMinMaxMean::nbCalculatedVars_, 0);
+    mmm->setBufferY(&ySelf[0], nullptr, 0);
 
     // Run computation of min, max and mean on empty input stream
     ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::minValIdx_), MAXFLOAT);
@@ -76,7 +76,6 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanSimpleInput) {
     std::vector<char> zConnected(mmm->sizeZ(), false);
     mmm->setBufferZ(&z[0], reinterpret_cast<bool*>(zConnected.data()), 0);
 
-    // Added by JL, need to be cleaned with the above.
     std::vector<boost::shared_ptr<Variable> > variables;
     mmm->defineVariables(variables);
     ASSERT_EQ(variables.size(), 3+2*nbVoltages);
@@ -191,7 +190,7 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanDisconnectedInput) {
     }
     for (std::size_t i = nbConnected; i < nbVoltages; ++i) {
         voltages[i+nbCalculated] = static_cast<double>(i+1);
-        voltages[i+nbCalculated+nbVoltages] = 0.;  // Means TRUE
+        voltages[i+nbCalculated+nbVoltages] = 0.;  // Means FALSE
     }
     mmm->setBufferY(&voltages[0], nullptr, 0);
     mmm->evalCalculatedVars();
