@@ -271,5 +271,52 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanDataCoherenceExceptions) {
     ASSERT_THROW_DYNAWO(mmm->checkDataCoherence(0.), Error::MODELER, KeyError_t::FrequencyCollapse);
 }
 
+TEST(ModelsMinMaxMean, ModelsMinMaxMeanUnknownIdxCalculatedVAr) {
+    unsigned int nbVoltages = 5;
+    boost::shared_ptr<SubModel> mmm = initModelMinMaxMean(nbVoltages);
+    ASSERT_EQ(mmm->sizeY(), 2*nbVoltages);
+
+    std::vector<boost::shared_ptr<Variable> > variables;
+    mmm->defineVariables(variables);
+    ASSERT_EQ(variables.size(), 3+2*nbVoltages);
+
+    unsigned nbCalculated = DYN::ModelMinMaxMean::nbCalculatedVars_;
+    unsigned nbY = 2*nbVoltages;
+    unsigned nbF = 0;
+    unsigned nbZ = 0;
+    std::vector<propertyContinuousVar_t> yTypes(nbCalculated + nbY, UNDEFINED_PROPERTY);
+    mmm->setBufferYType(&yTypes[0], 0);
+    ASSERT_NO_THROW(mmm->evalStaticYType());
+    ASSERT_EQ(mmm->sizeY(), nbY);
+    ASSERT_EQ(mmm->sizeF(), nbF);
+    ASSERT_EQ(mmm->sizeZ(), nbZ);
+    ASSERT_EQ(mmm->sizeG(), 0);
+    ASSERT_EQ(mmm->sizeMode(), 1);
+
+    mmm->evalStaticYType();
+    mmm->evalStaticFType();  // Does nothing here.
+    ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
+
+    // The following is needed to check data coherence (otherwise no data has been set!)
+    std::vector<double> voltages(mmm->sizeY()+nbCalculated, 0.);
+    unsigned int nbConnected = 2;
+    for (std::size_t i = 0; i < nbConnected; ++i) {
+        voltages[i+nbCalculated] = static_cast<double>(i+1);
+        voltages[i+nbCalculated+nbVoltages] = 1.0;  // Means TRUE
+    }
+    for (std::size_t i = nbConnected; i < nbVoltages; ++i) {
+        voltages[i+nbCalculated] = static_cast<double>(i+1);
+        voltages[i+nbCalculated+nbVoltages] = 0.;  // Means FALSE
+    }
+    mmm->setBufferY(&voltages[0], nullptr, 0);
+    mmm->evalCalculatedVars();
+    mmm->checkDataCoherence(0.);
+    mmm->initializeStaticData();
+    mmm->evalDynamicFType();
+    mmm->evalDynamicYType();
+
+    ASSERT_THROW_DYNAWO(mmm->evalCalculatedVarI(ModelMinMaxMean::nbCalculatedVars_), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+}
+
 
 }  // namespace DYN
