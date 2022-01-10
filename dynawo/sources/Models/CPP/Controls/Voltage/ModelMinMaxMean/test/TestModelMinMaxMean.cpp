@@ -67,9 +67,9 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanEmptyInput) {
 }
 
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanSimpleInput) {
-    unsigned int nbVoltages = 5;
+    unsigned int nbVoltages = 25;
     boost::shared_ptr<SubModel> mmm = initModelMinMaxMean(nbVoltages);
-    ASSERT_EQ(mmm->sizeY(), 2*5);
+    ASSERT_EQ(mmm->sizeY(), 2*nbVoltages);
 
     std::vector<double> z(mmm->sizeZ(), 0);
     // Binary variable for line connections
@@ -103,24 +103,18 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanSimpleInput) {
     // The following is needed to check data coherence (otherwise no data has been set!)
     std::vector<double> voltages(mmm->sizeY()+nbCalculated, 0.);
     for (std::size_t i = 0; i < nbVoltages; ++i) {
-        voltages[i+nbCalculated] = 0.;
+        voltages[i+nbCalculated] = i + 1;
         voltages[i+nbCalculated+nbVoltages] = 1.0;  // Means TRUE
     }
     mmm->setBufferY(&voltages[0], nullptr, 0);
     mmm->evalCalculatedVars();
-    ASSERT_NO_THROW(mmm->checkDataCoherence(0.));
     ASSERT_NO_THROW(mmm->initializeStaticData());
     ASSERT_NO_THROW(mmm->evalDynamicFType());
     ASSERT_NO_THROW(mmm->evalDynamicYType());
 
-    ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::minValIdx_), 0.0);
-    ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::maxValIdx_), 0.0);
-    ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::avgValIdx_), 0.0);
-
-    // Run computation of min, max and mean on empty input stream
-    // ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::minValIdx_), MAXFLOAT);
-    // ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::maxValIdx_), -MAXFLOAT);
-    // ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::avgValIdx_), 0.0);
+    ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::minValIdx_), 1.0);
+    ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::maxValIdx_), nbVoltages);
+    ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::avgValIdx_), nbVoltages * (nbVoltages + 1) / (2*nbVoltages));
 }
 
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanTypeMethods) {
