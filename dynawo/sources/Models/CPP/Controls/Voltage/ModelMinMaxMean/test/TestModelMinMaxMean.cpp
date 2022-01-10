@@ -57,17 +57,16 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanEmptyInput) {
 }
 
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanSimpleInput) {
-    return;
     boost::shared_ptr<SubModel> mmm = initModelMinMaxMean();
     std::vector<ParameterModeler> parameters;
     mmm->defineParameters(parameters);
     boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
     // 5 fake connections
     parametersSet->createParameter("nbInputs", static_cast<int>(5));
-    mmm->addParameters(parameters, false);
     mmm->setPARParameters(parametersSet);
-    mmm->setSubModelParameters();
+    mmm->addParameters(parameters, false);
     mmm->setParametersFromPARFile();
+    mmm->setSubModelParameters();
     mmm->getSize();
     ASSERT_EQ(mmm->sizeY(), 2*5);
 
@@ -134,6 +133,10 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanTypeMethods) {
     ASSERT_NO_THROW(mmm->initializeStaticData());
     ASSERT_NO_THROW(mmm->evalDynamicFType());
     ASSERT_NO_THROW(mmm->evalDynamicYType());
+
+    ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::minValIdx_), 0.0);
+    ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::maxValIdx_), 0.0);
+    ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::avgValIdx_), 0.0);
     }
 
 }  // namespace DYN
