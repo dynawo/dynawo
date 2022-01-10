@@ -60,6 +60,8 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanDefineMethods) {
     SparseMatrix mat;
     std::vector<double> resd;
     std::vector<int> resi;
+    ASSERT_NO_THROW(mmm->getY0());
+    ASSERT_NO_THROW(mmm->setFequations());
     ASSERT_NO_THROW(mmm->evalF(0, UNDEFINED_EQ));
     ASSERT_NO_THROW(mmm->evalG(0));
     ASSERT_NO_THROW(mmm->evalZ(0));
@@ -69,7 +71,8 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanDefineMethods) {
     ASSERT_NO_THROW(mmm->evalMode(0));
     ASSERT_NO_THROW(mmm->evalJCalculatedVarI(0, resd));
     ASSERT_NO_THROW(mmm->getIndexesOfVariablesUsedForCalculatedVarI(0, resi));
-    // ASSERT_THROW_DYNAWO(mmm->evalCalculatedVarI(999), DYN::Error::MODELER);
+    ASSERT_THROW_DYNAWO(mmm->getIndexesOfVariablesUsedForCalculatedVarI(999, resi), DYN::Error::MODELER, DYN::KeyError_t::UndefJCalculatedVarI);
+    ASSERT_THROW_DYNAWO(mmm->evalCalculatedVarI(999), DYN::Error::MODELER, DYN::KeyError_t::UndefCalculatedVarI);
 }
 
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanEmptyInput) {
