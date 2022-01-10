@@ -174,7 +174,7 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanTypeMethods) {
 }
 
 
-TEST(ModelsMinMaxMean, ModelsMinMaxMeanDisconnectedInput) {
+TEST(ModelsMinMaxMean, ModelsMinMaxMeanSomeDisconnectedInputs) {
     unsigned int nbVoltages = 5;
     boost::shared_ptr<SubModel> mmm = initModelMinMaxMean(nbVoltages);
     ASSERT_EQ(mmm->sizeY(), 2*nbVoltages);
@@ -234,7 +234,6 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanAllDisconnectedInputs) {
     std::vector<char> zConnected(mmm->sizeZ(), false);
     mmm->setBufferZ(&z[0], reinterpret_cast<bool*>(zConnected.data()), 0);
 
-    // Added by JL, need to be cleaned with the above.
     std::vector<boost::shared_ptr<Variable> > variables;
     mmm->defineVariables(variables);
 
@@ -253,5 +252,41 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanAllDisconnectedInputs) {
     ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::maxValIdx_), -MAXFLOAT);
     ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::avgValIdx_), 0.0);
 }
+
+
+TEST(ModelsMinMaxMean, ModelsMinMaxMeanDataCoherenceExceptions) {
+    unsigned int nbVoltages = 25;
+    boost::shared_ptr<SubModel> mmm = initModelMinMaxMean(nbVoltages);
+    ASSERT_EQ(mmm->sizeY(), 2*nbVoltages);
+
+    std::vector<double> z(mmm->sizeZ(), 0);
+    // Binary variable for line connections
+    std::vector<char> zConnected(mmm->sizeZ(), false);
+    mmm->setBufferZ(&z[0], reinterpret_cast<bool*>(zConnected.data()), 0);
+
+    std::vector<boost::shared_ptr<Variable> > variables;
+    mmm->defineVariables(variables);
+
+    unsigned nbCalculated = DYN::ModelMinMaxMean::nbCalculatedVars_;
+    ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
+
+    std::vector<double> voltages(mmm->sizeY()+nbCalculated, 0.);
+    for (std::size_t i = 0; i < nbVoltages; ++i) {
+        voltages[i+nbCalculated] = static_cast<double>(i + 1);
+        voltages[i+nbCalculated+nbVoltages] = 1.0;  // Means FALSE
+    }
+    mmm->setBufferY(&voltages[0], nullptr, 0);
+    // FrequencyIncrease will need to be adapted once we know better.
+    ASSERT_THROW_DYNAWO(mmm->checkDataCoherence(0.), Error::MODELER, KeyError_t::FrequencyIncrease);
+
+    for (std::size_t i = 0; i < nbVoltages; ++i) {
+        voltages[i+nbCalculated] = -static_cast<double>(i + 1);
+        voltages[i+nbCalculated+nbVoltages] = 1.0;  // Means FALSE
+    }
+    mmm->setBufferY(&voltages[0], nullptr, 0);
+    // FrequencyCollapse will need to be adapted once we know better.
+    ASSERT_THROW_DYNAWO(mmm->checkDataCoherence(0.), Error::MODELER, KeyError_t::FrequencyCollapse);
+}
+
 
 }  // namespace DYN
