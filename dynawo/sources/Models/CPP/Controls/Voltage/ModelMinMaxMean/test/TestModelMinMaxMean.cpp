@@ -116,6 +116,7 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanSimpleInput) {
     ASSERT_EQ(mmm->evalCalculatedVarI(ModelMinMaxMean::avgValIdx_), nbVoltages * (nbVoltages + 1) / (2*nbVoltages));
 }
 
+
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanTypeMethods) {
     boost::shared_ptr<SubModel> mmm = initModelMinMaxMean();
 
@@ -154,6 +155,7 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanTypeMethods) {
     mmm->evalStaticFType();  // Does nothing here.
     ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
 }
+
 
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanDisconnectedInput) {
     unsigned int nbVoltages = 5;
@@ -205,7 +207,7 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanDisconnectedInput) {
 }
 
 
-TEST(ModelsMinMaxMean, ModelsMinMaxMeanDisconnectedInput) {
+TEST(ModelsMinMaxMean, ModelsMinMaxMeanAllDisconnectedInputs) {
     unsigned int nbVoltages = 25;
     boost::shared_ptr<SubModel> mmm = initModelMinMaxMean(nbVoltages);
     ASSERT_EQ(mmm->sizeY(), 2*nbVoltages);
@@ -222,7 +224,6 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanDisconnectedInput) {
     unsigned nbCalculated = DYN::ModelMinMaxMean::nbCalculatedVars_;
     ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
 
-    // The following is needed to check data coherence (otherwise no data has been set!)
     std::vector<double> voltages(mmm->sizeY()+nbCalculated, 0.);
     for (std::size_t i = 0; i < nbVoltages; ++i) {
         voltages[i+nbCalculated] = i + 1;
