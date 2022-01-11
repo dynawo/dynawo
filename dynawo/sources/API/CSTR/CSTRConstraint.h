@@ -45,18 +45,19 @@ struct ConstraintData {
   /**
    * @brief Construct a new Constraint Data object
    *
-   * @param kind Kind of constraint
-   * @param limit Limit of the constraint
-   * @param value value of the constraint
-   * @param side Side the constraint applies
-   * @param acceptableDuration the acceptable duration of the constraint
+   * @param constraintKind Kind of constraint
+   * @param constraintLimit Limit of the constraint
+   * @param constraintValue value of the constraint
+   * @param constraintSide Side the constraint applies
+   * @param constraintAcceptableDuration the acceptable duration of the constraint
    */
-  ConstraintData(kind_t kind, double limit, double value, boost::optional<int> side = boost::none, boost::optional<double> acceptableDuration = boost::none) :
-      kind(kind),
-      limit(limit),
-      value(value),
-      side(side),
-      acceptableDuration(acceptableDuration) {}
+  ConstraintData(kind_t constraintKind, double constraintLimit, double constraintValue,
+      boost::optional<int> constraintSide = boost::none, boost::optional<double> constraintAcceptableDuration = boost::none) :
+      kind(constraintKind),
+      limit(constraintLimit),
+      value(constraintValue),
+      side(constraintSide),
+      acceptableDuration(constraintAcceptableDuration) {}
 };
 
 /**

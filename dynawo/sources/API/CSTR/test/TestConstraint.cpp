@@ -40,7 +40,7 @@ TEST(APICSTRTest, Constraint) {
   ASSERT_EQ(constraint->getType(), CONSTRAINT_BEGIN);
   ASSERT_EQ(constraint->getTime(), 1.2);
   ASSERT_EQ(constraint->getDescription(), "constraint");
-  ASSERT_EQ(constraint->getData(), boost::none);
+  ASSERT_TRUE(constraint->getData() == boost::none);
 }
 
 TEST(APICSTRTest, ConstraintData) {
