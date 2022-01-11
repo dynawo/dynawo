@@ -73,6 +73,9 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanDefineMethods) {
     ASSERT_NO_THROW(mmm->getIndexesOfVariablesUsedForCalculatedVarI(0, resi));
     ASSERT_THROW_DYNAWO(mmm->getIndexesOfVariablesUsedForCalculatedVarI(999, resi), DYN::Error::MODELER, DYN::KeyError_t::UndefJCalculatedVarI);
     ASSERT_THROW_DYNAWO(mmm->evalCalculatedVarI(999), DYN::Error::MODELER, DYN::KeyError_t::UndefCalculatedVarI);
+
+    ASSERT_NO_THROW(mmm->setGequations());
+    // ASSERT_NO_THROW(mmm->initParams());
 }
 
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanEmptyInput) {
@@ -350,6 +353,53 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanUnknownIdxCalculatedVar) {
     mmm->evalDynamicYType();
 
     ASSERT_THROW_DYNAWO(mmm->evalCalculatedVarI(ModelMinMaxMean::nbCalculatedVars_), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+}
+
+TEST(ModelsMinMaxMean, ModelsMinMaxMeanIndexesOfCalcVar) {
+    unsigned int nbVoltages = 25;
+    boost::shared_ptr<SubModel> mmm = initModelMinMaxMean(nbVoltages);
+    ASSERT_EQ(mmm->sizeY(), nbVoltages);
+
+    // Binary variable for line connections
+    std::vector<double> z(mmm->sizeZ(), 0.);
+    bool* zConnected = new bool[mmm->sizeZ()];
+
+    std::vector<boost::shared_ptr<Variable> > variables;
+    mmm->defineVariables(variables);
+
+    ASSERT_NO_THROW(mmm->initializeFromData(boost::shared_ptr<DataInterface>()));
+
+    std::vector<double> voltages(mmm->sizeY(), 0.);
+    for (std::size_t i = 0; i < nbVoltages; ++i) {
+        voltages[i] = static_cast<double>(i + 1);
+        z[i] = 1.0;
+        zConnected[i] = true;
+    }
+    mmm->setBufferY(&voltages[0], nullptr, 0);
+    mmm->setBufferZ(&z[0], zConnected, 0);
+    // Check the indexes needed for computing the min
+    std::vector<int> minIndexes;
+    mmm->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelMinMaxMean::minValIdx_, minIndexes);
+
+    for (std::size_t i=0; i < nbVoltages; ++i) {
+        ASSERT_EQ(minIndexes[i], i);
+    }
+
+    // Check the indexes needed for computing the max
+    std::vector<int> maxIndexes;
+    mmm->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelMinMaxMean::maxValIdx_, maxIndexes);
+
+    for (std::size_t i=0; i < nbVoltages; ++i) {
+        ASSERT_EQ(maxIndexes[i], i);
+    }
+
+    // Check the indexes needed for computing the min
+    std::vector<int> avgIndexes;
+    mmm->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelMinMaxMean::avgValIdx_, avgIndexes);
+
+    for (std::size_t i=0; i < nbVoltages; ++i) {
+        ASSERT_EQ(avgIndexes[i], i);
+    }
 }
 
 

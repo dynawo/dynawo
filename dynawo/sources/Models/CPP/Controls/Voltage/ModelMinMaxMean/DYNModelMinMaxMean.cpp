@@ -173,8 +173,8 @@ ModelMinMaxMean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned int iCalcul
     case maxValIdx_:
     case avgValIdx_:
       for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
-        indexes.push_back(nbCalculatedVars_ + i);  // Adds the voltage ...
-        indexes.push_back(nbCalculatedVars_ + i + nbConnectedInputs_);  // and the boolean
+        indexes.push_back(i);  // Adds the voltage ...
+        // indexes.push_back(i + nbConnectedInputs_);  // and the boolean
       }
       break;
     default:
