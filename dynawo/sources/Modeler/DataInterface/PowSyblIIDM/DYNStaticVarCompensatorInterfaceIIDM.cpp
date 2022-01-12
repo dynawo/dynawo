@@ -43,19 +43,22 @@ StaticVarCompensatorInterfaceIIDM::StaticVarCompensatorInterfaceIIDM(StaticVarCo
 InjectorInterfaceIIDM(svc, svc.getId()),
 staticVarCompensatorIIDM_(svc) {
   setType(ComponentInterface::SVC);
-  stateVariables_.resize(4);
-  stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
-  stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
-  stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
-  stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
 
   auto libPath = IIDMExtensions::findLibraryPath();
   auto extensionDef = IIDMExtensions::getExtension<StaticVarCompensatorInterfaceIIDMExtension>(libPath.generic_string());
 
   extension_ = std::get<IIDMExtensions::CREATE_FUNCTION>(extensionDef)(svc);
   destroy_extension_ = std::get<IIDMExtensions::DESTROY_FUNCTION>(extensionDef);
-
   voltagePerReactivePowerControl_ = svc.findExtension<powsybl::iidm::extensions::iidm::VoltagePerReactivePowerControl>();
+
+  stateVariables_.resize(3);
+  stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
+  stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
+  stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
+  if (hasStandbyAutomaton()) {
+    stateVariables_.resize(4);
+    stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
+  }
 }
 
 int
@@ -77,25 +80,25 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
   staticVarCompensatorIIDM_.getTerminal().setP(-1 * getValue<double>(VAR_P) * SNREF);
   staticVarCompensatorIIDM_.getTerminal().setQ(-1 * getValue<double>(VAR_Q) * SNREF);
   bool connected = (getValue<int>(VAR_STATE) == CLOSED);
-  int regulatingMode = getValue<int>(VAR_REGULATINGMODE);
-  bool standbyMode(false);
-  switch (regulatingMode) {
-    case StaticVarCompensatorInterface::OFF:
-      staticVarCompensatorIIDM_.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::OFF);
-      break;
-    case StaticVarCompensatorInterface::STANDBY:
-      standbyMode = true;
-      break;
-    case StaticVarCompensatorInterface::RUNNING_Q:
-      staticVarCompensatorIIDM_.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::REACTIVE_POWER);
-      break;
-    case StaticVarCompensatorInterface::RUNNING_V:
-      staticVarCompensatorIIDM_.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::VOLTAGE);
-      break;
-    default:
-      throw DYNError(Error::STATIC_DATA, RegulationModeNotInIIDM, regulatingMode, staticVarCompensatorIIDM_.getId());
-  }
-  if (extension_) {
+  if (hasStandbyAutomaton()) {
+    int regulatingMode = getValue<int>(VAR_REGULATINGMODE);
+    bool standbyMode(false);
+    switch (regulatingMode) {
+      case StaticVarCompensatorInterface::OFF:
+        staticVarCompensatorIIDM_.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::OFF);
+        break;
+      case StaticVarCompensatorInterface::STANDBY:
+        standbyMode = true;
+        break;
+      case StaticVarCompensatorInterface::RUNNING_Q:
+        staticVarCompensatorIIDM_.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::REACTIVE_POWER);
+        break;
+      case StaticVarCompensatorInterface::RUNNING_V:
+        staticVarCompensatorIIDM_.setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::VOLTAGE);
+        break;
+      default:
+        throw DYNError(Error::STATIC_DATA, RegulationModeNotInIIDM, regulatingMode, staticVarCompensatorIIDM_.getId());
+    }
     extension_->exportStandByMode(standbyMode);
   }
 
