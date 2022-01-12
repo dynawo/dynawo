@@ -49,6 +49,8 @@
 #include <IIDM/builders/LoadBuilder.h>
 #include <IIDM/builders/SwitchBuilder.h>
 #include <IIDM/builders/VscConverterStationBuilder.h>
+#include <IIDM/extensions/standbyAutomaton/StandbyAutomaton.h>
+#include <IIDM/extensions/standbyAutomaton/StandbyAutomatonBuilder.h>
 
 #include <IIDM/extensions/generatorActivePowerControl/GeneratorActivePowerControl.h>
 #include <IIDM/extensions/generatorActivePowerControl/GeneratorActivePowerControlBuilder.h>
@@ -237,10 +239,13 @@ createNetwork(const NetworkProperty& properties) {
 
   if (properties.instantiateStaticVarCompensator) {
     IIDM::builders::StaticVarCompensatorBuilder svcb;
+    IIDM::extensions::standbyautomaton::StandbyAutomatonBuilder sbab;
+    sbab.standBy(true);
     svcb.regulationMode(IIDM::StaticVarCompensator::regulation_voltage);
     svcb.bmin(1.0);
     svcb.bmax(10.0);
     IIDM::StaticVarCompensator svc = svcb.build("MyStaticVarCompensator");
+    svc.setExtension(sbab.build());
     vl.add(svc, c1);
   }
 
@@ -329,7 +334,7 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
     ASSERT_EQ(staticVarCompensators.size(), 1);
     for (std::size_t j = 0, jEnd = staticVarCompensators.size(); j < jEnd; ++j) {
       shared_ptr<StaticVarCompensatorInterface> staticVarCompensator = staticVarCompensators[j];
-      ASSERT_EQ(staticVarCompensator->getRegulationMode(), StaticVarCompensatorInterface::RUNNING_V);
+      ASSERT_EQ(staticVarCompensator->getRegulationMode(), StaticVarCompensatorInterface::STANDBY);
     }
 
     ASSERT_EQ(voltageLevel->getDanglingLines().size(), 1);
