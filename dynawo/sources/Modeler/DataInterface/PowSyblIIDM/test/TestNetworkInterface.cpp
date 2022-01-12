@@ -200,6 +200,9 @@ TEST(DataInterfaceTest, Network) {
       .setNominalV(13.0)
       .setR(14.0)
       .add();
+
+  powsybl::iidm::extensions::SlackTerminal::attach(vl1Bus1);
+
   NetworkInterfaceIIDM network(networkIIDM);
   shared_ptr<LineInterface> li(new LineInterfaceIIDM(MyLine));
   shared_ptr<VoltageLevelInterface> vl(new VoltageLevelInterfaceIIDM(vl1));
@@ -231,5 +234,9 @@ TEST(DataInterfaceTest, Network) {
   ASSERT_EQ(network.getHvdcLines().size(), 0);
   network.addHvdcLine(hvdc);
   ASSERT_EQ(network.getHvdcLines().size(), 1);
+
+  auto slackBus = network.getSlackNodeBusId();
+  ASSERT_TRUE(slackBus);
+  ASSERT_EQ(slackBus.value(), "VL1_BUS1");
 }
 }  // namespace DYN

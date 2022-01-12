@@ -145,4 +145,14 @@ ShuntCompensatorInterfaceIIDM::isLinear() const {
   return (shuntCompensatorIIDM_.getModelType() == powsybl::iidm::ShuntCompensatorModelType::LINEAR);
 }
 
+bool
+ShuntCompensatorInterfaceIIDM::isVoltageRegulationOn() const {
+  return shuntCompensatorIIDM_.isVoltageRegulatorOn();
+}
+
+double
+ShuntCompensatorInterfaceIIDM::getTargetV() const {
+  return shuntCompensatorIIDM_.getTargetV();
+}
+
 }  // namespace DYN

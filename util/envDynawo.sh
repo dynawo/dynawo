@@ -1982,6 +1982,7 @@ create_distrib_with_headers() {
   cd "$DYNAWO_DEPLOY_DIR/.."
   zip -r -y $ZIP_FILE dynawo/bin/ dynawo/lib/ dynawo/sources/ dynawo/testcases/
   zip -r -g -y $ZIP_FILE dynawo/dynawo.sh
+  zip -r -g -y $ZIP_FILE dynawo/dynawoEnv.txt
 
   zip -r -g -y $ZIP_FILE dynawo/share/iidm dynawo/share/xsd dynawo/share/*.dic dynawo/share/*.par dynawo/share/cmake dynawo/share/dynawo-*.cmake
 

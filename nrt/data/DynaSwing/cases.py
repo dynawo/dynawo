@@ -47,3 +47,23 @@ case_description = "IEEE57 - Fault on generator 12"
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEEE57", "IEEE57_Fault", "IEEE57.jobs")
 
 test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
+
+##################################
+#     WECC PV Current Source     #
+##################################
+
+case_name = "DynaSwing - WECC - PV - Current source"
+case_description = "WECC - PV - Current Source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECCPVCurrentSource", "WECCPV.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+##################################
+#     WECC PV Voltage Source     #
+##################################
+
+case_name = "DynaSwing - WECC - PV - Voltage Source"
+case_description = "WECC - PV - Voltage Source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECCPVVoltageSource", "WECCPVVSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))

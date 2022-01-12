@@ -137,11 +137,15 @@ TEST(DataInterfaceTest, HvdcLine) {
   ASSERT_FALSE(Ifce.getOprFromCS2toCS1());
 
   ASSERT_TRUE(Ifce.isConnected());
+  ASSERT_TRUE(Ifce.isPartiallyConnected());
   lcc.getTerminal().disconnect();
   ASSERT_FALSE(Ifce.isConnected());
+  ASSERT_TRUE(Ifce.isPartiallyConnected());
   vsc.getTerminal().disconnect();
   ASSERT_FALSE(Ifce.isConnected());
+  ASSERT_FALSE(Ifce.isPartiallyConnected());
   lcc.getTerminal().connect();
   ASSERT_FALSE(Ifce.isConnected());
+  ASSERT_TRUE(Ifce.isPartiallyConnected());
 }  // TEST(DataInterfaceTest, HvdcLine)
 }  // namespace DYN

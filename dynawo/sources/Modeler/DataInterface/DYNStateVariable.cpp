@@ -31,10 +31,6 @@ using std::string;
 namespace DYN {
 StateVariable::StateVariable() :
 type_(StateVariable::DOUBLE),  // most used type
-value_(boost::none),
-name_(""),
-modelId_(""),
-variableId_(""),
 valueAffected_(false),
 rawValue_(0.),
 neededForCriteriaCheck_(false) {
@@ -42,44 +38,10 @@ neededForCriteriaCheck_(false) {
 
 StateVariable::StateVariable(const string& name, const StateVariableType& type, bool neededForCriteriaCheck) :
 type_(type),
-value_(boost::none),
 name_(name),
-modelId_(""),
-variableId_(""),
 valueAffected_(false),
 rawValue_(0.),
 neededForCriteriaCheck_(neededForCriteriaCheck) {
-}
-
-StateVariable::StateVariable(const StateVariable& origin):
-type_(origin.type_),
-value_(origin.value_),
-name_(origin.name_),
-modelId_(origin.modelId_),
-variableId_(origin.variableId_),
-variable_(origin.variable_),
-valueAffected_(origin.valueAffected_),
-rawValue_(origin.rawValue_),
-neededForCriteriaCheck_(origin.neededForCriteriaCheck_)  {
-}
-
-StateVariable&
-StateVariable::operator=(const StateVariable& origin) {
-  if (this == &origin)
-    return *this;
-  type_ = origin.type_;
-  value_ = origin.value_;
-  name_ = origin.name_;
-  modelId_ = origin.modelId_;
-  variableId_ = origin.variableId_;
-  variable_ = origin.variable_;
-  valueAffected_ = origin.valueAffected_;
-  rawValue_ = origin.rawValue_;
-  neededForCriteriaCheck_ = origin.neededForCriteriaCheck_;
-  return *this;
-}
-
-StateVariable::~StateVariable() {
 }
 
 string

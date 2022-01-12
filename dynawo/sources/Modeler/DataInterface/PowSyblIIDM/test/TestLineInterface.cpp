@@ -133,10 +133,13 @@ TEST(DataInterfaceTest, Line) {
   ASSERT_TRUE(li.getInitialConnected2());
 
   ASSERT_TRUE(li.isConnected());
+  ASSERT_TRUE(li.isPartiallyConnected());
   MyLine.getTerminal1().disconnect();
   ASSERT_FALSE(li.isConnected());
+  ASSERT_TRUE(li.isPartiallyConnected());
   MyLine.getTerminal2().disconnect();
   ASSERT_FALSE(li.isConnected());
+  ASSERT_FALSE(li.isPartiallyConnected());
   ASSERT_DOUBLE_EQ(li.getVNom1(), 380.0);
   ASSERT_DOUBLE_EQ(li.getVNom2(), 360.0);
   ASSERT_TRUE(li.getInitialConnected1());
@@ -144,8 +147,10 @@ TEST(DataInterfaceTest, Line) {
 
   MyLine.getTerminal1().connect();
   ASSERT_FALSE(li.isConnected());
+  ASSERT_TRUE(li.isPartiallyConnected());
   MyLine.getTerminal2().connect();
   ASSERT_TRUE(li.isConnected());
+  ASSERT_TRUE(li.isPartiallyConnected());
   ASSERT_DOUBLE_EQ(li.getVNom1(), 380.0);
   ASSERT_DOUBLE_EQ(li.getVNom2(), 360.0);
 

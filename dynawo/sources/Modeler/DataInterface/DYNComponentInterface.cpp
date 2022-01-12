@@ -106,6 +106,13 @@ ComponentInterface::isConnected() const {
   return false;  // default connection state
 }
 
+bool
+ComponentInterface::isPartiallyConnected() const {
+  // only components with multiple ends should override this
+  // for components with only one end being partially connected is equivalent to being connected
+  return isConnected();
+}
+
 void
 ComponentInterface::setType(const ComponentInterface::ComponentType_t& type) {
   type_ = type;

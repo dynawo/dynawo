@@ -164,8 +164,10 @@ TEST(DataInterfaceTest, VscConverter) {
   ASSERT_DOUBLE_EQ(Ifce.getQMax(), 15.0);
 
   ASSERT_TRUE(Ifce.isConnected());
+  ASSERT_TRUE(Ifce.isPartiallyConnected());
   vsc.getTerminal().disconnect();
   ASSERT_FALSE(Ifce.isConnected());
+  ASSERT_FALSE(Ifce.isPartiallyConnected());
   ASSERT_TRUE(Ifce.getInitialConnected());
   ASSERT_DOUBLE_EQ(Ifce.getQMin(), 10.0);
   const auto& points = Ifce.getReactiveCurvesPoints();
