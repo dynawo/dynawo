@@ -38,7 +38,7 @@ static boost::shared_ptr<SubModel> initModelMinMaxMean(unsigned int nbVoltages_ 
     boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
     parametersSet->createParameter("nbInputs", static_cast<int>(nbVoltages_));
     mmm->setPARParameters(parametersSet);
-    mmm->addParameters(parameters, false);  // Might be true here.
+    mmm->addParameters(parameters, false);  // Might be true here?
     mmm->setParametersFromPARFile();
     mmm->setSubModelParameters();
     mmm->getSize();  // Sets all the sizes
@@ -75,7 +75,6 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanDefineMethods) {
     ASSERT_THROW_DYNAWO(mmm->evalCalculatedVarI(999), DYN::Error::MODELER, DYN::KeyError_t::UndefCalculatedVarI);
 
     ASSERT_NO_THROW(mmm->setGequations());
-    // ASSERT_NO_THROW(mmm->initParams());
 }
 
 TEST(ModelsMinMaxMean, ModelsMinMaxMeanEmptyInput) {
@@ -400,6 +399,9 @@ TEST(ModelsMinMaxMean, ModelsMinMaxMeanIndexesOfCalcVar) {
     for (std::size_t i=0; i < nbVoltages; ++i) {
         ASSERT_EQ(avgIndexes[i], i);
     }
+
+    ASSERT_THROW_DYNAWO(mmm->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelMinMaxMean::nbCalculatedVars_, avgIndexes),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 }
 
 

@@ -28,7 +28,6 @@
 #include "DYNModelMinMaxMean.hpp"
 #include "DYNModelConstants.h"
 #include "DYNElement.h"
-// #include "DYNSparseMatrix.h"
 #include "DYNMacrosMessage.h"
 #include "DYNElement.h"
 #include "DYNCommonModeler.h"
@@ -148,11 +147,7 @@ ModelMinMaxMean::evalZ(const double /*t*/) {
 
 void
 ModelMinMaxMean::collectSilentZ(BitMask* /*silentZTable*/) {
-  /*
-  for (unsigned k = 0; k < sizeZ_; ++k) {
-    silentZTable[k].setFlags(NotUsedInDiscreteEquations);
-  }
-  */
+  // Not needed here.
 }
 
 modeChangeType_t
@@ -167,14 +162,13 @@ ModelMinMaxMean::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>
 
 void
 ModelMinMaxMean::getIndexesOfVariablesUsedForCalculatedVarI(unsigned int iCalculatedVar, std::vector<int>& indexes) const {
-  // Need to return the variables for the input voltages and associated booleans
+  // Need to return the variables for the input voltages (and associated booleans ??)
   switch (iCalculatedVar) {
     case minValIdx_:
     case maxValIdx_:
     case avgValIdx_:
       for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
-        indexes.push_back(i);  // Adds the voltage ...
-        // indexes.push_back(i + nbConnectedInputs_);  // and the boolean
+        indexes.push_back(i);  // Adds the voltages
       }
       break;
     default:
@@ -239,7 +233,7 @@ ModelMinMaxMean::defineVariables(vector<shared_ptr<Variable> >& variables) {
   for (std::size_t i=0; i < nbConnectedInputs_; i++) {
     name.str("");
     name.clear();
-    name << "UMonitored_" << i << "Pu_value";  // As in "Voltage INput"
+    name << "UMonitored_" << i << "Pu_value";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
 
@@ -300,8 +294,8 @@ ModelMinMaxMean::defineElements(std::vector<Element> &elements, std::map<std::st
 void
 ModelMinMaxMean::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << "VinPu_" << "<0-" << nbConnectedInputs_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "isActive_" << "<0-" << nbConnectedInputs_ << ">_value" << Trace::endline;
+  Trace::info() << "  ->" << "UMonitored_" << "<0-" << nbConnectedInputs_ << ">_value" << Trace::endline;
+  Trace::info() << "  ->" << "running_" << "<0-" << nbConnectedInputs_ << ">_value" << Trace::endline;
 }
 
 void
