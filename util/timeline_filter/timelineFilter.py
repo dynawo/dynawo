@@ -186,10 +186,10 @@ def getFileType(filename):
 
 def checkEnvVar():
     if os.getenv("DYNAWO_RESOURCES_DIR") is None:
-        print("environment variable DYNAWO_RESOURCES_DIR needs to be defined")
+        print("[ERROR] environment variable DYNAWO_RESOURCES_DIR needs to be defined")
         exit(1)
     if os.getenv("DYNAWO_LOCALE") is None:
-        print("environment variable DYNAWO_LOCALE needs to be defined")
+        print("[ERROR] environment variable DYNAWO_LOCALE needs to be defined")
         exit(1)
 
 def loadOppositeEventsTable():
@@ -210,7 +210,7 @@ def parseXml(filepath, timeline):
     try:
         (root, ns, _, prefix_str) = ImportXMLFileExtended(filepath)
     except:
-        print ("Fail to import XML file " + filepath)
+        print ("[ERROR] Fail to import XML file " + filepath)
         sys.exit(1)
 
     for event_timeline in FindAll(root, prefix_str, "event", ns):
