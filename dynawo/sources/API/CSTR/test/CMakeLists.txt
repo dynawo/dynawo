@@ -14,6 +14,7 @@ set(MODULE_SOURCES
     Test.cpp
     TestConstraint.cpp
     TestConstraintsCollection.cpp
+    TestExporter.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

@@ -100,8 +100,8 @@ record Parameters "Parameters of the PV WECC model"
 
   record Params_VSourceRef
     parameter Types.Time tE "Emulated delay in converter controls in s (cannot be zero, typical: 0.02..0.05)";
-    parameter Types.PerUnit RPu "Source resistance in p.u (base UNom, SNom)";
-    parameter Types.PerUnit XPu "Source reactance in p.u (base UNom, SNom)";
+    parameter Types.PerUnit RSourcePu "Source resistance in p.u (base UNom, SNom)";
+    parameter Types.PerUnit XSourcePu "Source reactance in p.u (base UNom, SNom)";
   annotation(preferredView = "text");
   end Params_VSourceRef;
 

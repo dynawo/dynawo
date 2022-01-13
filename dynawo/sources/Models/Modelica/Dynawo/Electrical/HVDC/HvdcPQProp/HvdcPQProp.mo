@@ -27,13 +27,15 @@ model HvdcPQProp "Model of HVDC link with a proportional reactive power control.
 
 */
 
-  Connectors.ZPin Q1RefPu (value (start = s10Pu.im)) "Reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 1";
-  Connectors.ZPin Q2RefPu (value (start = s20Pu.im)) "Reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 2";
-  Connectors.BPin modeU1 (value (start = modeU10)) "Boolean assessing the mode of the control of converter 1: true if U mode (here a proportional Q regulation), false if Q mode (fixed Q)";
-  Connectors.BPin modeU2 (value (start = modeU20)) "Boolean assessing the mode of the control of converter 2: true if U mode (here a proportional Q regulation), false if Q mode (fixed Q)";
+  Connectors.ZPin Q1RefPu(value(start = Q1Ref0Pu)) "Reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 1";
+  Connectors.ZPin Q2RefPu(value(start = Q2Ref0Pu)) "Reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 2";
+  Connectors.BPin modeU1(value(start = modeU10)) "Boolean assessing the mode of the control of converter 1: true if U mode (here a proportional Q regulation), false if Q mode (fixed Q)";
+  Connectors.BPin modeU2(value(start = modeU20)) "Boolean assessing the mode of the control of converter 2: true if U mode (here a proportional Q regulation), false if Q mode (fixed Q)";
   Connectors.ImPin NQ1 "Signal to change the reactive power of converter 1 depending on the centralized voltage regulation (generator convention)";
   Connectors.ImPin NQ2 "Signal to change the reactive power of converter 2 depending on the centralized voltage regulation (generator convention)";
 
+  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 1";
+  parameter Types.ReactivePowerPu Q2Ref0Pu "Start value of reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 2";
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control of converter 1";
   parameter Boolean modeU20 "Start value of the boolean assessing the mode of the control of converter 2";
   parameter Real QPercent1 "Percentage of the coordinated reactive control that comes from converter 1";
