@@ -99,15 +99,6 @@ class Simulation {
   } exportTimelineMode_t;
 
   /**
-   * @brief Export mode for finalState
-   * finalState's export mode controlling the format of the finalState's output file
-   */
-  typedef enum {
-    EXPORT_FINALSTATE_NONE,  ///< Export no final state
-    EXPORT_FINALSTATE_XML  ///< Export final states selected in input file in XML mode in output file
-  } exportFinalStateMode_t;
-
-  /**
    * @brief Export mode for constraint's state
    * constraint's state export mode controlling the format of the constraint's output file
    */
@@ -281,13 +272,7 @@ class Simulation {
   inline void setCurvesOutputFile(const std::string& outputFile) {
     curvesOutputFile_ = outputFile;
   }
-  /**
-   * @brief setter for the export mode of final state
-   * @param mode final state's export mode
-   */
-  inline void setFinalStateExportMode(const exportFinalStateMode_t& mode) {
-    exportFinalStateMode_ = mode;
-  }
+
   /**
    * @brief setter for the constraints' output file
    * @param outputFile constraints' output file
@@ -599,8 +584,6 @@ class Simulation {
 
   std::string timetableOutputFile_;  ///< timetable export file
   int timetableSteps_;  ///< timetable' steps
-
-  exportFinalStateMode_t exportFinalStateMode_;  ///< final state's export mode
 
   exportConstraintsMode_t exportConstraintsMode_;  ///< contstraints' export mode
   std::string constraintsOutputFile_;  ///< constraints' export file

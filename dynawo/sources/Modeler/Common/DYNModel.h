@@ -34,11 +34,6 @@ namespace constraints {
 class ConstraintsCollection;
 }  // namespace constraints
 
-namespace finalState {
-class FinalStateModel;
-class Variable;
-}  // namespace finalState
-
 namespace curves {
 class Curve;
 class CurvesCollection;
@@ -449,20 +444,6 @@ class Model {
    * @return true if the curve was added
    */
   virtual bool initCurves(boost::shared_ptr<curves::Curve>& curve) = 0;
-
-  /**
-   * @brief fill variables with the current value
-   *
-   * @param model final state model where variables are stored
-   */
-  virtual void fillVariables(boost::shared_ptr<finalState::FinalStateModel>& model) = 0;
-
-  /**
-   * @brief fill variable with the current value
-   *
-   * @param variable variable to fill
-   */
-  virtual void fillVariable(boost::shared_ptr<finalState::Variable>& variable) = 0;
 
   /**
    * @brief set the simulation working directory to use
