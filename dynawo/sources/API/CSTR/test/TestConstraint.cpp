@@ -49,8 +49,8 @@ TEST(APICSTRTest, ConstraintData) {
   ASSERT_EQ(a.kind, ConstraintData::UInfUmin);
   ASSERT_EQ(a.limit, 120.0);
   ASSERT_EQ(a.value, 20.0);
-  ASSERT_EQ(a.side, boost::none);
-  ASSERT_EQ(a.acceptableDuration, boost::none);
+  ASSERT_TRUE(a.side == boost::none);
+  ASSERT_TRUE(a.acceptableDuration == boost::none);
 
   ConstraintData b = ConstraintData(ConstraintData::PATL, 0.0, 0.0, 1, 0.5);
   ASSERT_EQ(b.kind, ConstraintData::PATL);

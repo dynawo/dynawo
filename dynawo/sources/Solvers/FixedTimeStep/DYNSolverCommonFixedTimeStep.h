@@ -79,7 +79,6 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
 
   /**
   * @brief compute YP prediction
-  * @return nothing
   */
   virtual void computePrediction() = 0;
 
