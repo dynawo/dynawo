@@ -22,8 +22,8 @@ model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps mac
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   parameter Real Gain "Control gain";
-  parameter Types.VoltageModulePu UsRefMaxPu "Maximum stator reference voltage in p.u (base UNom)";
-  parameter Types.VoltageModulePu UsRefMinPu "Maximum stator reference voltage in p.u (base UNom)";
+  parameter Types.VoltageModulePu UsRefMaxPu "Maximum stator reference voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UsRefMinPu "Maximum stator reference voltage in pu (base UNom)";
   parameter Types.VoltageModulePu EfdMinPu "Minimum allowed EfdPu";
   parameter Types.VoltageModulePu EfdMaxPu "Maximum allowed EfdPu";
   parameter Types.Time LagEfdMin "Time lag before taking action when going below EfdMin";
@@ -59,8 +59,8 @@ model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps mac
     Placement(visible = true, transformation(origin = {-98, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 protected
 
-  parameter Types.VoltageModulePu UsRef0Pu  "Initial control voltage, p.u. = Unom";
-  parameter Types.VoltageModulePu Us0Pu  "Initial stator voltage, p.u. = Unom";
+  parameter Types.VoltageModulePu UsRef0Pu  "Initial control voltage, pu = Unom";
+  parameter Types.VoltageModulePu Us0Pu  "Initial stator voltage, pu = Unom";
   parameter Types.VoltageModulePu Efd0Pu "Initial Efd";
   parameter Types.PerUnit yIntegrator0 "Initial control before saturation";
 

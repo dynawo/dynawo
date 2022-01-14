@@ -22,39 +22,39 @@ model ActivePowerControlSide "Active Power Control Side of the HVDC link"
 
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ActivePowerControl;
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ACVoltageControl;
-  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in p.u (base SNom, UNom)";
-  parameter Types.CurrentModulePu InPu "Nominal current in p.u (base SNom, UNom)";
+  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
+  parameter Types.CurrentModulePu InPu "Nominal current in pu (base SNom, UNom)";
 
-  Modelica.Blocks.Interfaces.RealInput QRefPu(start = Q0Pu) "Reference reactive power in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRefPu(start = Q0Pu) "Reference reactive power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-107, -64}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-33, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PPu(start = P0Pu) "Active power in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PPu(start = P0Pu) "Active power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-107, 40}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-47, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput QPu(start = Q0Pu) "Reactive power in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QPu(start = Q0Pu) "Reactive power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-107, -88}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-93, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage module in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage module in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-107, -76}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.BooleanInput blocked(start = false) "Boolean assessing the state of the HVDC link: true if blocked, false if not blocked" annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {46, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.BooleanInput modeU(start = modeU0) "Boolean assessing the mode of the control: true if U mode, false if Q mode" annotation(
     Placement(visible = true, transformation(origin = {-107, -100}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {99, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC voltage in p.u (base UdcNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC voltage in pu (base UdcNom)" annotation(
     Placement(visible = true, transformation(origin = {-107, 80}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {93, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = P0Pu) "Reference active power in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = P0Pu) "Reference active power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-107, 60}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-99, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.BooleanInput activateDeltaP(start = false) "Boolean that indicates whether DeltaP is activated or not" annotation(
     Placement(visible = true, transformation(origin = {-107, 100}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {110, 86}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = U0Pu + Lambda * Q0Pu) "Reference voltage in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = U0Pu + Lambda * Q0Pu) "Reference voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-107, -52}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {33, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput iqMod1Pu(start = 0) "Additional reactive current in case of fault or overvoltage in p.u for the other HVDC terminal (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqMod1Pu(start = 0) "Additional reactive current in case of fault or overvoltage in pu for the other HVDC terminal (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {107, 12}, extent = {{7, -7}, {-7, 7}}, rotation = 0), iconTransformation(origin = {110, -58}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealInput iqRef1Pu(start = Iq0Pu) "Reactive current reference in p.u for the other HVDC terminal (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqRef1Pu(start = Iq0Pu) "Reactive current reference in pu for the other HVDC terminal (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {107, -12}, extent = {{7, -7}, {-7, 7}}, rotation = 0), iconTransformation(origin = {-110, -69}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
 
-  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in p.u (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {107, -70}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = { -110, -28}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealOutput ipRefPPu(start = Ip0Pu) "Active current reference in p.u (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput ipRefPPu(start = Ip0Pu) "Active current reference in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {107, 70}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = { -110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealOutput iqModPu(start = 0) "Additional reactive current in case of fault or overvoltage in p.u (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqModPu(start = 0) "Additional reactive current in case of fault or overvoltage in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {107, -52}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput POutPu annotation(
     Placement(visible = true, transformation(origin = {107, 40}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -68,12 +68,12 @@ model ActivePowerControlSide "Active Power Control Side of the HVDC link"
 
 protected
 
-  parameter Types.VoltageModulePu Udc0Pu "Start value of dc voltage in p.u (base SNom, UNom)";
-  parameter Types.PerUnit Ip0Pu "Start value of active current in p.u (base SNom)";
-  parameter Types.PerUnit Iq0Pu "Start value of reactive current in p.u (base SNom)";
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SNom) (generator convention)";
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude in p.u (base UNom)";
-  parameter Types.ActivePowerPu P0Pu  "Start value of active power in p.u (base SNom) (generator convention)";
+  parameter Types.VoltageModulePu Udc0Pu "Start value of dc voltage in pu (base SNom, UNom)";
+  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";
+  parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom)";
+  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SNom) (generator convention)";
+  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude in pu (base UNom)";
+  parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SNom) (generator convention)";
   parameter Boolean modeU0 "Start value of the boolean assessing the mode of the control: true if U mode, false if Q mode";
 
 equation

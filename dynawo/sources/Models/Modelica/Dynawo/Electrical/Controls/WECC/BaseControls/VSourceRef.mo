@@ -29,16 +29,16 @@ model VSourceRef
 
   extends Parameters.Params_VSourceRef;
 
-  ComplexBlocks.Interfaces.ComplexInput uInjPu(re(start = uInj0Pu.re), im(start = uInj0Pu.im)) "Complex voltage at injector in p.u (base UNom)" annotation(
+  ComplexBlocks.Interfaces.ComplexInput uInjPu(re(start = uInj0Pu.re), im(start = uInj0Pu.im)) "Complex voltage at injector in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-130, 5}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Blocks.Interfaces.RealInput idPu(start = Id0Pu) "d-axis current in p.u (base SNom, UNom) (generator convention)" annotation(
+  Blocks.Interfaces.RealInput idPu(start = Id0Pu) "d-axis current in pu (base SNom, UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealInput iqPu(start = Iq0Pu) "q-axis current in p.u (base SNom, UNom) (generator convention)" annotation(
+  Blocks.Interfaces.RealInput iqPu(start = Iq0Pu) "q-axis current in pu (base SNom, UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Blocks.Interfaces.RealOutput urSourcePu(start = uSource0Pu.re) "Real voltage at source in p.u (base UNom)" annotation(
+  Blocks.Interfaces.RealOutput urSourcePu(start = uSource0Pu.re) "Real voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealOutput uiSourcePu(start = uSource0Pu.im) "Imaginary voltage at source in p.u (base UNom)" annotation(
+  Blocks.Interfaces.RealOutput uiSourcePu(start = uSource0Pu.im) "Imaginary voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Controls.WECC.BaseControls.UdqRef udqRef(RSourcePu = RSourcePu, XSourcePu = XSourcePu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu) annotation(
@@ -57,12 +57,12 @@ model VSourceRef
     Placement(visible = true, transformation(origin = {-130, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
-  parameter Types.ComplexVoltagePu uInj0Pu "Start value of complex voltage at injector in p.u (base UNom)";
-  parameter Types.ComplexVoltagePu uSource0Pu "Start value of complex voltage at source in p.u (base UNom)";
-  parameter Types.PerUnit Id0Pu "Start value of d-axis current in p.u (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit Iq0Pu "Start value of q-axis current in p.u (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit UdInj0Pu "Start value of d-axis voltage injector in p.u (base UNom)";
-  parameter Types.PerUnit UqInj0Pu "Start value of q-axis voltage injector in p.u (base UNom)";
+  parameter Types.ComplexVoltagePu uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
+  parameter Types.ComplexVoltagePu uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
+  parameter Types.PerUnit Id0Pu "Start value of d-axis current in pu (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit Iq0Pu "Start value of q-axis current in pu (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit UdInj0Pu "Start value of d-axis voltage injector in pu (base UNom)";
+  parameter Types.PerUnit UqInj0Pu "Start value of q-axis voltage injector in pu (base UNom)";
 
 equation
   connect(OmegaRefPu.y, pll.omegaRefPu) annotation(

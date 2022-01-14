@@ -17,7 +17,7 @@ model SignalN "Model for frequency regulation"
 import Dynawo.Connectors;
 
   Connectors.ImPin thetaRef(value(start = 0)) "Voltage angle reference";
-  Connectors.ImPin N "Signal to change the active power reference setpoint of all the generators in the system in p.u (base SnRef)";
+  Connectors.ImPin N "Signal to change the active power reference setpoint of all the generators in the system in pu (base SnRef)";
 
 equation
   der(thetaRef.value) = 0;

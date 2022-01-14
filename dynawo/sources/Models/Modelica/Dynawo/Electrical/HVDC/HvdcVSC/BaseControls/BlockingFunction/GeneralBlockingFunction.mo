@@ -22,9 +22,9 @@ model GeneralBlockingFunction "Undervoltage blocking function for the two sides 
 
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BlockingFunction;
 
-  Modelica.Blocks.Interfaces.RealInput U1Pu(start = U10Pu) "Voltage module at terminal 1 in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput U1Pu(start = U10Pu) "Voltage module at terminal 1 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput U2Pu(start = U20Pu) "Voltage module at terminal 2 in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput U2Pu(start = U20Pu) "Voltage module at terminal 2 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
   Modelica.Blocks.Interfaces.BooleanOutput blocked(start = false) "Boolean assessing the state of the HVDC link: true if blocked, false if not blocked" annotation(
@@ -39,8 +39,8 @@ model GeneralBlockingFunction "Undervoltage blocking function for the two sides 
 
 protected
 
-  parameter Types.VoltageModulePu U10Pu  "Start value of voltage amplitude at terminal 2 in p.u (base UNom)";
-  parameter Types.VoltageModulePu U20Pu  "Start value of voltage amplitude at terminal 2 in p.u (base UNom)";
+  parameter Types.VoltageModulePu U10Pu  "Start value of voltage amplitude at terminal 2 in pu (base UNom)";
+  parameter Types.VoltageModulePu U20Pu  "Start value of voltage amplitude at terminal 2 in pu (base UNom)";
 
 equation
   connect(U1Pu, blockingFunction1.UPu) annotation(

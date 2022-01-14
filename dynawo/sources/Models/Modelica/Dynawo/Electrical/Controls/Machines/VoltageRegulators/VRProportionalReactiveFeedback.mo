@@ -71,8 +71,8 @@ model VRProportionalReactiveFeedback
 // Here, UsMin and UsMax don't play a symetric role, to be checked
 protected
   parameter Types.ReactivePowerPu Qs0Pu "Initial stator reactive power";
-  parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage"; // p.u. = Unom
-  parameter Types.VoltageModulePu Us0Pu "Initial stator voltage"; // p.u. = Unom
+  parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage"; // pu = Unom
+  parameter Types.VoltageModulePu Us0Pu "Initial stator voltage"; // pu = Unom
   parameter Types.VoltageModulePu Efd0Pu "Initial Efd";
 
   Boolean constraintUsMax (start = false) "Maximum limit reached for stator voltage";

@@ -31,15 +31,15 @@ model HvdcVSCDanglingP "HVDC VSC model with terminal2 connected to a switched-of
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BaseActivePowerControl;
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BlockingFunction;
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ACVoltageControl;
-  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in p.u (base SNom, UNom)";
-  parameter Types.CurrentModulePu InPu "Nominal current in p.u (base SNom, UNom)";
+  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
+  parameter Types.CurrentModulePu InPu "Nominal current in pu (base SNom, UNom)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  Modelica.Blocks.Interfaces.RealInput QRef1Pu(start = - Q10Pu * (SystemBase.SnRef/SNom)) "Reactive power reference for the side 1 of the HVDC link in p.u (base SNom) and in generator convention" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRef1Pu(start = - Q10Pu * (SystemBase.SnRef/SNom)) "Reactive power reference for the side 1 of the HVDC link in pu (base SNom) and in generator convention" annotation(
     Placement(visible = true, transformation(origin = {-50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P10Pu * (SystemBase.SnRef/SNom)) "Active power reference of the HVDC link in p.u (base SNom) and in generator convention" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P10Pu * (SystemBase.SnRef/SNom)) "Active power reference of the HVDC link in pu (base SNom) and in generator convention" annotation(
     Placement(visible = true, transformation(origin = {-60, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu - Lambda * Q10Pu * (SystemBase.SnRef/SNom)) "Voltage reference for the side 1 of the HVDC link in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu - Lambda * Q10Pu * (SystemBase.SnRef/SNom)) "Voltage reference for the side 1 of the HVDC link in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-40, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput modeU1(start = modeU10) "Real assessing the mode of the control: 1 if U mode, 0 if Q mode" annotation(
     Placement(visible = true, transformation(origin = {-30, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -61,15 +61,15 @@ model HvdcVSCDanglingP "HVDC VSC model with terminal2 connected to a switched-of
   Constants.state Conv2_state (start = Conv2_State0) "Converter 2 connection state";
 
 protected
-  parameter Types.VoltageModulePu U10Pu  "Start value of voltage amplitude at terminal 1 in p.u (base UNom)";
+  parameter Types.VoltageModulePu U10Pu  "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
   parameter Types.Angle UPhase10  "Start value of voltage angle at terminal 1 (in rad)";
-  parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q10Pu  "Start value of reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
-  parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in p.u (base UNom)";
-  parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
-  parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in p.u (base SnRef) (receptor convention)";
-  parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in p.u (base SNom)";
-  parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in p.u (base SNom)";
+  parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q10Pu  "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
+  parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
+  parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom)";
+  parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom)";
   parameter Real modeU10 "Start value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
 
   parameter Constants.state Conv2_State0 = Constants.state.Closed "Start value of converter 2 connection state";
