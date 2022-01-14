@@ -23,20 +23,20 @@ model InfiniteBusWithVariations "Infinite bus with configurable variations on th
   Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit U0Pu "Infinite bus voltage module before and after event in p.u (base UNom)";
-  parameter Types.PerUnit UEvtPu "Infinite bus voltage module during event in p.u (base UNom)";
-  parameter Types.PerUnit omega0Pu "Infinite bus angular frequency before and after event in p.u (base OmegaNom)";
-  parameter Types.PerUnit omegaEvtPu "Infinite bus angular frequency during event in p.u (base OmegaNom)";
+  parameter Types.PerUnit U0Pu "Infinite bus voltage module before and after event in pu (base UNom)";
+  parameter Types.PerUnit UEvtPu "Infinite bus voltage module during event in pu (base UNom)";
+  parameter Types.PerUnit omega0Pu "Infinite bus angular frequency before and after event in pu (base OmegaNom)";
+  parameter Types.PerUnit omegaEvtPu "Infinite bus angular frequency during event in pu (base OmegaNom)";
   parameter Types.Angle UPhase "Infinite bus voltage angle before event in rad";
   parameter Types.Time tUEvtStart "Start time of voltage event in s";
   parameter Types.Time tUEvtEnd "Ending time of voltage event in s";
   parameter Types.Time tOmegaEvtStart "Start time of frequency event in s";
   parameter Types.Time tOmegaEvtEnd "Ending time of frequency event in s";
 
-  Types.PerUnit UPu "Infinite bus voltage module in p.u (base UNom)";
-  Types.PerUnit PPu "Infinite bus active power in p.u (base SnRef) (receptor convention)";
-  Types.PerUnit QPu "Infinite bus reactive power in p.u (base SnRef) (receptor convention)";
-  Types.PerUnit omegaPu "Infinite bus angular frequency in p.u (base OmegaNom)";
+  Types.PerUnit UPu "Infinite bus voltage module in pu (base UNom)";
+  Types.PerUnit PPu "Infinite bus active power in pu (base SnRef) (receptor convention)";
+  Types.PerUnit QPu "Infinite bus reactive power in pu (base SnRef) (receptor convention)";
+  Types.PerUnit omegaPu "Infinite bus angular frequency in pu (base OmegaNom)";
   Types.Angle UPhaseOffs "Infinite bus voltage phase shift in rad";
 
 equation

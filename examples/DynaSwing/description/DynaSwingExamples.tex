@@ -211,7 +211,7 @@ These results match the results obtained in the example 13 of the "Power System 
 \end{figure}
 
 \begin{figure}[H]
-  \caption{Stator voltage (p.u)}
+  \caption{Stator voltage (pu)}
   \begin{tikzpicture}
     \begin{axis}[legend style={at={(0.5,-0.1)},anchor=north}]
         \addplot[color=red!50]
@@ -229,7 +229,7 @@ These results match the results obtained in the example 13 of the "Power System 
 \end{figure}
 
 \begin{figure}[H]
-  \caption{Active power (p.u)}
+  \caption{Active power (pu)}
   \begin{tikzpicture}
     \begin{axis} [ymin = 0, legend style={at={(0.5,-0.1)},anchor=north}]
         \addplot[color=red!50]
@@ -404,7 +404,7 @@ For this test we focus on the response of generator 2.\\
 We observe that the voltage at the node 2 falls to zero. As the voltage is zero during the fault, the generator can't evacuate its active power anymore: it falls to zero too. When the fault is cleared the voltage is restored as well as the active power, which stabilizes a few seconds after the fault clearance.\\
 
 \begin{figure}[H]
-\subfigure[Bus 2 voltage (p.u.)]
+\subfigure[Bus 2 voltage (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -429,7 +429,7 @@ We observe that the voltage at the node 2 falls to zero. As the voltage is zero 
 
 
 \begin{figure}[H]
-\subfigure[Omega (p.u.)]
+\subfigure[Omega (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -491,7 +491,7 @@ The voltage regulator is as follows:
 \caption{Voltage regulator}
 \end{figure}
 
-The speed governor is as follows - omegaRef being 1 p.u. in this control scheme -:
+The speed governor is as follows - omegaRef being 1 pu in this control scheme -:
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
@@ -545,7 +545,7 @@ For this test we focus on the responses of generators 9 and 12.\\
 We observe that the voltage at the node 12 falls to zero. As the voltage is zero during the fault, the generator can't evacuate its active power anymore: it falls to zero too. When the fault is cleared the voltage is restored as well as the active power, which stabilizes a few seconds after the fault clearance.\\
 
 \begin{figure}[H]
-\subfigure[Bus 12 voltage (p.u.)]
+\subfigure[Bus 12 voltage (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -570,7 +570,7 @@ We observe that the voltage at the node 12 falls to zero. As the voltage is zero
 
 
 \begin{figure}[H]
-\subfigure[Omega (p.u.)]
+\subfigure[Omega (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -596,7 +596,7 @@ We observe that the voltage at the node 12 falls to zero. As the voltage is zero
 Generator 9 is electrically close to generator 12. When the fault is applied on node 12, the reactive power injection from generator 9 increases which contributes to limit the voltage dip on node 9. The active power injection also increases to compensate for the zero injection coming from generator 12, and oscillates during a few seconds after the fault clearance before going back to its initial value.
 
 \begin{figure}[H]
-\subfigure[Bus 9 voltage (p.u.)]
+\subfigure[Bus 9 voltage (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -621,7 +621,7 @@ Generator 9 is electrically close to generator 12. When the fault is applied on 
 
 
 \begin{figure}[H]
-\subfigure[Omega (p.u.)]
+\subfigure[Omega (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]

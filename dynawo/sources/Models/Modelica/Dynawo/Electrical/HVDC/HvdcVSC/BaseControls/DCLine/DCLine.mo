@@ -33,25 +33,25 @@ model DCLine "DC line model"
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_DCLine;
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  Modelica.Blocks.Interfaces.RealInput P1Pu(start = P10Pu) "Active power at terminal 1 in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput P1Pu(start = P10Pu) "Active power at terminal 1 in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput P2Pu(start = P20Pu) "Active power at terminal 2 in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput P2Pu(start = P20Pu) "Active power at terminal 2 in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput U1dcPu(start = U1dc0Pu) "DC Voltage at terminal 1 in p.u (base UdcNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput U1dcPu(start = U1dc0Pu) "DC Voltage at terminal 1 in pu (base UdcNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-73, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealOutput U2dcPu(start = U2dc0Pu) "DC Voltage at terminal 2 in p.u (base UdcNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput U2dcPu(start = U2dc0Pu) "DC Voltage at terminal 2 in pu (base UdcNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {67, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
 protected
 
-  parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in p.u (base SNom) (generator convention)";
-  parameter Types.VoltageModulePu U1dc0Pu "Start value of dc voltage at terminal 1 in p.u (base UdcNom)";
-  parameter Types.ActivePowerPu P20Pu  "Start value of active power at terminal 2 in p.u (base SNom) (generator convention)";
-  parameter Types.VoltageModulePu U2dc0Pu "Start value of dc voltage at terminal 2 in p.u (base UdcNom)";
+  parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in pu (base SNom) (generator convention)";
+  parameter Types.VoltageModulePu U1dc0Pu "Start value of dc voltage at terminal 1 in pu (base UdcNom)";
+  parameter Types.ActivePowerPu P20Pu  "Start value of active power at terminal 2 in pu (base SNom) (generator convention)";
+  parameter Types.VoltageModulePu U2dc0Pu "Start value of dc voltage at terminal 2 in pu (base UdcNom)";
 
-  Types.PerUnit I1dcPu(start = P10Pu * (SNom / SystemBase.SnRef) / U1dc0Pu) "DC current at terminal 1 in p.u (base SnRef, UdcNom)";
-  Types.PerUnit I2dcPu(start = P20Pu * (SNom / SystemBase.SnRef) / U2dc0Pu) "DC current at terminal 2 in p.u (base SnRef, UdcNom)";
+  Types.PerUnit I1dcPu(start = P10Pu * (SNom / SystemBase.SnRef) / U1dc0Pu) "DC current at terminal 1 in pu (base SnRef, UdcNom)";
+  Types.PerUnit I2dcPu(start = P20Pu * (SNom / SystemBase.SnRef) / U2dc0Pu) "DC current at terminal 2 in pu (base SnRef, UdcNom)";
 
 equation
 

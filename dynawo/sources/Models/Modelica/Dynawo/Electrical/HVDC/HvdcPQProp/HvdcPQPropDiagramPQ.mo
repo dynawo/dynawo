@@ -27,15 +27,15 @@ model HvdcPQPropDiagramPQ "Model of HVDC link with a proportional reactive power
 
 */
 
-  Connectors.ZPin Q1RefPu(value(start = Q1Ref0Pu)) "Reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 1";
-  Connectors.ZPin Q2RefPu(value(start = Q2Ref0Pu)) "Reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 2";
+  Connectors.ZPin Q1RefPu(value(start = Q1Ref0Pu)) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
+  Connectors.ZPin Q2RefPu(value(start = Q2Ref0Pu)) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 2";
   Connectors.BPin modeU1(value(start = modeU10)) "Boolean assessing the mode of the control of converter 1: true if U mode (here a proportional Q regulation), false if Q mode (fixed Q)";
   Connectors.BPin modeU2(value(start = modeU20)) "Boolean assessing the mode of the control of converter 2: true if U mode (here a proportional Q regulation), false if Q mode (fixed Q)";
   Connectors.ImPin NQ1 "Signal to change the reactive power generation of converter 1 depending on the centralized voltage regulation (generator convention)";
   Connectors.ImPin NQ2 "Signal to change the reactive power generation of converter 2 depending on the centralized voltage regulation (generator convention)";
 
-  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 1";
-  parameter Types.ReactivePowerPu Q2Ref0Pu "Start value of reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 2";
+  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
+  parameter Types.ReactivePowerPu Q2Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 2";
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control of converter 1";
   parameter Boolean modeU20 "Start value of the boolean assessing the mode of the control of converter 2";
   parameter Real QPercent1 "Percentage of the coordinated reactive control that comes from converter 1";
@@ -48,10 +48,10 @@ protected
 
   parameter Types.Angle UPhase10 "Start value of voltage angle and filtered voltage angle at terminal 1 in rad";
   parameter Types.Angle UPhase20 "Start value of voltage angle and filtered voltage angle at terminal 2 in rad";
-  Types.ReactivePowerPu QInj1RawModeUPu (start = - s10Pu.im) "Reactive power generation of converter 1 without taking limits into account in p.u and for mode U activated (base SnRef) (generator convention)";
-  Types.ReactivePowerPu QInj2RawModeUPu (start = - s20Pu.im) "Reactive power generation of converter 2 without taking limits into account in p.u and for mode U activated (base SnRef) (generator convention)";
-  Types.ReactivePowerPu QInj1RawPu (start = - s10Pu.im) "Reactive power generation of converter 1 without taking limits into account in p.u (base SnRef) (generator convention)";
-  Types.ReactivePowerPu QInj2RawPu (start = - s20Pu.im) "Reactive power generation of converter 2 without taking limits into account in p.u (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QInj1RawModeUPu (start = - s10Pu.im) "Reactive power generation of converter 1 without taking limits into account in pu and for mode U activated (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QInj2RawModeUPu (start = - s20Pu.im) "Reactive power generation of converter 2 without taking limits into account in pu and for mode U activated (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QInj1RawPu (start = - s10Pu.im) "Reactive power generation of converter 1 without taking limits into account in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QInj2RawPu (start = - s20Pu.im) "Reactive power generation of converter 2 without taking limits into account in pu (base SnRef) (generator convention)";
 
 equation
 

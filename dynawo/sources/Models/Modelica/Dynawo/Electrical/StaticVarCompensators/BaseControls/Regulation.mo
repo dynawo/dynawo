@@ -19,18 +19,18 @@ model Regulation "Variable susceptance calculation"
   extends Parameters.Params_Regulation;
   extends Parameters.Params_Limitations;
 
-  Modelica.Blocks.Interfaces.RealInput UPu "Voltage at the static var compensator terminal in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UPu "Voltage at the static var compensator terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-174, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-117, 21}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QPu "Reactive power injected by the static var compensator in p.u (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QPu "Reactive power injected by the static var compensator in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-174, -72}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-117, -29}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput URefPu "Voltage reference for the regulation in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URefPu "Voltage reference for the regulation in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-174, 6}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-117, 67}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput IPu "Current of the static var compensator in p.u (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput IPu "Current of the static var compensator in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-174, 44}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-117, -79}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput blocked "Whether the static var compensator is blocked due to very low voltages" annotation(
     Placement(visible = true, transformation(origin = {122, 84}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {80, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
 
-  Modelica.Blocks.Interfaces.RealOutput BVarPu "Variable susceptance of the static var compensator in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput BVarPu "Variable susceptance of the static var compensator in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {220, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Math.Add add1(k1 = 1, k2 = -1)  annotation(
@@ -56,7 +56,7 @@ model Regulation "Variable susceptance calculation"
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {84, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 protected
-    parameter Types.PerUnit BVar0Pu "Start value of variable susceptance in p.u (base SNom)";
+    parameter Types.PerUnit BVar0Pu "Start value of variable susceptance in pu (base SNom)";
 equation
   connect(variableLimiter.y, switch.u3) annotation(
     Line(points = {{124, -16}, {170, -16}, {170, -16}, {170, -16}}, color = {0, 0, 127}));

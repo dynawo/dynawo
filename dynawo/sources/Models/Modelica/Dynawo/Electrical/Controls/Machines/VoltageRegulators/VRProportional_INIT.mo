@@ -26,8 +26,8 @@ public
 
   Types.VoltageModulePu Efd0PuLF "Initial Efd from LoadFlow";
   Types.VoltageModulePu Efd0Pu "Computed initial Efd";
-  Types.VoltageModulePu UsRef0Pu "Initial voltage set-point, p.u. = Unom";
-  Types.VoltageModulePu Us0Pu "Initial stator voltage, p.u. = Unom";
+  Types.VoltageModulePu UsRef0Pu "Initial voltage set-point, pu = Unom";
+  Types.VoltageModulePu Us0Pu "Initial stator voltage, pu = Unom";
 
 protected
 

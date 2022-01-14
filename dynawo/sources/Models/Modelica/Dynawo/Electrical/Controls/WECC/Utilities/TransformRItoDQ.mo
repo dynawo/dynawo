@@ -16,15 +16,15 @@ block TransformRItoDQ "Transformation from real/imaginary in stationary referenc
   import Modelica.Blocks;
   import Modelica.ComplexBlocks;
 
-  ComplexBlocks.Interfaces.ComplexInput uPu "Complex voltage in p.u (base UNom)" annotation(
+  ComplexBlocks.Interfaces.ComplexInput uPu "Complex voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Interfaces.RealInput cosPhi "cos(Phi) with Phi the angle of the dq transform" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Interfaces.RealInput sinPhi "sin(Phi) with Phi the angle of the dq transform" annotation(
     Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealOutput udPu "d-axis voltage in p.u (base UNom)" annotation(
+  Blocks.Interfaces.RealOutput udPu "d-axis voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealOutput uqPu "q-axis voltage in p.u (base UNom)" annotation(
+  Blocks.Interfaces.RealOutput uqPu "q-axis voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

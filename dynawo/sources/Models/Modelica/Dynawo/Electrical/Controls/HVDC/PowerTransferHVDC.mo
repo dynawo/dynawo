@@ -16,16 +16,16 @@ model PowerTransferHVDC "Power transfer model for HVDC"
   import Dynawo.Types;
   import Dynawo.Connectors;
 
-  Connectors.ImPin PRefSet1RawPu (value(start = PRefSet10Pu)) "Raw reference active power of HVDC link 1 in p.u (base SnRef)";
-  Connectors.ImPin PRefSet2RawPu (value(start = PRefSet20Pu)) "Raw reference active power of HVDC link 2 in p.u (base SnRef)";
+  Connectors.ImPin PRefSet1RawPu (value(start = PRefSet10Pu)) "Raw reference active power of HVDC link 1 in pu (base SnRef)";
+  Connectors.ImPin PRefSet2RawPu (value(start = PRefSet20Pu)) "Raw reference active power of HVDC link 2 in pu (base SnRef)";
   Connectors.BPin running1 (value(start = true)) "Boolean assessing if the HVDC link 1 is running";
   Connectors.BPin running2 (value(start = true)) "Boolean assessing if the HVDC link 2 is running";
 
-  Connectors.ImPin PRefSet1Pu (value(start = PRefSet10Pu)) "Reference active power of HVDC link 1 in p.u (base SnRef)";
-  Connectors.ImPin PRefSet2Pu (value(start = PRefSet20Pu)) "Reference active power of HVDC link 2 in p.u (base SnRef)";
+  Connectors.ImPin PRefSet1Pu (value(start = PRefSet10Pu)) "Reference active power of HVDC link 1 in pu (base SnRef)";
+  Connectors.ImPin PRefSet2Pu (value(start = PRefSet20Pu)) "Reference active power of HVDC link 2 in pu (base SnRef)";
 
-  parameter Types.ActivePowerPu PRefSet10Pu "Start value of reference active power in p.u (base SnRef) for HVDC link 1";
-  parameter Types.ActivePowerPu PRefSet20Pu "Start value of reference active power in p.u (base SnRef) for HVDC link 2";
+  parameter Types.ActivePowerPu PRefSet10Pu "Start value of reference active power in pu (base SnRef) for HVDC link 1";
+  parameter Types.ActivePowerPu PRefSet20Pu "Start value of reference active power in pu (base SnRef) for HVDC link 2";
 
 equation
 

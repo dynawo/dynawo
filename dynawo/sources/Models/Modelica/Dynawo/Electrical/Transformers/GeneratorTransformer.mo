@@ -40,29 +40,29 @@ model GeneratorTransformer "Two winding transformer with a fixed ratio"
   Connectors.ACPower terminal2 (V (re (start = u20Pu.re), im (start = u20Pu.im)),i (re (start = i20Pu.re), im (start = i20Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit rTfoPu "Transformation ratio in p.u: U2/U1 in no load conditions";
+  parameter Types.PerUnit rTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
 
   // Transformer variables for display
-  Types.ActivePowerPu P1Pu "Active power on side 1 in p.u (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in p.u (base SnRef) (receptor convention)";
-  Types.ActivePowerPu P1GenPu "Active power on side 1 in p.u (base SnRef) (generator convention)";
-  Types.ReactivePowerPu Q1GenPu "Reactive power on side 1 in p.u (base SnRef) (generator convention)";
-  Types.VoltageModulePu U1Pu "Voltage on side 1 in p.u (base U1Nom)";
+  Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
+  Types.ActivePowerPu P1GenPu "Active power on side 1 in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu Q1GenPu "Reactive power on side 1 in pu (base SnRef) (generator convention)";
+  Types.VoltageModulePu U1Pu "Voltage on side 1 in pu (base U1Nom)";
 
-  Types.ActivePowerPu P2Pu "Active power on side 2 in p.u (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in p.u (base SnRef) (receptor convention)";
-  Types.VoltageModulePu U2Pu "Voltage on side 2 in p.u (base U2Nom)";
+  Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
+  Types.VoltageModulePu U2Pu "Voltage on side 2 in pu (base U2Nom)";
 
 protected
 
   // Transformer start values
-  parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q10Pu  "Start value of reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
-  parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in p.u (base U1Nom)";
+  parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q10Pu  "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
 
-  parameter Types.ActivePowerPu P20Pu  "Start value of active power at terminal 2 in p.u (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q20Pu  "Start value of reactive power at terminal 2 in p.u (base SnRef) (receptor convention)";
-  parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in p.u (base U2Nom)";
+  parameter Types.ActivePowerPu P20Pu  "Start value of active power at terminal 2 in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q20Pu  "Start value of reactive power at terminal 2 in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
 
   parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 (base U1Nom)";
   parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 (base U1Nom, SnRef) (receptor convention)";

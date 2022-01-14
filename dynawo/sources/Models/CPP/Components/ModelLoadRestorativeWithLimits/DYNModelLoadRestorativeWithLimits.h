@@ -288,8 +288,8 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   double alpha_;   ///< active power exponential sensitivity to voltage
   double beta_;   ///< reactive power exponential sensitivity to voltage
   double angleO_;  ///< initial phase
-  double UMinPu_;  ///< Minimum value of the voltage amplitude at terminal in p.u (base UNom) that ensures the P/Q restoration
-  double UMaxPu_;  ///< Maximum value of the voltage amplitude at terminal in p.u (base UNom) that ensures the P/Q restoration
+  double UMinPu_;  ///< Minimum value of the voltage amplitude at terminal in pu (base UNom) that ensures the P/Q restoration
+  double UMaxPu_;  ///< Maximum value of the voltage amplitude at terminal in pu (base UNom) that ensures the P/Q restoration
   bool UMinPuReached_;  ///< true if UMinPu limit is reached by UfRaw
   bool UMaxPuReached_;  ///< true if UMaxPu limit is reached by UfRaw
 

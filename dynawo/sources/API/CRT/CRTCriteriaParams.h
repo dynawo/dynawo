@@ -223,8 +223,8 @@ class CriteriaParams {
  private:
   CriteriaScope_t scope_;  ///< scope of the criteria
   CriteriaType_t type_;    ///< type of the criteria
-  double uMinPu_;          ///< minimum voltage in p.u.
-  double uMaxPu_;          ///< maximum voltage in p.u.
+  double uMinPu_;          ///< minimum voltage in pu
+  double uMaxPu_;          ///< maximum voltage in pu
   double uNomMin_;         ///< minimum nominal voltage in kV
   double uNomMax_;         ///< maximum nominal voltage in kV
   double pMin_;            ///< minimum active power in MW

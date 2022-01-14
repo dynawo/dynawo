@@ -15,8 +15,8 @@ model GridForming "Grid Forming converters test case"
   import Dynawo;
   import Modelica;
   extends Icons.Example;
-  parameter Types.ActivePowerPu PRefLoadPu = 11.25 "Active power request for the load in p.u (base SnRef)";
-  parameter Types.ReactivePowerPu QRefLoadPu = 0 "Reactive power request for the load in p.u (base SnRef)";
+  parameter Types.ActivePowerPu PRefLoadPu = 11.25 "Active power request for the load in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QRefLoadPu = 0 "Reactive power request for the load in pu (base SnRef)";
   Dynawo.Electrical.Controls.Converters.GridFormingControlDroopControl Droop(Cfilter = 0.066, Kff = 0.01, Kic = 1.19, Kiv = 1.161022, KpVI = 0.67, Kpc = 0.7388, Kpdc = 50, Kpv = 0.52, Lfilter = 0.15, Mp = 0.02, Mq = 0, Rfilter = 0.005, UdcSourcePu(fixed = true, start = 1.01369), Wf = 60, Wff = 16.66, XRratio = 5, currentLoop(integratord(y_start = 0.00323126), integratorq(y_start = -0.000164394)), droopControl(firstOrder(y_start = -7.3445e-5), firstOrder1(y_start = 0.102988), firstOrder2(y_start = 0.00622874), firstOrder3(y_start = -0.0010158), integrator(y_start = -0.0502873)), idConvPu(fixed = true, start = 0.622806), idPccPu(fixed = true, start = 0.622873), iqConvPu(fixed = true, start = -0.035099), iqPccPu(fixed = true, start = -0.101592), udFilterPu(fixed = true, start = 1.00755), uqFilterPu(fixed = true, start = 0.00101415)) "Droop controlled grid-forming converter" annotation(
     Placement(visible = true, transformation(origin = {-107, 135}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Dynawo.Electrical.Sources.Converter Conv250(Cdc = 0.01, Cfilter = 0.066, Lfilter = 0.15, Ltransformer = 0.2, Rfilter = 0.005, Rtransformer = 0.01, SNom = 250) annotation(
@@ -96,11 +96,11 @@ equation
   Load.QRefPu = QRefLoadPu;
   connect(Droop.theta, Conv250.theta) annotation(
     Line(points = {{-91, 148.5}, {-78, 148.5}}, color = {0, 0, 127}));
-  connect(Droop.udConvRefPu, Conv250.udConvRefPu) annotation(
+  connect(DroopudConvRefPu, Conv250.udConvRefPu) annotation(
     Line(points = {{-91, 141}, {-78, 141}}, color = {0, 0, 127}));
   connect(Droop.IdcSourcePu, Conv250.IdcSourcePu) annotation(
     Line(points = {{-91, 135}, {-78, 135}}, color = {0, 0, 127}));
-  connect(Droop.uqConvRefPu, Conv250.uqConvRefPu) annotation(
+  connect(DroopuqConvRefPu, Conv250.uqConvRefPu) annotation(
     Line(points = {{-91, 129}, {-78, 129}}, color = {0, 0, 127}));
   connect(Droop.omegaPu, Conv250.omegaPu) annotation(
     Line(points = {{-91, 121.5}, {-78, 121.5}}, color = {0, 0, 127}));
@@ -184,7 +184,7 @@ equation
     Line(points = {{140, 101}, {129, 101}, {129, 120}, {123, 120}}, color = {0, 0, 127}));
   connect(PRef500Pu.y, dVOC.PRefPu) annotation(
     Line(points = {{140, 169}, {129, 169}, {129, 150}, {123, 150}}, color = {0, 0, 127}));
-  connect(Conv250.udFilterPu, Droop.udFilterPu) annotation(
+  connect(Conv250.udFilterPu, DroopudFilterPu) annotation(
     Line(points = {{-46, 148.5}, {-35, 148.5}, {-35, 152}, {-94, 152}, {-94, 151}}, color = {0, 0, 127}));
   connect(Conv250.idPccPu, Droop.idPccPu) annotation(
     Line(points = {{-46, 144}, {-34, 144}, {-34, 153}, {-98, 153}, {-98, 151}}, color = {0, 0, 127}));
@@ -196,7 +196,7 @@ equation
     Line(points = {{-46, 130.5}, {-31, 130.5}, {-31, 156}, {-112, 156}, {-112, 151}}, color = {0, 0, 127}));
   connect(Conv250.iqPccPu, Droop.iqPccPu) annotation(
     Line(points = {{-46, 126}, {-30, 126}, {-30, 157}, {-116, 157}, {-116, 151}}, color = {0, 0, 127}));
-  connect(Conv250.uqFilterPu, Droop.uqFilterPu) annotation(
+  connect(Conv250.uqFilterPu, DroopuqFilterPu) annotation(
     Line(points = {{-46, 121.5}, {-29, 121.5}, {-29, 158}, {-121, 158}, {-121, 151}}, color = {0, 0, 127}));
   connect(Conv500.udFilterPu, dVOC.udFilterPu) annotation(
     Line(points = {{47, 148.5}, {35, 148.5}, {35, 152}, {94, 152}, {94, 151}}, color = {0, 0, 127}));

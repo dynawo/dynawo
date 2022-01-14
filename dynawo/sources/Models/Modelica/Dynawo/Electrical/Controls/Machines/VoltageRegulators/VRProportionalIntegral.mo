@@ -22,8 +22,8 @@ model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps mac
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   parameter Real Gain "Control gain";
-  parameter Types.VoltageModulePu UsRefMaxPu "Maximum stator reference voltage in p.u (base UNom)";
-  parameter Types.VoltageModulePu UsRefMinPu "Maximum stator reference voltage in p.u (base UNom)";
+  parameter Types.VoltageModulePu UsRefMaxPu "Maximum stator reference voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UsRefMinPu "Maximum stator reference voltage in pu (base UNom)";
   parameter Types.VoltageModulePu EfdMinPu "Minimum allowed EfdPu";
   parameter Types.VoltageModulePu EfdMaxPu "Maximum allowed EfdPu";
   parameter Types.Time LagEfdMin "Time lag before taking action when going below EfdMin";
@@ -59,8 +59,8 @@ model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps mac
     Placement(visible = true, transformation(origin = {-98, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 protected
 
-  parameter Types.VoltageModulePu UsRef0Pu  "Initial control voltage, p.u. = Unom";
-  parameter Types.VoltageModulePu Us0Pu  "Initial stator voltage, p.u. = Unom";
+  parameter Types.VoltageModulePu UsRef0Pu  "Initial control voltage, pu = Unom";
+  parameter Types.VoltageModulePu Us0Pu  "Initial stator voltage, pu = Unom";
   parameter Types.VoltageModulePu Efd0Pu "Initial Efd";
   parameter Types.PerUnit yIntegrator0 "Initial control before saturation";
 
@@ -76,7 +76,7 @@ equation
     Line(points = {{-142, 0}, {-110, 0}, {-110, 0}, {-110, 0}}, color = {0, 0, 127}));
   connect(limiterWithLag.y, EfdPu) annotation(
     Line(points = {{91, 0}, {119, 0}}, color = {0, 0, 127}));
-  connect(limiterWithLag.y, feedbackNonWindUp.u1) annotation(
+  connect(limiterWithLag.y, feedbackNonWindUpu1) annotation(
     Line(points = {{91, 0}, {99, 0}, {99, 64}, {47, 64}, {47, 64}}, color = {0, 0, 127}));
   connect(rawEfd.y, limiterWithLag.u) annotation(
     Line(points = {{57, 0}, {67, 0}}, color = {0, 0, 127}));
@@ -84,7 +84,7 @@ equation
     Line(points = {{23, 32}, {30, 32}, {30, 6}, {34, 6}}, color = {0, 0, 127}));
   connect(gain.y, rawEfd.u2) annotation(
     Line(points = {{3, 0}, {29.5, 0}, {29.5, -6}, {34, -6}}, color = {0, 0, 127}));
-  connect(rawEfd.y, feedbackNonWindUp.u2) annotation(
+  connect(rawEfd.y, feedbackNonWindUpu2) annotation(
     Line(points = {{57, 0}, {59, 0}, {59, 46}, {39, 46}, {39, 56}, {39, 56}}, color = {0, 0, 127}));
   connect(feedbackNonWindUp.y, integratorEntry.u1) annotation(
     Line(points = {{31, 64}, {-47, 64}, {-47, 38}, {-39, 38}, {-39, 38}}, color = {0, 0, 127}));
