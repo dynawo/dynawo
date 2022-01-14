@@ -104,7 +104,7 @@ class ParameterModeler : public ParameterCommon {
    * @return whether the parameter's origin is set
    */
   inline bool originSet() const {
-    return origin_.has_value();
+    return origin_ != boost::none;
   }
 
   /**
