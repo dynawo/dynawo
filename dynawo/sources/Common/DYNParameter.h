@@ -80,7 +80,7 @@ class ParameterCommon {
    * @return whether the parameter index has already been set
    */
   inline bool indexSet() const {
-    return index_.has_value();
+    return index_ != boost::none;
   }
 
   /**

@@ -50,7 +50,7 @@ class ParameterSolver : public ParameterCommon {
     * @return whether the parameter's value is set
     */
   inline bool hasValue() const {
-    return value_.has_value();
+    return value_ != boost::none;
   }
 
   /**
