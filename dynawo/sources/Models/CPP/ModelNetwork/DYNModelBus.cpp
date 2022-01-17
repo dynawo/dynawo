@@ -609,7 +609,7 @@ ModelBus::defineParameters(vector<ParameterModeler>& parameters) {
 
 void
 ModelBus::defineNonGenericParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler(id_ + "_hasShortCircuitCapabilities", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "hasShortCircuitCapabilities", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 }
 
 void
