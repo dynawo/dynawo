@@ -8,18 +8,11 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
+add_subdirectory(WECC W)
+
 set(MODEL_FILES
   package.mo
   package.order
-  BaseDriveTrain.mo
-  CurrentLimitsCalculationPV.mo
-  CurrentLimitsCalculationWind.mo
-  ElectricalControlCommon.mo
-  IqInjectionLogic.mo
-  LineDropCompensation.mo
-  UdqRef.mo
-  VoltageCheck.mo
-  VSourceRef.mo
   )
 
 #
