@@ -11,15 +11,9 @@
 set(MODEL_FILES
   package.mo
   package.order
-  BaseDriveTrain.mo
-  CurrentLimitsCalculationPV.mo
-  CurrentLimitsCalculationWind.mo
-  ElectricalControlCommon.mo
-  IqInjectionLogic.mo
-  LineDropCompensation.mo
-  UdqRef.mo
-  VoltageCheck.mo
-  VSourceRef.mo
+  WTG4ACurrentSource.mo
+  WTG4ACurrentSource.extvar
+  WTG4ACurrentSource_INIT.mo
   )
 
 #
