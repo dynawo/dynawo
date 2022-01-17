@@ -90,19 +90,19 @@ class GeneratorInterface : public ComponentInterface, public ReactiveCurvePoints
 
   /**
    * @brief Getter for the maximum reactive power of the generator
-   * @return The maximum reactive power of the generator in MVar (generator convention)
+   * @return The maximum reactive power of the generator in Mvar (generator convention)
    */
   virtual double getQMax() = 0;
 
   /**
    * @brief Getter for the minimum reactive power of the generator
-   * @return The minimum reactive power of the generator in MVar (generator convention)
+   * @return The minimum reactive power of the generator in Mvar (generator convention)
    */
   virtual double getQMin() = 0;
 
   /**
    * @brief Getter for the target reactive power of the generator
-   * @return The target reactive power of the generator in MVar (receptor convention)
+   * @return The target reactive power of the generator in Mvar (receptor convention)
    */
   virtual double getTargetQ() = 0;
 

@@ -32,17 +32,17 @@ public
   parameter String TableBPuFile "File containing the table to calculate BPu from the section of the shunt";
   Modelica.Blocks.Tables.CombiTable1D tableBPu(tableOnFile = true, tableName = TableBPuName, fileName = TableBPuFile) "Table to get BPu from the section of the shunt";
 
-  Types.VoltageModulePu UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at shunt terminal in p.u (base UNom)";
-  Types.ActivePowerPu PPu(start = 0) "Active power at shunt terminal in p.u (base SnRef, receptor convention)";
-  Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at shunt terminal in p.u (base SnRef, receptor convention)";
-  Types.ComplexApparentPowerPu SPu(re(start = 0), im(start = s0Pu.im)) "Apparent power at shunt terminal in p.u (base SnRef, receptor convention)";
-  Types.PerUnit BPu(start = - s0Pu.im / ComplexMath.'abs'(u0Pu)^2) "Variable susceptance of the shunt in p.u (base SnRef, UNom)";
+  Types.VoltageModulePu UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at shunt terminal in pu (base UNom)";
+  Types.ActivePowerPu PPu(start = 0) "Active power at shunt terminal in pu (base SnRef, receptor convention)";
+  Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at shunt terminal in pu (base SnRef, receptor convention)";
+  Types.ComplexApparentPowerPu SPu(re(start = 0), im(start = s0Pu.im)) "Apparent power at shunt terminal in pu (base SnRef, receptor convention)";
+  Types.PerUnit BPu(start = - s0Pu.im / ComplexMath.'abs'(u0Pu)^2) "Variable susceptance of the shunt in pu (base SnRef, UNom)";
 
 protected
 
-  parameter Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at shunt terminal in p.u (base UNom)";
-  parameter Types.ComplexApparentPowerPu s0Pu  "Start value of apparent power at shunt terminal in p.u (base SnRef, receptor convention)";
-  parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at shunt terminal in p.u (base UNom, SnRef, receptor convention)";
+  parameter Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at shunt terminal in pu (base UNom)";
+  parameter Types.ComplexApparentPowerPu s0Pu  "Start value of apparent power at shunt terminal in pu (base SnRef, receptor convention)";
+  parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at shunt terminal in pu (base UNom, SnRef, receptor convention)";
 
 equation
 

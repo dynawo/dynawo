@@ -16,12 +16,12 @@ model LoadAuxiliaries_INIT "Initialization for auxiliaries where u0Pu and i0Pu n
 
   extends AdditionalIcons.Init;
 
-  parameter Types.ActivePowerPu P0Pu  "Start value of active power in p.u (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
+  parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SnRef) (receptor convention)";
 
-  Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in p.u (base UNom)";
-  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
-  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
+  Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in pu (base UNom)";
+  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
+  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
 
 equation
   s0Pu = Complex(P0Pu, Q0Pu);

@@ -28,32 +28,32 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   extends AdditionalIcons.Init;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in p.u (base SnRef)";
-  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in p.u (base SnRef)";
+  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef)";
+  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef)";
   parameter Types.PerUnit RSourcePu "Source resistance in per unit (typically set to zero, typical: 0..0.01)";
   parameter Types.PerUnit XSourcePu "Source reactance in per unit (typical: 0.05..0.2)";
 
-  parameter Types.PerUnit P0Pu "Start value of active power at terminal in p.u (receptor convention) (base SnRef)";
-  parameter Types.PerUnit Q0Pu "Start value of reactive power at terminal in p.u (receptor convention) (base SnRef)";
-  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at terminal in p.u.";
+  parameter Types.PerUnit P0Pu "Start value of active power at terminal in pu (receptor convention) (base SnRef)";
+  parameter Types.PerUnit Q0Pu "Start value of reactive power at terminal in pu (receptor convention) (base SnRef)";
+  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at terminal in pu";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at terminal in rad";
 
-  Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
-  Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef) (receptor convention)";
-  Types.ComplexPerUnit i0Pu "Start value of complex current in p.u (base UNom, SnRef) (receptor convention)";
-  Types.ComplexPerUnit iSource0Pu "Start value of complex current at source in p.u (base UNom, SNom) (generator convention)";
-  Types.ComplexPerUnit uSource0Pu "Start value of complex voltage at source in p.u (base UNom)";
-  Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in p.u (base UNom)";
-  Types.PerUnit UInj0Pu "Start value of voltage module at injector in p.u (base UNom)";
+  Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+  Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
+  Types.ComplexPerUnit i0Pu "Start value of complex current in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexPerUnit iSource0Pu "Start value of complex current at source in pu (base UNom, SNom) (generator convention)";
+  Types.ComplexPerUnit uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
+  Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
+  Types.PerUnit UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   Types.Angle UInjPhase0 "Start value of voltage phase angle at injector in rad";
-  Types.ComplexPerUnit sInj0Pu "Start value of complex apparent power at injector in p.u (base SNom) (generator convention)";
-  Types.PerUnit PInj0Pu "Start value of active power at injector in p.u (base SNom) (generator convention)";
-  Types.PerUnit QInj0Pu "Start value of reactive power at injector in p.u (base SNom) (generator convention)";
+  Types.ComplexPerUnit sInj0Pu "Start value of complex apparent power at injector in pu (base SNom) (generator convention)";
+  Types.PerUnit PInj0Pu "Start value of active power at injector in pu (base SNom) (generator convention)";
+  Types.PerUnit QInj0Pu "Start value of reactive power at injector in pu (base SNom) (generator convention)";
   Types.PerUnit PF0 "Start value of power factor";
-  Types.PerUnit UdInj0Pu "Start value of d-axis voltage at injector in p.u (base UNom)";
-  Types.PerUnit UqInj0Pu "Start value of q-axis voltage at injector in p.u (base UNom)";
-  Types.PerUnit Id0Pu "Start value of d-axis current in p.u (base UNom, SNom) (generator convention)";
-  Types.PerUnit Iq0Pu "Start value of q-axis current in p.u (base UNom, SNom) (generator convention)";
+  Types.PerUnit UdInj0Pu "Start value of d-axis voltage at injector in pu (base UNom)";
+  Types.PerUnit UqInj0Pu "Start value of q-axis voltage at injector in pu (base UNom)";
+  Types.PerUnit Id0Pu "Start value of d-axis current in pu (base UNom, SNom) (generator convention)";
+  Types.PerUnit Iq0Pu "Start value of q-axis current in pu (base UNom, SNom) (generator convention)";
 
 equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);

@@ -15,17 +15,17 @@ within Dynawo.Electrical.Controls.WECC.Utilities;
 model TransformDQtoRI "Transformation from d/q rotating reference frame with rotation angle phi to real/imaginary in stationary reference frame"
   import Modelica.Blocks.Interfaces;
 
-  Interfaces.RealInput udPu "d-axis voltage in p.u (base UNom)" annotation(
+  Interfaces.RealInput udPu "d-axis voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput uqPu "q-axis voltage in p.u (base UNom)" annotation(
+  Interfaces.RealInput uqPu "q-axis voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Interfaces.RealInput cosPhi "cos(Phi) with Phi the angle of the dq transform" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Interfaces.RealInput sinPhi "sin(Phi) with Phi the angle of the dq transform" annotation(
     Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput urPu "Real part of the complex voltage in p.u (base UNom)" annotation(
+  Interfaces.RealOutput urPu "Real part of the complex voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput uiPu "Imaginary part of the complex voltage in p.u (base UNom)" annotation(
+  Interfaces.RealOutput uiPu "Imaginary part of the complex voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

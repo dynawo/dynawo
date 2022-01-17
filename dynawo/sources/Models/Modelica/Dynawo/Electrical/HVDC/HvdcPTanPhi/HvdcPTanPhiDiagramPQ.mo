@@ -31,8 +31,8 @@ model HvdcPTanPhiDiagramPQ "Model for P/tan(Phi) HVDC link with a PQ diagram"
 
 protected
 
-  Types.ReactivePowerPu QInj1RawPu (start = - s10Pu.im) "Raw reactive power at terminal 1 in p.u (base SnRef) (generator convention)";
-  Types.ReactivePowerPu QInj2RawPu (start = - s20Pu.im) "Raw reactive power at terminal 2 in p.u (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QInj1RawPu (start = - s10Pu.im) "Raw reactive power at terminal 1 in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QInj2RawPu (start = - s20Pu.im) "Raw reactive power at terminal 2 in pu (base SnRef) (generator convention)";
 
 equation
 
