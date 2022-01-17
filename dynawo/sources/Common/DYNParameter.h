@@ -47,6 +47,24 @@ class ParameterCommon {
   ParameterCommon(const std::string& name, const typeVarC_t& valueType, bool mandatory);
 
   /**
+  * @brief Default copy Constructor
+  *
+  * @param parameter the parameter to copy
+  */
+#ifdef LANG_CXX11
+  ParameterCommon(const ParameterCommon&) = default;
+#else
+  ParameterCommon(const ParameterCommon& parameter);
+#endif
+
+#ifdef LANG_CXX11
+  /**
+  * @brief Default copy assigment operator
+  */
+  ParameterCommon& operator=(const ParameterCommon&) = delete;
+#endif
+
+  /**
    * @brief Destructor
    */
   virtual ~ParameterCommon();
