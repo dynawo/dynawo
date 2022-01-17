@@ -5,7 +5,7 @@ block Limiter "Limits the range of a signal"
 
   extends Modelica.Blocks.Interfaces.SISO;
 
-  parameter Real YMax(start = 1) "Upper limit of output";
+  parameter Real YMax "Upper limit of output";
   parameter Real YMin = -YMax "Lower limit of output";
 
 equation
