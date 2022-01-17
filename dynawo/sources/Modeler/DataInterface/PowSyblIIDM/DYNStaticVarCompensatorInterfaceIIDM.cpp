@@ -55,11 +55,9 @@ staticVarCompensatorIIDM_(svc) {
   stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
-  if (extension_) {
-    if (extension_->hasStandbyAutomaton()) {
-      stateVariables_.resize(4);
-      stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
-    }
+  if (extension_ && extension_->hasStandbyAutomaton()) {
+    stateVariables_.resize(4);
+    stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
   }
 }
 
