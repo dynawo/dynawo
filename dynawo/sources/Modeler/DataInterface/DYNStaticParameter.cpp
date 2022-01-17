@@ -46,7 +46,7 @@ StaticParameter::getType() const {
 
 bool
 StaticParameter::valueAffected() const {
-  return value_.has_value();
+  return value_ != boost::none;
 }
 
 string
