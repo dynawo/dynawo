@@ -631,7 +631,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
   ASSERT_NO_THROW(bus2->setSubModelParameters(parametersModels));
   bus2->initSize();
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus2->sizeY(), 2.);
-  const std::string param4Name = bus2->id() + "hasShortCircuitCapabilities";
+  const std::string param4Name = bus2->id() + "_hasShortCircuitCapabilities";
   ParameterModeler param4 = ParameterModeler(param4Name, VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
   param4.setValue<bool>(true, PAR);
   parametersModels.insert(std::make_pair(param4Name, param4));
