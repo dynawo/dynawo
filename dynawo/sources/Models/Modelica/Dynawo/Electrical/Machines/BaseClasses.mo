@@ -28,16 +28,16 @@ package BaseClasses
 
   protected
 
-    parameter Types.VoltageModulePu U0Pu "Start value of voltage at terminal amplitude in p.u (base UNom)";
-    parameter Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in p.u (base SnRef) (generator convention)";
-    parameter Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in p.u (base SnRef) (generator convention)";
-    parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
-    parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in p.u (base UNom, SnRef) (receptor convention)";
+    parameter Types.VoltageModulePu U0Pu "Start value of voltage at terminal amplitude in pu (base UNom)";
+    parameter Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
+    parameter Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";
+    parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+    parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
 
-    Types.ComplexApparentPowerPu SGenPu(re(start = PGen0Pu), im(start = QGen0Pu)) "Complex apparent power at terminal in p.u (base SnRef) (generator convention)";
-    Types.ActivePowerPu PGenPu(start = PGen0Pu) "Active power at terminal in p.u (base SnRef) (generator convention)";
-    Types.ReactivePowerPu QGenPu(start = QGen0Pu) "Reactive power at terminal in p.u (base SnRef) (generator convention)";
-    Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in p.u (base UNom)";
+    Types.ComplexApparentPowerPu SGenPu(re(start = PGen0Pu), im(start = QGen0Pu)) "Complex apparent power at terminal in pu (base SnRef) (generator convention)";
+    Types.ActivePowerPu PGenPu(start = PGen0Pu) "Active power at terminal in pu (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QGenPu(start = QGen0Pu) "Reactive power at terminal in pu (base SnRef) (generator convention)";
+    Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in pu (base UNom)";
 
   equation
 

@@ -27,24 +27,24 @@ model HvdcPV "Model of PV HVDC link. Each terminal can regulate the voltage or t
 
 */
 
-  Connectors.ZPin U1RefPu(value(start = U1Ref0Pu)) "Voltage regulation set point in p.u (base UNom) at terminal 1";
-  Connectors.ZPin U2RefPu(value(start = U2Ref0Pu)) "Voltage regulation set point in p.u (base UNom) at terminal 2";
-  Connectors.ZPin Q1RefPu(value(start = Q1Ref0Pu)) "Reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 1";
-  Connectors.ZPin Q2RefPu(value(start = Q2Ref0Pu)) "Reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 2";
+  Connectors.ZPin U1RefPu(value(start = U1Ref0Pu)) "Voltage regulation set point in pu (base UNom) at terminal 1";
+  Connectors.ZPin U2RefPu(value(start = U2Ref0Pu)) "Voltage regulation set point in pu (base UNom) at terminal 2";
+  Connectors.ZPin Q1RefPu(value(start = Q1Ref0Pu)) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
+  Connectors.ZPin Q2RefPu(value(start = Q2Ref0Pu)) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 2";
   Connectors.BPin modeU1(value(start = modeU10)) "Boolean assessing the mode of the control: true if U mode, false if Q mode";
   Connectors.BPin modeU2(value(start = modeU20)) "Boolean assessing the mode of the control: true if U mode, false if Q mode";
 
-  parameter Types.VoltageModulePu U1Ref0Pu "Start value of the voltage regulation set point in p.u (base UNom) at terminal 1";
-  parameter Types.VoltageModulePu U2Ref0Pu "Start value of the voltage regulation set point in p.u (base UNom) at terminal 2";
-  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 1";
-  parameter Types.ReactivePowerPu Q2Ref0Pu "Start value of reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 2";
+  parameter Types.VoltageModulePu U1Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
+  parameter Types.VoltageModulePu U2Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 2";
+  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
+  parameter Types.ReactivePowerPu Q2Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 2";
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control at terminal 1: true if U mode, false if Q mode";
   parameter Boolean modeU20 "Start value of the boolean assessing the mode of the control at terminal 2: true if U mode, false if Q mode";
 
-  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 2 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 2 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
+  parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
 
   type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
                               AbsorptionMax "Reactive power is fixed to its absorption limit",

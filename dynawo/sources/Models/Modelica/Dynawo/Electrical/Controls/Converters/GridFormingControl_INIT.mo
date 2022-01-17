@@ -21,8 +21,8 @@ model GridFormingControl_INIT "Initialization model for the grid forming control
 
   extends AdditionalIcons.Init;
 
-  parameter Types.PerUnit Lfilter "Filter inductance in p.u (base UNom, SNom)";
-  parameter Types.PerUnit Cfilter "Filter capacitance in p.u (base UNom, SNom)";
+  parameter Types.PerUnit Lfilter "Filter inductance in pu (base UNom, SNom)";
+  parameter Types.PerUnit Cfilter "Filter capacitance in pu (base UNom, SNom)";
 
   Types.PerUnit PRef0Pu;
   Types.PerUnit QRef0Pu;

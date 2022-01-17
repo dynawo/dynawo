@@ -16,17 +16,17 @@ model LineDropCompensation "This block calculates the voltage drop in an RcPu, X
   import Modelica;
   import Dynawo.Types;
 
-  parameter Types.PerUnit RcPu "Line drop compensation resistance in p.u (base UNom, SnRef)";
-  parameter Types.PerUnit XcPu "Line drop compentation reactance in p.u (base UNom, SnRef)";
+  parameter Types.PerUnit RcPu "Line drop compensation resistance in pu (base UNom, SnRef)";
+  parameter Types.PerUnit XcPu "Line drop compentation reactance in pu (base UNom, SnRef)";
 
-  Modelica.ComplexBlocks.Interfaces.ComplexInput iPu "Line complex current in p.u (base UNom, SnRef)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput iPu "Line complex current in pu (base UNom, SnRef)" annotation(
     Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Interfaces.ComplexInput u2Pu "Complex voltage at terminal 2 in p.u (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput u2Pu "Complex voltage at terminal 2 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput U1Pu "Voltage module at terminal 1 in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput U1Pu "Voltage module at terminal 1 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput U2Pu "Voltage module at terminal 2 in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput U2Pu "Voltage module at terminal 2 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
