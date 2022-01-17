@@ -28,7 +28,7 @@
   <dyn:connect id1="Generator___1" var1="generator_terminal" id2="NETWORK" var2="@_Generator___1@@NODE@_ACPIN"/>
   <dyn:connect id1="Generator___1" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_Generator___1@@NODE@_switchOff"/>
   <dyn:connect id1="Generator___1" var1="generator_N" id2="Signal_N" var2="signalN_N"/>
-  <dyn:connect id1="Signal_N" var1="signalN_thetaRef_value" id2="NETWORK" var2="@_Generator___1@@NODE@_phi_value"/>
+  <dyn:connect id1="Signal_N" var1="signalN_thetaRef" id2="NETWORK" var2="@_Generator___1@@NODE@_phi_value"/>
   <dyn:connect id1="Load__10" var1="load_terminal" id2="NETWORK" var2="_BUS___10_TN_ACPIN"/>
   <dyn:connect id1="Load__10" var1="load_terminal" id2="Shunt" var2="shunt_terminal"/>
   <dyn:connect id1="SectionChange" var1="event_state1" id2="Shunt" var2="shunt_section"/>

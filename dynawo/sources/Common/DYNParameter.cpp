@@ -30,6 +30,15 @@ valueType_(valueType),
 mandatory_(mandatory) {
 }
 
+#ifndef LANG_CXX11
+ParameterCommon::ParameterCommon(const ParameterCommon& parameter) :
+  name_(parameter.name_),
+  valueType_(parameter.valueType_),
+  index_(parameter.index_),
+  mandatory_(parameter.mandatory_) {
+}
+#endif
+
 ParameterCommon::~ParameterCommon() {}
 
 void

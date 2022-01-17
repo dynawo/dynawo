@@ -328,7 +328,9 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       data->setReference("p", id, id, "P_value");
       data->setReference("q", id, id, "Q_value");
       data->setReference("state", id, id, "state_value");
-      data->setReference("regulatingMode", id, id, "mode_value");
+      if (iSvc->get()->hasStandbyAutomaton()) {
+        data->setReference("regulatingMode", id, id, "mode_value");
+      }
     }
 
     // =================================
