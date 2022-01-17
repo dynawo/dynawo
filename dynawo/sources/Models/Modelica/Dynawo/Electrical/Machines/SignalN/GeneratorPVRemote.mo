@@ -21,8 +21,8 @@ model GeneratorPVRemote "Model for generator PV based on SignalN for the frequen
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in p.u (base SnRef)";
-  parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
+  parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in pu (base SnRef)";
   parameter Types.VoltageModule URef0 "Start value of the voltage regulation set point in kV";
 
   input Types.VoltageModule URegulated "Regulated voltage in kV";

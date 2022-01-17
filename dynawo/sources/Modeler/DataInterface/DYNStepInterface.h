@@ -65,7 +65,7 @@ class StepInterface {
 
   /**
    * @brief Getter for the ratio of the step
-   * @return The ratio of the step in p.u.
+   * @return The ratio of the step in pu
    */
   virtual double getRho() const = 0;
 

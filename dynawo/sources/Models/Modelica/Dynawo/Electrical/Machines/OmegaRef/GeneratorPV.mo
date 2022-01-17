@@ -29,23 +29,23 @@ model GeneratorPV "Generator with power / frequency modulation and voltage / rea
                                 AbsorptionMax "Reactive power is fixed to its absorption limit",
                                 GenerationMax "Reactive power is fixed to its generation limit");
 
-    Connectors.ImPin URefPu (value (start = URef0Pu)) "Voltage regulation set point in p.u (base UNom)";
+    Connectors.ImPin URefPu (value (start = URef0Pu)) "Voltage regulation set point in pu (base UNom)";
 
     parameter Types.ReactivePower QMin "Minimum reactive power in Mvar";
     parameter Types.ReactivePower QMax "Maximum reactive power in Mvar";
     parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
-    parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in p.u (base UNom, SNom)";
+    parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
 
   protected
 
-    final parameter Types.ReactivePowerPu QMinPu = QMin / SystemBase.SnRef "Minimum reactive power in p.u. (base SnRef)";
-    final parameter Types.ReactivePowerPu QMaxPu = QMax / SystemBase.SnRef "Maximum reactive power in p.u. (base SnRef)";
-    final parameter Types.PerUnit LambdaPu = LambdaPuSNom * SNom / SystemBase.SnRef "Reactive power sensitivity of the voltage regulation in p.u. (base UNom, SnRef)";
+    final parameter Types.ReactivePowerPu QMinPu = QMin / SystemBase.SnRef "Minimum reactive power in pu (base SnRef)";
+    final parameter Types.ReactivePowerPu QMaxPu = QMax / SystemBase.SnRef "Maximum reactive power in pu (base SnRef)";
+    final parameter Types.PerUnit LambdaPu = LambdaPuSNom * SNom / SystemBase.SnRef "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
     final parameter Types.Time T = 1 "Time constant used to filter the reactive power reference";
 
     parameter Types.VoltageModulePu URef0Pu "Initial voltage regulation set point";
 
-    Types.ReactivePowerPu QGenRefPu (start = QGen0Pu) "Reactive power set point in p.u (base SnRef)";
+    Types.ReactivePowerPu QGenRefPu (start = QGen0Pu) "Reactive power set point in pu (base SnRef)";
 
     QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
 

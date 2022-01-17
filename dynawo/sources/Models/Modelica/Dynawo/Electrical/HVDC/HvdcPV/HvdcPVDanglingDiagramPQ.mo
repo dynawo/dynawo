@@ -26,12 +26,12 @@ model HvdcPVDanglingDiagramPQ "Model for PV HVDC link with a PQ diagram and term
 
 */
 
-  Connectors.ZPin U1RefPu(value(start = U1Ref0Pu)) "Voltage regulation set point in p.u (base UNom) at terminal 1";
-  Connectors.ZPin Q1RefPu(value(start = Q1Ref0Pu)) "Reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 1";
+  Connectors.ZPin U1RefPu(value(start = U1Ref0Pu)) "Voltage regulation set point in pu (base UNom) at terminal 1";
+  Connectors.ZPin Q1RefPu(value(start = Q1Ref0Pu)) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
   Connectors.BPin modeU1(value(start = modeU10)) "Boolean assessing the mode of the control: true if U mode, false if Q mode";
 
-  parameter Types.VoltageModulePu U1Ref0Pu "Start value of the voltage regulation set point in p.u (base UNom) at terminal 1";
-  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 1";
+  parameter Types.VoltageModulePu U1Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
+  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control at terminal 1: true if U mode, false if Q mode";
 
   type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",

@@ -17,14 +17,14 @@ model CalculBG "Final calculation of the susceptance and the conductance"
 
   extends Parameters.Params_CalculBG;
 
-  Modelica.Blocks.Interfaces.RealInput BVarPu "Variable susceptance of the static var compensator in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput BVarPu "Variable susceptance of the static var compensator in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput GCstPu "Fixed conductance of the static var compensator in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput GCstPu "Fixed conductance of the static var compensator in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput BPu "Final susceptance of the static var compensator in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput BPu "Final susceptance of the static var compensator in pu (base SNom)" annotation(
     Placement(visible = true, transformation(extent = {{100, 50}, {120, 70}}, rotation = 0), iconTransformation(origin = {107, 59}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput GPu "Final conductance of the static var compensator in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput GPu "Final conductance of the static var compensator in pu (base SNom)" annotation(
     Placement(visible = true, transformation(extent = {{100, -70}, {120, -50}}, rotation = 0), iconTransformation(origin = {107, -59}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
 
   ModeConnector mode "Current mode of the static var compensator" annotation(

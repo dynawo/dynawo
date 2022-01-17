@@ -27,8 +27,8 @@ model VRProportionalIntegral_INIT "Proportional Integral Voltage Regulator INIT 
     Types.VoltageModulePu Efd0PuLF "Initial Efd from loadflow";
     Types.VoltageModulePu Efd0Pu "Initial Efd";
     Types.PerUnit yIntegrator0 "Initial control before saturation";
-    Types.VoltageModulePu UsRef0Pu "Initial voltage set-point, p.u. = Unom";
-    Types.VoltageModulePu Us0Pu "Initial stator voltage, p.u. = Unom";
+    Types.VoltageModulePu UsRef0Pu "Initial voltage set-point, pu = Unom";
+    Types.VoltageModulePu Us0Pu "Initial stator voltage, pu = Unom";
 
   protected
 
