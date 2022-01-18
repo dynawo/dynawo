@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2022, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,14 +9,15 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
 ##############################################
-#     DYNModelMinMaxMean                    #
+#    DYNModelVoltageMeasurementsUtilities    #
 ##############################################
+
 set(MODEL_NAME
-    DYNModelMinMaxMean
+    DYNModelVoltageMeasurementsUtilities
   )
 
 set(MODEL_SOURCES
-    DYNModelMinMaxMean.cpp
+    DYNModelVoltageMeasurementsUtilities.cpp
   )
 
 compile_cpp_model(${MODEL_NAME} "${MODEL_SOURCES}")
