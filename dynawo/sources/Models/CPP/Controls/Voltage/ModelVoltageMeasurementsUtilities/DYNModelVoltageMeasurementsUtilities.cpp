@@ -194,7 +194,6 @@ ModelVoltageMeasurementsUtilities::evalCalculatedVarI(unsigned iCalculatedVar) c
 
   default:
     throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);  // Macro defined in DYNMacrosMessage
-    break;
   }
 
   return out;
@@ -298,6 +297,7 @@ ModelVoltageMeasurementsUtilities::setFequations() {
 
 void
 ModelVoltageMeasurementsUtilities::checkDataCoherence(const double /*t*/) {
+  // Nothing to do in this case.
 }
 
 double
