@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2022, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,16 +8,16 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
-set(MODULE_NAME MODELS_MODELMINMAXMEAN_unittest)
+set(MODULE_NAME MODELS_MODELVOLTAGEMEASUREMENTSUTILITIES_unittest)
 
 set(MODULE_SOURCES
-    TestModelMinMaxMean.cpp
+    TestModelVoltageMeasurementsUtilities.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
 target_link_libraries(${MODULE_NAME}
-  DYNModelMinMaxMean
+  DYNModelVoltageMeasurementsUtilities
   dynawo_API_PAR
   dynawo_ModelerCommon
   dynawo_Test)
@@ -29,7 +29,7 @@ add_custom_target(${MODULE_NAME}-tests
   COMMENT "Running ${MODULE_NAME}...")
 
 if(BUILD_TESTS_COVERAGE)
-  set(EXTRACT_PATTERNS "'*/sources/Models/CPP/Controls/Voltage/ModelMinMaxMean/DYN*'")
+  set(EXTRACT_PATTERNS "'*/sources/Models/CPP/Controls/Voltage/ModelVoltageMeasurementsUtilities/DYN*'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
