@@ -36,12 +36,15 @@ protected
   Types.Time TimerStartBlock(start = Modelica.Constants.inf) "Timer to start the blocking, TBlockUV after TimerPrepareBlock";
   Types.Time TimerMaintainBlock(start = Modelica.Constants.inf) "Timer to maintain the blocking at least TBlock";
   Types.Time TimerPrepareDeblock(start = Modelica.Constants.inf) "Timer to prepare the deactivation of the blocking";
+  Types.VoltageModulePu UFilteredPu(start = U0Pu) "Filtered voltage module in pu (base UNom)";
 
 equation
 
-  when UPu < UBlockUVPu then
+  UFilteredPu + tFilter * der(UFilteredPu) = UPu;
+
+  when UFilteredPu < UBlockUVPu then
     TimerPrepareBlock = time;
-  elsewhen UPu > UBlockUVPu then
+  elsewhen UFilteredPu > UBlockUVPu then
     TimerPrepareBlock = Modelica.Constants.inf;
   end when;
 
@@ -51,9 +54,9 @@ equation
     TimerStartBlock = Modelica.Constants.inf;
   end when;
 
-  when blocked == true and UPu < UMaxdbPu and UPu > UMindbPu then
+  when blocked == true and UFilteredPu < UMaxdbPu and UFilteredPu > UMindbPu then
     TimerPrepareDeblock = time;
-  elsewhen blocked == false or UPu > UMaxdbPu or UPu < UMindbPu then
+  elsewhen blocked == false or UFilteredPu > UMaxdbPu or UFilteredPu < UMindbPu then
     TimerPrepareDeblock = Modelica.Constants.inf;
   end when;
 
