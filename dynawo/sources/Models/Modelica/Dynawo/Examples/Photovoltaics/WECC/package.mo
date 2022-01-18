@@ -12,6 +12,6 @@ within Dynawo.Examples.Photovoltaics;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package WECC "Examples with WECC models for Photovoltaics"
+package WECC "Examples with WECC models for photovoltaics"
   extends Icons.Package;
 end WECC;

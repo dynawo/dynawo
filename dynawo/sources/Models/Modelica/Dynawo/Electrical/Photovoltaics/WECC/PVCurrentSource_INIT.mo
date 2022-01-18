@@ -22,28 +22,28 @@ model PVCurrentSource_INIT "Initialization model for WECC PV model with a curren
   extends AdditionalIcons.Init;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in p.u (base SnRef, UNom)";
-  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in p.u (base SnRef, UNom)";
+  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
+  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
 
-  parameter Types.PerUnit P0Pu "Start value of active power at regulated bus in p.u (receptor convention) (base SnRef)";
-  parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in p.u (receptor convention) (base SnRef)";
-  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in p.u. (bae UNom)";
+  parameter Types.PerUnit P0Pu "Start value of active power at regulated bus in pu (receptor convention) (base SnRef)";
+  parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
+  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (bae UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
 
 protected
-  Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in p.u (base UNom)";
-  Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef) (receptor convention)";
-  Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in p.u (base UNom, SnRef) (receptor convention)";
-  Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in p.u (base UNom, SNom) (generator convention)";
-  Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in p.u (base UNom)";
-  Types.ComplexPerUnit sInj0Pu "Start value of complex apparent power at injector in p.u (base SNom) (generator convention)";
-  Types.PerUnit PInj0Pu "Start value of active power at injector in p.u (base SNom) (generator convention)";
-  Types.PerUnit QInj0Pu "Start value of reactive power at injector in p.u (base SNom) (generator convention)";
-  Types.PerUnit UInj0Pu "Start value of voltage module at injector in p.u (base UNom)";
+  Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+  Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
+  Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
+  Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
+  Types.ComplexPerUnit sInj0Pu "Start value of complex apparent power at injector in pu (base SNom) (generator convention)";
+  Types.PerUnit PInj0Pu "Start value of active power at injector in pu (base SNom) (generator convention)";
+  Types.PerUnit QInj0Pu "Start value of reactive power at injector in pu (base SNom) (generator convention)";
+  Types.PerUnit UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   Types.Angle UPhaseInj0 "Start value of voltage angle at injector";
   Types.PerUnit PF0 "Start value of power factor";
-  Types.PerUnit Id0Pu "Start value of d-axs current at injector in p.u (base UNom, SNom) (generator convention)";
-  Types.PerUnit Iq0Pu "Start value of q-axis current at injector in p.u (base UNom, SNom) (generator convention)";
+  Types.PerUnit Id0Pu "Start value of d-axs current at injector in pu (base UNom, SNom) (generator convention)";
+  Types.PerUnit Iq0Pu "Start value of q-axis current at injector in pu (base UNom, SNom) (generator convention)";
 
 equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);

@@ -36,19 +36,19 @@ model Line "AC power line - PI model"
   Connectors.ACPower terminal2 annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit RPu "Resistance in p.u (base SnRef)";
-  parameter Types.PerUnit XPu "Reactance in p.u (base SnRef)";
-  parameter Types.PerUnit GPu "Half-conductance in p.u (base SnRef)";
-  parameter Types.PerUnit BPu "Half-susceptance in p.u (base SnRef)";
+  parameter Types.PerUnit RPu "Resistance in pu (base SnRef)";
+  parameter Types.PerUnit XPu "Reactance in pu (base SnRef)";
+  parameter Types.PerUnit GPu "Half-conductance in pu (base SnRef)";
+  parameter Types.PerUnit BPu "Half-susceptance in pu (base SnRef)";
 
 protected
   parameter Types.ComplexImpedancePu ZPu (re = RPu, im = XPu) "Line impedance";
   parameter Types.ComplexAdmittancePu YPu (re = GPu, im = BPu) "Line half-admittance";
 
-  Types.ActivePowerPu P1Pu "Active power on side 1 in p.u. (base SnRef)";
-  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in p.u. (base SnRef)";
-  Types.ActivePowerPu P2Pu "Active power on side 2 in p.u. (base SnRef)";
-  Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in p.u. (base SnRef)";
+  Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef)";
+  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef)";
+  Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef)";
+  Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef)";
 
 equation
 

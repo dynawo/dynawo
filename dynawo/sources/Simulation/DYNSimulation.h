@@ -461,6 +461,15 @@ class Simulation {
    */
   void getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const;
 
+  /**
+ * @brief get model used in simulation
+
+ * @return model used in simulation
+ */
+  boost::shared_ptr<Model> getModel() {
+    return model_;
+  }
+
  private:
   /**
    * @brief open a file stream
@@ -548,7 +557,7 @@ class Simulation {
    */
   bool hasIntermediateStateToDump() const;
 
- public:
+ private:
   boost::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
   boost::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
   boost::shared_ptr<Solver> solver_;  ///< solver used for the simulation
@@ -604,6 +613,8 @@ class Simulation {
   bool dumpLocalInitValues_;  ///< whether to export the results from the local initialisation
   bool dumpGlobalInitValues_;  ///< whether to export the results from the global initialisation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
+
+  bool wasLoggingEnabled_;  ///< true if logging was enabled by an upper project
 
  private:
   /**

@@ -17,12 +17,12 @@ model Limitations "Variable susceptance limits computation"
 
   extends Parameters.Params_Limitations;
 
-  Modelica.Blocks.Interfaces.RealInput IPu "Current of the static var compensator in p.u (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput IPu "Current of the static var compensator in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput BVarMaxPu(start = BMaxPu) "Maximum value for the variable susceptance in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput BVarMaxPu(start = BMaxPu) "Maximum value for the variable susceptance in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput BVarMinPu(start = BMinPu) "Minimum value for the variable susceptance in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput BVarMinPu(start = BMinPu) "Minimum value for the variable susceptance in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -48}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -48}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Math.Min min annotation(

@@ -174,8 +174,8 @@ Loads connected to the 69 kV level are connected behind two transformers with th
    \textbf{Transmission transformer} & \textbf{Distribution transformer}  \\
    \hline
    \\
-   $U_{Target}=1.025 \ p.u. $ & $U_{Target}=1.015 \ p.u. $   \\
-   $U_{Deadband}=0.01 \ p.u. $ & $U_{Deadband}=0.01 \ p.u. $   \\
+   $U_{Target}=1.025 \ pu $ & $U_{Target}=1.015 \ pu $   \\
+   $U_{Deadband}=0.01 \ pu $ & $U_{Deadband}=0.01 \ pu $   \\
    $r_{Min}=0.85 $ & $r_{Min}=0.415 $ \\
    $r_{Max}=1.133 $ & $r_{Max}=1.5 $ \\
    $tap_{Min}=0 $ & $tap_{Min}=0 $ \\
@@ -189,8 +189,8 @@ Loads connected to the 13.8 kV level are connected behind one transformer with t
 
 \begin{center}
 \begin{tabular}{c}
-   $U_{Target}=1.014 \ p.u. $  \\
-   $U_{Deadband}=0.01 \ p.u. $ \\
+   $U_{Target}=1.014 \ pu $  \\
+   $U_{Deadband}=0.01 \ pu $ \\
    $r_{Min}=0.9 $ \\
    $r_{Max}=1.1 $ \\
    $tap_{Min}=0 $  \\
@@ -212,7 +212,7 @@ The solver used is a fixed Backward-Euler order 1 solver:
 
 \subsection{Additional model and scenario}
 
-In this test case, the generator 3 is equipped with an under voltage automaton with the following parameters: $U_{Monitored} = 1 \ p.u. $ and $t_{LagAction} = 5 \ s$. It means that if the voltage at the bus 3 stays lower than $1 \ p.u.$ during $5 \ s$, the generator will be automatically disconnected.\\
+In this test case, the generator 3 is equipped with an under voltage automaton with the following parameters: $U_{Monitored} = 1 \ pu $ and $t_{LagAction} = 5 \ s$. It means that if the voltage at the bus 3 stays lower than $1 \ pu$ during $5 \ s$, the generator will be automatically disconnected.\\
 
 The simulated scenario is a disconnection of generator 2 at $ t = 50 s$.
 
@@ -223,7 +223,7 @@ The analysis and the results will focus on two phenomena: first the system evolu
 For the first phase, the system evolution is mainly driven by the generators behavior. After the disconnection of the generator 2, the other generators (having proportional regulations) immediately try to increase their active and reactive power to compensate for the loss. However, the generators 1 and 3 hit the limitation on their $Efd$ value and are blocked at $Efd_{Max}$. In addition to this, the generator 3 voltage becomes lower than the under voltage automaton limit at $t = 60 \ s$ and at $t = 65 \ s$, the generator is disconnected by this protection, leading to a larger voltage decrease.
 
 \begin{figure}[H]
-\subfigure[Generator 1 $Efd$ and $Efd_{Max} \ (p.u.)$]
+\subfigure[Generator 1 $Efd$ and $Efd_{Max} \ (pu)$]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -237,7 +237,7 @@ For the first phase, the system evolution is mainly driven by the generators beh
     \end{axis}
   \end{tikzpicture}
 }
-\subfigure[Generator 3 $Efd$ and $Efd_{Max} \ (p.u.)$]
+\subfigure[Generator 3 $Efd$ and $Efd_{Max} \ (pu)$]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -340,7 +340,7 @@ In the same time, following the disconnections and the voltage decrease, the vol
     \end{axis}
   \end{tikzpicture}
 }
-  \subfigure[Active power variations for load 9 (p.u.)]
+  \subfigure[Active power variations for load 9 (pu)]
   {
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
@@ -350,7 +350,7 @@ In the same time, following the disconnections and the voltage decrease, the vol
     \end{axis}
   \end{tikzpicture}
 }
-  \subfigure[Reactive power variations for load 9 (p.u.)]
+  \subfigure[Reactive power variations for load 9 (pu)]
   {
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
@@ -517,7 +517,7 @@ The voltage regulator is as follows:
 \caption{Voltage regulator}
 \end{figure}
 
-The speed governor is as follows - omegaRef being 1 p.u. in this control scheme -:
+The speed governor is as follows - omegaRef being 1 pu in this control scheme -:
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}

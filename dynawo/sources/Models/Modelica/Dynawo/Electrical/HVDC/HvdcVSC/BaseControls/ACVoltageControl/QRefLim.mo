@@ -20,14 +20,14 @@ model QRefLim "Function that applies the limitations to QRef"
 
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_QRefLim;
 
-  Modelica.Blocks.Interfaces.RealInput QRefUQPu(start = Q0Pu) "Raw reference reactive power in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRefUQPu(start = Q0Pu) "Raw reference reactive power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PPu(start = P0Pu) "Active power in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PPu(start = P0Pu) "Active power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 75}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -75}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput QRefLimPu(start = Q0Pu) "Limited reference reactive power in p.u (base SNom) after applying the diagrams" annotation(
+  Modelica.Blocks.Interfaces.RealOutput QRefLimPu(start = Q0Pu) "Limited reference reactive power in pu (base SNom) after applying the diagrams" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = QMaxOPPu, uMin = QMinOPPu)  annotation(
@@ -54,9 +54,9 @@ model QRefLim "Function that applies the limitations to QRef"
     Placement(visible = true, transformation(origin = {-40, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
-  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in p.u (base SNom) (generator convention)";
-  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
-  parameter Types.ActivePowerPu P0Pu "Start value of active power in p.u (base SNom) (generator convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (generator convention)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (generator convention)";
 
 equation
   connect(variableLimiter.y, variableLimiter1.u) annotation(

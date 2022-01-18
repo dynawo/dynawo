@@ -23,13 +23,13 @@ package Parameters "Parameters of the HVDC VSC model"
   end Params_ACEmulation;
 
   record Params_RPFaultFunction
-    parameter Types.PerUnit SlopeRPFault "Slope of the recovery of rpfault after a fault in p.u/s";
+    parameter Types.PerUnit SlopeRPFault "Slope of the recovery of rpfault after a fault in pu/s";
   annotation(preferredView = "text");
   end Params_RPFaultFunction;
 
   record Params_DeltaP
-    parameter Types.VoltageModulePu UdcMinPu "Minimum value of the DC voltage in p.u (base UNom)";
-    parameter Types.VoltageModulePu UdcMaxPu "Maximum value of the DC voltage in p.u (base UNom)";
+    parameter Types.VoltageModulePu UdcMinPu "Minimum value of the DC voltage in pu (base UNom)";
+    parameter Types.VoltageModulePu UdcMaxPu "Maximum value of the DC voltage in pu (base UNom)";
     parameter Types.PerUnit KpDeltaP "Proportional coefficient of the PI controller for the calculation of DeltaP";
     parameter Types.PerUnit KiDeltaP "Integral coefficient of the PI controller for the calculation of DeltaP";
   annotation(preferredView = "text");
@@ -45,8 +45,8 @@ package Parameters "Parameters of the HVDC VSC model"
     extends Params_RPFaultFunction;
     parameter Types.PerUnit KpPControl "Proportional coefficient of the PI controller for the active power control";
     parameter Types.PerUnit KiPControl "Integral coefficient of the PI controller for the active power control";
-    parameter Types.ActivePowerPu PMaxOPPu "Maximum operator value of the active power in p.u (base SNom)";
-    parameter Types.ActivePowerPu PMinOPPu "Minimum operator value of the active power in p.u (base SNom)";
+    parameter Types.ActivePowerPu PMaxOPPu "Maximum operator value of the active power in pu (base SNom)";
+    parameter Types.ActivePowerPu PMinOPPu "Minimum operator value of the active power in pu (base SNom)";
     parameter Types.Time SlopePRefPu "Slope of the ramp of PRefPu";
   annotation(preferredView = "text");
   end Params_BaseActivePowerControl;
@@ -63,26 +63,26 @@ package Parameters "Parameters of the HVDC VSC model"
   end Params_DCVoltageControl;
 
   record Params_BaseDCVoltageControl
-    parameter Types.VoltageModulePu UdcRefMaxPu "Maximum value of the DC voltage reference in p.u (base UNom)";
-    parameter Types.VoltageModulePu UdcRefMinPu "Minimum value of the DC voltage reference in p.u (base UNom)";
+    parameter Types.VoltageModulePu UdcRefMaxPu "Maximum value of the DC voltage reference in pu (base UNom)";
+    parameter Types.VoltageModulePu UdcRefMinPu "Minimum value of the DC voltage reference in pu (base UNom)";
     parameter Types.PerUnit Kpdc "Proportional coefficient of the PI controller for the dc voltage control";
     parameter Types.PerUnit Kidc "Integral coefficient of the PI controller for the dc voltage control";
   annotation(preferredView = "text");
   end Params_BaseDCVoltageControl;
 
   record Params_BlockingFunction
-    parameter Types.VoltageModulePu UBlockUVPu "Minimum voltage that triggers the blocking function in p.u (base UNom)";
+    parameter Types.VoltageModulePu UBlockUVPu "Minimum voltage that triggers the blocking function in pu (base UNom)";
     parameter Types.Time TBlockUV "If UPu < UBlockUVPu during TBlockUV then the blocking is activated";
     parameter Types.Time TBlock "The blocking is activated during at least TBlock";
     parameter Types.Time TDeblockU "When UPu goes back between UMindbPu and UMaxdbPu for TDeblockU then the blocking is deactivated";
-    parameter Types.VoltageModulePu UMindbPu "Minimum voltage that deactivates the blocking function in p.u (base UNom)";
-    parameter Types.VoltageModulePu UMaxdbPu "Maximum voltage that deactivates the blocking function in p.u (base UNom)";
+    parameter Types.VoltageModulePu UMindbPu "Minimum voltage that deactivates the blocking function in pu (base UNom)";
+    parameter Types.VoltageModulePu UMaxdbPu "Maximum voltage that deactivates the blocking function in pu (base UNom)";
   annotation(preferredView = "text");
   end Params_BlockingFunction;
 
   record Params_DCLine
-    parameter Types.PerUnit RdcPu "DC line resistance in p.u (base UdcNom, SnRef)";
-    parameter Types.PerUnit CdcPu "DC line capacitance in p.u (base UdcNom, SnRef)";
+    parameter Types.PerUnit RdcPu "DC line resistance in pu (base UdcNom, SnRef)";
+    parameter Types.PerUnit CdcPu "DC line capacitance in pu (base UdcNom, SnRef)";
   annotation(preferredView = "text");
   end Params_DCLine;
 
@@ -92,17 +92,17 @@ package Parameters "Parameters of the HVDC VSC model"
     parameter Types.PerUnit Lambda "Lambda coefficient for the QRefUPu calculation";
     parameter Types.PerUnit KiACVoltageControl "Integral coefficient of the PI controller for the ac voltage control";
     parameter Types.PerUnit KpACVoltageControl "Proportional coefficient of the PI controller for the ac voltage control";
-    parameter Types.ReactivePowerPu QMinCombPu "Minimum combined reactive power in p.u (base SNom)";
-    parameter Types.ReactivePowerPu QMaxCombPu "Maximum combined reactive power in p.u (base SNom)";
+    parameter Types.ReactivePowerPu QMinCombPu "Minimum combined reactive power in pu (base SNom)";
+    parameter Types.ReactivePowerPu QMaxCombPu "Maximum combined reactive power in pu (base SNom)";
     parameter Types.PerUnit DeadBandU "Deadband for the QRefUPu calculation";
   annotation(preferredView = "text");
   end Params_QRefQU;
 
   record Params_QRefLim
-    parameter Types.ReactivePowerPu DeadBand0 = 0.1 "Deadband for the initialization of the reactive limits in p.u (base SNom)";
+    parameter Types.ReactivePowerPu DeadBand0 = 0.1 "Deadband for the initialization of the reactive limits in pu (base SNom)";
     parameter Types.Time tFilterLim = 1 "Time constant for the limits filter in s";
-    parameter Types.ReactivePowerPu QMinOPPu "Minimum operator value of the reactive power in p.u (base SNom)";
-    parameter Types.ReactivePowerPu QMaxOPPu "Maximum operator value of the reactive power in p.u (base SNom)";
+    parameter Types.ReactivePowerPu QMinOPPu "Minimum operator value of the reactive power in pu (base SNom)";
+    parameter Types.ReactivePowerPu QMaxOPPu "Maximum operator value of the reactive power in pu (base SNom)";
     parameter Real tableQMaxPPu11 = 0;
     parameter Real tableQMaxPPu12 = 0.4;
     parameter Real tableQMaxPPu21 = 1.018;

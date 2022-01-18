@@ -11,7 +11,11 @@
 set(MODEL_FILES
   package.mo
   package.order
-  CurrentLimitsCalculation.mo
+  BaseDriveTrain.mo
+  CurrentLimitsCalculationPV.mo
+  CurrentLimitsCalculationWind.mo
+  ElectricalControlCommon.mo
+  IqInjectionLogic.mo
   LineDropCompensation.mo
   UdqRef.mo
   VoltageCheck.mo

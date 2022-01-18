@@ -30,10 +30,10 @@ model Line "AC power line - PI model"
   Connectors.ACPower terminal1;
   Connectors.ACPower terminal2;
 
-  parameter SIunits.Resistance RPu "Resistance in p.u (base SnRef)";
-  parameter SIunits.Reactance XPu "Reactance in p.u (base SnRef)";
-  parameter SIunits.Conductance GPu "Half-conductance in p.u (base SnRef)";
-  parameter SIunits.Susceptance BPu "Half-susceptance in p.u (base SnRef)";
+  parameter SIunits.Resistance RPu "Resistance in pu (base SnRef)";
+  parameter SIunits.Reactance XPu "Reactance in pu (base SnRef)";
+  parameter SIunits.Conductance GPu "Half-conductance in pu (base SnRef)";
+  parameter SIunits.Susceptance BPu "Half-susceptance in pu (base SnRef)";
 
 protected
   parameter Types.AC.Impedance ZPu (re = RPu, im = XPu) "Line impedance";

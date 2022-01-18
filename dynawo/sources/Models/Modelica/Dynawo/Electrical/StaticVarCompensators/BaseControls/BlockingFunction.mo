@@ -21,7 +21,7 @@ model BlockingFunction "Blocking function for the SVarC model"
   final parameter Types.VoltageModule UUnblockUpPu  = UUnblockUp / UNom;
   final parameter Types.VoltageModule UUnblockDownPu = UUnblockDown / UNom;
 
-  Modelica.Blocks.Interfaces.RealInput UPu "Voltage at the static var compensator terminal in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UPu "Voltage at the static var compensator terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanOutput blocked "Whether the static var compensator is blocked due to very low voltages" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

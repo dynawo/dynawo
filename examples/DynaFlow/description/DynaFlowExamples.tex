@@ -59,7 +59,7 @@ This cannot be captured by a fully static simulator, in which all the phase shif
         \legend{20/10, 40/20}
         \end{axis}
   \end{tikzpicture}
-  \caption{Current in the first phase shifter [p.u]}
+  \caption{Current in the first phase shifter [pu]}
 \end{figure}
 
 \begin{figure}[H]
@@ -74,7 +74,7 @@ This cannot be captured by a fully static simulator, in which all the phase shif
         \legend{20/10, 40/20}
         \end{axis}
   \end{tikzpicture}
-  \caption{Current in the second phase shifter [p.u]}
+  \caption{Current in the second phase shifter [pu]}
 \end{figure}
 
 \section{Simplified HVDC link with AC emulation and phase shifter (HVDC\_PhaseShifter)}
@@ -113,7 +113,7 @@ This cannot be captured by a fully static simulator, in which the HVDC link has 
         \legend{tFilter = 1s, tFilter = 50s}
         \end{axis}
   \end{tikzpicture}
-  \caption{Active power in the phase shifter [p.u]}
+  \caption{Active power in the phase shifter [pu]}
 \end{figure}
 
 \begin{figure}[H]
@@ -130,7 +130,7 @@ This cannot be captured by a fully static simulator, in which the HVDC link has 
         \legend{tFilter = 1s, tFilter = 50s}
         \end{axis}
   \end{tikzpicture}
-  \caption{Active power in the HVDC link [p.u]}
+  \caption{Active power in the HVDC link [pu]}
 \end{figure}
 
 \section{Simplified HVDC link with AC emulation and CLA (HVDC\_CLA)}
@@ -169,7 +169,7 @@ This cannot be captured by a fully static simulator, in which the HVDC link has 
         \legend{tFilter = 30s, tFilter = 60s}
         \end{axis}
   \end{tikzpicture}
-  \caption{Active power in the HVDC link [p.u]}
+  \caption{Active power in the HVDC link [pu]}
 \end{figure}
 
 \begin{figure}[H]
@@ -204,7 +204,7 @@ The line is disconnected at t = 30s.\\
 Two simulations are done :
 \begin{itemize}
 \item the load restoration is complete (UMinPu = 0);
-\item the load restoration is not complete (the voltage goes below UMinPu = 0.95 p.u, which decreases the load active power following an alpha-beta behaviour).
+\item the load restoration is not complete (the voltage goes below UMinPu = 0.95 pu, which decreases the load active power following an alpha-beta behaviour).
 \end{itemize}
 
 One can notice that when the restoration is complete, the simulation fails, as would a purely static simulation (power flow).

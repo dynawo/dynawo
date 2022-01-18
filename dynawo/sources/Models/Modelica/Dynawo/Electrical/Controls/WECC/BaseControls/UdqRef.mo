@@ -23,27 +23,27 @@ model UdqRef "Calculation of setpoints udSourceRefPu and uqSourceRefPu with sour
   import Modelica.Blocks.Interfaces;
   import Dynawo.Types;
 
-  parameter Types.PerUnit RSourcePu "Source resistance in p.u (base UNom, SNom)";
-  parameter Types.PerUnit XSourcePu "Source reactance in p.u (base UNom, SNom)";
+  parameter Types.PerUnit RSourcePu "Source resistance in pu (base UNom, SNom)";
+  parameter Types.PerUnit XSourcePu "Source reactance in pu (base UNom, SNom)";
 
-  Interfaces.RealInput idRefPu(start = Id0Pu) "d-axis reference current in p.u (base UNom, SNom)" annotation(
+  Interfaces.RealInput idRefPu(start = Id0Pu) "d-axis reference current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput iqRefPu(start = Iq0Pu) "q-axis reference current in p.u (base UNom, SNom)" annotation(
+  Interfaces.RealInput iqRefPu(start = Iq0Pu) "q-axis reference current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput udInjPu(start = UdInj0Pu) "d-axis voltage at injector in p.u (base UNom)" annotation(
+  Interfaces.RealInput udInjPu(start = UdInj0Pu) "d-axis voltage at injector in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealInput uqInjPu(start = UqInj0Pu) "q-axis voltage at injector in p.u (base UNom)" annotation(
+  Interfaces.RealInput uqInjPu(start = UqInj0Pu) "q-axis voltage at injector in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput udSourceRefPu(start = UdInj0Pu + Id0Pu * RSourcePu - Iq0Pu * XSourcePu) "d-axis reference voltage at source in p.u (base UNom)" annotation(
+  Interfaces.RealOutput udSourceRefPu(start = UdInj0Pu + Id0Pu * RSourcePu - Iq0Pu * XSourcePu) "d-axis reference voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.RealOutput uqSourceRefPu(start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu) "q-axis reference voltage at source in p.u (base UNom)" annotation(
+  Interfaces.RealOutput uqSourceRefPu(start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu) "q-axis reference voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
-  parameter Types.PerUnit Id0Pu "Start value of d-axis current in p.u (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit Iq0Pu "Start value of q-axis current in p.u (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit UdInj0Pu "Start value of d-axis voltage injector in p.u (base UNom)";
-  parameter Types.PerUnit UqInj0Pu "Start value of q-axis voltage injector in p.u (base UNom)";
+  parameter Types.PerUnit Id0Pu "Start value of d-axis current in pu (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit Iq0Pu "Start value of q-axis current in pu (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit UdInj0Pu "Start value of d-axis voltage injector in pu (base UNom)";
+  parameter Types.PerUnit UqInj0Pu "Start value of q-axis voltage injector in pu (base UNom)";
 
 equation
   udSourceRefPu = udInjPu + idRefPu * RSourcePu - iqRefPu * XSourcePu;

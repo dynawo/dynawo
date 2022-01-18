@@ -122,7 +122,7 @@ class PhaseTapChangerInterface {
 
   /**
    * @brief Getter for the current ratio of the phase tap changer
-   * @return The current ratio of the phase tap changer in p.u.
+   * @return The current ratio of the phase tap changer in pu
    */
   virtual double getCurrentRho() const = 0;
 

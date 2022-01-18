@@ -35,31 +35,31 @@ package BaseClasses
       Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
     parameter Real KLosses "Losses coefficient between 0 and 1 : 1 if no loss in the HVDC link, < 1 otherwise";
-    parameter Types.ActivePowerPu PMaxPu  "Maximum active power in p.u (base SnRef) flowing through the HVDC link";
+    parameter Types.ActivePowerPu PMaxPu  "Maximum active power in pu (base SnRef) flowing through the HVDC link";
 
-    input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in p.u (base SnRef) at terminal 1 (receptor convention)";
+    input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in pu (base SnRef) at terminal 1 (receptor convention)";
 
   protected
 
-    parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
-    parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
-    parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    parameter Types.ComplexVoltagePu u20Pu  "Start value of complex voltage at terminal 2 in p.u (base UNom)";
-    parameter Types.ComplexCurrentPu i20Pu  "Start value of complex current at terminal 2 in p.u (base UNom, SnRef) (receptor convention)";
-    parameter Types.ComplexApparentPowerPu s20Pu "Start value of complex apparent power at terminal 2 in p.u (base SnRef) (receptor convention)";
+    parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in pu (base UNom)";
+    parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
+    parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
+    parameter Types.ComplexVoltagePu u20Pu  "Start value of complex voltage at terminal 2 in pu (base UNom)";
+    parameter Types.ComplexCurrentPu i20Pu  "Start value of complex current at terminal 2 in pu (base UNom, SnRef) (receptor convention)";
+    parameter Types.ComplexApparentPowerPu s20Pu "Start value of complex apparent power at terminal 2 in pu (base SnRef) (receptor convention)";
 
-    Types.ActivePowerPu P1Pu (start = s10Pu.re) "Active power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    Types.ActivePowerPu P2Pu (start = s20Pu.re) "Active power at terminal 2 in p.u (base SnRef) (receptor convention)";
-    Types.ActivePowerPu PInj1Pu (start = - s10Pu.re) "Active power at terminal 1 in p.u (base SnRef) (generator convention)";
-    Types.ActivePowerPu PInj2Pu (start = - s20Pu.re) "Active power at terminal 2 in p.u (base SnRef) (generator convention)";
-    Types.VoltageModulePu U1Pu (start = ComplexMath.'abs'(u10Pu)) "Voltage amplitude at terminal 1 in p.u (base UNom)";
-    Types.VoltageModulePu U2Pu (start = ComplexMath.'abs'(u20Pu)) "Voltage amplitude at terminal 2 in p.u (base UNom)";
-    Types.ComplexApparentPowerPu s1Pu(re (start = s10Pu.re), im (start = s10Pu.im)) "Complex apparent power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    Types.ComplexApparentPowerPu s2Pu(re (start = s20Pu.re), im (start = s20Pu.im)) "Complex apparent power at terminal 2 in p.u (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu Q1Pu (start = s10Pu.im) "Reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu Q2Pu (start = s20Pu.im) "Reactive power at terminal 2 in p.u (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu QInj1Pu (start = - s10Pu.im) "Reactive power at terminal 1 in p.u (base SnRef) (generator convention)";
-    Types.ReactivePowerPu QInj2Pu (start = - s20Pu.im) "Reactive power at terminal 2 in p.u (base SnRef) (generator convention)";
+    Types.ActivePowerPu P1Pu (start = s10Pu.re) "Active power at terminal 1 in pu (base SnRef) (receptor convention)";
+    Types.ActivePowerPu P2Pu (start = s20Pu.re) "Active power at terminal 2 in pu (base SnRef) (receptor convention)";
+    Types.ActivePowerPu PInj1Pu (start = - s10Pu.re) "Active power at terminal 1 in pu (base SnRef) (generator convention)";
+    Types.ActivePowerPu PInj2Pu (start = - s20Pu.re) "Active power at terminal 2 in pu (base SnRef) (generator convention)";
+    Types.VoltageModulePu U1Pu (start = ComplexMath.'abs'(u10Pu)) "Voltage amplitude at terminal 1 in pu (base UNom)";
+    Types.VoltageModulePu U2Pu (start = ComplexMath.'abs'(u20Pu)) "Voltage amplitude at terminal 2 in pu (base UNom)";
+    Types.ComplexApparentPowerPu s1Pu(re (start = s10Pu.re), im (start = s10Pu.im)) "Complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
+    Types.ComplexApparentPowerPu s2Pu(re (start = s20Pu.re), im (start = s20Pu.im)) "Complex apparent power at terminal 2 in pu (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q1Pu (start = s10Pu.im) "Reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q2Pu (start = s20Pu.im) "Reactive power at terminal 2 in pu (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu QInj1Pu (start = - s10Pu.im) "Reactive power at terminal 1 in pu (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj2Pu (start = - s20Pu.im) "Reactive power at terminal 2 in pu (base SnRef) (generator convention)";
 
   equation
 
@@ -108,26 +108,26 @@ package BaseClasses
         Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
     parameter Real KLosses "Coefficient between 0 and 1 (no loss) modelling the losses in the HVDC";
-    parameter Types.ActivePowerPu PMaxPu  "Maximum active power in p.u (base SnRef) flowing through the HVDC link";
+    parameter Types.ActivePowerPu PMaxPu  "Maximum active power in pu (base SnRef) flowing through the HVDC link";
 
-    input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in p.u (base SnRef) at terminal 1 (receptor convention)";
+    input Types.ActivePowerPu P1RefPu (start = s10Pu.re) "Active power regulation set point in pu (base SnRef) at terminal 1 (receptor convention)";
 
   protected
 
-    parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
-    parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
-    parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in pu (base UNom)";
+    parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
+    parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
 
-    Types.ActivePowerPu P1Pu (start = s10Pu.re) "Active power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    Types.ActivePowerPu P2Pu (start = 0) "Active power at terminal 2 in p.u (base SnRef) (receptor convention)";
-    Types.ActivePowerPu PInj1Pu (start = - s10Pu.re) "Active power at terminal 1 in p.u (base SnRef) (generator convention)";
-    Types.ActivePowerPu PInj2Pu (start = 0) "Active power at terminal 2 in p.u (base SnRef) (generator convention)";
-    Types.VoltageModulePu U1Pu (start = ComplexMath.'abs'(u10Pu)) "Voltage amplitude at terminal 1 in p.u (base UNom)";
-    Types.ComplexApparentPowerPu s1Pu(re (start = s10Pu.re), im (start = s10Pu.im)) "Complex apparent power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu Q1Pu (start = s10Pu.im) "Reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu Q2Pu (start = 0) "Reactive power at terminal 2 in p.u (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu QInj1Pu (start = - s10Pu.im) "Reactive power at terminal 1 in p.u (base SnRef) (generator convention)";
-    Types.ReactivePowerPu QInj2Pu (start = 0) "Reactive power at terminal 2 in p.u (base SnRef) (generator convention)";
+    Types.ActivePowerPu P1Pu (start = s10Pu.re) "Active power at terminal 1 in pu (base SnRef) (receptor convention)";
+    Types.ActivePowerPu P2Pu (start = 0) "Active power at terminal 2 in pu (base SnRef) (receptor convention)";
+    Types.ActivePowerPu PInj1Pu (start = - s10Pu.re) "Active power at terminal 1 in pu (base SnRef) (generator convention)";
+    Types.ActivePowerPu PInj2Pu (start = 0) "Active power at terminal 2 in pu (base SnRef) (generator convention)";
+    Types.VoltageModulePu U1Pu (start = ComplexMath.'abs'(u10Pu)) "Voltage amplitude at terminal 1 in pu (base UNom)";
+    Types.ComplexApparentPowerPu s1Pu(re (start = s10Pu.re), im (start = s10Pu.im)) "Complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q1Pu (start = s10Pu.im) "Reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q2Pu (start = 0) "Reactive power at terminal 2 in pu (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu QInj1Pu (start = - s10Pu.im) "Reactive power at terminal 1 in pu (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj2Pu (start = 0) "Reactive power at terminal 2 in pu (base SnRef) (generator convention)";
 
   equation
 
@@ -160,8 +160,8 @@ package BaseClasses
     import Modelica;
     extends BaseHvdcPDangling;
 
-    parameter Types.ReactivePowerPu QInj1Min0Pu  "Start value of the minimum reactive power in p.u (base SnRef) (generator convention) at terminal 1";
-    parameter Types.ReactivePowerPu QInj1Max0Pu  "Start value of the maximum reactive power in p.u (base SnRef) (generator convention) at terminal 1";
+    parameter Types.ReactivePowerPu QInj1Min0Pu  "Start value of the minimum reactive power in pu (base SnRef) (generator convention) at terminal 1";
+    parameter Types.ReactivePowerPu QInj1Max0Pu  "Start value of the maximum reactive power in pu (base SnRef) (generator convention) at terminal 1";
     parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
     parameter String QInj1MinTableName "Name of the table in the text file to get QInj1MinPu from PInj1Pu (generator convention)";
     parameter String QInj1MaxTableName "Name of the table in the text file to get QInj1MaxPu from PInj1Pu (generator convention)";
@@ -171,8 +171,8 @@ package BaseClasses
     Modelica.Blocks.Tables.CombiTable1D tableQInj1Min(tableOnFile = true, tableName = QInj1MinTableName, fileName = QInj1MinTableFile) "Table to get QInj1MinPu from PInj1Pu (generator convention)";
     Modelica.Blocks.Tables.CombiTable1D tableQInj1Max(tableOnFile = true, tableName = QInj1MaxTableName, fileName = QInj1MaxTableFile) "Table to get QInj1MaxPu from PInj1Pu (generator convention)";
 
-    Types.ReactivePowerPu QInj1MinPu(start = QInj1Min0Pu) "Minimum reactive power in p.u at terminal 1 (base SnRef) (generator convention)";
-    Types.ReactivePowerPu QInj1MaxPu(start = QInj1Max0Pu) "Maximum reactive power in p.u at terminal 1 (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj1MinPu(start = QInj1Min0Pu) "Minimum reactive power in pu at terminal 1 (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj1MaxPu(start = QInj1Max0Pu) "Maximum reactive power in pu at terminal 1 (base SnRef) (generator convention)";
 
   equation
     PInj1Pu = tableQInj1Min.u[1];
@@ -188,10 +188,10 @@ package BaseClasses
   import Modelica;
   extends BaseHvdcP;
 
-    parameter Types.ReactivePowerPu QInj1Min0Pu  "Start value of the minimum reactive power in p.u (base SnRef) (generator convention) at terminal 1";
-    parameter Types.ReactivePowerPu QInj1Max0Pu  "Start value of the maximum reactive power in p.u (base SnRef) (generator convention) at terminal 1";
-    parameter Types.ReactivePowerPu QInj2Min0Pu  "Start value of the minimum reactive power in p.u (base SnRef) (generator convention) at terminal 2";
-    parameter Types.ReactivePowerPu QInj2Max0Pu  "Start value of the maximum reactive power in p.u (base SnRef) (generator convention) at terminal 2";
+    parameter Types.ReactivePowerPu QInj1Min0Pu  "Start value of the minimum reactive power in pu (base SnRef) (generator convention) at terminal 1";
+    parameter Types.ReactivePowerPu QInj1Max0Pu  "Start value of the maximum reactive power in pu (base SnRef) (generator convention) at terminal 1";
+    parameter Types.ReactivePowerPu QInj2Min0Pu  "Start value of the minimum reactive power in pu (base SnRef) (generator convention) at terminal 2";
+    parameter Types.ReactivePowerPu QInj2Max0Pu  "Start value of the maximum reactive power in pu (base SnRef) (generator convention) at terminal 2";
     parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
     parameter String QInj1MinTableName "Name of the table in the text file to get QInj1MinPu from PInj1Pu (generator convention)";
     parameter String QInj1MaxTableName "Name of the table in the text file to get QInj1MaxPu from PInj1Pu (generator convention)";
@@ -207,10 +207,10 @@ package BaseClasses
     Modelica.Blocks.Tables.CombiTable1D tableQInj2Min(tableOnFile = true, tableName = QInj2MinTableName, fileName = QInj2MinTableFile) "Table to get QInj2MinPu from PInj2Pu (generator convention)";
     Modelica.Blocks.Tables.CombiTable1D tableQInj2Max(tableOnFile = true, tableName = QInj2MaxTableName, fileName = QInj2MaxTableFile) "Table to get QInj2MaxPu from PInj2Pu (generator convention)";
 
-    Types.ReactivePowerPu QInj1MinPu(start = QInj1Min0Pu) "Minimum reactive power in p.u at terminal 1 (base SnRef) (generator convention)";
-    Types.ReactivePowerPu QInj1MaxPu(start = QInj1Max0Pu) "Maximum reactive power in p.u at terminal 1 (base SnRef) (generator convention)";
-    Types.ReactivePowerPu QInj2MinPu(start = QInj2Min0Pu) "Minimum reactive power in p.u at terminal 2 (base SnRef) (generator convention)";
-    Types.ReactivePowerPu QInj2MaxPu(start = QInj2Max0Pu) "Maximum reactive power in p.u at terminal 2 (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj1MinPu(start = QInj1Min0Pu) "Minimum reactive power in pu at terminal 1 (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj1MaxPu(start = QInj1Max0Pu) "Maximum reactive power in pu at terminal 1 (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj2MinPu(start = QInj2Min0Pu) "Minimum reactive power in pu at terminal 2 (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QInj2MaxPu(start = QInj2Max0Pu) "Maximum reactive power in pu at terminal 2 (base SnRef) (generator convention)";
 
   equation
     PInj1Pu = tableQInj1Min.u[1];

@@ -17,13 +17,13 @@ package BaseClasses
 
 record TransformerParameters "Classical transformer parameters"
 
-  parameter Types.PerUnit RPu "Resistance of the generator transformer in p.u (base U2Nom, SnRef)";
-  parameter Types.PerUnit XPu "Reactance of the generator transformer in p.u (base U2Nom, SnRef)";
-  parameter Types.PerUnit GPu "Conductance of the generator transformer in p.u (base U2Nom, SnRef)";
-  parameter Types.PerUnit BPu "Susceptance of the generator transformer in p.u (base U2Nom, SnRef)";
+  parameter Types.PerUnit RPu "Resistance of the generator transformer in pu (base U2Nom, SnRef)";
+  parameter Types.PerUnit XPu "Reactance of the generator transformer in pu (base U2Nom, SnRef)";
+  parameter Types.PerUnit GPu "Conductance of the generator transformer in pu (base U2Nom, SnRef)";
+  parameter Types.PerUnit BPu "Susceptance of the generator transformer in pu (base U2Nom, SnRef)";
 
-  final parameter Types.ComplexImpedancePu ZPu = Complex(RPu, XPu) "Impedance in p.u (base U2Nom, SnRef)";
-  final parameter Types.ComplexAdmittancePu YPu = Complex(GPu, BPu) "Admittance in p.u (base U2Nom, SnRef)";
+  final parameter Types.ComplexImpedancePu ZPu = Complex(RPu, XPu) "Impedance in pu (base U2Nom, SnRef)";
+  final parameter Types.ComplexAdmittancePu YPu = Complex(GPu, BPu) "Admittance in pu (base U2Nom, SnRef)";
 
 annotation(preferredView = "text");
 end TransformerParameters;
@@ -33,8 +33,8 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
 
   extends SwitchOff.SwitchOffTransformer;
 
-  parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
-  parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
+  parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in pu: U2/U1 in no load conditions";
+  parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in pu: U2/U1 in no load conditions";
   parameter Integer NbTap "Number of taps";
 
   // Connection to the grid
@@ -50,26 +50,26 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
   Connectors.ImPin U1Pu (value (start = U10Pu)) "Absolute voltage on side 1";
   Connectors.ImPin P1Pu (value (start = P10Pu)) "Active power on side 1";
   Connectors.ImPin Q1Pu (value (start = Q10Pu)) "Reactive power on side 1";
-  Connectors.ImPin U2Pu (value (start = U20Pu)) "Voltage amplitude at terminal 2 in p.u (base U2Nom)";
+  Connectors.ImPin U2Pu (value (start = U20Pu)) "Voltage amplitude at terminal 2 in pu (base U2Nom)";
 
 protected
 
   // Parameters coming from the initialization process
-  parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base U1Nom)";
-  parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base U1Nom, SnRef) (receptor convention)";
-  parameter Types.ComplexVoltagePu u20Pu  "Start value of complex voltage at terminal 2 in p.u (base U2Nom)";
-  parameter Types.ComplexCurrentPu i20Pu  "Start value of complex current at terminal 2 in p.u (base U2Nom, SnRef) (receptor convention)";
+  parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in pu (base U1Nom)";
+  parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in pu (base U1Nom, SnRef) (receptor convention)";
+  parameter Types.ComplexVoltagePu u20Pu  "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
+  parameter Types.ComplexCurrentPu i20Pu  "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
 
-  parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in p.u (base U1Nom)";
-  parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in p.u (base U2Nom)";
-  parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
+  parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
+  parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
 
   parameter Integer Tap0 "Start value of transformer tap";
   parameter Types.PerUnit rTfo0Pu "Start value of transformer ratio";
 
   // Internal variables
-  discrete Types.PerUnit rTfoPu (start = rTfo0Pu) "Transformation ratio in p.u: U2/U1 in no load conditions";
+  discrete Types.PerUnit rTfoPu (start = rTfo0Pu) "Transformation ratio in pu: U2/U1 in no load conditions";
 
 equation
 

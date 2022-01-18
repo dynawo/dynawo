@@ -161,7 +161,8 @@ exportLostEquipmentsMode_(EXPORT_LOSTEQUIPMENTS_NONE),
 lostEquipmentsOutputFile_(""),
 finalState_(std::numeric_limits<double>::max()),
 dumpLocalInitValues_(false),
-dumpGlobalInitValues_(false) {
+dumpGlobalInitValues_(false),
+wasLoggingEnabled_(false) {
   SignalHandler::setSignalHandlers();
 
 #ifdef _MSC_VER
@@ -595,6 +596,7 @@ Simulation::configureLogs() {
       create_directory(logsDir);
 
     if (jobEntry_->getOutputsEntry()->getLogsEntry()->getAppenderEntries().size() == 0) {
+      wasLoggingEnabled_ = Trace::isLoggingEnabled();
       Trace::disableLogging();
     } else {
       vector<shared_ptr<job::AppenderEntry> > appendersEntry = jobEntry_->getOutputsEntry()->getLogsEntry()->getAppenderEntries();
@@ -630,6 +632,7 @@ Simulation::configureLogs() {
       }
     }
   } else {
+    wasLoggingEnabled_ = Trace::isLoggingEnabled();
     Trace::disableLogging();
   }
 }
@@ -1123,7 +1126,7 @@ Simulation::terminate() {
     dumpIIDMFile();
 
   printEnd();
-  if (!Trace::isLoggingEnabled()) {
+  if (wasLoggingEnabled_ && !Trace::isLoggingEnabled()) {
     // re-enable logging for upper project
     Trace::enableLogging();
   }

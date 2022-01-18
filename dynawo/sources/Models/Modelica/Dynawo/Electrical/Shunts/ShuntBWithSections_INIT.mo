@@ -17,15 +17,15 @@ model ShuntBWithSections_INIT "Initialization for shunt with sections models"
   import Dynawo.Types;
 
   public
-    parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at shunt terminal in p.u (base UNom)";
+    parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at shunt terminal in pu (base UNom)";
     parameter Types.Angle UPhase0  "Start value of voltage angle at shunt terminal (in rad)";
-    parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
+    parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SnRef) (receptor convention)";
     parameter Real Section0 "Initial section of the shunt";
 
   protected
-    Types.ComplexVoltagePu u0Pu "Start value of complex voltage at shunt terminal in p.u (base UNom)";
-    Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
-    flow Types.ComplexCurrentPu i0Pu "Start value of complex current at shunt terminal in p.u (base UNom, SnRef) (receptor convention)";
+    Types.ComplexVoltagePu u0Pu "Start value of complex voltage at shunt terminal in pu (base UNom)";
+    Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
+    flow Types.ComplexCurrentPu i0Pu "Start value of complex current at shunt terminal in pu (base UNom, SnRef) (receptor convention)";
     Real section0 "Initial section of the shunt. This variable is equal to the section0 of the section control";
 
 equation
