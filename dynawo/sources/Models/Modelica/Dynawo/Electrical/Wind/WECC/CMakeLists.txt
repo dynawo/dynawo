@@ -13,7 +13,9 @@ set(MODEL_FILES
   package.order
   WTG4ACurrentSource.mo
   WTG4ACurrentSource.extvar
-  WTG4ACurrentSource_INIT.mo
+  WTG4BCurrentSource.mo
+  WTG4BCurrentSource.extvar
+  WTG4CurrentSource_INIT.mo
   )
 
 #
