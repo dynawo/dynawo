@@ -49,7 +49,9 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wc++98-compat-pedantic"
 #pragma clang diagnostic ignored "-Wdocumentation"
+#if __clang_major__ > 8
 #pragma clang diagnostic ignored "-Wextra-semi-stmt"
+#endif
 #pragma clang diagnostic ignored "-Wold-style-cast"
 #pragma clang diagnostic ignored "-Wreserved-id-macro"
 #pragma clang diagnostic ignored "-Wundef"
