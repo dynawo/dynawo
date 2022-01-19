@@ -265,6 +265,7 @@ Simulation::configureSimulationOutputs() {
     configureTimelineOutputs();
     configureTimetableOutputs();
     configureCurveOutputs();
+    configureFinalStateOutputs();
     configureLostEquipmentsOutputs();
   }
 }
