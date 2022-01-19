@@ -106,6 +106,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   UnderVoltageAutomaton.xml
   VRRemote.xml
   WindTurbine4AWeccCurrentSource.xml
+  WindTurbine4BWeccCurrentSource.xml
   )
 
 # PYTHON scripts preassembled models

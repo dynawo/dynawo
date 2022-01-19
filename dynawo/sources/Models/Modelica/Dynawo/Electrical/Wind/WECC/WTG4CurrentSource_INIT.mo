@@ -12,7 +12,7 @@ within Dynawo.Electrical.Wind.WECC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model WTG4ACurrentSource_INIT "Initialization model for WECC Wind model with a current source as interface with the grid"
+model WTG4CurrentSource_INIT "Initialization model for WECC Wind model with a current source as interface with the grid"
   import Modelica;
   import Modelica.ComplexMath;
   import Dynawo.Types;
@@ -60,4 +60,4 @@ equation
   Iq0Pu = Modelica.Math.sin(UPhaseInj0) * iInj0Pu.re - Modelica.Math.cos(UPhaseInj0) * iInj0Pu.im;
 
   annotation(Documentation(preferredView = "text"));
-end WTG4ACurrentSource_INIT;
+end WTG4CurrentSource_INIT;
