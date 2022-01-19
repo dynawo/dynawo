@@ -412,3 +412,4 @@ warning: return type of member lostEquipments::Exporter::exportToStream is not d
 warning: Member getParameterDynamicNoThrow(const boost::unordered_map< std::string, ParameterModeler > &, const std::string &, bool &, const std::vector< std::string > &) const (function) of class DYN::NetworkComponent is not documented.
 warning: Member getParameterDynamicNoThrow(const boost::unordered_map< std::string, ParameterModeler > &, const std::string &, bool &, const std::vector< std::string > &) const  (function) of class DYN::NetworkComponent is not documented.
 Warning: Member getParameterDynamicNoThrow(const boost::unordered_map< std::string, ParameterModeler > &, const std::string &, bool &, const std::vector< std::string > &) const  (function) of class DYN::NetworkComponent is not documented.
+warning: return type of member DYN::SolverCommonFixedTimeStep::computePrediction is not documented
