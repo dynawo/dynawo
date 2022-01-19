@@ -77,6 +77,7 @@ package Parameters "Parameters of the HVDC VSC model"
     parameter Types.Time TDeblockU "When UPu goes back between UMindbPu and UMaxdbPu for TDeblockU then the blocking is deactivated";
     parameter Types.VoltageModulePu UMindbPu "Minimum voltage that deactivates the blocking function in pu (base UNom)";
     parameter Types.VoltageModulePu UMaxdbPu "Maximum voltage that deactivates the blocking function in pu (base UNom)";
+    parameter Types.Time tFilter = 0.01 "Time constant of the measurement filter in s";
   annotation(preferredView = "text");
   end Params_BlockingFunction;
 
