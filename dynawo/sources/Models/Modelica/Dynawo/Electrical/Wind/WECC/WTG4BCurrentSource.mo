@@ -12,7 +12,7 @@ within Dynawo.Electrical.Wind.WECC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model WTG4BCurrentSource "WECC Wind Turbine model with a simplified drive train model (dual-mass model) and with a current source as interface with the grid"
+model WTG4BCurrentSource "WECC Wind Turbine model with a current source as interface with the grid"
   import Modelica;
   import Dynawo;
   import Dynawo.Types;
@@ -50,6 +50,7 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a simplified drive train 
     Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Dynawo.Electrical.Lines.Line line(RPu = RPu, XPu = XPu, BPu = 0, GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {120, -10}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.PlantControl wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = - P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = - Q0Pu * SystemBase.SnRef / SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, Dbd = Dbd, EMax = EMax, EMin = EMin, FDbd1 = FDbd1, FDbd2 = FDbd2, FEMax = FEMax, FEMin = FEMin, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
@@ -63,7 +64,7 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a simplified drive train 
   Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaG(k = 1) annotation(
-    Placement(visible = true, transformation(origin = {-10, -47.5}, extent = {{3, -3}, {-3, 3}}, rotation = 270)));
+    Placement(visible = true, transformation(origin = {40, -45}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
   Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-80, 36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom)  annotation(
@@ -134,7 +135,8 @@ equation
   connect(QRefPu, wecc_repc.QRefPu) annotation(
     Line(points = {{-110, -40}, {-58, -40}, {-58, -24}, {-51, -24}}, color = {0, 0, 127}));
   connect(omegaG.y, wecc_reec.omegaGPu) annotation(
-    Line(points = {{-10, -44}, {-10, -29}}, color = {0, 0, 127}));
+    Line(points = {{34.5, -45}, {-10, -45}, {-10, -29}}, color = {0, 0, 127}));
+
   annotation(
     Documentation(preferredView = "diagram",
     info = "<html>
