@@ -19,9 +19,9 @@ model LimitsCalculationFunction "Reactive and active currents limits calculation
 
   extends LimitsCalculationFunction.BaseLimitsCalculationFunction;
 
-  Modelica.Blocks.Interfaces.RealInput iqMod1Pu(start = 0) "Additional reactive current in case of fault or overvoltage in p.u for the other HVDC terminal (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqMod1Pu(start = 0) "Additional reactive current in case of fault or overvoltage in pu for the other HVDC terminal (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-30,-120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {111, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealInput iqRef1Pu(start = Iq0Pu) "Reactive current reference in p.u for the other HVDC terminal (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqRef1Pu(start = Iq0Pu) "Reactive current reference in pu for the other HVDC terminal (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {30,-120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {110, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
 equation

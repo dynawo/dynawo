@@ -25,21 +25,21 @@ model DroopControl "Droop Control"
   parameter Types.PerUnit Wff "Cutoff pulsation of the active damping (in rad/s)";
   parameter Types.PerUnit Kff "Gain of the active damping";
 
-  Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-100, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {90, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = 0) "q-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = 0) "q-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-100, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput idPccPu(start = IdPcc0Pu) "d-axis current in the grid" annotation(
     Placement(visible = true, transformation(origin = {-140, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-30, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput iqPccPu(start = IqPcc0Pu) "q-axis current in the grid" annotation(
     Placement(visible = true, transformation(origin = {-140, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = PRef0Pu) "active power reference at the converter's capacitor in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = PRef0Pu) "active power reference at the converter's capacitor in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-100, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "grid frequency in p.u" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "grid frequency in pu" annotation(
     Placement(visible = true, transformation(origin = {140, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {30, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = UdFilter0Pu) "reference voltage at the converter's capacitor in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = UdFilter0Pu) "reference voltage at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {68, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QRefPu(start = QRef0Pu) "reactive power reference at the converter's capacitor in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRefPu(start = QRef0Pu) "reactive power reference at the converter's capacitor in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput DeltaVVId(start = 0) "d-axis virtual impedance output" annotation(
     Placement(visible = true, transformation(origin = {140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-90, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -50,9 +50,9 @@ model DroopControl "Droop Control"
     Placement(visible = true, transformation(origin = {160,60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, -1}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput theta(start = Theta0) "Phase shift between the converter's rotating frame and the grid rotating frame" annotation(
     Placement(visible = true, transformation(origin = {240, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput udFilterRefPu(start = UdFilter0Pu) "d-axis voltage reference at the converter's capacitor in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput udFilterRefPu(start = UdFilter0Pu) "d-axis voltage reference at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {194, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput uqFilterRefPu(start = 0) "q-axis voltage reference at the converter's capacitor in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput uqFilterRefPu(start = 0) "q-axis voltage reference at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {194, -96}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Math.Product product annotation(
@@ -110,8 +110,8 @@ model DroopControl "Droop Control"
 
 protected
 
-  parameter Types.PerUnit PRef0Pu "Start value of the active power reference at the converter's capacitor in p.u (base SNom) (generator convention)";
-  parameter Types.PerUnit QRef0Pu "Start value of the reactive power reference at the converter's capacitor in p.u (base SNom) (generator convention)";
+  parameter Types.PerUnit PRef0Pu "Start value of the active power reference at the converter's capacitor in pu (base SNom) (generator convention)";
+  parameter Types.PerUnit QRef0Pu "Start value of the reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.PerUnit IdPcc0Pu;
   parameter Types.PerUnit IqPcc0Pu;
   parameter Types.PerUnit UdFilter0Pu;

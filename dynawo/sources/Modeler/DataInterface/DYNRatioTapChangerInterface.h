@@ -133,7 +133,7 @@ class RatioTapChangerInterface {
 
   /**
    * @brief Getter for the current ratio of the ratio tap changer
-   * @return The current ratio of the ratio tap changer in p.u.
+   * @return The current ratio of the ratio tap changer in pu
    */
   virtual double getCurrentRho() const = 0;
 

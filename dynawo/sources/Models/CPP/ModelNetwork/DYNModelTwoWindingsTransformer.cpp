@@ -1482,7 +1482,7 @@ ModelTwoWindingsTransformer::evalCalculatedVars() {
   double iiBus1 = ii1(ur1Val, ui1Val, ur2Val, ui2Val);
   double irBus2 = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
   double iiBus2 = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
-  double P1 = ur1Val * irBus1 + ui1Val * iiBus1;   // in p.u., because u and iBus in p.u.
+  double P1 = ur1Val * irBus1 + ui1Val * iiBus1;   // in pu, because u and iBus in pu
   double P2 = ur2Val * irBus2 + ui2Val * iiBus2;
   int signP1 = sign(P1);
   int signP2 = sign(P2);

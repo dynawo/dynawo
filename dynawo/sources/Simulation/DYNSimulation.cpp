@@ -55,12 +55,6 @@
 #include "CRVXmlExporter.h"
 #include "CRVCsvExporter.h"
 
-#include "FSFinalStateCollectionFactory.h"
-#include "FSFinalStateCollection.h"
-#include "FSXmlImporter.h"
-#include "FSXmlExporter.h"
-#include "FSIterators.h"
-
 #include "CSTRConstraintsCollection.h"
 #include "CSTRConstraintsCollectionFactory.h"
 #include "CSTRTxtExporter.h"
@@ -133,10 +127,6 @@ using timeline::TimelineFactory;
 using curves::CurvesCollection;
 using curves::CurvesCollectionFactory;
 
-using finalState::FinalStateCollectionFactory;
-using finalState::finalStateModel_iterator;
-using finalState::finalStateVariable_iterator;
-
 using constraints::ConstraintsCollectionFactory;
 
 using lostEquipments::LostEquipmentsCollectionFactory;
@@ -165,7 +155,6 @@ exportTimelineMode_(EXPORT_TIMELINE_NONE),
 exportTimelineWithTime_(true),
 exportTimelineMaxPriority_(boost::none),
 timelineOutputFile_(""),
-exportFinalStateMode_(EXPORT_FINALSTATE_NONE),
 exportConstraintsMode_(EXPORT_CONSTRAINTS_NONE),
 constraintsOutputFile_(""),
 exportLostEquipmentsMode_(EXPORT_LOSTEQUIPMENTS_NONE),
@@ -276,7 +265,6 @@ Simulation::configureSimulationOutputs() {
     configureTimelineOutputs();
     configureTimetableOutputs();
     configureCurveOutputs();
-    configureFinalStateOutputs();
     configureLostEquipmentsOutputs();
   }
 }
@@ -1194,35 +1182,6 @@ Simulation::printTimeline(std::ostream& stream) const {
       exporter.setExportWithTime(exportTimelineWithTime_);
       exporter.setMaxPriority(exportTimelineMaxPriority_);
       exporter.exportToStream(timeline_, stream);
-      break;
-    }
-  }
-}
-
-void
-Simulation::printFinalState(std::ostream& stream) const {
-  switch (exportFinalStateMode_) {
-    case EXPORT_FINALSTATE_NONE:
-      break;
-    case EXPORT_FINALSTATE_XML: {
-      // update calculated variables
-      model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
-
-      // association between requested variables and model variables
-      for (finalStateModel_iterator itModel = finalStateCollection_->beginFinalStateModel();
-              itModel != finalStateCollection_->endFinalStateModel();
-              ++itModel) {
-        model_->fillVariables(*itModel);
-      }
-
-      for (finalStateVariable_iterator itVariable = finalStateCollection_->beginVariable();
-              itVariable != finalStateCollection_->endVariable();
-              ++itVariable) {
-        model_->fillVariable(*itVariable);
-      }
-      // export variables
-      finalState::XmlExporter xmlExporter;
-      xmlExporter.exportToStream(finalStateCollection_, stream);
       break;
     }
   }

@@ -77,7 +77,7 @@
   <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_GEN____1_SM" id2="Model_Signal_N" index2="3"/>
   <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR" id1="_GEN____3_SM" id2="NETWORK"/>
   <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_GEN____3_SM" id2="Model_Signal_N" index2="4"/>
-  <dyn:connect id1="Model_Signal_N" var1="signalN_thetaRef" id2="NETWORK" var2="_BUS____4_TN_phi"/>
+  <dyn:connect id1="Model_Signal_N" var1="signalN_thetaRef" id2="NETWORK" var2="_BUS____4_TN_phi_value"/>
   <dyn:blackBoxModel id="DISCONNECT_LINE" lib="EventQuadripoleDisconnection" parFile="PhaseShifterBlocking.par" parId="DISCONNECTION"/>
   <dyn:connect id1="DISCONNECT_LINE" var1="event_state1_value" id2="NETWORK" var2="_BUS____9-BUS___10-1_AC_state_value"/>
   <dyn:blackBoxModel id="PhaseShifter" lib="PhaseShifterI" parFile="PhaseShifterBlocking.par" parId="PhaseShifter"/>

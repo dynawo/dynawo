@@ -24,13 +24,13 @@ model SVarCPVPropRemoteModeHandling "PV static var compensator model with remote
   extends SwitchOff.SwitchOffShunt;
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the static var compensator to the grid";
-  input Types.VoltageModulePu URegulatedPu "Regulated voltage in p.u (base UNomRemote)";
+  input Types.VoltageModulePu URegulatedPu "Regulated voltage in pu (base UNomRemote)";
 
   extends Parameters.Params_ModeHandling;
-  parameter Types.PerUnit BMaxPu "Maximum value for the variable susceptance in p.u (base UNomLocal, SnRef)";
-  parameter Types.PerUnit BMinPu "Minimum value for the variable susceptance in p.u (base UNomLocal, SnRef)";
-  parameter Types.PerUnit LambdaPu "Statism of the regulation law URefPu = UPu + LambdaPu*QPu in p.u (base UNomRemote, SnRef)";
-  parameter Types.PerUnit BShuntPu "Fixed susceptance of the static var compensator in p.u (for standby mode) (base UNomLocal, SnRef)";
+  parameter Types.PerUnit BMaxPu "Maximum value for the variable susceptance in pu (base UNomLocal, SnRef)";
+  parameter Types.PerUnit BMinPu "Minimum value for the variable susceptance in pu (base UNomLocal, SnRef)";
+  parameter Types.PerUnit LambdaPu "Statism of the regulation law URefPu = UPu + LambdaPu*QPu in pu (base UNomRemote, SnRef)";
+  parameter Types.PerUnit BShuntPu "Fixed susceptance of the static var compensator in pu (for standby mode) (base UNomLocal, SnRef)";
   parameter Types.VoltageModule UNomRemote "Static var compensator remote nominal voltage in kV";
   parameter Types.VoltageModule URef0Pu "Start value of voltage reference in kV";
 
@@ -38,22 +38,22 @@ model SVarCPVPropRemoteModeHandling "PV static var compensator model with remote
   input Boolean selectModeAuto(start = selectModeAuto0) "Whether the static var compensator is in automatic configuration";
   input Integer setModeManual(start = setModeManual0) "Mode selected when in manual configuration";
 
-  Types.PerUnit BVarRawPu(start = BVar0Pu) "Raw variable susceptance of the static var compensator in p.u (base UNomLocal, SnRef)";
-  Types.PerUnit BVarPu(start = BVar0Pu) "Variable susceptance of the static var compensator in p.u (base UNomLocal, SnRef)";
-  Types.PerUnit BPu(start = B0Pu) "Susceptance of the static var compensator in p.u (base UNomLocal, SnRef)";
-  Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in p.u (base UNomLocal)";
-  Types.ReactivePowerPu QInjPu(start = B0Pu * U0Pu ^ 2) "Reactive power in p.u (base SnRef) (generator convention)";
-  Types.ActivePowerPu PInjPu(start = 0) "Active power in p.u (base SnRef) (generator convention)";
-  Types.VoltageModulePu URefPu(start = URef0Pu) = modeHandling.URefPu "Reference voltage amplitude in p.u (base UNomRemote)";
+  Types.PerUnit BVarRawPu(start = BVar0Pu) "Raw variable susceptance of the static var compensator in pu (base UNomLocal, SnRef)";
+  Types.PerUnit BVarPu(start = BVar0Pu) "Variable susceptance of the static var compensator in pu (base UNomLocal, SnRef)";
+  Types.PerUnit BPu(start = B0Pu) "Susceptance of the static var compensator in pu (base UNomLocal, SnRef)";
+  Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in pu (base UNomLocal)";
+  Types.ReactivePowerPu QInjPu(start = B0Pu * U0Pu ^ 2) "Reactive power in pu (base SnRef) (generator convention)";
+  Types.ActivePowerPu PInjPu(start = 0) "Active power in pu (base SnRef) (generator convention)";
+  Types.VoltageModulePu URefPu(start = URef0Pu) = modeHandling.URefPu "Reference voltage amplitude in pu (base UNomRemote)";
 
   BaseControls.ModeHandling modeHandling(Mode0 = Mode0, UNom = UNomRemote, URefDown = URefDown, URefUp = URefUp, UThresholdDown = UThresholdDown, UThresholdUp = UThresholdUp, tThresholdDown = tThresholdDown, tThresholdUp = tThresholdUp, URef0 = URef0Pu * UNomRemote);
 
 protected
-  parameter Types.PerUnit B0Pu "Start value of the susceptance in p.u (base UNomLocal, SnRef)";
-  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at injector terminal in p.u (base UNomLocal)";
-  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in p.u (base UNomLocal)";
-  parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in p.u (base UNomLocal, SnRef) (receptor convention)";
-  final parameter Types.PerUnit BVar0Pu = B0Pu - BShuntPu "Start value of variable susceptance in p.u (base UNomLocal, SnRef)";
+  parameter Types.PerUnit B0Pu "Start value of the susceptance in pu (base UNomLocal, SnRef)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at injector terminal in pu (base UNomLocal)";
+  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNomLocal)";
+  parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in pu (base UNomLocal, SnRef) (receptor convention)";
+  final parameter Types.PerUnit BVar0Pu = B0Pu - BShuntPu "Start value of variable susceptance in pu (base UNomLocal, SnRef)";
   parameter BaseControls.Mode Mode0 "Start value for mode";
   parameter Boolean selectModeAuto0 = true "Start value of the boolean indicating whether the SVarC is initially in automatic configuration";
   final parameter Integer setModeManual0 = Integer(Mode0) "Start value of the mode when in manual configuration";

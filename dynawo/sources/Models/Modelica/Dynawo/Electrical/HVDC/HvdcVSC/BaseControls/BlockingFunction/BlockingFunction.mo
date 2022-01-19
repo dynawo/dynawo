@@ -22,7 +22,7 @@ model BlockingFunction "Undervoltage blocking function for one side of an HVDC L
 
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_BlockingFunction;
 
-  Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage module in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage module in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.BooleanOutput blocked(start = false) "Boolean assessing the state of the HVDC link: true if blocked, false if not blocked" annotation(
@@ -30,7 +30,7 @@ model BlockingFunction "Undervoltage blocking function for one side of an HVDC L
 
 protected
 
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude in p.u (base UNom)";
+  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude in pu (base UNom)";
 
   Types.Time TimerPrepareBlock(start = Modelica.Constants.inf) "Timer to prepare the blocking";
   Types.Time TimerStartBlock(start = Modelica.Constants.inf) "Timer to start the blocking, TBlockUV after TimerPrepareBlock";

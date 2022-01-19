@@ -18,15 +18,15 @@ model SVarCPV_INIT "Initialization for PV static var compensator"
 
   extends AdditionalIcons.Init;
 
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at terminal in p.u (base UNom)";
+  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at terminal in pu (base UNom)";
   parameter Types.Angle UPhase0  "Start value of voltage angle at terminal (in rad)";
-  parameter Types.ActivePowerPu P0Pu  "Start value of active power in p.u (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
+  parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SnRef) (receptor convention)";
 
-  Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in p.u (base UNom)";
-  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
-  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
-  Types.PerUnit B0Pu "Start value of the susceptance in p.u (base UNom, SnRef)";
+  Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";
+  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
+  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.PerUnit B0Pu "Start value of the susceptance in pu (base UNom, SnRef)";
 
 equation
 

@@ -37,7 +37,7 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
   Connectors.ACPower terminal2 annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit rTfoPu "Transformation ratio in p.u: U2/U1 in no load conditions";
+  parameter Types.PerUnit rTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
 
 equation
 

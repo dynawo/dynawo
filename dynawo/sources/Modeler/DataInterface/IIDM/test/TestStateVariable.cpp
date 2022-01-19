@@ -49,6 +49,8 @@
 #include <IIDM/builders/LoadBuilder.h>
 #include <IIDM/builders/SwitchBuilder.h>
 #include <IIDM/builders/VscConverterStationBuilder.h>
+#include <IIDM/extensions/standbyAutomaton/StandbyAutomaton.h>
+#include <IIDM/extensions/standbyAutomaton/StandbyAutomatonBuilder.h>
 
 #include <IIDM/extensions/generatorActivePowerControl/GeneratorActivePowerControl.h>
 #include <IIDM/extensions/generatorActivePowerControl/GeneratorActivePowerControlBuilder.h>
@@ -77,6 +79,7 @@ namespace DYN {
 
 struct NetworkProperty {
   bool instantiateCapacitorShuntCompensator;
+  bool instantiateStaticVarCompensatorStandByAutomatonExt;
   bool instantiateStaticVarCompensator;
   bool instantiateTwoWindingTransformer;
   bool instantiateRatioTapChanger;
@@ -235,6 +238,18 @@ createNetwork(const NetworkProperty& properties) {
     vl.add(sc, c1);
   }
 
+  if (properties.instantiateStaticVarCompensatorStandByAutomatonExt) {
+    IIDM::builders::StaticVarCompensatorBuilder svcb;
+    IIDM::extensions::standbyautomaton::StandbyAutomatonBuilder sbab;
+    sbab.standBy(true);
+    svcb.regulationMode(IIDM::StaticVarCompensator::regulation_voltage);
+    svcb.bmin(1.0);
+    svcb.bmax(10.0);
+    IIDM::StaticVarCompensator svc = svcb.build("MyStaticVarCompensatorStandByAutomatonExt");
+    svc.setExtension(sbab.build());
+    vl.add(svc, c1);
+  }
+
   if (properties.instantiateStaticVarCompensator) {
     IIDM::builders::StaticVarCompensatorBuilder svcb;
     svcb.regulationMode(IIDM::StaticVarCompensator::regulation_voltage);
@@ -290,7 +305,8 @@ createNetwork(const NetworkProperty& properties) {
 TEST(ModelsModelNetwork, TestNetworkCreation) {
   const NetworkProperty properties = {
       true /*instantiateCapacitorShuntCompensator*/,
-      true /*instantiateStaticVarCompensator*/,
+      true /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
+      false /*instantiateStaticVarCompensator*/,
       true /*instantiateTwoWindingTransformer*/,
       true /*instantiateRatioTapChanger*/,
       true /*instantiatePhaseTapChanger*/,
@@ -329,7 +345,7 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
     ASSERT_EQ(staticVarCompensators.size(), 1);
     for (std::size_t j = 0, jEnd = staticVarCompensators.size(); j < jEnd; ++j) {
       shared_ptr<StaticVarCompensatorInterface> staticVarCompensator = staticVarCompensators[j];
-      ASSERT_EQ(staticVarCompensator->getRegulationMode(), StaticVarCompensatorInterface::RUNNING_V);
+      ASSERT_EQ(staticVarCompensator->getRegulationMode(), StaticVarCompensatorInterface::STANDBY);
     }
 
     ASSERT_EQ(voltageLevel->getDanglingLines().size(), 1);
@@ -370,6 +386,7 @@ testexportStateVariables(shared_ptr<DataInterface> data) {
 TEST(DataInterfaceTest, testStateVariableShuntCompensator) {
   const NetworkProperty properties = {
       true /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
       false /*instantiateRatioTapChanger*/,
@@ -387,10 +404,11 @@ TEST(DataInterfaceTest, testStateVariableShuntCompensator) {
   ASSERT_NO_THROW(testexportStateVariables(data));
 }
 
-TEST(DataInterfaceTest, testStateVariableStaticVarCompensator) {
+TEST(DataInterfaceTest, testStateVariableStaticVarCompensatorStandByAutomatonExt) {
   const NetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
-      true /*instantiateStaticVarCompensator*/,
+      true /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
+      false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
       false /*instantiateRatioTapChanger*/,
       false /*instantiatePhaseTapChanger*/,
@@ -415,9 +433,39 @@ TEST(DataInterfaceTest, testStateVariableStaticVarCompensator) {
   }
 }
 
+TEST(DataInterfaceTest, testStateVariableStaticVarCompensator) {
+  const NetworkProperty properties = {
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
+      true /*instantiateStaticVarCompensator*/,
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTapChanger*/,
+      false /*instantiatePhaseTapChanger*/,
+      false /*instantiateDanglingLine*/,
+      false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithActivePowerControlExt*/,
+      false /*instantiateLccConverter*/,
+      false /*instantiateLine*/,
+      false /*instantiateLoad*/,
+      false /*instantiateSwitch*/,
+      false /*instantiateVscConverter*/
+  };
+  shared_ptr<DataInterface> data = createNetwork(properties);
+  ASSERT_NO_THROW(testexportStateVariables(data));
+  shared_ptr<NetworkInterface> network = data->getNetwork();
+  const std::vector< shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
+  for (std::size_t i = 0, iEnd = voltageLevels.size(); i < iEnd; ++i) {
+    for (std::size_t g =0, gEnd = voltageLevels[i]->getStaticVarCompensators().size(); g < gEnd; ++g) {
+      ASSERT_FALSE(voltageLevels[i]->getStaticVarCompensators()[g]->hasStandbyAutomaton());
+      ASSERT_EQ(voltageLevels[i]->getStaticVarCompensators()[g]->getRegulationMode(), StaticVarCompensatorInterface::RUNNING_V);
+    }
+  }
+}
+
 TEST(DataInterfaceTest, testStateVariableTwoWTransformerWithPhaseTapChanger) {
   const NetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
       false /*instantiateStaticVarCompensator*/,
       true /*instantiateTwoWindingTransformer*/,
       false /*instantiateRatioTapChanger*/,
@@ -438,6 +486,7 @@ TEST(DataInterfaceTest, testStateVariableTwoWTransformerWithPhaseTapChanger) {
 TEST(DataInterfaceTest, testStateVariableTwoWTransformerWithRatioTapChanger) {
   const NetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
       false /*instantiateStaticVarCompensator*/,
       true /*instantiateTwoWindingTransformer*/,
       true /*instantiateRatioTapChanger*/,
@@ -458,6 +507,7 @@ TEST(DataInterfaceTest, testStateVariableTwoWTransformerWithRatioTapChanger) {
 TEST(DataInterfaceTest, testStateVariableTwoWTransformerWithRatioTapChangerAndPhaseTapChanger) {
   const NetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
       false /*instantiateStaticVarCompensator*/,
       true /*instantiateTwoWindingTransformer*/,
       true /*instantiateRatioTapChanger*/,
@@ -478,6 +528,7 @@ TEST(DataInterfaceTest, testStateVariableTwoWTransformerWithRatioTapChangerAndPh
 TEST(DataInterfaceTest, testStateVariableDanglingLine) {
   const NetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
       false /*instantiateRatioTapChanger*/,
@@ -498,6 +549,7 @@ TEST(DataInterfaceTest, testStateVariableDanglingLine) {
 TEST(DataInterfaceTest, testStateVariableGenerator) {
   const NetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
       false /*instantiateRatioTapChanger*/,
@@ -529,6 +581,7 @@ TEST(DataInterfaceTest, testStateVariableGenerator) {
 TEST(DataInterfaceTest, testStateVariableGeneratorWithActivePowerControlExt) {
   const NetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
       false /*instantiateRatioTapChanger*/,
@@ -560,6 +613,7 @@ TEST(DataInterfaceTest, testStateVariableGeneratorWithActivePowerControlExt) {
 TEST(DataInterfaceTest, testStateVariableLccConverter) {
   const NetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
       false /*instantiateRatioTapChanger*/,
@@ -580,6 +634,7 @@ TEST(DataInterfaceTest, testStateVariableLccConverter) {
 TEST(DataInterfaceTest, testStateVariableLine) {
   const NetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
       false /*instantiateRatioTapChanger*/,
@@ -600,6 +655,7 @@ TEST(DataInterfaceTest, testStateVariableLine) {
 TEST(DataInterfaceTest, testStateVariableLoad) {
   const NetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
       false /*instantiateRatioTapChanger*/,
@@ -620,6 +676,7 @@ TEST(DataInterfaceTest, testStateVariableLoad) {
 TEST(DataInterfaceTest, testStateVariableSwitch) {
   const NetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
       false /*instantiateRatioTapChanger*/,
@@ -675,6 +732,7 @@ TEST(DataInterfaceTest, testStateVariableSwitchWithSameExtremities) {
 TEST(DataInterfaceTest, testStateVariableVscConverter) {
   const NetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensatorStandByAutomatonExt*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
       false /*instantiateRatioTapChanger*/,

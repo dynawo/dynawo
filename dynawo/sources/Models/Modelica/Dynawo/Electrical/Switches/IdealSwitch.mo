@@ -36,13 +36,13 @@ model IdealSwitch "Ideal switch"
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Variables for display
-  Types.ActivePowerPu P1Pu "Active power on side 1 in p.u (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in p.u (base SnRef) (receptor convention)";
-  Types.ActivePowerPu P1GenPu "Active power on side 1 in p.u (base SnRef) (generator convention)";
-  Types.ReactivePowerPu Q1GenPu "Reactive power on side 1 in p.u (base SnRef) (generator convention)";
+  Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
+  Types.ActivePowerPu P1GenPu "Active power on side 1 in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu Q1GenPu "Reactive power on side 1 in pu (base SnRef) (generator convention)";
 
-  Types.ActivePowerPu P2Pu "Active power on side 2 in p.u (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in p.u (base SnRef) (receptor convention)";
+  Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
 
 equation
 

@@ -71,8 +71,8 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @brief  calculated variables type
    */
   typedef enum {
-    i1Num_ = 0,  // (unit p.u)
-    i2Num_ = 1,  // (unit p.u)
+    i1Num_ = 0,  // (unit pu)
+    i2Num_ = 1,  // (unit pu)
     p1Num_ = 2,
     p2Num_ = 3,
     q1Num_ = 4,
@@ -715,8 +715,8 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   boost::shared_ptr<ModelCurrentLimits> currentLimits1_;  ///< current limit side 1
   boost::shared_ptr<ModelCurrentLimits> currentLimits2_;  ///< current limit side 2
 
-  double factorPuToASide1_;  ///< factor to convert current side 1 from p.u. to A
-  double factorPuToASide2_;  ///< factor to convert current side 1 from p.u. to A
+  double factorPuToASide1_;  ///< factor to convert current side 1 from pu to A
+  double factorPuToASide2_;  ///< factor to convert current side 1 from pu to A
 
   // state variables
   double vNom1_;  ///< nominal voltage on side 1
