@@ -1,7 +1,7 @@
 within Dynawo.Examples.ENTSOE.INIT;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -54,8 +54,10 @@ model InitCase2 "Synchronous generator starting at 380 MW and 0 MVar - Start val
   nd = 0,
   nq = 0)  annotation(
     Placement(visible = true, transformation(origin = {0, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
 
 annotation(
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst");
+
 end InitCase2;

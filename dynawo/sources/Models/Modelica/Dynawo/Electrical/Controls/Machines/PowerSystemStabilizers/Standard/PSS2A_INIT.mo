@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.IEEE;
+within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard;
 
 /*
 * Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
@@ -13,12 +13,13 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.IEEE;
 */
 
 model PSS2A_INIT "IEEE Power System Stabilizer type PSS2A initialization model"
+
   extends AdditionalIcons.Init;
 
-  public
-    Types.ActivePowerPu PGen0Pu "Initial active power input in p.u (base SnRef) - generator convention";
+  Types.ActivePowerPu PGen0Pu "Initial active power input in p.u (base SnRef) - generator convention";
 
   annotation(
     preferredView = "text",
     uses(Modelica(version = "3.2.3")));
+
 end PSS2A_INIT;

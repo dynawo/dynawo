@@ -8,13 +8,14 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain simulation tools for power systems.
 
-# Power system stabilizers models
-
-add_subdirectory(Standard St)
+# IEEE power system stabilizers models
 
 set(MODEL_FILES
   package.mo
   package.order
+  PSS2A_INIT.mo
+  PSS2A.mo
+  PSS2A.extvar
   )
 
 #

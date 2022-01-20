@@ -1,7 +1,7 @@
 within Dynawo.Examples.ENTSOE;
 
 /*
-  * Copyright (c) 2021, RTE (http://www.rte-france.com)
+  * Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
   * See AUTHORS.txt
   * All rights reserved.
   * This Source Code Form is subject to the terms of the Mozilla Public
@@ -17,7 +17,7 @@ model TestCase2 "Active power variation on the load"
   import Modelica;
   import Dynawo;
 
-  extends Modelica.Icons.Example;
+  extends Icons.Example;
 
   // Generator and regulations
   BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
@@ -93,9 +93,9 @@ model TestCase2 "Active power variation on the load"
    nd = 0,
    nq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.IEEE.SEXS avr(EMax = 4, EMin = 0, Efd0Pu = generatorSynchronous.Efd0Pu, K = 200, Ta = 3, Tb = 10, Te = 0.05, Upss0Pu = 0, Us0Pu = 1, UsRef0Pu = 1.0090862 ) annotation(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS avr(EMax = 4, EMin = 0, Efd0Pu = generatorSynchronous.Efd0Pu, K = 200, Ta = 3, Tb = 10, Te = 0.05, Upss0Pu = 0, Us0Pu = 1, UsRef0Pu = 1.0090862 ) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Governors.IEEE.TGOV1 governor(Dt = 0, Pm0Pu = generatorSynchronous.Pm0Pu, R = 0.05, Tg1 = 0.5, Tg2 = 3, Tg3 = 10, VMax = 1, VMin = 0) annotation(
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV1 governor(Dt = 0, Pm0Pu = generatorSynchronous.Pm0Pu, R = 0.05, Tg1 = 0.5, Tg2 = 3, Tg3 = 10, VMax = 1, VMin = 0) annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -110,9 +110,7 @@ model TestCase2 "Active power variation on the load"
   Modelica.Blocks.Sources.Step PRefPu(height = 0.05 * generatorSynchronous.PNomAlt / 100, offset = 3.8, startTime = 0.1);
 
 equation
-  connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu) annotation(
-    Line);
-  connect(governor.PmRefPu, PmRefPu.y);
+
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
@@ -120,6 +118,9 @@ equation
   load.QRefPu = QRefPu.setPoint.value;
   load.switchOffSignal1.value = false;
   load.switchOffSignal2.value = false;
+  connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu) annotation(
+    Line);
+  connect(governor.PmRefPu, PmRefPu.y);
   connect(load.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
@@ -136,6 +137,7 @@ equation
     Line(points = {{21, 60}, {50, 60}, {50, 24}, {118, 24}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 15, Tolerance = 1e-06),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
@@ -154,4 +156,5 @@ equation
     </figure>
 
 </body></html>"));
+
 end TestCase2;

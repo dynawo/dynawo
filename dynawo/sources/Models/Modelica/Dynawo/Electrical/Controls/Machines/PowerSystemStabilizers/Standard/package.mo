@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,8 +12,11 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain suite of simulation tools for power systems.
 */
 
-package IEEE
+package Standard "Standard power system stabilizers"
 
   extends Icons.Package;
 
-end IEEE;
+annotation(preferredView = "info",
+    Documentation(info = "<html><head></head><body>This package contains standard power system stabilizer models:<div><ul><li><a href=\"modelica://Dynawo.Electrical.Controls.Machines.PowerSystemStabilizer.Standard.PSS2A\">PSS2A</a> model</li></ul><div><br></div></div></body></html>"));
+
+end Standard;

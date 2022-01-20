@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.Machines.Governors;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,6 +12,11 @@ within Dynawo.Electrical.Controls.Machines.Governors;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain simulation tools for power systems.
 */
 
-package IEEE "IEEE governors"
+package Standard "Standard governors"
+
   extends Icons.Package;
-end IEEE;
+
+annotation(preferredView = "info",
+    Documentation(info = "<html><head></head><body>This package contains different governors models and is organized into different subpackages:<div><ul><li><a href=\"modelica://Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam\">\"Steam\"</a> for steam standard governor models </li></ul></div></body></html>"));
+
+end Standard;

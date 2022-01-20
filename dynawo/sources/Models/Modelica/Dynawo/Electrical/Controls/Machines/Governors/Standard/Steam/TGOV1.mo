@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.Machines.Governors.IEEE;
+within Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam;
 
 /*
 * Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
@@ -48,7 +48,7 @@ model TGOV1 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {-20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag(T1 = Tg2, T2 = Tg3, y_start = Pm0Pu)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag(t1 = Tg2, t2 = Tg3, Y0 = Pm0Pu)  annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain friction(k = Dt) annotation(
     Placement(visible = true, transformation(origin = {-30, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -56,9 +56,11 @@ model TGOV1 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {-100, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
+
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in p.u (base PNom)";
 
 equation
+
   connect(firstOrderLim.y, leadLag.u) annotation(
     Line(points = {{-9, 0}, {18, 0}}, color = {0, 0, 127}));
   connect(leadLag.y, feedback1.u1) annotation(
@@ -81,7 +83,10 @@ equation
     Line(points = {{-60, 0}, {-32, 0}}, color = {0, 0, 127}));
   connect(PmRefPu, feedback.u1) annotation(
     Line(points = {{-140, 0}, {-80, 0}, {-80, 0}, {-78, 0}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
-    uses(Modelica(version = "3.2.3")));
+    uses(Modelica(version = "3.2.3")),
+  Documentation(info = "<html><head></head><body>This model is a simple IEEE steam turbine-governor model type TGOV1 (<u>CIM name:</u>&nbsp;GovSteam0), implemented following the description done in the chapter 2.2 of the<span class=\"pl-c\">&nbsp;IEEE technical report PES-TR1 Jan 2013.&nbsp;</span></body></html>"));
+
 end TGOV1;

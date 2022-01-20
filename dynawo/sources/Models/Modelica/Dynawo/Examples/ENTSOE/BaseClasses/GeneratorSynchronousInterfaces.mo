@@ -1,7 +1,7 @@
 within Dynawo.Examples.ENTSOE.BaseClasses;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -37,6 +37,7 @@ model GeneratorSynchronousInterfaces "Synchronous generator with real interfaces
     Placement(visible = true, transformation(origin = {90, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{80, 0}, {100, 20}}, rotation = 0)));
 
 equation
+
   PmPu.value = PmPu_in;
   efdPu.value = efdPu_in;
   UsPu_out = UStatorPu.value;

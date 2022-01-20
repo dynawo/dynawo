@@ -1,7 +1,7 @@
 within Dynawo.Examples.ENTSOE;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -17,7 +17,7 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
   import Modelica;
   import Dynawo;
 
-  extends Modelica.Icons.Example;
+  extends Icons.Example;
 
   // Generator and regulations
   BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
@@ -94,11 +94,11 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
    nq = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
-  Dynawo.Electrical.Controls.Machines.Governors.IEEE.TGOV1 governor(Dt = 0, Pm0Pu = generatorSynchronous.Pm0Pu, R = 0.05, Tg1 = 0.5, Tg2 = 3, Tg3 = 10, VMax = 1, VMin = 0) annotation(
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV1 governor(Dt = 0, Pm0Pu = generatorSynchronous.Pm0Pu, R = 0.05, Tg1 = 0.5, Tg2 = 3, Tg3 = 10, VMax = 1, VMin = 0) annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.IEEE.PSS2A pss(IC1 = 1, IC2 = 3, Ks1 = 10, Ks2 = 0.1564, Ks3 = 1, PGen0Pu = generatorSynchronous.P0Pu, PNomAlt = generatorSynchronous.PNomAlt, T1 = 0.25, T2 = 0.03, T3 = 0.15, T4 = 0.015, T6 = 1e-5, T7 = 2, T8 = 0.5, T9 = 0.1, Tw1 = 2, Tw2 = 2, Tw3 = 2, Tw4 = 1e-5, Upss0Pu = 0, VstMax = 0.1, VstMin = -0.1) annotation(
+  Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PSS2A pss(IC1 = 1, IC2 = 3, Ks1 = 10, Ks2 = 0.1564, Ks3 = 1, PGen0Pu = generatorSynchronous.P0Pu, PNomAlt = generatorSynchronous.PNomAlt, T1 = 0.25, T2 = 0.03, T3 = 0.15, T4 = 0.015, T6 = 1e-5, T7 = 2, T8 = 0.5, T9 = 0.1, Tw1 = 2, Tw2 = 2, Tw3 = 2, Tw4 = 1e-5, Upss0Pu = 0, VstMax = 0.1, VstMin = -0.1) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.IEEE.SEXS avr(EMax = 4, EMin = 0, Efd0Pu = generatorSynchronous.Efd0Pu, K = 200, Ta = 3, Tb = 10, Te = 0.05, Upss0Pu = 0, Us0Pu = 0.992, UsRef0Pu = 1.00453945) annotation(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS avr(EMax = 4, EMin = 0, Efd0Pu = generatorSynchronous.Efd0Pu, K = 200, Ta = 3, Tb = 10, Te = 0.05, Upss0Pu = 0, Us0Pu = 0.992, UsRef0Pu = 1.00453945) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 1.00453945) annotation(
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -121,6 +121,18 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     Placement(visible = true, transformation(origin = {-52, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
+
+  load.PRefPu = PRefPu.setPoint.value;
+  load.QRefPu = QRefPu.setPoint.value;
+  gridImpedance.switchOffSignal1.value = false;
+  gridImpedance.switchOffSignal2.value = false;
+  transformer.switchOffSignal1.value = false;
+  transformer.switchOffSignal2.value = false;
+  load.switchOffSignal1.value = false;
+  load.switchOffSignal2.value = false;
+  generatorSynchronous.switchOffSignal1.value = false;
+  generatorSynchronous.switchOffSignal2.value = false;
+  generatorSynchronous.switchOffSignal3.value = false;
   connect(transformer.terminal2, generatorSynchronous.terminal) annotation(
     Line(points = {{-12, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(gridImpedance.terminal2, transformer.terminal1) annotation(
@@ -134,17 +146,6 @@ equation
   connect(governor.PmRefPu, PmRefPu.y);
   connect(nodeFault.terminal, transformer.terminal1) annotation(
     Line(points = {{-52, 50}, {-52, 0}}, color = {0, 0, 255}));
-  load.PRefPu = PRefPu.setPoint.value;
-  load.QRefPu = QRefPu.setPoint.value;
-  gridImpedance.switchOffSignal1.value = false;
-  gridImpedance.switchOffSignal2.value = false;
-  transformer.switchOffSignal1.value = false;
-  transformer.switchOffSignal2.value = false;
-  load.switchOffSignal1.value = false;
-  load.switchOffSignal2.value = false;
-  generatorSynchronous.switchOffSignal1.value = false;
-  generatorSynchronous.switchOffSignal2.value = false;
-  generatorSynchronous.switchOffSignal3.value = false;
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
     Line(points = {{38, 6}, {60, 6}, {60, -36}, {78, -36}}, color = {0, 0, 127}));
   connect(generatorSynchronous.PGenPu_out, pss.PGenPu) annotation(
@@ -163,6 +164,7 @@ equation
     Line(points = {{141, 18}, {150, 18}, {150, -60}, {8, -60}, {8, -16}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
   Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
@@ -185,4 +187,5 @@ equation
     <img width=\"450\" src=\"modelica://Dynawo/Examples/ENTSOE/Resources/UpssPuTestCase3.png\">
     </figure>
 </body></html>"));
+
 end TestCase3;

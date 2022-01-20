@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.Machines.VoltageRegulators;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,6 +12,11 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain simulation tools for power systems.
 */
 
-package IEEE "IEEE voltage regulators"
+package Standard "Standard voltage regulators"
+
   extends Icons.Package;
-end IEEE;
+
+annotation(preferredView = "info",
+    Documentation(info = "<html><head></head><body>This package contains standard voltage regulation models:<div><ul><li><a href=\"modelica://Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS\">SEXS</a> model</li></ul><div><br></div></div></body></html>"));
+
+end Standard;
