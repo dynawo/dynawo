@@ -77,3 +77,13 @@ case_description = "WECC - Wind 4A Type - Current Source"
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECCWTG4ACurrentSource", "WECCWTG4A.jobs")
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+##########################################
+#     WECC Wind Type 4B Current Source   #
+##########################################
+
+case_name = "DynaSwing - WECC - Wind 4B Type - Current source"
+case_description = "WECC - Wind 4B Type - Current Source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECCWTG4BCurrentSource", "WECCWTG4B.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
