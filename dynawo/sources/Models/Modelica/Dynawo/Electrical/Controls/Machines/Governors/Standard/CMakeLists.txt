@@ -1,4 +1,4 @@
-# Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
+# Copyright (c) 2021, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,13 +8,13 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain simulation tools for power systems.
 
-# IEEE governor models
+# Standard governor models
+
+add_subdirectory(Steam S)
 
 set(MODEL_FILES
   package.mo
   package.order
-  TGOV1.mo
-  TGOV1.extvar
   )
 
 #

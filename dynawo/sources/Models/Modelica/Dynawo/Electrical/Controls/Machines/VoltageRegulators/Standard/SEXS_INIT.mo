@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.Machines.VoltageRegulators.IEEE;
+within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 
 /*
 * Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
@@ -13,20 +13,22 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.IEEE;
 */
 
 model SEXS_INIT "IEEE Automatic Voltage Regulator type SEXS initialization model"
+
   extends AdditionalIcons.Init;
 
-  public
-    parameter Types.VoltageModulePu Upss0Pu = 0 "Initial PSS output voltage";
-    parameter Types.PerUnit K "Controller gain";
+  parameter Types.VoltageModulePu Upss0Pu = 0 "Initial PSS output voltage";
+  parameter Types.PerUnit K "Controller gain";
 
-    Types.VoltageModulePu Efd0Pu (start = 1) "Initial voltage output in p.u (base UNom)";
-    Types.VoltageModulePu Us0Pu (start = 1) "Initial stator voltage";
-    Types.VoltageModulePu UsRef0Pu "Initial control voltage";
+  Types.VoltageModulePu Efd0Pu (start = 1) "Initial voltage output in p.u (base UNom)";
+  Types.VoltageModulePu Us0Pu (start = 1) "Initial stator voltage";
+  Types.VoltageModulePu UsRef0Pu "Initial control voltage";
 
-  equation
-    UsRef0Pu = Us0Pu + Efd0Pu / K - Upss0Pu;
+equation
+
+  UsRef0Pu = Us0Pu + Efd0Pu / K - Upss0Pu;
 
   annotation(
     preferredView = "text",
     uses(Modelica(version = "3.2.3")));
+
 end SEXS_INIT;

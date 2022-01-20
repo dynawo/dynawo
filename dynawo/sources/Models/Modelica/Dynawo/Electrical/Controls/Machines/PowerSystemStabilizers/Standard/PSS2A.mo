@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.IEEE;
+within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard;
 
 /*
 * Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
@@ -64,13 +64,13 @@ model PSS2A "IEEE Power System Stabilizer type 2A"
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag1(T1 = T1, T2 = T2, y_start = Upss0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag1(t1 = T1, t2 = T2, Y0 = Upss0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction washoutOmega2(a = {Tw2, 1}, b = {Tw2, 0}) annotation(
     Placement(visible = true, transformation(origin = {-80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction washoutPGen2(a = {Tw4, 1}, b = {Tw4, 0}, y_start = PGen0Pu * gain.k) annotation(
     Placement(visible = true, transformation(origin = {-80, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag2(T1 = T3, T2 = T4, y_start = Upss0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag2(t1 = T3, t2 = T4, Y0 = Upss0Pu) annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {-140, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -88,6 +88,7 @@ model PSS2A "IEEE Power System Stabilizer type 2A"
   parameter Types.ActivePowerPu PGen0Pu "Initial active power input in p.u (base SnRef) - generator convention";
 
 equation
+
   connect(transducerPGen.y, feedback.u2) annotation(
     Line(points = {{-39, -40}, {30, -40}, {30, -8}}, color = {0, 0, 127}));
   connect(washoutOmega1.y, washoutOmega2.u) annotation(
@@ -124,8 +125,11 @@ equation
     Line(points = {{-39, 40}, {-22, 40}}, color = {0, 0, 127}));
   connect(add.y, feedback.u1) annotation(
     Line(points = {{1, 34}, {10, 34}, {10, 0}, {22, 0}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
-  Diagram(coordinateSystem(extent = {{-180, -100}, {180, 100}})));
+  Diagram(coordinateSystem(extent = {{-180, -100}, {180, 100}})),
+  Documentation(info = "<html><head></head><body>This model is the IEEE PSS2A model, based on the chapter 8.2 of the&nbsp;<span class=\"pl-c\">IEEE Std 421.5-1992 documentation. It enables to represent a large variety of dual-input stabilizers.</span></body></html>"));
+
 end PSS2A;

@@ -1,7 +1,7 @@
 within Dynawo.Examples;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -14,9 +14,9 @@ within Dynawo.Examples;
 
 package ENTSOE
 
-  extends Modelica.Icons.Package;
+  extends Icons.Package;
 
-  annotation(
+  annotation(preferredView = "info",
     Documentation(info = "<html><head></head><body><div>This package contains the test cases mentioned in this ENTSOE report available <a href=\"https://eepublicdownloads.entsoe.eu/clean-documents/pre2015/publications/entsoe/RG_SOC_CE/131127_Controller_Test_Report.pdf\">here</a>.&nbsp;</div><div><br></div>The characteristics of the test cases are summarized below :<br><br><br><table>
   <style>
 table, th, td {

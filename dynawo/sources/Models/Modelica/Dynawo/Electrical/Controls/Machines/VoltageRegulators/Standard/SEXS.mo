@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.Machines.VoltageRegulators.IEEE;
+within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
 
 /*
 * Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.IEEE;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model SEXS "IEEE Automatic Voltage Regulator type SEXS"
+model SEXS "IEEE Automatic Voltage Regulator type SEXS (Simplified excitation system)"
 
   import Modelica;
   import Modelica.Blocks.Interfaces;
@@ -41,17 +41,19 @@ model SEXS "IEEE Automatic Voltage Regulator type SEXS"
 
   Dynawo.NonElectrical.Blocks.Continuous.FirstOrderLimiter firstOrderLim(T = Te, K = K, yMax = EMax, yMin = EMin, y_start = Efd0Pu)  annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag(T1 = Ta, T2 = Tb, y_start = Efd0Pu / K)   annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag(t1 = Ta, t2 = Tb, Y0 = Efd0Pu / K)   annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k2 = -1)  annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
+
   parameter Types.VoltageModulePu Efd0Pu "Initial voltage output in p.u (base PNom)";
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage";
   parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage";
 
 equation
+
   connect(UpssPu, add3.u3) annotation(
     Line(points = {{-100, -40}, {-70, -40}, {-70, -8}, {-62, -8}}, color = {0, 0, 127}));
   connect(UsPu, add3.u2) annotation(
@@ -67,5 +69,7 @@ equation
 
   annotation(
     preferredView = "diagram",
-    uses(Modelica(version = "3.2.3")));
+    uses(Modelica(version = "3.2.3")),
+  Documentation(info = "<html><head></head><body>The simplified excitation system SEXS (<u>CIM name</u>: ExcSEXS) is a simplified version of the IEEE AC4A excitation system, defined in the IEEE Std 421.5-2005 \"IEEE Recommended Practice for Excitation System Models for Power System Stabilities\" document in the chapter 6.4.&nbsp;</body></html>"));
+
 end SEXS;

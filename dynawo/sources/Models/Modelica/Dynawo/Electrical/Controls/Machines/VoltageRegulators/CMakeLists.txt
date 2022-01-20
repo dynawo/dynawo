@@ -10,8 +10,8 @@
 
 # Voltage regulator models
 
-add_subdirectory(IEEE I)
 add_subdirectory(Simplified S)
+add_subdirectory(Standard St)
 
 set(MODEL_FILES
   package.mo

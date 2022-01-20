@@ -1,7 +1,7 @@
 within Dynawo.Examples.ENTSOE;
 
 /*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -14,7 +14,7 @@ within Dynawo.Examples.ENTSOE;
 
 package INIT "Initialization tests"
 
-  extends Modelica.Icons.Package;
+  extends Icons.Package;
 
   annotation(
     Documentation(info = "<html><head></head><body>These initialization tests are used to compute the start values for the dynamic test cases.&nbsp;<div>For each test a different operating point is obtained.</div></body></html>"));
