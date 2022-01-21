@@ -1,11 +1,7 @@
 within Dynawo.NonElectrical.Blocks.Continuous;
 
 /*
-<<<<<<< HEAD
 * Copyright (c) 2021, RTE (http://www.rte-france.com)
-=======
-* Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
->>>>>>> #1565 See #1565: ENTSO-E test case implementation in Dynawo
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public

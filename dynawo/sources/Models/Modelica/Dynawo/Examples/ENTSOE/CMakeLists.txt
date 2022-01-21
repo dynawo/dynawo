@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
+# Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,7 +6,7 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain simulation tools for power systems.
+# This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
 
 add_subdirectory(INIT I)

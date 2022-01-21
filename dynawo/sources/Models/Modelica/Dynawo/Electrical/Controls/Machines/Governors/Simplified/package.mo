@@ -9,14 +9,12 @@ within Dynawo.Electrical.Controls.Machines.Governors;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain simulation tools for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
 package Simplified "Simplified governors"
-
   extends Icons.Package;
 
-annotation(preferredView = "info",
-    Documentation(info = "<html><head></head><body>This package contains simplified a simplified governor model: <a href=\"modelica://Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverProportional\"> a proportional model </a> <div><div><br></div></div></body></html>"));
-
+  annotation(preferredView = "info",
+    Documentation(info = "<html><head></head><body>This package contains a simplified governor model: <a href=\"modelica://Dynawo.Electrical.Controls.Machines.Governors.Simplified.GoverProportional\"> a proportional model </a> <div><div><br></div></div></body></html>"));
 end Simplified;

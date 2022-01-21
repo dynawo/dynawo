@@ -13,22 +13,11 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam;
 */
 
 model TGOV1 "IEEE Governor type TGOV1"
-
   import Modelica;
   import Modelica.Blocks.Interfaces;
   import Dynawo;
   import Dynawo.Types;
   import Dynawo.Electrical.SystemBase;
-
-  //Input variables
-  Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-140, -50}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Interfaces.RealInput PmRefPu(start = Pm0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-140, 0}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
-
-  //Output variables
-  Interfaces.RealOutput PmPu(start = Pm0Pu) annotation(
-    Placement(visible = true, transformation(origin = {116, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {116, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit R "Controller droop";
   parameter Types.Time Tg1 "Governor time constant in s";
@@ -38,55 +27,61 @@ model TGOV1 "IEEE Governor type TGOV1"
   parameter Types.PerUnit VMin "Minimum gate limit";
   parameter Types.PerUnit VMax "Maximum gate limit";
 
+  //Input variables
+  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)" annotation(
+    Placement(visible = true, transformation(origin = {-114, -50}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-114, -60}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power in pu (base PNom)" annotation(
+    Placement(visible = true, transformation(origin = {-114, 0}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-114, 0}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+
+  //Output variables
+  Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power in pu (base PNom)" annotation(
+    Placement(visible = true, transformation(origin = {111, -1}, extent = {{-11, -11}, {11, 11}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Math.Gain droop(k = 1 / R) annotation(
-    Placement(visible = true, transformation(origin = {-70, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {-42, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Feedback feedback annotation(
-    Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-42, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = SystemBase.omegaRef0Pu) "Angular reference frequency" annotation(
-    Placement(visible = true, transformation(origin = {-130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.FirstOrderLimiter firstOrderLim(T = Tg1,yMax = VMax, yMin = VMin, y_start = Pm0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-86, -82}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.FirstOrderLimiter firstOrderLim(tFilter = Tg1, YMax = VMax, YMin = VMin, Y0 = Pm0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-6, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag(t1 = Tg2, t2 = Tg3, Y0 = Pm0Pu)  annotation(
-    Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {42, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain friction(k = Dt) annotation(
-    Placement(visible = true, transformation(origin = {-30, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {18, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback2 annotation(
-    Placement(visible = true, transformation(origin = {-100, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-58, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
-
-  parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in p.u (base PNom)";
+  parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNom)";
 
 equation
-
   connect(firstOrderLim.y, leadLag.u) annotation(
-    Line(points = {{-9, 0}, {18, 0}}, color = {0, 0, 127}));
+    Line(points = {{5, 0}, {30, 0}}, color = {0, 0, 127}));
   connect(leadLag.y, feedback1.u1) annotation(
-    Line(points = {{41, 0}, {72, 0}}, color = {0, 0, 127}));
-  connect(feedback1.y, PmPu) annotation(
-    Line(points = {{90, 0}, {110, 0}, {110, 0}, {116, 0}}, color = {0, 0, 127}));
+    Line(points = {{53, 0}, {72, 0}}, color = {0, 0, 127}));
   connect(friction.y, feedback1.u2) annotation(
-    Line(points = {{-18, -50}, {80, -50}, {80, -10}, {80, -10}, {80, -8}}, color = {0, 0, 127}));
+    Line(points = {{29, -50}, {80, -50}, {80, -8}}, color = {0, 0, 127}));
   connect(omegaPu, feedback2.u1) annotation(
-    Line(points = {{-140, -50}, {-108, -50}}, color = {0, 0, 127}));
-  connect(omegaRefPu.y, feedback2.u2) annotation(
-    Line(points = {{-119, -80}, {-100, -80}, {-100, -58}}, color = {0, 0, 127}));
+    Line(points = {{-114, -50}, {-66, -50}}, color = {0, 0, 127}));
   connect(feedback2.y, friction.u) annotation(
-    Line(points = {{-91, -50}, {-42, -50}}, color = {0, 0, 127}));
+    Line(points = {{-49, -50}, {6, -50}}, color = {0, 0, 127}));
   connect(droop.y, feedback.u2) annotation(
-    Line(points = {{-70, -18}, {-70, -18}, {-70, -8}, {-70, -8}}, color = {0, 0, 127}));
+    Line(points = {{-42, -19}, {-42, -8}}, color = {0, 0, 127}));
   connect(feedback2.y, droop.u) annotation(
-    Line(points = {{-91, -50}, {-70, -50}, {-70, -42}}, color = {0, 0, 127}));
+    Line(points = {{-49, -50}, {-42, -50}, {-42, -42}}, color = {0, 0, 127}));
   connect(feedback.y, firstOrderLim.u) annotation(
-    Line(points = {{-60, 0}, {-32, 0}}, color = {0, 0, 127}));
+    Line(points = {{-33, 0}, {-18, 0}}, color = {0, 0, 127}));
   connect(PmRefPu, feedback.u1) annotation(
-    Line(points = {{-140, 0}, {-80, 0}, {-80, 0}, {-78, 0}}, color = {0, 0, 127}));
-
+    Line(points = {{-114, 0}, {-50, 0}}, color = {0, 0, 127}));
+  connect(PmPu, feedback1.y) annotation(
+    Line(points = {{111, -1}, {100, -1}, {100, 0}, {90, 0}}, color = {0, 0, 127}));
+  connect(omegaRefPu.y, feedback2.u2) annotation(
+    Line(points = {{-74, -82}, {-58, -82}, {-58, -58}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
   Documentation(info = "<html><head></head><body>This model is a simple IEEE steam turbine-governor model type TGOV1 (<u>CIM name:</u>&nbsp;GovSteam0), implemented following the description done in the chapter 2.2 of the<span class=\"pl-c\">&nbsp;IEEE technical report PES-TR1 Jan 2013.&nbsp;</span></body></html>"));
-
 end TGOV1;

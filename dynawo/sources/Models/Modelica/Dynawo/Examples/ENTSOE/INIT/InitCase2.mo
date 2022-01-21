@@ -13,7 +13,6 @@ within Dynawo.Examples.ENTSOE.INIT;
 */
 
 model InitCase2 "Synchronous generator starting at 380 MW and 0 MVar - Start values and parameters calculation from internal parameters"
-
   import Dynawo;
 
   Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousInt_INIT generatorSynchronousInt_INIT(
@@ -57,7 +56,6 @@ model InitCase2 "Synchronous generator starting at 380 MW and 0 MVar - Start val
 
 equation
 
-annotation(
+  annotation(
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst");
-
 end InitCase2;

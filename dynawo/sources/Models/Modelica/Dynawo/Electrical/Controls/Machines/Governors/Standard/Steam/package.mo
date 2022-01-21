@@ -9,14 +9,12 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain simulation tools for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
 package Steam "Steam standard governors"
-
   extends Icons.Package;
 
-annotation(preferredView = "info",
+  annotation(preferredView = "info",
     Documentation(info = "<html><head></head><body>This package contains steam standard governor models:<div><ul><li><a href=\"modelica://Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV1\">TGOV1</a> model</li></ul><div><br></div></div></body></html>"));
-
 end Steam;
