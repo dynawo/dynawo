@@ -20,7 +20,7 @@ block SecondOrder
 
   parameter Types.PerUnit D "Damping";
   parameter Types.PerUnit K = 1 "Gain";
-  parameter Types.Frequency w "Angular frequency in 1/s";
+  parameter Types.Frequency w "Angular frequency in Hz";
 
   Modelica.Blocks.Interfaces.RealInput u "Connector of Real input signal" annotation (Placement(
         visible = true, transformation(extent = {{-240, -20}, {-200, 20}}, rotation = 0), iconTransformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0)));
