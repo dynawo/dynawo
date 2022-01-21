@@ -181,6 +181,14 @@ class Model {
   virtual bool modeChange() const = 0;
 
   /**
+   * @brief retrieve mode change information
+   *
+   *
+   * @return @b true if one mode of the model has change
+   */
+  virtual bool diffModeChange() const = 0;
+
+  /**
    * @brief get the overall system mode change type
    *
    * @return mode change type for the overall system

@@ -289,6 +289,11 @@ class Solver {
   virtual bool initAlgRestoration(modeChangeType_t modeChangeType) = 0;
 
   /**
+   * @brief reset the derivatives of the solver (only make sense for SIM solver)
+   */
+  virtual void resetDerivatives() = 0;
+
+  /**
    * @brief update the statistics
    */
   virtual void updateStatistics() = 0;

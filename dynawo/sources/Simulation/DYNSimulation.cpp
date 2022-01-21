@@ -810,8 +810,8 @@ Simulation::simulate() {
 
       solver_->solve(tStop_, tCurrent_);
       solver_->printSolve();
-      if (currentIterNb == 0)
-        printHighestDerivativesValues();
+//      if (currentIterNb == 0)
+//        printHighestDerivativesValues();
 
       BitMask solverState = solver_->getState();
       bool modifZ = false;
@@ -821,7 +821,7 @@ Simulation::simulate() {
         solver_->reinit();
         model_->getCurrentZ(zCurrent_);
         solver_->printSolve();
-        printHighestDerivativesValues();
+        // printHighestDerivativesValues();
       } else if (solverState.getFlags(NotSilentZChange)
           || solverState.getFlags(SilentZNotUsedInDiscreteEqChange)
           || solverState.getFlags(SilentZNotUsedInContinuousEqChange)) {

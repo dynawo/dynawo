@@ -554,6 +554,8 @@ ModelMulti::evalMode(double t) {
   modeChangeType_t modeChangeType = NO_MODE;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     modeChangeType_t modeChangeTypeSub = subModels_[i]->evalModeSub(t);
+    if (modeChangeTypeSub == DIFFERENTIAL_MODE)
+      diffModeChange_ = true;
     if (modeChangeTypeSub > modeChangeType)
       modeChangeType = modeChangeTypeSub;
     if (subModels_[i]->modeChange()) {
@@ -564,6 +566,8 @@ ModelMulti::evalMode(double t) {
     modeChangeType_ = modeChangeType;
     Trace::info() << DYNLog(ModeChangeGeneric, modeChangeType2Str(modeChangeType), t) << Trace::endline;
   }
+  if (diffModeChange_)
+    Trace::info() << DYNLog(ModeChangeGeneric, modeChangeType2Str(DIFFERENTIAL_MODE), t) << Trace::endline;
 #ifdef _DEBUG_
   // Make sure evalMode does not modify discrete variables as side effect
   for (unsigned i = 0, iEnd = sizeZ(); i < iEnd; ++i) {
@@ -579,6 +583,7 @@ ModelMulti::reinitMode() {
     subModels_[i]->modeChange(false);
     subModels_[i]->setModeChangeType(NO_MODE);
   }
+  diffModeChange_ = false;
 }
 
 void

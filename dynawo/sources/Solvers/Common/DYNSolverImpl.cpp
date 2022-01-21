@@ -294,6 +294,8 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
     change = true;
     state_.setFlags(ModeChange);
   }
+  if (model_->diffModeChange())
+    resetDerivatives();
 
   return change;
 }
@@ -305,12 +307,13 @@ Solver::Impl::printUnstableRoot(double t, const vector<state_g> &G0, const vecto
   vector<state_g>::const_iterator iG1(G1.begin());
   for (; iG0 < G0.end(); iG0++, iG1++, i++) {
     if ((*iG0) != (*iG1)) {
-      Trace::debug() << DYNLog(SolverInstableRoot, i, (*iG0), (*iG1), t) << Trace::endline;
+      static_cast<void>(t);
+      // Trace::debug() << DYNLog(SolverInstableRoot, i, (*iG0), (*iG1), t) << Trace::endline;
       std::string subModelName("");
       int localGIndex(0);
       std::string gEquation("");
       model_->getGInfos(i, subModelName, localGIndex, gEquation);
-      Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
+      // Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
     }
   }
   Trace::debug() << DYNLog(SolverInstableRootFound) << Trace::endline;

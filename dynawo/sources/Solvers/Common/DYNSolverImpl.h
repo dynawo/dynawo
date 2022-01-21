@@ -302,6 +302,11 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    */
   virtual bool initAlgRestoration(modeChangeType_t modeChangeType) = 0;
 
+  /**
+   * @copydoc Solver::resetDerivatives()
+   */
+  virtual void resetDerivatives() = 0;
+
   std::map<std::string, ParameterSolver> parameters_;  ///< map between parameters and parameters' names
   boost::shared_ptr<Model> model_;  ///< model currently simulated
   boost::shared_ptr<timeline::Timeline> timeline_;  ///< timeline where event messages should be added or removed

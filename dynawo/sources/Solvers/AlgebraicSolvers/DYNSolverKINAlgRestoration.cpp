@@ -226,14 +226,14 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   double wL2Norm = SolverCommon::weightedL2Norm(solv->F_, solv->indexF_, solv->fScale_);
   long int current_nni = 0;
   KINGetNumNonlinSolvIters(solv->KINMem_, &current_nni);
-  Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+  Trace::debug() << DYNLog(SolverKINResidualNormAlg, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 
-  const int nbErr = 10;
-  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
-  vector<std::pair<double, size_t> > fErr;
-  for (size_t i = 0; i < solv->indexF_.size(); ++i)
-    fErr.push_back(std::pair<double, size_t>(solv->F_[solv->indexF_[i]], solv->indexF_[i]));
-  SolverCommon::printLargestErrors(fErr, model, nbErr);
+//  const int nbErr = 10;
+//  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+//  vector<std::pair<double, size_t> > fErr;
+//  for (size_t i = 0; i < solv->indexF_.size(); ++i)
+//    fErr.push_back(std::pair<double, size_t>(solv->F_[solv->indexF_[i]], solv->indexF_[i]));
+//  SolverCommon::printLargestErrors(fErr, model, nbErr);
 #endif
   return (0);
 }
@@ -264,6 +264,8 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
          SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   SolverKINAlgRestoration* solv = reinterpret_cast<SolverKINAlgRestoration*> (data);
   shared_ptr<Model> model = solv->getModel();
+
+  Trace::debug() << DYNLog(EvalJAlgebraic) << Trace::endline;
 
   double cj = 1;
   SparseMatrix smj;

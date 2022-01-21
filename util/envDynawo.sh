@@ -314,7 +314,7 @@ set_environment() {
   export_var_env DYNAWO_HOME=UNDEFINED
   export_git_branch
   export_var_env_force DYNAWO_SRC_DIR=$DYNAWO_HOME/dynawo
-  export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
+  export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_FOLDER_BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
 
   SUFFIX_CX11=""
   if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then

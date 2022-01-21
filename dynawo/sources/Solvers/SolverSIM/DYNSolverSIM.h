@@ -218,6 +218,11 @@ class SolverSIM : public Solver::Impl {
   bool initAlgRestoration(modeChangeType_t modeChangeType);
 
   /**
+  * @copydoc Solver::resetDerivatives()
+  */
+  void resetDerivatives();
+
+  /**
    * @copydoc Solver::updateStatistics()
    */
   void updateStatistics();
@@ -238,6 +243,7 @@ class SolverSIM : public Solver::Impl {
   long int nNewt_;  ///< number of Newton iterations since the beginning of the simulation
   int countRestart_;  ///< current number of consecutive Newton resolutions leading to root changes
   bool factorizationForced_;  ///< force the Jacobian calculation due to an algebraic mode or a non convergence of the previous NR
+  bool factorizationForcedDerivatives_;  ///< force the Jacobian calculation due to an algebraic mode or a non convergence of the previous NR
 
   // Parameters for the algebraic resolution at each time step
   std::string linearSolverName_;  ///< name of the linear solver (KLU or NICSLU at the moment)

@@ -55,7 +55,8 @@ namespace DYN {
 
 SolverKINEuler::SolverKINEuler() :
 SolverKINCommon(),
-h0_(0.) { }
+h0_(0.),
+resetDerivatives_(false) { }
 
 SolverKINEuler::~SolverKINEuler() {
   clean();
@@ -92,7 +93,7 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
   SolverKINEuler* solv = reinterpret_cast<SolverKINEuler*> (data);
   shared_ptr<Model> mod = solv->getModel();
 
-  // evalF has already been called in the scaling part so it doesn't have to be called again for the first iteration
+  // evalF has already been called in the scaling part in SolverKINEuler::solve(...) method so it doesn't have to be called again for the first iteration
   realtype *irr = NV_DATA_S(rr);
   if (solv->getFirstIteration()) {
     solv->setFirstIteration(false);
@@ -133,12 +134,12 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
   KINGetNumNonlinSolvIters(solv->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 
-  const int nbErr = 10;
-  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
-  vector<std::pair<double, size_t> > fErr;
-  for (size_t i = 0; i < solv->nbF_; ++i)
-    fErr.push_back(std::pair<double, size_t>(solv->F_[i], i));
-  SolverCommon::printLargestErrors(fErr, mod, nbErr);
+//  const int nbErr = 0;
+//  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+//  vector<std::pair<double, size_t> > fErr;
+//  for (size_t i = 0; i < solv->nbF_; ++i)
+//    fErr.push_back(std::pair<double, size_t>(solv->F_[i], i));
+//  SolverCommon::printLargestErrors(fErr, mod, nbErr);
 #endif
 
   return (0);
@@ -151,8 +152,13 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   Timer timer("SolverKINEuler::evalJ_KIN");
 #endif
 
+  Trace::debug() << DYNLog(EvalJ) << Trace::endline;
+
   SolverKINEuler* solv = reinterpret_cast<SolverKINEuler*> (data);
   shared_ptr<Model> model = solv->getModel();
+  // static int counter = 0;
+  // std::cout << counter << " evalJ_KIN" << std::endl;
+  // counter++;
 
   // cj = 1/h
   double cj = 1 / solv->h0_;
@@ -203,12 +209,27 @@ SolverKINEuler::solve(bool noInitSetup, bool skipAlgebraicResidualsEvaluation) {
 
 void
 SolverKINEuler::setInitialValues(const double& t, const double& h, const vector<double>& y) {
+  // Compute velocity of last time step
+  if (t > 0. && !resetDerivatives_) {
+    for (unsigned int i = 0; i < differentialVars_.size(); ++i) {
+      YP_[differentialVars_[i]] = (y[differentialVars_[i]] - y0_[differentialVars_[i]]) / h0_;
+    }
+  } else {
+    std::fill(YP_.begin(), YP_.end(), 0.);
+    resetDerivatives_ = false;
+  }
   t0_ = t;
   h0_ = h;
+
   std::copy(y.begin(), y.end(), y0_.begin());
   std::copy(y.begin(), y.end(), vYy_.begin());
+  if (t > 0.) {
+    for (unsigned int i = 0; i < differentialVars_.size(); ++i) {
+      vYy_[differentialVars_[i]] += h0_ * YP_[differentialVars_[i]];
+    }
+  }
   // order-0 prediction - YP = 0
-  std::fill(YP_.begin(), YP_.end(), 0);
+  // std::fill(YP_.begin(), YP_.end(), 0);
 }
 
 void

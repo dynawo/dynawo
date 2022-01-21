@@ -114,6 +114,7 @@ hNew_(0.),
 nNewt_(0),
 countRestart_(0),
 factorizationForced_(false),
+factorizationForcedDerivatives_(false),
 fnormtol_(1e-4),
 initialaddtol_(0.1),
 scsteptol_(1e-4),
@@ -368,8 +369,10 @@ SolverSIM::callAlgebraicSolver() {
 
     // Forcing the Jacobian calculation for the next Newton-Raphson resolution
     bool noInitSetup = true;
-    if (stats_.nst_ == 0 || factorizationForced_)
+    if (stats_.nst_ == 0 || factorizationForced_ || factorizationForcedDerivatives_) {
       noInitSetup = false;
+      factorizationForcedDerivatives_ = false;
+    }
 
     // Call the solving method in Backward Euler method (Newton-Raphson resolution)
     flag = solverKINEuler_->solve(noInitSetup, skipAlgebraicResidualsEvaluation_);
@@ -514,6 +517,12 @@ bool SolverSIM::initAlgRestoration(modeChangeType_t modeChangeType) {
   }
 }
 
+void SolverSIM::resetDerivatives() {
+  solverKINEuler_->setResetDerivatives();
+  Trace::debug() << DYNLog(ResetDerivatives) << Trace::endline;
+  factorizationForcedDerivatives_ = true;
+}
+
 /*
  * This routine deals with the possible actions due to a mode change.
  * In the simplified solver, in case of a mode change, depending on the types of mode, either there is an algebraic equation restoration or nothing is done.
@@ -529,9 +538,15 @@ SolverSIM::reinit() {
   const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
   skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
 
+  static int counterReinit = 0;
+
   do {
     model_->rotateBuffers();
     state_.reset();
+    if (counterReinit == 5) {
+      resetDerivatives();
+      counterReinit = 0;
+    }
 
     // During the algebraic equation restoration, the system could have moved a lot from its previous state.
     // J updates and preconditioner calls must be done on a regular basis.
@@ -569,6 +584,7 @@ SolverSIM::reinit() {
     if (counter >= maxNumberUnstableRoots)
       throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
   } while (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_);
+  ++counterReinit;
 }
 
 void

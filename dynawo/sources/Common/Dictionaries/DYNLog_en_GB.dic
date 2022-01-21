@@ -224,6 +224,7 @@ SolverSIMInitGuessOK          =             initial guess of the algebraic solve
 // --> DYNSolverKIN
 SolverKINUnknownError         =             unknown error during KINSOL Solve
 SolverKINResidualNorm         =             newton iteration %1% : ||F(y_%1%)*Weight||_Infinity = %2% and ||F(y_%1%)*Weight||_2 = %3%
+SolverKINResidualNormAlg      =             algebraic restoration: newton iteration %1% : ||F(y_%1%)*Weight||_Infinity = %2% and ||F(y_%1%)*Weight||_2 = %3%
 MatrixStructureChange         =             call of SolverReInit ie a new symbolic and numerical factorization will be performed
 KinsolSucceeded               =             KINSOL succeeded
 KinInitialGuessOk             =             the initial user-supplied guess already satisfies the stopping criterion
@@ -256,3 +257,6 @@ SwitchOnBus                   =             switch ON bus : %1%
 XmlParsingError               =             error while parsing file %1% : %2%
 ExecutingCommand              =             executing command : %1%
 UnexpectedError               =             unexpected error
+ResetDerivatives              =             reset derivatives
+EvalJ                         =             jacobian evaluation
+EvalJAlgebraic                =             jacobian evaluation in algebraic restoration

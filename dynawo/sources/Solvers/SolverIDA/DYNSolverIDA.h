@@ -238,6 +238,11 @@ class SolverIDA : public Solver::Impl {
    */
   bool initAlgRestoration(modeChangeType_t modeChangeType);
 
+  /**
+  * @copydoc Solver::resetDerivatives()
+  */
+  void resetDerivatives() {}
+
  private:
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver LS_;  ///< Linear Solver pointer
