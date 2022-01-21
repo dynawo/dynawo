@@ -18,9 +18,9 @@ block SecondOrder
 
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real D "Damping";
-  parameter Real K = 1 "Gain";
-  parameter Real W "Angular frequency";
+  parameter Types.PerUnit D "Damping";
+  parameter Types.PerUnit K = 1 "Gain";
+  parameter Types.Frequency w "Angular frequency in 1/s";
 
   Modelica.Blocks.Interfaces.RealInput u "Connector of Real input signal" annotation (Placement(
         visible = true, transformation(extent = {{-240, -20}, {-200, 20}}, rotation = 0), iconTransformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0)));
@@ -33,9 +33,9 @@ block SecondOrder
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(k = W) annotation(
+  Modelica.Blocks.Math.Gain gain1(k = w) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain2(k = W) annotation(
+  Modelica.Blocks.Math.Gain gain2(k = w) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integrator(y_start = DerY0) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -80,7 +80,7 @@ This blocks defines the transfer function between the input u and
 the output y as <em>second order</em> system:
 </p>
 <pre>
-                           k
+                           K
    y = ---------------------------------------- * u
           ( s / w )^2 + 2*D*( s / w ) + 1
 </pre>
