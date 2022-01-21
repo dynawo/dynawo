@@ -13,22 +13,10 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard;
 */
 
 model PSS2A "IEEE Power System Stabilizer type 2A"
-
   import Modelica;
-  import Modelica.Blocks.Interfaces;
   import Dynawo;
   import Dynawo.Types;
   import Dynawo.Electrical.SystemBase;
-
-  //Input variables
-  Modelica.Blocks.Interfaces.RealInput PGenPu(start = PGen0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-174, -40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-174, 40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-
-  //Output variables
-  Modelica.Blocks.Interfaces.RealOutput UpssPu(start = Upss0Pu) annotation(
-    Placement(visible = true, transformation(origin = {180, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit Ks1 "PSS gain";
   parameter Types.PerUnit Ks2 "2nd signal transducer factor";
@@ -45,12 +33,22 @@ model PSS2A "IEEE Power System Stabilizer type 2A"
   parameter Types.Time T7 "2nd signal transducer time constant in s";
   parameter Types.Time T8 "Ramp tracking filter derivative time constant in s";
   parameter Types.Time T9 "Ramp tracking filter delay time constant in s";
-  parameter Types.VoltageModulePu VstMin "Controller minimum output";
-  parameter Types.VoltageModulePu VstMax "Controller maximum output";
+  parameter Types.VoltageModulePu VstMin "Controller minimum output in pu (base UNom)";
+  parameter Types.VoltageModulePu VstMax "Controller maximum output in pu (base UNom)";
   parameter Types.PerUnit IC1 "1st input selector";
   parameter Types.PerUnit IC2 "2nd input selector";
   parameter Types.ActivePower PNomAlt "Nominal active (alternator) power in MW";
-  parameter Types.VoltageModulePu Upss0Pu "Initial voltage output in p.u (base UNom)";
+  parameter Types.VoltageModulePu Upss0Pu "Initial voltage output in pu (base UNom)";
+
+  //Input variables
+  Modelica.Blocks.Interfaces.RealInput PGenPu(start = PGen0Pu) "Active power input in pu (base SnRef) - generator convention" annotation(
+    Placement(visible = true, transformation(origin = {-194, -40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)"annotation(
+    Placement(visible = true, transformation(origin = {-194, 40}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
+  //Output variables
+  Modelica.Blocks.Interfaces.RealOutput UpssPu(start = Upss0Pu) "Voltage output in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = VstMax, uMin = VstMin) annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -75,7 +73,7 @@ model PSS2A "IEEE Power System Stabilizer type 2A"
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {-140, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = SystemBase.omegaRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-170, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-166, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = SystemBase.SnRef / PNomAlt) annotation(
     Placement(visible = true, transformation(origin = {-140, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Ks1) annotation(
@@ -83,12 +81,10 @@ model PSS2A "IEEE Power System Stabilizer type 2A"
   Modelica.Blocks.Math.Add add(k2 = Ks3) annotation(
     Placement(visible = true, transformation(origin = {-10, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  protected
-
-  parameter Types.ActivePowerPu PGen0Pu "Initial active power input in p.u (base SnRef) - generator convention";
+protected
+  parameter Types.ActivePowerPu PGen0Pu "Initial active power input in pu (base SnRef) - generator convention";
 
 equation
-
   connect(transducerPGen.y, feedback.u2) annotation(
     Line(points = {{-39, -40}, {30, -40}, {30, -8}}, color = {0, 0, 127}));
   connect(washoutOmega1.y, washoutOmega2.u) annotation(
@@ -104,15 +100,15 @@ equation
   connect(leadLag2.y, limiter.u) annotation(
     Line(points = {{131, 0}, {138, 0}}, color = {0, 0, 127}));
   connect(omegaPu, feedback1.u1) annotation(
-    Line(points = {{-174, 40}, {-148, 40}}, color = {0, 0, 127}));
+    Line(points = {{-194, 40}, {-148, 40}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, feedback1.u2) annotation(
-    Line(points = {{-159, 10}, {-140, 10}, {-140, 32}}, color = {0, 0, 127}));
+    Line(points = {{-155, 10}, {-140, 10}, {-140, 32}}, color = {0, 0, 127}));
   connect(feedback1.y, washoutOmega1.u) annotation(
     Line(points = {{-131, 40}, {-122, 40}}, color = {0, 0, 127}));
   connect(limiter.y, UpssPu) annotation(
-    Line(points = {{161, 0}, {180, 0}}, color = {0, 0, 127}));
+    Line(points = {{161, 0}, {190, 0}}, color = {0, 0, 127}));
   connect(PGenPu, gain.u) annotation(
-    Line(points = {{-174, -40}, {-152, -40}}, color = {0, 0, 127}));
+    Line(points = {{-194, -40}, {-152, -40}}, color = {0, 0, 127}));
   connect(gain.y, washoutPGen1.u) annotation(
     Line(points = {{-129, -40}, {-122, -40}}, color = {0, 0, 127}));
   connect(gain1.y, leadLag1.u) annotation(
@@ -131,5 +127,4 @@ equation
     uses(Modelica(version = "3.2.3")),
   Diagram(coordinateSystem(extent = {{-180, -100}, {180, 100}})),
   Documentation(info = "<html><head></head><body>This model is the IEEE PSS2A model, based on the chapter 8.2 of the&nbsp;<span class=\"pl-c\">IEEE Std 421.5-1992 documentation. It enables to represent a large variety of dual-input stabilizers.</span></body></html>"));
-
 end PSS2A;

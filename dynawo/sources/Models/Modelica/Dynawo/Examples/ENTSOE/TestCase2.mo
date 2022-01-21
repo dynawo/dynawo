@@ -13,7 +13,6 @@ within Dynawo.Examples.ENTSOE;
   */
 
 model TestCase2 "Active power variation on the load"
-
   import Modelica;
   import Dynawo;
 
@@ -110,7 +109,6 @@ model TestCase2 "Active power variation on the load"
   Modelica.Blocks.Sources.Step PRefPu(height = 0.05 * generatorSynchronous.PNomAlt / 100, offset = 3.8, startTime = 0.1);
 
 equation
-
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
@@ -156,5 +154,4 @@ equation
     </figure>
 
 </body></html>"));
-
 end TestCase2;

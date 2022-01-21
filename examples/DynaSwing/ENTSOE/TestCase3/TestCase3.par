@@ -8,12 +8,11 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
    <!-- Synchronous machine external parameters -->
-   <!-- Synchronous machine external parameters and regulations -->
   <set id="SynchronousGenerator">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_md" value="0"/>

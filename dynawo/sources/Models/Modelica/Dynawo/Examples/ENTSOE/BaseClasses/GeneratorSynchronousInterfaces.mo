@@ -13,8 +13,6 @@ within Dynawo.Examples.ENTSOE.BaseClasses;
 */
 
 model GeneratorSynchronousInterfaces "Synchronous generator with real interfaces (inputs, outputs)"
-
-  import Modelica;
   import Modelica.Blocks.Interfaces;
   import Dynawo;
 
@@ -37,7 +35,6 @@ model GeneratorSynchronousInterfaces "Synchronous generator with real interfaces
     Placement(visible = true, transformation(origin = {90, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{80, 0}, {100, 20}}, rotation = 0)));
 
 equation
-
   PmPu.value = PmPu_in;
   efdPu.value = efdPu_in;
   UsPu_out = UStatorPu.value;

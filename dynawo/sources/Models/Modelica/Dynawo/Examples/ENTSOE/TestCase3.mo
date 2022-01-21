@@ -13,7 +13,6 @@ within Dynawo.Examples.ENTSOE;
 */
 
 model TestCase3 "Bolted three-phase short circuit at the high-level side of the transformer"
-
   import Modelica;
   import Dynawo;
 
@@ -121,7 +120,6 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
     Placement(visible = true, transformation(origin = {-52, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-
   load.PRefPu = PRefPu.setPoint.value;
   load.QRefPu = QRefPu.setPoint.value;
   gridImpedance.switchOffSignal1.value = false;
@@ -187,5 +185,4 @@ equation
     <img width=\"450\" src=\"modelica://Dynawo/Examples/ENTSOE/Resources/UpssPuTestCase3.png\">
     </figure>
 </body></html>"));
-
 end TestCase3;

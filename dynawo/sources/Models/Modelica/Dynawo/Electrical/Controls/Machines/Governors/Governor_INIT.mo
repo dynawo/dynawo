@@ -13,11 +13,9 @@ within Dynawo.Electrical.Controls.Machines.Governors;
 */
 
 model Governor_INIT "Initialisation model for governor"
-
   extends AdditionalIcons.Init;
 
-  Types.ActivePowerPu Pm0Pu (start = 1) "Initial mechanical power";
+  Types.ActivePowerPu Pm0Pu (start = 1) "Initial mechanical power in pu (base PNom)";
 
-annotation(preferredView = "text");
-
+  annotation(preferredView = "text");
 end Governor_INIT;
