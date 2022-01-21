@@ -638,6 +638,17 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
   ASSERT_NO_THROW(bus2->setSubModelParameters(parametersModels));
   bus2->initSize();
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus2->sizeY(), 4.);
+  parametersModels.clear();
+  param3.setValue<bool>(true, PAR);
+  parametersModels.insert(std::make_pair(param3Name, param3));
+  ASSERT_NO_THROW(bus2->setSubModelParameters(parametersModels));
+  bus2->initSize();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus2->sizeY(), 4.);
+  param4.setValue<bool>(false, PAR);
+  parametersModels.insert(std::make_pair(param4Name, param4));
+  ASSERT_NO_THROW(bus2->setSubModelParameters(parametersModels));
+  bus2->initSize();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus2->sizeY(), 2.);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusJt) {
