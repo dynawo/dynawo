@@ -17,7 +17,7 @@
   <dyn:blackBoxModel id="U2" lib="Step" parFile="VMU.par" parId="3"/>
   <dyn:blackBoxModel id="connected1" lib="EventSetPointBoolean" parFile="VMU.par" parId="4"/>
   <dyn:blackBoxModel id="connected2" lib="EventSetPointBoolean" parFile="VMU.par" parId="5"/>
-  <dyn:connect id1="VMU" var1="UMonitored_0_value" id2="U1" var2="step_step_value" />
+  <dyn:connect id1="VMU" var1="UMonitored_0" id2="U1" var2="step_step" />
   <dyn:connect id1="VMU" var1="UMonitored_1_value" id2="U2" var2="step_step_value" />
   <dyn:connect id1="VMU" var1="running_0_value" id2="connected1" var2="event_state1_value" />
   <dyn:connect id1="VMU" var1="running_1_value" id2="connected2" var2="event_state1_value" />

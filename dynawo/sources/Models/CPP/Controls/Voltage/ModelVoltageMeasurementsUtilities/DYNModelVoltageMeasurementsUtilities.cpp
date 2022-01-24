@@ -269,7 +269,7 @@ ModelVoltageMeasurementsUtilities::defineElements(std::vector<Element> &elements
   for (size_t i = 0; i < nbConnectedInputs_; ++i) {
     names.str("");
     names.clear();
-    names << "UMonitored_" << i << "_value";
+    names << "UMonitored_" << i;
     addElement(names.str(), Element::STRUCTURE, elements, mapElement);
     addSubElement("value", names.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
