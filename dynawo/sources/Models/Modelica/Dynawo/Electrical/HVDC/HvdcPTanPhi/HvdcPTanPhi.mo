@@ -26,49 +26,49 @@ model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
 
 */
 
-  Connectors.ZPin tanPhi1Ref (value (start = s10Pu.im/s10Pu.re)) "tan(Phi) regulation set point at terminal 1";
-  Connectors.ZPin tanPhi2Ref (value (start = s20Pu.im/s20Pu.re)) "tan(Phi) regulation set point at terminal 2";
+  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MaxPu "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q2MinPu "Minimum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
+  parameter Types.ReactivePowerPu Q2MaxPu "Maximum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
 
-  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 2 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 2 (receptor convention)";
+  input Real tanPhi1Ref(start = s10Pu.im/s10Pu.re) "tan(Phi) regulation set point at terminal 1";
+  input Real tanPhi2Ref(start = s20Pu.im/s20Pu.re) "tan(Phi) regulation set point at terminal 2";
 
 protected
 
-  Types.ReactivePowerPu Q1RawPu (start = s10Pu.im) "Raw reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q2RawPu (start = s20Pu.im) "Raw reactive power at terminal 2 in p.u (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q1RawPu(start = s10Pu.im) "Raw reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q2RawPu(start = s20Pu.im) "Raw reactive power at terminal 2 in pu (base SnRef) (receptor convention)";
 
 equation
 
-  Q1RawPu = tanPhi1Ref.value * P1Pu;
-  Q2RawPu = tanPhi2Ref.value * P2Pu;
+  Q1RawPu = tanPhi1Ref * P1Pu;
+  Q2RawPu = tanPhi2Ref * P2Pu;
 
-if (running.value) then
+  if (running.value) then
 
-  if Q1RawPu >= Q1MaxPu then
-   Q1Pu = Q1MaxPu;
-  elseif Q1RawPu <= Q1MinPu then
-   Q1Pu = Q1MinPu;
+    if Q1RawPu >= Q1MaxPu then
+     Q1Pu = Q1MaxPu;
+    elseif Q1RawPu <= Q1MinPu then
+     Q1Pu = Q1MinPu;
+    else
+     Q1Pu = Q1RawPu;
+    end if;
+
+    if Q2RawPu >= Q2MaxPu then
+     Q2Pu = Q2MaxPu;
+    elseif Q2RawPu <= Q2MinPu then
+     Q2Pu = Q2MinPu;
+    else
+     Q2Pu = Q2RawPu;
+    end if;
+
   else
-   Q1Pu = Q1RawPu;
+
+    terminal1.i.im = 0;
+    terminal2.i.im = 0;
+
   end if;
 
-  if Q2RawPu >= Q2MaxPu then
-   Q2Pu = Q2MaxPu;
-  elseif Q2RawPu <= Q2MinPu then
-   Q2Pu = Q2MinPu;
-  else
-   Q2Pu = Q2RawPu;
-  end if;
-
-else
-
-  terminal1.i.im = 0;
-  terminal2.i.im = 0;
-
-end if;
-
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself and the reactive power at each of its terminal. The power factor setpoint is given as an input and can be modified during the simulation, as well as the active power setpoint.</div></body></html>"));
 end HvdcPTanPhi;

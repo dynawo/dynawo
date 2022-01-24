@@ -65,7 +65,8 @@ XmlExporter::exportToStream(const boost::shared_ptr<CurvesCollection>& curves, o
   for (CurvesCollection::iterator itCurve = curves->begin();
           itCurve != curves->end();
           ++itCurve) {
-    if ((*itCurve)->getAvailable()) {
+    bool exportAsCurve = (*itCurve)->getExportType() == Curve::EXPORT_AS_CURVE || (*itCurve)->getExportType() == Curve::EXPORT_AS_BOTH;
+    if ((*itCurve)->getAvailable() && exportAsCurve) {
       attrs.clear();
       attrs.add("model", (*itCurve)->getModelName());
       attrs.add("variable", (*itCurve)->getVariable());

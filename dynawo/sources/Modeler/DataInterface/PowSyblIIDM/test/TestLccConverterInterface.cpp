@@ -135,7 +135,9 @@ TEST(DataInterfaceTest, LccConverter) {
   ASSERT_EQ(Ifce.getVoltageLevelInterfaceInjector(), voltageLevelIfce);
 
   ASSERT_TRUE(Ifce.isConnected());
+  ASSERT_TRUE(Ifce.isPartiallyConnected());
   lcc.getTerminal().disconnect();
+  ASSERT_FALSE(Ifce.isPartiallyConnected());
   ASSERT_FALSE(Ifce.isConnected());
   ASSERT_TRUE(Ifce.getInitialConnected());
 }  // TEST(DataInterfaceTest, LccConverter)

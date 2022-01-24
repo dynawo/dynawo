@@ -60,7 +60,7 @@
   <ScalarVariable
     name = "generator.PGen0Pu"
     valueReference = "1000"
-    description = "Start value of active power at terminal in p.u (base SnRef) (generator convention)"
+    description = "Start value of active power at terminal in pu (base SnRef) (generator convention)"
     variability = "continuous" isDiscrete = "false"
     causality = "internal" isValueChangeable = "false"
     alias = "noAlias"
@@ -72,7 +72,7 @@
   <ScalarVariable
     name = "generator.QGen0Pu"
     valueReference = "1001"
-    description = "Start value of reactive power at terminal in p.u (base SnRef) (generator convention)"
+    description = "Start value of reactive power at terminal in pu (base SnRef) (generator convention)"
     variability = "continuous" isDiscrete = "false"
     causality = "internal" isValueChangeable = "false"
     alias = "noAlias"
@@ -156,7 +156,7 @@
   <ScalarVariable
     name = "generator.P0Pu"
     valueReference = "1008"
-    description = "Start value of active power at terminal in p.u (base SnRef) (receptor convention)"
+    description = "Start value of active power at terminal in pu (base SnRef) (receptor convention)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "true"
     alias = "noAlias"
@@ -168,7 +168,7 @@
   <ScalarVariable
     name = "generator.Q0Pu"
     valueReference = "1009"
-    description = "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)"
+    description = "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "true"
     alias = "noAlias"
@@ -180,7 +180,7 @@
   <ScalarVariable
     name = "generator.U0Pu"
     valueReference = "1010"
-    description = "Start value of voltage amplitude at terminal in p.u (base UNom)"
+    description = "Start value of voltage amplitude at terminal in pu (base UNom)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "true"
     alias = "noAlias"

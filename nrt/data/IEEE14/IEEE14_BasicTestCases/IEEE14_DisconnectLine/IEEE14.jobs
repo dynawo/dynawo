@@ -25,6 +25,7 @@
       <dyn:dumpInitValues local="true" global="true"/>
       <dyn:timeline exportMode="TXT"/>
       <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>
+      <dyn:finalStateValues inputFile="IEEE14.fsv"/>
       <dyn:lostEquipments/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>

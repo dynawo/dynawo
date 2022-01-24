@@ -27,14 +27,11 @@ def ImportXMLFile(path):
 
 def ImportXMLFileExtended(path):
     root = ImportXMLFile(path)
-    if root.prefix is None:
-        prefix_str = ''
-    else:
-        prefix_str = root.prefix + ':'
-    return (root, root.nsmap, root.prefix, prefix_str)
+    return (root, root.nsmap, root.prefix)
 
 def FindAll(root, prefix, element, ns):
-    return root.findall(".//" + prefix + element, ns)
+    prefix_str = "{" + str(ns[prefix]) + "}" if prefix in ns else ""
+    return root.findall(".//" + prefix_str + element)
 
 class Event :
     def __init__(self):
@@ -208,12 +205,12 @@ def loadOppositeEventsTable():
 
 def parseXml(filepath, timeline):
     try:
-        (root, ns, _, prefix_str) = ImportXMLFileExtended(filepath)
+        (root, ns, prefix) = ImportXMLFileExtended(filepath)
     except:
         print ("[ERROR] Fail to import XML file " + filepath)
         sys.exit(1)
 
-    for event_timeline in FindAll(root, prefix_str, "event", ns):
+    for event_timeline in FindAll(root, prefix, "event", ns):
         event = Event()
         time = float(event_timeline.attrib['time'])
         event.time = time

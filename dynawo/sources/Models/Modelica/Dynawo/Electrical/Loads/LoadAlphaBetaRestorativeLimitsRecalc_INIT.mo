@@ -17,13 +17,13 @@ model LoadAlphaBetaRestorativeLimitsRecalc_INIT "Initialization model for restor
   extends Load_INIT;
 
   public
-    parameter Types.VoltageModulePu UMin0Pu "Minimum value of the voltage amplitude at terminal in p.u (base UNom) that ensures the P/Q restoration";
-    parameter Types.VoltageModulePu UMax0Pu "Maximum value of the voltage amplitude at terminal in p.u (base UNom) that ensures the P/Q restoration";
-    parameter Types.VoltageModulePu UDeadBandPu "Deadband of the limits recalculation in p.u (base UNom)";
+    parameter Types.VoltageModulePu UMin0Pu "Minimum value of the voltage amplitude at terminal in pu (base UNom) that ensures the P/Q restoration";
+    parameter Types.VoltageModulePu UMax0Pu "Maximum value of the voltage amplitude at terminal in pu (base UNom) that ensures the P/Q restoration";
+    parameter Types.VoltageModulePu UDeadBandPu "Deadband of the limits recalculation in pu (base UNom)";
 
   protected
-    Types.VoltageModulePu UMinPu "Recalculated minimum value of the voltage amplitude at terminal in p.u (base UNom) that ensures the P/Q restoration";
-    Types.VoltageModulePu UMaxPu "Recalculated maximum value of the voltage amplitude at terminal in p.u (base UNom) that ensures the P/Q restoration";
+    Types.VoltageModulePu UMinPu "Recalculated minimum value of the voltage amplitude at terminal in pu (base UNom) that ensures the P/Q restoration";
+    Types.VoltageModulePu UMaxPu "Recalculated maximum value of the voltage amplitude at terminal in pu (base UNom) that ensures the P/Q restoration";
 
 equation
 

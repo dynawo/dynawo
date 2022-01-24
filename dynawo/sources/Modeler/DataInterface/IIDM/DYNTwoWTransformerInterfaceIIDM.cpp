@@ -137,6 +137,11 @@ TwoWTransformerInterfaceIIDM::isConnected() const {
   return isConnected1() && isConnected2();
 }
 
+bool
+TwoWTransformerInterfaceIIDM::isPartiallyConnected() const {
+  return isConnected1() || isConnected2();
+}
+
 double
 TwoWTransformerInterfaceIIDM::getVNom1() const {
   if (tfoIIDM_.has_connection(IIDM::side_1)) {

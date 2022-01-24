@@ -46,3 +46,13 @@ case_description = "IEEE57 - Disconnection of the line 6-8"
 job_file = os.path.join(os.path.dirname(__file__), "IEEE57_BasicTestCases", "IEEE57_3_DisconnectLine", "IEEE57.jobs")
 
 test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
+
+############################################################################
+#               IEEE57 - Node fault on bus 45                           #
+############################################################################
+
+case_name = "IEEE57 - Node fault"
+case_description = "IEEE57 - Node fault on bus 45"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE57_BasicTestCases", "IEEE57_4_NodeFault", "IEEE57.jobs")
+
+test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))

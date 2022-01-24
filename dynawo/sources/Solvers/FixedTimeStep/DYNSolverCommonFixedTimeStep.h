@@ -79,7 +79,6 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
 
   /**
   * @brief compute YP prediction
-  * @return nothing
   */
   virtual void computePrediction() = 0;
 
@@ -207,8 +206,6 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
    *
    * @param tAim the next time at which a computed solution is desired
    * @param tNxt the time reached by the solver
-   *
-   * @return nothing
    */
   void solveStepCommon(double tAim, double &tNxt);
 

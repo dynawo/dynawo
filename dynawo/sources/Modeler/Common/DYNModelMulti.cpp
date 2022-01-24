@@ -29,10 +29,6 @@
 #include "CRVCurvesCollection.h"
 #include "CSTRConstraintsCollection.h"
 
-#include "FSModel.h"
-#include "FSVariable.h"
-#include "FSIterators.h"
-
 #include "DYNMacrosMessage.h"
 #include "DYNSparseMatrix.h"
 #include "DYNModelMulti.h"
@@ -56,8 +52,6 @@ using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
 using timeline::Timeline;
 using curves::Curve;
-using finalState::finalStateModel_iterator;
-using finalState::finalStateVariable_iterator;
 using constraints::ConstraintsCollection;
 using std::fstream;
 
@@ -1105,47 +1099,6 @@ ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollect
       subModel->updateCalculatedVarForCurve(curve);
     }
   }
-}
-
-void
-ModelMulti::fillVariables(boost::shared_ptr<finalState::FinalStateModel>& model) {
-  // warning: modelmulti is only composed of submodels
-  // excepted network model, submodels have no submodels
-  // variables are researched in submodels
-  // for variable in model1 which are in model, the researched name is model1Name_variableName
-
-  const string id = model->getId();
-  const shared_ptr<SubModel>& subModel = findSubModelByName(id);
-  if (subModel) {  // found model id in the composed models
-    for (finalStateVariable_iterator itVariable = model->beginVariable();
-            itVariable != model->endVariable();
-            ++itVariable) {
-      const string name = (*itVariable)->getId();
-      if (subModel->hasVariable(name)) {
-        (*itVariable)->setValue(subModel->getVariableValue(name));
-      }
-    }
-
-    for (finalStateModel_iterator itModel1 = model->beginFinalStateModel();
-            itModel1 != model->endFinalStateModel();
-            ++itModel1) {
-      string id1 = (*itModel1)->getId();
-      for (finalStateVariable_iterator itVariable = (*itModel1)->beginVariable();
-              itVariable != (*itModel1)->endVariable();
-              ++itVariable) {
-        string name = id1 + "_" + (*itVariable)->getId();
-        if (subModel->hasVariable(name)) {
-          (*itVariable)->setValue(subModel->getVariableValue(name));
-        }
-      }
-    }
-  }
-}
-
-void
-ModelMulti::fillVariable(boost::shared_ptr<finalState::Variable>& /*variable*/) {
-  // no variable are alone without been associated to a subModel until now
-  // it's due to the way the modelMulti is constructed.
 }
 
 void ModelMulti::printVariableNames() {

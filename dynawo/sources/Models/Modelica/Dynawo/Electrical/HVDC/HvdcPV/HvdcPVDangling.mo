@@ -26,18 +26,20 @@ model HvdcPVDangling "Model for PV HVDC link with terminal2 connected to a switc
 
 */
 
-  Connectors.ZPin U1RefPu (value (start = ComplexMath.'abs'(u10Pu))) "Voltage regulation set point in p.u (base UNom) at terminal 1";
-  Connectors.ZPin Q1RefPu (value (start = s10Pu.im)) "Reactive power regulation set point in p.u (base SnRef) (receptor convention) at terminal 1";
-  Connectors.BPin modeU1 (value (start = modeU10)) "Boolean assessing the mode of the control: true if U mode, false if Q mode";
-
-  parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control at terminal 1: true if U mode, false if Q mode";
-
-  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1 (receptor convention)";
-
   type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
+
+  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+
+  input Types.VoltageModulePu U1RefPu(start = U1Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 1";
+  input Types.ReactivePowerPu Q1RefPu(start = Q1Ref0Pu) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
+  input Boolean modeU1(start = modeU10) "Boolean assessing the mode of the control: true if U mode, false if Q mode";
+
+  parameter Types.VoltageModulePu U1Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
+  parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
+  parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control at terminal 1: true if U mode, false if Q mode";
 
 protected
 
@@ -48,31 +50,31 @@ equation
   s1Pu = Complex(P1Pu, Q1Pu);
   s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
 
-// Voltage/Reactive power regulation at terminal 1
-  when Q1Pu >= Q1MaxPu and U1Pu >= U1RefPu.value then
+  // Voltage/Reactive power regulation at terminal 1
+  when Q1Pu >= Q1MaxPu and U1Pu >= U1RefPu then
     q1Status = QStatus.AbsorptionMax;
-  elsewhen Q1Pu <= Q1MinPu and U1Pu <= U1RefPu.value then
+  elsewhen Q1Pu <= Q1MinPu and U1Pu <= U1RefPu then
     q1Status = QStatus.GenerationMax;
-  elsewhen (Q1Pu < Q1MaxPu or U1Pu < U1RefPu.value) and (Q1Pu > Q1MinPu or U1Pu > U1RefPu.value) then
+  elsewhen (Q1Pu < Q1MaxPu or U1Pu < U1RefPu) and (Q1Pu > Q1MinPu or U1Pu > U1RefPu) then
     q1Status = QStatus.Standard;
   end when;
 
   if running.value then
-    if modeU1.value then
+    if modeU1 then
       if q1Status == QStatus.GenerationMax then
         Q1Pu = Q1MinPu;
       elseif q1Status == QStatus.AbsorptionMax then
         Q1Pu = Q1MaxPu;
       else
-        U1Pu = U1RefPu.value;
+        U1Pu = U1RefPu;
       end if;
     else
-      if Q1RefPu.value <= Q1MinPu then
+      if Q1RefPu <= Q1MinPu then
         Q1Pu = Q1MinPu;
-      elseif Q1RefPu.value >= Q1MaxPu then
+      elseif Q1RefPu >= Q1MaxPu then
         Q1Pu = Q1MaxPu;
       else
-        Q1Pu = Q1RefPu.value;
+        Q1Pu = Q1RefPu;
       end if;
     end if;
   else

@@ -22,9 +22,6 @@ model GeneratorPVRemoteDiagramPQ "Model for generator PV with a PQ diagram, base
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  parameter Types.ReactivePowerPu QMin0Pu "Start value of the minimum reactive power in p.u (base SnRef)";
-  parameter Types.ReactivePowerPu QMax0Pu "Start value of the maximum reactive power in p.u (base SnRef)";
-  parameter Types.VoltageModule URef0 "Start value of the voltage regulation set point in kV";
   parameter Types.Time tFilter "Filter time constant to update QMin/QMax";
   parameter String QMinTableName "Name of the table in the text file to get QMinPu from PGenPu";
   parameter String QMaxTableName "Name of the table in the text file to get QMaxPu from PGenPu";
@@ -32,11 +29,16 @@ model GeneratorPVRemoteDiagramPQ "Model for generator PV with a PQ diagram, base
   parameter String QMaxTableFile "Text file that contains the table to get QMaxPu from PGenPu";
 
   input Types.VoltageModule URegulated "Regulated voltage in kV";
-  Connectors.ImPin URef (value(start = URef0)) "Voltage regulation set point in kV";
+  input Types.VoltageModule URef(start = URef0) "Voltage regulation set point in kV";
+
   Modelica.Blocks.Tables.CombiTable1D tableQMin(tableOnFile = true, tableName = QMinTableName, fileName = QMinTableFile) "Table to get QMinPu from PGenPu";
   Modelica.Blocks.Tables.CombiTable1D tableQMax(tableOnFile = true, tableName = QMaxTableName, fileName = QMaxTableFile) "Table to get QMaxPu from PGenPu";
-  Types.ReactivePowerPu QMinPu(start = QMin0Pu) "Minimum reactive power in p.u (base SnRef)";
-  Types.ReactivePowerPu QMaxPu(start = QMax0Pu) "Maximum reactive power in p.u (base SnRef)";
+  Types.ReactivePowerPu QMinPu(start = QMin0Pu) "Minimum reactive power in pu (base SnRef)";
+  Types.ReactivePowerPu QMaxPu(start = QMax0Pu) "Maximum reactive power in pu (base SnRef)";
+
+  parameter Types.ReactivePowerPu QMin0Pu "Start value of the minimum reactive power in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QMax0Pu "Start value of the maximum reactive power in pu (base SnRef)";
+  parameter Types.VoltageModule URef0 "Start value of the voltage regulation set point in kV";
 
 protected
   QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
@@ -48,25 +50,25 @@ equation
   PGenPu = tableQMax.u[1];
   tFilter * der(QMaxPu) + QMaxPu = tableQMax.y[1];
 
-  when QGenPu <= QMinPu and URegulated >= URef.value then
+  when QGenPu <= QMinPu and URegulated >= URef then
     qStatus = QStatus.AbsorptionMax;
-  elsewhen QGenPu >= QMaxPu and URegulated <= URef.value then
+  elsewhen QGenPu >= QMaxPu and URegulated <= URef then
     qStatus = QStatus.GenerationMax;
-  elsewhen (QGenPu > QMinPu or URegulated < URef.value) and (QGenPu < QMaxPu or URegulated > URef.value) then
+  elsewhen (QGenPu > QMinPu or URegulated < URef) and (QGenPu < QMaxPu or URegulated > URef) then
     qStatus = QStatus.Standard;
   end when;
 
-if running.value then
-  if qStatus == QStatus.GenerationMax then
-    QGenPu = QMaxPu;
-  elseif qStatus == QStatus.AbsorptionMax then
-    QGenPu = QMinPu;
+  if running.value then
+    if qStatus == QStatus.GenerationMax then
+      QGenPu = QMaxPu;
+    elseif qStatus == QStatus.AbsorptionMax then
+      QGenPu = QMinPu;
+    else
+      URegulated = URef;
+    end if;
   else
-    URegulated = URef.value;
+    terminal.i.im = 0;
   end if;
-else
-  terminal.i.im = 0;
-end if;
 
 annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This generator regulates the voltage URegulatedPu unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated). The reactive power limitations follow a PQ diagram. </div></body></html>"));

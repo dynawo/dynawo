@@ -34,15 +34,15 @@ package BaseClasses
     Modelica.Blocks.Interfaces.RealInput QRefPu(start = s0Pu.im) "Reactive power request" annotation(
       Placement(visible = true, transformation(origin = {50, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {60, -84}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
 
-    Connectors.ImPin UPu(value(start = ComplexMath.'abs'(u0Pu))) "Voltage amplitude at load terminal in p.u (base UNom)";
-    Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at load terminal in p.u (base SnRef) (receptor convention)";
-    Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at load terminal in p.u (base SnRef) (receptor convention)";
-    Types.ComplexApparentPowerPu SPu(re(start = s0Pu.re), im(start = s0Pu.im)) "Apparent power at load terminal in p.u (base SnRef) (receptor convention)";
+    Connectors.ImPin UPu(value(start = ComplexMath.'abs'(u0Pu))) "Voltage amplitude at load terminal in pu (base UNom)";
+    Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at load terminal in pu (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at load terminal in pu (base SnRef) (receptor convention)";
+    Types.ComplexApparentPowerPu SPu(re(start = s0Pu.re), im(start = s0Pu.im)) "Apparent power at load terminal in pu (base SnRef) (receptor convention)";
 
   protected
-    parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in p.u (base UNom)";
-    parameter Types.ComplexApparentPowerPu s0Pu "Start value of apparent power at load terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
+    parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in pu (base UNom)";
+    parameter Types.ComplexApparentPowerPu s0Pu "Start value of apparent power at load terminal in pu (base SnRef) (receptor convention)";
+    parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
 
   equation
     SPu = Complex(PPu, QPu);

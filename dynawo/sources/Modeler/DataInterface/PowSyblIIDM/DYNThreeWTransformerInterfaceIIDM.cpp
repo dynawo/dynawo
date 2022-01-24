@@ -87,40 +87,50 @@ string
 ThreeWTransformerInterfaceIIDM::getID() const {
   return tfoIIDM_.getId();
 }
+
 bool
 ThreeWTransformerInterfaceIIDM::getInitialConnected1() {
-  if (initialConnected1_ == boost::none) {
-    initialConnected1_ = tfoIIDM_.getLeg1().getTerminal().isConnected();
-    if (voltageLevelInterface1_->isNodeBreakerTopology()) {
-      initialConnected1_ = initialConnected1_ &&
-          voltageLevelInterface1_->isNodeConnected(static_cast<unsigned int>(tfoIIDM_.getLeg1().getTerminal().getNodeBreakerView().getNode()));
-    }
-  }
+  if (initialConnected1_ == boost::none)
+    initialConnected1_ = isConnected1();
   return initialConnected1_.value();
 }
 
 bool
 ThreeWTransformerInterfaceIIDM::getInitialConnected2() {
-  if (initialConnected2_ == boost::none) {
-    initialConnected2_ = tfoIIDM_.getLeg2().getTerminal().isConnected();
-    if (voltageLevelInterface2_->isNodeBreakerTopology()) {
-      initialConnected2_ = initialConnected2_ &&
-          voltageLevelInterface2_->isNodeConnected(static_cast<unsigned int>(tfoIIDM_.getLeg2().getTerminal().getNodeBreakerView().getNode()));
-    }
-  }
+  if (initialConnected2_ == boost::none)
+    initialConnected2_ = isConnected2();
   return initialConnected2_.value();
 }
 
 bool
 ThreeWTransformerInterfaceIIDM::getInitialConnected3() {
-  if (initialConnected3_ == boost::none) {
-    initialConnected3_ = tfoIIDM_.getLeg3().getTerminal().isConnected();
-    if (voltageLevelInterface3_->isNodeBreakerTopology()) {
-      initialConnected3_ = initialConnected3_ &&
-          voltageLevelInterface3_->isNodeConnected(static_cast<unsigned int>(tfoIIDM_.getLeg3().getTerminal().getNodeBreakerView().getNode()));
-    }
-  }
+  if (initialConnected3_ == boost::none)
+    initialConnected3_ = isConnected3();
   return initialConnected3_.value();
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::isConnected1() const {
+  bool connected = tfoIIDM_.getLeg1().getTerminal().isConnected();
+  if (voltageLevelInterface1_->isNodeBreakerTopology())
+    connected = voltageLevelInterface1_->isNodeConnected(static_cast<unsigned int>(tfoIIDM_.getLeg1().getTerminal().getNodeBreakerView().getNode()));
+  return connected;
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::isConnected2() const {
+  bool connected = tfoIIDM_.getLeg2().getTerminal().isConnected();
+  if (voltageLevelInterface2_->isNodeBreakerTopology())
+    connected = voltageLevelInterface2_->isNodeConnected(static_cast<unsigned int>(tfoIIDM_.getLeg2().getTerminal().getNodeBreakerView().getNode()));
+  return connected;
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::isConnected3() const {
+  bool connected = tfoIIDM_.getLeg3().getTerminal().isConnected();
+  if (voltageLevelInterface3_->isNodeBreakerTopology())
+    connected = voltageLevelInterface3_->isNodeConnected(static_cast<unsigned int>(tfoIIDM_.getLeg3().getTerminal().getNodeBreakerView().getNode()));
+  return connected;
 }
 
 void
@@ -166,6 +176,16 @@ ThreeWTransformerInterfaceIIDM::importStaticParameters() {
 int
 ThreeWTransformerInterfaceIIDM::getComponentVarIndex(const string& /*varName*/) const {
   return -1;
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::isConnected() const {
+  return isConnected1() && isConnected2() && isConnected3();
+}
+
+bool
+ThreeWTransformerInterfaceIIDM::isPartiallyConnected() const {
+  return isConnected1() || isConnected2() || isConnected3();
 }
 
 }  // namespace DYN

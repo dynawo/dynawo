@@ -68,7 +68,7 @@ equation
     Line(points = {{-120, 0}, {-42, 0}, {-42, 0}, {-40, 0}}, color = {0, 0, 127}));
   connect(u, gain1.u) annotation(
     Line(points = {{-120, 0}, {-48, 0}, {-48, 24}, {-6, 24}, {-6, 24}}, color = {0, 0, 127}));
-  annotation(preferredView = "text",
+  annotation(preferredView = "diagram",
   Diagram(coordinateSystem(initialScale = 0.1)),
   Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-2, 2}, extent = {{-64, 38}, {64, -38}}, textString = "PI Anti Windup")}));
 

@@ -93,7 +93,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   } UStatusFlags;
 
   /**
-   * @brief U calculation type requested (U², U in p.u. or U in S.I)
+   * @brief U calculation type requested (U², U in pu or U in S.I)
    */
   typedef enum {
     U2PuType_ = 0,
@@ -568,8 +568,8 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   void defineElementsById(const std::string& id, std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
   /**
-   * @brief calculate the value of U² in p.u.
-   * @return the value of U² in p.u.
+   * @brief calculate the value of U² in pu
+   * @return the value of U² in pu
    */
   double calculateU2Pu() const;
 
@@ -615,7 +615,8 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   int irYNum_;  ///< ir
 
   int busIndex_;  ///< index of bus in its voltage level
-  bool hasConnection_;  ///< whether has connection
+  bool hasConnection_;  ///< whether the bus has connection
+  bool hasShortCircuitCapabilities_;  ///< whether a short circuit could be applied to the bus
   bool hasDifferentialVoltages_;  ///< whether the bus model has differential voltages
 
   double unom_;  ///< nominal voltage

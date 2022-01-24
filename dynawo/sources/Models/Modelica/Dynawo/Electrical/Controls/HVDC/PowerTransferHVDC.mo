@@ -16,31 +16,31 @@ model PowerTransferHVDC "Power transfer model for HVDC"
   import Dynawo.Types;
   import Dynawo.Connectors;
 
-  Connectors.ImPin PRefSet1RawPu (value(start = PRefSet10Pu)) "Raw reference active power of HVDC link 1 in p.u (base SnRef)";
-  Connectors.ImPin PRefSet2RawPu (value(start = PRefSet20Pu)) "Raw reference active power of HVDC link 2 in p.u (base SnRef)";
-  Connectors.BPin running1 (value(start = true)) "Boolean assessing if the HVDC link 1 is running";
-  Connectors.BPin running2 (value(start = true)) "Boolean assessing if the HVDC link 2 is running";
+  input Types.ActivePowerPu PRefSet1RawPu(start = PRefSet10Pu) "Raw reference active power of HVDC link 1 in pu (base SnRef)";
+  input Types.ActivePowerPu PRefSet2RawPu(start = PRefSet20Pu) "Raw reference active power of HVDC link 2 in pu (base SnRef)";
+  input Boolean running1(start = true) "Boolean assessing if the HVDC link 1 is running";
+  input Boolean running2(start = true) "Boolean assessing if the HVDC link 2 is running";
 
-  Connectors.ImPin PRefSet1Pu (value(start = PRefSet10Pu)) "Reference active power of HVDC link 1 in p.u (base SnRef)";
-  Connectors.ImPin PRefSet2Pu (value(start = PRefSet20Pu)) "Reference active power of HVDC link 2 in p.u (base SnRef)";
+  output Types.ActivePowerPu PRefSet1Pu(start = PRefSet10Pu) "Reference active power of HVDC link 1 in pu (base SnRef)";
+  output Types.ActivePowerPu PRefSet2Pu(start = PRefSet20Pu) "Reference active power of HVDC link 2 in pu (base SnRef)";
 
-  parameter Types.ActivePowerPu PRefSet10Pu "Start value of reference active power in p.u (base SnRef) for HVDC link 1";
-  parameter Types.ActivePowerPu PRefSet20Pu "Start value of reference active power in p.u (base SnRef) for HVDC link 2";
+  parameter Types.ActivePowerPu PRefSet10Pu "Start value of reference active power in pu (base SnRef) for HVDC link 1";
+  parameter Types.ActivePowerPu PRefSet20Pu "Start value of reference active power in pu (base SnRef) for HVDC link 2";
 
 equation
 
-  if running1.value and running2.value then
-    PRefSet1Pu.value = PRefSet1RawPu.value;
-    PRefSet2Pu.value = PRefSet2RawPu.value;
-  elseif not(running1.value) and running2.value then
-    PRefSet1Pu.value = 0;
-    PRefSet2Pu.value = PRefSet2RawPu.value + PRefSet1RawPu.value;
-  elseif running1.value and not(running2.value) then
-    PRefSet1Pu.value = PRefSet1RawPu.value + PRefSet2RawPu.value;
-    PRefSet2Pu.value = 0;
+  if running1 and running2 then
+    PRefSet1Pu = PRefSet1RawPu;
+    PRefSet2Pu = PRefSet2RawPu;
+  elseif not(running1) and running2 then
+    PRefSet1Pu = 0;
+    PRefSet2Pu = PRefSet2RawPu + PRefSet1RawPu;
+  elseif running1 and not(running2) then
+    PRefSet1Pu = PRefSet1RawPu + PRefSet2RawPu;
+    PRefSet2Pu = 0;
   else
-    PRefSet1Pu.value = 0;
-    PRefSet2Pu.value = 0;
+    PRefSet1Pu = 0;
+    PRefSet2Pu = 0;
   end if;
 
 annotation(preferredView = "text",

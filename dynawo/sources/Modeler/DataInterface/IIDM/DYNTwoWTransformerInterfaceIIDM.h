@@ -237,6 +237,11 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
    */
   bool isConnected() const;
 
+  /**
+   * @copydoc ComponentInterface::isPartiallyConnected()
+   */
+  bool isPartiallyConnected() const;
+
  private:
   IIDM::Transformer2Windings& tfoIIDM_;  ///< reference to the tfo's iidm instance
   boost::shared_ptr<BusInterface> busInterface1_;  ///< busInterface of the bus where the side 1 of the tfo is connected

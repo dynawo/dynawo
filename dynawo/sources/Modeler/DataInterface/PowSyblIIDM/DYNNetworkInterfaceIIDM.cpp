@@ -93,7 +93,12 @@ boost::optional<std::string>
 NetworkInterfaceIIDM::getSlackNodeBusId() const {
   auto found = std::find_if(voltageLevels_.begin(), voltageLevels_.end(), [](const boost::shared_ptr<VoltageLevelInterface>& vl){
     auto vlIIDM = boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(vl);
-    return vlIIDM->getSlackBusId().has_value();
+    // Voltage level may be fictitious, so vlIIDM may be nullptr
+    if (vlIIDM) {
+      return vlIIDM->getSlackBusId().has_value();
+    } else {
+      return false;
+    }
   });
   return (found == voltageLevels_.end()) ? boost::none : boost::dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(*found)->getSlackBusId();
 }

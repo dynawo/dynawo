@@ -29,6 +29,10 @@
     <par type="DOUBLE" name="hvdc_PMaxPu" value="10000"/>
     <par type="BOOL" name="hvdc_modeU10" value="true"/>
     <par type="BOOL" name="hvdc_modeU20" value="true"/>
+    <reference name="hvdc_U1Ref0Pu" origData="IIDM" origName="v1_pu" type="DOUBLE"/>
+    <reference name="hvdc_U2Ref0Pu" origData="IIDM" origName="v2_pu" type="DOUBLE"/>
+    <reference name="hvdc_Q1Ref0Pu" origData="IIDM" origName="q1_pu" type="DOUBLE"/>
+    <reference name="hvdc_Q2Ref0Pu" origData="IIDM" origName="q2_pu" type="DOUBLE"/>
   </set>
   <set id="Generator">
     <par name="generator_KGover" type="DOUBLE" value="1"/>

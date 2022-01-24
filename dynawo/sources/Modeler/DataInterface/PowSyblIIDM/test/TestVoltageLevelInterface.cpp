@@ -166,6 +166,61 @@ TEST(DataInterfaceTest, VoltageLevel) {
                           .setHighVoltageLimit(420.)
                           .setLowVoltageLimit(380.)
                           .add();
+
+  vlIIDM2.getNodeBreakerView().newBusbarSection()
+        .setId("BBS1")
+        .setName("BBS1_NAME")
+        .setNode(3)
+        .add();
+
+  vlIIDM2.getNodeBreakerView().newDisconnector()
+        .setId("SW5")
+        .setName("SW5_NAME")
+        .setRetained(false)
+        .setOpen(false)
+        .setNode1(8)
+        .setNode2(3)
+        .add();
+  vlIIDM2.getNodeBreakerView().newDisconnector()
+        .setId("SW9")
+        .setName("SW9_NAME")
+        .setRetained(false)
+        .setOpen(false)
+        .setNode1(10)
+        .setNode2(3)
+        .add();
+  vlIIDM2.getNodeBreakerView().newDisconnector()
+        .setId("SW14")
+        .setName("SW14_NAME")
+        .setRetained(false)
+        .setOpen(false)
+        .setNode1(4)
+        .setNode2(3)
+        .add();
+  vlIIDM2.getNodeBreakerView().newBreaker()
+        .setId("SW16")
+        .setName("SW16_NAME")
+        .setRetained(true)
+        .setOpen(false)
+        .setNode1(15)
+        .setNode2(16)
+        .add();
+  vlIIDM2.getNodeBreakerView().newDisconnector()
+        .setId("SW17")
+        .setName("SW17_NAME")
+        .setRetained(false)
+        .setOpen(false)
+        .setNode1(16)
+        .setNode2(3)
+        .add();
+  vlIIDM2.newLoad()
+      .setId("LOAD")
+      .setFictitious(true)
+      .setNode(15)
+      .setP0(8.62757682800293)
+      .setQ0(300.0)
+      .add();
+
   VoltageLevelInterfaceIIDM vl(vlIIDM1);
   VoltageLevelInterfaceIIDM vl2(vlIIDM2);
   shared_ptr<BusInterface> bus1(new BusInterfaceIIDM(b1));
@@ -196,6 +251,7 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_EQ(vl.getVNom(), 400.);
   ASSERT_EQ(vl.getVoltageLevelTopologyKind(), VoltageLevelInterface::BUS_BREAKER);
   ASSERT_EQ(vl2.getVoltageLevelTopologyKind(), VoltageLevelInterface::NODE_BREAKER);
+  ASSERT_TRUE(vl2.isNodeConnected(15));
 
   ASSERT_EQ(vl.getBuses().size(), 0);
   vl.addBus(bus1);

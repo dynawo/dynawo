@@ -88,6 +88,15 @@ class Simulation {
   } exportCurvesMode_t;
 
   /**
+   * @brief Export mode for final states values
+   * Final states' export mode controlling the final states values available in the output.
+   */
+  typedef enum {
+    EXPORT_FINAL_STATE_VALUES_NONE,  ///< Export zero final states values
+    EXPORT_FINAL_STATE_VALUES_XML,  ///< Export final states values selected in input file in XML mode in output file
+  } exportFinalStateValuesMode_t;
+
+  /**
    * @brief Export mode for timeline
    * Timeline's export mode controlling the format of the timeline's output file
    */
@@ -97,15 +106,6 @@ class Simulation {
     EXPORT_TIMELINE_CSV,  ///< Export timeline in csv mode in output file
     EXPORT_TIMELINE_XML  ///< Export timeline in xml mode in output file
   } exportTimelineMode_t;
-
-  /**
-   * @brief Export mode for finalState
-   * finalState's export mode controlling the format of the finalState's output file
-   */
-  typedef enum {
-    EXPORT_FINALSTATE_NONE,  ///< Export no final state
-    EXPORT_FINALSTATE_XML  ///< Export final states selected in input file in XML mode in output file
-  } exportFinalStateMode_t;
 
   /**
    * @brief Export mode for constraint's state
@@ -247,12 +247,19 @@ class Simulation {
   void importCurvesRequest();
 
   /**
+   * @brief import final state values request from a file (i.e final states values that the user wants to see)
+   * @warning the file should be set before the call of this method
+   */
+  void importFinalStateValuesRequest();
+
+  /**
    * @brief setter for the output file of the timeline
    * @param outputFile timeline's output file
    */
   inline void setTimelineOutputFile(const std::string& outputFile) {
     timelineOutputFile_ = outputFile;
   }
+
   /**
    * @brief setter for the export mode of the timeline
    * @param mode timeline's mode export
@@ -260,6 +267,7 @@ class Simulation {
   inline void setTimelineExportMode(const exportTimelineMode_t& mode) {
     exportTimelineMode_ = mode;
   }
+
   /**
    * @brief setter for the export mode of curves
    * @param mode curves' export mode
@@ -267,6 +275,7 @@ class Simulation {
   inline void setCurvesExportMode(const exportCurvesMode_t& mode) {
     exportCurvesMode_ = mode;
   }
+
   /**
    * @brief setter for the curves input file
    * @param inputFile input file of curves request
@@ -274,6 +283,7 @@ class Simulation {
   inline void setCurvesInputFile(const std::string& inputFile) {
     curvesInputFile_ = inputFile;
   }
+
   /**
    * @brief setter for the curves' output file
    * @param outputFile curves' output file
@@ -281,13 +291,31 @@ class Simulation {
   inline void setCurvesOutputFile(const std::string& outputFile) {
     curvesOutputFile_ = outputFile;
   }
+
   /**
-   * @brief setter for the export mode of final state
-   * @param mode final state's export mode
+   * @brief setter for the export mode of final state values
+   * @param mode final state values' export mode
    */
-  inline void setFinalStateExportMode(const exportFinalStateMode_t& mode) {
-    exportFinalStateMode_ = mode;
+  inline void setFinalStateValuesExportMode(const exportFinalStateValuesMode_t& mode) {
+    exportFinalStateValuesMode_ = mode;
   }
+
+  /**
+   * @brief setter for the final state values' input file
+   * @param inputFile final state values input file
+   */
+  inline void setFinalStateValuesInputFile(const std::string& inputFile) {
+    finalStateValuesInputFile_ = inputFile;
+  }
+
+  /**
+   * @brief setter for the final state values' output file
+   * @param outputFile final state values' output file
+   */
+  inline void setFinalStateValuesOutputFile(const std::string& outputFile) {
+    finalStateValuesOutputFile_ = outputFile;
+  }
+
   /**
    * @brief setter for the constraints' output file
    * @param outputFile constraints' output file
@@ -295,6 +323,7 @@ class Simulation {
   inline void setConstraintsOutputFile(const std::string& outputFile) {
     constraintsOutputFile_ = outputFile;
   }
+
   /**
    * @brief setter for the constraints' export mode
    * @param mode constraints' export mode
@@ -310,6 +339,7 @@ class Simulation {
   inline void setLostEquipmentsOutputFile(const std::string& outputFile) {
     lostEquipmentsOutputFile_ = outputFile;
   }
+
   /**
    * @brief setter for the lost equipments' export mode
    * @param mode lost equipments' export mode
@@ -317,6 +347,7 @@ class Simulation {
   inline void setLostEquipmentsExportMode(const exportLostEquipmentsMode_t& mode) {
     exportLostEquipmentsMode_ = mode;
   }
+
   /**
    * @brief Checks if lost equipments should be exported
    * @return whether lost equipments should be exported
@@ -333,6 +364,7 @@ class Simulation {
   inline void setDumpLocalInitValues(const bool dumpLocalInitValues) {
     dumpLocalInitValues_ = dumpLocalInitValues;
   }
+
   /**
    * @brief setter for global init values dump mode
    * @param dumpGlobalInitValues  @b true if global init values should be dumped
@@ -341,6 +373,7 @@ class Simulation {
   inline void setDumpGlobalInitValues(const bool dumpGlobalInitValues) {
     dumpGlobalInitValues_ = dumpGlobalInitValues;
   }
+
   /**
    * @brief indicates if the simulation has reached the stop time
    * @return @b true if current time >= stop time, @b false otherwise
@@ -348,6 +381,7 @@ class Simulation {
   inline bool end() const {
     return (tCurrent_ >= tStop_);
   }
+
   /**
    * @brief setter of the start time of the simulation
    * @param time start time of the simulation
@@ -355,6 +389,7 @@ class Simulation {
   inline void setStartTime(const double time) {
     tStart_ = time;
   }
+
   /**
    * @brief setter of the stop time of the simulation
    * @param time stop time of the simulation
@@ -362,6 +397,7 @@ class Simulation {
   inline void setStopTime(const double time) {
     tStop_ = time;
   }
+
   /**
    * @brief setter for activating the checking of criteria (minimal voltage, etc..)
    * @param activate @b true if checking of criteria should be activated during simulation
@@ -369,11 +405,13 @@ class Simulation {
   inline void setActivateCriteria(bool activate) {
     activateCriteria_ = activate;
   }
+
   /**
    * @brief setter for criteria step
    * @param step number of iterations between 2 criteria check
    */
   void setCriteriaStep(const int step);
+
   /**
    * @brief getter for the start time of the simulation
    * @return the start time of the simulation
@@ -381,6 +419,7 @@ class Simulation {
   inline double getStartTime() const {
     return tStart_;
   }
+
   /**
    * @brief getter for the current time of the simulation
    * @return the current time of the simulation
@@ -447,6 +486,12 @@ class Simulation {
   void printCurves(std::ostream& stream) const;
 
   /**
+   * @brief print final state values of the simulation in the given stream
+   * @param stream stream where the final state values should be printed
+   */
+  void printFinalStateValues(std::ostream& stream) const;
+
+  /**
    * @brief print timeline output of the simulation in the given stream
    * @param stream stream where the timeline output should be printed
    */
@@ -475,6 +520,15 @@ class Simulation {
    * @param failingCriteria vector to fill
    */
   void getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const;
+
+  /**
+ * @brief get model used in simulation
+
+ * @return model used in simulation
+ */
+  boost::shared_ptr<Model> getModel() {
+    return model_;
+  }
 
  private:
   /**
@@ -563,7 +617,7 @@ class Simulation {
    */
   bool hasIntermediateStateToDump() const;
 
- public:
+ private:
   boost::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
   boost::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
   boost::shared_ptr<Solver> solver_;  ///< solver used for the simulation
@@ -592,6 +646,10 @@ class Simulation {
   std::string curvesInputFile_;  ///< curves' resquest input file
   std::string curvesOutputFile_;  ///< curves' output file
 
+  exportFinalStateValuesMode_t exportFinalStateValuesMode_;  ///< final state values export mode
+  std::string finalStateValuesInputFile_;  ///< final state values input file
+  std::string finalStateValuesOutputFile_;  ///< final state values output file
+
   exportTimelineMode_t exportTimelineMode_;  ///< timeline's output mode
   bool exportTimelineWithTime_;  ///< whether to export time when exporting timeline
   boost::optional<int> exportTimelineMaxPriority_;  ///< maximum priority when exporting timeline
@@ -599,8 +657,6 @@ class Simulation {
 
   std::string timetableOutputFile_;  ///< timetable export file
   int timetableSteps_;  ///< timetable' steps
-
-  exportFinalStateMode_t exportFinalStateMode_;  ///< final state's export mode
 
   exportConstraintsMode_t exportConstraintsMode_;  ///< contstraints' export mode
   std::string constraintsOutputFile_;  ///< constraints' export file
@@ -622,6 +678,8 @@ class Simulation {
   bool dumpGlobalInitValues_;  ///< whether to export the results from the global initialisation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
 
+  bool wasLoggingEnabled_;  ///< true if logging was enabled by an upper project
+
  private:
   /**
    * @brief configure the constraints outputs
@@ -642,6 +700,11 @@ class Simulation {
    * @brief configure the curve outputs
    */
   void configureCurveOutputs();
+
+  /**
+   * @brief configure the final state outputs
+   */
+  void configureFinalStateValueOutputs();
 
   /**
    * @brief configure the final state outputs

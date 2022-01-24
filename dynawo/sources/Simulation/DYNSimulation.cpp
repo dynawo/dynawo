@@ -24,6 +24,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <fstream>
+#include <unordered_map>
 #ifdef _MSC_VER
 #include <process.h>
 #endif
@@ -51,15 +52,17 @@
 #include "CRVCurvesCollectionFactory.h"
 #include "CRVCurvesCollection.h"
 #include "CRVXmlImporter.h"
+#include "CRVCurveFactory.h"
 #include "CRVCurve.h"
 #include "CRVXmlExporter.h"
 #include "CRVCsvExporter.h"
 
-#include "FSFinalStateCollectionFactory.h"
-#include "FSFinalStateCollection.h"
-#include "FSXmlImporter.h"
-#include "FSXmlExporter.h"
-#include "FSIterators.h"
+#include "FSVFinalStateValuesCollectionFactory.h"
+#include "FSVFinalStateValuesCollection.h"
+#include "FSVFinalStateValue.h"
+#include "FSVFinalStateValueFactory.h"
+#include "FSVXmlExporter.h"
+#include "FSVXmlImporter.h"
 
 #include "CSTRConstraintsCollection.h"
 #include "CSTRConstraintsCollectionFactory.h"
@@ -133,9 +136,8 @@ using timeline::TimelineFactory;
 using curves::CurvesCollection;
 using curves::CurvesCollectionFactory;
 
-using finalState::FinalStateCollectionFactory;
-using finalState::finalStateModel_iterator;
-using finalState::finalStateVariable_iterator;
+using finalStateValues::FinalStateValuesCollection;
+using finalStateValues::FinalStateValuesCollectionFactory;
 
 using constraints::ConstraintsCollectionFactory;
 
@@ -161,18 +163,21 @@ initialStateFile_(""),
 exportCurvesMode_(EXPORT_CURVES_NONE),
 curvesInputFile_(""),
 curvesOutputFile_(""),
+exportFinalStateValuesMode_(EXPORT_FINAL_STATE_VALUES_XML),
+finalStateValuesInputFile_(""),
+finalStateValuesOutputFile_(""),
 exportTimelineMode_(EXPORT_TIMELINE_NONE),
 exportTimelineWithTime_(true),
 exportTimelineMaxPriority_(boost::none),
 timelineOutputFile_(""),
-exportFinalStateMode_(EXPORT_FINALSTATE_NONE),
 exportConstraintsMode_(EXPORT_CONSTRAINTS_NONE),
 constraintsOutputFile_(""),
 exportLostEquipmentsMode_(EXPORT_LOSTEQUIPMENTS_NONE),
 lostEquipmentsOutputFile_(""),
 finalState_(std::numeric_limits<double>::max()),
 dumpLocalInitValues_(false),
-dumpGlobalInitValues_(false) {
+dumpGlobalInitValues_(false),
+wasLoggingEnabled_(false) {
   SignalHandler::setSignalHandlers();
 
 #ifdef _MSC_VER
@@ -275,6 +280,7 @@ Simulation::configureSimulationOutputs() {
     configureTimelineOutputs();
     configureTimetableOutputs();
     configureCurveOutputs();
+    configureFinalStateValueOutputs();
     configureFinalStateOutputs();
     configureLostEquipmentsOutputs();
   }
@@ -398,6 +404,33 @@ Simulation::configureCurveOutputs() {
     setCurvesOutputFile(outputFile);
   } else {
     setCurvesExportMode(Simulation::EXPORT_CURVES_NONE);
+  }
+}
+
+void
+Simulation::configureFinalStateValueOutputs() {
+  // Final state value settings
+  if (jobEntry_->getOutputsEntry()->getFinalStateValuesEntry()) {
+    string finalStateValuesDir = createAbsolutePath("finalStateValues", outputsDirectory_);
+    if (!is_directory(finalStateValuesDir))
+      create_directory(finalStateValuesDir);
+
+    //---- inputFile ----
+    string finalStateValuesInputFile = createAbsolutePath(
+        jobEntry_->getOutputsEntry()->getFinalStateValuesEntry()->getInputFile(),
+        context_->getInputDirectory());
+
+    if (!exists(finalStateValuesInputFile))
+      throw DYNError(Error::MODELER, UnknownFinalStateValuesFile, finalStateValuesInputFile);
+    setFinalStateValuesInputFile(finalStateValuesInputFile);
+    importFinalStateValuesRequest();
+
+    //---- exportMode ----
+    setFinalStateValuesExportMode(Simulation::EXPORT_FINAL_STATE_VALUES_XML);
+    string outputFile = createAbsolutePath("finalStateValues.xml", finalStateValuesDir);
+    setFinalStateValuesOutputFile(outputFile);
+  } else {
+    setFinalStateValuesExportMode(Simulation::EXPORT_FINAL_STATE_VALUES_NONE);
   }
 }
 
@@ -607,6 +640,7 @@ Simulation::configureLogs() {
       create_directory(logsDir);
 
     if (jobEntry_->getOutputsEntry()->getLogsEntry()->getAppenderEntries().size() == 0) {
+      wasLoggingEnabled_ = Trace::isLoggingEnabled();
       Trace::disableLogging();
     } else {
       vector<shared_ptr<job::AppenderEntry> > appendersEntry = jobEntry_->getOutputsEntry()->getLogsEntry()->getAppenderEntries();
@@ -642,6 +676,7 @@ Simulation::configureLogs() {
       }
     }
   } else {
+    wasLoggingEnabled_ = Trace::isLoggingEnabled();
     Trace::disableLogging();
   }
 }
@@ -650,6 +685,40 @@ void
 Simulation::importCurvesRequest() {
   curves::XmlImporter importer;
   curvesCollection_ = CurvesCollectionFactory::copyInstance(importer.importFromFile(curvesInputFile_));
+}
+
+void
+Simulation::importFinalStateValuesRequest() {
+  // Obtain Final State Values definitions from input file
+  finalStateValues::XmlImporter importer;
+  boost::shared_ptr<FinalStateValuesCollection> finalStateValuesCollection =
+    FinalStateValuesCollectionFactory::copyInstance(importer.importFromFile(finalStateValuesInputFile_));
+
+  // Final State Values and Curve points will be recorded during simulation in the same data structures
+  // Here we merge the Final State Values definitions with the existing Curves definitions
+
+  // A map for existing Curves is built so we can locate them fast and update them from the Final State Values
+  // A Curve is identified by the pair model name, variable name
+  typedef boost::unordered_map<std::pair<std::string, std::string>, boost::shared_ptr<curves::Curve> > CurvesMap;
+  CurvesMap curvesMap;
+  for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin(); itCurve != curvesCollection_->cend(); ++itCurve) {
+    curvesMap.insert({std::make_pair((*itCurve)->getModelName(), (*itCurve)->getVariable()), *itCurve});
+  }
+
+  for (FinalStateValuesCollection::const_iterator itFinalStateValue = finalStateValuesCollection->cbegin();
+      itFinalStateValue != finalStateValuesCollection->cend();
+      ++itFinalStateValue) {
+    CurvesMap::const_iterator entry = curvesMap.find(std::make_pair((*itFinalStateValue)->getModelName(), (*itFinalStateValue)->getVariable()));
+    if (entry != curvesMap.end()) {
+      entry->second->setExportType(curves::Curve::EXPORT_AS_BOTH);
+    } else {
+      boost::shared_ptr<curves::Curve> curve = curves::CurveFactory::newCurve();
+      curve->setModelName((*itFinalStateValue)->getModelName());
+      curve->setVariable((*itFinalStateValue)->getVariable());
+      curve->setExportType(curves::Curve::EXPORT_AS_FINAL_STATE_VALUE);
+      curvesCollection_->add(curve);
+    }
+  }
 }
 
 void
@@ -1100,6 +1169,13 @@ Simulation::terminate() {
     fileCurves.close();
   }
 
+  if (finalStateValuesOutputFile_ != "") {
+    ofstream fileFinalStateValues;
+    openFileStream(fileFinalStateValues, finalStateValuesOutputFile_);
+    printFinalStateValues(fileFinalStateValues);
+    fileFinalStateValues.close();
+  }
+
   if (timelineOutputFile_ != "") {
     ofstream fileTimeline;
     openFileStream(fileTimeline, timelineOutputFile_);
@@ -1135,7 +1211,7 @@ Simulation::terminate() {
     dumpIIDMFile();
 
   printEnd();
-  if (!Trace::isLoggingEnabled()) {
+  if (wasLoggingEnabled_ && !Trace::isLoggingEnabled()) {
     // re-enable logging for upper project
     Trace::enableLogging();
   }
@@ -1167,6 +1243,38 @@ Simulation::printCurves(std::ostream& stream) const {
   }
 }
 
+void Simulation::printFinalStateValues(std::ostream& stream) const {
+  switch (exportFinalStateValuesMode_) {
+    case EXPORT_FINAL_STATE_VALUES_NONE:
+      break;
+    case EXPORT_FINAL_STATE_VALUES_XML: {
+      stringstream pid_string;
+      pid_string << pid_;
+
+      boost::shared_ptr<FinalStateValuesCollection> finalStateValuesCollection =
+        FinalStateValuesCollectionFactory::newInstance("Simulation_" + pid_string.str());
+
+      for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin(); itCurve != curvesCollection_->cend(); ++itCurve) {
+        bool isFinalStateValue =
+          (*itCurve)->getExportType() == curves::Curve::EXPORT_AS_FINAL_STATE_VALUE ||
+          (*itCurve)->getExportType() == curves::Curve::EXPORT_AS_BOTH;
+        if ((*itCurve)->getAvailable() && isFinalStateValue) {
+          curves::Curve::const_iterator lastPoint = --(*itCurve)->cend();
+          boost::shared_ptr<finalStateValues::FinalStateValue> finalStateValue = finalStateValues::FinalStateValueFactory::newFinalStateValue();
+          finalStateValue->setModelName((*itCurve)->getModelName());
+          finalStateValue->setVariable((*itCurve)->getVariable());
+          finalStateValue->setValue((*lastPoint)->getValue());
+          finalStateValuesCollection->add(finalStateValue);
+        }
+      }
+
+      finalStateValues::XmlExporter xmlExporter;
+      xmlExporter.exportToStream(finalStateValuesCollection, stream);
+      break;
+    }
+  }
+}
+
 void
 Simulation::printTimeline(std::ostream& stream) const {
   switch (exportTimelineMode_) {
@@ -1191,35 +1299,6 @@ Simulation::printTimeline(std::ostream& stream) const {
       exporter.setExportWithTime(exportTimelineWithTime_);
       exporter.setMaxPriority(exportTimelineMaxPriority_);
       exporter.exportToStream(timeline_, stream);
-      break;
-    }
-  }
-}
-
-void
-Simulation::printFinalState(std::ostream& stream) const {
-  switch (exportFinalStateMode_) {
-    case EXPORT_FINALSTATE_NONE:
-      break;
-    case EXPORT_FINALSTATE_XML: {
-      // update calculated variables
-      model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
-
-      // association between requested variables and model variables
-      for (finalStateModel_iterator itModel = finalStateCollection_->beginFinalStateModel();
-              itModel != finalStateCollection_->endFinalStateModel();
-              ++itModel) {
-        model_->fillVariables(*itModel);
-      }
-
-      for (finalStateVariable_iterator itVariable = finalStateCollection_->beginVariable();
-              itVariable != finalStateCollection_->endVariable();
-              ++itVariable) {
-        model_->fillVariable(*itVariable);
-      }
-      // export variables
-      finalState::XmlExporter xmlExporter;
-      xmlExporter.exportToStream(finalStateCollection_, stream);
       break;
     }
   }

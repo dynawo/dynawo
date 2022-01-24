@@ -1,15 +1,23 @@
 Dynawo authors:
 
 Francois BEAUDE
+Mathilde BONGRAIN
 Gautier BUREAU
+Marco CHIARAMELLO
 Angela CHIEH
+Quentin COSSART
 Sebastien DOUMEIX
+Lluc FIGUERAS
 Adrien GUIRONNET
+Sören LOHR
 Romain LOSSEAU
 Emilie MILIN
 Sebastien MURGEY
+Maria NUSCHKE
 Sebastien PETITRENAUD
+Lukas RAZIK
 Florentine ROSIERE
 Marianne SAUGIER
+Lennart SCHUMACHER
 Pengbo WANG
 Youssef ZAKI
