@@ -22,6 +22,7 @@
 #include "DYNCommon.h"
 #include "CRTCriteriaParamsFactory.h"
 #include "CRTCriteriaParams.h"
+#include "CRTCriteriaParamsVoltageLevel.h"
 #include "CRTCriteriaFactory.h"
 #include "CRTCriteria.h"
 #include "CRTCriteriaCollectionFactory.h"
@@ -41,24 +42,15 @@ TEST(APICRTTest, CriteriaParams) {
   ASSERT_EQ(criteriap->getScope(), CriteriaParams::UNDEFINED_SCOPE);
   ASSERT_EQ(criteriap->getType(), CriteriaParams::UNDEFINED_TYPE);
   ASSERT_EQ(criteriap->getId(), "");
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMaxPu(), std::numeric_limits<double>::max());
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMinPu(), -std::numeric_limits<double>::max());
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUNomMax(), std::numeric_limits<double>::max());
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUNomMin(), -std::numeric_limits<double>::max());
+  ASSERT_FALSE(criteriap->hasVoltageLevels());
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getPMax(), std::numeric_limits<double>::max());
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getPMin(), -std::numeric_limits<double>::max());
   ASSERT_FALSE(criteriap->hasPMax());
   ASSERT_FALSE(criteriap->hasPMin());
-  ASSERT_FALSE(criteriap->hasUMaxPu());
-  ASSERT_FALSE(criteriap->hasUMinPu());
 
   // set attributes
   criteriap->setScope(CriteriaParams::FINAL);
   criteriap->setType(CriteriaParams::SUM);
-  criteriap->setUMaxPu(0.8);
-  criteriap->setUMinPu(0.2);
-  criteriap->setUNomMax(220);
-  criteriap->setUNomMin(180);
   criteriap->setPMax(200);
   criteriap->setPMin(0);
   criteriap->setId("MyId");
@@ -67,16 +59,26 @@ TEST(APICRTTest, CriteriaParams) {
   ASSERT_EQ(criteriap->getScope(), CriteriaParams::FINAL);
   ASSERT_EQ(criteriap->getType(), CriteriaParams::SUM);
   ASSERT_EQ(criteriap->getId(), "MyId");
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMaxPu(), 0.8);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMinPu(), 0.2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUNomMax(), 220);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUNomMin(), 180);
+  ASSERT_FALSE(criteriap->hasVoltageLevels());
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getPMax(), 200);
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getPMin(), 0);
   ASSERT_TRUE(criteriap->hasPMax());
   ASSERT_TRUE(criteriap->hasPMin());
-  ASSERT_TRUE(criteriap->hasUMaxPu());
-  ASSERT_TRUE(criteriap->hasUMinPu());
+
+  // set voltage level
+  CriteriaParamsVoltageLevel vl;
+  vl.setUMaxPu(0.8);
+  vl.setUMinPu(0.2);
+  vl.setUNomMax(220);
+  vl.setUNomMin(180);
+  criteriap->addVoltageLevel(vl);
+
+  // test setted attributes
+  ASSERT_TRUE(criteriap->hasVoltageLevels());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getVoltageLevels()[0].getUMaxPu(), 0.8);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getVoltageLevels()[0].getUMinPu(), 0.2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getVoltageLevels()[0].getUNomMax(), 220);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getVoltageLevels()[0].getUNomMin(), 180);
 }
 
 TEST(APICRTTest, Criteria) {
@@ -91,8 +93,10 @@ TEST(APICRTTest, Criteria) {
   criteriap->setScope(CriteriaParams::FINAL);
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setId("MyId");
-  criteriap->setUMaxPu(0.8);
-  criteriap->setUMinPu(0.2);
+  CriteriaParamsVoltageLevel vl;
+  vl.setUMaxPu(0.8);
+  vl.setUMinPu(0.2);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteriap->setPMin(0);
   criteria->setParams(criteriap);

@@ -66,64 +66,19 @@ class CriteriaParams::Impl : public CriteriaParams {
   const std::string& getId() const;
 
   /**
-   * @copydoc CriteriaParams::setUMaxPu(double uMaxPu)
+   * @copydoc CriteriaParams::addVoltageLevel(const CriteriaParamsVoltageLevel& vl)
    */
-  void setUMaxPu(double uMaxPu);
+  void addVoltageLevel(const CriteriaParamsVoltageLevel& vl);
 
   /**
-   * @copydoc CriteriaParams::getUMaxPu() const
+   * @copydoc CriteriaParams::getVoltageLevels() const
    */
-  double getUMaxPu() const;
+  const std::vector<CriteriaParamsVoltageLevel>& getVoltageLevels() const;
 
   /**
-   * @copydoc CriteriaParams::hasUMaxPu() const
+   * @copydoc CriteriaParams::hasVoltageLevels() const
    */
-  bool hasUMaxPu() const;
-
-  /**
-   * @copydoc CriteriaParams::setUNomMax(double uNomMax)
-   */
-  void setUNomMax(double uNomMax);
-
-  /**
-   * @copydoc CriteriaParams::getUNomMax() const
-   */
-  double getUNomMax() const;
-
-  /**
-   * @copydoc CriteriaParams::hasUNomMax() const
-   */
-  bool hasUNomMax() const;
-
-  /**
-   * @copydoc CriteriaParams::setUMinPu(double uMinPu)
-   */
-  void setUMinPu(double uMinPu);
-
-  /**
-   * @copydoc CriteriaParams::getUMinPu() const
-   */
-  double getUMinPu() const;
-
-  /**
-   * @copydoc CriteriaParams::hasUMinPu() const
-   */
-  bool hasUMinPu() const;
-
-  /**
-   * @copydoc CriteriaParams::setUNomMin(double uNomMin)
-   */
-  void setUNomMin(double uNomMin);
-
-  /**
-   * @copydoc CriteriaParams::getUNomMin() const
-   */
-  double getUNomMin() const;
-
-  /**
-   * @copydoc CriteriaParams::hasUNomMin() const
-   */
-  bool hasUNomMin() const;
+  bool hasVoltageLevels() const;
 
   /**
    * @copydoc CriteriaParams::setPMax(double pMax)
@@ -158,12 +113,9 @@ class CriteriaParams::Impl : public CriteriaParams {
  private:
   CriteriaParams::CriteriaScope_t scope_;  ///< scope of the criteria
   CriteriaType_t type_;  ///< type of the criteria
-  double uMinPu_;  ///< minimum voltage in p.u.
-  double uMaxPu_;  ///< maximum voltage in p.u.
-  double uNomMin_;  ///< minimum nominal voltage in kV
-  double uNomMax_;  ///< maximum nominal voltage in kV
   double pMin_;  ///< minimum active power in MW
   double pMax_;  ///< maximum active power in MW
+  std::vector<CriteriaParamsVoltageLevel> voltageLevels_;  ///< voltage levels
   std::string id_;  ///< criteria id
 };
 

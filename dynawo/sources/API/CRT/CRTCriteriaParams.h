@@ -14,7 +14,10 @@
 #ifndef API_CRT_CRTCRITERIAPARAMS_H_
 #define API_CRT_CRTCRITERIAPARAMS_H_
 
+#include "CRTCriteriaParamsVoltageLevel.h"
+
 #include <string>
+#include <vector>
 
 namespace criteria {
 
@@ -114,76 +117,22 @@ static CriteriaType_t string2Type(const std::string& str) {
   virtual const std::string& getId() const = 0;
 
   /**
-   * @brief Setter for maximum voltage
-   * @param uMaxPu maximum voltage
+   * @brief Add a voltage level
+   * @param vl voltage level to add
    */
-  virtual void setUMaxPu(double uMaxPu) = 0;
+  virtual void addVoltageLevel(const CriteriaParamsVoltageLevel& vl) = 0;
 
   /**
-   * @brief Getter for maximum voltage
-   * @return maximum voltage
+   * @brief Getter for voltage levels
+   * @return voltage levels
    */
-  virtual double getUMaxPu() const = 0;
+  virtual const std::vector<CriteriaParamsVoltageLevel>& getVoltageLevels() const = 0;
 
   /**
-   * @brief return true if uMax has been defined
-   * @return true if uMax has been defined
+   * @brief return true if at least one volage level was defined
+   * @return true if at least one volage level was defined
    */
-  virtual bool hasUMaxPu() const = 0;
-
-  /**
-   * @brief Setter for maximum nominal voltage
-   * @param uNomMax maximum nominal voltage
-   */
-  virtual void setUNomMax(double uNomMax) = 0;
-
-  /**
-   * @brief Getter for maximum nominal voltage
-   * @return maximum nominal voltage
-   */
-  virtual double getUNomMax() const = 0;
-
-  /**
-   * @brief return true if uNomMax has been defined
-   * @return true if uNomMax has been defined
-   */
-  virtual bool hasUNomMax() const = 0;
-
-  /**
-   * @brief Setter for minimum voltage
-   * @param uMinPu minimum voltage
-   */
-  virtual void setUMinPu(double uMinPu) = 0;
-
-  /**
-   * @brief Getter for minimum voltage
-   * @return minimum voltage
-   */
-  virtual double getUMinPu() const = 0;
-
-  /**
-   * @brief return true if uMin has been defined
-   * @return true if uMin has been defined
-   */
-  virtual bool hasUMinPu() const = 0;
-
-  /**
-   * @brief Setter for minimum nominal voltage
-   * @param uNomMin minimum nominal voltage
-   */
-  virtual void setUNomMin(double uNomMin) = 0;
-
-  /**
-   * @brief Getter for minimum nominal voltage
-   * @return minimum nominal voltage
-   */
-  virtual double getUNomMin() const = 0;
-
-  /**
-   * @brief return true if uNomMin has been defined
-   * @return true if uNomMin has been defined
-   */
-  virtual bool hasUNomMin() const = 0;
+  virtual bool hasVoltageLevels() const = 0;
 
   /**
    * @brief Setter for maximum active power
