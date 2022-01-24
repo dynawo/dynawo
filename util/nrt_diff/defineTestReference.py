@@ -76,7 +76,7 @@ def define_reference(testcase):
     case_ref_dir = os.path.join(case_dir, REFERENCE_DATA_DIRECTORY_NAME)
     files = findOutputFile(testcase)
     for relative_file_path in files:
-        print "        Copying " + relative_file_path
+        print("        Copying " + relative_file_path)
         if not os.path.exists(os.path.dirname(os.path.join(case_ref_dir, relative_file_path))):
             os.makedirs(os.path.dirname(os.path.join(case_ref_dir, relative_file_path)))
         copyfile(os.path.join(case_dir,relative_file_path) , os.path.join(case_ref_dir, relative_file_path))
@@ -93,7 +93,7 @@ def redefine_reference(testcase):
             (diff_status, _) = CompareTwoFiles (os.path.join(case_dir,relative_file_path),\
                                            logs_separator, os.path.join(case_ref_dir, relative_file_path), logs_separator)
             if diff_status != IDENTICAL:
-                print "        Copying " + relative_file_path
+                print("        Copying " + relative_file_path)
                 copyfile(os.path.join(case_dir,relative_file_path) , os.path.join(case_ref_dir, relative_file_path))
 ##
 # (Re)Define automatically the nrt references in the following cases:
