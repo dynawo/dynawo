@@ -47,6 +47,11 @@ class Curve {
   typedef enum { UNDEFINED, CALCULATED_VARIABLE, DISCRETE_VARIABLE, CONTINUOUS_VARIABLE } CurveType_t;  ///< type on constraint
 
   /**
+   * ways in which this curve can be exported
+   */
+  typedef enum { EXPORT_AS_CURVE, EXPORT_AS_FINAL_STATE_VALUE, EXPORT_AS_BOTH } ExportType_t;
+
+  /**
    * @brief Add a new point to the curve
    * @param time time associated to the new point created
    */
@@ -93,6 +98,12 @@ class Curve {
    * @param index curve's index in global table
    */
   void setGlobalIndex(size_t index);
+
+  /**
+   * @brief Set if the user wants to export this as curve
+   * @param value a ExportType_t value saying whether we want to export a final state value, a curve or both.
+   */
+  void setExportType(ExportType_t value);
 
   /**
    * @brief Getter for curve's index in global table
@@ -143,6 +154,15 @@ class Curve {
   bool isParameterCurve() const {
     return isParameterCurve_;
   }
+
+  /**
+   * @brief The data the user wants out of this curve
+   * @return ExportType_t value saying whether we want to export a final state value, a curve or both.
+   */
+  ExportType_t getExportType() const {
+    return exportType_;
+  }
+
   /**
    * @brief set curve for variable or curve for parameter
    * @param isParameterCurve @b true if curve for parameter, @b false else
@@ -304,6 +324,8 @@ class Curve {
   bool isParameterCurve_;                          ///< @b true if a parameter curve, @b false if variable
   CurveType_t curveType_;                          ///< @b true if a calculated variable curve, @b false if variable
   size_t indexInGlobalTable_;                      ///< curve's index in global table
+
+  ExportType_t exportType_;                        ///< Whether this should be exported as a final state value or as a curve
 };
 
 }  // namespace curves

@@ -38,6 +38,7 @@
 #include "JOBLogsEntry.h"
 #include "JOBAppenderEntry.h"
 #include "JOBModelsDirEntry.h"
+#include "JOBFinalStateValuesEntry.h"
 
 INIT_XML_DYNAWO;
 
@@ -237,6 +238,11 @@ TEST(APIJOBTest, testXmlImporter) {
   boost::shared_ptr<CurvesEntry> curves = outputs->getCurvesEntry();
   ASSERT_EQ(curves->getExportMode(), "CSV");
   ASSERT_EQ(curves->getInputFile(), "curves.crv");
+
+  // ===== FinalStateValues ====
+  ASSERT_NE(outputs->getFinalStateValuesEntry(), boost::shared_ptr<FinalStateValuesEntry>());
+  boost::shared_ptr<FinalStateValuesEntry> finalStateValues = outputs->getFinalStateValuesEntry();
+  ASSERT_EQ(finalStateValues->getInputFile(), "finalStateValues.fsv");
 
   // ===== LostEquipmentsEntry =====
   ASSERT_NE(outputs->getLostEquipmentsEntry(), boost::shared_ptr<LostEquipmentsEntry>());
