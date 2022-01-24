@@ -18,7 +18,7 @@ package Parameters "Parameters of the static var compensator"
   record Params_Regulation
     import Dynawo.Types;
     parameter Types.ApparentPowerModule SNom "Static Var Compensator nominal apparent power in MVA";
-    parameter Types.PerUnit Lambda "Statism of the regulation law URefPu = UPu + Lambda*QPu in p.u (base UNom, SNom)";
+    parameter Types.PerUnit Lambda "Statism of the regulation law URefPu = UPu + Lambda*QPu in pu (base UNom, SNom)";
     parameter Types.PerUnit Kp "Proportional gain of the PI controller";
     parameter Types.Time Ti "Integral time constant of the PI controller";
 
@@ -27,10 +27,10 @@ package Parameters "Parameters of the static var compensator"
 
   record Params_Limitations
       import Dynawo.Types;
-      parameter Types.PerUnit BMaxPu "Maximum value for the variable susceptance in p.u (base SNom)";
-      parameter Types.PerUnit BMinPu "Minimum value for the variable susceptance in p.u (base SNom)";
-      parameter Types.PerUnit IMaxPu "Maximum value for the current in p.u (base UNom, SNom)";
-      parameter Types.PerUnit IMinPu "Minimum value for the current in p.u (base UNom, SNom)";
+      parameter Types.PerUnit BMaxPu "Maximum value for the variable susceptance in pu (base SNom)";
+      parameter Types.PerUnit BMinPu "Minimum value for the variable susceptance in pu (base SNom)";
+      parameter Types.PerUnit IMaxPu "Maximum value for the current in pu (base UNom, SNom)";
+      parameter Types.PerUnit IMinPu "Minimum value for the current in pu (base UNom, SNom)";
       parameter Types.PerUnit KCurrentLimiter "Integral gain of current limiter";
 
   annotation(preferredView = "text");
@@ -38,7 +38,7 @@ package Parameters "Parameters of the static var compensator"
 
   record Params_CalculBG
     import Dynawo.Types;
-    parameter Types.PerUnit BShuntPu "Fixed susceptance of the static var compensator in p.u (for standby mode) (base SNom)";
+    parameter Types.PerUnit BShuntPu "Fixed susceptance of the static var compensator in pu (for standby mode) (base SNom)";
 
   annotation(preferredView = "text");
   end Params_CalculBG;

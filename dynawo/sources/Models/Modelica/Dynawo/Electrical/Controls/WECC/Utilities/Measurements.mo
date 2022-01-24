@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.WECC.Utilities;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model Measurements "This block measures the voltage, current, active power and reactive power in p.u (base UNom, SNom or SnRef)"
+model Measurements "This block measures the voltage, current, active power and reactive power in pu (base UNom, SNom or SnRef)"
 
 /*
   Equivalent circuit and conventions:
@@ -33,20 +33,23 @@ model Measurements "This block measures the voltage, current, active power and r
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  Modelica.Blocks.Interfaces.RealOutput PPu "Active power on side 1 in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PPu "Active power on side 1 in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput QPu "Reactive power on side 1 in p.u (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput QPu "Reactive power on side 1 in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu "Complex voltage in p.u (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu "Complex voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput iPu "Complex current in p.u (base UNom, SnRef)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput iPu "Complex current in pu (base UNom, SnRef)" annotation(
     Placement(visible = true, transformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput UPu "Voltage module at terminal 1 in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
   terminal1.i = - terminal2.i;
   terminal1.V = terminal2.V;
   terminal1.i = iPu;
   terminal1.V = uPu;
+  UPu = Modelica.ComplexMath.'abs'(uPu);
   PPu =  (SystemBase.SnRef / SNom) * ComplexMath.real(terminal1.V * ComplexMath.conj(iPu));
   QPu =  (SystemBase.SnRef / SNom) * ComplexMath.imag(terminal1.V * ComplexMath.conj(iPu));
 

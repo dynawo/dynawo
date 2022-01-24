@@ -453,6 +453,9 @@ set_environment() {
     export_var_env_force DYNAWO_CMAKE_BUILD_OPTION="$CMAKE_BUILD_OPTION"
   fi
   export_var_env DYNAWO_PYTHON_COMMAND="python"
+  if [ ! -x "$(command -v ${DYNAWO_PYTHON_COMMAND})" ]; then
+    error_exit "Your python interpreter \"${DYNAWO_PYTHON_COMMAND}\" does not work. Use export DYNAWO_PYTHON_COMMAND=<Python Interpreter> in your myEnvDynawo.sh."
+  fi
 
   # Only used until now by nrt
   export_var_env DYNAWO_NB_PROCESSORS_USED=1
@@ -1982,6 +1985,7 @@ create_distrib_with_headers() {
   cd "$DYNAWO_DEPLOY_DIR/.."
   zip -r -y $ZIP_FILE dynawo/bin/ dynawo/lib/ dynawo/sources/ dynawo/testcases/
   zip -r -g -y $ZIP_FILE dynawo/dynawo.sh
+  zip -r -g -y $ZIP_FILE dynawo/dynawoEnv.txt
 
   zip -r -g -y $ZIP_FILE dynawo/share/iidm dynawo/share/xsd dynawo/share/*.dic dynawo/share/*.par dynawo/share/cmake dynawo/share/dynawo-*.cmake
 

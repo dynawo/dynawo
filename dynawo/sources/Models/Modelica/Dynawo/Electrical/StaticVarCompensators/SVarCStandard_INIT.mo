@@ -19,21 +19,21 @@ model SVarCStandard_INIT "Initialization for standard static var compensator mod
 
   extends AdditionalIcons.Init;
 
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at injector terminal in p.u (base UNom)";
+  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at injector terminal in pu (base UNom)";
   parameter Types.Angle UPhase0  "Start value of voltage angle at injector terminal (in rad)";
-  parameter Types.ActivePowerPu P0Pu  "Start value of active power in p.u (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
+  parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SnRef) (receptor convention)";
 
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
   parameter Types.ApparentPowerModule SNom "Static var compensator nominal apparent power in MVA";
   parameter Types.PerUnit Lambda "Statism of the regulation law URefPu = UPu - Lambda*QPu";
 
-  Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in p.u (base UNom)";
-  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
-  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
+  Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";
+  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
+  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
 
-  Types.PerUnit G0Pu "Start value of the conductance in p.u (base SNom)";
-  Types.PerUnit B0Pu "Start value of the susceptance in p.u (base SNom)";
+  Types.PerUnit G0Pu "Start value of the conductance in pu (base SNom)";
+  Types.PerUnit B0Pu "Start value of the susceptance in pu (base SNom)";
   Types.VoltageModule URef0  "Start value of voltage reference in kV";
 
   InjectorBG_INIT injector(SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu);

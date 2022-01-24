@@ -15,7 +15,10 @@ set(MODEL_FILES
   package.mo
   package.order
   Parameters.mo
-  ElectricalControl.mo
+  DriveTrainPeFiltered.mo
+  DriveTrainPmConstant.mo
+  ElectricalControlPV.mo
+  ElectricalControlWind.mo
   GeneratorControl.mo
   PlantControl.mo
   )

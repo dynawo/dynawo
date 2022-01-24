@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,8 +13,5 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="StaticVarCompensatorPV">
     <dyn:unitDynamicModel id="SVarC" name="Dynawo.Electrical.StaticVarCompensators.SVarCPV" initName="Dynawo.Electrical.StaticVarCompensators.SVarCPV_INIT"/>
-    <dyn:unitDynamicModel id="URef" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:initConnect id1="URef" var1="Value0" id2="SVarC" var2="URef0"/>
-    <dyn:connect id1="URef" var1="setPoint.value" id2="SVarC" var2="URef"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

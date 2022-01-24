@@ -112,17 +112,17 @@ TEST(DataInterfaceTest, ThreeWTransformer_1) {
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces2().size(), 1);
   ASSERT_EQ(tfoInterface.getCurrentLimitInterfaces3().size(), 1);
 
-  ASSERT_EQ(tfoInterface.getBusInterface1().get(), nullptr);
+  ASSERT_FALSE(tfoInterface.getBusInterface1().get());
   const boost::shared_ptr<BusInterface> busItf1(new BusInterfaceIIDM(vl1Bus1));
   tfoInterface.setBusInterface1(busItf1);
   ASSERT_EQ(tfoInterface.getBusInterface1().get()->getID(), "VL1_BUS1");
 
-  ASSERT_EQ(tfoInterface.getBusInterface2().get(), nullptr);
+  ASSERT_FALSE(tfoInterface.getBusInterface2().get());
   const boost::shared_ptr<BusInterface> busItf2(new BusInterfaceIIDM(vl2Bus1));
   tfoInterface.setBusInterface2(busItf2);
   ASSERT_EQ(tfoInterface.getBusInterface2().get()->getID(), "VL2_BUS1");
 
-  ASSERT_EQ(tfoInterface.getBusInterface3().get(), nullptr);
+  ASSERT_FALSE(tfoInterface.getBusInterface3().get());
   const boost::shared_ptr<BusInterface> busItf3(new BusInterfaceIIDM(vl3Bus1));
   tfoInterface.setBusInterface3(busItf3);
   ASSERT_EQ(tfoInterface.getBusInterface3().get()->getID(), "VL3_BUS1");

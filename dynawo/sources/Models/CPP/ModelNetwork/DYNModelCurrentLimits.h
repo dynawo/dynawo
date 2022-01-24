@@ -86,7 +86,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
                 const double& desactivate, const std::string& modelType);  // compute the local Z function
 
   /**
-   * @brief add a new current limit (p.u. base UNom, base SNRef)
+   * @brief add a new current limit (pu base UNom, base SNRef)
    * @param limit new current limit
    * @param acceptableDuration acceptable duration
    */
@@ -99,7 +99,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
   void setSide(const side_t side);
 
   /**
-   * @brief set factor to convert from p.u. to Amperes
+   * @brief set factor to convert from pu to Amperes
    * @param factorPuToA factor
    */
   void setFactorPuToA(double factorPuToA);
@@ -135,9 +135,9 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
 
   double maxTimeOperation_;  ///< maximum time operation, if limits duration is over this time, the current limit does not operate
   double lastCurrentValue_;  ///< last value of the current, kept to be reported in constraints
-  double factorPuToA_;  ///< factor to convert p.u. values to Amperes
+  double factorPuToA_;  ///< factor to convert pu values to Amperes
 
-  std::vector<double> limits_;  ///< vector of current limits (p.u. base UNom, base SNRef)
+  std::vector<double> limits_;  ///< vector of current limits (pu base UNom, base SNRef)
   std::vector<double> acceptableDurations_;  ///< vector of limits duration (unit : s)
   std::vector<bool> openingAuthorized_;  ///< whether opening is authorized
   std::vector<double> tLimitReached_;  ///< last time the limit was reached

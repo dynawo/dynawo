@@ -35,6 +35,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
   GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
+  GeneratorSynchronousFourWindingsTGov1SexsPss2A.xml
   GenericAutomaton.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
@@ -81,13 +82,20 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterI.xml
   PhaseShifterP.xml
   PhotovoltaicsWeccCurrentSource.xml
+  PhotovoltaicsWeccVoltageSource.xml
   PowerTransferHVDCEmulation.xml
   ShuntBWithSections.xml
   SetPoint.xml
   SignalN.xml
   StaticVarCompensator.xml
   StaticVarCompensatorPV.xml
+  StaticVarCompensatorPVModeHandling.xml
   StaticVarCompensatorPVRemote.xml
+  StaticVarCompensatorPVRemoteModeHandling.xml
+  StaticVarCompensatorPVProp.xml
+  StaticVarCompensatorPVPropModeHandling.xml
+  StaticVarCompensatorPVPropRemote.xml
+  StaticVarCompensatorPVPropRemoteModeHandling.xml
   Step.xml
   TapChangerAutomaton.xml
   TapChangerBlockingAutomaton1.xml
@@ -98,6 +106,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   TransformerFixedRatio.xml
   UnderVoltageAutomaton.xml
   VRRemote.xml
+  WindTurbine4AWeccCurrentSource.xml
+  WindTurbine4BWeccCurrentSource.xml
   )
 
 # PYTHON scripts preassembled models

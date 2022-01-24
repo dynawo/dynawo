@@ -20,15 +20,15 @@ model PLL "Phase-Locked Loop"
 
   parameter Types.PerUnit Kp "PLL proportional gain";
   parameter Types.PerUnit Ki "PLL integrator gain";
-  parameter Types.PerUnit OmegaMinPu "Lower frequency limit in p.u (base OmegaNom)";
-  parameter Types.PerUnit OmegaMaxPu "Upper frequency limit in p.u (base OmegaNom)";
+  parameter Types.PerUnit OmegaMinPu "Lower frequency limit in pu (base OmegaNom)";
+  parameter Types.PerUnit OmegaMaxPu "Upper frequency limit in pu (base OmegaNom)";
 
-  Modelica.ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at PCC in p.u (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at PCC in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency of the system in p.u (base OmegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency of the system in pu (base OmegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-150, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput omegaPLLPu(start = SystemBase.omegaRef0Pu) "Measured frequency in p.u (base OmegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput omegaPLLPu(start = SystemBase.omegaRef0Pu) "Measured frequency in pu (base OmegaNom)" annotation(
     Placement(visible = true, transformation(origin = {150, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput sinPhi(start = Modelica.Math.sin(Modelica.ComplexMath.arg(u0Pu))) "sin(phi) aligned with terminal voltage phasor" annotation(
     Placement(visible = true, transformation(origin = {150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -59,7 +59,7 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
-  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at PCC in p.u (base UNom)";
+  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at PCC in pu (base UNom)";
 
 equation
   connect(add1.y, add2.u1) annotation(

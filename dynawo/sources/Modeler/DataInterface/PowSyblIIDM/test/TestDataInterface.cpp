@@ -1374,20 +1374,13 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDM) {
   svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_P, 4.);
   svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_Q, 1);
   svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_STATE, OPEN);
-  svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_REGULATINGMODE, StaticVarCompensatorInterface::RUNNING_V);
   data->exportStateVariablesNoReadFromModel();
   ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getP(), -400.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(svcIIDM.getTerminal().getQ(), -100.);
   ASSERT_FALSE(svcIIDM.getTerminal().isConnected());
-  ASSERT_EQ(svcIIDM.getRegulationMode(), powsybl::iidm::StaticVarCompensator::RegulationMode::VOLTAGE);
   svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_STATE, CLOSED);
-  svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_REGULATINGMODE, StaticVarCompensatorInterface::RUNNING_Q);
   data->exportStateVariablesNoReadFromModel();
   ASSERT_TRUE(svcIIDM.getTerminal().isConnected());
-  ASSERT_EQ(svcIIDM.getRegulationMode(), powsybl::iidm::StaticVarCompensator::RegulationMode::REACTIVE_POWER);
-  svc->setValue(StaticVarCompensatorInterfaceIIDM::VAR_REGULATINGMODE, StaticVarCompensatorInterface::OFF);
-  data->exportStateVariablesNoReadFromModel();
-  ASSERT_EQ(svcIIDM.getRegulationMode(), powsybl::iidm::StaticVarCompensator::RegulationMode::OFF);
 }
 
 TEST(DataInterfaceIIDMTest, testSwitchIIDM) {

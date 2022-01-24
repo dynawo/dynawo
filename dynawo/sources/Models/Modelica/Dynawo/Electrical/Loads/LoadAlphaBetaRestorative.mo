@@ -19,14 +19,14 @@ model LoadAlphaBetaRestorative "Generic model of a restorative Alpha-Beta load."
 
   public
     parameter Types.Time tFilter "Time constant of the load restoration";
-    parameter Types.VoltageModulePu UMinPu "Minimum value of the voltage amplitude at terminal in p.u (base UNom) that ensures the P/Q restoration";
-    parameter Types.VoltageModulePu UMaxPu "Maximum value of the voltage amplitude at terminal in p.u (base UNom) that ensures the P/Q restoration";
+    parameter Types.VoltageModulePu UMinPu "Minimum value of the voltage amplitude at terminal in pu (base UNom) that ensures the P/Q restoration";
+    parameter Types.VoltageModulePu UMaxPu "Maximum value of the voltage amplitude at terminal in pu (base UNom) that ensures the P/Q restoration";
     parameter Real Alpha "Active load sensitivity to voltage";
     parameter Real Beta  "Reactive load sensitivity to voltage";
 
   protected
-    Types.VoltageModulePu UFilteredRawPu (start = ComplexMath.'abs' (u0Pu)) "Filtered voltage amplitude at terminal in p.u (base UNom)";
-    Types.VoltageModulePu UFilteredPu (start = ComplexMath.'abs' (u0Pu)) "Bounded filtered voltage amplitude at terminal in p.u (base UNom)";
+    Types.VoltageModulePu UFilteredRawPu (start = ComplexMath.'abs' (u0Pu)) "Filtered voltage amplitude at terminal in pu (base UNom)";
+    Types.VoltageModulePu UFilteredPu (start = ComplexMath.'abs' (u0Pu)) "Bounded filtered voltage amplitude at terminal in pu (base UNom)";
 
   equation
     if (running.value) then

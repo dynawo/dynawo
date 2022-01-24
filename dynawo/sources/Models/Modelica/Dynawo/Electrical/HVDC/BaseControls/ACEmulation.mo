@@ -24,10 +24,10 @@ model ACEmulation "AC Emulation for HVDC"
     Placement(visible = true, transformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput Theta2(start = Theta20) "Angle of the voltage at terminal 2 in rad" annotation(
     Placement(visible = true, transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PRefSetPu(k = PRefSet0Pu) "Raw reference active power in p.u (base SnRef)"  annotation(
+  Modelica.Blocks.Sources.Constant PRefSetPu(k = PRefSet0Pu) "Raw reference active power in pu (base SnRef)"  annotation(
     Placement(visible = true, transformation(origin = {-110, -71}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput PRefPu(start = PRef0Pu) "Reference active power in p.u (base SnRef)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PRefPu(start = PRef0Pu) "Reference active power in pu (base SnRef)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tFilter, y_start = Theta10)  annotation(
     Placement(visible = true, transformation(origin = {-36, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -43,8 +43,8 @@ model ACEmulation "AC Emulation for HVDC"
 protected
   parameter Types.Angle Theta10 "Start value of angle of the voltage at terminal 1 in rad";
   parameter Types.Angle Theta20 "Start value of angle of the voltage at terminal 2 in rad";
-  parameter Types.ActivePowerPu PRef0Pu "Start value of reference active power in p.u (base SnRef)";
-  parameter Types.ActivePowerPu PRefSet0Pu "Raw reference active power in p.u (base SnRef)";
+  parameter Types.ActivePowerPu PRef0Pu "Start value of reference active power in pu (base SnRef)";
+  parameter Types.ActivePowerPu PRefSet0Pu "Raw reference active power in pu (base SnRef)";
 
 equation
   connect(firstOrder.y, feedback.u1) annotation(

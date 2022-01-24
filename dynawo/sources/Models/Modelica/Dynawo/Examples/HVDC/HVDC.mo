@@ -15,10 +15,10 @@ within Dynawo.Examples.HVDC;
 model HVDC "HVDC link connected to two infinite buses"
   import Dynawo;
   import Modelica;
+
   extends Icons.Example;
-  parameter Real modeU1Set = 1 "Set value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
-  parameter Real modeU2Set = 1 "Set value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
-  Dynawo.Examples.HVDC.BaseModel.HvdcVSCNoBlockingFunction HVDC(CdcPu = 1.99, DUDC = 0.01, DeadBandU = 0, PPu_Side.limitsCalculationFunction.ipRefPu(start = 0.885771, fixed = true), InPu = 1.081, Ip10Pu = 0.885771, Ip20Pu = -0.876348, IpMaxCstPu = 1.0, Iq10Pu = -0.297138, Iq20Pu = -0.292657, KiACVoltageControl = 33.5, KiDeltaP = 20, KiPControl = 100, Kidc = 20, KpACVoltageControl = 0, KpDeltaP = 10, KpPControl = 0.4, Kpdc = 40, Lambda = 0.1754386, P10Pu = -8.98, P20Pu = 9, PMaxOPPu = 1, PMinOPPu = -1, Q10Pu = -3.01, Q20Pu = -3.01, QMaxCombPu = 0.4, QMaxOPPu = 0.4, QMinCombPu = -0.6, QMinOPPu = -0.6, RdcPu = 0.000244, SNom = 1000, SlopePRefPu = 0.083333, SlopeQRefPu = 100, SlopeRPFault = 1000, SlopeURefPu = 100, TBlock = 0.1, TBlockUV = 0.01, TDeblockU = 0.02, TQ = 0.1, U10Pu = 1.01381, U20Pu = 1.02696, UBlockUVPu = -1, UMaxdbPu = 1.2, UMindbPu = 0.8, UPhase10 = 0.0316757, UPhase20 = -0.0328494, Udc10Pu = 0.9978, Udc20Pu = 1, UdcMaxPu = 1.05, UdcMinPu = 0.95, UdcRefMaxPu = 1.15, UdcRefMinPu = 0.95, modeU10 = modeU1Set, modeU20 = modeU2Set) annotation(
+
+  Dynawo.Electrical.HVDC.HvdcVSC.HvdcVSC HVDC(CdcPu = 1.99, DUDC = 0.01, DeadBandU = 0, InPu = 1.081, Ip10Pu = 0.885803, Ip20Pu = -0.876285, IpMaxCstPu = 1.0, Iq10Pu = -0.297138, Iq20Pu = -0.292657, KiACVoltageControl = 33.5, KiDeltaP = 20, KiPControl = 100, Kidc = 20, KpACVoltageControl = 0, KpDeltaP = 10, KpPControl = 0.4, Kpdc = 40, Lambda = 0.1754386, P10Pu = -8.98, P20Pu = 9, PMaxOPPu = 1, PMinOPPu = -1, Q10Pu = -3.01229, Q20Pu = -3.00569, QMaxCombPu = 0.4, QMaxOPPu = 0.4, QMinCombPu = -0.6, QMinOPPu = -0.6, RdcPu = 0.000244, SNom = 1000, SlopePRefPu = 0.083333, SlopeQRefPu = 100, SlopeRPFault = 1000, SlopeURefPu = 100, TBlock = 0.1, TBlockUV = 0.01, TDeblockU = 0.02, TQ = 0.1, U10Pu = 1.01377, U20Pu = 1.02704, UBlockUVPu = -1, UMaxdbPu = 1.2, UMindbPu = 0.8, UPhase10 = 0.0316806, UPhase20 = -0.0328543, Udc10Pu = 0.997804, Udc20Pu = 1, UdcMaxPu = 1.05, UdcMinPu = 0.95, UdcRefMaxPu = 1.15, UdcRefMinPu = 0.95, i10Pu = Complex(-8.9477, 2.6893), i20Pu = Complex(8.85426, 2.63714), modeU10 = 1, modeU20 = 1, u10Pu = Complex(1.01326, 0.03211), u20Pu = Complex(1.02648, -0.03373)) annotation(
     Placement(visible = true, transformation(origin = {20, -30}, extent = {{-50, -30}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = 0.00037, XPu = 0.0037) annotation(
     Placement(visible = true, transformation(origin = {-52, -25}, extent = {{-40, -40}, {10, 10}}, rotation = 0)));
@@ -34,9 +34,9 @@ model HVDC "HVDC link connected to two infinite buses"
     Placement(visible = true, transformation(origin = {-50, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRefPu(height = 0, offset = 0.898, startTime = 6) annotation(
     Placement(visible = true, transformation(origin = {-50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant modeU1(k = modeU1Set) annotation(
+  Modelica.Blocks.Sources.Constant modeU1(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-50, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant modeu2(k = modeU2Set) annotation(
+  Modelica.Blocks.Sources.Constant modeu2(k = 1) annotation(
     Placement(visible = true, transformation(origin = {50, -10}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step QRef2Pu(height = 0, offset = 0.301, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {50, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -46,8 +46,7 @@ model HVDC "HVDC link connected to two infinite buses"
     Placement(visible = true, transformation(origin = {50, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0.00, XPu = 0.0075, tBegin = 0.5, tEnd = 1.5) annotation(
     Placement(visible = true, transformation(origin = {42, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-initial equation
-  HVDC.PPu_Side.limitsCalculationFunction.iqMod1Pu = 0;
+
 equation
   line1.switchOffSignal1.value = false;
   line1.switchOffSignal2.value = false;
@@ -85,8 +84,10 @@ equation
     Line(points = {{39, 80}, {9, 80}, {9, -18}}, color = {0, 0, 127}));
   connect(nodeFault.terminal, line2.terminal1) annotation(
     Line(points = {{42, -84}, {42, -40}}, color = {0, 0, 255}));
+
   annotation(
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.0001, emit_protected = "()"),
+    __OpenModelica_commandLineOptions = "--daeMode",
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
      This test case works with Modelica Standard Library 3.2.3. </div><div><br></div><div>This test case consists in one HVDC link connected to two infinite buses. A short-circuit at the HVDC link terminal 2 is simulated at t = 0.5s and cleared at t = 1.5s.    </div><div><br></div><div>The following figures show the evolution of the active power, reactive power, AC voltage and DC voltage for each terminal of the HVDC link.
     <figure>

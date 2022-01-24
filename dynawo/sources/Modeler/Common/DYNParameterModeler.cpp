@@ -28,7 +28,6 @@ namespace DYN {
 ParameterModeler::ParameterModeler(const string& name, const typeVarC_t& valueType, const parameterScope_t& scope, const string& cardinality,
                      const string& cardinalityInformator) :
 ParameterCommon(name, valueType, true),
-origin_(boost::none),
 scope_(scope),
 cardinality_(cardinality),
 cardinalityInformator_(cardinalityInformator),
@@ -54,19 +53,6 @@ nonUnitaryParameterInstance_(false) {
     writeRights_[IIDM] = true;
   }
 }
-
-#ifndef LANG_CXX11
-ParameterModeler::ParameterModeler(const ParameterModeler& parameter) :
-ParameterCommon(parameter),
-writeRights_(parameter.writeRights_),
-values_(parameter.values_),
-origin_(parameter.origin_),
-scope_(parameter.scope_),
-cardinality_(parameter.cardinality_),
-cardinalityInformator_(parameter.cardinalityInformator_),
-nonUnitaryParameterInstance_(parameter.nonUnitaryParameterInstance_) {
-}
-#endif
 
 void
 ParameterModeler::writeChecks(const parameterOrigin_t& origin) const {

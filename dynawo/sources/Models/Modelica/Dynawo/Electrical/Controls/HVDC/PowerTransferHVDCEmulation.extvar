@@ -12,8 +12,8 @@
     simulation tools for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <variable type="discrete" id="PRefSet1RawPu.value"/>
-  <variable type="discrete" id="PRefSet2RawPu.value"/>
-  <variable type="discrete" id="running1.value" defaultValue="true"/>
-  <variable type="discrete" id="running2.value" defaultValue="true"/>
+  <variable type="discrete" id="PRefSet1RawPu"/>
+  <variable type="discrete" id="PRefSet2RawPu"/>
+  <variable type="discrete" id="running1" defaultValue="true"/>
+  <variable type="discrete" id="running2" defaultValue="true"/>
 </external_variables>

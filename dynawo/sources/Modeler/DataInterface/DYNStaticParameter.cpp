@@ -26,33 +26,12 @@ namespace DYN {
 
 StaticParameter::StaticParameter():
 type_(StaticParameter::DOUBLE),  // most used type
-value_(boost::none),
 name_("") {
 }
 
 StaticParameter::StaticParameter(const string& name, const StaticParameterType& type) :
 type_(type),
-value_(boost::none),
 name_(name) {
-}
-
-StaticParameter::StaticParameter(const StaticParameter& origin):
-type_(origin.type_),
-value_(origin.value_),
-name_(origin.name_) {
-}
-
-StaticParameter&
-StaticParameter::operator=(const StaticParameter& origin) {
-  if (this == &origin)
-    return *this;
-  type_ = origin.type_;
-  value_ = origin.value_;
-  name_ = origin.name_;
-  return *this;
-}
-
-StaticParameter::~StaticParameter() {
 }
 
 string

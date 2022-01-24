@@ -28,33 +28,33 @@ model InjectorBG "Injector controlled by a the susceptance B and the conductance
 
     parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
 
-    Modelica.Blocks.Interfaces.RealInput GPu(start = G0Pu) "Conductance in p.u (base SNom)" annotation(
+    Modelica.Blocks.Interfaces.RealInput GPu(start = G0Pu) "Conductance in pu (base SNom)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {-115, -41}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-    Modelica.Blocks.Interfaces.RealInput BPu(start = B0Pu) "Susceptance in p.u (base SNom)" annotation(
+    Modelica.Blocks.Interfaces.RealInput BPu(start = B0Pu) "Susceptance in pu (base SNom)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {-115, 61}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-    Modelica.Blocks.Interfaces.RealOutput UPu(start = U0Pu) "Voltage amplitude in p.u (base UNom)" annotation(
+    Modelica.Blocks.Interfaces.RealOutput UPu(start = U0Pu) "Voltage amplitude in pu (base UNom)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, 81}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-    Modelica.Blocks.Interfaces.RealOutput PInjPu(start = -P0Pu) "Active power in p.u (base SnRef) (generator convention)" annotation(
+    Modelica.Blocks.Interfaces.RealOutput PInjPu(start = -P0Pu) "Active power in pu (base SnRef) (generator convention)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, 39}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-    Modelica.Blocks.Interfaces.RealOutput QInjPu(start = -Q0Pu) "Reactive power in p.u (base SnRef) (generator convention)" annotation(
+    Modelica.Blocks.Interfaces.RealOutput QInjPu(start = -Q0Pu) "Reactive power in pu (base SnRef) (generator convention)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, -5}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
   protected
 
-    parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at injector terminal in p.u (base UNom)";
-    parameter Types.ActivePowerPu P0Pu  "Start value of active power in p.u (base SnRef) (receptor convention)";
-    parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
+    parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at injector terminal in pu (base UNom)";
+    parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SnRef) (receptor convention)";
+    parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SnRef) (receptor convention)";
 
-    parameter Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at injector terminal in p.u (base UNom)";
-    parameter Types.ComplexApparentPowerPu s0Pu  "Start value of apparent power at injector terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at injector terminal in p.u (base UNom, SnRef) (receptor convention)";
+    parameter Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at injector terminal in pu (base UNom)";
+    parameter Types.ComplexApparentPowerPu s0Pu  "Start value of apparent power at injector terminal in pu (base SnRef) (receptor convention)";
+    parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
 
-    parameter Types.PerUnit G0Pu "Start value of conductance in p.u (base SNom)";
-    parameter Types.PerUnit B0Pu "Start value of susceptance in p.u (base SNom)";
+    parameter Types.PerUnit G0Pu "Start value of conductance in pu (base SNom)";
+    parameter Types.PerUnit B0Pu "Start value of susceptance in pu (base SNom)";
 
-    Types.PerUnit GPuSnRef = GPu * SNom / SystemBase.SnRef "Conductance in p.u (base SnRef)";
-    Types.PerUnit BPuSnRef = BPu * SNom / SystemBase.SnRef "Susceptance in p.u (base SnRef)";
-    Types.ComplexAdmittancePu YPuSnRef(re = GPuSnRef, im = BPuSnRef) "Admittance in p.u (base SnRef)";
+    Types.PerUnit GPuSnRef = GPu * SNom / SystemBase.SnRef "Conductance in pu (base SnRef)";
+    Types.PerUnit BPuSnRef = BPu * SNom / SystemBase.SnRef "Susceptance in pu (base SnRef)";
+    Types.ComplexAdmittancePu YPuSnRef(re = GPuSnRef, im = BPuSnRef) "Admittance in pu (base SnRef)";
 
   equation
 

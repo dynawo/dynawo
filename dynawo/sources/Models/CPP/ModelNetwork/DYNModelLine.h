@@ -57,8 +57,8 @@ class ModelLine : public NetworkComponent {
    * @brief  calculated variables type
    */
   typedef enum {
-    i1Num_ = 0,  // (unit p.u)
-    i2Num_ = 1,  // (unit p.u)
+    i1Num_ = 0,  // (unit pu)
+    i2Num_ = 1,  // (unit pu)
     p1Num_ = 2,
     p2Num_ = 3,
     q1Num_ = 4,
@@ -553,7 +553,7 @@ class ModelLine : public NetworkComponent {
   double ii2_dUi1_;  ///< injection matrix value
   double ii2_dUr2_;  ///< injection matrix value
   double ii2_dUi2_;  ///< injection matrix value
-  double factorPuToA_;  ///< factor to convert current from p.u. to A
+  double factorPuToA_;  ///< factor to convert current from pu to A
 
   double ir01_;  ///< initial real part of the current at side 1
   double ii01_;  ///< initial imaginary part of the current at side 1
@@ -566,7 +566,7 @@ class ModelLine : public NetworkComponent {
   unsigned int omegaRefNum_;  ///< local Y index for omegaRef
 
   double omegaNom_;  ///< nominal angular frequency
-  double omegaRef_;  ///< reference angular frequency in p.u.
+  double omegaRef_;  ///< reference angular frequency in pu
   const std::string modelType_;  ///< model Type
 };
 }  // namespace DYN

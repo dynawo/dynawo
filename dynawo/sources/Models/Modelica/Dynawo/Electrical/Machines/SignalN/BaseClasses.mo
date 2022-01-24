@@ -22,22 +22,22 @@ package BaseClasses
   extends Machines.BaseClasses.BaseGeneratorSimplified;
 
   public
-    parameter Types.ActivePowerPu PRef0Pu "Start value of the active power set point in p.u (base SnRef) (receptor convention)";
-    parameter Types.ActivePowerPu PMinPu "Minimum active power in p.u (base SnRef)";
-    parameter Types.ActivePowerPu PMaxPu "Maximum active power in p.u (base SnRef)";
+    parameter Types.ActivePowerPu PRef0Pu "Start value of the active power set point in pu (base SnRef) (receptor convention)";
+    parameter Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
+    parameter Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
     parameter Types.PerUnit KGover "Mechanical power sensitivity to frequency";
     parameter Types.ActivePower PNom "Nominal power in MW";
     final parameter Real Alpha = PNom * KGover "Participation of the considered generator in the frequency regulation";
 
-    Connectors.ImPin N "Signal to change the active power reference setpoint of all the generators in the system in p.u (base SnRef)";
+    input Types.PerUnit N "Signal to change the active power reference setpoint of all the generators in the system in pu (base SnRef)";
 
   protected
-    Types.ActivePowerPu PGenRawPu (start = PGen0Pu) "Active power generation without taking limits into account in p.u (base SnRef) (generator convention)";
+    Types.ActivePowerPu PGenRawPu (start = PGen0Pu) "Active power generation without taking limits into account in pu (base SnRef) (generator convention)";
 
   equation
 
     if running.value then
-      PGenRawPu = - PRef0Pu + Alpha * N.value;
+      PGenRawPu = - PRef0Pu + Alpha * N;
       PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
     else
       PGenRawPu = 0;

@@ -9,10 +9,12 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 add_subdirectory(SMIB S)
+add_subdirectory(ENTSOE E)
 add_subdirectory(GridForming G)
 add_subdirectory(HVDC H)
 add_subdirectory(SVarC SV)
 add_subdirectory(Photovoltaics P)
+add_subdirectory(Wind W)
 
 set(MODEL_FILES
   package.mo
