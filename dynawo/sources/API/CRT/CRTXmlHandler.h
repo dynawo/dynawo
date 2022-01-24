@@ -23,6 +23,7 @@ namespace criteria {
 class CriteriaCollection;
 class Criteria;
 class CriteriaParams;
+class CriteriaParamsVoltageLevel;
 
 /**
  * @class ComponentHandler
@@ -66,6 +67,40 @@ class ComponentHandler : public xml::sax::parser::ComposableElementHandler {
 };
 
 /**
+ * @class CriteriaParamsVoltageLevelHandler
+ * @brief Handler used to parse criteria params voltage level element
+ */
+class CriteriaParamsVoltageLevelHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit CriteriaParamsVoltageLevelHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  ~CriteriaParamsVoltageLevelHandler();
+
+  /**
+   * @brief return the criteria params voltage level read in xml file
+   * @return criteria params voltage level object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<CriteriaParamsVoltageLevel> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<CriteriaParamsVoltageLevel> criteriaParamsVoltageLevelRead_;  ///< current parameters voltage level
+};
+
+/**
  * @class CriteriaParamsHandler
  * @brief Handler used to parse criteria params element
  */
@@ -90,13 +125,19 @@ class CriteriaParamsHandler : public xml::sax::parser::ComposableElementHandler 
 
  protected:
   /**
+   * @brief add a criteria parameter voltage level to the criteria parameter
+   */
+  void addCriteriaParamsVoltageLevel();
+
+  /**
    * @brief Called when the XML element opening tag is read
    * @param attributes attributes of the element
    */
   void create(attributes_type const& attributes);
 
  private:
-  boost::shared_ptr<CriteriaParams> criteriaParamsRead_;  ///< current criteria
+  boost::shared_ptr<CriteriaParams> criteriaParamsRead_;  ///< current parameters
+  CriteriaParamsVoltageLevelHandler criteriaParamsVoltageLevelHandler_;  ///< handler used to read voltage level elements
 };
 
 /**

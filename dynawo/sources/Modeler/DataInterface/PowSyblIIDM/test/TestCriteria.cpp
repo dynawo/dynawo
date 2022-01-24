@@ -44,6 +44,7 @@
 #include <powsybl/iidm/LoadAdder.hpp>
 #include <powsybl/iidm/Generator.hpp>
 #include <powsybl/iidm/GeneratorAdder.hpp>
+#include <powsybl/iidm/TwoWindingsTransformerAdder.hpp>
 
 using boost::shared_ptr;
 using criteria::CriteriaFactory;
@@ -182,6 +183,58 @@ createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, doubl
       .add();
   load2.getTerminal().setP(pow2);
   load2.getTerminal().setQ(90.);
+
+  powsybl::iidm::VoltageLevel& vl2 = substation.newVoltageLevel()
+                                     .setId("MyVoltageLevel2")
+                                     .setName("MyVoltageLevel2_NAME")
+                                     .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+                                     .setNominalV(500)
+                                     .add();
+
+  powsybl::iidm::Bus& bus2 = vl2.getBusBreakerView().newBus().setId("MyBus2").add();
+  bus2.setV(400);
+  bus2.setAngle(1.5);
+
+  powsybl::iidm::Load& load3 = vl2.newLoad()
+      .setId("MyLoad3")
+      .setBus("MyBus2")
+      .setConnectableBus("MyBus2")
+      .setName("MyLoad3_NAME")
+      .setLoadType(powsybl::iidm::LoadType::UNDEFINED)
+      .setP0(pow1)
+      .setQ0(90.0)
+      .add();
+  load3.getTerminal().setP(pow1);
+  load3.getTerminal().setQ(90.);
+
+  powsybl::iidm::Load& load4 = vl2.newLoad()
+      .setId("MyLoad4")
+      .setBus("MyBus2")
+      .setConnectableBus("MyBus2")
+      .setName("MyLoad4_NAME")
+      .setLoadType(powsybl::iidm::LoadType::UNDEFINED)
+      .setP0(pow2)
+      .setQ0(90.0)
+      .add();
+  load4.getTerminal().setP(pow2);
+  load4.getTerminal().setQ(90.);
+
+  substation.newTwoWindingsTransformer()
+      .setId("MyTransformer2Winding")
+      .setVoltageLevel1(vl1.getId())
+      .setBus1(bus.getId())
+      .setConnectableBus1(bus.getId())
+      .setVoltageLevel2(vl2.getId())
+      .setBus2(bus2.getId())
+      .setConnectableBus2(bus2.getId())
+      .setR(1.1)
+      .setX(1.2)
+      .setG(1.3)
+      .setB(1.4)
+      .setRatedU1(busV)
+      .setRatedU2(400)
+      .setRatedS(3.0)
+      .add();
   return network;
 }
 
@@ -240,6 +293,66 @@ createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, 
       .add();
   gen2.getTerminal().setP(pow2);
   gen2.getTerminal().setQ(90.);
+
+  powsybl::iidm::VoltageLevel& vl2 = substation.newVoltageLevel()
+                                     .setId("MyVoltageLevel2")
+                                     .setName("MyVoltageLevel2_NAME")
+                                     .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+                                     .setNominalV(500)
+                                     .add();
+
+  powsybl::iidm::Bus& bus2 = vl2.getBusBreakerView().newBus().setId("MyBus2").add();
+  bus2.setV(400);
+  bus2.setAngle(1.5);
+
+  powsybl::iidm::Generator& gen3 = vl2.newGenerator()
+      .setId("MyGen3")
+      .setBus("MyBus2")
+      .setConnectableBus("MyBus2")
+      .setName("MyGen3_NAME")
+      .setTargetP(-105.)
+      .setMinP(90.)
+      .setMaxP(180.)
+      .setTargetQ(-90.0)
+      .setTargetV(150.0)
+      .setEnergySource(powsybl::iidm::EnergySource::NUCLEAR)
+      .setVoltageRegulatorOn(true)
+      .add();
+  gen3.getTerminal().setP(pow1);
+  gen3.getTerminal().setQ(90.);
+
+  powsybl::iidm::Generator& gen4 = vl2.newGenerator()
+      .setId("MyGen4")
+      .setBus("MyBus2")
+      .setConnectableBus("MyBus2")
+      .setName("MyGen4_NAME")
+      .setTargetP(-105.)
+      .setMinP(90.)
+      .setMaxP(180.)
+      .setTargetQ(-90.0)
+      .setTargetV(150.0)
+      .setEnergySource(powsybl::iidm::EnergySource::NUCLEAR)
+      .setVoltageRegulatorOn(true)
+      .add();
+  gen4.getTerminal().setP(pow2);
+  gen4.getTerminal().setQ(90.);
+
+  substation.newTwoWindingsTransformer()
+      .setId("MyTransformer2Winding")
+      .setVoltageLevel1(vl1.getId())
+      .setBus1(bus.getId())
+      .setConnectableBus1(bus.getId())
+      .setVoltageLevel2(vl2.getId())
+      .setBus2(bus2.getId())
+      .setConnectableBus2(bus2.getId())
+      .setR(1.1)
+      .setX(1.2)
+      .setG(1.3)
+      .setB(1.4)
+      .setRatedU1(busV)
+      .setRatedU2(400)
+      .setRatedS(3.0)
+      .add();
   return network;
 }
 
@@ -281,12 +394,24 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   ASSERT_FALSE(BusCriteria::criteriaEligibleForBus(criteriap));
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   ASSERT_FALSE(BusCriteria::criteriaEligibleForBus(criteriap));
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
+  criteria::CriteriaParamsVoltageLevel vl;
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(100);
   criteriap->setPMin(0);
   ASSERT_FALSE(BusCriteria::criteriaEligibleForBus(criteriap));
-  criteriap->setUMaxPu(0.8);
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::SUM);
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
+  criteriap->setPMax(100);
+  criteriap->setPMin(0);
   ASSERT_TRUE(BusCriteria::criteriaEligibleForBus(criteriap));
   criteriap->setId("MyCriteria");
 
@@ -326,7 +451,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
 
   boost::shared_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
   criteriap2->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap2->setUMinPu(0.2);
+  vl.reset();
+  vl.setUMinPu(0.2);
+  criteriap2->addVoltageLevel(vl);
   criteriap2->setScope(CriteriaParams::FINAL);
   BusCriteria criteria3(criteriap2);
   data = createDataItfFromNetworkCriteria(createBusBreakerNetwork(190, 225));
@@ -353,8 +480,10 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
 TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
+  criteria::CriteriaParamsVoltageLevel vl;
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  criteriap->addVoltageLevel(vl);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
@@ -367,9 +496,11 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
@@ -383,9 +514,11 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
@@ -395,11 +528,14 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   data->configureCriteria(collection);
   // v > 0.8*vNom
   ASSERT_FALSE(data->checkCriteria(0, false));
+
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("MyDummyName");
@@ -414,9 +550,11 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("MyBus");
@@ -431,9 +569,11 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::FINAL);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("MyBus");
@@ -448,9 +588,11 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("MyBusBarSection", "DummyVoltageLevel");
@@ -464,9 +606,11 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("DummyBBS", "MyVoltageLevel");
@@ -481,9 +625,11 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("MyBusBarSection", "MyVoltageLevel");
@@ -498,9 +644,11 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::FINAL);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("MyBusBarSection", "MyVoltageLevel");
@@ -517,10 +665,12 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
 TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   ASSERT_FALSE(LoadCriteria::criteriaEligibleForLoad(criteriap));
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
-  criteriap->setUMinPu(0.2);
+  criteria::CriteriaParamsVoltageLevel vl;
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  vl.setUMinPu(0.2);
+  criteriap->addVoltageLevel(vl);
   ASSERT_FALSE(LoadCriteria::criteriaEligibleForLoad(criteriap));
   criteriap->setPMax(200);
   ASSERT_TRUE(LoadCriteria::criteriaEligibleForLoad(criteriap));
@@ -605,14 +755,43 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   ASSERT_FALSE(criteria5.checkCriteria(0, true));
   ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
   ASSERT_EQ(criteria5.getFailingCriteria()[0].second, "SourceUnderPower MyLoad 40 50 MyCriteria");
+
+  // Multiple voltage levels
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  vl.reset();
+  vl.setUNomMin(300);
+  vl.setUNomMax(400);
+  criteriap->addVoltageLevel(vl);
+  criteria::CriteriaParamsVoltageLevel vl2;
+  vl2.setUNomMin(225);
+  vl2.setUNomMax(400);
+  criteriap->addVoltageLevel(vl2);
+  criteriap->setPMax(200);
+  criteriap->setPMin(50);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setId("MyCriteria");
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 250, 100));
+  exportStates(data);
+  loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
+  // P> PMax
+  LoadCriteria criteria6(criteriap);
+  for (size_t i = 0; i < loads.size(); ++i)
+    criteria6.addLoad(loads[i]);
+  ASSERT_FALSE(criteria6.empty());
+  ASSERT_FALSE(criteria6.checkCriteria(0, false));
+  ASSERT_EQ(criteria6.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria6.getFailingCriteria()[0].second, "SourceAbovePower MyLoad 250 200 MyCriteria");
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
-  criteriap->setUMinPu(0.2);
+  criteria::CriteriaParamsVoltageLevel vl;
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  vl.setUMinPu(0.2);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteriap->setPMin(50);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -695,15 +874,51 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   ASSERT_FALSE(criteria5.checkCriteria(0, true));
   ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
   ASSERT_EQ(criteria5.getFailingCriteria()[0].second, "SourcePowerBelowMin 20 50 MyCriteria");
+
+  // Multiple voltage levels
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(300);
+  vl.setUMaxPu(0.8);
+  vl.setUMinPu(0.2);
+  criteriap->addVoltageLevel(vl);
+  criteria::CriteriaParamsVoltageLevel vl2;
+  vl2.setUNomMin(400);
+  vl.setUNomMax(600);
+  vl.setUMaxPu(0.8);
+  vl.setUMinPu(0.2);
+  criteriap->addVoltageLevel(vl2);
+  criteriap->setPMax(200);
+  criteriap->setPMin(50);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setType(CriteriaParams::SUM);
+  criteriap->setId("MyCriteria");
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithLoads(180, 225, 250, 100));
+  exportStates(data);
+  loads = data->getNetwork()->getVoltageLevels()[0]->getLoads();
+  // P> PMax
+  LoadCriteria criteria6(criteriap);
+  for (size_t i = 0; i < loads.size(); ++i)
+    criteria6.addLoad(loads[i]);
+  loads = data->getNetwork()->getVoltageLevels()[1]->getLoads();
+  for (size_t i = 0; i < loads.size(); ++i)
+    criteria6.addLoad(loads[i]);
+  ASSERT_FALSE(criteria6.empty());
+  ASSERT_FALSE(criteria6.checkCriteria(0, false));
+  ASSERT_EQ(criteria6.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria6.getFailingCriteria()[0].second, "SourcePowerAboveMax 700 200 MyCriteria");
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  criteria::CriteriaParamsVoltageLevel vl;
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
@@ -717,9 +932,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -734,9 +951,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -751,9 +970,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -768,9 +989,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -786,9 +1009,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -804,9 +1029,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -822,9 +1049,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::FINAL);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -843,9 +1072,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  criteria::CriteriaParamsVoltageLevel vl;
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
@@ -859,9 +1090,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -876,9 +1109,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -893,9 +1128,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -911,9 +1148,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -928,9 +1167,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteriap->setId("MyCriteria");
   criteria = CriteriaFactory::newCriteria();
@@ -950,9 +1191,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -968,9 +1211,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::FINAL);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -987,10 +1232,12 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   ASSERT_FALSE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
-  criteriap->setUMinPu(0.2);
+  criteria::CriteriaParamsVoltageLevel vl;
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  vl.setUMinPu(0.2);
+  criteriap->addVoltageLevel(vl);
   ASSERT_FALSE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
   criteriap->setPMax(200);
   ASSERT_TRUE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
@@ -1075,14 +1322,44 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   ASSERT_FALSE(criteria5.checkCriteria(0, true));
   ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
   ASSERT_EQ(criteria5.getFailingCriteria()[0].second, "SourceUnderPower MyGen 40 50 MyCriteria");
+
+  // Multiple voltage levels
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  vl.reset();
+  vl.setUNomMin(300);
+  vl.setUNomMax(400);
+  criteriap->addVoltageLevel(vl);
+  criteria::CriteriaParamsVoltageLevel vl2;
+  vl2.setUNomMin(225);
+  vl2.setUNomMax(400);
+  criteriap->addVoltageLevel(vl2);
+  criteriap->setPMax(200);
+  criteriap->setPMin(50);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setId("MyCriteria");
+
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 250, 100));
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // P> PMax
+  GeneratorCriteria criteria6(criteriap);
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria6.addGenerator(generators[i]);
+  ASSERT_FALSE(criteria6.empty());
+  ASSERT_FALSE(criteria6.checkCriteria(0, false));
+  ASSERT_EQ(criteria6.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria6.getFailingCriteria()[0].second, "SourceAbovePower MyGen 250 200 MyCriteria");
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
-  criteriap->setUMinPu(0.2);
+  criteria::CriteriaParamsVoltageLevel vl;
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  vl.setUMinPu(0.2);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteriap->setPMin(50);
   criteriap->setScope(CriteriaParams::DYNAMIC);
@@ -1165,15 +1442,51 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   ASSERT_FALSE(criteria5.checkCriteria(0, true));
   ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
   ASSERT_EQ(criteria5.getFailingCriteria()[0].second, "SourcePowerBelowMin 20 50 MyCriteria");
+
+  // Multiple voltage levels
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(300);
+  vl.setUMaxPu(0.8);
+  vl.setUMinPu(0.2);
+  criteriap->addVoltageLevel(vl);
+  criteria::CriteriaParamsVoltageLevel vl2;
+  vl2.setUNomMin(400);
+  vl.setUNomMax(600);
+  vl.setUMaxPu(0.8);
+  vl.setUMinPu(0.2);
+  criteriap->addVoltageLevel(vl2);
+  criteriap->setPMax(200);
+  criteriap->setPMin(50);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setType(CriteriaParams::SUM);
+  criteriap->setId("MyCriteria");
+  data = createDataItfFromNetworkCriteria(createBusBreakerNetworkWithGenerators(180, 225, 250, 100));
+  exportStates(data);
+  generators = data->getNetwork()->getVoltageLevels()[0]->getGenerators();
+  // P> PMax
+  GeneratorCriteria criteria6(criteriap);
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria6.addGenerator(generators[i]);
+  generators = data->getNetwork()->getVoltageLevels()[1]->getGenerators();
+  for (size_t i = 0; i < generators.size(); ++i)
+    criteria6.addGenerator(generators[i]);
+  ASSERT_FALSE(criteria6.empty());
+  ASSERT_FALSE(criteria6.checkCriteria(0, false));
+  ASSERT_EQ(criteria6.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria6.getFailingCriteria()[0].second, "SourcePowerAboveMax 700 200 MyCriteria");
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  criteria::CriteriaParamsVoltageLevel vl;
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
@@ -1187,9 +1500,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1204,9 +1519,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1221,9 +1538,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1238,9 +1557,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1256,9 +1577,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1274,9 +1597,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1292,9 +1617,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::FINAL);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1313,9 +1640,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  criteria::CriteriaParamsVoltageLevel vl;
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
@@ -1329,9 +1658,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1345,9 +1676,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1362,9 +1695,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1380,9 +1715,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1397,9 +1734,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1414,9 +1753,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1432,9 +1773,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::FINAL);
-  criteriap->setUNomMin(225);
-  criteriap->setUNomMax(400);
-  criteriap->setUMaxPu(0.8);
+  vl.reset();
+  vl.setUNomMin(225);
+  vl.setUNomMax(400);
+  vl.setUMaxPu(0.8);
+  criteriap->addVoltageLevel(vl);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
