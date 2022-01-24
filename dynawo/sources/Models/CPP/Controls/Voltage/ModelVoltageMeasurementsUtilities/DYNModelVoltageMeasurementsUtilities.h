@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2022, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,19 +7,19 @@
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source suite of
-// simulation tools for power systems.
+// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+// for power systems.
 //
 
 /**
- * @file  DYNModelMinMaxMean.h
+ * @file  DYNModelVoltageMeasurementsUtilities.h
  *
- * @brief model for voltage processing on local subnetworks
+ * @brief model for voltage aggregating voltage values on a local subnetworks
  *
  */
 
-#ifndef MODELS_CPP_CONTROLS_VOLTAGE_MODELMINMAXMEAN_DYNMODELMINMAXMEAN_H_
-#define MODELS_CPP_CONTROLS_VOLTAGE_MODELMINMAXMEAN_DYNMODELMINMAXMEAN_H_
+#ifndef MODELS_CPP_CONTROLS_VOLTAGE_MODELVOLTAGEMEASUREMENTSUTILITIES_DYNMODELVOLTAGEMEASUREMENTSUTILITIES_H_
+#define MODELS_CPP_CONTROLS_VOLTAGE_MODELVOLTAGEMEASUREMENTSUTILITIES_DYNMODELVOLTAGEMEASUREMENTSUTILITIES_H_
 
 #include "DYNModelCPP.h"
 #include "DYNModelConstants.h"
@@ -27,80 +27,94 @@
 
 namespace DYN {
 class DataInterface;
+
 /**
- * @brief ModelCentralizedShuntsSectionControl factory
+ * @brief ModelVoltageMeasurementsUtilitiesFactory factory
  *
  * Implementation of @p SubModelFactory template for
- * ModelCentralizedShuntsSectionControl model
+ * ModelVoltageMeasurementsUtilitiesFactory model
  */
-class ModelMinMaxMeanFactory : public SubModelFactory {
+class ModelVoltageMeasurementsUtilitiesFactory : public SubModelFactory {
  public:
   /**
    * @brief default constructor
    *
    */
-  ModelMinMaxMeanFactory() {}
+  ModelVoltageMeasurementsUtilitiesFactory() {}
+
   /**
    * @brief default destructor
    *
    */
-  virtual ~ModelMinMaxMeanFactory() {}
+  virtual ~ModelVoltageMeasurementsUtilitiesFactory() {}
+
   /**
-   * @brief ModelMinMaxMeanFactory getter
+   * @brief ModelVoltageMeasurementsUtilitiesFactory getter
    *
-   * @return A pointer to a new instance of ModelMinMaxMeanFactory
+   * @return A pointer to a new instance of ModelVoltageMeasurementsUtilitiesFactory
    */
   SubModel *create() const;
+
   /**
-   * @brief ModelMinMaxMeanFactory destroy
+   * @brief ModelVoltageMeasurementsUtilitiesFactory destroy
    */
   void destroy(SubModel *) const;
 };
 
 /**
- * @brief Min-Max-Average model
+ * @brief Voltage measurement utilities model class
  *
- *
- *
+ * This model connects to a dynamic number of buses and outputs some interesting
+ * values computed from the input voltage levels.
+ * Outputs currently included:
+ * -> Minimum voltage level
+ * -> Maximum voltage level
+ * -> Average voltage level
  */
-class ModelMinMaxMean : public ModelCPP {
+class ModelVoltageMeasurementsUtilities : public ModelCPP {
  public:
   /**
    * @brief define type of calculated variables
    *
    */
   typedef enum {
-    nbCalculatedVars_ = 0
+    minValIdx_ = 0,
+    maxValIdx_ = 1,
+    avgValIdx_ = 2,
+    nbCalculatedVars_ = 3
   } CalculatedVars_t;
-  /**
-   * @brief MinMaxMean model default constructor
-   *
-   *
-   */
-  ModelMinMaxMean();
 
   /**
-   * @brief MinMaxMean model default destructor
+   * @brief ModelVoltageMeasurementsUtilities model default constructor
    *
    *
    */
-  ~ModelMinMaxMean() { }
+  ModelVoltageMeasurementsUtilities();
+
   /**
-   * @brief MinMaxMean model initialization
+   * @brief ModelVoltageMeasurementsUtilities model default destructor
+   *
+   *
+   */
+  ~ModelVoltageMeasurementsUtilities() { }
+
+  /**
+   * @brief ModelVoltageMeasurementsUtilities model initialization
    * @param t0 : initial time of the simulation
    */
   void init(const double t0);
 
   /**
-   * @brief MinMaxMean model's sizes getter
+   * @brief ModelVoltageMeasurementsUtilities model's sizes getter
    *
    * Get the sizes of the vectors and matrices used by the solver to simulate
-   * ModelMinMaxMean instance. Used by @p ModelMulti to generate right size matrices
+   * ModelVoltageMeasurementsUtilities instance. Used by @p ModelMulti to generate right size matrices
    * and vector for the solver.
    */
   void getSize();
+
   /**
-   * @brief ModelMinMaxMean F(t,y,y') function evaluation
+   * @brief ModelVoltageMeasurementsUtilities F(t,y,y') function evaluation
    *
    * Get the residues' values at a certain instant time with given state variables,
    * state variables derivatives
@@ -109,16 +123,18 @@ class ModelMinMaxMean : public ModelCPP {
    * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
   void evalF(double t, propertyF_t type);
+
   /**
-   * @brief ModelMinMaxMean G(t,y,y') function evaluation
+   * @brief ModelVoltageMeasurementsUtilities G(t,y,y') function evaluation
    *
    * Get the root's value
    *
    * @param t Simulation instant
    */
   void evalG(const double t);
+
   /**
-   * @brief ModelMinMaxMean discrete variables evaluation
+   * @brief ModelVoltageMeasurementsUtilities discrete variables evaluation
    *
    * Get the discrete variables' value depending on current simulation instant and
    * current state variables values.
@@ -137,8 +153,9 @@ class ModelMinMaxMean : public ModelCPP {
    * @copydoc ModelCPP::evalMode(const double t)
    */
   modeChangeType_t evalMode(const double t);
+
   /**
-   * @brief MinMaxMean transposed jacobian evaluation
+   * @brief ModelVoltageMeasurementsUtilities transposed jacobian evaluation
    *
    * Get the sparse transposed jacobian \f$ Jt=@F/@y + cj*@F/@y' \f$
    *
@@ -148,8 +165,9 @@ class ModelMinMaxMean : public ModelCPP {
    * @param rowOffset offset to use to identify the row where data should be added
    */
   void evalJt(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
+
   /**
-   * @brief  MinMaxMean transposed jacobian evaluation
+   * @brief  ModelVoltageMeasurementsUtilities transposed jacobian evaluation
    *
    * Get the sparse transposed jacobian \f$ Jt=@F/@y' \f$
    *
@@ -159,6 +177,7 @@ class ModelMinMaxMean : public ModelCPP {
    * @param rowOffset offset to use to identify the row where data should be added
    */
   void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset);
+
   /**
    * @brief calculate calculated variables
    */
@@ -189,7 +208,6 @@ class ModelMinMaxMean : public ModelCPP {
    */
   void evalDynamicYType() { /* not needed */}
 
-  // output management
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    *
@@ -205,6 +223,7 @@ class ModelMinMaxMean : public ModelCPP {
    * @param res values of the jacobian
    */
   void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res)const;
+
   /**
    * @brief evaluate the value of a calculated variable
    *
@@ -215,11 +234,12 @@ class ModelMinMaxMean : public ModelCPP {
   double evalCalculatedVarI(unsigned iCalculatedVar) const;
 
   /**
-   * @brief MinMaxMean parameters setter
+   * @brief ModelVoltageMeasurementsUtilities parameters setter
    */
   void setSubModelParameters();
+
   /**
-   * @brief MinMaxMean elements initializer
+   * @brief ModelVoltageMeasurementsUtilities elements initializer
    *
    * Define elements for this model( elements to be seen by other models)
    *
@@ -227,10 +247,12 @@ class ModelMinMaxMean : public ModelCPP {
    * @param mapElement Map associating each element index in the elements vector to its name
    */
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
+
   /**
    * @copydoc SubModel::dumpUserReadableElementList()
    */
   void dumpUserReadableElementList(const std::string& nameElement) const;
+
   /**
    * @brief initialize variables of the model
    *
@@ -238,11 +260,13 @@ class ModelMinMaxMean : public ModelCPP {
    * @param variables vector to fill with each variables
    */
   void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+
   /**
    * @brief define parameters
    * @param parameters vector to fill with each parameters
    */
   void defineParameters(std::vector<ParameterModeler>& parameters);
+
   /**
    * @brief get check sum number
    * @return the check sum number associated to the model
@@ -285,48 +309,30 @@ class ModelMinMaxMean : public ModelCPP {
   bool hasCheckDataCoherence() const { return true; }
 
  private:
-  /**
-   * @brief updates the voltage value of a given asset
+   /**
+   * @brief gets the minimum value of the (connected and active) input voltages
    */
-  void updateAsset(const double newVal, const int assetId);
+  double computeMin() const;
 
   /**
-   * @brief adds new asset to the subnetwork considered
+   * @brief gets the maximum value of the (connected and active) input voltages
    */
-  void addNewAsset(const double newVal, const int assetId);
+  double computeMax() const;
 
   /**
-   * @brief disconnects completely an asset
+   * @brief gets the average value of the (connected and active) input voltages
    */
-  void disconnectAsset(const int id);
+  double computeAverage() const;
 
   /**
-   * @brief disables an asset but keeps it connected
+   * @brief returns whether or not an input is actively connected
    */
-  void disableAsset(const int id);
+  bool isConnected(unsigned int iInputIdx) const;
 
  private:
-  // Inputs, which can be changed dynamically.
-  std::map<int,double> voltageInputs_; ///< Voltages considered in the inputs
-  std::map<int,bool> isActive_; ///< Keeps a flag if a given asset is active
-
-  // State variables which we keep to be called at any time
-  double minVal_;
-  double maxVal_;
-  double avgVal_;
-
-  // We'll decide later if we need these:
-  int idxMin_; ///< Index of the entry reaching the minimum value
-  int idxMax_; ///< Index of the entry reaching the maximum value
-
-  / A couple of useful variables to speed up computations in real time
-  int nbCurActiveInputs_; ///< Number of active inputs
-  int nbCurConnectedInputs_; ///< Number of currently connected inputs (including those deactivated)
-
-  bool isInitialized_;
-
+  unsigned int nbConnectedInputs_;  ///< Number of active inputs
 };
 
 }  // namespace DYN
 
-#endif  // MODELS_CPP_CONTROLS_VOLTAGE_MODELMINMAXMEAN_DYNMODELMINMAXMEAN_H_
+#endif  // MODELS_CPP_CONTROLS_VOLTAGE_MODELVOLTAGEMEASUREMENTSUTILITIES_DYNMODELVOLTAGEMEASUREMENTSUTILITIES_H_

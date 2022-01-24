@@ -380,7 +380,7 @@ ModelOmegaRef::evalStaticFType() {
 /**
  * @brief initialize variables of the model
  *
- * A variable is a structure which contained all information needed to interact with the model
+ * A variable is a structure which contains all information needed to interact with the model
  */
 void
 ModelOmegaRef::defineVariables(vector<shared_ptr<Variable> >& variables) {
