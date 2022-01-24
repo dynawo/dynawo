@@ -14,12 +14,15 @@ import re
 from optparse import OptionParser
 import glob
 from lxml import etree
+import zipfile
+
 
 
 def ImportXMLFile(path):
-    if (not os.path.isfile(path)):
-        print("No file found. Unable to import")
-        return None
+    if isinstance(path,str):
+        if (not os.path.isfile(path)):
+            print("No file found. Unable to import")
+            return None
     return etree.parse(path).getroot()
 
 def ImportXMLFileExtended(path):
@@ -53,7 +56,7 @@ class Timeline :
         self.time_to_events[event.time].append(event)
 
     def filter_useless_events(self, dicOppositeEvents):
-        print "[INFO] Filtering duplicated events"
+        print ("[INFO] Filtering duplicated events")
         for time in self.time_to_events:
             event_found = set()
             events = self.time_to_events[time]
@@ -64,15 +67,12 @@ class Timeline :
                     event_found.add(event.to_string())
             self.time_to_events[time] = new_events
 
-        print "[INFO] Removing opposed events"
+        print ("[INFO] Removing opposed events")
         use_iso88591 = False
         for event in events:
             try:
                 event.event.decode('utf-8')
-            except UnicodeDecodeError:
-                use_iso88591 = True
-                break
-            except UnicodeEncodeError:
+            except (UnicodeEncodeError,UnicodeDecodeError):
                 use_iso88591 = True
                 break
         if not use_iso88591:
@@ -89,42 +89,35 @@ class Timeline :
             idx_to_check = 1
             while idx_to_check <= len(events) - 1:
                 curr_event = events[len(events) - idx_to_check]
-                if not use_iso88591:
-                    if curr_event.event not in dicOppositeEvents:
+                if use_iso88591:
+                    curr_event.event = curr_event.event.encode('iso8859-1')
+                if curr_event.event not in dicOppositeEvents:
                         idx_to_check += 1
                         continue
-                    id_to_remove = []
-                    events_to_delete = dicOppositeEvents[curr_event.event]
-                    for i in range(len(events) - idx_to_check - 1, -1, -1):
-                        if events[i].event in events_to_delete:
-                            id_to_remove.append(i)
-                else:
-                    if curr_event.event.encode('iso8859-1') not in dicOppositeEvents:
-                        idx_to_check += 1
-                        continue
-                    id_to_remove = []
-                    events_to_delete = dicOppositeEvents[curr_event.event.encode('iso8859-1')]
-                    for i in range(len(events) - idx_to_check - 1, -1, -1):
-                        if events[i].event.encode('iso8859-1') in events_to_delete:
-                            id_to_remove.append(i)
+                id_to_remove = []
+                events_to_delete = dicOppositeEvents[curr_event.event]
+                for i in range(len(events) - idx_to_check - 1, -1, -1):
+                    if events[i].event in events_to_delete:
+                        id_to_remove.append(i)
                 for i in id_to_remove:
                     del events[i]
                 idx_to_check += 1
             self.time_to_events[time] = events
 
     def filter_model(self, models_to_keep):
-        print "[INFO] Filtering model"
-        for time in self.time_to_events:
-            events = self.time_to_events[time]
-            new_events = []
-            for i in range(-1, len(events) -1):
-                if events[i].model in models_to_keep:
-                    new_events.append(events[i])
-            self.time_to_events[time] = new_events
+        if models_to_keep is not None and len(models_to_keep) > 0:
+            print ("[INFO] Filtering model")
+            for time in self.time_to_events:
+                events = self.time_to_events[time]
+                new_events = []
+                for i in range(-1, len(events) -1):
+                    if events[i].model in models_to_keep:
+                        new_events.append(events[i])
+                self.time_to_events[time] = new_events
 
 
     def dump(self, filepath, type):
-        print "[INFO] dumping result into " + filepath
+        print ("[INFO] dumping result into " + filepath)
         sorted_keys = self.time_to_events.keys()
         sorted_keys.sort()
 
@@ -146,11 +139,13 @@ class Timeline :
                 events = self.time_to_events[time]
                 for event in events:
                     try:
+                        fixEncoding(event)
                         if event.priority == None:
                             f.write("<dyn:event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event + "\"/>\n")
                         else:
                             f.write("<dyn:event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event+ "\" priority=\"" + event.priority + "\"/>\n")
                     except UnicodeEncodeError:
+                        fixEncoding(event)
                         if event.priority == None:
                             f.write("<dyn:event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.mode.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1') + "\"/>\n")
                         else:
@@ -158,10 +153,75 @@ class Timeline :
             f.write("</dyn:timeline>\n")
             f.close()
 
-def read_txt(filepath):
-    timeline = Timeline()
-    f=open(filepath, "r")
+    def filterTimeLine(self, filename, dicOppositeEvents, modelsToKeep, outputName = None):
+        self.filter_useless_events(dicOppositeEvents)
+        self.filter_model(modelsToKeep)
+        if getFileType(filename) == "TXT":
+            self.dump(os.path.join(os.path.dirname(filename), "filtered_timeline.log"), getFileType(filename))
+        elif getFileType(filename) == "XML":
+            if outputName is None:
+                self.dump(os.path.join(os.path.dirname(filename), "filtered_timeline.xml"), getFileType(filename))
+            else:
+                self.dump(os.path.join(os.path.dirname(filename), outputName), getFileType(filename))
 
+def fixEncoding(event):
+    if "<" in event.event:
+        event.event = event.event.replace("<", "&lt;")
+    if ">" in event.event:
+        event.event = event.event.replace(">", "&gt;")
+
+def getFileType(filename):
+    if zipfile.is_zipfile(filename):
+        return "ZIP"
+    elif os.path.basename(filename).endswith(".log") or os.path.basename(filename).endswith(".txt"):
+        return "TXT"
+    elif os.path.basename(filename).endswith(".xml"):
+        return "XML"
+    else:
+        print("[ERROR] unrecognized file extension.")
+        exit(1)
+
+def checkEnvVar():
+    if os.getenv("DYNAWO_RESOURCES_DIR") is None:
+        print("[ERROR] environment variable DYNAWO_RESOURCES_DIR needs to be defined")
+        exit(1)
+    if os.getenv("DYNAWO_LOCALE") is None:
+        print("[ERROR] environment variable DYNAWO_LOCALE needs to be defined")
+        exit(1)
+
+def loadOppositeEventsTable():
+    resources_dirs = os.environ["DYNAWO_RESOURCES_DIR"].split(":")
+    locale = os.environ["DYNAWO_LOCALE"]
+    dicOppEvents = {}
+    for dir in resources_dirs:
+        sys.path.append(dir)
+        for path in glob.glob(os.path.join(str(dir), '*_'+locale+'_oppositeEvents.py')):
+            python_package = os.path.basename(path).replace(".py","")
+            my_module = __import__(python_package)
+            dicOppEvents.update(my_module.dicOppositeEvents)
+            del sys.modules[python_package]
+        sys.path.remove(dir)
+    return dicOppEvents
+
+def parseXml(filepath, timeline):
+    try:
+        (root, ns, prefix) = ImportXMLFileExtended(filepath)
+    except:
+        print ("[ERROR] Fail to import XML file " + filepath)
+        sys.exit(1)
+
+    for event_timeline in FindAll(root, prefix, "event", ns):
+        event = Event()
+        time = float(event_timeline.attrib['time'])
+        event.time = time
+        event.model = event_timeline.attrib['modelName'].strip()
+        event.event = event_timeline.attrib['message'].rstrip().lstrip()
+        if 'priority' in event_timeline.attrib:
+            event.priority = event_timeline.attrib['priority'].rstrip().lstrip()
+        timeline.add_event(event)
+
+def parseTxt(filepath, timeline):
+    f=open(filepath, "r")
     for line in f.readlines():
         array = line.split('|')
         if (len(array) < 3):
@@ -175,29 +235,43 @@ def read_txt(filepath):
             event.priority = array[3].rstrip().lstrip()
         timeline.add_event(event)
     f.close()
-    return timeline
 
-def read_xml(filepath):
+def parseFile(filename, infile = None):
     timeline = Timeline()
-    try:
-        (root, ns, prefix) = ImportXMLFileExtended(filepath)
-    except:
-        printout("Fail to import XML file " + filepath + os.linesep, BLACK)
-        sys.exit(1)
-
-    for event_timeline in FindAll(root, prefix, "event", ns):
-        event = Event()
-        time = float(event_timeline.attrib['time'])
-        event.time = time
-        event.model = event_timeline.attrib['modelName'].strip()
-        event.event = event_timeline.attrib['message'].rstrip().lstrip()
-        if 'priority' in event_timeline.attrib:
-            event.priority = event_timeline.attrib['priority'].rstrip().lstrip()
-        timeline.add_event(event)
-
+    if getFileType(filename) == "XML":
+        if infile is not None:
+            parseXml(infile, timeline)
+        else:
+            parseXml(filename, timeline)
+    elif getFileType(filename) == "TXT":
+        if infile is not None:
+            parseTxt(infile, timeline)
+        else:
+            parseTxt(filename, timeline)
     return timeline
 
+def checkOptions(options):
+    if (options.timeline_file is None):
+        print("[ERROR] parameter '--timelineFile' is missing.")
+        exit(1)
+    if (not os.path.isfile(options.timeline_file)):
+        print("[ERROR] " +options.timeline_file+" not found.")
+        exit(1)
 
+def filterZipContent(filename, dicOppositeEvents, modelsToKeep):
+    os.rename(filename, filename.replace('.zip','')+('_old.zip'))
+    new_name= filename.replace('.zip','')+('_old.zip')
+    with zipfile.ZipFile(new_name) as inzip, zipfile.ZipFile(filename, "w") as outzip:
+        for inzipinfo in inzip.infolist():
+            with inzip.open(inzipinfo) as infile:
+                if "timeline" in inzipinfo.filename:
+                    timeline = parseFile(inzipinfo.filename, infile)
+                    timeline.filterTimeLine(inzipinfo.filename.replace('/',''), dicOppositeEvents, modelsToKeep, inzipinfo.filename.replace('/',''))
+                    outzip.write(inzipinfo.filename.replace('/',''), inzipinfo.filename)
+                    os.remove(inzipinfo.filename.replace('/',''))
+                else:
+                    outzip.writestr(inzipinfo.filename, infile.read())
+    os.remove(new_name)
 
 def main(args):
     usage=u""" Usage: %prog
@@ -213,60 +287,24 @@ def main(args):
     options[('-m', '--model')] = {'dest': 'models', 'action':'append',
                                     'help': 'models to keep (optional)'}
 
+
     parser = OptionParser(usage)
     for param, option in options.items():
         parser.add_option(*param, **option)
     (options, args) = parser.parse_args(args)
 
-    if (options.timeline_file is None):
-        print("[ERROR] parameter '--timelineFile' is missing.")
-        sys.exit(1)
-    if (not os.path.isfile(options.timeline_file)):
-        print("[ERROR] " +options.timeline_file+" not found.")
-        sys.exit(1)
-    timeline_file = options.timeline_file
+    checkOptions(options)
+    checkEnvVar()
 
-    if os.path.basename(timeline_file).endswith(".log") or os.path.basename(timeline_file).endswith(".txt"):
-        type = "TXT"
-    elif os.path.basename(timeline_file).endswith(".xml"):
-        type = "XML"
-    else:
-        print("[ERROR] unrecognized file extension.")
-        sys.exit(1)
+    filename = options.timeline_file
+    modelsToKeep = options.models
 
-    #Read opposite events tables
-    if os.getenv("DYNAWO_RESOURCES_DIR") is None:
-        print("environment variable DYNAWO_RESOURCES_DIR needs to be defined")
-        sys.exit(1)
-    resources_dirs = os.environ["DYNAWO_RESOURCES_DIR"].split(":")
-    if os.getenv("DYNAWO_LOCALE") is None:
-        print("environment variable DYNAWO_LOCALE needs to be defined")
-        sys.exit(1)
-    locale = os.environ["DYNAWO_LOCALE"]
-    dicOppEvents = {}
-    for dir in resources_dirs:
-        sys.path.append(dir)
-        for path in glob.glob(os.path.join(str(dir), '*_'+locale+'_oppositeEvents.py')):
-            python_package = os.path.basename(path).replace(".py","")
-            my_module = __import__(python_package)
-            dicOppEvents.update(my_module.dicOppositeEvents)
-            del sys.modules[python_package]
-
-        sys.path.remove(dir)
-
-    timeline = None
-    if type == "TXT":
-        timeline = read_txt(timeline_file)
-    elif type == "XML":
-        timeline = read_xml(timeline_file)
-
-    timeline.filter_useless_events(dicOppEvents)
-    if options.models is not None and len(options.models) > 0:
-        timeline.filter_model(options.models)
-    if type == "TXT":
-        timeline.dump(os.path.join(os.path.dirname(timeline_file), "filtered_timeline.log"), type)
-    elif type == "XML":
-        timeline.dump(os.path.join(os.path.dirname(timeline_file), "filtered_timeline.xml"), type)
+    dicOppEvents = loadOppositeEventsTable()
+    if getFileType(filename) == "TXT" or getFileType(filename) == "XML":
+        timeline = parseFile(filename)
+        timeline.filterTimeLine(filename, dicOppEvents, modelsToKeep)
+    elif getFileType(filename) == "ZIP":
+        filterZipContent(filename, dicOppEvents, modelsToKeep)
 
 
 if __name__ == "__main__":
