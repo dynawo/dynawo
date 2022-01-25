@@ -17,6 +17,8 @@
   <curve model="VMU" variable="min"/>
   <curve model="U1" variable="step_step_value"/>
   <curve model="U2" variable="step_step_value"/>
+  <curve model="U3" variable="step_step_value"/>
   <curve model="connected1" variable="event_state1_value"/>
   <curve model="connected2" variable="event_state1_value"/>
+  <curve model="connected3" variable="event_state1_value"/>
 </curvesInput>

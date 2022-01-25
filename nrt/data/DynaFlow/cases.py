@@ -184,3 +184,13 @@ case_description = "SVarCPV Remote test case with a load variation"
 job_file = os.path.join(os.path.dirname(__file__),  "SVarCPVRemote", "SVarC_2_LoadVarQ", "SVarC.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+##########################################
+#        VoltageMeasurementsUtilities            #
+##########################################
+
+case_name = "DynaFlow - VoltageMeasurementsUtilities"
+case_description = "Compute Min, Max, and Mean values of input voltage"
+job_file = os.path.join(os.path.dirname(__file__),  "VoltageMeasurementsUtilities", "VMU.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
