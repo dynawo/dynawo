@@ -145,7 +145,7 @@ SolverCommonFixedTimeStep::setSolverSpecificParameters() {
 }
 
 void
-SolverCommonFixedTimeStep::initCommon(const shared_ptr<Model> &model, const double &t0, const double &tEnd) {
+SolverCommonFixedTimeStep::initCommon(const shared_ptr<Model> &model, const double t0, const double tEnd) {
   tSolve_ = t0;
   tEnd_ = tEnd;
   h_ = hMax_;
@@ -288,7 +288,7 @@ void SolverCommonFixedTimeStep::handleMaximumTries(int& counter) {
     throw DYNError(Error::SOLVER_ALGO, SolverFixedTimeStepConvFail, solverType(),  maxNewtonTry_);
 }
 
-SolverCommonFixedTimeStep::SolverStatus_t SolverCommonFixedTimeStep::analyzeResult(int& flag) {
+SolverCommonFixedTimeStep::SolverStatus_t SolverCommonFixedTimeStep::analyzeResult(int flag) {
   // Analyze the return value and do further treatments if necessary
   if (flag < 0) {
     stats_.ncfn_++;

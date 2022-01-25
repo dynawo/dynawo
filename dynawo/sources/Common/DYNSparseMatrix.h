@@ -85,14 +85,14 @@ class SparseMatrix {
    * @param nbRow number row of the matrix
    * @param nbCol number columns of the matrix
    */
-  void init(const int& nbRow, const int& nbCol);
+  void init(const int nbRow, const int nbCol);
 
   /**
    * @brief reserve structure memory
    *
    * @param nbCol number columns that will be use in the matrix
    */
-  void reserve(const int& nbCol);
+  void reserve(const int nbCol);
 
   /**
    * @brief change the column currently used when filling the matrix
@@ -106,7 +106,7 @@ class SparseMatrix {
    * @param row row of the term in the matrix
    * @param val new value to add in the matrix
    */
-  void addTerm(const int& row, const double& val);
+  void addTerm(const int row, const double val);
 
   /**
    * @brief print the Frobenius norm of the matrix
@@ -151,7 +151,7 @@ class SparseMatrix {
    * @param columns columns to erase
    * @param M new matrix allocated
    */
-  void erase(const boost::unordered_set<int> & rows, const boost::unordered_set<int> & columns, SparseMatrix &M);
+  void erase(const boost::unordered_set<int>& rows, const boost::unordered_set<int>& columns, SparseMatrix& M);
 
   /**
    * @brief Get the row and colum indices from a position in the data array
@@ -232,7 +232,7 @@ class SparseMatrix {
    * @return a new matrix
    * @warning should not be used
    */
-  SparseMatrix & operator=(const SparseMatrix & M);
+  SparseMatrix& operator=(const SparseMatrix& M);
 
   /**
    * @brief constructor by copy
