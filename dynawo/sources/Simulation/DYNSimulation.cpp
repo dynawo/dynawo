@@ -702,7 +702,7 @@ Simulation::importFinalStateValuesRequest() {
   typedef boost::unordered_map<std::pair<std::string, std::string>, boost::shared_ptr<curves::Curve> > CurvesMap;
   CurvesMap curvesMap;
   for (CurvesCollection::const_iterator itCurve = curvesCollection_->cbegin(); itCurve != curvesCollection_->cend(); ++itCurve) {
-    curvesMap.insert({std::make_pair((*itCurve)->getModelName(), (*itCurve)->getVariable()), *itCurve});
+    curvesMap.insert(std::make_pair(std::make_pair((*itCurve)->getModelName(), (*itCurve)->getVariable()), *itCurve));
   }
 
   for (FinalStateValuesCollection::const_iterator itFinalStateValue = finalStateValuesCollection->cbegin();
