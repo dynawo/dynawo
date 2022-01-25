@@ -91,8 +91,8 @@ class SolverKINCommon {
    * @param msg error message
    * @param eh_data unused
    */
-  static void errHandlerFn(int error_code, const char *module, const char *function,
-          char *msg, void *eh_data);
+  static void errHandlerFn(int error_code, const char* module, const char* function,
+          char* msg, void* eh_data);
 
   /**
    * @brief processes info messages from KINSOL solver
@@ -102,15 +102,15 @@ class SolverKINCommon {
    * @param msg information message
    * @param eh_data unused
    */
-  static void infoHandlerFn(const char *module, const char *function,
-          char *msg, void *eh_data);
+  static void infoHandlerFn(const char* module, const char* function,
+          char* msg, void* eh_data);
 
   /**
    * @brief  Analyze the flag returned by KINSOL
    *
    * @param flag flag to analyze
    */
-  void analyseFlag(const int & flag);
+  void analyseFlag(const int flag);
 
   /**
    * @brief set if solver is in first iteration step or not

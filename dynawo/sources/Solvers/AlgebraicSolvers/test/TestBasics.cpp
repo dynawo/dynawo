@@ -119,7 +119,7 @@ class SolverMock : public Solver::Impl {
 
   void setSolverSpecificParameters() {}
 
-  void init(const boost::shared_ptr<Model>& /*model*/, const double& /*t0*/, const double& /*tEnd*/) {}
+  void init(const boost::shared_ptr<Model>& /*model*/, double /*t0*/, double /*tEnd*/) {}
 
   void calculateIC() {}
 

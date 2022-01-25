@@ -89,14 +89,14 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
   if (solver->getFirstIteration()) {
     solver->setFirstIteration(false);
   } else {  // update of F
-    realtype *iyy = NV_DATA_S(yy);
-    std::size_t yL = NV_LENGTH_S(yy);
-    std::copy(iyy, iyy+yL, solver->yBuffer_);
+    realtype* iyy = NV_DATA_S(yy);
+    const std::size_t yL = NV_LENGTH_S(yy);
+    std::copy(iyy, iyy + yL, solver->yBuffer_);
     subModel->evalF(solver->t0_, UNDEFINED_EQ);
   }
 
   // copy of values in output vector
-  realtype *irr = NV_DATA_S(rr);
+  realtype* irr = NV_DATA_S(rr);
   memcpy(irr, solver->fBuffer_, solver->numF_ * sizeof(solver->fBuffer_[0]));
 
   return 0;
@@ -115,11 +115,11 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
   // Sparse matrix
   // -------------
   SparseMatrix smj;
-  int size = subModel->sizeY();
+  const int size = subModel->sizeY();
   smj.init(size, size);
 
   // Arbitrary value for cj
-  double cj = 1.;
+  const double cj = 1.;
   subModel->evalJt(solver->t0_, cj, smj, 0);
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, &solver->lastRowVals_, solver->linearSolver_, solver->linearSolverName_, false);
 
@@ -140,12 +140,12 @@ SolverKINSubModel::solve() {
   subModel->evalF(t0_, UNDEFINED_EQ);
   firstIteration_ = true;
 
-  vectorFScale_.assign(subModel->sizeF(), 1.0);
+  vectorFScale_.assign(subModel->sizeF(), 1.);
   for (unsigned int i = 0; i < numF_; ++i) {
     if (std::abs(fBuffer_[i])  > 1.)
-      vectorFScale_[i] = 1 / std::abs(fBuffer_[i]);
+      vectorFScale_[i] = 1. / std::abs(fBuffer_[i]);
   }
-  vectorYScale_.assign(subModel->sizeY(), 1.0);
+  vectorYScale_.assign(subModel->sizeY(), 1.);
 
   // SubModel initialization can fail, especially on switch currents.
   // This failure shouldn't be stopping the simulation.
