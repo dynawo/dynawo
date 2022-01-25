@@ -18,6 +18,7 @@ add_subdirectory(Generic G)
 add_subdirectory(Transformers T)
 add_subdirectory(Basics B)
 add_subdirectory(PLL P)
+add_subdirectory(WECC W)
 
 set(MODEL_FILES
   package.mo

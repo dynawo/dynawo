@@ -10,11 +10,12 @@
 
 # Governors models
 
+add_subdirectory(Simplified S)
+add_subdirectory(Standard St)
+
 set(MODEL_FILES
   package.mo
   package.order
-  GoverProportional.mo
-  GoverProportional.extvar
   Governor_INIT.mo
   )
 

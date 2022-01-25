@@ -13,6 +13,7 @@ distributions/
 nrt/data/*/outputs*/
 nrt/data/*/*/outputs*/
 nrt/data/*/*/*/outputs*/
+nrt/data/*/*/*/*/outputs*/
 examples/*/*/outputs*/
 examples/*/*/*/outputs*/
 examples/*/*/*/*/outputs*/
@@ -252,7 +253,7 @@ curvesOutput
 .vscode/*
 !.vscode/settings.json
 #!.vscode/tasks.json
-#!.vscode/launch.json
+!.vscode/launch.json
 #!.vscode/extensions.json
 *.code-workspace
 

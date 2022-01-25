@@ -23,6 +23,7 @@
 #include "JOBConstraintsEntry.h"
 #include "JOBCurvesEntry.h"
 #include "JOBFinalStateEntry.h"
+#include "JOBFinalStateValuesEntry.h"
 #include "JOBInitValuesEntry.h"
 #include "JOBLogsEntry.h"
 #include "JOBLostEquipmentsEntry.h"
@@ -146,6 +147,18 @@ class OutputsEntry {
   boost::shared_ptr<CurvesEntry> getCurvesEntry() const;
 
   /**
+   * @brief FinalStateValues entry setter
+   * @param finalStateValuesEntry : final state values entry container for the job
+   */
+  void setFinalStateValuesEntry(const boost::shared_ptr<FinalStateValuesEntry>& finalStateValuesEntry);
+
+  /**
+   * @brief FinalStateValues entries container getter
+   * @return the final state values entry container
+   */
+  boost::shared_ptr<FinalStateValuesEntry> getFinalStateValuesEntry() const;
+
+  /**
    * @brief lostEquipments entry setter
    * @param lostEquipmentsEntry : lostEquipments for the job
    */
@@ -184,6 +197,7 @@ class OutputsEntry {
   boost::shared_ptr<TimetableEntry> timetableEntry_;                    ///< Timetable entries container
   std::vector<boost::shared_ptr<FinalStateEntry> > finalStateEntries_;  ///< Final State entries container
   boost::shared_ptr<CurvesEntry> curvesEntry_;                          ///< Curves entries container
+  boost::shared_ptr<FinalStateValuesEntry> finalStateValuesEntry_;      ///< Final State values entries container
   boost::shared_ptr<LostEquipmentsEntry> lostEquipmentsEntry_;          ///< Lost equipments entries container
   boost::shared_ptr<LogsEntry> logsEntry_;                              ///< Logs entries containe
 };

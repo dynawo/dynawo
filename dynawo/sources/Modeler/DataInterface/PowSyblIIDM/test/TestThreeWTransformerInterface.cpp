@@ -160,16 +160,25 @@ TEST(DataInterfaceTest, ThreeWTransformer_1) {
   const boost::shared_ptr<VoltageLevelInterface> voltageLevelItf3(new VoltageLevelInterfaceIIDM(vl3));
   tfoInterface.setVoltageLevelInterface3(voltageLevelItf3);
 
+  ASSERT_TRUE(tfoInterface.isConnected());
+  ASSERT_TRUE(tfoInterface.isPartiallyConnected());
+
   ASSERT_TRUE(tfoInterface.getInitialConnected1());
   transformer.getLeg1().getTerminal().disconnect();
   ASSERT_TRUE(tfoInterface.getInitialConnected1());
+  ASSERT_FALSE(tfoInterface.isConnected());
+  ASSERT_TRUE(tfoInterface.isPartiallyConnected());
 
   ASSERT_TRUE(tfoInterface.getInitialConnected2());
   transformer.getLeg2().getTerminal().disconnect();
   ASSERT_TRUE(tfoInterface.getInitialConnected2());
+  ASSERT_FALSE(tfoInterface.isConnected());
+  ASSERT_TRUE(tfoInterface.isPartiallyConnected());
 
   ASSERT_TRUE(tfoInterface.getInitialConnected3());
   transformer.getLeg3().getTerminal().disconnect();
   ASSERT_TRUE(tfoInterface.getInitialConnected3());
+  ASSERT_FALSE(tfoInterface.isConnected());
+  ASSERT_FALSE(tfoInterface.isPartiallyConnected());
 }  // TEST(DataInterfaceTest, ThreeWTransformer_1)
 }  // namespace DYN

@@ -25,13 +25,13 @@ model NodeFault "Node fault which lasts from tBegin to tEnd"
     Placement(visible = true, transformation(origin = {2, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Connectors.BPin nodeFault (value(start = false)) "True when the fault is ongoing, false otherwise";
 
-  parameter Types.PerUnit RPu  "Fault resistance in p.u (base SnRef)";
-  parameter Types.PerUnit XPu  "Fault reactance in p.u (base SnRef)";
+  parameter Types.PerUnit RPu  "Fault resistance in pu (base SnRef)";
+  parameter Types.PerUnit XPu  "Fault reactance in pu (base SnRef)";
   parameter Types.Time tBegin "Time when the fault begins";
   parameter Types.Time tEnd "Time when the fault ends";
 
 protected
-  parameter Types.ComplexImpedancePu ZPu (re = RPu, im = XPu) "Impedance of the fault in p.u (base SnRef)";
+  parameter Types.ComplexImpedancePu ZPu (re = RPu, im = XPu) "Impedance of the fault in pu (base SnRef)";
 
 equation
     when time >= tEnd then

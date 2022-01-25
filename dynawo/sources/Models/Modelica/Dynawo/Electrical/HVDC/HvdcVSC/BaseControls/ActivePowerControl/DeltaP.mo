@@ -22,9 +22,9 @@ model DeltaP "Function that calculates a DeltaP for the active power control sid
   import Dynawo.Electrical.SystemBase;
 
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_DeltaP;
-  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in p.u (base SNom, UNom)";
+  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
 
-  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC voltage in p.u (base UdcNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC voltage in pu (base UdcNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealOutput DeltaPRawPu(start = 0) "Corrective signal to adjust the active power in the case where the DC voltage control side of the HVDC link cannot control the DC voltage anymore" annotation(
@@ -40,8 +40,8 @@ model DeltaP "Function that calculates a DeltaP for the active power control sid
     Placement(visible = true, transformation(origin = {78, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 protected
 
-  parameter Types.VoltageModulePu Udc0Pu "Start value of dc voltage in p.u (base SNom, UNom)";
-  parameter Types.PerUnit Ip0Pu "Start value of active current in p.u (base SNom)";
+  parameter Types.VoltageModulePu Udc0Pu "Start value of dc voltage in pu (base SNom, UNom)";
+  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";
 
 equation
   connect(UdcPu, limiter.u) annotation(

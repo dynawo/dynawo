@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -35,6 +35,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
   GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
+  GeneratorSynchronousFourWindingsTGov1SexsPss2A.xml
   GenericAutomaton.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
@@ -64,6 +65,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
   InfiniteBus.xml
+  InfiniteBusWithVariations.xml
   InjectorBG.xml
   Line.xml
   LoadAlphaBeta.xml
@@ -76,15 +78,24 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
   NodeFault.xml
+  PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
+  PhotovoltaicsWeccCurrentSource.xml
+  PhotovoltaicsWeccVoltageSource.xml
   PowerTransferHVDCEmulation.xml
   ShuntBWithSections.xml
   SetPoint.xml
   SignalN.xml
   StaticVarCompensator.xml
   StaticVarCompensatorPV.xml
+  StaticVarCompensatorPVModeHandling.xml
   StaticVarCompensatorPVRemote.xml
+  StaticVarCompensatorPVRemoteModeHandling.xml
+  StaticVarCompensatorPVProp.xml
+  StaticVarCompensatorPVPropModeHandling.xml
+  StaticVarCompensatorPVPropRemote.xml
+  StaticVarCompensatorPVPropRemoteModeHandling.xml
   Step.xml
   TapChangerAutomaton.xml
   TapChangerBlockingAutomaton1.xml
@@ -95,6 +106,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   TransformerFixedRatio.xml
   UnderVoltageAutomaton.xml
   VRRemote.xml
+  WindTurbine4AWeccCurrentSource.xml
+  WindTurbine4BWeccCurrentSource.xml
   )
 
 # PYTHON scripts preassembled models

@@ -130,7 +130,7 @@
   <ScalarVariable
     name = "generator.PGenPu"
     valueReference = "1006"
-    description = "Active power at terminal in p.u (base SnRef) (generator convention)"
+    description = "Active power at terminal in pu (base SnRef) (generator convention)"
     variability = "continuous" isDiscrete = "false"
     causality = "internal" isValueChangeable = "false"
     alias = "noAlias"
@@ -142,7 +142,7 @@
   <ScalarVariable
     name = "generator.PGenRawPu"
     valueReference = "1007"
-    description = "Active power generation without taking limits into account in p.u (base SnRef) (generator convention)"
+    description = "Active power generation without taking limits into account in pu (base SnRef) (generator convention)"
     variability = "continuous" isDiscrete = "false"
     causality = "internal" isValueChangeable = "false"
     alias = "noAlias"
@@ -154,7 +154,7 @@
   <ScalarVariable
     name = "generator.QGenPu"
     valueReference = "1008"
-    description = "Reactive power at terminal in p.u (base SnRef) (generator convention)"
+    description = "Reactive power at terminal in pu (base SnRef) (generator convention)"
     variability = "continuous" isDiscrete = "false"
     causality = "internal" isValueChangeable = "false"
     alias = "noAlias"
@@ -190,7 +190,7 @@
   <ScalarVariable
     name = "generator.UPu"
     valueReference = "1011"
-    description = "Voltage amplitude at terminal in p.u (base UNom)"
+    description = "Voltage amplitude at terminal in pu (base UNom)"
     variability = "continuous" isDiscrete = "false"
     causality = "internal" isValueChangeable = "false"
     alias = "noAlias"
@@ -226,7 +226,7 @@
   <ScalarVariable
     name = "generator.AlphaPu"
     valueReference = "1014"
-    description = "Frequency sensitivity in p.u (base SnRef, OmegaNom)"
+    description = "Frequency sensitivity in pu (base SnRef, OmegaNom)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "true"
     alias = "noAlias"
@@ -238,7 +238,7 @@
   <ScalarVariable
     name = "generator.PGen0Pu"
     valueReference = "1015"
-    description = "Start value of active power at terminal in p.u (base SnRef) (generator convention)"
+    description = "Start value of active power at terminal in pu (base SnRef) (generator convention)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "false"
     alias = "noAlias"
@@ -250,7 +250,7 @@
   <ScalarVariable
     name = "generator.PMaxPu"
     valueReference = "1016"
-    description = "Maximum active power in p.u (base SnRef)"
+    description = "Maximum active power in pu (base SnRef)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "true"
     alias = "noAlias"
@@ -262,7 +262,7 @@
   <ScalarVariable
     name = "generator.PMinPu"
     valueReference = "1017"
-    description = "Minimum active power in p.u (base SnRef)"
+    description = "Minimum active power in pu (base SnRef)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "true"
     alias = "noAlias"
@@ -274,7 +274,7 @@
   <ScalarVariable
     name = "generator.QGen0Pu"
     valueReference = "1018"
-    description = "Start value of reactive power at terminal in p.u (base SnRef) (generator convention)"
+    description = "Start value of reactive power at terminal in pu (base SnRef) (generator convention)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "false"
     alias = "noAlias"
@@ -286,7 +286,7 @@
   <ScalarVariable
     name = "generator.QMaxPu"
     valueReference = "1019"
-    description = "Maximum reactive power in p.u (base SnRef)"
+    description = "Maximum reactive power in pu (base SnRef)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "true"
     alias = "noAlias"
@@ -298,7 +298,7 @@
   <ScalarVariable
     name = "generator.QMinPu"
     valueReference = "1020"
-    description = "Minimum reactive power in p.u (base SnRef)"
+    description = "Minimum reactive power in pu (base SnRef)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "true"
     alias = "noAlias"
@@ -310,7 +310,7 @@
   <ScalarVariable
     name = "generator.U0Pu"
     valueReference = "1021"
-    description = "Start value of voltage at terminal amplitude in p.u (base UNom)"
+    description = "Start value of voltage at terminal amplitude in pu (base UNom)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "false"
     alias = "noAlias"
@@ -322,7 +322,7 @@
   <ScalarVariable
     name = "generator.UMaxPu"
     valueReference = "1022"
-    description = "Maximum voltage in p.u (base UNom)"
+    description = "Maximum voltage in pu (base UNom)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "true"
     alias = "noAlias"
@@ -334,7 +334,7 @@
   <ScalarVariable
     name = "generator.UMinPu"
     valueReference = "1023"
-    description = "Minimum voltage in p.u (base UNom)"
+    description = "Minimum voltage in pu (base UNom)"
     variability = "parameter" isDiscrete = "true"
     causality = "internal" isValueChangeable = "true"
     alias = "noAlias"

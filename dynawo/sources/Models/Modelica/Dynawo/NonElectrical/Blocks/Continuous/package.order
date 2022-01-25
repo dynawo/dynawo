@@ -1,4 +1,9 @@
+IntegratorSetFreeze
 LeadLag
+LimPIDFreeze
 PIAntiWindup
 PIAntiWindupVariableLimits
 Power
+RateLimFirstOrderFreeze
+VarLimPIDFreeze
+SecondOrder

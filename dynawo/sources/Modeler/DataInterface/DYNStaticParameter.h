@@ -56,24 +56,6 @@ class StaticParameter {
   StaticParameter(const std::string& name, const StaticParameterType& type);
 
   /**
-   * @brief destructor
-   */
-  ~StaticParameter();
-
-  /**
-   * @brief copy constructor
-   * @param origin StaticParameter to copy
-   */
-  StaticParameter(const StaticParameter& origin);
-
-  /**
-   * @brief assignement operator
-   * @param origin StaticParameter to copy
-   * @return the assigned instance of StaticParameter
-   */
-  StaticParameter& operator=(const StaticParameter& origin);
-
-  /**
    * @brief set the value of a static parameter
    *
    * @param value new value of the static parameter

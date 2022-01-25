@@ -42,7 +42,7 @@ TEST(APICSTRTest, ConstraintsCollection) {
   ASSERT_NO_THROW(collection3 = ConstraintsCollectionFactory::copyInstance(refCollection1));
 }
 
-TEST(APICRVTest, ConstraintsCollectionIterator) {
+TEST(APICSTRTest, ConstraintsCollectionIterator) {
   boost::shared_ptr<ConstraintsCollection> collection1 = ConstraintsCollectionFactory::newInstance("collection1");
 
   collection1->addConstraint("model", "constraint1", 1.2, CONSTRAINT_BEGIN);

@@ -325,21 +325,21 @@ class ModelLoad : public NetworkComponent {
    */
   double Q_dUi(const double& ur, const double& ui, const double& U, const double& U2) const;
   /**
-   * @brief compute the active power in p.u. (SNREF)
+   * @brief compute the active power in pu (SNREF)
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @param U voltage
    * @return value
    */
-  double P(const double& ur, const double& ui, const double& U) const;  // compute the active power in p.u. (SNREF)
+  double P(const double& ur, const double& ui, const double& U) const;  // compute the active power in pu (SNREF)
   /**
-   * @brief compute the reactive power in p.u. (SNREF)
+   * @brief compute the reactive power in pu (SNREF)
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @param U voltage
    * @return value
    */
-  double Q(const double& ur, const double& ui, const double& U) const;  // compute the reactive power in p.u. (SNREF)
+  double Q(const double& ur, const double& ui, const double& U) const;  // compute the reactive power in pu (SNREF)
   /**
    * @brief compute value
    * @return value

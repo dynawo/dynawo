@@ -1248,10 +1248,10 @@ SubModel::addEvent(const string& modelName, const MessageTimeline& messageTimeli
 
 void
 SubModel::addConstraint(const string& modelName, bool begin, const Message& description,
-    const string& modelType) {
+  const string& modelType, const boost::optional<constraints::ConstraintData>& constraintData) {
   if (constraints_) {
     constraints::Type_t type = begin?constraints::CONSTRAINT_BEGIN:constraints::CONSTRAINT_END;
-    constraints_->addConstraint(modelName, description.str(), getCurrentTime(), type, modelType);
+    constraints_->addConstraint(modelName, description.str(), getCurrentTime(), type, modelType, constraintData);
   }
 }
 

@@ -59,7 +59,7 @@ The under voltage automaton measures the generator voltage (in this test at its 
 The under voltage automaton parameters are:
 \begin{center}
 \begin{tabular}{l|l}
-   $U_{Min_{Pu}}=0.85p.u$ & $t_{Action}=5s$  \\
+   $U_{Min_{Pu}}=0.85pu$ & $t_{Action}=5s$  \\
 \end{tabular}
 \end{center}
 
@@ -84,7 +84,7 @@ The solver used is the variable time step solver IDA with the following paramete
 The simulated load variations make the network voltage decrease at node 3, until achieving the minimum threshold of the automaton. The generator is disconnected 5 seconds later, which corresponds to the action time.\\
 
 \begin{figure}[H]
-\subfigure[Generator 3 stator voltage (p.u)]
+\subfigure[Generator 3 stator voltage (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -132,8 +132,8 @@ The phase-shifter I measures the current flowing through a transformer and sends
 The phase-shifter parameters are:
 \begin{center}
 \begin{tabular}{l|l|l}
-   $I_{Max}=0.475p.u$ & $t_{1st}=10s$ & $tap_{Max}=13$ \\
-   $I_{Stop}=0.45p.u$  & $t_{Next}=5s$ & $tap_{Min}=1$ \\
+   $I_{Max}=0.475pu$ & $t_{1st}=10s$ & $tap_{Max}=13$ \\
+   $I_{Stop}=0.45pu$  & $t_{Next}=5s$ & $tap_{Min}=1$ \\
 \end{tabular}
 \end{center}
 
@@ -157,7 +157,7 @@ The solver used is the variable time step solver IDA with the following paramete
 At t=20s, the line is disconnected. Following the topology modification, the current through the transformer monitored by the phase shifter I becomes higher than its threshold $I_{Max}$. After a time delay of 10s, the phase shifter changes its first step, which results in a step decrease of the transformer's current. Then, step are changed every 5s and the process repeats until the current reaches $I_{Stop}$ and don't cross $I_{Max}$ again. \\
 
 \begin{figure}[H]
-\subfigure[Transformer's current (p.u.)]
+\subfigure[Transformer's current (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -209,8 +209,8 @@ The phase-shifter P measures the transiting active power through a transformer a
 The phase-shifter parameters are:
 \begin{center}
 \begin{tabular}{l|l|l}
-   $P_{target}=0.44p.u$ & $t_{1st}=10s$ & $tap_{Max}=13$ \\
-   $P_{DeadBand}=0.005p.u$  & $t_{Next}=5s$ & $tap_{Min}=1$ \\
+   $P_{target}=0.44pu$ & $t_{1st}=10s$ & $tap_{Max}=13$ \\
+   $P_{DeadBand}=0.005pu$  & $t_{Next}=5s$ & $tap_{Min}=1$ \\
 \end{tabular}
 \end{center}
 
@@ -234,7 +234,7 @@ The solver used is the variable time step solver IDA with the following paramete
 At t=20s, the line is disconnected. Following the topology modification, the current through the transformer monitored by the phase shifter goes out of the tolerated range around $P_{Target}$.  10 seconds later, the transformer tap is changed which results in a step decrease of transiting active power. Though, it is still not in the tolerated range so the phase-shifter increases the tap again, this time only waiting for 5 seconds. Consequently, the active power transit drops and transiently falls back into the dead-band before going out of it again. Therefore, the phase-shifter P first temporarily stops taking steps, and then starts again waiting for a 10s delay before shifting to the next tap. This process repeats two times more and the automaton stops acting once the active power transit finally stabilizes in the range around $P_{Target}$. \\
 
 \begin{figure}[H]
-\subfigure[Transformer's transiting active power (p.u.)]
+\subfigure[Transformer's transiting active power (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -375,8 +375,8 @@ The tap-changer measures the load terminal voltage and sends an order to change 
 The tap-changer parameters are:
 \begin{center}
 \begin{tabular}{l|l|l}
-   $U_{Target}=1p.u$ & $t_{1st}=60s$ & $tap_{Max}=84$ \\
-   $U_{DeadBand}=0.01p.u$  & $t_{Next}=10s$ & $tap_{Min}=0$ \\
+   $U_{Target}=1pu$ & $t_{1st}=60s$ & $tap_{Max}=84$ \\
+   $U_{DeadBand}=0.01pu$  & $t_{Next}=10s$ & $tap_{Min}=0$ \\
 \end{tabular}
 \end{center}
 
@@ -400,7 +400,7 @@ The solver used is the variable time step solver IDA with the following paramete
 The simulated load variation makes the network voltage drop at node 3. The load 3 terminal voltage also decreases until it goes out of the tolerated range around $U_{Target}$. 60 seconds later, the transformer tap is changed which results in a step increase of the load terminal voltage. The voltage is still not in the tolerated range so the tap-changer changes the tap again, this time only waiting for 10 seconds, and stops acting once the load terminal voltage finally reaches the range around $U_{Target}$.
 
 \begin{figure}[H]
-\subfigure[Load terminal voltage (p.u)]
+\subfigure[Load terminal voltage (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2.5in, yticklabel style={text width={width("$-0.6$")},align=right}]
@@ -431,7 +431,7 @@ The simulated load variation makes the network voltage drop at node 3. The load 
 \end{figure}
 
 \begin{figure}[H]
-\subfigure[Network voltage at bus 3 (p.u)]
+\subfigure[Network voltage at bus 3 (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2.5in]
@@ -466,8 +466,8 @@ The tap-changer measures the high terminal voltage and sends an order to change 
 The tap-changer parameters are:
 \begin{center}
 \begin{tabular}{l|l}
-   $targetV=1p.u$ & $t1st_{HT}=60s$ \\
-   $tolV=0.01p.u$  & $tNext_{HT}=10s$ \\
+   $targetV=1pu$ & $t1st_{HT}=60s$ \\
+   $tolV=0.01pu$  & $tNext_{HT}=10s$ \\
 \end{tabular}
 \end{center}
 
@@ -492,7 +492,7 @@ The solver used is the variable time step solver IDA with the following paramete
 The simulated load variation makes the network voltage drop at node 5, going out of the tolerated range around $targetV$. 60 seconds later, the transformer tap is changed which results in a step increase of the node 5 voltage. The voltage is still not in the tolerated range so the tap-changer changes the tap again, this time only waiting for 10 seconds, and stops acting once the voltage finally reaches the range around $targetV$.
 
 \begin{figure}[H]
-\subfigure[Load terminal voltage (p.u)]
+\subfigure[Load terminal voltage (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2.5in, yticklabel style={text width={width("$-0.6$")},align=right}]
@@ -538,7 +538,7 @@ The tap-changer lock automaton activates a lock order if the monitored voltage g
 The tap-changer lock automaton parameters are:
 \begin{center}
 \begin{tabular}{l|l}
-   $U_{Min}=0.9824p.u$ & $t_{TransLockedT}=10s$ \\
+   $U_{Min}=0.9824pu$ & $t_{TransLockedT}=10s$ \\
    $t_{BeforeLocked}=20s$  & $t_{TransLockedD}=10s$ \\
 \end{tabular}
 \end{center}
@@ -563,7 +563,7 @@ The solver used is the variable time step solver IDA with the following paramete
 The simulated load variations make the network voltage drop at node 2 and 3 (monitored by the tap-changer lock automaton), as well as the load terminal voltages (monitored by the loads transformers tap-changers). From $t=80s$ to $t=120s$, the load 2 and 3 tap-changers change the transformers taps to restore the voltage at the load terminal, which damages the network voltage.
 
 \begin{figure}[H]
-\subfigure[Load 2 and 3 terminal voltages (p.u)]
+\subfigure[Load 2 and 3 terminal voltages (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2.3in]
@@ -577,7 +577,7 @@ The simulated load variations make the network voltage drop at node 2 and 3 (mon
     \end{axis}
   \end{tikzpicture}
 }
-\subfigure[Network voltage at bus 2 and 3 (p.u)]
+\subfigure[Network voltage at bus 2 and 3 (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2.3in]
@@ -648,7 +648,7 @@ At $t=100s$,the tap-changer lock automaton monitored voltage crosses $U_{Min}$ p
 If we try to simulate this test case without the tap-changer lock automaton we see that the transformers of load 2 and 3 keep changing taps and that the voltages of the area keep decreasing. In order to run this scenario, two possibilities are available: delete the tap-changer lock automaton in the .dyd file (with its connections), or set the automaton threshold $UMin=0$ in the .par file (that way the automaton will never get activated).
 
 \begin{figure}[H]
-\subfigure[Network voltage at bus 2 and 3 (p.u)]
+\subfigure[Network voltage at bus 2 and 3 (pu)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2.5in]

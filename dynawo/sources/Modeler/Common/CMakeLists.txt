@@ -103,7 +103,6 @@ target_link_libraries(dynawo_ModelerCommon
     dynawo_API_CRV
     dynawo_API_TL
     dynawo_API_CSTR
-    dynawo_API_FS
     dynawo_API_EXTVAR
     ${CMAKE_DL_LIBS}
   )

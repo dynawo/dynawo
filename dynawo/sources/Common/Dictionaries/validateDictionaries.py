@@ -262,7 +262,10 @@ class Dictionary:
                 nb_keys -= 1
                 if nb_keys == 0:
                     comma = ""
-                header_file.write("      " + (key + comma).ljust(70) + "  ///< " + self.messages[key] + "\n")
+                try:
+                    header_file.write("      " + (key + comma).ljust(70) + "  ///< " + self.messages[key] + "\n")
+                except UnicodeEncodeError:
+                    header_file.write("      " + (key.encode('utf-8') + comma).ljust(70) + "  ///< " + self.messages[key].encode('utf-8') + "\n")
             header_file.write("    };\n\n")
             header_file.write("    /**\n")
             header_file.write("    * @brief Return the name associated to the enum.\n")

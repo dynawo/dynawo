@@ -38,9 +38,9 @@ target_link_libraries(dynawo_Simulation
     dynawo_SimulationCommon
     dynawo_API_JOB
     dynawo_API_CRV
+    dynawo_API_FSV
     dynawo_API_CRT
     dynawo_API_PAR
-    dynawo_API_FS
     dynawo_API_TL
     dynawo_API_CSTR
     dynawo_API_LEQ

@@ -22,9 +22,9 @@ model ActivateDeltaP "Function that activates the DeltaP when necessary"
   import Dynawo.Electrical.SystemBase;
 
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ActivateDeltaP;
-  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in p.u (base SNom, UNom)";
+  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
 
-  Modelica.Blocks.Interfaces.RealInput ipRefUdcPu(start = Ip0Pu) "Active current reference in p.u (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput ipRefUdcPu(start = Ip0Pu) "Active current reference in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanOutput activateDeltaP(start = false) "Boolean that indicates whether DeltaP is activated or not" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -37,7 +37,7 @@ model ActivateDeltaP "Function that activates the DeltaP when necessary"
 
 protected
 
-  parameter Types.PerUnit Ip0Pu "Start value of active current in p.u (base SNom)";
+  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";
 
 equation
   connect(greaterThreshold.y, or1.u1) annotation(
