@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2022, RTE (http://www.rte-france.com)
+// Copyright (c) 2022-2022, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -91,7 +91,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEmptyInp
 
     // Run computation of min, max and mean on empty input stream
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), std::numeric_limits<float>::max());
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), std::numeric_limits<float>::min());
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), std::numeric_limits<float>::lowest());
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_), 0.0);
 }
 
@@ -115,7 +115,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesSimpleIn
     ASSERT_EQ(voltmu->sizeF(), nbF);
     ASSERT_EQ(voltmu->sizeZ(), nbZ);
     ASSERT_EQ(voltmu->sizeG(), 0);
-    ASSERT_EQ(voltmu->sizeMode(), 1);
+    ASSERT_EQ(voltmu->sizeMode(), 0);
 
     voltmu->evalStaticYType();
     ASSERT_EQ(yTypes[0], DYN::EXTERNAL);
@@ -174,7 +174,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesTypeMeth
     ASSERT_EQ(voltmu->sizeF(), nbF);
     ASSERT_EQ(voltmu->sizeZ(), nbZ);
     ASSERT_EQ(voltmu->sizeG(), 0);
-    ASSERT_EQ(voltmu->sizeMode(), 1);
+    ASSERT_EQ(voltmu->sizeMode(), 0);
 
     voltmu->evalStaticYType();
     ASSERT_EQ(yTypes[0], DYN::EXTERNAL);
@@ -202,7 +202,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesSomeDisc
     ASSERT_EQ(voltmu->sizeF(), nbF);
     ASSERT_EQ(voltmu->sizeZ(), nbZ);
     ASSERT_EQ(voltmu->sizeG(), 0);
-    ASSERT_EQ(voltmu->sizeMode(), 1);
+    ASSERT_EQ(voltmu->sizeMode(), 0);
 
     voltmu->evalStaticYType();
     voltmu->evalStaticFType();  // Does nothing here.
@@ -263,7 +263,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesAllDisco
     voltmu->evalCalculatedVars();
 
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), std::numeric_limits<float>::max());
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), std::numeric_limits<float>::min());
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), std::numeric_limits<float>::lowest());
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_), 0.0);
 }
 
@@ -312,7 +312,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesUnknownI
     ASSERT_EQ(voltmu->sizeF(), nbF);
     ASSERT_EQ(voltmu->sizeZ(), nbZ);
     ASSERT_EQ(voltmu->sizeG(), 0);
-    ASSERT_EQ(voltmu->sizeMode(), 1);
+    ASSERT_EQ(voltmu->sizeMode(), 0);
 
     voltmu->evalStaticYType();
     voltmu->evalStaticFType();  // Does nothing here.
