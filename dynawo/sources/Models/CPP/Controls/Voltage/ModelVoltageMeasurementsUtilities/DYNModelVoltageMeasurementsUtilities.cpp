@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2022, RTE (http://www.rte-france.com)
+// Copyright (c) 2022-2022, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -103,20 +103,13 @@ ModelVoltageMeasurementsUtilities::initializeFromData(const boost::shared_ptr<Da
   // not needed
 }
 
-/**
- * @brief ModelVoltageMeasurementsUtilities model's sizes getter
- *
- * Get the sizes of the vectors and matrices used by the solver to simulate
- * ModelVoltageMeasurementsUtilities instance. Used by @p ModelMulti to generate right size matrices
- * and vector for the solver.
- */
 void
 ModelVoltageMeasurementsUtilities::getSize() {
-  sizeF_ = 0;  // No dynamics
+  sizeF_ = 0;  // No equartions
   sizeY_ = nbConnectedInputs_;  // All voltage inputs and their boolean activity values
   sizeZ_ = nbConnectedInputs_;
   sizeG_ = 0;
-  sizeMode_ = 1;
+  sizeMode_ = 0;
 
   calculatedVars_.assign(nbCalculatedVars_, 0);
 }
@@ -147,8 +140,10 @@ ModelVoltageMeasurementsUtilities::evalZ(const double /*t*/) {
 }
 
 void
-ModelVoltageMeasurementsUtilities::collectSilentZ(BitMask* /*silentZTable*/) {
-  // Not needed here.
+ModelVoltageMeasurementsUtilities::collectSilentZ(BitMask* silentZTable) {
+  for (unsigned int s = 0; s < sizeZ_; ++s) {
+    silentZTable[s].setFlags(NotUsedInContinuousEquations);
+  }
 }
 
 modeChangeType_t
@@ -313,7 +308,7 @@ ModelVoltageMeasurementsUtilities::computeMin() const {
 
 double
 ModelVoltageMeasurementsUtilities::computeMax() const {
-  double maxSoFar = std::numeric_limits<float>::min();
+  double maxSoFar = std::numeric_limits<float>::lowest();
   for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
     if (isConnected(i)) {
       maxSoFar =  (yLocal_[i] > maxSoFar) ? yLocal_[i] : maxSoFar;
