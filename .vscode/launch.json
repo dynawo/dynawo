@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/build-code/Install/dynawo/bin/dynawo",
             "args": [ "${workspaceFolder}/nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_BlackBoxModels/IEEE14.jobs" ],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}",
             "environment": [
                 { "name": "DYNAWO_DDB_DIR", "value" : "${workspaceFolder}/build-code/Install/dynawo/ddb" },
                 { "name": "DYNAWO_DICTIONARIES", "value" : "dictionaries_mapping" },
@@ -32,7 +32,7 @@
                 { "name": "DYNAWO_OPENMODELICA_VERSION", "value" : "1_13_2" },
                 { "name": "DYNAWO_LIBIIDM_EXTENSIONS", "value" : "${workspaceFolder}/build-code/Install/3rdParty/libiidm/lib" },
                 { "name": "DYNAWO_IIDM_EXTENSION", "value" : "${workspaceFolder}/build-code/Install/dynawo/lib/libdynawo_DataInterfaceIIDMExtension.so" },
-                { "name": "LD_LIBRARY_PATH", "value" : "${LD_LIBRARY_PATH}:${workspaceFolder}/build-code/Install/dynawo/lib:${workspaceFolder}/build-code/Install/3rdParty/adept/lib:${workspaceFolder}/build-code/Install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/Install/3rdParty/libxml/lib:${workspaceFolder}/build-code/Install/3rdParty/libzip/lib:${workspaceFolder}/build-code/Install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/Install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/Install/3rdParty/sundials/lib:${workspaceFolder}/build-code/Install/3rdParty/xerces-c/lib" }
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/Install/dynawo/lib:${workspaceFolder}/build-code/Install/3rdParty/adept/lib:${workspaceFolder}/build-code/Install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/Install/3rdParty/libxml/lib:${workspaceFolder}/build-code/Install/3rdParty/libzip/lib:${workspaceFolder}/build-code/Install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/Install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/Install/3rdParty/sundials/lib:${workspaceFolder}/build-code/Install/3rdParty/xerces-c/lib" }
             ],
             "externalConsole": false,
             "MIMode": "gdb",

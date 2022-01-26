@@ -44,5 +44,12 @@
     "files.exclude": {
         "build-code": true,
         "OpenModelica/Source": true,
+    },
+
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "OpenModelica": true,
+        "build-code": true
     }
 }
