@@ -522,6 +522,7 @@ ModelManager::initParams() {
   for (int i = 0; i < 2; ++i) {
     modelModelica()->initRpar();
   }
+  modelModelica()->callCustomParametersConstructors();
 
   // init local sizes for init values
   getSize();

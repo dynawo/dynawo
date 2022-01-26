@@ -1578,7 +1578,7 @@ class Factory:
     # dump an equation into Fomc body
     # @param self : object pointer
     # @return
-    def dump_eq(self, eq, index_relation):
+    def dump_eq(self, eq):
         map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
         var_name = eq.get_evaluated_var()
         var_name_without_der = var_name [4 : -1] if 'der(' == var_name [ : 4] else var_name
@@ -1588,9 +1588,12 @@ class Factory:
             eq_body = (eq.get_body_for_setf())
             if self.create_additional_relations():
                 index = 0
+                index_relation = 0
                 for line in eq_body:
                     if (("Greater" in line or "Less" in line) and not "RELATIONHYSTERESIS" in line):
-                        eq_body[index] = self.transform_in_relation(line, index_relation)
+                        index_relations = self.modes.find_index_relation(eq.get_src_fct_name())
+                        assert(len(index_relations) > 0 and index_relation < len(index_relations))
+                        eq_body[index] = self.transform_in_relation(line, index_relations[index_relation])
                         index_relation += 1
                     index += 1
             standard_eq_body.extend(eq_body)
@@ -1615,13 +1618,11 @@ class Factory:
                 self.list_for_setf.extend(standard_eq_body)
                 self.list_for_setf.append("\n  }\n")
             self.list_for_setf.append("\n\n")
-        return index_relation
     ##
     # dump the lines of the system equation in the body of setF
     # @param self : object pointer
     # @return
     def dump_eq_syst_in_setf(self):
-        index_relation = self.nb_existing_relations
         algebraic_eq = []
         differential_eq = []
         mixed_eq = []
@@ -1635,16 +1636,16 @@ class Factory:
         if len(algebraic_eq) > 0:
             self.list_for_setf.append("  if (type != DIFFERENTIAL_EQ) {\n")
             for eq in algebraic_eq:
-                index_relation = self.dump_eq(eq, index_relation)
+                self.dump_eq(eq)
             self.list_for_setf.append("  }\n")
         if len(differential_eq) > 0:
             self.list_for_setf.append("  if (type != ALGEBRAIC_EQ) {\n")
             for eq in differential_eq:
-                index_relation = self.dump_eq(eq, index_relation)
+                self.dump_eq(eq)
             self.list_for_setf.append("  }\n")
         if len(mixed_eq) > 0:
             for eq in mixed_eq:
-                index_relation = self.dump_eq(eq, index_relation)
+                self.dump_eq(eq)
 
     ##
     # dump the lines of the warning in the body of checkDataCoherence
@@ -2490,7 +2491,6 @@ class Factory:
 
         num_ternary = 0
         used_functions = []
-        index_relation = self.nb_existing_relations
         for eq in self.get_list_eq_syst():
             var_name = eq.get_evaluated_var()
             var_name_without_der = var_name [4 : -1] if 'der(' == var_name [ : 4] else var_name
@@ -2501,6 +2501,7 @@ class Factory:
                 # We recover the text of the equations
                 standard_body_with_standard_external_call = eq.get_body_for_evalf_adept()
                 standard_body = []
+                index_relation = 0
                 for line in standard_body_with_standard_external_call:
                     for func in list_omc_functions:
                         if (func.get_name() + "(" in line or func.get_name() + " (" in line):
@@ -2508,8 +2509,10 @@ class Factory:
                             used_functions.append(func)
                     line = self.replace_adept_functions_in_line(line)
                     if self.create_additional_relations() and (("Greater" in line or "Less" in line) and not "RELATIONHYSTERESIS" in line):
-                        line = self.transform_in_relation(line, index_relation)
-                        index_relation += 1
+                        index_relations = self.modes.find_index_relation(eq.get_src_fct_name())
+                        assert(len(index_relations) > 0 and index_relation < len(index_relations))
+                        line = self.transform_in_relation(line, index_relations[index_relation])
+                        index_relation+=1
                     standard_body.append(line)
 
                 # Build the whole equation body as if clauses linked with reinit
