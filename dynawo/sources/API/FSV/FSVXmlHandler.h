@@ -47,7 +47,7 @@ class FinalStateValueHandler : public xml::sax::parser::ComposableElementHandler
   /**
    * @brief Destructor
    */
-  ~FinalStateValueHandler();
+  virtual ~FinalStateValueHandler();
 
   /**
    * @brief return the final state value read in xml file
