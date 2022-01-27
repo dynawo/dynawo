@@ -57,8 +57,48 @@ TxtExporter::exportToStream(const boost::shared_ptr<ConstraintsCollection>& cons
             << TXTEXPORTER_SEPARATOR
             << (*itConstraint)->getDescription();
     if ((*itConstraint)->hasModelType())
-      stream << (*itConstraint)->getModelType()
-             << TXTEXPORTER_SEPARATOR;
+      stream << TXTEXPORTER_SEPARATOR
+             << (*itConstraint)->getModelType();
+
+    const boost::optional<ConstraintData>& data = (*itConstraint)->getData();
+    if (data) {
+      switch ((*data).kind) {
+        case ConstraintData::OverloadOpen:
+          stream << TXTEXPORTER_SEPARATOR
+                 << "OverloadOpen";
+          break;
+        case ConstraintData::OverloadUp:
+          stream << TXTEXPORTER_SEPARATOR
+                 << "OverloadUp";
+          break;
+        case ConstraintData::PATL:
+          stream << TXTEXPORTER_SEPARATOR
+                 << "PATL";
+          break;
+        case ConstraintData::UInfUmin:
+          stream << TXTEXPORTER_SEPARATOR
+                 << "UInfUmin";
+          break;
+        case ConstraintData::USupUmax:
+          stream << TXTEXPORTER_SEPARATOR
+                 << "USupUmax";
+          break;
+      }
+      stream << TXTEXPORTER_SEPARATOR
+             << (*data).limit;
+      stream << TXTEXPORTER_SEPARATOR
+             << (*data).value;
+      boost::optional<int> side = (*data).side;
+      if (side) {
+        stream << TXTEXPORTER_SEPARATOR
+               << side.value();
+      }
+      boost::optional<double> acceptableDuration = (*data).acceptableDuration;
+      if (acceptableDuration) {
+        stream << TXTEXPORTER_SEPARATOR
+               << acceptableDuration.value();
+      }
+    }
     stream << "\n";
   }
 }
