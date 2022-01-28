@@ -434,6 +434,111 @@ The purpose of the third test case is to compare the dynamic behaviour of the mo
 \caption{Test Case 3 Results}
 \end{figure}
 
+\chapter{WSCC9}
+
+The WSCC 9-bus system represents a simple approximation of the Western System Coordinating Council (WSCC) to an equivalent system with nine buses and three generators.
+It was notably published in Anderson and Fouad’s book ‘Power System Control and Stability’ for the first time in 1980.
+
+\textbf{Note. The test case is used in a modified way in this example: arbitrary dynamic data are added to the test case}
+
+\section{Test case description}
+
+The WSCC 9-bus system has 9 buses, 3 generators, 3 transformers, 6 lines and 3 loads.  \\
+There are four voltage levels in the test case: 230 kV, 18 kV, 16.5 kV and 13.8 kV. The inner
+part is the 230 kV part. The generators are at 18 kV, 16.5 kV and 13.8 kV.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{WSCC9Bus.jpg}
+  \caption{WSCC 9-bus system diagram}
+\end{figure}
+
+\subsection{Initial Conditions}
+
+The reference angle for the load flow is set at bus n°1. The initial conditions for each generator
+are:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  Generator & P (MW) & Q (Mvar) & U (kV) & $\Theta$ (°) \\
+  \hline
+  1 & 71.94 & 24.05 & 15.60 & 0.00\\
+  2 & 163.00 & 14.44 & 18.00 & 9.66\\
+  3 & 85.00 & -3.65 & 13.80 & 4.77\\
+  \hline
+\end{tabular}
+\end{center}
+
+\subsection{Models}
+
+The models used are identical to those used for the IEEE14 (See \ref{ModelsIEEE}).
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=$10^{-4}$;
+\item $Accuracy_{Abs}$=$10^{-4}$;
+\end{itemize}
+
+\subsection{Scenario}
+The simulated scenario is a three-phase fault (R = $0 \ \Omega$ and X = $10^{-4} \ \Omega$) at the bus 2, which corresponds to the point of connection for generator 2. The fault lasts from t = 1 s to t = 1.1 s.
+
+\newpage
+\subsection{Results}
+
+For this test we focus on the response of generator 2.\\
+
+We observe that the voltage at the node 2 falls to zero. As the voltage is zero during the fault, the generator can't evacuate its active power anymore: it falls to zero too. When the fault is cleared the voltage is restored as well as the active power, which stabilizes a few seconds after the fault clearance.\\
+
+\begin{figure}[H]
+\subfigure[Bus 2 voltage (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=NETWORK_B2_U_value]
+        {../WSCC9/WSCC9_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power (Mvar)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=B2-G1 _generator_QGen]
+        {../WSCC9/WSCC9_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Generator 2 response to the three-phase fault}
+\end{figure}
+
+
+\begin{figure}[H]
+\subfigure[Omega (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=B2-G1 _generator_omegaPu]
+        {../WSCC9/WSCC9_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Active power (MW)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=B2-G1 _generator_PGen]
+        {../WSCC9/WSCC9_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Generator 2 response to the three-phase fault}
+\end{figure}
+
 \chapter{IEEE14}
 
 The IEEE 14-bus system is a standard test case in the power system community. It represents a simple approximation of the American Electric Power system (in the U.S. Midwest) as it was in the early 1960s. The data were provided by Iraj Dabbagchi of AEP and converted into the IEEE Common Data Format by Rich Christie at the University of Washington in August 1993.
@@ -473,6 +578,7 @@ Here are the initial conditions for each generator.
 \end{center}
 
 \subsection{Models}
+\label{ModelsIEEE}
 
 \subsubsection{Synchronous Machines}
 

@@ -211,6 +211,91 @@ One can notice that when the restoration is complete, the simulation fails, as w
 
 When the restoration is not complete, the active power of the load is below the maximum transferrable power. As a consequence, the simulation succeeds.
 
+\chapter{WSCC9}
+
+The WSCC 9-bus system represents a simple approximation of the Western System Coordinating Council (WSCC) to an equivalent system with nine buses and three generators.
+It was notably published in Anderson and Fouad’s book ‘Power System Control and Stability’ for the first time in 1980.
+
+\section{Test case description}
+
+The WSCC 9-bus system has 9 buses, 3 generators, 3 transformers, 6 lines and 3 loads.  \\
+There are four voltage levels in the test case: 230 kV, 18 kV, 16.5 kV and 13.8 kV. The inner
+part is the 230 kV part. The generators are at 18 kV, 16.5 kV and 13.8 kV.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{WSCC9Bus.jpg}
+  \caption{WSCC 9-bus system diagram}
+\end{figure}
+
+\subsection{Initial Conditions}
+
+The reference angle for the load flow is set at bus n°1. The initial conditions for each generator
+are:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  Generator & P (MW) & Q (Mvar) & U (kV) & $\Theta$ (°) \\
+  \hline
+  1 & 71.94 & 24.05 & 15.60 & 0.00\\
+  2 & 163.00 & 14.44 & 18.00 & 9.66\\
+  3 & 85.00 & -3.65 & 13.80 & 4.77\\
+  \hline
+\end{tabular}
+\end{center}
+
+\subsection{Models}
+
+\subsubsection{Synchronous machines}
+
+All the generators and the synchronous condensers are modeled as GeneratorPV: it means that they can adjust their Q to maintain the voltage equal to a target and their active power is modified by the frequency regulation model through the signal N variable.
+
+\subsubsection{Loads}
+
+Loads are modelled as restorative loads. After an event, the load goes back to its initial PPu/QPu unless the voltage at its terminal is lower than UMinPu or higher than UMaxPu. In this case, the load behaves as a classical Alpha-Beta load.
+
+\subsection{Solver}
+The solver used is a fixed Backward-Euler order 1 solver:
+\begin{itemize}
+\item $Time step$=10 s
+\item $Tolerance$=$10^{-4}$
+\end{itemize}
+
+\subsection{Scenario}
+The scenario simulated is the disconnection of the line between bus 1 and bus 5.
+
+\newpage
+\section{Results}
+
+Here are the final values obtained for each generator:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  Generator & P (MW) & Q (Mvar) & U (kV) & $\Theta$ (°) \\
+  \hline
+  1 & 70.98 & 20.98 & 15.60 & 0.00\\
+  2 & 161.85 & 18.72 & 18.00 & 5.15\\
+  3 & 83.96 & 17.53 & 13.80 & -2.69\\
+  \hline
+\end{tabular}
+\end{center}
+
+And the final power flows on the lines:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  Line & $P_{Or} (MW)$ & $P_{Ex} (MW)$ & $Q_{Or} (Mvar)$ & $Q_{Ex} (Mvar)$ \\
+  \hline
+  Bus4-Bus5 & 70.98 & -70.40 & 17.82 & -29.55 \\
+  Bus5-Bus7 & -54.59 & 55.64 & -20.44 & -3.50 \\
+  Bus6-Bus9 & -85.71 & -27.65 & 89.17 & 10.02 \\
+  Bus7-Bus8 & 106.21 & -105.22 & 5.64 & -11.76 \\
+  Bus8-Bus9 & 5.22 & -5.19 & -23.23 & 3.19 \\
+  \hline
+\end{tabular}
+\end{center}
+
 \chapter{IEEE14}
 
 The IEEE 14-bus system is a standard test case in the power system community. It represents a simple approximation of the American Electric Power system (in the U.S. Midwest) as it was in the early 1960s. The data were provided by Iraj Dabbagchi of AEP and converted into the IEEE Common Data Format by Rich Christie at the University of Washington in August 1993.
