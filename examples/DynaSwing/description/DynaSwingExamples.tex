@@ -514,7 +514,6 @@ We observe that the voltage at node 2 falls to zero. As the voltage is zero duri
 \caption{Generator 2 response to the three-phase fault}
 \end{figure}
 
-
 \begin{figure}[H]
 \subfigure[Omega (pu)]
 {%
@@ -537,6 +536,75 @@ We observe that the voltage at node 2 falls to zero. As the voltage is zero duri
   \end{tikzpicture}
 }
 \caption{Generator 2 response to the three-phase fault}
+\end{figure}
+\chapter{WECC}
+
+This chapter presents four test cases simulating four models of renewable energies generators :
+\begin{itemize}
+\item A PV plant with the injector represented as a current source (WECCPVCurrentSource).
+\item A PV plant with the injector represented as a voltage source (WECCPVVoltageSource).
+\item A Wind plant of type 4A with the injector represented as a current source (WECCWTG4ACurrentSource).
+\item A Wind plant of type 4B with the injector represented as a current source (WECCWTG4BCurrentSource).
+\end{itemize}
+
+All four models are taken from the WECC standard and can be found here:
+\begin{itemize}
+\item PV:
+
+\url{https://www.wecc.org/\_layouts/15/WopiFrame.aspx?sourcedoc=/Reliability/WECC\%20Solar\%20Plant\%20Dynamic\%20Modeling\%20Guidelines.pdf\&action=default\&DefaultItemOpen=1}
+
+\item Wind:
+
+\url{https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf}
+\end{itemize}
+
+The implementation of these models in Modelica has lead to the following publication in the 14th Modelica conference:\\
+
+M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation of the Generic WECC Photovoltaics and Wind Turbine Generator Models in Modelica", 2021.\\
+
+\par This publication can be found here:
+
+\url{https://ecp.ep.liu.se/index.php/modelica/article/view/242/202}
+
+\section{Test case description}
+
+\par The four test cases are similar. The Wind turbine (or PV plant) is connected to an infinite bus through a line.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{WECC.png}
+  \caption{Test case diagram}
+\end{figure}
+
+\subsection{Initial Conditions}
+
+\par At t=0, the power plant is injecting 0.7pu of active power and 0.2pu of reactive power into the grid. The voltage module at its terminal is 1pu and the voltage angle is equal to 0rad.
+
+\subsection{Models}
+
+\par The models used for the PV plant and the Wind turbine are fully described in the Dynawo library.
+
+\subsection{Solver}
+
+\par The solver used is the variable time step solver IDA with the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=$10^{-4}$;
+\item $Accuracy_{Abs}$=$10^{-4}$.
+\end{itemize}
+
+\subsection{Scenario}
+
+\par The same scenario is simulated in the four cases. First the infinite bus voltage is reduced from 1pu to 0.5pu from t=1s to t=2s. Then its frequency is increased to 1.01pu (from 1pu) from t=6s to t=6.5s.
+
+\section{Results}
+
+\par The obtained results match the ones presented in the WECC reports.
+
+\par As an example, the injected active and reactive powers of the WECC PV Current source are shown in the following:
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{PQWECC.png}
+  \caption{Active and reactive powers in pu}
 \end{figure}
 
 \chapter{IEEE14}
