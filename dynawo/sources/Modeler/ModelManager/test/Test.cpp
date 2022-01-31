@@ -319,7 +319,7 @@ class MyModelica: public ModelModelica {
     indexes.push_back(1);
   }
 
-  virtual bool isDataStructIsInitialized() const {
+  virtual bool isDataStructInitialized() const {
     return false;
   }
 
