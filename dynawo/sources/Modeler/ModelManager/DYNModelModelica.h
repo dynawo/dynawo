@@ -270,7 +270,7 @@ class ModelModelica {
    *
    * @return true if data struct is initialized
    */
-  virtual bool isDataStructIsInitialized() const = 0;
+  virtual bool isDataStructInitialized() const = 0;
 
   /**
    * @brief Determines if the sub model has a data check coherence operation (non empty function)
