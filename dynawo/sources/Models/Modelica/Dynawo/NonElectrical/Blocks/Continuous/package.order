@@ -6,4 +6,3 @@ PIAntiWindupVariableLimits
 Power
 RateLimFirstOrderFreeze
 VarLimPIDFreeze
-SecondOrder
