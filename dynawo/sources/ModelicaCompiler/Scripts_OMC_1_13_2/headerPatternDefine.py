@@ -48,10 +48,10 @@ class HeaderPatternDefine:
   {
     public:
     Model__fill_model_name___Dyn() {
-        dataStructIsInitialized_ = false;
+        dataStructInitialized_ = false;
         hasCheckDataCoherence_ = __fill_has_check_data_coherence__;
     }
-    ~Model__fill_model_name___Dyn() {if (dataStructIsInitialized_) deInitializeDataStruc();}
+    ~Model__fill_model_name___Dyn() {if (dataStructInitialized_) deInitializeDataStruc();}
 
 
     public:
@@ -91,12 +91,12 @@ class HeaderPatternDefine:
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
     void checkSum(std::string & checkSum) { checkSum = std::string("__fill_model_checkSum__"); }
-    inline bool isDataStructIsInitialized() const { return dataStructIsInitialized_; }
+    inline bool isDataStructInitialized() const { return dataStructInitialized_; }
 
     private:
     DYNDATA * data;
     ModelManager * modelManager_;
-    bool dataStructIsInitialized_;
+    bool dataStructInitialized_;
     std::string modelType_;
 
     private:
@@ -138,10 +138,10 @@ namespace DYN {
   {
     public:
     Model__fill_model_name___Init() {
-        dataStructIsInitialized_ = false;
+        dataStructInitialized_ = false;
         hasCheckDataCoherence_ = __fill_has_check_data_coherence__;
     }
-    ~Model__fill_model_name___Init() {if (dataStructIsInitialized_) deInitializeDataStruc();}
+    ~Model__fill_model_name___Init() {if (dataStructInitialized_) deInitializeDataStruc();}
 
 
     public:
@@ -180,12 +180,12 @@ namespace DYN {
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
     void checkSum(std::string & checkSum) { checkSum = std::string("__fill_model_checkSum__"); }
-    inline bool isDataStructIsInitialized() const { return dataStructIsInitialized_; }
+    inline bool isDataStructInitialized() const { return dataStructInitialized_; }
 
     private:
     DYNDATA * data;
     ModelManager * modelManager_;
-    bool dataStructIsInitialized_;
+    bool dataStructInitialized_;
     std::string modelType_;
 
     private:
