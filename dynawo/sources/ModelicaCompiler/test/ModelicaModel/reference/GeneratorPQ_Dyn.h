@@ -20,10 +20,10 @@ namespace DYN {
   {
     public:
     ModelGeneratorPQ_Dyn() {
-        dataStructIsInitialized_ = false;
+        dataStructInitialized_ = false;
         hasCheckDataCoherence_ = false;
     }
-    ~ModelGeneratorPQ_Dyn() {if (dataStructIsInitialized_) deInitializeDataStruc();}
+    ~ModelGeneratorPQ_Dyn() {if (dataStructInitialized_) deInitializeDataStruc();}
 
 
     public:
@@ -60,13 +60,13 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("03cb8bf875a2eca69aad9f39b0c7868a"); }
-    inline bool isDataStructIsInitialized() const { return dataStructIsInitialized_; }
+    void checkSum(std::string & checkSum) { checkSum = std::string("a08750dc5013a5ae530879bfada53572"); }
+    inline bool isDataStructInitialized() const { return dataStructInitialized_; }
 
     private:
     DYNDATA * data;
     ModelManager * modelManager_;
-    bool dataStructIsInitialized_;
+    bool dataStructInitialized_;
     std::string modelType_;
 
     private:
