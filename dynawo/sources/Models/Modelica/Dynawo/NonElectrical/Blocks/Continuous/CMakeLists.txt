@@ -21,6 +21,7 @@ set(MODEL_FILES
   SecondOrder.mo
   VarLimPIDFreeze.mo
   VoltageDiffNormalizer.mo
+  VoltageDiffNormalizer.extvar
   )
 
 #

@@ -19,6 +19,7 @@ block VoltageDiffNormalizer "Block to normalize a difference between voltage mea
   import Modelica.Blocks.Interfaces;
   import Modelica.Blocks.Icons.Block;
   import Modelica.Constants;
+  import Dynawo.Types;
 
   extends Block;
 
