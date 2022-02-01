@@ -108,6 +108,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   VRRemote.xml
   WindTurbine4AWeccCurrentSource.xml
   WindTurbine4BWeccCurrentSource.xml
+  VoltageDiffNormalizer.xml
   )
 
 # PYTHON scripts preassembled models
