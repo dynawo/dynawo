@@ -3458,7 +3458,7 @@ class Factory:
    # @return list of lines
     def get_list_for_initializedatastruc(self):
         body="""
-  dataStructIsInitialized_ = true;
+  dataStructInitialized_ = true;
   data->localData = (SIMULATION_DATA**) calloc(1, sizeof(SIMULATION_DATA*));
   data->localData[0] = (SIMULATION_DATA*) calloc(1, sizeof(SIMULATION_DATA));
 
@@ -3528,10 +3528,10 @@ class Factory:
     # @return list of lines
     def get_list_for_deinitializedatastruc(self):
         body="""
-  if(! dataStructIsInitialized_)
+  if(! dataStructInitialized_)
     return;
 
-  dataStructIsInitialized_ = false;
+  dataStructInitialized_ = false;
   free(data->localData[0]->booleanVars);
   free(data->localData[0]);
   free(data->localData);
