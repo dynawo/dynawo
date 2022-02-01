@@ -373,8 +373,10 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
       auto bus1 = findBusBreakerBusInterface(voltageLevelIIDM.getBusBreakerView().getBus1(switchIIDM.getId()).get());
       auto bus2 = findBusBreakerBusInterface(voltageLevelIIDM.getBusBreakerView().getBus2(switchIIDM.getId()).get());
       auto sw = importSwitch(switchIIDM, bus1, bus2);
-      components_[sw->getID()] = sw;
-      voltageLevel->addSwitch(sw);
+      if (sw->getBusInterface1() != sw->getBusInterface2()) {  // if the switch is connecting one single bus, don't create a specific switch model
+        components_[sw->getID()] = sw;
+        voltageLevel->addSwitch(sw);
+      }
     }
   }
 
