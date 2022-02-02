@@ -857,6 +857,18 @@ def transform_atan3_operator_evalf(line):
     return line_tmp_bis
 
 ##
+# Transform _event_floor(x, index, data) to (modelica_integer)floor(x)
+# @param line : line to analyse
+# @return line transformed
+def replace_event_floor(line):
+    if "_event_floor" not in line:
+        return line
+    event_floor_ptrn = re.compile(r'_event_floor\((?P<var>[^,]*), \(\(modelica_integer\) [0-9]+\), data\)')
+    line = event_floor_ptrn.sub('((modelica_integer) floor(\g<var>))',line)
+
+    return line
+
+##
 # Transform a line so that it can be compiled
 # @param line : line to analyse
 # @return line transformed
@@ -866,6 +878,7 @@ def transform_line(line):
     line_tmp = sub_division_sim(line_tmp)
     line_tmp = replace_var_names(line_tmp)
     line_tmp = replace_pow(line_tmp)
+    line_tmp = replace_event_floor(line_tmp)
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")
     return line_tmp

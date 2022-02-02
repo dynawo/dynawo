@@ -1972,6 +1972,8 @@ class Factory:
             if "gout" not in line:
                 if "tmp" in line:
                     line = line.replace("tmp", "tmp_zc")
+                if THREAD_DATA_OMC_PARAM in line:
+                    line=line.replace(THREAD_DATA_OMC_PARAM, "")
                 self.list_for_setg.append(line)
 
         if self.create_additional_relations():
