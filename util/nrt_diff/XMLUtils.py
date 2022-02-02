@@ -12,12 +12,13 @@
 # simulation tool for power systems.
 
 import os
+import sys
 from lxml import etree
 
 def ImportXMLFile(path):
     if (not os.path.isfile(path)):
         print("No file found. Unable to import")
-        return None
+        sys.exit(1)
     return etree.parse(path).getroot()
 
 def ImportXMLFileExtended(path):
