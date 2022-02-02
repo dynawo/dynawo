@@ -69,7 +69,6 @@ def get_txt_constraints_info(filename):
     constraints_by_id = {}
     possible_kinds = ["OverloadOpen", "OverloadUp", "PATL", "UInfUmin", "USupUmax"]
     f=open(filename, "r")
-    print ("BUBU READ " + filename)
     for line in f.readlines():
         array = line.split('|')
         if (len(array) < 3):
