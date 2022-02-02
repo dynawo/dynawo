@@ -12,7 +12,6 @@ set(MODEL_FILES
   package.mo
   package.order
   IntegratorSetFreeze.mo
-  LeadLag.mo
   LimPIDFreeze.mo
   PIAntiWindup.mo
   PIAntiWindupVariableLimits.mo

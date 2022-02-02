@@ -62,18 +62,18 @@ model PSS2A "IEEE Power System Stabilizer type 2A"
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag1(t1 = T1, t2 = T2, Y0 = Upss0Pu) annotation(
+  Modelica.Blocks.Continuous.TransferFunction leadLag1(a = {T2, 1}, b = {T1, 1}, x_scaled(start = {Upss0Pu}), x_start = {Upss0Pu}, y_start = Upss0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction washoutOmega2(a = {Tw2, 1}, b = {Tw2, 0}) annotation(
     Placement(visible = true, transformation(origin = {-80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction washoutPGen2(a = {Tw4, 1}, b = {Tw4, 0}, y_start = PGen0Pu * gain.k) annotation(
     Placement(visible = true, transformation(origin = {-80, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag2(t1 = T3, t2 = T4, Y0 = Upss0Pu) annotation(
+  Modelica.Blocks.Continuous.TransferFunction leadLag2(a = {T4, 1}, b = {T3, 1}, x_scaled(start = {Upss0Pu}), x_start = {Upss0Pu}, y_start = Upss0Pu) annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {-140, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = SystemBase.omegaRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-166, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-170, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = SystemBase.SnRef / PNomAlt) annotation(
     Placement(visible = true, transformation(origin = {-140, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Ks1) annotation(
@@ -102,7 +102,7 @@ equation
   connect(omegaPu, feedback1.u1) annotation(
     Line(points = {{-194, 40}, {-148, 40}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, feedback1.u2) annotation(
-    Line(points = {{-155, 10}, {-140, 10}, {-140, 32}}, color = {0, 0, 127}));
+    Line(points = {{-159, 10}, {-140, 10}, {-140, 32}}, color = {0, 0, 127}));
   connect(feedback1.y, washoutOmega1.u) annotation(
     Line(points = {{-131, 40}, {-122, 40}}, color = {0, 0, 127}));
   connect(limiter.y, UpssPu) annotation(
