@@ -1,5 +1,4 @@
 BaseClasses
-ApproximatedDelay
 FirstOrderLimiter
 FirstOrderWithDelay
 FixedBooleanDelay
@@ -8,7 +7,6 @@ FlipFlopS
 IntegratorOrFirstOrder
 LimitedIntegrator
 LimitedLeadLag
-Limiter
 LimiterWithLag
 LimiterWithLag_INIT
 MaxThresholdSwitch

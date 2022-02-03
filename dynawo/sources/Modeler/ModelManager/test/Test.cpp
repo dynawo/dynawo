@@ -319,6 +319,10 @@ class MyModelica: public ModelModelica {
     indexes.push_back(1);
   }
 
+  virtual bool isDataStructInitialized() const {
+    return false;
+  }
+
  private:
   ModelManager* parent_;
   unsigned nbCallF_;
