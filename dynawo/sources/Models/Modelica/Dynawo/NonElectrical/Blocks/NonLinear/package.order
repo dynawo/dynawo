@@ -4,6 +4,7 @@ FirstOrderWithDelay
 FixedBooleanDelay
 FlipFlopR
 FlipFlopS
+Hysteresis
 IntegratorOrFirstOrder
 LimitedIntegrator
 LimitedLeadLag
