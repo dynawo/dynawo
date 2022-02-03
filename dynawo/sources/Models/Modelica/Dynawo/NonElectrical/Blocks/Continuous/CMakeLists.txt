@@ -17,7 +17,6 @@ set(MODEL_FILES
   PIAntiWindupVariableLimits.mo
   Power.mo
   RateLimFirstOrderFreeze.mo
-  SecondOrder.mo
   VarLimPIDFreeze.mo
   )
 
