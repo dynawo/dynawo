@@ -30,6 +30,15 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 test_cases.append((case_name, case_description, job_file, 150, standardReturnCodeType, standardReturnCode))
 
 ###############################################
+#     WSCC9 - Fault on generator 2 node     #
+###############################################
+case_name = "DynaSwing - WSCC9 - Fault"
+case_description = "WSCC 9-bus - Fault on generator 2"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WSCC9", "WSCC9_Fault", "WSCC9.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################
 #     IEEE14 - Fault on generator 2 node     #
 ###############################################
 case_name = "DynaSwing - IEEE14 - Fault"

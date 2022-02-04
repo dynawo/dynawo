@@ -114,9 +114,9 @@ model PlantControl "WECC PV Plant Control REPC"
     Placement(visible = true, transformation(origin = {-230, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant uRefPu(k = URefPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanExpression freeze1(y = freeze)  annotation(
+  Modelica.Blocks.Sources.BooleanExpression freeze1(y = freeze) annotation(
     Placement(visible = true, transformation(origin = {100, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag(K = 1, t1 = tFt, t2 = tFv, Y0 = QInj0Pu)  annotation(
+  Modelica.Blocks.Continuous.TransferFunction leadLag(a = {tFv, 1}, b = {tFt, 1}, x_scaled(start = {QInj0Pu}), x_start = {QInj0Pu}, y_start = QInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {170, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
