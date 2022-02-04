@@ -13,24 +13,34 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block FixedBooleanDelay "Delay block with fixed delay time for boolean input"
-
   import Modelica;
   import Dynawo;
 
   extends Modelica.Blocks.Interfaces.BooleanSISO(y(start = Y0));
 
   parameter Dynawo.Types.Time tDelay "Delay time of output with respect to input signal, in s";
+
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = 1e-6)  annotation(
+    Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.BooleanToReal booleanToReal annotation(
+    Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   parameter Boolean Y0 "Initial value of output";
 
 protected
   Integer yInteger;
 
 equation
-  yInteger = floor(delay(if u then 1 else 0, tDelay));
+  yInteger = floor(delay(firstOrder.y, tDelay));
 
   when yInteger <> pre(yInteger) then
     y = not(pre(y));
   end when;
+
+  connect(u, booleanToReal.u) annotation(
+    Line(points = {{-120, 0}, {-62, 0}}, color = {255, 0, 255}));
+  connect(booleanToReal.y, firstOrder.u) annotation(
+    Line(points = {{-39, 0}, {-23, 0}}, color = {0, 0, 127}));
 
   annotation(
   preferredView = "text",
