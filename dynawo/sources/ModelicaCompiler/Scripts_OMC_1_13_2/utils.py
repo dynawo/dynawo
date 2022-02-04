@@ -156,6 +156,7 @@ def replace_var_names(line):
     ptrn_var_add = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w]+)\[(?P<varIdx>[0-9]+)\]')
     data_simulation_info = "data->simulationInfo->"
     dummy_der_var = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) DUMMY_DER \*\/')
+    state_var = re.compile(    r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) STATE\(.*\) \*\/')
     map_to_replace = {}
     pattern_index  = 0
     match = dummy_der_var.findall(line)
@@ -167,6 +168,13 @@ def replace_var_names(line):
         replacement_string = "@@@" + str(pattern_index) + "@@@"
         line = line.replace("data->localData["+str(idx)+"]->"+add, replacement_string)
         map_to_replace[replacement_string] = to_param_address(dummy_name)
+        pattern_index +=1
+    match = state_var.findall(line)
+    for idx, add, name in match:
+        test_param_address(name)
+        replacement_string = "@@@" + str(pattern_index) + "@@@"
+        line = line.replace("data->localData["+str(idx)+"]->"+add, replacement_string)
+        map_to_replace[replacement_string] = to_param_address(name)
         pattern_index +=1
     match = ptrn_var.findall(line)
     for idx, add, name in match:

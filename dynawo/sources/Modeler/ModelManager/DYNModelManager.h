@@ -293,7 +293,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @copydoc SubModel::setSubModelParameters()
    */
-  void setSubModelParameters() { /* no parameter */ }
+  void setSubModelParameters();
 
   /**
    * @brief set the submodel shared parameters value

@@ -13,7 +13,6 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
-  ApproximatedDelay.mo
   FirstOrderLimiter.mo
   FirstOrderWithDelay.mo
   FixedBooleanDelay.mo
@@ -22,7 +21,6 @@ set(MODEL_FILES
   IntegratorOrFirstOrder.mo
   LimitedIntegrator.mo
   LimitedLeadLag.mo
-  Limiter.mo
   LimiterWithLag.mo
   LimiterWithLag_INIT.mo
   MaxThresholdSwitch.mo
