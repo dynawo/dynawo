@@ -61,9 +61,9 @@ equation
             lineColor={160,160,164},
             textString="false"),Text(
             extent={{19,-87},{44,-70}},
-            textString="uHigh"),Text(
+            textString="UHigh"),Text(
             extent={{-63,-88},{-38,-71}},
-            textString="uLow"),Line(points={{-69,10},{-60,10}}, color={160,
+            textString="ULow"),Line(points={{-69,10},{-60,10}}, color={160,
           160,164})}),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
@@ -90,32 +90,30 @@ equation
         Text(
           extent={{-92,-49},{-9,-92}},
           lineColor={192,192,192},
-          textString="%uLow"),
+          textString="%ULow"),
         Text(
           extent={{2,-49},{91,-92}},
           lineColor={192,192,192},
-          textString="%uHigh"),
+          textString="%UHigh"),
         Rectangle(extent={{-91,-49},{-8,-92}}, lineColor={192,192,192}),
         Line(points={{-49,-29},{-49,-49}}, color={192,192,192}),
         Rectangle(extent={{2,-49},{91,-92}}, lineColor={192,192,192}),
         Line(points={{41,-29},{41,-49}}, color={192,192,192})}),
-    Documentation(info="<html>
+    Documentation(info= "<html>
 <p>
 This block transforms a <strong>Real</strong> input signal into a <strong>Boolean</strong>
 output signal:
 </p>
 <ul>
-<li> When the output was <strong>false</strong> and the input becomes
-   <strong>greater</strong> than parameter <strong>uHigh</strong>, the output
+<li> When the output is <strong>false</strong> and the input becomes
+   <strong>greater</strong> than parameter <strong>UHigh</strong>, the output
    switches to <strong>true</strong>.</li>
-<li> When the output was <strong>true</strong> and the input becomes
-   <strong>less</strong> than parameter <strong>uLow</strong>, the output
+<li> When the output is <strong>true</strong> and the input becomes
+   <strong>less</strong> than parameter <strong>ULow</strong>, the output
    switches to <strong>false</strong>.</li>
 </ul>
-<p>
-The start value of the output is defined via parameter
-<strong>pre_y_start</strong> (= value of pre(y) at initial time).
-The default value of this parameter is <strong>false</strong>.
-</p>
-</html>"));
+<p>At initialization, if the input is within [<b>ULow</b>, <b>UHigh</b>], the start value of the output is defined via parameter
+<strong>Y0</strong> (= value of pre(y) at initial time).
+The default value of this parameter is <strong>false</strong>.</p>
+</body></html>"));
 end Hysteresis;
