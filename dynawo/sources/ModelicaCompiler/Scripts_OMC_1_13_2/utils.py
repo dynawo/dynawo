@@ -858,13 +858,16 @@ def transform_atan3_operator_evalf(line):
 
 ##
 # Transform _event_floor(x, index, data) to (modelica_integer)floor(x)
+# and event_integer(x, index, data) to (modelica_integer)floor(x)
 # @param line : line to analyse
 # @return line transformed
 def replace_event_floor(line):
-    if "_event_floor" not in line:
+    if "_event_floor" not in line and "_event_integer" not in line:
         return line
     event_floor_ptrn = re.compile(r'_event_floor\((?P<var>[^,]*), \(\(modelica_integer\) [0-9]+\), data\)')
     line = event_floor_ptrn.sub('((modelica_integer) floor(\g<var>))',line)
+    event_int_ptrn = re.compile(r'_event_integer\((?P<var>[^,]*), \(\(modelica_integer\) [0-9]+\), data\)')
+    line = event_int_ptrn.sub('((modelica_integer) floor(\g<var>))',line)
 
     return line
 
