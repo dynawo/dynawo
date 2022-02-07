@@ -185,23 +185,23 @@ class TestCase:
     def get_case_CompilerLogFile(self):
         # Parse the jobs file
         try:
-            (jobs_root, ns, prefix) = ImportXMLFileExtended(self.jobs_file_)
+            (jobs_root, ns, prefix) = XMLUtils.ImportXMLFileExtended(self.jobs_file_)
         except:
             print("Fail to import XML file " + self.jobs_file_)
             sys.exit(1)
 
         compilerLogFile = ""
-        for job in FindAll(jobs_root, prefix, "job", ns):
+        for job in XMLUtils.FindAll(jobs_root, prefix, "job", ns):
             if (not "name" in job.attrib):
                 print("Fail to run nrtDiff : job without name in file  " + os.path.basename(self.jobs_file_))
                 sys.exit(1)
             if self.name_ == job.get("name"):
-                for outputs in FindAll(job, prefix, "outputs", ns):
+                for outputs in XMLUtils.FindAll(job, prefix, "outputs", ns):
                     if (not "directory" in outputs.attrib):
                         print("Fail to run nrtDiff : outputs directory is missing for job " + self.name_)
                         sys.exit(1)
                     # Get compiler log file name from appenders if exists
-                    for appender in FindAll(outputs, prefix, "appender", ns):
+                    for appender in XMLUtils.FindAll(outputs, prefix, "appender", ns):
                         if ("tag" in appender.attrib):
                             if ( appender.get("tag") == "COMPILE" ):
                                 if (not "file" in appender.attrib):
@@ -598,8 +598,8 @@ def LogsSeparator (test_dir):
     for name in list_files:
         file_path = os.path.join (test_dir, name)
 
-        (file_content, ns, prefix) = ImportXMLFileExtended(file_path)
-        for item in FindAll(file_content, prefix, "appender", ns):
+        (file_content, ns, prefix) = XMLUtils.ImportXMLFileExtended(file_path)
+        for item in XMLUtils.FindAll(file_content, prefix, "appender", ns):
             if 'separator' in item.attrib:
                 separator = item.attrib['separator']
                 break
