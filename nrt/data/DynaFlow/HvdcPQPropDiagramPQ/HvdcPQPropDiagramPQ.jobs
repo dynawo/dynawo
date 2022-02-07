@@ -10,8 +10,7 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
--->
-<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+--><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="HvdcPQPropDiagramPQ">
     <dyn:solver lib="dynawo_SolverSIM" parFile="solvers.par" parId="3"/>
     <dyn:modeler compileDir="outputs/compilation">
@@ -22,10 +21,9 @@
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="300"/>
     <dyn:outputs directory="outputs">
-      <dyn:finalState exportIIDMFile="true" exportDumpFile="true"/>
       <dyn:curves inputFile="HvdcPQPropDiagramPQ.crv" exportMode="CSV"/>
       <dyn:logs>
-        <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
       </dyn:logs>
     </dyn:outputs>
   </dyn:job>
