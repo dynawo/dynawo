@@ -14,11 +14,11 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 
 block FixedBooleanDelay "Delay block with fixed delay time for boolean input"
   import Modelica;
+  import Dynawo;
 
   extends Modelica.Blocks.Interfaces.BooleanSISO(y(start = Y0));
 
-  parameter Modelica.SIunits.Time tDelay "Delay time in s";
-  parameter Real Tolerance = 1e-3 "Value beyond which the boolean output signal is changed";
+  parameter Dynawo.Types.Time tDelay "Delay time in s";
 
   parameter Boolean Y0 "Initial value of output";
 
@@ -30,9 +30,9 @@ equation
   uReal = if u then 1 else 0;
   yReal = delay(uReal, tDelay);
 
-  when yReal > Tolerance then
+  when yReal > 0.5 then
     y = true;
-  elsewhen yReal < 1 - Tolerance then
+  elsewhen yReal < 0.5 then
     y = false;
   end when;
 
@@ -42,6 +42,6 @@ equation
   Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
   Documentation(info= "<html><head></head><body>
   <p>The boolean output <b>y</b> is delayed by <b>tDelay</b> compared to the Boolean input <b>u</b>.</p>
-  <p>The change in boolean output is triggered when the delayed real signal crosses a threshold (defined by <b>Tolerance</b>) near the extreme values of 0 and 1. The use of a when structure ensures that this change is instantaneous i.e. there is a rising or falling edge.</p>
+  <p>The change in boolean output is triggered when the delayed real signal crosses a threshold halfway between&nbsp;the extreme values of 0 and 1.</p><p>The use of a when structure ensures that this change is instantaneous i.e. there is a rising or falling edge.</p>
   </body></html>"));
 end FixedBooleanDelay;
