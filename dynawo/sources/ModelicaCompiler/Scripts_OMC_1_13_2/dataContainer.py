@@ -1898,8 +1898,7 @@ class INTEquation:
     def prepare_body(self):
         tmp_body=[]
         for line in self.body:
-            line = mmc_strings_len1(line)
-            line = replace_var_names(line)
+            line = transform_line(line)
             if not has_omc_equation_indexes (line):
                 if THREAD_DATA_OMC_PARAM in line:
                     line=line.replace(THREAD_DATA_OMC_PARAM, "")
@@ -1956,8 +1955,7 @@ class ZEquation:
     def prepare_body(self):
         tmp_body=[]
         for line in self.body:
-            line = mmc_strings_len1(line)
-            line = replace_var_names(line)
+            line = transform_line(line)
             if not has_omc_equation_indexes (line):
                 if THREAD_DATA_OMC_PARAM in line:
                     line=line.replace(THREAD_DATA_OMC_PARAM, "")
