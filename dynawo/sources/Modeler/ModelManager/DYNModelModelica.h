@@ -285,8 +285,15 @@ class ModelModelica {
   virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
 
   /**
+   * @brief is the internal modelica structure initialized
+   *
+   * @return true if data struct is initialized
+   */
+  virtual bool isDataStructInitialized() const = 0;
+
+  /**
    * @brief Determines if the sub model has a data check coherence operation (non empty function)
-   * @returns true if the sub model has a data check coherence operation, false if not
+   * @return true if the sub model has a data check coherence operation, false if not
    */
   inline bool hasCheckDataCoherence() const { return hasCheckDataCoherence_; }
 

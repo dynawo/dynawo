@@ -473,6 +473,9 @@ FinalStateValuesHandler::FinalStateValuesHandler(elementName_type const& root_el
                               lambda_args::arg2));
 }
 
+
+FinalStateValuesHandler::~FinalStateValuesHandler() {}
+
 void FinalStateValuesHandler::create(attributes_type const& attributes) {
   finalStateValues_ = shared_ptr<FinalStateValuesEntry>(new FinalStateValuesEntry());
   finalStateValues_->setInputFile(attributes["inputFile"]);
