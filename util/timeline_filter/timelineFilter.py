@@ -15,6 +15,7 @@ from optparse import OptionParser
 import glob
 from lxml import etree
 import zipfile
+import codecs
 
 
 
@@ -49,6 +50,7 @@ class Event :
 class Timeline :
     def __init__(self):
         self.time_to_events = {}
+        self.encoding = 'utf-8'
 
     def add_event(self, event):
         if (event.time not in self.time_to_events):
@@ -68,29 +70,11 @@ class Timeline :
             self.time_to_events[time] = new_events
 
         print ("[INFO] Removing opposed events")
-        use_iso88591 = False
-        for event in events:
-            try:
-                event.event.decode('utf-8')
-            except (UnicodeEncodeError,UnicodeDecodeError):
-                use_iso88591 = True
-                break
-        if not use_iso88591:
-            for event in dicOppositeEvents:
-                try:
-                    event.decode('utf-8')
-                    for msg in dicOppositeEvents[event]:
-                        msg.decode('utf-8')
-                except UnicodeDecodeError:
-                    use_iso88591 = True
-                    break
         for time in self.time_to_events:
             events = self.time_to_events[time]
             idx_to_check = 1
             while idx_to_check <= len(events) - 1:
                 curr_event = events[len(events) - idx_to_check]
-                if use_iso88591:
-                    curr_event.event = curr_event.event.encode('iso8859-1')
                 if curr_event.event not in dicOppositeEvents:
                         idx_to_check += 1
                         continue
@@ -118,39 +102,31 @@ class Timeline :
 
     def dump(self, filepath, type):
         print ("[INFO] dumping result into " + filepath)
-        sorted_keys = self.time_to_events.keys()
-        sorted_keys.sort()
+        sorted_keys = sorted(self.time_to_events.keys())
 
         if type == "TXT":
-            f = open(filepath, "w")
+            f = open(filepath, "wb")
             for time in sorted_keys:
                 events = self.time_to_events[time]
                 for event in events:
                     if event.priority == None:
-                        f.write(str(time) + " | " + event.model + " | " + event.event+"\n")
+                        f.write((str(time) + " | " + event.model + " | " + event.event+"\n").encode(self.encoding))
                     else:
-                        f.write(str(time) + " | " + event.model + " | " + event.event+ " | " + event.priority+"\n")
+                        f.write((str(time) + " | " + event.model + " | " + event.event+ " | " + event.priority+"\n").encode(self.encoding))
             f.close()
         elif type == "XML":
-            f = open(filepath, "w")
-            f.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n")
-            f.write("<dyn:timeline xmlns:dyn=\"http://www.rte-france.com/dynawo\">\n")
+            f = open(filepath, "wb")
+            f.write(("<?xml version=\"1.0\" encoding=\"" + self.encoding +"\" standalone=\"no\"?>\n").encode(self.encoding))
+            f.write(("<dyn:timeline xmlns:dyn=\"http://www.rte-france.com/dynawo\">\n").encode(self.encoding))
             for time in sorted_keys:
                 events = self.time_to_events[time]
                 for event in events:
-                    try:
-                        fixEncoding(event)
-                        if event.priority == None:
-                            f.write("<dyn:event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event + "\"/>\n")
-                        else:
-                            f.write("<dyn:event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event+ "\" priority=\"" + event.priority + "\"/>\n")
-                    except UnicodeEncodeError:
-                        fixEncoding(event)
-                        if event.priority == None:
-                            f.write("<dyn:event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.mode.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1') + "\"/>\n")
-                        else:
-                            f.write("<dyn:event time=\"" + str(event.time).encode('iso8859-1') + "\" modelName=\"" + event.model.encode('iso8859-1')+ "\" message=\"" + event.event.encode('iso8859-1')+ "\" priority=\"" + event.priority.encode('iso8859-1') + "\"/>\n")
-            f.write("</dyn:timeline>\n")
+                    fixEncoding(event)
+                    if event.priority == None:
+                        f.write(("<dyn:event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event + "\"/>\n").encode(self.encoding))
+                    else:
+                        f.write(("<dyn:event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event+ "\" priority=\"" + event.priority + "\"/>\n").encode(self.encoding))
+            f.write(("</dyn:timeline>\n").encode(self.encoding))
             f.close()
 
     def filterTimeLine(self, filename, dicOppositeEvents, modelsToKeep, outputName = None):
@@ -205,6 +181,12 @@ def loadOppositeEventsTable():
 
 def parseXml(filepath, timeline):
     try:
+        fh = codecs.open(filepath, 'r', encoding='utf-8')
+        fh.readlines()
+        fh.seek(0)
+    except UnicodeDecodeError:
+        timeline.encoding = 'iso8859-1'
+    try:
         (root, ns, prefix) = ImportXMLFileExtended(filepath)
     except:
         print ("[ERROR] Fail to import XML file " + filepath)
@@ -221,9 +203,15 @@ def parseXml(filepath, timeline):
         timeline.add_event(event)
 
 def parseTxt(filepath, timeline):
-    f=open(filepath, "r")
+    try:
+        fh = codecs.open(filepath, 'r', encoding='utf-8')
+        fh.readlines()
+        fh.seek(0)
+    except UnicodeDecodeError:
+        timeline.encoding = 'iso8859-1'
+    f=open(filepath, "rb")
     for line in f.readlines():
-        array = line.split('|')
+        array = line.decode(timeline.encoding).split('|')
         if (len(array) < 3):
             continue
         event = Event()

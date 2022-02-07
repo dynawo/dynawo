@@ -2469,8 +2469,8 @@ class Factory:
 
         self.list_for_evalfadept.append("  */\n")
 
-
-        for name in self.reader.auxiliary_var_to_keep:
+        auxiliary_var_to_keep_sorted = sorted(self.reader.auxiliary_var_to_keep)
+        for name in auxiliary_var_to_keep_sorted:
             self.list_for_evalfadept.append("  adept::adouble " + name +";\n")
         list_residual_vars_for_sys_build = sorted(self.reader.residual_vars_to_address_map.keys())
         for name in list_residual_vars_for_sys_build:
@@ -2874,7 +2874,8 @@ class Factory:
     def prepare_for_definitions_for_h (self):
         variable_definitions = []
         index_residual_var = 0
-        for dae_var in self.reader.auxiliary_var_to_keep:
+        auxiliary_var_to_keep_sorted = sorted(self.reader.auxiliary_var_to_keep)
+        for dae_var in auxiliary_var_to_keep_sorted:
             variable_definitions.append("#define $P"+ dae_var + " data->simulationInfo->daeModeData->auxiliaryVars["+str(index_residual_var)+"]\n")
             index_residual_var +=1
         index_aux_var = 0
