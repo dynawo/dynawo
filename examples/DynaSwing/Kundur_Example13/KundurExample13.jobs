@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -10,8 +10,7 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
--->
-<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+--><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="Kundur Example 13 - Set Point case">
       <dyn:solver lib="dynawo_SolverIDA" parFile="KundurExample13.par" parId="IDAOrder2"/>
       <dyn:modeler compileDir="outputs_AVR_SetPoint/compilation">
@@ -23,7 +22,6 @@
       </dyn:modeler>
       <dyn:simulation startTime="0" stopTime="5"/>
       <dyn:outputs directory="outputs_AVR_SetPoint">
-        <dyn:curves inputFile="KundurExample13.crv" exportMode="CSV"/>
         <dyn:logs>
           <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
         </dyn:logs>
@@ -40,7 +38,6 @@
       </dyn:modeler>
       <dyn:simulation startTime="0" stopTime="5"/>
       <dyn:outputs directory="outputs_AVR_NoPSS">
-        <dyn:curves inputFile="KundurExample13.crv" exportMode="CSV"/>
         <dyn:logs>
           <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
         </dyn:logs>
@@ -57,7 +54,6 @@
       </dyn:modeler>
       <dyn:simulation startTime="0" stopTime="5"/>
       <dyn:outputs directory="outputs_AVR_PSS">
-        <dyn:curves inputFile="KundurExample13.crv" exportMode="CSV"/>
         <dyn:logs>
           <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
         </dyn:logs>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2021, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -10,8 +10,7 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
--->
-<jobs xmlns="http://www.rte-france.com/dynawo">
+--><jobs xmlns="http://www.rte-france.com/dynawo">
     <job name="WECCWTG4B">
         <solver lib="dynawo_SolverIDA" parFile="WECCWTG4B.par" parId="Solver"/>
         <modeler compileDir="outputs/compilation">
@@ -26,7 +25,7 @@
             <curves inputFile="WECCWTG4B.crv" exportMode="CSV"/>
             <logs>
               <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
-            </logs>
+              </logs>
         </outputs>
     </job>
 </jobs>
