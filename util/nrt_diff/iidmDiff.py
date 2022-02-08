@@ -11,10 +11,10 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 # simulation tool for power systems.
 
-import operator
 import os
 import sys
-from lxml import etree
+import operator
+import XMLUtils
 
 try:
     settings_dir = os.path.join(os.path.dirname(__file__))
@@ -23,20 +23,6 @@ try:
 except Exception as exc:
     print("Failed to import nrtDiff settings : " + str(exc))
     sys.exit(1)
-
-def ImportXMLFile(path):
-    if (not os.path.isfile(path)):
-        print("No file found. Unable to import")
-        return None
-    return etree.parse(path).getroot()
-
-def ImportXMLFileExtended(path):
-    root = ImportXMLFile(path)
-    return (root, root.nsmap, root.prefix)
-
-def FindAll(root, prefix, element, ns):
-    prefix_str = "{" + str(ns[prefix]) + "}" if prefix in ns else ""
-    return root.findall(".//" + prefix_str + element)
 
 # Utility class to compare IIDM files
 class IIDMobject:
@@ -54,9 +40,9 @@ def set_values(element,what,IIDMobject):
 # Only values that can be changed by dynawo are taken into account
 def getOutputIIDMInfo(filename):
     IIDM_objects_byID = {}
-    (iidm_root, ns, prefix) = ImportXMLFileExtended(filename)
-    for voltageLevel in FindAll(iidm_root, prefix, "voltageLevel", ns):
-        for child in FindAll(voltageLevel, prefix, "*", ns):
+    (iidm_root, ns, prefix) = XMLUtils.ImportXMLFileExtended(filename)
+    for voltageLevel in XMLUtils.FindAll(iidm_root, prefix, "voltageLevel", ns):
+        for child in XMLUtils.FindAll(voltageLevel, prefix, "*", ns):
             if 'id' in child.attrib:
                 myId = child.attrib['id']
                 myObject = IIDMobject(myId)

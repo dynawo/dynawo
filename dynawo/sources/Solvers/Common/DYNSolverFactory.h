@@ -112,7 +112,7 @@ class SolverFactories : private boost::noncopyable {
    * @return A map iterator whose key is the library name and whose value
    * is a pointer to the SolverFactory.
    */
-  SolverFactoryIterator find(const std::string & lib);
+  SolverFactoryIterator find(const std::string& lib);
 
   /**
    * @brief Test if a map iterator is the end operator of factories map
@@ -131,7 +131,7 @@ class SolverFactories : private boost::noncopyable {
    * @param factory : Pointer to the SolverFactory.to add - value in the
    * map
    */
-  void add(const std::string & lib, SolverFactory * factory);
+  void add(const std::string& lib, SolverFactory* factory);
 
   /**
    * @brief Add a factory associated to its destruction method

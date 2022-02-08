@@ -479,7 +479,7 @@ class FinalStateValuesHandler : public xml::sax::parser::ComposableElementHandle
   /**
    * @brief default destructor
    */
-  ~FinalStateValuesHandler() {}
+  ~FinalStateValuesHandler();
 
   /**
    * @brief return the final state values entry read in xml file

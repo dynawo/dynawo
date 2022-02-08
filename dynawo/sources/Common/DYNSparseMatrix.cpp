@@ -66,7 +66,7 @@ SparseMatrix::changeCol() {
 }
 
 void
-SparseMatrix::addTerm(const int& row, const double& val) {
+SparseMatrix::addTerm(const int row, const double val) {
   if (!doubleIsZero(val)) {
     assert(row < nbRow_);
     // To deal with exploding matrix sizes
@@ -88,7 +88,7 @@ SparseMatrix::addTerm(const int& row, const double& val) {
 }
 
 void
-SparseMatrix::init(const int& nbRow, const int& nbCol) {
+SparseMatrix::init(const int nbRow, const int nbCol) {
   free();
 
   if (nbRow == 0) return;
@@ -111,7 +111,7 @@ SparseMatrix::init(const int& nbRow, const int& nbCol) {
 }
 
 void
-SparseMatrix::reserve(const int& nbCol) {
+SparseMatrix::reserve(const int nbCol) {
   free();
 
   if (nbCol == 0) return;

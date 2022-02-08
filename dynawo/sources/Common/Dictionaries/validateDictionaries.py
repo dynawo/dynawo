@@ -344,10 +344,12 @@ class Dictionary:
             table_to_dump[key1_text].append(key2_text)
             table_to_dump[key2_text].append(key1_text)
 
-        oe_file = open(file_name,'w')
+        encoding = 'utf-8-'
+        oe_file = open(file_name,'wb')
         if "fr_FR" in name_with_locale:
-            oe_file.write("# -*-coding:iso8859-1 -*")
-        oe_file.write('''#
+            encoding = 'iso8859-1'
+            oe_file.write(("# -*-coding:iso8859-1 -*").encode(encoding))
+        oe_file.write(('''#
 # Copyright (c) 2021, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
@@ -358,18 +360,15 @@ class Dictionary:
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
 # for power systems.
-''')
-        oe_file.write("dicOppositeEvents = {\n")
-        for key1 in table_to_dump:
+''').encode(encoding))
+        oe_file.write("dicOppositeEvents = {\n".encode(encoding))
+        for key1 in sorted(table_to_dump.keys()):
             msg_list = ""
             for key2 in table_to_dump[key1]:
                 msg_list+="'"+key2+"',"
             msg_list = msg_list[:-1]
-            try:
-                oe_file.write("    \'" + key1 + "\' : ["+msg_list+"],\n")
-            except UnicodeEncodeError:
-                oe_file.write("    \'" + key1.encode('iso8859-1') + "\' : ["+msg_list.encode('iso8859-1')+"],\n")
-        oe_file.write("}\n")
+            oe_file.write("    \'".encode(encoding) + key1.encode(encoding) + "\' : [".encode(encoding)+msg_list.encode(encoding)+"],\n".encode(encoding))
+        oe_file.write(("}\n").encode(encoding))
         oe_file.close()
 
     ##
