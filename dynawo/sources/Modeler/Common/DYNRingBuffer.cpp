@@ -30,9 +30,6 @@ RingBuffer::RingBuffer(double maxDelay) : queue_(), maxDelay_(maxDelay) {}
 void
 RingBuffer::add(double time, double value) {
   if (queue_.size() > 0 && doubleEquals(queue_.back().first, time)) {
-#if _DEBUG_
-    assert(doubleEquals(queue_.back().second, value));
-#endif
     // ignore if we add multiple time the same value
     return;
   }
