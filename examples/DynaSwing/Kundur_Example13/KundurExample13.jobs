@@ -22,6 +22,7 @@
       </dyn:modeler>
       <dyn:simulation startTime="0" stopTime="5"/>
       <dyn:outputs directory="outputs_AVR_SetPoint">
+      <dyn:curves inputFile="KundurExample13.crv" exportMode="CSV"/>
         <dyn:logs>
           <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
         </dyn:logs>
@@ -38,6 +39,7 @@
       </dyn:modeler>
       <dyn:simulation startTime="0" stopTime="5"/>
       <dyn:outputs directory="outputs_AVR_NoPSS">
+      <dyn:curves inputFile="KundurExample13.crv" exportMode="CSV"/>
         <dyn:logs>
           <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
         </dyn:logs>
@@ -54,6 +56,7 @@
       </dyn:modeler>
       <dyn:simulation startTime="0" stopTime="5"/>
       <dyn:outputs directory="outputs_AVR_PSS">
+      <dyn:curves inputFile="KundurExample13.crv" exportMode="CSV"/>
         <dyn:logs>
           <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
         </dyn:logs>
