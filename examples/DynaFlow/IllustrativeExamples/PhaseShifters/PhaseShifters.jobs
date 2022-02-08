@@ -10,8 +10,7 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
--->
-<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+--><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="PhaseShifters">
     <dyn:solver lib="dynawo_SolverSIM" parFile="solvers.par" parId="3"/>
     <dyn:modeler compileDir="outputs/compilation">
@@ -22,15 +21,10 @@
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="300"/>
     <dyn:outputs directory="outputs">
-      <dyn:dumpInitValues local="true" global="true"/>
-      <dyn:timeline exportMode="TXT"/>
-      <dyn:finalState exportIIDMFile="true" exportDumpFile="true"/>
       <dyn:curves inputFile="PhaseShifters.crv" exportMode="CSV"/>
       <dyn:logs>
-        <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
-        <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
-        <dyn:appender tag="MODELER" file="dynawoModeler.log" lvlFilter="DEBUG"/>
-      </dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+        </dyn:logs>
     </dyn:outputs>
   </dyn:job>
 </dyn:jobs>

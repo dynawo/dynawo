@@ -10,8 +10,7 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
--->
-<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+--><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="HvdcPTanPhiDangling">
     <dyn:solver lib="dynawo_SolverSIM" parFile="solver.par" parId="SimplifiedSolver"/>
     <dyn:modeler compileDir="outputs/compilation">
@@ -22,10 +21,9 @@
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="100"/>
     <dyn:outputs directory="outputs">
-      <dyn:finalState exportDumpFile="false" exportIIDMFile="true"/>
       <dyn:curves inputFile="HvdcDangling.crv" exportMode="CSV"/>
       <dyn:logs>
-        <dyn:appender file="dynawo.log" lvlFilter="DEBUG" tag=""/>
+        <dyn:appender file="dynawo.log" lvlFilter="INFO" tag=""/>
       </dyn:logs>
     </dyn:outputs>
   </dyn:job>

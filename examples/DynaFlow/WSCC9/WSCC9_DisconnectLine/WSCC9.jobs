@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2022, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
     See AUTHORS.txt
@@ -10,8 +10,7 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
--->
-<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+--><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="WSCC 9 bus test system -  Line disconnection">
     <dyn:solver lib="dynawo_SolverSIM" parFile="WSCC9.par" parId="Solver"/>
     <dyn:modeler compileDir="outputs/compilation">
@@ -22,7 +21,6 @@
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="1000"/>
     <dyn:outputs directory="outputs">
-      <dyn:finalState exportIIDMFile="true" exportDumpFile="false"/>
       <dyn:curves inputFile="WSCC9.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
