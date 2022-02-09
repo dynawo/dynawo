@@ -12,7 +12,8 @@
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="1">
-   <par type="INT" name="nbInputs" value="3"/>
+   <par type="DOUBLE" name="gain" value="0"/>
+   <par type="DOUBLE" name="Utarget" value="0"/>
   </set>
   <set id="2">
    <par type="DOUBLE" name="step_Height" value="5" />
