@@ -326,3 +326,13 @@ case_description = "SVarCPVRemoteModeHandling test case with a step on the refer
 job_file = os.path.join(os.path.dirname(__file__),  "StaticVarCompensators", "SVarC_StepURef", "SVarCPVRemoteModeHandling", "SVarC.jobs")
 
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+##########################################
+#        VoltageDiffTargetNormalizer            #
+##########################################
+
+case_name = "DynaFlow - VoltageDiffTargetNormalizer"
+case_description = "[...]"
+job_file = os.path.join(os.path.dirname(__file__),  "VoltageDiffTargetNormalizer", "VDN.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
