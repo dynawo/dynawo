@@ -12,8 +12,7 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block FirstOrderLimiter "First order filter with non-windup limiter"
-
+block LimitedFirstOrder "First-order filter with non-windup limiter"
   import Modelica;
   import Dynawo.Types;
 
@@ -23,8 +22,6 @@ block FirstOrderLimiter "First order filter with non-windup limiter"
   parameter Types.Time tFilter "Time constant in s";
   parameter Real YMax "Upper limits of output signal";
   parameter Real YMin = -YMax "Lower limits of output signal";
-  parameter Real Y0 = 0 "Initial or guess value of output" annotation(
-    Dialog(group = "Initialization"));
 
   Modelica.Blocks.Nonlinear.Limiter lim(limitsAtInit = true, uMax = YMax, uMin = YMin) annotation(
     Placement(visible = true, transformation(origin = {52, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -36,6 +33,8 @@ block FirstOrderLimiter "First order filter with non-windup limiter"
     Placement(visible = true, transformation(origin = {16, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain Gk(k = K) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  parameter Real Y0 = 0 "Initial or guess value of output";
 
 equation
   connect(Gk.u, u) annotation(
@@ -63,4 +62,4 @@ equation
  upper limiter engaged"), Text(origin = {78, 53}, extent = {{-94, 11}, {16, -3}}, textString = "Integrator discharging
  lower limiter engaged")}),
   Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">Block to implement a first order filter:</span><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>y &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;k</div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>- = ------------------</div><div style=\"font-size: 12px;\"><span class=\"Apple-tab-span\" style=\"white-space: pre;\"> </span>u&nbsp; &nbsp; &nbsp; 1 + s*tFilter</div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\">It is required that tFilter &gt; 0.</div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\">Output limiter with anti-windup is also implemented.</div></body></html>"));
-end FirstOrderLimiter;
+end LimitedFirstOrder;
