@@ -13,13 +13,12 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
-  FirstOrderLimiter.mo
-  FirstOrderWithDelay.mo
   FixedBooleanDelay.mo
   FlipFlopR.mo
   FlipFlopS.mo
   Hysteresis.mo
   IntegratorOrFirstOrder.mo
+  LimitedFirstOrder.mo
   LimitedIntegrator.mo
   LimitedLeadLag.mo
   LimiterWithLag.mo

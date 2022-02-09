@@ -42,7 +42,7 @@ model TGOV1 "IEEE Governor type TGOV1"
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = SystemBase.omegaRef0Pu) "Angular reference frequency" annotation(
     Placement(visible = true, transformation(origin = {-90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.FirstOrderLimiter firstOrderLim(tFilter = Tg1, YMax = VMax, YMin = VMin, Y0 = Pm0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(tFilter = Tg1, YMax = VMax, YMin = VMin, Y0 = Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -57,7 +57,7 @@ protected
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNom)";
 
 equation
-  connect(firstOrderLim.y, leadLag.u) annotation(
+  connect(limitedFirstOrder.y, leadLag.u) annotation(
     Line(points = {{1, 0}, {18, 0}}, color = {0, 0, 127}));
   connect(leadLag.y, feedback1.u1) annotation(
     Line(points = {{41, 0}, {52, 0}}, color = {0, 0, 127}));
@@ -71,7 +71,7 @@ equation
     Line(points = {{-40, -19}, {-40, -8}}, color = {0, 0, 127}));
   connect(feedback2.y, droop.u) annotation(
     Line(points = {{-51, -50}, {-40, -50}, {-40, -42}}, color = {0, 0, 127}));
-  connect(feedback.y, firstOrderLim.u) annotation(
+  connect(feedback.y, limitedFirstOrder.u) annotation(
     Line(points = {{-31, 0}, {-22, 0}}, color = {0, 0, 127}));
   connect(PmRefPu, feedback.u1) annotation(
     Line(points = {{-114, 0}, {-48, 0}}, color = {0, 0, 127}));

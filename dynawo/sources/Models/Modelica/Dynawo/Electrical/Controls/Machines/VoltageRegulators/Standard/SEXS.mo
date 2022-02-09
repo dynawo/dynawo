@@ -37,7 +37,7 @@ model SEXS "IEEE Automatic Voltage Regulator type SEXS (Simplified excitation sy
   Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) " Voltage output un pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.NonElectrical.Blocks.NonLinear.FirstOrderLimiter firstOrderLim(tFilter = Te, K = K, YMax = EMax, YMin = EMin, Y0 = Efd0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(tFilter = Te, K = K, YMax = EMax, YMin = EMin, Y0 = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction leadLag(a = {Tb, 1}, b = {Ta, 1}, x_scaled(start = {Efd0Pu / K}), x_start = {Efd0Pu / K}, y_start = Efd0Pu / K) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -58,11 +58,10 @@ equation
     Line(points = {{-114, 40}, {-70, 40}, {-70, 8}, {-62, 8}}, color = {0, 0, 127}));
   connect(add3.y, leadLag.u) annotation(
     Line(points = {{-38, 0}, {-12, 0}}, color = {0, 0, 127}));
-  connect(leadLag.y, firstOrderLim.u) annotation(
+  connect(leadLag.y, limitedFirstOrder.u) annotation(
     Line(points = {{11, 0}, {38, 0}}, color = {0, 0, 127}));
-  connect(firstOrderLim.y, EfdPu) annotation(
+  connect(limitedFirstOrder.y, EfdPu) annotation(
     Line(points = {{61, 0}, {110, 0}}, color = {0, 0, 127}));
-
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),
