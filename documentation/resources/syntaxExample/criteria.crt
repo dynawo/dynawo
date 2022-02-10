@@ -9,9 +9,14 @@
     <country id="FR"/>
   </busCriteria>
   <loadCriteria>
-    <parameters id ="maximum sum of load active power" scope="DYNAMIC" type="SUM" pMax="100" uMaxPu="0.6"/>
+    <parameters id ="maximum sum of load active power" scope="DYNAMIC" type="SUM" pMax="100">
+      <voltageLevel uMaxPu="0.6"/>
+    </parameters>
   </loadCriteria>
   <generatorCriteria>
-    <parameters id ="maximum sum of generator active power" scope="DYNAMIC" type="SUM" pMax="100" uMinPu="0.6" uNomMin="180"/>
+    <parameters id ="maximum sum of generator active power" scope="DYNAMIC" type="SUM" pMax="100">
+      <voltageLevel  uMinPu="0.8" uNomMin="180"/>
+      <voltageLevel  uMinPu="0.9" uNomMin="220"/>
+    </parameters>
   </generatorCriteria>
 </criteria>
