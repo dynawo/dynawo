@@ -90,7 +90,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::setParameters(const boost::shared_ptr<parameters::ParametersSet> &params)
    */
-  void setParameters(const boost::shared_ptr<parameters::ParametersSet> &params);
+  void setParameters(const boost::shared_ptr<parameters::ParametersSet>& params);
 
   /**
    * @copydoc Solver::defineParameters()
@@ -125,22 +125,22 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::checkUnusedParameters()
    */
-  void checkUnusedParameters(boost::shared_ptr<parameters::ParametersSet> params);
+  void checkUnusedParameters(const boost::shared_ptr<parameters::ParametersSet>& params) const;
 
   /**
    * @copydoc Solver::findParameter(const std::string &name)
    */
-  ParameterSolver& findParameter(const std::string &name);
+  ParameterSolver& findParameter(const std::string& name);
 
   /**
-   * @copydoc Solver::setParameterFromSet(const std::string &parName, const boost::shared_ptr<parameters::ParametersSet> parametersSet)
+   * @copydoc Solver::setParameterFromSet(const std::string& parName, const boost::shared_ptr<parameters::ParametersSet>& parametersSet)
    */
-  void setParameterFromSet(const std::string &parName, const boost::shared_ptr<parameters::ParametersSet> parametersSet);
+  void setParameterFromSet(const std::string& parName, const boost::shared_ptr<parameters::ParametersSet>& parametersSet);
 
   /**
-   * @copydoc Solver::setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet> &params)
+   * @copydoc Solver::setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet>& params)
    */
-  void setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet> &params);
+  void setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet>& params);
 
   /**
    * @copydoc Solver::setSolverParameters()
@@ -166,9 +166,9 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual void setSolverSpecificParameters() = 0;
 
   /**
-   * @copydoc Solver::init(const boost::shared_ptr<Model> &model, const double &t0, const double &tEnd)
+   * @copydoc Solver::init(const boost::shared_ptr<Model>& model, double t0, double tEnd)
    */
-  virtual void init(const boost::shared_ptr<Model> &model, const double &t0, const double &tEnd) = 0;
+  virtual void init(const boost::shared_ptr<Model>& model, double t0, double tEnd) = 0;
 
   /**
    * @copydoc Solver::calculateIC()
@@ -178,7 +178,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::solve(double tAim, double &tNxt)
    */
-  void solve(double tAim, double &tNxt);
+  void solve(double tAim, double& tNxt);
 
   /**
    * @copydoc Solver::reinit()
@@ -234,7 +234,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::setTimeline(const boost::shared_ptr<timeline::Timeline> &timeline)
    */
-  void setTimeline(const boost::shared_ptr<timeline::Timeline> &timeline);
+  void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
 
  protected:
   /**
@@ -243,14 +243,14 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @param parameter the desired parameter
    * @param value the value to set
    */
-  template <typename T> void setParameterValue(ParameterSolver &parameter, const T &value);
+  template <typename T> void setParameterValue(ParameterSolver& parameter, const T& value);
 
   /**
    * @brief initialize all internal structure of the solver
    * @param t0 initial time of the simulation
    * @param model model to simulate, gives the size of all internal structure
    */
-  void init(const double& t0, const boost::shared_ptr<Model> &model);
+  void init(double t0, const boost::shared_ptr<Model>& model);
 
   /**
    * @brief delete all internal structure allocated by init method
@@ -279,7 +279,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    *
    * @return @b true zero crossing functions or discretes variables have changed
    */
-  bool evalZMode(std::vector<state_g> &G0, std::vector<state_g> &G1, const double &time);
+  bool evalZMode(std::vector<state_g>& G0, std::vector<state_g>& G1, double time);
 
   /**
    * @brief print the unstable roots
@@ -306,7 +306,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @param tAim the next time at which a computed solution is desired
    * @param tNxt the time reached by the solver
    */
-  virtual void solveStep(double tAim, double &tNxt) = 0;
+  virtual void solveStep(double tAim, double& tNxt) = 0;
 
   /**
    * @copydoc Solver::setupNewAlgRestoration(modeChangeType_t modeChangeType)

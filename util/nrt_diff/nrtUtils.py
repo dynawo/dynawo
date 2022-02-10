@@ -15,7 +15,7 @@ import sys
 import time
 import subprocess
 import signal
-from iidmDiff import FindAll, ImportXMLFileExtended
+from XMLUtils import FindAll, ImportXMLFileExtended
 import nrtDiff
 
 CURVES_TYPE_XML = 1

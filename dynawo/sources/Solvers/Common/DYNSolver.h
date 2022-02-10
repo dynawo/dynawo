@@ -87,7 +87,7 @@ class Solver {
    *
    * @param params parameter set used to set the solver's parameters
    */
-  virtual void setParameters(const boost::shared_ptr<parameters::ParametersSet> &params) = 0;
+  virtual void setParameters(const boost::shared_ptr<parameters::ParametersSet>& params) = 0;
 
   /**
    * @brief define each parameters of the solver
@@ -116,7 +116,7 @@ class Solver {
    * @param nameParameter name of the parameter
    * @return @b true if the parameter exists inside the solver
    */
-  virtual bool hasParameter(const std::string &nameParameter) = 0;
+  virtual bool hasParameter(const std::string& nameParameter) = 0;
 
   /**
    * @brief Getter for attribute parameters_
@@ -132,7 +132,7 @@ class Solver {
    *
    * @param params parameter set to check
    */
-  virtual void checkUnusedParameters(boost::shared_ptr<parameters::ParametersSet> params) = 0;
+  virtual void checkUnusedParameters(const boost::shared_ptr<parameters::ParametersSet>& params) const = 0;
 
   /**
    * @brief search for a parameter with a given name
@@ -140,7 +140,7 @@ class Solver {
    * @param name name of the desired parameter
    * @return desired parameter
    */
-  virtual ParameterSolver& findParameter(const std::string &name) = 0;
+  virtual ParameterSolver& findParameter(const std::string& name) = 0;
 
   /**
    * @brief set a parameter value from a parameters set
@@ -148,14 +148,14 @@ class Solver {
    * @param parName the name of the parameter to be set
    * @param parametersSet the set to scan for a value
    */
-  virtual void setParameterFromSet(const std::string &parName, const boost::shared_ptr<parameters::ParametersSet> parametersSet) = 0;
+  virtual void setParameterFromSet(const std::string& parName, const boost::shared_ptr<parameters::ParametersSet>& parametersSet) = 0;
 
   /**
    * @brief set all parameters values from a parameters set (API PAR)
    *
    * @param params parameter set to check
   */
-  virtual void setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet> &params) = 0;
+  virtual void setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet>& params) = 0;
 
   /**
    * @brief set the solver parameters value
@@ -179,7 +179,7 @@ class Solver {
    * @param t0 start time of the simulation
    * @param tEnd end time of the simulation
    */
-  virtual void init(const boost::shared_ptr<Model> &model, const double &t0, const double &tEnd) = 0;
+  virtual void init(const boost::shared_ptr<Model>& model, double t0, double tEnd) = 0;
 
   /**
    * @brief Calculate the intial condition of the DAE
@@ -192,7 +192,7 @@ class Solver {
    * @param tAim the next time at which a computed solution is desired
    * @param tNxt the time reached by the solver
    */
-  virtual void solve(double tAim, double &tNxt) = 0;
+  virtual void solve(double tAim, double& tNxt) = 0;
 
   /**
    * @brief Restore the equations after an algebraic mode - reinitialize the DAE problem (new initial point)
@@ -262,7 +262,7 @@ class Solver {
    *
    * @param timeline timeline to use
    */
-  virtual void setTimeline(const boost::shared_ptr<timeline::Timeline> &timeline) = 0;
+  virtual void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline) = 0;
 
   /**
    * @brief initialize the algebraic restoration solver with the good settings
