@@ -19,6 +19,7 @@ set(MODEL_FILES
   IncreaseDetection.mo
   IntegratorWithReset.mo
   IntegratorSetFreeze.mo
+  LeadLag.mo
   LeadMOrderLag.mo
   LimitedPI.mo
   LimPIDFreeze.mo

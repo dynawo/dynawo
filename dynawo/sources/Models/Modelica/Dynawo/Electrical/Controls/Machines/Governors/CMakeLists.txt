@@ -17,6 +17,10 @@ set(MODEL_FILES
   package.mo
   package.order
   Governor_INIT.mo
+  GovernorBPA_GG.mo
+  GovernorBPA_GG.extvar
+  HydroTurbineGovernor.mo
+  HydroTurbineGovernor.extvar
   )
 
 #

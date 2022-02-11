@@ -43,6 +43,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4B.xml
   GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B.xml
   GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2BStepURef.xml
+  GeneratorSynchronousFourWindingsHydroG_IEEET1VR.xml
+  GeneratorSynchronousFourWindingsGovernorBPAGG_IEEET1VR.xml
   GenericAutomaton.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
