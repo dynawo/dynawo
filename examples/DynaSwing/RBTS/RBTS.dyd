@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="LOAD-2" lib="LoadAlphaBeta" parFile="RBTS.par" parId="GenericLoadAlphaBeta" staticId="LOAD-2"/>
+  <dyn:blackBoxModel id="LOAD-3" lib="LoadAlphaBeta" parFile="RBTS.par" parId="GenericLoadAlphaBeta" staticId="LOAD-3"/>
+  <dyn:blackBoxModel id="LOAD-5" lib="LoadAlphaBeta" parFile="RBTS.par" parId="GenericLoadAlphaBeta" staticId="LOAD-5"/>
+  <dyn:blackBoxModel id="LOAD-6" lib="LoadAlphaBeta" parFile="RBTS.par" parId="GenericLoadAlphaBeta" staticId="LOAD-6"/>
+
+  <dyn:blackBoxModel id="GEN-1" lib="GeneratorSynchronousFourWindingsGovernorBPAGG_IEEET1VR" parFile="RBTS.par" parId="Coal40MW" staticId="GEN-1">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN-1_0" lib="GeneratorSynchronousFourWindingsGovernorBPAGG_IEEET1VR" parFile="RBTS.par" parId="Coal40MW" staticId="GEN-1#0">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN-2" lib="GeneratorSynchronousFourWindingsHydroG_IEEET1VR" parFile="RBTS.par" parId="Hydro5MW" staticId="GEN-2">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN-2_0" lib="GeneratorSynchronousFourWindingsHydroG_IEEET1VR" parFile="RBTS.par" parId="Hydro5MW" staticId="GEN-2#0">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN-2_1" lib="GeneratorSynchronousFourWindingsHydroG_IEEET1VR" parFile="RBTS.par" parId="Hydro40MW" staticId="GEN-2#1">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN-2_2" lib="GeneratorSynchronousFourWindingsHydroG_IEEET1VR" parFile="RBTS.par" parId="Hydro20MW" staticId="GEN-2#2">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN-2_3" lib="GeneratorSynchronousFourWindingsHydroG_IEEET1VR" parFile="RBTS.par" parId="Hydro20MW" staticId="GEN-2#3">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN-2_4" lib="GeneratorSynchronousFourWindingsHydroG_IEEET1VR" parFile="RBTS.par" parId="Hydro20MW" staticId="GEN-2#4">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN-2_5" lib="GeneratorSynchronousFourWindingsHydroG_IEEET1VR" parFile="RBTS.par" parId="Hydro20MW" staticId="GEN-2#5">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+
+  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="RBTS.par" parId="OmegaRef"/>
+  <dyn:macroConnector id="M1S_OMEGAREF_CONNECTOR">
+    <dyn:connect var1="omega_grp_@INDEX@" var2="generator_omegaPu"/>
+    <dyn:connect var1="running_grp_@INDEX@" var2="generator_running"/>
+    <dyn:connect var1="omegaRef_grp_@INDEX@" var2="generator_omegaRefPu"/>
+  </dyn:macroConnector>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="0" id2="GEN-1"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="BUS-1_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="1" id2="GEN-1_0"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_1" id2="NETWORK" var2="BUS-1_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="2" id2="GEN-2"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_2" id2="NETWORK" var2="BUS-1_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="3" id2="GEN-2_0"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_3" id2="NETWORK" var2="BUS-1_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="4" id2="GEN-2_1"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_4" id2="NETWORK" var2="BUS-1_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="5" id2="GEN-2_2"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_5" id2="NETWORK" var2="BUS-1_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="6" id2="GEN-2_3"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_6" id2="NETWORK" var2="BUS-1_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="7" id2="GEN-2_4"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_7" id2="NETWORK" var2="BUS-1_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="8" id2="GEN-2_5"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_8" id2="NETWORK" var2="BUS-1_numcc"/>
+
+  <dyn:connect id1="GEN-1" var1="generator_terminal" id2="NETWORK" var2="BUS-1_ACPIN"/>
+  <dyn:connect id1="GEN-1" var1="generator_switchOffSignal1" id2="NETWORK" var2="BUS-1_switchOff"/>
+  <dyn:connect id1="GEN-1_0" var1="generator_terminal" id2="NETWORK" var2="BUS-1_ACPIN"/>
+  <dyn:connect id1="GEN-1_0" var1="generator_switchOffSignal1" id2="NETWORK" var2="BUS-1_switchOff"/>
+  <dyn:connect id1="GEN-2" var1="generator_terminal" id2="NETWORK" var2="BUS-2_ACPIN"/>
+  <dyn:connect id1="GEN-2" var1="generator_switchOffSignal1" id2="NETWORK" var2="BUS-2_switchOff"/>
+  <dyn:connect id1="GEN-2_0" var1="generator_terminal" id2="NETWORK" var2="BUS-2_ACPIN"/>
+  <dyn:connect id1="GEN-2_0" var1="generator_switchOffSignal1" id2="NETWORK" var2="BUS-2_switchOff"/>
+  <dyn:connect id1="GEN-2_1" var1="generator_terminal" id2="NETWORK" var2="BUS-2_ACPIN"/>
+  <dyn:connect id1="GEN-2_1" var1="generator_switchOffSignal1" id2="NETWORK" var2="BUS-2_switchOff"/>
+  <dyn:connect id1="GEN-2_2" var1="generator_terminal" id2="NETWORK" var2="BUS-2_ACPIN"/>
+  <dyn:connect id1="GEN-2_2" var1="generator_switchOffSignal1" id2="NETWORK" var2="BUS-2_switchOff"/>
+  <dyn:connect id1="GEN-2_3" var1="generator_terminal" id2="NETWORK" var2="BUS-2_ACPIN"/>
+  <dyn:connect id1="GEN-2_3" var1="generator_switchOffSignal1" id2="NETWORK" var2="BUS-2_switchOff"/>
+  <dyn:connect id1="GEN-2_4" var1="generator_terminal" id2="NETWORK" var2="BUS-2_ACPIN"/>
+  <dyn:connect id1="GEN-2_4" var1="generator_switchOffSignal1" id2="NETWORK" var2="BUS-2_switchOff"/>
+  <dyn:connect id1="GEN-2_5" var1="generator_terminal" id2="NETWORK" var2="BUS-2_ACPIN"/>
+  <dyn:connect id1="GEN-2_5" var1="generator_switchOffSignal1" id2="NETWORK" var2="BUS-2_switchOff"/>
+
+  <dyn:connect id1="LOAD-2" var1="load_terminal" id2="NETWORK" var2="BUS-2_ACPIN"/>
+  <dyn:connect id1="LOAD-3" var1="load_terminal" id2="NETWORK" var2="BUS-3_ACPIN"/>
+  <dyn:connect id1="LOAD-5" var1="load_terminal" id2="NETWORK" var2="BUS-5_ACPIN"/>
+  <dyn:connect id1="LOAD-6" var1="load_terminal" id2="NETWORK" var2="BUS-6_ACPIN"/>
+  <dyn:connect id1="LOAD-2" var1="load_switchOffSignal1" id2="NETWORK" var2="BUS-2_switchOff"/>
+  <dyn:connect id1="LOAD-3" var1="load_switchOffSignal1" id2="NETWORK" var2="BUS-3_switchOff"/>
+  <dyn:connect id1="LOAD-5" var1="load_switchOffSignal1" id2="NETWORK" var2="BUS-5_switchOff"/>
+  <dyn:connect id1="LOAD-6" var1="load_switchOffSignal1" id2="NETWORK" var2="BUS-6_switchOff"/>
+
+  <dyn:blackBoxModel id="FAULT_BUS_2" lib="NodeFault" parFile="RBTS.par" parId="Fault"/>
+  <dyn:connect id1="FAULT_BUS_2" var1="fault_terminal" id2="NETWORK" var2="BUS-2_ACPIN"/>
+
+  <dyn:blackBoxModel id="DISCONNECT_LINE" lib="EventQuadripoleDisconnection" parFile="RBTS.par" parId="LineDisc"/>
+  <dyn:connect id1="DISCONNECT_LINE" var1="event_state1_value" id2="NETWORK" var2="LINE-2-4_state_value"/>
+
+  <dyn:blackBoxModel id="DISCONNECT_GEN" lib="EventSetPointBoolean" parFile="RBTS.par" parId="GenDisc"/>
+  <dyn:connect id1="DISCONNECT_GEN" var1="event_state1" id2="GEN-2_2" var2="generator_switchOffSignal2"/>
+
+  <!--<dyn:blackBoxModel id="MODEL_LOAD_VARIATION_AREA" lib="DYNModelVariationArea" parFile="RBTS.par" parId="LoadFlexibility"/>
+  <dyn:connect id1="MODEL_LOAD_VARIATION_AREA" var1="DeltaPc_load_0" id2="NETWORK" var2="LOAD-4_DeltaPc"/>
+  <dyn:connect id1="MODEL_LOAD_VARIATION_AREA" var1="DeltaQc_load_0" id2="NETWORK" var2="LOAD-4_DeltaQc"/>-->
+
+  <dyn:blackBoxModel id="LOAD-4" lib="LoadAlphaBeta" parFile="RBTS.par" parId="GenericLoadAlphaBeta" staticId="LOAD-4"/>
+  <dyn:connect id1="LOAD-4" var1="load_terminal" id2="NETWORK" var2="BUS-4_ACPIN"/>
+  <dyn:connect id1="LOAD-4" var1="load_switchOffSignal1" id2="NETWORK" var2="BUS-4_switchOff"/>
+  <dyn:blackBoxModel id="Load_4_Change" lib="EventSetPointDoubleReal" parFile="RBTS.par" parId="Load_4_Change"/>
+  <dyn:connect id1="Load_4_Change" var1="event_state1_value" id2="LOAD-4" var2="load_PRefPu"/>
+  <dyn:connect id1="Load_4_Change" var1="event_state2_value" id2="LOAD-4" var2="load_QRefPu"/>
+  <dyn:blackBoxModel id="Load_4_Restore" lib="EventSetPointDoubleReal" parFile="RBTS.par" parId="Load_4_Restore"/>
+  <dyn:connect id1="Load_4_Restore" var1="event_state1_value" id2="LOAD-4" var2="load_PRefPu"/>
+  <dyn:connect id1="Load_4_Restore" var1="event_state2_value" id2="LOAD-4" var2="load_QRefPu"/>
+</dyn:dynamicModelsArchitecture>

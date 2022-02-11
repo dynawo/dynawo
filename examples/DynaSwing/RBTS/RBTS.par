@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+
+
+    Sources:
+      - Generator, steam governor and exciter parameters:
+      Vijay Vittal, James D. McCalley. Power System Control
+      and Stability, third edition. Annex D "Typical System Data"
+      - Hydro governor: Y. Wang, W. Li and J. Lu, "Reliability Analysis of Wide-Area
+      Measurement System," in IEEE Transactions on Power Delivery, vol. 25, no. 3,
+      pp. 1483-1491, July 2010, doi: 10.1109/TPWRD.2010.2041797.
+
+      Regarding generator parameters, the reference book gives the parameters of a list
+      of machines (for all the different generation types (i.e. hydro, steam, nuclear, etc.).
+      However, the list does not necessarily contains generators with the
+      same rated power as the machines in our system. We thus take as "reference machines"
+      the ones which rated power is the closest to the ones of our system. We justify it
+      like this:
+        1. The parameters values in pu should not vary much with the rated power
+        2. This is prefered to taking the "average" parameter values, such that each machine
+           has a "consistent" set of parameters
+
+      Also, the value of all parameters is not necessary given, the approximation used to
+      find a value is mentioned each time.
+
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Network">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="load_Tp" value="90"/>
+    <par type="DOUBLE" name="load_Tq" value="90"/>
+    <par type="DOUBLE" name="load_alpha" value="2"/>
+    <par type="DOUBLE" name="load_alphaLong" value="0"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="load_betaLong" value="0"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+    <par type="BOOL" name="LOAD-4_isControllable" value="true"/>
+    <par type="BOOL" name="load_isRestorative" value="false"/>
+    <par type="DOUBLE" name="load_zPMax" value="100"/>
+    <par type="DOUBLE" name="load_zQMax" value="100"/>
+    <par type="DOUBLE" name="reactance_no_reclosing_delay" value="0"/>
+    <par type="DOUBLE" name="transformer_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="transformer_t1st_HT" value="60"/>
+    <par type="DOUBLE" name="transformer_t1st_THT" value="30"/>
+    <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
+    <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
+    <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
+  </set>
+  <set id="GenericLoadAlphaBeta">
+    <par type="DOUBLE" name="load_alpha" value="2"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="Coal10MW">
+    <!--Generator-->
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <!--TODO-->
+  </set>
+  <set id="Coal20MW">
+    <!--Generator-->
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <!--TODO-->
+  </set>
+  <set id="Coal40MW"> <!--40MW coal unit, reference machine = F3-->
+    <!--Generator-->
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_md" value="0.0"/> <!--Neglect saturation to ease comparison between simulators-->
+    <par type="DOUBLE" name="generator_mq" value="0.0"/>
+    <par type="DOUBLE" name="generator_nd" value="0.0"/>
+    <par type="DOUBLE" name="generator_nq" value="0.0"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par type="DOUBLE" name="generator_DPu" value="2"/>
+    <par type="DOUBLE" name="generator_H" value="5.078125"/> <!--260MWs/51.2MW-->
+    <par type="DOUBLE" name="generator_RaPu" value="0.00"/>
+    <par type="DOUBLE" name="generator_XlPu" value="0.108"/>
+    <par type="DOUBLE" name="generator_XdPu" value="1.270"/>
+    <par type="DOUBLE" name="generator_XpdPu" value="0.209"/>
+    <par type="DOUBLE" name="generator_XppdPu" value="0.105"/>
+    <par type="DOUBLE" name="generator_Tpd0" value="6.600"/>
+    <par type="DOUBLE" name="generator_Tppd0" value="0.038"/> <!--Taken from F4-->
+    <par type="DOUBLE" name="generator_XqPu" value="1.240"/>
+    <par type="DOUBLE" name="generator_XpqPu" value="0.850"/>
+    <par type="DOUBLE" name="generator_XppqPu" value="0.116"/>
+    <par type="DOUBLE" name="generator_Tpq0" value="0.300"/> <!--Taken from F4-->
+    <par type="DOUBLE" name="generator_Tppq0" value="0.099"/> <!--Taken from F4-->
+    <par type="DOUBLE" name="generator_UNom" value="13.8"/>
+    <par type="DOUBLE" name="generator_SNom" value="50"/> <!--40/0.8-->
+    <par type="DOUBLE" name="generator_PNomTurb" value="40"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="40"/>
+    <par type="DOUBLE" name="generator_SnTfo" value="50"/>
+    <par type="DOUBLE" name="generator_UNomHV" value="230"/>
+    <par type="DOUBLE" name="generator_UNomLV" value="13.8"/>
+    <par type="DOUBLE" name="generator_UBaseHV" value="230"/>
+    <par type="DOUBLE" name="generator_UBaseLV" value="13.8"/>
+    <par type="DOUBLE" name="generator_RTfPu" value="0.0"/> <!--Assume an impedance of 0.1 for all transformers (no resistance)-->
+    <par type="DOUBLE" name="generator_XTfPu" value="0.1"/>
+    <!--Voltage regulator-->
+    <par type="DOUBLE" name="voltageRegulator_VRmax" value="0.613"/>
+    <par type="DOUBLE" name="voltageRegulator_VRmin" value="-0.613"/>
+    <par type="DOUBLE" name="voltageRegulator_Tr" value="0.0001"/> <!--Non-zero for numerical reasons-->
+    <par type="DOUBLE" name="voltageRegulator_Ka" value="400"/>
+    <par type="DOUBLE" name="voltageRegulator_Ta" value="0.050"/>
+    <par type="DOUBLE" name="voltageRegulator_Ke" value="-0.0769"/>
+    <par type="DOUBLE" name="voltageRegulator_Te" value="1.370"/>
+    <par type="DOUBLE" name="voltageRegulator_Kf" value="0.040"/>
+    <par type="DOUBLE" name="voltageRegulator_Tf" value="1"/>
+    <par type="DOUBLE" name="voltageRegulator_E1" value="3.0975"/> <!--0.75 * 4.13-->
+    <par type="DOUBLE" name="voltageRegulator_SE1" value="0.1120"/>
+    <par type="DOUBLE" name="voltageRegulator_E2" value="4.13"/>
+    <par type="DOUBLE" name="voltageRegulator_SE2" value="0.2254"/>
+    <!--Governor-->
+    <par type="DOUBLE" name="governor_KGover" value="12.8205"/> <!--1/R-->
+    <par type="DOUBLE" name="governor_PMin" value="0"/>
+    <par type="DOUBLE" name="governor_PMax" value="51.7578"/> <!--Pnom * 53.00/(51.2*0.8)-->
+    <par type="DOUBLE" name="governor_PNom" value="40"/>
+    <par type="DOUBLE" name="governor_T1" value="0.200"/>
+    <par type="DOUBLE" name="governor_T2" value="0.001"/> <!--Non-zero for numerical reasons-->
+    <par type="DOUBLE" name="governor_T3" value="0.300"/>
+    <par type="DOUBLE" name="governor_T4" value="0.090"/>
+    <par type="DOUBLE" name="governor_T5" value="1"/> <!--F = 1 => not used-->
+    <par type="DOUBLE" name="governor_F" value="1"/>
+
+    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
+    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+
+  <set id="Hydro5MW"> <!--5MW hydro unit, reference machine = H1 (smallest machine -> less data, but also less critical)-->
+    <!--Generator-->
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_md" value="0.0"/> <!--Neglect saturation to ease comparison between simulators-->
+    <par type="DOUBLE" name="generator_mq" value="0.0"/>
+    <par type="DOUBLE" name="generator_nd" value="0.0"/>
+    <par type="DOUBLE" name="generator_nq" value="0.0"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par type="DOUBLE" name="generator_DPu" value="2"/>
+    <par type="DOUBLE" name="generator_H" value="2.61111111"/> <!--23.5MWs/9MW-->
+    <par type="DOUBLE" name="generator_RaPu" value="0.003"/> <!--From H2 (17.5MW machine)-->
+    <par type="DOUBLE" name="generator_XlPu" value="0.310"/> <!--From H2-->
+    <par type="DOUBLE" name="generator_XdPu" value="0.911"/>
+    <par type="DOUBLE" name="generator_XpdPu" value="0.408"/>
+    <par type="DOUBLE" name="generator_XppdPu" value="0.329"/>
+    <par type="DOUBLE" name="generator_Tpd0" value="4.200"/>
+    <par type="DOUBLE" name="generator_Tppd0" value="0.07815"/> <!--Tppd of H2 taken, Tppd0 = Tppd * Xpd/Xppd = 0.035*0.911/0.408-->
+    <par type="DOUBLE" name="generator_XqPu" value="0.580"/>
+    <par type="DOUBLE" name="generator_XpqPu" value="0.575"/> <!--Different from Xq for numerical reasons-->
+    <par type="DOUBLE" name="generator_XppqPu" value="0.570"/> <!--Equal to Xpq--> <!--Different from Xq for numerical reasons-->
+    <par type="DOUBLE" name="generator_Tpq0" value="0.01"/> <!--Small value (since Xq=Xpq)-->
+    <par type="DOUBLE" name="generator_Tppq0" value="0.001"/> <!--Small value-->
+    <par type="DOUBLE" name="generator_UNom" value="6.9"/>
+    <par type="DOUBLE" name="generator_SNom" value="5.555"/> <!--5/0.9-->
+    <par type="DOUBLE" name="generator_PNomTurb" value="5"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="5"/>
+    <par type="DOUBLE" name="generator_SnTfo" value="5.555"/>
+    <par type="DOUBLE" name="generator_UNomHV" value="230"/>
+    <par type="DOUBLE" name="generator_UNomLV" value="6.9"/>
+    <par type="DOUBLE" name="generator_UBaseHV" value="230"/>
+    <par type="DOUBLE" name="generator_UBaseLV" value="6.9"/>
+    <par type="DOUBLE" name="generator_RTfPu" value="0.0"/> <!--Assume an impedance of 0.1 for all transformers (no resistance)-->
+    <par type="DOUBLE" name="generator_XTfPu" value="0.1"/>
+    <!--Voltage regulator-->
+    <par type="DOUBLE" name="voltageRegulator_VRmax" value="4.32"/>
+    <par type="DOUBLE" name="voltageRegulator_VRmin" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_Tr" value="0.0001"/> <!--Non-zero for numerical reasons-->
+    <par type="DOUBLE" name="voltageRegulator_Ka" value="20"/> <!--Ka and Ta have been swapped in the reference book-->
+    <par type="DOUBLE" name="voltageRegulator_Ta" value="0.050"/>
+    <par type="DOUBLE" name="voltageRegulator_Ke" value="1"/>
+    <par type="DOUBLE" name="voltageRegulator_Te" value="2.019"/>
+    <par type="DOUBLE" name="voltageRegulator_Kf" value="0.0"/>
+    <par type="DOUBLE" name="voltageRegulator_Tf" value="1"/> <!--Kf=0 -> not used-->
+    <par type="DOUBLE" name="voltageRegulator_E1" value="2.34"/> <!--0.75 * 3.12-->
+    <par type="DOUBLE" name="voltageRegulator_SE1" value="0.099"/>
+    <par type="DOUBLE" name="voltageRegulator_E2" value="3.12"/>
+    <par type="DOUBLE" name="voltageRegulator_SE2" value="0.385"/>
+    <!--Governor-->
+    <par type="DOUBLE" name="governor_At" value="1.1"/>
+    <par type="DOUBLE" name="governor_D" value="0.5"/>
+    <par type="DOUBLE" name="governor_Tw" value="1.3"/>
+    <par type="DOUBLE" name="governor_qnL" value="0.08"/>
+    <par type="DOUBLE" name="governor_Gmax" value="1"/>
+    <par type="DOUBLE" name="governor_Gmin" value="0"/>
+    <par type="DOUBLE" name="governor_Hdam" value="1"/>
+    <par type="DOUBLE" name="governor_VelMax" value="0.2"/>
+    <par type="DOUBLE" name="governor_R" value="0.05"/>
+    <par type="DOUBLE" name="governor_r" value="0.3"/>
+    <par type="DOUBLE" name="governor_Tf" value="0.05"/>
+    <par type="DOUBLE" name="governor_Tr" value="5.2"/>
+    <par type="DOUBLE" name="governor_Tg" value="0.5"/>
+    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
+    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="Hydro20MW"> <!--20MW hydro unit, reference machine = H2-->
+    <!--Generator-->
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_md" value="0.0"/> <!--Neglect saturation to ease comparison between simulators-->
+    <par type="DOUBLE" name="generator_mq" value="0.0"/>
+    <par type="DOUBLE" name="generator_nd" value="0.0"/>
+    <par type="DOUBLE" name="generator_nq" value="0.0"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par type="DOUBLE" name="generator_DPu" value="2"/>
+    <par type="DOUBLE" name="generator_H" value="6.6857"/> <!--117MWs/17.5MW-->
+    <par type="DOUBLE" name="generator_RaPu" value="0.003"/>
+    <par type="DOUBLE" name="generator_XlPu" value="0.310"/>
+    <par type="DOUBLE" name="generator_XdPu" value="1.070"/>
+    <par type="DOUBLE" name="generator_XpdPu" value="0.331"/> <!--Xpd = Xd * Tpd/Tpd0 = 1.070 * 1.670/5.400 = 0.331-->
+    <par type="DOUBLE" name="generator_XppdPu" value="0.330"/>
+    <par type="DOUBLE" name="generator_Tpd0" value="5.400"/>
+    <par type="DOUBLE" name="generator_Tppd0" value="0.035"/> <!--Tppd0 = Tppd * Xpd/Xppd = 0.035-->
+    <par type="DOUBLE" name="generator_XqPu" value="0.660"/>
+    <par type="DOUBLE" name="generator_XpqPu" value="0.655"/> <!--Different from Xq for numerical reasons-->
+    <par type="DOUBLE" name="generator_XppqPu" value="0.650"/> <!--Equal to Xpq-->  <!--Different from Xq for numerical reasons-->
+    <par type="DOUBLE" name="generator_Tpq0" value="0.01"/> <!--Small value (since Xq=Xpq)-->
+    <par type="DOUBLE" name="generator_Tppq0" value="0.001"/> <!--Small value-->
+    <par type="DOUBLE" name="generator_UNom" value="7.33"/>
+    <par type="DOUBLE" name="generator_SNom" value="22.222"/> <!--20/0.9-->
+    <par type="DOUBLE" name="generator_PNomTurb" value="20"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="20"/>
+    <par type="DOUBLE" name="generator_SnTfo" value="22.222"/>
+    <par type="DOUBLE" name="generator_UNomHV" value="230"/>
+    <par type="DOUBLE" name="generator_UNomLV" value="7.33"/>
+    <par type="DOUBLE" name="generator_UBaseHV" value="230"/>
+    <par type="DOUBLE" name="generator_UBaseLV" value="7.33"/>
+    <par type="DOUBLE" name="generator_RTfPu" value="0.0"/> <!--Assume an impedance of 0.1 for all transformers (no resistance)-->
+    <par type="DOUBLE" name="generator_XTfPu" value="0.1"/>
+    <!--Voltage regulator-->
+    <par type="DOUBLE" name="voltageRegulator_VRmax" value="5.940"/>
+    <par type="DOUBLE" name="voltageRegulator_VRmin" value="1.21"/>
+    <par type="DOUBLE" name="voltageRegulator_Tr" value="0.0001"/> <!--Non-zero for numerical reasons-->
+    <par type="DOUBLE" name="voltageRegulator_Ka" value="20"/> <!--Ka and Ta have been swapped in the reference book-->
+    <par type="DOUBLE" name="voltageRegulator_Ta" value="0.050"/>
+    <par type="DOUBLE" name="voltageRegulator_Ke" value="1"/>
+    <par type="DOUBLE" name="voltageRegulator_Te" value="0.760"/>
+    <par type="DOUBLE" name="voltageRegulator_Kf" value="0.0"/>
+    <par type="DOUBLE" name="voltageRegulator_Tf" value="1"/> <!--Kf=0 -> not used-->
+    <par type="DOUBLE" name="voltageRegulator_E1" value="2.2875"/> <!--0.75 * 3.05-->
+    <par type="DOUBLE" name="voltageRegulator_SE1" value="0.220"/>
+    <par type="DOUBLE" name="voltageRegulator_E2" value="3.05"/>
+    <par type="DOUBLE" name="voltageRegulator_SE2" value="0.950"/>
+    <!--Governor-->
+    <par type="DOUBLE" name="governor_At" value="1.1"/>
+    <par type="DOUBLE" name="governor_D" value="0.5"/>
+    <par type="DOUBLE" name="governor_Tw" value="1.3"/>
+    <par type="DOUBLE" name="governor_qnL" value="0.08"/>
+    <par type="DOUBLE" name="governor_Gmax" value="1"/>
+    <par type="DOUBLE" name="governor_Gmin" value="0"/>
+    <par type="DOUBLE" name="governor_Hdam" value="1"/>
+    <par type="DOUBLE" name="governor_VelMax" value="0.2"/>
+    <par type="DOUBLE" name="governor_R" value="0.05"/>
+    <par type="DOUBLE" name="governor_r" value="0.3"/>
+    <par type="DOUBLE" name="governor_Tf" value="0.05"/>
+    <par type="DOUBLE" name="governor_Tr" value="5.2"/>
+    <par type="DOUBLE" name="governor_Tg" value="0.5"/>
+    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
+    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="Hydro40MW"> <!--40MW hydro unit, reference machine = H4 (H5 would be closer but has less data)-->
+    <!--Generator-->
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_md" value="0.0"/> <!--Neglect saturation to ease comparison between simulators-->
+    <par type="DOUBLE" name="generator_mq" value="0.0"/>
+    <par type="DOUBLE" name="generator_nd" value="0.0"/>
+    <par type="DOUBLE" name="generator_nq" value="0.0"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par type="DOUBLE" name="generator_DPu" value="2"/>
+    <par type="DOUBLE" name="generator_H" value="7.25714"/> <!--254MWs/35MW-->
+    <par type="DOUBLE" name="generator_RaPu" value="0.004"/>
+    <par type="DOUBLE" name="generator_XlPu" value="0.170"/>
+    <par type="DOUBLE" name="generator_XdPu" value="1.000"/>
+    <par type="DOUBLE" name="generator_XpdPu" value="0.260"/>
+    <par type="DOUBLE" name="generator_XppdPu" value="0.235"/>
+    <par type="DOUBLE" name="generator_Tpd0" value="7.100"/>
+    <par type="DOUBLE" name="generator_Tppd0" value="0.03872"/> <!--Tppd0 = Tppd * Xpd/Xppd = 0.035 * 0.260/0.235-->
+    <par type="DOUBLE" name="generator_XqPu" value="0.620"/>
+    <par type="DOUBLE" name="generator_XpqPu" value="0.615"/> <!--Different from Xq for numerical reasons-->
+    <par type="DOUBLE" name="generator_XppqPu" value="0.264"/>
+    <par type="DOUBLE" name="generator_Tpq0" value="1.150"/> <!--Tpq0 = Tpq * Xq/Xpq = 1.150 * 0.620/0.620-->
+    <par type="DOUBLE" name="generator_Tppq0" value="0.082197"/> <!--Tppq0 = Tppq * Xpq/Xppq = 0.035 * 0.620/0.264-->
+    <par type="DOUBLE" name="generator_UNom" value="13.8"/>
+    <par type="DOUBLE" name="generator_SNom" value="44.444"/> <!--40/0.9-->
+    <par type="DOUBLE" name="generator_PNomTurb" value="40"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="40"/>
+    <par type="DOUBLE" name="generator_SnTfo" value="44.444"/>
+    <par type="DOUBLE" name="generator_UNomHV" value="230"/>
+    <par type="DOUBLE" name="generator_UNomLV" value="13.8"/>
+    <par type="DOUBLE" name="generator_UBaseHV" value="230"/>
+    <par type="DOUBLE" name="generator_UBaseLV" value="13.8"/>
+    <par type="DOUBLE" name="generator_RTfPu" value="0.0"/> <!--Assume an impedance of 0.1 for all transformers (no resistance)-->
+    <par type="DOUBLE" name="generator_XTfPu" value="0.1"/>
+    <!--Voltage regulator-->
+    <par type="DOUBLE" name="voltageRegulator_VRmax" value="5.940"/>
+    <par type="DOUBLE" name="voltageRegulator_VRmin" value="1.210"/>
+    <par type="DOUBLE" name="voltageRegulator_Tr" value="0.0001"/> <!--Non-zero for numerical reasons-->
+    <par type="DOUBLE" name="voltageRegulator_Ka" value="20"/> <!--Ka and Ta have been swapped in the reference book-->
+    <par type="DOUBLE" name="voltageRegulator_Ta" value="0.050"/>
+    <par type="DOUBLE" name="voltageRegulator_Ke" value="1"/>
+    <par type="DOUBLE" name="voltageRegulator_Te" value="0.760"/>
+    <par type="DOUBLE" name="voltageRegulator_Kf" value="0.0"/>
+    <par type="DOUBLE" name="voltageRegulator_Tf" value="1"/> <!--Kf=0 -> not used-->
+    <par type="DOUBLE" name="voltageRegulator_E1" value="2.2875"/> <!--0.75 * 3.05-->
+    <par type="DOUBLE" name="voltageRegulator_SE1" value="0.220"/>
+    <par type="DOUBLE" name="voltageRegulator_E2" value="3.05"/>
+    <par type="DOUBLE" name="voltageRegulator_SE2" value="0.950"/>
+    <!--Governor-->
+    <par type="DOUBLE" name="governor_At" value="1.1"/>
+    <par type="DOUBLE" name="governor_D" value="0.5"/>
+    <par type="DOUBLE" name="governor_Tw" value="1.3"/>
+    <par type="DOUBLE" name="governor_qnL" value="0.08"/>
+    <par type="DOUBLE" name="governor_Gmax" value="1"/>
+    <par type="DOUBLE" name="governor_Gmin" value="0"/>
+    <par type="DOUBLE" name="governor_Hdam" value="1"/>
+    <par type="DOUBLE" name="governor_VelMax" value="0.2"/>
+    <par type="DOUBLE" name="governor_R" value="0.05"/>
+    <par type="DOUBLE" name="governor_r" value="0.3"/>
+    <par type="DOUBLE" name="governor_Tf" value="0.05"/>
+    <par type="DOUBLE" name="governor_Tr" value="5.2"/>
+    <par type="DOUBLE" name="governor_Tg" value="0.5"/>
+    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
+    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="OmegaRef">
+    <par type="INT" name="nbGen" value="9"/>
+    <par type="DOUBLE" name="weight_gen_0" value="30.449"/>
+    <par type="DOUBLE" name="weight_gen_1" value="30.449"/>
+    <par type="DOUBLE" name="weight_gen_2" value="5"/>
+    <par type="DOUBLE" name="weight_gen_3" value="5"/>
+    <par type="DOUBLE" name="weight_gen_4" value="40"/>
+    <par type="DOUBLE" name="weight_gen_5" value="20"/>
+    <par type="DOUBLE" name="weight_gen_6" value="20"/>
+    <par type="DOUBLE" name="weight_gen_7" value="20"/>
+    <par type="DOUBLE" name="weight_gen_8" value="20"/>
+  </set>
+  <set id="Fault">
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.0001"/>
+    <par type="DOUBLE" name="fault_tBegin" value="5"/>
+    <par type="DOUBLE" name="fault_tEnd" value="5.1"/>
+  </set>
+  <set id="LineDisc">
+    <par type="DOUBLE" name="event_tEvent" value="5.1"/>
+    <par type="BOOL" name="event_disconnectOrigin" value="true"/>
+    <par type="BOOL" name="event_disconnectExtremity" value="true"/>
+  </set>
+  <set id="GenDisc">
+    <par type="DOUBLE" name="event_tEvent" value="5000000.1"/>
+    <par type="BOOL" name="event_stateEvent1" value="true"/>
+  </set>
+  <set id="LoadFlexibility">
+    <par type="INT" name="nbLoads" value="1"/>
+    <par type="DOUBLE" name="startTime" value="5.05"/>
+    <par type="DOUBLE" name="stopTime" value="5.1"/>
+    <par type="DOUBLE" name="deltaP_load_0" value="-0.5"/> <!--Change in %-->
+    <par type="DOUBLE" name="deltaQ_load_0" value="0"/>
+  </set>
+  <set id="Load_4_Change">
+    <par type="DOUBLE" name="event_tEvent" value="5.1"/>
+    <par type="DOUBLE" name="event_stateEvent1" value="0.2"/> <!--Init = 0.2162*185 = 40MW-->
+    <par type="DOUBLE" name="event_stateEvent2" value="-0.12"/>
+  </set>
+  <set id="Load_4_Restore">
+    <par type="DOUBLE" name="event_tEvent" value="6.1"/>
+    <par type="DOUBLE" name="event_stateEvent1" value="0.4"/> <!--Init = 0.2162*185 = 40MW-->
+    <par type="DOUBLE" name="event_stateEvent2" value="-0.12"/>
+  </set>
+  <set id="IDAOrder2">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="0.000001"/>
+    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+  </set>
+</parametersSet>

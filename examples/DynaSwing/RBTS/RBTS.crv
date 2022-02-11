@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="BUS-1_Upu_value"/>
+  <curve model="NETWORK" variable="BUS-2_Upu_value"/>
+  <curve model="NETWORK" variable="BUS-3_Upu_value"/>
+  <curve model="NETWORK" variable="BUS-4_Upu_value"/>
+  <curve model="NETWORK" variable="BUS-5_Upu_value"/>
+  <curve model="NETWORK" variable="BUS-6_Upu_value"/>
+  <curve model="GEN-1" variable="generator_omegaPu"/>
+  <curve model="GEN-1" variable="generator_PGen"/>
+  <curve model="GEN-1" variable="generator_QGen"/>
+  <curve model="GEN-1" variable="generator_UStatorPu"/>
+  <curve model="GEN-1" variable="voltageRegulator_EfdPu"/>
+  <curve model="GEN-1_0" variable="generator_omegaPu"/>
+  <curve model="GEN-1_0" variable="generator_PGen"/>
+  <curve model="GEN-1_0" variable="generator_QGen"/>
+  <curve model="GEN-1_0" variable="generator_UStatorPu"/>
+  <curve model="GEN-1_0" variable="voltageRegulator_EfdPu"/>
+  <curve model="GEN-2" variable="generator_omegaPu"/>
+  <curve model="GEN-2" variable="generator_PGen"/>
+  <curve model="GEN-2" variable="generator_QGen"/>
+  <curve model="GEN-2" variable="generator_UStatorPu"/>
+  <curve model="GEN-2" variable="voltageRegulator_EfdPu"/>
+  <curve model="GEN-2_0" variable="generator_omegaPu"/>
+  <curve model="GEN-2_0" variable="generator_PGen"/>
+  <curve model="GEN-2_0" variable="generator_QGen"/>
+  <curve model="GEN-2_0" variable="generator_UStatorPu"/>
+  <curve model="GEN-2_0" variable="voltageRegulator_EfdPu"/>
+  <curve model="GEN-2_1" variable="generator_omegaPu"/>
+  <curve model="GEN-2_1" variable="generator_PGen"/>
+  <curve model="GEN-2_1" variable="generator_QGen"/>
+  <curve model="GEN-2_1" variable="generator_UStatorPu"/>
+  <curve model="GEN-2_1" variable="voltageRegulator_EfdPu"/>
+  <curve model="GEN-2_2" variable="generator_omegaPu"/>
+  <curve model="GEN-2_2" variable="generator_PGen"/>
+  <curve model="GEN-2_2" variable="generator_QGen"/>
+  <curve model="GEN-2_2" variable="generator_UStatorPu"/>
+  <curve model="GEN-2_2" variable="voltageRegulator_EfdPu"/>
+  <curve model="GEN-2_3" variable="generator_omegaPu"/>
+  <curve model="GEN-2_3" variable="generator_PGen"/>
+  <curve model="GEN-2_3" variable="generator_QGen"/>
+  <curve model="GEN-2_3" variable="generator_UStatorPu"/>
+  <curve model="GEN-2_3" variable="voltageRegulator_EfdPu"/>
+  <curve model="GEN-2_4" variable="generator_omegaPu"/>
+  <curve model="GEN-2_4" variable="generator_PGen"/>
+  <curve model="GEN-2_4" variable="generator_QGen"/>
+  <curve model="GEN-2_4" variable="generator_UStatorPu"/>
+  <curve model="GEN-2_4" variable="voltageRegulator_EfdPu"/>
+  <curve model="GEN-2_5" variable="generator_omegaPu"/>
+  <curve model="GEN-2_5" variable="generator_PGen"/>
+  <curve model="GEN-2_5" variable="generator_QGen"/>
+  <curve model="GEN-2_5" variable="generator_UStatorPu"/>
+  <curve model="GEN-2_5" variable="voltageRegulator_EfdPu"/>
+  <curve model="LOAD-2" variable="load_PPu"/>
+  <curve model="LOAD-3" variable="load_PPu"/>
+  <curve model="LOAD-4" variable="load_PPu"/>
+  <curve model="NETWORK" variable="LOAD-4_P_value"/>
+  <curve model="NETWORK" variable="LOAD-4_Pc_value"/>
+  <curve model="NETWORK" variable="LOAD-4_Q_value"/>
+  <curve model="NETWORK" variable="LOAD-4_Qc_value"/>
+  <curve model="LOAD-4" variable="load_PRefPu"/>
+  <curve model="LOAD-4" variable="load_QRefPu"/>
+  <curve model="LOAD-5" variable="load_PPu"/>
+  <curve model="LOAD-6" variable="load_PPu"/>
+  <curve model="NETWORK" variable="LINE-1-3_i1_value"/>
+  <curve model="NETWORK" variable="LINE-1-3#0_i1_value"/>
+  <curve model="NETWORK" variable="LINE-2-4_i1_value"/>
+  <curve model="NETWORK" variable="LINE-2-4#0_i1_value"/>
+  <curve model="NETWORK" variable="LINE-1-2_i1_value"/>
+  <curve model="NETWORK" variable="LINE-3-4_i1_value"/>
+  <curve model="NETWORK" variable="LINE-3-5_i1_value"/>
+  <curve model="NETWORK" variable="LINE-4-5_i1_value"/>
+  <curve model="NETWORK" variable="LINE-5-6_i1_value"/>
+  <curve model="OMEGA_REF" variable="omegaRef_grp_0"/> <!--Average of 0-9 if no islands-->
+  <curve model="OMEGA_REF" variable="omega_grp_0"/> <!--Bus 1-->
+  <curve model="OMEGA_REF" variable="omega_grp_2"/> <!--Bus 2 - 5MW gen-->
+  <curve model="OMEGA_REF" variable="omega_grp_4"/>
+  <curve model="OMEGA_REF" variable="omega_grp_5"/>
+</curvesInput>
