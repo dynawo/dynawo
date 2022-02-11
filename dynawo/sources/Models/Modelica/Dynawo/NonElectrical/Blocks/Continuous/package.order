@@ -5,3 +5,4 @@ PIAntiWindupVariableLimits
 Power
 RateLimFirstOrderFreeze
 VarLimPIDFreeze
+LeadLag

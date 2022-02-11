@@ -18,6 +18,7 @@ set(MODEL_FILES
   Power.mo
   RateLimFirstOrderFreeze.mo
   VarLimPIDFreeze.mo
+  LeadLag.mo
   )
 
 #
