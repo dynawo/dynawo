@@ -12,8 +12,8 @@
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="1">
-   <par type="DOUBLE" name="gain" value="0"/>
-   <par type="DOUBLE" name="Utarget" value="0"/>
+   <par type="DOUBLE" name="VDN_gain" value="0"/>
+   <par type="DOUBLE" name="VDN_Utarget" value="0"/>
   </set>
   <set id="2">
    <par type="DOUBLE" name="step_Height" value="5" />

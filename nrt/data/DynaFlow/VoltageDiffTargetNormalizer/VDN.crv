@@ -13,5 +13,5 @@
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
     <curve model="VND" variable="y_value"/>
     <curve model="VND" variable="u_value"/>
-  <curve model="U1" variable="step_step_value"/>
+    <curve model="U1" variable="step_step_value"/>
 </curvesInput>
