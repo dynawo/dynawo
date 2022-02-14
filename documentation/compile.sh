@@ -7,7 +7,7 @@
 
 folders=(configuringDynawo functionalDoc installation introduction advancedDoc
 licenses/Adept licenses/Nicslu licenses/OpenModelica licenses/cpplint licenses/dynawo
-licenses/dynawo-documentation licenses/jQuery licenses/suitesparse licenses/sundials)
+licenses/dynawo-documentation licenses/jQuery licenses/suitesparse licenses/sundials licenses/libxml2 licenses/powsybl)
 pdflatex_options="-halt-on-error -interaction=nonstopmode"
 
 for folder in ${folders[*]}; do
