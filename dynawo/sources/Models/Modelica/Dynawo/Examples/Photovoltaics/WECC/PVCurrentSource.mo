@@ -44,6 +44,10 @@ equation
     Line(points = {{69, -40}, {54, -40}, {54, -12}, {42, -12}}, color = {0, 0, 127}));
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
+  PV.line.switchOffSignal2.value = false;
+  PV.injector.switchOffSignal1.value = false;
+  PV.injector.switchOffSignal2.value = false;
+  PV.injector.switchOffSignal3.value = false;
 
   annotation(
     preferredView = "diagram",
