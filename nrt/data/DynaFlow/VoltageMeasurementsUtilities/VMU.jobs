@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-    Copyright (c) 2021, RTE (http://www.rte-france.com)
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -25,7 +25,7 @@
       <dyn:outputs directory="outputs">
         <dyn:curves inputFile="VMU.crv" exportMode="CSV"/>
         <dyn:logs>
-          <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>

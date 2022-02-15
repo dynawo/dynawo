@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022-2022, RTE (http://www.rte-france.com)
+// Copyright (c) 2022, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -81,8 +81,30 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
     minValIdx_ = 0,
     maxValIdx_ = 1,
     avgValIdx_ = 2,
-    nbCalculatedVars_ = 3
+    nbCalculatedVars_
   } CalculatedVars_t;
+
+  /**
+   * @brief define indexing of discrete variables
+   * This list may be updated if the class increases in complexity.
+   *
+   */
+  typedef enum {
+    tLastUpdate_ = 0,
+    nbDiscreteVars_
+  } DiscreteVars_t;
+
+    /**
+   * @brief define indexing of root variables
+   *
+   */
+  typedef enum {
+    // minChangedLoc_ = 0,
+    // maxChangedLoc_ = 1,
+    timeToUpdate_ = 0,
+    // connectionUpdated_ = 3,
+    nbRoots_
+  } RootVars_t;
 
   /**
    * @brief ModelVoltageMeasurementsUtilities model default constructor
@@ -310,27 +332,42 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
 
  private:
    /**
-   * @brief gets the minimum value of the (connected and active) input voltages
-   */
-  double computeMin() const;
+    * @brief gets the minimum value of the (connected and active) input voltages
+    */
+  double computeMin(unsigned int &minIdx) const;
 
   /**
    * @brief gets the maximum value of the (connected and active) input voltages
    */
-  double computeMax() const;
+  double computeMax(unsigned int &maxIdx) const;
 
   /**
    * @brief gets the average value of the (connected and active) input voltages
    */
-  double computeAverage() const;
+  double computeAverage(unsigned int &nbActive) const;
 
   /**
    * @brief returns whether or not an input is actively connected
    */
-  bool isConnected(unsigned int iInputIdx) const;
+  bool isRunning(unsigned int inputIdx) const;
+
+  /**
+   * @brief initializes all attributes and important variables.
+   * @param t the time of initialization.
+   */
+  void initializeVMU(const double t = 0.0);
 
  private:
-  unsigned int nbConnectedInputs_;  ///< Number of active inputs
+  unsigned int nbConnectedInputs_;  ///< Number of active inputs (external parameter)
+  unsigned int nbActive_;  ///< Keeps track of how many components are indeed connected at a given time.
+  unsigned int achievedMin_;  ///< Keeps track of where the min is coming from.
+  unsigned int achievedMax_;  ///< Keeps track of where the max is coming from.
+  double lastMin_;  ///< Keeps track of latest updated min.
+  double lastMax_;  ///< Keeps track of latest updated min.
+  double lastAverage_;  ///< Keeps track of latest updated average.
+  double step_;  ///< step in seconds between two updates of the utilities computations. (external parameter)
+  bool isInitialized_;  ///< is True if a first initialization of the model has been made; false until first update.
+  bool* isActive_;  ///< keeps track of which asset was active at last update.
 };
 
 }  // namespace DYN
