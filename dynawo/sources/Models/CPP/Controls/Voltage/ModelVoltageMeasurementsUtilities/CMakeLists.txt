@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2022, RTE (http://www.rte-france.com)
+# Copyright (c) 2022, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -29,7 +29,7 @@ target_include_directories(${MODEL_NAME}
   )
 target_include_directories(${MODEL_NAME} SYSTEM
   PRIVATE
-  $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)

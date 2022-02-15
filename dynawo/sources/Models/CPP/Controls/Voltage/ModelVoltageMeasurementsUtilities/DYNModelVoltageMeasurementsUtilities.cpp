@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022-2022, RTE (http://www.rte-france.com)
+// Copyright (c) 2022, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -18,6 +18,11 @@
  *
  * Model to compute some aggregations of the voltages connected to the (sub)network.
  * Only running models are taken into account for the computations.
+ *
+ * Aggregations implemented:
+ * -> Minimum
+ * -> Maximum
+ * -> Average
  *
  */
 
@@ -86,7 +91,7 @@ namespace DYN {
  */
 ModelVoltageMeasurementsUtilities::ModelVoltageMeasurementsUtilities() :
 ModelCPP("voltageMeasurementsUtilities"),
-nbConnectedInputs_(0) {
+nbConnectedInputs_(0), step_(12.), isInitialized_(false) {
 }
 
 /**
@@ -105,10 +110,10 @@ ModelVoltageMeasurementsUtilities::initializeFromData(const boost::shared_ptr<Da
 
 void
 ModelVoltageMeasurementsUtilities::getSize() {
-  sizeF_ = 0;  // No equartions
+  sizeF_ = 0;  // No equations
   sizeY_ = nbConnectedInputs_;  // All voltage inputs and their boolean activity values
-  sizeZ_ = nbConnectedInputs_;
-  sizeG_ = 0;
+  sizeZ_ = nbConnectedInputs_ + nbDiscreteVars_;
+  sizeG_ = nbRoots_;
   sizeMode_ = 0;
 
   calculatedVars_.assign(nbCalculatedVars_, 0);
@@ -120,8 +125,11 @@ ModelVoltageMeasurementsUtilities::evalF(double /*t*/, propertyF_t /*type*/) {
 }
 
 void
-ModelVoltageMeasurementsUtilities::evalG(const double /*t*/) {
-  // No root function for this model
+ModelVoltageMeasurementsUtilities::evalG(const double t) {
+  if (!isInitialized_) {
+    initializeVMU(t);
+  }
+  gLocal_[timeToUpdate_] = ((t-(zLocal_[tLastUpdate_] + step_)) >= 0) ? ROOT_UP : ROOT_DOWN;
 }
 
 void
@@ -135,8 +143,23 @@ ModelVoltageMeasurementsUtilities::evalJtPrim(const double /*t*/, const double /
 }
 
 void
-ModelVoltageMeasurementsUtilities::evalZ(const double /*t*/) {
-  // No evalZ function needed
+ModelVoltageMeasurementsUtilities::evalZ(const double t) {
+  // Make sure it is initialized
+  if (!isInitialized_) {
+    initializeVMU(t);
+  }
+
+  // Is it time for a new update?
+  if (gLocal_[timeToUpdate_] == ROOT_UP) {
+    // update EV-E-RY-THIIIING !!
+    for (size_t i = 0; i < nbConnectedInputs_; ++i) {
+      isActive_[i] = toNativeBool(zLocal_[i + nbDiscreteVars_]);
+    }
+    lastMin_ = computeMin(achievedMin_);
+    lastMax_ = computeMax(achievedMax_);
+    lastAverage_ = computeAverage(nbActive_);
+    zLocal_[tLastUpdate_] = t;
+  }
 }
 
 void
@@ -148,12 +171,44 @@ ModelVoltageMeasurementsUtilities::collectSilentZ(BitMask* silentZTable) {
 
 modeChangeType_t
 ModelVoltageMeasurementsUtilities::evalMode(const double /*t*/) {
+  if (gLocal_[timeToUpdate_] == ROOT_UP) return ALGEBRAIC_J_UPDATE_MODE;
   return NO_MODE;
 }
 
 void
-ModelVoltageMeasurementsUtilities::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*res*/) const {
-  // output depends only on discrete variables
+ModelVoltageMeasurementsUtilities::evalJCalculatedVarI(unsigned iCalculatedVar, vector<double>& res) const {
+  if (iCalculatedVar < nbCalculatedVars_) {
+    for (size_t i = 0; i < sizeZ_; ++i) {
+      res[i] = 0.;
+    }
+  }
+  switch (iCalculatedVar) {
+    case minValIdx_: {
+      if (achievedMin_ < nbConnectedInputs_) {
+        res[achievedMin_ + nbDiscreteVars_] = 1.;
+      }
+      break;
+    }
+    case maxValIdx_: {
+      if (achievedMax_ < nbConnectedInputs_) {
+        res[achievedMax_ + nbDiscreteVars_] = 1.;
+      }
+      break;
+    }
+    case avgValIdx_: {
+      if (nbActive_ > 0) {
+        for (std::size_t i = 0; i < nbConnectedInputs_; ++i) {
+          if (isRunning(i)) {
+            res[i+nbDiscreteVars_] = 1./nbActive_;
+          }
+        }
+      }
+      break;
+    }
+    default: {
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, iCalculatedVar);
+    }
+  }
 }
 
 void
@@ -163,9 +218,7 @@ ModelVoltageMeasurementsUtilities::getIndexesOfVariablesUsedForCalculatedVarI(un
     case maxValIdx_:
     case avgValIdx_:
       for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
-        if (isConnected(i)) {
-          indexes.push_back(i);
-        }
+        indexes.push_back(i);
       }
       break;
     default:
@@ -178,13 +231,13 @@ ModelVoltageMeasurementsUtilities::evalCalculatedVarI(unsigned iCalculatedVar) c
   double out = 0.0f;
   switch (iCalculatedVar) {
   case minValIdx_:
-    out = computeMin();
+    out = lastMin_;
     break;
   case maxValIdx_:
-    out = computeMax();
+    out = lastMax_;
     break;
   case avgValIdx_:
-    out = computeAverage();
+    out = lastAverage_;
     break;
 
   default:
@@ -196,14 +249,15 @@ ModelVoltageMeasurementsUtilities::evalCalculatedVarI(unsigned iCalculatedVar) c
 
 void
 ModelVoltageMeasurementsUtilities::evalCalculatedVars() {
-  calculatedVars_[minValIdx_] = computeMin();
-  calculatedVars_[maxValIdx_] = computeMax();
-  calculatedVars_[avgValIdx_] = computeAverage();
+  // unsigned int achievesValue = nbConnectedInputs_;
+  calculatedVars_[minValIdx_] = lastMin_;  /// computeMin(achievesValue);
+  calculatedVars_[maxValIdx_] = lastMax_;  /// computeMax(achievesValue);
+  calculatedVars_[avgValIdx_] = lastAverage_;  /// computeAverage();
 }
 
 void
 ModelVoltageMeasurementsUtilities::getY0() {
-  // Not needed
+  initializeVMU(0.);
 }
 
 void
@@ -219,9 +273,9 @@ ModelVoltageMeasurementsUtilities::evalStaticFType() {
 void
 ModelVoltageMeasurementsUtilities::defineVariables(vector<shared_ptr<Variable> >& variables) {
   // Create "output" variables
-  variables.push_back(VariableNativeFactory::createCalculated("min_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("max_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("average_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("min_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("max_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("average_value", DISCRETE));
 
   // Add the voltages
   stringstream name;
@@ -231,6 +285,12 @@ ModelVoltageMeasurementsUtilities::defineVariables(vector<shared_ptr<Variable> >
     name << "UMonitored_" << i << "_value";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
+
+  // Add the time of last update
+  name.str("");
+  name.clear();
+  name << "tLastUpdate_value";
+  variables.push_back(VariableNativeFactory::createState(name.str(), DISCRETE));
 
   // Add whether a bus is connected or not
   for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
@@ -244,15 +304,18 @@ ModelVoltageMeasurementsUtilities::defineVariables(vector<shared_ptr<Variable> >
 void
 ModelVoltageMeasurementsUtilities::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("nbInputs", VAR_TYPE_INT, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("updateStep", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void
 ModelVoltageMeasurementsUtilities::setSubModelParameters() {
   nbConnectedInputs_ = findParameterDynamic("nbInputs").getValue<int>();
+  step_ = findParameterDynamic("updateStep").getValue<double>();
 }
 
 void
 ModelVoltageMeasurementsUtilities::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
+  std::cout << "Hello there! !!!! !!!! !!! " << std::endl;
   addElement("min", Element::STRUCTURE, elements, mapElement);
   addSubElement("value", "min", Element::TERMINAL, name(), modelType(), elements, mapElement);
   addElement("max", Element::STRUCTURE, elements, mapElement);
@@ -268,6 +331,9 @@ ModelVoltageMeasurementsUtilities::defineElements(std::vector<Element> &elements
     addElement(names.str(), Element::STRUCTURE, elements, mapElement);
     addSubElement("value", names.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
+
+  addElement("tLastUpdate", Element::STRUCTURE, elements, mapElement);
+  addSubElement("value", names.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
 
   for (size_t i = 0; i < nbConnectedInputs_; ++i) {
     names.str("");
@@ -296,33 +362,41 @@ ModelVoltageMeasurementsUtilities::checkDataCoherence(const double /*t*/) {
 }
 
 double
-ModelVoltageMeasurementsUtilities::computeMin() const {
-  double minSoFar = std::numeric_limits<float>::max();
+ModelVoltageMeasurementsUtilities::computeMin(unsigned int &minIdx) const {
+  double minSoFar = std::numeric_limits<double>::max();
+  minIdx = nbConnectedInputs_;
   for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
-    if (isConnected(i)) {
-      minSoFar =  (yLocal_[i] < minSoFar) ? yLocal_[i] : minSoFar;
+    if (isRunning(i)) {
+      if (minSoFar > yLocal_[i]) {
+        minSoFar = yLocal_[i];
+        minIdx = i;
+      }
     }
   }
   return minSoFar;
 }
 
 double
-ModelVoltageMeasurementsUtilities::computeMax() const {
-  double maxSoFar = std::numeric_limits<float>::lowest();
+ModelVoltageMeasurementsUtilities::computeMax(unsigned int &maxIdx) const {
+  double maxSoFar = std::numeric_limits<double>::lowest();
+  maxIdx = nbConnectedInputs_;
   for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
-    if (isConnected(i)) {
-      maxSoFar =  (yLocal_[i] > maxSoFar) ? yLocal_[i] : maxSoFar;
+    if (isRunning(i)) {
+      if (yLocal_[i] > maxSoFar) {
+        maxSoFar = yLocal_[i];
+        maxIdx = i;
+      }
     }
   }
   return maxSoFar;
 }
 
 double
-ModelVoltageMeasurementsUtilities::computeAverage() const {
+ModelVoltageMeasurementsUtilities::computeAverage(unsigned int &nbActive) const {
   double totSoFar = 0;
-  unsigned int nbActive = 0;
+  nbActive = 0;
   for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
-    if (isConnected(i)) {
+    if (isRunning(i)) {
       totSoFar +=  yLocal_[i];
       ++nbActive;
     }
@@ -331,13 +405,44 @@ ModelVoltageMeasurementsUtilities::computeAverage() const {
 }
 
 bool
-ModelVoltageMeasurementsUtilities::isConnected(unsigned int inputIdx) const {
+ModelVoltageMeasurementsUtilities::isRunning(unsigned int inputIdx) const {
   bool out = false;
   if (inputIdx < nbConnectedInputs_) {
-    out = zLocal_[inputIdx] > 0;
+    out = isActive_[inputIdx];
   }
 
   return out;
+}
+
+void
+ModelVoltageMeasurementsUtilities::initializeVMU(const double t) {
+  if (!isInitialized_) {
+    isActive_ = new bool[nbConnectedInputs_];
+    nbActive_ = 0;
+    achievedMin_ = nbConnectedInputs_;
+    achievedMax_ = nbConnectedInputs_;
+    lastMax_ = std::numeric_limits<double>::lowest();
+    lastMin_ = std::numeric_limits<double>::max();
+    lastAverage_ = 0.;
+    for (std::size_t i = 0; i < nbConnectedInputs_; ++i) {
+      isActive_[i] = zLocal_[nbDiscreteVars_ + i];
+      if (isActive_[i]) {
+        ++nbActive_;
+        if (yLocal_[i] > lastMax_) {
+          lastMax_ = yLocal_[i];
+          achievedMax_ = i;
+        }
+        if (yLocal_[i] < lastMin_) {
+          lastMin_ = yLocal_[i];
+          achievedMin_ = i;
+        }
+        lastAverage_ += yLocal_[i];
+      }
+    }
+    lastAverage_ = nbActive_ == 0 ? 0 : lastAverage_/nbActive_;
+    isInitialized_ = true;
+    zLocal_[tLastUpdate_] = t;
+  }
 }
 
 }  // namespace DYN
