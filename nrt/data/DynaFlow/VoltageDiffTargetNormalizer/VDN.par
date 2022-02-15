@@ -12,7 +12,7 @@
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="1">
-   <par type="DOUBLE" name="VDN_gain" value="1"/>
+   <par type="DOUBLE" name="VDN_gain" value="-2"/>
    <par type="DOUBLE" name="VDN_Utarget" value="10"/>
   </set>
   <set id="2">
