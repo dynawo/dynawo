@@ -436,6 +436,7 @@ set_environment() {
   export_var_env DYNAWO_BROWSER=firefox
   export_var_env DYNAWO_PDFVIEWER=xdg-open
   export_var_env_force DYNAWO_NRT_DIR=$DYNAWO_HOME/nrt
+  export_var_env_force DYNAWO_EXAMPLES_DIR=$DYNAWO_HOME/examples
   export_var_env DYNAWO_RESULTS_SHOW=true
   export_var_env_force DYNAWO_CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
@@ -1440,6 +1441,7 @@ nrt() {
 
 nrt_clean() {
   find $DYNAWO_NRT_DIR/data -depth -type d -name "outputs*" -not -path "*reference*/*" -exec rm -rf {} \; > /dev/null 2>&1
+  find $DYNAWO_EXAMPLES_DIR -depth -type d -name "outputs*" -not -path "*reference*/*" -exec rm -rf {} \; > /dev/null 2>&1
   rm -rf $DYNAWO_NRT_DIR/output
   rm -rf $DYNAWO_HOME/util/nrt_diff/output
   find $DYNAWO_NRT_DIR -name "*.pyc" -exec rm -rf {} \;

@@ -21,10 +21,6 @@ namespace criteria {
 CriteriaParams::CriteriaParams() :
     scope_(UNDEFINED_SCOPE),
     type_(UNDEFINED_TYPE),
-    uMinPu_(-std::numeric_limits<double>::max()),
-    uMaxPu_(std::numeric_limits<double>::max()),
-    uNomMin_(-std::numeric_limits<double>::max()),
-    uNomMax_(std::numeric_limits<double>::max()),
     pMin_(-std::numeric_limits<double>::max()),
     pMax_(std::numeric_limits<double>::max()) {}
 
@@ -59,63 +55,17 @@ CriteriaParams::getId() const {
 }
 
 void
-CriteriaParams::setUMaxPu(double uMaxPu) {
-  uMaxPu_ = uMaxPu;
+CriteriaParams::addVoltageLevel(const CriteriaParamsVoltageLevel& vl) {
+  voltageLevels_.push_back(vl);
 }
 
-double
-CriteriaParams::getUMaxPu() const {
-  return uMaxPu_;
+const std::vector<CriteriaParamsVoltageLevel>&
+CriteriaParams::getVoltageLevels() const {
+  return voltageLevels_;
 }
 
-bool
-CriteriaParams::hasUMaxPu() const {
-  return uMaxPu_ < std::numeric_limits<double>::max();
-}
-
-void
-CriteriaParams::setUNomMax(double uMaxNom) {
-  uNomMax_ = uMaxNom;
-}
-
-double
-CriteriaParams::getUNomMax() const {
-  return uNomMax_;
-}
-
-bool
-CriteriaParams::hasUNomMax() const {
-  return uNomMax_ < std::numeric_limits<double>::max();
-}
-
-void
-CriteriaParams::setUMinPu(double uMinPu) {
-  uMinPu_ = uMinPu;
-}
-
-double
-CriteriaParams::getUMinPu() const {
-  return uMinPu_;
-}
-
-bool
-CriteriaParams::hasUMinPu() const {
-  return uMinPu_ > -std::numeric_limits<double>::max();
-}
-
-void
-CriteriaParams::setUNomMin(double uNomMin) {
-  uNomMin_ = uNomMin;
-}
-
-double
-CriteriaParams::getUNomMin() const {
-  return uNomMin_;
-}
-
-bool
-CriteriaParams::hasUNomMin() const {
-  return uNomMin_ > -std::numeric_limits<double>::max();
+bool CriteriaParams::hasVoltageLevels() const {
+  return !voltageLevels_.empty();
 }
 
 void

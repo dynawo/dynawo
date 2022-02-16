@@ -33,6 +33,7 @@
 #include "CRTCriteriaFactory.h"
 #include "CRTCriteriaParams.h"
 #include "CRTCriteriaParamsFactory.h"
+#include "CRTCriteriaParamsVoltageLevel.h"
 
 
 using std::string;
@@ -127,8 +128,11 @@ CriteriaHandler::addCountry() {
 }
 
 
-CriteriaParamsHandler::CriteriaParamsHandler(elementName_type const& root_element) {
+CriteriaParamsHandler::CriteriaParamsHandler(elementName_type const& root_element) :
+    criteriaParamsVoltageLevelHandler_(parser::ElementName(namespace_uri(), "voltageLevel")) {
   onStartElement(root_element, lambda::bind(&CriteriaParamsHandler::create, lambda::ref(*this), lambda_args::arg2));
+  onElement(root_element + namespace_uri()("voltageLevel"), criteriaParamsVoltageLevelHandler_);
+  criteriaParamsVoltageLevelHandler_.onEnd(lambda::bind(&CriteriaParamsHandler::addCriteriaParamsVoltageLevel, lambda::ref(*this)));
 }
 
 CriteriaParamsHandler::~CriteriaParamsHandler() {}
@@ -138,23 +142,55 @@ void CriteriaParamsHandler::create(attributes_type const & attributes) {
   criteriaParamsRead_->setScope(CriteriaParams::string2Scope(attributes["scope"]));
   criteriaParamsRead_->setType(CriteriaParams::string2Type(attributes["type"]));
   criteriaParamsRead_->setId(attributes["id"]);
+  CriteriaParamsVoltageLevel vl;
   if (attributes.has("uMaxPu"))
-    criteriaParamsRead_->setUMaxPu(attributes["uMaxPu"]);
+    vl.setUMaxPu(attributes["uMaxPu"]);
   if (attributes.has("uMinPu"))
-    criteriaParamsRead_->setUMinPu(attributes["uMinPu"]);
+    vl.setUMinPu(attributes["uMinPu"]);
   if (attributes.has("uNomMax"))
-    criteriaParamsRead_->setUNomMax(attributes["uNomMax"]);
+    vl.setUNomMax(attributes["uNomMax"]);
   if (attributes.has("uNomMin"))
-    criteriaParamsRead_->setUNomMin(attributes["uNomMin"]);
+    vl.setUNomMin(attributes["uNomMin"]);
+  if (!vl.empty())
+    criteriaParamsRead_->addVoltageLevel(vl);
   if (attributes.has("pMax"))
     criteriaParamsRead_->setPMax(attributes["pMax"]);
   if (attributes.has("pMin"))
     criteriaParamsRead_->setPMin(attributes["pMin"]);
 }
 
+void
+CriteriaParamsHandler::addCriteriaParamsVoltageLevel() {
+  if (!criteriaParamsVoltageLevelHandler_.get()->empty())
+    criteriaParamsRead_->addVoltageLevel(*criteriaParamsVoltageLevelHandler_.get());
+}
+
 shared_ptr<CriteriaParams>
 CriteriaParamsHandler::get() const {
   return criteriaParamsRead_;
+}
+
+CriteriaParamsVoltageLevelHandler::CriteriaParamsVoltageLevelHandler(elementName_type const& root_element)  {
+  onStartElement(root_element, lambda::bind(&CriteriaParamsVoltageLevelHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+CriteriaParamsVoltageLevelHandler::~CriteriaParamsVoltageLevelHandler() {}
+
+void CriteriaParamsVoltageLevelHandler::create(attributes_type const & attributes) {
+  criteriaParamsVoltageLevelRead_ = shared_ptr<CriteriaParamsVoltageLevel>(new CriteriaParamsVoltageLevel());
+  if (attributes.has("uMaxPu"))
+    criteriaParamsVoltageLevelRead_->setUMaxPu(attributes["uMaxPu"]);
+  if (attributes.has("uMinPu"))
+    criteriaParamsVoltageLevelRead_->setUMinPu(attributes["uMinPu"]);
+  if (attributes.has("uNomMax"))
+    criteriaParamsVoltageLevelRead_->setUNomMax(attributes["uNomMax"]);
+  if (attributes.has("uNomMin"))
+    criteriaParamsVoltageLevelRead_->setUNomMin(attributes["uNomMin"]);
+}
+
+shared_ptr<CriteriaParamsVoltageLevel>
+CriteriaParamsVoltageLevelHandler::get() const {
+  return criteriaParamsVoltageLevelRead_;
 }
 
 
