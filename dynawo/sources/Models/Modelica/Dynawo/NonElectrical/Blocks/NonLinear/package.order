@@ -2,7 +2,6 @@ BaseClasses
 FixedBooleanDelay
 FlipFlopR
 FlipFlopS
-Hysteresis
 IntegratorOrFirstOrder
 LimitedFirstOrder
 LimitedIntegrator
