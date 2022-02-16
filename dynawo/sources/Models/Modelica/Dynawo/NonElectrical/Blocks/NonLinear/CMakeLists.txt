@@ -16,7 +16,6 @@ set(MODEL_FILES
   FixedBooleanDelay.mo
   FlipFlopR.mo
   FlipFlopS.mo
-  Hysteresis.mo
   IntegratorOrFirstOrder.mo
   LimitedFirstOrder.mo
   LimitedIntegrator.mo
