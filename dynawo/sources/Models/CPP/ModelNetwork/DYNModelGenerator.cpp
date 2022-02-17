@@ -48,10 +48,10 @@ stateModified_(false) {
   Qc_ = -1. * generator->getQ();
   connectionState_ = generator->getInitialConnected() ? CLOSED : OPEN;
   double uNode = generator->getBusInterface()->getV0();
-  double tetaNode = generator->getBusInterface()->getAngle0();
+  double thetaNode = generator->getBusInterface()->getAngle0();
   double unomNode = generator->getBusInterface()->getVNom();
-  double ur0 = uNode / unomNode * cos(tetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(tetaNode * DEG_TO_RAD);
+  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
+  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
   double U20 = ur0 * ur0 + ui0 * ui0;
   if (!doubleIsZero(U20)) {
     ir0_ = (-PcPu() * ur0 - QcPu() * ui0) / U20;
