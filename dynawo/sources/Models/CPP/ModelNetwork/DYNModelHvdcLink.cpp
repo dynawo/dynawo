@@ -65,10 +65,10 @@ stateModified_(false) {
     double P01 = dcLine->getConverter1()->getP() / SNREF;
     double Q01 = dcLine->getConverter1()->getQ() / SNREF;
     double uNode1 = dcLine->getConverter1()->getBusInterface()->getV0();
-    double tetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
+    double thetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
     double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
-    double ur01 = uNode1 / unomNode1 * cos(tetaNode1 * DEG_TO_RAD);
-    double ui01 = uNode1 / unomNode1 * sin(tetaNode1 * DEG_TO_RAD);
+    double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
+    double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
     double U201 = ur01 * ur01 + ui01 * ui01;
     if (!doubleIsZero(U201)) {
       ir01_ = (P01 * ur01 + Q01 * ui01) / U201;
@@ -82,10 +82,10 @@ stateModified_(false) {
     double P02 = dcLine->getConverter2()->getP() / SNREF;
     double Q02 = dcLine->getConverter2()->getQ() / SNREF;
     double uNode2 = dcLine->getConverter2()->getBusInterface()->getV0();
-    double tetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
+    double thetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
     double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
-    double ur02 = uNode2 / unomNode2 * cos(tetaNode2 * DEG_TO_RAD);
-    double ui02 = uNode2 / unomNode2 * sin(tetaNode2 * DEG_TO_RAD);
+    double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
+    double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
     double U202 = ur02 * ur02 + ui02 * ui02;
     if (!doubleIsZero(U202)) {
       ir02_ = (P02 * ur02 + Q02 * ui02) / U202;
