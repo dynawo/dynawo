@@ -226,6 +226,15 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   }
 
  private:
+  /**
+   * @brief Count the number of switches that should be closed to connect this path
+   *
+   * @param path path to be analyzed
+   * @return the number of switches that should be closed to connect this path
+   */
+  unsigned countNumberOfSwitchesToClose(const std::vector<std::string>& path) const;
+
+ private:
   IIDM::VoltageLevel& voltageLevelIIDM_;  ///< reference to the iidm voltageLevel instance
   bool isNodeBreakerTopology_;  ///< @b true if the topology of the voltageLevel is node breaker topology
   std::map< std::string, boost::shared_ptr<SwitchInterface> > switchesById_;  ///< switch interface by Id

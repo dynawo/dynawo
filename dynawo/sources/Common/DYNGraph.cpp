@@ -130,12 +130,13 @@ Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertex
     const unsigned int neighbour = verticesIds_[static_cast<unsigned int>(*neighbourIt)];
     if (encountered.count(neighbour) > 0)
       continue;
+    boost::unordered_set<unsigned int> encounteredIds = encountered;
 
     std::pair<Edge, bool> edgePair = edge(vertices_[vertexOrigin], vertices_[neighbour], filteredGraph);
     string edgeId = boost::get(boost::edge_name, filteredGraph, edgePair.first);
 
     PathDescription currentPath2 = currentPath;
-    if (findAllPaths(edgeId, neighbour, vertexExtremity, currentPath2, encountered, paths, filteredGraph, stopWhenExtremityReached)) {
+    if (findAllPaths(edgeId, neighbour, vertexExtremity, currentPath2, encounteredIds, paths, filteredGraph, stopWhenExtremityReached)) {
       currentPath.insert(currentPath.end(), currentPath2.begin(), currentPath2.end());
       if (stopWhenExtremityReached)
         return true;
