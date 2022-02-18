@@ -99,10 +99,10 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    */
   typedef enum {
-    minChangedLoc_ = 0,
-    maxChangedLoc_ = 1,
-    timeToUpdate_ = 2,
-    connectionUpdated_ = 3,
+    // minChangedLoc_ = 0,
+    // maxChangedLoc_ = 1,
+    timeToUpdate_ = 0,
+    // connectionUpdated_ = 3,
     nbRoots_
   } RootVars_t;
 
@@ -344,7 +344,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
   /**
    * @brief gets the average value of the (connected and active) input voltages
    */
-  double computeAverage() const;
+  double computeAverage(unsigned int &nbActive) const;
 
   /**
    * @brief returns whether or not an input is actively connected
@@ -361,6 +361,9 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
   unsigned int nbActive_;  ///< Keeps track of how many components are indeed connected at a given time.
   unsigned int achievedMin_;  ///< Keeps track of where the min is coming from.
   unsigned int achievedMax_;  ///< Keeps track of where the max is coming from.
+  double lastMin_;  ///< Keeps track of latest updated min.
+  double lastMax_;  ///< Keeps track of latest updated min.
+  double lastAverage_;  ///< Keeps track of latest updated average.
   double step_;  ///< step in seconds between two updates of the utilities computations. (external parameter)
   bool isInitialized_;  ///< is True if a first initialization of the model has been made; false until first update.
   bool* isActive_;  ///< keeps track of which asset was active at last update.
