@@ -1,4 +1,6 @@
 BaseClasses
+BacklashHysteresis
+DeadBand
 FixedBooleanDelay
 FlipFlopR
 FlipFlopS

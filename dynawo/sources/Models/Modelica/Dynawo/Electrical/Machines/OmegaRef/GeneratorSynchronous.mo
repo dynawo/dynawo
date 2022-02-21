@@ -55,9 +55,9 @@ model GeneratorSynchronous "Synchronous machine"
     parameter Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
     parameter Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";
 
-    parameter Types.ComplexApparentPowerPu sStator0Pu "Start value of complex apparent power at stator side in pu (base Snref)";
+    parameter Types.ComplexApparentPowerPu sStator0Pu "Start value of complex apparent power at stator side in pu (base SnRef)";
     parameter Types.ComplexVoltagePu uStator0Pu "Start value of complex voltage at stator side in pu (base UNom)";
-    parameter Types.ComplexCurrentPu iStator0Pu "Start value of complex current at stator side in pu (base UNom, Snref)";
+    parameter Types.ComplexCurrentPu iStator0Pu "Start value of complex current at stator side in pu (base UNom, SnRef)";
 
     parameter Types.VoltageModulePu UStator0Pu "Start value of stator voltage amplitude in pu (base UNom)";
     parameter Types.CurrentModulePu IStator0Pu "Start value of stator current amplitude in pu (base UNom, SnRef)";
@@ -67,10 +67,10 @@ model GeneratorSynchronous "Synchronous machine"
     parameter Types.Angle ThetaInternal0 "Start value of internal angle in rad";
 
     // Stator variables
-    Types.ComplexApparentPowerPu sStatorPu(re(start = sStator0Pu.re), im(start = sStator0Pu.im)) "Complex apparent power at stator side in pu (base Snref)";
+    Types.ComplexApparentPowerPu sStatorPu(re(start = sStator0Pu.re), im(start = sStator0Pu.im)) "Complex apparent power at stator side in pu (base SnRef)";
     Types.ComplexVoltagePu uStatorPu(re(start = uStator0Pu.re), im(start = uStator0Pu.im)) "Complex voltage at stator side in pu (base UNom)";
     Types.ComplexVoltagePu uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at terminal in pu (base UNom)";
-    Types.ComplexCurrentPu iStatorPu(re(start = iStator0Pu.re), im(start = iStator0Pu.im)) "Complex current at stator side in pu (base UNom, Snref)";
+    Types.ComplexCurrentPu iStatorPu(re(start = iStator0Pu.re), im(start = iStator0Pu.im)) "Complex current at stator side in pu (base UNom, SnRef)";
 
 equation
 

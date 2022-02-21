@@ -1,4 +1,4 @@
-within Dynawo.Examples.ENTSOE;
+within Dynawo.Examples;
 
 /*
 * Copyright (c) 2021, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
