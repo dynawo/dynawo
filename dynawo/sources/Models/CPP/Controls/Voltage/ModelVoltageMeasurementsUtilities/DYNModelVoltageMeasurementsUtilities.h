@@ -79,8 +79,8 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    */
   typedef enum {
     minValIdx_ = 0,
-    maxValIdx_ = 1,
-    avgValIdx_ = 2,
+    maxValIdx_,
+    avgValIdx_,
     nbCalculatedVars_
   } CalculatedVars_t;
 
@@ -353,8 +353,9 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
 
   /**
    * @brief initializes all attributes and important variables.
+   * @param t the time of initialization.
    */
-  void initializeVMU();
+  void initializeVMU(const double t = 0.0);
 
  private:
   unsigned int nbConnectedInputs_;  ///< Number of active inputs (external parameter)
