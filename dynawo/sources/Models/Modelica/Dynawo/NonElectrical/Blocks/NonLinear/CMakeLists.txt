@@ -13,6 +13,8 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
+  BacklashHysteresis.mo
+  DeadBand.mo
   FixedBooleanDelay.mo
   FlipFlopR.mo
   FlipFlopS.mo

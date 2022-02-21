@@ -1,7 +1,10 @@
 IntegratorSetFreeze
+LeadMOrderLag
+LimitedPI
 LimPIDFreeze
 PIAntiWindup
 PIAntiWindupVariableLimits
 Power
+RampTrackingFilter
 RateLimFirstOrderFreeze
 VarLimPIDFreeze

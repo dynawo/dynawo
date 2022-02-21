@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+   <!-- Synchronous machine external parameters and regulations -->
+  <set id="Generator">
+    <par type="INT" name="ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="md" value="0"/>
+    <par type="DOUBLE" name="mq" value="0"/>
+    <par type="DOUBLE" name="nd" value="0"/>
+    <par type="DOUBLE" name="nq" value="0"/>
+    <par type="DOUBLE" name="MdPuEfd" value="0.74046"/>
+    <par type="DOUBLE" name="DPu" value="0"/>
+    <par type="DOUBLE" name="H" value="4"/>
+    <par type="DOUBLE" name="RaPu" value="0"/>
+    <par type="DOUBLE" name="XlPu" value="0.15"/>
+    <par type="DOUBLE" name="XdPu" value="2"/>
+    <par type="DOUBLE" name="XpdPu" value="0.35"/>
+    <par type="DOUBLE" name="XppdPu" value="0.25"/>
+    <par type="DOUBLE" name="Tpd0" value="5.143"/>
+    <par type="DOUBLE" name="Tppd0" value="0.042"/>
+    <par type="DOUBLE" name="XqPu" value="1.8"/>
+    <par type="DOUBLE" name="XpqPu" value="0.5"/>
+    <par type="DOUBLE" name="XppqPu" value="0.3"/>
+    <par type="DOUBLE" name="Tpq0" value="2.16"/>
+    <par type="DOUBLE" name="Tppq0" value="0.083"/>
+    <par type="DOUBLE" name="UNom" value="21"/>
+    <par type="DOUBLE" name="SNom" value="500"/>
+    <par type="DOUBLE" name="PNomTurb" value="475"/>
+    <par type="DOUBLE" name="PNomAlt" value="475"/>
+    <par type="DOUBLE" name="SnTfo" value="500"/>
+    <par type="DOUBLE" name="UNomHV" value="400"/>
+    <par type="DOUBLE" name="UNomLV" value="21"/>
+    <par type="DOUBLE" name="UBaseHV" value="400"/>
+    <par type="DOUBLE" name="UBaseLV" value="21"/>
+    <par type="DOUBLE" name="RTfPu" value="0"/>
+    <par type="DOUBLE" name="XTfPu" value="0"/>
+    <par type="DOUBLE" name="P0Pu" value="0"/>
+    <par type="DOUBLE" name="Q0Pu" value="0"/>
+    <par type="DOUBLE" name="U0Pu" value="1"/>
+    <par type="DOUBLE" name="UPhase0" value="0"/>
+  </set>
+  <set id="Governor">
+    <par type="DOUBLE" name="Db1" value="0"/>
+    <par type="DOUBLE" name="Db2" value="0"/>
+    <par type="DOUBLE" name="Eps" value="0"/>
+    <par type="BOOL" name="H0" value="false"/>
+    <par type="DOUBLE" name="K" value="25"/>
+    <par type="DOUBLE" name="K1" value="0.2"/>
+    <par type="DOUBLE" name="K2" value="0"/>
+    <par type="DOUBLE" name="K3" value="0.3"/>
+    <par type="DOUBLE" name="K4" value="0.0"/>
+    <par type="DOUBLE" name="K5" value="0.5"/>
+    <par type="DOUBLE" name="K6" value="0"/>
+    <par type="DOUBLE" name="K7" value="0"/>
+    <par type="DOUBLE" name="K8" value="0"/>
+    <par type="DOUBLE" name="PMaxPu" value="1"/>
+    <par type="DOUBLE" name="PMinPu" value="0"/>
+    <par type="BOOL" name="Sdb1" value="true"/>
+    <par type="BOOL" name="Sdb2" value="true"/>
+    <par type="DOUBLE" name="t1" value="0.00001"/>
+    <par type="DOUBLE" name="t2" value="0.00001"/>
+    <par type="DOUBLE" name="t3" value="0.1"/>
+    <par type="DOUBLE" name="t4" value="0.3"/>
+    <par type="DOUBLE" name="t5" value="5"/>
+    <par type="DOUBLE" name="t6" value="0.5"/>
+    <par type="DOUBLE" name="t7" value="0.00001"/>
+    <par type="DOUBLE" name="Uc" value="-10"/>
+    <par type="DOUBLE" name="Uo" value="1"/>
+    <par type="BOOL" name="ValveOn" value="true"/>
+    <par type="STRING" name="PgvTableName" value="Pgv"/>
+    <par type="STRING" name="PgvInvTableName" value="PgvInv"/>
+    <par type="STRING" name="TablesFile" value="nrt/data/SMIB/Standard/Gain_power.txt"/>
+  </set>
+  <set id="VoltageRegulator">
+    <par type="DOUBLE" name="Kc" value="0.113"/>
+    <par type="DOUBLE" name="Kg" value="0"/>
+    <par type="DOUBLE" name="Ki" value="0"/>
+    <par type="DOUBLE" name="Kim" value="0"/>
+    <par type="DOUBLE" name="Kir" value="10.75"/>
+    <par type="DOUBLE" name="Kp" value="9.3"/>
+    <par type="DOUBLE" name="Kpm" value="1"/>
+    <par type="DOUBLE" name="Kpr" value="10.75"/>
+    <par type="DOUBLE" name="tA" value="0.02"/>
+    <par type="DOUBLE" name="Thetap" value="0"/>
+    <par type="DOUBLE" name="tR" value="0.02"/>
+    <par type="DOUBLE" name="UOel0Pu" value="10"/>
+    <par type="DOUBLE" name="VbMaxPu" value="11.63"/>
+    <par type="DOUBLE" name="VmMaxPu" value="99"/>
+    <par type="DOUBLE" name="VmMinPu" value="-99"/>
+    <par type="DOUBLE" name="VrMaxPu" value="1"/>
+    <par type="DOUBLE" name="VrMinPu" value="-0.87"/>
+    <par type="DOUBLE" name="XlPu" value="0.124"/>
+  </set>
+  <set id="PSS">
+    <par type="DOUBLE" name="Ks1" value="12"/>
+    <par type="DOUBLE" name="Ks2" value="0.2"/>
+    <par type="DOUBLE" name="Ks3" value="1"/>
+    <par type="DOUBLE" name="SNom" value="500"/>
+    <par type="DOUBLE" name="t1" value="0.12"/>
+    <par type="DOUBLE" name="t2" value="0.02"/>
+    <par type="DOUBLE" name="t3" value="0.3"/>
+    <par type="DOUBLE" name="t4" value="0.02"/>
+    <par type="DOUBLE" name="t6" value="0.01"/>
+    <par type="DOUBLE" name="t7" value="2"/>
+    <par type="DOUBLE" name="t8" value="0.2"/>
+    <par type="DOUBLE" name="t9" value="0.1"/>
+    <par type="DOUBLE" name="t10" value="0.01"/>
+    <par type="DOUBLE" name="t11" value="0.01"/>
+    <par type="DOUBLE" name="tw1" value="2"/>
+    <par type="DOUBLE" name="tw2" value="2"/>
+    <par type="DOUBLE" name="tw3" value="2"/>
+    <par type="DOUBLE" name="tw4" value="0.00001"/>
+    <par type="DOUBLE" name="Vsi1MaxPu" value="2"/>
+    <par type="DOUBLE" name="Vsi1MinPu" value="-2"/>
+    <par type="DOUBLE" name="Vsi2MaxPu" value="2"/>
+    <par type="DOUBLE" name="Vsi2MinPu" value="-2"/>
+    <par type="DOUBLE" name="VstMaxPu" value="0.1"/>
+    <par type="DOUBLE" name="VstMinPu" value="-0.1"/>
+    <par type="DOUBLE" name="UPss0Pu" value="0"/>
+  </set>
+  <set id="URef">
+    <par type="DOUBLE" name="ValueIn" value="1.005"/>
+    <par type="DOUBLE" name="Height" value="0.05"/>
+    <par type="DOUBLE" name="tStep" value="0.1"/>
+  </set>
+  <set id="Pm">
+    <par type="DOUBLE" name="ValueIn" value="0"/>
+  </set>
+  <!-- Omega Set Point -->
+  <set id="SetPoint">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <!-- IDA order 2 solver -->
+  <set id="IDA">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="0.001"/>
+    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="maxStep" value="1"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-6"/>
+  </set>
+</parametersSet>

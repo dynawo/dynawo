@@ -19,7 +19,7 @@ model TestCase3 "Bolted three-phase short circuit at the high-level side of the 
   extends Icons.Example;
 
   // Generator and regulations
-  BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
+  Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
    Ce0Pu = 0.95,
    Cm0Pu = 1,
    Cos2Eta0 = 0.586492,
