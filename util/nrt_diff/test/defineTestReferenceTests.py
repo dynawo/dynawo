@@ -34,7 +34,7 @@ class TestDefineReference(unittest.TestCase):
         test_case.jobs_file_ = os.path.join(os.path.dirname(
             __file__), "defineTestReference", "IEEE14.jobs")
         list = defineTestReference.findOutputFile(test_case)
-        self.assertEquals(list, ['outputs/timeLine/timeline.log',
+        self.assertEqual(list, ['outputs/timeLine/timeline.log',
                           'outputs/curves/curves.csv', 'outputs/logs/dynawo.log'])
 
 

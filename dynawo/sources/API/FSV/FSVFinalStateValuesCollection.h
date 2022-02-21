@@ -139,7 +139,7 @@ class FinalStateValuesCollection {
     boost::shared_ptr<FinalStateValue>* operator->() const;
 
    private:
-    std::vector<boost::shared_ptr<FinalStateValue>>::iterator current_;  ///< current vector iterator
+    std::vector<boost::shared_ptr<FinalStateValue> >::iterator current_;  ///< current vector iterator
   };
 
   /**
@@ -222,7 +222,7 @@ class FinalStateValuesCollection {
     const boost::shared_ptr<FinalStateValue>* operator->() const;
 
    private:
-    std::vector<boost::shared_ptr<FinalStateValue>>::const_iterator current_;  ///< current vector const iterator
+    std::vector<boost::shared_ptr<FinalStateValue> >::const_iterator current_;  ///< current vector const iterator
   };
 
   /**
@@ -250,7 +250,7 @@ class FinalStateValuesCollection {
   iterator end();
 
  private:
-  std::vector<boost::shared_ptr<FinalStateValue>> finalStateValues_;  ///< Vector of the final state values object
+  std::vector<boost::shared_ptr<FinalStateValue> > finalStateValues_;  ///< Vector of the final state values object
   std::string id_;                                                    ///< Final state values collections id
 };
 

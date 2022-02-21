@@ -65,10 +65,10 @@ stateModified_(false) {
   double Q0 = svc->getQ() / SNREF;
   if (svc->getBusInterface()) {
     double uBus0 = svc->getBusInterface()->getV0();
-    double tetaBus0 = svc->getBusInterface()->getAngle0();
+    double thetaBus0 = svc->getBusInterface()->getAngle0();
     double unomBus = svc->getBusInterface()->getVNom();
-    ur0 = uBus0 / unomBus * cos(tetaBus0 * DEG_TO_RAD);
-    ui0 = uBus0 / unomBus * sin(tetaBus0 * DEG_TO_RAD);
+    ur0 = uBus0 / unomBus * cos(thetaBus0 * DEG_TO_RAD);
+    ui0 = uBus0 / unomBus * sin(thetaBus0 * DEG_TO_RAD);
     U0 = sqrt(ur0 * ur0 + ui0 * ui0);
     if (!doubleIsZero(U0)) {
       gTotal0 = P0 / (U0 * U0);

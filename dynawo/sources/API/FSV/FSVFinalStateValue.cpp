@@ -23,7 +23,8 @@ using std::string;
 
 namespace finalStateValues {
 
-FinalStateValue::FinalStateValue() {}
+FinalStateValue::FinalStateValue() :
+value_(std::numeric_limits<double>::quiet_NaN()) {}
 
 void
 FinalStateValue::setModelName(const string& modelName) {

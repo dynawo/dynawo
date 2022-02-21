@@ -126,10 +126,10 @@ model DYNInfiniteBus "Infinite bus"
 
   ACPower terminal;
   parameter Real U = 1;
-  parameter Real Teta = 0;
+  parameter Real Theta = 0;
 
 equation
-  terminal.V = U * ComplexMath.exp(ComplexMath.j * Teta);
+  terminal.V = U * ComplexMath.exp(ComplexMath.j * Theta);
 end DYNInfiniteBus;
 
 connector ImPin "connector for continuous real value"

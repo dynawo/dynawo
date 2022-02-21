@@ -1,0 +1,31 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Deploy Dynawo",
+            "type": "shell",
+            "command": "util/envDynawo.sh",
+            "args": ["deploy"],
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "DYNAWO_HOME": "${workspaceFolder}",
+                    "DYNAWO_SRC_OPENMODELICA": "${workspaceFolder}/OpenModelica/Source",
+                    "DYNAWO_INSTALL_OPENMODELICA": "${workspaceFolder}/OpenModelica/Install",
+                    "DYNAWO_LOCALE": "en_GB",
+                    "DYNAWO_RESULTS_SHOW": "false",
+                    "DYNAWO_BROWSER": "firefox",
+                    "DYNAWO_BUILD_TYPE": "Debug",
+                    "DYNAWO_CXX11_ENABLED": "YES",
+                    "DYNAWO_BUILD_DIR": "${workspaceFolder}/build-code/dynawo",
+                    "DYNAWO_INSTALL_DIR": "${workspaceFolder}/build-code/Install/dynawo",
+                    "DYNAWO_DEPLOY_DIR": "${workspaceFolder}/build-code/deploy",
+                    "DYNAWO_THIRD_PARTY_BUILD_DIR": "${workspaceFolder}/build-code/3rdParty",
+                    "DYNAWO_THIRD_PARTY_INSTALL_DIR": "${workspaceFolder}/build-code/Install/3rdParty",
+                }
+              }
+        }
+    ]
+}
