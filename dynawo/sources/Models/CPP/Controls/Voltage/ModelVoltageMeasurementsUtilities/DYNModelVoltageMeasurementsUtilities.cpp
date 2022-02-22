@@ -315,7 +315,6 @@ ModelVoltageMeasurementsUtilities::setSubModelParameters() {
 
 void
 ModelVoltageMeasurementsUtilities::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
-  std::cout << "Hello there! !!!! !!!! !!! " << std::endl;
   addElement("min", Element::STRUCTURE, elements, mapElement);
   addSubElement("value", "min", Element::TERMINAL, name(), modelType(), elements, mapElement);
   addElement("max", Element::STRUCTURE, elements, mapElement);
@@ -332,8 +331,8 @@ ModelVoltageMeasurementsUtilities::defineElements(std::vector<Element> &elements
     addSubElement("value", names.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
 
-  addElement("tLastUpdate", Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", names.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+  addElement("tLastUpdate_", Element::STRUCTURE, elements, mapElement);
+  addSubElement("value", "tLastUpdate_", Element::TERMINAL, name(), modelType(), elements, mapElement);
 
   for (size_t i = 0; i < nbConnectedInputs_; ++i) {
     names.str("");
