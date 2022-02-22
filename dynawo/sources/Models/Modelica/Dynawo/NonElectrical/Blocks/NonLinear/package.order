@@ -13,5 +13,4 @@ MinThresholdSwitch
 PulseFixedDuration
 PulseMinimumDuration
 VariableLimiter
-Test
 SectionControl
