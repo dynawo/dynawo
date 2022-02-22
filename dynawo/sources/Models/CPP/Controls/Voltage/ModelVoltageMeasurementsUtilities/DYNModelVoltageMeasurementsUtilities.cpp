@@ -126,26 +126,10 @@ ModelVoltageMeasurementsUtilities::evalF(double /*t*/, propertyF_t /*type*/) {
 
 void
 ModelVoltageMeasurementsUtilities::evalG(const double t) {
-  // Check if the index of max variable has changed
-  // unsigned int newIdx = nbConnectedInputs_;
-  // computeMax(newIdx);
-  // gLocal_[maxChangedLoc_] = (newIdx != achievedMax_) ? ROOT_UP : ROOT_DOWN;
-  // Check for changes in the min
-  // computeMin(newIdx);
-  // gLocal_[minChangedLoc_] = (newIdx != achievedMin_) ? ROOT_UP : ROOT_DOWN;
   if (!isInitialized_) {
     initializeVMU(t);
   }
   gLocal_[timeToUpdate_] = ((t-(zLocal_[tLastUpdate_] + step_)) >= 0) ? ROOT_UP : ROOT_DOWN;
-  /*
-  gLocal_[connectionUpdated_] = ROOT_DOWN;
-  for (std::size_t i = 0; i < nbConnectedInputs_; ++i) {
-    if (zLocal_[nbDiscreteVars_ + i] != isActive_[i]) {
-      // something changed!
-      gLocal_[connectionUpdated_] = ROOT_UP;
-      break;
-    }
-  } */
 }
 
 void
