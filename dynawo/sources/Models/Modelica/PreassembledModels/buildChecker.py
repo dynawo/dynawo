@@ -49,8 +49,8 @@ def namespace(tag):
 def main():
     usage=u""" Usage: %prog <preassembled-model>
 
-    Script checking if the preassembled-model fils is well built.
-    Some implicit rules must be verify before launching the built of the
+    Script checking if the preassembled-model file is well built.
+    Some implicit rules must be verified before launching the build of the
     preassembled model
 
     Return an error if theses rules are not verified

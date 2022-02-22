@@ -321,7 +321,11 @@ test_cases.append((case_name, case_description, job_file, 30, standardReturnCode
 #        VoltageMeasurementsUtilities            #
 ##########################################
 
+<<<<<<< HEAD
+case_name = "DynaFlow - StepURef - VoltageMeasurementsUtilities"
+=======
 case_name = "DynaFlow - VoltageMeasurementsUtilities"
+>>>>>>> e401c9f8... #2035 VMU nrt
 case_description = "Compute Min, Max, and Mean values of input voltage"
 job_file = os.path.join(os.path.dirname(__file__),  "VoltageMeasurementsUtilities", "VMU.jobs")
 
