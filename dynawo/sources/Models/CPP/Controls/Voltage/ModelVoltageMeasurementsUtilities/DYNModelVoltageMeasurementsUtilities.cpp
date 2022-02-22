@@ -249,10 +249,9 @@ ModelVoltageMeasurementsUtilities::evalCalculatedVarI(unsigned iCalculatedVar) c
 
 void
 ModelVoltageMeasurementsUtilities::evalCalculatedVars() {
-  // unsigned int achievesValue = nbConnectedInputs_;
-  calculatedVars_[minValIdx_] = lastMin_;  /// computeMin(achievesValue);
-  calculatedVars_[maxValIdx_] = lastMax_;  /// computeMax(achievesValue);
-  calculatedVars_[avgValIdx_] = lastAverage_;  /// computeAverage();
+  calculatedVars_[minValIdx_] = lastMin_;
+  calculatedVars_[maxValIdx_] = lastMax_;
+  calculatedVars_[avgValIdx_] = lastAverage_;
 }
 
 void
@@ -365,11 +364,9 @@ ModelVoltageMeasurementsUtilities::computeMin(unsigned int &minIdx) const {
   double minSoFar = std::numeric_limits<double>::max();
   minIdx = nbConnectedInputs_;
   for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
-    if (isRunning(i)) {
-      if (minSoFar > yLocal_[i]) {
-        minSoFar = yLocal_[i];
-        minIdx = i;
-      }
+    if (isRunning(i) && (minSoFar > yLocal_[i])) {
+      minSoFar = yLocal_[i];
+      minIdx = i;
     }
   }
   return minSoFar;
@@ -380,11 +377,9 @@ ModelVoltageMeasurementsUtilities::computeMax(unsigned int &maxIdx) const {
   double maxSoFar = std::numeric_limits<double>::lowest();
   maxIdx = nbConnectedInputs_;
   for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
-    if (isRunning(i)) {
-      if (yLocal_[i] > maxSoFar) {
-        maxSoFar = yLocal_[i];
-        maxIdx = i;
-      }
+    if (isRunning(i) && (yLocal_[i] > maxSoFar)) {
+      maxSoFar = yLocal_[i];
+      maxIdx = i;
     }
   }
   return maxSoFar;
