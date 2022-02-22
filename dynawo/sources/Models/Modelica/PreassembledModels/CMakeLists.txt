@@ -117,6 +117,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   TransformerFixedRatio.xml
   UnderVoltageAutomaton.xml
   VRRemote.xml
+  WeightedDifference.xml
   WindTurbine4AWeccCurrentSource.xml
   WindTurbine4BWeccCurrentSource.xml
   )

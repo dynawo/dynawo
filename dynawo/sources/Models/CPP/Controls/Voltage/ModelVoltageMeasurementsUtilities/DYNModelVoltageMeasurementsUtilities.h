@@ -353,9 +353,8 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
 
   /**
    * @brief initializes all attributes and important variables.
-   * @param t the time of initialization.
    */
-  void initializeVMU(const double t = 0.0);
+  void initializeVMU();
 
  private:
   unsigned int nbConnectedInputs_;  ///< Number of active inputs (external parameter)
