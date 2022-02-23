@@ -69,6 +69,7 @@ model GeneratorSynchronous "Synchronous machine"
     // Stator variables
     Types.ComplexApparentPowerPu sStatorPu(re(start = sStator0Pu.re), im(start = sStator0Pu.im)) "Complex apparent power at stator side in pu (base Snref)";
     Types.ComplexVoltagePu uStatorPu(re(start = uStator0Pu.re), im(start = uStator0Pu.im)) "Complex voltage at stator side in pu (base UNom)";
+    Types.ComplexVoltagePu uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at terminal in pu (base UNom)";
     Types.ComplexCurrentPu iStatorPu(re(start = iStator0Pu.re), im(start = iStator0Pu.im)) "Complex current at stator side in pu (base UNom, Snref)";
 
 equation
@@ -76,6 +77,7 @@ equation
   if running.value then
 
     UPu = ComplexMath.'abs' (terminal.V);
+    uPu = terminal.V;
 
     // Active and reactive power at terminal
     PGenPu = - ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
@@ -97,14 +99,15 @@ equation
     thetaInternal.value = ComplexMath.arg(Complex(uqPu, udPu));
 
   else
+    uPu = Complex(0,0);
     UPu = 0;
     PGenPu = 0;
     QGenPu = 0;
     PGen = 0;
     QGen = 0;
-    uStatorPu = Complex(0);
-    iStatorPu = Complex(0);
-    sStatorPu = Complex(0);
+    uStatorPu = Complex(0,0);
+    iStatorPu = Complex(0,0);
+    sStatorPu = Complex(0,0);
     UStatorPu.value = 0;
     IStatorPu.value = 0;
     QStatorPu.value = 0;

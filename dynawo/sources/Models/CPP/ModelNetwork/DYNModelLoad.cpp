@@ -83,10 +83,10 @@ zQYNum_(0) {
   Q0_ = load->getQ() / SNREF;
   connectionState_ = load->getInitialConnected() ? CLOSED : OPEN;
   double uNode = load->getBusInterface()->getV0();
-  double tetaNode = load->getBusInterface()->getAngle0();
+  double thetaNode = load->getBusInterface()->getAngle0();
   double unomNode = load->getBusInterface()->getVNom();
-  double ur0 = uNode / unomNode * cos(tetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(tetaNode * DEG_TO_RAD);
+  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
+  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
   ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
   ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
 }
