@@ -14,6 +14,12 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 
 model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-based output"
   import Modelica;
+  import Dynawo.Connectors;
+
+  Connectors.ZPin u(value(start = U0)) "Input connector" annotation(
+    Placement(visible = true, transformation(origin = {-138, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Connectors.ZPin y(value(start = Y0)) "Output connector" annotation(
+    Placement(visible = true, transformation(origin = {154, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Real Ki "Integrator constant";
   parameter Real U0 "Start value of input";
@@ -22,12 +28,8 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
   parameter String PiTableFile "Name of the file describing the table";
   parameter String PiTableName "Name of the table in the text file";
 
-  Modelica.Blocks.Interfaces.RealInput u(start = U0) annotation(
-    Placement(visible = true, transformation(extent = {{-160, 0}, {-120, 40}}, rotation = 0), iconTransformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1D combiTable1D(tableOnFile = true, tableName = PiTableName, fileName = PiTableFile) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) annotation(
-    Placement(visible = true, transformation(extent = {{140, -10}, {160, 10}}, rotation = 0), iconTransformation(extent = {{100, -10}, {120, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback discreteError annotation(
     Placement(visible = true, transformation(origin = {60, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Continuous.Integrator integrator(k = Ki, y_start = Y0 + U0) annotation(
@@ -40,12 +42,18 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
+
+  when time >= 0 and u.value <> pre(u.value) then
+    y.value = combiTable1D.y[1];
+  elsewhen time >= 0 and u.value == pre(u.value) then
+    y.value = pre(y.value);
+  elsewhen time < 0 then
+    y.value = 0;
+  end when;
   connect(add1.y, integrator.u) annotation(
     Line(points = {{-59, -20}, {-41, -20}}, color = {0, 0, 127}));
   connect(discreteError.y, add1.u2) annotation(
     Line(points = {{51, -40}, {-100, -40}, {-100, -26}, {-82, -26}}, color = {0, 0, 127}));
-  connect(combiTable1D.y[1], y) annotation(
-    Line(points = {{101, 0}, {150, 0}}, color = {0, 0, 127}));
   connect(combiTable1D.y[1], discreteError.u1) annotation(
     Line(points = {{101, 0}, {120, 0}, {120, -40}, {68, -40}}, color = {0, 0, 127}));
   connect(add.y, combiTable1D.u[1]) annotation(
@@ -54,12 +62,10 @@ equation
     Line(points = {{41, 0}, {60, 0}, {60, -32}}, color = {0, 0, 127}));
   connect(integrator.y, add.u2) annotation(
     Line(points = {{-18, -20}, {0, -20}, {0, -6}, {18, -6}}, color = {0, 0, 127}));
-  connect(u, gain1.u) annotation(
-    Line(points = {{-140, 20}, {-42, 20}}, color = {0, 0, 127}));
-  connect(u, add1.u1) annotation(
-    Line(points = {{-140, 20}, {-100, 20}, {-100, -14}, {-82, -14}}, color = {0, 0, 127}));
   connect(gain1.y, add.u1) annotation(
     Line(points = {{-18, 20}, {0, 20}, {0, 6}, {18, 6}}, color = {0, 0, 127}));
+  u.value = gain1.u;
+  u.value = add1.u1;
 
   annotation(
     preferredView ="diagram",
