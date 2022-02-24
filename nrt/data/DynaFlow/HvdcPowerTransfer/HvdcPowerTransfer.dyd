@@ -62,5 +62,6 @@
   <dyn:connect id1="HVDC2" var1="acemulation_KACEmulation" id2="PowerTransfer" var2="powertransferhvdcemulation_KACEmulation2"/>
   <dyn:connect id1="HVDC1" var1="hvdc_running_value" id2="PowerTransfer" var2="powertransferhvdcemulation_running1"/>
   <dyn:connect id1="HVDC2" var1="hvdc_running_value" id2="PowerTransfer" var2="powertransferhvdcemulation_running2"/>
-  <dyn:connect id1="DISCONNECT_HVDC1" var1="event_state1" id2="HVDC1" var2="hvdc_switchOffSignal2"/>
+  <dyn:connect id1="DISCONNECT_HVDC1" var1="event_state1" id2="HVDC1" var2="hvdc_switchOffSignal2Side1"/>
+  <dyn:connect id1="DISCONNECT_HVDC1" var1="event_state1" id2="HVDC1" var2="hvdc_switchOffSignal2Side2"/>
 </dyn:dynamicModelsArchitecture>

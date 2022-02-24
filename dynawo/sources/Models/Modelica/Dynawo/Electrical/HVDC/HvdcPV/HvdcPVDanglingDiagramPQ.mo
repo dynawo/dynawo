@@ -56,7 +56,7 @@ equation
     q1Status = QStatus.Standard;
   end when;
 
-  if running.value then
+  if runningSide1.value then
     if modeU1 then
       if q1Status == QStatus.GenerationMax then
         QInj1Pu = QInj1MaxPu;

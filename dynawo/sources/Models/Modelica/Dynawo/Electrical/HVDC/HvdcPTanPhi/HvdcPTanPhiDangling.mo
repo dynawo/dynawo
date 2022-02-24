@@ -42,7 +42,7 @@ equation
 
   // Reactive power control of the connected side
   Q1RawPu = tanPhi1Ref * P1Pu;
-  if running.value then
+  if runningSide1.value then
     if Q1RawPu >= Q1MaxPu then
      Q1Pu = Q1MaxPu;
     elseif Q1RawPu <= Q1MinPu then

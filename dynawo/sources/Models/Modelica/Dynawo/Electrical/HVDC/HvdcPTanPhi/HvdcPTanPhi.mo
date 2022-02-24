@@ -44,7 +44,7 @@ equation
   Q1RawPu = tanPhi1Ref * P1Pu;
   Q2RawPu = tanPhi2Ref * P2Pu;
 
-  if (running.value) then
+  if running.value then
 
     if Q1RawPu >= Q1MaxPu then
      Q1Pu = Q1MaxPu;
