@@ -70,7 +70,7 @@ package BaseClasses
     s2Pu = Complex(P2Pu, Q2Pu);
     s2Pu = terminal2.V * ComplexMath.conj(terminal2.i);
 
-    if (running.value) then
+    if running.value then
       P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
       P2Pu = if P1Pu > 0 then - KLosses * P1Pu else - P1Pu / KLosses;
     else
@@ -132,7 +132,7 @@ package BaseClasses
   equation
 
   // Connected side
-    if (running.value) then
+    if runningSide1.value then
       P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
       U1Pu = ComplexMath.'abs'(terminal1.V);
     else

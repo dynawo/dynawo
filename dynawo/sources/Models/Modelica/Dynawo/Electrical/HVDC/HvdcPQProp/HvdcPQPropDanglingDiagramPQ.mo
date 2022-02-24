@@ -47,7 +47,7 @@ equation
   QInj1RawModeUPu = - Q1RefPu + QPercent1 * NQ1;
   QInj1RawPu = if modeU1 then QInj1RawModeUPu else - Q1RefPu;
 
-  if running.value then
+  if runningSide1.value then
 
   // Reactive power regulation at terminal 1
     if QInj1RawPu <= QInj1MinPu then
