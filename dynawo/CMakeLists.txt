@@ -70,8 +70,6 @@ set(OPENMODELICA_VERSION "1_13_2" CACHE STRING "Version of OpenModelica")
 # If C++11 is enabled, check flags availability
 set(CXX11_ENABLED ON CACHE BOOL "")
 
-list(APPEND CMAKE_PREFIX_PATH "${LIBXML2_HOME}")
-
 if(MSVC)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0601)
   set(CXX11_ENABLED ON CACHE BOOL "" FORCE)
@@ -213,6 +211,8 @@ if(DEFINED DYNAWO_THIRD_PARTY_DIR)
   set(LIBXML2_HOME ${DYNAWO_THIRD_PARTY_DIR}/libxml2 CACHE PATH "Path where libxml2 installation already exists")
 endif()
 
+list(APPEND CMAKE_PREFIX_PATH "${LIBXML2_HOME}")
+
 # Python Interpreter
 find_package(PythonInterp REQUIRED)
 IF (DEFINED DYNAWO_PYTHON_COMMAND AND NOT DYNAWO_PYTHON_COMMAND STREQUAL "")
@@ -259,10 +259,14 @@ if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage"
           log
           log_setup
           iostreams
+          thread
+          regex
+          chrono
+          atomic
           )
 else()
   find_package(Boost "${Boost_RequiredVersion}" REQUIRED
-    COMPONENTS filesystem program_options serialization system log log_setup
+    COMPONENTS filesystem program_options serialization system log log_setup thread regex chrono atomic
   )
 endif()
 
