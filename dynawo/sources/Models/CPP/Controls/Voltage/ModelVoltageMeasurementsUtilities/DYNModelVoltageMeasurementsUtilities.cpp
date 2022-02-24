@@ -132,7 +132,7 @@ ModelVoltageMeasurementsUtilities::evalG(const double t) {
 
 void
 ModelVoltageMeasurementsUtilities::setGequations() {
-  gEquationIndex_[0] = "t >= tLastUpdate_ + step_ ";
+  gEquationIndex_[0] = std::string("t >= tLastUpdate_ + step_ ");
 
   assert(gEquationIndex_.size() == (unsigned int) sizeG() && "Model VoltageMeasurementsUtilities: gEquationIndex.size() != gLocal_.size()");
 }
@@ -249,9 +249,10 @@ ModelVoltageMeasurementsUtilities::evalCalculatedVarI(unsigned iCalculatedVar) c
 
 void
 ModelVoltageMeasurementsUtilities::evalCalculatedVars() {
-  calculatedVars_[minValIdx_] = lastMin_;
-  calculatedVars_[maxValIdx_] = lastMax_;
-  calculatedVars_[avgValIdx_] = lastAverage_;
+  // unsigned int achievesValue = nbConnectedInputs_;
+  calculatedVars_[minValIdx_] = lastMin_;  /// computeMin(achievesValue);
+  calculatedVars_[maxValIdx_] = lastMax_;  /// computeMax(achievesValue);
+  calculatedVars_[avgValIdx_] = lastAverage_;  /// computeAverage();
 }
 
 void
@@ -260,25 +261,14 @@ ModelVoltageMeasurementsUtilities::getY0() {
   nbActive_ = 0;
   achievedMin_ = nbConnectedInputs_;
   achievedMax_ = nbConnectedInputs_;
-  lastMax_ = -maxValueThreshold;
-  lastMin_ = maxValueThreshold;
+  lastMax_ = 0.;
+  lastMin_ = 0.;
   lastAverage_ = 0.;
-  for (std::size_t i = 0; i < nbConnectedInputs_; ++i) {
-    isActive_[i] = zLocal_[nbDiscreteVars_ + i];
-    if (isActive_[i]) {
-      ++nbActive_;
-      if (yLocal_[i] > lastMax_) {
-        lastMax_ = yLocal_[i];
-        achievedMax_ = i;
-      }
-      if (yLocal_[i] < lastMin_) {
-        lastMin_ = yLocal_[i];
-        achievedMin_ = i;
-      }
-      lastAverage_ += yLocal_[i];
-    }
-  }
-  lastAverage_ = nbActive_ == 0 ? 0 : lastAverage_/nbActive_;
+  // The last update is set here.
+  // Note however that this does not reflect the current situation.
+  // In particular, should the update step of the VMU be much longer than the solver's step,
+  // we could run into the situation of having a not-so-correct information being used
+  // over a long period of time.
   zLocal_[tLastUpdate_] = getCurrentTime();
 }
 
@@ -319,7 +309,7 @@ ModelVoltageMeasurementsUtilities::defineVariables(vector<shared_ptr<Variable> >
     name.str("");
     name.clear();
     name << "running_" << i << "_value";
-    variables.push_back(VariableNativeFactory::createState(name.str(), BOOLEAN));
+    variables.push_back(VariableNativeFactory::createState(name.str(), DISCRETE));
   }
 }
 

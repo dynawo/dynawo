@@ -51,8 +51,6 @@ static boost::shared_ptr<SubModel> createModelVoltageMeasurementsUtilities(unsig
 
 static void setBuffersVMU(boost::shared_ptr<SubModel> voltmu, propertyContinuousVar_t* yTypes,
                             double* voltages, double* z, bool* zConnected, state_g* g) {
-// static void setBuffersVMU(boost::shared_ptr<SubModel> voltmu, std::vector<propertyContinuousVar_t> yTypes,
-                            // std::vector<double> voltages, std::vector<double> z, bool* zConnected, std::vector<state_g> g) {
     voltmu->setBufferYType(&yTypes[0], 0);
     voltmu->evalStaticYType();
 
@@ -161,9 +159,11 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesSimpleIn
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_), 0.0);
     // We now make sure it is initialized
     ASSERT_NO_THROW(voltmu->getY0());
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 1.0);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), nbVoltages);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_), nbVoltages * (nbVoltages + 1) / (2*nbVoltages));
+    // Until we call evalG/evalZ, nothing will happen
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 0.0);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), 0.0);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_), 0.0);
+
     unsigned int nbCalcVars = ModelVoltageMeasurementsUtilities::nbCalculatedVars_;
     ASSERT_THROW_DYNAWO(voltmu->evalCalculatedVarI(nbCalcVars), Error::MODELER, KeyError_t::UndefCalculatedVarI);
     // We're still missing the G buffer. Let's deal with it now.
@@ -192,6 +192,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesTimeToUp
     setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
 
     voltmu->evalG(0.0);
+    // Nothing happens as the update has just happened through the getY0
     ASSERT_EQ(g[DYN::ModelVoltageMeasurementsUtilities::timeToUpdate_], ROOT_DOWN);
     ASSERT_EQ(voltmu->evalMode(0.0), NO_MODE);
 
@@ -205,144 +206,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesTimeToUp
     voltages[0] += minIncreasesBy;
     voltages[nbVoltages-1] -=  maxDecreasesBy;
     voltmu->setBufferY(&voltages[0], nullptr, 0);
-    ASSERT_NO_THROW(voltmu->evalZ(next_ts));
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 2.0);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), nbVoltages-1);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_),
-                    nbVoltages * (nbVoltages + 1) / (2*nbVoltages) + (minIncreasesBy - maxDecreasesBy)/nbVoltages);
-    ASSERT_NO_THROW(voltmu->evalCalculatedVars());
-}
-
-TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesConnectionDisconnection) {
-    unsigned int nbVoltages = 25;
-    double step = 12;
-    boost::shared_ptr<SubModel> voltmu = createModelVoltageMeasurementsUtilities(nbVoltages, step);
-
-    std::vector<propertyContinuousVar_t> yTypes(nbVoltages, UNDEFINED_PROPERTY);
-    // Connect everything
-    std::vector<double> voltages(voltmu->sizeY(), 0.);
-    for (std::size_t i = 0; i < nbVoltages; ++i) {
-        voltages[i] = static_cast<double>(i + 1);
-    }
-    std::vector<double> z(voltmu->sizeZ(), 1.);
-    bool* zConnected = new bool[voltmu->sizeZ()];
-    for (std::size_t i=0; i < voltmu->sizeZ(); ++i) {
-        zConnected[i] = true;
-    }
-    std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
-
-    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
-    // Make sure things are as you expect them to be
-    voltmu->evalG(0.0);
-    ASSERT_EQ(g[ModelVoltageMeasurementsUtilities::timeToUpdate_], ROOT_DOWN);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 1.0);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), nbVoltages);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_),
-                    nbVoltages * (nbVoltages + 1) / (2*nbVoltages));
-
-    double nextTs = step + 1.0;
-    voltmu->evalG(nextTs);
-    // Oh! A new calculation is coming. Better make sure we have handled the disconnection we are simulating!
-    z[ModelVoltageMeasurementsUtilities::nbDiscreteVars_] = -1.0;
-    z[ModelVoltageMeasurementsUtilities::nbDiscreteVars_+nbVoltages-1] = -1;
-    voltmu->evalZ(nextTs);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 2.0);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), nbVoltages-1);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_),
-                    nbVoltages * (nbVoltages + 1) / (2*nbVoltages));
-    // Simulate another connection before the next required update.
-    // Nothing should change.
-    double noUpdateTs = nextTs + step/2.;
-    voltmu->evalG(noUpdateTs);
-    ASSERT_EQ(g[ModelVoltageMeasurementsUtilities::timeToUpdate_], ROOT_DOWN);
-    z[ModelVoltageMeasurementsUtilities::nbDiscreteVars_+nbVoltages-1] = 1.0;
-    voltmu->evalZ(noUpdateTs);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 2.0);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), nbVoltages-1);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_),
-                    nbVoltages * (nbVoltages + 1) / (2*nbVoltages));
-    // If we wait long enough, we'll see the update.
-    nextTs *= 2;
-    voltmu->evalG(nextTs);
-    ASSERT_EQ(g[ModelVoltageMeasurementsUtilities::timeToUpdate_], ROOT_UP);
-    voltmu->evalZ(nextTs);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 2.0);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), nbVoltages);
-    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_),
-                    (nbVoltages *(nbVoltages + 1.0)/2.0 - 1.0)/(nbVoltages - 1.0));
-}
-
-TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesIndexesOfCalcVar) {
-    unsigned int nbVoltages = 25;
-    boost::shared_ptr<SubModel> voltmu = createModelVoltageMeasurementsUtilities(nbVoltages);
-
-    std::vector<propertyContinuousVar_t> yTypes(nbVoltages, UNDEFINED_PROPERTY);
-    // Connect everything
-    std::vector<double> voltages(voltmu->sizeY(), 0.);
-    for (std::size_t i = 0; i < nbVoltages; ++i) {
-        voltages[i] = static_cast<double>(i + 1);
-    }
-    std::vector<double> z(voltmu->sizeZ(), 1.);
-    bool* zConnected = new bool[voltmu->sizeZ()];
-    for (std::size_t i=0; i < voltmu->sizeZ(); ++i) {
-        zConnected[i] = true;
-    }
-    std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
-
-    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
-
-    // Check the indexes needed for computing the min
-    std::vector<int> minIndexes;
-    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, minIndexes);
-
-    for (std::size_t i=0; i < nbVoltages; ++i) {
-        ASSERT_EQ(minIndexes[i], i);
-    }
-
-    // Check the indexes needed for computing the max
-    std::vector<int> maxIndexes;
-    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, maxIndexes);
-
-    for (std::size_t i=0; i < nbVoltages; ++i) {
-        ASSERT_EQ(maxIndexes[i], i);
-    }
-
-    // Check the indexes needed for computing the average
-    std::vector<int> avgIndexes;
-    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, avgIndexes);
-
-    for (std::size_t i=0; i < nbVoltages; ++i) {
-        ASSERT_EQ(avgIndexes[i], i);
-    }
-
-    ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::nbCalculatedVars_, avgIndexes),
-                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-}
-
-TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesIndexesOfCalcVarSomeDisconnectedInputs) {
-    unsigned int nbVoltages = 25;
-    unsigned int nbConnected = 5;
-    boost::shared_ptr<SubModel> voltmu = createModelVoltageMeasurementsUtilities(nbVoltages);
-
-    std::vector<propertyContinuousVar_t> yTypes(nbVoltages, UNDEFINED_PROPERTY);
-    // Connect everything
-    std::vector<double> voltages(voltmu->sizeY(), 0.);
-    for (std::size_t i = 0; i < nbVoltages; ++i) {
-        voltages[i] = static_cast<double>(i + 1);
-    }
-    std::vector<double> z(voltmu->sizeZ(), 1.);
-    bool* zConnected = new bool[voltmu->sizeZ()];
-    // Connect only those that are connected (duh!)
-    for (std::size_t i=nbConnected; i < nbVoltages; ++i) {
-        z[i+ModelVoltageMeasurementsUtilities::nbDiscreteVars_] = -1.0;
-    }
-    for (std::size_t i=0; i < voltmu->sizeZ(); ++i) {
-        zConnected[i] = true;
-    }
-    std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
-
-    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
-
+    voltmu->setBufferZ(&z[0], zConnected, 0);
     // Check the indexes needed for computing the min
     // REMEMBER: The getIndexes function is called only once at the startup of the program and is the result is
     // therefore independent of the state of the running variables.
@@ -869,6 +733,173 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesIndexesO
         ASSERT_EQ(maxIndexes[i], i);
     }
 
+    // Check the indexes needed for computing the min
+    std::vector<int> avgIndexes;
+    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, avgIndexes);
+
+    for (std::size_t i=0; i < nbVoltages; ++i) {
+        ASSERT_EQ(avgIndexes[i], i);
+    }
+
+    ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::nbCalculatedVars_, avgIndexes),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+}
+
+TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesConnectionDisconnection) {
+    unsigned int nbVoltages = 25;
+    double step = 12;
+    boost::shared_ptr<SubModel> voltmu = createModelVoltageMeasurementsUtilities(nbVoltages, step);
+
+    std::vector<propertyContinuousVar_t> yTypes(nbVoltages, UNDEFINED_PROPERTY);
+    // Connect everything
+    std::vector<double> voltages(voltmu->sizeY(), 0.);
+    for (std::size_t i = 0; i < nbVoltages; ++i) {
+        voltages[i] = static_cast<double>(i + 1);
+    }
+    std::vector<double> z(voltmu->sizeZ(), 1.);
+    bool* zConnected = new bool[voltmu->sizeZ()];
+    for (std::size_t i=0; i < voltmu->sizeZ(); ++i) {
+        zConnected[i] = true;
+    }
+    std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
+
+    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
+    // Make sure things are as you expect them to be
+    voltmu->evalG(0.0);
+    ASSERT_EQ(g[ModelVoltageMeasurementsUtilities::timeToUpdate_], ROOT_DOWN);
+    // The calculated vars should be the default values: getY0 hasn't been called yet.
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 0.0);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), 0.0);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_), 0.0);
+
+    // Assume we've kept these data long enough for them to be triggered at another iteration down the road
+    double nextTs = step + 1.0;
+    voltmu->evalG(nextTs);
+    voltmu->evalZ(nextTs);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 1.0);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), nbVoltages);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_),
+                    nbVoltages * (nbVoltages + 1) / (2*nbVoltages));
+
+    nextTs += step + 1.0;
+    voltmu->evalG(nextTs);
+    // Oh! A new calculation is coming. Better make sure we have handled the disconnection we are simulating!
+    z[ModelVoltageMeasurementsUtilities::nbDiscreteVars_] = -1.0;
+    z[ModelVoltageMeasurementsUtilities::nbDiscreteVars_+nbVoltages-1] = -1;
+    voltmu->evalZ(nextTs);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 2.0);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), nbVoltages-1);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_),
+                    nbVoltages * (nbVoltages + 1) / (2*nbVoltages));
+    // Simulate another connection before the next required update.
+    // Nothing should change.
+    double noUpdateTs = nextTs + step/2.;
+    voltmu->evalG(noUpdateTs);
+    ASSERT_EQ(g[ModelVoltageMeasurementsUtilities::timeToUpdate_], ROOT_DOWN);
+    z[ModelVoltageMeasurementsUtilities::nbDiscreteVars_+nbVoltages-1] = 1.0;
+    voltmu->evalZ(noUpdateTs);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 2.0);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), nbVoltages-1);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_),
+                    nbVoltages * (nbVoltages + 1) / (2*nbVoltages));
+    // If we wait long enough, we'll see the update.
+    nextTs *= 2;
+    voltmu->evalG(nextTs);
+    ASSERT_EQ(g[ModelVoltageMeasurementsUtilities::timeToUpdate_], ROOT_UP);
+    voltmu->evalZ(nextTs);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 2.0);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), nbVoltages);
+    ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::avgValIdx_),
+                    (nbVoltages *(nbVoltages + 1.0)/2.0 - 1.0)/(nbVoltages - 1.0));
+}
+
+TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesIndexesOfCalcVar) {
+    unsigned int nbVoltages = 25;
+    boost::shared_ptr<SubModel> voltmu = createModelVoltageMeasurementsUtilities(nbVoltages);
+
+    std::vector<propertyContinuousVar_t> yTypes(nbVoltages, UNDEFINED_PROPERTY);
+    // Connect everything
+    std::vector<double> voltages(voltmu->sizeY(), 0.);
+    for (std::size_t i = 0; i < nbVoltages; ++i) {
+        voltages[i] = static_cast<double>(i + 1);
+    }
+    std::vector<double> z(voltmu->sizeZ(), 1.);
+    bool* zConnected = new bool[voltmu->sizeZ()];
+    for (std::size_t i=0; i < voltmu->sizeZ(); ++i) {
+        zConnected[i] = true;
+    }
+    std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
+
+    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
+
+    // Check the indexes needed for computing the min
+    std::vector<int> minIndexes;
+    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, minIndexes);
+
+    for (std::size_t i=0; i < nbVoltages; ++i) {
+        ASSERT_EQ(minIndexes[i], i);
+    }
+
+    // Check the indexes needed for computing the max
+    std::vector<int> maxIndexes;
+    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, maxIndexes);
+
+    for (std::size_t i=0; i < nbVoltages; ++i) {
+        ASSERT_EQ(maxIndexes[i], i);
+    }
+
+    // Check the indexes needed for computing the average
+    std::vector<int> avgIndexes;
+    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, avgIndexes);
+
+    for (std::size_t i=0; i < nbVoltages; ++i) {
+        ASSERT_EQ(avgIndexes[i], i);
+    }
+
+    ASSERT_THROW_DYNAWO(voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::nbCalculatedVars_, avgIndexes),
+                    Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+}
+
+TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesIndexesOfCalcVarSomeDisconnectedInputs) {
+    unsigned int nbVoltages = 25;
+    unsigned int nbConnected = 5;
+    boost::shared_ptr<SubModel> voltmu = createModelVoltageMeasurementsUtilities(nbVoltages);
+
+    std::vector<propertyContinuousVar_t> yTypes(nbVoltages, UNDEFINED_PROPERTY);
+    // Connect everything
+    std::vector<double> voltages(voltmu->sizeY(), 0.);
+    for (std::size_t i = 0; i < nbVoltages; ++i) {
+        voltages[i] = static_cast<double>(i + 1);
+    }
+    std::vector<double> z(voltmu->sizeZ(), 1.);
+    bool* zConnected = new bool[voltmu->sizeZ()];
+    // Connect only those that are connected (duh!)
+    for (std::size_t i=nbConnected; i < nbVoltages; ++i) {
+        z[i+ModelVoltageMeasurementsUtilities::nbDiscreteVars_] = -1.0;
+    }
+    for (std::size_t i=0; i < voltmu->sizeZ(); ++i) {
+        zConnected[i] = true;
+    }
+    std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
+
+    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
+
+    // Check the indexes needed for computing the min
+    std::vector<int> minIndexes;
+    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, minIndexes);
+
+    for (std::size_t i=0; i < nbVoltages; ++i) {
+        ASSERT_EQ(minIndexes[i], i);
+    }
+
+    // Check the indexes needed for computing the max
+    std::vector<int> maxIndexes;
+    voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, maxIndexes);
+
+    for (std::size_t i=0; i < nbVoltages; ++i) {
+        ASSERT_EQ(maxIndexes[i], i);
+    }
+
     // Check the indexes needed for computing the average
     std::vector<int> avgIndexes;
     voltmu->getIndexesOfVariablesUsedForCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, avgIndexes);
@@ -901,41 +932,42 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
 
     setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
     // Make sure things are as you expect them to be
-    double t0 = 0.0;
+    // To do this, we need to make sure the connections have been handled through an evalZ.
+    double t0 = step+1.;
     voltmu->evalG(t0);
     voltmu->evalZ(t0);
 
     // Check the values of the jacobian for the min
-    std::vector<double> gradMinVal(voltmu->sizeZ(), 0.);
+    std::vector<double> gradMinVal(voltmu->sizeY(), 0.);
     voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal);
-    std::vector<double> expectedGradMinVal(voltmu->sizeZ(), 0.);
-    expectedGradMinVal[0+DYN::ModelVoltageMeasurementsUtilities::nbDiscreteVars_] = 1.0;
+    std::vector<double> expectedGradMinVal(voltmu->sizeY(), 0.);
+    expectedGradMinVal[0] = 1.0;
 
-    for (std::size_t i = 0; i < voltmu->sizeZ(); ++i) {
+    for (std::size_t i = 0; i < voltmu->sizeY(); ++i) {
         ASSERT_EQ(expectedGradMinVal[i], gradMinVal[i]);
     }
 
-    std::vector<double> gradMaxVal(voltmu->sizeZ(), 0.);
+    std::vector<double> gradMaxVal(voltmu->sizeY(), 0.);
     voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal);
-    std::vector<double> expectedGradMaxVal(voltmu->sizeZ(), 0.);
-    expectedGradMaxVal[nbVoltages-1+DYN::ModelVoltageMeasurementsUtilities::nbDiscreteVars_] = 1.0;
+    std::vector<double> expectedGradMaxVal(voltmu->sizeY(), 0.);
+    expectedGradMaxVal[nbVoltages-1] = 1.0;
 
-    for (std::size_t i = 0; i < voltmu->sizeZ(); ++i) {
+    for (std::size_t i = 0; i < voltmu->sizeY(); ++i) {
         ASSERT_EQ(expectedGradMaxVal[i], gradMaxVal[i]);
     }
 
-    std::vector<double> gradAvgVal(voltmu->sizeZ(), 0.);
+    std::vector<double> gradAvgVal(voltmu->sizeY(), 0.);
     voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, gradAvgVal);
-    std::vector<double> expectedGradAvgVal(voltmu->sizeZ(), 0.);
+    std::vector<double> expectedGradAvgVal(voltmu->sizeY(), 0.);
     for (std::size_t i = 0; i < nbVoltages; ++i) {
-        expectedGradAvgVal[i+DYN::ModelVoltageMeasurementsUtilities::nbDiscreteVars_] = 1.0/nbVoltages;
+        expectedGradAvgVal[i] = 1.0/nbVoltages;
     }
 
     for (std::size_t i = 0; i < nbVoltages; ++i) {
         ASSERT_EQ(expectedGradAvgVal[i], gradAvgVal[i]);
     }
 
-    std::vector<double> wrongIndexGrad(voltmu->sizeZ(), 0.);
+    std::vector<double> wrongIndexGrad(voltmu->sizeY(), 0.);
     ASSERT_THROW_DYNAWO(voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::nbCalculatedVars_, wrongIndexGrad),
                     Error::MODELER, KeyError_t::UndefJCalculatedVarI);
 }
@@ -960,7 +992,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
 
     setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
     // Make sure things are as you expect them to be
-    double t0 = 0.0;
+    double t0 = step + 1.0;
     voltmu->evalG(t0);
     voltmu->evalZ(t0);
 
@@ -968,18 +1000,18 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
     std::vector<double> gradMinVal(voltmu->sizeZ(), 0.);
     voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal);
     std::vector<double> expectedGradMinVal(voltmu->sizeZ(), 0.);
-    expectedGradMinVal[0+DYN::ModelVoltageMeasurementsUtilities::nbDiscreteVars_] = 1.0;
+    expectedGradMinVal[0] = 1.0;
 
     std::vector<double> gradMaxVal(voltmu->sizeZ(), 0.);
     voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal);
     std::vector<double> expectedGradMaxVal(voltmu->sizeZ(), 0.);
-    expectedGradMaxVal[nbVoltages-1+DYN::ModelVoltageMeasurementsUtilities::nbDiscreteVars_] = 1.0;
+    expectedGradMaxVal[nbVoltages-1] = 1.0;
 
     std::vector<double> gradAvgVal(voltmu->sizeZ(), 0.);
     voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::avgValIdx_, gradAvgVal);
     std::vector<double> expectedGradAvgVal(voltmu->sizeZ(), 0.);
     for (std::size_t i = 0; i < nbVoltages; ++i) {
-        expectedGradAvgVal[i+DYN::ModelVoltageMeasurementsUtilities::nbDiscreteVars_] = 1.0/nbVoltages;
+        expectedGradAvgVal[i] = 1.0/nbVoltages;
     }
 
     std::vector<double> wrongIndexGrad(voltmu->sizeZ(), 0.);
@@ -1017,19 +1049,19 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
 
     // Update the expected grad values.
     // Min has changed, so has the average. Max remains unchanged.
-    expectedGradMinVal[ModelVoltageMeasurementsUtilities::nbDiscreteVars_] = 0.0;
-    expectedGradMinVal[ModelVoltageMeasurementsUtilities::nbDiscreteVars_ + 1] = 1.0;
-    expectedGradAvgVal[ModelVoltageMeasurementsUtilities::nbDiscreteVars_] = 0.0;
-    for (size_t i = ModelVoltageMeasurementsUtilities::nbDiscreteVars_ + 1; i < nbVoltages + ModelVoltageMeasurementsUtilities::nbDiscreteVars_ - 1; ++i) {
+    expectedGradMinVal[0] = 0.0;
+    expectedGradMinVal[1] = 1.0;
+    expectedGradAvgVal[0] = 0.0;
+    for (size_t i = 1; i < nbVoltages; ++i) {
         expectedGradAvgVal[i] = 1.0/(nbVoltages - 1);
     }
     voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal);
-    for (std::size_t i = 0; i < voltmu->sizeZ(); ++i) {
+    for (std::size_t i = 0; i < voltmu->sizeY(); ++i) {
         ASSERT_EQ(expectedGradMinVal[i], gradMinVal[i]);
     }
 
     voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal);
-    for (std::size_t i = 0; i < voltmu->sizeZ(); ++i) {
+    for (std::size_t i = 0; i < voltmu->sizeY(); ++i) {
         ASSERT_EQ(expectedGradMaxVal[i], gradMaxVal[i]);
     }
 
@@ -1047,19 +1079,19 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
 
     // Update the expected grad values.
     // Max has changed, so has the average. Min remains unchanged.
-    expectedGradMaxVal[ModelVoltageMeasurementsUtilities::nbDiscreteVars_ + nbVoltages - 1] = 0.0;
-    expectedGradMaxVal[ModelVoltageMeasurementsUtilities::nbDiscreteVars_ + nbVoltages - 2] = 1.0;
-    expectedGradAvgVal[ModelVoltageMeasurementsUtilities::nbDiscreteVars_ + nbVoltages - 1] = 0.0;
-    for (size_t i = ModelVoltageMeasurementsUtilities::nbDiscreteVars_ + 1; i < nbVoltages + ModelVoltageMeasurementsUtilities::nbDiscreteVars_; ++i) {
+    expectedGradMaxVal[nbVoltages - 1] = 0.0;
+    expectedGradMaxVal[nbVoltages - 2] = 1.0;
+    expectedGradAvgVal[nbVoltages - 1] = 0.0;
+    for (size_t i = 1; i < nbVoltages - 1; ++i) {
         expectedGradAvgVal[i] = 1.0/(nbVoltages - 2);
     }
     voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::minValIdx_, gradMinVal);
-    for (std::size_t i = 0; i < voltmu->sizeZ(); ++i) {
+    for (std::size_t i = 0; i < voltmu->sizeY(); ++i) {
         ASSERT_EQ(expectedGradMinVal[i], gradMinVal[i]);
     }
 
     voltmu->evalJCalculatedVarI(DYN::ModelVoltageMeasurementsUtilities::maxValIdx_, gradMaxVal);
-    for (std::size_t i = 0; i < voltmu->sizeZ(); ++i) {
+    for (std::size_t i = 0; i < voltmu->sizeY(); ++i) {
         ASSERT_EQ(expectedGradMaxVal[i], gradMaxVal[i]);
     }
 

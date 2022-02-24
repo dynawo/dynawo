@@ -79,8 +79,8 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    */
   typedef enum {
     minValIdx_ = 0,
-    maxValIdx_,
-    avgValIdx_,
+    maxValIdx_ = 1,
+    avgValIdx_ = 2,
     nbCalculatedVars_
   } CalculatedVars_t;
 
