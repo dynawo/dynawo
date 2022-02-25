@@ -12,10 +12,10 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="SynchronousGenerator" variable="generator_UPu"/>
-  <curve model="SynchronousGenerator" variable="generator_efdPu"/>
-  <curve model="SynchronousGenerator" variable="generator_PGenPu"/>
-  <curve model="SynchronousGenerator" variable="generator_QGenPu"/>
-  <curve model="SynchronousGenerator" variable="generator_omegaPu"/>
-  <curve model="SynchronousGenerator" variable="pss_UpssPu"/>
+  <curve model="SynchronousGenerator" variable="generatorReg_generator_UPu"/>
+  <curve model="SynchronousGenerator" variable="generatorReg_generator_efdPu"/>
+  <curve model="SynchronousGenerator" variable="generatorReg_generator_PGenPu"/>
+  <curve model="SynchronousGenerator" variable="generatorReg_generator_QGenPu"/>
+  <curve model="SynchronousGenerator" variable="generatorReg_generator_omegaPu"/>
+  <curve model="SynchronousGenerator" variable="generatorReg_pss_UpssPu"/>
 </curvesInput>

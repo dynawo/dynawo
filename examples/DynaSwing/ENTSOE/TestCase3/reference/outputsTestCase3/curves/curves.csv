@@ -1,4 +1,4 @@
-time;SynchronousGenerator_generator_UPu;SynchronousGenerator_generator_efdPu;SynchronousGenerator_generator_PGenPu;SynchronousGenerator_generator_QGenPu;SynchronousGenerator_generator_omegaPu;SynchronousGenerator_pss_UpssPu;
+time;SynchronousGenerator_generatorReg_generator_UPu;SynchronousGenerator_generatorReg_generator_efdPu;SynchronousGenerator_generatorReg_generator_PGenPu;SynchronousGenerator_generatorReg_generator_QGenPu;SynchronousGenerator_generatorReg_generator_omegaPu;SynchronousGenerator_generatorReg_pss_UpssPu;
 0.000000;0.991871;2.507892;4.751019;1.561896;1.000000;0.000000;
 0.000000;0.991871;2.507892;4.751019;1.561896;1.000000;-0.000000;
 0.000000;0.991871;2.507892;4.751019;1.561896;1.000000;-0.000000;
