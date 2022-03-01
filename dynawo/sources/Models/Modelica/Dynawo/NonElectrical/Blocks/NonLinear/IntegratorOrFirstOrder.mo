@@ -13,24 +13,26 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block IntegratorOrFirstOrder "Switch between two operators : integrator, first-order filter"
-
   import Modelica;
   import Modelica.Blocks.Interfaces;
   import Dynawo.Types;
 
-  extends Modelica.Blocks.Icons.PartialBooleanBlock;
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Types.PerUnit K = 1 "Integrator gain";
   parameter Types.Time tFilter "First-order time constant in s";
   parameter Real Y0 "Value of y at initial time" annotation(
     Dialog(group="Initialization"));
 
+  //Input variables
   Interfaces.RealInput u1 "Connector of first Real input signal" annotation(
     Placement(transformation(extent={{-140,60},{-100,100}})));
   Interfaces.BooleanInput u2 "Connector of Boolean input signal" annotation(
     Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealInput u3 "Connector of second Real input signal" annotation(
     Placement(transformation(extent={{-140,-100},{-100,-60}})));
+
+  //Output variable
   Interfaces.RealOutput y(start = Y0) "Connector of Real output signal" annotation(
     Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -41,8 +43,7 @@ equation
     der(y) = (u3 - y) / tFilter;
   end if;
 
-  annotation(
-  preferredView = "text",
+  annotation(preferredView = "text",
   Documentation(info= "<html><head></head><body><p>The IntegratorOrFirstOrder switches, depending on the
 logical connector u2 (the middle connector)
 between the two possible input signals
@@ -64,8 +65,6 @@ u1 (upper connector) and u3 (lower connector) and applies different operations t
           color = {0, 0, 127}, thickness = 1),
         Ellipse(lineColor = {0, 0, 255}, pattern = LinePattern.None,
           fillPattern = FillPattern.Solid, extent = {{2, -8}, {18, 8}}, endAngle = 360),
-        Text(origin = {20, 90},lineColor = {192, 192, 192},
-          extent = {{0, -70}, {60, -10}}, textString = "I"),
-        Text(origin = {20, -20},lineColor = {192, 192, 192},
-          extent = {{0, -60}, {60, 0}}, textString = "PT1")}));
+        Text(lineColor = {192, 192, 192}, extent = {{20, 20}, {80, 80}}, textString = "I"),
+        Text(lineColor = {192, 192, 192}, extent = {{20, -20}, {80, -80}}, textString = "F")}));
 end IntegratorOrFirstOrder;
