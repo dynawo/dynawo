@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2022, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -108,7 +108,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   VRRemote.xml
   WindTurbine4AWeccCurrentSource.xml
   WindTurbine4BWeccCurrentSource.xml
-  VoltageDiffNormalizer.xml
+  WeightedDifference.xml
   )
 
 # PYTHON scripts preassembled models

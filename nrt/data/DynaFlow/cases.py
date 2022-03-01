@@ -328,11 +328,11 @@ job_file = os.path.join(os.path.dirname(__file__),  "StaticVarCompensators", "SV
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
 
 ##########################################
-#        VoltageDiffTargetNormalizer            #
+#         WeightedDifference             #
 ##########################################
 
-case_name = "DynaFlow - VoltageDiffTargetNormalizer"
-case_description = "[...]"
-job_file = os.path.join(os.path.dirname(__file__),  "VoltageDiffTargetNormalizer", "VDN.jobs")
+case_name = "DynaFlow - StepURef - WeightedDifference"
+case_description = "weightedDifference test case: a target value is given as well as a gain on a bus. The output reacts to a step on the entry."
+job_file = os.path.join(os.path.dirname(__file__),  "WeightedDifference", "WD.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

@@ -1,6 +1,6 @@
 # -*- coding: utf-8;
 
-# Copyright (c) 2015-2022, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -50,7 +50,7 @@ def main():
     usage=u""" Usage: %prog <preassembled-model>
 
     Script checking if the preassembled-model file is well built.
-    Some implicit rules must be verified before launching the built of the
+    Some implicit rules must be verified before launching the build of the
     preassembled model
 
     Return an error if theses rules are not verified

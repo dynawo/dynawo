@@ -16,7 +16,6 @@ block WeightedDifference "Block which calculates the weighted difference between
   import Modelica;
   import Modelica.Blocks.Interfaces;
   import Modelica.Blocks.Icons.Block;
-  import Dynawo.Types;
 
   extends Block;
 
@@ -28,11 +27,11 @@ block WeightedDifference "Block which calculates the weighted difference between
   Interfaces.RealOutput y "Output signal connector" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.Blocks.Sources.Constant const(k = Utarget)  annotation(
+  Modelica.Blocks.Sources.Constant const(k = Target)  annotation(
     Placement(visible = true, transformation(origin = {-56, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k2 = -1)  annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(k = gain)  annotation(
+  Modelica.Blocks.Math.Gain gain1(k = Weight)  annotation(
     Placement(visible = true, transformation(origin = {54, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
@@ -48,4 +47,4 @@ equation
   annotation(preferredView = "diagram",
   Diagram(coordinateSystem(initialScale = 0.1)),
   Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-2, 2}, extent = {{-64, 38}, {64, -38}}, textString = "Voltage Normalizer")}));
-end VoltageDiffNormalizer;
+end WeightedDifference;

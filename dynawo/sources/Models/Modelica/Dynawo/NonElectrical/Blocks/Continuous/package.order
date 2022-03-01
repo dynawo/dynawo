@@ -5,4 +5,4 @@ PIAntiWindupVariableLimits
 Power
 RateLimFirstOrderFreeze
 VarLimPIDFreeze
-VoltageDiffNormalizer
+WeightedDifference
