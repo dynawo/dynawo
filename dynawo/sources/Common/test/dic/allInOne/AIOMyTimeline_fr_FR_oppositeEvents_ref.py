@@ -10,6 +10,6 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
 # for power systems.
 dicOppositeEvents = {
-    'État initial' : ['État final'],
     'État final' : ['État initial'],
+    'État initial' : ['État final'],
 }

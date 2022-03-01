@@ -79,7 +79,7 @@ SolverSIM::solverType() const {
 }
 
 void
-SolverSIM::init(const boost::shared_ptr<Model> &model, const double & t0, const double & tEnd) {
+SolverSIM::init(const boost::shared_ptr<Model>& model, const double t0, const double tEnd) {
   initCommon(model, t0, tEnd);
 }
 

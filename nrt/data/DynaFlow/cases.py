@@ -38,6 +38,16 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+#####################################
+#     WSCC9 - Disconnect Line     #
+#####################################
+
+case_name = "DynaFlow - WSCC9 - DisconnectLine"
+case_description = "WSCC 9 bus test case with a line disconnection"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "WSCC9", "WSCC9_DisconnectLine", "WSCC9.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 ##############################################
 #  Small System with an HVDC link and a CLA  #
 ##############################################
@@ -326,3 +336,13 @@ case_description = "SVarCPVRemoteModeHandling test case with a step on the refer
 job_file = os.path.join(os.path.dirname(__file__),  "StaticVarCompensators", "SVarC_StepURef", "SVarCPVRemoteModeHandling", "SVarC.jobs")
 
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+##########################################
+#        VoltageDiffTargetNormalizer            #
+##########################################
+
+case_name = "DynaFlow - VoltageDiffTargetNormalizer"
+case_description = "[...]"
+job_file = os.path.join(os.path.dirname(__file__),  "VoltageDiffTargetNormalizer", "VDN.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

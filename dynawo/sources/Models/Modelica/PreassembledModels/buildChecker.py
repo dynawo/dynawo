@@ -1,6 +1,6 @@
 # -*- coding: utf-8;
 
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2022, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -49,8 +49,8 @@ def namespace(tag):
 def main():
     usage=u""" Usage: %prog <preassembled-model>
 
-    Script checking if the preassembled-model fils is well built.
-    Some implicit rules must be verify before launching the built of the
+    Script checking if the preassembled-model file is well built.
+    Some implicit rules must be verified before launching the built of the
     preassembled model
 
     Return an error if theses rules are not verified
@@ -76,7 +76,7 @@ def main():
     name_file = name_file.replace(".xml","")
 
     if name_file != preassembled_model_id:
-        print ('ERROR : '+str(preassembled_model_file)+' is not well build')
+        print ('ERROR : '+str(preassembled_model_file)+' is not well built')
         print ('         file name and preassembled model id must be equal')
         print ('         file name ='+str(name_file))
         print ('         preassembled model id ='+str(preassembled_model_id))

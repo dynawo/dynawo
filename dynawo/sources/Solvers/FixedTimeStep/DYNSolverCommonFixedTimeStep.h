@@ -90,7 +90,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
    * @param tEnd final time value.
    *
    */
-  void initCommon(const boost::shared_ptr<Model> &model, const double & t0, const double & tEnd);
+  void initCommon(const boost::shared_ptr<Model>& model, const double t0, const double tEnd);
 
   /**
    * @copydoc Solver::Impl::defineSpecificParameters()
@@ -148,7 +148,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
    *
    * @return the current status of the solver
    */
-  SolverStatus_t analyzeResult(int& flag);
+  SolverStatus_t analyzeResult(int flag);
 
   /**
    * @brief update the discrete variables values and the mode of the equations
@@ -207,7 +207,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
    * @param tAim the next time at which a computed solution is desired
    * @param tNxt the time reached by the solver
    */
-  void solveStepCommon(double tAim, double &tNxt);
+  void solveStepCommon(double tAim, double& tNxt);
 
   /**
    * @copydoc Solver::setupNewAlgRestoration(modeChangeType_t modeChangeType)

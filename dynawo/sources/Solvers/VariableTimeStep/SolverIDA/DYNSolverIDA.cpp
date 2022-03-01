@@ -175,7 +175,7 @@ SolverIDA::solverType() const {
 }
 
 void
-SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double & tEnd) {
+SolverIDA::init(const shared_ptr<Model>& model, const double t0, const double tEnd) {
   // test if there is continuous variable in the simulated problem.
   if (model->sizeY() == 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverIDANoContinuousVars);
@@ -525,16 +525,16 @@ SolverIDA::analyseFlag(const int & flag) {
 
 int
 SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
-        N_Vector rr, void *data) {
+        N_Vector rr, void* data) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalF");
 #endif
   SolverIDA* solver = reinterpret_cast<SolverIDA*> (data);
   Model& model = solver->getModel();
 
-  realtype *iyy = NV_DATA_S(yy);
-  realtype *iyp = NV_DATA_S(yp);
-  realtype *irr = NV_DATA_S(rr);
+  realtype* iyy = NV_DATA_S(yy);
+  realtype* iyp = NV_DATA_S(yp);
+  realtype* irr = NV_DATA_S(rr);
   model.evalF(tres, iyy, iyp, irr);
 #ifdef _DEBUG_
   if (solver->flagInit()) {
@@ -550,15 +550,15 @@ return 0;
 }
 
 int
-SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype *gout,
-        void *data) {
+SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype* gout,
+        void* data) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalG");
 #endif
   SolverIDA* solver = reinterpret_cast<SolverIDA*> (data);
   Model& model = solver->getModel();
-  realtype *iyy = NV_DATA_S(yy);
-  realtype *iyp = NV_DATA_S(yp);
+  realtype* iyy = NV_DATA_S(yy);
+  realtype* iyp = NV_DATA_S(yp);
 
   std::vector<state_g>& g1 = solver->getG1();
 
@@ -587,7 +587,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
   realtype* iyp = NV_DATA_S(yp);
 
   SparseMatrix smj;
-  int size = model.sizeY();
+  const int size = model.sizeY();
   smj.init(size, size);
   model.copyContinuousVariables(iyy, iyp);
   model.evalJt(tt, cj, smj);
@@ -597,7 +597,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
 }
 
 void
-SolverIDA::solveStep(double tAim, double &tNxt) {
+SolverIDA::solveStep(double tAim, double& tNxt) {
   int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, IDA_ONE_STEP);
 
   string msg;

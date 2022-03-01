@@ -10,8 +10,7 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
--->
-<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+--><dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="Test">
     <dyn:solver lib="dynawo_SolverTRAP" parFile="solvers.par" parId="1"/>
     <dyn:modeler compileDir="outputs/compilation">
@@ -23,12 +22,9 @@
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="10"/>
     <dyn:outputs directory="outputs">
-      <dyn:dumpInitValues local="true" global="true"/>
-      <dyn:curves inputFile="Test.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
-        <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
-      </dyn:logs>
+        </dyn:logs>
     </dyn:outputs>
   </dyn:job>
 </dyn:jobs>
