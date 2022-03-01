@@ -24,15 +24,12 @@ block IntegratorOrFirstOrder "Switch between two operators : integrator, first-o
   parameter Real Y0 "Value of y at initial time" annotation(
     Dialog(group="Initialization"));
 
-  //Input variables
   Interfaces.RealInput u1 "Connector of first Real input signal" annotation(
     Placement(transformation(extent={{-140,60},{-100,100}})));
   Interfaces.BooleanInput u2 "Connector of Boolean input signal" annotation(
     Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealInput u3 "Connector of second Real input signal" annotation(
     Placement(transformation(extent={{-140,-100},{-100,-60}})));
-
-  //Output variable
   Interfaces.RealOutput y(start = Y0) "Connector of Real output signal" annotation(
     Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -43,7 +40,8 @@ equation
     der(y) = (u3 - y) / tFilter;
   end if;
 
-  annotation(preferredView = "text",
+  annotation(
+  preferredView = "text",
   Documentation(info= "<html><head></head><body><p>The IntegratorOrFirstOrder switches, depending on the
 logical connector u2 (the middle connector)
 between the two possible input signals
