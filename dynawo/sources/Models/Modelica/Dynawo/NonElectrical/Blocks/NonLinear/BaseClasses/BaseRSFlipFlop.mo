@@ -21,13 +21,10 @@ partial block BaseRSFlipFlop "Base block of RS flip flop"
 
   parameter Boolean Y0 = false "Start value of y";
 
-  //Input variables
   Interfaces.BooleanInput r annotation(
       Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Interfaces.BooleanInput s annotation(
       Placement(transformation(extent={{-140,40},{-100,80}})));
-
-  //Output variable
   Interfaces.BooleanOutput y(start = Y0) annotation(
       Placement(transformation(extent={{100,-10},{120,10}})));
 
