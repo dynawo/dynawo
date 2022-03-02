@@ -903,7 +903,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
   std::pair<shared_ptr<ModelTwoWindingsTransformer>, shared_ptr<ModelVoltageLevel> > p = createModelTwoWindingsTransformer(false, false, true, false);
   shared_ptr<ModelTwoWindingsTransformer> t2w = p.first;
   t2w->initSize();
-  unsigned nbZ = 5;
+  unsigned nbZ = 6;
   unsigned nbG = 8;
   ASSERT_EQ(t2w->sizeZ(), nbZ);
   ASSERT_EQ(t2w->sizeG(), nbG);
@@ -985,7 +985,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerOpenedDiscreteVariabl
       false, true, true, false);
   shared_ptr<ModelTwoWindingsTransformer> t2w = p.first;
   t2w->initSize();
-  unsigned nbZ = 5;
+  unsigned nbZ = 6;
   unsigned nbG = 8;
   ASSERT_EQ(t2w->sizeZ(), nbZ);
   ASSERT_EQ(t2w->sizeG(), nbG);

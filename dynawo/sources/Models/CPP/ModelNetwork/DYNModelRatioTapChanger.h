@@ -52,9 +52,10 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @param disable : is the tap changer disabled ?
    * @param locked : is the tap changer locked ?
    * @param tfoClosed : is the transformer connected ?
+   * @param deltaUTarget : delta to be added on target voltage
    */
   void evalG(double t, double uValue, bool nodeOff, state_g* g, double disable,
-             double locked, bool tfoClosed);
+             double locked, bool tfoClosed, double deltaUTarget);
 
   /**
    * @brief  evaluate discrete values
@@ -129,9 +130,9 @@ class ModelRatioTapChanger : public ModelTapChanger {
   bool moveDown_;       ///< @b false if tap should be decreased
   int tapRefDown_;      ///< initial tap when trying to decrease tap
   int tapRefUp_;        ///<  initial tap when trying to increase tap
-  bool uMaxState_;      ///< @b true if U > uTarget + uDeadBand
-  bool uMinState_;      ///< @b true if U < uTarget - uDeadBand
-  bool uTargetState_;   ///< @b true if uTarget - uDeadBand < U < uTarget +
+  bool uMaxState_;      ///< @b true if U > uTarget + uDeadBand + deltaUTarget
+  bool uMinState_;      ///< @b true if U < uTarget - uDeadBand + deltaUTarget
+  bool uTargetState_;   ///< @b true if uTarget + deltaUTarget - uDeadBand < U < uTarget + deltaUTarget +
                         ///< uDeadBand
 };
 }  // namespace DYN
