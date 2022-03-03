@@ -368,6 +368,8 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
   double step_;  ///< step in seconds between two updates of the utilities computations. (external parameter)
   bool isInitialized_;  ///< is True if a first initialization of the model has been made; false until first update.
   bool* isActive_;  ///< keeps track of which asset was active at last update.
+
+  static constexpr double maxValueThreshold = 2000000.;  ///< Numeric limits from std generates overflow in displaying the curves. This should solve it.
 };
 
 }  // namespace DYN

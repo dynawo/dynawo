@@ -27,7 +27,7 @@ TEST(ModelsModelicaPreassembled, TestBuildChecker) {
   executeCommand(cmd, ssPython);
   std::string result = ssPython.str();
   boost::erase_all(result, "\n");
-  ASSERT_EQ(result, "Executing command : "+cmd+"Usage:  Usage: buildChecker.py <preassembled-model>    Script checking if the preassembled-model fils is well built.    Some implicit rules must be verify before launching the built of the    preassembled model    Return an error if theses rules are not verified    buildChecker.py: error: Incorrect args number");
+  ASSERT_EQ(result, "Executing command : "+cmd+"Usage:  Usage: buildChecker.py <preassembled-model>    Script checking if the preassembled-model file is well built.    Some implicit rules must be verified before launching the build of the    preassembled model    Return an error if theses rules are not verified    buildChecker.py: error: Incorrect args number");
   ssPython.str(std::string());
 
   cmd = pythonCmd + " buildChecker.py res/preassembled_ok.xml";
@@ -41,7 +41,7 @@ TEST(ModelsModelicaPreassembled, TestBuildChecker) {
   executeCommand(cmd, ssPython);
   result = ssPython.str();
   boost::erase_all(result, "\n");
-  ASSERT_EQ(result, "Executing command : "+ cmd+ "ERROR : res/preassembled_ko.xml is not well build         file name and preassembled model id must be equal         file name =preassembled_ko         preassembled model id =preassembled_ok");
+  ASSERT_EQ(result, "Executing command : "+ cmd+ "ERROR : res/preassembled_ko.xml is not well built         file name and preassembled model id must be equal         file name =preassembled_ko         preassembled model id =preassembled_ok");
 }
 
 

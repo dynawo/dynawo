@@ -116,6 +116,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   UnderVoltageAutomaton.xml
   VRRemote.xml
   WeightedDifference.xml
+  WeightedDifferenceExternal.xml
   WindTurbine4AWeccCurrentSource.xml
   WindTurbine4BWeccCurrentSource.xml
   )
