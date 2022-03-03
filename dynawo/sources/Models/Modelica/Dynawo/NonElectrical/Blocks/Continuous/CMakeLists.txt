@@ -23,6 +23,8 @@ set(MODEL_FILES
   VarLimPIDFreeze.mo
   WeightedDifference.mo
   WeightedDifference.extvar
+  WeightedDifferenceExternal.mo
+  WeightedDifferenceExternal.extvar
   )
 
 #

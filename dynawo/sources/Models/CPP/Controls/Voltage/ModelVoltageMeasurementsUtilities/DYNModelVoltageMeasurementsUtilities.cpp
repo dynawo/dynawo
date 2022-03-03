@@ -361,7 +361,7 @@ ModelVoltageMeasurementsUtilities::checkDataCoherence(const double /*t*/) {
 
 double
 ModelVoltageMeasurementsUtilities::computeMin(unsigned int &minIdx) const {
-  double minSoFar = std::numeric_limits<double>::max();
+  double minSoFar = maxValueThreshold;
   minIdx = nbConnectedInputs_;
   for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
     if (isRunning(i) && (minSoFar > yLocal_[i])) {
@@ -374,7 +374,7 @@ ModelVoltageMeasurementsUtilities::computeMin(unsigned int &minIdx) const {
 
 double
 ModelVoltageMeasurementsUtilities::computeMax(unsigned int &maxIdx) const {
-  double maxSoFar = std::numeric_limits<double>::lowest();
+  double maxSoFar = -maxValueThreshold;
   maxIdx = nbConnectedInputs_;
   for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
     if (isRunning(i) && (yLocal_[i] > maxSoFar)) {
@@ -415,8 +415,8 @@ ModelVoltageMeasurementsUtilities::initializeVMU(const double t) {
     nbActive_ = 0;
     achievedMin_ = nbConnectedInputs_;
     achievedMax_ = nbConnectedInputs_;
-    lastMax_ = std::numeric_limits<double>::lowest();
-    lastMin_ = std::numeric_limits<double>::max();
+    lastMax_ = -maxValueThreshold;
+    lastMin_ = maxValueThreshold;
     lastAverage_ = 0.;
     for (std::size_t i = 0; i < nbConnectedInputs_; ++i) {
       isActive_[i] = zLocal_[nbDiscreteVars_ + i];

@@ -76,7 +76,7 @@ def main():
     name_file = name_file.replace(".xml","")
 
     if name_file != preassembled_model_id:
-        print ('ERROR : '+str(preassembled_model_file)+' is not well build')
+        print ('ERROR : '+str(preassembled_model_file)+' is not well built')
         print ('         file name and preassembled model id must be equal')
         print ('         file name ='+str(name_file))
         print ('         preassembled model id ='+str(preassembled_model_id))
