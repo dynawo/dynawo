@@ -12,7 +12,7 @@
     for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="SectionControl">
-    <dyn:unitDynamicModel id="SecControl" name="Dynawo.NonElectrical.Blocks.NonLinear.SectionControl"/>
+  <dyn:modelicaModel id="PIAntiWindUpTable">
+    <dyn:unitDynamicModel id="piAntiWindupTable" name="Dynawo.NonElectrical.Blocks.NonLinear.PIAntiWindUpTable"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

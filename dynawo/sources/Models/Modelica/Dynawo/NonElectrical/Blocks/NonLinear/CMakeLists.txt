@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2022, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -26,8 +26,8 @@ set(MODEL_FILES
   MinThresholdSwitch.mo
   PulseFixedDuration.mo
   PulseMinimumDuration.mo
-  SectionControl.mo
-  SectionControl.extvar
+  PIAntiWindUpTable.mo
+  PIAntiWindUpTable.extvar
   VariableLimiter.mo
   )
 

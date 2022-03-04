@@ -108,7 +108,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   VRRemote.xml
   WindTurbine4AWeccCurrentSource.xml
   WindTurbine4BWeccCurrentSource.xml
-  SectionControl.xml
+  PIAntiWindUpTable.xml
   )
 
 # PYTHON scripts preassembled models
