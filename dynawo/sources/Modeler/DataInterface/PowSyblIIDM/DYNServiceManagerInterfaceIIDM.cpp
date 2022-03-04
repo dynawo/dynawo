@@ -20,6 +20,7 @@
 
 #include "DYNServiceManagerInterfaceIIDM.h"
 
+#include "DYNBatteryInterfaceIIDM.h"
 #include "DYNDataInterfaceIIDM.h"
 #include "DYNGeneratorInterfaceIIDM.h"
 #include "DYNLineInterfaceIIDM.h"
@@ -27,6 +28,8 @@
 #include "DYNShuntCompensatorInterfaceIIDM.h"
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNStaticVarCompensatorInterfaceIIDM.h"
+
+#include <boost/pointer_cast.hpp>
 
 namespace DYN {
 
@@ -98,8 +101,14 @@ ServiceManagerInterfaceIIDM::getRegulatedBus(const std::string& regulatingCompon
   const auto& regulatingComp = dataInterface_->findComponent(regulatingComponent);
   switch (regulatingComp->getType()) {
     case ComponentInterface::GENERATOR: {
-      const auto& generator = dataInterface_->getNetworkIIDM().getGenerator(regulatingComp.get()->getID());
-      return getRegulatedBusOnSide(generator.getRegulatingTerminal());
+      // the following cast is needed because for the moment an iidm battery is moved to generator type
+      auto isABattery = boost::dynamic_pointer_cast<BatteryInterfaceIIDM>(regulatingComp);
+      if (isABattery) {
+        return boost::shared_ptr<BusInterface> ();
+      } else {
+        const auto& generator = dataInterface_->getNetworkIIDM().getGenerator(regulatingComp.get()->getID());
+        return getRegulatedBusOnSide(generator.getRegulatingTerminal());
+      }
     }
     case ComponentInterface::SVC: {
       const auto& svc = dataInterface_->getNetworkIIDM().getStaticVarCompensator(regulatingComp.get()->getID());
