@@ -13,4 +13,4 @@ MinThresholdSwitch
 PulseFixedDuration
 PulseMinimumDuration
 VariableLimiter
-DiscreteIntegratorAntiWindUp
+PIAntiWindUpTable
