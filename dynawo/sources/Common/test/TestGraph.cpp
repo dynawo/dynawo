@@ -123,59 +123,6 @@ TEST(CommonTest, testPathExistGraph) {
   ASSERT_EQ(graph.pathExist(11, 12, weights), false);  // vertices not declared for this graph
 }
 
-TEST(CommonTest, testFindAllPathsGraph) {
-  Graph graph = defineGraph();
-
-  // add additional vertex
-  graph.addVertex(10);
-
-  // use all edge : weights equals to 1
-  boost::unordered_map<string, float> weights = defineWeights();
-
-  // shortest path between 0 -0 : empty path
-  list<vector<string> >paths0;
-  graph.findAllPaths(0, 0, weights, paths0);
-  ASSERT_EQ(paths0.empty(), true);
-
-  // all path between 0-5 : 0->3->5, 0->2->4->5, 0->1->4->5, 0->6->8->9->5, 0->7->8->9->5
-  list<vector<string> >paths1;
-  graph.findAllPaths(0, 5, weights, paths1);
-  ASSERT_EQ(paths1.size(), 5);
-
-  // return the first path
-  list<vector<string> >paths1bis;
-  graph.findAllPaths(0, 5, weights, paths1bis, true);
-  ASSERT_EQ(paths1bis.size(), 1);
-
-  // return the first path for vertices which are neighbours
-  list<vector<string> >paths1ter;
-  graph.findAllPaths(0, 1, weights, paths1ter, true);
-  ASSERT_EQ(paths1ter.size(), 1);
-
-  // restore edge
-  weights["0-3"] = 1;
-  weights["8-9"] = 1;
-
-  // open edge between 0-1 0-2, 0-3 ; all path between 0-4 : 0->6->8->9->5->4 and 0->7->8->9->5->4
-  weights["0-1"] = 0;
-  weights["0-2"] = 0;
-  weights["0-3"] = 0;
-  paths1.clear();
-  graph.findAllPaths(0, 4, weights, paths1);
-  ASSERT_EQ(paths1.size(), 2);
-  vector<string> firstPath = paths1.front();
-  vector<string> secondPath = paths1.back();
-  ASSERT_EQ(firstPath.size(), 5);
-  ASSERT_EQ(firstPath[2], "8-9");
-  ASSERT_EQ(secondPath.size(), 5);
-  ASSERT_EQ(secondPath[2], "8-9");
-
-  // shortest path between 0 and 10 : empty path
-  list<vector<string> >paths2;
-  graph.findAllPaths(0, 10, weights, paths2);
-  ASSERT_EQ(paths2.empty(), true);
-}
-
 TEST(CommonTest, testshortestPathGraph) {
   Graph graph = defineGraph();
 
@@ -285,10 +232,8 @@ TEST(CommonTest, testGraphWithLoop) {
   weights["6-0"] = 1;
 
 
-  list<vector<string> >paths;
-  graph.findAllPaths(4, 6, weights, paths);
-  ASSERT_EQ(paths.size(), 3);  // paths : 4->1->0->6, 4->2->0->6, 4->5->3->0->6
-  vector<string> path = paths.front();
+  vector<string> path;
+  graph.shortestPath(4, 6, weights, path);
   ASSERT_EQ(path.size(), 3);  // edges : "1-4" "0-1" 6-0"
   ASSERT_EQ(path[0], "1-4");
   ASSERT_EQ(path[1], "0-1");
