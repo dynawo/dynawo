@@ -14,10 +14,11 @@
 import os
 import fnmatch
 import sys
+import XMLUtils
 from shutil import copyfile
 from optparse import OptionParser
 
-from nrtDiff import TestCase, REFERENCE_DATA_DIRECTORY_NAME, CompareTwoFiles, LogsSeparator, IDENTICAL, ImportXMLFileExtended, FindAll
+from nrtDiff import TestCase, REFERENCE_DATA_DIRECTORY_NAME, CompareTwoFiles, LogsSeparator, IDENTICAL
 
 # No need to test DYNAWO_BRANCH_NAME as already done in nrtDiff
 if os.getenv("DYNAWO_NRT_DIR") is None:
@@ -31,16 +32,16 @@ nrt_results_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "output",branch_nam
 def findOutputFile(testcase):
     files = []
     # Parse jobs file
-    (jobs_root, ns, prefix) = ImportXMLFileExtended(testcase.jobs_file_)
-    for job in FindAll(jobs_root, prefix, "job", ns):
+    (jobs_root, ns, prefix) = XMLUtils.ImportXMLFileExtended(testcase.jobs_file_)
+    for job in XMLUtils.FindAll(jobs_root, prefix, "job", ns):
         # Get outputs
-        for outputs in FindAll(job, prefix, "outputs", ns):
+        for outputs in XMLUtils.FindAll(job, prefix, "outputs", ns):
             if (not "directory" in outputs.attrib):
                 printout("Fail to generate NRT ref: outputs directory is missing in jobs file " + testcase.jobs_file_ + os.linesep, BLACK)
                 sys.exit(1)
             output_dir = outputs.get("directory")
             # timeline
-            for timeline in FindAll(outputs, prefix, "timeline", ns):
+            for timeline in XMLUtils.FindAll(outputs, prefix, "timeline", ns):
                     if (not "exportMode" in timeline.attrib):
                         printout("Fail to generate NRT ref for " + testcase.jobs_file_ + ": a timeline element does not have an export mode " + os.linesep, BLACK)
                         sys.exit(1)
@@ -51,7 +52,7 @@ def findOutputFile(testcase):
                     elif(timeline.get("exportMode") == "TXT"):
                         files.append(os.path.join(output_dir, "timeLine", "timeline.log" ))
             # curves
-            for curves in FindAll(outputs, prefix, "curves", ns):
+            for curves in XMLUtils.FindAll(outputs, prefix, "curves", ns):
                 if (not "exportMode" in curves.attrib):
                     printout("Fail to generate NRT ref for " + testcase.jobs_file_ + " : a curve element does not have an export mode " + os.linesep, BLACK)
                     sys.exit(1)
@@ -61,7 +62,7 @@ def findOutputFile(testcase):
                     files.append(os.path.join(output_dir, "curves", "curves.xml" ))
 
             # logs
-            for appender in FindAll(outputs, prefix, "appender", ns):
+            for appender in XMLUtils.FindAll(outputs, prefix, "appender", ns):
                 if (not "file" in appender.attrib):
                     printout("Fail to generate NRT ref for " + testcase.jobs_file_ + " : an appender of output is not an attribute in file " + os.linesep, BLACK)
                     sys.exit(1)
