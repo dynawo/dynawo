@@ -919,7 +919,7 @@ ModelManager::solveParameters() {
   // we loop until we find stable initial values (handle of dependencies Z->Y, Y->Z)
   bool stableRoot = true;
   bool zChange = false;
-  int compteur = 0;
+  int counter = 0;
 
   // test init model size
   if (sizeY() != sizeF())
@@ -981,6 +981,7 @@ ModelManager::solveParameters() {
       if (sizeMode() > 0) {
         evalMode(t0);
       }
+      rotateBuffers();
     } else {
       // case of function to compute discrete variables (used to transform for example)
       evalZ(t0);
@@ -988,8 +989,8 @@ ModelManager::solveParameters() {
 
     zChange = (zSave != zLocalInit_);
 
-    ++compteur;
-    if ( compteur >= 10)
+    ++counter;
+    if ( counter >= 10)
       throw  DYNError(Error::MODELER, UnstableRoots);
   } while (!stableRoot || zChange);
   if (flag < 0)
