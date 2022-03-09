@@ -99,10 +99,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    */
   typedef enum {
-    // minChangedLoc_ = 0,
-    // maxChangedLoc_ = 1,
     timeToUpdate_ = 0,
-    // connectionUpdated_ = 3,
     nbRoots_
   } RootVars_t;
 
@@ -313,7 +310,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
   /**
    * @copydoc ModelCPP::setGequations()
    */
-  void setGequations() { /* not needed */ }
+  void setGequations() {}
 
   /**
    * @copydoc ModelCPP::initParams()
@@ -367,7 +364,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
   double lastAverage_;  ///< Keeps track of latest updated average.
   double step_;  ///< step in seconds between two updates of the utilities computations. (external parameter)
   bool isInitialized_;  ///< is True if a first initialization of the model has been made; false until first update.
-  bool* isActive_;  ///< keeps track of which asset was active at last update.
+  std::vector<bool> isActive_;  ///< keeps track of which asset was active at last update.
 
   static constexpr double maxValueThreshold = 2000000.;  ///< Numeric limits from std generates overflow in displaying the curves. This should solve it.
 };
