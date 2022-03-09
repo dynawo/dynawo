@@ -318,15 +318,31 @@ job_file = os.path.join(os.path.dirname(__file__),  "StaticVarCompensators", "SV
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
 
 ##########################################
-#        VoltageMeasurementsUtilities            #
+#    VoltageMeasurementsUtilities        #
 ##########################################
 
-<<<<<<< HEAD
 case_name = "DynaFlow - StepURef - VoltageMeasurementsUtilities"
-=======
-case_name = "DynaFlow - VoltageMeasurementsUtilities"
->>>>>>> e401c9f8... #2035 VMU nrt
 case_description = "Compute Min, Max, and Mean values of input voltage"
 job_file = os.path.join(os.path.dirname(__file__),  "VoltageMeasurementsUtilities", "VMU.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+##########################################
+#         WeightedDifference             #
+##########################################
+
+case_name = "DynaFlow - StepURef - WeightedDifference"
+case_description = "Verifies that the output follows a given scaling and voltage shift of the input"
+job_file = os.path.join(os.path.dirname(__file__),  "WeightedDifference", "WD.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+##########################################
+#          PIAntiWinduoTable             #
+##########################################
+
+case_name = "DynaFlow - Loop via weighted difference - PIAntiWindupTable"
+case_description = "Compute Min, Max, and Mean values of input voltage"
+job_file = os.path.join(os.path.dirname(__file__),  "PIAntiWindupTable", "PITable.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

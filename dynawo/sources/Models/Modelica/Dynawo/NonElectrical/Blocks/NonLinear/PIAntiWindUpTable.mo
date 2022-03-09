@@ -1,24 +1,28 @@
 within Dynawo.NonElectrical.Blocks.NonLinear;
 
-model PIAntiWindUpTable "Integrator with wind up and discrete output"
-  /*
-    * Copyright (c) 2022, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-    */
+/*
+* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
+model PIAntiWindUpTable "Proportional Integrator with wind up and table-based output"
+
   import Modelica;
+
   parameter Real Ki "Integrator constant";
   parameter Real U0 "Start value of input";
   parameter Real Y0 "Start value of output";
   parameter Real Kp "Gain constant";
   parameter String PiTableFile "Name of the file describing the table";
   parameter String PiTableName "Name of the table in the text file";
+
   Modelica.Blocks.Interfaces.RealInput u(start = U0) annotation(
     Placement(visible = true, transformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0), iconTransformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1D combiTable1D(tableOnFile = true, tableName = PiTableName, fileName = PiTableFile) annotation(
@@ -35,6 +39,7 @@ model PIAntiWindUpTable "Integrator with wind up and discrete output"
     Placement(visible = true, transformation(origin = {-11, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {29, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   connect(add1.y, integrator.u) annotation(
     Line(points = {{-49, -6}, {-23, -6}}, color = {0, 0, 127}));
@@ -56,7 +61,8 @@ equation
     Line(points = {{0, 28}, {8, 28}, {8, 6}, {18, 6}}, color = {0, 0, 127}));
   connect(integrator.y, add.u2) annotation(
     Line(points = {{0, -6}, {18, -6}}, color = {0, 0, 127}));
+
   annotation(
-    preferredView = Diagram,
+    preferredView ="diagram",
     Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Line(points = {{-80, 78}, {-80, -90}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{-80, 90}, {-88, 68}, {-72, 68}, {-80, 90}}), Line(points = {{-90, -80}, {82, -80}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{90, -80}, {68, -72}, {68, -88}, {90, -80}}), Line(points = {{-80, -80}, {-80, -20}, {60, 80}}, color = {0, 0, 127}), Text(lineColor = {192, 192, 192}, extent = {{0, 6}, {60, -56}}, textString = "PI"), Text(extent = {{-150, -150}, {150, -110}}, textString = "T=%T")}));
 end PIAntiWindUpTable;

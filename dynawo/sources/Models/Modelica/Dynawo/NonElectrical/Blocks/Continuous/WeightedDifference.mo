@@ -46,5 +46,5 @@ equation
 
   annotation(preferredView = "diagram",
   Diagram(coordinateSystem(initialScale = 0.1)),
-  Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-2, 2}, extent = {{-64, 38}, {64, -38}}, textString = "Voltage Normalizer")}));
+  Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-2, 2}, extent = {{-64, 38}, {64, -38}}, textString = "Weighted Difference")}));
 end WeightedDifference;

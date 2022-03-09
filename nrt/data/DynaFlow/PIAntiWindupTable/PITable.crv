@@ -11,8 +11,8 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-    <curve model="WD" variable="weightedDifferenceExternal_u"/>
-    <curve model="WD" variable="weightedDifferenceExternal_target"/>
+    <curve model="WD" variable="weightedDifference_u"/>
+    <curve model="WD" variable="weightedDifference_Target"/>
     <curve model="PI" variable="piAntiWindupTable_y"/>
     <curve model="U1" variable="step_step_value"/>
 </curvesInput>
