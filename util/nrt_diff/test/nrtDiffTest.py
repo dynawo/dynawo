@@ -122,6 +122,20 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
 [ERROR] object BUS_TYPE_DIFF_787_U &lt; Umin has different types in the two files\n\
 [ERROR] values of object BUS_LARGE_VALUE_DIFF_778_U &lt; Umin are different (delta = 2.0) \n")
 
+    def test_fqv_xml(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.fsv"), '|', os.path.join(dir_path, "finalStateValues2.fsv"), '|')
+        self.assertEqual(return_value, nrtDiff.IDENTICAL)
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.fsv"), '|', os.path.join(dir_path, "finalStateValues3.fsv"), '|')
+        self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        self.assertEqual(message, "nrt_diff/test/finalStateValues.fsv: 6 different output values\n\
+[ERROR] object modelDifferentName_variable is in left path but not in right one\n\
+[ERROR] object modelDifferentVariable_variable is in left path but not in right one\n\
+[ERROR] object modelDifferentName2_variable is in right path but not in left one\n\
+[ERROR] object modelDifferentVariable_variable2 is in right path but not in left one\n\
+[ERROR] object modelNotThere_variable is in right path but not in left one\n\
+[ERROR] values of object modelDifferentValue_variable are different (delta = 3.0) \n")
+
 class TestnrtDiffDirectoryDiff(unittest.TestCase):
     def test_directory_diff(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
