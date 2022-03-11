@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<finalStateValuesOutput xmlns="http://www.rte-france.com/dynawo">
+  <finalStateValue model="modelEqual" variable="variable" value="5.000000"/>
+  <finalStateValue model="modelDifferentName" variable="variable" value="7.000000"/>
+  <finalStateValue model="modelDifferentVariable" variable="variable" value="9.000000"/>
+  <finalStateValue model="modelDifferentValue" variable="variable" value="11.000000"/>
+  <finalStateValue model="modelDifferentValueWithinTol" variable="variable" value="13.000000"/>
+</finalStateValuesOutput>
