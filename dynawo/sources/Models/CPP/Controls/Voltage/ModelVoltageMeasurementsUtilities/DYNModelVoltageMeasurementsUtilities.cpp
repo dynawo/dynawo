@@ -92,8 +92,7 @@ namespace DYN {
 ModelVoltageMeasurementsUtilities::ModelVoltageMeasurementsUtilities() :
 ModelCPP("voltageMeasurementsUtilities"),
 nbConnectedInputs_(0),
-step_(0.),
-isInitialized_(false) {
+step_(0.) {
 }
 
 /**
@@ -128,9 +127,6 @@ ModelVoltageMeasurementsUtilities::evalF(double /*t*/, propertyF_t /*type*/) {
 
 void
 ModelVoltageMeasurementsUtilities::evalG(const double t) {
-  if (!isInitialized_) {
-    initializeVMU(t);
-  }
   gLocal_[timeToUpdate_] = ((t-(zLocal_[tLastUpdate_] + step_)) >= 0) ? ROOT_UP : ROOT_DOWN;
 }
 
@@ -153,11 +149,6 @@ ModelVoltageMeasurementsUtilities::evalJtPrim(const double /*t*/, const double /
 
 void
 ModelVoltageMeasurementsUtilities::evalZ(const double t) {
-  // Make sure it is initialized
-  if (!isInitialized_) {
-    initializeVMU(t);
-  }
-
   // Is it time for a new update?
   if (gLocal_[timeToUpdate_] == ROOT_UP) {
     // update EV-E-RY-THIIIING !!
@@ -265,7 +256,30 @@ ModelVoltageMeasurementsUtilities::evalCalculatedVars() {
 
 void
 ModelVoltageMeasurementsUtilities::getY0() {
-  initializeVMU(0.);
+  isActive_ = std::vector<bool>(nbConnectedInputs_, false);
+  nbActive_ = 0;
+  achievedMin_ = nbConnectedInputs_;
+  achievedMax_ = nbConnectedInputs_;
+  lastMax_ = -maxValueThreshold;
+  lastMin_ = maxValueThreshold;
+  lastAverage_ = 0.;
+  for (std::size_t i = 0; i < nbConnectedInputs_; ++i) {
+    isActive_[i] = zLocal_[nbDiscreteVars_ + i];
+    if (isActive_[i]) {
+      ++nbActive_;
+      if (yLocal_[i] > lastMax_) {
+        lastMax_ = yLocal_[i];
+        achievedMax_ = i;
+      }
+      if (yLocal_[i] < lastMin_) {
+        lastMin_ = yLocal_[i];
+        achievedMin_ = i;
+      }
+      lastAverage_ += yLocal_[i];
+    }
+  }
+  lastAverage_ = nbActive_ == 0 ? 0 : lastAverage_/nbActive_;
+  zLocal_[tLastUpdate_] = getCurrentTime();
 }
 
 void
@@ -411,37 +425,6 @@ ModelVoltageMeasurementsUtilities::computeAverage(unsigned int &nbActive) const 
 bool
 ModelVoltageMeasurementsUtilities::isRunning(unsigned int inputIdx) const {
   return (inputIdx < nbConnectedInputs_)? isActive_[inputIdx] : false;
-}
-
-void
-ModelVoltageMeasurementsUtilities::initializeVMU(const double t) {
-  if (!isInitialized_) {
-    isActive_ = std::vector<bool>(nbConnectedInputs_, false);
-    nbActive_ = 0;
-    achievedMin_ = nbConnectedInputs_;
-    achievedMax_ = nbConnectedInputs_;
-    lastMax_ = -maxValueThreshold;
-    lastMin_ = maxValueThreshold;
-    lastAverage_ = 0.;
-    for (std::size_t i = 0; i < nbConnectedInputs_; ++i) {
-      isActive_[i] = zLocal_[nbDiscreteVars_ + i];
-      if (isActive_[i]) {
-        ++nbActive_;
-        if (yLocal_[i] > lastMax_) {
-          lastMax_ = yLocal_[i];
-          achievedMax_ = i;
-        }
-        if (yLocal_[i] < lastMin_) {
-          lastMin_ = yLocal_[i];
-          achievedMin_ = i;
-        }
-        lastAverage_ += yLocal_[i];
-      }
-    }
-    lastAverage_ = nbActive_ == 0 ? 0 : lastAverage_/nbActive_;
-    isInitialized_ = true;
-    zLocal_[tLastUpdate_] = t;
-  }
 }
 
 }  // namespace DYN

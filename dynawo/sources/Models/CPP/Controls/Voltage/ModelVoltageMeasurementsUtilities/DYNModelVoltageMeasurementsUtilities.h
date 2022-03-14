@@ -310,7 +310,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
   /**
    * @copydoc ModelCPP::setGequations()
    */
-  void setGequations() {}
+  void setGequations();
 
   /**
    * @copydoc ModelCPP::initParams()
@@ -348,22 +348,15 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    */
   bool isRunning(unsigned int inputIdx) const;
 
-  /**
-   * @brief initializes all attributes and important variables.
-   * @param t the time of initialization.
-   */
-  void initializeVMU(const double t = 0.0);
-
  private:
   unsigned int nbConnectedInputs_;  ///< Number of active inputs (external parameter)
   unsigned int nbActive_;  ///< Keeps track of how many components are indeed connected at a given time.
   unsigned int achievedMin_;  ///< Keeps track of where the min is coming from.
   unsigned int achievedMax_;  ///< Keeps track of where the max is coming from.
   double lastMin_;  ///< Keeps track of latest updated min.
-  double lastMax_;  ///< Keeps track of latest updated min.
+  double lastMax_;  ///< Keeps track of latest updated max.
   double lastAverage_;  ///< Keeps track of latest updated average.
   double step_;  ///< step in seconds between two updates of the utilities computations. (external parameter)
-  bool isInitialized_;  ///< is True if a first initialization of the model has been made; false until first update.
   std::vector<bool> isActive_;  ///< keeps track of which asset was active at last update.
 
   static constexpr double maxValueThreshold = 2000000.;  ///< Numeric limits from std generates overflow in displaying the curves. This should solve it.
