@@ -96,7 +96,8 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
     currentStepIndexNum_ = 1,
     currentLimitsDesactivateNum_ = 2,
     disableInternalTapChangerNum_ = 3,
-    tapChangerLockedNum_ = 4
+    tapChangerLockedNum_ = 4,
+    deltaUTarget = 5
   } IndexDiscreteVariable_t;
 
   /**
