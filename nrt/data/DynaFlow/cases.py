@@ -8,7 +8,7 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+# This file is part of Dynawo, a hybrid C++/Modelica open source time domain
 # simulation tool for power systems.
 
 import os
@@ -323,7 +323,17 @@ test_cases.append((case_name, case_description, job_file, 30, standardReturnCode
 
 case_name = "DynaFlow - StepURef - VoltageMeasurementsUtilities"
 case_description = "Compute Min, Max, and Mean values of input voltage"
-job_file = os.path.join(os.path.dirname(__file__),  "VoltageMeasurementsUtilities", "VMU.jobs")
+job_file = os.path.join(os.path.dirname(__file__),  "VoltageMeasurementsUtilities", "VMU_StepUp", "VMU.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+##########################################
+#    VoltageMeasurementsUtilities        #
+##########################################
+
+case_name = "DynaFlow - Disconnect - VoltageMeasurementsUtilities"
+case_description = "Compute Min, Max, and Mean values of input voltage"
+job_file = os.path.join(os.path.dirname(__file__),  "VoltageMeasurementsUtilities", "VMU_Disconnect", "VMU.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 

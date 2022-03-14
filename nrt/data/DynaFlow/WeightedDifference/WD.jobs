@@ -12,7 +12,7 @@
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="WeightedDifference test">
-      <dyn:solver lib="dynawo_SolverSIM" parFile="solvers.par" parId="1"/>
+      <dyn:solver lib="dynawo_SolverSIM" parFile="WD.par" parId="0"/>
       <dyn:modeler compileDir="outputs/compilation">
         <dyn:dynModels dydFile="WD.dyd"/>
         <dyn:precompiledModels useStandardModels="true"/>
