@@ -19,6 +19,8 @@ set(MODEL_FILES
   TransformerFixedRatio.extvar
   TransformerVariableTap.mo
   TransformerVariableTap.extvar
+  TransformerVariableTapXtdPu.mo
+  TransformerVariableTapXtdPu.extvar
   TransformerVariableTapPQ_INIT.mo
   TransformerVariableTapI_INIT.mo
   GeneratorTransformer.mo
