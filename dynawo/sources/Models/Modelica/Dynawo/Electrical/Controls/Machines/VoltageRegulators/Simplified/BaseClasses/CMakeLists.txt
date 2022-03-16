@@ -1,4 +1,4 @@
-# Copyright (c) 2021, RTE (http://www.rte-france.com)
+# Copyright (c) 2022, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,16 +6,13 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-
-# Simplified governor models
+# This file is part of Dynawo, an hybrid C++/Modelica open source suite
+# of simulation tools for power systems.
 
 set(MODEL_FILES
   package.mo
   package.order
-  GoverNordic.mo
-  GoverProportional.mo
-  GoverProportional.extvar
+  OELNordic.mo
   )
 
 #
