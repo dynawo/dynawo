@@ -725,35 +725,31 @@ void
 ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
   switch (numCalculatedVar) {
     case pNum_: {
-      if (isRunning()) {
-        numVars.push_back(modelBus_->urYNum());
-        numVars.push_back(modelBus_->uiYNum());
-        if (isControllable_)
-          numVars.push_back(DeltaPcYNum_ + yOffset_);
-        if (isRestorative_)
-          numVars.push_back(zPYNum_ + yOffset_);
-      }
+      numVars.push_back(modelBus_->urYNum());
+      numVars.push_back(modelBus_->uiYNum());
+      if (isControllable_)
+        numVars.push_back(DeltaPcYNum_ + yOffset_);
+      if (isRestorative_)
+        numVars.push_back(zPYNum_ + yOffset_);
     }
     break;
     case qNum_: {
-      if (isRunning()) {
-        numVars.push_back(modelBus_->urYNum());
-        numVars.push_back(modelBus_->uiYNum());
-        if (isControllable_)
-          numVars.push_back(DeltaQcYNum_ + yOffset_);
-        if (isRestorative_)
-          numVars.push_back(zQYNum_ + yOffset_);
-      }
+      numVars.push_back(modelBus_->urYNum());
+      numVars.push_back(modelBus_->uiYNum());
+      if (isControllable_)
+        numVars.push_back(DeltaQcYNum_ + yOffset_);
+      if (isRestorative_)
+        numVars.push_back(zQYNum_ + yOffset_);
     }
     break;
     case pcNum_: {
-      if (isRunning() && isControllable_) {
+      if (isControllable_) {
         numVars.push_back(DeltaPcYNum_ + yOffset_);
       }
     }
     break;
     case qcNum_: {
-      if (isRunning() && isControllable_) {
+      if (isControllable_) {
         numVars.push_back(DeltaQcYNum_ + yOffset_);
       }
     }
