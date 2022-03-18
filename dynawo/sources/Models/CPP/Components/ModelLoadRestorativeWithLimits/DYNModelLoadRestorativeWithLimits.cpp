@@ -451,18 +451,14 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
     switch (numCalculatedVar) {
       case PNum_:
-        if (isConnected()) {
-          numVars.push_back(UrYNum_);
-          numVars.push_back(UiYNum_);
-          numVars.push_back(UfYNum_);
-        }
+        numVars.push_back(UrYNum_);
+        numVars.push_back(UiYNum_);
+        numVars.push_back(UfYNum_);
         break;
       case QNum_:
-        if (isConnected()) {
-          numVars.push_back(UrYNum_);
-          numVars.push_back(UiYNum_);
-          numVars.push_back(UfYNum_);
-        }
+        numVars.push_back(UrYNum_);
+        numVars.push_back(UiYNum_);
+        numVars.push_back(UfYNum_);
         break;
       case loadStateNum_:
         break;
