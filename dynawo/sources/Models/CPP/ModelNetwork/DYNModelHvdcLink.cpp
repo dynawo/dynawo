@@ -233,22 +233,18 @@ ModelHvdcLink::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculated
   switch (numCalculatedVar) {
     case p1Num_:
     case q1Num_: {
-      if (isConnected1()) {
-        int urYNum1 = modelBus1_->urYNum();
-        int uiYNum1 = modelBus1_->uiYNum();
-        numVars.push_back(urYNum1);
-        numVars.push_back(uiYNum1);
-      }
+      int urYNum1 = modelBus1_->urYNum();
+      int uiYNum1 = modelBus1_->uiYNum();
+      numVars.push_back(urYNum1);
+      numVars.push_back(uiYNum1);
       break;
     }
     case p2Num_:
     case q2Num_: {
-      if (isConnected2()) {
-        int urYNum2 = modelBus2_->urYNum();
-        int uiYNum2 = modelBus2_->uiYNum();
-        numVars.push_back(urYNum2);
-        numVars.push_back(uiYNum2);
-      }
+      int urYNum2 = modelBus2_->urYNum();
+      int uiYNum2 = modelBus2_->uiYNum();
+      numVars.push_back(urYNum2);
+      numVars.push_back(uiYNum2);
       break;
     }
     default:
