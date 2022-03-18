@@ -321,12 +321,10 @@ void
 ModelShuntCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const {
   switch (numCalculatedVar) {
     case qNum_: {
-      if (isConnected()) {
-        int urYNum = modelBus_->urYNum();
-        int uiYNum = modelBus_->uiYNum();
-        numVars.push_back(urYNum);
-        numVars.push_back(uiYNum);
-      }
+      int urYNum = modelBus_->urYNum();
+      int uiYNum = modelBus_->uiYNum();
+      numVars.push_back(urYNum);
+      numVars.push_back(uiYNum);
       break;
     }
     default:

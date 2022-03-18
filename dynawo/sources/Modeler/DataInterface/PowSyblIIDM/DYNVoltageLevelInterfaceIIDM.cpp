@@ -438,11 +438,12 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
     if (terminal) {
       const auto& bus = terminal.get().getBusView().getBus();
       if (bus) {
-        list<vector<string> > paths;
-        graph_.findAllPaths(nodeToDisconnect, static_cast<unsigned int>(nodeId), weights, paths);
+        vector<string> path;
+        graph_.shortestPath(nodeToDisconnect, static_cast<unsigned int>(nodeId), weights, path);
+        bool somethingWasDisconnected = true;
 
-        for (list<vector<string> >::const_iterator iter = paths.begin(); iter != paths.end(); ++iter) {
-          const vector<string>& path = *iter;
+        while (!path.empty() && somethingWasDisconnected) {
+          somethingWasDisconnected = false;
           for (vector<string>::const_iterator itSwitch = path.begin(); itSwitch != path.end(); ++itSwitch) {
             string switchID = *itSwitch;
             const auto& sw = voltageLevelIIDM_.getNodeBreakerView().getSwitch(switchID);
@@ -453,10 +454,14 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
                   switchState_[itSw->second] = OPEN;
                 }
                 sw.get().setOpen(true);
+                weights[switchID] = 0;
+                somethingWasDisconnected = true;
               }
               break;  // no more things to do, one breaker is open
             }
           }
+          path.clear();
+          graph_.shortestPath(nodeToDisconnect, static_cast<unsigned int>(nodeId), weights, path);
         }
       }
     }

@@ -263,12 +263,10 @@ ModelGenerator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculate
   switch (numCalculatedVar) {
     case pNum_:
     case qNum_: {
-      if (isConnected()) {
-        int urYNum = modelBus_->urYNum();
-        int uiYNum = modelBus_->uiYNum();
-        numVars.push_back(urYNum);
-        numVars.push_back(uiYNum);
-      }
+      int urYNum = modelBus_->urYNum();
+      int uiYNum = modelBus_->uiYNum();
+      numVars.push_back(urYNum);
+      numVars.push_back(uiYNum);
       break;
     }
     case genStateNum_:
