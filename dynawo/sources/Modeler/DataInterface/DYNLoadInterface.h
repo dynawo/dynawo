@@ -106,6 +106,12 @@ class LoadInterface : public ComponentInterface {
    * @return value of load power if voltage is under threshold, 0 otherwise
    */
   virtual double getPUnderVoltage() = 0;
+
+  /**
+   * @brief determine is a load is fictitious
+   * @return @b true is the load is fictitious, @b false else
+   */
+  virtual bool isFictitious() = 0;
 };
 
 #ifdef __clang__

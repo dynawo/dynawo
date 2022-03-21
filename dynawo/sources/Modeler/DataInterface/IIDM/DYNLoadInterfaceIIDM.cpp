@@ -179,4 +179,9 @@ LoadInterfaceIIDM::getPUnderVoltage() {
   return loadPUnderV_;
 }
 
+bool
+LoadInterfaceIIDM::isFictitious() {
+  return (loadIIDM_.type() == IIDM::Load::type_fictitious);
+}
+
 }  // namespace DYN

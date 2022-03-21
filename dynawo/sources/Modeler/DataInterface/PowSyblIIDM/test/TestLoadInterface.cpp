@@ -62,6 +62,7 @@ TEST(DataInterfaceTest, Load_1) {
       .setConnectableBus("VL1_BUS1")
       .setName("LOAD1_NAME")
       .setLoadType(LoadType::UNDEFINED)
+      .setFictitious(true)
       .setP0(50.0)
       .setQ0(40.0)
       .add();
@@ -107,6 +108,8 @@ TEST(DataInterfaceTest, Load_1) {
   load.getTerminal().setQ(499.0);
   ASSERT_TRUE(loadIfce.hasQInjector());
   ASSERT_DOUBLE_EQ(loadIfce.getQ(), 499.0);
+
+  ASSERT_TRUE(loadIfce.isFictitious());
 
   loadIfce.importStaticParameters();
   loadIfce.setBusInterface(nullptr);
@@ -163,5 +166,6 @@ TEST(DataInterfaceTest, Load_2) {  // tests assuming getInitialConnected == fals
   ASSERT_FALSE(loadIfce.hasQInjector());
   ASSERT_DOUBLE_EQ(loadIfce.getP(), 0.0);
   ASSERT_DOUBLE_EQ(loadIfce.getQ(), 0.0);
+  ASSERT_FALSE(loadIfce.isFictitious());
 }  // TEST(DataInterfaceTest, Load_2)
 }  // namespace DYN
