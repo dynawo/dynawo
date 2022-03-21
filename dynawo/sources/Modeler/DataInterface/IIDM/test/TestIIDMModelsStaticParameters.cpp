@@ -810,6 +810,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
   exportStateVariables(data);
 
   boost::shared_ptr<LoadInterface> loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
+  ASSERT_FALSE(loadItf->isFictitious());
   ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyLoad", "P_value"));
   ASSERT_THROW_DYNAWO(data->setReference("badParam", loadItf->getID(), "MyLoad", "p_pu"), Error::MODELER, KeyError_t::UnknownStateVariable);
   ASSERT_THROW_DYNAWO(data->setReference("p", "", "MyLoad", "p_pu"), Error::MODELER, KeyError_t::WrongReferenceId);
