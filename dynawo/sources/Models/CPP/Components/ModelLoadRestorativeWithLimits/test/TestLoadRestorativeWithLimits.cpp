@@ -203,6 +203,10 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   for (size_t i = 0; i < modelLoad->sizeZ(); ++i)
     ASSERT_FALSE(silentZ[i].getFlags(NotUsedInDiscreteEquations));
   ASSERT_NO_THROW(modelLoad->evalZ(0));
+  ASSERT_NO_THROW(modelLoad->evalDynamicYType());
+  ASSERT_EQ(yType[0], DIFFERENTIAL);
+  ASSERT_NO_THROW(modelLoad->evalDynamicFType());
+  ASSERT_EQ(fType[0], DIFFERENTIAL_EQ);
   ASSERT_NO_THROW(modelLoad->evalF(0, UNDEFINED_EQ));
   ASSERT_NO_THROW(modelLoad->evalF(0, DIFFERENTIAL_EQ));
   ASSERT_NO_THROW(modelLoad->evalF(0, ALGEBRAIC_EQ));

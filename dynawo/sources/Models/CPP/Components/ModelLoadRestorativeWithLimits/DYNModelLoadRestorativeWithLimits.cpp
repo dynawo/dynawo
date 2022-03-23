@@ -66,10 +66,10 @@ extern "C" void DYN::ModelLoadRestorativeWithLimitsFactory::destroy(DYN::SubMode
 namespace DYN {
   ModelLoadRestorativeWithLimits::ModelLoadRestorativeWithLimits() : ModelCPP("LoadRestorativeWithLimits"),
   UfYNum_(0),
-  UrYNum_(0),
-  UiYNum_(0),
-  IrYNum_(0),
-  IiYNum_(0),
+  UrYNum_(1),
+  UiYNum_(2),
+  IrYNum_(3),
+  IiYNum_(4),
   running_(RUNNING_FALSE),
   u0Pu_(0),
   Tf_(0),
@@ -137,11 +137,7 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::init(const double /*t0*/) {
-    UfYNum_ = 0;
-    UrYNum_ = 1;
-    UiYNum_ = 2;
-    IrYNum_ = 3;
-    IiYNum_ = 4;
+    /* not need */
   }
 
   void
@@ -164,17 +160,17 @@ namespace DYN {
   void
   ModelLoadRestorativeWithLimits::evalDynamicYType() {
     if (UMaxPuReached_ || UMinPuReached_) {
-      yType_[0] = ALGEBRAIC;  // uf
+      yType_[UfYNum_] = ALGEBRAIC;  // uf
     } else {
-      yType_[0] = DIFFERENTIAL;  // uf
+      yType_[UfYNum_] = DIFFERENTIAL;  // uf
     }
   }
   void
   ModelLoadRestorativeWithLimits::evalStaticYType() {
-    yType_[1] = EXTERNAL;  // ur
-    yType_[2] = EXTERNAL;  // ui
-    yType_[3] = ALGEBRAIC;  // ir
-    yType_[4] = ALGEBRAIC;  // ii
+    yType_[UrYNum_] = EXTERNAL;  // ur
+    yType_[UiYNum_] = EXTERNAL;  // ui
+    yType_[IrYNum_] = ALGEBRAIC;  // ir
+    yType_[IiYNum_] = ALGEBRAIC;  // ii
   }
 
   void
@@ -276,11 +272,7 @@ namespace DYN {
   ModelLoadRestorativeWithLimits::evalJt(const double /*t*/, const double cj, SparseMatrix& jt, const int rowOffset) {
     if (!isConnected()) {
       jt.changeCol();  // uf
-      if (!UMaxPuReached_ && !UMinPuReached_) {
-        jt.addTerm(UfYNum_ + rowOffset, cj);
-      } else {
-        jt.addTerm(UfYNum_ + rowOffset, 1);
-      }
+      jt.addTerm(UfYNum_ + rowOffset, cj);
       jt.changeCol();  //  Ir
       jt.addTerm(IrYNum_ + rowOffset, 1);
       jt.changeCol();  // Ii
