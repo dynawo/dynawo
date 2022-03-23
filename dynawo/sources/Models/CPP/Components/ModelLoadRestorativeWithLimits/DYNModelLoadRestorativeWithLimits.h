@@ -134,7 +134,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   /**
    * @copydoc ModelCPP::evalDynamicYType()
    */
-  void evalDynamicYType() { /* not needed */}
+  void evalDynamicYType();
   /**
   * @copydoc ModelCPP::evalStaticFType()
   */
@@ -142,7 +142,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   /**
    * @copydoc ModelCPP::evalDynamicFType()
    */
-  void evalDynamicFType() { /* not needed */}
+  void evalDynamicFType();
   /**
   * @brief initialize variables of the model
   *
@@ -272,7 +272,6 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   void evalZ(const double t);
 
  private:
-  unsigned int UfRawYNum_;  ///< local Y index for UfRaw
   unsigned int UfYNum_;  ///< local Y index for Uf
   unsigned int UrYNum_;  ///< local Y index for Ur
   unsigned int UiYNum_;  ///< local Y index for Ui
@@ -281,7 +280,6 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   int running_;  ///< Indicates if the component is running or not at previous step
 
   double u0Pu_;  ///< initial voltage
-  double UfRawprim0_;  ///< initial value of derivative of UfRaw
   double Tf_;  ///< Time constant of the load restoration
   double P0Pu_;  ///< initial active power
   double Q0Pu_;  ///< initial reactive power
@@ -290,8 +288,8 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   double angleO_;  ///< initial phase
   double UMinPu_;  ///< Minimum value of the voltage amplitude at terminal in pu (base UNom) that ensures the P/Q restoration
   double UMaxPu_;  ///< Maximum value of the voltage amplitude at terminal in pu (base UNom) that ensures the P/Q restoration
-  bool UMinPuReached_;  ///< true if UMinPu limit is reached by UfRaw
-  bool UMaxPuReached_;  ///< true if UMaxPu limit is reached by UfRaw
+  bool UMinPuReached_;  ///< true if UMinPu limit is reached by Uf
+  bool UMaxPuReached_;  ///< true if UMaxPu limit is reached by Uf
 
   static const int RUNNING_TRUE = 1;  ///< to represent running value
   static const int RUNNING_FALSE = 0;  ///< to represent a not running value
