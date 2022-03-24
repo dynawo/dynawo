@@ -1896,6 +1896,7 @@ deploy_dynawo() {
   cp -r $DYNAWO_HOME/util/timeline_filter sbin/.
 
   rm -f lib/*.la
+  rm -f lib/*.a
   find OpenModelica/lib -name "*.la" -exec rm {} \;
 
   cd $current_dir
