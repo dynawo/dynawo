@@ -1832,7 +1832,7 @@ deploy_dynawo() {
     cp -n $libarchive_system_folder_include/archive_entry.h include/
     cp -n $libarchive_system_folder_include/archive.h include/
     if [ "`uname`" = "Linux" ]; then
-      for lib in {crypto,lzma,bz2,xml2}; do
+      for lib in {crypto,lzma,bz2,xml2,lzo2}; do
         if [ ! -z "$(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2)" ]; then
           cp $(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2) lib/
         fi
