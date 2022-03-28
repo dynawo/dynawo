@@ -581,6 +581,7 @@ else()
 
     CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                         -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+                        -DBUILD_SHARED_LIBS=ON
   )
   ExternalProject_Get_Property(suitesparse install_dir)
   set(SUITESPARSE_HOME ${install_dir})
