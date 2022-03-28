@@ -52,14 +52,12 @@ model HvdcPQProp "Model of HVDC link with a proportional reactive power control.
   parameter Types.Angle UPhase20 "Start value of voltage angle and filtered voltage angle at terminal 2 in rad";
 
 protected
-
   Types.ReactivePowerPu Q1RawModeUPu(start = s10Pu.im) "Reactive power of converter 1 without taking limits into account in pu and for mode U activated (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q2RawModeUPu(start = s20Pu.im) "Reactive power of converter 2 without taking limits into account in pu and for mode U activated (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q1RawPu(start = s10Pu.im) "Reactive power of converter 1 without taking limits into account in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q2RawPu(start = s20Pu.im) "Reactive power of converter 2 without taking limits into account in pu (base SnRef) (receptor convention)";
 
 equation
-
   Theta1 = Modelica.Math.atan2(terminal1.V.im,terminal1.V.re);
   Theta2 = Modelica.Math.atan2(terminal2.V.im,terminal2.V.re);
 
@@ -68,9 +66,8 @@ equation
   Q1RawPu = if modeU1 then Q1RawModeUPu else Q1RefPu;
   Q2RawPu = if modeU2 then Q2RawModeUPu else Q2RefPu;
 
-  if running.value then
-
   // Reactive power regulation at terminal 1
+  if runningSide1.value then
     if Q1RawPu <= Q1MinPu then
       Q1Pu = Q1MinPu;
     elseif Q1RawPu >= Q1MaxPu then
@@ -78,8 +75,12 @@ equation
     else
       Q1Pu = Q1RawPu;
     end if;
+  else
+    Q1Pu = 0;
+  end if;
 
   // Reactive power regulation at terminal 2
+  if runningSide2.value then
     if Q2RawPu <= Q2MinPu then
       Q2Pu = Q2MinPu;
     elseif Q2RawPu >= Q2MaxPu then
@@ -87,14 +88,10 @@ equation
     else
       Q2Pu = Q2RawPu;
     end if;
-
   else
-
-    terminal1.i.im = 0;
-    terminal2.i.im = 0;
-
+    Q2Pu = 0;
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. It also regulates the reactive power at each of its terminals (with a fixed Q reference or a proportional regulation). The active power setpoint is given as an input and can be modified during the simulation, as well as the reactive power references.</div></body></html>"));
 end HvdcPQProp;

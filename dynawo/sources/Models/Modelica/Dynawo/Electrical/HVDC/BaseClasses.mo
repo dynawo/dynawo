@@ -74,8 +74,8 @@ package BaseClasses
       P1Pu = max(min(PMaxPu, P1RefPu), - PMaxPu);
       P2Pu = if P1Pu > 0 then - KLosses * P1Pu else - P1Pu / KLosses;
     else
-      terminal1.i.re = 0;
-      terminal2.i.re = 0;
+      P1Pu = 0;
+      P2Pu = 0;
     end if;
 
   // Sign convention change
