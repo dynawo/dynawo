@@ -706,7 +706,7 @@ class Factory:
                 test_param_address(name)
                 eq = EquationBasedOnExternalCall(
                               function_name,
-                              [to_param_address(name) + " /* " + name + "*/ = " + dic_var_name_to_temporary_name[name]+";"], \
+                              [to_param_address(name) + " /* " + name + " */ = " + dic_var_name_to_temporary_name[name]+";"], \
                               name, \
                               to_param_address(name), \
                               [], \
@@ -1280,7 +1280,6 @@ class Factory:
                         index_relation_to_create = index_additional_relation + self.nb_existing_relations
                         index_additional_relation += 1
                         eq_type = eq.get_type()
-                        assert(eq_type == ALGEBRAIC or eq_type == DIFFERENTIAL)
                         relation_to_create = Relation(index_relation_to_create, eq_type)
                         relation_to_create.set_condition(line)
                         relation_to_create.add_eq(eq.get_src_fct_name())
@@ -1974,6 +1973,7 @@ class Factory:
                     line = line.replace("tmp", "tmp_zc")
                 if THREAD_DATA_OMC_PARAM in line:
                     line=line.replace(THREAD_DATA_OMC_PARAM, "")
+                line = sub_division_sim(line)
                 self.list_for_setg.append(line)
 
         if self.create_additional_relations():
@@ -2945,35 +2945,31 @@ class Factory:
                             diff_var_to_eq[diff_var] = []
                         if eq not in  diff_var_to_eq[diff_var]:
                             diff_var_to_eq[diff_var].append(eq)
-        for v in self.list_vars_syst:
-            if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
-            if v in self.reader.list_calculated_vars : continue
-            if v.get_name() in diff_var_to_eq:
-                self.list_for_evaldynamicytype.append("  yType[ %s ] = ALGEBRAIC;\n" % (str(ind)))
-            ind += 1
 
-        ind = 0
+        alg_vars = []
         for v in self.list_vars_syst:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
             if v in self.reader.list_calculated_vars : continue
             if v.get_name() in diff_var_to_eq:
                 print_info("Variable " + v.get_name() + " has a dynamic type.")
-                for eq in diff_var_to_eq[v.get_name()]:
-                    lines_to_insert = []
-                    diff_vars = self.reader.var_name_to_differential_dependency_variables[eq.get_evaluated_var()]
-                    for tables in diff_vars:
-                        if len(tables) == 0:
-                            line = "   if (yType[ %s ] != DIFFERENTIAL) yType[ %s ] = %s;   /* %s (%s) */\n" % (str(ind), str(ind), "ALGEBRAIC", to_compile_name(v.get_name()), v.get_type())
-                            lines_to_insert.append(line)
-                        else:
-                            spin = "DIFFERENTIAL"
-                            line = "   yType[ %s ] = %s;   /* %s (%s) */\n" % (str(ind), spin, to_compile_name(v.get_name()), v.get_type())
-                            lines_to_insert.append(line)
-                    body = replace_equations_in_a_if_statement(eq.get_body_for_setf(), lines_to_insert, 4)
-                    self.list_for_evaldynamicytype.append("  {\n")
-                    self.list_for_evaldynamicytype.extend(body)
-                    self.list_for_evaldynamicytype.append("  }\n")
+                self.list_for_evaldynamicytype.append("  yType[ %s ] = ALGEBRAIC /* %s */; \n" % (str(ind), v.get_name()))
+            alg_vars.append(v)
             ind += 1
+
+        for eq in self.get_list_eq_syst():
+            var_name = eq.get_evaluated_var()
+            if (self.reader.var_name_to_eq_type[var_name] == MIXED or self.reader.var_name_to_eq_type[var_name] == DIFFERENTIAL) \
+                and var_name in self.reader.var_name_to_differential_dependency_variables:
+                if eq.get_evaluated_var() in self.reader.var_name_to_mixed_residual_vars_types:
+                    body = replace_equations_in_a_if_statement_Y(eq.get_body_for_setf(), \
+                                                                self.reader.var_name_to_mixed_residual_vars_types[eq.get_evaluated_var()], \
+                                                                alg_vars, diff_var_to_eq, 4)
+                    convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
+                    if len(body) > 0:
+                        self.list_for_evaldynamicytype.append("  {\n")
+                        self.list_for_evaldynamicytype.extend(body)
+                        self.list_for_evaldynamicytype.append("  }\n")
+
 
     ##
     # returns the lines that constitues the body of evalStaticYType_omc
@@ -2999,15 +2995,11 @@ class Factory:
             var_name = eq.get_evaluated_var()
             if var_name not in self.reader.fictive_continuous_vars_der and not self.reader.is_auxiliary_vars(var_name):
                 if eq.get_type() == MIXED:
-                    lines_to_insert = []
                     self.list_for_evaldynamicftype.append("  {\n")
                     self.list_for_evaldynamicftype.append("    propertyF_t type = ALGEBRAIC_EQ;\n")
-                    for type in self.reader.var_name_to_mixed_residual_vars_types[var_name]:
-                        if type == DIFFERENTIAL:
-                            lines_to_insert.append("type = DIFFERENTIAL_EQ;\n")
-                        else:
-                            lines_to_insert.append("type = ALGEBRAIC_EQ;\n")
-                    body = replace_equations_in_a_if_statement(eq.get_body_for_setf(), lines_to_insert, 4)
+                    body = replace_equations_in_a_if_statement(eq.get_body_for_setf(), self.reader.var_name_to_mixed_residual_vars_types[var_name], \
+                                                               "type = ALGEBRAIC_EQ;\n", "type = DIFFERENTIAL_EQ;\n", 4)
+                    convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
                     self.list_for_evaldynamicftype.extend(body)
                     line = "     fType[ %s ] = type;\n" % (str(ind))
                     self.list_for_evaldynamicftype.append(line)
@@ -3018,15 +3010,11 @@ class Factory:
             var_name = eq.get_evaluated_var()
             if var_name not in self.reader.fictive_continuous_vars_der and not self.reader.is_auxiliary_vars(var_name):
                 if eq.get_type() == MIXED:
-                    lines_to_insert = []
                     self.list_for_evaldynamicftype.append("  {\n")
                     self.list_for_evaldynamicftype.append("    propertyF_t type = ALGEBRAIC_EQ;\n")
-                    for type in self.reader.var_name_to_mixed_residual_vars_types[var_name]:
-                        if type == DIFFERENTIAL:
-                            lines_to_insert.append("type = DIFFERENTIAL_EQ;\n")
-                        else:
-                            lines_to_insert.append("type = ALGEBRAIC_EQ;\n")
-                    body = replace_equations_in_a_if_statement(eq.get_body_for_setf(), lines_to_insert, 4)
+                    body = replace_equations_in_a_if_statement(eq.get_body_for_setf(), self.reader.var_name_to_mixed_residual_vars_types[var_name], \
+                                                               "type = ALGEBRAIC_EQ;\n", "type = DIFFERENTIAL_EQ;\n", 4)
+                    convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
                     self.list_for_evaldynamicftype.extend(body)
                     line = "     fType[ %s ] = type;\n" % (str(ind))
                     self.list_for_evaldynamicftype.append(line)
