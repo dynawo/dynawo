@@ -70,7 +70,7 @@ StaticVarCompensatorInterfaceIIDM::getComponentVarIndex(const std::string& varNa
     index = VAR_Q;
   else if ( varName == "state" )
     index = VAR_STATE;
-  else if ( varName == "regulatingMode" )
+  else if ( varName == "regulatingMode" && extension_ && extension_->hasStandbyAutomaton())
     index = VAR_REGULATINGMODE;
   return index;
 }
