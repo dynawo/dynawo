@@ -137,7 +137,7 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::init(const double /*t0*/) {
-    /* not need */
+    /* not needed */
   }
 
   void
