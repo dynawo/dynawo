@@ -31,7 +31,7 @@ protected
     parameter Types.ComplexVoltagePu u20Pu=ComplexMath.fromPolar(1,0.05) "Start value of the voltage on side 2";
     parameter Types.ComplexCurrentPu Ia0Pu=Complex((GPu*u10Pu.re-BPu*u10Pu.im ), (GPu*u10Pu.im+BPu*u10Pu.re  )) "Start value of current through the equivalent impedance G+jB on side 1 ";
     parameter Types.ComplexCurrentPu Iz0Pu=Complex((XPu*RPu/(XPu^2+RPu^2)*((u10Pu.re-u20Pu.re)/XPu + (u10Pu.im-u20Pu.im)/RPu) ),-(XPu*RPu/(XPu^2+RPu^2)*((u10Pu.re-u20Pu.re)/RPu-(u10Pu.im-u20Pu.im)/XPu) )) "Start value of current through the equivalent impedance R+jX ";
-    parameter Types.ComplexCurrentPu Ib0Pu=Complex((GPu*u20Pu.re-BPu*u20Pu.im  ), (GPu*u20Pu.im+BPu*u20Pu.re ))"Start value of current through the equivalent impedance G+jB on side 1 ";
+    parameter Types.ComplexCurrentPu Ib0Pu=Complex((GPu*u20Pu.re-BPu*u20Pu.im ), (GPu*u20Pu.im+BPu*u20Pu.re ))"Start value of current through the equivalent impedance G+jB on side 1 ";
     parameter Types.ComplexApparentPowerPu s20Pu=u20Pu*ComplexMath.conj(i20Pu) "Start value of the apparent power on side 2";
     parameter Types.ComplexCurrentPu i20Pu=Ib0Pu-Iz0Pu "Start value of the current on side 2";
 
@@ -54,15 +54,15 @@ equation
 
   if (running.value) then
 
-ComplexMath.real(IaPu)=GPu*ComplexMath.real(terminal1.V)+BPu*der(ComplexMath.real(terminal1.V))/SystemBase.omegaNom-BPu*ComplexMath.imag(terminal1.V);
+ComplexMath.real(IaPu)=GPu*ComplexMath.real(terminal1.V)+(BPu*der(ComplexMath.real(terminal1.V))/SystemBase.omegaNom)-BPu*ComplexMath.imag(terminal1.V);
 
-    ComplexMath.imag(IaPu)=GPu*ComplexMath.imag(terminal1.V)+BPu*der(ComplexMath.imag(terminal1.V)/SystemBase.omegaNom)+BPu*ComplexMath.real(terminal1.V);
+    ComplexMath.imag(IaPu)=GPu*ComplexMath.imag(terminal1.V)+(BPu*der(ComplexMath.imag(terminal1.V))/SystemBase.omegaNom)+BPu*ComplexMath.real(terminal1.V);
 
-    ComplexMath.real(IbPu)=GPu*ComplexMath.real(terminal2.V)+BPu*der(ComplexMath.real(terminal2.V))/SystemBase.omegaNom-BPu*ComplexMath.imag(terminal2.V);
+    ComplexMath.real(IbPu)=GPu*ComplexMath.real(terminal2.V)+(BPu*der(ComplexMath.real(terminal2.V))/SystemBase.omegaNom)-BPu*ComplexMath.imag(terminal2.V);
 
     ComplexMath.imag(IbPu)=GPu*ComplexMath.imag(terminal2.V)+BPu*der(ComplexMath.imag(terminal2.V))/SystemBase.omegaNom+BPu*ComplexMath.real(terminal2.V);
 
-    RPu*ComplexMath.real(IzPu)+XPu*der(ComplexMath.real(IzPu))/SystemBase.omegaNom-XPu*ComplexMath.imag(IzPu)= ComplexMath.imag(terminal1.V) - ComplexMath.imag(terminal2.V);
+    RPu*ComplexMath.real(IzPu)+XPu*der(ComplexMath.real(IzPu))/SystemBase.omegaNom-XPu*ComplexMath.imag(IzPu)= ComplexMath.real(terminal1.V) - ComplexMath.real(terminal2.V);
 
     RPu*ComplexMath.imag(IzPu)+XPu*der(ComplexMath.imag(IzPu))/SystemBase.omegaNom+XPu*ComplexMath.real(IzPu) = ComplexMath.imag(terminal1.V) - ComplexMath.imag(terminal2.V);
 
