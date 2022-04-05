@@ -13,12 +13,12 @@ model SMIBdynamic2
   Dynawo.Electrical.Controls.Basics.Step PmPu(Value0 = 0.903, Height = 0.02, tStep = 1200);
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
   Dynawo.Electrical.Controls.Basics.SetPoint EfdPu(Value0 = 2.4659);
-  Dynawo.Electrical.Lines.dynamicLine dynamicLine(BPu = 0.0000375, GPu = 0, RPu = 0.00375, U10Phase = 0.05, U10Pu = 0.8, U20Phase = 0.01, U20Pu = 0.85, XPu = 0.0375) annotation(
+  Dynawo.Electrical.Lines.dynamicLine dynamicLine(BPu = 0.0000375, GPu = 0, RPu = 0.00375, U10Im = 0.213043,   U10Re = 0.950846, U20Im = 0.583149,  U20Re = 0.908807, XPu = 0.0375) annotation(
     Placement(visible = true, transformation(origin = {-10, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Lines.dynamicLine dynamicLine1(BPu = 0.0000375, GPu = 0, RPu = 0.00375, U10Phase = 0.05, U10Pu = 0.8, U20Phase = 0.01, U20Pu = 0.85, XPu = 0.0375) annotation(
+  Dynawo.Electrical.Lines.dynamicLine dynamicLine1(BPu = 0.0000375, GPu = 0, RPu = 0.00375, U10Im = 0.213043, U10Re = 0.950846, U20Im = 0.583149,  U20Re = 0.908807, XPu = 0.0375) annotation(
     Placement(visible = true, transformation(origin = {-10, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Lines.dynamicLine dynamicLine2(BPu = 0.0000375, GPu = 0, RPu = 0.00375, U10Phase = 0, U10Pu = 0.90081, U20Phase = 0.05, U20Pu = 0.8, XPu = 0.0375) annotation(
-    Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Lines.dynamicLine dynamicLine2(BPu = 0.0000475, GPu = 0, RPu = 0.00475, U10Im = 0,  U10Re = 0.90081, U20Im = 0.213043,  U20Re = 0.950846, XPu = 0.001) annotation(
+    Placement(visible = true, transformation(origin = {-50, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 initial equation
   der(generatorSynchronous.lambdafPu) = 0;
   der(generatorSynchronous.lambdaDPu) = 0;
@@ -48,9 +48,9 @@ equation
   connect(transformerFixedRatio.terminal1, dynamicLine1.terminal2) annotation(
     Line(points = {{0, 0}, {0, -20}}, color = {0, 0, 255}));
   connect(dynamicLine2.terminal1, infiniteBus.terminal) annotation(
-    Line(points = {{-60, 0}, {-70, 0}}, color = {0, 0, 255}));
+    Line(points = {{-60, 20}, {-65, 20}, {-65, 0}, {-70, 0}}, color = {0, 0, 255}));
   connect(dynamicLine.terminal1, dynamicLine2.terminal2) annotation(
-    Line(points = {{-20, 20}, {-40, 20}, {-40, 0}}, color = {0, 0, 255}));
+    Line(points = {{-20, 20}, {-40, 20}}, color = {0, 0, 255}));
   connect(dynamicLine1.terminal1, dynamicLine2.terminal2) annotation(
-    Line(points = {{-20, -20}, {-40, -20}, {-40, 0}}, color = {0, 0, 255}));
+    Line(points = {{-20, -20}, {-40, -20}, {-40, 20}}, color = {0, 0, 255}));
 end SMIBdynamic2;

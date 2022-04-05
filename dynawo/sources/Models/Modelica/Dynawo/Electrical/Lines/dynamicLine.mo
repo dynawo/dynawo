@@ -20,6 +20,11 @@ model dynamicLine "AC power line - PI model considerating the transistent mode "
   parameter Types.PerUnit XPu "Reactance in pu (base SnRef)";
   parameter Types.PerUnit GPu "Half-conductance in pu (base SnRef)";
   parameter Types.PerUnit BPu "Half-susceptance in pu (base SnRef)";
+  parameter Types.PerUnit U20Re "Start value of the real voltage on side 2 in pu (base Unom)";
+  parameter Types.PerUnit U20Im "Start value of the imaginary voltage on side 2 in pu (base Unom)";
+  parameter Types.PerUnit U10Re "Start value of the real voltage on side 1 in pu (base Unom)";
+  parameter Types.PerUnit U10Im "Start value of the imaginary voltage on side 1 in pu (base Unom)";
+
 
 
 protected
@@ -28,16 +33,16 @@ protected
     parameter Types.ComplexAdmittancePu YPu (re = GPu, im = BPu) "Line half-admittance";
 
 
-    parameter Types.ComplexVoltagePu u20Pu=ComplexMath.fromPolar(1,0.05) "Start value of the voltage on side 2";
+    parameter Types.ComplexVoltagePu u20Pu=Complex(U20Re,U20Im) "Start value of the voltage on side 2 ";
     parameter Types.ComplexCurrentPu Ia0Pu=Complex((GPu*u10Pu.re-BPu*u10Pu.im ), (GPu*u10Pu.im+BPu*u10Pu.re  )) "Start value of current through the equivalent impedance G+jB on side 1 ";
-    parameter Types.ComplexCurrentPu Iz0Pu=Complex((XPu*RPu/(XPu^2+RPu^2)*((u10Pu.re-u20Pu.re)/XPu + (u10Pu.im-u20Pu.im)/RPu) ),-(XPu*RPu/(XPu^2+RPu^2)*((u10Pu.re-u20Pu.re)/RPu-(u10Pu.im-u20Pu.im)/XPu) )) "Start value of current through the equivalent impedance R+jX ";
-    parameter Types.ComplexCurrentPu Ib0Pu=Complex((GPu*u20Pu.re-BPu*u20Pu.im ), (GPu*u20Pu.im+BPu*u20Pu.re ))"Start value of current through the equivalent impedance G+jB on side 1 ";
+    parameter Types.ComplexCurrentPu Iz0Pu=Complex((XPu*RPu/(XPu^2+RPu^2)*((u10Pu.re-u20Pu.re)/XPu + (u10Pu.im-u20Pu.im)/RPu) ),-(XPu*RPu/(XPu^2+RPu^2)*((u10Pu.re-u20Pu.re)/RPu-(u10Pu.im-u20Pu.im)/XPu) )) "Start value of current through the equivalent impedance R+jX in pu ( base Unom, Snref )";
+    parameter Types.ComplexCurrentPu Ib0Pu=Complex((GPu*u20Pu.re-BPu*u20Pu.im ), (GPu*u20Pu.im+BPu*u20Pu.re ))"Start value of current through the equivalent impedance G+jB on side 1 in pu ( base Unom, Snref) ";
     parameter Types.ComplexApparentPowerPu s20Pu=u20Pu*ComplexMath.conj(i20Pu) "Start value of the apparent power on side 2";
-    parameter Types.ComplexCurrentPu i20Pu=Ib0Pu-Iz0Pu "Start value of the current on side 2";
+    parameter Types.ComplexCurrentPu i20Pu=Ib0Pu-Iz0Pu "Start value of the current on side 2 in pu (base Unom, Snref)";
 
-    parameter Types.ComplexVoltagePu u10Pu=ComplexMath.fromPolar(0.8,0) "Start value of the voltage on side 2" ;
-    parameter Types.ComplexApparentPowerPu s10Pu=u10Pu*ComplexMath.conj(i10Pu) "Start value of the apparent power on side 1";
-    parameter Types.ComplexCurrentPu i10Pu=Ia0Pu+Iz0Pu  "Start value of the current on side 1";
+    parameter Types.ComplexVoltagePu u10Pu=Complex(U10Re,U10Im) "Start value of the voltage on side 1" ;
+    parameter Types.ComplexApparentPowerPu s10Pu=u10Pu*ComplexMath.conj(i10Pu) "Start value of the apparent power on side 1 in pu (base Snref)";
+    parameter Types.ComplexCurrentPu i10Pu=Ia0Pu+Iz0Pu  "Start value of the current on side 1 in pu (base Unom, Snref)";
 
 
     Types.ComplexCurrentPu IzPu(re(start=Iz0Pu.re),im(start=Iz0Pu.im))" Current through the equivalent impedance R+jX in pu (base UNom, SnRef)";

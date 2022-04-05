@@ -17,8 +17,8 @@ model SMIBLineTest
     Placement(visible = true, transformation(origin = {-13, 21}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line1(BPu = 0.0000375, GPu = 0, RPu = 0.00375, XPu = 0.0375) annotation(
     Placement(visible = true, transformation(origin = {-12, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0.0001, XPu = 0.0001, tBegin = 5, tEnd = 5.135) annotation(
-    Placement(visible = true, transformation(origin = {20, 38}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
+  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0.00001, XPu = 0.00001, tBegin = 5, tEnd = 5.150) annotation(
+    Placement(visible = true, transformation(origin = {18, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 initial equation
   der(generatorSynchronous.lambdafPu) = 0;
   der(generatorSynchronous.lambdaDPu) = 0;
@@ -45,10 +45,10 @@ equation
     Line(points = {{38, 0}, {18, 0}, {18, 21}, {-2, 21}}, color = {0, 0, 255}));
   connect(transformerFixedRatio.terminal1, line1.terminal2) annotation(
     Line(points = {{38, 0}, {18, 0}, {18, -20}, {-2, -20}}, color = {0, 0, 255}));
-  connect(line2.terminal1, infiniteBus.terminal) annotation(
-    Line(points = {{-24, 21}, {-74, 21}, {-74, -4}}, color = {0, 0, 255}));
+  connect(nodeFault.terminal, transformerFixedRatio.terminal1) annotation(
+    Line(points = {{18, 50}, {38, 50}, {38, 0}}, color = {0, 0, 255}));
   connect(line1.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{-22, -20}, {-74, -20}, {-74, -4}}, color = {0, 0, 255}));
-  connect(nodeFault.terminal, line2.terminal2) annotation(
-    Line(points = {{20, 38}, {-2, 38}, {-2, 22}}, color = {0, 0, 255}));
+  connect(line2.terminal1, infiniteBus.terminal) annotation(
+    Line(points = {{-24, 21}, {-74, 21}, {-74, -4}}, color = {0, 0, 255}));
 end SMIBLineTest;
