@@ -13,9 +13,9 @@ model SMIBdynamicLineTest
   Dynawo.Electrical.Controls.Basics.Step PmPu(Value0 = 0.903, Height = 0.02, tStep = 1200);
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
   Dynawo.Electrical.Controls.Basics.SetPoint EfdPu(Value0 = 2.4659);
-  Dynawo.Electrical.Lines.dynamicLine dynamicLine(BPu = 0.0000375, GPu = 0, RPu = 0.00375, XPu = 0.0375) annotation(
+  Dynawo.Electrical.Lines.dynamicLine dynamicLine(BPu = 0.0000375, GPu = 0, RPu = 0.00375, U10Im = 0, U10Re = 0.90081, U20Im = 0.401446, U20Re = 0.908821, XPu = 0.0375) annotation(
     Placement(visible = true, transformation(origin = {-18, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Lines.dynamicLine dynamicLine1(BPu = 0.0000375, GPu = 0, RPu = 0.00375, XPu = 0.0375) annotation(
+  Dynawo.Electrical.Lines.dynamicLine dynamicLine1(BPu = 0.0000375, GPu = 0, RPu = 0.00375, U10Im = 0, U10Re = 0.90081, U20Im = 0.401446, U20Re = 0.908821, XPu = 0.0375) annotation(
     Placement(visible = true, transformation(origin = {-18, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 initial equation
   der(generatorSynchronous.lambdafPu) = 0;
