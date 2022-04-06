@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <!-- Machine with four windings and standard IEEE regulations - TGOV1, SEXS -->
+  <dyn:modelicaModel id="GeneratorSynchronousFourWindingsTGov1Sexs">
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_4E_INIT"/>
+    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS_INIT"/>
+    <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV1" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT"/>
+    <dyn:unitDynamicModel id="upss" name="Dynawo.Electrical.Controls.Basics.SetPoint"/>
+    <dyn:unitDynamicModel id="URef" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
+    <dyn:unitDynamicModel id="Pm" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
+    <dyn:initConnect id1="voltageRegulator" var1="UsRef0Pu" id2="URef" var2="Value0"/>
+    <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
+    <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
+    <dyn:initConnect id1="governor" var1="Pm0Pu" id2="generator" var2="Pm0Pu"/>
+    <dyn:initConnect id1="governor" var1="Pm0Pu" id2="Pm" var2="Value0"/>
+    <dyn:connect id1="generator" var1="omegaPu.value" id2="governor" var2="omegaPu"/>
+    <dyn:connect id1="generator" var1="PmPu.value" id2="governor" var2="PmPu"/>
+    <dyn:connect id1="generator" var1="omegaRefPu" id2="generator" var2="omegaPu"/>
+    <dyn:connect id1="generator" var1="UStatorPu.value" id2="voltageRegulator" var2="UsPu"/>
+    <dyn:connect id1="generator" var1="efdPu.value" id2="voltageRegulator" var2="EfdPu"/>
+    <dyn:connect id1="voltageRegulator" var1="UpssPu" id2="upss" var2="setPoint.value"/>
+    <dyn:connect id1="voltageRegulator" var1="UsRefPu" id2="URef" var2="setPoint.value"/>
+    <dyn:connect id1="governor" var1="PmRefPu" id2="Pm" var2="setPoint.value"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>

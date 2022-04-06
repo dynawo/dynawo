@@ -1,0 +1,10 @@
+ ====== INIT VARIABLES VALUES ======
+infiniteBus_terminal_i_im                         : y =       0.961526 yp =       0.000000
+infiniteBus_terminal_i_re                         : y =      22.178985 yp =       0.000000
+ ====== INIT CALCULATED VARIABLES VALUES ======
+infiniteBus_terminal_V_im                         : y =       0.000000
+infiniteBus_terminal_V_re                         : y =       0.900810
+ ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== PARAMETERS VALUES ======
+infiniteBus_UPhase                                 =       0.000000
+infiniteBus_UPu                                    =       0.900810

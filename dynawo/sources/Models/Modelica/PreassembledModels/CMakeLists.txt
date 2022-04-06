@@ -32,11 +32,17 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindings.xml
   GeneratorSynchronousThreeWindings.xml
   GeneratorSynchronousFourWindingsProportionalRegulations.xml
+  GeneratorSynchronousFourWindingsProportionalRegulationsStepPm.xml
+  GeneratorSynchronousFourWindingsProportionalRegulationsStepURef.xml
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
   GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
+  GeneratorSynchronousFourWindingsTGov1Sexs.xml
   GeneratorSynchronousFourWindingsTGov1SexsPss2A.xml
+  GeneratorSynchronousFourWindingsTGov1SexsPss2AStepURef.xml
+  GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4B.xml
   GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B.xml
+  GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2BStepURef.xml
   GenericAutomaton.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
@@ -70,6 +76,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   InjectorBG.xml
   Line.xml
   LoadAlphaBeta.xml
+  LoadAlphaBetaStepP.xml
   LoadAlphaBetaRestorative.xml
   LoadAlphaBetaRestorativeLimitsRecalc.xml
   LoadOneTransformer.xml
@@ -88,6 +95,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   ShuntBWithSections.xml
   SetPoint.xml
   SignalN.xml
+  StaticVarCompensatorStepURef.xml
   StaticVarCompensator.xml
   StaticVarCompensatorPV.xml
   StaticVarCompensatorPVModeHandling.xml
