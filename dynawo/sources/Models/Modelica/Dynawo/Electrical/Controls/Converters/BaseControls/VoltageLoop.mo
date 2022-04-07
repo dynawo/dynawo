@@ -13,7 +13,6 @@ within Dynawo.Electrical.Controls.Converters.BaseControls;
 */
 
 model VoltageLoop "Voltage loop control for grid forming and grid following converters"
-
   import Modelica;
   import Dynawo.Types;
   import Dynawo.Connectors;
@@ -27,15 +26,15 @@ model VoltageLoop "Voltage loop control for grid forming and grid following conv
     Placement(visible = true, transformation(origin = {-142, 2}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-142, 52}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-80,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput uqFilterPu (start = 0) "q-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = 0) "q-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-142, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-40, -111}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput idPccPu(start = IdPcc0Pu) "d-axis current in the grid" annotation(
     Placement(visible = true, transformation(origin = {80, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {40,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput iqPccPu (start = IqPcc0Pu) "q-axis current in the grid" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqPccPu(start = IqPcc0Pu) "q-axis current in the grid" annotation(
     Placement(visible = true, transformation(origin = {80, -126}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {80,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput udFilterRefPu(start = UdFilter0Pu) "d-axis voltage reference at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-142, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput uqFilterRefPu (start = 0) "q-axis voltage reference at the converter's capacitor in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput uqFilterRefPu(start = 0) "q-axis voltage reference at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-142, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealOutput idConvRefPu(start = IdConv0Pu) "d-axis current reference in the converter" annotation(
@@ -45,7 +44,7 @@ model VoltageLoop "Voltage loop control for grid forming and grid following conv
 
   Modelica.Blocks.Math.Gain gaind (k = Kpv) annotation(
     Placement(visible = true, transformation(origin = {-12, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratord(y_start = 0, k = Kiv)  annotation(
+  Modelica.Blocks.Continuous.Integrator integratord(k = Kiv, y_start = 0)  annotation(
     Placement(visible = true, transformation(origin = {-12, 112}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackd annotation(
     Placement(visible = true, transformation(origin = {-62, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -76,8 +75,6 @@ model VoltageLoop "Voltage loop control for grid forming and grid following conv
   Modelica.Blocks.Math.Add addq2 annotation(
     Placement(visible = true, transformation(origin = {114, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
-
   parameter Types.PerUnit IdPcc0Pu;
   parameter Types.PerUnit IqPcc0Pu;
   parameter Types.PerUnit UdFilter0Pu;
@@ -85,7 +82,6 @@ protected
   parameter Types.PerUnit IqConv0Pu;
 
 equation
-
   connect(feedbackd.u1, udFilterRefPu) annotation(
     Line(points = {{-70, 80}, {-142, 80}}, color = {0, 0, 127}));
   connect(feedbackd.u2, udFilterPu) annotation(
@@ -143,9 +139,8 @@ equation
   connect(addq2.y, iqConvRefPu) annotation(
     Line(points = {{126, -86}, {160, -86}, {160, -86}, {180, -86}}, color = {0, 0, 127}));
 
-annotation(
+  annotation(
     Icon(coordinateSystem(grid = {1, 1})),
     preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})));
-
 end VoltageLoop;

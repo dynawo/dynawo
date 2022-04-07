@@ -25,10 +25,9 @@ model IqInjectionLogic "Reactive Current Injection Logic"
     Placement(visible = true, transformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqInjPu(start = 0) "Reactive current injection in pu (base SNom, UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Types.Time vDipInjEndTime (start = -1) "ending time of the voltage dip start (in seconds)";
+  Types.Time vDipInjEndTime(start = -1) "ending time of the voltage dip start (in seconds)";
 
 equation
-
   /*
    *  This equations handles the time sensitive control variables that manage
    *  the equations and ultimately the output of the block.
@@ -40,7 +39,6 @@ equation
    *     During this time, the injection depends on the value of HoldIq.
    *  3. Finally, when the current time passes the end timing vDipInjEndTime, the injection returns to 0.
    */
-
   when (vDip == false and pre(vDip) == true) or (time < pre(vDipInjEndTime) and pre(vDipInjEndTime) >= 0)  then
     vDipInjEndTime = time + abs(HoldIq);
   elsewhen (vDip == true or pre(vDip) == false) and (time >= pre(vDipInjEndTime) or pre(vDipInjEndTime) < 0) then

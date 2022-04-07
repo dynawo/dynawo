@@ -13,7 +13,6 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPVProp "Model for generator PV based on SignalN for the frequency handling and with a proportional voltage regulation"
-
   extends BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
 
@@ -21,8 +20,8 @@ model GeneratorPVProp "Model for generator PV based on SignalN for the frequency
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in pu (base SnRef)";
-  parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
   parameter Types.PerUnit KVoltage "Parameter of the proportional voltage regulation";
 
   input Types.VoltageModulePu URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
@@ -31,10 +30,9 @@ model GeneratorPVProp "Model for generator PV based on SignalN for the frequency
   parameter Types.ReactivePowerPu QRef0Pu "Start value of the reactive power set point in pu (base SnRef) (receptor convention)";
 
 protected
-  QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+  QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
-
   when QGenPu <= QMinPu and UPu >= URefPu then
     qStatus = QStatus.AbsorptionMax;
   elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
@@ -55,6 +53,6 @@ equation
     terminal.i.im = 0;
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This generator regulates the voltage UPu with a proportional regulation unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated).</div></body></html>"));
 end GeneratorPVProp;

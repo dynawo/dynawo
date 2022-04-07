@@ -45,8 +45,7 @@ model ModeHandling "Static Var Compensator mode calculation"
   Types.Time timerModeChangeDown(start = Modelica.Constants.inf) "Timer for the transition from standby to running mode for low voltage values";
   Types.VoltageModule URefAuto(start = URef0) "Voltage reference for the regulation if the static var compensator switches from standy to running mode automatically in kV";
 
-protected
-  parameter Types.VoltageModule URef0  "Start value of voltage reference in kV";
+  parameter Types.VoltageModule URef0 "Start value of voltage reference in kV";
   parameter Mode Mode0 "Start value for mode";
 
 equation
@@ -92,8 +91,8 @@ equation
     mode.value = modeManual.value;
     URefPu = URef /UNom;
   end if;
+
   annotation(preferredView = "text",
     Diagram(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 8}, extent = {{-57, 10}, {123, -22}}, textString = "ModeHandling")}, coordinateSystem(initialScale = 0.1)),
     Icon(graphics = {Rectangle(origin = {0, -1}, extent = {{-100, 101}, {100, -99}}), Text(origin = {-61, 18}, extent = {{-30, 20}, {156, -54}}, textString = "ModeHandling"), Text(origin = {142, -42}, extent = {{-26, 10}, {52, -22}}, textString = "URefPu"), Text(origin = {127, 14}, extent = {{-21, 12}, {57, -14}}, textString = "mode"), Text(origin = {-170, -15}, extent = {{-34, 13}, {34, -11}}, textString = "URef"), Text(origin = {-170, -62}, extent = {{-26, 10}, {32, -14}}, textString = "UPu"), Text(origin = {-193, 87}, extent = {{-125, 45}, {49, -27}}, textString = "setModeManual"), Text(origin = {-168, 36}, extent = {{-152, 46}, {22, -34}}, textString = "selectModeAuto")}, coordinateSystem(initialScale = 0.1)));
-
 end ModeHandling;

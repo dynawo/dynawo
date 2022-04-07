@@ -13,7 +13,6 @@ within Dynawo.Electrical.Controls.Converters.BaseControls;
 */
 
 model DroopControl "Droop Control"
-
   import Modelica;
   import Dynawo.Types;
   import Dynawo.Connectors;
@@ -107,8 +106,6 @@ model DroopControl "Droop Control"
     Placement(visible = true, transformation(origin = {168, -96}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaSetPu(k = SystemBase.omegaRef0Pu)  annotation(
     Placement(visible = true, transformation(origin = {60, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-protected
 
   parameter Types.PerUnit PRef0Pu "Start value of the active power reference at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.PerUnit QRef0Pu "Start value of the reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)";
@@ -207,9 +204,8 @@ equation
   connect(omegaSetPu.y, add1.u1) annotation(
     Line(points = {{71, 100}, {100, 100}, {100, 66}, {110, 66}, {110, 66}}, color = {0, 0, 127}));
 
-annotation(
+  annotation(
     Icon(coordinateSystem(grid = {1, 1})),
     preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})));
-
 end DroopControl;

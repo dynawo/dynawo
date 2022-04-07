@@ -47,7 +47,6 @@ protected
   Types.CurrentModulePu iqLimPu = max(min(abs(iqCmdPu), IMaxPu), - IMaxPu);
 
 equation
-
   /*  The following equations in this block are similar to the one in the IqInjectionLogic model,
    *  where it handles time sensitive output control. For a detailed description,
    *  see the IqInjectionLogic block.
@@ -57,7 +56,6 @@ equation
    *  2. When the end timing is reached, ipmaxFrzPu is reset and the ipMaxPu uses then
    *     usual calculation formula.
    */
-
   when (vDip == false and pre(vDip) == true) or (time < pre(vDipFrzEndTime) and pre(vDipFrzEndTime) >= 0)  then
     vDipFrzEndTime = time + abs(HoldIpMax);
   elsewhen (vDip == true or pre(vDip) == false) and (time >= pre(vDipFrzEndTime) or pre(vDipFrzEndTime) < 0) then

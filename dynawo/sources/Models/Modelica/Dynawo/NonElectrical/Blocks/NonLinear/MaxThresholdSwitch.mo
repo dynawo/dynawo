@@ -13,33 +13,30 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block MaxThresholdSwitch "Switch between two real values, depending on the input crossing a max threshold"
-
   import Modelica;
 
   extends Modelica.Blocks.Icons.Block;
 
-    parameter Real UMax  "Maximum allowed u";
-    parameter Real ySatMax  "y2 value when u >= UMax";
-    parameter Real yNotSatMax  "y2 value when u < UMax";
+  parameter Real UMax "Maximum allowed u";
+  parameter Real ySatMax "y2 value when u >= UMax";
+  parameter Real yNotSatMax "y2 value when u < UMax";
 
-    Modelica.Blocks.Interfaces.RealInput u (start = u0) "Input signal connector" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput u(start = u0) "Input signal connector" annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}})));
-    Modelica.Blocks.Interfaces.RealOutput y (start = y0) "Output signal connector" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput y(start = y0) "Output signal connector" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
 
-  protected
+  parameter Real u0 = 0 "Initial input";
+  parameter Real y0 = yNotSatMax "Initial output";
 
-    parameter Real u0 = 0 "Initial input";
-    parameter Real y0 = yNotSatMax "Initial output";
+equation
+  when u >= UMax then
+    y = ySatMax;
+  elsewhen (u < UMax) then
+    y = yNotSatMax;
+  end when;
 
-  equation
-     when u >= UMax then
-         y = ySatMax;
-     elsewhen (u < UMax) then
-         y = yNotSatMax;
-     end when;
-
-    annotation(preferredView = "text",
+  annotation(preferredView = "text",
       Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

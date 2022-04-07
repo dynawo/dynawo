@@ -13,8 +13,8 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPVRemoteDiagramPQ "Model for generator PV with a PQ diagram, based on SignalN for the frequency handling and a remote voltage regulation"
-
   import Modelica;
+
   extends BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
 
@@ -41,10 +41,9 @@ model GeneratorPVRemoteDiagramPQ "Model for generator PV with a PQ diagram, base
   parameter Types.VoltageModule URef0 "Start value of the voltage regulation set point in kV";
 
 protected
-  QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+  QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
-
   PGenPu = tableQMin.u[1];
   tFilter * der(QMinPu) + QMinPu = tableQMin.y[1];
   PGenPu = tableQMax.u[1];
@@ -70,6 +69,6 @@ equation
     terminal.i.im = 0;
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This generator regulates the voltage URegulatedPu unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated). The reactive power limitations follow a PQ diagram. </div></body></html>"));
 end GeneratorPVRemoteDiagramPQ;

@@ -23,7 +23,6 @@ model DCLine "DC line model"
                         |           |
                        ---         ---
   */
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
@@ -43,18 +42,16 @@ model DCLine "DC line model"
   Modelica.Blocks.Interfaces.RealOutput U2dcPu(start = U2dc0Pu) "DC Voltage at terminal 2 in pu (base UdcNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {67, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
-protected
-
-  parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in pu (base SNom) (generator convention)";
+  parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SNom) (generator convention)";
   parameter Types.VoltageModulePu U1dc0Pu "Start value of dc voltage at terminal 1 in pu (base UdcNom)";
-  parameter Types.ActivePowerPu P20Pu  "Start value of active power at terminal 2 in pu (base SNom) (generator convention)";
+  parameter Types.ActivePowerPu P20Pu "Start value of active power at terminal 2 in pu (base SNom) (generator convention)";
   parameter Types.VoltageModulePu U2dc0Pu "Start value of dc voltage at terminal 2 in pu (base UdcNom)";
 
+protected
   Types.PerUnit I1dcPu(start = P10Pu * (SNom / SystemBase.SnRef) / U1dc0Pu) "DC current at terminal 1 in pu (base SnRef, UdcNom)";
   Types.PerUnit I2dcPu(start = P20Pu * (SNom / SystemBase.SnRef) / U2dc0Pu) "DC current at terminal 2 in pu (base SnRef, UdcNom)";
 
 equation
-
   I1dcPu = P1Pu * (SNom / SystemBase.SnRef) / U1dcPu;
   I2dcPu = P2Pu * (SNom / SystemBase.SnRef) / U2dcPu;
   CdcPu * der(U2dcPu) = (1 / RdcPu) * (U1dcPu - U2dcPu) - I2dcPu;
@@ -64,5 +61,4 @@ equation
     preferredView = "text",
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1})));
-
 end DCLine;

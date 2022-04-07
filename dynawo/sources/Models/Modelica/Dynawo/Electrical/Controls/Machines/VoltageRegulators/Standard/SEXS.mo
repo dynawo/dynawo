@@ -44,7 +44,6 @@ model SEXS "IEEE Automatic Voltage Regulator type SEXS (Simplified excitation sy
   Modelica.Blocks.Math.Add3 add3(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.VoltageModulePu Efd0Pu "Initial voltage output in pu (base UNom)";
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
   parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage in pu (base UNom)";
@@ -62,6 +61,7 @@ equation
     Line(points = {{11, 0}, {38, 0}}, color = {0, 0, 127}));
   connect(limitedFirstOrder.y, EfdPu) annotation(
     Line(points = {{61, 0}, {110, 0}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     uses(Modelica(version = "3.2.3")),

@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ActivePowerControl;
 */
 
 model DeltaP "Function that calculates a DeltaP for the active power control side of the HVDC link to help the other side maintain the DC voltage"
-
   import Modelica;
   import Dynawo.NonElectrical.Blocks;
   import Dynawo.Electrical.HVDC;
@@ -38,7 +37,6 @@ model DeltaP "Function that calculates a DeltaP for the active power control sid
     Placement(visible = true, transformation(origin = {44, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = -1)  annotation(
     Placement(visible = true, transformation(origin = {78, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-protected
 
   parameter Types.VoltageModulePu Udc0Pu "Start value of dc voltage in pu (base SNom, UNom)";
   parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";
@@ -56,8 +54,8 @@ equation
     Line(points = {{55, 0}, {66, 0}, {66, 0}, {66, 0}}, color = {0, 0, 127}));
   connect(gain.y, DeltaPRawPu) annotation(
     Line(points = {{89, 0}, {104, 0}, {104, 0}, {110, 0}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1})));
-
 end DeltaP;

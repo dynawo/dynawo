@@ -17,7 +17,6 @@ package BaseClasses
   extends Icons.BasesPackage;
 
   partial model BaseLoad "Base model for loads"
-
     import Modelica;
     import Dynawo.Connectors;
     import Dynawo.Electrical.Controls.Basics.SwitchOff;
@@ -39,7 +38,6 @@ package BaseClasses
     Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at load terminal in pu (base SnRef) (receptor convention)";
     Types.ComplexApparentPowerPu SPu(re(start = s0Pu.re), im(start = s0Pu.im)) "Apparent power at load terminal in pu (base SnRef) (receptor convention)";
 
-  protected
     parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in pu (base UNom)";
     parameter Types.ComplexApparentPowerPu s0Pu "Start value of apparent power at load terminal in pu (base SnRef) (receptor convention)";
     parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";

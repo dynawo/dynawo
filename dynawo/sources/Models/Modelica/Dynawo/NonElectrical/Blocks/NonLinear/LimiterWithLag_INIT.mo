@@ -19,8 +19,8 @@ model LimiterWithLag_INIT "LimiterWithLag INIT Model. Here the input is y0LF. Th
 
   extends AdditionalIcons.Init;
 
-  parameter Real UMin  "Minimum allowed u";
-  parameter Real UMax  "Maximum allowed u";
+  parameter Real UMin "Minimum allowed u";
+  parameter Real UMax "Maximum allowed u";
 
   Real y0LF "Initial y from loadflow";
   Real u0 "Initial input";

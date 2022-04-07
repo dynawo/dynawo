@@ -13,8 +13,7 @@ within Dynawo.Connectors;
 */
 
 connector BPin "Connector for propagating boolean values"
-  public
-    Boolean value;
+  Boolean value;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end BPin;

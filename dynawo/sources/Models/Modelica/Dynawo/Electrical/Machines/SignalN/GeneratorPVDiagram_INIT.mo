@@ -22,13 +22,13 @@ model GeneratorPVDiagram_INIT "Initialisation model for generator PV based on Si
 
     parameter Types.ActivePowerPu PMin "Minimum active power in MW";
     parameter Types.ActivePowerPu PMax "Maximum active power in MW";
-    parameter Types.ReactivePowerPu QMin0  "Start value of minimum reactive power in Mvar";
+    parameter Types.ReactivePowerPu QMin0 "Start value of minimum reactive power in Mvar";
     parameter Types.ReactivePowerPu QMax0 "Start value of maximum reactive power in Mvar";
 
     Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
     Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
-    Types.ReactivePowerPu QMin0Pu  "Start value of minimum reactive power in pu (base SnRef)";
-    Types.ReactivePowerPu QMax0Pu  "Start value of maximum reactive power in pu (base SnRef)";
+    Types.ReactivePowerPu QMin0Pu "Start value of minimum reactive power in pu (base SnRef)";
+    Types.ReactivePowerPu QMax0Pu "Start value of maximum reactive power in pu (base SnRef)";
 
 equation
 
