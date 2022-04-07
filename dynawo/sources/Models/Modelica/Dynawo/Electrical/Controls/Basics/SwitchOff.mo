@@ -21,38 +21,36 @@ package SwitchOff
 partial model SwitchOffLogic "Manage switch-off logic"
   /* Handles a predefinite number of switch-off signals and sets running to false as soon as one signal is set to true */
 
-  public
-    Connectors.BPin switchOffSignal1 (value (start = false)) "Switch-off signal 1";
-    Connectors.BPin switchOffSignal2 (value (start = false)) if NbSwitchOffSignals >= 2 "Switch-off signal 2";
-    Connectors.BPin switchOffSignal3 (value (start = false)) if NbSwitchOffSignals >= 3 "Switch-off signal 3";
+  Connectors.BPin switchOffSignal1(value(start = false)) "Switch-off signal 1";
+  Connectors.BPin switchOffSignal2(value(start = false)) if NbSwitchOffSignals >= 2 "Switch-off signal 2";
+  Connectors.BPin switchOffSignal3(value(start = false)) if NbSwitchOffSignals >= 3 "Switch-off signal 3";
 
-    Connectors.BPin running (value (start=true)) "Indicates if the component is running or not";
+  Connectors.BPin running(value(start = true)) "Indicates if the component is running or not";
 
-    parameter Integer NbSwitchOffSignals (min = 1, max = 3) "Number of switch-off signals to take into account in inputs";
+  parameter Integer NbSwitchOffSignals(min = 1, max = 3) "Number of switch-off signals to take into account in inputs";
 
-  equation
+equation
+  if (NbSwitchOffSignals >= 3) then
+    when switchOffSignal1.value or switchOffSignal2.value or switchOffSignal3.value and pre(running.value) then
+      running.value = false;
+    elsewhen not switchOffSignal1.value and not switchOffSignal2.value and not switchOffSignal3.value and not pre(running.value) then
+      running.value = true;
+    end when;
+  elseif (NbSwitchOffSignals >= 2) then
+    when switchOffSignal1.value or switchOffSignal2.value and pre(running.value) then
+      running.value = false;
+    elsewhen not switchOffSignal1.value and not switchOffSignal2.value and not pre(running.value) then
+      running.value = true;
+    end when;
+  else
+    when switchOffSignal1.value and pre(running.value) then
+      running.value = false;
+    elsewhen not switchOffSignal1.value and not pre(running.value) then
+      running.value = true;
+    end when;
+  end if;
 
-    if (NbSwitchOffSignals >= 3) then
-      when switchOffSignal1.value or switchOffSignal2.value or switchOffSignal3.value and pre(running.value) then
-        running.value = false;
-      elsewhen not switchOffSignal1.value and not switchOffSignal2.value and not switchOffSignal3.value and not pre(running.value) then
-        running.value = true;
-      end when;
-    elseif (NbSwitchOffSignals >= 2) then
-      when switchOffSignal1.value or switchOffSignal2.value and pre(running.value) then
-        running.value = false;
-      elsewhen not switchOffSignal1.value and not switchOffSignal2.value and not pre(running.value) then
-        running.value = true;
-      end when;
-    else
-      when switchOffSignal1.value and pre(running.value) then
-        running.value = false;
-      elsewhen not switchOffSignal1.value and not pre(running.value) then
-        running.value = true;
-      end when;
-    end if;
-
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end SwitchOffLogic;
 
 partial model SwitchOffLogicSide1 "Manage switch-off logic for side 1 of a quadripole"
@@ -62,12 +60,11 @@ partial model SwitchOffLogicSide1 "Manage switch-off logic for side 1 of a quadr
   Connectors.BPin switchOffSignal2Side1(value(start = false)) if NbSwitchOffSignalsSide1 >= 2 "Switch-off signal 2 for side 1 of the quadripole";
   Connectors.BPin switchOffSignal3Side1(value(start = false)) if NbSwitchOffSignalsSide1 >= 3 "Switch-off signal 3 for side 1 of the quadripole";
 
-  Connectors.BPin runningSide1(value (start=true)) "Indicates if the component is running on side 1 or not";
+  Connectors.BPin runningSide1(value(start = true)) "Indicates if the component is running on side 1 or not";
 
   parameter Integer NbSwitchOffSignalsSide1(min = 1, max = 3) "Number of switch-off signals to take into account in inputs";
 
 equation
-
   if (NbSwitchOffSignalsSide1 >= 3) then
     when switchOffSignal1Side1.value or switchOffSignal2Side1.value or switchOffSignal3Side1.value and pre(runningSide1.value) then
       runningSide1.value = false;
@@ -98,12 +95,11 @@ partial model SwitchOffLogicSide2 "Manage switch-off logic for side 2 of a quadr
   Connectors.BPin switchOffSignal2Side2(value(start = false)) if NbSwitchOffSignalsSide2 >= 2 "Switch-off signal 2 for side 2 of the quadripole";
   Connectors.BPin switchOffSignal3Side2(value(start = false)) if NbSwitchOffSignalsSide2 >= 3 "Switch-off signal 3 for side 2 of the quadripole";
 
-  Connectors.BPin runningSide2(value (start=true)) "Indicates if the component is running on side 2 or not";
+  Connectors.BPin runningSide2(value(start = true)) "Indicates if the component is running on side 2 or not";
 
   parameter Integer NbSwitchOffSignalsSide2(min = 1, max = 3) "Number of switch-off signals to take into account in inputs";
 
 equation
-
   if (NbSwitchOffSignalsSide2 >= 3) then
     when switchOffSignal1Side2.value or switchOffSignal2Side2.value or switchOffSignal3Side2.value and pre(runningSide2.value) then
       runningSide2.value = false;
@@ -137,22 +133,20 @@ partial model SwitchOffGenerator "Switch-off model for a generator"
 
   extends SwitchOffLogic(NbSwitchOffSignals = 3);
 
-  public
-    Constants.state state (start = State0) "Generator connection state";
+  Constants.state state(start = State0) "Generator connection state";
 
-  protected
-    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
+  parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
-  equation
-    when not(running.value) then
-      Timeline.logEvent1 (TimelineKeys.GeneratorDisconnected);
-      state = Constants.state.Open;
-    elsewhen running.value and not(pre(running.value)) then
-      Timeline.logEvent1 (TimelineKeys.GeneratorConnected);
-      state = Constants.state.Closed;
-    end when;
+equation
+  when not(running.value) then
+    Timeline.logEvent1 (TimelineKeys.GeneratorDisconnected);
+    state = Constants.state.Open;
+  elsewhen running.value and not(pre(running.value)) then
+    Timeline.logEvent1 (TimelineKeys.GeneratorConnected);
+    state = Constants.state.Closed;
+  end when;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end SwitchOffGenerator;
 
 partial model SwitchOffInjector "Switch-off model for an injector"
@@ -165,22 +159,20 @@ partial model SwitchOffInjector "Switch-off model for an injector"
 
   extends SwitchOffLogic(NbSwitchOffSignals = 3);
 
-  public
-    Constants.state state (start = State0) "Injector connection state";
+  Constants.state state(start = State0) "Injector connection state";
 
-  protected
-    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
+  parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
-  equation
-    when not(running.value) then
-      Timeline.logEvent1 (TimelineKeys.ComponentDisconnected);
-      state = Constants.state.Open;
-    elsewhen running.value and not(pre(running.value)) then
-      Timeline.logEvent1 (TimelineKeys.ComponentConnected);
-      state = Constants.state.Closed;
-    end when;
+equation
+  when not(running.value) then
+    Timeline.logEvent1 (TimelineKeys.ComponentDisconnected);
+    state = Constants.state.Open;
+  elsewhen running.value and not(pre(running.value)) then
+    Timeline.logEvent1 (TimelineKeys.ComponentConnected);
+    state = Constants.state.Closed;
+  end when;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end SwitchOffInjector;
 
 partial model SwitchOffLoad "Switch-off model for a load"
@@ -192,22 +184,20 @@ partial model SwitchOffLoad "Switch-off model for a load"
 
   extends SwitchOffLogic(NbSwitchOffSignals = 2);
 
-  public
-    Constants.state state (start = State0) "Load connection state";
+  Constants.state state(start = State0) "Load connection state";
 
-  protected
-    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
+  parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
-  equation
-    when not(running.value) then
-      Timeline.logEvent1 (TimelineKeys.LoadDisconnected);
-      state = Constants.state.Open;
-    elsewhen running.value and not(pre(running.value)) then
-      Timeline.logEvent1 (TimelineKeys.LoadConnected);
-      state = Constants.state.Closed;
-    end when;
+equation
+  when not(running.value) then
+    Timeline.logEvent1 (TimelineKeys.LoadDisconnected);
+    state = Constants.state.Open;
+  elsewhen running.value and not(pre(running.value)) then
+    Timeline.logEvent1 (TimelineKeys.LoadConnected);
+    state = Constants.state.Closed;
+  end when;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end SwitchOffLoad;
 
 partial model SwitchOffShunt "Switch-off model for a shunt"
@@ -219,22 +209,20 @@ partial model SwitchOffShunt "Switch-off model for a shunt"
 
   extends SwitchOffLogic(NbSwitchOffSignals = 2);
 
-  public
-    Constants.state state (start = State0) "Shunt connection state";
+  Constants.state state(start = State0) "Shunt connection state";
 
-  protected
-    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
+  parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
-  equation
-    when not(running.value) then
-      Timeline.logEvent1 (TimelineKeys.ShuntDisconnected);
-      state = Constants.state.Open;
-    elsewhen running.value and not(pre(running.value)) then
-      Timeline.logEvent1 (TimelineKeys.ShuntConnected);
-      state = Constants.state.Closed;
-    end when;
+equation
+  when not(running.value) then
+    Timeline.logEvent1 (TimelineKeys.ShuntDisconnected);
+    state = Constants.state.Open;
+  elsewhen running.value and not(pre(running.value)) then
+    Timeline.logEvent1 (TimelineKeys.ShuntConnected);
+    state = Constants.state.Closed;
+  end when;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end SwitchOffShunt;
 
 partial model SwitchOffTapChangerPhaseShifter "Switch-off model for a tap-changer or a phase-shifter"
@@ -243,27 +231,27 @@ partial model SwitchOffTapChangerPhaseShifter "Switch-off model for a tap-change
      - a switch-off signal coming from the user (event)
   */
   import Dynawo.Electrical.Controls.Transformers.BaseClasses.TapChangerPhaseShifterParams.Automaton;
+
   extends SwitchOffLogic(NbSwitchOffSignals = 2);
 
   parameter Automaton Type;
 
-  equation
+equation
+  when not(running.value) then
+    if (Type == Automaton.TapChanger) then
+      Timeline.logEvent1 (TimelineKeys.TapChangerSwitchOff);
+    elseif (Type == Automaton.PhaseShifter) then
+      Timeline.logEvent1 (TimelineKeys.PhaseShifterSwitchOff);
+    end if;
+  elsewhen running.value and not(pre(running.value)) then
+    if (Type == Automaton.TapChanger) then
+      Timeline.logEvent1 (TimelineKeys.TapChangerSwitchOn);
+    elseif (Type == Automaton.PhaseShifter) then
+      Timeline.logEvent1 (TimelineKeys.PhaseShifterSwitchOn);
+    end if;
+  end when;
 
-    when not(running.value) then
-      if (Type == Automaton.TapChanger) then
-        Timeline.logEvent1 (TimelineKeys.TapChangerSwitchOff);
-      elseif (Type == Automaton.PhaseShifter) then
-        Timeline.logEvent1 (TimelineKeys.PhaseShifterSwitchOff);
-      end if;
-    elsewhen running.value and not(pre(running.value)) then
-      if (Type == Automaton.TapChanger) then
-        Timeline.logEvent1 (TimelineKeys.TapChangerSwitchOn);
-      elseif (Type == Automaton.PhaseShifter) then
-        Timeline.logEvent1 (TimelineKeys.PhaseShifterSwitchOn);
-      end if;
-    end when;
-
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end SwitchOffTapChangerPhaseShifter;
 
 partial model SwitchOffLine "Switch-off signal for a line"
@@ -275,22 +263,20 @@ partial model SwitchOffLine "Switch-off signal for a line"
 
   extends SwitchOffLogic(NbSwitchOffSignals = 2);
 
-  public
-    Constants.state state (start = State0) "Line connection state";
+  Constants.state state(start = State0) "Line connection state";
 
-  protected
-    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
+  parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
-  equation
-    when not(running.value) then
-      Timeline.logEvent1 (TimelineKeys.LineOpen);
-      state = Constants.state.Open;
-    elsewhen running.value and not(pre(running.value)) then
-      Timeline.logEvent1 (TimelineKeys.LineClosed);
-      state = Constants.state.Closed;
-    end when;
+equation
+  when not(running.value) then
+    Timeline.logEvent1 (TimelineKeys.LineOpen);
+    state = Constants.state.Open;
+  elsewhen running.value and not(pre(running.value)) then
+    Timeline.logEvent1 (TimelineKeys.LineClosed);
+    state = Constants.state.Closed;
+  end when;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end SwitchOffLine;
 
 partial model SwitchOffDCLine "Switch-off signal for a DC line"
@@ -305,22 +291,20 @@ partial model SwitchOffDCLine "Switch-off signal for a DC line"
 
   Connectors.BPin running(value(start=true)) "Indicates if the component is running or not";
 
-  public
-    Constants.state state(start = State0) "DC Line connection state";
+  Constants.state state(start = State0) "DC Line connection state";
 
-  protected
-    parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
+  parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
-  equation
-    when not(runningSide1.value) or not(runningSide2.value) then
-      Timeline.logEvent1 (TimelineKeys.DCLineOpen);
-      state = Constants.state.Open;
-    elsewhen runningSide1.value and runningSide2.value and (not(pre(runningSide1.value)) or not(pre(runningSide2.value))) then
-      Timeline.logEvent1 (TimelineKeys.DCLineClosed);
-      state = Constants.state.Closed;
-    end when;
+equation
+  when not(runningSide1.value) or not(runningSide2.value) then
+    Timeline.logEvent1 (TimelineKeys.DCLineOpen);
+    state = Constants.state.Open;
+  elsewhen runningSide1.value and runningSide2.value and (not(pre(runningSide1.value)) or not(pre(runningSide2.value))) then
+    Timeline.logEvent1 (TimelineKeys.DCLineClosed);
+    state = Constants.state.Closed;
+  end when;
 
-    running.value = runningSide1.value and runningSide2.value;
+  running.value = runningSide1.value and runningSide2.value;
 
   annotation(preferredView = "text");
 end SwitchOffDCLine;
@@ -334,22 +318,20 @@ partial model SwitchOffTransformer "Switch-off signal for a transformer"
 
   extends SwitchOffLogic(NbSwitchOffSignals = 2);
 
-  public
-    Constants.state state (start = State0) "Transformer connection state";
+  Constants.state state(start = State0) "Transformer connection state";
 
-  protected
-    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
+  parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
-  equation
-    when not(running.value) then
-      Timeline.logEvent1 (TimelineKeys.TransformerSwitchOff);
-      state = Constants.state.Open;
-    elsewhen running.value and not(pre(running.value)) then
-      Timeline.logEvent1 (TimelineKeys.TransformerSwitchOn);
-      state = Constants.state.Closed;
-    end when;
+equation
+  when not(running.value) then
+    Timeline.logEvent1 (TimelineKeys.TransformerSwitchOff);
+    state = Constants.state.Open;
+  elsewhen running.value and not(pre(running.value)) then
+    Timeline.logEvent1 (TimelineKeys.TransformerSwitchOn);
+    state = Constants.state.Closed;
+  end when;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end SwitchOffTransformer;
 
 partial model SwitchOffIdealSwitch "Switch-off signal for an ideal switch"
@@ -360,22 +342,20 @@ partial model SwitchOffIdealSwitch "Switch-off signal for an ideal switch"
 
   extends SwitchOffLogic(NbSwitchOffSignals = 1);
 
-  public
-    Constants.state state (start = State0) "Ideal switch connection state";
+  Constants.state state(start = State0) "Ideal switch connection state";
 
-  protected
-    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
+  parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
-  equation
-    when not(running.value) then
-      Timeline.logEvent1 (TimelineKeys.IdealSwitchSwitchOff);
-      state = Constants.state.Open;
-    elsewhen running.value and not(pre(running.value)) then
-      Timeline.logEvent1 (TimelineKeys.IdealSwitchSwitchOn);
-      state = Constants.state.Closed;
-    end when;
+equation
+  when not(running.value) then
+    Timeline.logEvent1 (TimelineKeys.IdealSwitchSwitchOff);
+    state = Constants.state.Open;
+  elsewhen running.value and not(pre(running.value)) then
+    Timeline.logEvent1 (TimelineKeys.IdealSwitchSwitchOn);
+    state = Constants.state.Closed;
+  end when;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end SwitchOffIdealSwitch;
 
 annotation(preferredView = "text");

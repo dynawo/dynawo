@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ActivePowerControl;
 */
 
 model ActivePowerControl "Active power control for the HVDC VSC model"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
@@ -32,7 +31,6 @@ model ActivePowerControl "Active power control for the HVDC VSC model"
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.VoltageModulePu Udc0Pu "Start value of dc voltage in pu (base SNom, UNom)";
 
 equation

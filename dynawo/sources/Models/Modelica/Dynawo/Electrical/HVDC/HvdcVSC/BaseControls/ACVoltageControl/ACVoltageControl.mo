@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ACVoltageControl;
 */
 
 model ACVoltageControl "AC voltage control for HVDC"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
@@ -74,13 +73,11 @@ model ACVoltageControl "AC voltage control for HVDC"
   Modelica.Blocks.Sources.Constant const(k = 0.1)  annotation(
     Placement(visible = true, transformation(origin = {-29, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
-
   parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";
   parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom)";
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SNom) (generator convention)";
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude in pu (base UNom)";
-  parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SNom) (generator convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (generator convention)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (generator convention)";
   parameter Boolean modeU0 "Start value of the boolean assessing the mode of the control: true if U mode, false if Q mode";
 
 equation
@@ -140,8 +137,8 @@ equation
     Line(points = {{-110, 30}, {-14, 30}, {-14, 20}, {-5, 20}}, color = {0, 0, 127}));
   connect(max.y, division.u2) annotation(
     Line(points = {{18, 14}, {26, 14}, {26, -1}, {37, -1}, {37, -1}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-100, -100}, {200, 100}})),
     Icon(coordinateSystem(grid = {1, 1})));
-
 end ACVoltageControl;

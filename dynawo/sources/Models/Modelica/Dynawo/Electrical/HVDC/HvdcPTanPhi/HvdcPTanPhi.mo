@@ -35,17 +35,14 @@ model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
   input Real tanPhi2Ref(start = s20Pu.im/s20Pu.re) "tan(Phi) regulation set point at terminal 2";
 
 protected
-
   Types.ReactivePowerPu Q1RawPu(start = s10Pu.im) "Raw reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q2RawPu(start = s20Pu.im) "Raw reactive power at terminal 2 in pu (base SnRef) (receptor convention)";
 
 equation
-
   Q1RawPu = tanPhi1Ref * P1Pu;
   Q2RawPu = tanPhi2Ref * P2Pu;
 
   if running.value then
-
     if Q1RawPu >= Q1MaxPu then
      Q1Pu = Q1MaxPu;
     elseif Q1RawPu <= Q1MinPu then
@@ -53,7 +50,6 @@ equation
     else
      Q1Pu = Q1RawPu;
     end if;
-
     if Q2RawPu >= Q2MaxPu then
      Q2Pu = Q2MaxPu;
     elseif Q2RawPu <= Q2MinPu then
@@ -61,12 +57,9 @@ equation
     else
      Q2Pu = Q2RawPu;
     end if;
-
   else
-
     Q1Pu = 0;
     Q2Pu = 0;
-
   end if;
 
   annotation(preferredView = "text",

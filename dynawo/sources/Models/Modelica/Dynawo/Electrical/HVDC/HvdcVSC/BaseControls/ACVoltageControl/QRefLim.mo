@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ACVoltageControl;
 */
 
 model QRefLim "Function that applies the limitations to QRef"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
@@ -53,7 +52,6 @@ model QRefLim "Function that applies the limitations to QRef"
   Modelica.Blocks.Continuous.FirstOrder firstOrderQMinUPu(T = tFilterLim, y_start = tableQMinUPu32 - DeadBand0)  annotation(
     Placement(visible = true, transformation(origin = {-40, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (generator convention)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
   parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (generator convention)";

@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls;
 */
 
 model ActivePowerControlSideDangling "Active power control side for the HVDC VSC model with terminal2 connected to a switched-off bus (P control on terminal 1)"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
@@ -47,17 +46,16 @@ model ActivePowerControlSideDangling "Active power control side for the HVDC VSC
 
   HVDC.HvdcVSC.BaseControls.ActivePowerControl.ActivePowerControlDangling activePowerControl(Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu, KiPControl = KiPControl, KpPControl = KpPControl, P0Pu = P0Pu, PMaxOPPu = PMaxOPPu, PMinOPPu = PMinOPPu, SlopePRefPu = SlopePRefPu, SlopeRPFault = SlopeRPFault) "Active power control for HVDC link" annotation(
     Placement(visible = true, transformation(origin = {-40, 70}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
-  HVDC.HvdcVSC.BaseControls.LimitsCalculationFunction.LimitsCalculationFunctionDangling limitsCalculationFunction(InPu = InPu, Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu, Iq0Pu = Iq0Pu)  "Reactive and active currents limits calculation function" annotation(
+  HVDC.HvdcVSC.BaseControls.LimitsCalculationFunction.LimitsCalculationFunctionDangling limitsCalculationFunction(InPu = InPu, Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu, Iq0Pu = Iq0Pu) "Reactive and active currents limits calculation function" annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   HVDC.HvdcVSC.BaseControls.ACVoltageControl.ACVoltageControl aCVoltageControl(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip0Pu, Iq0Pu = Iq0Pu, KiACVoltageControl = KiACVoltageControl, KpACVoltageControl = KpACVoltageControl, Lambda = Lambda, P0Pu = P0Pu, Q0Pu = Q0Pu, QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U0Pu, modeU0 = modeU0, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod) "AC voltage control for HVDC" annotation(
     Placement(visible = true, transformation(origin = {-40, -70}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
 
-protected
   parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";
   parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom)";
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SNom) (generator convention)";
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude in pu (base UNom)";
-  parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SNom) (generator convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (generator convention)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (generator convention)";
   parameter Boolean modeU0 "Start value of the boolean assessing the mode of the control: true if U mode, false if Q mode";
 
 equation

@@ -13,7 +13,6 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPV "Model for generator PV based on SignalN for the frequency handling"
-
   extends BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
 
@@ -21,18 +20,17 @@ model GeneratorPV "Model for generator PV based on SignalN for the frequency han
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in pu (base SnRef)";
-  parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
 
   input Types.VoltageModulePu URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
 
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
 
 protected
-  QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+  QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
-
   when QGenPu <= QMinPu and UPu >= URefPu then
     qStatus = QStatus.AbsorptionMax;
   elsewhen QGenPu >= QMaxPu and UPu <= URefPu then
@@ -41,18 +39,18 @@ equation
     qStatus = QStatus.Standard;
   end when;
 
-if running.value then
-  if qStatus == QStatus.GenerationMax then
-    QGenPu = QMaxPu;
-  elseif qStatus == QStatus.AbsorptionMax then
-    QGenPu = QMinPu;
+  if running.value then
+    if qStatus == QStatus.GenerationMax then
+      QGenPu = QMaxPu;
+    elseif qStatus == QStatus.AbsorptionMax then
+      QGenPu = QMinPu;
+    else
+      UPu = URefPu;
+    end if;
   else
-    UPu = URefPu;
+    terminal.i.im = 0;
   end if;
-else
-  terminal.i.im = 0;
-end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This generator regulates the voltage UPu unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated).</div></body></html>"));
 end GeneratorPV;

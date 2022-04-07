@@ -26,27 +26,23 @@ model TransformerVariableTap "Transformer with variable tap to be connected to a
 
   The transformer ratio is variable.
 */
-
   import Dynawo.Connectors;
 
   extends BaseClasses.BaseTransformerVariableTap;
   extends AdditionalIcons.Transformer;
 
-  public
+  // Transformer's parameters
+  parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+  parameter Types.Percent R "Resistance in % (base U2Nom, SNom)";
+  parameter Types.Percent X "Reactance in % (base U2Nom, SNom)";
+  parameter Types.Percent G "Conductance in % (base U2Nom, SNom)";
+  parameter Types.Percent B "Susceptance in % (base U2Nom, SNom)";
 
-    // Transformer's parameters
-    parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-    parameter Types.Percent R "Resistance in % (base U2Nom, SNom)";
-    parameter Types.Percent X "Reactance in % (base U2Nom, SNom)";
-    parameter Types.Percent G "Conductance in % (base U2Nom, SNom)";
-    parameter Types.Percent B "Susceptance in % (base U2Nom, SNom)";
-
-  protected
-    parameter Types.ComplexImpedancePu ZPu(re = R / 100 * SystemBase.SnRef/ SNom , im  = X / 100 * SystemBase.SnRef/ SNom ) "Transformer impedance in pu (base U2Nom, SnRef)";
-    parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im  = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in pu (base U2Nom, SnRef)";
+protected
+  parameter Types.ComplexImpedancePu ZPu(re = R / 100 * SystemBase.SnRef/ SNom , im  = X / 100 * SystemBase.SnRef/ SNom ) "Transformer impedance in pu (base U2Nom, SnRef)";
+  parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im  = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in pu (base U2Nom, SnRef)";
 
 equation
-
   if (running.value) then
     // Transformer equations
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
@@ -56,5 +52,5 @@ equation
     terminal2.V = Complex (0);
   end if;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end TransformerVariableTap;
