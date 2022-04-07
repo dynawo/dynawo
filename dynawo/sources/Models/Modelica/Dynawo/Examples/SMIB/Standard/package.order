@@ -1,3 +1,8 @@
 GovSteam1ExcIEEEST4BPssIEEE2B1
 GovSteam1ExcIEEEST4BPssIEEE2B2
 GovSteam1ExcIEEEST4BPssIEEE2B3
+LoadFlowSMIB
+SMIBdynamicLineINIT
+ReImToModPhase
+LoadFlowFaultSMIB
+SMIBdynamicLineFault
