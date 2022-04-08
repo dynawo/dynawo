@@ -69,6 +69,7 @@ class JobCurves:
         self.hasCurves_ = False
         self.curvesType_ = None
         self.curves_ = None
+        self.referenceCurves_ = None
         self.curvesOutput_ = None
 
 ##
@@ -78,7 +79,7 @@ class JobCurves:
 # @param showpoints: if true show simulation points instead of drawing only line
 # @param htmlBrowser : HTML browser to display curves
 # @return
-def readCurvesToHtml(jobs_file, withoutOffset, showpoints, htmlBrowser):
+def readCurvesToHtml(jobs_file, withoutOffset, showpoints, htmlBrowser, plotRef):
     # parsing the job file
     try:
         jobs_root = etree.parse(jobs_file).getroot()
@@ -122,12 +123,15 @@ def readCurvesToHtml(jobs_file, withoutOffset, showpoints, htmlBrowser):
                     # Conversion from csv to html
                     if(curves.get("exportMode") == "CSV"):
                         fileCurves = os.path.join(os.path.dirname(jobs_file), outputs.get("directory"), "curves", "curves.csv" )
+                        refFileCurves = os.path.join(os.path.dirname(jobs_file), "reference", outputs.get("directory"), "curves", "curves.csv" )
                         if os.path.isfile(fileCurves) and (len(open(fileCurves).readlines()) > 1):
                             current_job.curves_ = fileCurves
+                            if (plotRef and os.path.isfile(refFileCurves)):
+                                current_job.referenceCurves_ = refFileCurves
                             current_job.curvesOutput_ = os.path.join(os.path.dirname(fileCurves),"curvesOutput")
                             current_job.hasCurves_ = True
                             current_job.curvesType_ = CURVES_TYPE_CSV
-                            readCsvToHtml(current_job.curves_, current_job.curvesOutput_, withoutOffset, showpoints)
+                            readCsvToHtml(current_job.curves_, current_job.referenceCurves_, current_job.curvesOutput_, withoutOffset, showpoints)
                         else:
                             print("No curves output file found for job " + current_job.jobName_)
                             continue
@@ -135,12 +139,15 @@ def readCurvesToHtml(jobs_file, withoutOffset, showpoints, htmlBrowser):
                     # Conversion from xml to html
                     elif(curves.get("exportMode") == "XML"):
                         fileCurves = os.path.join(os.path.dirname(jobs_file), outputs.get("directory"), "curves", "curves.xml" )
+                        refFileCurves = os.path.join(os.path.dirname(jobs_file), "reference", outputs.get("directory"), "curves", "curves.xml" )
                         if os.path.isfile(fileCurves) and (len(open(fileCurves).readlines()) > 1):
                             current_job.curves_ = fileCurves
+                            if (plotRef and os.path.isfile(refFileCurves)):
+                                current_job.referenceCurves_ = refFileCurves
                             current_job.curvesOutput_ = os.path.join(os.path.dirname(fileCurves),"curvesOutput")
                             current_job.hasCurves_ = True
                             current_job.curvesType_ = CURVES_TYPE_XML
-                            readXmlToHtml(current_job.curves_, current_job.curvesOutput_, withoutOffset, showpoints)
+                            readXmlToHtml(current_job.curves_, current_job.referenceCurves_, current_job.curvesOutput_, withoutOffset, showpoints)
                         else:
                             print("No curves output file found for job " + current_job.jobName_)
                             continue
@@ -186,11 +193,13 @@ def main():
                        help=u"Show simulation points", default=False)
     parser.add_option( "--htmlBrowser", action="store", dest="htmlBrowser",
                        help=u"HTML Browser to visualize curves", default='firefox')
+    parser.add_option( "--plotRef", action="store_true", dest="plotRef",
+                       help=u"Plot the reference curves", default=False)
     (options, args) = parser.parse_args()
 
     if options.jobsFile == None:
         parser.error("Jobs file should be informed")
 
-    readCurvesToHtml(options.jobsFile,options.withoutOffset,options.showpoints,options.htmlBrowser)
+    readCurvesToHtml(options.jobsFile,options.withoutOffset,options.showpoints,options.htmlBrowser, options.plotRef)
 if __name__ == "__main__":
     main()
