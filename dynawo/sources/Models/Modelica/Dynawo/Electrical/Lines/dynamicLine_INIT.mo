@@ -6,10 +6,10 @@ model dynamicLine_INIT "Initialization for dynamic line"
 
   public
 
-    parameter Types.PerUnit RPu=0.00375/2 "Resistance in pu (base SnRef)";
-    parameter Types.PerUnit XPu=0.0375/2 "Reactance in pu (base SnRef)";
+    parameter Types.PerUnit RPu=0.00375 "Resistance in pu (base SnRef)";
+    parameter Types.PerUnit XPu=0.0375"Reactance in pu (base SnRef)";
     parameter Types.PerUnit GPu=0 "Half-conductance i=u20Pu*ComplexMath.conj(i20Pu)n pu (base SnRef)";
-    parameter Types.PerUnit BPu=0.0000375/2 "Half-susceptance in pu (base SnRef)";
+    parameter Types.PerUnit BPu=0.0000375 "Half-susceptance in pu (base SnRef)";
 
 
     parameter Types.VoltageModulePu U10Pu=0.882565  "Start value of voltage amplitude at line terminal 1 in pu (base UNom)";

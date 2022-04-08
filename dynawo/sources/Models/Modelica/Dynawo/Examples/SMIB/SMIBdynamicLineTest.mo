@@ -46,4 +46,6 @@ equation
     Line(points = {{-46, -18}, {-76, -18}, {-76, 0}}, color = {0, 0, 255}));
   connect(transformerFixedRatio.terminal2, generatorSynchronous.terminal) annotation(
     Line(points = {{22, 2}, {62, 2}}, color = {0, 0, 255}));
+annotation(
+    experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-4, Interval = 0.002));
 end SMIBdynamicLineTest;

@@ -41,7 +41,7 @@ model LoadFlowFaultSMIB
   Types.ComplexVoltagePu U22;
 
 
-protected
+
 
   Types.ComplexVoltagePu U0;
   Types.ComplexCurrentPu I0;
