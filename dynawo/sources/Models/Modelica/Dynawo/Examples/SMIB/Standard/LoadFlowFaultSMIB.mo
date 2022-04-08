@@ -5,7 +5,7 @@ within Dynawo.Examples.SMIB.Standard;
   Equivalent circuit and conventions:
 
              I11,V11                -Ix,Vx   Ix,Vx                   I21,V21
-       |------->-------(1-x)(R1+jX1)----<--->-------x(R2+jX2)---------<----|
+       |------->-------(1-x)(R1+jX1)----<--->-------x(R1+jX1)---------<----|
        |               |           |              |           |            |
        |    (1-x)(G1+jB1)   (1-x)(G1+jB1)    x(G1+jB1)   x(G1+jB1)         |
   -----|               |           |              |           |            |----(U01)-RLTr+jXTr--<--(U0,P0,Q0,U0Ph)
@@ -21,12 +21,12 @@ within Dynawo.Examples.SMIB.Standard;
 
 model LoadFlowFaultSMIB
   import Dynawo;
-  parameter Real x=0.2  "Emplacement of the fault relative to the line lenght x= default location /line lenght";
-  parameter Real XLigne1=0.0375;
+  parameter Real x=0.5  "Emplacement of the fault relative to the line lenght x= default location /line lenght";
+  parameter Real XLigne1=0.075;
   parameter Real RLigne1=0.00375;
   parameter Real BLigne1=0.0000375;
   parameter Real GLigne1=0;
-  parameter Real XLigne2=0.0375;
+  parameter Real XLigne2=0.075;
   parameter Real RLigne2=0.00375;
   parameter Real BLigne2=0;
   parameter Real GLigne2=0.0000375;

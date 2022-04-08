@@ -55,12 +55,12 @@ model DynamicLine "AC power line - PI model considerating the dynamics of the in
 
 equation
   if (running.value) then
-    iGC1Pu.re = GPu*terminal1.V.re + CPu*der(terminal1.V.re)/SystemBase.omegaNom - CPu*terminal1.V.im;
-    iGC1Pu.im = GPu*terminal1.V.im + CPu*der(terminal1.V.im)/SystemBase.omegaNom + CPu*terminal1.V.re;
-    iGC2Pu.re = GPu*terminal2.V.re + CPu*der(terminal2.V.re)/SystemBase.omegaNom - CPu*terminal2.V.im;
-    iGC2Pu.im = GPu*terminal2.V.im + CPu*der(terminal2.V.im)/SystemBase.omegaNom + CPu*terminal2.V.re;
-    iRLPu.re + LPu*der(iRLPu.re)/SystemBase.omegaNom - LPu*omegaPu*iRLPu.im = terminal1.V.re - terminal2.V.re;
-    iRLPu.im + LPu*der(iRLPu.im)/SystemBase.omegaNom + LPu*omegaPu*iRLPu.re = terminal1.V.im - terminal2.V.im;
+    iGC1Pu.re = GPu*terminal1.V.re + CPu*der(terminal1.V.re/SystemBase.omegaNom) - CPu*terminal1.V.im;
+    iGC1Pu.im = GPu*terminal1.V.im + CPu*der(terminal1.V.im/SystemBase.omegaNom) + CPu*terminal1.V.re;
+    iGC2Pu.re = GPu*terminal2.V.re + CPu*der(terminal2.V.re/SystemBase.omegaNom) - CPu*terminal2.V.im;
+    iGC2Pu.im = GPu*terminal2.V.im + CPu*der(terminal2.V.im/SystemBase.omegaNom) + CPu*terminal2.V.re;
+    RPu*iRLPu.re + LPu*der(iRLPu.re/SystemBase.omegaNom) - LPu*iRLPu.im = terminal1.V.re - terminal2.V.re;
+    RPu*iRLPu.im + LPu*der(iRLPu.im/SystemBase.omegaNom) + LPu*iRLPu.re = terminal1.V.im - terminal2.V.im;
     terminal1.i = iRLPu+iGC1Pu ;
     terminal2.i = iGC2Pu-iRLPu ;
   else
