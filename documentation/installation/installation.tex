@@ -35,7 +35,7 @@ To use those distributions you need some requirements if you want to be able to 
 \subsection{Linux Requirements for Distribution}
 
 \begin{itemize}
-\item Compilers: C and C++ (\href{https://www.gnu.org/software/gcc}{gcc} or \href{https://clang.llvm.org}{clang}), c++98 or c++11 compatible for C++ standard
+\item Compilers: C and C++ (\href{https://www.gnu.org/software/gcc}{gcc} or \href{https://clang.llvm.org}{clang}), c++11 compatible for C++ standard
 \item Python2 or Python3
 \item Binary utilities: \href{curl}{https://curl.haxx.se} and unzip
 \item \href{https://cmake.org/}{CMake}: minimum version 3.9.6
@@ -95,7 +95,7 @@ In the following we give a list of requirements needed to build \Dynawo and its 
 \paragraph{Global}
 
 \begin{itemize}
-\item Compilers: C and C++ (\href{https://www.gnu.org/software/gcc}{gcc} or \href{https://clang.llvm.org}{clang}), c++98 or c++11 compatible for C++ standard
+\item Compilers: C and C++ (\href{https://www.gnu.org/software/gcc}{gcc} or \href{https://clang.llvm.org}{clang}), c++11 compatible for C++ standard
 \end{itemize}
 
 \paragraph{OpenModelica Compiler}
@@ -132,8 +132,7 @@ In the following we give a list of requirements needed to build \Dynawo and its 
 
 \begin{itemize}
 \item
-  \href{https://cmake.org/}{CMake}: minimum version 3.9.6 (last version
-  to compile with c++98 compiler)
+  \href{https://cmake.org/}{CMake}: minimum version 3.9.6
 \item
   Libraries:
 
@@ -225,7 +224,6 @@ export DYNAWO_BROWSER=firefox
 export DYNAWO_NB_PROCESSORS_USED=1
 
 export DYNAWO_BUILD_TYPE=Release
-export DYNAWO_CXX11_ENABLED=YES
 
 $DYNAWO_HOME/util/envDynawo.sh $@' > myEnvDynawo.sh
 $> chmod +x myEnvDynawo.sh

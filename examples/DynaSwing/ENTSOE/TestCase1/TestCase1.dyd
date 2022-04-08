@@ -12,33 +12,9 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="SynchronousGenerator">
-    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_4E_INIT" parFile="TestCase1.par" parId="Generator"/>
-    <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.SEXS_INIT" parFile="TestCase1.par" parId="VoltageRegulator"/>
-    <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.TGOV1" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT" parFile="TestCase1.par" parId="Governor"/>
-    <dyn:unitDynamicModel id="pss" name="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PSS2A" initName="Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.PSS2A_INIT" parFile="TestCase1.par" parId="PSS"/>
-    <dyn:unitDynamicModel id="URef" name="Dynawo.Electrical.Controls.Basics.Step" initName="Dynawo.Electrical.Controls.Basics.Step_INIT" parFile="TestCase1.par" parId="URef"/>
-    <dyn:unitDynamicModel id="Pm" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT" parFile="TestCase1.par" parId="Pm"/>
-    <dyn:initConnect id1="voltageRegulator" var1="UsRef0Pu" id2="URef" var2="Value0"/>
-    <dyn:initConnect id1="voltageRegulator" var1="Us0Pu" id2="generator" var2="UStator0Pu"/>
-    <dyn:initConnect id1="voltageRegulator" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
-    <dyn:initConnect id1="governor" var1="Pm0Pu" id2="generator" var2="Pm0Pu"/>
-    <dyn:initConnect id1="governor" var1="Pm0Pu" id2="Pm" var2="Value0"/>
-    <dyn:initConnect id1="pss" var1="PGen0Pu" id2="generator" var2="PGen0Pu"/>
-    <dyn:connect id1="generator" var1="omegaPu.value" id2="governor" var2="omegaPu"/>
-    <dyn:connect id1="generator" var1="PmPu.value" id2="governor" var2="PmPu"/>
-    <dyn:connect id1="generator" var1="PGenPu" id2="pss" var2="PGenPu"/>
-    <dyn:connect id1="generator" var1="omegaPu.value" id2="pss" var2="omegaPu"/>
-    <dyn:connect id1="generator" var1="UStatorPu.value" id2="voltageRegulator" var2="UsPu"/>
-    <dyn:connect id1="generator" var1="efdPu.value" id2="voltageRegulator" var2="EfdPu"/>
-    <dyn:connect id1="voltageRegulator" var1="UpssPu" id2="pss" var2="UpssPu"/>
-    <dyn:connect id1="voltageRegulator" var1="UsRefPu" id2="URef" var2="step.value"/>
-    <dyn:connect id1="governor" var1="PmRefPu" id2="Pm" var2="setPoint.value"/>
-  </dyn:modelicaModel>
-  <dyn:blackBoxModel id="setPointOmega" lib="SetPoint" parFile="TestCase1.par" parId="SetPoint"/>
-  <dyn:modelicaModel id="Bus">
-    <dyn:unitDynamicModel id="bus" name="Dynawo.Electrical.Buses.Bus"/>
-  </dyn:modelicaModel>
+  <dyn:blackBoxModel id="SynchronousGenerator" lib="GeneratorSynchronousFourWindingsTGov1SexsPss2AStepURef" parFile="TestCase1.par" parId="SynchronousGenerator"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="TestCase1.par" parId="OmegaRef"/>
+  <dyn:blackBoxModel id="Bus" lib="Bus"/>
   <dyn:connect id1="Bus" var1="bus_terminal" id2="SynchronousGenerator" var2="generator_terminal"/>
-  <dyn:connect id1="SynchronousGenerator" var1="generator_omegaRefPu" id2="setPointOmega" var2="setPoint_setPoint"/>
+  <dyn:connect id1="SynchronousGenerator" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
 </dyn:dynamicModelsArchitecture>

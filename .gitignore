@@ -28,6 +28,7 @@ examples/*/description/*toc
 examples/*/description/*out
 examples/*/description/*log
 !nrt/data/*/*/reference/outputs*/
+!nrt/data/*/*/*/reference/outputs*/
 nrt/data/*/*/execution/
 nrt/data/*/*/description/*.log
 nrt/data/*/*/description/*.pdf

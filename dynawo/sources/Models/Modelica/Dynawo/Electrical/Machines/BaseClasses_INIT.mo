@@ -22,7 +22,7 @@ package BaseClasses_INIT
       parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
       parameter Types.Angle UPhase0  "Start value of voltage angle at terminal in rad";
 
-    protected
+  protected
       Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
       Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";
 

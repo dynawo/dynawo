@@ -59,8 +59,8 @@ equation
 
   else
 
-    terminal1.i.im = 0;
-    terminal2.i.im = 0;
+    QInj1Pu = 0;
+    QInj2Pu = 0;
 
   end if;
 

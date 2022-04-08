@@ -10,7 +10,6 @@
 
 
 add_subdirectory(INIT I)
-add_subdirectory(BaseClasses B)
 
 set(MODEL_FILES
   package.mo

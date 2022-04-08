@@ -40,11 +40,15 @@ struct ServiceManagerInterface {
    */
   virtual ~ServiceManagerInterface() {}
 
-#ifdef LANG_CXX11
+  /// @brief Default constructor
   ServiceManagerInterface() = default;
+  /// @brief Default copy constructor
   ServiceManagerInterface(const ServiceManagerInterface&) = default;
+  /**
+   * @brief Default copy assignement operator
+   * @returns this
+   */
   ServiceManagerInterface& operator=(const ServiceManagerInterface&) = default;
-#endif
 
   /**
    * @brief Retrieve the buses linked to a bus by a switches network path

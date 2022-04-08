@@ -35,11 +35,7 @@ void VariablesCollection::addVariable(const shared_ptr<Variable>& variable) {
   // Used instead of variables_[name] = VariableFactory::newvariable(id, type)
   // to avoid necessity to create VariableFactory::Impl default constructor
   std::pair < map< string, shared_ptr<Variable> >::iterator, bool> ret;
-#ifdef LANG_CXX11
   ret = variables_.emplace(id, variable);
-#else
-  ret = variables_.insert(std::make_pair(id, variable));
-#endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, ExternalVariableIDNotUnique, id);
 }

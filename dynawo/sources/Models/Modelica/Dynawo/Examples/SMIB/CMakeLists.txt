@@ -10,6 +10,7 @@
 
 
 add_subdirectory(Resources R)
+add_subdirectory(Standard S)
 
 set(MODEL_FILES
   package.mo

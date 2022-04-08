@@ -33,7 +33,7 @@ DataInterfaceFactory::build(dataInterfaceType_t type, const string& filepath, un
 #ifdef USE_POWSYBL
     return DataInterfaceIIDM::build(filepath, nbVariants);
 #else
-    (void)nbVariants;  // parameter unused in c++03
+    (void)nbVariants;  // parameter unused with legacy iidm library
     return DataInterfaceIIDM::build(filepath);
 #endif
   }

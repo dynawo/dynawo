@@ -12,7 +12,6 @@ jobs:
     container: dynawo/dynawo-ci:latest
     env:
       DYNAWO_BUILD_TYPE: Debug
-      DYNAWO_CXX11_ENABLED: YES
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
@@ -38,7 +37,6 @@ jobs:
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci:latest
     env:
-      DYNAWO_CXX11_ENABLED: YES
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install

@@ -60,7 +60,6 @@ Open a "*Invite des commandes des outils natifs x64 de VS2015*"
     - **GTEST_ROOT**                  path to a Google Test installation directory
 
 - Other variables:
-    - **CXX11_ENABLED**               Enable to use CXX11 compilation
     - **CMAKE_BUILD_TYPE**            CMake build type : *Release* or *Debug* or *RelWithDebInfo*
     - **CMAKE_INSTALL_PREFIX**        Install directory for libXML
     - **CPACK_GENERATOR**             Defines how the library are packed.

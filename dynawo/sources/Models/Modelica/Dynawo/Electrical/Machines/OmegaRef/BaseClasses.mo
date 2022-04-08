@@ -253,7 +253,7 @@ package BaseClasses
     else
       udPu = 0;
       uqPu = 0;
-      terminal.i = Complex(0);
+      terminal.i = Complex(0,0);
       idPu = 0;
       iqPu = 0;
       ifPu = 0;
