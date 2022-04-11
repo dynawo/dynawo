@@ -119,7 +119,6 @@ model PlantControl "WECC PV Plant Control REPC"
   Modelica.Blocks.Continuous.TransferFunction leadLag(a = {tFv, 1}, b = {tFt, 1}, x_scaled(start = {QInj0Pu}), x_start = {QInj0Pu}, y_start = QInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {170, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.PerUnit PGen0Pu "Start value of active power at regulated bus in pu (generator convention) (base SNom)";
   parameter Types.PerUnit QGen0Pu "Start value of reactive power at regulated bus in pu (generator convention) (base SNom)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
@@ -128,6 +127,7 @@ protected
   parameter Types.ComplexPerUnit iInj0Pu "Start value of complex current at regulated bus in pu (generator convention) (base SNom, UNom)";
   parameter Types.PerUnit PInj0Pu "Start value of active power at injector terminal in pu (generator convention) (base SNom)";
   parameter Types.PerUnit QInj0Pu "Start value of reactive power at injector terminal in pu (generator convention) (base SNom)";
+
   final parameter Types.PerUnit URefPu = if VCompFlag == true then UInj0Pu else (U0Pu + Kc * QGen0Pu) "Voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation

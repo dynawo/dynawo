@@ -16,7 +16,6 @@ package BaseClasses
   extends Icons.BasesPackage;
 
 record TapChangerPhaseShifterParams
-
   type Automaton = enumeration (TapChanger "1: tap-changer",
                                 PhaseShifter "2: phase-shifter");
 
@@ -29,17 +28,15 @@ record TapChangerPhaseShifterParams
                             MoveUpN "7: tap-changer/phase-shifter has increased the next tap",
                             Locked "8: tap-changer/phase-shifter locked");
 
-  parameter Types.Time t1st (min = 0) "Time lag before changing the first tap";
-  parameter Types.Time tNext (min = 0) "Time lag before changing subsequent taps";
+  parameter Types.Time t1st(min = 0) "Time lag before changing the first tap";
+  parameter Types.Time tNext(min = 0) "Time lag before changing subsequent taps";
   parameter Integer tapMin "Minimum tap";
   parameter Integer tapMax "Maximum tap";
-
-protected
 
   parameter Boolean regulating0 "Whether the tap-changer/phase-shifter is initially regulating";
   parameter Boolean locked0 = not regulating0 "Whether the tap-changer/phase-shifter is initially locked";
   parameter Boolean running0 = true "Whether the tap-changer/phase-shifter is initially running";
-  parameter Real valueToMonitor0  "Initial monitored value";
+  parameter Real valueToMonitor0 "Initial monitored value";
   parameter Integer tap0 "Initial tap";
   parameter State state0 "Initial state";
 
@@ -48,7 +45,6 @@ end TapChangerPhaseShifterParams;
 // used for phase-shifterI (applied on current), phase-shifterP (applied on power) and tap-changer (applied on voltage)
 partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-shifters"
   import Modelica.Constants;
-
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
   import Dynawo.NonElectrical.Logs.Timeline;
@@ -57,56 +53,48 @@ partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-
   extends SwitchOff.SwitchOffTapChangerPhaseShifter;
   extends TapChangerPhaseShifterParams;
 
-  public
+  parameter Real valueMax "Threshold above which the tap-changer/phase-shifter will take action";
+  parameter Boolean increaseTapToIncreaseValue "Whether increasing the tap will increase the monitored value";
+  parameter Boolean increaseTapToDecreaseValue = not decreaseTapToDecreaseValue "Whether increasing the tap will decrease the monitored value";
+  parameter Boolean decreaseTapToIncreaseValue = not increaseTapToIncreaseValue "Whether decreasing the tap will increase the monitored value";
+  parameter Boolean decreaseTapToDecreaseValue = increaseTapToIncreaseValue "Whether decreasing the tap will decrease the monitored value";
 
-    parameter Real valueMax "Threshold above which the tap-changer/phase-shifter will take action";
+  Connectors.ImPin valueToMonitor(value(start = valueToMonitor0)) "Monitored value";
+  Connectors.ZPin tap(value(start = tap0)) "Current tap";
+  Connectors.BPin AutomatonExists(value = true) "Pin to indicate to deactivate internal automaton";
 
-    parameter Boolean increaseTapToIncreaseValue "Whether increasing the tap will increase the monitored value";
-    parameter Boolean increaseTapToDecreaseValue = not decreaseTapToDecreaseValue "Whether increasing the tap will decrease the monitored value";
-    parameter Boolean decreaseTapToIncreaseValue = not increaseTapToIncreaseValue "Whether decreasing the tap will increase the monitored value";
-    parameter Boolean decreaseTapToDecreaseValue = increaseTapToIncreaseValue "Whether decreasing the tap will decrease the monitored value";
+  Boolean locked(start = locked0) "Whether the tap-changer/phase-shifter is locked";
+  State state(start = state0);
 
-    Connectors.ImPin valueToMonitor (value (start = valueToMonitor0)) "Monitored value";
-    Connectors.ZPin tap (value (start = tap0)) "Current tap";
-    Connectors.BPin AutomatonExists (value = true) "Pin to indicate to deactivate internal automaton";
-
-    Boolean locked (start = locked0) "Whether the tap-changer/phase-shifter is locked";
-    State state(start = state0);
-
-  protected
-
-    Boolean valueAboveMax(start = false) "True if the monitored signal is above the maximum limit";
-    Boolean lookingToIncreaseTap "True if the tap-changer/phase-shifter wants to increase tap";
-    Boolean lookingToDecreaseTap "True if the tap-changer/phase-shifter wants to decrease tap";
-    Types.Time tValueAboveMaxWhileRunning(start = Constants.inf) "Time when the monitored signal went above the maximum limit and the tap-changer/phase-shifter is running";
-    Types.Time tTapUp(start = Constants.inf) "Time when the tap has been increased";
-    Types.Time tTapDown(start = Constants.inf) "Time when the tap has been decreased";
+protected
+  Boolean valueAboveMax(start = false) "True if the monitored signal is above the maximum limit";
+  Boolean lookingToIncreaseTap "True if the tap-changer/phase-shifter wants to increase tap";
+  Boolean lookingToDecreaseTap "True if the tap-changer/phase-shifter wants to decrease tap";
+  Types.Time tValueAboveMaxWhileRunning(start = Constants.inf) "Time when the monitored signal went above the maximum limit and the tap-changer/phase-shifter is running";
+  Types.Time tTapUp(start = Constants.inf) "Time when the tap has been increased";
+  Types.Time tTapDown(start = Constants.inf) "Time when the tap has been decreased";
 
 equation
-
   assert (tap.value <= tapMax, "Tap value supposed to be below maximum tap");
   assert (tap.value >= tapMin, "Tap value supposed to be above minimum tap");
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end BaseTapChangerPhaseShifter;
 
 
 partial model BaseTapChangerPhaseShifter_MAX "Base model for tap-changers and phase-shifters which takes a maximum and stop value, and tries to bring the value back to the stop value when the maximum value is reached"
   import Modelica.Constants;
-
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends BaseTapChangerPhaseShifter;
 
-  public
-    parameter Real valueStop (max = valueMax) "Value below which the phase-shifter will stop";
+  parameter Real valueStop(max = valueMax) "Value below which the phase-shifter will stop";
 
-  protected
-    Boolean valueUnderStop "Whether the monitored signal is under the stop limit";
+protected
+  Boolean valueUnderStop "Whether the monitored signal is under the stop limit";
 
 equation
-
   when (valueToMonitor.value > valueMax) and not(locked) then
     valueAboveMax = true;
     tValueAboveMaxWhileRunning = time;
@@ -180,27 +168,24 @@ equation
     Timeline.logEvent1(TimelineKeys.TapUp);
   end when;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end BaseTapChangerPhaseShifter_MAX;
 
 
 partial model BaseTapChangerPhaseShifter_INTERVAL "Base model for tap-changers and phase-shifters which tries to keep a value within a given interval"
   import Modelica.Constants;
-
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends BaseTapChangerPhaseShifter;
 
-  public
-    parameter Real valueMin (max = valueMax) "Minimum allowed value";
+  parameter Real valueMin(max = valueMax) "Minimum allowed value";
 
-  protected
-    Boolean valueUnderMin "True if the monitored signal is under the minimum limit";
-    Types.Time tValueUnderMinWhileRunning(start = Constants.inf) "Time when the monitored signal went under the minimum limit and the tap-changer/phase-shifter is running";
+protected
+  Boolean valueUnderMin "True if the monitored signal is under the minimum limit";
+  Types.Time tValueUnderMinWhileRunning(start = Constants.inf) "Time when the monitored signal went under the minimum limit and the tap-changer/phase-shifter is running";
 
 equation
-
   when (valueToMonitor.value < valueMin) and not(locked) and running.value then
     valueUnderMin = true;
     tValueUnderMinWhileRunning = time;
@@ -284,13 +269,12 @@ end BaseTapChangerPhaseShifter_INTERVAL;
 
 
 partial model BaseTapChangerPhaseShifter_TARGET "Base model for tap-changers and phase-shifters ensuring that the monitored value remains close to a target value"
-  extends BaseTapChangerPhaseShifter_INTERVAL (valueMax = targetValue + deadBand, valueMin = targetValue - deadBand);
+  extends BaseTapChangerPhaseShifter_INTERVAL(valueMax = targetValue + deadBand, valueMin = targetValue - deadBand);
 
-  public
-    parameter Real targetValue "Target value";
-    parameter Real deadBand (min = 0) "Acceptable dead-band next to the target value";
+  parameter Real targetValue "Target value";
+  parameter Real deadBand(min = 0) "Acceptable dead-band next to the target value";
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end BaseTapChangerPhaseShifter_TARGET;
 
 annotation(preferredView = "text");

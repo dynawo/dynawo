@@ -55,8 +55,9 @@ model Regulation "Variable susceptance calculation"
     Placement(visible = true, transformation(origin = {-14, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {84, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-protected
-    parameter Types.PerUnit BVar0Pu "Start value of variable susceptance in pu (base SNom)";
+
+  parameter Types.PerUnit BVar0Pu "Start value of variable susceptance in pu (base SNom)";
+
 equation
   connect(variableLimiter.y, switch.u3) annotation(
     Line(points = {{124, -16}, {170, -16}, {170, -16}, {170, -16}}, color = {0, 0, 127}));
@@ -100,6 +101,7 @@ equation
     Line(points = {{-174, 44}, {-51, 44}, {-51, 45}}, color = {0, 0, 127}));
   connect(URefPu, add1.u1) annotation(
     Line(points = {{-174, 6}, {-82, 6}, {-82, -4}, {-64, -4}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-40, 20}, extent = {{-50, 14}, {136, -52}}, textString = "Regulation"), Text(origin = {137, 26}, extent = {{-27, 12}, {53, -22}}, textString = "BVarPu"), Text(origin = {-172, -66}, extent = {{-28, 16}, {30, -14}}, textString = "IPu"), Text(origin = {-170, -18}, extent = {{-32, 16}, {30, -14}}, textString = "QPu"), Text(origin = {-172, 34}, extent = {{-30, 16}, {30, -14}}, textString = "UPu")}, coordinateSystem(initialScale = 0.1)));
 end Regulation;

@@ -53,7 +53,6 @@ model TGOV1 "IEEE Governor type TGOV1"
   Modelica.Blocks.Math.Feedback feedback2 annotation(
     Placement(visible = true, transformation(origin = {-60, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNom)";
 
 equation

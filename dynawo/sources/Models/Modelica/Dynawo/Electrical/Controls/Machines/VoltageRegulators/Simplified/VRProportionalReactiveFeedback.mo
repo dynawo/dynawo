@@ -15,9 +15,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 model VRProportionalReactiveFeedback
 // This a block version of model VRProportionalReactiveFeedback. It is a temporary model that needs to be checked since VRProportionalReactiveFeedback equations are not fully understood (see comments in the code).
 // The init model is still to be written.
-
   import Modelica.Blocks;
-
   import Dynawo.NonElectrical.Logs.Constraint;
   import Dynawo.NonElectrical.Logs.ConstraintKeys;
   import Dynawo.NonElectrical.Logs.Timeline;
@@ -26,7 +24,7 @@ model VRProportionalReactiveFeedback
   import Dynawo.NonElectrical.Blocks.NonLinear.MaxThresholdSwitch;
   import Dynawo.NonElectrical.Blocks.NonLinear.MinThresholdSwitch;
 
-  parameter Real Gain  "Control gain";
+  parameter Real Gain "Control gain";
   parameter Types.Time tIntegral "Integral time";
   parameter Types.ReactivePowerPu QsMinPu "Minimum stator reactive power";
   parameter Types.ReactivePowerPu QsMaxPu "Maximum stator reactive power";
@@ -44,9 +42,11 @@ model VRProportionalReactiveFeedback
     Placement(visible = true, transformation(origin = {-136, -96}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-56, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Blocks.Interfaces.RealInput QsPu(start = Qs0Pu) annotation(
     Placement(visible = true, transformation(origin = {-176, 34}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-176, 34}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
   // Outputs
   Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {66, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   //Blocks
   Blocks.Math.Gain gainU(k = Gain) annotation(
     Placement(visible = true, transformation(origin = {-42, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -68,16 +68,17 @@ model VRProportionalReactiveFeedback
     Placement(visible = true, transformation(origin = {96, -46}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   MinThresholdSwitch ComputationUcDerTLimitMin(UMin = UsMinPu, yNotSatMin = -UcTDerMaxPu, ySatMin = 0)  annotation(
     Placement(visible = true, transformation(origin = {126, -46}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-// Here, UsMin and UsMax don't play a symetric role, to be checked
-protected
+  // Here, UsMin and UsMax don't play a symetric role, to be checked
+
   parameter Types.ReactivePowerPu Qs0Pu "Initial stator reactive power";
   parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage"; // pu = Unom
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage"; // pu = Unom
   parameter Types.VoltageModulePu Efd0Pu "Initial Efd";
 
-  Boolean constraintUsMax (start = false) "Maximum limit reached for stator voltage";
-  Boolean constraintUsMin (start = false) "Minimum limit reached for stator voltage";
-  Boolean limitationEfd (start = false) "Limitation reached for Efd";
+protected
+  Boolean constraintUsMax(start = false) "Maximum limit reached for stator voltage";
+  Boolean constraintUsMin(start = false) "Minimum limit reached for stator voltage";
+  Boolean limitationEfd(start = false) "Limitation reached for Efd";
 
 equation
   connect(ComputationUcDerTLimitMin.y, variableLimiter.limit2) annotation(
@@ -113,25 +114,25 @@ equation
   connect(gainU.u, error.y) annotation(
     Line(points = {{-54, -38}, {-88, -38}, {-88, -38}, {-86, -38}}, color = {0, 0, 127}));
 
-//TimeLine
+  //TimeLine
   when UsPu >= UsMaxPu then
     Constraint.logConstraintBegin(ConstraintKeys.UsMax);
     constraintUsMax = true;
-//    UcTDerUpMaxPu = UcTDerMaxPu;
+  //UcTDerUpMaxPu = UcTDerMaxPu;
   elsewhen (UsPu < UsMaxPu) and pre(constraintUsMax) then
     Constraint.logConstraintEnd(ConstraintKeys.UsMax);
     constraintUsMax = false;
-//    UcTDerUpMaxPu = 0.;
+  //UcTDerUpMaxPu = 0.;
   end when;
 
   when UsPu <= UsMinPu then
     Constraint.logConstraintBegin(ConstraintKeys.UsMin);
     constraintUsMin = true;
-//    UcTDerDownMaxPu = 0;
+  //UcTDerDownMaxPu = 0;
   elsewhen (UsPu > UsMinPu) and pre(constraintUsMin) then
     Constraint.logConstraintEnd(ConstraintKeys.UsMin);
     constraintUsMin = false;
-//    UcTDerDownMaxPu = - UcTDerMaxPu;
+  //UcTDerDownMaxPu = - UcTDerMaxPu;
   end when;
 
   when (limiterEfd.u <= EfdMinPu) then
@@ -145,6 +146,5 @@ equation
     limitationEfd = false;
   end when;
 
-annotation(preferredView = "diagram");
-
+  annotation(preferredView = "diagram");
 end VRProportionalReactiveFeedback;

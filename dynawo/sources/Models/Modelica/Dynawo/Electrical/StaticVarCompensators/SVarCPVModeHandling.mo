@@ -49,7 +49,6 @@ model SVarCPVModeHandling "PV static var compensator model with mode handling"
 
   BaseControls.ModeHandling modeHandling(Mode0 = Mode0, UNom = UNom, URefDown = URefDown, URefUp = URefUp, UThresholdDown = UThresholdDown, UThresholdUp = UThresholdUp, tThresholdDown = tThresholdDown, tThresholdUp = tThresholdUp, URef0 = URef0Pu * UNom);
 
-protected
   parameter Types.PerUnit B0Pu "Start value of the susceptance in pu (base UNom, SnRef)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at injector terminal in pu (base UNom)";
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";
@@ -58,7 +57,7 @@ protected
   parameter BaseControls.Mode Mode0 "Start value for mode";
   parameter Boolean selectModeAuto0 = true "Start value of the boolean indicating whether the SVarC is initially in automatic configuration";
   final parameter Integer setModeManual0 = Integer(Mode0) "Start value of the mode when in manual configuration";
-  BStatus bStatus (start = BStatus.Standard) "Susceptance value status: standard, susceptancemax, susceptancemin";
+  BStatus bStatus(start = BStatus.Standard) "Susceptance value status: standard, susceptancemax, susceptancemin";
 
 equation
   UPu = modeHandling.UPu;

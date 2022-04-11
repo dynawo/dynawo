@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls;
 */
 
 model DCVoltageControlSideDangling "DC Voltage Control Side for the HVDC VSC model with terminal2 connected to a switched-off bus (Udc control on terminal 1)"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
@@ -56,13 +55,12 @@ model DCVoltageControlSideDangling "DC Voltage Control Side for the HVDC VSC mod
   HVDC.HvdcVSC.BaseControls.LimitsCalculationFunction.LimitsCalculationFunctionDangling limitsCalculationFunction(InPu = InPu, Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu, Iq0Pu = Iq0Pu) "Reactive and active currents limits calculation function" annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
 
-protected
   parameter Types.VoltageModulePu Udc0Pu "Start value of dc voltage in pu (base SNom, UNom)";
   parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";
   parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom)";
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SNom) (generator convention)";
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude in pu (base UNom)";
-  parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SNom) (generator convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (generator convention)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (generator convention)";
   parameter Boolean modeU0 "Start value of the boolean assessing the mode of the control: true if U mode, false if Q mode";
 
 equation

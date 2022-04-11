@@ -13,9 +13,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
 */
 
 model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps machine stator's voltage constant"
-
   import Modelica;
-
   import Dynawo.Connectors;
   import Dynawo.NonElectrical.Blocks.NonLinear.LimiterWithLag;
   import Dynawo.NonElectrical.Logs.Timeline;
@@ -33,17 +31,19 @@ model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps mac
   // Inputs
   Modelica.Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) "General control voltage" annotation(
     Placement(visible = true, transformation(origin = {-142, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-142, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UsPu (start = Us0Pu) "Stator voltage" annotation(
+  Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage" annotation(
     Placement(visible = true, transformation(origin = {-60, -48}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-56, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
   // Ouputs
-  Modelica.Blocks.Interfaces.RealOutput EfdPu (start = Efd0Pu) "Exciter field voltage" annotation(
+  Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Exciter field voltage" annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.BPin  limitationUp (value (start = false)) "Limitation up reached ?";
-  Connectors.BPin  limitationDown (value (start = false)) "Limitation down reached ?";
-  //Blocks
-  LimiterWithLag limiterWithLag (UMin = EfdMinPu, UMax = EfdMaxPu, LagMin = LagEfdMin, LagMax = LagEfdMax, tUMinReached0 = Modelica.Constants.inf, tUMaxReached0 = Modelica.Constants.inf) "Limiter activated only after a certain period outside the bounds" annotation(
+  Connectors.BPin  limitationUp(value(start = false)) "Limitation up reached ?";
+  Connectors.BPin  limitationDown(value(start = false)) "Limitation down reached ?";
+
+  // Blocks
+  LimiterWithLag limiterWithLag(UMin = EfdMinPu, UMax = EfdMaxPu, LagMin = LagEfdMin, LagMax = LagEfdMax, tUMinReached0 = Modelica.Constants.inf, tUMaxReached0 = Modelica.Constants.inf) "Limiter activated only after a certain period outside the bounds" annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain (k = Gain) annotation(
+  Modelica.Blocks.Math.Gain gain(k = Gain) annotation(
     Placement(visible = true, transformation(origin = {-8, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -57,17 +57,17 @@ model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps mac
     Placement(visible = true, transformation(origin = {40, 64}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Nonlinear.Limiter limUsRef(limitsAtInit = true, uMax = UsRefMaxPu, uMin = UsRefMinPu)  annotation(
     Placement(visible = true, transformation(origin = {-98, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-protected
 
-  parameter Types.VoltageModulePu UsRef0Pu  "Initial control voltage, pu = Unom";
-  parameter Types.VoltageModulePu Us0Pu  "Initial stator voltage, pu = Unom";
+  parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage, pu = Unom";
+  parameter Types.VoltageModulePu Us0Pu "Initial stator voltage, pu = Unom";
   parameter Types.VoltageModulePu Efd0Pu "Initial Efd";
   parameter Types.PerUnit yIntegrator0 "Initial control before saturation";
 
-  Boolean limitationUsRefMax (start = false) "UsRefMax reached ?";
-  Boolean limitationUsRefMin (start = false) "UsRefMin reached ?";
-  Boolean limitationEfdMax (start = false) "EfdMax limitation?";
-  Boolean limitationEfdMin (start = false) "EfdMin limitation?";
+protected
+  Boolean limitationUsRefMax(start = false) "UsRefMax reached ?";
+  Boolean limitationUsRefMin(start = false) "UsRefMin reached ?";
+  Boolean limitationEfdMax(start = false) "EfdMax limitation?";
+  Boolean limitationEfdMin(start = false) "EfdMin limitation?";
 
 equation
   connect(limUsRef.y, feedback.u1) annotation(
@@ -97,7 +97,7 @@ equation
   connect(UsPu, feedback.u2) annotation(
     Line(points = {{-60, -48}, {-60, -8}}, color = {0, 0, 127}));
 
-// Low limit (EfdMin)
+  //Low limit (EfdMin)
   when time - limiterWithLag.tUMinReached >= LagEfdMin then
     Timeline.logEvent1(TimelineKeys.VRLimitationEfdMin);
     limitationEfdMin = true;
@@ -106,7 +106,7 @@ equation
     limitationEfdMin = false;
   end when;
 
-// High limit (EfdMax)
+  //High limit (EfdMax)
   when time - limiterWithLag.tUMaxReached >= LagEfdMax then
     Timeline.logEvent1(TimelineKeys.VRLimitationEfdMax);
     limitationEfdMax = true;
@@ -115,7 +115,7 @@ equation
     limitationEfdMax = false;
   end when;
 
-  // UsRef limits
+  //UsRef limits
   when UsRefPu <= UsRefMinPu then
     Timeline.logEvent1(TimelineKeys.VRLimitationUsRefMin);
     limitationUsRefMin = true;
@@ -133,5 +133,5 @@ equation
   limitationUp.value = limitationUsRefMax or limitationEfdMax;
   limitationDown.value = limitationUsRefMin or limitationEfdMin;
 
-annotation(preferredView = "diagram");
+  annotation(preferredView = "diagram");
 end VRProportionalIntegral;

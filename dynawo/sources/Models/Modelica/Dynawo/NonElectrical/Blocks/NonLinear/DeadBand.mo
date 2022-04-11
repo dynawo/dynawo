@@ -24,8 +24,7 @@ block DeadBand "Provide a region of zero output"
   parameter Real UMin = -UMax "Lower limit of dead band width";
 
 equation
-  assert(UMax >= UMin, "DeadZone: Limits must be consistent. However, UMax (=" + String(UMax) +
-                       ") < UMin (=" + String(UMin) + ")");
+  assert(UMax >= UMin, "DeadZone: Limits must be consistent. However, UMax (=" + String(UMax) + ") < UMin (=" + String(UMin) + ")");
 
   y = if u > UMax then u - UMax + EpsMax elseif u < UMin then u - UMin + EpsMin else 0;
 

@@ -31,10 +31,10 @@ model HvdcPV "Model of PV HVDC link. Each terminal can regulate the voltage or t
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MaxPu "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q2MinPu "Minimum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
+  parameter Types.ReactivePowerPu Q2MaxPu "Maximum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
 
   input Types.VoltageModulePu U1RefPu(start = U1Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 1";
   input Types.VoltageModulePu U2RefPu(start = U2Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 2";

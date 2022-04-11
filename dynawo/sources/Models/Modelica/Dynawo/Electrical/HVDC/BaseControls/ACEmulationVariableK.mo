@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.BaseControls;
 */
 
 model ACEmulationVariableK "AC Emulation for HVDC with a variable KACEmulation"
-
   import Modelica;
   import Dynawo.Types;
 
@@ -42,7 +41,6 @@ model ACEmulationVariableK "AC Emulation for HVDC with a variable KACEmulation"
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {46, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.Angle Theta10 "Start value of angle of the voltage at terminal 1 in rad";
   parameter Types.Angle Theta20 "Start value of angle of the voltage at terminal 2 in rad";
   parameter Types.ActivePowerPu PRef0Pu "Start value of reference active power in pu (base SnRef)";
@@ -70,6 +68,6 @@ equation
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1})));
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> In this model, KACEmulation is a variable and not a parameter. It can be given by an outer control like a power transfer control between two HVDC links for example. </div></body></html>"));
 end ACEmulationVariableK;

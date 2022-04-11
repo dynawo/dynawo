@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.BaseControls;
 */
 
 model ACEmulation "AC Emulation for HVDC"
-
   import Modelica;
   import Dynawo.Types;
 
@@ -40,7 +39,6 @@ model ACEmulation "AC Emulation for HVDC"
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.Angle Theta10 "Start value of angle of the voltage at terminal 1 in rad";
   parameter Types.Angle Theta20 "Start value of angle of the voltage at terminal 2 in rad";
   parameter Types.ActivePowerPu PRef0Pu "Start value of reference active power in pu (base SnRef)";
@@ -63,8 +61,8 @@ equation
     Line(points = {{-110, 50}, {-50, 50}, {-50, 50}, {-48, 50}}, color = {0, 0, 127}));
   connect(Theta2, firstOrder1.u) annotation(
     Line(points = {{-110, -20}, {-49, -20}, {-49, -20}, {-48, -20}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1})));
-
 end ACEmulation;
