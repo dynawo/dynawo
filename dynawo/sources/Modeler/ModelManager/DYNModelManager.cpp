@@ -935,6 +935,7 @@ ModelManager::solveParameters() {
 
     setBufferG(g0Safe, 0);
     evalG(t0);
+    rotateBuffers();
 
     try {
       flag = solver.solve();
