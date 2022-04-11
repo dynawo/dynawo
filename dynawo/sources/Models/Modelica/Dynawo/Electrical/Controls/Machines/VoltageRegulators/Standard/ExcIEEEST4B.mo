@@ -68,7 +68,7 @@ model ExcIEEEST4B "IEEE exciter type ST4B"
     Placement(visible = true, transformation(origin = {150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product1 annotation(
     Placement(visible = true, transformation(origin = {90, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseBlocks.RectifierRegulationCharacteristic rectifierRegulationCharacteric annotation(
+  Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseBlocks.RectifierRegulationCharacteristic rectifierRegulationCharacteristic annotation(
     Placement(visible = true, transformation(origin = {30, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex annotation(
     Placement(visible = true, transformation(origin = {-230, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -114,9 +114,9 @@ equation
     Line(points = {{101, -40}, {120, -40}, {120, -54}, {138, -54}}, color = {0, 0, 127}));
   connect(product1.y, min1.u2) annotation(
     Line(points = {{101, -100}, {120, -100}, {120, -66}, {138, -66}}, color = {0, 0, 127}));
-  connect(division.y, rectifierRegulationCharacteric.u) annotation(
+  connect(division.y, rectifierRegulationCharacteristic.u) annotation(
     Line(points = {{1, -120}, {18, -120}}, color = {0, 0, 127}));
-  connect(rectifierRegulationCharacteric.y, product1.u2) annotation(
+  connect(rectifierRegulationCharacteristic.y, product1.u2) annotation(
     Line(points = {{42, -120}, {60, -120}, {60, -106}, {78, -106}}, color = {0, 0, 127}));
   connect(potentialCircuit.vE, division.u2) annotation(
     Line(points = {{-80, -80}, {-40, -80}, {-40, -114}, {-22, -114}}, color = {0, 0, 127}));
