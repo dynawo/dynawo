@@ -17,10 +17,10 @@ model VariableLimiter "Limit the range of a signal with variable limits"
   extends Modelica.Blocks.Interfaces.SISO;
 
   Modelica.Blocks.Interfaces.RealInput limit1
-    "Connector of Real input signal used as maximum of input u"
+ "Connector of Real input signal used as maximum of input u"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput limit2
-    "Connector of Real input signal used as minimum of input u"
+ "Connector of Real input signal used as minimum of input u"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
 equation

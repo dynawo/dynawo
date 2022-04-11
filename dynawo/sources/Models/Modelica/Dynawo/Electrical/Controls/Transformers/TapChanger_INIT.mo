@@ -16,12 +16,10 @@ model TapChanger_INIT "Initialisation model for standalone tap-changer"
   extends BaseClasses_INIT.BaseTapChanger_INIT;
   extends AdditionalIcons.Init;
 
-  protected
-    parameter Types.VoltageModule U0 "Initial absolute voltage";
+  parameter Types.VoltageModule U0 "Initial absolute voltage";
 
 equation
-
   valueToMonitor0 = U0;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end TapChanger_INIT;

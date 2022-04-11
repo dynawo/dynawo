@@ -13,8 +13,7 @@ within Dynawo.Connectors;
 */
 
 connector ZPin "Connector for propagating discrete values (and events)"
-  public
-    discrete Real value;
+  discrete Real value;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end ZPin;

@@ -81,7 +81,6 @@ model PSS2A "IEEE Power System Stabilizer type 2A"
   Modelica.Blocks.Math.Add add(k2 = Ks3) annotation(
     Placement(visible = true, transformation(origin = {-10, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.ActivePowerPu PGen0Pu "Initial active power input in pu (base SnRef) - generator convention";
 
 equation

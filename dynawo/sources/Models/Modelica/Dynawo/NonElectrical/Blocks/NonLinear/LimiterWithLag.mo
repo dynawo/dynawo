@@ -13,63 +13,54 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block LimiterWithLag "Limiter that enforces saturations only after they were violated without interruption during a certain amount of time. No lag when switching from saturated to non saturated mode though"
-
   import Modelica.Blocks.Interfaces;
   import Modelica.Blocks.Icons.Block;
   import Modelica.Constants;
-
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends Block;
 
-  public
+  parameter Real UMin "Minimum allowed u";
+  parameter Real UMax "Maximum allowed u";
+  parameter Types.Time LagMin "Time lag before taking action when going below uMin";
+  parameter Types.Time LagMax "Time lag before taking action when going above uMax";
 
-    parameter Real UMin  "Minimum allowed u";
-    parameter Real UMax  "Maximum allowed u";
-    parameter Types.Time LagMin  "Time lag before taking action when going below uMin";
-    parameter Types.Time LagMax  "Time lag before taking action when going above uMax";
-
-    Interfaces.RealInput u (start = u0) "Input signal connector" annotation (Placement(
+  Interfaces.RealInput u(start = u0) "Input signal connector" annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}})));
-    Interfaces.RealOutput y (start = y0) "Output signal connector" annotation (Placement(
+  Interfaces.RealOutput y(start = y0) "Output signal connector" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
 
-    discrete Types.Time tUMinReached (start = tUMinReached0) "Last time when u went below EfdMin";
-    discrete Types.Time tUMaxReached (start = tUMaxReached0) "Last time when u went above EfdMax";
+  discrete Types.Time tUMinReached(start = tUMinReached0) "Last time when u went below EfdMin";
+  discrete Types.Time tUMaxReached(start = tUMaxReached0) "Last time when u went above EfdMax";
 
-  protected
+  parameter Real u0 "Initial input";
+  parameter Real y0 "Initial output";
+  parameter Types.Time tUMinReached0 "Initial time when u went below UMin";
+  parameter Types.Time tUMaxReached0 "Initial time when u went above UMax";
 
-    parameter Real u0 "Initial input";
-    parameter Real y0 "Initial output";
-    parameter Types.Time tUMinReached0 "Initial time when u went below UMin";
-    parameter Types.Time tUMaxReached0 "Initial time when u went above UMax";
+  Boolean initSaturatedMin(start = (tUMinReached0 == - Constants.inf) ) "Whether we start in min saturated mode. Boolean used to prevent the model from resetting tUMinReached when in saturated mode at the beginning of the simulation";
+  Boolean initSaturatedMax(start = (tUMaxReached0 == - Constants.inf) ) "Whether we start in max saturated mode. Boolean used to prevent the model from resetting tUMaxReached when in saturated mode at the beginning of the simulation";
 
-    Boolean initSaturatedMin (start = (tUMinReached0 == - Constants.inf) ) "Whether we start in min saturated mode. Boolean used to prevent the model from resetting tUMinReached when in saturated mode at the beginning of the simulation";
-    Boolean initSaturatedMax (start = (tUMaxReached0 == - Constants.inf) ) "Whether we start in max saturated mode. Boolean used to prevent the model from resetting tUMaxReached when in saturated mode at the beginning of the simulation";
+equation
+  y = if (time - tUMinReached >= LagMin)  then UMin else if (time - tUMaxReached >= LagMax) then UMax else u;
 
-  equation
+  // Assessing that u is within limits
+  when (u < UMin) then
+    tUMinReached = if initSaturatedMin then - Constants.inf else time; // If we start in saturated state, tUMinReached should not be reset to time at time = 0 because we assume that u crossed UMin a long time ago
+    initSaturatedMin = false; // For the next when triggerings, back to classic behaviour
+  elsewhen (u >= UMin) then
+    tUMinReached = Constants.inf;
+    initSaturatedMin = false;
+  end when;
 
-     y = if (time - tUMinReached >= LagMin)  then UMin
-         else if (time - tUMaxReached >= LagMax) then UMax
-         else u;
-
-    // Assessing that u is within limits
-    when (u < UMin) then
-      tUMinReached = if initSaturatedMin then - Constants.inf else time; // If we start in saturated state, tUMinReached should not be reset to time at time = 0 because we assume that u crossed UMin a long time ago
-      initSaturatedMin = false; // For the next when triggerings, back to classic behaviour
-    elsewhen (u >= UMin) then
-      tUMinReached = Constants.inf;
-      initSaturatedMin = false;
-    end when;
-
-    when (u > UMax) then
-      tUMaxReached = if initSaturatedMax then - Constants.inf else time; // If we start in saturated state, tUMaxReached should not be reset to time at time = 0 because we assume that u crossed UMax a long time ago
-      initSaturatedMax = false; // For the next when triggerings, back to classic behaviour
-    elsewhen (u <= UMax) then
-      tUMaxReached = Constants.inf;
-      initSaturatedMax = false;
-    end when;
+  when (u > UMax) then
+    tUMaxReached = if initSaturatedMax then - Constants.inf else time; // If we start in saturated state, tUMaxReached should not be reset to time at time = 0 because we assume that u crossed UMax a long time ago
+    initSaturatedMax = false; // For the next when triggerings, back to classic behaviour
+  elsewhen (u <= UMax) then
+    tUMaxReached = Constants.inf;
+    initSaturatedMax = false;
+  end when;
 
   annotation(preferredView = "text",
   Icon(coordinateSystem(
