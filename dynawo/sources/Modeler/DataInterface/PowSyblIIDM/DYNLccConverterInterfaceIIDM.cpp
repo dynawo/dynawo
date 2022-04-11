@@ -58,6 +58,7 @@ LccConverterInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(-1 * getQ() / SNREF)));
   staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(-1 * getP())));
   staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(-1 * getQ())));
+  staticParameters_.insert(std::make_pair("powerFactor", StaticParameter("powerFactor", StaticParameter::DOUBLE).setValue(getPowerFactor())));
   if (getBusInterface()) {
     double U0 = getBusInterface()->getV0();
     double vNom = lccConverterIIDM_.getHvdcLine().get().getNominalV();

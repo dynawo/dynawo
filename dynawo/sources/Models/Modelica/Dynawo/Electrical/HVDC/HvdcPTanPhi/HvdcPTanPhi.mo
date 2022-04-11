@@ -31,8 +31,11 @@ model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
   parameter Types.ReactivePowerPu Q2MinPu "Minimum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
   parameter Types.ReactivePowerPu Q2MaxPu "Maximum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
 
-  input Real tanPhi1Ref(start = s10Pu.im/s10Pu.re) "tan(Phi) regulation set point at terminal 1";
-  input Real tanPhi2Ref(start = s20Pu.im/s20Pu.re) "tan(Phi) regulation set point at terminal 2";
+  input Real tanPhi1Ref(start = TanPhi1Ref0) "tan(Phi) regulation set point at terminal 1";
+  input Real tanPhi2Ref(start = TanPhi2Ref0) "tan(Phi) regulation set point at terminal 2";
+
+  parameter Real TanPhi1Ref0 "Start value of tan(Phi) regulation set point at terminal 1";
+  parameter Real TanPhi2Ref0 "Start value of tan(Phi) regulation set point at terminal 2";
 
 protected
   Types.ReactivePowerPu Q1RawPu(start = s10Pu.im) "Raw reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
