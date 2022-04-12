@@ -52,8 +52,6 @@ model ExcIEEEST4B_INIT "IEEE exciter type ST4B initialization model"
     Placement(visible = true, transformation(origin = {-70, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {-10, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = 1 - division.y * (1 - sqrt(0.75 - 0.433 ^ 2)) / 0.433) annotation(
-    Placement(visible = true, transformation(origin = {15, -6}, extent = {{-45, -10}, {45, 10}}, rotation = 0)));
 
 equation
   connect(product.y, Ub0Pu) annotation(
@@ -64,8 +62,8 @@ equation
     Line(points = {{-140, 0}, {-100, 0}, {-100, 36}, {-82, 36}}, color = {85, 170, 255}));
   connect(ut0Pu, potentialCircuit.uT) annotation(
     Line(points = {{-140, 80}, {-100, 80}, {-100, 44}, {-82, 44}}, color = {85, 170, 255}));
-//  connect(rectifierRegulationCharacteristic.y, product.u2) annotation(
-//    Line(points = {{41, -40}, {60, -40}, {60, -6}, {77, -6}}, color = {0, 0, 127}));
+  connect(rectifierRegulationCharacteristic.y, product.u2) annotation(
+    Line(points = {{41, -40}, {60, -40}, {60, -6}, {77, -6}}, color = {0, 0, 127}));
   connect(division.y, rectifierRegulationCharacteristic.u) annotation(
     Line(points = {{1, -40}, {18, -40}}, color = {0, 0, 127}));
   connect(gain1.y, division.u1) annotation(
@@ -74,8 +72,6 @@ equation
     Line(points = {{-60, 40}, {-40, 40}, {-40, -34}, {-21.8, -34}}, color = {0, 0, 127}));
   connect(Ifd0Pu, gain1.u) annotation(
     Line(points = {{-140, -80}, {-82, -80}}, color = {0, 0, 127}));
-  connect(realExpression.y, product.u2) annotation(
-    Line(points = {{64.5, -6}, {78, -6}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
