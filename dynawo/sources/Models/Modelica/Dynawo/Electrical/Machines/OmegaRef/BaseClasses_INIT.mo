@@ -35,6 +35,7 @@ package BaseClasses_INIT
 
     output Types.PerUnit MdPPuEfdNom "Direct axis mutual inductance used to determine the excitation voltage in nominal conditions in pu";
 
+  protected
     // Intermediate variables calculated once at the beginning of the algorithm
     Types.PerUnit MdPPu "Direct axis mutual inductance in pu";
     Types.PerUnit MqPPu "Quadrature axis mutual inductance in pu";
@@ -160,6 +161,7 @@ package BaseClasses_INIT
     output Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in pu";
     output Types.PerUnit MqSat0PPu "Start value of quadrature axis saturated mutual inductance in pu";
 
+  protected
     // Intermediate variables calculated once at the beginning of the algorithm
     Types.PerUnit MdPPu;
     Types.PerUnit MqPPu;
