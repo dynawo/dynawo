@@ -22,10 +22,6 @@
 
 #include <string>
 
-#ifndef LANG_CXX11
-#include <boost/static_assert.hpp>
-#endif
-
 namespace parameters {
 
 /**
@@ -133,18 +129,10 @@ class Reference {
 };
 static const char* ReferenceOriginNames[Reference::SIZE_OF_ENUM] = {"IIDM"};  ///< string conversion of enum values
 // statically check that the size of ParameterTypeNames fits the number of ParameterTypes
-#ifdef LANG_CXX11
 /**
  * @brief Test is the size of ParameterTypeNames is relevant with the enumeration size
  */
 static_assert(sizeof(ReferenceOriginNames) / sizeof(char*) == Reference::SIZE_OF_ENUM, "Parameters string size does not match ParameterType enumeration");
-#else
-/**
- * @brief Test is the size of ParameterTypeNames is relevant with the enumeration size
- */
-BOOST_STATIC_ASSERT_MSG(sizeof(ReferenceOriginNames) / sizeof(char*) == Reference::SIZE_OF_ENUM,
-                        "Parameters string size does not match ParameterType enumeration");
-#endif
 }  // namespace parameters
 
 #endif  // API_PAR_PARREFERENCE_H_

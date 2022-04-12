@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.DCVoltageControl;
 */
 
 model BaseDCVoltageControl "Base DC Voltage Control for the HVDC VSC model"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.NonElectrical.Blocks;
@@ -40,7 +39,6 @@ model BaseDCVoltageControl "Base DC Voltage Control for the HVDC VSC model"
   Blocks.Continuous.PIAntiWindup PI(Ki = Kidc, Kp = Kpdc, integrator(y_start = -Ip0Pu), uMax = IpMaxCstPu, uMin = -IpMaxCstPu)  annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.VoltageModulePu Udc0Pu "Start value of dc voltage in pu (base SNom, UNom)";
   parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";
 

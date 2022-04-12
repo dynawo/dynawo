@@ -95,11 +95,7 @@ ZipFile::addEntry(const std::string& filename) {
     m_entries.erase(itE);
 
   boost::shared_ptr<ZipEntry> entry(new ZipEntry(filename));
-#if defined LANG_CXX11 || defined LANG_CXX0X
   m_entries.insert(std::make_pair(filename, entry));
-#else
-  m_entries.insert(std::pair<std::string, boost::shared_ptr<ZipEntry> >(filename, entry));
-#endif
 }
 
 void
@@ -109,11 +105,7 @@ ZipFile::addEntry(const std::string& name, const std::string& data) {
     m_entries.erase(itE);
 
   boost::shared_ptr<ZipEntry> entry(new ZipEntry(name, data));
-#if defined LANG_CXX11 || defined LANG_CXX0X
   m_entries.insert(std::make_pair(name, entry));
-#else
-  m_entries.insert(std::pair<std::string, boost::shared_ptr<ZipEntry> >(name, entry));
-#endif
 }
 
 void
@@ -122,11 +114,7 @@ ZipFile::addEntry(const std::string& name, const boost::shared_ptr<ZipEntry>& en
   if (itE != m_entries.end())
     m_entries.erase(itE);
 
-#if defined LANG_CXX11 || defined LANG_CXX0X
   m_entries.insert(std::make_pair(name, entry));
-#else
-  m_entries.insert(std::pair<std::string, boost::shared_ptr<ZipEntry> >(name, entry));
-#endif
 }
 
 /**

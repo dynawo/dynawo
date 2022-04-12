@@ -97,7 +97,7 @@ If you are on **MacOS** you can use [Docker](#docker).
 
 #### Linux Requirements for Distribution
 
-- Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), C++98 or C++11 compatible for C++ standard
+- Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), C++11 compatible for C++ standard
 - Python2 or Python3
 - Binary utilities: [curl](https://curl.haxx.se/) and unzip
 - [CMake](https://cmake.org/)
@@ -156,7 +156,7 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 #### Linux
 
 ##### Global
-- Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/), [clang](https://clang.llvm.org/) or Apple Clang with Xcode or Command Line Tools), C++98 or C++11 compatible for C++ standard
+- Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/), [clang](https://clang.llvm.org/) or Apple Clang with Xcode or Command Line Tools), C++11 compatible for C++ standard
 
 ##### OpenModelica Compiler
 - Compiler: Fortran ([gfortran](https://gcc.gnu.org/fortran/))
@@ -167,7 +167,7 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 - [lpsolve55](http://lpsolve.sourceforge.net/) or [bison](https://www.gnu.org/software/bison/) and [flex](https://www.gnu.org/software/flex/) (to let OpenModelica compiles lpsolve itself)
 
 ##### Dyna&omega;o user
-- [CMake](https://cmake.org/): minimum version 3.9.6 (last version to compile with c++98 compiler)
+- [CMake](https://cmake.org/): minimum version 3.9.6
 - Python2 or Python3
 - Python packages: [lxml](https://lxml.de/)
 - Binary utilities: [curl](https://curl.haxx.se/) or [wget](https://www.gnu.org/software/wget/), [xmllint](http://xmlsoft.org/xmllint.html)
@@ -228,7 +228,6 @@ export DYNAWO_BROWSER=firefox
 export DYNAWO_NB_PROCESSORS_USED=1
 
 export DYNAWO_BUILD_TYPE=Release
-export DYNAWO_CXX11_ENABLED=YES
 
 $DYNAWO_HOME/util/envDynawo.sh $@' > myEnvDynawo.sh
 $> chmod +x myEnvDynawo.sh

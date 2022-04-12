@@ -13,12 +13,11 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPQProp "Model for generator PQ based on SignalN for the frequency handling and with a proportional reactive power regulation"
-
   extends BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
 
-  parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in pu (base SnRef)";
-  parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
+  parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
   parameter Real QPercent "Percentage of the coordinated reactive control that comes from this machine";
 
   input Types.PerUnit NQ "Signal to change the reactive power generation of the generator depending on the centralized distant voltage regulation (generator convention)";
@@ -29,15 +28,14 @@ protected
   Types.ReactivePowerPu QGenRawPu(start = QGen0Pu) "Reactive power generation without taking limits into account in pu (base SnRef) (generator convention)";
 
 equation
-
   QGenRawPu = - QRef0Pu + QPercent * NQ;
 
-if running.value then
-  QGenPu = if QGenRawPu >= QMaxPu then QMaxPu elseif QGenRawPu <= QMinPu then QMinPu else QGenRawPu;
-else
-  terminal.i.im = 0;
-end if;
+  if running.value then
+    QGenPu = if QGenRawPu >= QMaxPu then QMaxPu elseif QGenRawPu <= QMinPu then QMinPu else QGenRawPu;
+  else
+    terminal.i.im = 0;
+  end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This PQ generator adapts it Q to regulate the voltage of a distant bus along with other generators depending on a participation factor QPercent. To do so, it receives a set point NQ to adapt its Q. This NQ is common to all the generators participating in this regulation.</div></body></html>"));
 end GeneratorPQProp;

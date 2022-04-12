@@ -40,9 +40,8 @@ model SVarCPVRemote "PV static var compensator model with remote voltage regulat
   Types.PerUnit BPu(start = B0Pu) "Susceptance of the static var compensator in pu (base UNomLocal, SnRef)";
   Types.ReactivePowerPu QInjPu(start = B0Pu * U0Pu ^ 2) "Reactive power in pu (base SnRef) (generator convention)";
   Types.ActivePowerPu PInjPu(start = 0) "Active power in pu (base SnRef) (generator convention)";
-  BStatus bStatus (start = BStatus.Standard) "Susceptance value status: standard, susceptancemax, susceptancemin";
+  BStatus bStatus(start = BStatus.Standard) "Susceptance value status: standard, susceptancemax, susceptancemin";
 
-protected
   parameter Types.PerUnit B0Pu "Start value of the susceptance in pu (base UNomLocal, SnRef)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at injector terminal in pu (base UNomLocal)";
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNomLocal)";

@@ -13,7 +13,6 @@ within Dynawo.Electrical.Shunts;
 */
 
 model ShuntBWithSections "Shunt element with voltage dependent reactive power and a variable susceptance given by a table and a section"
-
   import Dynawo.Connectors;
   import Dynawo.Types;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
@@ -21,8 +20,6 @@ model ShuntBWithSections "Shunt element with voltage dependent reactive power an
 
   extends AdditionalIcons.Shunt;
   extends SwitchOff.SwitchOffShunt;
-
-public
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the shunt to the grid";
   Connectors.ZPin section(value(start = section0)) "Section position of the shunt";
@@ -38,14 +35,11 @@ public
   Types.ComplexApparentPowerPu SPu(re(start = 0), im(start = s0Pu.im)) "Apparent power at shunt terminal in pu (base SnRef, receptor convention)";
   Types.PerUnit BPu(start = - s0Pu.im / ComplexMath.'abs'(u0Pu)^2) "Variable susceptance of the shunt in pu (base SnRef, UNom)";
 
-protected
-
-  parameter Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at shunt terminal in pu (base UNom)";
-  parameter Types.ComplexApparentPowerPu s0Pu  "Start value of apparent power at shunt terminal in pu (base SnRef, receptor convention)";
-  parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at shunt terminal in pu (base UNom, SnRef, receptor convention)";
+  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at shunt terminal in pu (base UNom)";
+  parameter Types.ComplexApparentPowerPu s0Pu "Start value of apparent power at shunt terminal in pu (base SnRef, receptor convention)";
+  parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at shunt terminal in pu (base UNom, SnRef, receptor convention)";
 
 equation
-
   section.value = tableBPu.u[1];
   BPu = tableBPu.y[1];
   UPu = ComplexMath.'abs'(terminal.V);
@@ -59,5 +53,5 @@ equation
     terminal.i = Complex(0);
   end if;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end ShuntBWithSections;

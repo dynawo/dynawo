@@ -13,7 +13,6 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPVRemote "Model for generator PV based on SignalN for the frequency handling and a remote voltage regulation"
-
   extends BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
 
@@ -30,10 +29,9 @@ model GeneratorPVRemote "Model for generator PV based on SignalN for the frequen
   parameter Types.VoltageModule URef0 "Start value of the voltage regulation set point in kV";
 
 protected
-  QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+  QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
-
   when QGenPu <= QMinPu and URegulated >= URef then
     qStatus = QStatus.AbsorptionMax;
   elsewhen QGenPu >= QMaxPu and URegulated <= URef then
@@ -54,6 +52,6 @@ equation
     terminal.i.im = 0;
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This generator regulates the voltage URegulatedPu unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated).</div></body></html>"));
 end GeneratorPVRemote;

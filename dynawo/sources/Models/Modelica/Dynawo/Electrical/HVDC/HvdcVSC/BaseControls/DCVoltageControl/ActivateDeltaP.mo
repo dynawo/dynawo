@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.DCVoltageControl;
 */
 
 model ActivateDeltaP "Function that activates the DeltaP when necessary"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.NonElectrical.Blocks;
@@ -35,8 +34,6 @@ model ActivateDeltaP "Function that activates the DeltaP when necessary"
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold = (-IpMaxCstPu) + DUDC) annotation(
     Placement(visible = true, transformation(origin = {-19, -15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
-
   parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";
 
 equation
@@ -50,6 +47,7 @@ equation
     Line(points = {{-120, 0}, {-60, 0}, {-60, 15}, {-31, 15}, {-31, 15}}, color = {0, 0, 127}));
   connect(ipRefUdcPu, lessThreshold.u) annotation(
     Line(points = {{-120, 0}, {-60, 0}, {-60, -15}, {-31, -15}, {-31, -15}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1})));

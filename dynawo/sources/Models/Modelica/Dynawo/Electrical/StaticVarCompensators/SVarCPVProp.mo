@@ -39,7 +39,6 @@ model SVarCPVProp "PV static var compensator model with slope without mode handl
   Types.ReactivePowerPu QInjPu(start = B0Pu * U0Pu ^ 2) "Reactive power in pu (base SnRef) (generator convention)";
   Types.ActivePowerPu PInjPu(start = 0) "Active power in pu (base SnRef) (generator convention)";
 
-protected
   parameter Types.PerUnit B0Pu "Start value of the susceptance in pu (base UNom, SnRef)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at injector terminal in pu (base UNom)";
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";

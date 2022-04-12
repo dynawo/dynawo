@@ -19,7 +19,6 @@ model VSourceRef
     | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
      --------           iSourcePu                                                 iPu
 */
-
   import Modelica.Blocks;
   import Modelica.ComplexBlocks;
   import Dynawo.Types;
@@ -56,7 +55,6 @@ model VSourceRef
   Blocks.Sources.Constant OmegaRefPu(k = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.ComplexVoltagePu uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.ComplexVoltagePu uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
   parameter Types.PerUnit Id0Pu "Start value of d-axis current in pu (base UNom, SNom) (generator convention)";

@@ -74,10 +74,13 @@ class SubModel {
    */
   virtual ~SubModel();
 
-#ifdef LANG_CXX11
+  /// @brief Default copy constructor
   SubModel(SubModel&&) = default;
+  /**
+   * @brief Default copy assignement operator
+   * @returns this
+   */
   SubModel& operator=(SubModel&&) = default;
-#endif
 
   // methods to implement for each submodels
  public:
