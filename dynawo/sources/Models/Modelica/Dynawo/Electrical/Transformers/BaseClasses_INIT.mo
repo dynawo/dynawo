@@ -45,6 +45,7 @@ function TapEstimation "Function that estimates the initial tap of a transformer
 
   output Integer Tap0 "Estimated tap";
 
+protected
   Types.PerUnit rcTfo0Pu "Ratio value corresponding to the voltage set point on side 2 in pu: U2/U1 in no load conditions";
   Types.ComplexVoltagePu deltauPu "Voltage drop due to the impedance in pu (base U2Nom, SnRef)";
 
@@ -110,6 +111,7 @@ function IdealTransformerTapEstimation "Function that estimates the initial tap 
 
   output Integer Tap0 "Estimated tap";
 
+protected
   Types.PerUnit rcTfo0Pu "Ratio value corresponding to the voltage set point on side 2 in pu: U2/U1 in no load conditions";
   Real tapEstimation "Intermediate real value corresponding to the tap estimation based on the minimum and maximum tap values";
 

@@ -93,6 +93,7 @@ where [option] can be:"
         unittest-gdb [arg]                    call unittest in gdb
         curves [arg]                          plot curves of job
         curves-reference [arg]                plot curves of job's reference
+        curves-reference-same-graph [arg]     plot curves of job and job's reference on the same graph
 
         =========== Distribution
         distrib                               create distribution of Dynawo
@@ -1336,6 +1337,11 @@ curves_visu() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
 }
 
+curves_visu_reference_same_graph() {
+  verify_browser
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" --plotRef || return 1
+}
+
 curves_visu_reference() {
   jobs=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))")
   sed -i 's/<dyn:outputs directory="/<dyn:outputs directory="reference\//' $jobs
@@ -2354,6 +2360,10 @@ case $MODE in
 
   curves-reference)
     curves_visu_reference ${ARGS} || error_exit "Error with reference curves plot"
+    ;;
+
+  curves-reference-same-graph)
+    curves_visu_reference_same_graph ${ARGS} || error_exit "Error with reference curves plot"
     ;;
 
   deploy)
