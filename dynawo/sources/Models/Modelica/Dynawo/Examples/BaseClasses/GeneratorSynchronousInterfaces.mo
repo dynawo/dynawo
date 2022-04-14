@@ -19,9 +19,6 @@ model GeneratorSynchronousInterfaces "Synchronous generator with real interfaces
 
   extends Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous;
 
-  final parameter Dynawo.Types.CurrentModulePu Ir0Pu = IRotor0Pu;
-  final parameter Dynawo.Types.CurrentModulePu Is0Pu = IStator0Pu;
-
   //Input variables
   Interfaces.RealInput efdPu_in annotation(
     Placement(visible = true, transformation(origin = {-60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
