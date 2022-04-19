@@ -27,22 +27,29 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <set>
 
 using boost::shared_ptr;
 using std::string;
 using std::vector;
+using std::map;
+using std::unordered_map;
+using std::unordered_set;
+using std::set;
+
 
 namespace timeline {
 
 Timeline::Timeline(const string& id) : id_(id) {}
 
 void
-Timeline::addEvent(const double& time, const string& modelName, const std::string& message, const boost::optional<int>& priority) {
+Timeline::addEvent(const double& time, const string& modelName, const std::string& message, const boost::optional<int>& priority, const std::string& key) {
   shared_ptr<Event> event = EventFactory::newEvent();
   event->setTime(time);
   event->setModelName(modelName);
   event->setMessage(message);
   event->setPriority(priority);
+  event->setKey(key);
   if (events_.empty() || !eventEquals(*event, *events_.back()))
     events_.push_back(event);
 }
@@ -56,6 +63,83 @@ Timeline::eventEquals(const Event& left, const Event& right) const {
 int
 Timeline::getSizeEvents() {
   return static_cast<int>(events_.size());
+}
+
+/**
+ * @brief double comparison with tolerance
+ */
+struct dynawoDoubleLess : std::binary_function<double, vector<size_t>, bool> {
+  /**
+   * @brief double comparison with tolerance
+   * @param left first real to compare
+   * @param right second real to compare
+   * @return true if left < right
+   */
+  bool operator() (const double left, const double right) const {
+    return !DYN::doubleEquals(left, right) && left < right;
+  }
+};
+void
+Timeline::filter(const unordered_map<string, unordered_set<string>>& oppositeEventDico) {
+  map<double, vector<size_t>, dynawoDoubleLess> timeToEventIndexes;
+  for (size_t i = 0, iEnd = events_.size(); i < iEnd; ++i) {
+    timeToEventIndexes[events_[i]->getTime()].push_back(i);
+  }
+
+  // Remove duplicated events
+  set<size_t> indexesToRemove;
+  for (const auto& it : timeToEventIndexes) {
+    const auto& events = it.second;
+    unordered_set<string> eventFounds;
+    for (size_t i = 0, iEnd = events.size(); i < iEnd; ++i) {
+      size_t index = events[events.size() -1 - i];
+      if (indexesToRemove.find(index) != indexesToRemove.end()) {
+        continue;
+      }
+      const auto& event = events_[index];
+      string uniqueId = event->getModelName()+"_"+event->getMessage();
+      if (eventFounds.find(uniqueId) == eventFounds.end()) {
+        eventFounds.insert(uniqueId);
+      } else {
+        indexesToRemove.insert(index);
+      }
+    }
+  }
+
+  // Remove opposed events
+  for (const auto& it : timeToEventIndexes) {
+    const auto& events = it.second;
+    size_t indexToCheck = 1;
+    while (indexToCheck <= events.size() - 1) {
+      if (indexesToRemove.find(events[events.size() - indexToCheck]) != indexesToRemove.end()) {
+        ++indexToCheck;
+        continue;
+      }
+      const auto& currEvent = events_[events[events.size() - indexToCheck]];
+      const auto& it = oppositeEventDico.find(currEvent->getKey());
+      if (it == oppositeEventDico.end()) {
+        ++indexToCheck;
+        continue;
+      }
+      const auto & eventKeysToDelete = it->second;
+
+      for (size_t i = events.size() - indexToCheck - 1; i > 0; --i) {
+        if (events_[events[i]]->getModelName() == currEvent->getModelName() &&
+            eventKeysToDelete.find(events_[events[i]]->getKey()) != eventKeysToDelete.end()) {
+          indexesToRemove.insert(events[i]);
+        }
+      }
+      if (events_[events[0]]->getModelName() == currEvent->getModelName() &&
+          eventKeysToDelete.find(events_[events[0]]->getKey()) != eventKeysToDelete.end()) {
+        indexesToRemove.insert(events[0]);
+      }
+      ++indexToCheck;
+    }
+  }
+
+  for (auto it = indexesToRemove.rbegin(), itEnd = indexesToRemove.rend(); it != itEnd; ++it) {
+    events_.erase(events_.begin() + *it);
+  }
 }
 
 Timeline::event_const_iterator

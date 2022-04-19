@@ -261,6 +261,14 @@ class Simulation {
   }
 
   /**
+   * @brief getter for the output file of the timeline
+   * @return outputFile timeline's output file
+   */
+  inline const std::string& getTimelineOutputFile() {
+    return timelineOutputFile_;
+  }
+
+  /**
    * @brief setter for the export mode of the timeline
    * @param mode timeline's mode export
    */
@@ -654,6 +662,7 @@ class Simulation {
   bool exportTimelineWithTime_;  ///< whether to export time when exporting timeline
   boost::optional<int> exportTimelineMaxPriority_;  ///< maximum priority when exporting timeline
   std::string timelineOutputFile_;  ///< timeline's export file
+  bool filterTimeline_;  ///< whether to filter timeline
 
   std::string timetableOutputFile_;  ///< timetable export file
   int timetableSteps_;  ///< timetable' steps
