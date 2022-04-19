@@ -392,10 +392,10 @@ Several outputs are available with \Dynawo:
 \end{lstlisting}
 Two export modes are available for constraints: TXT or XML.
 
-\item \textbf{Timeline}: the user can have access to the list of events that happened during the simulation and the instant of their occurrence by adding the item ``timeline'' in the jobs file, and by specifying the export mode.
+\item \textbf{Timeline}: the user can have access to the list of events that happened during the simulation and the instant of their occurrence by adding the item ``timeline'' in the jobs file, and by specifying the export mode. It is also possible to automatically filter the timeline by removing duplicated events and opposed events that happen during the same timestep.
 
 \begin{lstlisting}[language=XML, morekeywords={timeline},numbers=none]
-<timeline exportMode="TXT"/>
+<timeline exportMode="TXT" filter="true"/>
 \end{lstlisting}
 Three export modes are available for the timeline: TXT, XML or CSV.
 

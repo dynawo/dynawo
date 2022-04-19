@@ -21,8 +21,12 @@
 
 namespace job {
 
-TimelineEntry::TimelineEntry() : outputFile_(""), exportMode_(""), exportWithTime_(true),
-  maxPriority_(boost::none) {}
+TimelineEntry::TimelineEntry() :
+    outputFile_(""),
+    exportMode_(""),
+    exportWithTime_(true),
+    maxPriority_(boost::none),
+    filter_(false) {}
 
 void
 TimelineEntry::setOutputFile(const std::string& outputFile) {
@@ -62,6 +66,16 @@ TimelineEntry::getExportWithTime() const {
 boost::optional<int>
 TimelineEntry::getMaxPriority() const {
   return maxPriority_;
+}
+
+void
+TimelineEntry::setFilter(bool filter) {
+  filter_ = filter;
+}
+
+bool
+TimelineEntry::isFilter() const {
+  return filter_;
 }
 
 }  // namespace job

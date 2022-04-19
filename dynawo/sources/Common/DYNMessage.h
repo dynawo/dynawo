@@ -136,6 +136,12 @@ class Message {
    */
   std::string str() const;
 
+  /**
+     * @brief return the message's key
+     * @return the message's key
+     */
+  const std::string& getKey() const {return key_;}
+
  private:
   Message();
 

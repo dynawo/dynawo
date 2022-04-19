@@ -25,22 +25,6 @@ except:
     sys.exit(1)
 
 class TestTimelineFilter(unittest.TestCase):
-    def test_timeline_log(self):
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        if os.path.exists(os.path.join(dir_path, "filtered_timeline.log")):
-            os.remove(os.path.join(dir_path,"filtered_timeline.log"))
-        timelineFilter.main(["--timelineFile",os.path.join(dir_path, "timeline.log")])
-        self.assertEqual(True, os.path.exists(os.path.join(dir_path, "filtered_timeline.log")))
-        self.assertEqual(True, filecmp.cmp(os.path.join(dir_path, "filtered_timeline.log"), os.path.join(dir_path, "filtered_timeline_ref.log"), shallow = False))
-
-    def test_timeline_xml(self):
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        if os.path.exists(os.path.join(dir_path, "filtered_timeline.xml")):
-            os.remove(os.path.join(dir_path,"filtered_timeline.xml"))
-        timelineFilter.main(["--timelineFile",os.path.join(dir_path, "timeline.xml")])
-        self.assertEqual(True, os.path.exists(os.path.join(dir_path, "filtered_timeline.xml")))
-        self.assertEqual(True, filecmp.cmp(os.path.join(dir_path, "filtered_timeline.xml"), os.path.join(dir_path, "filtered_timeline_ref.xml"), shallow = False))
-
     def test_timeline_model_filter(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         if os.path.exists(os.path.join(dir_path, "filtered_timeline.log")):
