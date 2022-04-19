@@ -404,6 +404,8 @@ TimelineHandler::create(attributes_type const& attributes) {
     timeline_->setExportWithTime(attributes["exportTime"]);
   if (attributes.has("maxPriority"))
     timeline_->setMaxPriority(attributes["maxPriority"]);
+  if (attributes.has("filter"))
+    timeline_->setFilter(attributes["filter"]);
 }
 
 shared_ptr<TimelineEntry>

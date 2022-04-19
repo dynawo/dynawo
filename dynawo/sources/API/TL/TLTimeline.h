@@ -27,6 +27,8 @@
 #include <boost/shared_ptr.hpp>
 #include <string>
 #include <vector>
+#include <unordered_set>
+#include <unordered_map>
 
 namespace timeline {
 
@@ -54,8 +56,9 @@ class Timeline {
    * @param modelName model where the event occurs
    * @param message event message
    * @param priority event priority, optional
+   * @param key event key, empty if none
    */
-  void addEvent(const double& time, const std::string& modelName, const std::string& message, const boost::optional<int>& priority);
+  void addEvent(const double& time, const std::string& modelName, const std::string& message, const boost::optional<int>& priority, const std::string& key);
 
   /**
    * @brief number of event getter
@@ -63,6 +66,13 @@ class Timeline {
    * @return the number of events stored in timeline
    */
   int getSizeEvents();
+
+  /**
+   * @brief filter the timeline by removing duplicated events and opposed events happening in the same time step
+   *
+   * @param oppositeEventDico the opposite event dictionary
+   */
+  void filter(const std::unordered_map<std::string, std::unordered_set<std::string>>& oppositeEventDico);
 
  public:
   /**

@@ -35,7 +35,7 @@
     <dyn:outputs directory="outputs1">
       <dyn:dumpInitValues local="true" global="false"/>
       <dyn:constraints exportMode="XML"/>
-      <dyn:timeline exportMode="TXT" exportTime="false" maxPriority="2"/>
+      <dyn:timeline exportMode="TXT" exportTime="true" maxPriority="2" filter="true"/>
       <dyn:timetable step="10"/>
       <dyn:finalState exportDumpFile="true" exportIIDMFile="true"/>
       <dyn:finalState exportDumpFile="true" exportIIDMFile="true" timestamp="10"/>

@@ -101,13 +101,6 @@ TEST(Models, TestBuildCheckSum) {
     "validateDictionaries.py: error: Parent package of modelica keys files should be informed.");
   ssPython.str(std::string());
 
-  cmd = pythonCmd + " validateDictionaries.py --inputDir dic/missingKeyOpEvents --outputDir dic/missingKeyOpEvents/";
-  executeCommand(cmd, ssPython);
-  result = ssPython.str();
-  boost::erase_all(result, "\n");
-  ASSERT_EQ(result, "Executing command : " + cmd + "File : AIOMyTimeline_oppositeEvents.dic, the key DummyMsg is not found in dictionary file.");
-  ssPython.str(std::string());
-
   cmd = pythonCmd + " validateDictionaries.py --inputDir dic/allInOne/,dic/allInOne/otherDir/share/ "
                     "--outputDir dic/allInOne/ --namespace AIO --existingKeysDir dic/allInOne/otherDir/include/";
   remove("dic/allInOne/AIOMyLog_keys.cpp");
@@ -115,8 +108,6 @@ TEST(Models, TestBuildCheckSum) {
   remove("dic/allInOne/AIOMyTimeline_keys.cpp");
   remove("dic/allInOne/AIOMyTimeline_keys.h");
   remove("dic/allInOne/AIOMyTimeline_oppositeEvents.py");
-  remove("dic/allInOne/AIOMyTimeline_en_GB_oppositeEvents.py");
-  remove("dic/allInOne/AIOMyTimeline_fr_FR_oppositeEvents.py");
   executeCommand(cmd, ssPython);
   ssPython.str(std::string());
   ASSERT_FALSE(exists("dic/allInOne/AIOMyDic_keys.cpp"));
@@ -125,9 +116,6 @@ TEST(Models, TestBuildCheckSum) {
   ASSERT_TRUE(exists("dic/allInOne/AIOMyLog_keys.h"));
   ASSERT_TRUE(exists("dic/allInOne/AIOMyTimeline_keys.cpp"));
   ASSERT_TRUE(exists("dic/allInOne/AIOMyTimeline_keys.h"));
-  ASSERT_TRUE(exists("dic/allInOne/AIOMyTimeline_en_GB_oppositeEvents.py"));
-  ASSERT_TRUE(exists("dic/allInOne/AIOMyTimeline_fr_FR_oppositeEvents.py"));
-  ASSERT_FALSE(exists("dic/allInOne/AIOMyTimeline_es_ES_oppositeEvents.py"));
   std::stringstream ssDiff;
   executeCommand("diff dic/allInOne/AIOMyLog_keys.cpp dic/allInOne/AIOMyLog_keys_ref.cpp", ssDiff);
   std::cout << ssDiff.str() << std::endl;
@@ -144,16 +132,6 @@ TEST(Models, TestBuildCheckSum) {
   executeCommand("diff dic/allInOne/AIOMyTimeline_keys.h dic/allInOne/AIOMyTimeline_keys_ref.h", ssDiff);
   std::cout << ssDiff.str() << std::endl;
   ASSERT_EQ(ssDiff.str(), "Executing command : diff dic/allInOne/AIOMyTimeline_keys.h dic/allInOne/AIOMyTimeline_keys_ref.h\n");
-  ssDiff.str(std::string());
-  executeCommand("diff dic/allInOne/AIOMyTimeline_en_GB_oppositeEvents.py dic/allInOne/AIOMyTimeline_en_GB_oppositeEvents_ref.py", ssDiff);
-  std::cout << ssDiff.str() << std::endl;
-  ASSERT_EQ(ssDiff.str(), "Executing command : diff dic/allInOne/AIOMyTimeline_en_GB_oppositeEvents.py "
-      "dic/allInOne/AIOMyTimeline_en_GB_oppositeEvents_ref.py\n");
-  ssDiff.str(std::string());
-  executeCommand("diff dic/allInOne/AIOMyTimeline_fr_FR_oppositeEvents.py dic/allInOne/AIOMyTimeline_fr_FR_oppositeEvents_ref.py", ssDiff);
-  std::cout << ssDiff.str() << std::endl;
-  ASSERT_EQ(ssDiff.str(), "Executing command : diff dic/allInOne/AIOMyTimeline_fr_FR_oppositeEvents.py "
-      "dic/allInOne/AIOMyTimeline_fr_FR_oppositeEvents_ref.py\n");
   ssDiff.str(std::string());
 
   cmd = pythonCmd + " validateDictionaries.py --inputDir dic/ --outputDir dic/ --modelicaDir dic/ --modelicaPackage myPackage --namespace MyNS";

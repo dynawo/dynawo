@@ -378,6 +378,8 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindSundials.cmake DESTINATION $
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindlibZIP.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/CPUCount.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 
+install(FILES ${DYNAWO_TIMELINE_FILTER_DIR}/timelineFilter.py DESTINATION ${SBINDIR_NAME})
+
 if(MSVC)
   if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
     set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)" FORCE)
