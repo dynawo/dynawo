@@ -16,6 +16,7 @@ import glob
 from lxml import etree
 import zipfile
 import codecs
+import csv
 
 
 
@@ -57,37 +58,6 @@ class Timeline :
             self.time_to_events[event.time] = []
         self.time_to_events[event.time].append(event)
 
-    def filter_useless_events(self, dicOppositeEvents):
-        print ("[INFO] Filtering duplicated events")
-        for time in self.time_to_events:
-            event_found = set()
-            events = self.time_to_events[time]
-            new_events = []
-            for event in reversed(events):
-                if event.to_string() not in event_found:
-                    new_events.insert(0, event)
-                    event_found.add(event.to_string())
-            self.time_to_events[time] = new_events
-
-        print ("[INFO] Removing opposed events")
-        for time in self.time_to_events:
-            events = self.time_to_events[time]
-            idx_to_check = 1
-            while idx_to_check <= len(events) - 1:
-                curr_event = events[len(events) - idx_to_check]
-                if curr_event.event not in dicOppositeEvents:
-                        idx_to_check += 1
-                        continue
-                id_to_remove = []
-                events_to_delete = dicOppositeEvents[curr_event.event]
-                for i in range(len(events) - idx_to_check - 1, -1, -1):
-                    if events[i].event in events_to_delete:
-                        id_to_remove.append(i)
-                for i in id_to_remove:
-                    del events[i]
-                idx_to_check += 1
-            self.time_to_events[time] = events
-
     def filter_model(self, models_to_keep):
         if models_to_keep is not None and len(models_to_keep) > 0:
             print ("[INFO] Filtering model")
@@ -128,15 +98,33 @@ class Timeline :
                         f.write(("<dyn:event time=\"" + str(event.time) + "\" modelName=\"" + event.model+ "\" message=\"" + event.event+ "\" priority=\"" + event.priority + "\"/>\n").encode(self.encoding))
             f.write(("</dyn:timeline>\n").encode(self.encoding))
             f.close()
+        elif type == "CSV":
+            f = open(filepath, "wb")
+            for time in sorted_keys:
+                events = self.time_to_events[time]
+                for event in events:
+                    fixEncoding(event)
+                    if event.priority == None:
+                        f.write((str(event.time) + ";" + event.model+ ";" + event.event + "\n").encode(self.encoding))
+                    else:
+                        f.write((str(event.time) + ";" + event.model+ ";" + event.event+ ";" + event.priority + "\n").encode(self.encoding))
+            f.close()
 
-    def filterTimeLine(self, filename, dicOppositeEvents, modelsToKeep, outputName = None):
-        self.filter_useless_events(dicOppositeEvents)
+    def filterTimeLine(self, filename, modelsToKeep, outputName = None):
         self.filter_model(modelsToKeep)
         if getFileType(filename) == "TXT":
-            self.dump(os.path.join(os.path.dirname(filename), "filtered_timeline.log"), getFileType(filename))
+            if outputName is None:
+                self.dump(os.path.join(os.path.dirname(filename), "filtered_timeline.log"), getFileType(filename))
+            else:
+                self.dump(os.path.join(os.path.dirname(filename), outputName), getFileType(filename))
         elif getFileType(filename) == "XML":
             if outputName is None:
                 self.dump(os.path.join(os.path.dirname(filename), "filtered_timeline.xml"), getFileType(filename))
+            else:
+                self.dump(os.path.join(os.path.dirname(filename), outputName), getFileType(filename))
+        elif getFileType(filename) == "CSV":
+            if outputName is None:
+                self.dump(os.path.join(os.path.dirname(filename), "filtered_timeline.csv"), getFileType(filename))
             else:
                 self.dump(os.path.join(os.path.dirname(filename), outputName), getFileType(filename))
 
@@ -153,39 +141,21 @@ def getFileType(filename):
         return "TXT"
     elif os.path.basename(filename).endswith(".xml"):
         return "XML"
+    elif os.path.basename(filename).endswith(".csv"):
+        return "CSV"
     else:
         print("[ERROR] unrecognized file extension.")
         exit(1)
-
-def checkEnvVar():
-    if os.getenv("DYNAWO_RESOURCES_DIR") is None:
-        print("[ERROR] environment variable DYNAWO_RESOURCES_DIR needs to be defined")
-        exit(1)
-    if os.getenv("DYNAWO_LOCALE") is None:
-        print("[ERROR] environment variable DYNAWO_LOCALE needs to be defined")
-        exit(1)
-
-def loadOppositeEventsTable():
-    resources_dirs = os.environ["DYNAWO_RESOURCES_DIR"].split(":")
-    locale = os.environ["DYNAWO_LOCALE"]
-    dicOppEvents = {}
-    for dir in resources_dirs:
-        sys.path.append(dir)
-        for path in glob.glob(os.path.join(str(dir), '*_'+locale+'_oppositeEvents.py')):
-            python_package = os.path.basename(path).replace(".py","")
-            my_module = __import__(python_package)
-            dicOppEvents.update(my_module.dicOppositeEvents)
-            del sys.modules[python_package]
-        sys.path.remove(dir)
-    return dicOppEvents
 
 def parseXml(filepath, timeline):
     try:
         fh = codecs.open(filepath, 'r', encoding='utf-8')
         fh.readlines()
         fh.seek(0)
+        fh.close()
     except UnicodeDecodeError:
         timeline.encoding = 'iso8859-1'
+        fh.close()
     try:
         (root, ns, prefix) = ImportXMLFileExtended(filepath)
     except:
@@ -207,8 +177,10 @@ def parseTxt(filepath, timeline):
         fh = codecs.open(filepath, 'r', encoding='utf-8')
         fh.readlines()
         fh.seek(0)
+        fh.close()
     except UnicodeDecodeError:
         timeline.encoding = 'iso8859-1'
+        fh.close()
     f=open(filepath, "rb")
     for line in f.readlines():
         array = line.decode(timeline.encoding).split('|')
@@ -224,6 +196,29 @@ def parseTxt(filepath, timeline):
         timeline.add_event(event)
     f.close()
 
+def parseCsv(filepath, timeline):
+    try:
+        fh = codecs.open(filepath, 'r', encoding='utf-8')
+        fh.readlines()
+        fh.seek(0)
+        fh.close()
+    except UnicodeDecodeError:
+        timeline.encoding = 'iso8859-1'
+        fh.close()
+
+    with open (filepath, "rt") as file:
+        csv_reader = list(csv.reader (file, delimiter = ";"))
+    for row in csv_reader:
+        event = Event()
+        time = float(row[0])
+        event.time = time
+        event.model = row[1].strip()
+        event.event = row[2].rstrip().lstrip()
+        if len(row) > 3:
+            event.priority = row[3].rstrip().lstrip()
+        timeline.add_event(event)
+
+
 def parseFile(filename, infile = None):
     timeline = Timeline()
     if getFileType(filename) == "XML":
@@ -236,6 +231,11 @@ def parseFile(filename, infile = None):
             parseTxt(infile, timeline)
         else:
             parseTxt(filename, timeline)
+    elif getFileType(filename) == "CSV":
+        if infile is not None:
+            parseCsv(infile, timeline)
+        else:
+            parseCsv(filename, timeline)
     return timeline
 
 def checkOptions(options):
@@ -246,7 +246,7 @@ def checkOptions(options):
         print("[ERROR] " +options.timeline_file+" not found.")
         exit(1)
 
-def filterZipContent(filename, dicOppositeEvents, modelsToKeep):
+def filterZipContent(filename, modelsToKeep):
     os.rename(filename, filename.replace('.zip','')+('_old.zip'))
     new_name= filename.replace('.zip','')+('_old.zip')
     with zipfile.ZipFile(new_name) as inzip, zipfile.ZipFile(filename, "w") as outzip:
@@ -254,7 +254,7 @@ def filterZipContent(filename, dicOppositeEvents, modelsToKeep):
             with inzip.open(inzipinfo) as infile:
                 if "timeline" in inzipinfo.filename:
                     timeline = parseFile(inzipinfo.filename, infile)
-                    timeline.filterTimeLine(inzipinfo.filename.replace('/',''), dicOppositeEvents, modelsToKeep, inzipinfo.filename.replace('/',''))
+                    timeline.filterTimeLine(inzipinfo.filename.replace('/',''), modelsToKeep, inzipinfo.filename.replace('/',''))
                     outzip.write(inzipinfo.filename.replace('/',''), inzipinfo.filename)
                     os.remove(inzipinfo.filename.replace('/',''))
                 else:
@@ -282,15 +282,13 @@ def main(args):
     (options, args) = parser.parse_args(args)
 
     checkOptions(options)
-    checkEnvVar()
 
     filename = options.timeline_file
     modelsToKeep = options.models
 
-    dicOppEvents = loadOppositeEventsTable()
-    if getFileType(filename) == "TXT" or getFileType(filename) == "XML":
+    if getFileType(filename) == "TXT" or getFileType(filename) == "XML" or getFileType(filename) == "CSV":
         timeline = parseFile(filename)
-        timeline.filterTimeLine(filename, dicOppEvents, modelsToKeep)
+        timeline.filterTimeLine(filename, modelsToKeep)
     elif getFileType(filename) == "ZIP":
         filterZipContent(filename, dicOppEvents, modelsToKeep)
 

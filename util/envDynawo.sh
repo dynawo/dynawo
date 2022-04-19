@@ -841,6 +841,7 @@ config_dynawo() {
     -DLIBIIDM_HOME=$DYNAWO_LIBIIDM_INSTALL_DIR \
     -DXERCESC_HOME=$DYNAWO_XERCESC_INSTALL_DIR \
     -DDYNAWO_PYTHON_COMMAND="$DYNAWO_PYTHON_COMMAND" \
+    -DDYNAWO_TIMELINE_FILTER_DIR="$DYNAWO_TIMELINE_FILTER_DIR" \
     $CMAKE_OPTIONAL \
     -G "$DYNAWO_CMAKE_GENERATOR" \
     $DYNAWO_SRC_DIR
@@ -1592,7 +1593,7 @@ nrt_xsl() {
 }
 
 filter_timeline() {
-  $DYNAWO_PYTHON_COMMAND $DYNAWO_TIMELINE_FILTER_DIR/timelineFilter.py $@
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_INSTALL_DIR/sbin/timelineFilter.py $@
 }
 
 check_coding_files() {
@@ -1913,7 +1914,6 @@ deploy_dynawo() {
   cp -r $DYNAWO_NRT_DIR/nrt.py sbin/nrt/.
   cp -r $DYNAWO_NRT_DIR/resources sbin/nrt/.
   cp -r $DYNAWO_HOME/util/xsl sbin/.
-  cp -r $DYNAWO_HOME/util/timeline_filter sbin/.
 
   rm -f lib/*.la
   find OpenModelica/lib -name "*.la" -exec rm {} \;
