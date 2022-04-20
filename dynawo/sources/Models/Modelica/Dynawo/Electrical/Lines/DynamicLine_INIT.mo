@@ -18,13 +18,12 @@ model DynamicLine_INIT "Initialization for dynamic PI line"
 
   extends AdditionalIcons.Init;
 
-  parameter Types.PerUnit RPu=0.016854 "Resistance in pu  (base SnRef, UNom) ";
-  parameter Types.PerUnit LPu=0.03370 "Reactance in pu (base SnRef, UNom)";
-  parameter Types.PerUnit GPu=0 "Half-capacitance in pu (base SnRef, UNom)";
-  parameter Types.PerUnit CPu=0.0000375 "Half-susceptance in pu (base SnRef, UNom)";
-  parameter Types.ComplexVoltagePu u10Pu=Complex(0.715983, -0.0570824) "Start value of the complex voltage on side 1 base UNom ";
-  parameter Types.ComplexVoltagePu u20Pu=Complex(0.886712, 0.32476) "Start value of the complex voltage on side 2 base Unom ";
-
+  parameter Types.PerUnit RPu  "Resistance in pu  (base SnRef, UNom) ";
+  parameter Types.PerUnit LPu  "Reactance in pu (base SnRef, UNom)";
+  parameter Types.PerUnit GPu "Half-capacitance in pu (base SnRef, UNom)";
+  parameter Types.PerUnit CPu "Half-susceptance in pu (base SnRef, UNom)";
+  parameter Types.ComplexVoltagePu u10Pu "Start value of the complex voltage on side 1 base UNom ";
+  parameter Types.ComplexVoltagePu u20Pu "Start value of the complex voltage on side 2 base Unom ";
 
   Types.ComplexCurrentPu i10Pu "Start value of the complex current on side 1 in pu (base SnRef, UNom)(receptor convention) ";
   Types.ComplexCurrentPu i20Pu "Start value of the complex current on side 2 in pu (base SnRef, UNom)(receptor convention)";

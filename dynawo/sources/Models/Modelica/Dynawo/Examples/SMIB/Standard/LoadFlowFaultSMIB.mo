@@ -22,12 +22,12 @@ within Dynawo.Examples.SMIB.Standard;
 model LoadFlowFaultSMIB
   import Dynawo;
   parameter Real x=0.5  "Emplacement of the fault relative to the line lenght x= default location /line lenght";
-  parameter Real XLigne1=0.03370;
-  parameter Real RLigne1=0.016854;
+  parameter Real XLigne1=0.0375 ;
+  parameter Real RLigne1=0.00375 ;
   parameter Real BLigne1=0.0000375;
   parameter Real GLigne1=0;
-  parameter Real XLigne2=0.03370;
-  parameter Real RLigne2=0.016854;
+  parameter Real XLigne2=0.0375 ;
+  parameter Real RLigne2=0.00375 ;
   parameter Real BLigne2=0.0000375;
   parameter Real GLigne2=0;
   parameter Real XTransfo=0.00675;
