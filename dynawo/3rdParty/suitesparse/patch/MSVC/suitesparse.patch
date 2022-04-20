@@ -1,0 +1,12 @@
+diff --color -urpN SuiteSparse/SuiteSparse_config/SuiteSparse_config.h SuiteSparse.patch/SuiteSparse_config/SuiteSparse_config.h
+--- SuiteSparse/SuiteSparse_config/SuiteSparse_config.h	2018-12-22 19:10:47.000000000 +0100
++++ SuiteSparse.patch/SuiteSparse_config/SuiteSparse_config.h	2022-04-20 09:32:33.702298918 +0200
+@@ -93,7 +93,7 @@ struct SuiteSparse_config_struct
+     int (*divcomplex_func) (double, double, double, double, double *, double *);
+ } ;
+ 
+-extern struct SuiteSparse_config_struct SuiteSparse_config ;
++__declspec( dllexport ) struct SuiteSparse_config_struct SuiteSparse_config ;
+ 
+ void SuiteSparse_start ( void ) ;   /* called to start SuiteSparse */
+ 
