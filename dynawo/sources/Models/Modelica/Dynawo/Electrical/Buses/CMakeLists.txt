@@ -19,7 +19,6 @@ set(MODEL_FILES
   InfiniteBusWithImpedance.mo
   InfiniteBusWithImpedance.extvar
   InfiniteBusWithImpedance_INIT.mo
-  InfiniteBusWithImpedance_INIT.extvar
   InfiniteBusWithVariations.mo
   InfiniteBusWithVariations.extvar
   )
