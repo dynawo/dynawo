@@ -8,8 +8,6 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
-# Standard governor models
-
 set(MODEL_FILES
   package.mo
   package.order

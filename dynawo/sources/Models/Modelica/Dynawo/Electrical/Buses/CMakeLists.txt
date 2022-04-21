@@ -16,6 +16,10 @@ set(MODEL_FILES
   Bus.extvar
   InfiniteBus.mo
   InfiniteBus.extvar
+  InfiniteBusWithImpedance.mo
+  InfiniteBusWithImpedance.extvar
+  InfiniteBusWithImpedance_INIT.mo
+  InfiniteBusWithImpedance_INIT.extvar
   InfiniteBusWithVariations.mo
   InfiniteBusWithVariations.extvar
   )
