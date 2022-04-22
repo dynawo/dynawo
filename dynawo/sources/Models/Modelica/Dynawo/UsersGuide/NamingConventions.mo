@@ -86,7 +86,7 @@ e.g tInteger, t0...</li>
 
 <p> The initialization models variables are the parameters of the dynamic models so they should start with an upper case letter.</p>
 
-<p>In an initialization model, the names of component instances should end in \"Init\", and this ending shoud never be used for instances of dynamic models.</p>
+<p>In an initialization model, the names of component instances should end in \"Init\", and this ending should never be used for instances of dynamic models.</p>
 
 <h3>Types conventions</h3>
 
