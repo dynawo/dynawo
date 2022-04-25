@@ -13,6 +13,6 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable type="continuous" id="terminal1.V.re"/>
   <variable type="continuous" id="terminal1.V.im"/>
-  <variable type="continuous" id="terminal2.V.re"/>
-  <variable type="continuous" id="terminal2.V.im"/>
+  <variable type="continuous" id="terminal1.i.re"/>
+  <variable type="continuous" id="terminal1.i.im"/>
 </external_variables>

@@ -33,12 +33,12 @@ model InfiniteBusWithImpedance_INIT "Initial model for infinite bus connected to
   //Bus variables
   Types.VoltageModulePu UBus0Pu "Infinite bus constant voltage module in pu (base UNom)";
   Types.Angle UPhaseBus0 "Infinite bus constant voltage angle in rad";
-  Types.ComplexVoltagePu uBus0Pu "Voltage at terminal of the bus in pu (base UNom)";
+  Types.ComplexVoltagePu uBus0Pu "Initial voltage at terminal of the bus in pu (base UNom)";
 
   //Machine variables
-  Types.ComplexApparentPowerPu SMachine0Pu "Apparent power at terminal of the machine in pu (base SnRef)";
-  Types.ComplexCurrentPu iMachine0Pu "Current at terminal of the machine in pu (base UNom, SnRef)";
-  Types.ComplexVoltagePu uMachine0Pu "Voltage at terminal of the machine in pu (base UNom)";
+  Types.ComplexCurrentPu iMachine0Pu "Initial current at terminal of the machine in pu (base UNom, SnRef)";
+  Types.ComplexApparentPowerPu SMachine0Pu "Initial apparent power at terminal of the machine in pu (base SnRef)";
+  Types.ComplexVoltagePu uMachine0Pu "Initial voltage at terminal of the machine in pu (base UNom)";
 
   final parameter Types.ComplexImpedancePu ZPu = Complex(RPu, XPu) "Equivalent impedance between the bus and the machine";
 

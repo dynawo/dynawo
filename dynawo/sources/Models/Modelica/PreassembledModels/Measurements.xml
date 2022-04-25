@@ -13,7 +13,7 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <!-- This model measures the voltage at the left-hand-side terminal -->
-  <dyn:modelicaModel id="MeasurementU">
-    <dyn:unitDynamicModel id="measurementU" name="Dynawo.Electrical.Controls.Utilities.MeasurementU"/>
+  <dyn:modelicaModel id="Measurements">
+    <dyn:unitDynamicModel id="measurements" name="Dynawo.Electrical.Controls.Utilities.Measurements"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
