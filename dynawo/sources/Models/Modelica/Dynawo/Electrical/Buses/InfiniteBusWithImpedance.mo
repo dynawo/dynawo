@@ -32,7 +32,7 @@ model InfiniteBusWithImpedance "Infinite bus connected to an impedance"
 
   //Interface
   Connectors.ACPower terminal(
-    V(re(start = ComplexMath.real(ComplexMath.fromPolar(U0Pu, UPhase0))), im(start = ComplexMath.imag(ComplexMath.fromPolar(U0Pu, UPhase0)))),
+    V(re(start = ComplexMath.real(uMachine0Pu)), im(start = ComplexMath.imag(uMachine0Pu))),
     i(re(start = ComplexMath.real(iMachine0Pu)), im(start = ComplexMath.imag(iMachine0Pu)))) annotation(
     Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -42,9 +42,8 @@ model InfiniteBusWithImpedance "Infinite bus connected to an impedance"
     Placement(visible = true, transformation(origin = {0, -30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Initial parameters
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude of the machine in pu (base UNom)";
-  parameter Types.Angle UPhase0 "Initial voltage angle of the machine in rad";
-  parameter Types.ComplexCurrentPu iMachine0Pu "Current at terminal of the machine in pu (base UNom, SnRef)";
+  parameter Types.ComplexCurrentPu iMachine0Pu "Initial current at terminal of the machine in pu (base UNom, SnRef)";
+  parameter Types.ComplexVoltagePu uMachine0Pu "Initial voltage at terminal of the machine in pu (base UNom)";
 
 equation
   impedance.switchOffSignal1.value = false;

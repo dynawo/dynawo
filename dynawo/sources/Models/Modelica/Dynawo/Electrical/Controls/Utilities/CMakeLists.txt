@@ -11,8 +11,8 @@
 set(MODEL_FILES
   package.mo
   package.order
-  MeasurementU.mo
-  MeasurementU.extvar
+  Measurements.mo
+  Measurements.extvar
   )
 
 #
