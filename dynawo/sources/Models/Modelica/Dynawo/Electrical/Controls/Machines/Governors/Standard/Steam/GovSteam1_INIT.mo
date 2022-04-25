@@ -33,23 +33,23 @@ model GovSteam1_INIT "Initialization model for GovSteam1"
   Modelica.Blocks.Interfaces.RealOutput PmRef0Pu "Initial reference mechanical power in pu (base PNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{0, 0}, {0, 0}}, rotation = 0)));
 
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = ValveOn) annotation(
+  Modelica.Blocks.Sources.BooleanConstant booleanConstantInit(k = ValveOn) annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds pgvInv(fileName = TablesFile, tableName = PgvInvTableName, tableOnFile = true) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds pgvInvInit(fileName = TablesFile, tableName = PgvInvTableName, tableOnFile = true) annotation(
     Placement(visible = true, transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.Switch switch annotation(
+  Modelica.Blocks.Logical.Switch switchInit annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  connect(pgvInv.y[1], switch.u1) annotation(
+  connect(pgvInvInit.y[1], switchInit.u1) annotation(
     Line(points = {{1, 40}, {20, 40}, {20, 8}, {37, 8}}, color = {0, 0, 127}));
-  connect(booleanConstant.y, switch.u2) annotation(
+  connect(booleanConstantInit.y, switchInit.u2) annotation(
     Line(points = {{1, 0}, {37, 0}}, color = {255, 0, 255}));
-  connect(switch.y, PmRef0Pu) annotation(
+  connect(switchInit.y, PmRef0Pu) annotation(
     Line(points = {{61, 0}, {110, 0}}, color = {0, 0, 127}));
-  connect(Pm0Pu, pgvInv.u) annotation(
+  connect(Pm0Pu, pgvInvInit.u) annotation(
     Line(points = {{-120, 0}, {-40, 0}, {-40, 40}, {-22, 40}}, color = {0, 0, 127}));
-  connect(Pm0Pu, switch.u3) annotation(
+  connect(Pm0Pu, switchInit.u3) annotation(
     Line(points = {{-120, 0}, {-40, 0}, {-40, -40}, {20, -40}, {20, -8}, {38, -8}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
