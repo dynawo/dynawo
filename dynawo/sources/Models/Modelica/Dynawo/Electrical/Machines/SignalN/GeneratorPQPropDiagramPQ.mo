@@ -13,8 +13,8 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 model GeneratorPQPropDiagramPQ "Model for generator PQ with a PQ diagram, based on SignalN for the frequency handling and with a proportional reactive power regulation"
-
   import Modelica;
+
   extends BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
 
@@ -40,7 +40,6 @@ protected
   Types.ReactivePowerPu QGenRawPu(start = QGen0Pu) "Reactive power generation without taking limits into account in pu (base SnRef) (generator convention)";
 
 equation
-
   PGenPu = tableQMin.u[1];
   tFilter * der(QMinPu) + QMinPu = tableQMin.y[1];
   PGenPu = tableQMax.u[1];
@@ -48,12 +47,12 @@ equation
 
   QGenRawPu = - QRef0Pu + QPercent * NQ;
 
-if running.value then
-  QGenPu = if QGenRawPu >= QMaxPu then QMaxPu elseif QGenRawPu <= QMinPu then QMinPu else QGenRawPu;
-else
-  terminal.i.im = 0;
-end if;
+  if running.value then
+    QGenPu = if QGenRawPu >= QMaxPu then QMaxPu elseif QGenRawPu <= QMinPu then QMinPu else QGenRawPu;
+  else
+    terminal.i.im = 0;
+  end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This PQ generator adapts it Q to regulate the voltage of a distant bus along with other generators depending on a participation factor QPercent. To do so, it receives a set point NQ to adapt its Q. This NQ is common to all the generators participating in this regulation. The reactive power limitations follow a PQ diagram. </div></body></html>"));
 end GeneratorPQPropDiagramPQ;

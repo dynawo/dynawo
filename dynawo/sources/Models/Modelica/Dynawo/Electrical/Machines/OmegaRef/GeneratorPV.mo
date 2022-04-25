@@ -18,39 +18,36 @@ model GeneratorPV "Generator with power / frequency modulation and voltage / rea
   The Q output is modulated in order to keep U + lambda * Q as close as possible to the target value
   When a reactive power limit is reached, the PV generator acts as a PQ generator
   */
-
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends BaseClasses.BaseGeneratorSimplifiedPFBehavior;
   extends AdditionalIcons.Machine;
 
-    type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
-                                AbsorptionMax "Reactive power is fixed to its absorption limit",
-                                GenerationMax "Reactive power is fixed to its generation limit");
+  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
+                              AbsorptionMax "Reactive power is fixed to its absorption limit",
+                              GenerationMax "Reactive power is fixed to its generation limit");
 
-    Connectors.ImPin URefPu (value (start = URef0Pu)) "Voltage regulation set point in pu (base UNom)";
+  Connectors.ImPin URefPu(value(start = URef0Pu)) "Voltage regulation set point in pu (base UNom)";
 
-    parameter Types.ReactivePower QMin "Minimum reactive power in Mvar";
-    parameter Types.ReactivePower QMax "Maximum reactive power in Mvar";
-    parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
-    parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
+  parameter Types.ReactivePower QMin "Minimum reactive power in Mvar";
+  parameter Types.ReactivePower QMax "Maximum reactive power in Mvar";
+  parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
+  parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
 
-  protected
+  parameter Types.VoltageModulePu URef0Pu "Initial voltage regulation set point";
 
-    final parameter Types.ReactivePowerPu QMinPu = QMin / SystemBase.SnRef "Minimum reactive power in pu (base SnRef)";
-    final parameter Types.ReactivePowerPu QMaxPu = QMax / SystemBase.SnRef "Maximum reactive power in pu (base SnRef)";
-    final parameter Types.PerUnit LambdaPu = LambdaPuSNom * SNom / SystemBase.SnRef "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
-    final parameter Types.Time T = 1 "Time constant used to filter the reactive power reference";
+  final parameter Types.ReactivePowerPu QMinPu = QMin / SystemBase.SnRef "Minimum reactive power in pu (base SnRef)";
+  final parameter Types.ReactivePowerPu QMaxPu = QMax / SystemBase.SnRef "Maximum reactive power in pu (base SnRef)";
+  final parameter Types.PerUnit LambdaPu = LambdaPuSNom * SNom / SystemBase.SnRef "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
+  final parameter Types.Time T = 1 "Time constant used to filter the reactive power reference";
 
-    parameter Types.VoltageModulePu URef0Pu "Initial voltage regulation set point";
+  Types.ReactivePowerPu QGenRefPu(start = QGen0Pu) "Reactive power set point in pu (base SnRef)";
 
-    Types.ReactivePowerPu QGenRefPu (start = QGen0Pu) "Reactive power set point in pu (base SnRef)";
-
-    QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+protected
+  QStatus qStatus(start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
-
   when QGenRefPu >= QMaxPu and pre(qStatus) <> QStatus.AbsorptionMax then
     qStatus = QStatus.AbsorptionMax;
     Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
@@ -70,7 +67,7 @@ equation
     terminal.i.im = 0;
   end if;
 
-annotation(
+  annotation(
     preferredView = "text",
     Documentation(info = "<html><head></head><body>The active power output is modulated according to frequency (in order to model frequency containment reserves).<div>The reactive power output is modulated in order to keep U + lambda * Q as close as possible to the target value. When a reactive power limit is reached, the generator produces a constant reactive power equal to the limit reached.</div></body></html>"));
 end GeneratorPV;

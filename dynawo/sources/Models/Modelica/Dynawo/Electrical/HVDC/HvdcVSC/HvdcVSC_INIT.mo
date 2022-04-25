@@ -19,11 +19,8 @@ model HvdcVSC_INIT "Initialisation model for the HVDC VSC model"
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
   parameter Types.PerUnit Lambda "Lambda coefficient for the QRefUPu calculation";
   parameter Types.PerUnit RdcPu "DC line resistance in pu (base UNom, SnRef)";
-
   parameter Real modeU1Set "Set value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
   parameter Real modeU2Set "Set value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
-
-protected
 
   Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom)";
   Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom)";
@@ -40,7 +37,6 @@ protected
   Real modeU20 "Start value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
 
 equation
-
   P10Pu = - U10Pu * Ip10Pu * (SNom/SystemBase.SnRef);
   Q10Pu = U10Pu * Iq10Pu * (SNom/SystemBase.SnRef);
   P20Pu = - U20Pu * Ip20Pu * (SNom/SystemBase.SnRef);
@@ -55,5 +51,5 @@ equation
   modeU10 = modeU1Set;
   modeU20 = modeU2Set;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end HvdcVSC_INIT;

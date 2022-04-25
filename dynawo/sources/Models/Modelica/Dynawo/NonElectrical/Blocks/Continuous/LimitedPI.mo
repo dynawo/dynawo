@@ -19,7 +19,7 @@ block LimitedPI "Proportional-integrator controller with limited value of output
 
   parameter Types.PerUnit Ki "Integrator gain";
   parameter Types.PerUnit Kp "Proportional gain";
-  parameter Types.PerUnit Y0 = 0  "Initial value of output" annotation(
+  parameter Types.PerUnit Y0 = 0 "Initial value of output" annotation(
   Dialog(group="Initialization"));
   parameter Types.PerUnit YMax "Upper limit of output";
   parameter Types.PerUnit YMin "Upper limit of output";

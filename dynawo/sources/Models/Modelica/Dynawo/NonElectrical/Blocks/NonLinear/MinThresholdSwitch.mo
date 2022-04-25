@@ -13,34 +13,30 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block MinThresholdSwitch "Switch between two real values, depending on the input crossing a min threshold"
-
   import Modelica;
 
   extends Modelica.Blocks.Icons.Block;
 
-    parameter Real UMin  "Minimum allowed u";
-    parameter Real ySatMin  "y value when u <= UMin";
-    parameter Real yNotSatMin  "y value when u > UMin";
+  parameter Real UMin "Minimum allowed u";
+  parameter Real ySatMin "y value when u <= UMin";
+  parameter Real yNotSatMin "y value when u > UMin";
 
-    Modelica.Blocks.Interfaces.RealInput u (start = u0) "Input signal connector" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput u(start = u0) "Input signal connector" annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}})));
-    Modelica.Blocks.Interfaces.RealOutput y (start = y0) "Output signal connector" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput y(start = y0) "Output signal connector" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
 
-  protected
+  parameter Real u0 = 0 "Initial input";
+  parameter Real y0 = yNotSatMin "Initial output";
 
-    parameter Real u0 = 0 "Initial input";
-    parameter Real y0 = yNotSatMin "Initial output";
+equation
+  when u <= UMin then
+    y = ySatMin;
+  elsewhen (u > UMin) then
+    y = yNotSatMin;
+  end when;
 
-
-  equation
-     when u <= UMin then
-         y = ySatMin;
-     elsewhen (u > UMin) then
-         y = yNotSatMin;
-     end when;
-
-    annotation(preferredView = "text",
+  annotation(preferredView = "text",
       Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

@@ -36,7 +36,7 @@
         <bus id="_BUS___10_TN" v="399.97780496606896" angle="-0.0071631046061920731"/>
       </busBreakerTopology>
       <load id="_Load__10" name="LOAD  10" loadType="UNDEFINED" p0="500" q0="0" bus="_BUS___10_TN" connectableBus="_BUS___10_TN" p="500.02884066975162" q="0"/>
-      <lccConverterStation id="LCCStation1" name="S1" lossFactor="0" powerFactor="0" bus="_BUS___10_TN" connectableBus="_BUS___10_TN" p="-100" q="-0"/>
+      <lccConverterStation id="LCCStation1" name="S1" lossFactor="0" powerFactor="1" bus="_BUS___10_TN" connectableBus="_BUS___10_TN" p="-100" q="-0"/>
       <vscConverterStation id="VSCStation1" name="VSCS1" voltageRegulatorOn="true" lossFactor="0" voltageSetpoint="400" reactivePowerSetpoint="0" bus="_BUS___10_TN" connectableBus="_BUS___10_TN" p="-100" q="0">
         <reactiveCapabilityCurve>
           <point p="-1011" minQ="-300" maxQ="300"/>

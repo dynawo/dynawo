@@ -13,17 +13,13 @@ within Dynawo.Electrical.Machines;
 */
 
 model GeneratorFictitious "Fictitious generator with voltage dependant active and reactive power (alpha-beta model)"
-
   extends BaseClasses.BaseGeneratorSimplified;
   extends AdditionalIcons.Machine;
 
-  public
-
-    parameter Real Alpha "Exponential active power sensitivity to voltage";
-    parameter Real Beta  "Exponential reactive power sensitivity to voltage";
+  parameter Real Alpha "Exponential active power sensitivity to voltage";
+  parameter Real Beta "Exponential reactive power sensitivity to voltage";
 
 equation
-
   if running.value then
     PGenPu = PGen0Pu * (UPu / U0Pu) ^ Alpha;
     QGenPu = QGen0Pu * (UPu / U0Pu) ^ Beta;
@@ -31,5 +27,5 @@ equation
     terminal.i = Complex(0);
   end if;
 
-annotation(preferredView = "text");
+  annotation(preferredView = "text");
 end GeneratorFictitious;
