@@ -17,6 +17,7 @@ set(MODELER_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 set(MODELER_SOURCES
     DYNCommonModeler.cpp
     DYNConnector.cpp
+    DYNConnectorCalculatedDiscreteVariable.cpp
     DYNConnectorCalculatedVariable.cpp
     DYNDynamicData.cpp
     DYNModeler.cpp

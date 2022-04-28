@@ -58,6 +58,7 @@ class SubModelMockBase : public SubModel {
   SubModelMockBase(unsigned nbY, unsigned nbZ) {
     sizeZ_ = nbZ;
     sizeY_ = nbY;
+    calculatedVars_.resize(1);
   }
 
   void init(const double) {
@@ -102,7 +103,7 @@ class SubModelMockBase : public SubModel {
   }
 
   void evalCalculatedVars() {
-    // Dummy class used for testing
+    calculatedVars_[0] = getCurrentTime();
   }
 
   void evalJt(const double, const double, SparseMatrix& , const int) {
@@ -175,8 +176,15 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void defineElements(std::vector<Element>&, std::map<std::string, int >&) {
-    // Dummy class used for testing
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) {
+    addElement("MyVar", Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", "MyVar", Element::TERMINAL, name(), modelType(), elements, mapElement);
+    addElement("MyAliasVar", Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", "MyAliasVar", Element::TERMINAL, name(), modelType(), elements, mapElement);
+    addElement("MyDiscreteVar", Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", "MyDiscreteVar", Element::TERMINAL, name(), modelType(), elements, mapElement);
+    addElement("MyDiscreteVarCalculated", Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", "MyDiscreteVarCalculated", Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
 
   void initializeStaticData() {
@@ -222,8 +230,7 @@ class SubModelMockBase : public SubModel {
   }
 
   double evalCalculatedVarI(unsigned) const {
-    // Dummy class used for testing
-    return 0.;
+    return getCurrentTime();
   }
 
   void setSubModelParameters() {
@@ -240,9 +247,10 @@ class SubModelMockBase : public SubModel {
 };
 
 void SubModelMockBase::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState("MyVar", CONTINUOUS));
-  variables.push_back(VariableAliasFactory::create("MyAliasVar", "MyVar", FLOW, false));
-  variables.push_back(VariableNativeFactory::createState("MyDiscreteVar", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("MyVar_value", CONTINUOUS));
+  variables.push_back(VariableAliasFactory::create("MyAliasVar_value", "MyVar_value", FLOW, false));
+  variables.push_back(VariableNativeFactory::createState("MyDiscreteVar_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("MyDiscreteVarCalculated_value", DISCRETE));
 }
 
 class SubModelMock : public SubModelMockBase {
@@ -1106,4 +1114,63 @@ TEST(ModelerCommonTest, StaticRefInterface) {
   ASSERT_EQ(sri.getModelVar(), "MyModelVar");
   ASSERT_EQ(sri.getStaticVar(), "MyStaticVar");
 }
+
+TEST(ModelerCommonTest, ConnectionCalculatedVars) {
+  boost::shared_ptr<ModelMulti> modelMulti(new ModelMulti());
+  shared_ptr<SubModelMock> subModel1(new SubModelMock(1, 1));
+  subModel1->name("subModel1");
+  shared_ptr<SubModel> subModel1_ = boost::dynamic_pointer_cast<SubModel> (subModel1);
+  subModel1_->name("subModel1");
+  subModel1_->defineNames();
+  subModel1_->defineVariables();
+  modelMulti->addSubModel(subModel1_, "subModelMock");
+
+  shared_ptr<SubModelMock> subModel2(new SubModelMock(1, 1));
+  subModel2->name("subModel2");
+  shared_ptr<SubModel> subModel2_ = boost::dynamic_pointer_cast<SubModel> (subModel2);
+  subModel2_->name("subModel2");
+  subModel2_->defineNames();
+  subModel2_->defineVariables();
+  modelMulti->addSubModel(subModel2_, "subModelMock");
+
+  std::vector<double> y, yp;
+  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
+  ASSERT_NO_THROW(modelMulti->connectElements(modelMulti->findSubModelByName("subModel1"), "MyDiscreteVarCalculated_value",
+                              modelMulti->findSubModelByName("subModel2"), "MyDiscreteVar_value"));
+  std::string name = subModel1_->name() + "_MyDiscreteVarCalculated_value";
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name));
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->getSize());
+  std::vector<state_g> g(modelMulti->findSubModelByName(name)->sizeG(), ROOT_DOWN);
+  modelMulti->findSubModelByName(name)->setBufferG(&g[0], 0);
+  std::vector<double> z(modelMulti->findSubModelByName(name)->sizeZ(), 0);
+  bool* zConnected = new bool[modelMulti->findSubModelByName(name)->sizeZ()];
+  for (size_t i = 0; i < modelMulti->findSubModelByName(name)->sizeZ(); ++i)
+    zConnected[i] = true;
+  modelMulti->findSubModelByName(name)->setBufferZ(&z[0], zConnected, 0);
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->init(0));
+  ASSERT_EQ(modelMulti->findSubModelByName(name)->modelType(), "ConnectorCalculatedDiscreteVariable");
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->evalCalculatedVars());
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->evalStaticFType());
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->evalStaticYType());
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->evalDynamicFType());
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->evalDynamicYType());
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->setFequationsInit());
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->setFequations());
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->setGequationsInit());
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->initSubBuffers());
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->getY0());
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->evalG(0));
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->evalZ(0));
+
+  modelMulti->findSubModelByName(name)->setCurrentTime(1.0);
+  subModel1_->setCurrentTime(1.0);
+  subModel2_->setCurrentTime(1.0);
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->evalG(1));
+  ASSERT_EQ(g[0], ROOT_UP);
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->evalZ(1));
+  ASSERT_EQ(z[0], 1.);
+  ASSERT_EQ(modelMulti->findSubModelByName(name)->evalMode(1), NO_MODE);
+  ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->setGequations());
+}
+
 }  // namespace DYN
