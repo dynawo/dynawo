@@ -53,7 +53,7 @@ package BaseClasses_INIT
 
     Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
     Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
-    Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+    Types.ComplexCurrentPu i0Pu(re(start=1.0)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
 
   equation
     u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
