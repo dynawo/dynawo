@@ -34,34 +34,36 @@ model DynamicLine "AC power line - PI model considering the dynamics of the indu
   extends SwitchOff.SwitchOffLine;
   extends AdditionalIcons.Line;
 
-  parameter Types.PerUnit RPu "Resistance in pu  (base SnRef, UNom) ";
-  parameter Types.PerUnit LPu "Reactance in pu (base SnRef, UNom)";
-  parameter Types.PerUnit GPu "Half-capacitance in pu (base SnRef, UNom)";
-  parameter Types.PerUnit CPu "Half-susceptance in pu (base SnRef, UNom)";
+  parameter Types.PerUnit RPu "Resistance in pu (base SnRef, UNom) ";
+  parameter Types.PerUnit LPu "Inductance in pu (base SnRef, UNom)";
+  parameter Types.PerUnit GPu "Half-conductance in pu (base SnRef, UNom)";
+  parameter Types.PerUnit CPu "Half-capacitance in pu (base SnRef, UNom)";
 
-  parameter Types.ComplexVoltagePu u10Pu "Start value of the complex voltage on side 1 base UNom ";
-  parameter Types.ComplexVoltagePu u20Pu "Start value of the complex voltage on side 2 base Unom ";
+  parameter Types.ComplexVoltagePu u10Pu "Start value of the complex voltage on side 1 (base UNom) ";
+  parameter Types.ComplexVoltagePu u20Pu "Start value of the complex voltage on side 2 (base Unom) ";
   parameter Types.ComplexCurrentPu i10Pu "Start value of the complex current on side 1 in pu (base SnRef, UNom)(receptor convention) ";
   parameter Types.ComplexCurrentPu i20Pu "Start value of the complex current on side 2 in pu (base SnRef, UNom)(receptor convention)";
   parameter Types.ComplexCurrentPu iRL0Pu "Start value of the complex current in the R,L part of the line in pu (base SnRef, UNom)(receptor convention)";
   parameter Types.ComplexCurrentPu iGC10Pu "Start value of the complex current in the G,C part of the line on side 1 in pu (base SnRef, UNom) (receptor convention)" ;
-  parameter Types.ComplexCurrentPu iGC20Pu  "Start value of the complex current in the G,C part of the line on side 2 in pu (base SnRef, UNom) (receptor convention)" ;
-  input Types.AngularVelocityPu omegaPu(start = SystemBase.omega0Pu)"Grid frequency in pu (base omegaNom) ";
+  parameter Types.ComplexCurrentPu iGC20Pu "Start value of the complex current in the G,C part of the line on side 2 in pu (base SnRef, UNom) (receptor convention)" ;
 
-  Types.ComplexCurrentPu iRLPu(re(start = iRL0Pu.re) , im(start = iRL0Pu.im))"Complex current in the R,L part of the line in pu (base SnRef, UNom)(receptor convention)";
-  Types.ComplexCurrentPu iGC1Pu(re(start = iGC10Pu.re) , im(start = iGC10Pu.im))"Complex current in the G,C part of the line on side 1 in pu (base SnRef, UNom) (receptor convention)" ;
-  Types.ComplexCurrentPu iGC2Pu(re(start = iGC20Pu.re) , im(start = iGC20Pu.im))" Current through the equivalent impedance G+jB on side 2 in pu (base SnRef, UNom ) (receptor convention)";
-  Types.ApparentPower S1Pu "Complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
-  Types.ApparentPower S2Pu "Complex apparent power at terminal 2 in pu (base SnRef) (receptor convention)";
+  input Types.AngularVelocityPu omegaPu(start = SystemBase.omega0Pu) "Grid frequency in pu (base omegaNom) ";
+  Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
+    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) annotation(
+    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+
+  Types.ComplexCurrentPu iRLPu(re(start = iRL0Pu.re) , im(start = iRL0Pu.im)) "Complex current in the R,L part of the line in pu (base SnRef, UNom)(receptor convention)";
+  Types.ComplexCurrentPu iGC1Pu(re(start = iGC10Pu.re) , im(start = iGC10Pu.im)) "Complex current in the G,C part of the line on side 1 in pu (base SnRef, UNom) (receptor convention)" ;
+  Types.ComplexCurrentPu iGC2Pu(re(start = iGC20Pu.re) , im(start = iGC20Pu.im)) " Complex current in the G,C part of the line on side 2 in pu (base SnRef, UNom) (receptor convention)";
+  Types.ApparentPower s1Pu "Complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
+  Types.ApparentPower s2Pu "Complex apparent power at terminal 2 in pu (base SnRef) (receptor convention)";
   Types.ActivePowerPu P1Pu "Active power at terminal 1 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q1Pu "Reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
   Types.ActivePowerPu P2Pu "Active power at terminal 2 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q2Pu "Reactive power at terminal 2 in pu (base SnRef) (receptor convention)";
 
-  Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
-    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) annotation(
-    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
   if (running.value) then
@@ -88,7 +90,7 @@ equation
   P2Pu = S2Pu.re;
   Q2Pu = S2Pu.im;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>
 The line model is a PI model considering the dynamics of the inductance and the capacitances with the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>
