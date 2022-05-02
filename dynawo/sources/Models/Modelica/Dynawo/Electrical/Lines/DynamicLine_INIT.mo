@@ -18,12 +18,12 @@ model DynamicLine_INIT "Initialization for dynamic PI line"
 
   extends AdditionalIcons.Init;
 
-  parameter Types.PerUnit RPu  "Resistance in pu  (base SnRef, UNom) ";
-  parameter Types.PerUnit LPu  "Reactance in pu (base SnRef, UNom)";
-  parameter Types.PerUnit GPu "Half-capacitance in pu (base SnRef, UNom)";
-  parameter Types.PerUnit CPu "Half-susceptance in pu (base SnRef, UNom)";
-  parameter Types.ComplexVoltagePu u10Pu "Start value of the complex voltage on side 1 base UNom ";
-  parameter Types.ComplexVoltagePu u20Pu "Start value of the complex voltage on side 2 base Unom ";
+  parameter Types.PerUnit RPu "Resistance in pu (base SnRef, UNom) ";
+  parameter Types.PerUnit LPu "Inductance in pu (base SnRef, UNom)";
+  parameter Types.PerUnit GPu "Half-conductance in pu (base SnRef, UNom)";
+  parameter Types.PerUnit CPu "Half-capacitance in pu (base SnRef, UNom)";
+  Types.ComplexVoltagePu u10Pu "Start value of the complex voltage on side 1 base UNom ";
+  Types.ComplexVoltagePu u20Pu "Start value of the complex voltage on side 2 base Unom ";
 
   Types.ComplexCurrentPu i10Pu "Start value of the complex current on side 1 in pu (base SnRef, UNom)(receptor convention) ";
   Types.ComplexCurrentPu i20Pu "Start value of the complex current on side 2 in pu (base SnRef, UNom)(receptor convention)";
@@ -33,11 +33,21 @@ model DynamicLine_INIT "Initialization for dynamic PI line"
 
 equation
   i10Pu = iGC10Pu + iRL0Pu;
-  i20Pu = iGC20Pu- iRL0Pu;
+  i20Pu = iGC20Pu - iRL0Pu;
   iGC10Pu = Complex(GPu, CPu) * u10Pu;
   u10Pu - u20Pu = Complex(RPu, LPu) * iRL0Pu;
   iGC20Pu = Complex(GPu, CPu) * u20Pu;
 
-annotation(
-    experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002));
+
+  annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>
+Initialization of a PI model parameters considering the dynamics of the inductance and the capacitances with the following equivalent circuit and conventions:<div><br></div><div>
+<p style=\"margin: 0px;\"><br></p>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1                  I2</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">   (terminal1) --&gt;-------R+jX-------&lt;-- (terminal2)</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                    |           |</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                  G+jB         G+jB</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                    |           |</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                   ---         ---</span><!--EndFragment--></pre></div><div><div><pre style=\"text-align: center; margin-top: 0px; margin-bottom: 0px;\"><!--EndFragment--></pre></div></div></body></html>"));
+
 end DynamicLine_INIT;
