@@ -19,15 +19,16 @@ within Dynawo.Examples.SMIB.Standard;
 
 */
 
-model LoadFlowFaultSMIB
+  model LoadFlowFaultSMIB " A load flow to initialize the infinite bus for SMIBdynamicLineFault, SMIBdynamicLineINIT or the alpha,beta load for SMIBdynamicLineControlled "
+
   import Dynawo;
   parameter Real x=0.5  "Emplacement of the fault relative to the line lenght x= default location /line lenght";
-  parameter Real XLigne1=0.0375 ;
-  parameter Real RLigne1=0.00375 ;
+  parameter Real XLigne1=0.03370 ;
+  parameter Real RLigne1=0.016854 ;
   parameter Real BLigne1=0.0000375;
   parameter Real GLigne1=0;
-  parameter Real XLigne2=0.0375 ;
-  parameter Real RLigne2=0.00375 ;
+  parameter Real XLigne2=0.03370 ;
+  parameter Real RLigne2=0.016854 ;
   parameter Real BLigne2=0.0000375;
   parameter Real GLigne2=0;
   parameter Real XTransfo=0.00675;
@@ -36,12 +37,17 @@ model LoadFlowFaultSMIB
   parameter Real U0Phase = 0.494442;
   parameter Real P0 = 19.98;
   parameter Real Q0 = 9.68;
+
+
   Real U1Pu;
   Real U1Phase;
+  /* To initialize a load instead of an infinite bus  */
+  Types.ComplexCurrentPu I1Pu;
+  Types.ComplexApparentPowerPu s1Pu;
+  Real P1Pu;
+  Real Q1Pu;
+
   Types.ComplexVoltagePu U22;
-
-
-
 
   Types.ComplexVoltagePu U0;
   Types.ComplexCurrentPu I0;
@@ -88,7 +94,11 @@ equation
   U11=U12;
   U21=U22;
   I21+I22=I0;
+  -I1Pu=I11+I12;
   ComplexMath.fromPolar(U1Pu,U1Phase)=U12;
+  s1Pu=U12*ComplexMath.conj(I1Pu);
+  P1Pu=s1Pu.re;
+  Q1Pu=s1Pu.im;
 
   annotation(
     experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.002));
