@@ -35,9 +35,9 @@ model DynamicLine "AC power line - PI model considering the dynamics of the indu
   extends AdditionalIcons.Line;
 
   parameter Types.PerUnit RPu "Resistance in pu (base SnRef, UNom) ";
-  parameter Types.PerUnit LPu "Inductance in pu (base SnRef, UNom)";
+  parameter Types.PerUnit LPu "Inductance in pu (base SnRef, UNom, omegaNom)";
   parameter Types.PerUnit GPu "Half-conductance in pu (base SnRef, UNom)";
-  parameter Types.PerUnit CPu "Half-capacitance in pu (base SnRef, UNom)";
+  parameter Types.PerUnit CPu "Half-capacitance in pu (base SnRef, UNom, omegaNom)";
 
   parameter Types.ComplexVoltagePu u10Pu "Start value of the complex voltage on side 1 (base UNom) ";
   parameter Types.ComplexVoltagePu u20Pu "Start value of the complex voltage on side 2 (base Unom) ";
