@@ -409,6 +409,7 @@ else()
                           -sNO_BZIP2=1
                           install
                           --prefix=<INSTALL_DIR>
+                          --libdir=bin
                           --disable-icu
                           --with-date_time
                           --with-filesystem
@@ -636,6 +637,7 @@ else()
                         -DKLU_LIBRARY_DIR:PATH=${SUITESPARSE_HOME}/lib
                         -DNICSLU_ENABLE=$<BOOL:${NICSLU_FOUND}>
                         -DNICSLU_HOME=${NICSLU_HOME}
+                        $<$<BOOL:${MSVC}>:-DCMAKE_INSTALL_LIBDIR=bin>
   )
   ExternalProject_Get_Property(sundials install_dir)
   set(SUNDIALS_HOME ${install_dir})
