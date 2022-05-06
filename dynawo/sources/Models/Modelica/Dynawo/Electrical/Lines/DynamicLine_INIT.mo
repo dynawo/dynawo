@@ -22,8 +22,8 @@ model DynamicLine_INIT "Initialization for dynamic PI line"
   parameter Types.PerUnit LPu "Inductance in pu (base SnRef, UNom, omegaNom)";
   parameter Types.PerUnit GPu "Half-conductance in pu (base SnRef, UNom)";
   parameter Types.PerUnit CPu "Half-capacitance in pu (base SnRef, UNom, omegaNom)";
-  Types.ComplexVoltagePu u10Pu "Start value of the complex voltage on side 1 base UNom ";
-  Types.ComplexVoltagePu u20Pu "Start value of the complex voltage on side 2 base Unom ";
+  Types.ComplexVoltagePu u10Pu "Start value of the complex voltage on side 1 (base UNom) ";
+  Types.ComplexVoltagePu u20Pu "Start value of the complex voltage on side 2 (base Unom) ";
 
   Types.ComplexCurrentPu i10Pu "Start value of the complex current on side 1 in pu (base SnRef, UNom)(receptor convention) ";
   Types.ComplexCurrentPu i20Pu "Start value of the complex current on side 2 in pu (base SnRef, UNom)(receptor convention)";

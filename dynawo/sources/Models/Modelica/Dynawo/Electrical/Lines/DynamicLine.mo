@@ -83,7 +83,7 @@ equation
     iGC20Pu = Complex (0,0);
   end if;
 
-  S1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
+  s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
   S2Pu = terminal2.V * ComplexMath.conj(terminal2.i);
   P1Pu = S1Pu.re;
   Q1Pu = S1Pu.im;
