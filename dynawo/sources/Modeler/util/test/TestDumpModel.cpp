@@ -39,11 +39,11 @@ TEST(ModelerUtil, TestDumpModel) {
   ss.str(std::string());
 
   remove("dumpModel.desc.xml");
-  cmd = "../dumpModel -m ../../../Models/CPP/ModelFrequency/ModelOmegaRef/DYNModelOmegaRef"+std::string(sharedLibraryExtension());
+  cmd = "../dumpModel -m ../../../../M/CPP/ModelFrequency/ModelOmegaRef/DYNModelOmegaRef"+std::string(sharedLibraryExtension());
   executeCommand(cmd, ss);
   result = ss.str();
   boost::erase_all(result, "\n");
-  ASSERT_EQ(result, "Executing command : ../dumpModel -m ../../../Models/CPP/ModelFrequency/ModelOmegaRef/DYNModelOmegaRef"
+  ASSERT_EQ(result, "Executing command : ../dumpModel -m ../../../../M/CPP/ModelFrequency/ModelOmegaRef/DYNModelOmegaRef"
    +std::string(sharedLibraryExtension())+" Default output file used : ./dumpModel.desc.xml  -h [ --help ]             "
       "produce help message  -m [ --model-file ] arg  REQUIRED: set model file (path)  -o [ --output-file ] arg set output file (path)");
   ss.str(std::string());

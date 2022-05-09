@@ -1787,6 +1787,9 @@ deploy_dynawo() {
   if [ -f "$boost_system_folder/libboost_iostreams.$LIBRARY_SUFFIX" ]; then
     cp -P $boost_system_folder/libboost_iostreams*.$LIBRARY_SUFFIX* lib/
   fi
+  if [ -f "$boost_system_folder/libboost_date_time.$LIBRARY_SUFFIX" ]; then
+    cp -P $boost_system_folder/libboost_date_time*.$LIBRARY_SUFFIX* lib/
+  fi
   cp -n -P -R $boost_system_folder_include/boost include/
 
   # XERCESC
