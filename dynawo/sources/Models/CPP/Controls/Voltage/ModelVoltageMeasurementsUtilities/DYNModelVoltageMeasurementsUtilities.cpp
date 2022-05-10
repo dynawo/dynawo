@@ -23,7 +23,6 @@
  * -> Minimum
  * -> Maximum
  * -> Average
- *
  */
 
 #include <sstream>
@@ -50,45 +49,25 @@ using boost::shared_ptr;
 
 using parameters::ParametersSet;
 
-/**
- * @brief ModelVoltageMeasurementsUtilitiesFactory getter
- *
- * @return A pointer to a new instance of ModelVoltageMeasurementsUtilitiesFactory
- */
 extern "C" DYN::SubModelFactory* getFactory() {
   return (new DYN::ModelVoltageMeasurementsUtilitiesFactory());
 }
 
-/**
- * @brief ModelVoltageMeasurementsUtilitiesFactory destroy method
- */
 extern "C" void deleteFactory(DYN::SubModelFactory* factory) {
   delete factory;
 }
 
-/**
- * @brief ModelVoltageMeasurementsUtilities getter
- *
- * @return A pointer to a new instance of ModelVoltageMeasurementsUtilities
- */
 extern "C" DYN::SubModel* DYN::ModelVoltageMeasurementsUtilitiesFactory::create() const {
   DYN::SubModel* model(new DYN::ModelVoltageMeasurementsUtilities());
   return model;
 }
 
-/**
- * @brief ModelVoltageMeasurementsUtilitiesFactory destroy method
- */
 extern "C" void DYN::ModelVoltageMeasurementsUtilitiesFactory::destroy(DYN::SubModel* model) const {
   delete model;
 }
 
 namespace DYN {
 
-/**
- * @brief ModelVoltageMeasurementsUtilities model default constructor
- *
- */
 ModelVoltageMeasurementsUtilities::ModelVoltageMeasurementsUtilities() :
 ModelCPP("voltageMeasurementsUtilities"),
 nbConnectedInputs_(0),
@@ -244,7 +223,7 @@ ModelVoltageMeasurementsUtilities::evalCalculatedVarI(unsigned iCalculatedVar) c
     break;
 
   default:
-    throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);  // Macro defined in DYNMacrosMessage
+    throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
   }
 
   return out;
@@ -252,9 +231,9 @@ ModelVoltageMeasurementsUtilities::evalCalculatedVarI(unsigned iCalculatedVar) c
 
 void
 ModelVoltageMeasurementsUtilities::evalCalculatedVars() {
-  calculatedVars_[minValIdx_] = lastMin_;  /// computeMin(achievesValue);
-  calculatedVars_[maxValIdx_] = lastMax_;  /// computeMax(achievesValue);
-  calculatedVars_[avgValIdx_] = lastAverage_;  /// computeAverage();
+  calculatedVars_[minValIdx_] = lastMin_;
+  calculatedVars_[maxValIdx_] = lastMax_;
+  calculatedVars_[avgValIdx_] = lastAverage_;
 }
 
 void
@@ -306,7 +285,7 @@ ModelVoltageMeasurementsUtilities::defineVariables(vector<shared_ptr<Variable> >
   name << "tLastUpdate_value";
   variables.push_back(VariableNativeFactory::createState(name.str(), DISCRETE));
 
-  // Add whether a bus is connected or not
+  // Add whether a bus is running or not
   for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
     name.str("");
     name.clear();
