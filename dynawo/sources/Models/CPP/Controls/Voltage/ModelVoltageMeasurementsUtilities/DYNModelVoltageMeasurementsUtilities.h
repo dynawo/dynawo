@@ -86,7 +86,6 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
 
   /**
    * @brief define indexing of discrete variables
-   * This list may be updated if the class increases in complexity.
    *
    */
   typedef enum {

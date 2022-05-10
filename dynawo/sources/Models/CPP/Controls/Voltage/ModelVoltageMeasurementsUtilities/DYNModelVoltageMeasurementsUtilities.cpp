@@ -92,13 +92,15 @@ namespace DYN {
 ModelVoltageMeasurementsUtilities::ModelVoltageMeasurementsUtilities() :
 ModelCPP("voltageMeasurementsUtilities"),
 nbConnectedInputs_(0),
+nbActive_(0),
+achievedMin_(0),
+achievedMax_(0),
+lastMin_(0.),
+lastMax_(0.),
+lastAverage_(0.),
 step_(0.) {
 }
 
-/**
- * @brief ModelVoltageMeasurementsUtilities model initialization
- *
- */
 void
 ModelVoltageMeasurementsUtilities::init(const double /*t0*/) {
   // Nothing to initalize here.
@@ -112,8 +114,8 @@ ModelVoltageMeasurementsUtilities::initializeFromData(const boost::shared_ptr<Da
 void
 ModelVoltageMeasurementsUtilities::getSize() {
   sizeF_ = 0;  // No equations
-  sizeY_ = nbConnectedInputs_;  // All voltage inputs and their boolean activity values
-  sizeZ_ = nbConnectedInputs_ + nbDiscreteVars_;
+  sizeY_ = nbConnectedInputs_;  // All voltage inputs
+  sizeZ_ = nbConnectedInputs_ + nbDiscreteVars_;  // isRunning and sampled tLastUpdate
   sizeG_ = nbRoots_;
   sizeMode_ = 0;
 
@@ -127,7 +129,8 @@ ModelVoltageMeasurementsUtilities::evalF(double /*t*/, propertyF_t /*type*/) {
 
 void
 ModelVoltageMeasurementsUtilities::evalG(const double t) {
-  gLocal_[timeToUpdate_] = ((t-(zLocal_[tLastUpdate_] + step_)) >= 0) ? ROOT_UP : ROOT_DOWN;
+  double elapsed = t-(zLocal_[tLastUpdate_] + step_);
+  gLocal_[timeToUpdate_] = (doubleIsZero(elapsed) || elapsed > 0) ? ROOT_UP : ROOT_DOWN;
 }
 
 void
