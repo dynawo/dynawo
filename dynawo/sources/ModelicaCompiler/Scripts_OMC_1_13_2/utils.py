@@ -975,7 +975,7 @@ def convert_booleans_body (boolean_variables_names, body):
 # @param line : the line to convert
 # @return the converted line as a string
 def convert_booleans_line (boolean_variables_names, line):
-    allowed_containers = [' ', '(', ')', '=', '!']
+    allowed_containers = [' ', '(', ')', '=', '!', ',']
     # temporary patterns for avoiding to convert quoted names
     patterns_temp = ["@@@@@@@@", "$$$$$$$$"]
     for n, pattern in enumerate(patterns_temp):
