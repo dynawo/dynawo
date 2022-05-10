@@ -231,6 +231,24 @@ The ``OmegaRef'' model calculates the reference speed for each synchronous area.
 
 This model is connected to all the generators of one synchronous area and takes their speed as inputs to calculate the reference speed that is used into the machine models.
 
+\subsubsection{Utilities}
+\label{Utilities}
+
+One model is implemented for computing various aggregations of voltage levels: \verb VoltageMeasurementUtilities  model.
+
+\paragraph{Voltage measurement utilities model}
+~~\\
+
+The ``VoltageMeasurementUtilities'' model allows a dynamic number of voltage levels to be monitored and outputs various aggregations of their values.
+So far, the following models have been implemented:
+\begin{itemize}
+\item Minimum value,
+\item Maximum value, and
+\item Average value.
+\end{itemize}
+
+These aggregations are computed only on a subset of the input voltage levels for which the associated \verb running  variables are \verb True .
+
 \subsubsection{Network model}
 \label{Network}
 
