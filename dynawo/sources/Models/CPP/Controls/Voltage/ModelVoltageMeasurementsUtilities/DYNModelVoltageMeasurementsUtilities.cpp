@@ -252,7 +252,6 @@ ModelVoltageMeasurementsUtilities::evalCalculatedVarI(unsigned iCalculatedVar) c
 
 void
 ModelVoltageMeasurementsUtilities::evalCalculatedVars() {
-  // unsigned int achievesValue = nbConnectedInputs_;
   calculatedVars_[minValIdx_] = lastMin_;  /// computeMin(achievesValue);
   calculatedVars_[maxValIdx_] = lastMax_;  /// computeMax(achievesValue);
   calculatedVars_[avgValIdx_] = lastAverage_;  /// computeAverage();
