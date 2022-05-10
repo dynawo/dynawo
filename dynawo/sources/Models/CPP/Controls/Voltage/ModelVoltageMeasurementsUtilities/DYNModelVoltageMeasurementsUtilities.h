@@ -14,7 +14,7 @@
 /**
  * @file  DYNModelVoltageMeasurementsUtilities.h
  *
- * @brief model for voltage aggregating voltage values on a local subnetworks
+ * @brief model for aggregating voltage values on a local subnetworks
  *
  */
 
@@ -104,7 +104,6 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
 
   /**
    * @brief ModelVoltageMeasurementsUtilities model default constructor
-   *
    *
    */
   ModelVoltageMeasurementsUtilities();
@@ -329,21 +328,29 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
  private:
    /**
     * @brief gets the minimum value of the (connected and active) input voltages
+    * @param minIdx (inout parameter) index achieving the minimum value
+    * @return the minimum voltage value among the running inputs
     */
   double computeMin(unsigned int &minIdx) const;
 
   /**
    * @brief gets the maximum value of the (connected and active) input voltages
+   * @param maxIdx (inout parameter) index achieving the maximum value
+   * @return the maximum voltage value among the running inputs
    */
   double computeMax(unsigned int &maxIdx) const;
 
   /**
    * @brief gets the average value of the (connected and active) input voltages
+   * @param nbActive (inout parameter) number of running variables
+   * @return the average voltage value among the running inputs
    */
   double computeAverage(unsigned int &nbActive) const;
 
   /**
-   * @brief returns whether or not an input is actively connected
+   * @brief returns whether or not an input is running
+   * @param inputIdx index of the voltage level being tested
+   * @return whether or not the given voltage level is running
    */
   bool isRunning(unsigned int inputIdx) const;
 
