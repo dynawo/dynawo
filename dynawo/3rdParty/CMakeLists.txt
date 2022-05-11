@@ -409,7 +409,7 @@ else()
                           -sNO_BZIP2=1
                           install
                           --prefix=<INSTALL_DIR>
-                          --libdir=bin
+                          --libdir=<INSTALL_DIR>/bin
                           --disable-icu
                           --with-date_time
                           --with-filesystem
