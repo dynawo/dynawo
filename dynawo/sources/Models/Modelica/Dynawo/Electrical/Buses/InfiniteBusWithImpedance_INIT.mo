@@ -24,29 +24,29 @@ model InfiniteBusWithImpedance_INIT "Initial model for infinite bus connected to
   parameter Types.PerUnit RPu "Line resistance in pu (base SnRef)";
   parameter Types.PerUnit XPu "Line reactance in pu (base SnRef)";
 
-  //Machine parameters
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude of the machine in pu (base UNom)";
-  parameter Types.ActivePowerPu P0Pu "Initial active power at terminal of the machine in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at terminal of the machine in pu (base SnRef) (receptor convention)";
-  parameter Types.Angle UPhase0 "Initial voltage angle of the machine in rad";
+  //Terminal parameters
+  parameter Types.ActivePowerPu P0Pu "Initial active power at terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at terminal in pu (base UNom)";
+  parameter Types.Angle UPhase0 "Initial voltage angle at terminal in rad";
 
   //Bus variables
+  Types.ComplexVoltagePu uBus0Pu "Initial infinite bus voltage in pu (base UNom)";
   Types.VoltageModulePu UBus0Pu "Infinite bus constant voltage module in pu (base UNom)";
   Types.Angle UPhaseBus0 "Infinite bus constant voltage angle in rad";
-  Types.ComplexVoltagePu uBus0Pu "Initial voltage at terminal of the bus in pu (base UNom)";
 
-  //Machine variables
-  Types.ComplexCurrentPu iMachine0Pu "Initial current at terminal of the machine in pu (base UNom, SnRef)";
-  Types.ComplexApparentPowerPu SMachine0Pu "Initial apparent power at terminal of the machine in pu (base SnRef)";
-  Types.ComplexVoltagePu uMachine0Pu "Initial voltage at terminal of the machine in pu (base UNom)";
+  //Terminal variables
+  Types.ComplexCurrentPu iTerminal0Pu "Initial current at terminal in pu (base UNom, SnRef)";
+  Types.ComplexApparentPowerPu STerminal0Pu "Initial apparent power at terminal in pu (base SnRef)";
+  Types.ComplexVoltagePu uTerminal0Pu "Initial voltage at terminal in pu (base UNom)";
 
-  final parameter Types.ComplexImpedancePu ZPu = Complex(RPu, XPu) "Equivalent impedance between the bus and the machine";
+  final parameter Types.ComplexImpedancePu ZPu = Complex(RPu, XPu) "Equivalent impedance between terminal and infinite bus";
 
 equation
-  uMachine0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
-  SMachine0Pu = Complex(P0Pu, Q0Pu);
-  SMachine0Pu = uMachine0Pu * ComplexMath.conj(iMachine0Pu);
-  uMachine0Pu - uBus0Pu = ZPu * iMachine0Pu;
+  uTerminal0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
+  STerminal0Pu = Complex(P0Pu, Q0Pu);
+  STerminal0Pu = uTerminal0Pu * ComplexMath.conj(iTerminal0Pu);
+  uTerminal0Pu - uBus0Pu = ZPu * iTerminal0Pu;
   UBus0Pu = (uBus0Pu.re ^ 2 + uBus0Pu.im ^ 2) ^ 0.5;
   UPhaseBus0 = Math.atan2(uBus0Pu.im, uBus0Pu.re);
 
