@@ -60,10 +60,10 @@ stateModified_(false) {
 
   double Q = shunt->getQ() / SNREF;
   double uNode = shunt->getBusInterface()->getV0();
-  double tetaNode = shunt->getBusInterface()->getAngle0();
+  double thetaNode = shunt->getBusInterface()->getAngle0();
   double unomNode = shunt->getBusInterface()->getVNom();
-  double ur0 = uNode / unomNode * cos(tetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(tetaNode * DEG_TO_RAD);
+  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
+  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
   ir0_ = Q * ui0 / (ur0 * ur0 + ui0 * ui0);
   ii0_ = - Q * ur0 / (ur0 * ur0 + ui0 * ui0);
 }
@@ -321,12 +321,10 @@ void
 ModelShuntCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const {
   switch (numCalculatedVar) {
     case qNum_: {
-      if (isConnected()) {
-        int urYNum = modelBus_->urYNum();
-        int uiYNum = modelBus_->uiYNum();
-        numVars.push_back(urYNum);
-        numVars.push_back(uiYNum);
-      }
+      int urYNum = modelBus_->urYNum();
+      int uiYNum = modelBus_->uiYNum();
+      numVars.push_back(urYNum);
+      numVars.push_back(uiYNum);
       break;
     }
     default:

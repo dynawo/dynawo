@@ -43,11 +43,7 @@ MacroStaticReference::addStaticRef(const string& var, const string& staticVar) {
   // The staticRef key in the map is var_staticVar
   string key = var + '_' + staticVar;
   std::pair<std::map<std::string, boost::shared_ptr<StaticRef> >::iterator, bool> ret;
-#ifdef LANG_CXX11
   ret = staticRefs_.emplace(key, shared_ptr<StaticRef>(StaticRefFactory::newStaticRef(var, staticVar)));
-#else
-  ret = staticRefs_.insert(std::make_pair(key, shared_ptr<StaticRef>(StaticRefFactory::newStaticRef(var, staticVar))));
-#endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, StaticRefNotUniqueInMacro, id_, var, staticVar);
 }

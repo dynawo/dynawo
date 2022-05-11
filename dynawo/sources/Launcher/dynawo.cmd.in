@@ -77,6 +77,7 @@ PATH=%BOOST_PATH%\lib;%LIBARCHIVE_HOME%\bin;%ZLIB_ROOT%\bin;%LIBIIDM_HOME%\bin;%
 :: To compile Modelica models
 set DYNAWO_ADEPT_INSTALL_DIR=%thirdPartyInstallPath%\adept
 set DYNAWO_INSTALL_OPENMODELICA=%OPENMODELICA_HOME%
+set OPENMODELICAHOME=%DYNAWO_INSTALL_OPENMODELICA%
 set DYNAWO_XERCESC_INSTALL_DIR=%thirdPartyInstallPath%\xerces-c
 set DYNAWO_SUITESPARSE_INSTALL_DIR=%thirdPartyInstallPath%\suitesparse
 set DYNAWO_SUNDIALS_INSTALL_DIR=%thirdPartyInstallPath%\sundials

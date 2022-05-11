@@ -30,8 +30,8 @@ model HvdcPVDangling "Model for PV HVDC link with terminal2 connected to a switc
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MaxPu "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
 
   input Types.VoltageModulePu U1RefPu(start = U1Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 1";
   input Types.ReactivePowerPu Q1RefPu(start = Q1Ref0Pu) "Reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
@@ -42,15 +42,13 @@ model HvdcPVDangling "Model for PV HVDC link with terminal2 connected to a switc
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control at terminal 1: true if U mode, false if Q mode";
 
 protected
-
-  QStatus q1Status (start = QStatus.Standard) "Voltage regulation status of terminal 1: standard, absorptionMax or generationMax";
+  QStatus q1Status(start = QStatus.Standard) "Voltage regulation status of terminal 1: standard, absorptionMax or generationMax";
 
 equation
-
   s1Pu = Complex(P1Pu, Q1Pu);
   s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
 
-  // Voltage/Reactive power regulation at terminal 1
+  //Voltage/Reactive power regulation at terminal 1
   when Q1Pu >= Q1MaxPu and U1Pu >= U1RefPu then
     q1Status = QStatus.AbsorptionMax;
   elsewhen Q1Pu <= Q1MinPu and U1Pu <= U1RefPu then
@@ -59,7 +57,7 @@ equation
     q1Status = QStatus.Standard;
   end when;
 
-  if running.value then
+  if runningSide1.value then
     if modeU1 then
       if q1Status == QStatus.GenerationMax then
         Q1Pu = Q1MinPu;
@@ -81,6 +79,6 @@ equation
     terminal1.i.im = 0;
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>This HVDC link regulates the active power flowing through itself. It also regulates the voltage or the reactive power at terminal1. The active power setpoint is given as an input and can be modified during the simulation, as well as the voltage reference and the reactive power reference. The terminal2 is connected to a switched-off bus.</div></body></html>"));
 end HvdcPVDangling;

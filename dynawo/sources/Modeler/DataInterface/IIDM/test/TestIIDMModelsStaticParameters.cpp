@@ -354,7 +354,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
 
 static shared_ptr<SubModel>
 initializeModel(shared_ptr<DataInterface> data) {
-  shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib("../../../../Models/CPP/ModelNetwork/DYNModelNetwork" +
+  shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib("../../../../../M/CPP/ModelNetwork/DYNModelNetwork" +
                                                 std::string(sharedLibraryExtension()));
   modelNetwork->initFromData(data);
   data->setModelNetwork(modelNetwork);
@@ -396,9 +396,9 @@ TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDMAndStaticParameters) {
   exportStateVariables(data);
 
   ASSERT_EQ(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "U"), 110.);
-  ASSERT_EQ(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "Teta"), 1.5);
+  ASSERT_EQ(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "Theta"), 1.5);
   ASSERT_EQ(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "Upu"), 110./190.);
-  ASSERT_EQ(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "Teta_pu"), 1.5 * M_PI / 180);
+  ASSERT_EQ(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "Theta_pu"), 1.5 * M_PI / 180);
 }
 
 TEST(DataInterfaceIIDMTest, testBusIIDMStaticParameters) {
@@ -422,9 +422,9 @@ TEST(DataInterfaceIIDMTest, testBusIIDMStaticParameters) {
   exportStateVariables(data);
 
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "U"), 150.);
-  ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "Teta"), 1.5);
+  ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "Theta"), 1.5);
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "Upu"), 1.);
-  ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "Teta_pu"), 1.5 * M_PI / 180);
+  ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "Theta_pu"), 1.5 * M_PI / 180);
 }
 
 
@@ -810,6 +810,7 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
   exportStateVariables(data);
 
   boost::shared_ptr<LoadInterface> loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
+  ASSERT_FALSE(loadItf->isFictitious());
   ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyLoad", "P_value"));
   ASSERT_THROW_DYNAWO(data->setReference("badParam", loadItf->getID(), "MyLoad", "p_pu"), Error::MODELER, KeyError_t::UnknownStateVariable);
   ASSERT_THROW_DYNAWO(data->setReference("p", "", "MyLoad", "p_pu"), Error::MODELER, KeyError_t::WrongReferenceId);

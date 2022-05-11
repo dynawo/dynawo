@@ -26,21 +26,21 @@ model HvdcPTanPhiDiagramPQ "Model for P/tan(Phi) HVDC link with a PQ diagram"
 
 */
 
-  input Real tanPhi1Ref(start = s10Pu.im/s10Pu.re) "tan(Phi) regulation set point at terminal 1";
-  input Real tanPhi2Ref(start = s20Pu.im/s20Pu.re) "tan(Phi) regulation set point at terminal 2";
+  input Real tanPhi1Ref(start = TanPhi1Ref0) "tan(Phi) regulation set point at terminal 1";
+  input Real tanPhi2Ref(start = TanPhi2Ref0) "tan(Phi) regulation set point at terminal 2";
+
+  parameter Real TanPhi1Ref0 "Start value of tan(Phi) regulation set point at terminal 1";
+  parameter Real TanPhi2Ref0 "Start value of tan(Phi) regulation set point at terminal 2";
 
 protected
-
   Types.ReactivePowerPu QInj1RawPu(start = - s10Pu.im) "Raw reactive power at terminal 1 in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu QInj2RawPu(start = - s20Pu.im) "Raw reactive power at terminal 2 in pu (base SnRef) (generator convention)";
 
 equation
-
   QInj1RawPu = tanPhi1Ref * PInj1Pu;
   QInj2RawPu = tanPhi2Ref * PInj2Pu;
 
-  if (running.value) then
-
+  if running.value then
     if QInj1RawPu >= QInj1MaxPu then
      QInj1Pu = QInj1MaxPu;
     elseif QInj1RawPu <= QInj1MinPu then
@@ -48,7 +48,6 @@ equation
     else
      QInj1Pu = QInj1RawPu;
     end if;
-
     if QInj2RawPu >= QInj2MaxPu then
      QInj2Pu = QInj2MaxPu;
     elseif QInj2RawPu <= QInj2MinPu then
@@ -56,12 +55,9 @@ equation
     else
      QInj2Pu = QInj2RawPu;
     end if;
-
   else
-
-    terminal1.i.im = 0;
-    terminal2.i.im = 0;
-
+    QInj1Pu = 0;
+    QInj2Pu = 0;
   end if;
 
   annotation(preferredView = "text",

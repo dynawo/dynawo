@@ -14,7 +14,10 @@
 #ifndef API_CRT_CRTCRITERIAPARAMS_H_
 #define API_CRT_CRTCRITERIAPARAMS_H_
 
+#include "CRTCriteriaParamsVoltageLevel.h"
+
 #include <string>
+#include <vector>
 
 namespace criteria {
 
@@ -113,76 +116,22 @@ class CriteriaParams {
   const std::string& getId() const;
 
   /**
-   * @brief Setter for maximum voltage
-   * @param uMaxPu maximum voltage
+   * @brief Add a voltage level
+   * @param vl voltage level to add
    */
-  void setUMaxPu(double uMaxPu);
+  void addVoltageLevel(const CriteriaParamsVoltageLevel& vl);
 
   /**
-   * @brief Getter for maximum voltage
-   * @return maximum voltage
+   * @brief Getter for voltage levels
+   * @return voltage levels
    */
-  double getUMaxPu() const;
+  const std::vector<CriteriaParamsVoltageLevel>& getVoltageLevels() const;
 
   /**
-   * @brief return true if uMax has been defined
-   * @return true if uMax has been defined
+   * @brief return true if at least one volage level was defined
+   * @return true if at least one volage level was defined
    */
-  bool hasUMaxPu() const;
-
-  /**
-   * @brief Setter for maximum nominal voltage
-   * @param uNomMax maximum nominal voltage
-   */
-  void setUNomMax(double uNomMax);
-
-  /**
-   * @brief Getter for maximum nominal voltage
-   * @return maximum nominal voltage
-   */
-  double getUNomMax() const;
-
-  /**
-   * @brief return true if uNomMax has been defined
-   * @return true if uNomMax has been defined
-   */
-  bool hasUNomMax() const;
-
-  /**
-   * @brief Setter for minimum voltage
-   * @param uMinPu minimum voltage
-   */
-  void setUMinPu(double uMinPu);
-
-  /**
-   * @brief Getter for minimum voltage
-   * @return minimum voltage
-   */
-  double getUMinPu() const;
-
-  /**
-   * @brief return true if uMin has been defined
-   * @return true if uMin has been defined
-   */
-  bool hasUMinPu() const;
-
-  /**
-   * @brief Setter for minimum nominal voltage
-   * @param uNomMin minimum nominal voltage
-   */
-  void setUNomMin(double uNomMin);
-
-  /**
-   * @brief Getter for minimum nominal voltage
-   * @return minimum nominal voltage
-   */
-  double getUNomMin() const;
-
-  /**
-   * @brief return true if uNomMin has been defined
-   * @return true if uNomMin has been defined
-   */
-  bool hasUNomMin() const;
+  bool hasVoltageLevels() const;
 
   /**
    * @brief Setter for maximum active power
@@ -223,12 +172,9 @@ class CriteriaParams {
  private:
   CriteriaScope_t scope_;  ///< scope of the criteria
   CriteriaType_t type_;    ///< type of the criteria
-  double uMinPu_;          ///< minimum voltage in pu
-  double uMaxPu_;          ///< maximum voltage in pu
-  double uNomMin_;         ///< minimum nominal voltage in kV
-  double uNomMax_;         ///< maximum nominal voltage in kV
   double pMin_;            ///< minimum active power in MW
   double pMax_;            ///< maximum active power in MW
+  std::vector<CriteriaParamsVoltageLevel> voltageLevels_;  ///< voltage levels
   std::string id_;         ///< criteria id
 };
 

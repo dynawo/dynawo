@@ -246,6 +246,367 @@ These results match the results obtained in the example 13 of the "Power System 
   \end{tikzpicture}
 \end{figure}
 
+\chapter{ENTSO-E Controller Test Report}
+
+These three test cases are the ones used in an ENTSO-E work conducted to compare different transient simulation tools responses on a single machine infinite bus. The different test cases and the models used are presented in the ENTSO-E report called "Documentation on Controller Tests in Test Grid Configurations" available online at \url{https://eepublicdownloads.entsoe.eu/clean-documents/pre2015/publications/entsoe/RG_SOC_CE/131127_Controller_Test_Report.pdf}.\\
+
+\textbf{Note. As compilation at run-time is utilized for test cases 1 and 2, the simulation time for each test case is around 1' with 95\% of the time spent in the Modelica models compilation. For test case 3, only blackbox models are used and the simulation time is around 1 s, as one could expect for such a test case.}
+
+\section{Test case description}
+
+\subsection{Scenario}
+
+The scenarios considered are the following ones:
+
+\begin{center}
+  \resizebox{\textwidth}{!}{
+\begin{tabular}{|c|c|c|}
+  \hline
+  Test Case & Network & Event \\
+  \hline
+  1 & Generator Only & Voltage reference step \\
+  2 & Generator and Load & Active power variation on the load \\
+  3 & SMIB & Three-phase short circuit at the transformer high-level side \\
+  \hline
+\end{tabular} }
+\end{center}
+
+\subsection{Solver}
+
+The solver used for these simulations is the variable time step solver IDA with the following main parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=$10^{-6}$;
+\item $Accuracy_{Abs}$=$10^{-6}$;
+\end{itemize}
+
+\section{Results}
+
+The results obtained perfectly match the ones presented in the report and demonstrate DynaSwing accuracy.
+
+\subsection{Test Case 1}
+
+The purpose of the first test case is to compare the dynamic behaviour of the model for the synchronous machine and its AVR by analysing the terminal voltage and the excitation voltage inside the machine. These variables evolutions are identical to the ones reported in the reference document.
+
+\begin{figure}[H]
+\subfigure[Terminal voltage]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=SynchronousGenerator_generator_UPu]
+        {../ENTSOE/TestCase1/reference/outputsTestCase1/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Excitation voltage]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y=SynchronousGenerator_generator_efdPu]
+        {../ENTSOE/TestCase1/reference/outputsTestCase1/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Test Case 1 Results}
+\end{figure}
+
+\subsection{Test Case 2}
+
+The purpose of the second test case is to compare the dynamic behaviour of the model for the synchronous generator and its governor by analysing the terminal voltage, the active and mechanical power of the synchronous machine, the reactive power of the synchronous machine and the speed. The results got with DynaSwing match the ones presented in the official report.
+
+\begin{figure}[H]
+\subfigure[Terminal voltage]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in, yticklabel style={/pgf/number format/.cd,fixed,precision=3}]
+        \addplot[color=blue!50]
+        table[x=time,y=SynchronousGenerator_generator_UPu]
+        {../ENTSOE/TestCase2/reference/outputsTestCase2/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Active power]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SynchronousGenerator_generator_PGenPu}/4.75]
+        {../ENTSOE/TestCase2/reference/outputsTestCase2/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Mechanical power]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SynchronousGenerator_generator_PmPu}]
+        {../ENTSOE/TestCase2/reference/outputsTestCase2/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Speed]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in, yticklabel style={/pgf/number format/.cd,fixed,precision=3}]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SynchronousGenerator_generator_omegaPu}]
+        {../ENTSOE/TestCase2/reference/outputsTestCase2/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Test Case 2 Results}
+\end{figure}
+
+\subsection{Test Case 3}
+
+The purpose of the third test case is to compare the dynamic behaviour of the model for the synchronous machine with its whole control in operation during and after a three-phase short-circuit by analysing the terminal voltage, the excitation voltage inside the generator, the active and reactive power of the synchronous machine as well as speed. The results obtained prove the good behavior of DynaSwing.
+
+\begin{figure}[H]
+\subfigure[Terminal voltage]
+{%
+  \begin{tikzpicture}
+    \begin{axis}
+        \addplot[color=blue!50]
+        table[x=time,y=SynchronousGenerator_generator_UPu]
+        {../ENTSOE/TestCase3/reference/outputsTestCase3/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Excitation voltage]
+{%
+  \begin{tikzpicture}
+    \begin{axis}
+        \addplot[color=blue!50]
+        table[x=time,y=SynchronousGenerator_generator_UPu]
+        {../ENTSOE/TestCase3/reference/outputsTestCase3/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\begin{figure}[H]
+\subfigure[Active power]
+{%
+  \begin{tikzpicture}
+    \begin{axis}
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SynchronousGenerator_generator_PGenPu}/4.75]
+        {../ENTSOE/TestCase3/reference/outputsTestCase3/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power]
+{%
+  \begin{tikzpicture}
+    \begin{axis}
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SynchronousGenerator_generator_QGenPu}/1.56]
+        {../ENTSOE/TestCase3/reference/outputsTestCase3/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\begin{figure}[H]
+\subfigure[Speed]
+{%
+  \begin{tikzpicture}
+    \begin{axis}
+        \addplot[color=blue!50]
+        table[x=time, y=SynchronousGenerator_generator_omegaPu]
+        {../ENTSOE/TestCase3/reference/outputsTestCase3/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[PSS Output Signal]
+{%
+  \begin{tikzpicture}
+    \begin{axis}
+        \addplot[color=blue!50]
+        table[x=time, y=SynchronousGenerator_pss_UpssPu]
+        {../ENTSOE/TestCase3/reference/outputsTestCase3/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Test Case 3 Results}
+\end{figure}
+
+\chapter{WSCC9}
+
+The WSCC 9-bus system represents a simple approximation of the Western System Coordinating Council (WSCC) to an equivalent system with nine buses and three generators.
+It was notably published in Anderson and Fouad’s book ‘Power System Control and Stability’ for the first time in 1980.
+
+\textbf{Note. The test case is used in a modified way in this example: arbitrary dynamic data are added to the test case}
+
+\section{Test case description}
+
+The WSCC 9-bus system has 9 buses, 3 generators, 3 transformers, 6 lines and 3 loads.  \\
+There are four voltage levels in the test case: 230 kV, 18 kV, 16.5 kV and 13.8 kV. The inner
+part is the 230 kV part. The generators are at 18 kV, 16.5 kV and 13.8 kV.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{WSCC9Bus.jpg}
+  \caption{WSCC 9-bus system diagram}
+\end{figure}
+
+\subsection{Initial Conditions}
+
+The reference angle for the load flow is set at bus n°1. The initial conditions for each generator
+are:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  Generator & P (MW) & Q (Mvar) & U (kV) & $\Theta$ (°) \\
+  \hline
+  1 & 71.94 & 24.05 & 15.60 & 0.00\\
+  2 & 163.00 & 14.44 & 18.00 & 9.66\\
+  3 & 85.00 & -3.65 & 13.80 & 4.77\\
+  \hline
+\end{tabular}
+\end{center}
+
+\subsection{Models}
+
+The models used are identical to those used for the IEEE14 (See \ref{ModelsIEEE}).
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=$10^{-4}$;
+\item $Accuracy_{Abs}$=$10^{-4}$;
+\end{itemize}
+
+\subsection{Scenario}
+The simulated scenario is a three-phase fault (R = $0 \ \Omega$ and X = $10^{-4} \ \Omega$) at bus 2, which corresponds to the point of connection for generator 2. The fault lasts from t = 1 s to t = 1.1 s.
+
+\newpage
+\subsection{Results}
+
+For this test we focus on the response of generator 2.\\
+
+We observe that the voltage at node 2 falls to zero. As the voltage is zero during the fault, the generator can't evacuate its active power anymore: it falls to zero too. When the fault is cleared the voltage is restored as well as the active power, which stabilizes a few seconds after the fault clearance.\\
+
+\begin{figure}[H]
+\subfigure[Bus 2 voltage (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=NETWORK_B2_U_value]
+        {../WSCC9/WSCC9_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power (Mvar)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=B2-G1 _generator_QGen]
+        {../WSCC9/WSCC9_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Generator 2 response to the three-phase fault}
+\end{figure}
+
+\begin{figure}[H]
+\subfigure[Omega (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=B2-G1 _generator_omegaPu]
+        {../WSCC9/WSCC9_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Active power (MW)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=B2-G1 _generator_PGen]
+        {../WSCC9/WSCC9_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Generator 2 response to the three-phase fault}
+\end{figure}
+\chapter{WECC}
+
+This chapter presents four test cases simulating four models of renewable energies generators :
+\begin{itemize}
+\item A PV plant with the injector represented as a current source (WECCPVCurrentSource).
+\item A PV plant with the injector represented as a voltage source (WECCPVVoltageSource).
+\item A Wind plant of type 4A with the injector represented as a current source (WECCWTG4ACurrentSource).
+\item A Wind plant of type 4B with the injector represented as a current source (WECCWTG4BCurrentSource).
+\end{itemize}
+
+All four models are taken from the WECC standard and can be found here:
+\begin{itemize}
+\item PV:
+
+\url{https://www.wecc.org/\_layouts/15/WopiFrame.aspx?sourcedoc=/Reliability/WECC\%20Solar\%20Plant\%20Dynamic\%20Modeling\%20Guidelines.pdf\&action=default\&DefaultItemOpen=1}
+
+\item Wind:
+
+\url{https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf}
+\end{itemize}
+
+The implementation of these models in Modelica has lead to the following publication in the 14th Modelica conference:\\
+
+M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation of the Generic WECC Photovoltaics and Wind Turbine Generator Models in Modelica", 2021.\\
+
+\par This publication can be found here:
+
+\url{https://ecp.ep.liu.se/index.php/modelica/article/view/242/202}
+
+\section{Test case description}
+
+\par The four test cases are similar. The Wind turbine (or PV plant) is connected to an infinite bus through a line.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{WECC.png}
+  \caption{Test case diagram}
+\end{figure}
+
+\subsection{Initial Conditions}
+
+\par At t=0, the power plant is injecting 0.7pu of active power and 0.2pu of reactive power into the grid. The voltage module at its terminal is 1pu and the voltage angle is equal to 0rad.
+
+\subsection{Models}
+
+\par The models used for the PV plant and the Wind turbine are fully described in the \Dynawo library.
+
+\subsection{Solver}
+
+\par The solver used is the variable time step solver IDA with the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=$10^{-4}$;
+\item $Accuracy_{Abs}$=$10^{-4}$.
+\end{itemize}
+
+\subsection{Scenario}
+
+\par The same scenario is simulated in the four cases. First the infinite bus voltage is reduced from 1pu to 0.5pu from t=1s to t=2s. Then its frequency is increased to 1.01pu (from 1pu) from t=6s to t=6.5s.
+
+\section{Results}
+
+\par The obtained results match the ones presented in the WECC reports.
+
+\par As an example, the injected active and reactive powers of the WECC PV Current source are shown in the following:
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{PQWECC.png}
+  \caption{Active and reactive powers in pu}
+\end{figure}
+
 \chapter{IEEE14}
 
 The IEEE 14-bus system is a standard test case in the power system community. It represents a simple approximation of the American Electric Power system (in the U.S. Midwest) as it was in the early 1960s. The data were provided by Iraj Dabbagchi of AEP and converted into the IEEE Common Data Format by Rich Christie at the University of Washington in August 1993.
@@ -285,6 +646,7 @@ Here are the initial conditions for each generator.
 \end{center}
 
 \subsection{Models}
+\label{ModelsIEEE}
 
 \subsubsection{Synchronous Machines}
 

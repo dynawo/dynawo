@@ -765,8 +765,8 @@ class Variable:
         # Difficult to do this with a regex and a sub, so we use
         # the function "sub_division_sim()" (see utils.py)
         txt_tmp = []
-        ptrn_assign_var = re.compile(r'^[ ]*data->modelData->[\w\[\]]*\.attribute[ ]*\/\*[ \w\$\.()\[\]]*\*\/.start[ ]*=[ ]*(?P<initVal>[^;]*);$')
-        ptrn_local_var = re.compile(r'^[ ]*[^;]*=[ ]*data->modelData->[\w\[\]]*\.attribute[ ]*\/\*[ \w\$\.()\[\]]*\*\/.start[ ]*;$')
+        ptrn_assign_var = re.compile(r'^[ ]*data->modelData->[\w\[\]]*\.attribute[ ]*\/\*.*\*\/.start[ ]*=[ ]*(?P<initVal>[^;]*);$')
+        ptrn_local_var = re.compile(r'^[ ]*[^;]*=[ ]*data->modelData->[\w\[\]]*\.attribute[ ]*\/\*.*\*\/.start[ ]*;$')
         for line in self.start_text:
             if has_omc_trace (line) or has_omc_equation_indexes (line) or ptrn_local_var.match(line) or "infoStreamPrint" in line:
                 continue
@@ -1898,8 +1898,7 @@ class INTEquation:
     def prepare_body(self):
         tmp_body=[]
         for line in self.body:
-            line = mmc_strings_len1(line)
-            line = replace_var_names(line)
+            line = transform_line(line)
             if not has_omc_equation_indexes (line):
                 if THREAD_DATA_OMC_PARAM in line:
                     line=line.replace(THREAD_DATA_OMC_PARAM, "")
@@ -1956,8 +1955,7 @@ class ZEquation:
     def prepare_body(self):
         tmp_body=[]
         for line in self.body:
-            line = mmc_strings_len1(line)
-            line = replace_var_names(line)
+            line = transform_line(line)
             if not has_omc_equation_indexes (line):
                 if THREAD_DATA_OMC_PARAM in line:
                     line=line.replace(THREAD_DATA_OMC_PARAM, "")
@@ -2065,6 +2063,7 @@ class Modes:
         self.body_for_tmps_created_relations = []
         self.relations = []
         self.created_relations = []
+        self.equations_2_create_relation_index = {}
         self.modes_discretes = {}
 
     ##
@@ -2094,6 +2093,17 @@ class Modes:
     # @param created_relation : created relation to add
     def add_created_relation(self, created_relation):
         self.created_relations.append(created_relation)
+
+    ##
+    # Retrieve the created relation index associated to a equation
+    # @param self : object pointer
+    # @param eq : equation function name
+    def find_index_relation(self, eq):
+        result = []
+        for rel in self.created_relations:
+            if eq in rel.eqs:
+                result.append(rel.index)
+        return result
 
     ##
     # Get the body for the evalg for tmps

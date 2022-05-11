@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<constraints xmlns="http://www.rte-france.com/dynawo">
+  <constraint modelName="BUS_SMALL_VALUE_DIFF" description="U &lt; Umin" time="778" type="Node" kind="UInfUmin" limit="180" value="179.98694401888916"/>
+  <constraint modelName="BUS_LARGE_VALUE_DIFF" description="U &lt; Umin" time="778" type="Node" kind="UInfUmin" limit="180" value="181.98694401888716"/>
+  <constraint modelName="BUS_NAME_DIFF2" description="U &lt; Umin" time="781"/>
+  <constraint modelName="BUS_ONLY_ON_RIGHT_SIDE" description="U &lt; Umin" time="778" type="Node" kind="UInfUmin" limit="180" value="179.98694401888716"/>
+  <constraint modelName="BUS_DESC_DIFF" description="U &lt; Umin2" time="787" type="Node" kind="UInfUmin" limit="180" value="179.98750824227648" side="SIDE_1" acceptableDuration="10"/>
+  <constraint modelName="BUS_TIME_DIFF" description="U &lt; Umin" time="789" type="Node" kind="UInfUmin" limit="180" value="179.98750824227648" side="SIDE_1" acceptableDuration="10"/>
+  <constraint modelName="BUS_TYPE_DIFF" description="U &lt; Umin" time="787" type="Load" kind="UInfUmin" limit="180" value="179.98750824227648" side="SIDE_1" acceptableDuration="10"/>
+  <constraint modelName="BUS_KIND_DIFF" description="U &lt; Umin" time="787" type="Node" kind="USupUmax" limit="180" value="179.98750824227648" side="SIDE_1" acceptableDuration="10"/>
+  <constraint modelName="BUS_LIMIT_DIFF" description="U &lt; Umin" time="787" type="Node" kind="UInfUmin" limit="185" value="179.98750824227648" side="SIDE_1" acceptableDuration="10"/>
+  <constraint modelName="BUS_SIDE_DIFF" description="U &lt; Umin" time="787" type="Node" kind="UInfUmin" limit="180" value="179.98750824227648" side="SIDE_2" acceptableDuration="10"/>
+  <constraint modelName="BUS_DURATION_DIFF" description="U &lt; Umin" time="787" type="Node" kind="UInfUmin" limit="180" value="179.98750824227648" side="SIDE_1" acceptableDuration="12"/>
+</constraints>

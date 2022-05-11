@@ -157,25 +157,32 @@ ModelManager::initSubBuffers() {
 void
 ModelManager::init(const double t0) {
   // initialization of the dynamic model
-  shared_ptr<ParametersSet> mergedParametersSet(boost::shared_ptr<ParametersSet>(new ParametersSet("merged_" + name())));
+  setSubModelParameters();  // required as before that memory was not allocated
 
-  const boost::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
-
-  createParametersValueSet(parameters, mergedParametersSet);
-
-  modelModelica()->setParameters(mergedParametersSet);
-
-  // parameters (number and order = those of the .mo file)
-  // --------------------------------------------------
-  // apparently problem of scheduling of inits in WTO
-  for (int i = 0; i < 2; ++i) {
-    modelModelica()->initRpar();
-  }
   modelModelica()->callCustomParametersConstructors();
 
   getSize();
 
   setManagerTime(t0);
+}
+
+void ModelManager::setSubModelParameters() {
+  if (modelModelica()->isDataStructInitialized()) {
+    shared_ptr<ParametersSet> mergedParametersSet(boost::shared_ptr<ParametersSet>(new ParametersSet("merged_" + name())));
+
+    const boost::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
+
+    createParametersValueSet(parameters, mergedParametersSet);
+
+    modelModelica()->setParameters(mergedParametersSet);
+
+    // parameters (number and order = those of the .mo file)
+    // --------------------------------------------------
+    // apparently problem of scheduling of inits in WTO
+    for (int i = 0; i < 2; ++i) {
+      modelModelica()->initRpar();
+    }
+  }
 }
 
 void
@@ -522,6 +529,7 @@ ModelManager::initParams() {
   for (int i = 0; i < 2; ++i) {
     modelModelica()->initRpar();
   }
+  modelModelica()->callCustomParametersConstructors();
 
   // init local sizes for init values
   getSize();
@@ -911,7 +919,7 @@ ModelManager::solveParameters() {
   // we loop until we find stable initial values (handle of dependencies Z->Y, Y->Z)
   bool stableRoot = true;
   bool zChange = false;
-  int compteur = 0;
+  int counter = 0;
 
   // test init model size
   if (sizeY() != sizeF())
@@ -927,6 +935,7 @@ ModelManager::solveParameters() {
 
     setBufferG(g0Safe, 0);
     evalG(t0);
+    rotateBuffers();
 
     try {
       flag = solver.solve();
@@ -973,6 +982,7 @@ ModelManager::solveParameters() {
       if (sizeMode() > 0) {
         evalMode(t0);
       }
+      rotateBuffers();
     } else {
       // case of function to compute discrete variables (used to transform for example)
       evalZ(t0);
@@ -980,8 +990,8 @@ ModelManager::solveParameters() {
 
     zChange = (zSave != zLocalInit_);
 
-    ++compteur;
-    if ( compteur >= 10)
+    ++counter;
+    if ( counter >= 10)
       throw  DYNError(Error::MODELER, UnstableRoots);
   } while (!stableRoot || zChange);
   if (flag < 0)

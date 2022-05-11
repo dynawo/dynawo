@@ -21,6 +21,7 @@ install(FILES ${API_CRT_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 set(API_CRT_SOURCES
   CRTCriteriaParams.cpp
   CRTCriteriaParamsFactory.cpp
+  CRTCriteriaParamsVoltageLevel.cpp
   CRTCriteria.cpp
   CRTCriteriaFactory.cpp
   CRTCriteriaCollection.cpp
@@ -32,6 +33,7 @@ set(API_CRT_SOURCES
 set(API_CRT_INCLUDE_HEADERS
   CRTCriteriaParams.h
   CRTCriteriaParamsFactory.h
+  CRTCriteriaParamsVoltageLevel.h
   CRTCriteria.h
   CRTCriteriaFactory.h
   CRTCriteriaCollection.h

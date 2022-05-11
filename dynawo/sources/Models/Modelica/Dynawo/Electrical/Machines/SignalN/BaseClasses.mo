@@ -16,12 +16,10 @@ package BaseClasses
   extends Icons.BasesPackage;
 
   partial model BaseGeneratorSignalN "Base dynamic model for generators based on SignalN for the frequency handling"
+    import Dynawo.Electrical.Machines;
 
-  import Dynawo.Electrical.Machines;
+    extends Machines.BaseClasses.BaseGeneratorSimplified;
 
-  extends Machines.BaseClasses.BaseGeneratorSimplified;
-
-  public
     parameter Types.ActivePowerPu PRef0Pu "Start value of the active power set point in pu (base SnRef) (receptor convention)";
     parameter Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
     parameter Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
@@ -32,10 +30,9 @@ package BaseClasses
     input Types.PerUnit N "Signal to change the active power reference setpoint of all the generators in the system in pu (base SnRef)";
 
   protected
-    Types.ActivePowerPu PGenRawPu (start = PGen0Pu) "Active power generation without taking limits into account in pu (base SnRef) (generator convention)";
+    Types.ActivePowerPu PGenRawPu(start = PGen0Pu) "Active power generation without taking limits into account in pu (base SnRef) (generator convention)";
 
   equation
-
     if running.value then
       PGenRawPu = - PRef0Pu + Alpha * N;
       PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
@@ -44,7 +41,7 @@ package BaseClasses
       terminal.i.re = 0;
     end if;
 
-annotation(preferredView = "text");
+    annotation(preferredView = "text");
   end BaseGeneratorSignalN;
 
   annotation(preferredView = "text");

@@ -51,12 +51,10 @@ model HvdcPVDiagramPQ "Model of PV HVDC link with a PQ diagram. Each terminal ca
   parameter Types.Angle UPhase20 "Start value of voltage angle and filtered voltage angle at terminal 2 in rad";
 
 protected
-
-  QStatus q1Status (start = QStatus.Standard) "Voltage regulation status of terminal 1: standard, absorptionMax or generationMax";
-  QStatus q2Status (start = QStatus.Standard) "Voltage regulation status of terminal 2: standard, absorptionMax or generationMax";
+  QStatus q1Status(start = QStatus.Standard) "Voltage regulation status of terminal 1: standard, absorptionMax or generationMax";
+  QStatus q2Status(start = QStatus.Standard) "Voltage regulation status of terminal 2: standard, absorptionMax or generationMax";
 
 equation
-
   Theta1 = Modelica.Math.atan2(terminal1.V.im,terminal1.V.re);
   Theta2 = Modelica.Math.atan2(terminal2.V.im,terminal2.V.re);
 
@@ -76,53 +74,52 @@ equation
     q2Status = QStatus.Standard;
   end when;
 
-if running.value then
-
-// Voltage/Reactive power regulation at terminal 1
-  if modeU1 then
-    if q1Status == QStatus.GenerationMax then
-      QInj1Pu = QInj1MaxPu;
-    elseif q1Status == QStatus.AbsorptionMax then
-      QInj1Pu = QInj1MinPu;
+  //Voltage/Reactive power regulation at terminal 1
+  if runningSide1.value then
+    if modeU1 then
+      if q1Status == QStatus.GenerationMax then
+        QInj1Pu = QInj1MaxPu;
+      elseif q1Status == QStatus.AbsorptionMax then
+        QInj1Pu = QInj1MinPu;
+      else
+        U1Pu = U1RefPu;
+      end if;
     else
-      U1Pu = U1RefPu;
+      if - Q1RefPu <= QInj1MinPu then
+        QInj1Pu = QInj1MinPu;
+      elseif - Q1RefPu >= QInj1MaxPu then
+        QInj1Pu = QInj1MaxPu;
+      else
+        Q1Pu = Q1RefPu;
+      end if;
     end if;
   else
-    if - Q1RefPu <= QInj1MinPu then
-      QInj1Pu = QInj1MinPu;
-    elseif - Q1RefPu >= QInj1MaxPu then
-      QInj1Pu = QInj1MaxPu;
-    else
-      Q1Pu = Q1RefPu;
-    end if;
+    QInj1Pu = 0;
   end if;
 
-// Voltage/Reactive power regulation at terminal 2
-  if modeU2 then
-    if q2Status == QStatus.GenerationMax then
-      QInj2Pu = QInj2MaxPu;
-    elseif q2Status == QStatus.AbsorptionMax then
-      QInj2Pu = QInj2MinPu;
+  //Voltage/Reactive power regulation at terminal 2
+  if runningSide2.value then
+    if modeU2 then
+      if q2Status == QStatus.GenerationMax then
+        QInj2Pu = QInj2MaxPu;
+      elseif q2Status == QStatus.AbsorptionMax then
+        QInj2Pu = QInj2MinPu;
+      else
+        U2Pu = U2RefPu;
+      end if;
     else
-      U2Pu = U2RefPu;
+      if - Q2RefPu <= QInj2MinPu then
+        QInj2Pu = QInj2MinPu;
+      elseif - Q2RefPu >= QInj2MaxPu then
+        QInj2Pu = QInj2MaxPu;
+      else
+        Q2Pu = Q2RefPu;
+      end if;
     end if;
   else
-    if - Q2RefPu <= QInj2MinPu then
-      QInj2Pu = QInj2MinPu;
-    elseif - Q2RefPu >= QInj2MaxPu then
-      QInj2Pu = QInj2MaxPu;
-    else
-      Q2Pu = Q2RefPu;
-    end if;
+    QInj2Pu = 0;
   end if;
 
-else
-
-  terminal1.i.im = 0;
-  terminal2.i.im = 0;
-
-end if;
-
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. It also regulates the voltage or the reactive power at each of its terminals. The active power setpoint is given as an input and can be modified during the simulation, as well as the voltage references and the reactive power references. The Q limitations follow a PQ diagram.</div></body></html>"));
 end HvdcPVDiagramPQ;

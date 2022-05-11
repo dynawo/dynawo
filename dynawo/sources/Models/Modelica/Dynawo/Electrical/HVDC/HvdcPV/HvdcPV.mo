@@ -31,10 +31,10 @@ model HvdcPV "Model of PV HVDC link. Each terminal can regulate the voltage or t
                               AbsorptionMax "Reactive power is fixed to its absorption limit",
                               GenerationMax "Reactive power is fixed to its generation limit");
 
-  parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
-  parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MinPu "Minimum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q1MaxPu "Maximum reactive power in pu (base SnRef) at terminal 1 (receptor convention)";
+  parameter Types.ReactivePowerPu Q2MinPu "Minimum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
+  parameter Types.ReactivePowerPu Q2MaxPu "Maximum reactive power in pu (base SnRef) at terminal 2 (receptor convention)";
 
   input Types.VoltageModulePu U1RefPu(start = U1Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 1";
   input Types.VoltageModulePu U2RefPu(start = U2Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 2";
@@ -56,12 +56,10 @@ model HvdcPV "Model of PV HVDC link. Each terminal can regulate the voltage or t
   parameter Types.Angle UPhase20 "Start value of voltage angle and filtered voltage angle at terminal 2 in rad";
 
 protected
-
   QStatus q1Status(start = QStatus.Standard) "Voltage regulation status of terminal 1: standard, absorptionMax or generationMax";
   QStatus q2Status(start = QStatus.Standard) "Voltage regulation status of terminal 2: standard, absorptionMax or generationMax";
 
 equation
-
   Theta1 = Modelica.Math.atan2(terminal1.V.im,terminal1.V.re);
   Theta2 = Modelica.Math.atan2(terminal2.V.im,terminal2.V.re);
 
@@ -81,9 +79,8 @@ equation
     q2Status = QStatus.Standard;
   end when;
 
-if running.value then
-
 // Voltage/Reactive power regulation at terminal 1
+if runningSide1.value then
   if modeU1 then
     if q1Status == QStatus.GenerationMax then
       Q1Pu = Q1MinPu;
@@ -101,8 +98,12 @@ if running.value then
       Q1Pu = Q1RefPu;
     end if;
   end if;
+else
+  Q1Pu = 0;
+end if;
 
 // Voltage/Reactive power regulation at terminal 2
+if runningSide2.value then
   if modeU2 then
     if q2Status == QStatus.GenerationMax then
       Q2Pu = Q2MinPu;
@@ -120,14 +121,10 @@ if running.value then
       Q2Pu = Q2RefPu;
     end if;
   end if;
-
 else
-
-  terminal1.i.im = 0;
-  terminal2.i.im = 0;
-
+  Q2Pu = 0;
 end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. It also regulates the voltage or the reactive power at each of its terminals. The active power setpoint is given as an input and can be modified during the simulation, as well as the voltage references and the reactive power references.</div></body></html>"));
 end HvdcPV;

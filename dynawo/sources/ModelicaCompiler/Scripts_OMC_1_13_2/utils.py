@@ -156,6 +156,7 @@ def replace_var_names(line):
     ptrn_var_add = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w]+)\[(?P<varIdx>[0-9]+)\]')
     data_simulation_info = "data->simulationInfo->"
     dummy_der_var = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) DUMMY_DER \*\/')
+    state_var = re.compile(    r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) STATE\(.*\) \*\/')
     map_to_replace = {}
     pattern_index  = 0
     match = dummy_der_var.findall(line)
@@ -167,6 +168,13 @@ def replace_var_names(line):
         replacement_string = "@@@" + str(pattern_index) + "@@@"
         line = line.replace("data->localData["+str(idx)+"]->"+add, replacement_string)
         map_to_replace[replacement_string] = to_param_address(dummy_name)
+        pattern_index +=1
+    match = state_var.findall(line)
+    for idx, add, name in match:
+        test_param_address(name)
+        replacement_string = "@@@" + str(pattern_index) + "@@@"
+        line = line.replace("data->localData["+str(idx)+"]->"+add, replacement_string)
+        map_to_replace[replacement_string] = to_param_address(name)
         pattern_index +=1
     match = ptrn_var.findall(line)
     for idx, add, name in match:
@@ -849,6 +857,21 @@ def transform_atan3_operator_evalf(line):
     return line_tmp_bis
 
 ##
+# Transform _event_floor(x, index, data) to (modelica_integer)floor(x)
+# and event_integer(x, index, data) to (modelica_integer)floor(x)
+# @param line : line to analyse
+# @return line transformed
+def replace_event_floor(line):
+    if "_event_floor" not in line and "_event_integer" not in line:
+        return line
+    event_floor_ptrn = re.compile(r'_event_floor\((?P<var>[^,]*), \(\(modelica_integer\) [0-9]+\), data\)')
+    line = event_floor_ptrn.sub('((modelica_integer) floor(\g<var>))',line)
+    event_int_ptrn = re.compile(r'_event_integer\((?P<var>[^,]*), \(\(modelica_integer\) [0-9]+\), data\)')
+    line = event_int_ptrn.sub('((modelica_integer) floor(\g<var>))',line)
+
+    return line
+
+##
 # Transform a line so that it can be compiled
 # @param line : line to analyse
 # @return line transformed
@@ -858,6 +881,7 @@ def transform_line(line):
     line_tmp = sub_division_sim(line_tmp)
     line_tmp = replace_var_names(line_tmp)
     line_tmp = replace_pow(line_tmp)
+    line_tmp = replace_event_floor(line_tmp)
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")
     return line_tmp
@@ -951,7 +975,7 @@ def convert_booleans_body (boolean_variables_names, body):
 # @param line : the line to convert
 # @return the converted line as a string
 def convert_booleans_line (boolean_variables_names, line):
-    allowed_containers = [' ', '(', ')', '=', '!']
+    allowed_containers = [' ', '(', ')', '=', '!', ',']
     # temporary patterns for avoiding to convert quoted names
     patterns_temp = ["@@@@@@@@", "$$$$$$$$"]
     for n, pattern in enumerate(patterns_temp):

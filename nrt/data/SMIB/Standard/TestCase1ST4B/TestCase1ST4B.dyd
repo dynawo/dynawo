@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="SynchronousGenerator" lib="GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2BStepURef" parFile="TestCase1ST4B.par" parId="SynchronousGenerator"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="TestCase1ST4B.par" parId="OmegaRef"/>
+  <dyn:blackBoxModel id="Bus" lib="Bus"/>
+  <dyn:connect id1="Bus" var1="bus_terminal" id2="SynchronousGenerator" var2="generator_terminal"/>
+  <dyn:connect id1="SynchronousGenerator" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
+</dyn:dynamicModelsArchitecture>

@@ -28,13 +28,13 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
-###########################################################
-#     IEEE 14 - Disconnect Line with intermediate dump    #
-###########################################################
+#####################################
+#     WSCC9 - Disconnect Line     #
+#####################################
 
-case_name = "DynaFlow - IEEE14 - DisconnectLine intermediate"
-case_description = "IEEE 14 test case with a line disconnection and intermediate dumps"
-job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "IEEE14", "IEEE14_DisconnectLine_intermediate_dump", "IEEE14.jobs")
+case_name = "DynaFlow - WSCC9 - DisconnectLine"
+case_description = "WSCC 9 bus test case with a line disconnection"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "WSCC9", "WSCC9_DisconnectLine", "WSCC9.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
@@ -148,7 +148,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 #  Small System with two HVDC links with AC Emulation, a centralized voltage control and PQ diagrams #
 ######################################################################################################
 
-if os.environ["DYNAWO_CXX11_ENABLED"] == "YES" and os.environ.get("DYNAWO_USE_LEGACY_IIDM", "NO") != "YES":
+if os.environ.get("DYNAWO_USE_LEGACY_IIDM", "NO") != "YES":
     case_name = "DynaFlow - HVDC links with AC Emulation, a centralized voltage control and PQ diagrams"
     case_description = "Small System with two HVDC links with AC Emulation, a centralized voltage control and PQ diagrams"
     job_file = os.path.join(os.path.dirname(__file__), "HvdcPQPropDiagramPQ", "HvdcPQPropDiagramPQ.jobs")

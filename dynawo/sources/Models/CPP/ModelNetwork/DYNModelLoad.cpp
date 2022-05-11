@@ -83,10 +83,10 @@ zQYNum_(0) {
   Q0_ = load->getQ() / SNREF;
   connectionState_ = load->getInitialConnected() ? CLOSED : OPEN;
   double uNode = load->getBusInterface()->getV0();
-  double tetaNode = load->getBusInterface()->getAngle0();
+  double thetaNode = load->getBusInterface()->getAngle0();
   double unomNode = load->getBusInterface()->getVNom();
-  double ur0 = uNode / unomNode * cos(tetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(tetaNode * DEG_TO_RAD);
+  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
+  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
   ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
   ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
 }
@@ -725,35 +725,31 @@ void
 ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
   switch (numCalculatedVar) {
     case pNum_: {
-      if (isRunning()) {
-        numVars.push_back(modelBus_->urYNum());
-        numVars.push_back(modelBus_->uiYNum());
-        if (isControllable_)
-          numVars.push_back(DeltaPcYNum_ + yOffset_);
-        if (isRestorative_)
-          numVars.push_back(zPYNum_ + yOffset_);
-      }
+      numVars.push_back(modelBus_->urYNum());
+      numVars.push_back(modelBus_->uiYNum());
+      if (isControllable_)
+        numVars.push_back(DeltaPcYNum_ + yOffset_);
+      if (isRestorative_)
+        numVars.push_back(zPYNum_ + yOffset_);
     }
     break;
     case qNum_: {
-      if (isRunning()) {
-        numVars.push_back(modelBus_->urYNum());
-        numVars.push_back(modelBus_->uiYNum());
-        if (isControllable_)
-          numVars.push_back(DeltaQcYNum_ + yOffset_);
-        if (isRestorative_)
-          numVars.push_back(zQYNum_ + yOffset_);
-      }
+      numVars.push_back(modelBus_->urYNum());
+      numVars.push_back(modelBus_->uiYNum());
+      if (isControllable_)
+        numVars.push_back(DeltaQcYNum_ + yOffset_);
+      if (isRestorative_)
+        numVars.push_back(zQYNum_ + yOffset_);
     }
     break;
     case pcNum_: {
-      if (isRunning() && isControllable_) {
+      if (isControllable_) {
         numVars.push_back(DeltaPcYNum_ + yOffset_);
       }
     }
     break;
     case qcNum_: {
-      if (isRunning() && isControllable_) {
+      if (isControllable_) {
         numVars.push_back(DeltaQcYNum_ + yOffset_);
       }
     }

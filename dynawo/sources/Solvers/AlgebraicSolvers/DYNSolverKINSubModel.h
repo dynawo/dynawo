@@ -68,7 +68,7 @@ class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable {
    * @param mxiter maximum number of nonlinear iterations
    * @param printfl level of verbosity of output
    */
-  void init(SubModel * subModel, const double t0, double* yBuffer, double* fBuffer, int mxiter = 30, double fnormtol = 1e-4,
+  void init(SubModel* subModel, const double t0, double* yBuffer, double* fBuffer, int mxiter = 30, double fnormtol = 1e-4,
       double initialaddtol = 0.1, double scsteptol = 1e-4, double mxnewtstep = 100000, int msbset = 0, int printfl = 0);
 
   /**
@@ -102,7 +102,7 @@ class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable {
    *
    * @return 0 is successful, positive value otherwise
    */
-  static int evalFInit_KIN(N_Vector yy, N_Vector rr, void *data);
+  static int evalFInit_KIN(N_Vector yy, N_Vector rr, void* data);
 
   /**
    * @brief calculate the Jacobian associate to F(u): \f$( J=@F/@u)\f$
@@ -118,7 +118,7 @@ class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable {
    * @return  0 is successful, positive value otherwise
    */
   static int evalJInit_KIN(N_Vector yy, N_Vector rr,
-          SUNMatrix JJ, void * data, N_Vector tmp1, N_Vector tmp2);
+          SUNMatrix JJ, void* data, N_Vector tmp1, N_Vector tmp2);
 
   SubModel* subModel_;  ///< model currently simulated
 

@@ -22,13 +22,13 @@ model GeneratorPV_INIT "Initialisation model for generator PV based on SignalN f
 
     parameter Types.ActivePowerPu PMin "Minimum active power in MW";
     parameter Types.ActivePowerPu PMax "Maximum active power in MW";
-    parameter Types.ReactivePowerPu QMin  "Minimum reactive power in Mvar";
+    parameter Types.ReactivePowerPu QMin "Minimum reactive power in Mvar";
     parameter Types.ReactivePowerPu QMax "Maximum reactive power in Mvar";
 
     Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
     Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
-    Types.ReactivePowerPu QMinPu  "Minimum reactive power in pu (base SnRef)";
-    Types.ReactivePowerPu QMaxPu  "Maximum reactive power in pu (base SnRef)";
+    Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
+    Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
 
 equation
 

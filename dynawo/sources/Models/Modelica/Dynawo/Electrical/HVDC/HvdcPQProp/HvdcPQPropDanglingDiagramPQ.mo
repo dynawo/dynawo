@@ -36,20 +36,17 @@ model HvdcPQPropDanglingDiagramPQ "Model for HVDC link with a reactive power pro
   parameter Boolean modeU10 "Start value of the boolean assessing the mode of the control of converter 1";
 
 protected
-
   Types.ReactivePowerPu QInj1RawModeUPu(start = - s10Pu.im) "Reactive power generation of converter 1 without taking limits into account in pu and for mode U activated (base SnRef) (generator convention)";
   Types.ReactivePowerPu QInj1RawPu(start = - s10Pu.im) "Reactive power generation of converter 1 without taking limits into account in pu (base SnRef) (generator convention)";
 
 equation
-
   s1Pu = Complex(P1Pu, Q1Pu);
   s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
   QInj1RawModeUPu = - Q1RefPu + QPercent1 * NQ1;
   QInj1RawPu = if modeU1 then QInj1RawModeUPu else - Q1RefPu;
 
-  if running.value then
-
-  // Reactive power regulation at terminal 1
+  if runningSide1.value then
+    //Reactive power regulation at terminal 1
     if QInj1RawPu <= QInj1MinPu then
       QInj1Pu = QInj1MinPu;
     elseif QInj1RawPu >= QInj1MaxPu then
@@ -57,13 +54,10 @@ equation
     else
       QInj1Pu = QInj1RawPu;
     end if;
-
   else
-
     terminal1.i.im = 0;
-
   end if;
 
-annotation(preferredView = "text",
+  annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. It also regulates the reactive power at terminal1 (with a fixed Q reference or a proportional regulation). The active power setpoint is given as an input and can be modified during the simulation, as well as the reactive power reference of terminal1. The terminal2 is connected to a switched-off bus.</div></body></html>"));
 end HvdcPQPropDanglingDiagramPQ;

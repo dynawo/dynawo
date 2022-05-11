@@ -19,7 +19,6 @@ model UdqRef "Calculation of setpoints udSourceRefPu and uqSourceRefPu with sour
     | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
      --------           iSourcePu                                                 iPu
 */
-
   import Modelica.Blocks.Interfaces;
   import Dynawo.Types;
 
@@ -39,7 +38,6 @@ model UdqRef "Calculation of setpoints udSourceRefPu and uqSourceRefPu with sour
   Interfaces.RealOutput uqSourceRefPu(start = UqInj0Pu + Iq0Pu * RSourcePu + Id0Pu * XSourcePu) "q-axis reference voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.PerUnit Id0Pu "Start value of d-axis current in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit Iq0Pu "Start value of q-axis current in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit UdInj0Pu "Start value of d-axis voltage injector in pu (base UNom)";

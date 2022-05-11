@@ -48,6 +48,7 @@ OutputsEntry::copy(const OutputsEntry& other) {
   curvesEntry_ = DYN::clone(other.curvesEntry_);
   lostEquipmentsEntry_ = DYN::clone(other.lostEquipmentsEntry_);
   logsEntry_ = DYN::clone(other.logsEntry_);
+  finalStateValuesEntry_ = DYN::clone(other.finalStateValuesEntry_);
 
   finalStateEntries_.reserve(other.finalStateEntries_.size());
   for (std::vector<boost::shared_ptr<FinalStateEntry> >::const_iterator it = other.finalStateEntries_.begin(); it != other.finalStateEntries_.end(); ++it) {
@@ -118,6 +119,16 @@ OutputsEntry::setCurvesEntry(const boost::shared_ptr<CurvesEntry>& curvesEntry) 
 boost::shared_ptr<CurvesEntry>
 OutputsEntry::getCurvesEntry() const {
   return curvesEntry_;
+}
+
+void
+OutputsEntry::setFinalStateValuesEntry(const boost::shared_ptr<FinalStateValuesEntry>& finalStateValuesEntry) {
+  finalStateValuesEntry_ = finalStateValuesEntry;
+}
+
+boost::shared_ptr<FinalStateValuesEntry>
+OutputsEntry::getFinalStateValuesEntry() const {
+  return finalStateValuesEntry_;
 }
 
 void

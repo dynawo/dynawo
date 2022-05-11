@@ -13,12 +13,11 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block IntegratorOrFirstOrder "Switch between two operators : integrator, first-order filter"
-
   import Modelica;
   import Modelica.Blocks.Interfaces;
   import Dynawo.Types;
 
-  extends Modelica.Blocks.Icons.PartialBooleanBlock;
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Types.PerUnit K = 1 "Integrator gain";
   parameter Types.Time tFilter "First-order time constant in s";
@@ -64,8 +63,6 @@ u1 (upper connector) and u3 (lower connector) and applies different operations t
           color = {0, 0, 127}, thickness = 1),
         Ellipse(lineColor = {0, 0, 255}, pattern = LinePattern.None,
           fillPattern = FillPattern.Solid, extent = {{2, -8}, {18, 8}}, endAngle = 360),
-        Text(origin = {20, 90},lineColor = {192, 192, 192},
-          extent = {{0, -70}, {60, -10}}, textString = "I"),
-        Text(origin = {20, -20},lineColor = {192, 192, 192},
-          extent = {{0, -60}, {60, 0}}, textString = "PT1")}));
+        Text(lineColor = {192, 192, 192}, extent = {{20, 20}, {80, 80}}, textString = "I"),
+        Text(lineColor = {192, 192, 192}, extent = {{20, -20}, {80, -80}}, textString = "F")}));
 end IntegratorOrFirstOrder;

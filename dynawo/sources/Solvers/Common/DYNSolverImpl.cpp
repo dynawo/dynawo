@@ -20,7 +20,6 @@
 #include <iostream>
 #include <iomanip>
 #include <nvector/nvector_serial.h>
-#include <boost/static_assert.hpp>
 
 #include "DYNSolverImpl.h"
 
@@ -50,17 +49,10 @@ using timeline::Timeline;
 namespace DYN {
 
 namespace conditions {
-#if defined LANG_CXX11 || defined LANG_CXX0X
 /**
  * @brief Test is the type defining double in sundials is equivalent to double type
  */
 static_assert(sizeof (double) == sizeof (realtype), "wrong size of sundials::realtype");
-#else
-/**
- * @brief Test is the type defining double in sundials is equivalent to double type
- */
-BOOST_STATIC_ASSERT_MSG(sizeof (double) == sizeof (realtype), "wrong size of sundials::realtype");
-#endif
 }  // namespace conditions
 
 Solver::~Solver() {}
@@ -114,7 +106,7 @@ Solver::Impl::clean() {
 }
 
 void
-Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
+Solver::Impl::init(const double t0, const boost::shared_ptr<Model>& model) {
   model_ = model;
 
   // Problem size
@@ -225,7 +217,7 @@ Solver::Impl::resetStats() {
 }
 
 void
-Solver::Impl::solve(double tAim, double &tNxt) {
+Solver::Impl::solve(double tAim, double& tNxt) {
   // Solving
   state_.reset();
   model_->reinitMode();
@@ -237,7 +229,7 @@ Solver::Impl::solve(double tAim, double &tNxt) {
 }
 
 bool
-Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double & time) {
+Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, double time) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIMPL::evalZMode");
 #endif
@@ -291,7 +283,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
 }
 
 void
-Solver::Impl::printUnstableRoot(double t, const vector<state_g> &G0, const vector<state_g> &G1) const {
+Solver::Impl::printUnstableRoot(double t, const vector<state_g>& G0, const vector<state_g>& G1) const {
   int i = 0;
   vector<state_g>::const_iterator iG0(G0.begin());
   vector<state_g>::const_iterator iG1(G1.begin());
@@ -309,7 +301,7 @@ Solver::Impl::printUnstableRoot(double t, const vector<state_g> &G0, const vecto
 }
 
 void
-Solver::Impl::checkUnusedParameters(boost::shared_ptr<parameters::ParametersSet> params) {
+Solver::Impl::checkUnusedParameters(const boost::shared_ptr<parameters::ParametersSet>& params) const {
   vector<string> unusedParamNameList = params->getParamsUnused();
   for (vector<string>::iterator it = unusedParamNameList.begin();
           it != unusedParamNameList.end();
@@ -364,7 +356,7 @@ Solver::Impl::defineCommonParameters() {
 }
 
 bool
-Solver::Impl::hasParameter(const string & nameParameter) {
+Solver::Impl::hasParameter(const string& nameParameter) {
   map<string, ParameterSolver>::iterator it = parameters_.find(nameParameter);
   return it != parameters_.end();
 }
@@ -383,7 +375,7 @@ Solver::Impl::getParametersMap() const {
 }
 
 void
-Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr<parameters::ParametersSet> parametersSet) {
+Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr<parameters::ParametersSet>& parametersSet) {
   if (parametersSet) {
     ParameterSolver& parameter = findParameter(parName);
 
@@ -402,7 +394,7 @@ Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr
           break;
         }
         case VAR_TYPE_DOUBLE: {
-          const double& value = parametersSet->getParameter(parName)->getDouble();
+          const double value = parametersSet->getParameter(parName)->getDouble();
           setParameterValue(parameter, value);
           break;
         }

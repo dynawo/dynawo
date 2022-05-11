@@ -84,12 +84,12 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsDefineMethod
   ASSERT_NO_THROW(modelLoad->setSubModelParameters());
   std::vector<boost::shared_ptr<Variable> > variables;
   modelLoad->defineVariables(variables);
-  ASSERT_EQ(variables.size(), 12);
+  ASSERT_EQ(variables.size(), 11);
   std::vector<Element> elements;
   std::map<std::string, int> mapElements;
   modelLoad->defineElements(elements, mapElements);
   ASSERT_EQ(elements.size(), mapElements.size());
-  ASSERT_EQ(elements.size(), 24);
+  ASSERT_EQ(elements.size(), 22);
 
   boost::shared_ptr<SubModel> modelLoad2 = initModelLoad(0.85);
   boost::shared_ptr<SubModel> modelLoad3 = initModelLoad(1.15);
@@ -112,8 +112,8 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsDefineMethod
 
 TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsTypeMethods) {
   boost::shared_ptr<SubModel> modelLoad = initModelLoad(1.0);
-  unsigned nbY = 6;
-  unsigned nbF = 4;
+  unsigned nbY = 5;
+  unsigned nbF = 3;
   unsigned nbZ = 3;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
@@ -151,16 +151,14 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsInit) {
 
   ASSERT_EQ(y[0], 1);
   ASSERT_EQ(yp[0], 0);
-  ASSERT_EQ(y[1], 1);
+  ASSERT_EQ(y[1], 0);
   ASSERT_EQ(yp[1], 0);
   ASSERT_EQ(y[2], 0);
   ASSERT_EQ(yp[2], 0);
-  ASSERT_EQ(y[3], 0);
+  ASSERT_EQ(y[3], 1);
   ASSERT_EQ(yp[3], 0);
-  ASSERT_EQ(y[4], 1);
+  ASSERT_EQ(y[4], -1);
   ASSERT_EQ(yp[4], 0);
-  ASSERT_EQ(y[5], -1);
-  ASSERT_EQ(yp[5], 0);
   ASSERT_EQ(z[0], -1);
   ASSERT_EQ(z[1], -1);
   ASSERT_EQ(z[2], 1);
@@ -174,8 +172,14 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsInit) {
 TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAndDiscreteMethods) {
   boost::shared_ptr<SubModel> modelLoad = initModelLoad(1.0);
   std::vector<double> y(modelLoad->sizeY(), 0);
+  std::vector<propertyContinuousVar_t> yType(modelLoad->sizeY(), ALGEBRAIC);
+  yType[0] = DIFFERENTIAL;
+  std::vector<propertyF_t> fType(modelLoad->sizeY(), ALGEBRAIC_EQ);
+  fType[0] = DIFFERENTIAL_EQ;
   std::vector<double> yp(modelLoad->sizeY(), 0);
   modelLoad->setBufferY(&y[0], &yp[0], 0.);
+  modelLoad->setBufferYType(&yType[0], 0);
+  modelLoad->setBufferFType(&fType[0], 0);
   std::vector<double> z(modelLoad->sizeZ(), 0);
   bool* zConnected = new bool[modelLoad->sizeZ()];
   for (size_t i = 0; i < modelLoad->sizeZ(); ++i)
@@ -199,11 +203,15 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   for (size_t i = 0; i < modelLoad->sizeZ(); ++i)
     ASSERT_FALSE(silentZ[i].getFlags(NotUsedInDiscreteEquations));
   ASSERT_NO_THROW(modelLoad->evalZ(0));
+  ASSERT_NO_THROW(modelLoad->evalDynamicYType());
+  ASSERT_EQ(yType[0], DIFFERENTIAL);
+  ASSERT_NO_THROW(modelLoad->evalDynamicFType());
+  ASSERT_EQ(fType[0], DIFFERENTIAL_EQ);
   ASSERT_NO_THROW(modelLoad->evalF(0, UNDEFINED_EQ));
   ASSERT_NO_THROW(modelLoad->evalF(0, DIFFERENTIAL_EQ));
   ASSERT_NO_THROW(modelLoad->evalF(0, ALGEBRAIC_EQ));
+  y[1] = 1.0;
   y[2] = 1.0;
-  y[3] = 1.0;
   SparseMatrix smj;
   int size = modelLoad->sizeY();
   smj.init(size, size);
@@ -287,17 +295,27 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   ASSERT_NO_THROW(modelLoad->evalZ(0));
   ASSERT_NO_THROW(modelLoad->evalMode(0));
   ASSERT_NO_THROW(modelLoad->setGequations());
+  ASSERT_NO_THROW(modelLoad->evalDynamicYType());
+  ASSERT_EQ(yType[0], ALGEBRAIC);
+  ASSERT_NO_THROW(modelLoad->evalDynamicFType());
+  ASSERT_EQ(fType[0], ALGEBRAIC_EQ);
   ASSERT_NO_THROW(modelLoad->evalF(0, ALGEBRAIC_EQ));
+  ASSERT_NO_THROW(modelLoad->setFequations());
   g[0] = ROOT_DOWN;
   g[1] = ROOT_UP;
   ASSERT_NO_THROW(modelLoad->evalZ(0));
   ASSERT_NO_THROW(modelLoad->evalMode(0));
   ASSERT_NO_THROW(modelLoad->setGequations());
+  ASSERT_NO_THROW(modelLoad->evalDynamicYType());
+  ASSERT_EQ(yType[0], ALGEBRAIC);
+  ASSERT_NO_THROW(modelLoad->evalDynamicFType());
+  ASSERT_EQ(fType[0], ALGEBRAIC_EQ);
   ASSERT_NO_THROW(modelLoad->evalF(0, ALGEBRAIC_EQ));
+  ASSERT_NO_THROW(modelLoad->setFequations());
 
+  y[0] = 0.;
   y[1] = 0.;
   y[2] = 0.;
-  y[3] = 0.;
 
   ASSERT_THROW_DYNAWO(modelLoad->evalF(0, ALGEBRAIC_EQ), Error::NUMERICAL_ERROR, KeyError_t::NumericalErrorFunction);
 }

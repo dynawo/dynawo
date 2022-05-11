@@ -41,13 +41,12 @@ model SVarCPV "PV static var compensator model without mode handling"
   Types.ReactivePowerPu QInjPu(start = B0Pu * U0Pu ^ 2) "Reactive power in pu (base SnRef) (generator convention)";
   Types.ActivePowerPu PInjPu(start = 0) "Active power in pu (base SnRef) (generator convention)";
 
-protected
   parameter Types.PerUnit B0Pu "Start value of the susceptance in pu (base UNom, SnRef)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at injector terminal in pu (base UNom)";
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
   final parameter Types.PerUnit BVar0Pu = B0Pu - BShuntPu "Start value of variable susceptance in pu (base UNom, SnRef)";
-  BStatus bStatus (start = BStatus.Standard) "Susceptance value status: standard, susceptancemax, susceptancemin";
+  BStatus bStatus(start = BStatus.Standard) "Susceptance value status: standard, susceptancemax, susceptancemin";
 
 equation
   when BVarPu >= BMaxPu and UPu <= URefPu then

@@ -205,7 +205,7 @@ SolverKINCommon::solveCommon() {
 }
 
 void
-SolverKINCommon::analyseFlag(const int & flag) {
+SolverKINCommon::analyseFlag(const int flag) {
   stringstream msg;
   switch (flag) {
     case KIN_SUCCESS:

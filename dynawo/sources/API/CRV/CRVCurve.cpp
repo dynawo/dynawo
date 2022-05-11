@@ -31,15 +31,16 @@ using std::string;
 namespace curves {
 
 Curve::Curve::Curve() :
-    modelName_(""),
-    variable_(""),
-    foundName_(""),
-    available_(false),
-    negated_(false),
-    buffer_(NULL),
-    isParameterCurve_(false),
-    curveType_(UNDEFINED),
-    indexInGlobalTable_(std::numeric_limits<size_t>::max()) {}
+      modelName_(""),
+      variable_(""),
+      foundName_(""),
+      available_(false),
+      negated_(false),
+      buffer_(NULL),
+      isParameterCurve_(false),
+      curveType_(UNDEFINED),
+      indexInGlobalTable_(std::numeric_limits<size_t>::max()),
+      exportType_(EXPORT_AS_CURVE) {}
 
 void
 Curve::update(const double& time) {
@@ -50,13 +51,21 @@ Curve::update(const double& time) {
         value = -1 * value;
 
       boost::shared_ptr<Point> point = PointFactory::newPoint(time, value);
-      points_.push_back(point);
+      if (exportType_ == EXPORT_AS_CURVE || exportType_ == EXPORT_AS_BOTH || points_.empty()) {
+        points_.push_back(point);
+      } else {
+        points_.back() = point;
+      }
     } else {  // this is a parameter curve
               // we set the value of parameter curve to zero during the simulation
               // and update the value at the end of simulation.
       double value(0);
       boost::shared_ptr<Point> point = PointFactory::newPoint(time, value);
-      points_.push_back(point);
+      if (exportType_ == EXPORT_AS_CURVE || exportType_ == EXPORT_AS_BOTH || points_.empty()) {
+        points_.push_back(point);
+      } else {
+        points_.back() = point;
+      }
     }
   }
 }
@@ -96,6 +105,11 @@ Curve::setNegated(bool negated) {
 void
 Curve::setBuffer(const double* buffer) {
   buffer_ = buffer;
+}
+
+void
+Curve::setExportType(ExportType_t value) {
+  exportType_ = value;
 }
 
 void

@@ -48,7 +48,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 static std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
-createModelBus(bool initModel, bool isNodeBreaker) {
+createModelBus(bool initModel, bool isNodeBreaker, bool hasConnection = true) {
 #ifdef USE_POWSYBL
   powsybl::iidm::Network networkIIDM("test", "test");
 
@@ -72,7 +72,7 @@ createModelBus(bool initModel, bool isNodeBreaker) {
 
   shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
-  bus1ItfIIDM->hasConnection(true);
+  bus1ItfIIDM->hasConnection(hasConnection);
 #else
   IIDM::builders::BusBuilder bb;
   bb.angle(90);
@@ -89,7 +89,7 @@ createModelBus(bool initModel, bool isNodeBreaker) {
 
   shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
-  bus1ItfIIDM->hasConnection(true);
+  bus1ItfIIDM->hasConnection(hasConnection);
 #endif
 
   ModelNetwork* network = new ModelNetwork();
@@ -602,10 +602,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
   ASSERT_EQ(nbCalc, 4);
   ASSERT_EQ(nbVar, 7);
 
-
   std::vector<ParameterModeler> parameters;
   bus->defineNonGenericParameters(parameters);
-  ASSERT_TRUE(parameters.empty());
+  ASSERT_EQ(parameters.size(), 1);
+
   boost::unordered_map<std::string, ParameterModeler> parametersModels;
   const std::string paramName = "bus_uMax";
   ParameterModeler param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
@@ -618,6 +618,37 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
   ASSERT_NO_THROW(bus->setSubModelParameters(parametersModels));
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getUMax(), 10.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getUMin(), 1.);
+
+  // The tests on the parameter hasShortCircuitCapabilities are done using the model size.
+  shared_ptr<ModelBus> bus2 = createModelBus(false, false, false).first;
+  bus2->initSize();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus2->sizeY(), 2.);
+  parametersModels.clear();
+  const std::string param3Name = "bus_hasShortCircuitCapabilities";
+  ParameterModeler param3 = ParameterModeler(param3Name, VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
+  param3.setValue<bool>(false, PAR);
+  parametersModels.insert(std::make_pair(param3Name, param3));
+  ASSERT_NO_THROW(bus2->setSubModelParameters(parametersModels));
+  bus2->initSize();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus2->sizeY(), 2.);
+  const std::string param4Name = bus2->id() + "_hasShortCircuitCapabilities";
+  ParameterModeler param4 = ParameterModeler(param4Name, VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
+  param4.setValue<bool>(true, PAR);
+  parametersModels.insert(std::make_pair(param4Name, param4));
+  ASSERT_NO_THROW(bus2->setSubModelParameters(parametersModels));
+  bus2->initSize();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus2->sizeY(), 4.);
+  parametersModels.clear();
+  param3.setValue<bool>(true, PAR);
+  parametersModels.insert(std::make_pair(param3Name, param3));
+  ASSERT_NO_THROW(bus2->setSubModelParameters(parametersModels));
+  bus2->initSize();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus2->sizeY(), 4.);
+  param4.setValue<bool>(false, PAR);
+  parametersModels.insert(std::make_pair(param4Name, param4));
+  ASSERT_NO_THROW(bus2->setSubModelParameters(parametersModels));
+  bus2->initSize();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus2->sizeY(), 2.);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusJt) {

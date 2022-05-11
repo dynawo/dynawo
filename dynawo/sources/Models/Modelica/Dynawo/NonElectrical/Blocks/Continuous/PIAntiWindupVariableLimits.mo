@@ -40,8 +40,6 @@ block PIAntiWindupVariableLimits "Anti windup proportional integral controller w
     Placement(visible = true, transformation(origin = {-42, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {42, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  //Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter annotation(
-  //  Placement(visible = true, transformation(origin = {82, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {82, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput limitMax annotation(
@@ -73,7 +71,7 @@ equation
     Line(points = {{-120, -60}, {66, -60}, {66, -8}, {70, -8}, {70, -8}}, color = {0, 0, 127}));
   connect(add.y, feedback.u2) annotation(
     Line(points = {{40, 0}, {42, 0}, {42, -32}, {42, -32}}, color = {0, 0, 127}));
-  annotation(preferredView = "text",
+  annotation(preferredView = "diagram",
   Diagram(coordinateSystem(initialScale = 0.1)),
   Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-2, 2}, extent = {{-64, 38}, {64, -38}}, textString = "PI Anti Windup Variable Limits")}));
 

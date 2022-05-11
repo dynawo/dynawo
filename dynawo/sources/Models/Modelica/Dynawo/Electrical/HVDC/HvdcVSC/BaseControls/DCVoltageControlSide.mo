@@ -13,7 +13,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls;
 */
 
 model DCVoltageControlSide "DC Voltage Control Side of the HVDC link"
-
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
@@ -66,14 +65,12 @@ model DCVoltageControlSide "DC Voltage Control Side of the HVDC link"
   HVDC.HvdcVSC.BaseControls.LimitsCalculationFunction.LimitsCalculationFunction limitsCalculationFunction(InPu = InPu, Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu, Iq0Pu = Iq0Pu) "Reactive and active currents limits calculation function" annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
 
-protected
-
   parameter Types.VoltageModulePu Udc0Pu "Start value of dc voltage in pu (base SNom, UNom)";
   parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";
   parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom)";
-  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in pu (base SNom) (generator convention)";
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude in pu (base UNom)";
-  parameter Types.ActivePowerPu P0Pu  "Start value of active power in pu (base SNom) (generator convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (generator convention)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (generator convention)";
   parameter Boolean modeU0 "Start value of the boolean assessing the mode of the control: true if U mode, false if Q mode";
 
 equation
@@ -121,6 +118,7 @@ equation
     Line(points = {{107, 12}, {86, 12}, {86, 12}, {83, 12}}, color = {0, 0, 127}));
   connect(iqRef1Pu, limitsCalculationFunction.iqRef1Pu) annotation(
     Line(points = {{107, -12}, {83, -12}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {122, 112}, extent = {{-13, 8}, {20, -12}}, textString = "UdcRefPu"), Text(origin = {54, 111}, extent = {{-13, 8}, {13, -8}}, textString = "QRefPu"), Text(origin = {-10, 111}, extent = {{-13, 8}, {13, -8}}, textString = "URefPu"), Text(origin = {-77, 112}, extent = {{-13, 8}, {13, -8}}, textString = "modeU"), Text(origin = {-147, 101}, extent = {{-13, 8}, {39, -14}}, textString = "activateDeltaP"), Text(origin = {-110, 11}, extent = {{-13, 8}, {1, -6}}, textString = "PPu"), Text(origin = {124, 53}, extent = {{-13, 8}, {13, -8}}, textString = "ipRefPu"), Text(origin = {123, -13}, extent = {{-13, 8}, {13, -8}}, textString = "iqRefPu"), Text(origin = {116, -126}, extent = {{-13, 8}, {1, -6}}, textString = "QPu"), Text(origin = {68, -128}, extent = {{-13, 8}, {1, -6}}, textString = "PPu"), Text(origin = {23, -128}, extent = {{-13, 8}, {1, -6}}, textString = "UPu"), Text(origin = {-24, -128}, extent = {{-13, 8}, {13, -8}}, textString = "blocked"), Text(origin = {-71, -125}, extent = {{-13, 8}, {8, -11}}, textString = "UdcPu"), Text(origin = {0, 51}, extent = {{-65, 27}, {65, -27}}, textString = "Udc Control"), Text(origin = {0, -53}, extent = {{-65, 27}, {65, -27}}, textString = "U/Q Control"), Text(origin = {-108, -50}, extent = {{-28, 11}, {1, -6}}, textString = "iqModPu"), Text(origin = {-104, 41}, extent = {{-28, 11}, {1, -6}}, textString = "iqMod1Pu"), Text(origin = {123, -88}, extent = {{-13, 8}, {13, -8}}, textString = "iqRef1Pu")}));

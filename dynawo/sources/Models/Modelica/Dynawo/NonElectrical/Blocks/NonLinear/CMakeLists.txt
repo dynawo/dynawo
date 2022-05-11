@@ -13,16 +13,15 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
-  ApproximatedDelay.mo
-  FirstOrderLimiter.mo
-  FirstOrderWithDelay.mo
+  BacklashHysteresis.mo
+  DeadBand.mo
   FixedBooleanDelay.mo
   FlipFlopR.mo
   FlipFlopS.mo
   IntegratorOrFirstOrder.mo
+  LimitedFirstOrder.mo
   LimitedIntegrator.mo
   LimitedLeadLag.mo
-  Limiter.mo
   LimiterWithLag.mo
   LimiterWithLag_INIT.mo
   MaxThresholdSwitch.mo

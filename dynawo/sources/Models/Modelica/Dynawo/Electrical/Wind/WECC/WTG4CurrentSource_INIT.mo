@@ -29,7 +29,6 @@ model WTG4CurrentSource_INIT "Initialization model for WECC Wind model with a cu
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (bae UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
 
-protected
   Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";

@@ -23,7 +23,7 @@ model DCVoltageControl "DC Voltage Control for the HVDC VSC model"
   Modelica.Blocks.Interfaces.BooleanOutput activateDeltaP(start = false) "Boolean that indicates whether DeltaP is activated or not" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  HVDC.HvdcVSC.BaseControls.DCVoltageControl.ActivateDeltaP activateDeltaPfunction(DUDC = DUDC, Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu)  "Function that activates the DeltaP when necessary" annotation(
+  HVDC.HvdcVSC.BaseControls.DCVoltageControl.ActivateDeltaP activateDeltaPfunction(DUDC = DUDC, Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu) "Function that activates the DeltaP when necessary" annotation(
     Placement(visible = true, transformation(origin = {70, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

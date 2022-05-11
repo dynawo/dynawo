@@ -225,6 +225,15 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   boost::optional<std::string> getSlackBusId() const;
 
  private:
+  /**
+   * @brief Count the number of switches that should be closed to connect this path
+   *
+   * @param path path to be analyzed
+   * @return the number of switches that should be closed to connect this path
+   */
+  unsigned countNumberOfSwitchesToClose(const std::vector<std::string>& path) const;
+
+ private:
   powsybl::iidm::VoltageLevel& voltageLevelIIDM_;  ///< reference to the iidm voltageLevel instance
   bool isNodeBreakerTopology_;  ///< @b true if the topology of the voltageLevel is node breaker topology
   boost::unordered_map<boost::shared_ptr<SwitchInterface>, double > switchState_;  ///< state to apply to switch (due to topology change)

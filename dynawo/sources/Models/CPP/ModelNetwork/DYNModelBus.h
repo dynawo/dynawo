@@ -615,7 +615,8 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   int irYNum_;  ///< ir
 
   int busIndex_;  ///< index of bus in its voltage level
-  bool hasConnection_;  ///< whether has connection
+  bool hasConnection_;  ///< whether the bus has connection
+  bool hasShortCircuitCapabilities_;  ///< whether a short circuit could be applied to the bus
   bool hasDifferentialVoltages_;  ///< whether the bus model has differential voltages
 
   double unom_;  ///< nominal voltage

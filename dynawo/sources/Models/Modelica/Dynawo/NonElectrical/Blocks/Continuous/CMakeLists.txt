@@ -12,11 +12,13 @@ set(MODEL_FILES
   package.mo
   package.order
   IntegratorSetFreeze.mo
-  LeadLag.mo
+  LeadMOrderLag.mo
+  LimitedPI.mo
   LimPIDFreeze.mo
   PIAntiWindup.mo
   PIAntiWindupVariableLimits.mo
   Power.mo
+  RampTrackingFilter.mo
   RateLimFirstOrderFreeze.mo
   VarLimPIDFreeze.mo
   )

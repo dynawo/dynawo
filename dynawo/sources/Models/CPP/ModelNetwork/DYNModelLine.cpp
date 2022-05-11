@@ -178,10 +178,10 @@ modelType_("Line") {
     double P01 = line->getP1() / SNREF;
     double Q01 = line->getQ1() / SNREF;
     double uNode1 = line->getBusInterface1()->getV0();
-    double tetaNode1 = line->getBusInterface1()->getAngle0();
+    double thetaNode1 = line->getBusInterface1()->getAngle0();
     double unomNode1 = line->getBusInterface1()->getVNom();
-    double ur01 = uNode1 / unomNode1 * cos(tetaNode1 * DEG_TO_RAD);
-    double ui01 = uNode1 / unomNode1 * sin(tetaNode1 * DEG_TO_RAD);
+    double ur01 = uNode1 / unomNode1 * cos(thetaNode1 * DEG_TO_RAD);
+    double ui01 = uNode1 / unomNode1 * sin(thetaNode1 * DEG_TO_RAD);
     double U201 = ur01 * ur01 + ui01 * ui01;
     if (!doubleIsZero(U201)) {
       ir01_ = (P01 * ur01 + Q01 * ui01) / U201;
@@ -195,10 +195,10 @@ modelType_("Line") {
     double P02 = line->getP2() / SNREF;
     double Q02 = line->getQ2() / SNREF;
     double uNode2 = line->getBusInterface2()->getV0();
-    double tetaNode2 = line->getBusInterface2()->getAngle0();
+    double thetaNode2 = line->getBusInterface2()->getAngle0();
     double unomNode2 = line->getBusInterface2()->getVNom();
-    double ur02 = uNode2 / unomNode2 * cos(tetaNode2 * DEG_TO_RAD);
-    double ui02 = uNode2 / unomNode2 * sin(tetaNode2 * DEG_TO_RAD);
+    double ur02 = uNode2 / unomNode2 * cos(thetaNode2 * DEG_TO_RAD);
+    double ui02 = uNode2 / unomNode2 * sin(thetaNode2 * DEG_TO_RAD);
     double U202 = ur02 * ur02 + ui02 * ui02;
     if (!doubleIsZero(U202)) {
       ir02_ = (P02 * ur02 + Q02 * ui02) / U202;

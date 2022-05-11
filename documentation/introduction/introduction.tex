@@ -52,7 +52,9 @@ It is an ongoing project based on previous works conducted particularly in two R
 \caption{High-level vision of the \Dynawo initiative}
 \end{figure}
 
-\textbf{Only validated models, numerical methods and test cases are included into this release.} We plan to release additional features in the near future, including for example additional models (standard wind and solar power plant models, new regulations for synchronous machines, etc.), new test cases (Nordic32 test case, large-scale test cases) or more functionalities (contingency analysis, critical time clearing algorithm). \\
+\textbf{Only validated models, numerical methods and test cases are included into this release.} We plan to release additional features in the near future, including for example additional models (standard wind and solar power plant models, new regulations for synchronous machines, etc.), or new test cases (Nordic32 test case, large-scale test cases).
+
+In addition to the \Dynawo repository, you can have a look to our new dynawo-algorithms repository - \url{https://github.com/dynawo/dynawo-algorithms} -, enabling to launch contingency analysis, voltage margin  or critical clearing time calculations. \\
 
 \Dynawo is licensed under the terms of the \href{http://mozilla.org/MPL/2.0}{\underline{Mozilla Public License, v2.0}}.
 The source code is hosted into a \href{https://github.com/dynawo/dynawo} {\underline{GitHub repository}}. \\
@@ -67,6 +69,72 @@ To get started with \Dynawo , different possibilities exist, depending on your b
 \end{itemize}
 
 \section{Changes from previous versions}
+
+\subsection{Changes from v1.3.0}
+
+\underline{Main changes:}
+\begin{itemize}
+\item Additional standard models (IEEE regulations, WECC RES) and simplified models (SVarC, HVDC, etc.)
+\item Addition of a trapezoidal solver and refactoring of the solvers architecture
+\item API update with two new APIs: final state values and lost equipments.
+\item Improved support of the Modelica language
+\item Drop of C++98 and MacOS support
+\end{itemize}
+
+\underline{New features:}
+\begin{itemize}
+\item Fault on a bus without injection
+\item New APIs for lost equipments and final state values
+\end{itemize}
+
+\underline{New models:}
+\begin{itemize}
+\item Additional IEEE standard regulations
+\item WECC Wind Turbine and Photovoltaics models
+\item Steady-state/simplified models for HVDC and SVarC components
+\end{itemize}
+
+\underline{Solvers:}
+\begin{itemize}
+\item New fixed-time step solver using the trapezoidal method
+\item Refactoring of the solvers code
+\end{itemize}
+
+\underline{3rd Party:}
+\begin{itemize}
+\item Sundials update to version 5.3.0
+\item Adept update to version 2.0.8
+\item Improved support of the Modelica language
+\end{itemize}
+
+\underline{Test cases:}
+\begin{itemize}
+\item ENTSO-E digital controller test case in full Modelica and \Dynawo
+\item WSCC 9 bus test case into \Dynawo
+\item WECC RES test cases in full Modelica and \Dynawo
+\end{itemize}
+
+
+\subsection{Changes from v1.2.2}
+
+\underline{Main changes:}
+\begin{itemize}
+\item Use of powsybl-iidm4cpp 1.4.0 and boost 1.70
+\item New TapChangerBlocking model to monitor up to five voltage levels
+\item Correct modeling of batteries
+\item Add a script to automatically filter output timelines to ease readability
+\item Add the possibility to consider multiple voltage levels in power criteria
+\end{itemize}
+
+\subsection{Changes from v1.2.1}
+
+\underline{Main changes:}
+\begin{itemize}
+\item Improvement of solvers: minimization of residuals and discrete variable evaluations
+\item Check criteria at the end of a simulation
+\item Possibility to run multiple simulations in multi-threading (thread-safety)
+\item Reduction of memory footprint
+\end{itemize}
 
 \subsection{Changes from v1.2.0}
 

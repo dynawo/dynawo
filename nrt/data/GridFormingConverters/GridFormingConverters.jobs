@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -10,8 +10,7 @@
 
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
--->
-<jobs xmlns="http://www.rte-france.com/dynawo">
+--><jobs xmlns="http://www.rte-france.com/dynawo">
     <job name="testGridFormingConverters">
         <solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="1"/>
         <modeler compileDir="outputs/compilation">
@@ -23,14 +22,10 @@
         </modeler>
         <simulation startTime="0" stopTime="2.5" precision="1e-4"/>
         <outputs directory="outputs">
-            <dumpInitValues local="true" global="true"/>
-            <constraints exportMode="XML"/>
-            <timeline exportMode="TXT"/>
             <curves inputFile="GridFormingConverters.crv" exportMode="CSV"/>
             <logs>
-              <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
-              <appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
-            </logs>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              </logs>
         </outputs>
     </job>
 </jobs>

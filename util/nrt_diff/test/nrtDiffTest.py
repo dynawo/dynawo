@@ -76,6 +76,66 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "outputIIDMPowSybl.xml"), '|', os.path.join(dir_path, "outputIIDMPowSybl2.xml"), '|')
         self.assertEqual(return_value, nrtDiff.IDENTICAL)
 
+    def test_constraints_xml(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "constraints.xml"), '|', os.path.join(dir_path, "constraints2.xml"), '|')
+        self.assertEqual(return_value, nrtDiff.IDENTICAL)
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "constraints.xml"), '|', os.path.join(dir_path, "constraints3.xml"), '|')
+        self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        self.assertEqual(message, "nrt_diff/test/constraints.xml: 13 different output values\n\
+[ERROR] object BUS_DESC_DIFF_787_U < Umin is in left path but not in right one\n\
+[ERROR] object BUS_NAME_DIFF_781_U < Umin is in left path but not in right one\n\
+[ERROR] object BUS_TIME_DIFF_787_U < Umin is in left path but not in right one\n\
+[ERROR] object BUS_DESC_DIFF_787_U < Umin2 is in right path but not in left one\n\
+[ERROR] object BUS_NAME_DIFF2_781_U < Umin is in right path but not in left one\n\
+[ERROR] object BUS_ONLY_ON_RIGHT_SIDE_778_U < Umin is in right path but not in left one\n\
+[ERROR] object BUS_TIME_DIFF_789_U < Umin is in right path but not in left one\n\
+[ERROR] object BUS_DURATION_DIFF_787_U < Umin has different acceptable durations in the two files\n\
+[ERROR] object BUS_KIND_DIFF_787_U < Umin has different kinds in the two files\n\
+[ERROR] object BUS_LIMIT_DIFF_787_U < Umin has different limits in the two files\n\
+[ERROR] object BUS_SIDE_DIFF_787_U < Umin has different sides in the two files\n\
+[ERROR] object BUS_TYPE_DIFF_787_U < Umin has different types in the two files\n\
+[ERROR] values of object BUS_LARGE_VALUE_DIFF_778_U < Umin are different (delta = 2.0) \n")
+
+    def test_constraints_txt(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "constraints.txt"), '|', os.path.join(dir_path, "constraints2.txt"), '|')
+        self.assertEqual(return_value, nrtDiff.IDENTICAL)
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "constraints.txt"), '|', os.path.join(dir_path, "constraints3.txt"), '|')
+        self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        self.assertEqual(message, "nrt_diff/test/constraints.txt: 17 different output values\n\
+[ERROR] object BUS_DESC_DIFF_787_U &lt; Umin is in left path but not in right one\n\
+[ERROR] object BUS_NAME_DIFF_781_U &lt; Umin is in left path but not in right one\n\
+[ERROR] object BUS_TIME_DIFF_787_U &lt; Umin is in left path but not in right one\n\
+[ERROR] object BUS_DESC_DIFF_787_U &lt; Umin2 is in right path but not in left one\n\
+[ERROR] object BUS_NAME_DIFF2_781_U &lt; Umin is in right path but not in left one\n\
+[ERROR] object BUS_ONLY_ON_RIGHT_SIDE_778_U &lt; Umin is in right path but not in left one\n\
+[ERROR] object BUS_TIME_DIFF_789_U &lt; Umin is in right path but not in left one\n\
+[ERROR] object BUS_DURATION_DIFF_787_U &lt; Umin has different acceptable durations in the two files\n\
+[ERROR] object BUS_DURATION_DIFF_NO_TYPE_787_U &lt; Umin has different acceptable durations in the two files\n\
+[ERROR] object BUS_KIND_DIFF_787_U &lt; Umin has different kinds in the two files\n\
+[ERROR] object BUS_KIND_DIFF_NO_TYPE_787_U &lt; Umin has different kinds in the two files\n\
+[ERROR] object BUS_LIMIT_DIFF_787_U &lt; Umin has different limits in the two files\n\
+[ERROR] object BUS_LIMIT_DIFF_NO_TYPE_787_U &lt; Umin has different limits in the two files\n\
+[ERROR] object BUS_SIDE_DIFF_787_U &lt; Umin has different sides in the two files\n\
+[ERROR] object BUS_SIDE_DIFF_NO_TYPE_787_U &lt; Umin has different sides in the two files\n\
+[ERROR] object BUS_TYPE_DIFF_787_U &lt; Umin has different types in the two files\n\
+[ERROR] values of object BUS_LARGE_VALUE_DIFF_778_U &lt; Umin are different (delta = 2.0) \n")
+
+    def test_fqv_xml(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.fsv"), '|', os.path.join(dir_path, "finalStateValues2.fsv"), '|')
+        self.assertEqual(return_value, nrtDiff.IDENTICAL)
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "finalStateValues.fsv"), '|', os.path.join(dir_path, "finalStateValues3.fsv"), '|')
+        self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        self.assertEqual(message, "nrt_diff/test/finalStateValues.fsv: 6 different output values\n\
+[ERROR] object modelDifferentName_variable is in left path but not in right one\n\
+[ERROR] object modelDifferentVariable_variable is in left path but not in right one\n\
+[ERROR] object modelDifferentName2_variable is in right path but not in left one\n\
+[ERROR] object modelDifferentVariable_variable2 is in right path but not in left one\n\
+[ERROR] object modelNotThere_variable is in right path but not in left one\n\
+[ERROR] values of object modelDifferentValue_variable are different (delta = 3.0) \n")
+
 class TestnrtDiffDirectoryDiff(unittest.TestCase):
     def test_directory_diff(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))

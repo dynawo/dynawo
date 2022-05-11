@@ -12,22 +12,22 @@
     simulation tool for power systeSM.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="SM" variable="gen_cePu"/>
-  <curve model="SM" variable="gen_PePu"/>
-  <curve model="SM" variable="gen_cmPu"/>
-  <curve model="SM" variable="gen_PmPu"/>
-  <curve model="SM" variable="gen_ufPu"/>
-  <curve model="SM" variable="gen_efdPu"/>
-  <curve model="SM" variable="gen_omegaPu"/>
-  <curve model="SM" variable="gen_theta"/>
-  <curve model="SM" variable="gen_PGenPu"/>
-  <curve model="SM" variable="gen_QGenPu"/>
-  <curve model="SM" variable="gen_PGen"/>
-  <curve model="SM" variable="gen_QGen"/>
-  <curve model="SM" variable="gen_UPu"/>
-  <curve model="SM" variable="gen_IStatorPu"/>
-  <curve model="SM" variable="gen_IRotorPu"/>
-  <curve model="SM" variable="gen_UStatorPu"/>
-  <curve model="SM" variable="gen_QStatorPu"/>
-  <curve model="SM" variable="gen_thetaInternal"/>
+  <curve model="SM" variable="generator_cePu"/>
+  <curve model="SM" variable="generator_PePu"/>
+  <curve model="SM" variable="generator_cmPu"/>
+  <curve model="SM" variable="generator_PmPu"/>
+  <curve model="SM" variable="generator_ufPu"/>
+  <curve model="SM" variable="generator_efdPu"/>
+  <curve model="SM" variable="generator_omegaPu"/>
+  <curve model="SM" variable="generator_theta"/>
+  <curve model="SM" variable="generator_PGenPu"/>
+  <curve model="SM" variable="generator_QGenPu"/>
+  <curve model="SM" variable="generator_PGen"/>
+  <curve model="SM" variable="generator_QGen"/>
+  <curve model="SM" variable="generator_UPu"/>
+  <curve model="SM" variable="generator_IStatorPu"/>
+  <curve model="SM" variable="generator_IRotorPu"/>
+  <curve model="SM" variable="generator_UStatorPu"/>
+  <curve model="SM" variable="generator_QStatorPu"/>
+  <curve model="SM" variable="generator_thetaInternal"/>
 </curvesInput>

@@ -28,7 +28,7 @@
 
   <xs:complexType name="BusCriteria">
     <xs:sequence>
-      <xs:element name="parameters" type="dyn:CriteriaParams" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="parameters" type="dyn:CriteriaParamsWithVoltageLevel" minOccurs="1" maxOccurs="1"/>
       <xs:element name="component" minOccurs="0" maxOccurs="unbounded" type="dyn:BusComponent"/>
       <xs:element name="country" minOccurs="0" maxOccurs="unbounded" type="dyn:Country"/>
     </xs:sequence>
@@ -56,6 +56,24 @@
   </xs:complexType>
 
   <xs:complexType name="CriteriaParams">
+    <xs:sequence>
+        <xs:element name="voltageLevel" type="dyn:CriteriaParamsVoltageLevel" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:string"/>
+    <xs:attribute name="scope" use="required" type="dyn:Scope"/>
+    <xs:attribute name="type" use="required" type="dyn:Type"/>
+    <xs:attribute name="pMax" use="optional" type="xs:float"/>
+    <xs:attribute name="pMin" use="optional" type="xs:float"/>
+  </xs:complexType>
+
+  <xs:complexType name="CriteriaParamsVoltageLevel">
+    <xs:attribute name="uMaxPu" use="optional" type="xs:float"/>
+    <xs:attribute name="uMinPu" use="optional" type="xs:float"/>
+    <xs:attribute name="uNomMax" use="optional" type="xs:float"/>
+    <xs:attribute name="uNomMin" use="optional" type="xs:float"/>
+  </xs:complexType>
+
+  <xs:complexType name="CriteriaParamsWithVoltageLevel">
     <xs:attribute name="id" use="required" type="xs:string"/>
     <xs:attribute name="scope" use="required" type="dyn:Scope"/>
     <xs:attribute name="type" use="required" type="dyn:Type"/>

@@ -93,6 +93,7 @@ where [option] can be:"
         unittest-gdb [arg]                    call unittest in gdb
         curves [arg]                          plot curves of job
         curves-reference [arg]                plot curves of job's reference
+        curves-reference-same-graph [arg]     plot curves of job and job's reference on the same graph
 
         =========== Distribution
         distrib                               create distribution of Dynawo
@@ -316,7 +317,6 @@ set_environment() {
   export_var_env DYNAWO_BUILD_TESTS=OFF
   export_var_env DYNAWO_BUILD_TESTS_COVERAGE=OFF
   export_var_env DYNAWO_BUILD_TYPE=UNDEFINED
-  export_var_env DYNAWO_CXX11_ENABLED=UNDEFINED
   export_var_env DYNAWO_USE_LEGACY_IIDM=NO
   export_var_env_force DYNAWO_USE_ADEPT=YES
 
@@ -328,21 +328,14 @@ set_environment() {
   export_var_env_force DYNAWO_SRC_DIR=$DYNAWO_HOME/dynawo
   export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared/dynawo
 
-  SUFFIX_CX11=""
-  if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
-    SUFFIX_CX11="-cxx11"
-    export_var_env DYNAWO_CXX11_ENABLED=YES
-  else
-    export_var_env_force DYNAWO_USE_LEGACY_IIDM=YES
-  fi
   DIR_LIBIIDM="libiidm"
   if [ "$(echo "$DYNAWO_USE_LEGACY_IIDM" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_USE_LEGACY_IIDM" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_USE_LEGACY_IIDM" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     DIR_LIBIIDM="libiidm0"
   fi
 
   if [ ! -z "$DYNAWO_JENKINS_MODE" ]; then
-    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared$SUFFIX_CX11/dynawo
-    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared$SUFFIX_CX11/dynawo
+    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared/dynawo
+    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/shared/dynawo
   else
     export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_FOLDER_BUILD_TYPE$SUFFIX_CX11/shared/dynawo
     export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_FOLDER_BUILD_TYPE$SUFFIX_CX11/shared/dynawo
@@ -436,6 +429,7 @@ set_environment() {
   export_var_env DYNAWO_BROWSER=firefox
   export_var_env DYNAWO_PDFVIEWER=xdg-open
   export_var_env_force DYNAWO_NRT_DIR=$DYNAWO_HOME/nrt
+  export_var_env_force DYNAWO_EXAMPLES_DIR=$DYNAWO_HOME/examples
   export_var_env DYNAWO_RESULTS_SHOW=true
   export_var_env_force DYNAWO_CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
@@ -714,7 +708,6 @@ config_3rd_party() {
     -DTMP_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR/tmp \
     -DCMAKE_C_COMPILER=$DYNAWO_C_COMPILER \
     -DCMAKE_CXX_COMPILER=$DYNAWO_CXX_COMPILER \
-    -DCXX11_ENABLED=$DYNAWO_CXX11_ENABLED \
     -DUSE_LEGACY_IIDM=$DYNAWO_USE_LEGACY_IIDM \
     -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
     -DCMAKE_BUILD_TYPE=$DYNAWO_BUILD_TYPE \
@@ -837,7 +830,6 @@ config_dynawo() {
     -DUSE_ADEPT:BOOL=$DYNAWO_USE_ADEPT \
     -DINSTALL_OPENMODELICA:PATH=$DYNAWO_INSTALL_OPENMODELICA \
     -DOPENMODELICA_VERSION:STRING=$DYNAWO_OPENMODELICA_VERSION \
-    -DCXX11_ENABLED:BOOL=$DYNAWO_CXX11_ENABLED \
     -DUSE_LEGACY_IIDM=$DYNAWO_USE_LEGACY_IIDM \
     -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
     -DDYNAWO_DEBUG_COMPILER_OPTION:STRING="$DYNAWO_DEBUG_COMPILER_OPTION" \
@@ -1345,6 +1337,11 @@ curves_visu() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
 }
 
+curves_visu_reference_same_graph() {
+  verify_browser
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" --plotRef || return 1
+}
+
 curves_visu_reference() {
   jobs=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))")
   sed -i 's/<dyn:outputs directory="/<dyn:outputs directory="reference\//' $jobs
@@ -1440,6 +1437,7 @@ nrt() {
 
 nrt_clean() {
   find $DYNAWO_NRT_DIR/data -depth -type d -name "outputs*" -not -path "*reference*/*" -exec rm -rf {} \; > /dev/null 2>&1
+  find $DYNAWO_EXAMPLES_DIR -depth -type d -name "outputs*" -not -path "*reference*/*" -exec rm -rf {} \; > /dev/null 2>&1
   rm -rf $DYNAWO_NRT_DIR/output
   rm -rf $DYNAWO_HOME/util/nrt_diff/output
   find $DYNAWO_NRT_DIR -name "*.pyc" -exec rm -rf {} \;
@@ -1789,6 +1787,9 @@ deploy_dynawo() {
   if [ -f "$boost_system_folder/libboost_iostreams.$LIBRARY_SUFFIX" ]; then
     cp -P $boost_system_folder/libboost_iostreams*.$LIBRARY_SUFFIX* lib/
   fi
+  if [ -f "$boost_system_folder/libboost_date_time.$LIBRARY_SUFFIX" ]; then
+    cp -P $boost_system_folder/libboost_date_time*.$LIBRARY_SUFFIX* lib/
+  fi
   cp -n -P -R $boost_system_folder_include/boost include/
 
   # XERCESC
@@ -1830,7 +1831,7 @@ deploy_dynawo() {
     cp -n $libarchive_system_folder_include/archive_entry.h include/
     cp -n $libarchive_system_folder_include/archive.h include/
     if [ "`uname`" = "Linux" ]; then
-      for lib in {crypto,lzma,bz2,xml2}; do
+      for lib in {crypto,lzma,bz2,xml2,lzo2}; do
         if [ ! -z "$(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2)" ]; then
           cp $(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2) lib/
         fi
@@ -2169,7 +2170,7 @@ reset_environment_variables() {
   path_remove $DYNAWO_INSTALL_OPENMODELICA/bin
   python_path_remove $DYNAWO_SCRIPTS_DIR
 
-  do_not_unset="DYNAWO_BUILD_TYPE DYNAWO_COMPILER DYNAWO_CXX11_ENABLED DYNAWO_USE_LEGACY_IIDM DYNAWO_HOME DYNAWO_INSTALL_OPENMODELICA \
+  do_not_unset="DYNAWO_BUILD_TYPE DYNAWO_COMPILER DYNAWO_USE_LEGACY_IIDM DYNAWO_HOME DYNAWO_INSTALL_OPENMODELICA \
 DYNAWO_SRC_OPENMODELICA DYNAWO_ZLIB_HOME DYNAWO_LIBARCHIVE_HOME DYNAWO_BOOST_HOME DYNAWO_GTEST_HOME DYNAWO_GMOCK_HOME DYNAWO_XSD_DIR"
 
   for var in $(printenv | grep DYNAWO_ | cut -d '=' -f 1); do
@@ -2183,7 +2184,6 @@ reset_environment_variables_full() {
   reset_environment_variables
   unset DYNAWO_BUILD_TYPE
   unset DYNAWO_COMPILER
-  unset DYNAWO_CXX11_ENABLED
   unset DYNAWO_USE_LEGACY_IIDM
   unset DYNAWO_HOME
   unset DYNAWO_INSTALL_OPENMODELICA
@@ -2363,6 +2363,10 @@ case $MODE in
 
   curves-reference)
     curves_visu_reference ${ARGS} || error_exit "Error with reference curves plot"
+    ;;
+
+  curves-reference-same-graph)
+    curves_visu_reference_same_graph ${ARGS} || error_exit "Error with reference curves plot"
     ;;
 
   deploy)

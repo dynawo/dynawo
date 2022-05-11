@@ -1,1209 +1,1048 @@
-2020-07-15 18:54:36 | INFO |  ============================================================ 
-2020-07-15 18:54:36 | INFO | DYNAWO VERSION  :     1.2.0
-2020-07-15 18:54:36 | INFO | DYNAWO REVISION :  874_fix_extvar_file_generation-beb05f81
-2020-07-15 18:54:36 | INFO |  ============================================================ 
-2020-07-15 18:54:36 | INFO | 
-2020-07-15 18:54:36 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:54:36 | INFO | building model from input files
-2020-07-15 18:54:36 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO | model was built successfully
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO | 
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO | starting local initialization
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | DEBUG | ------------------------------
-2020-07-15 18:55:43 | DEBUG | starting local initialization of model SM
-2020-07-15 18:55:43 | DEBUG | local initialization of model SM ended successfully
-2020-07-15 18:55:43 | INFO | end of local initialization
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO | 
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO | starting global initialization
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | DEBUG | initialization of IDA solver : ok
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO | end of global initialization
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO | 
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO | starting curve initialization
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; curve: generator_cePu found. (exact name)
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; curve: generator_PePu found. (exact name)
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; curve: generator_cmPu found. (exact name)
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; output: generator_PmPu found.( generator_PmPu_value )
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; curve: generator_ufPu found. (exact name)
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; output: generator_efdPu found.( generator_efdPu_value )
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; curve: generator_theta found. (exact name)
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; curve: generator_PGenPu found. (exact name)
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; curve: generator_QGenPu found. (exact name)
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; curve: generator_PGen found. (exact name)
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; curve: generator_QGen found. (exact name)
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; curve: generator_UPu found. (exact name)
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; output: generator_IStatorPu found.( generator_IStatorPu_value )
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; output: generator_IRotorPu found.( generator_IRotorPu_value )
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; output: generator_QStatorPu found.( generator_QStatorPu_value )
-2020-07-15 18:55:43 | DEBUG | adding curve : Id: SM; output: generator_thetaInternal found.( generator_thetaInternal_value )
-2020-07-15 18:55:43 | INFO | end of curve initialization, added 18 curves
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO | 
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO | starting simulation with solver IDASolver
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO | number of continuous variables : 64
-2020-07-15 18:55:43 | INFO | number of discrete variables : 31
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO |         time | iter num   order (k)      time step (h)
-2020-07-15 18:55:43 | INFO | -----------------------------------------------------------------------
-2020-07-15 18:55:43 | INFO |        0.000 |        0           0              0.010 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.000 |        1           1              0.000 
-2020-07-15 18:55:43 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
-2020-07-15 18:55:43 | DEBUG | YP[3]=-0.00984018 (variable=Network_busInf_terminal_i_re)
-2020-07-15 18:55:43 | DEBUG | YP[48]=0.00984018 (variable=SM_generator_terminal_i_re)
-2020-07-15 18:55:43 | DEBUG | YP[17]=-0.00984018 (variable=Network_tfo_terminal2_i_re)
-2020-07-15 18:55:43 | DEBUG | YP[15]=0.00984018 (variable=Network_tfo_terminal1_i_re)
-2020-07-15 18:55:43 | DEBUG | YP[5]=0.00639951 (variable=Network_line1_terminal1_i_re)
-2020-07-15 18:55:43 | DEBUG | YP[9]=-0.00639951 (variable=Network_line1_terminal2_i_re)
-2020-07-15 18:55:43 | DEBUG | YP[2]=0.00579458 (variable=Network_busInf_terminal_i_im)
-2020-07-15 18:55:43 | DEBUG | YP[47]=-0.00579458 (variable=SM_generator_terminal_i_im)
-2020-07-15 18:55:43 | DEBUG | YP[14]=-0.00579458 (variable=Network_tfo_terminal1_i_im)
-2020-07-15 18:55:43 | DEBUG | YP[16]=0.00579458 (variable=Network_tfo_terminal2_i_im)
-2020-07-15 18:55:43 | INFO |        0.000 |        2           1              0.000 
-2020-07-15 18:55:43 | INFO |        0.000 |        3           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.000 |        4           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.000 |        5           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.000 |        6           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.000 |        7           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.000 |        8           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.000 |        9           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.001 |       10           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.001 |       11           2              0.001 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.002 |       12           2              0.001 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.004 |       13           2              0.002 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.008 |       14           2              0.004 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.016 |       15           2              0.008 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.033 |       16           2              0.016 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.066 |       17           2              0.033 
-2020-07-15 18:55:43 | INFO |        0.098 |       18           2              0.033 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.164 |       19           2              0.066 
-2020-07-15 18:55:43 | INFO |        0.229 |       20           1              0.066 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        0.360 |       21           1              0.131 
-2020-07-15 18:55:43 | INFO |        0.492 |       22           1              0.131 
-2020-07-15 18:55:43 | INFO |        0.623 |       23           1              0.131 
-2020-07-15 18:55:43 | INFO |        0.754 |       24           2              0.131 
-2020-07-15 18:55:43 | INFO |        0.885 |       25           2              0.131 
-2020-07-15 18:55:43 | INFO | Algebraic mode (with J recalculation) change for model Network
-2020-07-15 18:55:43 | INFO |        1.070 |       26           2              0.262 
-2020-07-15 18:55:43 | INFO | calculation of the new starting point of the simulation.
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.070 |        0           0              0.000 
-2020-07-15 18:55:43 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
-2020-07-15 18:55:43 | DEBUG | YP[18]=0.87945 (variable=SM_generator_lambdaDPu)
-2020-07-15 18:55:43 | DEBUG | YP[20]=0.591774 (variable=SM_generator_lambdaQ2Pu)
-2020-07-15 18:55:43 | DEBUG | YP[21]=-0.0358025 (variable=SM_generator_lambdafPu)
-2020-07-15 18:55:43 | DEBUG | YP[19]=0.0266749 (variable=SM_generator_lambdaQ1Pu)
-2020-07-15 18:55:43 | DEBUG | YP[22]=0.0256538 (variable=SM_generator_omegaPu_value)
-2020-07-15 18:55:43 | DEBUG | YP[26]=-2.71153e-05 (variable=SM_generator_theta)
-2020-07-15 18:55:43 | DEBUG | YP[41]=0 (variable=SM_generator_lambdadPu)
-2020-07-15 18:55:43 | DEBUG | YP[42]=0 (variable=SM_generator_lambdaqPu)
-2020-07-15 18:55:43 | DEBUG | YP[43]=0 (variable=SM_generator_mdsPu)
-2020-07-15 18:55:43 | DEBUG | YP[47]=0 (variable=SM_generator_terminal_i_im)
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.070 |        1           1              0.000 
-2020-07-15 18:55:43 | INFO |        1.070 |        2           1              0.000 
-2020-07-15 18:55:43 | INFO |        1.070 |        3           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.070 |        4           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.070 |        5           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.070 |        6           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.070 |        7           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.070 |        8           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.070 |        9           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.071 |       10           2              0.000 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.071 |       11           2              0.001 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.072 |       12           2              0.001 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.074 |       13           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.076 |       14           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.078 |       15           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.080 |       16           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.082 |       17           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.084 |       18           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.086 |       19           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.088 |       20           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.090 |       21           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.093 |       22           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.095 |       23           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.097 |       24           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.099 |       25           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.101 |       26           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.103 |       27           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.105 |       28           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.107 |       29           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.109 |       30           2              0.002 
-2020-07-15 18:55:43 | INFO |        1.111 |       31           2              0.002 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.115 |       32           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.119 |       33           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.122 |       34           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.126 |       35           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.130 |       36           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.133 |       37           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.137 |       38           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.141 |       39           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.145 |       40           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.148 |       41           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.152 |       42           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.156 |       43           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.159 |       44           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.163 |       45           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.167 |       46           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.170 |       47           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.174 |       48           2              0.004 
-2020-07-15 18:55:43 | INFO |        1.178 |       49           2              0.004 
-2020-07-15 18:55:43 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:43 | INFO |        1.185 |       50           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.192 |       51           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.198 |       52           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.205 |       53           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.212 |       54           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.218 |       55           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.225 |       56           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.232 |       57           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.238 |       58           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.245 |       59           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.251 |       60           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.258 |       61           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.265 |       62           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.271 |       63           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.278 |       64           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.285 |       65           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.291 |       66           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.298 |       67           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.305 |       68           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.311 |       69           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.318 |       70           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.324 |       71           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.331 |       72           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.338 |       73           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.344 |       74           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.351 |       75           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.358 |       76           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.364 |       77           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.371 |       78           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.378 |       79           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.384 |       80           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.391 |       81           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.397 |       82           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.404 |       83           2              0.007 
-2020-07-15 18:55:43 | INFO |        1.411 |       84           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.417 |       85           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.424 |       86           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.431 |       87           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.437 |       88           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.444 |       89           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.451 |       90           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.457 |       91           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.464 |       92           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.470 |       93           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.477 |       94           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.484 |       95           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.490 |       96           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.497 |       97           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.504 |       98           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.510 |       99           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.517 |      100           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.524 |      101           2              0.007 
-2020-07-15 18:55:44 | INFO |        1.530 |      102           2              0.007 
-2020-07-15 18:55:44 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:44 | INFO |        1.543 |      103           2              0.013 
-2020-07-15 18:55:44 | INFO |        1.555 |      104           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.567 |      105           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.579 |      106           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.591 |      107           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.603 |      108           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.615 |      109           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.627 |      110           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.639 |      111           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.651 |      112           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.663 |      113           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.675 |      114           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.687 |      115           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.699 |      116           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.711 |      117           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.723 |      118           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.735 |      119           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.746 |      120           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.758 |      121           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.770 |      122           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.782 |      123           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.794 |      124           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.806 |      125           2              0.012 
-2020-07-15 18:55:44 | INFO |        1.817 |      126           2              0.011 
-2020-07-15 18:55:44 | INFO |        1.828 |      127           2              0.011 
-2020-07-15 18:55:44 | INFO |        1.838 |      128           2              0.011 
-2020-07-15 18:55:44 | INFO |        1.849 |      129           2              0.011 
-2020-07-15 18:55:44 | INFO |        1.860 |      130           2              0.011 
-2020-07-15 18:55:44 | INFO |        1.871 |      131           2              0.011 
-2020-07-15 18:55:44 | INFO |        1.880 |      132           2              0.010 
-2020-07-15 18:55:44 | INFO |        1.890 |      133           2              0.010 
-2020-07-15 18:55:44 | INFO |        1.900 |      134           2              0.010 
-2020-07-15 18:55:44 | INFO |        1.909 |      135           2              0.010 
-2020-07-15 18:55:44 | INFO |        1.919 |      136           2              0.010 
-2020-07-15 18:55:44 | INFO |        1.929 |      137           2              0.010 
-2020-07-15 18:55:44 | INFO |        1.938 |      138           2              0.010 
-2020-07-15 18:55:44 | INFO |        1.948 |      139           2              0.010 
-2020-07-15 18:55:44 | INFO |        1.958 |      140           2              0.010 
-2020-07-15 18:55:44 | INFO |        1.967 |      141           2              0.010 
-2020-07-15 18:55:44 | INFO |        1.977 |      142           2              0.010 
-2020-07-15 18:55:44 | INFO |        1.987 |      143           2              0.010 
-2020-07-15 18:55:44 | INFO |        1.996 |      144           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.006 |      145           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.016 |      146           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.025 |      147           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.035 |      148           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.045 |      149           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.054 |      150           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.064 |      151           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.074 |      152           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.084 |      153           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.093 |      154           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.103 |      155           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.113 |      156           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.122 |      157           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.132 |      158           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.142 |      159           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.151 |      160           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.161 |      161           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.171 |      162           2              0.010 
-2020-07-15 18:55:44 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:44 | INFO |        2.180 |      163           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.190 |      164           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.200 |      165           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.209 |      166           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.219 |      167           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.229 |      168           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.238 |      169           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.248 |      170           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.258 |      171           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.267 |      172           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.277 |      173           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.287 |      174           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.296 |      175           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.306 |      176           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.316 |      177           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.325 |      178           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.335 |      179           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.345 |      180           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.354 |      181           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.364 |      182           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.374 |      183           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.383 |      184           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.393 |      185           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.403 |      186           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.412 |      187           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.422 |      188           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.432 |      189           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.441 |      190           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.451 |      191           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.461 |      192           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.471 |      193           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.480 |      194           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.490 |      195           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.500 |      196           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.509 |      197           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.519 |      198           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.529 |      199           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.538 |      200           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.548 |      201           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.558 |      202           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.567 |      203           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.577 |      204           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.587 |      205           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.596 |      206           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.606 |      207           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.616 |      208           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.625 |      209           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.635 |      210           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.645 |      211           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.654 |      212           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.664 |      213           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.674 |      214           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.683 |      215           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.693 |      216           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.703 |      217           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.712 |      218           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.722 |      219           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.732 |      220           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.741 |      221           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.751 |      222           2              0.010 
-2020-07-15 18:55:44 | INFO |        2.761 |      223           2              0.010 
-2020-07-15 18:55:44 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:44 | INFO |        2.780 |      224           2              0.019 
-2020-07-15 18:55:44 | INFO |        2.799 |      225           2              0.019 
-2020-07-15 18:55:44 | INFO |        2.819 |      226           2              0.019 
-2020-07-15 18:55:44 | INFO |        2.838 |      227           2              0.019 
-2020-07-15 18:55:44 | INFO |        2.857 |      228           2              0.019 
-2020-07-15 18:55:44 | INFO |        2.875 |      229           2              0.017 
-2020-07-15 18:55:44 | INFO |        2.892 |      230           2              0.017 
-2020-07-15 18:55:44 | INFO |        2.908 |      231           2              0.016 
-2020-07-15 18:55:44 | INFO |        2.922 |      232           2              0.014 
-2020-07-15 18:55:44 | INFO |        2.936 |      233           2              0.014 
-2020-07-15 18:55:44 | INFO |        2.949 |      234           2              0.013 
-2020-07-15 18:55:44 | INFO |        2.962 |      235           2              0.013 
-2020-07-15 18:55:44 | INFO |        2.974 |      236           2              0.013 
-2020-07-15 18:55:44 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:44 | INFO |        2.986 |      237           2              0.011 
-2020-07-15 18:55:44 | INFO |        2.997 |      238           2              0.011 
-2020-07-15 18:55:44 | INFO |        3.008 |      239           2              0.011 
-2020-07-15 18:55:44 | INFO |        3.020 |      240           2              0.011 
-2020-07-15 18:55:44 | INFO |        3.031 |      241           2              0.011 
-2020-07-15 18:55:44 | INFO |        3.043 |      242           2              0.011 
-2020-07-15 18:55:44 | INFO |        3.054 |      243           2              0.011 
-2020-07-15 18:55:44 | INFO |        3.065 |      244           2              0.011 
-2020-07-15 18:55:44 | INFO |        3.076 |      245           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.086 |      246           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.096 |      247           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.107 |      248           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.117 |      249           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.127 |      250           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.137 |      251           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.148 |      252           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.158 |      253           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.168 |      254           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.178 |      255           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.189 |      256           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.199 |      257           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.209 |      258           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.220 |      259           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.230 |      260           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.240 |      261           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.250 |      262           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.261 |      263           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.271 |      264           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.281 |      265           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.291 |      266           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.302 |      267           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.312 |      268           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.322 |      269           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.333 |      270           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.343 |      271           2              0.010 
-2020-07-15 18:55:44 | INFO |        3.353 |      272           2              0.010 
-2020-07-15 18:55:45 | INFO |        3.363 |      273           2              0.010 
-2020-07-15 18:55:45 | INFO |        3.374 |      274           2              0.010 
-2020-07-15 18:55:45 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:45 | INFO |        3.394 |      275           2              0.021 
-2020-07-15 18:55:45 | INFO |        3.413 |      276           2              0.018 
-2020-07-15 18:55:45 | INFO |        3.431 |      277           2              0.018 
-2020-07-15 18:55:45 | INFO |        3.448 |      278           2              0.017 
-2020-07-15 18:55:45 | INFO |        3.463 |      279           2              0.015 
-2020-07-15 18:55:45 | INFO |        3.478 |      280           2              0.015 
-2020-07-15 18:55:45 | INFO |        3.491 |      281           2              0.013 
-2020-07-15 18:55:45 | INFO |        3.505 |      282           2              0.013 
-2020-07-15 18:55:45 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:45 | INFO |        3.517 |      283           2              0.012 
-2020-07-15 18:55:45 | INFO |        3.529 |      284           2              0.012 
-2020-07-15 18:55:45 | INFO |        3.541 |      285           2              0.012 
-2020-07-15 18:55:45 | INFO |        3.553 |      286           2              0.012 
-2020-07-15 18:55:45 | INFO |        3.564 |      287           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.575 |      288           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.586 |      289           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.597 |      290           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.608 |      291           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.619 |      292           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.630 |      293           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.641 |      294           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.651 |      295           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.662 |      296           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.673 |      297           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.684 |      298           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.695 |      299           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.706 |      300           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.717 |      301           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.728 |      302           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.739 |      303           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.750 |      304           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.761 |      305           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.772 |      306           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.782 |      307           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.793 |      308           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.804 |      309           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.815 |      310           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.826 |      311           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.837 |      312           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.848 |      313           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.859 |      314           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.870 |      315           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.881 |      316           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.892 |      317           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.903 |      318           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.913 |      319           2              0.011 
-2020-07-15 18:55:45 | INFO |        3.924 |      320           2              0.011 
-2020-07-15 18:55:45 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:45 | INFO |        3.946 |      321           2              0.022 
-2020-07-15 18:55:45 | INFO |        3.968 |      322           2              0.022 
-2020-07-15 18:55:45 | INFO |        3.990 |      323           2              0.022 
-2020-07-15 18:55:45 | INFO |        4.012 |      324           2              0.022 
-2020-07-15 18:55:45 | INFO |        4.031 |      325           2              0.020 
-2020-07-15 18:55:45 | INFO |        4.049 |      326           2              0.018 
-2020-07-15 18:55:45 | INFO |        4.065 |      327           2              0.016 
-2020-07-15 18:55:45 | INFO |        4.081 |      328           2              0.016 
-2020-07-15 18:55:45 | INFO |        4.095 |      329           2              0.014 
-2020-07-15 18:55:45 | INFO |        4.110 |      330           2              0.014 
-2020-07-15 18:55:45 | INFO |        4.124 |      331           2              0.014 
-2020-07-15 18:55:45 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:45 | INFO |        4.137 |      332           2              0.013 
-2020-07-15 18:55:45 | INFO |        4.150 |      333           2              0.013 
-2020-07-15 18:55:45 | INFO |        4.163 |      334           2              0.013 
-2020-07-15 18:55:45 | INFO |        4.175 |      335           2              0.013 
-2020-07-15 18:55:45 | INFO |        4.188 |      336           2              0.013 
-2020-07-15 18:55:45 | INFO |        4.201 |      337           2              0.013 
-2020-07-15 18:55:45 | INFO |        4.214 |      338           2              0.013 
-2020-07-15 18:55:45 | INFO |        4.226 |      339           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.237 |      340           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.249 |      341           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.261 |      342           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.272 |      343           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.284 |      344           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.295 |      345           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.307 |      346           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.319 |      347           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.330 |      348           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.342 |      349           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.353 |      350           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.365 |      351           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.377 |      352           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.388 |      353           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.400 |      354           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.411 |      355           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.423 |      356           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.435 |      357           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.446 |      358           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.458 |      359           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.469 |      360           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.481 |      361           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.493 |      362           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.504 |      363           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.516 |      364           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.527 |      365           2              0.012 
-2020-07-15 18:55:45 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:45 | INFO |        4.551 |      366           2              0.023 
-2020-07-15 18:55:45 | INFO |        4.572 |      367           2              0.021 
-2020-07-15 18:55:45 | INFO |        4.592 |      368           2              0.021 
-2020-07-15 18:55:45 | INFO |        4.611 |      369           2              0.019 
-2020-07-15 18:55:45 | INFO |        4.628 |      370           2              0.017 
-2020-07-15 18:55:45 | INFO |        4.645 |      371           2              0.017 
-2020-07-15 18:55:45 | INFO |        4.660 |      372           2              0.015 
-2020-07-15 18:55:45 | INFO |        4.675 |      373           2              0.015 
-2020-07-15 18:55:45 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:45 | INFO |        4.689 |      374           2              0.014 
-2020-07-15 18:55:45 | INFO |        4.703 |      375           2              0.014 
-2020-07-15 18:55:45 | INFO |        4.717 |      376           2              0.014 
-2020-07-15 18:55:45 | INFO |        4.729 |      377           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.741 |      378           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.754 |      379           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.766 |      380           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.778 |      381           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.791 |      382           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.803 |      383           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.815 |      384           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.828 |      385           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.840 |      386           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.852 |      387           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.865 |      388           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.877 |      389           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.889 |      390           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.902 |      391           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.914 |      392           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.926 |      393           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.939 |      394           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.951 |      395           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.963 |      396           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.976 |      397           2              0.012 
-2020-07-15 18:55:45 | INFO |        4.988 |      398           2              0.012 
-2020-07-15 18:55:45 | INFO |        5.000 |      399           2              0.012 
-2020-07-15 18:55:45 | INFO |        5.013 |      400           2              0.012 
-2020-07-15 18:55:45 | INFO |        5.025 |      401           2              0.012 
-2020-07-15 18:55:45 | INFO |        5.037 |      402           2              0.012 
-2020-07-15 18:55:45 | INFO |        5.050 |      403           2              0.012 
-2020-07-15 18:55:45 | INFO |        5.062 |      404           2              0.012 
-2020-07-15 18:55:45 | INFO |        5.074 |      405           2              0.012 
-2020-07-15 18:55:45 | INFO |        5.087 |      406           2              0.012 
-2020-07-15 18:55:45 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:45 | INFO |        5.111 |      407           2              0.025 
-2020-07-15 18:55:45 | INFO |        5.136 |      408           2              0.025 
-2020-07-15 18:55:45 | INFO |        5.161 |      409           2              0.025 
-2020-07-15 18:55:45 | INFO |        5.185 |      410           2              0.025 
-2020-07-15 18:55:45 | INFO |        5.207 |      411           2              0.022 
-2020-07-15 18:55:45 | INFO |        5.227 |      412           2              0.020 
-2020-07-15 18:55:45 | INFO |        5.245 |      413           2              0.018 
-2020-07-15 18:55:45 | INFO |        5.261 |      414           2              0.016 
-2020-07-15 18:55:45 | INFO |        5.277 |      415           2              0.016 
-2020-07-15 18:55:45 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:45 | INFO |        5.291 |      416           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.306 |      417           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.320 |      418           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.335 |      419           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.349 |      420           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.363 |      421           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.378 |      422           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.391 |      423           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.404 |      424           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.417 |      425           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.430 |      426           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.443 |      427           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.456 |      428           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.469 |      429           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.482 |      430           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.495 |      431           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.508 |      432           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.521 |      433           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.534 |      434           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.547 |      435           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.560 |      436           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.573 |      437           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.586 |      438           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.599 |      439           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.612 |      440           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.625 |      441           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.638 |      442           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.651 |      443           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.664 |      444           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.677 |      445           2              0.013 
-2020-07-15 18:55:45 | INFO |        5.690 |      446           2              0.013 
-2020-07-15 18:55:45 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:45 | INFO |        5.716 |      447           2              0.026 
-2020-07-15 18:55:45 | INFO |        5.739 |      448           2              0.023 
-2020-07-15 18:55:45 | INFO |        5.762 |      449           2              0.023 
-2020-07-15 18:55:45 | INFO |        5.783 |      450           2              0.021 
-2020-07-15 18:55:45 | INFO |        5.802 |      451           2              0.019 
-2020-07-15 18:55:45 | INFO |        5.819 |      452           2              0.017 
-2020-07-15 18:55:45 | INFO |        5.836 |      453           2              0.017 
-2020-07-15 18:55:45 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:45 | INFO |        5.852 |      454           2              0.015 
-2020-07-15 18:55:45 | INFO |        5.867 |      455           2              0.015 
-2020-07-15 18:55:45 | INFO |        5.882 |      456           2              0.015 
-2020-07-15 18:55:45 | INFO |        5.898 |      457           2              0.015 
-2020-07-15 18:55:45 | INFO |        5.912 |      458           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.925 |      459           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.939 |      460           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.953 |      461           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.967 |      462           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.981 |      463           2              0.014 
-2020-07-15 18:55:45 | INFO |        5.994 |      464           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.008 |      465           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.022 |      466           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.036 |      467           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.050 |      468           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.063 |      469           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.077 |      470           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.091 |      471           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.105 |      472           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.119 |      473           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.132 |      474           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.146 |      475           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.160 |      476           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.174 |      477           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.188 |      478           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.201 |      479           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.215 |      480           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.229 |      481           2              0.014 
-2020-07-15 18:55:45 | INFO |        6.243 |      482           2              0.014 
-2020-07-15 18:55:45 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:45 | INFO |        6.270 |      483           2              0.028 
-2020-07-15 18:55:45 | INFO |        6.298 |      484           2              0.028 
-2020-07-15 18:55:45 | INFO |        6.326 |      485           2              0.028 
-2020-07-15 18:55:45 | INFO |        6.353 |      486           2              0.028 
-2020-07-15 18:55:45 | INFO |        6.377 |      487           2              0.024 
-2020-07-15 18:55:45 | INFO |        6.398 |      488           2              0.021 
-2020-07-15 18:55:45 | INFO |        6.417 |      489           2              0.019 
-2020-07-15 18:55:45 | INFO |        6.434 |      490           2              0.017 
-2020-07-15 18:55:45 | INFO |        6.452 |      491           2              0.017 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        6.467 |      492           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.483 |      493           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.498 |      494           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.513 |      495           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.529 |      496           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.544 |      497           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.560 |      498           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.575 |      499           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.591 |      500           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.606 |      501           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.622 |      502           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.637 |      503           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.653 |      504           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.668 |      505           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.684 |      506           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.699 |      507           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.715 |      508           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.730 |      509           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.746 |      510           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.761 |      511           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.777 |      512           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.792 |      513           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.808 |      514           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.823 |      515           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.839 |      516           2              0.015 
-2020-07-15 18:55:46 | INFO |        6.854 |      517           2              0.015 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        6.885 |      518           2              0.031 
-2020-07-15 18:55:46 | INFO |        6.912 |      519           2              0.027 
-2020-07-15 18:55:46 | INFO |        6.939 |      520           2              0.027 
-2020-07-15 18:55:46 | INFO |        6.962 |      521           2              0.023 
-2020-07-15 18:55:46 | INFO |        6.983 |      522           2              0.021 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        7.002 |      523           2              0.019 
-2020-07-15 18:55:46 | INFO |        7.020 |      524           2              0.019 
-2020-07-15 18:55:46 | INFO |        7.037 |      525           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.054 |      526           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.070 |      527           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.087 |      528           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.104 |      529           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.121 |      530           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.138 |      531           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.154 |      532           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.171 |      533           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.188 |      534           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.205 |      535           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.221 |      536           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.238 |      537           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.255 |      538           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.272 |      539           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.288 |      540           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.305 |      541           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.322 |      542           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.339 |      543           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.355 |      544           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.372 |      545           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.389 |      546           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.406 |      547           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.423 |      548           2              0.017 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        7.456 |      549           2              0.034 
-2020-07-15 18:55:46 | INFO |        7.490 |      550           2              0.034 
-2020-07-15 18:55:46 | INFO |        7.520 |      551           2              0.030 
-2020-07-15 18:55:46 | INFO |        7.546 |      552           2              0.027 
-2020-07-15 18:55:46 | INFO |        7.570 |      553           2              0.024 
-2020-07-15 18:55:46 | INFO |        7.591 |      554           2              0.021 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        7.610 |      555           2              0.019 
-2020-07-15 18:55:46 | INFO |        7.629 |      556           2              0.019 
-2020-07-15 18:55:46 | INFO |        7.647 |      557           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.664 |      558           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.681 |      559           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.698 |      560           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.716 |      561           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.733 |      562           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.750 |      563           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.767 |      564           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.784 |      565           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.802 |      566           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.819 |      567           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.836 |      568           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.853 |      569           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.870 |      570           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.888 |      571           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.905 |      572           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.922 |      573           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.939 |      574           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.957 |      575           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.974 |      576           2              0.017 
-2020-07-15 18:55:46 | INFO |        7.991 |      577           2              0.017 
-2020-07-15 18:55:46 | INFO |        8.008 |      578           2              0.017 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        8.043 |      579           2              0.034 
-2020-07-15 18:55:46 | INFO |        8.074 |      580           2              0.031 
-2020-07-15 18:55:46 | INFO |        8.105 |      581           2              0.031 
-2020-07-15 18:55:46 | INFO |        8.130 |      582           2              0.026 
-2020-07-15 18:55:46 | INFO |        8.154 |      583           2              0.023 
-2020-07-15 18:55:46 | INFO |        8.175 |      584           2              0.021 
-2020-07-15 18:55:46 | INFO |        8.196 |      585           2              0.021 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        8.214 |      586           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.233 |      587           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.252 |      588           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.271 |      589           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.290 |      590           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.309 |      591           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.328 |      592           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.346 |      593           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.365 |      594           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.384 |      595           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.403 |      596           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.422 |      597           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.441 |      598           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.460 |      599           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.478 |      600           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.497 |      601           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.516 |      602           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.535 |      603           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.554 |      604           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.573 |      605           2              0.019 
-2020-07-15 18:55:46 | INFO |        8.592 |      606           2              0.019 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        8.629 |      607           2              0.038 
-2020-07-15 18:55:46 | INFO |        8.663 |      608           2              0.034 
-2020-07-15 18:55:46 | INFO |        8.693 |      609           2              0.030 
-2020-07-15 18:55:46 | INFO |        8.720 |      610           2              0.027 
-2020-07-15 18:55:46 | INFO |        8.744 |      611           2              0.024 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        8.766 |      612           2              0.022 
-2020-07-15 18:55:46 | INFO |        8.788 |      613           2              0.022 
-2020-07-15 18:55:46 | INFO |        8.808 |      614           2              0.020 
-2020-07-15 18:55:46 | INFO |        8.828 |      615           2              0.020 
-2020-07-15 18:55:46 | INFO |        8.848 |      616           2              0.020 
-2020-07-15 18:55:46 | INFO |        8.868 |      617           2              0.020 
-2020-07-15 18:55:46 | INFO |        8.887 |      618           2              0.020 
-2020-07-15 18:55:46 | INFO |        8.907 |      619           2              0.020 
-2020-07-15 18:55:46 | INFO |        8.927 |      620           2              0.020 
-2020-07-15 18:55:46 | INFO |        8.947 |      621           2              0.020 
-2020-07-15 18:55:46 | INFO |        8.967 |      622           2              0.020 
-2020-07-15 18:55:46 | INFO |        8.986 |      623           2              0.020 
-2020-07-15 18:55:46 | INFO |        9.006 |      624           2              0.020 
-2020-07-15 18:55:46 | INFO |        9.026 |      625           2              0.020 
-2020-07-15 18:55:46 | INFO |        9.046 |      626           2              0.020 
-2020-07-15 18:55:46 | INFO |        9.066 |      627           2              0.020 
-2020-07-15 18:55:46 | INFO |        9.085 |      628           2              0.020 
-2020-07-15 18:55:46 | INFO |        9.105 |      629           2              0.020 
-2020-07-15 18:55:46 | INFO |        9.125 |      630           2              0.020 
-2020-07-15 18:55:46 | INFO |        9.145 |      631           2              0.020 
-2020-07-15 18:55:46 | INFO |        9.164 |      632           2              0.020 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        9.204 |      633           2              0.040 
-2020-07-15 18:55:46 | INFO |        9.240 |      634           2              0.036 
-2020-07-15 18:55:46 | INFO |        9.272 |      635           2              0.032 
-2020-07-15 18:55:46 | INFO |        9.301 |      636           2              0.029 
-2020-07-15 18:55:46 | INFO |        9.327 |      637           2              0.026 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        9.350 |      638           2              0.023 
-2020-07-15 18:55:46 | INFO |        9.371 |      639           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.392 |      640           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.413 |      641           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.434 |      642           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.455 |      643           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.476 |      644           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.497 |      645           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.518 |      646           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.539 |      647           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.560 |      648           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.581 |      649           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.602 |      650           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.623 |      651           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.644 |      652           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.665 |      653           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.686 |      654           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.707 |      655           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.729 |      656           2              0.021 
-2020-07-15 18:55:46 | INFO |        9.750 |      657           2              0.021 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        9.792 |      658           2              0.042 
-2020-07-15 18:55:46 | INFO |        9.829 |      659           2              0.038 
-2020-07-15 18:55:46 | INFO |        9.864 |      660           2              0.034 
-2020-07-15 18:55:46 | INFO |        9.894 |      661           2              0.031 
-2020-07-15 18:55:46 | INFO |        9.922 |      662           2              0.028 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |        9.947 |      663           2              0.025 
-2020-07-15 18:55:46 | INFO |        9.969 |      664           2              0.022 
-2020-07-15 18:55:46 | INFO |        9.991 |      665           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.014 |      666           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.036 |      667           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.058 |      668           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.081 |      669           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.103 |      670           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.126 |      671           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.148 |      672           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.170 |      673           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.193 |      674           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.215 |      675           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.237 |      676           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.260 |      677           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.282 |      678           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.304 |      679           2              0.022 
-2020-07-15 18:55:46 | INFO |       10.327 |      680           2              0.022 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |       10.371 |      681           2              0.045 
-2020-07-15 18:55:46 | INFO |       10.412 |      682           2              0.040 
-2020-07-15 18:55:46 | INFO |       10.448 |      683           2              0.036 
-2020-07-15 18:55:46 | INFO |       10.480 |      684           2              0.032 
-2020-07-15 18:55:46 | INFO |       10.509 |      685           2              0.029 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |       10.536 |      686           2              0.026 
-2020-07-15 18:55:46 | INFO |       10.559 |      687           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.583 |      688           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.606 |      689           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.630 |      690           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.653 |      691           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.677 |      692           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.701 |      693           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.724 |      694           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.748 |      695           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.771 |      696           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.795 |      697           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.818 |      698           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.842 |      699           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.866 |      700           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.889 |      701           2              0.024 
-2020-07-15 18:55:46 | INFO |       10.913 |      702           2              0.024 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |       10.960 |      703           2              0.047 
-2020-07-15 18:55:46 | INFO |       11.002 |      704           2              0.042 
-2020-07-15 18:55:46 | INFO |       11.040 |      705           2              0.038 
-2020-07-15 18:55:46 | INFO |       11.074 |      706           2              0.034 
-2020-07-15 18:55:46 | INFO |       11.105 |      707           2              0.031 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |       11.132 |      708           2              0.027 
-2020-07-15 18:55:46 | INFO |       11.157 |      709           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.182 |      710           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.207 |      711           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.231 |      712           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.256 |      713           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.281 |      714           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.306 |      715           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.330 |      716           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.355 |      717           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.380 |      718           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.405 |      719           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.429 |      720           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.454 |      721           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.479 |      722           2              0.025 
-2020-07-15 18:55:46 | INFO |       11.504 |      723           2              0.025 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |       11.553 |      724           2              0.049 
-2020-07-15 18:55:46 | INFO |       11.595 |      725           2              0.041 
-2020-07-15 18:55:46 | INFO |       11.632 |      726           2              0.037 
-2020-07-15 18:55:46 | INFO |       11.665 |      727           2              0.034 
-2020-07-15 18:55:46 | INFO |       11.696 |      728           2              0.030 
-2020-07-15 18:55:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:46 | INFO |       11.723 |      729           2              0.027 
-2020-07-15 18:55:47 | INFO |       11.750 |      730           2              0.027 
-2020-07-15 18:55:47 | INFO |       11.777 |      731           2              0.027 
-2020-07-15 18:55:47 | INFO |       11.805 |      732           2              0.027 
-2020-07-15 18:55:47 | INFO |       11.832 |      733           2              0.027 
-2020-07-15 18:55:47 | INFO |       11.859 |      734           2              0.027 
-2020-07-15 18:55:47 | INFO |       11.886 |      735           2              0.027 
-2020-07-15 18:55:47 | INFO |       11.913 |      736           2              0.027 
-2020-07-15 18:55:47 | INFO |       11.941 |      737           2              0.027 
-2020-07-15 18:55:47 | INFO |       11.968 |      738           2              0.027 
-2020-07-15 18:55:47 | INFO |       11.995 |      739           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.022 |      740           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.049 |      741           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.077 |      742           2              0.027 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       12.131 |      743           2              0.054 
-2020-07-15 18:55:47 | INFO |       12.178 |      744           2              0.047 
-2020-07-15 18:55:47 | INFO |       12.221 |      745           2              0.042 
-2020-07-15 18:55:47 | INFO |       12.258 |      746           2              0.037 
-2020-07-15 18:55:47 | INFO |       12.291 |      747           2              0.034 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       12.322 |      748           2              0.030 
-2020-07-15 18:55:47 | INFO |       12.352 |      749           2              0.030 
-2020-07-15 18:55:47 | INFO |       12.379 |      750           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.406 |      751           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.434 |      752           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.461 |      753           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.488 |      754           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.515 |      755           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.542 |      756           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.570 |      757           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.597 |      758           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.624 |      759           2              0.027 
-2020-07-15 18:55:47 | INFO |       12.651 |      760           2              0.027 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       12.706 |      761           2              0.054 
-2020-07-15 18:55:47 | INFO |       12.755 |      762           2              0.049 
-2020-07-15 18:55:47 | INFO |       12.799 |      763           2              0.044 
-2020-07-15 18:55:47 | INFO |       12.838 |      764           2              0.040 
-2020-07-15 18:55:47 | INFO |       12.874 |      765           2              0.036 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       12.906 |      766           2              0.032 
-2020-07-15 18:55:47 | INFO |       12.938 |      767           2              0.032 
-2020-07-15 18:55:47 | INFO |       12.967 |      768           2              0.029 
-2020-07-15 18:55:47 | INFO |       12.996 |      769           2              0.029 
-2020-07-15 18:55:47 | INFO |       13.025 |      770           2              0.029 
-2020-07-15 18:55:47 | INFO |       13.054 |      771           2              0.029 
-2020-07-15 18:55:47 | INFO |       13.083 |      772           2              0.029 
-2020-07-15 18:55:47 | INFO |       13.112 |      773           2              0.029 
-2020-07-15 18:55:47 | INFO |       13.141 |      774           2              0.029 
-2020-07-15 18:55:47 | INFO |       13.170 |      775           2              0.029 
-2020-07-15 18:55:47 | INFO |       13.199 |      776           2              0.029 
-2020-07-15 18:55:47 | INFO |       13.228 |      777           2              0.029 
-2020-07-15 18:55:47 | INFO |       13.257 |      778           2              0.029 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       13.314 |      779           2              0.058 
-2020-07-15 18:55:47 | INFO |       13.363 |      780           2              0.049 
-2020-07-15 18:55:47 | INFO |       13.407 |      781           2              0.044 
-2020-07-15 18:55:47 | INFO |       13.446 |      782           2              0.039 
-2020-07-15 18:55:47 | INFO |       13.482 |      783           2              0.036 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       13.514 |      784           2              0.032 
-2020-07-15 18:55:47 | INFO |       13.546 |      785           2              0.032 
-2020-07-15 18:55:47 | INFO |       13.578 |      786           2              0.032 
-2020-07-15 18:55:47 | INFO |       13.610 |      787           2              0.032 
-2020-07-15 18:55:47 | INFO |       13.642 |      788           2              0.032 
-2020-07-15 18:55:47 | INFO |       13.674 |      789           2              0.032 
-2020-07-15 18:55:47 | INFO |       13.706 |      790           2              0.032 
-2020-07-15 18:55:47 | INFO |       13.737 |      791           2              0.032 
-2020-07-15 18:55:47 | INFO |       13.769 |      792           2              0.032 
-2020-07-15 18:55:47 | INFO |       13.801 |      793           2              0.032 
-2020-07-15 18:55:47 | INFO |       13.833 |      794           2              0.032 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       13.897 |      795           2              0.064 
-2020-07-15 18:55:47 | INFO |       13.951 |      796           2              0.054 
-2020-07-15 18:55:47 | INFO |       13.999 |      797           2              0.048 
-2020-07-15 18:55:47 | INFO |       14.042 |      798           2              0.043 
-2020-07-15 18:55:47 | INFO |       14.080 |      799           2              0.039 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       14.115 |      800           2              0.035 
-2020-07-15 18:55:47 | INFO |       14.150 |      801           2              0.035 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       14.168 |      802           1              0.018 
-2020-07-15 18:55:47 | INFO |       14.185 |      803           1              0.018 
-2020-07-15 18:55:47 | INFO |       14.203 |      804           1              0.018 
-2020-07-15 18:55:47 | INFO |       14.239 |      805           2              0.036 
-2020-07-15 18:55:47 | INFO |       14.274 |      806           2              0.036 
-2020-07-15 18:55:47 | INFO |       14.306 |      807           2              0.032 
-2020-07-15 18:55:47 | INFO |       14.338 |      808           2              0.032 
-2020-07-15 18:55:47 | INFO |       14.370 |      809           2              0.032 
-2020-07-15 18:55:47 | INFO |       14.402 |      810           2              0.032 
-2020-07-15 18:55:47 | INFO |       14.434 |      811           2              0.032 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       14.498 |      812           2              0.064 
-2020-07-15 18:55:47 | INFO |       14.549 |      813           2              0.051 
-2020-07-15 18:55:47 | INFO |       14.600 |      814           2              0.051 
-2020-07-15 18:55:47 | INFO |       14.643 |      815           2              0.043 
-2020-07-15 18:55:47 | INFO |       14.682 |      816           2              0.039 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       14.717 |      817           2              0.035 
-2020-07-15 18:55:47 | INFO |       14.753 |      818           2              0.035 
-2020-07-15 18:55:47 | INFO |       14.788 |      819           2              0.035 
-2020-07-15 18:55:47 | INFO |       14.823 |      820           2              0.035 
-2020-07-15 18:55:47 | INFO |       14.858 |      821           2              0.035 
-2020-07-15 18:55:47 | INFO |       14.893 |      822           2              0.035 
-2020-07-15 18:55:47 | INFO |       14.928 |      823           2              0.035 
-2020-07-15 18:55:47 | INFO |       14.963 |      824           2              0.035 
-2020-07-15 18:55:47 | INFO |       14.999 |      825           2              0.035 
-2020-07-15 18:55:47 | INFO |       15.034 |      826           2              0.035 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       15.080 |      827           2              0.046 
-2020-07-15 18:55:47 | INFO |       15.126 |      828           2              0.046 
-2020-07-15 18:55:47 | INFO |       15.172 |      829           2              0.046 
-2020-07-15 18:55:47 | INFO |       15.218 |      830           2              0.046 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       15.260 |      831           2              0.042 
-2020-07-15 18:55:47 | INFO |       15.302 |      832           2              0.042 
-2020-07-15 18:55:47 | INFO |       15.339 |      833           2              0.037 
-2020-07-15 18:55:47 | INFO |       15.376 |      834           2              0.037 
-2020-07-15 18:55:47 | INFO |       15.414 |      835           2              0.037 
-2020-07-15 18:55:47 | INFO |       15.451 |      836           2              0.037 
-2020-07-15 18:55:47 | INFO |       15.488 |      837           2              0.037 
-2020-07-15 18:55:47 | INFO |       15.526 |      838           2              0.037 
-2020-07-15 18:55:47 | INFO |       15.563 |      839           2              0.037 
-2020-07-15 18:55:47 | INFO |       15.601 |      840           2              0.037 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       15.675 |      841           2              0.075 
-2020-07-15 18:55:47 | INFO |       15.737 |      842           2              0.062 
-2020-07-15 18:55:47 | INFO |       15.792 |      843           2              0.055 
-2020-07-15 18:55:47 | INFO |       15.842 |      844           2              0.050 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       15.887 |      845           2              0.045 
-2020-07-15 18:55:47 | INFO |       15.927 |      846           2              0.040 
-2020-07-15 18:55:47 | INFO |       15.968 |      847           2              0.040 
-2020-07-15 18:55:47 | INFO |       16.008 |      848           2              0.040 
-2020-07-15 18:55:47 | INFO |       16.049 |      849           2              0.040 
-2020-07-15 18:55:47 | INFO |       16.089 |      850           2              0.040 
-2020-07-15 18:55:47 | INFO |       16.129 |      851           2              0.040 
-2020-07-15 18:55:47 | INFO |       16.170 |      852           2              0.040 
-2020-07-15 18:55:47 | INFO |       16.210 |      853           2              0.040 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       16.263 |      854           2              0.053 
-2020-07-15 18:55:47 | INFO |       16.316 |      855           2              0.053 
-2020-07-15 18:55:47 | INFO |       16.369 |      856           2              0.053 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       16.417 |      857           2              0.048 
-2020-07-15 18:55:47 | INFO |       16.465 |      858           2              0.048 
-2020-07-15 18:55:47 | INFO |       16.508 |      859           2              0.043 
-2020-07-15 18:55:47 | INFO |       16.532 |      860           1              0.024 
-2020-07-15 18:55:47 | INFO |       16.556 |      861           1              0.024 
-2020-07-15 18:55:47 | INFO |       16.579 |      862           1              0.024 
-2020-07-15 18:55:47 | INFO |       16.627 |      863           2              0.048 
-2020-07-15 18:55:47 | INFO |       16.675 |      864           2              0.048 
-2020-07-15 18:55:47 | INFO |       16.722 |      865           2              0.048 
-2020-07-15 18:55:47 | INFO |       16.770 |      866           2              0.048 
-2020-07-15 18:55:47 | INFO |       16.818 |      867           2              0.048 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       16.870 |      868           2              0.053 
-2020-07-15 18:55:47 | INFO |       16.923 |      869           2              0.053 
-2020-07-15 18:55:47 | INFO |       16.975 |      870           2              0.053 
-2020-07-15 18:55:47 | INFO |       17.028 |      871           2              0.053 
-2020-07-15 18:55:47 | INFO |       17.075 |      872           2              0.047 
-2020-07-15 18:55:47 | INFO |       17.122 |      873           2              0.047 
-2020-07-15 18:55:47 | INFO |       17.170 |      874           2              0.047 
-2020-07-15 18:55:47 | INFO |       17.217 |      875           2              0.047 
-2020-07-15 18:55:47 | INFO |       17.264 |      876           2              0.047 
-2020-07-15 18:55:47 | INFO |       17.312 |      877           2              0.047 
-2020-07-15 18:55:47 | INFO |       17.359 |      878           2              0.047 
-2020-07-15 18:55:47 | INFO |       17.406 |      879           2              0.047 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       17.463 |      880           2              0.057 
-2020-07-15 18:55:47 | INFO |       17.520 |      881           2              0.057 
-2020-07-15 18:55:47 | INFO |       17.577 |      882           2              0.057 
-2020-07-15 18:55:47 | INFO |       17.634 |      883           2              0.057 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       17.685 |      884           2              0.051 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       17.715 |      885           1              0.029 
-2020-07-15 18:55:47 | INFO |       17.744 |      886           1              0.029 
-2020-07-15 18:55:47 | INFO |       17.774 |      887           1              0.029 
-2020-07-15 18:55:47 | INFO |       17.832 |      888           2              0.059 
-2020-07-15 18:55:47 | INFO |       17.891 |      889           2              0.059 
-2020-07-15 18:55:47 | INFO |       17.950 |      890           2              0.059 
-2020-07-15 18:55:47 | INFO |       18.009 |      891           2              0.059 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       18.067 |      892           2              0.058 
-2020-07-15 18:55:47 | INFO |       18.125 |      893           2              0.058 
-2020-07-15 18:55:47 | INFO |       18.183 |      894           2              0.058 
-2020-07-15 18:55:47 | INFO |       18.241 |      895           2              0.058 
-2020-07-15 18:55:47 | INFO |       18.299 |      896           2              0.058 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       18.328 |      897           1              0.029 
-2020-07-15 18:55:47 | INFO |       18.357 |      898           1              0.029 
-2020-07-15 18:55:47 | INFO |       18.385 |      899           1              0.029 
-2020-07-15 18:55:47 | INFO |       18.443 |      900           2              0.058 
-2020-07-15 18:55:47 | INFO |       18.501 |      901           2              0.058 
-2020-07-15 18:55:47 | INFO |       18.558 |      902           2              0.058 
-2020-07-15 18:55:47 | INFO |       18.616 |      903           2              0.058 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       18.676 |      904           2              0.060 
-2020-07-15 18:55:47 | INFO |       18.735 |      905           2              0.060 
-2020-07-15 18:55:47 | INFO |       18.795 |      906           2              0.060 
-2020-07-15 18:55:47 | INFO |       18.854 |      907           2              0.060 
-2020-07-15 18:55:47 | INFO |       18.914 |      908           2              0.060 
-2020-07-15 18:55:47 | INFO |       18.974 |      909           2              0.060 
-2020-07-15 18:55:47 | INFO |       19.033 |      910           2              0.060 
-2020-07-15 18:55:47 | INFO |       19.093 |      911           2              0.060 
-2020-07-15 18:55:47 | INFO |       19.152 |      912           2              0.060 
-2020-07-15 18:55:47 | INFO |       19.212 |      913           2              0.060 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       19.277 |      914           2              0.065 
-2020-07-15 18:55:47 | INFO |       19.342 |      915           2              0.065 
-2020-07-15 18:55:47 | INFO |       19.408 |      916           2              0.065 
-2020-07-15 18:55:47 | INFO |       19.473 |      917           2              0.065 
-2020-07-15 18:55:47 | INFO |       19.511 |      918           1              0.038 
-2020-07-15 18:55:47 | INFO |       19.549 |      919           1              0.038 
-2020-07-15 18:55:47 | INFO |       19.588 |      920           1              0.038 
-2020-07-15 18:55:47 | INFO |       19.665 |      921           2              0.077 
-2020-07-15 18:55:47 | INFO |       19.741 |      922           2              0.077 
-2020-07-15 18:55:47 | INFO |       19.818 |      923           2              0.077 
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:47 | INFO |       19.889 |      924           2              0.070 
-2020-07-15 18:55:47 | INFO |       19.959 |      925           2              0.070 
-2020-07-15 18:55:47 | INFO |       20.030 |      926           2              0.070 
-2020-07-15 18:55:47 | INFO |       20.100 |      927           2              0.070 
-2020-07-15 18:55:47 | INFO |       20.138 |      928           1              0.038 
-2020-07-15 18:55:47 | INFO |       20.177 |      929           1              0.038 
-2020-07-15 18:55:48 | INFO |       20.215 |      930           1              0.038 
-2020-07-15 18:55:48 | INFO |       20.292 |      931           2              0.077 
-2020-07-15 18:55:48 | INFO |       20.369 |      932           2              0.077 
-2020-07-15 18:55:48 | INFO |       20.446 |      933           2              0.077 
-2020-07-15 18:55:48 | INFO |       20.522 |      934           2              0.077 
-2020-07-15 18:55:48 | INFO |       20.599 |      935           2              0.077 
-2020-07-15 18:55:48 | INFO |       20.676 |      936           2              0.077 
-2020-07-15 18:55:48 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:48 | INFO |       20.724 |      937           1              0.048 
-2020-07-15 18:55:48 | INFO |       20.772 |      938           1              0.048 
-2020-07-15 18:55:48 | INFO |       20.820 |      939           1              0.048 
-2020-07-15 18:55:48 | INFO |       20.917 |      940           2              0.096 
-2020-07-15 18:55:48 | INFO |       21.013 |      941           2              0.096 
-2020-07-15 18:55:48 | INFO |       21.110 |      942           2              0.096 
-2020-07-15 18:55:48 | INFO |       21.206 |      943           2              0.096 
-2020-07-15 18:55:48 | INFO |       21.302 |      944           2              0.096 
-2020-07-15 18:55:48 | INFO |       21.356 |      945           1              0.054 
-2020-07-15 18:55:48 | INFO |       21.410 |      946           1              0.054 
-2020-07-15 18:55:48 | INFO |       21.464 |      947           1              0.054 
-2020-07-15 18:55:48 | INFO |       21.572 |      948           2              0.108 
-2020-07-15 18:55:48 | INFO |       21.680 |      949           2              0.108 
-2020-07-15 18:55:48 | INFO |       21.788 |      950           2              0.108 
-2020-07-15 18:55:48 | INFO |       21.896 |      951           2              0.108 
-2020-07-15 18:55:48 | INFO |       22.003 |      952           1              0.108 
-2020-07-15 18:55:48 | INFO |       22.083 |      953           1              0.080 
-2020-07-15 18:55:48 | INFO |       22.155 |      954           1              0.072 
-2020-07-15 18:55:48 | INFO |       22.219 |      955           1              0.065 
-2020-07-15 18:55:48 | INFO |       22.284 |      956           1              0.065 
-2020-07-15 18:55:48 | INFO |       22.348 |      957           1              0.065 
-2020-07-15 18:55:48 | INFO |       22.413 |      958           1              0.065 
-2020-07-15 18:55:48 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:48 | INFO |       22.542 |      959           1              0.129 
-2020-07-15 18:55:48 | INFO |       22.671 |      960           1              0.129 
-2020-07-15 18:55:48 | INFO |       22.785 |      961           1              0.114 
-2020-07-15 18:55:48 | INFO |       22.899 |      962           1              0.114 
-2020-07-15 18:55:48 | INFO |       23.013 |      963           1              0.114 
-2020-07-15 18:55:48 | INFO |       23.127 |      964           1              0.114 
-2020-07-15 18:55:48 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:48 | INFO |       23.355 |      965           1              0.228 
-2020-07-15 18:55:48 | INFO |       23.558 |      966           1              0.204 
-2020-07-15 18:55:48 | INFO |       23.762 |      967           1              0.204 
-2020-07-15 18:55:48 | INFO |       23.966 |      968           1              0.204 
-2020-07-15 18:55:48 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:48 | INFO |       24.373 |      969           1              0.407 
-2020-07-15 18:55:48 | INFO |       24.780 |      970           1              0.407 
-2020-07-15 18:55:48 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:48 | INFO |       25.594 |      971           1              0.814 
-2020-07-15 18:55:48 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:48 | INFO |       27.223 |      972           1              1.629 
-2020-07-15 18:55:48 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-07-15 18:55:48 | INFO |       30.000 |      973           1              2.777 
-2020-07-15 18:55:48 | INFO | 
-2020-07-15 18:55:48 | INFO | execution statistics :
-2020-07-15 18:55:48 | INFO | 
-2020-07-15 18:55:48 | INFO | number of time iterations                  = 999
-2020-07-15 18:55:48 | INFO | number of residual evaluations             = 1989
-2020-07-15 18:55:48 | INFO | number of Jacobian evaluations             = 110
-2020-07-15 18:55:48 | INFO | number of nonlinear iterations             = 1985
-2020-07-15 18:55:48 | INFO | number of error test failures              = 16
-2020-07-15 18:55:48 | INFO | number of nonlinear convergence failures   = 0
-2020-07-15 18:55:48 | INFO | number of root functions evaluations       = 1058
-2020-07-15 18:55:48 | INFO | number of discrete variables evaluations   = 6
-2020-07-15 18:55:48 | INFO | number of mode evaluations                 = 3
-2020-07-15 18:55:48 | INFO | end of job 'SMIB_DisconnectLine'
+2022-04-06 11:41:08 | INFO |  ============================================================ 
+2022-04-06 11:41:08 | INFO | DYNAWO VERSION  :     1.3.0
+2022-04-06 11:41:08 | INFO | DYNAWO REVISION :  2037_SimplifyNRT-070d8684
+2022-04-06 11:41:08 | INFO |  ============================================================ 
+2022-04-06 11:41:08 | INFO | 
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | building model from input files
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | model was built successfully
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | 
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | starting local initialization
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | end of local initialization
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | 
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | starting global initialization
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | end of global initialization
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | 
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | starting curve initialization
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | end of curve initialization, added 18 curves
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | 
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | starting simulation with solver IDASolver
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO | number of continuous variables : 74
+2022-04-06 11:41:08 | INFO | number of discrete variables : 31
+2022-04-06 11:41:08 | INFO | number of root functions : 38
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO |         time | iter num   order (k)      time step (h)
+2022-04-06 11:41:08 | INFO | -----------------------------------------------------------------------
+2022-04-06 11:41:08 | INFO |        0.000 |        0           0              0.010 
+2022-04-06 11:41:08 | INFO |        0.000 |        1           1              0.000 
+2022-04-06 11:41:08 | INFO |        0.000 |        2           1              0.000 
+2022-04-06 11:41:08 | INFO |        0.000 |        3           2              0.000 
+2022-04-06 11:41:08 | INFO |        0.000 |        4           2              0.000 
+2022-04-06 11:41:08 | INFO |        0.000 |        5           2              0.000 
+2022-04-06 11:41:08 | INFO |        0.000 |        6           2              0.000 
+2022-04-06 11:41:08 | INFO |        0.000 |        7           2              0.000 
+2022-04-06 11:41:08 | INFO |        0.000 |        8           2              0.000 
+2022-04-06 11:41:08 | INFO |        0.000 |        9           2              0.000 
+2022-04-06 11:41:08 | INFO |        0.001 |       10           2              0.000 
+2022-04-06 11:41:08 | INFO |        0.001 |       11           2              0.001 
+2022-04-06 11:41:08 | INFO |        0.002 |       12           2              0.001 
+2022-04-06 11:41:08 | INFO |        0.004 |       13           2              0.002 
+2022-04-06 11:41:08 | INFO |        0.008 |       14           2              0.004 
+2022-04-06 11:41:08 | INFO |        0.016 |       15           2              0.008 
+2022-04-06 11:41:08 | INFO |        0.033 |       16           2              0.016 
+2022-04-06 11:41:08 | INFO |        0.066 |       17           2              0.033 
+2022-04-06 11:41:08 | INFO |        0.098 |       18           2              0.033 
+2022-04-06 11:41:08 | INFO |        0.164 |       19           2              0.066 
+2022-04-06 11:41:08 | INFO |        0.229 |       20           1              0.066 
+2022-04-06 11:41:08 | INFO |        0.360 |       21           1              0.131 
+2022-04-06 11:41:08 | INFO |        0.492 |       22           1              0.131 
+2022-04-06 11:41:08 | INFO |        0.623 |       23           1              0.131 
+2022-04-06 11:41:08 | INFO |        0.754 |       24           2              0.131 
+2022-04-06 11:41:08 | INFO |        0.885 |       25           2              0.131 
+2022-04-06 11:41:08 | INFO | Algebraic mode (with J recalculation) change at t = 1.07
+2022-04-06 11:41:08 | INFO |        1.070 |       26           2              0.262 
+2022-04-06 11:41:08 | INFO | calculation of the new starting point of the simulation.
+2022-04-06 11:41:08 | INFO |        1.070 |        0           0              0.000 
+2022-04-06 11:41:08 | INFO |        1.070 |        1           1              0.000 
+2022-04-06 11:41:08 | INFO |        1.070 |        2           1              0.000 
+2022-04-06 11:41:08 | INFO |        1.070 |        3           2              0.000 
+2022-04-06 11:41:08 | INFO |        1.070 |        4           2              0.000 
+2022-04-06 11:41:08 | INFO |        1.070 |        5           2              0.000 
+2022-04-06 11:41:08 | INFO |        1.070 |        6           2              0.000 
+2022-04-06 11:41:08 | INFO |        1.070 |        7           2              0.000 
+2022-04-06 11:41:08 | INFO |        1.070 |        8           2              0.000 
+2022-04-06 11:41:08 | INFO |        1.070 |        9           2              0.000 
+2022-04-06 11:41:08 | INFO |        1.071 |       10           2              0.000 
+2022-04-06 11:41:08 | INFO |        1.071 |       11           2              0.001 
+2022-04-06 11:41:08 | INFO |        1.072 |       12           2              0.001 
+2022-04-06 11:41:08 | INFO |        1.074 |       13           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.076 |       14           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.078 |       15           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.080 |       16           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.082 |       17           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.084 |       18           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.086 |       19           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.088 |       20           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.090 |       21           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.093 |       22           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.095 |       23           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.097 |       24           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.099 |       25           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.101 |       26           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.103 |       27           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.105 |       28           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.107 |       29           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.109 |       30           2              0.002 
+2022-04-06 11:41:08 | INFO |        1.113 |       31           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.117 |       32           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.120 |       33           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.124 |       34           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.128 |       35           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.131 |       36           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.135 |       37           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.139 |       38           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.142 |       39           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.146 |       40           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.150 |       41           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.154 |       42           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.157 |       43           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.161 |       44           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.165 |       45           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.168 |       46           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.172 |       47           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.176 |       48           2              0.004 
+2022-04-06 11:41:08 | INFO |        1.183 |       49           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.190 |       50           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.196 |       51           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.203 |       52           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.210 |       53           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.216 |       54           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.223 |       55           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.229 |       56           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.236 |       57           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.243 |       58           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.249 |       59           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.256 |       60           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.263 |       61           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.269 |       62           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.276 |       63           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.283 |       64           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.289 |       65           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.296 |       66           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.302 |       67           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.309 |       68           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.316 |       69           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.322 |       70           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.329 |       71           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.336 |       72           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.342 |       73           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.349 |       74           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.356 |       75           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.362 |       76           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.369 |       77           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.375 |       78           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.382 |       79           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.389 |       80           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.395 |       81           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.402 |       82           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.409 |       83           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.415 |       84           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.422 |       85           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.429 |       86           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.435 |       87           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.442 |       88           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.448 |       89           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.455 |       90           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.462 |       91           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.468 |       92           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.475 |       93           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.482 |       94           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.488 |       95           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.495 |       96           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.502 |       97           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.508 |       98           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.515 |       99           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.521 |      100           2              0.007 
+2022-04-06 11:41:08 | INFO |        1.535 |      101           2              0.013 
+2022-04-06 11:41:08 | INFO |        1.547 |      102           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.559 |      103           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.571 |      104           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.583 |      105           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.594 |      106           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.606 |      107           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.618 |      108           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.630 |      109           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.642 |      110           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.654 |      111           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.666 |      112           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.678 |      113           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.690 |      114           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.702 |      115           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.714 |      116           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.726 |      117           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.738 |      118           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.750 |      119           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.762 |      120           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.774 |      121           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.786 |      122           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.797 |      123           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.809 |      124           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.821 |      125           2              0.012 
+2022-04-06 11:41:08 | INFO |        1.832 |      126           2              0.011 
+2022-04-06 11:41:08 | INFO |        1.843 |      127           2              0.011 
+2022-04-06 11:41:08 | INFO |        1.854 |      128           2              0.011 
+2022-04-06 11:41:08 | INFO |        1.864 |      129           2              0.011 
+2022-04-06 11:41:08 | INFO |        1.875 |      130           2              0.011 
+2022-04-06 11:41:08 | INFO |        1.886 |      131           2              0.011 
+2022-04-06 11:41:08 | INFO |        1.896 |      132           2              0.010 
+2022-04-06 11:41:08 | INFO |        1.905 |      133           2              0.010 
+2022-04-06 11:41:08 | INFO |        1.915 |      134           2              0.010 
+2022-04-06 11:41:08 | INFO |        1.925 |      135           2              0.010 
+2022-04-06 11:41:08 | INFO |        1.934 |      136           2              0.010 
+2022-04-06 11:41:08 | INFO |        1.944 |      137           2              0.010 
+2022-04-06 11:41:08 | INFO |        1.954 |      138           2              0.010 
+2022-04-06 11:41:08 | INFO |        1.963 |      139           2              0.010 
+2022-04-06 11:41:08 | INFO |        1.973 |      140           2              0.010 
+2022-04-06 11:41:08 | INFO |        1.983 |      141           2              0.010 
+2022-04-06 11:41:08 | INFO |        1.992 |      142           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.002 |      143           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.012 |      144           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.021 |      145           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.031 |      146           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.041 |      147           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.050 |      148           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.060 |      149           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.070 |      150           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.079 |      151           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.089 |      152           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.099 |      153           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.108 |      154           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.118 |      155           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.128 |      156           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.137 |      157           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.147 |      158           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.157 |      159           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.166 |      160           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.176 |      161           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.186 |      162           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.195 |      163           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.205 |      164           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.215 |      165           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.224 |      166           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.234 |      167           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.244 |      168           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.254 |      169           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.263 |      170           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.273 |      171           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.283 |      172           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.292 |      173           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.302 |      174           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.312 |      175           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.321 |      176           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.331 |      177           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.341 |      178           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.350 |      179           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.360 |      180           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.370 |      181           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.379 |      182           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.389 |      183           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.399 |      184           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.408 |      185           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.418 |      186           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.428 |      187           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.437 |      188           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.447 |      189           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.457 |      190           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.466 |      191           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.476 |      192           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.486 |      193           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.495 |      194           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.505 |      195           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.515 |      196           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.524 |      197           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.534 |      198           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.544 |      199           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.553 |      200           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.563 |      201           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.573 |      202           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.582 |      203           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.592 |      204           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.602 |      205           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.611 |      206           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.621 |      207           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.631 |      208           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.641 |      209           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.650 |      210           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.660 |      211           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.670 |      212           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.679 |      213           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.689 |      214           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.699 |      215           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.708 |      216           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.718 |      217           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.728 |      218           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.737 |      219           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.747 |      220           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.757 |      221           2              0.010 
+2022-04-06 11:41:08 | INFO |        2.776 |      222           2              0.019 
+2022-04-06 11:41:08 | INFO |        2.795 |      223           2              0.019 
+2022-04-06 11:41:08 | INFO |        2.815 |      224           2              0.019 
+2022-04-06 11:41:08 | INFO |        2.834 |      225           2              0.019 
+2022-04-06 11:41:08 | INFO |        2.853 |      226           2              0.019 
+2022-04-06 11:41:08 | INFO |        2.873 |      227           2              0.019 
+2022-04-06 11:41:08 | INFO |        2.890 |      228           2              0.017 
+2022-04-06 11:41:08 | INFO |        2.906 |      229           2              0.016 
+2022-04-06 11:41:08 | INFO |        2.920 |      230           2              0.014 
+2022-04-06 11:41:08 | INFO |        2.934 |      231           2              0.014 
+2022-04-06 11:41:08 | INFO |        2.947 |      232           2              0.013 
+2022-04-06 11:41:08 | INFO |        2.959 |      233           2              0.013 
+2022-04-06 11:41:08 | INFO |        2.972 |      234           2              0.013 
+2022-04-06 11:41:08 | INFO |        2.985 |      235           2              0.013 
+2022-04-06 11:41:08 | INFO |        2.997 |      236           2              0.013 
+2022-04-06 11:41:08 | INFO |        3.009 |      237           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.020 |      238           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.032 |      239           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.043 |      240           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.055 |      241           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.066 |      242           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.077 |      243           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.089 |      244           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.100 |      245           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.112 |      246           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.123 |      247           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.135 |      248           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.146 |      249           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.157 |      250           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.169 |      251           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.180 |      252           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.192 |      253           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.203 |      254           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.215 |      255           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.226 |      256           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.237 |      257           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.249 |      258           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.260 |      259           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.272 |      260           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.283 |      261           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.295 |      262           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.306 |      263           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.317 |      264           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.329 |      265           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.340 |      266           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.352 |      267           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.363 |      268           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.375 |      269           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.386 |      270           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.397 |      271           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.409 |      272           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.420 |      273           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.432 |      274           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.443 |      275           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.454 |      276           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.466 |      277           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.477 |      278           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.489 |      279           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.500 |      280           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.512 |      281           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.523 |      282           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.534 |      283           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.546 |      284           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.557 |      285           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.569 |      286           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.580 |      287           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.592 |      288           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.603 |      289           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.614 |      290           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.626 |      291           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.637 |      292           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.649 |      293           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.660 |      294           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.672 |      295           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.683 |      296           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.694 |      297           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.706 |      298           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.717 |      299           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.729 |      300           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.740 |      301           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.752 |      302           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.763 |      303           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.774 |      304           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.786 |      305           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.797 |      306           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.809 |      307           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.820 |      308           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.832 |      309           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.843 |      310           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.854 |      311           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.866 |      312           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.877 |      313           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.889 |      314           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.900 |      315           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.912 |      316           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.923 |      317           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.934 |      318           2              0.011 
+2022-04-06 11:41:08 | INFO |        3.957 |      319           2              0.023 
+2022-04-06 11:41:08 | INFO |        3.980 |      320           2              0.023 
+2022-04-06 11:41:08 | INFO |        4.003 |      321           2              0.023 
+2022-04-06 11:41:08 | INFO |        4.026 |      322           2              0.023 
+2022-04-06 11:41:08 | INFO |        4.046 |      323           2              0.020 
+2022-04-06 11:41:08 | INFO |        4.065 |      324           2              0.018 
+2022-04-06 11:41:08 | INFO |        4.081 |      325           2              0.017 
+2022-04-06 11:41:08 | INFO |        4.096 |      326           2              0.015 
+2022-04-06 11:41:08 | INFO |        4.111 |      327           2              0.015 
+2022-04-06 11:41:08 | INFO |        4.124 |      328           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.138 |      329           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.151 |      330           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.164 |      331           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.178 |      332           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.191 |      333           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.203 |      334           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.215 |      335           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.227 |      336           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.239 |      337           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.251 |      338           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.263 |      339           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.275 |      340           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.287 |      341           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.299 |      342           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.312 |      343           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.324 |      344           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.336 |      345           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.348 |      346           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.360 |      347           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.372 |      348           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.384 |      349           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.396 |      350           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.408 |      351           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.420 |      352           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.432 |      353           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.444 |      354           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.456 |      355           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.468 |      356           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.480 |      357           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.492 |      358           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.504 |      359           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.516 |      360           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.528 |      361           2              0.012 
+2022-04-06 11:41:08 | INFO |        4.552 |      362           2              0.024 
+2022-04-06 11:41:08 | INFO |        4.574 |      363           2              0.022 
+2022-04-06 11:41:08 | INFO |        4.596 |      364           2              0.022 
+2022-04-06 11:41:08 | INFO |        4.615 |      365           2              0.020 
+2022-04-06 11:41:08 | INFO |        4.633 |      366           2              0.018 
+2022-04-06 11:41:08 | INFO |        4.649 |      367           2              0.016 
+2022-04-06 11:41:08 | INFO |        4.664 |      368           2              0.016 
+2022-04-06 11:41:08 | INFO |        4.679 |      369           2              0.014 
+2022-04-06 11:41:08 | INFO |        4.693 |      370           2              0.014 
+2022-04-06 11:41:08 | INFO |        4.707 |      371           2              0.014 
+2022-04-06 11:41:08 | INFO |        4.720 |      372           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.733 |      373           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.746 |      374           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.758 |      375           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.771 |      376           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.784 |      377           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.797 |      378           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.810 |      379           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.822 |      380           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.835 |      381           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.848 |      382           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.861 |      383           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.874 |      384           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.886 |      385           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.899 |      386           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.912 |      387           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.925 |      388           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.938 |      389           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.950 |      390           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.963 |      391           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.976 |      392           2              0.013 
+2022-04-06 11:41:08 | INFO |        4.989 |      393           2              0.013 
+2022-04-06 11:41:08 | INFO |        5.002 |      394           2              0.013 
+2022-04-06 11:41:08 | INFO |        5.014 |      395           2              0.013 
+2022-04-06 11:41:08 | INFO |        5.027 |      396           2              0.013 
+2022-04-06 11:41:08 | INFO |        5.040 |      397           2              0.013 
+2022-04-06 11:41:08 | INFO |        5.053 |      398           2              0.013 
+2022-04-06 11:41:08 | INFO |        5.066 |      399           2              0.013 
+2022-04-06 11:41:08 | INFO |        5.078 |      400           2              0.013 
+2022-04-06 11:41:08 | INFO |        5.091 |      401           2              0.013 
+2022-04-06 11:41:08 | INFO |        5.117 |      402           2              0.026 
+2022-04-06 11:41:08 | INFO |        5.142 |      403           2              0.026 
+2022-04-06 11:41:08 | INFO |        5.168 |      404           2              0.026 
+2022-04-06 11:41:08 | INFO |        5.191 |      405           2              0.023 
+2022-04-06 11:41:08 | INFO |        5.212 |      406           2              0.021 
+2022-04-06 11:41:08 | INFO |        5.230 |      407           2              0.019 
+2022-04-06 11:41:08 | INFO |        5.247 |      408           2              0.017 
+2022-04-06 11:41:08 | INFO |        5.264 |      409           2              0.017 
+2022-04-06 11:41:08 | INFO |        5.279 |      410           2              0.015 
+2022-04-06 11:41:08 | INFO |        5.294 |      411           2              0.015 
+2022-04-06 11:41:08 | INFO |        5.309 |      412           2              0.015 
+2022-04-06 11:41:08 | INFO |        5.325 |      413           2              0.015 
+2022-04-06 11:41:08 | INFO |        5.340 |      414           2              0.015 
+2022-04-06 11:41:08 | INFO |        5.353 |      415           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.367 |      416           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.380 |      417           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.394 |      418           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.408 |      419           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.421 |      420           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.435 |      421           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.449 |      422           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.462 |      423           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.476 |      424           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.489 |      425           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.503 |      426           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.517 |      427           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.530 |      428           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.544 |      429           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.557 |      430           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.571 |      431           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.585 |      432           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.598 |      433           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.612 |      434           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.625 |      435           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.639 |      436           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.653 |      437           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.666 |      438           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.680 |      439           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.693 |      440           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.721 |      441           2              0.027 
+2022-04-06 11:41:08 | INFO |        5.745 |      442           2              0.024 
+2022-04-06 11:41:08 | INFO |        5.770 |      443           2              0.024 
+2022-04-06 11:41:08 | INFO |        5.791 |      444           2              0.022 
+2022-04-06 11:41:08 | INFO |        5.811 |      445           2              0.019 
+2022-04-06 11:41:08 | INFO |        5.828 |      446           2              0.017 
+2022-04-06 11:41:08 | INFO |        5.846 |      447           2              0.017 
+2022-04-06 11:41:08 | INFO |        5.861 |      448           2              0.016 
+2022-04-06 11:41:08 | INFO |        5.877 |      449           2              0.016 
+2022-04-06 11:41:08 | INFO |        5.893 |      450           2              0.016 
+2022-04-06 11:41:08 | INFO |        5.908 |      451           2              0.016 
+2022-04-06 11:41:08 | INFO |        5.923 |      452           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.937 |      453           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.951 |      454           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.965 |      455           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.979 |      456           2              0.014 
+2022-04-06 11:41:08 | INFO |        5.993 |      457           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.007 |      458           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.021 |      459           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.036 |      460           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.050 |      461           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.064 |      462           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.078 |      463           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.092 |      464           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.106 |      465           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.120 |      466           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.135 |      467           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.149 |      468           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.163 |      469           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.177 |      470           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.191 |      471           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.205 |      472           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.219 |      473           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.234 |      474           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.248 |      475           2              0.014 
+2022-04-06 11:41:08 | INFO |        6.276 |      476           2              0.028 
+2022-04-06 11:41:08 | INFO |        6.304 |      477           2              0.028 
+2022-04-06 11:41:08 | INFO |        6.333 |      478           2              0.028 
+2022-04-06 11:41:08 | INFO |        6.358 |      479           2              0.025 
+2022-04-06 11:41:08 | INFO |        6.381 |      480           2              0.023 
+2022-04-06 11:41:08 | INFO |        6.402 |      481           2              0.021 
+2022-04-06 11:41:08 | INFO |        6.420 |      482           2              0.019 
+2022-04-06 11:41:08 | INFO |        6.439 |      483           2              0.019 
+2022-04-06 11:41:08 | INFO |        6.455 |      484           2              0.017 
+2022-04-06 11:41:08 | INFO |        6.472 |      485           2              0.017 
+2022-04-06 11:41:08 | INFO |        6.489 |      486           2              0.017 
+2022-04-06 11:41:08 | INFO |        6.506 |      487           2              0.017 
+2022-04-06 11:41:08 | INFO |        6.522 |      488           2              0.017 
+2022-04-06 11:41:08 | INFO |        6.537 |      489           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.552 |      490           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.567 |      491           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.582 |      492           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.597 |      493           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.612 |      494           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.627 |      495           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.642 |      496           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.657 |      497           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.673 |      498           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.688 |      499           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.703 |      500           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.718 |      501           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.733 |      502           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.748 |      503           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.763 |      504           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.778 |      505           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.793 |      506           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.808 |      507           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.823 |      508           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.838 |      509           2              0.015 
+2022-04-06 11:41:08 | INFO |        6.868 |      510           2              0.030 
+2022-04-06 11:41:08 | INFO |        6.898 |      511           2              0.030 
+2022-04-06 11:41:08 | INFO |        6.925 |      512           2              0.027 
+2022-04-06 11:41:08 | INFO |        6.949 |      513           2              0.024 
+2022-04-06 11:41:08 | INFO |        6.971 |      514           2              0.022 
+2022-04-06 11:41:08 | INFO |        6.991 |      515           2              0.020 
+2022-04-06 11:41:08 | INFO |        7.011 |      516           2              0.020 
+2022-04-06 11:41:08 | INFO |        7.029 |      517           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.046 |      518           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.064 |      519           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.080 |      520           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.096 |      521           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.112 |      522           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.128 |      523           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.144 |      524           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.160 |      525           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.176 |      526           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.192 |      527           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.208 |      528           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.224 |      529           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.240 |      530           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.256 |      531           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.272 |      532           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.288 |      533           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.304 |      534           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.320 |      535           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.336 |      536           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.352 |      537           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.368 |      538           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.384 |      539           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.400 |      540           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.415 |      541           2              0.016 
+2022-04-06 11:41:08 | INFO |        7.447 |      542           2              0.032 
+2022-04-06 11:41:08 | INFO |        7.479 |      543           2              0.032 
+2022-04-06 11:41:08 | INFO |        7.511 |      544           2              0.032 
+2022-04-06 11:41:08 | INFO |        7.539 |      545           2              0.028 
+2022-04-06 11:41:08 | INFO |        7.564 |      546           2              0.025 
+2022-04-06 11:41:08 | INFO |        7.586 |      547           2              0.022 
+2022-04-06 11:41:08 | INFO |        7.607 |      548           2              0.020 
+2022-04-06 11:41:08 | INFO |        7.627 |      549           2              0.020 
+2022-04-06 11:41:08 | INFO |        7.645 |      550           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.663 |      551           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.681 |      552           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.700 |      553           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.718 |      554           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.736 |      555           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.754 |      556           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.772 |      557           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.791 |      558           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.809 |      559           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.827 |      560           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.845 |      561           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.863 |      562           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.881 |      563           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.900 |      564           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.918 |      565           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.936 |      566           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.954 |      567           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.972 |      568           2              0.018 
+2022-04-06 11:41:08 | INFO |        7.991 |      569           2              0.018 
+2022-04-06 11:41:08 | INFO |        8.009 |      570           2              0.018 
+2022-04-06 11:41:08 | INFO |        8.045 |      571           2              0.036 
+2022-04-06 11:41:08 | INFO |        8.078 |      572           2              0.032 
+2022-04-06 11:41:08 | INFO |        8.107 |      573           2              0.029 
+2022-04-06 11:41:08 | INFO |        8.133 |      574           2              0.026 
+2022-04-06 11:41:08 | INFO |        8.157 |      575           2              0.024 
+2022-04-06 11:41:08 | INFO |        8.178 |      576           2              0.021 
+2022-04-06 11:41:08 | INFO |        8.199 |      577           2              0.021 
+2022-04-06 11:41:08 | INFO |        8.218 |      578           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.237 |      579           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.256 |      580           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.276 |      581           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.295 |      582           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.314 |      583           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.333 |      584           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.352 |      585           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.371 |      586           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.390 |      587           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.409 |      588           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.429 |      589           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.448 |      590           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.467 |      591           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.486 |      592           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.505 |      593           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.524 |      594           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.543 |      595           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.562 |      596           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.582 |      597           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.620 |      598           2              0.038 
+2022-04-06 11:41:08 | INFO |        8.658 |      599           2              0.038 
+2022-04-06 11:41:08 | INFO |        8.692 |      600           2              0.034 
+2022-04-06 11:41:08 | INFO |        8.722 |      601           2              0.030 
+2022-04-06 11:41:08 | INFO |        8.748 |      602           2              0.026 
+2022-04-06 11:41:08 | INFO |        8.772 |      603           2              0.024 
+2022-04-06 11:41:08 | INFO |        8.793 |      604           2              0.021 
+2022-04-06 11:41:08 | INFO |        8.814 |      605           2              0.021 
+2022-04-06 11:41:08 | INFO |        8.834 |      606           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.853 |      607           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.872 |      608           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.891 |      609           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.910 |      610           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.930 |      611           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.949 |      612           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.968 |      613           2              0.019 
+2022-04-06 11:41:08 | INFO |        8.987 |      614           2              0.019 
+2022-04-06 11:41:08 | INFO |        9.006 |      615           2              0.019 
+2022-04-06 11:41:08 | INFO |        9.026 |      616           2              0.019 
+2022-04-06 11:41:08 | INFO |        9.045 |      617           2              0.019 
+2022-04-06 11:41:08 | INFO |        9.064 |      618           2              0.019 
+2022-04-06 11:41:08 | INFO |        9.083 |      619           2              0.019 
+2022-04-06 11:41:08 | INFO |        9.102 |      620           2              0.019 
+2022-04-06 11:41:08 | INFO |        9.122 |      621           2              0.019 
+2022-04-06 11:41:08 | INFO |        9.141 |      622           2              0.019 
+2022-04-06 11:41:08 | INFO |        9.160 |      623           2              0.019 
+2022-04-06 11:41:08 | INFO |        9.198 |      624           2              0.038 
+2022-04-06 11:41:08 | INFO |        9.237 |      625           2              0.038 
+2022-04-06 11:41:08 | INFO |        9.271 |      626           2              0.035 
+2022-04-06 11:41:08 | INFO |        9.302 |      627           2              0.031 
+2022-04-06 11:41:08 | INFO |        9.329 |      628           2              0.027 
+2022-04-06 11:41:08 | INFO |        9.354 |      629           2              0.025 
+2022-04-06 11:41:08 | INFO |        9.376 |      630           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.398 |      631           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.421 |      632           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.443 |      633           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.465 |      634           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.487 |      635           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.509 |      636           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.531 |      637           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.554 |      638           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.576 |      639           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.598 |      640           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.620 |      641           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.642 |      642           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.664 |      643           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.687 |      644           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.709 |      645           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.731 |      646           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.753 |      647           2              0.022 
+2022-04-06 11:41:08 | INFO |        9.797 |      648           2              0.044 
+2022-04-06 11:41:08 | INFO |        9.836 |      649           2              0.038 
+2022-04-06 11:41:08 | INFO |        9.870 |      650           2              0.034 
+2022-04-06 11:41:08 | INFO |        9.901 |      651           2              0.031 
+2022-04-06 11:41:08 | INFO |        9.929 |      652           2              0.028 
+2022-04-06 11:41:08 | INFO |        9.954 |      653           2              0.025 
+2022-04-06 11:41:08 | INFO |        9.979 |      654           2              0.025 
+2022-04-06 11:41:08 | INFO |       10.001 |      655           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.024 |      656           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.046 |      657           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.069 |      658           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.091 |      659           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.114 |      660           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.136 |      661           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.159 |      662           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.181 |      663           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.204 |      664           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.226 |      665           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.249 |      666           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.271 |      667           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.294 |      668           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.316 |      669           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.339 |      670           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.384 |      671           2              0.045 
+2022-04-06 11:41:08 | INFO |       10.423 |      672           2              0.039 
+2022-04-06 11:41:08 | INFO |       10.457 |      673           2              0.035 
+2022-04-06 11:41:08 | INFO |       10.489 |      674           2              0.031 
+2022-04-06 11:41:08 | INFO |       10.517 |      675           2              0.028 
+2022-04-06 11:41:08 | INFO |       10.542 |      676           2              0.025 
+2022-04-06 11:41:08 | INFO |       10.567 |      677           2              0.025 
+2022-04-06 11:41:08 | INFO |       10.590 |      678           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.613 |      679           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.636 |      680           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.658 |      681           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.681 |      682           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.704 |      683           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.727 |      684           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.750 |      685           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.772 |      686           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.795 |      687           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.818 |      688           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.841 |      689           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.863 |      690           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.886 |      691           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.909 |      692           2              0.023 
+2022-04-06 11:41:08 | INFO |       10.955 |      693           2              0.046 
+2022-04-06 11:41:08 | INFO |       11.000 |      694           2              0.046 
+2022-04-06 11:41:08 | INFO |       11.040 |      695           2              0.040 
+2022-04-06 11:41:08 | INFO |       11.076 |      696           2              0.035 
+2022-04-06 11:41:08 | INFO |       11.107 |      697           2              0.032 
+2022-04-06 11:41:08 | INFO |       11.136 |      698           2              0.028 
+2022-04-06 11:41:08 | INFO |       11.161 |      699           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.187 |      700           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.212 |      701           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.238 |      702           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.264 |      703           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.289 |      704           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.315 |      705           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.340 |      706           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.366 |      707           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.391 |      708           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.417 |      709           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.443 |      710           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.468 |      711           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.494 |      712           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.545 |      713           2              0.051 
+2022-04-06 11:41:08 | INFO |       11.591 |      714           2              0.046 
+2022-04-06 11:41:08 | INFO |       11.632 |      715           2              0.041 
+2022-04-06 11:41:08 | INFO |       11.668 |      716           2              0.036 
+2022-04-06 11:41:08 | INFO |       11.701 |      717           2              0.033 
+2022-04-06 11:41:08 | INFO |       11.730 |      718           2              0.029 
+2022-04-06 11:41:08 | INFO |       11.757 |      719           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.783 |      720           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.809 |      721           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.836 |      722           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.862 |      723           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.889 |      724           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.915 |      725           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.942 |      726           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.968 |      727           2              0.026 
+2022-04-06 11:41:08 | INFO |       11.994 |      728           2              0.026 
+2022-04-06 11:41:08 | INFO |       12.021 |      729           2              0.026 
+2022-04-06 11:41:08 | INFO |       12.047 |      730           2              0.026 
+2022-04-06 11:41:08 | INFO |       12.074 |      731           2              0.026 
+2022-04-06 11:41:08 | INFO |       12.126 |      732           2              0.053 
+2022-04-06 11:41:08 | INFO |       12.174 |      733           2              0.048 
+2022-04-06 11:41:08 | INFO |       12.217 |      734           2              0.043 
+2022-04-06 11:41:08 | INFO |       12.255 |      735           2              0.039 
+2022-04-06 11:41:08 | INFO |       12.290 |      736           2              0.035 
+2022-04-06 11:41:08 | INFO |       12.321 |      737           2              0.031 
+2022-04-06 11:41:08 | INFO |       12.352 |      738           2              0.031 
+2022-04-06 11:41:08 | INFO |       12.380 |      739           2              0.028 
+2022-04-06 11:41:08 | INFO |       12.409 |      740           2              0.028 
+2022-04-06 11:41:08 | INFO |       12.437 |      741           2              0.028 
+2022-04-06 11:41:08 | INFO |       12.465 |      742           2              0.028 
+2022-04-06 11:41:08 | INFO |       12.493 |      743           2              0.028 
+2022-04-06 11:41:08 | INFO |       12.521 |      744           2              0.028 
+2022-04-06 11:41:08 | INFO |       12.549 |      745           2              0.028 
+2022-04-06 11:41:08 | INFO |       12.577 |      746           2              0.028 
+2022-04-06 11:41:08 | INFO |       12.605 |      747           2              0.028 
+2022-04-06 11:41:08 | INFO |       12.633 |      748           2              0.028 
+2022-04-06 11:41:08 | INFO |       12.661 |      749           2              0.028 
+2022-04-06 11:41:08 | INFO |       12.717 |      750           2              0.056 
+2022-04-06 11:41:08 | INFO |       12.768 |      751           2              0.051 
+2022-04-06 11:41:08 | INFO |       12.813 |      752           2              0.045 
+2022-04-06 11:41:08 | INFO |       12.853 |      753           2              0.040 
+2022-04-06 11:41:08 | INFO |       12.890 |      754           2              0.036 
+2022-04-06 11:41:08 | INFO |       12.922 |      755           2              0.032 
+2022-04-06 11:41:08 | INFO |       12.954 |      756           2              0.032 
+2022-04-06 11:41:08 | INFO |       12.984 |      757           2              0.029 
+2022-04-06 11:41:08 | INFO |       13.013 |      758           2              0.029 
+2022-04-06 11:41:08 | INFO |       13.042 |      759           2              0.029 
+2022-04-06 11:41:08 | INFO |       13.071 |      760           2              0.029 
+2022-04-06 11:41:08 | INFO |       13.101 |      761           2              0.029 
+2022-04-06 11:41:08 | INFO |       13.130 |      762           2              0.029 
+2022-04-06 11:41:08 | INFO |       13.159 |      763           2              0.029 
+2022-04-06 11:41:08 | INFO |       13.188 |      764           2              0.029 
+2022-04-06 11:41:08 | INFO |       13.218 |      765           2              0.029 
+2022-04-06 11:41:08 | INFO |       13.247 |      766           2              0.029 
+2022-04-06 11:41:08 | INFO |       13.305 |      767           2              0.058 
+2022-04-06 11:41:08 | INFO |       13.358 |      768           2              0.053 
+2022-04-06 11:41:08 | INFO |       13.405 |      769           2              0.047 
+2022-04-06 11:41:08 | INFO |       13.448 |      770           2              0.042 
+2022-04-06 11:41:08 | INFO |       13.486 |      771           2              0.038 
+2022-04-06 11:41:08 | INFO |       13.520 |      772           2              0.034 
+2022-04-06 11:41:08 | INFO |       13.554 |      773           2              0.034 
+2022-04-06 11:41:08 | INFO |       13.585 |      774           2              0.031 
+2022-04-06 11:41:08 | INFO |       13.616 |      775           2              0.031 
+2022-04-06 11:41:08 | INFO |       13.647 |      776           2              0.031 
+2022-04-06 11:41:08 | INFO |       13.678 |      777           2              0.031 
+2022-04-06 11:41:08 | INFO |       13.709 |      778           2              0.031 
+2022-04-06 11:41:08 | INFO |       13.740 |      779           2              0.031 
+2022-04-06 11:41:08 | INFO |       13.771 |      780           2              0.031 
+2022-04-06 11:41:08 | INFO |       13.802 |      781           2              0.031 
+2022-04-06 11:41:08 | INFO |       13.833 |      782           2              0.031 
+2022-04-06 11:41:08 | INFO |       13.894 |      783           2              0.062 
+2022-04-06 11:41:08 | INFO |       13.950 |      784           2              0.056 
+2022-04-06 11:41:08 | INFO |       14.000 |      785           2              0.050 
+2022-04-06 11:41:08 | INFO |       14.044 |      786           2              0.044 
+2022-04-06 11:41:08 | INFO |       14.084 |      787           2              0.040 
+2022-04-06 11:41:08 | INFO |       14.120 |      788           2              0.036 
+2022-04-06 11:41:08 | INFO |       14.156 |      789           2              0.036 
+2022-04-06 11:41:08 | INFO |       14.174 |      790           1              0.018 
+2022-04-06 11:41:08 | INFO |       14.192 |      791           1              0.018 
+2022-04-06 11:41:08 | INFO |       14.210 |      792           1              0.018 
+2022-04-06 11:41:08 | INFO |       14.246 |      793           2              0.036 
+2022-04-06 11:41:08 | INFO |       14.282 |      794           2              0.036 
+2022-04-06 11:41:08 | INFO |       14.318 |      795           2              0.036 
+2022-04-06 11:41:08 | INFO |       14.354 |      796           2              0.036 
+2022-04-06 11:41:08 | INFO |       14.390 |      797           2              0.036 
+2022-04-06 11:41:08 | INFO |       14.426 |      798           2              0.036 
+2022-04-06 11:41:08 | INFO |       14.461 |      799           2              0.036 
+2022-04-06 11:41:08 | INFO |       14.503 |      800           2              0.041 
+2022-04-06 11:41:08 | INFO |       14.544 |      801           2              0.041 
+2022-04-06 11:41:08 | INFO |       14.586 |      802           2              0.041 
+2022-04-06 11:41:08 | INFO |       14.627 |      803           2              0.041 
+2022-04-06 11:41:08 | INFO |       14.669 |      804           2              0.041 
+2022-04-06 11:41:08 | INFO |       14.706 |      805           2              0.037 
+2022-04-06 11:41:08 | INFO |       14.744 |      806           2              0.037 
+2022-04-06 11:41:08 | INFO |       14.763 |      807           1              0.019 
+2022-04-06 11:41:08 | INFO |       14.782 |      808           1              0.019 
+2022-04-06 11:41:08 | INFO |       14.801 |      809           1              0.019 
+2022-04-06 11:41:08 | INFO |       14.840 |      810           2              0.038 
+2022-04-06 11:41:08 | INFO |       14.878 |      811           2              0.038 
+2022-04-06 11:41:08 | INFO |       14.916 |      812           2              0.038 
+2022-04-06 11:41:08 | INFO |       14.955 |      813           2              0.038 
+2022-04-06 11:41:08 | INFO |       14.993 |      814           2              0.038 
+2022-04-06 11:41:08 | INFO |       15.032 |      815           2              0.038 
+2022-04-06 11:41:08 | INFO |       15.081 |      816           2              0.049 
+2022-04-06 11:41:08 | INFO |       15.130 |      817           2              0.049 
+2022-04-06 11:41:08 | INFO |       15.178 |      818           2              0.049 
+2022-04-06 11:41:08 | INFO |       15.222 |      819           2              0.044 
+2022-04-06 11:41:08 | INFO |       15.266 |      820           2              0.044 
+2022-04-06 11:41:08 | INFO |       15.306 |      821           2              0.040 
+2022-04-06 11:41:08 | INFO |       15.346 |      822           2              0.040 
+2022-04-06 11:41:08 | INFO |       15.385 |      823           2              0.040 
+2022-04-06 11:41:08 | INFO |       15.425 |      824           2              0.040 
+2022-04-06 11:41:08 | INFO |       15.464 |      825           2              0.040 
+2022-04-06 11:41:08 | INFO |       15.504 |      826           2              0.040 
+2022-04-06 11:41:08 | INFO |       15.544 |      827           2              0.040 
+2022-04-06 11:41:08 | INFO |       15.583 |      828           2              0.040 
+2022-04-06 11:41:08 | INFO |       15.623 |      829           2              0.040 
+2022-04-06 11:41:08 | INFO |       15.674 |      830           2              0.051 
+2022-04-06 11:41:08 | INFO |       15.726 |      831           2              0.051 
+2022-04-06 11:41:08 | INFO |       15.777 |      832           2              0.051 
+2022-04-06 11:41:08 | INFO |       15.823 |      833           2              0.046 
+2022-04-06 11:41:08 | INFO |       15.870 |      834           2              0.046 
+2022-04-06 11:41:08 | INFO |       15.911 |      835           2              0.042 
+2022-04-06 11:41:08 | INFO |       15.936 |      836           1              0.024 
+2022-04-06 11:41:08 | INFO |       15.960 |      837           1              0.024 
+2022-04-06 11:41:08 | INFO |       15.984 |      838           1              0.024 
+2022-04-06 11:41:08 | INFO |       16.008 |      839           2              0.024 
+2022-04-06 11:41:08 | INFO |       16.033 |      840           2              0.024 
+2022-04-06 11:41:08 | INFO |       16.057 |      841           2              0.024 
+2022-04-06 11:41:08 | INFO |       16.081 |      842           2              0.024 
+2022-04-06 11:41:08 | INFO |       16.129 |      843           2              0.048 
+2022-04-06 11:41:08 | INFO |       16.178 |      844           2              0.048 
+2022-04-06 11:41:08 | INFO |       16.226 |      845           2              0.048 
+2022-04-06 11:41:08 | INFO |       16.277 |      846           2              0.051 
+2022-04-06 11:41:08 | INFO |       16.328 |      847           2              0.051 
+2022-04-06 11:41:08 | INFO |       16.379 |      848           2              0.051 
+2022-04-06 11:41:08 | INFO |       16.430 |      849           2              0.051 
+2022-04-06 11:41:08 | INFO |       16.476 |      850           2              0.046 
+2022-04-06 11:41:08 | INFO |       16.521 |      851           2              0.046 
+2022-04-06 11:41:08 | INFO |       16.567 |      852           2              0.046 
+2022-04-06 11:41:08 | INFO |       16.613 |      853           2              0.046 
+2022-04-06 11:41:08 | INFO |       16.659 |      854           2              0.046 
+2022-04-06 11:41:08 | INFO |       16.704 |      855           2              0.046 
+2022-04-06 11:41:08 | INFO |       16.750 |      856           2              0.046 
+2022-04-06 11:41:08 | INFO |       16.796 |      857           2              0.046 
+2022-04-06 11:41:08 | INFO |       16.856 |      858           2              0.060 
+2022-04-06 11:41:08 | INFO |       16.915 |      859           2              0.060 
+2022-04-06 11:41:08 | INFO |       16.975 |      860           2              0.060 
+2022-04-06 11:41:08 | INFO |       17.028 |      861           2              0.054 
+2022-04-06 11:41:08 | INFO |       17.082 |      862           2              0.054 
+2022-04-06 11:41:08 | INFO |       17.113 |      863           1              0.031 
+2022-04-06 11:41:08 | INFO |       17.144 |      864           1              0.031 
+2022-04-06 11:41:08 | INFO |       17.175 |      865           1              0.031 
+2022-04-06 11:41:08 | INFO |       17.205 |      866           2              0.031 
+2022-04-06 11:41:08 | INFO |       17.236 |      867           2              0.031 
+2022-04-06 11:41:08 | INFO |       17.267 |      868           2              0.031 
+2022-04-06 11:41:08 | INFO |       17.298 |      869           2              0.031 
+2022-04-06 11:41:08 | INFO |       17.360 |      870           2              0.062 
+2022-04-06 11:41:08 | INFO |       17.422 |      871           2              0.062 
+2022-04-06 11:41:08 | INFO |       17.483 |      872           2              0.062 
+2022-04-06 11:41:08 | INFO |       17.545 |      873           2              0.062 
+2022-04-06 11:41:08 | INFO |       17.607 |      874           2              0.062 
+2022-04-06 11:41:08 | INFO |       17.662 |      875           2              0.056 
+2022-04-06 11:41:08 | INFO |       17.718 |      876           2              0.056 
+2022-04-06 11:41:08 | INFO |       17.768 |      877           2              0.050 
+2022-04-06 11:41:08 | INFO |       17.818 |      878           2              0.050 
+2022-04-06 11:41:08 | INFO |       17.868 |      879           2              0.050 
+2022-04-06 11:41:08 | INFO |       17.918 |      880           2              0.050 
+2022-04-06 11:41:08 | INFO |       17.968 |      881           2              0.050 
+2022-04-06 11:41:08 | INFO |       18.018 |      882           2              0.050 
+2022-04-06 11:41:08 | INFO |       18.077 |      883           2              0.059 
+2022-04-06 11:41:08 | INFO |       18.135 |      884           2              0.059 
+2022-04-06 11:41:08 | INFO |       18.194 |      885           2              0.059 
+2022-04-06 11:41:08 | INFO |       18.252 |      886           2              0.059 
+2022-04-06 11:41:08 | INFO |       18.311 |      887           2              0.059 
+2022-04-06 11:41:08 | INFO |       18.340 |      888           1              0.029 
+2022-04-06 11:41:08 | INFO |       18.368 |      889           1              0.029 
+2022-04-06 11:41:08 | INFO |       18.397 |      890           1              0.029 
+2022-04-06 11:41:08 | INFO |       18.455 |      891           2              0.058 
+2022-04-06 11:41:08 | INFO |       18.513 |      892           2              0.058 
+2022-04-06 11:41:08 | INFO |       18.571 |      893           2              0.058 
+2022-04-06 11:41:08 | INFO |       18.628 |      894           2              0.058 
+2022-04-06 11:41:08 | INFO |       18.686 |      895           2              0.058 
+2022-04-06 11:41:08 | INFO |       18.744 |      896           2              0.058 
+2022-04-06 11:41:08 | INFO |       18.802 |      897           2              0.058 
+2022-04-06 11:41:08 | INFO |       18.859 |      898           2              0.058 
+2022-04-06 11:41:08 | INFO |       18.917 |      899           1              0.058 
+2022-04-06 11:41:08 | INFO |       18.963 |      900           1              0.046 
+2022-04-06 11:41:08 | INFO |       19.004 |      901           1              0.040 
+2022-04-06 11:41:08 | INFO |       19.040 |      902           1              0.036 
+2022-04-06 11:41:08 | INFO |       19.073 |      903           1              0.033 
+2022-04-06 11:41:08 | INFO |       19.105 |      904           1              0.033 
+2022-04-06 11:41:08 | INFO |       19.138 |      905           1              0.033 
+2022-04-06 11:41:08 | INFO |       19.203 |      906           2              0.065 
+2022-04-06 11:41:08 | INFO |       19.262 |      907           2              0.059 
+2022-04-06 11:41:08 | INFO |       19.321 |      908           2              0.059 
+2022-04-06 11:41:08 | INFO |       19.380 |      909           2              0.059 
+2022-04-06 11:41:08 | INFO |       19.438 |      910           2              0.059 
+2022-04-06 11:41:08 | INFO |       19.497 |      911           2              0.059 
+2022-04-06 11:41:08 | INFO |       19.556 |      912           2              0.059 
+2022-04-06 11:41:08 | INFO |       19.615 |      913           2              0.059 
+2022-04-06 11:41:08 | INFO |       19.673 |      914           2              0.059 
+2022-04-06 11:41:08 | INFO |       19.732 |      915           2              0.059 
+2022-04-06 11:41:08 | INFO |       19.791 |      916           2              0.059 
+2022-04-06 11:41:08 | INFO |       19.870 |      917           2              0.079 
+2022-04-06 11:41:08 | INFO |       19.949 |      918           2              0.079 
+2022-04-06 11:41:08 | INFO |       20.028 |      919           2              0.079 
+2022-04-06 11:41:08 | INFO |       20.107 |      920           2              0.079 
+2022-04-06 11:41:08 | INFO |       20.148 |      921           1              0.042 
+2022-04-06 11:41:08 | INFO |       20.190 |      922           1              0.042 
+2022-04-06 11:41:08 | INFO |       20.232 |      923           1              0.042 
+2022-04-06 11:41:08 | INFO |       20.315 |      924           2              0.083 
+2022-04-06 11:41:08 | INFO |       20.398 |      925           2              0.083 
+2022-04-06 11:41:08 | INFO |       20.481 |      926           2              0.083 
+2022-04-06 11:41:08 | INFO |       20.564 |      927           2              0.083 
+2022-04-06 11:41:08 | INFO |       20.647 |      928           2              0.083 
+2022-04-06 11:41:08 | INFO |       20.730 |      929           2              0.083 
+2022-04-06 11:41:08 | INFO |       20.775 |      930           1              0.045 
+2022-04-06 11:41:08 | INFO |       20.820 |      931           1              0.045 
+2022-04-06 11:41:08 | INFO |       20.865 |      932           1              0.045 
+2022-04-06 11:41:08 | INFO |       20.955 |      933           2              0.090 
+2022-04-06 11:41:08 | INFO |       21.045 |      934           2              0.090 
+2022-04-06 11:41:08 | INFO |       21.135 |      935           2              0.090 
+2022-04-06 11:41:08 | INFO |       21.225 |      936           2              0.090 
+2022-04-06 11:41:08 | INFO |       21.315 |      937           2              0.090 
+2022-04-06 11:41:08 | INFO |       21.372 |      938           1              0.056 
+2022-04-06 11:41:08 | INFO |       21.428 |      939           1              0.056 
+2022-04-06 11:41:08 | INFO |       21.484 |      940           1              0.056 
+2022-04-06 11:41:08 | INFO |       21.597 |      941           2              0.113 
+2022-04-06 11:41:08 | INFO |       21.698 |      942           2              0.101 
+2022-04-06 11:41:08 | INFO |       21.808 |      943           1              0.110 
+2022-04-06 11:41:08 | INFO |       21.892 |      944           1              0.084 
+2022-04-06 11:41:08 | INFO |       21.975 |      945           1              0.084 
+2022-04-06 11:41:08 | INFO |       22.059 |      946           1              0.084 
+2022-04-06 11:41:08 | INFO |       22.143 |      947           2              0.084 
+2022-04-06 11:41:08 | INFO |       22.227 |      948           2              0.084 
+2022-04-06 11:41:08 | INFO |       22.394 |      949           2              0.168 
+2022-04-06 11:41:08 | INFO |       22.545 |      950           2              0.151 
+2022-04-06 11:41:08 | INFO |       22.696 |      951           2              0.151 
+2022-04-06 11:41:08 | INFO |       22.831 |      952           2              0.136 
+2022-04-06 11:41:08 | INFO |       22.967 |      953           2              0.136 
+2022-04-06 11:41:08 | INFO |       23.140 |      954           1              0.173 
+2022-04-06 11:41:08 | INFO |       23.282 |      955           1              0.143 
+2022-04-06 11:41:08 | INFO |       23.425 |      956           1              0.143 
+2022-04-06 11:41:08 | INFO |       23.568 |      957           1              0.143 
+2022-04-06 11:41:08 | INFO |       23.854 |      958           2              0.286 
+2022-04-06 11:41:08 | INFO |       24.139 |      959           1              0.286 
+2022-04-06 11:41:08 | INFO |       24.425 |      960           1              0.286 
+2022-04-06 11:41:08 | INFO |       24.711 |      961           1              0.286 
+2022-04-06 11:41:08 | INFO |       25.282 |      962           1              0.571 
+2022-04-06 11:41:08 | INFO |       25.853 |      963           1              0.571 
+2022-04-06 11:41:08 | INFO |       26.996 |      964           1              1.143 
+2022-04-06 11:41:08 | INFO |       29.281 |      965           1              2.285 
+2022-04-06 11:41:08 | INFO |       30.000 |      966           1              0.719 
+2022-04-06 11:41:08 | INFO | 
+2022-04-06 11:41:08 | INFO | execution statistics :
+2022-04-06 11:41:08 | INFO | 
+2022-04-06 11:41:08 | INFO | number of time iterations                  = 992
+2022-04-06 11:41:08 | INFO | number of residual evaluations             = 1856
+2022-04-06 11:41:08 | INFO | number of Jacobian evaluations             = 108
+2022-04-06 11:41:08 | INFO | number of nonlinear iterations             = 1852
+2022-04-06 11:41:08 | INFO | number of error test failures              = 17
+2022-04-06 11:41:08 | INFO | number of nonlinear convergence failures   = 0
+2022-04-06 11:41:08 | INFO | number of root functions evaluations       = 1047
+2022-04-06 11:41:08 | INFO | number of discrete variables evaluations   = 6
+2022-04-06 11:41:08 | INFO | number of mode evaluations                 = 4
+2022-04-06 11:41:08 | INFO | end of job 'SMIB_DisconnectLine'

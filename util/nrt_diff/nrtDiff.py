@@ -24,7 +24,11 @@ import threading
 import time
 import webbrowser
 from optparse import OptionParser
-from iidmDiff import *
+import iidmDiff
+import constraintsDiff
+import finalStateValuesDiff
+import settings
+import XMLUtils
 
 try:
     transposer_dir = os.path.join(os.path.dirname(__file__))
@@ -182,23 +186,23 @@ class TestCase:
     def get_case_CompilerLogFile(self):
         # Parse the jobs file
         try:
-            (jobs_root, ns, prefix) = ImportXMLFileExtended(self.jobs_file_)
+            (jobs_root, ns, prefix) = XMLUtils.ImportXMLFileExtended(self.jobs_file_)
         except:
             print("Fail to import XML file " + self.jobs_file_)
             sys.exit(1)
 
         compilerLogFile = ""
-        for job in FindAll(jobs_root, prefix, "job", ns):
+        for job in XMLUtils.FindAll(jobs_root, prefix, "job", ns):
             if (not "name" in job.attrib):
                 print("Fail to run nrtDiff : job without name in file  " + os.path.basename(self.jobs_file_))
                 sys.exit(1)
             if self.name_ == job.get("name"):
-                for outputs in FindAll(job, prefix, "outputs", ns):
+                for outputs in XMLUtils.FindAll(job, prefix, "outputs", ns):
                     if (not "directory" in outputs.attrib):
                         print("Fail to run nrtDiff : outputs directory is missing for job " + self.name_)
                         sys.exit(1)
                     # Get compiler log file name from appenders if exists
-                    for appender in FindAll(outputs, prefix, "appender", ns):
+                    for appender in XMLUtils.FindAll(outputs, prefix, "appender", ns):
                         if ("tag" in appender.attrib):
                             if ( appender.get("tag") == "COMPILE" ):
                                 if (not "file" in appender.attrib):
@@ -595,8 +599,8 @@ def LogsSeparator (test_dir):
     for name in list_files:
         file_path = os.path.join (test_dir, name)
 
-        (file_content, ns, prefix) = ImportXMLFileExtended(file_path)
-        for item in FindAll(file_content, prefix, "appender", ns):
+        (file_content, ns, prefix) = XMLUtils.ImportXMLFileExtended(file_path)
+        for item in XMLUtils.FindAll(file_content, prefix, "appender", ns):
             if 'separator' in item.attrib:
                 separator = item.attrib['separator']
                 break
@@ -638,15 +642,15 @@ def findOutputDirFromJob(jobs_file):
 
     # Parse jobs file
     try:
-        (jobs_root, ns, prefix) = ImportXMLFileExtended(jobs_file)
+        (jobs_root, ns, prefix) = XMLUtils.ImportXMLFileExtended(jobs_file)
     except:
         print("Fail to import XML file " + jobs_file + os.linesep)
         sys.exit(1)
 
     output_dirs = []
     # we expect to find job elements and outputs sub-elements with a directory attribute
-    for job in FindAll(jobs_root, prefix, "job", ns):
-        for outputs in FindAll(job, prefix, "outputs", ns):
+    for job in XMLUtils.FindAll(jobs_root, prefix, "job", ns):
+        for outputs in XMLUtils.FindAll(job, prefix, "outputs", ns):
             if 'directory' in outputs.attrib:
                 output_dirs.append(outputs.attrib["directory"])
 
@@ -1022,7 +1026,27 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             else:
                 return_value = IDENTICAL
         elif "outputIIDM" in file_name and file_extension == ".xml":
-            (nb_differences, msg) = OutputIIDMCloseEnough (path_left, path_right)
+            (nb_differences, msg) = iidmDiff.OutputIIDMCloseEnough (path_left, path_right)
+            dir = os.path.abspath(os.path.join(path_left, os.pardir))
+            parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
+            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            if (nb_differences > 0):
+                return_value = DIFFERENT
+                message += str(nb_differences) + " different output values\n" + msg
+            else:
+                return_value = IDENTICAL
+        elif "constraints" in file_name:
+            (nb_differences, msg) = constraintsDiff.output_constraints_close_enough (path_left, path_right)
+            dir = os.path.abspath(os.path.join(path_left, os.pardir))
+            parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
+            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            if (nb_differences > 0):
+                return_value = DIFFERENT
+                message += str(nb_differences) + " different output values\n" + msg
+            else:
+                return_value = IDENTICAL
+        elif "finalStateValues" in file_name:
+            (nb_differences, msg) = finalStateValuesDiff.output_xml_fsv_close_enough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
             message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
@@ -1179,24 +1203,24 @@ def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separ
 # @param path_left : the absolute path to the left-side file
 # @param path_right : the absolute path to the right-side file
 def XMLCloseEnough (path_left, path_right):
-    (left_file_content, ns, prefix) = ImportXMLFileExtended(path_left)
+    (left_file_content, ns, prefix) = XMLUtils.ImportXMLFileExtended(path_left)
     times_left = []
     left_curve = {}
     ns = left_file_content.nsmap
-    for item in FindAll(left_file_content, prefix, "curve", ns):
+    for item in XMLUtils.FindAll(left_file_content, prefix, "curve", ns):
         current_curve = item.attrib["model"]+"_"+item.attrib["variable"]
         left_curve[current_curve] = {}
-        for pointItem in FindAll(item, prefix, "point", ns):
+        for pointItem in XMLUtils.FindAll(item, prefix, "point", ns):
             left_curve[current_curve][pointItem.attrib["time"]] = pointItem.attrib["value"]
             if(pointItem.attrib["time"] not in times_left):
                     times_left.append(pointItem.attrib["time"])
     right_curve = {}
     times_right = []
-    (right_file_content, ns, prefix) = ImportXMLFileExtended(path_right)
-    for item in FindAll(right_file_content, prefix, "curve", ns):
+    (right_file_content, ns, prefix) = XMLUtils.ImportXMLFileExtended(path_right)
+    for item in XMLUtils.FindAll(right_file_content, prefix, "curve", ns):
         current_curve = item.attrib["model"]+"_"+item.attrib["variable"]
         right_curve[current_curve] = {}
-        for pointItem in FindAll(item, prefix, "point", ns):
+        for pointItem in XMLUtils.FindAll(item, prefix, "point", ns):
             right_curve[current_curve][pointItem.attrib["time"]] = pointItem.attrib["value"]
             if(pointItem.attrib["time"] not in times_right):
                 times_right.append(pointItem.attrib["time"])

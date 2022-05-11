@@ -69,7 +69,6 @@ partial model BaseDriveTrain
   Modelica.Blocks.Math.Gain dTorque(k = Kshaft) annotation(
     Placement(visible = true, transformation(origin = {130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-protected
   parameter Types.PerUnit PInj0Pu "Initial value of mechanical power in pu (base SNom)";
 
 equation
