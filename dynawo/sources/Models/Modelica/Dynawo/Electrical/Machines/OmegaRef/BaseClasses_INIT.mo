@@ -238,7 +238,7 @@ package BaseClasses_INIT
 
     extends BaseClasses.GeneratorSynchronousParameters;
 
-    parameter Types.ComplexCurrentPu IStart0Pu = Complex(0, 0) "Start value complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+    parameter Types.ComplexCurrentPu iStart0Pu = Complex(0, 0) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
 
     //Internal parameters (final value used in the equations) in pu (base UNom, SNom)
     /*For an initialization from internal parameters:
@@ -272,7 +272,7 @@ package BaseClasses_INIT
 
     Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal side in pu (base SnRef)";
     Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal side (base UNom)";
-    Types.ComplexCurrentPu i0Pu(re(start=IStart0Pu.re)) "Start value of complex current at terminal side (base UNom, SnRef)";
+    Types.ComplexCurrentPu i0Pu(re(start=iStart0Pu.re)) "Start value of complex current at terminal side (base UNom, SnRef)";
     Types.ApparentPowerModulePu S0Pu "Start value of apparent power at terminal side in pu (base SNom)";
     Types.CurrentModulePu I0Pu "Start value of current module at terminal side in pu (base UNom, SNom)";
 
