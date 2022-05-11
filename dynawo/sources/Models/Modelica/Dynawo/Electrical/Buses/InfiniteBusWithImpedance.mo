@@ -30,8 +30,8 @@ model InfiniteBusWithImpedance "Infinite bus connected to an impedance"
 
   //Interface
   Connectors.ACPower terminal(
-    V(re(start = ComplexMath.real(uMachine0Pu)), im(start = ComplexMath.imag(uMachine0Pu))),
-    i(re(start = ComplexMath.real(iMachine0Pu)), im(start = ComplexMath.imag(iMachine0Pu)))) annotation(
+    V(re(start = ComplexMath.real(uTerminal0Pu)), im(start = ComplexMath.imag(uTerminal0Pu))),
+    i(re(start = ComplexMath.real(iTerminal0Pu)), im(start = ComplexMath.imag(iTerminal0Pu)))) annotation(
     Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = UPhaseBus0, UPu = UBus0Pu) annotation(
@@ -40,8 +40,8 @@ model InfiniteBusWithImpedance "Infinite bus connected to an impedance"
     Placement(visible = true, transformation(origin = {0, -30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Initial parameters
-  parameter Types.ComplexCurrentPu iMachine0Pu "Initial current at terminal of the machine in pu (base UNom, SnRef)";
-  parameter Types.ComplexVoltagePu uMachine0Pu "Initial voltage at terminal of the machine in pu (base UNom)";
+  parameter Types.ComplexCurrentPu iTerminal0Pu "Initial current at terminal in pu (base UNom, SnRef)";
+  parameter Types.ComplexVoltagePu uTerminal0Pu "Initial voltage at terminal in pu (base UNom)";
 
 equation
   impedance.switchOffSignal1.value = false;
