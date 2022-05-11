@@ -12,7 +12,7 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- This model measures the voltage at the left-hand-side terminal -->
+  <!-- This block measures the voltage, current, active power and reactive power in pu (base UNom, SnRef)-->
   <dyn:modelicaModel id="Measurements">
     <dyn:unitDynamicModel id="measurements" name="Dynawo.Electrical.Controls.Utilities.Measurements"/>
   </dyn:modelicaModel>

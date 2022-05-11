@@ -27,8 +27,6 @@ model InfiniteBusWithImpedance "Infinite bus connected to an impedance"
   //Line parameters
   parameter Types.PerUnit RPu "Line resistance in pu (base SnRef)";
   parameter Types.PerUnit XPu "Line reactance in pu (base SnRef)";
-  parameter Types.PerUnit GPu "Line half-conductance in pu (base SnRef)";
-  parameter Types.PerUnit BPu "Line half-susceptance in pu (base SnRef)";
 
   //Interface
   Connectors.ACPower terminal(
@@ -38,7 +36,7 @@ model InfiniteBusWithImpedance "Infinite bus connected to an impedance"
 
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = UPhaseBus0, UPu = UBus0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Lines.Line impedance(BPu = BPu, GPu = GPu, RPu = RPu, XPu = XPu) annotation(
+  Dynawo.Electrical.Lines.Line impedance(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu) annotation(
     Placement(visible = true, transformation(origin = {0, -30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Initial parameters
