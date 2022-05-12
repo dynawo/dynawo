@@ -12,18 +12,16 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 * This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-based output"
+model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-based output. This model has discrete inputs and outputs."
   import Modelica;
   import Dynawo.Connectors;
 
   Connectors.ZPin u(value(start = U0)) "Input connector" annotation(
-    Placement(visible = true, transformation(origin = {-138, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Connectors.ZPin y(value(start = Y0)) "Output connector" annotation(
-    Placement(visible = true, transformation(origin = {154, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Real Ki "Integrator constant";
-  parameter Real U0 "Start value of input";
-  parameter Real Y0 "Start value of output";
   parameter Real Kp "Gain constant";
   parameter String PiTableFile "Name of the file describing the table";
   parameter String PiTableName "Name of the table in the text file";
@@ -32,7 +30,7 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback discreteError annotation(
     Placement(visible = true, transformation(origin = {60, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Continuous.Integrator integrator(k = Ki, y_start = Y0 + U0) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(k = Ki, y_start = Y0 + (1 - Kp) * U0) annotation(
     Placement(visible = true, transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -41,8 +39,10 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-equation
+  parameter Real U0 "Start value of input";
+  parameter Real Y0 "Start value of output";
 
+equation
   when time >= 0 and u.value <> pre(u.value) then
     y.value = combiTable1D.y[1];
   elsewhen time >= 0 and u.value == pre(u.value) then
@@ -66,7 +66,6 @@ equation
     Line(points = {{-18, 20}, {0, 20}, {0, 6}, {18, 6}}, color = {0, 0, 127}));
   u.value = gain1.u;
   u.value = add1.u1;
-
   annotation(
     preferredView ="diagram",
     Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 100}}), graphics = {Line(points = {{-80, 78}, {-80, -90}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{-80, 90}, {-88, 68}, {-72, 68}, {-80, 90}}), Line(points = {{-90, -80}, {82, -80}}, color = {192, 192, 192}), Polygon(lineColor = {192, 192, 192}, fillColor = {192, 192, 192}, fillPattern = FillPattern.Solid, points = {{90, -80}, {68, -72}, {68, -88}, {90, -80}}), Line(points = {{-80, -80}, {-80, -20}, {60, 80}}, color = {0, 0, 127}), Text(lineColor = {192, 192, 192}, extent = {{0, 6}, {60, -56}}, textString = "PI"), Text(extent = {{-150, -150}, {150, -110}}, textString = "T=%T")}),

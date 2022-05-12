@@ -234,12 +234,12 @@ This model is connected to all the generators of one synchronous area and takes 
 \subsubsection{Utilities}
 \label{Utilities}
 
-One model is implemented for computing various aggregations of voltage levels: \verb VoltageMeasurementUtilities  model.
+One model is implemented for computing various aggregations of bus voltages: \verb VoltageMeasurementUtilities  model.
 
 \paragraph{Voltage measurement utilities model}
 ~~\\
 
-The ``VoltageMeasurementUtilities'' model allows a dynamic number of voltage levels to be monitored and outputs various aggregations of their values.
+The ``VoltageMeasurementUtilities'' model allows a dynamic number of bus voltages to be monitored and outputs various aggregations of their values.
 So far, the following models have been implemented:
 \begin{itemize}
 \item Minimum value,
@@ -247,7 +247,7 @@ So far, the following models have been implemented:
 \item Average value.
 \end{itemize}
 
-These aggregations are computed only on a subset of the input voltage levels for which the associated \verb running  variables are \verb True .
+These aggregations are computed only on a subset of the input bus voltages for which the associated \verb running  variables are \verb True .
 
 \subsubsection{Network model}
 \label{Network}
@@ -406,7 +406,7 @@ The \Dynawo library is divided into four main parts plus auxiliary packages (Typ
 \item The ``Connectors'' part contains all the specific connectors defined into \Dynawo that are used to connect together different models. This enables to have clear interfaces between the different models or the different parts of a model (regulation and physical model for example). For each type of variable, there is a type of connector (BPin for boolean values, ZPin for discrete values, ImPin for real values and ACPower for connecting both complex voltages and complex currents)
 \item The ``Electrical'' part with the different models of the electrical components and their controls.
 \item The ``Examples'' part with simple test cases to illustrate the way to use \Dynawo models in a full Modelica environment. Each test case has been configured with the best options available in OpenModelica for power sytem simulations.
-\item The ``NonElectrical'' part including all \Dynawo - specific blocks. In the library, we have tried to use as much as possible existing blocks from the Modelica Standard Library but when necessary, specific models or blocks have been developed and are stored into this folder to be reused several times. This folder also contains logs files that are used to generate logs from the Modelica model during a simulation.
+\item The ``NonElectrical'' part including all \Dynawo - specific blocks. In the library, we have tried to use as much as possible existing blocks from the Modelica Standard Library but when necessary, specific models or blocks have been developed and are stored into this folder to be reused several times. This folder also contains log files that are used to generate logs from the Modelica model during a simulation.
 \end{itemize}
 
 More details on the ``Electrical'' package are given in the next sections.
