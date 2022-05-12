@@ -12,8 +12,8 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- This block measures the voltage, current, active power and reactive power in pu (base UNom, SnRef) -->
-  <dyn:modelicaModel id="Measurements">
-    <dyn:unitDynamicModel id="measurements" name="Dynawo.Electrical.Controls.Utilities.Measurements"/>
+  <!-- Infinite bus connected to an impedance -->
+  <dyn:modelicaModel id="InfiniteBusWithImpedance">
+    <dyn:unitDynamicModel id="infiniteBus" name="Dynawo.Electrical.Buses.InfiniteBusWithImpedance" initName="Dynawo.Electrical.Buses.InfiniteBusWithImpedance_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

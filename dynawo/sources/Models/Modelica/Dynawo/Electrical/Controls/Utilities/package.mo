@@ -12,6 +12,6 @@ within Dynawo.Electrical.Controls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package Utilities
+package Utilities "Utilities models for control"
   extends Icons.Package;
 end Utilities;

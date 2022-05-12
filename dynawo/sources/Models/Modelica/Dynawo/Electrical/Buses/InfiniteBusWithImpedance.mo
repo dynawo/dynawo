@@ -13,25 +13,18 @@ within Dynawo.Electrical.Buses;
 */
 
 model InfiniteBusWithImpedance "Infinite bus connected to an impedance"
-  import Modelica.ComplexMath;
   import Dynawo;
-  import Dynawo.Connectors;
-  import Dynawo.Types;
 
   extends AdditionalIcons.Bus;
 
-  //Bus parameters
-  parameter Types.VoltageModulePu UBus0Pu "Infinite bus constant voltage module in pu (base UNom)";
-  parameter Types.Angle UPhaseBus0 "Infinite bus constant voltage angle in rad";
-
-  //Line parameters
-  parameter Types.PerUnit RPu "Line resistance in pu (base SnRef)";
-  parameter Types.PerUnit XPu "Line reactance in pu (base SnRef)";
+  //Impedance parameters
+  parameter Types.PerUnit RPu "Resistance in pu (base UNom, SnRef)";
+  parameter Types.PerUnit XPu "Reactance in pu (base UNom, SnRef)";
 
   //Interface
-  Connectors.ACPower terminal(
-    V(re(start = ComplexMath.real(uTerminal0Pu)), im(start = ComplexMath.imag(uTerminal0Pu))),
-    i(re(start = ComplexMath.real(iTerminal0Pu)), im(start = ComplexMath.imag(iTerminal0Pu)))) annotation(
+  Dynawo.Connectors.ACPower terminal(
+    V(re(start = uTerminal0Pu.re), im(start = uTerminal0Pu.im)),
+    i(re(start = iTerminal0Pu.re), im(start = iTerminal0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = UPhaseBus0, UPu = UBus0Pu) annotation(
@@ -40,8 +33,10 @@ model InfiniteBusWithImpedance "Infinite bus connected to an impedance"
     Placement(visible = true, transformation(origin = {0, -30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Initial parameters
-  parameter Types.ComplexCurrentPu iTerminal0Pu "Initial current at terminal in pu (base UNom, SnRef)";
-  parameter Types.ComplexVoltagePu uTerminal0Pu "Initial voltage at terminal in pu (base UNom)";
+  parameter Types.ComplexCurrentPu iTerminal0Pu "Initial complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu UBus0Pu "Infinite bus constant voltage module in pu (base UNom)";
+  parameter Types.Angle UPhaseBus0 "Infinite bus constant voltage angle in rad";
+  parameter Types.ComplexVoltagePu uTerminal0Pu "Initial complex voltage at terminal in pu (base UNom)";
 
 equation
   impedance.switchOffSignal1.value = false;
