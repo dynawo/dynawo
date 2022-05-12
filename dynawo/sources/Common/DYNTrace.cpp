@@ -224,6 +224,35 @@ void Trace::resetPersistantCustomAppenders_() {
   traceSink.persistantSinks.clear();
 }
 
+
+void Trace::resetPersistantCustomAppender(const std::string& tag, SeverityLevel slv) {
+  instance().resetPersistantCustomAppender_(tag, slv);
+}
+
+void Trace::resetPersistantCustomAppender_(const std::string& tag, SeverityLevel slv) {
+  boost::lock_guard<boost::mutex> lock(mutex_);
+
+  logging::attributes::current_thread_id::value_type currentId =
+    logging::attributes::current_thread_id().get_value().extract<logging::attributes::current_thread_id::value_type>().get();
+  if (sinks_.find(currentId) == sinks_.end()) {
+    return;
+  }
+
+  boost::log::attribute_value_set set;
+  set.insert("Severity",  attrs::make_attribute_value(slv));
+  if (tag != "")
+    set.insert("Tag",  attrs::make_attribute_value(tag));
+  set.insert("Thread", attrs::make_attribute_value(currentId));
+
+  TraceSinks& traceSink = sinks_.at(currentId);
+  for (vector< boost::shared_ptr<FileSink> >::const_iterator itSinks = traceSink.persistantSinks.begin();
+    itSinks != traceSink.persistantSinks.end(); ++itSinks) {
+    if ((*itSinks)->will_consume(set))
+      logging::core::get()->remove_sink(*itSinks);
+  }
+  traceSink.persistantSinks.clear();
+}
+
 void Trace::resetCustomAppenders() {
   instance().resetCustomAppenders_();
 }
