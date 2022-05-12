@@ -127,9 +127,9 @@ jobs:
         shell: cmd
         run: |
           cd \
-          wget -nv https://github.com/dynawo/dynawo/releases/download/nightly/OpenModelica-windows.zip
+          wget -nv https://github.com/dynawo/dynawo/releases/download/nightly-release/OpenModelica-windows.zip
           7z x OpenModelica-windows.zip
-          wget -nv https://github.com/dynawo/dynawo/releases/download/nightly/dynawo-3rd-parties-windows.zip
+          wget -nv https://github.com/dynawo/dynawo/releases/download/nightly-release/dynawo-3rd-parties-windows.zip
           7z x dynawo-3rd-parties-windows.zip
           ren dynawo-3rd-parties-windows d-3-p
 

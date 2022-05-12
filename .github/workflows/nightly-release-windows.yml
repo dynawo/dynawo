@@ -82,7 +82,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          url=$(curl -s -H "authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/dynawo/dynawo/releases/tags/nightly | jq -r '.upload_url' | grep -o ".*assets")
+          url=$(curl -s -H "authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/dynawo/dynawo/releases/tags/nightly-release | jq -r '.upload_url' | grep -o ".*assets")
           echo $url
           echo "url=$url" >> $GITHUB_ENV
           cd /d/dynawo
