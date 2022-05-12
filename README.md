@@ -141,8 +141,11 @@ $> ./dynawo.sh jobs-help
 Download the zip of the distribution and unzip it somewhere. Then open either `Command Prompt` or `x64 Native Tools Command Prompt for VS2019` (to be able to use your own models) and use `cd` to go into the directory you previously unzipped. You should see a `dynawo.cmd` file at the top of the folder. You can then launch a simulation with:
 
 ``` batch
-> dynawo sources\examples\DynaWaltz\IEEE14\IEEE14_GeneratorDisconnections\IEEE14.jobs
+> dynawo jobs sources\examples\DynaWaltz\IEEE14\IEEE14_GeneratorDisconnections\IEEE14.jobs
+> dynawo jobs-with-curves sources\examples\DynaWaltz\IEEE14\IEEE14_GeneratorDisconnections\IEEE14.jobs
 ```
+
+You can set up the curves to open in your preferred browser with `set DYNAWO_BROWSER=C:\Program Files (x86)\Mozilla Firefox\firefox.exe` for example.
 
 <a name="requirements"></a>
 ### Building requirements
