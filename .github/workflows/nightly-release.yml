@@ -19,6 +19,7 @@ jobs:
       DYNAWO_BUILD_TYPE: Release
       DYNAWO_FORCE_CXX11_ABI: "true"
       DYNAWO_NB_PROCESSORS_USED: 2
+      DYNAWO_VERSION: 1.4
       GH_API: ${{ github.api_url }}/repos/${{ github.repository }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       CURL_JSON: 'curl --silent -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" --header "Content-Type: application/json"'
@@ -47,9 +48,9 @@ jobs:
           source .github/workflows/tools.sh
 
           echo "Obtain previous release id and delete it"
-          RELEASE_ID=$($CURL_JSON "$GH_API/releases" | python3 -c 'import sys, json; releases=[release["id"] for release in json.load(sys.stdin) if release["tag_name"]=="nightly"]; print(releases[0] if releases else "")')
+          RELEASE_ID=$($CURL_JSON "$GH_API/releases" | python3 -c 'import sys, json; releases=[release["id"] for release in json.load(sys.stdin) if release["tag_name"]=="nightly-release"]; print(releases[0] if releases else "")')
           if [ ! -z "$RELEASE_ID" ]; then
-            echo "Release id with tag 'nightly' found: $RELEASE_ID"
+            echo "Release id with tag 'nightly-release' found: $RELEASE_ID"
             echo "Delete release $RELEASE_ID ..."
             curl \
               --request DELETE \
@@ -71,7 +72,7 @@ jobs:
           echo "Delete previous tag. Won't fail if it does not exist"
           curl \
             --request DELETE \
-            --url "$GH_API/git/refs/tags/nightly" \
+            --url "$GH_API/git/refs/tags/nightly-release" \
             --header "Authorization: token $GITHUB_TOKEN" \
             --header "Content-Type: application/json"
 
@@ -83,37 +84,37 @@ jobs:
 
       - name: Get last commit in master
         run: |
-          echo "Obtaining refs/heads/master ..."
-          HEAD_MASTER=$($CURL_JSON "$GH_API/git/refs/heads/master")
-          echo "Head master:"
+          echo "Obtaining refs/heads/v${DYNAWO_VERSION} ..."
+          HEAD_MASTER=$($CURL_JSON "$GH_API/git/refs/heads/v${DYNAWO_VERSION}")
+          echo "Head v${DYNAWO_VERSION}:"
           echo $HEAD_MASTER
           SHA_HEAD_MASTER=$(echo $HEAD_MASTER | python3 -c 'import sys, json; print(json.load(sys.stdin)["object"]["sha"])')
           echo "Last commit in master has SHA = $SHA_HEAD_MASTER"
           echo "MASTER_COMMIT_ID=$SHA_HEAD_MASTER" >> $GITHUB_ENV
 
-      - name: INFO. Check last commit in master
-        run: echo "Last commit in master SHA = $MASTER_COMMIT_ID"
+      - name: INFO. Check last commit in release branch vx.x
+        run: echo "Last commit in release branch SHA = $MASTER_COMMIT_ID"
 
-      - name: Create tag nightly
+      - name: Create tag nightly-release
         run: |
           source .github/workflows/tools.sh
-          echo "Create tag nightly based on last commit in master branch"
+          echo "Create tag nightly-release based on last commit in v${DYNAWO_VERSION} branch"
           curl \
             --request POST \
             --url "$GH_API/git/refs" \
             --header "Authorization: token $GITHUB_TOKEN" \
             --header "Content-Type: application/json" \
             --data '{
-                "ref": "refs/tags/nightly",
+                "ref": "refs/tags/nightly-release",
                 "sha": "'$MASTER_COMMIT_ID'"
                 }'
           echo "Wait for tag to be created ..."
-          wait_for_http_code "$GH_API/git/refs/tags/nightly" 200 $GITHUB_TOKEN
+          wait_for_http_code "$GH_API/git/refs/tags/nightly-release" 200 $GITHUB_TOKEN
 
-      - name: INFO. Tag nightly created"
-        run: $CURL_JSON "$GH_API/git/refs/tags/nightly"
+      - name: INFO. Tag nightly-release created"
+        run: $CURL_JSON "$GH_API/git/refs/tags/nightly-release"
 
-      - name: Create release nightly
+      - name: Create release nightly-release
         run: |
           source .github/workflows/tools.sh
           echo "Create release nightly"
@@ -123,24 +124,24 @@ jobs:
             --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             --header "Content-Type: application/json" \
             --data '{
-                "tag_name" : "nightly",
+                "tag_name" : "nightly-release",
                 "target_commitish" : "'$MASTER_COMMIT_ID'",
-                "name" : "Nightly",
+                "name" : "Nightly v${DYNAWO_VERSION}",
                 "body" : "Dynawo'"'"'s nightly release. Compiled on *release* settings.\n\n**Don'"'"'t use it for production**",
                 "draft" : false,
                 "prerelease" : true
                 }'
           echo "Wait for the release to be published ..."
-          wait_for_http_code "$GH_API/releases/tags/nightly" 200 $GITHUB_TOKEN
+          wait_for_http_code "$GH_API/releases/tags/nightly-release" 200 $GITHUB_TOKEN
 
-      - name: INFO. Release object created for tag nightly"
-        run: $CURL_JSON "$GH_API/releases/tags/nightly"
+      - name: INFO. Release object created for tag nightly-release"
+        run: $CURL_JSON "$GH_API/releases/tags/nightly-release"
 
       - name: Upload assets for release
         run: |
           source .github/workflows/tools.sh
           echo "Obtain upload and assets urls from created release:"
-          RELEASE=$($CURL_JSON "$GH_API/releases/tags/nightly")
+          RELEASE=$($CURL_JSON "$GH_API/releases/tags/nightly-release")
           UPLOAD_URL=$(echo ${RELEASE} | python3 -c 'import sys, json; release = json.load(sys.stdin); print(str(release["upload_url"]))' | grep -o ".*assets")
           echo "Release upload URL = $UPLOAD_URL"
           ASSETS_URL=$(echo ${RELEASE} | python3 -c 'import sys, json; release = json.load(sys.stdin); print(str(release["assets_url"]))')
