@@ -34,7 +34,7 @@ model InfiniteBusWithImpedance_INIT "Initial model for infinite bus connected to
 
   //Terminal initial values
   Types.ComplexCurrentPu iTerminal0Pu "Initial complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
-  Types.ComplexApparentPowerPu sTerminal0Pu "Initial complex apparent power at terminal in pu (base SnRef)";
+  Types.ComplexApparentPowerPu sTerminal0Pu "Initial complex apparent power at terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexVoltagePu uTerminal0Pu "Initial complex voltage at terminal in pu (base UNom)";
 
   final parameter Types.ComplexImpedancePu ZPu = Complex(RPu, XPu) "Equivalent impedance between terminal and infinite bus";
@@ -43,7 +43,7 @@ equation
   uTerminal0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   sTerminal0Pu = Complex(P0Pu, Q0Pu);
   sTerminal0Pu = uTerminal0Pu * ComplexMath.conj(iTerminal0Pu);
-  uTerminal0Pu - uBus0Pu = - ZPu * iTerminal0Pu;
+  uTerminal0Pu - uBus0Pu = ZPu * iTerminal0Pu;
   UBus0Pu = ComplexMath.'abs'(uBus0Pu);
   UPhaseBus0 = ComplexMath.arg(uBus0Pu);
 
