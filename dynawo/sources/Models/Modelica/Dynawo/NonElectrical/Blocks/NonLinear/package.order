@@ -1,6 +1,7 @@
 BaseClasses
 BacklashHysteresis
 DeadBand
+DelayFlag
 FixedBooleanDelay
 FlipFlopR
 FlipFlopS
@@ -12,7 +13,10 @@ LimiterWithLag
 LimiterWithLag_INIT
 MaxThresholdSwitch
 MinThresholdSwitch
+MultiSwitch
 PulseFixedDuration
 PulseMinimumDuration
+SwitchInteger
+VariableDelayFlag
 VariableLimiter
 PIAntiWindUpTable
