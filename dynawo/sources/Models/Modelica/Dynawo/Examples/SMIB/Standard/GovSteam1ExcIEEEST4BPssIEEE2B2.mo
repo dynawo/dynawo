@@ -93,16 +93,16 @@ model GovSteam1ExcIEEEST4BPssIEEE2B2 "Active power variation on the load"
    nd = 0,
    nq = 0, u0Pu = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {20, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1 governor(Db1 = 0, Db2 = 0, Eps = 0, H0 = false, K = 25, K1 = 0.2, K2 = 0, K3 = 0.3, K4 = 0, K5 = 0.5, K6 = 0, K7 = 0, K8 = 0, PMaxPu = 1, PMinPu = 0, PgvTableName = "Pgv", Pm0Pu = generatorSynchronous.Pm0Pu, PmRef0Pu = 0.43125, Sdb1 = true, Sdb2 = true, TablesFile = "nrt/data/SMIB/Standard/Gain_power.txt", Uc = -10, Uo = 1, ValveOn = true, t1 = 1e-5, t2 = 1e-5, t3 = 0.1, t4 = 0.3, t5 = 5, t6 = 0.5, t7 = 1e-5) annotation(
-    Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1 governor(Db1 = 0, Db2 = 0, Eps = 0, H0 = false, K = 25, K1 = 0.2, K2 = 0, K3 = 0.3, K4 = 0, K5 = 0.5, K6 = 0, K7 = 0, K8 = 0, PMaxPu = 1, PMinPu = 0, PgvTableName = "Pgv", Pm0Pu = generatorSynchronous.Pm0Pu, PmRef0Pu = 0.43125, Sdb1 = true, Sdb2 = true, TablesFile = "/home/jalibmon/Projects/dynawo/nrt/data/SMIB/Standard/Gain_power.txt", Uc = -10, Uo = 1, ValveOn = true, t1 = 1e-5, t2 = 1e-5, t3 = 0.1, t4 = 0.3, t5 = 5, t6 = 0.5, t7 = 1e-5) annotation(
+    Placement(visible = true, transformation(origin = {90, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExcIEEEST4B avr(Efd0Pu = generatorSynchronous.Efd0Pu, Ifd0Pu = generatorSynchronous.Ir0Pu, Kc = 0.113, Kg = 0, Ki = 0, Kim = 0, Kir = 10.75, Kp = 9.3, Kpm = 1, Kpr = 10.75, Thetap = 0, UOel0Pu = 10, Ub0Pu = 10.1622, Us0Pu = generatorSynchronous.U0Pu, VbMaxPu = 11.63, VmMaxPu = 99, VmMinPu = -99, VrMaxPu = 1, VrMinPu = -0.87, XlPu = 0.124, it0Pu = generatorSynchronous.i0Pu, tA = 0.02, tR = 0.02, ut0Pu = generatorSynchronous.u0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant UPssPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant UsRefPu(k = generatorSynchronous.U0Pu) annotation(
-    Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {10, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PmRefPu(k = 0.43125)  annotation(
-    Placement(visible = true, transformation(origin = {130, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, -30}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(visible = true, transformation(origin = {21, 35}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
@@ -113,7 +113,6 @@ model GovSteam1ExcIEEEST4BPssIEEE2B2 "Active power variation on the load"
     Placement(visible = true, transformation(origin = {-10, -50}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRefPu(height = 0.05 * generatorSynchronous.PNomAlt / 100, offset = 3.8, startTime = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-70, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
 equation
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
@@ -125,9 +124,9 @@ equation
   connect(load.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
-    Line(points = {{38, -6}, {60, -6}, {60, -40}, {80, -40}}, color = {0, 0, 127}));
+    Line(points = {{38, -6}, {60, -6}, {60, -50}, {80, -50}}, color = {0, 0, 127}));
   connect(PmRefPu.y, governor.PmRefPu) annotation(
-    Line(points = {{119, -20}, {90, -20}, {90, -30}}, color = {0, 0, 127}));
+    Line(points = {{119, -30}, {90, -30}, {90, -40}}, color = {0, 0, 127}));
   connect(generatorSynchronous.iStatorPu_out, complexToReal.u) annotation(
     Line(points = {{12, 18}, {12, 35}, {15, 35}}, color = {85, 170, 255}));
   connect(generatorSynchronous.IRotorPu_out, avr.IfdPu) annotation(
@@ -139,7 +138,7 @@ equation
   connect(complexToReal.re, avr.itPuRe) annotation(
     Line(points = {{28, 38}, {78, 38}, {78, 16}, {114, 16}, {114, 6}, {122, 6}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(UsRefPu.y, avr.UsRefPu) annotation(
-    Line(points = {{21, 60}, {80, 60}, {80, 24}, {118, 24}}, color = {0, 0, 127}));
+    Line(points = {{21, 70}, {80, 70}, {80, 24}, {118, 24}}, color = {0, 0, 127}));
   connect(UPssPu.y, avr.UPssPu) annotation(
     Line(points = {{102, 0}, {110, 0}, {110, 12}, {118, 12}, {118, 12}}, color = {0, 0, 127}));
   connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
@@ -147,12 +146,11 @@ equation
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
     Line(points = {{141, 18}, {150, 18}, {150, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
   connect(governor.Pm1Pu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{100, -36}, {110, -36}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
+    Line(points = {{100, -46}, {110, -46}, {110, -70}, {32, -70}, {32, -16}}, color = {0, 0, 127}));
   connect(QRefPu.y, load.QRefPu) annotation(
     Line(points = {{-20, -50}, {-34, -50}, {-34, -28}}, color = {0, 0, 127}));
   connect(PRefPu.y, load.PRefPu) annotation(
     Line(points = {{-58, -50}, {-46, -50}, {-46, -28}}, color = {0, 0, 127}));
-
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 15, Tolerance = 1e-06),

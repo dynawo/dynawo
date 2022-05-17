@@ -20,7 +20,7 @@ model GridForming "Grid Forming converters test case"
   Dynawo.Electrical.Controls.Converters.GridFormingControlDroopControl Droop(Cfilter = 0.066, Kff = 0.01, Kic = 1.19, Kiv = 1.161022, KpVI = 0.67, Kpc = 0.7388, Kpdc = 50, Kpv = 0.52, Lfilter = 0.15, Mp = 0.02, Mq = 0, Rfilter = 0.005, UdcSourcePu(fixed = true, start = 1.01369), Wf = 60, Wff = 16.66, XRratio = 5, currentLoop(integratord(y_start = 0.00323126), integratorq(y_start = -0.000164394)), droopControl(firstOrder(y_start = -7.3445e-5), firstOrder1(y_start = 0.102988), firstOrder2(y_start = 0.00622874), firstOrder3(y_start = -0.0010158), integrator(y_start = -0.0502873)), idConvPu(fixed = true, start = 0.622806), idPccPu(fixed = true, start = 0.622873), iqConvPu(fixed = true, start = -0.035099), iqPccPu(fixed = true, start = -0.101592), udFilterPu(fixed = true, start = 1.00755), uqFilterPu(fixed = true, start = 0.00101415)) "Droop controlled grid-forming converter" annotation(
     Placement(visible = true, transformation(origin = {-107, 135}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Dynawo.Electrical.Sources.Converter Conv250(Cdc = 0.01, Cfilter = 0.066, Lfilter = 0.15, Ltransformer = 0.2, Rfilter = 0.005, Rtransformer = 0.01, SNom = 250) annotation(
-    Placement(visible = true, transformation(origin = {-62, 135}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-63, 135}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRef250Pu(height = 0, offset = 0.6238, startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {-145, 169}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Sources.Step QRef250Pu(height = 0, offset = 0.0769, startTime = 1) annotation(
@@ -62,7 +62,7 @@ model GridForming "Grid Forming converters test case"
   Dynawo.Electrical.Lines.Line Line23(BPu = 0.00003, GPu = 0, RPu = 0.003, XPu = 0.03) annotation(
     Placement(visible = true, transformation(origin = {0, 107}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line Line23Bis1(BPu = 0.000015, GPu = 0, RPu = 0.0015, XPu = 0.015) annotation(
-    Placement(visible = true, transformation(origin = {-35, 74}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-33, 74}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line Line23Bis2(BPu = 0.000015, GPu = 0, RPu = 0.0015, XPu = 0.015) annotation(
     Placement(visible = true, transformation(origin = {35, 74}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Dynawo.Electrical.Loads.LoadAlphaBeta Load(PPu(fixed = true, start = 10.9955), QPu(fixed = false, start = 0), alpha = 2, beta = 0, u0Pu = Complex(1, 0)) annotation(
@@ -95,15 +95,15 @@ equation
   Load.PRefPu = PRefLoadPu;
   Load.QRefPu = QRefLoadPu;
   connect(Droop.theta, Conv250.theta) annotation(
-    Line(points = {{-91, 148.5}, {-78, 148.5}}, color = {0, 0, 127}));
+    Line(points = {{-91, 148.5}, {-79, 148.5}}, color = {0, 0, 127}));
   connect(Droop.udConvRefPu, Conv250.udConvRefPu) annotation(
-    Line(points = {{-91, 141}, {-78, 141}}, color = {0, 0, 127}));
+    Line(points = {{-91, 141}, {-79, 141}}, color = {0, 0, 127}));
   connect(Droop.IdcSourcePu, Conv250.IdcSourcePu) annotation(
-    Line(points = {{-91, 135}, {-78, 135}}, color = {0, 0, 127}));
+    Line(points = {{-91, 135}, {-79, 135}}, color = {0, 0, 127}));
   connect(Droop.uqConvRefPu, Conv250.uqConvRefPu) annotation(
-    Line(points = {{-91, 129}, {-78, 129}}, color = {0, 0, 127}));
+    Line(points = {{-91, 129}, {-79, 129}}, color = {0, 0, 127}));
   connect(Droop.omegaPu, Conv250.omegaPu) annotation(
-    Line(points = {{-91, 121.5}, {-78, 121.5}}, color = {0, 0, 127}));
+    Line(points = {{-91, 121.5}, {-79, 121.5}}, color = {0, 0, 127}));
   connect(dVOC.theta, Conv500.theta) annotation(
     Line(points = {{91, 148.5}, {79, 148.5}}, color = {0, 0, 127}));
   connect(dVOC.udConvRefPu, Conv500.udConvRefPu) annotation(
@@ -125,15 +125,15 @@ equation
   connect(Matching.theta, Conv1000.theta) annotation(
     Line(points = {{-91, -13.5}, {-78, -13.5}}, color = {0, 0, 127}));
   connect(Conv250.terminal, Line12.terminal2) annotation(
-    Line(points = {{-62, 119}, {-62, 60}}, color = {0, 0, 255}));
+    Line(points = {{-63, 119}, {-63, 89.5}, {-62, 89.5}, {-62, 60}}, color = {0, 0, 255}));
   connect(Line12.terminal1, Conv1000.terminal) annotation(
     Line(points = {{-62, 30}, {-62, 16}}, color = {0, 0, 255}));
   connect(Conv250.terminal, Line23.terminal1) annotation(
-    Line(points = {{-62, 119}, {-62, 107}, {-15, 107}}, color = {0, 0, 255}));
+    Line(points = {{-63, 119}, {-63, 107}, {-15, 107}}, color = {0, 0, 255}));
   connect(Line23.terminal2, Conv500.terminal) annotation(
     Line(points = {{15, 107}, {63, 107}, {63, 119}}, color = {0, 0, 255}));
   connect(Conv250.terminal, Line23Bis1.terminal1) annotation(
-    Line(points = {{-62, 119}, {-62, 74}, {-50, 74}}, color = {0, 0, 255}));
+    Line(points = {{-63, 119}, {-63, 74}, {-48, 74}}, color = {0, 0, 255}));
   connect(Line23Bis2.terminal2, Conv500.terminal) annotation(
     Line(points = {{50, 74}, {63, 74}, {63, 119}}, color = {0, 0, 255}));
   connect(Conv500.terminal, Line13.terminal2) annotation(
@@ -141,7 +141,7 @@ equation
   connect(Line13.terminal1, Conv1000.terminal) annotation(
     Line(points = {{63, 30}, {63, 16}, {-62, 16}}, color = {0, 0, 255}));
   connect(Line23Bis1.terminal2, Line23Bis2.terminal1) annotation(
-    Line(points = {{-20, 74}, {20, 74}}, color = {0, 0, 255}));
+    Line(points = {{-18, 74}, {20, 74}}, color = {0, 0, 255}));
   connect(Matching.omegaPu, dVOC.omegaRefPu) annotation(
     Line(points = {{-91, 13.5}, {-91, 116}, {93.5, 116}, {93.5, 119}}, color = {0, 0, 127}));
   connect(Load.terminal, Line23.terminal1) annotation(
@@ -149,7 +149,7 @@ equation
   connect(Matching.omegaPu, Matching.omegaRefPu) annotation(
     Line(points = {{-91, 13.5}, {-91, 16}, {-93.5, 16}}, color = {0, 0, 127}));
   connect(Droop.UdcSourceRefOutPu, Conv250.UdcSourceRefPu) annotation(
-    Line(points = {{-91, 124.5}, {-78, 124.5}}, color = {0, 0, 127}));
+    Line(points = {{-91, 124.5}, {-79, 124.5}}, color = {0, 0, 127}));
   connect(dVOC.UdcSourceRefOutPu, Conv500.UdcSourceRefPu) annotation(
     Line(points = {{91, 124.5}, {79, 124.5}}, color = {0, 0, 127}));
   connect(Matching.UdcSourceRefOutPu, Conv1000.UdcSourceRefPu) annotation(
@@ -175,7 +175,7 @@ equation
   connect(IdcSourceRef500Pu.y, dVOC.IdcSourceRefPu) annotation(
     Line(points = {{139.5, 118}, {130, 118}, {130, 126}, {123, 126}}, color = {0, 0, 127}));
   connect(Line23Bis1.terminal2, Fault.terminal) annotation(
-    Line(points = {{-20, 74}, {0, 74}, {0, 44}}, color = {0, 0, 255}));
+    Line(points = {{-18, 74}, {0, 74}, {0, 44}}, color = {0, 0, 255}));
   connect(PRef250Pu.y, Droop.PRefPu) annotation(
     Line(points = {{-139, 169}, {-129, 169}, {-129, 150}, {-123, 150}}, color = {0, 0, 127}));
   connect(UdcSourceRef250Pu.y, Droop.UdcSourceRefPu) annotation(
@@ -185,19 +185,19 @@ equation
   connect(PRef500Pu.y, dVOC.PRefPu) annotation(
     Line(points = {{140, 169}, {129, 169}, {129, 150}, {123, 150}}, color = {0, 0, 127}));
   connect(Conv250.udFilterPu, Droop.udFilterPu) annotation(
-    Line(points = {{-46, 148.5}, {-35, 148.5}, {-35, 152}, {-94, 152}, {-94, 151}}, color = {0, 0, 127}));
+    Line(points = {{-47, 148.5}, {-35, 148.5}, {-35, 152}, {-94, 152}, {-94, 151}}, color = {0, 0, 127}));
   connect(Conv250.idPccPu, Droop.idPccPu) annotation(
-    Line(points = {{-46, 144}, {-34, 144}, {-34, 153}, {-98, 153}, {-98, 151}}, color = {0, 0, 127}));
+    Line(points = {{-47, 144}, {-34, 144}, {-34, 153}, {-98, 153}, {-98, 151}}, color = {0, 0, 127}));
   connect(Conv250.idConvPu, Droop.idConvPu) annotation(
-    Line(points = {{-46, 139.5}, {-33, 139.5}, {-33, 154}, {-103, 154}, {-103, 151}, {-102.5, 151}}, color = {0, 0, 127}));
+    Line(points = {{-47, 139.5}, {-33, 139.5}, {-33, 154}, {-103, 154}, {-103, 151}, {-102.5, 151}}, color = {0, 0, 127}));
   connect(Conv250.UdcSourcePu, Droop.UdcSourcePu) annotation(
-    Line(points = {{-46, 135}, {-32, 135}, {-32, 155}, {-107, 155}, {-107, 151}}, color = {0, 0, 127}));
+    Line(points = {{-47, 135}, {-32, 135}, {-32, 155}, {-107, 155}, {-107, 151}}, color = {0, 0, 127}));
   connect(Conv250.iqConvPu, Droop.iqConvPu) annotation(
-    Line(points = {{-46, 130.5}, {-31, 130.5}, {-31, 156}, {-112, 156}, {-112, 151}}, color = {0, 0, 127}));
+    Line(points = {{-47, 130.5}, {-31, 130.5}, {-31, 156}, {-112, 156}, {-112, 151}}, color = {0, 0, 127}));
   connect(Conv250.iqPccPu, Droop.iqPccPu) annotation(
-    Line(points = {{-46, 126}, {-30, 126}, {-30, 157}, {-116, 157}, {-116, 151}}, color = {0, 0, 127}));
+    Line(points = {{-47, 126}, {-30, 126}, {-30, 157}, {-116, 157}, {-116, 151}}, color = {0, 0, 127}));
   connect(Conv250.uqFilterPu, Droop.uqFilterPu) annotation(
-    Line(points = {{-46, 121.5}, {-29, 121.5}, {-29, 158}, {-121, 158}, {-121, 151}}, color = {0, 0, 127}));
+    Line(points = {{-47, 121.5}, {-29, 121.5}, {-29, 158}, {-121, 158}, {-121, 151}}, color = {0, 0, 127}));
   connect(Conv500.udFilterPu, dVOC.udFilterPu) annotation(
     Line(points = {{47, 148.5}, {35, 148.5}, {35, 152}, {94, 152}, {94, 151}}, color = {0, 0, 127}));
   connect(Conv500.idPccPu, dVOC.idPccPu) annotation(

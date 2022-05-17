@@ -49,7 +49,7 @@ model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps mac
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add rawEfd annotation(
     Placement(visible = true, transformation(origin = {46, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(y_start = yIntegrator0, k = Gain/tIntegral)  annotation(
+  Modelica.Blocks.Continuous.Integrator integrator( k = Gain/tIntegral,y_start = yIntegrator0)  annotation(
     Placement(visible = true, transformation(origin = {12, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add integratorEntry annotation(
     Placement(visible = true, transformation(origin = {-28, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

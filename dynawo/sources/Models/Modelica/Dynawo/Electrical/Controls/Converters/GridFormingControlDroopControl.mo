@@ -80,7 +80,7 @@ model GridFormingControlDroopControl "Grid Forming Control with Droop Control"
   Dynawo.Electrical.Controls.Converters.BaseControls.VoltageLoop voltageLoop(Cfilter = Cfilter, Kiv = Kiv, Kpv = Kpv, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, UdFilter0Pu = UdFilter0Pu)  annotation(
     Placement(visible = true, transformation(origin = {15, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.VirtualImpedance virtualImpedance(KpVI = KpVI, XRratio = XRratio, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu)  annotation(
-    Placement(visible = true, transformation(origin = {-35, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-35, 12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.DroopControl droopControl(Kff = Kff, Mp = Mp, Mq = Mq, PRef0Pu = PRef0Pu, QRef0Pu = QRef0Pu, Wf = Wf, Wff = Wff, Theta0 = Theta0, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, UdFilter0Pu = UdFilter0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-15, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.DCVoltageControl dCVoltageControl(Kpdc = Kpdc, IdcSource0Pu = IdcSource0Pu, IdcSourceRef0Pu = IdcSourceRef0Pu, UdcSource0Pu = UdcSource0Pu)  annotation(
@@ -114,13 +114,13 @@ equation
   connect(droopControl.omegaPu, currentLoop.omegaPu) annotation(
     Line(points = {{-4, 44}, {34, 44}}, color = {0, 0, 127}));
   connect(virtualImpedance.DeltaVVId, droopControl.DeltaVVId) annotation(
-    Line(points = {{-24, 23}, {-24, 33}}, color = {0, 0, 127}));
+    Line(points = {{-24, 21}, {-24, 33}}, color = {0, 0, 127}));
   connect(virtualImpedance.DeltaVVIq, droopControl.DeltaVVIq) annotation(
-    Line(points = {{-24, 5}, {-21, 5}, {-21, 33}}, color = {0, 0, 127}));
+    Line(points = {{-24, 3}, {-21, 3}, {-21, 33}}, color = {0, 0, 127}));
   connect(idConvPu, virtualImpedance.idConvPu) annotation(
-    Line(points = {{-58, -1}, {-50, -1}, {-50, 23}, {-46, 23}}, color = {0, 0, 127}));
+    Line(points = {{-58, -1}, {-50, -1}, {-50, 21}, {-46, 21}}, color = {0, 0, 127}));
   connect(iqConvPu, virtualImpedance.iqConvPu) annotation(
-    Line(points = {{-58, -6}, {-49, -6}, {-49, 5}, {-46, 5}}, color = {0, 0, 127}));
+    Line(points = {{-58, -6}, {-49, -6}, {-49, 3}, {-46, 3}}, color = {0, 0, 127}));
   connect(idPccPu, droopControl.idPccPu) annotation(
     Line(points = {{-58, -11}, {-18, -11}, {-18, 33}}, color = {0, 0, 127}));
   connect(iqPccPu, droopControl.iqPccPu) annotation(

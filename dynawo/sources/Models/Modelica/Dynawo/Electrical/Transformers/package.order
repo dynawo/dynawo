@@ -9,3 +9,5 @@ GeneratorTransformer_INIT
 IdealTransformerVariableTap
 IdealTransformerVariableTapPQ_INIT
 IdealTransformerVariableTapI_INIT
+DynamicTransformerFixedRatio
+DynamicTransformerFixedRatio_INIT

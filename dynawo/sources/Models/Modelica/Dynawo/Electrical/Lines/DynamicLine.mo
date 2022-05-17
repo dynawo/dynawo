@@ -84,11 +84,11 @@ equation
   end if;
 
   s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
-  S2Pu = terminal2.V * ComplexMath.conj(terminal2.i);
-  P1Pu = S1Pu.re;
-  Q1Pu = S1Pu.im;
-  P2Pu = S2Pu.re;
-  Q2Pu = S2Pu.im;
+  s2Pu = terminal2.V * ComplexMath.conj(terminal2.i);
+  P1Pu = s1Pu.re;
+  Q1Pu = s1Pu.im;
+  P2Pu = s2Pu.re;
+  Q2Pu = s2Pu.im;
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>
