@@ -72,6 +72,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
   InfiniteBus.xml
+  InfiniteBusWithImpedance.xml
   InfiniteBusWithVariations.xml
   InjectorBG.xml
   Line.xml
@@ -85,6 +86,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadTwoTransformers.xml
   LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
+  Measurements.xml
   NodeFault.xml
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml

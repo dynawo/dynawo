@@ -27,32 +27,37 @@ if(NOT SUNDIALS_HOME AND NOT $ENV{SUNDIALS_INSTALL_DIR} STREQUAL "")
   set(SUNDIALS_HOME $ENV{SUNDIALS_INSTALL_DIR})
 endif()
 
+set(LIBRARY_DIR lib)
+if(MSVC)
+  set(LIBRARY_DIR bin)
+endif()
+
 find_path(SUNDIALS_INCLUDE_DIR NAME sundials/sundials_config.h HINTS ${SUNDIALS_HOME}/include)
 mark_as_advanced(SUNDIALS_INCLUDE_DIR)
 
 # Searching for sundials ida
-find_library(SUNDIALS_IDA_LIBRARY NAME sundials_ida libsundials_ida HINTS ${SUNDIALS_HOME}/lib)
+find_library(SUNDIALS_IDA_LIBRARY NAME sundials_ida libsundials_ida HINTS ${SUNDIALS_HOME}/${LIBRARY_DIR})
 mark_as_advanced(SUNDIALS_IDA_LIBRARY)
 
 # Searching for sundials kinsol
-find_library(SUNDIALS_KINSOL_LIBRARY NAME sundials_kinsol libsundials_kinsol HINTS ${SUNDIALS_HOME}/lib)
+find_library(SUNDIALS_KINSOL_LIBRARY NAME sundials_kinsol libsundials_kinsol HINTS ${SUNDIALS_HOME}/${LIBRARY_DIR})
 mark_as_advanced(SUNDIALS_KINSOL_LIBRARY)
 
 # Searching for sundials nvecserial
-find_library(SUNDIALS_NVECSERIAL_LIBRARY NAME sundials_nvecserial libsundials_nvecserial HINTS ${SUNDIALS_HOME}/lib)
+find_library(SUNDIALS_NVECSERIAL_LIBRARY NAME sundials_nvecserial libsundials_nvecserial HINTS ${SUNDIALS_HOME}/${LIBRARY_DIR})
 mark_as_advanced(SUNDIALS_NVECSERIAL_LIBRARY)
 
 # Searching for sundials sunlinsolklu
-find_library(SUNDIALS_SUNLINSOLKLU_LIBRARY NAME sundials_sunlinsolklu libsundials_sunlinsolklu HINTS ${SUNDIALS_HOME}/lib)
+find_library(SUNDIALS_SUNLINSOLKLU_LIBRARY NAME sundials_sunlinsolklu libsundials_sunlinsolklu HINTS ${SUNDIALS_HOME}/${LIBRARY_DIR})
 mark_as_advanced(SUNDIALS_SUNLINSOLKLU_LIBRARY)
 
 if(NICSLU_FOUND)
   # Searching for sundials sunmatrixsparse
-  find_library(SUNDIALS_SUNMATRIXSPARSE_LIBRARY NAME sundials_sunmatrixsparse libsundials_sunmatrixsparse HINTS ${SUNDIALS_HOME}/lib)
+  find_library(SUNDIALS_SUNMATRIXSPARSE_LIBRARY NAME sundials_sunmatrixsparse libsundials_sunmatrixsparse HINTS ${SUNDIALS_HOME}/${LIBRARY_DIR})
   mark_as_advanced(SUNDIALS_SUNMATRIXSPARSE_LIBRARY)
 
   # Searching for sundials sunlinsolnicslu
-  find_library(SUNDIALS_SUNLINSOLNICSLU_LIBRARY NAME sundials_sunlinsolnicslu libsundials_sunlinsolnicslu HINTS ${SUNDIALS_HOME}/lib)
+  find_library(SUNDIALS_SUNLINSOLNICSLU_LIBRARY NAME sundials_sunlinsolnicslu libsundials_sunlinsolnicslu HINTS ${SUNDIALS_HOME}/${LIBRARY_DIR})
   mark_as_advanced(SUNDIALS_SUNLINSOLNICSLU_LIBRARY)
 endif()
 
