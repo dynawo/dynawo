@@ -516,7 +516,7 @@ class ReaderOMC:
                     sub_eq+= " " + splitted_eq[idx]
                     idx+=1
                 self.analyse_eq_expr(sub_eq[:-1], root)
-            elif expr.startswith("if") or expr.startswith("-if"):
+            elif expr.startswith("if") or expr.startswith("-if") or expr.startswith("- if"):
                 idx = self.remove_condition(idx, splitted_eq)
                 node = self.Node()
                 node.eq = "IF"

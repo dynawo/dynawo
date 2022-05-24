@@ -2961,7 +2961,7 @@ class Factory:
             if (self.reader.var_name_to_eq_type[var_name] == MIXED or self.reader.var_name_to_eq_type[var_name] == DIFFERENTIAL) \
                 and var_name in self.reader.var_name_to_differential_dependency_variables:
                 if eq.get_evaluated_var() in self.reader.var_name_to_mixed_residual_vars_types:
-                    body = replace_equations_in_a_if_statement_Y(eq.get_body_for_setf(), \
+                    body = replace_equations_in_a_if_statement_y(eq.get_body_for_setf(), \
                                                                 self.reader.var_name_to_mixed_residual_vars_types[eq.get_evaluated_var()], \
                                                                 alg_vars, diff_var_to_eq, 4)
                     convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
