@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+ <dyn:job name="Test Case 3 - Bolted three-phase short circuit at the high-level side of the transformer played back using an infinite bus with table data">
+      <dyn:solver lib="dynawo_SolverIDA" parFile="TestCase3.par" parId="IDA"/>
+      <dyn:modeler compileDir="outputsTestCase3/compilation">
+        <dyn:dynModels dydFile="TestCase3.dyd"/>
+        <dyn:precompiledModels useStandardModels="true"/>
+        <dyn:modelicaModels useStandardModels="true">
+          <dyn:directory path="." recursive="false"/>
+        </dyn:modelicaModels>
+      </dyn:modeler>
+      <dyn:simulation startTime="0" stopTime="10" precision="1e-6"/>
+      <dyn:outputs directory="outputsTestCase3">
+        <dyn:curves inputFile="TestCase3.crv" exportMode="CSV"/>
+      </dyn:outputs>
+  </dyn:job>
+</dyn:jobs>
