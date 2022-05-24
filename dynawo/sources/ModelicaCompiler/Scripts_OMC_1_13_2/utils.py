@@ -1135,8 +1135,10 @@ def format_for_modelica_reinit_evalmode(body):
 
     return text_to_return
 
+tmp_eq_ptrn = re.compile(r'\s*tmp[0-9]+\s*=.*;')
+residual_var_name = "$P$DAEres"
+
 def build_tmp_tree(eq_body):
-    tmp_eq_ptrn = re.compile(r'\s*tmp[0-9]+\s*=.*;')
     tmp_ptrn = re.compile(r'(?P<var1>tmp[0-9]+)')
     tree_deps_tmp = {}
     boolean_tmps = []
@@ -1204,7 +1206,6 @@ def build_tmp_tree(eq_body):
 # @return the formatted body
 def replace_equations_in_a_if_statement(eq_body, type_tree, line_to_insert_algebraic, line_to_insert_differential, additional_leading_space):
     res_body = []
-    tmp_eq_ptrn = re.compile(r'\s*tmp[0-9]+\s*=.*;')
     tmp_eq_residual = re.compile(r'\s*f\[[0-9]+\]\s*=.*;')
     leading_spaces_gen= ""
     for _ in range(1, additional_leading_space):
@@ -1239,7 +1240,7 @@ def replace_equations_in_a_if_statement(eq_body, type_tree, line_to_insert_algeb
             else:
                 res_body.append(leading_spaces_gen + line)
         else:
-            if "$P$DAEres" in line:
+            if residual_var_name in line:
                 continue
             if re.search(tmp_eq_residual, line) is not None:
                 continue
@@ -1248,9 +1249,8 @@ def replace_equations_in_a_if_statement(eq_body, type_tree, line_to_insert_algeb
     return res_body
 
 
-def replace_equations_in_a_if_statement_Y(eq_body, type_tree, alg_vars, diff_var_to_eq, additional_leading_space):
+def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var_to_eq, additional_leading_space):
     res_body = []
-    tmp_eq_ptrn = re.compile(r'\s*tmp[0-9]+\s*=.*;')
     tmp_eq_residual = re.compile(r'\s*f\[[0-9]+\]\s*=.*;')
     tmp_eq_tmp_ptrn = re.compile(r'\s*tmp[0-9]+\s*=\s*tmp[0-9]+\s*;')
     leading_spaces_gen= ""
@@ -1298,7 +1298,7 @@ def replace_equations_in_a_if_statement_Y(eq_body, type_tree, alg_vars, diff_var
                     idx+=1
             elif main_tmp not in to_remove:
                 res_body.append(leading_spaces_gen + line)
-        elif "$P$DAEres" in line and  "data->localData" in line:
+        elif residual_var_name in line and  "data->localData" in line:
             res_body.append(leading_spaces_gen + line)
             assert(idx < len(equations))
             nb_leading_spaces = len(line) - len(line.lstrip())
@@ -1320,7 +1320,7 @@ def replace_equations_in_a_if_statement_Y(eq_body, type_tree, alg_vars, diff_var
                 var_idx +=1
             idx+=1
         else:
-            if "$P$DAEres" in line and not "data->localData" in line:
+            if residual_var_name in line and "data->localData" not in line:
                 continue
             if re.search(tmp_eq_residual, line) is not None:
                 continue
