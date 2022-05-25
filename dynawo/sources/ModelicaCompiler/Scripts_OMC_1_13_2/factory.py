@@ -2918,6 +2918,7 @@ class Factory:
                 spin = "DIFFERENTIAL"
                 var_ext = ""
                 if is_alg_var(v) : spin = "ALGEBRAIC"
+                if v.get_name() in self.reader.dummy_der_variables: spin = "DIFFERENTIAL"
                 if v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var:
                   spin = "EXTERNAL"
                   var_ext = "- external variables"
