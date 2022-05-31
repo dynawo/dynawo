@@ -295,6 +295,7 @@ namespace DYN {
                                     " else {(UMonitoredPu > (URefPu + DeadbandsUPu_) && sections0_ > SectionsMin_)}");
     gEquationIndex_[2] = std::string("if isSelf ((t - whenDown_) > tNext_) else ((t - whenUp_) > tNext_)");
     gEquationIndex_[3] = std::string("if isSelf ((t - whenUp_) > tNext_) else ((t - whenDown_) > tNext_)");
+    assert(gEquationIndex_.size() == static_cast<size_t>(sizeG()) && "Model VoltageMeasurementsUtilities: gEquationIndex.size() != gLocal_.size()");
   }
 
   void
