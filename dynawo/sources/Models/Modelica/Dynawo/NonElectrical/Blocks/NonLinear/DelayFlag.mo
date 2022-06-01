@@ -12,17 +12,17 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block DelayFlag
+block DelayFlag "Provides an extended fault flag fO which adds a post-fault value 2 to the input fault flag fI for a set duration of tD"
   import Modelica;
   import Dynawo;
   import Dynawo.Types;
 
-  parameter Types.PerUnit tD "Delay flag time constant, specifies the duration F0 will keep the value 2";
-  parameter Types.PerUnit tS "Integration step";
+  parameter Types.Time tD "Delay time constant in s, specifies the duration of post-fault flag";
+  parameter Types.Time tS "Integration time step in s";
 
-  Modelica.Blocks.Interfaces.BooleanInput fI annotation(
+  Modelica.Blocks.Interfaces.BooleanInput fI "Input fault flag, value 0 or 1" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.IntegerOutput fO annotation(
+  Modelica.Blocks.Interfaces.IntegerOutput fO "Output fault flag, value 0, 1 or 2" annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tS) annotation(
@@ -53,7 +53,7 @@ equation
     Line(points = {{-1, -80}, {-60, -80}, {-60, -48}, {-42, -48}}, color = {0, 0, 127}));
   connect(fI, switch18.u2) annotation(
     Line(points = {{-120, 0}, {-50, 0}, {-50, -40}, {-42, -40}}, color = {255, 0, 255}));
-  connect(less1.y, switch1.M) annotation(
+  connect(less1.y, switch1.u2) annotation(
     Line(points = {{21, 80}, {30, 80}, {30, 40}, {38, 40}}, color = {255, 0, 255}));
   connect(switch2.y, fO) annotation(
     Line(points = {{93, 0}, {120, 0}}, color = {255, 127, 0}));
@@ -69,15 +69,15 @@ equation
     Line(points = {{-19, -40}, {-10, -40}, {-10, 72}, {-2, 72}}, color = {0, 0, 127}));
   connect(integerConstant.y, switch1.u1) annotation(
     Line(points = {{-19, 40}, {20, 40}, {20, 48}, {38, 48}}, color = {255, 127, 0}));
-  connect(booleanToInteger.y, switch1.u0) annotation(
+  connect(booleanToInteger.y, switch1.u3) annotation(
     Line(points = {{-59, 20}, {30, 20}, {30, 32}, {38, 32}}, color = {255, 127, 0}));
   connect(fI, booleanToInteger.u) annotation(
     Line(points = {{-120, 0}, {-90, 0}, {-90, 20}, {-82, 20}}, color = {255, 0, 255}));
-  connect(fI, switch2.M) annotation(
+  connect(fI, switch2.u2) annotation(
     Line(points = {{-120, 0}, {70, 0}}, color = {255, 0, 255}));
   connect(booleanToInteger.y, switch2.u1) annotation(
     Line(points = {{-58, 20}, {30, 20}, {30, -8}, {70, -8}}, color = {255, 127, 0}));
-  connect(switch1.y, switch2.u0) annotation(
+  connect(switch1.y, switch2.u3) annotation(
     Line(points = {{62, 40}, {66, 40}, {66, 8}, {70, 8}}, color = {255, 127, 0}));
 
   annotation(

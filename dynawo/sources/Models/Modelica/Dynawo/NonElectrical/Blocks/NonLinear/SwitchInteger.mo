@@ -13,21 +13,20 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 */
 
 block SwitchInteger "Switch between two Integer signals"
-
   import Modelica;
 
-  Modelica.Blocks.Interfaces.IntegerInput u0 "Connector of second Real input signal" annotation(
-    Placement(visible = true, transformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.IntegerInput u1 "Connector of first Real input signal" annotation(
-    Placement(visible = true, transformation(origin = {-120, 50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput M "Connector of switch input signal" annotation(
+  Modelica.Blocks.Interfaces.IntegerInput u1 "Connector of first Integer input signal" annotation(
+    Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.BooleanInput u2 "Connector of Boolean input signal" annotation(
     Placement(visible = true, transformation(origin = {-120,0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 1.77636e-15}, extent = {{20, -20}, {-20, 20}}, rotation = 180)));
+  Modelica.Blocks.Interfaces.IntegerInput u3 "Connector of second Integer input signal" annotation(
+    Placement(visible = true, transformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.IntegerOutput y "Connector of Real output signal" annotation(
     Placement(visible = true, transformation(origin = {120, -4.44089e-16}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  y = if M then u1 else u0;
+  y = if u2 then u1 else u3;
 
   annotation(
     defaultComponentName = "switch1",

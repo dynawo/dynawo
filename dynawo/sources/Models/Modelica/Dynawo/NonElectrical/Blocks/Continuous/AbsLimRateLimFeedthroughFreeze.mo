@@ -12,24 +12,24 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block AbsLimRateLimFeedthroughFreeze "First order filter with absolute and rate limits, and a freezing flag"
+block AbsLimRateLimFeedthroughFreeze "First order feed-through with absolute and rate limits, and a freezing flag, used when first order filter is bypassed"
   import Modelica;
+  import Dynawo.Types;
 
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Types.PerUnit DyMax "Maximun ramp rate";
-  parameter Types.PerUnit DyMin(start = -DyMax) "Minimun ramp rate";
+  parameter Types.PerUnit DyMax "Maximun rising slew rate of output";
+  parameter Types.PerUnit DyMin = -DyMax "Maximun falling slew rate of output";
   parameter Types.Time tS "Integration time step in s";
-  parameter Types.PerUnit Y0 "Initial value of output";
   parameter Types.PerUnit YMax "Upper limit of output";
   parameter Types.PerUnit YMin = -YMax "Lower limit of output";
 
-  Modelica.Blocks.Interfaces.RealInput u annotation(
+  Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(
     Placement(visible = true, transformation(origin = {-120, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) annotation(
+  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output signal connector" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = DyMax, uMin = DyMin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = YMax, uMin = YMin) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput freeze annotation(
     Placement(visible = true, transformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -37,8 +37,10 @@ block AbsLimRateLimFeedthroughFreeze "First order filter with absolute and rate 
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tS)  annotation(
     Placement(visible = true, transformation(origin = {50, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Falling = DyMin, Rising = DyMax)  annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  parameter Types.PerUnit Y0 "Initial value of output";
 
 equation
   connect(freeze, switch1.u2) annotation(
