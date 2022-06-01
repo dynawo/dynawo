@@ -14,19 +14,19 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 
 block AbsLimRateLimFirstOrderFreeze "First order filter with absolute and rate limits, and a freezing flag"
   import Modelica;
+  import Dynawo.Types;
 
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Types.PerUnit DyMax "Maximun ramp rate";
-  parameter Types.PerUnit DyMin(start = -DyMax) "Minimun ramp rate";
-  parameter Types.Time tI(start = 1) "Filter time constant in s";
-  parameter Types.PerUnit Y0 "Initial value of output";
+  parameter Types.PerUnit DyMax "Maximun rising slew rate of output";
+  parameter Types.PerUnit DyMin = -DyMax "Maximun falling slew rate of output";
+  parameter Types.Time tI "Filter time constant in s";
   parameter Types.PerUnit YMax "Upper limit of output";
   parameter Types.PerUnit YMin = -YMax "Lower limit of output";
 
-  Modelica.Blocks.Interfaces.RealInput u annotation(
+  Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(
     Placement(visible = true, transformation(origin = {-220, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) annotation(
+  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output signal connector" annotation(
     Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Math.Gain gain(k = 1 / tI) annotation(
@@ -45,6 +45,8 @@ block AbsLimRateLimFirstOrderFreeze "First order filter with absolute and rate l
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0)  annotation(
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  parameter Types.PerUnit Y0 "Initial value of output";
 
 equation
   connect(gain.y, limiter.u) annotation(

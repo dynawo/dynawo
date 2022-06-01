@@ -12,20 +12,18 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block MultiSwitch
+block MultiSwitch "Switch between N Real signals"
   import Modelica;
-  import Dynawo;
 
   parameter Integer nu(min=0) = 0 "Number of input connections" annotation(
     Dialog(connectorSizing=true), HideResult=true);
 
-  Modelica.Blocks.Interfaces.RealVectorInput u[nu] annotation(
+  Modelica.Blocks.Interfaces.RealVectorInput u[nu] "Connector of Real vector input signal" annotation(
     Placement(transformation(extent={{-120,70},{-80,-70}})));
-  Modelica.Blocks.Interfaces.IntegerInput f annotation(
+  Modelica.Blocks.Interfaces.IntegerInput f "Connector of Integer input signal to select the output signal" annotation(
     Placement(visible = true, transformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealOutput y annotation(
+  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal" annotation(
     Placement(transformation(extent={{100,-17},{134,17}})));
-
 
 equation
   y = u[f];

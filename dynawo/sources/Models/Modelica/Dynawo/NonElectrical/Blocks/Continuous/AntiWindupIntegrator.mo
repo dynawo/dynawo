@@ -12,25 +12,25 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block AntiWindupIntegrator "Integrator with anti windup and anti winddown"
+block AntiWindupIntegrator "Integrator with absolute and rate limits, anti windup and anti winddown"
   import Modelica;
+  import Dynawo.Types;
 
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Types.PerUnit DyMax "Maximun ramp rate";
-  parameter Types.PerUnit DyMin(start = -DyMax) "Minimun ramp rate";
-  parameter Types.Time tI "Filter time constant in s";
-  parameter Types.PerUnit Y0 "Initial value of output";
+  parameter Types.PerUnit DyMax "Maximun rising slew rate of output";
+  parameter Types.PerUnit DyMin = -DyMax "Maximun falling slew rate of output";
+  parameter Types.Time tI "Integrator time constant in s";
   parameter Types.PerUnit YMax "Upper limit of output";
   parameter Types.PerUnit YMin = -YMax "Lower limit of output";
 
-  Modelica.Blocks.Interfaces.RealInput u annotation(
-    Placement(visible = true, transformation(origin = {-220, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput fMax(start = false) annotation(
+  Modelica.Blocks.Interfaces.BooleanInput fMax(start = false) "True if anti windup should be applied" annotation(
     Placement(visible = true, transformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.BooleanInput fMin(start = false) annotation(
+  Modelica.Blocks.Interfaces.BooleanInput fMin(start = false) "True if anti winddown should be applied" annotation(
     Placement(visible = true, transformation(origin = {0, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {40, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) annotation(
+  Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(
+    Placement(visible = true, transformation(origin = {-220, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output signal connector" annotation(
     Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Math.Gain gain(k = 1 / tI) annotation(
@@ -51,6 +51,8 @@ block AntiWindupIntegrator "Integrator with anti windup and anti winddown"
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch2 annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  parameter Types.PerUnit Y0 "Initial value of output";
 
 equation
   connect(gain.y, limiter.u) annotation(

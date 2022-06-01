@@ -12,35 +12,36 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-block IntegratorWithReset "First order filter with absolute and rate limits, and a freezing flag"
+block IntegratorWithReset "Integrator with absolute limits and reset"
   import Modelica;
+  import Dynawo.Types;
 
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Types.Time tI(start = 1) "Filter time constant in s";
-  parameter Types.PerUnit Y0 "Initial value of output";
+  parameter Types.Time tI "Integrator time constant in s";
   parameter Types.PerUnit YMax "Upper limit of output";
   parameter Types.PerUnit YMin = -YMax "Lower limit of output";
 
-  Modelica.Blocks.Interfaces.RealInput u annotation(
+  Modelica.Blocks.Interfaces.RealInput u "Input signal connector" annotation(
     Placement(visible = true, transformation(origin = {-120, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput yReset(start = Y0) annotation(
-    Placement(visible = true, transformation(origin = {20, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-110, 10}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput fReset(start = false) annotation(
+  Modelica.Blocks.Interfaces.BooleanInput fReset(start = false) "Reset flag, true if yReset should be used" annotation(
     Placement(visible = true, transformation(origin = {-20, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {40, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) annotation(
+  Modelica.Blocks.Interfaces.RealInput yReset(start = Y0) "Reset value of output" annotation(
+    Placement(visible = true, transformation(origin = {20, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-110, 10}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output signal connector" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Continuous.Integrator integrator(k = 1 / tI, y_start = Y0) annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = YMax, uMin = YMin) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = YMax, uMin = YMin) annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
 
+  parameter Types.PerUnit Y0 "Initial value of output";
 
 equation
-  connect(integrator.y, limiter1.u) annotation(
+  connect(integrator.y, limiter.u) annotation(
     Line(points = {{-59, 0}, {-42, 0}}, color = {0, 0, 127}));
   connect(switch1.y, y) annotation(
     Line(points = {{82, 0}, {110, 0}}, color = {0, 0, 127}));
@@ -48,7 +49,7 @@ equation
     Line(points = {{20, -120}, {20, -8}, {58, -8}}, color = {0, 0, 127}));
   connect(fReset, switch1.u2) annotation(
     Line(points = {{-20, -120}, {-20, -60}, {0, -60}, {0, 0}, {58, 0}}, color = {255, 0, 255}));
-  connect(limiter1.y, switch1.u3) annotation(
+  connect(limiter.y, switch1.u3) annotation(
     Line(points = {{-18, 0}, {-10, 0}, {-10, 8}, {58, 8}}, color = {0, 0, 127}));
   connect(u, integrator.u) annotation(
     Line(points = {{-120, 0}, {-82, 0}}, color = {0, 0, 127}));

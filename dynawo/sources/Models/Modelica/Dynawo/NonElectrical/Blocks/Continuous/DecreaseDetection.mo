@@ -14,12 +14,11 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 
 block DecreaseDetection "Output y is true, if the input u has fallen to a lower value since the previous sample"
   import Modelica;
-  import Dynawo;
+  import Dynawo.Types;
 
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Dynawo.Types.Time tS "Integration time step in s";
-  parameter Real U0 "Inital input signal value";
+  parameter Types.Time tS "Integration time step in s";
 
   Modelica.Blocks.Interfaces.RealInput u(start = U0) "Input signal connector" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -31,6 +30,8 @@ block DecreaseDetection "Output y is true, if the input u has fallen to a lower 
   Modelica.Blocks.Logical.Less less annotation(
     Placement(visible = true, transformation(origin = {2, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  parameter Types.PerUnit U0 "Initial input signal value";
+
 equation
   connect(u, fixedDelay.u) annotation(
     Line(points = {{-120, 0}, {-80, 0}, {-80, -40}, {-62, -40}}, color = {0, 0, 127}));
@@ -41,7 +42,7 @@ equation
   connect(fixedDelay.y, less.u2) annotation(
     Line(points = {{-38, -40}, {-20, -40}, {-20, -8}, {-10, -8}}, color = {0, 0, 127}));
 
-annotation(
+  annotation(
     preferredView = "diagram",
     Icon(graphics = {Line(points = {{-80, 80}, {0, 80}, {0, -80}, {80, -80}}), Polygon(lineColor = {32, 74, 135}, fillColor = {52, 101, 164}, fillPattern = FillPattern.Solid, points = {{-10, 10}, {10, 10}, {0, -10}, {-10, 10}})}));
 end DecreaseDetection;
