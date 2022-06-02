@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   ACEmulation.mo
   ACEmulation_INIT.mo
+  ACEmulationSet_INIT.mo
   ACEmulation.extvar
   ACEmulationVariableK.mo
   ACEmulationVariableK_INIT.mo
