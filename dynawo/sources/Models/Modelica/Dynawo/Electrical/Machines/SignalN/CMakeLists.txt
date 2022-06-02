@@ -30,6 +30,12 @@ set(MODEL_FILES
   GeneratorPVRemote.extvar
   GeneratorPVRemoteDiagramPQ.mo
   GeneratorPVRemoteDiagramPQ.extvar
+  GeneratorPVTfo.mo
+  GeneratorPVTfo.extvar
+  GeneratorPVTfo_INIT.mo
+  GeneratorPVTfoDiagramPQ.mo
+  GeneratorPVTfoDiagramPQ.extvar
+  GeneratorPVTfoDiagramPQ_INIT.mo
   )
 
 #
