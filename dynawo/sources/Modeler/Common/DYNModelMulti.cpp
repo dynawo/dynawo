@@ -189,9 +189,7 @@ ModelMulti::initBuffers() {
   // ----------------------------------------------------------------------------
   fLocal_ = new double[sizeF_]();
   gLocal_ = new state_g[sizeG_]();
-  for (int i = 0; i < sizeG_; ++i) {
-    gLocal_[i] = ROOT_DOWN;
-  }
+  std::fill_n(gLocal_, sizeG_, ROOT_DOWN);
   yLocal_ = new double[sizeY_]();
   ypLocal_ = new double[sizeY_]();
   zLocal_ = new double[sizeZ_]();
