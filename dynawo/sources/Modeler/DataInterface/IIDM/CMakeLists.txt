@@ -47,7 +47,7 @@ set(DATA_INTERFACE_IIDM_INCLUDE_HEADERS
 add_library(dynawo_DataInterfaceIIDM SHARED ${DATA_INTERFACE_IIDM_SOURCES})
 
 target_include_directories(dynawo_DataInterfaceIIDM
-  INTERFACE
+  PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
   )
@@ -61,10 +61,10 @@ target_link_libraries(dynawo_DataInterfaceIIDM
   PRIVATE
     dynawo_Common
     dynawo_ModelerCommon
-    dynawo_DataInterface
     dynawo_API_CRT
     dynawo_API_LEQ
   PUBLIC
+    dynawo_DataInterface
     iidm-ext-activeseason-xml
     iidm-ext-activepowercontrol-xml
     iidm-ext-busbarsectionposition-xml

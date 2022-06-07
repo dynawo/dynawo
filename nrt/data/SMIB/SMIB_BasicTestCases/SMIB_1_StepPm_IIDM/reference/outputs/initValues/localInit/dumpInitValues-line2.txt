@@ -1,0 +1,30 @@
+ ====== INIT VARIABLES VALUES ======
+line_terminal1_V_im                               : y =       0.000000 yp =       0.000000
+line_terminal1_V_re                               : y =       0.900810 yp =       0.000000
+line_terminal2_V_im                               : y =       0.000000 yp =       0.000000
+line_terminal2_V_re                               : y =       0.000000 yp =       0.000000
+line_terminal1_i_im                               : y =       0.000000 yp =       0.000000
+line_terminal1_i_re                               : y =       0.000000 yp =       0.000000
+line_terminal2_i_im                               : y =       0.000000 yp =       0.000000
+line_terminal2_i_re                               : y =       0.000000 yp =       0.000000
+ ====== INIT CALCULATED VARIABLES VALUES ======
+line_P1Pu                                         : y =       0.000000
+line_P2Pu                                         : y =       0.000000
+line_Q1Pu                                         : y =       0.000000
+line_Q2Pu                                         : y =       0.000000
+ ====== INIT DISCRETE VARIABLES VALUES ======
+line_running_value                                : z =       1.000000
+line_switchOffSignal1_value                       : z =      -1.000000
+line_switchOffSignal2_value                       : z =      -1.000000
+line_state                                        : z =       2.000000
+ ====== PARAMETERS VALUES ======
+line_BPu                                           =       0.000000
+line_GPu                                           =       0.000000
+line_RPu                                           =       0.000000
+line_XPu                                           =       0.041890
+line_YPu_im                                        =       0.000000
+line_YPu_re                                        =       0.000000
+line_ZPu_im                                        =       0.041890
+line_ZPu_re                                        =       0.000000
+line_NbSwitchOffSignals                            =              2
+line_State0                                        =              2

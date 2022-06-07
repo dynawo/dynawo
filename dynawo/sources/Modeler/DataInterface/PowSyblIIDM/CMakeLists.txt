@@ -57,7 +57,7 @@ set(DATA_INTERFACE_IIDM_HEADERS
 add_library(dynawo_DataInterfaceIIDM SHARED ${DATA_INTERFACE_IIDM_SOURCES})
 
 target_include_directories(dynawo_DataInterfaceIIDM
-  INTERFACE
+  PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
   )

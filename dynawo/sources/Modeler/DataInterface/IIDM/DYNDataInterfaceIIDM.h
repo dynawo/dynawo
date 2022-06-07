@@ -26,7 +26,7 @@
 
 #include <IIDM/Network.h>
 
-#include "DYNDataInterface.h"
+#include "DYNDataInterfaceImpl.h"
 #include "DYNCriteria.h"
 #include "DYNServiceManagerInterfaceIIDM.h"
 
@@ -73,7 +73,7 @@ class HvdcLineInterface;
 /**
  * @brief Data interface implementation
  */
-class DataInterfaceIIDM : public DataInterface {
+class DataInterfaceIIDM : public DataInterfaceImpl {
  public:
   /**
    * @brief Build an instance of this class by reading a file
