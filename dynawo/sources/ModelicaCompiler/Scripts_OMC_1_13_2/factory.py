@@ -3183,8 +3183,8 @@ class Factory:
             name = None
             if len(words) > 1:
                 name = words[1]
+            if '#define' in var and "_data" in var and "modelica_real" not in var:
                 name = name.replace("_data","")
-            if '#define' in var and "_data" in var:
                 # deletion of the define
                 var = var.replace("#define", "const std::string")
                 var = var.replace("_data", "")
@@ -3205,6 +3205,9 @@ class Factory:
 
             elif 'static base_array_t const' in var:
                 var = var.replace ("static ", "")
+                self.list_for_literalconstants.append(var)
+
+            elif 'static const modelica_real' in var:
                 self.list_for_literalconstants.append(var)
 
     ##
