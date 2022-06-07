@@ -75,6 +75,7 @@ InvalidSharedObjects          =             FOLLOWING %1% SHARED OBJECTS ARE NOT
 NbSubNetwork                  =             nbSubNetwork = %1%
 SubNetwork                    =             subNetwork[%1%] nbBus = %2%
 AddingVoltageLevelToNetwork   =             adding voltage level %1% to the Network
+BusExtDynModel                =             bus %1% using an external dynamic modelisation : not added to the Network.
 AddingBusToNetwork            =             adding bus %1% to the Network.
 SwitchExtDynModel             =             switch %1% using an external dynamic modelisation : not added to the Network.
 AddingSwitchToNetwork         =             adding Switch %1% to the Network.
@@ -100,7 +101,7 @@ TapChangerLocked              =             %1%:  Tap changer is blocked
 NetworkInitSwitchCurrentsFailed =           model network : initialization of switches' currents failed
 NetworkStats                  =             network statistics:
 NetworkNbVoltagelevel         =             number of voltage levels              : %1%
-NetworkNbBus                  =             number of buses                       : %1%
+NetworkNbBus                  =             number of buses                       : %1% (static: %2%, dynamic: %3%)
 NetworkNbSwitches             =             number of switches                    : %1% (static: %2%, dynamic: %3%)
 NetworkNbLoads                =             number of loads                       : %1% (static: %2%, dynamic: %3%)
 NetworkNbGenerators           =             number of generator                   : %1% (static: %2%, dynamic: %3%)
