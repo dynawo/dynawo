@@ -22,6 +22,7 @@ set(DATA_INTERFACE_SOURCES
     DYNStateVariable.cpp
     DYNStaticParameter.cpp
     DYNCriteria.cpp
+    DYNDataInterfaceImpl.cpp
     )
 
 set(DATA_INTERFACE_INCLUDE_HEADERS
@@ -56,6 +57,7 @@ set(DATA_INTERFACE_INCLUDE_HEADERS
     DYNServiceManagerInterface.h
     DYNCurrentLimits.h
     DYNReactiveCurvePointsInterface.h
+    DYNDataInterfaceImpl.h
     )
 
 set(DATA_INTERFACE_FACTORY_SOURCES
@@ -73,6 +75,7 @@ target_include_directories(dynawo_DataInterface
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     $<TARGET_PROPERTY:dynawo_API_CRT,INTERFACE_INCLUDE_DIRECTORIES>
+  PUBLIC
     $<TARGET_PROPERTY:dynawo_API_LEQ,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
