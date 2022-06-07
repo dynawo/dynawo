@@ -842,6 +842,10 @@ modelica_real* real_array_element_addr1(const real_array_t * source, int /*ndims
     return real_ptrget(source, dim1 - 1);
 }
 
+modelica_real* real_array_element_addr2(const real_array_t * source, int /*ndims*/, int dim1, int dim2) {
+    return real_ptrget(source, ((dim1 - 1) * source->dim_size[1]) + (dim2 - 1));
+}
+
 static modelica_integer integer_le(modelica_integer x, modelica_integer y) {
     return (x <= y);
 }
