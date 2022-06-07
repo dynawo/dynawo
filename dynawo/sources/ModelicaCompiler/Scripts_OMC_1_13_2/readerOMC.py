@@ -1208,6 +1208,7 @@ class ReaderOMC:
         ptrn_var2 = re.compile(r'static const modelica_integer _OMC_LIT.*')
         ptrn_table_size= re.compile(r'static _index_t _OMC_LIT[0-9]+_dims*')
         ptrn_table= re.compile(r'static base_array_t const _OMC_LIT*')
+        ptrn_real_array= re.compile(r'static const modelica_real _OMC_LIT[0-9]+_data*')
 
         with open(file_to_read,'r') as f:
             while True:
@@ -1232,7 +1233,19 @@ class ReaderOMC:
                     next_iter = next(it, None)
                 table_declaration+=next_iter
                 self.list_vars_literal.append(table_declaration)
-                next(it, None)
+
+        with open(file_to_read,'r') as f:
+            while True:
+                it = itertools.dropwhile(lambda line: (ptrn_real_array.search(line) is None), f)
+                next_iter = next(it, None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
+
+                table_declaration = ""
+                while next_iter.strip() != "};" :
+                    table_declaration+=next_iter
+                    next_iter = next(it, None)
+                table_declaration+=next_iter
+                self.list_vars_literal.append(table_declaration)
 
     ##
     # Read *_literals.h file and store all string declaration with type '_OMC_LIT'
