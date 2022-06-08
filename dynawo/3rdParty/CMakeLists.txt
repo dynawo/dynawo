@@ -409,6 +409,7 @@ else()
                           -sNO_BZIP2=1
                           install
                           --prefix=<INSTALL_DIR>
+                          --libdir=<INSTALL_DIR>/bin
                           --disable-icu
                           --with-date_time
                           --with-filesystem
@@ -636,6 +637,7 @@ else()
                         -DKLU_LIBRARY_DIR:PATH=${SUITESPARSE_HOME}/lib
                         -DNICSLU_ENABLE=$<BOOL:${NICSLU_FOUND}>
                         -DNICSLU_HOME=${NICSLU_HOME}
+                        $<$<BOOL:${MSVC}>:-DCMAKE_INSTALL_LIBDIR=bin>
   )
   ExternalProject_Get_Property(sundials install_dir)
   set(SUNDIALS_HOME ${install_dir})
@@ -782,6 +784,7 @@ else()
                           -DLIBZIP_BUILD_SAMPLES:BOOL=$<BOOL:${LIBZIP_BUILD_SAMPLES}>
                           -DLIBARCHIVE_HOME:PATH=${LIBARCHIVE_HOME}
                           -DBOOST_ROOT:PATH=${BOOST_ROOT}
+                          $<$<BOOL:${MSVC}>:-DBOOST_LIBRARYDIR=${BOOST_ROOT}/bin>
                           -DCMAKE_PREFIX_PATH:PATH=${ZLIB_ROOT}
                           $<$<BOOL:${LIBZIP_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}>
   )
@@ -898,6 +901,7 @@ else()
                           -DLibXML_SAX_BUILD_SAMPLES:BOOL=$<BOOL:${LIBXML_BUILD_SAMPLES}>
                           -DXERCESC_HOME:PATH=${XERCESC_HOME}
                           -DBOOST_ROOT:PATH=${BOOST_ROOT}
+                          $<$<BOOL:${MSVC}>:-DBOOST_LIBRARYDIR=${BOOST_ROOT}/bin>
                           $<$<BOOL:${LIBXML_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}>
   )
   ExternalProject_Get_Property(libxml install_dir)
@@ -940,6 +944,7 @@ else()
                               -DCMAKE_PREFIX_PATH:PATH=${LIBXML_HOME}
                               -DXERCESC_HOME:PATH=${XERCESC_HOME}
                               -DBOOST_ROOT:PATH=${BOOST_ROOT}
+                              $<$<BOOL:${MSVC}>:-DBOOST_LIBRARYDIR=${BOOST_ROOT}/bin>
   )
   ExternalProject_Get_Property(libiidm0 install_dir)
   set(LIBIIDM_HOME ${install_dir})

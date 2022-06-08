@@ -26,6 +26,8 @@ set(MODEL_FILES
   LimiterWithLag_INIT.mo
   MaxThresholdSwitch.mo
   MinThresholdSwitch.mo
+  PIAntiWindUpTable.mo
+  PIAntiWindUpTable.extvar
   PulseFixedDuration.mo
   PulseMinimumDuration.mo
   VariableLimiter.mo

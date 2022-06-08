@@ -77,6 +77,9 @@ typedef integer_array_t integer_array;
 typedef real_array_t real_array;
 typedef string_array_t string_array;
 
+typedef base_array_t boolean_array_t;
+typedef boolean_array_t boolean_array;
+
 #endif  // DOXYGEN_SHOULD_SKIP_THIS
 
 #endif  // MODELER_MODELMANAGER_DYNMODELMANAGEROWNTYPES_H_

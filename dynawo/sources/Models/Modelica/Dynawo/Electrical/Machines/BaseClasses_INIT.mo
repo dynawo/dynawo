@@ -17,6 +17,7 @@ package BaseClasses_INIT
 
   partial model BaseGeneratorParameters_INIT "Base initialization model for simplified generator models"
 
+    parameter Types.ComplexCurrentPu iStart0Pu = Complex(0, 0) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
     parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
     parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
     parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
@@ -27,7 +28,7 @@ package BaseClasses_INIT
 
     Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
     Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
-    Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+    Types.ComplexCurrentPu i0Pu(re(start=iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
 
   equation
     u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
@@ -43,6 +44,8 @@ package BaseClasses_INIT
 
   partial model BaseGeneratorVariables_INIT "Base initialization model for simplified generator models"
 
+    parameter Types.ComplexCurrentPu iStart0Pu = Complex(0, 0) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+
     Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
     Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
     Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
@@ -53,7 +56,7 @@ package BaseClasses_INIT
 
     Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
     Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
-    Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+    Types.ComplexCurrentPu i0Pu(re(start=iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
 
   equation
     u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);

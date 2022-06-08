@@ -879,6 +879,43 @@ _index_t* integer_array_make_index_array(const integer_array_t *arr) {
     return reinterpret_cast<int*>(arr->data);
 }
 
+/* allocates n booleans in the boolean_buffer */
+m_boolean* boolean_alloc(int n) {
+  return reinterpret_cast<m_boolean*>(malloc(n*sizeof(m_boolean)));
+}
+
+m_boolean* boolean_array_element_addr1(const boolean_array_t* source, int /*ndims*/, int dim1) {
+    return boolean_ptrget(source, dim1 - 1);
+}
+
+void simple_alloc_1d_boolean_array(boolean_array_t* dest, int n) {
+    simple_alloc_1d_base_array(dest, n, boolean_alloc(n));
+}
+
+
+void put_boolean_element(m_boolean value, int i1, boolean_array_t *dest) {
+    /* Assert that dest has correct dimension */
+    /* Assert that i1 is a valid index */
+    boolean_set(dest, i1, value);
+}
+
+
+/* array_alloc_scalar_boolean_array
+ *
+ * Creates(incl allocation) an array from scalar elements.
+ */
+
+void array_alloc_scalar_boolean_array(boolean_array_t* dest, int n, ...) {
+    int i;
+    va_list ap;
+    simple_alloc_1d_boolean_array(dest, n);
+    va_start(ap, n);
+    for (i = 0; i < n; ++i) {
+        put_boolean_element((m_boolean) va_arg(ap, int), i, dest);
+    }
+    va_end(ap);
+}
+
 /* Fills an array with a value. */
 void fill_alloc_real_array(real_array_t* dest, modelica_real value, int ndims, ...) {
     size_t i;

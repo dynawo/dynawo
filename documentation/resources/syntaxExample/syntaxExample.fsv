@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<finalStateValuesInput xmlns="http://www.rte-france.com/dynawo">
+  <finalStateValue model="NETWORK" variable="_BUS___10_TN_Upu_value"/>
+  <finalStateValue model="NETWORK" variable="_BUS___11_TN_Upu_value"/>
+</finalStateValuesInput>

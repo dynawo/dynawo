@@ -464,6 +464,26 @@ class ModelMulti : public Model, private boost::noncopyable {
 
  private:
   /**
+   * @brief create a submodel for a calculated variable when connecting a state and a calculated variables
+   *
+   * @tparam T a type of connector (CONTINUOUS <-> CONTINUOUS / DISCRETE <-> DISCRETE)
+   * @param connectorSubModel type of connector
+   * @param name name of the submodel created
+   * @param subModel submodel owning the calculated variable to connect
+   * @param variable the calculated variable to connect
+   * @return a submodel for the calculated variable
+   */
+  template<class T>
+  boost::shared_ptr<SubModel>
+  setConnector(T connectorSubModel, const std::string& name,
+             const boost::shared_ptr<SubModel>& subModel, const boost::shared_ptr<Variable>& variable) {
+    connectorSubModel->name(name);
+    connectorSubModel->setVariableName(variable->getName());
+    connectorSubModel->setParams(subModel, variable->getIndex());
+    return boost::dynamic_pointer_cast<SubModel>(connectorSubModel);
+  }
+
+  /**
    * @brief copy the new values of discretes variables to the variables connected to it
    *
    * @return the type of discrete variable that has changed

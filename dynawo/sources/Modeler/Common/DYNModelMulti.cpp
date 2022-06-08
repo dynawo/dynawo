@@ -37,6 +37,7 @@
 #include "DYNTrace.h"
 #include "DYNElement.h"
 #include "DYNTimer.h"
+#include "DYNConnectorCalculatedDiscreteVariable.h"
 #include "DYNConnectorCalculatedVariable.h"
 #include "DYNCommon.h"
 #include "DYNVariableAlias.h"
@@ -188,6 +189,9 @@ ModelMulti::initBuffers() {
   // ----------------------------------------------------------------------------
   fLocal_ = new double[sizeF_]();
   gLocal_ = new state_g[sizeG_]();
+  for (int i = 0; i < sizeG_; ++i) {
+    gLocal_[i] = ROOT_DOWN;
+  }
   yLocal_ = new double[sizeY_]();
   ypLocal_ = new double[sizeY_]();
   zLocal_ = new double[sizeZ_]();
@@ -814,12 +818,12 @@ ModelMulti::createConnection(const shared_ptr<SubModel>& subModel1, const string
     else
       Trace::warn() << DYNLog(CalcVarConnectionIgnored, name1, name2) << Trace::endline;
   } else if (!isState1 && isState2) {  // when one variable is a state variable and the other one isn't, use a specific connection
-    if (typeVar2 != CONTINUOUS && typeVar2 != FLOW) {
+    if (typeVar2 != CONTINUOUS && typeVar2 != FLOW && typeVar2 != DISCRETE) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
     createCalculatedVariableConnection(subModel1, variable1, subModel2, variable2);
   } else if (isState1 && (!isState2)) {
-    if (typeVar1 != CONTINUOUS && typeVar1 != FLOW) {
+    if (typeVar1 != CONTINUOUS && typeVar1 != FLOW && typeVar1 != DISCRETE) {
       throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
     }
     createCalculatedVariableConnection(subModel2, variable2, subModel1, variable1);
@@ -858,18 +862,15 @@ void
 ModelMulti::createCalculatedVariableConnection(const shared_ptr<SubModel>& subModel1, const shared_ptr<Variable>& variable1,
     const shared_ptr<SubModel>& subModel2, const shared_ptr<Variable>& variable2) {
   string calculatedVarName1 = variable1->getName();
-  shared_ptr<ConnectorCalculatedVariable> connector;
   string name = subModel1->name()+"_"+calculatedVarName1;
   if (variable1->isAlias())
     name = subModel1->name()+"_"+subModel1->getCalculatedVarName(variable1->getIndex());
   boost::shared_ptr<SubModel> subModelConnector = findSubModelByName(name);
   if (!subModelConnector) {
     // Multiple connection to the same connector can happen with flow connections
-    connector = shared_ptr<ConnectorCalculatedVariable>(new ConnectorCalculatedVariable());
-    connector->name(name);
-    connector->setVariableName(calculatedVarName1);
-    connector->setParams(subModel1, variable1->getIndex());
-    subModelConnector = dynamic_pointer_cast<SubModel> (connector);
+    subModelConnector = variable1->getType() == DISCRETE ?
+                    setConnector(shared_ptr<ConnectorCalculatedDiscreteVariable>(new ConnectorCalculatedDiscreteVariable()), name, subModel1, variable1) :
+                    setConnector(shared_ptr<ConnectorCalculatedVariable>(new ConnectorCalculatedVariable()), name, subModel1, variable1);
     addSubModel(subModelConnector, "");  // no library for connectors
     subModelIdxToConnectorCalcVarsIdx_[subModelByName_[subModel1->name()]].push_back(subModels_.size() - 1);
   }

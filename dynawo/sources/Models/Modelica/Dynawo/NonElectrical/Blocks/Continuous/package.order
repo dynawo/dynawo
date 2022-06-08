@@ -8,3 +8,4 @@ Power
 RampTrackingFilter
 RateLimFirstOrderFreeze
 VarLimPIDFreeze
+WeightedDifference

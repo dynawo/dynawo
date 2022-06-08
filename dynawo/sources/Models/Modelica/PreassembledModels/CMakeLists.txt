@@ -49,17 +49,21 @@ set(MODELICA_PREASSEMBLED_MODELS
   GridFormingConverterDispatchableVirtualOscillatorControl.xml
   HvdcPQProp.xml
   HvdcPQPropEmulation.xml
+  HvdcPQPropEmulationSet.xml
   HvdcPQPropEmulationVariableK.xml
   HvdcPQPropDiagramPQ.xml
   HvdcPQPropDiagramPQEmulation.xml
+  HvdcPQPropDiagramPQEmulationSet.xml
   HvdcPQPropDiagramPQEmulationVariableK.xml
   HvdcPQPropDangling.xml
   HvdcPQPropDanglingDiagramPQ.xml
   HvdcPV.xml
   HvdcPVEmulation.xml
+  HvdcPVEmulationSet.xml
   HvdcPVEmulationVariableK.xml
   HvdcPVDiagramPQ.xml
   HvdcPVDiagramPQEmulation.xml
+  HvdcPVDiagramPQEmulationSet.xml
   HvdcPVDiagramPQEmulationVariableK.xml
   HvdcPVDangling.xml
   HvdcPVDanglingDiagramPQ.xml
@@ -72,6 +76,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
   InfiniteBus.xml
+  InfiniteBusWithImpedance.xml
   InfiniteBusWithVariations.xml
   InjectorBG.xml
   Line.xml
@@ -85,6 +90,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadTwoTransformers.xml
   LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
+  Measurements.xml
   NodeFault.xml
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml
@@ -92,6 +98,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhotovoltaicsWeccCurrentSource.xml
   PhotovoltaicsWeccVoltageSource.xml
   PowerTransferHVDCEmulation.xml
+  PIAntiWindUpTable.xml
   ShuntBWithSections.xml
   SetPoint.xml
   SignalN.xml
@@ -115,6 +122,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   TransformerFixedRatio.xml
   UnderVoltageAutomaton.xml
   VRRemote.xml
+  WeightedDifference.xml
   WindTurbine4AWeccCurrentSource.xml
   WindTurbine4BWeccCurrentSource.xml
   )
