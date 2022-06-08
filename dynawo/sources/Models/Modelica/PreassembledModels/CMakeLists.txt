@@ -49,17 +49,21 @@ set(MODELICA_PREASSEMBLED_MODELS
   GridFormingConverterDispatchableVirtualOscillatorControl.xml
   HvdcPQProp.xml
   HvdcPQPropEmulation.xml
+  HvdcPQPropEmulationSet.xml
   HvdcPQPropEmulationVariableK.xml
   HvdcPQPropDiagramPQ.xml
   HvdcPQPropDiagramPQEmulation.xml
+  HvdcPQPropDiagramPQEmulationSet.xml
   HvdcPQPropDiagramPQEmulationVariableK.xml
   HvdcPQPropDangling.xml
   HvdcPQPropDanglingDiagramPQ.xml
   HvdcPV.xml
   HvdcPVEmulation.xml
+  HvdcPVEmulationSet.xml
   HvdcPVEmulationVariableK.xml
   HvdcPVDiagramPQ.xml
   HvdcPVDiagramPQEmulation.xml
+  HvdcPVDiagramPQEmulationSet.xml
   HvdcPVDiagramPQEmulationVariableK.xml
   HvdcPVDangling.xml
   HvdcPVDanglingDiagramPQ.xml
