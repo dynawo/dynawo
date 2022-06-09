@@ -30,14 +30,11 @@ model InfiniteBusFromTable "Infinite bus with UPu, UPhase and omegaRefPu given b
   Types.PerUnit UPu "Infinite bus voltage module in pu (base UNom)";
   Types.Angle UPhase "Infinite bus voltage angle in rad";
 
-  Modelica.Blocks.Tables.CombiTable1D tableOmegaRefPu(tableOnFile = true, tableName = OmegaRefPuTableName, fileName = TableFile) "Table to get omegaRefPu from time";
-  Modelica.Blocks.Tables.CombiTable1D tableUPu(tableOnFile = true, tableName = UPuTableName, fileName = TableFile) "Table to get UPu from time";
-  Modelica.Blocks.Tables.CombiTable1D tableUPhase(tableOnFile = true, tableName = UPhaseTableName, fileName = TableFile) "Table to get UPhase from time";
+  Modelica.Blocks.Sources.CombiTimeTable tableOmegaRefPu(tableOnFile = true, tableName = OmegaRefPuTableName, fileName = TableFile) "Table to get omegaRefPu from time";
+  Modelica.Blocks.Sources.CombiTimeTable tableUPu(tableOnFile = true, tableName = UPuTableName, fileName = TableFile) "Table to get UPu from time";
+  Modelica.Blocks.Sources.CombiTimeTable tableUPhase(tableOnFile = true, tableName = UPhaseTableName, fileName = TableFile) "Table to get UPhase from time";
 
 equation
-  tableOmegaRefPu.u[1] = time;
-  tableUPu.u[1] = time;
-  tableUPhase.u[1] = time;
   omegaRefPu = tableOmegaRefPu.y[1];
   UPu = tableUPu.y[1];
   UPhase = tableUPhase.y[1];
