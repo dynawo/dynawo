@@ -3377,7 +3377,14 @@ class Factory:
                         offset = 0
                         if name in calc_var_to_offset:
                             offset = calc_var_to_offset[name]
-                        line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                        name_to_use = name
+                        index_var = 0
+                        for val in sorted_indexes:
+                            if "x["+str(val)+"]" in name_to_use:
+                                # there is an x[..] in the name of the variable itself!
+                                name_to_use = name_to_use.replace("x["+str(val)+"]", "x[indexOffset +" +str(index_var)+"]")
+                                index_var += 1
+                        line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name_to_use, \
                             "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd) /* " + name)
                 body.append(line)
 

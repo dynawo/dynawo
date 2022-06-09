@@ -1,3 +1,10 @@
+AbsLimRateLimFeedthroughFreeze
+AbsLimRateLimFirstOrderFreeze
+AbsLimRateLimFirstOrderFreezeLimDetection
+AntiWindupIntegrator
+DecreaseDetection
+IncreaseDetection
+IntegratorWithReset
 IntegratorSetFreeze
 LeadMOrderLag
 LimitedPI

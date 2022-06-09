@@ -116,7 +116,7 @@ void
 ModelVoltageMeasurementsUtilities::setGequations() {
   gEquationIndex_[0] = std::string("t >= tLastUpdate_ + step_ ");
 
-  assert(gEquationIndex_.size() == (unsigned int) sizeG() && "Model VoltageMeasurementsUtilities: gEquationIndex.size() != gLocal_.size()");
+  assert(gEquationIndex_.size() == static_cast<size_t>(sizeG()) && "Model VoltageMeasurementsUtilities: gEquationIndex.size() != gLocal_.size()");
 }
 
 void
@@ -179,7 +179,7 @@ ModelVoltageMeasurementsUtilities::evalJCalculatedVarI(unsigned iCalculatedVar, 
     }
     case avgValIdx_: {
       if (nbActive_ > 0) {
-        for (std::size_t i = 0; i < nbConnectedInputs_; ++i) {
+        for (unsigned i = 0; i < nbConnectedInputs_; ++i) {
           if (isRunning(i)) {
             res[i] = 1./nbActive_;
           }
@@ -199,8 +199,8 @@ ModelVoltageMeasurementsUtilities::getIndexesOfVariablesUsedForCalculatedVarI(un
     case minValIdx_:
     case maxValIdx_:
     case avgValIdx_:
-      for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
-        indexes.push_back(i);
+      for (unsigned i = 0; i < nbConnectedInputs_; i++) {
+        indexes.push_back(static_cast<int>(i));
       }
       break;
     default:
@@ -210,7 +210,7 @@ ModelVoltageMeasurementsUtilities::getIndexesOfVariablesUsedForCalculatedVarI(un
 
 double
 ModelVoltageMeasurementsUtilities::evalCalculatedVarI(unsigned iCalculatedVar) const {
-  double out = 0.0f;
+  double out = 0.;
   switch (iCalculatedVar) {
   case minValIdx_:
     out = lastMin_;
@@ -358,7 +358,7 @@ double
 ModelVoltageMeasurementsUtilities::computeMin(unsigned int &minIdx) const {
   double minSoFar = maxValueThreshold;
   minIdx = nbConnectedInputs_;
-  for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
+  for (unsigned i = 0; i < nbConnectedInputs_; i++) {
     if (isRunning(i) && !doubleEquals(minSoFar, yLocal_[i]) && (minSoFar > yLocal_[i])) {
       minSoFar = yLocal_[i];
       minIdx = i;
@@ -371,7 +371,7 @@ double
 ModelVoltageMeasurementsUtilities::computeMax(unsigned int &maxIdx) const {
   double maxSoFar = -maxValueThreshold;
   maxIdx = nbConnectedInputs_;
-  for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
+  for (unsigned i = 0; i < nbConnectedInputs_; i++) {
     if (isRunning(i) && !doubleEquals(maxSoFar, yLocal_[i]) && (yLocal_[i] > maxSoFar)) {
       maxSoFar = yLocal_[i];
       maxIdx = i;
@@ -384,7 +384,7 @@ double
 ModelVoltageMeasurementsUtilities::computeAverage(unsigned int &nbActive) const {
   double totSoFar = 0;
   nbActive = 0;
-  for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
+  for (unsigned i = 0; i < nbConnectedInputs_; i++) {
     if (isRunning(i)) {
       totSoFar +=  yLocal_[i];
       ++nbActive;

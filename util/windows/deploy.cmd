@@ -29,7 +29,7 @@ for %%i in ("%thirdPartyInstallPath_arg%") do set "thirdPartyInstallPath=%%~fi"
 for %%i in ("%OPENMODELICA_HOME_arg%") do set "OPENMODELICA_HOME=%%~fi"
 
 set script_dir=%~DP0
-set deploy_dir=%script_dir%..\..\deploy
+set deploy_dir=%script_dir%..\..\deploy\dynawo
 set dynawo_source_dir=%~DP0..\..
 
 for %%i in ("%deploy_dir%") do set "deploy_dir_abs=%%~fi"
@@ -129,4 +129,4 @@ xcopy %dynawo_source_dir_abs%\util\windows\dynawo.cmd %deploy_dir% /i
 :: Create zip
 for /f %%i in ('%deploy_dir_abs%\dynawo.cmd version') do set dynawo_version=%%i
 if exist %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip del %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip /s /f /q
-7z a %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip -r %deploy_dir_abs%\*
+7z a %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip -r %deploy_dir_abs%\..\*
