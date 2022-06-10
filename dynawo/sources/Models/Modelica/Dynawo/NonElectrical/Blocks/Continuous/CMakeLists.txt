@@ -27,6 +27,7 @@ set(MODEL_FILES
   Power.mo
   RampTrackingFilter.mo
   RateLimFirstOrderFreeze.mo
+  SecondOrder.mo
   VarLimPIDFreeze.mo
   WeightedDifference.mo
   WeightedDifference.extvar
