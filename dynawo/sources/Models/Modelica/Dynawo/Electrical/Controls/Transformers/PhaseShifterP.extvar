@@ -11,7 +11,7 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
-<external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
+<external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable type="continuous" id="PMonitored.value"/>
   <variable id="locked" type="discrete" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>

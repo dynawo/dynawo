@@ -369,7 +369,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
 #endif
 
   // testing if the lib was successfully compiled (test if it exists, and if no undefined symbol was noticed)
-  string lib = modelDirPath_ + "/" + libName;
+  string lib = absolute(libName, modelDirPath_);
   if ((!exists(lib)) || hasUndefinedSymbol)
     throw DYNError(Error::MODELER, CompilationFailed, libName);
 
