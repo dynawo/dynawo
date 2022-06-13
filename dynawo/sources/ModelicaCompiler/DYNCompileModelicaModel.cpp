@@ -107,19 +107,19 @@ int main(int argc, char ** argv) {
   if (vm.count("help")) {
     cout << desc << endl;
     return 0;
-  } else if (modelName == "") {
+  } else if (modelName.empty()) {
     cout << " Model name is required " << endl;
     cout << desc << endl;
     return 1;
   }
-  if (modelDir == "") {
+  if (modelDir.empty()) {
     modelDir = ".";
   }
-  if (compilationDir == "") {
-    compilationDir = modelDir + "/" + modelName;
+  if (compilationDir.empty()) {
+    compilationDir = absolute(modelName, modelDir);
   }
 
-  if (packageName != "" && strcmp(&packageName.at(packageName.length() - 1), ".")) {
+  if (!packageName.empty() && strcmp(&packageName.at(packageName.length() - 1), ".")) {
     packageName += ".";
   }
   if (!useAliasing) {
@@ -159,9 +159,9 @@ int main(int argc, char ** argv) {
       throw DYNError(DYN::Error::MODELER, ModelCompilationFailed, modelName);
 
     // Creation of the lib .so
-    if (libName != "") {
+    if (!libName.empty()) {
       // 1) on efface la lib a generer
-      string lib = compilationDir1 + "/" + libName;
+      string lib = absolute(libName, compilationDir1);
       remove(lib);
       // 2) attempt to generate the lib
       compileLib(modelName, compilationDir1);
@@ -397,7 +397,7 @@ generateModelFile(const string& modelName, const string& compilationDir, bool& w
     varExtCommand += " -a " + additionalHeaderList;
   if (withInitFile)
     varExtCommand += " --init";
-  if (packageName != "")
+  if (!packageName.empty())
     varExtCommand += " --package-name " + packageName;
 
   bool doPrintLogs = true;

@@ -314,13 +314,6 @@ else()
   )
 endif()
 
-#
-# Target used to ensure that ddbdir directory is created
-#
-add_custom_target(CREATE_DDBDIR
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${ddbdir}
-)
-
 if(MSVC)
   set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/bin;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LIBIIDM_HOME}/bin;${LibXML_BIN_DIR};${LIBXML2_HOME}/bin;${libdir};$ENV{PATH}")
   if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
