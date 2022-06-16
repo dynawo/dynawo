@@ -22,6 +22,7 @@
 #include "DYNIIDMExtensionsTraits.hpp"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
+#include "DYNCommon.h"
 
 #include <boost/dll.hpp>
 #include <boost/filesystem.hpp>
@@ -109,7 +110,7 @@ class IIDMExtensions {
       Trace::warn() << DYNLog(IIDMExtensionNoCreate, name, libPath, createName) << Trace::endline;
       return buildDefaultExtensionDefinition<T>();
     }
-    auto createFunc = boost::dll::import<CreateFunctionBase<T> >(*extensionLibrary, createName);
+    auto createFunc = import<CreateFunctionBase<T>>(*extensionLibrary, createName);
 
     std::string destroyName = "destroy" + std::string(name);
     if (!extensionLibrary->has(destroyName)) {
@@ -117,7 +118,7 @@ class IIDMExtensions {
       Trace::warn() << DYNLog(IIDMExtensionNoDestroy, name, libPath, destroyName) << Trace::endline;
       return buildDefaultExtensionDefinition<T>();
     }
-    auto destroyFunc = boost::dll::import<DestroyFunctionBase<T> >(*extensionLibrary, destroyName);
+    auto destroyFunc = import<DestroyFunctionBase<T> >(*extensionLibrary, destroyName);
 
     return ExtensionDefinition<T>(createFunc, destroyFunc);
   }
