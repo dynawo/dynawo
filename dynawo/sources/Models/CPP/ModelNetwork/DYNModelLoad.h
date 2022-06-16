@@ -528,6 +528,8 @@ class ModelLoad : public NetworkComponent {
   unsigned int DeltaQcYNum_;  ///< local Y index for DeltaQc
   unsigned int zPYNum_;  ///< local Y index for zP
   unsigned int zQYNum_;  ///< local Y index for zQ
+
+  const boost::shared_ptr<LoadInterface>& load_;
 };  ///< class for Load model
 
 }  // namespace DYN

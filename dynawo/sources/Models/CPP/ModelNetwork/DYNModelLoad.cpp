@@ -77,18 +77,8 @@ yOffset_(0),
 DeltaPcYNum_(0),
 DeltaQcYNum_(0),
 zPYNum_(0),
-zQYNum_(0) {
-  // init data
-  P0_ = load->getP() / SNREF;
-  Q0_ = load->getQ() / SNREF;
-  connectionState_ = load->getInitialConnected() ? CLOSED : OPEN;
-  double uNode = load->getBusInterface()->getV0();
-  double thetaNode = load->getBusInterface()->getAngle0();
-  double unomNode = load->getBusInterface()->getVNom();
-  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
-  ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
-  ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
+zQYNum_(0),
+load_(load) {
 }
 
 void
@@ -209,6 +199,16 @@ ModelLoad::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelLoad::init(int& yNum) {
+  P0_ = load_->getP() / SNREF;
+  Q0_ = load_->getQ() / SNREF;
+  connectionState_ = load_->getInitialConnected() ? CLOSED : OPEN;
+  double uNode = load_->getBusInterface()->getV0();
+  double thetaNode = load_->getBusInterface()->getAngle0();
+  double unomNode = load_->getBusInterface()->getVNom();
+  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
+  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
+  ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
+  ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
   if (!network_->isInitModel()) {
     assert(yNum >= 0);
     yOffset_ = static_cast<unsigned int>(yNum);
@@ -593,6 +593,7 @@ ModelLoad::evalG(const double& /*t*/) {
 
 void
 ModelLoad::getY0() {
+  // init data
   if (!network_->isInitModel()) {
     unsigned int index = 0;
     if (isControllable_) {
