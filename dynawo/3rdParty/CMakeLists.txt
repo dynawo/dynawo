@@ -714,10 +714,11 @@ if(NOT OMCompiler)
       COMMAND             ${openmodelica_patch_compiler}
       BUILD_IN_SOURCE     1
       CONFIGURE_COMMAND   make clean > /dev/null 2>&1 || echo "Fisrt checkout, no clean needed."
-                COMMAND   autoreconf
+                COMMAND   autoreconf || autoupdate && autoreconf --install
                 COMMAND   <SOURCE_DIR>/configure
                           "CC=${CMAKE_C_COMPILER}"
                           "CXX=${CMAKE_CXX_COMPILER}"
+                          "CXXFLAGS=-std=c++11"
                           --prefix=<INSTALL_DIR>
                           --disable-modelica3d
                           --disable-omnotebook
