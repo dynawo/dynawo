@@ -14,5 +14,6 @@ PIAntiWindupVariableLimits
 Power
 RampTrackingFilter
 RateLimFirstOrderFreeze
+SecondOrder
 VarLimPIDFreeze
 WeightedDifference
