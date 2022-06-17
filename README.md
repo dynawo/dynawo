@@ -42,6 +42,7 @@ This repository contains Dyna&omega;o's project code.
     * [Windows](#launch_windows)
   * [Docker Dyna&omega;o](#docker)
 - [Dyna&omega;o Documentation](#documentation)
+  * [Doxygen](#doxygen)
 - [Get involved](#contributions)
 - [Quoting Dyna&omega;o](#quoting)
 - [License](#license)
@@ -341,6 +342,11 @@ You can have more information on how to use Docker to build and try Dyna&omega;o
 <a name="documentation"></a>
 ## Dyna&omega;o Documentation
 You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.3.0/DynawoDocumentation.zip).
+
+<a name="doxygen"></a>
+### Doxygen
+
+You can consult Doxygen documentation of the master branch [here](https://dynawo.github.io/dynawo/).
 
 <a name="contributions"></a>
 ## Get involved!
