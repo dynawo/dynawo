@@ -11,6 +11,8 @@
 set(MODEL_FILES
   package.mo
   package.order
+  BooleanTable.mo
+  CombiTimeTable.mo
   DoubleStep.mo
   Perturbation.mo
   Perturbation_INIT.mo
