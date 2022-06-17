@@ -1,0 +1,10 @@
+\form#0:$( J = @F/@x' ) $
+\form#1:$ J = @F/@x + cj * @F/@x' $
+\form#2:$ J'= @F/@x' $
+\form#3:$( J = @F/@x' )$
+\form#4:$ Jt=@F/@y + cj*@F/@y' $
+\form#5:$ Jt=@F/@y' $
+\form#6:$( J = @F/@x + cj * @F/@x')$
+\form#7:$( J = @F/@x')$
+\form#8:$( J=@F/@u)$
+\form#9:$(J=@F/@y + cj @F/@yp)$
