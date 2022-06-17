@@ -96,7 +96,7 @@ DataInterfaceIIDM::loadExtensions(const std::vector<std::string>& paths) {
       Trace::debug() << path << " is not a valid directory for IIDM extensions" << Trace::endline;
       continue;
     }
-    std::regex fileRegex(stdcxx::format(".*libiidm-ext-.*\\%1%", boost::dll::shared_library::suffix().string()));
+    std::regex fileRegex(stdcxx::format(".*iidm-ext-.*\\%1%", boost::dll::shared_library::suffix().string()));
     powsybl::iidm::ExtensionProviders<powsybl::iidm::converter::xml::ExtensionXmlSerializer>::getInstance().loadExtensions(path, fileRegex);
   }
 }

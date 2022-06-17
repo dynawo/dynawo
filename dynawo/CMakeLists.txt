@@ -182,10 +182,11 @@ if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
           regex
           chrono
           atomic
+          date_time
           )
 else()
   find_package(Boost "${Boost_RequiredVersion}" REQUIRED
-    COMPONENTS filesystem program_options serialization system log log_setup thread regex chrono atomic
+    COMPONENTS filesystem program_options serialization system log log_setup thread regex chrono atomic date_time
   )
 endif()
 
