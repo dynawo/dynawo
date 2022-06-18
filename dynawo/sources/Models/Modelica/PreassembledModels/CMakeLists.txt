@@ -120,6 +120,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   StaticVarCompensatorPVPropRemote.xml
   StaticVarCompensatorPVPropRemoteModeHandling.xml
   Step.xml
+  Switch.xml
   TapChangerAutomaton.xml
   TapChangerBlockingAutomaton1.xml
   TapChangerBlockingAutomaton2.xml
