@@ -1158,8 +1158,7 @@ def build_tmp_tree(eq_body):
             else:
                 if main_tmp not in tree_deps_tmp:
                     tree_deps_tmp[main_tmp] = []
-                if "EQ" not in tree_deps_tmp[main_tmp]:
-                    tree_deps_tmp[main_tmp].append("EQ")
+                tree_deps_tmp[main_tmp].append("EQ")
 
     for boolean_tmp in boolean_tmps:
         tmps_to_remove = [boolean_tmp]
@@ -1173,17 +1172,22 @@ def build_tmp_tree(eq_body):
                     if "tmp" in value:
                         tmps_to_remove.append(value)
 
+    # Detection of local tmp vars used to simplify a line and not used in a condition
+    # e.g. tmp1 = sin(a); tmp2= b - tmp1*tmp1
     nb_tmp_deps = {}
+    nb_eq_associated_to_tmp = {}
     for tmp in tree_deps_tmp:
         deps = tree_deps_tmp[tmp]
         count = len(list(filter(lambda x: "tmp" in x, deps)))
         nb_tmp_deps[tmp] = count
+        count = len(list(filter(lambda x: "EQ" in x, deps)))
+        nb_eq_associated_to_tmp[tmp] = count
     for tmp in nb_tmp_deps:
         count = nb_tmp_deps[tmp]
         needs_to_be_removed = True
         if count > 1:
             for dep in tree_deps_tmp[tmp]:
-                if "tmp" in dep and len(tree_deps_tmp[dep]) > 1:
+                if "tmp" in dep and (len(tree_deps_tmp[dep]) > 1 or nb_eq_associated_to_tmp[dep] > 1):
                     needs_to_be_removed = False
                     break
         while needs_to_be_removed and count > 1:
@@ -1252,7 +1256,7 @@ def replace_equations_in_a_if_statement(eq_body, type_tree, line_to_insert_algeb
 def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var_to_eq, additional_leading_space):
     res_body = []
     tmp_eq_residual = re.compile(r'\s*f\[[0-9]+\]\s*=.*;')
-    tmp_eq_tmp_ptrn = re.compile(r'\s*tmp[0-9]+\s*=\s*tmp[0-9]+\s*;')
+    tmp_eq_tmp_ptrn = re.compile(r'\s*tmp[0-9]+\s*=\s*[(-]*tmp[0-9]+[)]*\s*;')
     leading_spaces_gen= ""
     for _ in range(1, additional_leading_space):
         leading_spaces_gen+=" "
@@ -1265,6 +1269,7 @@ def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var
         del  tree_deps_tmp[tmp]
 
     equations = type_tree.get_equations()
+
     idx = 0
     replacement_done = False
     for line in eq_body:
@@ -1287,11 +1292,12 @@ def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var
                         if var.get_name() not in diff_var_to_eq:
                             var_idx +=1
                             continue
-                        replacement_done = True
                         if "der(" + var.get_name() in line or "der (" + var.get_name() in line:
+                            replacement_done = True
                             line_to_insert = "   yType[ %s ] = %s;   /* %s (%s) */\n" % (str(var_idx), "DIFFERENTIAL", to_compile_name(var.get_name()), var.get_type())
                             res_body.append(leading_spaces + line_to_insert)
                         elif var.get_name() in line:
+                            replacement_done = True
                             line_to_insert = "   if (yType[ %s ] != DIFFERENTIAL) yType[ %s ] = %s;   /* %s (%s) */\n" % (str(var_idx), str(var_idx), "ALGEBRAIC", to_compile_name(var.get_name()), var.get_type())
                             res_body.append(leading_spaces + line_to_insert)
                         var_idx +=1
