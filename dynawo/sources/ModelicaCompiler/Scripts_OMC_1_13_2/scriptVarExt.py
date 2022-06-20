@@ -57,7 +57,10 @@ def list_external_variables (external_variables_file_path):
                 optional = (variable.getAttribute("optional") == "true")
 
             if (variable.getAttribute("type") == "continuous"):
-                liste_var_ext_continuous.append((variable.getAttribute("id"), default_value))
+                if not optional:
+                    liste_var_ext_continuous.append((variable.getAttribute("id"), default_value))
+                else:
+                    liste_var_optional_ext_continuous.append((variable.getAttribute("id"), default_value))
             elif (variable.getAttribute("type") == "discrete"):
                 liste_var_ext_discrete.append((variable.getAttribute("id"), default_value))
             elif (variable.getAttribute("type") == "boolean"):

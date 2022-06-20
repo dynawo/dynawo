@@ -260,6 +260,7 @@ MissingParameterId          =             missing 'parId' attribute for model %1
 //---EXTVAR------------------
 ExternalVariableAttributeNotDefined=      external variable (%1%) does not have a value for the attribute "%2%"
 ExternalVariableAttributeOnlyForArray=    external variable (%1%) could not have the attribute "%2%", only defined for array variable
+ExternalVariableAttributeOnlyForArrayAndContinuous=    external variable (%1%) could not have the attribute "%2%", only defined for array and continuous variable
 ExternalVariableIDNotUnique =             external variable id (%1%) is not unique
 //---FS----------------------
 //---JOB---------------------
