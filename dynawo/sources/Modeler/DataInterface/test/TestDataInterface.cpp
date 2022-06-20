@@ -341,6 +341,9 @@ TEST(DataInterfaceTest, testLostEquipments) {
   ASSERT_EQ((*itLostEquipment)->getType(), line->getTypeAsString());
   ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
+  line->setValue(LINE_STATE, CLOSED);
+  data->exportStateVariablesNoReadFromModel();
+
   // transf from CLOSED to CLOSED_2
   connectedComponents = data->findConnectedComponents();
   tfo->setValue(TRANSF_STATE, CLOSED_2);
@@ -352,6 +355,9 @@ TEST(DataInterfaceTest, testLostEquipments) {
   ASSERT_EQ((*itLostEquipment)->getType(), tfo->getTypeAsString());
   ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
 
+  tfo->setValue(TRANSF_STATE, CLOSED);
+  data->exportStateVariablesNoReadFromModel();
+
   // switch from CLOSED to CLOSED_3 (no sense: it's for test only)
   connectedComponents = data->findConnectedComponents();
   sw->setValue(SWITCH_STATE, CLOSED_3);
@@ -362,6 +368,10 @@ TEST(DataInterfaceTest, testLostEquipments) {
   ASSERT_EQ((*itLostEquipment)->getId(), sw->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), sw->getTypeAsString());
   ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
+
+  line->setValue(LINE_STATE, CLOSED_1);
+  tfo->setValue(TRANSF_STATE, CLOSED_2);
+  data->exportStateVariablesNoReadFromModel();
 
   // line, transf and switch from CLOSED_* to OPEN
   connectedComponents = data->findConnectedComponents();

@@ -53,6 +53,8 @@ class ParameterCommon {
 
   /**
    * @brief Default copy assigment operator
+   *
+   * @return a new parameter
    */
   ParameterCommon& operator=(const ParameterCommon&) = delete;
   /**
