@@ -82,8 +82,8 @@ Variable::hasOptional() const {
 
 Variable&
 Variable::setOptional(bool optional) {
-  if (type_ != Type::CONTINUOUS_ARRAY && type_ != Type::DISCRETE_ARRAY)
-    throw DYNError(DYN::Error::API, ExternalVariableAttributeOnlyForArray, id_, "optional");
+  if (type_ != Type::CONTINUOUS_ARRAY && type_ != Type::DISCRETE_ARRAY && type_ != Type::CONTINUOUS)
+    throw DYNError(DYN::Error::API, ExternalVariableAttributeOnlyForArrayAndContinuous, id_, "optional");
   optional_ = optional;
   return *this;
 }
