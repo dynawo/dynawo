@@ -13,6 +13,7 @@
 set(MODELICA_PREASSEMBLED_MODELS
   Bus.xml
   CurrentLimitAutomaton.xml
+  DoubleStep.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
   EventQuadripoleDisconnection.xml
