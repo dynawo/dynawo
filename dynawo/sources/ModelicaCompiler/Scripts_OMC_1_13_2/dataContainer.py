@@ -1807,6 +1807,7 @@ class RootObject:
                 i = i + 1
                 continue
             if not has_omc_trace (line) and not has_omc_equation_indexes (line):
+                line = sub_division_sim(line)
                 new_body.append(line)
             i = i + 1
         self.body_for_num_relation = new_body
@@ -2160,11 +2161,14 @@ class Modes:
             text_to_return.append(relation.body_definition)
             text_to_return.append("  if (data->simulationInfo->relations[" + str(relation.index) + "] != data->simulationInfo->relationsPre[" + str(relation.index) + "]) \n")
             text_to_return.append("  {\n")
-            if relation.type == ALGEBRAIC:
-                text_to_return.append("    modeChangeType = ALGEBRAIC_MODE;\n")
+            if relation.type == MIXED:
+                text_to_return.append("    modeChangeType = ALGEBRAIC_J_UPDATE_MODE;\n")
             elif relation.type == DIFFERENTIAL:
                 text_to_return.append("    if (modeChangeType == NO_MODE)\n")
                 text_to_return.append("      modeChangeType = DIFFERENTIAL_MODE;\n")
+            elif relation.type == ALGEBRAIC:
+                text_to_return.append("    if (modeChangeType == NO_MODE || modeChangeType == DIFFERENTIAL_MODE)\n")
+                text_to_return.append("      modeChangeType = ALGEBRAIC_MODE;\n")
             else:
                 print("Mode not handled")
             text_to_return.append("  }\n")
