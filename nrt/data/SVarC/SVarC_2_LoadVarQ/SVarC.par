@@ -63,9 +63,9 @@
     <par type="DOUBLE" name="load_UPhase0" value="0"/>
   </set>
   <!-- Load variation -->
-  <set id="5">
-    <par type="DOUBLE" name="event_tEvent" value="1"/>
-    <par type="DOUBLE" name="event_stateEvent1" value="0"/>
-    <par type="DOUBLE" name="event_stateEvent2" value="1.5"/>
+  <set id="6">
+    <par type="DOUBLE" name="step_Value0" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="1"/>
+    <par type="DOUBLE" name="step_Height" value="1.5"/>
   </set>
 </parametersSet>

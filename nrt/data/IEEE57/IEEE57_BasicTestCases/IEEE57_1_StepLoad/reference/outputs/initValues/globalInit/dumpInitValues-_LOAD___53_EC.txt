@@ -1,4 +1,6 @@
  ====== INIT VARIABLES VALUES ======
+load_PRefPu                                       : y =       0.200000 yp =       0.000000
+load_QRefPu                                       : y =       0.100000 yp =       0.000000
 load_terminal_V_im                                : y =      -0.206028 yp =       0.000000
 load_terminal_V_re                                : y =       0.948825 yp =       0.000000
 load_PPu                                          : y =       0.199976 yp =       0.000000
@@ -10,8 +12,6 @@ load_SPu_re                                       : alias of load_PPu
  ====== INIT CALCULATED VARIABLES VALUES ======
 load_UPu_value                                    : y =       0.970936
  ====== INIT DISCRETE VARIABLES VALUES ======
-load_PRefPu                                       : z =       0.200000
-load_QRefPu                                       : z =       0.100000
 load_running_value                                : z =       1.000000
 load_switchOffSignal1_value                       : z =      -1.000000
 load_switchOffSignal2_value                       : z =      -1.000000
