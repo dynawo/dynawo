@@ -29,8 +29,8 @@
   <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE14.par" parId="7" staticId="_GEN____6_SM"/>
   <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE14.par" parId="8" staticId="_GEN____8_SM"/>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE14.par" parId="9"/>
-  <dyn:blackBoxModel id="LOADVAR_LOAD2" lib="EventSetPointDoubleReal" parFile="IEEE14.par" parId="11"/>
-  <dyn:blackBoxModel id="LOADVAR_LOAD3" lib="EventSetPointDoubleReal" parFile="IEEE14.par" parId="12"/>
+  <dyn:blackBoxModel id="LOADVAR_LOAD2_Q" lib="Step" parFile="IEEE14.par" parId="15"/>
+  <dyn:blackBoxModel id="LOADVAR_LOAD3_Q" lib="Step" parFile="IEEE14.par" parId="16"/>
   <dyn:blackBoxModel id="TAP_CHANGER_LOAD_2" lib="TapChangerAutomaton" parFile="IEEE14.par" parId="13"/>
   <dyn:blackBoxModel id="TAP_CHANGER_LOAD_3" lib="TapChangerAutomaton" parFile="IEEE14.par" parId="13"/>
   <dyn:blackBoxModel id="TAP_CHANGER_LOCK" lib="TapChangerBlockingAutomaton1" parFile="IEEE14.par" parId="14"/>
@@ -82,8 +82,6 @@
   <dyn:connect id1="TAP_CHANGER_LOCK" var1="tapChangerBlocking_UMonitored" id2="NETWORK" var2="_BUS____3_TN_U"/>
   <dyn:connect id2="TAP_CHANGER_LOAD_2" var2="tapChanger_locked" id1="TAP_CHANGER_LOCK" var1="tapChangerBlocking_blockedT"/>
   <dyn:connect id2="TAP_CHANGER_LOAD_3" var2="tapChanger_locked" id1="TAP_CHANGER_LOCK" var1="tapChangerBlocking_blockedT"/>
-  <dyn:connect id1="LOADVAR_LOAD2" var1="event_state1_value" id2="_LOAD___2_EC" var2="load_PRefPu"/>
-  <dyn:connect id1="LOADVAR_LOAD2" var1="event_state2_value" id2="_LOAD___2_EC" var2="load_QRefPu"/>
-  <dyn:connect id1="LOADVAR_LOAD3" var1="event_state1_value" id2="_LOAD___3_EC" var2="load_PRefPu"/>
-  <dyn:connect id1="LOADVAR_LOAD3" var1="event_state2_value" id2="_LOAD___3_EC" var2="load_QRefPu"/>
+  <dyn:connect id1="LOADVAR_LOAD2_Q" var1="step_step_value" id2="_LOAD___2_EC" var2="load_QRefPu"/>
+  <dyn:connect id1="LOADVAR_LOAD3_Q" var1="step_step_value" id2="_LOAD___3_EC" var2="load_QRefPu"/>
 </dyn:dynamicModelsArchitecture>
