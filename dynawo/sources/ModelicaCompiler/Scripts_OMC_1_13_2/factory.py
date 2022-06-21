@@ -2917,8 +2917,10 @@ class Factory:
             if not v.get_name() in mixed_var:
                 spin = "DIFFERENTIAL"
                 var_ext = ""
-                if is_alg_var(v) : spin = "ALGEBRAIC"
-                if v.get_name() in self.reader.dummy_der_variables: spin = "DIFFERENTIAL"
+                if is_alg_var(v) :
+                    spin = "ALGEBRAIC"
+                if v.get_name() in self.reader.dummy_der_variables: 
+                    spin = "DIFFERENTIAL"
                 if v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var:
                   spin = "EXTERNAL"
                   var_ext = "- external variables"
@@ -3553,6 +3555,10 @@ class Factory:
             if "ExternalCombiTable2D" in str(ext_obj.get_start_text()):
                 body += """
   omc_Modelica_Blocks_Types_ExternalCombiTable2D_destructor(data->simulationInfo->extObjs["""+str(index)+"""]);
+"""
+            if "ExternalCombiTimeTable" in str(ext_obj.get_start_text()):
+                body += """
+  omc_Modelica_Blocks_Types_ExternalCombiTimeTable_destructor(data->simulationInfo->extObjs["""+str(index)+"""]);
 """
             index+=1
         if (len(self.reader.external_objects) > 0):
