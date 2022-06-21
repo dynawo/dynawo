@@ -251,14 +251,24 @@
     <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
   </set>
   <set id="9">
-    <par type="DOUBLE" name="event_tEvent" value="20"/>
-    <par type="DOUBLE" name="event_stateEvent1" value="1"/>
-    <par type="DOUBLE" name="event_stateEvent2" value="2"/>
+    <par type="DOUBLE" name="step_Value0" value="0.217"/>
+    <par type="DOUBLE" name="step_tStep" value="20"/>
+    <par type="DOUBLE" name="step_Height" value="0.783"/>
+  </set>
+  <set id="12">
+    <par type="DOUBLE" name="step_Value0" value="0.127"/>
+    <par type="DOUBLE" name="step_tStep" value="20"/>
+    <par type="DOUBLE" name="step_Height" value="1.873"/>
   </set>
   <set id="10">
-    <par type="DOUBLE" name="event_tEvent" value="20"/>
-    <par type="DOUBLE" name="event_stateEvent1" value="2"/>
-    <par type="DOUBLE" name="event_stateEvent2" value="2"/>
+    <par type="DOUBLE" name="step_Value0" value="0.942"/>
+    <par type="DOUBLE" name="step_tStep" value="20"/>
+    <par type="DOUBLE" name="step_Height" value="1.058"/>
+  </set>
+  <set id="13">
+    <par type="DOUBLE" name="step_Value0" value="0.19"/>
+    <par type="DOUBLE" name="step_tStep" value="20"/>
+    <par type="DOUBLE" name="step_Height" value="1.81"/>
   </set>
   <set id="11">
     <par type="DOUBLE" name="underVoltageAutomaton_UMinPu" value="0.85"/>

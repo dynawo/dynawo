@@ -1,171 +1,99 @@
-2021-04-28 13:02:14 | INFO |  ============================================================ 
-2021-04-28 13:02:14 | INFO | DYNAWO VERSION  :     1.3.0
-2021-04-28 13:02:14 | INFO | DYNAWO REVISION :  1621_ReplaceCPPSignalNwithModelicaSignalN-1a790d66
-2021-04-28 13:02:14 | INFO |  ============================================================ 
-2021-04-28 13:02:14 | INFO | 
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO | building model from input files
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO | model was built successfully
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO | 
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO | starting local initialization
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | DEBUG | keep SubNetworks num : 0
-2021-04-28 13:02:14 | DEBUG | ------------------------------
-2021-04-28 13:02:14 | DEBUG | starting local initialization of model _GEN____1_SM
-2021-04-28 13:02:14 | DEBUG | local initialization of model _GEN____1_SM ended successfully
-2021-04-28 13:02:14 | INFO | ... loading "12497041103945231709_tableqmax" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____1_SM_Diagram.txt"
-
-2021-04-28 13:02:14 | INFO | ... loading "12497041103945231709_tableqmin" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____1_SM_Diagram.txt"
-
-2021-04-28 13:02:14 | DEBUG | ------------------------------
-2021-04-28 13:02:14 | DEBUG | starting local initialization of model _GEN____2_SM
-2021-04-28 13:02:14 | DEBUG | local initialization of model _GEN____2_SM ended successfully
-2021-04-28 13:02:14 | INFO | ... loading "3926348227757243444_tableqmax" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____2_SM_Diagram.txt"
-
-2021-04-28 13:02:14 | INFO | ... loading "3926348227757243444_tableqmin" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____2_SM_Diagram.txt"
-
-2021-04-28 13:02:14 | DEBUG | ------------------------------
-2021-04-28 13:02:14 | DEBUG | starting local initialization of model _GEN____3_SM
-2021-04-28 13:02:14 | DEBUG | local initialization of model _GEN____3_SM ended successfully
-2021-04-28 13:02:14 | INFO | ... loading "12293692827806051710_tableqmax" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____3_SM_Diagram.txt"
-
-2021-04-28 13:02:14 | INFO | ... loading "12293692827806051710_tableqmin" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____3_SM_Diagram.txt"
-
-2021-04-28 13:02:14 | DEBUG | ------------------------------
-2021-04-28 13:02:14 | DEBUG | starting local initialization of model _GEN____6_SM
-2021-04-28 13:02:14 | DEBUG | local initialization of model _GEN____6_SM ended successfully
-2021-04-28 13:02:14 | INFO | ... loading "5381922176910680352_tableqmax" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____6_SM_Diagram.txt"
-
-2021-04-28 13:02:14 | INFO | ... loading "5381922176910680352_tableqmin" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____6_SM_Diagram.txt"
-
-2021-04-28 13:02:14 | DEBUG | ------------------------------
-2021-04-28 13:02:14 | DEBUG | starting local initialization of model _GEN____8_SM
-2021-04-28 13:02:14 | DEBUG | local initialization of model _GEN____8_SM ended successfully
-2021-04-28 13:02:14 | INFO | ... loading "5821770868043647431_tableqmax" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt"
-
-2021-04-28 13:02:14 | INFO | ... loading "5821770868043647431_tableqmin" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt"
-
-2021-04-28 13:02:14 | DEBUG | ------------------------------
-2021-04-28 13:02:14 | DEBUG | starting local initialization of model _LOAD___2_EC
-2021-04-28 13:02:14 | DEBUG | local initialization of model _LOAD___2_EC ended successfully
-2021-04-28 13:02:14 | DEBUG | ------------------------------
-2021-04-28 13:02:14 | DEBUG | starting local initialization of model _LOAD___3_EC
-2021-04-28 13:02:14 | DEBUG | local initialization of model _LOAD___3_EC ended successfully
-2021-04-28 13:02:14 | DEBUG | ------------------------------
-2021-04-28 13:02:14 | DEBUG | starting local initialization of model _LOAD___4_EC
-2021-04-28 13:02:14 | DEBUG | local initialization of model _LOAD___4_EC ended successfully
-2021-04-28 13:02:14 | DEBUG | ------------------------------
-2021-04-28 13:02:14 | DEBUG | starting local initialization of model _LOAD___5_EC
-2021-04-28 13:02:14 | DEBUG | local initialization of model _LOAD___5_EC ended successfully
-2021-04-28 13:02:14 | INFO | end of local initialization
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO | 
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO | starting global initialization
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | DEBUG | initialization of SIM solver : ok
-2021-04-28 13:02:14 | DEBUG | calculate initial condition of the DAE
-2021-04-28 13:02:14 | DEBUG | initial condition iteration 0
-2021-04-28 13:02:14 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2021-04-28 13:02:14 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2021-04-28 13:02:14 | DEBUG | end of calculate initial condition of the DAE
-2021-04-28 13:02:14 | INFO | end of global initialization
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO | 
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO | starting curve initialization
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____1_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____2_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____3_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____4_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____5_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____6_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____7_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____8_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS____9_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___10_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___11_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___12_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___13_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: NETWORK; curve: _BUS___14_TN_Upu_value found. (exact name)
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____1_SM , name: generator_omegaPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____1_SM , name: generator_PGen
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____1_SM , name: generator_QGen
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____1_SM , name: generator_UStatorPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____1_SM , name: voltageRegulator_EfdPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____2_SM , name: generator_omegaPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____2_SM , name: generator_PGen
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____2_SM , name: generator_QGen
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____2_SM , name: generator_UStatorPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____2_SM , name: voltageRegulator_EfdPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____3_SM , name: generator_omegaPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____3_SM , name: generator_PGen
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____3_SM , name: generator_QGen
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____3_SM , name: generator_UStatorPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____3_SM , name: voltageRegulator_EfdPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____6_SM , name: generator_omegaPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____6_SM , name: generator_PGen
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____6_SM , name: generator_QGen
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____6_SM , name: generator_UStatorPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____6_SM , name: voltageRegulator_EfdPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____8_SM , name: generator_omegaPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____8_SM , name: generator_PGen
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____8_SM , name: generator_QGen
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____8_SM , name: generator_UStatorPu
-2021-04-28 13:02:14 | WARN | curve not added: Id: GEN____8_SM , name: voltageRegulator_EfdPu
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: _LOAD___2_EC; curve: load_PPu found. (exact name)
-2021-04-28 13:02:14 | DEBUG | adding curve : Id: _LOAD___2_EC; curve: load_QPu found. (exact name)
-2021-04-28 13:02:14 | INFO | end of curve initialization, added 16 curves
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO | 
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO | starting simulation with solver SimplifiedSolver
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO | number of continuous variables : 142
-2021-04-28 13:02:14 | INFO | number of discrete variables : 164
-2021-04-28 13:02:14 | INFO | number of root functions : 116
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO |         time | iter num   Nonlinear iter   jac eval      time step (h)
-2021-04-28 13:02:14 | INFO | -----------------------------------------------------------------------
-2021-04-28 13:02:14 | INFO |        0.000 |        0                0          0             10.000 
-2021-04-28 13:02:14 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2021-04-28 13:02:14 | INFO |       10.000 |        1                1          1             10.000 
-2021-04-28 13:02:14 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
-2021-04-28 13:02:14 | DEBUG | YP[85]=0.0009999 (variable=_GEN____6_SM_generator_QMinPu)
-2021-04-28 13:02:14 | DEBUG | YP[98]=0.0009999 (variable=_GEN____8_SM_generator_QMinPu)
-2021-04-28 13:02:14 | DEBUG | YP[72]=0.0009999 (variable=_GEN____3_SM_generator_QMinPu)
-2021-04-28 13:02:14 | DEBUG | YP[58]=-0.0009999 (variable=_GEN____2_SM_generator_QMaxPu)
-2021-04-28 13:02:14 | DEBUG | YP[71]=-0.0009999 (variable=_GEN____3_SM_generator_QMaxPu)
-2021-04-28 13:02:14 | DEBUG | YP[59]=0.0009999 (variable=_GEN____2_SM_generator_QMinPu)
-2021-04-28 13:02:14 | DEBUG | YP[97]=-0.0009999 (variable=_GEN____8_SM_generator_QMaxPu)
-2021-04-28 13:02:14 | DEBUG | YP[84]=-0.0009999 (variable=_GEN____6_SM_generator_QMaxPu)
-2021-04-28 13:02:14 | DEBUG | YP[46]=0.0009999 (variable=_GEN____1_SM_generator_QMinPu)
-2021-04-28 13:02:14 | DEBUG | YP[45]=-0.0009999 (variable=_GEN____1_SM_generator_QMaxPu)
-2021-04-28 13:02:14 | INFO |       20.000 |        2                2          1             10.000 
-2021-04-28 13:02:14 | INFO |       30.000 |        3                3          1             10.000 
-2021-04-28 13:02:14 | INFO | initial guess of the algebraic solver is accurate, following solver iterations will be skipped until the next mode change
-2021-04-28 13:02:14 | INFO |       40.000 |        4                3          1             10.000 
-2021-04-28 13:02:14 | INFO |       50.000 |        5                3          1             10.000 
-2021-04-28 13:02:14 | INFO |       60.000 |        6                3          1             10.000 
-2021-04-28 13:02:14 | INFO |       70.000 |        7                3          1             10.000 
-2021-04-28 13:02:14 | INFO |       80.000 |        8                3          1             10.000 
-2021-04-28 13:02:14 | INFO |       90.000 |        9                3          1             10.000 
-2021-04-28 13:02:14 | INFO |      100.000 |       10                3          1             10.000 
-2021-04-28 13:02:14 | INFO | 
-2021-04-28 13:02:14 | INFO | execution statistics :
-2021-04-28 13:02:14 | INFO | 
-2021-04-28 13:02:14 | INFO | number of time iterations                  = 10
-2021-04-28 13:02:14 | INFO | number of residual evaluations             = 7
-2021-04-28 13:02:14 | INFO | number of Jacobian evaluations             = 1
-2021-04-28 13:02:14 | INFO | number of nonlinear iterations             = 3
-2021-04-28 13:02:14 | INFO | number of error test failures              = 0
-2021-04-28 13:02:14 | INFO | number of nonlinear convergence failures   = 0
-2021-04-28 13:02:14 | INFO | number of root functions evaluations       = 11
-2021-04-28 13:02:14 | INFO | number of discrete variables evaluations   = 2
-2021-04-28 13:02:14 | INFO | number of mode evaluations                 = 1
-2021-04-28 13:02:14 | INFO | end of job 'IEEE14 - MacroParameterSet'
+2022-06-17 08:56:10 | INFO |  ============================================================ 
+2022-06-17 08:56:10 | INFO | DYNAWO VERSION  :     1.4.0
+2022-06-17 08:56:10 | INFO | DYNAWO REVISION :    master-e90c2a98
+2022-06-17 08:56:10 | INFO |  ============================================================ 
+2022-06-17 08:56:10 | INFO | 
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | building model from input files
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | model was built successfully
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | 
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | starting local initialization
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | ... loading "12497041103945231709_tableqmax" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____1_SM_Diagram.txt"
+2022-06-17 08:56:10 | INFO | ... loading "12497041103945231709_tableqmin" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____1_SM_Diagram.txt"
+2022-06-17 08:56:10 | INFO | ... loading "3926348227757243444_tableqmax" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____2_SM_Diagram.txt"
+2022-06-17 08:56:10 | INFO | ... loading "3926348227757243444_tableqmin" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____2_SM_Diagram.txt"
+2022-06-17 08:56:10 | INFO | ... loading "12293692827806051710_tableqmax" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____3_SM_Diagram.txt"
+2022-06-17 08:56:10 | INFO | ... loading "12293692827806051710_tableqmin" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____3_SM_Diagram.txt"
+2022-06-17 08:56:10 | INFO | ... loading "5381922176910680352_tableqmax" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____6_SM_Diagram.txt"
+2022-06-17 08:56:10 | INFO | ... loading "5381922176910680352_tableqmin" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____6_SM_Diagram.txt"
+2022-06-17 08:56:10 | INFO | ... loading "5821770868043647431_tableqmax" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt"
+2022-06-17 08:56:10 | INFO | ... loading "5821770868043647431_tableqmin" from "nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_MacroParameterSet/_GEN____8_SM_Diagram.txt"
+2022-06-17 08:56:10 | INFO | end of local initialization
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | 
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | starting global initialization
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | end of global initialization
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | 
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | starting curve initialization
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____1_SM , name: generator_omegaPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____1_SM , name: generator_PGen
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____1_SM , name: generator_QGen
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____1_SM , name: generator_UStatorPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____1_SM , name: voltageRegulator_EfdPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____2_SM , name: generator_omegaPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____2_SM , name: generator_PGen
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____2_SM , name: generator_QGen
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____2_SM , name: generator_UStatorPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____2_SM , name: voltageRegulator_EfdPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____3_SM , name: generator_omegaPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____3_SM , name: generator_PGen
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____3_SM , name: generator_QGen
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____3_SM , name: generator_UStatorPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____3_SM , name: voltageRegulator_EfdPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____6_SM , name: generator_omegaPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____6_SM , name: generator_PGen
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____6_SM , name: generator_QGen
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____6_SM , name: generator_UStatorPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____6_SM , name: voltageRegulator_EfdPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____8_SM , name: generator_omegaPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____8_SM , name: generator_PGen
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____8_SM , name: generator_QGen
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____8_SM , name: generator_UStatorPu
+2022-06-17 08:56:10 | WARN | curve not added: Id: GEN____8_SM , name: voltageRegulator_EfdPu
+2022-06-17 08:56:10 | INFO | end of curve initialization, added 16 curves
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | 
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | starting simulation with solver SimplifiedSolver
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO | number of continuous variables : 150
+2022-06-17 08:56:10 | INFO | number of discrete variables : 156
+2022-06-17 08:56:10 | INFO | number of root functions : 116
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO |         time | iter num   Nonlinear iter   jac eval      time step (h)
+2022-06-17 08:56:10 | INFO | -----------------------------------------------------------------------
+2022-06-17 08:56:10 | INFO |        0.000 |        0                0          0             10.000 
+2022-06-17 08:56:10 | INFO |       10.000 |        1                1          1             10.000 
+2022-06-17 08:56:10 | INFO |       20.000 |        2                2          1             10.000 
+2022-06-17 08:56:10 | INFO |       30.000 |        3                3          1             10.000 
+2022-06-17 08:56:10 | INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+2022-06-17 08:56:10 | INFO |       40.000 |        4                3          1             10.000 
+2022-06-17 08:56:10 | INFO |       50.000 |        5                3          1             10.000 
+2022-06-17 08:56:10 | INFO |       60.000 |        6                3          1             10.000 
+2022-06-17 08:56:10 | INFO |       70.000 |        7                3          1             10.000 
+2022-06-17 08:56:10 | INFO |       80.000 |        8                3          1             10.000 
+2022-06-17 08:56:10 | INFO |       90.000 |        9                3          1             10.000 
+2022-06-17 08:56:10 | INFO |      100.000 |       10                3          1             10.000 
+2022-06-17 08:56:10 | INFO | 
+2022-06-17 08:56:10 | INFO | execution statistics :
+2022-06-17 08:56:10 | INFO | 
+2022-06-17 08:56:10 | INFO | number of time iterations                  = 10
+2022-06-17 08:56:10 | INFO | number of residual evaluations             = 7
+2022-06-17 08:56:10 | INFO | number of Jacobian evaluations             = 1
+2022-06-17 08:56:10 | INFO | number of nonlinear iterations             = 3
+2022-06-17 08:56:10 | INFO | number of error test failures              = 0
+2022-06-17 08:56:10 | INFO | number of nonlinear convergence failures   = 0
+2022-06-17 08:56:10 | INFO | number of root functions evaluations       = 10
+2022-06-17 08:56:10 | INFO | number of discrete variables evaluations   = 2
+2022-06-17 08:56:10 | INFO | number of mode evaluations                 = 2
+2022-06-17 08:56:10 | INFO | end of job 'IEEE14 - MacroParameterSet'
