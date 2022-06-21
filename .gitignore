@@ -46,6 +46,7 @@ dynawo/sources/Models/CPP/Components/ModelLoadRestorativeWithLimits/DYNModelLoad
 dynawo/sources/Models/CPP/Controls/Shunts/ModelCentralizedShuntsSectionControl/DYNModelCentralizedShuntsSectionControl.hpp
 dynawo/sources/Models/CPP/Controls/Voltage/ModelVoltageMeasurementsUtilities/DYNModelVoltageMeasurementsUtilities.hpp
 dynawo/sources/Models/CPP/Events/ModelVariationArea/DYNModelVariationArea.hpp
+dynawo/sources/Models/CPP/Events/ModelAreaShedding/DYNModelAreaShedding.hpp
 dynawo/sources/Models/CPP/Events/ModelVoltageSetPointChange/DYNModelVoltageSetPointChange.hpp
 nrt/output/
 *.pyc
