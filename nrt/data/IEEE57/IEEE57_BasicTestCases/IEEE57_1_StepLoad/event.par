@@ -14,8 +14,13 @@
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <!-- Load variation -->
   <set id="1">
-    <par type="DOUBLE" name="event_tEvent" value="1.0"/>
-    <par type="DOUBLE" name="event_stateEvent1" value="2.42"/>
-    <par type="DOUBLE" name="event_stateEvent2" value="0.52"/>
+    <par type="DOUBLE" name="step_Value0" value="1.21"/>
+    <par type="DOUBLE" name="step_tStep" value="1"/>
+    <par type="DOUBLE" name="step_Height" value="1.21"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="step_Value0" value="0.26"/>
+    <par type="DOUBLE" name="step_tStep" value="1"/>
+    <par type="DOUBLE" name="step_Height" value="0.26"/>
   </set>
 </parametersSet>
