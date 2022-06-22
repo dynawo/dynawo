@@ -546,6 +546,7 @@ class Transpose:
         tmp_txt_list = []
         for line in self.txt_list:
             line_tmp = line # Line changed by overrides
+            line_tmp = transform_line_adept(line_tmp)
             match_global = self.ptrn_vars.findall(line) # Is this a word that matches the regex?
             # first the derivatives then the vars
             for name in match_global:
@@ -577,7 +578,6 @@ class Transpose:
                     line_tmp = line_tmp.replace("(modelica_boolean)"+name, "(modelica_boolean)( ("+name+">0)? 1: 0 )")
             for name in self.residual_vars_map:
                 line_tmp = line_tmp.replace("$P"+name, name)
-            line_tmp = transform_line_adept(line_tmp)
             tmp_txt_list.append(line_tmp)
         return tmp_txt_list
 
@@ -1135,48 +1135,203 @@ def format_for_modelica_reinit_evalmode(body):
 
     return text_to_return
 
+tmp_eq_ptrn = re.compile(r'\s*tmp[0-9]+\s*=.*;')
+residual_var_name = "$P$DAEres"
+
+def build_tmp_tree(eq_body):
+    tmp_ptrn = re.compile(r'(?P<var1>tmp[0-9]+)')
+    tree_deps_tmp = {}
+    boolean_tmps = []
+    for line in eq_body:
+        if re.search(tmp_eq_ptrn, line) is not None:
+            main_tmp = line.split("=")[0].strip()
+            value = line.split("=")[1]
+            if "(modelica_boolean)" in value:
+                boolean_tmps.append(main_tmp)
+            if "tmp" in value:
+                tmps = re.findall(tmp_ptrn, value)
+                for tmp in tmps :
+                    if main_tmp not in tree_deps_tmp:
+                        tree_deps_tmp[main_tmp] = []
+                    if tmp not in tree_deps_tmp[main_tmp]:
+                        tree_deps_tmp[main_tmp].append(tmp)
+            else:
+                if main_tmp not in tree_deps_tmp:
+                    tree_deps_tmp[main_tmp] = []
+                tree_deps_tmp[main_tmp].append("EQ")
+
+    for boolean_tmp in boolean_tmps:
+        tmps_to_remove = [boolean_tmp]
+        while len(tmps_to_remove) > 0:
+            tmp_to_remove = tmps_to_remove[0]
+            tmps_to_remove.remove(tmp_to_remove)
+            if tmp_to_remove in tree_deps_tmp:
+                values = tree_deps_tmp[tmp_to_remove]
+                del tree_deps_tmp[tmp_to_remove]
+                for value in values:
+                    if "tmp" in value:
+                        tmps_to_remove.append(value)
+
+    # Detection of local tmp vars used to simplify a line and not used in a condition
+    # e.g. tmp1 = sin(a); tmp2= b - tmp1*tmp1
+    nb_tmp_deps = {}
+    nb_eq_associated_to_tmp = {}
+    for tmp in tree_deps_tmp:
+        deps = tree_deps_tmp[tmp]
+        count = len(list(filter(lambda x: "tmp" in x, deps)))
+        nb_tmp_deps[tmp] = count
+        count = len(list(filter(lambda x: "EQ" in x, deps)))
+        nb_eq_associated_to_tmp[tmp] = count
+    for tmp in nb_tmp_deps:
+        count = nb_tmp_deps[tmp]
+        needs_to_be_removed = True
+        if count > 1:
+            for dep in tree_deps_tmp[tmp]:
+                if "tmp" in dep and (len(tree_deps_tmp[dep]) > 1 or nb_eq_associated_to_tmp[dep] > 1):
+                    needs_to_be_removed = False
+                    break
+        while needs_to_be_removed and count > 1:
+            for dep in tree_deps_tmp[tmp]:
+                if "tmp" in dep:
+                    tree_deps_tmp[dep] = "IGNORED"
+                    tree_deps_tmp[tmp].remove(dep)
+                    count-=1
+                    break
+            if count ==1:
+                for dep in tree_deps_tmp[tmp]:
+                    if "tmp" in dep:
+                        tree_deps_tmp[dep].append("IGNORED")
+                        break
+    return tree_deps_tmp
 ##
 # replace the equations in the if statement by others lines
 # @param eq_body : a body of lines
 # @param lines_to_insert : lines to insert
 # @return the formatted body
-def replace_equations_in_a_if_statement(eq_body, lines_to_insert, additional_leading_space):
+def replace_equations_in_a_if_statement(eq_body, type_tree, line_to_insert_algebraic, line_to_insert_differential, additional_leading_space):
     res_body = []
-    tmp_assign_ptrn = re.compile(r'tmp[0-9]+\s*=\s*tmp[0-9]+;')
-    tmp_assign_cste = re.compile(r'tmp[0-9]+\s*=\s*[0-9\.]+;')
-    tmp_eq_ptrn = re.compile(r'\s*tmp[0-9]+\s*=.*;')
     tmp_eq_residual = re.compile(r'\s*f\[[0-9]+\]\s*=.*;')
-    idx = 0
     leading_spaces_gen= ""
     for _ in range(1, additional_leading_space):
         leading_spaces_gen+=" "
-    insertion_done_for_this_branch = False
+    tree_deps_tmp = build_tmp_tree(eq_body)
+    ignored = []
+    for tmp in tree_deps_tmp:
+        if "IGNORED" in tree_deps_tmp[tmp]:
+            ignored.append(tmp)
+
+    types = type_tree.get_types()
+    idx = 0
     for line in eq_body:
-        if " if(" in line or " else\n" in line:
-            insertion_done_for_this_branch = False
+        if "modelica_real tmp" in line : continue
         if re.search(tmp_eq_ptrn, line) is not None:
-            if re.search(tmp_assign_ptrn, line) is not None:
-                continue
-            if "$P$DAEres" in line:
-                continue
-            if re.search(tmp_eq_residual, line) is not None:
-                continue
-            if re.search(tmp_assign_cste, line) is None and "data->localData" not in line or "modelica_boolean" in line:
+            main_tmp = line.split("=")[0].strip()
+            if main_tmp in tree_deps_tmp:
+                value = line.split("=")[1]
+                for ignored_tmp in ignored:
+                    value = value.replace(ignored_tmp,"")
+                if "tmp" not in value and "EQ" in tree_deps_tmp[main_tmp] and "IGNORED" not in tree_deps_tmp[main_tmp]:
+                    assert(idx < len(types))
+                    nb_leading_spaces = len(line) - len(line.lstrip())
+                    leading_spaces= ""
+                    for _ in range(1, nb_leading_spaces+additional_leading_space):
+                        leading_spaces+=" "
+                    line_to_insert = line_to_insert_algebraic
+                    if types[idx] == DIFFERENTIAL:
+                        line_to_insert = line_to_insert_differential
+                    res_body.append(leading_spaces + line_to_insert)
+                    idx+=1
+            else:
                 res_body.append(leading_spaces_gen + line)
-                continue
-            nb_leading_spaces = len(line) - len(line.lstrip())
-            leading_spaces= ""
-            for _ in range(1, nb_leading_spaces+additional_leading_space):
-                leading_spaces+=" "
-            if not insertion_done_for_this_branch:
-                assert(idx < len(lines_to_insert))
-                res_body.append(leading_spaces + lines_to_insert[idx])
-                insertion_done_for_this_branch = True
-                idx+=1
         else:
-            if "$P$DAEres" in line:
+            if residual_var_name in line:
                 continue
             if re.search(tmp_eq_residual, line) is not None:
                 continue
             res_body.append(leading_spaces_gen + line)
+    assert (idx == len(types))
+    return res_body
+
+
+def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var_to_eq, additional_leading_space):
+    res_body = []
+    tmp_eq_residual = re.compile(r'\s*f\[[0-9]+\]\s*=.*;')
+    tmp_eq_tmp_ptrn = re.compile(r'\s*tmp[0-9]+\s*=\s*[(-]*tmp[0-9]+[)]*\s*;')
+    leading_spaces_gen= ""
+    for _ in range(1, additional_leading_space):
+        leading_spaces_gen+=" "
+    tree_deps_tmp = build_tmp_tree(eq_body)
+    to_remove = []
+    for tmp in tree_deps_tmp:
+        if "IGNORED" in tree_deps_tmp[tmp]:
+            to_remove.append(tmp)
+    for tmp in to_remove:
+        del  tree_deps_tmp[tmp]
+
+    equations = type_tree.get_equations()
+
+    idx = 0
+    replacement_done = False
+    for line in eq_body:
+        if "modelica_real tmp" in line : continue
+        if re.search(tmp_eq_ptrn, line) is not None:
+            main_tmp = line.split("=")[0].strip()
+            if main_tmp in tree_deps_tmp:
+                if re.search(tmp_eq_tmp_ptrn, line) is None or (idx < len(equations) and equations[idx] == "MIN/MAX" and re.search(tmp_eq_tmp_ptrn, line) is not None):
+                    assert(idx < len(equations))
+                    if equations[idx] == "MIN/MAX":
+                        res_body.pop() # remove the corresponding if
+                        idx += 1
+                        continue
+                    nb_leading_spaces = len(line) - len(line.lstrip())
+                    leading_spaces= ""
+                    for _ in range(1, nb_leading_spaces+additional_leading_space):
+                        leading_spaces+=" "
+                    var_idx = 0
+                    for var in alg_vars:
+                        if var.get_name() not in diff_var_to_eq:
+                            var_idx +=1
+                            continue
+                        if "der(" + var.get_name() in line or "der (" + var.get_name() in line:
+                            replacement_done = True
+                            line_to_insert = "   yType[ %s ] = %s;   /* %s (%s) */\n" % (str(var_idx), "DIFFERENTIAL", to_compile_name(var.get_name()), var.get_type())
+                            res_body.append(leading_spaces + line_to_insert)
+                        elif var.get_name() in line:
+                            replacement_done = True
+                            line_to_insert = "   if (yType[ %s ] != DIFFERENTIAL) yType[ %s ] = %s;   /* %s (%s) */\n" % (str(var_idx), str(var_idx), "ALGEBRAIC", to_compile_name(var.get_name()), var.get_type())
+                            res_body.append(leading_spaces + line_to_insert)
+                        var_idx +=1
+                    idx+=1
+            elif main_tmp not in to_remove:
+                res_body.append(leading_spaces_gen + line)
+        elif residual_var_name in line and  "data->localData" in line:
+            res_body.append(leading_spaces_gen + line)
+            assert(idx < len(equations))
+            nb_leading_spaces = len(line) - len(line.lstrip())
+            leading_spaces= ""
+            for _ in range(1, nb_leading_spaces+additional_leading_space):
+                leading_spaces+=" "
+            var_idx = 0
+            for var in alg_vars:
+                if var.get_name() not in diff_var_to_eq:
+                    var_idx +=1
+                    continue
+                replacement_done = True
+                if "der(" + var.get_name() in line or "der (" + var.get_name() in line:
+                    line_to_insert = "   yType[ %s ] = %s;   /* %s (%s) */\n" % (str(var_idx), "DIFFERENTIAL", to_compile_name(var.get_name()), var.get_type())
+                    res_body.append(leading_spaces + line_to_insert)
+                elif var.get_name() in line:
+                    line_to_insert = "   if (yType[ %s ] != DIFFERENTIAL) yType[ %s ] = %s;   /* %s (%s) */\n" % (str(var_idx), str(var_idx), "ALGEBRAIC", to_compile_name(var.get_name()), var.get_type())
+                    res_body.append(leading_spaces + line_to_insert)
+                var_idx +=1
+            idx+=1
+        else:
+            if residual_var_name in line and "data->localData" not in line:
+                continue
+            if re.search(tmp_eq_residual, line) is not None:
+                continue
+            res_body.append(leading_spaces_gen + line)
+    assert (idx == len(equations))
+    if not replacement_done:
+        return []
     return res_body

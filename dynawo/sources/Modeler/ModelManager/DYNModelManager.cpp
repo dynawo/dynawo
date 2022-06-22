@@ -702,6 +702,9 @@ ModelManager::dumpVariables(map< string, string >& mapVariables) {
   vector<double> constCalcVars(data()->constCalcVars.size(), 0.);
   std::copy(data()->constCalcVars.begin(), data()->constCalcVars.end(), constCalcVars.begin());
 
+  vector<double> valuesRoots(sizeG_, 0.);
+  std::copy(gLocal_, gLocal_ + sizeG_, valuesRoots.begin());
+
   os << cSum;
   os << cSumInit;
   os << valuesReal;
@@ -710,6 +713,7 @@ ModelManager::dumpVariables(map< string, string >& mapVariables) {
   os << valuesDiscreteReal;
   os << valuesDerivatives;
   os << constCalcVars;
+  os << valuesRoots;
 
   mapVariables[ variablesFileName() ] = values.str();
 }
@@ -730,6 +734,7 @@ ModelManager::loadVariables(const string& variables) {
   vector<double> valuesDiscreteReal;
   vector<double> valuesDerivatives;
   vector<double> constCalcVars;
+  vector<double> valuesRoots;
 
   is >> cSumRead;
   is >> cSumInitRead;
@@ -740,6 +745,7 @@ ModelManager::loadVariables(const string& variables) {
   is >> valuesDiscreteReal;
   is >> valuesDerivatives;
   is >> constCalcVars;
+  is >> valuesRoots;
 
   if (hasInit()) {
     modelModelicaInit()->checkSum(cSumInit);
@@ -764,12 +770,16 @@ ModelManager::loadVariables(const string& variables) {
   if (data()->constCalcVars.size() != constCalcVars.size())
     throw DYNError(Error::MODELER, WrongDataNum, variablesFileName().c_str());
 
+  if (sizeG_ != valuesRoots.size())
+    throw DYNError(Error::MODELER, WrongDataNum, variablesFileName().c_str());
+
   std::copy(valuesReal.begin(), valuesReal.end(), data()->localData[0]->realVars);
   std::copy(valuesDerivatives.begin(), valuesDerivatives.end(), data()->localData[0]->derivativesVars);
   std::copy(valuesInt.begin(), valuesInt.end(), data()->localData[0]->integerDoubleVars);
   std::copy(valuesBool.begin(), valuesBool.end(), data()->localData[0]->booleanVars);
   std::copy(valuesDiscreteReal.begin(), valuesDiscreteReal.end(), data()->localData[0]->discreteVars);
   std::copy(constCalcVars.begin(), constCalcVars.end(), data()->constCalcVars.begin());
+  std::copy(valuesRoots.begin(), valuesRoots.end(), gLocal_);
 }
 
 void
