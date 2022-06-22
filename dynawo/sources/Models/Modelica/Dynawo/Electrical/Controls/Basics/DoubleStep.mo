@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.Basics;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+* for power systems.
 */
 
 model DoubleStep "Parametrable step model : applies two changes of amplitude at given times"
@@ -25,7 +26,11 @@ model DoubleStep "Parametrable step model : applies two changes of amplitude at 
   parameter Real Value0 "Start value of the step model";
 
 equation
-  step.value = Value0 + (if time < tStep1 then 0 else (if time < tStep2 then Height1 else Height2));
+  if tStep1 < tStep2 then
+    step.value = Value0 + (if time < tStep1 then 0 else (if time < tStep2 then Height1 else Height2));
+  else
+    step.value = Value0 + (if time < tStep2 then 0 else (if time < tStep1 then Height2 else Height1));
+  end if;
 
   annotation(preferredView = "text");
 end DoubleStep;
