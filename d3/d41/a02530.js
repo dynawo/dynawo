@@ -35,6 +35,7 @@ var a02530 =
       [ "ErrorInit", "d3/d41/a02530.html#acfce33066451c48351076e31bd5b4ecea6ba8e5d18273cb4d26f86abf862e65ab", null ],
       [ "ExternalVariableAttributeNotDefined", "d3/d41/a02530.html#acfce33066451c48351076e31bd5b4eceafc5b49451beababeae8dee0b063358cf", null ],
       [ "ExternalVariableAttributeOnlyForArray", "d3/d41/a02530.html#acfce33066451c48351076e31bd5b4eceacabb7da52f5ffd44182b67b2466abb69", null ],
+      [ "ExternalVariableAttributeOnlyForArrayAndContinuous", "d3/d41/a02530.html#acfce33066451c48351076e31bd5b4ecea9d640eb9565f93c310d64d132be2be5e", null ],
       [ "ExternalVariableIDNotUnique", "d3/d41/a02530.html#acfce33066451c48351076e31bd5b4ecea430c2023c9f06d9f82a01feb92bd528a", null ],
       [ "FileGenerationFailed", "d3/d41/a02530.html#acfce33066451c48351076e31bd5b4ecea8030b918629456f846e2253822408e3d", null ],
       [ "FileSystemItemDoesNotExist", "d3/d41/a02530.html#acfce33066451c48351076e31bd5b4eceaf631ad7fb51069eb22836e1313b0b09e", null ],

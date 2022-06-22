@@ -141,6 +141,7 @@ var searchData=
   ['external_5fparameter',['EXTERNAL_PARAMETER',['../dd/d63/a00455.html#aced0ccefc9b7e7ed8b64a4ece366863ea264d540ce0c084195b13255a3440f83f',1,'DYN']]],
   ['externalvariableattributenotdefined',['ExternalVariableAttributeNotDefined',['../d3/d41/a02530.html#acfce33066451c48351076e31bd5b4eceafc5b49451beababeae8dee0b063358cf',1,'DYN::KeyError_t']]],
   ['externalvariableattributeonlyforarray',['ExternalVariableAttributeOnlyForArray',['../d3/d41/a02530.html#acfce33066451c48351076e31bd5b4eceacabb7da52f5ffd44182b67b2466abb69',1,'DYN::KeyError_t']]],
+  ['externalvariableattributeonlyforarrayandcontinuous',['ExternalVariableAttributeOnlyForArrayAndContinuous',['../d3/d41/a02530.html#acfce33066451c48351076e31bd5b4ecea9d640eb9565f93c310d64d132be2be5e',1,'DYN::KeyError_t']]],
   ['externalvariableidnotunique',['ExternalVariableIDNotUnique',['../d3/d41/a02530.html#acfce33066451c48351076e31bd5b4ecea430c2023c9f06d9f82a01feb92bd528a',1,'DYN::KeyError_t']]],
   ['extvarexporter_2eh',['EXTVARExporter.h',['../d3/db1/a00200.html',1,'']]],
   ['extvarfilenotfound',['ExtVarFileNotFound',['../db/d0b/a02566.html#a963225344a251150ba0ad6d5264f567faba0aed63472bef0ffa91ab461903b69d',1,'DYN::KeyLog_t']]],
