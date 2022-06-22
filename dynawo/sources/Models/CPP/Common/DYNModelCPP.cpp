@@ -61,11 +61,13 @@ ModelCPP::dumpVariables(map< string, string >& mapVariables) {
   vector<double> y(yLocal_, yLocal_ + sizeY());
   vector<double> yp(ypLocal_, ypLocal_ + sizeY());
   vector<double> z(zLocal_, zLocal_ + sizeZ());
+  vector<double> g(gLocal_, gLocal_ + sizeG());
 
   os << cSum;
   os << y;
   os << yp;
   os << z;
+  os << g;
 
   mapVariables[ variablesFileName() ] = values.str();
 }
@@ -80,10 +82,12 @@ ModelCPP::loadVariables(const string& variables) {
   vector<double> yValues;
   vector<double> ypValues;
   vector<double> zValues;
+  vector<double> gValues;
   is >> cSumRead;
   is >> yValues;
   is >> ypValues;
   is >> zValues;
+  is >> gValues;
 
   if (cSumRead != cSum) {
     Trace::warn() << DYNLog(WrongCheckSum, variablesFileName().c_str()) << Trace::endline;
@@ -101,10 +105,16 @@ ModelCPP::loadVariables(const string& variables) {
     return;
   }
 
+  if (gValues.size() != sizeG()) {
+    Trace::warn() << DYNLog(WrongParameterNum, variablesFileName().c_str()) << Trace::endline;
+    return;
+  }
+
   // loading values
   std::copy(yValues.begin(), yValues.end(), yLocal_);
   std::copy(ypValues.begin(), ypValues.end(), ypLocal_);
   std::copy(zValues.begin(), zValues.end(), zLocal_);
+  std::copy(gValues.begin(), gValues.end(), gLocal_);
   // notify we used dumped values
   isStartingFromDump_ = true;
 }
