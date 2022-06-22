@@ -1,3 +1,4 @@
+DoubleStep
 Perturbation
 Perturbation_INIT
 SetPoint
@@ -5,4 +6,3 @@ SetPoint_INIT
 Step
 Step_INIT
 SwitchOff
-DoubleStep
