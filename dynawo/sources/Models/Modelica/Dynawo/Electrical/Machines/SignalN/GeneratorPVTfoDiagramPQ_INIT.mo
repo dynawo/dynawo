@@ -23,13 +23,9 @@ model GeneratorPVTfoDiagramPQ_INIT "Initialisation model for generator PV based 
   parameter Types.ActivePowerPu PMin "Minimum active power in MW";
   parameter Types.ActivePowerPu PMax "Maximum active power in MW";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power of the generator in MVA";
-  parameter Types.ApparentPowerModule SnTfo "Nominal apparent power of the generator transformer in MVA";
-  parameter Types.VoltageModule UNomHV "Nominal voltage on the network side of the transformer in kV";
-  parameter Types.VoltageModule UNomLV "Nominal voltage on the generator side of the transformer in kV";
-  parameter Types.VoltageModule UBaseHV "Base voltage on the network side of the transformer in kV";
-  parameter Types.VoltageModule UBaseLV "Base voltage on the generator side of the transformer in kV";
-  parameter Types.PerUnit RTfPu "Resistance of the generator transformer in pu (base UBaseHV, SnTfo)";
-  parameter Types.PerUnit XTfPu "Reactance of the generator transformer in pu (base UBaseHV, SnTfo)";
+  parameter Types.PerUnit RTfoPu "Resistance of the generator transformer in pu (base UNomHV, SNom)";
+  parameter Types.PerUnit XTfoPu "Reactance of the generator transformer in pu (base UNomHV, SNom)";
+  parameter Types.PerUnit rTfoPu "Ratio of the generator transformer in pu (base UBaseHV, UBaseLV)";
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point at terminal in pu (base UNom)";
   parameter Types.ReactivePowerPu QMin0 "Start value of minimum reactive power in Mvar";
   parameter Types.ReactivePowerPu QMax0 "Start value of maximum reactive power in Mvar";
@@ -42,9 +38,6 @@ model GeneratorPVTfoDiagramPQ_INIT "Initialisation model for generator PV based 
   Types.VoltageModulePu UStator0Pu "Start value of voltage module at stator in pu (base UNom)";
 
 protected
-  final parameter Types.PerUnit RTfoPu = RTfPu * (UNomHV / UBaseHV) ^ 2 * (SNom / SnTfo) "Resistance of the generator transformer in pu (base SNom, UNomHV)";
-  final parameter Types.PerUnit XTfoPu = XTfPu * (UNomHV / UBaseHV) ^ 2 * (SNom / SnTfo) "Reactance of the generator transformer in pu (base SNom, UNomHV)";
-  final parameter Types.PerUnit rTfoPu = if RTfPu > 0.0 or XTfPu > 0.0 then UNomHV / UBaseHV / (UNomLV / UBaseLV) else 1.0 "Ratio of the generator transformer in pu (base UBaseHV, UBaseLV)";
   Types.ComplexVoltagePu uRef0Pu "Start value of complex voltage reference at terminal in pu (base UNom)";
   Types.ComplexCurrentPu iRef0Pu "Start value of complex current reference at terminal in pu (base UNom, SnRef) (receptor convention)";
 
