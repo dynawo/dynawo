@@ -17,9 +17,6 @@
  *
  */
 
-#include <sstream>
-#include <iostream>
-
 #include "DYNTrace.h"
 #include "DYNCommon.h"
 #include "DYNSolverFactory.h"
@@ -73,7 +70,7 @@ boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& 
   SolverFactories::SolverFactoryIterator iter = SolverFactories::getInstance().find(lib);
   Solver* solver;
   boost::shared_ptr<Solver> solverShared;
-  boost::shared_ptr<boost::dll::shared_library> sharedib;
+  boost::shared_ptr<boost::dll::shared_library> sharedLib;
 
   if (SolverFactories::getInstance().end(iter)) {
     std::string func;
@@ -86,11 +83,11 @@ boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& 
     }
 
     try {
-      sharedib = boost::make_shared<boost::dll::shared_library>(libPath->generic_string());
+      sharedLib = boost::make_shared<boost::dll::shared_library>(libPath->generic_string());
       func = "getFactory";
-      getFactory = boost::dll::import<getFactory_t>(*sharedib, func.c_str());
+      getFactory = import<getFactory_t>(*sharedLib, func);
       func = "deleteFactory";
-      deleteFactory = boost::dll::import<deleteSolverFactory_t>(*sharedib, func.c_str());
+      deleteFactory = import<deleteSolverFactory_t>(*sharedLib, func);
     } catch (const boost::system::system_error& e) {
       Trace::error() << "Load error :" << e.what() << Trace::endline;
       if (func.empty()) {
@@ -101,7 +98,7 @@ boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& 
     }
 
     SolverFactory* factory = getFactory();
-    factory->lib_ = sharedib;
+    factory->lib_ = sharedLib;
     SolverFactories::getInstance().add(lib, factory);
     SolverFactories::getInstance().add(lib, deleteFactory);
     solver = factory->create();

@@ -1226,7 +1226,7 @@ DataInterfaceIIDM::findConnectedComponents() {
   shared_ptr<vector<shared_ptr<ComponentInterface> > > connectedComponents = boost::make_shared<vector<shared_ptr<ComponentInterface> > >();
   for (map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(), iterEnd = components_.end();
        iter != iterEnd; ++iter) {
-    if ((iter->second)->isPartiallyConnected())
+    if ((iter->second)->isConnected())
       connectedComponents->push_back(iter->second);
   }
   return connectedComponents;
@@ -1238,7 +1238,7 @@ DataInterfaceIIDM::findLostEquipments(const shared_ptr<vector<shared_ptr<Compone
   if (connectedComponents) {
     for (vector<shared_ptr<ComponentInterface> >::iterator iter = connectedComponents->begin(), iterEnd = connectedComponents->end();
          iter != iterEnd; ++iter) {
-      bool lost = !(*iter)->isPartiallyConnected();  // from connected to not connected (not even partially)
+      bool lost = !(*iter)->isConnected();  // from connected to not connected (not even partially)
       if (lost) {
         lostEquipments->addLostEquipment((*iter)->getID(), (*iter)->getTypeAsString());
       }

@@ -257,6 +257,12 @@ void put_real_matrix_element(modelica_real value, int r, int c, real_array_t* de
 modelica_real* real_array_element_addr1(const real_array_t * source, int ndims, int dim1);
 
 /**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+modelica_real* real_array_element_addr2(const real_array_t * source, int ndims, int dim1, int dim2);
+
+/**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/integer_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
