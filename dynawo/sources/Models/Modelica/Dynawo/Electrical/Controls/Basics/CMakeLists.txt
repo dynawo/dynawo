@@ -11,6 +11,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  DoubleStep.mo
   Perturbation.mo
   Perturbation_INIT.mo
   SetPoint.mo

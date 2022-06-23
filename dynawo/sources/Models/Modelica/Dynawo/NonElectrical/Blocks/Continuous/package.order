@@ -6,6 +6,7 @@ DecreaseDetection
 IncreaseDetection
 IntegratorWithReset
 IntegratorSetFreeze
+IntegratorVariableLimits
 LeadMOrderLag
 LimitedPI
 LimPIDFreeze
