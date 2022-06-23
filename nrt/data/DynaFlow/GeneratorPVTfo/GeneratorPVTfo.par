@@ -74,7 +74,7 @@
     <par type="DOUBLE" name="generator_RTfoPu" value="0"/>
     <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
     <par type="DOUBLE" name="generator_SNom" value="200"/>
-    <par type="DOUBLE" name="generator_rTfo" value="1"/>
+    <par type="DOUBLE" name="generator_rTfoPu" value="1"/>
   </set>
   <set id="Generator4">
     <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
@@ -94,7 +94,7 @@
     <par type="DOUBLE" name="generator_RTfoPu" value="0"/>
     <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
     <par type="DOUBLE" name="generator_SNom" value="200"/>
-    <par type="DOUBLE" name="generator_rTfo" value="1"/>
+    <par type="DOUBLE" name="generator_rTfoPu" value="1"/>
     <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
     <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
     <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
