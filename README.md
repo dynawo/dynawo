@@ -16,6 +16,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dynawo_dynawo&metric=alert_status)](https://sonarcloud.io/dashboard?id=dynawo_dynawo)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dynawo_dynawo&metric=coverage)](https://sonarcloud.io/dashboard?id=dynawo_dynawo)
 [![MPL-2.0 License](https://img.shields.io/badge/license-MPL_2.0-blue.svg)](https://www.mozilla.org/en-US/MPL/2.0/)
+[![Documentation](https://dynawo.github.io/assets/images/doxygen_badge.svg)](https://dynawo.github.io/dynawo/index.html)
 
 [http://dynawo.org](http://dynawo.org)
 
