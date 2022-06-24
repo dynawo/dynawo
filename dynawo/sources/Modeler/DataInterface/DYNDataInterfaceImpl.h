@@ -24,6 +24,9 @@
 
 namespace DYN {
 
+/**
+ * class DataInterfaceImpl implementation of DataInterface with common utility methods
+ */
 class DataInterfaceImpl : public DataInterface {
  public:
   /**
