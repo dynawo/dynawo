@@ -49,7 +49,7 @@ model GovernorBPA_GG "Governor BPA GG"
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag(t1 = T2, t2 = T1)  annotation(
     Placement(visible = true, transformation(origin = {-50, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag1(t1 = F * T5, t2 = T5)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LeadLag leadLag1(Y0 = Pm0Pu, t1 = F * T5, t2 = T5)  annotation(
     Placement(visible = true, transformation(origin = {154, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 protected
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in p.u (base PNom)";
