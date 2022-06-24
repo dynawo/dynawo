@@ -92,7 +92,7 @@
  * @param index position of the relation in the relationsPre map
  * @param op_w operator to used
  */
-#define RELATIONHYSTERESIS(res, exp1, exp2, index, op_w) { \
+#define relationhysteresis(res, exp1, exp2, index, op_w) { \
   if (data->simulationInfo->discreteCall == 0) { \
     res = data->simulationInfo->relationsPre[index]; \
   } else { \

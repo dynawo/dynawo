@@ -33,11 +33,23 @@
 extern void *mmc_emptystring;
 extern void *mmc_strings_len1[256];
 
+#define real_array_copy_data(src, dst)               simple_array_copy_data(src, &dst, sizeof(modelica_real));
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/generic_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void simple_array_copy_data(const base_array_t src, base_array_t* dst, size_t sze);
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
 void array_alloc_scalar_real_array(real_array_t* dest, int n, modelica_real first, ...);
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void real_array_create(real_array_t *dest, modelica_real *data, int ndims, ...);
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/string_array.h
  * It is needed for Dynawo models dynamic libraries compilation
@@ -48,6 +60,11 @@ void array_alloc_string_array(string_array_t* dest, int n, string_array_t first,
  * It is needed for Dynawo models dynamic libraries compilation
  */
 void alloc_string_array(string_array_t *dest, int ndims, ...);
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/string_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void string_array_create(string_array_t *dest, modelica_string *data, int ndims, ...);
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/base_array.h
  * It is needed for Dynawo models dynamic libraries compilation
@@ -138,7 +155,7 @@ void simple_alloc_1d_base_array(base_array_t *dest, int n, void *data);
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/string_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
-const char** data_of_string_c89_array(const string_array_t *a);
+const char** data_of_string_c89_array(const string_array_t a);
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/generic_array.h
  * It is needed for Dynawo models dynamic libraries compilation
@@ -161,10 +178,10 @@ static inline int ndims_real_array(const real_array_t * a) { return a->ndims; }
  */
 static inline modelica_real *data_of_real_array(const real_array_t *a) { return reinterpret_cast<modelica_real *>(a->data); }
 /**
- * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/generic_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
-static inline modelica_real *data_of_real_c89_array(const real_array_t *a) { return reinterpret_cast<modelica_real *>(a->data); }
+#define data_of_real_c89_array(arr)                 reinterpret_cast<modelica_real *>((arr).data)
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
  * It is needed for Dynawo models dynamic libraries compilation
@@ -177,7 +194,7 @@ static inline modelica_real *data_of_real_f77_array(const real_array_t *a) { ret
  */
 static inline modelica_integer integer_get(const integer_array_t a, size_t i) { return reinterpret_cast<modelica_integer *>(a.data)[i]; }
 /**
- * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/integer_array.h
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/generic_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
 void integer_array_create(integer_array_t *dest, modelica_integer *data, int ndims, ...);
@@ -185,7 +202,7 @@ void integer_array_create(integer_array_t *dest, modelica_integer *data, int ndi
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/integer_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
-static inline int* data_of_integer_c89_array(const integer_array_t *a) { return reinterpret_cast<modelica_integer *> (a->data); }
+#define data_of_integer_c89_array(arr)              reinterpret_cast<int*> ((arr).data)
 
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
@@ -210,6 +227,36 @@ inline void integer_set(integer_array_t *a, size_t i, modelica_integer r) {reint
  * It is needed for Dynawo models dynamic libraries compilation
  */
 void pack_integer_array(integer_array_t *a);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/base_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void base_array_create(base_array_t *dest, void *data, int ndims, va_list ap);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/integer_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void integer_array_create(integer_array_t *dest, modelica_integer *data, int ndims, ...);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/integer_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void alloc_integer_array_data(integer_array_t *a);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/integer_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+inline void clone_integer_array_spec(const integer_array_t * source, integer_array_t* dest) { clone_base_array_spec(source, dest); }
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/integer_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void pack_alloc_integer_array(integer_array_t *a, integer_array_t *dest);
 
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/gc/memory_pool.h

@@ -162,7 +162,7 @@ set(sundials_md5         6be7057c88990021de5b08109eb2f133)
 set(omdev_git            https://openmodelica.org/git/OMDev.git)
 set(omdev_tag            origin/OM113maintenance)
 
-set(openmodelica_version 1.13.2)
+set(openmodelica_version 1.19.0-dev.beta1)
 if(DEFINED ENV{DYNAWO_OPENMODELICA_GIT_URL})
   set(openmodelica_prefix_url $ENV{DYNAWO_OPENMODELICA_GIT_URL})
 else()
@@ -646,7 +646,6 @@ if(NOT OMCompiler)
       GIT_SHALLOW         1
       UPDATE_DISCONNECTED 1
       PATCH_COMMAND       ${openmodelica_patch_common}
-      COMMAND             ${openmodelica_patch_compiler}
       BUILD_IN_SOURCE     1
 
       # the first call to bash initialize the login profile: at this step, errors like permission denied can be ignored !
@@ -671,9 +670,8 @@ if(NOT OMCompiler)
       DOWNLOAD_COMMAND    ${CMAKE_CURRENT_SOURCE_DIR}/openmodelica/checkoutOpenModelica.sh --openmodelica-version=${openmodelica_version} --openmodelica-dir=${OPENMODELICA_SRC}
       UPDATE_DISCONNECTED 1
       PATCH_COMMAND       ${openmodelica_patch_common}
-      COMMAND             ${openmodelica_patch_compiler}
       BUILD_IN_SOURCE     1
-      CONFIGURE_COMMAND   make clean > /dev/null 2>&1 || echo "Fisrt checkout, no clean needed."
+      CONFIGURE_COMMAND   make clean > /dev/null 2>&1 || echo "First checkout, no clean needed."
                 COMMAND   autoreconf || autoupdate && autoreconf --install
                 COMMAND   <SOURCE_DIR>/configure
                           "CC=${CMAKE_C_COMPILER}"

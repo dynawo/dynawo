@@ -28,8 +28,7 @@
     <dyn:connect id1="generator" var1="UStatorPu.value" id2="voltageRegulator" var2="UsPu"/>
     <dyn:connect id1="generator" var1="efdPu.value" id2="voltageRegulator" var2="EfdPu"/>
     <dyn:connect id1="voltageRegulator" var1="utPu" id2="generator" var2="uPu"/>
-    <dyn:connect id1="voltageRegulator" var1="itPuRe" id2="generator" var2="iStatorPu.re"/>
-    <dyn:connect id1="voltageRegulator" var1="itPuIm" id2="generator" var2="iStatorPu.im"/>
+    <dyn:connect id1="voltageRegulator" var1="itPu" id2="generator" var2="iStatorPu"/>
     <dyn:connect id1="voltageRegulator" var1="IfdPu" id2="generator" var2="IRotorPu.value"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

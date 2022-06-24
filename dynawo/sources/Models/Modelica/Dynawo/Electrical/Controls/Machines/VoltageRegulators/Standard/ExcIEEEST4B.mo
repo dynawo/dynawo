@@ -36,10 +36,7 @@ model ExcIEEEST4B "IEEE exciter type ST4B"
   //Input variables
   Modelica.Blocks.Interfaces.RealInput IfdPu(start = Ifd0Pu) "Rotor current in pu (base SNom, user-selected base voltage)" annotation(
     Placement(visible = true, transformation(origin = {-120, -160}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {60, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput itPuIm(start = it0Pu.im) "Imaginary part of stator current in pu (base SNom, UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-300, -140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-40, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput itPuRe(start = it0Pu.re) "Real part of stator current in pu (base SNom, UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-300, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
+  Modelica.ComplexBlocks.Interfaces.ComplexInput itPu(re(start = it0Pu.re), im(start = it0Pu.im)) "stator current in pu (base SNom, UNom)";
   Modelica.Blocks.Interfaces.RealInput UsPu(start = Us0Pu) "Stator voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-300, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UPssPu(start = 0) "Power system stabilizer output voltage in pu (base UNom)" annotation(
@@ -123,12 +120,8 @@ equation
     Line(points = {{-300, -60}, {-180, -60}, {-180, -8}, {-162, -8}}, color = {0, 0, 127}));
   connect(UsRefPu, add3.u1) annotation(
     Line(points = {{-300, 60}, {-180, 60}, {-180, 8}, {-162, 8}}, color = {0, 0, 127}));
-  connect(realToComplex.y, potentialCircuit.iT) annotation(
+  connect(itPu, potentialCircuit.iT) annotation(
     Line(points = {{-219, -120}, {-120, -120}, {-120, -84}, {-102, -84}}, color = {85, 170, 255}));
-  connect(itPuRe, realToComplex.re) annotation(
-    Line(points = {{-300, -100}, {-260, -100}, {-260, -114}, {-242, -114}}, color = {0, 0, 127}));
-  connect(itPuIm, realToComplex.im) annotation(
-    Line(points = {{-300, -140}, {-260, -140}, {-260, -126}, {-242, -126}}, color = {0, 0, 127}));
   connect(utPu, potentialCircuit.uT) annotation(
     Line(points = {{-150, -40}, {-120, -40}, {-120, -76}, {-102, -76}}, color = {85, 170, 255}));
   connect(add3.y, limPI1.u) annotation(

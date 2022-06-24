@@ -13,6 +13,7 @@ within Dynawo.Electrical.HVDC.HvdcVsc;
 */
 
 model HvdcVscDanglingP_INIT "Initialisation model for the HVDC VSC model with terminal2 connected to a switched-off bus (P control on terminal 1)"
+  import Modelica;
   extends AdditionalIcons.Init;
 
   parameter Types.PerUnit LambdaPu "Lambda coefficient for the QRefUPu calculation in pu (base SNom, UNom)";

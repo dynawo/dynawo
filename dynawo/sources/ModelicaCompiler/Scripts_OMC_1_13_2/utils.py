@@ -83,6 +83,7 @@ def is_adept_func(func, list_adept_structs):
     if "delay" in func.get_name(): return False # Delay shall not use adept
     if "_event_floor" in func.get_name(): return False
     if "_event_ceil" in func.get_name(): return False
+    if func.get_name().startswith("Complex_"): return True
     if func.get_return_type() == "modelica_real" : return True
     if func.get_return_type() in list_adept_structs: return True
     for param in func.get_params():
@@ -161,6 +162,7 @@ def replace_var_names(line):
     data_simulation_info = "data->simulationInfo->"
     dummy_der_var = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) DUMMY_DER \*\/')
     state_var = re.compile(    r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) STATE\(.*\) \*\/')
+    residual_var = re.compile(r'[ \(]*data->simulationInfo->daeModeData->(?P<var>[\w\[\]]+)[ \)]*\/\*\s*(?P<varName>[ \w\$\.()\[\],]*) DAE_RESIDUAL_VAR\s*\*\/')
     map_to_replace = {}
     pattern_index  = 0
     match = dummy_der_var.findall(line)
@@ -210,6 +212,13 @@ def replace_var_names(line):
         line = line.replace(data_simulation_info+idx, replacement_string)
         map_to_replace[replacement_string] = to_param_address(name)
         pattern_index +=1
+    match = residual_var.findall(line)
+    for idx, name in match:
+        test_param_address(name)
+        replacement_string = "@@@" + str(pattern_index) + "@@@"
+        line = line.replace(data_simulation_info+ "daeModeData->"+idx, replacement_string)
+        map_to_replace[replacement_string] = to_param_address(name)
+        pattern_index +=1
 
     for pattern_to_replace in map_to_replace:
         line = line.replace(pattern_to_replace, map_to_replace[pattern_to_replace])
@@ -220,15 +229,15 @@ def replace_var_names(line):
 # @param omc_relation_index_2_dynawo_relations_index: dictionary that maps omc relation index to dynawo relations index
 # @return line to use
 def replace_relation_indexes(line, omc_relation_index_2_dynawo_relations_index):
-    if "RELATIONHYSTERESIS" not in line: return line
+    if "relationhysteresis" not in line: return line
     index_tmp = 0
     map_to_replace ={}
-    relations_found = re.findall(r'RELATIONHYSTERESIS\((?P<target_var>.*?), (?P<variable>.*?), (?P<value>.*?), (?P<rel_index>[0-9]+), (?P<operator>.*?)\)', line)
+    relations_found = re.findall(r'relationhysteresis\((?P<target_var>.*?), (?P<variable>.*?), (?P<value>.*?), (?P<rel_index>[0-9]+), (?P<operator>.*?)\)', line)
     for target_var,variable,value,rel_index,operator in relations_found:
         if rel_index not in omc_relation_index_2_dynawo_relations_index: continue
         replacement_string = "@@@" + str(index_tmp) + "@@@"
-        line = line.replace("RELATIONHYSTERESIS("+target_var+", "+variable+", "+value+", "+rel_index+", "+operator+")",\
-                                      "RELATIONHYSTERESIS("+target_var+", "+variable+", "+value+", "+replacement_string+", "+operator+")")
+        line = line.replace("relationhysteresis("+target_var+", "+variable+", "+value+", "+rel_index+", "+operator+")",\
+                                      "relationhysteresis("+target_var+", "+variable+", "+value+", "+replacement_string+", "+operator+")")
         map_to_replace[replacement_string] = omc_relation_index_2_dynawo_relations_index[rel_index]
         index_tmp+=1
 
@@ -584,7 +593,7 @@ class Transpose:
     # @param residual_vars_map : residual vars
     def __init__(self, auxiliary_vars_map = None, residual_vars_map = None):
         ## pattern to intercept var name in expression
-        self.ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]*\*\/')
+        self.ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]*\/\*[ \w\$\.()\[\],]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]*\/\*[ \w\$\.()\[\],]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]*\/\*[ \w\$\.()\[\],]*[ ]*\*\/')
         ## map associating var name to var value
         self.map = {}
         ## expressions where var name should be replaced
@@ -611,13 +620,13 @@ class Transpose:
         for line in self.txt_list:
             line_tmp = line # Line changed by overrides
             line_tmp = transform_line_adept(line_tmp)
-            match_global = self.ptrn_vars.findall(line) # Is this a word that matches the regex?
+            match_global = self.ptrn_vars.findall(line_tmp) # Is this a word that matches the regex?
             # first the derivatives then the vars
             for name in match_global:
                 if 'derivativesVars' not in name:
                     continue
                 # If the var "name" is in the map, we replace it by its other expression (xd[...])
-                ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
+                ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\][ ]*\/\*[ \w\$\.()\[\],]*\*\/')
                 match = ptrn_real_var.search(name)
                 if match is not None:
                     if "= modelica_real_to_modelica_string(" in line_tmp:
@@ -628,7 +637,7 @@ class Transpose:
                 if 'derivativesVars' in name:
                     continue
                 # If the var "name" is in the map, we replace it by its other expression (x[...])
-                ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
+                ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]*\/\*[ \w\$\.()\[\],]*\*\/')
                 match = ptrn_real_var.search(name)
                 if match is not None:
                     if "= modelica_real_to_modelica_string(" in line_tmp:
@@ -922,6 +931,18 @@ def transform_atan3_operator_evalf(line):
 
     return line_tmp_bis
 
+#replace relationhysteresis(data, $tmp, ...., operator, operatorZC) by relationhysteresis(tmp, ...., operator)
+# @param line : line to analyse
+# @return line transformed
+def replace_relationhysteresis(line):
+    if "relationhysteresis" in line:
+        line = line.replace("data, ","")
+        line = line.replace("&tmp","tmp")
+        line = line.replace(", LessZC","")
+        line = line.replace(", GreaterZC","")
+        line = line.replace(", LessEqZC","")
+        line = line.replace(", GreaterEqZC","")
+    return line
 ##
 # Transform a line so that it can be compiled
 # @param line : line to analyse
@@ -936,6 +957,7 @@ def transform_line(line):
     line_tmp = line_tmp.replace(", threadData)", ")")
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")
+    line_tmp = replace_relationhysteresis(line_tmp)
     return line_tmp
 
 
@@ -989,6 +1011,7 @@ def transform_line_adept(line):
     line_tmp = mmc_strings_len1(line)
     line_tmp = transform_atan3_operator_evalf(line_tmp)
     line_tmp = sub_division_sim(line_tmp)
+    line_tmp = replace_relationhysteresis(line_tmp)
     line_tmp = replace_var_names(line_tmp)
     line_tmp = line_tmp.replace("modelica_real ", "adept::adouble ")
     line_tmp = line_tmp.replace("Greater(", "Greater<adept::adouble>(")
@@ -1051,12 +1074,17 @@ def convert_booleans_body (boolean_variables_names, body):
     all_boolean_variables_names = []
     for var_name in boolean_variables_names:
         if to_param_address(var_name) != None:
+            all_boolean_variables_names.append(to_param_address(var_name) + "/* " + var_name +" */")
             all_boolean_variables_names.append(to_param_address(var_name) + " /* " + var_name +" */")
             if "Vars" in to_param_address(var_name):
+                all_boolean_variables_names.append(to_param_address(var_name) + "/* " + var_name +" DISCRETE */")
+                all_boolean_variables_names.append(to_param_address(var_name).replace("Vars","VarsPre").replace("localData[0]","simulationInfo") + "/* " + var_name +" */")
+                all_boolean_variables_names.append(to_param_address(var_name).replace("Vars","VarsPre").replace("localData[0]","simulationInfo")  + "/* " + var_name +" DISCRETE */")
                 all_boolean_variables_names.append(to_param_address(var_name) + " /* " + var_name +" DISCRETE */")
                 all_boolean_variables_names.append(to_param_address(var_name).replace("Vars","VarsPre").replace("localData[0]","simulationInfo") + " /* " + var_name +" */")
                 all_boolean_variables_names.append(to_param_address(var_name).replace("Vars","VarsPre").replace("localData[0]","simulationInfo")  + " /* " + var_name +" DISCRETE */")
             elif "Parameter" in to_param_address(var_name):
+                all_boolean_variables_names.append(to_param_address(var_name) + "/* " + var_name +" PARAM */")
                 all_boolean_variables_names.append(to_param_address(var_name) + " /* " + var_name +" PARAM */")
             all_boolean_variables_names.append(to_compile_name(var_name)+"_")
 
@@ -1143,7 +1171,7 @@ def convert_booleans_line (boolean_variables_names, line):
 # @param line : the line to scan
 # @return whether TRACE_POP or TRACE_PUSH lies within the line
 def has_omc_equation_indexes (line):
-    equation_indexes_pattern = re.compile(r'const int equationIndexes.*')
+    equation_indexes_pattern = re.compile(r'const int [\*]*equationIndexes.*')
     return (re.search (equation_indexes_pattern, line) is not None)
 
 ##
@@ -1345,7 +1373,9 @@ def replace_equations_in_a_if_statement(eq_body, type_tree, line_to_insert_algeb
             else:
                 res_body.append(leading_spaces_gen + line)
         else:
-            if residual_var_name in line:
+            if re.search(tmp_assign_ptrn, line) is not None:
+                continue
+            if "$DAEres" in line:
                 continue
             if re.search(tmp_eq_residual, line) is not None:
                 continue
@@ -1436,7 +1466,7 @@ def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var
                 var_idx +=1
             idx+=1
         else:
-            if residual_var_name in line and "data->localData" not in line:
+            if "$DAEres" in line:
                 continue
             if re.search(tmp_eq_residual, line) is not None:
                 continue

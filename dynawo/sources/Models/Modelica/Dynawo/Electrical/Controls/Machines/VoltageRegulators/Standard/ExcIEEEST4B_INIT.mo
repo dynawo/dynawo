@@ -35,8 +35,8 @@ model ExcIEEEST4B_INIT "IEEE exciter type ST4B initialization model"
   Modelica.Blocks.Interfaces.RealOutput Ub0Pu "Initial voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {104, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Types.VoltageModulePu Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
-  Types.VoltageModulePu Us0Pu "Initial stator voltage in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput Efd0Pu "Initial excitation voltage in pu (user-selected base voltage)";
+  Modelica.Blocks.Interfaces.RealOutput Us0Pu "Initial stator voltage in pu (base UNom)";
 
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.PotentialCircuit potentialCircuitInit(Ki = Ki, Kp = Kp, Theta = Thetap, X = XlPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

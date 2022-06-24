@@ -25,7 +25,7 @@
         <dyn:timeline exportMode="XML" filter="true"/>
         <dyn:curves inputFile="SVarC.crv" exportMode="CSV"/>
         <dyn:logs>
-          <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+          <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>

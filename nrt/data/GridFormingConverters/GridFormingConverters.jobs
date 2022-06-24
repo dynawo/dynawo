@@ -24,7 +24,7 @@
         <outputs directory="outputs">
             <curves inputFile="GridFormingConverters.crv" exportMode="CSV"/>
             <logs>
-              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
               </logs>
         </outputs>
     </job>

@@ -22,8 +22,8 @@ equation
   Tap0 = BaseClasses_INIT.IdealTransformerTapEstimation(rTfoMinPu, rTfoMaxPu, NbTap, u10Pu, Uc20Pu);
 
   // Transformer equations
-  i10Pu = - rTfo0Pu * i20Pu;
-  rTfo0Pu * u10Pu = u20Pu;
+  terminal1.i = - rTfo0Pu * terminal2.i;
+  rTfo0Pu * terminal1.V = terminal2.V;
 
   annotation(preferredView = "text");
 end IdealTransformerVariableTapI_INIT;

@@ -26,6 +26,7 @@ from xml.dom import minidom
 import scriptVarExt
 from dataContainer import *
 from utils import *
+from pyclbr import Function
 
 
 # ##################################
@@ -138,6 +139,7 @@ class ReaderOMC:
         self._functions_header = os.path.join (input_dir, self.mod_name + "_functions.h")
         ## Full name of the _functions.c file
         self._functions_c_file  = os.path.join (input_dir, self.mod_name + "_functions.c")
+        self._records_c_file  = os.path.join (input_dir, self.mod_name + "_records.c")
         ## Full name of the _literals.h file
         self._literals_file = os.path.join (input_dir, self.mod_name + "_literals.h")
         ## List of constant strings literal names
@@ -301,6 +303,8 @@ class ReaderOMC:
         self.list_internal_functions = []
         ## List of omc functions
         self.list_omc_functions = []
+        ## List of define
+        self.list_functions_define = []
 
         # --------------------------------------------------------------------
         # Attribute for reading *_literals.h file
@@ -745,6 +749,14 @@ class ReaderOMC:
         for dae_var in key_to_remove:
             del self.var_name_to_eq_type[dae_var]
             del self.residual_vars_to_address_map[dae_var]
+
+        index_aux_var = 0
+        list_residual_vars_for_sys_build = sorted(self.residual_vars_to_address_map.keys())
+        for dae_var in list_residual_vars_for_sys_build:
+            self.residual_vars_to_address_map[dae_var] = "data->simulationInfo->daeModeData->residualVars["+str(index_aux_var)+"]"
+            set_param_address(dae_var,  "data->simulationInfo->daeModeData->residualVars["+str(index_aux_var)+"]")
+            index_aux_var+=1
+
         map_dep = self.get_map_dep_vars_for_func()
         for var in map_dep:
             if self.is_auxiliary_vars(var) :
@@ -809,7 +821,7 @@ class ReaderOMC:
             var = Variable()
             var.set_name(node.getAttribute('name'))
             var.set_variability(node.getAttribute('variability')) # "continuous", "discrete"
-            var.set_causality(node.getAttribute('causality')) # "output" or "internal"
+            var.set_causality(node.getAttribute('causality')) # "output", "parameter" or "internal"
 
             class_type = node.getAttribute('classType')
             var.set_type(class_type)
@@ -997,8 +1009,8 @@ class ReaderOMC:
     # @return
     def read_16dae_h_file(self):
         # look for variables definitions
-        auxiliary_var = r'#define \$P(?P<var>.*) data->simulationInfo->daeModeData->auxiliaryVars\[(?P<num>\d+)\]$'
-        residuals_var = r'#define \$P(?P<var>.*) data->simulationInfo->daeModeData->residualVars\[(?P<num>\d+)\]$'
+        auxiliary_var = r'.*#define \$P(?P<var>.*) \(data->simulationInfo->daeModeData->auxiliaryVars\[(?P<num>\d+)\]$'
+        residuals_var = r'.*#define \(data->simulationInfo->daeModeData->residualVars\[(?P<num>\d+)\].*'
         with open(self._16dae_h_file, 'r') as f:
             for line in f:
                 match = re.search(auxiliary_var, line)
@@ -1006,7 +1018,7 @@ class ReaderOMC:
                     self.auxiliary_vars_to_address_map[match.group("var")] = "data->simulationInfo->daeModeData->auxiliaryVars["+match.group("num")+"]"
                 match = re.search(residuals_var, line)
                 if match is not None:
-                    self.residual_vars_to_address_map[match.group("var")] = "data->simulationInfo->daeModeData->residualVars["+match.group("num")+"]"
+                    self.residual_vars_to_address_map["$DAEres"+match.group("num")] = "data->simulationInfo->daeModeData->residualVars["+match.group("num")+"]"
 
     ##
     # Read the *_06inz.c to find initial value of variables
@@ -1019,8 +1031,8 @@ class ReaderOMC:
 
         # Find functions of type MODEL_NAME_eqFunction_N and variable assignment expressions
         # Regular expression to recognize a line of type var = rhs
-        ptrn_assign_var = re.compile(r'^[ ]*data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) [\w(),\.]+ \*\/[ ]*=[ ]*(?P<rhs>[^;]+);')
-        ptrn_param = re.compile(r'^[ ]*data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[ ]*(?P<rhs>[^;]+);')
+        ptrn_assign_var = re.compile(r'^[ ]*\(data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) [\w(),\.]+ \*\/\)[ ]*=[ ]*(?P<rhs>[^;]+);')
+        ptrn_param = re.compile(r'^[ ]*\(data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/\)[ ]*=[ ]*(?P<rhs>[^;]+);')
         for init_file in self._06inz_c_file:
             with open(init_file, 'r') as f:
                 while True:
@@ -1192,12 +1204,12 @@ class ReaderOMC:
         global crossed_opening_braces
         global stop_at_next_call
         # Regular expression to recognize a line of type $Pvar = $Prhs
-        ptrn_assign_var = re.compile(r'^[ ]*data->modelData->(?P<var>\S*)\.attribute[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/.start[ ]*=[^;]*;$')
-        ptrn_param = re.compile(r'data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
-        ptrn_param_boolean_test = re.compile(r'data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*==[^;]*;')
-        ptrn_param_bool_assignment = re.compile(r'data->simulationInfo->booleanParameter\[(?P<var>\S*)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
-        ptrn_assign_auxiliary_var = re.compile(r'^[ ]*data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.]+ \*\/[ ]*=[^;]*;')
-        ptrn_assign_extobjs = re.compile(r'^[ ]*data->simulationInfo->extObjs\[(?P<var>[0-9]+)\][ ]*=[^;]*;$')
+        ptrn_assign_var = re.compile(r'^[ ]*\(data->modelData->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/\)\.attribute[ ]*.start[ ]*=[^;]*;$')
+        ptrn_param = re.compile(r'\(data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/\)[ ]*=[^;]*;')
+        ptrn_param_boolean_test = re.compile(r'\(data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/\)[ ]*==[^;]*;')
+        ptrn_param_bool_assignment = re.compile(r'(data->simulationInfo->booleanParameter\[(?P<var>\S*)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
+        ptrn_assign_auxiliary_var = re.compile(r'^[ ]*\(data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.]+ \*\/\)[ ]*=[^;]*;')
+        ptrn_assign_extobjs = re.compile(r'^[ ]*\(data->simulationInfo->extObjs\[(?P<var>[0-9]+)\]\)[ ]*=[^;]*;$')
 
         for init_file in self._08bnd_c_file:
             with open(init_file, 'r') as f:
@@ -1418,8 +1430,8 @@ class ReaderOMC:
         ptrn_func_extern = re.compile(r'extern .*;')
         ptrn_func = re.compile(r'.*;')
         ptrn_not_func = re.compile(r'static const MMC_.*;')
-        ptrn_struct = re.compile(r'.*typedef struct .* {.*')
-
+        ptrn_struct = re.compile(r'.*typedef struct .*{.*')
+        ptrn_define = re.compile(r'#define .*\)')
         file_to_read = self._functions_header
         if not os.path.isfile(file_to_read) :
             return
@@ -1437,7 +1449,15 @@ class ReaderOMC:
                 next_iter = next(it,None) # Line on which "dropwhile" stopped
                 if next_iter is None: break # If we reach the end of the file, exit loop
                 if next_iter not in self.list_external_functions and ptrn_not_func.search(next_iter) is None:
-                        self.list_internal_functions.append(next_iter)
+                    self.list_internal_functions.append(next_iter)
+
+        with open(file_to_read,'r') as f:
+            while True:
+                it = itertools.dropwhile(lambda line: ptrn_define.search(line) is None, f)
+                next_iter = next(it,None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
+                self.list_functions_define.append(next_iter)
+
 
 
     ##
@@ -1504,7 +1524,7 @@ class ReaderOMC:
             return
 
         index_extobjs = 0
-        ptrn_var = re.compile(r'type: (?P<type>.*) index: (?P<index>.*): (?P<name>.*) \(.* valueType: (?P<valueType>.*) initial:.*')
+        ptrn_var = re.compile(r'type: (?P<type>.*) index:(?P<index>.*): (?P<name>.*) \(.* valueType: (?P<valueType>.*) initial:.*')
         alternative_way_to_declare_der = "$DER."
         with open(file_to_read,'r') as f:
             while True:
@@ -1552,9 +1572,11 @@ class ReaderOMC:
                     else:
                         set_param_address(name,  "discreteVars")
                 elif var_type == "aliasVars":
+                    aliased = self.find_variable_from_name(var.get_alias_name())
                     # fixed discrete real vars are not aliased and are initialized in Y0
-                    if is_discrete_real_var(var) and var.is_fixed():
+                    if is_discrete_real_var(var) and is_param_var(aliased):
                         set_param_address(name,  "discreteVars")
+                        var.set_alias_name("", False)
                     # Aliased non-fixed vars should never be used in equations independently from their type
                     elif not var.is_fixed():
                         set_param_address(name,  "SHOULD NOT BE USED - CONTINUOUS ALIAS VAR")
@@ -1562,13 +1584,17 @@ class ReaderOMC:
                     else:
                         set_param_address(name,  "constVars")
                 elif var_type == "intAliasVars":
-                    if var.is_fixed():
+                    aliased = self.find_variable_from_name(var.get_alias_name())
+                    if is_param_var(aliased):
                         set_param_address(name,  "integerDoubleVars")
+                        var.set_alias_name("", False)
                     else:
                         set_param_address(name,  "SHOULD NOT BE USED - INT ALIAS VAR")
                 elif var_type == "boolAliasVars":
-                    if var.is_fixed():
+                    aliased = self.find_variable_from_name(var.get_alias_name())
+                    if is_param_var(aliased):
                         set_param_address(name,  "discreteVars")
+                        var.set_alias_name("", False)
                     else:
                         set_param_address(name,  "SHOULD NOT BE USED - BOOL ALIAS VAR")
                 elif var_type == "intConstVars":
@@ -1610,6 +1636,20 @@ class ReaderOMC:
                                     print_info("Removing fixed flag from alias variable " + var2.get_name())
                                     modified = True
                         break
+            if var is not None and var.get_variability() == "continuous" and not var.is_fixed():
+                do_it = True
+                for dep_var_name in self.map_vars_depend_vars[var_name]:
+                    dep_var = self.find_variable_from_name(dep_var_name)
+                    if dep_var is not None and (not dep_var.is_fixed() \
+                    or dep_var.get_name() in self.fictive_continuous_vars\
+                    or dep_var.get_name() in self.fictive_optional_continuous_vars):
+                        do_it = False
+                        break
+                if do_it:
+                    # Only depends on fixed variables
+                    var.set_fixed(True)
+                    print_info("Adding fixed flag to variable " + var.get_name())
+                    set_param_address(var.get_name(),  "constVars")
     ##
     # Assign the final type and index to the variables
     # @param self : object pointer
@@ -1812,7 +1852,7 @@ class ReaderOMC:
                 if "STATE_DER" in line or "DUMMY_DER" in line:
                     # equations with derivatives should be kept in F
                     is_eligible = False
-                if "RELATIONHYSTERESIS" in line:
+                if "relationhysteresis" in line:
                     # equations with potential mode change should be kept in F
                     is_eligible = False
                 for func_name in name_func_to_search:
@@ -1893,7 +1933,7 @@ class ReaderOMC:
                     set_param_address(var.get_name(), "data->constCalcVars["+str(len(self.list_complex_const_vars))+"]")
                     self.list_complex_const_vars.append(var)
 
-        ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
+        ptrn_evaluated_var = re.compile(r'\(data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/\)[ ]* = [ ]*(?P<rhs>[^;]+);')
         map_dep = self.get_map_dep_vars_for_func()
         for var in self.list_vars:
             if var in self.list_complex_calculated_vars:
@@ -2042,6 +2082,7 @@ class ReaderOMC:
         global crossed_opening_braces
         global stop_at_next_call
         ptrn_func = re.compile(r'^(?![\/]).* (?P<var>.*)\((?P<params>.*)\)')
+        functions_found = []
 
         with open(file_to_read, 'r') as f:
             while True:
@@ -2072,6 +2113,41 @@ class ReaderOMC:
                     # "takewhile" only stops when the whole body of the function is read
                     func.set_body( list(itertools.takewhile(stop_reading_function, it)) )
                     self.list_omc_functions.append(func)
+                    functions_found.append(func.get_name())
+
+        file_to_read = self._records_c_file
+        with open(file_to_read, 'r') as f:
+            while True:
+                nb_braces_opened = 0
+                crossed_opening_braces = False
+                stop_at_next_call = False
+
+                it = itertools.dropwhile(lambda line: ptrn_func.search(line) is None, f)
+                next_iter = next(it, None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
+
+                if "{" in next_iter: nb_braces_opened+=1
+                match = re.search(ptrn_func, next_iter)
+
+                if ";" not in next_iter: # it is a function declaration
+                    func = RawOmcFunctions()
+                    func.set_name(match.group('var'))
+                    func.set_signature(next_iter)
+                    func.set_return_type(next_iter.split()[0])
+                    index = 0
+                    for params in match.group('params').split(','):
+                        if(params.startswith("threadData_t")): continue
+                        param_type = params.split()[0]
+                        name = params.split()[1]
+                        is_input = not name.startswith("*out_")
+                        func.add_params(OmcFunctionParameter(name, param_type, index, is_input))
+                        index +=1
+
+                    # "takewhile" only stops when the whole body of the function is read
+                    func.set_body( list(itertools.takewhile(stop_reading_function, it)) )
+                    if func.get_name() not in functions_found:
+                        self.list_omc_functions.append(func)
+                        functions_found.append(func.get_name())
 
         self.add_delay_func()
 

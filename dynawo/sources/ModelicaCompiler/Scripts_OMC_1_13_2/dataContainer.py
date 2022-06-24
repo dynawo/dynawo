@@ -765,8 +765,8 @@ class Variable:
         # Difficult to do this with a regex and a sub, so we use
         # the function "sub_division_sim()" (see utils.py)
         txt_tmp = []
-        ptrn_assign_var = re.compile(r'^[ ]*data->modelData->[\w\[\]]*\.attribute[ ]*\/\*.*\*\/.start[ ]*=[ ]*(?P<initVal>[^;]*);$')
-        ptrn_local_var = re.compile(r'^[ ]*[^;]*=[ ]*data->modelData->[\w\[\]]*\.attribute[ ]*\/\*.*\*\/.start[ ]*;$')
+        ptrn_assign_var = re.compile(r'^[ ]*\(data->modelData->[\w\[\]]*[ ]*\/\*.*\*\/\)\.attribute[ ]*\.start[ ]*=[ ]*(?P<initVal>[^;]*);$')
+        ptrn_local_var = re.compile(r'^[ ]*[^;]*=[ ]*\(data->modelData->[\w\[\]]*[ ]*\/\*.*\*\/\)\.attribute[ ]*\.start[ ]*;$')
         for line in self.start_text:
             if has_omc_trace (line) or has_omc_equation_indexes (line) or ptrn_local_var.match(line) or "infoStreamPrint" in line:
                 continue
@@ -806,11 +806,11 @@ class Variable:
             self.start_text_06inz.pop(0)
             self.start_text_06inz.pop()
 
-            tmp_abs_var_prtn = re.compile(r'\(\(data->localData\[0\]->realVars\[[0-9+]\] \/\*\s*\$TMP\$VAR\$[0-9]+\$0X\$ABS\s*variable\s*\*\/\s*\>\= 0.0 \? 1.0\:-1.0\)\)\s*\*')
+            tmp_abs_var_prtn = re.compile(r'\(\(data->localData\[0\]->realVars\[[0-9+]\][ ]*\/\*\s*\$TMP\$VAR\$[0-9]+\$0X\$ABS\s*variable\s*\*\/\s*\>\= 0.0 \? 1.0\:-1.0\)\)\s*\*')
 
             txt_tmp = []
             for line in self.start_text_06inz:
-                if has_omc_trace (line) or has_omc_equation_indexes (line):
+                if has_omc_trace (line) or has_omc_equation_indexes (line)or "infoStreamPrint" in line:
                     continue
 
                 # Replace DIVISION(a1,a2,a3,a4) by a1 / a2
@@ -1207,13 +1207,13 @@ class RawOmcFunctions:
     # @param line_with_call: line to analyze
     # @return outputs variable list
     def find_outputs_from_call(self, line_with_call):
-        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+self.name+'[ ]*\((?P<rhs>[^;]+);')
+        ptrn_var_assigned = re.compile(r'[ \(]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ \)]* = [ ]*'+self.name+'[ ]*\((?P<rhs>[^;]+);')
         match = re.match(ptrn_var_assigned, line_with_call)
         outputs = []
         if match is not None:
             variable_name = self.remove_variable_type_from_param(match.group("varName"))
             outputs.append(variable_name)
-            ptrn_var= re.compile(r'[ ]*&data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
+            ptrn_var= re.compile(r'[ ]*&\(data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ \)]*')
             variables = re.findall(ptrn_var, match.group("rhs"))
             for output_param in variables:
                 param_variable_name = self.remove_variable_type_from_param(output_param[1])
@@ -1227,11 +1227,11 @@ class RawOmcFunctions:
     # @param line_with_call: line to analyze
     # @return inputs variable list
     def find_inputs_from_call(self, line_with_call):
-        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+self.name+'[ ]*\((?P<rhs>[^;]+);')
+        ptrn_var_assigned = re.compile(r'[ \(]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ \)]* = [ ]*'+self.name+'[ ]*\((?P<rhs>[^;]+);')
         match = re.match(ptrn_var_assigned, line_with_call)
         inputs = []
         if match is not None:
-            ptrn_var= re.compile(r'[ ]*[^&]data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
+            ptrn_var= re.compile(r'[ ]*[^&]\(data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ \)]*')
             variables = re.findall(ptrn_var, match.group("rhs"))
             for input_param in variables:
                 param_variable_name = self.remove_variable_type_from_param(input_param[1])
@@ -1445,9 +1445,9 @@ class EquationBase:
     # @param num_omc : index of the equation in omc arrays
     def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, type = ALGEBRAIC):
         ## pattern to identify the variable evaluated
-        self.ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
+        self.ptrn_evaluated_var = re.compile(r'[\(]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ \)]*[^=]=[^=][ ]*(?P<rhs>[^;]+);')
         ## pattern to identify the residual variable evaluated
-        self.ptrn_residual_var = re.compile(r'[ ]*\$P\$DAEres(?P<residualIdx>[0-9]+)[ ]*=[^;]+;')
+        self.ptrn_residual_var = re.compile(r'[\(]*data->simulationInfo->daeModeData->residualVars\[(?P<residualIdx>[0-9]+)\][ \)]*/\*\s*(?P<varName>[ \w\$\.()\[\],]*) DAE_RESIDUAL_VAR\s*\*\/[\) ]*=[ ]*(?P<rhs>[^;]+);')
 
         ##  name of the function using the equation
         self.comes_from = ""
@@ -1629,14 +1629,19 @@ class Equation(EquationBase):
                 continue
 
             line = sub_division_sim(line)
-            line = replace_var_names(line)
+            line = replace_relationhysteresis(line)
 
             if re.search(self.ptrn_residual_var, line) is not None:
+                equality = self.ptrn_residual_var.sub(r'  f[%d] = data->simulationInfo->daeModeData->residualVars[\g<1>] /* \g<2> DAE_RESIDUAL_VAR */;' % self.get_num_dyn(), line)
+                line = replace_var_names(line)
+                equality = replace_var_names(equality)
                 text_to_return.append( line )
-                text_to_return.append( self.ptrn_residual_var.sub(r'  f[%d] = $P$DAEres\g<1>;' % self.get_num_dyn(), line) )
+                text_to_return.append( equality )
             elif re.search(self.ptrn_evaluated_var, line) is None:
+                line = replace_var_names(line)
                 text_to_return.append( line )
             else:
+                line = replace_var_names(line)
                 text_to_return.append( self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % self.get_num_dyn(), line) )
         return text_to_return
 
@@ -1663,8 +1668,7 @@ class Equation(EquationBase):
 
             line_tmp = sub_division_sim(line_tmp)
             if re.search(self.ptrn_residual_var, line_tmp) is not None:
-                text_to_return.append( line_tmp )
-                text_to_return.append( self.ptrn_residual_var.sub(r'  res[%d] = $DAEres\g<1>;' % self.get_num_dyn(), line) )
+                text_to_return.append( self.ptrn_residual_var.sub(r'  res[%d] = \g<3>;' % self.get_num_dyn(), line) )
             elif re.search(self.ptrn_evaluated_var, line_tmp) is None:
                 text_to_return.append( line_tmp )
             else:
@@ -1803,6 +1807,7 @@ class RootObject:
         i = 0
         for line in self.body_for_num_relation:
             line = replace_var_names(line)
+            line = replace_relationhysteresis(line)
             if i == 0 or i == len(self.body_for_num_relation)-1:
                 i = i + 1
                 continue
