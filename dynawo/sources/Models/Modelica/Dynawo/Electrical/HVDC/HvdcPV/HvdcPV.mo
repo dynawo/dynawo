@@ -43,8 +43,8 @@ model HvdcPV "Model of PV HVDC link. Each terminal can regulate the voltage or t
   input Boolean modeU1(start = modeU10) "Boolean assessing the mode of the control: true if U mode, false if Q mode";
   input Boolean modeU2(start = modeU20) "Boolean assessing the mode of the control: true if U mode, false if Q mode";
 
-  Types.Angle Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
-  Types.Angle Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
+  Modelica.Blocks.Interfaces.RealOutput Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
+  Modelica.Blocks.Interfaces.RealOutput Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
 
   parameter Types.VoltageModulePu U1Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 1";
   parameter Types.VoltageModulePu U2Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 2";

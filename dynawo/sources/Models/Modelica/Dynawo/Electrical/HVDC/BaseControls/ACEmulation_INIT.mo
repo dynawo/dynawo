@@ -13,6 +13,7 @@ within Dynawo.Electrical.HVDC.BaseControls;
 */
 
 model ACEmulation_INIT "Initialisation for AC Emulation for HVDC"
+  import Modelica;
   extends AdditionalIcons.Init;
 
   import Dynawo.Types;

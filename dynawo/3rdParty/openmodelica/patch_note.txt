@@ -2,38 +2,17 @@
 
 add code to call the method used to generated the structure file (defined in XMLCreateDynawo.mo)
 
-### CMakeListsCompiler-txt.patch ###
-
-register the XMLCreateDynawo.mo file as source file
-
 ### CodegenCFunctions-tpl.patch ###
 
 redefine the way to generate some operations (sqrt, pow, ternary operator, max, min) to be compatible with adept doubles
-- bug fix - report from OpenModelica master to dump the parameter names as comment after dereferencing the tables (data->simulationInfo->realParameter[index] /* <param name> */
 
 ### configure-ac.patch ###
 
 remove useless dependencies
 
-### DAEMode-mo.patch ###
-
-- bug fix - report from OpenModelica master to keep calls to external C function (Timeline, assert, terminate) in DAE mode
-
 ### LoadCompilerSources-mos.patch ###
 
 register the XMLCreateDynawo.mo file as source file
-
-### lpsolve-configure-ac.patch ###
-
-- bug fix for MacOS - report from OpenModelica master
-
-### lpsolve-Makefile-in.patch ###
-
-- bug fix for MacOS - report from OpenModelica master
-
-### Makefile-common.patch ###
-
-- bug fix for MacOS - report from OpenModelica master
 
 ### Makefile-in.patch ###
 
@@ -48,26 +27,9 @@ Modification of Makefile.libs to download only required modelica libraries - not
 
 Add the declaration of the method used to generated the structure file (defined in XMLCreateDynawo.mo)
 
-### netstream-socket-cpp.patch ###
-
-- bug fix for MacOS - report from OpenModelica master
-
-### NFConvertDAE-mo.patch ###
-
-- bug fix - report from OpenModelica master to keep references to internal OM model after frontend (needed to dump structure file)
-
 ### NFModelicaBuiltin-mo.patch ###
 
 Add the declaration of the method used to generated the structure file in new frontend (defined in XMLCreateDynawo.mo)
-
-### OMCompiler-configure-ac.patch ###
-
-- bug fix for MacOS - report from OpenModelica master
-- various fix for newer gnu compiler - report from OpenModelica master
-
-### RemoveSimpleEquations-mo.patch ###
-
-Disable simplification of equations
 
 ### SimCodeUtil-mo.patch ###
 
@@ -80,7 +42,3 @@ declaration of Dynawo specific c++ tables
 ### XMLCreateDynawo.mo ###
 
 Meta-Modelica code to generate the structure file
-
-### OMCompiler/3rdParty/SuiteSparse/CMakeLists.txt ###
-
-fix to compile on newer compiler - report from OpenModelica master

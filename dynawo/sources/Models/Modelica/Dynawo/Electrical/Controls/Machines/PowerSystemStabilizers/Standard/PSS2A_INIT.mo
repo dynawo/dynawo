@@ -13,9 +13,10 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard;
 */
 
 model PSS2A_INIT "IEEE Power System Stabilizer type PSS2A initialization model"
+  import Modelica;
   extends AdditionalIcons.Init;
 
-  Types.ActivePowerPu PGen0Pu "Initial active power input in pu (base SnRef) - generator convention";
+  Modelica.Blocks.Interfaces.RealInput PGen0Pu "Initial active power input in pu (base SnRef) - generator convention";
 
   annotation(
     preferredView = "text",

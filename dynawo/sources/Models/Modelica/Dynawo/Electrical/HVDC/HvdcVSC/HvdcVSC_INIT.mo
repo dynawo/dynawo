@@ -13,6 +13,7 @@ within Dynawo.Electrical.HVDC.HvdcVSC;
 */
 
 model HvdcVSC_INIT "Initialisation model for the HVDC VSC model"
+  import Modelica;
   extends AdditionalIcons.Init;
   extends BaseClasses_INIT.BaseHVDC_INIT;
 
@@ -27,15 +28,15 @@ model HvdcVSC_INIT "Initialisation model for the HVDC VSC model"
   Types.PerUnit Ip20Pu "Start value of active current at terminal 2 in pu (base SNom)";
   Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom)";
   Types.PerUnit Udc10Pu "Start value of dc voltage at terminal 1 in pu (base UdcNom)";
-  Types.PerUnit Udc20Pu "Start value of dc voltage at terminal 2 in pu (base UdcNom)";
-  Types.VoltageModulePu UdcRef0Pu "Start value of dc voltage reference in pu (base UdcNom)";
-  Types.VoltageModulePu URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
-  Types.VoltageModulePu URef20Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
-  Types.ReactivePowerPu QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (generator convention)";
-  Types.ReactivePowerPu QRef20Pu "Start value of reactive power reference at terminal 2 in pu (base SNom) (generator convention)";
-  Types.ReactivePowerPu PRef0Pu "Start value of reactive power reference in pu (base SNom) (generator convention)";
-  Real modeU10 "Start value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
-  Real modeU20 "Start value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
+  Modelica.Blocks.Interfaces.RealOutput Udc20Pu "Start value of dc voltage at terminal 2 in pu (base UdcNom)";
+  Modelica.Blocks.Interfaces.RealOutput UdcRef0Pu "Start value of dc voltage reference in pu (base UdcNom)";
+  Modelica.Blocks.Interfaces.RealOutput URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealOutput URef20Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealOutput QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (generator convention)";
+  Modelica.Blocks.Interfaces.RealOutput QRef20Pu "Start value of reactive power reference at terminal 2 in pu (base SNom) (generator convention)";
+  Modelica.Blocks.Interfaces.RealOutput PRef0Pu "Start value of reactive power reference in pu (base SNom) (generator convention)";
+  Modelica.Blocks.Interfaces.RealOutput modeU10 "Start value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
+  Modelica.Blocks.Interfaces.RealOutput modeU20 "Start value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
 
 equation
   UdcRef0Pu = 1;

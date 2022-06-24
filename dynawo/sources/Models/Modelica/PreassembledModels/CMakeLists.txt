@@ -121,19 +121,19 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadAlphaBetaRestorativeLimitsRecalc.xml
   LoadAlphaBetaMotor.xml
   LoadOneTransformer.xml
-  LoadOneTransformerTapChanger.xml
+ # LoadOneTransformerTapChanger.xml
   LoadPQ.xml
   LoadShedding.xml
   LoadTwoTransformers.xml
-  LoadTwoTransformersTapChangers.xml
+ # LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
   Measurements.xml
   NodeFault.xml
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
-  PhotovoltaicsWeccCurrentSource.xml
-  PhotovoltaicsWeccVoltageSource.xml
+ # PhotovoltaicsWeccCurrentSource.xml
+ # PhotovoltaicsWeccVoltageSource.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   ShuntBWithSections.xml

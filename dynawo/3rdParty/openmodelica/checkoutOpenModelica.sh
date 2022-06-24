@@ -34,22 +34,6 @@ export_var_env() {
   export $name="$value"
 }
 
-check_git_version() {
-  if [ -x "$(command -v git)" ]; then
-    GIT_VERSION=$(git --version | grep -o "[0-9][.].*")
-    if [ $(echo $GIT_VERSION | cut -d '.' -f 1) -ge 2 ]; then
-      if [ $(echo $GIT_VERSION | cut -d '.' -f 2) -ge 11 ]; then
-        return 0
-      fi
-    elif [ $(echo $GIT_VERSION | cut -d '.' -f 1) -gt 2 ]; then
-      return 0
-    fi
-  else
-    error_exit "You need to install git command line utility."
-  fi
-  return 1
-}
-
 # Default values
 SRC_OPENMODELICA=""
 OPENMODELICA_VERSION=""
@@ -81,8 +65,9 @@ check_configuration() {
 
 check_tag_openmodelica() {
   if [ -d "$SRC_OPENMODELICA" ]; then
-    cd $SRC_OPENMODELICA
+    pushd "$SRC_OPENMODELICA" > /dev/null
     last_log_openmodelica=$(git log -1 --decorate | grep -o "tag: v${OPENMODELICA_VERSION}")
+    popd > /dev/null
     if [ "$last_log_openmodelica" != "tag: v${OPENMODELICA_VERSION}" ]; then
       return 1
     fi
@@ -93,8 +78,9 @@ check_tag_openmodelica() {
 
 check_tag_omcompiler() {
   if [ -d "$SRC_OPENMODELICA/OMCompiler" ]; then
-    cd $SRC_OPENMODELICA/OMCompiler
+    pushd "$SRC_OPENMODELICA/OMCompiler" > /dev/null
     last_log_omcompiler=$(git log -1 --decorate | grep -o "tag: v${OPENMODELICA_VERSION}")
+    popd > /dev/null
     if [ "$last_log_omcompiler" != "tag: v${OPENMODELICA_VERSION}" ]; then
       return 1
     fi
@@ -109,41 +95,18 @@ check_tags() {
 }
 
 checkout_openmodelica_repository() {
-  CHECKOUT_FORCE=""
-  if ! check_git_version; then
-    CHECKOUT_FORCE="-f"
-  fi
+echo "BUBU?? "
   rmdir $SRC_OPENMODELICA || echo "$SRC_OPENMODELICA folder was not empty it was already checkout."
   if [ ! -d "$SRC_OPENMODELICA" ]; then
-    git clone $DYNAWO_OPENMODELICA_GIT_URL $SRC_OPENMODELICA || error_exit "Git clone of OpenModelica in $SRC_OPENMODELICA failed."
+    git clone $DYNAWO_OPENMODELICA_GIT_URL $SRC_OPENMODELICA --recursive || error_exit "Git clone of OpenModelica in $SRC_OPENMODELICA failed."
     if [ -d "$SRC_OPENMODELICA" ]; then
-      cd "$SRC_OPENMODELICA"
-      git checkout $CHECKOUT_FORCE tags/v${OPENMODELICA_VERSION} || error_exit "Git checkout tags/v${OPENMODELICA_VERSION} failed for OpenModelica in $SRC_OPENMODELICA."
-      GIT_OPTION=""
-      if check_git_version; then
-        GIT_OPTION="--progress"
-      fi
-      git submodule update --init $GIT_OPTION OMCompiler || error_exit "Git clone of OMCompiler in $SRC_OPENMODELICA failed."
-      (cd OMCompiler; git submodule update --init $GIT_OPTION 3rdParty;) || error_exit "Git clone of OMCompiler/3rdParty in $SRC_OPENMODELICA failed."
-      (cd OMCompiler; git submodule update --init $GIT_OPTION common;) || error_exit "Git clone of OMCompiler/common in $SRC_OPENMODELICA failed."
-      git submodule update --init $GIT_OPTION --recursive libraries || error_exit "Git clone of libraries in $SRC_OPENMODELICA failed."
-      git submodule update --init $GIT_OPTION --recursive common || error_exit "Git clone of common in $SRC_OPENMODELICA failed."
+      pushd "$SRC_OPENMODELICA" > /dev/null
+      git checkout tags/v${OPENMODELICA_VERSION} || error_exit "Git checkout tags/v${OPENMODELICA_VERSION} failed for OpenModelica in $SRC_OPENMODELICA."
+      git submodule update --force --init --recursive
+      popd > /dev/null
+      check_tag_openmodelica || error_exit "OpenModelica needs to be in version ${OPENMODELICA_VERSION}."
+      check_tag_omcompiler || error_exit "OpenModelica Compiler needs to be in version ${OPENMODELICA_VERSION}."
     fi
-  fi
-  # Cannot do an if/else here otherwise the first time the repository would not be checked-out well.
-  if [ -d "$SRC_OPENMODELICA" ]; then
-    check_tags
-    RETURN_CODE=$?
-    if [[ "$RETURN_CODE" != 0 ]]; then
-      cd $SRC_OPENMODELICA
-      git checkout $CHECKOUT_FORCE tags/v${OPENMODELICA_VERSION} || error_exit "Git checkout tags/v${OPENMODELICA_VERSION} failed for OpenModelica in $SRC_OPENMODELICA."
-      if [ -d "$SRC_OPENMODELICA/OMCompiler" ]; then
-        pushd OMCompiler && git checkout tags/v${OPENMODELICA_VERSION} && popd || error_exit "Git checkout tags/v${OPENMODELICA_VERSION} failed for OMCompiler in $SRC_OPENMODELICA/OMCompiler."
-      fi
-    fi
-    check_tag_openmodelica || error_exit "OpenModelica needs to be in version ${OPENMODELICA_VERSION}."
-    check_tag_omcompiler || error_exit "OpenModelica Compiler needs to be in version ${OPENMODELICA_VERSION}."
-    echo "OpenModelica source folder is configured with the right version."
   fi
 }
 

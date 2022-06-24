@@ -16,6 +16,7 @@ package BaseClasses_INIT
   extends Icons.BasesPackage;
 
   partial model BaseGeneratorParameters_INIT "Base initialization model for simplified generator models"
+    import Modelica;
 
     parameter Types.ComplexCurrentPu iStart0Pu = Complex(0, 0) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
     parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
@@ -23,12 +24,12 @@ package BaseClasses_INIT
     parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
     parameter Types.Angle UPhase0 "Start value of voltage angle at terminal in rad";
 
-    Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
+    Modelica.Blocks.Interfaces.RealOutput PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
     Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";
 
-    Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+    Modelica.ComplexBlocks.Interfaces.ComplexOutput u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
     Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
-    Types.ComplexCurrentPu i0Pu(re(start=iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+    Modelica.ComplexBlocks.Interfaces.ComplexOutput i0Pu(re(start=iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
 
   equation
     u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);

@@ -14,6 +14,5 @@ within Dynawo.Connectors;
 
 connector BPin "Connector for propagating boolean values"
   Boolean value;
-
   annotation(preferredView = "text");
 end BPin;

@@ -233,6 +233,7 @@ package BaseClasses_INIT
 
 
   partial model BaseGeneratorSynchronous_INIT "Base initialization model for synchronous machine"
+    import Modelica;
     import Dynawo.Connectors;
     import Dynawo.Electrical.SystemBase;
 
@@ -276,7 +277,7 @@ package BaseClasses_INIT
     Types.ApparentPowerModulePu S0Pu "Start value of apparent power at terminal side in pu (base SNom)";
     Types.CurrentModulePu I0Pu "Start value of current module at terminal side in pu (base UNom, SNom)";
 
-    Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
+    Modelica.Blocks.Interfaces.RealOutput PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
     Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";
 
     Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
@@ -288,7 +289,7 @@ package BaseClasses_INIT
 
     Types.PerUnit If0Pu "Start value of current of excitation winding in pu";
     Types.PerUnit Uf0Pu "Start value of exciter voltage in pu (Kundur base)";
-    Types.PerUnit Efd0Pu "Start value of input exciter voltage in pu (user-selected base)";
+    Modelica.Blocks.Interfaces.RealOutput Efd0Pu "Start value of input exciter voltage in pu (user-selected base)";
 
     Types.PerUnit Lambdad0Pu "Start value of flux of direct axis in pu";
     Types.PerUnit Lambdaq0Pu "Start value of flux of quadrature axis in pu";
@@ -299,13 +300,13 @@ package BaseClasses_INIT
 
     Types.PerUnit Ce0Pu "Start value of electrical torque in pu (base SNom/omegaNom)";
     Types.PerUnit Cm0Pu "Start value of mechanical torque in pu (base PNomTurb/omegaNom)";
-    Types.PerUnit Pm0Pu "Start value of mechanical power in pu (base PNomTurb/omegaNom)";
+    Modelica.Blocks.Interfaces.RealInput Pm0Pu "Start value of mechanical power in pu (base PNomTurb/omegaNom)";
 
-    Types.VoltageModulePu UStator0Pu "Start value of stator voltage amplitude in pu (base UNom)";
+    Modelica.Blocks.Interfaces.RealOutput UStator0Pu "Start value of stator voltage amplitude in pu (base UNom)";
     Types.CurrentModulePu IStator0Pu "Start value of stator current amplitude in pu (base SnRef)";
     Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power generated in pu (base SnRef)";
     Types.ReactivePowerPu QStator0PuQNom "Start value of stator reactive power generated in pu (base QNomAlt)";
-    Types.CurrentModulePu IRotor0Pu "Start value of rotor current in pu (base SNom, user-selected base voltage)";
+    Modelica.Blocks.Interfaces.RealOutput IRotor0Pu "Start value of rotor current in pu (base SNom, user-selected base voltage)";
     Types.Angle ThetaInternal0 "Start value of internal angle in rad";
 
     Types.PerUnit MsalPu "Constant difference between direct and quadrature axis saturated mutual inductances in pu";

@@ -13,6 +13,7 @@ within Dynawo.Electrical.HVDC.HvdcVSC;
 */
 
 model HvdcVSCDanglingP_INIT "Initialisation model for the HVDC VSC model with terminal2 connected to a switched-off bus (P control on terminal 1)"
+  import Modelica;
   extends AdditionalIcons.Init;
 
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
@@ -29,10 +30,10 @@ model HvdcVSCDanglingP_INIT "Initialisation model for the HVDC VSC model with te
   flow Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom)";
   Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom)";
-  Types.VoltageModulePu URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
-  Types.ReactivePowerPu QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (generator convention)";
-  Types.ReactivePowerPu PRef0Pu "Start value of reactive power reference in pu (base SNom) (generator convention)";
-  Real modeU10 "Start value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
+  Modelica.Blocks.Interfaces.RealOutput URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealOutput QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (generator convention)";
+  Modelica.Blocks.Interfaces.RealOutput PRef0Pu "Start value of reactive power reference in pu (base SNom) (generator convention)";
+  Modelica.Blocks.Interfaces.RealOutput modeU10 "Start value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
 
 equation
   u10Pu = ComplexMath.fromPolar(U10Pu, UPhase10);

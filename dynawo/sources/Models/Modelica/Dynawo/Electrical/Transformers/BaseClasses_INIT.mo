@@ -158,6 +158,7 @@ partial model BaseTransformerParameters_INIT "Base model for initialization of t
   Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
   flow Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
 
+
 equation
   u10Pu = ComplexMath.fromPolar(U10Pu, U1Phase0);
   s10Pu = Complex(P10Pu, Q10Pu);
@@ -168,17 +169,16 @@ end BaseTransformerParameters_INIT;
 
 // Base model for initialization of transformers with variables
 partial model BaseTransformerVariables_INIT "Base model for initialization of transformers"
-  Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
-  flow Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
+  Connectors.ACPower terminal1;
 
   Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
   Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
 
 equation
-  U10Pu = ComplexMath.'abs' (u10Pu);
-  P10Pu = ComplexMath.real(u10Pu * ComplexMath.conj(i10Pu));
-  Q10Pu = ComplexMath.imag(u10Pu * ComplexMath.conj(i10Pu));
+  U10Pu = ComplexMath.'abs' (terminal1.V);
+  P10Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
+  Q10Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
 
   annotation(preferredView = "text");
 end BaseTransformerVariables_INIT;
@@ -200,8 +200,7 @@ partial model BaseTransformerVariableTapCommon_INIT "Base model for initializati
   parameter Types.VoltageModulePu Uc20Pu "Voltage set-point on side 2 in pu (base U2Nom)";
 
   // Transformer start values
-  Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
-  flow Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
+  Connectors.ACPower terminal2;
   Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
 
   Integer Tap0 "Start value of transformer tap";
@@ -217,7 +216,7 @@ equation
   end if;
 
   // Voltage at terminal 2
-  U20Pu = ComplexMath.'abs' (u20Pu);
+  U20Pu = ComplexMath.'abs' (terminal2.V);
 
   annotation(preferredView = "text");
 end BaseTransformerVariableTapCommon_INIT;

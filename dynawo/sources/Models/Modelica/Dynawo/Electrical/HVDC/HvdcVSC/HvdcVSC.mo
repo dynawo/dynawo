@@ -70,8 +70,8 @@ model HvdcVSC "HVDC VSC model"
   Modelica.Blocks.Math.RealToBoolean realToBoolean1 annotation(
     Placement(visible = true, transformation(origin = {30, 58}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
 
-  Types.Angle Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
-  Types.Angle Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
+  Modelica.Blocks.Interfaces.RealOutput Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
+  Modelica.Blocks.Interfaces.RealOutput Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
 
   parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
   parameter Types.Angle UPhase10 "Start value of voltage angle at terminal 1 (in rad)";

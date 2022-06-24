@@ -13,7 +13,8 @@ within Dynawo.Connectors;
 */
 
 connector ImPin "Connector for propagating continuous real value"
-  Real value;
+  import Modelica;
+  Modelica.Blocks.Interfaces.RealOutput value;
 
   annotation(preferredView = "text");
 end ImPin;

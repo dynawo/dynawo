@@ -16,6 +16,7 @@ package BaseClasses
   extends Icons.BasesPackage;
 
   partial model BaseHvdcP "Base dynamic model for HVDC links with a regulation of the active power"
+    import Modelica;
     import Dynawo.Connectors;
     import Dynawo.Electrical.Controls.Basics.SwitchOff;
 

@@ -22,7 +22,7 @@ package Event
    Their new value is stateEvent1 - stateEvent5
    Depending on the type of model variable they are connected to, the event model is different */
 
-partial model EventEquations
+model EventEquations
   parameter typeParameter stateEvent1 "Post event state";
   parameter typeParameter stateEvent2 if (nbEventVariables >= 2);
   parameter typeParameter stateEvent3 if (nbEventVariables >= 3);
@@ -37,7 +37,7 @@ partial model EventEquations
 
   parameter Types.Time tEvent "Event time";
 
-  parameter Integer nbEventVariables(min = 1, max = 5) "Number of variables to update during the event";
+  parameter Integer nbEventVariables(min = 1, max = 5) = 1 "Number of variables to update during the event";
 
 protected
   // Replaceable items in order to allow using this model for various types (integer, boolean, real...)

@@ -13,6 +13,7 @@ within Dynawo.Electrical.HVDC.BaseControls;
 */
 
 model ACEmulationVariableK_INIT "Initialisation model for AC Emulation for HVDC with a variable KACEmulation"
+  import Modelica;
   extends AdditionalIcons.Init;
 
   import Dynawo.Types;

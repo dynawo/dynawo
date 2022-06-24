@@ -41,8 +41,8 @@ model HvdcPQProp "Model of HVDC link with a proportional reactive power control.
   input Types.PerUnit NQ1 "Signal to change the reactive power of converter 1 depending on the centralized voltage regulation (generator convention)";
   input Types.PerUnit NQ2 "Signal to change the reactive power of converter 2 depending on the centralized voltage regulation (generator convention)";
 
-  Types.Angle Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
-  Types.Angle Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
+  Modelica.Blocks.Interfaces.RealOutput Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
+  Modelica.Blocks.Interfaces.RealOutput Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
 
   parameter Types.ReactivePowerPu Q1Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 1";
   parameter Types.ReactivePowerPu Q2Ref0Pu "Start value of reactive power regulation set point in pu (base SnRef) (receptor convention) at terminal 2";
