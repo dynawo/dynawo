@@ -1,0 +1,26 @@
+ ====== INIT VARIABLES VALUES ======
+transformer_terminal1_V_im                        : y =       0.000000 yp =       0.000000
+transformer_terminal1_V_re                        : y =       0.000000 yp =       0.000000
+transformer_terminal2_V_im                        : y =       0.000000 yp =       0.000000
+transformer_terminal2_V_re                        : y =       0.000000 yp =       0.000000
+transformer_terminal1_i_im                        : y =       0.000000 yp =       0.000000
+transformer_terminal1_i_re                        : y =       0.000000 yp =       0.000000
+transformer_terminal2_i_im                        : y =       0.000000 yp =       0.000000
+transformer_terminal2_i_re                        : y =      -0.000000 yp =       0.000000
+ ====== INIT DISCRETE VARIABLES VALUES ======
+transformer_running_value                         : z =       1.000000
+transformer_switchOffSignal1_value                : z =      -1.000000
+transformer_switchOffSignal2_value                : z =      -1.000000
+transformer_state                                 : z =       2.000000
+ ====== PARAMETERS VALUES ======
+transformer_BPu                                    =       0.000000
+transformer_GPu                                    =       0.000000
+transformer_RPu                                    =       0.000000
+transformer_XPu                                    =       0.006750
+transformer_YPu_im                                 =       0.000000
+transformer_YPu_re                                 =       0.000000
+transformer_ZPu_im                                 =       0.006750
+transformer_ZPu_re                                 =       0.000000
+transformer_rTfoPu                                 =       1.000000
+transformer_NbSwitchOffSignals                     =              2
+transformer_State0                                 =              2
