@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:job name="IEEE39">
+    <dyn:solver lib="dynawo_SolverIDA" parFile="IEEE39.par" parId="IDAOrder2"/>
+    <dyn:modeler compileDir="outputs/compilation">
+      <dyn:network iidmFile="IEEE39.iidm" parFile="IEEE39.par" parId="Network"/>
+      <dyn:dynModels dydFile="IEEE39.dyd"/>
+      <dyn:precompiledModels useStandardModels="true"/>
+      <dyn:modelicaModels useStandardModels="true"/>
+    </dyn:modeler>
+    <dyn:simulation startTime="0" stopTime="5"/>
+    <dyn:outputs directory="outputs">
+      <dyn:timeline exportMode="TXT"/>
+      <dyn:curves inputFile="IEEE39.crv" exportMode="CSV"/>
+      <dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+      </dyn:logs>
+    </dyn:outputs>
+  </dyn:job>
+</dyn:jobs>

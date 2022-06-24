@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="_BUS____1_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____2_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____9_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___20_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___21_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___22_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___23_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___24_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___25_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___26_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___27_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___28_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___29_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___30_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___31_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___32_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___33_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___34_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___35_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___36_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___37_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___38_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___39_TN_Upu_value"/>
+  <curve model="LOAD____3_EC" variable="load_PPu"/>
+  <curve model="LOAD____3_EC" variable="load_PRefPu"/>
+  <curve model="LOAD____4_EC" variable="load_PPu"/>
+  <curve model="LOAD____7_EC" variable="load_PPu"/>
+  <curve model="LOAD____8_EC" variable="load_PPu"/>
+  <curve model="LOAD____8_EC" variable="load_PRefPu"/>
+  <curve model="LOAD___20_EC" variable="load_PPu"/>
+  <curve model="LOAD___20_EC" variable="load_state"/>
+  <curve model="LOAD___20_EC" variable="load_running_value"/>
+  <curve model="LOAD___21_EC" variable="load_PPu"/>
+  <curve model="LOAD___21_EC" variable="load_state"/>
+  <curve model="LOAD___21_EC" variable="load_running_value"/>
+  <curve model="LOAD___25_EC" variable="load_PPu"/>
+  <curve model="LOAD___28_EC" variable="load_PPu"/>
+  <curve model="LOAD___29_EC" variable="load_PPu"/>
+  <curve model="LOAD___31_EC" variable="load_PPu"/>
+  <curve model="LOAD___31_EC" variable="load_QPu"/>
+  <curve model="LOAD___39_EC" variable="load_PPu"/>
+  <curve model="LOAD___39_EC" variable="load_QPu"/>
+  <curve model="NETWORK" variable="_BUS___40_TN_Upu_value"/>
+  <curve model="GEN___30_SM" variable="generator_PGen"/>
+  <curve model="GEN___31_SM" variable="generator_PGen"/>
+  <curve model="GEN___32_SM" variable="generator_PGen"/>
+  <curve model="GEN___33_SM" variable="generator_PGen"/>
+  <curve model="GEN___34_SM" variable="generator_PGen"/>
+  <curve model="GEN___35_SM" variable="generator_PGen"/>
+  <curve model="GEN___36_SM" variable="generator_PGen"/>
+  <curve model="GEN___37_SM" variable="generator_PGen"/>
+  <curve model="GEN___38_SM" variable="generator_PGen"/>
+  <curve model="GEN___39_SM" variable="generator_PGen"/>
+  <curve model="GEN___30_SM" variable="generator_QGen"/>
+  <curve model="GEN___38_SM" variable="generator_QGen"/>
+  <curve model="GEN___39_SM" variable="generator_QGen"/>
+  <curve model="GEN___38_SM" variable="generator_thetaInternal_value"/>
+  <curve model="GEN___39_SM" variable="generator_thetaInternal_value"/>
+  <curve model="GEN___32_SM" variable="generator_thetaInternal_value"/>
+  <curve model="GEN___31_SM" variable="generator_thetaInternal_value"/>
+  <curve model="NETWORK" variable="_BUS____1-BUS____2-1_AC_i1_value"/>
+  <curve model="NETWORK" variable="_BUS____1-BUS___39-1_AC_i1_value"/>
+  <curve model="NETWORK" variable="_BUS____1-BUS___39-1_AC_i2_value"/>
+  <curve model="NETWORK" variable="_BUS____2-BUS___25-1_AC_i1_value"/>
+  <curve model="NETWORK" variable="_BUS____9-BUS___39-1_AC_i1_value"/>
+  <curve model="NETWORK" variable="_BUS___13-BUS___14-1_AC_i1_value"/>
+  <curve model="GEN___39_SM" variable="generator_switchOffSignal1"/>
+  <curve model="OMEGA_REF" variable="omega_grp_0"/>
+  <curve model="OMEGA_REF" variable="omega_grp_1"/>
+  <curve model="OMEGA_REF" variable="omega_grp_2"/>
+  <curve model="OMEGA_REF" variable="omega_grp_3"/>
+  <curve model="OMEGA_REF" variable="omega_grp_4"/>
+  <curve model="OMEGA_REF" variable="omega_grp_5"/>
+  <curve model="OMEGA_REF" variable="omega_grp_6"/>
+  <curve model="OMEGA_REF" variable="omega_grp_7"/>
+  <curve model="OMEGA_REF" variable="omega_grp_8"/>
+  <curve model="OMEGA_REF" variable="omega_grp_9"/>
+  <curve model="NETWORK" variable="_BUS___10-BUS___32-1_PT_state"/>
+</curvesInput>

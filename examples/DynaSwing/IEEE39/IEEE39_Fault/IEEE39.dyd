@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="LOAD____3_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD____3_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD____4_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD____4_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD____7_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD____7_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD____8_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD____8_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___12_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___12_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___15_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___15_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___16_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___16_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___18_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___18_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___20_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___20_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___21_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___21_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___23_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___23_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___24_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___24_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___25_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___25_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___26_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___26_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___27_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___27_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___28_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___28_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___29_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___29_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___31_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___31_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="LOAD___39_EC" lib="LoadAlphaBeta" parFile="IEEE39.par" parId="GenericLoadAlphaBeta" staticId="_LOAD___39_EC">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+
+  <dyn:blackBoxModel id="GEN___30_SM" lib="GeneratorSynchronousFourWindingsGovernorBPAGG_IEEET1VR" parFile="IEEE39.par" parId="Generator30" staticId="_GEN___30_SM">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN___31_SM" lib="GeneratorSynchronousFourWindingsGovernorBPAGG_IEEET1VR" parFile="IEEE39.par" parId="Generator31" staticId="_GEN___31_SM">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN___32_SM" lib="GeneratorSynchronousFourWindingsGovernorBPAGG_IEEET1VR" parFile="IEEE39.par" parId="Generator32" staticId="_GEN___32_SM">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN___33_SM" lib="GeneratorSynchronousFourWindingsGovernorBPAGG_IEEET1VR" parFile="IEEE39.par" parId="Generator33" staticId="_GEN___33_SM">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN___34_SM" lib="GeneratorSynchronousFourWindingsGovernorBPAGG_IEEET1VR" parFile="IEEE39.par" parId="Generator34" staticId="_GEN___34_SM">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN___35_SM" lib="GeneratorSynchronousFourWindingsGovernorBPAGG_IEEET1VR" parFile="IEEE39.par" parId="Generator35" staticId="_GEN___35_SM">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN___36_SM" lib="GeneratorSynchronousFourWindingsGovernorBPAGG_IEEET1VR" parFile="IEEE39.par" parId="Generator36" staticId="_GEN___36_SM">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN___37_SM" lib="GeneratorSynchronousFourWindingsGovernorBPAGG_IEEET1VR" parFile="IEEE39.par" parId="Generator37" staticId="_GEN___37_SM">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN___38_SM" lib="GeneratorSynchronousFourWindingsGovernorBPAGG_IEEET1VR" parFile="IEEE39.par" parId="Generator38" staticId="_GEN___38_SM">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="GEN___39_SM" lib="GeneratorSynchronousFourWindings" parFile="IEEE39.par" parId="Generator39" staticId="_GEN___39_SM">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE39.par" parId="OmegaRef"/>
+  <dyn:macroConnector id="M1S_OMEGAREF_CONNECTOR">
+    <dyn:connect var1="omega_grp_@INDEX@" var2="generator_omegaPu"/>
+    <dyn:connect var1="running_grp_@INDEX@" var2="generator_running"/>
+    <dyn:connect var1="omegaRef_grp_@INDEX@" var2="generator_omegaRefPu"/>
+  </dyn:macroConnector>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="0" id2="GEN___30_SM"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="_BUS___30_TN_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="1" id2="GEN___31_SM"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_1" id2="NETWORK" var2="_BUS___31_TN_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="2" id2="GEN___32_SM"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_2" id2="NETWORK" var2="_BUS___32_TN_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="3" id2="GEN___33_SM"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_3" id2="NETWORK" var2="_BUS___33_TN_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="4" id2="GEN___34_SM"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_4" id2="NETWORK" var2="_BUS___34_TN_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="5" id2="GEN___35_SM"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_5" id2="NETWORK" var2="_BUS___35_TN_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="6" id2="GEN___36_SM"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_6" id2="NETWORK" var2="_BUS___36_TN_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="7" id2="GEN___37_SM"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_7" id2="NETWORK" var2="_BUS___37_TN_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="8" id2="GEN___38_SM"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_8" id2="NETWORK" var2="_BUS___38_TN_numcc"/>
+  <dyn:macroConnect connector="M1S_OMEGAREF_CONNECTOR" id1="OMEGA_REF" index1="9" id2="GEN___39_SM"/>
+  <dyn:connect id1="OMEGA_REF" var1="numcc_node_9" id2="NETWORK" var2="_BUS___39_TN_numcc"/>
+
+  <dyn:connect id1="GEN___30_SM" var1="generator_terminal" id2="NETWORK" var2="_BUS___30_TN_ACPIN"/>
+  <dyn:connect id1="GEN___30_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="_BUS___30_TN_switchOff"/>
+  <dyn:connect id1="GEN___31_SM" var1="generator_terminal" id2="NETWORK" var2="_BUS___31_TN_ACPIN"/>
+  <dyn:connect id1="GEN___31_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="_BUS___31_TN_switchOff"/>
+  <dyn:connect id1="GEN___32_SM" var1="generator_terminal" id2="NETWORK" var2="_BUS___32_TN_ACPIN"/>
+  <dyn:connect id1="GEN___32_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="_BUS___32_TN_switchOff"/>
+  <dyn:connect id1="GEN___33_SM" var1="generator_terminal" id2="NETWORK" var2="_BUS___33_TN_ACPIN"/>
+  <dyn:connect id1="GEN___33_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="_BUS___33_TN_switchOff"/>
+  <dyn:connect id1="GEN___34_SM" var1="generator_terminal" id2="NETWORK" var2="_BUS___34_TN_ACPIN"/>
+  <dyn:connect id1="GEN___34_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="_BUS___34_TN_switchOff"/>
+  <dyn:connect id1="GEN___35_SM" var1="generator_terminal" id2="NETWORK" var2="_BUS___35_TN_ACPIN"/>
+  <dyn:connect id1="GEN___35_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="_BUS___35_TN_switchOff"/>
+  <dyn:connect id1="GEN___36_SM" var1="generator_terminal" id2="NETWORK" var2="_BUS___36_TN_ACPIN"/>
+  <dyn:connect id1="GEN___36_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="_BUS___36_TN_switchOff"/>
+  <dyn:connect id1="GEN___37_SM" var1="generator_terminal" id2="NETWORK" var2="_BUS___37_TN_ACPIN"/>
+  <dyn:connect id1="GEN___37_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="_BUS___37_TN_switchOff"/>
+  <dyn:connect id1="GEN___38_SM" var1="generator_terminal" id2="NETWORK" var2="_BUS___38_TN_ACPIN"/>
+  <dyn:connect id1="GEN___38_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="_BUS___38_TN_switchOff"/>
+  <dyn:connect id1="GEN___39_SM" var1="generator_terminal" id2="NETWORK" var2="_BUS___39_TN_ACPIN"/>
+  <dyn:connect id1="GEN___39_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="_BUS___39_TN_switchOff"/>
+
+  <dyn:connect id1="LOAD____3_EC" var1="load_terminal" id2="NETWORK" var2="_BUS____3_TN_ACPIN"/>
+  <dyn:connect id1="LOAD____4_EC" var1="load_terminal" id2="NETWORK" var2="_BUS____4_TN_ACPIN"/>
+  <dyn:connect id1="LOAD____7_EC" var1="load_terminal" id2="NETWORK" var2="_BUS____7_TN_ACPIN"/>
+  <dyn:connect id1="LOAD____8_EC" var1="load_terminal" id2="NETWORK" var2="_BUS____8_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___12_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___12_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___15_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___15_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___16_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___16_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___18_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___18_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___20_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___20_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___21_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___21_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___23_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___23_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___24_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___24_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___25_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___25_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___26_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___26_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___27_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___27_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___28_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___28_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___29_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___29_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___31_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___31_TN_ACPIN"/>
+  <dyn:connect id1="LOAD___39_EC" var1="load_terminal" id2="NETWORK" var2="_BUS___39_TN_ACPIN"/>
+
+  <dyn:connect id1="LOAD____3_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS____3_TN_switchOff"/>
+  <dyn:connect id1="LOAD____4_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS____4_TN_switchOff"/>
+  <dyn:connect id1="LOAD____7_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS____7_TN_switchOff"/>
+  <dyn:connect id1="LOAD____8_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS____8_TN_switchOff"/>
+  <dyn:connect id1="LOAD___12_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___12_TN_switchOff"/>
+  <dyn:connect id1="LOAD___15_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___15_TN_switchOff"/>
+  <dyn:connect id1="LOAD___16_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___16_TN_switchOff"/>
+  <dyn:connect id1="LOAD___18_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___18_TN_switchOff"/>
+  <dyn:connect id1="LOAD___20_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___20_TN_switchOff"/>
+  <dyn:connect id1="LOAD___21_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___21_TN_switchOff"/>
+  <dyn:connect id1="LOAD___23_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___23_TN_switchOff"/>
+  <dyn:connect id1="LOAD___24_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___24_TN_switchOff"/>
+  <dyn:connect id1="LOAD___25_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___25_TN_switchOff"/>
+  <dyn:connect id1="LOAD___26_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___26_TN_switchOff"/>
+  <dyn:connect id1="LOAD___27_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___27_TN_switchOff"/>
+  <dyn:connect id1="LOAD___28_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___28_TN_switchOff"/>
+  <dyn:connect id1="LOAD___29_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___29_TN_switchOff"/>
+  <dyn:connect id1="LOAD___31_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___31_TN_switchOff"/>
+  <dyn:connect id1="LOAD___39_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_BUS___39_TN_switchOff"/>
+
+  <dyn:blackBoxModel id="NodeFault" lib="NodeFault" parFile="IEEE39.par" parId="Fault"/>
+  <dyn:connect id1="NodeFault" var1="fault_terminal" id2="NETWORK" var2="_BUS___39_TN_ACPIN"/>
+
+  <dyn:blackBoxModel id="GEN___39_SM_Disc" lib="EventSetPointBoolean" parFile="IEEE39.par" parId="Generator39_Disc"/>
+  <dyn:connect id1="GEN___39_SM_Disc" var1="event_state1" id2="GEN___39_SM" var2="generator_switchOffSignal2"/>
+</dyn:dynamicModelsArchitecture>
