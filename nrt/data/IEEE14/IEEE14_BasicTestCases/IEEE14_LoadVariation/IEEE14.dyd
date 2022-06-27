@@ -29,7 +29,8 @@
   <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE14.par" parId="5" staticId="_GEN____6_SM"/>
   <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE14.par" parId="6" staticId="_GEN____8_SM"/>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE14.par" parId="7"/>
-  <dyn:blackBoxModel id="QREFPU_LOAD2" lib="EventSetPointDoubleReal" parFile="IEEE14.par" parId="9"/>
+  <dyn:blackBoxModel id="PREFPU_LOAD2" lib="Step" parFile="IEEE14.par" parId="9"/>
+  <dyn:blackBoxModel id="QREFPU_LOAD2" lib="Step" parFile="IEEE14.par" parId="10"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____1_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_numcc"/>
@@ -71,6 +72,6 @@
   <dyn:connect id1="GEN____6_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_ACPIN"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
-  <dyn:connect id1="QREFPU_LOAD2" var1="event_state1_value" id2="_LOAD___2_EC" var2="load_PRefPu"/>
-  <dyn:connect id1="QREFPU_LOAD2" var1="event_state2_value" id2="_LOAD___2_EC" var2="load_QRefPu"/>
+  <dyn:connect id1="PREFPU_LOAD2" var1="step_step_value" id2="_LOAD___2_EC" var2="load_PRefPu"/>
+  <dyn:connect id1="QREFPU_LOAD2" var1="step_step_value" id2="_LOAD___2_EC" var2="load_QRefPu"/>
 </dyn:dynamicModelsArchitecture>

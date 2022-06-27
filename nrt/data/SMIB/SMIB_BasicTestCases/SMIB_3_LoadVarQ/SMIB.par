@@ -104,9 +104,9 @@
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>
   </set>
   <!-- Load variation -->
-  <set id="8">
-    <par type="DOUBLE" name="event_tEvent" value="1"/>
-    <par type="DOUBLE" name="event_stateEvent1" value="0"/>
-    <par type="DOUBLE" name="event_stateEvent2" value="0.5"/>
+  <set id="9">
+    <par type="DOUBLE" name="step_Value0" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="1"/>
+    <par type="DOUBLE" name="step_Height" value="0.5"/>
   </set>
 </parametersSet>

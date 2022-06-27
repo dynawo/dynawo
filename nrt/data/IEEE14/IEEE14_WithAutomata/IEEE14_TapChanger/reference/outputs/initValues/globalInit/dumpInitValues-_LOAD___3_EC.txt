@@ -1,13 +1,15 @@
  ====== INIT VARIABLES VALUES ======
+load_PRefPu                                       : y =       0.942000 yp =       0.000000
+load_QRefPu                                       : y =       0.064395 yp =       0.000000
 transformer_terminal1_V_im                        : y =      -0.222540 yp =       0.000000
 transformer_terminal1_V_re                        : y =       0.985179 yp =       0.000000
 load_PPu                                          : y =       0.942001 yp =       0.000000
 load_QPu                                          : y =       0.064395 yp =       0.000000
 load_terminal_V_im                                : y =      -0.343016 yp =       0.000000
 load_terminal_V_re                                : y =       0.931206 yp =       0.000000
-load_terminal_i_im                                : y =      -0.388998 yp =       0.000000
+load_terminal_i_im                                : y =      -0.388997 yp =       0.000000
 load_terminal_i_re                                : y =       0.868303 yp =       0.000000
-transformer_terminal1_i_im                        : y =      -0.388998 yp =       0.000000
+transformer_terminal1_i_im                        : y =      -0.388997 yp =       0.000000
 transformer_terminal1_i_re                        : y =       0.868303 yp =       0.000000
 load_SPu_im                                       : alias of load_QPu
 load_SPu_re                                       : alias of load_PPu
@@ -22,8 +24,6 @@ transformer_Q1Pu_value                            : y =       0.190000
 transformer_U1Pu_value                            : y =       1.010001
 transformer_U2Pu_value                            : y =       0.992373
  ====== INIT DISCRETE VARIABLES VALUES ======
-load_PRefPu                                       : z =       0.942000
-load_QRefPu                                       : z =       0.064395
 transformer_rTfoPu                                : z =       1.000000
 transformer_tap_value                             : z =       5.000000
 load_running_value                                : z =       1.000000
