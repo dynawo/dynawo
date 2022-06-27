@@ -1,14 +1,14 @@
 var searchData=
 [
-  ['batteryinterfaceiidm',['BatteryInterfaceIIDM',['../dc/d38/a02894.html',1,'DYN']]],
-  ['bitmask',['BitMask',['../dd/df4/a02510.html',1,'DYN']]],
-  ['blackboxmodel',['BlackBoxModel',['../d9/de3/a01758.html',1,'dynamicdata']]],
-  ['blackboxmodelfactory',['BlackBoxModelFactory',['../dd/d40/a01762.html',1,'dynamicdata']]],
-  ['blackboxmodelhandler',['BlackBoxModelHandler',['../d4/dae/a01994.html',1,'dynamicdata']]],
-  ['busbarsectioninterface',['BusBarSectionInterface',['../d7/d14/a02750.html',1,'DYN']]],
-  ['busbarsectioninterfaceiidm',['BusBarSectionInterfaceIIDM',['../d3/d1a/a02898.html',1,'DYN']]],
-  ['buscriteria',['BusCriteria',['../d6/d92/a02770.html',1,'DYN']]],
-  ['busderivatives',['BusDerivatives',['../d7/d66/a03134.html',1,'DYN']]],
-  ['businterface',['BusInterface',['../d2/d83/a02754.html',1,'DYN']]],
-  ['businterfaceiidm',['BusInterfaceIIDM',['../d5/d1c/a02902.html',1,'DYN']]]
+  ['batteryinterfaceiidm',['BatteryInterfaceIIDM',['../d1/dfc/a02901.html',1,'DYN']]],
+  ['bitmask',['BitMask',['../dc/de1/a02513.html',1,'DYN']]],
+  ['blackboxmodel',['BlackBoxModel',['../db/db8/a01761.html',1,'dynamicdata']]],
+  ['blackboxmodelfactory',['BlackBoxModelFactory',['../df/d7b/a01765.html',1,'dynamicdata']]],
+  ['blackboxmodelhandler',['BlackBoxModelHandler',['../d0/d2b/a01997.html',1,'dynamicdata']]],
+  ['busbarsectioninterface',['BusBarSectionInterface',['../d9/d93/a02753.html',1,'DYN']]],
+  ['busbarsectioninterfaceiidm',['BusBarSectionInterfaceIIDM',['../d5/d2e/a02905.html',1,'DYN']]],
+  ['buscriteria',['BusCriteria',['../db/de5/a02773.html',1,'DYN']]],
+  ['busderivatives',['BusDerivatives',['../dd/dd1/a03141.html',1,'DYN']]],
+  ['businterface',['BusInterface',['../d9/da5/a02757.html',1,'DYN']]],
+  ['businterfaceiidm',['BusInterfaceIIDM',['../dc/d86/a02909.html',1,'DYN']]]
 ];

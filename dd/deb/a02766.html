@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::Criteria Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('dd/deb/a02766.html','../../');});
+$(document).ready(function(){initNavTree('d1/da5/a02769.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,176 +94,20 @@ $(document).ready(function(){initNavTree('dd/deb/a02766.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="../../d5/d4d/a02763.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::Criteria Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::Criteria Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../dd/deb/a02766.html" title="Criteria class: handle the check of criteria. ">Criteria</a> class: handle the check of criteria.  
- <a href="../../dd/deb/a02766.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d9/d0f/a00644_source.html">DYNCriteria.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::Criteria:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../dd/deb/a02766.png" usemap="#DYN::Criteria_map" alt=""/>
-  <map id="DYN::Criteria_map" name="DYN::Criteria_map">
-<area href="../../d6/d92/a02770.html" title="BusCriteria class: handle the check of bus criteria. " alt="DYN::BusCriteria" shape="rect" coords="0,56,144,80"/>
-<area href="../../dc/db0/a02778.html" title="GeneratorCriteria class: handle the check of generator criteria. " alt="DYN::GeneratorCriteria" shape="rect" coords="154,56,298,80"/>
-<area href="../../df/d91/a02774.html" title="LoadCriteria class: handle the check of load criteria. " alt="DYN::LoadCriteria" shape="rect" coords="308,56,452,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ab0211f97b4a4105abfe70989068d7034"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/deb/a02766.html#ab0211f97b4a4105abfe70989068d7034">Criteria</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d7c/a01614.html">criteria::CriteriaParams</a> &gt; &amp;params)</td></tr>
-<tr class="memdesc:ab0211f97b4a4105abfe70989068d7034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ab0211f97b4a4105abfe70989068d7034">More...</a><br /></td></tr>
-<tr class="separator:ab0211f97b4a4105abfe70989068d7034"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab91b12e7731dfd62f0989c6ae50557ed"><td class="memItemLeft" align="right" valign="top"><a id="ab91b12e7731dfd62f0989c6ae50557ed"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/deb/a02766.html#ab91b12e7731dfd62f0989c6ae50557ed">~Criteria</a> ()</td></tr>
-<tr class="memdesc:ab91b12e7731dfd62f0989c6ae50557ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:ab91b12e7731dfd62f0989c6ae50557ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2c631f9dbb9467f2db49b3221c59929"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/deb/a02766.html#af2c631f9dbb9467f2db49b3221c59929">checkCriteria</a> (double t, bool finalStep)=0</td></tr>
-<tr class="memdesc:af2c631f9dbb9467f2db49b3221c59929"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns true if the criteria is respected, false otherwise  <a href="#af2c631f9dbb9467f2db49b3221c59929">More...</a><br /></td></tr>
-<tr class="separator:af2c631f9dbb9467f2db49b3221c59929"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae37e82fe5de5482d924a4f3781287bc5"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/deb/a02766.html#ae37e82fe5de5482d924a4f3781287bc5">getFailingCriteria</a> () const</td></tr>
-<tr class="memdesc:ae37e82fe5de5482d924a4f3781287bc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the list of failing criteria  <a href="#ae37e82fe5de5482d924a4f3781287bc5">More...</a><br /></td></tr>
-<tr class="separator:ae37e82fe5de5482d924a4f3781287bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a0bb1b98b66257511889a334efd7d2a81"><td class="memItemLeft" align="right" valign="top"><a id="a0bb1b98b66257511889a334efd7d2a81"></a>
-const boost::shared_ptr&lt; <a class="el" href="../../db/d7c/a01614.html">criteria::CriteriaParams</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/deb/a02766.html#a0bb1b98b66257511889a334efd7d2a81">params_</a></td></tr>
-<tr class="memdesc:a0bb1b98b66257511889a334efd7d2a81"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameters of this criteria <br /></td></tr>
-<tr class="separator:a0bb1b98b66257511889a334efd7d2a81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cfd58d7a5fc57e2d2438cf3c3603954"><td class="memItemLeft" align="right" valign="top"><a id="a2cfd58d7a5fc57e2d2438cf3c3603954"></a>
-std::vector&lt; std::pair&lt; double, std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/deb/a02766.html#a2cfd58d7a5fc57e2d2438cf3c3603954">failingCriteria_</a></td></tr>
-<tr class="memdesc:a2cfd58d7a5fc57e2d2438cf3c3603954"><td class="mdescLeft">&#160;</td><td class="mdescRight">keeps the ids of the failing criteria <br /></td></tr>
-<tr class="separator:a2cfd58d7a5fc57e2d2438cf3c3603954"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../dd/deb/a02766.html" title="Criteria class: handle the check of criteria. ">Criteria</a> class: handle the check of criteria. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab0211f97b4a4105abfe70989068d7034"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0211f97b4a4105abfe70989068d7034">&#9670;&nbsp;</a></span>Criteria()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::Criteria::Criteria </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d7c/a01614.html">criteria::CriteriaParams</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>params</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">params</td><td>parameters of the criteria </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="af2c631f9dbb9467f2db49b3221c59929"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2c631f9dbb9467f2db49b3221c59929">&#9670;&nbsp;</a></span>checkCriteria()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool DYN::Criteria::checkCriteria </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>finalStep</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>returns true if the criteria is respected, false otherwise </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">t</td><td>current time of the simulation </td></tr>
-    <tr><td class="paramname">finalStep</td><td>true if this is the final step of the simulation</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the criteria is respected, false otherwise </dd></dl>
-
-<p>Implemented in <a class="el" href="../../dc/db0/a02778.html#a7de0c73911eb770eadbefe6cfde17573">DYN::GeneratorCriteria</a>, <a class="el" href="../../df/d91/a02774.html#ac1b86a289b058e718e1cd218149bd562">DYN::LoadCriteria</a>, and <a class="el" href="../../d6/d92/a02770.html#a8f0e88dece9c296a20f5a33dffe6f38f">DYN::BusCriteria</a>.</p>
-
-</div>
-</div>
-<a id="ae37e82fe5de5482d924a4f3781287bc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae37e82fe5de5482d924a4f3781287bc5">&#9670;&nbsp;</a></span>getFailingCriteria()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt;std::pair&lt;double, std::string&gt; &gt;&amp; DYN::Criteria::getFailingCriteria </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>returns the list of failing criteria </p>
-<dl class="section return"><dt>Returns</dt><dd>list of failing criteria </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d9/d0f/a00644_source.html">DYNCriteria.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../d1/da5/a02769.html">DYN::Criteria</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../d1/da5/a02769.html#af2c631f9dbb9467f2db49b3221c59929">checkCriteria</a>(double t, bool finalStep)=0</td><td class="entry"><a class="el" href="../../d1/da5/a02769.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d1/da5/a02769.html#ab0211f97b4a4105abfe70989068d7034">Criteria</a>(const boost::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../d1/da5/a02769.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d1/da5/a02769.html#a2cfd58d7a5fc57e2d2438cf3c3603954">failingCriteria_</a></td><td class="entry"><a class="el" href="../../d1/da5/a02769.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d1/da5/a02769.html#ae37e82fe5de5482d924a4f3781287bc5">getFailingCriteria</a>() const</td><td class="entry"><a class="el" href="../../d1/da5/a02769.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d1/da5/a02769.html#a0bb1b98b66257511889a334efd7d2a81">params_</a></td><td class="entry"><a class="el" href="../../d1/da5/a02769.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d1/da5/a02769.html#ab91b12e7731dfd62f0989c6ae50557ed">~Criteria</a>()</td><td class="entry"><a class="el" href="../../d1/da5/a02769.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -279,8 +123,7 @@ std::vector&lt; std::pair&lt; double, std::string &gt; &gt;&#160;</td><td class=
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/deb/a02766.html">Criteria</a></li>
-    <li class="footer">Generated on Thu Jun 23 2022 10:45:58 for Dynawo by
+    <li class="footer">Generated on Mon Jun 27 2022 11:27:44 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

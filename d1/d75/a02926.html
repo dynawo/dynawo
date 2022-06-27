@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::HvdcLineInterfaceIIDM Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d1/d75/a02926.html','../../');});
+$(document).ready(function(){initNavTree('dd/d0d/a02929.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,1671 +94,174 @@ $(document).ready(function(){initNavTree('d1/d75/a02926.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="../../d6/df9/a02923.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::HvdcLineInterfaceIIDM Class Reference</div>  </div>
+<div class="title">DYN::GeneratorInterfaceIIDM Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Interface class for Hvdc Line model.  
- <a href="../../d1/d75/a02926.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../da/d7a/a03993_source.html">DYNHvdcLineInterfaceIIDM.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::HvdcLineInterfaceIIDM:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../d1/d75/a02926.png" usemap="#DYN::HvdcLineInterfaceIIDM_map" alt=""/>
-  <map id="DYN::HvdcLineInterfaceIIDM_map" name="DYN::HvdcLineInterfaceIIDM_map">
-<area href="../../df/d11/a02814.html" alt="DYN::HvdcLineInterface" shape="rect" coords="0,56,175,80"/>
-<area href="../../df/d11/a02814.html" alt="DYN::HvdcLineInterface" shape="rect" coords="370,56,545,80"/>
-<area href="../../d2/d93/a02758.html" title="Class describing a component of the network. " alt="DYN::ComponentInterface" shape="rect" coords="0,0,175,24"/>
-<area href="../../d2/d93/a02758.html" title="Class describing a component of the network. " alt="DYN::ComponentInterface" shape="rect" coords="370,0,545,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a505cb4d8abb7483b6e133246059a742c"><td class="memItemLeft" align="right" valign="top"><a id="a505cb4d8abb7483b6e133246059a742c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a505cb4d8abb7483b6e133246059a742c">indexVar_t</a> { <br />
-&#160;&#160;<b>VAR_P1</b> = 0, 
-<b>VAR_P2</b>, 
-<b>VAR_Q1</b>, 
-<b>VAR_Q2</b>, 
-<br />
-&#160;&#160;<b>VAR_STATE1</b>, 
-<b>VAR_STATE2</b>, 
-<b>VAR_P1</b> = 0, 
-<b>VAR_P2</b>, 
-<br />
-&#160;&#160;<b>VAR_Q1</b>, 
-<b>VAR_Q2</b>, 
-<b>VAR_STATE1</b>, 
-<b>VAR_STATE2</b>
-<br />
- }</td></tr>
-<tr class="memdesc:a505cb4d8abb7483b6e133246059a742c"><td class="mdescLeft">&#160;</td><td class="mdescRight">defines the index of each state variable <br /></td></tr>
-<tr class="separator:a505cb4d8abb7483b6e133246059a742c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a505cb4d8abb7483b6e133246059a742c"><td class="memItemLeft" align="right" valign="top"><a id="a505cb4d8abb7483b6e133246059a742c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a505cb4d8abb7483b6e133246059a742c">indexVar_t</a> { <br />
-&#160;&#160;<b>VAR_P1</b> = 0, 
-<b>VAR_P2</b>, 
-<b>VAR_Q1</b>, 
-<b>VAR_Q2</b>, 
-<br />
-&#160;&#160;<b>VAR_STATE1</b>, 
-<b>VAR_STATE2</b>, 
-<b>VAR_P1</b> = 0, 
-<b>VAR_P2</b>, 
-<br />
-&#160;&#160;<b>VAR_Q1</b>, 
-<b>VAR_Q2</b>, 
-<b>VAR_STATE1</b>, 
-<b>VAR_STATE2</b>
-<br />
- }</td></tr>
-<tr class="memdesc:a505cb4d8abb7483b6e133246059a742c"><td class="mdescLeft">&#160;</td><td class="mdescRight">defines the index of each state variable <br /></td></tr>
-<tr class="separator:a505cb4d8abb7483b6e133246059a742c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_types_a02814"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a02814')"><img src="../../closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="../../df/d11/a02814.html">DYN::HvdcLineInterface</a></td></tr>
-<tr class="memitem:add5af0aa9a74313470077d9fa7abd0d4 inherit pub_types_a02814"><td class="memItemLeft" align="right" valign="top"><a id="add5af0aa9a74313470077d9fa7abd0d4"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d11/a02814.html#add5af0aa9a74313470077d9fa7abd0d4">ConverterMode_t</a> { <b>RECTIFIER_INVERTER</b> = 1, 
-<b>INVERTER_RECTIFIER</b> = 2
- }</td></tr>
-<tr class="memdesc:add5af0aa9a74313470077d9fa7abd0d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the hvdc converters mode. <br /></td></tr>
-<tr class="separator:add5af0aa9a74313470077d9fa7abd0d4 inherit pub_types_a02814"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_types_a02758"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a02758')"><img src="../../closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="../../d2/d93/a02758.html">DYN::ComponentInterface</a></td></tr>
-<tr class="memitem:a8089dfd2e85bdc3fc21030715c846872 inherit pub_types_a02758"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> { <br />
-&#160;&#160;<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872a07df56823341ff6a8659eedcaa5ab994">UNKNOWN</a>, 
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872a58910706220db3aa26ef83cc7e8a26c4">BUS</a>, 
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872a251f9d96ef4272321e49c7b71a5ea5d7">CALCULATED_BUS</a>, 
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872a69d91e244e6054c7779d6ec9cf08238e">SWITCH</a>, 
-<br />
-&#160;&#160;<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872a1a0f12a58102bd2afd073be90e01af8f">LOAD</a>, 
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872acd809ebf05c1a6cc4037fd7e429e560c">LINE</a>, 
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872a1de090a3916e39dc06f8a211e9b89f6c">GENERATOR</a>, 
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872aff22939164641c88ddca4f3b8f75b7de">SHUNT</a>, 
-<br />
-&#160;&#160;<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872a3d56662d9c11ef2905785aacc0c01d6a">DANGLING_LINE</a>, 
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872aeb32fa0ff31d9b817d2a8299a3f9b153">TWO_WTFO</a>, 
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872a5d97e6161158480daa64e4094ae21083">THREE_WTFO</a>, 
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872a4fb7066ad44a2613c8bb0c5219d2466f">SVC</a>, 
-<br />
-&#160;&#160;<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872a1d29386c8ebadaaf3b9f3342e131fa68">VSC_CONVERTER</a>, 
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872a53adb0161b3d082e47d4e0766d2e872f">LCC_CONVERTER</a>, 
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872a896de4a61821dd8aecb455b1a7bec2ef">HVDC_LINE</a>, 
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872acb80dacf920e9406c93c024896b877f9">COMPONENT_TYPE_COUNT</a>
-<br />
- }</td></tr>
-<tr class="memdesc:a8089dfd2e85bdc3fc21030715c846872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the type of the component.  <a href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872">More...</a><br /></td></tr>
-<tr class="separator:a8089dfd2e85bdc3fc21030715c846872 inherit pub_types_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a72a142f5e0c48e72f4d588205eb3c36d"><td class="memItemLeft" align="right" valign="top"><a id="a72a142f5e0c48e72f4d588205eb3c36d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a72a142f5e0c48e72f4d588205eb3c36d">~HvdcLineInterfaceIIDM</a> ()</td></tr>
-<tr class="memdesc:a72a142f5e0c48e72f4d588205eb3c36d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a72a142f5e0c48e72f4d588205eb3c36d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69aa29799fad130fd97719eafcefeeb0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a69aa29799fad130fd97719eafcefeeb0">HvdcLineInterfaceIIDM</a> (IIDM::HvdcLine &amp;hvdcLine, const boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt; &amp;conv1, const boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt; &amp;conv2)</td></tr>
-<tr class="memdesc:a69aa29799fad130fd97719eafcefeeb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a69aa29799fad130fd97719eafcefeeb0">More...</a><br /></td></tr>
-<tr class="separator:a69aa29799fad130fd97719eafcefeeb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7941b4c4c49c72df9714cedf50c9e257"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a7941b4c4c49c72df9714cedf50c9e257">exportStateVariablesUnitComponent</a> ()</td></tr>
-<tr class="memdesc:a7941b4c4c49c72df9714cedf50c9e257"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a7941b4c4c49c72df9714cedf50c9e257">More...</a><br /></td></tr>
-<tr class="separator:a7941b4c4c49c72df9714cedf50c9e257"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af85a8ed0452feb2c0d1502bc2e0ceecf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#af85a8ed0452feb2c0d1502bc2e0ceecf">importStaticParameters</a> ()</td></tr>
-<tr class="memdesc:af85a8ed0452feb2c0d1502bc2e0ceecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">import static parameters  <a href="#af85a8ed0452feb2c0d1502bc2e0ceecf">More...</a><br /></td></tr>
-<tr class="separator:af85a8ed0452feb2c0d1502bc2e0ceecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4143008cb15e6c330d678523738a1665"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a4143008cb15e6c330d678523738a1665">isConnected</a> () const</td></tr>
-<tr class="memdesc:a4143008cb15e6c330d678523738a1665"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="#a4143008cb15e6c330d678523738a1665">More...</a><br /></td></tr>
-<tr class="separator:a4143008cb15e6c330d678523738a1665"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36a842604a30e7e8629183f41ae8279c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a36a842604a30e7e8629183f41ae8279c">isPartiallyConnected</a> () const</td></tr>
-<tr class="memdesc:a36a842604a30e7e8629183f41ae8279c"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="#a36a842604a30e7e8629183f41ae8279c">More...</a><br /></td></tr>
-<tr class="separator:a36a842604a30e7e8629183f41ae8279c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4">getID</a> () const</td></tr>
-<tr class="memdesc:a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the hvdc line id.  <a href="#a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4">More...</a><br /></td></tr>
-<tr class="separator:a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a1fac4783c51576b92a820f567c7657"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a7a1fac4783c51576b92a820f567c7657">getResistanceDC</a> () const</td></tr>
-<tr class="memdesc:a7a1fac4783c51576b92a820f567c7657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the dc resistance of the hvdc line.  <a href="#a7a1fac4783c51576b92a820f567c7657">More...</a><br /></td></tr>
-<tr class="separator:a7a1fac4783c51576b92a820f567c7657"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cbc0a400552b55cedc845f024746822"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a9cbc0a400552b55cedc845f024746822">getVNom</a> () const</td></tr>
-<tr class="memdesc:a9cbc0a400552b55cedc845f024746822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the nominal voltage of the hvdc line.  <a href="#a9cbc0a400552b55cedc845f024746822">More...</a><br /></td></tr>
-<tr class="separator:a9cbc0a400552b55cedc845f024746822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd4ce1cb117d26c131897ff48c5724ed"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#abd4ce1cb117d26c131897ff48c5724ed">getActivePowerSetpoint</a> () const</td></tr>
-<tr class="memdesc:abd4ce1cb117d26c131897ff48c5724ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the active power set-point of the hvdc line.  <a href="#abd4ce1cb117d26c131897ff48c5724ed">More...</a><br /></td></tr>
-<tr class="separator:abd4ce1cb117d26c131897ff48c5724ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcf4fffca8b44b6bc3084335a90c41a7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#afcf4fffca8b44b6bc3084335a90c41a7">getPmax</a> () const</td></tr>
-<tr class="memdesc:afcf4fffca8b44b6bc3084335a90c41a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the maximum power of the hvdc line.  <a href="#afcf4fffca8b44b6bc3084335a90c41a7">More...</a><br /></td></tr>
-<tr class="separator:afcf4fffca8b44b6bc3084335a90c41a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d855bf4d4ffd9da9f4daafaf1de6e80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d11/a02814.html#add5af0aa9a74313470077d9fa7abd0d4">ConverterMode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a1d855bf4d4ffd9da9f4daafaf1de6e80">getConverterMode</a> () const</td></tr>
-<tr class="memdesc:a1d855bf4d4ffd9da9f4daafaf1de6e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the converters mode.  <a href="#a1d855bf4d4ffd9da9f4daafaf1de6e80">More...</a><br /></td></tr>
-<tr class="separator:a1d855bf4d4ffd9da9f4daafaf1de6e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38d18d4329e702d2118f473bb193fa35"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a38d18d4329e702d2118f473bb193fa35">getIdConverter1</a> () const</td></tr>
-<tr class="memdesc:a38d18d4329e702d2118f473bb193fa35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for converter 1 id.  <a href="#a38d18d4329e702d2118f473bb193fa35">More...</a><br /></td></tr>
-<tr class="separator:a38d18d4329e702d2118f473bb193fa35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19b620178ed402e3569ed29fc04dca2d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a19b620178ed402e3569ed29fc04dca2d">getIdConverter2</a> () const</td></tr>
-<tr class="memdesc:a19b620178ed402e3569ed29fc04dca2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for converter 2 id.  <a href="#a19b620178ed402e3569ed29fc04dca2d">More...</a><br /></td></tr>
-<tr class="separator:a19b620178ed402e3569ed29fc04dca2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcd9c6a760d63c1284dbc7d7742acab9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#abcd9c6a760d63c1284dbc7d7742acab9">getComponentVarIndex</a> (const std::string &amp;varName) const</td></tr>
-<tr class="memdesc:abcd9c6a760d63c1284dbc7d7742acab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the index of a state variable thanks to its name  <a href="#abcd9c6a760d63c1284dbc7d7742acab9">More...</a><br /></td></tr>
-<tr class="separator:abcd9c6a760d63c1284dbc7d7742acab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1facfee2a76ee31149ba2ffecad6dd8"><td class="memItemLeft" align="right" valign="top">const boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#aa1facfee2a76ee31149ba2ffecad6dd8">getConverter1</a> () const</td></tr>
-<tr class="memdesc:aa1facfee2a76ee31149ba2ffecad6dd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for converter 1.  <a href="#aa1facfee2a76ee31149ba2ffecad6dd8">More...</a><br /></td></tr>
-<tr class="separator:aa1facfee2a76ee31149ba2ffecad6dd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac95dd9dd0a6c3eae3692dcad958662d1"><td class="memItemLeft" align="right" valign="top">const boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#ac95dd9dd0a6c3eae3692dcad958662d1">getConverter2</a> () const</td></tr>
-<tr class="memdesc:ac95dd9dd0a6c3eae3692dcad958662d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for converter 2.  <a href="#ac95dd9dd0a6c3eae3692dcad958662d1">More...</a><br /></td></tr>
-<tr class="separator:ac95dd9dd0a6c3eae3692dcad958662d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af51ea2b8fe6a0dcb6a5bf1390b097eab"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#af51ea2b8fe6a0dcb6a5bf1390b097eab">getDroop</a> () const</td></tr>
-<tr class="memdesc:af51ea2b8fe6a0dcb6a5bf1390b097eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get droop.  <a href="#af51ea2b8fe6a0dcb6a5bf1390b097eab">More...</a><br /></td></tr>
-<tr class="separator:af51ea2b8fe6a0dcb6a5bf1390b097eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ae28869792226e95fd85fc6a6a01080"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a0ae28869792226e95fd85fc6a6a01080">getP0</a> () const</td></tr>
-<tr class="memdesc:a0ae28869792226e95fd85fc6a6a01080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get P0.  <a href="#a0ae28869792226e95fd85fc6a6a01080">More...</a><br /></td></tr>
-<tr class="separator:a0ae28869792226e95fd85fc6a6a01080"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc71988aee9764004fbb3fc06b1f3d07"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#adc71988aee9764004fbb3fc06b1f3d07">isActivePowerControlEnabled</a> () const</td></tr>
-<tr class="memdesc:adc71988aee9764004fbb3fc06b1f3d07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the HVDC is enabled.  <a href="#adc71988aee9764004fbb3fc06b1f3d07">More...</a><br /></td></tr>
-<tr class="separator:adc71988aee9764004fbb3fc06b1f3d07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81a20be366635e5d27b1025542e41131"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a81a20be366635e5d27b1025542e41131">getOprFromCS1toCS2</a> () const</td></tr>
-<tr class="memdesc:a81a20be366635e5d27b1025542e41131"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve OPR from CS1 to CS2.  <a href="#a81a20be366635e5d27b1025542e41131">More...</a><br /></td></tr>
-<tr class="separator:a81a20be366635e5d27b1025542e41131"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33693c9e3d244621eed72aa9e8423ee9"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a33693c9e3d244621eed72aa9e8423ee9">getOprFromCS2toCS1</a> () const</td></tr>
-<tr class="memdesc:a33693c9e3d244621eed72aa9e8423ee9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve OPR from CS2 to CS1.  <a href="#a33693c9e3d244621eed72aa9e8423ee9">More...</a><br /></td></tr>
-<tr class="separator:a33693c9e3d244621eed72aa9e8423ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72a142f5e0c48e72f4d588205eb3c36d"><td class="memItemLeft" align="right" valign="top"><a id="a72a142f5e0c48e72f4d588205eb3c36d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a72a142f5e0c48e72f4d588205eb3c36d">~HvdcLineInterfaceIIDM</a> ()</td></tr>
-<tr class="memdesc:a72a142f5e0c48e72f4d588205eb3c36d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a72a142f5e0c48e72f4d588205eb3c36d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b9b680e74da4cc463841564abf927ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a8b9b680e74da4cc463841564abf927ef">HvdcLineInterfaceIIDM</a> (powsybl::iidm::HvdcLine &amp;hvdcLine, const boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt; &amp;conv1, const boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt; &amp;conv2)</td></tr>
-<tr class="memdesc:a8b9b680e74da4cc463841564abf927ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a8b9b680e74da4cc463841564abf927ef">More...</a><br /></td></tr>
-<tr class="separator:a8b9b680e74da4cc463841564abf927ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7941b4c4c49c72df9714cedf50c9e257"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a7941b4c4c49c72df9714cedf50c9e257">exportStateVariablesUnitComponent</a> ()</td></tr>
-<tr class="memdesc:a7941b4c4c49c72df9714cedf50c9e257"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#a7941b4c4c49c72df9714cedf50c9e257">More...</a><br /></td></tr>
-<tr class="separator:a7941b4c4c49c72df9714cedf50c9e257"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af85a8ed0452feb2c0d1502bc2e0ceecf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#af85a8ed0452feb2c0d1502bc2e0ceecf">importStaticParameters</a> ()</td></tr>
-<tr class="memdesc:af85a8ed0452feb2c0d1502bc2e0ceecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">import static parameters  <a href="#af85a8ed0452feb2c0d1502bc2e0ceecf">More...</a><br /></td></tr>
-<tr class="separator:af85a8ed0452feb2c0d1502bc2e0ceecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4143008cb15e6c330d678523738a1665"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a4143008cb15e6c330d678523738a1665">isConnected</a> () const</td></tr>
-<tr class="memdesc:a4143008cb15e6c330d678523738a1665"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="#a4143008cb15e6c330d678523738a1665">More...</a><br /></td></tr>
-<tr class="separator:a4143008cb15e6c330d678523738a1665"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36a842604a30e7e8629183f41ae8279c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a36a842604a30e7e8629183f41ae8279c">isPartiallyConnected</a> () const</td></tr>
-<tr class="memdesc:a36a842604a30e7e8629183f41ae8279c"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="#a36a842604a30e7e8629183f41ae8279c">More...</a><br /></td></tr>
-<tr class="separator:a36a842604a30e7e8629183f41ae8279c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4">getID</a> () const</td></tr>
-<tr class="memdesc:a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the hvdc line id.  <a href="#a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4">More...</a><br /></td></tr>
-<tr class="separator:a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a1fac4783c51576b92a820f567c7657"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a7a1fac4783c51576b92a820f567c7657">getResistanceDC</a> () const</td></tr>
-<tr class="memdesc:a7a1fac4783c51576b92a820f567c7657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the dc resistance of the hvdc line.  <a href="#a7a1fac4783c51576b92a820f567c7657">More...</a><br /></td></tr>
-<tr class="separator:a7a1fac4783c51576b92a820f567c7657"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cbc0a400552b55cedc845f024746822"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a9cbc0a400552b55cedc845f024746822">getVNom</a> () const</td></tr>
-<tr class="memdesc:a9cbc0a400552b55cedc845f024746822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the nominal voltage of the hvdc line.  <a href="#a9cbc0a400552b55cedc845f024746822">More...</a><br /></td></tr>
-<tr class="separator:a9cbc0a400552b55cedc845f024746822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd4ce1cb117d26c131897ff48c5724ed"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#abd4ce1cb117d26c131897ff48c5724ed">getActivePowerSetpoint</a> () const</td></tr>
-<tr class="memdesc:abd4ce1cb117d26c131897ff48c5724ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the active power set-point of the hvdc line.  <a href="#abd4ce1cb117d26c131897ff48c5724ed">More...</a><br /></td></tr>
-<tr class="separator:abd4ce1cb117d26c131897ff48c5724ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcf4fffca8b44b6bc3084335a90c41a7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#afcf4fffca8b44b6bc3084335a90c41a7">getPmax</a> () const</td></tr>
-<tr class="memdesc:afcf4fffca8b44b6bc3084335a90c41a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the maximum power of the hvdc line.  <a href="#afcf4fffca8b44b6bc3084335a90c41a7">More...</a><br /></td></tr>
-<tr class="separator:afcf4fffca8b44b6bc3084335a90c41a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d855bf4d4ffd9da9f4daafaf1de6e80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d11/a02814.html#add5af0aa9a74313470077d9fa7abd0d4">ConverterMode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a1d855bf4d4ffd9da9f4daafaf1de6e80">getConverterMode</a> () const</td></tr>
-<tr class="memdesc:a1d855bf4d4ffd9da9f4daafaf1de6e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the converters mode.  <a href="#a1d855bf4d4ffd9da9f4daafaf1de6e80">More...</a><br /></td></tr>
-<tr class="separator:a1d855bf4d4ffd9da9f4daafaf1de6e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38d18d4329e702d2118f473bb193fa35"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a38d18d4329e702d2118f473bb193fa35">getIdConverter1</a> () const</td></tr>
-<tr class="memdesc:a38d18d4329e702d2118f473bb193fa35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for converter 1 id.  <a href="#a38d18d4329e702d2118f473bb193fa35">More...</a><br /></td></tr>
-<tr class="separator:a38d18d4329e702d2118f473bb193fa35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19b620178ed402e3569ed29fc04dca2d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a19b620178ed402e3569ed29fc04dca2d">getIdConverter2</a> () const</td></tr>
-<tr class="memdesc:a19b620178ed402e3569ed29fc04dca2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for converter 2 id.  <a href="#a19b620178ed402e3569ed29fc04dca2d">More...</a><br /></td></tr>
-<tr class="separator:a19b620178ed402e3569ed29fc04dca2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcd9c6a760d63c1284dbc7d7742acab9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#abcd9c6a760d63c1284dbc7d7742acab9">getComponentVarIndex</a> (const std::string &amp;varName) const</td></tr>
-<tr class="memdesc:abcd9c6a760d63c1284dbc7d7742acab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the index of a state variable thanks to its name  <a href="#abcd9c6a760d63c1284dbc7d7742acab9">More...</a><br /></td></tr>
-<tr class="separator:abcd9c6a760d63c1284dbc7d7742acab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1facfee2a76ee31149ba2ffecad6dd8"><td class="memItemLeft" align="right" valign="top">const boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#aa1facfee2a76ee31149ba2ffecad6dd8">getConverter1</a> () const</td></tr>
-<tr class="memdesc:aa1facfee2a76ee31149ba2ffecad6dd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for converter 1.  <a href="#aa1facfee2a76ee31149ba2ffecad6dd8">More...</a><br /></td></tr>
-<tr class="separator:aa1facfee2a76ee31149ba2ffecad6dd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac95dd9dd0a6c3eae3692dcad958662d1"><td class="memItemLeft" align="right" valign="top">const boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#ac95dd9dd0a6c3eae3692dcad958662d1">getConverter2</a> () const</td></tr>
-<tr class="memdesc:ac95dd9dd0a6c3eae3692dcad958662d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for converter 2.  <a href="#ac95dd9dd0a6c3eae3692dcad958662d1">More...</a><br /></td></tr>
-<tr class="separator:ac95dd9dd0a6c3eae3692dcad958662d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afac1c0c0c91a81eb80874333c068045e"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#afac1c0c0c91a81eb80874333c068045e">getDroop</a> () const final</td></tr>
-<tr class="memdesc:afac1c0c0c91a81eb80874333c068045e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get droop.  <a href="#afac1c0c0c91a81eb80874333c068045e">More...</a><br /></td></tr>
-<tr class="separator:afac1c0c0c91a81eb80874333c068045e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a407eb5c18ac51b53fbde2e72d55dac32"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a407eb5c18ac51b53fbde2e72d55dac32">getP0</a> () const final</td></tr>
-<tr class="memdesc:a407eb5c18ac51b53fbde2e72d55dac32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get P0.  <a href="#a407eb5c18ac51b53fbde2e72d55dac32">More...</a><br /></td></tr>
-<tr class="separator:a407eb5c18ac51b53fbde2e72d55dac32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a1e34de555c0ce939314dc8197220eb"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a2a1e34de555c0ce939314dc8197220eb">isActivePowerControlEnabled</a> () const final</td></tr>
-<tr class="memdesc:a2a1e34de555c0ce939314dc8197220eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the HVDC is enabled.  <a href="#a2a1e34de555c0ce939314dc8197220eb">More...</a><br /></td></tr>
-<tr class="separator:a2a1e34de555c0ce939314dc8197220eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ab96c60f04befa0951b33e841b8c66d"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a5ab96c60f04befa0951b33e841b8c66d">getOprFromCS1toCS2</a> () const final</td></tr>
-<tr class="memdesc:a5ab96c60f04befa0951b33e841b8c66d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve OPR from CS1 to CS2.  <a href="#a5ab96c60f04befa0951b33e841b8c66d">More...</a><br /></td></tr>
-<tr class="separator:a5ab96c60f04befa0951b33e841b8c66d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add6883f797cd254f03a2c25317c8d1b7"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#add6883f797cd254f03a2c25317c8d1b7">getOprFromCS2toCS1</a> () const final</td></tr>
-<tr class="memdesc:add6883f797cd254f03a2c25317c8d1b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve OPR from CS2 to CS1.  <a href="#add6883f797cd254f03a2c25317c8d1b7">More...</a><br /></td></tr>
-<tr class="separator:add6883f797cd254f03a2c25317c8d1b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a02814"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02814')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../df/d11/a02814.html">DYN::HvdcLineInterface</a></td></tr>
-<tr class="memitem:af4e0c9c92320fd8e4e75524280e018e8 inherit pub_methods_a02814"><td class="memItemLeft" align="right" valign="top"><a id="af4e0c9c92320fd8e4e75524280e018e8"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d11/a02814.html#af4e0c9c92320fd8e4e75524280e018e8">~HvdcLineInterface</a> ()</td></tr>
-<tr class="memdesc:af4e0c9c92320fd8e4e75524280e018e8 inherit pub_methods_a02814"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:af4e0c9c92320fd8e4e75524280e018e8 inherit pub_methods_a02814"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a02758"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02758')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d2/d93/a02758.html">DYN::ComponentInterface</a></td></tr>
-<tr class="memitem:a522118e0cb34e292127a1e18094a498a inherit pub_methods_a02758"><td class="memItemLeft" align="right" valign="top"><a id="a522118e0cb34e292127a1e18094a498a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#a522118e0cb34e292127a1e18094a498a">ComponentInterface</a> ()</td></tr>
-<tr class="memdesc:a522118e0cb34e292127a1e18094a498a inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
-<tr class="separator:a522118e0cb34e292127a1e18094a498a inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22e1616c1c12383fca3a74d35272f89b inherit pub_methods_a02758"><td class="memItemLeft" align="right" valign="top"><a id="a22e1616c1c12383fca3a74d35272f89b"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#a22e1616c1c12383fca3a74d35272f89b">~ComponentInterface</a> ()</td></tr>
-<tr class="memdesc:a22e1616c1c12383fca3a74d35272f89b inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
-<tr class="separator:a22e1616c1c12383fca3a74d35272f89b inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2a3edef5ec14f6635bcaa11a5def0c2 inherit pub_methods_a02758"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#ae2a3edef5ec14f6635bcaa11a5def0c2">hasDynamicModel</a> (bool hasDynamicModel)</td></tr>
-<tr class="memdesc:ae2a3edef5ec14f6635bcaa11a5def0c2 inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the component's hasDynamicModel_ attribute.  <a href="../../d2/d93/a02758.html#ae2a3edef5ec14f6635bcaa11a5def0c2">More...</a><br /></td></tr>
-<tr class="separator:ae2a3edef5ec14f6635bcaa11a5def0c2 inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4a2e77952f4983e5705c0feb2ffefd3 inherit pub_methods_a02758"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#ad4a2e77952f4983e5705c0feb2ffefd3">setModelDyn</a> (const boost::shared_ptr&lt; <a class="el" href="../../d7/d94/a02702.html">SubModel</a> &gt; &amp;model)</td></tr>
-<tr class="memdesc:ad4a2e77952f4983e5705c0feb2ffefd3 inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the component's model attribute.  <a href="../../d2/d93/a02758.html#ad4a2e77952f4983e5705c0feb2ffefd3">More...</a><br /></td></tr>
-<tr class="separator:ad4a2e77952f4983e5705c0feb2ffefd3 inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4d21f5feedc23bfd0c89f2b32e71746 inherit pub_methods_a02758"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#aa4d21f5feedc23bfd0c89f2b32e71746">setReference</a> (const std::string &amp;componentVar, const std::string &amp;modelId, const std::string &amp;modelVar)</td></tr>
-<tr class="memdesc:aa4d21f5feedc23bfd0c89f2b32e71746 inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">associate a component variable with a model variable  <a href="../../d2/d93/a02758.html#aa4d21f5feedc23bfd0c89f2b32e71746">More...</a><br /></td></tr>
-<tr class="separator:aa4d21f5feedc23bfd0c89f2b32e71746 inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22ebe68dfef59fe4b694885643908c31 inherit pub_methods_a02758"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#a22ebe68dfef59fe4b694885643908c31">hasDynamicModel</a> () const</td></tr>
-<tr class="memdesc:a22ebe68dfef59fe4b694885643908c31 inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the component's hasDynamicModel_ attribute.  <a href="../../d2/d93/a02758.html#a22ebe68dfef59fe4b694885643908c31">More...</a><br /></td></tr>
-<tr class="separator:a22ebe68dfef59fe4b694885643908c31 inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab673e4fea551130c3776e4a0fda6fea6 inherit pub_methods_a02758"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#ab673e4fea551130c3776e4a0fda6fea6">updateFromModel</a> (bool filterForCriteriaCheck)</td></tr>
-<tr class="memdesc:ab673e4fea551130c3776e4a0fda6fea6 inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">update state variables with data from model (c++ or dynamic model)  <a href="../../d2/d93/a02758.html#ab673e4fea551130c3776e4a0fda6fea6">More...</a><br /></td></tr>
-<tr class="separator:ab673e4fea551130c3776e4a0fda6fea6 inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa68ff5ea43ce54304c3062f1614213dc inherit pub_methods_a02758"><td class="memItemLeft" align="right" valign="top"><a id="aa68ff5ea43ce54304c3062f1614213dc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#aa68ff5ea43ce54304c3062f1614213dc">getStateVariableReference</a> ()</td></tr>
-<tr class="memdesc:aa68ff5ea43ce54304c3062f1614213dc inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">get state variable reference in dynamic model <br /></td></tr>
-<tr class="separator:aa68ff5ea43ce54304c3062f1614213dc inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2b7a24d4bb3aed941d24831988b3da5 inherit pub_methods_a02758"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#ad2b7a24d4bb3aed941d24831988b3da5">setType</a> (const <a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> &amp;type)</td></tr>
-<tr class="memdesc:ad2b7a24d4bb3aed941d24831988b3da5 inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the interface.  <a href="../../d2/d93/a02758.html#ad2b7a24d4bb3aed941d24831988b3da5">More...</a><br /></td></tr>
-<tr class="separator:ad2b7a24d4bb3aed941d24831988b3da5 inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a157a82e17608a36a7965614cde1c6234 inherit pub_methods_a02758"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#a157a82e17608a36a7965614cde1c6234">getType</a> () const</td></tr>
-<tr class="memdesc:a157a82e17608a36a7965614cde1c6234 inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter fot the interface's type.  <a href="../../d2/d93/a02758.html#a157a82e17608a36a7965614cde1c6234">More...</a><br /></td></tr>
-<tr class="separator:a157a82e17608a36a7965614cde1c6234 inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02758"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#a13bc31f9a55abf04ac162196ad6a3ace">getTypeAsString</a> () const</td></tr>
-<tr class="memdesc:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter fot the interface's type as string.  <a href="../../d2/d93/a02758.html#a13bc31f9a55abf04ac162196ad6a3ace">More...</a><br /></td></tr>
-<tr class="separator:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b2709afa47d455b8bc9512348d93f30 inherit pub_methods_a02758"><td class="memItemLeft" align="right" valign="top"><a id="a0b2709afa47d455b8bc9512348d93f30"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#a0b2709afa47d455b8bc9512348d93f30">exportStateVariables</a> ()</td></tr>
-<tr class="memdesc:a0b2709afa47d455b8bc9512348d93f30 inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables <br /></td></tr>
-<tr class="separator:a0b2709afa47d455b8bc9512348d93f30 inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02758"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02758"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">getStaticParameterValue</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a state variable value thanks to its name  <a href="../../d2/d93/a02758.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">More...</a><br /></td></tr>
-<tr class="separator:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ad7fd8c4350a10e0e49896d176cb9cdce"><td class="memItemLeft" align="right" valign="top"><a id="ad7fd8c4350a10e0e49896d176cb9cdce"></a>
-IIDM::HvdcLine &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#ad7fd8c4350a10e0e49896d176cb9cdce">hvdcLineIIDM_</a></td></tr>
-<tr class="memdesc:ad7fd8c4350a10e0e49896d176cb9cdce"><td class="mdescLeft">&#160;</td><td class="mdescRight">reference to the iidm line instance <br /></td></tr>
-<tr class="separator:ad7fd8c4350a10e0e49896d176cb9cdce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac75caaa5c58f7f1868178e35631577be"><td class="memItemLeft" align="right" valign="top"><a id="ac75caaa5c58f7f1868178e35631577be"></a>
-boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#ac75caaa5c58f7f1868178e35631577be">conv1_</a></td></tr>
-<tr class="memdesc:ac75caaa5c58f7f1868178e35631577be"><td class="mdescLeft">&#160;</td><td class="mdescRight">conv1 <br /></td></tr>
-<tr class="separator:ac75caaa5c58f7f1868178e35631577be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f8dc07efa164813acec526f541e8906"><td class="memItemLeft" align="right" valign="top"><a id="a6f8dc07efa164813acec526f541e8906"></a>
-boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a6f8dc07efa164813acec526f541e8906">conv2_</a></td></tr>
-<tr class="memdesc:a6f8dc07efa164813acec526f541e8906"><td class="mdescLeft">&#160;</td><td class="mdescRight">conv2 <br /></td></tr>
-<tr class="separator:a6f8dc07efa164813acec526f541e8906"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcb8a1aae75adbeaaf783ea9abab9d0d"><td class="memItemLeft" align="right" valign="top"><a id="abcb8a1aae75adbeaaf783ea9abab9d0d"></a>
-powsybl::iidm::HvdcLine &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#abcb8a1aae75adbeaaf783ea9abab9d0d">hvdcLineIIDM_</a></td></tr>
-<tr class="memdesc:abcb8a1aae75adbeaaf783ea9abab9d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">reference to the iidm line instance <br /></td></tr>
-<tr class="separator:abcb8a1aae75adbeaaf783ea9abab9d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98d560056be2710ccbfc886f1d75ccd2"><td class="memItemLeft" align="right" valign="top"><a id="a98d560056be2710ccbfc886f1d75ccd2"></a>
-<a class="el" href="../../de/df2/a03018.html">HvdcAngleDroopActivePowerControlIIDMExtension</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#a98d560056be2710ccbfc886f1d75ccd2">hvdcActivePowerControl_</a></td></tr>
-<tr class="memdesc:a98d560056be2710ccbfc886f1d75ccd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">HVDC active power control extension. <br /></td></tr>
-<tr class="separator:a98d560056be2710ccbfc886f1d75ccd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4b7870f75ada756584ae51aa550616e"><td class="memItemLeft" align="right" valign="top"><a id="ad4b7870f75ada756584ae51aa550616e"></a>
-<a class="el" href="../../dd/da3/a03026.html#a059d3ba2c94d27925287040ea881c017">IIDMExtensions::DestroyFunction</a>&lt; <a class="el" href="../../de/df2/a03018.html">HvdcAngleDroopActivePowerControlIIDMExtension</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#ad4b7870f75ada756584ae51aa550616e">destroyHvdcActivePowerControl_</a></td></tr>
-<tr class="memdesc:ad4b7870f75ada756584ae51aa550616e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to destroy hvdc active power control extension. <br /></td></tr>
-<tr class="separator:ad4b7870f75ada756584ae51aa550616e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd23b2981090f628886d7d8c97edc15c"><td class="memItemLeft" align="right" valign="top"><a id="abd23b2981090f628886d7d8c97edc15c"></a>
-<a class="el" href="../../d2/df4/a03022.html">HvdcOperatorActivePowerRangeIIDMExtension</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#abd23b2981090f628886d7d8c97edc15c">hvdcActivePowerRange_</a></td></tr>
-<tr class="memdesc:abd23b2981090f628886d7d8c97edc15c"><td class="mdescLeft">&#160;</td><td class="mdescRight">HVDC active power range extension. <br /></td></tr>
-<tr class="separator:abd23b2981090f628886d7d8c97edc15c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1d4b8351cea46516b3dd4d8ff59eb29"><td class="memItemLeft" align="right" valign="top"><a id="ae1d4b8351cea46516b3dd4d8ff59eb29"></a>
-<a class="el" href="../../dd/da3/a03026.html#a059d3ba2c94d27925287040ea881c017">IIDMExtensions::DestroyFunction</a>&lt; <a class="el" href="../../d2/df4/a03022.html">HvdcOperatorActivePowerRangeIIDMExtension</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d75/a02926.html#ae1d4b8351cea46516b3dd4d8ff59eb29">destroyHvdcActivePowerRange_</a></td></tr>
-<tr class="memdesc:ae1d4b8351cea46516b3dd4d8ff59eb29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to destroy actice power range extension. <br /></td></tr>
-<tr class="separator:ae1d4b8351cea46516b3dd4d8ff59eb29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_a02758"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a02758')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d2/d93/a02758.html">DYN::ComponentInterface</a></td></tr>
-<tr class="memitem:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02758"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02758"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#ac256bc3546483d0c4ccffb61dfa58a3a">getValue</a> (const int index) const</td></tr>
-<tr class="memdesc:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a state variable value thanks to its name  <a href="../../d2/d93/a02758.html#ac256bc3546483d0c4ccffb61dfa58a3a">More...</a><br /></td></tr>
-<tr class="separator:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_a02758"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02758')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d2/d93/a02758.html">DYN::ComponentInterface</a></td></tr>
-<tr class="memitem:a4e9a1ad375b2c22292b200713cb94bac inherit pro_attribs_a02758"><td class="memItemLeft" align="right" valign="top"><a id="a4e9a1ad375b2c22292b200713cb94bac"></a>
-std::vector&lt; <a class="el" href="../../d7/de8/a02858.html">StateVariable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#a4e9a1ad375b2c22292b200713cb94bac">stateVariables_</a></td></tr>
-<tr class="memdesc:a4e9a1ad375b2c22292b200713cb94bac inherit pro_attribs_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">state variable <br /></td></tr>
-<tr class="separator:a4e9a1ad375b2c22292b200713cb94bac inherit pro_attribs_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd662edc1d318a148a180a48c7120cb6 inherit pro_attribs_a02758"><td class="memItemLeft" align="right" valign="top"><a id="abd662edc1d318a148a180a48c7120cb6"></a>
-boost::unordered_map&lt; std::string, <a class="el" href="../../d3/dee/a02862.html">StaticParameter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#abd662edc1d318a148a180a48c7120cb6">staticParameters_</a></td></tr>
-<tr class="memdesc:abd662edc1d318a148a180a48c7120cb6 inherit pro_attribs_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">static parameter by name, from iidm data <br /></td></tr>
-<tr class="separator:abd662edc1d318a148a180a48c7120cb6 inherit pro_attribs_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b7f69e17315c6cb35ffb9231dcb5e6a inherit pro_attribs_a02758"><td class="memItemLeft" align="right" valign="top"><a id="a3b7f69e17315c6cb35ffb9231dcb5e6a"></a>
-<a class="el" href="../../d2/d93/a02758.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html#a3b7f69e17315c6cb35ffb9231dcb5e6a">type_</a></td></tr>
-<tr class="memdesc:a3b7f69e17315c6cb35ffb9231dcb5e6a inherit pro_attribs_a02758"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of the interface <br /></td></tr>
-<tr class="separator:a3b7f69e17315c6cb35ffb9231dcb5e6a inherit pro_attribs_a02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Interface class for Hvdc Line model. </p>
-<p>HVDC line interface IIDM implementation Interface class for Hvdc Line model. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a69aa29799fad130fd97719eafcefeeb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69aa29799fad130fd97719eafcefeeb0">&#9670;&nbsp;</a></span>HvdcLineInterfaceIIDM() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::HvdcLineInterfaceIIDM::HvdcLineInterfaceIIDM </td>
-          <td>(</td>
-          <td class="paramtype">IIDM::HvdcLine &amp;&#160;</td>
-          <td class="paramname"><em>hvdcLine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>conv1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>conv2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">hvdcLine</td><td>hvdc line iidm instance </td></tr>
-    <tr><td class="paramname">conv1</td><td>converter 1 data interface instance </td></tr>
-    <tr><td class="paramname">conv2</td><td>converter 2 data interface instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a8b9b680e74da4cc463841564abf927ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b9b680e74da4cc463841564abf927ef">&#9670;&nbsp;</a></span>HvdcLineInterfaceIIDM() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::HvdcLineInterfaceIIDM::HvdcLineInterfaceIIDM </td>
-          <td>(</td>
-          <td class="paramtype">powsybl::iidm::HvdcLine &amp;&#160;</td>
-          <td class="paramname"><em>hvdcLine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>conv1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>conv2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">hvdcLine</td><td>hvdc line iidm instance </td></tr>
-    <tr><td class="paramname">conv1</td><td>converter 1 data interface instance </td></tr>
-    <tr><td class="paramname">conv2</td><td>converter 2 data interface instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7941b4c4c49c72df9714cedf50c9e257"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7941b4c4c49c72df9714cedf50c9e257">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>update iidm structure from state variables for each unit component </p>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a3c8f76e1f58dafd3f13db0fa9581c67f">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a7941b4c4c49c72df9714cedf50c9e257"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7941b4c4c49c72df9714cedf50c9e257">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>update iidm structure from state variables for each unit component </p>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a3c8f76e1f58dafd3f13db0fa9581c67f">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="abd4ce1cb117d26c131897ff48c5724ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd4ce1cb117d26c131897ff48c5724ed">&#9670;&nbsp;</a></span>getActivePowerSetpoint() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::HvdcLineInterfaceIIDM::getActivePowerSetpoint </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the active power set-point of the hvdc line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The active power set-point of the hvdc line in MW </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a2cb765cd55e50c5baa22fce5abadadd8">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="abd4ce1cb117d26c131897ff48c5724ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd4ce1cb117d26c131897ff48c5724ed">&#9670;&nbsp;</a></span>getActivePowerSetpoint() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::HvdcLineInterfaceIIDM::getActivePowerSetpoint </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the active power set-point of the hvdc line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The active power set-point of the hvdc line in MW </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a2cb765cd55e50c5baa22fce5abadadd8">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="abcd9c6a760d63c1284dbc7d7742acab9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcd9c6a760d63c1284dbc7d7742acab9">&#9670;&nbsp;</a></span>getComponentVarIndex() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int DYN::HvdcLineInterfaceIIDM::getComponentVarIndex </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>varName</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>get the index of a state variable thanks to its name </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">varName</td><td>name of the state variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>index of the state variable, <b>-1</b> if the variable does not exist </dd></dl>
-
-<p>Implements <a class="el" href="../../d2/d93/a02758.html#a6d167dccb153a1ffcee78ad0f2e3a72e">DYN::ComponentInterface</a>.</p>
-
-</div>
-</div>
-<a id="abcd9c6a760d63c1284dbc7d7742acab9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcd9c6a760d63c1284dbc7d7742acab9">&#9670;&nbsp;</a></span>getComponentVarIndex() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int DYN::HvdcLineInterfaceIIDM::getComponentVarIndex </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>varName</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>get the index of a state variable thanks to its name </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">varName</td><td>name of the state variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>index of the state variable, <b>-1</b> if the variable does not exist </dd></dl>
-
-<p>Implements <a class="el" href="../../d2/d93/a02758.html#a6d167dccb153a1ffcee78ad0f2e3a72e">DYN::ComponentInterface</a>.</p>
-
-</div>
-</div>
-<a id="aa1facfee2a76ee31149ba2ffecad6dd8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1facfee2a76ee31149ba2ffecad6dd8">&#9670;&nbsp;</a></span>getConverter1() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const boost::shared_ptr&lt;<a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a>&gt;&amp; DYN::HvdcLineInterfaceIIDM::getConverter1 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for converter 1. </p>
-<dl class="section return"><dt>Returns</dt><dd>converter 1 </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a5a5f0fa93961c31817196eaf402e19ce">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="aa1facfee2a76ee31149ba2ffecad6dd8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1facfee2a76ee31149ba2ffecad6dd8">&#9670;&nbsp;</a></span>getConverter1() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const boost::shared_ptr&lt;<a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a>&gt;&amp; DYN::HvdcLineInterfaceIIDM::getConverter1 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for converter 1. </p>
-<dl class="section return"><dt>Returns</dt><dd>converter 1 </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a5a5f0fa93961c31817196eaf402e19ce">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="ac95dd9dd0a6c3eae3692dcad958662d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac95dd9dd0a6c3eae3692dcad958662d1">&#9670;&nbsp;</a></span>getConverter2() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const boost::shared_ptr&lt;<a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a>&gt;&amp; DYN::HvdcLineInterfaceIIDM::getConverter2 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for converter 2. </p>
-<dl class="section return"><dt>Returns</dt><dd>converter 2 </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a5339d93982b440d2067030d6f4d6df0f">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="ac95dd9dd0a6c3eae3692dcad958662d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac95dd9dd0a6c3eae3692dcad958662d1">&#9670;&nbsp;</a></span>getConverter2() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const boost::shared_ptr&lt;<a class="el" href="../../de/d8e/a02762.html">ConverterInterface</a>&gt;&amp; DYN::HvdcLineInterfaceIIDM::getConverter2 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for converter 2. </p>
-<dl class="section return"><dt>Returns</dt><dd>converter 2 </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a5339d93982b440d2067030d6f4d6df0f">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a1d855bf4d4ffd9da9f4daafaf1de6e80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d855bf4d4ffd9da9f4daafaf1de6e80">&#9670;&nbsp;</a></span>getConverterMode() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../df/d11/a02814.html#add5af0aa9a74313470077d9fa7abd0d4">ConverterMode_t</a> DYN::HvdcLineInterfaceIIDM::getConverterMode </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the converters mode. </p>
-<dl class="section return"><dt>Returns</dt><dd>The converters mode </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#ad67e1908e6afac76880be1f13535a302">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a1d855bf4d4ffd9da9f4daafaf1de6e80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d855bf4d4ffd9da9f4daafaf1de6e80">&#9670;&nbsp;</a></span>getConverterMode() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../df/d11/a02814.html#add5af0aa9a74313470077d9fa7abd0d4">ConverterMode_t</a> DYN::HvdcLineInterfaceIIDM::getConverterMode </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the converters mode. </p>
-<dl class="section return"><dt>Returns</dt><dd>The converters mode </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#ad67e1908e6afac76880be1f13535a302">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="af51ea2b8fe6a0dcb6a5bf1390b097eab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af51ea2b8fe6a0dcb6a5bf1390b097eab">&#9670;&nbsp;</a></span>getDroop() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::optional&lt;double&gt; DYN::HvdcLineInterfaceIIDM::getDroop </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get droop. </p>
-<dl class="section return"><dt>Returns</dt><dd>the droop value or nullopt if the extension containing the data is not defined </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a714292c7ca5b60de110c6bc543e9c72b">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="afac1c0c0c91a81eb80874333c068045e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afac1c0c0c91a81eb80874333c068045e">&#9670;&nbsp;</a></span>getDroop() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::optional&lt;double&gt; DYN::HvdcLineInterfaceIIDM::getDroop </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get droop. </p>
-<dl class="section return"><dt>Returns</dt><dd>the droop value or nullopt if the extension containing the data is not defined </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a714292c7ca5b60de110c6bc543e9c72b">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4">&#9670;&nbsp;</a></span>getID() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string DYN::HvdcLineInterfaceIIDM::getID </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the hvdc line id. </p>
-<dl class="section return"><dt>Returns</dt><dd>The id of the hvdc line </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a4d7d7390d10eabac4f18c3dd0b5479dd">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b7c9d4c2b2d2cdbb6145c6e6c68a2d4">&#9670;&nbsp;</a></span>getID() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string DYN::HvdcLineInterfaceIIDM::getID </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the hvdc line id. </p>
-<dl class="section return"><dt>Returns</dt><dd>The id of the hvdc line </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a4d7d7390d10eabac4f18c3dd0b5479dd">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a38d18d4329e702d2118f473bb193fa35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38d18d4329e702d2118f473bb193fa35">&#9670;&nbsp;</a></span>getIdConverter1() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string DYN::HvdcLineInterfaceIIDM::getIdConverter1 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for converter 1 id. </p>
-<dl class="section return"><dt>Returns</dt><dd>The converter 1 id </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a4d6a6966085cc3a4661bbf7b1cfdeec5">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a38d18d4329e702d2118f473bb193fa35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38d18d4329e702d2118f473bb193fa35">&#9670;&nbsp;</a></span>getIdConverter1() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string DYN::HvdcLineInterfaceIIDM::getIdConverter1 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for converter 1 id. </p>
-<dl class="section return"><dt>Returns</dt><dd>The converter 1 id </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a4d6a6966085cc3a4661bbf7b1cfdeec5">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a19b620178ed402e3569ed29fc04dca2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19b620178ed402e3569ed29fc04dca2d">&#9670;&nbsp;</a></span>getIdConverter2() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string DYN::HvdcLineInterfaceIIDM::getIdConverter2 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for converter 2 id. </p>
-<dl class="section return"><dt>Returns</dt><dd>The converter 2 id </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#af0a1a9dde673e825301f4a8051da4a4d">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a19b620178ed402e3569ed29fc04dca2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19b620178ed402e3569ed29fc04dca2d">&#9670;&nbsp;</a></span>getIdConverter2() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string DYN::HvdcLineInterfaceIIDM::getIdConverter2 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for converter 2 id. </p>
-<dl class="section return"><dt>Returns</dt><dd>The converter 2 id </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#af0a1a9dde673e825301f4a8051da4a4d">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a5ab96c60f04befa0951b33e841b8c66d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ab96c60f04befa0951b33e841b8c66d">&#9670;&nbsp;</a></span>getOprFromCS1toCS2() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::optional&lt;double&gt; DYN::HvdcLineInterfaceIIDM::getOprFromCS1toCS2 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieve OPR from CS1 to CS2. </p>
-<dl class="section return"><dt>Returns</dt><dd>the value or nullopt if extension containing the data not found </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#abfcb20c451bcfb269d9f33cef038e542">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a81a20be366635e5d27b1025542e41131"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81a20be366635e5d27b1025542e41131">&#9670;&nbsp;</a></span>getOprFromCS1toCS2() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::optional&lt;double&gt; DYN::HvdcLineInterfaceIIDM::getOprFromCS1toCS2 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieve OPR from CS1 to CS2. </p>
-<dl class="section return"><dt>Returns</dt><dd>the value or nullopt if extension containing the data not found </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#abfcb20c451bcfb269d9f33cef038e542">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="add6883f797cd254f03a2c25317c8d1b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add6883f797cd254f03a2c25317c8d1b7">&#9670;&nbsp;</a></span>getOprFromCS2toCS1() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::optional&lt;double&gt; DYN::HvdcLineInterfaceIIDM::getOprFromCS2toCS1 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieve OPR from CS2 to CS1. </p>
-<dl class="section return"><dt>Returns</dt><dd>the value or nullopt if extension containing the data not found </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#afc914725e8bf9662dd5a39dcacc2d0f0">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a33693c9e3d244621eed72aa9e8423ee9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33693c9e3d244621eed72aa9e8423ee9">&#9670;&nbsp;</a></span>getOprFromCS2toCS1() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::optional&lt;double&gt; DYN::HvdcLineInterfaceIIDM::getOprFromCS2toCS1 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieve OPR from CS2 to CS1. </p>
-<dl class="section return"><dt>Returns</dt><dd>the value or nullopt if extension containing the data not found </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#afc914725e8bf9662dd5a39dcacc2d0f0">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a0ae28869792226e95fd85fc6a6a01080"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ae28869792226e95fd85fc6a6a01080">&#9670;&nbsp;</a></span>getP0() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::optional&lt;double&gt; DYN::HvdcLineInterfaceIIDM::getP0 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get P0. </p>
-<dl class="section return"><dt>Returns</dt><dd>the P0 value or nullopt if the extension containing the data is not defined </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a59c1c038546e74b419d6221c6df7a292">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a407eb5c18ac51b53fbde2e72d55dac32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a407eb5c18ac51b53fbde2e72d55dac32">&#9670;&nbsp;</a></span>getP0() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::optional&lt;double&gt; DYN::HvdcLineInterfaceIIDM::getP0 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get P0. </p>
-<dl class="section return"><dt>Returns</dt><dd>the P0 value or nullopt if the extension containing the data is not defined </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a59c1c038546e74b419d6221c6df7a292">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="afcf4fffca8b44b6bc3084335a90c41a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcf4fffca8b44b6bc3084335a90c41a7">&#9670;&nbsp;</a></span>getPmax() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::HvdcLineInterfaceIIDM::getPmax </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the maximum power of the hvdc line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The maximum power of the hvdc line in MW </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#ab3c7095ee2716b6c8e44620d1a784a68">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="afcf4fffca8b44b6bc3084335a90c41a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcf4fffca8b44b6bc3084335a90c41a7">&#9670;&nbsp;</a></span>getPmax() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::HvdcLineInterfaceIIDM::getPmax </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the maximum power of the hvdc line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The maximum power of the hvdc line in MW </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#ab3c7095ee2716b6c8e44620d1a784a68">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a7a1fac4783c51576b92a820f567c7657"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a1fac4783c51576b92a820f567c7657">&#9670;&nbsp;</a></span>getResistanceDC() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::HvdcLineInterfaceIIDM::getResistanceDC </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the dc resistance of the hvdc line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The dc resistance of the hvdc line in Ohm </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a7b46ada5a6c4b0dd62818c21706fb344">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a7a1fac4783c51576b92a820f567c7657"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a1fac4783c51576b92a820f567c7657">&#9670;&nbsp;</a></span>getResistanceDC() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::HvdcLineInterfaceIIDM::getResistanceDC </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the dc resistance of the hvdc line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The dc resistance of the hvdc line in Ohm </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a7b46ada5a6c4b0dd62818c21706fb344">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a9cbc0a400552b55cedc845f024746822"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cbc0a400552b55cedc845f024746822">&#9670;&nbsp;</a></span>getVNom() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::HvdcLineInterfaceIIDM::getVNom </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the nominal voltage of the hvdc line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The nominal voltage of the hvdc line in kV </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a1f0baf163ed270785b08a353db7185f4">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a9cbc0a400552b55cedc845f024746822"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cbc0a400552b55cedc845f024746822">&#9670;&nbsp;</a></span>getVNom() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::HvdcLineInterfaceIIDM::getVNom </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the nominal voltage of the hvdc line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The nominal voltage of the hvdc line in kV </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a1f0baf163ed270785b08a353db7185f4">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="af85a8ed0452feb2c0d1502bc2e0ceecf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af85a8ed0452feb2c0d1502bc2e0ceecf">&#9670;&nbsp;</a></span>importStaticParameters() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::HvdcLineInterfaceIIDM::importStaticParameters </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>import static parameters </p>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#ada94bf3c4dff16f91fa36111ece4d8c5">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="af85a8ed0452feb2c0d1502bc2e0ceecf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af85a8ed0452feb2c0d1502bc2e0ceecf">&#9670;&nbsp;</a></span>importStaticParameters() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::HvdcLineInterfaceIIDM::importStaticParameters </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>import static parameters </p>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#ada94bf3c4dff16f91fa36111ece4d8c5">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="adc71988aee9764004fbb3fc06b1f3d07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc71988aee9764004fbb3fc06b1f3d07">&#9670;&nbsp;</a></span>isActivePowerControlEnabled() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::optional&lt;bool&gt; DYN::HvdcLineInterfaceIIDM::isActivePowerControlEnabled </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Determines if the HVDC is enabled. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if enabled, false if not or nullopt if the extension containing the data is not defined </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a14c02fe81b8d798d8b8163f4fd17f912">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a2a1e34de555c0ce939314dc8197220eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a1e34de555c0ce939314dc8197220eb">&#9670;&nbsp;</a></span>isActivePowerControlEnabled() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::optional&lt;bool&gt; DYN::HvdcLineInterfaceIIDM::isActivePowerControlEnabled </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Determines if the HVDC is enabled. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if enabled, false if not or nullopt if the extension containing the data is not defined </dd></dl>
-
-<p>Implements <a class="el" href="../../df/d11/a02814.html#a14c02fe81b8d798d8b8163f4fd17f912">DYN::HvdcLineInterface</a>.</p>
-
-</div>
-</div>
-<a id="a4143008cb15e6c330d678523738a1665"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4143008cb15e6c330d678523738a1665">&#9670;&nbsp;</a></span>isConnected() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::HvdcLineInterfaceIIDM::isConnected </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>check the connection state of the component </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the component is connected, <b>false</b> else </dd></dl>
-
-<p>Reimplemented from <a class="el" href="../../d2/d93/a02758.html#a22639f8b88b1d70984852928d87676ec">DYN::ComponentInterface</a>.</p>
-
-</div>
-</div>
-<a id="a4143008cb15e6c330d678523738a1665"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4143008cb15e6c330d678523738a1665">&#9670;&nbsp;</a></span>isConnected() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::HvdcLineInterfaceIIDM::isConnected </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>check the connection state of the component </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the component is connected, <b>false</b> else </dd></dl>
-
-<p>Reimplemented from <a class="el" href="../../d2/d93/a02758.html#a22639f8b88b1d70984852928d87676ec">DYN::ComponentInterface</a>.</p>
-
-</div>
-</div>
-<a id="a36a842604a30e7e8629183f41ae8279c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36a842604a30e7e8629183f41ae8279c">&#9670;&nbsp;</a></span>isPartiallyConnected() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::HvdcLineInterfaceIIDM::isPartiallyConnected </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>check the connection state of the component </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the component is connected at least at one end, <b>false</b> else </dd></dl>
-
-<p>Reimplemented from <a class="el" href="../../d2/d93/a02758.html#ac298501e2706de0701bcf0405d69780c">DYN::ComponentInterface</a>.</p>
-
-</div>
-</div>
-<a id="a36a842604a30e7e8629183f41ae8279c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36a842604a30e7e8629183f41ae8279c">&#9670;&nbsp;</a></span>isPartiallyConnected() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::HvdcLineInterfaceIIDM::isPartiallyConnected </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>check the connection state of the component </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the component is connected at least at one end, <b>false</b> else </dd></dl>
-
-<p>Reimplemented from <a class="el" href="../../d2/d93/a02758.html#ac298501e2706de0701bcf0405d69780c">DYN::ComponentInterface</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../da/d7a/a03993_source.html">IIDM/DYNHvdcLineInterfaceIIDM.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a79198a8bdf31c43b60b148ce29e0b4c4">activePowerControl_</a></td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a44e98a4b2bee96059de5e7fc3f3e0919">activePowerControl_</a></td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872a58910706220db3aa26ef83cc7e8a26c4">BUS</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a47a50db6f625215dd3c27235e0d2608d">DYN::busInterface_</a></td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a47a50db6f625215dd3c27235e0d2608d">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::busInterface_</a></td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872a251f9d96ef4272321e49c7b71a5ea5d7">CALCULATED_BUS</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872acb80dacf920e9406c93c024896b877f9">COMPONENT_TYPE_COUNT</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a522118e0cb34e292127a1e18094a498a">ComponentInterface</a>()</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> enum name</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#aef4d8f668034c0ec738ea34ef793df1b">coordinatedReactiveControl_</a></td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a7e15d3342e6fa1075a97aca92b3f4018">country_</a></td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872a3d56662d9c11ef2905785aacc0c01d6a">DANGLING_LINE</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a31ef3d27fa263467646e57e12c31fad9">destroyGeneratorActivePowerControl_</a></td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a0b2709afa47d455b8bc9512348d93f30">exportStateVariables</a>()</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a3ac3da878a8a418718af9de7f8fb45df">exportStateVariablesUnitComponent</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a3ac3da878a8a418718af9de7f8fb45df">exportStateVariablesUnitComponent</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872a1de090a3916e39dc06f8a211e9b89f6c">GENERATOR</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#acd0ddaacbb3bd9ee0291747d3c63537c">generatorActivePowerControl_</a></td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a7d3d77a84a14d27b617cca036532db75">generatorIIDM_</a></td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#ad8a91d954b6c51189fee8be115bf966c">generatorIIDM_</a></td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a8551d3bfa5686d1fe8b6d8a0fa3e27eb">GeneratorInterfaceIIDM</a>(IIDM::Generator &amp;generator)</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a0c9d497dd6669967971b1c8b02b98ffd">GeneratorInterfaceIIDM</a>(powsybl::iidm::Generator &amp;generator)</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a26893031fd17d0d404c1f6c972a51ec8">getActivePowerControlDroop</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a26893031fd17d0d404c1f6c972a51ec8">getActivePowerControlDroop</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a7d5d53bc02b0f60fc02bc929d2550e4c">getBusInterface</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a7d5d53bc02b0f60fc02bc929d2550e4c">getBusInterface</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a11e4aa8d4b9dcd530c0f1d18009e0421">DYN::getBusInterfaceInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a11e4aa8d4b9dcd530c0f1d18009e0421">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::getBusInterfaceInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#ab7726f27092825312dacfa3a42dde7c6">getComponentVarIndex</a>(const std::string &amp;varName) const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#ab7726f27092825312dacfa3a42dde7c6">getComponentVarIndex</a>(const std::string &amp;varName) const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#ade0d9df4fb6d5674e0e291518de9ed8d">getCoordinatedReactiveControlPercentage</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#ade0d9df4fb6d5674e0e291518de9ed8d">getCoordinatedReactiveControlPercentage</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#afa7554b28c98c674cb0fe36ccea5c31b">getCountry</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#afa7554b28c98c674cb0fe36ccea5c31b">getCountry</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a462974684e7e26b8cb2a558b8f052329">getDroop</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a10d2816d685720c7c45150f17925d009">getDroop</a>() const final</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a3c6649cdb759b9b00d13c6bcb83a378a">getID</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a3c6649cdb759b9b00d13c6bcb83a378a">getID</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a7c27a55c32cffbf95da2d3b5896c9eb9">DYN::getIDInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a7c27a55c32cffbf95da2d3b5896c9eb9">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::getIDInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#ad4eaf7433f23922abe16715a2ffe7757">getInitialConnected</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#ad4eaf7433f23922abe16715a2ffe7757">getInitialConnected</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a99c28f6fdac8a791580bb44e894d3030">DYN::getInitialConnectedInjector</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a99c28f6fdac8a791580bb44e894d3030">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::getInitialConnectedInjector</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#af01ab6197d2abe6914bb5736f3c15b73">getP</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#af01ab6197d2abe6914bb5736f3c15b73">getP</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a05fa2d9995aeecacd323bf7172ad419b">DYN::getPInjector</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a05fa2d9995aeecacd323bf7172ad419b">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::getPInjector</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a5a747d0437d157f743b9dfab54cee0b4">getPMax</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a5a747d0437d157f743b9dfab54cee0b4">getPMax</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a3099c82ec53e407913fa0e5e67a504d3">getPMin</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a3099c82ec53e407913fa0e5e67a504d3">getPMin</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a15aa272eff64436fee6c122adcbb8376">getQ</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a15aa272eff64436fee6c122adcbb8376">getQ</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#ac229637662f874711c11e751f9aacb85">DYN::getQInjector</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#ac229637662f874711c11e751f9aacb85">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::getQInjector</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a23ae94042b6965334dafdc93fb7d8584">getQMax</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a23ae94042b6965334dafdc93fb7d8584">getQMax</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a55e91ecd3291e563428e04b0e0814e79">getQMin</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a55e91ecd3291e563428e04b0e0814e79">getQMin</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#ac5ea90fe0eeb4b8d3dfc1e7bf7a8a25d">getReactiveCurvesPoints</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#ac5ea90fe0eeb4b8d3dfc1e7bf7a8a25d">getReactiveCurvesPoints</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#aa68ff5ea43ce54304c3062f1614213dc">getStateVariableReference</a>()</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">getStaticParameterValue</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a00862185113f1610612bdee0e88aaee4">getTargetP</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a00862185113f1610612bdee0e88aaee4">getTargetP</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#aec9a49522ccec6fca23c7b0806a192c1">getTargetQ</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#aec9a49522ccec6fca23c7b0806a192c1">getTargetQ</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a942778486822c0d624e35dd702f5614b">getTargetV</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a942778486822c0d624e35dd702f5614b">getTargetV</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a157a82e17608a36a7965614cde1c6234">getType</a>() const</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a13bc31f9a55abf04ac162196ad6a3ace">getTypeAsString</a>() const</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#ac256bc3546483d0c4ccffb61dfa58a3a">getValue</a>(const int index) const</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#ab5103429192ea1e79e7d009ce6ea54dd">DYN::getVNom</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#ab5103429192ea1e79e7d009ce6ea54dd">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::getVNom</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a987716968046cc31c2050627c84db3dd">DYN::getVNomInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a987716968046cc31c2050627c84db3dd">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::getVNomInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#ac2d323d5d6df8cc63100b3ea2f1c9734">DYN::getVoltageLevelInterface</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#ac2d323d5d6df8cc63100b3ea2f1c9734">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::getVoltageLevelInterface</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a8643315fe0cfe866d47d06d4ae6e5748">DYN::getVoltageLevelInterfaceInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a8643315fe0cfe866d47d06d4ae6e5748">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::getVoltageLevelInterfaceInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a10a408944252ca77d39b01502c19bcad">hasActivePowerControl</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a10a408944252ca77d39b01502c19bcad">hasActivePowerControl</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#aca2ef85ada4862d17feaca60185ed3e0">hasCoordinatedReactiveControl</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#aca2ef85ada4862d17feaca60185ed3e0">hasCoordinatedReactiveControl</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#ae2a3edef5ec14f6635bcaa11a5def0c2">hasDynamicModel</a>(bool hasDynamicModel)</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a22ebe68dfef59fe4b694885643908c31">hasDynamicModel</a>() const</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a363561eed07cd9aed7bda6e32746d981">DYN::hasP</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a363561eed07cd9aed7bda6e32746d981">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::hasP</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a1e441880c2b5d60d7e1342cb79186294">DYN::hasPInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a1e441880c2b5d60d7e1342cb79186294">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::hasPInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a1a792a519e6444fabd8c282af8bcbdfa">DYN::hasQ</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a1a792a519e6444fabd8c282af8bcbdfa">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::hasQ</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a7905a280edc97d4a48c64f4af9a83279">DYN::hasQInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a7905a280edc97d4a48c64f4af9a83279">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::hasQInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872a896de4a61821dd8aecb455b1a7bec2ef">HVDC_LINE</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a12a36088f0b18733ee477bb89d7cc2d6">importStaticParameters</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a12a36088f0b18733ee477bb89d7cc2d6">importStaticParameters</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a4a5029007e869db9807f51c113a8e2b9">indexVar_t</a> enum name</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a4a5029007e869db9807f51c113a8e2b9">indexVar_t</a> enum name</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#ae72d68fd09ea9582fbcd154e35bf207d">DYN::initialConnected_</a></td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#ae72d68fd09ea9582fbcd154e35bf207d">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::initialConnected_</a></td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#abedafcf81b5c46ed6a2ed20af73e9dc5">DYN::injectorId_</a></td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#abedafcf81b5c46ed6a2ed20af73e9dc5">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::injectorId_</a></td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#ab1c6193b2f391ca667133f9fe1da1d7c">DYN::injectorIIDM_</a></td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#ab1c6193b2f391ca667133f9fe1da1d7c">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::injectorIIDM_</a></td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a84e45f81329b72590301b36003d9b918">DYN::InjectorInterfaceIIDM</a>(IIDM::Injection&lt; T &gt; &amp;injector, std::string id)</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a97e9908d9ec2620f32abd296721ebe5d">DYN::InjectorInterfaceIIDM</a>(const powsybl::iidm::Injection &amp;injector, const std::string &amp;id)</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a84e45f81329b72590301b36003d9b918">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::InjectorInterfaceIIDM</a>(IIDM::Injection&lt; IIDM::Generator &gt; &amp;injector, std::string id)</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a97e9908d9ec2620f32abd296721ebe5d">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::InjectorInterfaceIIDM</a>(const powsybl::iidm::Injection &amp;injector, const std::string &amp;id)</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a0377f894b4691cc87759b3d8ee2fd74d">isConnected</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a0377f894b4691cc87759b3d8ee2fd74d">isConnected</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#acb4752815a7b1f4f1545f0548169261f">DYN::isConnectedInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#acb4752815a7b1f4f1545f0548169261f">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::isConnectedInjector</a>() const</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#ac298501e2706de0701bcf0405d69780c">isPartiallyConnected</a>() const</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#ae203f86641eecf393538c4e1bc6227c2">isParticipate</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a7ea89118537e4e771a8c706c6d8acc75">isParticipate</a>() const final</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a5ebce2439a027885c64cee2964eb0687">isParticipating</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a5ebce2439a027885c64cee2964eb0687">isParticipating</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a9d84fc72d2c38cae759780ae7ed862cf">isVoltageRegulationOn</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a9d84fc72d2c38cae759780ae7ed862cf">isVoltageRegulationOn</a>() const</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872a53adb0161b3d082e47d4e0766d2e872f">LCC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872acd809ebf05c1a6cc4037fd7e429e560c">LINE</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872a1a0f12a58102bd2afd073be90e01af8f">LOAD</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a5b11fcf0a13a48a12527e10c17742cd7">setBusInterface</a>(const boost::shared_ptr&lt; BusInterface &gt; &amp;busInterface)</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a5b11fcf0a13a48a12527e10c17742cd7">setBusInterface</a>(const boost::shared_ptr&lt; BusInterface &gt; &amp;busInterface)</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a303384ec7cd2ecd8439e7613eb282498">DYN::setBusInterfaceInjector</a>(const boost::shared_ptr&lt; BusInterface &gt; &amp;busInterface)</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a303384ec7cd2ecd8439e7613eb282498">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::setBusInterfaceInjector</a>(const boost::shared_ptr&lt; BusInterface &gt; &amp;busInterface)</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a1da3d796eec07bb0c6c00c2f1754f361">setCountry</a>(const std::string &amp;country)</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a1da3d796eec07bb0c6c00c2f1754f361">setCountry</a>(const std::string &amp;country)</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#ad4a2e77952f4983e5705c0feb2ffefd3">setModelDyn</a>(const boost::shared_ptr&lt; SubModel &gt; &amp;model)</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#aa4d21f5feedc23bfd0c89f2b32e71746">setReference</a>(const std::string &amp;componentVar, const std::string &amp;modelId, const std::string &amp;modelVar)</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#ad2b7a24d4bb3aed941d24831988b3da5">setType</a>(const ComponentType_t &amp;type)</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a5a689f160317d3874eff57bb37f09c7c">setVoltageLevelInterface</a>(const boost::shared_ptr&lt; VoltageLevelInterface &gt; &amp;voltageLevelInterface)</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a5a689f160317d3874eff57bb37f09c7c">setVoltageLevelInterface</a>(const boost::shared_ptr&lt; VoltageLevelInterface &gt; &amp;voltageLevelInterface)</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a4a65e575f41958be51ecf9e703f8e4cc">DYN::setVoltageLevelInterfaceInjector</a>(const boost::shared_ptr&lt; VoltageLevelInterface &gt; &amp;voltageLevelInterface)</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a4a65e575f41958be51ecf9e703f8e4cc">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::setVoltageLevelInterfaceInjector</a>(const boost::shared_ptr&lt; VoltageLevelInterface &gt; &amp;voltageLevelInterface)</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872aff22939164641c88ddca4f3b8f75b7de">SHUNT</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a4e9a1ad375b2c22292b200713cb94bac">stateVariables_</a></td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#abd662edc1d318a148a180a48c7120cb6">staticParameters_</a></td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872a4fb7066ad44a2613c8bb0c5219d2466f">SVC</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872a69d91e244e6054c7779d6ec9cf08238e">SWITCH</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872a5d97e6161158480daa64e4094ae21083">THREE_WTFO</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872aeb32fa0ff31d9b817d2a8299a3f9b153">TWO_WTFO</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a3b7f69e17315c6cb35ffb9231dcb5e6a">type_</a></td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872a07df56823341ff6a8659eedcaa5ab994">UNKNOWN</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#ab673e4fea551130c3776e4a0fda6fea6">updateFromModel</a>(bool filterForCriteriaCheck)</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>VAR_P</b> enum value (defined in <a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a>)</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>VAR_Q</b> enum value (defined in <a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a>)</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>VAR_STATE</b> enum value (defined in <a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a>)</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a24c78e1a1aaf009c8ebb28061cfa4b22">DYN::voltageLevelInterface_</a></td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a24c78e1a1aaf009c8ebb28061cfa4b22">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::voltageLevelInterface_</a></td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a8089dfd2e85bdc3fc21030715c846872a1d29386c8ebadaaf3b9f3342e131fa68">VSC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d4a/a02761.html#a22e1616c1c12383fca3a74d35272f89b">~ComponentInterface</a>()</td><td class="entry"><a class="el" href="../../dd/d4a/a02761.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a64e36a421b2844837ba77e17cd966be3">~GeneratorInterfaceIIDM</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/d0d/a02929.html#a64e36a421b2844837ba77e17cd966be3">~GeneratorInterfaceIIDM</a>()</td><td class="entry"><a class="el" href="../../dd/d0d/a02929.html">DYN::GeneratorInterfaceIIDM</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a681fcab4f77a66c17fb2e32f4b07e134">DYN::~InjectorInterfaceIIDM</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d46/a02937.html#ac2e06cf5b9f5974c47d16a3dc95f33d6">DYN::~InjectorInterfaceIIDM</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d46/a02937.html#a681fcab4f77a66c17fb2e32f4b07e134">InjectorInterfaceIIDM&lt; IIDM::Generator &gt;::~InjectorInterfaceIIDM</a>()</td><td class="entry"><a class="el" href="../../d2/d46/a02937.html">DYN::InjectorInterfaceIIDM&lt; IIDM::Generator &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/dd2/a02849.html#a7dcad3da41d9061f219fcfa544876554">~ReactiveCurvePointsInterface</a>()</td><td class="entry"><a class="el" href="../../d5/dd2/a02849.html">DYN::ReactiveCurvePointsInterface</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -1774,8 +277,7 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../d3/dee/a02862.ht
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d1/d75/a02926.html">HvdcLineInterfaceIIDM</a></li>
-    <li class="footer">Generated on Thu Jun 23 2022 10:45:58 for Dynawo by
+    <li class="footer">Generated on Mon Jun 27 2022 11:27:45 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
