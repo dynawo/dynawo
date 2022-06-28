@@ -85,12 +85,10 @@ namespace DYN {
 
 ModelAreaShedding::ModelAreaShedding() :
 ModelCPP("AreaShedding"),
-deltaP_(0.),
-deltaQ_(0.),
 deltaTime_(0.),
 nbLoads_(0),
 started_(-1.),
-stateAreaShedding_(NOT_STARTED){
+stateAreaShedding_(NOT_STARTED) {
 }
 
 void
@@ -111,7 +109,7 @@ ModelAreaShedding::initializeStaticData() {
 void
 ModelAreaShedding::getSize() {
   sizeF_ = nbLoads_ * 2;  // equation for deltaPRef and deltaQRef by load
-  sizeY_ = nbLoads_ * 2;   // deltaPRef et deltaQRef  by load
+  sizeY_ = nbLoads_ * 2;   // deltaPRef and deltaQRef  by load
   sizeZ_ = 1;  // delta started
   sizeG_ = 1;  // activation of load shedding
   sizeMode_ = 1;  // activation of load shedding
@@ -132,8 +130,8 @@ ModelAreaShedding::evalF(double /*t*/, propertyF_t type) {
     }
   } else {  // shedding started
     for (int i = 0; i < nbLoads_; ++i) {
-      fLocal_[i * 2] = yLocal_[i * 2] - PRef_[i] * (1 - deltaP_/100);
-      fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - QRef_[i] * (1 - deltaQ_/100);
+      fLocal_[i * 2] = yLocal_[i * 2] - PRefAfterShedding_[i];
+      fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - QRefAfterShedding_[i];
     }
   }
 }
@@ -276,8 +274,8 @@ void
 ModelAreaShedding::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("nbLoads", VAR_TYPE_INT, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("deltaTime", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("deltaP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("deltaQ", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("deltaP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
+  parameters.push_back(ParameterModeler("deltaQ", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
   parameters.push_back(ParameterModeler("PRef_load", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
   parameters.push_back(ParameterModeler("QRef_load", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
 }
@@ -286,11 +284,13 @@ void
 ModelAreaShedding::setSubModelParameters() {
   nbLoads_ = findParameterDynamic("nbLoads").getValue<int>();
   deltaTime_ = findParameterDynamic("deltaTime").getValue<double>();
-  deltaP_ = findParameterDynamic("deltaP").getValue<double>();
-  deltaQ_ = findParameterDynamic("deltaQ").getValue<double>();
 
   PRef_.clear();
   QRef_.clear();
+  deltaP_.clear();
+  deltaQ_.clear();
+  PRefAfterShedding_.clear();
+  QRefAfterShedding_.clear();
   std::stringstream deltaName;
   for (int k = 0; k < nbLoads_; ++k) {
     deltaName.str("");
@@ -302,6 +302,19 @@ ModelAreaShedding::setSubModelParameters() {
     deltaName.clear();
     deltaName << "QRef_load_" << k;
     QRef_.push_back(findParameterDynamic(deltaName.str()).getValue<double>());
+
+    deltaName.str("");
+    deltaName.clear();
+    deltaName << "deltaP_" << k;
+    deltaP_.push_back(findParameterDynamic(deltaName.str()).getValue<double>());
+
+    deltaName.str("");
+    deltaName.clear();
+    deltaName << "deltaQ_" << k;
+    deltaQ_.push_back(findParameterDynamic(deltaName.str()).getValue<double>());
+
+    PRefAfterShedding_.push_back(PRef_[k] * (1 - deltaP_[k]/100));
+    QRefAfterShedding_.push_back(QRef_[k] * (1 - deltaQ_[k]/100));
   }
 }
 

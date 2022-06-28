@@ -112,7 +112,7 @@ ModelVariationArea::initializeStaticData() {
 void
 ModelVariationArea::getSize() {
   sizeF_ = nbLoads_ * 2;  // equation for deltaP and deltaQ by load
-  sizeY_ = nbLoads_ * 2;   // deltaP et deltaQ  by load
+  sizeY_ = nbLoads_ * 2;   // deltaP and deltaQ  by load
   sizeZ_ = 1;  // automaton running
   sizeG_ = 2;  // activation/deactivation of load increase
   sizeMode_ = 2;  // activation/deactivation of load increase
