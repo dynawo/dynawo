@@ -71,8 +71,6 @@ class ModelAreaShedding : public ModelCPP {
 
   /**
    * @brief Default constructor
-   *
-   * Creates a new ModelAreaShedding instance.
    */
   ModelAreaShedding();
   /**
@@ -121,8 +119,6 @@ class ModelAreaShedding : public ModelCPP {
    * Get the discrete variables' value depending on current simulation instant and
    * current state variables values.
    * @param[in] t Simulation instant
-   * @throws Error::MODELER typed @p Error. Shouldn't, but if it happens
-   * it shows that there is a bug in the selection of activated shunt.
    */
   void evalZ(const double t);
 
@@ -272,10 +268,12 @@ class ModelAreaShedding : public ModelCPP {
 
  private:
   // parameters
-  double deltaP_;  ///< delta in % to apply to PRef
-  double deltaQ_;  ///< delta in % to apply to QRef
+  std::vector<double> deltaP_;  ///< deltas in % to apply to PRefs
+  std::vector<double> deltaQ_;  ///< deltas in % to apply to QRefs
   std::vector<double> PRef_;    ///< initial PRef for each load
   std::vector<double> QRef_;    ///< initial QRef for each load
+  std::vector<double> PRefAfterShedding_;    ///< value of PRef after shedding
+  std::vector<double> QRefAfterShedding_;    ///< value of QRef after shedding
   double deltaTime_;  ///< time at which occurs the delta
   int nbLoads_;  ///< number of loads
   double started_;  ///< time when the mode change indicating the start of the shedding has been done

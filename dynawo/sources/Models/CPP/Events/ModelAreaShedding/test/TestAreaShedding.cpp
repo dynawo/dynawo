@@ -12,8 +12,8 @@
 //
 
 /**
- * @file Models/CPP/ModelAreaShedding/TestVariationArea
- * @brief Unit tests for VariationArea model
+ * @file Models/CPP/ModelAreaShedding/TestAreaShedding
+ * @brief Unit tests for AreaShedding model
  *
  */
 
@@ -42,8 +42,10 @@ static boost::shared_ptr<SubModel> initModelAreaShedding(double PRefLoad2, doubl
       boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbLoads", 2);
   parametersSet->createParameter("deltaTime", 0.5);
-  parametersSet->createParameter("deltaP", 5.);
-  parametersSet->createParameter("deltaQ", 10.);
+  parametersSet->createParameter("deltaP_0", 5.);
+  parametersSet->createParameter("deltaQ_0", 10.);
+  parametersSet->createParameter("deltaP_1", 15.);
+  parametersSet->createParameter("deltaQ_1", 20.);
   parametersSet->createParameter("PRef_load_0", 0.05);
   parametersSet->createParameter("PRef_load_1", PRefLoad2);
   parametersSet->createParameter("QRef_load_0", 0.2);
@@ -68,8 +70,10 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingDefineMethods) {
   boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbLoads", 2);
   parametersSet->createParameter("deltaTime", 0.);
-  parametersSet->createParameter("deltaP", 5.);
-  parametersSet->createParameter("deltaQ", 10.);
+  parametersSet->createParameter("deltaP_0", 5.);
+  parametersSet->createParameter("deltaQ_0", 10.);
+  parametersSet->createParameter("deltaP_1", 15.);
+  parametersSet->createParameter("deltaQ_1", 20.);
   parametersSet->createParameter("PRef_load_0", 0.2);
   parametersSet->createParameter("PRef_load_1", 0.1);
   parametersSet->createParameter("QRef_load_0", 0.5);
@@ -84,36 +88,36 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingDefineMethods) {
   std::vector<boost::shared_ptr<Variable> > variables;
   modelAreaShedding->defineVariables(variables);
   ASSERT_EQ(variables.size(), 5);
-  boost::shared_ptr<Variable> variableVariationArea = variables[0];
-  ASSERT_EQ(variableVariationArea->getName(), "PRef_load_0_value");
-  ASSERT_EQ(variableVariationArea->getType(), CONTINUOUS);
-  ASSERT_EQ(variableVariationArea->getNegated(), false);
-  ASSERT_EQ(variableVariationArea->isState(), true);
-  ASSERT_EQ(variableVariationArea->isAlias(), false);
-  variableVariationArea = variables[1];
-  ASSERT_EQ(variableVariationArea->getName(), "QRef_load_0_value");
-  ASSERT_EQ(variableVariationArea->getType(), CONTINUOUS);
-  ASSERT_EQ(variableVariationArea->getNegated(), false);
-  ASSERT_EQ(variableVariationArea->isState(), true);
-  ASSERT_EQ(variableVariationArea->isAlias(), false);
-  variableVariationArea = variables[2];
-  ASSERT_EQ(variableVariationArea->getName(), "PRef_load_1_value");
-  ASSERT_EQ(variableVariationArea->getType(), CONTINUOUS);
-  ASSERT_EQ(variableVariationArea->getNegated(), false);
-  ASSERT_EQ(variableVariationArea->isState(), true);
-  ASSERT_EQ(variableVariationArea->isAlias(), false);
-  variableVariationArea = variables[3];
-  ASSERT_EQ(variableVariationArea->getName(), "QRef_load_1_value");
-  ASSERT_EQ(variableVariationArea->getType(), CONTINUOUS);
-  ASSERT_EQ(variableVariationArea->getNegated(), false);
-  ASSERT_EQ(variableVariationArea->isState(), true);
-  ASSERT_EQ(variableVariationArea->isAlias(), false);
-  variableVariationArea = variables[4];
-  ASSERT_EQ(variableVariationArea->getName(), "state");
-  ASSERT_EQ(variableVariationArea->getType(), DISCRETE);
-  ASSERT_EQ(variableVariationArea->getNegated(), false);
-  ASSERT_EQ(variableVariationArea->isState(), true);
-  ASSERT_EQ(variableVariationArea->isAlias(), false);
+  boost::shared_ptr<Variable> variableAreaShedding = variables[0];
+  ASSERT_EQ(variableAreaShedding->getName(), "PRef_load_0_value");
+  ASSERT_EQ(variableAreaShedding->getType(), CONTINUOUS);
+  ASSERT_EQ(variableAreaShedding->getNegated(), false);
+  ASSERT_EQ(variableAreaShedding->isState(), true);
+  ASSERT_EQ(variableAreaShedding->isAlias(), false);
+  variableAreaShedding = variables[1];
+  ASSERT_EQ(variableAreaShedding->getName(), "QRef_load_0_value");
+  ASSERT_EQ(variableAreaShedding->getType(), CONTINUOUS);
+  ASSERT_EQ(variableAreaShedding->getNegated(), false);
+  ASSERT_EQ(variableAreaShedding->isState(), true);
+  ASSERT_EQ(variableAreaShedding->isAlias(), false);
+  variableAreaShedding = variables[2];
+  ASSERT_EQ(variableAreaShedding->getName(), "PRef_load_1_value");
+  ASSERT_EQ(variableAreaShedding->getType(), CONTINUOUS);
+  ASSERT_EQ(variableAreaShedding->getNegated(), false);
+  ASSERT_EQ(variableAreaShedding->isState(), true);
+  ASSERT_EQ(variableAreaShedding->isAlias(), false);
+  variableAreaShedding = variables[3];
+  ASSERT_EQ(variableAreaShedding->getName(), "QRef_load_1_value");
+  ASSERT_EQ(variableAreaShedding->getType(), CONTINUOUS);
+  ASSERT_EQ(variableAreaShedding->getNegated(), false);
+  ASSERT_EQ(variableAreaShedding->isState(), true);
+  ASSERT_EQ(variableAreaShedding->isAlias(), false);
+  variableAreaShedding = variables[4];
+  ASSERT_EQ(variableAreaShedding->getName(), "state");
+  ASSERT_EQ(variableAreaShedding->getType(), DISCRETE);
+  ASSERT_EQ(variableAreaShedding->getNegated(), false);
+  ASSERT_EQ(variableAreaShedding->isState(), true);
+  ASSERT_EQ(variableAreaShedding->isAlias(), false);
 
   std::vector<Element> elements;
   std::map<std::string, int> mapElements;
@@ -223,7 +227,7 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingInit) {
   ASSERT_NO_THROW(ModelAreaShedding->initializeFromData(data));
   ASSERT_NO_THROW(ModelAreaShedding->initializeStaticData());
   delete[] zConnected;
- }
+}
 
 TEST(ModelsModelAreaShedding, ModelAreaSheddingContinuousAndDiscreteMethods) {
   boost::shared_ptr<SubModel> ModelAreaShedding = initModelAreaShedding(.1, .01);
@@ -287,8 +291,8 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingContinuousAndDiscreteMethods) {
   ModelAreaShedding->evalF(2., UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 0.0025);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0.02);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], 0.005);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[3], 0.001);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], 0.015);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[3], 0.002);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
 
   SparseMatrix smjPrim;
