@@ -1,6 +1,6 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 new file mode 100644
-index 0000000..b2031e0
+index 0000000000..b2031e0938
 --- /dev/null
 +++ b/CMakeLists.txt
 @@ -0,0 +1,31 @@
@@ -37,10 +37,10 @@ index 0000000..b2031e0
 +    )
 diff --git a/adept/CMakeLists.txt b/adept/CMakeLists.txt
 new file mode 100644
-index 0000000..91b5ac9
+index 0000000000..56b6c90c0b
 --- /dev/null
 +++ b/adept/CMakeLists.txt
-@@ -0,0 +1,67 @@
+@@ -0,0 +1,69 @@
 +set(ADEPT_SOURCES
 +    Array.cpp
 +    Stack.cpp
@@ -51,9 +51,11 @@ index 0000000..91b5ac9
 +    index.cpp
 +    inv.cpp
 +    jacobian.cpp
++    line_search.cpp
 +    settings.cpp
 +    solve.cpp
 +    vector_utilities.cpp
++    minimize_conjugate_gradient.cpp
 +    minimize_levenberg_marquardt.cpp
 +    minimize_limited_memory_bfgs.cpp
 +    Minimizer.cpp
@@ -109,74 +111,10 @@ index 0000000..91b5ac9
 +    RUNTIME DESTINATION ${BIN_INSTALL_DIR}
 +    )
 diff --git a/adept/inv.cpp b/adept/inv.cpp
-index 2b918ff..c914347 100644
+index 314297a777..959526081a 100644
 --- a/adept/inv.cpp
 +++ b/adept/inv.cpp
-@@ -6,7 +6,7 @@
- 
-     This file is part of the Adept library.
- */
--                             
-+
- #include <vector>
- 
- #include <adept/Array.h>
-@@ -21,12 +21,12 @@
- namespace adept {
- 
-   using namespace internal;
--  
-+
-   // -------------------------------------------------------------------
-   // Invert general square matrix A
-   // -------------------------------------------------------------------
-   template <typename Type>
--  Array<2,Type,false> 
-+  Array<2,Type,false>
-   inv(const Array<2,Type,false>& A) {
-     using internal::cpplapack_getrf;
-     using internal::cpplapack_getri;
-@@ -74,7 +74,7 @@ namespace adept {
-   // Invert symmetric matrix A
-   // -------------------------------------------------------------------
-   template <typename Type, SymmMatrixOrientation Orient>
--  SpecialMatrix<Type,SymmEngine<Orient>,false> 
-+  SpecialMatrix<Type,SymmEngine<Orient>,false>
-   inv(const SpecialMatrix<Type,SymmEngine<Orient>,false>& A) {
-     using internal::cpplapack_sytrf;
-     using internal::cpplapack_sytri;
-@@ -120,14 +120,16 @@ namespace adept {
- }
- 
- #else // LAPACK not available
--    
-+
- namespace adept {
- 
-+  using namespace internal;
-+
-   // -------------------------------------------------------------------
-   // Invert general square matrix A
-   // -------------------------------------------------------------------
-   template <typename Type>
--  Array<2,Type,false> 
-+  Array<2,Type,false>
-   inv(const Array<2,Type,false>& A) {
-     throw feature_not_available("Cannot invert matrix because compiled without LAPACK");
-   }
-@@ -136,16 +138,18 @@ namespace adept {
-   // Invert symmetric matrix A
-   // -------------------------------------------------------------------
-   template <typename Type, SymmMatrixOrientation Orient>
--  SpecialMatrix<Type,SymmEngine<Orient>,false> 
-+  SpecialMatrix<Type,SymmEngine<Orient>,false>
-   inv(const SpecialMatrix<Type,SymmEngine<Orient>,false>& A) {
-     throw feature_not_available("Cannot invert matrix because compiled without LAPACK");
-   }
--  
-+
- }
- 
+@@ -148,6 +148,8 @@ namespace adept {
  #endif
  
  namespace adept {
@@ -185,110 +123,11 @@ index 2b918ff..c914347 100644
    // -------------------------------------------------------------------
    // Explicit instantiations
    // -------------------------------------------------------------------
-@@ -161,7 +165,7 @@ namespace adept {
-   ADEPT_EXPLICIT_INV(double);
- 
- #undef ADEPT_EXPLICIT_INV
--  
-+
- }
- 
- 
 diff --git a/adept/solve.cpp b/adept/solve.cpp
-index 37e0195..f9fe309 100644
+index 839111682c..822cbb59a8 100644
 --- a/adept/solve.cpp
 +++ b/adept/solve.cpp
-@@ -6,7 +6,7 @@
- 
-     This file is part of the Adept library.
- */
--                             
-+
- 
- #include <vector>
- 
-@@ -26,12 +26,12 @@
- namespace adept {
- 
-   using namespace internal;
--  
-+
-   // -------------------------------------------------------------------
-   // Solve Ax = b for general square matrix A
-   // -------------------------------------------------------------------
-   template <typename T>
--  Array<1,T,false> 
-+  Array<1,T,false>
-   solve(const Array<2,T,false>& A, const Array<1,T,false>& b) {
-     Array<2,T,false> A_;
-     Array<1,T,false> b_;
-@@ -66,18 +66,18 @@ namespace adept {
-       s << "Failed to solve general system of equations: LAPACK ?gesv returned code " << status;
-       throw(matrix_ill_conditioned(s.str() ADEPT_EXCEPTION_LOCATION));
-     }
--    return b_;    
-+    return b_;
-   }
- 
-   // -------------------------------------------------------------------
-   // Solve AX = B for general square matrix A and rectangular matrix B
-   // -------------------------------------------------------------------
-   template <typename T>
--  Array<2,T,false> 
-+  Array<2,T,false>
-   solve(const Array<2,T,false>& A, const Array<2,T,false>& B) {
-     Array<2,T,false> A_;
-     Array<2,T,false> B_;
--    
-+
-     // LAPACKE is more efficient with column-major input
-     // if (A.is_row_contiguous()) {
-       A_.resize_column_major(A.dimensions());
-@@ -108,7 +108,7 @@ namespace adept {
-       s << "Failed to solve general system of equations for matrix RHS: LAPACK ?gesv returned code " << status;
-       throw(matrix_ill_conditioned(s.str() ADEPT_EXCEPTION_LOCATION));
-     }
--    return B_;    
-+    return B_;
-   }
- 
- 
-@@ -159,7 +159,7 @@ namespace adept {
-       std::cerr << "Warning: LAPACK solve symmetric system failed (?sysv): trying general (?gesv)\n";
-       return solve(Array<2,T,false>(A_),b_);
-     }
--    return b_;    
-+    return b_;
-   }
- 
- 
-@@ -216,12 +216,14 @@ namespace adept {
- #else
- 
- namespace adept {
--  
-+
-+  using namespace internal;
-+
-   // -------------------------------------------------------------------
-   // Solve Ax = b for general square matrix A
-   // -------------------------------------------------------------------
-   template <typename T>
--  Array<1,T,false> 
-+  Array<1,T,false>
-   solve(const Array<2,T,false>& A, const Array<1,T,false>& b) {
-     throw feature_not_available("Cannot solve linear equations because compiled without LAPACK");
-   }
-@@ -230,7 +232,7 @@ namespace adept {
-   // Solve AX = B for general square matrix A and rectangular matrix B
-   // -------------------------------------------------------------------
-   template <typename T>
--  Array<2,T,false> 
-+  Array<2,T,false>
-   solve(const Array<2,T,false>& A, const Array<2,T,false>& B) {
-     throw feature_not_available("Cannot solve linear equations because compiled without LAPACK");
-   }
-@@ -262,6 +264,8 @@ namespace adept {
+@@ -264,6 +264,8 @@ namespace adept {
  
  namespace adept {
  
@@ -299,7 +138,7 @@ index 37e0195..f9fe309 100644
    // -------------------------------------------------------------------
 diff --git a/benchmark/CMakeLists.txt b/benchmark/CMakeLists.txt
 new file mode 100644
-index 0000000..23e789f
+index 0000000000..23e789f1a8
 --- /dev/null
 +++ b/benchmark/CMakeLists.txt
 @@ -0,0 +1,15 @@
@@ -320,7 +159,7 @@ index 0000000..23e789f
 +add_bench_adept(matrix_benchmark)
 diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
 new file mode 100644
-index 0000000..bc01218
+index 0000000000..bc01218bbb
 --- /dev/null
 +++ b/test/CMakeLists.txt
 @@ -0,0 +1,105 @@
