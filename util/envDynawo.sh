@@ -455,9 +455,6 @@ set_environment() {
 
   # Only used until now by nrt
   export_var_env DYNAWO_NB_PROCESSORS_USED=1
-  if [ $DYNAWO_NB_PROCESSORS_USED -gt $TOTAL_CPU ]; then
-    error_exit "PROCESSORS_USED ($DYNAWO_NB_PROCESSORS_USED) is higher than the number of cpu of the system ($TOTAL_CPU)"
-  fi
 
   # OpenModelica config
   export_var_env_force DYNAWO_OPENMODELICA_VERSION=1_13_2
@@ -2221,13 +2218,6 @@ reset_environment_variables_full() {
 #################################
 ########### Main script #########
 #################################
-
-if [ "`uname`" = "Linux" ]; then
-  TOTAL_CPU=$(grep -c \^processor /proc/cpuinfo)
-else
-  echo "OS not supported."
-  exit 1
-fi
 
 if [ -n "$BASH_VERSION" ]; then
   SCRIPT=$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && echo "$(pwd)"/"$(basename ${BASH_SOURCE[0]})")
