@@ -7,13 +7,12 @@ on:
 
 jobs:
   fedora:
-    name: Linux Fedora (${{ matrix.build-type }}, ${{ matrix.compiler }}, ${{ matrix.cxx11-standard }})
+    name: Linux Fedora (${{ matrix.build-type }}, ${{ matrix.compiler }})
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci-nightly-fedora:latest
     strategy:
       matrix:
         build-type: [Release, Debug]
-        cxx11-standard: [YES, NO]
         compiler: [GCC, CLANG]
       fail-fast: false
     env:
