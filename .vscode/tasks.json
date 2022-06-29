@@ -18,12 +18,11 @@
                     "DYNAWO_RESULTS_SHOW": "false",
                     "DYNAWO_BROWSER": "firefox",
                     "DYNAWO_BUILD_TYPE": "Debug",
-                    "DYNAWO_CXX11_ENABLED": "YES",
                     "DYNAWO_BUILD_DIR": "${workspaceFolder}/build-code/dynawo",
-                    "DYNAWO_INSTALL_DIR": "${workspaceFolder}/build-code/Install/dynawo",
+                    "DYNAWO_INSTALL_DIR": "${workspaceFolder}/build-code/install/dynawo",
                     "DYNAWO_DEPLOY_DIR": "${workspaceFolder}/build-code/deploy",
                     "DYNAWO_THIRD_PARTY_BUILD_DIR": "${workspaceFolder}/build-code/3rdParty",
-                    "DYNAWO_THIRD_PARTY_INSTALL_DIR": "${workspaceFolder}/build-code/Install/3rdParty",
+                    "DYNAWO_THIRD_PARTY_INSTALL_DIR": "${workspaceFolder}/build-code/install/3rdParty",
                 }
               }
         }
