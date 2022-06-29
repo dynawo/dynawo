@@ -53,7 +53,7 @@ class ParameterSolver : public ParameterCommon {
    * @brief Default assignement operator
    * @returns *this
    */
-  ParameterSolver& operator=(const ParameterSolver&) = default;
+  ParameterSolver& operator=(const ParameterSolver&) = delete;
 
   /**
     * @brief check whether the parameter's value is set
