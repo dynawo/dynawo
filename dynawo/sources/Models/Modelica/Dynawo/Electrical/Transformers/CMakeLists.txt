@@ -15,6 +15,9 @@ set(MODEL_FILES
   package.order
   BaseClasses.mo
   BaseClasses_INIT.mo
+  DynamicTransformerFixedRatio.mo
+  DynamicTransformerFixedRatio_INIT.mo
+  DynamicTransformerFixedRatio.extvar
   TransformerFixedRatio.mo
   TransformerFixedRatio.extvar
   TransformerVariableTap.mo

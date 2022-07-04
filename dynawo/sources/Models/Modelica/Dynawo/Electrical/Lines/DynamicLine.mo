@@ -66,6 +66,7 @@ model DynamicLine "AC power line - PI model considering the dynamics of the indu
 
 
 equation
+
   if (running.value) then
     iGC1Pu.re = GPu * terminal1.V.re + CPu * der(terminal1.V.re / SystemBase.omegaNom) - omegaPu * CPu * terminal1.V.im;
     iGC1Pu.im = GPu * terminal1.V.im + CPu * der(terminal1.V.im / SystemBase.omegaNom) + omegaPu * CPu * terminal1.V.re;
@@ -75,12 +76,17 @@ equation
     RPu * iRLPu.im + LPu * der(iRLPu.im / SystemBase.omegaNom) + omegaPu * LPu * iRLPu.re = terminal1.V.im - terminal2.V.im;
     terminal1.i = iRLPu + iGC1Pu ;
     terminal2.i = iGC2Pu - iRLPu ;
+
   else
-    terminal1.i = Complex (0,0);
-    terminal2.i = Complex (0,0);
-    iRLPu = Complex (0,0);
-    iGC10Pu = Complex (0,0);
-    iGC20Pu = Complex (0,0);
+
+ //LPu * der(iRLPu.re / SystemBase.omegaNom) = terminal1.V.re - terminal2.V.re;
+// LPu * der(iRLPu.im / SystemBase.omegaNom) = terminal1.V.im - terminal2.V.im;
+    terminal1.i = Complex(0,0);
+    iGC1Pu = Complex(0,0);
+    terminal2.i = Complex(0,0);
+    iGC2Pu = Complex(0,0);
+    iRLPu = Complex(0,0);
+
   end if;
 
   s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);

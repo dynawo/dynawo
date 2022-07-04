@@ -1,4 +1,4 @@
-within Dynawo.Examples.SMIB.Standard;
+within Dynawo.Examples.DynamicLineTests;
 /*
 
 Load flow for a two machines connected to a load PQ .

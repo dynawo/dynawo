@@ -1,4 +1,4 @@
-# Copyright (c) 2022, RTE (http://www.rte-france.com)
+# Copyright (c) 2022, RTE (http://www.rte-france.com) and UPC/Citcea (https://www.citcea.upc.edu/)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,21 +6,20 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source suite
-# of simulation tools for power systems.
+# This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+
 
 set(MODEL_FILES
   package.mo
   package.order
-  GovSteam1ExcIEEEST4BPssIEEE2B1.mo
-  GovSteam1ExcIEEEST4BPssIEEE2B2.mo
-  GovSteam1ExcIEEEST4BPssIEEE2B3.mo
-  LoadFlowFaultSMIB.mo
+  generatorLoad_dynamicLine_Controlled.mo
+  GridFormingSMIB.mo
+  LoadFlow_SMIBdynamicFault.mo
+  SMIBdynamicLineFault_INIT.mo
   SMIBdynamicLineFault.mo
-  SMIBdynamicLineINIT.mo
-  generatorLoad_dynamicLine_Controlled
-  generatorLoad_dynamicLineFault
-  TwoMachines
+  test.mo
+  TwoMachines.mo
+  TwoMachinesLoadFlow.mo
   )
 
 #

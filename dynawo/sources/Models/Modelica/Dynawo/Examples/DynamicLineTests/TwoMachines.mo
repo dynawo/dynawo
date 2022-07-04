@@ -1,4 +1,4 @@
-within Dynawo.Examples.SMIB.Standard;
+within Dynawo.Examples.DynamicLineTests;
 
 model TwoMachines
   import Dynawo;
@@ -8,8 +8,8 @@ model TwoMachines
   // You can go back to a two machines model by removing the generatorSynchronous3 connection to the network and fixing gen3_P = 0
   // Ps : gen1_P + gen2_P + gen3_P should be equal to 1
   parameter Real x = 0.5;
-  parameter Real tbegin = 5;
-  parameter Real tend = 5.1;
+  parameter Real tbegin = 1;
+  parameter Real tend = 1.4;
   parameter Real a = 1;
   parameter Real gen1_P = 1/3;
   parameter Real gen2_P = 1/3;

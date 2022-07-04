@@ -1,0 +1,124 @@
+within Dynawo.Examples.DynamicLineTests;
+
+model test_2
+  import Modelica;
+  import Dynawo;
+  import Dynawo.Connectors;
+  import Dynawo.Electrical.SystemBase;
+
+  parameter Types.PerUnit CPu = 2.9374375000000003e-08;
+  parameter Types.PerUnit RPu = 0.004071878037681818;
+  parameter Types.PerUnit LPu = 0.004524308930757575;
+  parameter Types.PerUnit GPu = 0;
+
+  Types.PerUnit Ia;
+  Types.PerUnit Ib;
+  Types.PerUnit Ic;
+
+  Types.PerUnit Ia2;
+  Types.PerUnit Ib2;
+  Types.PerUnit Ic2;
+
+  Dynawo.Electrical.Lines.DynamicLine dynamicLine(CPu = CPu/2, GPu = GPu/2, LPu = LPu/2, RPu = RPu/2, u10Pu = U10PU1, u20Pu = U20PU1, i10Pu = I10PU1, i20Pu = I20PU1, iRL0Pu = IRL0PU1, iGC10Pu = IGC10PU1, iGC20Pu = IGC20PU1) annotation(
+    Placement(visible = true, transformation(origin = {-12, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = PHASE2, UPu = 1.01645) annotation(
+    Placement(visible = true, transformation(origin = {80, -20}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Dynawo.Electrical.Buses.InfiniteBus infiniteBus1(UPhase = PHASE1, UPu = 1.01779) annotation(
+    Placement(visible = true, transformation(origin = {-68, -20}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Dynawo.Electrical.Lines.DynamicLine dynamicLine1(CPu = CPu/2, GPu = GPu/2, LPu = LPu/2, RPu = RPu/2, u10Pu = U10PU2, u20Pu = U20PU2, i10Pu = I10PU2, i20Pu = I20PU2, iRL0Pu = IRL0PU2, iGC10Pu = IGC10PU2, iGC20Pu = IGC20PU2) annotation(
+    Placement(visible = true, transformation(origin = {38, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Buses.InfiniteBus infiniteBus2(UPhase = PHASE1, UPu = 1.01779) annotation(
+    Placement(visible = true, transformation(origin = {-68, 40}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Dynawo.Electrical.Lines.Line line(BPu = CPu/2, GPu = GPu/2 , XPu = LPu/2 , RPu = RPu/2) annotation(
+    Placement(visible = true, transformation(origin = {-10, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Lines.Line line1(BPu = CPu/2, GPu = GPu/2, XPu = LPu/2 , RPu = RPu/2) annotation(
+    Placement(visible = true, transformation(origin = {30, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Buses.InfiniteBus infiniteBus3(UPhase = PHASE2, UPu = 1.01645) annotation(
+    Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Dynawo.Electrical.Lines.Line line2(BPu = CPu, GPu = GPu, RPu = RPu, XPu = LPu) annotation(
+    Placement(visible = true, transformation(origin = {10, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Lines.DynamicLine dynamicLine2(CPu = CPu, GPu = GPu, LPu = LPu, RPu = RPu, u10Pu = U10PU3, u20Pu = U20PU3, i10Pu = I10PU3, i20Pu = I20PU3, iRL0Pu = IRL0PU3, iGC10Pu = IGC10PU3, iGC20Pu = IGC20PU3) annotation(
+    Placement(visible = true, transformation(origin = {10, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Lines.Line line3(BPu = 0, GPu = 0, RPu = RPu / 100, XPu = LPu / 100) annotation(
+    Placement(visible = true, transformation(origin = {-40, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Lines.Line line4(BPu = 0, GPu = 0, RPu = RPu / 100, XPu = LPu / 100) annotation(
+    Placement(visible = true, transformation(origin = {64, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Lines.Line line5(BPu = 0, GPu = 0, RPu = RPu / 100, XPu = LPu / 100) annotation(
+    Placement(visible = true, transformation(origin = {-40, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Lines.Line line6(BPu = 0, GPu = 0, RPu = RPu / 100, XPu = LPu / 100) annotation(
+    Placement(visible = true, transformation(origin = {60, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanStep Disconnection(startValue = false, startTime = 1+TEMPS);
+  Modelica.Blocks.Sources.BooleanStep Disconnection1(startValue = false, startTime = 1+TEMPS);
+  Dynawo.Electrical.Lines.Line line7(BPu = 0, GPu = 0, RPu = RPu / 1000, XPu = LPu / 1000) annotation(
+    Placement(visible = true, transformation(origin = {14, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0.0001, XPu = 0.0001, tBegin = 1, tEnd = 10)  annotation(
+    Placement(visible = true, transformation(origin = {36, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0.0001, XPu = 0.0001, tBegin = 1, tEnd = 10)  annotation(
+    Placement(visible = true, transformation(origin = {34, 12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+equation
+  Ia = sin(100 * Modelica.Constants.pi * time) * dynamicLine1.terminal2.i.re + cos(100 * Modelica.Constants.pi * time) * dynamicLine1.terminal2.i.im;
+  Ib = sin(100 * Modelica.Constants.pi * time - 2 * Modelica.Constants.pi / 3) * dynamicLine1.terminal2.i.re + cos(100 * Modelica.Constants.pi * time - 2 * Modelica.Constants.pi / 3) * dynamicLine1.terminal2.i.im;
+  Ic = sin(100 * Modelica.Constants.pi * time + 2 * Modelica.Constants.pi / 3) * dynamicLine1.terminal2.i.re + cos(100 * Modelica.Constants.pi * time + 2 * Modelica.Constants.pi / 3) * dynamicLine1.terminal2.i.im;
+  Ia2 = sin(100 * Modelica.Constants.pi * time) * line1.terminal2.i.re + cos(100 * Modelica.Constants.pi * time) * line1.terminal2.i.im;
+  Ib2 = sin(100 * Modelica.Constants.pi * time - 2 * Modelica.Constants.pi / 3) * line1.terminal2.i.re + cos(100 * Modelica.Constants.pi * time - 2 * Modelica.Constants.pi / 3) * line1.terminal2.i.im;
+  Ic2 = sin(100 * Modelica.Constants.pi * time + 2 * Modelica.Constants.pi / 3) * line1.terminal2.i.re + cos(100 * Modelica.Constants.pi * time + 2 * Modelica.Constants.pi / 3) * line1.terminal2.i.im;
+  dynamicLine.omegaPu = 1;
+  dynamicLine1.omegaPu = 1;
+  dynamicLine2.omegaPu = 1;
+  dynamicLine1.switchOffSignal1.value = false;
+  dynamicLine1.switchOffSignal2.value = false;
+  dynamicLine2.switchOffSignal1.value = false;
+  dynamicLine.switchOffSignal2.value = false;
+  line.switchOffSignal1.value = false;
+  line.switchOffSignal2.value = Disconnection1.y;
+  dynamicLine.switchOffSignal1.value = false;
+  dynamicLine2.switchOffSignal2.value = false;
+  line1.switchOffSignal1.value = false;
+  line1.switchOffSignal2.value = false;
+  line2.switchOffSignal1.value = false;
+  line2.switchOffSignal2.value = false;
+  line3.switchOffSignal1.value = false;
+  line3.switchOffSignal2.value = false;
+  line4.switchOffSignal1.value = false;
+  line4.switchOffSignal2.value = false;
+  line5.switchOffSignal1.value = false;
+  line5.switchOffSignal2.value = false;
+  line6.switchOffSignal1.value = false;
+  line6.switchOffSignal2.value = false;
+  line7.switchOffSignal1.value = false;
+  line7.switchOffSignal2.value = Disconnection.y;
+  connect(line.terminal2, line1.terminal1) annotation(
+    Line(points = {{0, 50}, {20, 50}}, color = {0, 0, 255}));
+  connect(line4.terminal2, infiniteBus.terminal) annotation(
+    Line(points = {{74, -20}, {80, -20}}, color = {0, 0, 255}));
+  connect(infiniteBus1.terminal, line3.terminal1) annotation(
+    Line(points = {{-68, -20}, {-50, -20}}, color = {0, 0, 255}));
+  connect(line3.terminal2, dynamicLine.terminal1) annotation(
+    Line(points = {{-30, -20}, {-22, -20}, {-22, -6}}, color = {0, 0, 255}));
+  connect(dynamicLine2.terminal1, line3.terminal2) annotation(
+    Line(points = {{0, -40}, {-22, -40}, {-22, -20}, {-30, -20}}, color = {0, 0, 255}));
+  connect(dynamicLine2.terminal2, line4.terminal1) annotation(
+    Line(points = {{20, -40}, {48, -40}, {48, -20}, {54, -20}}, color = {0, 0, 255}));
+  connect(dynamicLine1.terminal2, line4.terminal1) annotation(
+    Line(points = {{48, -6}, {48, -20}, {54, -20}}, color = {0, 0, 255}));
+  connect(infiniteBus2.terminal, line5.terminal1) annotation(
+    Line(points = {{-68, 40}, {-50, 40}}, color = {0, 0, 255}));
+  connect(line5.terminal2, line.terminal1) annotation(
+    Line(points = {{-30, 40}, {-30, 50}, {-20, 50}}, color = {0, 0, 255}));
+  connect(line2.terminal1, line5.terminal2) annotation(
+    Line(points = {{0, 28}, {-30, 28}, {-30, 40}}, color = {0, 0, 255}));
+  connect(line2.terminal2, line6.terminal1) annotation(
+    Line(points = {{20, 28}, {40, 28}, {40, 40}, {50, 40}}, color = {0, 0, 255}));
+  connect(line1.terminal2, line6.terminal1) annotation(
+    Line(points = {{40, 50}, {40, 40}, {50, 40}}, color = {0, 0, 255}));
+  connect(line6.terminal2, infiniteBus3.terminal) annotation(
+    Line(points = {{70, 40}, {80, 40}}, color = {0, 0, 255}));
+  connect(line7.terminal1, dynamicLine.terminal2) annotation(
+    Line(points = {{4, -6}, {-2, -6}}, color = {0, 0, 255}));
+  connect(line7.terminal2, dynamicLine1.terminal1) annotation(
+    Line(points = {{24, -6}, {28, -6}}, color = {0, 0, 255}));
+  connect(nodeFault1.terminal, dynamicLine1.terminal1) annotation(
+    Line(points = {{34, 12}, {28, 12}, {28, -6}}, color = {0, 0, 255}));
+  connect(nodeFault.terminal, line1.terminal1) annotation(
+    Line(points = {{36, 80}, {20, 80}, {20, 50}}, color = {0, 0, 255}));
+end test_2;

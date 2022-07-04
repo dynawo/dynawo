@@ -12,8 +12,11 @@ set(MODEL_FILES
   # Electrical Lines models
   package.mo
   package.order
+  DynamicLine_INIT.mo
   Line.mo
   Line.extvar
+  DynamicLine.mo
+  Dynamicine.extvar
   )
 
 #

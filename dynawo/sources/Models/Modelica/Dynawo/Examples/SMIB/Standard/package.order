@@ -1,12 +1,3 @@
-generatorLoad_dynamicLine_Controlled
-generatorLoad_dynamicLineFault
-SMIBdynamicLineFault
 GovSteam1ExcIEEEST4BPssIEEE2B3
 GovSteam1ExcIEEEST4BPssIEEE2B2
 GovSteam1ExcIEEEST4BPssIEEE2B1
-TwoMachines
-TwoMachinesLoadFlow
-LoadFlow_SMIBdynamicLineFault
-SMIBdynamicLineFault_INIT
-GridFormingSMIB
-test
