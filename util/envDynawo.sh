@@ -53,8 +53,10 @@ where [option] can be:"
         build-3rd-party                       build 3rd party softwares
         config-dynawo                         configure Dynawo's compiling environment using CMake
         build-dynawo                          build Dynawo and install preassembled models (core, models cpp, models and solvers)
+        build-dynaflow                        build DynaFlow related models (and core, models cpp and solvers) and install preassembled models (core, models cpp, DynaFlow models and solvers)
+        build-dynaswing                       build DynaSwing related models (and core, models cpp and solvers) and install preassembled models (core, models cpp, DynaSwing models and solvers)
         build-dynawo-core                     build Dynawo without models
-        build-dynawo-lib                      build a specific Dynawo library
+        build-dynawo-target                   build a specific Dynawo target (use help to see all cmake targets)
         build-dynawo-models-cpp               build Dynawo CPP models
         build-dynawo-models                   build Dynawo preassembled models
         build-dynawo-solvers                  build Dynawo solver descriptions
@@ -453,9 +455,6 @@ set_environment() {
 
   # Only used until now by nrt
   export_var_env DYNAWO_NB_PROCESSORS_USED=1
-  if [ $DYNAWO_NB_PROCESSORS_USED -gt $TOTAL_CPU ]; then
-    error_exit "PROCESSORS_USED ($DYNAWO_NB_PROCESSORS_USED) is higher than the number of cpu of the system ($TOTAL_CPU)"
-  fi
 
   # OpenModelica config
   export_var_env_force DYNAWO_OPENMODELICA_VERSION=1_13_2
@@ -879,16 +878,16 @@ build_dynawo_core() {
   fi
   if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
     cd $DYNAWO_BUILD_DIR
-    make -j $DYNAWO_NB_PROCESSORS_USED && make -j $DYNAWO_NB_PROCESSORS_USED install
+    make -j $DYNAWO_NB_PROCESSORS_USED install
   else
-    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --config $DYNAWO_BUILD_TYPE && cmake --build $DYNAWO_BUILD_DIR --target install --config $DYNAWO_BUILD_TYPE
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target install
   fi
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
-# Compile a Dynawo library, use help to see all targets
-build_dynawo_lib() {
+# Compile a Dynawo target, use help to see all targets
+build_dynawo_target() {
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     error_exit "$DYNAWO_BUILD_DIR does not exist."
   fi
@@ -950,6 +949,28 @@ build_dynawo() {
   build_dynawo_solvers
   RETURN_CODE=$?
   return ${RETURN_CODE}
+}
+
+build_dynaX() {
+  config_dynawo || error_exit "Error during config_dynawo."
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
+  cd $DYNAWO_BUILD_DIR
+  build_dynawo_core || error_exit "Error during build_dynawo_core."
+  build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
+  build_dynawo_solvers || error_exit "Error during build_dynawo_solvers."
+  build_dynawo_target $@
+  RETURN_CODE=$?
+  return ${RETURN_CODE}
+}
+
+build_dynaflow() {
+  build_dynaX DYNAFLOW_MODELS || error_exit "Error during build_dynaflow."
+}
+
+build_dynaswing() {
+  build_dynaX DYNASWING_MODELS || error_exit "Error during build_dynaflow."
 }
 
 build_user() {
@@ -1086,7 +1107,7 @@ clean_models() {
     return 0
   fi
   for model in `echo $@`; do
-    rm -rf $DYNAWO_BUILD_DIR/sources/Models/Modelica/P/${model}*
+    rm -rf $DYNAWO_BUILD_DIR/M/M/P/${model}*
   done
 }
 
@@ -1100,7 +1121,7 @@ clean_build_models() {
       error_exit "$model is not a valid model to build."
     fi
   done
-  build_dynawo_lib $@
+  build_dynawo_target $@
 }
 
 list_models() {
@@ -2198,13 +2219,6 @@ reset_environment_variables_full() {
 ########### Main script #########
 #################################
 
-if [ "`uname`" = "Linux" ]; then
-  TOTAL_CPU=$(grep -c \^processor /proc/cpuinfo)
-else
-  echo "OS not supported."
-  exit 1
-fi
-
 if [ -n "$BASH_VERSION" ]; then
   SCRIPT=$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && echo "$(pwd)"/"$(basename ${BASH_SOURCE[0]})")
 elif [ -n "$ZSH_VERSION" ]; then
@@ -2247,13 +2261,20 @@ case $MODE in
     build_dynawo || error_exit "Error while building Dynawo"
     ;;
 
+  build-dynaflow)
+    build_dynaflow || error_exit "Error while building DynaFlow"
+    ;;
+
+  build-dynaswing)
+    build_dynaswing || error_exit "Error while building DynaSwing"
+    ;;
+
   build-dynawo-core)
     build_dynawo_core || error_exit "Failed to build Dynawo core"
     ;;
 
-  build-dynawo-lib)
-    config_dynawo || error_exit "Error while configuring Dynawo"
-    build_dynawo_lib ${ARGS} || error_exit "Failed to build Dynawo lib"
+  build-dynawo-target)
+    build_dynawo_target ${ARGS} || error_exit "Failed to build Dynawo target"
     ;;
 
   build-dynawo-models)

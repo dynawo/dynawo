@@ -64,6 +64,8 @@ target_link_libraries(generate-preassembled
 
 set_target_properties(generate-preassembled PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 
+add_dependencies(generate-preassembled compileModelicaModel)
+
 install(TARGETS generate-preassembled EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)

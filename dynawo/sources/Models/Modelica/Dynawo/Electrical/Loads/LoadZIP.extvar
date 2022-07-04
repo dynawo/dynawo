@@ -11,11 +11,11 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
 -->
-<external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
+<external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
-  <variable type="discrete" id="PRefPu"/>
-  <variable type="discrete" id="QRefPu"/>
+  <variable type="continuous" id="PRefPu" optional="true"/>
+  <variable type="continuous" id="QRefPu" optional="true"/>
   <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
 </external_variables>

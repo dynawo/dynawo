@@ -20,7 +20,7 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNDATAINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNDATAINTERFACEIIDM_H_
 
-#include "DYNDataInterface.h"
+#include "DYNDataInterfaceImpl.h"
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNShuntCompensatorInterfaceIIDM.h"
 #include "DYNDanglingLineInterfaceIIDM.h"
@@ -46,7 +46,7 @@
 
 namespace DYN {
 
-class DataInterfaceIIDM : public DataInterface {
+class DataInterfaceIIDM : public DataInterfaceImpl {
  public:
   /**
    * @brief Build an instance of this class by reading a file

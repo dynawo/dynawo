@@ -37,7 +37,9 @@ macro(DESC_SOLVER SOLVER_NAME)
         OUTPUT ${SOLVER_NAME}.desc.xml
         DEPENDS ${SOLVER_NAME} dumpSolver
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND
+      COMMAND
+          test -d ${CMAKE_INSTALL_PREFIX}/${DDBDIR_NAME} || (echo "Target install was not completed, you need to launch it before compiling solvers. For example with dynawo build-dynawo-core." && exit 1)
+      COMMAND
             ${CMAKE_COMMAND} -E env
                 "${runtime_PATH}"
                 "${runtime_LD_LIBRARY_PATH}"
@@ -52,7 +54,6 @@ macro(DESC_SOLVER SOLVER_NAME)
         DEPENDS
             ${SOLVER_NAME}
             ${SOLVER_NAME}.desc.xml
-            CREATE_DDBDIR
         COMMAND
             ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${SOLVER_NAME}> ${ddbdir}/
         COMMAND

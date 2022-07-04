@@ -27,5 +27,5 @@ set(MODEL_FILES
 # Modelica models install
 #
 foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
+    install_model_file(${MODEL_FILE})
 endforeach( MODEL_FILE )
