@@ -258,18 +258,31 @@ macro(COMPILE_CPP_MODEL
         dynawo_CPPModelsCommon
       )
 
-    add_custom_command(
-        OUTPUT ${CPP_MODEL}${DESCRIPTION_XML_EXTENSION}
-        DEPENDS ${CPP_MODEL}
-        COMMAND
-            test -f ${CMAKE_INSTALL_PREFIX}/${LIBDIR_NAME}/$<TARGET_FILE_NAME:dynawo_CPPModelsCommon>  || (echo "Target install was not completed, you need to launch it before compiling a CPP model. For example with dynawo build-dynawo-core." && exit 1)
-        COMMAND
-            ${CMAKE_COMMAND} -E env
-              "${runtime_PATH}"
-              "${runtime_LD_LIBRARY_PATH}"
-                  $<TARGET_FILE:dumpModel> -m $<TARGET_FILE:${CPP_MODEL}> -o ${CPP_MODEL}${DESCRIPTION_XML_EXTENSION}
-        COMMENT "Building ${CPP_MODEL} description file"
-        )
+    if(MSVC)
+      add_custom_command(
+          OUTPUT ${CPP_MODEL}${DESCRIPTION_XML_EXTENSION}
+          DEPENDS ${CPP_MODEL}
+          COMMAND
+              ${CMAKE_COMMAND} -E env
+                "${runtime_PATH}"
+                "${runtime_LD_LIBRARY_PATH}"
+                    $<TARGET_FILE:dumpModel> -m $<TARGET_FILE:${CPP_MODEL}> -o ${CPP_MODEL}${DESCRIPTION_XML_EXTENSION}
+          COMMENT "Building ${CPP_MODEL} description file"
+          )
+    else()
+      add_custom_command(
+          OUTPUT ${CPP_MODEL}${DESCRIPTION_XML_EXTENSION}
+          DEPENDS ${CPP_MODEL}
+          COMMAND
+              test -f ${CMAKE_INSTALL_PREFIX}/${LIBDIR_NAME}/$<TARGET_FILE_NAME:dynawo_CPPModelsCommon> || (echo "Target install was not completed, you need to launch it before compiling a CPP model. For example with dynawo build-dynawo-core." && exit 1)
+          COMMAND
+              ${CMAKE_COMMAND} -E env
+                "${runtime_PATH}"
+                "${runtime_LD_LIBRARY_PATH}"
+                    $<TARGET_FILE:dumpModel> -m $<TARGET_FILE:${CPP_MODEL}> -o ${CPP_MODEL}${DESCRIPTION_XML_EXTENSION}
+          COMMENT "Building ${CPP_MODEL} description file"
+          )
+    endif()
 
     add_custom_target(${CPP_MODEL}_INSTALL
         DEPENDS
