@@ -1081,6 +1081,7 @@ class ReaderOMC:
         ptrn_assign_var = re.compile(r'^[ ]*data->modelData->(?P<var>\S*)\.attribute[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/.start[ ]*=[^;]*;$')
         ptrn_param = re.compile(r'data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
         ptrn_param_boolean_test = re.compile(r'data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*==[^;]*;')
+        ptrn_param_bool_assignment = re.compile(r'data->simulationInfo->booleanParameter\[(?P<var>\S*)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
         ptrn_assign_auxiliary_var = re.compile(r'^[ ]*data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.]+ \*\/[ ]*=[^;]*;')
         ptrn_assign_extobjs = re.compile(r'^[ ]*data->simulationInfo->extObjs\[(?P<var>[0-9]+)\][ ]*=[^;]*;$')
 
@@ -1100,6 +1101,10 @@ class ReaderOMC:
                 for line in list_body:
                     if ptrn_assign_var.search(line) is not None:
                         match = re.search(ptrn_assign_var, line)
+                        var = match.group('varName')
+                        self.var_init_val[ var ] = list_body
+                    if ptrn_param_bool_assignment.search(line) is not None:
+                        match = re.search(ptrn_param, line)
                         var = match.group('varName')
                         self.var_init_val[ var ] = list_body
                     if ptrn_param.search(line) is not None and ptrn_param_boolean_test.search(line) is None:
