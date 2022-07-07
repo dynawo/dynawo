@@ -38,6 +38,7 @@ model HvdcVSC_INIT "Initialisation model for the HVDC VSC model"
 
 equation
   P10Pu = - U10Pu * Ip10Pu * (SNom/SystemBase.SnRef);
+  P1Ref0Pu = P10Pu;
   Q10Pu = U10Pu * Iq10Pu * (SNom/SystemBase.SnRef);
   P20Pu = - U20Pu * Ip20Pu * (SNom/SystemBase.SnRef);
   Q20Pu = U20Pu * Iq20Pu * (SNom/SystemBase.SnRef);

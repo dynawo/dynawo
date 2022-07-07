@@ -44,7 +44,6 @@ equation
   s10Pu = Complex(P10Pu, Q10Pu);
   s10Pu = u10Pu * ComplexMath.conj(i10Pu);
   Theta10 = UPhase10;
-  P1Ref0Pu = P10Pu;
 
   u20Pu = ComplexMath.fromPolar(U20Pu, UPhase20);
   s20Pu = Complex(P20Pu, Q20Pu);
