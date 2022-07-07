@@ -37,7 +37,7 @@ package BaseClasses
     parameter Real KLosses "Losses coefficient between 0 and 1 : 1 if no loss in the HVDC link, < 1 otherwise";
     parameter Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef) flowing through the HVDC link";
 
-    input Types.ActivePowerPu P1RefPu(start = s10Pu.re) "Active power regulation set point in pu (base SnRef) at terminal 1 (receptor convention)";
+    input Types.ActivePowerPu P1RefPu(start = P1RefSetPu) "Active power regulation set point in pu (base SnRef) at terminal 1 (receptor convention)";
 
     parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
     parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
@@ -45,6 +45,7 @@ package BaseClasses
     parameter Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in pu (base UNom)";
     parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base UNom, SnRef) (receptor convention)";
     parameter Types.ComplexApparentPowerPu s20Pu "Start value of complex apparent power at terminal 2 in pu (base SnRef) (receptor convention)";
+    parameter Types.ActivePowerPu P1RefSetPu "Start value of active power reference at terminal 1 in pu (base SnRef) (receptor convention)";
 
     Types.ActivePowerPu P1Pu(start = s10Pu.re) "Active power at terminal 1 in pu (base SnRef) (receptor convention)";
     Types.ActivePowerPu P2Pu(start = s20Pu.re) "Active power at terminal 2 in pu (base SnRef) (receptor convention)";
@@ -107,11 +108,12 @@ package BaseClasses
     parameter Real KLosses "Coefficient between 0 and 1 (no loss) modelling the losses in the HVDC";
     parameter Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef) flowing through the HVDC link";
 
-    input Types.ActivePowerPu P1RefPu(start = s10Pu.re) "Active power regulation set point in pu (base SnRef) at terminal 1 (receptor convention)";
+    input Types.ActivePowerPu P1RefPu(start = P1RefSetPu) "Active power regulation set point in pu (base SnRef) at terminal 1 (receptor convention)";
 
     parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
     parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
     parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
+    parameter Types.ActivePowerPu P1RefSetPu "Start value of active power reference at terminal 1 in pu (base SnRef) (receptor convention)";
 
     Types.ActivePowerPu P1Pu(start = s10Pu.re) "Active power at terminal 1 in pu (base SnRef) (receptor convention)";
     Types.ActivePowerPu P2Pu(start = 0) "Active power at terminal 2 in pu (base SnRef) (receptor convention)";

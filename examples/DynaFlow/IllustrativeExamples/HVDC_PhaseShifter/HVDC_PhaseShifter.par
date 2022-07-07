@@ -53,6 +53,7 @@
     <par type="DOUBLE" name="hvdc_U20Pu" value="1"/>
     <par type="DOUBLE" name="hvdc_UPhase20" value="-0.13227"/>
     <par type="DOUBLE" name="hvdc_P10Pu" value="8.385"/>
+    <par type="DOUBLE" name="hvdc_P1RefSetPu" value="8.385"/>
     <par type="DOUBLE" name="hvdc_Q10Pu" value="1.3276"/>
     <par type="DOUBLE" name="hvdc_U10Pu" value="1"/>
     <par type="DOUBLE" name="hvdc_UPhase10" value="-0.1155"/>
