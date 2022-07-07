@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.Basics;
 * of simulation tools for power systems.
 */
 
-model CombiTimeTable "Table look-up with respect to time and linear/periodic extrapolation methods (data from matrix/file) with n outputs"
+model CombiTimeTable "Table look-up with respect to time and linear/periodic extrapolation methods (data from a two-column table in a .txt file) with one output"
   import Modelica;
   import Dynawo;
 

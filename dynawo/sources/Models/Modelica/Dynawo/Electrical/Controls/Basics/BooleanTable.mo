@@ -13,11 +13,11 @@ within Dynawo.Electrical.Controls.Basics;
 * of simulation tools for power systems.
 */
 
-model BooleanTable "Generates a Boolean output signal based on a vector of time instants"
+model BooleanTable "Generates a Boolean output signal based on a table stored in a .txt file (column 1 : time instants, column 2 : 0 or 1)"
   import Modelica;
   import Dynawo;
 
-  parameter Modelica.Blocks.Types.Extrapolation Extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint
+  parameter Modelica.Blocks.Types.Extrapolation Extrapolation
     "Extrapolation of data outside the definition range";
   parameter String FileName = "NoName" "File where vector is stored"
     annotation(Dialog(
@@ -26,10 +26,6 @@ model BooleanTable "Generates a Boolean output signal based on a vector of time 
           caption="Open file in which table is present")));
   parameter String TableName = "NoName"
     "Table name on file or in function usertab (see docu)";
-  parameter Dynawo.Types.Time tShift = 0
-    "Shift time of table";
-  parameter Dynawo.Types.Time tStart = -Modelica.Constants.inf
-    "Output = false for time < tStart";
 
   Dynawo.Connectors.BPin source "Output value";
 
@@ -38,8 +34,8 @@ model BooleanTable "Generates a Boolean output signal based on a vector of time 
     combiTimeTable.tableOnFile = true,
     combiTimeTable.fileName = FileName,
     extrapolation = Extrapolation,
-    shiftTime = tShift,
-    startTime = tStart) annotation(
+    shiftTime = 0,
+    startTime = -Modelica.Constants.inf) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
