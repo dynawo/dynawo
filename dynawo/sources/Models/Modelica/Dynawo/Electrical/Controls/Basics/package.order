@@ -1,6 +1,7 @@
 BooleanTable
 CombiTimeTable
 DoubleStep
+IntegerDoubleStep
 Perturbation
 Perturbation_INIT
 SetPoint
