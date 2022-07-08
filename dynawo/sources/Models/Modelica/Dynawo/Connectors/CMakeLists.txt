@@ -17,6 +17,7 @@ set(MODEL_FILES
   BPin.mo
   ZPin.mo
   ImPin.mo
+  IntPin.mo
   )
 
 #
