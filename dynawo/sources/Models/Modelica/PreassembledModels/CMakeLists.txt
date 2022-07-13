@@ -11,7 +11,9 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
+  BooleanTable.xml
   Bus.xml
+  CombiTimeTable.xml
   CurrentLimitAutomaton.xml
   DoubleStep.xml
   EventConnectedStatus.xml
@@ -82,6 +84,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   InfiniteBusWithImpedance.xml
   InfiniteBusWithVariations.xml
   InjectorBG.xml
+  IntegerDoubleStep.xml
   Line.xml
   LoadAlphaBeta.xml
   LoadAlphaBetaStepP.xml
@@ -104,6 +107,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   PIAntiWindUpTable.xml
   ShuntBWithSections.xml
   SetPoint.xml
+  ShuntB.xml
   SignalN.xml
   StaticVarCompensatorStepURef.xml
   StaticVarCompensator.xml
