@@ -520,7 +520,7 @@ class Transpose:
     # @param residual_vars_map : residual vars
     def __init__(self, auxiliary_vars_map = None, residual_vars_map = None):
         ## pattern to intercept var name in expression
-        self.ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*[ ]*\*\/')
+        self.ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]*\*\/')
         ## map associating var name to var value
         self.map = {}
         ## expressions where var name should be replaced
@@ -552,7 +552,7 @@ class Transpose:
                 if 'derivativesVars' not in name:
                     continue
                 # If the var "name" is in the map, we replace it by its other expression (xd[...])
-                ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\]]*\*\/')
+                ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
                 match = ptrn_real_var.search(name)
                 if match is not None:
                     if "= modelica_real_to_modelica_string(" in line_tmp:
@@ -563,7 +563,7 @@ class Transpose:
                 if 'derivativesVars' in name:
                     continue
                 # If the var "name" is in the map, we replace it by its other expression (x[...])
-                ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\]]*\*\/')
+                ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
                 match = ptrn_real_var.search(name)
                 if match is not None:
                     if "= modelica_real_to_modelica_string(" in line_tmp:
@@ -578,6 +578,8 @@ class Transpose:
             for name in self.residual_vars_map:
                 line_tmp = line_tmp.replace("$P"+name, name)
             line_tmp = transform_line_adept(line_tmp)
+            assert ("derivativesVars[" not in line_tmp)
+            assert ("realVars[" not in line_tmp)
             tmp_txt_list.append(line_tmp)
         return tmp_txt_list
 
