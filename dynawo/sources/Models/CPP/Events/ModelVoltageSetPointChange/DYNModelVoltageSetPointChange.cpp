@@ -83,7 +83,9 @@ ModelCPP("VoltageSetPointChange"),
 startTime_(0.),
 stopTime_(0.),
 voltageSetPointChange_(0.),
-numLoads_(0) {
+numLoads_(0),
+startTimelineAdded_(false),
+endTimelineAdded_(false) {
 }
 
 void
@@ -152,11 +154,19 @@ ModelVoltageSetPointChange::evalZ(const double /*t*/) {
     for (int i = 0; i < numLoads_; ++i) {
       zLocal_[i] = voltageSetPointChange_;
     }
+    if (!startTimelineAdded_) {
+      DYNAddTimelineEvent(this, name(), VoltageSetPointChangeStarted);
+      startTimelineAdded_ = true;
+    }
   }
 
   if (gLocal_[1] == ROOT_UP) {
     for (int i = 0; i < numLoads_; ++i) {
       zLocal_[i] = 0.;
+    }
+    if (!endTimelineAdded_) {
+      DYNAddTimelineEvent(this, name(), VoltageSetPointChangeEnded);
+      endTimelineAdded_ = true;
     }
   }
 }
