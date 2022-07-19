@@ -23,10 +23,10 @@ block MultiSwitch "Switch between N Real signals"
   Modelica.Blocks.Interfaces.IntegerInput f "Connector of Integer input signal to select the output signal" annotation(
     Placement(visible = true, transformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal" annotation(
-    Placement(transformation(extent={{100,-17},{134,17}})));
+    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  y = u[f];
+  y = u[f+1];
 
   annotation(
     preferredView = "diagram",

@@ -12,6 +12,7 @@ set(MODEL_FILES
   package.mo
   package.order
   AbsLimRateLimFeedthroughFreeze.mo
+  AbsLimRateLimFirstOrderAntiWindup.mo
   AbsLimRateLimFirstOrderFreeze.mo
   AbsLimRateLimFirstOrderFreezeLimDetection.mo
   AntiWindupIntegrator.mo

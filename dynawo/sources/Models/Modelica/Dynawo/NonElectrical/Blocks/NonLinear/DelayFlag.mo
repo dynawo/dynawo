@@ -20,10 +20,10 @@ block DelayFlag "Provides an extended fault flag fO which adds a post-fault valu
   parameter Types.Time tD "Delay time constant in s, specifies the duration of post-fault flag";
   parameter Types.Time tS "Integration time step in s";
 
-  Modelica.Blocks.Interfaces.BooleanInput fI "Input fault flag, value 0 or 1" annotation(
+  Modelica.Blocks.Interfaces.BooleanInput fI(start = FI0) "Input fault flag (boolean)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.IntegerOutput fO "Output fault flag, value 0, 1 or 2" annotation(
-    Placement(visible = true, transformation(origin = {120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.IntegerOutput fO(start = FO0) "Output fault flag (value 0, 1 or 2)" annotation(
+    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tS) annotation(
     Placement(visible = true, transformation(origin = {10, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -46,6 +46,9 @@ block DelayFlag "Provides an extended fault flag fO which adds a post-fault valu
   Modelica.Blocks.Logical.Not not1 annotation(
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  parameter Boolean FI0 "Initial input fault flag (boolean)";
+  parameter Integer FO0 "Initial output fault flag (value 0, 1 or 2)";
+
 equation
   connect(const7.y, switch18.u1) annotation(
     Line(points = {{-79, -40}, {-60, -40}, {-60, -32}, {-42, -32}}, color = {0, 0, 127}));
@@ -56,7 +59,7 @@ equation
   connect(less1.y, switch1.u2) annotation(
     Line(points = {{21, 80}, {30, 80}, {30, 40}, {38, 40}}, color = {255, 0, 255}));
   connect(switch2.y, fO) annotation(
-    Line(points = {{93, 0}, {120, 0}}, color = {255, 127, 0}));
+    Line(points = {{93, 0}, {110, 0}}, color = {255, 127, 0}));
   connect(fI, not1.u) annotation(
     Line(points = {{-120, 0}, {-90, 0}, {-90, 80}, {-82, 80}}, color = {255, 0, 255}));
   connect(not1.y, timer.u) annotation(

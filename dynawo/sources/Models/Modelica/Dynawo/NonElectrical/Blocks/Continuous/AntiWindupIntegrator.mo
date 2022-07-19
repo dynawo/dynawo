@@ -18,8 +18,8 @@ block AntiWindupIntegrator "Integrator with absolute and rate limits, anti windu
 
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Types.PerUnit DyMax "Maximun rising slew rate of output";
-  parameter Types.PerUnit DyMin = -DyMax "Maximun falling slew rate of output";
+  parameter Types.PerUnit DyMax "Maximum rising slew rate of output";
+  parameter Types.PerUnit DyMin = -DyMax "Maximum falling slew rate of output";
   parameter Types.Time tI "Integrator time constant in s";
   parameter Types.PerUnit YMax "Upper limit of output";
   parameter Types.PerUnit YMin = -YMax "Lower limit of output";
