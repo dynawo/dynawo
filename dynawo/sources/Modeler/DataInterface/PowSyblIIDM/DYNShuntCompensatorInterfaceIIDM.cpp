@@ -68,12 +68,12 @@ ShuntCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
       getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(shuntCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode()));
     else if (!connected && getInitialConnected())
       getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(shuntCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode()));
+  } else {
+    if (connected)
+      shuntCompensatorIIDM_.getTerminal().connect();
+    else
+      shuntCompensatorIIDM_.getTerminal().disconnect();
   }
-
-  if (connected)
-    shuntCompensatorIIDM_.getTerminal().connect();
-  else
-    shuntCompensatorIIDM_.getTerminal().disconnect();
 }
 
 void

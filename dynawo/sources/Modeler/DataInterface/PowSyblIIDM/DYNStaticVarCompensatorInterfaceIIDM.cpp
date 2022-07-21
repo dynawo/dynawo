@@ -109,12 +109,12 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
       getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(staticVarCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode()));
     else if (!connected && getInitialConnected())
       getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(staticVarCompensatorIIDM_.getTerminal().getNodeBreakerView().getNode()));
+  } else {
+    if (connected)
+      staticVarCompensatorIIDM_.getTerminal().connect();
+    else
+      staticVarCompensatorIIDM_.getTerminal().disconnect();
   }
-
-  if (connected)
-    staticVarCompensatorIIDM_.getTerminal().connect();
-  else
-    staticVarCompensatorIIDM_.getTerminal().disconnect();
 }
 
 void
