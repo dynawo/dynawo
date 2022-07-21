@@ -287,12 +287,12 @@ LineInterfaceIIDM::exportStateVariablesUnitComponent() {
       voltageLevelInterface1_->connectNode(static_cast<unsigned int>(lineIIDM_.getTerminal1().getNodeBreakerView().getNode()));
     else if (!connected1 && getInitialConnected1())
       voltageLevelInterface1_->disconnectNode(static_cast<unsigned int>(lineIIDM_.getTerminal1().getNodeBreakerView().getNode()));
+  } else {
+    if (connected1)
+      lineIIDM_.getTerminal1().connect();
+    else
+      lineIIDM_.getTerminal1().disconnect();
   }
-  if (connected1)
-    lineIIDM_.getTerminal1().connect();
-  else
-    lineIIDM_.getTerminal1().disconnect();
-
   if (voltageLevelInterface2_->isNodeBreakerTopology()) {
     // should be removed once a solution has been found to propagate switches (de)connection
     // following component (de)connection (only Modelica models)
@@ -300,11 +300,12 @@ LineInterfaceIIDM::exportStateVariablesUnitComponent() {
       voltageLevelInterface2_->connectNode(static_cast<unsigned int>(lineIIDM_.getTerminal2().getNodeBreakerView().getNode()));
     else if (!connected2 && getInitialConnected2())
       voltageLevelInterface2_->disconnectNode(static_cast<unsigned int>(lineIIDM_.getTerminal2().getNodeBreakerView().getNode()));
+  } else {
+    if (connected2)
+      lineIIDM_.getTerminal2().connect();
+    else
+      lineIIDM_.getTerminal2().disconnect();
   }
-  if (connected2)
-    lineIIDM_.getTerminal2().connect();
-  else
-    lineIIDM_.getTerminal2().disconnect();
 }
 
 std::string

@@ -77,12 +77,12 @@ GeneratorInterfaceIIDM::exportStateVariablesUnitComponent() {
       getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(generatorIIDM_.getTerminal().getNodeBreakerView().getNode()));
     else if (!connected && getInitialConnected())
       getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(generatorIIDM_.getTerminal().getNodeBreakerView().getNode()));
+  } else {
+    if (connected)
+      generatorIIDM_.getTerminal().connect();
+    else
+      generatorIIDM_.getTerminal().disconnect();
   }
-
-  if (connected)
-    generatorIIDM_.getTerminal().connect();
-  else
-    generatorIIDM_.getTerminal().disconnect();
 }
 
 void
