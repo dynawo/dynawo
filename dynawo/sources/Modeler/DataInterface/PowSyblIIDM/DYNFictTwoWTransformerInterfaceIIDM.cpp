@@ -296,12 +296,12 @@ namespace DYN {
         voltageLevelInterface2_->connectNode(static_cast<unsigned int>(leg_.get().getTerminal().getNodeBreakerView().getNode()));
       else if (!connected2 && getInitialConnected2())
         voltageLevelInterface2_->disconnectNode(static_cast<unsigned int>(leg_.get().getTerminal().getNodeBreakerView().getNode()));
+    } else {
+      if (connected2)
+        leg_.get().getTerminal().connect();
+      else
+        leg_.get().getTerminal().disconnect();
     }
-
-    if (connected2)
-      leg_.get().getTerminal().connect();
-    else
-      leg_.get().getTerminal().disconnect();
   }
 
   int
