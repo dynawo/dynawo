@@ -58,8 +58,8 @@
 
   <xs:complexType name="NetworkEntry">
     <xs:attribute name="iidmFile" use="required" type="xs:string"/>
-    <xs:attribute name="parFile" use="required" type="xs:string"/>
-    <xs:attribute name="parId" use="required" type="xs:string"/>
+    <xs:attribute name="parFile" use="optional" type="xs:string"/>
+    <xs:attribute name="parId" use="optional" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="DynModelsEntry">
