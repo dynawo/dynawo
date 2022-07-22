@@ -95,7 +95,7 @@
     <par type="STRING" name="infiniteBus_TableFile" value="nrt/data/DynaSwing/EntsoeTestCase3PlayBack/TableInfiniteBus.txt"/>
   </set>
   <set id="IDA">
-    <par type="INT" name="order" value="2"/>
+    <par type="INT" name="order" value="1"/>
     <par type="DOUBLE" name="initStep" value="1e-7"/>
     <par type="DOUBLE" name="minStep" value="1e-7"/>
     <par type="DOUBLE" name="maxStep" value="10"/>
