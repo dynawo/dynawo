@@ -58,13 +58,13 @@ model PSS2A1 "IEEE Power System Stabilizer type 2A"
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction leadLag1(a = {T2, 1}, b = {T1, 1}, x_scaled(start = {Upss0Pu}), x_start = {Upss0Pu}, y_start = Upss0Pu) annotation(
+  Dynawo.Electrical.Controls.Utilities.TransferFunction leadLag1(a = {T2, 1}, b = {T1, 1}, x_scaled(start = {Upss0Pu}), x_start = {Upss0Pu}, y_start = Upss0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction washoutOmega2(a = {Tw2, 1}, b = {Tw2, 0}) annotation(
     Placement(visible = true, transformation(origin = {-80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.TransferFunction washoutPGen2(a = {Tw4, 1}, b = {Tw4, 0}, y_start = PGen0Pu * gain.k) annotation(
     Placement(visible = true, transformation(origin = {-80, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.TransferFunction leadLag2(a = {T4, 1}, b = {T3, 1}, x_scaled(start = {Upss0Pu}), x_start = {Upss0Pu}, y_start = Upss0Pu) annotation(
+  Dynawo.Electrical.Controls.Utilities.TransferFunction leadLag2(a = {T4, 1}, b = {T3, 1}, x_scaled(start = {Upss0Pu}), x_start = {Upss0Pu}, y_start = Upss0Pu) annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {-140, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

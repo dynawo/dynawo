@@ -897,24 +897,6 @@ class ReaderOMC:
             self.list_vars.append(var)
             self.dic_vars[var.get_name()] = len(self.list_vars) - 1
 
-        ## Need to go over again to propagate fixed property: an alias on a fixed variable should be set as fixed
-        modified = True
-        while modified:
-            modified = False
-            for var in self.list_vars:
-                if var.get_alias_name() != "":
-                    alias_var = self.find_variable_from_name(var.get_alias_name())
-                    assert(alias_var != None)
-                    if alias_var.is_fixed() and not var.is_fixed():
-                        var.set_fixed(True)
-                        print_info("variable " + var.get_name() + " is considered as fixed (alias of fixed variable " + var.get_alias_name()+").")
-                        modified = True
-                    if is_discrete_real_var(var) and ((is_real_var(alias_var)  and not alias_var.is_fixed()) or is_der_real_var(alias_var)):
-                        error_msg = "    Error: Found an alias that assigns the continuous variable " + alias_var.get_name()+\
-                            " to the discrete real variable " + var.get_name() +\
-                            " outside of the scope of a when or a if. Please rewrite the equation or check that you didn't connect a zPin to a ImPin.\n"
-                        error_exit(error_msg)
-
     ##
     # Read the *.extvar defining the fictitious equations
     # @param self : object pointer
@@ -1556,10 +1538,8 @@ class ReaderOMC:
                     var.set_type("rAlg")
                     self.list_vars.append(var)
                 elif re.search(r'stateVars \([0-9]+\)',var_type) or re.search(r'algVars \([0-9]+\)',var_type):
-                    if not var.is_fixed():
-                        set_param_address(name,  "realVars")
-                    else:
-                        set_param_address(name,  "constVars")
+                    set_param_address(name,  "realVars")
+                    var.set_fixed(False)
                 elif var_type == "discreteAlgVars":
                     set_param_address(name,  "discreteVars")
                 elif var_type == "constVars":
@@ -1618,38 +1598,60 @@ class ReaderOMC:
 
 
     def correct_fixed_status(self):
-        for var_name in self.map_vars_depend_vars:
-            var = self.find_variable_from_name(var_name)
-            if var is not None and var.get_variability() == "continuous" and var.is_fixed():
-                for dep_var_name in self.map_vars_depend_vars[var_name]:
-                    dep_var = self.find_variable_from_name(dep_var_name)
-                    if dep_var is not None and not dep_var.is_fixed():
-                        var.set_fixed(False)
-                        print_info("Removing fixed flag from variable " + var.get_name())
-                        set_param_address(var.get_name(),  "realVars")
+        modified = True
+        while modified:
+            modified = False
+            for var_name in self.map_vars_depend_vars:
+                var = self.find_variable_from_name(var_name)
+                if var is not None and var.get_variability() == "continuous" and var.is_fixed():
+                    for dep_var_name in self.map_vars_depend_vars[var_name]:
+                        dep_var = self.find_variable_from_name(dep_var_name)
+                        if dep_var is not None and not dep_var.is_fixed():
+                            var.set_fixed(False)
+                            modified = True
+                            print_info("Removing fixed flag from variable " + var.get_name())
+                            set_param_address(var.get_name(),  "realVars")
+                            alias_modified = True
+                            while alias_modified:
+                                alias_modified = False
+                                for var2 in self.list_vars:
+                                    if var2.get_alias_name() == var_name and var2.is_fixed():
+                                        var2.set_fixed(False)
+                                        print_info("Removing fixed flag from alias variable " + var2.get_name())
+                                        alias_modified = True
+                            break
+                if var is not None and var.get_variability() == "continuous" and not var.is_fixed():
+                    do_it = True
+                    for dep_var_name in self.map_vars_depend_vars[var_name]:
+                        dep_var = self.find_variable_from_name(dep_var_name)
+                        if dep_var is not None and (not dep_var.is_fixed() \
+                        or dep_var.get_name() in self.fictive_continuous_vars\
+                        or dep_var.get_name() in self.fictive_optional_continuous_vars):
+                            do_it = False
+                            break
+                    if do_it:
+                        # Only depends on fixed variables
+                        var.set_fixed(True)
                         modified = True
-                        while modified:
-                            modified = False
-                            for var2 in self.list_vars:
-                                if var2.get_alias_name() == var_name and var2.is_fixed():
-                                    var2.set_fixed(False)
-                                    print_info("Removing fixed flag from alias variable " + var2.get_name())
-                                    modified = True
-                        break
-            if var is not None and var.get_variability() == "continuous" and not var.is_fixed():
-                do_it = True
-                for dep_var_name in self.map_vars_depend_vars[var_name]:
-                    dep_var = self.find_variable_from_name(dep_var_name)
-                    if dep_var is not None and (not dep_var.is_fixed() \
-                    or dep_var.get_name() in self.fictive_continuous_vars\
-                    or dep_var.get_name() in self.fictive_optional_continuous_vars):
-                        do_it = False
-                        break
-                if do_it:
-                    # Only depends on fixed variables
-                    var.set_fixed(True)
-                    print_info("Adding fixed flag to variable " + var.get_name())
-                    set_param_address(var.get_name(),  "constVars")
+                        print_info("Adding fixed flag to variable " + var.get_name())
+                        set_param_address(var.get_name(),  "constVars")
+        ## Need to go over again to propagate fixed property: an alias on a fixed variable should be set as fixed
+        modified = True
+        while modified:
+            modified = False
+            for var in self.list_vars:
+                if var.get_alias_name() != "":
+                    alias_var = self.find_variable_from_name(var.get_alias_name())
+                    assert(alias_var != None)
+                    if alias_var.is_fixed() and not var.is_fixed():
+                        var.set_fixed(True)
+                        print_info("variable " + var.get_name() + " is considered as fixed (alias of fixed variable " + var.get_alias_name()+").")
+                        modified = True
+                    if is_discrete_real_var(var) and ((is_real_var(alias_var)  and not alias_var.is_fixed()) or is_der_real_var(alias_var)):
+                        error_msg = "    Error: Found an alias that assigns the continuous variable " + alias_var.get_name()+\
+                            " to the discrete real variable " + var.get_name() +\
+                            " outside of the scope of a when or a if. Please rewrite the equation or check that you didn't connect a zPin to a ImPin.\n"
+                        error_exit(error_msg)
     ##
     # Assign the final type and index to the variables
     # @param self : object pointer

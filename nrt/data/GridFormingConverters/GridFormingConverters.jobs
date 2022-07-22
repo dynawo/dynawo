@@ -22,6 +22,7 @@
         </modeler>
         <simulation startTime="0" stopTime="2.5" precision="1e-4"/>
         <outputs directory="outputs">
+            <dumpInitValues local="true" global="true"/>
             <curves inputFile="GridFormingConverters.crv" exportMode="CSV"/>
             <logs>
               <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>

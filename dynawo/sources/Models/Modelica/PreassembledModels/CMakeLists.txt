@@ -156,11 +156,11 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadAlphaBetaRestorativeLimitsRecalc.xml
   LoadAlphaBetaMotor.xml
   LoadOneTransformer.xml
- # LoadOneTransformerTapChanger.xml
+  # LoadOneTransformerTapChanger.xml
   LoadPQ.xml
   LoadShedding.xml
   LoadTwoTransformers.xml
- # LoadTwoTransformersTapChangers.xml
+  # LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
   LossOfSynchronismProtection.xml
   LVRT4Points.xml
@@ -170,8 +170,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
- # PhotovoltaicsWeccCurrentSource.xml
- # PhotovoltaicsWeccVoltageSource.xml
+  PhotovoltaicsWeccCurrentSource.xml
+  PhotovoltaicsWeccVoltageSource.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml

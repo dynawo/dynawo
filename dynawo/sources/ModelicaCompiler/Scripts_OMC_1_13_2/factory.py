@@ -1349,7 +1349,6 @@ class Factory:
                     else:
                         continue
                     self.modes.modes_discretes[var].add_eq(eq.get_src_fct_name())
-        print ("BUBU? " + str(self.modes.modes_discretes))
 
         for eq in self.list_int_equations:
             relations_found = re.findall(r'RELATIONHYSTERESIS\(tmp[0-9]+, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_body()))
@@ -2403,6 +2402,7 @@ class Factory:
         for func in self.reader.list_omc_functions:
             if (func.get_name() + "(" in line_tmp or func.get_name() + " (" in line_tmp):
                 called_func[func.get_name()] = func
+
         # step 2: replace whatever needs to be replaced
         if len(called_func) > 0:
             # filter whatever is assigned in this line
@@ -2435,6 +2435,16 @@ class Factory:
 
             while idx < len(line_split):
                 l = line_split[idx]
+
+                # handle (data->... /* .. */)
+                if l =='(' and idx < len(line_split) - 1 and line_split[idx + 1].startswith("data"):
+                    idx+=1
+                    l+=line_split[idx].strip()
+                elif idx < len(line_split) - 2 and line_split[idx + 1] == '(' and line_split[idx + 2].startswith("data"):
+                    idx+=1
+                    l+=line_split[idx].strip()
+                    idx+=1
+                    l+=line_split[idx].strip()
 
                 #hack to handle the case data->localData[0]->derivativesVars[...] /* der(a) STATE_DER /
                 if l.endswith("/* der"):
