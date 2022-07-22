@@ -36,6 +36,7 @@
 #include "DYNCommon.h"
 #include "DYNVariableForModel.h"
 #include "DYNParameter.h"
+#include "DYNModelConstants.h"
 
 using std::min;
 using std::vector;
@@ -125,13 +126,13 @@ ModelAreaShedding::evalF(double /*t*/, propertyF_t type) {
     return;
   if (stateAreaShedding_ == NOT_STARTED) {  // shedding not started
     for (int i = 0; i < nbLoads_; ++i) {
-      fLocal_[i * 2] = yLocal_[i * 2] - PRef_[i];
-      fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - QRef_[i];
+      fLocal_[i * 2] = yLocal_[i * 2];
+      fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1];
     }
   } else {  // shedding started
     for (int i = 0; i < nbLoads_; ++i) {
-      fLocal_[i * 2] = yLocal_[i * 2] - PRefAfterShedding_[i];
-      fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - QRefAfterShedding_[i];
+      fLocal_[i * 2] = yLocal_[i * 2] - deltaP_[i];
+      fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - deltaQ_[i];
     }
   }
 }
@@ -151,8 +152,8 @@ ModelAreaShedding::setFequations() {
     ss.str("");
     ss.clear();
     ss << i;
-    fEquationIndex_[i * 2] = "PRef_" + ss.str();
-    fEquationIndex_[i * 2 + 1] = "QRef_" + ss.str();
+    fEquationIndex_[i * 2] = "deltaP_" + ss.str();
+    fEquationIndex_[i * 2 + 1] = "deltaQ_" + ss.str();
   }
   assert(fEquationIndex_.size() == static_cast<size_t>(sizeF()) && "Model AreaShedding: fEquationIndex_.size() != fLocal_.size()");
 }
@@ -236,8 +237,8 @@ ModelAreaShedding::evalCalculatedVars() {
 void
 ModelAreaShedding::getY0() {
   for (int i = 0; i < nbLoads_; ++i) {
-    yLocal_[i * 2] = PRef_[i];
-    yLocal_[i * 2 + 1] = QRef_[i];
+    yLocal_[i * 2] = 0.;
+    yLocal_[i * 2 + 1] = 0.;
   }
   std::fill(ypLocal_, ypLocal_ + nbLoads_ * 2, 0);
   zLocal_[0] = NOT_STARTED;
@@ -259,12 +260,12 @@ ModelAreaShedding::defineVariables(vector<shared_ptr<Variable> >& variables) {
   for (int i = 0; i < nbLoads_; ++i) {
     name.str("");
     name.clear();
-    name << "PRef_load_" << i << "_value";
+    name << "deltaP_load_" << i << "_value";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
 
     name.str("");
     name.clear();
-    name << "QRef_load_" << i << "_value";
+    name << "deltaQ_load_" << i << "_value";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
   variables.push_back(VariableNativeFactory::createState("state", DISCRETE));
@@ -276,8 +277,6 @@ ModelAreaShedding::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("deltaTime", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("deltaP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
   parameters.push_back(ParameterModeler("deltaQ", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
-  parameters.push_back(ParameterModeler("PRef_load", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
-  parameters.push_back(ParameterModeler("QRef_load", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
 }
 
 void
@@ -285,24 +284,10 @@ ModelAreaShedding::setSubModelParameters() {
   nbLoads_ = findParameterDynamic("nbLoads").getValue<int>();
   deltaTime_ = findParameterDynamic("deltaTime").getValue<double>();
 
-  PRef_.clear();
-  QRef_.clear();
   deltaP_.clear();
   deltaQ_.clear();
-  PRefAfterShedding_.clear();
-  QRefAfterShedding_.clear();
   std::stringstream deltaName;
   for (int k = 0; k < nbLoads_; ++k) {
-    deltaName.str("");
-    deltaName.clear();
-    deltaName << "PRef_load_" << k;
-    PRef_.push_back(findParameterDynamic(deltaName.str()).getValue<double>());
-
-    deltaName.str("");
-    deltaName.clear();
-    deltaName << "QRef_load_" << k;
-    QRef_.push_back(findParameterDynamic(deltaName.str()).getValue<double>());
-
     deltaName.str("");
     deltaName.clear();
     deltaName << "deltaP_" << k;
@@ -312,9 +297,6 @@ ModelAreaShedding::setSubModelParameters() {
     deltaName.clear();
     deltaName << "deltaQ_" << k;
     deltaQ_.push_back(findParameterDynamic(deltaName.str()).getValue<double>());
-
-    PRefAfterShedding_.push_back(PRef_[k] * (1 - deltaP_[k]/100));
-    QRefAfterShedding_.push_back(QRef_[k] * (1 - deltaQ_[k]/100));
   }
 }
 
@@ -324,13 +306,13 @@ ModelAreaShedding::defineElements(std::vector<Element> &elements, std::map<std::
   for (int i = 0; i < nbLoads_; ++i) {
     namess.str("");
     namess.clear();
-    namess << "PRef_load_" << i;
+    namess << "deltaP_load_" << i;
     addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
     addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
 
     namess.str("");
     namess.clear();
-    namess << "QRef_load_" << i;
+    namess << "deltaQ_load_" << i;
     addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
     addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
@@ -339,7 +321,7 @@ ModelAreaShedding::defineElements(std::vector<Element> &elements, std::map<std::
 void
 ModelAreaShedding::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << "PRef_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "QRef_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
+  Trace::info() << "  ->" << "deltaP_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
+  Trace::info() << "  ->" << "deltaQ_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
 }
 }  // namespace DYN
