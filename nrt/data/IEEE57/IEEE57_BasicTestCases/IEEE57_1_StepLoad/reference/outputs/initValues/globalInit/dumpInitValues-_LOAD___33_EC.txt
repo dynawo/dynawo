@@ -1,6 +1,8 @@
  ====== INIT VARIABLES VALUES ======
 load_PRefPu                                       : y =       0.038000 yp =       0.000000
 load_QRefPu                                       : y =       0.019000 yp =       0.000000
+load_deltaP                                       : y =       0.000000 yp =       0.000000
+load_deltaQ                                       : y =       0.000000 yp =       0.000000
 load_terminal_V_im                                : y =      -0.301469 yp =       0.000000
 load_terminal_V_re                                : y =       0.898324 yp =       0.000000
 load_PPu                                          : y =       0.037984 yp =       0.000000

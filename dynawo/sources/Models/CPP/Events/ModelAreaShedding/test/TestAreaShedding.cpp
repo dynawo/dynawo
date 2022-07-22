@@ -32,7 +32,7 @@
 
 namespace DYN {
 
-static boost::shared_ptr<SubModel> initModelAreaShedding(double PRefLoad2, double QRefLoad2) {
+static boost::shared_ptr<SubModel> initModelAreaShedding() {
   boost::shared_ptr<SubModel> modelAreaShedding =
       SubModelFactory::createSubModelFromLib("../DYNModelAreaShedding" + std::string(sharedLibraryExtension()));
 
@@ -42,14 +42,10 @@ static boost::shared_ptr<SubModel> initModelAreaShedding(double PRefLoad2, doubl
       boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbLoads", 2);
   parametersSet->createParameter("deltaTime", 0.5);
-  parametersSet->createParameter("deltaP_0", 5.);
-  parametersSet->createParameter("deltaQ_0", 10.);
-  parametersSet->createParameter("deltaP_1", 15.);
-  parametersSet->createParameter("deltaQ_1", 20.);
-  parametersSet->createParameter("PRef_load_0", 0.05);
-  parametersSet->createParameter("PRef_load_1", PRefLoad2);
-  parametersSet->createParameter("QRef_load_0", 0.2);
-  parametersSet->createParameter("QRef_load_1", QRefLoad2);
+  parametersSet->createParameter("deltaP_0", 0.05);
+  parametersSet->createParameter("deltaQ_0", 0.1);
+  parametersSet->createParameter("deltaP_1", 0.15);
+  parametersSet->createParameter("deltaQ_1", 0.2);
   modelAreaShedding->setPARParameters(parametersSet);
   modelAreaShedding->addParameters(parameters, false);
   modelAreaShedding->setParametersFromPARFile();
@@ -65,7 +61,7 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingDefineMethods) {
 
   std::vector<ParameterModeler> parameters;
   modelAreaShedding->defineParameters(parameters);
-  ASSERT_EQ(parameters.size(), 6);
+  ASSERT_EQ(parameters.size(), 4);
 
   boost::shared_ptr<parameters::ParametersSet> parametersSet = boost::shared_ptr<parameters::ParametersSet>(new parameters::ParametersSet("Parameterset"));
   parametersSet->createParameter("nbLoads", 2);
@@ -74,10 +70,6 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingDefineMethods) {
   parametersSet->createParameter("deltaQ_0", 10.);
   parametersSet->createParameter("deltaP_1", 15.);
   parametersSet->createParameter("deltaQ_1", 20.);
-  parametersSet->createParameter("PRef_load_0", 0.2);
-  parametersSet->createParameter("PRef_load_1", 0.1);
-  parametersSet->createParameter("QRef_load_0", 0.5);
-  parametersSet->createParameter("QRef_load_1", 0.05);
   ASSERT_NO_THROW(modelAreaShedding->setPARParameters(parametersSet));
 
   modelAreaShedding->addParameters(parameters, false);
@@ -89,25 +81,25 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingDefineMethods) {
   modelAreaShedding->defineVariables(variables);
   ASSERT_EQ(variables.size(), 5);
   boost::shared_ptr<Variable> variableAreaShedding = variables[0];
-  ASSERT_EQ(variableAreaShedding->getName(), "PRef_load_0_value");
+  ASSERT_EQ(variableAreaShedding->getName(), "deltaP_load_0_value");
   ASSERT_EQ(variableAreaShedding->getType(), CONTINUOUS);
   ASSERT_EQ(variableAreaShedding->getNegated(), false);
   ASSERT_EQ(variableAreaShedding->isState(), true);
   ASSERT_EQ(variableAreaShedding->isAlias(), false);
   variableAreaShedding = variables[1];
-  ASSERT_EQ(variableAreaShedding->getName(), "QRef_load_0_value");
+  ASSERT_EQ(variableAreaShedding->getName(), "deltaQ_load_0_value");
   ASSERT_EQ(variableAreaShedding->getType(), CONTINUOUS);
   ASSERT_EQ(variableAreaShedding->getNegated(), false);
   ASSERT_EQ(variableAreaShedding->isState(), true);
   ASSERT_EQ(variableAreaShedding->isAlias(), false);
   variableAreaShedding = variables[2];
-  ASSERT_EQ(variableAreaShedding->getName(), "PRef_load_1_value");
+  ASSERT_EQ(variableAreaShedding->getName(), "deltaP_load_1_value");
   ASSERT_EQ(variableAreaShedding->getType(), CONTINUOUS);
   ASSERT_EQ(variableAreaShedding->getNegated(), false);
   ASSERT_EQ(variableAreaShedding->isState(), true);
   ASSERT_EQ(variableAreaShedding->isAlias(), false);
   variableAreaShedding = variables[3];
-  ASSERT_EQ(variableAreaShedding->getName(), "QRef_load_1_value");
+  ASSERT_EQ(variableAreaShedding->getName(), "deltaQ_load_1_value");
   ASSERT_EQ(variableAreaShedding->getType(), CONTINUOUS);
   ASSERT_EQ(variableAreaShedding->getNegated(), false);
   ASSERT_EQ(variableAreaShedding->isState(), true);
@@ -127,55 +119,55 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingDefineMethods) {
   Element element = elements[0];
   ASSERT_EQ(element.getTypeElement(), Element::STRUCTURE);
   ASSERT_EQ(element.name(), element.id());
-  ASSERT_EQ(element.name(), "PRef_load_0");
+  ASSERT_EQ(element.name(), "deltaP_load_0");
   ASSERT_EQ(element.subElementsNum()[0], 1);
-  ASSERT_EQ(mapElements["PRef_load_0"], 0);
+  ASSERT_EQ(mapElements["deltaP_load_0"], 0);
   element = elements[1];
   ASSERT_EQ(element.getTypeElement(), Element::TERMINAL);
   ASSERT_EQ(element.name(), "value");
-  ASSERT_EQ(element.id(), "PRef_load_0_value");
+  ASSERT_EQ(element.id(), "deltaP_load_0_value");
   ASSERT_EQ(element.subElementsNum().size(), 0);
-  ASSERT_EQ(mapElements["PRef_load_0_value"], 1);
+  ASSERT_EQ(mapElements["deltaP_load_0_value"], 1);
   element = elements[2];
   ASSERT_EQ(element.getTypeElement(), Element::STRUCTURE);
   ASSERT_EQ(element.name(), element.id());
-  ASSERT_EQ(element.id(), "QRef_load_0");
+  ASSERT_EQ(element.id(), "deltaQ_load_0");
   ASSERT_EQ(element.subElementsNum()[0], 3);
-  ASSERT_EQ(mapElements["QRef_load_0"], 2);
+  ASSERT_EQ(mapElements["deltaQ_load_0"], 2);
   element = elements[3];
   ASSERT_EQ(element.getTypeElement(), Element::TERMINAL);
   ASSERT_EQ(element.name(), "value");
-  ASSERT_EQ(element.id(), "QRef_load_0_value");
+  ASSERT_EQ(element.id(), "deltaQ_load_0_value");
   ASSERT_EQ(element.subElementsNum().size(), 0);
-  ASSERT_EQ(mapElements["QRef_load_0_value"], 3);
+  ASSERT_EQ(mapElements["deltaQ_load_0_value"], 3);
   element = elements[4];
   ASSERT_EQ(element.getTypeElement(), Element::STRUCTURE);
   ASSERT_EQ(element.name(), element.id());
-  ASSERT_EQ(element.name(), "PRef_load_1");
+  ASSERT_EQ(element.name(), "deltaP_load_1");
   ASSERT_EQ(element.subElementsNum()[0], 5);
-  ASSERT_EQ(mapElements["PRef_load_1"], 4);
+  ASSERT_EQ(mapElements["deltaP_load_1"], 4);
   element = elements[5];
   ASSERT_EQ(element.getTypeElement(), Element::TERMINAL);
   ASSERT_EQ(element.name(), "value");
-  ASSERT_EQ(element.id(), "PRef_load_1_value");
+  ASSERT_EQ(element.id(), "deltaP_load_1_value");
   ASSERT_EQ(element.subElementsNum().size(), 0);
-  ASSERT_EQ(mapElements["PRef_load_1_value"], 5);
+  ASSERT_EQ(mapElements["deltaP_load_1_value"], 5);
   element = elements[6];
   ASSERT_EQ(element.getTypeElement(), Element::STRUCTURE);
   ASSERT_EQ(element.name(), element.id());
-  ASSERT_EQ(element.id(), "QRef_load_1");
+  ASSERT_EQ(element.id(), "deltaQ_load_1");
   ASSERT_EQ(element.subElementsNum()[0], 7);
-  ASSERT_EQ(mapElements["QRef_load_1"], 6);
+  ASSERT_EQ(mapElements["deltaQ_load_1"], 6);
   element = elements[7];
   ASSERT_EQ(element.getTypeElement(), Element::TERMINAL);
   ASSERT_EQ(element.name(), "value");
-  ASSERT_EQ(element.id(), "QRef_load_1_value");
+  ASSERT_EQ(element.id(), "deltaQ_load_1_value");
   ASSERT_EQ(element.subElementsNum().size(), 0);
-  ASSERT_EQ(mapElements["QRef_load_1_value"], 7);
+  ASSERT_EQ(mapElements["deltaQ_load_1_value"], 7);
 }
 
 TEST(ModelsModelAreaShedding, ModelAreaSheddingTypeMethods) {
-  boost::shared_ptr<SubModel> ModelAreaShedding = initModelAreaShedding(.1, .01);
+  boost::shared_ptr<SubModel> ModelAreaShedding = initModelAreaShedding();
   unsigned nbY = 4;
   unsigned nbF = 4;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
@@ -204,7 +196,7 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingTypeMethods) {
 }
 
 TEST(ModelsModelAreaShedding, ModelAreaSheddingInit) {
-  boost::shared_ptr<SubModel> ModelAreaShedding = initModelAreaShedding(.1, .01);
+  boost::shared_ptr<SubModel> ModelAreaShedding = initModelAreaShedding();
   std::vector<double> y(ModelAreaShedding->sizeY(), 0);
   std::vector<double> yp(ModelAreaShedding->sizeY(), 0);
   ModelAreaShedding->setBufferY(&y[0], &yp[0], 0.);
@@ -215,10 +207,10 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingInit) {
   ModelAreaShedding->setBufferZ(&z[0], zConnected, 0);
   ModelAreaShedding->init(0);
   ModelAreaShedding->getY0();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0.05);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 0.2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], 0.01);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], 0);
   for (size_t i = 0; i < ModelAreaShedding->sizeY(); ++i) {
     ASSERT_DOUBLE_EQUALS_DYNAWO(yp[i], 0.);
   }
@@ -230,7 +222,7 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingInit) {
 }
 
 TEST(ModelsModelAreaShedding, ModelAreaSheddingContinuousAndDiscreteMethods) {
-  boost::shared_ptr<SubModel> ModelAreaShedding = initModelAreaShedding(.1, .01);
+  boost::shared_ptr<SubModel> ModelAreaShedding = initModelAreaShedding();
   std::vector<double> y(ModelAreaShedding->sizeY(), 0);
   std::vector<double> yp(ModelAreaShedding->sizeY(), 0);
   ModelAreaShedding->setBufferY(&y[0], &yp[0], 0.);
@@ -289,10 +281,10 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingContinuousAndDiscreteMethods) {
   ModelAreaShedding->evalG(2.);
   ModelAreaShedding->evalZ(2.);
   ModelAreaShedding->evalF(2., UNDEFINED_EQ);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 0.0025);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0.02);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], 0.015);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[3], 0.002);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], -0.05);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], -0.1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], -0.15);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[3], -0.2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
 
   SparseMatrix smjPrim;
