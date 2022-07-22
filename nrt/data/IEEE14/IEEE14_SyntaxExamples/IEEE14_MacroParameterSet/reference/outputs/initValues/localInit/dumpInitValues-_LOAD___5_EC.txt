@@ -2,6 +2,8 @@
 load_PRefPu                                       : y =       0.076000 yp =       0.000000
 load_QRefPu                                       : y =       0.016000 yp =       0.000000
 load_UFilteredRawPu                               : y =       1.019513 yp =       0.000000
+load_deltaP                                       : y =       0.000000 yp =       0.000000
+load_deltaQ                                       : y =       0.000000 yp =       0.000000
 load_terminal_V_im                                : y =      -0.155511 yp =       0.000000
 load_terminal_V_re                                : y =       1.007583 yp =       0.000000
 load_PPu                                          : y =       0.076000 yp =       0.000000

@@ -20,8 +20,8 @@ model LoadPQ "Load with constant reactive/active power"
 equation
 
   if (running.value) then
-    PPu = PRefPu;
-    QPu = QRefPu;
+    PPu = PRefPu * (1 + deltaP);
+    QPu = QRefPu * (1 + deltaQ);
   else
     terminal.i = Complex(0);
   end if;
