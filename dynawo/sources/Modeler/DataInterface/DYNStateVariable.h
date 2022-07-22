@@ -146,7 +146,6 @@ class StateVariable {
   std::string variableId_;  ///< id of the variable associated to the state variable
   boost::shared_ptr<Variable> variable_;  ///< variable of the model associated to the state variable
   bool valueAffected_;  ///< true if value_ was set at least once
-  double rawValue_;  ///< keep the double version of the current variable value
   bool neededForCriteriaCheck_;  ///< true if the state variable's value is needed for criteria check
 };  ///< class for state variable
 }  // namespace DYN
