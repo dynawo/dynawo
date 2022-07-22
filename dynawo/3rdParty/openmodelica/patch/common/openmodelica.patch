@@ -11,6 +11,42 @@ index 59a8b01feb..9e00f6e460 100644
  	cp -p "@OMBUILDDIR@"/share/doc/omc/testmodels/* ${INSTALL_DOCDIR}/omc/testmodels/
  	# man pages
  	# cp -p "@OMBUILDDIR@"/share/man/man1/*.gz ${INSTALL_MANDIR}/man1/
+Submodule OMCompiler/3rdParty contains untracked content
+diff --git a/OMCompiler/Compiler/BackEnd/Initialization.mo b/OMCompiler/Compiler/BackEnd/Initialization.mo
+index cd24cf7a90..28954d79d3 100644
+--- a/OMCompiler/Compiler/BackEnd/Initialization.mo
++++ b/OMCompiler/Compiler/BackEnd/Initialization.mo
+@@ -811,7 +811,7 @@ algorithm
+       v := BackendVariable.getVarAt(globalKnownVars, i);
+       bindExp := BackendVariable.varBindExpStartValueNoFail(v);
+       crefs := Expression.getAllCrefsExpanded(bindExp);
+-      //BackendDump.dumpVarList({v}, intString(i));
++      BackendDump.dumpVarList({v}, intString(i));
+ 
+       _ := match(v)
+         // primary parameter
+diff --git a/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo b/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
+index 78c9770ddc..b7fe677c52 100644
+--- a/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
++++ b/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
+@@ -166,7 +166,7 @@ algorithm
+ 
+     outDAE := fixAliasVars(outDAE) "workaround for #3323";
+     outDAE := fixAliasAndKnownVarsCausal(inDAE, outDAE);
+-    outDAE := fixAliasVarsVariablity(outDAE) "workaround for #5673";
++    //outDAE := fixAliasVarsVariablity(outDAE) "workaround for #5673";
+   else
+     // This case performs "remove simple equations" on an acausal system.
+     outDAE := match(Flags.getConfigString(Flags.REMOVE_SIMPLE_EQUATIONS))
+@@ -179,7 +179,7 @@ algorithm
+ 
+     outDAE := fixAliasVars(outDAE) "workaround for #3323";
+     outDAE := fixKnownVars(outDAE);
+-    outDAE := fixAliasVarsVariablity(outDAE) "workaround for #5673";
++    //outDAE := fixAliasVarsVariablity(outDAE) "workaround for #5673";
+   end if;
+ end removeSimpleEquations;
+ 
 diff --git a/OMCompiler/Compiler/BackEnd/XMLCreateDynawo.mo b/OMCompiler/Compiler/BackEnd/XMLCreateDynawo.mo
 new file mode 100644
 index 0000000000..35fbdbe917
@@ -2681,6 +2717,19 @@ index 824c555fb7..7cce67c4bd 100644
      "../BackEnd/DAEMode.mo",
      "../BackEnd/DataReconciliation.mo",
      "../BackEnd/Differentiate.mo",
+diff --git a/OMCompiler/SimulationRuntime/c/meta/meta_modelica_segv.h b/OMCompiler/SimulationRuntime/c/meta/meta_modelica_segv.h
+index eb2868960f..44e56b0fe3 100644
+--- a/OMCompiler/SimulationRuntime/c/meta/meta_modelica_segv.h
++++ b/OMCompiler/SimulationRuntime/c/meta/meta_modelica_segv.h
+@@ -66,7 +66,7 @@ static inline void mmc_init_stackoverflow_fast(threadData_t *threadData, threadD
+     mmc_init_stackoverflow(threadData);
+ }
+ #else
+-static inline void mmc_init_stackoverflow_fast(threadData_t *threadData, threadData_t *oldThreadData)
++static inline void mmc_init_stackoverflow_fast(threadData_t *threadData, threadData_t */*oldThreadData*/)
+ {
+   mmc_init_stackoverflow(threadData);
+ }
 diff --git a/OMCompiler/SimulationRuntime/c/simulation_data.h b/OMCompiler/SimulationRuntime/c/simulation_data.h
 index 4fe412a0a1..be1f13ba3d 100644
 --- a/OMCompiler/SimulationRuntime/c/simulation_data.h

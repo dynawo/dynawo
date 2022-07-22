@@ -13,6 +13,7 @@ within Dynawo.Electrical.HVDC.BaseControls;
 */
 
 model ACEmulationSet_INIT "Initialisation for AC Emulation for HVDC with PRefSet0Pu set by the user"
+  import Modelica;
   extends AdditionalIcons.Init;
 
   import Dynawo.Types;

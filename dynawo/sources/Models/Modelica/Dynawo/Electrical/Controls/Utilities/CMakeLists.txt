@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   Measurements.mo
   Measurements.extvar
+  TransferFunction.mo
   )
 
 #
