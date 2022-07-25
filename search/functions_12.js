@@ -116,7 +116,7 @@ var searchData=
   ['sethasdifferentialvoltages',['setHasDifferentialVoltages',['../dd/d02/a03145.html#a60bd6ba5b7badc00ae6cc5609e4a0934',1,'DYN::ModelBus']]],
   ['sethighstepindex',['setHighStepIndex',['../d1/d86/a03209.html#acd203a0a98f84bdb307738214cd24cf2',1,'DYN::ModelTapChanger']]],
   ['setid',['setId',['../d6/d6d/a01617.html#a977198abdd15f99231be452acc9231d9',1,'criteria::CriteriaParams::setId()'],['../d6/d19/a02029.html#a46dc388a36b59f602de9cffab975404d',1,'externalVariables::Variable::setId()'],['../d7/d52/a02337.html#a04833780908429a5f2952e24cd498b1f',1,'lostEquipments::LostEquipment::setId()']]],
-  ['setiidmfile',['setIidmFile',['../dd/d14/a02201.html#ab79e42e0da8db65e497ec33ba1608441',1,'job::NetworkEntry::setIidmFile()'],['../da/d34/a03237.html#a258a9d846f40fcb5bd141d6a3a2adde5',1,'DYN::Simulation::setIIDMFile()']]],
+  ['setiidmfile',['setIIDMFile',['../da/d34/a03237.html#a258a9d846f40fcb5bd141d6a3a2adde5',1,'DYN::Simulation::setIIDMFile()'],['../dd/d14/a02201.html#ab79e42e0da8db65e497ec33ba1608441',1,'job::NetworkEntry::setIidmFile()']]],
   ['setindex',['setIndex',['../d6/dae/a02581.html#ac1e040081dc66027f5dc71519d2b5fae',1,'DYN::ParameterCommon::setIndex()'],['../db/d00/a02745.html#a9c472054434719df86296f158e3a8e0d',1,'DYN::VariableNative::setIndex()']]],
   ['setindex1',['setIndex1',['../de/d51/a01857.html#a79bdc99cc74ba8cd80b7099cb122e2ea',1,'dynamicdata::MacroConnect']]],
   ['setindex2',['setIndex2',['../de/d51/a01857.html#a823eb6898afdc195906bc686586d6631',1,'dynamicdata::MacroConnect']]],

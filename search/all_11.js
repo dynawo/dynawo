@@ -7,7 +7,6 @@ var searchData=
   ['ratiotapchanger_5f',['ratioTapChanger_',['../d4/d69/a02989.html#aeb3277d9b808aba27aa3159e80830e36',1,'DYN::TwoWTransformerInterfaceIIDM::ratioTapChanger_()'],['../d1/db3/a03013.html#a2d4b8aeacd84b76a6e156562488d594c',1,'DYN::FictTwoWTransformerInterfaceIIDM::ratioTapChanger_()']]],
   ['ratiotapchangerinterface',['RatioTapChangerInterface',['../dd/d4f/a02845.html',1,'DYN']]],
   ['ratiotapchangerinterfaceiidm',['RatioTapChangerInterfaceIIDM',['../da/df1/a02961.html',1,'DYN::RatioTapChangerInterfaceIIDM'],['../da/df1/a02961.html#a1e59d52aead262b2a00bb16104be8939',1,'DYN::RatioTapChangerInterfaceIIDM::RatioTapChangerInterfaceIIDM(IIDM::RatioTapChanger &amp;tapChanger, const std::string &amp;parentName)'],['../da/df1/a02961.html#a3c66c7edae4717892bca523d54837496',1,'DYN::RatioTapChangerInterfaceIIDM::RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioTapChanger &amp;tapChanger, const std::string &amp;terminalRefSide)']]],
-  ['rawvalue_5f',['rawValue_',['../de/d4b/a02865.html#af93636ce0ca4cd181b516a68fe4ad87d',1,'DYN::StateVariable']]],
   ['rdc_5f',['rdc_',['../dc/d10/a03169.html#a07e617d0ff7f2ae48e9650153c1c9b7f',1,'DYN::ModelHvdcLink']]],
   ['reactance_5f',['reactance_',['../d3/dcf/a03173.html#a5a556d3ec1de4602cf6a77b7f5b36a62',1,'DYN::ModelLine']]],
   ['reactivecurvepoint',['ReactiveCurvePoint',['../dc/da3/a02853.html',1,'DYN::ReactiveCurvePointsInterface::ReactiveCurvePoint'],['../dc/da3/a02853.html#ab70eb40cf6844930ae61eedc15f90783',1,'DYN::ReactiveCurvePointsInterface::ReactiveCurvePoint::ReactiveCurvePoint()']]],

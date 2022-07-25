@@ -5,7 +5,6 @@ var searchData=
   ['ratedu1_5f',['RatedU1_',['../d1/db3/a03013.html#aaf07c88f32bdeac70895cab6006cfbdd',1,'DYN::FictTwoWTransformerInterfaceIIDM']]],
   ['ratiostep_5f',['ratioStep_',['../dc/dc5/a02977.html#a69abb20ab62e3fd1942871479fafe13f',1,'DYN::StepInterfaceIIDM::ratioStep_()'],['../dc/dc5/a02977.html#a37e3b8bd85cfe0023885b0c102813972',1,'DYN::StepInterfaceIIDM::ratioStep_()']]],
   ['ratiotapchanger_5f',['ratioTapChanger_',['../d4/d69/a02989.html#aeb3277d9b808aba27aa3159e80830e36',1,'DYN::TwoWTransformerInterfaceIIDM::ratioTapChanger_()'],['../d1/db3/a03013.html#a2d4b8aeacd84b76a6e156562488d594c',1,'DYN::FictTwoWTransformerInterfaceIIDM::ratioTapChanger_()']]],
-  ['rawvalue_5f',['rawValue_',['../de/d4b/a02865.html#af93636ce0ca4cd181b516a68fe4ad87d',1,'DYN::StateVariable']]],
   ['rdc_5f',['rdc_',['../dc/d10/a03169.html#a07e617d0ff7f2ae48e9650153c1c9b7f',1,'DYN::ModelHvdcLink']]],
   ['reactance_5f',['reactance_',['../d3/dcf/a03173.html#a5a556d3ec1de4602cf6a77b7f5b36a62',1,'DYN::ModelLine']]],
   ['readparparameters_5f',['readPARParameters_',['../da/d28/a02705.html#a79d86a5f23a7fe16764550ecf3140da3',1,'DYN::SubModel']]],
