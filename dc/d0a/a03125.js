@@ -34,8 +34,10 @@ var a03125 =
     [ "setFequations", "dc/d0a/a03125.html#ac7490a6c8db83385cdd6792357a2dbe0", null ],
     [ "setGequations", "dc/d0a/a03125.html#a25d98b3907e5dc4df7fd057646d17176", null ],
     [ "setSubModelParameters", "dc/d0a/a03125.html#a4d4e6d3e5965955cfeb941c800616c0b", null ],
+    [ "endTimelineAdded_", "dc/d0a/a03125.html#a7b6e4d0ef3ef33e08f32b89900c40f93", null ],
     [ "numLoads_", "dc/d0a/a03125.html#a89d61b12ea589f38a874140f0ee154b4", null ],
     [ "startTime_", "dc/d0a/a03125.html#aa373644aa90754cc02460213e1013894", null ],
+    [ "startTimelineAdded_", "dc/d0a/a03125.html#a604d7b528070e2a40b1c04293d4aa180", null ],
     [ "stopTime_", "dc/d0a/a03125.html#a2720c570f808827e2c457808c91d5fb5", null ],
     [ "voltageSetPointChange_", "dc/d0a/a03125.html#a3b4c0c9fb72f507c3bea93b962c5b241", null ]
 ];

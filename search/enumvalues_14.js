@@ -17,6 +17,8 @@ var searchData=
   ['voltagelevelbbserror',['VoltageLevelBBSError',['../dc/db6/a02533.html#acfce33066451c48351076e31bd5b4ecea7354a432771d39cfe379866c6ee45477',1,'DYN::KeyError_t']]],
   ['voltagelevelgraphundefined',['VoltageLevelGraphUndefined',['../dc/db6/a02533.html#acfce33066451c48351076e31bd5b4ecea7d5987c3fd721e188a7ffbf02baacf6d',1,'DYN::KeyError_t']]],
   ['voltageleveltopoerror',['VoltageLevelTopoError',['../dc/db6/a02533.html#acfce33066451c48351076e31bd5b4ecea796a38d3998e24e419e9dde0d9aaaecb',1,'DYN::KeyError_t']]],
+  ['voltagesetpointchangeended',['VoltageSetPointChangeEnded',['../de/d94/a02597.html#a9294fd85b78754e1a11fec544395ad51a51485bfaa5530cd69c9290071f4e37e7',1,'DYN::KeyTimeline_t']]],
+  ['voltagesetpointchangestarted',['VoltageSetPointChangeStarted',['../de/d94/a02597.html#a9294fd85b78754e1a11fec544395ad51aa63ff20251481f8cd905247476512623',1,'DYN::KeyTimeline_t']]],
   ['vrbacktoregulation',['VRBackToRegulation',['../de/d94/a02597.html#a9294fd85b78754e1a11fec544395ad51a811fa3e99506a649eaa56e9d2be38be4',1,'DYN::KeyTimeline_t']]],
   ['vrlimitationefdmax',['VRLimitationEfdMax',['../de/d94/a02597.html#a9294fd85b78754e1a11fec544395ad51a23bd5163d6a188a791b5c6ed9be85412',1,'DYN::KeyTimeline_t']]],
   ['vrlimitationefdmin',['VRLimitationEfdMin',['../de/d94/a02597.html#a9294fd85b78754e1a11fec544395ad51a6ab37af7a9750a2083331b2f49b67ee8',1,'DYN::KeyTimeline_t']]],

@@ -25,6 +25,7 @@ var searchData=
   ['endofjob',['EndOfJob',['../df/dd3/a02569.html#a963225344a251150ba0ad6d5264f567fa83978d0c66d5820d5549cf45ac6634e7',1,'DYN::KeyLog_t']]],
   ['endsimulationwitherror',['endSimulationWithError',['../da/d34/a03237.html#af4247d4a63999f1b90f4976848843c01',1,'DYN::Simulation']]],
   ['endstaticref',['endStaticRef',['../d7/d9c/a01885.html#a7a2e57263bef8364d08c6da656cecbc3',1,'dynamicdata::MacroStaticReference::endStaticRef()'],['../d9/d0c/a01897.html#a5ca980395e046c4d70d3b521c18c2c66',1,'dynamicdata::Model::endStaticRef()']]],
+  ['endtimelineadded_5f',['endTimelineAdded_',['../dc/d0a/a03125.html#a7b6e4d0ef3ef33e08f32b89900c40f93',1,'DYN::ModelVoltageSetPointChange']]],
   ['endvariable',['endVariable',['../dd/dfc/a02037.html#a1ffaf209f750049a746edca5002a3d4f',1,'externalVariables::VariablesCollection']]],
   ['enumtomodelicastring_5f',['enumToModelicaString_',['../d7/dcf/a00845.html#aa0f9bbc68184fbabc1c1b18556273da7',1,'DYN']]],
   ['eol',['eol',['../d9/d24/a00524.html#a0b992bada48a2eb748585beda635bd92',1,'DYN']]],

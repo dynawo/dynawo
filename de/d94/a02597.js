@@ -95,7 +95,9 @@ var a02597 =
       [ "VRLimitationEfdMax", "de/d94/a02597.html#a9294fd85b78754e1a11fec544395ad51a23bd5163d6a188a791b5c6ed9be85412", null ],
       [ "VRLimitationEfdMin", "de/d94/a02597.html#a9294fd85b78754e1a11fec544395ad51a6ab37af7a9750a2083331b2f49b67ee8", null ],
       [ "VRLimitationUsRefMax", "de/d94/a02597.html#a9294fd85b78754e1a11fec544395ad51a55dc85ad183eabad10ff6ee37a296b4d", null ],
-      [ "VRLimitationUsRefMin", "de/d94/a02597.html#a9294fd85b78754e1a11fec544395ad51ac7dcf68071cff5135b157baec476593e", null ]
+      [ "VRLimitationUsRefMin", "de/d94/a02597.html#a9294fd85b78754e1a11fec544395ad51ac7dcf68071cff5135b157baec476593e", null ],
+      [ "VoltageSetPointChangeEnded", "de/d94/a02597.html#a9294fd85b78754e1a11fec544395ad51a51485bfaa5530cd69c9290071f4e37e7", null ],
+      [ "VoltageSetPointChangeStarted", "de/d94/a02597.html#a9294fd85b78754e1a11fec544395ad51aa63ff20251481f8cd905247476512623", null ]
     ] ],
     [ "names", "de/d94/a02597.html#ade477154931168ba7597483389ec6f46", null ]
 ];
