@@ -459,9 +459,14 @@ CurvesHandler::~CurvesHandler() {}
 
 void
 CurvesHandler::create(attributes_type const& attributes) {
+  if (attributes.has("iterationStep") && attributes.has("timeStep")) {
+    throw DYNError(DYN::Error::SIMULATION, IterationStepAndTimeStepBothDefined);
+  }
   curves_ = shared_ptr<CurvesEntry>(new CurvesEntry());
   curves_->setInputFile(attributes["inputFile"]);
   curves_->setExportMode(attributes["exportMode"]);
+  curves_->setIterationStep(attributes["iterationStep"]);
+  curves_->setTimeStep(attributes["timeStep"]);
 }
 
 shared_ptr<CurvesEntry>

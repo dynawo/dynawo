@@ -411,12 +411,22 @@ Three export modes are available for the timeline: TXT, XML or CSV.
 <finalState exportIIDMFile="true" exportDumpFile="true"/>
 \end{lstlisting}
 
-\item \textbf{Curves}: the user can plot curves at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be plotted and the export mode.
+\item \textbf{Curves}: the user can plot curves at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be plotted, the export mode and optionally a step on simulation iteration or on simulation time (in seconds).
 
 \begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
 <curves inputFile="MyCurves.crv" exportMode="CSV"/>
 \end{lstlisting}
+
+\begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
+<curves inputFile="MyCurves.crv" exportMode="CSV" iterationStep="8"/>
+\end{lstlisting}
+
+\begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
+<curves inputFile="MyCurves.crv" exportMode="CSV" timeStep="0.4"/>
+\end{lstlisting}
+
 Two export modes are available for curves export: CSV or XML.
+It's impossible to define both an iterationStep and a timeStep.
 
 \item \textbf{Final state values}: the user can observe final state values at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be observed.
 
