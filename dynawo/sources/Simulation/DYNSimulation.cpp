@@ -930,7 +930,16 @@ Simulation::simulate() {
         connectedComponents_ = data_->findConnectedComponents();
       }
     }
+
+    boost::shared_ptr<job::CurvesEntry> curvesEntry = jobEntry_->getOutputsEntry()->getCurvesEntry();
+    boost::optional<int> iterationStep;
+    boost::optional<double> timeStep;
+    if (curvesEntry != nullptr) {
+      iterationStep = curvesEntry->getIterationStep();
+      timeStep = curvesEntry->getTimeStep();
+    }
     int currentIterNb = 0;
+    double nextTimeStep = 0;
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
       double elapsed = timer.elapsed();
       double timeout = jobEntry_->getSimulationEntry()->getTimeout();
@@ -966,7 +975,19 @@ Simulation::simulate() {
 
       if (isCheckCriteriaIter)
         model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
-      updateCurves(!isCheckCriteriaIter && !modifZ);
+
+      if (iterationStep) {
+        if (currentIterNb % *iterationStep == 0) {
+          updateCurves(!isCheckCriteriaIter && !modifZ);
+        }
+      } else if (timeStep) {
+        if (tCurrent_ >= nextTimeStep) {
+          nextTimeStep = tCurrent_ + *timeStep;
+          updateCurves(!isCheckCriteriaIter && !modifZ);
+        }
+      } else {
+        updateCurves(!isCheckCriteriaIter && !modifZ);
+      }
 
       model_->checkDataCoherence(tCurrent_);
       model_->printMessages();
