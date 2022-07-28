@@ -39,7 +39,7 @@
       <dyn:timetable step="10"/>
       <dyn:finalState exportDumpFile="true" exportIIDMFile="true"/>
       <dyn:finalState exportDumpFile="true" exportIIDMFile="true" timestamp="10"/>
-      <dyn:curves inputFile="curves.crv" exportMode="CSV"/>
+      <dyn:curves inputFile="curves.crv" exportMode="CSV" iterationStep="5"/>
       <dyn:finalStateValues inputFile="finalStateValues.fsv"/>
       <dyn:lostEquipments/>
       <dyn:logs>
@@ -62,7 +62,7 @@
     </dyn:modeler>
     <dyn:simulation startTime="200" stopTime="400"/>
     <dyn:outputs directory="outputs2">
-      <dyn:curves inputFile="curves.crv" exportMode="CSV"/>
+      <dyn:curves inputFile="curves.crv" exportMode="CSV" timeStep="8"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
         <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
