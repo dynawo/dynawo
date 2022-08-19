@@ -84,6 +84,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   InfiniteBusWithImpedance.xml
   InfiniteBusWithVariations.xml
   InjectorBG.xml
+  InjectorIDQ.xml
   IntegerDoubleStep.xml
   Line.xml
   LoadAlphaBeta.xml
