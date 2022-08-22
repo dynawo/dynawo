@@ -32,7 +32,6 @@ namespace DYN {
 StateVariable::StateVariable() :
 type_(StateVariable::DOUBLE),  // most used type
 valueAffected_(false),
-rawValue_(0.),
 neededForCriteriaCheck_(false) {
 }
 
@@ -40,7 +39,6 @@ StateVariable::StateVariable(const string& name, const StateVariableType& type, 
 type_(type),
 name_(name),
 valueAffected_(false),
-rawValue_(0.),
 neededForCriteriaCheck_(neededForCriteriaCheck) {
 }
 
@@ -140,8 +138,6 @@ StateVariable::isNeededForCriteriaCheck() const {
  */
 void
 StateVariable::setValue(const double& value) {
-  if (valueAffected_ && doubleEquals(rawValue_, value))
-    return;
   switch (type_) {
   case BOOL :
 #ifdef _DEBUG_
@@ -163,7 +159,6 @@ StateVariable::setValue(const double& value) {
     break;
   }
   valueAffected_ = true;
-  rawValue_ = value;
 }
 
 string
