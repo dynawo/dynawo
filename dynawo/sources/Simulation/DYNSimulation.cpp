@@ -232,10 +232,10 @@ Simulation::configureSimulationInputs() {
       throw DYNError(Error::GENERAL, UnknownIidmFile, iidmFile_);
 
     networkParFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile(), context_->getInputDirectory());
-    if (exists(networkParFile_)) {
-      networkParFile_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile();
-      networkParSet_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParId();
-    }
+    if (!exists(networkParFile_))
+      throw DYNError(Error::GENERAL, UnknownParFile, networkParFile_);
+    networkParFile_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile();
+    networkParSet_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParId();
   }
   if (jobEntry_->getModelerEntry()->getInitialStateEntry()) {
     initialStateFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getInitialStateEntry()->getInitialStateFile(), context_->getInputDirectory());

@@ -568,10 +568,8 @@ void
 NetworkHandler::create(attributes_type const& attributes) {
   network_ = shared_ptr<NetworkEntry>(new NetworkEntry());
   network_->setIidmFile(attributes["iidmFile"]);
-  if (attributes.has("parFile"))
-    network_->setNetworkParFile(attributes["parFile"]);
-  if (attributes.has("parId"))
-    network_->setNetworkParId(attributes["parId"]);
+  network_->setNetworkParFile(attributes["parFile"]);
+  network_->setNetworkParId(attributes["parId"]);
 }
 
 shared_ptr<NetworkEntry>
