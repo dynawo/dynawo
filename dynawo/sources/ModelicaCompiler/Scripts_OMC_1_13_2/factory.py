@@ -2366,6 +2366,10 @@ class Factory:
                     l+=line_split[idx].strip()
                     idx+=1
                     l+=line_split[idx].strip()
+                    if l[-1].isnumeric():
+                        # case data->localData[0]->realVars[...] /* .. STATE(1,...) */
+                        idx+=1
+                        l+=", " +line_split[idx].strip()
 
                 while l.endswith("modelica_integer)") or l.endswith("modelica_real)") or l.endswith("modelica_boolean)"):
                     idx+=1
