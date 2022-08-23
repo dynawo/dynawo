@@ -2364,6 +2364,10 @@ class Factory:
                     l+=line_split[idx].strip()
                     idx+=1
                     l+=line_split[idx].strip()
+                    if l[-1].isnumeric():
+                        # case data->localData[0]->realVars[...] /* .. STATE(1,...) */
+                        idx+=1
+                        l+=", " +line_split[idx].strip()
 
                 while l.endswith("modelica_integer)") or l.endswith("modelica_real)") or l.endswith("modelica_boolean)"):
                     idx+=1
@@ -2919,7 +2923,7 @@ class Factory:
                 var_ext = ""
                 if is_alg_var(v) :
                     spin = "ALGEBRAIC"
-                if v.get_name() in self.reader.dummy_der_variables: 
+                if v.get_name() in self.reader.dummy_der_variables:
                     spin = "DIFFERENTIAL"
                 if v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var:
                   spin = "EXTERNAL"
