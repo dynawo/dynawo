@@ -604,7 +604,7 @@ Simulation::loadDynamicData() {
   if (data_->instantiateNetwork()) {
     networkParFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile(), context_->getInputDirectory());
     if (!exists(networkParFile_)) {
-      throw DYNError(Error::GENERAL, UnknownParFile, networkParFile_);
+      throw DYNError(Error::GENERAL, UnknownParFile, networkParFile_, context_->getInputDirectory());
     } else {
       networkParFile_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile();
       networkParSet_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParId();
