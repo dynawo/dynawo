@@ -2366,7 +2366,7 @@ class Factory:
                     l+=line_split[idx].strip()
                     idx+=1
                     l+=line_split[idx].strip()
-                    if l[-1].isnumeric():
+                    if l[-1].isdigit():
                         # case data->localData[0]->realVars[...] /* .. STATE(1,...) */
                         idx+=1
                         l+=", " +line_split[idx].strip()
