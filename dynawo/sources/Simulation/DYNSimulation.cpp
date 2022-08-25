@@ -231,13 +231,6 @@ Simulation::configureSimulationInputs() {
 
     if (!data_ && !exists(iidmFile_))  // no need to check iidm file if data interface is provided
       throw DYNError(Error::GENERAL, UnknownIidmFile, iidmFile_);
-
-    if (data_->instantiateNetwork() && !exists(networkParFile_)) {
-      throw DYNError(Error::GENERAL, UnknownParFile, networkParFile_);
-    } else if (data_->instantiateNetwork()) {
-      networkParFile_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile();
-      networkParSet_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParId();
-    }
   }
   if (jobEntry_->getModelerEntry()->getInitialStateEntry()) {
     initialStateFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getInitialStateEntry()->getInitialStateFile(), context_->getInputDirectory());
@@ -604,6 +597,16 @@ Simulation::loadDynamicData() {
 
   dyd_->initFromDydFiles(dydFiles_);
   data_->mapConnections();
+
+  if (data_->instantiateNetwork()) {
+    networkParFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile(), context_->getInputDirectory());
+    if (!exists(networkParFile_)) {
+      throw DYNError(Error::GENERAL, UnknownParFile, networkParFile_);
+    } else {
+      networkParFile_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile();
+      networkParSet_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParId();
+    }
+  }
 
   // the Network parameter file path is considered to be relative to the jobs file directory
   dyd_->getNetworkParameters(networkParFile_, networkParSet_);
