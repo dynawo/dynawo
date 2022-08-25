@@ -23,6 +23,7 @@ jobs:
 
       - name: Build
         run: |
+          dnf install -y ninja-build
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
 
