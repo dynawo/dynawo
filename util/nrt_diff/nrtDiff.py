@@ -1407,7 +1407,7 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
             for v in row:
                 if (index > 0) and (v.strip() != ""):
                     val = float(v)
-                    if (val_previous is None) or (val > val_previous):
+                    if (val_previous is None) or (val >= val_previous):
                         times_left[val] = index
 
                 if (index == 0):
@@ -1433,7 +1433,7 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
             for v in row:
                 if (index > 0) and (v.strip() != ""):
                     val = float(v)
-                    if (val_previous is None) or (val > val_previous):
+                    if (val_previous is None) or (val >= val_previous):
                         times_right[val] = index
 
                 if (index == 0):
