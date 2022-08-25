@@ -70,11 +70,12 @@ DanglingLineInterfaceIIDM::exportStateVariablesUnitComponent() {
       getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(danglingLineIIDM_.getTerminal().getNodeBreakerView().getNode()));
     else if (!connected && getInitialConnected())
       getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(danglingLineIIDM_.getTerminal().getNodeBreakerView().getNode()));
+  } else {
+    if (connected)
+      danglingLineIIDM_.getTerminal().connect();
+    else
+      danglingLineIIDM_.getTerminal().disconnect();
   }
-  if (connected)
-    danglingLineIIDM_.getTerminal().connect();
-  else
-    danglingLineIIDM_.getTerminal().disconnect();
 }
 
 void

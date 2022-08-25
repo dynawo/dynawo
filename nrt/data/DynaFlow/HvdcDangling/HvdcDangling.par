@@ -14,6 +14,7 @@
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="HVDC">
     <reference type="DOUBLE" name="hvdc_P10Pu" origData="IIDM" origName="p1_pu"/>
+    <reference type="DOUBLE" name="hvdc_P1RefSetPu" origData="IIDM" origName="p1_pu"/>
     <reference type="DOUBLE" name="hvdc_Q10Pu" origData="IIDM" origName="q1_pu"/>
     <reference type="DOUBLE" name="hvdc_U10Pu" origData="IIDM" origName="v1_pu"/>
     <reference type="DOUBLE" name="hvdc_UPhase10" origData="IIDM" origName="angle1_pu"/>
