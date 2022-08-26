@@ -79,6 +79,7 @@ def is_when_condition(var_name):
 def is_adept_func(func, list_adept_structs):
     if "omc_Modelica_Blocks_Tables_Internal_getTable" in func.get_name(): return False
     if "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" in func.get_name(): return False
+    if "array_alloc_scalar_real_array" in func.get_name(): return False
     if "delay" in func.get_name(): return False # Delay shall not use adept
     if func.get_return_type() == "modelica_real" : return True
     if func.get_return_type() in list_adept_structs: return True
