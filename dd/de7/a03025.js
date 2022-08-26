@@ -1,7 +1,6 @@
 var a03025 =
 [
-    [ "~HvdcAngleDroopActivePowerControlIIDMExtension", "dd/de7/a03025.html#aab719d30ebf54d52ecba6c5af8115af2", null ],
-    [ "getDroop", "dd/de7/a03025.html#a3193365d52ecdb5e3deef9ea9929d0d7", null ],
-    [ "getP0", "dd/de7/a03025.html#ab9b5aa6ef1a12c13231eeea478926af7", null ],
-    [ "isEnabled", "dd/de7/a03025.html#a4b002695d899cc45887212876d281a06", null ]
+    [ "~GeneratorActivePowerControlIIDMExtension", "dd/de7/a03025.html#af9501e3c85dc681189b83805f124e53c", null ],
+    [ "getDroop", "dd/de7/a03025.html#a8614b64805d6b2c163579e19c86f95ad", null ],
+    [ "isParticipate", "dd/de7/a03025.html#af6ec3d72c1e3d885ff0bfff370cb7df9", null ]
 ];

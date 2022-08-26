@@ -138,6 +138,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a74ab9c0435f505ad4c3110152c1db69c"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d3d/a02233.html#a74ab9c0435f505ad4c3110152c1db69c">getMaxPriority</a> () const</td></tr>
 <tr class="memdesc:a74ab9c0435f505ad4c3110152c1db69c"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority getter  <a href="#a74ab9c0435f505ad4c3110152c1db69c">More...</a><br /></td></tr>
 <tr class="separator:a74ab9c0435f505ad4c3110152c1db69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae92da4363bcf91bab22187eca3bf5602"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d3d/a02233.html#ae92da4363bcf91bab22187eca3bf5602">setFilter</a> (bool filter)</td></tr>
+<tr class="memdesc:ae92da4363bcf91bab22187eca3bf5602"><td class="mdescLeft">&#160;</td><td class="mdescRight">filter setter  <a href="#ae92da4363bcf91bab22187eca3bf5602">More...</a><br /></td></tr>
+<tr class="separator:ae92da4363bcf91bab22187eca3bf5602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4121b47a06d4dfe1a40c1572b8c5b2fe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d3d/a02233.html#a4121b47a06d4dfe1a40c1572b8c5b2fe">isFilter</a> () const</td></tr>
+<tr class="memdesc:a4121b47a06d4dfe1a40c1572b8c5b2fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">filter getter  <a href="#a4121b47a06d4dfe1a40c1572b8c5b2fe">More...</a><br /></td></tr>
+<tr class="separator:a4121b47a06d4dfe1a40c1572b8c5b2fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -157,6 +163,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d3d/a02233.html#a609fbd41887d0097339fd5898005b48c">maxPriority_</a></td></tr>
 <tr class="memdesc:a609fbd41887d0097339fd5898005b48c"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority allowed when exporting timeline <br /></td></tr>
 <tr class="separator:a609fbd41887d0097339fd5898005b48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad944d5c43790aa47f27418d68c63b508"><td class="memItemLeft" align="right" valign="top"><a id="ad944d5c43790aa47f27418d68c63b508"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d3d/a02233.html#ad944d5c43790aa47f27418d68c63b508">filter_</a></td></tr>
+<tr class="memdesc:ad944d5c43790aa47f27418d68c63b508"><td class="mdescLeft">&#160;</td><td class="mdescRight">boolean indicating whether to filter timeline <br /></td></tr>
+<tr class="separator:ad944d5c43790aa47f27418d68c63b508"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Timeline entries container class. </p>
@@ -241,6 +251,26 @@ boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom">
 
 </div>
 </div>
+<a id="a4121b47a06d4dfe1a40c1572b8c5b2fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4121b47a06d4dfe1a40c1572b8c5b2fe">&#9670;&nbsp;</a></span>isFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool job::TimelineEntry::isFilter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>filter getter </p>
+<dl class="section return"><dt>Returns</dt><dd>whether to filter the timeline </dd></dl>
+
+</div>
+</div>
 <a id="a23f1e4911eca359c371f6d400af82a4b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a23f1e4911eca359c371f6d400af82a4b">&#9670;&nbsp;</a></span>setExportMode()</h2>
 
@@ -287,6 +317,32 @@ boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">exportWithTime</td><td>whether to export time when exporting timeline </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae92da4363bcf91bab22187eca3bf5602"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae92da4363bcf91bab22187eca3bf5602">&#9670;&nbsp;</a></span>setFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::TimelineEntry::setFilter </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>filter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>filter setter </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filter</td><td>whether to filter the timeline </td></tr>
   </table>
   </dd>
 </dl>
@@ -365,7 +421,7 @@ boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom">
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d5/d3d/a02233.html">TimelineEntry</a></li>
-    <li class="footer">Generated on Fri Aug 26 2022 07:40:38 for Dynawo by
+    <li class="footer">Generated on Fri Aug 26 2022 14:58:17 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

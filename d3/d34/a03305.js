@@ -1,10 +1,5 @@
 var a03305 =
 [
-    [ "calculateIC", "d3/d34/a03305.html#a7ecf3066a662f5691d5c983416b9d094", null ],
-    [ "computePrediction", "d3/d34/a03305.html#a01e2e7dfdf379b9913ce86a3fdddf631", null ],
-    [ "computeYP", "d3/d34/a03305.html#a7dda1516a1832983070e964fa74b677b", null ],
-    [ "getTimeStep", "d3/d34/a03305.html#a89b181c907dbe77668618914e649ddc8", null ],
-    [ "init", "d3/d34/a03305.html#afc4e29cc7d320c7a59c277b822f8bb17", null ],
-    [ "solverType", "d3/d34/a03305.html#a36e085caf83892e2edbe499351a677af", null ],
-    [ "solveStep", "d3/d34/a03305.html#a13a88786c020690d2a908d6732397b12", null ]
+    [ "create", "d3/d34/a03305.html#ab8ab7f326a81125e2bd642ceb9b0e0f4", null ],
+    [ "destroy", "d3/d34/a03305.html#ad9fcf2fd823ef9a2f9273ce75f3b2f29", null ]
 ];

@@ -1,18 +1,15 @@
 var a03153 =
 [
-    [ "ModelBusContainer", "db/d44/a03153.html#a07a5b6ac97b5f2695347bb01d070385a", null ],
-    [ "~ModelBusContainer", "db/d44/a03153.html#a5bfc89a4eb5d8c51e25618dea1f95861", null ],
-    [ "add", "db/d44/a03153.html#a15fba481928d4aea84014b74a97c82d4", null ],
-    [ "evalF", "db/d44/a03153.html#aa884deb00a8ec768d1f7093502941c77", null ],
-    [ "evalJt", "db/d44/a03153.html#a29a284a7ea0248412536e9bc93259eda", null ],
-    [ "evalJtPrim", "db/d44/a03153.html#aaefb082bd08351f85d7229b48e5cf191", null ],
-    [ "exploreNeighbors", "db/d44/a03153.html#a67217e0627420b218eee4bc4ab3a09ab", null ],
-    [ "getSubNetworks", "db/d44/a03153.html#afd1b6cef759a31ef68af3d862aebc9c4", null ],
-    [ "initDerivatives", "db/d44/a03153.html#a6c5cc2241578370a125419c3014edb2c", null ],
-    [ "initRefIslands", "db/d44/a03153.html#a4bb7cf8083a182f23ee843a9167c1072", null ],
-    [ "resetCurrentUStatus", "db/d44/a03153.html#a7b3ea90ccbfb4e8ce491c6632b7f41fb", null ],
-    [ "resetNodeInjections", "db/d44/a03153.html#af47ec19771129cb5258e051195097230", null ],
-    [ "resetSubNetwork", "db/d44/a03153.html#a2c5160c1075defd95514fde8f4aca10d", null ],
-    [ "models_", "db/d44/a03153.html#a3976be468c819b3bf91c834c0d36a2cf", null ],
-    [ "subNetworks_", "db/d44/a03153.html#a564137dde21fc01280ef085f69551601", null ]
+    [ "SubNetwork", "db/d44/a03153.html#a7a1554bda2d7cf7a96f4abcf98e3b24b", null ],
+    [ "~SubNetwork", "db/d44/a03153.html#af9a13a6023bf9ff959e7ef790c8a64a5", null ],
+    [ "SubNetwork", "db/d44/a03153.html#a16961499d52aad5d788f96ed4c6dcd7a", null ],
+    [ "addBus", "db/d44/a03153.html#a8f77f21e94807af8f677e1156a341cad", null ],
+    [ "bus", "db/d44/a03153.html#a669834f45699089c9f61b09970e9f39b", null ],
+    [ "getNum", "db/d44/a03153.html#a9268487fd995138df5551fdb603f061f", null ],
+    [ "nbBus", "db/d44/a03153.html#a607f8857ed127980d47a2bc070998a83", null ],
+    [ "setNum", "db/d44/a03153.html#a0028dea750483d707d90697be8c2438f", null ],
+    [ "shutDownNodes", "db/d44/a03153.html#a9b57418998aa1bce13596ea527945c7e", null ],
+    [ "turnOnNodes", "db/d44/a03153.html#a37da1452e45285345454c9a78f1d1522", null ],
+    [ "bus_", "db/d44/a03153.html#a3987793f3efc8dc10dabeb00d25d3c02", null ],
+    [ "num_", "db/d44/a03153.html#a4c494be750b557f650d4dbf0c0d91a32", null ]
 ];

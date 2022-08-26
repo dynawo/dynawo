@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::IIDMExtensionTrait&lt; StaticVarCompensatorInterfaceIIDMExtension &gt; Struct Template Reference</title>
+<title>Dynawo: DYN::IIDMExtensionTrait&lt; T &gt; Struct Template Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -94,39 +94,24 @@ $(document).ready(function(){initNavTree('dc/d23/a03041.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="../../d8/d23/a03038.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::IIDMExtensionTrait&lt; StaticVarCompensatorInterfaceIIDMExtension &gt; Struct Template Reference</div>  </div>
+<div class="title">DYN::IIDMExtensionTrait&lt; T &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Specialization trait for <a class="el" href="../../d4/d44/a03065.html">StaticVarCompensatorInterfaceIIDMExtension</a>.  
+<p>Base template class for traits.  
  <a href="../../dc/d23/a03041.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d3/d13/a00836_source.html">DYNIIDMExtensionsTraits.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a27aa02153648a1ac222b3a42f9b02307"><td class="memItemLeft" align="right" valign="top"><a id="a27aa02153648a1ac222b3a42f9b02307"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d23/a03041.html#a27aa02153648a1ac222b3a42f9b02307">NetworkComponentType</a> = powsybl::iidm::StaticVarCompensator</td></tr>
-<tr class="memdesc:a27aa02153648a1ac222b3a42f9b02307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Network component type. <br /></td></tr>
-<tr class="separator:a27aa02153648a1ac222b3a42f9b02307"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:ac12dbd90f292fd642a30c5789ab9bd26"><td class="memItemLeft" align="right" valign="top"><a id="ac12dbd90f292fd642a30c5789ab9bd26"></a>
-static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d23/a03041.html#ac12dbd90f292fd642a30c5789ab9bd26">name</a> []</td></tr>
-<tr class="memdesc:ac12dbd90f292fd642a30c5789ab9bd26"><td class="mdescLeft">&#160;</td><td class="mdescRight">name of the extension <br /></td></tr>
-<tr class="separator:ac12dbd90f292fd642a30c5789ab9bd26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;&gt;<br />
-struct DYN::IIDMExtensionTrait&lt; StaticVarCompensatorInterfaceIIDMExtension &gt;</h3>
+<div class="textblock"><h3>template&lt;class T&gt;<br />
+struct DYN::IIDMExtensionTrait&lt; T &gt;</h3>
 
-<p>Specialization trait for <a class="el" href="../../d4/d44/a03065.html">StaticVarCompensatorInterfaceIIDMExtension</a>. </p>
+<p>Base template class for traits. </p>
+<p>Traits for IIDM extensions are:</p><ul>
+<li>NetworkComponentType: the powsybl type of input for the extension</li>
+<li>name: the name of the extension, used to build the creation/destruction functions </li>
+</ul>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="../../d3/d13/a00836_source.html">DYNIIDMExtensionsTraits.hpp</a></li>
 </ul>
@@ -146,8 +131,8 @@ struct DYN::IIDMExtensionTrait&lt; StaticVarCompensatorInterfaceIIDMExtension &g
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/d23/a03041.html">IIDMExtensionTrait&lt; StaticVarCompensatorInterfaceIIDMExtension &gt;</a></li>
-    <li class="footer">Generated on Fri Aug 26 2022 07:40:37 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/d23/a03041.html">IIDMExtensionTrait</a></li>
+    <li class="footer">Generated on Fri Aug 26 2022 14:58:15 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

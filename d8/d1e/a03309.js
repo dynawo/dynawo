@@ -1,5 +1,10 @@
 var a03309 =
 [
-    [ "create", "d8/d1e/a03309.html#ae4708839d9c483ec3b7e7ee0ad63455a", null ],
-    [ "destroy", "d8/d1e/a03309.html#ab1ec0035861feb1c08288c7586f40f46", null ]
+    [ "calculateIC", "d8/d1e/a03309.html#a7ecf3066a662f5691d5c983416b9d094", null ],
+    [ "computePrediction", "d8/d1e/a03309.html#a01e2e7dfdf379b9913ce86a3fdddf631", null ],
+    [ "computeYP", "d8/d1e/a03309.html#a7dda1516a1832983070e964fa74b677b", null ],
+    [ "getTimeStep", "d8/d1e/a03309.html#a89b181c907dbe77668618914e649ddc8", null ],
+    [ "init", "d8/d1e/a03309.html#afc4e29cc7d320c7a59c277b822f8bb17", null ],
+    [ "solverType", "d8/d1e/a03309.html#a36e085caf83892e2edbe499351a677af", null ],
+    [ "solveStep", "d8/d1e/a03309.html#a13a88786c020690d2a908d6732397b12", null ]
 ];

@@ -1,7 +1,6 @@
 var a02753 =
 [
-    [ "~BusBarSectionInterface", "d9/d93/a02753.html#a6e3a5975b95b9ace15bb6844425e9bc5", null ],
-    [ "id", "d9/d93/a02753.html#aa0c80e7812813ace775bdeab08e7aca3", null ],
-    [ "setAngle", "d9/d93/a02753.html#a71f944e9d39ff6582d8e9c0ede594287", null ],
-    [ "setV", "d9/d93/a02753.html#a946cb82d2873298ff4aa4c732cc7fb2a", null ]
+    [ "create", "d9/d93/a02753.html#a018f0dcbbaf4e22ba847bccd0243db50", null ],
+    [ "createCalculated", "d9/d93/a02753.html#aa53a4ad174d9af305d7e918e9770d429", null ],
+    [ "createState", "d9/d93/a02753.html#af4c815ae1d0b0ebd989ca90ed1080452", null ]
 ];

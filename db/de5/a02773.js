@@ -1,10 +1,9 @@
 var a02773 =
 [
-    [ "BusCriteria", "db/de5/a02773.html#a0ab52896701c89a6c53256fc3146f7f9", null ],
-    [ "~BusCriteria", "db/de5/a02773.html#aea7a2daea6eb1b13556028b46a82ab0b", null ],
-    [ "addBus", "db/de5/a02773.html#a399ef76918b051f208b4e023ffbef2c2", null ],
-    [ "checkCriteria", "db/de5/a02773.html#a8f0e88dece9c296a20f5a33dffe6f38f", null ],
-    [ "criteriaEligibleForBus", "db/de5/a02773.html#aa460bb562821587e2c6acb42d89145b0", null ],
-    [ "empty", "db/de5/a02773.html#aa709f28a847f4680db9e9356b6a723e2", null ],
-    [ "buses_", "db/de5/a02773.html#a3398d7c85e7298391f2ba6d6079f4c46", null ]
+    [ "Criteria", "db/de5/a02773.html#ab0211f97b4a4105abfe70989068d7034", null ],
+    [ "~Criteria", "db/de5/a02773.html#ab91b12e7731dfd62f0989c6ae50557ed", null ],
+    [ "checkCriteria", "db/de5/a02773.html#af2c631f9dbb9467f2db49b3221c59929", null ],
+    [ "getFailingCriteria", "db/de5/a02773.html#ae37e82fe5de5482d924a4f3781287bc5", null ],
+    [ "failingCriteria_", "db/de5/a02773.html#a2cfd58d7a5fc57e2d2438cf3c3603954", null ],
+    [ "params_", "db/de5/a02773.html#a0bb1b98b66257511889a334efd7d2a81", null ]
 ];

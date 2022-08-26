@@ -95,22 +95,18 @@ $(document).ready(function(){initNavTree('d0/d84/a03281.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::SolverFactories Member List</div>  </div>
+<div class="title">DYN::SolverFactory Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactories</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactory</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/d84/a03281.html#a125134c2033a3ca852d9703d234497da">add</a>(const std::string &amp;lib, SolverFactory *factory)</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactories</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d0/d84/a03281.html#acb5aac937bbc6688a090c975c96f5af1">add</a>(const std::string &amp;lib, const boost::function&lt; deleteSolverFactory_t &gt; &amp;deleteFactory)</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactories</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/d84/a03281.html#a4f8288eb185dab0cd47b16acf9d32a2f">end</a>(SolverFactoryIterator &amp;iter)</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactories</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d0/d84/a03281.html#a073b6b6361761e6f5bff12242e04b97c">factoryMap_</a></td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactories</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/d84/a03281.html#a7b9cea08b1e6dc91ab43b5955ff992ef">factoryMapDelete_</a></td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactories</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d0/d84/a03281.html#ad3442843f76b3293771b727f22bfd16b">find</a>(const std::string &amp;lib)</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactories</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/d84/a03281.html#a2316900a761747810aa84eaf4d69ab7c">getInstance</a>()</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactories</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d0/d84/a03281.html#a0cdb5a6199f004eadcde7fe4654e2d14">SolverFactories</a>()</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactories</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/d84/a03281.html#ac843e856916aff0102b87b77ac0f74e1">SolverFactoryIterator</a> typedef</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactories</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d0/d84/a03281.html#a64d31ce6a9fbdb5a5dc317f2969de1cc">~SolverFactories</a>()</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactories</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d0/d84/a03281.html#ac65d140b18f58dda550003c47e97fc2e">create</a>() const =0</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d0/d84/a03281.html#a3504ac5d306e30488a661a38225a7573">createSolverFromLib</a>(const std::string &amp;lib)</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d0/d84/a03281.html#a8dccb03730530e6b2bf7e0eec8d42492">destroy</a>(Solver *) const =0</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d0/d84/a03281.html#abbfdaf69d4a3f097dc187edac6c723c1">lib_</a></td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactory</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d0/d84/a03281.html#a1a9995b963846832f7c1fd906c7f8d08">SolverFactory</a>()</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d0/d84/a03281.html#acab1ac8b0d0f36a325c891a939f2d0e5">~SolverFactory</a>()</td><td class="entry"><a class="el" href="../../d0/d84/a03281.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -127,7 +123,7 @@ $(document).ready(function(){initNavTree('d0/d84/a03281.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Aug 26 2022 07:40:37 for Dynawo by
+    <li class="footer">Generated on Fri Aug 26 2022 14:58:16 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

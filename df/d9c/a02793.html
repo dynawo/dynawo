@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::CurrentLimit Struct Reference</title>
+<title>Dynawo: DYN::TemporaryLimit Struct Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -98,28 +98,36 @@ $(document).ready(function(){initNavTree('df/d9c/a02793.html','../../');});
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="../../dc/da5/a02790.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::CurrentLimit Struct Reference</div>  </div>
+<div class="title">DYN::TemporaryLimit Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Current limit.  
+<p>Temporary limit.  
  <a href="../../df/d9c/a02793.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../da/d36/a00650_source.html">DYNCurrentLimits.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a2fa50a31a8a0240a66c84545e561afad"><td class="memItemLeft" align="right" valign="top"><a id="a2fa50a31a8a0240a66c84545e561afad"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9c/a02793.html#a2fa50a31a8a0240a66c84545e561afad">permanentLimit</a></td></tr>
-<tr class="memdesc:a2fa50a31a8a0240a66c84545e561afad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permanent limit. <br /></td></tr>
-<tr class="separator:a2fa50a31a8a0240a66c84545e561afad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a254447bdefd7b47cf3fddb535d86c230"><td class="memItemLeft" align="right" valign="top"><a id="a254447bdefd7b47cf3fddb535d86c230"></a>
-std::vector&lt; <a class="el" href="../../db/d38/a02789.html">TemporaryLimit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9c/a02793.html#a254447bdefd7b47cf3fddb535d86c230">temporaryLimits</a></td></tr>
-<tr class="memdesc:a254447bdefd7b47cf3fddb535d86c230"><td class="mdescLeft">&#160;</td><td class="mdescRight">list of temporary limits <br /></td></tr>
-<tr class="separator:a254447bdefd7b47cf3fddb535d86c230"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8079c3ebec00626b29c1bf37051bc788"><td class="memItemLeft" align="right" valign="top"><a id="a8079c3ebec00626b29c1bf37051bc788"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9c/a02793.html#a8079c3ebec00626b29c1bf37051bc788">name</a></td></tr>
+<tr class="memdesc:a8079c3ebec00626b29c1bf37051bc788"><td class="mdescLeft">&#160;</td><td class="mdescRight">name of the temporary limit <br /></td></tr>
+<tr class="separator:a8079c3ebec00626b29c1bf37051bc788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd332bfdec559fb903f180d20b6f6955"><td class="memItemLeft" align="right" valign="top"><a id="afd332bfdec559fb903f180d20b6f6955"></a>
+unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9c/a02793.html#afd332bfdec559fb903f180d20b6f6955">acceptableDuration</a></td></tr>
+<tr class="memdesc:afd332bfdec559fb903f180d20b6f6955"><td class="mdescLeft">&#160;</td><td class="mdescRight">acceptable duration of the temporary limit <br /></td></tr>
+<tr class="separator:afd332bfdec559fb903f180d20b6f6955"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a526da012398ad4bb0db345e841961c7e"><td class="memItemLeft" align="right" valign="top"><a id="a526da012398ad4bb0db345e841961c7e"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9c/a02793.html#a526da012398ad4bb0db345e841961c7e">value</a></td></tr>
+<tr class="memdesc:a526da012398ad4bb0db345e841961c7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">value of the temporary limit <br /></td></tr>
+<tr class="separator:a526da012398ad4bb0db345e841961c7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac012d8bf67db7df2d18cf81e60c68f69"><td class="memItemLeft" align="right" valign="top"><a id="ac012d8bf67db7df2d18cf81e60c68f69"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9c/a02793.html#ac012d8bf67db7df2d18cf81e60c68f69">fictitious</a></td></tr>
+<tr class="memdesc:ac012d8bf67db7df2d18cf81e60c68f69"><td class="mdescLeft">&#160;</td><td class="mdescRight">determines if the temporary limit is fictitious <br /></td></tr>
+<tr class="separator:ac012d8bf67db7df2d18cf81e60c68f69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Current limit. </p>
+<div class="textblock"><p>Temporary limit. </p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="../../da/d36/a00650_source.html">DYNCurrentLimits.h</a></li>
 </ul>
@@ -139,8 +147,8 @@ std::vector&lt; <a class="el" href="../../db/d38/a02789.html">TemporaryLimit</a>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d9c/a02793.html">CurrentLimit</a></li>
-    <li class="footer">Generated on Fri Aug 26 2022 07:40:36 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d9c/a02793.html">TemporaryLimit</a></li>
+    <li class="footer">Generated on Fri Aug 26 2022 14:58:17 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -1,9 +1,10 @@
 var a03277 =
 [
-    [ "SolverFactory", "d4/d46/a03277.html#a1a9995b963846832f7c1fd906c7f8d08", null ],
-    [ "~SolverFactory", "d4/d46/a03277.html#acab1ac8b0d0f36a325c891a939f2d0e5", null ],
-    [ "create", "d4/d46/a03277.html#ac65d140b18f58dda550003c47e97fc2e", null ],
-    [ "createSolverFromLib", "d4/d46/a03277.html#a3504ac5d306e30488a661a38225a7573", null ],
-    [ "destroy", "d4/d46/a03277.html#a8dccb03730530e6b2bf7e0eec8d42492", null ],
-    [ "lib_", "d4/d46/a03277.html#abbfdaf69d4a3f097dc187edac6c723c1", null ]
+    [ "copySparseToKINSOL", "d4/d46/a03277.html#ae22a765890981f862cc40c7f1ae313a2", null ],
+    [ "printLargestErrors", "d4/d46/a03277.html#afc90baae8ddadbd9db634c38fd678f32", null ],
+    [ "propagateMatrixStructureChangeToKINSOL", "d4/d46/a03277.html#a7936485d1c04a194541588fb27b18c1b", null ],
+    [ "weightedInfinityNorm", "d4/d46/a03277.html#a9a5db2f9fc86f4d05d026e36941946f7", null ],
+    [ "weightedInfinityNorm", "d4/d46/a03277.html#a770961aba4603c6b798c09a35ae2bb33", null ],
+    [ "weightedL2Norm", "d4/d46/a03277.html#ad73387d9a562e36de7b071196eece157", null ],
+    [ "weightedL2Norm", "d4/d46/a03277.html#ab4aaac216b64f4c4666c25f96327cb62", null ]
 ];

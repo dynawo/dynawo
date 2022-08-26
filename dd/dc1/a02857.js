@@ -1,9 +1,7 @@
 var a02857 =
 [
-    [ "~ServiceManagerInterface", "dd/dc1/a02857.html#aabe211f4c0d244587d3e0c26f7366bdd", null ],
-    [ "ServiceManagerInterface", "dd/dc1/a02857.html#a46a765792942770f4a45fc2acd9adc6f", null ],
-    [ "ServiceManagerInterface", "dd/dc1/a02857.html#aaea774a60389d942a25c03d058f55db5", null ],
-    [ "getBusesConnectedBySwitch", "dd/dc1/a02857.html#a89a6a148066dedcefa6f5b37fad28ecc", null ],
-    [ "getRegulatedBus", "dd/dc1/a02857.html#a1f6b5edb3ffaf038f8331e36722fbe99", null ],
-    [ "operator=", "dd/dc1/a02857.html#a43db9815ee959eb1faee9d80f5cfab86", null ]
+    [ "ReactiveCurvePoint", "dd/dc1/a02857.html#ab70eb40cf6844930ae61eedc15f90783", null ],
+    [ "p", "dd/dc1/a02857.html#a20f407b6507edd1290187c09f5f3535a", null ],
+    [ "qmax", "dd/dc1/a02857.html#a4bef98056ed5f62e8abe245c9783165c", null ],
+    [ "qmin", "dd/dc1/a02857.html#a94f884e2a6e3388efb134030635176d6", null ]
 ];

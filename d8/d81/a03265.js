@@ -1,17 +1,15 @@
 var a03265 =
 [
-    [ "ParameterSolver", "d8/d81/a03265.html#aba0911f436360a336dd421cf6adef2d7", null ],
-    [ "ParameterSolver", "d8/d81/a03265.html#a42749104284357b83bd205204e06c050", null ],
-    [ "ParameterSolver", "d8/d81/a03265.html#a1ea250feadcc52ccf30f8102c266dfcb", null ],
-    [ "getAnyValue", "d8/d81/a03265.html#a9e96f9db83d3511037d9a7513786fb22", null ],
-    [ "getDoubleValue", "d8/d81/a03265.html#a79a4d6b937ccfd244c237b834714a2f4", null ],
-    [ "getTypeError", "d8/d81/a03265.html#a4e017c0c2f194e50c6e309bb9298862d", null ],
-    [ "hasValue", "d8/d81/a03265.html#a12c8da904306d704ef3110608b5285d0", null ],
-    [ "operator=", "d8/d81/a03265.html#a664aad7fa2766d223b8bad9e5f915a4a", null ],
-    [ "setValue", "d8/d81/a03265.html#aab97beb59c8f25abe3249e454ccff781", null ],
-    [ "setValue", "d8/d81/a03265.html#a774119b03431e805d1496f21fb70a416", null ],
-    [ "setValue", "d8/d81/a03265.html#a347c4bb18ccd26d95fe6ad04ce75e04b", null ],
-    [ "setValue", "d8/d81/a03265.html#aae98d4e719e7bf142a6c1ad17fd0c151", null ],
-    [ "setValue", "d8/d81/a03265.html#ad51fe3b0fdbf9eb3cb208d2c6805d101", null ],
-    [ "value_", "d8/d81/a03265.html#a7745e801bfe2ffa289342e7cdc4c68df", null ]
+    [ "SolverKINSubModel", "d8/d81/a03265.html#a7d9de9f1828e63b4c89fcdba5ca734c7", null ],
+    [ "~SolverKINSubModel", "d8/d81/a03265.html#abf56a0c97f3b11da2176f484d1c4d1f3", null ],
+    [ "evalFInit_KIN", "d8/d81/a03265.html#a78b92b31c506932abdb80ad901b79881", null ],
+    [ "evalJInit_KIN", "d8/d81/a03265.html#a8ee12bd64883ef7160ac200c1d91e601", null ],
+    [ "getSubModel", "d8/d81/a03265.html#ada1b4ab092bc1ea4ca7cee2e4f9c7ed4", null ],
+    [ "getYBuffer", "d8/d81/a03265.html#acb0d9f86ffac61c918e66166b2cf9892", null ],
+    [ "init", "d8/d81/a03265.html#a3a2d8fb148ff4415bc409b6a7c72e5f5", null ],
+    [ "solve", "d8/d81/a03265.html#a5a433c9fc656f1c9bc0dbefb060d7cdf", null ],
+    [ "fBuffer_", "d8/d81/a03265.html#a425934b03e7c2a7b52aed5348fb681f5", null ],
+    [ "subModel_", "d8/d81/a03265.html#aab8dac538b6809a962aa17508c461812", null ],
+    [ "vectorYSubModel_", "d8/d81/a03265.html#a3d13f941d32477bd36e2161d459e376e", null ],
+    [ "yBuffer_", "d8/d81/a03265.html#abeec415dfb647fe5dc637088b2306aa9", null ]
 ];

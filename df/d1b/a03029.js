@@ -1,6 +1,7 @@
 var a03029 =
 [
-    [ "~HvdcOperatorActivePowerRangeIIDMExtension", "df/d1b/a03029.html#a9e4e8718598775595c04de997739fae8", null ],
-    [ "getOprFromCS1toCS2", "df/d1b/a03029.html#ae0b280a23fdf2d6d1a2a039fc7f6ae6e", null ],
-    [ "getOprFromCS2toCS1", "df/d1b/a03029.html#a1a2bf1e1aa229155c17081f16227dffc", null ]
+    [ "~HvdcAngleDroopActivePowerControlIIDMExtension", "df/d1b/a03029.html#aab719d30ebf54d52ecba6c5af8115af2", null ],
+    [ "getDroop", "df/d1b/a03029.html#a3193365d52ecdb5e3deef9ea9929d0d7", null ],
+    [ "getP0", "df/d1b/a03029.html#ab9b5aa6ef1a12c13231eeea478926af7", null ],
+    [ "isEnabled", "df/d1b/a03029.html#a4b002695d899cc45887212876d281a06", null ]
 ];

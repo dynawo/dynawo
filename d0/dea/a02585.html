@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::SparseMatrix Class Reference</title>
+<title>Dynawo: DYN::ParameterCommon Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,493 +95,167 @@ $(document).ready(function(){initNavTree('d0/dea/a02585.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d1/d03/a02582.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::SparseMatrix Class Reference</div>  </div>
+<div class="title">DYN::ParameterCommon Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>class Sparse Matrix : store Jacobian value in sparse structure before copying value in KINSOL structure  
- <a href="../../d0/dea/a02585.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../df/db6/a00509_source.html">DYNSparseMatrix.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d4/de5/a00503_source.html">DYNParameter.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for DYN::ParameterCommon:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d0/dea/a02585.png" usemap="#DYN::ParameterCommon_map" alt=""/>
+  <map id="DYN::ParameterCommon_map" name="DYN::ParameterCommon_map">
+<area href="../../d5/dbe/a02697.html" alt="DYN::ParameterModeler" shape="rect" coords="0,56,151,80"/>
+<area href="../../d9/d33/a03269.html" alt="DYN::ParameterSolver" shape="rect" coords="161,56,312,80"/>
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d48/a02589.html">CheckError</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check error representation.  <a href="../../de/d48/a02589.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a63a0e4bdff6627843b528e5867483f9a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a63a0e4bdff6627843b528e5867483f9a">SparseMatrixType</a> { <a class="el" href="../../d0/dea/a02585.html#a63a0e4bdff6627843b528e5867483f9aa7be1a6bad7a4fd3537c375ba34e027dd">J</a> = 1, 
-<a class="el" href="../../d0/dea/a02585.html#a63a0e4bdff6627843b528e5867483f9aa514a76cbe5be61d39a21acbd046cbbe7">Jt</a> = -1
- }</td></tr>
-<tr class="memdesc:a63a0e4bdff6627843b528e5867483f9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of the matrix  <a href="../../d0/dea/a02585.html#a63a0e4bdff6627843b528e5867483f9a">More...</a><br /></td></tr>
-<tr class="separator:a63a0e4bdff6627843b528e5867483f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a434d1ff94e58e761d69b8f3cb9e301b6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a434d1ff94e58e761d69b8f3cb9e301b6">CheckErrorCode</a> { <a class="el" href="../../d0/dea/a02585.html#a434d1ff94e58e761d69b8f3cb9e301b6ab34e46179d73d0705a7e546610c16131">CHECK_OK</a> = 0, 
-<a class="el" href="../../d0/dea/a02585.html#a434d1ff94e58e761d69b8f3cb9e301b6a3ef36419ab9880e6b86c28cbf64bf019">CHECK_ZERO_ROW</a>, 
-<a class="el" href="../../d0/dea/a02585.html#a434d1ff94e58e761d69b8f3cb9e301b6a0e92812464cd4061dc05ae543296ebaf">CHECK_ZERO_COLUMN</a>
- }</td></tr>
-<tr class="memdesc:a434d1ff94e58e761d69b8f3cb9e301b6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../db/de8/a02525.html" title="Generic error handler for Dynawo. ">Error</a> code for checking matrix.  <a href="../../d0/dea/a02585.html#a434d1ff94e58e761d69b8f3cb9e301b6">More...</a><br /></td></tr>
-<tr class="separator:a434d1ff94e58e761d69b8f3cb9e301b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab8516cf0a97d5bf2a716e87e792eaf4b"><td class="memItemLeft" align="right" valign="top"><a id="ab8516cf0a97d5bf2a716e87e792eaf4b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#ab8516cf0a97d5bf2a716e87e792eaf4b">SparseMatrix</a> ()</td></tr>
-<tr class="memdesc:ab8516cf0a97d5bf2a716e87e792eaf4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
-<tr class="separator:ab8516cf0a97d5bf2a716e87e792eaf4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28461e50ef2b679fd7c19f278cb0e582"><td class="memItemLeft" align="right" valign="top"><a id="a28461e50ef2b679fd7c19f278cb0e582"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a28461e50ef2b679fd7c19f278cb0e582">~SparseMatrix</a> ()</td></tr>
-<tr class="memdesc:a28461e50ef2b679fd7c19f278cb0e582"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
-<tr class="separator:a28461e50ef2b679fd7c19f278cb0e582"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19b7c17f2a0d427f211996b7f1b7d300"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a19b7c17f2a0d427f211996b7f1b7d300">init</a> (const int nbRow, const int <a class="el" href="../../d0/dea/a02585.html#abadbecc4102f031b19ae5bb63d6583c6">nbCol</a>)</td></tr>
-<tr class="memdesc:a19b7c17f2a0d427f211996b7f1b7d300"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the sparse matrix object  <a href="#a19b7c17f2a0d427f211996b7f1b7d300">More...</a><br /></td></tr>
-<tr class="separator:a19b7c17f2a0d427f211996b7f1b7d300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f4f73881b825ae94895bbdc18565f17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a4f4f73881b825ae94895bbdc18565f17">reserve</a> (const int <a class="el" href="../../d0/dea/a02585.html#abadbecc4102f031b19ae5bb63d6583c6">nbCol</a>)</td></tr>
-<tr class="memdesc:a4f4f73881b825ae94895bbdc18565f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">reserve structure memory  <a href="#a4f4f73881b825ae94895bbdc18565f17">More...</a><br /></td></tr>
-<tr class="separator:a4f4f73881b825ae94895bbdc18565f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34889f3bdf10fcabc4fbea82999b0ad8"><td class="memItemLeft" align="right" valign="top"><a id="a34889f3bdf10fcabc4fbea82999b0ad8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a34889f3bdf10fcabc4fbea82999b0ad8">changeCol</a> ()</td></tr>
-<tr class="memdesc:a34889f3bdf10fcabc4fbea82999b0ad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">change the column currently used when filling the matrix <br /></td></tr>
-<tr class="separator:a34889f3bdf10fcabc4fbea82999b0ad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55d15440140f1bd9d16443c33114d204"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a55d15440140f1bd9d16443c33114d204">addTerm</a> (const int row, const double val)</td></tr>
-<tr class="memdesc:a55d15440140f1bd9d16443c33114d204"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a new term in the matrix  <a href="#a55d15440140f1bd9d16443c33114d204">More...</a><br /></td></tr>
-<tr class="separator:a55d15440140f1bd9d16443c33114d204"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a903917532d69c6c5c4af916f5b25adaf"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a903917532d69c6c5c4af916f5b25adaf">frobeniusNorm</a> () const</td></tr>
-<tr class="memdesc:a903917532d69c6c5c4af916f5b25adaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the Frobenius norm of the matrix  <a href="#a903917532d69c6c5c4af916f5b25adaf">More...</a><br /></td></tr>
-<tr class="separator:a903917532d69c6c5c4af916f5b25adaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23bb9c24e7b376e98bca8f9340775c49"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a23bb9c24e7b376e98bca8f9340775c49">norm1</a> () const</td></tr>
-<tr class="memdesc:a23bb9c24e7b376e98bca8f9340775c49"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the 1-norm of the matrix  <a href="#a23bb9c24e7b376e98bca8f9340775c49">More...</a><br /></td></tr>
-<tr class="separator:a23bb9c24e7b376e98bca8f9340775c49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa82eec86cbcc51772c7503031a554ca7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#aa82eec86cbcc51772c7503031a554ca7">infinityNorm</a> () const</td></tr>
-<tr class="memdesc:aa82eec86cbcc51772c7503031a554ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the infinity-norm of the matrix  <a href="#aa82eec86cbcc51772c7503031a554ca7">More...</a><br /></td></tr>
-<tr class="separator:aa82eec86cbcc51772c7503031a554ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad494668661e00def8d9e94ebeb1a56bb"><td class="memItemLeft" align="right" valign="top"><a id="ad494668661e00def8d9e94ebeb1a56bb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#ad494668661e00def8d9e94ebeb1a56bb">print</a> () const</td></tr>
-<tr class="memdesc:ad494668661e00def8d9e94ebeb1a56bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">print all the values stored in the matrix <br /></td></tr>
-<tr class="separator:ad494668661e00def8d9e94ebeb1a56bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85239791a06a3d7d46444588a95aaa66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a85239791a06a3d7d46444588a95aaa66">printToFile</a> (bool sparse=false) const</td></tr>
-<tr class="memdesc:a85239791a06a3d7d46444588a95aaa66"><td class="mdescLeft">&#160;</td><td class="mdescRight">print all the values stored in the matrix in a file  <a href="#a85239791a06a3d7d46444588a95aaa66">More...</a><br /></td></tr>
-<tr class="separator:a85239791a06a3d7d46444588a95aaa66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2606c2553efbde442ae1fc9b4226a24c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a2606c2553efbde442ae1fc9b4226a24c">erase</a> (const boost::unordered_set&lt; int &gt; &amp;rows, const boost::unordered_set&lt; int &gt; &amp;columns, <a class="el" href="../../d0/dea/a02585.html">SparseMatrix</a> &amp;M)</td></tr>
-<tr class="memdesc:a2606c2553efbde442ae1fc9b4226a24c"><td class="mdescLeft">&#160;</td><td class="mdescRight">erase some rows and columns in the matrix and returns a new matrix  <a href="#a2606c2553efbde442ae1fc9b4226a24c">More...</a><br /></td></tr>
-<tr class="separator:a2606c2553efbde442ae1fc9b4226a24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1d62be0efcfecbd822c562e991aafbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#af1d62be0efcfecbd822c562e991aafbb">getRowColIndicesFromPosition</a> (unsigned int position, int &amp;iRow, int &amp;jCol) const</td></tr>
-<tr class="memdesc:af1d62be0efcfecbd822c562e991aafbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the row and colum indices from a position in the data array.  <a href="#af1d62be0efcfecbd822c562e991aafbb">More...</a><br /></td></tr>
-<tr class="separator:af1d62be0efcfecbd822c562e991aafbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97e6e0d3295595931185dfc28d296781"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a97e6e0d3295595931185dfc28d296781">withoutNan</a> () const</td></tr>
-<tr class="memdesc:a97e6e0d3295595931185dfc28d296781"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter to see if the matrix is without NAN value  <a href="#a97e6e0d3295595931185dfc28d296781">More...</a><br /></td></tr>
-<tr class="separator:a97e6e0d3295595931185dfc28d296781"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a622e645a49f43a5dc5590652b83f6d4b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a622e645a49f43a5dc5590652b83f6d4b">withoutInf</a> () const</td></tr>
-<tr class="memdesc:a622e645a49f43a5dc5590652b83f6d4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter to see if the matrix is without infinite value  <a href="#a622e645a49f43a5dc5590652b83f6d4b">More...</a><br /></td></tr>
-<tr class="separator:a622e645a49f43a5dc5590652b83f6d4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa34280a5702717c6a457ce6b1067a2cd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#aa34280a5702717c6a457ce6b1067a2cd">nbElem</a> () const</td></tr>
-<tr class="memdesc:aa34280a5702717c6a457ce6b1067a2cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter of the number of elements stored in the matrix  <a href="#aa34280a5702717c6a457ce6b1067a2cd">More...</a><br /></td></tr>
-<tr class="separator:aa34280a5702717c6a457ce6b1067a2cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abadbecc4102f031b19ae5bb63d6583c6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#abadbecc4102f031b19ae5bb63d6583c6">nbCol</a> () const</td></tr>
-<tr class="memdesc:abadbecc4102f031b19ae5bb63d6583c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter of the number of columns of the matrix  <a href="#abadbecc4102f031b19ae5bb63d6583c6">More...</a><br /></td></tr>
-<tr class="separator:abadbecc4102f031b19ae5bb63d6583c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4710a0284449c3c1eb53d82d58bfb52b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d48/a02589.html">CheckError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a4710a0284449c3c1eb53d82d58bfb52b">check</a> () const</td></tr>
-<tr class="memdesc:a4710a0284449c3c1eb53d82d58bfb52b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check matrix validity.  <a href="#a4710a0284449c3c1eb53d82d58bfb52b">More...</a><br /></td></tr>
-<tr class="separator:a4710a0284449c3c1eb53d82d58bfb52b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a3e00b02bb03e31e720a1470b26dd2c65"><td class="memItemLeft" align="right" valign="top"><a id="a3e00b02bb03e31e720a1470b26dd2c65"></a>
-std::vector&lt; unsigned &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a3e00b02bb03e31e720a1470b26dd2c65">Ap_</a></td></tr>
-<tr class="memdesc:a3e00b02bb03e31e720a1470b26dd2c65"><td class="mdescLeft">&#160;</td><td class="mdescRight">for each column, first non null element index in Ai and Ax <br /></td></tr>
-<tr class="separator:a3e00b02bb03e31e720a1470b26dd2c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec4c33217ff226b8ed4f91961ffab434"><td class="memItemLeft" align="right" valign="top"><a id="aec4c33217ff226b8ed4f91961ffab434"></a>
-std::vector&lt; unsigned &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#aec4c33217ff226b8ed4f91961ffab434">Ai_</a></td></tr>
-<tr class="memdesc:aec4c33217ff226b8ed4f91961ffab434"><td class="mdescLeft">&#160;</td><td class="mdescRight">row index for each non null element <br /></td></tr>
-<tr class="separator:aec4c33217ff226b8ed4f91961ffab434"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2554dc2336da5de5e272c0ca8ad97930"><td class="memItemLeft" align="right" valign="top"><a id="a2554dc2336da5de5e272c0ca8ad97930"></a>
-std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a2554dc2336da5de5e272c0ca8ad97930">Ax_</a></td></tr>
-<tr class="memdesc:a2554dc2336da5de5e272c0ca8ad97930"><td class="mdescLeft">&#160;</td><td class="mdescRight">non null element value; <br /></td></tr>
-<tr class="separator:a2554dc2336da5de5e272c0ca8ad97930"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3798cab8e53e13b449de4886c242b57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#ad3798cab8e53e13b449de4886c242b57">ParameterCommon</a> (const std::string &amp;name, const <a class="el" href="../../d9/d10/a00449.html#a2855db29550ca43733c78c4df0688553">typeVarC_t</a> &amp;valueType, bool mandatory)</td></tr>
+<tr class="memdesc:ad3798cab8e53e13b449de4886c242b57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ad3798cab8e53e13b449de4886c242b57">More...</a><br /></td></tr>
+<tr class="separator:ad3798cab8e53e13b449de4886c242b57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a7a5444ae72eccfdaf4c2d01268bab4"><td class="memItemLeft" align="right" valign="top"><a id="a8a7a5444ae72eccfdaf4c2d01268bab4"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a8a7a5444ae72eccfdaf4c2d01268bab4">ParameterCommon</a> (const <a class="el" href="../../d0/dea/a02585.html">ParameterCommon</a> &amp;)=default</td></tr>
+<tr class="memdesc:a8a7a5444ae72eccfdaf4c2d01268bab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy Constructor. <br /></td></tr>
+<tr class="separator:a8a7a5444ae72eccfdaf4c2d01268bab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2750220883c429118fd112fb3b9fa27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dea/a02585.html">ParameterCommon</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#aa2750220883c429118fd112fb3b9fa27">operator=</a> (const <a class="el" href="../../d0/dea/a02585.html">ParameterCommon</a> &amp;)=delete</td></tr>
+<tr class="memdesc:aa2750220883c429118fd112fb3b9fa27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy assigment operator.  <a href="#aa2750220883c429118fd112fb3b9fa27">More...</a><br /></td></tr>
+<tr class="separator:aa2750220883c429118fd112fb3b9fa27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68ab2d2c6b92cf78fe50a0a4e6f13301"><td class="memItemLeft" align="right" valign="top"><a id="a68ab2d2c6b92cf78fe50a0a4e6f13301"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a68ab2d2c6b92cf78fe50a0a4e6f13301">~ParameterCommon</a> ()</td></tr>
+<tr class="memdesc:a68ab2d2c6b92cf78fe50a0a4e6f13301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a68ab2d2c6b92cf78fe50a0a4e6f13301"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f885581f82b06197dfb0b1c64445a84"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a1f885581f82b06197dfb0b1c64445a84">getName</a> () const</td></tr>
+<tr class="memdesc:a1f885581f82b06197dfb0b1c64445a84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for parameter's name.  <a href="#a1f885581f82b06197dfb0b1c64445a84">More...</a><br /></td></tr>
+<tr class="separator:a1f885581f82b06197dfb0b1c64445a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c3c06e3fc8a4ebfcfbbf43f66d9f8bf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a6c3c06e3fc8a4ebfcfbbf43f66d9f8bf">isMandatory</a> () const</td></tr>
+<tr class="memdesc:a6c3c06e3fc8a4ebfcfbbf43f66d9f8bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for parameter's type.  <a href="#a6c3c06e3fc8a4ebfcfbbf43f66d9f8bf">More...</a><br /></td></tr>
+<tr class="separator:a6c3c06e3fc8a4ebfcfbbf43f66d9f8bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5660ab45635c8ff992985f4ea06d8759"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d10/a00449.html#a2855db29550ca43733c78c4df0688553">typeVarC_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a5660ab45635c8ff992985f4ea06d8759">getValueType</a> () const</td></tr>
+<tr class="memdesc:a5660ab45635c8ff992985f4ea06d8759"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameter's value type getter  <a href="#a5660ab45635c8ff992985f4ea06d8759">More...</a><br /></td></tr>
+<tr class="separator:a5660ab45635c8ff992985f4ea06d8759"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00f74f4ab3afe180eb2daf0b3154a1bb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a00f74f4ab3afe180eb2daf0b3154a1bb">indexSet</a> () const</td></tr>
+<tr class="memdesc:a00f74f4ab3afe180eb2daf0b3154a1bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">check whether the parameter index has already been set  <a href="#a00f74f4ab3afe180eb2daf0b3154a1bb">More...</a><br /></td></tr>
+<tr class="separator:a00f74f4ab3afe180eb2daf0b3154a1bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1e040081dc66027f5dc71519d2b5fae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#ac1e040081dc66027f5dc71519d2b5fae">setIndex</a> (const unsigned int &amp;index)</td></tr>
+<tr class="memdesc:ac1e040081dc66027f5dc71519d2b5fae"><td class="mdescLeft">&#160;</td><td class="mdescRight">index setter  <a href="#ac1e040081dc66027f5dc71519d2b5fae">More...</a><br /></td></tr>
+<tr class="separator:ac1e040081dc66027f5dc71519d2b5fae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fbfee80d636863f3f09267a27868d80"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a6fbfee80d636863f3f09267a27868d80">getIndex</a> () const</td></tr>
+<tr class="memdesc:a6fbfee80d636863f3f09267a27868d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">index getter  <a href="#a6fbfee80d636863f3f09267a27868d80">More...</a><br /></td></tr>
+<tr class="separator:a6fbfee80d636863f3f09267a27868d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81e4f5cd724ca447feacc1d709c0f0bf"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a81e4f5cd724ca447feacc1d709c0f0bf"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a81e4f5cd724ca447feacc1d709c0f0bf">getValue</a> () const</td></tr>
+<tr class="memdesc:a81e4f5cd724ca447feacc1d709c0f0bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameter's value getter  <a href="#a81e4f5cd724ca447feacc1d709c0f0bf">More...</a><br /></td></tr>
+<tr class="separator:a81e4f5cd724ca447feacc1d709c0f0bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3005bd7cd2863b3d89fff07fd7d8b3e5"><td class="memItemLeft" align="right" valign="top">virtual boost::any&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a3005bd7cd2863b3d89fff07fd7d8b3e5">getAnyValue</a> () const =0</td></tr>
+<tr class="memdesc:a3005bd7cd2863b3d89fff07fd7d8b3e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">value intermediary getter  <a href="#a3005bd7cd2863b3d89fff07fd7d8b3e5">More...</a><br /></td></tr>
+<tr class="separator:a3005bd7cd2863b3d89fff07fd7d8b3e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed5af9ec1e4420fc5efe6e47b4f8e0e3"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#aed5af9ec1e4420fc5efe6e47b4f8e0e3">hasValue</a> () const =0</td></tr>
+<tr class="memdesc:aed5af9ec1e4420fc5efe6e47b4f8e0e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">indicates whether a parameter has a value  <a href="#aed5af9ec1e4420fc5efe6e47b4f8e0e3">More...</a><br /></td></tr>
+<tr class="separator:aed5af9ec1e4420fc5efe6e47b4f8e0e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e988eff334c702eda8bf6939cba3a6b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../db/de8/a02525.html#ab65468b98196803043b63655fcfd1d58">Error::TypeError_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a4e988eff334c702eda8bf6939cba3a6b">getTypeError</a> () const =0</td></tr>
+<tr class="memdesc:a4e988eff334c702eda8bf6939cba3a6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">TypeError getter.  <a href="#a4e988eff334c702eda8bf6939cba3a6b">More...</a><br /></td></tr>
+<tr class="separator:a4e988eff334c702eda8bf6939cba3a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a009b266fa0c1653d5b749d3a66b9590d"><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
+<tr class="memitem:a009b266fa0c1653d5b749d3a66b9590d"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a009b266fa0c1653d5b749d3a66b9590d">getValue</a> () const</td></tr>
+<tr class="memdesc:a009b266fa0c1653d5b749d3a66b9590d"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameter's value getter  <a href="#a009b266fa0c1653d5b749d3a66b9590d">More...</a><br /></td></tr>
+<tr class="separator:a009b266fa0c1653d5b749d3a66b9590d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aace9386f90e367bb97e15b16805431f7"><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
+<tr class="memitem:aace9386f90e367bb97e15b16805431f7"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#aace9386f90e367bb97e15b16805431f7">getValue</a> () const</td></tr>
+<tr class="memdesc:aace9386f90e367bb97e15b16805431f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameter's value getter  <a href="#aace9386f90e367bb97e15b16805431f7">More...</a><br /></td></tr>
+<tr class="separator:aace9386f90e367bb97e15b16805431f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab34fd2204c69afff9c169c682b5df3f1"><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
+<tr class="memitem:ab34fd2204c69afff9c169c682b5df3f1"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#ab34fd2204c69afff9c169c682b5df3f1">getValue</a> () const</td></tr>
+<tr class="memdesc:ab34fd2204c69afff9c169c682b5df3f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameter's value getter  <a href="#ab34fd2204c69afff9c169c682b5df3f1">More...</a><br /></td></tr>
+<tr class="separator:ab34fd2204c69afff9c169c682b5df3f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f2b0ec1bc1d9c3498d14b226afd80fa"><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
+<tr class="memitem:a5f2b0ec1bc1d9c3498d14b226afd80fa"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a5f2b0ec1bc1d9c3498d14b226afd80fa">getValue</a> () const</td></tr>
+<tr class="memdesc:a5f2b0ec1bc1d9c3498d14b226afd80fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameter's value getter  <a href="#a5f2b0ec1bc1d9c3498d14b226afd80fa">More...</a><br /></td></tr>
+<tr class="separator:a5f2b0ec1bc1d9c3498d14b226afd80fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a3743c28dac32641159fbc9cf7a164509"><td class="memItemLeft" align="right" valign="top"><a id="a3743c28dac32641159fbc9cf7a164509"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a3743c28dac32641159fbc9cf7a164509">free</a> ()</td></tr>
-<tr class="memdesc:a3743c28dac32641159fbc9cf7a164509"><td class="mdescLeft">&#160;</td><td class="mdescRight">delete all allocated memory of the matrix <br /></td></tr>
-<tr class="separator:a3743c28dac32641159fbc9cf7a164509"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0a83b69e6fed08e99f84f052014133b"><td class="memItemLeft" align="right" valign="top"><a id="ae0a83b69e6fed08e99f84f052014133b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#ae0a83b69e6fed08e99f84f052014133b">increaseReserve</a> ()</td></tr>
-<tr class="memdesc:ae0a83b69e6fed08e99f84f052014133b"><td class="mdescLeft">&#160;</td><td class="mdescRight">increase the memory allocated to store values <br /></td></tr>
-<tr class="separator:ae0a83b69e6fed08e99f84f052014133b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1d3626392dc7c846a0304f9913a12da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dea/a02585.html">SparseMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#ae1d3626392dc7c846a0304f9913a12da">operator=</a> (const <a class="el" href="../../d0/dea/a02585.html">SparseMatrix</a> &amp;M)</td></tr>
-<tr class="memdesc:ae1d3626392dc7c846a0304f9913a12da"><td class="mdescLeft">&#160;</td><td class="mdescRight">equality operator  <a href="#ae1d3626392dc7c846a0304f9913a12da">More...</a><br /></td></tr>
-<tr class="separator:ae1d3626392dc7c846a0304f9913a12da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbecd75ab440100b1d9a0f7ab9001b23"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#afbecd75ab440100b1d9a0f7ab9001b23">SparseMatrix</a> (const <a class="el" href="../../d0/dea/a02585.html">SparseMatrix</a> &amp;M)</td></tr>
-<tr class="memdesc:afbecd75ab440100b1d9a0f7ab9001b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor by copy  <a href="#afbecd75ab440100b1d9a0f7ab9001b23">More...</a><br /></td></tr>
-<tr class="separator:afbecd75ab440100b1d9a0f7ab9001b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc5882774da2026dfe252ad9688d122a"><td class="memItemLeft" align="right" valign="top"><a id="acc5882774da2026dfe252ad9688d122a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#acc5882774da2026dfe252ad9688d122a">ParameterCommon</a> ()=delete</td></tr>
+<tr class="memdesc:acc5882774da2026dfe252ad9688d122a"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
+<tr class="separator:acc5882774da2026dfe252ad9688d122a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a37d41e2f42908ab8f616e51f5d8469cc"><td class="memItemLeft" align="right" valign="top"><a id="a37d41e2f42908ab8f616e51f5d8469cc"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a37d41e2f42908ab8f616e51f5d8469cc">withoutNan_</a></td></tr>
-<tr class="memdesc:a37d41e2f42908ab8f616e51f5d8469cc"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>true</b> if there isn't any NaN value in the Sparse Matrix <br /></td></tr>
-<tr class="separator:a37d41e2f42908ab8f616e51f5d8469cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaade310870b5c76fb7b9005405a20a57"><td class="memItemLeft" align="right" valign="top"><a id="aaade310870b5c76fb7b9005405a20a57"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#aaade310870b5c76fb7b9005405a20a57">withoutInf_</a></td></tr>
-<tr class="memdesc:aaade310870b5c76fb7b9005405a20a57"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>true</b> if there isn't any infinite value in the Sparse Matrix <br /></td></tr>
-<tr class="separator:aaade310870b5c76fb7b9005405a20a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac988051a1101959e2bd1b07fbb054086"><td class="memItemLeft" align="right" valign="top"><a id="ac988051a1101959e2bd1b07fbb054086"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#ac988051a1101959e2bd1b07fbb054086">nbRow_</a></td></tr>
-<tr class="memdesc:ac988051a1101959e2bd1b07fbb054086"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of row in the sparse Matrix structure <br /></td></tr>
-<tr class="separator:ac988051a1101959e2bd1b07fbb054086"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a371ac100b76f998510d3ba301acfeee9"><td class="memItemLeft" align="right" valign="top"><a id="a371ac100b76f998510d3ba301acfeee9"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a371ac100b76f998510d3ba301acfeee9">nbCol_</a></td></tr>
-<tr class="memdesc:a371ac100b76f998510d3ba301acfeee9"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of column in the sparse Matrix structure <br /></td></tr>
-<tr class="separator:a371ac100b76f998510d3ba301acfeee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52bb091287ac6aec6f8403fd007831f4"><td class="memItemLeft" align="right" valign="top"><a id="a52bb091287ac6aec6f8403fd007831f4"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a52bb091287ac6aec6f8403fd007831f4">iAp_</a></td></tr>
-<tr class="memdesc:a52bb091287ac6aec6f8403fd007831f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">current index in the Ap_ array <br /></td></tr>
-<tr class="separator:a52bb091287ac6aec6f8403fd007831f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8d90d8c5b9a44279d1b44c3dc73bd18"><td class="memItemLeft" align="right" valign="top"><a id="aa8d90d8c5b9a44279d1b44c3dc73bd18"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#aa8d90d8c5b9a44279d1b44c3dc73bd18">iAi_</a></td></tr>
-<tr class="memdesc:aa8d90d8c5b9a44279d1b44c3dc73bd18"><td class="mdescLeft">&#160;</td><td class="mdescRight">current index in the Ai_ array <br /></td></tr>
-<tr class="separator:aa8d90d8c5b9a44279d1b44c3dc73bd18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac79f9341ecbe9562044bc0d43260ed47"><td class="memItemLeft" align="right" valign="top"><a id="ac79f9341ecbe9562044bc0d43260ed47"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#ac79f9341ecbe9562044bc0d43260ed47">iAx_</a></td></tr>
-<tr class="memdesc:ac79f9341ecbe9562044bc0d43260ed47"><td class="mdescLeft">&#160;</td><td class="mdescRight">current index in the Ax_ array <br /></td></tr>
-<tr class="separator:ac79f9341ecbe9562044bc0d43260ed47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51364e85cce68fcc5832c345a3d68db2"><td class="memItemLeft" align="right" valign="top"><a id="a51364e85cce68fcc5832c345a3d68db2"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a51364e85cce68fcc5832c345a3d68db2">nbTerm_</a></td></tr>
-<tr class="memdesc:a51364e85cce68fcc5832c345a3d68db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">current number of values stored in the matrix <br /></td></tr>
-<tr class="separator:a51364e85cce68fcc5832c345a3d68db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdfa147264a2d9a4b964f77d7c1ae5c6"><td class="memItemLeft" align="right" valign="top"><a id="abdfa147264a2d9a4b964f77d7c1ae5c6"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#abdfa147264a2d9a4b964f77d7c1ae5c6">currentMaxTerm_</a></td></tr>
-<tr class="memdesc:abdfa147264a2d9a4b964f77d7c1ae5c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">current maximum number of term that could be stored in the matrix without increasing the size of arrays <br /></td></tr>
-<tr class="separator:abdfa147264a2d9a4b964f77d7c1ae5c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa4eca49ccd0dc25f6c1c678cb5e1e60"><td class="memItemLeft" align="right" valign="top"><a id="aaa4eca49ccd0dc25f6c1c678cb5e1e60"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#aaa4eca49ccd0dc25f6c1c678cb5e1e60">name_</a></td></tr>
+<tr class="memdesc:aaa4eca49ccd0dc25f6c1c678cb5e1e60"><td class="mdescLeft">&#160;</td><td class="mdescRight">name of the parameter <br /></td></tr>
+<tr class="separator:aaa4eca49ccd0dc25f6c1c678cb5e1e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4894b8a97973d88e44585abc4963504"><td class="memItemLeft" align="right" valign="top"><a id="ae4894b8a97973d88e44585abc4963504"></a>
+<a class="el" href="../../d9/d10/a00449.html#a2855db29550ca43733c78c4df0688553">typeVarC_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#ae4894b8a97973d88e44585abc4963504">valueType_</a></td></tr>
+<tr class="memdesc:ae4894b8a97973d88e44585abc4963504"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of the parameter value (BOOL, INT, DOUBLE, STRING: as defined in enum) <br /></td></tr>
+<tr class="separator:ae4894b8a97973d88e44585abc4963504"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91b8ca8e8000226a2b911a1927474f97"><td class="memItemLeft" align="right" valign="top"><a id="a91b8ca8e8000226a2b911a1927474f97"></a>
+boost::optional&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a91b8ca8e8000226a2b911a1927474f97">index_</a></td></tr>
+<tr class="memdesc:a91b8ca8e8000226a2b911a1927474f97"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameter index in the raw parameters' vector <br /></td></tr>
+<tr class="separator:a91b8ca8e8000226a2b911a1927474f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6129168e453ce1eafa45c59ff3b11c06"><td class="memItemLeft" align="right" valign="top"><a id="a6129168e453ce1eafa45c59ff3b11c06"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dea/a02585.html#a6129168e453ce1eafa45c59ff3b11c06">mandatory_</a></td></tr>
+<tr class="memdesc:a6129168e453ce1eafa45c59ff3b11c06"><td class="mdescLeft">&#160;</td><td class="mdescRight">true if this parameter is mandatory <br /></td></tr>
+<tr class="separator:a6129168e453ce1eafa45c59ff3b11c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>class Sparse Matrix : store Jacobian value in sparse structure before copying value in KINSOL structure </p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a434d1ff94e58e761d69b8f3cb9e301b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a434d1ff94e58e761d69b8f3cb9e301b6">&#9670;&nbsp;</a></span>CheckErrorCode</h2>
+<div class="textblock"><p>class <a class="el" href="../../d0/dea/a02585.html">ParameterCommon</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad3798cab8e53e13b449de4886c242b57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3798cab8e53e13b449de4886c242b57">&#9670;&nbsp;</a></span>ParameterCommon()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="../../d0/dea/a02585.html#a434d1ff94e58e761d69b8f3cb9e301b6">DYN::SparseMatrix::CheckErrorCode</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../db/de8/a02525.html" title="Generic error handler for Dynawo. ">Error</a> code for checking matrix. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a434d1ff94e58e761d69b8f3cb9e301b6ab34e46179d73d0705a7e546610c16131"></a>CHECK_OK&#160;</td><td class="fielddoc"><p>no error </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a434d1ff94e58e761d69b8f3cb9e301b6a3ef36419ab9880e6b86c28cbf64bf019"></a>CHECK_ZERO_ROW&#160;</td><td class="fielddoc"><p>at least one row is full of 0 </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a434d1ff94e58e761d69b8f3cb9e301b6a0e92812464cd4061dc05ae543296ebaf"></a>CHECK_ZERO_COLUMN&#160;</td><td class="fielddoc"><p>at least one column is full of 0 </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<a id="a63a0e4bdff6627843b528e5867483f9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63a0e4bdff6627843b528e5867483f9a">&#9670;&nbsp;</a></span>SparseMatrixType</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="../../d0/dea/a02585.html#a63a0e4bdff6627843b528e5867483f9a">DYN::SparseMatrix::SparseMatrixType</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>type of the matrix </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a63a0e4bdff6627843b528e5867483f9aa7be1a6bad7a4fd3537c375ba34e027dd"></a>J&#160;</td><td class="fielddoc"><p>"normal" matrix is stored </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a63a0e4bdff6627843b528e5867483f9aa514a76cbe5be61d39a21acbd046cbbe7"></a>Jt&#160;</td><td class="fielddoc"><p>transpose matrix is stored </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="afbecd75ab440100b1d9a0f7ab9001b23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbecd75ab440100b1d9a0f7ab9001b23">&#9670;&nbsp;</a></span>SparseMatrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::SparseMatrix::SparseMatrix </td>
+          <td class="memname">DYN::ParameterCommon::ParameterCommon </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/dea/a02585.html">SparseMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>M</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="../../d9/d10/a00449.html#a2855db29550ca43733c78c4df0688553">typeVarC_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>valueType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>mandatory</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>constructor by copy </p>
+<p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">M</td><td>matrix to copy </td></tr>
+    <tr><td class="paramname">name</td><td>name of the parameter </td></tr>
+    <tr><td class="paramname">valueType</td><td>type of the parameter (bool, int, string, double) </td></tr>
+    <tr><td class="paramname">mandatory</td><td>whether the parameter is mandatory or optional </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section warning"><dt>Warning</dt><dd>should not be used </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a55d15440140f1bd9d16443c33114d204"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55d15440140f1bd9d16443c33114d204">&#9670;&nbsp;</a></span>addTerm()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SparseMatrix::addTerm </td>
-          <td>(</td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>row</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double&#160;</td>
-          <td class="paramname"><em>val</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>add a new term in the matrix </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">row</td><td>row of the term in the matrix </td></tr>
-    <tr><td class="paramname">val</td><td>new value to add in the matrix </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a4710a0284449c3c1eb53d82d58bfb52b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4710a0284449c3c1eb53d82d58bfb52b">&#9670;&nbsp;</a></span>check()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../de/d48/a02589.html">CheckError</a> DYN::SparseMatrix::check </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check matrix validity. </p>
-<p>This checks that:</p><ul>
-<li>no null row is present</li>
-<li>no null column is present</li>
-<li>2 lines are not equal</li>
-<li>2 columns are not equal The test to fail will trigger an error</li>
-</ul>
-<dl class="section return"><dt>Returns</dt><dd>check error status </dd></dl>
-
-</div>
-</div>
-<a id="a2606c2553efbde442ae1fc9b4226a24c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2606c2553efbde442ae1fc9b4226a24c">&#9670;&nbsp;</a></span>erase()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SparseMatrix::erase </td>
-          <td>(</td>
-          <td class="paramtype">const boost::unordered_set&lt; int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>rows</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::unordered_set&lt; int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>columns</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d0/dea/a02585.html">SparseMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>M</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>erase some rows and columns in the matrix and returns a new matrix </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">rows</td><td>rows to erase </td></tr>
-    <tr><td class="paramname">columns</td><td>columns to erase </td></tr>
-    <tr><td class="paramname">M</td><td>new matrix allocated </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a903917532d69c6c5c4af916f5b25adaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a903917532d69c6c5c4af916f5b25adaf">&#9670;&nbsp;</a></span>frobeniusNorm()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::SparseMatrix::frobeniusNorm </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>print the Frobenius norm of the matrix </p>
-<dl class="section return"><dt>Returns</dt><dd>value of the Frobenius norm of the matrix </dd></dl>
-
-</div>
-</div>
-<a id="af1d62be0efcfecbd822c562e991aafbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1d62be0efcfecbd822c562e991aafbb">&#9670;&nbsp;</a></span>getRowColIndicesFromPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SparseMatrix::getRowColIndicesFromPosition </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int &amp;&#160;</td>
-          <td class="paramname"><em>iRow</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int &amp;&#160;</td>
-          <td class="paramname"><em>jCol</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the row and colum indices from a position in the data array. </p>
-<p>This function is intended to be used in debug mode but can be called in release mode but will allocate a lot of memory and will slow down the computation as it is not optimized at all</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>index in data array (0 to nnz) </td></tr>
-    <tr><td class="paramname">iRow</td><td>row index of the data in the matrix </td></tr>
-    <tr><td class="paramname">jCol</td><td>column index of the data in the matrix </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aa82eec86cbcc51772c7503031a554ca7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa82eec86cbcc51772c7503031a554ca7">&#9670;&nbsp;</a></span>infinityNorm()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::SparseMatrix::infinityNorm </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>print the infinity-norm of the matrix </p>
-<p>This norm is much more costly than the two others so choose the other ones for big matrices.</p>
-<dl class="section return"><dt>Returns</dt><dd>value of the infinity-norm of the matrix </dd></dl>
-
-</div>
-</div>
-<a id="a19b7c17f2a0d427f211996b7f1b7d300"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19b7c17f2a0d427f211996b7f1b7d300">&#9670;&nbsp;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SparseMatrix::init </td>
-          <td>(</td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>nbRow</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>nbCol</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>initialize the sparse matrix object </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nbRow</td><td>number row of the matrix </td></tr>
-    <tr><td class="paramname">nbCol</td><td>number columns of the matrix </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="abadbecc4102f031b19ae5bb63d6583c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abadbecc4102f031b19ae5bb63d6583c6">&#9670;&nbsp;</a></span>nbCol()</h2>
+<a id="a3005bd7cd2863b3d89fff07fd7d8b3e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3005bd7cd2863b3d89fff07fd7d8b3e5">&#9670;&nbsp;</a></span>getAnyValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -590,7 +264,57 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int DYN::SparseMatrix::nbCol </td>
+          <td class="memname">virtual boost::any DYN::ParameterCommon::getAnyValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>value intermediary getter </p>
+<dl class="section return"><dt>Returns</dt><dd>parameter's value </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d5/dbe/a02697.html#a4555aa9963c3c80cca355fd35beeb93d">DYN::ParameterModeler</a>, and <a class="el" href="../../d9/d33/a03269.html#a9e96f9db83d3511037d9a7513786fb22">DYN::ParameterSolver</a>.</p>
+
+</div>
+</div>
+<a id="a6fbfee80d636863f3f09267a27868d80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fbfee80d636863f3f09267a27868d80">&#9670;&nbsp;</a></span>getIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int DYN::ParameterCommon::getIndex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>index getter </p>
+<dl class="section return"><dt>Returns</dt><dd>index </dd></dl>
+
+</div>
+</div>
+<a id="a1f885581f82b06197dfb0b1c64445a84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f885581f82b06197dfb0b1c64445a84">&#9670;&nbsp;</a></span>getName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; DYN::ParameterCommon::getName </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -603,13 +327,13 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 </table>
 </div><div class="memdoc">
 
-<p>getter of the number of columns of the matrix </p>
-<dl class="section return"><dt>Returns</dt><dd>number of columns of the matrix </dd></dl>
+<p>Getter for parameter's name. </p>
+<dl class="section return"><dt>Returns</dt><dd>parameter's name </dd></dl>
 
 </div>
 </div>
-<a id="aa34280a5702717c6a457ce6b1067a2cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa34280a5702717c6a457ce6b1067a2cd">&#9670;&nbsp;</a></span>nbElem()</h2>
+<a id="a4e988eff334c702eda8bf6939cba3a6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e988eff334c702eda8bf6939cba3a6b">&#9670;&nbsp;</a></span>getTypeError()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -618,7 +342,39 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int DYN::SparseMatrix::nbElem </td>
+          <td class="memname">virtual <a class="el" href="../../db/de8/a02525.html#ab65468b98196803043b63655fcfd1d58">Error::TypeError_t</a> DYN::ParameterCommon::getTypeError </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TypeError getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>TypeError getter </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d5/dbe/a02697.html#a4c9b3cb1a02bee71df9a5598d707f68f">DYN::ParameterModeler</a>, and <a class="el" href="../../d9/d33/a03269.html#a4e017c0c2f194e50c6e309bb9298862d">DYN::ParameterSolver</a>.</p>
+
+</div>
+</div>
+<a id="a009b266fa0c1653d5b749d3a66b9590d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a009b266fa0c1653d5b749d3a66b9590d">&#9670;&nbsp;</a></span>getValue() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::ParameterCommon::getValue </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -631,19 +387,111 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 </table>
 </div><div class="memdoc">
 
-<p>getter of the number of elements stored in the matrix </p>
-<dl class="section return"><dt>Returns</dt><dd>number of elements stored in the matrix </dd></dl>
+<p>parameter's value getter </p>
+<dl class="section return"><dt>Returns</dt><dd>parameter's value template specialization for boolean type </dd></dl>
 
 </div>
 </div>
-<a id="a23bb9c24e7b376e98bca8f9340775c49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23bb9c24e7b376e98bca8f9340775c49">&#9670;&nbsp;</a></span>norm1()</h2>
+<a id="aace9386f90e367bb97e15b16805431f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aace9386f90e367bb97e15b16805431f7">&#9670;&nbsp;</a></span>getValue() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double DYN::SparseMatrix::norm1 </td>
+          <td class="memname">double DYN::ParameterCommon::getValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>parameter's value getter </p>
+<dl class="section return"><dt>Returns</dt><dd>parameter's value template specialization for double type </dd></dl>
+
+</div>
+</div>
+<a id="ab34fd2204c69afff9c169c682b5df3f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab34fd2204c69afff9c169c682b5df3f1">&#9670;&nbsp;</a></span>getValue() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int DYN::ParameterCommon::getValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>parameter's value getter </p>
+<dl class="section return"><dt>Returns</dt><dd>parameter's value template specialization for integer type </dd></dl>
+
+</div>
+</div>
+<a id="a5f2b0ec1bc1d9c3498d14b226afd80fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f2b0ec1bc1d9c3498d14b226afd80fa">&#9670;&nbsp;</a></span>getValue() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DYN::ParameterCommon::getValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>parameter's value getter </p>
+<dl class="section return"><dt>Returns</dt><dd>parameter's value template specialization for string type </dd></dl>
+
+</div>
+</div>
+<a id="a81e4f5cd724ca447feacc1d709c0f0bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81e4f5cd724ca447feacc1d709c0f0bf">&#9670;&nbsp;</a></span>getValue() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T DYN::ParameterCommon::getValue </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -651,13 +499,13 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
       </table>
 </div><div class="memdoc">
 
-<p>print the 1-norm of the matrix </p>
-<dl class="section return"><dt>Returns</dt><dd>value of the 1-norm of the matrix </dd></dl>
+<p>parameter's value getter </p>
+<dl class="section return"><dt>Returns</dt><dd>parameter's value </dd></dl>
 
 </div>
 </div>
-<a id="ae1d3626392dc7c846a0304f9913a12da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1d3626392dc7c846a0304f9913a12da">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a5660ab45635c8ff992985f4ea06d8759"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5660ab45635c8ff992985f4ea06d8759">&#9670;&nbsp;</a></span>getValueType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -666,142 +514,168 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/dea/a02585.html">SparseMatrix</a>&amp; DYN::SparseMatrix::operator= </td>
+          <td class="memname"><a class="el" href="../../d9/d10/a00449.html#a2855db29550ca43733c78c4df0688553">typeVarC_t</a> DYN::ParameterCommon::getValueType </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/dea/a02585.html">SparseMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>M</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>parameter's value type getter </p>
+<dl class="section return"><dt>Returns</dt><dd>parameter's value type </dd></dl>
+
+</div>
+</div>
+<a id="aed5af9ec1e4420fc5efe6e47b4f8e0e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed5af9ec1e4420fc5efe6e47b4f8e0e3">&#9670;&nbsp;</a></span>hasValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::ParameterCommon::hasValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>indicates whether a parameter has a value </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the parameter has a value, false otherwise </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d5/dbe/a02697.html#ab033a209037223fb22a4e1645d067f8c">DYN::ParameterModeler</a>, and <a class="el" href="../../d9/d33/a03269.html#a12c8da904306d704ef3110608b5285d0">DYN::ParameterSolver</a>.</p>
+
+</div>
+</div>
+<a id="a00f74f4ab3afe180eb2daf0b3154a1bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00f74f4ab3afe180eb2daf0b3154a1bb">&#9670;&nbsp;</a></span>indexSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::ParameterCommon::indexSet </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check whether the parameter index has already been set </p>
+<dl class="section return"><dt>Returns</dt><dd>whether the parameter index has already been set </dd></dl>
+
+</div>
+</div>
+<a id="a6c3c06e3fc8a4ebfcfbbf43f66d9f8bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c3c06e3fc8a4ebfcfbbf43f66d9f8bf">&#9670;&nbsp;</a></span>isMandatory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::ParameterCommon::isMandatory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for parameter's type. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the parameter is mandatory else otherwise </dd></dl>
+
+</div>
+</div>
+<a id="aa2750220883c429118fd112fb3b9fa27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2750220883c429118fd112fb3b9fa27">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dea/a02585.html">ParameterCommon</a>&amp; DYN::ParameterCommon::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d0/dea/a02585.html">ParameterCommon</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>equality operator </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">M</td><td>matrix to copy</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>a new matrix </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>should not be used </dd></dl>
+<p>Default copy assigment operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>a new parameter </dd></dl>
 
 </div>
 </div>
-<a id="a85239791a06a3d7d46444588a95aaa66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85239791a06a3d7d46444588a95aaa66">&#9670;&nbsp;</a></span>printToFile()</h2>
+<a id="ac1e040081dc66027f5dc71519d2b5fae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1e040081dc66027f5dc71519d2b5fae">&#9670;&nbsp;</a></span>setIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::SparseMatrix::printToFile </td>
+          <td class="memname">void DYN::ParameterCommon::setIndex </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>sparse</em> = <code>false</code></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>print all the values stored in the matrix in a file </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sparse</td><td><b>true</b> if the matrix should be printed with a sparse pattern </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a4f4f73881b825ae94895bbdc18565f17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f4f73881b825ae94895bbdc18565f17">&#9670;&nbsp;</a></span>reserve()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SparseMatrix::reserve </td>
-          <td>(</td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>nbCol</em></td><td>)</td>
+          <td class="paramtype">const unsigned int &amp;&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>reserve structure memory </p>
+<p>index setter </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">nbCol</td><td>number columns that will be use in the matrix </td></tr>
+    <tr><td class="paramname">index</td><td>the index to set </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a622e645a49f43a5dc5590652b83f6d4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a622e645a49f43a5dc5590652b83f6d4b">&#9670;&nbsp;</a></span>withoutInf()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::SparseMatrix::withoutInf </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>getter to see if the matrix is without infinite value </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if there isn't any infinite value in the matrix </dd></dl>
-
-</div>
-</div>
-<a id="a97e6e0d3295595931185dfc28d296781"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97e6e0d3295595931185dfc28d296781">&#9670;&nbsp;</a></span>withoutNan()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::SparseMatrix::withoutNan </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>getter to see if the matrix is without NAN value </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if there isn't any NAN value in the matrix </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../df/db6/a00509_source.html">DYNSparseMatrix.h</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li><a class="el" href="../../d4/de5/a00503_source.html">DYNParameter.h</a></li>
+<li><a class="el" href="../../d4/d1f/a00506_source.html">DYNParameter.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -819,8 +693,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d0/dea/a02585.html">SparseMatrix</a></li>
-    <li class="footer">Generated on Fri Aug 26 2022 07:40:37 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d0/dea/a02585.html">ParameterCommon</a></li>
+    <li class="footer">Generated on Fri Aug 26 2022 14:58:16 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

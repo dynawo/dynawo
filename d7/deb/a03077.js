@@ -1,8 +1,11 @@
 var a03077 =
 [
-    [ "memoryManagerChars", "d7/deb/a03077.html#a48854f613c484d91f28fafff8bd0dc05", null ],
-    [ "~memoryManagerChars", "d7/deb/a03077.html#a6c9fc65b54ebec577eade3621b94cff9", null ],
-    [ "getInstance", "d7/deb/a03077.html#a9a327615153450dbbfe54ef8286b90c2", null ],
-    [ "keep", "d7/deb/a03077.html#a405846834c838b9f9a56fb00687ec486", null ],
-    [ "string2Keep_", "d7/deb/a03077.html#ac649e86df282bca2f389161c3b49b8c5", null ]
+    [ "constCalcVars", "d7/deb/a03077.html#a8ac7a544fba72263970d28121d9fbf12", null ],
+    [ "nbCalculatedVars", "d7/deb/a03077.html#aadf574c342519fa6bdaa633d5e9b2cf7", null ],
+    [ "nbDelays", "d7/deb/a03077.html#ad672825da45ede42efb53e39362154e1", null ],
+    [ "nbDummy", "d7/deb/a03077.html#abedd737d8efb6d508db337c0d83ef749", null ],
+    [ "nbF", "d7/deb/a03077.html#af4fde5d46c5ba1797fb2cbcced804428", null ],
+    [ "nbModes", "d7/deb/a03077.html#a74feaa50a63e10f6b094bc997aeb5261", null ],
+    [ "nbVars", "d7/deb/a03077.html#a90fea7d702851d0af2fe4fedeee07659", null ],
+    [ "nbZ", "d7/deb/a03077.html#a49a35f826675149cccb137e078328ac0", null ]
 ];

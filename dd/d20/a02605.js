@@ -1,10 +1,10 @@
 var a02605 =
 [
-    [ "Timer", "dd/d20/a02605.html#a050eb0937c85efe34aa6c228b130adba", null ],
-    [ "~Timer", "dd/d20/a02605.html#a0c86ff1ace2b540997bf8d81d714bc70", null ],
-    [ "elapsed", "dd/d20/a02605.html#a54631bd14db61f26b669a1ca94f31adc", null ],
-    [ "stop", "dd/d20/a02605.html#aeacbe1f3e101b710e49a989233ebdc76", null ],
-    [ "isStopped_", "dd/d20/a02605.html#a4e8da931d94227124f54af79ba60452c", null ],
-    [ "name_", "dd/d20/a02605.html#aebaecb746fb2d5c1db1511a70247ba74", null ],
-    [ "startPoint_", "dd/d20/a02605.html#a4cefa54f93937de38835d84887386453", null ]
+    [ "Timers", "dd/d20/a02605.html#a2669d5f36fa883e6f93635fd8c19bbaa", null ],
+    [ "~Timers", "dd/d20/a02605.html#ab3672d402793caaa2dfac58a15cef244", null ],
+    [ "add", "dd/d20/a02605.html#a53509745e25d38e2a45f7dcb466fb94f", null ],
+    [ "add_", "dd/d20/a02605.html#aeef86934ccbb56246d8cf694fa392b27", null ],
+    [ "instance", "dd/d20/a02605.html#abb72441f57c5757298609fed6bbe00f5", null ],
+    [ "nbAppels_", "dd/d20/a02605.html#ae33becbdc1202097f34fc59c4b52708c", null ],
+    [ "timers_", "dd/d20/a02605.html#a762a6851042a228126e0efaa6b87f73f", null ]
 ];

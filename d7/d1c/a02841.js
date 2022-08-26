@@ -1,20 +1,15 @@
 var a02841 =
 [
-    [ "~PhaseTapChangerInterface", "d7/d1c/a02841.html#a163dfd3531e0456760e40b75b16ab823", null ],
-    [ "addStep", "d7/d1c/a02841.html#affcf313d3aaba6ff0445f5e852ccb1c7", null ],
-    [ "getCurrentAlpha", "d7/d1c/a02841.html#a7f6f9630fe0e106a3d2c532230531495", null ],
-    [ "getCurrentB", "d7/d1c/a02841.html#a2499f4d6e78c84c0c9d5a8ae505cb3a7", null ],
-    [ "getCurrentG", "d7/d1c/a02841.html#acb9411782e98105e9399e7833e746f82", null ],
-    [ "getCurrentPosition", "d7/d1c/a02841.html#ad7521a93fbe6923c8780747c1b09d06a", null ],
-    [ "getCurrentR", "d7/d1c/a02841.html#a34fa12857c4bfef2c525bf4eba92f21d", null ],
-    [ "getCurrentRho", "d7/d1c/a02841.html#a39417d8c7e5021c8a15253db4b835363", null ],
-    [ "getCurrentX", "d7/d1c/a02841.html#a381d9009b6b4f9216b3127fbf2ad666c", null ],
-    [ "getLowPosition", "d7/d1c/a02841.html#afc6e9e31b83770d830415b7b34fc0d00", null ],
-    [ "getNbTap", "d7/d1c/a02841.html#a1e255e82e97c62426ba87fbf616bc67b", null ],
-    [ "getRegulating", "d7/d1c/a02841.html#a1e672560f2ca7fb133c670ca46c246c2", null ],
-    [ "getSteps", "d7/d1c/a02841.html#a93ec4352b08cfec1c59f71615c8a669e", null ],
-    [ "getTargetDeadBand", "d7/d1c/a02841.html#a1ac23b5c6d3ca8f4e9c8f52658c4211b", null ],
-    [ "getThresholdI", "d7/d1c/a02841.html#a6141281b2102ec17638140ff65862c34", null ],
-    [ "isCurrentLimiter", "d7/d1c/a02841.html#acd992054612f5d436b2379631746dbc9", null ],
-    [ "setCurrentPosition", "d7/d1c/a02841.html#abc3e0b367c58b1f1ccd454bebf81b490", null ]
+    [ "~NetworkInterface", "d7/d1c/a02841.html#a77cd19544abc83a7f36d48a7a5ee4acc", null ],
+    [ "addHvdcLine", "d7/d1c/a02841.html#a4d86cd2d641b6be759a2ac2ff642cbd2", null ],
+    [ "addLine", "d7/d1c/a02841.html#a825c696d9979c88d6e883b2ab8e4862f", null ],
+    [ "addThreeWTransformer", "d7/d1c/a02841.html#a57bae281aca5976cada6db9b99d1c36b", null ],
+    [ "addTwoWTransformer", "d7/d1c/a02841.html#a11f1d554b4f29227aaa8c16e0b5142f3", null ],
+    [ "addVoltageLevel", "d7/d1c/a02841.html#aeb67769efc18b4c5577a73910e226b6c", null ],
+    [ "getHvdcLines", "d7/d1c/a02841.html#a9d029e88c4af37ed85953d99aaf04f29", null ],
+    [ "getLines", "d7/d1c/a02841.html#a1d0a3c0629f876f7c51d6af735de933c", null ],
+    [ "getSlackNodeBusId", "d7/d1c/a02841.html#a802c8d2a32bfc399e430b9f3f9de0486", null ],
+    [ "getThreeWTransformers", "d7/d1c/a02841.html#a9ef5794228b58fd7b0b0a73d1c676184", null ],
+    [ "getTwoWTransformers", "d7/d1c/a02841.html#ab36098660e517287107777e257f9d173", null ],
+    [ "getVoltageLevels", "d7/d1c/a02841.html#a5e4ac46ed407e3cba252734f6bf3ad97", null ]
 ];

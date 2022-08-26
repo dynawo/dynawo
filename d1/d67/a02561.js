@@ -1,10 +1,8 @@
 var a02561 =
 [
-    [ "IoDico", "d1/d67/a02561.html#ad25e45c2a1aa2d72f27679681a71bfae", null ],
-    [ "begin", "d1/d67/a02561.html#a5b52a886c13f0ce540f0c9ec4bd9e249", null ],
-    [ "end", "d1/d67/a02561.html#a4c58857bebbe8746a973548a3db75245", null ],
-    [ "msg", "d1/d67/a02561.html#a81be9d8668bd4d24b1450d032e2373cf", null ],
-    [ "readFile", "d1/d67/a02561.html#a6106addf801c3139876fa01fbcd2f59c", null ],
-    [ "map_", "d1/d67/a02561.html#adce819e7402513fa187cded1655623eb", null ],
-    [ "name_", "d1/d67/a02561.html#a84cc89bec75f1d89ec5582b712d7e51b", null ]
+    [ "OppositeEventDico", "d1/d67/a02561.html#a71ef2c8183e5299a2902bda177a1f873", null ],
+    [ "getOppositeEvents", "d1/d67/a02561.html#aedff69ef6007d38481f24f8be86e6868", null ],
+    [ "readFile", "d1/d67/a02561.html#afa5406c8bd7b5a595638749820ed52ab", null ],
+    [ "map_", "d1/d67/a02561.html#a74f62ee1a07c96390bfbeb6224790e11", null ],
+    [ "name_", "d1/d67/a02561.html#ad1950ba56643149e5bf92147fd69c995", null ]
 ];

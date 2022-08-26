@@ -95,15 +95,24 @@ $(document).ready(function(){initNavTree('da/d7d/a02785.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::CurrentLimitInterface Member List</div>  </div>
+<div class="title">DYN::GeneratorCriteria Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../da/d7d/a02785.html">DYN::CurrentLimitInterface</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../da/d7d/a02785.html">DYN::GeneratorCriteria</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d7d/a02785.html#abf10c2fa3a5f97d0d75dde1412aab4b1">getAcceptableDuration</a>() const =0</td><td class="entry"><a class="el" href="../../da/d7d/a02785.html">DYN::CurrentLimitInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d7d/a02785.html#a7031713913c28ceec6fe491d76ca96f0">getLimit</a>() const =0</td><td class="entry"><a class="el" href="../../da/d7d/a02785.html">DYN::CurrentLimitInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d7d/a02785.html#a242c3deaeac9da4a529415cc9fc4fbcd">~CurrentLimitInterface</a>()</td><td class="entry"><a class="el" href="../../da/d7d/a02785.html">DYN::CurrentLimitInterface</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d7d/a02785.html#a83e09fa55611777bd74feaa6e4f244e5">addGenerator</a>(const boost::shared_ptr&lt; GeneratorInterface &gt; &amp;generator)</td><td class="entry"><a class="el" href="../../da/d7d/a02785.html">DYN::GeneratorCriteria</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d7d/a02785.html#a7de0c73911eb770eadbefe6cfde17573">checkCriteria</a>(double t, bool finalStep)</td><td class="entry"><a class="el" href="../../da/d7d/a02785.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/de5/a02773.html#ab0211f97b4a4105abfe70989068d7034">Criteria</a>(const boost::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../db/de5/a02773.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d7d/a02785.html#a5c72a09196491c85c08ee93658976b46">criteriaEligibleForGenerator</a>(const boost::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../da/d7d/a02785.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d7d/a02785.html#adccf8513b1ba749ab0515b3370675d03">empty</a>() const</td><td class="entry"><a class="el" href="../../da/d7d/a02785.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../db/de5/a02773.html#a2cfd58d7a5fc57e2d2438cf3c3603954">failingCriteria_</a></td><td class="entry"><a class="el" href="../../db/de5/a02773.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d7d/a02785.html#ae4fb4b6761e4c3def5e944d944c4a954">GeneratorCriteria</a>(const boost::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../da/d7d/a02785.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d7d/a02785.html#ad1392da3e52e020715b11d4d4b474160">generators_</a></td><td class="entry"><a class="el" href="../../da/d7d/a02785.html">DYN::GeneratorCriteria</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/de5/a02773.html#ae37e82fe5de5482d924a4f3781287bc5">getFailingCriteria</a>() const</td><td class="entry"><a class="el" href="../../db/de5/a02773.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../db/de5/a02773.html#a0bb1b98b66257511889a334efd7d2a81">params_</a></td><td class="entry"><a class="el" href="../../db/de5/a02773.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/de5/a02773.html#ab91b12e7731dfd62f0989c6ae50557ed">~Criteria</a>()</td><td class="entry"><a class="el" href="../../db/de5/a02773.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d7d/a02785.html#afa15046b694a6dc2cf9a241cb1eed8a1">~GeneratorCriteria</a>()</td><td class="entry"><a class="el" href="../../da/d7d/a02785.html">DYN::GeneratorCriteria</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -120,7 +129,7 @@ $(document).ready(function(){initNavTree('da/d7d/a02785.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Aug 26 2022 07:40:36 for Dynawo by
+    <li class="footer">Generated on Fri Aug 26 2022 14:58:15 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

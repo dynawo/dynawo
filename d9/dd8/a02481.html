@@ -141,6 +141,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abd13d5bb2e89b3f9bd256e736e3f76cc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd8/a02481.html#abd13d5bb2e89b3f9bd256e736e3f76cc">getPriority</a> () const</td></tr>
 <tr class="memdesc:abd13d5bb2e89b3f9bd256e736e3f76cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for event's priority.  <a href="#abd13d5bb2e89b3f9bd256e736e3f76cc">More...</a><br /></td></tr>
 <tr class="separator:abd13d5bb2e89b3f9bd256e736e3f76cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a202c228216103f8540d4493b1876082f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd8/a02481.html#a202c228216103f8540d4493b1876082f">setKey</a> (const std::string &amp;key)</td></tr>
+<tr class="memdesc:a202c228216103f8540d4493b1876082f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for event's key.  <a href="#a202c228216103f8540d4493b1876082f">More...</a><br /></td></tr>
+<tr class="separator:a202c228216103f8540d4493b1876082f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a853c50e77b39fc9cc022b69d48345e8d"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd8/a02481.html#a853c50e77b39fc9cc022b69d48345e8d">getKey</a> () const</td></tr>
+<tr class="memdesc:a853c50e77b39fc9cc022b69d48345e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for event's key.  <a href="#a853c50e77b39fc9cc022b69d48345e8d">More...</a><br /></td></tr>
+<tr class="separator:a853c50e77b39fc9cc022b69d48345e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -156,6 +162,10 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd8/a02481.html#a03205ea9679f7253f8573a3c1804a0bf">message_</a></td></tr>
 <tr class="memdesc:a03205ea9679f7253f8573a3c1804a0bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">message to describe event <br /></td></tr>
 <tr class="separator:a03205ea9679f7253f8573a3c1804a0bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1a91180d1492d56c0c76c43c1303349"><td class="memItemLeft" align="right" valign="top"><a id="ab1a91180d1492d56c0c76c43c1303349"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd8/a02481.html#ab1a91180d1492d56c0c76c43c1303349">key_</a></td></tr>
+<tr class="memdesc:ab1a91180d1492d56c0c76c43c1303349"><td class="mdescLeft">&#160;</td><td class="mdescRight">key used from the timeline dictionary, empty if none <br /></td></tr>
+<tr class="separator:ab1a91180d1492d56c0c76c43c1303349"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43db092b436b79885ffe7c7a1ad1444b"><td class="memItemLeft" align="right" valign="top"><a id="a43db092b436b79885ffe7c7a1ad1444b"></a>
 boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd8/a02481.html#a43db092b436b79885ffe7c7a1ad1444b">priority_</a></td></tr>
 <tr class="memdesc:a43db092b436b79885ffe7c7a1ad1444b"><td class="mdescLeft">&#160;</td><td class="mdescRight">priority of the event <br /></td></tr>
@@ -165,6 +175,34 @@ boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom">
 <div class="textblock"><p><a class="el" href="../../d9/dd8/a02481.html" title="Event interface class. ">Event</a> interface class. </p>
 <p>Interface class for event. <a class="el" href="../../d9/dd8/a02481.html" title="Event interface class. ">Event</a> is a container describing an event which occurs during simulation: for describing an event, there is three field: time of event, model name in which event's occurs and message to describe the event </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a853c50e77b39fc9cc022b69d48345e8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a853c50e77b39fc9cc022b69d48345e8d">&#9670;&nbsp;</a></span>getKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; timeline::Event::getKey </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for event's key. </p>
+<dl class="section return"><dt>Returns</dt><dd>key to describe event </dd></dl>
+
+</div>
+</div>
 <a id="a43865ebc7e951af255127afa82536990"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a43865ebc7e951af255127afa82536990">&#9670;&nbsp;</a></span>getMessage()</h2>
 
@@ -278,6 +316,40 @@ boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom">
 
 <p>Indicates if the event has a priority. </p>
 <dl class="section return"><dt>Returns</dt><dd>boolean to know if event has priority </dd></dl>
+
+</div>
+</div>
+<a id="a202c228216103f8540d4493b1876082f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a202c228216103f8540d4493b1876082f">&#9670;&nbsp;</a></span>setKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timeline::Event::setKey </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setter for event's key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>new key to describe event </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -405,7 +477,7 @@ boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom">
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>timeline</b></li><li class="navelem"><a class="el" href="../../d9/dd8/a02481.html">Event</a></li>
-    <li class="footer">Generated on Fri Aug 26 2022 07:40:38 for Dynawo by
+    <li class="footer">Generated on Fri Aug 26 2022 14:58:17 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
