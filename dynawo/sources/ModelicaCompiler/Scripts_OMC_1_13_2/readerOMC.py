@@ -584,7 +584,7 @@ class ReaderOMC:
     # @param eq : equation pseudo code
     # @param defined_var_eq : name of the variable defined by this equation
     def analyse_equations_and_get_types(self, eq, defined_var_eq):
-        if "{" in eq: return
+        if eq.startswith("[{"): return
         der_var_ptrn = re.compile(r'der\s*\((?P<var>[\(\S\) ]+?)\)')
         diff_var = []
         types = []
@@ -1851,6 +1851,19 @@ class ReaderOMC:
         func.add_params(OmcFunctionParameter("time", "modelica_real", 3, True))
         func.add_params(OmcFunctionParameter("delayTime", "modelica_real", 4, True))
         func.add_params(OmcFunctionParameter("delayMax", "modelica_real", 5, True))
+        self.list_omc_functions.append(func)
+
+        func = RawOmcFunctions()
+        func.set_name("array_alloc_scalar_real_array")
+        func.set_signature("void array_alloc_scalar_real_array(real_array_t* dest, int n, modelica_real first, ...)")
+        func.set_return_type("void")
+        func.add_params(OmcFunctionParameter("dest", "real_array_t*", 0, True))
+        func.add_params(OmcFunctionParameter("n", "int", 1, True))
+        func.add_params(OmcFunctionParameter("first", "modelica_real", 2, True))
+        func.add_params(OmcFunctionParameter("second", "modelica_real", 2, True))
+        func.add_params(OmcFunctionParameter("third", "modelica_real", 2, True))
+        func.add_params(OmcFunctionParameter("fourth", "modelica_real", 2, True))
+        func.add_params(OmcFunctionParameter("fifth", "modelica_real", 2, True))
         self.list_omc_functions.append(func)
 
 

@@ -2328,10 +2328,12 @@ class Factory:
         if len(called_func) > 0:
             # filter whatever is assigned in this line
             line_split_by_equal = line.split('=')
-            assert(len(line_split_by_equal) >= 2)
-            call_line = line_split_by_equal[0] + " = "
-            func_call_line = line_split_by_equal[1]
-
+            if(len(line_split_by_equal) >= 2):
+                call_line = line_split_by_equal[0] + " = "
+                func_call_line = line_split_by_equal[1]
+            else:
+                call_line = ""
+                func_call_line = line_split_by_equal[0]
             # Split this line at each function call ('(') and parameter (',')
             line_split_by_parenthesis = re.split('(\()', func_call_line)
             line_split = []
@@ -2919,7 +2921,7 @@ class Factory:
                 var_ext = ""
                 if is_alg_var(v) :
                     spin = "ALGEBRAIC"
-                if v.get_name() in self.reader.dummy_der_variables: 
+                if v.get_name() in self.reader.dummy_der_variables:
                     spin = "DIFFERENTIAL"
                 if v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var:
                   spin = "EXTERNAL"
