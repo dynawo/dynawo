@@ -20,6 +20,7 @@ try:
     nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
     sys.path.append(nrtDiff_dir)
     import nrtDiff
+    import settings
 except:
     print ("Failed to import non-regression test diff")
     sys.exit(1)
@@ -42,6 +43,22 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves2.xml"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         self.assertEqual(message, "nrt_diff/test/curves.xml: 1 absolute errors , NETWORK_BELLAP41_U_value")
+
+    def test_curves_max_dtw(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        settings.dtw_exceptions = {"curves3.csv" : 73, "curves3.xml" : 50}
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves3.csv"), '|')
+        self.assertEqual(return_value, nrtDiff.IDENTICAL)
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves3.xml"), '|')
+        self.assertEqual(return_value, nrtDiff.IDENTICAL)
+        settings.dtw_exceptions = {}
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves3.csv"), '|')
+        self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 5 absolute errors", "GEN____8_SM_generator_UStatorPu", "GEN____6_SM_voltageRegulator_EfdPu", "GEN____8_SM_voltageRegulator_EfdPu", "GEN____1_SM_voltageRegulator_EfdPu", "GEN____2_SM_voltageRegulator_EfdPu"})
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves3.xml"), '|')
+        self.assertEqual(return_value, nrtDiff.DIFFERENT)
+        self.assertEqual(message, "nrt_diff/test/curves.xml: 1 absolute errors , NETWORK_BELLAP41_U_value")
+
 
     def test_timeline_log(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
