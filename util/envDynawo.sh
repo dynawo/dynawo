@@ -109,7 +109,6 @@ where [option] can be:"
         nrt-diff ([args])                     make a diff between two non-regression test outputs
         nrt-ref ([args])                      define or redefine automatically the non-regression tests references
         nrt-xsl ([args])                      update automatically the xml input files from the nrt
-        filter-timeline ([args])              filter timeline file to remove duplicated or opposed elements
         version-validation                    clean all built items, then build them all and run non-regression tests
         list-tests                            print all available unittest target
         list-models                           list all preassembled models you can use with clean-models or clean-build-models
@@ -436,7 +435,6 @@ set_environment() {
   export_var_env_force DYNAWO_CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
-  export_var_env_force DYNAWO_TIMELINE_FILTER_DIR=$DYNAWO_HOME/util/timeline_filter
   export_var_env_force DYNAWO_ENV_DYNAWO=$SCRIPT
   export_var_env DYNAWO_CMAKE_GENERATOR="Unix Makefiles"
   export_var_env DYNAWO_CMAKE_BUILD_OPTION=""
@@ -841,7 +839,6 @@ config_dynawo() {
     -DLIBIIDM_HOME=$DYNAWO_LIBIIDM_INSTALL_DIR \
     -DXERCESC_HOME=$DYNAWO_XERCESC_INSTALL_DIR \
     -DDYNAWO_PYTHON_COMMAND="$DYNAWO_PYTHON_COMMAND" \
-    -DDYNAWO_TIMELINE_FILTER_DIR="$DYNAWO_TIMELINE_FILTER_DIR" \
     $CMAKE_OPTIONAL \
     -G "$DYNAWO_CMAKE_GENERATOR" \
     $DYNAWO_SRC_DIR
@@ -1021,7 +1018,6 @@ build_tests() {
   if [ ${RETURN_CODE} -ne 0 ]; then
     return ${RETURN_CODE}
   fi
-  ${DYNAWO_PYTHON_COMMAND} $DYNAWO_TIMELINE_FILTER_DIR/test/timelineFilterTest.py
   return ${RETURN_CODE}
 }
 
@@ -1590,10 +1586,6 @@ nrt_ref() {
 nrt_xsl() {
   export_var_env_force DYNAWO_NRT_SCRIPT_DIR=$DYNAWO_NRT_DIR
   $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/xsl/applyXsltToXml.py $@
-}
-
-filter_timeline() {
-  $DYNAWO_PYTHON_COMMAND $DYNAWO_INSTALL_DIR/sbin/timelineFilter.py $@
 }
 
 check_coding_files() {
@@ -2503,10 +2495,6 @@ case $MODE in
 
   nrt-xsl)
     nrt_xsl ${ARGS} || error_exit "Error during Dynawo's NRT xsl execution"
-    ;;
-
-  filter-timeline)
-    filter_timeline ${ARGS} || error_exit "Error during timeline filtering"
     ;;
 
   nrt-doc)
