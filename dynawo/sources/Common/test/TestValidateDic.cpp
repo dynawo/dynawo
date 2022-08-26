@@ -107,7 +107,6 @@ TEST(Models, TestBuildCheckSum) {
   remove("dic/allInOne/AIOMyLog_keys.h");
   remove("dic/allInOne/AIOMyTimeline_keys.cpp");
   remove("dic/allInOne/AIOMyTimeline_keys.h");
-  remove("dic/allInOne/AIOMyTimeline_oppositeEvents.py");
   executeCommand(cmd, ssPython);
   ssPython.str(std::string());
   ASSERT_FALSE(exists("dic/allInOne/AIOMyDic_keys.cpp"));
