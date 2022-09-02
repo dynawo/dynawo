@@ -353,6 +353,7 @@ class ModelGenerator : public NetworkComponent {
     return (-Pc - 2 * ui * (-Pc * ui + Qc * ur) / U2) / U2;
   }
 
+  const boost::shared_ptr<GeneratorInterface> generator_;  ///< reference to the generator interface object
   double Pc_;  ///< active power target in MW
   double Qc_;  ///< reactive power target in Mvar
   double ir0_;  ///< initial current real part
@@ -360,6 +361,7 @@ class ModelGenerator : public NetworkComponent {
   State connectionState_;  ///< "internal" generator connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the generator connection state was modified
   boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
+  startingPointMode_t startingPointMode_;  ///< type of starting point for the model (FLAT,WARM)
 };
 }  // namespace DYN
 

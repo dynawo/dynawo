@@ -2134,7 +2134,7 @@ unittest_gdb() {
     build_dynawo_core || error_exit
     build_dynawo_models_cpp || error_exit
   fi
-  list_of_tests=($(find $DYNAWO_BUILD_DIR/sources -executable -type f -exec basename {} \; | grep test))
+  list_of_tests=($(find $DYNAWO_BUILD_DIR -executable -type f -exec basename {} \; | grep test))
   if [[ ${#list_of_tests[@]} == 0 ]]; then
     echo "The list of tests is empty. This should not happen."
     exit 1
@@ -2147,7 +2147,7 @@ unittest_gdb() {
     done
     exit 1
   fi
-  unittest_exe=$(find $DYNAWO_BUILD_DIR/sources -name "$1")
+  unittest_exe=$(find $DYNAWO_BUILD_DIR -name "$1")
   if [ -z "$unittest_exe" ]; then
     echo "The unittest you gave is not available."
     echo "List of available unittests:"

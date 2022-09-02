@@ -481,6 +481,8 @@ class ModelHvdcLink : public NetworkComponent {
    */
   double ii2_dUi(const double& ur2, const double& ui2, const double& U2_2) const;
 
+  const boost::shared_ptr<HvdcLineInterface> dcLine_;  ///< reference to the hvdc line interface object
+
   boost::shared_ptr<ModelBus> modelBus1_;  ///< model bus at point of common coupling 1
   boost::shared_ptr<ModelBus> modelBus2_;  ///< model bus at point of common coupling 2
 
@@ -507,6 +509,7 @@ class ModelHvdcLink : public NetworkComponent {
   double ii01_;  ///< initial current imaginary part at point of common coupling 1
   double ir02_;  ///< initial current real part at point of common coupling 2
   double ii02_;  ///< initial current imaginary part at point of common coupling 2
+  startingPointMode_t startingPointMode_;  ///< type of starting point for the model (FLAT,WARM)
 };  ///< class for Hvdc link model in network
 
 }  // namespace DYN

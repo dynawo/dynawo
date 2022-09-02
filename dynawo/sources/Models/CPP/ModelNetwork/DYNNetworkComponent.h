@@ -57,6 +57,14 @@ class NetworkComponent {  ///< Base class for network component models
     TOPO_CHANGE = 2
   } StateChange_t;
 
+  /**
+   * @brief starting point type
+   */
+  typedef enum {
+    FLAT = 0,
+    WARM = 1
+  } startingPointMode_t;
+
  public:
   /**
    * @brief destructor
@@ -394,6 +402,14 @@ class NetworkComponent {  ///< Base class for network component models
   inline std::string id() const {
     return id_;
   }
+
+  /**
+   * @brief Get the Starting Point Mode
+   *
+   * @param startingPointMode parameter string
+   * @return the Starting Point Mode
+   */
+  static startingPointMode_t getStartingPointMode(const std::string& startingPointMode);
 
  protected:
   /**
