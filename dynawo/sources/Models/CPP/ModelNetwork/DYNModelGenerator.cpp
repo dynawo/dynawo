@@ -42,24 +42,14 @@ namespace DYN {
 
 ModelGenerator::ModelGenerator(const shared_ptr<GeneratorInterface>& generator) :
 NetworkComponent(generator->getID()),
-stateModified_(false) {
-  // init data
-  Pc_ = -1. * generator->getP();
-  Qc_ = -1. * generator->getQ();
+generator_(generator),
+Pc_(0.),
+Qc_(0.),
+ir0_(0.),
+ii0_(0.),
+stateModified_(false),
+startingPointMode_(WARM) {
   connectionState_ = generator->getInitialConnected() ? CLOSED : OPEN;
-  double uNode = generator->getBusInterface()->getV0();
-  double thetaNode = generator->getBusInterface()->getAngle0();
-  double unomNode = generator->getBusInterface()->getVNom();
-  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
-  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
-  double U20 = ur0 * ur0 + ui0 * ui0;
-  if (!doubleIsZero(U20)) {
-    ir0_ = (-PcPu() * ur0 - QcPu() * ui0) / U20;
-    ii0_ = (-PcPu() * ui0 + QcPu() * ur0) / U20;
-  } else {
-    ir0_ = 0.;
-    ii0_ = 0.;
-  }
 }
 
 void
@@ -156,8 +146,12 @@ ModelGenerator::defineNonGenericParameters(std::vector<ParameterModeler>& /*para
 }
 
 void
-ModelGenerator::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& /*params*/) {
-  // no parameter
+ModelGenerator::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
+  bool startingPointModeFound = false;
+  std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
+  if (startingPointModeFound) {
+    startingPointMode_ = getStartingPointMode(startingPointMode);
+  }
 }
 
 void
@@ -367,7 +361,31 @@ ModelGenerator::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 
 void
 ModelGenerator::init(int & /*yNum*/) {
-  // not needed
+  double uNode = 0.;
+  double thetaNode = generator_->getBusInterface()->getAngle0();
+  double unomNode = generator_->getBusInterface()->getVNom();
+  switch (startingPointMode_) {
+  case FLAT:
+    Pc_ = isConnected() ? -1. * generator_->getTargetP() : 0.;
+    Qc_ = isConnected() ? -1. * generator_->getTargetQ() : 0.;
+    uNode = generator_->getBusInterface()->getVNom();
+    break;
+  case WARM:
+    Pc_ = isConnected() ? -1. * generator_->getP() : 0.;
+    Qc_ = isConnected() ? -1. * generator_->getQ() : 0.;
+    uNode = generator_->getBusInterface()->getV0();
+    break;
+  }
+  double ur0 = uNode / unomNode * cos(thetaNode * DEG_TO_RAD);
+  double ui0 = uNode / unomNode * sin(thetaNode * DEG_TO_RAD);
+  double U20 = ur0 * ur0 + ui0 * ui0;
+  if (!doubleIsZero(U20)) {
+    ir0_ = (-PcPu() * ur0 - QcPu() * ui0) / U20;
+    ii0_ = (-PcPu() * ui0 + QcPu() * ur0) / U20;
+  } else {
+    ir0_ = 0.;
+    ii0_ = 0.;
+  }
 }
 
 void

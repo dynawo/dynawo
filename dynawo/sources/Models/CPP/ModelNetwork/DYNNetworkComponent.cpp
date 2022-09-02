@@ -26,6 +26,7 @@
 #include "DYNParameter.h"
 #include "DYNElement.h"
 #include "DYNCommonModeler.h"
+#include "DYNTrace.h"
 
 using std::vector;
 using std::string;
@@ -173,6 +174,19 @@ NetworkComponent::addElementWithValue(const string& elementName, const std::stri
     vector<Element>& elements, std::map<string, int>& mapElement) {
   addElement(elementName, Element::STRUCTURE, elements, mapElement);
   addSubElement("value", elementName, Element::TERMINAL, id(), parentType, elements, mapElement);
+}
+
+NetworkComponent::startingPointMode_t
+NetworkComponent::getStartingPointMode(const std::string& startingPointMode) {
+  std::map<std::string, startingPointMode_t> enumResolver = {{"flat", startingPointMode_t::FLAT},
+                                                             {"warm", startingPointMode_t::WARM}};
+  auto it = enumResolver.find(startingPointMode);
+  if (it != enumResolver.end()) {
+    return it->second;
+  } else {
+    Trace::warn() << DYNLog(StartingPointModeNotFound, startingPointMode) << Trace::endline;
+    return startingPointMode_t::WARM;
+  }
 }
 
 }  // namespace DYN

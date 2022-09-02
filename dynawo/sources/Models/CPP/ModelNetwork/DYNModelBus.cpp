@@ -145,6 +145,7 @@ ModelBusContainer::initDerivatives() {
 
 ModelBus::ModelBus(const shared_ptr<BusInterface>& bus, bool isNodeBreaker) :
 NetworkComponent(bus->getID()),
+bus_(bus),
 stateUmax_(false),
 stateUmin_(false),
 U2Pu_(0.0),
@@ -166,27 +167,20 @@ hasConnection_(bus->hasConnection()),
 hasShortCircuitCapabilities_(false),
 hasDifferentialVoltages_(false),
 modelType_(isNodeBreaker?"Bus":"Node"),
-isNodeBreaker_(isNodeBreaker) {
+isNodeBreaker_(isNodeBreaker),
+startingPointMode_(WARM) {
   neighbors_.clear();
   busBarSectionIdentifiers_.clear();
-  busBarSectionIdentifiers_ = bus->getBusBarSectionIdentifiers();
+  busBarSectionIdentifiers_ = bus_->getBusBarSectionIdentifiers();
 
   derivatives_.reset(new BusDerivatives());
   derivativesPrim_.reset(new BusDerivatives());
-
-  // init data
-  unom_ = bus->getVNom();
-  u0_ = bus->getV0() / unom_;
-  angle0_ = bus->getAngle0() * DEG_TO_RAD;
-
-  ur0_ = u0_ * cos(angle0_);
-  ui0_ = u0_ * sin(angle0_);
-
-  uMax_ = bus->getVMax() / unom_;
-  uMin_ = bus->getVMin() / unom_;
-
-  constraintId_ = bus->getID();
-  const vector<string>& busBarSections = bus->getBusBarSectionIdentifiers();
+  unom_ = bus_->getVNom();
+  uMax_ = bus_->getVMax() / unom_;
+  uMin_ = bus_->getVMin() / unom_;
+  angle0_ = bus_->getAngle0() * DEG_TO_RAD;
+  constraintId_ = bus_->getID();
+  const vector<string>& busBarSections = bus_->getBusBarSectionIdentifiers();
   if (isNodeBreaker && !busBarSections.empty()) {
     constraintId_ = busBarSections[0];
   }
@@ -336,6 +330,12 @@ ModelBus::setSubModelParameters(const boost::unordered_map<std::string, Paramete
   value = getParameterDynamicNoThrow<double>(params, "bus_uMin", success);
   if (success)
     uMin_ = value;
+
+  bool startingPointModeFound = false;
+  std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
+  if (startingPointModeFound) {
+    startingPointMode_ = getStartingPointMode(startingPointMode);
+  }
 
   vector<string> ids;
   ids.push_back(id_);
@@ -506,6 +506,17 @@ ModelBus::evalCalculatedVars() {
 
 void
 ModelBus::init(int& yNum) {
+  switch (startingPointMode_) {
+  case FLAT:
+    u0_ = bus_->getVNom() / unom_;
+    break;
+  case WARM:
+    u0_ = bus_->getV0() / unom_;
+    break;
+  }
+  ur0_ = u0_ * cos(angle0_);
+  ui0_ = u0_ * sin(angle0_);
+
   if (network_->isInitModel()) {
     urYNum_ = yNum;
     ++yNum;

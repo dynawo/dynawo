@@ -46,6 +46,7 @@ InternalParam                 =             parameter %1% was computed internall
 ParamUnused                   =             parameter %1% in model %2% is not used
 ParamValueInOrigin            =             parameter %1% has value %3% (coming from origin %2%)
 ModelMultiParamNotFound       =             in model multi get parameter value: Model: %1%  Parameter: %2% not found.
+StartingPointModeNotFound     =             startingPointMode %1% not found, should be warm or flat. Using warm starting point mode by default.
 //---------------------- COMPILER --------------------------------------
 DDBDir                        =             DDB Dir : %1%
 CustomDir                     =             custom Dir : %1% with extension %2%
