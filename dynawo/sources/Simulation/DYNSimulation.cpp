@@ -117,6 +117,7 @@
 #include "DYNDataInterfaceFactory.h"
 #include "DYNExecUtils.h"
 #include "DYNSignalHandler.h"
+#include "DYNIoDico.h"
 #include "DYNBitMask.h"
 
 using std::ofstream;
@@ -170,6 +171,7 @@ exportTimelineMode_(EXPORT_TIMELINE_NONE),
 exportTimelineWithTime_(true),
 exportTimelineMaxPriority_(boost::none),
 timelineOutputFile_(""),
+filterTimeline_(false),
 exportConstraintsMode_(EXPORT_CONSTRAINTS_NONE),
 constraintsOutputFile_(""),
 exportLostEquipmentsMode_(EXPORT_LOSTEQUIPMENTS_NONE),
@@ -343,6 +345,7 @@ Simulation::configureTimelineOutputs() {
     setTimelineExportMode(exportModeFlag);
     exportTimelineWithTime_ = jobEntry_->getOutputsEntry()->getTimelineEntry()->getExportWithTime();
     exportTimelineMaxPriority_ = jobEntry_->getOutputsEntry()->getTimelineEntry()->getMaxPriority();
+    filterTimeline_ = jobEntry_->getOutputsEntry()->getTimelineEntry()->isFilter();
     setTimelineOutputFile(outputFile);
   } else {
     setTimelineExportMode(Simulation::EXPORT_TIMELINE_NONE);
@@ -1126,7 +1129,7 @@ void
 Simulation::addEvent(const MessageTimeline& messageTimeline) {
   if (timeline_) {
     const string name = "Simulation";
-    timeline_->addEvent(getCurrentTime(), name, messageTimeline.str(), messageTimeline.priority());
+    timeline_->addEvent(getCurrentTime(), name, messageTimeline.str(), messageTimeline.priority(), messageTimeline.getKey());
   }
 }
 
@@ -1282,6 +1285,11 @@ void Simulation::printFinalStateValues(std::ostream& stream) const {
 
 void
 Simulation::printTimeline(std::ostream& stream) const {
+  if (filterTimeline_) {
+    DYN::IoDicos& dicos = DYN::IoDicos::instance();
+    const auto& oeDico = dicos.mergeOppositeEventsDicos();
+    timeline_->filter(oeDico);
+  }
   switch (exportTimelineMode_) {
     case EXPORT_TIMELINE_NONE:
       break;
