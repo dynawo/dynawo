@@ -745,6 +745,7 @@
                 }
             ]
         },
+        // to be debugged, this target needs to be launched after the related pre-tests target
         {
             "name": "(gdb) Launch unittest: MODELICACOMPILER",
             "type": "cppdbg",
@@ -766,7 +767,8 @@
                 { "name": "DYNAWO_BOOST_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/Debug/boost" },
                 { "name": "DYNAWO_LIBXML_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/Debug/libxml" },
                 { "name": "DYNAWO_NICSLU_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/Debug/nicslu" },
-                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/Debug/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/adept/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/googletest/lib" }
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/Debug/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/adept/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/googletest/lib" },
+                { "name": "PATH", "value": "${env:PATH}:${workspaceFolder}/OpenModelica/Install/bin"}
             ],
             "externalConsole": false,
             "MIMode": "gdb",

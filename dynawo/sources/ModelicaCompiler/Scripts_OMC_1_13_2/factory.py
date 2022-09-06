@@ -3148,15 +3148,32 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_defineparameters(self):
-        line_ptrn = "  parameters.push_back(ParameterModeler(\"%s\", %s, %s));\n"
+
+        all_parameters = self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string
+
+        push_back_threshold = 8
+        if len(all_parameters) >= push_back_threshold:
+            self.list_for_defineparameters.append("  using ParameterModelerTuple = std::tuple<std::string, DYN::typeVarC_t, DYN::parameterScope_t>;\n")
+            self.list_for_defineparameters.append("  std::array<ParameterModelerTuple, " + str(len(all_parameters)) + "> parameterModelerArray = {\n")
+            line_ptrn = "    std::make_tuple(\"%s\", %s, %s),\n"
+        else:
+            line_ptrn = "  parameters.push_back(ParameterModeler(\"%s\", %s, %s));\n"
 
         # Les parametres
-        for par in self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string:
+        for par in all_parameters:
             par_type = param_scope_str (param_scope (par))
             name = to_compile_name(par.get_name())
             value_type = par.get_value_type_c().upper()
             line = line_ptrn %( name, "VAR_TYPE_"+value_type, par_type)
             self.list_for_defineparameters.append(line)
+
+        if len(all_parameters) >= push_back_threshold:
+            self.list_for_defineparameters.append("  };\n")
+
+            self.list_for_defineparameters.append("  for (size_t parameterModelerIndex = 0; parameterModelerIndex < parameterModelerArray.size(); ++parameterModelerIndex)\n")
+            self.list_for_defineparameters.append("  {\n")
+            self.list_for_defineparameters.append("    parameters.push_back(ParameterModeler(std::get<0>(parameterModelerArray[parameterModelerIndex]), std::get<1>(parameterModelerArray[parameterModelerIndex]), std::get<2>(parameterModelerArray[parameterModelerIndex])));\n")
+            self.list_for_defineparameters.append("  }\n")
 
     ##
     # returns the lines that constitues the body of defineParameters
@@ -3171,9 +3188,13 @@ class Factory:
     # @return
     def prepare_for_defelem(self):
 
-        motif1 = "  elements.push_back(Element(\"%s\",\"%s\",Element::%s));\n"
-        motif2 = "  mapElement[\"%s\"] = %d;\n"
-
+        push_back_threshold = 8
+        if len(self.list_elements) >= push_back_threshold:
+            self.list_for_defelem.append("  using ElementTuple = std::tuple<std::string, std::string, DYN::Element::typeElement>;\n")
+            self.list_for_defelem.append("  std::array<ElementTuple, " + str(len(self.list_elements)) + "> elementArray1 = {\n")
+            motif1 = "    std::make_tuple(\"%s\", \"%s\", Element::%s),\n"
+        else:
+            motif1 = "  elements.push_back(Element(\"%s\",\"%s\",Element::%s));\n"
 
         # # First part of defineElements (...)
         for elt in self.list_elements :
@@ -3186,6 +3207,13 @@ class Factory:
                 line = motif1 % ( to_compile_name(elt_short_name), to_compile_name(elt_name), "STRUCTURE" )
             self.list_for_defelem.append(line)
 
+        if len(self.list_elements) >= push_back_threshold:
+            self.list_for_defelem.append("  };\n")
+
+            self.list_for_defelem.append("  for (size_t elementsIndex1 = 0; elementsIndex1 < elementArray1.size(); ++elementsIndex1)\n")
+            self.list_for_defelem.append("  {\n")
+            self.list_for_defelem.append("    elements.push_back(Element(std::get<0>(elementArray1[elementsIndex1]), std::get<1>(elementArray1[elementsIndex1]), std::get<2>(elementArray1[elementsIndex1])));\n")
+            self.list_for_defelem.append("  }\n")
 
         self.list_for_defelem.append("\n") # Empty line
 
@@ -3195,6 +3223,12 @@ class Factory:
 
         self.list_for_defelem.append("\n") # Empty line
 
+        if len(self.list_elements) >= push_back_threshold:
+            self.list_for_defelem.append("  std::array<std::pair<std::string, int>, " + str(len(self.list_elements)) + "> mapElementArray = {\n")
+            motif2 = "    std::make_pair(\"%s\", %s),\n"
+        else:
+            motif2 = "  mapElement[\"%s\"] = %d;\n"
+
         # Third part of defineElements (...)
         for elt in self.list_elements :
             elt_name = elt.get_element_name()
@@ -3202,6 +3236,14 @@ class Factory:
             # The structure itself
             line = motif2 % (to_compile_name(elt_name), elt_index)
             self.list_for_defelem.append(line)
+
+        if len(self.list_elements) >= push_back_threshold:
+            self.list_for_defelem.append("  };\n")
+
+            self.list_for_defelem.append("  for (size_t mapElementIndex = 0; mapElementIndex < mapElementArray.size(); ++mapElementIndex)\n")
+            self.list_for_defelem.append("  {\n")
+            self.list_for_defelem.append("    mapElement[mapElementArray[mapElementIndex].first] = mapElementArray[mapElementIndex].second;\n")
+            self.list_for_defelem.append("  }\n")
 
 
     ##
