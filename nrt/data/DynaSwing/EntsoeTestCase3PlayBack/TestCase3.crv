@@ -17,5 +17,4 @@
   <curve model="SynchronousGenerator" variable="generator_PGenPu"/>
   <curve model="SynchronousGenerator" variable="generator_QGenPu"/>
   <curve model="SynchronousGenerator" variable="generator_omegaPu"/>
-  <curve model="SynchronousGenerator" variable="pss_UpssPu"/>
 </curvesInput>

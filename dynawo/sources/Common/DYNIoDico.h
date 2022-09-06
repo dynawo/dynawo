@@ -23,11 +23,45 @@
 
 #include <map>
 #include <vector>
+#include <unordered_set>
+#include <unordered_map>
 #include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
 
 
 namespace DYN {
+
+/**
+ * @class OppositeEventDico
+ * @brief OppositeEventDico class description
+ */
+class OppositeEventDico {
+ public:
+  /**
+   * @brief Constructor
+   *
+   * @param name name of the oppositeEventDico
+   */
+  explicit OppositeEventDico(const std::string& name);
+
+  /**
+   * @brief reads a file and extracts all pairs of <key,opposite keys>
+   *
+   * @param fileName  the full path name of the file to read
+   */
+  void readFile(const std::string &fileName);
+
+  /**
+   * @brief opposite event dictionary getter
+   *
+   * @return opposite event dictionary
+   */
+  const std::unordered_map<std::string, std::unordered_set<std::string>>& getOppositeEvents() const;
+
+ private:
+  std::unordered_map<std::string, std::unordered_set<std::string>> map_;  ///< map association between key and set of opposite keys
+  std::string name_;  ///< name of the dictionary
+};
 
 /**
  * @class IoDico
@@ -75,8 +109,8 @@ class IoDico {
   void readFile(const std::string &fileName);
 
  private:
-  std::map<std::string, std::string> map_;  ///< map association bewteen key and message description
-  std::string name_;  ///< name of the dictionnary
+  std::map<std::string, std::string> map_;  ///< map association between key and message description
+  std::string name_;  ///< name of the dictionary
 };
 
 /**
@@ -115,11 +149,27 @@ class IoDicos : public boost::noncopyable {
   static boost::shared_ptr<IoDico> getIoDico(const std::string & dicoName);
 
   /**
+   * @brief try to find a opposite event dictionary with the name @b dicoName
+   *
+   * @param dicoName name of the dictionary to return
+   *
+   * @return return the opposite event dictionary with the desired name
+   */
+  static boost::shared_ptr<OppositeEventDico> getOppositeEventsDico(const std::string & dicoName);
+
+  /**
    * @brief check if a dictionary exist thanks to its name
    * @param dicoName name of the dictionary to find
    * @return @b true if the dictionary exists, @b false else
    */
   static bool hasIoDico(const std::string & dicoName);
+
+  /**
+   * @brief check if a opposite event dictionary exist thanks to its name
+   * @param dicoName name of the dictionary to find
+   * @return @b true if the opposite event dictionary exists, @b false else
+   */
+  static bool hasOppositeEventsDico(const std::string & dicoName);
 
   /**
    * @brief Initialize the IoDicos single instance if there is no instance, otherwise return the instance
@@ -134,6 +184,13 @@ class IoDicos : public boost::noncopyable {
    * @param path path to add
    */
   void addPath(const std::string & path);
+
+  /**
+   * @brief merge all the opposite dictionaries into a single ddb
+   *
+   * @return associations between an event key and a set of keys that are opposed to it
+   */
+  std::unordered_map<std::string, std::unordered_set<std::string>> mergeOppositeEventsDicos() const;
 
  private:
   /**
@@ -153,6 +210,7 @@ class IoDicos : public boost::noncopyable {
  private:
   std::vector<std::string> paths_;  ///< path where dictionnaries are researched
   std::map<std::string, boost::shared_ptr<IoDico> > dicos_;  ///< map association between dictionary and their name
+  std::map<std::string, boost::shared_ptr<OppositeEventDico> > oppositeEventsDicos_;  ///< map association between dictionary and their name
 };
 
 }  // namespace DYN

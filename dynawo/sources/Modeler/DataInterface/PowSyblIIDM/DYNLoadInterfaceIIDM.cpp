@@ -70,12 +70,12 @@ LoadInterfaceIIDM::exportStateVariablesUnitComponent() {
       getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(loadIIDM_.getTerminal().getNodeBreakerView().getNode()));
     else if (!connected && getInitialConnected())
       getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(loadIIDM_.getTerminal().getNodeBreakerView().getNode()));
+  } else {
+    if (connected)
+      loadIIDM_.getTerminal().connect();
+    else
+      loadIIDM_.getTerminal().disconnect();
   }
-
-  if (connected)
-    loadIIDM_.getTerminal().connect();
-  else
-    loadIIDM_.getTerminal().disconnect();
 }
 
 void
