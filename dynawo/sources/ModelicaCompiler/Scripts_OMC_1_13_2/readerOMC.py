@@ -1850,6 +1850,10 @@ class ReaderOMC:
             #derivative variables should be kept in f
             if name_var_eval is not None and "der("+name_var_eval+")" in get_map_var_name_2_addresses():
                 is_eligible = False
+            #constant variables shouldn't become calculated variables
+            base_var = self.find_variable_from_name(name_var_eval)
+            if base_var is not None and base_var.is_fixed():
+                is_eligible = False
             for line in f.get_body():
                 if "STATE_DER" in line or "DUMMY_DER" in line:
                     # equations with derivatives should be kept in F
