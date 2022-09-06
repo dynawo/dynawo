@@ -107,8 +107,8 @@ Timeline::filter(const unordered_map<string, unordered_set<string>>& oppositeEve
   }
 
   // Remove opposed events
-  for (const auto& it : timeToEventIndexes) {
-    const auto& events = it.second;
+  for (const auto& itEvent : timeToEventIndexes) {
+    const auto& events = itEvent.second;
     size_t indexToCheck = 1;
     while (indexToCheck <= events.size() - 1) {
       if (indexesToRemove.find(events[events.size() - indexToCheck]) != indexesToRemove.end()) {
