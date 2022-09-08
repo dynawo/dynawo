@@ -114,12 +114,12 @@ job_file = os.path.join(os.path.dirname(__file__), "HvdcDangling", "HvdcDangling
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
-########################################################
-#  Small System with generators with tfo               #
-########################################################
+#######################################################################################
+#  Small System with generators with tfo and a secondary voltage control              #
+#######################################################################################
 
-case_name = "DynaFlow - Generator PV with transformer"
-case_description = "Small System with generators with transformers"
+case_name = "DynaFlow - Generator PV with transformer and a secondary voltage control"
+case_description = "Small System with generators with transformers and a secondary voltage control"
 job_file = os.path.join(os.path.dirname(__file__), "GeneratorPVTfo", "GeneratorPVTfo.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
