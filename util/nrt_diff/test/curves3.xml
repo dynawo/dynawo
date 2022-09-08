@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<curvesOutput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="AVOI5P7_1.1_U_value">
+    <point time="0.00000" value="405.77907"/>
+    <point time="1.00000" value="405.86590"/>
+    <point time="2.00000" value="405.89333"/>
+    <point time="3.00000" value="405.91271"/>
+    <point time="4.00000" value="405.92224"/>
+    <point time="5.00000" value="405.92475"/>
+    <point time="6.00000" value="405.92476"/>
+    <point time="7.00000" value="405.92482"/>
+    <point time="8.00000" value="405.92463"/>
+    <point time="9.00000" value="405.92419"/>
+    <point time="10.00000" value="405.92379"/>
+  </curve>
+  <curve model="NETWORK" variable="BELLAP41_U_value">
+    <point time="0.00000" value="98.26482"/>
+    <point time="1.00000" value="98.27864"/>
+    <point time="2.00000" value="98.28248"/>
+    <point time="3.00000" value="98.28381"/>
+    <point time="4.00000" value="98.28322"/>
+    <point time="5.00000" value="98.28123"/>
+    <point time="6.00000" value="98.27937"/>
+    <point time="7.00000" value="98.27877"/>
+    <point time="8.00000" value="98.27900"/>
+    <point time="9.00000" value="98.27945"/>
+    <point time="10.00000" value="98.28010"/>
+  </curve>
+</curvesOutput>

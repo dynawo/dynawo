@@ -1098,7 +1098,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDefineInstantiate) {
 
   std::vector<ParameterModeler> parameters;
   t2w->defineNonGenericParameters(parameters);
-  ASSERT_EQ(parameters.size(), 0);
+  ASSERT_EQ(parameters.size(), 4);
   boost::unordered_map<std::string, ParameterModeler> parametersModels;
 
   {
