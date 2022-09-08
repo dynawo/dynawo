@@ -42,12 +42,12 @@ TEST(APITLTest, TimelineExporters) {
   boost::optional<int> priority2 = 5;
   boost::optional<int> priorityNone = boost::none;
   // add events to timeline (random order)
-  timeline->addEvent(10, "model1", "event1 at 10s", priorityNone);
-  timeline->addEvent(10, "model1", "event2 at 10s", priority2);
-  timeline->addEvent(10, "model1", "event2 at 10s", priority2);
-  timeline->addEvent(10, "model2", "event1 at 10s", priorityNone);
-  timeline->addEvent(20, "model2", "event2 at 20s", priority1);
-  timeline->addEvent(30, "model2", "event3 at 30s", priorityNone);
+  timeline->addEvent(10, "model1", "event1 at 10s", priorityNone, "");
+  timeline->addEvent(10, "model1", "event2 at 10s", priority2, "");
+  timeline->addEvent(10, "model1", "event2 at 10s", priority2, "");
+  timeline->addEvent(10, "model2", "event1 at 10s", priorityNone, "");
+  timeline->addEvent(20, "model2", "event2 at 20s", priority1, "");
+  timeline->addEvent(30, "model2", "event3 at 30s", priorityNone, "");
 
   // export the timeline in xml format
   XmlExporter exporterXML;

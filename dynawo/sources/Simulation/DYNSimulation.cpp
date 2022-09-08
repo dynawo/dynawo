@@ -117,6 +117,7 @@
 #include "DYNDataInterfaceFactory.h"
 #include "DYNExecUtils.h"
 #include "DYNSignalHandler.h"
+#include "DYNIoDico.h"
 #include "DYNBitMask.h"
 
 using std::ofstream;
@@ -170,6 +171,7 @@ exportTimelineMode_(EXPORT_TIMELINE_NONE),
 exportTimelineWithTime_(true),
 exportTimelineMaxPriority_(boost::none),
 timelineOutputFile_(""),
+filterTimeline_(false),
 exportConstraintsMode_(EXPORT_CONSTRAINTS_NONE),
 constraintsOutputFile_(""),
 exportLostEquipmentsMode_(EXPORT_LOSTEQUIPMENTS_NONE),
@@ -228,14 +230,9 @@ Simulation::configureSimulationInputs() {
 
   if (jobEntry_->getModelerEntry()->getNetworkEntry()) {
     iidmFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getNetworkEntry()->getIidmFile(), context_->getInputDirectory());
+
     if (!data_ && !exists(iidmFile_))  // no need to check iidm file if data interface is provided
       throw DYNError(Error::GENERAL, UnknownIidmFile, iidmFile_);
-
-    networkParFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile(), context_->getInputDirectory());
-    if (!exists(networkParFile_))
-      throw DYNError(Error::GENERAL, UnknownParFile, networkParFile_);
-    networkParFile_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile();
-    networkParSet_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParId();
   }
   if (jobEntry_->getModelerEntry()->getInitialStateEntry()) {
     initialStateFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getInitialStateEntry()->getInitialStateFile(), context_->getInputDirectory());
@@ -348,6 +345,7 @@ Simulation::configureTimelineOutputs() {
     setTimelineExportMode(exportModeFlag);
     exportTimelineWithTime_ = jobEntry_->getOutputsEntry()->getTimelineEntry()->getExportWithTime();
     exportTimelineMaxPriority_ = jobEntry_->getOutputsEntry()->getTimelineEntry()->getMaxPriority();
+    filterTimeline_ = jobEntry_->getOutputsEntry()->getTimelineEntry()->isFilter();
     setTimelineOutputFile(outputFile);
   } else {
     setTimelineExportMode(Simulation::EXPORT_TIMELINE_NONE);
@@ -602,6 +600,16 @@ Simulation::loadDynamicData() {
 
   dyd_->initFromDydFiles(dydFiles_);
   data_->mapConnections();
+
+  if (data_->instantiateNetwork()) {
+    networkParFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile(), context_->getInputDirectory());
+    if (!exists(networkParFile_)) {
+      throw DYNError(Error::GENERAL, UnknownParFile, networkParFile_);
+    } else {
+      networkParFile_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile();
+      networkParSet_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParId();
+    }
+  }
 
   // the Network parameter file path is considered to be relative to the jobs file directory
   dyd_->getNetworkParameters(networkParFile_, networkParSet_);
@@ -1121,7 +1129,7 @@ void
 Simulation::addEvent(const MessageTimeline& messageTimeline) {
   if (timeline_) {
     const string name = "Simulation";
-    timeline_->addEvent(getCurrentTime(), name, messageTimeline.str(), messageTimeline.priority());
+    timeline_->addEvent(getCurrentTime(), name, messageTimeline.str(), messageTimeline.priority(), messageTimeline.getKey());
   }
 }
 
@@ -1277,6 +1285,11 @@ void Simulation::printFinalStateValues(std::ostream& stream) const {
 
 void
 Simulation::printTimeline(std::ostream& stream) const {
+  if (filterTimeline_) {
+    DYN::IoDicos& dicos = DYN::IoDicos::instance();
+    const auto& oeDico = dicos.mergeOppositeEventsDicos();
+    timeline_->filter(oeDico);
+  }
   switch (exportTimelineMode_) {
     case EXPORT_TIMELINE_NONE:
       break;

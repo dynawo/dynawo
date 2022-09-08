@@ -23,7 +23,6 @@ set(DYNAWO_DICTIONARIES
 
 set(DYNAWO_DICTIONARIES_MAPPING
   Dictionaries/dictionaries_mapping.dic
-  DYNTimeline_en_GB_oppositeEvents.py
   Dictionaries/DYNTimeline_oppositeEvents.dic
   )
 
