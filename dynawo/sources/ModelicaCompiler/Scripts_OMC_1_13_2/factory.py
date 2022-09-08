@@ -2328,10 +2328,12 @@ class Factory:
         if len(called_func) > 0:
             # filter whatever is assigned in this line
             line_split_by_equal = line.split('=')
-            assert(len(line_split_by_equal) >= 2)
-            call_line = line_split_by_equal[0] + " = "
-            func_call_line = line_split_by_equal[1]
-
+            if(len(line_split_by_equal) >= 2):
+                call_line = line_split_by_equal[0] + " = "
+                func_call_line = line_split_by_equal[1]
+            else:
+                call_line = ""
+                func_call_line = line_split_by_equal[0]
             # Split this line at each function call ('(') and parameter (',')
             line_split_by_parenthesis = re.split('(\()', func_call_line)
             line_split = []
