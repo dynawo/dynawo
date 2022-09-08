@@ -15,6 +15,8 @@ set(MODEL_FILES
   package.mo
   package.order
   BaseClasses.mo
+  SecondaryVoltageControlSimp.mo
+  SecondaryVoltageControlSimp.extvar
   TapChangerBlocking1.mo
   TapChangerBlocking1.extvar
   TapChangerBlocking2.mo

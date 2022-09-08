@@ -31,6 +31,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorPVSignalN.xml
   GeneratorPVTfoSignalN.xml
   GeneratorPVTfoDiagramPQSignalN.xml
+  GeneratorPVTfoRpclSignalN.xml
+  GeneratorPVTfoDiagramPQRpclSignalN.xml
   GeneratorPVDiagramPQSignalN.xml
   GeneratorPVPropSignalN.xml
   GeneratorPVRemoteSignalN.xml
@@ -109,6 +111,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   ShuntBWithSections.xml
+  SecondaryVoltageControlSimp.xml
   SetPoint.xml
   ShuntB.xml
   SignalN.xml

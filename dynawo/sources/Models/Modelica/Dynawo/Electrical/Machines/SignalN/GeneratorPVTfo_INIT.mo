@@ -20,22 +20,27 @@ model GeneratorPVTfo_INIT "Initialisation model for generator PV based on Signal
   extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
 
-  parameter Types.ActivePowerPu PMin "Minimum active power in MW";
-  parameter Types.ActivePowerPu PMax "Maximum active power in MW";
-  parameter Types.ReactivePowerPu QMin "Minimum reactive power in Mvar";
-  parameter Types.ReactivePowerPu QMax "Maximum reactive power in Mvar";
+  parameter Types.ActivePower PMin "Minimum active power in MW (generator convention)";
+  parameter Types.ActivePower PMax "Maximum active power in MW (generator convention)";
+  parameter Types.ReactivePower QMin "Minimum reactive power in Mvar (generator convention)";
+  parameter Types.ReactivePower QMax "Maximum reactive power in Mvar (generator convention)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power of the generator in MVA";
+  parameter Types.ReactivePower QNomAlt "Nominal reactive power of the generator in Mvar";
   parameter Types.PerUnit RTfoPu "Resistance of the generator transformer in pu (base UNomHV, SNom)";
   parameter Types.PerUnit XTfoPu "Reactance of the generator transformer in pu (base UNomHV, SNom)";
   parameter Types.PerUnit rTfoPu "Ratio of the generator transformer in pu (base UBaseHV, UBaseLV)";
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point at terminal in pu (base UNom)";
 
-  Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
-  Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
-  Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef)";
-  Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef)";
+  Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef) (generator convention)";
+  Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef (generator convention))";
+  Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SnRef) (generator convention)";
   Types.VoltageModulePu UStatorRef0Pu "Start value of voltage regulation set point at stator in pu (base UNom)";
   Types.VoltageModulePu UStator0Pu "Start value of voltage module at stator in pu (base UNom)";
+  Types.ComplexVoltagePu uStator0Pu "Start value of complex voltage at stator in pu (base UNom)";
+  Types.ComplexCurrentPu iStator0Pu "Start value of complex current at stator in pu (base UNom, SNom) (generator convention)";
+  Types.ComplexApparentPowerPu sStator0Pu "Start value of complex apparent power at stator in pu (base UNom, SNom) (generator convention)";
+  Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
 
 protected
   Types.ComplexVoltagePu uRef0Pu "Start value of complex voltage reference at terminal in pu (base UNom)";
@@ -52,6 +57,11 @@ equation
 
   UStator0Pu = ComplexMath.'abs'(1 / rTfoPu * (u0Pu - i0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom));
   UStatorRef0Pu = ComplexMath.'abs'(1 / rTfoPu * (uRef0Pu - iRef0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom));
+
+  uStator0Pu = 1 / rTfoPu * (u0Pu - i0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
+  iStator0Pu = - i0Pu * SystemBase.SnRef / SNom;
+  sStator0Pu = uStator0Pu * ComplexMath.conj(iStator0Pu);
+  QStator0Pu = sStator0Pu.im * SNom / QNomAlt;
 
   annotation(preferredView = "text");
 end GeneratorPVTfo_INIT;
