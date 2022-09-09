@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNNetworkComponent.h File Reference</title>
+<title>Dynawo: DYNModelTwoWindingsTransformer.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,29 +97,29 @@ $(document).ready(function(){initNavTree('d3/de5/a00956.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNNetworkComponent.h File Reference</div>  </div>
+<div class="title">DYNModelTwoWindingsTransformer.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;boost/unordered_map.hpp&gt;</code><br />
-<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../dd/d63/a00455_source.html">DYNEnumUtils.h</a>&quot;</code><br />
-<code>#include &quot;DYNBitMask.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d0/d3e/a00566_source.html">DYNModelConstants.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d8/dc8/a00581_source.html">DYNParameterModeler.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../db/d40/a00959_source.html">DYNNetworkComponent.hpp</a>&quot;</code><br />
+
+<p>Model used for two windings transformer : header file.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../df/d88/a00962_source.html">DYNNetworkComponent.h</a>&quot;</code><br />
 </div>
 <p><a href="../../d3/de5/a00956_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d07/a03233.html">DYN::NetworkComponent</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">class network component  <a href="../../dd/d07/a03233.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d5f/a03239.html">DYN::ModelTwoWindingsTransformer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../db/d5f/a03239.html" title="ModelTwoWindingsTransformer class. ">ModelTwoWindingsTransformer</a> class.  <a href="../../db/d5f/a03239.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Model used for two windings transformer : header file. </p>
+<p>The equivalent π model used is:</p>
+<p>1 2 o--&mdash;ρejα--&mdash;+--&mdash;r+jx--&mdash;o | g+jb | v</p>
+<p>b, g, r, x shall be specified at the side 2 voltage. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -135,8 +135,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a4d4f000bd99afbf77ec024c15aebee1.html">Models</a></li><li class="navelem"><a class="el" href="../../dir_1d85a110c1104c8803c230870bb3238d.html">CPP</a></li><li class="navelem"><a class="el" href="../../dir_3973929b854910cd78a606b051bb30eb.html">ModelNetwork</a></li><li class="navelem"><a class="el" href="../../d3/de5/a00956.html">DYNNetworkComponent.h</a></li>
-    <li class="footer">Generated on Thu Sep 8 2022 10:53:02 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_a4d4f000bd99afbf77ec024c15aebee1.html">Models</a></li><li class="navelem"><a class="el" href="../../dir_1d85a110c1104c8803c230870bb3238d.html">CPP</a></li><li class="navelem"><a class="el" href="../../dir_3973929b854910cd78a606b051bb30eb.html">ModelNetwork</a></li><li class="navelem"><a class="el" href="../../d3/de5/a00956.html">DYNModelTwoWindingsTransformer.h</a></li>
+    <li class="footer">Generated on Fri Sep 9 2022 12:59:30 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
