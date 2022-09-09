@@ -79,6 +79,7 @@ def is_when_condition(var_name):
 def is_adept_func(func, list_adept_structs):
     if "omc_Modelica_Blocks_Tables_Internal_getTable" in func.get_name(): return False
     if "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" in func.get_name(): return False
+    if "array_alloc_scalar_real_array" in func.get_name(): return False
     if "delay" in func.get_name(): return False # Delay shall not use adept
     if func.get_return_type() == "modelica_real" : return True
     if func.get_return_type() in list_adept_structs: return True
@@ -521,7 +522,7 @@ class Transpose:
     # @param residual_vars_map : residual vars
     def __init__(self, auxiliary_vars_map = None, residual_vars_map = None):
         ## pattern to intercept var name in expression
-        self.ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*[ ]*\*\/')
+        self.ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]*\*\/')
         ## map associating var name to var value
         self.map = {}
         ## expressions where var name should be replaced
@@ -554,7 +555,7 @@ class Transpose:
                 if 'derivativesVars' not in name:
                     continue
                 # If the var "name" is in the map, we replace it by its other expression (xd[...])
-                ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\]]*\*\/')
+                ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
                 match = ptrn_real_var.search(name)
                 if match is not None:
                     if "= modelica_real_to_modelica_string(" in line_tmp:
@@ -565,7 +566,7 @@ class Transpose:
                 if 'derivativesVars' in name:
                     continue
                 # If the var "name" is in the map, we replace it by its other expression (x[...])
-                ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\]]*\*\/')
+                ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
                 match = ptrn_real_var.search(name)
                 if match is not None:
                     if "= modelica_real_to_modelica_string(" in line_tmp:
@@ -579,6 +580,8 @@ class Transpose:
                     line_tmp = line_tmp.replace("(modelica_boolean)"+name, "(modelica_boolean)( ("+name+">0)? 1: 0 )")
             for name in self.residual_vars_map:
                 line_tmp = line_tmp.replace("$P"+name, name)
+            assert ("derivativesVars[" not in line_tmp)
+            assert ("realVars[" not in line_tmp)
             tmp_txt_list.append(line_tmp)
         return tmp_txt_list
 

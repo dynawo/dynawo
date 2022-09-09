@@ -58,7 +58,6 @@ add_custom_target(${MODULE_NAME}-tests
     "DYNAWO_BOOST_HOME=${BOOST_ROOT}"
     "DYNAWO_LIBXML_HOME=${LIBXML_HOME}"
     "DYNAWO_NICSLU_INSTALL_DIR=${NICSLU_HOME}"
-    "DYNAWO_DICTIONARIES=dictionaries_mapping"
     $<TARGET_FILE:${MODULE_NAME}>
   DEPENDS
     ${MODULE_NAME}-pre-tests
