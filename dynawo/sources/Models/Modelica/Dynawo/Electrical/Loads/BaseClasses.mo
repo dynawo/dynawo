@@ -32,6 +32,10 @@ package BaseClasses
       Placement(visible = true, transformation(origin = {-50, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-61, -85}, extent = {{-15, -15}, {15, 15}}, rotation = 90)));
     Modelica.Blocks.Interfaces.RealInput QRefPu(start = s0Pu.im) "Reactive power request" annotation(
       Placement(visible = true, transformation(origin = {50, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {60, -84}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
+    Modelica.Blocks.Interfaces.RealInput deltaP(start = 0) "Delta to apply on PRef in %" annotation(
+      Placement(visible = true, transformation(origin = {-75, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-61, -85}, extent = {{-15, -15}, {15, 15}}, rotation = 90)));
+    Modelica.Blocks.Interfaces.RealInput deltaQ(start = 0) "Delta to apply on QRef in %" annotation(
+      Placement(visible = true, transformation(origin = {75, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {60, -84}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
 
     Connectors.ImPin UPu(value(start = ComplexMath.'abs'(u0Pu))) "Voltage amplitude at load terminal in pu (base UNom)";
     Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at load terminal in pu (base SnRef) (receptor convention)";
