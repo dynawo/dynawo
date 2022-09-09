@@ -172,7 +172,7 @@ LoadInterfaceIIDM::getPUnderVoltage() {
 
 bool
 LoadInterfaceIIDM::isFictitious() {
-  return loadIIDM_.isFictitious();
+  return (loadIIDM_.isFictitious() || loadIIDM_.getLoadType() == powsybl::iidm::LoadType::FICTITIOUS);
 }
 
 }  // namespace DYN
