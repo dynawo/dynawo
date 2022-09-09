@@ -489,6 +489,9 @@ def main():
     options[('-p', '--pattern')] = {'dest': 'directory_patterns', 'action' : 'append',
                                     'help': 'regular expression filter to only run some non-regression tests'}
 
+    options[('-f', '--failed')] = { 'action' : 'store_true', 'dest': 'failed', 'default':'False',
+                                    'help': 'Only run failed non-regression tests'}
+
     parser = OptionParser(usage)
     for param, option in options.items():
         parser.add_option(*param, **option)
@@ -530,6 +533,31 @@ def main():
             log_message += " '" + pattern + "'"
 
         log_message += " pattern filter"
+
+    directory_failed = []
+    if (options.failed == True):
+        FAILED_NRT_RESULT_FILE = os.path.join(output_dir, "nrt_nok_names.txt")
+        if (os.path.isfile(FAILED_NRT_RESULT_FILE)):
+            failedTestsFile = open(FAILED_NRT_RESULT_FILE, "r")
+            while(True):
+                failedName = failedTestsFile.readline()
+                directory_failed.append(failedName.strip())
+                if not failedName:
+                    break
+            failedTestsFile.close()
+        print(directory_failed)
+
+        if (len(directory_failed) > 0):
+            if (options.timeout is not None and options.timeout > 0) or with_directory_name or ((options.directory_patterns is not None) and  (len(options.directory_patterns) > 0)):
+                log_message += " and"
+            else:
+                log_message += " with "
+
+            for failed_name in directory_failed:
+                log_message +=  failed_name
+            log_message += " failed tests filter"
+        else :
+            log_message += " no failed tests"
 
     print (log_message)
 
@@ -582,6 +610,17 @@ def main():
                                 keep_job = False
                                 break
 
+                    if keep_job and (len(directory_failed) > 0):
+                        for failed in directory_failed:
+                            print(job_file)
+                            print(failed)
+                            if (str(failed) is str(job_file)):
+                                print('toto')
+                                keep_job = True
+                                break
+                            else:
+                                keep_job = False
+
                     if keep_job :
                         case = "case_" + str(numCase)
                         numCase += 1
@@ -600,12 +639,23 @@ def main():
     try:
         # remove the diff notification file
         NRT_RESULT_FILE = os.path.join(output_dir, "nrt_nok.txt")
+        FAILED_NRT_RESULT_FILE = os.path.join(output_dir, "nrt_nok_names.txt")
         if (os.path.isfile(NRT_RESULT_FILE)):
             try:
                 os.remove (NRT_RESULT_FILE)
             except:
                 print("Failed to remove notification file. Unable to conduct nrt")
                 sys.exit(1)
+        # remove the failed nrt file
+        if (os.path.isfile(FAILED_NRT_RESULT_FILE)):
+            try:
+                os.remove (FAILED_NRT_RESULT_FILE)
+            except:
+                print("Failed to remove failed nrt file. Unable to conduct nrt")
+                sys.exit(1)
+        # write nok test cases into txt file
+        failedTestFile = open(FAILED_NRT_RESULT_FILE, "w")
+
         start_time = time.time()
         NRT.launchCases()
         end_time = time.time()
@@ -621,6 +671,7 @@ def main():
         for case in NRT.test_cases_:
             if (not case.ok_):
                 case.diff_ = nrtDiff.UNABLE_TO_CHECK
+                failedTestFile.write(case.jobs_file_ + "\n")
             else:
                 case_dir = os.path.dirname (case.jobs_file_)
                 if case_dir in dir_list: continue
@@ -630,6 +681,7 @@ def main():
                 threads_list.append(thread)
                 thread.start()
                 index+=1
+        failedTestFile.close()
         #Keep the main thread alive while threads are running and catch interruptions
         try:
             while True in [t.is_alive() for t in threads_list]:
