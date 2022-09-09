@@ -1,5 +1,9 @@
 var a03247 =
 [
+    [ "startingPointMode_t", "dd/dc3/a03247.html#a946e05126d29e11cc9e4c92bd796dde4", [
+      [ "FLAT", "dd/dc3/a03247.html#a946e05126d29e11cc9e4c92bd796dde4aa53aedcbfe5e2985cde2b9e23b2034c5", null ],
+      [ "WARM", "dd/dc3/a03247.html#a946e05126d29e11cc9e4c92bd796dde4a9353241c15341bb29093a4992d185a06", null ]
+    ] ],
     [ "StateChange_t", "dd/dc3/a03247.html#ab067ace2562da72e4017d1c2cca12867", [
       [ "NO_CHANGE", "dd/dc3/a03247.html#ab067ace2562da72e4017d1c2cca12867a8d733f96e12f6fee197bf0b456fa2bbf", null ],
       [ "STATE_CHANGE", "dd/dc3/a03247.html#ab067ace2562da72e4017d1c2cca12867a5ef4288dbd5c34876b29ab5917ee7033", null ],
@@ -40,6 +44,7 @@ var a03247 =
     [ "getParameterDynamicNoThrow", "dd/dc3/a03247.html#a85791acab678215354b58b48c3298878", null ],
     [ "getParameterDynamicNoThrow", "dd/dc3/a03247.html#ace1ab1d922ee95f45342c8b123bb15c9", null ],
     [ "getParameterDynamicNoThrow", "dd/dc3/a03247.html#a0fec89c96947134f23d44ec04c0c7a28", null ],
+    [ "getStartingPointMode", "dd/dc3/a03247.html#a503825dd56806e2ecfe30d2eae5ae0c7", null ],
     [ "getY0", "dd/dc3/a03247.html#a3ce57b73422e0e5d3638ac4cd2dee572", null ],
     [ "hasParameter", "dd/dc3/a03247.html#a2867a528056ac1698dcf16d1e56be3d6", null ],
     [ "id", "dd/dc3/a03247.html#aad1476b4ce3943586fd162b8f4221ea0", null ],

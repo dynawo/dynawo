@@ -6,6 +6,7 @@ var searchData=
   ['datadyn_5f',['dataDyn_',['../dd/d41/a03079.html#ab25a5deed911ff634a5424f0ef13469f',1,'DYN::ModelManager']]],
   ['datainit_5f',['dataInit_',['../dd/d41/a03079.html#a24793c85bca14a3c57415bef1f34f451',1,'DYN::ModelManager']]],
   ['datainterface_5f',['dataInterface_',['../d8/d01/a02675.html#ade237caf4effcf62000ffbd4bff10c4a',1,'DYN::DynamicData::dataInterface_()'],['../d1/d24/a02975.html#aebea6aa4aed93becafdd1ea71480a822',1,'DYN::ServiceManagerInterfaceIIDM::dataInterface_()']]],
+  ['dcline_5f',['dcLine_',['../d7/d49/a03187.html#afe1492571bcfc0fe3b63f65520bd876a',1,'DYN::ModelHvdcLink']]],
   ['deadbandsupu_5f',['deadBandsUPu_',['../df/d9e/a03111.html#a975818c5bccf4e82fc783583db4fc25b',1,'DYN::ModelCentralizedShuntsSectionControl']]],
   ['defaultangle0',['defaultAngle0',['../d4/d2a/a00632.html#a92e9a06ef39b4a36dd624a260c60c572',1,'DYN']]],
   ['defaultlevel_5f',['defaultLevel_',['../da/dfd/a02619.html#a375085fe7a8227699b8adf965404e365',1,'DYN::Trace']]],

@@ -38,7 +38,7 @@ var searchData=
   ['builddefaultextensiondefinition',['buildDefaultExtensionDefinition',['../d1/de6/a03043.html#aa69dc65d44dbc4738659f3cd0f0d5b86',1,'DYN::IIDMExtensions']]],
   ['buildgraph',['buildGraph',['../d1/d24/a02975.html#a004c7058956976e90ad87f48bdc93aba',1,'DYN::ServiceManagerInterfaceIIDM']]],
   ['bus',['bus',['../d2/d94/a03167.html#a669834f45699089c9f61b09970e9f39b',1,'DYN::SubNetwork::bus()'],['../d0/dbd/a02771.html#a8089dfd2e85bdc3fc21030715c846872a58910706220db3aa26ef83cc7e8a26c4',1,'DYN::ComponentInterface::BUS()']]],
-  ['bus_5f',['bus_',['../d2/d94/a03167.html#a3987793f3efc8dc10dabeb00d25d3c02',1,'DYN::SubNetwork']]],
+  ['bus_5f',['bus_',['../d0/da2/a03163.html#a1ece8054b75ef30f24e09c36e4840dbe',1,'DYN::ModelBus::bus_()'],['../d2/d94/a03167.html#a3987793f3efc8dc10dabeb00d25d3c02',1,'DYN::SubNetwork::bus_()']]],
   ['busabovevoltage',['BusAboveVoltage',['../d4/d70/a02579.html#a963225344a251150ba0ad6d5264f567fac7f0aff95bbb9f11c135b42abdbe870b',1,'DYN::KeyLog_t']]],
   ['busbarsectionidentifiers_5f',['busBarSectionIdentifiers_',['../d0/da2/a03163.html#a12c662e5fccb1b81ead255da6a31ff8c',1,'DYN::ModelBus']]],
   ['busbarsectioninterface',['BusBarSectionInterface',['../d5/d4d/a02763.html',1,'DYN']]],

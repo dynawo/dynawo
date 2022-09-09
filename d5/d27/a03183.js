@@ -52,10 +52,12 @@ var a03183 =
     [ "setModelBus", "d5/d27/a03183.html#acfee2255676bd9f324a5817daec991a9", null ],
     [ "setSubModelParameters", "d5/d27/a03183.html#afbe562fd3915ba4e4a256b91c6923f89", null ],
     [ "connectionState_", "d5/d27/a03183.html#a3c4d5ea30a09fc68f4399af1a3d3a28a", null ],
+    [ "generator_", "d5/d27/a03183.html#ad73c466ab6c40696b89682e0fe513c51", null ],
     [ "ii0_", "d5/d27/a03183.html#a3594d64b815109a6d0bca8663b4ef078", null ],
     [ "ir0_", "d5/d27/a03183.html#a1104f5563a7e4f9acf0d081faadaa6b6", null ],
     [ "modelBus_", "d5/d27/a03183.html#a7a7617c31c6c89d922cabb1cd62829cf", null ],
     [ "Pc_", "d5/d27/a03183.html#aeb2e2ac2ba4c21413f5c61e8238f6743", null ],
     [ "Qc_", "d5/d27/a03183.html#ad5dcc4ab33d916959224fdd935006fa9", null ],
+    [ "startingPointMode_", "d5/d27/a03183.html#aa45dcc2f71f5417e146f3aab8246c8b9", null ],
     [ "stateModified_", "d5/d27/a03183.html#aad0f68ac74bfb5a30987e7aab640c524", null ]
 ];

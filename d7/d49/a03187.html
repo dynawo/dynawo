@@ -145,6 +145,11 @@ Public Types</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ab067ace2562da72e4017d1c2cca12867"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Base class for network component models  <a href="../../dd/dc3/a03247.html#ab067ace2562da72e4017d1c2cca12867">More...</a><br /></td></tr>
 <tr class="separator:ab067ace2562da72e4017d1c2cca12867 inherit pub_types_a03247"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a946e05126d29e11cc9e4c92bd796dde4 inherit pub_types_a03247"><td class="memItemLeft" align="right" valign="top"><a id="a946e05126d29e11cc9e4c92bd796dde4"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dc3/a03247.html#a946e05126d29e11cc9e4c92bd796dde4">startingPointMode_t</a> { <b>FLAT</b> = 0, 
+<b>WARM</b> = 1
+ }</td></tr>
+<tr class="memdesc:a946e05126d29e11cc9e4c92bd796dde4"><td class="mdescLeft">&#160;</td><td class="mdescRight">starting point type <br /></td></tr>
+<tr class="separator:a946e05126d29e11cc9e4c92bd796dde4 inherit pub_types_a03247"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -373,6 +378,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a0ab7cac708065126095b51d8c0e616a3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/a03187.html#a0ab7cac708065126095b51d8c0e616a3">defineParameters</a> (std::vector&lt; <a class="el" href="../../d8/d4a/a02703.html">ParameterModeler</a> &gt; &amp;parameters)</td></tr>
 <tr class="memdesc:a0ab7cac708065126095b51d8c0e616a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">define parameters  <a href="#a0ab7cac708065126095b51d8c0e616a3">More...</a><br /></td></tr>
 <tr class="separator:a0ab7cac708065126095b51d8c0e616a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_a03247"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_a03247')"><img src="../../closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="../../dd/dc3/a03247.html">DYN::NetworkComponent</a></td></tr>
+<tr class="memitem:a503825dd56806e2ecfe30d2eae5ae0c7 inherit pub_static_methods_a03247"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dd/dc3/a03247.html#a946e05126d29e11cc9e4c92bd796dde4">startingPointMode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dc3/a03247.html#a503825dd56806e2ecfe30d2eae5ae0c7">getStartingPointMode</a> (const std::string &amp;startingPointMode)</td></tr>
+<tr class="memdesc:a503825dd56806e2ecfe30d2eae5ae0c7 inherit pub_static_methods_a03247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Starting Point Mode.  <a href="../../dd/dc3/a03247.html#a503825dd56806e2ecfe30d2eae5ae0c7">More...</a><br /></td></tr>
+<tr class="separator:a503825dd56806e2ecfe30d2eae5ae0c7 inherit pub_static_methods_a03247"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -436,6 +445,10 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:afe1492571bcfc0fe3b63f65520bd876a"><td class="memItemLeft" align="right" valign="top"><a id="afe1492571bcfc0fe3b63f65520bd876a"></a>
+const boost::shared_ptr&lt; <a class="el" href="../../d0/d82/a02831.html">HvdcLineInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/a03187.html#afe1492571bcfc0fe3b63f65520bd876a">dcLine_</a></td></tr>
+<tr class="memdesc:afe1492571bcfc0fe3b63f65520bd876a"><td class="mdescLeft">&#160;</td><td class="mdescRight">reference to the hvdc line interface object <br /></td></tr>
+<tr class="separator:afe1492571bcfc0fe3b63f65520bd876a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a329d137089b41ff49ae559a9c9144305"><td class="memItemLeft" align="right" valign="top"><a id="a329d137089b41ff49ae559a9c9144305"></a>
 boost::shared_ptr&lt; <a class="el" href="../../d0/da2/a03163.html">ModelBus</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/a03187.html#a329d137089b41ff49ae559a9c9144305">modelBus1_</a></td></tr>
 <tr class="memdesc:a329d137089b41ff49ae559a9c9144305"><td class="mdescLeft">&#160;</td><td class="mdescRight">model bus at point of common coupling 1 <br /></td></tr>
@@ -512,6 +525,10 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/a03187.html#a031f6b222df21e617f4cde9f4077883a">ii02_</a></td></tr>
 <tr class="memdesc:a031f6b222df21e617f4cde9f4077883a"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial current imaginary part at point of common coupling 2 <br /></td></tr>
 <tr class="separator:a031f6b222df21e617f4cde9f4077883a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a905dcdc88587680059ed24bac1b42a59"><td class="memItemLeft" align="right" valign="top"><a id="a905dcdc88587680059ed24bac1b42a59"></a>
+<a class="el" href="../../dd/dc3/a03247.html#a946e05126d29e11cc9e4c92bd796dde4">startingPointMode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/a03187.html#a905dcdc88587680059ed24bac1b42a59">startingPointMode_</a></td></tr>
+<tr class="memdesc:a905dcdc88587680059ed24bac1b42a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of starting point for the model (FLAT,WARM) <br /></td></tr>
+<tr class="separator:a905dcdc88587680059ed24bac1b42a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -2739,7 +2756,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d7/d49/a03187.html">ModelHvdcLink</a></li>
-    <li class="footer">Generated on Fri Sep 9 2022 12:59:31 for Dynawo by
+    <li class="footer">Generated on Fri Sep 9 2022 14:49:34 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

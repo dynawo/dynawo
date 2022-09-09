@@ -20,6 +20,7 @@ var searchData=
   ['datainterfaceiidm',['DataInterfaceIIDM',['../d9/da5/a02935.html',1,'DYN::DataInterfaceIIDM'],['../d9/da5/a02935.html#a5b8a7781acc33861781ea98eeed40033',1,'DYN::DataInterfaceIIDM::DataInterfaceIIDM(const boost::shared_ptr&lt; IIDM::Network &gt; &amp;networkIIDM)'],['../d9/da5/a02935.html#a745d54f52e368c4601988c23e01f8a8c',1,'DYN::DataInterfaceIIDM::DataInterfaceIIDM(const DataInterfaceIIDM &amp;other)'],['../d9/da5/a02935.html#a50fa5d1ee23212569bb9ccbf49405f67',1,'DYN::DataInterfaceIIDM::DataInterfaceIIDM(const boost::shared_ptr&lt; powsybl::iidm::Network &gt; &amp;networkIIDM)'],['../d9/da5/a02935.html#a745d54f52e368c4601988c23e01f8a8c',1,'DYN::DataInterfaceIIDM::DataInterfaceIIDM(const DataInterfaceIIDM &amp;other)']]],
   ['datainterfaceimpl',['DataInterfaceImpl',['../df/d37/a02823.html',1,'DYN']]],
   ['datainterfacetype_5ft',['dataInterfaceType_t',['../d6/d6c/a02819.html#af267d6198a033f242b66120c84cae469',1,'DYN::DataInterfaceFactory']]],
+  ['dcline_5f',['dcLine_',['../d7/d49/a03187.html#afe1492571bcfc0fe3b63f65520bd876a',1,'DYN::ModelHvdcLink']]],
   ['dclineclosed',['DCLineClosed',['../df/d65/a02607.html#a9294fd85b78754e1a11fec544395ad51a9a79483159374b886fe734df53b0920e',1,'DYN::KeyTimeline_t']]],
   ['dclineopen',['DCLineOpen',['../df/d65/a02607.html#a9294fd85b78754e1a11fec544395ad51a821c9d4e4ebd75bbe860f2b55f3bcc60',1,'DYN::KeyTimeline_t']]],
   ['ddbdir',['DDBDir',['../d4/d70/a02579.html#a963225344a251150ba0ad6d5264f567fac2df97d5ab77a50f2fa194d5f3cf7b1c',1,'DYN::KeyLog_t']]],

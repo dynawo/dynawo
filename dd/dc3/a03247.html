@@ -97,6 +97,7 @@ $(document).ready(function(){initNavTree('dd/dc3/a03247.html','../../');});
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
@@ -139,6 +140,11 @@ Public Types</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ab067ace2562da72e4017d1c2cca12867"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Base class for network component models  <a href="../../dd/dc3/a03247.html#ab067ace2562da72e4017d1c2cca12867">More...</a><br /></td></tr>
 <tr class="separator:ab067ace2562da72e4017d1c2cca12867"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a946e05126d29e11cc9e4c92bd796dde4"><td class="memItemLeft" align="right" valign="top"><a id="a946e05126d29e11cc9e4c92bd796dde4"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dc3/a03247.html#a946e05126d29e11cc9e4c92bd796dde4">startingPointMode_t</a> { <b>FLAT</b> = 0, 
+<b>WARM</b> = 1
+ }</td></tr>
+<tr class="memdesc:a946e05126d29e11cc9e4c92bd796dde4"><td class="mdescLeft">&#160;</td><td class="mdescRight">starting point type <br /></td></tr>
+<tr class="separator:a946e05126d29e11cc9e4c92bd796dde4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -321,6 +327,12 @@ template&lt;&gt; </td></tr>
 template&lt;&gt; </td></tr>
 <tr class="memitem:ace1ab1d922ee95f45342c8b123bb15c9"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getParameterDynamicNoThrow</b> (const boost::unordered_map&lt; std::string, <a class="el" href="../../d8/d4a/a02703.html">ParameterModeler</a> &gt; &amp;, const std::string &amp;, bool &amp;, const std::vector&lt; std::string &gt; &amp;) const</td></tr>
 <tr class="separator:ace1ab1d922ee95f45342c8b123bb15c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a503825dd56806e2ecfe30d2eae5ae0c7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dd/dc3/a03247.html#a946e05126d29e11cc9e4c92bd796dde4">startingPointMode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dc3/a03247.html#a503825dd56806e2ecfe30d2eae5ae0c7">getStartingPointMode</a> (const std::string &amp;startingPointMode)</td></tr>
+<tr class="memdesc:a503825dd56806e2ecfe30d2eae5ae0c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Starting Point Mode.  <a href="#a503825dd56806e2ecfe30d2eae5ae0c7">More...</a><br /></td></tr>
+<tr class="separator:a503825dd56806e2ecfe30d2eae5ae0c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -1317,6 +1329,41 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a503825dd56806e2ecfe30d2eae5ae0c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a503825dd56806e2ecfe30d2eae5ae0c7">&#9670;&nbsp;</a></span>getStartingPointMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="../../dd/dc3/a03247.html#a946e05126d29e11cc9e4c92bd796dde4">startingPointMode_t</a> DYN::NetworkComponent::getStartingPointMode </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>startingPointMode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Starting Point Mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">startingPointMode</td><td>parameter string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the Starting Point Mode </dd></dl>
+
+</div>
+</div>
 <a id="a2867a528056ac1698dcf16d1e56be3d6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2867a528056ac1698dcf16d1e56be3d6">&#9670;&nbsp;</a></span>hasParameter()</h2>
 
@@ -2102,7 +2149,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/dc3/a03247.html">NetworkComponent</a></li>
-    <li class="footer">Generated on Fri Sep 9 2022 12:59:31 for Dynawo by
+    <li class="footer">Generated on Fri Sep 9 2022 14:49:34 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

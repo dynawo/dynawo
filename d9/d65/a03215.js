@@ -67,6 +67,8 @@ var a03215 =
     [ "maximumSection_", "d9/d65/a03215.html#a64ed5c0994faf9908c2d21d2eb52d205", null ],
     [ "modelBus_", "d9/d65/a03215.html#a136993c71ef9b21fba16d7088e32adfe", null ],
     [ "noReclosingDelay_", "d9/d65/a03215.html#a6f63253f5840748b1cf58998edd140ea", null ],
+    [ "shunt_", "d9/d65/a03215.html#acd0445be14835576fed6c42d4d4a1842", null ],
+    [ "startingPointMode_", "d9/d65/a03215.html#a2852af3045b08734adb896114d15d6d7", null ],
     [ "stateModified_", "d9/d65/a03215.html#ab35f3852520e39c5b3e8f1c5373c094c", null ],
     [ "suscepAtMaximumSec_", "d9/d65/a03215.html#a47b3e2394f0ddc49c835f5bea01be647", null ],
     [ "suscepPu_", "d9/d65/a03215.html#abd37ea24cdb60a7c6a4a9a79c662c6f8", null ],

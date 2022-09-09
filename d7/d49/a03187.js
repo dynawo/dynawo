@@ -77,6 +77,7 @@ var a03187 =
     [ "connectionState1_", "d7/d49/a03187.html#a04f75119d39c5bf730c71d4bb60bf267", null ],
     [ "connectionState2_", "d7/d49/a03187.html#af0e1aeab73f0e4b27fb8066041fe17ab", null ],
     [ "converterMode_", "d7/d49/a03187.html#a2d2736431474a63714397a19e98461d3", null ],
+    [ "dcLine_", "d7/d49/a03187.html#afe1492571bcfc0fe3b63f65520bd876a", null ],
     [ "ii01_", "d7/d49/a03187.html#a575fb0de40e0960aba7ddbd6b929651b", null ],
     [ "ii02_", "d7/d49/a03187.html#a031f6b222df21e617f4cde9f4077883a", null ],
     [ "ir01_", "d7/d49/a03187.html#aa7660209ff7b181e125d7042f0ebd066", null ],
@@ -91,6 +92,7 @@ var a03187 =
     [ "Q01_", "d7/d49/a03187.html#a8d6725fbef45261c3df3ab6a391100e1", null ],
     [ "Q02_", "d7/d49/a03187.html#a527d88bdec2698bf6807574a03ec7852", null ],
     [ "rdc_", "d7/d49/a03187.html#a07e617d0ff7f2ae48e9650153c1c9b7f", null ],
+    [ "startingPointMode_", "d7/d49/a03187.html#a905dcdc88587680059ed24bac1b42a59", null ],
     [ "stateModified_", "d7/d49/a03187.html#a7a51c413af6872cd9c2c805b3dcc38b8", null ],
     [ "vdcNom_", "d7/d49/a03187.html#a90b683826b7de66dbf1eba4ec644a032", null ]
 ];

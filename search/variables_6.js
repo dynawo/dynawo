@@ -7,6 +7,7 @@ var searchData=
   ['genbycc_5f',['genByCC_',['../d3/dd4/a03151.html#afa488f6228866374582302245c090018',1,'DYN::ModelOmegaRef']]],
   ['gencriteriahandler_5f',['genCriteriaHandler_',['../d4/dd4/a01659.html#a44826d93a958d34dc38009e0b285b49c',1,'criteria::XmlHandler']]],
   ['generatecalculatedvariables_5f',['generateCalculatedVariables_',['../de/dca/a01907.html#a47a22ebf9395af28d157b1cfb7444eb2',1,'dynamicdata::ModelicaModel::generateCalculatedVariables_()'],['../df/d11/a01915.html#a754fea5bf68b96ad01ff563d49a3aa81',1,'dynamicdata::ModelTemplate::generateCalculatedVariables_()']]],
+  ['generator_5f',['generator_',['../d5/d27/a03183.html#ad73c466ab6c40696b89682e0fe513c51',1,'DYN::ModelGenerator']]],
   ['generatoractivepowercontrol_5f',['generatorActivePowerControl_',['../de/d87/a02939.html#acd0ddaacbb3bd9ee0291747d3c63537c',1,'DYN::GeneratorInterfaceIIDM']]],
   ['generatorcomponents_5f',['generatorComponents_',['../d9/da5/a02935.html#ac37000a0a0b5d8d553a69366e792acf3',1,'DYN::DataInterfaceIIDM::generatorComponents_()'],['../d9/da5/a02935.html#a4fb7aa3d4eb63699d58837b3e599ba01',1,'DYN::DataInterfaceIIDM::generatorComponents_()']]],
   ['generatorcriteria_5f',['generatorCriteria_',['../d6/d82/a01607.html#a7dd069c0be317404dd67cd2d80a3bfe4',1,'criteria::CriteriaCollection']]],

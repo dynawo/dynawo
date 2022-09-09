@@ -8,6 +8,7 @@ var searchData=
   ['solverstatus_5ft',['SolverStatus_t',['../dd/d6f/a03315.html#a79d97b8a16615b099f11b80affbc0d96',1,'DYN::SolverCommonFixedTimeStep']]],
   ['solvertype',['SolverType',['../df/d59/a01001.html#a3af48b28f1cebf4b6d5f61a6c0104165',1,'DYN']]],
   ['sparsematrixtype',['SparseMatrixType',['../d8/d4e/a02595.html#a63a0e4bdff6627843b528e5867483f9a',1,'DYN::SparseMatrix']]],
+  ['startingpointmode_5ft',['startingPointMode_t',['../dd/dc3/a03247.html#a946e05126d29e11cc9e4c92bd796dde4',1,'DYN::NetworkComponent']]],
   ['state',['State',['../d0/d3e/a00566.html#abb42cdf729ea47f41ab0af18beb2d352',1,'DYN']]],
   ['state_5ft',['state_t',['../d7/d45/a03175.html#a43e3e5308575fdfe91a02cf1a5321fa8',1,'DYN::ModelCurrentLimits']]],
   ['statechange_5ft',['StateChange_t',['../dd/dc3/a03247.html#ab067ace2562da72e4017d1c2cca12867',1,'DYN::NetworkComponent']]],

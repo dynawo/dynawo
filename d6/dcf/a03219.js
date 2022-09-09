@@ -61,5 +61,7 @@ var a03219 =
     [ "ir0_", "d6/dcf/a03219.html#a14485bdb08560bc1eba6703536107b11", null ],
     [ "mode_", "d6/dcf/a03219.html#a97de615095a6def41f16ae55a6804d64", null ],
     [ "modelBus_", "d6/dcf/a03219.html#a118b56237bc366201b9db9760e39d3c9", null ],
-    [ "stateModified_", "d6/dcf/a03219.html#af3e79415c60b445062432ce3f50bfcb2", null ]
+    [ "startingPointMode_", "d6/dcf/a03219.html#a2e0c46e9218de9ad90e8be0cb8ff46f4", null ],
+    [ "stateModified_", "d6/dcf/a03219.html#af3e79415c60b445062432ce3f50bfcb2", null ],
+    [ "svc_", "d6/dcf/a03219.html#ae6f843a5efd5ef8cc740d9182ac8f5e3", null ]
 ];

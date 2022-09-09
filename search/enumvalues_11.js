@@ -84,6 +84,7 @@ var searchData=
   ['sourcepowertakenintoaccount',['SourcePowerTakenIntoAccount',['../d4/d70/a02579.html#a963225344a251150ba0ad6d5264f567fa1961a1c353b2ce0bfe971b12df6d50c6',1,'DYN::KeyLog_t']]],
   ['sourceunderpower',['SourceUnderPower',['../d4/d70/a02579.html#a963225344a251150ba0ad6d5264f567fad235931b6f9d1e60f2006bcaaa0b7863',1,'DYN::KeyLog_t']]],
   ['sparsematrixwithnaninf',['SparseMatrixWithNanInf',['../d3/d09/a02539.html#acfce33066451c48351076e31bd5b4ecea4534f064c710536762661fc2f2ae0d93',1,'DYN::KeyError_t']]],
+  ['startingpointmodenotfound',['StartingPointModeNotFound',['../d4/d70/a02579.html#a963225344a251150ba0ad6d5264f567fa5f90ae108ec998dfd891fa0b203da578',1,'DYN::KeyLog_t']]],
   ['statevariablebadcast',['StateVariableBadCast',['../d3/d09/a02539.html#acfce33066451c48351076e31bd5b4ecea4a556898759a584dd39aac45e992d877',1,'DYN::KeyError_t']]],
   ['statevariablenoreference',['StateVariableNoReference',['../d3/d09/a02539.html#acfce33066451c48351076e31bd5b4ecea2e2c373a4837ab19aeb3ed3e0e03d743',1,'DYN::KeyError_t']]],
   ['statevariablewrongtype',['StateVariableWrongType',['../d3/d09/a02539.html#acfce33066451c48351076e31bd5b4ecea3850d6d2b3c053fbb356780b2c3d05d8',1,'DYN::KeyError_t']]],
