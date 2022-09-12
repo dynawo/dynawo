@@ -124,6 +124,9 @@ ModelStaticVarCompensator::init(int& /*yNum*/) {
       uBus0 = svc_->getBusInterface()->getV0();
     }
     break;
+  default:
+    Q0 = 0.;
+    break;
   }
   ur0 = uBus0 / unomBus * cos(thetaBus0 * DEG_TO_RAD);
   ui0 = uBus0 / unomBus * sin(thetaBus0 * DEG_TO_RAD);
