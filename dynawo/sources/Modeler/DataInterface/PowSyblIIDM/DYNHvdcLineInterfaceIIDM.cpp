@@ -153,6 +153,13 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
 
 void HvdcLineInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
+  if (hvdcActivePowerControl_ && hvdcActivePowerControl_->isEnabled() && hvdcActivePowerControl_->isEnabled().get()) {
+    staticParameters_.insert(std::make_pair("isACEmulationEnabled", StaticParameter("isACEmulationEnabled",
+                             StaticParameter::BOOL).setValue(true)));
+  } else {
+    staticParameters_.insert(std::make_pair("isACEmulationEnabled", StaticParameter("isACEmulationEnabled",
+                             StaticParameter::BOOL).setValue(false)));
+  }
   staticParameters_.insert(std::make_pair("pMax", StaticParameter("pMax", StaticParameter::DOUBLE).setValue(getPmax())));
   staticParameters_.insert(std::make_pair("pMax_pu", StaticParameter("pMax_pu", StaticParameter::DOUBLE).setValue(getPmax() / SNREF)));
   staticParameters_.insert(std::make_pair("p1_pu", StaticParameter("p1_pu", StaticParameter::DOUBLE).setValue(conv1_->getP() / SNREF)));
