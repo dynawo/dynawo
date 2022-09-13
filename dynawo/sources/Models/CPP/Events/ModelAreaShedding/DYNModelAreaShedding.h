@@ -279,7 +279,7 @@ class ModelAreaShedding : public ModelCPP {
    */
   typedef enum {
     NOT_STARTED = 0,
-    STARTED = 1,
+    STARTED = 1
   } sheddingState_t;
   sheddingState_t stateAreaShedding_;  ///< current state of the shedding
 };
