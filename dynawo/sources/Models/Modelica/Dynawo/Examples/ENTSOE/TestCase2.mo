@@ -116,6 +116,8 @@ equation
   load.QRefPu = QRefPu.setPoint.value;
   load.switchOffSignal1.value = false;
   load.switchOffSignal2.value = false;
+  load.deltaP = 0;
+  load.deltaQ = 0;
   connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu) annotation(
     Line);
   connect(governor.PmRefPu, PmRefPu.y);
