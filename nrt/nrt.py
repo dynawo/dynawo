@@ -202,6 +202,7 @@ class NonRegressionTest:
 
 
     def exportHTML(self, html_output):
+        failed = []
         # Write html file
         file = open(html_output, 'w')
         self.writeHeader(file)
@@ -214,12 +215,14 @@ class NonRegressionTest:
             else:
                 if not test_case.gives_satisfactory_results():
                     self.number_of_nok_cases_ +=1
+                    failed.append(test_case.jobs_file_)
         #Create a repository for each testcase resources
         for test_case in self.test_cases_:
             os.mkdir(os.path.join(output_dir,test_case.case_))
         self.writeResume(file)
         self.writeDetails(file)
         self.writeFooter(file)
+        return failed
 
     def writeResume(self, file):
         file.write("<section>")
@@ -545,19 +548,14 @@ def main():
                 if not failedName:
                     break
             failedTestsFile.close()
-        print(directory_failed)
 
         if (len(directory_failed) > 0):
             if (options.timeout is not None and options.timeout > 0) or with_directory_name or ((options.directory_patterns is not None) and  (len(options.directory_patterns) > 0)):
-                log_message += " and"
+                log_message += " and failed tests filter"
             else:
-                log_message += " with "
-
-            for failed_name in directory_failed:
-                log_message +=  failed_name
-            log_message += " failed tests filter"
+                log_message += " with failed tests filter"
         else :
-            log_message += " no failed tests"
+            log_message += " No failed tests"
 
     print (log_message)
 
@@ -611,15 +609,10 @@ def main():
                                 break
 
                     if keep_job and (len(directory_failed) > 0):
-                        for failed in directory_failed:
-                            print(job_file)
-                            print(failed)
-                            if (str(failed) is str(job_file)):
-                                print('toto')
-                                keep_job = True
-                                break
-                            else:
-                                keep_job = False
+                        if job_file in directory_failed:
+                            keep_job = True
+                        else:
+                            keep_job = False
 
                     if keep_job :
                         case = "case_" + str(numCase)
@@ -653,8 +646,6 @@ def main():
             except:
                 print("Failed to remove failed nrt file. Unable to conduct nrt")
                 sys.exit(1)
-        # write nok test cases into txt file
-        failedTestFile = open(FAILED_NRT_RESULT_FILE, "w")
 
         start_time = time.time()
         NRT.launchCases()
@@ -671,7 +662,6 @@ def main():
         for case in NRT.test_cases_:
             if (not case.ok_):
                 case.diff_ = nrtDiff.UNABLE_TO_CHECK
-                failedTestFile.write(case.jobs_file_ + "\n")
             else:
                 case_dir = os.path.dirname (case.jobs_file_)
                 if case_dir in dir_list: continue
@@ -681,7 +671,6 @@ def main():
                 threads_list.append(thread)
                 thread.start()
                 index+=1
-        failedTestFile.close()
         #Keep the main thread alive while threads are running and catch interruptions
         try:
             while True in [t.is_alive() for t in threads_list]:
@@ -703,13 +692,20 @@ def main():
                 case.diff_messages_ = results_per_dir[case_dir][1]
 
         # Export results as html
-        NRT.exportHTML(html_output)
+        failed = NRT.exportHTML(html_output)
         if( NRT.number_of_nok_cases_ > 0):
             logFile = open(NRT_RESULT_FILE, "w")
+            # write nok test cases into txt file
+            if len(failed) > 0:
+                failedTestFile = open(FAILED_NRT_RESULT_FILE, "w")
+                for failedCase in failed:
+                    failedTestFile.write(str(failedCase) + '\n')
+                failedTestFile.close()
             logFile.write("NRT NOK\n")
             logFile.write("Run on " + datetime.datetime.now().strftime("%Y-%m-%d at %Hh%M") + "\n")
             logFile.write(" Nb nok case : " + str(NRT.number_of_nok_cases_) + "\n")
             logFile.close()
+
         sys.exit(NRT.number_of_nok_cases_)
     except KeyboardInterrupt:
         exit()
