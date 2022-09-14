@@ -202,7 +202,6 @@ class NonRegressionTest:
 
 
     def exportHTML(self, html_output):
-        failed = []
         # Write html file
         file = open(html_output, 'w')
         self.writeHeader(file)
@@ -215,14 +214,12 @@ class NonRegressionTest:
             else:
                 if not test_case.gives_satisfactory_results():
                     self.number_of_nok_cases_ +=1
-                    failed.append(test_case.jobs_file_)
         #Create a repository for each testcase resources
         for test_case in self.test_cases_:
             os.mkdir(os.path.join(output_dir,test_case.case_))
         self.writeResume(file)
         self.writeDetails(file)
         self.writeFooter(file)
-        return failed
 
     def writeResume(self, file):
         file.write("<section>")
@@ -539,15 +536,13 @@ def main():
 
     directory_failed = []
     if (options.failed == True):
-        FAILED_NRT_RESULT_FILE = os.path.join(output_dir, "nrt_nok_names.txt")
-        if (os.path.isfile(FAILED_NRT_RESULT_FILE)):
-            failedTestsFile = open(FAILED_NRT_RESULT_FILE, "r")
-            while(True):
-                failedName = failedTestsFile.readline()
-                directory_failed.append(failedName.strip())
-                if not failedName:
-                    break
-            failedTestsFile.close()
+        for root, dirs, files in os.walk(output_dir):
+            for file in files:
+                if "info.txt" == file:
+                    test_case = nrtDiff.TestCase("dummy")
+                    test_case.get_case_info(os.path.join(root, file))
+                    if test_case.status_ == "KO":
+                        directory_failed.append(test_case.jobs_file_)
 
         if (len(directory_failed) > 0):
             if (options.timeout is not None and options.timeout > 0) or with_directory_name or ((options.directory_patterns is not None) and  (len(options.directory_patterns) > 0)):
@@ -609,9 +604,7 @@ def main():
                                 break
 
                     if keep_job and (len(directory_failed) > 0):
-                        if job_file in directory_failed:
-                            keep_job = True
-                        else:
+                        if job_file not in directory_failed:
                             keep_job = False
 
                     if keep_job :
@@ -632,19 +625,11 @@ def main():
     try:
         # remove the diff notification file
         NRT_RESULT_FILE = os.path.join(output_dir, "nrt_nok.txt")
-        FAILED_NRT_RESULT_FILE = os.path.join(output_dir, "nrt_nok_names.txt")
         if (os.path.isfile(NRT_RESULT_FILE)):
             try:
                 os.remove (NRT_RESULT_FILE)
             except:
                 print("Failed to remove notification file. Unable to conduct nrt")
-                sys.exit(1)
-        # remove the failed nrt file
-        if (os.path.isfile(FAILED_NRT_RESULT_FILE)):
-            try:
-                os.remove (FAILED_NRT_RESULT_FILE)
-            except:
-                print("Failed to remove failed nrt file. Unable to conduct nrt")
                 sys.exit(1)
 
         start_time = time.time()
@@ -692,15 +677,9 @@ def main():
                 case.diff_messages_ = results_per_dir[case_dir][1]
 
         # Export results as html
-        failed = NRT.exportHTML(html_output)
+        NRT.exportHTML(html_output)
         if( NRT.number_of_nok_cases_ > 0):
             logFile = open(NRT_RESULT_FILE, "w")
-            # write nok test cases into txt file
-            if len(failed) > 0:
-                failedTestFile = open(FAILED_NRT_RESULT_FILE, "w")
-                for failedCase in failed:
-                    failedTestFile.write(str(failedCase) + '\n')
-                failedTestFile.close()
             logFile.write("NRT NOK\n")
             logFile.write("Run on " + datetime.datetime.now().strftime("%Y-%m-%d at %Hh%M") + "\n")
             logFile.write(" Nb nok case : " + str(NRT.number_of_nok_cases_) + "\n")
