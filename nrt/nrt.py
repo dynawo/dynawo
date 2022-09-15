@@ -541,7 +541,7 @@ def main():
                 if "info.txt" == file:
                     test_case = nrtDiff.TestCase("dummy")
                     test_case.get_case_info(os.path.join(root, file))
-                    if test_case.status_ == "KO":
+                    if test_case.status_ == "KO" or test_case.cmp_status == "KO":
                         directory_failed.append(test_case.jobs_file_)
 
         if (len(directory_failed) > 0):
