@@ -1284,7 +1284,7 @@ def DTWDistance(left, right) :
     m = len(right)
     if left == right:
         return 0.
-    DTW = [[0 if (j == 0 or i == 0) else 999999 for j in range(m+1)] for i in range(n+1)]
+    DTW = [[0 if (j == 0 and i == 0) else 999999 for j in range(m+1)] for i in range(n+1)]
 
     for i in range(1, n+1):
         leftValue = left[i-1]
