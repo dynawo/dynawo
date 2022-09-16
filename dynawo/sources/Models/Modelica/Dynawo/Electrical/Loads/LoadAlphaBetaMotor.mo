@@ -73,8 +73,8 @@ equation
 
   if (running.value) then
     // PQ load
-    PLoadPu = (1-ActiveMotorShare) * PRefPu  * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ alpha);
-    QLoadPu = QRefPu - QMotor0Pu * (PNom/SystemBase.SnRef) * (PRefPu/s0Pu.re) * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ beta); // s0Pu.re = PRef0Pu (if PRefPu increases but QRefPu stays constant, the reactive power consumed by the motor increases, so the reactive power of the load is reduced to keep the total constant).
+    PLoadPu = (1-ActiveMotorShare) * PRefPu * (1 + deltaP) * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ alpha);
+    QLoadPu = QRefPu * (1 + deltaQ) - QMotor0Pu * (PNom/SystemBase.SnRef) * (PRefPu/s0Pu.re) * (1 + deltaP) * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ beta); // s0Pu.re = PRef0Pu (if PRefPu increases but QRefPu stays constant, the reactive power consumed by the motor increases, so the reactive power of the load is reduced to keep the total constant).
     Complex(PLoadPu,QLoadPu) = terminal.V*ComplexMath.conj(iLoadPu);
 
     // Asynchronous motor
@@ -89,7 +89,7 @@ equation
     2*H*der(omegaRPu) = cePu - clPu;
 
     // Total load
-    terminal.i = iLoadPu + (PNom/SystemBase.SnRef)*isPu * (PRefPu/s0Pu.re);
+    terminal.i = iLoadPu + (PNom/SystemBase.SnRef)*isPu * (PRefPu/s0Pu.re) * (1 + deltaP);
   else
     omegaRPu = 0;
     PLoadPu = 0;

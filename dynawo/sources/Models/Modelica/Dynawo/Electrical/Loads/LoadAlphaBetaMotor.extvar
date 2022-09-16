@@ -15,8 +15,10 @@
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="omegaPu.value"/>
-  <variable type="discrete" id="PRefPu"/>
-  <variable type="discrete" id="QRefPu"/>
+  <variable type="continuous" id="PRefPu"/>
+  <variable type="continuous" id="QRefPu"/>
+  <variable type="continuous" id="deltaP" optional="true"/>
+  <variable type="continuous" id="deltaQ" optional="true"/>
   <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
 </external_variables>
