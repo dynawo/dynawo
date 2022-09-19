@@ -114,5 +114,6 @@ var searchData=
   ['isself_5f',['isSelf_',['../df/d9e/a03111.html#a05f90f6ec9b0ca0a080acde2e8ee61b7',1,'DYN::ModelCentralizedShuntsSectionControl']]],
   ['isstartingfromdump_5f',['isStartingFromDump_',['../d0/d2b/a03095.html#abb9de82698c67d19a498506b5fba4449',1,'DYN::ModelCPP']]],
   ['isstate_5f',['isState_',['../df/d02/a02755.html#a6b9b9de767db310d12a5676f71ec10c7',1,'DYN::VariableNative']]],
-  ['isstopped_5f',['isStopped_',['../dc/dcf/a02615.html#a4e8da931d94227124f54af79ba60452c',1,'DYN::Timer']]]
+  ['isstopped_5f',['isStopped_',['../dc/dcf/a02615.html#a4e8da931d94227124f54af79ba60452c',1,'DYN::Timer']]],
+  ['iterationstep_5f',['iterationStep_',['../dd/d54/a02119.html#a21681c30c766b76dc8480b987a3e54d2',1,'job::CurvesEntry']]]
 ];
