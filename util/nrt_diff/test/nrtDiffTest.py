@@ -36,7 +36,7 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves2.csv"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 5 absolute errors", "GEN____8_SM_generator_UStatorPu", "GEN____6_SM_voltageRegulator_EfdPu", "GEN____8_SM_voltageRegulator_EfdPu", "GEN____1_SM_voltageRegulator_EfdPu", "GEN____2_SM_voltageRegulator_EfdPu"})
+        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 6 absolute errors coming from more than 5 curves"})
 
     def test_curves_xml(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -54,7 +54,7 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         settings.dtw_exceptions = {}
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves3.csv"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 5 absolute errors", "GEN____8_SM_generator_UStatorPu", "GEN____6_SM_voltageRegulator_EfdPu", "GEN____8_SM_voltageRegulator_EfdPu", "GEN____1_SM_voltageRegulator_EfdPu", "GEN____2_SM_voltageRegulator_EfdPu"})
+        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 6 absolute errors coming from more than 5 curves"})
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves3.xml"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         self.assertEqual(message, "nrt_diff/test/curves.xml: 1 absolute errors , NETWORK_BELLAP41_U_value")
@@ -195,7 +195,7 @@ class TestnrtDiffDirectoryDiff(unittest.TestCase):
         (diff_statuses, return_message_str) = nrtDiff.DirectoryDiffReferenceDataJob (os.path.join(dir_path, "test.jobs"))
         self.assertEqual(diff_statuses, nrtDiff.DIFFERENT)
         self.assertEqual(len(return_message_str), 1)
-        if "output/Job2/curves.csv: 5 absolute errors" not in return_message_str[0]:
+        if "output/Job2/curves.csv: 6 absolute errors coming from more than 5 curves" not in return_message_str[0]:
             self.assertTrue(False)
 
 
