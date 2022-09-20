@@ -17,10 +17,10 @@ package BaseClasses_INIT
 
   partial model BaseGeneratorParameters_INIT "Base initialization model for simplified generator models"
 
-    parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
-    parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
-    parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
-    parameter Types.Angle UPhase0 "Start value of voltage angle at terminal in rad";
+    parameter Types.ActivePowerPu P0Pu = -19.98/2 "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
+    parameter Types.ReactivePowerPu Q0Pu = -9.68/2 "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
+    parameter Types.VoltageModulePu U0Pu = 1 "Start value of voltage amplitude at terminal in pu (base UNom)";
+    parameter Types.Angle UPhase0 = 0.49 "Start value of voltage angle at terminal in rad";
 
     Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
     Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";

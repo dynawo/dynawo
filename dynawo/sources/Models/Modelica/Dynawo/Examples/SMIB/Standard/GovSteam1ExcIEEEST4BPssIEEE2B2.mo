@@ -92,7 +92,7 @@ model GovSteam1ExcIEEEST4BPssIEEE2B2 "Active power variation on the load"
    mq = 0,
    nd = 0,
    nq = 0, u0Pu = Complex(1, 0)) annotation(
-    Placement(visible = true, transformation(origin = {20, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {18, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam.GovSteam1 governor(Db1 = 0, Db2 = 0, Eps = 0, H0 = false, K = 25, K1 = 0.2, K2 = 0, K3 = 0.3, K4 = 0, K5 = 0.5, K6 = 0, K7 = 0, K8 = 0, PMaxPu = 1, PMinPu = 0, PgvTableName = "Pgv", Pm0Pu = generatorSynchronous.Pm0Pu, PmRef0Pu = 0.43125, Sdb1 = true, Sdb2 = true, TablesFile = "/home/jalibmon/Projects/dynawo/nrt/data/SMIB/Standard/Gain_power.txt", Uc = -10, Uo = 1, ValveOn = true, t1 = 1e-5, t2 = 1e-5, t3 = 0.1, t4 = 0.3, t5 = 5, t6 = 0.5, t7 = 1e-5) annotation(
     Placement(visible = true, transformation(origin = {90, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.ExcIEEEST4B avr(Efd0Pu = generatorSynchronous.Efd0Pu, Ifd0Pu = generatorSynchronous.Ir0Pu, Kc = 0.113, Kg = 0, Ki = 0, Kim = 0, Kir = 10.75, Kp = 9.3, Kpm = 1, Kpr = 10.75, Thetap = 0, UOel0Pu = 10, Ub0Pu = 10.1622, Us0Pu = generatorSynchronous.U0Pu, VbMaxPu = 11.63, VmMaxPu = 99, VmMinPu = -99, VrMaxPu = 1, VrMinPu = -0.87, XlPu = 0.124, it0Pu = generatorSynchronous.i0Pu, tA = 0.02, tR = 0.02, ut0Pu = generatorSynchronous.u0Pu) annotation(
@@ -122,17 +122,17 @@ equation
   connect(generatorSynchronous.omegaRefPu, generatorSynchronous.omegaPu) annotation(
     Line);
   connect(load.terminal, generatorSynchronous.terminal) annotation(
-    Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
+    Line(points = {{-40, -20}, {-40, 0}, {18, 0}}, color = {0, 0, 255}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
-    Line(points = {{38, -6}, {60, -6}, {60, -50}, {80, -50}}, color = {0, 0, 127}));
+    Line(points = {{36, -6}, {60, -6}, {60, -50}, {80, -50}}, color = {0, 0, 127}));
   connect(PmRefPu.y, governor.PmRefPu) annotation(
     Line(points = {{119, -30}, {90, -30}, {90, -40}}, color = {0, 0, 127}));
   connect(generatorSynchronous.iStatorPu_out, complexToReal.u) annotation(
-    Line(points = {{12, 18}, {12, 35}, {15, 35}}, color = {85, 170, 255}));
+    Line(points = {{10, 18}, {10, 35}, {15, 35}}, color = {85, 170, 255}));
   connect(generatorSynchronous.IRotorPu_out, avr.IfdPu) annotation(
-    Line(points = {{28, 18}, {28, 22}, {72, 22}, {72, 11}, {106, 11}, {106, 1}, {136, 1}, {136, 6}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{26, 18}, {26, 22}, {72, 22}, {72, 11}, {106, 11}, {106, 1}, {136, 1}, {136, 6}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(generatorSynchronous.uPu_out, avr.utPu) annotation(
-    Line(points = {{4, 18}, {4, 28}, {74, 28}, {74, 12}, {108, 12}, {108, 2}, {130, 2}, {130, 6}}, color = {85, 170, 255}));
+    Line(points = {{2, 18}, {2, 28}, {74, 28}, {74, 12}, {108, 12}, {108, 2}, {130, 2}, {130, 6}}, color = {85, 170, 255}));
   connect(complexToReal.im, avr.itPuIm) annotation(
     Line(points = {{28, 32}, {76, 32}, {76, 14}, {112, 14}, {112, 5}, {126, 5}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(complexToReal.re, avr.itPuRe) annotation(
@@ -142,11 +142,11 @@ equation
   connect(UPssPu.y, avr.UPssPu) annotation(
     Line(points = {{102, 0}, {110, 0}, {110, 12}, {118, 12}, {118, 12}}, color = {0, 0, 127}));
   connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
-    Line(points = {{38, 18}, {118, 18}}, color = {0, 0, 127}));
+    Line(points = {{36, 18}, {118, 18}}, color = {0, 0, 127}));
   connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{141, 18}, {150, 18}, {150, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
+    Line(points = {{141, 18}, {150, 18}, {150, -80}, {6, -80}, {6, -16}}, color = {0, 0, 127}));
   connect(governor.Pm1Pu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{100, -46}, {110, -46}, {110, -70}, {32, -70}, {32, -16}}, color = {0, 0, 127}));
+    Line(points = {{100, -46}, {110, -46}, {110, -70}, {30, -70}, {30, -16}}, color = {0, 0, 127}));
   connect(QRefPu.y, load.QRefPu) annotation(
     Line(points = {{-20, -50}, {-34, -50}, {-34, -28}}, color = {0, 0, 127}));
   connect(PRefPu.y, load.PRefPu) annotation(

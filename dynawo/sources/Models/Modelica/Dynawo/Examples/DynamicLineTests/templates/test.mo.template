@@ -1,10 +1,26 @@
 within Dynawo.Examples.DynamicLineTests;
 
+/*
+* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPD0.5-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model test
+
   import Modelica;
   import Dynawo;
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
+
+  extends Icons.Example;
 
   parameter Types.PerUnit CPu = CINIT;
   parameter Types.PerUnit RPu = RINIT;
@@ -14,11 +30,9 @@ model test
   Types.PerUnit Ia;
   Types.PerUnit Ib;
   Types.PerUnit Ic;
-
   Types.PerUnit Ia2;
   Types.PerUnit Ib2;
   Types.PerUnit Ic2;
-
   Dynawo.Electrical.Lines.DynamicLine dynamicLine(CPu = CPu/2, GPu = GPu/2, LPu = LPu/2, RPu = RPu/2, u10Pu = U10PU1, u20Pu = U20PU1, i10Pu = I10PU1, i20Pu = I20PU1, iRL0Pu = IRL0PU1, iGC10Pu = IGC10PU1, iGC20Pu = IGC20PU1) annotation(
     Placement(visible = true, transformation(origin = {-8, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = PHASE2, UPu = 1.01645) annotation(
@@ -51,8 +65,8 @@ model test
     Placement(visible = true, transformation(origin = {-40, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line6(BPu = 0, GPu = 0, RPu = RPu / 100, XPu = LPu / 100) annotation(
     Placement(visible = true, transformation(origin = {60, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-equation
 
+equation
   Ia = sin(100 * Modelica.Constants.pi * time) * dynamicLine1.terminal2.i.re + cos(100 * Modelica.Constants.pi * time) * dynamicLine1.terminal2.i.im;
   Ib = sin(100 * Modelica.Constants.pi * time - 2 * Modelica.Constants.pi / 3) * dynamicLine1.terminal2.i.re + cos(100 * Modelica.Constants.pi * time - 2 * Modelica.Constants.pi / 3) * dynamicLine1.terminal2.i.im;
   Ic = sin(100 * Modelica.Constants.pi * time + 2 * Modelica.Constants.pi / 3) * dynamicLine1.terminal2.i.re + cos(100 * Modelica.Constants.pi * time + 2 * Modelica.Constants.pi / 3) * dynamicLine1.terminal2.i.im;
@@ -82,7 +96,6 @@ equation
   line5.switchOffSignal2.value = false;
   line6.switchOffSignal1.value = false;
   line6.switchOffSignal2.value = false;
-
   connect(dynamicLine.terminal2, dynamicLine1.terminal1) annotation(
     Line(points = {{2, -6}, {20, -6}}, color = {0, 0, 255}));
   connect(nodeFault.terminal, dynamicLine1.terminal1) annotation(
@@ -116,4 +129,9 @@ equation
   connect(line6.terminal2, infiniteBus3.terminal) annotation(
     Line(points = {{70, 40}, {80, 40}}, color = {0, 0, 255}));
 
+
+   annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>
+This test shows the difference between dynamic and phasor lines for a fault apparition by simulating a node fault for a line with two infinite bus.
+</body></html>"));
 end test;

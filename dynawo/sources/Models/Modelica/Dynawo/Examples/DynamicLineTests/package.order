@@ -7,5 +7,6 @@ SMIBdynamicLineFault
 Regulated_SMIBdynamicLineFault
 LoadFlow_SMIBdynamicLineFault
 GridFormingSMIB
-test_2
-testINIT_2
+AdvancedRegulated_SMIB
+SMIB_GridForming
+SMIB_GridForming_DynamicLine

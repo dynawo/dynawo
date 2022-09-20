@@ -22,6 +22,10 @@ model SMIBdynamicLineFault "Node fault on a line for SMIB model with dynamic lin
 
   parameter Real x = PLACE "Emplacement of the fault relative to the line lenght : x = default location /line lenght";
   parameter Real theta_seuil = Modelica.Constants.pi * 270 / 180 "Maximum value of theta for a stable configuration in rad";
+  parameter Types.PerUnit RPu = RPU "Resistance in pu (base SnRef, UNom) ";
+  parameter Types.PerUnit XPu = XPU "Reactance in pu (base SnRef, UNom)";
+  parameter Types.PerUnit GPu = BPU "Half-conductance in pu (base SnRef, UNom)";
+  parameter Types.PerUnit BPu = GPU  "Half-susceptance in pu (base SnRef, UNom)";
   parameter Types.Time delta_t = TEMPS "Fault duration in seconds" ;
 
   //Generator, dynamic lines and infinite bus
@@ -32,18 +36,19 @@ model SMIBdynamicLineFault "Node fault on a line for SMIB model with dynamic lin
   Dynawo.Electrical.Controls.Basics.Step PmPu(Value0 = 0.903, Height = 0.02, tStep = 1000);
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
   Dynawo.Electrical.Controls.Basics.SetPoint EfdPu(Value0 = 2.4659);
-  Dynawo.Electrical.Lines.DynamicLine line2(CPu = 0.0000375, GPu = 0, LPu = 0.0375, RPu = 0.00375, i10Pu = I10 , i20Pu = I20, iGC10Pu = IGC10, iGC20Pu = IGC20, iRL0Pu = IRL0, u10Pu = U1, u20Pu = U3) annotation(
+  Dynawo.Electrical.Lines.DynamicLine line2(CPu = BPu, GPu = GPu, LPu = XPu, RPu = RPu , i10Pu = I10 , i20Pu = I20, iGC10Pu = IGC10, iGC20Pu = IGC20, iRL0Pu = IRL0, u10Pu = U1, u20Pu = U3) annotation(
     Placement(visible = true, transformation(origin = {-22, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Lines.DynamicLine line1(CPu = (1 - x) * 0.0000375, GPu = 0, LPu = (1 - x) * 0.0375, RPu = (1 - x) *0.00375, i10Pu = I10 , i20Pu = I20, iGC10Pu = IGC10, iGC20Pu = IGC20, iRL0Pu = IRL0, u10Pu = U1, u20Pu = U2) annotation(
+  Dynawo.Electrical.Lines.DynamicLine line1(CPu = (1 - x) * BPu, GPu = (1 - x)*GPu, LPu = (1 - x) * XPu , RPu = (1 - x) * RPu, i10Pu = I10 , i20Pu = I20, iGC10Pu = IGC10, iGC20Pu = IGC20, iRL0Pu = IRL0, u10Pu = U1, u20Pu = U2) annotation(
     Placement(visible = true, transformation(origin = {-44, 30}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  Dynawo.Electrical.Lines.DynamicLine line3(CPu = x * 0.0000375, GPu = 0, LPu = x * 0.0375, RPu = x * 0.00375, i10Pu = I10 , i20Pu = I20, iGC10Pu = IGC10, iGC20Pu = IGC20, iRL0Pu = IRL0, u10Pu = U2, u20Pu = U3) annotation(
+  Dynawo.Electrical.Lines.DynamicLine line3(CPu = x * BPu, GPu = x * GPu, LPu = x * XPu, RPu = x * RPu, i10Pu = I10 , i20Pu = I20, iGC10Pu = IGC10, iGC20Pu = IGC20, iRL0Pu = IRL0, u10Pu = U2, u20Pu = U3) annotation(
     Placement(visible = true, transformation(origin = {2, 30}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = RDEF, XPu = XDEF, tBegin = 1, tEnd = 1 + delta_t) annotation(
     Placement(visible = true, transformation(origin = {18, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
  Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = UBUSPH, UPu = UBUSPU) annotation(
     Placement(visible = true, transformation(origin = {-64, -4}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+
 initial equation
   der(generatorSynchronous.lambdafPu) = 0;
   der(generatorSynchronous.lambdaDPu) = 0;
@@ -53,7 +58,6 @@ initial equation
   der(generatorSynchronous.omegaPu.value) = 0;
 
 equation
-  assert(generatorSynchronous.theta < theta_seuil, "temps critique atteint") "Stability condition";
   line1.omegaPu = generatorSynchronous.omegaPu.value;
   line2.omegaPu = generatorSynchronous.omegaPu.value;
   line3.omegaPu = generatorSynchronous.omegaPu.value;
@@ -85,6 +89,7 @@ equation
     Line(points = {{-64, 30}, {-64, -4}}, color = {0, 0, 255}));
   connect(line2.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{-42, -40}, {-64, -40}, {-64, -4}}, color = {0, 0, 255}));
+
 
    annotation( preferredView = "text", experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06),
     Documentation(info = "<html><head></head><body>The purpose of this test case is to evaluate the transient stability of an SMIB model with dynamic lines by evaluating the rotor angle Theta for a node fault starting at (t_begin = 1 s) and (t_end = t_begin + delta_t).

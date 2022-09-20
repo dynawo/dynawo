@@ -1,6 +1,20 @@
 within Dynawo.Examples.DynamicLineTests;
 
-model Regulated_SMIBdynamicLineFault"Node fault on a line for SMIB model with dynamic lines"
+/*
+* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
+model Regulated_SMIBdynamicLineFault "Node fault on a line for a regulated SMIB model with dynamic lines"
+
   import Dynawo;
   import Modelica;
 
@@ -15,16 +29,12 @@ model Regulated_SMIBdynamicLineFault"Node fault on a line for SMIB model with dy
     Placement(visible = true, transformation(origin = {86, -28}, extent = {{-12, -12}, {12, 12}}, rotation = -90)));
   Dynawo.Electrical.Transformers.TransformerFixedRatio transformer(BPu = 0, GPu = 0, RPu = 0, XPu = 0.00675, rTfoPu = 1) annotation(
     Placement(visible = true, transformation(origin = {60, 30}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-
   Dynawo.Electrical.Lines.DynamicLine line2(CPu = 0.0000375, GPu = 0, LPu = 0.0375, RPu = 0.00375, i10Pu = I10, i20Pu = I20, iGC10Pu = IGC10, iGC20Pu = IGC20, iRL0Pu = IRL0, u10Pu = U1, u20Pu = U3) annotation(
       Placement(visible = true, transformation(origin = {-14, 0}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
   Dynawo.Electrical.Lines.DynamicLine line1(CPu = (1 - x) * 0.0000375, GPu = 0, LPu = (1 - x) * 0.0375, RPu = (1 - x) * 0.00375, i10Pu = I10, i20Pu = I20, iGC10Pu = IGC10, iGC20Pu = IGC20, iRL0Pu = IRL0, u10Pu = U1, u20Pu = U2) annotation(
       Placement(visible = true, transformation(origin = {-34, 60}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-
   Dynawo.Electrical.Lines.DynamicLine line3(CPu = x * 0.0000375, GPu = 0, LPu = x * 0.0375, RPu = x * 0.00375, i10Pu = I10, i20Pu = I20, iGC10Pu = IGC10, iGC20Pu = IGC20, iRL0Pu = IRL0, u10Pu = U2, u20Pu = U3) annotation(
     Placement(visible = true, transformation(origin = {24, 60}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-
-
   Modelica.Blocks.Sources.Constant PmRefPu(k = generatorSynchronous.Pm0Pu) annotation(
     Placement(visible = true, transformation(origin = {-70, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant UsRefPu(k = generatorSynchronous.U0Pu) annotation(
@@ -38,6 +48,7 @@ model Regulated_SMIBdynamicLineFault"Node fault on a line for SMIB model with dy
     Placement(visible = true, transformation(origin = {-16, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus1(UPhase = UBUSPH, UPu = UBUSPU) annotation(
     Placement(visible = true, transformation(origin = {-80, 30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+
 equation
   line1.omegaPu = generatorSynchronous.omegaRefPu.value;
   line2.omegaPu = generatorSynchronous.omegaRefPu.value;
@@ -88,8 +99,9 @@ equation
     The following figures show the excepted evolution of the generator rotor angle a if delta_t < CCT (the critical clearing time).
 
     <figure>
-    <img width=\"400\" src=\"modelica://Dynawo/Examples/DynamicLineTests/Images/regultheta.png\">
+    <img width=\"380\" src=\"modelica://Dynawo/Examples/DynamicLineTests/Images/regultheta.png\">
     </figure>
+
 The results show that for the same parameters used for SMIBdynamicLineFault, the CCT is higher for the regulated SMIB.
 For delta_t > CCT, we represent the loss of synchronism with an assert stopping the simulation if theta exceeds 270 degrees.
     </body></html>"));

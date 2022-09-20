@@ -34,6 +34,7 @@ model GridFormingControlDroopControl "Grid Forming Control with Droop Control"
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance";
   parameter Types.PerUnit XRratio "X/R ratio of the virtual impedance";
   parameter Types.PerUnit Kpdc "Proportional gain of the dc voltage control";
+  parameter Types.PerUnit Imax "Max current in pu (base SNom)";
 
   Modelica.Blocks.Interfaces.RealInput idPccPu(start = IdPcc0Pu) "d-axis current at the PCC in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-58, -11}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = { 60, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
@@ -79,7 +80,7 @@ model GridFormingControlDroopControl "Grid Forming Control with Droop Control"
     Placement(visible = true, transformation(origin = {45, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.VoltageLoop voltageLoop(Cfilter = Cfilter, Kiv = Kiv, Kpv = Kpv, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, UdFilter0Pu = UdFilter0Pu)  annotation(
     Placement(visible = true, transformation(origin = {15, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.BaseControls.VirtualImpedance virtualImpedance(KpVI = KpVI, XRratio = XRratio, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu)  annotation(
+  Dynawo.Electrical.Controls.Converters.BaseControls.VirtualImpedance virtualImpedance(KpVI = KpVI, XRratio = XRratio, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, Imax = Imax)  annotation(
     Placement(visible = true, transformation(origin = {-35, 12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.DroopControl droopControl(Kff = Kff, Mp = Mp, Mq = Mq, PRef0Pu = PRef0Pu, QRef0Pu = QRef0Pu, Wf = Wf, Wff = Wff, Theta0 = Theta0, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, UdFilter0Pu = UdFilter0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-15, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

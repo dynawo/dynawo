@@ -76,7 +76,7 @@ model DroopControl "Droop Control"
     Placement(visible = true, transformation(origin = {122, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback2 annotation(
     Placement(visible = true, transformation(origin = {176, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator( initType = Modelica.Blocks.Types.Init.NoInit,k = SystemBase.omegaNom) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator( initType = Modelica.Blocks.Types.Init.SteadyState,k = SystemBase.omegaNom) annotation(
     Placement(visible = true, transformation(origin = {208, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = 1 / Wf, k=1)  annotation(
     Placement(visible = true, transformation(origin = {20, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

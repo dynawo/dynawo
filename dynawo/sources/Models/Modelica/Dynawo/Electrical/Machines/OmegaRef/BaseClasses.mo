@@ -116,7 +116,7 @@ package BaseClasses
     Connectors.ImPin PmPu(value(start = Pm0Pu)) "Mechanical power in pu (base PNomTurb)";
     Connectors.ImPin efdPu(value(start = Efd0Pu)) "Input voltage of exciter winding in pu (user-selected base voltage)";
 
-    // Output variables
+// Output variables + der(lambdaqPu/SystemBase.omegaNom)
     Connectors.ImPin omegaPu(value(start = SystemBase.omega0Pu)) "Angular frequency in pu";
 
     // Internal parameters of the synchronous machine in pu (base UNom, SNom)
@@ -236,7 +236,7 @@ package BaseClasses
       lambdaQ1Pu = MqSatPPu * iqPu + (MqSatPPu + LQ1PPu) * iQ1Pu + MqSatPPu * iQ2Pu;
       lambdaQ2Pu = MqSatPPu * iqPu + MqSatPPu * iQ1Pu + (MqSatPPu + LQ2PPu) * iQ2Pu;
       // Equivalent circuit equations in Park's coordinates
-      udPu = (RaPPu + RTfoPu) * idPu - omegaPu.value * lambdaqPu;
+      udPu = (RaPPu + RTfoPu) * idPu  - omegaPu.value * lambdaqPu;
       uqPu = (RaPPu + RTfoPu) * iqPu + omegaPu.value * lambdadPu;
       ufPu = RfPPu * ifPu + der(lambdafPu) / SystemBase.omegaNom;
       0 = RDPPu * iDPu + der(lambdaDPu) / SystemBase.omegaNom;

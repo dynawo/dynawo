@@ -44,7 +44,7 @@ equation
   if nodeFault.value then
     terminal.V = ZPu * terminal.i;
   else
-    terminal.i = Complex(0);
+    terminal.V = 10000 * terminal.i;
   end if;
 
   annotation(preferredView = "text",

@@ -24,7 +24,7 @@ package BaseClasses_INIT
     input Types.PerUnit LdPu "Direct axis stator leakage in pu";
     input Types.PerUnit LqPu "Quadrature axis stator leakage in pu";
     input Types.PerUnit RaPu "Armature resistance in pu";
-    input Types.PerUnit rTfoPu "Ratio of the generator transformer in pu (base UBaseHV, UBaseLV)";
+    input Types.PerUnit rTfoPu "Ratiappeleo of the generator transformer in pu (base UBaseHV, UBaseLV)";
     input Types.PerUnit RTfoPu "Resistance of the generator transformer in pu (base SNom, UNom)";
     input Types.PerUnit XTfoPu "Reactance of the generator transformer in pu (base SNom, UNom)";
     input Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
@@ -242,23 +242,23 @@ package BaseClasses_INIT
       For an initialization from external parameters:
         - Calculate the internal parameter from the external parameters
         - Apply the transformation due to the presence of a generator transformer in the model to the internal parameters calculated from the external ones*/
-    Types.PerUnit RaPPu "Armature resistance in pu";
-    Types.PerUnit LdPPu "Direct axis stator leakage in pu";
-    Types.PerUnit MdPPu "Direct axis mutual inductance in pu";
-    Types.PerUnit LDPPu "Direct axis damper leakage in pu";
-    Types.PerUnit RDPPu "Direct axis damper resistance in pu";
-    Types.PerUnit MrcPPu "Canay's mutual inductance in pu";
-    Types.PerUnit LfPPu "Excitation winding leakage in pu";
-    Types.PerUnit RfPPu "Excitation winding resistance in pu";
-    Types.PerUnit LqPPu "Quadrature axis stator leakage in pu";
-    Types.PerUnit MqPPu "Quadrature axis mutual inductance in pu";
-    Types.PerUnit LQ1PPu "Quadrature axis 1st damper leakage in pu";
-    Types.PerUnit RQ1PPu "Quadrature axis 1st damper resistance in pu";
-    Types.PerUnit LQ2PPu "Quadrature axis 2nd damper leakage in pu";
-    Types.PerUnit RQ2PPu "Quadrature axis 2nd damper resistance in pu";
+    Types.PerUnit RaPPu = 0.003 "Armature resistance in pu";
+    Types.PerUnit LdPPu = 0.15 "Direct axis stator leakage in pu";
+    Types.PerUnit MdPPu = 1.66 "Direct axis mutual inductance in pu";
+    Types.PerUnit LDPPu = 0.16634 "Direct axis damper leakage in pu";
+    Types.PerUnit RDPPu = 0.03339 "Direct axis damper resistance in pu";
+    Types.PerUnit MrcPPu = 0 "Canay's mutual inductance in pu";
+    Types.PerUnit LfPPu = 0.16990 "Excitation winding leakage in pu";
+    Types.PerUnit RfPPu = 0.00074 "Excitation winding resistance in pu";
+    Types.PerUnit LqPPu = 0.15 "Quadrature axis stator leakage in pu";
+    Types.PerUnit MqPPu = 1.61 "Quadrature axis mutual inductance in pu";
+    Types.PerUnit LQ1PPu = 0.92815 "Quadrature axis 1st damper leakage in pu";
+    Types.PerUnit RQ1PPu = 0.00924 "Quadrature axis 1st damper resistance in pu";
+    Types.PerUnit LQ2PPu = 0.12046 "Quadrature axis 2nd damper leakage in pu";
+    Types.PerUnit RQ2PPu  = 0.02821 "Quadrature axis 2nd damper resistance in pu";
 
     // Start values calculated by the initialization model
-    Types.PerUnit MdPPuEfd "Direct axis mutual inductance used to determine the excitation voltage in pu";
+    Types.PerUnit MdPPuEfd = 1.66"Direct axis mutual inductance used to determine the excitation voltage in pu";
     Types.PerUnit MdPPuEfdNom "Direct axis mutual inductance used to determine the excitation voltage in nominal conditions in pu";
     Types.PerUnit Kuf "Scaling factor for excitation pu voltage";
 
@@ -272,8 +272,8 @@ package BaseClasses_INIT
     Types.ApparentPowerModulePu S0Pu "Start value of apparent power at terminal side in pu (base SNom)";
     Types.CurrentModulePu I0Pu "Start value of current module at terminal side in pu (base UNom, SNom)";
 
-    Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
-    Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";
+    Types.ActivePowerPu PGen0Pu  "Start value of active power at terminal in pu (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QGen0Pu  "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";
 
     Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
 
@@ -305,10 +305,10 @@ package BaseClasses_INIT
     Types.Angle ThetaInternal0 "Start value of internal angle in rad";
 
     Types.PerUnit MsalPu "Constant difference between direct and quadrature axis saturated mutual inductances in pu";
-    Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in pu";
-    Types.PerUnit MqSat0PPu "Start value of quadrature axis saturated mutual inductance in pu";
-    Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in pu";
-    Types.PerUnit LambdaAD0Pu "Start value of common flux of direct axis in pu";
+    Types.PerUnit MdSat0PPu = 1.5792 "Start value of direct axis saturated mutual inductance in pu";
+    Types.PerUnit MqSat0PPu = 1.5292 "Start value of quadrature axis saturated mutual inductance in pu";
+    Types.PerUnit LambdaAirGap0Pu = 1.0764 "Start value of total air gap flux in pu";
+    Types.PerUnit LambdaAD0Pu = 0.89347 "Start value of common flux of direct axis in pu";
     Types.PerUnit LambdaAQ0Pu "Start value of common flux of quadrature axis in pu";
     Types.PerUnit Mds0Pu "Start value of direct axis saturated mutual inductance in the case when the total air gap flux is aligned on the direct axis in pu";
     Types.PerUnit Mqs0Pu "Start value of quadrature axis saturated mutual inductance in the case when the total air gap flux is aligned on the quadrature axis in pu";

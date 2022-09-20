@@ -27,12 +27,13 @@ model Converter_INIT
   parameter Types.PerUnit Cfilter = 0.066 "Filter capacitance in pu (base UNom, SNom)";
   parameter Types.PerUnit Rtransformer = 0.01 "Transformer resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit Ltransformer = 0.2 "Transformer inductance in pu (base UNom, SNom)";
-  parameter Types.ApparentPowerModule SNom = 2220 "Apparent power module reference for the converter";
+  parameter Types.ApparentPowerModule SNom = 2220 * conv "Apparent power module reference for the converter";
+  parameter Real conv = 0.6;
 
-  parameter Types.VoltageModulePu U0Pu = 1 "Start value of voltage amplitude at terminal in pu (base UNom)";
-  parameter Types.Angle UPhase0 = 0.494442 "Start value of voltage angle at terminal in rad";
-  parameter Types.ActivePowerPu P0Pu = -19.98  "Start value of active power in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q0Pu = -9.68 "Start value of reactive power in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U0Pu = 1   "Start value of voltage amplitude at terminal in pu (base UNom)";
+  parameter Types.Angle UPhase0 = 0.49 "Start value of voltage angle at terminal in rad";
+  parameter Types.ActivePowerPu P0Pu = -19.98 * conv  "Start value of active power in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu = -9.68 * conv "Start value of reactive power in pu (base SnRef) (receptor convention)";
 
   Types.ComplexPerUnit i0Pu "Start value of the complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.ComplexPerUnit u0Pu "Start value of the complex voltage at terminal in pu (base UNom)";
@@ -51,10 +52,13 @@ model Converter_INIT
   Types.PerUnit PRef0Pu;
   Types.PerUnit QRef0Pu;
   Types.PerUnit IdcSourceRef0Pu;
+  parameter Types.ComplexImpedancePu ZTransfoPu (re = 0, im = 0.00675);
+  Types.ComplexPerUnit itransfo;
 
   equation
 
-  u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
+  ComplexMath.fromPolar(U0Pu, UPhase0) * ComplexMath.conj(itransfo) = Complex((1-conv)*19.98,(1-conv)*9.68);
+  u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0) - ZTransfoPu *itransfo ;
   Complex(P0Pu, Q0Pu) = u0Pu * ComplexMath.conj(i0Pu);
 
   /* DQ reference frame change from network reference to converter reference and pu base change */

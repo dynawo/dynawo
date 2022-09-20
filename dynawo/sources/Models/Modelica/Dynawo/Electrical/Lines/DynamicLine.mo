@@ -16,7 +16,7 @@ within Dynawo.Electrical.Lines;
 model DynamicLine "AC power line - PI model considering the dynamics of the inductance and the capacitances "
 
 /*
-  Equivalent circuit and conventions:
+    Equivalent circuit and conventions:
 
                I1                  I2
    (terminal1) -->-------R+jX-------<-- (terminal2)
@@ -64,30 +64,22 @@ model DynamicLine "AC power line - PI model considering the dynamics of the indu
   Types.ActivePowerPu P2Pu "Active power at terminal 2 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q2Pu "Reactive power at terminal 2 in pu (base SnRef) (receptor convention)";
 
+initial equation
+
 
 equation
 
-  if (running.value) then
-    iGC1Pu.re = GPu * terminal1.V.re + CPu * der(terminal1.V.re / SystemBase.omegaNom) - omegaPu * CPu * terminal1.V.im;
-    iGC1Pu.im = GPu * terminal1.V.im + CPu * der(terminal1.V.im / SystemBase.omegaNom) + omegaPu * CPu * terminal1.V.re;
-    iGC2Pu.re = GPu * terminal2.V.re + CPu * der(terminal2.V.re / SystemBase.omegaNom) - omegaPu * CPu * terminal2.V.im;
-    iGC2Pu.im = GPu * terminal2.V.im + CPu * der(terminal2.V.im / SystemBase.omegaNom) + omegaPu * CPu * terminal2.V.re;
+    iGC1Pu.re = GPu * terminal1.V.re + CPu * der(terminal1.V.re / SystemBase.omegaNom) - CPu * terminal1.V.im;
+    iGC1Pu.im = GPu * terminal1.V.im + CPu * der(terminal1.V.im / SystemBase.omegaNom) + CPu * terminal1.V.re;
+    iGC2Pu.re = GPu * terminal2.V.re + CPu * der(terminal2.V.re / SystemBase.omegaNom) - CPu * terminal2.V.im;
+    iGC2Pu.im = GPu * terminal2.V.im + CPu * der(terminal2.V.im / SystemBase.omegaNom) + CPu * terminal2.V.re;
     RPu * iRLPu.re + LPu * der(iRLPu.re / SystemBase.omegaNom) - omegaPu * LPu * iRLPu.im = terminal1.V.re - terminal2.V.re;
     RPu * iRLPu.im + LPu * der(iRLPu.im / SystemBase.omegaNom) + omegaPu * LPu * iRLPu.re = terminal1.V.im - terminal2.V.im;
-    terminal1.i = iRLPu + iGC1Pu ;
+    terminal1.i =  iGC1Pu + iRLPu  ;
     terminal2.i = iGC2Pu - iRLPu ;
 
-  else
 
- //LPu * der(iRLPu.re / SystemBase.omegaNom) = terminal1.V.re - terminal2.V.re;
-// LPu * der(iRLPu.im / SystemBase.omegaNom) = terminal1.V.im - terminal2.V.im;
-    terminal1.i = Complex(0,0);
-    iGC1Pu = Complex(0,0);
-    terminal2.i = Complex(0,0);
-    iGC2Pu = Complex(0,0);
-    iRLPu = Complex(0,0);
 
-  end if;
 
   s1Pu = terminal1.V * ComplexMath.conj(terminal1.i);
   s2Pu = terminal2.V * ComplexMath.conj(terminal2.i);
@@ -105,5 +97,6 @@ The line model is a PI model considering the dynamics of the inductance and the 
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                    |           |</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                  G+jB         G+jB</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                    |           |</span></pre>
-<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                   ---         ---</span><!--EndFragment--></pre></div><div><div><pre style=\"text-align: center; margin-top: 0px; margin-bottom: 0px;\"><!--EndFragment--></pre></div></div></body></html>"));
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                   ---         ---</span><!--EndFragment--></pre></div><div><div><pre style=\"text-align: center; margin-top: 0px; margin-bottom: 0px;\"><!--EndFragment--></pre></div></div></body></html>"),
+  experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002));
 end DynamicLine;

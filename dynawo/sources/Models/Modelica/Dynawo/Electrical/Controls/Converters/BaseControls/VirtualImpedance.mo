@@ -20,6 +20,7 @@ model VirtualImpedance "Virtual Impedance model for the current limitation"
 
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance";
   parameter Types.PerUnit XRratio "X/R ratio of the virtual impedance";
+  parameter Types.PerUnit Imax;
 
   Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "d-axis current created by the converter in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-190, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -35,7 +36,7 @@ model VirtualImpedance "Virtual Impedance model for the current limitation"
       Placement(visible = true, transformation(origin = {56, 24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainXRratio (k = XRratio) annotation(
       Placement(visible = true, transformation(origin = {86, 24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant one (k= 1) annotation(
+  Modelica.Blocks.Sources.Constant one (k= Imax) annotation(
       Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
       Placement(visible = true, transformation(origin = {-4, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -64,8 +65,9 @@ model VirtualImpedance "Virtual Impedance model for the current limitation"
 
   parameter Types.PerUnit IdConv0Pu;
   parameter Types.PerUnit IqConv0Pu;
-
+  Types.PerUnit maximum;
 equation
+  maximum = max.y;
   connect(feedback.u2, one.y) annotation(
     Line(points = {{-4, 22}, {-4, 22}, {-4, 0}, {-18, 0}, {-18, 0}}, color = {0, 0, 127}));
   connect(gainKpVI.y, gainXRratio.u) annotation(
@@ -98,8 +100,6 @@ equation
     Line(points = {{128, -58}, {96, -58}, {96, 24}, {98, 24}}, color = {0, 0, 127}));
   connect(product5.u2, idConvPu) annotation(
     Line(points = {{128, -70}, {-200, -70}, {-200, 40}, {-176, 40}, {-176, 60}, {-190, 60}}, color = {0, 0, 127}));
-  connect(feedback.y, max.u1) annotation(
-    Line(points = {{6, 30}, {14, 30}, {14, 30}, {14, 30}}, color = {0, 0, 127}));
   connect(max.y, gainKpVI.u) annotation(
     Line(points = {{38, 24}, {44, 24}, {44, 24}, {44, 24}}, color = {0, 0, 127}));
   connect(max.u2, zerosource.y) annotation(
@@ -116,9 +116,10 @@ equation
     Line(points = {{-72, 60}, {-70, 60}, {-70, 36}, {-70, 36}}, color = {0, 0, 127}));
   connect(product2.y, add.u2) annotation(
     Line(points = {{-72, 0}, {-70, 0}, {-70, 24}, {-70, 24}}, color = {0, 0, 127}));
+  connect(feedback.y, max.u1) annotation(
+    Line(points = {{6, 30}, {14, 30}, {14, 30}, {14, 30}}, color = {0, 0, 127}));
   connect(add.y, feedback.u1) annotation(
-    Line(points = {{-47, 30}, {-13, 30}, {-13, 30}, {-12, 30}}, color = {0, 0, 127}));
-
+    Line(points = {{-47, 30}, {-12, 30}}, color = {0, 0, 127}));
   annotation(
     Icon(coordinateSystem(grid = {1, 1})),
     preferredView = "diagram",

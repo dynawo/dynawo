@@ -108,7 +108,6 @@ equation
     Line(points = {{4, 18}, {4, 28}, {74, 28}, {74, 12}, {108, 12}, {108, 2}, {130, 2}, {130, 6}}, color = {85, 170, 255}));
   connect(generatorSynchronous.IRotorPu_out, avr.IfdPu) annotation(
     Line(points = {{28, 18}, {28, 22}, {72, 22}, {72, 11}, {106, 11}, {106, 1}, {136, 1}, {136, 6}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06),

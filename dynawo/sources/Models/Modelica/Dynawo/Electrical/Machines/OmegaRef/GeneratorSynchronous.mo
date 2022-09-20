@@ -71,6 +71,7 @@ equation
     UPu = ComplexMath.'abs' (terminal.V);
     uPu = terminal.V;
 
+
     // Active and reactive power at terminal
     PGenPu = - ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
     QGenPu = - ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));

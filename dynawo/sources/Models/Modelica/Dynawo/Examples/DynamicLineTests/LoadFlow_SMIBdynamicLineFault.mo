@@ -37,25 +37,24 @@ within Dynawo.Examples.DynamicLineTests;
 
   extends Icons.Example;
 
-  parameter Real x = 0.5 "Emplacement of the fault relative to the line lenght : x= default location /line lenght";
-  parameter Types.PerUnit XLigne1=0.0375 "Reactance of the line 1 in pu (base SnRef, UNom) ";
-  parameter Types.PerUnit RLigne1= 0.00375 "Resistance of the line 1 in pu (base SnRef, UNom) ";
-  parameter Types.PerUnit BLigne1=0 "Half-susceptance of the line 1 in pu (base SnRef, UNom)";
+  parameter Types.PerUnit XLigne1= 0.0375 "Reactance of the line 1 in pu (base SnRef, UNom) ";
+  parameter Types.PerUnit RLigne1= 0.00375  "Resistance of the line 1 in pu (base SnRef, UNom) ";
+  parameter Types.PerUnit BLigne1= 0 "Half-susceptance of the line 1 in pu (base SnRef, UNom)";
   parameter Types.PerUnit GLigne1 = 0.0000375 "Half-conductance of the line 1 in pu (base SnRef, UNom)";
-  parameter Types.PerUnit XLigne2 =0.0375 "Reactance of the line 2 in pu (base SnRef, UNom) ";
-  parameter Types.PerUnit RLigne2 =0.00375 "Resistance of the line 2 in pu (base SnRef, UNom) ";
-  parameter Types.PerUnit BLigne2 =0 "Half-susceptance of the line 2 in pu (base SnRef, UNom)";
+  parameter Types.PerUnit XLigne2 = 0.0375 "Reactance of the line 2 in pu (base SnRef, UNom) ";
+  parameter Types.PerUnit RLigne2 = 0.00375 "Resistance of the line 2 in pu (base SnRef, UNom) ";
+  parameter Types.PerUnit BLigne2 = 0 "Half-susceptance of the line 2 in pu (base SnRef, UNom)";
   parameter Types.PerUnit GLigne2 = 0.0000375 "Half-conductance of the line 1 in pu (base SnRef, UNom)";
-  parameter Types.PerUnit XTransfo=0.00675 "Reactance of the transformater in pu (base SnRef, UNom) ";
+  parameter Types.PerUnit XTransfo = 0.00675 "Reactance of the transformater in pu (base SnRef, UNom) ";
   parameter Types.PerUnit RTransfo = 0 "Resistance of the transformater in pu (base SnRef, UNom) ";
   parameter Types.PerUnit U0Pu = 1"Initial voltage amplitude at the machine in pu (base UNom)";
   parameter Types.Angle U0Phase = 0.49 "Start value of the voltage phase at the machine in rad";
   parameter Types.ActivePowerPu P0 = 19.98 "Start value of the active power at the machine in pu (base SnRef)";
   parameter Types.ReactivePowerPu Q0 = 9.68 "Start value of the reactive power at the machine in pu (base SnRef)";
   parameter Types.ComplexImpedancePu ZTransfoPu (re = RTransfo, im = XTransfo) "Transformater impedance";
-  parameter Types.ComplexImpedancePu ZLigne1Pu (re = RLigne1, im = XLigne1) "Line 1 impedance";
+  Types.ComplexImpedancePu ZLigne1Pu (re = RLigne1, im = XLigne1) "Line 1 impedance";
   parameter Types.ComplexAdmittancePu YLigne1Pu (re = GLigne1, im = BLigne1) "Line 1 half-admittance";
-  parameter Types.ComplexImpedancePu ZLigne2Pu (re = RLigne2, im = XLigne2) "Line 2 impedance";
+  Types.ComplexImpedancePu ZLigne2Pu (re = RLigne2, im = XLigne2) "Line 2 impedance";
   parameter Types.ComplexAdmittancePu YLigne2Pu (re = GLigne2, im = BLigne2) "Line 2 half-admittance";
 
   Types.PerUnit U1Pu   "Voltage amplitude at the infinite bus in pu (base Unom)";
@@ -73,12 +72,18 @@ within Dynawo.Examples.DynamicLineTests;
   Types.ComplexCurrentPu I22 "Complex current at the line 2 on terminal 2 in pu (base SnRef, Unom)";
   Types.ComplexVoltagePu Vx "Complex voltage at the fault emplacement in pu (base Unom) ";
   Types.ComplexCurrentPu Ix "Complex current at the fault emplacement in pu (base Unom) ";
+  Types.ComplexApparentPowerPu S01 ;
+  Types.PerUnit Q01;
+  Types.PerUnit P01;
 
 equation
   U11 = ComplexMath.fromPolar(U1Pu, U1Phase);
   U0 = ComplexMath.fromPolar(U0Pu, U0Phase);
   U0 * ComplexMath.conj(I0) = Complex(P0, Q0);
   U01 = U0 - ZTransfoPu * I0;
+  S01 = U01 * ComplexMath.conj(I0);
+  Q01 = S01.im;
+  P01 = S01.re;
   (1 - x) * ZLigne1Pu * (-Ix - (1 - x) * YLigne1Pu * Vx) = Vx - U11;
   (1 - x) * ZLigne1Pu * (I11 - (1 - x) * YLigne1Pu * U11) = U11 - Vx;
   x * ZLigne1Pu * (I21 - x * YLigne1Pu * U21) = U21 - Vx;
@@ -90,8 +95,8 @@ equation
   U21 = U22;
   I21 + I22 = I0;
 
+
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>
 This model is a load flow that can be used to correctly initialize the complex voltage at the infinite bus for SMIBdynamicLineFault and SMIBdynamicLineFault_INIT for given values of lines parameters and machine initial U,P and Q. </body></html>"));
-
  end LoadFlow_SMIBdynamicLineFault;

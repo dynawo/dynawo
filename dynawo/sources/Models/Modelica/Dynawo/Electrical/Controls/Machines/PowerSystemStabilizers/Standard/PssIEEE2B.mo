@@ -76,9 +76,9 @@ model PssIEEE2B "IEEE Power System Stabilizer type 2B"
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax = VstMaxPu, uMin = VstMinPu) annotation(
     Placement(visible = true, transformation(origin = {210, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = Vsi1MaxPu, uMin = Vsi1MinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(limitsAtInit = true,uMax = Vsi1MaxPu, uMin = Vsi1MinPu) annotation(
     Placement(visible = true, transformation(origin = {-170, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter2(uMax = Vsi2MaxPu, uMin = Vsi2MinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter2(limitsAtInit = true,uMax = Vsi2MaxPu, uMin = Vsi2MinPu) annotation(
     Placement(visible = true, transformation(origin = {-170, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RampTrackingFilter rampTrackingFilter(M = 5, t1 = t8, t2 = t9)  annotation(
     Placement(visible = true, transformation(origin = {30, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
