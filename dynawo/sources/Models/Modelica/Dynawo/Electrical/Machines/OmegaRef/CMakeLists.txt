@@ -22,6 +22,7 @@ set(MODEL_FILES
   GeneratorPV.extvar
   GeneratorPV_INIT.mo
   GeneratorSynchronous.mo
+  GeneratorSynchronous_INIT.mo
   GeneratorSynchronous.extvar
   GeneratorSynchronousInt_INIT.mo
   GeneratorSynchronousExt_4E_INIT.mo

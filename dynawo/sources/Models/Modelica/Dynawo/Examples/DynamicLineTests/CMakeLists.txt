@@ -10,14 +10,18 @@
 
 
 set(MODEL_FILES
-  package.mo
-  package.order
-  generatorLoad_dynamicLine_Controlled.mo
+  AdvandedRegulated_SMIB.mo
   GridFormingSMIB.mo
   LoadFlow_SMIBdynamicFault.mo
-  SMIBdynamicLineFault_INIT.mo
+  Regulated_SMIBdynamicLineFault.mo
+  package.mo
+  package.order
+  SMIB_GridForming.mo
+  SMIB_GridForming_DynamicLine.mo
   SMIBdynamicLineFault.mo
+  SMIBdynamicLineFault_INIT.mo
   test.mo
+  testINIT.mo
   TwoMachines.mo
   TwoMachinesLoadFlow.mo
   )
