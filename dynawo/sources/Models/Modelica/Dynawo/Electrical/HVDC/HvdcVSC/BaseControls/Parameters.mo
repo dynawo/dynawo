@@ -18,7 +18,7 @@ package Parameters "Parameters of the HVDC VSC model"
 
   record Params_ACEmulation
     parameter Types.Time tFilter "Time constant of the angle measurement filter";
-    parameter Types.PerUnit KACEmulation "Inverse of the emulated AC reactance";
+    parameter Types.PerUnit KACEmulation "Inverse of the emulated AC reactance (base SnRef or SNom) (receptor or generator convention). If in generator convention, KACEmulation should be < 0.";
   annotation(preferredView = "text");
   end Params_ACEmulation;
 
