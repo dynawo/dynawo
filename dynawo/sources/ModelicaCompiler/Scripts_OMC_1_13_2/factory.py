@@ -706,7 +706,7 @@ class Factory:
                 test_param_address(name)
                 eq = EquationBasedOnExternalCall(
                               function_name,
-                              [to_param_address(name) + " /* " + name + "*/ = " + dic_var_name_to_temporary_name[name]+";"], \
+                              [to_param_address(name) + " /*" + name + "*/ = " + dic_var_name_to_temporary_name[name]+";"], \
                               name, \
                               to_param_address(name), \
                               [], \
@@ -2316,9 +2316,9 @@ class Factory:
         # result line
         line_tmp = line
         # regular expressions to find real and der variables in the parameters
-        ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*[ ]*\*\/')
-        ptrn_real_der_var = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\]]*\*\/')
-        ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\]]*\*\/')
+        ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]*\*\/')
+        ptrn_real_der_var = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
+        ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
 
         # step 1: collect all functions called in this line
         for func in self.reader.list_omc_functions:
