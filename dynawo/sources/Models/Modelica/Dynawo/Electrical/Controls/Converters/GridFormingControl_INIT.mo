@@ -13,38 +13,58 @@ within Dynawo.Electrical.Controls.Converters;
 */
 
 model GridFormingControl_INIT "Initialization model for the grid forming control"
-
-  import Modelica;
   import Dynawo.Types;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
 
   extends AdditionalIcons.Init;
 
-  parameter Types.PerUnit Lfilter "Filter inductance in pu (base UNom, SNom)";
-  parameter Types.PerUnit Cfilter "Filter capacitance in pu (base UNom, SNom)";
+  parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance";
+  parameter Types.PerUnit XRratio "X/R ratio of the virtual impedance";
+  parameter Types.CurrentModulePu IMaxVI "Maximum current before activating the virtual impedance in pu (base UNom, SNom)";
 
-  Types.PerUnit PRef0Pu;
-  Types.PerUnit QRef0Pu;
-  Types.PerUnit IdcSourceRef0Pu;
-  Types.PerUnit IdConv0Pu;
-  Types.PerUnit IqConv0Pu;
-  Types.PerUnit IdPcc0Pu;
-  Types.PerUnit IqPcc0Pu;
-  Types.PerUnit UdFilter0Pu;
-  Types.PerUnit UdConv0Pu;
-  Types.PerUnit UqConv0Pu;
-  Types.Angle Theta0;
-  Types.PerUnit IdcSource0Pu;
-  Types.PerUnit UdcSource0Pu;
+  Types.PerUnit IdcSourceRef0Pu "Start value of DC current reference in pu (base UdcNom, SNom)";
+  Types.PerUnit IdcSource0Pu "Start value of DC current in pu (base UdcNom, SNom)";
+  Types.PerUnit UdcSource0Pu "Start value of DC voltage in pu (base UdcNom)";
+  Types.PerUnit UdcSourceRef0Pu "Start value of DC voltage reference in pu (base UdcNom)";
+  Types.PerUnit UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)";
+  Types.PerUnit UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)";
+  Types.PerUnit IdConv0Pu "Start value of d-axis current in the converter in pu (base UNom, SNom) (generator convention)";
+  Types.PerUnit IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
+  Types.ActivePowerPu PRef0Pu "Start value of the active power reference at the converter's capacitor in pu (base SNom) (generator convention)";
+  Types.ReactivePowerPu QRef0Pu "Start value of the reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)";
+  Types.PerUnit IdPcc0Pu "Start value of d-axis current in the grid in pu (base UNom, SNom) (generator convention)";
+  Types.PerUnit IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
+  Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
+  Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
+  Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
+  Types.ActivePowerPu PFilter0Pu "Start value of active power generated at the converter's capacitor in pu (base SNom) (generator convention)";
+  Types.ReactivePowerPu QFilter0Pu "Start value of reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)";
+  Types.VoltageModulePu UFilterRef0Pu "Start value of voltage module reference at the converter's capacitor in pu (base UNom)";
+  Types.CurrentModulePu IConvSquare0Pu "Start value of square current in the converter in pu (base UNom, SNom)";
+  Types.CurrentModulePu DeltaIConvSquare0Pu "Start value of extra square current in the converter in pu (base UNom, SNom)";
+  Types.PerUnit RVI0 "Start value of virtual resistance in pu (base UNom, SNom)";
+  Types.PerUnit XVI0 "Start value of virtual reactance in pu (base UNom, SNom)";
+  Types.PerUnit DeltaVVId0 "Start value of d-axis virtual impedance output in pu (base UNom)";
+  Types.PerUnit DeltaVVIq0 "Start value of q-axis virtual impedance output in pu (base UNom)";
 
-  equation
+equation
+  /* External loop */
+  PRef0Pu = PFilter0Pu;
+  UdFilter0Pu = UFilterRef0Pu;
+  QRef0Pu = QFilter0Pu;
+  UqFilter0Pu = 0;
 
-  PRef0Pu = UdFilter0Pu * IdPcc0Pu;
-  PRef0Pu = IdcSourceRef0Pu * UdcSource0Pu;
-  QRef0Pu =  - UdFilter0Pu * IqPcc0Pu;
-  UdcSource0Pu = UdFilter0Pu;
+  /* DC voltage control */
+  IdcSourceRef0Pu = IdcSource0Pu;
+  UdcSourceRef0Pu = 1;
+  UdcSourceRef0Pu = UdcSource0Pu;
 
-annotation(preferredView = "text");
+  /* Virtual impedance */
+  IConvSquare0Pu = IdConv0Pu ^ 2 + IqConv0Pu ^ 2;
+  DeltaIConvSquare0Pu = max((IConvSquare0Pu - IMaxVI ^ 2), 0);
+  RVI0 = KpVI * DeltaIConvSquare0Pu;
+  XVI0 = RVI0 * XRratio;
+  DeltaVVId0 = IdConv0Pu * RVI0 - IqConv0Pu * XVI0;
+  DeltaVVIq0 = IqConv0Pu * RVI0 + IdConv0Pu * XVI0;
 
+  annotation(preferredView = "text");
 end GridFormingControl_INIT;
