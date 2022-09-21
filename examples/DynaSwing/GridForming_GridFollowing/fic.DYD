@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dynamicModelsArchitecture xmlns="http://www.rte-france.com/dynawo">
+<!-- Grid forming converters (droop control) -->
+  <blackBoxModel id="INF" lib="GridFormingConverterDroopControl" parFile="fic.PAR" parId="GFM1" staticId="INF">
+    <staticRef var="converter_PGenPu" staticVar="p"/>
+    <staticRef var="converter_QGenPu" staticVar="q"/>
+    <staticRef var="converter_state" staticVar="state"/>
+  </blackBoxModel>
+  <macroConnect connector="GFMToNode" id1="INF" id2="NETWORK"/>
+  <blackBoxModel id="HVDC1" lib="GridFormingConverterDroopControl" parFile="fic.PAR" parId="GFM1" staticId="HVDC1">
+    <staticRef var="converter_PGenPu" staticVar="p"/>
+    <staticRef var="converter_QGenPu" staticVar="q"/>
+    <staticRef var="converter_state" staticVar="state"/>
+  </blackBoxModel>
+  <macroConnect connector="GFMToNode" id1="HVDC1" id2="NETWORK"/>
+  <blackBoxModel id="HVDC2" lib="GridFormingConverterDroopControl" parFile="fic.PAR" parId="GFM1" staticId="HVDC2">
+    <staticRef var="converter_PGenPu" staticVar="p"/>
+    <staticRef var="converter_QGenPu" staticVar="q"/>
+    <staticRef var="converter_state" staticVar="state"/>
+  </blackBoxModel>
+  <macroConnect connector="GFMToNode" id1="HVDC2" id2="NETWORK"/>
+<!-- Grid following converters (WECC) -->
+  <blackBoxModel id="WP1" lib="WindTurbine4AWeccCurrentSource" parFile="fic.PAR" parId="Wind" staticId="WP1">
+    <staticRef var="WTG4A_measurements_PPuSnRef" staticVar="p"/>
+    <staticRef var="WTG4A_measurements_QPuSnRef" staticVar="q"/>
+    <staticRef var="WTG4A_injector_state" staticVar="state"/>
+  </blackBoxModel>
+  <macroConnect connector="WTG4AToNode" id1="WP1" id2="NETWORK"/>
+  <blackBoxModel id="WP2" lib="WindTurbine4AWeccCurrentSource" parFile="fic.PAR" parId="Wind" staticId="WP2">
+    <staticRef var="WTG4A_measurements_PPuSnRef" staticVar="p"/>
+    <staticRef var="WTG4A_measurements_QPuSnRef" staticVar="q"/>
+    <staticRef var="WTG4A_injector_state" staticVar="state"/>
+  </blackBoxModel>
+  <macroConnect connector="WTG4AToNode" id1="WP2" id2="NETWORK"/>
+<!-- Grid frequency -->
+  <blackBoxModel id="OMEGAREF" lib="DYNModelOmegaRef" parFile="fic.PAR" parId="OMEGAREF"/>
+  <macroConnect connector="OmegaRefToGFM" id1="OMEGAREF" id2="INF" index1="0"/>
+  <macroConnect connector="OmegaRefToNumCCMachine" id1="OMEGAREF" id2="NETWORK" index1="0" name2="INF"/>
+  <macroConnect connector="OmegaRefToGFM" id1="OMEGAREF" id2="HVDC1" index1="1"/>
+  <macroConnect connector="OmegaRefToNumCCMachine" id1="OMEGAREF" id2="NETWORK" index1="1" name2="HVDC1"/>
+  <macroConnect connector="OmegaRefToGFM" id1="OMEGAREF" id2="HVDC2" index1="2"/>
+  <macroConnect connector="OmegaRefToNumCCMachine" id1="OMEGAREF" id2="NETWORK" index1="2" name2="HVDC2"/>
+  <macroConnect connector="OmegaRefToWTG4A" id1="OMEGAREF" id2="WP1" index1="3"/>
+  <macroConnect connector="OmegaRefToNumCCMachine" id1="OMEGAREF" id2="NETWORK" index1="3" name2="WP1"/>
+  <macroConnect connector="OmegaRefToWTG4A" id1="OMEGAREF" id2="WP2" index1="4"/>
+  <macroConnect connector="OmegaRefToNumCCMachine" id1="OMEGAREF" id2="NETWORK" index1="4" name2="WP2"/>
+<!-- Events -->
+  <blackBoxModel id="STEPPWP2" lib="DoubleStep" parFile="fic.PAR" parId="STEPPWP2"/>
+  <connect id1="STEPPWP2" var1="doubleStep_step_value" id2="WP2" var2="WTG4A_PRefPu"/>
+  <blackBoxModel id="DISCONNECTLINE" lib="EventQuadripoleDisconnection" parFile="fic.PAR" parId="DISCONNECTLINE"/>
+  <connect id1="DISCONNECTLINE" var1="event_state1_value" id2="NETWORK" var2="AAAAAL72BBBBB_state_value"/>
+  <blackBoxModel id="STEPPHVDC1" lib="DoubleStep" parFile="fic.PAR" parId="STEPPHVDC1"/>
+  <connect id1="STEPPHVDC1" var1="doubleStep_step_value" id2="HVDC1" var2="control_PRefPu"/>
+  <blackBoxModel id="FAULT" lib="NodeFault" parFile="fic.PAR" parId="FAULT"/>
+  <connect id1="NETWORK" var1="DDDDDP71_ACPIN" id2="FAULT" var2="fault_terminal"/>
+<!-- Macro-connectors-->
+  <macroConnector id="GFMToNode">
+    <connect var1="converter_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
+  </macroConnector>
+  <macroConnector id="WTG4AToNode">
+    <connect var1="WTG4A_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
+  </macroConnector>
+  <macroConnector id="OmegaRefToGFM" index1="true">
+    <connect var1="omega_grp_@INDEX@_value" var2="converter_omegaPu"/>
+    <connect var1="omegaRef_grp_@INDEX@_value" var2="control_omegaRefPu"/>
+    <connect var1="running_grp_@INDEX@" var2="converter_running"/>
+  </macroConnector>
+  <macroConnector id="OmegaRefToNumCCMachine" index1="true" name2="true">
+    <connect var1="numcc_node_@INDEX@" var2="@@NAME@@@NODE@_numcc"/>
+  </macroConnector>
+  <macroConnector id="OmegaRefToWTG4A" index1="true">
+    <connect var1="omega_grp_@INDEX@_value" var2="WTG4A_pll_omegaPLLPu"/>
+    <connect var1="omegaRef_grp_@INDEX@_value" var2="WTG4A_omegaRefPu"/>
+    <connect var1="running_grp_@INDEX@" var2="WTG4A_injector_running"/>
+  </macroConnector>
+</dynamicModelsArchitecture>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<jobs xmlns="http://www.rte-france.com/dynawo">
+    <job name="All converter-interfaced 5-machine system (3 GFM + 2 GFL)">
+        <solver lib="dynawo_SolverSIM" parFile="fic.PAR" parId="SimplifiedSolver"/>
+        <modeler compileDir="outputs/compilation">
+            <network iidmFile="fic.IIDM" parFile="fic.PAR" parId="NETWORK"/>
+            <dynModels dydFile="fic.DYD"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true"/>
+        </modeler>
+        <simulation startTime="0" stopTime="9" precision="1e-05"/>
+        <outputs directory="outputs">
+            <curves inputFile="fic.CRV" exportMode="CSV"/>
+            <logs>
+                <appender tag="" file="dynawaltz.log" lvlFilter="INFO"/>
+            </logs>
+        </outputs>
+    </job>
+</jobs>

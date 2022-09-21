@@ -12,17 +12,17 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
+  <variable id="UFilterRefPu" type="continuous" optional="true"/>
   <variable id="IdcSourceRefPu" type="continuous" optional="true"/>
   <variable id="UdcSourceRefPu" type="continuous" optional="true"/>
-  <variable id="UFilterRefPu" type="continuous" optional="true"/>
   <variable id="PRefPu" type="continuous" optional="true"/>
   <variable id="QRefPu" type="continuous" optional="true"/>
-  <variable id="UdcSourcePu" type="continuous" />
-  <variable id="idConvPu" type="continuous" />
-  <variable id="iqConvPu" type="continuous" />
-  <variable id="udFilterPu" type="continuous" />
-  <variable id="uqFilterPu" type="continuous" />
-  <variable id="idPccPu" type="continuous" />
-  <variable id="iqPccPu" type="continuous" />
-  <variable id="omegaRefPu" type="continuous" />
+  <variable id="idConvPu" type="continuous"/>
+  <variable id="iqConvPu" type="continuous"/>
+  <variable id="idPccPu" type="continuous"/>
+  <variable id="iqPccPu" type="continuous"/>
+  <variable id="omegaRefPu" type="continuous"/>
+  <variable id="udFilterPu" type="continuous"/>
+  <variable id="uqFilterPu" type="continuous"/>
+  <variable id="UdcSourcePu" type="continuous"/>
 </external_variables>

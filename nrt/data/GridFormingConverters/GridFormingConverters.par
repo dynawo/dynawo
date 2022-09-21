@@ -18,11 +18,11 @@
     <par type="DOUBLE" name="converter_U0Pu" value="1"/>
     <par type="DOUBLE" name="converter_UPhase0" value="0.06"/>
     <par type="DOUBLE" name="converter_Cdc" value="0.01"/>
-    <par type="DOUBLE" name="converter_Rfilter" value="0.005"/>
-    <par type="DOUBLE" name="converter_Lfilter" value="0.15"/>
-    <par type="DOUBLE" name="converter_Cfilter" value="0.066"/>
-    <par type="DOUBLE" name="converter_Rtransformer" value="0.01"/>
-    <par type="DOUBLE" name="converter_Ltransformer" value="0.2"/>
+    <par type="DOUBLE" name="converter_RFilter" value="0.005"/>
+    <par type="DOUBLE" name="converter_LFilter" value="0.15"/>
+    <par type="DOUBLE" name="converter_CFilter" value="0.066"/>
+    <par type="DOUBLE" name="converter_RTransformer" value="0.01"/>
+    <par type="DOUBLE" name="converter_LTransformer" value="0.2"/>
     <par type="DOUBLE" name="converter_SNom" value="250"/>
     <par type="DOUBLE" name="control_KpVI" value="0.67"/>
     <par type="DOUBLE" name="control_XRratio" value="5"/>
@@ -35,10 +35,11 @@
     <par type="DOUBLE" name="control_Mp" value="0.02"/>
     <par type="DOUBLE" name="control_Wff" value="16.66"/>
     <par type="DOUBLE" name="control_Kff" value="0.01"/>
-    <par type="DOUBLE" name="control_Rfilter" value="0.005"/>
-    <par type="DOUBLE" name="control_Lfilter" value="0.15"/>
-    <par type="DOUBLE" name="control_Cfilter" value="0.066"/>
+    <par type="DOUBLE" name="control_RFilter" value="0.005"/>
+    <par type="DOUBLE" name="control_LFilter" value="0.15"/>
+    <par type="DOUBLE" name="control_CFilter" value="0.066"/>
     <par type="DOUBLE" name="control_Kpdc" value="50"/>
+    <par type="DOUBLE" name="control_IMaxVI" value="1"/>
   </set>
   <set id="2">
     <par type="DOUBLE" name="converter_P0Pu" value="-3"/>
@@ -46,11 +47,11 @@
     <par type="DOUBLE" name="converter_U0Pu" value="1"/>
     <par type="DOUBLE" name="converter_UPhase0" value="0"/>
     <par type="DOUBLE" name="converter_Cdc" value="0.01"/>
-    <par type="DOUBLE" name="converter_Rfilter" value="0.005"/>
-    <par type="DOUBLE" name="converter_Lfilter" value="0.15"/>
-    <par type="DOUBLE" name="converter_Cfilter" value="0.066"/>
-    <par type="DOUBLE" name="converter_Rtransformer" value="0.01"/>
-    <par type="DOUBLE" name="converter_Ltransformer" value="0.2"/>
+    <par type="DOUBLE" name="converter_RFilter" value="0.005"/>
+    <par type="DOUBLE" name="converter_LFilter" value="0.15"/>
+    <par type="DOUBLE" name="converter_CFilter" value="0.066"/>
+    <par type="DOUBLE" name="converter_RTransformer" value="0.01"/>
+    <par type="DOUBLE" name="converter_LTransformer" value="0.2"/>
     <par type="DOUBLE" name="converter_SNom" value="500"/>
     <par type="DOUBLE" name="control_KpVI" value="0.67"/>
     <par type="DOUBLE" name="control_XRratio" value="5"/>
@@ -58,13 +59,14 @@
     <par type="DOUBLE" name="control_Kic" value="1.19"/>
     <par type="DOUBLE" name="control_Kpv" value="0.52"/>
     <par type="DOUBLE" name="control_Kiv" value="1.161022"/>
-    <par type="DOUBLE" name="control_Rfilter" value="0.005"/>
-    <par type="DOUBLE" name="control_Lfilter" value="0.15"/>
-    <par type="DOUBLE" name="control_Cfilter" value="0.066"/>
+    <par type="DOUBLE" name="control_RFilter" value="0.005"/>
+    <par type="DOUBLE" name="control_LFilter" value="0.15"/>
+    <par type="DOUBLE" name="control_CFilter" value="0.066"/>
     <par type="DOUBLE" name="control_Kpdc" value="50"/>
     <par type="DOUBLE" name="control_Eta" value="1"/>
     <par type="DOUBLE" name="control_Alpha" value="5000"/>
     <par type="DOUBLE" name="control_KDvoc" value="1.570796325"/>
+    <par type="DOUBLE" name="control_IMaxVI" value="1"/>
   </set>
   <set id="3">
     <par type="DOUBLE" name="converter_P0Pu" value="-6.35"/>
@@ -72,11 +74,11 @@
     <par type="DOUBLE" name="converter_U0Pu" value="1"/>
     <par type="DOUBLE" name="converter_UPhase0" value="0.1"/>
     <par type="DOUBLE" name="converter_Cdc" value="0.01"/>
-    <par type="DOUBLE" name="converter_Rfilter" value="0.005"/>
-    <par type="DOUBLE" name="converter_Lfilter" value="0.15"/>
-    <par type="DOUBLE" name="converter_Cfilter" value="0.066"/>
-    <par type="DOUBLE" name="converter_Rtransformer" value="0.01"/>
-    <par type="DOUBLE" name="converter_Ltransformer" value="0.2"/>
+    <par type="DOUBLE" name="converter_RFilter" value="0.005"/>
+    <par type="DOUBLE" name="converter_LFilter" value="0.15"/>
+    <par type="DOUBLE" name="converter_CFilter" value="0.066"/>
+    <par type="DOUBLE" name="converter_RTransformer" value="0.01"/>
+    <par type="DOUBLE" name="converter_LTransformer" value="0.2"/>
     <par type="DOUBLE" name="converter_SNom" value="1000"/>
     <par type="DOUBLE" name="control_KpVI" value="0.67"/>
     <par type="DOUBLE" name="control_XRratio" value="5"/>
@@ -84,11 +86,12 @@
     <par type="DOUBLE" name="control_Kic" value="1.19"/>
     <par type="DOUBLE" name="control_Kpv" value="0.52"/>
     <par type="DOUBLE" name="control_Kiv" value="1.161022"/>
-    <par type="DOUBLE" name="control_Rfilter" value="0.005"/>
-    <par type="DOUBLE" name="control_Lfilter" value="0.15"/>
-    <par type="DOUBLE" name="control_Cfilter" value="0.066"/>
+    <par type="DOUBLE" name="control_RFilter" value="0.005"/>
+    <par type="DOUBLE" name="control_LFilter" value="0.15"/>
+    <par type="DOUBLE" name="control_CFilter" value="0.066"/>
     <par type="DOUBLE" name="control_Kpdc" value="50"/>
     <par type="DOUBLE" name="control_KMatching" value="1"/>
+    <par type="DOUBLE" name="control_IMaxVI" value="1"/>
   </set>
   <set id="4">
     <par type="INT" name="nbGen" value="3"/>
