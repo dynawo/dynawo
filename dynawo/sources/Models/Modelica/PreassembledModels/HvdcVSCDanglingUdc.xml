@@ -18,7 +18,7 @@
     <dyn:unitDynamicModel id="QRef1Pu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
     <dyn:unitDynamicModel id="URef1Pu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
     <dyn:unitDynamicModel id="modeU1" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:initConnect id1="hvdc" var1="Udc10Pu" id2="UdcRefPu" var2="Value0"/>
+    <dyn:initConnect id1="hvdc" var1="UdcRef0Pu" id2="UdcRefPu" var2="Value0"/>
     <dyn:initConnect id1="hvdc" var1="QRef10Pu" id2="QRef1Pu" var2="Value0"/>
     <dyn:initConnect id1="hvdc" var1="URef10Pu" id2="URef1Pu" var2="Value0"/>
     <dyn:initConnect id1="hvdc" var1="modeU10" id2="modeU1" var2="Value0"/>

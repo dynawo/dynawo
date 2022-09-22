@@ -48,7 +48,7 @@ model HvdcVSC "HVDC VSC model"
     Placement(visible = true, transformation(origin = {50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput URef2Pu(start = U20Pu - Lambda * Q20Pu * (SystemBase.SnRef/SNom)) "Voltage reference for the side 2 of the HVDC link in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {40, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = Udc20Pu) "DC voltage reference of the HVDC link in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = UdcRef0Pu) "DC voltage reference of the HVDC link in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {60, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput modeU2(start = modeU20) "Boolean assessing the mode of the control: 1 if U mode, 0 if Q mode" annotation(
     Placement(visible = true, transformation(origin = {30, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
