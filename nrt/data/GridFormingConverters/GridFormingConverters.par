@@ -39,11 +39,6 @@
     <par type="DOUBLE" name="control_Lfilter" value="0.15"/>
     <par type="DOUBLE" name="control_Cfilter" value="0.066"/>
     <par type="DOUBLE" name="control_Kpdc" value="50"/>
-    <par type="DOUBLE" name="PRefPu_ValueIn" value="0.6"/>
-    <par type="DOUBLE" name="QRefPu_ValueIn" value="0"/>
-    <par type="DOUBLE" name="UFilterRefPu_ValueIn" value="1"/>
-    <par type="DOUBLE" name="IdcSourceRefPu_ValueIn" value="0.6"/>
-    <par type="DOUBLE" name="UdcSourceRefPu_ValueIn" value="1"/>
   </set>
   <set id="2">
     <par type="DOUBLE" name="converter_P0Pu" value="-3"/>
@@ -70,11 +65,6 @@
     <par type="DOUBLE" name="control_Eta" value="1"/>
     <par type="DOUBLE" name="control_Alpha" value="5000"/>
     <par type="DOUBLE" name="control_KDvoc" value="1.570796325"/>
-    <par type="DOUBLE" name="PRefPu_ValueIn" value="0.6"/>
-    <par type="DOUBLE" name="QRefPu_ValueIn" value="0"/>
-    <par type="DOUBLE" name="UFilterRefPu_ValueIn" value="1"/>
-    <par type="DOUBLE" name="IdcSourceRefPu_ValueIn" value="0.6"/>
-    <par type="DOUBLE" name="UdcSourceRefPu_ValueIn" value="1"/>
   </set>
   <set id="3">
     <par type="DOUBLE" name="converter_P0Pu" value="-6.35"/>
@@ -99,9 +89,6 @@
     <par type="DOUBLE" name="control_Cfilter" value="0.066"/>
     <par type="DOUBLE" name="control_Kpdc" value="50"/>
     <par type="DOUBLE" name="control_KMatching" value="1"/>
-    <par type="DOUBLE" name="UFilterRefPu_ValueIn" value="1"/>
-    <par type="DOUBLE" name="IdcSourceRefPu_ValueIn" value="0.6"/>
-    <par type="DOUBLE" name="UdcSourceRefPu_ValueIn" value="1"/>
   </set>
   <set id="4">
     <par type="INT" name="nbGen" value="3"/>

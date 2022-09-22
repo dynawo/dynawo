@@ -70,8 +70,6 @@
     <par type="DOUBLE" name="hvdc_SlopeURefPu" value="100"/>
     <par type="DOUBLE" name="hvdc_SlopeQRefPu" value="100"/>
     <par type="DOUBLE" name="hvdc_TBlockUV" value="0.01"/>
-    <par type="DOUBLE" name="modeU1_ValueIn" value="1"/>
-    <par type="DOUBLE" name="modeU2_ValueIn" value="1"/>
     <par type="DOUBLE" name="hvdc_TBlock" value="0.1"/>
     <par type="DOUBLE" name="hvdc_TDeblockU" value="0.02"/>
     <par type="DOUBLE" name="hvdc_TQ" value="0.1"/>
@@ -81,12 +79,6 @@
     <par type="DOUBLE" name="hvdc_DeadBandU" value="0"/>
     <par type="DOUBLE" name="hvdc_SNom" value="1000"/>
     <par type="DOUBLE" name="hvdc_SlopeRPFault" value="1000"/>
-    <par type="DOUBLE" name="QRef1Pu_ValueIn" value="0.301"/>
-    <par type="DOUBLE" name="QRef2Pu_ValueIn" value="0.301"/>
-    <par type="DOUBLE" name="URef1Pu_ValueIn" value="1.066617"/>
-    <par type="DOUBLE" name="URef2Pu_ValueIn" value="1.079767"/>
-    <par type="DOUBLE" name="UdcRefPu_ValueIn" value="1"/>
-    <par type="DOUBLE" name="PRefPu_ValueIn" value="0.898"/>
     <par type="DOUBLE" name="hvdc_modeU1Set" value="1"/>
     <par type="DOUBLE" name="hvdc_modeU2Set" value="1"/>
   </set>

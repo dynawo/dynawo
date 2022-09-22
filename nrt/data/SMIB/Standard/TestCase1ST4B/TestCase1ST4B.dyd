@@ -12,9 +12,11 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="SynchronousGenerator" lib="GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2BStepURef" parFile="TestCase1ST4B.par" parId="SynchronousGenerator"/>
+  <dyn:blackBoxModel id="SynchronousGenerator" lib="GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4BPssIEEE2B" parFile="TestCase1ST4B.par" parId="SynchronousGenerator"/>
   <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="TestCase1ST4B.par" parId="OmegaRef"/>
+  <dyn:blackBoxModel id="URef" lib="Step" parFile="TestCase1ST4B.par" parId="URef"/>
   <dyn:blackBoxModel id="Bus" lib="Bus"/>
   <dyn:connect id1="Bus" var1="bus_terminal" id2="SynchronousGenerator" var2="generator_terminal"/>
   <dyn:connect id1="SynchronousGenerator" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
+  <dyn:connect id1="SynchronousGenerator" var1="voltageRegulator_UsRefPu" id2="URef" var2="step_step_value"/>
 </dyn:dynamicModelsArchitecture>

@@ -14,7 +14,7 @@
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="URegulatedPu"/>
-  <variable type="discrete" id="URefPu"/>
+  <variable type="continuous" id="URefPu" optional="true"/>
   <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
 </external_variables>

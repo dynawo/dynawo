@@ -11,14 +11,14 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="PRefPu" type="continuous" />
-  <variable id="UdcRefPu" type="continuous" />
-  <variable id="QRef1Pu" type="continuous" />
-  <variable id="URef1Pu" type="continuous" />
-  <variable id="QRef2Pu" type="continuous" />
-  <variable id="URef2Pu" type="continuous" />
-  <variable id="modeU1" type="continuous" />
-  <variable id="modeU2" type="continuous" />
+  <variable id="PRefPu" type="continuous" optional="true"/>
+  <variable id="UdcRefPu" type="continuous" optional="true"/>
+  <variable id="QRef1Pu" type="continuous" optional="true"/>
+  <variable id="URef1Pu" type="continuous" optional="true"/>
+  <variable id="QRef2Pu" type="continuous" optional="true"/>
+  <variable id="URef2Pu" type="continuous" optional="true"/>
+  <variable id="modeU1" type="continuous" optional="true"/>
+  <variable id="modeU2" type="continuous" optional="true"/>
   <variable type="discrete" id="Conv1.switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="Conv1.switchOffSignal2.value" defaultValue="false"/>
   <variable type="discrete" id="Conv1.switchOffSignal3.value" defaultValue="false"/>

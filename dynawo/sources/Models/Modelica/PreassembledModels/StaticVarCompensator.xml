@@ -14,8 +14,5 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="StaticVarCompensator">
     <dyn:unitDynamicModel id="SVarC" name="Dynawo.Electrical.StaticVarCompensators.SVarCStandard" initName="Dynawo.Electrical.StaticVarCompensators.SVarCStandard_INIT"/>
-    <dyn:unitDynamicModel id="URef" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:initConnect id1="URef" var1="Value0" id2="SVarC" var2="URef0"/>
-    <dyn:connect id1="URef" var1="setPoint.value" id2="SVarC" var2="URef"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

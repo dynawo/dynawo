@@ -85,8 +85,6 @@
     <par type="DOUBLE" name="governor_PMin" value="0"/>
     <par type="DOUBLE" name="governor_PMax" value="230"/>
     <par type="DOUBLE" name="governor_PNom" value="230"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
@@ -135,8 +133,6 @@
     <par type="DOUBLE" name="governor_PMin" value="0"/>
     <par type="DOUBLE" name="governor_PMax" value="300"/>
     <par type="DOUBLE" name="governor_PNom" value="300"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
@@ -185,8 +181,6 @@
     <par type="DOUBLE" name="governor_PMin" value="0"/>
     <par type="DOUBLE" name="governor_PMax" value="270"/>
     <par type="DOUBLE" name="governor_PNom" value="270"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>

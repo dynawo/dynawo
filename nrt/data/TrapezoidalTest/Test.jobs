@@ -22,6 +22,7 @@
     </dyn:modeler>
     <dyn:simulation startTime="0" stopTime="10"/>
     <dyn:outputs directory="outputs">
+      <dyn:curves inputFile="Test.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
       </dyn:logs>

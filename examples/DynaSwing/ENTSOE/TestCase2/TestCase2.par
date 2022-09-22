@@ -66,9 +66,6 @@
     <par type="DOUBLE" name="voltageRegulator_Upss0Pu" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_Us0Pu" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_Efd0Pu" value="1.81724"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="1.00909"/>
-    <par type="DOUBLE" name="upss_Value0" value="0"/>
   </set>
   <!-- Load -->
   <set id="Load">
