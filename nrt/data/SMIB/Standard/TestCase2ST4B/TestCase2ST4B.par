@@ -97,7 +97,6 @@
     <par type="DOUBLE" name="voltageRegulator_VrMaxPu" value="1"/>
     <par type="DOUBLE" name="voltageRegulator_VrMinPu" value="-0.87"/>
     <par type="DOUBLE" name="voltageRegulator_XlPu" value="0.124"/>
-    <par type="DOUBLE" name="upss_Value0" value="0"/>
   </set>
   <!-- Load -->
   <set id="Load">

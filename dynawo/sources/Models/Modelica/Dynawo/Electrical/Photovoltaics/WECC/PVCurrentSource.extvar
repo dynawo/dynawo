@@ -14,8 +14,8 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
-  <variable type="continuous" id="PRefPu"/>
-  <variable type="continuous" id="QRefPu"/>
+  <variable type="continuous" id="PRefPu" optional="true"/>
+  <variable type="continuous" id="QRefPu" optional="true"/>
   <variable type="continuous" id="omegaRefPu"/>
   <variable type="discrete" id="line.switchOffSignal2.value" defaultValue="false"/>
   <variable type="discrete" id="injector.switchOffSignal1.value" defaultValue="false"/>

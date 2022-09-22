@@ -16,8 +16,8 @@
   <variable type="continuous" id="terminal1.V.im"/>
   <variable type="continuous" id="terminal2.V.re"/>
   <variable type="continuous" id="terminal2.V.im"/>
-  <variable type="discrete" id="P1RefPu"/>
-  <variable type="discrete" id="tanPhi1Ref"/>
+  <variable type="continuous" id="P1RefPu" optional="true"/>
+  <variable type="continuous" id="tanPhi1Ref" optional="true"/>
   <variable type="discrete" id="switchOffSignal1Side1.value" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal2Side1.value" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal1Side2.value" defaultValue="false"/>

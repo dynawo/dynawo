@@ -16,11 +16,11 @@
   <variable type="continuous" id="terminal1.V.im"/>
   <variable type="continuous" id="terminal2.V.re"/>
   <variable type="continuous" id="terminal2.V.im"/>
-  <variable type="continuous" id="P1RefPu"/>
+  <variable type="continuous" id="P1RefPu" optional="true"/>
   <variable type="continuous" id="NQ1"/>
   <variable type="continuous" id="NQ2"/>
-  <variable type="discrete" id="Q1RefPu"/>
-  <variable type="discrete" id="Q2RefPu"/>
+  <variable type="continuous" id="Q1RefPu" optional="true"/>
+  <variable type="continuous" id="Q2RefPu" optional="true"/>
   <variable type="discrete" id="modeU1" defaultValue="true"/>
   <variable type="discrete" id="modeU2" defaultValue="true"/>
   <variable type="discrete" id="switchOffSignal1Side1.value" defaultValue="false"/>

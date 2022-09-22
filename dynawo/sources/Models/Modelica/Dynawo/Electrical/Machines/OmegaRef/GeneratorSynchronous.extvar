@@ -13,8 +13,8 @@
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable type="continuous" id="omegaRefPu.value"/>
-  <variable type="continuous" id="efdPu.value"/>
-  <variable type="continuous" id="PmPu.value"/>
+  <variable type="continuous" id="efdPu.value" optional="true"/>
+  <variable type="continuous" id="PmPu.value" optional="true"/>
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>

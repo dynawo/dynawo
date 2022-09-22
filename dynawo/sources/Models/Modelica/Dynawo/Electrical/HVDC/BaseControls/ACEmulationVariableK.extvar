@@ -15,5 +15,5 @@
   <variable type="continuous" id="Theta1"/>
   <variable type="continuous" id="Theta2"/>
   <variable type="continuous" id="KACEmulation"/>
-  <variable type="continuous" id="PRefSetPu"/>
+  <variable type="continuous" id="PRefSetPu" optional="true"/>
 </external_variables>

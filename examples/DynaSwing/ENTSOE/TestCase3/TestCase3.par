@@ -86,8 +86,6 @@
     <par type="DOUBLE" name="pss_IC2" value="3"/>
     <par type="DOUBLE" name="pss_Upss0Pu" value="0"/>
     <par type="DOUBLE" name="pss_PNomAlt" value="475"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
   </set>
   <!-- OmegaRef -->
   <set id="SetPoint">

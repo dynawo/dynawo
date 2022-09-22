@@ -52,8 +52,6 @@
     <par type="DOUBLE" name="generator_UBaseLV" value="24"/>
     <par type="DOUBLE" name="generator_RTfPu" value="0.0"/>
     <par type="DOUBLE" name="generator_XTfPu" value="0.1"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
@@ -98,8 +96,6 @@
     <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
     <par type="DOUBLE" name="voltageRegulator_UsRefMaxPu" value="1.2"/>
     <par type="DOUBLE" name="voltageRegulator_Gain" value="20"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
@@ -138,8 +134,6 @@
     <par type="DOUBLE" name="generator_UBaseLV" value="20"/>
     <par type="DOUBLE" name="generator_RTfPu" value="0.0"/>
     <par type="DOUBLE" name="generator_XTfPu" value="0.1"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
@@ -175,8 +169,6 @@
     <par type="DOUBLE" name="generator_UBaseLV" value="15"/>
     <par type="DOUBLE" name="generator_RTfPu" value="0.0"/>
     <par type="DOUBLE" name="generator_XTfPu" value="0.0"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
@@ -212,8 +204,6 @@
     <par type="DOUBLE" name="generator_UBaseLV" value="18"/>
     <par type="DOUBLE" name="generator_RTfPu" value="0.0"/>
     <par type="DOUBLE" name="generator_XTfPu" value="0.1"/>
-    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
-    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>

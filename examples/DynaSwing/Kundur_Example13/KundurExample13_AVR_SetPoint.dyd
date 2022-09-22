@@ -20,13 +20,7 @@
   <!-- Generator four windings with fixed excitation voltage and fixed mechanical power -->
   <dyn:modelicaModel id="SM">
     <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt_4E_INIT" parFile="KundurExample13.par" parId="SynchronousMachine"/>
-    <dyn:unitDynamicModel id="Pm" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT" parFile="KundurExample13.par" parId="SetPointGovernor"/>
-    <dyn:unitDynamicModel id="efd" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT" parFile="KundurExample13.par" parId="SetPointVoltageRegulator"/>
     <dyn:unitDynamicModel id="omega" name="Dynawo.Electrical.Controls.Basics.SetPoint" parFile="KundurExample13.par" parId="SetPointOmegaRef"/>
-    <dyn:initConnect id1="gen" var1="Pm0Pu" id2="Pm" var2="Value0"/>
-    <dyn:initConnect id1="gen" var1="Efd0Pu" id2="efd" var2="Value0"/>
-    <dyn:connect id1="gen" var1="PmPu" id2="Pm" var2="setPoint"/>
-    <dyn:connect id1="gen" var1="efdPu" id2="efd" var2="setPoint"/>
     <dyn:connect id1="gen" var1="omegaRefPu" id2="omega" var2="setPoint"/>
   </dyn:modelicaModel>
   <!-- Line opening -->
