@@ -92,6 +92,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadAlphaBetaStepP.xml
   LoadAlphaBetaRestorative.xml
   LoadAlphaBetaRestorativeLimitsRecalc.xml
+  LoadAlphaBetaMotor.xml
   LoadOneTransformer.xml
   LoadOneTransformerTapChanger.xml
   LoadPQ.xml
