@@ -1,5 +1,17 @@
 within Dynawo.Electrical.Loads;
 
+/*
+* Copyright (c) 2022, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
 model LoadAlphaBetaMotor "AlphaBeta load in parallel with an induction motor. The load torque is supposed constant (does not change with rotor speed)."
 /*
                   isPu          umPu  irPu
@@ -11,53 +23,50 @@ model LoadAlphaBetaMotor "AlphaBeta load in parallel with an induction motor. Th
 
 imPu goes downwards through jXm
 */
-  import Modelica;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
 
-  Connectors.ImPin omegaPu(value(start = SystemBase.omega0Pu)) "Network angular reference frequency in p.u (base OmegaNom)";
+  Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Network angular reference frequency in pu (base omegaNom)";
 
-  parameter Types.ApparentPowerModule PNom "Nominal active power consumed by a single motor (Unom base)";
-  parameter Types.PerUnit ActiveMotorShare "Share of active power consumed by motors in pu";
-  parameter Types.PerUnit RsPu "Stator resistance in pu (PNom base)";
-  parameter Types.PerUnit RrPu "Rotor resistance in pu (PNom base)";
-  parameter Types.PerUnit XsPu "Stator leakage reactance in pu (PNom base)";
-  parameter Types.PerUnit XrPu "Rotor leakage reactance in pu (PNom base)";
-  parameter Types.PerUnit XmPu "Magnetizing reactance in pu (PNom base)";
-  parameter Real H "Inertia constant (s, PNom base)";
+  parameter Types.ApparentPowerModule SNom "Nominal apparent power of a single motor in MVA";
+  parameter Real ActiveMotorShare "Share of active power consumed by motors (between 0 and 1)";
+  parameter Types.PerUnit RsPu "Stator resistance in pu (base UNom, SNom)";
+  parameter Types.PerUnit RrPu "Rotor resistance in pu (base UNom, SNom)";
+  parameter Types.PerUnit XsPu "Stator leakage reactance in pu (base UNom, SNom)";
+  parameter Types.PerUnit XrPu "Rotor leakage reactance in pu (base UNom, SNom)";
+  parameter Types.PerUnit XmPu "Magnetizing reactance in pu (base UNom, SNom)";
+  parameter Real H "Inertia constant (s, base UNom, SNom)";
 
-  parameter Real alpha "Active load sensitivity to voltage";
-  parameter Real beta "Reactive load sensitivity to voltage";
+  parameter Real Alpha "Active load sensitivity to voltage";
+  parameter Real Beta "Reactive load sensitivity to voltage";
 
-  Types.ComplexCurrentPu isPu(re(start = is0Pu.re), im(start = is0Pu.im)) "Stator current in pu (Unom, PNom base)";
-  Types.ComplexCurrentPu imPu(re(start = im0Pu.re), im(start = im0Pu.im)) "Magnetising current in pu (Unom, PNom base)";
-  Types.ComplexCurrentPu irPu(re(start = ir0Pu.re), im(start = ir0Pu.im)) "Rotor current in pu (Unom, PNom base)";
+  Types.ComplexCurrentPu isPu(re(start = is0Pu.re), im(start = is0Pu.im)) "Stator current in pu (base UNom, SNom) (receptor convention)";
+  Types.ComplexCurrentPu imPu(re(start = im0Pu.re), im(start = im0Pu.im)) "Magnetising current in pu (base UNom, SNom) (receptor convention)";
+  Types.ComplexCurrentPu irPu(re(start = ir0Pu.re), im(start = ir0Pu.im)) "Rotor current in pu (base UNom, SNom) (receptor convention)";
 
-  Types.PerUnit cePu(start = ce0Pu) "Electrical torque in pu (PNom base)";
-  Types.PerUnit clPu(start = ce0Pu) "Load torque in pu (PNom base)";
+  Types.PerUnit cePu(start = ce0Pu) "Electrical torque in pu (base SNom, omegaNom)";
+  Types.PerUnit clPu(start = ce0Pu) "Load torque in pu (base SNom, omegaNom)";
   Real s(start = s0) "Slip of the motor";
-  Types.AngularVelocity omegaRPu(start = omegaR0Pu) "Angular velocity of the motor in pu";
+  Types.AngularVelocity omegaRPu(start = omegaR0Pu) "Angular velocity of the motor in pu (base omegaNom)";
 
-  Types.ActivePowerPu PLoadPu (start = PLoad0Pu) "Active power consumed by the load in pu (SnRef base)";
-  Types.ReactivePowerPu QLoadPu (start = QLoad0Pu) "Reactive power consumed by the load in pu (SnRef base)";
-  Complex iLoadPu(re(start = iLoad0Pu.re), im(start = iLoad0Pu.im)) "Complex current consumed by the load in pu (SnRef base)";
+  Types.ActivePowerPu PLoadPu (start = PLoad0Pu) "Active power consumed by the load in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu QLoadPu (start = QLoad0Pu) "Reactive power consumed by the load in pu (base SnRef) (receptor convention)";
+  Complex iLoadPu(re(start = iLoad0Pu.re), im(start = iLoad0Pu.im)) "Complex current consumed by the load in pu (base SnRef) (receptor convention)";
 
 protected
-  final parameter Types.ComplexImpedancePu ZsPu = Complex(RsPu,XsPu) "Stator impedance in pu";
-  final parameter Types.ComplexImpedancePu ZrPu = Complex(RrPu,XrPu) "Rotor impedance in pu";
-  final parameter Types.ComplexImpedancePu ZmPu = Complex(0,XmPu) "Magnetising impedance in pu";
+  final parameter Types.ComplexImpedancePu ZsPu = Complex(RsPu,XsPu) "Stator impedance in pu (base UNom, SNom)";
+  final parameter Types.ComplexImpedancePu ZrPu = Complex(RrPu,XrPu) "Rotor impedance in pu (base UNom, SNom)";
+  final parameter Types.ComplexImpedancePu ZmPu = Complex(0,XmPu) "Magnetising impedance in pu (base UNom, SNom)";
 
+public
   // Motor initial values
-  parameter Types.ComplexCurrentPu is0Pu "Start value of the stator current in pu (Unom, PNom base)";
-  parameter Types.ComplexCurrentPu im0Pu "Start value of the magnetising current in pu (Unom, PNom base)";
-  parameter Types.ComplexCurrentPu ir0Pu "Start value of the rotor current in pu (Unom, PNom base)";
+  parameter Types.ComplexCurrentPu is0Pu "Start value of the stator current in pu (base SNom, UNom)";
+  parameter Types.ComplexCurrentPu im0Pu "Start value of the magnetising current in pu (base SNom, UNom)";
+  parameter Types.ComplexCurrentPu ir0Pu "Start value of the rotor current in pu (base SNom, UNom)";
 
-  parameter Types.PerUnit ce0Pu "Start value of the electrical torque in pu (PNom base)";
-  parameter Types.PerUnit cl0Pu "Start value of the load torque in pu (PNom base)";
+  parameter Types.PerUnit ce0Pu "Start value of the electrical torque in pu (SNom base)";
+  parameter Types.PerUnit cl0Pu "Start value of the load torque in pu (SNom base)";
   parameter Real s0 "Start value of the slip of the motor";
   parameter Types.AngularVelocity omegaR0Pu "Start value of the angular velocity of the motor";
 
@@ -73,23 +82,22 @@ equation
 
   if (running.value) then
     // PQ load
-    PLoadPu = (1-ActiveMotorShare) * PRefPu * (1 + deltaP) * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ alpha);
-    QLoadPu = QRefPu * (1 + deltaQ) - QMotor0Pu * (PNom/SystemBase.SnRef) * (PRefPu/s0Pu.re) * (1 + deltaP) * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ beta); // s0Pu.re = PRef0Pu (if PRefPu increases but QRefPu stays constant, the reactive power consumed by the motor increases, so the reactive power of the load is reduced to keep the total constant).
+    PLoadPu = (1-ActiveMotorShare) * PRefPu * (1 + deltaP) * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ Alpha);
+    QLoadPu = QRefPu * (1 + deltaQ) - QMotor0Pu * (SNom/SystemBase.SnRef) * (PRefPu/s0Pu.re) * (1 + deltaP) * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ Beta); // s0Pu.re = PRef0Pu (if PRefPu increases but QRefPu stays constant, the reactive power consumed by the motor increases, so the reactive power of the load is reduced to keep the total constant).
     Complex(PLoadPu,QLoadPu) = terminal.V*ComplexMath.conj(iLoadPu);
 
     // Asynchronous motor
     terminal.V = ZmPu*imPu + ZsPu*isPu; // Kirchhoff’s voltage law in the first loop
-    // ZmPu*imPu = (ZrPu + RrPu*(1-s)/s)*irPu; // Kirchhoff’s voltage law in the second loop
     isPu = terminal.V/(ZsPu + 1/(1/ZmPu + s/Complex(RrPu,XrPu*s))); // Avoid numerical issues when s = 0
     isPu = imPu + irPu;
 
-    s = (omegaPu.value - omegaRPu)/omegaPu.value;
-    cePu = RrPu*ComplexMath.'abs'(irPu^2)/(omegaPu.value*s);
+    s = (omegaRefPu.value - omegaRPu)/omegaRefPu.value;
+    cePu = RrPu*ComplexMath.'abs'(irPu^2)/(omegaRefPu.value*s);
     clPu = ce0Pu; // Constant load torque
     2*H*der(omegaRPu) = cePu - clPu;
 
     // Total load
-    terminal.i = iLoadPu + (PNom/SystemBase.SnRef)*isPu * (PRefPu/s0Pu.re) * (1 + deltaP);
+    terminal.i = iLoadPu + (SNom/SystemBase.SnRef)*isPu * (PRefPu/s0Pu.re) * (1 + deltaP);
   else
     omegaRPu = 0;
     PLoadPu = 0;
