@@ -121,6 +121,10 @@ equation
     Line(points = {{17, -21}, {-16, -21}, {-16, -37}, {-16, -37}}, color = {0, 0, 127}));
   connect(blocked, aCVoltageControl.blocked) annotation(
     Line(points = {{-80, 0}, {-40, 0}, {-40, -37}, {-40, -37}}, color = {255, 0, 255}));
+  connect(limitsCalculationFunction.IpMinPu, dCVoltageControl.IpMinPu) annotation(
+    Line(points = {{17, 9}, {-28, 9}, {-28, 37}}, color = {0, 0, 127}));
+  connect(limitsCalculationFunction.IpMaxPu, dCVoltageControl.IpMaxPu) annotation(
+    Line(points = {{17, 21}, {-16, 21}, {-16, 37}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})),

@@ -105,6 +105,10 @@ equation
     Line(points = {{-107, -40}, {103, -40}, {103, -40}, {107, -40}}, color = {0, 0, 127}));
   connect(UPu, dCVoltageControl.UPu) annotation(
     Line(points = {{-107, -76}, {-80, -76}, {-80, 92}, {-73, 92}}, color = {0, 0, 127}));
+  connect(limitsCalculationFunction.IpMinPu, dCVoltageControl.IpMinPu) annotation(
+    Line(points = {{17, 9}, {-28, 9}, {-28, 37}}, color = {0, 0, 127}));
+  connect(limitsCalculationFunction.IpMaxPu, dCVoltageControl.IpMaxPu) annotation(
+    Line(points = {{17, 21}, {-16, 21}, {-16, 37}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})),

@@ -31,6 +31,10 @@ model BaseDCVoltageControl "Base DC Voltage Control for the HVDC VSC model"
     Placement(visible = true, transformation(origin = {-190, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -43}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "AC voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 72}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput IpMaxPu(start = IpMaxCstPu) "Max active current reference in pu (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {-189, 110}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput IpMinPu(start = - IpMaxCstPu) "Min active current reference in pu (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {-190, -110}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {40, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Modelica.Blocks.Interfaces.RealOutput ipRefUdcPu(start = Ip0Pu) "Active current reference in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {170, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -41,7 +45,7 @@ model BaseDCVoltageControl "Base DC Voltage Control for the HVDC VSC model"
     Placement(visible = true, transformation(origin = {70, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = -1) annotation(
     Placement(visible = true, transformation(origin = {130, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.PIAntiWindup PI(Ki = Kidc, Kp = Kpdc, integrator(y_start = -Ip0Pu), uMax = IpMaxCstPu, uMin = -IpMaxCstPu) annotation(
+  Blocks.Continuous.PIAntiWindupVariableLimits PI(Ki = Kidc, Kp = Kpdc, integrator(y_start = -Ip0Pu)) annotation(
     Placement(visible = true, transformation(origin = {100, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division iDCCalc annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -96,8 +100,12 @@ equation
     Line(points = {{141, -6}, {150, -6}, {150, 50}, {-68, 50}}, color = {0, 0, 127}));
   connect(firstOrder.y, pCalc.u2) annotation(
     Line(points = {{-91, 50}, {-160, 50}, {-160, 12}, {-152, 12}}, color = {0, 0, 127}));
+  connect(IpMaxPu, PI.limitMax) annotation(
+    Line(points = {{-189, 110}, {80, 110}, {80, 0}, {88, 0}}, color = {0, 0, 127}));
+  connect(IpMinPu, PI.limitMin) annotation(
+    Line(points = {{-190, -110}, {80, -110}, {80, -12}, {88, -12}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-170, -100}, {160, 100}})),
+    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-170, -130}, {160, 130}})),
     Icon(coordinateSystem(grid = {1, 1})));
 end BaseDCVoltageControl;
