@@ -25,7 +25,7 @@ import Modelica;
 
   Modelica.Blocks.Interfaces.RealInput URegulated(start = U0) "Regulated voltage in kV" annotation(
     Placement(visible = true, transformation(origin = {-120, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant URef(k = URef0) "Voltage regulation set point in kV" annotation(
+  Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Voltage regulation set point in kV" annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput NQ "Signal to change the reactive power generation of the generators participating in the centralized distant voltage regulation (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -35,7 +35,7 @@ import Modelica;
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  connect(URef.y, feedback.u1) annotation(
+  connect(URef, feedback.u1) annotation(
     Line(points = {{-99, 0}, {-49, 0}, {-49, 0}, {-48, 0}}, color = {0, 0, 127}));
   connect(URegulated, feedback.u2) annotation(
     Line(points = {{-120, -50}, {-40, -50}, {-40, -8}, {-40, -8}}, color = {0, 0, 127}));

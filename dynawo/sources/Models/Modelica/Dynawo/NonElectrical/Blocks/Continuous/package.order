@@ -18,3 +18,4 @@ RateLimFirstOrderFreeze
 SecondOrder
 VarLimPIDFreeze
 WeightedDifference
+PI

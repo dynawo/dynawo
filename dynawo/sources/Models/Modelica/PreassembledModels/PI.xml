@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,7 +11,8 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of
     simulation tools for power systems.
 -->
-<external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="URegulated" type="continuous"/>
-  <variable id="URef" type="continuous" optional="true"/>
-</external_variables>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="PI">
+    <dyn:unitDynamicModel id="pI" name="Dynawo.NonElectrical.Blocks.Continuous.PI"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>
