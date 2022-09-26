@@ -16,8 +16,6 @@ model RPFaultFunction "rpfault function for HVDC"
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
 
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_RPFaultFunction;
 
@@ -32,7 +30,7 @@ protected
 
 equation
   when blocked == true then
-    Timer = 10;
+    Timer = Modelica.Constants.inf;
   elsewhen blocked == false then
     Timer = time;
   end when;
