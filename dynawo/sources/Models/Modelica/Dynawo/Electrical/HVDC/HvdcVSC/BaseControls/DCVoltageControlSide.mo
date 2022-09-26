@@ -16,18 +16,18 @@ model DCVoltageControlSide "DC Voltage Control Side of the HVDC link"
   import Modelica;
   import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
 
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_DCVoltageControl;
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ACVoltageControl;
+  parameter Types.PerUnit RdcPu "DC line resistance in pu (base UdcNom, SnRef)";
   parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
   parameter Types.CurrentModulePu InPu "Nominal current in pu (base SNom, UNom)";
+  parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = Udc0Pu) "Reference DC voltage in pu (base UdcNom)" annotation(
-    Placement(visible = true, transformation(origin = {-107, 80}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {99, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = UdcRef0Pu) "Reference DC voltage in pu (base UdcNom)" annotation(
+    Placement(visible = true, transformation(origin = {-107, 75}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {99, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC voltage in pu (base UdcNom)" annotation(
-    Placement(visible = true, transformation(origin = {-107, 60}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-93,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {-107, 57}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-93,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.BooleanInput blocked(start = false) "Boolean assessing the state of the HVDC link: true if blocked, false if not blocked" annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-46, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage module in pu (base UNom)" annotation(
@@ -58,9 +58,9 @@ model DCVoltageControlSide "DC Voltage Control Side of the HVDC link"
   Modelica.Blocks.Interfaces.RealOutput POutPu annotation(
     Placement(visible = true, transformation(origin = {107, -40}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
-  HVDC.HvdcVSC.BaseControls.DCVoltageControl.DCVoltageControl dCVoltageControl(DUDC = DUDC, Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu, Kidc = Kidc, Kpdc = Kpdc, Udc0Pu = Udc0Pu, UdcRefMaxPu = UdcRefMaxPu, UdcRefMinPu = UdcRefMinPu) "DC Voltage Control for HVDC"  annotation(
+  HVDC.HvdcVSC.BaseControls.DCVoltageControl.DCVoltageControl dCVoltageControl(DUDC = DUDC, Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu, Kidc = Kidc, Kpdc = Kpdc, RdcPu = RdcPu, SNom = SNom, U0Pu = U0Pu, Udc0Pu = Udc0Pu, UdcRef0Pu = UdcRef0Pu, UdcRefMaxPu = UdcRefMaxPu, UdcRefMinPu = UdcRefMinPu) "DC Voltage Control for HVDC"  annotation(
     Placement(visible = true, transformation(origin = {-40, 70}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
-  HVDC.HvdcVSC.BaseControls.ACVoltageControl.ACVoltageControl aCVoltageControl(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip0Pu, Iq0Pu = Iq0Pu, KiACVoltageControl = KiACVoltageControl, KpACVoltageControl = KpACVoltageControl, Lambda = Lambda, P0Pu = P0Pu, Q0Pu = Q0Pu, QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U0Pu, modeU0 = modeU0, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod) "AC voltage control for HVDC"  annotation(
+  HVDC.HvdcVSC.BaseControls.ACVoltageControl.ACVoltageControl aCVoltageControl(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip0Pu, Iq0Pu = Iq0Pu, KiACVoltageControl = KiACVoltageControl, KpACVoltageControl = KpACVoltageControl, Lambda = Lambda, P0Pu = P0Pu, Q0Pu = Q0Pu, QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U0Pu, modeU0 = modeU0, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod) annotation(
     Placement(visible = true, transformation(origin = {-40, -70}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   HVDC.HvdcVSC.BaseControls.LimitsCalculationFunction.LimitsCalculationFunction limitsCalculationFunction(InPu = InPu, Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu, Iq0Pu = Iq0Pu) "Reactive and active currents limits calculation function" annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
@@ -72,52 +72,59 @@ model DCVoltageControlSide "DC Voltage Control Side of the HVDC link"
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
   parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (generator convention)";
   parameter Boolean modeU0 "Start value of the boolean assessing the mode of the control: true if U mode, false if Q mode";
+  parameter Types.VoltageModulePu UdcRef0Pu "Start value of dc voltage reference in pu (base UdcNom)";
 
 equation
   connect(UdcRefPu, dCVoltageControl.UdcRefPu) annotation(
-    Line(points = {{-107, 80}, {-75, 80}, {-75, 80}, {-73, 80}}, color = {0, 0, 127}));
+    Line(points = {{-107, 75}, {-75, 75}, {-75, 75}, {-73, 75}}, color = {0, 0, 127}));
   connect(UdcPu, dCVoltageControl.UdcPu) annotation(
-    Line(points = {{-107, 60}, {-75, 60}, {-75, 60}, {-73, 60}}, color = {0, 0, 127}));
-  connect(blocked, aCVoltageControl.blocked) annotation(
-    Line(points = {{-80, 0}, {-40, 0}, {-40, -37}, {-40, -37}}, color = {255, 0, 255}));
-  connect(limitsCalculationFunction.IqMaxPu, aCVoltageControl.IqMaxPu) annotation(
-    Line(points = {{17, -21}, {-16, -21}, {-16, -37}, {-16, -37}}, color = {0, 0, 127}));
-  connect(limitsCalculationFunction.IqMinPu, aCVoltageControl.IqMinPu) annotation(
-    Line(points = {{17, -9}, {-28, -9}, {-28, -37}, {-28, -37}}, color = {0, 0, 127}));
+    Line(points = {{-107, 57}, {-73, 57}, {-73, 57}, {-73, 57}}, color = {0, 0, 127}));
   connect(dCVoltageControl.ipRefUdcPu, limitsCalculationFunction.ipRefPu) annotation(
     Line(points = {{-7, 58}, {50, 58}, {50, 33}, {50, 33}}, color = {0, 0, 127}));
   connect(dCVoltageControl.ipRefUdcPu, ipRefUdcPu) annotation(
     Line(points = {{-7, 58}, {107, 58}}, color = {0, 0, 127}));
   connect(dCVoltageControl.activateDeltaP, activateDeltaP) annotation(
     Line(points = {{-7, 82}, {107, 82}}, color = {255, 0, 255}));
-  connect(aCVoltageControl.iqRefPu, iqRefPu) annotation(
-    Line(points = {{-7, -70}, {107, -70}}, color = {0, 0, 127}));
-  connect(aCVoltageControl.iqModPu, limitsCalculationFunction.iqModPu) annotation(
-    Line(points = {{-7, -52}, {29, -52}, {29, -33}, {29, -33}}, color = {0, 0, 127}));
-  connect(aCVoltageControl.iqRefPu, limitsCalculationFunction.iqRefPu) annotation(
-    Line(points = {{-7, -70}, {50, -70}, {50, -33}, {50, -33}}, color = {0, 0, 127}));
-  connect(modeU, aCVoltageControl.modeU) annotation(
-    Line(points = {{-107, -100}, {-75, -100}, {-75, -100}, {-73, -100}}, color = {255, 0, 255}));
-  connect(QPu, aCVoltageControl.QPu) annotation(
-    Line(points = {{-107, -88}, {-73, -88}}, color = {0, 0, 127}));
-  connect(UPu, aCVoltageControl.UPu) annotation(
-    Line(points = {{-107, -76}, {-74, -76}, {-74, -76}, {-73, -76}}, color = {0, 0, 127}));
-  connect(QRefPu, aCVoltageControl.QRefPu) annotation(
-    Line(points = {{-107, -64}, {-76, -64}, {-76, -64}, {-73, -64}}, color = {0, 0, 127}));
-  connect(URefPu, aCVoltageControl.URefPu) annotation(
-    Line(points = {{-107, -52}, {-73, -52}, {-73, -52}, {-73, -52}}, color = {0, 0, 127}));
-  connect(URefPu, aCVoltageControl.URefPu) annotation(
-    Line(points = {{-107, -52}, {-76, -52}, {-76, -52}, {-73, -52}}, color = {0, 0, 127}));
-  connect(PPu, aCVoltageControl.PPu) annotation(
-    Line(points = {{-107, -40}, {-75, -40}, {-75, -40}, {-73, -40}}, color = {0, 0, 127}));
   connect(PPu, POutPu) annotation(
     Line(points = {{-107, -40}, {103, -40}, {103, -40}, {107, -40}}, color = {0, 0, 127}));
-  connect(aCVoltageControl.iqModPu, iqModPu) annotation(
-    Line(points = {{-7, -52}, {107, -52}}, color = {0, 0, 127}));
   connect(iqMod1Pu, limitsCalculationFunction.iqMod1Pu) annotation(
     Line(points = {{107, 12}, {86, 12}, {86, 12}, {83, 12}}, color = {0, 0, 127}));
   connect(iqRef1Pu, limitsCalculationFunction.iqRef1Pu) annotation(
     Line(points = {{107, -12}, {83, -12}}, color = {0, 0, 127}));
+  connect(dCVoltageControl.UPu, UPu) annotation(
+    Line(points = {{-73, 92}, {-80, 92}, {-80, -76}, {-107, -76}}, color = {0, 0, 127}));
+  connect(aCVoltageControl.iqModPu, iqModPu) annotation(
+    Line(points = {{-7, -52}, {107, -52}}, color = {0, 0, 127}));
+  connect(PPu, aCVoltageControl.PPu) annotation(
+    Line(points = {{-107, -40}, {-75, -40}, {-75, -40}, {-73, -40}}, color = {0, 0, 127}));
+  connect(URefPu, aCVoltageControl.URefPu) annotation(
+    Line(points = {{-107, -52}, {-76, -52}, {-76, -52}, {-73, -52}}, color = {0, 0, 127}));
+  connect(URefPu, aCVoltageControl.URefPu) annotation(
+    Line(points = {{-107, -52}, {-73, -52}, {-73, -52}, {-73, -52}}, color = {0, 0, 127}));
+  connect(QRefPu, aCVoltageControl.QRefPu) annotation(
+    Line(points = {{-107, -64}, {-76, -64}, {-76, -64}, {-73, -64}}, color = {0, 0, 127}));
+  connect(UPu, aCVoltageControl.UPu) annotation(
+    Line(points = {{-107, -76}, {-74, -76}, {-74, -76}, {-73, -76}}, color = {0, 0, 127}));
+  connect(QPu, aCVoltageControl.QPu) annotation(
+    Line(points = {{-107, -88}, {-73, -88}}, color = {0, 0, 127}));
+  connect(modeU, aCVoltageControl.modeU) annotation(
+    Line(points = {{-107, -100}, {-75, -100}, {-75, -100}, {-73, -100}}, color = {255, 0, 255}));
+  connect(aCVoltageControl.iqRefPu, limitsCalculationFunction.iqRefPu) annotation(
+    Line(points = {{-7, -70}, {50, -70}, {50, -33}, {50, -33}}, color = {0, 0, 127}));
+  connect(aCVoltageControl.iqModPu, limitsCalculationFunction.iqModPu) annotation(
+    Line(points = {{-7, -52}, {29, -52}, {29, -33}, {29, -33}}, color = {0, 0, 127}));
+  connect(aCVoltageControl.iqRefPu, iqRefPu) annotation(
+    Line(points = {{-7, -70}, {107, -70}}, color = {0, 0, 127}));
+  connect(limitsCalculationFunction.IqMinPu, aCVoltageControl.IqMinPu) annotation(
+    Line(points = {{17, -9}, {-28, -9}, {-28, -37}, {-28, -37}}, color = {0, 0, 127}));
+  connect(limitsCalculationFunction.IqMaxPu, aCVoltageControl.IqMaxPu) annotation(
+    Line(points = {{17, -21}, {-16, -21}, {-16, -37}, {-16, -37}}, color = {0, 0, 127}));
+  connect(blocked, aCVoltageControl.blocked) annotation(
+    Line(points = {{-80, 0}, {-40, 0}, {-40, -37}, {-40, -37}}, color = {255, 0, 255}));
+  connect(limitsCalculationFunction.IpMinPu, dCVoltageControl.IpMinPu) annotation(
+    Line(points = {{17, 9}, {-28, 9}, {-28, 37}}, color = {0, 0, 127}));
+  connect(limitsCalculationFunction.IpMaxPu, dCVoltageControl.IpMaxPu) annotation(
+    Line(points = {{17, 21}, {-16, 21}, {-16, 37}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})),
