@@ -15,6 +15,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   Bus.xml
   CombiTimeTable.xml
   CurrentLimitAutomaton.xml
+  DiscretePI.xml
   DoubleStep.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
