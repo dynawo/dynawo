@@ -1261,6 +1261,7 @@ ModelNetwork::defineParameters(vector<ParameterModeler>& parameters) {
   ModelThreeWindingsTransformer::defineParameters(parameters);
   ModelTwoWindingsTransformer::defineParameters(parameters);
   ModelHvdcLink::defineParameters(parameters);
+  parameters.push_back(ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
 
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {

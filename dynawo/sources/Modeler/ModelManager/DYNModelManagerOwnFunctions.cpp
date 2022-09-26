@@ -27,6 +27,7 @@
 #include <cstdarg>
 #include <cassert>
 #include <cstring>
+#include <limits>
 #include <cctype>
 #include "DYNModelManagerOwnFunctions.h"
 
@@ -627,6 +628,47 @@ void put_real_element(modelica_real value, int i1, real_array_t *dest) {
   /* Assert that i1 is a valid index */
   real_set_(dest, i1, value);
 }
+
+modelica_real max_real_array(const real_array_t a) {
+    size_t nr_of_elements;
+    modelica_real max_element =  std::numeric_limits<double>::min();
+
+    assert(base_array_ok(&a));
+
+    nr_of_elements = base_array_nr_of_elements(a);
+
+    if (nr_of_elements > 0) {
+        size_t i;
+        max_element = real_get(a, 0);
+        for (i = 1; i < nr_of_elements; ++i) {
+            if (max_element < real_get(a, i)) {
+                max_element = real_get(a, i);
+            }
+        }
+    }
+    return max_element;
+}
+
+modelica_real min_real_array(const real_array_t a) {
+    size_t nr_of_elements;
+    modelica_real min_element = std::numeric_limits<double>::max();
+
+    assert(base_array_ok(&a));
+
+    nr_of_elements = base_array_nr_of_elements(a);
+
+    if (nr_of_elements > 0) {
+        size_t i;
+        min_element = real_get(a, 0);
+        for (i = 1; i < nr_of_elements; ++i) {
+            if (min_element > real_get(a, i)) {
+                min_element = real_get(a, i);
+            }
+        }
+    }
+    return min_element;
+}
+
 
 void simple_alloc_1d_real_array(real_array_t* dest, int n) {
   simple_alloc_1d_base_array(dest, n, new modelica_real[n]());

@@ -404,6 +404,8 @@ TimelineHandler::create(attributes_type const& attributes) {
     timeline_->setExportWithTime(attributes["exportTime"]);
   if (attributes.has("maxPriority"))
     timeline_->setMaxPriority(attributes["maxPriority"]);
+  if (attributes.has("filter"))
+    timeline_->setFilter(attributes["filter"]);
 }
 
 shared_ptr<TimelineEntry>
@@ -457,9 +459,14 @@ CurvesHandler::~CurvesHandler() {}
 
 void
 CurvesHandler::create(attributes_type const& attributes) {
+  if (attributes.has("iterationStep") && attributes.has("timeStep")) {
+    throw DYNError(DYN::Error::SIMULATION, IterationStepAndTimeStepBothDefined);
+  }
   curves_ = shared_ptr<CurvesEntry>(new CurvesEntry());
   curves_->setInputFile(attributes["inputFile"]);
   curves_->setExportMode(attributes["exportMode"]);
+  curves_->setIterationStep(attributes["iterationStep"]);
+  curves_->setTimeStep(attributes["timeStep"]);
 }
 
 shared_ptr<CurvesEntry>
@@ -568,8 +575,10 @@ void
 NetworkHandler::create(attributes_type const& attributes) {
   network_ = shared_ptr<NetworkEntry>(new NetworkEntry());
   network_->setIidmFile(attributes["iidmFile"]);
-  network_->setNetworkParFile(attributes["parFile"]);
-  network_->setNetworkParId(attributes["parId"]);
+  if (attributes.has("parFile"))
+    network_->setNetworkParFile(attributes["parFile"]);
+  if (attributes.has("parId"))
+    network_->setNetworkParId(attributes["parId"]);
 }
 
 shared_ptr<NetworkEntry>

@@ -97,6 +97,17 @@ void put_real_element(modelica_real value, int i1, real_array_t *dest);
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
+modelica_real min_real_array(const real_array_t a);
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+modelica_real max_real_array(const real_array_t a);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
 void simple_alloc_1d_real_array(real_array_t* dest, int n);
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h

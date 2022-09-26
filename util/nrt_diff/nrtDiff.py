@@ -1251,6 +1251,11 @@ def XMLCloseEnough (path_left, path_right):
     nb_differences = 0
     nb_differences_absolute = 0
     nb_differences_relative = 0
+    max_dtw = settings.max_DTW
+    for exception in settings.dtw_exceptions:
+        if exception in path_left or exception in path_right:
+            max_dtw = settings.dtw_exceptions[exception]
+            break
     for curve in curves.keys():
         (curve_left, curve_right) = curves [curve]
         left = []
@@ -1259,9 +1264,9 @@ def XMLCloseEnough (path_left, path_right):
             left.append(float (left_curve[curve][t]))
         for t in sorted(times_right):
             right.append(float (right_curve[curve][t]))
-        if settings.max_DTW is not None:
+        if max_dtw is not None:
            distance = DTWDistance(left, right)
-           if distance > settings.max_DTW:
+           if distance > max_dtw:
                 nb_differences += 1
                 nb_differences_absolute += 1
                 curves_different.add (curve)
@@ -1279,7 +1284,7 @@ def DTWDistance(left, right) :
     m = len(right)
     if left == right:
         return 0.
-    DTW = [[0 if (j == 0 or i == 0) else 999999 for j in range(m+1)] for i in range(n+1)]
+    DTW = [[0 if (j == 0 and i == 0) else 999999 for j in range(m+1)] for i in range(n+1)]
 
     for i in range(1, n+1):
         leftValue = left[i-1]
@@ -1472,6 +1477,11 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
     nb_differences = 0
     nb_differences_absolute = 0
     nb_differences_relative = 0
+    max_dtw = settings.max_DTW
+    for exception in settings.dtw_exceptions:
+        if exception in path_left or exception in path_right:
+            max_dtw = settings.dtw_exceptions[exception]
+            break
     for curve in curves.keys():
         (curve_left, curve_right) = curves [curve]
         data_left = reader_left [curve_left]
@@ -1482,9 +1492,9 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
             left.append(float (data_left [times_left[t]] .strip()))
         for t in sorted(times_right.keys()):
             right.append(float (data_right [times_right[t]] .strip()))
-        if settings.max_DTW is not None:
+        if max_dtw is not None:
             distance = DTWDistance(left, right)
-            if distance > settings.max_DTW:
+            if distance > max_dtw:
                 nb_differences += 1
                 nb_differences_absolute += 1
                 curves_different.add (curve)

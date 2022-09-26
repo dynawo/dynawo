@@ -37,6 +37,8 @@ add_custom_target(models-cpp
 # (.mo or .xml only)
 #
 add_custom_target(MODEL_FILES_INSTALL
+                  DEPENDS
+                    create_keys_files
                   COMMENT "Installing Modelica models"
                  )
 
@@ -77,7 +79,7 @@ macro(INSTALL_MODEL_FILE
 
   add_custom_command(
     OUTPUT ${OUTPUT_FILE_PATH}
-    DEPENDS ${FILE_TO_INSTALL}
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${FILE_TO_INSTALL}
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/${FILE_TO_INSTALL} ${OUTPUT_FILE_PATH}
     )
 

@@ -94,6 +94,8 @@ equation
   Conv1000.switchOffSignal3.value = false;
   Load.PRefPu = PRefLoadPu;
   Load.QRefPu = QRefLoadPu;
+  Load.deltaP = 0;
+  Load.deltaQ = 0;
   connect(Droop.theta, Conv250.theta) annotation(
     Line(points = {{-91, 148.5}, {-78, 148.5}}, color = {0, 0, 127}));
   connect(Droop.udConvRefPu, Conv250.udConvRefPu) annotation(

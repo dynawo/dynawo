@@ -15,7 +15,7 @@
   <dyn:job name="SMIB_StepPm_IIDM">
       <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="5"/>
       <dyn:modeler compileDir="outputs/compilation">
-        <dyn:network iidmFile="SMIB.iidm" parFile="SMIB.par" parId="7"/>
+        <dyn:network iidmFile="SMIB.iidm"/>
         <dyn:dynModels dydFile="SMIB.dyd"/>
         <dyn:precompiledModels useStandardModels="true"/>
         <dyn:modelicaModels useStandardModels="true"/>

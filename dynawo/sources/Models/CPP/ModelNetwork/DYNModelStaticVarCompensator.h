@@ -327,6 +327,7 @@ class ModelStaticVarCompensator : public NetworkComponent {
    */
   double ii_dUi() const;
 
+  const boost::shared_ptr<StaticVarCompensatorInterface> svc_;  ///< reference to the svc interface object
   double gSvc0_;  ///< initial conductance of the svc in pu (base SNREF)
   double bSvc0_;  ///< initial susceptance of the svc in pu (base SNREF)
   double ir0_;  ///< initial current (real part)
@@ -335,6 +336,7 @@ class ModelStaticVarCompensator : public NetworkComponent {
   State connectionState_;  ///< "internal" compensator connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the compensator connection state was modified
   boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
+  startingPointMode_t startingPointMode_;  ///< type of starting point for the model (FLAT,WARM)
 };  ///< class for Static Var Compensator model in network
 
 }  // namespace DYN

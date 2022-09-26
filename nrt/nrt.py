@@ -489,6 +489,9 @@ def main():
     options[('-p', '--pattern')] = {'dest': 'directory_patterns', 'action' : 'append',
                                     'help': 'regular expression filter to only run some non-regression tests'}
 
+    options[('-f', '--failed')] = { 'action' : 'store_true', 'dest': 'failed', 'default':'False',
+                                    'help': 'Only run failed non-regression tests'}
+
     parser = OptionParser(usage)
     for param, option in options.items():
         parser.add_option(*param, **option)
@@ -530,6 +533,24 @@ def main():
             log_message += " '" + pattern + "'"
 
         log_message += " pattern filter"
+
+    directory_failed = []
+    if (options.failed == True):
+        for root, dirs, files in os.walk(output_dir):
+            for file in files:
+                if "info.txt" == file:
+                    test_case = nrtDiff.TestCase("dummy")
+                    test_case.get_case_info(os.path.join(root, file))
+                    if test_case.status_ == "KO" or test_case.cmp_status_ == "KO":
+                        directory_failed.append(test_case.jobs_file_)
+
+        if (len(directory_failed) > 0):
+            if (options.timeout is not None and options.timeout > 0) or with_directory_name or ((options.directory_patterns is not None) and  (len(options.directory_patterns) > 0)):
+                log_message += " and failed tests filter"
+            else:
+                log_message += " with failed tests filter"
+        else :
+            log_message += " No failed tests"
 
     print (log_message)
 
@@ -582,6 +603,10 @@ def main():
                                 keep_job = False
                                 break
 
+                    if keep_job and (len(directory_failed) > 0):
+                        if job_file not in directory_failed:
+                            keep_job = False
+
                     if keep_job :
                         case = "case_" + str(numCase)
                         numCase += 1
@@ -606,6 +631,7 @@ def main():
             except:
                 print("Failed to remove notification file. Unable to conduct nrt")
                 sys.exit(1)
+
         start_time = time.time()
         NRT.launchCases()
         end_time = time.time()
@@ -658,6 +684,7 @@ def main():
             logFile.write("Run on " + datetime.datetime.now().strftime("%Y-%m-%d at %Hh%M") + "\n")
             logFile.write(" Nb nok case : " + str(NRT.number_of_nok_cases_) + "\n")
             logFile.close()
+
         sys.exit(NRT.number_of_nok_cases_)
     except KeyboardInterrupt:
         exit()

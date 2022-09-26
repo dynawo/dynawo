@@ -109,7 +109,6 @@ where [option] can be:"
         nrt-diff ([args])                     make a diff between two non-regression test outputs
         nrt-ref ([args])                      define or redefine automatically the non-regression tests references
         nrt-xsl ([args])                      update automatically the xml input files from the nrt
-        filter-timeline ([args])              filter timeline file to remove duplicated or opposed elements
         version-validation                    clean all built items, then build them all and run non-regression tests
         list-tests                            print all available unittest target
         list-models                           list all preassembled models you can use with clean-models or clean-build-models
@@ -436,7 +435,6 @@ set_environment() {
   export_var_env_force DYNAWO_CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
-  export_var_env_force DYNAWO_TIMELINE_FILTER_DIR=$DYNAWO_HOME/util/timeline_filter
   export_var_env_force DYNAWO_ENV_DYNAWO=$SCRIPT
   export_var_env DYNAWO_CMAKE_GENERATOR="Unix Makefiles"
   export_var_env DYNAWO_CMAKE_BUILD_OPTION=""
@@ -1020,7 +1018,6 @@ build_tests() {
   if [ ${RETURN_CODE} -ne 0 ]; then
     return ${RETURN_CODE}
   fi
-  ${DYNAWO_PYTHON_COMMAND} $DYNAWO_TIMELINE_FILTER_DIR/test/timelineFilterTest.py
   return ${RETURN_CODE}
 }
 
@@ -1591,10 +1588,6 @@ nrt_xsl() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/xsl/applyXsltToXml.py $@
 }
 
-filter_timeline() {
-  $DYNAWO_PYTHON_COMMAND $DYNAWO_TIMELINE_FILTER_DIR/timelineFilter.py $@
-}
-
 check_coding_files() {
   # html escape .dic files for dictionary
   for dicfile in $(find $DYNAWO_INSTALL_DIR -iname '*.dic')
@@ -1913,7 +1906,6 @@ deploy_dynawo() {
   cp -r $DYNAWO_NRT_DIR/nrt.py sbin/nrt/.
   cp -r $DYNAWO_NRT_DIR/resources sbin/nrt/.
   cp -r $DYNAWO_HOME/util/xsl sbin/.
-  cp -r $DYNAWO_HOME/util/timeline_filter sbin/.
 
   rm -f lib/*.la
   find OpenModelica/lib -name "*.la" -exec rm {} \;
@@ -2142,7 +2134,7 @@ unittest_gdb() {
     build_dynawo_core || error_exit
     build_dynawo_models_cpp || error_exit
   fi
-  list_of_tests=($(find $DYNAWO_BUILD_DIR/sources -executable -type f -exec basename {} \; | grep test))
+  list_of_tests=($(find $DYNAWO_BUILD_DIR -executable -type f -exec basename {} \; | grep test))
   if [[ ${#list_of_tests[@]} == 0 ]]; then
     echo "The list of tests is empty. This should not happen."
     exit 1
@@ -2155,7 +2147,7 @@ unittest_gdb() {
     done
     exit 1
   fi
-  unittest_exe=$(find $DYNAWO_BUILD_DIR/sources -name "$1")
+  unittest_exe=$(find $DYNAWO_BUILD_DIR -name "$1")
   if [ -z "$unittest_exe" ]; then
     echo "The unittest you gave is not available."
     echo "List of available unittests:"
@@ -2503,10 +2495,6 @@ case $MODE in
 
   nrt-xsl)
     nrt_xsl ${ARGS} || error_exit "Error during Dynawo's NRT xsl execution"
-    ;;
-
-  filter-timeline)
-    filter_timeline ${ARGS} || error_exit "Error during timeline filtering"
     ;;
 
   nrt-doc)

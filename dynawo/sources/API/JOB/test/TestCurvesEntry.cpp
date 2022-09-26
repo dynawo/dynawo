@@ -28,14 +28,22 @@ TEST(APIJOBTest, testCurvesEntry) {
   ASSERT_EQ(curves->getOutputFile(), "");
   ASSERT_EQ(curves->getExportMode(), "");
   ASSERT_EQ(curves->getInputFile(), "");
+  ASSERT_FALSE(curves->getIterationStep());
+  ASSERT_FALSE(curves->getTimeStep());
 
   curves->setOutputFile("/tmp/exportFile.txt");
   curves->setExportMode("TXT");
   curves->setInputFile("/tmp/input.txt");
+  curves->setIterationStep(5);
+  curves->setTimeStep(8);
 
   ASSERT_EQ(curves->getOutputFile(), "/tmp/exportFile.txt");
   ASSERT_EQ(curves->getExportMode(), "TXT");
   ASSERT_EQ(curves->getInputFile(), "/tmp/input.txt");
+  ASSERT_TRUE(curves->getIterationStep());
+  ASSERT_EQ(*curves->getIterationStep(), 5);
+  ASSERT_TRUE(curves->getTimeStep());
+  ASSERT_EQ(*curves->getTimeStep(), 8);
 }
 
 }  // namespace job
