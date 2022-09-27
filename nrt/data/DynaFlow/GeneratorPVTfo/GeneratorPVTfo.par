@@ -160,7 +160,6 @@
     <par type="DOUBLE" name="secondaryVoltageControl_Ck" value="0.18"/>
     <par type="DOUBLE" name="secondaryVoltageControl_DnsDtm" value="0.085"/>
     <par type="DOUBLE" name="secondaryVoltageControl_tI" value="180"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_tSampling" value="10"/>
     <par type="DOUBLE" name="secondaryVoltageControl_tau" value="40"/>
   </set>
   <set id="Line">
