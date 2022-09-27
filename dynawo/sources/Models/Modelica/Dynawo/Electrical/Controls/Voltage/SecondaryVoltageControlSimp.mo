@@ -20,7 +20,6 @@ model SecondaryVoltageControlSimp "Model for simplified secondary voltage contro
   parameter Types.PerUnit Ck "Sensitivity of voltage to level variations in pu (base UNom)";
   parameter Types.PerUnit DnsDtm "Level slope limitation in pu/min (base QNomAlt)";
   parameter Types.Time tau "PI time constant in s";
-  parameter Types.Time tFilterU "Time constant of pilot point voltage filtering in s";
   parameter Types.Time tI "Closed loop target time constant in s";
   parameter Types.Time tSampling "Sampling time of measurement in s";
 
@@ -48,10 +47,6 @@ model SecondaryVoltageControlSimp "Model for simplified secondary voltage contro
     Placement(visible = true, transformation(origin = {50, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tSampling) annotation(
     Placement(visible = true, transformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tSampling / 20, y_start = Up0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-130, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tFilterU, y_start = Up0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-170, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -70,12 +65,6 @@ equation
     Line(points = {{101, 0}, {138, 0}}, color = {0, 0, 127}));
   connect(gain.y, gain1.u) annotation(
     Line(points = {{1, 0}, {20, 0}, {20, 60}, {38, 60}}, color = {0, 0, 127}));
-  connect(firstOrder.y, fixedDelay.u) annotation(
-    Line(points = {{-119, -60}, {-102, -60}}, color = {0, 0, 127}));
-  connect(firstOrder1.y, firstOrder.u) annotation(
-    Line(points = {{-159, -60}, {-142, -60}}, color = {0, 0, 127}));
-  connect(UpPu, firstOrder1.u) annotation(
-    Line(points = {{-220, -60}, {-182, -60}}, color = {0, 0, 127}));
   connect(gain.y, limiter1.u) annotation(
     Line(points = {{1, 0}, {38, 0}}, color = {0, 0, 127}));
   connect(fixedDelay.y, feedback1.u2) annotation(
@@ -90,6 +79,8 @@ equation
     Line(points = {{-51, 0}, {-23, 0}}, color = {0, 0, 127}));
   connect(gain1.y, add.u1) annotation(
     Line(points = {{62, 60}, {120, 60}, {120, 12}, {138, 12}}, color = {0, 0, 127}));
+  connect(UpPu, fixedDelay.u) annotation(
+    Line(points = {{-220, -60}, {-102, -60}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
