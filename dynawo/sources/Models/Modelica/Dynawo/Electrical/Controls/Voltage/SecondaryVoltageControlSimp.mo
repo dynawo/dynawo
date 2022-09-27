@@ -21,7 +21,6 @@ model SecondaryVoltageControlSimp "Model for simplified secondary voltage contro
   parameter Types.PerUnit DnsDtm "Level slope limitation in pu/min (base QNomAlt)";
   parameter Types.Time tau "PI time constant in s";
   parameter Types.Time tI "Closed loop target time constant in s";
-  parameter Types.Time tSampling "Sampling time of measurement in s";
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput UpRefPu(start = UpRef0Pu) "Reference voltage of pilot point in pu (base UNom)" annotation(
@@ -45,8 +44,6 @@ model SecondaryVoltageControlSimp "Model for simplified secondary voltage contro
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = tau) annotation(
     Placement(visible = true, transformation(origin = {50, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = tSampling) annotation(
-    Placement(visible = true, transformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -67,8 +64,6 @@ equation
     Line(points = {{1, 0}, {20, 0}, {20, 60}, {38, 60}}, color = {0, 0, 127}));
   connect(gain.y, limiter1.u) annotation(
     Line(points = {{1, 0}, {38, 0}}, color = {0, 0, 127}));
-  connect(fixedDelay.y, feedback1.u2) annotation(
-    Line(points = {{-79, -60}, {-61, -60}, {-61, -8}}, color = {0, 0, 127}));
   connect(UpRefPu, feedback1.u1) annotation(
     Line(points = {{-220, 0}, {-68, 0}}, color = {0, 0, 127}));
   connect(add.y, limiter.u) annotation(
@@ -79,8 +74,8 @@ equation
     Line(points = {{-51, 0}, {-23, 0}}, color = {0, 0, 127}));
   connect(gain1.y, add.u1) annotation(
     Line(points = {{62, 60}, {120, 60}, {120, 12}, {138, 12}}, color = {0, 0, 127}));
-  connect(UpPu, fixedDelay.u) annotation(
-    Line(points = {{-220, -60}, {-102, -60}}, color = {0, 0, 127}));
+  connect(UpPu, feedback1.u2) annotation(
+    Line(points = {{-220, -60}, {-60, -60}, {-60, -8}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
