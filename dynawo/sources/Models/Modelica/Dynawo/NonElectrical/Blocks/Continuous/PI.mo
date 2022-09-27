@@ -17,8 +17,11 @@ block PI "Dynawo usable version of the proportional integrator"
   import Dynawo.Types;
   import Modelica;
   import Dynawo.Connectors;
+  import Modelica.Blocks.Interfaces;
 
-  Connectors.ZPin u(value(start = 0.0)) "Input connector" annotation(
+  //Connectors.ZPin u(value(start = 0.0)) "Input connector" annotation(
+  //  Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  discrete Interfaces.RealInput u "Input connector" annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 
@@ -34,7 +37,7 @@ block PI "Dynawo usable version of the proportional integrator"
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  connect(u.value, pi.u) annotation(
+  connect(u, pi.u) annotation(
     Line(points = {{-100, 0}, {-13, 0}, {-13, 0}, {-12, 0}}, color = {0, 0, 127}));
   //u.value = pi.u annotation(
   //  Line(points = {{-100, 0}, {-13, 0}, {-13, 0}, {-12, 0}}, color = {0, 0, 127}));
