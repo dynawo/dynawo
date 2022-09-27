@@ -159,7 +159,6 @@
     <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1.05"/>
     <par type="DOUBLE" name="secondaryVoltageControl_Ck" value="0.18"/>
     <par type="DOUBLE" name="secondaryVoltageControl_DnsDtm" value="0.085"/>
-    <par type="DOUBLE" name="secondaryVoltageControl_tFilterU" value="1"/>
     <par type="DOUBLE" name="secondaryVoltageControl_tI" value="180"/>
     <par type="DOUBLE" name="secondaryVoltageControl_tSampling" value="10"/>
     <par type="DOUBLE" name="secondaryVoltageControl_tau" value="40"/>
