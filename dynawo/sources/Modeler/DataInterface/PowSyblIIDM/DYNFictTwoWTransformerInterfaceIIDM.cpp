@@ -321,4 +321,12 @@ namespace DYN {
       index = VAR_TAPINDEX;
     return index;
   }
+
+  bool
+  FictTwoWTransformerInterfaceIIDM::isConnected() const {
+    bool connected = leg_.get().getTerminal().isConnected();
+    if (connected && voltageLevelInterface2_->isNodeBreakerTopology())
+      connected = voltageLevelInterface2_->isNodeConnected(static_cast<unsigned int>(leg_.get().getTerminal().getNodeBreakerView().getNode()));
+    return connected;
+  }
 }  // namespace DYN
