@@ -93,8 +93,8 @@ equation
     terminal.i.im = 0;
   end if;
 
-  UStatorPu = ComplexMath.'abs'(1 / rTfoPu * (terminal.V - terminal.i * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom));
   uStatorPu = 1 / rTfoPu * (terminal.V - terminal.i * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
+  UStatorPu = ComplexMath.'abs'(uStatorPu);
   iStatorPu = - terminal.i * SystemBase.SnRef / SNom;
   sStatorPu = uStatorPu * ComplexMath.conj(iStatorPu);
   QStatorPu = sStatorPu.im * SNom / QNomAlt;

@@ -37,6 +37,7 @@ model GeneratorPVTfoDiagramPQ_INIT "Initialisation model for generator PV based 
   Types.ReactivePowerPu QMax0Pu "Start value of maximum reactive power in pu (base SnRef)";
   Types.VoltageModulePu UStatorRef0Pu "Start value of voltage regulation set point at stator in pu (base UNom)";
   Types.VoltageModulePu UStator0Pu "Start value of voltage module at stator in pu (base UNom)";
+  Types.ComplexVoltagePu uStatorRef0Pu "Start value of complex voltage regulation set point at stator in pu (base UNom)";
   Types.ComplexVoltagePu uStator0Pu "Start value of complex voltage at stator in pu (base UNom)";
   Types.ComplexCurrentPu iStator0Pu "Start value of complex current at stator in pu (base UNom, SNom) (generator convention)";
   Types.ComplexApparentPowerPu sStator0Pu "Start value of complex apparent power at stator in pu (base UNom, SNom) (generator convention)";
@@ -55,10 +56,10 @@ equation
   uRef0Pu = ComplexMath.fromPolar(URef0Pu, UPhase0);
   Complex(P0Pu, Q0Pu) = uRef0Pu * ComplexMath.conj(iRef0Pu);
 
-  UStator0Pu = ComplexMath.'abs'(1 / rTfoPu * (u0Pu - i0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom));
-  UStatorRef0Pu = ComplexMath.'abs'(1 / rTfoPu * (uRef0Pu - iRef0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom));
-
   uStator0Pu = 1 / rTfoPu * (u0Pu - i0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
+  uStatorRef0Pu = 1 / rTfoPu * (uRef0Pu - iRef0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
+  UStator0Pu = ComplexMath.'abs'(uStator0Pu);
+  UStatorRef0Pu = ComplexMath.'abs'(uStatorRef0Pu);
   iStator0Pu = - i0Pu * SystemBase.SnRef / SNom;
   sStator0Pu = uStator0Pu * ComplexMath.conj(iStator0Pu);
   QStator0Pu = sStator0Pu.im * SNom / QNomAlt;
