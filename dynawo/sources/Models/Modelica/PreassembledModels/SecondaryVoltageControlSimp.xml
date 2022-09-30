@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="SecondaryVoltageControlSimp">
-    <dyn:unitDynamicModel id="secondaryVoltageControl" name="Dynawo.Electrical.Controls.Voltage.SecondaryVoltageControlSimp"/>
+    <dyn:unitDynamicModel id="secondaryVoltageControl" name="Dynawo.Electrical.Controls.Voltage.SecondaryVoltageControl.Simplified.SecondaryVoltageControl"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
