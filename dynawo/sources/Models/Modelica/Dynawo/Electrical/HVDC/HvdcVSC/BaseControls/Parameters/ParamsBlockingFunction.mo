@@ -13,14 +13,14 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters;
 * of simulation tools for power systems.
 */
 
-record ParamsBlockingFunction
-  parameter Types.VoltageModulePu UBlockUVPu "Minimum voltage that triggers the blocking function in pu (base UNom)";
-  parameter Types.Time TBlockUV "If UPu < UBlockUVPu during TBlockUV then the blocking is activated";
-  parameter Types.Time TBlock "The blocking is activated during at least TBlock";
-  parameter Types.Time TDeblockU "When UPu goes back between UMindbPu and UMaxdbPu for TDeblockU then the blocking is deactivated";
-  parameter Types.VoltageModulePu UMindbPu "Minimum voltage that deactivates the blocking function in pu (base UNom)";
-  parameter Types.VoltageModulePu UMaxdbPu "Maximum voltage that deactivates the blocking function in pu (base UNom)";
-  parameter Types.Time tFilter = 0.01 "Time constant of the measurement filter in s";
+record ParamsBlockingFunction "Parameters of blocking function"
+  parameter Types.Time tBlock "Minimum duration of blocking in s";
+  parameter Types.Time tBlockUnderV "Duration of undervoltage that triggers the blocking, in s";
+  parameter Types.Time tUnblock "Duration of voltage within ]UMinDbPu, UMaxDbPu[ that deactivates the blocking, in s";
+  parameter Types.Time tMeasureUBlock "Time constant of the measurement filter for voltage (blocking function) in s";
+  parameter Types.VoltageModulePu UBlockUnderVPu "Undervoltage threshold that triggers the blocking, in pu (base UNom)";
+  parameter Types.VoltageModulePu UMaxDbPu "Maximum voltage for blocking deactivation in pu (base UNom)";
+  parameter Types.VoltageModulePu UMinDbPu "Minimum voltage for blocking deactivation in pu (base UNom)";
 
   annotation(preferredView = "text");
 end ParamsBlockingFunction;

@@ -13,11 +13,11 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters;
 * of simulation tools for power systems.
 */
 
-record ParamsDeltaP
-  parameter Types.VoltageModulePu UdcMinPu "Minimum value of the DC voltage in pu (base UNom)";
-  parameter Types.VoltageModulePu UdcMaxPu "Maximum value of the DC voltage in pu (base UNom)";
-  parameter Types.PerUnit KpDeltaP "Proportional coefficient of the PI controller for the calculation of DeltaP";
+record ParamsDeltaP "Parameters of DeltaP calculation"
   parameter Types.PerUnit KiDeltaP "Integral coefficient of the PI controller for the calculation of DeltaP";
+  parameter Types.PerUnit KpDeltaP "Proportional coefficient of the PI controller for the calculation of DeltaP";
+  parameter Types.VoltageModulePu UDcMaxPu "Maximum value of the DC voltage in pu (base UNom)";
+  parameter Types.VoltageModulePu UDcMinPu "Minimum value of the DC voltage in pu (base UNom)";
 
   annotation(preferredView = "text");
 end ParamsDeltaP;

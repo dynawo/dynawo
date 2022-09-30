@@ -1,0 +1,288 @@
+%% Copyright (c) 2023, RTE (http://www.rte-france.com)
+%% See AUTHORS.txt
+%% All rights reserved.
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, you can obtain one at http://mozilla.org/MPL/2.0/.
+%% SPDX-License-Identifier: MPL-2.0
+%%
+%% This file is part of Dynawo, an hybrid C++/Modelica open source suite
+%% of simulation tools for power systems.
+
+\documentclass[a4paper, 12pt]{report}
+
+\input{../../../documentation/latex_setup.tex}
+
+\begin{document}
+
+\chapter{Several reference steps then a fault}
+
+\section{Converter 1}
+
+\begin{figure}[H]
+\subfigure[Voltage at terminal 1 (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y=V/SLLOGAIA]
+        {../referenceEurostag/curves1.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_Conv1_UPu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[H]
+\subfigure[Active current at terminal 1 (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y=VSCB-IPREF]
+        {../referenceEurostag/curves1.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_Conv1_idPu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive current at terminal 1 (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y=VSCB-IQREF]
+        {../referenceEurostag/curves1.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_Conv1_iqPu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[H]
+\subfigure[Active power injected at terminal 1 (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y expr=\thisrow{P/VSCB}/100]
+        {../referenceEurostag/curves1.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_Conv1_PInjPu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power injected at terminal 1 (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y expr=\thisrow{Q/VSCB}/100]
+        {../referenceEurostag/curves1.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_Conv1_QInjPu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[H]
+\subfigure[DC voltage of converter 1 (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y=VSCB-UDC2]
+        {../referenceEurostag/curves1.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_dCLine_UDc1Pu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[DC current of converter 1 (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y expr=\thisrow{VSCB-DC-@IDC2}*-1]
+        {../referenceEurostag/curves1.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_dCLine_IDc1Pu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\pagebreak
+
+\setcounter{subfigure}{0}
+
+\section{Converter 2}
+
+\begin{figure}[H]
+\subfigure[Voltage at terminal 2 (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y=V/BAIXAS]
+        {../referenceEurostag/curves2.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_Conv2_UPu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[H]
+\subfigure[Active current at terminal 2 (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y=VSCA-IPREF]
+        {../referenceEurostag/curves2.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_Conv2_idPu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive current at terminal 2 (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y=VSCA-IQREF]
+        {../referenceEurostag/curves2.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_Conv2_iqPu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[H]
+\subfigure[Active power injected at terminal 2 (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y expr=\thisrow{P/VSCA}/100]
+        {../referenceEurostag/curves2.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_Conv2_PInjPu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power injected at terminal 2 (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y expr=\thisrow{Q/VSCA}/100]
+        {../referenceEurostag/curves2.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_Conv2_QInjPu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[H]
+\subfigure[DC voltage of converter 2 (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y=VSCB-UDC1]
+        {../referenceEurostag/curves2.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_dCLine_UDc2Pu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[DC current of converter 2 (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in,
+     legend style = {at={(0.5,2.75in)},anchor=north},
+     legend columns = 2]
+        \addplot[color=blue!50]
+        table[x=TIME, y expr=\thisrow{VSCB-DC-@IDC1}*-1]
+        {../referenceEurostag/curves2.exp};
+        \addplot[dashed, color=red!50]
+        table[x=time, y=HVDC_hvdc_dCLine_IDc2Pu]
+        {../reference/outputs/curves/curves.csv};
+        \legend{$Eurostag$, $Dynawo$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\end{document}

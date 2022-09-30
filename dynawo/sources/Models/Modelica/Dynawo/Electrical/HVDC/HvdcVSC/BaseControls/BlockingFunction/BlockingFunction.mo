@@ -12,61 +12,58 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.BlockingFunction;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model BlockingFunction "Undervoltage blocking function for one side of an HVDC Link"
+model BlockingFunction "Undervoltage blocking function for one side of an HVDC link"
   import Modelica;
-  import Dynawo.Electrical.HVDC;
+  import Dynawo;
   import Dynawo.Types;
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsBlockingFunction;
+  extends Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters.ParamsBlockingFunction;
 
+  //Input variable
   Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage module in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.BooleanOutput blocked(start = false) "Boolean assessing the state of the HVDC link: true if blocked, false if not blocked" annotation(
+  //Output variable
+  Modelica.Blocks.Interfaces.BooleanOutput blocked(start = false) "If true, converter is blocked" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
 
 protected
-  Types.Time TimerPrepareBlock(start = Modelica.Constants.inf) "Timer to prepare the blocking";
-  Types.Time TimerStartBlock(start = Modelica.Constants.inf) "Timer to start the blocking, TBlockUV after TimerPrepareBlock";
-  Types.Time TimerMaintainBlock(start = Modelica.Constants.inf) "Timer to maintain the blocking at least TBlock";
-  Types.Time TimerPrepareDeblock(start = Modelica.Constants.inf) "Timer to prepare the deactivation of the blocking";
+  Types.Time tMaintainBlock(start = Modelica.Constants.inf) "Timer to maintain the blocking for a duration of at least TBlock";
+  Types.Time tPrepareBlock(start = Modelica.Constants.inf) "Timer to prepare the blocking";
+  Types.Time tPrepareDeblock(start = Modelica.Constants.inf) "Timer to prepare the deactivation of the blocking";
+  Types.Time tStartBlock(start = Modelica.Constants.inf) "Timer to start the blocking";
   Types.VoltageModulePu UFilteredPu(start = U0Pu) "Filtered voltage module in pu (base UNom)";
 
 equation
-  UFilteredPu + tFilter * der(UFilteredPu) = UPu;
+  UFilteredPu + tMeasureUBlock * der(UFilteredPu) = UPu;
 
-  when UFilteredPu < UBlockUVPu then
-    TimerPrepareBlock = time;
-  elsewhen UFilteredPu > UBlockUVPu then
-    TimerPrepareBlock = Modelica.Constants.inf;
+  when UFilteredPu < UBlockUnderVPu then
+    tPrepareBlock = time;
+  elsewhen UFilteredPu > UBlockUnderVPu then
+    tPrepareBlock = Modelica.Constants.inf;
   end when;
 
-  when time - TimerPrepareBlock > TBlockUV then
-    TimerStartBlock = time;
-  elsewhen time - TimerPrepareBlock < TBlockUV then
-    TimerStartBlock = Modelica.Constants.inf;
+  when time - tPrepareBlock > tBlockUnderV then
+    tStartBlock = time;
+  elsewhen time - tPrepareBlock < tBlockUnderV then
+    tStartBlock = Modelica.Constants.inf;
   end when;
 
-  when blocked == true and UFilteredPu < UMaxdbPu and UFilteredPu > UMindbPu then
-    TimerPrepareDeblock = time;
-  elsewhen blocked == false or UFilteredPu > UMaxdbPu or UFilteredPu < UMindbPu then
-    TimerPrepareDeblock = Modelica.Constants.inf;
+  when blocked == true and UFilteredPu < UMaxDbPu and UFilteredPu > UMinDbPu then
+    tPrepareDeblock = time;
+  elsewhen blocked == false or UFilteredPu > UMaxDbPu or UFilteredPu < UMinDbPu then
+    tPrepareDeblock = Modelica.Constants.inf;
   end when;
 
-  when time - TimerStartBlock > 0 then
+  when time - tStartBlock > 0 then
     blocked = true;
-    TimerMaintainBlock = time;
-  elsewhen time - TimerStartBlock < 0 and time > pre(TimerMaintainBlock) + TBlock and time > pre(TimerPrepareDeblock) + TDeblockU then
+    tMaintainBlock = time;
+  elsewhen time - tStartBlock < 0 and time > pre(tMaintainBlock) + tBlock and time > pre(tPrepareDeblock) + tUnblock + tBlock then
     blocked = false;
-    TimerMaintainBlock = Modelica.Constants.inf;
+    tMaintainBlock = Modelica.Constants.inf;
   end when;
 
-  annotation(preferredView = "text",
-    Diagram(coordinateSystem(grid = {1, 1})),
-    Icon(coordinateSystem(grid = {1, 1})),
-  experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002));
+  annotation(preferredView = "text");
 end BlockingFunction;

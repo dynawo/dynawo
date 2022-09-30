@@ -61,6 +61,7 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
 equation
   UPu = ComplexMath.'abs'(terminal.V);
   uPu = terminal.V;
+
   // Active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef
   QInjPuSn = -ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i)) * SystemBase.SnRef / SNom;
   PInjPuSn = -ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i)) * SystemBase.SnRef / SNom;

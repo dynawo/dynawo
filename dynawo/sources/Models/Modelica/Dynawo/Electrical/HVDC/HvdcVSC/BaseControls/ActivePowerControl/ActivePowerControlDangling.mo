@@ -13,20 +13,17 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ActivePowerControl;
 */
 
 model ActivePowerControlDangling "Active power control for the HVDC VSC model with terminal2 connected to a switched-off bus (P control on terminal 1)"
-
   import Modelica;
-  import Dynawo.Electrical.HVDC;
+  import Dynawo;
 
-  extends HVDC.HvdcVSC.BaseControls.ActivePowerControl.BaseActivePowerControl;
+  extends Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ActivePowerControl.BaseActivePowerControl;
 
   Modelica.Blocks.Sources.Constant zero1(k = 0) annotation(
-    Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-50, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
   connect(zero1.y, add1.u1) annotation(
-    Line(points = {{-109, 80}, {15, 80}, {15, -2}, {19, -2}, {19, -2}}, color = {0, 0, 127}));
+    Line(points = {{-38, 80}, {20, 80}, {20, 6}, {38, 6}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-110, -95}, {130, 105}})),
-    Icon(coordinateSystem(grid = {1, 1})));
+  annotation(preferredView = "diagram");
 end ActivePowerControlDangling;

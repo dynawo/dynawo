@@ -14,38 +14,49 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ActivePowerControl;
 
 model ActivePowerControl "Active power control for the HVDC VSC model"
   import Modelica;
-  import Dynawo.Electrical.HVDC;
+  import Dynawo;
   import Dynawo.Types;
 
-  extends HVDC.HvdcVSC.BaseControls.ActivePowerControl.BaseActivePowerControl;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsDeltaP;
+  extends Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ActivePowerControl.BaseActivePowerControl;
+  extends Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters.ParamsDeltaP;
 
-  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC voltage in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-130, 74}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput activateDeltaP(start = false) "Boolean that indicates whether DeltaP is activated or not" annotation(
-    Placement(visible = true, transformation(origin = {-130, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  HVDC.HvdcVSC.BaseControls.ActivePowerControl.DeltaP deltaP(Ip0Pu = Ip0Pu, IpMaxCstPu = IpMaxCstPu, KiDeltaP = KiDeltaP, KpDeltaP = KpDeltaP, Udc0Pu = Udc0Pu, UdcMaxPu = UdcMaxPu, UdcMinPu = UdcMinPu) "Function that calculates a DeltaP for the active power control side of the HVDC link to help the other side maintain the DC voltage" annotation(
-    Placement(visible = true, transformation(origin = {-90, 74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  //Input variables
+  Modelica.Blocks.Interfaces.BooleanInput activateDeltaP(start = false) "If true, DeltaP is activated" annotation(
+    Placement(visible = true, transformation(origin = {-220, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UDcPu(start = UDc0Pu) "DC voltage in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-220, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Sources.Constant constant1(k = 0) annotation(
-    Placement(visible = true, transformation(origin = {-53, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-70, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
-    Placement(visible = true, transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = UDcMaxPu, uMin = UDcMinPu) annotation(
+    Placement(visible = true, transformation(origin = {-150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup PI(Ki = KiDeltaP, Kp = KpDeltaP, Y0 = 0, YMax = IpMaxPu, YMin = -IpMaxPu) annotation(
+    Placement(visible = true, transformation(origin = {-70, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Feedback feedback1 annotation(
+    Placement(visible = true, transformation(origin = {-120, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.VoltageModulePu Udc0Pu "Start value of dc voltage in pu (base SNom, UNom)";
+  parameter Types.VoltageModulePu UDc0Pu "Start value of DC voltage in pu (base SNom, UNom)";
 
 equation
-  connect(UdcPu, deltaP.UdcPu) annotation(
-    Line(points = {{-130, 74}, {-101, 74}}, color = {0, 0, 127}));
   connect(activateDeltaP, switch.u2) annotation(
-    Line(points = {{-130, 40}, {-22, 40}}, color = {255, 0, 255}));
-  connect(deltaP.DeltaPRawPu, switch.u1) annotation(
-    Line(points = {{-79, 74}, {-71, 74}, {-71, 48}, {-22, 48}}, color = {0, 0, 127}));
+    Line(points = {{-220, 60}, {-22, 60}}, color = {255, 0, 255}));
+  connect(PI.y, switch.u1) annotation(
+    Line(points = {{-59, 100}, {-40, 100}, {-40, 68}, {-22, 68}}, color = {0, 0, 127}));
   connect(constant1.y, switch.u3) annotation(
-    Line(points = {{-42, 20}, {-30, 20}, {-30, 32}, {-22, 32}, {-22, 32}}, color = {0, 0, 127}));
+    Line(points = {{-59, 20}, {-40, 20}, {-40, 52}, {-22, 52}}, color = {0, 0, 127}));
   connect(switch.y, add1.u1) annotation(
-    Line(points = {{1, 40}, {15, 40}, {15, -2}, {19, -2}, {19, -2}}, color = {0, 0, 127}));
+    Line(points = {{1, 60}, {20, 60}, {20, 6}, {38, 6}}, color = {0, 0, 127}));
+  connect(UDcPu, limiter1.u) annotation(
+    Line(points = {{-220, 100}, {-180, 100}, {-180, 80}, {-162, 80}}, color = {0, 0, 127}));
+  connect(limiter1.y, feedback1.u2) annotation(
+    Line(points = {{-138, 80}, {-120, 80}, {-120, 92}}, color = {0, 0, 127}));
+  connect(UDcPu, feedback1.u1) annotation(
+    Line(points = {{-220, 100}, {-128, 100}}, color = {0, 0, 127}));
+  connect(feedback1.y, PI.u) annotation(
+    Line(points = {{-110, 100}, {-82, 100}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-110, -95}, {130, 105}})),
-    Icon(coordinateSystem(grid = {1, 1})));
+    Diagram(coordinateSystem(extent = {{-200, -160}, {200, 160}})));
 end ActivePowerControl;

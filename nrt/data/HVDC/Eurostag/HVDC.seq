@@ -1,0 +1,23 @@
+HEADER     09/02/23 5.1 RTE
+
+PARAM
+         3  0  1  2
+                 0.0001         0.0001          0.001          0.001          0.001 1
+
+TIME
+        .00000000000001            60.             0.
+
+EVENTS
+      1. SETPOINT VSCB    /PCONTROL   PDCREF      -450.                      0.                   0.
+      2. SETPOINT VSCB    /PCONTROL   PDCREF      -900.                      0.                   0.
+      3. SETPOINT VSCB    /UACCTRL    QREF        -300.                      0.                   0.
+      4. SETPOINT VSCA    /UACCTRL    UREF         410.                      0.                   0.
+      5. SETPOINT VSCA    /VDCCTRL    WUDCA        590.                      0.                   0.
+      5. SETPOINT VSCB    /PCONTROL   WUDCB        591.                      0.                   0.
+      6. SETPOINT VSCB    /UACCTRL    QREF        -600.                      0.                   0.
+      6. SETPOINT VSCA    /UACCTRL    UREF     380.2368                      0.                   0.
+      7. SETPOINT VSCA    /VDCCTRL    WUDCA        640.                      0.                   0.
+      7. SETPOINT VSCB    /PCONTROL   WUDCB    641.4032                      0.                   0.
+      8. FAULTATN BAIXAS                                      0.  0.00001    0.
+      9. CLEARB   BAIXAS                                                     0.                   0.
+     10. STOP

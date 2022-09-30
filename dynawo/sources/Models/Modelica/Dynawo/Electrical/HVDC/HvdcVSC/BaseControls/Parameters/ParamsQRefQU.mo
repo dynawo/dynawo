@@ -13,15 +13,12 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters;
 * of simulation tools for power systems.
 */
 
-record ParamsQRefQU
-  parameter Types.PerUnit SlopeURefPu "Slope of the ramp of URefPu";
-  parameter Types.PerUnit SlopeQRefPu "Slope of the ramp of QRefPu";
-  parameter Types.PerUnit Lambda "Lambda coefficient for the QRefUPu calculation";
-  parameter Types.PerUnit KiACVoltageControl "Integral coefficient of the PI controller for the ac voltage control";
-  parameter Types.PerUnit KpACVoltageControl "Proportional coefficient of the PI controller for the ac voltage control";
-  parameter Types.ReactivePowerPu QMinCombPu "Minimum combined reactive power in pu (base SNom)";
-  parameter Types.ReactivePowerPu QMaxCombPu "Maximum combined reactive power in pu (base SNom)";
-  parameter Types.PerUnit DeadBandU "Deadband for the QRefUPu calculation";
+record ParamsQRefQU "Parameters of reactive power reference calculation"
+  parameter Types.PerUnit KiAc "Integral coefficient of the PI controller for the AC voltage control";
+  parameter Types.PerUnit KpAc "Proportional coefficient of the PI controller for the AC voltage control";
+  parameter Types.PerUnit LambdaPu "Lambda coefficient for the QRefUPu calculation in pu (base SNom, UNom)";
+  parameter Types.PerUnit SlopeQRefPu "Slope of the ramp of QRefPu in pu/s (base SNom)";
+  parameter Types.PerUnit SlopeURefPu "Slope of the ramp of URefPu in pu/s (base UNom)";
 
   annotation(preferredView = "text");
 end ParamsQRefQU;
