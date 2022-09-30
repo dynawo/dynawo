@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.Voltage;
+within Dynawo.Electrical.Controls.Voltage.SecondaryVoltageControl.Simplified;
 
 /*
 * Copyright (c) 2022, RTE (http://www.rte-france.com)
@@ -12,13 +12,13 @@ within Dynawo.Electrical.Controls.Voltage;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model SecondaryVoltageControlSimp "Model for simplified secondary voltage control"
+model SecondaryVoltageControl "Model for simplified secondary voltage control"
   import Modelica;
   import Dynawo.Types;
 
   //Regulation parameters
   parameter Types.PerUnit Ck "Sensitivity of voltage to level variations in pu (base UNom)";
-  parameter Types.PerUnit DnsDtm "Level slope limitation in pu/min (base QNomAlt)";
+  parameter Types.PerUnit DerLevelMaxPu "Level slope limitation in pu/min (base QNomAlt)";
   parameter Types.Time tau "PI time constant in s";
   parameter Types.Time tI "Closed loop target time constant in s";
 
@@ -38,7 +38,7 @@ model SecondaryVoltageControlSimp "Model for simplified secondary voltage contro
     Placement(visible = true, transformation(origin = {150, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.LimIntegrator limIntegrator(outMax = 1, y_start = Level0) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = DnsDtm / 60) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = DerLevelMaxPu / 60) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = 1 / (Ck * tI)) annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -80,4 +80,4 @@ equation
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-200, -200}, {220, 200}})));
-end SecondaryVoltageControlSimp;
+end SecondaryVoltageControl;
