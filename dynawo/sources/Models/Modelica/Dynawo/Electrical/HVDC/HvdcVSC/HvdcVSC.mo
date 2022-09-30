@@ -15,66 +15,64 @@ within Dynawo.Electrical.HVDC.HvdcVSC;
 model HvdcVSC "HVDC VSC model"
   import Modelica;
   import Dynawo;
-  import Dynawo.Electrical.HVDC;
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Types;
 
   extends AdditionalIcons.Hvdc;
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsActivePowerControl;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsACVoltageControl;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsBlockingFunction;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsDCLine;
-  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsDCVoltageControl;
+  extends Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters.ParamsAcVoltageControl;
+  extends Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters.ParamsActivePowerControl;
+  extends Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters.ParamsDcVoltageControl;
+  extends Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters.ParamsBlockingFunction;
+  extends Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters.ParamsDcLine;
+  extends Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters.ParamsDeltaP;
+  extends Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters.ParamsLimitsCalculation;
 
+  parameter Types.PerUnit IpDeadBandPu "Deadband for the DeltaP function in pu (base SNom, UNom) (DC to AC)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-
-  parameter Types.CurrentModulePu InPu "Nominal current in pu (base SNom, UNom)";
-  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
 
   Dynawo.Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(visible = true, transformation(origin = {-130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(visible = true, transformation(origin = {130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealInput modeU1(start = modeU10) "Real assessing the mode of the control: 1 if U mode, 0 if Q mode" annotation(
+  //Input variables
+  Modelica.Blocks.Interfaces.BooleanInput modeU1(start = ModeU10) "Mode of control on side 1 : if true, U mode, if false, Q mode" annotation(
     Placement(visible = true, transformation(origin = {-30, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput modeU2(start = modeU20) "Boolean assessing the mode of the control: 1 if U mode, 0 if Q mode" annotation(
+  Modelica.Blocks.Interfaces.BooleanInput modeU2(start = ModeU20) "Mode of control on side 2 : if true, U mode, if false, Q mode" annotation(
     Placement(visible = true, transformation(origin = {30, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P10Pu * (SystemBase.SnRef/SNom)) "Active power reference of the HVDC link in pu (base SNom) and in generator convention" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P10Pu * (SystemBase.SnRef / SNom)) "Active power reference of the HVDC link in pu (base SNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-60, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput QRef1Pu(start = - Q10Pu * (SystemBase.SnRef/SNom)) "Reactive power reference for the side 1 of the HVDC link in pu (base SNom) and in generator convention" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRef1Pu(start = - Q10Pu * (SystemBase.SnRef / SNom)) "Reactive power reference for the side 1 of the HVDC link in pu (base SNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput QRef2Pu(start = - Q20Pu * (SystemBase.SnRef/SNom)) "Reactive power reference for the side 2 of the HVDC link in pu (base SNom) and in generator convention" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRef2Pu(start = - Q20Pu * (SystemBase.SnRef / SNom)) "Reactive power reference for the side 2 of the HVDC link in pu (base SNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = UdcRef0Pu) "DC voltage reference of the HVDC link in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput UDcRefPu(start = UDcRef0Pu) "DC voltage reference of the HVDC link in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {60, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu - Lambda * Q10Pu * (SystemBase.SnRef/SNom)) "Voltage reference for the side 1 of the HVDC link in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu - LambdaPu * Q10Pu * (SystemBase.SnRef / SNom)) "Voltage reference for the side 1 of the HVDC link in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-40, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput URef2Pu(start = U20Pu - Lambda * Q20Pu * (SystemBase.SnRef/SNom)) "Voltage reference for the side 2 of the HVDC link in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URef2Pu(start = U20Pu - LambdaPu * Q20Pu * (SystemBase.SnRef / SNom)) "Voltage reference for the side 2 of the HVDC link in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {40, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
-  HVDC.HvdcVSC.BaseControls.DCVoltageControlSide UdcPu_Side(DUDC = DUDC, DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip20Pu, IpMaxCstPu = IpMaxCstPu, Iq0Pu = Iq20Pu, KiACVoltageControl = KiACVoltageControl, Kidc = Kidc, KpACVoltageControl = KpACVoltageControl, Kpdc = Kpdc, Lambda = Lambda, P0Pu = - P20Pu * (SystemBase.SnRef/SNom), Q0Pu = - Q20Pu * (SystemBase.SnRef/SNom), QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, RdcPu = RdcPu, SNom = SNom, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U20Pu, Udc0Pu = Udc20Pu, UdcRef0Pu = UdcRef0Pu, UdcRefMaxPu = UdcRefMaxPu, UdcRefMinPu = UdcRefMinPu, modeU0 = if modeU20 > 0.5 then true else false, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod) "DC Voltage Control Side of the HVDC link" annotation(
+  Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.DcVoltageControlSide UDcPuSide(InPu = InPu, Ip0Pu = Ip20Pu, IpDeadBandPu = IpDeadBandPu, IpMaxPu = IpMaxPu, Iq0Pu = Iq20Pu, IqModTableName = IqModTableName, KiAc = KiAc, KiDc = KiDc, KpAc = KpAc, KpDc = KpDc, LambdaPu = LambdaPu, P0Pu = - P20Pu * (SystemBase.SnRef / SNom), Q0Pu = - Q20Pu * (SystemBase.SnRef / SNom), QOpMaxPu = QOpMaxPu, QOpMinPu = QOpMinPu, QPMaxTableName = QPMaxTableName, QPMinTableName = QPMinTableName, QUMaxTableName = QUMaxTableName, QUMinTableName = QUMinTableName, RDcPu = RDcPu, SNom = SNom, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TablesFile = TablesFile, tMeasure = tMeasure, tMeasureU = tMeasureU, tQ = tQ, U0Pu = U20Pu, UDc0Pu = UDc20Pu, UDcRef0Pu = UDcRef0Pu, UDcRefMaxPu = UDcRefMaxPu, UDcRefMinPu = UDcRefMinPu, ModeU0 = ModeU20) "DC voltage control side of the HVDC link" annotation(
     Placement(visible = true, transformation(origin = {45, 0}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  HVDC.HvdcVSC.BaseControls.ActivePowerControlSide PPu_Side(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip10Pu, IpMaxCstPu = IpMaxCstPu, Iq0Pu = Iq10Pu, KiACVoltageControl = KiACVoltageControl, KiDeltaP = KiDeltaP, KiPControl = KiPControl, KpACVoltageControl = KpACVoltageControl, KpDeltaP = KpDeltaP, KpPControl = KpPControl, Lambda = Lambda, P0Pu = - P10Pu * (SystemBase.SnRef/SNom), PMaxOPPu = PMaxOPPu, PMinOPPu = PMinOPPu, Q0Pu = - Q10Pu * (SystemBase.SnRef/SNom), QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopePRefPu = SlopePRefPu, SlopeQRefPu = SlopeQRefPu, SlopeRPFault = SlopeRPFault, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U10Pu, Udc0Pu = Udc10Pu, UdcMaxPu = UdcMaxPu, UdcMinPu = UdcMinPu, modeU0 = if modeU10 > 0.5 then true else false, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod) "Active Power Control Side of the HVDC link" annotation(
+  Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ActivePowerControlSide PPuSide(InPu = InPu, Ip0Pu = Ip10Pu, IpMaxPu = IpMaxPu, Iq0Pu = Iq10Pu, IqModTableName = IqModTableName, KiAc = KiAc, KiDeltaP = KiDeltaP, KiP = KiP, KpAc = KpAc, KpDeltaP = KpDeltaP, KpP = KpP, LambdaPu = LambdaPu, P0Pu = - P10Pu * (SystemBase.SnRef / SNom), POpMaxPu = POpMaxPu, POpMinPu = POpMinPu, Q0Pu = - Q10Pu * (SystemBase.SnRef / SNom), QOpMaxPu = QOpMaxPu, QOpMinPu = QOpMinPu, QPMaxTableName = QPMaxTableName, QPMinTableName = QPMinTableName, QUMaxTableName = QUMaxTableName, QUMinTableName = QUMinTableName, SlopePRefPu = SlopePRefPu, SlopeQRefPu = SlopeQRefPu, SlopeRPFault = SlopeRPFault, SlopeURefPu = SlopeURefPu, TablesFile = TablesFile, tMeasure = tMeasure, tMeasureP = tMeasureP, tQ = tQ, U0Pu = U10Pu, UDc0Pu = UDc10Pu, UDcMaxPu = UDcMaxPu, UDcMinPu = UDcMinPu, ModeU0 = ModeU10) "Active power control side of the HVDC link" annotation(
     Placement(visible = true, transformation(origin = {-45, 0}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  HVDC.HvdcVSC.BaseControls.BlockingFunction.GeneralBlockingFunction Blocking(TBlock = TBlock, TBlockUV = TBlockUV, TDeblockU = TDeblockU, UBlockUVPu = UBlockUVPu, UMaxdbPu = UMaxdbPu, UMindbPu = UMindbPu, U10Pu = U10Pu, U20Pu = U20Pu) "Undervoltage blocking function for the two sides of an HVDC Link" annotation(
-    Placement(visible = true, transformation(origin = {0, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  HVDC.HvdcVSC.BaseControls.DCLine.DCLine dCLine(CdcPu = CdcPu, P10Pu = - P10Pu * (SystemBase.SnRef/SNom), P20Pu = - P20Pu * (SystemBase.SnRef/SNom), RdcPu = RdcPu, SNom = SNom, U1dc0Pu = Udc10Pu, U2dc0Pu = Udc20Pu) "DC line model" annotation(
-    Placement(visible = true, transformation(origin = {5, 0}, extent = {{-20, -10}, {10, 10}}, rotation = 0)));
-  Sources.InjectorIDQ Conv1(Id0Pu = Ip10Pu, Iq0Pu = Iq10Pu, P0Pu = P10Pu, Q0Pu = Q10Pu, SNom = SNom, U0Pu = U10Pu, UPhase0 = UPhase10, i0Pu = i10Pu, s0Pu = s10Pu, u0Pu = u10Pu) "Injector of the Active Power Control Side of the HVDC link" annotation(
+  Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.BlockingFunction.BlockingFunction Blocking1(tBlock = tBlock, tBlockUnderV = tBlockUnderV, tMeasureUBlock = tMeasureUBlock, tUnblock = tUnblock, U0Pu = U10Pu, UBlockUnderVPu = UBlockUnderVPu, UMaxDbPu = UMaxDbPu, UMinDbPu = UMinDbPu) "Undervoltage blocking function for side 1" annotation(
+    Placement(visible = true, transformation(origin = {-90, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.BlockingFunction.BlockingFunction Blocking2(tBlock = tBlock, tBlockUnderV = tBlockUnderV, tMeasureUBlock = tMeasureUBlock, tUnblock = tUnblock, U0Pu = U10Pu, UBlockUnderVPu = UBlockUnderVPu, UMaxDbPu = UMaxDbPu, UMinDbPu = UMinDbPu) "Undervoltage blocking function for side 2" annotation(
+    Placement(visible = true, transformation(origin = {90, -50}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.DcLine.DcLine dCLine(CDcPu = CDcPu, P10Pu = - P10Pu * (SystemBase.SnRef / SNom), P20Pu = - P20Pu * (SystemBase.SnRef / SNom), RDcPu = RDcPu, SNom = SNom, UDc10Pu = UDc10Pu, UDc20Pu = UDc20Pu) "DC line model" annotation(
+    Placement(visible = true, transformation(origin = {0, 0}, extent = {{-12, -8}, {12, 8}}, rotation = 0)));
+  Dynawo.Electrical.Sources.InjectorIDQ Conv1(Id0Pu = Ip10Pu, Iq0Pu = Iq10Pu, P0Pu = P10Pu, Q0Pu = Q10Pu, SNom = SNom, U0Pu = U10Pu, UPhase0 = UPhase10, i0Pu = i10Pu, s0Pu = s10Pu, u0Pu = u10Pu) "Injector of the active power control side of the HVDC link" annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Sources.InjectorIDQ Conv2(Id0Pu = Ip20Pu, Iq0Pu = Iq20Pu, P0Pu = P20Pu, Q0Pu = Q20Pu, SNom = SNom, U0Pu = U20Pu, UPhase0 = UPhase20, i0Pu = i20Pu, s0Pu = s20Pu, u0Pu = u20Pu) "Injector of the DC Voltage Control Side of the HVDC link" annotation(
+  Dynawo.Electrical.Sources.InjectorIDQ Conv2(Id0Pu = Ip20Pu, Iq0Pu = Iq20Pu, P0Pu = P20Pu, Q0Pu = Q20Pu, SNom = SNom, U0Pu = U20Pu, UPhase0 = UPhase20, i0Pu = i20Pu, s0Pu = s20Pu, u0Pu = u20Pu) "Injector of the DC voltage control side of the HVDC link" annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.RealToBoolean realToBoolean annotation(
-    Placement(visible = true, transformation(origin = {-30, 58}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Modelica.Blocks.Math.RealToBoolean realToBoolean1 annotation(
-    Placement(visible = true, transformation(origin = {30, 58}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Controls.PLL.PLL pll1(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u10Pu)  annotation(
+  Dynawo.Electrical.Controls.PLL.PLL pll1(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u10Pu) annotation(
     Placement(visible = true, transformation(origin = {-103, 30}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.PLL.PLL pll2(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u20Pu)  annotation(
+  Dynawo.Electrical.Controls.PLL.PLL pll2(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u20Pu) annotation(
     Placement(visible = true, transformation(origin = {103, 30}, extent = {{10, 10}, {-10, -10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant omegaRef1(k = 1)  annotation(
+  Modelica.Blocks.Sources.Constant omegaRef1(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-125, 36}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRef2(k = 1) annotation(
     Placement(visible = true, transformation(origin = {125, 36}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
@@ -82,99 +80,98 @@ model HvdcVSC "HVDC VSC model"
   Types.Angle Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
   Types.Angle Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
 
-  parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
-  parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base UNom, SnRef) (receptor convention)";
-  parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom)";
-  parameter Types.PerUnit Ip20Pu "Start value of active current at terminal 2 in pu (base SNom)";
-  parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom)";
-  parameter Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom)";
-  parameter Real modeU10 "Start value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
-  parameter Real modeU20 "Start value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
-  parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
-  parameter Types.ActivePowerPu P20Pu "Start value of active power at terminal 2 in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q20Pu "Start value of reactive power at terminal 2 in pu (base SnRef) (receptor convention)";
-  parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
-  parameter Types.ComplexApparentPowerPu s20Pu "Start value of complex apparent power at terminal 2 in pu (base SnRef) (receptor convention)";
+  parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (AC to DC)";
+  parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base UNom, SnRef) (AC to DC)";
+  parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom) (DC to AC)";
+  parameter Types.PerUnit Ip20Pu "Start value of active current at terminal 2 in pu (base SNom) (DC to AC)";
+  parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom) (DC to AC)";
+  parameter Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom) (DC to AC)";
+  parameter Boolean ModeU10 "Initial mode of control on side 1 : if true, U mode, if false, Q mode";
+  parameter Boolean ModeU20 "Initial mode of control on side 2 : if true, U mode, if false, Q mode";
+  parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (AC to DC)";
+  parameter Types.ActivePowerPu P20Pu "Start value of active power at terminal 2 in pu (base SnRef) (AC to DC)";
+  parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (AC to DC)";
+  parameter Types.ReactivePowerPu Q20Pu "Start value of reactive power at terminal 2 in pu (base SnRef) (AC to DC)";
+  parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (AC to DC)";
+  parameter Types.ComplexApparentPowerPu s20Pu "Start value of complex apparent power at terminal 2 in pu (base SnRef) (AC to DC)";
   parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
   parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base UNom)";
   parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";
   parameter Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in pu (base UNom)";
-  parameter Types.VoltageModulePu Udc10Pu "Start value of dc voltage at terminal 1 in pu (base UdcNom)";
-  parameter Types.VoltageModulePu Udc20Pu "Start value of dc voltage at terminal 2 in pu (base UdcNom)";
-  parameter Types.VoltageModulePu UdcRef0Pu "Start value of dc voltage reference in pu (base UdcNom)";
+  parameter Types.VoltageModulePu UDc10Pu "Start value of DC voltage at terminal 1 in pu (base UDcNom)";
+  parameter Types.VoltageModulePu UDc20Pu "Start value of DC voltage at terminal 2 in pu (base UDcNom)";
+  parameter Types.VoltageModulePu UDcRef0Pu "Start value of DC voltage reference in pu (base UDcNom)";
   parameter Types.Angle UPhase10 "Start value of voltage angle at terminal 1 (in rad)";
   parameter Types.Angle UPhase20 "Start value of voltage angle at terminal 2 (in rad)";
 
 equation
   Theta1 = pll1.phi;
   Theta2 = pll2.phi;
-  connect(modeU1, realToBoolean.u) annotation(
-    Line(points = {{-30, 77}, {-30, 64}}, color = {0, 0, 127}));
-  connect(modeU2, realToBoolean1.u) annotation(
-    Line(points = {{30, 77}, {30, 64}}, color = {0, 0, 127}));
-  connect(UdcPu_Side.activateDeltaP, PPu_Side.activateDeltaP) annotation(
+
+  connect(modeU1, PPuSide.modeU) annotation(
+    Line(points = {{-30, 77}, {-30, 17}}, color = {255, 0, 255}));
+  connect(modeU2, UDcPuSide.modeU) annotation(
+    Line(points = {{30, 77}, {30, 17}}, color = {255, 0, 255}));
+  connect(Conv1.terminal, terminal1) annotation(
+    Line(points = {{-101.5, -8}, {-130, -8}}, color = {0, 0, 255}));
+  connect(Conv2.terminal, terminal2) annotation(
+    Line(points = {{102, -8}, {130, -8}}, color = {0, 0, 255}));
+  connect(UDcPuSide.activateDeltaP, PPuSide.activateDeltaP) annotation(
     Line(points = {{29, 13}, {-28, 13}, {-28, 14}, {-28, 14}}, color = {255, 0, 255}));
-  connect(PPu_Side.POutPu, dCLine.P1Pu) annotation(
-    Line(points = {{-28, 0}, {-16.5, 0}}, color = {0, 0, 127}));
-  connect(UdcPu_Side.POutPu, dCLine.P2Pu) annotation(
-    Line(points = {{29, 0}, {16.5, 0}}, color = {0, 0, 127}));
-  connect(dCLine.U1dcPu, PPu_Side.UdcPu) annotation(
-    Line(points = {{-11, -11}, {-11, -11}, {-11, -24}, {-31, -24}, {-31, -16}, {-31, -16}}, color = {0, 0, 127}));
-  connect(dCLine.U2dcPu, UdcPu_Side.UdcPu) annotation(
-    Line(points = {{10, -11}, {10, -11}, {10, -24}, {31, -24}, {31, -16}, {31, -16}}, color = {0, 0, 127}));
-  connect(PPu_Side.ipRefPPu, Conv1.idPu) annotation(
-    Line(points = {{-61, 6}, {-79, 6}, {-79, 6}, {-78, 6}}, color = {0, 0, 127}));
-  connect(PPu_Side.iqRefPu, Conv1.iqPu) annotation(
-    Line(points = {{-61, -4}, {-79, -4}, {-79, -4}, {-78, -4}}, color = {0, 0, 127}));
-  connect(URef1Pu, PPu_Side.URefPu) annotation(
+  connect(dCLine.UDc1Pu, PPuSide.UDcPu) annotation(
+    Line(points = {{-9, 0}, {-28, 0}}, color = {0, 0, 127}));
+  connect(dCLine.UDc2Pu, UDcPuSide.UDcPu) annotation(
+    Line(points = {{9, 0}, {28, 0}}, color = {0, 0, 127}));
+  connect(PPuSide.ipRefPu, Conv1.idPu) annotation(
+    Line(points = {{-61, 6}, {-78, 6}}, color = {0, 0, 127}));
+  connect(PPuSide.iqRefPu, Conv1.iqPu) annotation(
+    Line(points = {{-61, -4}, {-78, -4}}, color = {0, 0, 127}));
+  connect(URef1Pu, PPuSide.URefPu) annotation(
     Line(points = {{-40, 77}, {-40, 17}}, color = {0, 0, 127}));
-  connect(QRef1Pu, PPu_Side.QRefPu) annotation(
+  connect(QRef1Pu, PPuSide.QRefPu) annotation(
     Line(points = {{-50, 77}, {-50, 17}}, color = {0, 0, 127}));
-  connect(PRefPu, PPu_Side.PRefPu) annotation(
+  connect(PRefPu, PPuSide.PRefPu) annotation(
     Line(points = {{-60, 77}, {-60, 17}, {-59, 17}}, color = {0, 0, 127}));
-  connect(realToBoolean1.y, UdcPu_Side.modeU) annotation(
-    Line(points = {{30, 52.5}, {30, 17}}, color = {255, 0, 255}));
-  connect(URef2Pu, UdcPu_Side.URefPu) annotation(
+  connect(URef2Pu, UDcPuSide.URefPu) annotation(
     Line(points = {{40, 77}, {40, 17}}, color = {0, 0, 127}));
-  connect(QRef2Pu, UdcPu_Side.QRefPu) annotation(
+  connect(QRef2Pu, UDcPuSide.QRefPu) annotation(
     Line(points = {{50, 77}, {50, 17}}, color = {0, 0, 127}));
-  connect(UdcRefPu, UdcPu_Side.UdcRefPu) annotation(
+  connect(UDcRefPu, UDcPuSide.UDcRefPu) annotation(
     Line(points = {{60, 77}, {60, 17}}, color = {0, 0, 127}));
-  connect(Blocking.blocked, PPu_Side.blocked) annotation(
-    Line(points = {{0, -39}, {0, -39}, {0, -30}, {-38, -30}, {-38, -16}, {-39, -16}}, color = {255, 0, 255}));
-  connect(Blocking.blocked, UdcPu_Side.blocked) annotation(
-    Line(points = {{0, -39}, {0, -39}, {0, -30}, {38, -30}, {38, -16}, {39, -16}}, color = {255, 0, 255}));
-  connect(Conv1.UPu, PPu_Side.UPu) annotation(
+  connect(Conv1.UPu, PPuSide.UPu) annotation(
     Line(points = {{-101, 8}, {-110, 8}, {-110, -30}, {-45, -30}, {-45, -16}, {-45, -16}}, color = {0, 0, 127}));
-  connect(Conv1.PInjPuSn, PPu_Side.PPu) annotation(
-    Line(points = {{-101, 4}, {-109, 4}, {-109, -28}, {-52, -28}, {-52, -16}, {-52, -16}}, color = {0, 0, 127}));
-  connect(Conv1.QInjPuSn, PPu_Side.QPu) annotation(
-    Line(points = {{-101, 1}, {-108, 1}, {-108, -26}, {-59, -26}, {-59, -16}, {-59, -16}}, color = {0, 0, 127}));
-  connect(Conv1.UPu, Blocking.U1Pu) annotation(
-    Line(points = {{-101, 8}, {-110, 8}, {-110, -50}, {-11, -50}, {-11, -50}}, color = {0, 0, 127}));
-  connect(Conv2.UPu, UdcPu_Side.UPu) annotation(
+  connect(Conv1.PInjPuSn, PPuSide.PPu) annotation(
+    Line(points = {{-101, 4}, {-109, 4}, {-109, -25}, {-52, -25}, {-52, -16}}, color = {0, 0, 127}));
+  connect(Conv1.QInjPuSn, PPuSide.QPu) annotation(
+    Line(points = {{-101, 1}, {-108, 1}, {-108, -20}, {-59, -20}, {-59, -16}}, color = {0, 0, 127}));
+  connect(Conv1.UPu, Blocking1.UPu) annotation(
+    Line(points = {{-101, 8}, {-110, 8}, {-110, -50}, {-101, -50}}, color = {0, 0, 127}));
+  connect(Conv2.UPu, UDcPuSide.UPu) annotation(
     Line(points = {{102, 8}, {110, 8}, {110, -30}, {45, -30}, {45, -16}, {45, -16}}, color = {0, 0, 127}));
-  connect(Conv2.UPu, Blocking.U2Pu) annotation(
-    Line(points = {{102, 8}, {110, 8}, {110, -50}, {11, -50}, {11, -50}}, color = {0, 0, 127}));
-  connect(UdcPu_Side.ipRefUdcPu, Conv2.idPu) annotation(
-    Line(points = {{62, 6}, {77, 6}, {77, 6}, {79, 6}}, color = {0, 0, 127}));
-  connect(UdcPu_Side.iqRefPu, Conv2.iqPu) annotation(
-    Line(points = {{62, -4}, {77, -4}, {77, -4}, {79, -4}}, color = {0, 0, 127}));
-  connect(realToBoolean.y, PPu_Side.modeU) annotation(
-    Line(points = {{-30, 53}, {-30, 53}, {-30, 17}, {-30, 17}}, color = {255, 0, 255}));
-  connect(Conv2.QInjPuSn, UdcPu_Side.QPu) annotation(
-    Line(points = {{102, 1}, {108, 1}, {108, -26}, {59, -26}, {59, -16}, {59, -16}}, color = {0, 0, 127}));
-  connect(UdcPu_Side.PPu, Conv2.PInjPuSn) annotation(
-    Line(points = {{52, -16}, {52, -16}, {52, -28}, {109, -28}, {109, 4}, {102, 4}, {102, 4}}, color = {0, 0, 127}));
-  connect(PPu_Side.iqModPu, UdcPu_Side.iqMod1Pu) annotation(
-    Line(points = {{-28, 9}, {27, 9}, {27, 9}, {29, 9}}, color = {0, 0, 127}));
-  connect(UdcPu_Side.iqModPu, PPu_Side.iqMod1Pu) annotation(
+  connect(Conv2.UPu, Blocking2.UPu) annotation(
+    Line(points = {{102, 8}, {110, 8}, {110, -50}, {101, -50}}, color = {0, 0, 127}));
+  connect(UDcPuSide.ipRefPu, Conv2.idPu) annotation(
+    Line(points = {{62, 6}, {79, 6}}, color = {0, 0, 127}));
+  connect(UDcPuSide.iqRefPu, Conv2.iqPu) annotation(
+    Line(points = {{62, -4}, {79, -4}}, color = {0, 0, 127}));
+  connect(Conv2.QInjPuSn, UDcPuSide.QPu) annotation(
+    Line(points = {{102, 1}, {108, 1}, {108, -20}, {59, -20}, {59, -16}}, color = {0, 0, 127}));
+  connect(PPuSide.iqModPu, UDcPuSide.iqMod1Pu) annotation(
+    Line(points = {{-28, 9}, {29, 9}}, color = {0, 0, 127}));
+  connect(UDcPuSide.iqModPu, PPuSide.iqMod2Pu) annotation(
     Line(points = {{29, -9}, {-28, -9}, {-28, -9}, {-28, -9}}, color = {0, 0, 127}));
-  connect(PPu_Side.iqRefPu, UdcPu_Side.iqRef1Pu) annotation(
-    Line(points = {{-61, -4}, {-70, -4}, {-70, -32}, {70, -32}, {70, -10}, {62, -10}, {62, -10}}, color = {0, 0, 127}));
-  connect(UdcPu_Side.iqRefPu, PPu_Side.iqRef1Pu) annotation(
-    Line(points = {{62, -4}, {72, -4}, {72, -34}, {-72, -34}, {-72, -10}, {-61, -10}, {-61, -11}}, color = {0, 0, 127}));
+  connect(UDcPuSide.iqRefPu, PPuSide.iqRef2Pu) annotation(
+    Line(points = {{62, -4}, {70, -4}, {70, -40}, {-72, -40}, {-72, -10}, {-61, -10}, {-61, -11}}, color = {0, 0, 127}));
+  connect(Blocking1.blocked, PPuSide.blocked1) annotation(
+    Line(points = {{-79, -50}, {-38, -50}, {-38, -16}}, color = {255, 0, 255}));
+  connect(Blocking2.blocked, PPuSide.blocked2) annotation(
+    Line(points = {{79, -50}, {-34, -50}, {-34, -16}}, color = {255, 0, 255}));
+  connect(Blocking2.blocked, UDcPuSide.blocked) annotation(
+    Line(points = {{79, -50}, {38, -50}, {38, -16}}, color = {255, 0, 255}));
+  connect(Conv1.PInjPuSn, dCLine.P1Pu) annotation(
+    Line(points = {{-102, 4}, {-109, 4}, {-109, -25}, {-20, -25}, {-20, -5}, {-10, -5}}, color = {0, 0, 127}));
+  connect(Conv2.PInjPuSn, dCLine.P2Pu) annotation(
+    Line(points = {{102, 4}, {109, 4}, {109, -25}, {20, -25}, {20, -5}, {10, -5}}, color = {0, 0, 127}));
   connect(pll1.phi, Conv1.UPhase) annotation(
     Line(points = {{-92, 29}, {-90, 29}, {-90, 12}}, color = {0, 0, 127}));
   connect(pll2.phi, Conv2.UPhase) annotation(
@@ -185,15 +182,11 @@ equation
     Line(points = {{119.5, 36}, {114, 36}}, color = {0, 0, 127}));
   connect(Conv1.uPu, pll1.uPu) annotation(
     Line(points = {{-101, -3}, {-118, -3}, {-118, 24}, {-114, 24}}, color = {85, 170, 255}));
-  connect(Conv1.terminal, terminal1) annotation(
-    Line(points = {{-101, -8}, {-130, -8}}, color = {0, 0, 255}));
-  connect(Conv2.terminal, terminal2) annotation(
-    Line(points = {{102, -8}, {130, -8}}, color = {0, 0, 255}));
   connect(Conv2.uPu, pll2.uPu) annotation(
     Line(points = {{102, -3}, {118, -3}, {118, 24}, {114, 24}}, color = {85, 170, 255}));
+  connect(Conv2.PInjPuSn, UDcPuSide.PPu) annotation(
+    Line(points = {{102, 4}, {109, 4}, {109, -25}, {33, -25}, {33, -16}}, color = {0, 0, 127}));
 
-  annotation(
-    preferredView = "diagram",
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -70}, {120, 70}})),
-    Icon(coordinateSystem(grid = {1, 1})));
+  annotation(preferredView = "diagram",
+    Diagram(coordinateSystem(extent = {{-120, -70}, {120, 70}})));
 end HvdcVSC;

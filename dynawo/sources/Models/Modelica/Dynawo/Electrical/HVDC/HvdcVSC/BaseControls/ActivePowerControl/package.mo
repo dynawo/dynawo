@@ -12,6 +12,6 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-package ActivePowerControl "Active Power Control of HVDC links"
+package ActivePowerControl "Active power control of HVDC links"
   extends Icons.Package;
 end ActivePowerControl;

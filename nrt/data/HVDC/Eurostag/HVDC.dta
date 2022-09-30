@@ -1,0 +1,60 @@
+HEADER     17/08/22 5.1 RTE
+
+M50        R       0.       0.
+VSCA                  0.0001                                0.     0.16    1044.
+
+R VSCA
+VDCCTRL    1             M  VSCB
+
+
+
+R VSCA
+UACCTRL    1
+
+
+
+R VSCA
+DEMARRE    1
+
+
+
+
+M50        R       0.       0.
+VSCB                  0.0001                                0.     0.16    1044.
+
+R VSCB
+UACCTRL    1
+
+
+
+R VSCB
+PCONTROL   1             M  VSCA                  N  BAIXAS
+
+
+
+R VSCB
+DC         1             M  VSCA                  M  VSCB
+
+
+
+R VSCB
+DEMARRE    1
+
+
+
+
+I1
+INF_A          0.   0.0001     100.     100.
+INF_B          0.   0.0001     100.     100.
+
+
+LOADP   IMPED_1
+         IMPED_1        1.       1.
+
+
+
+
+
+
+CH
+IMPED_1  W          A

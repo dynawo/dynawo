@@ -14,19 +14,15 @@
 set(MODEL_FILES
   package.mo
   package.order
-  ParamsACEmulation.mo
-  ParamsActivateDeltaP.mo
   ParamsActivePowerControl.mo
-  ParamsACVoltageControl.mo
-  ParamsBaseActivePowerControl.mo
-  ParamsBaseDCVoltageControl.mo
+  ParamsAcVoltageControl.mo
+  ParamsDcVoltageControl.mo
   ParamsBlockingFunction.mo
-  ParamsDCLine.mo
-  ParamsDCVoltageControl.mo
+  ParamsDcLine.mo
   ParamsDeltaP.mo
+  ParamsLimitsCalculation.mo
   ParamsQRefLim.mo
   ParamsQRefQU.mo
-  ParamsRPFaultFunction.mo
   )
 
 #

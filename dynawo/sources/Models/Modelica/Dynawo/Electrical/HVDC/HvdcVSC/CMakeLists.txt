@@ -19,9 +19,9 @@ set(MODEL_FILES
   HvdcVSCDanglingP.mo
   HvdcVSCDanglingP_INIT.mo
   HvdcVSCDanglingP.extvar
-  HvdcVSCDanglingUdc.mo
-  HvdcVSCDanglingUdc_INIT.mo
-  HvdcVSCDanglingUdc.extvar
+  HvdcVSCDanglingUDc.mo
+  HvdcVSCDanglingUDc_INIT.mo
+  HvdcVSCDanglingUDc.extvar
   )
 
 #

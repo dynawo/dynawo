@@ -16,50 +16,49 @@ model HvdcVSC_INIT "Initialisation model for the HVDC VSC model"
   extends AdditionalIcons.Init;
   extends BaseClasses_INIT.BaseHVDC_INIT;
 
+  parameter Types.PerUnit LambdaPu "Lambda coefficient for the QRefUPu calculation in pu (base SNom, UNom)";
+  parameter Boolean ModeU1Set "Set mode of control on side 1 : if true, U mode, if false, Q mode";
+  parameter Boolean ModeU2Set "Set mode of control on side 2 : if true, U mode, if false, Q mode";
+  parameter Types.PerUnit RDcPu "DC line resistance in pu (base UNom, SnRef)";
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
 
-  parameter Types.PerUnit Lambda "Lambda coefficient for the QRefUPu calculation";
-  parameter Real modeU1Set "Set value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
-  parameter Real modeU2Set "Set value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
-  parameter Types.PerUnit RdcPu "DC line resistance in pu (base UNom, SnRef)";
-
-  Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom)";
-  Types.PerUnit Ip20Pu "Start value of active current at terminal 2 in pu (base SNom)";
-  Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom)";
-  Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom)";
-  Real modeU10 "Start value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
-  Real modeU20 "Start value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
-  Types.ReactivePowerPu PRef0Pu "Start value of reactive power reference in pu (base SNom) (generator convention)";
-  Types.ReactivePowerPu QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (generator convention)";
-  Types.ReactivePowerPu QRef20Pu "Start value of reactive power reference at terminal 2 in pu (base SNom) (generator convention)";
-  Types.PerUnit Udc10Pu "Start value of dc voltage at terminal 1 in pu (base UdcNom)";
-  Types.PerUnit Udc20Pu "Start value of dc voltage at terminal 2 in pu (base UdcNom)";
-  Types.VoltageModulePu UdcRef0Pu "Start value of dc voltage reference in pu (base UdcNom)";
+  Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom) (DC to AC)";
+  Types.PerUnit Ip20Pu "Start value of active current at terminal 2 in pu (base SNom) (DC to AC)";
+  Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom) (DC to AC)";
+  Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom) (DC to AC)";
+  Boolean ModeU10 "Initial mode of control on side 1 : if true, U mode, if false, Q mode";
+  Boolean ModeU20 "Initial mode of control on side 2 : if true, U mode, if false, Q mode";
+  Types.ReactivePowerPu PRef0Pu "Start value of reactive power reference in pu (base SNom) (DC to AC)";
+  Types.ReactivePowerPu QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (DC to AC)";
+  Types.ReactivePowerPu QRef20Pu "Start value of reactive power reference at terminal 2 in pu (base SNom) (DC to AC)";
+  Types.VoltageModulePu UDc10Pu "Start value of DC voltage at terminal 1 in pu (base UDcNom)";
+  Types.VoltageModulePu UDc20Pu "Start value of DC voltage at terminal 2 in pu (base UDcNom)";
+  Types.VoltageModulePu UDcRef0Pu "Start value of DC voltage reference in pu (base UDcNom)";
   Types.VoltageModulePu URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
   Types.VoltageModulePu URef20Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
 
 equation
-  UdcRef0Pu = 1;
-  P10Pu = - U10Pu * Ip10Pu * (SNom/SystemBase.SnRef);
+  UDcRef0Pu = 1;
+  P10Pu = - U10Pu * Ip10Pu * (SNom / SystemBase.SnRef);
   P1Ref0Pu = P10Pu;
-  Q10Pu = U10Pu * Iq10Pu * (SNom/SystemBase.SnRef);
-  P20Pu = - U20Pu * Ip20Pu * (SNom/SystemBase.SnRef);
-  Q20Pu = U20Pu * Iq20Pu * (SNom/SystemBase.SnRef);
-  if P10Pu > 0 then
-    Udc10Pu = 1;
-    Udc20Pu = 1 - RdcPu * P10Pu;
-  else
-    Udc20Pu = 1;
-    Udc10Pu = 1 + RdcPu * P10Pu;
-  end if;
-  QRef10Pu = - Q10Pu * (SystemBase.SnRef/SNom);
-  QRef20Pu = - Q20Pu * (SystemBase.SnRef/SNom);
-  PRef0Pu = - P10Pu * (SystemBase.SnRef/SNom);
-  URef10Pu = U10Pu - Lambda * Q10Pu * (SystemBase.SnRef/SNom);
-  URef20Pu = U20Pu - Lambda * Q20Pu * (SystemBase.SnRef/SNom);
-  modeU10 = modeU1Set;
-  modeU20 = modeU2Set;
+  Q10Pu = U10Pu * Iq10Pu * (SNom / SystemBase.SnRef);
+  P20Pu = - U20Pu * Ip20Pu * (SNom / SystemBase.SnRef);
+  Q20Pu = U20Pu * Iq20Pu * (SNom / SystemBase.SnRef);
+  QRef10Pu = - Q10Pu * (SystemBase.SnRef / SNom);
+  QRef20Pu = - Q20Pu * (SystemBase.SnRef / SNom);
+  PRef0Pu = - P10Pu * (SystemBase.SnRef / SNom);
+  URef10Pu = U10Pu - LambdaPu * Q10Pu * (SystemBase.SnRef / SNom);
+  URef20Pu = U20Pu - LambdaPu * Q20Pu * (SystemBase.SnRef / SNom);
+  ModeU10 = ModeU1Set;
+  ModeU20 = ModeU2Set;
 
-  annotation(
-    preferredView = "text");
+  if Ip10Pu < 0 then
+    UDc10Pu = 1;
+    UDc20Pu = 1 - 2 * RDcPu * Ip20Pu * (SNom / SystemBase.SnRef);
+  else
+    UDc10Pu = 1 - 2 * RDcPu * Ip10Pu * (SNom / SystemBase.SnRef);
+    UDc20Pu = 1;
+  end if;
+
+  annotation(preferredView = "text");
 end HvdcVSC_INIT;

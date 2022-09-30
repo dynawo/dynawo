@@ -14,7 +14,7 @@
   <variable id="PRefPu" type="continuous" optional="true"/>
   <variable id="QRef1Pu" type="continuous" optional="true"/>
   <variable id="URef1Pu" type="continuous" optional="true"/>
-  <variable id="modeU1" type="continuous" optional="true"/>
+  <variable id="modeU1" type="discrete" defaultValue="true"/>
   <variable type="discrete" id="Conv1.switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="Conv1.switchOffSignal2.value" defaultValue="false"/>
   <variable type="discrete" id="Conv1.switchOffSignal3.value" defaultValue="false"/>

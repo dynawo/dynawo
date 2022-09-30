@@ -1,11 +1,11 @@
 Parameters
-ACVoltageControl
-DCVoltageControl
+AcVoltageControl
 ActivePowerControl
-LimitsCalculationFunction
+DcVoltageControl
 BlockingFunction
-DCLine
-DCVoltageControlSide
-DCVoltageControlSideDangling
+LimitsCalculation
+DcLine
 ActivePowerControlSide
 ActivePowerControlSideDangling
+DcVoltageControlSide
+DcVoltageControlSideDangling

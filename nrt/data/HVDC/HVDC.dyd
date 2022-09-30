@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    Copyright (c) 2023, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,16 +8,24 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-    simulation tool for power systems.
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="InfBus1" lib="InfiniteBus" parFile="./HVDC.par" parId="1"/>
-  <dyn:blackBoxModel id="InfBus2" lib="InfiniteBus" parFile="./HVDC.par" parId="2"/>
-  <dyn:blackBoxModel id="Line1" lib="Line" parFile="./HVDC.par" parId="3"/>
-  <dyn:blackBoxModel id="Line2" lib="Line" parFile="./HVDC.par" parId="4"/>
-  <dyn:blackBoxModel id="HVDC" lib="HvdcVSC" parFile="./HVDC.par" parId="5"/>
-  <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="./HVDC.par" parId="6"/>
+  <dyn:blackBoxModel id="InfBus1" lib="InfiniteBus" parFile="HVDC.par" parId="1"/>
+  <dyn:blackBoxModel id="InfBus2" lib="InfiniteBus" parFile="HVDC.par" parId="2"/>
+  <dyn:blackBoxModel id="Line1" lib="Line" parFile="HVDC.par" parId="3"/>
+  <dyn:blackBoxModel id="Line2" lib="Line" parFile="HVDC.par" parId="4"/>
+  <dyn:blackBoxModel id="HVDC" lib="HvdcVSC" parFile="HVDC.par" parId="5"/>
+  <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="HVDC.par" parId="6"/>
+  <dyn:blackBoxModel id="PRef" lib="CombiTimeTable" parFile="HVDC.par" parId="71"/>
+  <dyn:blackBoxModel id="UDcRef" lib="CombiTimeTable" parFile="HVDC.par" parId="72"/>
+  <dyn:blackBoxModel id="URef1" lib="CombiTimeTable" parFile="HVDC.par" parId="73"/>
+  <dyn:blackBoxModel id="URef2" lib="DoubleStep" parFile="HVDC.par" parId="74"/>
+  <dyn:connect id1="PRef" var1="combiTimeTable_source_value" id2="HVDC" var2="hvdc_PRefPu"/>
+  <dyn:connect id1="UDcRef" var1="combiTimeTable_source_value" id2="HVDC" var2="hvdc_UDcRefPu"/>
+  <dyn:connect id1="URef1" var1="combiTimeTable_source_value" id2="HVDC" var2="hvdc_URef1Pu"/>
+  <dyn:connect id1="URef2" var1="doubleStep_step_value" id2="HVDC" var2="hvdc_URef2Pu"/>
   <dyn:connect id1="Fault" var1="fault_terminal" id2="Line2" var2="line_terminal2"/>
   <dyn:connect id1="InfBus1" var1="infiniteBus_terminal" id2="Line1" var2="line_terminal1"/>
   <dyn:connect id1="InfBus2" var1="infiniteBus_terminal" id2="Line2" var2="line_terminal1"/>

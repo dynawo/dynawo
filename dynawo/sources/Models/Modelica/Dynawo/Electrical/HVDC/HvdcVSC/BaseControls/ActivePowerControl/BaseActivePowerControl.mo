@@ -14,83 +14,91 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ActivePowerControl;
 
 model BaseActivePowerControl "Base active power control for the HVDC VSC model"
   import Modelica;
-  import Dynawo.NonElectrical.Blocks;
-  import Dynawo.Electrical.HVDC;
+  import Dynawo;
   import Dynawo.Types;
 
-  extends HVDC.HvdcVSC.BaseControls.Parameters.ParamsBaseActivePowerControl;
+  extends Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters.ParamsActivePowerControl;
 
-  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in pu (base SNom, UNom)";
+  parameter Types.PerUnit IpMaxPu "Maximum value of the active current in pu (base SNom, UNom) (DC to AC)";
 
-  Modelica.Blocks.Interfaces.RealInput PPu(start = P0Pu) "Active power in pu (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-130, -67}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = P0Pu) "Reference active power in pu (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-130, -8}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput blocked(start = false) "Boolean assessing the state of the HVDC link: true if blocked, false if not blocked" annotation(
-    Placement(visible = true, transformation(origin = {-130, -35}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput IpMaxPu(start = IpMaxCstPu) "Max active current reference in pu (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-130, 105}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput IpMinPu(start = - IpMaxCstPu) "Min active current reference in pu (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-130, -95}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {40, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  //Input variables
+  Modelica.Blocks.Interfaces.BooleanInput blocked1(start = false) "If true, HVDC link is blocked on side 1" annotation(
+    Placement(visible = true, transformation(origin = {-220, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.BooleanInput blocked2(start = false) "If true, HVDC link is blocked on side 2" annotation(
+    Placement(visible = true, transformation(origin = {-220, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-27, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IpMaxPu) "Maximum active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+    Placement(visible = true, transformation(origin = {-220, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput ipMinPu(start = -IpMaxPu) "Minimum active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+    Placement(visible = true, transformation(origin = {-220, -140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {40, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput PPu(start = P0Pu) "Active power in pu (base SNom) (DC to AC)" annotation(
+    Placement(visible = true, transformation(origin = {-220, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = P0Pu) "Reference active power in pu (base SNom) (DC to AC)" annotation(
+    Placement(visible = true, transformation(origin = {-220, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput ipRefPPu(start = Ip0Pu) "Active current reference in pu (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {140, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  //Output variable
+  Modelica.Blocks.Interfaces.RealOutput ipRefPu(start = Ip0Pu) "Active current reference in pu (base UNom, SNom) (DC to AC)" annotation(
+    Placement(visible = true, transformation(origin = {210, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tMeasureP, y_start = P0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-90, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
-    Placement(visible = true, transformation(origin = {3, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {0, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
-    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant zero(k = 0) annotation(
-    Placement(visible = true, transformation(origin = {110, 84}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
-    Placement(visible = true, transformation(origin = {31, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
-    Placement(visible = true, transformation(origin = {-54, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = PMaxOPPu, uMin = PMinOPPu) annotation(
-    Placement(visible = true, transformation(origin = {-24, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-90, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = POpMaxPu, uMin = POpMinPu) annotation(
+    Placement(visible = true, transformation(origin = {-50, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Rising = SlopePRefPu, y(start = P0Pu)) annotation(
-    Placement(visible = true, transformation(origin = {-90, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits(Ki = KiPControl, Kp = KpPControl, integrator.y_start = Ip0Pu) annotation(
-    Placement(visible = true, transformation(origin = {64, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  HVDC.HvdcVSC.BaseControls.ActivePowerControl.RPFaultFunction RPFault(SlopeRPFault = SlopeRPFault) "rpfault function for HVDC" annotation(
-    Placement(visible = true, transformation(origin = {-90, -35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits(Ki = KiP, Kp = KpP, integrator.y_start = Ip0Pu, Y0 = Ip0Pu) annotation(
+    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.ActivePowerControl.RPFaultFunction RPFault(SlopeRPFault = SlopeRPFault) "rpfault function for HVDC" annotation(
+    Placement(visible = true, transformation(origin = {-150, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom)";
-  parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (generator convention)";
+  parameter Types.PerUnit Ip0Pu "Start value of active current in pu (base SNom) (DC to AC)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power in pu (base SNom) (DC to AC)";
 
 equation
-  connect(switch1.y, ipRefPPu) annotation(
-    Line(points = {{121, 0}, {140, 0}}, color = {0, 0, 127}));
-  connect(PPu, feedback.u2) annotation(
-    Line(points = {{-130, -67}, {3, -67}, {3, -22}}, color = {0, 0, 127}));
+  connect(switch1.y, ipRefPu) annotation(
+    Line(points = {{181, 20}, {210, 20}}, color = {0, 0, 127}));
   connect(feedback.y, add1.u2) annotation(
-    Line(points = {{12, -14}, {19, -14}}, color = {0, 0, 127}));
+    Line(points = {{9, -20}, {20, -20}, {20, -6}, {38, -6}}, color = {0, 0, 127}));
   connect(product.y, limiter.u) annotation(
-    Line(points = {{-43, -14}, {-36, -14}}, color = {0, 0, 127}));
+    Line(points = {{-79, -20}, {-62, -20}}, color = {0, 0, 127}));
   connect(limiter.y, feedback.u1) annotation(
-    Line(points = {{-13, -14}, {-5, -14}}, color = {0, 0, 127}));
-  connect(PRefPu, slewRateLimiter.u) annotation(
-    Line(points = {{-130, -8}, {-102, -8}}, color = {0, 0, 127}));
+    Line(points = {{-39, -20}, {-8, -20}}, color = {0, 0, 127}));
   connect(slewRateLimiter.y, product.u1) annotation(
-    Line(points = {{-79, -8}, {-66, -8}}, color = {0, 0, 127}));
+    Line(points = {{-139, 20}, {-120, 20}, {-120, -14}, {-102, -14}}, color = {0, 0, 127}));
   connect(pIAntiWindupVariableLimits.y, switch1.u3) annotation(
-    Line(points = {{75, -8}, {98, -8}}, color = {0, 0, 127}));
+    Line(points = {{121, 0}, {140, 0}, {140, 12}, {158, 12}}, color = {0, 0, 127}));
   connect(add1.y, pIAntiWindupVariableLimits.u) annotation(
-    Line(points = {{42, -8}, {52, -8}}, color = {0, 0, 127}));
-  connect(IpMinPu, pIAntiWindupVariableLimits.limitMin) annotation(
-    Line(points = {{-130, -95}, {43, -95}, {43, -14}, {52, -14}}, color = {0, 0, 127}));
-  connect(IpMaxPu, pIAntiWindupVariableLimits.limitMax) annotation(
-    Line(points = {{-130, 105}, {43, 105}, {43, -2}, {52, -2}}, color = {0, 0, 127}));
+    Line(points = {{61, 0}, {98, 0}}, color = {0, 0, 127}));
   connect(zero.y, switch1.u1) annotation(
-    Line(points = {{99, 84}, {90, 84}, {90, 8}, {98, 8}, {98, 8}}, color = {0, 0, 127}));
-  connect(blocked, RPFault.blocked) annotation(
-    Line(points = {{-130, -35}, {-102, -35}}, color = {255, 0, 255}));
+    Line(points = {{121, 40}, {140, 40}, {140, 28}, {158, 28}}, color = {0, 0, 127}));
   connect(RPFault.rpfault, product.u2) annotation(
-    Line(points = {{-79, -35}, {-72, -35}, {-72, -20}, {-66, -20}, {-66, -20}}, color = {0, 0, 127}));
-  connect(blocked, switch1.u2) annotation(
-    Line(points = {{-130, -35}, {-106, -35}, {-106, -50}, {90, -50}, {90, 0}, {98, 0}, {98, 0}}, color = {255, 0, 255}));
+    Line(points = {{-139, -40}, {-120, -40}, {-120, -26}, {-102, -26}}, color = {0, 0, 127}));
+  connect(PPu, firstOrder2.u) annotation(
+    Line(points = {{-220, -100}, {-102, -100}}, color = {0, 0, 127}));
+  connect(firstOrder2.y, feedback.u2) annotation(
+    Line(points = {{-79, -100}, {0, -100}, {0, -28}}, color = {0, 0, 127}));
+  connect(ipMaxPu, pIAntiWindupVariableLimits.limitMax) annotation(
+    Line(points = {{-220, 140}, {80, 140}, {80, 6}, {98, 6}}, color = {0, 0, 127}));
+  connect(ipMinPu, pIAntiWindupVariableLimits.limitMin) annotation(
+    Line(points = {{-220, -140}, {80, -140}, {80, -6}, {98, -6}}, color = {0, 0, 127}));
+  connect(blocked1, switch1.u2) annotation(
+    Line(points = {{-220, -20}, {-180, -20}, {-180, 0}, {0, 0}, {0, 20}, {158, 20}}, color = {255, 0, 255}));
+  connect(blocked1, RPFault.blocked1) annotation(
+    Line(points = {{-220, -20}, {-180, -20}, {-180, -37}, {-162, -37}}, color = {255, 0, 255}));
+  connect(blocked2, RPFault.blocked2) annotation(
+    Line(points = {{-220, -60}, {-180, -60}, {-180, -43}, {-162, -43}}, color = {255, 0, 255}));
+  connect(PRefPu, slewRateLimiter.u) annotation(
+    Line(points = {{-220, 20}, {-162, 20}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-110, -95}, {130, 105}})),
-    Icon(coordinateSystem(grid = {1, 1})));
+    Diagram(coordinateSystem(extent = {{-200, -160}, {200, 160}})));
 end BaseActivePowerControl;

@@ -13,49 +13,15 @@ within Dynawo.Electrical.HVDC.HvdcVSC.BaseControls.Parameters;
 * of simulation tools for power systems.
 */
 
-record ParamsQRefLim
-  parameter Types.ReactivePowerPu DeadBand0 = 0.1 "Deadband for the initialization of the reactive limits in pu (base SNom)";
-  parameter Types.Time tFilterLim = 1 "Time constant for the limits filter in s";
-  parameter Types.ReactivePowerPu QMinOPPu "Minimum operator value of the reactive power in pu (base SNom)";
-  parameter Types.ReactivePowerPu QMaxOPPu "Maximum operator value of the reactive power in pu (base SNom)";
-  parameter Real tableQMaxPPu11 = 0;
-  parameter Real tableQMaxPPu12 = 0.4;
-  parameter Real tableQMaxPPu21 = 1.018;
-  parameter Real tableQMaxPPu22 = 0.301;
-  parameter Real tableQMaxPPu31 = 1.049;
-  parameter Real tableQMaxPPu32 = 0;
-  parameter Real tableQMaxPPu41 = 1.049009;
-  parameter Real tableQMaxPPu42 = 0;
-  parameter Real tableQMaxPPu[:,:] = [-tableQMaxPPu41,tableQMaxPPu42;-tableQMaxPPu31,tableQMaxPPu32;-tableQMaxPPu21,tableQMaxPPu22;tableQMaxPPu11,tableQMaxPPu12;tableQMaxPPu21,tableQMaxPPu22;tableQMaxPPu31,tableQMaxPPu32;tableQMaxPPu41,tableQMaxPPu42] "PQ diagram for Q>0";
-  parameter Real tableQMaxUPu11 = 0;
-  parameter Real tableQMaxUPu12 = 0.401;
-  parameter Real tableQMaxUPu21 = 1.105263;
-  parameter Real tableQMaxUPu22 = 0.401;
-  parameter Real tableQMaxUPu31 = 1.131579;
-  parameter Real tableQMaxUPu32 = 0;
-  parameter Real tableQMaxUPu41 = 2;
-  parameter Real tableQMaxUPu42 = 0;
-  parameter Real tableQMaxUPu[:,:] = [tableQMaxUPu11,tableQMaxUPu12;tableQMaxUPu21,tableQMaxUPu22;tableQMaxUPu31,tableQMaxUPu32;tableQMaxUPu41,tableQMaxUPu42] "UQ diagram for Q>0";
-  parameter Real tableQMinPPu11 = 0;
-  parameter Real tableQMinPPu12 = - 0.6;
-  parameter Real tableQMinPPu21 = 0.911;
-  parameter Real tableQMinPPu22 = - 0.6;
-  parameter Real tableQMinPPu31 = 1.018;
-  parameter Real tableQMinPPu32 = - 0.288;
-  parameter Real tableQMinPPu41 = 1.049;
-  parameter Real tableQMinPPu42 = 0;
-  parameter Real tableQMinPPu51 = 1.049009;
-  parameter Real tableQMinPPu52 = 0;
-  parameter Real tableQMinPPu[:,:] = [-tableQMinPPu51,tableQMinPPu52;-tableQMinPPu41,tableQMinPPu42;-tableQMinPPu31,tableQMinPPu32;-tableQMinPPu21,tableQMinPPu22;tableQMinPPu11,tableQMinPPu12;tableQMinPPu21,tableQMinPPu22;tableQMinPPu31,tableQMinPPu32;tableQMinPPu41,tableQMinPPu42;tableQMinPPu51,tableQMinPPu52] "PQ diagram for Q<0";
-  parameter Real tableQMinUPu11 = 0;
-  parameter Real tableQMinUPu12 = 0;
-  parameter Real tableQMinUPu21 = 0.986842;
-  parameter Real tableQMinUPu22 = 0;
-  parameter Real tableQMinUPu31 = 1.052632;
-  parameter Real tableQMinUPu32 = -0.601;
-  parameter Real tableQMinUPu41 = 2;
-  parameter Real tableQMinUPu42 = -0.601;
-  parameter Real tableQMinUPu[:,:] = [tableQMinUPu11,tableQMinUPu12;tableQMinUPu21,tableQMinUPu22;tableQMinUPu31,tableQMinUPu32;tableQMinUPu41,tableQMinUPu42] "UQ diagram for Q<0";
+record ParamsQRefLim "Parameters of reactive power limits calculation"
+  parameter Types.ReactivePowerPu QOpMaxPu "Maximum operator value of the reactive power in pu (base SNom) (DC to AC)";
+  parameter Types.ReactivePowerPu QOpMinPu "Minimum operator value of the reactive power in pu (base SNom) (DC to AC)";
+  parameter String QPMaxTableName "Name of the table in the text file for upper reactive power limit as a function of active power";
+  parameter String QPMinTableName "Name of the table in the text file for lower reactive power limit as a function of active power";
+  parameter String QUMaxTableName "Name of the table in the text file for upper reactive power limit as a function of voltage";
+  parameter String QUMinTableName "Name of the table in the text file for lower reactive power limit as a function of voltage";
+  parameter String TablesFile "Text file that contains the table for the function calculating the reactive power limits";
+  parameter Types.Time tMeasure "Time constant of the measurement filters in s";
 
   annotation(preferredView = "text");
 end ParamsQRefLim;

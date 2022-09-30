@@ -31,6 +31,12 @@ examples/*/description/*log
 examples/*/description/*/*pdf
 !nrt/data/*/*/reference/outputs*/
 !nrt/data/*/*/*/reference/outputs*/
+nrt/data/**/comparison/*aux
+nrt/data/**/comparison/*pdf
+nrt/data/**/comparison/*gz
+nrt/data/**/comparison/*toc
+nrt/data/**/comparison/*out
+nrt/data/**/comparison/*log
 nrt/data/*/*/execution/
 nrt/data/*/description/*.log
 nrt/data/*/description/*.pdf
