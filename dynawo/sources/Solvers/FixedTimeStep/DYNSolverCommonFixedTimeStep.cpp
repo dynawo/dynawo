@@ -276,7 +276,7 @@ SolverCommonFixedTimeStep::calculateICCommonModeChange(int& counter, bool& chang
 
   // Maximum number of initialization calculation
   ++counter;
-  if ((modeChangeType < minimumModeChangeTypeForAlgebraicRestoration_)) {
+  if (modeChangeType < minimumModeChangeTypeForAlgebraicRestorationInit_) {
     return true;
   }
   if (counter >= maxNumberUnstableRoots)
