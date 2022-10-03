@@ -156,8 +156,8 @@ SolverCommonFixedTimeStep::initCommon(const shared_ptr<Model> &model, const doub
 
   Solver::Impl::init(t0, model);
   Solver::Impl::resetStats();
-  g0_.assign(model_->sizeG(), NO_ROOT);
-  g1_.assign(model_->sizeG(), NO_ROOT);
+  g0_.assign(model_->sizeG(), ROOT_DOWN);
+  g1_.assign(model_->sizeG(), ROOT_DOWN);
 
   if (model->sizeY() != 0) {
     solverKINEuler_.reset(new SolverKINEuler());
