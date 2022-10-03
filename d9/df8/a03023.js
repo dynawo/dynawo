@@ -36,6 +36,7 @@ var a03023 =
     [ "getVNom2", "d9/df8/a03023.html#a2549fd5f1868716d23b4d906d8dfa1aa", null ],
     [ "getX", "d9/df8/a03023.html#a83fdc5ca83575e1a65bca9eca35b5f36", null ],
     [ "importStaticParameters", "d9/df8/a03023.html#ab979d46a23ac0740d6874dee234099c8", null ],
+    [ "isConnected", "d9/df8/a03023.html#a7c0ef9db939fc56a4b88fe9de7b29392", null ],
     [ "setBusInterface1", "d9/df8/a03023.html#a861dbcd448a633e01cb7505ea93da556", null ],
     [ "setBusInterface2", "d9/df8/a03023.html#af7a02405ed22e483155de5bcd11dad95", null ],
     [ "setPhaseTapChanger", "d9/df8/a03023.html#a1b24b60a6bb44f7848c046d4af21aacc", null ],

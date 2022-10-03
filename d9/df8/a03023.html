@@ -261,6 +261,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa0c491773d903009786d11d51673b5fd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/df8/a03023.html#aa0c491773d903009786d11d51673b5fd">getComponentVarIndex</a> (const std::string &amp;varName) const</td></tr>
 <tr class="memdesc:aa0c491773d903009786d11d51673b5fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the index of a state variable thanks to its name  <a href="#aa0c491773d903009786d11d51673b5fd">More...</a><br /></td></tr>
 <tr class="separator:aa0c491773d903009786d11d51673b5fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c0ef9db939fc56a4b88fe9de7b29392"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/df8/a03023.html#a7c0ef9db939fc56a4b88fe9de7b29392">isConnected</a> () const</td></tr>
+<tr class="memdesc:a7c0ef9db939fc56a4b88fe9de7b29392"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="#a7c0ef9db939fc56a4b88fe9de7b29392">More...</a><br /></td></tr>
+<tr class="separator:a7c0ef9db939fc56a4b88fe9de7b29392"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a02899"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02899')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dc/d44/a02899.html">DYN::TwoWTransformerInterface</a></td></tr>
 <tr class="memitem:a2fae27e690783ac28aa24a2e6726a7dc inherit pub_methods_a02899"><td class="memItemLeft" align="right" valign="top"><a id="a2fae27e690783ac28aa24a2e6726a7dc"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d44/a02899.html#a2fae27e690783ac28aa24a2e6726a7dc">~TwoWTransformerInterface</a> ()</td></tr>
@@ -303,9 +306,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02771"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dbd/a02771.html#a13bc31f9a55abf04ac162196ad6a3ace">getTypeAsString</a> () const</td></tr>
 <tr class="memdesc:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02771"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter fot the interface's type as string.  <a href="../../d0/dbd/a02771.html#a13bc31f9a55abf04ac162196ad6a3ace">More...</a><br /></td></tr>
 <tr class="separator:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02771"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02771"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dbd/a02771.html#a22639f8b88b1d70984852928d87676ec">isConnected</a> () const</td></tr>
-<tr class="memdesc:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02771"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="../../d0/dbd/a02771.html#a22639f8b88b1d70984852928d87676ec">More...</a><br /></td></tr>
-<tr class="separator:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02771"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02771"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dbd/a02771.html#ac298501e2706de0701bcf0405d69780c">isPartiallyConnected</a> () const</td></tr>
 <tr class="memdesc:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02771"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="../../d0/dbd/a02771.html#ac298501e2706de0701bcf0405d69780c">More...</a><br /></td></tr>
 <tr class="separator:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02771"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1261,6 +1261,36 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../d9/d9a/a02879.ht
 
 </div>
 </div>
+<a id="a7c0ef9db939fc56a4b88fe9de7b29392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c0ef9db939fc56a4b88fe9de7b29392">&#9670;&nbsp;</a></span>isConnected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::FictTwoWTransformerInterfaceIIDM::isConnected </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check the connection state of the component </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the component is connected, <b>false</b> else </dd></dl>
+
+<p>Reimplemented from <a class="el" href="../../d0/dbd/a02771.html#a22639f8b88b1d70984852928d87676ec">DYN::ComponentInterface</a>.</p>
+
+</div>
+</div>
 <a id="a861dbcd448a633e01cb7505ea93da556"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a861dbcd448a633e01cb7505ea93da556">&#9670;&nbsp;</a></span>setBusInterface1()</h2>
 
@@ -1497,7 +1527,7 @@ boost::unordered_map&lt; std::string, <a class="el" href="../../d9/d9a/a02879.ht
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/df8/a03023.html">FictTwoWTransformerInterfaceIIDM</a></li>
-    <li class="footer">Generated on Mon Oct 3 2022 09:56:29 for Dynawo by
+    <li class="footer">Generated on Mon Oct 3 2022 16:11:06 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
