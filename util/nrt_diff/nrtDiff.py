@@ -915,7 +915,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             maximum_curves_names_displayed = 5
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
             if (nb_err_absolute > 0) or (nb_err_relative > 0):
                 return_value = DIFFERENT
 
@@ -944,7 +944,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
         elif (file_extension == ".log" or "timeline" in file_name):
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font>  "
             nb_lines_compared, nb_lines_identical_but_timestamp, nb_lines_different_within_tolerance, nb_lines_different = DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separator_right)
             if (nb_lines_different == 0) and (nb_lines_identical_but_timestamp == 0) and (nb_lines_different_within_tolerance == 0):
                 return_value = IDENTICAL
@@ -968,7 +968,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             maximum_curves_names_displayed = 5
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
             if (nb_err_absolute > 0) or (nb_err_relative > 0):
                 return_value = DIFFERENT
 
@@ -1019,7 +1019,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             (nb_differences) = InitValuesCloseEnough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
             if (nb_differences > 0):
                 return_value = DIFFERENT
                 message += str(nb_differences) + " different initial values"
@@ -1029,7 +1029,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             (nb_differences, msg) = iidmDiff.OutputIIDMCloseEnough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
             if (nb_differences > 0):
                 return_value = DIFFERENT
                 message += str(nb_differences) + " different output values\n" + msg
@@ -1039,7 +1039,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             (nb_differences, msg) = constraintsDiff.output_constraints_close_enough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
             if (nb_differences > 0):
                 return_value = DIFFERENT
                 message += str(nb_differences) + " different output values\n" + msg
@@ -1049,14 +1049,14 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             (nb_differences, msg) = finalStateValuesDiff.output_xml_fsv_close_enough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
-            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
             if (nb_differences > 0):
                 return_value = DIFFERENT
                 message += str(nb_differences) + " different output values\n" + msg
             else:
                 return_value = IDENTICAL
         else:
-            message = "Problem with " + os.path.basename(path_left)
+            message = "<font color=\"red\">Problem with " + os.path.basename(path_left) + "</font>"
             return_value = DIFFERENT
 
 
