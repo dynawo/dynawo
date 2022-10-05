@@ -13,6 +13,8 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="SynchronousGenerator" lib="GeneratorSynchronousFourWindingsGovSteam1ExcIEEEST4B" parFile="TestCase2ST4B.par" parId="SynchronousGenerator"/>
-  <dyn:blackBoxModel id="Load" lib="LoadAlphaBetaStepP" parFile="TestCase2ST4B.par" parId="Load"/>
+  <dyn:blackBoxModel id="Load" lib="LoadAlphaBeta" parFile="TestCase2ST4B.par" parId="Load"/>
+  <dyn:blackBoxModel id="StepP" lib="Step" parFile="TestCase2ST4B.par" parId="StepP"/>
+  <dyn:connect id1="Load" var1="load_PRefPu" id2="StepP" var2="step_step_value"/>
   <dyn:connect id1="Load" var1="load_terminal" id2="SynchronousGenerator" var2="generator_terminal"/>
 </dyn:dynamicModelsArchitecture>

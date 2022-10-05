@@ -52,9 +52,8 @@
     <par type="DOUBLE" name="tThresholdDown" value="0"/>
     <par type="INT" name="Mode0" value="3"/>
   </set>
-  <!-- URef Step - ValueIn is overwritten by init -->
+  <!-- URef Step -->
   <set id="4">
-    <par type="DOUBLE" name="ValueIn" value="225"/>
     <par type="DOUBLE" name="Height" value="5"/>
     <par type="DOUBLE" name="tStep" value="1"/>
   </set>

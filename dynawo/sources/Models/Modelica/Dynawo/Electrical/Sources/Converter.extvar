@@ -12,8 +12,8 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="udConvRefPu" type="continuous" optional="true"/>
-  <variable id="uqConvRefPu" type="continuous" optional="true"/>
+  <variable id="udConvRefPu" type="continuous"/>
+  <variable id="uqConvRefPu" type="continuous"/>
   <variable id="UdcSourceRefPu" type="continuous" optional="true"/>
   <variable id="IdcSourcePu" type="continuous" />
   <variable id="omegaPu" type="continuous" />
