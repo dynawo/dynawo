@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Solver">
+    <par type="DOUBLE" name="hMin" value="1"/>
+    <par type="DOUBLE" name="hMax" value="10"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+    <par type="STRING" name="linearSolverName" value="KLU"/>
+    <par type="INT" name="msbsetAlg" value="1"/>
+  </set>
+  <set id="Generator1">
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_QMin" value="-200"/>
+    <par type="DOUBLE" name="generator_QMax" value="200"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+    <par type="DOUBLE" name="generator_QPercent" value="1"/>
+  </set>
+  <set id="Generator2">
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_QMin0" value="-185"/>
+    <par type="DOUBLE" name="generator_QMax0" value="200"/>
+    <par type="DOUBLE" name="generator_tFilter" value="0.1"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+    <par type="DOUBLE" name="generator_QPercent" value="1"/>
+    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
+    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
+    <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
+    <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
+  </set>
+  <set id="Generator3">
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_QMin" value="-200"/>
+    <par type="DOUBLE" name="generator_QMax" value="200"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+    <par type="DOUBLE" name="generator_RTfoPu" value="0"/>
+    <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
+    <par type="DOUBLE" name="generator_SNom" value="200"/>
+    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
+    <par type="DOUBLE" name="generator_rTfoPu" value="1"/>
+  </set>
+  <set id="Generator4">
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_QMin0" value="-185"/>
+    <par type="DOUBLE" name="generator_QMax0" value="200"/>
+    <par type="DOUBLE" name="generator_tFilter" value="0.1"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+    <par type="DOUBLE" name="generator_RTfoPu" value="0"/>
+    <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
+    <par type="DOUBLE" name="generator_SNom" value="200"/>
+    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
+    <par type="DOUBLE" name="generator_rTfoPu" value="1"/>
+    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
+    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
+    <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
+    <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
+  </set>
+  <set id="Generator5">
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_QMin" value="-200"/>
+    <par type="DOUBLE" name="generator_QMax" value="200"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+    <par type="DOUBLE" name="generator_RTfoPu" value="0"/>
+    <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
+    <par type="DOUBLE" name="generator_SNom" value="200"/>
+    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
+    <par type="DOUBLE" name="generator_rTfoPu" value="1"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_DerURefMaxPu" value="0.0002"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1.4"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_TiQ" value="150"/>
+  </set>
+  <set id="Generator6">
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_PRef0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_QRef0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_URef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="generator_PMin" value="-1000000"/>
+    <par type="DOUBLE" name="generator_PMax" value="1000000"/>
+    <par type="DOUBLE" name="generator_QMin0" value="-185"/>
+    <par type="DOUBLE" name="generator_QMax0" value="200"/>
+    <par type="DOUBLE" name="generator_tFilter" value="0.1"/>
+    <par type="DOUBLE" name="generator_KGover" value="1"/>
+    <par type="DOUBLE" name="generator_PNom" value="1"/>
+    <par type="DOUBLE" name="generator_RTfoPu" value="0"/>
+    <par type="DOUBLE" name="generator_XTfoPu" value="0.1"/>
+    <par type="DOUBLE" name="generator_SNom" value="200"/>
+    <par type="DOUBLE" name="generator_QNomAlt" value="200"/>
+    <par type="DOUBLE" name="generator_rTfoPu" value="1"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_DerURefMaxPu" value="0.0002"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_QrPu" value="1.4"/>
+    <par type="DOUBLE" name="reactivePowerControlLoop_TiQ" value="150"/>
+    <par name="generator_QMinTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
+    <par name="generator_QMaxTableFile" type="STRING" value="nrt/data/DynaFlow/GeneratorPVTfo/Diagram.txt"/>
+    <par name="generator_QMinTableName" type="STRING" value="tableqmin"/>
+    <par name="generator_QMaxTableName" type="STRING" value="tableqmax"/>
+  </set>
+  <set id="SVC">
+    <par type="DOUBLE" name="secondaryVoltageControl_Level0" value="0.21892"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Up0Pu" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_UpRef0Pu" value="1.05"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_Ck" value="0.18"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_DerLevelMaxPu" value="0.085"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_tI" value="180"/>
+    <par type="DOUBLE" name="secondaryVoltageControl_tau" value="40"/>
+  </set>
+  <set id="Line">
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.045044"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <set id="SignalN">
+    <par type="DOUBLE" name="step_Height" value="0.1"/>
+    <par type="DOUBLE" name="step_Value0" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="70"/>
+  </set>
+  <set id="InfiniteBus1">
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.0305614"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+  </set>
+  <set id="SignalNQ">
+    <par type="DOUBLE" name="vrremote_U0" value="1.05"/>
+    <par type="DOUBLE" name="vrremote_URef0" value="1.05"/>
+    <par type="DOUBLE" name="vrremote_Gain" value="1"/>
+    <par type="DOUBLE" name="vrremote_tIntegral" value="1"/>
+  </set>
+  <set id="DisconnectLine">
+    <par type="DOUBLE" name="event_tEvent" value="50"/>
+    <par type="BOOL" name="event_stateEvent1" value="true"/>
+  </set>
+</parametersSet>

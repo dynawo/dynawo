@@ -227,6 +227,11 @@ class FictTwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
    */
   int getComponentVarIndex(const std::string& varName) const;
 
+  /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  bool isConnected() const;
+
  private:
   stdcxx::Reference<powsybl::iidm::ThreeWindingsTransformer::Leg> leg_;  ///< reference to original three winding transformer leg
   std::string Id_;                                 ///< Id of fictitious transformer
