@@ -106,6 +106,9 @@
     <par type="DOUBLE" name="load_UPhase0" value="0"/>
     <par type="DOUBLE" name="load_alpha" value="2"/>
     <par type="DOUBLE" name="load_beta" value="2"/>
+  </set>
+  <!-- Step on active load -->
+  <set id="StepP">
     <par type="DOUBLE" name="step_tStep" value="0.1"/>
     <par type="DOUBLE" name="step_Height" value="0.2375"/>
     <par type="DOUBLE" name="step_Value0" value="3.8"/>

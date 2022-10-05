@@ -87,7 +87,6 @@ set(MODELICA_PREASSEMBLED_MODELS
   IntegerDoubleStep.xml
   Line.xml
   LoadAlphaBeta.xml
-  LoadAlphaBetaStepP.xml
   LoadAlphaBetaRestorative.xml
   LoadAlphaBetaRestorativeLimitsRecalc.xml
   LoadAlphaBetaMotor.xml
@@ -111,7 +110,6 @@ set(MODELICA_PREASSEMBLED_MODELS
   SetPoint.xml
   ShuntB.xml
   SignalN.xml
-  StaticVarCompensatorStepURef.xml
   StaticVarCompensator.xml
   StaticVarCompensatorPV.xml
   StaticVarCompensatorPVModeHandling.xml

@@ -15,7 +15,7 @@
   <variable id="IdcSourceRefPu" type="continuous" optional="true"/>
   <variable id="UdcSourceRefPu" type="continuous" optional="true"/>
   <variable id="UFilterRefPu" type="continuous" optional="true"/>
-  <variable id="UdcSourcePu" type="continuous" optional="true"/>
+  <variable id="UdcSourcePu" type="continuous"/>
   <variable id="idConvPu" type="continuous" />
   <variable id="iqConvPu" type="continuous" />
   <variable id="udFilterPu" type="continuous" />

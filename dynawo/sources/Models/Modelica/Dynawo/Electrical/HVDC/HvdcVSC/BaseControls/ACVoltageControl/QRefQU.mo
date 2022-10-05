@@ -37,46 +37,48 @@ model QRefQU "Function that calculates QRef for the Q mode and the U mode depend
     Placement(visible = true, transformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Math.Feedback feedback annotation(
-    Placement(visible = true, transformation(origin = {-30, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = DeadBandU, uMin = -DeadBandU) annotation(
-    Placement(visible = true, transformation(origin = {0, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = Lambda) annotation(
+    Placement(visible = true, transformation(origin = {-61, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.DeadZone deadZone(deadZoneAtInit = true, uMax = DeadBandU, uMin = -DeadBandU)  annotation(
+    Placement(visible = true, transformation(origin = {-32, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain gain(k = Lambda)  annotation(
     Placement(visible = true, transformation(origin = {-66, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
-    Placement(visible = true, transformation(origin = {30, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Rising = SlopeURefPu, y(start = U0Pu + Lambda * Q0Pu)) annotation(
-    Placement(visible = true, transformation(origin = {-70, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter1(Rising = SlopeQRefPu) annotation(
+    Placement(visible = true, transformation(origin = {-5, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Rising = SlopeURefPu, y(start = U0Pu + Lambda * Q0Pu))  annotation(
+    Placement(visible = true, transformation(origin = {-85, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter1(Rising = SlopeQRefPu)  annotation(
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.PIAntiWindup PI(Ki = KiACVoltageControl, Kp = KpACVoltageControl, uMax = QMaxCombPu, uMin = QMinCombPu, integrator.y_start = Q0Pu) annotation(
-    Placement(visible = true, transformation(origin = {70, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Blocks.Continuous.PIAntiWindup PI(Ki = KiACVoltageControl, Kp = KpACVoltageControl, uMax = QMaxCombPu, uMin = QMinCombPu, integrator.y_start = Q0Pu)  annotation(
+    Placement(visible = true, transformation(origin = {25, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SNom) (generator convention)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in pu (base UNom)";
 
 equation
   connect(UPu, feedback.u2) annotation(
-    Line(points = {{-120, -20}, {-30, -20}, {-30, 12}}, color = {0, 0, 127}));
+    Line(points = {{-120, -20}, {-61, -20}, {-61, 12}}, color = {0, 0, 127}));
+  connect(UPu, feedback.u2) annotation(
+    Line(points = {{-120, -20}, {-61, -20}, {-61, 12}}, color = {0, 0, 127}));
   connect(feedback.y, deadZone.u) annotation(
-    Line(points = {{-21, 20}, {-12, 20}}, color = {0, 0, 127}));
+    Line(points = {{-52, 20}, {-44, 20}}, color = {0, 0, 127}));
   connect(QPu, gain.u) annotation(
     Line(points = {{-120, -60}, {-78, -60}, {-78, -60}, {-78, -60}}, color = {0, 0, 127}));
   connect(deadZone.y, feedback1.u1) annotation(
-    Line(points = {{11, 20}, {22, 20}}, color = {0, 0, 127}));
+    Line(points = {{-21, 20}, {-13, 20}}, color = {0, 0, 127}));
   connect(gain.y, feedback1.u2) annotation(
-    Line(points = {{-55, -60}, {30, -60}, {30, 12}}, color = {0, 0, 127}));
+    Line(points = {{-55, -60}, {-5, -60}, {-5, 12}}, color = {0, 0, 127}));
   connect(QRefPu, slewRateLimiter1.u) annotation(
     Line(points = {{-120, 80}, {-83, 80}, {-83, 80}, {-82, 80}}, color = {0, 0, 127}));
   connect(slewRateLimiter1.y, QRefQPu) annotation(
     Line(points = {{-59, 80}, {101, 80}, {101, 80}, {110, 80}}, color = {0, 0, 127}));
   connect(URefPu, slewRateLimiter.u) annotation(
-    Line(points = {{-120, 20}, {-82, 20}}, color = {0, 0, 127}));
+    Line(points = {{-120, 20}, {-97, 20}, {-97, 20}, {-97, 20}}, color = {0, 0, 127}));
   connect(slewRateLimiter.y, feedback.u1) annotation(
-    Line(points = {{-59, 20}, {-38, 20}}, color = {0, 0, 127}));
+    Line(points = {{-74, 20}, {-70, 20}, {-70, 20}, {-69, 20}}, color = {0, 0, 127}));
   connect(feedback1.y, PI.u) annotation(
-    Line(points = {{39, 20}, {58, 20}}, color = {0, 0, 127}));
+    Line(points = {{4, 20}, {11, 20}, {11, 20}, {13, 20}}, color = {0, 0, 127}));
   connect(PI.y, QRefUPu) annotation(
-    Line(points = {{81, 20}, {110, 20}}, color = {0, 0, 127}));
+    Line(points = {{36, 20}, {110, 20}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})),
