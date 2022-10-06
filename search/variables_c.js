@@ -43,6 +43,7 @@ var searchData=
   ['messages_5f',['messages_',['../d1/db4/a02715.html#a15ebdab5139a27cf759b7631830de5fb',1,'DYN::SubModel']]],
   ['minimalacceptablestep_5f',['minimalAcceptableStep_',['../de/d19/a03311.html#ad3580b7cdab73616d0dce3b47a9647ec',1,'DYN::Solver::Impl']]],
   ['minimummodechangetypeforalgebraicrestoration_5f',['minimumModeChangeTypeForAlgebraicRestoration_',['../de/d19/a03311.html#acbd758bc6eae7e0f07d84178c37b29c9',1,'DYN::Solver::Impl']]],
+  ['minimummodechangetypeforalgebraicrestorationinit_5f',['minimumModeChangeTypeForAlgebraicRestorationInit_',['../de/d19/a03311.html#ae6f8d07b747982d59dcae24cd0a4d840',1,'DYN::Solver::Impl']]],
   ['minstep_5f',['minStep_',['../d1/d13/a03339.html#aecae93533cf4b43a0895acba7ad89765',1,'DYN::SolverIDA']]],
   ['mode_5f',['mode_',['../d6/dcf/a03219.html#a97de615095a6def41f16ae55a6804d64',1,'DYN::ModelStaticVarCompensator::mode_()'],['../de/d11/a03267.html#a4bc4c3840f212a28ec2e5fd2851f19fb',1,'DYN::SolverKINAlgRestoration::mode_()']]],
   ['modechange_5f',['modeChange_',['../de/dde/a02695.html#a775ba878c6960b6a61a53c1582f96dc1',1,'DYN::ModelMulti::modeChange_()'],['../d1/db4/a02715.html#a9ccd3b21e0831a8a136bff338089ae34',1,'DYN::SubModel::modeChange_()']]],

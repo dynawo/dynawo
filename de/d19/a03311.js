@@ -53,6 +53,7 @@ var a03311 =
     [ "maximumNumberSlowStepIncrease_", "de/d19/a03311.html#a278260c07277f9c8a902f26216e80402", null ],
     [ "minimalAcceptableStep_", "de/d19/a03311.html#ad3580b7cdab73616d0dce3b47a9647ec", null ],
     [ "minimumModeChangeTypeForAlgebraicRestoration_", "de/d19/a03311.html#acbd758bc6eae7e0f07d84178c37b29c9", null ],
+    [ "minimumModeChangeTypeForAlgebraicRestorationInit_", "de/d19/a03311.html#ae6f8d07b747982d59dcae24cd0a4d840", null ],
     [ "model_", "de/d19/a03311.html#ad70c6aed4a31c4f07545c71572c4f13e", null ],
     [ "msbsetAlg_", "de/d19/a03311.html#ad274d68a984151ac5184187248b1e738", null ],
     [ "msbsetAlgInit_", "de/d19/a03311.html#a3ea4fe65dd991019ac528556bfc21759", null ],
