@@ -88,6 +88,7 @@ where [option] can be:"
         jobs ([args])                         launch Dynawo simulation
         jobs-with-curves ([args])             launch Dynawo simulation and open resulting curves in a browser
         jobs-gdb ([args])                     launch Dynawo simulation in gdb
+        jobs-gdbserver ([args])               launch Dynawo simulation in gdbserver
         jobs-valgrind ([args])                launch Dynawo simulation in valgrind (defaut tool to check memory leakage)
         jobs-valgrind-callgrind ([args])      launch Dynawo simulation in valgrind with callgrind tool (profiling tool that records the call history)
         jobs-valgrind-dhat ([args])           launch Dynawo simulation in valgrind with dhat tool (dynamic heap analysis tool)
@@ -576,8 +577,8 @@ set_compiler() {
   else
     error_exit "DYNAWO_COMPILER environment variable needs to be GCC or CLANG."
   fi
-  export_var_env_force DYNAWO_C_COMPILER=$(command -v $DYNAWO_COMPILER_NAME)
-  export_var_env_force DYNAWO_CXX_COMPILER=$(command -v ${DYNAWO_COMPILER_NAME%cc}++) # Trick to remove cc from gcc and leave clang alone, because we want fo find g++ and clang++
+  export_var_env DYNAWO_C_COMPILER=$(command -v $DYNAWO_COMPILER_NAME)
+  export_var_env DYNAWO_CXX_COMPILER=$(command -v ${DYNAWO_COMPILER_NAME%cc}++) # Trick to remove cc from gcc and leave clang alone, because we want fo find g++ and clang++
 }
 
 set_commit_hook() {
@@ -2447,6 +2448,10 @@ case $MODE in
 
   jobs-gdb)
     launch_jobs --gdb ${ARGS} || error_exit "Dynawo job failed"
+    ;;
+
+  jobs-gdbserver)
+    launch_jobs --gdbserver ${ARGS} || error_exit "Dynawo job failed"
     ;;
 
   jobs-valgrind)
