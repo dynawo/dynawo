@@ -957,8 +957,9 @@ const shared_ptr<vector<shared_ptr<ComponentInterface> > >
 DataInterfaceIIDM::findConnectedComponents() {
   auto connectedComponents = boost::make_shared<vector<shared_ptr<ComponentInterface> > >();
   for (auto& component : components_) {
-    if ((component.second)->isPartiallyConnected())
+    if ((component.second)->isPartiallyConnected()) {
       connectedComponents->push_back(component.second);
+    }
   }
   return connectedComponents;
 }

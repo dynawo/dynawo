@@ -20,12 +20,12 @@
         "DYNAWO_HOME": "${workspaceFolder}",
 
         // To compile 3rd parties
-        // "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/build-code/Install/3rdParty",
+        // "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/build-code/install/3rdParty",
 
         // To compile dynamo after installing 3rd parties
-        "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/build-code/Install/dynawo",
+        "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/build-code/install/dynawo",
 
-        "DYNAWO_THIRD_PARTY_DIR": "${workspaceFolder}/build-code/Install/3rdParty",
+        "DYNAWO_THIRD_PARTY_DIR": "${workspaceFolder}/build-code/install/3rdParty",
         "INSTALL_OPENMODELICA": "${workspaceFolder}/OpenModelica/Install",
         "OPENMODELICA_INSTALL": "${workspaceFolder}/OpenModelica/Install",
         "OPENMODELICA_SRC": "${workspaceFolder}/OpenModelica/Source",
@@ -35,8 +35,8 @@
         "DYNAWO_DEBUG_COMPILER_OPTION": "-O0",
         "TMP_DIR": "${workspaceFolder}/build-code/3rdParty/tmp",
         "DOWNLOAD_DIR": "${workspaceFolder}/build-code/3rdParty/src",
-        "GTEST_ROOT": "${workspaceFolder}/build-code/Install/3rdParty/googletest",
-        "GMOCK_HOME": "${workspaceFolder}/build-code/Install/3rdParty/googletest"
+        "GTEST_ROOT": "${workspaceFolder}/build-code/install/3rdParty/googletest",
+        "GMOCK_HOME": "${workspaceFolder}/build-code/install/3rdParty/googletest"
     },
 
     "python.analysis.extraPaths": ["${workspaceFolder}/util/nrt_diff"],
@@ -49,6 +49,9 @@
         "**/.git/objects/**": true,
         "**/.git/subtree-cache/**": true,
         "OpenModelica": true,
-        "build-code": true
+        "build-code": true,
+        "build": true,
+        "install": true,
+        "deploy": true
     }
 }

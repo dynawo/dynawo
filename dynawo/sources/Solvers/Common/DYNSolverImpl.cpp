@@ -86,6 +86,7 @@ maximumNumberSlowStepIncrease_(10),
 enableSilentZ_(true),
 optimizeReinitAlgebraicResidualsEvaluations_(true),
 minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
+minimumModeChangeTypeForAlgebraicRestorationInit_(NO_MODE),
 tSolve_(0.)
 { }
 
@@ -353,6 +354,8 @@ Solver::Impl::defineCommonParameters() {
       ParameterSolver("optimizeReinitAlgebraicResidualsEvaluations", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("minimumModeChangeTypeForAlgebraicRestoration",
       ParameterSolver("minimumModeChangeTypeForAlgebraicRestoration", VAR_TYPE_STRING, optional)));
+  parameters_.insert(make_pair("minimumModeChangeTypeForAlgebraicRestorationInit",
+      ParameterSolver("minimumModeChangeTypeForAlgebraicRestorationInit", VAR_TYPE_STRING, optional)));
 }
 
 bool
@@ -506,6 +509,16 @@ void Solver::Impl::setSolverCommonParameters() {
       minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_MODE;
     else if (value == "ALGEBRAIC_J_UPDATE")
       minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_UPDATE_MODE;
+    else
+      Trace::warn() << DYNLog(IncoherentParamMinimumModeChangeType, value) << Trace::endline;
+  }
+  const ParameterSolver& minimumModeChangeTypeForAlgebraicRestorationInit = findParameter("minimumModeChangeTypeForAlgebraicRestorationInit");
+  if (minimumModeChangeTypeForAlgebraicRestorationInit.hasValue()) {
+    std::string value = minimumModeChangeTypeForAlgebraicRestorationInit.getValue<string>();
+    if (value == "ALGEBRAIC")
+      minimumModeChangeTypeForAlgebraicRestorationInit_ = ALGEBRAIC_MODE;
+    else if (value == "ALGEBRAIC_J_UPDATE")
+      minimumModeChangeTypeForAlgebraicRestorationInit_ = ALGEBRAIC_J_UPDATE_MODE;
     else
       Trace::warn() << DYNLog(IncoherentParamMinimumModeChangeType, value) << Trace::endline;
   }

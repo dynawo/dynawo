@@ -50,6 +50,8 @@ equation
   sVarCStandard.injector.switchOffSignal3.value = false;
   loadPQ.switchOffSignal1.value = false;
   loadPQ.switchOffSignal2.value = false;
+  loadPQ.deltaP = 0;
+  loadPQ.deltaQ = 0;
   connect(integerStep1.y, manualMode.u[2]) annotation(
     Line(points = {{-115.2, -66}, {-100, -66}, {-100, -12}}, color = {255, 127, 0}));
   connect(integerStep.y, manualMode.u[1]) annotation(

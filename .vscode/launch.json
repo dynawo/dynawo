@@ -8,31 +8,974 @@
             "name": "(gdb) Launch Dynawo",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build-code/Install/dynawo/bin/dynawo",
+            "program": "${workspaceFolder}/build-code/install/dynawo/bin/dynawo",
             "args": [ "${workspaceFolder}/nrt/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_BlackBoxModels/IEEE14.jobs" ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [
-                { "name": "DYNAWO_DDB_DIR", "value" : "${workspaceFolder}/build-code/Install/dynawo/ddb" },
+                { "name": "DYNAWO_DDB_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/ddb" },
                 { "name": "DYNAWO_DICTIONARIES", "value" : "dictionaries_mapping" },
-                { "name": "DYNAWO_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/Install/dynawo" },
+                { "name": "DYNAWO_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo" },
                 { "name": "DYNAWO_LOCALE", "value" : "en_GB" },
-                { "name": "DYNAWO_RESOURCES_DIR", "value" : "${workspaceFolder}/build-code/Install/dynawo/share/" },
-                { "name": "DYNAWO_SCRIPTS_DIR", "value" : "${workspaceFolder}/build-code/Install/dynawo/sbin" },
+                { "name": "DYNAWO_RESOURCES_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/" },
+                { "name": "DYNAWO_SCRIPTS_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/sbin" },
                 { "name": "DYNAWO_USE_XSD_VALIDATION", "value" : "true" },
-                { "name": "DYNAWO_XSD_DIR", "value" : "${workspaceFolder}/build-code/Install/dynawo/share/xsd/" },
-                { "name": "IIDM_XML_XSD_PATH", "value" : "${workspaceFolder}/build-code/Install/3rdParty/libiidm/share/iidm/xsd/" },
-                { "name": "DYNAWO_ADEPT_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/Install/3rdParty/adept" },
-                { "name": "DYNAWO_NICSLU_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/Install/3rdParty/nicslu" },
-                { "name": "DYNAWO_SUITESPARSE_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/Install/3rdParty/suitesparse" },
-                { "name": "DYNAWO_SUNDIALS_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/Install/3rdParty/sundials" },
-                { "name": "DYNAWO_XERCESC_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/Install/3rdParty/xerces-c" },
-                { "name": "DYNAWO_LIBXML_HOME", "value" : "${workspaceFolder}/build-code/Install/3rdParty/libxml" },
+                { "name": "DYNAWO_XSD_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/xsd/" },
+                { "name": "IIDM_XML_XSD_PATH", "value" : "${workspaceFolder}/build-code/install/3rdParty/libiidm/share/iidm/xsd/" },
+                { "name": "DYNAWO_ADEPT_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/adept" },
+                { "name": "DYNAWO_NICSLU_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/nicslu" },
+                { "name": "DYNAWO_SUITESPARSE_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/suitesparse" },
+                { "name": "DYNAWO_SUNDIALS_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/sundials" },
+                { "name": "DYNAWO_XERCESC_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/xerces-c" },
+                { "name": "DYNAWO_LIBXML_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/libxml" },
                 { "name": "DYNAWO_INSTALL_OPENMODELICA", "value" : "${workspaceFolder}/OpenModelica/Install" },
                 { "name": "DYNAWO_OPENMODELICA_VERSION", "value" : "1_13_2" },
-                { "name": "DYNAWO_LIBIIDM_EXTENSIONS", "value" : "${workspaceFolder}/build-code/Install/3rdParty/libiidm/lib" },
-                { "name": "DYNAWO_IIDM_EXTENSION", "value" : "${workspaceFolder}/build-code/Install/dynawo/lib/libdynawo_DataInterfaceIIDMExtension.so" },
-                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/Install/dynawo/lib:${workspaceFolder}/build-code/Install/3rdParty/adept/lib:${workspaceFolder}/build-code/Install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/Install/3rdParty/libxml/lib:${workspaceFolder}/build-code/Install/3rdParty/libzip/lib:${workspaceFolder}/build-code/Install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/Install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/Install/3rdParty/sundials/lib:${workspaceFolder}/build-code/Install/3rdParty/xerces-c/lib" }
+                { "name": "DYNAWO_LIBIIDM_EXTENSIONS", "value" : "${workspaceFolder}/build-code/install/3rdParty/libiidm/lib" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: CRT",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/API/CRT/test/CRT_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/API/CRT/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: CRV",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/API/CRV/test/CRV_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/API/CRV/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: CSTR",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/API/CSTR/test/CSTR_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/API/CSTR/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: DYD",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/API/DYD/test/DYD_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/API/DYD/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "DYNAWO_USE_XSD_VALIDATION", "value" : "true" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: CRV",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/API/CRV/test/CRV_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/API/CRV/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: FSV",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/API/FSV/test/FSV_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/API/FSV/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: JOB",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/API/JOB/test/JOB_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/API/JOB/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "DYNAWO_USE_XSD_VALIDATION", "value" : "true" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: LEQ",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/API/LEQ/test/LEQ_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/API/LEQ/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: PAR",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/API/PAR/test/PAR_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/API/PAR/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: TL",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/API/TL/test/TL_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/API/TL/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: COMMON",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/Common/test/COMMON_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Common/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: SOLVERCOMMON",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/Solvers/Common/test/SOLVERCOMMON_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Solvers/Common/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: SOLVERKINSOL",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/Solvers/AlgebraicSolvers/test/SOLVERKINSOL_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Solvers/AlgebraicSolvers/test",
+            "environment": [
+                { "name": "DYNAWO_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo" },
+                { "name": "DYNAWO_DDB_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/ddb" },
+                { "name": "DYNAWO_SCRIPTS_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/sbin" },
+                { "name": "DYNAWO_RESOURCES_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/" },
+                { "name": "DYNAWO_DICTIONARIES", "value" : "dictionaries_mapping" },
+                { "name": "DYNAWO_XSD_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/xsd/" },
+                { "name": "DYNAWO_ADEPT_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/adept" },
+                { "name": "DYNAWO_INSTALL_OPENMODELICA", "value" : "${workspaceFolder}/OpenModelica/install" },
+                { "name": "DYNAWO_XERCESC_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/xerces-c" },
+                { "name": "DYNAWO_SUITESPARSE_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/suitesparse" },
+                { "name": "DYNAWO_SUNDIALS_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/sundials" },
+                { "name": "DYNAWO_BOOST_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/boost" },
+                { "name": "DYNAWO_LIBXML_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/libxml" },
+                { "name": "DYNAWO_NICSLU_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/nicslu" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: SOLVERSIM",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/Solvers/FixedTimeStep/SolverSIM/test/SOLVERSIM_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Solvers/FixedTimeStep/SolverSIM/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "DYNAWO_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo" },
+                { "name": "DYNAWO_DDB_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/ddb" },
+                { "name": "DYNAWO_SCRIPTS_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/sbin" },
+                { "name": "DYNAWO_RESOURCES_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/" },
+                { "name": "DYNAWO_DICTIONARIES", "value" : "dictionaries_mapping" },
+                { "name": "DYNAWO_XSD_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/xsd/" },
+                { "name": "DYNAWO_ADEPT_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/adept" },
+                { "name": "DYNAWO_INSTALL_OPENMODELICA", "value" : "${workspaceFolder}/OpenModelica/install" },
+                { "name": "DYNAWO_XERCESC_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/xerces-c" },
+                { "name": "DYNAWO_SUITESPARSE_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/suitesparse" },
+                { "name": "DYNAWO_SUNDIALS_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/sundials" },
+                { "name": "DYNAWO_BOOST_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/boost" },
+                { "name": "DYNAWO_LIBXML_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/libxml" },
+                { "name": "DYNAWO_NICSLU_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/nicslu" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: SOLVERTRAP",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/Solvers/FixedTimeStep/SolverTRAP/test/SOLVERTRAP_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Solvers/FixedTimeStep/SolverTRAP/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "DYNAWO_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo" },
+                { "name": "DYNAWO_DDB_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/ddb" },
+                { "name": "DYNAWO_SCRIPTS_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/sbin" },
+                { "name": "DYNAWO_RESOURCES_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/" },
+                { "name": "DYNAWO_DICTIONARIES", "value" : "dictionaries_mapping" },
+                { "name": "DYNAWO_XSD_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/xsd/" },
+                { "name": "DYNAWO_ADEPT_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/adept" },
+                { "name": "DYNAWO_INSTALL_OPENMODELICA", "value" : "${workspaceFolder}/OpenModelica/install" },
+                { "name": "DYNAWO_XERCESC_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/xerces-c" },
+                { "name": "DYNAWO_SUITESPARSE_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/suitesparse" },
+                { "name": "DYNAWO_SUNDIALS_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/sundials" },
+                { "name": "DYNAWO_BOOST_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/boost" },
+                { "name": "DYNAWO_LIBXML_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/libxml" },
+                { "name": "DYNAWO_NICSLU_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/nicslu" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: SOLVERIDA",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/VariableTimeStep/SolverIDA/test/SOLVERIDA_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Solvers/VariableTimeStep/SolverIDA/test",
+            "environment": [
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "DYNAWO_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo" },
+                { "name": "DYNAWO_DDB_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/ddb" },
+                { "name": "DYNAWO_SCRIPTS_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/sbin" },
+                { "name": "DYNAWO_RESOURCES_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/" },
+                { "name": "DYNAWO_DICTIONARIES", "value" : "dictionaries_mapping" },
+                { "name": "DYNAWO_XSD_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/xsd/" },
+                { "name": "DYNAWO_ADEPT_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/adept" },
+                { "name": "DYNAWO_INSTALL_OPENMODELICA", "value" : "${workspaceFolder}/OpenModelica/install" },
+                { "name": "DYNAWO_XERCESC_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/xerces-c" },
+                { "name": "DYNAWO_SUITESPARSE_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/suitesparse" },
+                { "name": "DYNAWO_SUNDIALS_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/sundials" },
+                { "name": "DYNAWO_BOOST_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/boost" },
+                { "name": "DYNAWO_LIBXML_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/libxml" },
+                { "name": "DYNAWO_NICSLU_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/nicslu" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: SOLVERS_UTILS",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/Solvers/util/test/SOLVERS_UTILS_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Solvers/util/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELER_COMMON",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/Modeler/Common/test/MODELER_COMMON_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Modeler/Common/test",
+            "environment": [
+                { "name": "DYNAWO_HOME", "value" : "${workspaceFolder}" },
+                { "name": "DYNAWO_USE_XSD_VALIDATION", "value" : "true" },
+                { "name": "DYNAWO_XSD_DIR", "value" : "./" },
+                { "name": "DYNAWO_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo" },
+                { "name": "DYNAWO_SCRIPTS_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/sbin" },
+                { "name": "DYNAWO_RESOURCES_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/" },
+                { "name": "DYNAWO_DICTIONARIES", "value" : "dictionaries_mapping" },
+                { "name": "DYNAWO_ADEPT_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/adept" },
+                { "name": "DYNAWO_INSTALL_OPENMODELICA", "value" : "${workspaceFolder}/OpenModelica/install" },
+                { "name": "DYNAWO_XERCESC_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/xerces-c" },
+                { "name": "DYNAWO_SUITESPARSE_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/suitesparse" },
+                { "name": "DYNAWO_SUNDIALS_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/sundials" },
+                { "name": "DYNAWO_BOOST_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/boost" },
+                { "name": "DYNAWO_LIBXML_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/libxml" },
+                { "name": "DYNAWO_NICSLU_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/nicslu" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELER_DATAINTERFACE",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/Modeler/DataInterface/test/MODELER_DATAINTERFACE_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Modeler/DataInterface/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELER_DATAINTERFACEIIDM",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/Modeler/DataInterface/PowSyblIIDM/test/MODELER_DATAINTERFACEIIDM_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Modeler/DataInterface/PowSyblIIDM/test",
+            "environment": [
+                { "name": "DYNAWO_LIBIIDM_EXTENSIONS", "value" : "${workspaceFolder}/build-code/install/3rdParty/libiidm/lib" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELER_MODELMANAGER",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/Modeler/ModelManager/test/MODELER_MODELMANAGER_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Modeler/ModelManager/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELER_UTILS",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/Modeler/util/test/MODELER_UTILS_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Modeler/util/test",
+            "environment": [
+                { "name": "DYNAWO_SCRIPTS_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/sbin" },
+                { "name": "DYNAWO_DDB_DIR", "value" : "./res" },
+                { "name": "DYNAWO_RESOURCES_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/" },
+                { "name": "DYNAWO_DICTIONARIES", "value" : "dictionaries_mapping" },
+                { "name": "DYNAWO_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo" },
+                { "name": "DYNAWO_ADEPT_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/adept" },
+                { "name": "DYNAWO_INSTALL_OPENMODELICA", "value" : "${workspaceFolder}/OpenModelica/install" },
+                { "name": "DYNAWO_XERCESC_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/xerces-c" },
+                { "name": "DYNAWO_SUITESPARSE_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/suitesparse" },
+                { "name": "DYNAWO_SUNDIALS_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/sundials" },
+                { "name": "DYNAWO_BOOST_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/boost" },
+                { "name": "DYNAWO_LIBXML_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/libxml" },
+                { "name": "DYNAWO_NICSLU_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/nicslu" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELICACOMPILER",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/ModelicaCompiler/test/MODELICACOMPILER_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/ModelicaCompiler/test",
+            "environment": [
+                { "name": "DYNAWO_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo" },
+                { "name": "DYNAWO_SCRIPTS_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/sbin" },
+                { "name": "DYNAWO_RESOURCES_DIR", "value" : "${workspaceFolder}/build-code/install/dynawo/share/" },
+                { "name": "DYNAWO_DICTIONARIES", "value" : "dictionaries_mapping" },
+                { "name": "DYNAWO_ADEPT_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/adept" },
+                { "name": "DYNAWO_INSTALL_OPENMODELICA", "value" : "${workspaceFolder}/OpenModelica/install" },
+                { "name": "DYNAWO_XERCESC_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/xerces-c" },
+                { "name": "DYNAWO_SUITESPARSE_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/suitesparse" },
+                { "name": "DYNAWO_SUNDIALS_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/sundials" },
+                { "name": "DYNAWO_BOOST_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/boost" },
+                { "name": "DYNAWO_LIBXML_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/libxml" },
+                { "name": "DYNAWO_NICSLU_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/nicslu" },
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELS",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/sources/Models/test/MODELS_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/sources/Models/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELS_PREASSEMBLED",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/M/M/P/test/MODELS_PREASSEMBLED_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/M/M/P/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELS_MODELNETWORK",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/M/CPP/ModelNetwork/test/MODELS_MODELNETWORK_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/M/CPP/ModelNetwork/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELS_MODELOMEGAREF",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/M/CPP/ModelFrequency/ModelOmegaRef/test/MODELS_MODELOMEGAREF_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/M/CPP/ModelFrequency/ModelOmegaRef/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELS_MODELLOADRESTORATIVEWITHLIMITS",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/M/CPP/Components/ModelLoadRestorativeWithLimits/test/MODELS_MODELLOADRESTORATIVEWITHLIMITS_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/M/CPP/Components/ModelLoadRestorativeWithLimits/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELS_MODELCENTRALIZEDSHUNTSSECTIONCONTROL",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/M/CPP/Controls/Shunts/ModelCentralizedShuntsSectionControl/test/MODELS_MODELCENTRALIZEDSHUNTSSECTIONCONTROL_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/M/CPP/Controls/Shunts/ModelCentralizedShuntsSectionControl/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELS_MODELVOLTAGEMEASUREMENTSUTILITIES",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/M/CPP/Controls/Voltage/ModelVoltageMeasurementsUtilities/test/MODELS_MODELVOLTAGEMEASUREMENTSUTILITIES_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/M/CPP/Controls/Voltage/ModelVoltageMeasurementsUtilities/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELS_MODELVARIATIONAREA",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/M/CPP/Events/ModelVariationArea/test/MODELS_MODELVARIATIONAREA_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/M/CPP/Events/ModelVariationArea/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch unittest: MODELS_MODELVOLTAGESETPOINTCHANGE",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-code/dynawo/M/CPP/Events/ModelVoltageSetPointChange/test/MODELS_MODELVOLTAGESETPOINTCHANGE_unittest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build-code/dynawo/M/CPP/Events/ModelVoltageSetPointChange/test",
+            "environment": [
+                { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/lib:${workspaceFolder}/build-code/install/3rdParty/adept/lib:${workspaceFolder}/build-code/install/3rdParty/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/xerces-c/lib:${workspaceFolder}/build-code/install/3rdParty/googletest/lib" }
             ],
             "externalConsole": false,
             "MIMode": "gdb",

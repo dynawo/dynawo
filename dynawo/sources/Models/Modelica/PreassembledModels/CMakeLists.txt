@@ -11,13 +11,17 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
+  BooleanTable.xml
   Bus.xml
+  CombiTimeTable.xml
   CurrentLimitAutomaton.xml
+  DoubleStep.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
   EventQuadripoleDisconnection.xml
   EventSetPointBoolean.xml
   EventSetPointReal.xml
+  EventSetPointDouble.xml
   EventSetPointDoubleReal.xml
   GeneratorFictitious.xml
   GeneratorPQ.xml
@@ -25,6 +29,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorPQPropDiagramPQSignalN.xml
   GeneratorPV.xml
   GeneratorPVSignalN.xml
+  GeneratorPVTfoSignalN.xml
+  GeneratorPVTfoDiagramPQSignalN.xml
+  GeneratorPVTfoRpclSignalN.xml
+  GeneratorPVTfoDiagramPQRpclSignalN.xml
   GeneratorPVDiagramPQSignalN.xml
   GeneratorPVPropSignalN.xml
   GeneratorPVRemoteSignalN.xml
@@ -78,14 +86,17 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVSCDanglingUdc.xml
   HvdcVSCEmulation.xml
   InfiniteBus.xml
+  InfiniteBusFromTable.xml
   InfiniteBusWithImpedance.xml
   InfiniteBusWithVariations.xml
   InjectorBG.xml
+  IntegerDoubleStep.xml
   Line.xml
   LoadAlphaBeta.xml
   LoadAlphaBetaStepP.xml
   LoadAlphaBetaRestorative.xml
   LoadAlphaBetaRestorativeLimitsRecalc.xml
+  LoadAlphaBetaMotor.xml
   LoadOneTransformer.xml
   LoadOneTransformerTapChanger.xml
   LoadPQ.xml
@@ -102,7 +113,9 @@ set(MODELICA_PREASSEMBLED_MODELS
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   ShuntBWithSections.xml
+  SecondaryVoltageControlSimp.xml
   SetPoint.xml
+  ShuntB.xml
   SignalN.xml
   StaticVarCompensatorStepURef.xml
   StaticVarCompensator.xml
@@ -139,6 +152,8 @@ install(PROGRAMS ${PYTHON_SCRIPTS_PREASSEMBLED_MODELS} DESTINATION ${SBINDIR_NAM
 foreach( FILE ${MODELICA_PREASSEMBLED_MODELS} )
   compile_preassembled_model(${FILE})
 endforeach( FILE )
+
+include(CMakeListsModelsTargets.txt)
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   add_subdirectory(test)

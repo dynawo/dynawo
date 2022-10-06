@@ -484,7 +484,8 @@ The most detailed model (GeneratorSynchronous) can either represent a three-wind
 
 \textit{SignalN package} \\
 
-The SignalN package comprises different final models, that behaves in a similar way for the active power part. Their active power depends on their initial set point and their participation in the emulating frequency regulation (SignalN model). \\ Regarding the reactive power behavior, GeneratorPV models impose a constant voltage as long as its reactive power generation is between [QMin;QMax] while the GeneratorPVProp model has the following regulating law: $Q = Q0 + KVoltage * (URef - U)$ and GeneratorPQ models don't control the voltage.
+The SignalN package comprises different final models, that behave in a similar way for the active power part. Their active power depends on their initial set point and their participation in the emulated frequency regulation (SignalN model). \\
+Regarding the reactive power behavior, GeneratorPV models impose a constant voltage as long as their reactive power generation is between [QMin;QMax] while the GeneratorPVProp model has the following regulating law: $Q = Q0 + KVoltage * (URef - U)$ and GeneratorPQ models don't control the voltage. The GeneratorPQProp model aims at simulating the case where several generators regulate the same bus voltage. They receive a coordinated signal to adapt their reactive power generation. Finally, GeneratorPVTfo behaves like GeneratorPV but the voltage at stator is regulated and the transformer is modeled. The voltage reference is calculated at initialization from the grid data and the voltage reference at PCC. For each generator model, it is possible to model it with a PQ diagram or with fixed reactive limits.
 
 \paragraph{Photovoltaics}
 ~~\\

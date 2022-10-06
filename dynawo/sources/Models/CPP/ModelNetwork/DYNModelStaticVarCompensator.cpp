@@ -45,41 +45,18 @@ namespace DYN {
 
 ModelStaticVarCompensator::ModelStaticVarCompensator(const shared_ptr<StaticVarCompensatorInterface>& svc) :
 NetworkComponent(svc->getID()),
-stateModified_(false) {
+svc_(svc),
+stateModified_(false),
+startingPointMode_(WARM) {
   // init data
-  connectionState_ = svc->getInitialConnected() ? CLOSED : OPEN;
-  mode_ = svc->getRegulationMode();
+  connectionState_ = svc_->getInitialConnected() ? CLOSED : OPEN;
+  mode_ = svc_->getRegulationMode();
 
   // calculate initial conditions
   gSvc0_ = 0.;
   bSvc0_ = 0.;
   ir0_ = 0.;
   ii0_ = 0.;
-
-  double gTotal0 = 0.;
-  double bTotal0 = 0.;
-  double ur0 = 0.;
-  double ui0 = 0.;
-  double U0 = 0.;
-  double P0 = svc->getP() / SNREF;
-  double Q0 = svc->getQ() / SNREF;
-  if (svc->getBusInterface()) {
-    double uBus0 = svc->getBusInterface()->getV0();
-    double thetaBus0 = svc->getBusInterface()->getAngle0();
-    double unomBus = svc->getBusInterface()->getVNom();
-    ur0 = uBus0 / unomBus * cos(thetaBus0 * DEG_TO_RAD);
-    ui0 = uBus0 / unomBus * sin(thetaBus0 * DEG_TO_RAD);
-    U0 = sqrt(ur0 * ur0 + ui0 * ui0);
-    if (!doubleIsZero(U0)) {
-      gTotal0 = P0 / (U0 * U0);
-      bTotal0 = -1. * Q0 / (U0 * U0);  // in order to have the same convention as a shunt : b < 0 when Q > 0 (network convention)
-      ir0_ = Q0 * ui0 / (ur0 * ur0 + ui0 * ui0);
-      ii0_ = - Q0 * ur0 / (ur0 * ur0 + ui0 * ui0);
-    }
-
-    gSvc0_ = gTotal0;
-    bSvc0_ = bTotal0;
-  }
 }
 
 void
@@ -124,7 +101,44 @@ ModelStaticVarCompensator::setFequations(map<int, string>& /*fEquationIndex*/) {
 
 void
 ModelStaticVarCompensator::init(int& /*yNum*/) {
-  // not needed
+  double gTotal0 = 0.;
+  double bTotal0 = 0.;
+  double ur0 = 0.;
+  double ui0 = 0.;
+  double U0 = 0.;
+  double P0 = svc_->getP() / SNREF;
+  double Q0;
+  double unomBus = svc_->getBusInterface()->getVNom();
+  double thetaBus0 = svc_->getBusInterface()->getAngle0();
+  double uBus0 = 0.;
+  switch (startingPointMode_) {
+  case FLAT:
+    Q0 = svc_->getReactivePowerSetPoint() / SNREF;
+    if (svc_->getBusInterface()) {
+      uBus0 = svc_->getBusInterface()->getVNom();
+    }
+    break;
+  case WARM:
+    Q0 = svc_->getQ() / SNREF;
+    if (svc_->getBusInterface()) {
+      uBus0 = svc_->getBusInterface()->getV0();
+    }
+    break;
+  default:
+    Q0 = 0.;
+    break;
+  }
+  ur0 = uBus0 / unomBus * cos(thetaBus0 * DEG_TO_RAD);
+  ui0 = uBus0 / unomBus * sin(thetaBus0 * DEG_TO_RAD);
+  U0 = sqrt(ur0 * ur0 + ui0 * ui0);
+  if (!doubleIsZero(U0)) {
+    gTotal0 = P0 / (U0 * U0);
+    bTotal0 = -1. * Q0 / (U0 * U0);  // in order to have the same convention as a shunt : b < 0 when Q > 0 (network convention)
+    ir0_ = Q0 * ui0 / (ur0 * ur0 + ui0 * ui0);
+    ii0_ = - Q0 * ur0 / (ur0 * ur0 + ui0 * ui0);
+  }
+  gSvc0_ = gTotal0;
+  bSvc0_ = bTotal0;
 }
 
 double
@@ -400,7 +414,11 @@ ModelStaticVarCompensator::defineNonGenericParameters(std::vector<ParameterModel
 }
 
 void
-ModelStaticVarCompensator::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& /*params*/) {
-  // no parameter
+ModelStaticVarCompensator::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
+  bool startingPointModeFound = false;
+  std::string startingPointMode = getParameterDynamicNoThrow<string>(params, "startingPointMode", startingPointModeFound);
+  if (startingPointModeFound) {
+    startingPointMode_ = getStartingPointMode(startingPointMode);
+  }
 }
 }  // namespace DYN

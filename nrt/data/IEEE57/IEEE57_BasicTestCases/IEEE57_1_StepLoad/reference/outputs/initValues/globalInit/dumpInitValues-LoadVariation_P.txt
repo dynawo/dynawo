@@ -1,0 +1,7 @@
+ ====== INIT VARIABLES VALUES ======
+step_step_value                                   : y =       1.210000 yp =       0.000000
+ ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== PARAMETERS VALUES ======
+step_Height                                        =       1.210000
+step_Value0                                        =       1.210000
+step_tStep                                         =       1.000000

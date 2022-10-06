@@ -16,6 +16,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dynawo_dynawo&metric=alert_status)](https://sonarcloud.io/dashboard?id=dynawo_dynawo)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dynawo_dynawo&metric=coverage)](https://sonarcloud.io/dashboard?id=dynawo_dynawo)
 [![MPL-2.0 License](https://img.shields.io/badge/license-MPL_2.0-blue.svg)](https://www.mozilla.org/en-US/MPL/2.0/)
+[![Documentation](https://dynawo.github.io/assets/images/doxygen_badge.svg)](https://dynawo.github.io/dynawo/index.html)
 
 [http://dynawo.org](http://dynawo.org)
 
@@ -42,6 +43,7 @@ This repository contains Dyna&omega;o's project code.
     * [Windows](#launch_windows)
   * [Docker Dyna&omega;o](#docker)
 - [Dyna&omega;o Documentation](#documentation)
+  * [Doxygen](#doxygen)
 - [Get involved](#contributions)
 - [Quoting Dyna&omega;o](#quoting)
 - [License](#license)
@@ -208,6 +210,11 @@ For Ubuntu 20.04 use:
 $> apt install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python3-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev qt5-default lsb-release libxml2-utils python-lxml python-psutil wget libcurl4-openssl-dev rsync libopenblas-openmp-dev
 ```
 
+For Ubuntu 22.04 use:
+``` bash
+$> apt install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python3-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev  lsb-release libxml2-utils python3-lxml python3-psutil wget libcurl4-openssl-dev rsync libopenblas-openmp-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
+```
+
 And for Fedora:
 ``` bash
 $> dnf install -y git gcc gcc-c++ gcc-gfortran autoconf automake make libtool cmake hwloc java-1.8.0-openjdk-devel blas-devel lapack-devel lpsolve-devel expat-devel glibc-devel sqlite-devel libarchive-devel zlib-devel doxygen doxygen-latex qt-devel gettext patch wget python-devel clang llvm-devel ncurses-devel readline-devel unzip perl-Digest-MD5 vim gcovr python-pip python-psutil boost-devel lcov gtest-devel gmock-devel xz rsync python-lxml graphviz libcurl-devel bash-completion
@@ -336,6 +343,11 @@ You can have more information on how to use Docker to build and try Dyna&omega;o
 <a name="documentation"></a>
 ## Dyna&omega;o Documentation
 You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.3.0/DynawoDocumentation.zip).
+
+<a name="doxygen"></a>
+### Doxygen
+
+You can consult Doxygen documentation of the master branch [here](https://dynawo.github.io/dynawo/).
 
 <a name="contributions"></a>
 ## Get involved!

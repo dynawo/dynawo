@@ -30,29 +30,40 @@ add_custom_target(SOLVERS_FILES_INSTALL
 # to the main targets.
 #
 macro(DESC_SOLVER SOLVER_NAME)
-    #
     # Generates .desc.xml file for the solver
-    #
-    add_custom_command(
-        OUTPUT ${SOLVER_NAME}.desc.xml
-        DEPENDS ${SOLVER_NAME} dumpSolver
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND
+    if(MSVC)
+        add_custom_command(
+          OUTPUT ${SOLVER_NAME}.desc.xml
+          DEPENDS ${SOLVER_NAME} dumpSolver
+          WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+          COMMAND
             ${CMAKE_COMMAND} -E env
-                "${runtime_PATH}"
-                "${runtime_LD_LIBRARY_PATH}"
-                    $<TARGET_FILE:dumpSolver> -m $<TARGET_FILE:${SOLVER_NAME}> -o ${SOLVER_NAME}.desc.xml
-        COMMENT "Generating ${SOLVER_NAME} description file"
+            "${runtime_PATH}"
+            "${runtime_LD_LIBRARY_PATH}"
+            $<TARGET_FILE:dumpSolver> -m $<TARGET_FILE:${SOLVER_NAME}> -o ${SOLVER_NAME}.desc.xml
+          COMMENT "Generating ${SOLVER_NAME} description file"
         )
+    else()
+        add_custom_command(
+          OUTPUT ${SOLVER_NAME}.desc.xml
+          DEPENDS ${SOLVER_NAME} dumpSolver
+          WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+          COMMAND
+            test -d ${CMAKE_INSTALL_PREFIX}/${DDBDIR_NAME} || (echo "Target install was not completed, you need to launch it before compiling solvers. For example with dynawo build-dynawo-core." && exit 1)
+          COMMAND
+            ${CMAKE_COMMAND} -E env
+            "${runtime_PATH}"
+            "${runtime_LD_LIBRARY_PATH}"
+            $<TARGET_FILE:dumpSolver> -m $<TARGET_FILE:${SOLVER_NAME}> -o ${SOLVER_NAME}.desc.xml
+          COMMENT "Generating ${SOLVER_NAME} description file"
+        )
+    endif()
 
-    #
     # Install built library and generated .desc.xml file into ddbdir
-    #
     add_custom_target(${SOLVER_NAME}.desc
         DEPENDS
             ${SOLVER_NAME}
             ${SOLVER_NAME}.desc.xml
-            CREATE_DDBDIR
         COMMAND
             ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${SOLVER_NAME}> ${ddbdir}/
         COMMAND

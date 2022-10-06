@@ -17,13 +17,11 @@
   <dyn:blackBoxModel id="line2" lib="Line" parFile="SVarC.par" parId="2"/>
   <dyn:blackBoxModel id="SVarC" lib="StaticVarCompensatorPVPropRemote" parFile="SVarC.par" parId="3"/>
   <dyn:blackBoxModel id="Load" lib="LoadAlphaBeta" parFile="SVarC.par" parId="4"/>
-  <dyn:blackBoxModel id="LoadVar1" lib="EventSetPointReal" parFile="SVarC.par" parId="5"/>
-  <dyn:blackBoxModel id="LoadVar2" lib="EventSetPointReal" parFile="SVarC.par" parId="6"/>
+  <dyn:blackBoxModel id="LoadVar" lib="DoubleStep" parFile="SVarC.par" parId="5"/>
   <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line1" var2="line_terminal1"/>
   <dyn:connect id1="line1" var1="line_terminal2" id2="Load" var2="load_terminal"/>
   <dyn:connect id1="Load" var1="load_terminal" id2="line2" var2="line_terminal1"/>
   <dyn:connect id1="line2" var1="line_terminal2" id2="SVarC" var2="SVarC_terminal"/>
   <dyn:connect id1="Load" var1="load_UPu_value" id2="SVarC" var2="SVarC_URegulatedPu"/>
-  <dyn:connect id1="LoadVar1" var1="event_state1_value" id2="Load" var2="load_QRefPu"/>
-  <dyn:connect id1="LoadVar2" var1="event_state1_value" id2="Load" var2="load_QRefPu"/>
+  <dyn:connect id1="LoadVar" var1="doubleStep_step_value" id2="Load" var2="load_QRefPu"/>
 </dyn:dynamicModelsArchitecture>

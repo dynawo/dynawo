@@ -107,9 +107,10 @@ TEST(APIJOBTest, testXmlStreamImporter) {
 
 TEST(APIJOBTest, testXmlImporter) {
   XmlImporter importer;
-  boost::shared_ptr<JobsCollection> jobsCollection;
-  jobsCollection = importer.importFromFile("res/jobsExample.jobs");
-
+  boost::shared_ptr<JobsCollection> jobsCollection = importer.importFromFile("res/jobsExample.jobs");
+  ASSERT_THROW_DYNAWO(importer.importFromFile("res/iterationStepAndTimeStepDefinedAtTheSameTime.jobs"),
+                      DYN::Error::API,
+                      DYN::KeyError_t::XmlFileParsingError);
   // check read data
   int nbJobs = 0;
   boost::shared_ptr<JobEntry> job1;
@@ -211,9 +212,10 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_NE(outputs->getTimelineEntry(), boost::shared_ptr<TimelineEntry>());
   boost::shared_ptr<TimelineEntry> timeline = outputs->getTimelineEntry();
   ASSERT_EQ(timeline->getExportMode(), "TXT");
-  ASSERT_EQ(timeline->getExportWithTime(), false);
+  ASSERT_EQ(timeline->getExportWithTime(), true);
   ASSERT_TRUE(timeline->getMaxPriority());
   ASSERT_EQ(*timeline->getMaxPriority(), 2);
+  ASSERT_EQ(timeline->isFilter(), true);
 
   // ===== TimetableEntry =====
   ASSERT_NE(outputs->getTimetableEntry(), boost::shared_ptr<TimetableEntry>());
@@ -235,9 +237,14 @@ TEST(APIJOBTest, testXmlImporter) {
 
   // ===== CurvesEntry =====
   ASSERT_NE(outputs->getCurvesEntry(), boost::shared_ptr<CurvesEntry>());
-  boost::shared_ptr<CurvesEntry> curves = outputs->getCurvesEntry();
-  ASSERT_EQ(curves->getExportMode(), "CSV");
-  ASSERT_EQ(curves->getInputFile(), "curves.crv");
+  boost::shared_ptr<CurvesEntry> curves1 = outputs->getCurvesEntry();
+  boost::shared_ptr<CurvesEntry> curves2 = job2->getOutputsEntry()->getCurvesEntry();
+  ASSERT_EQ(curves1->getExportMode(), "CSV");
+  ASSERT_EQ(curves1->getInputFile(), "curves.crv");
+  ASSERT_TRUE(curves1->getIterationStep());
+  ASSERT_EQ(*curves1->getIterationStep(), 5);
+  ASSERT_TRUE(curves2->getTimeStep());
+  ASSERT_EQ(*curves2->getTimeStep(), 8);
 
   // ===== FinalStateValues ====
   ASSERT_NE(outputs->getFinalStateValuesEntry(), boost::shared_ptr<FinalStateValuesEntry>());

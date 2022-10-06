@@ -308,14 +308,6 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   double getCurrentU(UType_t currentURequested);
 
   /**
-   * @brief get initial voltage of the bus
-   * @return initial voltage of the bus
-   */
-  inline double getU0() const {
-    return u0_;
-  }
-
-  /**
    * @brief get initial angle of the bus
    * @return initial angle of the bus
    */
@@ -583,6 +575,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
 
  private:
   boost::weak_ptr<ModelVoltageLevel> modelVoltageLevel_;  ///< voltage level that contains the bus
+  const boost::shared_ptr<BusInterface> bus_;  ///< reference to the bus interface object
 
   double uMin_;  ///< minimum allowed voltage
   double uMax_;  ///< maximum allowed voltage
@@ -628,6 +621,7 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   const std::string modelType_;  ///< model Type
   const bool isNodeBreaker_;  ///< true if the bus is modeled as node-breaker (called also calculated bus)
   std::string constraintId_;  ///< id to use in constraints
+  startingPointMode_t startingPointMode_;  ///< type of starting point for the model (FLAT,WARM)
 };
 
 /**

@@ -392,10 +392,10 @@ Several outputs are available with \Dynawo:
 \end{lstlisting}
 Two export modes are available for constraints: TXT or XML.
 
-\item \textbf{Timeline}: the user can have access to the list of events that happened during the simulation and the instant of their occurrence by adding the item ``timeline'' in the jobs file, and by specifying the export mode.
+\item \textbf{Timeline}: the user can have access to the list of events that happened during the simulation and the instant of their occurrence by adding the item ``timeline'' in the jobs file, and by specifying the export mode. It is also possible to automatically filter the timeline by removing duplicated events and opposed events that happen during the same timestep.
 
 \begin{lstlisting}[language=XML, morekeywords={timeline},numbers=none]
-<timeline exportMode="TXT"/>
+<timeline exportMode="TXT" filter="true"/>
 \end{lstlisting}
 Three export modes are available for the timeline: TXT, XML or CSV.
 
@@ -411,12 +411,22 @@ Three export modes are available for the timeline: TXT, XML or CSV.
 <finalState exportIIDMFile="true" exportDumpFile="true"/>
 \end{lstlisting}
 
-\item \textbf{Curves}: the user can plot curves at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be plotted and the export mode.
+\item \textbf{Curves}: the user can plot curves at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be plotted, the export mode and optionally a step on simulation iteration or on simulation time (in seconds).
 
 \begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
 <curves inputFile="MyCurves.crv" exportMode="CSV"/>
 \end{lstlisting}
+
+\begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
+<curves inputFile="MyCurves.crv" exportMode="CSV" iterationStep="8"/>
+\end{lstlisting}
+
+\begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
+<curves inputFile="MyCurves.crv" exportMode="CSV" timeStep="0.4"/>
+\end{lstlisting}
+
 Two export modes are available for curves export: CSV or XML.
+It's impossible to define both an iterationStep and a timeStep.
 
 \item \textbf{Final state values}: the user can observe final state values at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be observed.
 

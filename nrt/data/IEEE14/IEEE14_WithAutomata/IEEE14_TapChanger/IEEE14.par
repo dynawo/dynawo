@@ -314,9 +314,14 @@
     <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
   </set>
   <set id="10">
-    <par type="DOUBLE" name="event_tEvent" value="20"/>
-    <par type="DOUBLE" name="event_stateEvent1" value="0.942"/>
-    <par type="DOUBLE" name="event_stateEvent2" value="0.3"/>
+    <par type="DOUBLE" name="step_Value0" value="0.942"/>
+    <par type="DOUBLE" name="step_tStep" value="20"/>
+    <par type="DOUBLE" name="step_Height" value="0"/>
+  </set>
+  <set id="12">
+    <par type="DOUBLE" name="step_Value0" value="0.064395"/>
+    <par type="DOUBLE" name="step_tStep" value="20"/>
+    <par type="DOUBLE" name="step_Height" value="0.235605"/>
   </set>
   <set id="11">
     <par type="BOOL" name="tapChanger_regulating0" value="true"/>

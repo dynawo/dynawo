@@ -333,6 +333,8 @@ class ModelShuntCompensator : public NetworkComponent {
    */
   bool isAvailable() const;
 
+  const boost::shared_ptr<ShuntCompensatorInterface> shunt_;  ///< reference to the shunt interface object
+
   int currentSection_;  ///< The current number of connected section of the shunt compensator
   int maximumSection_;  ///< The maximum number of sections of the shunt compensator
   double suscepAtMaximumSec_;  ///< The shunt susceptance at maximum section in Siemens
@@ -353,6 +355,7 @@ class ModelShuntCompensator : public NetworkComponent {
   // Calculated variables
   double ir0_;  ///< initial real part of the current
   double ii0_;  ///< initial imaginary part of the current
+  startingPointMode_t startingPointMode_;  ///< type of starting point for the model (FLAT,WARM)
 };  ///< Generic model for Shunt compensator in network
 }  // namespace DYN
 

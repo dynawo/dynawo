@@ -97,6 +97,17 @@ void put_real_element(modelica_real value, int i1, real_array_t *dest);
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
+modelica_real min_real_array(const real_array_t a);
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+modelica_real max_real_array(const real_array_t a);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
 void simple_alloc_1d_real_array(real_array_t* dest, int n);
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
@@ -255,6 +266,12 @@ void put_real_matrix_element(modelica_real value, int r, int c, real_array_t* de
  * It is needed for Dynawo models dynamic libraries compilation
  */
 modelica_real* real_array_element_addr1(const real_array_t * source, int ndims, int dim1);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+modelica_real* real_array_element_addr2(const real_array_t * source, int ndims, int dim1, int dim2);
 
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/integer_array.h

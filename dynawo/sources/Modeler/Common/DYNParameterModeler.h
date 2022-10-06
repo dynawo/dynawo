@@ -57,7 +57,7 @@ class ParameterModeler : public ParameterCommon {
    * @brief Default assignement operator
    * @returns *this
    */
-  ParameterModeler& operator=(const ParameterModeler&) = default;
+  ParameterModeler& operator=(const ParameterModeler&) = delete;
 
   /**
    * @brief checks whether a parameter value may be set

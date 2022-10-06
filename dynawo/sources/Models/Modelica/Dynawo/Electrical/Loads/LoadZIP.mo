@@ -28,8 +28,8 @@ model LoadZIP "ZIP coefficients load model"
 
 equation
   if (running.value) then
-    PPu = PRefPu * (Zp * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ 2 + Ip * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) + Pp);
-    QPu = QRefPu * (Zq * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ 2 + Iq * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) + Pq);
+    PPu = PRefPu * (1 + deltaP) * (Zp * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ 2 + Ip * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) + Pp);
+    QPu = QRefPu * (1 + deltaQ) * (Zq * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ 2 + Iq * (ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) + Pq);
   else
     terminal.i = Complex(0);
   end if;

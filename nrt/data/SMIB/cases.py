@@ -29,6 +29,17 @@ job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
 
 ########################################
+#           SMIB_1_StepPm_IIDM         #
+########################################
+
+case_name = "SMIB - StepPm IIDM"
+case_description = "SMIB test case with a step on the mechanical power and an iidm network"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_1_StepPm_IIDM", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+
+########################################
 #           SMIB_2_StepEfd             #
 ########################################
 

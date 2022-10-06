@@ -34,6 +34,7 @@
   </set>
   <set id="5">
     <par type="DOUBLE" name="hvdc_P10Pu" value="-8.98"/>
+    <par type="DOUBLE" name="hvdc_P1RefSetPu" value="-8.98"/>
     <par type="DOUBLE" name="hvdc_Q10Pu" value="-3.01"/>
     <par type="DOUBLE" name="hvdc_U10Pu" value="1.01381"/>
     <par type="DOUBLE" name="hvdc_UPhase10" value="0.0316757"/>

@@ -88,12 +88,12 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
           vsc1->getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(vsc1->getVscIIDM().getTerminal().getNodeBreakerView().getNode()));
         else if (!connected1 && vsc1->getInitialConnected())
           vsc1->getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(vsc1->getVscIIDM().getTerminal().getNodeBreakerView().getNode()));
+      } else {
+        if (connected1)
+          (vsc1->getVscIIDM()).getTerminal().connect();
+        else
+          (vsc1->getVscIIDM()).getTerminal().disconnect();
       }
-      if (connected1)
-        (vsc1->getVscIIDM()).getTerminal().connect();
-      else
-        (vsc1->getVscIIDM()).getTerminal().disconnect();
-
 
       if (vsc2->getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
         // should be removed once a solution has been found to propagate switches (de)connection
@@ -102,11 +102,12 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
           vsc2->getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(vsc2->getVscIIDM().getTerminal().getNodeBreakerView().getNode()));
         else if (!connected2 && vsc2->getInitialConnected())
           vsc2->getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(vsc2->getVscIIDM().getTerminal().getNodeBreakerView().getNode()));
+      } else {
+        if (connected2)
+          (vsc2->getVscIIDM()).getTerminal().connect();
+        else
+          (vsc2->getVscIIDM()).getTerminal().disconnect();
       }
-      if (connected2)
-        (vsc2->getVscIIDM()).getTerminal().connect();
-      else
-        (vsc2->getVscIIDM()).getTerminal().disconnect();
       break;
     }
     case ConverterInterface::LCC_CONVERTER: {
@@ -126,12 +127,12 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
           lcc1->getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(lcc1->getLccIIDM().getTerminal().getNodeBreakerView().getNode()));
         else if (!connected1 && lcc1->getInitialConnected())
           lcc1->getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(lcc1->getLccIIDM().getTerminal().getNodeBreakerView().getNode()));
+      } else {
+        if (connected1)
+          (lcc1->getLccIIDM()).getTerminal().connect();
+        else
+          (lcc1->getLccIIDM()).getTerminal().disconnect();
       }
-      if (connected1)
-        (lcc1->getLccIIDM()).getTerminal().connect();
-      else
-        (lcc1->getLccIIDM()).getTerminal().disconnect();
-
       if (lcc2->getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
         // should be removed once a solution has been found to propagate switches (de)connection
         // following component (de)connection (only Modelica models)
@@ -139,11 +140,12 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
           lcc2->getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(lcc2->getLccIIDM().getTerminal().getNodeBreakerView().getNode()));
         else if (!connected2 && lcc2->getInitialConnected())
           lcc2->getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(lcc2->getLccIIDM().getTerminal().getNodeBreakerView().getNode()));
+      } else {
+        if (connected2)
+          (lcc2->getLccIIDM()).getTerminal().connect();
+        else
+          (lcc2->getLccIIDM()).getTerminal().disconnect();
       }
-      if (connected2)
-        (lcc2->getLccIIDM()).getTerminal().connect();
-      else
-        (lcc2->getLccIIDM()).getTerminal().disconnect();
       break;
     }
   }
@@ -151,6 +153,10 @@ void HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
 
 void HvdcLineInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
+
+  bool isACEmulationEnabled = hvdcActivePowerControl_ && hvdcActivePowerControl_->isEnabled() && hvdcActivePowerControl_->isEnabled().get();
+  staticParameters_.insert(std::make_pair("isACEmulationEnabled", StaticParameter("isACEmulationEnabled",
+                             StaticParameter::BOOL).setValue(isACEmulationEnabled)));
   staticParameters_.insert(std::make_pair("pMax", StaticParameter("pMax", StaticParameter::DOUBLE).setValue(getPmax())));
   staticParameters_.insert(std::make_pair("pMax_pu", StaticParameter("pMax_pu", StaticParameter::DOUBLE).setValue(getPmax() / SNREF)));
   staticParameters_.insert(std::make_pair("p1_pu", StaticParameter("p1_pu", StaticParameter::DOUBLE).setValue(conv1_->getP() / SNREF)));

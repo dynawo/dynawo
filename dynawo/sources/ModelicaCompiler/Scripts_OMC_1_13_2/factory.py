@@ -2316,9 +2316,9 @@ class Factory:
         # result line
         line_tmp = line
         # regular expressions to find real and der variables in the parameters
-        ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*[ ]*\*\/')
-        ptrn_real_der_var = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\]]*\*\/')
-        ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\]]*\*\/')
+        ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]*\*\/')
+        ptrn_real_der_var = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
+        ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\],]*\*\/')
 
         # step 1: collect all functions called in this line
         for func in self.reader.list_omc_functions:
@@ -2328,10 +2328,12 @@ class Factory:
         if len(called_func) > 0:
             # filter whatever is assigned in this line
             line_split_by_equal = line.split('=')
-            assert(len(line_split_by_equal) >= 2)
-            call_line = line_split_by_equal[0] + " = "
-            func_call_line = line_split_by_equal[1]
-
+            if(len(line_split_by_equal) >= 2):
+                call_line = line_split_by_equal[0] + " = "
+                func_call_line = line_split_by_equal[1]
+            else:
+                call_line = ""
+                func_call_line = line_split_by_equal[0]
             # Split this line at each function call ('(') and parameter (',')
             line_split_by_parenthesis = re.split('(\()', func_call_line)
             line_split = []
@@ -2364,6 +2366,10 @@ class Factory:
                     l+=line_split[idx].strip()
                     idx+=1
                     l+=line_split[idx].strip()
+                    if l[-1].isdigit():
+                        # case data->localData[0]->realVars[...] /* .. STATE(1,...) */
+                        idx+=1
+                        l+=", " +line_split[idx].strip()
 
                 while l.endswith("modelica_integer)") or l.endswith("modelica_real)") or l.endswith("modelica_boolean)"):
                     idx+=1
@@ -2917,7 +2923,10 @@ class Factory:
             if not v.get_name() in mixed_var:
                 spin = "DIFFERENTIAL"
                 var_ext = ""
-                if is_alg_var(v) : spin = "ALGEBRAIC"
+                if is_alg_var(v) :
+                    spin = "ALGEBRAIC"
+                if v.get_name() in self.reader.dummy_der_variables:
+                    spin = "DIFFERENTIAL"
                 if v.get_name() in self.reader.fictive_continuous_vars and not v.get_name() in external_diff_var:
                   spin = "EXTERNAL"
                   var_ext = "- external variables"
@@ -3183,8 +3192,8 @@ class Factory:
             name = None
             if len(words) > 1:
                 name = words[1]
+            if '#define' in var and "_data" in var and "modelica_real" not in var:
                 name = name.replace("_data","")
-            if '#define' in var and "_data" in var:
                 # deletion of the define
                 var = var.replace("#define", "const std::string")
                 var = var.replace("_data", "")
@@ -3205,6 +3214,9 @@ class Factory:
 
             elif 'static base_array_t const' in var:
                 var = var.replace ("static ", "")
+                self.list_for_literalconstants.append(var)
+
+            elif 'static const modelica_real' in var:
                 self.list_for_literalconstants.append(var)
 
     ##
@@ -3549,6 +3561,10 @@ class Factory:
             if "ExternalCombiTable2D" in str(ext_obj.get_start_text()):
                 body += """
   omc_Modelica_Blocks_Types_ExternalCombiTable2D_destructor(data->simulationInfo->extObjs["""+str(index)+"""]);
+"""
+            if "ExternalCombiTimeTable" in str(ext_obj.get_start_text()):
+                body += """
+  omc_Modelica_Blocks_Types_ExternalCombiTimeTable_destructor(data->simulationInfo->extObjs["""+str(index)+"""]);
 """
             index+=1
         if (len(self.reader.external_objects) > 0):

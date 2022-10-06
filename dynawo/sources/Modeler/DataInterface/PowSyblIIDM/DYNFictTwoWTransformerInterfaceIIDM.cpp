@@ -296,12 +296,12 @@ namespace DYN {
         voltageLevelInterface2_->connectNode(static_cast<unsigned int>(leg_.get().getTerminal().getNodeBreakerView().getNode()));
       else if (!connected2 && getInitialConnected2())
         voltageLevelInterface2_->disconnectNode(static_cast<unsigned int>(leg_.get().getTerminal().getNodeBreakerView().getNode()));
+    } else {
+      if (connected2)
+        leg_.get().getTerminal().connect();
+      else
+        leg_.get().getTerminal().disconnect();
     }
-
-    if (connected2)
-      leg_.get().getTerminal().connect();
-    else
-      leg_.get().getTerminal().disconnect();
   }
 
   int
@@ -320,5 +320,13 @@ namespace DYN {
     else if ( varName == "tapIndex" )
       index = VAR_TAPINDEX;
     return index;
+  }
+
+  bool
+  FictTwoWTransformerInterfaceIIDM::isConnected() const {
+    bool connected = leg_.get().getTerminal().isConnected();
+    if (connected && voltageLevelInterface2_->isNodeBreakerTopology())
+      connected = voltageLevelInterface2_->isNodeConnected(static_cast<unsigned int>(leg_.get().getTerminal().getNodeBreakerView().getNode()));
+    return connected;
   }
 }  // namespace DYN

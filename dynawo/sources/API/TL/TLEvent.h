@@ -99,10 +99,27 @@ class Event {
     return *priority_;
   }
 
+  /**
+   * @brief Setter for event's key
+   * @param key new key to describe event
+   */
+  inline void setKey(const std::string& key) {
+    key_ = key;
+  }
+
+  /**
+   * @brief Getter for event's key
+   * @return key to describe event
+   */
+  inline const std::string& getKey() const {
+    return key_;
+  }
+
  private:
   double time_;                    ///< event's time
   std::string modelName_;          ///< Model's name for which event occurs
   std::string message_;            ///<  message to describe event
+  std::string key_;                 ///<  key used from the timeline dictionary, empty if none
   boost::optional<int> priority_;  ///< priority of the event
 };
 

@@ -28,6 +28,7 @@ model HvdcVSC_INIT "Initialisation model for the HVDC VSC model"
   Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in pu (base SNom)";
   Types.PerUnit Udc10Pu "Start value of dc voltage at terminal 1 in pu (base UdcNom)";
   Types.PerUnit Udc20Pu "Start value of dc voltage at terminal 2 in pu (base UdcNom)";
+  Types.VoltageModulePu UdcRef0Pu "Start value of dc voltage reference in pu (base UdcNom)";
   Types.VoltageModulePu URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
   Types.VoltageModulePu URef20Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
   Types.ReactivePowerPu QRef10Pu "Start value of reactive power reference at terminal 1 in pu (base SNom) (generator convention)";
@@ -37,12 +38,19 @@ model HvdcVSC_INIT "Initialisation model for the HVDC VSC model"
   Real modeU20 "Start value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
 
 equation
+  UdcRef0Pu = 1;
   P10Pu = - U10Pu * Ip10Pu * (SNom/SystemBase.SnRef);
+  P1Ref0Pu = P10Pu;
   Q10Pu = U10Pu * Iq10Pu * (SNom/SystemBase.SnRef);
   P20Pu = - U20Pu * Ip20Pu * (SNom/SystemBase.SnRef);
   Q20Pu = U20Pu * Iq20Pu * (SNom/SystemBase.SnRef);
-  Udc10Pu = 1 + RdcPu * P10Pu;
-  Udc20Pu = 1;
+  if P10Pu > 0 then
+    Udc10Pu = 1;
+    Udc20Pu = 1 - RdcPu * P10Pu;
+  else
+    Udc20Pu = 1;
+    Udc10Pu = 1 + RdcPu * P10Pu;
+  end if;
   QRef10Pu = - Q10Pu * (SystemBase.SnRef/SNom);
   QRef20Pu = - Q20Pu * (SystemBase.SnRef/SNom);
   PRef0Pu = - P10Pu * (SystemBase.SnRef/SNom);

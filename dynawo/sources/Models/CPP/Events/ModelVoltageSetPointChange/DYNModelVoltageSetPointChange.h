@@ -277,6 +277,8 @@ class ModelVoltageSetPointChange : public ModelCPP {
   double stopTime_;  ///< stop time
   double voltageSetPointChange_;  ///< value of the voltage change point change
   int numLoads_;  ///< number of loads
+  bool startTimelineAdded_; ///< true if the timeline indicating the start of the voltage set point was added
+  bool endTimelineAdded_;  ///< true if the timeline indicating the end of the voltage set point was added
 };
 
 }  // namespace DYN

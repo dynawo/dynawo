@@ -70,12 +70,12 @@ BatteryInterfaceIIDM::exportStateVariablesUnitComponent() {
       getVoltageLevelInterfaceInjector()->connectNode(static_cast<unsigned int>(batteryIIDM_.getTerminal().getNodeBreakerView().getNode()));
     else if (!connected && getInitialConnected())
       getVoltageLevelInterfaceInjector()->disconnectNode(static_cast<unsigned int>(batteryIIDM_.getTerminal().getNodeBreakerView().getNode()));
+  } else {
+    if (connected)
+      batteryIIDM_.getTerminal().connect();
+    else
+      batteryIIDM_.getTerminal().disconnect();
   }
-
-  if (connected)
-    batteryIIDM_.getTerminal().connect();
-  else
-    batteryIIDM_.getTerminal().disconnect();
 }
 
 void
