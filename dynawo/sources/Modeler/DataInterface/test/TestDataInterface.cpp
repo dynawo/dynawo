@@ -512,10 +512,19 @@ TEST(DataInterfaceTest, testLostEquipments) {
   data->exportStateVariablesNoReadFromModel();
   lostEquipments = data->findLostEquipments(connectedComponents);
   itLostEquipment = lostEquipments->cbegin();
+  ASSERT_TRUE(itLostEquipment == lostEquipments->cend());
+
+  // line from CLOSED_1 to OPEN
+  connectedComponents = data->findConnectedComponents();
+  line->setValue(LINE_STATE, OPEN);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
+  itLostEquipment = lostEquipments->cbegin();
   ASSERT_TRUE(itLostEquipment != lostEquipments->cend());
   ASSERT_EQ((*itLostEquipment)->getId(), line->getID());
   ASSERT_EQ((*itLostEquipment)->getType(), line->getTypeAsString());
   ASSERT_TRUE(++itLostEquipment == lostEquipments->cend());
+
 
   line->setValue(LINE_STATE, CLOSED);
   data->exportStateVariablesNoReadFromModel();
@@ -523,6 +532,14 @@ TEST(DataInterfaceTest, testLostEquipments) {
   // transf from CLOSED to CLOSED_2
   connectedComponents = data->findConnectedComponents();
   tfo->setValue(TRANSF_STATE, CLOSED_2);
+  data->exportStateVariablesNoReadFromModel();
+  lostEquipments = data->findLostEquipments(connectedComponents);
+  itLostEquipment = lostEquipments->cbegin();
+  ASSERT_TRUE(itLostEquipment == lostEquipments->cend());
+
+  // transf from CLOSED_2 to OPEN
+  connectedComponents = data->findConnectedComponents();
+  tfo->setValue(TRANSF_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
   lostEquipments = data->findLostEquipments(connectedComponents);
   itLostEquipment = lostEquipments->cbegin();
@@ -556,7 +573,13 @@ TEST(DataInterfaceTest, testLostEquipments) {
   sw->setValue(SWITCH_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
   lostEquipments = data->findLostEquipments(connectedComponents);
-  ASSERT_TRUE(lostEquipments->cbegin() == lostEquipments->cend());
+  std::map<std::string, std::string> mapIdToType;
+  for (itLostEquipment = lostEquipments->cbegin(); itLostEquipment != lostEquipments->cend(); ++itLostEquipment) {
+    mapIdToType[(*itLostEquipment)->getId()] = (*itLostEquipment)->getType();
+  }
+  ASSERT_EQ(mapIdToType.size(), 2);
+  ASSERT_EQ(mapIdToType[line->getID()], line->getTypeAsString());
+  ASSERT_EQ(mapIdToType[tfo->getID()], tfo->getTypeAsString());
 
   // all from CLOSED to OPEN
   sw->setValue(SWITCH_STATE, CLOSED);
@@ -571,7 +594,7 @@ TEST(DataInterfaceTest, testLostEquipments) {
   tfo->setValue(TRANSF_STATE, OPEN);
   data->exportStateVariablesNoReadFromModel();
   lostEquipments = data->findLostEquipments(connectedComponents);
-  std::map<std::string, std::string> mapIdToType;
+  mapIdToType.clear();
   for (itLostEquipment = lostEquipments->cbegin(); itLostEquipment != lostEquipments->cend(); ++itLostEquipment) {
     mapIdToType[(*itLostEquipment)->getId()] = (*itLostEquipment)->getType();
   }

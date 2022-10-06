@@ -8,3 +8,7 @@ GeneratorPVDiagram_INIT
 GeneratorPVProp
 GeneratorPVRemote
 GeneratorPVRemoteDiagramPQ
+GeneratorPVTfo
+GeneratorPVTfo_INIT
+GeneratorPVTfoDiagramPQ
+GeneratorPVTfoDiagramPQ_INIT
